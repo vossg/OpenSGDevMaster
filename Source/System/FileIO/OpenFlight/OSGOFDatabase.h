@@ -14,15 +14,15 @@ OSG_BEGIN_NAMESPACE
 
 class OFVertexPaletteRecord;
 class OFTexturePaletteRecord;
+class OFMaterialPaletteRecord;
 
 class OSG_FILEIO_DLLMAPPING OFDatabase
 {
   protected:
 
-    OFHeaderRecordRCPtr  _pHeader;
-    OFRecord            *_pCurrRec;
-    
-    std::stack<OFRecord *> _sRecords;
+    OFHeaderRecordRCPtr     _pHeader;
+    OFRecord               *_pCurrRec;
+    std::stack<OFRecord *>  _sRecords;
 
   public:
 
@@ -33,8 +33,9 @@ class OSG_FILEIO_DLLMAPPING OFDatabase
 
     NodeTransitPtr convert(void);
 
-    const OFVertexPaletteRecord  *getVertexPalette(void        );
-    const OFTexturePaletteRecord *getTexRecord    (UInt32 uiIdx);
+    const OFVertexPaletteRecord   *getVertexPalette(void        );
+    const OFTexturePaletteRecord  *getTexRecord    (UInt32 uiIdx);
+    const OFMaterialPaletteRecord *getMatRecord    (UInt32 uiIdx);
 };
 
 OSG_END_NAMESPACE

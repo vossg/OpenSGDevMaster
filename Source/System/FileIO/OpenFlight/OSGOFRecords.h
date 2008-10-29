@@ -9,7 +9,11 @@
 #include "OSGSingletonHolder.h"
 #include "OSGNode.h"
 #include "OSGTextureObjChunk.h"
+#include "OSGMaterialChunk.h"
 #include "OSGMemoryObject.h"
+
+#include "OSGTypedGeoIntegralProperty.h"
+#include "OSGTypedGeoVectorProperty.h"
 
 #include <map>
 
@@ -21,6 +25,8 @@ OSG_BEGIN_NAMESPACE
 
 class OFRecord;
 class OFDatabase;
+
+class Geometry;
 
 /*! \brief General VRML Node Desc
 */
@@ -159,8 +165,9 @@ typedef SingletonHolder<OFRecordFactoryBase> OFRecordFactory;
 
 // OpCode without object
 
-static const UInt16 OFPushLevelOC = 10;
-static const UInt16 OFPopLevelOC  = 11;
+static const UInt16 OFPushLevelOC    = 10;
+static const UInt16 OFPopLevelOC     = 11;
+static const UInt16 OFContinuationOC = 23;
 
 //---------------------------------------------------------------------------
 //  Class
@@ -187,7 +194,10 @@ class OSG_FILEIO_DLLMAPPING OFRecord : public MemoryObject
 
     /*---------------------------------------------------------------------*/
 
+// XXX TODO FIX THIS --cneumann
+public:
     const Char8 *findDesc(UInt16 sOpCode);
+protected:
 
     /*---------------------------------------------------------------------*/
 
@@ -199,8 +209,12 @@ class OSG_FILEIO_DLLMAPPING OFRecord : public MemoryObject
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool read(std::istream &is, OFDatabase &oDB);
-    
+    virtual bool read        (std::istream &is,
+                              OFDatabase   &oDB     );
+    virtual bool readContinue(std::istream &is,
+                              OFDatabase   &oDB,
+                              UInt16        uiLength);
+
     /*---------------------------------------------------------------------*/
 
     virtual bool   addChild (OFRecord *pChild);
@@ -219,12 +233,16 @@ typedef RefCountPtr<OFRecord, MemObjRefCountPolicy> OFRecordRCPtr;
 
 class OFVertexPaletteRecord;
 class OFTexturePaletteRecord;
+class OFMaterialPaletteRecord;
 
-typedef RefCountPtr<OFTexturePaletteRecord, 
-                    MemObjRefCountPolicy  > OFTexturePaletteRecordRCPtr;
+typedef RefCountPtr<OFTexturePaletteRecord,
+                    MemObjRefCountPolicy    > OFTexturePaletteRecordRCPtr;
 
-typedef RefCountPtr<OFVertexPaletteRecord, 
-                    MemObjRefCountPolicy > OFVertexPaletteRecordRCPtr;
+typedef RefCountPtr<OFVertexPaletteRecord,
+                    MemObjRefCountPolicy    > OFVertexPaletteRecordRCPtr;
+
+typedef RefCountPtr<OFMaterialPaletteRecord,
+                    MemObjRefCountPolicy    > OFMaterialPaletteRecordRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
@@ -252,6 +270,10 @@ class OSG_FILEIO_DLLMAPPING OFVertexPalette : public MemoryObject
 
           void                   addRecord(OFVertexPaletteRecord *pVertexPal);
     const OFVertexPaletteRecord *getRecord(void                             );
+
+    /*---------------------------------------------------------------------*/
+
+    void dump(UInt32 uiIndent);
 };
 
 typedef RefCountPtr<OFVertexPalette, 
@@ -290,10 +312,59 @@ class OSG_FILEIO_DLLMAPPING OFTexturePalette : public MemoryObject
 
           void                    addRecord(OFTexturePaletteRecord *pTex);
     const OFTexturePaletteRecord *getRecord(Int32                   uiId);
+
+    /*---------------------------------------------------------------------*/
+
+    void dump(UInt32 uiIndent);
 };
 
 typedef RefCountPtr<OFTexturePalette, 
                     MemObjRefCountPolicy> OFTexturePaletteRCPtr;
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+class OSG_FILEIO_DLLMAPPING OFMaterialPalette : public MemoryObject
+{
+  protected:
+    typedef MemoryObject Inherited;
+
+    /*---------------------------------------------------------------------*/
+
+    typedef std::map<Int32,
+                     OFMaterialPaletteRecordRCPtr>           MaterialStore;
+    typedef std::map<Int32,
+                     OFMaterialPaletteRecordRCPtr>::iterator MaterialStoreIt;
+
+    /*---------------------------------------------------------------------*/
+
+    MaterialStore _mMaterials;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual ~OFMaterialPalette(void);
+
+  public:
+
+    typedef RefCountPtr<OFMaterialPalette,
+                        MemObjRefCountPolicy> ObjRCPtr;
+    typedef TransitPtr <OFMaterialPalette   > ObjTransitPtr;
+
+    OFMaterialPalette(void);
+
+    /*---------------------------------------------------------------------*/
+
+          void                     addRecord(OFMaterialPaletteRecord *pMat);
+    const OFMaterialPaletteRecord *getRecord(Int32                    uiId);
+
+    /*---------------------------------------------------------------------*/
+
+    void dump(UInt32 uiIndent);
+};
+
+typedef OFMaterialPalette::ObjRCPtr      OFMaterialPaletteRCPtr;
+typedef OFMaterialPalette::ObjTransitPtr OFMaterialPaletteTransitPtr;
 
 //---------------------------------------------------------------------------
 //  Class
@@ -311,6 +382,7 @@ class OSG_FILEIO_DLLMAPPING OFHeaderRecord : public OFRecord
 
     OFVertexPaletteRCPtr       _pVertexPal;
     OFTexturePaletteRCPtr      _pTexturePal;
+    OFMaterialPaletteRCPtr     _pMaterialPal;
 
     /*---------------------------------------------------------------------*/
 
@@ -344,8 +416,9 @@ class OSG_FILEIO_DLLMAPPING OFHeaderRecord : public OFRecord
 
     /*---------------------------------------------------------------------*/
 
-    const OFVertexPaletteRecord  *getVertexPalette(void        );
-    const OFTexturePaletteRecord *getTexRecord    (UInt32 uiIdx);
+    const OFVertexPaletteRecord   *getVertexPalette(void        );
+    const OFTexturePaletteRecord  *getTexRecord    (UInt32 uiIdx);
+    const OFMaterialPaletteRecord *getMatRecord    (UInt32 uiIdx);
 };
 
 typedef RefCountPtr<OFHeaderRecord, 
@@ -363,7 +436,8 @@ class OSG_FILEIO_DLLMAPPING OFUnknownRecord : public OFRecord
 
     /*---------------------------------------------------------------------*/
 
-    UInt16 _sOpCode;
+    UInt16                     _sOpCode;
+    std::vector<OFRecordRCPtr> _vChildren;
 
     /*---------------------------------------------------------------------*/
 
@@ -381,7 +455,17 @@ class OSG_FILEIO_DLLMAPPING OFUnknownRecord : public OFRecord
 
     /*---------------------------------------------------------------------*/
 
+    virtual bool addChild(OFRecord *pChild);
+
+    /*---------------------------------------------------------------------*/
+
     virtual UInt16 getOpCode(void);
+
+    virtual NodeTransitPtr convertToNode(OFDatabase &oDB);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void dump(UInt32 uiIndent);
 };
 
 //---------------------------------------------------------------------------
@@ -428,6 +512,10 @@ class OSG_FILEIO_DLLMAPPING OFTexturePaletteRecord : public OFRecord
     /*---------------------------------------------------------------------*/
 
     virtual UInt16 getOpCode(void);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void dump(UInt32 uiIndent);
 
     /*---------------------------------------------------------------------*/
 
@@ -526,7 +614,408 @@ class OSG_FILEIO_DLLMAPPING OFVertexPaletteRecord : public OFRecord
     const Vec2f      &getTexCoord  (UInt32 uiIdx   ) const;
 };
 
-bool operator <(const UInt32 uiOff, const OFVertexPaletteRecord::VertexInfo &vInfo);
+bool operator <(const UInt32                             uiOff,
+                const OFVertexPaletteRecord::VertexInfo &vInfo );
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+class OSG_FILEIO_DLLMAPPING OFMaterialPaletteRecord : public OFRecord
+{
+ protected:
+
+    typedef OFRecord Inherited;
+
+    /*---------------------------------------------------------------------*/
+
+    static OFRecordFactoryBase::RegisterRecord _regHelper;
+
+    /*---------------------------------------------------------------------*/
+
+    Int32   iMaterialIdx;       //   4  4  Material index
+    Char8   szMaterialName[12]; //   8 12  Material name
+    Int32   iFlags;             //  20  4  Flags
+                                // 0 = Material is used
+                                // 1-31 = Spare
+    Color4f colAmbient;         //  24 4*3 Ambient component of material (r, g, b)
+    Color4f colDiffuse;         //  36 4*3 Diffuse component of material (r, g, b)
+    Color4f colSpecular;        //  48 4*3 Specular component of material (r, g, b)
+    Color4f colEmissive;        //  60 4*3 Emissive component of material (r, g, b)
+    Real32  fShininess;         //  72 4   Shininess - (0.0-128.0)
+    Real32  fAlpha;             //  76 4   Alpha - (0.0-1.0) where 1.0 is opaque
+    Int32   iPad;               //  80 4   Reserved
+
+    /*---------------------------------------------------------------------*/
+
+             OFMaterialPaletteRecord(const OFRecordHeader &oHeader);
+
+    virtual ~OFMaterialPaletteRecord(void                         );
+
+  public:
+
+    static const UInt16 OpCode = 113;
+
+    static OFRecordTransitPtr create(const OFRecordHeader &oHeader);
+
+    static const Int32  FlagMaterialUsed = 0x80000000;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool read(std::istream &is, OFDatabase &oDB);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual UInt16 getOpCode(void);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void dump(UInt32 uiIndent);
+
+    /*---------------------------------------------------------------------*/
+
+          Int32    getMaterialIdx(void);
+
+    const Color4f &getAmbient    (void) const;
+    const Color4f &getDiffuse    (void) const;
+    const Color4f &getSpecular   (void) const;
+    const Color4f &getEmissive   (void) const;
+          Real32   getShininess  (void) const;
+          Real32   getAlpha      (void) const;
+};
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+class OFLocalVertexPoolRecord;
+
+class OSG_FILEIO_DLLMAPPING OFMeshPrimitiveRecord : public OFRecord
+{
+  public:
+    typedef std::vector<UInt32> IndexStore;
+
+  protected:
+    typedef OFRecord            Inherited;
+
+    static OFRecordFactoryBase::RegisterRecord _regHelper;
+
+    /*---------------------------------------------------------------------*/
+
+    Int16 uiPrimType;        //  4 2 Primitive Type - specifies how the vertices
+                             //     of the primitive are interpreted
+                             // 1 = Triangle Strip
+                             // 2 = Triangle Fan
+                             // 3 = Quadrilateral Strip
+                             // 4 = Indexed Polygon
+    UInt16 uiIndexSize;      //  6 2 Index Size - specifies the length (in bytes)
+                             //      of each of the vertex indices that follow -
+                             //      will be either 1, 2, or 4
+    UInt32 uiVertexCount;    //  8 4 Vertex Count- number of vertices contained
+                             //      in this primitive.
+
+    IndexStore _vIndices;
+
+    /*---------------------------------------------------------------------*/
+
+    friend class OFLocalVertexPoolRecord;
+
+    /*---------------------------------------------------------------------*/
+
+             OFMeshPrimitiveRecord(const OFRecordHeader &oHeader);
+
+    virtual ~OFMeshPrimitiveRecord(void                         );
+
+  public:
+    typedef TransitPtr <OFMeshPrimitiveRecord >   ObjTransitPtr;
+    typedef RefCountPtr<OFMeshPrimitiveRecord,
+                        MemObjRefCountPolicy  >   ObjRCPtr;
+
+    static const UInt16 OpCode = 86;
+
+    static OFRecordTransitPtr create(const OFRecordHeader &oHeader);
+
+    static const UInt16 PTTriStrip  = 1;
+    static const UInt16 PTTriFan    = 2;
+    static const UInt16 PTQuadStrip = 3;
+    static const UInt16 PTPolygon   = 4;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool read        (std::istream &is,
+                              OFDatabase   &oDB     );
+    virtual bool readContinue(std::istream &is,
+                              OFDatabase   &oDB,
+                              UInt16        uiLength);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual UInt16 getOpCode(void);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void dump(UInt32 uiIndent);
+
+    /*---------------------------------------------------------------------*/
+
+          IndexStore &editIndices(void);
+    const IndexStore &getIndices (void) const;
+};
+
+typedef OFMeshPrimitiveRecord::ObjTransitPtr OFMeshPrimitiveRecordTransitPtr;
+typedef OFMeshPrimitiveRecord::ObjRCPtr      OFMeshPrimitiveRecordRCPtr;
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+class OSG_FILEIO_DLLMAPPING OFLocalVertexPoolRecord : public OFRecord
+{
+  protected:
+    typedef OFRecord Inherited;
+
+    static OFRecordFactoryBase::RegisterRecord _regHelper;
+
+    /*---------------------------------------------------------------------*/
+
+    UInt32  uiNumVerts;         //  4 4 Number of vertices - number of vertices in the local vertex pool
+    UInt32  uiAttribMask;       //  8 4 Attribute mask - Bit mask indicating what kind of vertex infor-
+                                //      mation is specified for each vertex in the local vertex pool. Bits
+                                //      are ordered from left to right as follows:
+                                // Bit #    Description
+                                //   0     Has Position - if set, data for each vertex in will include
+                                //         x, y, and z coordinates (3 doubles)
+                                //   1     Has Color Index - if set, data for each vertex will in-
+                                //         clude a color value that specifies a color table index as
+                                //         well as an alpha value
+                                //   2     Has RGBA Color - if set, data for each vertex will in-
+                                //         clude a color value that is a packed RGBA color value
+                                //         Note: Bits 1and 2 are mutually exclusive - a vertex can have ei-
+                                //         ther color index or RGB color value or neither, but not both.
+                                //   3     Has Normal - if set, data for each vertex will include a
+                                //         normal (3 floats)
+                                //   4     Has Base UV - if set, data for each vertex will include
+                                //         uv texture coordinates for the base texture (2 floats)
+                                //   5     Has UV Layer 1 - if set, data for each vertex will include
+                                //         uv texture coordinates for layer 1 (2 floats)
+                                //   6     Has UV Layer 2 - if set, data for each vertex will include
+                                //         uv texture coordinates for layer 2 (2 floats)
+                                //   7     Has UV Layer 3 - if set, data for each vertex will include
+                                //         uv texture coordinates for layer 3 (2 floats)
+                                //   8     Has UV Layer 4 - if set, data for each vertex will include
+                                //         uv texture coordinates for layer 4 (2 floats)
+                                //   9     Has UV Layer 5 - if set, data for each vertex will include
+                                //         uv texture coordinates for layer 5 (2 floats)
+                                //  10     Has UV Layer 6 - if set, data for each vertex will include
+                                //         uv texture coordinates for layer 6 (2 floats)
+                                //  11     Has UV Layer 7 - if set, data for each vertex will include
+                                //         uv texture coordinates for layer 7 (2 floats)
+                                //  12-31  Spare
+    //      The following fields (if they are present according to uiAttribMask)
+    //      are repeated uiNumVerts times
+    // Double       Varies 8*3 CoordinateN - Coordinate of vertex N (x, y, z) - present if At-
+    //                         tribute mask includes Has Position.
+    // Unsigned Int Varies 4   colorN - Color for vertex N - present if Attribute mask includes
+    //                         Has Color Index or Has RGBA Color.
+    //                         If Has Color Index, lower 3 bytes specify color table index,
+    //                         upper 1 byte is Alpha.
+    //                         If Has RGBA Color, 4 bytes specify (a, b, g, r) values.
+    // Float        Varies 4*3 normalN - Normal for vertex N (i, j, k) - present if Attribute mask
+    //                         includes Has Normal.
+    // Float        Varies 4*2 uvBaseN - Texture coordinates (u, v) for base texture layer of
+    //                         vertex N - present if Attribute mask includes Has Base UV.
+    // Float        Varies 4*2 uv1N - Texture coordinates (u, v) for layer 1 of vertex N -
+    //                         present if Attribute mask includes Has UV Layer 1.
+    // Float        Varies 4*2 uv2N - Texture coordinates (u, v) for layer 2 of vertex N -
+    //                         present if Attribute mask includes Has UV Layer 2.
+    // Float        Varies 4*2 uv3N - Texture coordinates (u, v) for layer 3 of vertex N -
+    //                         present if Attribute mask includes Has UV Layer 3.
+    // Float        Varies 4*2 uv4N - Texture coordinates (u, v) for layer 4 of vertex N -
+    //                         present if Attribute mask includes Has UV Layer 4.
+    // Float        Varies 4*2 uv5N - Texture coordinates (u, v) for layer 5 of vertex N -
+    //                         present if Attribute mask includes Has UV Layer 5.
+    // Float        Varies 4*2 uv6N - Texture coordinates (u, v) for layer 6 of vertex N -
+    //                         present if Attribute mask includes Has UV Layer 6.
+    // Float        Varies 4*2 uv7N - Texture coordinates (u, v) for layer 7 of vertex N -
+    //                         present if Attribute mask includes Has UV Layer 7.
+
+    GeoPnt3dPropertyUnrecPtr                _pPositions;
+    GeoColor4ubPropertyUnrecPtr             _pColors;
+    GeoVec3fPropertyUnrecPtr                _pNormals;
+    GeoVec2fPropertyUnrecPtr                _texCoords[8];
+
+    std::vector<OFMeshPrimitiveRecordRCPtr> _vTriStrips;
+    std::vector<OFMeshPrimitiveRecordRCPtr> _vTriFans;
+    std::vector<OFMeshPrimitiveRecordRCPtr> _vQuadStrips;
+    std::vector<OFMeshPrimitiveRecordRCPtr> _vPolygons;
+
+    /*---------------------------------------------------------------------*/
+
+             OFLocalVertexPoolRecord(const OFRecordHeader &oHeader);
+
+    virtual ~OFLocalVertexPoolRecord(void                         );
+
+  public:
+    typedef TransitPtr <OFLocalVertexPoolRecord >   ObjTransitPtr;
+    typedef RefCountPtr<OFLocalVertexPoolRecord,
+                        MemObjRefCountPolicy    >   ObjRCPtr;
+
+    static const UInt16 OpCode = 85;
+
+    static OFRecordTransitPtr create(const OFRecordHeader &oHeader);
+
+    static const UInt32 AMHasPosition;
+    static const UInt32 AMHasColorIndex;
+    static const UInt32 AMHasColorValue;
+    static const UInt32 AMHasNormal;
+    static const UInt32 AMHasTexCoords[8];
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool read        (std::istream &is,
+                              OFDatabase   &oDB     );
+    virtual bool readContinue(std::istream &is,
+                              OFDatabase   &oDB,
+                              UInt16        uiLength);
+
+    virtual bool addChild    (OFRecord     *pChild  );
+
+    /*---------------------------------------------------------------------*/
+
+    virtual UInt16 getOpCode(void);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void dump(UInt32 uiIndent);
+
+    /*---------------------------------------------------------------------*/
+    
+    virtual void convertPrimitives(OFDatabase &oDB, Geometry *pGeo);
+    
+    GeoPnt3dProperty    *getPositions(void      ) const;
+    GeoColor4ubProperty *getColors   (void      ) const;
+    GeoVec3fProperty    *getNormals  (void      ) const;
+    GeoVec2fProperty    *getTexCoords(UInt32 idx) const;
+};
+
+typedef OFLocalVertexPoolRecord::ObjTransitPtr OFLocalVertexPoolRecordTransitPtr;
+typedef OFLocalVertexPoolRecord::ObjRCPtr      OFLocalVertexPoolRecordRCPtr;
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+class OSG_FILEIO_DLLMAPPING OFMeshRecord : public OFRecord
+{
+  protected:
+    typedef OFRecord Inherited;
+
+    static OFRecordFactoryBase::RegisterRecord _regHelper;
+
+    /*---------------------------------------------------------------------*/
+
+    Char8  szASCIIId[8];        //   4 8 7 char ASCII ID; 0 terminates
+    Int32  iPad1;               //  12 4 Reserved
+    Int32  iIRColorCode;        //  16 4 IR color code
+    Int16  iRelPrio;            //  20 2 Relative priority
+    Int8   iDrawType;           //  22 1 Draw type
+                                // 0 = Draw solid with backface culling
+                                // (front side only)
+                                // 1 = Draw solid, no backface culling
+                                // (both sides visible)
+                                // 2 = Draw wireframe and close
+                                // 3 = Draw wireframe
+                                // 4 = Surround with wireframe in alternate color
+                                // 8 = Omnidirectional light
+                                // 9 = Unidirectional light
+                                // 10 = Bidirectional light
+    Int8   iTextureWhite;       //  23 1 Texture white = if TRUE, draw textured face white
+    UInt16 uiColorNameIdx;      //  24 2 Color name index
+    UInt16 uiAltColorNameIdx;   //  26 2 Alternate color name index
+    Int8   iPad2;               //  28 1 Reserved
+    Int8   iTemplate;           //  29 1 Template (billboard)
+                                // 0 = Fixed, no alpha blending
+                                // 1 = Fixed, alpha blending
+                                // 2 = Axial rotate with alpha blending
+                                // 4 = Point rotate with alpha blending
+    Int16  iDetailTexIdx;       //  30 2 Detail texture pattern index, -1 if none
+    Int16  iTexIdx;             //  32 2 Texture pattern index, -1 if none
+    Int16  iMatIdx;             //  34 2 Material index, -1 if none
+    Int16  iSurfMatCode;        //  36 2 Surface material code (for DFAD)
+    Int16  iFeatureId;          //  38 2 Feature ID (for DFAD)
+    Int32  iIRMatCode;          //  40 4 IR material code
+    UInt16 uiTransparency;      //  44 2 Transparency
+                                //  0 = Opaque
+                                //  65535 = Totally clear
+    UInt8  uiLODGenControl;     //  46 1 LOD generation control
+    UInt8  uiLineStyle;         //  47 1 Line style index
+    Int32  iFlags;              //  48 4 Flags (bits from left to right)
+                                // 0 = Terrain
+                                // 1 = No color
+                                // 2 = No alternate color
+                                // 3 = Packed color
+                                // 4 = Terrain culture cutout (footprint)
+                                // 5 = Hidden, not drawn
+                                // 6 = Roofline
+                                // 7-31 = Spare
+    UInt8  uiLightMode;         //  52 1 Light mode
+                                // 0 = Use mesh color, not illuminated (Flat)
+                                // 1 = Use vertex colors, not illuminated (Gouraud)
+                                // 2 = Use mesh color and vertex normals (Lit)
+                                // 3 = Use vertex colors and vertex normals
+                                //  (Lit, Gouraud)
+    Char8  szPad3[7];           //  53 7 Reserved
+    UInt32 uiPackedPrimCol;     //  60 4 Packed color, primary (a, b, g, r)
+                                //    only b, g, r used
+    UInt32 uiPackedAltCol;      //  64 4 Packed color, alternate (a, b, g, r)
+                                //    only b, g, r used
+    Int16  iTexMapIdx;          //  68 2 Texture mapping index, -1 if none
+    Int16  iPad4;               //  70 2 Reserved
+    Int32  uiPrimColIdx;        //  72 4 Primary color index, -1 if none
+    Int32  uiAltColIdx;         //  76 4 Alternate color index, -1 if none
+    Int16  iPad5;               //  80 2 Reserved
+    Int16  iShaderIdx;          //  82 2 Shader index, -1 if none
+
+    OFLocalVertexPoolRecordRCPtr _pVertexPool;
+
+    /*---------------------------------------------------------------------*/
+
+             OFMeshRecord(const OFRecordHeader &oHeader);
+
+    virtual ~OFMeshRecord(void                         );
+
+  public:
+    typedef TransitPtr <OFMeshRecord        >   ObjTransitPtr;
+    typedef RefCountPtr<OFMeshRecord,
+                        MemObjRefCountPolicy>   ObjRCPtr;
+
+    static const UInt16 OpCode = 84;
+
+    static OFRecordTransitPtr create(const OFRecordHeader &oHeader);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool read(std::istream &is, OFDatabase &oDB);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool addChild (OFRecord *pChild);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual UInt16 getOpCode(void);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void dump(UInt32 uiIndent);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual NodeTransitPtr convertToNode(OFDatabase &oDB);
+};
+
+typedef OFMeshRecord::ObjTransitPtr OFMeshRecordTransitPtr;
+typedef OFMeshRecord::ObjRCPtr      OFMeshRecordRCPtr;
 
 //---------------------------------------------------------------------------
 //  Class
@@ -578,10 +1067,10 @@ class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFRecord
     Int16  iDetailTexIdx;   // 26 2 Detail texture pattern index, -1 if none
     Int16  iTexIdx;         // 28 2 Texture pattern index, -1 if none
     Int16  iMatIdx;         // 30 2 Material index, -1 if none
-    Int16  iSurMatCode;     // 32 2 Surface material code (for DFAD)
+    Int16  iSurfMatCode;    // 32 2 Surface material code (for DFAD)
     Int16  iFeatureId;      // 34 2 Feature ID (for DFAD)
     Int32  iIRMatCode;      // 36 4 IR material code
-    UInt16 uiTransparenct;  // 40 2 Transparency
+    UInt16 uiTransparency;  // 40 2 Transparency
                             // 0 = Opaque
                             // 65535 = Totally clear
     UInt8  uiLODGenControl; // 42 1 LOD generation control
@@ -608,8 +1097,8 @@ class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFRecord
                             // only b, g, r used
     Int16  iTexMapIdx;      // 64 2 Texture mapping index, -1 if none
     Int16  iPad3;           // 66 2 Reserved
-    UInt32 uiPrimColIdx;    // 68 4 Primary color index, -1 if none
-    UInt32 uiAltColIdx;     // 72 4 Alternate color index, -1 if none
+    Int32  uiPrimColIdx;    // 68 4 Primary color index, -1 if none
+    Int32  uiAltColIdx;     // 72 4 Alternate color index, -1 if none
     Int16  iPad4;           // 76 2 Reserved
     Int16  iShaderIdx;      // 78 2 Shader index, -1 if none
 
@@ -619,7 +1108,7 @@ class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFRecord
 
     /*---------------------------------------------------------------------*/
 
-    OFFaceRecord(const OFRecordHeader &oHeader);
+             OFFaceRecord(const OFRecordHeader &oHeader);
 
     virtual ~OFFaceRecord(void);
 
@@ -651,9 +1140,16 @@ class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFRecord
 
     /*---------------------------------------------------------------------*/
 
-    OFVertexListRecord *getVertexList(void);
-    UInt8 getLightMode(void) const;
-    Int16 getTexIdx   (void) const;
+    OFVertexListRecord *getVertexList  (void);
+    Int8                getDrawType    (void) const;
+    Int8                getTextureWhite(void) const;
+    Int16               getTexIdx      (void) const;
+    Int16               getMatIdx      (void) const;
+    UInt16              getTransparency(void) const;
+    Int32               getFlags       (void) const;
+    UInt8               getLightMode   (void) const;
+    Color4f             getPrimColor   (void) const;
+    Color4f             getAltColor    (void) const;
 };
 
 typedef RefCountPtr<OFFaceRecord, MemObjRefCountPolicy> OFFaceRecordRCPtr;
@@ -707,7 +1203,7 @@ class OSG_FILEIO_DLLMAPPING OFVertexListRecord : public OFRecord
 //  Class
 //---------------------------------------------------------------------------
 
-class OSG_FILEIO_DLLMAPPING OFFaceContainer : public OFRecord
+class OSG_FILEIO_DLLMAPPING OFGeometryContainer : public OFRecord
 {
   protected:
 
@@ -718,12 +1214,13 @@ class OSG_FILEIO_DLLMAPPING OFFaceContainer : public OFRecord
     /*---------------------------------------------------------------------*/
 
     std::vector<OFFaceRecordRCPtr> _vFaces;
+    std::vector<OFMeshRecordRCPtr> _vMeshes;
 
     /*---------------------------------------------------------------------*/
 
-    OFFaceContainer(const OFRecordHeader &oHeader);
+             OFGeometryContainer(const OFRecordHeader &oHeader);
 
-    virtual ~OFFaceContainer(void);
+    virtual ~OFGeometryContainer(void                         );
 
     /*---------------------------------------------------------------------*/
 
@@ -742,20 +1239,20 @@ class OSG_FILEIO_DLLMAPPING OFFaceContainer : public OFRecord
     NodeTransitPtr convertFaceGroup(std::vector<OFFaceRecord *> &vFaceGroup,
                                     OFDatabase                  &oDB       );
 
-    NodeTransitPtr convertFaces    (OFDatabase                  &oDB       );
+    NodeTransitPtr convertGeometry (OFDatabase                  &oDB       );
 };
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
 
-class OSG_FILEIO_DLLMAPPING OFGroupingRecord : public OFFaceContainer
+class OSG_FILEIO_DLLMAPPING OFGroupingRecord : public OFGeometryContainer
 {
   protected:
 
     /*---------------------------------------------------------------------*/
 
-    typedef OFFaceContainer Inherited;
+    typedef OFGeometryContainer Inherited;
 
     /*---------------------------------------------------------------------*/
 
@@ -763,7 +1260,7 @@ class OSG_FILEIO_DLLMAPPING OFGroupingRecord : public OFFaceContainer
 
     /*---------------------------------------------------------------------*/
 
-    OFGroupingRecord(const OFRecordHeader &oHeader);
+             OFGroupingRecord(const OFRecordHeader &oHeader);
 
     virtual ~OFGroupingRecord(void);
 
@@ -962,13 +1459,13 @@ class OSG_FILEIO_DLLMAPPING OFSwitchRecord : public OFGroupingRecord
 //  Class
 //---------------------------------------------------------------------------
 
-class OSG_FILEIO_DLLMAPPING OFObjectRecord : public OFFaceContainer
+class OSG_FILEIO_DLLMAPPING OFObjectRecord : public OFGeometryContainer
 {
   protected:
   
     /*---------------------------------------------------------------------*/
 
-    typedef OFFaceContainer Inherited;
+    typedef OFGeometryContainer Inherited;
 
     static OFRecordFactoryBase::RegisterRecord _regHelper;
 

@@ -14,7 +14,10 @@
 #include "OSGSceneFileHandler.h"
 
 #include "OSGChunkMaterial.h"
-#include "OSGMaterialChunk.h"
+#include "OSGBlendChunk.h"
+#include "OSGDepthChunk.h"
+#include "OSGPolygonChunk.h"
+#include "OSGTextureEnvChunk.h"
 
 #include "OSGGeoFunctions.h"
 
@@ -26,11 +29,44 @@ OSG_SINGLETON_INST(OFRecordFactoryBase)
 
 template class SingletonHolder<OFRecordFactoryBase>;
 
+// constants for Faces and Meshes
+// TODO: maybe these should be members of a common base class ? -- cneumann
+namespace
+{
+    // Flags
+    const Int32  FlagTerrain             = 0x80000000;
+    const Int32  FlagNoColor             = 0x40000000;
+    const Int32  FlagNoAltColor          = 0x20000000;
+    const Int32  FlagPackedColor         = 0x10000000;
+    const Int32  FlagTerrainFootprint    = 0x08000000;
+    const Int32  FlagHidden              = 0x04000000;
+    const Int32  FlagRoofline            = 0x02000000;
+
+    // DrawType constants
+    const Int8   DTSolidCullBack         =  0;
+    const Int8   DTSolid                 =  1;
+    const Int8   DTWireframeClosed       =  2;
+    const Int8   DTWireframe             =  3;
+    const Int8   DTWireframeSurround     =  4;
+    const Int8   DTOmnidirectionalLight  =  8;
+    const Int8   DTUnidirectionalLight   =  9;
+    const Int8   DTBidirectionalLight    = 10;
+
+    // LightMode constants
+    const UInt8  LMFaceColor             =  0;  // used in FaceRecord
+    const UInt8  LMMeshColor             =  0;  // used in MeshRecord
+    const UInt8  LMVertexColor           =  1;
+    const UInt8  LMFaceColorLit          =  2;  // used in FaceRecord
+    const UInt8  LMMeshColorLit          =  2;  // used in MeshRecord
+    const UInt8  LMVertexColorLit        =  3;
+
+} // namespace
+
 //---------------------------------------------------------------------
 // OFRecordFactoryBase
 //---------------------------------------------------------------------
 
-OFRecordFactoryBase::RegisterRecord::RegisterRecord(CreateRecord fCreate, 
+OFRecordFactoryBase::RegisterRecord::RegisterRecord(CreateRecord fCreate,
                                                     UInt16       sRecordOpCode)
 {
     OFRecordFactory::the()->registerRecord(fCreate, sRecordOpCode);
@@ -49,12 +85,12 @@ OFRecordFactoryBase::~OFRecordFactoryBase(void)
 void OFRecordFactoryBase::registerRecord(CreateRecord fHelper,
                                          UInt16       sRecordOpCode)
 {
-    if(fHelper == NULL) 
+    if(fHelper == NULL)
         return;
 
-    NameRecordCreateMap::iterator mRecordIt = 
+    NameRecordCreateMap::iterator mRecordIt =
         _mRegisteredRecords.find(sRecordOpCode);
-  
+
 
     if(mRecordIt == _mRegisteredRecords.end())
     {
@@ -77,7 +113,7 @@ OFRecordTransitPtr OFRecordFactoryBase::createRecord(
 {
     NameRecordCreateMap::iterator mRecordIt =
         _mRegisteredRecords.find(oHeader.sOpCode);
-  
+
     OFRecordTransitPtr returnValue(NULL);
 
     if(mRecordIt != _mRegisteredRecords.end())
@@ -107,109 +143,109 @@ OFOpCodeDesc aOpCodeDescs[] =
 {
     {1,   "Header"                             },
     {2,   "Group"                              },
-    {4,   "Object                             "},
-    {5,   "Face"                               },                
-    {10,  "Push Level                         "},
-    {11,  "Pop Level                          "},
-    {14,  "Degree of Freedom                  "},
-    {19,  "Push Subface                       "},
-    {20,  "Pop Subface                        "},
-    {21,  "Push Extension                     "},
-    {22,  "Pop Extension                      "},
-    {23,  "Continuation                       "},
-    {31,  "Comment                            "},
-    {32,  "Color Palette                      "},
-    {33,  "Long ID                            "},
-    {49,  "Matrix                             "},
-    {50,  "Vector                             "},
-    {52,  "Multitexture                       "},
-    {53,  "UV List                            "},
-    {55,  "Binary Separating Plane            "},
-    {60,  "Replicate                          "},
-    {61,  "Instance Reference                 "},
-    {62,  "Instance Definition                "},
-    {63,  "External Reference                 "},
+    {4,   "Object"                             },
+    {5,   "Face"                               },
+    {10,  "Push Level"                         },
+    {11,  "Pop Level"                          },
+    {14,  "Degree of Freedom"                  },
+    {19,  "Push Subface"                       },
+    {20,  "Pop Subface"                        },
+    {21,  "Push Extension"                     },
+    {22,  "Pop Extension"                      },
+    {23,  "Continuation"                       },
+    {31,  "Comment"                            },
+    {32,  "Color Palette"                      },
+    {33,  "Long ID"                            },
+    {49,  "Matrix"                             },
+    {50,  "Vector"                             },
+    {52,  "Multitexture"                       },
+    {53,  "UV List"                            },
+    {55,  "Binary Separating Plane"            },
+    {60,  "Replicate"                          },
+    {61,  "Instance Reference"                 },
+    {62,  "Instance Definition"                },
+    {63,  "External Reference"                 },
     {64,  "Texture Palette"                    },
     {67,  "Vertex Palette"                     },
-    {68,  "Vertex with Color                  "},
+    {68,  "Vertex with Color"                  },
     {69,  "Vertex with Color and Normal"       },
     {70,  "Vertex with Color, Normal and UV"   },
-    {71,  "Vertex with Color and UV           "},
+    {71,  "Vertex with Color and UV"           },
     {72,  "Vertex List"                        },
     {73,  "Level of Detail"                    },
-    {74,  "Bounding Box                       "},
-    {76,  "Rotate About Edge                  "},
-    {78,  "Translate                          "},
-    {79,  "Scale                              "},
-    {80,  "Rotate About Point                 "},
-    {81,  "Rotate and/or Scale to Point       "},
-    {82,  "Put                                "},
-    {83,  "Eyepoint and Trackplane Palette    "},
-    {84,  "Mesh                               "},
-    {85,  "Local Vertex Pool                  "},
-    {86,  "Mesh Primitive                     "},
-    {87,  "Road Segment                       "},
-    {88,  "Road Zone                          "},
-    {89,  "Morph Vertex List                  "},
-    {90,  "Linkage Palette                    "},
-    {91,  "Sound                              "},
-    {92,  "Road Path                          "},
-    {93,  "Sound Palette                      "},
-    {94,  "General Matrix                     "},
-    {95,  "Text                               "},
-    {96,  "Switch                             "},
-    {97,  "Line Style Palette                 "},
-    {98,  "Clip Region                        "},
-    {100, "Extension                          "},
-    {101, "Light Source                       "},
-    {102, "Light Source Palette               "},
-    {103, "Reserved                           "},
-    {104, "Reserved                           "},
-    {105, "Bounding Sphere                    "},
-    {106, "Bounding Cylinder                  "},
-    {107, "Bounding Convex Hull               "},
-    {108, "Bounding Volume Center             "},
-    {109, "Bounding Volume Orientation        "},
-    {110, "Reserved                           "},
-    {111, "Light Point                        "},
-    {112, "Texture Mapping Palette            "},
-    {113, "Material Palette                   "},
-    {114, "Name Table                         "},
+    {74,  "Bounding Box"                       },
+    {76,  "Rotate About Edge"                  },
+    {78,  "Translate"                          },
+    {79,  "Scale"                              },
+    {80,  "Rotate About Point"                 },
+    {81,  "Rotate and/or Scale to Point"       },
+    {82,  "Put"                                },
+    {83,  "Eyepoint and Trackplane Palette"    },
+    {84,  "Mesh"                               },
+    {85,  "Local Vertex Pool"                  },
+    {86,  "Mesh Primitive"                     },
+    {87,  "Road Segment"                       },
+    {88,  "Road Zone"                          },
+    {89,  "Morph Vertex List"                  },
+    {90,  "Linkage Palette"                    },
+    {91,  "Sound"                              },
+    {92,  "Road Path"                          },
+    {93,  "Sound Palette"                      },
+    {94,  "General Matrix"                     },
+    {95,  "Text"                               },
+    {96,  "Switch"                             },
+    {97,  "Line Style Palette"                 },
+    {98,  "Clip Region"                        },
+    {100, "Extension"                          },
+    {101, "Light Source"                       },
+    {102, "Light Source Palette"               },
+    {103, "Reserved"                           },
+    {104, "Reserved"                           },
+    {105, "Bounding Sphere"                    },
+    {106, "Bounding Cylinder"                  },
+    {107, "Bounding Convex Hull"               },
+    {108, "Bounding Volume Center"             },
+    {109, "Bounding Volume Orientation"        },
+    {110, "Reserved"                           },
+    {111, "Light Point"                        },
+    {112, "Texture Mapping Palette"            },
+    {113, "Material Palette"                   },
+    {114, "Name Table"                         },
     {115, "Continuously Adaptive Terrain (CAT)"},
-    {116, "CAT Data                           "},
-    {117, "Reserved                           "},
-    {118, "Reserved                           "},
-    {119, "Bounding Histogram                 "},
-    {120, "Reserved                           "},
-    {121, "Reserved                           "},
-    {122, "Push Attribute                     "},
-    {123, "Pop Attribute                      "},
-    {124, "Reserved                           "},
-    {125, "Reserved                           "},
-    {126, "Curve                              "},
-    {127, "Road Construction                  "},
-    {128, "Light Point Appearance Palette     "},
-    {129, "Light Point Animation Palette      "},
-    {130, "Indexed Light Point                "},
-    {131, "Light Point System                 "},
-    {132, "Indexed String                     "},
-    {133, "Shader Palette                     "},
-    {134, "Reserved                           "},
-    {135, "Extended Material Header           "},
-    {136, "Extended Material Ambient          "},
-    {137, "Extended Material Diffuse          "},
-    {138, "Extended Material Specular         "},
-    {139, "Extended Material Emissive         "},
-    {140, "Extended Material Alpha            "},
-    {141, "Extended Material Light Map        "},
-    {142, "Extended Material Normal Map       "},
-    {143, "Extended Material Bump Map         "},
-    {144, "Reserved                           "},
-    {145, "Extended Material Shadow Map       "},
-    {146, "Reserved                           "},
-    {147, "Extended Material Reflection Map   "},
+    {116, "CAT Data"                           },
+    {117, "Reserved"                           },
+    {118, "Reserved"                           },
+    {119, "Bounding Histogram"                 },
+    {120, "Reserved"                           },
+    {121, "Reserved"                           },
+    {122, "Push Attribute"                     },
+    {123, "Pop Attribute"                      },
+    {124, "Reserved"                           },
+    {125, "Reserved"                           },
+    {126, "Curve"                              },
+    {127, "Road Construction"                  },
+    {128, "Light Point Appearance Palette"     },
+    {129, "Light Point Animation Palette"      },
+    {130, "Indexed Light Point"                },
+    {131, "Light Point System"                 },
+    {132, "Indexed String"                     },
+    {133, "Shader Palette"                     },
+    {134, "Reserved"                           },
+    {135, "Extended Material Header"           },
+    {136, "Extended Material Ambient"          },
+    {137, "Extended Material Diffuse"          },
+    {138, "Extended Material Specular"         },
+    {139, "Extended Material Emissive"         },
+    {140, "Extended Material Alpha"            },
+    {141, "Extended Material Light Map"        },
+    {142, "Extended Material Normal Map"       },
+    {143, "Extended Material Bump Map"         },
+    {144, "Reserved"                           },
+    {145, "Extended Material Shadow Map"       },
+    {146, "Reserved"                           },
+    {147, "Extended Material Reflection Map"   },
 
-    {0, "Reached last -> Unknown              "}
+    {0, "Reached last -> Unknown"              }
 };
 
 #if 0
@@ -284,14 +320,23 @@ OFRecord::~OFRecord(void)
 
 bool OFRecord::read(std::istream &is, OFDatabase &oDB)
 {
-    static std::vector<char> tmpBuf;
-
     if(_sLength > 4)
     {
-        tmpBuf.resize(_sLength);
-
-        is.read(&(tmpBuf.front()), _sLength - 4);
+        return readContinue(is, oDB, _sLength - 4);
     }
+    else
+    {
+        return is.good();
+    }
+}
+
+bool OFRecord::readContinue(std::istream &is, OFDatabase &oDB, UInt16 uiLength)
+{
+    std::vector<char> tmpBuf;
+
+    tmpBuf.resize(uiLength);
+
+    is.read(&(tmpBuf.front()), uiLength);
 
     return is.good();
 }
@@ -325,7 +370,7 @@ NodeTransitPtr OFRecord::convertToNode(OFDatabase &oDB)
 
     return returnValue;
 }
-   
+
 
 const Char8 *OFRecord::findDesc(UInt16 sOpCode)
 {
@@ -373,6 +418,12 @@ const OFVertexPaletteRecord *OFVertexPalette::getRecord(void)
     return _pVertexPalette;
 }
 
+void OFVertexPalette::dump(UInt32 uiIndent)
+{
+    if(_pVertexPalette != NULL)
+        _pVertexPalette->dump(uiIndent);
+}
+
 //---------------------------------------------------------------------
 // OFTexturePalette
 //---------------------------------------------------------------------
@@ -402,15 +453,15 @@ void OFTexturePalette::addRecord(OFTexturePaletteRecord *pTex)
     if(pTex != NULL)
     {
         TextureStoreIt tIt = _mTextures.find(pTex->getPatternIdx());
-        
+
         if(tIt == _mTextures.end())
         {
             _mTextures[pTex->getPatternIdx()] = pTex;
         }
         else
         {
-            fprintf(stderr, "Tex with idx %d already there \n",
-                    pTex->getPatternIdx());
+            FFATAL(("OFTexturePalette::addRecord: Texture with idx [%d] "
+                    "already present.\n", pTex->getPatternIdx()));
         }
     }
 }
@@ -429,6 +480,87 @@ const OFTexturePaletteRecord *OFTexturePalette::getRecord(Int32 uiId)
     return returnValue;
 }
 
+void OFTexturePalette::dump(UInt32 uiIndent)
+{
+    TextureStoreIt tIt  = _mTextures.begin();
+    TextureStoreIt tEnd = _mTextures.end  ();
+
+    for(; tIt != tEnd; ++tIt)
+    {
+        tIt->second->dump(uiIndent);
+    }
+}
+
+//---------------------------------------------------------------------
+// OFMaterialPalette
+//---------------------------------------------------------------------
+
+OFMaterialPalette::~OFMaterialPalette(void)
+{
+    // nothing to do
+}
+
+OFMaterialPalette::OFMaterialPalette(void) :
+    Inherited  (),
+    _mMaterials()
+{
+    // nothing to do
+}
+
+void OFMaterialPalette::addRecord(OFMaterialPaletteRecord *pMat)
+{
+    if(pMat != NULL)
+    {
+        MaterialStoreIt mIt = _mMaterials.find(pMat->getMaterialIdx());
+        
+        if(mIt == _mMaterials.end())
+        {
+            _mMaterials[pMat->getMaterialIdx()] = pMat;
+        }
+        else
+        {
+            FWARNING(("OFMaterialPalette::addRecord: Material with idx [%d] "
+                      "already present.\n", pMat->getMaterialIdx()));
+        }
+    }
+}
+
+const OFMaterialPaletteRecord *OFMaterialPalette::getRecord(Int32 uiId)
+{
+    const OFMaterialPaletteRecord *returnValue = NULL;
+    
+    MaterialStoreIt mIt = _mMaterials.find(uiId);
+    
+    if(mIt != _mMaterials.end())
+    {
+        returnValue = mIt->second;
+    }
+    
+    return returnValue;
+}
+
+void OFMaterialPalette::dump(UInt32 uiIndent)
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "MaterialPalette : " << std::endl;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "{" << std::endl;
+    
+    uiIndent += 2;
+    
+    MaterialStoreIt mIt  = _mMaterials.begin();
+    MaterialStoreIt mEnd = _mMaterials.end  ();
+    
+    for(; mIt != mEnd; ++mIt)
+        mIt->second->dump(uiIndent);
+    
+    uiIndent -= 2;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
+}
+
 //---------------------------------------------------------------------
 // OFHeaderRecord
 //---------------------------------------------------------------------
@@ -437,8 +569,9 @@ OFHeaderRecord::OFHeaderRecord(const OFRecordHeader &oHeader) :
      Inherited(oHeader),
     _vChildren(       )
 {
-    _pVertexPal  = new OFVertexPalette ();
-    _pTexturePal = new OFTexturePalette();
+    _pVertexPal   = new OFVertexPalette  ();
+    _pTexturePal  = new OFTexturePalette ();
+    _pMaterialPal = new OFMaterialPalette();
 }
 
 OFHeaderRecord::~OFHeaderRecord(void)
@@ -450,8 +583,9 @@ OFHeaderRecord::~OFHeaderRecord(void)
 
     _vChildren.clear();
 
-    _pVertexPal  = NULL;
-    _pTexturePal = NULL;
+    _pVertexPal   = NULL;
+    _pTexturePal  = NULL;
+    _pMaterialPal = NULL;
 }
 
 bool OFHeaderRecord::read(std::istream &is, OFDatabase &)
@@ -474,24 +608,26 @@ bool OFHeaderRecord::addChild(OFRecord *pChild)
 
     switch(pChild->getOpCode())
     {
-        case 32: // color
-        case 83: // eye trackplane
-        case 90: // linkage
-        case 93: // sound
-        case 97: // line style
-        case 102: // light source
-        case 112: // tex mapping
-        case 113: // material
-        case 128: // lpoint app
-        case 129: // lpoint anim
-        case 133: // shader
-        {
-            break;
-        }
+//         case 32: // color
+//         case 83: // eye trackplane
+//         case 90: // linkage
+//         case 93: // sound
+//         case 97: // line style
+//         case 102: // light source
+//         case 112: // tex mapping
+//         case 113: // material
+//         case 128: // lpoint app
+//         case 129: // lpoint anim
+//         case 133: // shader
+//         {
+//             FWARNING(("OFHeaderRecord::addChild: Ignoring child [%u - %s].\n",
+//                       pChild->getOpCode(), findDesc(pChild->getOpCode())));
+//             break;
+//         }
 
         case OFTexturePaletteRecord::OpCode:
         {
-            OFTexturePaletteRecord *pTex = 
+            OFTexturePaletteRecord *pTex =
                 dynamic_cast<OFTexturePaletteRecord *>(pChild);
 
             _pTexturePal->addRecord(pTex);
@@ -504,6 +640,13 @@ bool OFHeaderRecord::addChild(OFRecord *pChild)
             _pVertexPal->addRecord(
                 dynamic_cast<OFVertexPaletteRecord *>(pChild));
 
+            break;
+        }
+        
+        case OFMaterialPaletteRecord::OpCode:
+        {
+            _pMaterialPal->addRecord(
+                dynamic_cast<OFMaterialPaletteRecord *>(pChild));
             break;
         }
 
@@ -543,11 +686,10 @@ NodeTransitPtr OFHeaderRecord::convertToNode(OFDatabase &oDB)
             }
             else
             {
-/*
-                fprintf(stderr, "no child for record %hu %s\n",
-                        vChildren[i]->getOpCode(),
-                        findDesc(vChildren[i]->getOpCode()));
- */
+                FFATAL(("OFHeaderRecord::convertToNode: "
+                        "No child for record [%u - %s].\n",
+                        _vChildren[i]->getOpCode(),
+                        findDesc(_vChildren[i]->getOpCode())));
             }
         }
     }
@@ -565,6 +707,11 @@ const OFTexturePaletteRecord *OFHeaderRecord::getTexRecord(UInt32 uiIdx)
     return _pTexturePal->getRecord(uiIdx);
 }
 
+const OFMaterialPaletteRecord *OFHeaderRecord::getMatRecord(UInt32 uiIdx)
+{
+    return _pMaterialPal->getRecord(uiIdx);
+}
+
 void OFHeaderRecord::dump(UInt32 uiIndent)
 {
     indentLog(uiIndent, PLOG);
@@ -573,9 +720,17 @@ void OFHeaderRecord::dump(UInt32 uiIndent)
     indentLog(uiIndent, PLOG);
     PLOG << "{" << std::endl;
 
+    uiIndent += 2;
+
+    _pVertexPal  ->dump(uiIndent);
+    _pTexturePal ->dump(uiIndent);
+    _pMaterialPal->dump(uiIndent);
+
+    uiIndent -= 2;
+
     indentLog(uiIndent, PLOG);
     PLOG << "}" << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "[" << std::endl;
 
@@ -599,15 +754,9 @@ void OFHeaderRecord::dump(UInt32 uiIndent)
 
 OFUnknownRecord::OFUnknownRecord(const OFRecordHeader &oHeader) :
      Inherited(oHeader        ),
-    _sOpCode  (oHeader.sOpCode)
+    _sOpCode  (oHeader.sOpCode),
+    _vChildren(               )
 {
-    const char *szDesc = findDesc(oHeader.sOpCode);
-
-#if 0
-    fprintf(stderr, "Unknow opcode %hu : %s\n",
-            oHeader.sOpCode,
-            szDesc);
-#endif
 }
 
 OFUnknownRecord::~OFUnknownRecord(void)
@@ -628,9 +777,37 @@ bool OFUnknownRecord::read(std::istream &is, OFDatabase &oDB)
     return is.good();
 }
 
+bool OFUnknownRecord::addChild(OFRecord *pChild)
+{
+    if(pChild == NULL)
+        return false;
+
+    _vChildren.push_back(pChild);
+
+    return true;
+}
+
 UInt16 OFUnknownRecord::getOpCode(void)
 {
     return _sOpCode;
+}
+
+NodeTransitPtr OFUnknownRecord::convertToNode(OFDatabase &oDB)
+{
+    NodeTransitPtr returnValue = makeCoredNode<Group>();
+
+    for(UInt32 i = 0; i < _vChildren.size(); ++i)
+        returnValue->addChild(_vChildren[i]->convertToNode(oDB));
+
+    return returnValue;
+}
+
+void OFUnknownRecord::dump(UInt32 uiIndent)
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "OFUnknownRecord - " << _sOpCode
+         << " - "                << findDesc(_sOpCode)
+         << std::endl;
 }
 
 //---------------------------------------------------------------------
@@ -682,19 +859,19 @@ bool OFTexturePaletteRecord::read(std::istream &is, OFDatabase &oDB)
             if(pImage != NULL)
             {
                 pTexObj = TextureObjChunk::create();
-                
+
                 pTexObj->setImage(pImage);
             }
             else
             {
-                fprintf(stderr, "Could not read image %s\n",
-                        &(szFilename[uiPos + 1]));
+                FWARNING(("OFTexturePaletteRecord::read: Could not read image "
+                          "[%s].\n", &(szFilename[uiPos + 1])));
             }
         }
         else
         {
-            fprintf(stderr, "Could not read image %s\n",
-                    szFilename);
+            FWARNING(("OFTexturePaletteRecord::read: Could not read image "
+                      "[%s].\n", szFilename));
         }
     }
 
@@ -704,6 +881,34 @@ bool OFTexturePaletteRecord::read(std::istream &is, OFDatabase &oDB)
 UInt16 OFTexturePaletteRecord::getOpCode(void)
 {
     return OpCode;
+}
+
+void OFTexturePaletteRecord::dump(UInt32 uiIndent)
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "TexturePaletteRecord" << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "{" << std::endl;
+
+    uiIndent += 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "Filename : " << szFilename << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "PatternIdx : " << iPatternIdx << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "PatternX : " << iPatternX << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "PatternY : " << iPatternY << std::endl;
+
+    uiIndent -= 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
 }
 
 Int32 OFTexturePaletteRecord::getPatternIdx(void)
@@ -761,7 +966,7 @@ bool OFVertexPaletteRecord::read(std::istream &is, OFDatabase &oDB)
     while(iRead < iFullLength - 8 && is.good() == true)
     {
         rc = oRHeader.read(is);
-    
+
         if(rc == false)
         {
             break;
@@ -784,7 +989,7 @@ bool OFVertexPaletteRecord::read(std::istream &is, OFDatabase &oDB)
         uiSize += Inherited::readVal(is, tmpDouble[2]);
 
         tmpInfo.uiIdx[PosIdx] = vPositions.size();
-        
+
         vPositions.push_back(Pnt3f(tmpDouble[0], tmpDouble[1], tmpDouble[2]));
 
         if(oRHeader.sOpCode == 69 || oRHeader.sOpCode == 70)
@@ -804,7 +1009,7 @@ bool OFVertexPaletteRecord::read(std::istream &is, OFDatabase &oDB)
         {
             uiSize += Inherited::readVal(is, tmpTexCoord[0]);
             uiSize += Inherited::readVal(is, tmpTexCoord[1]);
-   
+
             tmpInfo.uiIdx[TexCoordIdx]  = vTexCoords.size();
             tmpInfo.uiType             |= HasTexCoord;
 
@@ -889,17 +1094,1061 @@ bool OFVertexPaletteRecord::VertexInfo::operator <(
     return this->uiOffset < vInfo.uiOffset;
 }
 
-bool operator <(const UInt32                             uiOff, 
+bool operator <(const UInt32                             uiOff,
                 const OFVertexPaletteRecord::VertexInfo &vInfo)
 {
     return uiOff < vInfo.uiOffset;
 }
 
-
 OFRecordFactoryBase::RegisterRecord OFVertexPaletteRecord::_regHelper(
     &OFVertexPaletteRecord::create,
     OFVertexPaletteRecord::OpCode);
 
+//---------------------------------------------------------------------
+// OFMaterialPaletteRecord
+//---------------------------------------------------------------------
+
+OFMaterialPaletteRecord::OFMaterialPaletteRecord(
+    const OFRecordHeader &oHeader) :
+
+    Inherited (oHeader)
+{
+    // nothing to do
+}
+
+OFMaterialPaletteRecord::~OFMaterialPaletteRecord(void)
+{
+    // nothing to do
+}
+
+OFRecordTransitPtr OFMaterialPaletteRecord::create(
+    const OFRecordHeader &oHeader)
+{
+    return OFRecordTransitPtr(new OFMaterialPaletteRecord(oHeader));
+}
+
+bool OFMaterialPaletteRecord::read(std::istream &is, OFDatabase &oDB)
+{
+    Inherited::readVal  (is, iMaterialIdx      );
+    Inherited::readChar8(is, szMaterialName, 12);
+    Inherited::readVal  (is, iFlags            );
+    Inherited::readVal  (is, colAmbient[0]     );
+    Inherited::readVal  (is, colAmbient[1]     );
+    Inherited::readVal  (is, colAmbient[2]     );
+    Inherited::readVal  (is, colDiffuse[0]     );
+    Inherited::readVal  (is, colDiffuse[1]     );
+    Inherited::readVal  (is, colDiffuse[2]     );
+    Inherited::readVal  (is, colSpecular[0]    );
+    Inherited::readVal  (is, colSpecular[1]    );
+    Inherited::readVal  (is, colSpecular[2]    );
+    Inherited::readVal  (is, colEmissive[0]    );
+    Inherited::readVal  (is, colEmissive[1]    );
+    Inherited::readVal  (is, colEmissive[2]    );
+    Inherited::readVal  (is, fShininess        );
+    Inherited::readVal  (is, fAlpha            );
+    Inherited::readVal  (is, iPad              );
+
+    return is.good();
+}
+
+UInt16 OFMaterialPaletteRecord::getOpCode(void)
+{
+    return OpCode;
+}
+
+void OFMaterialPaletteRecord::dump(UInt32 uiIndent)
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "OFMaterialPaletteRecord : " << std::endl;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "{" << std::endl;
+    
+    uiIndent += 2;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "MaterialIdx : " << iMaterialIdx << std::endl;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "MaterialName : " << szMaterialName << std::endl;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "ColAmbient : " << colAmbient << std::endl;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "ColDiffuse : " << colDiffuse << std::endl;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "ColSpecular : " << colSpecular << std::endl;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "ColEmissive : " << colEmissive << std::endl;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "Shininess : " << fShininess << std::endl;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "Alpha : " << fAlpha << std::endl;
+    
+    uiIndent -= 2;
+    
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
+}
+
+Int32 OFMaterialPaletteRecord::getMaterialIdx(void)
+{
+    return iMaterialIdx;
+}
+
+const Color4f &OFMaterialPaletteRecord::getAmbient(void) const
+{
+    return colAmbient;
+}
+
+const Color4f &OFMaterialPaletteRecord::getDiffuse(void) const
+{
+    return colDiffuse;
+}
+
+const Color4f &OFMaterialPaletteRecord::getSpecular(void) const
+{
+    return colSpecular;
+}
+
+const Color4f &OFMaterialPaletteRecord::getEmissive(void) const
+{
+    return colEmissive;
+}
+
+Real32 OFMaterialPaletteRecord::getShininess(void) const
+{
+    return fShininess;
+}
+
+Real32 OFMaterialPaletteRecord::getAlpha(void) const
+{
+    return fAlpha;
+}
+
+OFRecordFactoryBase::RegisterRecord OFMaterialPaletteRecord::_regHelper(
+    &OFMaterialPaletteRecord::create,
+    OFMaterialPaletteRecord::OpCode);
+
+//---------------------------------------------------------------------
+// OFMeshPrimitiveRecord
+//---------------------------------------------------------------------
+
+OFMeshPrimitiveRecord::OFMeshPrimitiveRecord(const OFRecordHeader &oHeader) :
+    Inherited    (oHeader),
+    uiPrimType   (),
+    uiIndexSize  (),
+    uiVertexCount(),
+    _vIndices    ()
+{
+}
+
+OFMeshPrimitiveRecord::~OFMeshPrimitiveRecord(void)
+{
+}
+
+OFRecordTransitPtr OFMeshPrimitiveRecord::create(
+        const OFRecordHeader &oHeader)
+{
+    return OFRecordTransitPtr(new OFMeshPrimitiveRecord(oHeader));
+}
+
+bool OFMeshPrimitiveRecord::read(std::istream &is, OFDatabase &oDB)
+{
+    Inherited::readVal(is, uiPrimType   );
+    Inherited::readVal(is, uiIndexSize  );
+    Inherited::readVal(is, uiVertexCount);
+
+    return readContinue(is, oDB, _sLength - 12);
+}
+
+bool OFMeshPrimitiveRecord::readContinue(
+    std::istream &is, OFDatabase &oDB, UInt16 uiLength)
+{
+    switch(uiIndexSize)
+    {
+    case 1:
+    {
+        for(Int32 bytesLeft = uiLength; bytesLeft > 0; bytesLeft -= 1)
+        {
+            UInt8 tmpIdx;
+            Inherited::readVal(is, tmpIdx);
+
+            _vIndices.push_back(tmpIdx);
+        }
+        break;
+    }
+
+    case 2:
+    {
+        for(Int32 bytesLeft = uiLength; bytesLeft > 0; bytesLeft -= 2)
+        {
+            UInt16 tmpIdx;
+            Inherited::readVal(is, tmpIdx);
+
+            _vIndices.push_back(tmpIdx);
+        }
+        break;
+    }
+
+    case 4:
+    {
+        for(Int32 bytesLeft = uiLength; bytesLeft > 0; bytesLeft -= 4)
+        {
+            UInt32 tmpIdx;
+            Inherited::readVal(is, tmpIdx);
+
+            _vIndices.push_back(tmpIdx);
+        }
+        break;
+    }
+
+    default:
+    {
+        FWARNING(("OFMeshPrimitiveRecord::readContinue: IndexSize has "
+                "unrecognized value [%u].\n", uiIndexSize));
+
+        return Inherited::readContinue(is, oDB, uiLength);
+    }
+    }
+
+    return is.good();
+}
+
+UInt16 OFMeshPrimitiveRecord::getOpCode(void)
+{
+    return OpCode;
+}
+
+void OFMeshPrimitiveRecord::dump(UInt32 uiIndent)
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "MeshPrimitiveRecord : " << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "{" << std::endl;
+
+    uiIndent += 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "PrimType : " << uiPrimType << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "IndexSize : " << uiIndexSize << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "VertexCount : " << uiVertexCount << std::endl;
+
+    uiIndent -= 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
+}
+
+OFMeshPrimitiveRecord::IndexStore &OFMeshPrimitiveRecord::editIndices(void)
+{
+    return _vIndices;
+}
+
+const OFMeshPrimitiveRecord::IndexStore &OFMeshPrimitiveRecord::getIndices(
+    void) const
+{
+    return _vIndices;
+}
+
+OFRecordFactoryBase::RegisterRecord OFMeshPrimitiveRecord::_regHelper(
+    &OFMeshPrimitiveRecord::create,
+    OFMeshPrimitiveRecord::OpCode  );
+
+//---------------------------------------------------------------------
+// OFLocalVertexPoolRecord
+//---------------------------------------------------------------------
+
+OFLocalVertexPoolRecord::OFLocalVertexPoolRecord(
+    const OFRecordHeader &oHeader) :
+
+    Inherited   (oHeader),
+    _pPositions (NULL),
+    _pColors    (NULL),
+    _pNormals   (NULL),
+    _texCoords  (),
+    _vTriStrips (),
+    _vTriFans   (),
+    _vQuadStrips(),
+    _vPolygons  ()
+{
+    for(UInt32 i = 0; i < 8; ++i)
+        _texCoords[i] = NULL;
+}
+
+OFLocalVertexPoolRecord::~OFLocalVertexPoolRecord(void)
+{
+}
+
+OFRecordTransitPtr OFLocalVertexPoolRecord::create(
+        const OFRecordHeader &oHeader)
+{
+    return OFRecordTransitPtr(new OFLocalVertexPoolRecord(oHeader));
+}
+
+bool OFLocalVertexPoolRecord::read(std::istream &is, OFDatabase &oDB)
+{
+    Inherited::readVal(is, uiNumVerts  );
+    Inherited::readVal(is, uiAttribMask);
+
+    return readContinue(is, oDB, _sLength - 12);
+}
+
+bool OFLocalVertexPoolRecord::readContinue(
+    std::istream &is, OFDatabase &oDB, UInt16 uiLength)
+{
+    if((uiAttribMask & AMHasColorIndex) != 0)
+    {
+        FWARNING(("OFLocalVertexPoolRecord::readContinue: "
+                  "Color Index mode not supported.\n"));
+    }
+
+    // make sure the needed properties exist
+    if((uiAttribMask & AMHasPosition) != 0 && _pPositions == NULL)
+        _pPositions = GeoPnt3dProperty::create();
+
+    if((uiAttribMask & AMHasColorValue) != 0 && _pColors == NULL)
+        _pColors = GeoColor4ubProperty::create();
+
+    if((uiAttribMask & AMHasNormal) != 0 && _pNormals == NULL)
+        _pNormals = GeoVec3fProperty::create();
+
+    for(UInt32 i = 0; i < 8; ++i)
+    {
+        if((uiAttribMask & AMHasTexCoords[i]) != 0 && _texCoords[i] == NULL)
+            _texCoords[i] = GeoVec2fProperty::create();
+    }
+
+    // read data
+    for(Int32 bytesLeft = uiLength; bytesLeft > 0;)
+    {
+        if((uiAttribMask & AMHasPosition) != 0)
+        {
+            Pnt3d tmpPnt;
+            Inherited::readVal(is, tmpPnt[0]);
+            Inherited::readVal(is, tmpPnt[1]);
+            Inherited::readVal(is, tmpPnt[2]);
+
+            _pPositions->push_back(tmpPnt);
+
+            bytesLeft -= 3 * 8;
+        }
+
+        if((uiAttribMask & AMHasColorIndex) != 0)
+        {
+            UInt32 tmpVal;
+            Inherited::readVal(is, tmpVal);
+
+            // TODO fetch the actual color from the palette
+
+            bytesLeft -= 4;
+        }
+
+        if((uiAttribMask & AMHasColorValue) != 0)
+        {
+            Color4ub tmpVal;
+            Inherited::readVal(is, tmpVal[3]);
+            Inherited::readVal(is, tmpVal[0]);
+            Inherited::readVal(is, tmpVal[1]);
+            Inherited::readVal(is, tmpVal[2]);
+
+            _pColors->push_back(tmpVal);
+
+            bytesLeft -= 4;
+        }
+
+        if((uiAttribMask & AMHasNormal) != 0)
+        {
+            Vec3f tmpVec;
+            Inherited::readVal(is, tmpVec[0]);
+            Inherited::readVal(is, tmpVec[1]);
+            Inherited::readVal(is, tmpVec[2]);
+
+            tmpVec.normalize();
+
+            _pNormals->push_back(tmpVec);
+
+            bytesLeft -= 3 * 4;
+        }
+
+        for(UInt32 i = 0; i < 8; ++i)
+        {
+            if((uiAttribMask & AMHasTexCoords[i]) != 0)
+            {
+                Vec2f tmpVal;
+                Inherited::readVal(is, tmpVal[0]);
+                Inherited::readVal(is, tmpVal[1]);
+
+                _texCoords[i]->push_back(tmpVal);
+
+                bytesLeft -= 2 * 4;
+            }
+        }
+    }
+
+    return is.good();
+}
+
+bool OFLocalVertexPoolRecord::addChild(OFRecord *pChild)
+{
+    if(pChild == NULL)
+        return false;
+
+    bool rc = false;
+
+    switch(pChild->getOpCode())
+    {
+    case OFMeshPrimitiveRecord::OpCode:
+    {
+        OFMeshPrimitiveRecord *pPrim =
+            dynamic_cast<OFMeshPrimitiveRecord *>(pChild);
+
+        rc = true;
+
+        switch(pPrim->uiPrimType)
+        {
+        case OFMeshPrimitiveRecord::PTTriStrip:
+        {
+            _vTriStrips.push_back(pPrim);
+            break;
+        }
+        
+        case OFMeshPrimitiveRecord::PTTriFan:
+        {
+            _vTriFans.push_back(pPrim);
+            break;
+        }
+        
+        case OFMeshPrimitiveRecord::PTQuadStrip:
+        {
+            _vQuadStrips.push_back(pPrim);
+            break;
+        }
+        
+        case OFMeshPrimitiveRecord::PTPolygon:
+        {
+            _vPolygons.push_back(pPrim);
+            break;
+        }
+        
+        default:
+        {
+            FWARNING(("OFMeshRecord::addChild: Unexpected primitive type [%u] "
+                      "for MeshPrimitiveRecord.\n", pPrim->uiPrimType));
+            rc =  Inherited::addChild(pChild);
+            break;
+        }
+        }
+        break;
+    }
+
+    default:
+    {
+        FWARNING(("OFMeshRecord::addChild: Unexpected child type [%u - %s].\n",
+                    pChild->getOpCode(), findDesc(pChild->getOpCode())));
+        rc = Inherited::addChild(pChild);
+        break;
+    }
+    }
+
+    return rc;
+}
+
+UInt16 OFLocalVertexPoolRecord::getOpCode(void)
+{
+    return OpCode;
+}
+
+void OFLocalVertexPoolRecord::dump(UInt32 uiIndent)
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "LocalVertexPoolRecord : " << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "{" << std::endl;
+
+    uiIndent += 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "NumVerts : " << uiNumVerts << std::endl;
+
+    PLOG.setf (std::ios::hex, std::ios::basefield);
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "FullAttribMask : " << uiAttribMask << std::endl;
+
+    PLOG.setf (std::ios::dec, std::ios::basefield);
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "AttribMask P:" << ((uiAttribMask & AMHasPosition    ) >> 31)
+         <<          " Ci:" << ((uiAttribMask & AMHasColorIndex  ) >> 30)
+         <<          " Cv:" << ((uiAttribMask & AMHasColorValue  ) >> 29)
+         <<           " N:" << ((uiAttribMask & AMHasNormal      ) >> 28)
+         <<         " UV0:" << ((uiAttribMask & AMHasTexCoords[0]) >> 27)
+         <<         " UV1:" << ((uiAttribMask & AMHasTexCoords[1]) >> 26)
+         <<         " UV2:" << ((uiAttribMask & AMHasTexCoords[2]) >> 25)
+         <<         " UV3:" << ((uiAttribMask & AMHasTexCoords[3]) >> 24)
+         <<         " UV4:" << ((uiAttribMask & AMHasTexCoords[4]) >> 23)
+         <<         " UV5:" << ((uiAttribMask & AMHasTexCoords[5]) >> 22)
+         <<         " UV6:" << ((uiAttribMask & AMHasTexCoords[6]) >> 21)
+         <<         " UV7:" << ((uiAttribMask & AMHasTexCoords[7]) >> 20)
+         << std::endl;
+
+    uiIndent -= 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "[" << std::endl;
+
+    uiIndent += 2;
+
+    for(UInt32 i = 0; i < _vTriStrips.size(); ++i)
+        _vTriStrips[i]->dump(uiIndent);
+    
+    for(UInt32 i = 0; i < _vTriFans.size(); ++i)
+        _vTriFans[i]->dump(uiIndent);
+    
+    for(UInt32 i = 0; i < _vQuadStrips.size(); ++i)
+        _vQuadStrips[i]->dump(uiIndent);
+
+    for(UInt32 i = 0; i < _vPolygons.size(); ++i)
+        _vPolygons[i]->dump(uiIndent);
+    
+    uiIndent -= 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "]" << std::endl;
+}
+
+void OFLocalVertexPoolRecord::convertPrimitives(
+        OFDatabase &oDB, Geometry *pGeo)
+{
+    GeoUInt32PropertyUnrecPtr pInd = GeoUInt32Property::create();
+    
+    for(UInt32 i = 0; i < _vTriStrips.size(); ++i)
+    {
+        pGeo->getTypes  ()->push_back(GL_TRIANGLE_STRIP            );
+        pGeo->getLengths()->push_back(_vTriStrips[i]->uiVertexCount);
+        
+        for(UInt32 j = 0; j < _vTriStrips[i]->_vIndices.size(); ++j)
+        {
+            pInd->push_back(_vTriStrips[i]->_vIndices[j]);
+        }
+    }
+    
+    for(UInt32 i = 0; i < _vTriFans.size(); ++i)
+    {
+        pGeo->getTypes  ()->push_back(GL_TRIANGLE_FAN            );
+        pGeo->getLengths()->push_back(_vTriFans[i]->uiVertexCount);
+        
+        for(UInt32 j = 0; j < _vTriFans[i]->_vIndices.size(); ++j)
+        {
+            pInd->push_back(_vTriFans[i]->_vIndices[j]);
+        }
+    }
+    
+    for(UInt32 i = 0; i < _vQuadStrips.size(); ++i)
+    {
+        pGeo->getTypes  ()->push_back(GL_QUAD_STRIP                 );
+        pGeo->getLengths()->push_back(_vQuadStrips[i]->uiVertexCount);
+        
+        for(UInt32 j = 0; j < _vQuadStrips[i]->_vIndices.size(); ++j)
+        {
+            pInd->push_back(_vQuadStrips[i]->_vIndices[j]);
+        }
+    }
+    
+    for(UInt32 i = 0; i < _vPolygons.size(); ++i)
+    {
+        pGeo->getTypes  ()->push_back(GL_POLYGON                  );
+        pGeo->getLengths()->push_back(_vPolygons[i]->uiVertexCount);
+        
+        for(UInt32 j = 0; j < _vPolygons[i]->_vIndices.size(); ++j)
+        {
+            pInd->push_back(_vPolygons[i]->_vIndices[j]);
+        }
+    }
+    
+    if((uiAttribMask & AMHasPosition) != 0)
+    {
+        pGeo->setProperty(_pPositions, Geometry::PositionsIndex);
+        pGeo->setIndex   (pInd,        Geometry::PositionsIndex);
+    }
+
+    if((uiAttribMask & AMHasColorIndex) != 0)
+    {
+        ; // TODO
+    }
+
+    if((uiAttribMask & AMHasColorValue) != 0)
+    {
+        pGeo->setProperty(_pColors, Geometry::ColorsIndex);
+        pGeo->setIndex   (pInd,     Geometry::ColorsIndex);
+    }
+
+    if((uiAttribMask & AMHasNormal) != 0)
+    {
+        pGeo->setProperty(_pNormals, Geometry::NormalsIndex);
+        pGeo->setIndex   (pInd,      Geometry::NormalsIndex);
+    }
+
+    for(UInt32 i = 0; i < 8; ++i)
+    {
+        if((uiAttribMask & AMHasTexCoords[i]) != 0)
+        {
+            pGeo->setProperty(_texCoords[i], Geometry::TexCoordsIndex + i);
+            pGeo->setIndex   (pInd,          Geometry::TexCoordsIndex + i);
+        }
+    }
+}
+
+GeoPnt3dProperty *OFLocalVertexPoolRecord::getPositions(void) const
+{
+    return _pPositions;
+}
+
+GeoColor4ubProperty *OFLocalVertexPoolRecord::getColors(void) const
+{
+    return _pColors;
+}
+
+GeoVec3fProperty *OFLocalVertexPoolRecord::getNormals(void) const
+{
+    return _pNormals;
+}
+
+GeoVec2fProperty *OFLocalVertexPoolRecord::getTexCoords(UInt32 idx) const
+{
+    return _texCoords[idx];
+}
+
+OFRecordFactoryBase::RegisterRecord OFLocalVertexPoolRecord::_regHelper(
+        &OFLocalVertexPoolRecord::create,
+        OFLocalVertexPoolRecord::OpCode  );
+
+const UInt32 OFLocalVertexPoolRecord::AMHasPosition     = 0x80000000;
+const UInt32 OFLocalVertexPoolRecord::AMHasColorIndex   = 0x40000000;
+const UInt32 OFLocalVertexPoolRecord::AMHasColorValue   = 0x20000000;
+const UInt32 OFLocalVertexPoolRecord::AMHasNormal       = 0x10000000;
+const UInt32 OFLocalVertexPoolRecord::AMHasTexCoords[8] =
+{
+    0x08000000,
+    0x04000000,
+    0x02000000,
+    0x01000000,
+    0x00800000,
+    0x00400000,
+    0x00200000,
+    0x00100000
+};
+
+//---------------------------------------------------------------------
+// OFMeshRecord
+//---------------------------------------------------------------------
+
+OFMeshRecord::OFMeshRecord(const OFRecordHeader &oHeader) :
+        Inherited(oHeader)
+{
+}
+
+OFMeshRecord::~OFMeshRecord(void)
+{
+}
+
+OFRecordTransitPtr OFMeshRecord::create(const OFRecordHeader &oHeader)
+{
+    return OFRecordTransitPtr(new OFMeshRecord(oHeader));
+}
+
+bool OFMeshRecord::read(std::istream &is, OFDatabase &oDB)
+{
+    Inherited::readChar8(is, szASCIIId, 8     );
+    Inherited::readVal  (is, iPad1            );
+    Inherited::readVal  (is, iIRColorCode     );
+    Inherited::readVal  (is, iRelPrio         );
+    Inherited::readVal  (is, iDrawType        );
+    Inherited::readVal  (is, iTextureWhite    );
+    Inherited::readVal  (is, uiColorNameIdx   );
+    Inherited::readVal  (is, uiAltColorNameIdx);
+    Inherited::readVal  (is, iPad2            );
+    Inherited::readVal  (is, iTemplate        );
+    Inherited::readVal  (is, iDetailTexIdx    );
+    Inherited::readVal  (is, iTexIdx          );
+    Inherited::readVal  (is, iMatIdx          );
+    Inherited::readVal  (is, iSurfMatCode     );
+    Inherited::readVal  (is, iFeatureId       );
+    Inherited::readVal  (is, iIRMatCode       );
+    Inherited::readVal  (is, uiTransparency   );
+    Inherited::readVal  (is, uiLODGenControl  );
+    Inherited::readVal  (is, uiLineStyle      );
+    Inherited::readVal  (is, iFlags           );
+    Inherited::readVal  (is, uiLightMode      );
+    Inherited::readChar8(is, szPad3, 7        );
+    Inherited::readVal  (is, uiPackedPrimCol  );
+    Inherited::readVal  (is, uiPackedAltCol   );
+    Inherited::readVal  (is, iTexMapIdx       );
+    Inherited::readVal  (is, iPad4            );
+    Inherited::readVal  (is, uiPrimColIdx     );
+    Inherited::readVal  (is, uiAltColIdx      );
+    Inherited::readVal  (is, iPad5            );
+    Inherited::readVal  (is, iShaderIdx       );
+
+    return is.good();
+}
+
+bool OFMeshRecord::addChild(OFRecord *pChild)
+{
+    if(pChild == NULL)
+        return false;
+
+    bool rc = false;
+
+    switch(pChild->getOpCode())
+    {
+    case OFLocalVertexPoolRecord::OpCode:
+    {
+        if(_pVertexPool != NULL)
+            FWARNING(("OFMeshRecord::addChild: VertexPool already set.\n"));
+
+        _pVertexPool = dynamic_cast<OFLocalVertexPoolRecord *>(pChild);
+        rc           = true;
+        break;
+    }
+
+    default:
+    {
+        FWARNING(("OFMeshRecord::addChild: Unexpected child type [%u - %s].\n",
+                  pChild->getOpCode(), findDesc(pChild->getOpCode())));
+        rc = Inherited::addChild(pChild);
+        break;
+    }
+    }
+
+    return rc;
+}
+
+UInt16 OFMeshRecord::getOpCode(void)
+{
+    return OpCode;
+}
+
+void OFMeshRecord::dump(UInt32 uiIndent)
+{
+    indentLog(uiIndent, PLOG);
+    PLOG << "MeshRecord : " << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "{" << std::endl;
+
+    uiIndent += 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "ASCIIId : " << szASCIIId << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "TextureWhite : " << static_cast<UInt32>(iTextureWhite) << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "Template : " << static_cast<UInt32>(iTemplate) << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "Transparency : " << uiTransparency << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "DetailTexIdx : " << iDetailTexIdx << std::endl;
+    indentLog(uiIndent, PLOG);
+    PLOG << "TexIdx       : " << iTexIdx << std::endl;
+    indentLog(uiIndent, PLOG);
+    PLOG << "TexMapIdx    : " << iTexMapIdx << std::endl;
+    indentLog(uiIndent, PLOG);
+    PLOG << "MatIdx       : " << iMatIdx << std::endl;
+
+    PLOG.setf (std::ios::hex, std::ios::basefield);
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "FullFlags : " << iFlags << std::endl;
+
+    PLOG.setf (std::ios::dec, std::ios::basefield);
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "Flags : "
+            << "(T : "   << ((iFlags & 0x80000000) >> 31) << ") "
+            << "(NC : "  << ((iFlags & 0x40000000) >> 30) << ") "
+            << "(NAC : " << ((iFlags & 0x20000000) >> 29) << ") "
+            << "(PC  : " << ((iFlags & 0x10000000) >> 28) << ") "
+            << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "LightMode    : " << UInt32(uiLightMode) << std::endl;
+
+    if(uiLightMode == 0 || uiLightMode == 2)
+    {
+        PLOG.setf (std::ios::hex, std::ios::basefield);
+
+        indentLog(uiIndent, PLOG);
+        PLOG << "ColorPacked : " << uiPackedPrimCol << std::endl;
+
+        indentLog(uiIndent, PLOG);
+        PLOG << "Color    : B : "
+                << (uiPackedPrimCol & 0x000000FF)
+                << " G : "
+                << ((uiPackedPrimCol & 0x0000FF00) >> 8)
+                << " R : "
+                << ((uiPackedPrimCol & 0x00FF0000) >> 16)
+                << std::endl;
+
+        PLOG.setf (std::ios::dec, std::ios::basefield);
+
+        indentLog(uiIndent, PLOG);
+        PLOG << "ColorIdx    : " << uiPrimColIdx << std::endl;
+    }
+
+    uiIndent -= 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "}" << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "[" << std::endl;
+
+    uiIndent += 2;
+
+    if(_pVertexPool != NULL)
+        _pVertexPool->dump(uiIndent);
+
+    uiIndent -= 2;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "]" << std::endl;
+}
+
+NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
+{
+    NodeTransitPtr returnValue(NULL);
+
+    if(_pVertexPool == NULL)
+    {
+        return returnValue;
+    }
+
+    SLOG << "OFMeshRecord::convertToNode: ASCIIId [" << szASCIIId << "]" << std::endl;
+    
+                              returnValue = Node             ::create();
+    GeometryUnrecPtr          pGeo        = Geometry         ::create();
+    GeoUInt8PropertyUnrecPtr  pTypes      = GeoUInt8Property ::create();
+    GeoUInt32PropertyUnrecPtr pLengths    = GeoUInt32Property::create();
+
+    pGeo->setTypes  (pTypes  );
+    pGeo->setLengths(pLengths);
+
+    returnValue->setCore(pGeo);
+
+    _pVertexPool->convertPrimitives(oDB, pGeo);
+    
+    ChunkMaterialUnrecPtr pChunkMat = ChunkMaterial::create();
+    
+    if(iTextureWhite && iTexIdx != -1)
+    {
+        MaterialChunkUnrecPtr pMatChunk = MaterialChunk::create();
+        Color4f               colDiffuse(1.f, 1.f, 1.f, 1.f);
+        
+        pMatChunk->setDiffuse(colDiffuse);
+        
+        pChunkMat->addChunk(pMatChunk);
+    }
+    else if(iMatIdx != -1)
+    {
+        const OFMaterialPaletteRecord *pMatRec   = oDB.getMatRecord(iMatIdx);
+        
+        if(pMatRec != NULL)
+        {
+            MaterialChunkUnrecPtr      pMatChunk = MaterialChunk::create();
+            
+            if((iFlags & FlagNoColor) != 0)
+            {
+                // use material only
+                Color4f colMat;
+
+                pMatChunk->setAmbient(pMatRec->getAmbient());
+                
+                colMat    = pMatRec->getDiffuse();
+                colMat[3] = pMatRec->getAlpha() * (1.f - (uiTransparency / 65535.f));
+                pMatChunk->setDiffuse(colMat);
+                
+                pMatChunk->setSpecular (pMatRec->getSpecular ());
+                pMatChunk->setShininess(pMatRec->getShininess());
+                pMatChunk->setEmission (pMatRec->getEmissive ());
+                
+                pChunkMat->addChunk(pMatChunk);
+            }
+            else if((iFlags & FlagPackedColor) != 0)
+            {
+                SLOG << "OFMeshRecord::convertToNode: PC ";
+                
+                // use uiPackedPrimCol and material
+                Color4f colGeo;
+                Color4f colMat;
+                
+                colGeo[0] = ((uiPackedPrimCol & 0x00FF0000) >> 16) / 255.f;
+                colGeo[1] = ((uiPackedPrimCol & 0x0000FF00) >>  8) / 255.f;
+                colGeo[2] = ((uiPackedPrimCol & 0x000000FF)      ) / 255.f;
+                colGeo[3] = 1.f;
+                
+                colMat    = pMatRec->getAmbient();
+                colMat[0] = colMat[0] * colGeo[0];
+                colMat[1] = colMat[1] * colGeo[1];
+                colMat[2] = colMat[2] * colGeo[2];
+                
+                pMatChunk->setAmbient(colMat);
+                
+                PLOG << "colAmbient [" << colMat << "] ";
+                
+                colMat    = pMatRec->getDiffuse();
+                colMat[0] = colMat[0] * colGeo[0];
+                colMat[1] = colMat[1] * colGeo[1];
+                colMat[2] = colMat[2] * colGeo[2];
+                colMat[3] = pMatRec->getAlpha() * (1.f - (uiTransparency / 65535.f));
+                
+                PLOG << "colDiffuse [" << colMat << "] "
+                     << "pMatRec->getAlpha() [" << pMatRec->getAlpha()
+                     << "] uiTransparency [" << uiTransparency << "]"
+                     << std::endl;
+                
+                pMatChunk->setDiffuse  (colMat                 );
+                pMatChunk->setSpecular (pMatRec->getSpecular ());
+                pMatChunk->setShininess(pMatRec->getShininess());
+                pMatChunk->setEmission (pMatRec->getEmissive ());
+                
+                pChunkMat->addChunk(pMatChunk);
+            }
+            else
+            {
+                // TODO: use uiPrimColIdx
+            }
+            
+            if(pMatChunk->isTransparent() &&
+               pChunkMat->find(BlendChunk::getClassType()) == NULL)
+            {
+                SLOG << "OFMeshRecord::convertToNode: adding BlendChunk for Material" << std::endl;
+                
+                BlendChunkUnrecPtr pBlendChunk = BlendChunk::create();
+
+                pBlendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                pBlendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                pChunkMat->addChunk(pBlendChunk);
+            }
+        }
+    }
+    
+    if(iTexIdx != -1)
+    {
+        const OFTexturePaletteRecord *pTexRec = oDB.getTexRecord(iTexIdx);
+
+        if(pTexRec != NULL)
+        {
+            TextureObjChunk *pTexObj = pTexRec->getTexObj();
+
+            if(pTexObj != NULL)
+            {
+                pChunkMat->addChunk(pTexObj);
+
+                if(pTexObj->getImage()->hasAlphaChannel() &&
+                   pChunkMat->find(BlendChunk::getClassType()) == NULL)
+                {
+                    SLOG << "OFMeshRecord::convertToNode: adding BlendChunk for Texture" << std::endl;
+                    
+                    BlendChunkUnrecPtr pBlendChunk = BlendChunk::create();
+
+                    pBlendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                    pBlendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                    pChunkMat->addChunk(pBlendChunk);
+                }
+                
+                TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
+                
+                pTexEnv->setEnvMode(GL_MODULATE);
+                
+                pChunkMat->addChunk(pTexEnv);
+            }
+        }
+        else
+        {
+            FFATAL(("OFMeshRecord::convertToNode: "
+                    "No texture record for index [%d].\n", iTexIdx));
+        }
+    }
+    
+    if(uiLightMode == LMMeshColor || uiLightMode == LMMeshColorLit)
+    {
+        pGeo->setProperty(NULL, Geometry::ColorsIndex);
+        pGeo->setIndex   (NULL, Geometry::ColorsIndex);
+    }
+    
+    if(uiLightMode == LMMeshColorLit || uiLightMode == LMVertexColorLit)
+    {
+        if(pGeo->getProperty(Geometry::NormalsIndex) == NULL)
+            calcVertexNormals(pGeo);
+    }
+    
+    switch(iDrawType)
+    {
+    case DTSolidCullBack:
+    {
+        PolygonChunkUnrecPtr pPolyChunk = PolygonChunk::create();
+        pPolyChunk->setCullFace(GL_BACK);
+
+        pChunkMat->addChunk(pPolyChunk);
+        break;
+    }
+
+    case DTSolid:
+    {
+        // nothing to do
+        break;
+    }
+
+    case DTWireframeClosed:
+    case DTWireframe:
+    {
+        PolygonChunkUnrecPtr pPolyChunk = PolygonChunk::create();
+        pPolyChunk->setFrontMode(GL_LINE);
+        pPolyChunk->setBackMode (GL_LINE);
+
+        pChunkMat->addChunk(pPolyChunk);
+        break;
+    }
+
+    default:
+    {
+        FWARNING(("OFMeshRecord::convertToNode: Unhandled draw "
+                  "type [%d].\n", iDrawType));
+        break;
+    }
+    }
+    
+    
+    pGeo->setMaterial(pChunkMat);
+
+    return returnValue;
+}
+
+OFRecordFactoryBase::RegisterRecord OFMeshRecord::_regHelper(
+    &OFMeshRecord::create,
+     OFMeshRecord::OpCode  );
 
 //---------------------------------------------------------------------
 // OFFaceRecord
@@ -935,15 +2184,15 @@ bool OFFaceRecord::read(std::istream &is, OFDatabase &oDB)
     Inherited::readVal  (is, iDetailTexIdx    );
     Inherited::readVal  (is, iTexIdx          );
     Inherited::readVal  (is, iMatIdx          );
-    Inherited::readVal  (is, iSurMatCode      );
+    Inherited::readVal  (is, iSurfMatCode     );
     Inherited::readVal  (is, iFeatureId       );
     Inherited::readVal  (is, iIRMatCode       );
-    Inherited::readVal  (is, uiTransparenct   );
+    Inherited::readVal  (is, uiTransparency   );
     Inherited::readVal  (is, uiLODGenControl  );
     Inherited::readVal  (is, uiLineStyle      );
     Inherited::readVal  (is, iFlags           );
     Inherited::readVal  (is, uiLightMode      );
-    Inherited::readChar8(is, szPad2, 7        ); 
+    Inherited::readChar8(is, szPad2, 7        );
     Inherited::readVal  (is, uiPackedPrimCol  );
     Inherited::readVal  (is, uiPackedAltCol   );
     Inherited::readVal  (is, iTexMapIdx       );
@@ -952,7 +2201,7 @@ bool OFFaceRecord::read(std::istream &is, OFDatabase &oDB)
     Inherited::readVal  (is, uiAltColIdx      );
     Inherited::readVal  (is, iPad4            );
     Inherited::readVal  (is, iShaderIdx       );
-    
+
     return is.good();
 }
 
@@ -969,21 +2218,21 @@ bool OFFaceRecord::addChild (OFRecord *pChild)
         {
             if(_pVList != NULL)
             {
-                fprintf(stderr, "strange vlist already set\n");
+                FWARNING(("OFFaceRecord::addChild: Vertex List already set.\n"));
             }
             else
             {
                 _pVList = dynamic_cast<OFVertexListRecord *>(pChild);
             }
-            
+
             break;
         }
-       
+
 
         default:
         {
-            fprintf(stderr, "OFFaceRecord : unknow child %hu\n",
-                    pChild->getOpCode());
+            FWARNING(("OFFaceRecord::addChild: Unknown child record "
+                      "[%hu].\n", pChild->getOpCode()));
         }
     }
 
@@ -1004,7 +2253,7 @@ void OFFaceRecord::dump(UInt32 uiIndent)
 {
     indentLog(uiIndent, PLOG);
     PLOG << "FaceRecord : " << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "{" << std::endl;
 
@@ -1019,20 +2268,22 @@ void OFFaceRecord::dump(UInt32 uiIndent)
     PLOG << "TexMapIdx    : " << iTexMapIdx << std::endl;
     indentLog(uiIndent, PLOG);
     PLOG << "MatIdx       : " << iMatIdx << std::endl;
+    indentLog(uiIndent, PLOG);
+    PLOG << "Transparency : " << uiTransparency << std::endl;
 
-    PLOG.setf (std::ios::hex, std::ios::basefield);   
+    PLOG.setf (std::ios::hex, std::ios::basefield);
 
     indentLog(uiIndent, PLOG);
     PLOG << "FullFlags : " << iFlags << std::endl;
 
-    PLOG.setf (std::ios::dec, std::ios::basefield);   
+    PLOG.setf (std::ios::dec, std::ios::basefield);
 
     indentLog(uiIndent, PLOG);
-    PLOG << "Flags : " 
-         << "(T : "   << ((iFlags & 0x80000000) >> 31) << ") " 
-         << "(NC : "  << ((iFlags & 0x40000000) >> 30) << ") " 
-         << "(NAC : " << ((iFlags & 0x20000000) >> 29) << ") " 
-         << "(PC  : " << ((iFlags & 0x10000000) >> 28) << ") " 
+    PLOG << "Flags : "
+         << "(T : "   << ((iFlags & 0x80000000) >> 31) << ") "
+         << "(NC : "  << ((iFlags & 0x40000000) >> 30) << ") "
+         << "(NAC : " << ((iFlags & 0x20000000) >> 29) << ") "
+         << "(PC  : " << ((iFlags & 0x10000000) >> 28) << ") "
          << std::endl;
 
     indentLog(uiIndent, PLOG);
@@ -1040,21 +2291,21 @@ void OFFaceRecord::dump(UInt32 uiIndent)
 
     if(uiLightMode == 0 || uiLightMode == 2)
     {
-        PLOG.setf (std::ios::hex, std::ios::basefield);   
+        PLOG.setf (std::ios::hex, std::ios::basefield);
 
         indentLog(uiIndent, PLOG);
         PLOG << "ColorPacked : " << uiPackedPrimCol << std::endl;
-        
+
         indentLog(uiIndent, PLOG);
-        PLOG << "Color    : B : " 
-             << (uiPackedPrimCol & 0x000000FF) 
-             << " G : " 
+        PLOG << "Color    : B : "
+             << (uiPackedPrimCol & 0x000000FF)
+             << " G : "
              << ((uiPackedPrimCol & 0x0000FF00) >> 8)
-             << " R : " 
+             << " R : "
              << ((uiPackedPrimCol & 0x00FF0000) >> 16)
              << std::endl;
-        
-        PLOG.setf (std::ios::dec, std::ios::basefield);   
+
+        PLOG.setf (std::ios::dec, std::ios::basefield);
 
         indentLog(uiIndent, PLOG);
         PLOG << "ColorIdx    : " << uiPrimColIdx << std::endl;
@@ -1068,7 +2319,8 @@ void OFFaceRecord::dump(UInt32 uiIndent)
 
 bool OFFaceRecord::operator ==(const OFFaceRecord &rhs) const
 {
-    bool returnValue = (iTextureWhite == rhs.iTextureWhite &&
+    bool returnValue = (iDrawType     == rhs.iDrawType     &&
+                        iTextureWhite == rhs.iTextureWhite &&
                         iTexIdx       == rhs.iTexIdx       &&
                         iMatIdx       == rhs.iMatIdx       &&
                         uiLightMode   == rhs.uiLightMode     );
@@ -1081,14 +2333,77 @@ bool OFFaceRecord::operator ==(const OFFaceRecord &rhs) const
     return returnValue;
 }
 
-UInt8 OFFaceRecord::getLightMode(void) const
+Int8 OFFaceRecord::getDrawType(void) const
 {
-    return uiLightMode;
+    return iDrawType;
+}
+
+Int8 OFFaceRecord::getTextureWhite(void) const
+{
+    return iTextureWhite;
 }
 
 Int16 OFFaceRecord::getTexIdx(void) const
 {
     return iTexIdx;
+}
+
+Int16 OFFaceRecord::getMatIdx(void) const
+{
+    return iMatIdx;
+}
+
+UInt16 OFFaceRecord::getTransparency(void) const
+{
+    return uiTransparency;
+}
+
+Int32 OFFaceRecord::getFlags(void) const
+{
+    return iFlags;
+}
+
+UInt8 OFFaceRecord::getLightMode(void) const
+{
+    return uiLightMode;
+}
+
+Color4f OFFaceRecord::getPrimColor(void) const
+{
+    Color4f returnValue;
+    
+    if((iFlags & FlagPackedColor) != 0)
+    {
+        returnValue[0] = ((uiPackedPrimCol & 0x00FF0000) >> 16) / 255.f;
+        returnValue[1] = ((uiPackedPrimCol & 0x0000FF00) >>  8) / 255.f;
+        returnValue[2] = ((uiPackedPrimCol & 0x000000FF)      ) / 255.f;
+        returnValue[3] = 1.f;
+    }
+    else if((iFlags & FlagNoColor) == 0)
+    {
+        // TODO lookup color in index
+    }
+    
+    return returnValue;
+}
+
+Color4f OFFaceRecord::getAltColor(void) const
+{
+    Color4f returnValue;
+    
+    if((iFlags & FlagPackedColor) != 0)
+    {
+        returnValue[0] = ((uiPackedAltCol & 0x00FF0000) >> 16) / 255.f;
+        returnValue[1] = ((uiPackedAltCol & 0x0000FF00) >>  8) / 255.f;
+        returnValue[2] = ((uiPackedAltCol & 0x000000FF)      ) / 255.f;
+        returnValue[3] = 1.f;
+    }
+    else if((iFlags & FlagNoColor) == 0)
+    {
+        // TODO lookup color in index
+    }
+    
+    return returnValue;
 }
 
 OFRecordFactoryBase::RegisterRecord OFFaceRecord::_regHelper(
@@ -1099,7 +2414,7 @@ OFRecordFactoryBase::RegisterRecord OFFaceRecord::_regHelper(
 //---------------------------------------------------------------------
 // OFVertexListRecord
 //---------------------------------------------------------------------
- 
+
 
 OFRecordTransitPtr OFVertexListRecord::create(const OFRecordHeader &oHeader)
 {
@@ -1144,27 +2459,28 @@ OFRecordFactoryBase::RegisterRecord OFVertexListRecord::_regHelper(
     OFVertexListRecord::OpCode);
 
 //---------------------------------------------------------------------
-// OFFaceContainerRecord
+// OFGeometryContainerRecord
 //---------------------------------------------------------------------
 
-OFFaceContainer::OFFaceContainer(const OFRecordHeader &oHeader) :
+OFGeometryContainer::OFGeometryContainer(const OFRecordHeader &oHeader) :
      Inherited   (oHeader),
-    _vFaces      (       )
+    _vFaces      (       ),
+    _vMeshes     (       )
 {
 }
 
-OFFaceContainer::~OFFaceContainer(void)
+OFGeometryContainer::~OFGeometryContainer(void)
 {
     for(UInt32 i = 0; i < _vFaces.size(); ++i)
     {
         _vFaces[i] = NULL;
     }
-    
+
     _vFaces.clear();
 }
 
-bool OFFaceContainer::addChild (OFRecord *pChild)
-{    
+bool OFGeometryContainer::addChild(OFRecord *pChild)
+{
     if(pChild == NULL)
     {
         return false;
@@ -1174,32 +2490,48 @@ bool OFFaceContainer::addChild (OFRecord *pChild)
 
     switch(pChild->getOpCode())
     {
-        case OFFaceRecord::OpCode:
-        {
-            _vFaces.push_back(dynamic_cast<OFFaceRecord *>(pChild));
+    case OFFaceRecord::OpCode:
+    {
+        _vFaces.push_back(dynamic_cast<OFFaceRecord *>(pChild));
 
-            returnValue = true;
+        returnValue = true;
 
-            break;
-        }
+        break;
+    }
 
-        default:
-        {
-            break;
-        }
+    case OFMeshRecord::OpCode:
+    {
+        _vMeshes.push_back(dynamic_cast<OFMeshRecord *>(pChild));
+
+        returnValue = true;
+        break;
+    }
+
+    case OFLocalVertexPoolRecord::OpCode:
+    {
+        _vMeshes.back()->addChild(pChild);
+
+        returnValue = true;
+        break;
+    }
+
+    default:
+    {
+        break;
+    }
     }
 
     return returnValue;
 }
 
-void OFFaceContainer::groupFaces(
+void OFGeometryContainer::groupFaces(
     std::vector< std::vector<OFFaceRecord *> > &vFaceGroups)
-{                                                           
+{
     if(_vFaces.size() == 0)
         return;
 
     vFaceGroups.clear();
-    
+
     std::vector<OFFaceRecord *> tmpVec;
     tmpVec.push_back(_vFaces[0]);
 
@@ -1222,13 +2554,13 @@ void OFFaceContainer::groupFaces(
         {
             tmpVec.clear();
             tmpVec.push_back(_vFaces[i]);
-            
+
             vFaceGroups.push_back(tmpVec);
         }
     }
 }
 
-NodeTransitPtr OFFaceContainer::convertFaceGroup(
+NodeTransitPtr OFGeometryContainer::convertFaceGroup(
     std::vector<OFFaceRecord *> &vFaceGroup,
     OFDatabase                  &oDB)
 {
@@ -1236,7 +2568,7 @@ NodeTransitPtr OFFaceContainer::convertFaceGroup(
 
     if(vFaceGroup.size() == 0)
         return returnValue;
-    
+
     typedef OFVertexPaletteRecord::VertexInfo VertexInfo;
 
                      returnValue = Node    ::create();
@@ -1255,18 +2587,18 @@ NodeTransitPtr OFFaceContainer::convertFaceGroup(
     GeoUInt32Property::StoredFieldType *pTI = NULL;
     GeoUInt32Property::StoredFieldType *pL  = lens ->editFieldPtr();
     GeoUInt8Property ::StoredFieldType *pT  = types->editFieldPtr();
-   
+
     const OFVertexPaletteRecord *pVertexPal = oDB.getVertexPalette();
 
     UInt32 uiNumValid;
 
     GeoPnt3fPropertyUnrecPtr  pnts  = GeoPnt3fProperty ::create();
-    GeoVec3fPropertyUnrecPtr  norms = NULL; 
-    GeoVec2fPropertyUnrecPtr  tex   = NULL; 
+    GeoVec3fPropertyUnrecPtr  norms = NULL;
+    GeoVec2fPropertyUnrecPtr  tex   = NULL;
 
     GeoPnt3fProperty::StoredFieldType *pPos  = pnts ->editFieldPtr();
-    GeoVec3fProperty::StoredFieldType *pNorm = NULL; 
-    GeoVec2fProperty::StoredFieldType *pTX   = NULL; 
+    GeoVec3fProperty::StoredFieldType *pNorm = NULL;
+    GeoVec2fProperty::StoredFieldType *pTX   = NULL;
 
     UInt16 uiVertexType;
     bool   bSingleIdx  = true;
@@ -1274,7 +2606,7 @@ NodeTransitPtr OFFaceContainer::convertFaceGroup(
     for(UInt32 i = 0; i < vFaceGroup.size(); ++i)
     {
         OFVertexListRecord *pVList = vFaceGroup[i]->getVertexList();
-        
+
         if(pVList != NULL)
         {
             const std::vector<Int32> &vIndices = pVList->getIndices();
@@ -1283,7 +2615,7 @@ NodeTransitPtr OFFaceContainer::convertFaceGroup(
 
             for(UInt32 j = 0; j < vIndices.size(); ++j)
             {
-                const VertexInfo *vInfo = 
+                const VertexInfo *vInfo =
                     pVertexPal->getVertexInfo(vIndices[j]);
 
                 if(vInfo != NULL)
@@ -1314,24 +2646,25 @@ NodeTransitPtr OFFaceContainer::convertFaceGroup(
 
                     if(uiVertexType != vInfo->uiType)
                     {
-                        fprintf(stderr, "Found different vtypes\n");
+                        FWARNING(("OFGeometryContainer::convertFaceGroup: "
+                                  "Found different vtypes\n"));
                         break;
                     }
 
-                    UInt32 uiPosIdx = 
+                    UInt32 uiPosIdx =
                         vInfo->uiIdx[OFVertexPaletteRecord::PosIdx];
 
                     pPI->push_back(pPos->size());
 
                     pPos->push_back(pVertexPal->getPos(uiPosIdx));
-                    
+
                     if(uiVertexType & OFVertexPaletteRecord::HasNorm)
                     {
-                        UInt32 uiNormIdx = 
+                        UInt32 uiNormIdx =
                             vInfo->uiIdx[OFVertexPaletteRecord::NormIdx];
 
                         pNI->push_back(pNorm->size());
-                        
+
                         pNorm->push_back(pVertexPal->getNormal(uiNormIdx));
 
                         if(uiNormIdx != uiPosIdx)
@@ -1342,11 +2675,11 @@ NodeTransitPtr OFFaceContainer::convertFaceGroup(
 
                     if(uiVertexType & OFVertexPaletteRecord::HasTexCoord)
                     {
-                        UInt32 uiTXIdx = 
+                        UInt32 uiTXIdx =
                             vInfo->uiIdx[OFVertexPaletteRecord::TexCoordIdx];
 
                         pTI->push_back(pTX->size());
-                        
+
                         pTX->push_back(pVertexPal->getTexCoord(uiTXIdx));
 
                         if(uiTXIdx != uiPosIdx)
@@ -1363,7 +2696,7 @@ NodeTransitPtr OFFaceContainer::convertFaceGroup(
             pT->push_back(GL_POLYGON);
         }
     }
-    
+
     pGeo->setIndex   (pindex, Geometry::PositionsIndex);
     pGeo->setProperty(pnts,   Geometry::PositionsIndex);
 
@@ -1398,58 +2731,183 @@ NodeTransitPtr OFFaceContainer::convertFaceGroup(
     pGeo->setTypes   (types                           );
     pGeo->setLengths (lens                            );
 
-    const OFTexturePaletteRecord *pTexRec   = NULL;
-          ChunkMaterialUnrecPtr   pChunkMat = ChunkMaterial::create();
+    ChunkMaterialUnrecPtr pChunkMat = ChunkMaterial::create();
     
-    if(vFaceGroup[0]->getLightMode() == 0 || vFaceGroup[0]->getLightMode() == 2)
+    if(vFaceGroup[0]->getTextureWhite() &&
+       vFaceGroup[0]->getTexIdx      () != -1)
     {
         MaterialChunkUnrecPtr pMatChunk = MaterialChunk::create();
-
-        Color4f oCol(1.f, 1.f, 1.f, 1.f);
-
-        pMatChunk->setDiffuse(oCol);
-
+        Color4f               colDiffuse(1.f, 1.f, 1.f, 1.f);
+        
+        pMatChunk->setDiffuse(colDiffuse);
+        
         pChunkMat->addChunk(pMatChunk);
     }
-    else
+    else if(vFaceGroup[0]->getMatIdx() != -1)
     {
-        fprintf(stderr, "Unsupported lightmode\n");
-    }
-
-    if(vFaceGroup[0]->getLightMode() == 2 || vFaceGroup[0]->getLightMode() == 3)
-    {
-//        fprintf(stderr, "%p %p\n", pNI, pNorm);
-
-        if(pNI == NULL && pNorm == NULL)
+        const OFMaterialPaletteRecord *pMatRec   =
+            oDB.getMatRecord(vFaceGroup[0]->getMatIdx());
+        
+        if(pMatRec != NULL)
         {
-            calcVertexNormals(pGeo);
+            MaterialChunkUnrecPtr      pMatChunk = MaterialChunk::create();
+            
+            if((vFaceGroup[0]->getFlags() & FlagNoColor) != 0)
+            {
+                // use material only
+                Color4f colMat;
+
+                pMatChunk->setAmbient(pMatRec->getAmbient());
+                
+                colMat    = pMatRec->getDiffuse();
+                colMat[3] = pMatRec->getAlpha() * (1.f - (vFaceGroup[0]->getTransparency() / 65535.f));
+                pMatChunk->setDiffuse(colMat);
+                
+                pMatChunk->setSpecular (pMatRec->getSpecular ());
+                pMatChunk->setShininess(pMatRec->getShininess());
+                pMatChunk->setEmission (pMatRec->getEmissive ());
+                
+                pChunkMat->addChunk(pMatChunk);
+            }
+            else if((vFaceGroup[0]->getFlags() & FlagPackedColor) != 0)
+            {
+                // use uiPackedPrimCol and material
+                Color4f colGeo;
+                Color4f colMat;
+                
+                colGeo    = vFaceGroup[0]->getPrimColor();
+                
+                colMat    = pMatRec->getAmbient();
+                colMat[0] = colMat[0] * colGeo[0];
+                colMat[1] = colMat[1] * colGeo[1];
+                colMat[2] = colMat[2] * colGeo[2];
+                
+                pMatChunk->setAmbient(colMat);
+                
+                colMat    = pMatRec->getDiffuse();
+                colMat[0] = colMat[0] * colGeo[0];
+                colMat[1] = colMat[1] * colGeo[1];
+                colMat[2] = colMat[2] * colGeo[2];
+                colMat[3] = pMatRec->getAlpha() * (1.f - (vFaceGroup[0]->getTransparency() / 65535.f));
+                
+                SLOG << "OFGeometryContainer::convertFaceGroup: "
+                        << "PC pMatRec->getAlpha() [" << pMatRec->getAlpha()
+                        << "] Transparency [" << vFaceGroup[0]->getTransparency()
+                        << "] colMat[3] [" << colMat[3] << "]" << std::endl;
+                
+                pMatChunk->setDiffuse  (colMat                 );
+                pMatChunk->setSpecular (pMatRec->getSpecular ());
+                pMatChunk->setShininess(pMatRec->getShininess());
+                pMatChunk->setEmission (pMatRec->getEmissive ());
+                
+                pChunkMat->addChunk(pMatChunk);
+            }
+            else
+            {
+                // TODO: use uiPrimColIdx
+            }
+            
+            if(pMatChunk->isTransparent() &&
+               pChunkMat->find(BlendChunk::getClassType()) == NULL)
+            {
+                BlendChunkUnrecPtr pBlendChunk = BlendChunk::create();
+
+                pBlendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                pBlendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                pChunkMat->addChunk(pBlendChunk);
+            }
         }
     }
-
+    
     if(vFaceGroup[0]->getTexIdx() != -1)
     {
-        pTexRec = oDB.getTexRecord(vFaceGroup[0]->getTexIdx());
-        
+        const OFTexturePaletteRecord *pTexRec =
+            oDB.getTexRecord(vFaceGroup[0]->getTexIdx());
+
         if(pTexRec != NULL)
         {
             TextureObjChunk *pTexObj = pTexRec->getTexObj();
 
             if(pTexObj != NULL)
+            {
                 pChunkMat->addChunk(pTexObj);
+
+                if(pTexObj->getImage()->hasAlphaChannel() &&
+                   pChunkMat->find(BlendChunk::getClassType()) == NULL)
+                {
+                    BlendChunkUnrecPtr pBlendChunk = BlendChunk::create();
+
+                    pBlendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                    pBlendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                    pChunkMat->addChunk(pBlendChunk);
+                }
+            }
         }
         else
         {
-            fprintf(stderr, "error no texrec for index %d\n",
-                    vFaceGroup[0]->getTexIdx());
+            FFATAL(("OFGeometryContainer::convertFaceGroup: "
+                    "No texture record for index [%d].\n", vFaceGroup[0]->getTexIdx()));
         }
     }
+    
+    if(vFaceGroup[0]->getLightMode() == LMMeshColor ||
+       vFaceGroup[0]->getLightMode() == LMMeshColorLit )
+    {
+        pGeo->setProperty(NULL, Geometry::ColorsIndex);
+        pGeo->setIndex   (NULL, Geometry::ColorsIndex);
+    }
+    
+    if(vFaceGroup[0]->getLightMode() == LMMeshColorLit ||
+       vFaceGroup[0]->getLightMode() == LMVertexColorLit )
+    {
+        if(pGeo->getProperty(Geometry::NormalsIndex) == NULL)
+            calcVertexNormals(pGeo);
+    }
+    
+    switch(vFaceGroup[0]->getDrawType())
+    {
+        case DTSolidCullBack:
+        {
+            PolygonChunkUnrecPtr pPolyChunk = PolygonChunk::create();
+            pPolyChunk->setCullFace(GL_BACK);
 
+            pChunkMat->addChunk(pPolyChunk);
+            break;
+        }
+
+        case DTSolid:
+        {
+        // nothing to do
+            break;
+        }
+
+        case DTWireframeClosed:
+        case DTWireframe:
+        {
+            PolygonChunkUnrecPtr pPolyChunk = PolygonChunk::create();
+            pPolyChunk->setFrontMode(GL_LINE);
+            pPolyChunk->setBackMode (GL_LINE);
+
+            pChunkMat->addChunk(pPolyChunk);
+            break;
+        }
+
+        default:
+        {
+            FWARNING(("OFMeshRecord::convertToNode: Unhandled draw "
+                      "type [%d].\n", vFaceGroup[0]->getDrawType()));
+            break;
+        }
+    }
+    
     pGeo->setMaterial(pChunkMat);
 
     return returnValue;
 }
 
-NodeTransitPtr OFFaceContainer::convertFaces(OFDatabase &oDB)
+NodeTransitPtr OFGeometryContainer::convertGeometry(OFDatabase &oDB)
 {
     NodeTransitPtr returnValue(NULL);
 
@@ -1457,13 +2915,15 @@ NodeTransitPtr OFFaceContainer::convertFaces(OFDatabase &oDB)
 
     groupFaces(vFaceGroups);
 
-//    fprintf(stderr, "Got %d facegroups\n", vFaceGroups.size());
-
-    if(vFaceGroups.size() == 1)
+    if(vFaceGroups.size() == 1 && _vMeshes.size() == 0)
     {
         returnValue = convertFaceGroup(vFaceGroups[0], oDB);
     }
-    else if(vFaceGroups.size() > 1)
+    else if(vFaceGroups.size() == 0 && _vMeshes.size() == 1)
+    {
+        returnValue = _vMeshes[0]->convertToNode(oDB);
+    }
+    else if(vFaceGroups.size() > 0 || _vMeshes.size() > 0)
     {
         returnValue = Node::create();
         returnValue->setCore(Group::create());
@@ -1472,16 +2932,21 @@ NodeTransitPtr OFFaceContainer::convertFaces(OFDatabase &oDB)
         {
             returnValue->addChild(convertFaceGroup(vFaceGroups[i], oDB));
         }
+
+        for(UInt32 i = 0; i < _vMeshes.size(); ++i)
+        {
+            returnValue->addChild(_vMeshes[i]->convertToNode(oDB));
+        }
     }
 
     return returnValue;
 }
 
-void OFFaceContainer::dump(UInt32 uiIndent)
+void OFGeometryContainer::dump(UInt32 uiIndent)
 {
     indentLog(uiIndent, PLOG);
     PLOG << "#NumFaces : " << _vFaces.size() << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "[" << std::endl;
 
@@ -1495,6 +2960,24 @@ void OFFaceContainer::dump(UInt32 uiIndent)
 
     uiIndent -= 2;
 #endif
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "]" << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "#NumMeshes : " << _vMeshes.size() << std::endl;
+
+    indentLog(uiIndent, PLOG);
+    PLOG << "[" << std::endl;
+
+    uiIndent += 2;
+
+    for(UInt32 i = 0; i < _vMeshes.size(); ++i)
+    {
+        _vMeshes[i]->dump(uiIndent);
+    }
+
+    uiIndent -= 2;
 
     indentLog(uiIndent, PLOG);
     PLOG << "]" << std::endl;
@@ -1517,12 +3000,12 @@ OFGroupingRecord::~OFGroupingRecord(void)
     {
         _vChildren[i] = NULL;
     }
-    
+
     _vChildren.clear();
 }
 
 bool OFGroupingRecord::addChild (OFRecord *pChild)
-{    
+{
     if(pChild == NULL)
     {
         return false;
@@ -1542,7 +3025,7 @@ void OFGroupingRecord::dump(UInt32 uiIndent)
 {
     indentLog(uiIndent, PLOG);
     PLOG << "#NumChildren : " << _vChildren.size() << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "[" << std::endl;
 
@@ -1565,7 +3048,7 @@ NodeTransitPtr OFGroupingRecord::convertToNode(OFDatabase &oDB)
 {
     NodeTransitPtr returnValue(NULL);
 
-    if(_vChildren.size() != 0 || _vFaces.size() != 0)
+    if(_vChildren.size() != 0 || _vFaces.size() != 0 || _vMeshes.size() != 0)
     {
         returnValue = Node::create();
 
@@ -1575,7 +3058,7 @@ NodeTransitPtr OFGroupingRecord::convertToNode(OFDatabase &oDB)
     {
         return returnValue;
     }
-    
+
     if(_vChildren.size() != 0)
     {
         NodeTransitPtr pChild;
@@ -1591,9 +3074,9 @@ NodeTransitPtr OFGroupingRecord::convertToNode(OFDatabase &oDB)
         }
     }
 
-    if(_vFaces.size() != 0)
+    if(_vFaces.size() > 0 || _vMeshes.size() > 0)
     {
-        returnValue->addChild(convertFaces(oDB));
+        returnValue->addChild(convertGeometry(oDB));
     }
 
     return returnValue;
@@ -1750,9 +3233,9 @@ NodeTransitPtr OFLODRecord::convertToNode(OFDatabase &oDB)
         }
     }
 
-    if(_vFaces.size() != 0)
+    if(_vFaces.size() > 0 || _vMeshes.size() > 0)
     {
-        returnValue->addChild(convertFaces(oDB));
+        returnValue->addChild(convertGeometry(oDB));
     }
 
     return returnValue;
@@ -1845,13 +3328,13 @@ void OFSwitchRecord::dump(UInt32 uiIndent)
     indentLog(uiIndent, PLOG);
     PLOG << "iMaskWords : " << iMaskWords << std::endl;
 
-    PLOG.setf (std::ios::hex, std::ios::basefield);   
+    PLOG.setf (std::ios::hex, std::ios::basefield);
 
     for(UInt32 i = 0; i < iNumMask; ++i)
     {
         indentLog(uiIndent, PLOG);
         PLOG << "Mask[" << i << "] : ";
-        
+
         for(UInt32 j = 0; j < iMaskWords; ++j)
         {
             PLOG << vMask[i][j] << " ";
@@ -1859,7 +3342,7 @@ void OFSwitchRecord::dump(UInt32 uiIndent)
         PLOG << std::endl;
     }
 
-    PLOG.setf(std::ios::dec, std::ios::basefield);            
+    PLOG.setf(std::ios::dec, std::ios::basefield);
 
     uiIndent -= 2;
 
@@ -1873,7 +3356,7 @@ NodeTransitPtr OFSwitchRecord::convertToNode(OFDatabase &oDB)
 {
     NodeTransitPtr returnValue(NULL);
 
-    if(_vChildren.size() != 0 || _vFaces.size() != 0)
+    if(_vChildren.size() != 0 || _vFaces.size() != 0 || _vMeshes.size() != 0)
     {
         returnValue         = Node ::create();
         GroupUnrecPtr pCore = Group::create();
@@ -1900,14 +3383,14 @@ NodeTransitPtr OFSwitchRecord::convertToNode(OFDatabase &oDB)
 
             if(pChild != NULL)
             {
-//                returnValue->addChild(pChild);
+                returnValue->addChild(pChild);
             }
         }
     }
 
-    if(_vFaces.size() != 0)
+    if(_vFaces.size() > 0 || _vMeshes.size() > 0)
     {
-        returnValue->addChild(convertFaces(oDB));
+        returnValue->addChild(convertGeometry(oDB));
     }
 
     return returnValue;
@@ -1945,7 +3428,7 @@ OFObjectRecord::~OFObjectRecord(void)
 }
 
 bool OFObjectRecord::addChild (OFRecord *pChild)
-{    
+{
     if(pChild == NULL)
     {
         return false;
@@ -1974,7 +3457,7 @@ void OFObjectRecord::dump(UInt32 uiIndent)
 
     indentLog(uiIndent, PLOG);
     PLOG << "#NumChildren : " << _vChildren.size() << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "[" << std::endl;
 
@@ -2007,7 +3490,7 @@ UInt16 OFObjectRecord::getOpCode(void)
 
 NodeTransitPtr OFObjectRecord::convertToNode(OFDatabase &oDB)
 {
-    return Inherited::convertFaces(oDB);
+    return Inherited::convertGeometry(oDB);
 }
 
 OFRecordFactoryBase::RegisterRecord OFObjectRecord::_regHelper(
@@ -2056,7 +3539,7 @@ void OFExternalReferenceRecord::dump(UInt32 uiIndent)
 {
     indentLog(uiIndent, PLOG);
     PLOG << "ExternalReference : " << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "{" << std::endl;
 
@@ -2065,23 +3548,23 @@ void OFExternalReferenceRecord::dump(UInt32 uiIndent)
     indentLog(uiIndent, PLOG);
     PLOG << "Filename : " << szFilename << std::endl;
 
-    PLOG.setf (std::ios::hex, std::ios::basefield);   
+    PLOG.setf (std::ios::hex, std::ios::basefield);
 
     indentLog(uiIndent, PLOG);
     PLOG << "FullFlags : " << iFlags << std::endl;
 
-    PLOG.setf (std::ios::dec, std::ios::basefield);   
+    PLOG.setf (std::ios::dec, std::ios::basefield);
 
     indentLog(uiIndent, PLOG);
-    PLOG << "Flags : " 
-         << "(CP : "  << ((iFlags & 0x80000000) >> 31) << ") " 
-         << "(MP : "  << ((iFlags & 0x40000000) >> 30) << ") " 
-         << "(TP : "  << ((iFlags & 0x20000000) >> 29) << ") " 
-         << "(LP : "  << ((iFlags & 0x10000000) >> 28) << ") " 
-         << "(SP : "  << ((iFlags & 0x08000000) >> 27) << ") " 
-         << "(LSP : " << ((iFlags & 0x04000000) >> 26) << ") " 
-         << "(LPP : " << ((iFlags & 0x02000000) >> 25) << ") " 
-         << "(SHP : " << ((iFlags & 0x01000000) >> 24) << ") " 
+    PLOG << "Flags : "
+         << "(CP : "  << ((iFlags & 0x80000000) >> 31) << ") "
+         << "(MP : "  << ((iFlags & 0x40000000) >> 30) << ") "
+         << "(TP : "  << ((iFlags & 0x20000000) >> 29) << ") "
+         << "(LP : "  << ((iFlags & 0x10000000) >> 28) << ") "
+         << "(SP : "  << ((iFlags & 0x08000000) >> 27) << ") "
+         << "(LSP : " << ((iFlags & 0x04000000) >> 26) << ") "
+         << "(LPP : " << ((iFlags & 0x02000000) >> 25) << ") "
+         << "(SHP : " << ((iFlags & 0x01000000) >> 24) << ") "
          << std::endl;
 
     uiIndent -= 2;
@@ -2102,8 +3585,8 @@ NodeTransitPtr OFExternalReferenceRecord::convertToNode(OFDatabase &oDB)
 
         if(szFilenameResolved.empty() == true)
         {
-            fprintf(stderr, "Could not find data file %s\n",
-                    szFilename);
+            FWARNING(("OFExternalReferenceRecord::convertToNode: Could not "
+                      "find file [%s].\n", szFilename));
 
             return returnValue;
         }
@@ -2116,16 +3599,16 @@ NodeTransitPtr OFExternalReferenceRecord::convertToNode(OFDatabase &oDB)
 
         is.open(szFilenameResolved.c_str(), std::ios::binary);
 
-        returnValue = 
+        returnValue =
             OpenFlightSceneFileType::the().read(is,
                                                 szFilenameResolved.c_str());
-        
+
         pHandler->popState();
 
     }
     else
     {
-        fprintf(stderr, "No handler\n");
+        FFATAL(("OFExternalReferenceRecord::convertToNode: No PathHandler.\n"));
     }
 
     return returnValue;
@@ -2134,7 +3617,5 @@ NodeTransitPtr OFExternalReferenceRecord::convertToNode(OFDatabase &oDB)
 OFRecordFactoryBase::RegisterRecord OFExternalReferenceRecord::_regHelper(
     &OFExternalReferenceRecord::create,
     OFExternalReferenceRecord::OpCode);
-
-
 
 OSG_END_NAMESPACE

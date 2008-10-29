@@ -43,6 +43,8 @@ bool OFDatabase::read(std::istream &is)
 
     OFRecordRCPtr pCurr = NULL;
 
+    UInt32 uiIndent = 0;
+    
     while(returnValue == true)
     {
         returnValue = oRHeader.read(is);
@@ -51,6 +53,8 @@ bool OFDatabase::read(std::istream &is)
         {
             if(oRHeader.sOpCode == OFPushLevelOC)
             {
+                uiIndent += 2;
+                
                 if(_sRecords.empty() == true)
                 {
                     _sRecords.push(_pHeader);
@@ -62,12 +66,32 @@ bool OFDatabase::read(std::istream &is)
             }
             else if(oRHeader.sOpCode == OFPopLevelOC)
             {
+                uiIndent -= 2;
+                
                 _sRecords.pop();
+            }
+            else if(oRHeader.sOpCode == OFContinuationOC)
+            {
+                if(pCurr != NULL)
+                {
+                    pCurr->readContinue(is, *this, oRHeader.sLength - 4);
+                }
+                else
+                {
+                    FWARNING(("OFDatabase::read: Found ContinuationRecord, "
+                              "without preceding record.\n"))
+                }
             }
             else
             {
                 pCurr = OFRecordFactory::the()->createRecord(oRHeader);
 
+                indentLog(uiIndent, PLOG);
+                PLOG << "OFDatabase::read: Record ["
+                     << pCurr->getOpCode() << " - "
+                     << pCurr->findDesc(pCurr->getOpCode()) 
+                     << "]" << std::endl;
+                
                 if(pCurr != NULL)
                 {
                     returnValue = pCurr->read(is, *this);
@@ -107,7 +131,7 @@ bool OFDatabase::read(std::istream &is)
 
     if(_sRecords.empty() != true)
     {
-        fprintf(stderr, "Stack finally screwed\n");
+        FWARNING(("OFDatabase::read: Record stack inconsistent.\n"));
     }
 
 //    fprintf(stderr, "finished OpenFlight %d\n", returnValue);
@@ -122,7 +146,7 @@ NodeTransitPtr OFDatabase::convert(void)
     if(_pHeader == NULL)
         return returnValue;
 
-//    _pHeader->dump(0);
+   _pHeader->dump(0);
 
     returnValue = _pHeader->convertToNode(*this);
 
@@ -144,5 +168,14 @@ const OFTexturePaletteRecord *OFDatabase::getTexRecord(UInt32 uiIdx)
    
     return _pHeader->getTexRecord(uiIdx);
 }
+
+const OFMaterialPaletteRecord *OFDatabase::getMatRecord(UInt32 uiIdx)
+{
+    if(_pHeader == NULL)
+        return NULL;
+    
+    return _pHeader->getMatRecord(uiIdx);
+}
+
 
 OSG_END_NAMESPACE
