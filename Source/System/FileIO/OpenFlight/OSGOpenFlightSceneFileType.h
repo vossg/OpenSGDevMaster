@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 #ifndef _OSGOPENFLIGHTSCENEFILETYPE_H_
-#define _OSGOPENFLIGHTCENEFILETYPE_H_
+#define _OSGOPENFLIGHTSCENEFILETYPE_H_
 #ifdef __sgi
 #pragma once
 #endif

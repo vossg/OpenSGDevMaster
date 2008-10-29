@@ -1,3 +1,40 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
 
 #include "OSGOFRecords.h"
 
@@ -512,7 +549,7 @@ void OFMaterialPalette::addRecord(OFMaterialPaletteRecord *pMat)
     if(pMat != NULL)
     {
         MaterialStoreIt mIt = _mMaterials.find(pMat->getMaterialIdx());
-        
+
         if(mIt == _mMaterials.end())
         {
             _mMaterials[pMat->getMaterialIdx()] = pMat;
@@ -528,14 +565,14 @@ void OFMaterialPalette::addRecord(OFMaterialPaletteRecord *pMat)
 const OFMaterialPaletteRecord *OFMaterialPalette::getRecord(Int32 uiId)
 {
     const OFMaterialPaletteRecord *returnValue = NULL;
-    
+
     MaterialStoreIt mIt = _mMaterials.find(uiId);
-    
+
     if(mIt != _mMaterials.end())
     {
         returnValue = mIt->second;
     }
-    
+
     return returnValue;
 }
 
@@ -543,20 +580,20 @@ void OFMaterialPalette::dump(UInt32 uiIndent)
 {
     indentLog(uiIndent, PLOG);
     PLOG << "MaterialPalette : " << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "{" << std::endl;
-    
+
     uiIndent += 2;
-    
+
     MaterialStoreIt mIt  = _mMaterials.begin();
     MaterialStoreIt mEnd = _mMaterials.end  ();
-    
+
     for(; mIt != mEnd; ++mIt)
         mIt->second->dump(uiIndent);
-    
+
     uiIndent -= 2;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "}" << std::endl;
 }
@@ -642,7 +679,7 @@ bool OFHeaderRecord::addChild(OFRecord *pChild)
 
             break;
         }
-        
+
         case OFMaterialPaletteRecord::OpCode:
         {
             _pMaterialPal->addRecord(
@@ -1160,38 +1197,38 @@ void OFMaterialPaletteRecord::dump(UInt32 uiIndent)
 {
     indentLog(uiIndent, PLOG);
     PLOG << "OFMaterialPaletteRecord : " << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "{" << std::endl;
-    
+
     uiIndent += 2;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "MaterialIdx : " << iMaterialIdx << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "MaterialName : " << szMaterialName << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "ColAmbient : " << colAmbient << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "ColDiffuse : " << colDiffuse << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "ColSpecular : " << colSpecular << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "ColEmissive : " << colEmissive << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "Shininess : " << fShininess << std::endl;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "Alpha : " << fAlpha << std::endl;
-    
+
     uiIndent -= 2;
-    
+
     indentLog(uiIndent, PLOG);
     PLOG << "}" << std::endl;
 }
@@ -1522,25 +1559,25 @@ bool OFLocalVertexPoolRecord::addChild(OFRecord *pChild)
             _vTriStrips.push_back(pPrim);
             break;
         }
-        
+
         case OFMeshPrimitiveRecord::PTTriFan:
         {
             _vTriFans.push_back(pPrim);
             break;
         }
-        
+
         case OFMeshPrimitiveRecord::PTQuadStrip:
         {
             _vQuadStrips.push_back(pPrim);
             break;
         }
-        
+
         case OFMeshPrimitiveRecord::PTPolygon:
         {
             _vPolygons.push_back(pPrim);
             break;
         }
-        
+
         default:
         {
             FWARNING(("OFMeshRecord::addChild: Unexpected primitive type [%u] "
@@ -1616,16 +1653,16 @@ void OFLocalVertexPoolRecord::dump(UInt32 uiIndent)
 
     for(UInt32 i = 0; i < _vTriStrips.size(); ++i)
         _vTriStrips[i]->dump(uiIndent);
-    
+
     for(UInt32 i = 0; i < _vTriFans.size(); ++i)
         _vTriFans[i]->dump(uiIndent);
-    
+
     for(UInt32 i = 0; i < _vQuadStrips.size(); ++i)
         _vQuadStrips[i]->dump(uiIndent);
 
     for(UInt32 i = 0; i < _vPolygons.size(); ++i)
         _vPolygons[i]->dump(uiIndent);
-    
+
     uiIndent -= 2;
 
     indentLog(uiIndent, PLOG);
@@ -1636,51 +1673,51 @@ void OFLocalVertexPoolRecord::convertPrimitives(
         OFDatabase &oDB, Geometry *pGeo)
 {
     GeoUInt32PropertyUnrecPtr pInd = GeoUInt32Property::create();
-    
+
     for(UInt32 i = 0; i < _vTriStrips.size(); ++i)
     {
         pGeo->getTypes  ()->push_back(GL_TRIANGLE_STRIP            );
         pGeo->getLengths()->push_back(_vTriStrips[i]->uiVertexCount);
-        
+
         for(UInt32 j = 0; j < _vTriStrips[i]->_vIndices.size(); ++j)
         {
             pInd->push_back(_vTriStrips[i]->_vIndices[j]);
         }
     }
-    
+
     for(UInt32 i = 0; i < _vTriFans.size(); ++i)
     {
         pGeo->getTypes  ()->push_back(GL_TRIANGLE_FAN            );
         pGeo->getLengths()->push_back(_vTriFans[i]->uiVertexCount);
-        
+
         for(UInt32 j = 0; j < _vTriFans[i]->_vIndices.size(); ++j)
         {
             pInd->push_back(_vTriFans[i]->_vIndices[j]);
         }
     }
-    
+
     for(UInt32 i = 0; i < _vQuadStrips.size(); ++i)
     {
         pGeo->getTypes  ()->push_back(GL_QUAD_STRIP                 );
         pGeo->getLengths()->push_back(_vQuadStrips[i]->uiVertexCount);
-        
+
         for(UInt32 j = 0; j < _vQuadStrips[i]->_vIndices.size(); ++j)
         {
             pInd->push_back(_vQuadStrips[i]->_vIndices[j]);
         }
     }
-    
+
     for(UInt32 i = 0; i < _vPolygons.size(); ++i)
     {
         pGeo->getTypes  ()->push_back(GL_POLYGON                  );
         pGeo->getLengths()->push_back(_vPolygons[i]->uiVertexCount);
-        
+
         for(UInt32 j = 0; j < _vPolygons[i]->_vIndices.size(); ++j)
         {
             pInd->push_back(_vPolygons[i]->_vIndices[j]);
         }
     }
-    
+
     if((uiAttribMask & AMHasPosition) != 0)
     {
         pGeo->setProperty(_pPositions, Geometry::PositionsIndex);
@@ -1944,7 +1981,7 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
     }
 
     SLOG << "OFMeshRecord::convertToNode: ASCIIId [" << szASCIIId << "]" << std::endl;
-    
+
                               returnValue = Node             ::create();
     GeometryUnrecPtr          pGeo        = Geometry         ::create();
     GeoUInt8PropertyUnrecPtr  pTypes      = GeoUInt8Property ::create();
@@ -1956,93 +1993,93 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
     returnValue->setCore(pGeo);
 
     _pVertexPool->convertPrimitives(oDB, pGeo);
-    
+
     ChunkMaterialUnrecPtr pChunkMat = ChunkMaterial::create();
-    
+
     if(iTextureWhite && iTexIdx != -1)
     {
         MaterialChunkUnrecPtr pMatChunk = MaterialChunk::create();
         Color4f               colDiffuse(1.f, 1.f, 1.f, 1.f);
-        
+
         pMatChunk->setDiffuse(colDiffuse);
-        
+
         pChunkMat->addChunk(pMatChunk);
     }
     else if(iMatIdx != -1)
     {
         const OFMaterialPaletteRecord *pMatRec   = oDB.getMatRecord(iMatIdx);
-        
+
         if(pMatRec != NULL)
         {
             MaterialChunkUnrecPtr      pMatChunk = MaterialChunk::create();
-            
+
             if((iFlags & FlagNoColor) != 0)
             {
                 // use material only
                 Color4f colMat;
 
                 pMatChunk->setAmbient(pMatRec->getAmbient());
-                
+
                 colMat    = pMatRec->getDiffuse();
                 colMat[3] = pMatRec->getAlpha() * (1.f - (uiTransparency / 65535.f));
                 pMatChunk->setDiffuse(colMat);
-                
+
                 pMatChunk->setSpecular (pMatRec->getSpecular ());
                 pMatChunk->setShininess(pMatRec->getShininess());
                 pMatChunk->setEmission (pMatRec->getEmissive ());
-                
+
                 pChunkMat->addChunk(pMatChunk);
             }
             else if((iFlags & FlagPackedColor) != 0)
             {
                 SLOG << "OFMeshRecord::convertToNode: PC ";
-                
+
                 // use uiPackedPrimCol and material
                 Color4f colGeo;
                 Color4f colMat;
-                
+
                 colGeo[0] = ((uiPackedPrimCol & 0x00FF0000) >> 16) / 255.f;
                 colGeo[1] = ((uiPackedPrimCol & 0x0000FF00) >>  8) / 255.f;
                 colGeo[2] = ((uiPackedPrimCol & 0x000000FF)      ) / 255.f;
                 colGeo[3] = 1.f;
-                
+
                 colMat    = pMatRec->getAmbient();
                 colMat[0] = colMat[0] * colGeo[0];
                 colMat[1] = colMat[1] * colGeo[1];
                 colMat[2] = colMat[2] * colGeo[2];
-                
+
                 pMatChunk->setAmbient(colMat);
-                
+
                 PLOG << "colAmbient [" << colMat << "] ";
-                
+
                 colMat    = pMatRec->getDiffuse();
                 colMat[0] = colMat[0] * colGeo[0];
                 colMat[1] = colMat[1] * colGeo[1];
                 colMat[2] = colMat[2] * colGeo[2];
                 colMat[3] = pMatRec->getAlpha() * (1.f - (uiTransparency / 65535.f));
-                
+
                 PLOG << "colDiffuse [" << colMat << "] "
                      << "pMatRec->getAlpha() [" << pMatRec->getAlpha()
                      << "] uiTransparency [" << uiTransparency << "]"
                      << std::endl;
-                
+
                 pMatChunk->setDiffuse  (colMat                 );
                 pMatChunk->setSpecular (pMatRec->getSpecular ());
                 pMatChunk->setShininess(pMatRec->getShininess());
                 pMatChunk->setEmission (pMatRec->getEmissive ());
-                
+
                 pChunkMat->addChunk(pMatChunk);
             }
             else
             {
                 // TODO: use uiPrimColIdx
             }
-            
+
             if(pMatChunk->isTransparent() &&
                pChunkMat->find(BlendChunk::getClassType()) == NULL)
             {
                 SLOG << "OFMeshRecord::convertToNode: adding BlendChunk for Material" << std::endl;
-                
+
                 BlendChunkUnrecPtr pBlendChunk = BlendChunk::create();
 
                 pBlendChunk->setSrcFactor (GL_SRC_ALPHA          );
@@ -2052,7 +2089,7 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
             }
         }
     }
-    
+
     if(iTexIdx != -1)
     {
         const OFTexturePaletteRecord *pTexRec = oDB.getTexRecord(iTexIdx);
@@ -2069,7 +2106,7 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
                    pChunkMat->find(BlendChunk::getClassType()) == NULL)
                 {
                     SLOG << "OFMeshRecord::convertToNode: adding BlendChunk for Texture" << std::endl;
-                    
+
                     BlendChunkUnrecPtr pBlendChunk = BlendChunk::create();
 
                     pBlendChunk->setSrcFactor (GL_SRC_ALPHA          );
@@ -2077,11 +2114,11 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
 
                     pChunkMat->addChunk(pBlendChunk);
                 }
-                
+
                 TextureEnvChunkUnrecPtr pTexEnv = TextureEnvChunk::create();
-                
+
                 pTexEnv->setEnvMode(GL_MODULATE);
-                
+
                 pChunkMat->addChunk(pTexEnv);
             }
         }
@@ -2091,19 +2128,19 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
                     "No texture record for index [%d].\n", iTexIdx));
         }
     }
-    
+
     if(uiLightMode == LMMeshColor || uiLightMode == LMMeshColorLit)
     {
         pGeo->setProperty(NULL, Geometry::ColorsIndex);
         pGeo->setIndex   (NULL, Geometry::ColorsIndex);
     }
-    
+
     if(uiLightMode == LMMeshColorLit || uiLightMode == LMVertexColorLit)
     {
         if(pGeo->getProperty(Geometry::NormalsIndex) == NULL)
             calcVertexNormals(pGeo);
     }
-    
+
     switch(iDrawType)
     {
     case DTSolidCullBack:
@@ -2139,8 +2176,8 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
         break;
     }
     }
-    
-    
+
+
     pGeo->setMaterial(pChunkMat);
 
     return returnValue;
@@ -2371,7 +2408,7 @@ UInt8 OFFaceRecord::getLightMode(void) const
 Color4f OFFaceRecord::getPrimColor(void) const
 {
     Color4f returnValue;
-    
+
     if((iFlags & FlagPackedColor) != 0)
     {
         returnValue[0] = ((uiPackedPrimCol & 0x00FF0000) >> 16) / 255.f;
@@ -2383,14 +2420,14 @@ Color4f OFFaceRecord::getPrimColor(void) const
     {
         // TODO lookup color in index
     }
-    
+
     return returnValue;
 }
 
 Color4f OFFaceRecord::getAltColor(void) const
 {
     Color4f returnValue;
-    
+
     if((iFlags & FlagPackedColor) != 0)
     {
         returnValue[0] = ((uiPackedAltCol & 0x00FF0000) >> 16) / 255.f;
@@ -2402,7 +2439,7 @@ Color4f OFFaceRecord::getAltColor(void) const
     {
         // TODO lookup color in index
     }
-    
+
     return returnValue;
 }
 
@@ -2732,41 +2769,41 @@ NodeTransitPtr OFGeometryContainer::convertFaceGroup(
     pGeo->setLengths (lens                            );
 
     ChunkMaterialUnrecPtr pChunkMat = ChunkMaterial::create();
-    
+
     if(vFaceGroup[0]->getTextureWhite() &&
        vFaceGroup[0]->getTexIdx      () != -1)
     {
         MaterialChunkUnrecPtr pMatChunk = MaterialChunk::create();
         Color4f               colDiffuse(1.f, 1.f, 1.f, 1.f);
-        
+
         pMatChunk->setDiffuse(colDiffuse);
-        
+
         pChunkMat->addChunk(pMatChunk);
     }
     else if(vFaceGroup[0]->getMatIdx() != -1)
     {
         const OFMaterialPaletteRecord *pMatRec   =
             oDB.getMatRecord(vFaceGroup[0]->getMatIdx());
-        
+
         if(pMatRec != NULL)
         {
             MaterialChunkUnrecPtr      pMatChunk = MaterialChunk::create();
-            
+
             if((vFaceGroup[0]->getFlags() & FlagNoColor) != 0)
             {
                 // use material only
                 Color4f colMat;
 
                 pMatChunk->setAmbient(pMatRec->getAmbient());
-                
+
                 colMat    = pMatRec->getDiffuse();
                 colMat[3] = pMatRec->getAlpha() * (1.f - (vFaceGroup[0]->getTransparency() / 65535.f));
                 pMatChunk->setDiffuse(colMat);
-                
+
                 pMatChunk->setSpecular (pMatRec->getSpecular ());
                 pMatChunk->setShininess(pMatRec->getShininess());
                 pMatChunk->setEmission (pMatRec->getEmissive ());
-                
+
                 pChunkMat->addChunk(pMatChunk);
             }
             else if((vFaceGroup[0]->getFlags() & FlagPackedColor) != 0)
@@ -2774,39 +2811,39 @@ NodeTransitPtr OFGeometryContainer::convertFaceGroup(
                 // use uiPackedPrimCol and material
                 Color4f colGeo;
                 Color4f colMat;
-                
+
                 colGeo    = vFaceGroup[0]->getPrimColor();
-                
+
                 colMat    = pMatRec->getAmbient();
                 colMat[0] = colMat[0] * colGeo[0];
                 colMat[1] = colMat[1] * colGeo[1];
                 colMat[2] = colMat[2] * colGeo[2];
-                
+
                 pMatChunk->setAmbient(colMat);
-                
+
                 colMat    = pMatRec->getDiffuse();
                 colMat[0] = colMat[0] * colGeo[0];
                 colMat[1] = colMat[1] * colGeo[1];
                 colMat[2] = colMat[2] * colGeo[2];
                 colMat[3] = pMatRec->getAlpha() * (1.f - (vFaceGroup[0]->getTransparency() / 65535.f));
-                
+
                 SLOG << "OFGeometryContainer::convertFaceGroup: "
                         << "PC pMatRec->getAlpha() [" << pMatRec->getAlpha()
                         << "] Transparency [" << vFaceGroup[0]->getTransparency()
                         << "] colMat[3] [" << colMat[3] << "]" << std::endl;
-                
+
                 pMatChunk->setDiffuse  (colMat                 );
                 pMatChunk->setSpecular (pMatRec->getSpecular ());
                 pMatChunk->setShininess(pMatRec->getShininess());
                 pMatChunk->setEmission (pMatRec->getEmissive ());
-                
+
                 pChunkMat->addChunk(pMatChunk);
             }
             else
             {
                 // TODO: use uiPrimColIdx
             }
-            
+
             if(pMatChunk->isTransparent() &&
                pChunkMat->find(BlendChunk::getClassType()) == NULL)
             {
@@ -2819,7 +2856,7 @@ NodeTransitPtr OFGeometryContainer::convertFaceGroup(
             }
         }
     }
-    
+
     if(vFaceGroup[0]->getTexIdx() != -1)
     {
         const OFTexturePaletteRecord *pTexRec =
@@ -2851,21 +2888,21 @@ NodeTransitPtr OFGeometryContainer::convertFaceGroup(
                     "No texture record for index [%d].\n", vFaceGroup[0]->getTexIdx()));
         }
     }
-    
+
     if(vFaceGroup[0]->getLightMode() == LMMeshColor ||
        vFaceGroup[0]->getLightMode() == LMMeshColorLit )
     {
         pGeo->setProperty(NULL, Geometry::ColorsIndex);
         pGeo->setIndex   (NULL, Geometry::ColorsIndex);
     }
-    
+
     if(vFaceGroup[0]->getLightMode() == LMMeshColorLit ||
        vFaceGroup[0]->getLightMode() == LMVertexColorLit )
     {
         if(pGeo->getProperty(Geometry::NormalsIndex) == NULL)
             calcVertexNormals(pGeo);
     }
-    
+
     switch(vFaceGroup[0]->getDrawType())
     {
         case DTSolidCullBack:
@@ -2901,7 +2938,7 @@ NodeTransitPtr OFGeometryContainer::convertFaceGroup(
             break;
         }
     }
-    
+
     pGeo->setMaterial(pChunkMat);
 
     return returnValue;

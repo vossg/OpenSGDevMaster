@@ -1,3 +1,41 @@
+/*---------------------------------------------------------------------------*\
+ *                                OpenSG                                     *
+ *                                                                           *
+ *                                                                           *
+ *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
+ *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                License                                    *
+ *                                                                           *
+ * This library is free software; you can redistribute it and/or modify it   *
+ * under the terms of the GNU Library General Public License as published    *
+ * by the Free Software Foundation, version 2.                               *
+ *                                                                           *
+ * This library is distributed in the hope that it will be useful, but       *
+ * WITHOUT ANY WARRANTY; without even the implied warranty of                *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         *
+ * Library General Public License for more details.                          *
+ *                                                                           *
+ * You should have received a copy of the GNU Library General Public         *
+ * License along with this library; if not, write to the Free Software       *
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*\
+ *                                Changes                                    *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+ *                                                                           *
+\*---------------------------------------------------------------------------*/
+
 #ifndef _OSGOFRECORDS_H_
 #define _OSGOFRECORDS_H_
 
@@ -56,7 +94,7 @@ typedef TransitPtr<OFRecord> OFRecordTransitPtr;
 //  Class
 //---------------------------------------------------------------------------
 
-class OSG_FILEIO_DLLMAPPING OFRecordFactoryBase 
+class OSG_FILEIO_DLLMAPPING OFRecordFactoryBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -68,8 +106,8 @@ class OSG_FILEIO_DLLMAPPING OFRecordFactoryBase
     class OSG_FILEIO_DLLMAPPING RegisterRecord
     {
       public:
-        
-        RegisterRecord(CreateRecord fCreate, 
+
+        RegisterRecord(CreateRecord fCreate,
                        UInt16       sRecordOpCode);
     };
 
@@ -122,7 +160,7 @@ class OSG_FILEIO_DLLMAPPING OFRecordFactoryBase
     template <class SingletonT>
     friend class SingletonHolder;
 
-    typedef std::map<UInt16,  
+    typedef std::map<UInt16,
                      CreateRecord> NameRecordCreateMap;
 
     /*---------------------------------------------------------------------*/
@@ -186,7 +224,7 @@ class OSG_FILEIO_DLLMAPPING OFRecord : public MemoryObject
     /*---------------------------------------------------------------------*/
 
     void readChar8 (std::istream &is, Char8  *cVal, UInt32 iSize);
-    
+
     /*---------------------------------------------------------------------*/
 
     template<class ValueT>
@@ -194,14 +232,11 @@ class OSG_FILEIO_DLLMAPPING OFRecord : public MemoryObject
 
     /*---------------------------------------------------------------------*/
 
-// XXX TODO FIX THIS --cneumann
-public:
     const Char8 *findDesc(UInt16 sOpCode);
-protected:
 
     /*---------------------------------------------------------------------*/
 
-    OFRecord(const OFRecordHeader &oHeader);
+             OFRecord(const OFRecordHeader &oHeader);
 
     virtual ~OFRecord(void);
 
@@ -276,7 +311,7 @@ class OSG_FILEIO_DLLMAPPING OFVertexPalette : public MemoryObject
     void dump(UInt32 uiIndent);
 };
 
-typedef RefCountPtr<OFVertexPalette, 
+typedef RefCountPtr<OFVertexPalette,
                     MemObjRefCountPolicy> OFVertexPaletteRCPtr;
 
 //---------------------------------------------------------------------------
@@ -291,9 +326,9 @@ class OSG_FILEIO_DLLMAPPING OFTexturePalette : public MemoryObject
 
     /*---------------------------------------------------------------------*/
 
-    typedef std::map<Int32, 
+    typedef std::map<Int32,
                      OFTexturePaletteRecordRCPtr>           TextureStore;
-    typedef std::map<Int32, 
+    typedef std::map<Int32,
                      OFTexturePaletteRecordRCPtr>::iterator TextureStoreIt;
 
     /*---------------------------------------------------------------------*/
@@ -318,7 +353,7 @@ class OSG_FILEIO_DLLMAPPING OFTexturePalette : public MemoryObject
     void dump(UInt32 uiIndent);
 };
 
-typedef RefCountPtr<OFTexturePalette, 
+typedef RefCountPtr<OFTexturePalette,
                     MemObjRefCountPolicy> OFTexturePaletteRCPtr;
 
 //---------------------------------------------------------------------------
@@ -396,7 +431,7 @@ class OSG_FILEIO_DLLMAPPING OFHeaderRecord : public OFRecord
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool read(std::istream &is, OFDatabase &oDB);    
+    virtual bool read(std::istream &is, OFDatabase &oDB);
 
     /*---------------------------------------------------------------------*/
 
@@ -421,7 +456,7 @@ class OSG_FILEIO_DLLMAPPING OFHeaderRecord : public OFRecord
     const OFMaterialPaletteRecord *getMatRecord    (UInt32 uiIdx);
 };
 
-typedef RefCountPtr<OFHeaderRecord, 
+typedef RefCountPtr<OFHeaderRecord,
                     MemObjRefCountPolicy> OFHeaderRecordRCPtr;
 
 //---------------------------------------------------------------------------
@@ -431,7 +466,7 @@ typedef RefCountPtr<OFHeaderRecord,
 class OSG_FILEIO_DLLMAPPING OFUnknownRecord : public OFRecord
 {
   protected:
-  
+
     typedef OFRecord Inherited;
 
     /*---------------------------------------------------------------------*/
@@ -475,7 +510,7 @@ class OSG_FILEIO_DLLMAPPING OFUnknownRecord : public OFRecord
 class OSG_FILEIO_DLLMAPPING OFTexturePaletteRecord : public OFRecord
 {
   protected:
-  
+
     typedef OFRecord Inherited;
 
     /*---------------------------------------------------------------------*/
@@ -545,9 +580,9 @@ class OSG_FILEIO_DLLMAPPING OFVertexPaletteRecord : public OFRecord
                              // 4-15 = Spare
 
         Int32   iPackedCol;  // 32 4   Packed color (a, b, g, r) - always
-                             // specified when the vertex has color 
+                             // specified when the vertex has color
         UInt32  iColIdx;     // 36 4   Vertex color index - valid only if vertex
-                             // has color and  Packed color flag is not set 
+                             // has color and  Packed color flag is not set
         Int32   iPad1;       // 52 4 Reserved
 
         UInt16  uiType;
@@ -571,7 +606,7 @@ class OSG_FILEIO_DLLMAPPING OFVertexPaletteRecord : public OFRecord
     static const UInt8 HasTexCoord = 0x08;
 
   protected:
-  
+
     typedef OFRecord Inherited;
 
     /*---------------------------------------------------------------------*/
@@ -889,9 +924,9 @@ class OSG_FILEIO_DLLMAPPING OFLocalVertexPoolRecord : public OFRecord
     virtual void dump(UInt32 uiIndent);
 
     /*---------------------------------------------------------------------*/
-    
+
     virtual void convertPrimitives(OFDatabase &oDB, Geometry *pGeo);
-    
+
     GeoPnt3dProperty    *getPositions(void      ) const;
     GeoColor4ubProperty *getColors   (void      ) const;
     GeoVec3fProperty    *getNormals  (void      ) const;
@@ -1023,13 +1058,13 @@ typedef OFMeshRecord::ObjRCPtr      OFMeshRecordRCPtr;
 
 class OFVertexListRecord;
 
-typedef RefCountPtr<OFVertexListRecord, 
+typedef RefCountPtr<OFVertexListRecord,
                     MemObjRefCountPolicy> OFVertexListRecordRCPtr;
 
 class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFRecord
 {
   protected:
-  
+
     /*---------------------------------------------------------------------*/
 
     typedef OFRecord Inherited;
@@ -1054,7 +1089,7 @@ class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFRecord
                               // 8 = Omnidirectional light
                               // 9 = Unidirectional light
                               // 10 = Bidirectional light
-    Int8   iTextureWhite;     // 19 1 Texture white = 
+    Int8   iTextureWhite;     // 19 1 Texture white =
                               // if TRUE, draw textured face white
     UInt16 uiColorNameIdx;    // 20 2 Color name index
     UInt16 uiAltColorNameIdx; // 22 2 Alternate color name index
@@ -1091,9 +1126,9 @@ class OSG_FILEIO_DLLMAPPING OFFaceRecord : public OFRecord
                             // 3 = Use vertex colors and vertex normals(Lit
                             //                                          Gouraud)
     Char8  szPad2[7];       // 49 7 Reserved
-    UInt32 uiPackedPrimCol; // 56 4 Packed color, primary (a, b, g, r) - 
+    UInt32 uiPackedPrimCol; // 56 4 Packed color, primary (a, b, g, r) -
                             // only b, g, r used
-    UInt32 uiPackedAltCol;  // 60 4 Packed color, alternate (a, b, g, r) - 
+    UInt32 uiPackedAltCol;  // 60 4 Packed color, alternate (a, b, g, r) -
                             // only b, g, r used
     Int16  iTexMapIdx;      // 64 2 Texture mapping index, -1 if none
     Int16  iPad3;           // 66 2 Reserved
@@ -1161,7 +1196,7 @@ typedef RefCountPtr<OFFaceRecord, MemObjRefCountPolicy> OFFaceRecordRCPtr;
 class OSG_FILEIO_DLLMAPPING OFVertexListRecord : public OFRecord
 {
   protected:
-  
+
     /*---------------------------------------------------------------------*/
 
     typedef OFRecord Inherited;
@@ -1284,7 +1319,7 @@ class OSG_FILEIO_DLLMAPPING OFGroupingRecord : public OFGeometryContainer
 class OSG_FILEIO_DLLMAPPING OFGroupRecord : public OFGroupingRecord
 {
   protected:
-  
+
     /*---------------------------------------------------------------------*/
 
     typedef OFGroupingRecord Inherited;
@@ -1327,7 +1362,7 @@ class OSG_FILEIO_DLLMAPPING OFGroupRecord : public OFGroupingRecord
 class OSG_FILEIO_DLLMAPPING OFLODRecord : public OFGroupingRecord
 {
   protected:
-  
+
     /*---------------------------------------------------------------------*/
 
     typedef OFGroupingRecord Inherited;
@@ -1398,7 +1433,7 @@ class OSG_FILEIO_DLLMAPPING OFLODRecord : public OFGroupingRecord
 class OSG_FILEIO_DLLMAPPING OFSwitchRecord : public OFGroupingRecord
 {
   protected:
-  
+
     /*---------------------------------------------------------------------*/
 
     typedef OFGroupingRecord Inherited;
@@ -1415,7 +1450,7 @@ class OSG_FILEIO_DLLMAPPING OFSwitchRecord : public OFGroupingRecord
     Int32 szPad1;       // 12 4 Reserved
     Int32 iCurrMask;    // 16 4 Current mask
     Int32 iNumMask;     // 20 4 Number of masks
-    Int32 iMaskWords;   // 24 4 Number of words per mask - 
+    Int32 iMaskWords;   // 24 4 Number of words per mask -
                         // the number of 32 bit words
                         // required for each mask, calculated as follows:
                         // (number of children / 32) + X
@@ -1462,7 +1497,7 @@ class OSG_FILEIO_DLLMAPPING OFSwitchRecord : public OFGroupingRecord
 class OSG_FILEIO_DLLMAPPING OFObjectRecord : public OFGeometryContainer
 {
   protected:
-  
+
     /*---------------------------------------------------------------------*/
 
     typedef OFGeometryContainer Inherited;
@@ -1514,7 +1549,7 @@ class OSG_FILEIO_DLLMAPPING OFObjectRecord : public OFGeometryContainer
 class OSG_FILEIO_DLLMAPPING OFExternalReferenceRecord : public OFRecord
 {
   protected:
-  
+
     typedef OFRecord Inherited;
 
     static OFRecordFactoryBase::RegisterRecord _regHelper;
