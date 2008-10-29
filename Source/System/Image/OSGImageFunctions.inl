@@ -37,6 +37,63 @@
  *                                                                           *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
+
 OSG_BEGIN_NAMESPACE
+
+template<class ValueT> inline
+void swapImageByteOrder(ImagePtrConstArg pImage)
+{
+    if(pImage == NULL)
+        return;
+
+    ValueT *pData = reinterpret_cast<ValueT *>(pImage->editData());
+
+    UInt32 uiSize = pImage->getSize() / sizeof(ValueT);
+
+    for(UInt32 i = 0; i < uiSize; ++i)
+    {
+        pData[i] = osgSwapBytes<ValueT>(pData[i]);
+    }
+}
+
+template<class ValueT, ValueT (*ConvF)(ValueT)> inline
+void swapAndConvertImageByteOrder(ImagePtrConstArg pImage)
+{
+    if(pImage == NULL)
+        return;
+
+    ValueT *pData = reinterpret_cast<ValueT *>(pImage->editData());
+
+    UInt32 uiSize = pImage->getSize() / sizeof(ValueT);
+
+    for(UInt32 i = 0; i < uiSize; ++i)
+    {
+        pData[i] = ConvF(osgSwapBytes<ValueT>(pData[i]));
+    }
+}
+
+template<class ValueT, ValueT MinVal> inline
+ValueT clampMin(ValueT val)
+{
+    if(val < MinVal)
+        val = MinVal;
+
+    return val;
+}
+
+template<class ValueT, ValueT CompVal, ValueT ReplaceVal> inline
+ValueT clampMin(ValueT val)
+{
+    if(val < CompVal)
+        val = ReplaceVal;
+
+    return val;
+}
+
+template<class ValueT> inline
+ValueT doNothing(ValueT val)
+{
+    return val;
+}
 
 OSG_END_NAMESPACE

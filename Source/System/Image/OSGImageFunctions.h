@@ -143,6 +143,21 @@ OSG_SYSTEM_DLLMAPPING
 bool convertCrossToCubeMap(Image const *pIn,
                            Image       *pOut);
                            
+template<class ValueT> inline
+void swapImageByteOrder(ImagePtrConstArg pImage);
+          
+template<class ValueT, ValueT (*ConvF)(ValueT)> inline
+void swapAndConvertImageByteOrder(ImagePtrConstArg pImage);
+
+template<class ValueT, ValueT MinVal> inline
+ValueT clampMin(ValueT val);
+
+template<class ValueT, ValueT CompVal, ValueT ReplaceVal> inline
+ValueT clampMin(ValueT val);
+
+template<class ValueT> inline
+ValueT doNothing(ValueT val);
+
 OSG_END_NAMESPACE
 
 #include "OSGImageFunctions.inl"
