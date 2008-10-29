@@ -109,6 +109,10 @@ class OSG_GROUP_DLLMAPPING RangeLODBase : public Group
         (TypeTraits<BitVector>::One << SwitchOutFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFPnt3f           SFCenterType;
+    typedef SFReal32          SFSwitchInType;
+    typedef SFReal32          SFSwitchOutType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
