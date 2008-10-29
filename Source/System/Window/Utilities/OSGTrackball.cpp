@@ -64,7 +64,8 @@ Trackball::Trackball(Real32 rSize) :
     _rAutoPositionStep(1.),
     _rAutoPositionIncrement(1.),
     _rTrackballSize(rSize),
-    _rTranslationScale(1.),
+    _rTranslationScale(1.f),
+    _rRotScale        (1.f),
     _qVal(),
     _pVal(),
     _qValStart(),
@@ -172,6 +173,8 @@ void Trackball::updateRotation(Real32 rLastX,    Real32 rLastY,
             rPhi = Real32( 2.0) * osgASin(rTmp);
 
     }
+
+    rPhi *= _rRotScale;
 
     if(_bSum == false)
     {
@@ -287,6 +290,11 @@ void Trackball::setTranslationGen(TranslationGen gMode)
     }
 
     _gTransGen = gMode;
+}
+
+void Trackball::setRotationScale(Real32 rRotationScale)
+{
+    _rRotScale = rRotationScale;
 }
 
 void Trackball::reset(void)

@@ -99,6 +99,8 @@ class OSG_UTIL_DLLMAPPING Trackball
     void setTranslationScale(Real32          rTranslationScale);
     void setTranslationGen  (TranslationGen  gMode            );
 
+    void setRotationScale   (Real32          rRotationScale   );
+
     void reset(void);
 
     void   setStartPosition(Real32 rX, Real32 rY, Real32 rZ, 
@@ -135,7 +137,8 @@ class OSG_UTIL_DLLMAPPING Trackball
 
     Real32 _rTrackballSize;
     Real32 _rTranslationScale;
-    
+    Real32 _rRotScale;
+
     Quaternion _qVal;
     Vec3f      _pVal;
 
