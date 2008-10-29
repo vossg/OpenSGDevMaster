@@ -285,7 +285,7 @@ class FCDProcess:
     def _verifyFile(self, name):
         if not os.path.exists(name) or not os.path.isfile(name):
             self.m_log.error("Can not find template file: \"%s\"", name);
-            self.m_log.errir("Did you specify a correct root path ?");
+            self.m_log.error("Did you specify a correct root path ?");
             return False;
         else:
             return True;
