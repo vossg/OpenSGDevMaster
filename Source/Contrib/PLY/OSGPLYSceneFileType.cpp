@@ -121,7 +121,7 @@ NodeTransitPtr PLYSceneFileType::read(
     PlyFile* ply = ply_read(&is, elems);
     if (!ply)
     {
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 
     GeoPnt3fPropertyUnrecPtr  pos3f;
@@ -198,7 +198,7 @@ NodeTransitPtr PLYSceneFileType::read(
 
     ply_close(ply);
 
-    if (pos3f != NullFC && indices != NullFC)
+    if (pos3f != NULL && indices != NULL)
     {
         GeometryUnrecPtr geo = Geometry::create();
 
@@ -222,7 +222,7 @@ NodeTransitPtr PLYSceneFileType::read(
     else
     {
         // Clean up if necessary.
-        return NodeTransitPtr(NullFC);
+        return NodeTransitPtr(NULL);
     }
 }
 
