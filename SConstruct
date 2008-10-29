@@ -457,7 +457,7 @@ build_options["enable_fbd2code"] = sca_opts.BoolOption(
 build_options["enable_distcc"] = sca_opts.BoolOption(
     "enable_distcc", "Enable use of distcc during build. (distcc must be in your path)", False)
 build_options["enable_unittests"] = sca_opts.BoolOption(
-    "enable_unittests", "Enable building and running of the unit tests after build", True)
+    "enable_unittests", "Enable building and running of the unit tests after build", False)
 build_options["enable_revision_tags"] = sca_opts.BoolOption(
     "enable_revision_tags", "Enable updating of OSG*Def.cpp files with current svn revision numbers", False)
 build_options["enable_gv_beta"] = sca_opts.BoolOption(
