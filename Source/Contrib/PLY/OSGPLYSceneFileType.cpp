@@ -54,7 +54,6 @@
 #include <OSGNode.h>
 #include <OSGGeometry.h>
 #include <OSGGeoFunctions.h>
-#include <OSGRefPtr.h>
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
 
@@ -114,17 +113,19 @@ static PlyProperty face_props[] = { /* list of property information for a vertex
 };
 
 
-NodePtr PLYSceneFileType::read(std::istream& is, const Char8* /*fileNameOrExtension*/) const
+NodeTransitPtr PLYSceneFileType::read(
+    std::istream& is, 
+    const Char8* /*fileNameOrExtension*/) const
 {
     std::vector<std::string> elems;
     PlyFile* ply = ply_read(&is, elems);
     if (!ply)
     {
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 
-    GeoPnt3fPropertyPtr  pos3f;
-    GeoUInt32PropertyPtr indices;
+    GeoPnt3fPropertyUnrecPtr  pos3f;
+    GeoUInt32PropertyUnrecPtr indices;
 
     for (size_t i = 0; i < elems.size(); ++i)
     {
@@ -199,13 +200,13 @@ NodePtr PLYSceneFileType::read(std::istream& is, const Char8* /*fileNameOrExtens
 
     if (pos3f != NullFC && indices != NullFC)
     {
-        GeometryPtr geo = Geometry::create();
+        GeometryUnrecPtr geo = Geometry::create();
 
-        GeoUInt8PropertyPtr types = GeoUInt8Property::create();
+        GeoUInt8PropertyUnrecPtr types = GeoUInt8Property::create();
 
         types->addValue(GL_TRIANGLES);
 
-        GeoUInt32PropertyPtr lengths = GeoUInt32Property::create();
+        GeoUInt32PropertyUnrecPtr lengths = GeoUInt32Property::create();
 
         lengths->addValue(indices->getSize());
         
@@ -221,9 +222,7 @@ NodePtr PLYSceneFileType::read(std::istream& is, const Char8* /*fileNameOrExtens
     else
     {
         // Clean up if necessary.
-        RefPtr<FieldContainerPtr>(pos3f);
-        RefPtr<FieldContainerPtr>(indices);
-        return NullFC;
+        return NodeTransitPtr(NullFC);
     }
 }
 
@@ -239,11 +238,6 @@ PLYSceneFileType::PLYSceneFileType(const Char8*  suffixArray[],
                   override,
                   overridePriority,
                   flags)
-{
-}
-
-PLYSceneFileType::PLYSceneFileType(const PLYSceneFileType& obj) :
-    SceneFileType(obj)
 {
 }
 

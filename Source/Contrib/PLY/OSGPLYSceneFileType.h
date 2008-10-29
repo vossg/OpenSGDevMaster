@@ -51,6 +51,7 @@ OSG_BEGIN_NAMESPACE
 class OSG_CONTRIBPLY_DLLMAPPING PLYSceneFileType : public SceneFileType
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     /*---------------------------------------------------------------------*/
@@ -78,12 +79,12 @@ class OSG_CONTRIBPLY_DLLMAPPING PLYSceneFileType : public SceneFileType
     /*! \name                   Read                                       */
     /*! \{                                                                 */
 
-    virtual NodePtr read(      std::istream &is,
-                         const Char8        *fileNameOrExtension) const;
-
+    virtual NodeTransitPtr read(      std::istream &is,
+                                const Char8        *fileNameOrExtension) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     /*---------------------------------------------------------------------*/
@@ -104,17 +105,16 @@ class OSG_CONTRIBPLY_DLLMAPPING PLYSceneFileType : public SceneFileType
                            UInt32  overridePriority,
                            UInt32  flags);
 
-    PLYSceneFileType(const PLYSceneFileType &obj);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
 
     /* prohibit default function (move to 'public' if needed) */
+    PLYSceneFileType(const PLYSceneFileType &obj);
+    /* prohibit default function (move to 'public' if needed) */
     void operator=(const PLYSceneFileType& source);
 };
-
-typedef PLYSceneFileType* PLYSceneFileTypeP;
 
 OSG_END_NAMESPACE
 
