@@ -332,6 +332,22 @@ RangeLODTransitPtr RangeLODBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+RangeLODTransitPtr RangeLODBase::createDependent(BitVector bFlags)
+{
+    RangeLODTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<RangeLOD>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 RangeLODTransitPtr RangeLODBase::create(void)
 {
@@ -383,6 +399,20 @@ FieldContainerTransitPtr RangeLODBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr RangeLODBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    RangeLOD *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const RangeLOD *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }
