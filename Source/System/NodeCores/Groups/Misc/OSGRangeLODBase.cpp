@@ -520,11 +520,13 @@ void RangeLODBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *RangeLODBase::createAspectCopy(void) const
+FieldContainer *RangeLODBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     RangeLOD *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const RangeLOD *>(pRefAspect),
                   dynamic_cast<const RangeLOD *>(this));
 
     return returnValue;
