@@ -149,7 +149,7 @@ GeoIntegralProperty::~GeoIntegralProperty(void)
 
 GLenum GeoIntegralProperty::getBufferType(void)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     return GL_ELEMENT_ARRAY_BUFFER_ARB;
 #else
     return GL_NONE;
@@ -158,7 +158,7 @@ GLenum GeoIntegralProperty::getBufferType(void)
 
 void GeoIntegralProperty::activate(DrawEnv *pEnv, UInt32 slot)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();
     
     if(win->hasExtension(_extVertexBufferObject) &&
@@ -182,7 +182,7 @@ void GeoIntegralProperty::changeFrom(DrawEnv    *pEnv,
                                      StateChunk *old, 
                                      UInt32      slot)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     // change from me to me?
     // this assumes I haven't changed in the meantime.
     if(old == this)
@@ -215,7 +215,7 @@ void GeoIntegralProperty::changeFrom(DrawEnv    *pEnv,
 
 void GeoIntegralProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();
         
     if(win->hasExtension(_extVertexBufferObject) &&

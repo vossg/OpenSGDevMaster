@@ -49,7 +49,7 @@
 #include "OSGMatrixFwd.h"
 #include "OSGFieldContainerFactory.h"
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 #include "OSGActionBase.h"
 #endif
 
@@ -193,7 +193,7 @@ class OSG_SYSTEM_DLLMAPPING NodeCore : public AttachmentContainer
     virtual void dump(      UInt32    uiIndent = 0, 
                       const BitVector bvFlags  = 0) const;
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */

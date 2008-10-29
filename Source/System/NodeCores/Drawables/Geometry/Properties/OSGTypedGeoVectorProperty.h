@@ -652,17 +652,17 @@ OSG_MAKE_1D_TO_4D_PROP(Pnt,  s, GL_SHORT,          GLshort,  VectorTypePoint,  U
 // OSG_MAKE_1D_TO_4D_PROP(Vec,  i, GL_INT,            GLint,    VectorTypeVector, UsageUnspecified);
 // OSG_MAKE_1D_TO_4D_PROP(Pnt,  i, GL_INT,            GLint,    VectorTypePoint,  UsageObjectSpace);
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 OSG_MAKE_1D_TO_4D_PROP(Vec, f, GL_FLOAT, GLfloat, VectorTypeVector, UsageUnspecified);
 OSG_MAKE_1D_TO_4D_PROP(Pnt, f, GL_FLOAT, GLfloat, VectorTypePoint,  UsageObjectSpace);
 #endif
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 OSG_MAKE_1D_TO_4D_PROP(Vec, fx, GL_FIXED, GLfixed, VectorTypeVector, UsageUnspecified);
 OSG_MAKE_1D_TO_4D_PROP(Pnt, fx, GL_FIXED, GLfixed, VectorTypePoint,  UsageObjectSpace);
 #endif
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 OSG_MAKE_1D_TO_4D_PROP(Vec, d, GL_DOUBLE, GLdouble, VectorTypeVector, UsageUnspecified);
 OSG_MAKE_1D_TO_4D_PROP(Pnt, d, GL_DOUBLE, GLdouble, VectorTypePoint,  UsageObjectSpace);
 #endif
@@ -672,7 +672,7 @@ OSG_MAKE_COLOR_PROP(ub, 255, GL_UNSIGNED_BYTE, GLubyte);
 OSG_MAKE_PROP(Color3f, GL_FLOAT,  GLfloat, VectorTypeColor, UsageColorSpace);
 OSG_MAKE_PROP(Color4f, GL_FLOAT,  GLfloat, VectorTypeColor, UsageColorSpace);
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 OSG_MAKE_PROP(Color3fx, GL_FIXED,  GLfixed, VectorTypeColor, UsageColorSpace);
 OSG_MAKE_PROP(Color4fx, GL_FIXED,  GLfixed, VectorTypeColor, UsageColorSpace);
 #endif
@@ -688,7 +688,7 @@ typedef GeoPnt2sProperty    GeoPositions2s;
 typedef GeoPnt3sProperty    GeoPositions3s;
 typedef GeoPnt4sProperty    GeoPositions4s;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 typedef GeoPnt2fProperty           GeoPositions2f;
 typedef GeoPnt3fProperty           GeoPositions3f;
 typedef GeoPnt3fPropertyRecPtr     GeoPositions3fPtr;
@@ -701,7 +701,7 @@ typedef GeoPnt4dProperty    GeoPositions4d;
 
 // Normals
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 typedef GeoVec3fProperty    GeoNormals3f;
 #endif
 typedef GeoVec3sProperty    GeoNormals3s;
@@ -709,7 +709,7 @@ typedef GeoVec3bProperty    GeoNormals3b;
 
 // Colors
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 typedef GeoColor3fProperty         GeoColors3f;
 typedef GeoColor3fPropertyRecPtr   GeoColors3fPtr;
 typedef GeoColor4fProperty         GeoColors4f;
@@ -719,7 +719,7 @@ typedef GeoColor4ubProperty    GeoColors4ub;
 
 // TexCoords
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 typedef GeoVec1fProperty     GeoTexCoords1f;
 typedef GeoVec2fProperty     GeoTexCoords2f;
 typedef GeoVec3fProperty     GeoTexCoords3f;

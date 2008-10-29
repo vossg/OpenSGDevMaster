@@ -296,7 +296,7 @@ UInt32 Window::GLObject::incRefCounter(void)
 {
     UInt32 val;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(! _GLObjectLock)
     {
         _GLObjectLock =
@@ -309,7 +309,7 @@ UInt32 Window::GLObject::incRefCounter(void)
 
     val = _refCounter = _refCounter + 1;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     _GLObjectLock->release();
 #endif
 
@@ -321,7 +321,7 @@ UInt32 Window::GLObject::decRefCounter(void)
 {
     UInt32 val;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(! _GLObjectLock)
     {
         _GLObjectLock = ThreadManager::the()->getLock(NULL);
@@ -340,7 +340,7 @@ UInt32 Window::GLObject::decRefCounter(void)
         val = 0;
     }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     _GLObjectLock->release();
 #endif
 

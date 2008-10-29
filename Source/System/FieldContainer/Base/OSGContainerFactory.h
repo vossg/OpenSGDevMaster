@@ -45,7 +45,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGFactoryController.h"
 #include "OSGFactoryBase.h"
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGLock.h"
 #include "OSGThreadManager.h"
 #endif
@@ -203,7 +203,7 @@ class ContainerFactory : public FactoryBase
     UninitTypeStore  _vUnitTypesStore;
     UninitTypeStore  _vPostUnitTypes;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Lock            *_pLock;
 #endif
 

@@ -137,7 +137,7 @@ static inline void setGenFunc(      GLenum   coord,
                                     UInt32   eyeMode,
                                     Matrix  &eyeMatrix)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	if(beacon != NULL)
     {
         Matrixr beaconMat;
@@ -204,7 +204,7 @@ void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {
     glErr("TexGenChunk::activate precheck");
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();   
 
     Real32 ntexcoords;
@@ -276,7 +276,7 @@ static inline void changeGenFunc(      GLenum   oldfunc,
                                        UInt32   eyeMode,
                                        Matrix  &eyeMatrix)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	if(beacon != NULL)
     {
         Matrix beaconMat;
@@ -357,7 +357,7 @@ void TexGenChunk::changeFrom(DrawEnv    *pEnv,
     // toWorld matrix!!!
     // if(old == this)
     //     return;
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     TexGenChunk *oldp      = dynamic_cast<TexGenChunk *>(old);
     
     // If the old one is not a texgen chunk, deactivate it and activate
@@ -445,7 +445,7 @@ void TexGenChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
     glErr("TexGenChunk::deactivate precheck");
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();   
 
     Real32 ntexcoords;

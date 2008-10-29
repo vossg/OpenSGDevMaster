@@ -209,7 +209,7 @@ void GeoVectorProperty::setValue(const Vec3f  &val,
 
 GLenum GeoVectorProperty::getBufferType(void)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     return GL_ARRAY_BUFFER_ARB;
 #else
     return GL_NONE;
@@ -218,7 +218,7 @@ GLenum GeoVectorProperty::getBufferType(void)
 
 void GeoVectorProperty::activate(DrawEnv *pEnv, UInt32 slot)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();
     bool isGeneric = (slot >= 16);  // !!!HACK. needs to be replaced for 2.0
     slot &= 15;
@@ -354,7 +354,7 @@ void GeoVectorProperty::changeFrom(DrawEnv    *pEnv,
 
 void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();
     bool isGeneric = (slot >= 16);  // !!!HACK. needs to be replaced for 2.0
     slot &= 15;

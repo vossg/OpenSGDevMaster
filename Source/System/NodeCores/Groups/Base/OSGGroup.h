@@ -110,7 +110,7 @@ class OSG_SYSTEM_DLLMAPPING Group : public GroupBase
     ActionBase::ResultE renderEnter(Action *action);
     ActionBase::ResultE renderLeave(Action *action);
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     ActionBase::ResultE intersect  (Action *action);
 #endif
 

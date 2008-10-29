@@ -113,7 +113,7 @@ class OSG_GROUP_DLLMAPPING Switch : public SwitchBase
     /*! \name                 Intersect                                    */
     /*! \{                                                                 */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     ActionBase::ResultE intersect(Action *action);
 #endif
 

@@ -156,7 +156,7 @@ void TextureEnvChunk::handleTextureShader(Window *win, GLenum bindtarget)
         return;
     }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     glErr("textureShader precheck");
 
     glTexEnvi(GL_TEXTURE_SHADER_NV, GL_SHADER_OPERATION_NV,
@@ -372,7 +372,7 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
     }
 #endif
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	if(getLodBias() != 0.0f && win->hasExtension(_extTextureLodBias))
     {
         glTexEnvf(GL_TEXTURE_FILTER_CONTROL_EXT, 
@@ -396,7 +396,7 @@ void TextureEnvChunk::activate(DrawEnv *pEnv, UInt32 idx)
 				        GL_TEXTURE_ENV_COLOR,
 					    getEnvColor().getValuesRGBA());
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 		if(getEnvMode() == GL_COMBINE_EXT)
         {
             glTexEnvi(GL_TEXTURE_ENV, 
@@ -546,7 +546,7 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
     }
 #endif
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	if(oldp->getLodBias() != getLodBias() &&
        win->hasExtension(_extTextureLodBias))
     {
@@ -573,7 +573,7 @@ void TextureEnvChunk::changeFrom(DrawEnv    *pEnv,
                         GL_TEXTURE_ENV_COLOR,
                         getEnvColor().getValuesRGBA());
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 		if(getEnvMode() == GL_COMBINE_EXT)
         {
             glTexEnvi(GL_TEXTURE_ENV, 
@@ -727,7 +727,7 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     }
 #endif
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	if(getLodBias() != 0.0f && win->hasExtension(_extTextureLodBias))
     {
         if(!isActive)
@@ -763,7 +763,7 @@ void TextureEnvChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
                     GL_TEXTURE_ENV_COLOR,
                     Vec4r::Null.getValues());
     
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	if(getShaderOperation() != GL_NONE &&
        win->hasExtension(_nvTextureShader))
     {
@@ -803,7 +803,7 @@ bool TextureEnvChunk::operator == (const StateChunk &other) const
     bool returnValue = 
         getEnvMode  () == tother->getEnvMode  ();
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	if(returnValue == true && getEnvMode() == GL_COMBINE_EXT)
     {
         returnValue =

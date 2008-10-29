@@ -43,7 +43,7 @@
 
 #include "OSGComponentTransform.h"
 #include "OSGRenderAction.h"
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGIntersectAction.h"
 #endif
 
@@ -128,7 +128,7 @@ void ComponentTransform::initMethod(InitPhase ePhase)
                 &ComponentTransform::renderLeave));
         
         
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(

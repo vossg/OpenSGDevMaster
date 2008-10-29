@@ -51,7 +51,7 @@
 #include <GL/glx.h>
 #endif
 
-#if defined(OSG_WINCE)
+#if defined(OSG_EMBEDDED)
 #include <gles/egl.h>
 #endif
 
@@ -198,7 +198,7 @@ Int32                      OSG::Window::_currentWindowId = 0;
 
 // GLobject handling
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 /*! The lock used to mutex access of the GLObjects' reference count. One 
   should be enough for all of them, as they are pretty rarely changed, only 
   when they are used for the first time.
@@ -260,7 +260,7 @@ void OSG::Window::initMethod(InitPhase ePhase)
 
 bool OSG::Window::terminate(void)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_staticWindowLock != NULL)
     {
         OSG::subRef(_staticWindowLock);
@@ -427,7 +427,7 @@ void OSG::Window::staticAcquire(void)
     if(GlobalSystemState != Running)
         return;
         
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_staticWindowLock == NULL)
     {
         _staticWindowLock =
@@ -446,7 +446,7 @@ void OSG::Window::staticRelease(void)
     if(GlobalSystemState != Running)
         return;
         
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     _staticWindowLock->release();
 #endif
 }
@@ -1255,7 +1255,7 @@ void OSG::Window::frameInit(void)
     {
         ignoreEnvDone = true;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         Char8 *p = getenv("OSG_IGNORE_EXTENSIONS");
         
         if(p)
@@ -1415,7 +1415,7 @@ void OSG::Window::frameInit(void)
         _extFunctions.push_back(func);
     }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     // any new constants registered ? 
     while(_registeredConstants.size() > _numAvailConstants)
     {   
@@ -1529,7 +1529,7 @@ void OSG::Window::frameExit(void)
         
         while((glerr = glGetError()) != GL_NO_ERROR)
         {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
             FWARNING(("Window::frameExit: Caught stray OpenGL "
                       "error %s (%#x).\n",
                       gluErrorString(glerr),
@@ -1574,7 +1574,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
         if(symbol != 0)
             retval = GLExtensionFunction(NSAddressOfSymbol(symbol));
     }
-#elif defined(OSG_WINCE)
+#elif defined(OSG_EMBEDDED)
 
 	retval = (void(__cdecl*)(void)) eglGetProcAddress(s);
 

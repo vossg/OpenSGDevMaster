@@ -47,7 +47,7 @@
 #include <OSGGL.h>
 
 #include "OSGInverseTransform.h"
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGIntersectAction.h"
 #endif
 #include "OSGRenderAction.h"
@@ -74,7 +74,7 @@ void InverseTransform::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(
@@ -171,7 +171,7 @@ void InverseTransform::initMatrix(const Matrixr &mToWorld)
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 Action::ResultE InverseTransform::intersectEnter(Action *action)
 {
     IntersectAction *ia = dynamic_cast<IntersectAction *>(action);

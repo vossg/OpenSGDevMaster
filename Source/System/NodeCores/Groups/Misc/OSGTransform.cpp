@@ -43,7 +43,7 @@
 
 #include <OSGGL.h>
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include <OSGIntersectAction.h>
 #endif
 
@@ -152,7 +152,7 @@ ActionBase::ResultE Transform::renderLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                            Intersect                                    */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 ActionBase::ResultE Transform::intersectEnter(Action *action)
 {
     // Use parent class for trivial reject
@@ -258,7 +258,7 @@ void Transform::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault( 
             getClassType(), 
             reinterpret_cast<Action::Callback>(&Transform::intersectEnter));

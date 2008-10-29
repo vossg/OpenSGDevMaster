@@ -128,7 +128,7 @@ class OSG_GROUP_DLLMAPPING MultiSwitch : public MultiSwitchBase
     /*! \name                 Intersect                                    */
     /*! \{                                                                 */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     ActionBase::ResultE intersectEnter(Action *action);
 #endif
 

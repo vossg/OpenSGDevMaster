@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
 #define osgMaxTexImages 16
 #define osgMaxTexCoords 8
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 #define GL_PREVIOUS_EXT                     0x8578
 #define GL_CONSTANT_EXT                     0x8576
 #endif

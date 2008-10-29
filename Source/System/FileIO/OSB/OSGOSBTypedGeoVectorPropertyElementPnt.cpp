@@ -162,7 +162,7 @@ static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoPnt4NsProperty> >
         _regPnt4Ns("GeoPnt4NsProperty");
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoPnt1fProperty> >
         _regPnt1f("GeoPnt1fProperty");
@@ -177,7 +177,7 @@ static OSBElementRegistrationHelper<
         _regPnt4f("GeoPnt4fProperty");
 #endif
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoPnt1fxProperty> >
         _regPnt1fx("GeoPnt1fxProperty");
@@ -192,7 +192,7 @@ static OSBElementRegistrationHelper<
         _regPnt4fx("GeoPnt4fxProperty");
 #endif
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoPnt1dProperty> >
         _regPnt1d("GeoPnt1dProperty");

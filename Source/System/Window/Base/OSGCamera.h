@@ -144,7 +144,7 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     /*! \name                 Intersection Helper                          */
     /*! \{                                                                 */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     bool calcViewRay(      Line     &line, 
                            Int32     x, 
                            Int32     y, 

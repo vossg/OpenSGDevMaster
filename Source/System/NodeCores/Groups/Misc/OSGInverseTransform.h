@@ -125,7 +125,7 @@ class OSG_GROUP_DLLMAPPING InverseTransform : public InverseTransformBase
     /*! \name              Draw & Intersect & Render                       */
     /*! \{                                                                 */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Action::ResultE intersectEnter(Action *action);
     Action::ResultE intersectLeave(Action *action);
 #endif

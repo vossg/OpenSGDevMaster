@@ -52,7 +52,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGContainerForwards.h"
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 
 #include "OSGBaseThread.h"
 
@@ -83,7 +83,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 
 class Thread;
 class ChangeList;
@@ -810,7 +810,7 @@ class OSG_SYSTEM_DLLMAPPING Thread
 
 OSG_END_NAMESPACE
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGThread.inl"
 #endif
 

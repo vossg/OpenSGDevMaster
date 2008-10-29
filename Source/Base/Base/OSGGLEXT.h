@@ -47,7 +47,7 @@
 #define osgMaxTexImages 16
 #define osgMaxTexCoords 8
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 #include "OSGGL.h"
@@ -1780,6 +1780,6 @@ typedef char GLchar;
 
 /*! \}                                                                 */
 
-#endif /* OSG_WINCE) */
+#endif /* OSG_EMBEDDED) */
 
 #endif /* _OSGGL_H_ */

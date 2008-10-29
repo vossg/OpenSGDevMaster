@@ -79,7 +79,7 @@ OSG_USING_NAMESPACE
 Int32 Image::_formatDic[][2] =
 {
     { OSG_A_PF,      1 },
-#if !defined(OSG_WINCE) || OSG_GL_ES_VERSION > 100
+#if !defined(OSG_EMBEDDED) || OSG_GL_ES_VERSION > 100
     { OSG_I_PF,      1 },
 #endif
     { OSG_L_PF,      1 },
@@ -99,7 +99,7 @@ Int32 Image::_typeDic[][2] =
     { OSG_INVALID_IMAGEDATATYPE, 0 },
     { OSG_UINT8_IMAGEDATA,       1 },
     { OSG_UINT16_IMAGEDATA,      2 },
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
     { OSG_UINT32_IMAGEDATA,      4 },
     { OSG_FLOAT16_IMAGEDATA,     2 },
 #endif
@@ -179,7 +179,7 @@ void Image::dump(      UInt32    ,
         case OSG_A_PF:
             pfStr = "ALPHA";
             break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_I_PF:
             pfStr = "INTENSITY";
             break;
@@ -190,7 +190,7 @@ void Image::dump(      UInt32    ,
         case OSG_LA_PF:
             pfStr = "LUMINANCE_ALPHA";
             break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_BGR_PF:
             pfStr = "BGR";
             break;
@@ -204,7 +204,7 @@ void Image::dump(      UInt32    ,
         case OSG_RGBA_PF:
             pfStr = "RGBA";
             break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_RGB_DXT1:
             pfStr = "RGB_DXT1";
             break;
@@ -231,7 +231,7 @@ void Image::dump(      UInt32    ,
         case OSG_UINT16_IMAGEDATA:
             typeStr = "IMAGEDATA_TYPE UCHAR16";
             break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
             typeStr = "IMAGEDATA_TYPE UCHAR32";
             break;
@@ -540,7 +540,7 @@ bool Image::addValue(const char *value)
                 }
                 break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
             case OSG_UINT32_IMAGEDATA:
                 switch(pixelDepth)
                 {
@@ -586,7 +586,7 @@ bool Image::addValue(const char *value)
                 }
                 break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
             case OSG_FLOAT16_IMAGEDATA:
                 switch(pixelDepth)
                 {
@@ -706,7 +706,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                 case OSG_A_PF:
                     switch (pixelFormat) {
                         case OSG_A_PF:
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                         case OSG_I_PF:
 #endif
                             switch (getDataType())
@@ -717,7 +717,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -725,7 +725,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_FLOAT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -746,7 +746,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -754,7 +754,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_FLOAT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -783,7 +783,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -800,7 +800,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                 }
                                 break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -834,7 +834,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -852,7 +852,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sourceDataF32[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -889,7 +889,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -909,7 +909,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sourceDataF32[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -932,7 +932,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                     break;
 
                 //-----------------------------------------------------
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                 case OSG_I_PF:
                     switch (pixelFormat) {
                         case OSG_A_PF:
@@ -1120,7 +1120,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                 case OSG_L_PF:
                     switch (pixelFormat) {
                         case OSG_A_PF:
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                         case OSG_I_PF:
 #endif
                         case OSG_L_PF:
@@ -1132,7 +1132,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -1140,7 +1140,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_FLOAT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -1169,7 +1169,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1186,7 +1186,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                 }
                                 break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1220,7 +1220,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1238,7 +1238,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sourceDataF32[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1275,7 +1275,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1295,7 +1295,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sourceDataF32[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1337,7 +1337,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1353,7 +1353,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sourceDataF32[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1367,7 +1367,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                 break;
                             }
                             break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                         case OSG_I_PF:
 #endif
                         case OSG_L_PF:
@@ -1387,7 +1387,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1403,7 +1403,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1426,7 +1426,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -1434,7 +1434,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_FLOAT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -1466,7 +1466,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1486,7 +1486,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1524,7 +1524,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1544,7 +1544,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sourceDataF32[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1570,7 +1570,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                 case OSG_RGB_PF:
                     switch (pixelFormat) {
                         case OSG_A_PF:
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                         case OSG_I_PF:
 #endif
                         case OSG_L_PF:
@@ -1596,7 +1596,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sum / 3;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1618,7 +1618,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sumReal / 3.0;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1660,7 +1660,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sum / 3;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1684,7 +1684,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sumReal / 3.0;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1711,7 +1711,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -1719,7 +1719,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_FLOAT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -1753,7 +1753,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sum / 3;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1775,7 +1775,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sumReal / 3.0;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1817,7 +1817,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1833,7 +1833,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sourceDataF32[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1847,7 +1847,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                 break;
                             }
                             break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                         case OSG_I_PF:
 #endif
                         case OSG_L_PF:
@@ -1875,7 +1875,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1899,7 +1899,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1942,7 +1942,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1966,7 +1966,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataF32[destI++] = sourceDataF32[srcI++];
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -2005,7 +2005,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -2025,7 +2025,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -2050,7 +2050,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -2058,7 +2058,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_FLOAT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                             case OSG_FLOAT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -2119,7 +2119,7 @@ void Image::swapDataEndian(void)
             }
             break;
             
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
 
             for(UInt32 i=0;i<size;++i)
@@ -2223,7 +2223,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     }
                     break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                 case OSG_UINT32_IMAGEDATA:
 
                     for (int i = 0; i < sourceSize; i++)
@@ -2240,7 +2240,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     }
                     break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                 case OSG_FLOAT16_IMAGEDATA:
 
                     for (int i = 0; i < sourceSize; i++)
@@ -2294,7 +2294,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                 }
                 break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                 case OSG_UINT32_IMAGEDATA:
 
                     for (int i = 0; i < sourceSize; i++)
@@ -2312,7 +2312,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
                     break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                 case OSG_FLOAT16_IMAGEDATA:
 
                     for (int i = 0; i < sourceSize; i++)
@@ -2327,7 +2327,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
             }
             break;
             
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
 
             switch (destDataType)
@@ -2406,7 +2406,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     }
                     break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                 case OSG_FLOAT16_IMAGEDATA:
 
                     for (int i = 0; i < sourceSize; i++)
@@ -2444,7 +2444,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     }
                     break;
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                 case OSG_UINT32_IMAGEDATA:
                     for(int i = 0; i < sourceSize; i++)
                     {
@@ -2454,7 +2454,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     break;
 #endif
 
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
                 case OSG_FLOAT16_IMAGEDATA:
 
                     for (int i = 0; i < sourceSize; i++)
@@ -3222,7 +3222,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
             }
             break;
             
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
 
             for(frame = 0; frame < getFrameCount(); frame++)
@@ -3368,7 +3368,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
             }
             break;
             
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_FLOAT16_IMAGEDATA:
             for(frame = 0; frame < getFrameCount(); frame++)
             {
@@ -3452,7 +3452,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
 
 bool Image::write(const Char8 *fileName)
 {
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
     return ImageFileHandler::the()->write(this, fileName);
 #else
     return false;
@@ -3464,7 +3464,7 @@ bool Image::write(const Char8 *fileName)
 
 bool Image::read(const Char8 *fileName)
 {
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
     return ImageFileHandler::the()->read(this, fileName);
 #else
     return false;
@@ -3480,7 +3480,7 @@ bool Image::read(const Char8 *fileName)
 
 UInt64 Image::store(const Char8 *mimeType, UChar8 *mem, Int32 memSize)
 {
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
     return ImageFileHandler::the()->store(this,
                                           mimeType, 
                                           mem, 
@@ -3496,7 +3496,7 @@ UInt64 Image::store(const Char8 *mimeType, UChar8 *mem, Int32 memSize)
 
 UInt64 Image::restore(const UChar8 *mem, Int32 memSize)
 {
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
     return ImageFileHandler::the()->restore(this, mem, memSize);;
 #else
     return false;
@@ -3543,7 +3543,7 @@ bool Image::hasAlphaChannel(void)
         (getPixelFormat      () == OSG_RGBA_DXT3) ||
         (getPixelFormat      () == OSG_RGBA_DXT5) ||
         (getPixelFormat      () == OSG_A_PF     ) ||
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         (getPixelFormat      () == OSG_I_PF     ) ||
 #endif
         (getPixelFormat      () == OSG_LA_PF    );
@@ -3578,7 +3578,7 @@ bool Image::hasColorChannel(void)
 {
     return 
         ( !( getPixelFormat() == OSG_A_PF ||
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
              getPixelFormat() == OSG_I_PF ||
 #endif
              getPixelFormat() == OSG_L_PF ||
@@ -3656,7 +3656,7 @@ bool Image::calcIsAlphaBinary(void)
                     break;
             }
             break;
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
             for(; npix > 0; --npix, data += pixelsize)
             {
@@ -3757,7 +3757,7 @@ UInt32 Image::calcMipmapLevelSize ( UInt32 mipmapNum,
 
     switch (getPixelFormat()) 
     {
-#if !defined(OSG_WINCE)
+#if !defined(OSG_EMBEDDED)
         case OSG_RGB_DXT1:
         case OSG_RGBA_DXT1:
             sum = (((w?w:1)+3)/4) * (((h?h:1)+3)/4) * 8;

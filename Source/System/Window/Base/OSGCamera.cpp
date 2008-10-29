@@ -301,7 +301,7 @@ Matrixr Camera::getDecorationVal(UInt32 width, UInt32 height)
    return temp_mat;
 }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 /*! Calculate a ray that starts at the camera position and goes through the
   pixel \a x, \a y in the viewport \a port. \a x and \a y are relative to the
   viewport's upper left corner. \a t is the length of the viewing ray.

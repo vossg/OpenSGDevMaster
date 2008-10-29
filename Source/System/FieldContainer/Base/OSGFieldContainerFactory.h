@@ -196,7 +196,7 @@ class OSG_SYSTEM_DLLMAPPING FieldContainerFactoryBase :
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Lock              *_pStoreLock;
 #endif
 

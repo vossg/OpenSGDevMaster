@@ -52,7 +52,7 @@
 #include "OSGThread.h"
 #include "OSGBaseFunctions.h"
 #include "OSGChangeList.h"
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGThreadManager.h"
 #endif
 #include "OSGLog.h"
@@ -71,7 +71,7 @@
 
 OSG_USING_NAMESPACE
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 
 const UInt32 ThreadCommonBase::InvalidAspect = 
     TypeTraits<UInt32>::BitsSet;

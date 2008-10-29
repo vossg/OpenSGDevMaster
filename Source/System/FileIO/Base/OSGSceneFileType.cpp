@@ -51,7 +51,7 @@
 #include <OSGLog.h>
 
 #include "OSGSceneFileType.h"
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGSceneFileHandler.h"
 #endif
 #include "OSGBaseInitFunctions.h"
@@ -101,7 +101,7 @@ SceneFileType::SceneFileType(const Char8  *suffixArray[],
         sI->set(suffixArray[i++]);
     }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	SceneFileHandler::the()->addSceneFileType(*this);
 #endif
 }
@@ -120,7 +120,7 @@ SceneFileType::SceneFileType(const SceneFileType &obj) :
 //---------------------------------------------------------
 SceneFileType::~SceneFileType(void)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	if(GlobalSystemState != Shutdown)
         SceneFileHandler::the()->subSceneFileType(*this);
 #endif

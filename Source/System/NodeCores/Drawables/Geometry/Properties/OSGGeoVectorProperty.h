@@ -67,7 +67,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
     /*! \name        Arbitrary Type Interface Methods                      */
     /*! \{                                                                 */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     typedef Vec4d MaxTypeT;
 #else
     typedef Vec4f MaxTypeT;

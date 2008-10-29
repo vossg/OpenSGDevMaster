@@ -46,7 +46,7 @@
 #include "OSGBaseFunctions.h"
 #include "OSGBaseInitFunctions.h"
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGLock.h"
 #endif
 
@@ -102,7 +102,7 @@ class NoLockPolicy
     void operator =(const NoLockPolicy &source);
 };
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 class SingleLockPolicy
 {
 

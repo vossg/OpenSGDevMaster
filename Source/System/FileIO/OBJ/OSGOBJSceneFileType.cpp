@@ -58,16 +58,16 @@
 #include "OSGGeometry.h"
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGGeoFunctions.h"
 #endif
 #include "OSGSimpleTexturedMaterial.h"
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGImageFileHandler.h"
 #include "OSGPathHandler.h"
 #endif
 #include "OSGGroup.h"
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGSceneFileHandler.h"
 #endif
 #include "OSGTriangleIterator.h"
@@ -185,7 +185,7 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
             }
             else
             {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 				SceneFileHandler::the()->updateReadProgress();
 #endif
                 elemI = _dataElemMap.find(elem);
@@ -448,7 +448,7 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
                 // check if we have normals
                 // need to port the geometry functions ...
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 				if(geoPtr->getNormals() == NULL)
                     calcVertexNormals(geoPtr);
 #endif
@@ -481,7 +481,7 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
         }
     }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	SceneFileHandler::the()->updateReadProgress(100);
 #endif
     return NodeTransitPtr(rootPtr);
@@ -493,7 +493,7 @@ void OBJSceneFileType::write(Node * const  node,
                              UInt32 &nIndex,
                              UInt32 &tIndex) const
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	UInt32 i,pCount=0,nCount=0,tCount=0;
     Geometry *g = dynamic_cast<Geometry *>(node->getCore());
     if(g != NULL)
@@ -772,11 +772,11 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
 
     Int32 mtlCount = 0;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	PathHandler *pathHandler = SceneFileHandler::the()->getPathHandler();
 #endif
 	std::string fullFilePath;
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 	if(pathHandler != NULL)
         fullFilePath = pathHandler->findFile(fileName);
     else
@@ -880,7 +880,7 @@ Int32 OBJSceneFileType::readMTL ( const Char8 *fileName,
                                 iI = imageMap.find(elem);
                                 if (iI == imageMap.end())
                                 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 									std::string fullElemPath;
                                     if(pathHandler != NULL)
                                         fullElemPath = pathHandler->findFile(elem.c_str());

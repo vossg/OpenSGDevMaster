@@ -46,7 +46,7 @@
 
 #include "OSGGL.h"
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 
 #ifdef OSG_NOGLSUBDIR
 #include <glu.h>
@@ -79,7 +79,7 @@ typedef void (*OSGGLUfuncptr)();
 
 #endif
 
-#if defined(OSG_DEBUG) && !defined(OSG_WINCE)
+#if defined(OSG_DEBUG) && !defined(OSG_EMBEDDED)
 #define glErr(text)                                 \
 {                                                   \
     GLenum glerr;                                   \

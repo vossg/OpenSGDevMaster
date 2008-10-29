@@ -119,7 +119,7 @@ class OSG_GROUP_DLLMAPPING Transform : public TransformBase
     /*! \name              Intersect & Render                              */
     /*! \{                                                                 */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     ActionBase::ResultE     intersectEnter(Action    *action);
     ActionBase::ResultE     intersectLeave(Action    *action);
 #endif

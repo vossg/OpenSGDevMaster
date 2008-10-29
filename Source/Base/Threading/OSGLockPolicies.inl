@@ -77,7 +77,7 @@ bool NoLockPolicy::request(void)
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 
 inline
 SingleLockPolicy::SingleLockPolicy(void) :

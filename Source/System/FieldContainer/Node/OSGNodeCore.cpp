@@ -301,7 +301,7 @@ bool NodeCore::unlinkParent(FieldContainer * const pParent,
 }
 
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 ActionBase::ResultE NodeCore::defaultEnter(Action *)
 {
     return ActionBase::Continue;

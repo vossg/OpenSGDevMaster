@@ -190,7 +190,7 @@ void TextureObjChunk::initMethod(InitPhase ePhase)
             OSG_DLSYM_UNDERSCORE"glCompressedTexSubImage3DARB"          , 
             _arbTextureCompression);
         
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         Window::registerConstant(GL_MAX_TEXTURE_UNITS_ARB      );
         Window::registerConstant(GL_MAX_TEXTURE_IMAGE_UNITS_ARB);
         Window::registerConstant(GL_MAX_TEXTURE_COORDS_ARB     );    
@@ -334,7 +334,7 @@ void TextureObjChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 
 void TextureObjChunk::handleTextureShader(Window *win, GLenum bindtarget)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(!win->hasExtension(_nvTextureShader))
     {
         if(getShaderOperation() != GL_NONE)
@@ -466,7 +466,7 @@ void TextureObjChunk::handleTexture(Window *win,
                                  ImagePtr img,
                                  Int32    side)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if( img==NullFC || ! img->getDimension()) // no image ?
         return;
 
@@ -1502,7 +1502,7 @@ void TextureObjChunk::handleGL(DrawEnv                 *pEnv,
                                UInt32                   osgid,
                                Window::GLObjectStatusE  mode)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Window::GLObjectStatusE mode;
     UInt32 osgid;
     GLuint id;
@@ -1622,7 +1622,7 @@ void TextureObjChunk::handleDestroyGL(DrawEnv                 *pEnv,
 
 void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {    
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #ifdef OSG_DUMP_TEX
     fprintf(stderr, "Activate %d\n", _uiChunkId);
 #endif
@@ -1781,7 +1781,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
                               StateChunk *old   ,
                               UInt32      idx )
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     // change from me to me?
     // this assumes I haven't changed in the meantime.
     // is that a valid assumption?
@@ -2014,7 +2014,7 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
 
 void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #ifdef OSG_DUMP_TEX
     fprintf(stderr, "Deactivate %d\n", _uiChunkId);
 #endif
@@ -2142,7 +2142,7 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 GLenum TextureObjChunk::determineTextureTarget(Window *pWindow) const
 {
     GLenum target = GL_NONE;
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     ImagePtr img = getImage();
     
     if(img != NullFC)
@@ -2213,7 +2213,7 @@ bool TextureObjChunk::operator == (const StateChunk &other) const
         getPriority () == tother->getPriority () &&
         getEnvMode  () == tother->getEnvMode  ();
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(returnValue == true && getEnvMode() == GL_COMBINE_EXT)
     {
         returnValue =

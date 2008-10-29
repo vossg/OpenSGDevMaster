@@ -96,7 +96,7 @@ void drawVolume(const Volume &volume)
 
 void drawVolume(const BoxVolume &volume)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Pnt3f min,max;
     volume.getBounds(min, max);
 
@@ -146,7 +146,7 @@ void drawVolume(const SphereVolume &OSG_CHECK_ARG(volume))
 
 void drawVolume(const FrustumVolume &volume)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Line lines[4];
     
     // calc the intersection lines between left/right/bottom/top
@@ -337,7 +337,7 @@ class VolumeDrawWrapper
   
     Action::ResultE draw(DrawEnv *)
     {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         glColor3fv(_col.getValuesRGB());
 #endif
         drawVolume(_vol);

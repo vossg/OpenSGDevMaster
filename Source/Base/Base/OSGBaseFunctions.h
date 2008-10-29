@@ -350,7 +350,7 @@ Int32 osgRound2Int(Real64 val);
 template<class VecPntT> inline
 UInt32 getMaxIndexAbs3(const VecPntT &v);
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 inline
 Int32  putenv(Char8 *string);
 #else

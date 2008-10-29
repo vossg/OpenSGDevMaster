@@ -567,7 +567,7 @@ typedef Real32  Real;
 typedef Fixed32 Real;
 #endif
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 typedef std::wstring   tstring;
 #define OSGT(TEXT) L##TEXT
 #else

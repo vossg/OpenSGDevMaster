@@ -41,7 +41,7 @@
 
 #include "OSGRenderOptionsBase.h"
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 #define GL_FILL 0x1B02
 #endif
 

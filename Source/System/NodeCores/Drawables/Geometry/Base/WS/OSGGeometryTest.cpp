@@ -184,7 +184,7 @@ TEST(TestSettingVecAttribs)
         "GeoPnt3NsProperty",
         "GeoPnt4NsProperty",
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         "GeoVec1fProperty",
         "GeoVec2fProperty",
         "GeoVec3fProperty",
@@ -196,7 +196,7 @@ TEST(TestSettingVecAttribs)
         "GeoPnt4fProperty",
 #endif
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
         "GeoVec1fxProperty",
         "GeoVec2fxProperty",
         "GeoVec3fxProperty",
@@ -208,7 +208,7 @@ TEST(TestSettingVecAttribs)
         "GeoPnt4fxProperty",
 #endif
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         "GeoVec1dProperty",
         "GeoVec2dProperty",
         "GeoVec3dProperty",

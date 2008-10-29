@@ -57,7 +57,7 @@ UInt16 ContainerFactory<DescT>::findGroupId(const Char8  *szName) const
     UInt16          returnValue = 0;
     GroupMapConstIt gIt;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
 #endif
@@ -66,7 +66,7 @@ UInt16 ContainerFactory<DescT>::findGroupId(const Char8  *szName) const
 
     returnValue = ((gIt == _mGroupMap.end()) ? 0 : (*gIt).second);
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
 #endif
@@ -84,7 +84,7 @@ const Char8 *ContainerFactory<DescT>::findGroupName(
 {
     const Char8 *returnValue = NULL;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
 #endif
@@ -100,7 +100,7 @@ const Char8 *ContainerFactory<DescT>::findGroupName(
         ++gIt;
     }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
 #endif
@@ -114,14 +114,14 @@ UInt32 ContainerFactory<DescT>::getNumGroups(void) const
 {
     UInt32 returnValue;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
 #endif
 
     returnValue = _mGroupMap.size();
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
 #endif
@@ -135,14 +135,14 @@ void ContainerFactory<DescT>::registerType(ContainerType *pType)
     if(pType == NULL)
         return;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
 #endif
 
     _vUnitTypesStore.push_back(pType);
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
 #endif
@@ -168,7 +168,7 @@ UInt16 ContainerFactory<DescT>::registerGroup(const Char8 *szGroupName)
 
     if(returnValue == 0)
     {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         if(_pLock != NULL)
             _pLock->acquire();
 #endif
@@ -177,7 +177,7 @@ UInt16 ContainerFactory<DescT>::registerGroup(const Char8 *szGroupName)
 
         _mGroupMap[IDStringLink(szGroupName)] = returnValue;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         if(_pLock != NULL)
             _pLock->release();
 #endif
@@ -260,7 +260,7 @@ ContainerFactory<DescT>::ContainerFactory(
     _vUnitTypesStore(             ),
     _vPostUnitTypes (             )
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     ,_pLock          (         NULL)
 #endif
 {
@@ -280,7 +280,7 @@ bool ContainerFactory<FactoryDescT>::initializePendingElements(void)
 
     PINFO << this->_szName.str() << " init pending types" << std::endl;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->acquire();
 #endif
@@ -320,7 +320,7 @@ bool ContainerFactory<FactoryDescT>::initializePendingElements(void)
         }
     }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     if(_pLock != NULL)
         _pLock->release();
 #endif
@@ -347,7 +347,7 @@ bool ContainerFactory<DescT>::initialize(void)
 
     PINFO << "init singleton " << this->_szName.str() << std::endl;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     _pLock   =
         ThreadManager::the()->getLock(Desc::getContainerFactoryLockName());
 
@@ -405,7 +405,7 @@ bool ContainerFactory<DescT>::terminate(void)
         ++typeIt;
     }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     subRef(_pLock);
 #endif
 

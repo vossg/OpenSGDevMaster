@@ -250,7 +250,7 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
                              Window::GLObjectStatusE  mode,
                              UInt32                   uiOptions)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     GLuint glid;
     Window *win = pEnv->getWindow();
 
@@ -305,7 +305,7 @@ void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv,
                                UInt32                   id, 
                                Window::GLObjectStatusE  mode)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     GLuint glid;
     Window *win = pEnv->getWindow();
 

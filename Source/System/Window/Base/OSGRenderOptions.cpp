@@ -121,7 +121,7 @@ void RenderOptions::changed(ConstFieldMaskArg whichField,
 
 void RenderOptions::setWireframe(bool value)
 {
-#if !defined(OSG_WINCE) || OSG_GL_ES_VERSION > 100
+#if !defined(OSG_EMBEDDED) || OSG_GL_ES_VERSION > 100
     if(value)
     {
         setPolygonMode(GL_LINE);
@@ -135,7 +135,7 @@ void RenderOptions::setWireframe(bool value)
 
 bool RenderOptions::getWireframe(void)
 {
-#if !defined(OSG_WINCE) || OSG_GL_ES_VERSION > 100
+#if !defined(OSG_EMBEDDED) || OSG_GL_ES_VERSION > 100
 	return getPolygonMode() == GL_LINE;
 #else
 	return false;
@@ -213,7 +213,7 @@ void RenderOptions::activateOptions(RenderAction *action)
         action->setDepthOnlyPass(getDepthOnlyPass());
 
     // we update the gl stuff each frame.
-#if !defined(OSG_WINCE) || OSG_GL_ES_VERSION > 100
+#if !defined(OSG_EMBEDDED) || OSG_GL_ES_VERSION > 100
     glPolygonMode(GL_FRONT_AND_BACK, _polygon_mode);
 #endif
 
@@ -228,7 +228,7 @@ void RenderOptions::activateOptions(RenderAction *action)
         glCullFace(GL_BACK);
     } 
 
-#if !defined(OSG_WINCE) || OSG_GL_ES_VERSION > 100
+#if !defined(OSG_EMBEDDED) || OSG_GL_ES_VERSION > 100
     if(_two_sided_lighting)
         glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
     else

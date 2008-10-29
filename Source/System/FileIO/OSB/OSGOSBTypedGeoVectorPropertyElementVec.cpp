@@ -162,7 +162,7 @@ static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoVec4NsProperty> >
         _regVec4Ns("GeoVec4NsProperty");
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoVec1fProperty> >
         _regVec1f("GeoVec1fProperty");
@@ -177,7 +177,7 @@ static OSBElementRegistrationHelper<
         _regVec4f("GeoVec4fProperty");
 #endif
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoVec1fxProperty> >
         _regVec1fx("GeoVec1fxProperty");
@@ -192,7 +192,7 @@ static OSBElementRegistrationHelper<
         _regVec4fx("GeoVec4fxProperty");
 #endif
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoVec1dProperty> >
         _regVec1d("GeoVec1dProperty");
@@ -229,7 +229,7 @@ static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoColor4fProperty> >
         _regColor4f("GeoColor4fProperty");
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 static OSBElementRegistrationHelper<
     OSBTypedGeoVectorPropertyElement<GeoColor3fxProperty> >
         _regColor3fx("GeoColor3fxProperty");

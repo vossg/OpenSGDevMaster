@@ -44,7 +44,7 @@
 
 #include "OSGBaseFunctions.h"
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include <sys/types.h>
 #include <sys/stat.h>
 #endif
@@ -60,7 +60,7 @@
 #include <vector>
 #else
 #include <windows.h>
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include <direct.h>
 #endif
 #include <vector>
@@ -100,7 +100,7 @@ namespace Directory
     static bool                  tstAttr   (const Char8  *szDirname,
                                                   UInt32  uiAccessFlags);
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     static Char8                *getCurrent(void);
 
     static bool                  setCurrent(const Char8 *szDirname);

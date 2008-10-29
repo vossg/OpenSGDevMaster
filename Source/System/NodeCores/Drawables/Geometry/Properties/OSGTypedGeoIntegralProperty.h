@@ -377,7 +377,7 @@ OSG_GEN_CONTAINERPTR(GeoUInt16Property);
 #endif
 
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 /*! \brief The descriptor trait for OSG::GeoPositionsUInt32.
     \ingroup GrpWINDOWGLUTDrawablesGeometryProperties
     \hideinhierarchy
@@ -426,7 +426,7 @@ typedef GeoUInt16Property      GeoIndicesUI16;
 //typedef GeoUInt16PropertyPtr   GeoPLengthsUI16Ptr;
 //typedef GeoUInt16PropertyPtr   GeoIndicesUI16Ptr;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 typedef GeoUInt32Property      GeoPTypesUI32;
 typedef GeoUInt32Property      GeoPLengthsUI32;
 typedef GeoUInt32Property      GeoIndicesUI32;

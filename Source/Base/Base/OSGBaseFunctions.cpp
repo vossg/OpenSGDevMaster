@@ -134,7 +134,7 @@ OSG_USING_NAMESPACE
 
 OSG_BEGIN_NAMESPACE
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 void osgGetHostname(char *szBuffer, UInt32 uiSize)
 {
     // get local host name

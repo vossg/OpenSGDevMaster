@@ -44,7 +44,7 @@
 #include "OSGSwitch.h"
 
 #include <OSGRenderAction.h>
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include <OSGIntersectAction.h>
 #endif
 
@@ -179,7 +179,7 @@ ActionBase::ResultE Switch::renderLeave(Action *action)
     return ActionBase::Continue;
 }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 ActionBase::ResultE Switch::intersect(Action *action)
 {
     ActionBase::ResultE  returnValue = ActionBase::Continue;
@@ -220,7 +220,7 @@ void Switch::initMethod(InitPhase ePhase)
             Switch::getClassType(),
             reinterpret_cast<Action::Callback>(&Switch::renderLeave));
         
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault(
             getClassType(),
             reinterpret_cast<Action::Callback>(&Switch::intersect));

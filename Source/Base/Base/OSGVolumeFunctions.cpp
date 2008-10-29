@@ -365,7 +365,7 @@ bool intersect(const SphereVolume &sphere, const CylinderVolume &cylinder)
         s1 = (apos        - sphere.getCenter()).length();
         s2 = (apos + adir - sphere.getCenter()).length();
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
         if((s1 <= FLT_EPSILON) || (s2 <= FLT_EPSILON)) 
 #else
         if((s1 <= DBL_EPSILON) || (s2 <= DBL_EPSILON)) 

@@ -419,7 +419,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name   Static GL Object / Extension variables                     */
     /*! \{                                                                 */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     static  Lock                     *_GLObjectLock;
     static  Lock                     *_staticWindowLock;
 #endif

@@ -45,7 +45,7 @@
 #include "OSGGeoPropertyBase.h"
 #include "OSGWindow.h"
 
-#ifdef OSG_WINCE
+#ifdef OSG_EMBEDDED
 #define GL_STATIC_DRAW_ARB 0x88E4
 #endif
 

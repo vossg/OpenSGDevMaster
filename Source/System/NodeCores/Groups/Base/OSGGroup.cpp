@@ -42,7 +42,7 @@
 #include "OSGConfig.h"
 
 #include <OSGRenderAction.h>
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include <OSGIntersectAction.h>
 #endif
 
@@ -125,7 +125,7 @@ ActionBase::ResultE Group::renderLeave(Action *action)
 /*-------------------------------------------------------------------------*/
 /*                             Intersect                                   */
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 ActionBase::ResultE Group::intersect(Action *action)
 {
           IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
@@ -158,7 +158,7 @@ void Group::initMethod(InitPhase ePhase)
             Group::getClassType(), 
             reinterpret_cast<Action::Callback>(&Group::renderLeave));
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault( 
             getClassType(),
             reinterpret_cast<Action::Callback>(&Group::intersect));

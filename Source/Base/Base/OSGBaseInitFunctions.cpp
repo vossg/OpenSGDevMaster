@@ -53,7 +53,7 @@
 
 #include "OSGBaseInitFunctions.h"
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 #include "OSGThreadManager.h"
 #else
 #include "OSGLog.h"
@@ -471,7 +471,7 @@ void addLibraryVersion(const Char8 *szName)
     \c addPostFactoryInitFunction functions. The arguments can be used to
     pass command line arguments to the library, but this is currently unused.
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     Part of the behavior of \c osgInit can be controlled through environment
     variables, these are:
 
@@ -545,7 +545,7 @@ bool osgInit(Int32,
         }
     }
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
 
 #ifdef WIN32
     std::string pathSep(";");
@@ -636,7 +636,7 @@ bool osgInit(Int32,
         return returnValue;
 
     // without it floats could be written as "1,456" ...
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     setlocale(LC_NUMERIC, "English");
 #endif
     if(osgPreMPInitFunctions != NULL)
@@ -655,7 +655,7 @@ bool osgInit(Int32,
     if(returnValue == false)
         return returnValue;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     returnValue &= ThreadManager::initialize();
 
     if(returnValue == false)
@@ -787,7 +787,7 @@ bool osgExit(void)
     if(returnValue == false)
         return returnValue;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     returnValue &= ThreadManager::terminate();
 
     if(returnValue == false)

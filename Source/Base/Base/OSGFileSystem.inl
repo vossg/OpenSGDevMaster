@@ -227,7 +227,7 @@ namespace Directory
 #pragma set woff 1209
 #endif
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     /*! \ingroup GrpBaseBaseFileSystem
      */
 

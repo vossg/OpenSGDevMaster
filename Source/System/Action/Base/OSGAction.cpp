@@ -86,7 +86,7 @@ void Action::registerEnterDefault(const FieldContainerType &type,
     if(_defaultEnterFunctors == NULL)
         _defaultEnterFunctors = new std::vector<Action::Functor>;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     while(type.getId() >= _defaultEnterFunctors->size())
     {
         _defaultEnterFunctors->push_back(&Action::_defaultEnterFunction);
@@ -107,7 +107,7 @@ void Action::registerLeaveDefault(const FieldContainerType &type,
     if(_defaultLeaveFunctors == NULL)
         _defaultLeaveFunctors = new std::vector<Action::Functor>;
 
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     while(type.getId() >= _defaultLeaveFunctors->size())
     {
         _defaultLeaveFunctors->push_back(&Action::_defaultLeaveFunction);
@@ -224,7 +224,7 @@ Action::~Action(void)
 void Action::registerEnterFunction(const FieldContainerType &type, 
                                    const Action::Functor    &func)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     while(type.getId() >= _enterFunctors.size())
     {
         _enterFunctors.push_back(&Action::_defaultEnterFunction);
@@ -242,7 +242,7 @@ void Action::registerEnterFunction(const FieldContainerType &type,
 void Action::registerLeaveFunction(const FieldContainerType &type, 
                                    const Action::Functor    &func)
 {
-#ifndef OSG_WINCE
+#ifndef OSG_EMBEDDED
     while(type.getId() >= _leaveFunctors.size())
     {
         _leaveFunctors.push_back(&Action::_defaultLeaveFunction);
