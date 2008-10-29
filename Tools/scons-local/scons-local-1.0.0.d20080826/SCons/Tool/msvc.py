@@ -346,7 +346,7 @@ def get_msvc_path(env, path, version):
     version_num, suite = SCons.Tool.msvs.msvs_parse_version(version)
     if version_num >= 8.0:
         platform = env.get('MSVS8_PLATFORM', 'x86')
-        suite = SCons.Tool.msvs.get_default_visualstudio8_suite(env)
+        suite = SCons.Tool.msvs.get_default_visualstudio8_suite(env, version_num)
     else:
         platform = 'x86'
 
@@ -531,6 +531,7 @@ def _get_msvc8_default_paths(env, version, suite, use_mfc_dirs):
     include_path = string.join( include_paths, os.pathsep )
     lib_path = string.join(lib_paths, os.pathsep )
     exe_path = string.join(exe_paths, os.pathsep )
+
     return (include_path, lib_path, exe_path)
 
 def get_msvc_paths(env, version=None, use_mfc_dirs=0):
@@ -555,7 +556,7 @@ def get_msvc_paths(env, version=None, use_mfc_dirs=0):
     # directories.
     version_num, suite = SCons.Tool.msvs.msvs_parse_version(version)
     if version_num >= 8.0:
-        suite = SCons.Tool.msvs.get_default_visualstudio8_suite(env)
+        suite = SCons.Tool.msvs.get_default_visualstudio8_suite(env, version_num)
         defpaths = _get_msvc8_default_paths(env, version, suite, use_mfc_dirs)
     elif version_num >= 7.0:
         defpaths = _get_msvc7_default_paths(env, version, use_mfc_dirs)
@@ -601,7 +602,7 @@ def get_msvc_default_paths(env, version=None, use_mfc_dirs=0):
 
     version_num, suite = SCons.Tool.msvs.msvs_parse_version(version)
     if version_num >= 8.0:
-        suite = SCons.Tool.msvs.get_default_visualstudio8_suite(env)
+        suite = SCons.Tool.msvs.get_default_visualstudio8_suite(env, version_num)
         return _get_msvc8_default_paths(env, version, suite, use_mfc_dirs)
     elif version_num >= 7.0:
         return _get_msvc7_default_paths(env, version, use_mfc_dirs)
@@ -722,8 +723,9 @@ def generate(env):
     try:
         version = SCons.Tool.msvs.get_default_visualstudio_version(env)
         version_num, suite = SCons.Tool.msvs.msvs_parse_version(version)
-        if version_num == 8.0:
-            suite = SCons.Tool.msvs.get_default_visualstudio8_suite(env)
+
+        if version_num >= 8.0:
+            suite = SCons.Tool.msvs.get_default_visualstudio8_suite(env, version_num)
 
         use_mfc_dirs = env.get('MSVS_USE_MFC_DIRS', 0)
         if env.get('MSVS_IGNORE_IDE_PATHS', 0):
@@ -737,6 +739,7 @@ def generate(env):
         env.PrependENVPath('INCLUDE', include_path)
         env.PrependENVPath('LIB', lib_path)
         env.PrependENVPath('PATH', exe_path)
+
     except (SCons.Util.RegError, SCons.Errors.InternalError):
         pass
 

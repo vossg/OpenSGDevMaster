@@ -1243,7 +1243,7 @@ def get_visualstudio_versions():
 
     return L
 
-def get_default_visualstudio8_suite(env):
+def get_default_visualstudio8_suite(env, version):
     """
     Returns the Visual Studio 2005 suite identifier set in the env, or the
     highest suite installed.
@@ -1258,7 +1258,7 @@ def get_default_visualstudio8_suite(env):
         suite = 'EXPRESS'
         suites = [suite]
         if SCons.Util.can_read_reg:
-            suites = get_visualstudio8_suites()
+            suites = get_visualstudio8_suites(version)
             if suites:
                 suite = suites[0] #use best suite by default
 
@@ -1268,7 +1268,7 @@ def get_default_visualstudio8_suite(env):
 
     return suite
 
-def get_visualstudio8_suites():
+def get_visualstudio8_suites(version):
     """
     Returns a sorted list of all installed Visual Studio 2005 suites found
     in the registry. The highest version should be the first entry in the list.
@@ -1277,16 +1277,19 @@ def get_visualstudio8_suites():
     suites = []
 
     # Detect Standard, Professional and Team edition
-    try:
+    try:        
+        version_literal = '%s' % version
+
         idk = SCons.Util.RegOpenKeyEx(SCons.Util.HKEY_LOCAL_MACHINE,
-            r'Software\Microsoft\VisualStudio\8.0')
+                'Software\\Microsoft\\VisualStudio\\' + version_literal)
+
         SCons.Util.RegQueryValueEx(idk, 'InstallDir')
         editions = { 'PRO': r'Setup\VS\Pro' }       # ToDo: add standard and team editions
         edition_name = 'STD'
         for name, key_suffix in editions.items():
             try:
                 idk = SCons.Util.RegOpenKeyEx(SCons.Util.HKEY_LOCAL_MACHINE,
-                    r'Software\Microsoft\VisualStudio\8.0' + '\\' + key_suffix )
+                    'Software\\Microsoft\\VisualStudio\\' + version_literal + '\\' + key_suffix )
                 edition_name = name
             except SCons.Util.RegError:
                 pass
@@ -1338,7 +1341,7 @@ def get_msvs_install_dirs(version = None, vs8suite = None):
         if vs8suite == None:
             # We've been given no guidance about which Visual Studio 8
             # suite to use, so attempt to autodetect.
-            suites = get_visualstudio8_suites()
+            suites = get_visualstudio8_suites(version_num)
             if suites:
                 vs8suite = suites[0]
 
