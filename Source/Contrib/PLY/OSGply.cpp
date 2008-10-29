@@ -109,7 +109,7 @@ void binary_get_element(PlyFile *, char *);
 
 /* memory allocation */
 #define myalloc(mem_size) my_alloc((mem_size), __LINE__, __FILE__)
-static char *my_alloc(int, int, char *);
+static char *my_alloc(int, int, const char *);
 
 static bool should_reverse(int file_type)
 {
@@ -2257,7 +2257,7 @@ Entry:
   fname - file name from which memory was requested
 ******************************************************************************/
 
-static char *my_alloc(int size, int lnum, char *fname)
+static char *my_alloc(int size, int lnum, const char *fname)
 {
   char *ptr;
 
