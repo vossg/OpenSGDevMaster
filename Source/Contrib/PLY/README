@@ -1,0 +1,25 @@
+
+README for PLY
+==============
+
+Name:                   PLY
+License:                special, see OSGply.h
+Maintainer:             ???
+Initial Author:         Chad Austin <aegisk@cs.iastate.edu>
+Additional Libraries:   -
+Added:                  2005/06/08
+Last modified:          2005/06/08
+Last tested:            2005/06/08
+
+Description:
+
+This is a PLY loader based on Greg Turk's code. The reason this is not
+in the core is the license, which doesn't allow commercial use. Other than
+that it's pretty functional and loads all the usual models.
+
+If you want to add this to your standard system (because you don't intend
+to  sell your software anyway) you can just copy this directory into
+Source/System/FileIO and rename common.libs.in.system to common.libs.in.  On
+Windows you also have to change the OSG_CONTRIBLIB_DLLMAPPING in
+OSGPLYSceneFileType.h to OSG_SYSTEMLIB_DLLMAPPING. After a reconfigure and
+compile your programs should be able to load .ply files.
