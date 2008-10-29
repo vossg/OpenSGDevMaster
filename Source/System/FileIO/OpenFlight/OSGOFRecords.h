@@ -466,7 +466,8 @@ class OSG_FILEIO_DLLMAPPING OFVertexPaletteRecord : public OFRecord
         UInt32  uiOffset;
         Int32   uiIdx[4];
 
-        bool operator <(const UInt32 &uiOff) const;
+        bool operator <(const UInt32      uiOff) const;
+        bool operator <(const VertexInfo &vInfo) const;
     };
 
     /*---------------------------------------------------------------------*/
@@ -524,6 +525,8 @@ class OSG_FILEIO_DLLMAPPING OFVertexPaletteRecord : public OFRecord
     const Vec3f      &getNormal    (UInt32 uiIdx   ) const;
     const Vec2f      &getTexCoord  (UInt32 uiIdx   ) const;
 };
+
+bool operator <(const UInt32 uiOff, const OFVertexPaletteRecord::VertexInfo &vInfo);
 
 //---------------------------------------------------------------------------
 //  Class

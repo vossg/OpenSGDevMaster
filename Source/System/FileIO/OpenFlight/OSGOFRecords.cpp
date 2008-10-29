@@ -878,10 +878,23 @@ const Vec2f &OFVertexPaletteRecord::getTexCoord(UInt32 uiIdx) const
     return vTexCoords[uiIdx];
 }
 
-bool OFVertexPaletteRecord::VertexInfo::operator <(const UInt32 &uiOff) const
+bool OFVertexPaletteRecord::VertexInfo::operator <(const UInt32 uiOff) const
 {
     return this->uiOffset < uiOff;
 }
+
+bool OFVertexPaletteRecord::VertexInfo::operator <(
+    const VertexInfo &vInfo) const
+{
+    return this->uiOffset < vInfo.uiOffset;
+}
+
+bool operator <(const UInt32                             uiOff, 
+                const OFVertexPaletteRecord::VertexInfo &vInfo)
+{
+    return uiOff < vInfo.uiOffset;
+}
+
 
 OFRecordFactoryBase::RegisterRecord OFVertexPaletteRecord::_regHelper(
     &OFVertexPaletteRecord::create,
