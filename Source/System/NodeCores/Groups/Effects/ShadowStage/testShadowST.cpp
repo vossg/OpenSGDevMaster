@@ -13,7 +13,8 @@
 #include <OSGRenderAction.h>
 #include <OSGImage.h>
 #include <OSGSimpleMaterial.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
 #include <OSGTransform.h>
 #include <OSGGroup.h>
 #include <OSGTrackball.h>
@@ -192,18 +193,20 @@ int doMain(int argc, char **argv)
     ImageUnrecPtr                plane_img = Image::create();
     plane_img->read("gras.jpg");
 
-    TextureChunkUnrecPtr         plane_tex = TextureChunk::create();
-    plane_tex->setImage(plane_img);
-    plane_tex->setMinFilter(GL_LINEAR);
-    plane_tex->setMagFilter(GL_LINEAR);
-    plane_tex->setWrapS(GL_REPEAT);
-    plane_tex->setWrapT(GL_REPEAT);
-    plane_tex->setEnvMode(GL_MODULATE);
+    TextureObjChunkUnrecPtr         plane_tex_obj = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr         plane_tex_env = TextureEnvChunk::create();
+    plane_tex_obj->setImage(plane_img);
+    plane_tex_obj->setMinFilter(GL_LINEAR);
+    plane_tex_obj->setMagFilter(GL_LINEAR);
+    plane_tex_obj->setWrapS(GL_REPEAT);
+    plane_tex_obj->setWrapT(GL_REPEAT);
+    plane_tex_env->setEnvMode(GL_MODULATE);
 
     SimpleMaterialUnrecPtr       plane_mat = SimpleMaterial::create();
     plane_mat->setAmbient(Color3f(0.3, 0.3, 0.3));
     plane_mat->setDiffuse(Color3f(1.0, 1.0, 1.0));
-    plane_mat->addChunk(plane_tex);
+    plane_mat->addChunk(plane_tex_obj);
+    plane_mat->addChunk(plane_tex_env);
 
     Geometry *plane_geo = dynamic_cast<Geometry *>(plane->getCore());
     plane_geo->setMaterial(plane_mat);
@@ -416,18 +419,20 @@ int doMain(int argc, char **argv)
     ImageUnrecPtr                plane_img2 = Image::create();
     plane_img2->read("stone.jpg");
 
-    TextureChunkUnrecPtr         plane_tex2 = TextureChunk::create();
-    plane_tex2->setImage(plane_img2);
-    plane_tex2->setMinFilter(GL_LINEAR);
-    plane_tex2->setMagFilter(GL_LINEAR);
-    plane_tex2->setWrapS(GL_REPEAT);
-    plane_tex2->setWrapT(GL_REPEAT);
-    plane_tex2->setEnvMode(GL_MODULATE);
+    TextureObjChunkUnrecPtr         plane_tex2_obj = TextureObjChunk::create();
+    TextureEnvChunkUnrecPtr         plane_tex2_env = TextureEnvChunk::create();
+    plane_tex2_obj->setImage(plane_img2);
+    plane_tex2_obj->setMinFilter(GL_LINEAR);
+    plane_tex2_obj->setMagFilter(GL_LINEAR);
+    plane_tex2_obj->setWrapS(GL_REPEAT);
+    plane_tex2_obj->setWrapT(GL_REPEAT);
+    plane_tex2_env->setEnvMode(GL_MODULATE);
 
     SimpleMaterialUnrecPtr       plane_mat2 = SimpleMaterial::create();
     plane_mat2->setAmbient(Color3f(0.3, 0.3, 0.3));
     plane_mat2->setDiffuse(Color3f(1.0, 1.0, 1.0));
-    plane_mat2->addChunk(plane_tex2);
+    plane_mat2->addChunk(plane_tex2_obj);
+    plane_mat2->addChunk(plane_tex2_env);
 
     Geometry *plane_geo3 = dynamic_cast<Geometry *>(stone1->getCore());
     plane_geo3->setMaterial(plane_mat2);

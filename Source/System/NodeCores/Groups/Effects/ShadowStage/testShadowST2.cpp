@@ -17,7 +17,8 @@
 #include <OSGRenderAction.h>
 #include <OSGImage.h>
 #include <OSGSimpleMaterial.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
 
 #include <OSGTransform.h>
 #include <OSGGroup.h>
@@ -246,18 +247,20 @@ int doMain(int argc, char **argv)
         ImageUnrecPtr            plane_img = Image::create();
         plane_img->set(Image::OSG_RGB_PF, 2, 2, 1, 1, 1, 0, imgdata);
 
-        TextureChunkUnrecPtr     plane_tex = TextureChunk::create();
-        plane_tex->setImage(plane_img);
-        plane_tex->setMinFilter(GL_LINEAR);
-        plane_tex->setMagFilter(GL_LINEAR);
-        plane_tex->setWrapS(GL_REPEAT);
-        plane_tex->setWrapT(GL_REPEAT);
-        plane_tex->setEnvMode(GL_MODULATE);
+        TextureObjChunkUnrecPtr     plane_tex_obj = TextureObjChunk::create();
+        TextureEnvChunkUnrecPtr     plane_tex_env = TextureEnvChunk::create();
+        plane_tex_obj->setImage(plane_img);
+        plane_tex_obj->setMinFilter(GL_LINEAR);
+        plane_tex_obj->setMagFilter(GL_LINEAR);
+        plane_tex_obj->setWrapS(GL_REPEAT);
+        plane_tex_obj->setWrapT(GL_REPEAT);
+        plane_tex_env->setEnvMode(GL_MODULATE);
 
         SimpleMaterialUnrecPtr   plane_mat = SimpleMaterial::create();
         plane_mat->setAmbient(Color3f(0.3, 0.3, 0.3));
         plane_mat->setDiffuse(Color3f(1.0, 1.0, 1.0));
-        plane_mat->addChunk(plane_tex);
+        plane_mat->addChunk(plane_tex_obj);
+        plane_mat->addChunk(plane_tex_env);
 
         Geometry        *plane_geo = dynamic_cast<Geometry *>(plane->getCore());
         plane_geo->setMaterial(plane_mat);

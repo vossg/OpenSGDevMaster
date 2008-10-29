@@ -6,7 +6,8 @@
 #include <OSGConfig.h>
 #include <OSGSimpleSceneManager.h>
 #include <OSGSimpleMaterial.h>
-#include <OSGTextureChunk.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
 #include <OSGImage.h>
 #include <OSGGLUTWindow.h>
 #include <OSGSolidBackground.h>
@@ -110,17 +111,19 @@ void setupDefaultMaterial( void )
     gpcl_defaultmat->setSpecular( Color3f(0.78,0.78,0.78) );
     gpcl_defaultmat->setShininess( 128 );
 
-    TextureChunkRefPtr xchunk = TextureChunk::create();
-    xchunk->setImage( gpcl_image );
-    xchunk->setMinFilter( GL_LINEAR );
-    xchunk->setMagFilter( GL_LINEAR );
-    xchunk->setWrapS( GL_CLAMP );
-    xchunk->setWrapT( GL_CLAMP );
-    xchunk->setEnvMode( GL_REPLACE );
-    xchunk->setInternalFormat( GL_RGB16_EXT );
+    TextureObjChunkRefPtr xchunk_obj = TextureObjChunk::create();
+    TextureEnvChunkRefPtr xchunk_env = TextureEnvChunk::create();
+    xchunk_obj->setImage( gpcl_image );
+    xchunk_obj->setMinFilter( GL_LINEAR );
+    xchunk_obj->setMagFilter( GL_LINEAR );
+    xchunk_obj->setWrapS( GL_CLAMP );
+    xchunk_obj->setWrapT( GL_CLAMP );
+    xchunk_env->setEnvMode( GL_REPLACE );
+    xchunk_obj->setInternalFormat( GL_RGB16_EXT );
 
     std::cerr<<"Adding texture chunk to default material..."<<std::endl;
-    gpcl_defaultmat->addChunk( xchunk );
+    gpcl_defaultmat->addChunk( xchunk_obj );
+    gpcl_defaultmat->addChunk( xchunk_env );
 }
 
 
@@ -150,7 +153,7 @@ NodeTransitPtr makeScene( void )
     cps->push_back( Pnt3f( -1,  0,  1 ));
     cps->push_back( Pnt3f( -1, -1,  0 ));
 
-    GeoVec2fPropertyRefPtr texcps = GeoTexCoords2f::create();
+    GeoVec2fPropertyRefPtr texcps = GeoVec2fProperty::create();
 
     // texture coordinates for the control points, always 2D
     texcps->clear();
