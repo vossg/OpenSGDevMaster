@@ -144,10 +144,10 @@ bool convertCrossToCubeMap(Image const *pIn,
                            Image       *pOut);
                            
 template<class ValueT> inline
-void swapImageByteOrder(const ImagePtr pImage);
+void swapImageByteOrder(Image * const pImage);
           
 template<class ValueT, ValueT (*ConvF)(ValueT)> inline
-void swapAndConvertImageByteOrder(const ImagePtr pImage);
+void swapAndConvertImageByteOrder(Image * const pImage);
 
 template<class ValueT, ValueT MinVal> inline
 ValueT clampMin(ValueT val);
