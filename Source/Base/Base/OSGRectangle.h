@@ -52,7 +52,7 @@ template< typename T > class Rectangle2
 
   public:
     
-    typedef OSG::PointInterface< T, OSG::VecStorage2<T> > PointType;
+    typedef Point< T, 2 > PointType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Constructor                               */
