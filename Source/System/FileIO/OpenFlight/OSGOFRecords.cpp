@@ -1980,8 +1980,6 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
         return returnValue;
     }
 
-    SLOG << "OFMeshRecord::convertToNode: ASCIIId [" << szASCIIId << "]" << std::endl;
-
                               returnValue = Node             ::create();
     GeometryUnrecPtr          pGeo        = Geometry         ::create();
     GeoUInt8PropertyUnrecPtr  pTypes      = GeoUInt8Property ::create();
@@ -2032,8 +2030,6 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
             }
             else if((iFlags & FlagPackedColor) != 0)
             {
-                SLOG << "OFMeshRecord::convertToNode: PC ";
-
                 // use uiPackedPrimCol and material
                 Color4f colGeo;
                 Color4f colMat;
@@ -2050,18 +2046,11 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
 
                 pMatChunk->setAmbient(colMat);
 
-                PLOG << "colAmbient [" << colMat << "] ";
-
                 colMat    = pMatRec->getDiffuse();
                 colMat[0] = colMat[0] * colGeo[0];
                 colMat[1] = colMat[1] * colGeo[1];
                 colMat[2] = colMat[2] * colGeo[2];
                 colMat[3] = pMatRec->getAlpha() * (1.f - (uiTransparency / 65535.f));
-
-                PLOG << "colDiffuse [" << colMat << "] "
-                     << "pMatRec->getAlpha() [" << pMatRec->getAlpha()
-                     << "] uiTransparency [" << uiTransparency << "]"
-                     << std::endl;
 
                 pMatChunk->setDiffuse  (colMat                 );
                 pMatChunk->setSpecular (pMatRec->getSpecular ());
@@ -2078,8 +2067,6 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
             if(pMatChunk->isTransparent() &&
                pChunkMat->find(BlendChunk::getClassType()) == NULL)
             {
-                SLOG << "OFMeshRecord::convertToNode: adding BlendChunk for Material" << std::endl;
-
                 BlendChunkUnrecPtr pBlendChunk = BlendChunk::create();
 
                 pBlendChunk->setSrcFactor (GL_SRC_ALPHA          );
@@ -2105,8 +2092,6 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
                 if(pTexObj->getImage()->hasAlphaChannel() &&
                    pChunkMat->find(BlendChunk::getClassType()) == NULL)
                 {
-                    SLOG << "OFMeshRecord::convertToNode: adding BlendChunk for Texture" << std::endl;
-
                     BlendChunkUnrecPtr pBlendChunk = BlendChunk::create();
 
                     pBlendChunk->setSrcFactor (GL_SRC_ALPHA          );
@@ -2131,8 +2116,16 @@ NodeTransitPtr OFMeshRecord::convertToNode(OFDatabase &oDB)
 
     if(uiLightMode == LMMeshColor || uiLightMode == LMMeshColorLit)
     {
-        pGeo->setProperty(NULL, Geometry::ColorsIndex);
-        pGeo->setIndex   (NULL, Geometry::ColorsIndex);
+        MaterialChunk *pMatChunk = dynamic_cast<MaterialChunk *>(
+            pChunkMat->find(MaterialChunk::getClassType()));
+
+        if(pMatChunk != NULL)
+        {
+            pMatChunk->setColorMaterial(GL_NONE);
+
+            if(uiLightMode == LMMeshColor)
+                pMatChunk->setLit(false);
+        }
     }
 
     if(uiLightMode == LMMeshColorLit || uiLightMode == LMVertexColorLit)
@@ -2892,8 +2885,16 @@ NodeTransitPtr OFGeometryContainer::convertFaceGroup(
     if(vFaceGroup[0]->getLightMode() == LMMeshColor ||
        vFaceGroup[0]->getLightMode() == LMMeshColorLit )
     {
-        pGeo->setProperty(NULL, Geometry::ColorsIndex);
-        pGeo->setIndex   (NULL, Geometry::ColorsIndex);
+        MaterialChunk *pMatChunk = dynamic_cast<MaterialChunk *>(
+            pChunkMat->find(MaterialChunk::getClassType()));
+
+        if(pMatChunk != NULL)
+        {
+            pMatChunk->setColorMaterial(GL_NONE);
+
+            if(vFaceGroup[0]->getLightMode() == LMMeshColor)
+                pMatChunk->setLit(false);
+        }
     }
 
     if(vFaceGroup[0]->getLightMode() == LMMeshColorLit ||
