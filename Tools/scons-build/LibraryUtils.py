@@ -29,7 +29,7 @@ class LibraryInfo(object):
       """ Dump contained data to a dictionary that could be pprinted. """
       ret_dict = {}
       for i in self.__dict__.keys():
-         if i not in ["source_files","header_files","test_files"]:
+         if i not in ["source_files","header_files","test_files","unittest_files"]:
             ret_dict[i] = self.__dict__[i]               
       return ret_dict
 
@@ -141,3 +141,6 @@ class ConfigInfoAdapter(object):
    def getCXXFlags(self):
       return self.merged_lib.cxx_flags
 
+   def dump(self):
+       return self.merged_lib.dump()
+   

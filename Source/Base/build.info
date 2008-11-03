@@ -6,13 +6,17 @@ else:
    library = "OSGBase"
    osg_dep_libs = []
    osg_test_libs = []
+
+   boost_option = opts.GetOption("boost")
+
+   if boost_option.isAvailable():
+      cpppath.extend(boost_option.found_incs)
+      libpath.extend(boost_option.found_lib_paths)
+
    if "win32" == platform:
       libs = ["opengl32","glu32","gdi32","user32", "kernel32", "winmm",
               "wsock32", "oldnames"]
-      cpppath = []
    elif "darwin" == platform:
       libs = []
-      cpppath = []
    else:
       libs = ["GL","GLU","pthread","dl","m"]
-      cpppath = []
