@@ -65,7 +65,8 @@ class StageHandlerMixin  : public ParentT
 
   private:
 
-    typedef ParentT Inherited;
+    typedef ParentT                     Inherited;
+    typedef RenderActionBase::Inherited DataSlotHandler;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -100,11 +101,11 @@ class StageHandlerMixin  : public ParentT
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    OSG_RC_FIRST_FIELD_DECL(UpdateMode            );
+    OSG_RC_FIRST_FIELD_DECL(UpdateMode                   );
 
-    OSG_RC_FIELD_DECL      (RequestRun, UpdateMode);
-
-    OSG_RC_LAST_FIELD_DECL (RequestRun            );
+    OSG_RC_FIELD_DECL      (RequestRun,        UpdateMode);
+    OSG_RC_FIELD_DECL      (DestroyedFunctors, RequestRun);
+    OSG_RC_LAST_FIELD_DECL (DestroyedFunctors            );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -115,6 +116,19 @@ class StageHandlerMixin  : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
+
+    void   addDestroyedFunctor     (ChangedFunctor    func,
+                                    std::string       createSymbol);
+
+    template<class FunctorT>
+    void   subDestroyedFunctor     (FunctorT          func        );
+
+    template<class FunctorT>
+    bool   hasDestroyedFunctor     (FunctorT          func        );
+
+    void   clearDestroyedFunctors  (void                          );
+
+    void   clearDestroyedFunctorFor(DataSlotHandler  *pHandler    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -233,8 +247,9 @@ class StageHandlerMixin  : public ParentT
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUInt32 _sfUpdateMode;
-    SFOSGAny _sfRequestRun;
+    SFUInt32                 _sfUpdateMode;
+    SFOSGAny                 _sfRequestRun;
+    MFChangedFunctorCallback _mfDestroyedFunctors;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -271,22 +286,28 @@ class StageHandlerMixin  : public ParentT
     /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    EditFieldHandlePtr editHandleUpdateMode(void);
-    GetFieldHandlePtr  getHandleUpdateMode (void) const;
+    EditFieldHandlePtr editHandleUpdateMode       (void);
+    GetFieldHandlePtr  getHandleUpdateMode        (void) const;
 
-    GetFieldHandlePtr  getHandleRequestRun (void) const;
+    GetFieldHandlePtr  getHandleRequestRun        (void) const;
+
+    GetFieldHandlePtr  getHandleDestroyedFunctors (void) const;
+    EditFieldHandlePtr editHandleDestroyedFunctors(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
-    void onCreateAspect(const Self   *createAspect,
-                        const Self   *source      = NULL);
+            void onCreateAspect (const Self   *createAspect,
+                                 const Self   *source      = NULL);
 
-    void onCreate      (const Self   *source      = NULL);
+            void onCreate       (const Self   *source      = NULL);
 
-    void onDestroy     (      UInt32  uiContainerId     );
+    virtual void onDestroy      (      UInt32  uiContainerId     );
+
+    virtual void onDestroyAspect(      UInt32  uiContainerId,
+                                       UInt32  uiAspect          );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

@@ -43,18 +43,20 @@
 #endif
 
 #include "OSGTaggedSingletonHolder.h"
-#include "OSGSimplePool.h"
+#include "OSGSimpleReusePool.h"
 
 OSG_BEGIN_NAMESPACE
 
 struct DataSlotPoolTag;
 
-typedef SimplePool<Int32, DataSlotPoolTag, NoLockPolicy> DataSlotPoolBase;
+typedef SimpleReusePool<Int32, 
+                        DataSlotPoolTag, 
+                        SingleLockPolicy> DataSlotPoolBase;
 
 template<> inline
-void SimplePool<Int32, 
-                DataSlotPoolTag, 
-                NoLockPolicy  >::initializeValue(void)
+void SimpleReusePool<Int32, 
+                     DataSlotPoolTag, 
+                     SingleLockPolicy>::initializeValue(void)
 {
     _currentValue = 0;
 }

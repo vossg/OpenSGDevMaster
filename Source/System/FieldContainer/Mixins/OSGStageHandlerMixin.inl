@@ -68,6 +68,18 @@ void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&Self::getHandleRequestRun));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new MFChangedFunctorCallback::Description(
+        MFChangedFunctorCallback::getClassType(),
+        "destroyedFunctors",
+        "",
+        OSG_RC_FIELD_DESC(Self::DestroyedFunctors),
+        true,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast     <FieldEditMethodSig>(&Self::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&Self::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
 }
 
 template <class ParentT> inline
@@ -284,16 +296,121 @@ void StageHandlerMixin<ParentT>::setData(
     StageData *pStoredData = 
         pAction->template getData<StageData *>(_iDataSlotId);
 
+    bool bCheckCallback = false;
+
+    OSG_ASSERT(iDataSlotId == _iDataSlotId);
+
     if(pStoredData == NULL)
     {
-        pAction->setData(pData, iDataSlotId);
+        pAction->setData(pData, _iDataSlotId);
+        bCheckCallback = true;
     }
     else if(pStoredData != pData)
     {
         pData->copyFrom(pStoredData);
 
-        pAction->setData(pData, iDataSlotId);
+        pAction->setData(pData, _iDataSlotId);
+        bCheckCallback = true;
     }
+
+    if(bCheckCallback == true)
+    {
+        if(this->hasDestroyedFunctor(
+               boost::bind(&RenderActionBase::clearData,
+                           pAction,
+                           _1,
+                           _2,
+                           _iDataSlotId)) == false)
+        {
+            this->addDestroyedFunctor(
+                boost::bind(&RenderActionBase::clearData,
+                            static_cast<DataSlotHandler *>(pAction),
+                            _1,
+                            _2,
+                            _iDataSlotId), "");
+
+            pAction->addDestroyedFunctorFor(
+                boost::bind(&Self::clearDestroyedFunctorFor,
+                            this,
+                            _1),
+                this);
+        }
+    }
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::addDestroyedFunctor(
+    ChangedFunctor func,
+    std::string    createSymbol)
+{
+    ChangedFunctorCallback oTmp;
+
+    oTmp._func         = func;
+    oTmp._createSymbol = createSymbol;
+
+    _mfDestroyedFunctors.push_back(oTmp);
+}
+
+template <class ParentT> 
+template<class FunctorT> inline
+void StageHandlerMixin<ParentT>::subDestroyedFunctor(FunctorT func)
+{
+    MFChangedFunctorCallback::iterator       cfIt = 
+        _mfDestroyedFunctors.begin();
+
+    MFChangedFunctorCallback::const_iterator cfEnd= 
+        _mfDestroyedFunctors.end();
+
+    for(; cfIt != cfEnd; ++cfIt)
+    {
+        if(cfIt->_func == func)
+            break;
+    }
+
+    if(cfIt != cfEnd)
+        _mfDestroyedFunctors.erase(cfIt);
+}
+
+template <class ParentT> 
+template<class FunctorT> inline
+bool StageHandlerMixin<ParentT>::hasDestroyedFunctor(FunctorT func)
+{
+    bool returnValue = false;
+
+    MFChangedFunctorCallback::iterator       cfIt = 
+        _mfDestroyedFunctors.begin();
+
+    MFChangedFunctorCallback::const_iterator cfEnd= 
+        _mfDestroyedFunctors.end();
+
+
+    for(; cfIt != cfEnd; ++cfIt)
+    {
+        if(cfIt->_func == func)
+        {
+            returnValue = true;
+            break;
+        }
+    }
+    
+    return returnValue;
+}
+
+template <class ParentT> inline 
+void StageHandlerMixin<ParentT>::clearDestroyedFunctors(void)
+{
+    _mfDestroyedFunctors.clear();
+}
+
+template <class ParentT> inline 
+void StageHandlerMixin<ParentT>::clearDestroyedFunctorFor(
+    DataSlotHandler *pHandler)
+{
+    this->subDestroyedFunctor(boost::bind(&RenderActionBase::clearData,
+                                            pHandler,
+                                           _1,
+                                           _2,
+                                           _iDataSlotId));
 }
 
 /*-------------------------------------------------------------------------*/
@@ -343,6 +460,10 @@ UInt32 StageHandlerMixin<ParentT>::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRequestRun.getBinSize();
     }
+    if(FieldBits::NoField != (DestroyedFunctorsFieldMask & whichField))
+    {
+        returnValue += _mfDestroyedFunctors.getBinSize();
+    }
 
     return returnValue;
 }
@@ -361,6 +482,10 @@ void StageHandlerMixin<ParentT>::copyToBin(
     {
         _sfRequestRun.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (DestroyedFunctorsFieldMask & whichField))
+    {
+        _mfDestroyedFunctors.copyToBin(pMem);
+    }
 }
 
 template <class ParentT> inline
@@ -377,6 +502,10 @@ void StageHandlerMixin<ParentT>::copyFromBin(
     {
         _sfRequestRun.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (DestroyedFunctorsFieldMask & whichField))
+    {
+        _mfDestroyedFunctors.copyFromBin(pMem);
+    }
 }
 
 /*-------------------------------------------------------------------------*/
@@ -388,11 +517,12 @@ void StageHandlerMixin<ParentT>::copyFromBin(
 
 template <class ParentT> inline
 StageHandlerMixin<ParentT>::StageHandlerMixin(void) :
-     Inherited   (            ),
-    _iDataSlotId (-1          ),
-    _iStageId    (-1          ),
-    _sfUpdateMode(PerTraversal),
-    _sfRequestRun(            )
+     Inherited          (            ),
+    _iDataSlotId        (-1          ),
+    _iStageId           (-1          ),
+    _sfUpdateMode       (PerTraversal),
+    _sfRequestRun       (            ),
+    _mfDestroyedFunctors(            )
 {
     _tmpStatus = StageValidator::Finished;
 }
@@ -401,11 +531,12 @@ template <class ParentT> inline
 StageHandlerMixin<ParentT>::StageHandlerMixin(
     const StageHandlerMixin &source) :
 
-     Inherited   (source              ),
-    _iStageId    (-1                  ),
-    _iDataSlotId (-1                  ),
-    _sfUpdateMode(source._sfUpdateMode),
-    _sfRequestRun(source._sfRequestRun)
+     Inherited          (source                     ),
+    _iStageId           (-1                         ),
+    _iDataSlotId        (-1                         ),
+    _sfUpdateMode       (source._sfUpdateMode       ),
+    _sfRequestRun       (source._sfRequestRun       ),
+    _mfDestroyedFunctors(source._mfDestroyedFunctors)
 {
     _tmpStatus = StageValidator::Finished;
 }
@@ -520,9 +651,31 @@ void StageHandlerMixin<ParentT>::onDestroy(UInt32 uiContainerId)
     // avoid prototype
     if(GlobalSystemState == OSG::Running)
     {
-        // Fixme OnDestroy is called to early
-        //ActionDataSlotPool::the()->release(_iDataSlotId);
-        //StageIdPool::the()->release(_iStageId);
+        ActionDataSlotPool::the()->release(_iDataSlotId);
+        StageIdPool       ::the()->release(_iStageId   );
+    }
+}
+
+template <class ParentT> inline
+void StageHandlerMixin<ParentT>::onDestroyAspect(UInt32  uiContainerId,
+                                                 UInt32  uiAspect     )
+{
+    Inherited::onDestroy(uiContainerId);
+
+    // avoid prototype
+    if(GlobalSystemState == OSG::Running)
+    {
+        MFChangedFunctorCallback::iterator       cfIt = 
+            _mfDestroyedFunctors.begin();
+
+        MFChangedFunctorCallback::const_iterator cfEnd= 
+            _mfDestroyedFunctors.end();
+        
+        for(; cfIt != cfEnd; ++cfIt)
+        {
+            if(cfIt->_func)
+                (cfIt->_func)(this, 0x0000);
+        }
     }
 }
 

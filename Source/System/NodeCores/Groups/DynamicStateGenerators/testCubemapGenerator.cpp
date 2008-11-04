@@ -60,6 +60,8 @@ int lasty  = 0;
 Quaternion oldq;
 Vec3f      oldv;
 
+void createHDRCore(Node *pNode);
+
 void display(void)
 {
 #if 0
@@ -262,6 +264,17 @@ void key(unsigned char key, int x, int y)
         }
         break;
 
+        case 'g':
+            hdrroot->setCore(Group::create());
+            break;
+        case 'h':
+            createHDRCore(hdrroot);
+            break;
+        case 'd':
+            ActionDataSlotPool::the()->dumpState();
+            StageIdPool       ::the()->dumpState();
+            rentravact->dumpStore();
+            break;
         case ' ':
         {
             Matrix     m;
@@ -357,6 +370,21 @@ NodeTransitPtr setupAnim(void)
     return returnValue;
 }
 
+void createHDRCore(Node *pNode)
+{
+    HDRStageUnrecPtr pHDR = HDRStage::create();
+
+//    pHDR->setUpdateMode(HDRStage::PerVisit);
+    pHDR->setEffectAmount(0.0);
+
+    pNode->setCore(pHDR);
+
+    fprintf(stderr, "Create hdrroot %p %d %d \n",
+            pNode,
+            pNode->getRefCount(),
+            pNode->getWeakRefCount());
+}
+
 int doMain (int argc, char **argv)
 {
     osgInit(argc,argv);
@@ -433,17 +461,7 @@ int doMain (int argc, char **argv)
     hdrroot->editVolume().setInfinite();
     hdrroot->editVolume().setStatic  ();
 
-    HDRStageUnrecPtr pHDR = HDRStage::create();
-
-//    pHDR->setUpdateMode(HDRStage::PerVisit);
-    pHDR->setEffectAmount(0.0);
-
-    hdrroot->setCore (pHDR   );
-
-    fprintf(stderr, "Create hdrroot %p %d %d \n",
-            hdrroot.get(),
-            hdrroot->getRefCount(),
-            hdrroot->getWeakRefCount());
+    createHDRCore(hdrroot);
 
     // root
     root         = Node:: create();

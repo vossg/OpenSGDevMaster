@@ -45,6 +45,7 @@
 #include "OSGBaseTypes.h"
 
 #include <vector>
+#include <deque>
 
 OSG_BEGIN_NAMESPACE
 
@@ -170,12 +171,13 @@ class SimpleReusePool<Int32, PoolTag, LockPolicy>
     /*! \name                       stat                                   */
     /*! \{                                                                 */
     
-    void printStat(void);
+    void dumpState(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -188,7 +190,9 @@ class SimpleReusePool<Int32, PoolTag, LockPolicy>
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    volatile Int32 _currentValue;
+    volatile Int32             _currentValue;
+             LockPolicy        _oLockPolicy;
+             std::deque<Int32> _vFreeValueStore;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

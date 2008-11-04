@@ -42,6 +42,8 @@
 #pragma once
 #endif
 
+#include "boost/function.hpp"
+
 OSG_BEGIN_NAMESPACE
 
 template <class ParentT>
@@ -51,7 +53,10 @@ class DataSlotMixin : public ParentT
 
   public:
 
-    typedef ParentT Inherited;
+    typedef ParentT                Inherited;
+    typedef DataSlotMixin<ParentT> Self;
+
+    typedef boost::function<void (Self *)> DestroyFunctor;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
@@ -71,6 +76,8 @@ class DataSlotMixin : public ParentT
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
+
+    void dumpStore(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -122,10 +129,17 @@ class DataSlotMixin : public ParentT
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
+    void clearData(FieldContainer    *pContainer, 
+                   ConstFieldMaskArg  whichField,
+                   Int32              iSlotId);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
+
+    void addDestroyedFunctorFor(      DestroyFunctor  func,
+                                const FieldContainer *pCnt);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -136,16 +150,22 @@ class DataSlotMixin : public ParentT
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    typedef typename Inherited::Desc      Desc;
+    typedef typename Inherited::Desc                   Desc;
 
-    typedef typename Desc     ::DataStore DataStore;
+    typedef typename Desc     ::DataStore              DataStore;
+
+    typedef          std::pair<      DestroyFunctor,
+                               const FieldContainer *> DestroyedFunctorElem;
+
+    typedef          std::vector<DestroyedFunctorElem> FunctorStore;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    DataStore _mfData;
+    DataStore    _mfData;
+    FunctorStore _mfDestroyedFunctors;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

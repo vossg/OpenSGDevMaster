@@ -69,17 +69,79 @@ void DataSlotMixin<ParentT>::setData(FieldContainer *pData, Int32 iSlotId)
 }
 
 template <class ParentT> inline
+void DataSlotMixin<ParentT>::dumpStore(void)
+{
+    for(UInt32 i = 0; i < _mfData.size(); ++i)
+    {
+        fprintf(stderr, "(%d) : ", i);
+        Desc::dumpElement(_mfData[i]);
+        fprintf(stderr, "\n");
+    }
+}
+
+template <class ParentT> inline
+void DataSlotMixin<ParentT>::clearData(FieldContainer    *pContainer, 
+                                       ConstFieldMaskArg  whichField,
+                                       Int32              iSlotId)
+{
+    fprintf(stderr, "Clear Data %p %d\n",
+            pContainer,
+            iSlotId);
+
+    if(iSlotId < 0)
+        return;
+
+    if(_mfData.size() > static_cast<UInt32>(iSlotId))
+    {
+        _mfData.replace(iSlotId, NULL);
+    }
+
+    typename FunctorStore::iterator       cfIt = 
+        _mfDestroyedFunctors.begin();
+
+    typename FunctorStore::const_iterator cfEnd= 
+        _mfDestroyedFunctors.end();
+
+    while(cfIt != cfEnd)
+    {
+        if((*cfIt).second == pContainer)
+        {
+            cfIt  = _mfDestroyedFunctors.erase(cfIt);
+            cfEnd = _mfDestroyedFunctors.end();
+        }
+        else
+        {
+            ++cfIt;
+        }
+    }
+}
+
+template <class ParentT> inline
 DataSlotMixin<ParentT>::DataSlotMixin(void) :
-     Inherited(),
-    _mfData   ()
+     Inherited          (),
+    _mfData             (),
+    _mfDestroyedFunctors()
 {
 }
 
 template <class ParentT> inline
 DataSlotMixin<ParentT>::DataSlotMixin(const DataSlotMixin &source) :
-     Inherited(source),
-    _mfData   (      )
+     Inherited          (source),
+    _mfData             (      ),
+    _mfDestroyedFunctors(      )
 {
+}
+
+template <class ParentT> inline
+void DataSlotMixin<ParentT>::addDestroyedFunctorFor(      DestroyFunctor  func,
+                                                    const FieldContainer *pCnt)
+{
+    DestroyedFunctorElem tmpElem;
+
+    tmpElem.first  = func;
+    tmpElem.second = pCnt;
+
+    _mfDestroyedFunctors.push_back(tmpElem);
 }
 
 template <class ParentT> inline
@@ -88,6 +150,14 @@ DataSlotMixin<ParentT>::~DataSlotMixin(void)
     for(UInt32 i = 0; i < _mfData.size(); ++i)
     {
         _mfData.replace(i, NULL);
+    }
+
+    for(UInt32 i = 0; i < _mfDestroyedFunctors.size(); ++i)
+    {
+        fprintf(stderr, "DF (%d) (%p)\n",
+                i, this);
+
+        (_mfDestroyedFunctors[i].first)(this);
     }
 }
 

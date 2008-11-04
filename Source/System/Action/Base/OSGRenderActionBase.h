@@ -67,6 +67,16 @@ struct RenderDataSlotDesc
 {
     typedef Action                   ParentT;
     typedef MFUnrecFieldContainerPtr DataStore;
+    
+    static void dumpElement(const FieldContainer *pVal)
+    {
+        fprintf(stderr, "%p", pVal);
+
+        if(pVal != NULL)
+        {
+            fprintf(stderr, " (%s)", pVal->getType().getCName());
+        }
+    }
 };
 
 typedef DataSlotMixin< 

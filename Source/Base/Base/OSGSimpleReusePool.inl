@@ -41,7 +41,9 @@ OSG_BEGIN_NAMESPACE
 
 template <class PoolTag, class LockPolicy> inline
 SimpleReusePool<Int32, PoolTag, LockPolicy>::SimpleReusePool(void) :
-    _currentValue(0)
+    _currentValue   (0),
+    _oLockPolicy    ( ),
+    _vFreeValueStore( )
 {
     initializeValue();
 }
@@ -55,23 +57,52 @@ SimpleReusePool<Int32, PoolTag, LockPolicy>::~SimpleReusePool(void)
 template <class PoolTag, class LockPolicy> inline
 Int32 SimpleReusePool<Int32, PoolTag, LockPolicy>::create(void)
 {
-    Int32 returnValue = _currentValue;
+    _oLockPolicy.acquire();
 
-    ++_currentValue;
+    Int32 returnValue = 0;
+
+    if(_vFreeValueStore.empty() == true)
+    {
+        returnValue = _currentValue;
+
+        ++_currentValue;
+
+    }
+    else
+    {
+        returnValue = _vFreeValueStore.back();
+
+        _vFreeValueStore.pop_back();
+    }
+
+    _oLockPolicy.release();
 
     return returnValue;
 }
 
 template <class PoolTag, class LockPolicy> inline
-void SimpleReusePool<Int32, PoolTag, LockPolicy>::release(Int32)
+void SimpleReusePool<Int32, PoolTag, LockPolicy>::release(Int32 iVal)
 {
+    _oLockPolicy.acquire();
+
+    _vFreeValueStore.push_back(iVal);
+
+    _oLockPolicy.release();
 }
 
     
 template <class PoolTag, class LockPolicy> inline
-void SimpleReusePool<Int32, PoolTag, LockPolicy>::printStat(void)
+void SimpleReusePool<Int32, PoolTag, LockPolicy>::dumpState(void)
 {
-    fprintf(stderr, "\n%d\n", _currentValue());
+    fprintf(stderr, "SimpleReusePool<Int32>::dumpState\n");
+    fprintf(stderr, "    cv            : %d\n", _currentValue);
+    fprintf(stderr, "    cached values : \n");
+
+    std::deque<Int32>::const_iterator vIt  = _vFreeValueStore.begin();
+    std::deque<Int32>::const_iterator vEnd = _vFreeValueStore.end  ();
+
+    for(; vIt != vEnd; ++vIt)
+        fprintf(stderr, "        %d\n", *vIt);
 }
 
 
