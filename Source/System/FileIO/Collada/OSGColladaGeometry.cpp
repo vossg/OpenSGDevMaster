@@ -156,8 +156,11 @@ void ColladaGeometry::setupGeometry(
     lengthsOut = NULL;
     typesOut   = NULL;
 
-    geoRef = matName;
-    matRef = matName;
+    if(matName != NULL)
+    {
+        geoRef = matName;
+        matRef = matName;
+    }
 
     for(UInt32 i = 0; i < inputs.getCount(); ++i)
     {
