@@ -92,6 +92,8 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 
   public:
 
+    typedef RenderActionBaseParent Inherited;
+
     static StatElemDesc<StatTimeElem> statTravTime;
 //    static StatElemDesc<StatIntElem>  statCullTestedNodes;
 //    static StatElemDesc<StatIntElem>  statCulledNodes;
@@ -252,8 +254,6 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    typedef RenderActionBaseParent Inherited;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const RenderActionBase &source);
