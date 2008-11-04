@@ -216,6 +216,8 @@ int GetStorageRequirements( int width, int height, int flags );
 */
 void CompressImage( u8 const* rgba, int width, int height, void* blocks, int flags );
 
+void CompressImage( u8 const* rgb, u8 a, int width, int height, void* blocks, int flags );
+
 // -----------------------------------------------------------------------------
 
 /*! @brief Decompresses an image in memory.

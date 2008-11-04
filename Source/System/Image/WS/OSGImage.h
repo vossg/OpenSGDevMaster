@@ -204,7 +204,8 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     /*! \{                                                                 */
 
     bool reformat(const PixelFormat  pixelFormat,
-                        Image       *destination = NULL);
+                        Image       *destination       = NULL,
+                        Int32        iCompressionFlags = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

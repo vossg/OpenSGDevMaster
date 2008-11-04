@@ -187,6 +187,61 @@ void CompressImage( u8 const* rgba, int width, int height, void* blocks, int fla
 	}
 }
 
+void CompressImage( u8 const* rgb, u8 a, int width, int height, void* blocks, int flags )
+{
+	// fix any bad flags
+	flags = FixFlags( flags );
+
+	// initialise the block output
+	u8* targetBlock = reinterpret_cast< u8* >( blocks );
+	int bytesPerBlock = ( ( flags & kDxt1 ) != 0 ) ? 8 : 16;
+
+	// loop over blocks
+	for( int y = 0; y < height; y += 4 )
+	{
+		for( int x = 0; x < width; x += 4 )
+		{
+			// build the 4x4 block of pixels
+			u8 sourceRgba[16*4];
+			u8* targetPixel = sourceRgba;
+			int mask = 0;
+			for( int py = 0; py < 4; ++py )
+			{
+				for( int px = 0; px < 4; ++px )
+				{
+					// get the source pixel in the image
+					int sx = x + px;
+					int sy = y + py;
+					
+					// enable if we're in the image
+					if( sx < width && sy < height )
+					{
+						// copy the rgba value
+						u8 const* sourcePixel = rgb + 3*( width*sy + sx );
+						for( int i = 0; i < 3; ++i )
+							*targetPixel++ = *sourcePixel++;
+                        *targetPixel++ = a;
+
+						// enable this pixel
+						mask |= ( 1 << ( 4*py + px ) );
+					}
+					else
+					{
+						// skip this pixel as its outside the image
+						targetPixel += 4;
+					}
+				}
+			}
+			
+			// compress it into the output
+			CompressMasked( sourceRgba, mask, targetBlock, flags );
+			
+			// advance
+			targetBlock += bytesPerBlock;
+		}
+	}
+}
+
 void DecompressImage( u8* rgba, int width, int height, void const* blocks, int flags )
 {
 	// fix any bad flags

@@ -17,6 +17,7 @@
 
 #include <OSGImage.h>
 #include <OSGImageFileHandler.h>
+#include "OSGSceneFileHandler.h"
 
 #include <sstream>
 
@@ -38,18 +39,27 @@ StatElemDesc<OSG::StatIntElem> textureBPPDesc("textureBPP", "The bytes per pixel
 StatElemDesc<OSG::StatIntElem> textureMipMapCountDesc("textureMipMapCount", "The mipmap count of the texture");
 StatElemDesc<OSG::StatIntElem> textureFrameCountDesc("textureFrameCount", "The frame count of the texture");
 
+std::string szFilename;
+
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
 
-void updateScene(const std::string &filename)
+void updateScene(const std::string &filename, Image::PixelFormat compressTo = Image::OSG_INVALID_PF)
 {
     // Try to create the new image
     ImageRecPtr imagePtr = ImageFileHandler::the()->read(filename.c_str());
+
     if (imagePtr == NULL)
         return;
 
+    if(compressTo != Image::OSG_INVALID_PF)
+    {
+        imagePtr->reformat(compressTo);
+    }
+
     // Update information on the screen
     StatStringElem *statElem = statfg->editCollector()->getElem(textureFormatDesc);
+
     switch (imagePtr->getPixelFormat())
     {
         case Image::OSG_A_PF:
@@ -159,10 +169,17 @@ void updateScene(const std::string &filename)
 
     scene->clearChildren();
     scene->addChild(transNodePtr);
+
+    if(compressTo != Image::OSG_INVALID_PF)
+    {
+        SceneFileHandler::the()->write(scene->getChild(0), "/tmp/comp.osb");
+        SceneFileHandler::the()->write(scene->getChild(0), "/tmp/comp.osg");
+    }
+
 }
 
 // Initialize GLUT & OpenSG and set up the scene
-int main(int argc, char **argv)
+int doMain(int argc, char **argv)
 {
     // OSG init
     osgInit(argc,argv);
@@ -200,7 +217,10 @@ int main(int argc, char **argv)
         std::cerr << "Usage: testImageLoader <filename>" << std::endl;
         return EXIT_FAILURE;
     }
+
     updateScene(argv[1]);
+
+    szFilename = argv[1];
 
     // create the SimpleSceneManager helper
     mgr = new SimpleSceneManager;
@@ -215,6 +235,14 @@ int main(int argc, char **argv)
     // add the statistics forground
     gwin->getPort(0)->addForeground(statfg);
     gwin->getPort(0)->setBackground(bg);
+
+
+    return 0;
+}
+
+int main(int argc, char **argv)
+{
+    doMain(argc, argv);
 
     // GLUT main loop
     glutMainLoop();
@@ -272,6 +300,22 @@ void keyboard(unsigned char k, int x, int y)
             osgExit();
             exit(0);
         }
+        case '0':
+            updateScene(szFilename);
+            break;
+        case '1':
+            updateScene(szFilename, Image::OSG_RGB_DXT1);
+            break;
+        case '2':
+            updateScene(szFilename, Image::OSG_RGBA_DXT1);
+            break;
+        case '3':
+            updateScene(szFilename, Image::OSG_RGBA_DXT3);
+            break;
+        case '5':
+            updateScene(szFilename, Image::OSG_RGBA_DXT5);
+            break;
+                
         break;
     }
 }
