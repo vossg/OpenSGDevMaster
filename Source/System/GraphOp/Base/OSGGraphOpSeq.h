@@ -58,7 +58,11 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
     
   public:
 
-    typedef MemoryObject Inherited;
+    typedef MemoryObject                            Inherited;
+    typedef GraphOpSeq                              Self;
+    
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    typedef TransitPtr <Self                      > ObjTransitPtr;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -71,9 +75,12 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    GraphOpSeq(void);
+    GraphOpSeq(      void               );
     GraphOpSeq(const std::string &params);
 
+    static ObjTransitPtr create(      void               );
+    static ObjTransitPtr create(const std::string &params);
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
@@ -118,6 +125,9 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
 };
 
 typedef GraphOpSeq *GraphOpSeqP;
+
+typedef GraphOpSeq::ObjRefPtr       GraphOpSeqRefPtr;
+typedef GraphOpSeq::ObjTransitPtr   GraphOpSeqTransitPtr;
 
 OSG_END_NAMESPACE
 

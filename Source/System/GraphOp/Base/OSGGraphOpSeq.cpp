@@ -84,6 +84,16 @@ GraphOpSeq::GraphOpSeq(const std::string &params) :
     setGraphOps(params);
 }
 
+GraphOpSeq::ObjTransitPtr GraphOpSeq::create(void)
+{
+    return ObjTransitPtr(new GraphOpSeq());
+}
+
+GraphOpSeq::ObjTransitPtr GraphOpSeq::create(const std::string &params)
+{
+    return ObjTransitPtr(new GraphOpSeq(params));
+}
+
 GraphOpSeq::~GraphOpSeq()
 {
 }
