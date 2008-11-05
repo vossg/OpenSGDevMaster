@@ -19,6 +19,7 @@
 // the general scene file loading handler
 #include <OSGSceneFileHandler.h>
 
+#include <OSGFieldContainerUtils.h>
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE
@@ -153,6 +154,15 @@ void keyboard(unsigned char k, int , int )
             bool useTrav = !mgr->getUseTraversalAction();
             mgr->setUseTraversalAction(useTrav);
             printf("Using %s action.\n", useTrav ? "render traversal" : "render");
+        }
+        break;
+        
+        case 'p':
+        {
+            std::cout << "Scanning memory consumption." << std::endl;
+            MemoryConsumption mc;
+            mc.scan();
+            mc.print(std::cout);
         }
         break;
     }

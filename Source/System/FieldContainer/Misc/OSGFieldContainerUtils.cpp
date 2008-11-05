@@ -42,6 +42,8 @@
 #include "OSGAttachment.h"
 #include "OSGAttachmentMapSFields.h"
 
+#include <boost/format.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 namespace
@@ -217,6 +219,79 @@ bool compareContainerEqual(
     }
     
     return returnValue;
+}
+
+void MemoryConsumption::scan(void)
+{
+    UInt32 numCont = FieldContainerFactory::the()->getNumContainers();
+    
+    for(UInt32 i = 0; i < numCont; ++i)
+    {
+        FieldContainer *pFC = FieldContainerFactory::the()->getContainer(i);
+        
+        if(pFC == NULL)
+            continue;
+        
+        TypeMemMapIt tmIt    = _memMap.find(pFC->getType().getId());
+        UInt32       binSize = pFC->getBinSize(TypeTraits<BitVector>::BitsSet);
+        
+        if(tmIt != _memMap.end())
+        {
+            tmIt->second.first  += binSize;
+            tmIt->second.second += 1;
+        }
+        else
+        {
+            _memMap[pFC->getType().getId()] = MemCountPair(binSize, 1);
+        }
+    }
+}
+
+
+void MemoryConsumption::print(std::ostream &os, bool ignoreProto) const
+{
+    TypeMemMapConstIt tmIt  = _memMap.begin();
+    TypeMemMapConstIt tmEnd = _memMap.end  ();
+
+    UInt32        totalMem   = 0;
+    UInt32        totalCount = 0;
+    boost::format formatter("%|1$-25| [%|2$8|] Byte [%|3$8.0f|] kByte [%|4$4|]\n");
+    
+    for(; tmIt != tmEnd; ++tmIt)
+    {
+        FieldContainerType *fcType =
+            FieldContainerFactory::the()->findType(tmIt->first);
+        
+        if(fcType == NULL)
+            continue;
+        
+        if(ignoreProto && tmIt->second.second == 1)
+            continue;
+        
+        os << formatter % fcType->getCName()
+                        % tmIt->second.first
+                        % (tmIt->second.first / 1024.f)
+                        % tmIt->second.second;
+        
+        totalMem   += tmIt->second.first;
+        totalCount += tmIt->second.second;
+    }
+    
+    os << "--------------------------------------------\n";
+    os << formatter % "Total"
+                    % totalMem
+                    % (totalMem / 1024.f)
+                    % totalCount;
+}
+
+MemoryConsumption::TypeMemMapConstIt MemoryConsumption::beginMap(void) const
+{
+    return _memMap.begin();
+}
+
+MemoryConsumption::TypeMemMapConstIt MemoryConsumption::endMap(void) const
+{
+    return _memMap.end();
 }
 
 OSG_END_NAMESPACE

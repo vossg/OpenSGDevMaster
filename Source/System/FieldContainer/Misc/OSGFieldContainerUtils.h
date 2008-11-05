@@ -54,6 +54,27 @@ bool compareContainerEqual(const FieldContainer *lhs,
                                  bool            ignoreAttachments = true,
                                  bool            compareIdentity   = false);
 
+class OSG_SYSTEM_DLLMAPPING MemoryConsumption
+{
+  public:
+    typedef std::pair<UInt32, UInt32      >       MemCountPair;
+    typedef std::map <UInt32, MemCountPair>       TypeMemMap;
+    typedef TypeMemMap::iterator                  TypeMemMapIt;
+    typedef TypeMemMap::const_iterator            TypeMemMapConstIt;
+    
+    void scan (void                                     );
+    void print(std::ostream &os, bool ignoreProto = true) const;
+    
+    TypeMemMapConstIt beginMap     (void) const;
+    TypeMemMapConstIt endMap       (void) const;
+
+    TypeMemMapConstIt beginAccumMap(void) const;
+    TypeMemMapConstIt endAccumMap  (void) const;
+    
+  private:
+    TypeMemMap _memMap;
+};
+
 OSG_END_NAMESPACE
 
 #endif // _OSGFIELDCONTAINERUTILS_H_
