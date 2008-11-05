@@ -420,6 +420,14 @@ typename MField<ValueT,
     return _values.insert(pos, value);
 }
 
+template <class ValueT, Int32 iNamespace, class AllocT> inline
+void MField<ValueT, iNamespace, AllocT>::insert(iterator     pos,
+                                                size_type    n,
+                                                ArgumentType value)
+{
+    _values.insert(pos, n, value);
+}
+
 template <class ValueT, Int32 iNamespace, class AllocT> 
 template <class InputIterator> inline
 void MField<ValueT, iNamespace, AllocT>::insert(iterator      pos, 
@@ -507,13 +515,13 @@ void MField<ValueT, iNamespace, AllocT>::push_back(ArgumentType value)
 }
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
-void MField<ValueT, iNamespace, AllocT>::resize(size_t newsize, ValueT t)
+void MField<ValueT, iNamespace, AllocT>::resize(size_type newsize, ValueT t)
 {
     _values.resize(newsize, t);
 }
 
 template <class ValueT, Int32 iNamespace, class AllocT> inline
-void MField<ValueT, iNamespace, AllocT>::reserve(size_t newsize)
+void MField<ValueT, iNamespace, AllocT>::reserve(size_type newsize)
 {
     _values.reserve(newsize);
 }

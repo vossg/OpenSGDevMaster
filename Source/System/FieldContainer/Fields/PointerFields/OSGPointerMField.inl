@@ -984,6 +984,15 @@ typename PointerMField<PtrTypeT,
     return iterator(this->ptrStoreInsert(pos.base(), value), this);
 }
 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
+void PointerMField<PtrTypeT,
+                   RefCountPolicy,
+                   NamespaceI     >::insert(iterator    pos,
+                                            size_type   n,
+                                            const_value value)
+{
+    this->ptrStoreInsert(pos, n, value);
+}
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 template <class InputIteratorT                                        > inline 

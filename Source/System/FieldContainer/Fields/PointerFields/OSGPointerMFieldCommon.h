@@ -142,7 +142,9 @@ class PointerMFieldCommon : public PointerMFieldBase
 
     void           ptrStoreInsert (const UInt32         index,
                                          const_value    pNewObj);
-
+    void           ptrStoreInsert (      PtrStoreItType pos,
+                                         size_type      n,
+                                         const_value    pNewObj);
     PtrStoreItType ptrStoreInsert (      PtrStoreItType pos,
                                          const_value    pNewObj);
 

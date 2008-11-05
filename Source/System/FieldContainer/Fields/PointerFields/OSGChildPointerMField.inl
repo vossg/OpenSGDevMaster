@@ -954,6 +954,16 @@ typename ChildPointerMField<PtrTypeT,
     return iterator(this->ptrStoreInsert(pos.base(), value), this);
 }
 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
+void ChildPointerMField<PtrTypeT,
+                        RefCountPolicy,
+                        NamespaceI     >::insert(iterator    pos,
+                                                 size_type   n,
+                                                 const_value value)
+{
+    this->ptrStoreInsert(pos, n, value);
+}
+
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> 
 template <class InputIteratorT                                        > inline
 void ChildPointerMField<PtrTypeT,
@@ -962,7 +972,7 @@ void ChildPointerMField<PtrTypeT,
                                               InputIteratorT first, 
                                               InputIteratorT last)
 {
-    return this->ptrStoreInsert(pos, first, last);
+    this->ptrStoreInsert(pos, first, last);
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline

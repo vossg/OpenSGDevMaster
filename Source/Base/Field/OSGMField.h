@@ -214,11 +214,14 @@ class MField : public Field
     
     void                   clear    (void                              );
     
-    iterator               insert   (iterator     pos, 
+    iterator               insert   (iterator     pos,
+                                     ArgumentType value                );
+    void                   insert   (iterator     pos,
+                                     size_type    n,
                                      ArgumentType value                );
     template <class InputIterator>
-    void                   insert   (iterator      pos, 
-                                     InputIterator first, 
+    void                   insert   (iterator      pos,
+                                     InputIterator first,
                                      InputIterator last                );
  
     iterator               erase    (iterator     pos                  );
@@ -232,9 +235,9 @@ class MField : public Field
 
     void                   push_back(ArgumentType value                );
     
-    void                   resize   (size_t       newsize, 
+    void                   resize   (size_type    newsize, 
                                      StoredType   t      = StoredType());
-    void                   reserve  (size_t       newsize              );
+    void                   reserve  (size_type    newsize              );
     
     UInt32                 size     (void                              ) const;
     UInt32                 capacity (void                              ) const;

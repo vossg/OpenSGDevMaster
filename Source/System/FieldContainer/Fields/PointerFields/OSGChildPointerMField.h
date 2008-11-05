@@ -583,7 +583,9 @@ class ChildPointerMField :
    
     iterator               insert   (iterator       pos,
                                      const_value    value           );
-
+    void                   insert   (iterator       pos,
+                                     size_type      n,
+                                     const_value    value           );
     template <class InputIteratorT>
     void                   insert   (iterator       pos, 
                                      InputIteratorT first,

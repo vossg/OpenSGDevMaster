@@ -48,9 +48,8 @@ OSG_BEGIN_NAMESPACE
 
     Common interface implementation for pointer MFields. This class exists
     only to facilitate code reuse; to actually use the provided ptrStore
-    interface use the directly derived classes ( \c ChildPointerMFieldBase,
-    \c InternalPointerMFieldBase, \c ParentPointerMFieldBase and
-    \c WeakPointerMFieldBase ).
+    interface use the derived classes ( \c ChildPointerMField,
+    \c ParentPointerMField and \c PointerMField ).
     All non-const functions of this class call static member functions of the
     \c AccessHandlerT template parameter (onAdd, onSub, onReplace), whenever
     values are added, removed or replaced respectively. This is used to
@@ -207,6 +206,19 @@ typename PointerMFieldCommon<AccessHandlerT,
     return _ptrStore.insert(pos, pNewObj);
 }
 
+template <class AccessHandlerT, Int32 NamespaceI> inline
+void PointerMFieldCommon<AccessHandlerT,
+                         NamespaceI     >::ptrStoreInsert(
+                            PtrStoreItType pos,
+                            size_type      n,
+                            const_value    pNewObj)
+{
+    for(size_type i = 0; i < n; ++i)
+        AccessHandler::onAdd(this, pNewObj);
+
+    _ptrStore.insert(pos, n, pNewObj);
+}
+
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 void PointerMFieldCommon<AccessHandlerT,
                          NamespaceI     >::ptrStoreInsert(
@@ -230,7 +242,7 @@ void PointerMFieldCommon<AccessHandlerT,
     for(; iI != iE; ++iI)
         AccessHandler::onAdd(this, *iI);
 
-    this->editRawStore().insert(pos, first.base(), last.base());
+    _ptrStore.insert(pos, first.base(), last.base());
 }
 
 /*-------------------------------------------------------------------------*/
