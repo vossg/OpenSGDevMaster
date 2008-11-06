@@ -48,6 +48,8 @@
 
 #include "OSGStatIntOnceElem.h"
 
+#include <boost/format.hpp>
+
 OSG_USING_NAMESPACE
 
 
@@ -88,14 +90,46 @@ StatIntOnceElem::~StatIntOnceElem(void)
 
 /*------------------------------ access -----------------------------------*/
 
-void StatIntOnceElem::putToString(std::string &str, const char *format) const
+void StatIntOnceElem::putToString(
+    std::string &str, const std::string &format) const
 {
-    if(!format)
+    if(format.empty())
     {
         FieldTraits<Int32>::putToString(_value, str);
     }
     else
-    {        
+    {
+        std::string            formatCopy = format;
+        std::string::size_type pos        = formatCopy.find("%");
+        Real32                 val        = _value;
+        
+        if(pos != std::string::npos)
+        {
+            if((pos = formatCopy.find("%KB")) != std::string::npos)
+            {
+                formatCopy.replace(pos, 3, "%.2f");
+                val /= 1024.f;
+            }
+            else if((pos = formatCopy.find("%MB")) != std::string::npos)
+            {
+                formatCopy.replace(pos, 3, "%.2f");
+                val /= 1024.f * 1024.f;
+            }
+            else if((pos = formatCopy.find("%GB")) != std::string::npos)
+            {
+                formatCopy.replace(pos, 3, "%.2f");
+                val /= 1024.f * 1024.f * 1024.f;
+            }
+        }
+        
+        boost::format fmt(formatCopy);
+        
+        fmt % val;
+        
+        str = fmt.str();
+    }
+        
+#if 0
         const char *proc = strchr(format,'%');        
               char *temp = new char [strlen(format) + 60];
 
@@ -136,7 +170,7 @@ void StatIntOnceElem::putToString(std::string &str, const char *format) const
         str = temp;
         delete [] temp;
     }
-
+#endif
 }
 
 bool StatIntOnceElem::getFromCString(const Char8 *&inVal)

@@ -107,7 +107,7 @@ class OSG_SYSTEM_DLLMAPPING StatIntOnceElem : public StatElem
     /*! \{                                                                 */
         
     virtual void   putToString   (      std::string & str, 
-                                  const char        * format = NULL) const;
+                                  const std::string &format = std::string()) const;
  
     virtual bool   getFromCString(const Char8       *&inVal        );
 

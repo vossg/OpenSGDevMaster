@@ -86,7 +86,7 @@ class OSG_SYSTEM_DLLMAPPING StatTimeElem : public StatElem
     /*! \{                                                                 */
 
     virtual void   putToString   (      std::string  &str, 
-                                  const Char8        *format = NULL) const;
+                                  const std::string &format = std::string()) const;
  
     virtual bool   getFromCString(const Char8       *&inVal        );
 

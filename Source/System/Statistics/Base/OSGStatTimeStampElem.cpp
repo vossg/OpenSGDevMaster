@@ -48,6 +48,8 @@
 
 #include "OSGStatTimeStampElem.h"
 
+#include <boost/format.hpp>
+
 OSG_USING_NAMESPACE
 
 
@@ -86,11 +88,12 @@ StatTimeStampElem::~StatTimeStampElem(void)
 
 /*------------------------------ access -----------------------------------*/
 
-void StatTimeStampElem::putToString(std::string &str, const char *format) const
+void StatTimeStampElem::putToString(
+    std::string &str, const std::string &format) const
 {
-    double time = getTimeStampMsecs(_time) / 1000.;
+    Real64 time = getTimeStampMsecs(_time) / 1000.;
     
-    if(!format)
+    if(format.empty())
     {
         // Confusing if %e is used.
 
@@ -102,6 +105,31 @@ void StatTimeStampElem::putToString(std::string &str, const char *format) const
     }
     else
     {
+        std::string            formatCopy = format;
+        std::string::size_type pos        = formatCopy.find("%");
+        
+        if(pos != std::string::npos)
+        {
+            if((pos = formatCopy.find("%ms")) != std::string::npos)
+            {
+                formatCopy.replace(pos, 3, "%.2f");
+                time *= 1000.f;
+            }
+            else if((pos = formatCopy.find("%r")) != std::string::npos)
+            {
+                formatCopy.replace(pos, 2, "%.2f");
+                time = 1.f / time;
+            }
+        }
+        
+        boost::format fmt(formatCopy);
+        
+        fmt % time;
+        
+        str = fmt.str();
+    }
+
+#if 0
         const char *proc = strchr(format,'%');        
               char *temp = new char [strlen(format) + 60];
 
@@ -133,6 +161,7 @@ void StatTimeStampElem::putToString(std::string &str, const char *format) const
         str = temp;
         delete [] temp;
     }
+#endif
 }
 
 bool StatTimeStampElem::getFromCString(const Char8 *&inVal)

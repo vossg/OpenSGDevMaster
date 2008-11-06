@@ -47,6 +47,8 @@
 
 #include "OSGStatStringElem.h"
 
+#include <boost/format.hpp>
+
 OSG_USING_NAMESPACE
 
 
@@ -84,18 +86,27 @@ StatStringElem::~StatStringElem(void)
 
 /*------------------------------ access -----------------------------------*/
 
-void StatStringElem::putToString(std::string &str, const Char8 *format) const
+void StatStringElem::putToString(
+    std::string &str, const std::string &format) const
 {
-    if(!format)
+    if(format.empty())
     {
         str = _value;
     }
     else
     {
+        boost::format fmt(format);
+        
+        fmt % _value;
+        
+        str = fmt.str();
+        
+#if 0
         Char8 *temp = new Char8[strlen(format) + _value.size() + 10];
         sprintf(temp, format, _value.c_str());
         str = temp;
         delete [] temp;
+#endif
     }
 }
 

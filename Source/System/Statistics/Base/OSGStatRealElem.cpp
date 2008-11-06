@@ -48,6 +48,8 @@
 #include "OSGStatRealElem.h"
 #include <OSGSysFieldTraits.h>
 
+#include <boost/format.hpp>
+
 OSG_USING_NAMESPACE
 
 
@@ -85,14 +87,36 @@ StatRealElem::~StatRealElem(void)
 
 /*------------------------------ access -----------------------------------*/
 
-void StatRealElem::putToString(std::string &str, const Char8 *format) const
+void StatRealElem::putToString(
+    std::string &str, const std::string &format) const
 {
-    if(!format)
+    if(format.empty())
     {
         FieldTraits<Real32>::putToString(_value, str);
      }
     else
     {
+        std::string            formatCopy = format;
+        std::string::size_type pos        = formatCopy.find("%");
+        Real32                 val        = _value;
+        
+        if(pos != std::string::npos)
+        {
+            if((pos = formatCopy.find("%per")) != std::string::npos)
+            {
+                formatCopy.replace(pos, 4, "%.2f");
+                val *= 100.f;
+            }
+        }
+        
+        boost::format fmt(formatCopy);
+        
+        fmt % val;
+        
+        str = fmt.str();
+    }
+
+#if 0
         const Char8 *proc = strchr(format,'%');        
               Char8 *temp = new Char8[strlen(format) + 60];
 
@@ -120,6 +144,7 @@ void StatRealElem::putToString(std::string &str, const Char8 *format) const
         str = temp;
         delete [] temp;
     }
+#endif
 }
 
 bool StatRealElem::getFromCString(const Char8 *&inVal)
