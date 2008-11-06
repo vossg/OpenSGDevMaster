@@ -534,18 +534,19 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         
     RenderAction *rt = dynamic_cast<RenderAction *>(_oDrawEnv.getAction());
 
-    Node         *actNode = rt->getActNode();
+    Node         *actNode = rt     ->getActNode();
+    NodeCore     *actCore = actNode->getCore   ();
     
     // Add Stats
     DrawableStatsAttachment *st;
 
-    st = DrawableStatsAttachment::get(actNode);
+    st = DrawableStatsAttachment::get(actCore);
 
     if(st == NULL)
     {
-        DrawableStatsAttachment::addTo(actNode);
+        DrawableStatsAttachment::addTo(actCore);
         
-        st = DrawableStatsAttachment::get(actNode);
+        st = DrawableStatsAttachment::get(actCore);
     }
 
     st->validate();
