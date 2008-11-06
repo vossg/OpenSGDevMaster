@@ -212,7 +212,7 @@ def DoxyAction(source, target, env):
    e={}
    for k,v in env.Dictionary().iteritems():
       e[k] = str(v)
-   p = subprocess.Popen("cd %s && %s %s" % 
+   p = subprocess.Popen('cd "%s" && "%s" "%s"' % 
       (os.path.dirname(str(source[0])), env["DOXYGEN"], os.path.basename(str(source[0]))), 
       shell=True, env=e)
    sts = os.waitpid(p.pid, 0)
@@ -240,9 +240,12 @@ def generate(env):
       'Doxygen': doxyfile_builder,
    })
 
-   env.AppendUnique(
-      DOXYGEN = 'doxygen',
-   )
+   doxygenPath = env.WhereIs('doxygen', path = os.environ['PATH'])
+
+   if doxygenPath != None:
+      env.AppendUnique(
+         DOXYGEN = doxygenPath
+      )
 
 def exists(env):
    """
