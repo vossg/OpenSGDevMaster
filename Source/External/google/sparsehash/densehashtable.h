@@ -123,7 +123,7 @@ struct dense_hashtable_const_iterator;
 template <class V, class K, class HF, class ExK, class EqK, class A>
 struct dense_hashtable_iterator {
  public:
-  typedef dense_hashtable<V,K,HF,ExK,EqK,A>                dense_hashtable;
+  typedef dense_hashtable<V,K,HF,ExK,EqK,A>                table_type;
   typedef dense_hashtable_iterator<V,K,HF,ExK,EqK,A>       iterator;
   typedef dense_hashtable_const_iterator<V,K,HF,ExK,EqK,A> const_iterator;
 
@@ -137,7 +137,7 @@ struct dense_hashtable_iterator {
   typedef V* pointer;
 
   // "Real" constructor and default constructor
-  dense_hashtable_iterator(const dense_hashtable *h,
+  dense_hashtable_iterator(const table_type *h,
                            pointer it, pointer it_end, bool advance)
     : ht(h), pos(it), end(it_end)   {
     if (advance)  advance_past_empty_and_deleted();
@@ -167,7 +167,7 @@ struct dense_hashtable_iterator {
 
 
   // The actual data
-  const dense_hashtable *ht;
+  const table_type *ht;
   pointer pos, end;
 };
 
@@ -176,7 +176,7 @@ struct dense_hashtable_iterator {
 template <class V, class K, class HF, class ExK, class EqK, class A>
 struct dense_hashtable_const_iterator {
  public:
-  typedef dense_hashtable<V,K,HF,ExK,EqK,A>                dense_hashtable;
+  typedef dense_hashtable<V,K,HF,ExK,EqK,A>                table_type;
   typedef dense_hashtable_iterator<V,K,HF,ExK,EqK,A>       iterator;
   typedef dense_hashtable_const_iterator<V,K,HF,ExK,EqK,A> const_iterator;
 
@@ -190,7 +190,7 @@ struct dense_hashtable_const_iterator {
   typedef const V* pointer;
 
   // "Real" constructor and default constructor
-  dense_hashtable_const_iterator(const dense_hashtable *h,
+  dense_hashtable_const_iterator(const table_type *h,
                                  pointer it, pointer it_end, bool advance)
     : ht(h), pos(it), end(it_end)   {
     if (advance)  advance_past_empty_and_deleted();
@@ -223,7 +223,7 @@ struct dense_hashtable_const_iterator {
 
 
   // The actual data
-  const dense_hashtable *ht;
+  const table_type *ht;
   pointer pos, end;
 };
 

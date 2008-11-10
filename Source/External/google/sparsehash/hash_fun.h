@@ -1,38 +1,60 @@
-#ifndef WIN32
-#ifndef HASH_NAMESPACE
-#define HASH_NAMESPACE __gnu_cxx
-#endif
 
-#include <ext/hash_fun.h>
-#else
+#ifndef _HASH_FUN_H_
+#define _HASH_FUN_H_
+
 #ifndef HASH_NAMESPACE
 #define HASH_NAMESPACE osg_hash
 #endif
 
 namespace osg_hash
 {
-template<class KeyT>
+template <class KeyT>
 struct hash {};
 
-template<>
+
+#ifndef WIN32
+
+template <>
+struct hash<OSG::Int16>
+{
+    size_t operator()(OSG::Int16 __x) const
+    {
+        return static_cast<size_t>(__x);
+    }
+};
+
+template <>
+struct hash<OSG::UInt16>
+{
+    size_t operator()(OSG::UInt16 __x) const
+    {
+        return static_cast<size_t>(__x);
+    }
+};
+
+#else
+
+template <>
 struct hash<SHORT>
 {
     size_t operator()(SHORT __x) const
     {
-        return __x;
+        return static_cast<size_t>(__x);
     }
 };
 
 
-template<>
+template <>
 struct hash<USHORT>
 {
     size_t operator()(USHORT __x) const
     {
-        return __x;
+        return static_cast<size_t>(__x);
     }
 };
 
+#endif // WIN32
+
 }
 
-#endif
+#endif // _HASH_FUN_H_

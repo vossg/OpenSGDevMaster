@@ -46,6 +46,7 @@
 
 #include <vector>
 #include <map>
+#include <typeinfo>
 
 OSG_BEGIN_NAMESPACE
 
