@@ -188,57 +188,6 @@ void ColladaEffect::handleCommonProfile(domProfile_COMMON *profCommon)
         }
     }
 
-#if 0
-    for(UInt32 i = 0; i < vSampler.size(); ++i)
-    {
-        fprintf(stderr, "[%d] %s\n", i, vSampler[i].second.c_str());
-
-        if(vSampler[i].first->getSource() != NULL)
-        {
-            for(UInt32 j = 0; j < vSurfaces.size(); ++j)
-            {
-                fprintf(stderr, "  [%d] %s\n", j, vSurfaces[j].second.c_str());
-
-                std::string tmpName = 
-                vSampler[i].first->getSource()->getValue();
-
-                if(vSurfaces[i].second == tmpName)
-                {
-                    domFx_surface_init_common *pInit =
-                    vSurfaces[i].first->getFx_surface_init_common();
-    
-                    if(pInit == NULL)
-                        break;
-    
-                    fprintf(stderr, "Found XX %p %s\n",
-                            pInit,
-                            pInit->getTypeName());
-    
-                    domFx_surface_init_from_common_Array *commonInitA =
-                        &(pInit->getInit_from_array());
-    
-                    domFx_surface_init_from_common *pCommonInit =
-                        (*(commonInitA))[0];
-    
-                    fprintf(stderr, "Got commonInit %d %p \n", 
-                            commonInitA->getCount(),
-                            pCommonInit);
-    
-                    pCommonInit->getValue().resolveElement();
-    
-                    daeElement *pImageElem = 
-                        pCommonInit->getValue().getElement();
-    
-                    fprintf(stderr, "%p %d\n",
-                            pImageElem,
-                            pCommonInit->getValue().getState());
-                    break;
-                }
-            }
-        }
-    }
-#endif
-
     if(technique->getConstant() != NULL)
     {
         OSG_COLLADA_LOG(("ColladaEffect::handleCommonProfile: technique constant\n"));

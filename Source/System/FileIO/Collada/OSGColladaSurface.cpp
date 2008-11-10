@@ -80,7 +80,7 @@ void ColladaSurface::read(void)
     daeElementRef imageElem = commonInit->getValue().getElement();
     domImageRef   image     = daeSafeCast<domImage>(imageElem);
 
-    if(imageElem == NULL)
+    if(image == NULL)
         return;
 
     ColladaImageRefPtr colImage = getUserDataAs<ColladaImage>(image);
