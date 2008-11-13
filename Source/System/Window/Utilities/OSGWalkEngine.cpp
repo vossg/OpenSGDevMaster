@@ -181,7 +181,7 @@ Real32 WalkEngine::forward(Real32 step)
 
     //finally check if the move is correct or not
 
-    line.setValue(rFrom, mv);
+    line.setValue(rFrom, (rFrom - _rFrom));
     _act->setLine(line  );
     _act->apply  (_world);
 
@@ -248,7 +248,7 @@ Real32 WalkEngine::right(Real32 step)
 
     //finally check if the move is correct or not
 
-    line.setValue(rFrom, sv);
+    line.setValue(rFrom, (rFrom - _rFrom));
     _act->setLine(line  );
     _act->apply  (_world);
 
