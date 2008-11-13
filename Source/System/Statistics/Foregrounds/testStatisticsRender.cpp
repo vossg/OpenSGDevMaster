@@ -250,105 +250,106 @@ int main(int argc, char **argv)
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);
 
-    pwin=PassiveWindow::create();
+    pwin = PassiveWindow::create();
     pwin->init();
 
-    // create the scene
-    NodeUnrecPtr scene;
-
-    if(argc > 1 && !strcmp(argv[1],"-s"))
     {
-        gStatMethod = USE_NONE;
-        argv++;
-        argc--;
-    }
+        // create the scene
+        NodeUnrecPtr scene;
 
-    NodeUnrecPtr file;
-
-    if(argc > 1)
-    {
-        scene = Node::create();
-        GroupUnrecPtr g = Group::create();
-
-        scene->setCore(g);
-
-
-        for(UInt16 i = 1; i < argc; ++i)
+        if(argc > 1 && !strcmp(argv[1],"-s"))
         {
-            file = SceneFileHandler::the()->read(argv[i]);
-            scene->addChild(file);
+            gStatMethod = USE_NONE;
+            argv++;
+            argc--;
         }
+
+        NodeUnrecPtr file;
+
+        if(argc > 1)
+        {
+            scene = Node::create();
+            GroupUnrecPtr g = Group::create();
+
+            scene->setCore(g);
+
+
+            for(UInt16 i = 1; i < argc; ++i)
+            {
+                file = SceneFileHandler::the()->read(argv[i]);
+                scene->addChild(file);
+            }
+        }
+        else
+        {
+            scene = makeTorus(.5, 3, 16, 16);
+        }
+
+        // create the SimpleSceneManager helper
+        mgr = new SimpleSceneManager;
+
+        // create the window and initial camera/viewport
+        mgr->setWindow(pwin );
+        // tell the manager what to manage
+        mgr->setRoot  (scene);
+
+        Thread::getCurrentChangeList()->commitChanges();
+
+        // show the whole scene
+        mgr->showAll();
+
+        // add the statistics forground
+
+        statfg = SimpleStatisticsForeground::create();
+
+        statfg->setSize(25);
+        statfg->setColor(Color4f(0,1,0,0.7));
+
+    #if 0
+        statfg->addElement(RenderAction::statDrawTime, "Draw FPS: %r.3f");
+        statfg->addElement(DrawActionBase::statTravTime, "TravTime: %.3f s");
+        statfg->addElement(RenderAction::statDrawTime, "DrawTime: %.3f s");
+        statfg->addElement(DrawActionBase::statCullTestedNodes,
+                        "%d Nodes culltested");
+        statfg->addElement(DrawActionBase::statCulledNodes,
+                        "%d Nodes culled");
+        statfg->addElement(RenderAction::statNMaterials,
+                        "%d material changes");
+        statfg->addElement(RenderAction::statNMatrices,
+                        "%d matrix changes");
+        statfg->addElement(RenderAction::statNGeometries,
+                        "%d Nodes drawn");
+        statfg->addElement(RenderAction::statNTransGeometries,
+                        "%d transparent Nodes drawn");
+        statfg->addElement(Drawable::statNTriangles,
+                        "%d triangles drawn");
+        statfg->addElement(Drawable::statNLines,
+                        "%d lines drawn");
+        statfg->addElement(Drawable::statNPoints,
+                        "%d points drawn");
+        statfg->addElement(Drawable::statNPrimitives,
+                            "%d primitive groups drawn");
+        statfg->addElement(Drawable::statNVertices,
+                        "%d vertices transformed");
+        statfg->addElement(RenderAction::statNTextures, "%d textures used");
+        statfg->addElement(RenderAction::statNTexBytes, "%d bytes of texture used");
+    #endif
+
+        collector = statfg->getCollector();
+
+        mgr->setUseTraversalAction(true);
+
+        tact = RenderAction::create();
+    //    act  = RenderAction::create();
+
+        tact->setStatCollector(collector);
+    //    act ->setStatCollector(collector);
+
+        mgr->setAction(tact);
+    //    mgr->setAction( act);
+
+        setStatMethod(gStatMethod);
     }
-    else
-    {
-        scene = makeTorus(.5, 3, 16, 16);
-    }
-
-    // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
-
-    // create the window and initial camera/viewport
-    mgr->setWindow(pwin );
-    // tell the manager what to manage
-    mgr->setRoot  (scene);
-
-    Thread::getCurrentChangeList()->commitChanges();
-
-    // show the whole scene
-    mgr->showAll();
-
-    // add the statistics forground
-
-    statfg = SimpleStatisticsForeground::create();
-
-    statfg->setSize(25);
-    statfg->setColor(Color4f(0,1,0,0.7));
-
-#if 0
-    statfg->addElement(RenderAction::statDrawTime, "Draw FPS: %r.3f");
-    statfg->addElement(DrawActionBase::statTravTime, "TravTime: %.3f s");
-    statfg->addElement(RenderAction::statDrawTime, "DrawTime: %.3f s");
-    statfg->addElement(DrawActionBase::statCullTestedNodes,
-                       "%d Nodes culltested");
-    statfg->addElement(DrawActionBase::statCulledNodes,
-                       "%d Nodes culled");
-    statfg->addElement(RenderAction::statNMaterials,
-                       "%d material changes");
-    statfg->addElement(RenderAction::statNMatrices,
-                       "%d matrix changes");
-    statfg->addElement(RenderAction::statNGeometries,
-                       "%d Nodes drawn");
-    statfg->addElement(RenderAction::statNTransGeometries,
-                       "%d transparent Nodes drawn");
-    statfg->addElement(Drawable::statNTriangles,
-                       "%d triangles drawn");
-    statfg->addElement(Drawable::statNLines,
-                       "%d lines drawn");
-    statfg->addElement(Drawable::statNPoints,
-                       "%d points drawn");
-    statfg->addElement(Drawable::statNPrimitives,
-                        "%d primitive groups drawn");
-    statfg->addElement(Drawable::statNVertices,
-                       "%d vertices transformed");
-    statfg->addElement(RenderAction::statNTextures, "%d textures used");
-    statfg->addElement(RenderAction::statNTexBytes, "%d bytes of texture used");
-#endif
-
-    collector = statfg->getCollector();
-
-    mgr->setUseTraversalAction(true);
-
-    tact = RenderAction::create();
-//    act  = RenderAction::create();
-
-    tact->setStatCollector(collector);
-//    act ->setStatCollector(collector);
-
-    mgr->setAction(tact);
-//    mgr->setAction( act);
-
-    setStatMethod(gStatMethod);
-
 
     // GLUT main loop
     glutMainLoop();
