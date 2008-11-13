@@ -62,6 +62,38 @@ OSG_USING_NAMESPACE
 // To modify it, please change the .fcd file (OSGSkyBackground.fcd) and
 // regenerate the base file.
 
+const Vec3f SkyBackground::_defaultTexCoords[7][4] =
+{
+    // 2D default TCs
+    { Vec3f( 0, 0, 0), Vec3f( 1, 0, 0), Vec3f( 1, 1, 0), Vec3f( 0, 1, 0) },
+
+     // Cubetex Default TCs
+    { Vec3f( 1,-1, 1), Vec3f(-1,-1, 1), Vec3f(-1, 1, 1), Vec3f( 1, 1, 1) },
+    { Vec3f(-1,-1,-1), Vec3f( 1,-1,-1), Vec3f( 1, 1,-1), Vec3f(-1, 1,-1) },
+
+    { Vec3f(-1,-1, 1), Vec3f( 1,-1, 1), Vec3f( 1,-1,-1), Vec3f(-1,-1,-1) },
+    { Vec3f(-1, 1,-1), Vec3f( 1, 1,-1), Vec3f( 1, 1, 1), Vec3f(-1, 1, 1) },
+
+    { Vec3f(-1,-1, 1), Vec3f(-1,-1,-1), Vec3f(-1, 1,-1), Vec3f(-1, 1, 1) },
+    { Vec3f( 1,-1,-1), Vec3f( 1,-1, 1), Vec3f( 1, 1, 1), Vec3f( 1, 1,-1) }
+};
+
+const Vec3f SkyBackground::_defaultVRMLTexCoords[7][4] =
+{
+    // 2D default TCs
+    { Vec3f( 0, 0, 0), Vec3f( 1, 0, 0), Vec3f( 1, 1, 0), Vec3f( 0, 1, 0) },
+
+     // Cubetex Default TCs
+    { Vec3f(-1, 1,-1), Vec3f( 1, 1,-1), Vec3f( 1,-1,-1), Vec3f(-1,-1,-1) },
+    { Vec3f( 1, 1, 1), Vec3f(-1, 1, 1), Vec3f(-1,-1, 1), Vec3f( 1,-1, 1) },
+
+    { Vec3f( 1, 1,-1), Vec3f(-1, 1,-1), Vec3f(-1, 1, 1), Vec3f( 1, 1, 1) },
+    { Vec3f( 1,-1, 1), Vec3f(-1,-1, 1), Vec3f(-1,-1,-1), Vec3f( 1,-1,-1) },
+
+    { Vec3f( 1, 1,-1), Vec3f( 1, 1, 1), Vec3f( 1,-1, 1), Vec3f( 1,-1,-1) },
+    { Vec3f(-1, 1, 1), Vec3f(-1, 1,-1), Vec3f(-1,-1,-1), Vec3f(-1,-1, 1) }
+};
+
 /*----------------------- constructors & destructors ----------------------*/
 
 SkyBackground::SkyBackground(void) :
@@ -85,14 +117,14 @@ void SkyBackground::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-void SkyBackground::changed(ConstFieldMaskArg whichField, 
+void SkyBackground::changed(ConstFieldMaskArg whichField,
                             UInt32            origin,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void SkyBackground::dump(      UInt32   , 
+void SkyBackground::dump(      UInt32   ,
                          const BitVector) const
 {
     SLOG << "Dump SkyBackground NI" << std::endl;
@@ -100,16 +132,16 @@ void SkyBackground::dump(      UInt32   ,
 
 /*-------------------------- drawing ---------------------------------*/
 
-void SkyBackground::drawFace(      DrawEnv             * pEnv, 
-                                   TextureBaseChunk    * tex, 
-                                   StateChunk          *&oldtex, 
-                             const Pnt3f                &p1, 
-                             const Pnt3f                &p2, 
-                             const Pnt3f                &p3, 
-                             const Pnt3f                &p4, 
+void SkyBackground::drawFace(      DrawEnv             * pEnv,
+                                   TextureBaseChunk    * tex,
+                                   StateChunk          *&oldtex,
+                             const Pnt3f                &p1,
+                             const Pnt3f                &p2,
+                             const Pnt3f                &p3,
+                             const Pnt3f                &p4,
                              const Vec3f               * texCoord)
 {
-    
+
     if(tex != NULL)
     {
         if(oldtex != NULL)
@@ -120,7 +152,7 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
         {
             tex->activate(pEnv);
         }
-        
+
         if(tex->isTransparent())
         {
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -145,15 +177,15 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
         {
             glDisable(GL_BLEND);
         }
-        
+
         oldtex = tex;
     }
-   
+
 }
 
 void SkyBackground::clear(DrawEnv *pEnv)
 {
-    glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT | 
+    glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT |
                  GL_LIGHTING_BIT);
 
     glDisable(GL_LIGHTING);
@@ -168,7 +200,7 @@ void SkyBackground::clear(DrawEnv *pEnv)
 /*
     action->getCamera()->getViewing(m, viewport->getPixelWidth(),
                                         viewport->getPixelHeight());
-    action->getCamera()->getProjectionTranslation(t, 
+    action->getCamera()->getProjectionTranslation(t,
                                         viewport->getPixelWidth(),
                                         viewport->getPixelHeight());
  */
@@ -185,7 +217,7 @@ void SkyBackground::clear(DrawEnv *pEnv)
     }
 
     m[3][0] = m[3][1] = m[3][2] = 0;
-    glLoadMatrixf(m.getValues());         
+    glLoadMatrixf(m.getValues());
 
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
@@ -199,26 +231,26 @@ void SkyBackground::clear(DrawEnv *pEnv)
                                            viewport->getPixelHeight());
  */
     m = pEnv->getCameraProjection();
-    
-    glMultMatrixf(m.getValues());         
-    
+
+    glMultMatrixf(m.getValues());
+
     UInt32 i, j;
     UInt32 sr = _sfSphereRes.getValue() + 1;      // sphere resolution
 
-    if(_cosval.size() != sr) 
+    if(_cosval.size() != sr)
     {
-        Real32 da = 2 * Pi / (sr - 1);    
+        Real32 da = 2 * Pi / (sr - 1);
 
         _cosval.resize(sr);
         _sinval.resize(sr);
-      
+
         for(i = 0; i < sr; ++i)
         {
             _cosval[i] = osgCos(i * da);
-            _sinval[i] = osgSin(i * da);     
+            _sinval[i] = osgSin(i * da);
         }
     }
-    
+
     Real32  vcos1,vsin1,vcos2,vsin2;
 
     // better always clear and set a defined color...
@@ -226,7 +258,7 @@ void SkyBackground::clear(DrawEnv *pEnv)
 	
 	if(_mfSkyColor.size() > 0)
 	{
-		glClearColor(_mfSkyColor[0][0], _mfSkyColor[0][1], 
+		glClearColor(_mfSkyColor[0][0], _mfSkyColor[0][1],
 					 _mfSkyColor[0][2], _mfSkyColor[0][2]);
 	}
 	else
@@ -235,7 +267,7 @@ void SkyBackground::clear(DrawEnv *pEnv)
 	}
 
 	glClear(GL_COLOR_BUFFER_BIT);
-    
+
     if(_mfSkyAngle.size() > 0)
     {
         vcos1 = osgCos(_mfSkyAngle[0]);
@@ -297,12 +329,12 @@ void SkyBackground::clear(DrawEnv *pEnv)
             glEnd();
         }
     }
-    
+
     // Draw the ground.
     // It's possible to be smarter about this, but for now just overdraw.
 
     if(_mfGroundAngle.size() > 0)
-    {    
+    {
         vcos1 = -osgCos(_mfGroundAngle[0]);
         vsin1 =  osgSin(_mfGroundAngle[0]);
 
@@ -359,88 +391,81 @@ void SkyBackground::clear(DrawEnv *pEnv)
             glEnd();
         }
     }
-    
+
     // now draw the textures, if set
-    StateChunk *tchunk = NULL;
-    static Vec3f defaulttc[7][4] = {
-     // 2D default TCs
-     { Vec3f(0,0,0), Vec3f(1,0,0), Vec3f(1,1,0), Vec3f(0,1,0) },
-     
-     // Cubetex Default TCs
-     { Vec3f( 1, -1, 1), Vec3f(-1, -1, 1), Vec3f(-1, 1, 1), Vec3f( 1, 1, 1) },
-     { Vec3f(-1, -1,-1), Vec3f( 1, -1,-1), Vec3f( 1, 1,-1), Vec3f(-1, 1,-1) },
+          StateChunk *tchunk = NULL;
+    const Vec3f      *pTexCoords;
 
-     { Vec3f(-1,-1, 1), Vec3f( 1,-1, 1), Vec3f( 1,-1,-1), Vec3f(-1,-1,-1) },
-     { Vec3f(-1, 1,-1), Vec3f( 1, 1,-1), Vec3f( 1, 1, 1), Vec3f(-1, 1, 1) },  
+    pTexCoords = selectTexCoords(
+        getMFBackTexCoord()->size() ? &getMFBackTexCoord()->front() : NULL,
+        getBackTexture(), 1);
 
-     { Vec3f(-1, -1, 1), Vec3f(-1, -1,-1), Vec3f(-1, 1,-1), Vec3f(-1, 1, 1) },
-     { Vec3f( 1, -1,-1), Vec3f( 1, -1, 1), Vec3f( 1, 1, 1), Vec3f( 1, 1,-1) }, 
-     };
-    
-    #undef tfac
-    #define tfac(t,c)  \
-        defaulttc[(c)*((t) != NULL && (t)->isCubeTexture() == true)]
-     
     drawFace(pEnv, getBackTexture(),   tchunk,
-                                         Pnt3f(0.5, -0.5,  0.5),
+                                         Pnt3f( 0.5, -0.5,  0.5),
                                          Pnt3f(-0.5, -0.5,  0.5),
                                          Pnt3f(-0.5,  0.5,  0.5),
-                                         Pnt3f(0.5,  0.5,  0.5),
-                                         getMFBackTexCoord()->size()?
-                                        &getMFBackTexCoord()->front():
-                                          tfac(getBackTexture(), 1));
-    
+                                         Pnt3f( 0.5,  0.5,  0.5),
+                                         pTexCoords             );
+
+    pTexCoords = selectTexCoords(
+        getMFFrontTexCoord()->size() ? &getMFFrontTexCoord()->front() : NULL,
+        getFrontTexture(), 2);
+
     drawFace(pEnv, getFrontTexture(),  tchunk,
                                          Pnt3f(-0.5, -0.5, -0.5),
-                                         Pnt3f(0.5, -0.5, -0.5),
-                                         Pnt3f(0.5,  0.5, -0.5),
+                                         Pnt3f( 0.5, -0.5, -0.5),
+                                         Pnt3f( 0.5,  0.5, -0.5),
                                          Pnt3f(-0.5,  0.5, -0.5),
-                                         getMFFrontTexCoord()->size()?
-                                        &getMFFrontTexCoord()->front():
-                                          tfac(getFrontTexture(), 2));
-    
+                                         pTexCoords              );
+
+    pTexCoords = selectTexCoords(
+        getMFBottomTexCoord()->size() ? &getMFBottomTexCoord()->front() : NULL,
+        getBottomTexture(), 3);
+
     drawFace(pEnv, getBottomTexture(), tchunk,
                                          Pnt3f(-0.5, -0.5,  0.5),
-                                         Pnt3f(0.5, -0.5,  0.5),
-                                         Pnt3f(0.5, -0.5, -0.5),
+                                         Pnt3f( 0.5, -0.5,  0.5),
+                                         Pnt3f( 0.5, -0.5, -0.5),
                                          Pnt3f(-0.5, -0.5, -0.5),
-                                         getMFBottomTexCoord()->size()?
-                                        &getMFBottomTexCoord()->front():
-                                          tfac(getBottomTexture(), 3));
-    
+                                         pTexCoords              );
+
+    pTexCoords = selectTexCoords(
+        getMFTopTexCoord()->size() ? &getMFTopTexCoord()->front() : NULL,
+        getTopTexture(), 4);
+
     drawFace(pEnv, getTopTexture(),    tchunk,
                                          Pnt3f(-0.5,  0.5, -0.5),
-                                         Pnt3f(0.5,  0.5, -0.5),
-                                         Pnt3f(0.5,  0.5,  0.5),
+                                         Pnt3f( 0.5,  0.5, -0.5),
+                                         Pnt3f( 0.5,  0.5,  0.5),
                                          Pnt3f(-0.5,  0.5,  0.5),
-                                         getMFTopTexCoord()->size()?
-                                         &getMFTopTexCoord()->front():
-                                          tfac(getTopTexture(), 4));
-    
+                                         pTexCoords              );
+
+    pTexCoords = selectTexCoords(
+        getMFLeftTexCoord()->size() ? &getMFLeftTexCoord()->front() : NULL,
+        getLeftTexture(), 5);
+
     drawFace(pEnv, getLeftTexture(),   tchunk,
                                          Pnt3f(-0.5, -0.5,  0.5),
                                          Pnt3f(-0.5, -0.5, -0.5),
                                          Pnt3f(-0.5,  0.5, -0.5),
                                          Pnt3f(-0.5,  0.5,  0.5),
-                                         getMFLeftTexCoord()->size()?
-                                         &getMFLeftTexCoord()->front():
-                                          tfac(getLeftTexture(), 5));
-    
+                                         pTexCoords              );
+
+    pTexCoords = selectTexCoords(
+        getMFRightTexCoord()->size() ? &getMFRightTexCoord()->front() : NULL,
+        getRightTexture(), 6);
+
     drawFace(pEnv, getRightTexture(),  tchunk,
-                                         Pnt3f(0.5, -0.5, -0.5),
-                                         Pnt3f(0.5, -0.5,  0.5),
-                                         Pnt3f(0.5,  0.5,  0.5),
-                                         Pnt3f(0.5,  0.5, -0.5),
-                                         getMFRightTexCoord()->size()?
-                                         &getMFRightTexCoord()->front():
-                                          tfac(getRightTexture(), 6));  
-    #undef tfac
-    
+                                         Pnt3f( 0.5, -0.5, -0.5),
+                                         Pnt3f( 0.5, -0.5,  0.5),
+                                         Pnt3f( 0.5,  0.5,  0.5),
+                                         Pnt3f( 0.5,  0.5, -0.5),
+                                         pTexCoords              );
     if(tchunk != NULL)
         tchunk->deactivate(pEnv);
-    
+
     Int32 bit = getClearStencilBit();
-    
+
 	glClearDepth(1.f);
 
     if(bit >= 0)

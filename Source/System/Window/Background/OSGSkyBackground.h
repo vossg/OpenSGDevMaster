@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGSkyBackgroundBase.h"
+#include "OSGTextureBaseChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -139,6 +140,13 @@ class OSG_WINDOW_DLLMAPPING SkyBackground : public SkyBackgroundBase
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SkyBackground &source);
+    
+    const Vec3f *selectTexCoords(const Vec3f            *userTexCoords,
+                                       TextureBaseChunk *texImage,
+                                       UInt32            side          );
+    
+    static const Vec3f _defaultTexCoords    [7][4];
+    static const Vec3f _defaultVRMLTexCoords[7][4];
 };
 
 typedef SkyBackground              *SkyBackgroundP;

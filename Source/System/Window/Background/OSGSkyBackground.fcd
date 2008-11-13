@@ -208,4 +208,16 @@ and _sfBottomTexture fields.
 	The object that defines the orientation of the background, i.e. the
 	local coordinate system it is drawn in.
 	</Field>
+    <Field
+        name="useVRMLCubeTextureSemantics"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="false"
+        access="public"
+    >
+    Whether to use VRML Semantics for the orientation of cube texture sides or
+    the default OpenGL semantics.
+    Note: OpenSG 1.x always used VRML Semantics.
+    </Field>
 </FieldContainer>

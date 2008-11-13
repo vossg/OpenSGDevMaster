@@ -40,4 +40,44 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline const Vec3f *SkyBackground::selectTexCoords(
+    const Vec3f *userTexCoords, TextureBaseChunk *texImage, UInt32 side)
+{
+    const Vec3f *returnValue = NULL;
+
+    if(userTexCoords != NULL)
+    {
+        returnValue = userTexCoords;
+    }
+    else
+    {
+        if(getUseVRMLCubeTextureSemantics() == true)
+        {
+            if(texImage                  != NULL &&
+               texImage->isCubeTexture() == true   )
+            {
+                returnValue = _defaultVRMLTexCoords[side];
+            }
+            else
+            {
+                returnValue = _defaultVRMLTexCoords[0];
+            }
+        }
+        else
+        {
+            if(texImage                  != NULL &&
+               texImage->isCubeTexture() == true   )
+            {
+                returnValue = _defaultTexCoords[side];
+            }
+            else
+            {
+                returnValue = _defaultTexCoords[0];
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 OSG_END_NAMESPACE
