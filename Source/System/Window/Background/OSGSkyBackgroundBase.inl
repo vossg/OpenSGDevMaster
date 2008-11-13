@@ -235,6 +235,31 @@ void SkyBackgroundBase::setBeacon(Node * const value)
 
     _sfBeacon.setValue(value);
 }
+//! Get the value of the SkyBackground::_sfUseVRMLCubeTextureSemantics field.
+
+inline
+bool &SkyBackgroundBase::editUseVRMLCubeTextureSemantics(void)
+{
+    editSField(UseVRMLCubeTextureSemanticsFieldMask);
+
+    return _sfUseVRMLCubeTextureSemantics.getValue();
+}
+
+//! Get the value of the SkyBackground::_sfUseVRMLCubeTextureSemantics field.
+inline
+      bool  SkyBackgroundBase::getUseVRMLCubeTextureSemantics(void) const
+{
+    return _sfUseVRMLCubeTextureSemantics.getValue();
+}
+
+//! Set the value of the SkyBackground::_sfUseVRMLCubeTextureSemantics field.
+inline
+void SkyBackgroundBase::setUseVRMLCubeTextureSemantics(const bool value)
+{
+    editSField(UseVRMLCubeTextureSemanticsFieldMask);
+
+    _sfUseVRMLCubeTextureSemantics.setValue(value);
+}
 
 //! Get the value of the \a index element the SkyBackground::_mfSkyColor field.
 inline
@@ -493,6 +518,9 @@ void SkyBackgroundBase::execSync (      SkyBackgroundBase *pFrom,
 
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
         _sfBeacon.syncWith(pFrom->_sfBeacon);
+
+    if(FieldBits::NoField != (UseVRMLCubeTextureSemanticsFieldMask & whichField))
+        _sfUseVRMLCubeTextureSemantics.syncWith(pFrom->_sfUseVRMLCubeTextureSemantics);
 }
 #endif
 

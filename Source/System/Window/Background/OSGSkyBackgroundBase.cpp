@@ -181,6 +181,12 @@ OSG_BEGIN_NAMESPACE
     local coordinate system it is drawn in.
 */
 
+/*! \var bool            SkyBackgroundBase::_sfUseVRMLCubeTextureSemantics
+    Whether to use VRML Semantics for the orientation of cube texture sides or
+    the default OpenGL semantics.
+    Note: OpenSG 1.x always used VRML Semantics.
+*/
+
 
 void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -421,6 +427,20 @@ void SkyBackgroundBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&SkyBackground::getHandleBeacon));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "useVRMLCubeTextureSemantics",
+        "Whether to use VRML Semantics for the orientation of cube texture sides or\n"
+        "the default OpenGL semantics.\n"
+        "Note: OpenSG 1.x always used VRML Semantics.\n",
+        UseVRMLCubeTextureSemanticsFieldId, UseVRMLCubeTextureSemanticsFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SkyBackground::editHandleUseVRMLCubeTextureSemantics),
+        static_cast<FieldGetMethodSig >(&SkyBackground::getHandleUseVRMLCubeTextureSemantics));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -645,6 +665,18 @@ SkyBackgroundBase::TypeObject SkyBackgroundBase::_type(
     "\tThe object that defines the orientation of the background, i.e. the\n"
     "\tlocal coordinate system it is drawn in.\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "        name=\"useVRMLCubeTextureSemantics\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"false\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    Whether to use VRML Semantics for the orientation of cube texture sides or\n"
+    "    the default OpenGL semantics.\n"
+    "    Note: OpenSG 1.x always used VRML Semantics.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowBackgrounds\n"
     "\n"
@@ -925,6 +957,19 @@ SFWeakNodePtr       *SkyBackgroundBase::editSFBeacon         (void)
     return &_sfBeacon;
 }
 
+SFBool *SkyBackgroundBase::editSFUseVRMLCubeTextureSemantics(void)
+{
+    editSField(UseVRMLCubeTextureSemanticsFieldMask);
+
+    return &_sfUseVRMLCubeTextureSemantics;
+}
+
+const SFBool *SkyBackgroundBase::getSFUseVRMLCubeTextureSemantics(void) const
+{
+    return &_sfUseVRMLCubeTextureSemantics;
+}
+
+
 
 
 
@@ -1011,6 +1056,10 @@ UInt32 SkyBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfBeacon.getBinSize();
     }
+    if(FieldBits::NoField != (UseVRMLCubeTextureSemanticsFieldMask & whichField))
+    {
+        returnValue += _sfUseVRMLCubeTextureSemantics.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1096,6 +1145,10 @@ void SkyBackgroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfBeacon.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (UseVRMLCubeTextureSemanticsFieldMask & whichField))
+    {
+        _sfUseVRMLCubeTextureSemantics.copyToBin(pMem);
+    }
 }
 
 void SkyBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -1178,6 +1231,10 @@ void SkyBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (BeaconFieldMask & whichField))
     {
         _sfBeacon.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (UseVRMLCubeTextureSemanticsFieldMask & whichField))
+    {
+        _sfUseVRMLCubeTextureSemantics.copyFromBin(pMem);
     }
 }
 
@@ -1322,7 +1379,8 @@ SkyBackgroundBase::SkyBackgroundBase(void) :
     _mfLeftTexCoord           (),
     _mfFrontTexCoord          (),
     _mfBackTexCoord           (),
-    _sfBeacon                 (NULL)
+    _sfBeacon                 (NULL),
+    _sfUseVRMLCubeTextureSemantics(bool(false))
 {
 }
 
@@ -1346,7 +1404,8 @@ SkyBackgroundBase::SkyBackgroundBase(const SkyBackgroundBase &source) :
     _mfLeftTexCoord           (source._mfLeftTexCoord           ),
     _mfFrontTexCoord          (source._mfFrontTexCoord          ),
     _mfBackTexCoord           (source._mfBackTexCoord           ),
-    _sfBeacon                 (NULL)
+    _sfBeacon                 (NULL),
+    _sfUseVRMLCubeTextureSemantics(source._sfUseVRMLCubeTextureSemantics)
 {
 }
 
@@ -1835,6 +1894,29 @@ EditFieldHandlePtr SkyBackgroundBase::editHandleBeacon         (void)
                     static_cast<SkyBackground *>(this), _1));
 
     editSField(BeaconFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SkyBackgroundBase::getHandleUseVRMLCubeTextureSemantics (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseVRMLCubeTextureSemantics,
+             this->getType().getFieldDesc(UseVRMLCubeTextureSemanticsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkyBackgroundBase::editHandleUseVRMLCubeTextureSemantics(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseVRMLCubeTextureSemantics,
+             this->getType().getFieldDesc(UseVRMLCubeTextureSemanticsFieldId)));
+
+
+    editSField(UseVRMLCubeTextureSemanticsFieldMask);
 
     return returnValue;
 }

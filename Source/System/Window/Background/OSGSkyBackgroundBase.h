@@ -84,6 +84,7 @@
 #include "OSGVec3fFields.h" // FrontTexCoord type
 #include "OSGVec3fFields.h" // BackTexCoord type
 #include "OSGNodeFields.h" // Beacon type
+#include "OSGBoolFields.h" // UseVRMLCubeTextureSemantics type
 
 #include "OSGSkyBackgroundFields.h"
 
@@ -130,7 +131,8 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
         FrontTexCoordFieldId = LeftTexCoordFieldId + 1,
         BackTexCoordFieldId = FrontTexCoordFieldId + 1,
         BeaconFieldId = BackTexCoordFieldId + 1,
-        NextFieldId = BeaconFieldId + 1
+        UseVRMLCubeTextureSemanticsFieldId = BeaconFieldId + 1,
+        NextFieldId = UseVRMLCubeTextureSemanticsFieldId + 1
     };
 
     static const OSG::BitVector SkyColorFieldMask =
@@ -171,6 +173,8 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
         (TypeTraits<BitVector>::One << BackTexCoordFieldId);
     static const OSG::BitVector BeaconFieldMask =
         (TypeTraits<BitVector>::One << BeaconFieldId);
+    static const OSG::BitVector UseVRMLCubeTextureSemanticsFieldMask =
+        (TypeTraits<BitVector>::One << UseVRMLCubeTextureSemanticsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -193,6 +197,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     typedef MFVec3f           MFFrontTexCoordType;
     typedef MFVec3f           MFBackTexCoordType;
     typedef SFWeakNodePtr     SFBeaconType;
+    typedef SFBool            SFUseVRMLCubeTextureSemanticsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -268,6 +273,9 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
             const SFWeakNodePtr       *getSFBeacon         (void) const;
                   SFWeakNodePtr       *editSFBeacon         (void);
 
+                  SFBool              *editSFUseVRMLCubeTextureSemantics(void);
+            const SFBool              *getSFUseVRMLCubeTextureSemantics (void) const;
+
 
                   Color4f             &editSkyColor       (const UInt32 index);
             const Color4f             &getSkyColor        (const UInt32 index) const;
@@ -319,6 +327,9 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
 
                   Node * getBeacon         (void) const;
 
+                  bool                &editUseVRMLCubeTextureSemantics(void);
+                  bool                 getUseVRMLCubeTextureSemantics (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -333,6 +344,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
             void setTopTexture     (TextureBaseChunk * const value);
             void setBoxInside      (const bool value);
             void setBeacon         (Node * const value);
+            void setUseVRMLCubeTextureSemantics(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -416,6 +428,7 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     MFVec3f           _mfFrontTexCoord;
     MFVec3f           _mfBackTexCoord;
     SFWeakNodePtr     _sfBeacon;
+    SFBool            _sfUseVRMLCubeTextureSemantics;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -482,6 +495,8 @@ class OSG_WINDOW_DLLMAPPING SkyBackgroundBase : public Background
     EditFieldHandlePtr editHandleBackTexCoord   (void);
     GetFieldHandlePtr  getHandleBeacon          (void) const;
     EditFieldHandlePtr editHandleBeacon         (void);
+    GetFieldHandlePtr  getHandleUseVRMLCubeTextureSemantics (void) const;
+    EditFieldHandlePtr editHandleUseVRMLCubeTextureSemantics(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
