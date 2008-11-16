@@ -44,7 +44,7 @@
 
 #include "OSGColorDisplayFilterBase.h"
 #include "OSGImage.h"
-#include "OSGSHLChunk.h"
+#include "OSGSimpleSHLChunk.h"
 
 OSG_BEGIN_NAMESPACE
 

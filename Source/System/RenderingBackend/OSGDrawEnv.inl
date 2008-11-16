@@ -98,6 +98,18 @@ void DrawEnv::setActiveTexTarget(UInt32    uiSlot,
 }
 
 inline
+void DrawEnv::setActiveShader(UInt32 uiActiveShader)
+{
+    _uiActiveShader = uiActiveShader;
+}
+
+inline
+UInt32 DrawEnv::getActiveShader(void)
+{
+    return _uiActiveShader;
+}
+
+inline
 const Matrixr &DrawEnv::getWorldToScreen(void) const
 {
     return _worldToScreen;

@@ -1227,7 +1227,8 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
         SphereGeo   = 0x0002,
         ConeGeo     = 0x0003,
         CylinderGeo = 0x0004,
-        TeapotGeo   = 0x0005
+        TeapotGeo   = 0x0005,
+        PlaneGeo    = 0x0006
     };
 
     /*---------------------------------------------------------------------*/
@@ -1260,6 +1261,7 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
     static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperCone;
     static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperCylinder;
     static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperTeapot;
+    static VRMLNodeHelperFactoryBase::RegisterHelper _regHelperPlane;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

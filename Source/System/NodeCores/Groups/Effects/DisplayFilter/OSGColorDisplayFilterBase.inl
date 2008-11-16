@@ -217,14 +217,14 @@ void ColorDisplayFilterBase::setTableImage(Image * const value)
 
 //! Get the value of the ColorDisplayFilter::_sfFilterShader field.
 inline
-SHLChunk * ColorDisplayFilterBase::getFilterShader(void) const
+SimpleSHLChunk * ColorDisplayFilterBase::getFilterShader(void) const
 {
     return _sfFilterShader.getValue();
 }
 
 //! Set the value of the ColorDisplayFilter::_sfFilterShader field.
 inline
-void ColorDisplayFilterBase::setFilterShader(SHLChunk * const value)
+void ColorDisplayFilterBase::setFilterShader(SimpleSHLChunk * const value)
 {
     editSField(FilterShaderFieldMask);
 

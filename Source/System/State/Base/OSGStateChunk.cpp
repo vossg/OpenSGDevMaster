@@ -296,14 +296,6 @@ bool StateChunk::isTransparent(void) const
     return false;
 }
 
-/*! Returns whether the chunk represents a shader object. This is needed to
-    decide whether general purpose vertex attributes should be used.
- */
-bool StateChunk::isShader(void) const
-{
-    return false;
-}
-
 /*---------------------- Chunk Class Access -------------------------------*/
 
 const StateChunkClass *StateChunk::getClass(void) const

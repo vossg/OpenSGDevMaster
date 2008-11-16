@@ -158,14 +158,14 @@ void DisplayFilterStageDataBase::setBaseMaterial(ChunkMaterial * const value)
 
 //! Get the value of the DisplayFilterStageData::_sfColorFilterShader field.
 inline
-SHLChunk * DisplayFilterStageDataBase::getColorFilterShader(void) const
+SimpleSHLChunk * DisplayFilterStageDataBase::getColorFilterShader(void) const
 {
     return _sfColorFilterShader.getValue();
 }
 
 //! Set the value of the DisplayFilterStageData::_sfColorFilterShader field.
 inline
-void DisplayFilterStageDataBase::setColorFilterShader(SHLChunk * const value)
+void DisplayFilterStageDataBase::setColorFilterShader(SimpleSHLChunk * const value)
 {
     editSField(ColorFilterShaderFieldMask);
 

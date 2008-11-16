@@ -135,6 +135,7 @@ class OSG_SYSTEM_DLLMAPPING ScanParseSkel
         OSGsfPnt3f     = TOK_SFPnt3f,
         OSGsfPnt4f     = TOK_SFPnt4f,
         OSGsfVec2i     = TOK_SFVec2i,
+        OSGmfVec2i     = TOK_MFVec2i,
         OSGsfPlane     = TOK_SFPlane,
         OSGsfVolume    = TOK_SFVolume
     };

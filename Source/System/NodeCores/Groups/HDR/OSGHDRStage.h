@@ -47,7 +47,7 @@
 #include "OSGHDRStageBase.h"
 #include "OSGAction.h"
 #include "OSGHDRStageDataFields.h"
-#include "OSGSHLChunk.h"
+#include "OSGSimpleSHLChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -161,7 +161,7 @@ class OSG_GROUP_DLLMAPPING HDRStage : public HDRStageBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    SHLChunkTransitPtr generateHDRFragmentProgram(void);
+    SimpleSHLChunkTransitPtr generateHDRFragmentProgram(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

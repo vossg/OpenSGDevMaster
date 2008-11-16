@@ -46,7 +46,7 @@
 
 #include "OSGShadowTreeHandler.h"
 
-#include "OSGSHLVariableChunk.h"
+#include "OSGSimpleSHLVariableChunk.h"
 #include "OSGTileCameraDecorator.h"
 #include "OSGPolygonChunk.h"
 
@@ -84,11 +84,11 @@ class OSG_EFFECTGROUPS_DLLMAPPING PCSSShadowMapHandler :
 
     SolidBackgroundUnrecPtr               _pClearSMapBack;
     PolygonChunkUnrecPtr                  _pPoly; 
-    SHLChunkUnrecPtr                      _shadowSHL;
+    SimpleSHLChunkUnrecPtr                _shadowSHL;
     Int32                                 _firstRun;
 
-    std::vector<ChunkMaterialUnrecPtr>    _vShadowCmat;
-    std::vector<SHLVariableChunkUnrecPtr> _vShadowSHLVar;
+    std::vector<ChunkMaterialUnrecPtr         > _vShadowCmat;
+    std::vector<SimpleSHLVariableChunkUnrecPtr> _vShadowSHLVar;
 };
 
 OSG_END_NAMESPACE

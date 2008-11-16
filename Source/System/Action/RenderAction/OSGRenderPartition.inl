@@ -298,28 +298,6 @@ void RenderPartition::setKeyGen(UInt32 uiKeyGen)
     _uiKeyGen = uiKeyGen;
 }
 
-inline
-void RenderPartition::overrideMaterial(Material *       pMaterial,
-                                       Node     * const pNode    )
-{
-    if(_pMaterialNode == NULL)
-    {
-        _pMaterial     = pMaterial;
-        _pMaterialNode = pNode;
-    }
-    else if(_pMaterialNode == pNode)
-    {
-        if(pMaterial == NULL)
-        {
-            _pMaterial     = NULL;
-            _pMaterialNode = NULL;
-        }
-        else
-        {
-            fprintf(stderr, "strange reset with non null mat\n");
-        }
-    }
-}
 
 inline
 Material *RenderPartition::getMaterial(void)

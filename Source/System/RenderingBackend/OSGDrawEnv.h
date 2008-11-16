@@ -71,19 +71,22 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    void setAction         (      RAction  *pAction    );
-    void setWindow         (      Window   *pWindow    );
+    void   setAction         (      RAction  *pAction       );
+    void   setWindow         (      Window   *pWindow       );
 
-    void setupProjection   (const Matrixr  &projection,
-                            const Matrixr  &translation);
-    void setupViewing      (const Matrixr  &matrix     );
-    void setObjectToWorld  (const Matrixr  &matrix     );
+    void   setupProjection   (const Matrixr  &projection,
+                              const Matrixr  &translation   );
+    void   setupViewing      (const Matrixr  &matrix        );
+    void   setObjectToWorld  (const Matrixr  &matrix        );
 
-    void setCameraNear     (const Real     &camNear    );
-    void setCameraFar      (const Real     &camFar     );
+    void   setCameraNear     (const Real     &camNear       );
+    void   setCameraFar      (const Real     &camFar        );
 
-    void setActiveTexTarget(      UInt32    uiSlot,
-                                  GLenum    uiTarget   );
+    void   setActiveTexTarget(      UInt32    uiSlot,
+                                    GLenum    uiTarget      );
+
+    void   setActiveShader   (      UInt32    uiActiveShader);
+    UInt32 getActiveShader   (      void                    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -268,6 +271,7 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     StatCollector *_pStatCollector;
 
     GLenum         _aActiveTexTargets[osgMaxTexImages];
+    UInt32         _uiActiveShader;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

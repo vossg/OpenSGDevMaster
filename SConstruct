@@ -460,6 +460,10 @@ build_options["enable_unittests"] = sca_opts.BoolOption(
     "enable_unittests", "Enable building and running of the unit tests after build", False)
 build_options["enable_revision_tags"] = sca_opts.BoolOption(
     "enable_revision_tags", "Enable updating of OSG*Def.cpp files with current svn revision numbers", False)
+build_options["enable_new_shader"] = sca_opts.BoolOption(
+    "enable_new_shader", "Enable new shader", False)
+build_options["enable_use_ogl2_shaderfunctions"] = sca_opts.BoolOption(
+    "enable_use_ogl2_shaderfunctions", "Enable ", False)
 build_options["enable_gv_beta"] = sca_opts.BoolOption(
     "enable_gv_beta", "Enable gv testing stuff", False)
 
@@ -564,6 +568,10 @@ feature_options["gif"] = sca_opts.BoolOption(
 feature_options["fcptr_mode"] = sca_opts.EnumOption(
     "fcptr_mode", "Select the mode for field container pointers",
     "MT_CPTR", ["SINGLE_THREAD", "MT_CPTR"])
+
+feature_options["shadercache_mode"] = sca_opts.EnumOption(
+    "shc_mode", "Select the mode for shader cache",
+    "0", ["0", "1", "2", "3", "4"])
 
 feature_options["disable_deprecated"] = sca_opts.BoolOption(
     "disable_deprecated", "Disable deprecated interfaces and code", False)
@@ -819,6 +827,9 @@ if not SConsAddons.Util.hasHelpFlag():
                 "OSG_WITH_COLLADA"            : optional_libs_options["collada"].isAvailable(),
                 "OSG_GV_BETA"                 : common_env["enable_gv_beta"],
                 "OSG_GL_DEFMAPPER"            : common_env["enable_gldefinemapper"],
+                "OSG_NEW_SHADER"              : common_env["enable_new_shader"],
+                "OSG_OGL2_SHADERFUNCS"        : common_env["enable_use_ogl2_shaderfunctions"],
+                "OSG_SHC_MODE_%s" % common_env["shc_mode"] : True,
                 "OSG_PREBUILD_SCANPARSE"      : not common_env["enable_scanparse_in_builddir"]
                }
    if "win32" == platform:   # Win32 specific defines

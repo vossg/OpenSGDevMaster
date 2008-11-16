@@ -804,6 +804,9 @@ void VRMLFile::initIntExtFieldTypeMapper(void)
     Self::setIntExtMapping(SFVec2f::getClassType().getId(),
                            ScanParseSkel::OSGsfVec2f);
 
+    Self::setIntExtMapping(SFVec2s::getClassType().getId(),
+                           ScanParseSkel::OSGsfVec2i);
+
     Self::setIntExtMapping(SFVec3f::getClassType().getId(),
                            ScanParseSkel::OSGsfVec3f);
 
@@ -948,6 +951,9 @@ void VRMLFile::initExtIntFieldTypeMapper(void)
 
     Self::setExtIntMapping(ScanParseSkel::OSGsfVec2f,
                            SFVec2f::getClassType().getId());
+
+    Self::setExtIntMapping(ScanParseSkel::OSGsfVec2i,
+                           SFVec2s::getClassType().getId());
 
     Self::setExtIntMapping(ScanParseSkel::OSGsfVec3f,
                            SFVec3f::getClassType().getId());

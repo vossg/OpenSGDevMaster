@@ -13,7 +13,7 @@
 
 #include "OSGTextureBaseChunk.h"
 #include "OSGMaterialChunk.h"
-#include "OSGSHLChunk.h"
+#include "OSGSimpleSHLChunk.h"
 
 
 OSG_USING_NAMESPACE
@@ -210,7 +210,7 @@ void keyboard(unsigned char k, int, int)
 
         case 's':
         {
-            UInt32 uiSId = SHLChunk        ::getStaticClassId() & 0x000003FF;
+            UInt32 uiSId = SimpleSHLChunk  ::getStaticClassId() & 0x000003FF;
             UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
             UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
 

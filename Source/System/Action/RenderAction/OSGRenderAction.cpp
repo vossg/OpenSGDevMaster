@@ -56,7 +56,9 @@
 
 #include "OSGTextureBaseChunk.h"
 #include "OSGMaterialChunk.h"
-
+#ifdef OSG_NEW_SHADER
+#include "OSGSimpleSHLChunk.h"
+#endif
 #include "OSGVolumeDraw.h"
 #include "OSGTreeBuilderBase.h"
 
@@ -290,9 +292,13 @@ RenderAction::RenderAction(void) :
         pSHLProto = dynamic_cast<StateChunk *>(pSHLType->getPrototype());
     }
 
-    
 
-    UInt32 uiSId = 0x0;//SHLChunk        ::getStaticClassId() & 0x000003FF;
+#ifdef OSG_NEW_SHADER
+    UInt32 uiSId = SimpleSHLChunk  ::getStaticClassId() & 0x000003FF;
+#else
+    UInt32 uiSId = 0x00;
+#endif
+
     UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
     UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
 

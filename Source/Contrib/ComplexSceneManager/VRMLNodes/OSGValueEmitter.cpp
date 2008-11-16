@@ -71,6 +71,20 @@ void SValueEmitter<DESC>::classDescInserter(TypeObject &oType)          \
         static_cast<FieldGetMethodSig >(&Self::getHandleValue));        \
                                                                         \
     oType.addInitialDesc(pDesc);                                        \
+                                                                        \
+    pDesc = new SFBool::Description(                                    \
+        SFBool::getClassType(),                                         \
+        "ignoreNextChange",                                             \
+        "",                                                             \
+        IgnoreNextChangeFieldId, IgnoreNextChangeFieldMask,             \
+        true,                                                           \
+        (Field::FThreadLocal),                                          \
+        static_cast<FieldEditMethodSig>(                                \
+            &Self::editHandleIgnoreNextChange),                         \
+        static_cast<FieldGetMethodSig >(                                \
+            &Self::getHandleIgnoreNextChange));                         \
+                                                                        \
+    oType.addInitialDesc(pDesc);                                        \
 }                                                                       \
                                                                         \
                                                                         \
@@ -87,7 +101,9 @@ SValueEmitter<DESC>::TypeObject                                         \
         reinterpret_cast<InitalInsertDescFunc>(                         \
             &Self::classDescInserter),                                  \
         false,                                                          \
-        0,                                                              \
+        (Self::TriggerFieldMask         |                               \
+         Self::ValueFieldMask           |                               \
+         Self::IgnoreNextChangeFieldMask),                              \
         "",                                                             \
         ""                                                              \
                             );                                          \
@@ -124,6 +140,7 @@ const FieldContainerType &SValueEmitter<DESC>::getType(void) const      \
     return _type;                                                       \
 }
 
+OSGSVALUEEMITTER_IMPL(BoolEmitterDesc  )
 OSGSVALUEEMITTER_IMPL(Int32EmitterDesc )
 OSGSVALUEEMITTER_IMPL(Real32EmitterDesc)
 OSGSVALUEEMITTER_IMPL(StringEmitterDesc)

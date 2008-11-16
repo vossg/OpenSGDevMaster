@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ShaderProgramChunk"
+	parent="StateChunk"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+  <Field
+	 name="vertexShader"
+	 type="ShaderProgram"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+     category="pointer"
+
+     pushToFieldAs="addVertexShader"
+     removeFromMFieldIndexAs="subVertexShader"
+     clearFieldAs="clearVertexShaders"        
+	 >
+	fragment program object
+  </Field>
+  <Field
+	 name="geometryShader"
+	 type="ShaderProgram"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+     category="pointer"
+
+     pushToFieldAs="addGeometryShader"
+     removeFromMFieldIndexAs="subGeometryShader"
+     clearFieldAs="clearGeometryShaders"        
+	 >
+	fragment program object
+  </Field>
+  <Field
+	 name="fragmentShader"
+	 type="ShaderProgram"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+     category="pointer"
+
+     pushToFieldAs="addFragmentShader"
+     removeFromMFieldIndexAs="subFragmentShader"
+     clearFieldAs="clearFragmentShaders"        
+	 >
+	fragment program object
+  </Field>
+
+  <Field
+	 name="geometryVerticesOut"
+	 type="UInt32"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="0"
+	 >
+  </Field>
+  <Field
+	 name="geometryInputType"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_TRIANGLES"
+	 defaultHeader="&lt;OSGGL.h&gt;"
+	 >
+  </Field>
+  <Field
+	 name="geometryOutputType"
+	 type="GLenum"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="GL_TRIANGLE_STRIP"
+	 defaultHeader="&lt;OSGGL.h&gt;"
+	 >
+  </Field>
+
+</FieldContainer>

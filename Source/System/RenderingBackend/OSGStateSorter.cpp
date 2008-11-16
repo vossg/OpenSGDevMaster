@@ -45,6 +45,7 @@
 #include "OSGRenderTreeNodePool.h"
 #include "OSGStateSorter.h"
 #include "OSGBaseFunctions.h"
+#include "OSGStateOverride.h"
 
 //#define OSG_DUMP_SORTING
 
@@ -87,6 +88,11 @@ void StateSorter::add(RenderTreeNode *pNode,
     if(_eSortMode == StateKey)
     {
         UInt32 uiSortKey = pState->getSortKey(uiKeyGen);
+
+        if(pStateOverride != NULL)
+        {
+            pStateOverride->updateSortKey(uiSortKey, uiKeyGen);
+        }
 
         // Default Mat Id sorting
         if(uiSortKey > State::DefaultKeyMask)

@@ -2024,6 +2024,33 @@ PROTO Teapot [
  endProtoInterface();
  endProto  ();
 
+#if 0
+PROTO Plane [
+  field SFVec2s resolution 5 5
+  field SFVec2f size       1.0 1.0
+] { }
+#endif
+
+ beginProto("Plane");
+ {
+     beginFieldDecl("SFVec2s", Self::OSGsfVec2i, "resolution");
+     addFieldValue("5 5");
+     endFieldDecl  ();
+
+     beginFieldDecl("SFVec2f", Self::OSGsfVec2f, "size");
+     addFieldValue("1.0 1.0");
+     endFieldDecl  ();
+
+/*
+     beginFieldDecl("SFString", Self::OSGsfString, "title");
+     addFieldValue("");
+     endFieldDecl();
+ */
+ }
+ endProtoInterface();
+ endProto  ();
+
+
  postStandardProtos();
 
 }

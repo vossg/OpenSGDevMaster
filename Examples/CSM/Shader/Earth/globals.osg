@@ -1,0 +1,79 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF CUp KeySensor
+    {
+      key "s"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CDown KeySensor
+    {
+      key "S"
+      stateFlipFlop TRUE
+    }       
+
+    DEF LR32Counter LimitedReal32Counter
+    {
+      value 0.0
+      step  0.01
+
+      upperLimit  0.435
+      lowerLimit -0.435
+    }
+
+    # very crude
+    DEF RotCos ScalarInterpolator 
+    {   
+      key 
+      [   
+        0, 
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ]
+
+      keyValue 
+      [
+         1.0,
+         0.0,
+        -1.0,
+         0.0,
+         1.0
+      ]
+    }
+
+    # very crude
+    DEF RotSin ScalarInterpolator 
+    {   
+      key 
+      [   
+        0, 
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ]
+      keyValue 
+      [
+         0.0, 
+         1.0, 
+         0.0, 
+        -1.0, 
+         0.0 
+      ]
+    }
+
+    DEF SceneTimer TimeSensor
+    {
+      loop TRUE 
+      cycleInterval 10 
+    }
+  ]
+}
+
+

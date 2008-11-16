@@ -69,7 +69,7 @@
 #include "OSGUInt32Fields.h" // Height type
 #include "OSGFrameBufferObjectFields.h" // Target type
 #include "OSGChunkMaterialFields.h" // BaseMaterial type
-#include "OSGSHLChunkFields.h" // ColorFilterShader type
+#include "OSGSimpleSHLChunkFields.h" // ColorFilterShader type
 #include "OSGTextureObjChunkFields.h" // ColorFilterTexture type
 
 #include "OSGDisplayFilterStageDataFields.h"
@@ -126,7 +126,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageDataBase : public StageData
     typedef SFUInt32          SFHeightType;
     typedef SFUnrecFrameBufferObjectPtr SFTargetType;
     typedef SFUnrecChunkMaterialPtr SFBaseMaterialType;
-    typedef SFUnrecSHLChunkPtr SFColorFilterShaderType;
+    typedef SFUnrecSimpleSHLChunkPtr SFColorFilterShaderType;
     typedef SFUnrecTextureObjChunkPtr SFColorFilterTextureType;
 
     /*---------------------------------------------------------------------*/
@@ -162,8 +162,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageDataBase : public StageData
                   SFUnrecFrameBufferObjectPtr *editSFTarget         (void);
             const SFUnrecChunkMaterialPtr *getSFBaseMaterial   (void) const;
                   SFUnrecChunkMaterialPtr *editSFBaseMaterial   (void);
-            const SFUnrecSHLChunkPtr  *getSFColorFilterShader(void) const;
-                  SFUnrecSHLChunkPtr  *editSFColorFilterShader(void);
+            const SFUnrecSimpleSHLChunkPtr *getSFColorFilterShader(void) const;
+                  SFUnrecSimpleSHLChunkPtr *editSFColorFilterShader(void);
             const SFUnrecTextureObjChunkPtr *getSFColorFilterTexture(void) const;
                   SFUnrecTextureObjChunkPtr *editSFColorFilterTexture(void);
 
@@ -178,7 +178,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageDataBase : public StageData
 
                   ChunkMaterial * getBaseMaterial   (void) const;
 
-                  SHLChunk * getColorFilterShader(void) const;
+                  SimpleSHLChunk * getColorFilterShader(void) const;
 
                   TextureObjChunk * getColorFilterTexture(void) const;
 
@@ -191,7 +191,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageDataBase : public StageData
             void setHeight         (const UInt32 value);
             void setTarget         (FrameBufferObject * const value);
             void setBaseMaterial   (ChunkMaterial * const value);
-            void setColorFilterShader(SHLChunk * const value);
+            void setColorFilterShader(SimpleSHLChunk * const value);
             void setColorFilterTexture(TextureObjChunk * const value);
 
     /*! \}                                                                 */
@@ -261,7 +261,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING DisplayFilterStageDataBase : public StageData
     SFUInt32          _sfHeight;
     SFUnrecFrameBufferObjectPtr _sfTarget;
     SFUnrecChunkMaterialPtr _sfBaseMaterial;
-    SFUnrecSHLChunkPtr _sfColorFilterShader;
+    SFUnrecSimpleSHLChunkPtr _sfColorFilterShader;
     SFUnrecTextureObjChunkPtr _sfColorFilterTexture;
 
     /*! \}                                                                 */

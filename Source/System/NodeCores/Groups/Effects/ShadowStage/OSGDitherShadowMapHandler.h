@@ -45,7 +45,7 @@
 #include <vector>
 
 #include "OSGShadowTreeHandler.h"
-#include "OSGSHLVariableChunk.h"
+#include "OSGSimpleSHLVariableChunk.h"
 #include "OSGPolygonChunk.h"
 #include "OSGMatrixCameraDecorator.h"
 
@@ -79,21 +79,21 @@ class OSG_EFFECTGROUPS_DLLMAPPING DitherShadowMapHandler :
 
     std::vector<ChunkMaterialUnrecPtr>    _vShadowCmat;
 
-    SHLChunkUnrecPtr                      _shadowSHL;
-    SHLChunkUnrecPtr                      _shadowSHL2;
-    SHLChunkUnrecPtr                      _shadowSHL3;
-    SHLChunkUnrecPtr                      _shadowSHL4;
-    SHLChunkUnrecPtr                      _shadowCubeSHL;
+    SimpleSHLChunkUnrecPtr                _shadowSHL;
+    SimpleSHLChunkUnrecPtr                _shadowSHL2;
+    SimpleSHLChunkUnrecPtr                _shadowSHL3;
+    SimpleSHLChunkUnrecPtr                _shadowSHL4;
+    SimpleSHLChunkUnrecPtr                _shadowCubeSHL;
     PolygonChunkUnrecPtr                  _pPoly;
 
     Int32                                 _firstRun;
 
-    std::vector<SHLVariableChunkUnrecPtr> _vShadowSHLVar;
-    std::vector<SHLVariableChunkUnrecPtr> _vShadowSHLVar2;
-    std::vector<SHLVariableChunkUnrecPtr> _vShadowSHLVar3;
-    std::vector<SHLVariableChunkUnrecPtr> _vShadowSHLVar4;
+    std::vector<SimpleSHLVariableChunkUnrecPtr> _vShadowSHLVar;
+    std::vector<SimpleSHLVariableChunkUnrecPtr> _vShadowSHLVar2;
+    std::vector<SimpleSHLVariableChunkUnrecPtr> _vShadowSHLVar3;
+    std::vector<SimpleSHLVariableChunkUnrecPtr> _vShadowSHLVar4;
 
-    std::vector<SHLVariableChunkUnrecPtr> _vShadowCubeSHLVar;
+    std::vector<SimpleSHLVariableChunkUnrecPtr> _vShadowCubeSHLVar;
 };
 
 OSG_END_NAMESPACE

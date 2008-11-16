@@ -89,7 +89,8 @@ DrawEnv::DrawEnv(void) :
     _uiNumStateChanges      (0    ),
     _uiNumShaderChanges     (0    ),
     _uiNumShaderParamChanges(0    ),
-    _pStatCollector         (NULL )
+    _pStatCollector         (NULL ),
+    _uiActiveShader         (0    )
 {
     _cameraFullProjection   .setIdentity();
     _cameraProjection       .setIdentity();
@@ -131,26 +132,34 @@ void DrawEnv::activate(State         *pState,
         return;
     }
 
-    MFUnrecStateChunkPtr::const_iterator it;
+    MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  (); 
+
     StateOverride::ChunkStoreIt          overIt = pOverride->begin();
 
     Int32                     ind  = 0;
-    UInt32                    cind = 0;
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size());
 
-    for(  it  = pState->getMFChunks()->begin();
-          it != pState->getMFChunks()->end  ();
-        ++it, ++cind)
+
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd; ++cIt, ++cind)
     {
         if(overIt != pOverride->end() && overIt->first == cind)
         {
-            overIt->second->activate(this, UInt32(ind));
+            if(overIt->second->getIgnore() == false)
+            {
+                overIt->second->activate(this, UInt32(ind));
+            }
+
             ++overIt;
         }
         else
         {
-            if(*it != NULL)
+            if(*cIt != NULL && (*cIt)->getIgnore() == false)
             {
-                (*it)->activate(this, UInt32(ind));
+                (*cIt)->activate(this, UInt32(ind));
             }
         }
 
@@ -160,9 +169,13 @@ void DrawEnv::activate(State         *pState,
 
     while(overIt != pOverride->end())
     {
-        overIt->second->activate(this,
-                                 UInt32(overIt->first -
-                                        overIt->second->getClassId()));
+        if(overIt->second->getIgnore() == false)
+        {
+            overIt->second->activate(this,
+                                     UInt32(overIt->first -
+                                            overIt->second->getClassId()));
+        }
+
         ++overIt;
     }
 
@@ -190,19 +203,24 @@ void DrawEnv::changeTo(State         *pState,
         return;
     }
 
-    MFUnrecStateChunkPtr::const_iterator it;
+    MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  (); 
+
     StateOverride::ChunkStoreIt          overIt = pOldOverride->begin();
 
     Int32                     ind = 0;
     UInt32                    i;
-    UInt32                    cind = 0;
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size());
+    StateChunk               *n    = NULL;
 
-    for(  it  = pState->getMFChunks()->begin();
-          it != pState->getMFChunks()->end();
-        ++it, ++cind)
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd; ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
-        StateChunk *n = *it;
+
+        n  = *cIt;
 
         if(overIt != pOldOverride->end() && overIt->first == cind)
         {
@@ -210,9 +228,9 @@ void DrawEnv::changeTo(State         *pState,
             ++overIt;
         }
 
-        if(n != NULL)
+        if(n != NULL && n->getIgnore() == false)
         {
-            if(o != NULL)
+            if(o != NULL && o->getIgnore() == false)
             {
                 n->changeFrom(this, o, UInt32(ind));
             }
@@ -221,7 +239,7 @@ void DrawEnv::changeTo(State         *pState,
                 n->activate(this, UInt32(ind));
             }
         }
-        else if(o != NULL)
+        else if(o != NULL && o->getIgnore() == false)
         {
             o->deactivate(this, UInt32(ind));
         }
@@ -232,11 +250,42 @@ void DrawEnv::changeTo(State         *pState,
         }
     }
 
+    if(ind >= StateChunkClass::getNumSlots(cind))
+        ind = 0;
+
+    for(i = cind; i < pOld->getMFChunks()->size(); ++i)
+    {
+        StateChunk *o = pOld->getChunk(i);
+
+        if(overIt != pOldOverride->end() && overIt->first == cind)
+        {
+            if(overIt->second->getIgnore() == false)
+            {
+                overIt->second->deactivate(this, UInt32(ind));
+            }
+
+            ++overIt;
+        }
+        else if(o != NULL && o->getIgnore() == false)
+        {
+            o->deactivate(this, UInt32(ind));
+        }
+
+        if(++ind >= StateChunkClass::getNumSlots(i))
+        {
+            ind = 0;
+        }
+    }
+
     while(overIt != pOldOverride->end())
     {
-        overIt->second->deactivate(this,
-                                   UInt32(overIt->first -
-                                          overIt->second->getClassId()));
+        if(overIt->second->getIgnore() == false)
+        {
+            overIt->second->deactivate(this,
+                                       UInt32(overIt->first -
+                                              overIt->second->getClassId()));
+        }
+
         ++overIt;
     }
 
@@ -253,20 +302,23 @@ void DrawEnv::changeTo(State         *pState,
         return;
     }
 
-    MFUnrecStateChunkPtr::const_iterator it;
+    MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  (); 
+
     StateOverride::ChunkStoreIt          overIt = pOverride->begin();
 
     Int32                     ind = 0;
     UInt32                    i;
-    UInt32                    cind = 0;
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size());
     StateChunk               *n    = NULL;
 
-    for(  it  = pState->getMFChunks()->begin();
-          it != pState->getMFChunks()->end();
-        ++it, ++cind)
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd; ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
-                    n = *it;
+                    n = *cIt;
 
         if(overIt != pOverride->end() && overIt->first == cind)
         {
@@ -274,9 +326,9 @@ void DrawEnv::changeTo(State         *pState,
             ++overIt;
         }
 
-        if(n != NULL)
+        if(n != NULL && n->getIgnore() == false)
         {
-            if(o != NULL)
+            if(o != NULL && o->getIgnore() == false)
             {
                 n->changeFrom(this, o, UInt32(ind));
             }
@@ -285,7 +337,7 @@ void DrawEnv::changeTo(State         *pState,
                 n->activate(this, UInt32(ind));
             }
         }
-        else if(o != NULL)
+        else if(o != NULL && o->getIgnore() == false)
         {
             o->deactivate(this, UInt32(ind));
         }
@@ -311,9 +363,9 @@ void DrawEnv::changeTo(State         *pState,
             ++overIt;
         }
 
-        if(n != NULL)
+        if(n != NULL && n->getIgnore() == false)
         {
-            if(o != NULL)
+            if(o != NULL && o->getIgnore() == false)
             {
                 n->changeFrom(this, o, UInt32(ind));
             }
@@ -322,7 +374,7 @@ void DrawEnv::changeTo(State         *pState,
                 n->activate(this, UInt32(ind));
             }
         }
-        else if(o != NULL)
+        else if(o != NULL && o->getIgnore() == false)
         {
             o->deactivate(this, UInt32(ind));
         }
@@ -335,9 +387,13 @@ void DrawEnv::changeTo(State         *pState,
 
     while(overIt != pOverride->end())
     {
-        overIt->second->activate(this,
-                                 UInt32(overIt->first -
-                                        overIt->second->getClassId()));
+        if(overIt->second->getIgnore() == false)
+        {
+            overIt->second->activate(this,
+                                     UInt32(overIt->first -
+                                            overIt->second->getClassId()));
+        }
+
         ++overIt;
     }
 
@@ -361,21 +417,24 @@ void DrawEnv::changeTo(State         *pState,
         return;
     }
 
-    MFUnrecStateChunkPtr::const_iterator it;
+    MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  (); 
+
     StateOverride::ChunkStoreIt          newOverIt = pOverride  ->begin();
     StateOverride::ChunkStoreIt          oldOverIt = pOldOverride->begin();
 
     Int32                     ind  = 0;
     UInt32                    i;
-    UInt32                    cind = 0;
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size());
     StateChunk               *n    = NULL;
 
-    for(  it  = pState->getMFChunks()->begin();
-          it != pState->getMFChunks()->end();
-        ++it, ++cind)
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd; ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
-                    n = *it;
+                    n = *cIt;
 
         if(oldOverIt != pOldOverride->end() && oldOverIt->first == cind)
         {
@@ -389,9 +448,9 @@ void DrawEnv::changeTo(State         *pState,
             ++newOverIt;
         }
 
-        if(n != NULL)
+        if(n != NULL && n->getIgnore() == false)
         {
-            if(o != NULL)
+            if(o != NULL && o->getIgnore() == false)
             {
                 n->changeFrom(this, o, UInt32(ind));
             }
@@ -400,7 +459,7 @@ void DrawEnv::changeTo(State         *pState,
                 n->activate(this, UInt32(ind));
             }
         }
-        else if(o != NULL)
+        else if(o != NULL && o->getIgnore() == false)
         {
             o->deactivate(this, UInt32(ind));
         }
@@ -433,9 +492,9 @@ void DrawEnv::changeTo(State         *pState,
             ++newOverIt;
         }
 
-        if(n != NULL)
+        if(n != NULL && n->getIgnore() == false)
         {
-            if(o != NULL)
+            if(o != NULL && o->getIgnore() == false)
             {
                 n->changeFrom(this, o, UInt32(ind));
             }
@@ -444,7 +503,7 @@ void DrawEnv::changeTo(State         *pState,
                 n->activate(this, UInt32(ind));
             }
         }
-        else if(o != NULL)
+        else if(o != NULL && o->getIgnore() == false)
         {
             o->deactivate(this, UInt32(ind));
         }
@@ -466,14 +525,23 @@ void DrawEnv::changeTo(State         *pState,
             ++newOverIt;
         }
 
-        if(n != NULL)
+        if(n != NULL && n->getIgnore() == false)
         {
-            n->changeFrom(this,
-                          oldOverIt->second,
-                          UInt32(oldOverIt->first -
-                                 oldOverIt->second->getClassId()));
+            if(oldOverIt->second->getIgnore() == false)
+            {
+                n->changeFrom(this,
+                              oldOverIt->second,
+                              UInt32(oldOverIt->first -
+                                     oldOverIt->second->getClassId()));
+            }
+            else
+            {
+                n->activate(this,
+                            UInt32(oldOverIt->first -
+                                   oldOverIt->second->getClassId()));
+            }
         }
-        else
+        else if(oldOverIt->second->getIgnore() == false)
         {
             oldOverIt->second->deactivate(
                 this,
@@ -487,9 +555,14 @@ void DrawEnv::changeTo(State         *pState,
 
     while(newOverIt != pOverride->end())
     {
-        newOverIt->second->activate(this,
-                                    UInt32(newOverIt->first -
-                                           newOverIt->second->getClassId()));
+        if(newOverIt->second->getIgnore() == false)
+        {
+            newOverIt->second->activate(this,
+                                        UInt32(
+                                            newOverIt->first -
+                                            newOverIt->second->getClassId()));
+        }
+
         ++newOverIt;
     }
 
@@ -511,26 +584,33 @@ void DrawEnv::deactivate(State         *pState,
         return;
     }
 
-    MFUnrecStateChunkPtr::const_iterator it;
+    MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  ();
+
     StateOverride::ChunkStoreIt          overIt = pOverride->begin();
 
     Int32                     ind  = 0;
-    UInt32                    cind = 0;
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size());
 
-    for(  it  = pState->getMFChunks()->begin();
-          it != pState->getMFChunks()->end  ();
-        ++it, ++cind)
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd; ++cIt, ++cind)
     {
         if(overIt != pOverride->end() && overIt->first == cind)
         {
-            overIt->second->deactivate(this, UInt32(ind));
+            if(overIt->second->getIgnore() == false)
+            {
+                overIt->second->deactivate(this, UInt32(ind));
+            }
+
             ++overIt;
         }
         else
         {
-            if(*it != NULL)
+            if(*cIt != NULL && (*cIt)->getIgnore() == false)
             {
-                (*it)->deactivate(this, UInt32(ind));
+                (*cIt)->deactivate(this, UInt32(ind));
             }
         }
 
@@ -540,9 +620,12 @@ void DrawEnv::deactivate(State         *pState,
 
     while(overIt !=  pOverride->end())
     {
-        overIt->second->deactivate(this,
-                                   UInt32(overIt->first -
-                                          overIt->second->getClassId()));
+        if(overIt->second->getIgnore() == false)
+        {
+            overIt->second->deactivate(this,
+                                       UInt32(overIt->first -
+                                              overIt->second->getClassId()));
+        }
 
         ++overIt;
     }

@@ -187,7 +187,7 @@ ShadowTreeHandler::ShadowTreeHandler(ShadowStage     *pSource,
     _shadowFactorMapO->setTarget        (GL_TEXTURE_2D);
 
     //SHL Chunk 2
-    _combineSHL = SHLChunk::createLocal();
+    _combineSHL = SimpleSHLChunk::createLocal();
     _combineSHL->setVertexProgram  (_shadow_combine_vp);
     _combineSHL->setFragmentProgram(_shadow_combine_fp);
 

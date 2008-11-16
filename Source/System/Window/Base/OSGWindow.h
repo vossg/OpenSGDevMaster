@@ -72,6 +72,7 @@ class DrawEnv;
 
 class RenderActionBase;
 class StageValidator;
+class ShaderCache;
 
 /*! \brief Window base class. See \ref PageSystemWindowWindow
 for a description. */
@@ -84,13 +85,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     enum GLObjectStatusE
     {
-        notused      = 1,
-        initialize,
-        reinitialize,
-        initialized,
-        needrefresh,
-        destroy,
-        finaldestroy
+        notused      = 0x0001,
+        initialize   = 0x0002,
+        reinitialize = 0x0003,
+        initialized  = 0x0004,
+        needrefresh  = 0x0005,
+        destroy      = 0x0006,
+        finaldestroy = 0x0007
     };
 
     enum
@@ -268,6 +269,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
+           ShaderCache    *getShaderCache   (void          );
            StageValidator *getStageValidator(void          );
     
     static void            requestStageRun  (Int32 iStageId);
@@ -458,6 +460,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     Int32                             _windowId;
     StageValidator                   *_pStageValidator;
+    ShaderCache                      *_pShaderCache;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

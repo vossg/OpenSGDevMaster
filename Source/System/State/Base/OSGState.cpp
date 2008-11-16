@@ -290,10 +290,13 @@ void State::activate(DrawEnv *pEnv) const
 {
     MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
-    Int32                                ind = 0;
-    UInt32                               cind;
+    Int32                                ind  = 0;
+    UInt32                               cind = osgMin(State::SkipNumChunks,
+                                                       _mfChunks.size()    );
 
-    for(cind = 0; cIt != cEnd; ++cIt, ++cind)
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd; ++cIt, ++cind)
     {
         if(*cIt != NULL && (*cIt)->getIgnore() == false)
         {
@@ -314,11 +317,14 @@ void State::changeFrom(DrawEnv *pEnv, State *pOld) const
 {
     MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
-    Int32                                ind = 0;
+    Int32                                ind  = 0;
     UInt32                               i;
-    UInt32                               cind;
+    UInt32                               cind = osgMin(State::SkipNumChunks,
+                                                       _mfChunks.size()    );
 
-    for(cind = 0; cIt != cEnd; ++cIt, ++cind)
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd; ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
         StateChunk *n = *cIt;
@@ -371,10 +377,13 @@ void State::deactivate(DrawEnv *pEnv) const
 {
     MFUnrecStateChunkPtr::const_iterator cIt  = _mfChunks.begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = _mfChunks.end  ();
-    Int32                                ind = 0;
-    UInt32                               cind;
+    Int32                                ind  = 0;
+    UInt32                               cind = osgMin(State::SkipNumChunks,
+                                                       _mfChunks.size()    );
 
-    for(cind = 0; cIt != cEnd; ++cIt, ++cind)
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd; ++cIt, ++cind)
     {
         if(*cIt != NULL && (*cIt)->getIgnore() == false)
             (*cIt)->deactivate(pEnv, UInt32(ind));
@@ -578,22 +587,6 @@ bool State::isTransparent(void) const
             returnValue =(*chunksIt)->isTransparent();
     }
 
-    return returnValue;
-}
-
-bool State::isShader(void) const
-{
-    bool returnValue = false;
-    
-    MFChunksType::const_iterator chunksIt  = _mfChunks.begin();
-    MFChunksType::const_iterator chunksEnd = _mfChunks.end  ();
-    
-    for(; chunksIt != chunksEnd && returnValue == false; ++chunksIt)
-    {
-        if((*chunksIt) != NULL)
-            returnValue = (*chunksIt)->isShader();
-    }
-    
     return returnValue;
 }
 

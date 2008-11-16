@@ -77,9 +77,10 @@ class SValueEmitter : public NodeCore
 
     enum
     {
-        TriggerFieldId    = Inherited::NextFieldId,
-        ValueFieldId      = TriggerFieldId + 1,
-        NextFieldId       = ValueFieldId + 1
+        TriggerFieldId          = Inherited::NextFieldId,
+        ValueFieldId            = TriggerFieldId + 1,
+        IgnoreNextChangeFieldId = ValueFieldId + 1,
+        NextFieldId             = IgnoreNextChangeFieldId + 1
     };
 
     static const OSG::BitVector TriggerFieldMask =
@@ -87,6 +88,9 @@ class SValueEmitter : public NodeCore
 
     static const OSG::BitVector ValueFieldMask =
         (TypeTraits<BitVector>::One << ValueFieldId);
+
+    static const OSG::BitVector IgnoreNextChangeFieldMask =
+        (TypeTraits<BitVector>::One << IgnoreNextChangeFieldId);
 
     typedef typename Desc::SFValueType       SFValueType;
     typedef typename SFValueType::StoredType ValueType;
@@ -116,19 +120,21 @@ class SValueEmitter : public NodeCore
     /*! \{                                                                 */
 
 
-          SFValueType         *editSFValue          (void);
-    const SFValueType         *getSFValue           (void) const;
+          SFValueType *editSFValue           (void);
+    const SFValueType *getSFValue            (void) const;
 
+          ValueType   &editValue             (void);
+          ValueType    getValue              (void) const;
 
-          ValueType           &editValue          (void);
-          ValueType            getValue           (void) const;
+          SFBool      *editSFIgnoreNextChange(void);
+    const SFBool      *getSFIgnoreNextChange (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-    void setValue          (const ValueType  value);
+    void setValue(const ValueType value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -156,8 +162,8 @@ class SValueEmitter : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ObjTransitPtr  create          (void);
-    static  Self          *createEmpty     (void);
+    static  ObjTransitPtr  create          (void                           );
+    static  Self          *createEmpty     (void                           );
 
     static  ObjTransitPtr  createLocal     (BitVector bFlags = FCLocal::All);
     static  ObjTransitPtr  createDependent (BitVector bFlags = FCLocal::All);
@@ -182,7 +188,7 @@ class SValueEmitter : public NodeCore
 
     static TypeObject _type;
 
-    static       void   classDescInserter(TypeObject &oType);
+    static void classDescInserter(TypeObject &oType);
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
@@ -190,6 +196,7 @@ class SValueEmitter : public NodeCore
 
     SFOSGAny    _sfTrigger;
     SFValueType _sfValue;
+    SFBool      _sfIgnoreNextChange;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -211,14 +218,16 @@ class SValueEmitter : public NodeCore
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleValue (void) const;
-    EditFieldHandlePtr editHandleValue(void);
+    GetFieldHandlePtr  getHandleValue            (void) const;
+    EditFieldHandlePtr editHandleValue           (void);
+
+    GetFieldHandlePtr  getHandleIgnoreNextChange (void) const;
+    EditFieldHandlePtr editHandleIgnoreNextChange(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -285,6 +294,21 @@ class SValueEmitter : public NodeCore
     void operator =(const SValueEmitter &source);
 };
 
+struct BoolEmitterDesc
+{
+    typedef SFBool SFValueType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "BoolEmitter";
+    }
+
+    static bool getDefault(void)
+    {
+        return true;
+    }
+};
+
 struct Int32EmitterDesc
 {
     typedef SFInt32 SFValueType;
@@ -330,6 +354,7 @@ struct StringEmitterDesc
     }
 };
 
+typedef SValueEmitter<BoolEmitterDesc  > BoolEmitter;
 typedef SValueEmitter<Int32EmitterDesc > Int32Emitter;
 typedef SValueEmitter<Real32EmitterDesc> Real32Emitter;
 typedef SValueEmitter<StringEmitterDesc> StringEmitter;

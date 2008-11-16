@@ -81,6 +81,10 @@
 
 #include "OSGStageValidator.h"
 
+#ifdef OSG_NEW_SHADER
+#include "OSGShaderCache.h"
+#endif
+
 OSG_BEGIN_NAMESPACE
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
@@ -297,7 +301,8 @@ bool OSG::Window::terminate(void)
 OSG::Window::Window(void) :
      Inherited      (    ),
     _windowId       (  -1),
-    _pStageValidator(NULL)
+    _pStageValidator(NULL),
+    _pShaderCache   (NULL)
 {
     // only called for prototypes, no need to init them
 }
@@ -316,7 +321,8 @@ OSG::Window::Window(const Window &source) :
     _availConstants     (                              ),
     _numAvailConstants  (                             0),
     _windowId           (                            -1),
-    _pStageValidator    (NULL                          )
+    _pStageValidator    (NULL                          ),
+    _pShaderCache       (NULL                          )
 {       
 }
 
@@ -368,6 +374,9 @@ void OSG::Window::onCreateAspect(const Window *createAspect,
         _windowId = createAspect->_windowId;
 
     _pStageValidator = new StageValidator;
+#ifdef OSG_NEW_SHADER
+    _pShaderCache    = new ShaderCache;
+#endif
 }
 
 /*! instance deletion
@@ -415,8 +424,12 @@ void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
                                   UInt32  uiAspect     )
 {
     delete _pStageValidator;
+#ifdef OSG_NEW_SHADER
+    delete _pShaderCache;
+#endif
 
     _pStageValidator = NULL;
+    _pShaderCache    = NULL;
 
     Inherited::onDestroyAspect(uiContainerId, uiAspect);
 }

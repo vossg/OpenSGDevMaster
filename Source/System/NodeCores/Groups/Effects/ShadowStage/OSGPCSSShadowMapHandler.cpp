@@ -64,7 +64,7 @@ PCSSShadowMapHandler::PCSSShadowMapHandler(ShadowStage     *pSource,
 
     //SHL Chunk 1
 
-    _shadowSHL = SHLChunk::createLocal();
+    _shadowSHL = SimpleSHLChunk::createLocal();
     _shadowSHL->setVertexProgram  (_pcss_shadow_vp);
     _shadowSHL->setFragmentProgram(_pcss_shadow_fp);
 
@@ -393,9 +393,9 @@ void PCSSShadowMapHandler::createShadowFactorMapFBO(
 
         if(_vShadowSHLVar.size() == uiActiveLightCount)
         {
-            _vShadowSHLVar.push_back(SHLVariableChunk::createLocal());
+            _vShadowSHLVar.push_back(SimpleSHLVariableChunk::createLocal());
 
-            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
+//            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
         }
 
         _shadowSHL->addUniformVariable("shadowMap",    0);

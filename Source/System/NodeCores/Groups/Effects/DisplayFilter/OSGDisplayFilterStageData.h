@@ -45,7 +45,7 @@
 #include "OSGDisplayFilterStageDataBase.h"
 #include "OSGFrameBufferObject.h"
 #include "OSGChunkMaterial.h"
-#include "OSGSHLChunk.h"
+#include "OSGSimpleSHLChunk.h"
 #include "OSGTextureObjChunk.h"
 
 OSG_BEGIN_NAMESPACE

@@ -65,13 +65,13 @@ VarianceShadowMapHandler::VarianceShadowMapHandler(ShadowStage     *pSource,
 
     //SHL Chunk 1
 
-    _shadowSHL = SHLChunk::createLocal();
+    _shadowSHL = SimpleSHLChunk::createLocal();
     _shadowSHL->setVertexProgram  (_variance_vp);
     _shadowSHL->setFragmentProgram(_variance_fp);
 
 
     //SHL Depth
-    _depthSHL = SHLChunk::createLocal();
+    _depthSHL = SimpleSHLChunk::createLocal();
     _depthSHL->setVertexProgram  (_depth_vp);
     _depthSHL->setFragmentProgram(_depth_fp);
 
@@ -234,9 +234,10 @@ void VarianceShadowMapHandler::createShadowMapsFBO(DrawEnv      *pEnv)
 
                 if(_vDepthSHLVar.size() == uiActiveLightCount)
                 {
-                    _vDepthSHLVar.push_back(SHLVariableChunk::createLocal());
+                    _vDepthSHLVar.push_back(
+                        SimpleSHLVariableChunk::createLocal());
                     
-                    _vDepthSHLVar[uiActiveLightCount]->setSHLChunk(_depthSHL);
+//                    _vDepthSHLVar[uiActiveLightCount]->setSHLChunk(_depthSHL);
                 }
 
                 OSG_ASSERT(uiActiveLightCount < _vDepthSHLVar.size());
@@ -606,9 +607,9 @@ void VarianceShadowMapHandler::createShadowFactorMapFBO(
 
         if(_vShadowSHLVar.size() == uiActiveLightCount)
         {
-            _vShadowSHLVar.push_back(SHLVariableChunk::createLocal());
+            _vShadowSHLVar.push_back(SimpleSHLVariableChunk::createLocal());
 
-            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
+//            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
         }
         
         OSG_ASSERT(uiActiveLightCount < _vShadowSHLVar.size());

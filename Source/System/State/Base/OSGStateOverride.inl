@@ -49,45 +49,90 @@ bool operator <(const StateOverride::ChunkElement &lhs,
 inline
 void StateOverride::fillFrom(StateOverride *pState)
 {
-    _vChunks = pState->_vChunks;
+    _vChunks        = pState->_vChunks;
+
+
+    _pShader        = pState->_pShader;
+    _pShaderVar     = pState->_pShaderVar;
+
+
+    _vProgChunks    = pState->_vProgChunks;
+    _vProgIds       = pState->_vProgIds;
+
+    _vProgVarChunks = pState->_vProgVarChunks;
+    _vProgVarIds    = pState->_vProgVarIds;
+
+
+    _uiSortKey      = pState->_uiSortKey;
+    _uiKeyGen       = pState->_uiKeyGen;
+    _uiKeyMask      = pState->_uiKeyMask;
+}
+
+inline
+void StateOverride::setKeyGen(UInt32 uiKeyGen)
+{
+    _uiKeyGen = uiKeyGen;
+}
+
+inline
+void StateOverride::updateSortKey(UInt32 &uiSortKey, 
+                                  UInt32  uiKeyGen)
+{
+    if(_uiKeyGen != uiKeyGen && uiKeyGen < SkipRebuild)
+    {
+        _uiKeyGen = uiKeyGen;
+
+        rebuildSortKey();
+    }
+
+    if(_uiSortKey != 0x0000)
+    {
+        uiSortKey = (uiSortKey & _uiKeyMask) | _uiKeyGen;
+    }
 }
 
 inline
 void StateOverride::reset(void)
 {
     _vChunks.clear();
-}
 
-inline
-void StateOverride::addOverride(UInt32 uiSlot, StateChunk *pChunk)
-{
-    ChunkElement newElem(uiSlot, pChunk);
+    _pShader    = NULL;
+    _pShaderVar = NULL;
 
-    ChunkStoreIt cIt = std::lower_bound(_vChunks.begin(),
-                                        _vChunks.end  (),
-                                         newElem);
 
-    if(cIt == _vChunks.end())
-    {
-        _vChunks.insert(cIt, newElem);
-    }
-    else
-    {
-        if(cIt->first == uiSlot)
-        {
-            cIt->second = pChunk;
-        }
-        else
-        {
-            _vChunks.insert(cIt, newElem);
-        }
-    }
+    _vProgChunks.clear();
+    _vProgIds   .clear();
+
+    _vProgVarChunks.clear();
+    _vProgVarIds   .clear();
+
+
+    _uiSortKey  = 0;
+    _uiKeyGen   = 0;
+    _uiKeyMask  = 0;
 }
 
 inline
 bool StateOverride::empty(void)
 {
     return _vChunks.empty();
+}
+
+inline
+bool StateOverride::isTransparent(void)
+{
+    ChunkStoreIt cIt  = _vChunks.begin();
+    ChunkStoreIt cEnd = _vChunks.end  ();
+
+    for(; cIt != cEnd; ++cIt)
+    {
+        if(cIt->second != NULL && cIt->second->isTransparent() == true)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 inline
@@ -106,6 +151,54 @@ inline
 UInt32 StateOverride::size(void)
 {
     return _vChunks.size();
+}
+
+inline
+const StateOverride::IdStore &StateOverride::getProgIds(void)
+{
+    return _vProgIds;
+}
+
+inline
+const StateOverride::ProgramChunkStore &StateOverride::getPrograms(void)
+{
+    return _vProgChunks;
+}
+
+inline
+const StateOverride::IdStore &StateOverride::getVarIds(void)
+{
+    return _vProgVarIds;
+}
+
+inline
+const StateOverride::ProgramVarChunkStore &StateOverride::getVariables(void)
+{
+    return _vProgVarChunks;
+}
+
+inline
+void StateOverride::setShader(ShaderExecutableChunk *pShader)
+{
+    _pShader = pShader;
+}
+
+inline
+ShaderExecutableChunk *StateOverride::getShader(void)
+{
+    return _pShader;
+}
+
+inline
+void StateOverride::setShaderVar(ShaderExecutableVarChunk *pVar)
+{
+    _pShaderVar = pVar;
+}
+
+inline
+ShaderExecutableVarChunk *StateOverride::getShaderVar(void)
+{
+    return _pShaderVar;
 }
 
 OSG_END_NAMESPACE

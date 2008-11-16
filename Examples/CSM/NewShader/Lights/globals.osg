@@ -1,0 +1,34 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF HLOff BoolEmitter
+    {
+      value FALSE
+    }
+
+    DEF Key1 KeySensor
+    {
+      key "1"
+      stateFlipFlop TRUE
+    }
+    DEF Key2 KeySensor
+    {
+      key "2"
+      stateFlipFlop TRUE
+    }
+    DEF Key3 KeySensor
+    {
+      key "3"
+      stateFlipFlop TRUE
+    }
+  ]
+}
+
+ROUTE HLOff.value TO ZLight.on
+
+ROUTE Key1.stateFlipFlop TO PL1.on
+ROUTE Key2.stateFlipFlop TO PL2.on
+ROUTE Key3.stateFlipFlop TO PL3.on

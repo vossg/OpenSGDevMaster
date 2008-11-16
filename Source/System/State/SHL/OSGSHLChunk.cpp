@@ -1365,7 +1365,7 @@ void SHLChunk::checkOSGParameters(bool force)
            parameter->getName()[1] == 'S' &&
            parameter->getName()[2] == 'G')
         {
-             if(parameter->getName() == "OSGWorldMatrix")
+            if(parameter->getName() == "OSGWorldMatrix")
             {
                 // .net compiler needs this workaround in opt mode ...
                 parametercbfp oldfp = NULL;
@@ -2137,6 +2137,8 @@ void SHLChunk::activate(DrawEnv *pEnv, UInt32 /*idx*/)
 
     useProgramObject(program);
 
+    pEnv->setActiveShader(program);
+
     updateOSGParameters(pEnv, program);
 
 #if 0
@@ -2182,6 +2184,8 @@ void SHLChunk::changeFrom(DrawEnv    *pEnv,
     if(program != 0)
     {
         useProgramObject(program);
+        pEnv->setActiveShader(program);
+
         updateOSGParameters(pEnv, program);
 #if 0
         updateParameters(pEnv->getWindow(), getParameters(),
@@ -2204,7 +2208,10 @@ void SHLChunk::changeFrom(DrawEnv    *pEnv,
     else
     {
         if(pEnv->getWindow()->getGLObjectId(old->getGLId()) != 0)
+        {
             useProgramObject(0);
+            pEnv->setActiveShader(0);
+        }
     }
 
     pEnv->incNumShaderChanges();
@@ -2222,6 +2229,7 @@ void SHLChunk::deactivate(DrawEnv *pEnv, UInt32 /*idx*/)
             pEnv->getWindow()->getFunction(_funcUseProgramObject));
 
     useProgramObject(0);
+    pEnv->setActiveShader(0);
 
     if(getPointSize())
     {

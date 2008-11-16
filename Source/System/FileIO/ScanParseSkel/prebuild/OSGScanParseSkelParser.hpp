@@ -111,15 +111,16 @@
      TOK_SFPlane = 327,
      TOK_SFVolume = 328,
      TOK_SFVec2i = 329,
-     TOK_hex = 330,
-     TOK_int32 = 331,
-     TOK_double = 332,
-     TOK_string = 333,
-     TOK_bool = 334,
-     TOK_NULL = 335,
-     TOK_Id = 336,
-     TOK_ImageFinished = 337,
-     TOK_Error = 338
+     TOK_MFVec2i = 330,
+     TOK_hex = 331,
+     TOK_int32 = 332,
+     TOK_double = 333,
+     TOK_string = 334,
+     TOK_bool = 335,
+     TOK_NULL = 336,
+     TOK_Id = 337,
+     TOK_ImageFinished = 338,
+     TOK_Error = 339
    };
 #endif
 /* Tokens.  */
@@ -195,15 +196,16 @@
 #define TOK_SFPlane 327
 #define TOK_SFVolume 328
 #define TOK_SFVec2i 329
-#define TOK_hex 330
-#define TOK_int32 331
-#define TOK_double 332
-#define TOK_string 333
-#define TOK_bool 334
-#define TOK_NULL 335
-#define TOK_Id 336
-#define TOK_ImageFinished 337
-#define TOK_Error 338
+#define TOK_MFVec2i 330
+#define TOK_hex 331
+#define TOK_int32 332
+#define TOK_double 333
+#define TOK_string 334
+#define TOK_bool 335
+#define TOK_NULL 336
+#define TOK_Id 337
+#define TOK_ImageFinished 338
+#define TOK_Error 339
 
 
 
@@ -219,7 +221,7 @@ typedef union YYSTYPE
     bool boolVal;
 }
 /* Line 1489 of yacc.c.  */
-#line 223 "build.linux.g++/type-debug--arch-x64/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.hpp"
+#line 225 "build.linux.g++/type-debug--arch-x64/Source/System/FileIO/ScanParseSkel/OSGScanParseSkelParser.hpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

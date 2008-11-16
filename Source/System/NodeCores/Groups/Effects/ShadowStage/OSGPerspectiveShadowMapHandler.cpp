@@ -99,37 +99,37 @@ PerspectiveShadowMapHandler::PerspectiveShadowMapHandler(
 
 
     //SHL Chunk 1
-    _shadowSHL = SHLChunk::createLocal();
+    _shadowSHL = SimpleSHLChunk::createLocal();
     _shadowSHL->setVertexProgram  (_lisp_shadow_vp);
     _shadowSHL->setFragmentProgram(_lisp_shadow_fp);
 
-    _shadowSHL2 = SHLChunk::createLocal();
+    _shadowSHL2 = SimpleSHLChunk::createLocal();
     _shadowSHL2->setVertexProgram  (_lisp_shadow2_vp);
     _shadowSHL2->setFragmentProgram(_lisp_shadow2_fp);
 
-    _shadowSHL3 = SHLChunk::createLocal();
+    _shadowSHL3 = SimpleSHLChunk::createLocal();
     _shadowSHL3->setVertexProgram  (_lisp_shadow3_vp);
     _shadowSHL3->setFragmentProgram(_lisp_shadow3_fp);
 
-    _shadowSHL4 = SHLChunk::createLocal();
+    _shadowSHL4 = SimpleSHLChunk::createLocal();
     _shadowSHL4->setVertexProgram  (_lisp_shadow4_vp);
     _shadowSHL4->setFragmentProgram(_lisp_shadow4_fp);
 
-    _shadowSHL5 = SHLChunk::createLocal();
+    _shadowSHL5 = SimpleSHLChunk::createLocal();
     _shadowSHL5->setVertexProgram  (_lisp_shadow5_vp);
     _shadowSHL5->setFragmentProgram(_lisp_shadow5_fp);
 
-    _shadowSHL6 = SHLChunk::createLocal();
+    _shadowSHL6 = SimpleSHLChunk::createLocal();
     _shadowSHL6->setVertexProgram  (_lisp_shadow6_vp);
     _shadowSHL6->setFragmentProgram(_lisp_shadow6_fp);
 
-    _shadowSHL7 = SHLChunk::createLocal();
+    _shadowSHL7 = SimpleSHLChunk::createLocal();
     _shadowSHL7->setVertexProgram  (_lisp_shadow7_vp);
     _shadowSHL7->setFragmentProgram(_lisp_shadow7_fp);
 
 
     //SHL Chunk 3
-    _shadowCubeSHL = SHLChunk::createLocal();
+    _shadowCubeSHL = SimpleSHLChunk::createLocal();
     _shadowCubeSHL->setVertexProgram  (_lisp_shadowCube_vp);
     _shadowCubeSHL->setFragmentProgram(_lisp_shadowCube_fp);
 

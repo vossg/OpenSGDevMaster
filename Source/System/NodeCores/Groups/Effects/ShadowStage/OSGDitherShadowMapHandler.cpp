@@ -80,24 +80,24 @@ DitherShadowMapHandler::DitherShadowMapHandler(ShadowStage     *pSource,
 
 
     //SHL Chunk 1
-    _shadowSHL = SHLChunk::createLocal();
+    _shadowSHL = SimpleSHLChunk::createLocal();
     _shadowSHL->setVertexProgram  (_dither_shadow_vp);
     _shadowSHL->setFragmentProgram(_dither_shadow_fp);
 
-    _shadowSHL2 = SHLChunk::createLocal();
+    _shadowSHL2 = SimpleSHLChunk::createLocal();
     _shadowSHL2->setVertexProgram  (_dither_shadow2_vp);
     _shadowSHL2->setFragmentProgram(_dither_shadow2_fp);
 
-    _shadowSHL3 = SHLChunk::createLocal();
+    _shadowSHL3 = SimpleSHLChunk::createLocal();
     _shadowSHL3->setVertexProgram  (_dither_shadow3_vp);
     _shadowSHL3->setFragmentProgram(_dither_shadow3_fp);
 
-    _shadowSHL4 = SHLChunk::createLocal();
+    _shadowSHL4 = SimpleSHLChunk::createLocal();
     _shadowSHL4->setVertexProgram  (_dither_shadow4_vp);
     _shadowSHL4->setFragmentProgram(_dither_shadow4_fp);
 
     //SHL Chunk 3
-    _shadowCubeSHL = SHLChunk::createLocal();
+    _shadowCubeSHL = SimpleSHLChunk::createLocal();
     _shadowCubeSHL->setVertexProgram  (_dither_cubeshadow_vp);
     _shadowCubeSHL->setFragmentProgram(_dither_cubeshadow_fp);
 
@@ -583,7 +583,7 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
                 if(_vShadowCubeSHLVar.size() == uiPLightCount)
                 {
                     _vShadowCubeSHLVar.push_back(
-                        SHLVariableChunk::createLocal());
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiPLightCount < _vShadowCubeSHLVar.size());
@@ -850,7 +850,8 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
 
                 if(_vShadowSHLVar.size() == uiVarCount)
                 {
-                    _vShadowSHLVar.push_back(SHLVariableChunk::createLocal());
+                    _vShadowSHLVar.push_back(
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiVarCount < _vShadowSHLVar.size());
@@ -891,7 +892,8 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
 
                 if(_vShadowSHLVar2.size() == uiVarCount2)
                 {
-                    _vShadowSHLVar2.push_back(SHLVariableChunk::createLocal());
+                    _vShadowSHLVar2.push_back(
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiVarCount2 < _vShadowSHLVar2.size());
@@ -943,7 +945,8 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
 
                 if(_vShadowSHLVar3.size() == uiVarCount3)
                 {
-                    _vShadowSHLVar3.push_back(SHLVariableChunk::createLocal());
+                    _vShadowSHLVar3.push_back(
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiVarCount3 < _vShadowSHLVar3.size());
@@ -1007,7 +1010,8 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
 
                 if(_vShadowSHLVar4.size() == uiVarCount4)
                 {
-                    _vShadowSHLVar4.push_back(SHLVariableChunk::createLocal());
+                    _vShadowSHLVar4.push_back(
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiVarCount4 < _vShadowSHLVar4.size());

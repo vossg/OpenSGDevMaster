@@ -60,7 +60,7 @@
 
 #include <OSGFrameBufferObject.h> // Target Class
 #include <OSGChunkMaterial.h> // BaseMaterial Class
-#include <OSGSHLChunk.h> // ColorFilterShader Class
+#include <OSGSimpleSHLChunk.h> // ColorFilterShader Class
 #include <OSGTextureObjChunk.h> // ColorFilterTexture Class
 
 #include "OSGDisplayFilterStageDataBase.h"
@@ -102,7 +102,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var SHLChunk *      DisplayFilterStageDataBase::_sfColorFilterShader
+/*! \var SimpleSHLChunk * DisplayFilterStageDataBase::_sfColorFilterShader
     
 */
 
@@ -164,8 +164,8 @@ void DisplayFilterStageDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecSHLChunkPtr::Description(
-        SFUnrecSHLChunkPtr::getClassType(),
+    pDesc = new SFUnrecSimpleSHLChunkPtr::Description(
+        SFUnrecSimpleSHLChunkPtr::getClassType(),
         "colorFilterShader",
         "",
         ColorFilterShaderFieldId, ColorFilterShaderFieldMask,
@@ -255,7 +255,7 @@ DisplayFilterStageDataBase::TypeObject DisplayFilterStageDataBase::_type(
     "\t</Field>\n"
     "    <Field\n"
     "\t   name=\"colorFilterShader\"\n"
-    "\t   type=\"SHLChunk\"\n"
+    "\t   type=\"SimpleSHLChunk\"\n"
     "\t   cardinality=\"single\"\n"
     "\t   visibility=\"external\"\n"
     "\t   defaultValue=\"NULL\"\n"
@@ -273,61 +273,6 @@ DisplayFilterStageDataBase::TypeObject DisplayFilterStageDataBase::_type(
     "       category=\"pointer\"\n"
     "\t   >\n"
     "\t</Field>\n"
-    "<!--\t\n"
-    "\t<Field\n"
-    "\t\tname=\"blurRenderTarget\"\n"
-    "\t\ttype=\"FrameBufferObjectPtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"blurMaterial\"\n"
-    "\t\ttype=\"ChunkMaterialPtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"hBlurShader\"\n"
-    "\t\ttype=\"SHLChunkPtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"vBlurShader\"\n"
-    "\t\ttype=\"SHLChunkPtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"shrinkRenderTarget\"\n"
-    "\t\ttype=\"FrameBufferObjectPtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"shrinkMaterial\"\n"
-    "\t\ttype=\"ChunkMaterialPtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field> -->\n"
     "</FieldContainer>\n",
     "Data use for rendering by the DisplayFilter stage\n"
     );
@@ -405,12 +350,12 @@ SFUnrecChunkMaterialPtr *DisplayFilterStageDataBase::editSFBaseMaterial   (void)
 }
 
 //! Get the DisplayFilterStageData::_sfColorFilterShader field.
-const SFUnrecSHLChunkPtr *DisplayFilterStageDataBase::getSFColorFilterShader(void) const
+const SFUnrecSimpleSHLChunkPtr *DisplayFilterStageDataBase::getSFColorFilterShader(void) const
 {
     return &_sfColorFilterShader;
 }
 
-SFUnrecSHLChunkPtr  *DisplayFilterStageDataBase::editSFColorFilterShader(void)
+SFUnrecSimpleSHLChunkPtr *DisplayFilterStageDataBase::editSFColorFilterShader(void)
 {
     editSField(ColorFilterShaderFieldMask);
 
@@ -798,8 +743,8 @@ EditFieldHandlePtr DisplayFilterStageDataBase::editHandleBaseMaterial   (void)
 
 GetFieldHandlePtr DisplayFilterStageDataBase::getHandleColorFilterShader (void) const
 {
-    SFUnrecSHLChunkPtr::GetHandlePtr returnValue(
-        new  SFUnrecSHLChunkPtr::GetHandle(
+    SFUnrecSimpleSHLChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecSimpleSHLChunkPtr::GetHandle(
              &_sfColorFilterShader,
              this->getType().getFieldDesc(ColorFilterShaderFieldId)));
 
@@ -808,8 +753,8 @@ GetFieldHandlePtr DisplayFilterStageDataBase::getHandleColorFilterShader (void) 
 
 EditFieldHandlePtr DisplayFilterStageDataBase::editHandleColorFilterShader(void)
 {
-    SFUnrecSHLChunkPtr::EditHandlePtr returnValue(
-        new  SFUnrecSHLChunkPtr::EditHandle(
+    SFUnrecSimpleSHLChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecSimpleSHLChunkPtr::EditHandle(
              &_sfColorFilterShader,
              this->getType().getFieldDesc(ColorFilterShaderFieldId)));
 

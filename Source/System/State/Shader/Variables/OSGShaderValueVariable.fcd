@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ShaderValueVariable"
+	parent="ShaderVariable"
+	library="System"
+	pointerfieldtypes="both"
+	structure="abstract"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="variableIdx"
+		type="UInt16"
+		cardinality="multi"
+		visibility="internal"
+		access="none"
+	>
+	</Field> 
+</FieldContainer>

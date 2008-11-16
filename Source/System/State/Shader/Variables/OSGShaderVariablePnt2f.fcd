@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="ShaderVariablePnt2f"
+	parent="ShaderValueVariable"
+	library="System"
+	pointerfieldtypes="both"
+	structure="concrete"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+	decoratable="false"
+	useLocalIncludes="false"
+>
+	<Field
+		name="value"
+		type="Pnt2f"
+		cardinality="single"
+		visibility="external"
+		access="public"
+	>
+	variable value
+	</Field>
+</FieldContainer>

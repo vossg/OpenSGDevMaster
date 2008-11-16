@@ -82,17 +82,17 @@ class OSG_STATE_DLLMAPPING ShaderChunk : public ShaderChunkBase
     /*! \name                      State                                   */
     /*! \{                                                                 */
                       
-    bool isShader(void) const;
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 ShaderChunk Access                           */
     /*! \{                                                                 */
 
-    bool readVertexProgram  (const Char8        *file  );
-    bool readVertexProgram  (      std::istream &stream);
-    bool readFragmentProgram(const Char8        *file  );
-    bool readFragmentProgram(      std::istream &stream);
+    bool readVertexProgram  (const Char8        *file  ); //v
+    bool readVertexProgram  (      std::istream &stream); //v
+    bool readGeometryProgram(const Char8        *file  ); //v
+    bool readGeometryProgram(      std::istream &stream); //v
+    bool readFragmentProgram(const Char8        *file  ); //v
+    bool readFragmentProgram(      std::istream &stream); //v
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

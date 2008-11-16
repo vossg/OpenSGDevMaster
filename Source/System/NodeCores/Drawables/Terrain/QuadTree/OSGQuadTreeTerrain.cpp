@@ -60,7 +60,7 @@
 #include <OSGChunkMaterial.h>
 #include <OSGTextureObjChunk.h>
 #include <OSGTextureEnvChunk.h>
-#include <OSGSHLParameterChunk.h>
+#include <OSGSimpleSHLVariableChunk.h>
 #include "OSGTypedGeoIntegralProperty.h"
 
 OSG_USING_NAMESPACE
@@ -81,7 +81,7 @@ static const UInt32
 // switch to fill Geometry with TRIANGLE_FANS instead of TRIANGLES
 //#define WITH_TRIANGLE_FANS
 
-// switch to share a single SHLChunk with several SHLParameterChunks
+// switch to share a single SimpleSHLChunk with several SimpleSHLParameterChunks
 //#define WITH_SINGLE_SHLCHUNK
 
 // Documentation for this class is emited in the
@@ -285,11 +285,11 @@ static std::string _fp_program =
 "}\n";
 
 // SHLChunk initialized in QuadTreeTerrain::changed
-static SHLChunkMTRecPtr s_shlChunk;
+static SimpleSHLChunkMTRecPtr s_shlChunk;
 
-SHLChunkTransitPtr QuadTreeTerrain::createSHLChunk () const
+SimpleSHLChunkTransitPtr QuadTreeTerrain::createSHLChunk () const
 {
-   SHLChunkTransitPtr shl = SHLChunk::create();
+   SimpleSHLChunkTransitPtr shl = SimpleSHLChunk::create();
 
    shl->setVertexProgram  (_vp_program);
    shl->setFragmentProgram(_fp_program);
@@ -465,9 +465,9 @@ void QuadTreeTerrain::addMaterialChunks(void) const
 #if 1
 #ifndef WITH_SINGLE_SHLCHUNK
 
-   SHLParameterChunkUnrecPtr shlp = SHLParameterChunk::create();
+   SimpleSHLVariableChunkUnrecPtr shlp = SimpleSHLVariableChunk::create();
 
-   shlp->setSHLChunk(s_shlChunk);
+//   shlp->setSHLChunk(s_shlChunk);
    shlp->addUniformVariable("texSampler",  0);
    shlp->addUniformVariable("nmapSampler", 1);
    // the following spares a second set of texture coordinates
@@ -541,14 +541,14 @@ void QuadTreeTerrain::addMaterialChunks(void) const
 #if 1
 
 #ifndef WITH_SINGLE_SHLCHUNK
-   StateChunk *oldSHL  = mat->find(SHLChunk::getClassType());
+   StateChunk *oldSHL  = mat->find(SimpleSHLChunk::getClassType());
 
    if(oldSHL == NULL) 
    {
        mat->addChunk(s_shlChunk);
    }
 
-   StateChunk *oldSHLP = mat->find(SHLParameterChunk::getClassType());
+   StateChunk *oldSHLP = mat->find(SimpleSHLVariableChunk::getClassType());
 
    if(oldSHLP != NULL) 
    {

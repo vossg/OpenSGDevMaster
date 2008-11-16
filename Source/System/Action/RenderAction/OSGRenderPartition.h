@@ -420,7 +420,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     Material           *_pMaterial;
     Node               *_pMaterialNode;
-    
+    bool                _addedStateOverride;
     // Target
 
     FrameBufferObject  *_pRenderTarget;

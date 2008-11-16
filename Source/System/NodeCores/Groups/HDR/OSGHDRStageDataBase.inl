@@ -124,14 +124,14 @@ void HDRStageDataBase::setBlurMaterial(ChunkMaterial * const value)
 
 //! Get the value of the HDRStageData::_sfHBlurShader field.
 inline
-SHLChunk * HDRStageDataBase::getHBlurShader(void) const
+SimpleSHLChunk * HDRStageDataBase::getHBlurShader(void) const
 {
     return _sfHBlurShader.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfHBlurShader field.
 inline
-void HDRStageDataBase::setHBlurShader(SHLChunk * const value)
+void HDRStageDataBase::setHBlurShader(SimpleSHLChunk * const value)
 {
     editSField(HBlurShaderFieldMask);
 
@@ -140,14 +140,14 @@ void HDRStageDataBase::setHBlurShader(SHLChunk * const value)
 
 //! Get the value of the HDRStageData::_sfVBlurShader field.
 inline
-SHLChunk * HDRStageDataBase::getVBlurShader(void) const
+SimpleSHLChunk * HDRStageDataBase::getVBlurShader(void) const
 {
     return _sfVBlurShader.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfVBlurShader field.
 inline
-void HDRStageDataBase::setVBlurShader(SHLChunk * const value)
+void HDRStageDataBase::setVBlurShader(SimpleSHLChunk * const value)
 {
     editSField(VBlurShaderFieldMask);
 

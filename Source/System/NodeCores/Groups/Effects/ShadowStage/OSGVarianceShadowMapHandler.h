@@ -45,7 +45,7 @@
 #include <vector>
 
 #include "OSGShadowTreeHandler.h"
-#include "OSGSHLVariableChunk.h"
+#include "OSGSimpleSHLVariableChunk.h"
 #include "OSGTileCameraDecorator.h"
 
 OSG_BEGIN_NAMESPACE
@@ -87,14 +87,14 @@ class OSG_EFFECTGROUPS_DLLMAPPING VarianceShadowMapHandler :
 
     SolidBackgroundUnrecPtr               _pClearSMapBack;
 
-    SHLChunkUnrecPtr                      _shadowSHL;
-    SHLChunkUnrecPtr                      _depthSHL;
+    SimpleSHLChunkUnrecPtr                _shadowSHL;
+    SimpleSHLChunkUnrecPtr                _depthSHL;
     Int32                                 _firstRun;
 
-    std::vector<ChunkMaterialUnrecPtr>    _vShadowCmat;
-    std::vector<SHLVariableChunkUnrecPtr> _vShadowSHLVar;
-    std::vector<ChunkMaterialUnrecPtr>    _vDepthCmat;
-    std::vector<SHLVariableChunkUnrecPtr> _vDepthSHLVar;
+    std::vector<ChunkMaterialUnrecPtr         >    _vShadowCmat;
+    std::vector<SimpleSHLVariableChunkUnrecPtr> _vShadowSHLVar;
+    std::vector<ChunkMaterialUnrecPtr         >    _vDepthCmat;
+    std::vector<SimpleSHLVariableChunkUnrecPtr> _vDepthSHLVar;
 };
 
 OSG_END_NAMESPACE

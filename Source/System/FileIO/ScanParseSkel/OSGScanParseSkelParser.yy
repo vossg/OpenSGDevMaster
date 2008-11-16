@@ -156,6 +156,7 @@ int OSGScanParseSkel_lex(YYSTYPE *lvalp, void *);
 %token <intVal> TOK_SFPlane
 %token <intVal> TOK_SFVolume
 %token <intVal> TOK_SFVec2i
+%token <intVal> TOK_MFVec2i
 
 %token <intVal> TOK_hex
 %token <intVal> TOK_int32
@@ -559,6 +560,7 @@ fieldValue:
     | TOK_SFPlane sfplaneValue
     | TOK_SFVolume sfVolumeValue;
     | TOK_SFVec2i sfvec2iValue
+    | TOK_MFVec2i mfvec2iValue
 
 int32:
     TOK_hex { $$ = $1; }
@@ -1090,6 +1092,14 @@ mfplaneValue:
 
 sfplaneValues:
     sfplaneValues sfplaneValue
+    | /* empty */;
+
+mfvec2iValue:
+    sfvec2iValue
+    | '[' sfvec2iValues ']';
+
+sfvec2iValues:
+    sfvec2iValues sfvec2iValue
     | /* empty */;
 
 %%

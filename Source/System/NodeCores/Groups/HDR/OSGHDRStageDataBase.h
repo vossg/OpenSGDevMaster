@@ -68,8 +68,8 @@
 #include "OSGChunkMaterialFields.h" // ToneMappingMaterial type
 #include "OSGFrameBufferObjectFields.h" // BlurRenderTarget type
 #include "OSGChunkMaterialFields.h" // BlurMaterial type
-#include "OSGSHLChunkFields.h" // HBlurShader type
-#include "OSGSHLChunkFields.h" // VBlurShader type
+#include "OSGSimpleSHLChunkFields.h" // HBlurShader type
+#include "OSGSimpleSHLChunkFields.h" // VBlurShader type
 #include "OSGUInt32Fields.h" // Width type
 #include "OSGUInt32Fields.h" // Height type
 #include "OSGFrameBufferObjectFields.h" // ShrinkRenderTarget type
@@ -137,8 +137,8 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     typedef SFUnrecChunkMaterialPtr SFToneMappingMaterialType;
     typedef SFUnrecFrameBufferObjectPtr SFBlurRenderTargetType;
     typedef SFUnrecChunkMaterialPtr SFBlurMaterialType;
-    typedef SFUnrecSHLChunkPtr SFHBlurShaderType;
-    typedef SFUnrecSHLChunkPtr SFVBlurShaderType;
+    typedef SFUnrecSimpleSHLChunkPtr SFHBlurShaderType;
+    typedef SFUnrecSimpleSHLChunkPtr SFVBlurShaderType;
     typedef SFUInt32          SFWidthType;
     typedef SFUInt32          SFHeightType;
     typedef SFUnrecFrameBufferObjectPtr SFShrinkRenderTargetType;
@@ -173,10 +173,10 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
                   SFUnrecFrameBufferObjectPtr *editSFBlurRenderTarget(void);
             const SFUnrecChunkMaterialPtr *getSFBlurMaterial   (void) const;
                   SFUnrecChunkMaterialPtr *editSFBlurMaterial   (void);
-            const SFUnrecSHLChunkPtr  *getSFHBlurShader    (void) const;
-                  SFUnrecSHLChunkPtr  *editSFHBlurShader    (void);
-            const SFUnrecSHLChunkPtr  *getSFVBlurShader    (void) const;
-                  SFUnrecSHLChunkPtr  *editSFVBlurShader    (void);
+            const SFUnrecSimpleSHLChunkPtr *getSFHBlurShader    (void) const;
+                  SFUnrecSimpleSHLChunkPtr *editSFHBlurShader    (void);
+            const SFUnrecSimpleSHLChunkPtr *getSFVBlurShader    (void) const;
+                  SFUnrecSimpleSHLChunkPtr *editSFVBlurShader    (void);
 
                   SFUInt32            *editSFWidth          (void);
             const SFUInt32            *getSFWidth           (void) const;
@@ -195,9 +195,9 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
 
                   ChunkMaterial * getBlurMaterial   (void) const;
 
-                  SHLChunk * getHBlurShader    (void) const;
+                  SimpleSHLChunk * getHBlurShader    (void) const;
 
-                  SHLChunk * getVBlurShader    (void) const;
+                  SimpleSHLChunk * getVBlurShader    (void) const;
 
                   UInt32              &editWidth          (void);
                   UInt32               getWidth           (void) const;
@@ -217,8 +217,8 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
             void setToneMappingMaterial(ChunkMaterial * const value);
             void setBlurRenderTarget(FrameBufferObject * const value);
             void setBlurMaterial   (ChunkMaterial * const value);
-            void setHBlurShader    (SHLChunk * const value);
-            void setVBlurShader    (SHLChunk * const value);
+            void setHBlurShader    (SimpleSHLChunk * const value);
+            void setVBlurShader    (SimpleSHLChunk * const value);
             void setWidth          (const UInt32 value);
             void setHeight         (const UInt32 value);
             void setShrinkRenderTarget(FrameBufferObject * const value);
@@ -290,8 +290,8 @@ class OSG_GROUP_DLLMAPPING HDRStageDataBase : public StageData
     SFUnrecChunkMaterialPtr _sfToneMappingMaterial;
     SFUnrecFrameBufferObjectPtr _sfBlurRenderTarget;
     SFUnrecChunkMaterialPtr _sfBlurMaterial;
-    SFUnrecSHLChunkPtr _sfHBlurShader;
-    SFUnrecSHLChunkPtr _sfVBlurShader;
+    SFUnrecSimpleSHLChunkPtr _sfHBlurShader;
+    SFUnrecSimpleSHLChunkPtr _sfVBlurShader;
     SFUInt32          _sfWidth;
     SFUInt32          _sfHeight;
     SFUnrecFrameBufferObjectPtr _sfShrinkRenderTarget;

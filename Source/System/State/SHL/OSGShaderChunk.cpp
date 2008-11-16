@@ -108,11 +108,6 @@ void ShaderChunk::dump(      UInt32    ,
 
 /*----------------------------------- State -------------------------------*/
 
-bool ShaderChunk::isShader(void) const
-{
-    return true;
-}
-
 /*---------------------------------- Access -------------------------------*/
 
 /*! Read the program string from the given file
@@ -159,6 +154,53 @@ bool ShaderChunk::readVertexProgram(std::istream &stream)
     
     return true;
 }
+
+/*! Read the program string from the given file
+*/
+
+bool ShaderChunk::readGeometryProgram(const char *file)
+{
+    std::ifstream s(file);
+    
+    if(s.good())
+    {
+        return readGeometryProgram(s);
+    }
+    else
+    {
+        FWARNING(("ShaderChunk::readGeometryProgram: couldn't open '%s' "
+                  "for reading!\n",  file));
+
+        return false;
+    }
+}
+
+/*! Read the program string from the given stream
+*/
+bool ShaderChunk::readGeometryProgram(std::istream &stream)
+{
+#define BUFSIZE 200
+    
+    editGeometryProgram().erase();    
+
+    char buf[BUFSIZE];
+
+    if(!stream.good())
+    {
+        FWARNING(("SHLChunk::readGeometryProgram: stream is not good!\n"));
+        return false;
+    }
+    
+    do
+    {
+        stream.read(buf, BUFSIZE);
+        editGeometryProgram().append(buf, stream.gcount());
+    }
+    while(!stream.eof());
+    
+    return true;
+}
+
 
 /*! Read the program string from the given file
 */

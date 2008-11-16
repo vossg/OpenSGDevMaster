@@ -379,8 +379,7 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
     bool          usesShader = false;
     RenderAction *ra         = dynamic_cast<RenderAction *>(pEnv->getAction());
     
-    if(ra != NULL && ra->getMaterial() != NULL)
-        usesShader = ra->getMaterial()->isShader();
+    usesShader = (pEnv->getActiveShader() != 0);
     
     // store glColor.
     Color4f color;

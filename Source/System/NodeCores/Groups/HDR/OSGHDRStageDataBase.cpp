@@ -61,8 +61,8 @@
 #include <OSGChunkMaterial.h> // ToneMappingMaterial Class
 #include <OSGFrameBufferObject.h> // BlurRenderTarget Class
 #include <OSGChunkMaterial.h> // BlurMaterial Class
-#include <OSGSHLChunk.h> // HBlurShader Class
-#include <OSGSHLChunk.h> // VBlurShader Class
+#include <OSGSimpleSHLChunk.h> // HBlurShader Class
+#include <OSGSimpleSHLChunk.h> // VBlurShader Class
 #include <OSGFrameBufferObject.h> // ShrinkRenderTarget Class
 #include <OSGChunkMaterial.h> // ShrinkMaterial Class
 
@@ -101,11 +101,11 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var SHLChunk *      HDRStageDataBase::_sfHBlurShader
+/*! \var SimpleSHLChunk * HDRStageDataBase::_sfHBlurShader
     
 */
 
-/*! \var SHLChunk *      HDRStageDataBase::_sfVBlurShader
+/*! \var SimpleSHLChunk * HDRStageDataBase::_sfVBlurShader
     
 */
 
@@ -167,8 +167,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecSHLChunkPtr::Description(
-        SFUnrecSHLChunkPtr::getClassType(),
+    pDesc = new SFUnrecSimpleSHLChunkPtr::Description(
+        SFUnrecSimpleSHLChunkPtr::getClassType(),
         "hBlurShader",
         "",
         HBlurShaderFieldId, HBlurShaderFieldMask,
@@ -179,8 +179,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecSHLChunkPtr::Description(
-        SFUnrecSHLChunkPtr::getClassType(),
+    pDesc = new SFUnrecSimpleSHLChunkPtr::Description(
+        SFUnrecSimpleSHLChunkPtr::getClassType(),
         "vBlurShader",
         "",
         VBlurShaderFieldId, VBlurShaderFieldMask,
@@ -297,7 +297,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"hBlurShader\"\n"
-    "\t\ttype=\"SHLChunkPtr\"\n"
+    "\t\ttype=\"SimpleSHLChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NULL\"\n"
@@ -306,7 +306,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"vBlurShader\"\n"
-    "\t\ttype=\"SHLChunkPtr\"\n"
+    "\t\ttype=\"SimpleSHLChunkPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NULL\"\n"
@@ -413,12 +413,12 @@ SFUnrecChunkMaterialPtr *HDRStageDataBase::editSFBlurMaterial   (void)
 }
 
 //! Get the HDRStageData::_sfHBlurShader field.
-const SFUnrecSHLChunkPtr *HDRStageDataBase::getSFHBlurShader(void) const
+const SFUnrecSimpleSHLChunkPtr *HDRStageDataBase::getSFHBlurShader(void) const
 {
     return &_sfHBlurShader;
 }
 
-SFUnrecSHLChunkPtr  *HDRStageDataBase::editSFHBlurShader    (void)
+SFUnrecSimpleSHLChunkPtr *HDRStageDataBase::editSFHBlurShader    (void)
 {
     editSField(HBlurShaderFieldMask);
 
@@ -426,12 +426,12 @@ SFUnrecSHLChunkPtr  *HDRStageDataBase::editSFHBlurShader    (void)
 }
 
 //! Get the HDRStageData::_sfVBlurShader field.
-const SFUnrecSHLChunkPtr *HDRStageDataBase::getSFVBlurShader(void) const
+const SFUnrecSimpleSHLChunkPtr *HDRStageDataBase::getSFVBlurShader(void) const
 {
     return &_sfVBlurShader;
 }
 
-SFUnrecSHLChunkPtr  *HDRStageDataBase::editSFVBlurShader    (void)
+SFUnrecSimpleSHLChunkPtr *HDRStageDataBase::editSFVBlurShader    (void)
 {
     editSField(VBlurShaderFieldMask);
 
@@ -886,8 +886,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleBlurMaterial   (void)
 
 GetFieldHandlePtr HDRStageDataBase::getHandleHBlurShader     (void) const
 {
-    SFUnrecSHLChunkPtr::GetHandlePtr returnValue(
-        new  SFUnrecSHLChunkPtr::GetHandle(
+    SFUnrecSimpleSHLChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecSimpleSHLChunkPtr::GetHandle(
              &_sfHBlurShader,
              this->getType().getFieldDesc(HBlurShaderFieldId)));
 
@@ -896,8 +896,8 @@ GetFieldHandlePtr HDRStageDataBase::getHandleHBlurShader     (void) const
 
 EditFieldHandlePtr HDRStageDataBase::editHandleHBlurShader    (void)
 {
-    SFUnrecSHLChunkPtr::EditHandlePtr returnValue(
-        new  SFUnrecSHLChunkPtr::EditHandle(
+    SFUnrecSimpleSHLChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecSimpleSHLChunkPtr::EditHandle(
              &_sfHBlurShader,
              this->getType().getFieldDesc(HBlurShaderFieldId)));
 
@@ -912,8 +912,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleHBlurShader    (void)
 
 GetFieldHandlePtr HDRStageDataBase::getHandleVBlurShader     (void) const
 {
-    SFUnrecSHLChunkPtr::GetHandlePtr returnValue(
-        new  SFUnrecSHLChunkPtr::GetHandle(
+    SFUnrecSimpleSHLChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecSimpleSHLChunkPtr::GetHandle(
              &_sfVBlurShader,
              this->getType().getFieldDesc(VBlurShaderFieldId)));
 
@@ -922,8 +922,8 @@ GetFieldHandlePtr HDRStageDataBase::getHandleVBlurShader     (void) const
 
 EditFieldHandlePtr HDRStageDataBase::editHandleVBlurShader    (void)
 {
-    SFUnrecSHLChunkPtr::EditHandlePtr returnValue(
-        new  SFUnrecSHLChunkPtr::EditHandle(
+    SFUnrecSimpleSHLChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecSimpleSHLChunkPtr::EditHandle(
              &_sfVBlurShader,
              this->getType().getFieldDesc(VBlurShaderFieldId)));
 

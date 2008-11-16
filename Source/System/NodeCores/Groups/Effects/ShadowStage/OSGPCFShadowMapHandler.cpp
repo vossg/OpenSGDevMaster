@@ -80,14 +80,14 @@ PCFShadowMapHandler::PCFShadowMapHandler(ShadowStage     *pSource,
     _shadowFactorMap2O->setTarget        (GL_TEXTURE_2D);
 
     //SHL Chunk 1
-    _shadowSHL  = SHLChunk::createLocal();
-    _shadowSHL2 = SHLChunk::createLocal();
-    _shadowSHL3 = SHLChunk::createLocal();
-    _shadowSHL4 = SHLChunk::createLocal();
+    _shadowSHL  = SimpleSHLChunk::createLocal();
+    _shadowSHL2 = SimpleSHLChunk::createLocal();
+    _shadowSHL3 = SimpleSHLChunk::createLocal();
+    _shadowSHL4 = SimpleSHLChunk::createLocal();
 
 
     //SHL Chunk 3
-    _shadowCubeSHL = SHLChunk::createLocal();
+    _shadowCubeSHL = SimpleSHLChunk::createLocal();
 
 
     _oldRange = _pStage->getShadowSmoothness();
@@ -664,7 +664,7 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
                 if(_vShadowCubeSHLVar.size() == uiPLightCount)
                 {
                     _vShadowCubeSHLVar.push_back(
-                        SHLVariableChunk::createLocal());
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiPLightCount < _vShadowCubeSHLVar.size());
@@ -932,7 +932,8 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
 
                 if(_vShadowSHLVar.size() == uiVarCount)
                 {
-                    _vShadowSHLVar.push_back(SHLVariableChunk::createLocal());
+                    _vShadowSHLVar.push_back(
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiVarCount < _vShadowSHLVar.size());
@@ -972,7 +973,8 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
 
                 if(_vShadowSHLVar2.size() == uiVarCount2)
                 {
-                    _vShadowSHLVar2.push_back(SHLVariableChunk::createLocal());
+                    _vShadowSHLVar2.push_back(
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiVarCount2 < _vShadowSHLVar2.size());
@@ -1025,7 +1027,8 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
 
                 if(_vShadowSHLVar3.size() == uiVarCount3)
                 {
-                    _vShadowSHLVar3.push_back(SHLVariableChunk::createLocal());
+                    _vShadowSHLVar3.push_back(
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiVarCount3 < _vShadowSHLVar3.size());
@@ -1090,7 +1093,8 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
 
                 if(_vShadowSHLVar4.size() == uiVarCount4)
                 {
-                    _vShadowSHLVar4.push_back(SHLVariableChunk::createLocal());
+                    _vShadowSHLVar4.push_back(
+                        SimpleSHLVariableChunk::createLocal());
                 }
 
                 OSG_ASSERT(uiVarCount4 < _vShadowSHLVar4.size());

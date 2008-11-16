@@ -59,7 +59,7 @@
 
 
 #include <OSGImage.h> // TableImage Class
-#include <OSGSHLChunk.h> // FilterShader Class
+#include <OSGSimpleSHLChunk.h> // FilterShader Class
 
 #include "OSGColorDisplayFilterBase.h"
 #include "OSGColorDisplayFilter.h"
@@ -112,7 +112,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var SHLChunk *      ColorDisplayFilterBase::_sfFilterShader
+/*! \var SimpleSHLChunk * ColorDisplayFilterBase::_sfFilterShader
     
 */
 
@@ -206,8 +206,8 @@ void ColorDisplayFilterBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecSHLChunkPtr::Description(
-        SFUnrecSHLChunkPtr::getClassType(),
+    pDesc = new SFUnrecSimpleSHLChunkPtr::Description(
+        SFUnrecSimpleSHLChunkPtr::getClassType(),
         "filterShader",
         "",
         FilterShaderFieldId, FilterShaderFieldMask,
@@ -311,7 +311,7 @@ ColorDisplayFilterBase::TypeObject ColorDisplayFilterBase::_type(
     "    </Field>\n"
     "    <Field\n"
     "\t   name=\"filterShader\"\n"
-    "\t   type=\"SHLChunk\"\n"
+    "\t   type=\"SimpleSHLChunk\"\n"
     "\t   cardinality=\"single\"\n"
     "\t   visibility=\"external\"\n"
     "\t   defaultValue=\"NULL\"\n"
@@ -436,12 +436,12 @@ SFUnrecImagePtr     *ColorDisplayFilterBase::editSFTableImage     (void)
 }
 
 //! Get the ColorDisplayFilter::_sfFilterShader field.
-const SFUnrecSHLChunkPtr *ColorDisplayFilterBase::getSFFilterShader(void) const
+const SFUnrecSimpleSHLChunkPtr *ColorDisplayFilterBase::getSFFilterShader(void) const
 {
     return &_sfFilterShader;
 }
 
-SFUnrecSHLChunkPtr  *ColorDisplayFilterBase::editSFFilterShader   (void)
+SFUnrecSimpleSHLChunkPtr *ColorDisplayFilterBase::editSFFilterShader   (void)
 {
     editSField(FilterShaderFieldMask);
 
@@ -906,8 +906,8 @@ EditFieldHandlePtr ColorDisplayFilterBase::editHandleTableImage     (void)
 
 GetFieldHandlePtr ColorDisplayFilterBase::getHandleFilterShader    (void) const
 {
-    SFUnrecSHLChunkPtr::GetHandlePtr returnValue(
-        new  SFUnrecSHLChunkPtr::GetHandle(
+    SFUnrecSimpleSHLChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecSimpleSHLChunkPtr::GetHandle(
              &_sfFilterShader,
              this->getType().getFieldDesc(FilterShaderFieldId)));
 
@@ -916,8 +916,8 @@ GetFieldHandlePtr ColorDisplayFilterBase::getHandleFilterShader    (void) const
 
 EditFieldHandlePtr ColorDisplayFilterBase::editHandleFilterShader   (void)
 {
-    SFUnrecSHLChunkPtr::EditHandlePtr returnValue(
-        new  SFUnrecSHLChunkPtr::EditHandle(
+    SFUnrecSimpleSHLChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecSimpleSHLChunkPtr::EditHandle(
              &_sfFilterShader,
              this->getType().getFieldDesc(FilterShaderFieldId)));
 

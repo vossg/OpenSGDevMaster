@@ -180,7 +180,8 @@ void ColorDisplayFilter::onCreate(const ColorDisplayFilter *source)
     if(GlobalSystemState != Running)
         return;
 
-    SHLChunkUnrecPtr pShader = SHLChunk::createLocal(FCLocal::Cluster);
+    SimpleSHLChunkUnrecPtr pShader = 
+        SimpleSHLChunk::createLocal(FCLocal::Cluster);
             
     pShader->setVertexProgram  (vp_program         );
     pShader->setFragmentProgram(fp_program         );
@@ -261,7 +262,7 @@ void ColorDisplayFilter::changed(ConstFieldMaskArg whichField,
                   &vImageData[0]);
 
         
-        SHLChunk *pShader = this->getFilterShader();
+        SimpleSHLChunk *pShader = this->getFilterShader();
 
         if(pShader != NULL)
         {
@@ -273,7 +274,7 @@ void ColorDisplayFilter::changed(ConstFieldMaskArg whichField,
   
     if(0x0000 != (whichField & (MatrixFieldMask)))
     {
-        SHLChunk *pShader = this->getFilterShader();
+        SimpleSHLChunk *pShader = this->getFilterShader();
 
         if(pShader != NULL)
         {
@@ -283,7 +284,7 @@ void ColorDisplayFilter::changed(ConstFieldMaskArg whichField,
 
     if(0x0000 != (whichField & (GammaFieldMask)))
     {
-        SHLChunk *pShader = this->getFilterShader();
+        SimpleSHLChunk *pShader = this->getFilterShader();
 
         if(pShader != NULL)
         {
@@ -300,7 +301,7 @@ void ColorDisplayFilter::dump(      UInt32    ,
 
 void ColorDisplayFilter::process(DisplayFilterStageData *pData)
 {
-    SHLChunk *pShader = pData->getColorFilterShader();
+    SimpleSHLChunk *pShader = pData->getColorFilterShader();
 
     if(pShader == NULL || this->getFilterShader() != pShader)
     {
@@ -362,7 +363,7 @@ void ColorDisplayFilter::process(DisplayFilterStageData *pData)
 
 void ColorDisplayFilter::deactivate(DisplayFilterStageData *pData)
 {
-    SHLChunk        *pShader = pData->getColorFilterShader ();
+    SimpleSHLChunk  *pShader = pData->getColorFilterShader ();
     TextureObjChunk *pTex    = pData->getColorFilterTexture();
 
     if(pShader != NULL)

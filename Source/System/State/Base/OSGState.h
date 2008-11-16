@@ -72,6 +72,12 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
 
     static const UInt32 DefaultKeyMask = 0x80000000;
 
+#ifdef OSG_NEW_SHADER
+    static const size_t SkipNumChunks  = 2;
+#else
+    static const size_t SkipNumChunks  = 0;
+#endif
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -138,7 +144,6 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
     /*! \{                                                                 */
 
     bool isTransparent(void) const;
-    bool isShader     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -228,6 +233,10 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
 };
 
 typedef State *StateP;
+
+#define OSG_SKIP_IT(ITERATOR, STEPS)                        \
+    for(UInt32 i = 0; i < (STEPS); ++i)                     \
+        ++(ITERATOR)
 
 OSG_END_NAMESPACE
 

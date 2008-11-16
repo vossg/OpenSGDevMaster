@@ -1,0 +1,146 @@
+#OSG V1.0 
+
+Node
+{
+  core Group {}
+
+  children
+  [
+    DEF L1Tr Node
+    {
+      core ComponentTransform
+      {
+        translation -10.0 5.0 5.0
+      }
+    }
+    DEF L2Tr Node
+    {
+      core ComponentTransform
+      {
+        translation 10.0 5.0 5.0
+      }
+    }
+    DEF L3Tr Node
+    {
+      core ComponentTransform
+      {
+        translation 0.0 -12.0 5.0
+      }
+    }
+
+    Node
+    {
+      core DEF PL1 PointLight
+      {
+        beacon USE L1Tr
+
+        ambient  0 0 0 1
+        diffuse  1 0 0 0
+        specular 1 1 1 1
+      }
+      children
+      [
+        Node 
+        {
+          core DEF PL2 PointLight
+          {
+            beacon USE L2Tr
+            
+            ambient  0 0 0 1
+            diffuse  0 1 0 0
+            specular 1 1 1 1
+          }
+          children
+          [
+            Node
+            {
+              core DEF PL3 PointLight
+              {
+                beacon USE L3Tr
+
+                ambient  0 0 0 1
+                diffuse  0 0 1 0
+                specular 1 1 1 1
+              }
+              children
+              [
+                Node 
+                {
+                  core MaterialGroup
+                  {
+                    material ChunkMaterial
+                    {
+                      chunks
+                      [
+                        MaterialChunk
+                        {
+                          ambient   0.1 0.1 0.1 1.0
+                          diffuse   0.3 0.3 0.3 1.0
+                          specular  0.8 0.8 0.8 1.0
+                          shininess 100
+                          lit       TRUE
+                        }
+
+                        SimpleSHLChunk
+                        {
+                          variables ShaderProgramVariables
+                          {
+                            proceduralVariables
+                            [
+                              ShaderVariableOSG
+                              {
+                                name "OSGLight0Active"
+                              }
+                              ShaderVariableOSG
+                              {
+                                name "OSGLight1Active"
+                              }
+                              ShaderVariableOSG
+                              {
+                                name "OSGLight2Active"
+                              }
+                            ]
+                          }
+
+                          vertexShader 
+                          [
+                            ShaderProgramFile
+                            {
+                              shaderType GL_VERTEX_SHADER
+
+                              programUrl "lights.vp"
+                            }
+                          ]
+
+                          fragmentShader 
+                          [
+                            ShaderProgramFile
+                            {
+                              shaderType GL_FRAGMENT_SHADER
+
+                              programUrl "lights.fp"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                  children
+                  [
+                    Node
+                    {
+                      core Inline
+                      {
+                        url "../../Models/sphere.wrl"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

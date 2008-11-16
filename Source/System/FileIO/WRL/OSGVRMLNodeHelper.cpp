@@ -837,6 +837,7 @@ FieldDescriptionBase *VRMLNodeHelper::getFieldDescription(
     OSG_CREATE_DESC_ELSE(SFTime)
     OSG_CREATE_DESC_ELSE(MFTime)
 
+    OSG_CREATE_DESC_ELSE(SFVec2s)
     OSG_CREATE_DESC_ELSE(MFVec2f)
     OSG_CREATE_DESC_ELSE(SFVec2f)
     OSG_CREATE_DESC_ELSE(MFPnt3f)
@@ -2818,6 +2819,10 @@ void VRMLGeometryObjectHelper::init(const Char8 *szName)
     {
         _eVRMLObjectType = TeapotGeo;
     }
+    else if(osgStringCaseCmp("Plane", szName) == 0)
+    {
+        _eVRMLObjectType = PlaneGeo;
+    }
 
     _pNodeProto = Node::create();
 
@@ -3186,6 +3191,54 @@ void VRMLGeometryObjectHelper::endNode(FieldContainer *pFC)
         pNode->setCore(pGeo);
 
     }
+    else if(_eVRMLObjectType == PlaneGeo)
+    {
+        SFVec2s *pResolution = NULL;
+        SFVec2f *pSize       = NULL;
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "resolution",
+                                   pDummyFC,
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            SFVec2s::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFVec2s::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pResolution = pValField->getField();
+            }
+        }
+
+        Inherited::getFieldAndDesc(pFC,
+                                   "size",
+                                   pDummyFC,
+                                   pField,
+                                   pDesc);
+
+        if(pField != NULL)
+        {
+            SFVec2f::EditHandlePtr pValField = 
+                boost::dynamic_pointer_cast<SFVec2f::EditHandle>(pField);
+
+            if(pValField != NULL && pValField->isValid())
+            {
+                pSize = pValField->getField();
+            }
+        }
+
+        GeometryUnrecPtr pGeo = makePlaneGeo(
+            (pSize       != NULL) ? pSize      ->getValue()[0] : 1.f,
+            (pSize       != NULL) ? pSize      ->getValue()[1] : 1.f,
+            (pResolution != NULL) ? pResolution->getValue()[0] : 5,
+            (pResolution != NULL) ? pResolution->getValue()[1] : 5);
+
+        pNode->setCore(pGeo);
+
+    }
 }
 
 /*-------------------------------------------------------------------------*/
@@ -3219,6 +3272,11 @@ VRMLNodeHelperFactoryBase::RegisterHelper
     VRMLGeometryObjectHelper::_regHelperTeapot(
         &VRMLGeometryObjectHelper::create,
         "Teapot");
+
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGeometryObjectHelper::_regHelperPlane(
+        &VRMLGeometryObjectHelper::create,
+        "Plane");
 
 
 //---------------------------------------------------------------------------

@@ -47,7 +47,7 @@
 
 #include "OSGChunkMaterial.h"
 #include "OSGFrameBufferObject.h"
-#include "OSGSHLChunk.h"
+#include "OSGSimpleSHLChunk.h"
 #include "OSGShadowStageData.h"
 
 OSG_BEGIN_NAMESPACE

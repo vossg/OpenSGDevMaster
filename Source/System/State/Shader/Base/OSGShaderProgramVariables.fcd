@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="ShaderProgramVariables"
+   parent="Attachment"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   childfieldparent="FieldContainer"
+   parentfieldcard="multi"
+   childFields="single"
+   >
+
+  <Field
+     name="variables"
+     type="ShaderValueVariable"
+     cardinality="multi"
+     visibility="external"
+     access="protected"
+     category="pointer"
+     ptrFieldAccess="custom"
+
+     pushToFieldAs="addVariable"
+     removeFromMFieldIndexAs="subVariable"
+     clearFieldAs="clearVariables"        
+     >
+  </Field>
+
+  <Field
+     name="proceduralVariables"
+     type="ShaderProcVariable"
+     cardinality="multi"
+     visibility="external"
+     access="protected"
+     category="childpointer"
+     childParentType="FieldContainer"
+     linkParentField="Parents"
+     ptrFieldAccess="custom"
+
+     pushToFieldAs="addProceduralVariable"
+     removeFromMFieldIndexAs="subProceduralVariable"
+     clearFieldAs="clearProceduralVariables"        
+     >
+  </Field>
+
+  <Field
+	 name="variableChanged"
+	 type="UInt8"
+	 cardinality="multi"
+	 visibility="internal"
+	 access="public"
+	 >
+	fragment program object
+  </Field>
+</FieldContainer>

@@ -47,7 +47,7 @@
 #include <OSGConfig.h>
 #include <OSGBalancedMultiWindow.h>
 #include <OSGChunkMaterial.h>
-#include <OSGSHLChunk.h>
+#include <OSGSimpleSHLChunk.h>
 #include <OSGGeometry.h>
 #include <OSGViewport.h>
 #include <OSGCamera.h>
@@ -782,7 +782,7 @@ void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
                     load.ratio    = positions->getSize() / MW_VISIBLE_INDICES_PER_SEC;
                 }
             // pixel cost for shaders
-            if (mat != NULL && mat->find (SHLChunk::getClassType ()) != NULL)
+            if (mat != NULL && mat->find (SimpleSHLChunk::getClassType ()) != NULL)
                 load.pixel =  1.0 / Real32(MW_SHADED_PIXEL_PER_SEC);
             else
                 load.pixel = 1.0 / Real32(MW_PIXEL_PER_SEC);

@@ -1,0 +1,24 @@
+#!python
+#
+if option_pass:
+   print "Processing option pass"
+else:
+
+   sh_option = opts.GetOption("enable_new_shader")
+
+   if sh_option != None and sh_option.value == True:
+
+      stop_traversal = True
+
+   else:
+
+      library = "OSGState"
+      osg_dep_libs = ['OSGBase', 'OSGSystem']
+      libs = []
+
+      # Tests' dependencies
+
+      osg_test_libs = [ 'OSGImageFileIO', 'OSGDrawable', 'OSGUtil', 
+                        'OSGWindowGLUT' ]
+      test_cpppath = []
+      test_libpath = []

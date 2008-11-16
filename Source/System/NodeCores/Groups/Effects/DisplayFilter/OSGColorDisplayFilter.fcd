@@ -78,7 +78,7 @@
     </Field>
     <Field
 	   name="filterShader"
-	   type="SHLChunk"
+	   type="SimpleSHLChunk"
 	   cardinality="single"
 	   visibility="external"
 	   defaultValue="NULL"

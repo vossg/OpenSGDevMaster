@@ -205,23 +205,6 @@ bool MultiPassMaterial::isTransparent(void) const
 
 }
 
-bool MultiPassMaterial::isShader(void) const
-{
-    MFMaterialsType::const_iterator matIt  = _mfMaterials.begin();
-    MFMaterialsType::const_iterator matEnd = _mfMaterials.end  ();
-    
-    // TODO: what is the correct test here? --cneumann
-    
-    if(  matIt              != matEnd &&
-       (*matIt)             != NULL   &&
-       (*matIt)->isShader() == true     )
-    {
-        return true;
-    }
-    
-    return false;
-}
-
 void MultiPassMaterial::dump(      UInt32    , 
                              const BitVector ) const
 {

@@ -86,6 +86,20 @@ void SValueEmitter<Desc>::setValue(const ValueType value)
     _sfValue.setValue(value);
 }
 
+template<class Desc> inline
+SFBool *SValueEmitter<Desc>::editSFIgnoreNextChange(void)
+{
+    editSField(IgnoreNextChangeFieldMask);
+
+    return &_sfIgnoreNextChange;
+}
+
+template<class Desc> inline
+const SFBool *SValueEmitter<Desc>::getSFIgnoreNextChange (void) const
+{
+    return &_sfIgnoreNextChange;
+}
+
 /*----------------------------- class specific ----------------------------*/
 
 template<class Desc> inline
@@ -98,7 +112,17 @@ void SValueEmitter<Desc>::changed(ConstFieldMaskArg whichField,
         editSField(ValueFieldMask);
     }
 
-    Inherited::changed(whichField, origin, details);
+    if(0x0000 != (whichField & IgnoreNextChangeFieldMask))
+    {
+        if(_sfIgnoreNextChange.getValue() == false)
+        {
+            Inherited::changed(whichField, origin, details);
+        }
+    }
+    else
+    {
+        Inherited::changed(whichField, origin, details);
+    }
 }
 
 /*------------------------------ access -----------------------------------*/
@@ -251,15 +275,17 @@ const Char8 *SValueEmitter<Desc>::getClassname(void)
 
 template<class Desc> inline
 SValueEmitter<Desc>::SValueEmitter(void) :
-     Inherited(                  ),
-    _sfValue  (Desc::getDefault())
+     Inherited         (                  ),
+    _sfValue           (Desc::getDefault()),
+    _sfIgnoreNextChange(false             )
 {
 }
 
 template<class Desc> inline
 SValueEmitter<Desc>::SValueEmitter(const SValueEmitter &source) :
-     Inherited(source         ),
-    _sfValue  (source._sfValue)
+     Inherited         (source                    ),
+    _sfValue           (source._sfValue           ),
+    _sfIgnoreNextChange(source._sfIgnoreNextChange)
 {
 }
 
@@ -292,6 +318,31 @@ EditFieldHandlePtr SValueEmitter<Desc>::editHandleValue(void)
 
 
     editSField(ValueFieldMask);
+
+    return returnValue;
+}
+
+template<class Desc> inline
+GetFieldHandlePtr SValueEmitter<Desc>::getHandleIgnoreNextChange (void) const
+{
+    typename SFBool::GetHandlePtr returnValue(
+        new typename SFBool::GetHandle(
+             &_sfIgnoreNextChange,
+             this->getType().getFieldDesc(IgnoreNextChangeFieldId)));
+
+    return returnValue;
+}
+
+template<class Desc> inline
+EditFieldHandlePtr SValueEmitter<Desc>::editHandleIgnoreNextChange(void)
+{
+    typename SFBool::EditHandlePtr returnValue(
+        new typename SFBool::EditHandle(
+             &_sfIgnoreNextChange,
+             this->getType().getFieldDesc(IgnoreNextChangeFieldId)));
+
+
+    editSField(IgnoreNextChangeFieldMask);
 
     return returnValue;
 }

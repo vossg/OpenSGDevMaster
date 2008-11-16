@@ -353,5 +353,11 @@ StageValidator *Window::getStageValidator(void)
     return _pStageValidator;
 }
 
+inline
+ShaderCache *Window::getShaderCache(void)
+{
+    return _pShaderCache;
+}
+
 
 OSG_END_NAMESPACE

@@ -1,0 +1,61 @@
+#OSG V1.0 
+
+Node
+{
+  core MaterialGroup
+  {
+    material ChunkMaterial
+    {
+      chunks
+      [
+        SimpleSHLChunk
+        {
+          geometryInputType   GL_TRIANGLES
+          geometryOutputType  GL_TRIANGLE_STRIP
+          geometryVerticesOut 6
+
+          vertexShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_VERTEX_SHADER
+
+              programUrl "geo.vp"
+            }
+          ]
+
+          geometryShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_GEOMETRY_SHADER_EXT
+
+              programUrl "geo.gp"
+            }
+          ]
+
+          fragmentShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_FRAGMENT_SHADER
+
+              programUrl "geo.fp"
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+  children
+  [
+    Node
+    {
+      core Inline
+      {
+        url "../../Models/teapot.wrl"
+      }
+    }
+  ]
+}

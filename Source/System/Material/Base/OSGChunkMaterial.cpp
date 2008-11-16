@@ -393,21 +393,6 @@ bool ChunkMaterial::isTransparent(void) const
     return returnValue;
 }
 
-bool ChunkMaterial::isShader(void) const
-{
-    bool returnValue = false;
-    
-    MFChunksType::const_iterator chunksIt  = _mfChunks.begin();
-    MFChunksType::const_iterator chunksEnd = _mfChunks.end  ();
-    
-    for(; chunksIt != chunksEnd && returnValue == false; ++chunksIt)
-    {
-        returnValue = (*chunksIt)->isShader();
-    }
-    
-    return returnValue;
-}
-
 /*------------------------------- dump ----------------------------------*/
 
 void ChunkMaterial::dump(      UInt32    OSG_CHECK_ARG(uiIndent),

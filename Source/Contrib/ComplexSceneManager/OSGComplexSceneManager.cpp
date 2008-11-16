@@ -93,6 +93,51 @@ struct NodeFinder
     }
 };
 
+struct ElementFinder
+{
+    std::string     _szRefName;
+    FieldContainer *_pResult;
+
+    ElementFinder(void) :
+        _szRefName(    ),
+        _pResult  (NULL)
+    {
+    }
+
+    Action::ResultE enter(Node * const pNode)
+    {
+        Action::ResultE returnValue = Action::Continue;
+
+        const Char8 *szName = OSG::getName(pNode);
+
+        if(szName != NULL)
+        {
+            if(osgStringCmp(_szRefName.c_str(), szName) == 0)
+            {
+                _pResult = pNode;
+
+                returnValue = Action::Quit;
+            }
+        }
+        else if(pNode->getCore() != NULL)
+        {
+            szName = OSG::getName(pNode->getCore());
+
+            if(szName != NULL)
+            {
+                if(osgStringCmp(_szRefName.c_str(), szName) == 0)
+                {
+                    _pResult = pNode;
+                    
+                    returnValue = Action::Quit;
+                }
+            }
+        }
+        
+        return returnValue;
+    }
+};
+
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
@@ -140,11 +185,11 @@ FieldContainer *ComplexSceneManager::resolveStatic(const Char8 *szName)
 
         if(pNode != NULL)
         {
-            NodeFinder oFinder;
+            ElementFinder oFinder;
 
             oFinder._szRefName = szName;
 
-            traverse(pNode, boost::bind(&NodeFinder::enter, &oFinder, _1));
+            traverse(pNode, boost::bind(&ElementFinder::enter, &oFinder, _1));
 
             if(oFinder._pResult != NULL)
             {
@@ -587,11 +632,11 @@ FieldContainer *ComplexSceneManager::findNamedComponent(
 
         if(pNode != NULL)
         {
-            NodeFinder oFinder;
+            ElementFinder oFinder;
 
             oFinder._szRefName = szName;
 
-            traverse(pNode, boost::bind(&NodeFinder::enter, &oFinder, _1));
+            traverse(pNode, boost::bind(&ElementFinder::enter, &oFinder, _1));
 
             if(oFinder._pResult != NULL)
             {
@@ -729,11 +774,11 @@ bool ComplexSceneManager::init(const std::vector<std::string> &vParams)
         {
             if(bDoData == true)
             {
-                addData(vParams[i].c_str());
+                addData(vParams[i]);
             }
             else
             {
-                addGlobals(vParams[i].c_str());
+                addGlobals(vParams[i]);
             }
         }
     }

@@ -46,6 +46,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGSystemDef.h"
 #include "OSGSimplePool.h"
+#include "OSGState.h"
 
 #include <vector>
 #include <utility>
@@ -53,7 +54,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-class StateChunk;
+class ShaderExecutableChunk;
+class ShaderExecutableVarChunk;
+class ShaderProgramChunk;
+class ShaderProgramVariableChunk;
+class ShaderProgram;
 
 /*! \ingroup GrpSystemRenderingBackend
 */
@@ -68,6 +73,20 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
 
     typedef std::vector<ChunkElement        >           ChunkStore;
     typedef std::vector<ChunkElement        >::iterator ChunkStoreIt;
+
+    typedef std::vector<UInt16              >           IdStore;
+    typedef std::vector<UInt16              >::iterator IdStoreIt;
+
+    typedef std::vector<ShaderProgramChunk *>           ProgramChunkStore;
+    typedef std::vector<ShaderProgramVariableChunk *>   ProgramVarChunkStore;
+
+    static const UInt32 InvalidKey     = State::InvalidKey;
+
+    static const UInt32 SkipRebuild    = State::SkipRebuild;
+
+    static const UInt32 Key1Mask       = State::Key1Mask;
+    static const UInt32 Key2Mask       = State::Key2Mask;
+    static const UInt32 Key3Mask       = State::Key3Mask;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -93,6 +112,14 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
+    
+    void setKeyGen    (UInt32  uiKeyGen                                );
+    void updateSortKey(UInt32 &uiSortKey, UInt32 uiKeyGen = SkipRebuild);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Statistic                                  */
+    /*! \{                                                                 */
 
     ChunkStoreIt begin(void);
     ChunkStoreIt end  (void);
@@ -103,21 +130,72 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    void reset      (void             );
-    void addOverride(UInt32      uiSlot, 
-                     StateChunk *pChunk);
-    bool empty      (void              );
+    void reset        (void                              );
+
+    void addOverride  (UInt32                      uiSlot, 
+                       StateChunk                 *pChunk);
+    void addOverride  (UInt32                      uiSlot, 
+                       ShaderProgramChunk         *pChunk);
+    void addOverride  (UInt32                      uiSlot, 
+                       ShaderProgramVariableChunk *pChunk);
+
+    bool empty        (void                      );
+
+    bool isTransparent(void                      );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    const IdStore              &getProgIds  (void);
+    const ProgramChunkStore    &getPrograms (void);
+
+    const IdStore              &getVarIds   (void);
+    const ProgramVarChunkStore &getVariables(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void                      setShader   (ShaderExecutableChunk    *pShader);
+    ShaderExecutableChunk    *getShader   (void                             );
+
+    void                      setShaderVar(ShaderExecutableVarChunk *pVar   );
+    ShaderExecutableVarChunk *getShaderVar(void                             );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    ChunkStore _vChunks;
+    ChunkStore                _vChunks;
+
+    ShaderExecutableChunk    *_pShader;
+    ShaderExecutableVarChunk *_pShaderVar;
+
+    ProgramChunkStore         _vProgChunks;
+    IdStore                   _vProgIds;
+
+    ProgramVarChunkStore      _vProgVarChunks;
+    IdStore                   _vProgVarIds;
+
+    UInt32                    _uiSortKey;
+    UInt32                    _uiKeyGen;
+    UInt32                    _uiKeyMask;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void rebuildSortKey(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

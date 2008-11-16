@@ -44,7 +44,7 @@
 
 #include "OSGConfig.h"
 #include "OSGQuadTreeTerrainBase.h"
-#include "OSGSHLChunk.h"
+#include "OSGSimpleSHLChunk.h"
 #include "OSGVertexProgramChunk.h"
 #include "OSGFragmentProgramChunk.h"
 
@@ -105,7 +105,7 @@ class OSG_DRAWABLE_DLLMAPPING QuadTreeTerrain : public QuadTreeTerrainBase
 
     VertexProgramChunkTransitPtr   createVPChunk  (void) const;
     FragmentProgramChunkTransitPtr createFPChunk  (void) const;
-    SHLChunkTransitPtr             createSHLChunk (void) const;
+    SimpleSHLChunkTransitPtr       createSHLChunk (void) const;
     ImageTransitPtr                createNormalMap(void) const;
 
     /*! \}                                                                 */

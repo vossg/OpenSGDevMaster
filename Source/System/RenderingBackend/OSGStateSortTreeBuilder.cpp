@@ -45,6 +45,7 @@
 #include "OSGStateSortTreeBuilder.h"
 #include "OSGBaseFunctions.h"
 #include "OSGRenderPartitionBase.h"
+#include "OSGStateOverride.h"
 
 //#define OSG_DUMP_SORTING
 
@@ -96,6 +97,11 @@ void StateSortTreeBuilder::add(DrawEnv             &denv,
     }
 
     UInt32 uiSortKey = pState->getSortKey(uiKeyGen);
+
+    if(pStateOverride != NULL)
+    {
+        pStateOverride->updateSortKey(uiSortKey, uiKeyGen);
+    }
 
     // Default Mat Id sorting
     if(uiSortKey > State::DefaultKeyMask)

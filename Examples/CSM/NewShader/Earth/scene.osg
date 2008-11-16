@@ -1,0 +1,159 @@
+#OSG V1.0 
+
+Node
+{
+  core MaterialGroup
+  {
+    material ChunkMaterial
+    {
+      chunks
+      [
+        TextureObjChunk
+        {
+          image ImageFile
+          {
+            url "../../Shader/Earth/Earth.jpg"
+          }
+
+          minFilter GL_LINEAR_MIPMAP_LINEAR
+          magFilter GL_LINEAR
+          wrapS     GL_REPEAT
+          wrapT     GL_REPEAT
+        }
+
+        TextureEnvChunk
+        {
+          envMode GL_MODULATE
+        }
+
+
+        TextureObjChunk
+        {
+          image ImageFile
+          {
+            url "../../Shader/Earth/EarthNight.jpg"
+          }
+
+          minFilter GL_LINEAR_MIPMAP_LINEAR
+          magFilter GL_LINEAR
+          wrapS     GL_REPEAT
+          wrapT     GL_REPEAT
+        }
+
+        TextureEnvChunk
+        {
+          envMode GL_MODULATE
+        }
+
+
+        TextureObjChunk
+        {
+          image ImageFile
+          {
+            url "../../Shader/Earth/EarthClouds.jpg"
+          }
+
+          minFilter GL_LINEAR_MIPMAP_LINEAR
+          magFilter GL_LINEAR
+          wrapS     GL_REPEAT
+          wrapT     GL_REPEAT
+        }
+
+        TextureEnvChunk
+        {
+          envMode GL_MODULATE
+        }
+
+
+
+        ShaderProgramChunk
+        {
+          vertexShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_VERTEX_SHADER
+
+              variables ShaderProgramVariables
+              {
+                variables
+                [
+                  DEF Season ShaderVariableReal
+                  {
+                    name "season"
+                    value 0.0
+                  }
+                  DEF COS ShaderVariableReal
+                  {
+                    name "cos_time_0_2PI"
+                    value -0.406652
+                  }
+                  DEF SIN ShaderVariableReal
+                  {
+                    name "sin_time_0_2PI"
+                    value -0.913583
+                  }
+                ]
+              }
+
+              programUrl "Earth.vp"
+            }
+          ]
+
+          fragmentShader 
+          [
+            ShaderProgramFile
+            {
+              shaderType GL_FRAGMENT_SHADER
+
+              variables ShaderProgramVariables
+              {
+                variables
+                [
+                  ShaderVariableInt
+                  {
+                    name "EarthDay"
+                    value 0
+                  }
+                  ShaderVariableInt
+                  {
+                    name "EarthNight"
+                    value 1
+                  }
+                  ShaderVariableInt
+                  {
+                    name "EarthCloudGloss"
+                   value 2
+                  }
+                ]
+              }
+
+              programUrl "Earth.fp"
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+  children
+  [
+    Node
+    {
+      core Inline
+      {
+        url "../../Models/sphere.wrl"
+      }
+    }
+  ]
+}
+
+ROUTE CUp  .signalPressed  TO LR32Counter.incTrigger
+ROUTE CDown.signalReleased TO LR32Counter.decTrigger
+
+ROUTE LR32Counter.value    TO Season.value
+
+ROUTE SceneTimer.fraction TO RotSin.fraction
+ROUTE SceneTimer.fraction TO RotCos.fraction
+ROUTE RotCos    .value    TO COS.value
+ROUTE RotSin    .value    TO SIN.value

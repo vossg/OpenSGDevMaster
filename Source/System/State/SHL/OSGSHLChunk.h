@@ -278,6 +278,8 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     /*! \}                                                                 */
 
+    static void   initMethod     (InitPhase                ePhase);
+
     static volatile UInt16 _uiChunkCounter;
 
     /*==========================  PRIVATE  ================================*/
@@ -341,8 +343,6 @@ class OSG_STATE_DLLMAPPING SHLChunk : public SHLChunkBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-
-    static void   initMethod     (InitPhase                ePhase);
 
            UInt32 handleGL       (DrawEnv                 *pEnv, 
                                   UInt32                   id, 

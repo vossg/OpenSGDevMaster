@@ -124,14 +124,14 @@ void ShadowStageDataBase::setBlurMaterial(ChunkMaterial * const value)
 
 //! Get the value of the ShadowStageData::_sfHBlurShader field.
 inline
-SHLChunk * ShadowStageDataBase::getHBlurShader(void) const
+SimpleSHLChunk * ShadowStageDataBase::getHBlurShader(void) const
 {
     return _sfHBlurShader.getValue();
 }
 
 //! Set the value of the ShadowStageData::_sfHBlurShader field.
 inline
-void ShadowStageDataBase::setHBlurShader(SHLChunk * const value)
+void ShadowStageDataBase::setHBlurShader(SimpleSHLChunk * const value)
 {
     editSField(HBlurShaderFieldMask);
 
@@ -140,14 +140,14 @@ void ShadowStageDataBase::setHBlurShader(SHLChunk * const value)
 
 //! Get the value of the ShadowStageData::_sfVBlurShader field.
 inline
-SHLChunk * ShadowStageDataBase::getVBlurShader(void) const
+SimpleSHLChunk * ShadowStageDataBase::getVBlurShader(void) const
 {
     return _sfVBlurShader.getValue();
 }
 
 //! Set the value of the ShadowStageData::_sfVBlurShader field.
 inline
-void ShadowStageDataBase::setVBlurShader(SHLChunk * const value)
+void ShadowStageDataBase::setVBlurShader(SimpleSHLChunk * const value)
 {
     editSField(VBlurShaderFieldMask);
 

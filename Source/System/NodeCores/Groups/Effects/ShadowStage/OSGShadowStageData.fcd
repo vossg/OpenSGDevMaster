@@ -43,7 +43,7 @@ Data use for rendering by the HDR stage
 	</Field>
 	<Field
 		name="hBlurShader"
-		type="SHLChunkPtr"
+		type="SimpleSHLChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NULL"
@@ -52,7 +52,7 @@ Data use for rendering by the HDR stage
 	</Field>
 	<Field
 		name="vBlurShader"
-		type="SHLChunkPtr"
+		type="SimpleSHLChunkPtr"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NULL"

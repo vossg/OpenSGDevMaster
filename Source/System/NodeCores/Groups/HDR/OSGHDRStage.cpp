@@ -65,7 +65,7 @@
 #include "OSGImageFunctions.h"
 #include "OSGStateOverride.h"
 #include "OSGTextureEnvChunk.h"
-#include "OSGSHLFunctions.h"
+#include "OSGSimpleSHLFunctions.h"
 
 #include "OSGMatrixUtility.h"
 
@@ -498,7 +498,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     pTonemapMat->addChunk(pBlurTex1,       1);
     pTonemapMat->addChunk(pBlurTex1Env,    1);
 
-    SHLChunkUnrecPtr pTonemapShader = generateHDRFragmentProgram();
+    SimpleSHLChunkUnrecPtr pTonemapShader = generateHDRFragmentProgram();
     
     pTonemapShader->addUniformVariable("sceneTex",     0);
     pTonemapShader->addUniformVariable("blurTex",      1);
@@ -523,7 +523,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     pShrinkMat->addChunk(pSceneTex,     0);
     pShrinkMat->addChunk(pSceneTexEnv,  0);
 
-    SHLChunkUnrecPtr pShrinkShader = generate2DShrinkHalfFilterFP();
+    SimpleSHLChunkUnrecPtr pShrinkShader = generate2DShrinkHalfFilterFP();
         
     pShrinkShader->addUniformVariable("inputTex", 0);
     
@@ -553,7 +553,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
 
 
     // generate blur fragment programs
-    SHLChunkUnrecPtr pHBlurShader = 
+    SimpleSHLChunkUnrecPtr pHBlurShader = 
         generate1DConvolutionFilterFP(getBlurWidth(), 
                                       false, 
                                       true, 
@@ -570,7 +570,7 @@ HDRStageDataTransitPtr HDRStage::setupStageData(Int32 iPixelWidth,
     // VBlur Override
 
 
-    SHLChunkUnrecPtr pVBlurShader = 
+    SimpleSHLChunkUnrecPtr pVBlurShader = 
         generate1DConvolutionFilterFP(getBlurWidth(),  
                                       true, 
                                       true, 
@@ -838,7 +838,7 @@ void HDRStage::initData(Viewport         *pViewport,
 
 #define OSGHDRL << std::endl
 
-SHLChunkTransitPtr HDRStage::generateHDRFragmentProgram(void)
+SimpleSHLChunkTransitPtr HDRStage::generateHDRFragmentProgram(void)
 {
     std::ostringstream ost;
 
@@ -907,7 +907,7 @@ SHLChunkTransitPtr HDRStage::generateHDRFragmentProgram(void)
         << "}"                                                           OSGHDRL
         << "";
 
-    SHLChunkTransitPtr returnValue = SHLChunk::createLocal();
+    SimpleSHLChunkTransitPtr returnValue = SimpleSHLChunk::createLocal();
 
     returnValue->setFragmentProgram(ost.str());
 

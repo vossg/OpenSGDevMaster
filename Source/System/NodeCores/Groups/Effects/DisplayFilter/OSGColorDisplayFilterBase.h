@@ -72,7 +72,7 @@
 #include "OSGUInt32Fields.h" // ColorTableDepth type
 #include "OSGColor3fFields.h" // ColorTable type
 #include "OSGImageFields.h" // TableImage type
-#include "OSGSHLChunkFields.h" // FilterShader type
+#include "OSGSimpleSHLChunkFields.h" // FilterShader type
 
 #include "OSGColorDisplayFilterFields.h"
 
@@ -137,7 +137,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ColorDisplayFilterBase : public DisplayFilter
     typedef SFUInt32          SFColorTableDepthType;
     typedef MFColor3f         MFColorTableType;
     typedef SFUnrecImagePtr   SFTableImageType;
-    typedef SFUnrecSHLChunkPtr SFFilterShaderType;
+    typedef SFUnrecSimpleSHLChunkPtr SFFilterShaderType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -281,7 +281,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ColorDisplayFilterBase : public DisplayFilter
     SFUInt32          _sfColorTableDepth;
     MFColor3f         _mfColorTable;
     SFUnrecImagePtr   _sfTableImage;
-    SFUnrecSHLChunkPtr _sfFilterShader;
+    SFUnrecSimpleSHLChunkPtr _sfFilterShader;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -334,13 +334,13 @@ class OSG_EFFECTGROUPS_DLLMAPPING ColorDisplayFilterBase : public DisplayFilter
 
             const SFUnrecImagePtr     *getSFTableImage      (void) const;
                   SFUnrecImagePtr     *editSFTableImage     (void);
-            const SFUnrecSHLChunkPtr  *getSFFilterShader    (void) const;
-                  SFUnrecSHLChunkPtr  *editSFFilterShader   (void);
+            const SFUnrecSimpleSHLChunkPtr *getSFFilterShader    (void) const;
+                  SFUnrecSimpleSHLChunkPtr *editSFFilterShader   (void);
 
 
                   Image * getTableImage     (void) const;
 
-                  SHLChunk * getFilterShader   (void) const;
+                  SimpleSHLChunk * getFilterShader   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -348,7 +348,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ColorDisplayFilterBase : public DisplayFilter
     /*! \{                                                                 */
 
             void setTableImage     (Image * const value);
-            void setFilterShader   (SHLChunk * const value);
+            void setFilterShader   (SimpleSHLChunk * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

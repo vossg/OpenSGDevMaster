@@ -62,10 +62,18 @@
 #include "OSGOcclusionCullingTreeBuilder.h"
 
 #include "OSGDrawableStatsAttachment.h"
+#ifdef OSG_NEW_SHADER
+#include "OSGShaderProgramChunk.h"
+#include "OSGShaderProgramVariableChunk.h"
+#include "OSGShaderExecutableChunk.h"
+#include "OSGShaderCache.h"
+#endif
 
 #ifdef OSG_DEBUG
 #define OSG_TRACE_PARTITION
 #endif
+
+#include "OSGOSGSceneFileType.h"
 
 OSG_USING_NAMESPACE
 
@@ -167,6 +175,7 @@ RenderPartition::RenderPartition(Mode eMode) :
 
     _pMaterial               (     NULL),
     _pMaterialNode           (     NULL),
+    _addedStateOverride      (    false),
 
     _pRenderTarget           (     NULL),
     _eDrawBuffer             (  GL_NONE),
@@ -255,9 +264,9 @@ void RenderPartition::reset(Mode eMode)
         _iNextLightIndex = 0;
         _uiLightState    = 0;
         
-        _pMaterial        = NULL;
-        _pMaterialNode    = NULL;
-        
+        _pMaterial          = NULL;
+        _pMaterialNode      = NULL;
+        _addedStateOverride = false;
         
         _pRenderTarget    = NULL;
         
@@ -532,6 +541,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
     
     // Add Stats
     DrawableStatsAttachment *st;
+    bool                     bOverrodeState = false;
 
     st = DrawableStatsAttachment::get(actCore);
 
@@ -552,9 +562,162 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 
     _uiNumTriangles += st->getTriangles();
 
+#ifdef OSG_NEW_SHADER
+    if(_pMaterial != NULL && (pState != _pMaterial->getState()))
+    {
+        fprintf(stderr, "Error try to overrule material override, ignored\n");
+
+        pState = _pMaterial->getState();
+    }
+    else if(_pMaterial == NULL && pState != NULL)
+    {
+        ShaderProgramChunk *pSPChunk = 
+            static_cast<ShaderProgramChunk *>(
+                pState->getChunk(ShaderProgramChunk::getStaticClassId()));
+
+        if(pSPChunk != NULL)
+        {
+            this->pushState();
+
+            _sStateOverrides.top()->addOverride(0, pSPChunk);
+
+            _sStateOverrides.top()->setShader(NULL);
+
+            bOverrodeState = true;
+        }
+
+        ShaderProgramVariableChunk *pSPVChunk = 
+            static_cast<ShaderProgramVariableChunk *>(
+                pState->getChunk(
+                    ShaderProgramVariableChunk::getStaticClassId()));
+
+        if(pSPVChunk != NULL)
+        {
+            if(bOverrodeState == false)
+            {
+                this->pushState();
+
+                bOverrodeState = true;
+            }
+
+            _sStateOverrides.top()->addOverride(0, pSPVChunk);
+
+            _sStateOverrides.top()->setShaderVar(NULL);
+        }
+    }
+
+    if(_sStateOverrides.top()->getShader()         == NULL &&
+       _sStateOverrides.top()->getProgIds().size() != 0     )
+    {
+        ShaderExecutableChunkUnrecPtr pShader = 
+            _oDrawEnv.getWindow()->getShaderCache()->findShader(
+                _sStateOverrides.top()->getProgIds());
+
+        if(pShader == NULL)
+        {
+#if 0
+            fprintf(stderr, "Building shader for : ");
+            
+            for(UInt32 i = 0; 
+                       i < _sStateOverrides.top()->getProgIds().size(); 
+                     ++i)
+            {
+                fprintf(stderr, "%d ", _sStateOverrides.top()->getProgIds()[i]);
+            }
+
+            fprintf(stderr, "\n");
+#endif
+
+            pShader = ShaderExecutableChunk::create();
+
+            typedef StateOverride::ProgramChunkStore ProgChunkStore;
+
+#if 0
+            fprintf(stderr, "%d progs\n",
+                    _sStateOverrides.top()->getPrograms().size());
+#endif
+
+            ProgChunkStore::const_iterator pIt = 
+                _sStateOverrides.top()->getPrograms().begin();
+
+            ProgChunkStore::const_iterator pEnd = 
+                _sStateOverrides.top()->getPrograms().end();
+
+            for(; pIt != pEnd; ++pIt)
+            {
+                pShader->merge(*pIt);
+            }
+
+            _oDrawEnv.getWindow()->getShaderCache()->addShader(
+                _sStateOverrides.top()->getProgIds(),
+                pShader);
+
+//            OSGSceneFileType::the().writeContainer(pShader,
+//                                                   "/tmp/comps.osg");
+        }
+
+        _sStateOverrides.top()->setShader(pShader);
+        _sStateOverrides.top()->addOverride(0, pShader);
+    }
+
+
+    if(_sStateOverrides.top()->getShaderVar()         == NULL &&
+       _sStateOverrides.top()->getVarIds   ().size() != 0       )
+    {
+        ShaderExecutableVarChunkUnrecPtr pShaderVar = 
+            _oDrawEnv.getWindow()->getShaderCache()->findShaderVar(
+                _sStateOverrides.top()->getVarIds());
+
+        if(pShaderVar == NULL)
+        {
+#if 0
+            fprintf(stderr, "Building shadervar for : ");
+            
+            for(UInt32 i = 0; 
+                       i < _sStateOverrides.top()->getVarIds().size(); 
+                     ++i)
+            {
+                fprintf(stderr, "%d ", _sStateOverrides.top()->getVarIds()[i]);
+            }
+
+            fprintf(stderr, "\n");
+#endif
+
+            pShaderVar = ShaderExecutableVarChunk::create();
+
+            typedef StateOverride::ProgramVarChunkStore ProgVarChunkStore;
+
+#if 0
+            fprintf(stderr, "%d progs\n",
+                    _sStateOverrides.top()->getVariables().size());
+#endif
+
+            ProgVarChunkStore::const_iterator vIt = 
+                _sStateOverrides.top()->getVariables().begin();
+
+            ProgVarChunkStore::const_iterator vEnd = 
+                _sStateOverrides.top()->getVariables().end();
+
+            for(; vIt != vEnd; ++vIt)
+            {
+                pShaderVar->merge(*vIt);
+            }
+
+            _oDrawEnv.getWindow()->getShaderCache()->addShaderVar(
+                _sStateOverrides.top()->getVarIds(),
+                pShaderVar);
+        }
+
+        _sStateOverrides.top()->setShaderVar(pShaderVar);
+        _sStateOverrides.top()->addOverride (1, pShaderVar);
+    }
+#endif
+
+
+    bool bTransparent = ( pState               ->isTransparent() | 
+                         _sStateOverrides.top()->isTransparent() );
     
-    
-    if(_bSortTrans == true && pState->isTransparent() == true)
+    if(_bSortTrans == true && bTransparent == true)
     {
         BuildKeyMapIt mapIt = _mTransMatRoots.lower_bound(iSortKey);
         
@@ -735,6 +898,13 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
                             pOverride,
                            _uiKeyGen );
     }
+
+#ifdef OSG_NEW_SHADER
+    if(bOverrodeState == true)
+    {
+        this->popState();
+    }
+#endif
 }
 
 void RenderPartition::pushState(void)
@@ -758,6 +928,77 @@ void RenderPartition::popState(void)
 void RenderPartition::addOverride(UInt32 uiSlot, StateChunk *pChunk)
 {
     _sStateOverrides.top()->addOverride(uiSlot, pChunk);
+}
+
+void RenderPartition::overrideMaterial(Material *       pMaterial,
+                                       Node     * const pNode    )
+{
+    if(_pMaterialNode == NULL)
+    {
+        _pMaterial     = pMaterial;
+        _pMaterialNode = pNode;
+
+#ifdef OSG_NEW_SHADER
+        State *pState = _pMaterial->getState();
+
+        OSG_ASSERT(pState != NULL);
+
+        ShaderProgramChunk *pSPChunk = 
+            static_cast<ShaderProgramChunk *>(
+                pState->getChunk(ShaderProgramChunk::getStaticClassId()));
+
+        if(pSPChunk != NULL)
+        {
+            this->pushState();
+
+            _sStateOverrides.top()->addOverride(0, pSPChunk);
+
+            _sStateOverrides.top()->setShader(NULL);
+
+            _addedStateOverride = true;
+        }
+
+        ShaderProgramVariableChunk *pSPVChunk = 
+            static_cast<ShaderProgramVariableChunk *>(
+                pState->getChunk(
+                    ShaderProgramVariableChunk::getStaticClassId()));
+
+        if(pSPChunk != NULL)
+        {
+            if(_addedStateOverride == false)
+            {
+                this->pushState();
+
+                _addedStateOverride = true;
+            }
+
+            _sStateOverrides.top()->addOverride(0, pSPVChunk);
+
+            _sStateOverrides.top()->setShaderVar(NULL);
+        }        
+#endif
+    }
+    else if(_pMaterialNode == pNode)
+    {
+        if(pMaterial == NULL)
+        {
+            _pMaterial     = NULL;
+            _pMaterialNode = NULL;
+
+#ifdef OSG_NEW_SHADER
+            if(_addedStateOverride == true)
+            {
+                this->popState();
+
+                _addedStateOverride = false;
+            }
+#endif
+        }
+        else
+        {
+            fprintf(stderr, "strange reset with non null mat\n");
+        }
+    }
 }
 
 Int32 RenderPartition::allocateLightIndex(void)
@@ -906,6 +1147,9 @@ void RenderPartition::popVisibility(void)
 void RenderPartition::init(void)
 {
     _sStateOverrides.push(_pStatePool->create());
+
+    _sStateOverrides.top()->setKeyGen(_uiKeyGen);
+
     _visibilityStack.push_back(FrustumVolume::P_NONE);
 }
 
@@ -916,6 +1160,9 @@ void RenderPartition::initFrom(RenderPartition *pSource,
     if(uiCopyOnPush == 0x0000 || pSource == NULL)
     {
         _sStateOverrides.push(_pStatePool->create());
+
+        _sStateOverrides.top()->setKeyGen(_uiKeyGen);
+
         _visibilityStack.push_back(FrustumVolume::P_NONE);
 
         return;
@@ -927,6 +1174,8 @@ void RenderPartition::initFrom(RenderPartition *pSource,
     else
     {
         _sStateOverrides.push(_pStatePool->create());
+
+        _sStateOverrides.top()->setKeyGen(_uiKeyGen);
     }
 
     if(0x0000 != (uiCopyOnPush & CopyVisibility))

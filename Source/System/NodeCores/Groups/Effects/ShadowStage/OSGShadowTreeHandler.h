@@ -50,7 +50,7 @@
 #include "OSGSolidBackground.h"
 #include "OSGFrameBufferObject.h"
 #include "OSGDepthChunk.h"
-#include "OSGSHLChunk.h"
+#include "OSGSimpleSHLChunk.h"
 #include <OSGSimpleMaterial.h>
 
 OSG_BEGIN_NAMESPACE
@@ -139,7 +139,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
 
     SimpleMaterialUnrecPtr     _unlitMat;
 
-    SHLChunkUnrecPtr           _combineSHL;
+    SimpleSHLChunkUnrecPtr     _combineSHL;
     DepthChunkUnrecPtr         _combineDepth;
     ChunkMaterialUnrecPtr      _combineCmat;
 
