@@ -51,6 +51,9 @@
 #include <OSGRenderAction.h>
 #include <OSGSceneFileHandler.h>
 #include <OSGVolumeDraw.h>
+#ifndef OSG_EMBEDDED
+#include <OSGIntersectAction.h>
+#endif
 
 #include "OSGVisitSubTree.h"
 
@@ -161,6 +164,27 @@ ActionBase::ResultE VisitSubTree::render(Action *action)
 }
 
 /*-------------------------------------------------------------------------*/
+/*                             Intersect                                   */
+
+#ifndef OSG_EMBEDDED
+ActionBase::ResultE VisitSubTree::intersect(Action *action)
+{
+          IntersectAction *ia = dynamic_cast<IntersectAction *>(action);
+    const BoxVolume       &bv = ia->getActNode()->getVolume();
+
+    if(bv.isValid() && ! bv.intersect(ia->getLine()))
+    {
+        return Action::Skip;  //bv missed -> can not hit children
+    }
+
+    ia->addNode(this->getSubTreeRoot());
+
+    return ActionBase::Continue;
+}
+#endif
+
+
+/*-------------------------------------------------------------------------*/
 /*                               loading                                   */
 
 /*-------------------------------------------------------------------------*/
@@ -175,6 +199,11 @@ void VisitSubTree::initMethod(InitPhase ePhase)
         RenderAction::registerEnterDefault(
             VisitSubTree::getClassType(),
             reinterpret_cast<Action::Callback>(&VisitSubTree::render));
+#ifndef OSG_EMBEDDED
+        IntersectAction::registerEnterDefault(
+            getClassType(),
+            reinterpret_cast<Action::Callback>(&VisitSubTree::intersect));
+#endif
     }
 }
 

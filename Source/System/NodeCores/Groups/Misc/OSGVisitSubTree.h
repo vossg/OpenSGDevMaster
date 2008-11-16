@@ -110,6 +110,15 @@ class OSG_GROUP_DLLMAPPING VisitSubTree : public VisitSubTreeBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Intersect                                  */
+    /*! \{                                                                 */
+
+#ifndef OSG_EMBEDDED
+    ActionBase::ResultE intersect(Action *action);
+#endif
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
