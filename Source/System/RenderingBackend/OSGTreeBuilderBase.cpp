@@ -44,7 +44,7 @@
 #include "OSGRenderTreeNodePool.h"
 #include "OSGTreeBuilderBase.h"
 #include "OSGBaseFunctions.h"
-#include "OSGRenderPartition.h"
+#include "OSGRenderPartitionBase.h"
 
 //#define OSG_DUMP_SORTING
 
@@ -78,12 +78,12 @@ void TreeBuilderBase::reset(void)
 }
 
 
-void TreeBuilderBase::add(DrawEnv &denv, 
-                          RenderPartition *part,
-                          RenderTreeNode *pNode,
-                          State          *pState,
-                          StateOverride  *pStateOverride,
-                          UInt32          uiKeyGen      )
+void TreeBuilderBase::add(DrawEnv             &denv, 
+                          RenderPartitionBase *part,
+                          RenderTreeNode      *pNode,
+                          State               *pState,
+                          StateOverride       *pStateOverride,
+                          UInt32               uiKeyGen      )
 {
     if(_pRoot == NULL)
     {
@@ -94,16 +94,16 @@ void TreeBuilderBase::add(DrawEnv &denv,
 }
 
 
-void TreeBuilderBase::draw(DrawEnv &denv, RenderPartition *part)
+void TreeBuilderBase::draw(DrawEnv &denv, RenderPartitionBase *part)
 {
     _uiActiveMatrix = 0;
     
     drawNode(_pRoot, denv, part);
 }
 
-void TreeBuilderBase::drawNode(RenderTreeNode  *pNode, 
-                               DrawEnv         &denv, 
-                               RenderPartition *part)
+void TreeBuilderBase::drawNode(RenderTreeNode      *pNode, 
+                               DrawEnv             &denv, 
+                               RenderPartitionBase *part)
 {
     while (pNode != NULL)
     {

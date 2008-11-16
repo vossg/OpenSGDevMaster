@@ -117,7 +117,9 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     //-----------------------------------------------------------------------
     //   class functions                                                     
     //-----------------------------------------------------------------------
-    virtual void draw(DrawEnv &denv, RenderPartition *part);
+
+    virtual void draw(DrawEnv             &denv, 
+                      RenderPartitionBase *part);
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  
@@ -136,12 +138,12 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
 
     /*------------------------- comparison ----------------------------------*/
 
-    virtual void add(DrawEnv &denv, 
-                     RenderPartition *part,
-                     RenderTreeNode *pNode,
-                     State          *pState,
-                     StateOverride  *pStateOverride,
-                     UInt32          uiKeyGen      );
+    virtual void add(DrawEnv             &denv, 
+                     RenderPartitionBase *part,
+                     RenderTreeNode      *pNode,
+                     State               *pState,
+                     StateOverride       *pStateOverride,
+                     UInt32               uiKeyGen      );
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -175,13 +177,26 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
-    void testNode(RenderTreeNode *pNode, DrawEnv &denv, RenderPartition *part, Real32 &scr_percent);
-    void drawNode(RenderTreeNode *pNode, DrawEnv &denv, RenderPartition *part);
-    void drawTestNode(RenderTreeNode *pNode, DrawEnv &denv, RenderPartition *part);
-    void drawTestResults(DrawEnv &denv, RenderPartition *part);
+    void testNode       (RenderTreeNode      *pNode, 
+                         DrawEnv             &denv, 
+                         RenderPartitionBase *part, 
+                         Real32              &scr_percent);
+    void drawNode       (RenderTreeNode      *pNode, 
+                         DrawEnv             &denv, 
+                         RenderPartitionBase *part);
+    void drawTestNode   (RenderTreeNode      *pNode, 
+                         DrawEnv             &denv, 
+                         RenderPartitionBase *part);
+    void drawTestResults(DrawEnv             &denv, 
+                         RenderPartitionBase *part);
 
-    inline void enterTesting(DrawEnv &denv, RenderPartition *part);
-    inline void leaveTesting(DrawEnv &denv, RenderPartition *part);
+    inline 
+    void enterTesting(DrawEnv             &denv, 
+                      RenderPartitionBase *part);
+
+    inline 
+    void leaveTesting(DrawEnv             &denv, 
+                      RenderPartitionBase *part);
 
     OcclusionCullingTreeBuilder(void);
     virtual ~OcclusionCullingTreeBuilder(void);

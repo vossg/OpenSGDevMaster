@@ -94,7 +94,13 @@ OSG_USING_NAMESPACE
 
 /*------------- constructors & destructors --------------------------------*/
 
-RenderPartitionBase::RenderPartitionBase(void)
+RenderPartitionBase::RenderPartitionBase(void) :
+    _bSortTrans              (    true ),
+    _bZWriteTrans            (    false),
+    _bCorrectTwoSidedLighting(    false),
+
+    _uiNumMatrixChanges      (        0),
+    _uiNumTriangles          (        0)
 {
 }
 

@@ -57,7 +57,7 @@ class RenderTreeNode;
 class StateOverride;
 class TreeBuilderBase;
 class RenderAction;
-class RenderPartition;
+class RenderPartitionBase;
 
 typedef SimplePool<RenderTreeNode, 
                    PoolDefaultTag,

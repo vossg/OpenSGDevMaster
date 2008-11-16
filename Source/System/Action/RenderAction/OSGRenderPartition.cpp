@@ -154,10 +154,6 @@ RenderPartition::RenderPartition(Mode eMode) :
     _mMatRoots               (         ),
     _mTransMatRoots          (         ),
     
-    _bSortTrans              (    true ),
-    _bZWriteTrans            (    false),
-    _bCorrectTwoSidedLighting(    false),
-
     _uiActiveMatrix          (        0),
 
     _pStatePool              (     NULL),   
@@ -174,9 +170,6 @@ RenderPartition::RenderPartition(Mode eMode) :
 
     _pRenderTarget           (     NULL),
     _eDrawBuffer             (  GL_NONE),
-
-    _uiNumMatrixChanges      (        0),
-    _uiNumTriangles          (        0),
 
     _visibilityStack         (         ),
     _bFrustumCulling         (    true ),

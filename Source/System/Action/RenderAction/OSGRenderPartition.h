@@ -397,12 +397,6 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     BuildKeyMap          _mMatRoots;
     BuildKeyMap          _mTransMatRoots;
 
-    // What to do
-
-    bool                _bSortTrans;
-    bool                _bZWriteTrans;
-    bool                _bCorrectTwoSidedLighting;
-
     // Active Elements
 
     UInt32              _uiActiveMatrix;
@@ -432,10 +426,6 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     FrameBufferObject  *_pRenderTarget;
     GLenum              _eDrawBuffer;
 
-    // Stat
-
-    UInt32              _uiNumMatrixChanges;
-    UInt32              _uiNumTriangles;
 
     // Culling
 
@@ -505,8 +495,6 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     friend class SimplePool<RenderPartition, PoolDefaultTag, NoLockPolicy>;
     friend class RenderAction;
-    friend class TreeBuilderBase;
-    friend class OcclusionCullingTreeBuilder;
 
     //-----------------------------------------------------------------------
     //   friend functions                                                    

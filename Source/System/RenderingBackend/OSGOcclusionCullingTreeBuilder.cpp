@@ -51,7 +51,7 @@
 #include "OSGOcclusionCullingTreeBuilder.h"
 #include "OSGBaseFunctions.h"
 #include "OSGBaseInitFunctions.h"
-#include "OSGRenderPartition.h"
+#include "OSGRenderPartitionBase.h"
 #include "OSGRenderAction.h"
 #include "OSGVolumeDraw.h"
 
@@ -221,7 +221,9 @@ UInt32 OcclusionCullingTreeBuilder::setNBuckets(UInt32 nbuckets)
 }
 
 
-inline void OcclusionCullingTreeBuilder::enterTesting(DrawEnv &denv, RenderPartition *part)
+inline 
+void OcclusionCullingTreeBuilder::enterTesting(DrawEnv             &denv, 
+                                               RenderPartitionBase *part)
 {
     if(!_inTesting)
     {
@@ -231,12 +233,15 @@ inline void OcclusionCullingTreeBuilder::enterTesting(DrawEnv &denv, RenderParti
     }   
 }
 
-inline void OcclusionCullingTreeBuilder::leaveTesting(DrawEnv &denv, RenderPartition *part)
+inline 
+void OcclusionCullingTreeBuilder::leaveTesting(DrawEnv             &denv, 
+                                               RenderPartitionBase *part)
 {
     _inTesting = false;
 }
 
-void OcclusionCullingTreeBuilder::draw(DrawEnv &denv, RenderPartition *part)
+void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv, 
+                                       RenderPartitionBase *part)
 {
     //std::cout << "Frame Start" << std::endl;
     Window* win = denv.getWindow();
@@ -374,7 +379,10 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv &denv, RenderPartition *part)
     //std::cout << "Frame End" << std::endl;
 }
 
-void OcclusionCullingTreeBuilder::testNode(RenderTreeNode *pNode, DrawEnv &denv, RenderPartition *part, Real32 &scr_percent)
+void OcclusionCullingTreeBuilder::testNode(RenderTreeNode      *pNode, 
+                                           DrawEnv             &denv, 
+                                           RenderPartitionBase *part, 
+                                           Real32              &scr_percent)
 {
     while (pNode != NULL)
     {
@@ -535,7 +543,9 @@ void OcclusionCullingTreeBuilder::testNode(RenderTreeNode *pNode, DrawEnv &denv,
     }
 }
 
-void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode *pNode, DrawEnv &denv, RenderPartition *part)
+void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode      *pNode, 
+                                               DrawEnv             &denv, 
+                                               RenderPartitionBase *part)
 {
 
     //std::cout << "Front: " << _currSample << " Back: " << _currSampleBack << std::endl;
@@ -616,7 +626,9 @@ void OcclusionCullingTreeBuilder::drawTestNode(RenderTreeNode *pNode, DrawEnv &d
     _testPendingNodes.push(pNode);
 }
 
-void OcclusionCullingTreeBuilder::drawNode(RenderTreeNode *pNode, DrawEnv &denv, RenderPartition *part)
+void OcclusionCullingTreeBuilder::drawNode(RenderTreeNode      *pNode, 
+                                           DrawEnv             &denv, 
+                                           RenderPartitionBase *part)
 {   
     leaveTesting(denv, part);
 
@@ -682,7 +694,8 @@ void OcclusionCullingTreeBuilder::drawNode(RenderTreeNode *pNode, DrawEnv &denv,
     }
 }
 
-void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv &denv, RenderPartition *part)
+void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv, 
+                                                  RenderPartitionBase *part)
 {
     RenderTreeNode* pNode;
     while (!_testPendingNodes.empty())
@@ -738,12 +751,12 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv &denv, RenderPartition
     }
 }
 
-void OcclusionCullingTreeBuilder::add(DrawEnv &denv, 
-                                      RenderPartition *part,
-                                      RenderTreeNode *pNode,
-                                      State          *pState,
-                                      StateOverride  *pStateOverride,
-                                      UInt32          uiKeyGen      )
+void OcclusionCullingTreeBuilder::add(DrawEnv             &denv, 
+                                      RenderPartitionBase *part,
+                                      RenderTreeNode      *pNode,
+                                      State               *pState,
+                                      StateOverride       *pStateOverride,
+                                      UInt32               uiKeyGen      )
 {
     RenderAction *rt = dynamic_cast<RenderAction *>(denv.getAction());
     

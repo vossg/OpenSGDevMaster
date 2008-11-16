@@ -118,18 +118,19 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
 
     /*------------------------- comparison ----------------------------------*/
 
-    virtual void add(DrawEnv &denv, 
-                     RenderPartition *part,
-                     RenderTreeNode *pNode,
-                     State          *pState,
-                     StateOverride  *pStateOverride,
-                     UInt32          uiKeyGen      );
+    virtual void add(DrawEnv             &denv, 
+                     RenderPartitionBase *part,
+                     RenderTreeNode      *pNode,
+                     State               *pState,
+                     StateOverride       *pStateOverride,
+                     UInt32               uiKeyGen      );
 
     /*-------------------------- comparison ---------------------------------*/
 
     RenderTreeNode *getRoot(void);
 
-    virtual void draw(DrawEnv &denv, RenderPartition *part);
+    virtual void draw(DrawEnv             &denv, 
+                      RenderPartitionBase *part);
 
     /*-------------------------- comparison ---------------------------------*/
 
@@ -162,7 +163,9 @@ class OSG_SYSTEM_DLLMAPPING TreeBuilderBase
      *  \param denv the draw environment which is being used.
      *  \param part the step in rendering we are in.
      */
-    void drawNode(RenderTreeNode *pNode, DrawEnv &denv, RenderPartition *part);
+    void drawNode(RenderTreeNode      *pNode, 
+                  DrawEnv             &denv, 
+                  RenderPartitionBase *part);
 
     /*! Updates the nodes _accMatrix from the DrawEnv */
     void updateTopMatrix(DrawEnv &denv);

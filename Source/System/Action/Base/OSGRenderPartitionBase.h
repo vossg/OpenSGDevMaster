@@ -47,12 +47,16 @@
 //---------------------------------------------------------------------------
 
 #include "OSGSystemDef.h"
+#include "OSGBaseTypes.h"
 
 OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------------
 //  Forward References
 //---------------------------------------------------------------------------
+
+class TreeBuilderBase;
+class OcclusionCullingTreeBuilder;
 
 //---------------------------------------------------------------------------
 //   Types
@@ -180,6 +184,17 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
+    // What to do
+
+    bool   _bSortTrans;
+    bool   _bZWriteTrans;
+    bool   _bCorrectTwoSidedLighting;
+
+    // Stat
+
+    UInt32 _uiNumMatrixChanges;
+    UInt32 _uiNumTriangles;
+
     //-----------------------------------------------------------------------
     //   instance functions                                                  
     //-----------------------------------------------------------------------
@@ -205,6 +220,9 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase
     //-----------------------------------------------------------------------
     //   friend classes                                                      
     //-----------------------------------------------------------------------
+
+    friend class TreeBuilderBase;
+    friend class OcclusionCullingTreeBuilder;
 
     //-----------------------------------------------------------------------
     //   friend functions                                                    

@@ -113,12 +113,12 @@ class OSG_SYSTEM_DLLMAPPING ScalarSortTreeBuilder : public TreeBuilderBase
 
     /*------------------------- comparison ----------------------------------*/
 
-    virtual void add(DrawEnv &denv, 
-                     RenderPartition *part,
-                     RenderTreeNode *pNode,
-                     State          *pState,
-                     StateOverride  *pStateOverride,
-                     UInt32          uiKeyGen      );
+    virtual void add(DrawEnv             &denv, 
+                     RenderPartitionBase *part,
+                     RenderTreeNode      *pNode,
+                     State               *pState,
+                     StateOverride       *pStateOverride,
+                     UInt32               uiKeyGen      );
 
     /*-------------------------- comparison ---------------------------------*/
 

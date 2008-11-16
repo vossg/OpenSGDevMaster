@@ -48,6 +48,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class RenderPartition;
+
 typedef SimplePool<RenderPartition, 
                    PoolDefaultTag,
                    NoLockPolicy   > RenderPartitionPool;

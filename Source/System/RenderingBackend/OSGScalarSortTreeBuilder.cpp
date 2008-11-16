@@ -44,7 +44,7 @@
 #include "OSGRenderTreeNodePool.h"
 #include "OSGScalarSortTreeBuilder.h"
 #include "OSGBaseFunctions.h"
-#include "OSGRenderPartition.h"
+#include "OSGRenderPartitionBase.h"
 
 //#define OSG_DUMP_SORTING
 
@@ -75,12 +75,12 @@ void ScalarSortTreeBuilder::reset(void)
 }
 
 
-void ScalarSortTreeBuilder::add(DrawEnv &denv, 
-                                RenderPartition *part,
-                                RenderTreeNode *pNode,
-                                State          *pState,
-                                StateOverride  *pStateOverride,
-                                UInt32          uiKeyGen      )
+void ScalarSortTreeBuilder::add(DrawEnv             &denv, 
+                                RenderPartitionBase *part,
+                                RenderTreeNode      *pNode,
+                                State               *pState,
+                                StateOverride       *pStateOverride,
+                                UInt32               uiKeyGen      )
 {
     if(_pRoot == NULL)
     {
