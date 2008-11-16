@@ -114,7 +114,15 @@ struct FieldTraits<ShaderParameter> :
     {
         char *szSaveTok = NULL;
 
-        char *szTok = strtok_r(const_cast<Char8 *>(inVal), " \t\n", &szSaveTok);
+#ifndef WIN32
+        char *szTok = strtok_r(const_cast<Char8 *>(inVal), 
+                               " \t\n", 
+                               &szSaveTok);
+#else
+        char *szTok = strtok_s(const_cast<Char8 *>(inVal), 
+                               " \t\n", 
+                               &szSaveTok);
+#endif
 
         std::string parName;
         std::string parVal;
@@ -128,8 +136,11 @@ struct FieldTraits<ShaderParameter> :
             return false;
         }
 
+#ifndef WIN32
         szTok = strtok_r(NULL, " \t\n", &szSaveTok);
-
+#else
+        szTok = strtok_s(NULL, " \t\n", &szSaveTok);
+#endif
         if(szTok != NULL)
         {
             parVal = szTok;

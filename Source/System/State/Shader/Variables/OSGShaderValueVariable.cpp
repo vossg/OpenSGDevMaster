@@ -134,12 +134,16 @@ bool ShaderValueVariable::linkParent(FieldContainer * const pParent,
                                      UInt16           const parentFieldId)
 {
     OSG_ASSERT(false);
+
+    return false;
 }
 
 bool ShaderValueVariable::unlinkParent(FieldContainer * const pParent,
                                        UInt16           const parentFieldId)
 {
     OSG_ASSERT(false);
+
+    return false;
 }
 
 void ShaderValueVariable::addParent(FieldContainer * const pParent,
