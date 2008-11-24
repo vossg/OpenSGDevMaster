@@ -72,6 +72,10 @@
 #include <iterator>
 #include <algorithm>
 
+#ifdef WIN32
+#include <tchar.h>
+#endif
+
 #ifdef OSG_USE_STDMATH
 #endif
 #include <cmath>

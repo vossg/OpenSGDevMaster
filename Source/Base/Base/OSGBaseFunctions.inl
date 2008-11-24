@@ -3346,9 +3346,9 @@ void osgStringDup(const TChar *szInput, TChar *&szOutput)
 
     if(szInput != NULL)
     {
-#if defined(_UNICODE)
-        szOutput = new TChar[::wcslen(szInput) + 1];
-        ::wcscpy(szOutput, szInput);
+#if defined(WIN32)
+        szOutput = new TChar[::_tcslen(szInput) + 1];
+        ::_tcscpy(szOutput, szInput);
 #else
         szOutput = new TChar[::strlen(szInput) + 1];
         ::strcpy(szOutput, szInput);
