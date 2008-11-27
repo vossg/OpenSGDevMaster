@@ -156,6 +156,167 @@ struct osgPow_s<Base, 1>
     static const UInt32 result = Base;
 };
 
+template<class ObjectT, UInt32 LevelBits>
+class ShaderCacheTree
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef typename ObjectT::ObjUnrecPtr  ObjectUnrecPtr;
+
+    typedef UInt16                                            IdType;
+    typedef std::vector<IdType                              > IdStore;
+
+    static const UInt32 LevelSize   = osgPow_s<2u, LevelBits>::result; 
+    static const Real32 LevelFactor = 1.f / (LevelBits + 1);
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Statistic                                  */
+    /*! \{                                                                 */
+
+    ObjectT *find(const IdStore &vIds   );
+    bool     add (const IdStore &vIds,
+                        ObjectT *pObject);
+    void     sub (      UInt32   uiIdx  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    void dumpDot(const Char8 *szFilename);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    template <typename ElemDestFunc>
+    void destroy(ElemDestFunc destFunc);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    ShaderCacheTree(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    ~ShaderCacheTree(void);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+  
+    struct TreeNode
+    {
+        TreeNode(void);
+        ~TreeNode(void);
+        
+        void clear(void);
+
+#ifdef OSG_DEBUG
+        UInt32          _uiNodeId;
+#endif
+        ObjectUnrecPtr  _pObject;
+        TreeNode       *_pPrev;
+        TreeNode       *_pNext;
+        TreeNode       *_vChildren[LevelSize];
+    };
+
+#ifdef OSG_DEBUG
+    UInt32                   _uiNodeCount;
+#endif
+    TreeNode                *_pRoot;
+    std::vector<TreeNode *>  _vLevelEntries;
+    std::deque <TreeNode *>  _qFreeElements;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    TreeNode *allocateNode(void           );
+    void      eraseNode   (TreeNode *pNode);
+
+    template <typename ElemDestFunc>
+    void destroyNode(TreeNode *pNode, ElemDestFunc destFunc);
+
+    void dumpDotNode(TreeNode                               *pNode, 
+                     FILE                                   *pOut,
+                     std::vector< std::vector<TreeNode *> > &vLevelStore,
+                     UInt32                                  uiLevel    );
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+};
+
+typedef ShaderCacheTree<ShaderExecutableChunk,
+                        3                              > ActiveShaderExeTree;
+typedef ShaderCacheTree<ShaderExecutableVarChunk,
+                        6                              > ActiveShaderVarTree;
+#endif
+
+
+#ifdef OSG_SHC_MODE_2
+template<UInt32 Base, UInt32 Exponent>
+struct osgPow_s
+{
+    static const UInt32 result = Base * osgPow_s<Base, Exponent - 1>::result;
+};
+
+template<UInt32 Base>
+struct osgPow_s<Base, 1>
+{
+    static const UInt32 result = Base;
+};
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2>
+class VariantPtr
+{
+  public:
+
+    VariantPtr(void);
+    ~VariantPtr(void);
+
+    Object1T *asT1(void) const;
+    Object2T *asT2(void) const;
+
+    void setAsT1(Object1T * const rhs);
+    void setAsT2(Object2T * const rhs);
+
+    void operator =(Object1T * const rhs);
+    void operator =(Object2T * const rhs);
+
+    Object2T *operator ->(void) const;
+
+  protected:
+
+    static const UIntPointer UIMaskChoice =  0x0001;
+    static const UIntPointer UIMaskPtr    = ~0x0001;
+
+    union MemberU
+    {
+        UIntPointer  _uiIntVal;
+        Object1T    *_pObj1;
+        Object2T    *_pObj2;
+    };
+
+    MemberU _val;
+
+  private:
+    
+    VariantPtr(const VariantPtr &source);
+    void operator =(const VariantPtr &rhs);
+};
 
 template<class ObjectT, UInt32 LevelBits>
 class ShaderCacheTree
@@ -214,9 +375,12 @@ class ShaderCacheTree
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
+  
     struct TreeNode
     {
+        typedef VariantPtr<ObjectT,  UnrecordedRefCountPolicy,
+                           TreeNode, NoRefCountPolicy        > ChildPtr;
+
         TreeNode(void);
         ~TreeNode(void);
         
@@ -228,7 +392,7 @@ class ShaderCacheTree
         ObjectUnrecPtr  _pObject;
         TreeNode       *_pPrev;
         TreeNode       *_pNext;
-        TreeNode       *_vChildren[LevelSize];
+        ChildPtr        _vChildren[LevelSize];
     };
 
 #ifdef OSG_DEBUG
@@ -270,3 +434,4 @@ OSG_END_NAMESPACE
 #include "OSGShaderCacheTree.inl"
 
 #endif /* _OSGSHADERCACHETREE_H_ */
+

@@ -48,6 +48,7 @@
 #include "OSGCSMNativeWindow.h"
 #include "OSGDrawer.h"
 #include "OSGComplexSceneManager.h"
+#include "OSGShaderCache.h"
 
 #include <X11/keysym.h>
 
@@ -142,6 +143,12 @@ void CSMNativeWindow::xMainLoop(void)
                         {
                             _bRun = false;
                             
+                        }
+                        else if(keysym == XK_End)
+                        {
+                            fprintf(stderr, "Dump\n");
+
+                            (*winIt)->getWindow()->getShaderCache()->dump();
                         }
                         else if((XK_space      <= keysym) && 
                                 (XK_asciitilde >= keysym))

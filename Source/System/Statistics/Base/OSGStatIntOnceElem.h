@@ -49,15 +49,8 @@
 
 #include "OSGTime.h"
 
-#ifdef OSG_STL_HAS_HASH_MAP
-#ifdef OSG_HASH_MAP_AS_EXT
-#include <ext/hash_set>
-#else
-#include <hash_set>
-#endif
-#else
-#include <set>
-#endif
+#include "OSGDeprecatedCPP.h"
+
 
 OSG_BEGIN_NAMESPACE
 
@@ -72,11 +65,7 @@ class OSG_SYSTEM_DLLMAPPING StatIntOnceElem : public StatElem
 
  public:
 
-#ifdef OSG_STL_HAS_HASH_MAP
-    typedef OSG_STDEXTENSION_NAMESPACE::hash_set< UInt32 > IdHash;
-#else
-    typedef std::set< UInt32 > IdHash;
-#endif
+    typedef OSG_HASH_SET(UInt32) IdHash;
     
     /*---------------------------------------------------------------------*/
     /*! \name                    your_category                             */

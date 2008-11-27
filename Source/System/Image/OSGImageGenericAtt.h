@@ -50,16 +50,6 @@
 #include <vector>
 #include <string>
 
-#ifdef OSG_STL_HAS_HASH_MAP
-#ifdef OSG_HASH_MAP_AS_EXT
-#include <ext/hash_map>
-#else
-#include <hash_map>
-#endif
-#else
-#include <map>
-#endif
-
 #include "OSGFieldContainer.h"
 #include "OSGAttachment.h"
 #include "OSGDynamicAttachmentMixin.h"

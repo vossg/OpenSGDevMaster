@@ -56,15 +56,7 @@
 #include "OSGMaterialChunk.h"
 #include "OSGVRMLAttachment.h"
 
-#ifdef OSG_STL_HAS_HASH_MAP
-#ifdef OSG_HASH_MAP_AS_EXT
-#include <ext/hash_map>
-#else
-#include <hash_map>
-#endif
-#else
-#include <map>
-#endif
+#include "OSGDeprecatedCPP.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -197,6 +189,8 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase
                        CreateHelper, 
                        LTString              > NameHelperCreateMap;
 #endif
+
+
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */

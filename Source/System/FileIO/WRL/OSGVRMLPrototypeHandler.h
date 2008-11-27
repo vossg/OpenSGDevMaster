@@ -49,16 +49,6 @@
 
 #include "OSGVRMLNodeHelper.h"
 
-#ifdef OSG_STL_HAS_HASH_MAP
-#ifdef OSG_HASH_MAP_AS_EXT
-#include <ext/hash_map>
-#else
-#include <hash_map>
-#endif
-#else
-#include <map>
-#endif
-
 #include <string>
 
 OSG_BEGIN_NAMESPACE

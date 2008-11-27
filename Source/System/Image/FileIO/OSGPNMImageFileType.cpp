@@ -39,7 +39,7 @@
 //  Includes
 //-------------------------------
 
-#include <cstdlib>
+#include <climits>
 #include <cstdio>
 
 #include "OSGConfig.h"

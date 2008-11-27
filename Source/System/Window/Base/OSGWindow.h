@@ -48,15 +48,7 @@
 #include <utility>
 #include <boost/function.hpp>
 
-#ifdef OSG_STL_HAS_HASH_MAP
-#ifdef OSG_HASH_MAP_AS_EXT
-#include <ext/hash_map>
-#else
-#include <hash_map>
-#endif
-#else
-#include <map>
-#endif
+#include "OSGDeprecatedCPP.h"
 
 #include "OSGVector.h"
 
@@ -394,15 +386,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name            Map for GL cvonstant handling                     */
     /*! \{                                                                 */
 
-#ifdef OSG_STL_HAS_HASH_MAP
-    typedef
-        OSG_STDEXTENSION_NAMESPACE::hash_map<
-            GLenum,
-            Vec2f> ConstHash;
-#else
-    typedef
-        std::map< GLenum,  Vec2f > ConstHash;
-#endif
+    typedef OSG_HASH_MAP(GLenum, Vec2f) ConstHash;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

@@ -834,4 +834,780 @@ void ShaderCacheTree<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 }
 #endif
 
+
+
+
+
+
+
+#ifdef OSG_SHC_MODE_2
+
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2> inline
+VariantPtr<Object1T, RefCountPol1,
+           Object2T, RefCountPol2>::VariantPtr(void)
+{
+    _val._pObj1 = NULL;
+}
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2> inline
+VariantPtr<Object1T, RefCountPol1,
+           Object2T, RefCountPol2>::~VariantPtr(void)
+{
+    if(_val._uiIntVal & UIMaskChoice)  //isObj1
+    {
+        _val._uiIntVal &= UIMaskPtr;
+
+        RefCountPol1::subRef(_val._pObj1);
+    }
+}
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2> inline
+Object1T *VariantPtr<Object1T, RefCountPol1,
+                     Object2T, RefCountPol2>::asT1(void) const
+{
+
+    if(_val._uiIntVal & UIMaskChoice) //isObj1 
+    {
+        MemberU returnValue = { _val._uiIntVal & UIMaskPtr };
+
+        return returnValue._pObj1;
+    }
+ 
+    return NULL;
+}
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2> inline
+Object2T *VariantPtr<Object1T, RefCountPol1,
+                     Object2T, RefCountPol2>::asT2(void) const
+{
+
+    if(!(_val._uiIntVal & UIMaskChoice)) //!isObj1
+        return _val._pObj2;
+
+    return NULL;
+}
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2> inline
+void VariantPtr<Object1T, RefCountPol1,
+                Object2T, RefCountPol2>::setAsT1(Object1T * const rhs)
+{
+    if(_val._uiIntVal & UIMaskChoice) //isObj1 
+    {
+        _val._uiIntVal &= UIMaskPtr;
+
+        RefCountPol1::setRefd(_val._pObj1, rhs);
+    }
+    else
+    {
+        RefCountPol1::addRef(rhs);
+
+        _val._pObj1 = rhs;
+    }
+
+    //isObj1
+    _val._uiIntVal |= UIMaskChoice;
+
+}
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2> inline
+void VariantPtr<Object1T, RefCountPol1,
+                Object2T, RefCountPol2>::setAsT2(Object2T * const rhs)
+{
+    if(_val._uiIntVal & UIMaskChoice) //isObj1
+    {
+        _val._uiIntVal &= UIMaskPtr;
+
+        RefCountPol1::subRef(_val._pObj1);
+    }
+
+    _val._pObj2 = rhs;
+}
+
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2> inline
+void VariantPtr<Object1T, RefCountPol1,
+                Object2T, RefCountPol2>::operator =(Object1T * const rhs)
+{
+    setAsT1(rhs);
+}
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2> inline
+void VariantPtr<Object1T, RefCountPol1,
+                Object2T, RefCountPol2>::operator =(Object2T * const rhs)
+{
+    setAsT2(rhs);
+}
+
+
+template<typename Object1T, typename RefCountPol1, 
+         typename Object2T, typename RefCountPol2> inline
+Object2T *VariantPtr<Object1T, RefCountPol1,
+                     Object2T, RefCountPol2>::operator ->(void) const
+{
+    return this->asT2();
+}
+
+
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTree<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
+#ifdef OSG_DEBUG
+    _uiNodeId(0   ),
+#endif
+    _pObject (NULL),
+    _pPrev   (NULL),
+    _pNext   (NULL)
+{
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTree<ObjectT, LevelBits>::TreeNode::~TreeNode(void)
+{
+    _pObject = NULL;
+    _pPrev   = NULL;
+    _pNext   = NULL;
+
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        _vChildren[i].setAsT1(NULL);
+    }
+}
+        
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTree<ObjectT, LevelBits>::TreeNode::clear(void)
+{
+    _pObject = NULL;
+    _pPrev   = NULL;
+    _pNext   = NULL;
+    
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        _vChildren[i].setAsT1(NULL);
+    }
+}
+
+
+static UInt16 IdxToBits[9] = 
+{
+    0x0000,
+
+    0x0001,
+    0x0002,
+    0x0004,
+    0x0008,
+
+    0x0010,
+    0x0020,
+    0x0040,
+    0x0080
+};
+
+template<class ObjectT, UInt32 LevelBits> inline
+ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
+{
+    if(vIds.size() < 1)
+        return NULL;
+
+    ObjectT *returnValue = NULL;
+
+    IdType uiStartId     = vIds[0];
+    IdType uiStartLevel  = IdType(uiStartId * LevelFactor);
+
+    UInt32 uiCurrId      = 0;
+    UInt32 uiLastId      = vIds.size();
+  
+
+    if(uiStartLevel >= _vLevelEntries.size())
+    {
+        uiStartLevel = _vLevelEntries.size() - 1;
+    }
+
+
+    UInt32    uiLevelSub = uiStartLevel * LevelBits;
+    UInt32    uiCurrBits = 0x0000;
+    TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
+
+    for(; uiCurrId < uiLastId; ++uiCurrId)
+    {
+        UInt32 uiCurrIdx  = vIds[uiCurrId] - uiLevelSub;
+
+        if(uiCurrIdx <= LevelBits)
+        {
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+           
+            continue;
+        }
+        else
+        {
+            pCurrNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+
+            if(pCurrNode == NULL)
+            {
+                break;
+            }
+
+            uiCurrBits  = 0x0000;
+
+            uiLevelSub += LevelBits;
+            uiCurrIdx  -= LevelBits;
+
+            while(uiCurrIdx > LevelBits)
+            {
+                pCurrNode = pCurrNode->_vChildren[0].asT2();
+
+                if(pCurrNode == NULL)
+                {
+                    break;
+                }
+                uiLevelSub += LevelBits;
+                uiCurrIdx  -= LevelBits;
+            }
+
+            if(pCurrNode == NULL)
+            {
+                break;
+            }
+
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+        }
+    }
+
+    if(pCurrNode != NULL)
+    {
+        TreeNode *pNext = pCurrNode->_vChildren[uiCurrBits].asT2();
+        
+        if(pNext != NULL)
+        {
+            returnValue = pNext->_pObject;
+        }
+        else
+        {
+            returnValue = pCurrNode->_vChildren[uiCurrBits].asT1();
+        }
+    }
+
+    return returnValue;
+}
+
+
+template<class ObjectT, UInt32 LevelBits> inline
+bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
+                                                    ObjectT *pObject)
+{
+    bool returnValue = false;
+
+    if(vIds.size() < 1)
+        return returnValue;
+
+    IdType uiStartId    = vIds[0];
+
+    IdType uiStartLevel = IdType(uiStartId * LevelFactor);
+
+    UInt32 uiCurrId     = 0;
+    UInt32 uiLastId     = vIds.size();
+
+    
+    if(uiStartLevel >= _vLevelEntries.size())
+    {
+        uiStartLevel = _vLevelEntries.size() - 1;
+    }
+
+    UInt32 uiLevelSub   = uiStartLevel * LevelBits;
+   
+    TreeNode *pCurrNode = _vLevelEntries[uiStartLevel];
+    TreeNode *pNextNode = NULL;
+
+    UInt32 uiCurrBits = 0x0000;
+
+    for(; uiCurrId < uiLastId; ++uiCurrId)
+    {
+        UInt32 uiCurrIdx  = vIds[uiCurrId] - uiLevelSub;
+
+        if(uiCurrIdx <= LevelBits)
+        {
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+            
+            continue;
+        }
+        else
+        {
+            pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+
+            if(pNextNode == NULL)
+            {
+                pNextNode = allocateNode();
+
+                pCurrNode->_vChildren[uiCurrBits] = pNextNode;
+
+                if(uiStartLevel == _vLevelEntries.size() - 1)
+                {
+                    if(_vLevelEntries.back()->_vChildren[0].asT2() == NULL)
+                    {
+                        TreeNode *pTmpNode = allocateNode();
+                        
+                        _vLevelEntries.back()->_vChildren[0] = pTmpNode;
+
+                        _vLevelEntries.push_back(pTmpNode);
+                        
+                        pTmpNode->_pNext  = pNextNode;
+                        pNextNode->_pPrev = pTmpNode;
+                    }
+                    else
+                    {
+                        _vLevelEntries.push_back(pNextNode);
+                    }
+                }
+                else
+                {
+                    pNextNode->_pNext = 
+                        _vLevelEntries[uiStartLevel]->_vChildren[0]->_pNext;
+
+                    if(pNextNode->_pNext != NULL)
+                    {
+                        pNextNode->_pNext->_pPrev = pNextNode;
+                    }
+
+                    _vLevelEntries[uiStartLevel]->_vChildren[0]->_pNext = 
+                        pNextNode;
+
+                    pNextNode->_pPrev = 
+                        _vLevelEntries[uiStartLevel]->_vChildren[0].asT2();
+                }
+            }
+
+            ++uiStartLevel;
+
+            uiCurrBits  = 0x0000;
+
+            pCurrNode   = pNextNode;
+
+            uiLevelSub += LevelBits;
+            uiCurrIdx  -= LevelBits;
+
+            while(uiCurrIdx > LevelBits)
+            {
+                if(pCurrNode->_vChildren[0].asT2() == NULL)
+                {
+                    pNextNode = allocateNode();
+
+                    pCurrNode->_vChildren[0] = pNextNode;
+
+                    if(uiStartLevel == _vLevelEntries.size() - 1)
+                    {
+                        _vLevelEntries.push_back(pNextNode);
+                    }
+                    else
+                    {
+                        pNextNode->_pNext = 
+                            _vLevelEntries[uiStartLevel]->
+                                _vChildren[0]->_pNext;
+
+                        if(pNextNode->_pNext != NULL)
+                        {
+                            pNextNode->_pNext->_pPrev = pNextNode;
+                        }
+                
+                        _vLevelEntries[uiStartLevel]->_vChildren[0]->_pNext= 
+                            pNextNode;
+
+                        pNextNode->_pPrev = 
+                            _vLevelEntries[uiStartLevel]->_vChildren[0].asT2();
+                    }
+                }
+
+                pCurrNode = pCurrNode->_vChildren[0].asT2();
+
+                uiLevelSub += LevelBits;
+                uiCurrIdx  -= LevelBits;
+                ++uiStartLevel;
+            }
+
+
+
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+       }
+    }
+    
+    if(pCurrNode != NULL)
+    {
+        TreeNode *pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+        
+        if(pNextNode != NULL)
+        {
+            if(pNextNode->_pObject == NULL)
+            {
+                pNextNode->_pObject = pObject;
+                
+                returnValue = true;
+            }
+            else
+            {
+                OSG_ASSERT(pNextNode->_pObject == pObject);
+            }
+        }
+        else
+        {
+            pCurrNode->_vChildren[uiCurrBits] = pObject;
+                
+            returnValue = true;
+        }
+    }
+
+    return returnValue;
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTree<ObjectT, LevelBits>::sub(UInt32 uiIdx)
+{
+    IdType uiStartLevel  = IdType(uiIdx * LevelFactor);
+
+    if(uiStartLevel >= _vLevelEntries.size())
+    {
+        return;
+    }
+
+    UInt32    uiLevelSub = uiStartLevel * LevelBits;
+    UInt32    uiCurrIdx  = uiIdx - uiLevelSub;
+    UInt32    uiCurrBits = IdxToBits[uiCurrIdx];
+
+    TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
+
+    for(; pCurrNode != NULL; pCurrNode = pCurrNode->_pNext)
+    {
+        for(UInt32 i = 0; i < LevelSize; ++i)
+        {
+            TreeNode *pChild = pCurrNode->_vChildren[i].asT2();
+
+            if(0x0000 != (i & uiCurrBits) && pChild != NULL)
+            {
+                if(pChild->_pNext == NULL)
+                {
+                    pChild->_pPrev->_pNext = NULL;
+                }
+                else
+                {
+                    pChild->_pPrev->_pNext = pChild->_pNext;
+                    pChild->_pNext->_pPrev = pChild->_pPrev;
+                }
+                
+                pChild->_pPrev = NULL;
+                pChild->_pNext = NULL;
+
+                eraseNode(pCurrNode->_vChildren[i].asT2());
+                pCurrNode->_vChildren[i].setAsT2(NULL);
+            }
+            else if(pCurrNode->_vChildren[i].asT1() != NULL)
+            {
+                pCurrNode->_vChildren[i].setAsT1(NULL);
+            }
+        }
+    }
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTree<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
+{
+    FILE *pOut = fopen(szFilename, "w");
+
+    if(pOut != NULL)
+    {
+        fprintf(pOut, "digraph structs\n");
+        fprintf(pOut, "{\n");
+        fprintf(pOut, "node [shape=record];\n");
+
+        std::vector<std::vector<TreeNode *> > vLevelStore;
+
+        dumpDotNode(_pRoot, pOut, vLevelStore, 0);
+
+#ifdef OSG_DEBUG
+        fprintf(pOut, "struct%d\n", 0);
+        fprintf(pOut, "[\n");
+        fprintf(pOut, "    label=\"");
+
+        for(UInt32 i = 0; i < _vLevelEntries.size(); ++i)
+        {
+            if(_vLevelEntries[i] != NULL)
+            {
+                fprintf(pOut, "<l%d> %d", i, i);
+            }
+            else
+            {
+                fprintf(pOut, "<l%d> NIL", i);
+            }
+            
+            if(i == _vLevelEntries.size() - 1)
+            {
+                fprintf(pOut, "\"\n");
+            }
+            else
+            {
+                fprintf(pOut, "|");
+            }
+        }
+        
+        fprintf(pOut, "]\n");
+
+   
+        for(UInt32 i = 0; i < _vLevelEntries.size(); ++i)
+        {
+            if(_vLevelEntries[i] != NULL)
+            {
+                fprintf(pOut, "struct%d:l%d -> struct%d:l%d;\n",
+                        0, i,
+                        _vLevelEntries[i]->_uiNodeId, 0);
+            }
+        }
+
+        for(UInt32 i = 0; i < vLevelStore.size(); ++i)
+        {
+            fprintf(pOut, "{ rank=same;");
+
+            for(UInt32 j = 0; j < vLevelStore[i].size(); ++j)
+            {
+                TreeNode *pChild = vLevelStore[i][j];
+
+                if(pChild != NULL)
+                {           
+                    fprintf(pOut, "\"struct%d\";",
+                            pChild->_uiNodeId);
+                }
+            }
+
+            fprintf(pOut, "}\n");
+        }
+#endif
+        
+        fprintf(pOut, "}\n");
+        fclose(pOut);
+    }
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTree<ObjectT, LevelBits>::dumpDotNode(
+    TreeNode                              *pNode, 
+    FILE                                  *pOut ,
+    std::vector<std::vector<TreeNode *> > &vLevelStore,
+    UInt32                                 uiLevel    )
+{
+#ifdef OSG_DEBUG
+    if(pNode == NULL)
+        return;
+
+    if(uiLevel == vLevelStore.size())
+    {
+        vLevelStore.push_back(std::vector<TreeNode *>());
+    }
+
+    fprintf(pOut, "struct%d\n", pNode->_uiNodeId);
+    fprintf(pOut, "[\n");
+    fprintf(pOut, "    label=\"");
+
+    if(pNode->_pPrev != NULL)
+    {
+        fprintf(pOut, "<prev> P|");
+    }
+    else
+    {
+        fprintf(pOut, "<prev> P:NIL|");
+    }
+
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        if(pNode->_vChildren[i].asT1() != NULL)
+        {
+            fprintf(pOut, "<l%d> O:%d|", i, i);
+        }
+        else if(pNode->_vChildren[i].asT2() != NULL)
+        {
+            fprintf(pOut, "<l%d> C:%d|", i, i);
+        }
+        else
+        {
+            fprintf(pOut, "<l%d> NIL|", i);
+        }
+    }
+
+    if(pNode->_pObject != NULL)
+    {
+        fprintf(pOut, "<val> VAL:Obj|");
+    }
+    else
+    {
+        fprintf(pOut, "<val> VAL:NIL|");
+    }
+
+    if(pNode->_pNext != NULL)
+    {
+        fprintf(pOut, "<next> N\"\n");
+    }
+    else
+    {
+        fprintf(pOut, "<next> N:NIL\"\n");
+    }
+
+    fprintf(pOut, "]\n");
+
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        TreeNode *pChild = pNode->_vChildren[i].asT2();
+
+        if(pChild != NULL)
+        {
+            dumpDotNode(pChild, pOut, vLevelStore, uiLevel + 1);
+            
+            fprintf(pOut, "struct%d:l%d -> struct%d:l%d;\n",
+                    pNode ->_uiNodeId, i,
+                    pChild->_uiNodeId, UInt32(LevelSize/2));
+        }
+    }
+
+    if(pNode->_pNext != NULL)
+    {
+        fprintf(pOut, "struct%d:next -> struct%d:prev;\n",
+                pNode ->_uiNodeId,
+                pNode->_pNext->_uiNodeId);
+    }
+    if(pNode->_pPrev != NULL)
+    {
+        fprintf(pOut, "struct%d:prev -> struct%d:next;\n",
+                pNode ->_uiNodeId,
+                pNode->_pPrev->_uiNodeId);
+    }
+
+     vLevelStore[uiLevel].push_back(pNode);
+#endif
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTree<ObjectT, LevelBits>::ShaderCacheTree(void) :
+#ifdef OSG_DEBUG
+    _uiNodeCount  (0   ),
+#endif
+    _pRoot        (NULL),
+    _vLevelEntries(    ),
+    _qFreeElements(    )
+{
+    _pRoot = allocateNode();
+
+    _vLevelEntries.push_back(_pRoot);
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTree<ObjectT, LevelBits>::~ShaderCacheTree(void)
+{
+    typename std::deque <TreeNode *>::const_iterator qIt  = 
+        _qFreeElements.begin();
+
+    typename std::deque <TreeNode *>::const_iterator qEnd = 
+        _qFreeElements.end();
+    
+    for(; qIt != qEnd; ++qIt)
+    {
+        delete (*qIt);
+    }
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+typename ShaderCacheTree<ObjectT, LevelBits>::TreeNode *
+    ShaderCacheTree<ObjectT, LevelBits>::allocateNode(void)
+{
+    TreeNode *returnValue = NULL;
+
+    if(_qFreeElements.empty() == false)
+    {
+        returnValue = _qFreeElements.back();
+
+        _qFreeElements.pop_back();
+
+        returnValue->clear();
+    }
+    else
+    {
+        returnValue = new TreeNode();
+
+#ifdef OSG_DEBUG
+        returnValue->_uiNodeId = ++_uiNodeCount;
+#endif
+    }
+
+#ifdef OSG_DEBUG
+    UIntPointer rU = reinterpret_cast<UIntPointer>(returnValue);
+
+    OSG_ASSERT((rU & 0x0001) == 0x0000);
+#endif
+
+    return returnValue;
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTree<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
+{
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        if(pNode->_vChildren[i].asT2() != NULL)
+        {
+            eraseNode(pNode->_vChildren[i].asT2());
+        }
+        else
+        {
+            pNode->_vChildren[i].setAsT1(NULL);
+        }
+    }
+
+    pNode->_pObject = NULL;
+
+    _qFreeElements.push_back(pNode);
+}
+
+template<class ObjectT, UInt32 LevelBits> 
+template <typename ElemDestFunc> inline
+void ShaderCacheTree<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
+                                                      ElemDestFunc  destFunc)
+{
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        if(pNode->_vChildren[i].asT2() != NULL)
+        {
+            destroyNode(pNode->_vChildren[i].asT2(), destFunc);
+        }
+        else if(pNode->_vChildren[i].asT1() != NULL)
+        {
+#ifndef OSG_SHC_REF_CLEANUP
+            ObjectT *pObj = pNode->_vChildren[i].asT1();
+            (destFunc)(pObj);
+#endif
+            pNode->_vChildren[i].setAsT1(NULL);
+        }
+    }
+
+    if(pNode->_pObject != NULL)
+    {
+#ifndef OSG_SHC_REF_CLEANUP
+        (destFunc)(pNode->_pObject);
+#endif
+        pNode->_pObject = NULL;
+    }
+
+    delete pNode;
+}
+
+template<class ObjectT, UInt32 LevelBits> 
+template <typename ElemDestFunc> inline
+void ShaderCacheTree<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
+{
+    destroyNode(_pRoot, destFunc);
+
+    _pRoot = NULL;
+}
+#endif
+
 OSG_END_NAMESPACE

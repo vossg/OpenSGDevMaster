@@ -41,8 +41,8 @@
 //  Includes
 //-------------------------------
 
-#include <cstdlib>
 #include <cstdio>
+#include <climits>
 
 #include "OSGConfig.h"
 
