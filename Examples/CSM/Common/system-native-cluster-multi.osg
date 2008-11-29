@@ -116,20 +116,8 @@ ComplexSceneManager
                  camera     USE PerspCamGL
                  background USE BGnd
 
-                 foregrounds
-                 [
-                 ]
-               }
-
-               CSMViewport
-               {
-                 root       USE RootNode
-                 camera     USE PerspCamGL
-                 background USE BGnd
-
-                 foregrounds
-                 [
-                 ]
+                 leftBottom 0.0 0.0
+                 rightTop   1.0 1.0
                }
              ]
            }

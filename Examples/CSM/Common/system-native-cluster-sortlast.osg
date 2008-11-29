@@ -101,17 +101,6 @@ ComplexSceneManager
                  [
                  ]
                }
-
-               CSMViewport
-               {
-                 root       USE RootNode
-                 camera     USE PerspCamGL
-                 background USE BGnd
-
-                 foregrounds
-                 [
-                 ]
-               }
              ]
            }
         ]  
