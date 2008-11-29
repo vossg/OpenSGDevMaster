@@ -1247,7 +1247,7 @@ int doMain(int argc,char **argv)
             balancedmultidisplay->setHServers(cols);
             balancedmultidisplay->setVServers(rows);
 //                    balancedmultidisplay->setShowBalancing(true);
-            balancedmultidisplay->setShowBalancing(info);
+//            balancedmultidisplay->setShowBalancing(info);
             break;
     }
 #ifdef FRAMEINTERLEAVE

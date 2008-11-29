@@ -27,7 +27,7 @@ Load balanced sort first rendering for multiple windows
 		type="bool"
 		cardinality="single"
 		visibility="external"
-		defaultValue="false"
+		defaultValue="true"
 		access="public"
 	>
 	If true horizontal and vertical cuts are testet. Otherwise the longes side of a viewport is split.

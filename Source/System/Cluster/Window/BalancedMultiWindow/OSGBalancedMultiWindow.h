@@ -48,9 +48,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief BalancedMultiWindow class. See \ref 
-           PageSystemBalancedMultiWindow for a description.
-*/
 //#define MW_TILE_SIZE 21
 //#define MW_TILE_SIZE 44
 #define MW_TILE_SIZE 256
@@ -60,6 +57,10 @@ OSG_BEGIN_NAMESPACE
 #define MW_VISIBLE_INDICES_PER_SEC  30000000.0
 #define MW_PIXEL_PER_SEC          1000000000.0
 #define MW_SHADED_PIXEL_PER_SEC      5000000.0
+
+/*! \brief BalancedMultiWindow class. See \ref 
+           PageSystemBalancedMultiWindow for a description.
+*/
 
 class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow : 
     public BalancedMultiWindowBase
@@ -101,56 +102,6 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
 
   protected:
 
-    /*--------------------------------------------------------------------*/
-    /*! \name     server window funcitons                                 */
-    /*! \{                                                                */
-
-    void serverInit  (Window         *window,
-                      UInt32          id    );
-#ifdef OSG_OLD_RENDER_ACTION
-    void serverRender(Window         *window,
-                      UInt32          id,
-                      DrawActionBase *action);
-#endif
-
-    /*! \}                                                                */
-    /*--------------------------------------------------------------------*/
-    /*! \name     client window functions                                 */
-    /*! \{                                                                */
-
-    void clientInit   (void                  );
-    void clientPreSync(void                  );
-#ifdef OSG_OLD_RENDER_ACTION
-    void clientRender (DrawActionBase *action);
-#endif
-
-    /*! \}                                                                */
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
-    /*! \{                                                                 */
-
-    BalancedMultiWindow(void);
-    BalancedMultiWindow(const BalancedMultiWindow &source);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    virtual ~BalancedMultiWindow(void); 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
-
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-
-  private:
-
     struct LoadGroup;
     struct BBox;
     struct VPort;
@@ -180,16 +131,18 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     struct LoadGroup 
     {
         NodeUnrecPtr           root;
-        NodeUnrecPtr                node;
+        NodeUnrecPtr           node;
         Real32                 pixel;
         Real32                 constant;
         Real32                 ratio;
     };
+
     struct BBox 
     {
         UInt32                 groupId;
         Int32                  rect[4];
     };
+
     struct VPort 
     {
         UInt32                 serverId;
@@ -201,6 +154,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         Real32                 loadCenter[2];
         std::vector<BBox>      bboxes;
     };
+
     struct Server 
     {
         UInt16                 id;
@@ -208,6 +162,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         std::vector<VPort>     viewports;
         WindowUnrecPtr         window;
     };
+
     struct WorkPackage 
     {
         UInt16 viewportId;
@@ -215,6 +170,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         UInt16 sendToServer;
         Int32  rect[4];
     };
+
     struct Tile 
     {
         struct Header 
@@ -225,13 +181,16 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
             unsigned int height :15;
             unsigned int last   :1 ;
         } header;
+
         UInt8  pixel[MW_TILE_SIZE*MW_TILE_SIZE*3];
     };
+
     struct Area 
     {
         UInt16                     workpackageId;
         std::vector<Tile>          tiles;
     };
+
     struct Cluster 
     {
         UInt32                     load;
@@ -241,17 +200,20 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         std::vector<WorkPackage>   workpackages;
         std::vector<Area>          areas;
     };
+
     struct Worker 
     {
         UInt32                     serverId;
         Real32                     takeLoad;
         Real32                     assignedLoad;
     };
+
     struct OpenBBox 
     {
         Real32                     lineLoad;
         Real32                     cnostLoast;
     };
+
     struct ServerComp
     {
         bool operator () (Server *s1,Server *s2) 
@@ -259,12 +221,14 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
             return (s1->load < s2->load);
         }
     };
+
     struct BBoxList 
     {
         BBoxList *next;
         Real32    pixel;
         Real32    constant;
     };
+
     Cluster                _cluster;
     std::vector<BBoxList*> _groupOpen;
     std::vector<BBoxList*> _groupClose;
@@ -280,6 +244,9 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     Real64                 _netTime;
 
     bool                   _rebuildLoadGroups;
+
+
+    /*---------------------------------------------------------------------*/
 
     // calculate rendering load 
     inline Real32 getVisibleLoad(Int32 const (&rect)[4],
@@ -317,32 +284,77 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
                    int axis,
                    Real32 (&resultLoad)[2],
                    Int32 (&resultRect)[2][4]);
-#ifdef OSG_OLD_RENDER_ACTION
+
     // render part of a viewport viewport 
-    void renderViewport(WindowPtr         serverWindow,
+    void renderViewport(Window           *serverWindow,
                         UInt32            id,
-                        DrawActionBase   *action,
+                        RenderActionBase *action,
                         UInt32            portId,
                         Int32 const (&rect)[4]);
     // clear local ports
-    void clearViewports(WindowPtr         serverWindow,
+    void clearViewports(Window           *serverWindow,
                         UInt32            id,
-                        DrawActionBase *action);
-#endif
+                        RenderActionBase *action);
 
     // store viewport
     void storeViewport(Area &area,Viewport *vp, Int32 const (&rect)[4]);
 
-#ifdef OSG_OLD_RENDER_ACTION
     // do rendering and network transfer
-    void drawSendAndRecv(Window *serverWindow,
-                         DrawActionBase *action,
-                         UInt32 id);
+    void drawSendAndRecv(Window           *serverWindow,
+                         RenderActionBase *action,
+                         UInt32            id);
 
     // preload display lists and textures
-    void preloadCache(Window *window,
-                      DrawActionBase *action);
-#endif
+    void preloadCache(Window           *window,
+                      RenderActionBase *action);
+
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Constructors                                */
+    /*! \{                                                                 */
+
+    BalancedMultiWindow(void);
+    BalancedMultiWindow(const BalancedMultiWindow &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
+    virtual ~BalancedMultiWindow(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Init                                   */
+    /*! \{                                                                 */
+
+    static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*--------------------------------------------------------------------*/
+    /*! \name     server window funcitons                                 */
+    /*! \{                                                                */
+
+    virtual void serverInit  (Window           *serverWindow,
+                              UInt32            id          );
+
+    virtual void serverRender(Window           *serverWindow,
+                              UInt32            id,
+                              RenderActionBase *action      );
+
+    /*! \}                                                                */
+    /*--------------------------------------------------------------------*/
+    /*! \name     client window functions                                 */
+    /*! \{                                                                */
+
+    virtual void clientInit   (void                    );
+    virtual void clientPreSync(void                    );
+    virtual void clientRender (RenderActionBase *action);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
 
     friend class FieldContainer;
     friend class BalancedMultiWindowBase;

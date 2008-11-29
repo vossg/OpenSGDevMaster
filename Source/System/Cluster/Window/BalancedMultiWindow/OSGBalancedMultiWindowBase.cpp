@@ -210,7 +210,7 @@ BalancedMultiWindowBase::TypeObject BalancedMultiWindowBase::_type(
     "\t\ttype=\"bool\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"false\"\n"
+    "\t\tdefaultValue=\"true\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tIf true horizontal and vertical cuts are testet. Otherwise the longes side of a viewport is split.\n"
@@ -544,7 +544,7 @@ FieldContainerTransitPtr BalancedMultiWindowBase::shallowCopy(void) const
 BalancedMultiWindowBase::BalancedMultiWindowBase(void) :
     Inherited(),
     _sfBalance                (bool(true)),
-    _sfBestCut                (bool(false)),
+    _sfBestCut                (bool(true)),
     _sfShowBalancing          (bool(false)),
     _sfTileSize               (UInt32(44)),
     _sfShort                  (bool(true))

@@ -42,6 +42,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! calculate the load for a given group rendered into the given rectangle
  */
+
 inline 
 Real32 BalancedMultiWindow::getVisibleLoad(Int32 const (&rect)[4],
                                            BBox      &bbox)
@@ -71,4 +72,3 @@ Real32 BalancedMultiWindow::getVisibleLoad(Int32 const (&rect)[4],
 }
 
 OSG_END_NAMESPACE
-

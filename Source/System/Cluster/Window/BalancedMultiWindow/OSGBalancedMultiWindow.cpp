@@ -40,31 +40,25 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <stdlib.h>
-#include <stdio.h>
-
-#include <algorithm>
 #include <OSGConfig.h>
 #include <OSGBalancedMultiWindow.h>
-#include <OSGChunkMaterial.h>
-#include <OSGSimpleSHLChunk.h>
-#include <OSGGeometry.h>
-#include <OSGViewport.h>
-#include <OSGCamera.h>
-#include <OSGTileCameraDecorator.h>
-#include <OSGBoxVolume.h>
-//#include <OSGDisplayCalibration.h>
-#include <OSGProxyGroup.h>
-#include <OSGPerspectiveCamera.h>
-#include <OSGMatrixUtility.h>
+
 #include <OSGClusterNetwork.h>
 #include <OSGTransform.h>
+#include <OSGPerspectiveCamera.h>
 #include <OSGSolidBackground.h>
+#include <OSGMatrixUtility.h>
+#include <OSGRenderAction.h>
+
+#include <OSGChunkMaterial.h>
+#include <OSGProxyGroup.h>
+#include <OSGGeometry.h>
+#include <OSGSimpleSHLChunk.h>
+#include <OSGTileCameraDecorator.h>
 
 #include <OSGGLU.h>
-#include <OSGGLEXT.h>
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*! missing in matrix class
  */
@@ -104,31 +98,74 @@ void BalancedMultiWindow::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-void BalancedMultiWindow::serverInit(Window *serverWindow, UInt32 id)
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
+
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
+
+/*----------------------- constructors & destructors ----------------------*/
+
+BalancedMultiWindow::BalancedMultiWindow(void) :
+     Inherited        (    ),
+    _rebuildLoadGroups(true)
 {
-    Inherited::serverInit(serverWindow,id);
 }
 
-#ifdef OSG_OLD_RENDER_ACTION
-void BalancedMultiWindow::serverRender(Window         *serverWindow, 
-                                       UInt32          id, 
-                                       DrawActionBase *action      )
+BalancedMultiWindow::BalancedMultiWindow(const BalancedMultiWindow &source) :
+     Inherited        (source),
+    _rebuildLoadGroups(true  )
+{
+}
+
+BalancedMultiWindow::~BalancedMultiWindow(void)
+{
+}
+
+/*----------------------------- class specific ----------------------------*/
+
+void BalancedMultiWindow::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
+{
+    Inherited::changed(whichField, origin, details);
+}
+
+void BalancedMultiWindow::dump(      UInt32    , 
+                         const BitVector ) const
+{
+    SLOG << "Dump BalancedMultiWindow NI" << std::endl;
+}
+
+
+void BalancedMultiWindow::serverInit(Window *pServerWindow, UInt32 id)
+{
+    Inherited::serverInit(pServerWindow,id);
+}
+
+void BalancedMultiWindow::serverRender(Window           *pServerWindow,
+                                       UInt32            id,
+                                       RenderActionBase *action)
 {
     if(!getBalance())
     {
         _rebuildLoadGroups = true;
-        Inherited::serverRender(serverWindow,id,action);
+
+        Inherited::serverRender(pServerWindow,id,action);
+
         return;
     }
 
-    serverWindow->activate();
-    serverWindow->frameInit();
+    pServerWindow->activate ();
+    pServerWindow->frameInit();
 
     // clear background
     glDisable(GL_SCISSOR_TEST);
     glViewport(0,0,
-               serverWindow->getWidth(), 
-               serverWindow->getHeight());
+               pServerWindow->getWidth(), 
+               pServerWindow->getHeight());
     glClearColor(0,0,0,0);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -136,12 +173,15 @@ void BalancedMultiWindow::serverRender(Window         *serverWindow,
     if(_cluster.servers.size() == 0)
     {
         // reset server list
-        _cluster.servers.resize(getServers().size()+1);
+        _cluster.servers.resize(getMFServers()->size() + 1);
         _cluster.servers[id].id = id;
+
         getNetwork()->connectAllGroupToPoint(id,"StreamSock");
+
         // do not buffer any data
-        for(UInt32 i=0 ; i <= getServers().size() ; ++i)
+        for(UInt32 i=0 ; i <= getMFServers()->size() ; ++i)
             getNetwork()->getConnection(i)->forceDirectIO();
+
         _preloadCache = true;
     }
 
@@ -157,13 +197,13 @@ void BalancedMultiWindow::serverRender(Window         *serverWindow,
     Connection::Channel channel=0;
 
     // set server window
-    server.window = serverWindow;
+    server.window = pServerWindow;
 
     // create load groups for all root nodes
     createLoadGroups();
 
     // preload texture and dlist cache
-    preloadCache(serverWindow,action);
+    preloadCache(pServerWindow,action);
 
     _loadTime = -getSystemTime();
 
@@ -202,35 +242,7 @@ void BalancedMultiWindow::serverRender(Window         *serverWindow,
         conn->get(&_cluster.workpackages[0],wpcount*sizeof(WorkPackage));
 
     _cluster.areas.clear();
-    drawSendAndRecv(serverWindow,action,id);
-
-#if 0
-    // do calibration
-    UInt32 c,p;
-    DisplayCalibrationPtr calibPtr=NullFC;
-
-    // for all viewports
-    for(p = 0 ; p<serverWindow->getPort().size() ; ++p) 
-    {
-        // search calibration 
-        for(c=0 ; c<getCalibration().size() ; ++c)
-        {
-            std::string name = getServers()[id];
-            char portName[64];
-            if(serverWindow->getPort().size() > 1)
-            {
-                sprintf(portName,"[%d]",p);
-                name = name + portName;
-            }
-            if(getCalibration()[c]->getServer() == name)
-            {
-                calibPtr = getCalibration()[c];
-                calibPtr->calibrate(serverWindow->getPort()[p],action);
-                break;
-            }
-        }
-    }
-#endif
+    drawSendAndRecv(pServerWindow,action,id);
 
     // send statistics
     if(getShowBalancing())
@@ -248,15 +260,15 @@ void BalancedMultiWindow::serverRender(Window         *serverWindow,
     // render bounding boxes
     glDisable(GL_SCISSOR_TEST);
     glViewport(0,0,
-               serverWindow->getWidth(),
-               serverWindow->getHeight());
+               pServerWindow->getWidth(),
+               pServerWindow->getHeight());
     glPushMatrix();
       glLoadIdentity();
       glMatrixMode(GL_PROJECTION);
       glPushMatrix();
         glLoadIdentity();
-        glOrtho(0, serverWindow->getWidth(),
-                0, serverWindow->getHeight(), -1, 1);
+        glOrtho(0, pServerWindow->getWidth(),
+                0, pServerWindow->getHeight(), -1, 1);
 
         for(UInt32 v=0; v<_cluster.servers[id].viewports.size() ; ++v)
         {
@@ -278,7 +290,6 @@ void BalancedMultiWindow::serverRender(Window         *serverWindow,
     glPopMatrix();
 #endif
 }
-#endif
 
 void BalancedMultiWindow::clientInit(void)
 {
@@ -289,20 +300,19 @@ void BalancedMultiWindow::clientPreSync(void)
 {
     if(getHServers() * getVServers() == 0 && getClientWindow() != NULL)
     {
-        if(getWidth() != getClientWindow()->getWidth() ||
+        if(getWidth () != getClientWindow()->getWidth () ||
            getHeight() != getClientWindow()->getHeight()) 
         {
             ClusterWindow *ptr = this;
 
-            setWidth(getClientWindow()->getWidth());
+            setWidth (getClientWindow()->getWidth ());
             setHeight(getClientWindow()->getHeight());
         }
     }
     Inherited::clientPreSync();
 }
 
-#ifdef OSG_OLD_RENDER_ACTION
-void BalancedMultiWindow::clientRender(DrawActionBase *action)
+void BalancedMultiWindow::clientRender(RenderActionBase *action)
 {
     if(!getBalance())
     {
@@ -317,13 +327,18 @@ void BalancedMultiWindow::clientRender(DrawActionBase *action)
     if(_cluster.servers.size() == 0)
     {
         // reset server list
-        _cluster.servers.resize(getServers().size()+1);
-        for(UInt32 id=0 ; id < getServers().size()+1 ; ++id)
+        _cluster.servers.resize(getMFServers()->size()+1);
+
+        for(UInt32 id=0 ; id < getMFServers()->size()+1 ; ++id)
             _cluster.servers[id].id = id;
-        getNetwork()->connectAllGroupToPoint(getServers().size(),"StreamSock");
+
+        getNetwork()->connectAllGroupToPoint(getMFServers()->size(),
+                                             "StreamSock");
+
         // do not buffer any data
-        for(UInt32 i=0 ; i <= getServers().size() ; ++i)
+        for(UInt32 i=0 ; i <= getMFServers()->size() ; ++i)
             getNetwork()->getConnection(i)->forceDirectIO();
+
         _preloadCache = true;
     }
 
@@ -336,16 +351,22 @@ void BalancedMultiWindow::clientRender(DrawActionBase *action)
         getClientWindow() != NULL)
     {
         _loadTime = -getSystemTime();
-        Server &server = _cluster.servers[getServers().size()];
+
+        Server &server = _cluster.servers[getMFServers()->size()];
+
         // set client window
         server.window = getClientWindow();
+
         // collect visible viewports
         collectVisibleViewports(server);
+
         // create bboxes
         createBBoxes(server);
         _loadTime += getSystemTime();
+
         for(vp=0 ; vp < server.viewports.size() ; ++vp)
             server.load += server.viewports[vp].load;
+
         // preload texture and dlist cache
         preloadCache(getClientWindow(),action);
     }
@@ -398,7 +419,8 @@ void BalancedMultiWindow::clientRender(DrawActionBase *action)
     conn->flush();
     // client rendering ?
 //    if(getHServers() * getVServers() == 0)
-    drawSendAndRecv(getClientWindow(),action,getServers().size());
+
+    drawSendAndRecv(getClientWindow(),action,getMFServers()->size());
 
     // do local rendering if not switched off and no parallel 
     // rendering to local window
@@ -432,7 +454,7 @@ void BalancedMultiWindow::clientRender(DrawActionBase *action)
         conn->resetSelection();
         frameTime += getSystemTime();
         printf("Cli %4d L:%2.6lf T:%10d D:%2.6lf P:%2.6lf N:%2.6lf B:%2.6lf F:%2.6lf\n",
-               getServers().size(),
+               getMFServers()->size(),
                _loadTime,
                _triCount,
                _drawTime,
@@ -454,52 +476,7 @@ void BalancedMultiWindow::clientRender(DrawActionBase *action)
     }
 #endif
 }
-#endif
 
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
-/*----------------------- constructors & destructors ----------------------*/
-
-BalancedMultiWindow::BalancedMultiWindow(void) :
-    Inherited(),
-    _rebuildLoadGroups(true)
-{
-    setBestCut(true);
-}
-
-BalancedMultiWindow::BalancedMultiWindow(const BalancedMultiWindow &source) :
-    Inherited(source),
-    _rebuildLoadGroups(true)
-{
-    setBestCut(true);
-}
-
-BalancedMultiWindow::~BalancedMultiWindow(void)
-{
-}
-
-/*----------------------------- class specific ----------------------------*/
-
-void BalancedMultiWindow::changed(ConstFieldMaskArg whichField, 
-                                  UInt32            origin,
-                                  BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-void BalancedMultiWindow::dump(      UInt32    , 
-                         const BitVector ) const
-{
-    SLOG << "Dump BalancedMultiWindow NI" << std::endl;
-}
-
-/*----------------------------- helpers -------------------------------------*/
 
 /*! get number of tiles for the given area
  */
@@ -657,6 +634,8 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
     return true;
 }
 
+
+
 /*! Create load groups for all root nodes. Each viewport can have its
     own root node. Seach all viewports for all different root nodes
     and collect load in each tree;
@@ -721,6 +700,7 @@ void BalancedMultiWindow::createLoadGroups(void)
     _rebuildLoadGroups = false;
 }
 
+
 /*! collect load for a subtree and write it to the group list. This method
     is called for the client and the server. The palancing expects that
     the loadGroup vector is equal on client and server
@@ -731,6 +711,7 @@ void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
 #if 0    
     UInt32 lastSize;
 #endif    
+
     UInt32 l;
     MFUnrecChildNodePtr::const_iterator child;
 
@@ -827,6 +808,7 @@ void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
 #endif
 }
 
+
 /*! collect visible viewports
  */
 void BalancedMultiWindow::collectVisibleViewports(Server &server)
@@ -837,15 +819,19 @@ void BalancedMultiWindow::collectVisibleViewports(Server &server)
     {
         if(server.viewports.size() <= sv)
             server.viewports.resize(sv+1); 
+
         VPort &port = server.viewports[sv];
+
         port.id = cv;
         port.serverId = server.id;
         port.root = getPort(cv)->getRoot();
         if(calculateServerPort(port,port.rect))
             sv++;
     }
+
     server.viewports.resize(sv); 
 }
+
 
 /*! calculate server port for a given VPort. Retruns true, if viewport
     is visible
@@ -987,6 +973,8 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
     
     return true;
 }
+
+
 
 /*! Ccreate view dependent bboxes for all visible viewports
  */
@@ -1211,85 +1199,6 @@ void BalancedMultiWindow::balanceServer(void)
 #endif
 }
 
-/*! sort bboxes
- */
-void BalancedMultiWindow::sortBBoxes(VPort &port,UInt32 axis,
-                                     Int32 const (&rect)[4])
-{
-    std::vector<BBox>::iterator     bI;
-    BBoxList                       *freeList;
-    Int32  pos,from,to;
-    Real32 constant,pixel;
-    UInt32 otherAxis = axis^1;
-    Int32  t,b;
-    Real32 area;
-
-    // list of opened groups
-    if(_groupOpen.size() < rect[axis+2] + 1)
-        _groupOpen.resize(rect[axis+2] + 1);
-
-    // list of closed groups
-    if(_groupClose.size() < rect[axis+2] + 1)
-        _groupClose.resize(rect[axis+2] + 1);
-
-    // free bboxlist nodes
-    if(_bboxlist.size() < port.bboxes.size() * 2)
-        _bboxlist.resize(port.bboxes.size() * 2);
-
-    // init lists
-    for(pos = rect[axis] ; pos <= rect[axis+2] ; ++pos)
-        _groupOpen[pos] = _groupClose[pos] = NULL;
-
-    freeList = &_bboxlist.front();
-    for(bI = port.bboxes.begin() ; bI != port.bboxes.end() ; ++bI)
-    {
-        // ignore invisible groups
-        if(bI->rect[LEFT  ] > rect[RIGHT ] ||
-           bI->rect[BOTTOM] > rect[TOP   ] ||
-           bI->rect[RIGHT ] < rect[LEFT  ] ||
-           bI->rect[TOP   ] < rect[BOTTOM])
-           continue;
-        from = bI->rect[axis];
-        to   = bI->rect[axis+2];
-
-        // orriginal bbox size
-        area = ( bI->rect[2] - bI->rect[0] + 1 ) *
-               ( bI->rect[3] - bI->rect[1] + 1 );
-
-        // clip to visible 
-        if(from < rect[axis  ])
-            from = rect[axis];
-        if(to   > rect[axis+2])
-            to   = rect[axis+2];
-
-        // size of other axis
-        b = bI->rect[otherAxis];
-        t = bI->rect[otherAxis+2];
-        if(b < rect[otherAxis])
-            b = rect[otherAxis];
-        if(t > rect[otherAxis+2])
-            t = rect[otherAxis+2];
-        
-        // cost
-        LoadGroup &group = _cluster.loadGroups[bI->groupId];
-        constant = group.constant;
-        pixel    = (t-b+1) * ( group.pixel + group.ratio / area );
-
-        // insert into open list
-        freeList->next     = _groupOpen[from];
-        freeList->constant = constant;
-        freeList->pixel    = pixel;
-        _groupOpen[from] = freeList++;
-
-        // insert into close list
-        freeList->next     = _groupClose[to];
-        freeList->constant = constant;
-        freeList->pixel    = pixel;
-        _groupClose[to] = freeList++;
-
-//        printf("from %d to %d\n",from,to);
-    }
-}
 
 /*!  split viewport
  */
@@ -1510,6 +1419,86 @@ void BalancedMultiWindow::splitViewport(std::vector<Worker> &allWorker,
     */
 }
 
+/*! sort bboxes
+ */
+void BalancedMultiWindow::sortBBoxes(VPort &port,UInt32 axis,
+                                     Int32 const (&rect)[4])
+{
+    std::vector<BBox>::iterator     bI;
+    BBoxList                       *freeList;
+    Int32  pos,from,to;
+    Real32 constant,pixel;
+    UInt32 otherAxis = axis^1;
+    Int32  t,b;
+    Real32 area;
+
+    // list of opened groups
+    if(_groupOpen.size() < rect[axis+2] + 1)
+        _groupOpen.resize(rect[axis+2] + 1);
+
+    // list of closed groups
+    if(_groupClose.size() < rect[axis+2] + 1)
+        _groupClose.resize(rect[axis+2] + 1);
+
+    // free bboxlist nodes
+    if(_bboxlist.size() < port.bboxes.size() * 2)
+        _bboxlist.resize(port.bboxes.size() * 2);
+
+    // init lists
+    for(pos = rect[axis] ; pos <= rect[axis+2] ; ++pos)
+        _groupOpen[pos] = _groupClose[pos] = NULL;
+
+    freeList = &_bboxlist.front();
+    for(bI = port.bboxes.begin() ; bI != port.bboxes.end() ; ++bI)
+    {
+        // ignore invisible groups
+        if(bI->rect[LEFT  ] > rect[RIGHT ] ||
+           bI->rect[BOTTOM] > rect[TOP   ] ||
+           bI->rect[RIGHT ] < rect[LEFT  ] ||
+           bI->rect[TOP   ] < rect[BOTTOM])
+           continue;
+        from = bI->rect[axis];
+        to   = bI->rect[axis+2];
+
+        // orriginal bbox size
+        area = ( bI->rect[2] - bI->rect[0] + 1 ) *
+               ( bI->rect[3] - bI->rect[1] + 1 );
+
+        // clip to visible 
+        if(from < rect[axis  ])
+            from = rect[axis];
+        if(to   > rect[axis+2])
+            to   = rect[axis+2];
+
+        // size of other axis
+        b = bI->rect[otherAxis];
+        t = bI->rect[otherAxis+2];
+        if(b < rect[otherAxis])
+            b = rect[otherAxis];
+        if(t > rect[otherAxis+2])
+            t = rect[otherAxis+2];
+        
+        // cost
+        LoadGroup &group = _cluster.loadGroups[bI->groupId];
+        constant = group.constant;
+        pixel    = (t-b+1) * ( group.pixel + group.ratio / area );
+
+        // insert into open list
+        freeList->next     = _groupOpen[from];
+        freeList->constant = constant;
+        freeList->pixel    = pixel;
+        _groupOpen[from] = freeList++;
+
+        // insert into close list
+        freeList->next     = _groupClose[to];
+        freeList->constant = constant;
+        freeList->pixel    = pixel;
+        _groupClose[to] = freeList++;
+
+//        printf("from %d to %d\n",from,to);
+    }
+}
+
 /*! split viewport
  */
 void BalancedMultiWindow::splitAxis(Real32 const (&load)[2],
@@ -1633,19 +1622,20 @@ void BalancedMultiWindow::splitAxis(Real32 const (&load)[2],
 #endif
 }
 
-#ifdef OSG_OLD_RENDER_ACTION
+
+
 /*! render part of a viewport viewport 
  */
-void BalancedMultiWindow::renderViewport(WindowPtr         serverWindow,
+void BalancedMultiWindow::renderViewport(Window           *serverWindow,
                                          UInt32            id,
-                                         DrawActionBase *action,
+                                         RenderActionBase *action,
                                          UInt32            portId,
                                          Int32 const (&rect)[4])
 {
     // create temporary viewport
     _foreignPort.id         = portId;
     _foreignPort.serverId   = id;
-    _foreignPort.root       = getPort()[portId]->getRoot();
+    _foreignPort.root       = getPort(portId)->getRoot();
     // calculate valid viewport
     calculateServerPort(_foreignPort,rect);
     // add to window
@@ -1671,15 +1661,15 @@ void BalancedMultiWindow::renderViewport(WindowPtr         serverWindow,
     }
 
     // sub viewport from window
-    serverWindow->subPort(_foreignPort.serverPort);
+    serverWindow->subPortByObj(_foreignPort.serverPort);
 }
 
 /*! clear port with background
  */
 // clear local ports
-void BalancedMultiWindow::clearViewports(WindowPtr         serverWindow,
+void BalancedMultiWindow::clearViewports(Window           *serverWindow,
                                          UInt32            id,
-                                         DrawActionBase *action)
+                                         RenderActionBase *action)
 {
     UInt32 vp;
     UInt32 travMask;
@@ -1713,12 +1703,12 @@ void BalancedMultiWindow::clearViewports(WindowPtr         serverWindow,
         port.serverPort->render(action);
         
         // sub viewport from window
-        serverWindow->subPort(port.serverPort);
+        serverWindow->subPortByObj(port.serverPort);
         
         port.root->setTravMask(travMask);
     }
 }
-#endif
+
 
 /*! store viewport
  */
@@ -1770,12 +1760,10 @@ void BalancedMultiWindow::storeViewport(Area &area,Viewport *vp,
     vp->deactivate();
 }
 
-#ifdef OSG_OLD_RENDER_ACTION
-/*! rendering and network transfer 
- */
-void BalancedMultiWindow::drawSendAndRecv(WindowPtr window,
-                                          DrawActionBase *action,
-                                          UInt32 id)
+
+void BalancedMultiWindow::drawSendAndRecv(Window           *window,
+                                          RenderActionBase *action,
+                                          UInt32            id)
 {
     UInt16 wpId;
     UInt32 sendCount;
@@ -1828,7 +1816,9 @@ void BalancedMultiWindow::drawSendAndRecv(WindowPtr window,
                                wI->rect);
                 glFinish();
                 _pixelTime -= getSystemTime();
-                storeViewport (_cluster.areas.back(),getPort()[wI->viewportId],wI->rect);
+                storeViewport (_cluster.areas.back(),
+                               getPort(wI->viewportId),
+                               wI->rect);
                 _pixelTime += getSystemTime();
 
 #ifdef CHECK
@@ -1913,7 +1903,7 @@ void BalancedMultiWindow::drawSendAndRecv(WindowPtr window,
         }
         while(wI != _cluster.workpackages.end())
         {
-            ViewportPtr vp=getPort()[wI->viewportId];
+            Viewport *vp = getPort(wI->viewportId);
             // the activate is only called for buffer activation.
             vp->activate();
 
@@ -2016,60 +2006,74 @@ void BalancedMultiWindow::drawSendAndRecv(WindowPtr window,
 
 /*! preload display lists and textures
  */
-void BalancedMultiWindow::preloadCache(Window         *window,
-                                       DrawActionBase *action)
+void BalancedMultiWindow::preloadCache(Window           *window,
+                                       RenderActionBase *action)
 {
-    NodePtr root = NULL;
-    UInt32 v;
+    Node   *root = NULL;
+    UInt32  v;
 
     if(!_preloadCache)
         return;
+
     _preloadCache = false;
+
     window->activate();
     window->frameInit();
+
     // loop over all viewports
-    for(v = 0 ; v  < getPort().size() ; ++v )
+    for(v = 0 ; v  < getMFPort()->size() ; ++v )
     {
-        ViewportPtr viewport = getPort()[v];
+        Viewport *viewport = getPort(v);
+
         if(root == viewport->getRoot())
             continue;
+
         root = viewport->getRoot();
+
         if(root == NULL)
             continue;
+
         root->updateVolume();
         window->activate();
         window->frameInit();
+
         // create cart
-        NodePtr cartN = Node::create();
-        TransformPtr cart = Transform::create();
+        NodeUnrecPtr      cartN = Node::create();
+        TransformUnrecPtr cart = Transform::create();
 
         cartN->setCore(cart);
 
         root->addChild(cartN);
 
         // create camera
-        PerspectiveCameraPtr cam = PerspectiveCamera::create();
+        PerspectiveCameraUnrecPtr cam = PerspectiveCamera::create();
+
         cam->setBeacon( cartN );
         cam->setFov   ( osgDegree2Rad( 60 ) );
 
         // background
-        SolidBackgroundPtr bkgnd = SolidBackground::create();
+        SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
 
         // create viewport
-        ViewportPtr vp = Viewport::create();
+        ViewportUnrecPtr vp = Viewport::create();
+
         vp->setCamera( cam );
         vp->setBackground( bkgnd );
         vp->setRoot( root );
         vp->setSize( 0,0, 1,1 );
+
         // add to window
         window->addPort(vp);
+
         // calc viewing matrix
         Vec3f min,max;
         root->getVolume().getBounds( min, max );
         Vec3f d = max - min;
         Real32 dist = osgMax(d[0],d[1]) / (2 * osgTan(cam->getFov() / 2.f));
         Vec3f up(0,1,0);
-        Pnt3f at((min[0] + max[0]) * .5f,(min[1] + max[1]) * .5f,(min[2] + max[2]) * .5f);
+        Pnt3f at((min[0] + max[0]) * .5f,
+                 (min[1] + max[1]) * .5f,
+                 (min[2] + max[2]) * .5f);
         Pnt3f from=at;
         from[2]+=(dist*3); 
 
@@ -2085,9 +2089,11 @@ void BalancedMultiWindow::preloadCache(Window         *window,
         // do rendering
         action->setWindow(window);
         vp->render(action);
+
         // remove port
-        window->subPort(vp);
+        window->subPortByObj(vp);
         root->subChild(cartN);
     }
 }
-#endif
+
+OSG_END_NAMESPACE

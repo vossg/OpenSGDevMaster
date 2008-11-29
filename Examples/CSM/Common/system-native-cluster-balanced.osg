@@ -83,9 +83,9 @@ ComplexSceneManager
              connectionType "Multicast"
              clusterMode    "Balanced"
 
-             options CSMMultiWinOptions     
+             options CSMMultiWinOptions
              {
-               balance FALSE
+               balance TRUE
              }
 
              size 600 300
@@ -98,16 +98,8 @@ ComplexSceneManager
                  camera     USE PerspCamGL
                  background USE BGnd
 
-                 foregrounds
-                 [
-                 ]
-               }
-
-               CSMViewport
-               {
-                 root       USE RootNode
-                 camera     USE PerspCamGL
-                 background USE BGnd
+                 leftBottom 0.0 0.0
+                 rightTop   0.5 1.0
 
                  foregrounds
                  [
