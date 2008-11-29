@@ -160,7 +160,7 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
         UInt16                 id;
         Real32                 load;
         std::vector<VPort>     viewports;
-        WindowUnrecPtr         window;
+        Window                *window;
     };
 
     struct WorkPackage 
@@ -329,6 +329,13 @@ class OSG_CLUSTER_DLLMAPPING BalancedMultiWindow :
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*--------------------------------------------------------------------*/

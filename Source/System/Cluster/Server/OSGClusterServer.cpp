@@ -228,7 +228,10 @@ void ClusterServer::stop()
         _clusterWindow->getNetwork()->setAspect(NULL);
     }
 
-    _clusterWindow= NULL;
+    // That's the app one we will never receive as without the
+    // app window it can not be send.
+    _clusterWindow->subReferenceUnresolved();
+    _clusterWindow = NULL;
 
     // destroy connection
 

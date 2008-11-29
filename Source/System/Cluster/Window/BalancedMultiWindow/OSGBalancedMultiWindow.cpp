@@ -124,6 +124,29 @@ BalancedMultiWindow::~BalancedMultiWindow(void)
 {
 }
 
+void BalancedMultiWindow::resolveLinks(void)
+{
+    for(UInt32 i = 0; i < _cluster.rootNodes.size(); ++i)
+    {
+        _cluster.rootNodes[i] = NULL;
+    }
+
+    for(UInt32 i = 0; i < _cluster.loadGroups.size(); ++i)
+    {
+        _cluster.loadGroups[i].root = NULL;
+        _cluster.loadGroups[i].node = NULL;
+    }
+
+    for(UInt32 i = 0; i < _cluster.servers.size(); ++i)
+    {
+        for(UInt32 j = 0; j < _cluster.servers[i].viewports.size(); ++j)
+        {
+            _cluster.servers[i].viewports[j].serverPort = NULL;
+            _cluster.servers[i].viewports[j].root       = NULL;
+        }
+    }
+}
+
 /*----------------------------- class specific ----------------------------*/
 
 void BalancedMultiWindow::changed(ConstFieldMaskArg whichField, 
