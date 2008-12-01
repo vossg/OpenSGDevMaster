@@ -152,19 +152,37 @@ void addLibraryVersion(const Char8 *szName);
 #define OSG_INIT_MT     false
 #endif
 
-OSG_BASE_DLLMAPPING 
-bool osgInit(Int32    argc, 
-             Char8  **argv,
-             UInt16   major   = OSG_MAJOR_VERSION, 
-             UInt16   minor   = OSG_MINOR_VERSION, 
-             UInt16   release = OSG_RELEASE_VERSION,
-             bool     debug   = OSG_INIT_DEBUG,
-             bool     dll     = OSG_INIT_DLL,
-             bool     mt      = OSG_INIT_MT        );
+// osgInit needs to be inline (at least on windows),
+// see OSGBaseInitFunctions.inl for an explanation.
+
+inline
+bool osgInit  (Int32    argc, 
+               Char8  **argv,
+               UInt16   major   = OSG_MAJOR_VERSION, 
+               UInt16   minor   = OSG_MINOR_VERSION, 
+               UInt16   release = OSG_RELEASE_VERSION,
+               bool     debug   = OSG_INIT_DEBUG,
+               bool     dll     = OSG_INIT_DLL,
+               bool     mt      = OSG_INIT_MT        );
+
+OSG_BASE_DLLMAPPING
+bool osgDoInit(Int32    argc,
+               Char8  **argv,
+               UInt16   major   = OSG_MAJOR_VERSION, 
+               UInt16   minor   = OSG_MINOR_VERSION, 
+               UInt16   release = OSG_RELEASE_VERSION,
+               bool     debug   = OSG_INIT_DEBUG,
+               bool     dll     = OSG_INIT_DLL,
+               bool     mt      = OSG_INIT_MT        );
 
 OSG_BASE_DLLMAPPING 
 bool osgExit(void);
 
+OSG_BASE_DLLMAPPING
+void osgExitWrapper(void);
+
 OSG_END_NAMESPACE
+
+#include "OSGBaseInitFunctions.inl"
 
 #endif /* OSGBASEINITFUNCTIONS_H */

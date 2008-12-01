@@ -67,8 +67,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-static void osgExitWrapper(void);
-
 static std::vector<InitFuncF>    *osgPreMPInitFunctions       = NULL;
 static std::vector<InitFuncF>    *osgPreFactoryInitFunctions  = NULL;
 static std::vector<InitFuncF>    *osgPostFactoryInitFunctions = NULL;
@@ -493,14 +491,14 @@ void addLibraryVersion(const Char8 *szName)
 
     \ingroup GrpBaseBaseInitExit
  */
-bool osgInit(Int32, 
-             Char8 **,
-             UInt16   major,
-             UInt16   minor,
-             UInt16   release,
-             bool     debug,
-             bool     dll,
-             bool     mt)
+bool osgDoInit(Int32, 
+               Char8 **,
+               UInt16   major,
+               UInt16   minor,
+               UInt16   release,
+               bool     debug,
+               bool     dll,
+               bool     mt)
 {
     CompileConfig prog(major, 
                        minor, 
@@ -698,16 +696,9 @@ bool osgInit(Int32,
 
     GlobalSystemState = Running;
 
-    atexit(osgExitWrapper);
-
     osgLog().setLogLevel(OSG_DEFAULT_LOG_LEVEL);
 
     return returnValue;
-}
-
-static void osgExitWrapper(void)
-{
-    osgExit();
 }
 
 /*! Shuts down the system and performs shutdown tasks registered with
@@ -815,6 +806,11 @@ bool osgExit(void)
     delete osgLibraryVersions;
 
     return returnValue;
+}
+
+void osgExitWrapper(void)
+{
+    osgExit();
 }
 
 /*! \}                                                                 */
