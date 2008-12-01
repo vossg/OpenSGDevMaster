@@ -63,8 +63,9 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass SimpleSHLChunk::_class("SimpleSHL", 1, 30);
+#if 0
 volatile UInt16 SimpleSHLChunk::_uiChunkCounter = 1;
+#endif
 
 #ifdef OSG_1_COMPAT
 SimpleSHLChunk::ParamFunctor SimpleSHLChunk::_fParameterCallback;
@@ -336,7 +337,7 @@ void SimpleSHLChunk::onCreate(const SimpleSHLChunk *source)
                         _1, _2, _3, _4),
             &SimpleSHLChunk::handleDestroyGL));
 
-    _uiChunkId = _uiChunkCounter++;
+    _uiChunkId = ShaderExecutableChunk::_uiChunkCounter++;
 }
 
 void SimpleSHLChunk::onCreateAspect(const SimpleSHLChunk *createAspect,
@@ -357,7 +358,7 @@ void SimpleSHLChunk::onDestroy(UInt32 uiId)
 
 const StateChunkClass *SimpleSHLChunk::getClass(void) const
 {
-    return &_class;
+    return ShaderExecutableChunk::getStaticClass();
 }
 
 UInt16 SimpleSHLChunk::getChunkId(void)

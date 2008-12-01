@@ -60,9 +60,9 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass SimpleSHLVariableChunk::_class("SimpleSHLVariable", 1, 31);
-
+#if 0
 volatile UInt16 SimpleSHLVariableChunk::_uiChunkCounter = 1;
+#endif
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -111,7 +111,7 @@ void SimpleSHLVariableChunk::onCreate(const SimpleSHLVariableChunk *source)
     if(GlobalSystemState == Startup)
         return;
 
-    _uiChunkId = _uiChunkCounter++;
+    _uiChunkId = ShaderExecutableVarChunk::_uiChunkCounter++;
 }
 
 void SimpleSHLVariableChunk::onCreateAspect(
@@ -125,7 +125,7 @@ void SimpleSHLVariableChunk::onCreateAspect(
 
 const StateChunkClass *SimpleSHLVariableChunk::getClass(void) const
 {
-    return &_class;
+    return ShaderExecutableVarChunk::getStaticClass();
 }
 
 UInt16 SimpleSHLVariableChunk::getChunkId(void)

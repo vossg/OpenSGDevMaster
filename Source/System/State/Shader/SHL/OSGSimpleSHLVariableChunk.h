@@ -45,6 +45,7 @@
 #include "OSGSimpleSHLVariableChunkBase.h"
 #include "OSGShaderProgramVariables.h"
 #include "OSGSimpleSHLChunk.h"
+#include "OSGShaderExecutableVarChunk.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -149,7 +150,9 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLVariableChunk :
 
     /*---------------------------------------------------------------------*/
 
+#if 0
     static volatile UInt16 _uiChunkCounter;
+#endif
 
     UInt16 _uiChunkId;
 
@@ -196,9 +199,6 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLVariableChunk :
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    // class. Used for indexing in State
-    static StateChunkClass _class;
 
     friend class FieldContainer;
     friend class SimpleSHLVariableChunkBase;

@@ -43,7 +43,7 @@ OSG_BEGIN_NAMESPACE
 inline
 const StateChunkClass *SimpleSHLChunk::getStaticClass(void)
 {
-    return &SimpleSHLChunk::_class;
+    return ShaderExecutableChunk::getStaticClass();
 }
 
 inline

@@ -50,6 +50,7 @@ OSG_BEGIN_NAMESPACE
 
 class ShaderProgramChunk;
 class ShaderCache;
+class SimpleSHLChunk;
 
 /*! \brief ShaderExecutableChunk class. See \ref
            PageSystemShaderExecutableChunk for a description.
@@ -234,6 +235,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunk :
     friend class FieldContainer;
     friend class ShaderExecutableChunkBase;
     friend class ShaderCache;
+    friend class SimpleSHLChunk;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ShaderExecutableChunk &source);

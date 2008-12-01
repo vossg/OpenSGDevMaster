@@ -48,6 +48,8 @@
 #include "OSGShaderVariableFunctor.h"
 #include "OSGGLFuncProtos.h"
 
+#include "OSGShaderExecutableChunk.h"
+
 OSG_BEGIN_NAMESPACE
 
 class Window;
@@ -266,7 +268,9 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase
 
     /*---------------------------------------------------------------------*/
 
+#if 0
     static volatile UInt16 _uiChunkCounter;
+#endif
 
     UInt16 _uiChunkId;
 
@@ -354,9 +358,6 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase
     /*==========================  PRIVATE  ================================*/
 
   private:
-
-    // class. Used for indexing in State
-    static StateChunkClass _class;
 
     friend class FieldContainer;
     friend class SimpleSHLChunkBase;
