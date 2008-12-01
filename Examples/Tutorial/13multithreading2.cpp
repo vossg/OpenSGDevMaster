@@ -10,14 +10,18 @@
 OSG_USING_NAMESPACE
 
 SimpleSceneManager *mgr;
-NodeRecPtr          scene;
 
-//we will store the transformation globally - this
-//is not necessary, but comfortable
-TransformRecPtr  trans;
-Thread          *animationThread;
-Thread          *applicationThread;
-Barrier         *syncBarrier;
+// we will store the transformation globally - this
+// is not necessary, but comfortable
+// Note that these global objects are accessed from different aspects,
+// therefore you need to use MTRecPtr here, so that you get a pointer to the
+// correct aspect copy of the object.
+
+TransformMTRecPtr  trans;
+NodeMTRecPtr       scene;
+Thread            *animationThread;
+Thread            *applicationThread;
+Barrier           *syncBarrier;
 
 int setupGLUT(int *argc, char *argv[]);
 
@@ -59,6 +63,11 @@ void rotate(void *args)
         
         trans->setMatrix(m);
         // nothing unusual until here
+        
+        // we are done with changing this aspect copy (for this iteration),
+        // committing the changes makes sure they are being picked up when
+        // the render thread syncronizes the next time.
+        commitChanges();
         
         //well that's new...
         
