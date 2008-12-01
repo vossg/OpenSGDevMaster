@@ -247,7 +247,7 @@ ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
             uiCurrBits  = 0x0000;
 
             uiLevelSub += LevelBits;
-            uiCurrIdx  -= LevelBits;
+            uiCurrIdx  -= uiLevelSub;
 
             while(uiCurrIdx > LevelBits)
             {
@@ -376,7 +376,7 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
             pCurrNode   = pNextNode;
 
             uiLevelSub += LevelBits;
-            uiCurrIdx  -= LevelBits;
+            uiCurrIdx  -= uiLevelSub;
 
             while(uiCurrIdx > LevelBits)
             {
@@ -388,7 +388,21 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
 
                     if(uiStartLevel == _vLevelEntries.size() - 1)
                     {
-                        _vLevelEntries.push_back(pNextNode);
+                        if(_vLevelEntries.back()->_vChildren[0] == NULL)
+                        {
+                            TreeNode *pTmpNode = allocateNode();
+                            
+                            _vLevelEntries.back()->_vChildren[0] = pTmpNode;
+                            
+                            _vLevelEntries.push_back(pTmpNode);
+                            
+                            pTmpNode->_pNext  = pNextNode;
+                            pNextNode->_pPrev = pTmpNode;
+                        }
+                        else
+                        {
+                            _vLevelEntries.push_back(pNextNode);
+                        }
                     }
                     else
                     {
@@ -1058,7 +1072,7 @@ ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
             uiCurrBits  = 0x0000;
 
             uiLevelSub += LevelBits;
-            uiCurrIdx  -= LevelBits;
+            uiCurrIdx  -= uiLevelSub;
 
             while(uiCurrIdx > LevelBits)
             {
@@ -1191,7 +1205,7 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
             pCurrNode   = pNextNode;
 
             uiLevelSub += LevelBits;
-            uiCurrIdx  -= LevelBits;
+            uiCurrIdx  -= uiLevelSub;
 
             while(uiCurrIdx > LevelBits)
             {
@@ -1203,7 +1217,21 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
 
                     if(uiStartLevel == _vLevelEntries.size() - 1)
                     {
-                        _vLevelEntries.push_back(pNextNode);
+                        if(_vLevelEntries.back()->_vChildren[0].asT2() == NULL)
+                        {
+                            TreeNode *pTmpNode = allocateNode();
+                            
+                            _vLevelEntries.back()->_vChildren[0] = pTmpNode;
+                            
+                            _vLevelEntries.push_back(pTmpNode);
+                            
+                            pTmpNode->_pNext  = pNextNode;
+                            pNextNode->_pPrev = pTmpNode;
+                        }
+                        else
+                        {
+                            _vLevelEntries.push_back(pNextNode);
+                        }
                     }
                     else
                     {
