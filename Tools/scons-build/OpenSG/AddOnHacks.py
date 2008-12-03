@@ -660,6 +660,44 @@ def BoolOptionTextToBool(self, val):
         if lval in SConsAddons.Options.BoolOption.false_strings: return False
         raise ValueError("Invalid value for boolean option: %s" % val)
 
+def OptionsSave(self, file, env):
+        """
+        Saves all the options in the given file.  This file can
+        then be used to load the options next run.  This can be used
+        to create an option cache file.
+
+        filename - Name of the file to save into
+        env - the environment get the option values from
+        """
+
+        # Create the file and write out the header
+        try:
+            if type(file) is str:
+                fh = open(file, 'w')
+            else:
+                fh = file
+
+            try:
+                # Make an assignment in the file for each option within the environment
+                # that was assigned a value other than the default.
+                # For each option and each key
+                key_value_list = []
+                for o in self.options:
+                    key_value_list.extend(o.getSettings())                    
+                for (key,value) in key_value_list:
+                    if None != value:
+                        try:
+                            eval(repr(value))
+                        except:
+                            # Convert stuff that has a repr that cannon be evaled to string
+                            value = SCons.Util.to_string(value)                        
+                        fh.write('%s = %s\n' % (key, repr(value)))
+            finally:
+                if type(file) is str:
+                    fh.close()
+
+        except IOError, x:
+            raise SCons.Errors.UserError, 'Error writing options to file: %s\n%s' % (str(file), x)
 
 
 def apply():
@@ -725,3 +763,5 @@ def apply():
             SConsAddons.EnvironmentBuilder.default_funcs.append([compiler_list, platform_list, func])            
 
     SConsAddons.Options.BoolOption.textToBool = BoolOptionTextToBool
+
+    SConsAddons.Options.Options.Save = OptionsSave

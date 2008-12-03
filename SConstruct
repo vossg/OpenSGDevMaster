@@ -40,6 +40,7 @@ from SConsAddons.EnvironmentBuilder import EnvironmentBuilder
 from LibraryUtils import *
 from sets import Set
 from socket import gethostname
+from StringIO import StringIO
 
 import OpenSG.AddOnHacks
 import OpenSG.ColladaOption
@@ -983,12 +984,16 @@ if not SConsAddons.Util.hasHelpFlag():
                 inst_prefix   = common_env["prefix"]
                 inst_lib_path = inst_paths["lib"]
 
+            opts_str = StringIO()
+            opts.Save(opts_str, common_env)
+
             submap = {'@LIB_MAP_STR@'      : lib_map_str,
                       '@PREFIX@'           : inst_prefix,
                       '@LIBPATH@'          : inst_lib_path,
                       '@INCPATH@'          : inst_inc_path,
                       '@VERSION@'          : opensg_version_string,
-                      '@LIBRARY_UTIL_SRC@' : file(pj('Tools','scons-build','LibraryUtils.py')).read()}
+                      '@LIBRARY_UTIL_SRC@' : file(pj('Tools','scons-build','LibraryUtils.py')).read(),
+                      '@SCONS_OPTS@'       : opts_str.getvalue() }
             # Install two scripts so we have one with osg2 in the name to let users be sure they get the right version
             for n in ["osg2-config"]:
                osg_config = common_env.SubstBuilder(pj(paths['bin'],n),

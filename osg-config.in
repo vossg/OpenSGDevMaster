@@ -22,13 +22,17 @@ from optparse import OptionParser
 
 # List of dictionaries in string format that will
 # be used to build library information
-lib_map_str = """@LIB_MAP_STR@"""
+lib_map_str = r"""@LIB_MAP_STR@"""
+
+# scons options
+scons_opts = r"""@SCONS_OPTS@"""
 
 # various other variables needed
 inst_prefix = "@PREFIX@"
 inst_lib_path = "@LIBPATH@"
 inst_inc_path = "@INCPATH@"
 version = "@VERSION@"
+
 
 lib_map_list = eval(lib_map_str)
 parser = None
@@ -65,6 +69,7 @@ def main():
    parser.add_option("--lflags",action="store_true",help="Print library flags.")
    parser.add_option("--llibs",action="store_true",help="Print library list.")
    parser.add_option("--libs",action="store_true",help="Print libraries and flags.")
+   parser.add_option("--sconsopts",action="store_true",help="Print scons options.")
    parser.add_option("--no-prefix-flags",action="store_true",
                      help="When printing list of libraries and paths, don't include compiler prefix flags (-I,-l,-L)")
    parser.add_option("--inc-prefix",default=def_incprefix, 
@@ -88,6 +93,9 @@ def main():
       return
    elif options.version:
       print version
+      return
+   elif options.sconsopts:
+      print scons_opts
       return
 
    # Try to find libname
