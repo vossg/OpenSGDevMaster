@@ -143,6 +143,8 @@ bool operator < (const ActiveShaderVarTree::StoreElement    &rhs,
 
 #endif
 
+#ifndef WIN32
+
 template<UInt32 Base, UInt32 Exponent>
 struct osgPow_s
 {
@@ -647,6 +649,8 @@ typedef ShaderCacheTreeV3<ShaderExecutableChunk,
                           3                              > ActiveShaderExeTree;
 typedef ShaderCacheTreeV3<ShaderExecutableVarChunk,
                           6                              > ActiveShaderVarTree;
+#endif
+
 #endif
 
 OSG_END_NAMESPACE

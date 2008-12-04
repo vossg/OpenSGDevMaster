@@ -149,6 +149,7 @@ ShaderVectorCache<ObjectT>::~ShaderVectorCache(void)
 }
 
 
+#ifndef WIN32
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
@@ -3434,5 +3435,7 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 
     _pRoot = NULL;
 }
+
+#endif
 
 OSG_END_NAMESPACE
