@@ -286,22 +286,22 @@ static void _Huffman_MakeTree( huff_sym_t *sym, huff_bitstream_t *stream )
     {
       nodes[num_symbols].Symbol = sym[k].Symbol;
       nodes[num_symbols].Count = sym[k].Count;
-      nodes[num_symbols].ChildA = (huff_encodenode_t *) 0;
-      nodes[num_symbols].ChildB = (huff_encodenode_t *) 0;
+      nodes[num_symbols].ChildA = 0; //(huff_encodenode_t *) 0;
+      nodes[num_symbols].ChildB = 0; //(huff_encodenode_t *) 0;
       ++ num_symbols;
     }
   }
 
   /* Build tree by joining the lightest nodes until there is only
      one node left (the root node). */
-  root = (huff_encodenode_t *) 0;
+  root = 0; //(huff_encodenode_t *) 0;
   nodes_left = num_symbols;
   next_idx = num_symbols;
   while( nodes_left > 1 )
   {
     /* Find the two lightest nodes */
-    node_1 = (huff_encodenode_t *) 0;
-    node_2 = (huff_encodenode_t *) 0;
+    node_1 = 0; //(huff_encodenode_t *) 0;
+    node_2 = 0; //(huff_encodenode_t *) 0;
     for( k = 0; k < next_idx; ++ k )
     {
       if( nodes[k].Count > 0 )
@@ -360,8 +360,8 @@ static huff_decodenode_t * _Huffman_RecoverTree( huff_decodenode_t *nodes,
 
   /* Clear the node */
   this_node->Symbol = -1;
-  this_node->ChildA = (huff_decodenode_t *) 0;
-  this_node->ChildB = (huff_decodenode_t *) 0;
+  this_node->ChildA = 0; //(huff_decodenode_t *) 0;
+  this_node->ChildB = 0; //(huff_decodenode_t *) 0;
 
   /* Is this a leaf node? */
   if( _Huffman_ReadBit( stream ) )
@@ -442,7 +442,7 @@ int Huffman_Compress( unsigned char *in, unsigned char *out,
   }
 
   /* Calculate size of output data */
-  total_bytes = (int)(stream.BytePtr - out);
+  total_bytes = int(stream.BytePtr - out);
   if( stream.BitPos > 0 )
   {
     ++ total_bytes;
@@ -496,6 +496,8 @@ void Huffman_Uncompress( unsigned char *in, unsigned char *out,
     }
 
     /* We found the matching leaf node and have the symbol */
-    *buf ++ = (unsigned char) node->Symbol;
+    typedef unsigned char osghuc;
+
+    *buf ++ = osghuc(node->Symbol);
   }
 }

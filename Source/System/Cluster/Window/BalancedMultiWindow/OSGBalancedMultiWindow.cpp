@@ -1889,9 +1889,9 @@ void BalancedMultiWindow::drawSendAndRecv(Window           *window,
                     for(tI = aI->tiles.begin() ; tI != aI->tiles.end() ; ++tI)
                     {
                         if(getShort())
-                            conn->put(&(*tI),(UInt32)osgAbs(tI->header.width) * tI->header.height * 2 + sizeof(Tile::Header));
+                            conn->put(&(*tI),UInt32(osgAbs(tI->header.width)) * tI->header.height * 2 + sizeof(Tile::Header));
                         else
-                            conn->put(&(*tI),(UInt32)osgAbs(tI->header.width) * tI->header.height * 3 + sizeof(Tile::Header));
+                            conn->put(&(*tI),UInt32(osgAbs(tI->header.width)) * tI->header.height * 3 + sizeof(Tile::Header));
                     }
                     conn->flush();
                     sendCount--;

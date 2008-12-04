@@ -36,6 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wold-style-cast"
+#endif
+
 #include <OSGColladaGeometry.h>
 #include <OSGColladaLog.h>
 
@@ -46,6 +50,7 @@
 
 #include <OSGColladaGeoInputAttachment.h>
 
+
 #include <1.4/dom/domGeometry.h>
 #include <1.4/dom/domLines.h>
 #include <1.4/dom/domLinestrips.h>
@@ -54,7 +59,6 @@
 #include <1.4/dom/domTriangles.h>
 #include <1.4/dom/domTrifans.h>
 #include <1.4/dom/domTristrips.h>
-
 
 OSG_BEGIN_NAMESPACE
 

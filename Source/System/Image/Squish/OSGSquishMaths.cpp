@@ -192,8 +192,8 @@ Vec3 ComputePrincipleComponent( Sym3x3 const& matrix )
 		float st = std::sin( theta/3.0f );
 
 		float l1 = ( 1.0f/3.0f )*c2 + 2.0f*rt*ct;
-		float l2 = ( 1.0f/3.0f )*c2 - rt*( ct + ( float )sqrt( 3.0f )*st );
-		float l3 = ( 1.0f/3.0f )*c2 - rt*( ct - ( float )sqrt( 3.0f )*st );
+		float l2 = ( 1.0f/3.0f )*c2 - rt*( ct + float(sqrt( 3.0f ))*st );
+		float l3 = ( 1.0f/3.0f )*c2 - rt*( ct - float(sqrt( 3.0f ))*st );
 
 		// pick the larger
 		if( std::fabs( l2 ) > std::fabs( l1 ) )

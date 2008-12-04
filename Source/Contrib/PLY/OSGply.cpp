@@ -488,8 +488,8 @@ void ply_put_element(PlyFile *plyfile, void *elem_ptr)
   char **other_ptr;
 
   elem = plyfile->which_elem;
-  elem_data = (char*)elem_ptr;
-  other_ptr = (char **) (((char *) elem_ptr) + elem->other_offset);
+  elem_data = static_cast<char*>(elem_ptr);
+  other_ptr = reinterpret_cast<char **>((static_cast<char *>(elem_ptr)) + elem->other_offset);
 
   /* write out either to an ascii or binary file */
 
@@ -503,19 +503,19 @@ void ply_put_element(PlyFile *plyfile, void *elem_ptr)
       if (elem->store_prop[j] == OTHER_PROP)
         elem_data = *other_ptr;
       else
-        elem_data = (char*)elem_ptr;
+          elem_data = static_cast<char*>(elem_ptr);
       if (prop.is_list) {
         item = elem_data + prop.count_offset;
-        get_stored_item ((void *) item, prop.count_internal,
+        get_stored_item (static_cast<void *>(item), prop.count_internal,
                          &int_val, &uint_val, &double_val);
         write_ascii_item (fp, int_val, uint_val, double_val,
                           prop.count_external);
         list_count = uint_val;
-        item_ptr = (char **) (elem_data + prop.offset);
+        item_ptr = reinterpret_cast<char **>(elem_data + prop.offset);
         item = item_ptr[0];
        item_size = ply_type_size[prop.internal_type];
         for (k = 0; k < list_count; k++) {
-          get_stored_item ((void *) item, prop.internal_type,
+            get_stored_item (static_cast<void *>(item), prop.internal_type,
                            &int_val, &uint_val, &double_val);
           write_ascii_item (fp, int_val, uint_val, double_val,
                             prop.external_type);
@@ -524,7 +524,7 @@ void ply_put_element(PlyFile *plyfile, void *elem_ptr)
       }
       else {
         item = elem_data + prop.offset;
-        get_stored_item ((void *) item, prop.internal_type,
+        get_stored_item (static_cast<void *>(item), prop.internal_type,
                          &int_val, &uint_val, &double_val);
         write_ascii_item (fp, int_val, uint_val, double_val,
                           prop.external_type);
@@ -543,20 +543,20 @@ void ply_put_element(PlyFile *plyfile, void *elem_ptr)
       if (elem->store_prop[j] == OTHER_PROP)
         elem_data = *other_ptr;
       else
-        elem_data = (char*)elem_ptr;
+          elem_data = static_cast<char*>(elem_ptr);
       if (prop.is_list) {
         item = elem_data + prop.count_offset;
         item_size = ply_type_size[prop.count_internal];
-        get_stored_item ((void *) item, prop.count_internal,
+        get_stored_item (static_cast<void *>(item), prop.count_internal,
                          &int_val, &uint_val, &double_val);
         write_binary_item (fp, int_val, uint_val, double_val,
                            prop.count_external);
         list_count = uint_val;
-        item_ptr = (char **) (elem_data + prop.offset);
+        item_ptr = reinterpret_cast<char **>(elem_data + prop.offset);
         item = item_ptr[0];
         item_size = ply_type_size[prop.internal_type];
         for (k = 0; k < list_count; k++) {
-          get_stored_item ((void *) item, prop.internal_type,
+            get_stored_item (static_cast<void *>(item), prop.internal_type,
                            &int_val, &uint_val, &double_val);
           write_binary_item (fp, int_val, uint_val, double_val,
                              prop.external_type);
@@ -566,7 +566,7 @@ void ply_put_element(PlyFile *plyfile, void *elem_ptr)
       else {
         item = elem_data + prop.offset;
         item_size = ply_type_size[prop.internal_type];
-        get_stored_item ((void *) item, prop.internal_type,
+        get_stored_item (static_cast<void *>(item), prop.internal_type,
                          &int_val, &uint_val, &double_val);
         write_binary_item (fp, int_val, uint_val, double_val,
                            prop.external_type);
@@ -907,9 +907,9 @@ void
 ply_get_element(PlyFile *plyfile, void *elem_ptr)
 {
   if (plyfile->file_type == PLY_ASCII)
-    ascii_get_element (plyfile, (char *) elem_ptr);
+      ascii_get_element (plyfile, static_cast<char *>(elem_ptr));
   else
-    binary_get_element (plyfile, (char *) elem_ptr);
+      binary_get_element (plyfile, static_cast<char *>(elem_ptr));
 }
 
 
@@ -1073,7 +1073,7 @@ PlyOtherProp *ply_get_other_properties(
   }
 #endif
   other->size = elem->other_size;
-  other->props = (PlyProperty **) myalloc (sizeof(PlyProperty*) * elem->props.size());
+  other->props = reinterpret_cast<PlyProperty **>(myalloc (sizeof(PlyProperty*) * elem->props.size()));
   
   /* save descriptions of each "other" property */
   nprops = 0;
@@ -1145,8 +1145,8 @@ std::vector<OtherElem>& ply_get_other_element (
   other.elem_name = elem_name;
 
   /* create a list to hold all the current elements */
-  other.other_data = (OtherData **)
-                  myalloc (sizeof (OtherData *) * other.elem_count);
+  other.other_data = reinterpret_cast<OtherData **>(
+      myalloc (sizeof (OtherData *) * other.elem_count));
 
   /* set up for getting elements */
   other.other_props = ply_get_other_properties (plyfile, elem_name,
@@ -1155,8 +1155,8 @@ std::vector<OtherElem>& ply_get_other_element (
   /* grab all these elements */
   for (int i = 0; i < other.elem_count; i++) {
     /* grab and element from the file */
-    other.other_data[i] = (OtherData *) myalloc (sizeof (OtherData));
-    ply_get_element (plyfile, (void *) other.other_data[i]);
+      other.other_data[i] = reinterpret_cast<OtherData *>(myalloc (sizeof (OtherData)));
+      ply_get_element (plyfile, static_cast<void *>(other.other_data[i]));
   }
 
   plyfile->other_elems.push_back(other);
@@ -1212,7 +1212,7 @@ void ply_put_other_elements (PlyFile *plyfile)
 
     /* write out each instance of the current element */
     for (int j = 0; j < other->elem_count; j++)
-      ply_put_element (plyfile, (void *) other->other_data[j]);
+        ply_put_element (plyfile, static_cast<void *>(other->other_data[j]));
   }
 }
 
@@ -1359,9 +1359,9 @@ void ascii_get_element(PlyFile *plyfile, char *elem_ptr)
   if (elem->other_offset != NO_OTHER_PROPS) {
     other_flag = 1;
     /* make room for other_props */
-    other_data = (char *) myalloc (elem->other_size);
+    other_data = static_cast<char *>(myalloc (elem->other_size));
     /* store pointer in user's structure to the other_props */
-    char** ptr = (char **) (elem_ptr + elem->other_offset);
+    char** ptr = reinterpret_cast<char **>(elem_ptr + elem->other_offset);
     *ptr = other_data;
   }
   else
@@ -1403,7 +1403,7 @@ void ascii_get_element(PlyFile *plyfile, char *elem_ptr)
       /* allocate space for an array of items and store a ptr to the array */
       list_count = int_val;
       item_size = ply_type_size[prop->internal_type];
-      store_array = (char **) (elem_data + prop->offset);
+      store_array = reinterpret_cast<char **>(elem_data + prop->offset);
 
       if (list_count == 0) {
         if (store_it)
@@ -1411,7 +1411,7 @@ void ascii_get_element(PlyFile *plyfile, char *elem_ptr)
       }
       else {
         if (store_it) {
-          item_ptr = (char *) myalloc (sizeof (char) * item_size * list_count);
+            item_ptr = static_cast<char *>(myalloc (sizeof (char) * item_size * list_count));
           item = item_ptr;
           *store_array = item_ptr;
         }
@@ -1470,9 +1470,9 @@ void binary_get_element(PlyFile *plyfile, char *elem_ptr)
   if (elem->other_offset != NO_OTHER_PROPS) {
     other_flag = 1;
     /* make room for other_props */
-    other_data = (char *) myalloc (elem->other_size);
+    other_data = static_cast<char *>(myalloc (elem->other_size));
     /* store pointer in user's structure to the other_props */
-    char** ptr = (char **) (elem_ptr + elem->other_offset);
+    char** ptr = reinterpret_cast<char **>(elem_ptr + elem->other_offset);
     *ptr = other_data;
   }
   else
@@ -1517,14 +1517,14 @@ void binary_get_element(PlyFile *plyfile, char *elem_ptr)
         item_size = ply_type_size[prop->internal_type];
       }
 
-      store_array = (char **) (elem_data + prop->offset);
+      store_array = reinterpret_cast<char **>(elem_data + prop->offset);
       if (list_count == 0) {
         if (store_it)
           *store_array = NULL;
       }
       else {
         if (store_it) {
-          item_ptr = (char *) myalloc (sizeof (char) * item_size * list_count);
+            item_ptr = static_cast<char *>(myalloc (sizeof (char) * item_size * list_count));
           item = item_ptr;
           *store_array = item;
         }
@@ -1603,7 +1603,7 @@ const char **get_words(std::istream *fp, int *nwords, char **orig_line)
   int num_words = 0;
   char *ptr,*ptr2;
 
-  words = (const char **) myalloc (sizeof (char *) * max_words);
+  words = reinterpret_cast<const char **>(myalloc (sizeof (char *) * max_words));
 
   std::string line;
   std::getline(*fp, line);
@@ -1645,7 +1645,7 @@ const char **get_words(std::istream *fp, int *nwords, char **orig_line)
     /* save pointer to beginning of word */
     if (num_words >= max_words) {
       max_words += 10;
-      words = (const char **) realloc (words, sizeof (char *) * max_words);
+      words = reinterpret_cast<const char **>(realloc (words, sizeof (char *) * max_words));
     }
     words[num_words++] = ptr;
 
@@ -1691,35 +1691,35 @@ double get_item_value(char *item, int type)
 
   switch (type) {
     case PLY_CHAR:
-      pchar = (char *) item;
+        pchar = static_cast<char *>(item);
       int_value = *pchar;
-      return ((double) int_value);
+      return (double(int_value));
     case PLY_UCHAR:
-      puchar = (unsigned char *) item;
+        puchar = reinterpret_cast<unsigned char *>(item);
       int_value = *puchar;
-      return ((double) int_value);
+      return (double(int_value));
     case PLY_SHORT:
-      pshort = (short int *) item;
+        pshort = reinterpret_cast<short int *>(item);
       int_value = *pshort;
-      return ((double) int_value);
+      return (double(int_value));
     case PLY_USHORT:
-      pushort = (unsigned short int *) item;
+        pushort = reinterpret_cast<unsigned short int *>(item);
       int_value = *pushort;
-      return ((double) int_value);
+      return (double(int_value));
     case PLY_INT:
-      pint = (int *) item;
+        pint = reinterpret_cast<int *>(item);
       int_value = *pint;
-      return ((double) int_value);
+      return (double(int_value));
     case PLY_UINT:
-      puint = (unsigned int *) item;
+        puint = reinterpret_cast<unsigned int *>(item);
       uint_value = *puint;
-      return ((double) uint_value);
+      return (double(uint_value));
     case PLY_FLOAT:
-      pfloat = (float *) item;
+        pfloat = reinterpret_cast<float *>(item);
       double_value = *pfloat;
       return (double_value);
     case PLY_DOUBLE:
-      pdouble = (double *) item;
+        pdouble = reinterpret_cast<double *>(item);
       double_value = *pdouble;
       return (double_value);
     default:
@@ -1763,28 +1763,28 @@ void write_binary_item(
       break;
     case PLY_SHORT:
       short_val = int_val;
-      fp->write ((char*)&short_val, 2);
+      fp->write (reinterpret_cast<char*>(&short_val), 2);
       break;
     case PLY_INT:
-      fp->write ((char*)&int_val, 4);
+        fp->write (reinterpret_cast<char*>(&int_val), 4);
       break;
     case PLY_UCHAR:
       uchar_val = uint_val;
-      fp->write ((char*)&uchar_val, 1);
+      fp->write (reinterpret_cast<char*>(&uchar_val), 1);
       break;
     case PLY_USHORT:
       ushort_val = uint_val;
-      fp->write ((char*)&ushort_val, 2);
+      fp->write (reinterpret_cast<char*>(&ushort_val), 2);
       break;
     case PLY_UINT:
-      fp->write ((char*)&uint_val, 4);
+        fp->write (reinterpret_cast<char*>(&uint_val), 4);
       break;
     case PLY_FLOAT:
       float_val = float(double_val);
-      fp->write ((char*)&float_val, 4);
+      fp->write (reinterpret_cast<char*>(&float_val), 4);
       break;
     case PLY_DOUBLE:
-      fp->write ((char*)&double_val, 8);
+        fp->write (reinterpret_cast<char*>(&double_val), 8);
       break;
     default:
       fprintf (stderr, "write_binary_item: bad type = %d\n", type);
@@ -1858,42 +1858,42 @@ void get_stored_item(
 {
   switch (type) {
     case PLY_CHAR:
-      *int_val = *((char *) ptr);
+        *int_val = *(static_cast<char *>(ptr));
       *uint_val = *int_val;
       *double_val = *int_val;
       break;
     case PLY_UCHAR:
-      *uint_val = *((unsigned char *) ptr);
+        *uint_val = *(static_cast<unsigned char *>(ptr));
       *int_val = *uint_val;
       *double_val = *uint_val;
       break;
     case PLY_SHORT:
-      *int_val = *((short int *) ptr);
+        *int_val = *(static_cast<short int *>(ptr));
       *uint_val = *int_val;
       *double_val = *int_val;
       break;
     case PLY_USHORT:
-      *uint_val = *((unsigned short int *) ptr);
+        *uint_val = *(static_cast<unsigned short int *>(ptr));
       *int_val = *uint_val;
       *double_val = *uint_val;
       break;
     case PLY_INT:
-      *int_val = *((int *) ptr);
+        *int_val = *(static_cast<int *>(ptr));
       *uint_val = *int_val;
       *double_val = *int_val;
       break;
     case PLY_UINT:
-      *uint_val = *((unsigned int *) ptr);
+        *uint_val = *(static_cast<unsigned int *>(ptr));
       *int_val = *uint_val;
       *double_val = *uint_val;
       break;
     case PLY_FLOAT:
-      *double_val = *((float *) ptr);
+        *double_val = *(static_cast<float *>(ptr));
       *int_val = int(*double_val);
       *uint_val = unsigned(*double_val);
       break;
     case PLY_DOUBLE:
-      *double_val = *((double *) ptr);
+        *double_val = *(static_cast<double *>(ptr));
       *int_val = int(*double_val);
       *uint_val = unsigned(*double_val);
       break;
@@ -1930,18 +1930,18 @@ void get_binary_item(
   char c[8];
   void *ptr;
 
-  ptr = (void *) c;
+  ptr = static_cast<void *>(c);
 
   switch (type) {
     case PLY_CHAR:
       fp->read (c, 1);
-      *int_val = *((char *) ptr);
+      *int_val = *(static_cast<char *>(ptr));
       *uint_val = *int_val;
       *double_val = *int_val;
       break;
     case PLY_UCHAR:
       fp->read (c, 1);
-      *uint_val = *((unsigned char *) ptr);
+      *uint_val = *(static_cast<unsigned char *>(ptr));
       *int_val = *uint_val;
       *double_val = *uint_val;
       break;
@@ -1950,7 +1950,7 @@ void get_binary_item(
       if (reverse_bytes) {
         std::reverse(c, c + 2);
       }
-      *int_val = *((short int *) ptr);
+      *int_val = *(static_cast<short int *>(ptr));
       *uint_val = *int_val;
       *double_val = *int_val;
       break;
@@ -1959,7 +1959,7 @@ void get_binary_item(
       if (reverse_bytes) {
         std::reverse(c, c + 2);
       }
-      *uint_val = *((unsigned short int *) ptr);
+      *uint_val = *(static_cast<unsigned short int *>(ptr));
       *int_val = *uint_val;
       *double_val = *uint_val;
       break;
@@ -1968,7 +1968,7 @@ void get_binary_item(
       if (reverse_bytes) {
         std::reverse(c, c + 4);
       }
-      *int_val = *((int *) ptr);
+      *int_val = *(static_cast<int *>(ptr));
       *uint_val = *int_val;
       *double_val = *int_val;
       break;
@@ -1977,7 +1977,7 @@ void get_binary_item(
       if (reverse_bytes) {
         std::reverse(c, c + 4);
       }
-      *uint_val = *((unsigned int *) ptr);
+      *uint_val = *(static_cast<unsigned int *>(ptr));
       *int_val = *uint_val;
       *double_val = *uint_val;
       break;
@@ -1986,7 +1986,7 @@ void get_binary_item(
       if (reverse_bytes) {
         std::reverse(c, c + 4);
       }
-      *double_val = *((float *) ptr);
+      *double_val = *(static_cast<float *>(ptr));
       *int_val = int(*double_val);
       *uint_val = unsigned(*double_val);
       break;
@@ -1995,7 +1995,7 @@ void get_binary_item(
       if (reverse_bytes) {
         std::reverse(c, c + 8);
       }
-      *double_val = *((double *) ptr);
+      *double_val = *(static_cast<double *>(ptr));
       *int_val = int(*double_val);
       *uint_val = unsigned(*double_val);
       break;
@@ -2040,7 +2040,7 @@ void get_ascii_item(
       break;
 
     case PLY_UINT:
-      *uint_val = strtoul (word, (char **) NULL, 10);
+      *uint_val = strtoul (word, NULL, 10);
       *int_val = *uint_val;
       *double_val = *uint_val;
       break;
@@ -2048,8 +2048,8 @@ void get_ascii_item(
     case PLY_FLOAT:
     case PLY_DOUBLE:
       *double_val = atof (word);
-      *int_val = (int) *double_val;
-      *uint_val = (unsigned int) *double_val;
+      *int_val = int(*double_val);
+      *uint_val = unsigned(*double_val);
       break;
 
     default:
@@ -2094,31 +2094,31 @@ void store_item (
       *item = int_val;
       break;
     case PLY_UCHAR:
-      puchar = (unsigned char *) item;
+        puchar = reinterpret_cast<unsigned char *>(item);
       *puchar = uint_val;
       break;
     case PLY_SHORT:
-      pshort = (short *) item;
+        pshort = reinterpret_cast<short *>(item);
       *pshort = int_val;
       break;
     case PLY_USHORT:
-      pushort = (unsigned short *) item;
+        pushort = reinterpret_cast<unsigned short *>(item);
       *pushort = uint_val;
       break;
     case PLY_INT:
-      pint = (int *) item;
+        pint = reinterpret_cast<int *>(item);
       *pint = int_val;
       break;
     case PLY_UINT:
-      puint = (unsigned int *) item;
+        puint = reinterpret_cast<unsigned int *>(item);
       *puint = uint_val;
       break;
     case PLY_FLOAT:
-      pfloat = (float *) item;
+        pfloat = reinterpret_cast<float *>(item);
       *pfloat = float(double_val);
       break;
     case PLY_DOUBLE:
-      pdouble = (double *) item;
+        pdouble = reinterpret_cast<double *>(item);
       *pdouble = double_val;
       break;
     default:
@@ -2261,7 +2261,7 @@ static char *my_alloc(int size, int lnum, const char *fname)
 {
   char *ptr;
 
-  ptr = (char *) malloc (size);
+  ptr = static_cast<char *>(malloc (size));
 
   if (ptr == 0) {
       fprintf(stderr, "Memory allocation bombed on line %d in %s: %d bytes\n", lnum, fname, size);

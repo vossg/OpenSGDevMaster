@@ -125,7 +125,7 @@ void RangeFit::Compress3( void* block )
 		}
 		
 		// save the index
-		closest[i] = ( u8 )idx;
+		closest[i] = u8(idx);
 		
 		// accumulate the error
 		error += dist;
@@ -178,7 +178,7 @@ void RangeFit::Compress4( void* block )
 		}
 		
 		// save the index
-		closest[i] = ( u8 )idx;
+		closest[i] = u8(idx);
 		
 		// accumulate the error
 		error += dist;

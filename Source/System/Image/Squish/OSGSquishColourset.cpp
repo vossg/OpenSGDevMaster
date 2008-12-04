@@ -61,12 +61,12 @@ ColourSet::ColourSet( u8 const* rgba, int mask, int flags )
 			if( j == i )
 			{
 				// normalise coordinates to [0,1]
-				float x = ( float )rgba[4*i] / 255.0f;
-				float y = ( float )rgba[4*i + 1] / 255.0f;
-				float z = ( float )rgba[4*i + 2] / 255.0f;
+				float x = float(rgba[4*i]) / 255.0f;
+				float y = float(rgba[4*i + 1]) / 255.0f;
+				float z = float(rgba[4*i + 2]) / 255.0f;
 				
 				// ensure there is always non-zero weight even for zero alpha
-				float w = ( float )( rgba[4*i + 3] + 1 ) / 256.0f;
+				float w = float( rgba[4*i + 3] + 1 ) / 256.0f;
 
 				// add the point
 				m_points[m_count] = Vec3( x, y, z );
@@ -91,7 +91,7 @@ ColourSet::ColourSet( u8 const* rgba, int mask, int flags )
 				int index = m_remap[j];
 				
 				// ensure there is always non-zero weight even for zero alpha
-				float w = ( float )( rgba[4*i + 3] + 1 ) / 256.0f;
+				float w = float( rgba[4*i + 3] + 1 ) / 256.0f;
 
 				// map to this point and increase the weight
 				m_weights[index] += ( weightByAlpha ? w : 1.0f );

@@ -30,7 +30,7 @@ namespace osgsquish {
 static int FloatToInt( float a, int limit )
 {
 	// use ANSI round-to-zero behaviour to get round-to-nearest
-	int i = ( int )( a + 0.5f );
+	int i = int( a + 0.5f );
 
 	// clamp to the limit
 	if( i < 0 )
@@ -56,13 +56,13 @@ static int FloatTo565( Vec3::Arg colour )
 static void WriteColourBlock( int a, int b, u8* indices, void* block )
 {
 	// get the block as bytes
-	u8* bytes = ( u8* )block;
+	u8* bytes = static_cast<u8*>(block);
 
 	// write the endpoints
-	bytes[0] = ( u8 )( a & 0xff );
-	bytes[1] = ( u8 )( a >> 8 );
-	bytes[2] = ( u8 )( b & 0xff );
-	bytes[3] = ( u8 )( b >> 8 );
+	bytes[0] = u8( a & 0xff );
+	bytes[1] = u8( a >> 8 );
+	bytes[2] = u8( b & 0xff );
+	bytes[3] = u8( b >> 8 );
 	
 	// write the indices
 	for( int i = 0; i < 4; ++i )
@@ -140,12 +140,12 @@ void WriteColourBlock4( Vec3::Arg start, Vec3::Arg end, u8 const* indices, void*
 static int Unpack565( u8 const* packed, u8* colour )
 {
 	// build the packed value
-	int value = ( int )packed[0] | ( ( int )packed[1] << 8 );
+	int value = int(packed[0]) | ( int(packed[1]) << 8 );
 	
 	// get the components in the stored range
-	u8 red = ( u8 )( ( value >> 11 ) & 0x1f );
-	u8 green = ( u8 )( ( value >> 5 ) & 0x3f );
-	u8 blue = ( u8 )( value & 0x1f );
+	u8 red   = u8( ( value >> 11 ) & 0x1f );
+	u8 green = u8( ( value >> 5 ) & 0x3f );
+	u8 blue  = u8( value & 0x1f );
 
 	// scale up to 8 bits
 	colour[0] = ( red << 3 ) | ( red >> 2 );
@@ -175,13 +175,13 @@ void DecompressColour( u8* rgba, void const* block, bool isDxt1 )
 
 		if( isDxt1 && a <= b )
 		{
-			codes[8 + i] = ( u8 )( ( c + d )/2 );
+			codes[8 + i] = u8( ( c + d )/2 );
 			codes[12 + i] = 0;
 		}
 		else
 		{
-			codes[8 + i] = ( u8 )( ( 2*c + d )/3 );
-			codes[12 + i] = ( u8 )( ( c + 2*d )/3 );
+			codes[8 + i]  = u8( ( 2*c + d )/3 );
+			codes[12 + i] = u8( ( c + 2*d )/3 );
 		}
 	}
 	

@@ -66,11 +66,11 @@ bool ClusterFit::ConstructOrdering( Vec3 const& axis, int iteration )
 
 	// build the list of dot products
 	float dps[16];
-	u8* order = ( u8* )m_order + 16*iteration;
+	u8* order = static_cast< u8*>(m_order) + 16*iteration;
 	for( int i = 0; i < count; ++i )
 	{
 		dps[i] = Dot( values[i], axis );
-		order[i] = ( u8 )i;
+		order[i] = u8(i);
 	}
 		
 	// stable sort using them
@@ -86,7 +86,7 @@ bool ClusterFit::ConstructOrdering( Vec3 const& axis, int iteration )
 	// check this ordering is unique
 	for( int it = 0; it < iteration; ++it )
 	{
-		u8 const* prev = ( u8* )m_order + 16*it;
+		u8 const* prev = static_cast< u8*>(m_order) + 16*it;
 		bool same = true;
 		for( int i = 0; i < count; ++i )
 		{
@@ -225,7 +225,7 @@ void ClusterFit::Compress3( void* block )
 	if( CompareAnyLessThan( besterror, m_besterror ) )
 	{
 		// remap the indices
-		u8 const* order = ( u8* )m_order + 16*bestiteration;
+		u8 const* order = static_cast<u8*>(m_order) + 16*bestiteration;
 
 		u8 unordered[16];
 		for( int m = 0; m < besti; ++m )
@@ -368,7 +368,7 @@ void ClusterFit::Compress4( void* block )
 	if( CompareAnyLessThan( besterror, m_besterror ) )
 	{
 		// remap the indices
-		u8 const* order = ( u8* )m_order + 16*bestiteration;
+		u8 const* order = static_cast<u8*>(m_order) + 16*bestiteration;
 
 		u8 unordered[16];
 		for( int m = 0; m < besti; ++m )

@@ -1,3 +1,8 @@
+
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wold-style-cast"
+#endif
+
 // testDynamicClusterClient2
 //
 // OpenSG cluster client program where you can dynamicly connect/disconnect

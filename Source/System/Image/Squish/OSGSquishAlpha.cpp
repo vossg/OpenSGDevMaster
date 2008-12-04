@@ -32,7 +32,7 @@ namespace osgsquish {
 static int FloatToInt( float a, int limit )
 {
 	// use ANSI round-to-zero behaviour to get round-to-nearest
-	int i = ( int )( a + 0.5f );
+	int i = int( a + 0.5f );
 
 	// clamp to the limit
 	if( i < 0 )
@@ -52,8 +52,8 @@ void CompressAlphaDxt3( u8 const* rgba, int mask, void* block )
 	for( int i = 0; i < 8; ++i )
 	{
 		// quantise down to 4 bits
-		float alpha1 = ( float )rgba[8*i + 3] * ( 15.0f/255.0f );
-		float alpha2 = ( float )rgba[8*i + 7] * ( 15.0f/255.0f );
+		float alpha1 = float(rgba[8*i + 3]) * ( 15.0f/255.0f );
+		float alpha2 = float(rgba[8*i + 7]) * ( 15.0f/255.0f );
 		int quant1 = FloatToInt( alpha1, 15 );
 		int quant2 = FloatToInt( alpha2, 15 );
 		
@@ -66,7 +66,7 @@ void CompressAlphaDxt3( u8 const* rgba, int mask, void* block )
 			quant2 = 0;
 
 		// pack into the byte
-		bytes[i] = ( u8 )( quant1 | ( quant2 << 4 ) );
+		bytes[i] = u8( quant1 | ( quant2 << 4 ) );
 	}
 }
 
@@ -120,7 +120,7 @@ static int FitCodes( u8 const* rgba, int mask, u8 const* codes, u8* indices )
 		for( int j = 0; j < 8; ++j )
 		{
 			// get the squared error from this code
-			int dist = ( int )value - ( int )codes[j];
+			int dist = int(value) - int(codes[j]);
 			dist *= dist;
 			
 			// compare with the best so far
@@ -132,7 +132,7 @@ static int FitCodes( u8 const* rgba, int mask, u8 const* codes, u8* indices )
 		}
 		
 		// save this index and accumulate the error
-		indices[i] = ( u8 )index;
+		indices[i] = u8(index);
 		err += least;
 	}
 	
@@ -145,8 +145,8 @@ static void WriteAlphaBlock( int alpha0, int alpha1, u8 const* indices, void* bl
 	u8* bytes = reinterpret_cast< u8* >( block );
 	
 	// write the first two bytes
-	bytes[0] = ( u8 )alpha0;
-	bytes[1] = ( u8 )alpha1;
+	bytes[0] = u8(alpha0);
+	bytes[1] = u8(alpha1);
 	
 	// pack the indices with 3 bits each
 	u8* dest = bytes + 2;
@@ -165,7 +165,7 @@ static void WriteAlphaBlock( int alpha0, int alpha1, u8 const* indices, void* bl
 		for( int j = 0; j < 3; ++j )
 		{
 			int byte = ( value >> 8*j ) & 0xff;
-			*dest++ = ( u8 )byte;
+			*dest++ = u8(byte);
 		}
 	}
 }
@@ -266,19 +266,19 @@ void CompressAlphaDxt5( u8 const* rgba, int mask, void* block )
 	
 	// set up the 5-alpha code book
 	u8 codes5[8];
-	codes5[0] = ( u8 )min5;
-	codes5[1] = ( u8 )max5;
+	codes5[0] = u8(min5);
+    codes5[1] = u8(max5);
 	for( int i = 1; i < 5; ++i )
-		codes5[1 + i] = ( u8 )( ( ( 5 - i )*min5 + i*max5 )/5 );
+		codes5[1 + i] = u8( ( ( 5 - i )*min5 + i*max5 )/5 );
 	codes5[6] = 0;
 	codes5[7] = 255;
 	
 	// set up the 7-alpha code book
 	u8 codes7[8];
-	codes7[0] = ( u8 )min7;
-	codes7[1] = ( u8 )max7;
+	codes7[0] = u8(min7);
+	codes7[1] = u8(max7);
 	for( int i = 1; i < 7; ++i )
-		codes7[1 + i] = ( u8 )( ( ( 7 - i )*min7 + i*max7 )/7 );
+		codes7[1 + i] = u8( ( ( 7 - i )*min7 + i*max7 )/7 );
 		
 	// fit the data to both code books
 	u8 indices5[16];
@@ -302,13 +302,13 @@ void DecompressAlphaDxt5( u8* rgba, void const* block )
 	
 	// compare the values to build the codebook
 	u8 codes[8];
-	codes[0] = ( u8 )alpha0;
-	codes[1] = ( u8 )alpha1;
+	codes[0] = u8(alpha0);
+	codes[1] = u8(alpha1);
 	if( alpha0 <= alpha1 )
 	{
 		// use 5-alpha codebook
 		for( int i = 1; i < 5; ++i )
-			codes[1 + i] = ( u8 )( ( ( 5 - i )*alpha0 + i*alpha1 )/5 );
+			codes[1 + i] = u8( ( ( 5 - i )*alpha0 + i*alpha1 )/5 );
 		codes[6] = 0;
 		codes[7] = 255;
 	}
@@ -316,7 +316,7 @@ void DecompressAlphaDxt5( u8* rgba, void const* block )
 	{
 		// use 7-alpha codebook
 		for( int i = 1; i < 7; ++i )
-			codes[1 + i] = ( u8 )( ( ( 7 - i )*alpha0 + i*alpha1 )/7 );
+			codes[1 + i] = u8( ( ( 7 - i )*alpha0 + i*alpha1 )/7 );
 	}
 	
 	// decode the indices
@@ -337,7 +337,7 @@ void DecompressAlphaDxt5( u8* rgba, void const* block )
 		for( int j = 0; j < 8; ++j )
 		{
 			int index = ( value >> 3*j ) & 0x7;
-			*dest++ = ( u8 )index;
+			*dest++ = u8(index);
 		}
 	}
 	
