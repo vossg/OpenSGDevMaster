@@ -666,7 +666,9 @@ def OptionsSave(self, file, env):
         then be used to load the options next run.  This can be used
         to create an option cache file.
 
-        filename - Name of the file to save into
+        file - Name of file to save, or a file-like object to write into.
+               Note: The file-like object is (intentionally) not closed
+                     by this function. The file-from-filename is.
         env - the environment get the option values from
         """
 
