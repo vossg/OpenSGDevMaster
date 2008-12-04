@@ -1722,8 +1722,9 @@ void SHLChunk::updateInvWorldMatrix(ShaderParameter * const parameter,
     m.invert();
 
     // get "glUniformMatrix4fvARB" function pointer
-    OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = (OSGGLUNIFORMMATRIXFVARBPROC)
-        pEnv->getWindow()->getFunction(_funcUniformMatrix4fv);
+    OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = 
+        reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUniformMatrix4fv));
 
     if(parameter->getLocation() == -1)
         updateParameterLocation(pEnv->getWindow(), program, parameter);
@@ -1754,8 +1755,9 @@ void SHLChunk::updateTransInvWorldMatrix(ShaderParameter * const parameter,
     m.transpose();
 
     // get "glUniformMatrix4fvARB" function pointer
-    OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = (OSGGLUNIFORMMATRIXFVARBPROC)
-        pEnv->getWindow()->getFunction(_funcUniformMatrix4fv);
+    OSGGLUNIFORMMATRIXFVARBPROC uniformMatrix4fv = 
+        reinterpret_cast<OSGGLUNIFORMMATRIXFVARBPROC>(
+            pEnv->getWindow()->getFunction(_funcUniformMatrix4fv));
 
     if(parameter->getLocation() == -1)
         updateParameterLocation(pEnv->getWindow(), program, parameter);
