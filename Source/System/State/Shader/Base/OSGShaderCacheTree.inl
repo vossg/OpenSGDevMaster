@@ -38,7 +38,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_SHC_MODE_0
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+
 template<class ObjectT> inline
 ObjectT *ShaderVectorCache<ObjectT>::find(const IdStore &vIds)
 {
@@ -145,16 +147,16 @@ template<class ObjectT> inline
 ShaderVectorCache<ObjectT>::~ShaderVectorCache(void)
 {
 }
-#endif
 
 
 
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 
 
 
-#ifdef OSG_SHC_MODE_1
 template<class ObjectT, UInt32 LevelBits> inline
-ShaderCacheTree<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
+ShaderCacheTreeV0<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
 #ifdef OSG_DEBUG
     _uiNodeId(0   ),
 #endif
@@ -162,12 +164,11 @@ ShaderCacheTree<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
     _pPrev   (NULL),
     _pNext   (NULL)
 {
-    
     memset(&(_vChildren[0]), 0, LevelSize * sizeof(TreeNode *));
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-ShaderCacheTree<ObjectT, LevelBits>::TreeNode::~TreeNode(void)
+ShaderCacheTreeV0<ObjectT, LevelBits>::TreeNode::~TreeNode(void)
 {
     _pObject  = NULL;
     _pPrev    = NULL;
@@ -175,7 +176,7 @@ ShaderCacheTree<ObjectT, LevelBits>::TreeNode::~TreeNode(void)
 }
         
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::TreeNode::clear(void)
+void ShaderCacheTreeV0<ObjectT, LevelBits>::TreeNode::clear(void)
 {
     _pObject  = NULL;
     _pPrev    = NULL;
@@ -201,14 +202,14 @@ static UInt16 IdxToBits[9] =
 };
 
 template<class ObjectT, UInt32 LevelBits> inline
-ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
+ObjectT *ShaderCacheTreeV0<ObjectT, LevelBits>::find(const IdStore &vIds)
 {
     if(vIds.size() < 1)
         return NULL;
 
     ObjectT *returnValue = NULL;
 
-    IdType uiStartId     = vIds[0];
+    IdType uiStartId     = vIds[0] - 1;
     IdType uiStartLevel  = IdType(uiStartId * LevelFactor);
 
     UInt32 uiCurrId      = 0;
@@ -221,7 +222,7 @@ ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
     }
 
 
-    UInt32    uiLevelSub = uiStartLevel * LevelBits;
+    UInt32    uiLevelSub = (uiStartLevel * LevelBits);
     UInt32    uiCurrBits = 0x0000;
     TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
 
@@ -247,7 +248,7 @@ ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
             uiCurrBits  = 0x0000;
 
             uiLevelSub += LevelBits;
-            uiCurrIdx  -= uiLevelSub;
+            uiCurrIdx  -= LevelBits;
 
             while(uiCurrIdx > LevelBits)
             {
@@ -285,15 +286,15 @@ ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
 
 
 template<class ObjectT, UInt32 LevelBits> inline
-bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
-                                                    ObjectT *pObject)
+bool ShaderCacheTreeV0<ObjectT, LevelBits>::add(const IdStore &vIds,
+                                                      ObjectT *pObject)
 {
     bool returnValue = false;
 
     if(vIds.size() < 1)
         return returnValue;
 
-    IdType uiStartId    = vIds[0];
+    IdType uiStartId    = vIds[0] - 1;
 
     IdType uiStartLevel = IdType(uiStartId * LevelFactor);
 
@@ -306,7 +307,7 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
         uiStartLevel = _vLevelEntries.size() - 1;
     }
 
-    UInt32 uiLevelSub   = uiStartLevel * LevelBits;
+    UInt32 uiLevelSub   = (uiStartLevel * LevelBits);
    
     TreeNode *pCurrNode = _vLevelEntries[uiStartLevel];
     TreeNode *pNextNode = NULL;
@@ -376,7 +377,7 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
             pCurrNode   = pNextNode;
 
             uiLevelSub += LevelBits;
-            uiCurrIdx  -= uiLevelSub;
+            uiCurrIdx  -= LevelBits;
 
             while(uiCurrIdx > LevelBits)
             {
@@ -505,16 +506,16 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::sub(UInt32 uiIdx)
+void ShaderCacheTreeV0<ObjectT, LevelBits>::sub(UInt32 uiIdx)
 {
-    IdType uiStartLevel  = IdType(uiIdx * LevelFactor);
+    IdType uiStartLevel  = IdType((uiIdx - 1) * LevelFactor);
 
     if(uiStartLevel >= _vLevelEntries.size())
     {
         return;
     }
 
-    UInt32    uiLevelSub = uiStartLevel * LevelBits;
+    UInt32    uiLevelSub = (uiStartLevel * LevelBits);
     UInt32    uiCurrIdx  = uiIdx - uiLevelSub;
     UInt32    uiCurrBits = IdxToBits[uiCurrIdx];
 
@@ -549,7 +550,7 @@ void ShaderCacheTree<ObjectT, LevelBits>::sub(UInt32 uiIdx)
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
+void ShaderCacheTreeV0<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
 {
     FILE *pOut = fopen(szFilename, "w");
 
@@ -627,7 +628,7 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::dumpDotNode(
+void ShaderCacheTreeV0<ObjectT, LevelBits>::dumpDotNode(
     TreeNode                              *pNode, 
     FILE                                  *pOut ,
     std::vector<std::vector<TreeNode *> > &vLevelStore,
@@ -738,7 +739,7 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDotNode(
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-ShaderCacheTree<ObjectT, LevelBits>::ShaderCacheTree(void) :
+ShaderCacheTreeV0<ObjectT, LevelBits>::ShaderCacheTreeV0(void) :
 #ifdef OSG_DEBUG
     _uiNodeCount  (0   ),
 #endif
@@ -752,7 +753,7 @@ ShaderCacheTree<ObjectT, LevelBits>::ShaderCacheTree(void) :
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-ShaderCacheTree<ObjectT, LevelBits>::~ShaderCacheTree(void)
+ShaderCacheTreeV0<ObjectT, LevelBits>::~ShaderCacheTreeV0(void)
 {
     typename std::deque <TreeNode *>::const_iterator qIt  = 
         _qFreeElements.begin();
@@ -767,8 +768,8 @@ ShaderCacheTree<ObjectT, LevelBits>::~ShaderCacheTree(void)
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-typename ShaderCacheTree<ObjectT, LevelBits>::TreeNode *
-    ShaderCacheTree<ObjectT, LevelBits>::allocateNode(void)
+typename ShaderCacheTreeV0<ObjectT, LevelBits>::TreeNode *
+    ShaderCacheTreeV0<ObjectT, LevelBits>::allocateNode(void)
 {
     TreeNode *returnValue = NULL;
 
@@ -799,7 +800,7 @@ typename ShaderCacheTree<ObjectT, LevelBits>::TreeNode *
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
+void ShaderCacheTreeV0<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
 {
     for(UInt32 i = 0; i < LevelSize; ++i)
     {
@@ -816,8 +817,8 @@ void ShaderCacheTree<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
 
 template<class ObjectT, UInt32 LevelBits> 
 template <typename ElemDestFunc> inline
-void ShaderCacheTree<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
-                                                      ElemDestFunc  destFunc)
+void ShaderCacheTreeV0<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
+                                                        ElemDestFunc  destFunc)
 {
     for(UInt32 i = 0; i < LevelSize; ++i)
     {
@@ -840,21 +841,19 @@ void ShaderCacheTree<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
 
 template<class ObjectT, UInt32 LevelBits> 
 template <typename ElemDestFunc> inline
-void ShaderCacheTree<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
+void ShaderCacheTreeV0<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 {
     destroyNode(_pRoot, destFunc);
 
     _pRoot = NULL;
 }
-#endif
 
 
 
 
 
-
-
-#ifdef OSG_SHC_MODE_2
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
 
 
 template<typename Object1T, typename RefCountPol1, 
@@ -972,8 +971,12 @@ Object2T *VariantPtr<Object1T, RefCountPol1,
 
 
 
+
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+
 template<class ObjectT, UInt32 LevelBits> inline
-ShaderCacheTree<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
+ShaderCacheTreeV1<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
 #ifdef OSG_DEBUG
     _uiNodeId(0   ),
 #endif
@@ -984,7 +987,7 @@ ShaderCacheTree<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-ShaderCacheTree<ObjectT, LevelBits>::TreeNode::~TreeNode(void)
+ShaderCacheTreeV1<ObjectT, LevelBits>::TreeNode::~TreeNode(void)
 {
     _pObject = NULL;
     _pPrev   = NULL;
@@ -997,7 +1000,7 @@ ShaderCacheTree<ObjectT, LevelBits>::TreeNode::~TreeNode(void)
 }
         
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::TreeNode::clear(void)
+void ShaderCacheTreeV1<ObjectT, LevelBits>::TreeNode::clear(void)
 {
     _pObject = NULL;
     _pPrev   = NULL;
@@ -1010,30 +1013,16 @@ void ShaderCacheTree<ObjectT, LevelBits>::TreeNode::clear(void)
 }
 
 
-static UInt16 IdxToBits[9] = 
-{
-    0x0000,
-
-    0x0001,
-    0x0002,
-    0x0004,
-    0x0008,
-
-    0x0010,
-    0x0020,
-    0x0040,
-    0x0080
-};
 
 template<class ObjectT, UInt32 LevelBits> inline
-ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
+ObjectT *ShaderCacheTreeV1<ObjectT, LevelBits>::find(const IdStore &vIds)
 {
     if(vIds.size() < 1)
         return NULL;
 
     ObjectT *returnValue = NULL;
 
-    IdType uiStartId     = vIds[0];
+    IdType uiStartId     = vIds[0] - 1;
     IdType uiStartLevel  = IdType(uiStartId * LevelFactor);
 
     UInt32 uiCurrId      = 0;
@@ -1046,7 +1035,7 @@ ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
     }
 
 
-    UInt32    uiLevelSub = uiStartLevel * LevelBits;
+    UInt32    uiLevelSub = (uiStartLevel * LevelBits);
     UInt32    uiCurrBits = 0x0000;
     TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
 
@@ -1072,7 +1061,7 @@ ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
             uiCurrBits  = 0x0000;
 
             uiLevelSub += LevelBits;
-            uiCurrIdx  -= uiLevelSub;
+            uiCurrIdx  -= LevelBits;
 
             while(uiCurrIdx > LevelBits)
             {
@@ -1114,15 +1103,15 @@ ObjectT *ShaderCacheTree<ObjectT, LevelBits>::find(const IdStore &vIds)
 
 
 template<class ObjectT, UInt32 LevelBits> inline
-bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
-                                                    ObjectT *pObject)
+bool ShaderCacheTreeV1<ObjectT, LevelBits>::add(const IdStore &vIds,
+                                                      ObjectT *pObject)
 {
     bool returnValue = false;
 
     if(vIds.size() < 1)
         return returnValue;
 
-    IdType uiStartId    = vIds[0];
+    IdType uiStartId    = vIds[0] - 1;
 
     IdType uiStartLevel = IdType(uiStartId * LevelFactor);
 
@@ -1135,7 +1124,7 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
         uiStartLevel = _vLevelEntries.size() - 1;
     }
 
-    UInt32 uiLevelSub   = uiStartLevel * LevelBits;
+    UInt32 uiLevelSub   = (uiStartLevel * LevelBits);
    
     TreeNode *pCurrNode = _vLevelEntries[uiStartLevel];
     TreeNode *pNextNode = NULL;
@@ -1159,6 +1148,12 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
             if(pNextNode == NULL)
             {
                 pNextNode = allocateNode();
+
+                if(pCurrNode->_vChildren[uiCurrBits].asT1() != NULL)
+                {
+                    pNextNode->_pObject = 
+                        pCurrNode->_vChildren[uiCurrBits].asT1();
+                }
 
                 pCurrNode->_vChildren[uiCurrBits] = pNextNode;
 
@@ -1205,7 +1200,7 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
             pCurrNode   = pNextNode;
 
             uiLevelSub += LevelBits;
-            uiCurrIdx  -= uiLevelSub;
+            uiCurrIdx  -= LevelBits;
 
             while(uiCurrIdx > LevelBits)
             {
@@ -1294,16 +1289,16 @@ bool ShaderCacheTree<ObjectT, LevelBits>::add(const IdStore &vIds,
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::sub(UInt32 uiIdx)
+void ShaderCacheTreeV1<ObjectT, LevelBits>::sub(UInt32 uiIdx)
 {
-    IdType uiStartLevel  = IdType(uiIdx * LevelFactor);
+    IdType uiStartLevel  = IdType((uiIdx - 1) * LevelFactor);
 
     if(uiStartLevel >= _vLevelEntries.size())
     {
         return;
     }
 
-    UInt32    uiLevelSub = uiStartLevel * LevelBits;
+    UInt32    uiLevelSub = (uiStartLevel * LevelBits);
     UInt32    uiCurrIdx  = uiIdx - uiLevelSub;
     UInt32    uiCurrBits = IdxToBits[uiCurrIdx];
 
@@ -1342,7 +1337,7 @@ void ShaderCacheTree<ObjectT, LevelBits>::sub(UInt32 uiIdx)
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
+void ShaderCacheTreeV1<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
 {
     FILE *pOut = fopen(szFilename, "w");
 
@@ -1350,13 +1345,11 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
     {
         fprintf(pOut, "digraph structs\n");
         fprintf(pOut, "{\n");
+        fprintf(pOut, "rankdir = LR;\n");
+        fprintf(pOut, "splines=false\n");
+
         fprintf(pOut, "node [shape=record];\n");
 
-        std::vector<std::vector<TreeNode *> > vLevelStore;
-
-        dumpDotNode(_pRoot, pOut, vLevelStore, 0);
-
-#ifdef OSG_DEBUG
         fprintf(pOut, "struct%d\n", 0);
         fprintf(pOut, "[\n");
         fprintf(pOut, "    label=\"");
@@ -1384,17 +1377,24 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
         
         fprintf(pOut, "]\n");
 
-   
+        fprintf(pOut, "node [width = 1.5];\n");
+
+        std::vector<std::vector<TreeNode *> > vLevelStore;
+
+        dumpDotNode(_pRoot, pOut, vLevelStore, 0);
+
+#ifdef OSG_DEBUG
         for(UInt32 i = 0; i < _vLevelEntries.size(); ++i)
         {
             if(_vLevelEntries[i] != NULL)
             {
-                fprintf(pOut, "struct%d:l%d -> struct%d:l%d;\n",
+                fprintf(pOut, 
+                        "struct%d:l%d -> struct%d:prev [color=\"green\"];\n",
                         0, i,
-                        _vLevelEntries[i]->_uiNodeId, 0);
+                        _vLevelEntries[i]->_uiNodeId);
             }
         }
-
+#if 0
         for(UInt32 i = 0; i < vLevelStore.size(); ++i)
         {
             fprintf(pOut, "{ rank=same;");
@@ -1413,6 +1413,7 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
             fprintf(pOut, "}\n");
         }
 #endif
+#endif
         
         fprintf(pOut, "}\n");
         fclose(pOut);
@@ -1420,7 +1421,7 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::dumpDotNode(
+void ShaderCacheTreeV1<ObjectT, LevelBits>::dumpDotNode(
     TreeNode                              *pNode, 
     FILE                                  *pOut ,
     std::vector<std::vector<TreeNode *> > &vLevelStore,
@@ -1437,7 +1438,7 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDotNode(
 
     fprintf(pOut, "struct%d\n", pNode->_uiNodeId);
     fprintf(pOut, "[\n");
-    fprintf(pOut, "    label=\"");
+    fprintf(pOut, "    label=\"{");
 
     if(pNode->_pPrev != NULL)
     {
@@ -1475,11 +1476,11 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDotNode(
 
     if(pNode->_pNext != NULL)
     {
-        fprintf(pOut, "<next> N\"\n");
+        fprintf(pOut, "<next> N}\"\n");
     }
     else
     {
-        fprintf(pOut, "<next> N:NIL\"\n");
+        fprintf(pOut, "<next> N:NIL}\"\n");
     }
 
     fprintf(pOut, "]\n");
@@ -1492,9 +1493,10 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDotNode(
         {
             dumpDotNode(pChild, pOut, vLevelStore, uiLevel + 1);
             
-            fprintf(pOut, "struct%d:l%d -> struct%d:l%d;\n",
+            fprintf(pOut, 
+                    "struct%d:l%d -> struct%d:l%d [constraint=\"false\"];\n",
                     pNode ->_uiNodeId, i,
-                    pChild->_uiNodeId, UInt32(LevelSize/2));
+                    pChild->_uiNodeId, i);
         }
     }
 
@@ -1516,7 +1518,7 @@ void ShaderCacheTree<ObjectT, LevelBits>::dumpDotNode(
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-ShaderCacheTree<ObjectT, LevelBits>::ShaderCacheTree(void) :
+ShaderCacheTreeV1<ObjectT, LevelBits>::ShaderCacheTreeV1(void) :
 #ifdef OSG_DEBUG
     _uiNodeCount  (0   ),
 #endif
@@ -1530,7 +1532,7 @@ ShaderCacheTree<ObjectT, LevelBits>::ShaderCacheTree(void) :
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-ShaderCacheTree<ObjectT, LevelBits>::~ShaderCacheTree(void)
+ShaderCacheTreeV1<ObjectT, LevelBits>::~ShaderCacheTreeV1(void)
 {
     typename std::deque <TreeNode *>::const_iterator qIt  = 
         _qFreeElements.begin();
@@ -1545,8 +1547,8 @@ ShaderCacheTree<ObjectT, LevelBits>::~ShaderCacheTree(void)
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-typename ShaderCacheTree<ObjectT, LevelBits>::TreeNode *
-    ShaderCacheTree<ObjectT, LevelBits>::allocateNode(void)
+typename ShaderCacheTreeV1<ObjectT, LevelBits>::TreeNode *
+    ShaderCacheTreeV1<ObjectT, LevelBits>::allocateNode(void)
 {
     TreeNode *returnValue = NULL;
 
@@ -1577,7 +1579,7 @@ typename ShaderCacheTree<ObjectT, LevelBits>::TreeNode *
 }
 
 template<class ObjectT, UInt32 LevelBits> inline
-void ShaderCacheTree<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
+void ShaderCacheTreeV1<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
 {
     for(UInt32 i = 0; i < LevelSize; ++i)
     {
@@ -1598,8 +1600,8 @@ void ShaderCacheTree<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
 
 template<class ObjectT, UInt32 LevelBits> 
 template <typename ElemDestFunc> inline
-void ShaderCacheTree<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
-                                                      ElemDestFunc  destFunc)
+void ShaderCacheTreeV1<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
+                                                        ElemDestFunc  destFunc)
 {
     for(UInt32 i = 0; i < LevelSize; ++i)
     {
@@ -1630,12 +1632,1807 @@ void ShaderCacheTree<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
 
 template<class ObjectT, UInt32 LevelBits> 
 template <typename ElemDestFunc> inline
-void ShaderCacheTree<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
+void ShaderCacheTreeV1<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 {
     destroyNode(_pRoot, destFunc);
 
     _pRoot = NULL;
 }
+
+
+
+
+
+
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTreeV2<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
+#ifdef OSG_DEBUG
+    _uiNodeId(0   ),
 #endif
+    _pObject (NULL),
+    _pPrev   (NULL),
+    _pNext   (NULL)
+{
+    memset(&(_vJumps[0]), 0, LevelSize * sizeof(UInt16));
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTreeV2<ObjectT, LevelBits>::TreeNode::~TreeNode(void)
+{
+    _pObject = NULL;
+    _pPrev   = NULL;
+    _pNext   = NULL;
+
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        _vChildren[i].setAsT1(NULL);
+    }
+}
+        
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV2<ObjectT, LevelBits>::TreeNode::clear(void)
+{
+    _pObject = NULL;
+    _pPrev   = NULL;
+    _pNext   = NULL;
+    
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        _vChildren[i].setAsT1(NULL);
+    }
+
+    memset(&(_vJumps[0]), 0, LevelSize * sizeof(UInt16));
+}
+
+
+
+template<class ObjectT, UInt32 LevelBits> inline
+ObjectT *ShaderCacheTreeV2<ObjectT, LevelBits>::find(const IdStore &vIds)
+{
+    if(vIds.size() < 1)
+        return NULL;
+
+    ObjectT *returnValue = NULL;
+
+    IdType uiStartId     = vIds[0] - 1;
+    IdType uiStartLevel  = IdType(uiStartId * LevelFactor);
+
+    UInt32 uiCurrId      = 0;
+    UInt32 uiLastId      = vIds.size();
+  
+
+    if(uiStartLevel >= _vLevelEntries.size())
+    {
+        uiStartLevel = _vLevelEntries.size() - 1;
+    }
+
+
+    UInt32    uiLevelSub = (uiStartLevel * LevelBits);
+    UInt32    uiCurrBits = 0x0000;
+    TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
+    TreeNode *pNextNode  = NULL;
+
+    for(; uiCurrId < uiLastId; ++uiCurrId)
+    {
+        UInt32 uiCurrIdx  = vIds[uiCurrId] - uiLevelSub;
+        UInt16 uiJumpDist = 1;
+
+        if(uiCurrIdx <= LevelBits)
+        {
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+           
+            continue;
+        }
+        else
+        {
+            pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+
+            if(pNextNode == NULL)
+            {
+                pCurrNode = pNextNode;
+                break;
+            }
+
+            uiJumpDist = UInt16((uiCurrIdx - 1) * LevelFactor);
+            UInt32 uiTargetLevel = uiStartLevel + uiJumpDist;
+
+            if(uiJumpDist < pCurrNode->_vJumps[uiCurrBits])
+            {
+                pCurrNode = NULL;
+                break;
+            }
+
+            if(uiJumpDist > pCurrNode->_vJumps[uiCurrBits])
+            {
+                uiLevelSub += LevelBits * pCurrNode->_vJumps[uiCurrBits];
+                uiCurrIdx  -= LevelBits * pCurrNode->_vJumps[uiCurrBits];
+                uiJumpDist -= pCurrNode->_vJumps[uiCurrBits];
+                
+                pCurrNode = pNextNode;
+                pNextNode = pCurrNode->_vChildren[0].asT2();
+                
+                uiCurrBits  = 0x0000;
+
+                while(1)
+                {
+                    if(uiCurrIdx <= LevelBits)
+                    {
+                        break;
+                    }
+
+                    if(uiJumpDist == pCurrNode->_vJumps[0])
+                    {
+                        break;
+                    }
+
+                    if(uiJumpDist < pCurrNode->_vJumps[0])
+                    {
+                        pNextNode = NULL;
+                        break;
+                    }
+                    
+                    if(pNextNode == NULL)
+                    {
+                        break;
+                    }
+                    
+                    uiLevelSub += 
+                        LevelBits * pCurrNode->_vJumps[0];
+                    
+                    uiCurrIdx  -= 
+                        LevelBits * pCurrNode->_vJumps[0];
+                    
+                    uiJumpDist -= pCurrNode->_vJumps[0];
+                    
+                    pCurrNode = pNextNode;
+                    pNextNode = pCurrNode->_vChildren[0].asT2();
+                }
+            }
+
+            pCurrNode = pNextNode;
+
+            if(pCurrNode == NULL)
+            {
+                break;
+            }
+
+            uiCurrBits  = 0x0000;
+
+            uiStartLevel = uiTargetLevel;
+            uiLevelSub   = (uiStartLevel * LevelBits);
+
+            uiCurrIdx  -= uiJumpDist * LevelBits;
+
+
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+        }
+    }
+
+    if(pCurrNode != NULL)
+    {
+        TreeNode *pNext = pCurrNode->_vChildren[uiCurrBits].asT2();
+        
+        if(pNext != NULL)
+        {
+            returnValue = pNext->_pObject;
+        }
+        else
+        {
+            returnValue = pCurrNode->_vChildren[uiCurrBits].asT1();
+        }
+    }
+
+    return returnValue;
+}
+
+
+template<class ObjectT, UInt32 LevelBits> inline
+bool ShaderCacheTreeV2<ObjectT, LevelBits>::add(const IdStore &vIds,
+                                                      ObjectT *pObject)
+{
+    bool returnValue = false;
+
+    if(vIds.size() < 1)
+        return returnValue;
+
+    IdType uiStartId    = vIds[0] - 1;
+
+    IdType uiStartLevel = IdType(uiStartId * LevelFactor);
+
+    UInt32 uiCurrId     = 0;
+    UInt32 uiLastId     = vIds.size();
+
+    
+    if(uiStartLevel >= _vLevelEntries.size())
+    {
+        uiStartLevel = _vLevelEntries.size() - 1;
+    }
+
+   
+    TreeNode *pCurrNode = _vLevelEntries[uiStartLevel];
+    TreeNode *pNextNode = NULL;
+
+    UInt32 uiCurrBits = 0x0000;
+
+    if(pCurrNode == NULL)
+    {
+        UInt32 uiLastValidLE = 0;
+        
+        for(UInt32 i = uiStartLevel; i >= 0; --i)
+        {
+            if(_vLevelEntries[i] != NULL)
+            {
+                uiLastValidLE = i;
+                break;
+            }
+        } 
+
+        uiStartLevel = uiLastValidLE;
+        pCurrNode    = _vLevelEntries[uiStartLevel];
+    }
+
+    UInt32 uiLevelSub   = (uiStartLevel * LevelBits);
+
+    for(; uiCurrId < uiLastId; ++uiCurrId)
+    {
+        UInt32 uiCurrIdx  = vIds[uiCurrId] - uiLevelSub;
+        UInt16 uiJumpDist = 1;
+
+        if(uiCurrIdx <= LevelBits)
+        {
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+            
+            continue;
+        }
+        else
+        {
+            pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+
+            uiJumpDist           = UInt16((uiCurrIdx - 1) * LevelFactor);
+            UInt32 uiTargetLevel = uiStartLevel + uiJumpDist;
+           
+            if(pNextNode != NULL)
+            {
+                if(uiJumpDist > pCurrNode->_vJumps[uiCurrBits])
+                {
+                    uiLevelSub += LevelBits * pCurrNode->_vJumps[uiCurrBits];
+                    uiCurrIdx  -= LevelBits * pCurrNode->_vJumps[uiCurrBits];
+                    uiJumpDist -= pCurrNode->_vJumps[uiCurrBits];
+
+                    pCurrNode = pNextNode;
+                    pNextNode = pCurrNode->_vChildren[0].asT2();
+
+                    uiCurrBits  = 0x0000;
+
+                    while(1)
+                    {
+                        if(uiCurrIdx <= LevelBits)
+                        {
+                            break;
+                        }
+
+                        if(pNextNode == NULL)
+                        {
+                            break;
+                        }
+
+                        if(uiJumpDist <= pCurrNode->_vJumps[0])
+                        {
+                            break;
+                        }
+
+                        uiLevelSub += 
+                            LevelBits * pCurrNode->_vJumps[0];
+
+                        uiCurrIdx  -= 
+                            LevelBits * pCurrNode->_vJumps[0];
+
+                        uiJumpDist -= pCurrNode->_vJumps[0];
+
+                        pCurrNode = pNextNode;
+                        pNextNode = pCurrNode->_vChildren[0].asT2();
+                    }
+                }
+
+                if(uiJumpDist < pCurrNode->_vJumps[uiCurrBits])
+                {
+                    pNextNode = allocateNode();
+
+                    pNextNode->_vJumps[0] = 
+                        pCurrNode->_vJumps   [uiCurrBits] - uiJumpDist;
+
+                    pNextNode->_vChildren[0] = 
+                        pCurrNode->_vChildren[uiCurrBits].asT2();
+
+                    pCurrNode->_vJumps   [uiCurrBits] = uiJumpDist;
+                    pCurrNode->_vChildren[uiCurrBits] = pNextNode;
+
+                    if(_vLevelEntries[uiTargetLevel] == NULL)
+                    {
+                        UInt32 uiLastValidLE = 0;
+
+                        for(UInt32 i = uiTargetLevel; i >= 0; --i)
+                        {
+                            if(_vLevelEntries[i] != NULL)
+                            {
+                                uiLastValidLE = i;
+                                break;
+                            }
+                        } 
+
+                        if(_vLevelEntries[uiLastValidLE] == pCurrNode &&
+                            uiCurrBits                   == 0          )
+                        {
+                            _vLevelEntries[uiTargetLevel] = pNextNode;
+                        }
+                        else
+                        {
+                            TreeNode *pTmpNode = allocateNode();
+
+                            if(_vLevelEntries[
+                                   uiLastValidLE]->_vChildren[0].asT2() != NULL)
+                            {
+                                pTmpNode->_vChildren[0] = 
+                                    _vLevelEntries[
+                                        uiLastValidLE]->_vChildren[0].asT2();
+
+                                pTmpNode->_vJumps[0] =
+                                    _vLevelEntries[
+                                        uiLastValidLE]->_vJumps[0] - 
+                                    (uiTargetLevel - uiLastValidLE);
+                            }
+                            
+                            _vLevelEntries[uiLastValidLE]->_vChildren[0] = 
+                                pTmpNode;
+                            _vLevelEntries[uiLastValidLE]->_vJumps   [0] = 
+                                uiTargetLevel - uiLastValidLE;
+                            
+                            _vLevelEntries[uiTargetLevel] = pTmpNode;
+                            
+                            pTmpNode ->_pNext = pNextNode;
+                            pNextNode->_pPrev = pTmpNode;
+                        }
+                    }
+                    else
+                    {
+                        pNextNode->_pNext = 
+                            _vLevelEntries[uiTargetLevel]->_pNext;
+
+                        if(pNextNode->_pNext != NULL)
+                        {
+                            pNextNode->_pNext->_pPrev = pNextNode;
+                        }
+
+                        _vLevelEntries[uiTargetLevel]->_pNext = pNextNode;
+                        
+                        pNextNode->_pPrev = _vLevelEntries[uiTargetLevel];
+                    }
+                }
+            }
+
+            if(pNextNode == NULL)
+            {
+                pNextNode = allocateNode();
+
+                pCurrNode->_vJumps   [uiCurrBits] = uiJumpDist;
+
+                if(pCurrNode->_vChildren[uiCurrBits].asT1() != NULL)
+                {
+                    pNextNode->_pObject = 
+                        pCurrNode->_vChildren[uiCurrBits].asT1();
+                }
+
+                pCurrNode->_vChildren[uiCurrBits] = pNextNode;
+
+                if(uiTargetLevel >= _vLevelEntries.size())
+                {
+                    _vLevelEntries.resize(uiTargetLevel + 1, NULL);
+
+                    UInt32 uiLastValidLE = 0;
+
+                    for(UInt32 i = uiTargetLevel; i >= 0; --i)
+                    {
+                        if(_vLevelEntries[i] != NULL)
+                        {
+                            uiLastValidLE = i;
+                            break;
+                        }
+                    } 
+
+                    if(_vLevelEntries[uiLastValidLE] == pCurrNode &&
+                        uiCurrBits                   == 0          )
+                    {
+                        _vLevelEntries[uiTargetLevel] = pNextNode;
+                    }
+                    else
+                    {
+                        TreeNode *pTmpNode = allocateNode();
+                        
+                        _vLevelEntries[uiLastValidLE]->_vChildren[0] = pTmpNode;
+                        _vLevelEntries[uiLastValidLE]->_vJumps   [0] = 
+                            uiTargetLevel - uiLastValidLE;
+
+                        _vLevelEntries[uiTargetLevel] = pTmpNode;
+                        
+                        pTmpNode ->_pNext = pNextNode;
+                        pNextNode->_pPrev = pTmpNode;
+                    }
+                }
+                else
+                {
+                    if(_vLevelEntries[uiTargetLevel] == NULL)
+                    {
+                        UInt32 uiLastValidLE = 0;
+
+                        for(UInt32 i = uiTargetLevel; i >= 0; --i)
+                        {
+                            if(_vLevelEntries[i] != NULL)
+                            {
+                                uiLastValidLE = i;
+                                break;
+                            }
+                        } 
+
+                        TreeNode *pTmpNode = allocateNode();
+
+                        if(_vLevelEntries[
+                               uiLastValidLE]->_vChildren[0].asT2() != NULL)
+                        {
+                            pTmpNode->_vChildren[0] = 
+                                _vLevelEntries[
+                                    uiLastValidLE]->_vChildren[0].asT2();
+
+                            pTmpNode->_vJumps[0] =
+                                _vLevelEntries[
+                                    uiLastValidLE]->_vJumps[0] - uiJumpDist;
+                        }
+
+                        _vLevelEntries[uiLastValidLE]->_vChildren[0] = pTmpNode;
+                        _vLevelEntries[uiLastValidLE]->_vJumps   [0] = 
+                            uiTargetLevel - uiLastValidLE;
+
+                        _vLevelEntries[uiTargetLevel] = pTmpNode;
+                        
+                        pTmpNode ->_pNext = pNextNode;
+                        pNextNode->_pPrev = pTmpNode;
+                    }
+                    else
+                    {
+                        pNextNode->_pNext = 
+                            _vLevelEntries[uiTargetLevel]->_pNext;
+
+                        if(pNextNode->_pNext != NULL)
+                        {
+                            pNextNode->_pNext->_pPrev = pNextNode;
+                        }
+
+                        _vLevelEntries[uiTargetLevel]->_pNext = pNextNode;
+                        
+                        pNextNode->_pPrev = _vLevelEntries[uiTargetLevel];
+                    }
+                }
+            }
+
+
+            pCurrNode   = pNextNode;
+            
+            uiCurrBits  = 0x0000;
+
+            uiStartLevel = uiTargetLevel;
+            uiLevelSub   = (uiStartLevel * LevelBits);
+
+            uiCurrIdx  -= uiJumpDist * LevelBits;
+
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+        }
+    }
+    
+    if(pCurrNode != NULL)
+    {
+        TreeNode *pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+        
+        if(pNextNode != NULL)
+        {
+            if(pNextNode->_pObject == NULL)
+            {
+                pNextNode->_pObject = pObject;
+                
+                returnValue = true;
+            }
+            else
+            {
+                OSG_ASSERT(pNextNode->_pObject == pObject);
+            }
+        }
+        else
+        {
+            pCurrNode->_vChildren[uiCurrBits] = pObject;
+                
+            returnValue = true;
+        }
+    }
+
+    return returnValue;
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV2<ObjectT, LevelBits>::sub(UInt32 uiIdx)
+{
+    IdType uiStartLevel  = IdType((uiIdx - 1) * LevelFactor);
+
+    if(uiStartLevel >= _vLevelEntries.size())
+    {
+        return;
+    }
+
+    UInt32    uiLevelSub = (uiStartLevel * LevelBits);
+    UInt32    uiCurrIdx  = uiIdx - uiLevelSub;
+    UInt32    uiCurrBits = IdxToBits[uiCurrIdx];
+
+    TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
+
+    for(; pCurrNode != NULL; pCurrNode = pCurrNode->_pNext)
+    {
+        for(UInt32 i = 0; i < LevelSize; ++i)
+        {
+            TreeNode *pChild = pCurrNode->_vChildren[i].asT2();
+
+            if(0x0000 != (i & uiCurrBits) && pChild != NULL)
+            {
+                if(pChild->_pNext == NULL)
+                {
+                    pChild->_pPrev->_pNext = NULL;
+                }
+                else
+                {
+                    pChild->_pPrev->_pNext = pChild->_pNext;
+                    pChild->_pNext->_pPrev = pChild->_pPrev;
+                }
+                
+                pChild->_pPrev = NULL;
+                pChild->_pNext = NULL;
+
+                eraseNode(pCurrNode->_vChildren[i].asT2());
+                pCurrNode->_vJumps   [i] = 0;
+                pCurrNode->_vChildren[i].setAsT2(NULL);
+            }
+            else if(pCurrNode->_vChildren[i].asT1() != NULL)
+            {
+                pCurrNode->_vChildren[i].setAsT1(NULL);
+                pCurrNode->_vJumps   [i] = 0;
+            }
+        }
+    }
+}
+
+#define OSG_DUMP_LEVELENTRIES
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV2<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
+{
+    FILE *pOut = fopen(szFilename, "w");
+
+    if(pOut != NULL)
+    {
+        fprintf(pOut, "digraph structs\n");
+        fprintf(pOut, "{\n");
+        fprintf(pOut, "rankdir = LR;\n");
+        fprintf(pOut, "splines=false\n");
+
+        fprintf(pOut, "node [shape=record];\n");
+
+        fprintf(pOut, "struct%d\n", 0);
+        fprintf(pOut, "[\n");
+        fprintf(pOut, "    label=\"");
+
+        for(UInt32 i = 0; i < _vLevelEntries.size(); ++i)
+        {
+            if(_vLevelEntries[i] != NULL)
+            {
+                fprintf(pOut, "<l%d> %d", i, i);
+            }
+            else
+            {
+                fprintf(pOut, "<l%d> NIL", i);
+            }
+            
+            if(i == _vLevelEntries.size() - 1)
+            {
+                fprintf(pOut, "\"\n");
+            }
+            else
+            {
+                fprintf(pOut, "|");
+            }
+        }
+        
+        fprintf(pOut, "]\n");
+
+        fprintf(pOut, "node [width = 1.5];\n");
+
+        std::vector<std::vector<TreeNode *> > vLevelStore;
+
+        dumpDotNode(_pRoot, pOut, vLevelStore, 0);
+
+#ifdef OSG_DEBUG
+#ifdef OSG_DUMP_LEVELENTRIES
+        for(UInt32 i = 0; i < _vLevelEntries.size(); ++i)
+        {
+            if(_vLevelEntries[i] != NULL)
+            {
+                fprintf(pOut, 
+                        "struct%d:l%d -> struct%d:prev [color=\"green\"];\n",
+                        0, i,
+                        _vLevelEntries[i]->_uiNodeId);
+            }
+        }
+#endif
+
+#if 0
+        for(UInt32 i = 0; i < vLevelStore.size(); ++i)
+        {
+            fprintf(pOut, "{ rank=same;");
+
+            for(UInt32 j = 0; j < vLevelStore[i].size(); ++j)
+            {
+                TreeNode *pChild = vLevelStore[i][j];
+
+                if(pChild != NULL)
+                {           
+                    fprintf(pOut, "\"struct%d\";",
+                            pChild->_uiNodeId);
+                }
+            }
+
+            fprintf(pOut, "}\n");
+        }
+#endif
+#endif
+        
+        fprintf(pOut, "}\n");
+        fclose(pOut);
+    }
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV2<ObjectT, LevelBits>::dumpDotNode(
+    TreeNode                              *pNode, 
+    FILE                                  *pOut ,
+    std::vector<std::vector<TreeNode *> > &vLevelStore,
+    UInt32                                 uiLevel    )
+{
+#ifdef OSG_DEBUG
+    if(pNode == NULL)
+        return;
+
+    if(uiLevel == vLevelStore.size())
+    {
+        vLevelStore.push_back(std::vector<TreeNode *>());
+    }
+
+    fprintf(pOut, "struct%d\n", pNode->_uiNodeId);
+    fprintf(pOut, "[\n");
+    fprintf(pOut, "    label=\"{");
+
+    if(pNode->_pPrev != NULL)
+    {
+        fprintf(pOut, "<prev> P|");
+    }
+    else
+    {
+        fprintf(pOut, "<prev> P:NIL|");
+    }
+
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        if(pNode->_vChildren[i].asT1() != NULL)
+        {
+            if(osgIsPower2(i) == true)
+            {
+                fprintf(pOut, "<l%d> _O:%d|", i, i);
+            }
+            else
+            {
+                fprintf(pOut, "<l%d> O:%d|", i, i);
+            }
+        }
+        else if(pNode->_vChildren[i].asT2() != NULL)
+        {
+            if(osgIsPower2(i) == true)
+            {
+                fprintf(pOut, "<l%d> _C:%d (%d)|", i, i, pNode->_vJumps[i]);
+            }
+            else
+            {
+                fprintf(pOut, "<l%d> C:%d (%d)|", i, i, pNode->_vJumps[i]);
+            }
+        }
+        else
+        {
+            if(osgIsPower2(i) == true)
+            {
+                fprintf(pOut, "<l%d> _NIL|", i);
+            }
+            else
+            {
+                fprintf(pOut, "<l%d> NIL|", i);
+            }
+        }
+    }
+
+    if(pNode->_pObject != NULL)
+    {
+        fprintf(pOut, "<val> VAL:Obj|");
+    }
+    else
+    {
+        fprintf(pOut, "<val> VAL:NIL|");
+    }
+
+    if(pNode->_pNext != NULL)
+    {
+        fprintf(pOut, "<next> N}\"\n");
+    }
+    else
+    {
+        fprintf(pOut, "<next> N:NIL}\"\n");
+    }
+
+    fprintf(pOut, "]\n");
+
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        TreeNode *pChild = pNode->_vChildren[i].asT2();
+
+        if(pChild != NULL)
+        {
+            dumpDotNode(pChild, pOut, vLevelStore, uiLevel + 1);
+            
+            fprintf(pOut, 
+                    "struct%d:l%d -> struct%d:l%d [constraint=\"false\"];\n",
+                    pNode ->_uiNodeId, i,
+                    pChild->_uiNodeId, i);
+        }
+    }
+
+    if(pNode->_pNext != NULL)
+    {
+        fprintf(pOut, "struct%d:next -> struct%d:prev;\n",
+                pNode ->_uiNodeId,
+                pNode->_pNext->_uiNodeId);
+    }
+    if(pNode->_pPrev != NULL)
+    {
+        fprintf(pOut, "struct%d:prev -> struct%d:next;\n",
+                pNode ->_uiNodeId,
+                pNode->_pPrev->_uiNodeId);
+    }
+
+     vLevelStore[uiLevel].push_back(pNode);
+#endif
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTreeV2<ObjectT, LevelBits>::ShaderCacheTreeV2(void) :
+#ifdef OSG_DEBUG
+    _uiNodeCount  (0   ),
+#endif
+    _pRoot        (NULL),
+    _vLevelEntries(    ),
+    _qFreeElements(    )
+{
+    _pRoot = allocateNode();
+
+    _vLevelEntries.push_back(_pRoot);
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTreeV2<ObjectT, LevelBits>::~ShaderCacheTreeV2(void)
+{
+    typename std::deque <TreeNode *>::const_iterator qIt  = 
+        _qFreeElements.begin();
+
+    typename std::deque <TreeNode *>::const_iterator qEnd = 
+        _qFreeElements.end();
+    
+    for(; qIt != qEnd; ++qIt)
+    {
+        delete (*qIt);
+    }
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+typename ShaderCacheTreeV2<ObjectT, LevelBits>::TreeNode *
+    ShaderCacheTreeV2<ObjectT, LevelBits>::allocateNode(void)
+{
+    TreeNode *returnValue = NULL;
+
+    if(_qFreeElements.empty() == false)
+    {
+        returnValue = _qFreeElements.back();
+
+        _qFreeElements.pop_back();
+
+        returnValue->clear();
+    }
+    else
+    {
+        returnValue = new TreeNode();
+
+#ifdef OSG_DEBUG
+        returnValue->_uiNodeId = ++_uiNodeCount;
+#endif
+    }
+
+#ifdef OSG_DEBUG
+    UIntPointer rU = reinterpret_cast<UIntPointer>(returnValue);
+
+    OSG_ASSERT((rU & 0x0001) == 0x0000);
+#endif
+
+    return returnValue;
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV2<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
+{
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        if(pNode->_vChildren[i].asT2() != NULL)
+        {
+            eraseNode(pNode->_vChildren[i].asT2());
+        }
+        else
+        {
+            pNode->_vChildren[i].setAsT1(NULL);
+        }
+    }
+
+    pNode->_pObject = NULL;
+
+    _qFreeElements.push_back(pNode);
+}
+
+template<class ObjectT, UInt32 LevelBits> 
+template <typename ElemDestFunc> inline
+void ShaderCacheTreeV2<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
+                                                        ElemDestFunc  destFunc)
+{
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        if(pNode->_vChildren[i].asT2() != NULL)
+        {
+            destroyNode(pNode->_vChildren[i].asT2(), destFunc);
+        }
+        else if(pNode->_vChildren[i].asT1() != NULL)
+        {
+#ifndef OSG_SHC_REF_CLEANUP
+            ObjectT *pObj = pNode->_vChildren[i].asT1();
+            (destFunc)(pObj);
+#endif
+            pNode->_vChildren[i].setAsT1(NULL);
+        }
+    }
+
+    if(pNode->_pObject != NULL)
+    {
+#ifndef OSG_SHC_REF_CLEANUP
+        (destFunc)(pNode->_pObject);
+#endif
+        pNode->_pObject = NULL;
+    }
+
+    delete pNode;
+}
+
+template<class ObjectT, UInt32 LevelBits> 
+template <typename ElemDestFunc> inline
+void ShaderCacheTreeV2<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
+{
+    destroyNode(_pRoot, destFunc);
+
+    _pRoot = NULL;
+}
+
+
+
+
+
+
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTreeV3<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
+#ifdef OSG_DEBUG
+    _uiNodeId(0   ),
+#endif
+    _pObject (NULL),
+    _pPrev   (NULL),
+    _pNext   (NULL)
+{
+    memset(&(_vJumps[0]), 0, LevelSize * sizeof(UInt16));
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTreeV3<ObjectT, LevelBits>::TreeNode::~TreeNode(void)
+{
+    _pObject = NULL;
+    _pPrev   = NULL;
+    _pNext   = NULL;
+
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        _vChildren[i].setAsT1(NULL);
+    }
+}
+        
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV3<ObjectT, LevelBits>::TreeNode::clear(void)
+{
+    _pObject = NULL;
+    _pPrev   = NULL;
+    _pNext   = NULL;
+    
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        _vChildren[i].setAsT1(NULL);
+    }
+
+    memset(&(_vJumps[0]), 0, LevelSize * sizeof(UInt16));
+}
+
+
+
+template<class ObjectT, UInt32 LevelBits> inline
+ObjectT *ShaderCacheTreeV3<ObjectT, LevelBits>::find(const IdStore &vIds)
+{
+    if(vIds.size() < 1)
+        return NULL;
+
+    ObjectT *returnValue = NULL;
+
+    IdType uiStartId     = vIds[0] - 1;
+    IdType uiStartLevel  = IdType(uiStartId * LevelFactor);
+
+    UInt32 uiCurrId      = 0;
+    UInt32 uiLastId      = vIds.size();
+  
+
+    if(uiStartLevel >= _vLevelEntries.size())
+    {
+        uiStartLevel = _vLevelEntries.size() - 1;
+    }
+
+
+    UInt32    uiLevelSub = (uiStartLevel * LevelBits);
+    UInt32    uiCurrBits = 0x0000;
+    TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
+    TreeNode *pNextNode  = NULL;
+
+    for(; uiCurrId < uiLastId; ++uiCurrId)
+    {
+        UInt32 uiCurrIdx  = vIds[uiCurrId] - uiLevelSub;
+        UInt16 uiJumpDist = 1;
+
+        if(uiCurrIdx <= LevelBits)
+        {
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+           
+            continue;
+        }
+        else
+        {
+            pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+
+            if(pNextNode == NULL)
+            {
+                pCurrNode = pNextNode;
+                break;
+            }
+
+            uiJumpDist = UInt16((uiCurrIdx - 1) * LevelFactor);
+            UInt32 uiTargetLevel = uiStartLevel + uiJumpDist;
+
+            if(uiJumpDist < pCurrNode->_vJumps[uiCurrBits])
+            {
+                pCurrNode = NULL;
+                break;
+            }
+
+            if(uiJumpDist > pCurrNode->_vJumps[uiCurrBits])
+            {
+                uiLevelSub += LevelBits * pCurrNode->_vJumps[uiCurrBits];
+                uiCurrIdx  -= LevelBits * pCurrNode->_vJumps[uiCurrBits];
+                uiJumpDist -= pCurrNode->_vJumps[uiCurrBits];
+                
+                pCurrNode = pNextNode;
+                pNextNode = pCurrNode->_vChildren[0].asT2();
+                
+                uiCurrBits  = 0x0000;
+
+                while(1)
+                {
+                    if(uiCurrIdx <= LevelBits)
+                    {
+                        break;
+                    }
+
+                    if(uiJumpDist == pCurrNode->_vJumps[0])
+                    {
+                        break;
+                    }
+
+                    if(uiJumpDist < pCurrNode->_vJumps[0])
+                    {
+                        pNextNode = NULL;
+                        break;
+                    }
+                    
+                    if(pNextNode == NULL)
+                    {
+                        break;
+                    }
+                    
+                    uiLevelSub += 
+                        LevelBits * pCurrNode->_vJumps[0];
+                    
+                    uiCurrIdx  -= 
+                        LevelBits * pCurrNode->_vJumps[0];
+                    
+                    uiJumpDist -= pCurrNode->_vJumps[0];
+                    
+                    pCurrNode = pNextNode;
+                    pNextNode = pCurrNode->_vChildren[0].asT2();
+                }
+            }
+
+            pCurrNode = pNextNode;
+
+            if(pCurrNode == NULL)
+            {
+                break;
+            }
+
+            uiCurrBits  = 0x0000;
+
+            uiStartLevel = uiTargetLevel;
+            uiLevelSub   = (uiStartLevel * LevelBits);
+
+            uiCurrIdx  -= uiJumpDist * LevelBits;
+
+
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+        }
+    }
+
+    if(pCurrNode != NULL)
+    {
+        TreeNode *pNext = pCurrNode->_vChildren[uiCurrBits].asT2();
+        
+        if(pNext != NULL)
+        {
+            returnValue = pNext->_pObject;
+        }
+        else
+        {
+            returnValue = pCurrNode->_vChildren[uiCurrBits].asT1();
+        }
+    }
+
+    return returnValue;
+}
+
+
+template<class ObjectT, UInt32 LevelBits> inline
+bool ShaderCacheTreeV3<ObjectT, LevelBits>::add(const IdStore &vIds,
+                                                      ObjectT *pObject)
+{
+    bool returnValue = false;
+
+    if(vIds.size() < 1)
+        return returnValue;
+
+    IdType uiStartId    = vIds[0] - 1;
+
+    IdType uiStartLevel = IdType(uiStartId * LevelFactor);
+
+    UInt32 uiCurrId     = 0;
+    UInt32 uiLastId     = vIds.size();
+
+    
+    if(uiStartLevel >= _vLevelEntries.size())
+    {
+        uiStartLevel = _vLevelEntries.size() - 1;
+    }
+
+   
+    TreeNode *pCurrNode = _vLevelEntries[uiStartLevel];
+    TreeNode *pNextNode = NULL;
+
+    UInt32 uiCurrBits = 0x0000;
+
+    if(pCurrNode == NULL)
+    {
+        UInt32 uiLastValidLE = 0;
+        
+        for(UInt32 i = uiStartLevel; i >= 0; --i)
+        {
+            if(_vLevelEntries[i] != NULL)
+            {
+                uiLastValidLE = i;
+                break;
+            }
+        } 
+
+        uiStartLevel = uiLastValidLE;
+        pCurrNode    = _vLevelEntries[uiStartLevel];
+    }
+
+    UInt32 uiLevelSub   = (uiStartLevel * LevelBits);
+
+    for(; uiCurrId < uiLastId; ++uiCurrId)
+    {
+        UInt32 uiCurrIdx  = vIds[uiCurrId] - uiLevelSub;
+        UInt16 uiJumpDist = 1;
+
+        if(uiCurrIdx <= LevelBits)
+        {
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+            
+            continue;
+        }
+        else
+        {
+            pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+
+            uiJumpDist           = UInt16((uiCurrIdx - 1) * LevelFactor);
+            UInt32 uiTargetLevel = uiStartLevel + uiJumpDist;
+           
+            if(pNextNode != NULL)
+            {
+                if(uiJumpDist > pCurrNode->_vJumps[uiCurrBits])
+                {
+                    uiLevelSub += LevelBits * pCurrNode->_vJumps[uiCurrBits];
+                    uiCurrIdx  -= LevelBits * pCurrNode->_vJumps[uiCurrBits];
+                    uiJumpDist -= pCurrNode->_vJumps[uiCurrBits];
+
+                    pCurrNode = pNextNode;
+                    pNextNode = pCurrNode->_vChildren[0].asT2();
+
+                    uiCurrBits  = 0x0000;
+
+                    while(1)
+                    {
+                        if(uiCurrIdx <= LevelBits)
+                        {
+                            break;
+                        }
+
+                        if(pNextNode == NULL)
+                        {
+                            break;
+                        }
+
+                        if(uiJumpDist <= pCurrNode->_vJumps[0])
+                        {
+                            break;
+                        }
+
+                        uiLevelSub += 
+                            LevelBits * pCurrNode->_vJumps[0];
+
+                        uiCurrIdx  -= 
+                            LevelBits * pCurrNode->_vJumps[0];
+
+                        uiJumpDist -= pCurrNode->_vJumps[0];
+
+                        pCurrNode = pNextNode;
+                        pNextNode = pCurrNode->_vChildren[0].asT2();
+                    }
+                }
+
+                if(uiJumpDist < pCurrNode->_vJumps[uiCurrBits])
+                {
+                    pNextNode = allocateNode();
+
+                    pNextNode->_vJumps[0] = 
+                        pCurrNode->_vJumps   [uiCurrBits] - uiJumpDist;
+
+                    pNextNode->_vChildren[0] = 
+                        pCurrNode->_vChildren[uiCurrBits].asT2();
+
+                    pCurrNode->_vJumps   [uiCurrBits] = uiJumpDist;
+                    pCurrNode->_vChildren[uiCurrBits] = pNextNode;
+
+                    if(_vLevelEntries[uiTargetLevel] == NULL)
+                    {
+                        UInt32 uiLastValidLE = 0;
+
+                        for(UInt32 i = uiTargetLevel; i >= 0; --i)
+                        {
+                            if(_vLevelEntries[i] != NULL)
+                            {
+                                uiLastValidLE = i;
+                                break;
+                            }
+                        } 
+
+                        if(_vLevelEntries[uiLastValidLE] == pCurrNode &&
+                            uiCurrBits                   == 0          )
+                        {
+                            _vLevelEntries[uiTargetLevel] = pNextNode;
+                        }
+                        else
+                        {
+                            TreeNode *pTmpNode = allocateNode();
+
+                            if(_vLevelEntries[
+                                   uiLastValidLE]->_vChildren[0].asT2() != NULL)
+                            {
+                                pTmpNode->_vChildren[0] = 
+                                    _vLevelEntries[
+                                        uiLastValidLE]->_vChildren[0].asT2();
+
+                                pTmpNode->_vJumps[0] =
+                                    _vLevelEntries[
+                                        uiLastValidLE]->_vJumps[0] - 
+                                    (uiTargetLevel - uiLastValidLE);
+                            }
+                            
+                            _vLevelEntries[uiLastValidLE]->_vChildren[0] = 
+                                pTmpNode;
+                            _vLevelEntries[uiLastValidLE]->_vJumps   [0] = 
+                                uiTargetLevel - uiLastValidLE;
+                            
+                            _vLevelEntries[uiTargetLevel] = pTmpNode;
+                            
+                            pTmpNode ->_pNext = pNextNode;
+                            pNextNode->_pPrev = pTmpNode;
+                        }
+                    }
+                    else
+                    {
+                        pNextNode->_pNext = 
+                            _vLevelEntries[uiTargetLevel]->_pNext;
+
+                        if(pNextNode->_pNext != NULL)
+                        {
+                            pNextNode->_pNext->_pPrev = pNextNode;
+                        }
+
+                        _vLevelEntries[uiTargetLevel]->_pNext = pNextNode;
+                        
+                        pNextNode->_pPrev = _vLevelEntries[uiTargetLevel];
+                    }
+                }
+            }
+
+            if(pNextNode == NULL)
+            {
+                pNextNode = allocateNode();
+
+                pCurrNode->_vJumps   [uiCurrBits] = uiJumpDist;
+
+                if(pCurrNode->_vChildren[uiCurrBits].asT1() != NULL)
+                {
+                    pNextNode->_pObject = 
+                        pCurrNode->_vChildren[uiCurrBits].asT1();
+                }
+
+                pCurrNode->_vChildren[uiCurrBits] = pNextNode;
+
+                if(uiTargetLevel >= _vLevelEntries.size())
+                {
+                    _vLevelEntries.resize(uiTargetLevel + 1, NULL);
+
+                    UInt32 uiLastValidLE = 0;
+
+                    for(UInt32 i = uiTargetLevel; i >= 0; --i)
+                    {
+                        if(_vLevelEntries[i] != NULL)
+                        {
+                            uiLastValidLE = i;
+                            break;
+                        }
+                    } 
+
+                    if(_vLevelEntries[uiLastValidLE] == pCurrNode &&
+                        uiCurrBits                   == 0          )
+                    {
+                        _vLevelEntries[uiTargetLevel] = pNextNode;
+                    }
+                    else
+                    {
+                        TreeNode *pTmpNode = allocateNode();
+                        
+                        _vLevelEntries[uiLastValidLE]->_vChildren[0] = pTmpNode;
+                        _vLevelEntries[uiLastValidLE]->_vJumps   [0] = 
+                            uiTargetLevel - uiLastValidLE;
+
+                        _vLevelEntries[uiTargetLevel] = pTmpNode;
+                        
+                        pTmpNode ->_pNext = pNextNode;
+                        pNextNode->_pPrev = pTmpNode;
+                    }
+                }
+                else
+                {
+                    if(_vLevelEntries[uiTargetLevel] == NULL)
+                    {
+                        UInt32 uiLastValidLE = 0;
+
+                        for(UInt32 i = uiTargetLevel; i >= 0; --i)
+                        {
+                            if(_vLevelEntries[i] != NULL)
+                            {
+                                uiLastValidLE = i;
+                                break;
+                            }
+                        } 
+
+                        TreeNode *pTmpNode = allocateNode();
+
+                        if(_vLevelEntries[
+                               uiLastValidLE]->_vChildren[0].asT2() != NULL)
+                        {
+                            pTmpNode->_vChildren[0] = 
+                                _vLevelEntries[
+                                    uiLastValidLE]->_vChildren[0].asT2();
+
+                            pTmpNode->_vJumps[0] =
+                                _vLevelEntries[
+                                    uiLastValidLE]->_vJumps[0] - uiJumpDist;
+                        }
+
+                        _vLevelEntries[uiLastValidLE]->_vChildren[0] = pTmpNode;
+                        _vLevelEntries[uiLastValidLE]->_vJumps   [0] = 
+                            uiTargetLevel - uiLastValidLE;
+
+                        _vLevelEntries[uiTargetLevel] = pTmpNode;
+                        
+                        pTmpNode ->_pNext = pNextNode;
+                        pNextNode->_pPrev = pTmpNode;
+                    }
+                    else
+                    {
+                        pNextNode->_pNext = 
+                            _vLevelEntries[uiTargetLevel]->_pNext;
+
+                        if(pNextNode->_pNext != NULL)
+                        {
+                            pNextNode->_pNext->_pPrev = pNextNode;
+                        }
+
+                        _vLevelEntries[uiTargetLevel]->_pNext = pNextNode;
+                        
+                        pNextNode->_pPrev = _vLevelEntries[uiTargetLevel];
+                    }
+                }
+            }
+
+
+            pCurrNode   = pNextNode;
+            
+            uiCurrBits  = 0x0000;
+
+            uiStartLevel = uiTargetLevel;
+            uiLevelSub   = (uiStartLevel * LevelBits);
+
+            uiCurrIdx  -= uiJumpDist * LevelBits;
+
+            uiCurrBits |= IdxToBits[uiCurrIdx]; 
+        }
+    }
+    
+    if(pCurrNode != NULL)
+    {
+        TreeNode *pNextNode = pCurrNode->_vChildren[uiCurrBits].asT2();
+        
+        if(pNextNode != NULL)
+        {
+            if(pNextNode->_pObject == NULL)
+            {
+                pNextNode->_pObject = pObject;
+                
+                returnValue = true;
+            }
+            else
+            {
+                OSG_ASSERT(pNextNode->_pObject == pObject);
+            }
+        }
+        else
+        {
+            pCurrNode->_vChildren[uiCurrBits] = pObject;
+                
+            returnValue = true;
+        }
+    }
+
+    return returnValue;
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV3<ObjectT, LevelBits>::sub(UInt32 uiIdx)
+{
+    IdType uiStartLevel  = IdType((uiIdx - 1) * LevelFactor);
+
+    if(uiStartLevel >= _vLevelEntries.size())
+    {
+        return;
+    }
+
+    UInt32    uiLevelSub = (uiStartLevel * LevelBits);
+    UInt32    uiCurrIdx  = uiIdx - uiLevelSub;
+    UInt32    uiCurrBits = IdxToBits[uiCurrIdx];
+
+    TreeNode *pCurrNode  = _vLevelEntries[uiStartLevel];
+
+    for(; pCurrNode != NULL; pCurrNode = pCurrNode->_pNext)
+    {
+        for(UInt32 i = 0; i < LevelSize; ++i)
+        {
+            TreeNode *pChild = pCurrNode->_vChildren[i].asT2();
+
+            if(0x0000 != (i & uiCurrBits) && pChild != NULL)
+            {
+                if(pChild->_pNext == NULL)
+                {
+                    pChild->_pPrev->_pNext = NULL;
+                }
+                else
+                {
+                    pChild->_pPrev->_pNext = pChild->_pNext;
+                    pChild->_pNext->_pPrev = pChild->_pPrev;
+                }
+                
+                pChild->_pPrev = NULL;
+                pChild->_pNext = NULL;
+
+                eraseNode(pCurrNode->_vChildren[i].asT2());
+                pCurrNode->_vJumps   [i] = 0;
+                pCurrNode->_vChildren[i].setAsT2(NULL);
+            }
+            else if(pCurrNode->_vChildren[i].asT1() != NULL)
+            {
+                pCurrNode->_vChildren[i].setAsT1(NULL);
+                pCurrNode->_vJumps   [i] = 0;
+            }
+        }
+    }
+}
+
+#define OSG_DUMP_LEVELENTRIES
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV3<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
+{
+    FILE *pOut = fopen(szFilename, "w");
+
+    if(pOut != NULL)
+    {
+        fprintf(pOut, "digraph structs\n");
+        fprintf(pOut, "{\n");
+        fprintf(pOut, "rankdir = LR;\n");
+        fprintf(pOut, "splines=false\n");
+
+        fprintf(pOut, "node [shape=record];\n");
+
+        fprintf(pOut, "struct%d\n", 0);
+        fprintf(pOut, "[\n");
+        fprintf(pOut, "    label=\"");
+
+        for(UInt32 i = 0; i < _vLevelEntries.size(); ++i)
+        {
+            if(_vLevelEntries[i] != NULL)
+            {
+                fprintf(pOut, "<l%d> %d", i, i);
+            }
+            else
+            {
+                fprintf(pOut, "<l%d> NIL", i);
+            }
+            
+            if(i == _vLevelEntries.size() - 1)
+            {
+                fprintf(pOut, "\"\n");
+            }
+            else
+            {
+                fprintf(pOut, "|");
+            }
+        }
+        
+        fprintf(pOut, "]\n");
+
+        fprintf(pOut, "node [width = 1.5];\n");
+
+        std::vector<std::vector<TreeNode *> > vLevelStore;
+
+        dumpDotNode(_pRoot, pOut, vLevelStore, 0);
+
+#ifdef OSG_DEBUG
+#ifdef OSG_DUMP_LEVELENTRIES
+        for(UInt32 i = 0; i < _vLevelEntries.size(); ++i)
+        {
+            if(_vLevelEntries[i] != NULL)
+            {
+                fprintf(pOut, 
+                        "struct%d:l%d -> struct%d:prev [color=\"green\"];\n",
+                        0, i,
+                        _vLevelEntries[i]->_uiNodeId);
+            }
+        }
+#endif
+
+#if 0
+        for(UInt32 i = 0; i < vLevelStore.size(); ++i)
+        {
+            fprintf(pOut, "{ rank=same;");
+
+            for(UInt32 j = 0; j < vLevelStore[i].size(); ++j)
+            {
+                TreeNode *pChild = vLevelStore[i][j];
+
+                if(pChild != NULL)
+                {           
+                    fprintf(pOut, "\"struct%d\";",
+                            pChild->_uiNodeId);
+                }
+            }
+
+            fprintf(pOut, "}\n");
+        }
+#endif
+#endif
+        
+        fprintf(pOut, "}\n");
+        fclose(pOut);
+    }
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV3<ObjectT, LevelBits>::dumpDotNode(
+    TreeNode                              *pNode, 
+    FILE                                  *pOut ,
+    std::vector<std::vector<TreeNode *> > &vLevelStore,
+    UInt32                                 uiLevel    )
+{
+#ifdef OSG_DEBUG
+    if(pNode == NULL)
+        return;
+
+    if(uiLevel == vLevelStore.size())
+    {
+        vLevelStore.push_back(std::vector<TreeNode *>());
+    }
+
+    fprintf(pOut, "struct%d\n", pNode->_uiNodeId);
+    fprintf(pOut, "[\n");
+    fprintf(pOut, "    label=\"{");
+
+    if(pNode->_pPrev != NULL)
+    {
+        fprintf(pOut, "<prev> P|");
+    }
+    else
+    {
+        fprintf(pOut, "<prev> P:NIL|");
+    }
+
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        if(pNode->_vChildren[i].asT1() != NULL)
+        {
+            if(osgIsPower2(i) == true)
+            {
+                fprintf(pOut, "<l%d> _O:%d|", i, i);
+            }
+            else
+            {
+                fprintf(pOut, "<l%d> O:%d|", i, i);
+            }
+        }
+        else if(pNode->_vChildren[i].asT2() != NULL)
+        {
+            if(osgIsPower2(i) == true)
+            {
+                fprintf(pOut, "<l%d> _C:%d (%d)|", i, i, pNode->_vJumps[i]);
+            }
+            else
+            {
+                fprintf(pOut, "<l%d> C:%d (%d)|", i, i, pNode->_vJumps[i]);
+            }
+        }
+        else
+        {
+            if(osgIsPower2(i) == true)
+            {
+                fprintf(pOut, "<l%d> _NIL|", i);
+            }
+            else
+            {
+                fprintf(pOut, "<l%d> NIL|", i);
+            }
+        }
+    }
+
+    if(pNode->_pObject != NULL)
+    {
+        fprintf(pOut, "<val> VAL:Obj|");
+    }
+    else
+    {
+        fprintf(pOut, "<val> VAL:NIL|");
+    }
+
+    if(pNode->_pNext != NULL)
+    {
+        fprintf(pOut, "<next> N}\"\n");
+    }
+    else
+    {
+        fprintf(pOut, "<next> N:NIL}\"\n");
+    }
+
+    fprintf(pOut, "]\n");
+
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        TreeNode *pChild = pNode->_vChildren[i].asT2();
+
+        if(pChild != NULL)
+        {
+            dumpDotNode(pChild, pOut, vLevelStore, uiLevel + 1);
+            
+            fprintf(pOut, 
+                    "struct%d:l%d -> struct%d:l%d [constraint=\"false\"];\n",
+                    pNode ->_uiNodeId, i,
+                    pChild->_uiNodeId, i);
+        }
+    }
+
+    if(pNode->_pNext != NULL)
+    {
+        fprintf(pOut, "struct%d:next -> struct%d:prev;\n",
+                pNode ->_uiNodeId,
+                pNode->_pNext->_uiNodeId);
+    }
+    if(pNode->_pPrev != NULL)
+    {
+        fprintf(pOut, "struct%d:prev -> struct%d:next;\n",
+                pNode ->_uiNodeId,
+                pNode->_pPrev->_uiNodeId);
+    }
+
+     vLevelStore[uiLevel].push_back(pNode);
+#endif
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTreeV3<ObjectT, LevelBits>::ShaderCacheTreeV3(void) :
+#ifdef OSG_DEBUG
+    _uiNodeCount  (0   ),
+#endif
+    _pRoot        (NULL),
+    _vLevelEntries(    ),
+    _qFreeElements(    )
+{
+    _pRoot = allocateNode();
+
+    _vLevelEntries.push_back(_pRoot);
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+ShaderCacheTreeV3<ObjectT, LevelBits>::~ShaderCacheTreeV3(void)
+{
+    typename std::deque <TreeNode *>::const_iterator qIt  = 
+        _qFreeElements.begin();
+
+    typename std::deque <TreeNode *>::const_iterator qEnd = 
+        _qFreeElements.end();
+    
+    for(; qIt != qEnd; ++qIt)
+    {
+        delete (*qIt);
+    }
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+typename ShaderCacheTreeV3<ObjectT, LevelBits>::TreeNode *
+    ShaderCacheTreeV3<ObjectT, LevelBits>::allocateNode(void)
+{
+    TreeNode *returnValue = NULL;
+
+    if(_qFreeElements.empty() == false)
+    {
+        returnValue = _qFreeElements.back();
+
+        _qFreeElements.pop_back();
+
+        returnValue->clear();
+    }
+    else
+    {
+        returnValue = new TreeNode();
+
+#ifdef OSG_DEBUG
+        returnValue->_uiNodeId = ++_uiNodeCount;
+#endif
+    }
+
+#ifdef OSG_DEBUG
+    UIntPointer rU = reinterpret_cast<UIntPointer>(returnValue);
+
+    OSG_ASSERT((rU & 0x0001) == 0x0000);
+#endif
+
+    return returnValue;
+}
+
+template<class ObjectT, UInt32 LevelBits> inline
+void ShaderCacheTreeV3<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
+{
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        if(pNode->_vChildren[i].asT2() != NULL)
+        {
+            eraseNode(pNode->_vChildren[i].asT2());
+        }
+        else
+        {
+            pNode->_vChildren[i].setAsT1(NULL);
+        }
+    }
+
+    pNode->_pObject = NULL;
+
+    _qFreeElements.push_back(pNode);
+}
+
+template<class ObjectT, UInt32 LevelBits> 
+template <typename ElemDestFunc> inline
+void ShaderCacheTreeV3<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
+                                                        ElemDestFunc  destFunc)
+{
+    for(UInt32 i = 0; i < LevelSize; ++i)
+    {
+        if(pNode->_vChildren[i].asT2() != NULL)
+        {
+            destroyNode(pNode->_vChildren[i].asT2(), destFunc);
+        }
+        else if(pNode->_vChildren[i].asT1() != NULL)
+        {
+#ifndef OSG_SHC_REF_CLEANUP
+            ObjectT *pObj = pNode->_vChildren[i].asT1();
+            (destFunc)(pObj);
+#endif
+            pNode->_vChildren[i].setAsT1(NULL);
+        }
+    }
+
+    if(pNode->_pObject != NULL)
+    {
+#ifndef OSG_SHC_REF_CLEANUP
+        (destFunc)(pNode->_pObject);
+#endif
+        pNode->_pObject = NULL;
+    }
+
+    delete pNode;
+}
+
+template<class ObjectT, UInt32 LevelBits> 
+template <typename ElemDestFunc> inline
+void ShaderCacheTreeV3<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
+{
+    destroyNode(_pRoot, destFunc);
+
+    _pRoot = NULL;
+}
 
 OSG_END_NAMESPACE
