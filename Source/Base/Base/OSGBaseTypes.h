@@ -589,6 +589,11 @@ const Real32 Pi  = 3.141592653589793f;
 /*! \ingroup GrpBaseBaseConstants
  */
 
+const Real64 PiHalf  = 1.570796326794896619231322;
+
+/*! \ingroup GrpBaseBaseConstants
+ */
+
 const Real32 Sqrt2  = 1.41421356237309504f;
 
 /*! \ingroup GrpBaseBaseConstants

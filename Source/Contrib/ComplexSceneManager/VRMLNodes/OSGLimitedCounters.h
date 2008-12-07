@@ -328,6 +328,17 @@ struct LimitedInt32CounterDesc
     }
 };
 
+struct LimitedUInt32CounterDesc
+{
+    typedef UInt32CounterDesc              BaseCounterDesc;
+    typedef UInt32CounterDesc::SFValueType SFLimitType;
+
+    static const Char8 *getClassname(void)
+    {
+        return "LimitedUInt32Counter";
+    }
+};
+
 struct LimitedReal32CounterDesc
 {
     typedef Real32CounterDesc              BaseCounterDesc;
@@ -340,6 +351,7 @@ struct LimitedReal32CounterDesc
 };
 
 typedef LimitedCounterImpl<LimitedInt32CounterDesc > LimitedInt32Counter;
+typedef LimitedCounterImpl<LimitedUInt32CounterDesc> LimitedUInt32Counter;
 typedef LimitedCounterImpl<LimitedReal32CounterDesc> LimitedReal32Counter;
 
 OSG_END_NAMESPACE

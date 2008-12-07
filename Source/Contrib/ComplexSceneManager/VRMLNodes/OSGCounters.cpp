@@ -136,7 +136,38 @@ const FieldContainerType &CounterImpl<DESC>::getType(void) const        \
     return _type;                                                       \
 }
 
+template<> inline
+void CounterImpl<UInt32CounterDesc>::changed(ConstFieldMaskArg whichField, 
+                                             UInt32            origin,
+                                             BitVector         details)
+{
+    if((IncTriggerFieldMask | DecTriggerFieldMask) !=
+       (whichField & (IncTriggerFieldMask | DecTriggerFieldMask)))
+    {
+
+        if(0x0000 != (whichField & IncTriggerFieldMask))
+        {
+                setValue(getValue() + getStep());
+        }
+        
+        if(0x0000 != (whichField & DecTriggerFieldMask))
+        {
+            if(getStep() <= getValue())
+            {
+                setValue(getValue() - getStep());
+            }
+            else
+            {
+                setValue(TypeTraits<ValueType>::getZeroElement());
+            }
+        }
+    }
+
+    Inherited::changed(whichField, origin, details);
+}
+
 OSGCOUNTER_IMPL(Int32CounterDesc )
+OSGCOUNTER_IMPL(UInt32CounterDesc)
 OSGCOUNTER_IMPL(Real32CounterDesc)
 
 OSG_END_NAMESPACE

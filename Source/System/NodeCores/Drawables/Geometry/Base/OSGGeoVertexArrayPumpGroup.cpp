@@ -519,7 +519,8 @@ static UInt32 NormAttribIDs[numFormats][4];
     pumpFunc name##Func = NULL;                                             \
                                                                             \
     attribPtr[propindex] = geo->getProperty(propindex);                     \
-    if(attribPtr[propindex] != NULL)                                        \
+    if(attribPtr[propindex] != NULL &&                                      \
+       attribPtr[propindex]->getIgnore() == false)                          \
     {                                                                       \
         attribIndex[propindex] = geo->getIndex(propindex);                  \
         attribData[propindex] = attribPtr[propindex]->getData();            \
@@ -543,6 +544,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     }                                                                       \
     else                                                                    \
     {                                                                       \
+        attribPtr[propindex] = NULL;                                        \
         attribData[propindex] = NULL;                                       \
         name##Func = NULL;                                                  \
         attribStride[propindex] = 0;                                        \
@@ -557,7 +559,8 @@ static UInt32 NormAttribIDs[numFormats][4];
     pumpFunc name##Func;                                                    \
                                                                             \
     attribPtr[propindex] = geo->getProperty(propindex);                     \
-    if(attribPtr[propindex] != NULL)                                        \
+    if(attribPtr[propindex] != NULL &&                                      \
+       attribPtr[propindex]->getIgnore() == false)                          \
     {                                                                       \
         attribIndex[propindex] = geo->getIndex(propindex);                  \
         attribData[propindex] = attribPtr[propindex]->getData();            \
@@ -596,6 +599,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     }                                                                       \
     else                                                                    \
     {                                                                       \
+        attribPtr[propindex] = NULL;                                        \
         attribData[propindex] = NULL;                                       \
         name##Func = NULL;                                                  \
         attribStride[propindex] = 0;                                        \
@@ -607,7 +611,8 @@ static UInt32 NormAttribIDs[numFormats][4];
     multiPumpFunc name##Func;                                               \
                                                                             \
     attribPtr[propindex] = geo->getProperty(propindex);                     \
-    if(attribPtr[propindex] != NULL)                                        \
+    if(attribPtr[propindex] != NULL &&                                      \
+       attribPtr[propindex]->getIgnore() == false)                          \
     {                                                                       \
         attribIndex[propindex] = geo->getIndex(propindex);                  \
         attribData[propindex] = attribPtr[propindex]->getData();            \
@@ -647,6 +652,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     }                                                                       \
     else                                                                    \
     {                                                                       \
+        attribPtr[propindex] = NULL;                                        \
         attribData[propindex] = NULL;                                       \
         name##Func = NULL;                                                  \
         attribStride[propindex] = 0;                                        \

@@ -1,0 +1,29 @@
+#OSG V1.0 
+
+Node
+{
+  core CubeMapGenerator
+  {
+    textureSize   512 512
+    texUnit       3
+    textureFormat GL_RGB32F_ARB
+    root Node
+    {
+      core VisitSubTree
+      {
+        subTreeRoot USE SceneRoot
+      }
+    }
+  }
+
+  children
+  [
+    Node
+    {
+      core Inline
+      {
+        url "../../SimpleTeapot/object.wrl"
+      }
+    }
+  ]
+}

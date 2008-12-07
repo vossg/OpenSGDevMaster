@@ -1,0 +1,84 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF BGnd SkyBackground
+    {
+       backTexture TextureObjChunk
+       {
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
+
+         image ImageFile
+         {
+           url "../../Mirror/textures/cm_back.jpg"
+         }
+       }
+
+       frontTexture TextureObjChunk
+       {
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
+
+         image ImageFile
+         {
+           url "../../Mirror/textures/cm_front.jpg"
+         }
+       }
+
+       leftTexture TextureObjChunk
+       {
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
+
+         image ImageFile
+         {
+           url "../../Mirror/textures/cm_left.jpg"
+         }
+       }
+
+       rightTexture TextureObjChunk
+       {
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
+
+         image ImageFile
+         {
+           url "../../Mirror/textures/cm_right.jpg"
+         }
+       }
+
+       topTexture  TextureObjChunk
+       {
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
+
+         image ImageFile
+         {
+           url "../../Mirror/textures/cm_top.jpg"
+         }
+       }
+
+       bottomTexture TextureObjChunk
+       {
+         wrapS GL_CLAMP_TO_EDGE
+         wrapT GL_CLAMP_TO_EDGE
+         wrapR GL_CLAMP_TO_EDGE
+
+         image ImageFile
+         {
+           url "../../Mirror/textures/cm_bottom.jpg"
+         }
+       }
+
+    }
+  ]
+}
+

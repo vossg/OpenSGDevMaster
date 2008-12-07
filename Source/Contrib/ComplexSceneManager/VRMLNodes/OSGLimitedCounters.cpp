@@ -140,6 +140,7 @@ const FieldContainerType &                                             \
 }
 
 OSGLIMCOUNTER_IMPL(LimitedInt32CounterDesc )
+OSGLIMCOUNTER_IMPL(LimitedUInt32CounterDesc)
 OSGLIMCOUNTER_IMPL(LimitedReal32CounterDesc)
 
 OSG_END_NAMESPACE
