@@ -842,17 +842,17 @@ void          indentLog   (     UInt32        indent,
    OSG::osgLogP->unlock();                                      \
 }
 
-/*! \brief FPFPATAL
+/*! \brief FPFATAL
     \ingroup GrpBaseLog
 */
 
-#define FPFPATAL(par)                                           \
+#define FPFATAL(par)                                            \
 {                                                               \
     OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_FPATAL))               \
+    if(OSG::osgLogP->checkLevel(OSG::LOG_FATAL))                \
     {                                                           \
         OSG::osgStartLog(false,                                 \
-                         OSG::LOG_FPATAL,                       \
+                         OSG::LOG_FATAL,                        \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
                          __LINE__);                             \
@@ -899,7 +899,7 @@ void          indentLog   (     UInt32        indent,
     }                                                           \
 }
 
-/*! \brief FPINFPO
+/*! \brief FPINFO
     \ingroup GrpBaseLog
 */
 
@@ -909,7 +909,7 @@ void          indentLog   (     UInt32        indent,
     if(OSG::osgLogP->checkLevel(OSG::LOG_INFO))                 \
     {                                                           \
         OSG::osgStartLog(false,                                 \
-                         OSG::LOG_INFPO,                        \
+                         OSG::LOG_INFO,                         \
                          OSG_LOG_MODULE,                        \
                          __FILE__,                              \
                          __LINE__);                             \
