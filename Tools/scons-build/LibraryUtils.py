@@ -123,7 +123,7 @@ class ConfigInfoAdapter(object):
    def getIncPath(self):
       return self.merged_lib.cpppath
    def getIncPathStr(self):
-      return " ".join(["%s%s"%(self.incprefix,p) for p in self.merged_lib.cpppath])
+      return " ".join(['%s"%s"'%(self.incprefix,p) for p in self.merged_lib.cpppath])
    def getLibs(self):
       osg_lib_list = ["%s%s%s"%(l,self.osg_lib_suffix, self.osg_lib_ext) for l in self.merged_lib.osg_dep_libs]
       deps_lib_list = ["%s%s"%(l,self.osg_lib_ext) for l in self.merged_lib.libs]
@@ -133,7 +133,7 @@ class ConfigInfoAdapter(object):
    def getLibPath(self):
       return self.merged_lib.libpath
    def getLibPathStr(self):
-      return " ".join(["%s%s"%(self.libpathprefix,p) for p in self.merged_lib.libpath])
+      return " ".join(['%s"%s"'%(self.libpathprefix,p) for p in self.merged_lib.libpath])
    def getFrameworks(self):
       return self.merged_lib.frameworks
    def getFrameworkPath(self):
