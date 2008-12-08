@@ -313,8 +313,7 @@ class SimpleAppendOption(sca_opts.SimpleOption):
 # ---------------------------------------------------------------------------- #
 
 EnsureSConsVersion(0,96,92)
-SourceSignatures('MD5')
-#SourceSignatures('timestamp')
+Decider('MD5-timestamp')
 opensg_version_string = file("VERSION").readline().strip()
 
 print "Building OpenSG ", opensg_version_string
