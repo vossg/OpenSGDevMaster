@@ -903,10 +903,10 @@ void          indentLog   (     UInt32        indent,
     \ingroup GrpBaseLog
 */
 
-#define FPINFPO(par)                                            \
+#define FPINFO(par)                                             \
 {                                                               \
     OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_INFPO))                \
+    if(OSG::osgLogP->checkLevel(OSG::LOG_INFO))                 \
     {                                                           \
         OSG::osgStartLog(false,                                 \
                          OSG::LOG_INFPO,                        \
