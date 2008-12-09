@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="PolygonBackground"
-	parent="Background"
+	parent="TileableBackground"
 	library="Window"
 	pointerfieldtypes="both"
 	structure="concrete"
@@ -98,15 +98,5 @@ A Background that renders a single polygon using the specified material.
 		access="public"
 	>
 	Clear depth/ stencil buffer after applying the material.
-	</Field>
-	<Field
-		name="tile"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="true"
-		access="public"
-	>
-	If true the image tiles in multi window settings.
 	</Field>
 </FieldContainer>

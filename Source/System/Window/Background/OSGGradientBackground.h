@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2005 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -43,52 +43,64 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
+#include <OSGConfig.h>
 
-#include "OSGGradientBackgroundBase.h"
+#include <OSGGradientBackgroundBase.h>
 
 OSG_BEGIN_NAMESPACE
 
+#ifdef OSG_OLD_RENDER_ACTION
 class DrawActionBase;
+#endif
+
 class Viewport;
+class DrawEnv;
 
 /*! \brief Background clearing with a color gradient. See \ref 
     PageSystemWindowBackground for a description.
 */
 
-class OSG_WINDOW_DLLMAPPING GradientBackground : public GradientBackgroundBase
+class OSG_WINDOW_DLLMAPPING GradientBackground :
+    public GradientBackgroundBase
 {
     /*==========================  PUBLIC  =================================*/
  public:
 
     static const OSG::BitVector LineFieldMask;
 
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    your_category                             */
+    /*! \name                       Enum                                   */
     /*! \{                                                                 */
-    
+
+    enum
+    {
+        VERTICAL   = 1,
+        HORIZONTAL = 2
+    };
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                     your_category                            */
+    /*! \{                                                                 */
+
+#ifdef OSG_OLD_RENDER_ACTION
+    void clear(DrawActionBase *, Viewport *);
+#endif
+
     void clear(DrawEnv *);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    your_category                             */
-    /*! \{                                                                 */
 
-    void addLine   (Color3f color, 
-                    Real32  position);
-
-    void clearLines(void            );
+    void addLine   (Color3f color, Real32 position);
+    void clearLines(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     transformation                           */
     /*! \{                                                                 */
-    
-    virtual void changed(ConstFieldMaskArg whichField, 
+
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         detail);
- 
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   dump                                       */
@@ -99,7 +111,6 @@ class OSG_WINDOW_DLLMAPPING GradientBackground : public GradientBackgroundBase
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-
  protected:
 
                                                                      
@@ -118,21 +129,15 @@ class OSG_WINDOW_DLLMAPPING GradientBackground : public GradientBackgroundBase
     virtual ~GradientBackground(void); 
     
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
-    /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
-    
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/  
-
 private:
 
     typedef GradientBackgroundBase Inherited;
 
     friend class FieldContainer;
     friend class GradientBackgroundBase;
+
+    static void initMethod(InitPhase ePhase);
 
     void operator =(const GradientBackground &source);
 };
@@ -145,7 +150,7 @@ typedef GradientBackground *GradientBackgroundP;
 
 OSG_END_NAMESPACE
 
-#include "OSGGradientBackgroundBase.inl"
-#include "OSGGradientBackground.inl"
+#include <OSGGradientBackgroundBase.inl>
+#include <OSGGradientBackground.inl>
 
 #endif /* _OSGGRADIENTBACKGROUND_H_ */

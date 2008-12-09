@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -44,19 +44,17 @@
 #include <cstdio>
 
 #include <OSGConfig.h>
-#include <OSGMaterial.h>
-#include <OSGViewport.h>
 
-#include "OSGPolygonBackground.h"
-#include "OSGTileCameraDecorator.h"
-#include "OSGDrawEnv.h"
-#include "OSGRenderActionBase.h"
+#include "OSGTileableBackground.h"
+#include <OSGDrawEnv.h>
+#include <OSGRenderActionBase.h>
+#include <OSGTileCameraDecorator.h>
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Documentation for this class is emited in the
-// OSGPolygonBackgroundBase.cpp file.
-// To modify it, please change the .fcd file (OSGPolygonBackground.fcd) and
+// Documentation for this class is emitted in the
+// OSGTileableBackgroundBase.cpp file.
+// To modify it, please change the .fcd file (OSGTileableBackground.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -67,9 +65,13 @@ OSG_USING_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void PolygonBackground::initMethod(InitPhase ePhase)
+void TileableBackground::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
+
+    if(ePhase == TypeObject::SystemPost)
+    {
+    }
 }
 
 
@@ -83,157 +85,114 @@ void PolygonBackground::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-PolygonBackground::PolygonBackground(void) :
+TileableBackground::TileableBackground(void) :
     Inherited()
 {
 }
 
-PolygonBackground::PolygonBackground(const PolygonBackground &source) :
+TileableBackground::TileableBackground(const TileableBackground &source) :
     Inherited(source)
 {
 }
 
-PolygonBackground::~PolygonBackground(void)
+TileableBackground::~TileableBackground(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void PolygonBackground::clear(DrawEnv *pEnv)
-{
-    if(pEnv->getPixelWidth()  == 0 ||
-       pEnv->getPixelHeight() == 0 )
-    {
-        FWARNING(("Port has zero size: nothing to render to!\n"));
-        return;
-    }
-
-    if(getMFPositions()->size() == 0 ||
-       getMFPositions()->size() != getMFTexCoords()->size())
-    {
-        FWARNING(("PolygonBackground::clear: positions and texcoords have "
-                  "different/ invalid sizes (%d vs. %d)!\n",
-                  getMFPositions()->size(), getMFTexCoords()->size()));
-        return;
-    }
-
-    Int32 bit = getClearStencilBit();      // 0x0
-
-    if(bit >= 0)
-    {
-        glClearStencil(bit);
-
-        glClear(GL_COLOR_BUFFER_BIT |
-                GL_DEPTH_BUFFER_BIT |
-                GL_STENCIL_BUFFER_BIT);
-    }
-    else
-    {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
-
-    glPushAttrib(GL_ALL_ATTRIB_BITS);
-
-    glDisable(GL_DEPTH_TEST);
-    glDepthFunc(GL_ALWAYS);
-
-    if(getCleanup())
-        glDepthMask(GL_FALSE);
-
-    Real32 aspectX = 1.0f, aspectY = 1.0f;
-
-    if(getAspectHeight() != 0 && getAspectWidth() != 0)
-    {
-        aspectX = (Real32(pEnv->getPixelHeight()) / getAspectHeight()) /
-                  (Real32(pEnv->getPixelWidth ()) / getAspectWidth ());
-    }
-
-    Real32 sFac        = getScale() > 0 ? getScale() : 1.0f;
-    UInt32 fullWidth;
-    UInt32 fullHeight;
-
-    if(!getTile())
-    {
-        beginOrthoRender(pEnv, getNormalizedX(), getNormalizedY(),
-                               fullWidth,        fullHeight       );
-
-        Real32 t = 0;
-
-        if(getAspectHeight() != 0 && getAspectWidth() != 0 &&
-           fullHeight        != 0 && fullHeight       != 0   )
-        {
-            aspectX = (Real32(fullHeight) / getAspectHeight()) /
-                      (Real32(fullWidth ) / getAspectWidth ());
-
-            t  = Real32(fullWidth) * (1.0f - aspectX) * 0.5f;
-            t *= Real32(pEnv->getPixelWidth()) / fullWidth;
-        }
-
-        glTranslatef(t,       0.0f,    0.0f);
-        glScalef    (aspectX, aspectY, 1.0f);
-
-        Real32 tW = (1.0f - sFac) * 0.5f * Real32(pEnv->getPixelWidth ());
-        Real32 tH = (1.0f - sFac) * 0.5f * Real32(pEnv->getPixelHeight());
-
-        glTranslatef(tW,   tH,   0.0f);
-        glScalef    (sFac, sFac, 1.0f);
-    }
-    else
-    {
-        glScalef(sFac,    sFac,    1.0f);
-        glScalef(aspectX, aspectY, 1.0f);
-
-        beginOrthoRender(pEnv, getNormalizedX(), getNormalizedY(),
-                               fullWidth,        fullHeight       );
-    }
-
-
-    getMaterial()->getState()->activate(pEnv);
-
-    const Vec3f *tc  = &getMFTexCoords()->front();
-    const Pnt2f *pos = &getMFPositions()->front();
-
-    glBegin(GL_POLYGON);
-
-    for (UInt16 i=0; i < getMFPositions()->size(); i++)
-    {
-        glTexCoord3fv( tc[i].getValues());
-        glVertex2fv  (pos[i].getValues());
-    }
-
-    glEnd();
-
-    getMaterial()->getState()->deactivate(pEnv);
-
-    glScalef(1, 1, 1);
-
-    if(getCleanup())
-    {
-        if(bit >= 0)
-        {
-            glClear(GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-        }
-        else
-        {
-            glClear(GL_DEPTH_BUFFER_BIT);
-        }
-    }
-
-    endOrthoRender(pEnv);
-
-    glPopAttrib();
-}
-
-void PolygonBackground::changed(ConstFieldMaskArg whichField,
-                                UInt32            origin,
-                                BitVector         details)
+void TileableBackground::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void PolygonBackground::dump(      UInt32    ,
-                             const BitVector ) const
+void TileableBackground::dump(      UInt32    ,
+                         const BitVector ) const
 {
-    SLOG << "Dump PolygonBackground NI" << std::endl;
+    SLOG << "Dump TileableBackground NI" << std::endl;
 }
 
+/*! Sets up an ortho projection for rendering 2D backgrounds. It handles tiling
+    when a TileCameraDecorator is in use. When done you need to call
+    endOrthoRender to clean up changes to the OpenGL matrix stacks.
+
+    \param pEnv DrawEnv being used for rendering
+    \param normX Wether x coordinates are going to be normalized.
+    \param normY Wether y coordinates are going to be normalized.
+    \param[out] fullWidth width of the viewport
+    \param[out] fullHeight height of the viewport
+
+    \note When the TileCameraDecorator is in use, the width and height of the
+          viewport (fullWidth, fullHeight) are defined by the TileCameraDecorator.
+ */
+void TileableBackground::beginOrthoRender(
+    DrawEnv *pEnv,
+    bool     normX,
+    bool     normY,
+    UInt32  &fullWidth,
+    UInt32  &fullHeight)
+{
+    glMatrixMode(GL_TEXTURE);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+
+    UInt32               width   = pEnv->getPixelWidth ();
+    UInt32               height  = pEnv->getPixelHeight();
+
+    Camera              *cam     = pEnv->getAction()->getCamera();
+    TileCameraDecorator *camDeco = dynamic_cast<TileCameraDecorator *>(cam);
+
+    while(camDeco != NULL)
+    {
+        width  = camDeco->getFullWidth () ? camDeco->getFullWidth () : width;
+        height = camDeco->getFullHeight() ? camDeco->getFullHeight() : height;
+
+        cam     = camDeco->getDecoratee();
+        camDeco = dynamic_cast<TileCameraDecorator *>(cam);
+    }
+
+    cam     = pEnv->getAction()->getCamera();
+    camDeco = dynamic_cast<TileCameraDecorator *>(cam);
+
+    if(camDeco != NULL && !getTile())
+    {
+        Matrix sm;
+        cam->getDecoration(sm, width, height);
+
+        glLoadMatrixf(sm.getValues());
+    }
+
+    fullWidth  = width;
+    fullHeight = height;
+
+    Real32 projWidth  = normX ? 1.0f : Real32(width );
+    Real32 projHeight = normY ? 1.0f : Real32(height);
+
+    glOrtho(0, projWidth, 0, projHeight, -1.0f, 1.0f);
+}
+
+/*! Clean up changes to the OpenGL matrix stacks done by beginOrthoRender
+ */
+void TileableBackground::endOrthoRender(DrawEnv *pEnv)
+{
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+    
+    glMatrixMode(GL_TEXTURE);
+    glPopMatrix();
+}
+
+OSG_END_NAMESPACE

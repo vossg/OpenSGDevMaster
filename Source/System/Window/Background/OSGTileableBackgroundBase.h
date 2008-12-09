@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class GradientBackground
+ **     class TileableBackground
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGGRADIENTBACKGROUNDBASE_H_
-#define _OSGGRADIENTBACKGROUNDBASE_H_
+#ifndef _OSGTILEABLEBACKGROUNDBASE_H_
+#define _OSGTILEABLEBACKGROUNDBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,32 +63,29 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGTileableBackground.h" // Parent
+#include "OSGBackground.h" // Parent
 
-#include "OSGColor3fFields.h" // Color type
-#include "OSGReal32Fields.h" // Position type
-#include "OSGBoolFields.h" // NormPosition type
-#include "OSGUInt32Fields.h" // Style type
+#include "OSGBoolFields.h" // Tile type
 
-#include "OSGGradientBackgroundFields.h"
+#include "OSGTileableBackgroundFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class GradientBackground;
+class TileableBackground;
 
-//! \brief GradientBackground Base Class.
+//! \brief TileableBackground Base Class.
 
-class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
+class OSG_WINDOW_DLLMAPPING TileableBackgroundBase : public Background
 {
   public:
 
-    typedef TileableBackground Inherited;
-    typedef TileableBackground ParentContainer;
+    typedef Background Inherited;
+    typedef Background ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(GradientBackground);
+    OSG_GEN_INTERNALPTR(TileableBackground);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -96,28 +93,16 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
 
     enum
     {
-        ColorFieldId = Inherited::NextFieldId,
-        PositionFieldId = ColorFieldId + 1,
-        NormPositionFieldId = PositionFieldId + 1,
-        StyleFieldId = NormPositionFieldId + 1,
-        NextFieldId = StyleFieldId + 1
+        TileFieldId = Inherited::NextFieldId,
+        NextFieldId = TileFieldId + 1
     };
 
-    static const OSG::BitVector ColorFieldMask =
-        (TypeTraits<BitVector>::One << ColorFieldId);
-    static const OSG::BitVector PositionFieldMask =
-        (TypeTraits<BitVector>::One << PositionFieldId);
-    static const OSG::BitVector NormPositionFieldMask =
-        (TypeTraits<BitVector>::One << NormPositionFieldId);
-    static const OSG::BitVector StyleFieldMask =
-        (TypeTraits<BitVector>::One << StyleFieldId);
+    static const OSG::BitVector TileFieldMask =
+        (TypeTraits<BitVector>::One << TileFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFColor3f         MFColorType;
-    typedef MFReal32          MFPositionType;
-    typedef SFBool            SFNormPositionType;
-    typedef SFUInt32          SFStyleType;
+    typedef SFBool            SFTileType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -143,19 +128,19 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
     /*! \{                                                                 */
 
 
-                  SFUInt32            *editSFStyle          (void);
-            const SFUInt32            *getSFStyle           (void) const;
+                  SFBool              *editSFTile           (void);
+            const SFBool              *getSFTile            (void) const;
 
 
-                  UInt32              &editStyle          (void);
-                  UInt32               getStyle           (void) const;
+                  bool                &editTile           (void);
+                  bool                 getTile            (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setStyle          (const UInt32 value);
+            void setTile           (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -175,33 +160,6 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
-    static  GradientBackgroundTransitPtr  create          (void);
-    static  GradientBackground           *createEmpty     (void);
-
-    static  GradientBackgroundTransitPtr  createLocal     (
-                                               BitVector bFlags = FCLocal::All);
-
-    static  GradientBackground            *createEmptyLocal(
-                                              BitVector bFlags = FCLocal::All);
-
-    static  GradientBackgroundTransitPtr  createDependent  (BitVector bFlags);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Copy                                   */
-    /*! \{                                                                 */
-
-    virtual FieldContainerTransitPtr shallowCopy     (void) const;
-    virtual FieldContainerTransitPtr shallowCopyLocal(
-                                       BitVector bFlags = FCLocal::All) const;
-    virtual FieldContainerTransitPtr shallowCopyDependent(
-                                                      BitVector bFlags) const;
-
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -215,25 +173,22 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFColor3f         _mfColor;
-    MFReal32          _mfPosition;
-    SFBool            _sfNormPosition;
-    SFUInt32          _sfStyle;
+    SFBool            _sfTile;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    GradientBackgroundBase(void);
-    GradientBackgroundBase(const GradientBackgroundBase &source);
+    TileableBackgroundBase(void);
+    TileableBackgroundBase(const TileableBackgroundBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GradientBackgroundBase(void);
+    virtual ~TileableBackgroundBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -246,51 +201,8 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleColor           (void) const;
-    EditFieldHandlePtr editHandleColor          (void);
-    GetFieldHandlePtr  getHandlePosition        (void) const;
-    EditFieldHandlePtr editHandlePosition       (void);
-    GetFieldHandlePtr  getHandleNormPosition    (void) const;
-    EditFieldHandlePtr editHandleNormPosition   (void);
-    GetFieldHandlePtr  getHandleStyle           (void) const;
-    EditFieldHandlePtr editHandleStyle          (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-
-                  MFColor3f           *editMFColor          (void);
-            const MFColor3f           *getMFColor           (void) const;
-
-                  MFReal32            *editMFPosition       (void);
-            const MFReal32            *getMFPosition        (void) const;
-
-                  SFBool              *editSFNormPosition   (void);
-            const SFBool              *getSFNormPosition    (void) const;
-
-
-                  Color3f             &editColor          (const UInt32 index);
-            const Color3f             &getColor           (const UInt32 index) const;
-
-                  Real32              &editPosition       (const UInt32 index);
-                  Real32               getPosition        (const UInt32 index) const;
-
-                  bool                &editNormPosition   (void);
-                  bool                 getNormPosition    (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setNormPosition   (const bool value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
+    GetFieldHandlePtr  getHandleTile            (void) const;
+    EditFieldHandlePtr editHandleTile           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -304,7 +216,7 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      GradientBackgroundBase *pFrom,
+            void execSync (      TileableBackgroundBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -320,11 +232,6 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
-
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(
-                                    const FieldContainer *pRefAspect) const;
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -344,11 +251,11 @@ class OSG_WINDOW_DLLMAPPING GradientBackgroundBase : public TileableBackground
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const GradientBackgroundBase &source);
+    void operator =(const TileableBackgroundBase &source);
 };
 
-typedef GradientBackgroundBase *GradientBackgroundBaseP;
+typedef TileableBackgroundBase *TileableBackgroundBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGGRADIENTBACKGROUNDBASE_H_ */
+#endif /* _OSGTILEABLEBACKGROUNDBASE_H_ */

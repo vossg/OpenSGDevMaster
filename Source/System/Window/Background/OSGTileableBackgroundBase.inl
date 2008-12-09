@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class GradientBackground!
+ **     class TileableBackground!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,113 +53,56 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &GradientBackgroundBase::getClassType(void)
+OSG::FieldContainerType &TileableBackgroundBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 GradientBackgroundBase::getClassTypeId(void)
+OSG::UInt32 TileableBackgroundBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 GradientBackgroundBase::getClassGroupId(void)
+OSG::UInt16 TileableBackgroundBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the GradientBackground::_sfNormPosition field.
+//! Get the value of the TileableBackground::_sfTile field.
 
 inline
-bool &GradientBackgroundBase::editNormPosition(void)
+bool &TileableBackgroundBase::editTile(void)
 {
-    editSField(NormPositionFieldMask);
+    editSField(TileFieldMask);
 
-    return _sfNormPosition.getValue();
+    return _sfTile.getValue();
 }
 
-//! Get the value of the GradientBackground::_sfNormPosition field.
+//! Get the value of the TileableBackground::_sfTile field.
 inline
-      bool  GradientBackgroundBase::getNormPosition(void) const
+      bool  TileableBackgroundBase::getTile(void) const
 {
-    return _sfNormPosition.getValue();
+    return _sfTile.getValue();
 }
 
-//! Set the value of the GradientBackground::_sfNormPosition field.
+//! Set the value of the TileableBackground::_sfTile field.
 inline
-void GradientBackgroundBase::setNormPosition(const bool value)
+void TileableBackgroundBase::setTile(const bool value)
 {
-    editSField(NormPositionFieldMask);
+    editSField(TileFieldMask);
 
-    _sfNormPosition.setValue(value);
+    _sfTile.setValue(value);
 }
-//! Get the value of the GradientBackground::_sfStyle field.
-
-inline
-UInt32 &GradientBackgroundBase::editStyle(void)
-{
-    editSField(StyleFieldMask);
-
-    return _sfStyle.getValue();
-}
-
-//! Get the value of the GradientBackground::_sfStyle field.
-inline
-      UInt32  GradientBackgroundBase::getStyle(void) const
-{
-    return _sfStyle.getValue();
-}
-
-//! Set the value of the GradientBackground::_sfStyle field.
-inline
-void GradientBackgroundBase::setStyle(const UInt32 value)
-{
-    editSField(StyleFieldMask);
-
-    _sfStyle.setValue(value);
-}
-
-//! Get the value of the \a index element the GradientBackground::_mfColor field.
-inline
-const Color3f &GradientBackgroundBase::getColor(const UInt32 index) const
-{
-    return _mfColor[index];
-}
-
-inline
-Color3f &GradientBackgroundBase::editColor(const UInt32 index)
-{
-    editMField(ColorFieldMask, _mfColor);
-
-    return _mfColor[index];
-}
-
-
-//! Get the value of the \a index element the GradientBackground::_mfPosition field.
-inline
-      Real32  GradientBackgroundBase::getPosition(const UInt32 index) const
-{
-    return _mfPosition[index];
-}
-
-inline
-Real32 &GradientBackgroundBase::editPosition(const UInt32 index)
-{
-    editMField(PositionFieldMask, _mfPosition);
-
-    return _mfPosition[index];
-}
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void GradientBackgroundBase::execSync (      GradientBackgroundBase *pFrom,
+void TileableBackgroundBase::execSync (      TileableBackgroundBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -167,33 +110,18 @@ void GradientBackgroundBase::execSync (      GradientBackgroundBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (ColorFieldMask & whichField))
-        _mfColor.syncWith(pFrom->_mfColor,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (PositionFieldMask & whichField))
-        _mfPosition.syncWith(pFrom->_mfPosition,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (NormPositionFieldMask & whichField))
-        _sfNormPosition.syncWith(pFrom->_sfNormPosition);
-
-    if(FieldBits::NoField != (StyleFieldMask & whichField))
-        _sfStyle.syncWith(pFrom->_sfStyle);
+    if(FieldBits::NoField != (TileFieldMask & whichField))
+        _sfTile.syncWith(pFrom->_sfTile);
 }
 #endif
 
 
 inline
-const Char8 *GradientBackgroundBase::getClassname(void)
+const Char8 *TileableBackgroundBase::getClassname(void)
 {
-    return "GradientBackground";
+    return "TileableBackground";
 }
-OSG_GEN_CONTAINERPTR(GradientBackground);
+OSG_GEN_CONTAINERPTR(TileableBackground);
 
 OSG_END_NAMESPACE
 

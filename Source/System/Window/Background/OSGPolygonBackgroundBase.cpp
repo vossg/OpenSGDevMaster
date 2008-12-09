@@ -119,10 +119,6 @@ OSG_BEGIN_NAMESPACE
     Clear depth/ stencil buffer after applying the material.
 */
 
-/*! \var bool            PolygonBackgroundBase::_sfTile
-    If true the image tiles in multi window settings.
-*/
-
 
 void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -236,18 +232,6 @@ void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&PolygonBackground::getHandleCleanup));
 
     oType.addInitialDesc(pDesc);
-
-    pDesc = new SFBool::Description(
-        SFBool::getClassType(),
-        "tile",
-        "If true the image tiles in multi window settings.\n",
-        TileFieldId, TileFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&PolygonBackground::editHandleTile),
-        static_cast<FieldGetMethodSig >(&PolygonBackground::getHandleTile));
-
-    oType.addInitialDesc(pDesc);
 }
 
 
@@ -266,7 +250,7 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"PolygonBackground\"\n"
-    "\tparent=\"Background\"\n"
+    "\tparent=\"TileableBackground\"\n"
     "\tlibrary=\"Window\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
@@ -362,16 +346,6 @@ PolygonBackgroundBase::TypeObject PolygonBackgroundBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tClear depth/ stencil buffer after applying the material.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"tile\"\n"
-    "\t\ttype=\"bool\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"true\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\tIf true the image tiles in multi window settings.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "A Background that renders a single polygon using the specified material.\n"
@@ -514,19 +488,6 @@ const SFBool *PolygonBackgroundBase::getSFCleanup(void) const
 }
 
 
-SFBool *PolygonBackgroundBase::editSFTile(void)
-{
-    editSField(TileFieldMask);
-
-    return &_sfTile;
-}
-
-const SFBool *PolygonBackgroundBase::getSFTile(void) const
-{
-    return &_sfTile;
-}
-
-
 
 
 
@@ -573,10 +534,6 @@ UInt32 PolygonBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfCleanup.getBinSize();
     }
-    if(FieldBits::NoField != (TileFieldMask & whichField))
-    {
-        returnValue += _sfTile.getBinSize();
-    }
 
     return returnValue;
 }
@@ -622,10 +579,6 @@ void PolygonBackgroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfCleanup.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (TileFieldMask & whichField))
-    {
-        _sfTile.copyToBin(pMem);
-    }
 }
 
 void PolygonBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -668,10 +621,6 @@ void PolygonBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (CleanupFieldMask & whichField))
     {
         _sfCleanup.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (TileFieldMask & whichField))
-    {
-        _sfTile.copyFromBin(pMem);
     }
 }
 
@@ -806,8 +755,7 @@ PolygonBackgroundBase::PolygonBackgroundBase(void) :
     _sfAspectHeight           (UInt16(0)),
     _sfAspectWidth            (UInt16(0)),
     _sfScale                  (Real32(1.0)),
-    _sfCleanup                (bool(true)),
-    _sfTile                   (bool(true))
+    _sfCleanup                (bool(true))
 {
 }
 
@@ -821,8 +769,7 @@ PolygonBackgroundBase::PolygonBackgroundBase(const PolygonBackgroundBase &source
     _sfAspectHeight           (source._sfAspectHeight           ),
     _sfAspectWidth            (source._sfAspectWidth            ),
     _sfScale                  (source._sfScale                  ),
-    _sfCleanup                (source._sfCleanup                ),
-    _sfTile                   (source._sfTile                   )
+    _sfCleanup                (source._sfCleanup                )
 {
 }
 
@@ -1055,29 +1002,6 @@ EditFieldHandlePtr PolygonBackgroundBase::editHandleCleanup        (void)
     return returnValue;
 }
 
-GetFieldHandlePtr PolygonBackgroundBase::getHandleTile            (void) const
-{
-    SFBool::GetHandlePtr returnValue(
-        new  SFBool::GetHandle(
-             &_sfTile,
-             this->getType().getFieldDesc(TileFieldId)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr PolygonBackgroundBase::editHandleTile           (void)
-{
-    SFBool::EditHandlePtr returnValue(
-        new  SFBool::EditHandle(
-             &_sfTile,
-             this->getType().getFieldDesc(TileFieldId)));
-
-
-    editSField(TileFieldMask);
-
-    return returnValue;
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 void PolygonBackgroundBase::execSyncV(      FieldContainer    &oFrom,
@@ -1135,7 +1059,7 @@ void PolygonBackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PolygonBackground *>::_type("PolygonBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<PolygonBackground *>::_type("PolygonBackgroundPtr", "TileableBackgroundPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(PolygonBackground *)

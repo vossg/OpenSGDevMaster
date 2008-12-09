@@ -182,7 +182,7 @@ void TileCameraDecorator::getDecoration(Matrix &result,
 
     if(camera == NULL)
     {
-        FWARNING(("TileCameraDecorator::getProjection: no decoratee!\n"));
+        FWARNING(("TileCameraDecorator::getDecoration: no decoratee!\n"));
 
         result.setIdentity();
 

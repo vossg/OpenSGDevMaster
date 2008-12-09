@@ -75,14 +75,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::GradientBackground
-    \ingroup GrpSystemWindowBackgrounds
-
-    A background showing a vertical color gradient, see
-    \ref PageSystemWindowBackgroundGradient.
-
-    The colors (_mfColor) and positions (_mfPosition) correspond to each other, so
-    both have to have the same number of elements. The addColor() method should
-    be used for defining the gradient, as it ensures that constraint.
+    A background showing a color gradient. The colors and positions correspond to
+    each other, so both have to have the same number of elements.
+    The style field (_sfStyle) selects the kind of gradient being
+    drawn (HORIZONTAL, VERTICAL).
  */
 
 /***************************************************************************\
@@ -95,6 +91,15 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Real32          GradientBackgroundBase::_mfPosition
     The positions of the gradient.
+*/
+
+/*! \var bool            GradientBackgroundBase::_sfNormPosition
+    If true the values of the position field must be normed coordinates in the
+    range [0,1], otherwise they must be pixel coordinates.
+*/
+
+/*! \var UInt32          GradientBackgroundBase::_sfStyle
+    Gradient style. Allowed values are VERTICAL and HORIZONTAL.
 */
 
 
@@ -126,6 +131,31 @@ void GradientBackgroundBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&GradientBackground::getHandlePosition));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "normPosition",
+        "If true the values of the position field must be normed coordinates in the\n"
+        "range [0,1], otherwise they must be pixel coordinates.\n",
+        NormPositionFieldId, NormPositionFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&GradientBackground::editHandleNormPosition),
+        static_cast<FieldGetMethodSig >(&GradientBackground::getHandleNormPosition));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "style",
+        "Gradient style. Allowed values are VERTICAL and HORIZONTAL.\n",
+        StyleFieldId, StyleFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&GradientBackground::editHandleStyle),
+        static_cast<FieldGetMethodSig >(&GradientBackground::getHandleStyle));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -144,7 +174,7 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"GradientBackground\"\n"
-    "\tparent=\"Background\"\n"
+    "\tparent=\"TileableBackground\"\n"
     "\tlibrary=\"Window\"\n"
     "\tpointerfieldtypes=\"multi\"\n"
     "\tstructure=\"concrete\"\n"
@@ -152,14 +182,10 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
     ">\n"
-    "\\ingroup GrpSystemWindowBackgrounds\n"
-    "\n"
-    "A background showing a vertical color gradient, see\n"
-    "\\ref PageSystemWindowBackgroundGradient.\n"
-    "\n"
-    "The colors (_mfColor) and positions (_mfPosition) correspond to each other, so\n"
-    "both have to have the same number of elements. The addColor() method should\n"
-    "be used for defining the gradient, as it ensures that constraint.\n"
+    "A background showing a color gradient. The colors and positions correspond to\n"
+    "each other, so both have to have the same number of elements.\n"
+    "The style field (_sfStyle) selects the kind of gradient being\n"
+    "drawn (HORIZONTAL, VERTICAL).\n"
     "\t<Field\n"
     "\t\tname=\"color\"\n"
     "\t\ttype=\"Color3f\"\n"
@@ -178,15 +204,32 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(
     "\t>\n"
     "\tThe positions of the gradient.\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "        name=\"normPosition\"\n"
+    "        type=\"bool\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"true\"\n"
+    "        access=\"protected\"\n"
+    "    >\n"
+    "    If true the values of the position field must be normed coordinates in the\n"
+    "    range [0,1], otherwise they must be pixel coordinates.\n"
+    "    </Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"style\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        defaultValue=\"GradientBackground::VERTICAL\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tGradient style. Allowed values are VERTICAL and HORIZONTAL.\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemWindowBackgrounds\n"
-    "\n"
-    "A background showing a vertical color gradient, see\n"
-    "\\ref PageSystemWindowBackgroundGradient.\n"
-    "\n"
-    "The colors (_mfColor) and positions (_mfPosition) correspond to each other, so\n"
-    "both have to have the same number of elements. The addColor() method should\n"
-    "be used for defining the gradient, as it ensures that constraint.\n"
+    "A background showing a color gradient. The colors and positions correspond to\n"
+    "each other, so both have to have the same number of elements.\n"
+    "The style field (_sfStyle) selects the kind of gradient being\n"
+    "drawn (HORIZONTAL, VERTICAL).\n"
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -235,6 +278,32 @@ const MFReal32 *GradientBackgroundBase::getMFPosition(void) const
 }
 
 
+SFBool *GradientBackgroundBase::editSFNormPosition(void)
+{
+    editSField(NormPositionFieldMask);
+
+    return &_sfNormPosition;
+}
+
+const SFBool *GradientBackgroundBase::getSFNormPosition(void) const
+{
+    return &_sfNormPosition;
+}
+
+
+SFUInt32 *GradientBackgroundBase::editSFStyle(void)
+{
+    editSField(StyleFieldMask);
+
+    return &_sfStyle;
+}
+
+const SFUInt32 *GradientBackgroundBase::getSFStyle(void) const
+{
+    return &_sfStyle;
+}
+
+
 
 
 
@@ -253,6 +322,14 @@ UInt32 GradientBackgroundBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfPosition.getBinSize();
     }
+    if(FieldBits::NoField != (NormPositionFieldMask & whichField))
+    {
+        returnValue += _sfNormPosition.getBinSize();
+    }
+    if(FieldBits::NoField != (StyleFieldMask & whichField))
+    {
+        returnValue += _sfStyle.getBinSize();
+    }
 
     return returnValue;
 }
@@ -270,6 +347,14 @@ void GradientBackgroundBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfPosition.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (NormPositionFieldMask & whichField))
+    {
+        _sfNormPosition.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (StyleFieldMask & whichField))
+    {
+        _sfStyle.copyToBin(pMem);
+    }
 }
 
 void GradientBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
@@ -284,6 +369,14 @@ void GradientBackgroundBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (PositionFieldMask & whichField))
     {
         _mfPosition.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (NormPositionFieldMask & whichField))
+    {
+        _sfNormPosition.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (StyleFieldMask & whichField))
+    {
+        _sfStyle.copyFromBin(pMem);
     }
 }
 
@@ -411,14 +504,18 @@ FieldContainerTransitPtr GradientBackgroundBase::shallowCopy(void) const
 GradientBackgroundBase::GradientBackgroundBase(void) :
     Inherited(),
     _mfColor                  (),
-    _mfPosition               ()
+    _mfPosition               (),
+    _sfNormPosition           (bool(true)),
+    _sfStyle                  (UInt32(GradientBackground::VERTICAL))
 {
 }
 
 GradientBackgroundBase::GradientBackgroundBase(const GradientBackgroundBase &source) :
     Inherited(source),
     _mfColor                  (source._mfColor                  ),
-    _mfPosition               (source._mfPosition               )
+    _mfPosition               (source._mfPosition               ),
+    _sfNormPosition           (source._sfNormPosition           ),
+    _sfStyle                  (source._sfStyle                  )
 {
 }
 
@@ -472,6 +569,52 @@ EditFieldHandlePtr GradientBackgroundBase::editHandlePosition       (void)
 
 
     editMField(PositionFieldMask, _mfPosition);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr GradientBackgroundBase::getHandleNormPosition    (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfNormPosition,
+             this->getType().getFieldDesc(NormPositionFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GradientBackgroundBase::editHandleNormPosition   (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfNormPosition,
+             this->getType().getFieldDesc(NormPositionFieldId)));
+
+
+    editSField(NormPositionFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr GradientBackgroundBase::getHandleStyle           (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfStyle,
+             this->getType().getFieldDesc(StyleFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GradientBackgroundBase::editHandleStyle          (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfStyle,
+             this->getType().getFieldDesc(StyleFieldId)));
+
+
+    editSField(StyleFieldMask);
 
     return returnValue;
 }
@@ -531,7 +674,7 @@ void GradientBackgroundBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GradientBackground *>::_type("GradientBackgroundPtr", "BackgroundPtr");
+DataType FieldTraits<GradientBackground *>::_type("GradientBackgroundPtr", "TileableBackgroundPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(GradientBackground *)

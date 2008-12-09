@@ -69,8 +69,8 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-const OSG::BitVector  GradientBackground::LineFieldMask = 
-                     (GradientBackground::PositionFieldMask | 
+const OSG::BitVector  GradientBackground::LineFieldMask =
+                     (GradientBackground::PositionFieldMask |
                       GradientBackground::ColorFieldMask   );
 
 /***************************************************************************\
@@ -102,7 +102,7 @@ GradientBackground::~GradientBackground(void)
 {
 }
 
-void GradientBackground::changed(ConstFieldMaskArg whichField, 
+void GradientBackground::changed(ConstFieldMaskArg whichField,
                                  UInt32            origin,
                                  BitVector         details)
 {
@@ -115,100 +115,137 @@ void GradientBackground::clear(DrawEnv *pEnv)
 {
     Int32      stencilBit = getClearStencilBit();   // 0x0
     GLbitfield clearMask  = 0;
-    
+
     if(getClearColor() == true)
     {
         if(_mfPosition.size() < 2)
         {
             // too few positions for a real gradient - just clear the buffer
-            
+
             clearMask |= GL_COLOR_BUFFER_BIT;
-            
+
             if(_mfPosition.size() == 1)
             {
                 const Color3f &col = _mfColor[0];
-                
+
                 GLP::glClearColor(col[0], col[1], col[2], 1.0);
             }
         }
         else
         {
             // draw gradient - don't need to clear the color buffer
-            
+
             glPushAttrib(GL_POLYGON_BIT | GL_DEPTH_BUFFER_BIT |
                          GL_LIGHTING_BIT                       );
-            
+
             glDisable(GL_LIGHTING);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             glDisable(GL_DEPTH_TEST);
             glDisable(GL_COLOR_MATERIAL);
 
-            glMatrixMode(GL_MODELVIEW);
-            glPushMatrix();
-            glLoadIdentity();
+            UInt32 fullWidth;
+            UInt32 fullHeight;
 
-            glMatrixMode(GL_PROJECTION);
-            glPushMatrix();
-            glLoadIdentity();
-            
-            // FIXME This does not work with TileCameraDecorator
-            glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
-
-            UInt32 size = _mfPosition.size();
+            // setup ortho projection
+            beginOrthoRender(pEnv, getNormPosition(), getNormPosition(),
+                                   fullWidth,         fullHeight        );
 
             glBegin(GL_QUAD_STRIP);
-        
-            Real32 pos = _mfPosition[0];
 
-            if(pos > 0.0f)
+            UInt32 size  = _mfPosition.size();
+            Real32 pos   = _mfPosition[0];
+            UInt32 style = getStyle();
+
+            switch(style)
             {
-                glColor3f(0.0, 0.0, 0.0);
-                glVertex3f(0, 0, 0);
-                glVertex3f(1, 0, 0);
+            case VERTICAL:
+            {
+                if(pos > 0)
+                {
+                    glColor3f(0.0, 0.0, 0.0);
+                    glVertex2f(0.0f,      0.0f);
+                    glVertex2f(fullWidth, 0.0f);
+                }
+
+                for(UInt32 i = 0; i < size; ++i)
+                {
+                                   pos = _mfPosition[i];
+                    const Color3f &col = _mfColor   [i];
+
+                    glColor3f(col[0], col[1], col[2]);
+                    glVertex2f(0.0f,      pos);
+                    glVertex2f(fullWidth, pos);
+                }
+
+                if(pos < 1)
+                {
+                    glColor3f(0.0, 0.0, 0.0);
+                    glVertex2f(0.0f,      fullHeight);
+                    glVertex2f(fullWidth, fullHeight);
+                }
+
+                break;
             }
 
-            for(UInt32 i = 0; i < size; i++)
+            case HORIZONTAL:
             {
-                pos = _mfPosition[i];
+                if(pos > 0)
+                {
+                    glColor3f(0.0, 0.0, 0.0);
+                    glVertex2f(0.0f, 0.0f      );
+                    glVertex2f(0.0f, fullHeight);
+                }
 
-                const Color3f &col = _mfColor[i];
+                for(UInt32 i = 0; i < size; i++)
+                {
+                                   pos = _mfPosition[i];
+                    const Color3f &col = _mfColor   [i];
 
-                glColor3f(col[0], col[1], col[2]);
-                glVertex3f(0, pos, 0);
-                glVertex3f(1, pos, 0);
+                    glColor3f(col[0], col[1], col[2]);
+                    glVertex2f(pos, 0.0f      );
+                    glVertex2f(pos, fullHeight);
+                }
+
+                if(pos < 1)
+                {
+                    glColor3f(0.0, 0.0, 0.0);
+                    glVertex2f(fullWidth, 0.0f      );
+                    glVertex2f(fullWidth, fullHeight);
+                }
+
+                break;
             }
 
-            if(pos < 1.0f)
+            default:
             {
-                glColor3f(0.0, 0.0, 0.0);
-                glVertex3f(0, 1, 0);
-                glVertex3f(1, 1, 0);
+                FWARNING(("GradientBackground: "
+                          "SFStyle has invalid value [%u].\n", style));
+                break;
             }
-        
+            };
+
             glEnd();
 
-            glPopMatrix();
-            glMatrixMode(GL_MODELVIEW);
-            glPopMatrix();
+            endOrthoRender(pEnv);
 
             glPopAttrib();
         }
     }
-    
+
     if(getClearDepth() == true)
     {
         clearMask |= GL_DEPTH_BUFFER_BIT;
-        
+
         GLP::glClearDepth(getDepth());
     }
-    
+
     if(stencilBit >= 0)
     {
         clearMask |= GL_STENCIL_BUFFER_BIT;
-        
+
         glClearStencil(stencilBit);
     }
-    
+
     if(clearMask != 0)
     {
         glClear(clearMask);
@@ -217,7 +254,7 @@ void GradientBackground::clear(DrawEnv *pEnv)
 
 /*------------------------------- dump ----------------------------------*/
 
-void GradientBackground::dump(     UInt32    OSG_CHECK_ARG(uiIndent), 
+void GradientBackground::dump(     UInt32    OSG_CHECK_ARG(uiIndent),
                               const BitVector OSG_CHECK_ARG(bvFlags)) const
 {
     SLOG << "Dump GradientBackground NI" << std::endl;

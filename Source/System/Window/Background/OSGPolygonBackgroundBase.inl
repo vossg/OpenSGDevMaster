@@ -239,31 +239,6 @@ void PolygonBackgroundBase::setCleanup(const bool value)
 
     _sfCleanup.setValue(value);
 }
-//! Get the value of the PolygonBackground::_sfTile field.
-
-inline
-bool &PolygonBackgroundBase::editTile(void)
-{
-    editSField(TileFieldMask);
-
-    return _sfTile.getValue();
-}
-
-//! Get the value of the PolygonBackground::_sfTile field.
-inline
-      bool  PolygonBackgroundBase::getTile(void) const
-{
-    return _sfTile.getValue();
-}
-
-//! Set the value of the PolygonBackground::_sfTile field.
-inline
-void PolygonBackgroundBase::setTile(const bool value)
-{
-    editSField(TileFieldMask);
-
-    _sfTile.setValue(value);
-}
 
 //! Get the value of the \a index element the PolygonBackground::_mfTexCoords field.
 inline
@@ -340,9 +315,6 @@ void PolygonBackgroundBase::execSync (      PolygonBackgroundBase *pFrom,
 
     if(FieldBits::NoField != (CleanupFieldMask & whichField))
         _sfCleanup.syncWith(pFrom->_sfCleanup);
-
-    if(FieldBits::NoField != (TileFieldMask & whichField))
-        _sfTile.syncWith(pFrom->_sfTile);
 }
 #endif
 

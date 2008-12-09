@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,49 +36,45 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGPOLYGONBACKGROUND_H_
-#define _OSGPOLYGONBACKGROUND_H_
+#ifndef _OSGTILEABLEBACKGROUND_H_
+#define _OSGTILEABLEBACKGROUND_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGPolygonBackgroundBase.h"
+#include "OSGTileableBackgroundBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief PolygonBackground class. See \ref 
-           PageSystemPolygonBackground for a description.
+/*! \brief TileableBackground class. See \ref
+           PageWindowTileableBackground for a description.
 */
 
-class OSG_WINDOW_DLLMAPPING PolygonBackground : public PolygonBackgroundBase
+class OSG_WINDOW_DLLMAPPING TileableBackground : public TileableBackgroundBase
 {
-  public:
+  protected:
 
     /*==========================  PUBLIC  =================================*/
 
-    typedef PolygonBackgroundBase                           Inherited;
+  public:
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Clear                                    */
-    /*! \{                                                                 */
+    typedef TileableBackgroundBase Inherited;
+    typedef TileableBackground     Self;
 
-    virtual void clear(DrawEnv *pEnv);
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         detail);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
+    virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
@@ -86,28 +82,37 @@ class OSG_WINDOW_DLLMAPPING PolygonBackground : public PolygonBackgroundBase
 
   protected:
 
-    // Variables should all be in PolygonBackgroundBase.
+    // Variables should all be in TileableBackgroundBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    PolygonBackground(void);
-    PolygonBackground(const PolygonBackground &source);
+    TileableBackground(void);
+    TileableBackground(const TileableBackground &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PolygonBackground(void); 
+    virtual ~TileableBackground(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Init                                   */
+    /*! \name                      Init                                    */
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Helpers                                  */
+    /*! \{                                                                 */
+
+    void beginOrthoRender(DrawEnv *pEnv,      bool    normX,     bool normY,
+                          UInt32  &fullWidth, UInt32 &fullHeight            );
+    void endOrthoRender  (DrawEnv *pEnv                                     );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -115,17 +120,17 @@ class OSG_WINDOW_DLLMAPPING PolygonBackground : public PolygonBackgroundBase
   private:
 
     friend class FieldContainer;
-    friend class PolygonBackgroundBase;
+    friend class TileableBackgroundBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const PolygonBackground &source);
+    void operator =(const TileableBackground &source);
 };
 
-typedef PolygonBackground              *PolygonBackgroundP;
+typedef TileableBackground *TileableBackgroundP;
 
 OSG_END_NAMESPACE
 
-#include "OSGPolygonBackgroundBase.inl"
-#include "OSGPolygonBackground.inl"
+#include "OSGTileableBackgroundBase.inl"
+#include "OSGTileableBackground.inl"
 
-#endif /* _OSGPOLYGONBACKGROUND_H_ */
+#endif /* _OSGTILEABLEBACKGROUND_H_ */

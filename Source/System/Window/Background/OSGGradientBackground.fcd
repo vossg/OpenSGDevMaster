@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="GradientBackground"
-	parent="Background"
+	parent="TileableBackground"
 	library="Window"
 	pointerfieldtypes="multi"
 	structure="concrete"
@@ -10,14 +10,10 @@
 	parentsystemcomponent="true"
 	decoratable="false"
 >
-\ingroup GrpSystemWindowBackgrounds
-
-A background showing a vertical color gradient, see
-\ref PageSystemWindowBackgroundGradient.
-
-The colors (_mfColor) and positions (_mfPosition) correspond to each other, so
-both have to have the same number of elements. The addColor() method should
-be used for defining the gradient, as it ensures that constraint.
+A background showing a color gradient. The colors and positions correspond to
+each other, so both have to have the same number of elements.
+The style field (_sfStyle) selects the kind of gradient being
+drawn (HORIZONTAL, VERTICAL).
 	<Field
 		name="color"
 		type="Color3f"
@@ -35,5 +31,26 @@ be used for defining the gradient, as it ensures that constraint.
 		access="protected"
 	>
 	The positions of the gradient.
+	</Field>
+    <Field
+        name="normPosition"
+        type="bool"
+        cardinality="single"
+        visibility="external"
+        defaultValue="true"
+        access="protected"
+    >
+    If true the values of the position field must be normed coordinates in the
+    range [0,1], otherwise they must be pixel coordinates.
+    </Field>
+	<Field
+		name="style"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+        defaultValue="GradientBackground::VERTICAL"
+		access="public"
+	>
+	Gradient style. Allowed values are VERTICAL and HORIZONTAL.
 	</Field>
 </FieldContainer>

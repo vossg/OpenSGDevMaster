@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGBackground.h" // Parent
+#include "OSGTileableBackground.h" // Parent
 
 #include "OSGMaterialFields.h" // Material type
 #include "OSGVec3fFields.h" // TexCoords type
@@ -74,7 +74,6 @@
 #include "OSGUInt16Fields.h" // AspectWidth type
 #include "OSGReal32Fields.h" // Scale type
 #include "OSGBoolFields.h" // Cleanup type
-#include "OSGBoolFields.h" // Tile type
 
 #include "OSGPolygonBackgroundFields.h"
 
@@ -84,12 +83,12 @@ class PolygonBackground;
 
 //! \brief PolygonBackground Base Class.
 
-class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
+class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public TileableBackground
 {
   public:
 
-    typedef Background Inherited;
-    typedef Background ParentContainer;
+    typedef TileableBackground Inherited;
+    typedef TileableBackground ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -111,8 +110,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
         AspectWidthFieldId = AspectHeightFieldId + 1,
         ScaleFieldId = AspectWidthFieldId + 1,
         CleanupFieldId = ScaleFieldId + 1,
-        TileFieldId = CleanupFieldId + 1,
-        NextFieldId = TileFieldId + 1
+        NextFieldId = CleanupFieldId + 1
     };
 
     static const OSG::BitVector MaterialFieldMask =
@@ -133,8 +131,6 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
         (TypeTraits<BitVector>::One << ScaleFieldId);
     static const OSG::BitVector CleanupFieldMask =
         (TypeTraits<BitVector>::One << CleanupFieldId);
-    static const OSG::BitVector TileFieldMask =
-        (TypeTraits<BitVector>::One << TileFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -147,7 +143,6 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     typedef SFUInt16          SFAspectWidthType;
     typedef SFReal32          SFScaleType;
     typedef SFBool            SFCleanupType;
-    typedef SFBool            SFTileType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -199,9 +194,6 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
                   SFBool              *editSFCleanup        (void);
             const SFBool              *getSFCleanup         (void) const;
 
-                  SFBool              *editSFTile           (void);
-            const SFBool              *getSFTile            (void) const;
-
 
                   Material * getMaterial       (void) const;
 
@@ -229,9 +221,6 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
                   bool                &editCleanup        (void);
                   bool                 getCleanup         (void) const;
 
-                  bool                &editTile           (void);
-                  bool                 getTile            (void) const;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -244,7 +233,6 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
             void setAspectWidth    (const UInt16 value);
             void setScale          (const Real32 value);
             void setCleanup        (const bool value);
-            void setTile           (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -318,7 +306,6 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     SFUInt16          _sfAspectWidth;
     SFReal32          _sfScale;
     SFBool            _sfCleanup;
-    SFBool            _sfTile;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -365,8 +352,6 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public Background
     EditFieldHandlePtr editHandleScale          (void);
     GetFieldHandlePtr  getHandleCleanup         (void) const;
     EditFieldHandlePtr editHandleCleanup        (void);
-    GetFieldHandlePtr  getHandleTile            (void) const;
-    EditFieldHandlePtr editHandleTile           (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

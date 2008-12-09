@@ -34,19 +34,23 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+
+
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "OSGConfig.h"
+
 OSG_BEGIN_NAMESPACE
 
 /*------------------------------ access -----------------------------------*/
-
-inline 
-void GradientBackground::addLine(Color3f col, Real32 pos)
+inline void GradientBackground::addLine(Color3f col, Real32 pos)
 {
     _mfColor.push_back(col);
     _mfPosition.push_back(pos);
 }
 
-inline 
-void GradientBackground::clearLines(void)
+inline void GradientBackground::clearLines(void)
 {
     _mfColor.clear();
     _mfPosition.clear();
