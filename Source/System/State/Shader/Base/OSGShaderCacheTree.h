@@ -52,6 +52,86 @@
 OSG_BEGIN_NAMESPACE
 
 template<class ObjectT>
+class ShaderMapCache
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef typename ObjectT::ObjUnrecPtr  ObjectUnrecPtr;
+
+    typedef UInt16                                            IdType;
+    typedef std::vector<IdType                              > IdStore;
+
+    typedef std::map<IdStore, ObjectUnrecPtr                > ObjectStore;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Statistic                                  */
+    /*! \{                                                                 */
+
+    ObjectT *find(const IdStore &vIds   );
+    bool     add (const IdStore &vIds,
+                        ObjectT *pObject);
+    void     sub (      UInt32   uiIdx  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    void dumpDot(const Char8 *szFilename);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    template <typename ElemDestFunc>
+    void destroy(ElemDestFunc destFunc);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    ShaderMapCache(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    ~ShaderMapCache(void);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    ObjectStore _vObjectStore;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+};
+
+typedef ShaderMapCache<ShaderExecutableChunk   > ShaderExeMap;
+typedef ShaderMapCache<ShaderExecutableVarChunk> ShaderVarMap;
+
+#ifdef OSG_SHC_MODE_0
+typedef ShaderVectorCache<ShaderExecutableChunk   > ActiveShaderExeTree;
+typedef ShaderVectorCache<ShaderExecutableVarChunk> ActiveShaderVarTree;
+#endif
+
+
+
+
+template<class ObjectT>
 class ShaderVectorCache
 {
     /*==========================  PUBLIC  =================================*/
@@ -123,25 +203,29 @@ class ShaderVectorCache
   private:
 };
 
-#ifdef OSG_SHC_MODE_0
+#ifdef OSG_SHC_MODE_1
 typedef ShaderVectorCache<ShaderExecutableChunk   > ActiveShaderExeTree;
 typedef ShaderVectorCache<ShaderExecutableVarChunk> ActiveShaderVarTree;
-
-inline
-bool operator < (const ActiveShaderExeTree::StoreElement    &rhs,
-                 const ActiveShaderExeTree::IdStore         &lhs)
-{
-    return rhs.first < lhs;
-}
-
-inline
-bool operator < (const ActiveShaderVarTree::StoreElement    &rhs,
-                 const ActiveShaderVarTree::IdStore         &lhs)
-{
-    return rhs.first < lhs;
-}
-
 #endif
+
+typedef ShaderVectorCache<ShaderExecutableChunk   > ShaderExeVector;
+typedef ShaderVectorCache<ShaderExecutableVarChunk> ShaderVarVector;
+
+inline
+bool operator < (const ShaderExeVector::StoreElement    &rhs,
+                 const ShaderExeVector::IdStore         &lhs)
+{
+    return rhs.first < lhs;
+}
+
+inline
+bool operator < (const ShaderVarVector::StoreElement    &rhs,
+                 const ShaderVarVector::IdStore         &lhs)
+{
+    return rhs.first < lhs;
+}
+
+
 
 #ifndef WIN32
 
@@ -259,7 +343,7 @@ class ShaderCacheTreeV0
   private:
 };
 
-#ifdef OSG_SHC_MODE_1
+#ifdef OSG_SHC_MODE_2
 typedef ShaderCacheTreeV0<ShaderExecutableChunk,
                           3                              > ActiveShaderExeTree;
 typedef ShaderCacheTreeV0<ShaderExecutableVarChunk,
@@ -414,7 +498,7 @@ class ShaderCacheTreeV1
   private:
 };
 
-#ifdef OSG_SHC_MODE_2
+#ifdef OSG_SHC_MODE_3
 typedef ShaderCacheTreeV1<ShaderExecutableChunk,
                           3                              > ActiveShaderExeTree;
 typedef ShaderCacheTreeV1<ShaderExecutableVarChunk,
@@ -528,7 +612,7 @@ class ShaderCacheTreeV2
   private:
 };
 
-#ifdef OSG_SHC_MODE_3
+#ifdef OSG_SHC_MODE_4
 typedef ShaderCacheTreeV2<ShaderExecutableChunk,
                           3                              > ActiveShaderExeTree;
 typedef ShaderCacheTreeV2<ShaderExecutableVarChunk,
@@ -644,7 +728,7 @@ class ShaderCacheTreeV3
   private:
 };
 
-#ifdef OSG_SHC_MODE_4
+#ifdef OSG_SHC_MODE_5
 typedef ShaderCacheTreeV3<ShaderExecutableChunk,
                           3                              > ActiveShaderExeTree;
 typedef ShaderCacheTreeV3<ShaderExecutableVarChunk,

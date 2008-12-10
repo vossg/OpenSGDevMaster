@@ -149,6 +149,108 @@ ShaderVectorCache<ObjectT>::~ShaderVectorCache(void)
 }
 
 
+
+/*---------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------*/
+
+template<class ObjectT> inline
+ObjectT *ShaderMapCache<ObjectT>::find(const IdStore &vIds)
+{
+    typename ObjectStore::const_iterator sIt = _vObjectStore.find(vIds);
+
+    if(sIt == _vObjectStore.end())
+    {
+        return NULL;
+    }
+
+    return sIt->second;
+}
+
+template<class ObjectT> inline
+bool ShaderMapCache<ObjectT>::add (const IdStore &vIds,
+                                         ObjectT *pObject)
+{
+    bool returnValue = false;
+
+    typename ObjectStore::iterator sIt = _vObjectStore.lower_bound(vIds);
+
+
+    if(sIt == _vObjectStore.end() || sIt->first != vIds)
+    {
+        _vObjectStore.insert(sIt, std::make_pair(vIds, pObject));
+
+        returnValue = true;
+    }
+
+    return returnValue;
+}
+
+template<class ObjectT> inline
+void ShaderMapCache<ObjectT>::sub(UInt32 uiIdx)
+{
+    typename ObjectStore::      iterator sIt  = _vObjectStore.begin();
+    typename ObjectStore::const_iterator sEnd = _vObjectStore.end  ();
+
+    std::vector<IdStore> vDestKeys;
+
+    while(sIt != sEnd)
+    {
+        IdStore::const_iterator idIt  = std::find(sIt->first.begin(),
+                                                  sIt->first.end  (),
+                                                  uiIdx);
+
+        if(idIt != sIt->first.end())
+        {
+            vDestKeys.push_back(sIt->first);
+        }
+
+        ++sIt;
+    }
+
+    std::vector<IdStore>::const_iterator kIt  = vDestKeys.begin();
+    std::vector<IdStore>::const_iterator kEnd = vDestKeys.end  ();
+
+    for(; kIt != kEnd; ++kIt)
+    {
+        _vObjectStore.erase(*kIt);
+    }
+}
+
+template<class ObjectT> inline
+void ShaderMapCache<ObjectT>::dumpDot(const Char8 *szFilename)
+{
+}
+
+template<class ObjectT> 
+template <typename ElemDestFunc> inline
+void ShaderMapCache<ObjectT>::destroy(ElemDestFunc destFunc)
+{
+#ifndef OSG_SHC_REF_CLEANUP
+    typename ObjectStore::      iterator sIt  = _vObjectStore.begin();
+    typename ObjectStore::const_iterator sEnd = _vObjectStore.end  ();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        (destFunc)(sIt->second);
+
+        sIt->second = NULL;
+    }
+#endif
+
+}
+
+template<class ObjectT> inline
+ShaderMapCache<ObjectT>::ShaderMapCache(void) :
+    _vObjectStore()
+{
+}
+
+template<class ObjectT> inline
+ShaderMapCache<ObjectT>::~ShaderMapCache(void)
+{
+}
+
+
 #ifndef WIN32
 
 /*---------------------------------------------------------------------------*/
@@ -1948,6 +2050,11 @@ bool ShaderCacheTreeV2<ObjectT, LevelBits>::add(const IdStore &vIds,
                     pNextNode->_vChildren[0] = 
                         pCurrNode->_vChildren[uiCurrBits].asT2();
 
+                    pNextNode->_pObject = 
+                        pCurrNode->_vChildren[uiCurrBits].asT2()->_pObject;
+
+                    pCurrNode->_vChildren[uiCurrBits].asT2()->_pObject = NULL;
+
                     pCurrNode->_vJumps   [uiCurrBits] = uiJumpDist;
                     pCurrNode->_vChildren[uiCurrBits] = pNextNode;
 
@@ -2087,8 +2194,8 @@ bool ShaderCacheTreeV2<ObjectT, LevelBits>::add(const IdStore &vIds,
                                     uiLastValidLE]->_vChildren[0].asT2();
 
                             pTmpNode->_vJumps[0] =
-                                _vLevelEntries[
-                                    uiLastValidLE]->_vJumps[0] - uiJumpDist;
+                                _vLevelEntries[uiLastValidLE]->_vJumps[0] - 
+                                (uiTargetLevel - uiLastValidLE);
                         }
 
                         _vLevelEntries[uiLastValidLE]->_vChildren[0] = pTmpNode;
@@ -2433,7 +2540,7 @@ ShaderCacheTreeV2<ObjectT, LevelBits>::ShaderCacheTreeV2(void) :
 template<class ObjectT, UInt32 LevelBits> inline
 ShaderCacheTreeV2<ObjectT, LevelBits>::~ShaderCacheTreeV2(void)
 {
-    typename std::deque <TreeNode *>::const_iterator qIt  = 
+    typename std::deque <TreeNode *>::iterator qIt  = 
         _qFreeElements.begin();
 
     typename std::deque <TreeNode *>::const_iterator qEnd = 
@@ -2442,6 +2549,18 @@ ShaderCacheTreeV2<ObjectT, LevelBits>::~ShaderCacheTreeV2(void)
     for(; qIt != qEnd; ++qIt)
     {
         delete (*qIt);
+
+        *qIt = NULL;
+    }
+
+    typename std::vector<TreeNode *>::iterator vIt  = _vLevelEntries.begin();
+    typename std::vector<TreeNode *>::iterator vEnd = _vLevelEntries.end  ();
+    
+    for(; vIt != vEnd; ++vIt)
+    {
+        delete (*vIt);
+
+        *vIt = NULL;
     }
 }
 
@@ -2485,6 +2604,8 @@ void ShaderCacheTreeV2<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
         if(pNode->_vChildren[i].asT2() != NULL)
         {
             eraseNode(pNode->_vChildren[i].asT2());
+
+            pNode->_vChildren[i].setAsT2(NULL);
         }
         else
         {
@@ -2846,6 +2967,11 @@ bool ShaderCacheTreeV3<ObjectT, LevelBits>::add(const IdStore &vIds,
                     pNextNode->_vChildren[0] = 
                         pCurrNode->_vChildren[uiCurrBits].asT2();
 
+                    pNextNode->_pObject = 
+                        pCurrNode->_vChildren[uiCurrBits].asT2()->_pObject;
+
+                    pCurrNode->_vChildren[uiCurrBits].asT2()->_pObject = NULL;
+
                     pCurrNode->_vJumps   [uiCurrBits] = uiJumpDist;
                     pCurrNode->_vChildren[uiCurrBits] = pNextNode;
 
@@ -2985,8 +3111,9 @@ bool ShaderCacheTreeV3<ObjectT, LevelBits>::add(const IdStore &vIds,
                                     uiLastValidLE]->_vChildren[0].asT2();
 
                             pTmpNode->_vJumps[0] =
-                                _vLevelEntries[
-                                    uiLastValidLE]->_vJumps[0] - uiJumpDist;
+                                _vLevelEntries[uiLastValidLE]->_vJumps[0] - 
+                                (uiTargetLevel - uiLastValidLE);
+
                         }
 
                         _vLevelEntries[uiLastValidLE]->_vChildren[0] = pTmpNode;
@@ -3135,7 +3262,7 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
             }
             else
             {
-                fprintf(pOut, "<l%d> NIL", i);
+//                fprintf(pOut, "<l%d> NIL", i);
             }
             
             if(i == _vLevelEntries.size() - 1)
@@ -3144,7 +3271,8 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::dumpDot(const Char8 *szFilename)
             }
             else
             {
-                fprintf(pOut, "|");
+                if(_vLevelEntries[i] != NULL)
+                    fprintf(pOut, "|");
             }
         }
         
@@ -3331,7 +3459,7 @@ ShaderCacheTreeV3<ObjectT, LevelBits>::ShaderCacheTreeV3(void) :
 template<class ObjectT, UInt32 LevelBits> inline
 ShaderCacheTreeV3<ObjectT, LevelBits>::~ShaderCacheTreeV3(void)
 {
-    typename std::deque <TreeNode *>::const_iterator qIt  = 
+    typename std::deque <TreeNode *>::iterator qIt  = 
         _qFreeElements.begin();
 
     typename std::deque <TreeNode *>::const_iterator qEnd = 
@@ -3340,6 +3468,18 @@ ShaderCacheTreeV3<ObjectT, LevelBits>::~ShaderCacheTreeV3(void)
     for(; qIt != qEnd; ++qIt)
     {
         delete (*qIt);
+
+        *qIt = NULL;
+    }
+
+    typename std::vector<TreeNode *>::iterator vIt  = _vLevelEntries.begin();
+    typename std::vector<TreeNode *>::iterator vEnd = _vLevelEntries.end  ();
+    
+    for(; vIt != vEnd; ++vIt)
+    {
+        delete (*vIt);
+
+        *vIt = NULL;
     }
 }
 
@@ -3383,6 +3523,8 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::eraseNode(TreeNode *pNode)
         if(pNode->_vChildren[i].asT2() != NULL)
         {
             eraseNode(pNode->_vChildren[i].asT2());
+
+            pNode->_vChildren[i].setAsT2(NULL);
         }
         else
         {

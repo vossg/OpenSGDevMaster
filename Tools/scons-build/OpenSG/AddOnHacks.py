@@ -551,7 +551,8 @@ def EnvironmentBuilder_gcc_linux_misc(bldr, env):
          assert False, "Invalid arch used for Linux gcc."
 
       if bldr.extraWarningLevel == SConsAddons.EnvironmentBuilder.EnvironmentBuilder.GV:
-          env.Append(CCFLAGS = ['-Winline', '-Wreturn-type', 
+          env.Append(CCFLAGS = [#'-Winline', 
+                                '-Wreturn-type', 
                                 '-Wold-style-cast', '-DOSG_DEBUG_OLD_C_CASTS',
                                 '-DOSG_CLEAN_FCFIELDS',
                                 '-DOSG_CHECK_CONST_CORRECT_FIELD_USAGE',

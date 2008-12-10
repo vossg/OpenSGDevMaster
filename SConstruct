@@ -571,7 +571,7 @@ feature_options["fcptr_mode"] = sca_opts.EnumOption(
 
 feature_options["shadercache_mode"] = sca_opts.EnumOption(
     "shc_mode", "Select the mode for shader cache",
-    "0", ["0", "1", "2", "3", "4"])
+    "0", ["0", "1", "2", "3", "4", "5"])
 
 feature_options["disable_deprecated"] = sca_opts.BoolOption(
     "disable_deprecated", "Disable deprecated interfaces and code", False)
