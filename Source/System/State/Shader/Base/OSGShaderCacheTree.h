@@ -124,8 +124,8 @@ typedef ShaderMapCache<ShaderExecutableChunk   > ShaderExeMap;
 typedef ShaderMapCache<ShaderExecutableVarChunk> ShaderVarMap;
 
 #ifdef OSG_SHC_MODE_0
-typedef ShaderVectorCache<ShaderExecutableChunk   > ActiveShaderExeTree;
-typedef ShaderVectorCache<ShaderExecutableVarChunk> ActiveShaderVarTree;
+typedef ShaderMapCache<ShaderExecutableChunk   > ActiveShaderExeTree;
+typedef ShaderMapCache<ShaderExecutableVarChunk> ActiveShaderVarTree;
 #endif
 
 
