@@ -29,6 +29,13 @@ else:
          if vtk_option.isAvailable():
              osg_test_libs.append('OSGContribVTK')
 
+         nvperfsdk_option = opts.GetOption("NVPerfSDK")
+
+         if nvperfsdk_option.isAvailable():
+            other_test_libs.append(nvperfsdk_option.library)
+            test_cpppath.append(nvperfsdk_option.incDir)
+            test_libpath.append(nvperfsdk_option.libDir)
+
    else:
          library = "OSGWindowGLUT"
          osg_dep_libs = ['OSGBase', 'OSGSystem', 'OSGWindow']
