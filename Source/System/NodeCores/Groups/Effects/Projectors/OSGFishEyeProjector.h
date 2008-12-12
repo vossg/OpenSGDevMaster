@@ -57,7 +57,8 @@ class RenderActionBase;
 //! Stage
 //! \ingroup GrpSystemNodeCoresMisc
 
-class OSG_GROUP_DLLMAPPING FishEyeProjector : public FishEyeProjectorBase
+class OSG_EFFECTGROUPS_DLLMAPPING FishEyeProjector : 
+    public FishEyeProjectorBase
 {
     /*==========================  PUBLIC  =================================*/
 

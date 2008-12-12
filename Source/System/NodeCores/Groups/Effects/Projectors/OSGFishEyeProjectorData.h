@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageGroupFishEyeProjectorData for a description.
 */
 
-class OSG_GROUP_DLLMAPPING FishEyeProjectorData : 
+class OSG_EFFECTGROUPS_DLLMAPPING FishEyeProjectorData : 
     public FishEyeProjectorDataBase
 {
   protected:
