@@ -335,6 +335,11 @@ OSG_BEGIN_NAMESPACE
 DataType FieldTraits<StatCollectorP>::_type("StatCollectorP",
                                             "TypeRoot");
 
+
+DataType &FieldTraits<StatCollectorP>::getType(void) 
+{
+    return _type;          
+}
 #endif
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, StatCollectorP);
