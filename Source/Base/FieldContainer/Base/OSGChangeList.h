@@ -36,154 +36,214 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTESTFC_H_
-#define _OSGTESTFC_H_
+#ifndef _OSGCHANGELIST_H_
+#define _OSGCHANGELIST_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGMatrix.h"
-#include "OSGFieldContainer.h"
-#include "OSGAttachmentContainer.h"
+#ifdef OSG_DOC_FILES_IN_MODULE
+/*! \file OSGChangeList.h
+    \ingroup GrpSystemMultithreading
+ */
+#endif
 
-#include "OSGUInt32Fields.h"
+#include "OSGBaseTypes.h"
+#include "OSGMemoryObject.h"
+#include "OSGThread.h"
+#include "OSGStatElemTypes.h"
 
-#include "OSGFieldContainerFactory.h"
-
-#include "OSGSystemDef.h"
+#include <list>
+#include <vector>
 
 OSG_BEGIN_NAMESPACE
 
-//! Brief
-//! \ingroup baselib
+class PThreadBase;
+class SprocBase;
+class WinThreadBase;
+class StatCollector;
+class FieldContainer;
 
-class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
+/*! \ingroup GrpSystemMultithreading
+ */
+
+struct OSG_BASE_DLLMAPPING ContainerChangeEntry
+{
+    enum EntryType
+    {
+        Create          = 0x0001,
+        AddReference    = 0x0002,
+        SubReference    = 0x0004,
+        DepSubReference = 0x0008,
+        Change          = 0x0010
+    };
+
+          UInt32      uiEntryDesc;
+          UInt32      uiContainerId;         /* The id of the container we 
+                                                hold changes for. */
+    const FieldFlags *pFieldFlags;
+          BitVector   whichField;            /* Bit vector of fields have 
+                                                have changed and need 
+                                                commited. */
+          BitVector  *bvUncommittedChanges;  /* Bit vector of changes that 
+                                                still need to be committed 
+                                                for this entry. */
+
+    ContainerChangeEntry()        
+    {
+        uiEntryDesc   = 0;
+        uiContainerId = 0;
+        pFieldFlags   = NULL;
+        whichField    = 0;
+        bvUncommittedChanges = NULL;
+    }    
+
+    void operator =(const ContainerChangeEntry &)
+    {
+    }
+
+    void clear(void)
+    {
+        uiEntryDesc   = 0;
+        uiContainerId = 0;
+        pFieldFlags   = NULL;
+        whichField    = 0;
+        bvUncommittedChanges = NULL;
+    }
+
+    void commitChanges(void);
+};
+
+/*! \ingroup GrpSystemMultithreading
+ */
+
+class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef AttachmentContainer                     Inherited;
-    typedef AttachmentContainer                     ParentContainer;
+    typedef            std::vector<ContainerChangeEntry>   ChangeEntryStore;
+    typedef std::list< std::vector<ContainerChangeEntry> > ChangeEntryPool;
 
-    OSG_GEN_INTERNALPTR(TestFC);
+    typedef ChangeEntryPool ::iterator                     ChangeEntryPoolIt;
+    typedef ChangeEntryStore::iterator                     ChangeEntryStoreIt;
 
-    typedef Inherited::TypeObject                   TypeObject;
-    
-    typedef TestFC                                  Self;
-
-    OSG_RC_FIRST_FIELD_DECL(Field1        );
-    
-    OSG_RC_FIELD_DECL      (Field2, Field1);
-    OSG_RC_FIELD_DECL      (Field3, Field2);
-    OSG_RC_FIELD_DECL      (Field4, Field3);
-
-    OSG_RC_LAST_FIELD_DECL (Field4        );
-
-    static const BitVector bLocalFieldMask   = (Field1FieldMask |
-                                                Field2FieldMask |
-                                                Field3FieldMask |
-                                                Field4FieldMask );
-
-    static const BitVector bInvLocalFieldMask = ~bLocalFieldMask;
+    typedef            std::vector<ContainerChangeEntry *> ChangedStore;
+    typedef            ChangedStore::iterator              ChangedStoreIt;
+    typedef            ChangedStore::const_iterator        ChangedStoreConstIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    OSG_FIELD_CONTAINER_DECL;
+    static StatElemDesc<StatIntElem> statNChangedStoreSize;
+    static StatElemDesc<StatIntElem> statNCreatedStoreSize;
+    static StatElemDesc<StatIntElem> statNUnCommittedStoreSize;
+    static StatElemDesc<StatIntElem> statNPoolSize;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
+    void fillFromCurrentState(UInt32 uiFieldContainerId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Get                                     */
-    /*! \{                                                                 */
+    static ChangeList *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+    void commitChanges        (void);
+    void commitChangesAndClear(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
+
+    void applyAndClear(void);
+    void applyNoClear (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
+    void clear(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
+
+    void merge(ChangeList &pOther);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
 
+    ChangedStoreConstIt begin(void) const;
+    ChangedStoreConstIt end  (void) const;
+
+    ChangedStoreConstIt beginCreated(void) const;
+    ChangedStoreConstIt endCreated  (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Assignment                                */
+    /*! \name                   your_operators                             */
     /*! \{                                                                 */
+
+    UInt32 getNumCreated  (void) const;
+    UInt32 getNumDestroyed(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
-                         BitVector         detail);
+#ifdef OSG_1_COMPAT
+    static void setReadWriteDefault(void);
+#endif
+
+#ifdef OSG_THREAD_DEBUG_SETASPECTTO
+    void setAspectTo(UInt32 uiNewAspect);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0, 
-                      const BitVector bvFlags  = 0) const;
-    
+    template<typename RefCountPolicy>
+    void addDelayedSubRef    (FieldContainer *pFC);
+
+    void commitDelayedSubRefs(void               );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-          MFUInt32 *editMFField1(void);
-    const MFUInt32 *getMFField1 (void) const;
+    virtual void dump         (      UInt32    uiIndent = 0,
+                               const BitVector bvFlags  = 0) const;
 
-          SFUInt32 *editSFField2(void);
-    const SFUInt32 *getSFField2 (void) const;
+            void dumpListSizes(void                        ) const;
 
-          MFUInt32 *editMFField3(void);
-    const MFUInt32 *getMFField3 (void) const;
-
-          SFUInt32 *editSFField4(void);
-    const SFUInt32 *getSFField4 (void) const;
+            void fillStatistic(StatCollector *pColl        ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
+    typedef void (ContainerChangeEntry::*CommitFunction)(void);
 
   protected:
 
@@ -191,106 +251,141 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    static TypeObject _type;
+    ChangeEntryPool               _entryPool;
 
-    static       void   classDescInserter(TypeObject &oType);
-    static const Char8 *getClassname     (void             );
+    ChangeEntryPoolIt             _currentPoolElement;
+    ChangeEntryStoreIt            _currentEntry;
+
+    ChangedStore                  _changedStore;
+    ChangedStore                  _createdStore;
+
+    ChangedStore                  _uncommitedChanges;
+    ChangedStore                  _workStore;
+
+    UInt32                        _uiAspect;
+    Int32                         _iSubRefLevel;
+
+    bool                          _bExternal;
+    
+    std::vector<FieldContainer *> _vDelayedUnrecSubRefs;
+    std::vector<FieldContainer *> _vDelayedRecSubRefs;
+    std::vector<FieldContainer *> _vDelayedWeakSubRefs;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    ChangeList(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~ChangeList(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUInt32 _mfField1;
-    SFUInt32 _sfField2;
-    MFUInt32 _mfField3;
-    SFUInt32 _sfField4;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Get                                     */
+    /*! \{                                                                 */
+
+    void addAddRefd  (const UInt32 uiContainerId);
+    void addSubRefd  (const UInt32 uiContainerId,
+                            bool   ignoreLevel = false);
+
+    void addCreated  (const UInt32    uiContainerId,
+                            BitVector bFlags       );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    ContainerChangeEntry *getNewEntry       (void         );
+    ContainerChangeEntry *getNewCreatedEntry(void         );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    void addUncommited(ContainerChangeEntry *pEntry);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Assignment                                */
+    /*! \{                                                                 */
+
+    void incSubRefLevel(void);
+    void decSubRefLevel(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    TestFC(void);
-    TestFC(const TestFC &source);
 
-    virtual ~TestFC(void);
+    ContainerChangeEntry *createNewEntry(void         );
+
+    void                 doApply        (bool bClear  );
+    void                 doClear        (void         );
+    void                 clearPool      (void         );
+
+
+
+    template<CommitFunction func>
+    void doCommitChanges(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    virtual void onDestroyAspect(UInt32 uiContainerId,
-                                 UInt32 uiAspect     );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjCPtr createAspectCopy(const FieldContainer *pRefAspect) const;
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual void execSyncV(      FieldContainer    &oFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 AspectOffsetStore &oOffsets,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo);
-
-            void execSync (      TestFC            *pFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 AspectOffsetStore &oOffsets,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo);
-#endif
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
-
-    MFUInt32::EditHandlePtr editHandleField1(void);
-    MFUInt32::GetHandlePtr  getHandleField1 (void) const;
-
-    SFUInt32::EditHandlePtr editHandleField2(void);
-    SFUInt32::GetHandlePtr  getHandleField2 (void) const;
-
-    MFUInt32::EditHandlePtr editHandleField3(void);
-    MFUInt32::GetHandlePtr  getHandleField3 (void) const;
-
-    SFUInt32::EditHandlePtr editHandleField4(void);
-    SFUInt32::GetHandlePtr  getHandleField4 (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
-
-    virtual void resolveLinks(void);
+    void setAspect(UInt32 uiAspectId);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
+    friend class  PThreadBase;
+    friend class  SprocBase;
+    friend class  WinThreadBase;
+    friend class  FieldContainer;
+    friend struct RecordedRefCountPolicy;
+
+    typedef MemoryObject Inherited;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const TestFC &source);
+    ChangeList(const ChangeList &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const ChangeList &source);
 };
 
-typedef TestFC::ObjUnrecPtr TestFCUnrecPtr;
+
+/*! Convenience function for committing changes */
+void commitChanges        (void);
+void commitChangesAndClear(void);
+void clearChangeList      (void);
 
 OSG_END_NAMESPACE
 
-#include "OSGTestFC.inl"
+#include "OSGChangeList.inl"
 
-#endif /* _OSGTESTFC_H_ */
+#endif /* _OSGCHANGELIST_H_ */

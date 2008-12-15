@@ -36,72 +36,64 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTESTFC_H_
-#define _OSGTESTFC_H_
+#ifndef _OSGATTACHMENTCONTAINER_H_
+#define _OSGATTACHMENTCONTAINER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGMatrix.h"
 #include "OSGFieldContainer.h"
-#include "OSGAttachmentContainer.h"
-
-#include "OSGUInt32Fields.h"
-
-#include "OSGFieldContainerFactory.h"
-
-#include "OSGSystemDef.h"
+#include "OSGAttachmentMapSFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-//! Brief
-//! \ingroup baselib
+class BasicFieldConnector;
+class Attachment;
 
-class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
+/**
+* An AttachmentContainer is a field container that can store attachments to 
+  other FieldContainers.
+* \ingroup baselib
+*/
+class OSG_BASE_DLLMAPPING AttachmentContainer : public FieldContainer
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef AttachmentContainer                     Inherited;
-    typedef AttachmentContainer                     ParentContainer;
-
-    OSG_GEN_INTERNALPTR(TestFC);
-
-    typedef Inherited::TypeObject                   TypeObject;
-    
-    typedef TestFC                                  Self;
-
-    OSG_RC_FIRST_FIELD_DECL(Field1        );
-    
-    OSG_RC_FIELD_DECL      (Field2, Field1);
-    OSG_RC_FIELD_DECL      (Field3, Field2);
-    OSG_RC_FIELD_DECL      (Field4, Field3);
-
-    OSG_RC_LAST_FIELD_DECL (Field4        );
-
-    static const BitVector bLocalFieldMask   = (Field1FieldMask |
-                                                Field2FieldMask |
-                                                Field3FieldMask |
-                                                Field4FieldMask );
-
-    static const BitVector bInvLocalFieldMask = ~bLocalFieldMask;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    OSG_FIELD_CONTAINER_DECL;
+    typedef FieldContainer                      Inherited;
+    typedef Inherited::TypeObject               TypeObject;
+    typedef AttachmentContainer                 Self;
+
+    typedef Attachment                          AttachmentObj;
+    typedef Attachment                         *AttachmentObjCPtr;
+    typedef SFAttachmentPtrMap                  SFAttachmentObjPtrMap;
+
+    typedef SFAttachmentObjPtrMap::StoredType   AttachmentObjPtrMap;
+    typedef AttachmentObjPtrMap::iterator       AttachmentObjPtrMapIt;
+    typedef AttachmentObjPtrMap::const_iterator AttachmentObjPtrMapConstIt;
+
+    
+    OSG_GEN_INTERNALPTR(AttachmentContainer);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
+    OSG_ABSTR_FIELD_CONTAINER_DECL;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
+
+    OSG_RC_FIRST_FIELD_DECL(Attachments);
+    OSG_RC_LAST_FIELD_DECL (Attachments);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -118,15 +110,40 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
+    virtual UInt32 getBinSize (ConstFieldMaskArg   whichField);
+    virtual void   copyToBin  (BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
+    virtual void   copyFromBin(BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+    void             addAttachment (Attachment * const attachmentP,
+                                    UInt16             binding    = 0);
+
+    void             subAttachment (Attachment * const attachmentP,
+                                    UInt16             binding    = 0);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Set                                     */
+    /*! \{                                                                 */
+
+    Attachment *findAttachment(      UInt32             groupId,
+                                     UInt16             binding = 0) const;
+
+    Attachment *findAttachment(const FieldContainerType &type,
+                                     UInt16              binding= 0) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
+
+    const SFAttachmentObjPtrMap *getSFAttachments(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -153,34 +170,13 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
-                         BitVector         detail);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0, 
+    virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-          MFUInt32 *editMFField1(void);
-    const MFUInt32 *getMFField1 (void) const;
-
-          SFUInt32 *editSFField2(void);
-    const SFUInt32 *getSFField2 (void) const;
-
-          MFUInt32 *editMFField3(void);
-    const MFUInt32 *getMFField3 (void) const;
-
-          SFUInt32 *editSFField4(void);
-    const SFUInt32 *getSFField4 (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -201,96 +197,160 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUInt32 _mfField1;
-    SFUInt32 _sfField2;
-    MFUInt32 _mfField3;
-    SFUInt32 _sfField4;
+    SFAttachmentObjPtrMap _sfAttachments;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    TestFC(void);
-    TestFC(const TestFC &source);
+    AttachmentContainer(void);
+    AttachmentContainer(const AttachmentContainer &source);
 
-    virtual ~TestFC(void);
+    virtual ~AttachmentContainer(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    virtual void onDestroyAspect(UInt32 uiContainerId,
-                                 UInt32 uiAspect     );
+#ifdef OSG_MT_CPTR_ASPECT
+    void execSync  (      AttachmentContainer *pFrom,
+                          ConstFieldMaskArg    whichField,
+                          AspectOffsetStore   &oOffsets,
+                          ConstFieldMaskArg    syncMode  ,
+                    const UInt32               uiSyncInfo);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjCPtr createAspectCopy(const FieldContainer *pRefAspect) const;
-#endif
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
-
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual void execSyncV(      FieldContainer    &oFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 AspectOffsetStore &oOffsets,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo);
-
-            void execSync (      TestFC            *pFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 AspectOffsetStore &oOffsets,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo);
-#endif
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
-
-    MFUInt32::EditHandlePtr editHandleField1(void);
-    MFUInt32::GetHandlePtr  getHandleField1 (void) const;
-
-    SFUInt32::EditHandlePtr editHandleField2(void);
-    SFUInt32::GetHandlePtr  getHandleField2 (void) const;
-
-    MFUInt32::EditHandlePtr editHandleField3(void);
-    MFUInt32::GetHandlePtr  getHandleField3 (void) const;
-
-    SFUInt32::EditHandlePtr editHandleField4(void);
-    SFUInt32::GetHandlePtr  getHandleField4 (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
-
     virtual void resolveLinks(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+    EditFieldHandlePtr editHandleAttachments(void);
+    GetFieldHandlePtr  getHandleAttachments (void) const;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
-
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const TestFC &source);
+    void operator =(const AttachmentContainer &source);
 };
 
-typedef TestFC::ObjUnrecPtr TestFCUnrecPtr;
+OSG_GEN_CONTAINERPTR(AttachmentContainer);
+
+OSG_BASE_DLLMAPPING
+void cloneAttachments(
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
+    const std::vector<std::string>                &cloneTypeNames,
+
+    const std::vector<std::string>                &ignoreTypeNames   =
+              std::vector<std::string>(),
+
+    const std::vector<std::string>                &cloneGroupNames   =
+              std::vector<std::string>(),
+
+    const std::vector<std::string>                &ignoreGroupNames  =
+              std::vector<std::string>()                              );
+
+OSG_BASE_DLLMAPPING
+void cloneAttachments(
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
+    const std::vector<UInt16>                     &cloneGroupIds,
+
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                   );
+
+OSG_BASE_DLLMAPPING
+void cloneAttachments(
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
+    const std::string                             &cloneTypesString,
+
+    const std::string                             &ignoreTypesString =
+              std::string()                                           );
+
+OSG_BASE_DLLMAPPING
+void cloneAttachments(
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
+
+    const std::vector<const ReflexiveContainerType *> &cloneTypes    =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<UInt16>                     &cloneGroupIds     =
+              std::vector<UInt16>(),
+
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                   );
+
+OSG_BASE_DLLMAPPING
+void deepCloneAttachments(
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
+    const std::vector<std::string>                &cloneTypeNames,
+
+    const std::vector<std::string>                &ignoreTypeNames   =
+              std::vector<std::string>(),
+
+    const std::vector<std::string>                &cloneGroupNames   =
+              std::vector<std::string>(),
+
+    const std::vector<std::string>                &ignoreGroupNames  =
+              std::vector<std::string>()                              );
+
+OSG_BASE_DLLMAPPING
+void deepCloneAttachments(
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
+    const std::vector<UInt16>                     &cloneGroupIds,
+
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                    );
+
+OSG_BASE_DLLMAPPING
+void deepCloneAttachments(
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
+    const std::string                             &cloneTypesString,
+
+    const std::string                             &ignoreTypesString =
+              std::string()                                           );
+
+OSG_BASE_DLLMAPPING
+void deepCloneAttachments(
+          AttachmentContainer const *              src,
+          AttachmentContainer       *              dst,
+
+    const std::vector<const ReflexiveContainerType *> &shareTypes    =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes   =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<UInt16>                     &shareGroupIds     =
+              std::vector<UInt16>(),
+
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                         );
 
 OSG_END_NAMESPACE
 
-#include "OSGTestFC.inl"
+#include "OSGAttachment.h"
+#include "OSGAttachmentContainer.inl"
 
-#endif /* _OSGTESTFC_H_ */
+#endif /* _OSGATTACHMENTCONTAINER_H_ */

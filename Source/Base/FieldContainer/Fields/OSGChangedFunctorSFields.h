@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2005 by the OpenSG Forum                          *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,101 +36,58 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNAMEATTACHMENT_H_
-#define _OSGNAMEATTACHMENT_H_
+#ifndef _OSGCHANGEDFUNCTORSFIELDS_H_
+#define _OSGCHANGEDFUNCTORSFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGNameAttachments.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
-#include "OSGBaseTypes.h"
-#include "OSGSimpleAttachment.h"
-#include "OSGBaseSFields.h"
-#include "OSGSystemDef.h"
+#include "OSGSField.h"
+#include "OSGChangedFunctorFieldTraits.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
-    \hideinhierarchy
- */
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+/*! \ingroup  */
 
-struct NameAttachmentDesc
-{
-    typedef SFString           FieldTypeT;
+typedef SField<ChangedFunctorCallback> SFChangedFunctorCallback;
 
-    static const Char8         *getTypeName  (void) 
-    {
-        return "Name";          
-    }
-
-    static const Char8         *getFieldName (void) 
-    {
-        return "name";          
-    }
-
-    static const Char8         *getGroupName (void) 
-    { 
-        return "name";          
-    }
-
-    static const Char8         *getParentTypeName(void) 
-    {
-        return "Attachment";    
-    }
-
-    static InitContainerF     getInitMethod(void) { return NULL;  }
-};
-
-/*! \ingroup GrpSystemFieldContainer
- */
-
-typedef SimpleAttachment<NameAttachmentDesc> Name;
-
-/*! \ingroup GrpSystemFieldContainer
- */
-
-OSG_GEN_CONTAINERPTR(Name)  
-
-#ifdef WIN32
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getType(void);
-
-template <> OSG_SYSTEM_DLLMAPPING
-const SimpleAttachment<NameAttachmentDesc>::TypeObject &
-   SimpleAttachment<NameAttachmentDesc>::getType(void) const;
-
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getClassType(void);
 #endif
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
+// there is no good way of comparing boost function objects
+template<> inline
+bool SField<ChangedFunctorCallback, 0>::operator ==(
+    const SField<ChangedFunctorCallback, 0> &source) const
+{
+    return false;
+}
 
-OSG_SYSTEM_DLLMAPPING
-const Char8 *getName(AttachmentContainer * const container);
+#if 0
+template <>
+OSG_BASE_DLLMAPPING
+void FieldDescription<FieldTraits<ChangedFunctorCallback>,
+                      SingleField                         >::cloneValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &shareTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &shareGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
-
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     std::string           const  &name     );
-
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
-
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     Char8                 const *name     );
- 
+template <>
+OSG_BASE_DLLMAPPING
+void FieldDescription<FieldTraits<ChangedFunctorCallback>,
+                      SingleField                         >::shareValues(
+    const Field                                  *pSrc,
+    const UInt32                                  fieldId,
+          FieldContainerPtrConstArg               pDst,
+    const std::vector<const FieldContainerType*> &cloneTypes,
+    const std::vector<const FieldContainerType*> &ignoreTypes,
+    const std::vector<UInt16>                    &cloneGroupIds,
+    const std::vector<UInt16>                    &ignoreGroupIds) const;
+#endif
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGNAMEATTACHMENT_H_ */
+#endif /* _OSGCHANGEDFUNCTORSFIELDS_H_ */

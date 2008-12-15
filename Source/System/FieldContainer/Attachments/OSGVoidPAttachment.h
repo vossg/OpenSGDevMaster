@@ -48,6 +48,7 @@
  */
 #endif
 
+#include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
 #include "OSGSimpleAttachment.h"
 #include "OSGSysSFields.h"

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2005 by the OpenSG Forum                          *
+ *              Copyright (C) 2006 by the OpenSG Forum                       *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,101 +36,99 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNAMEATTACHMENT_H_
-#define _OSGNAMEATTACHMENT_H_
+#ifndef _OSGREFLEXIVECONTAINERTYPEPREDICATES_H_
+#define _OSGREFLEXIVECONTAINERTYPEPREDICATES_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGNameAttachments.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
+#include "OSGConfig.h"
 #include "OSGBaseTypes.h"
-#include "OSGSimpleAttachment.h"
-#include "OSGBaseSFields.h"
-#include "OSGSystemDef.h"
+
+#include <algorithm>
+#include <vector>
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
-    \hideinhierarchy
- */
+//---------------------------------------------------------------------------
+//  Forward declarations
+//---------------------------------------------------------------------------
 
-struct NameAttachmentDesc
+class ReflexiveContainerType;
+
+//---------------------------------------------------------------------------
+//  Namespace
+//---------------------------------------------------------------------------
+
+namespace TypePredicates
 {
-    typedef SFString           FieldTypeT;
 
-    static const Char8         *getTypeName  (void) 
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+    class OSG_BASE_DLLMAPPING IsSameGroupIdAs
     {
-        return "Name";          
-    }
+    public:
+        /*! Standard library compatibility typedef */
+        typedef UInt16 argument_type;
 
-    static const Char8         *getFieldName (void) 
+        /*! Standard library compatibility typedef */
+        typedef bool   result_type;
+
+        explicit IsSameGroupIdAs(const UInt16                  groupId);
+        explicit IsSameGroupIdAs(const ReflexiveContainerType& type   );
+
+        bool operator()(const UInt16 testGroupId);
+
+    private:
+        UInt16 _groupId;
+    };
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+    class OSG_BASE_DLLMAPPING IsSameGroupAs
     {
-        return "name";          
-    }
+    public:
+        /*! Standard library compatibility typedef */
+        typedef const ReflexiveContainerType* argument_type;
 
-    static const Char8         *getGroupName (void) 
-    { 
-        return "name";          
-    }
+        /*! Standard library compatibility typedef */
+        typedef       bool                    result_type;
 
-    static const Char8         *getParentTypeName(void) 
-    {
-        return "Attachment";    
-    }
+        explicit IsSameGroupAs(const UInt16                  groupId);
+        explicit IsSameGroupAs(const ReflexiveContainerType& type   );
 
-    static InitContainerF     getInitMethod(void) { return NULL;  }
-};
+        bool operator()(const ReflexiveContainerType *pTestType);
 
-/*! \ingroup GrpSystemFieldContainer
- */
+    private:
+        UInt16 _groupId;
+    };
 
-typedef SimpleAttachment<NameAttachmentDesc> Name;
+//---------------------------------------------------------------------------
+//  Functions
+//---------------------------------------------------------------------------
 
-/*! \ingroup GrpSystemFieldContainer
- */
+    template <class InIteratorTypeT>
+    inline bool
+    typeInGroups(      InIteratorTypeT         begin, InIteratorTypeT end,
+                 const ReflexiveContainerType &type                       );
 
-OSG_GEN_CONTAINERPTR(Name)  
+    template <class InIteratorTypeT>
+    inline bool
+    typeInGroupIds(      InIteratorTypeT         begin, InIteratorTypeT end,
+                   const ReflexiveContainerType &type                       );
 
-#ifdef WIN32
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getType(void);
-
-template <> OSG_SYSTEM_DLLMAPPING
-const SimpleAttachment<NameAttachmentDesc>::TypeObject &
-   SimpleAttachment<NameAttachmentDesc>::getType(void) const;
-
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getClassType(void);
-#endif
-
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
-
-OSG_SYSTEM_DLLMAPPING
-const Char8 *getName(AttachmentContainer * const container);
-
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
-
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     std::string           const  &name     );
-
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
-
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     Char8                 const *name     );
- 
+} // namespace TypePredicates
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGNAMEATTACHMENT_H_ */
+#include "OSGReflexiveContainerTypePredicates.inl"
+
+#endif /* _OSGREFLEXIVECONTAINERTYPEPREDICATES_H_ */

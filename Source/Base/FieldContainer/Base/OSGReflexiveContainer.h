@@ -36,87 +36,171 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTESTFC_H_
-#define _OSGTESTFC_H_
+#ifndef _OSGREFLEXIVECONTAINER_H_
+#define _OSGREFLEXIVECONTAINER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGMatrix.h"
-#include "OSGFieldContainer.h"
-#include "OSGAttachmentContainer.h"
-
-#include "OSGUInt32Fields.h"
-
-#include "OSGFieldContainerFactory.h"
-
-#include "OSGSystemDef.h"
+#include "OSGReflexiveContainerType.h"
+#include "OSGContainerBase.h"
+#include "OSGContainerDefines.h"
+#include "OSGField.h"
+#include "OSGFieldType.h"
+#include "OSGBinaryDataHandler.h"
+#include "OSGThread.h"
+#include "OSGChangeList.h"
+#include "OSGFieldHandle.h"
 
 OSG_BEGIN_NAMESPACE
 
-//! Brief
-//! \ingroup baselib
+//---------------------------------------------------------------------------
+//   Class         
+//---------------------------------------------------------------------------
 
-class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
+/*! \ingroup GrpSystemFieldContainer
+ */
+
+class ReflexiveContainer 
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef AttachmentContainer                     Inherited;
-    typedef AttachmentContainer                     ParentContainer;
-
-    OSG_GEN_INTERNALPTR(TestFC);
-
-    typedef Inherited::TypeObject                   TypeObject;
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Type definitions                          */
+    /*! \{                                                                 */
     
-    typedef TestFC                                  Self;
+    typedef ReflexiveContainerType TypeObject;
+    typedef TypeObject::InitPhase  InitPhase;
 
-    OSG_RC_FIRST_FIELD_DECL(Field1        );
-    
-    OSG_RC_FIELD_DECL      (Field2, Field1);
-    OSG_RC_FIELD_DECL      (Field3, Field2);
-    OSG_RC_FIELD_DECL      (Field4, Field3);
+    typedef       Field *(ReflexiveContainer::*FieldEditMethod)(void);
 
-    OSG_RC_LAST_FIELD_DECL (Field4        );
+    typedef const Field *(ReflexiveContainer::*FieldGetMethod )(void) const;
 
-    static const BitVector bLocalFieldMask   = (Field1FieldMask |
-                                                Field2FieldMask |
-                                                Field3FieldMask |
-                                                Field4FieldMask );
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Constants                               */
+    /*! \{                                                                 */
 
-    static const BitVector bInvLocalFieldMask = ~bLocalFieldMask;
+    static const UInt32    NextFieldId   =    1;
+    static const BitVector NextFieldMask = 0x01;
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name             Get Class Type Information                       */
+    /*! \{                                                                 */
+     
+    static OSG_BASE_DLLMAPPING TypeObject &getClassType   (void); 
+    static OSG_BASE_DLLMAPPING UInt32      getClassTypeId (void);
+    static OSG_BASE_DLLMAPPING UInt16      getClassGroupId(void);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    OSG_FIELD_CONTAINER_DECL;
+    OSG_BASE_DLLMAPPING 
+    virtual       TypeObject &getType    (void);
+
+    OSG_BASE_DLLMAPPING 
+    virtual const TypeObject &getType    (void) const;
+
+    OSG_BASE_DLLMAPPING 
+                  UInt32      getTypeId  (void) const;
+
+    OSG_BASE_DLLMAPPING
+                  UInt16      getGroupId (void) const;
+
+    OSG_BASE_DLLMAPPING 
+            const Char8      *getTypeName(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name        General Fieldcontainer Declaration                    */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
+    virtual UInt32 getContainerSize(void) const = 0;
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
+    OSG_BASE_DLLMAPPING       
+            UInt32 getId           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+    virtual void changed(ConstFieldMaskArg whichField, 
+                         UInt32            origin,
+                         BitVector         details) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Get Field                                   */
+    /*! \{                                                                 */
+
+
+    OSG_BASE_DLLMAPPING
+          UInt32  getNumFields(      void            ) const;
+
+    OSG_BASE_DLLMAPPING 
+    EditFieldHandlePtr editField(      UInt32 fieldId  );
+    
+    OSG_BASE_DLLMAPPING 
+    EditFieldHandlePtr editField(const Char8 *fieldName);
+
+    OSG_BASE_DLLMAPPING 
+    GetFieldHandlePtr  getField (      UInt32 fieldId  ) const;
+    
+    OSG_BASE_DLLMAPPING 
+    GetFieldHandlePtr  getField (const Char8 *fieldName) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Get Field                                   */
+    /*! \{                                                                 */
+
+#if 0
+    OSG_BASE_DLLMAPPING 
+    EditFieldHandle editHandledField(      UInt32 fieldId  );
+    
+    OSG_BASE_DLLMAPPING 
+    EditFieldHandle editHandledField(const Char8 *fieldName);
+
+    OSG_BASE_DLLMAPPING 
+    FieldHandle     getHandledField (      UInt32 fieldId  ) const;
+    
+    OSG_BASE_DLLMAPPING 
+    FieldHandle     getHandledField (const Char8 *fieldName) const;
+#endif
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Get Field Description                        */
+    /*! \{                                                                 */
+
+    OSG_BASE_DLLMAPPING 
+    FieldDescriptionBase *getFieldDescription(      UInt32 fieldId  );
+    
+    OSG_BASE_DLLMAPPING 
+    FieldDescriptionBase *getFieldDescription(const Char8 *fieldName);
+
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
+
+    OSG_BASE_DLLMAPPING 
+    virtual UInt32  getBinSize (ConstFieldMaskArg   whichField);
+
+    OSG_BASE_DLLMAPPING 
+    virtual void    copyToBin  (BinaryDataHandler  &pMem, 
+                                ConstFieldMaskArg   whichField);
+
+    OSG_BASE_DLLMAPPING 
+    virtual void    copyFromBin(BinaryDataHandler  &pMem, 
+                                ConstFieldMaskArg   whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -153,37 +237,27 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
-                         BitVector         detail);
+    OSG_BASE_DLLMAPPING 
+    EditFieldHandlePtr invalidEditField(void);
+
+    OSG_BASE_DLLMAPPING 
+    GetFieldHandlePtr invalidGetField (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING 
     virtual void dump(      UInt32    uiIndent = 0, 
-                      const BitVector bvFlags  = 0) const;
-    
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-          MFUInt32 *editMFField1(void);
-    const MFUInt32 *getMFField1 (void) const;
-
-          SFUInt32 *editSFField2(void);
-    const SFUInt32 *getSFField2 (void) const;
-
-          MFUInt32 *editMFField3(void);
-    const MFUInt32 *getMFField3 (void) const;
-
-          SFUInt32 *editSFField4(void);
-    const SFUInt32 *getSFField4 (void) const;
+                      const BitVector bvFlags  = 0) const = 0;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
+#ifdef OSG_ENABLE_MEMORY_DEBUGGING
+    bool _check_is_deleted();
+#endif
 
   protected:
 
@@ -193,104 +267,135 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
     static TypeObject _type;
 
-    static       void   classDescInserter(TypeObject &oType);
-    static const Char8 *getClassname     (void             );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUInt32 _mfField1;
-    SFUInt32 _sfField2;
-    MFUInt32 _mfField3;
-    SFUInt32 _sfField4;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    OSG_BASE_DLLMAPPING 
+    ReflexiveContainer(void);
+
+    OSG_BASE_DLLMAPPING 
+    ReflexiveContainer(const ReflexiveContainer &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+  public:
+
+    OSG_BASE_DLLMAPPING 
+    virtual ~ReflexiveContainer(void);
+
+  protected:
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Init                                   */
+    /*! \{                                                                 */
+
+    static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
-
-    TestFC(void);
-    TestFC(const TestFC &source);
-
-    virtual ~TestFC(void);
+    
+    BitVector             _bvChanged;
+    ContainerChangeEntry *_pContainerChanges;
+    UInt32                _uiContainerId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    virtual void onDestroyAspect(UInt32 uiContainerId,
-                                 UInt32 uiAspect     );
+    OSG_BASE_DLLMAPPING 
+            void onCreate       (const ReflexiveContainer *source = NULL);
+
+    OSG_BASE_DLLMAPPING
+    virtual void onDestroy      (      UInt32              uiContainerId);
+
+    OSG_BASE_DLLMAPPING
+    virtual void onDestroyAspect(      UInt32              uiContainerId,
+                                       UInt32              uiAspect     );
+
+    OSG_BASE_DLLMAPPING       
+    virtual bool deregister     (      UInt32              uiContainerId) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjCPtr createAspectCopy(const FieldContainer *pRefAspect) const;
-#endif
+    virtual void registerChangedContainerV(void) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual void execSyncV(      FieldContainer    &oFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 AspectOffsetStore &oOffsets,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo);
+    void                  execEndEdit   (ConstFieldMaskArg whichField);
 
-            void execSync (      TestFC            *pFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 AspectOffsetStore &oOffsets,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo);
-#endif
+//    ContainerChangeEntry *getChangeEntry(void                        );
+    void                  clearChangeEntry(ContainerChangeEntry *pRef);
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    MFUInt32::EditHandlePtr editHandleField1(void);
-    MFUInt32::GetHandlePtr  getHandleField1 (void) const;
-
-    SFUInt32::EditHandlePtr editHandleField2(void);
-    SFUInt32::GetHandlePtr  getHandleField2 (void) const;
-
-    MFUInt32::EditHandlePtr editHandleField3(void);
-    MFUInt32::GetHandlePtr  getHandleField3 (void) const;
-
-    SFUInt32::EditHandlePtr editHandleField4(void);
-    SFUInt32::GetHandlePtr  getHandleField4 (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
-
-    virtual void resolveLinks(void);
+    OSG_BASE_DLLMAPPING       
+    void   setId(UInt32 uiContainerId);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
+    friend class  ChangeList;
+    friend struct ContainerChangeEntry;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const TestFC &source);
+    void operator =(const ReflexiveContainer &source);
 };
 
-typedef TestFC::ObjUnrecPtr TestFCUnrecPtr;
+#define OSG_RC_FIRST_FIELD_DECL(OSG_ELEMNAME)                                 \
+    static const OSG::UInt32                                                  \
+        OSG_ELEMNAME##FieldId   = Inherited::NextFieldId;                     \
+    static const OSG::BitVector                                               \
+        OSG_ELEMNAME##FieldMask =                                             \
+                        (TypeTraits<BitVector>::One << OSG_ELEMNAME##FieldId)
+
+#define OSG_RC_FIELD_DECL(OSG_ELEMNAME, OSG_PREV_ELEMNAME)                    \
+    static const OSG::UInt32    OSG_ELEMNAME##FieldId   =                     \
+        OSG_PREV_ELEMNAME##FieldId + 1;                                       \
+    static const OSG::BitVector                                               \
+        OSG_ELEMNAME##FieldMask =                                             \
+                        (TypeTraits<BitVector>::One << OSG_ELEMNAME##FieldId)
+
+#define OSG_RC_LAST_FIELD_DECL(OSG_PREV_ELEMNAME)                             \
+  static const OSG::UInt32    NextFieldId   = OSG_PREV_ELEMNAME##FieldId + 1; \
+  static const OSG::BitVector NextFieldMask =                                 \
+                         (TypeTraits<BitVector>::One << NextFieldId)
+
+#define OSG_RC_NO_FIELD_DECL                                                  \
+  static const OSG::UInt32    NextFieldId   = Inherited::NextFieldId;         \
+  static const OSG::BitVector NextFieldMask = Inherited::NextFieldMask
+
+#define OSG_RC_FIELD_DESC(OSG_FIELDNAME)                                      \
+    OSG_FIELDNAME##FieldId, OSG_FIELDNAME##FieldMask
 
 OSG_END_NAMESPACE
 
-#include "OSGTestFC.inl"
+#include "OSGFieldDescriptionBase.h"
+#include "OSGReflexiveContainer.inl"
 
-#endif /* _OSGTESTFC_H_ */
+#endif /* _OSGREFLEXIVECONTAINER_H_ */

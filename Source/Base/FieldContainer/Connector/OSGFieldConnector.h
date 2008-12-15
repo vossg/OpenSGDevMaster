@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2005 by the OpenSG Forum                          *
+ *           Copyright (C) 2008 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,101 +36,102 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNAMEATTACHMENT_H_
-#define _OSGNAMEATTACHMENT_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGFIELDCONNECTOR_H_
+#define _OSGFIELDCONNECTOR_H_
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGNameAttachments.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
-#include "OSGBaseTypes.h"
-#include "OSGSimpleAttachment.h"
-#include "OSGBaseSFields.h"
-#include "OSGSystemDef.h"
+#include "OSGBaseDef.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
-    \hideinhierarchy
- */
-
-struct NameAttachmentDesc
+class OSG_BASE_DLLMAPPING BasicFieldConnector
 {
-    typedef SFString           FieldTypeT;
+  public:
 
-    static const Char8         *getTypeName  (void) 
-    {
-        return "Name";          
-    }
+    BasicFieldConnector(BitVector bSrcMask,
+                        BitVector bDstMask);
 
-    static const Char8         *getFieldName (void) 
-    {
-        return "name";          
-    }
+    virtual ~BasicFieldConnector(void);
 
-    static const Char8         *getGroupName (void) 
-    { 
-        return "name";          
-    }
+    void setTargetContainer(FieldContainer *pDst);
 
-    static const Char8         *getParentTypeName(void) 
-    {
-        return "Attachment";    
-    }
+    bool match(BitVector fieldMask);
 
-    static InitContainerF     getInitMethod(void) { return NULL;  }
+    bool match(      BitVector       bSrcMask,
+               const FieldContainer *pDst,
+                     BitVector       bDstMask);
+
+    virtual void process(void) = 0;
+
+    FieldContainer *getDst(void) const;
+
+  protected:
+
+    BitVector       _bSrcMask;
+    BitVector       _bDstMask;
+
+    FieldContainer *_pDst;
 };
 
-/*! \ingroup GrpSystemFieldContainer
- */
 
-typedef SimpleAttachment<NameAttachmentDesc> Name;
+template <class FieldT>
+class SFieldConnector : public BasicFieldConnector
+{
+    typedef BasicFieldConnector Inherited;
 
-/*! \ingroup GrpSystemFieldContainer
- */
+  public:
 
-OSG_GEN_CONTAINERPTR(Name)  
+    SFieldConnector(const FieldT    *pSrcField,
+                          BitVector  bSrcMask,
+                          FieldT    *pDstField,
+                          BitVector  bDstMask);
 
-#ifdef WIN32
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getType(void);
+    virtual ~SFieldConnector(void);
 
-template <> OSG_SYSTEM_DLLMAPPING
-const SimpleAttachment<NameAttachmentDesc>::TypeObject &
-   SimpleAttachment<NameAttachmentDesc>::getType(void) const;
+    virtual void process(void);
 
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getClassType(void);
-#endif
+  protected:
+    
+    const FieldT    *_pSrcField;
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
+    
+          FieldT    *_pDstField;
+};
 
-OSG_SYSTEM_DLLMAPPING
-const Char8 *getName(AttachmentContainer * const container);
+template <class FieldT>
+class MFieldConnector : public BasicFieldConnector
+{
+    typedef BasicFieldConnector Inherited;
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
+  public:
 
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     std::string           const  &name     );
+    MFieldConnector(const FieldT    *pSrcField,
+                          BitVector  bSrcMask,
+                          FieldT    *pDstField,
+                          BitVector  bDstMask);
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
+    virtual ~MFieldConnector(void);
 
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     Char8                 const *name     );
- 
+    virtual void process(void);
+
+  protected:
+    
+    const FieldT    *_pSrcField;
+
+    
+          FieldT    *_pDstField;
+};
+
+OSG_BASE_DLLMAPPING
+bool addConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
+                   FieldContainer      *pDstContainer, const Char8 *szDstName);
+
+OSG_BASE_DLLMAPPING
+bool subConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
+                   FieldContainer      *pDstContainer, const Char8 *szDstName);
+
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGNAMEATTACHMENT_H_ */
+#include "OSGFieldConnector.inl"
+
+#endif

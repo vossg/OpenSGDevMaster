@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2005 by the OpenSG Forum                          *
+ *                   Copyright (C) 2007 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,101 +36,127 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNAMEATTACHMENT_H_
-#define _OSGNAMEATTACHMENT_H_
+#ifndef _OSGATTACHMENTCONTAINERFIELDTRAITS_H_
+#define _OSGATTACHMENTCONTAINERFIELDTRAITS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGNameAttachments.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
+#include "OSGFieldContainerFieldTraits.h"
+#include "OSGDataType.h"
 
-#include "OSGBaseTypes.h"
-#include "OSGSimpleAttachment.h"
-#include "OSGBaseSFields.h"
-#include "OSGSystemDef.h"
+#include "OSGContainerForwards.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
-    \hideinhierarchy
- */
+#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-struct NameAttachmentDesc
-{
-    typedef SFString           FieldTypeT;
-
-    static const Char8         *getTypeName  (void) 
-    {
-        return "Name";          
-    }
-
-    static const Char8         *getFieldName (void) 
-    {
-        return "name";          
-    }
-
-    static const Char8         *getGroupName (void) 
-    { 
-        return "name";          
-    }
-
-    static const Char8         *getParentTypeName(void) 
-    {
-        return "Attachment";    
-    }
-
-    static InitContainerF     getInitMethod(void) { return NULL;  }
-};
-
-/*! \ingroup GrpSystemFieldContainer
- */
-
-typedef SimpleAttachment<NameAttachmentDesc> Name;
-
-/*! \ingroup GrpSystemFieldContainer
- */
-
-OSG_GEN_CONTAINERPTR(Name)  
-
-#ifdef WIN32
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getType(void);
-
-template <> OSG_SYSTEM_DLLMAPPING
-const SimpleAttachment<NameAttachmentDesc>::TypeObject &
-   SimpleAttachment<NameAttachmentDesc>::getType(void) const;
-
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getClassType(void);
+#ifdef OSG_DOC_FILES_IN_MODULE
+/*! \file 
+    \ingroup 
+    \ingroup 
+*/
 #endif
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup 
  */
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \hideinhierarchy */
+#endif
 
-OSG_SYSTEM_DLLMAPPING
-const Char8 *getName(AttachmentContainer * const container);
+template <>
+struct FieldTraits<AttachmentContainer *>
+    : public FieldTraitsFCPtrBase<AttachmentContainer *>
+{
+    static  DataType                           _type;
+    typedef FieldTraits<AttachmentContainer *>  Self;
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+
+    enum             { Convertible = Self::NotConvertible              };
+
+    static OSG_BASE_DLLMAPPING
+                 DataType &getType      (void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName(void);
+};
+
+template<> inline
+const Char8 *FieldTraits<AttachmentContainer *, 
+                         0                  >::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecAttachmentContainerPtr"; 
+}
+
+template<> inline
+const Char8 *
+  FieldTraits<AttachmentContainer *, 
+              0                >::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecAttachmentContainerPtr"; 
+}
+
+template<> inline
+const Char8 *
+  FieldTraits<AttachmentContainer *, 
+              0                     >::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakAttachmentContainerPtr"; 
+}
+
+template<> inline
+const Char8 *
+  FieldTraits<AttachmentContainer *, 
+              0                     >::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdAttachmentContainerPtr"; 
+}
+
+
+
+template<> inline
+const Char8 *
+  FieldTraits<AttachmentContainer *, 
+              0                  >::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecAttachmentContainerPtr"; 
+}
+
+template<> inline
+const Char8 *
+  FieldTraits<AttachmentContainer *, 
+              0                >::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecAttachmentContainerPtr"; 
+}
+
+template<> inline
+const Char8 *
+  FieldTraits<AttachmentContainer *, 
+              0                     >::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakAttachmentContainerPtr"; 
+}
+
+template<> inline
+const Char8 *
+  FieldTraits<AttachmentContainer *, 
+              0                     >::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdAttachmentContainerPtr"; 
+}
+
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \class  FieldTraitsTemplateBase<AttachmentContainerPtr>
+    \hideinhierarchy
  */
+#endif
 
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     std::string           const  &name     );
-
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
-
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     Char8                 const *name     );
- 
+#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGNAMEATTACHMENT_H_ */
+#endif /* _OSGATTACHMENTCONTAINERFIELDTRAITS_H_ */

@@ -36,57 +36,74 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTESTFC_H_
-#define _OSGTESTFC_H_
+#ifndef _OSGNODE_H_
+#define _OSGNODE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
+#include "OSGReflexiveContainer.h"
 #include "OSGMatrix.h"
 #include "OSGFieldContainer.h"
 #include "OSGAttachmentContainer.h"
 
+#include "OSGBoxVolumeFields.h"
 #include "OSGUInt32Fields.h"
 
+#include "OSGNodeFields.h"
+#include "OSGNodeCoreFields.h"
 #include "OSGFieldContainerFactory.h"
 
-#include "OSGSystemDef.h"
+#include <boost/assign/list_of.hpp>
 
 OSG_BEGIN_NAMESPACE
 
-//! Brief
-//! \ingroup baselib
-
-class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
+/**
+ * A Node in OpenSG is a node in the graph.
+ *
+ * Nodes are responsible for holding children nodes and a link to their parent
+ * node.
+ *
+ * \ingroup baselib
+ */
+class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef AttachmentContainer                     Inherited;
-    typedef AttachmentContainer                     ParentContainer;
+    typedef AttachmentContainer                    Inherited;
+    typedef AttachmentContainer                    ParentContainer;
 
-    OSG_GEN_INTERNALPTR(TestFC);
+    OSG_GEN_INTERNALPTR(Node);
 
-    typedef Inherited::TypeObject                   TypeObject;
-    
-    typedef TestFC                                  Self;
+    typedef Inherited::TypeObject                  TypeObject;
 
-    OSG_RC_FIRST_FIELD_DECL(Field1        );
-    
-    OSG_RC_FIELD_DECL      (Field2, Field1);
-    OSG_RC_FIELD_DECL      (Field3, Field2);
-    OSG_RC_FIELD_DECL      (Field4, Field3);
+    typedef Node                                   Self;
 
-    OSG_RC_LAST_FIELD_DECL (Field4        );
+    OSG_RC_FIRST_FIELD_DECL(Volume            );
 
-    static const BitVector bLocalFieldMask   = (Field1FieldMask |
-                                                Field2FieldMask |
-                                                Field3FieldMask |
-                                                Field4FieldMask );
+    OSG_RC_FIELD_DECL      (TravMask, Volume  );
+    OSG_RC_FIELD_DECL      (Parent,   TravMask);
+    OSG_RC_FIELD_DECL      (Core,     Parent  );
+    OSG_RC_FIELD_DECL      (Children, Core    );
+
+    OSG_RC_LAST_FIELD_DECL (Children          );
+
+    static const BitVector bLocalFieldMask   = (VolumeFieldMask    |
+                                                TravMaskFieldMask  |
+                                                ParentFieldMask    |
+                                                ChildrenFieldMask  |
+                                                CoreFieldMask      );
 
     static const BitVector bInvLocalFieldMask = ~bLocalFieldMask;
 
+    typedef SFBoxVolume             SFVolumeType;
+    typedef SFUInt32                SFTravMaskType;
+    typedef SFUncountedNodePtr      SFParentType;
+    typedef SFUnrecChildNodeCorePtr SFCoreType;
+    typedef MFUnrecChildNodePtr     MFChildrenType;
+    
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
@@ -103,20 +120,64 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    NodeCore *getCore(void                 );
+    NodeCore *getCore(void                 ) const;
+
+    void      setCore(NodeCore * const core);
+    
+    template <class ObjectT>
+    void        setCore(TransitPtr<ObjectT>  core);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
+
+    Node *getParent(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+    UInt32  getNChildren  (void                      ) const;
+
+    void    addChild      (Node   * const  childP    );
+    void    addChild      (NodeTransitPtr  childP    );
+
+    void    insertChild   (UInt32          childIndex,
+                           Node   * const  childP    );
+
+    void    replaceChild  (UInt32          childIndex,
+                           Node   * const  childP    );
+
+    bool    replaceChildBy(Node   * const  childP,
+                           Node   * const  newChildP );
+
+    Int32   findChild     (Node   * const  childP    ) const;
+
+    void    subChild      (Node   * const  childP    );
+    void    subChild      (UInt32          childIndex);
+
+    Node   *getChild      (UInt32          childIndex) const;
+
+    void    clearChildren (void                      );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
+
+    void   setTravMask     (UInt32 uiMask);
+    UInt32 getTravMask     (void         ) const;
+
+#ifdef OSG_1_COMPAT
+    bool   getActive       (void         ) const;
+    void   setActive       (bool      val);
+
+    void   setOcclusionMask(UInt8     val);
+    UInt8  getOcclusionMask(void         ) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -138,49 +199,72 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
+    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_operators                             */
     /*! \{                                                                 */
+
+    Matrixr getToWorld(void           );
+
+    void    getToWorld(Matrixr &result);
+
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Assignment                                */
     /*! \{                                                                 */
 
+#ifdef OSG_1_GET_COMPAT
+            BoxVolume &getVolume       (bool update = false  );
+#endif
+
+            BoxVolume &editVolume      (bool update = false  );
+
+    const   BoxVolume &getVolume       (void                 ) const;
+
+            void       getWorldVolume  (BoxVolume &result    );
+
+            void       updateVolume    (void                 );
+
+    virtual void       invalidateVolume(void                 );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         detail);
+                         BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0, 
+    virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
-    
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-          MFUInt32 *editMFField1(void);
-    const MFUInt32 *getMFField1 (void) const;
+          SFBoxVolume             *editSFVolume  (void);
+    const SFBoxVolume             *getSFVolume   (void) const;
 
-          SFUInt32 *editSFField2(void);
-    const SFUInt32 *getSFField2 (void) const;
+          SFUInt32                *editSFTravMask(void);
+    const SFUInt32                *getSFTravMask (void) const;
 
-          MFUInt32 *editMFField3(void);
-    const MFUInt32 *getMFField3 (void) const;
-
-          SFUInt32 *editSFField4(void);
-    const SFUInt32 *getSFField4 (void) const;
+    const SFUncountedNodePtr      *getSFParent   (void) const;
+    const SFUnrecChildNodeCorePtr *getSFCore     (void) const;
+    const MFUnrecChildNodePtr     *getMFChildren (void) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -201,28 +285,49 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUInt32 _mfField1;
-    SFUInt32 _sfField2;
-    MFUInt32 _mfField3;
-    SFUInt32 _sfField4;
+    SFBoxVolume             _sfVolume;
+
+    SFUInt32                _sfTravMask;
+
+    SFUncountedNodePtr      _sfParent;
+    MFUnrecChildNodePtr     _mfChildren;
+
+    SFUnrecChildNodeCorePtr _sfCore;
+
+#ifdef OSG_1_COMPAT
+    UInt8                   _occlusionMask;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    TestFC(void);
-    TestFC(const TestFC &source);
+    Node(void);
+    Node(const Node &source);
 
-    virtual ~TestFC(void);
+    virtual ~Node(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-    virtual void onDestroyAspect(UInt32 uiContainerId,
-                                 UInt32 uiAspect     );
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
+            
+    virtual bool unlinkChild (FieldContainer * const pChild,
+                              UInt16           const childFieldId ); 
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Changed                                 */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -230,7 +335,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjCPtr createAspectCopy(const FieldContainer *pRefAspect) const;
+    virtual Node *createAspectCopy(const FieldContainer *pRefAspect) const;
 #endif
 
     /*! \}                                                                 */
@@ -245,7 +350,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      TestFC            *pFrom,
+            void execSync (      Node              *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -254,20 +359,22 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    MFUInt32::EditHandlePtr editHandleField1(void);
-    MFUInt32::GetHandlePtr  getHandleField1 (void) const;
+    EditFieldHandlePtr editHandleVolume  (void);
+    GetFieldHandlePtr  getHandleVolume   (void) const;
+    
+    EditFieldHandlePtr editHandleTravMask(void);
+    GetFieldHandlePtr  getHandleTravMask (void) const;
+    
+    GetFieldHandlePtr  getHandleParent   (void) const;
+    
+    EditFieldHandlePtr editHandleCore    (void);
+    GetFieldHandlePtr  getHandleCore     (void) const;
 
-    SFUInt32::EditHandlePtr editHandleField2(void);
-    SFUInt32::GetHandlePtr  getHandleField2 (void) const;
-
-    MFUInt32::EditHandlePtr editHandleField3(void);
-    MFUInt32::GetHandlePtr  getHandleField3 (void) const;
-
-    SFUInt32::EditHandlePtr editHandleField4(void);
-    SFUInt32::GetHandlePtr  getHandleField4 (void) const;
+    EditFieldHandlePtr editHandleChildren(void);
+    GetFieldHandlePtr  getHandleChildren (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -281,16 +388,145 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
   private:
 
-    friend class FieldContainer;
+    friend class  FieldContainer;
+    template<class    ValueT, 
+             typename RefCountPolicy, 
+             Int32    iNamespace    >
+    friend class FieldContainerPtrChildMField;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const TestFC &source);
+    void operator =(const Node &source);
 };
 
-typedef TestFC::ObjUnrecPtr TestFCUnrecPtr;
+OSG_BASE_DLLMAPPING
+NodeTransitPtr cloneTree(      
+    const Node                                    *rootNode,
+    const std::vector<std::string>                &cloneTypeNames,
+
+    const std::vector<std::string>                &ignoreTypeNames   =
+              std::vector<std::string>(),
+
+    const std::vector<std::string>                &cloneGroupNames   =
+              std::vector<std::string>(),
+
+    const std::vector<std::string>                &ignoreGroupNames  =
+              std::vector<std::string>()                              );
+
+OSG_BASE_DLLMAPPING
+NodeTransitPtr cloneTree(      
+    const Node                                    *rootNode,
+    const std::vector<UInt16>                     &cloneGroupIds,
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                   );
+
+OSG_BASE_DLLMAPPING
+NodeTransitPtr cloneTree(      
+    const Node                                    *rootNode,
+    const std::string                             &cloneTypesString,
+    const std::string                             &ignoreTypesString =
+              std::string()                                           );
+
+#ifdef OSG_1_COMPAT
+OSG_BASE_DLLMAPPING
+NodeTransitPtr cloneTree(      
+    const Node                                        *rootNode,
+
+    const std::vector<const ReflexiveContainerType *> &cloneTypes        =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
+          boost::assign::list_of(
+              &Attachment::getClassType()),
+
+    const std::vector<UInt16>                     &cloneGroupIds     =
+              std::vector<UInt16>(),
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                          );
+#else
+OSG_BASE_DLLMAPPING
+NodeTransitPtr cloneTree(      
+    const Node                                        *rootNode,
+
+    const std::vector<const ReflexiveContainerType *> &cloneTypes        =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<UInt16>                     &cloneGroupIds     =
+              std::vector<UInt16>(),
+
+    const std::vector<UInt16>                     &ignoreGroupIds    =
+              std::vector<UInt16>()                                          );
+#endif
+
+OSG_BASE_DLLMAPPING
+NodeTransitPtr deepCloneTree(
+    const Node                                    *rootNode,
+    const std::vector<std::string>                &shareTypeNames,
+
+    const std::vector<std::string>                &ignoreTypeNames  =
+              std::vector<std::string>(),
+
+    const std::vector<std::string>                &shareGroupNames  =
+              std::vector<std::string>(),
+
+    const std::vector<std::string>                &ignoreGroupNames =
+              std::vector<std::string>()                                  );
+
+OSG_BASE_DLLMAPPING
+NodeTransitPtr deepCloneTree(      
+    const Node                                    *rootNode,
+    const std::vector<UInt16>                     &shareGroupIds,
+
+    const std::vector<UInt16>                     &ignoreGroupIds   =
+              std::vector<UInt16>()                                       );
+
+OSG_BASE_DLLMAPPING
+NodeTransitPtr deepCloneTree(      
+    const Node                                    *rootNode,
+    const std::string                             &shareTypesString,
+
+    const std::string                             &ignoreTypesString =
+              std::string()                                               );
+
+OSG_BASE_DLLMAPPING
+NodeTransitPtr deepCloneTree(      
+    const Node                                        *rootNode,
+
+    const std::vector<const ReflexiveContainerType *> &shareTypes     =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<const ReflexiveContainerType *> &ignoreTypes    =
+              std::vector<const ReflexiveContainerType *>(),
+
+    const std::vector<UInt16>                     &shareGroupIds  =
+              std::vector<UInt16>(),
+    const std::vector<UInt16>                     &ignoreGroupIds =
+              std::vector<UInt16>()                                       );
+
+template <class Core> inline
+NodeTransitPtr makeCoredNode(typename Core::ObjRecPtr   *pCore);
+
+template <class Core> inline
+NodeTransitPtr makeCoredNode(typename Core::ObjUnrecPtr *pCore = NULL);
+
+
+template <class CorePtr> inline
+NodeTransitPtr makeNodeFor(CorePtr core);
+
+#if defined(OSG_1_COMPAT)
+inline
+Node *parentToNode(FieldContainer * const pSource)
+{
+    return dynamic_cast<Node * const>(pSource);
+}
+#endif
 
 OSG_END_NAMESPACE
 
-#include "OSGTestFC.inl"
+#include "OSGNodeCore.h"
+#include "OSGNode.inl"
+#include "OSGCoredNodePtr.h"
 
-#endif /* _OSGTESTFC_H_ */
+#endif /* _OSGNODE_H_ */

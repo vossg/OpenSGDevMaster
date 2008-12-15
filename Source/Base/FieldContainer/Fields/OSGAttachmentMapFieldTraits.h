@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2005 by the OpenSG Forum                          *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,101 +36,116 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNAMEATTACHMENT_H_
-#define _OSGNAMEATTACHMENT_H_
+#ifndef _OSGATTACHMENTMAPFIELDTRAITS_H_
+#define _OSTATTACHMENTMAPFIELDTRAITS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGNameAttachments.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
+#include "OSGFieldTraits.h"
+#include "OSGContainerForwards.h"
 
-#include "OSGBaseTypes.h"
-#include "OSGSimpleAttachment.h"
-#include "OSGBaseSFields.h"
-#include "OSGSystemDef.h"
+#include "map"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
-    \hideinhierarchy
- */
+class Attachment;
 
-struct NameAttachmentDesc
-{
-    typedef SFString           FieldTypeT;
+typedef std::map<UInt32, Attachment *>  AttachmentMap;
 
-    static const Char8         *getTypeName  (void) 
-    {
-        return "Name";          
-    }
+#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-    static const Char8         *getFieldName (void) 
-    {
-        return "name";          
-    }
-
-    static const Char8         *getGroupName (void) 
-    { 
-        return "name";          
-    }
-
-    static const Char8         *getParentTypeName(void) 
-    {
-        return "Attachment";    
-    }
-
-    static InitContainerF     getInitMethod(void) { return NULL;  }
-};
-
-/*! \ingroup GrpSystemFieldContainer
- */
-
-typedef SimpleAttachment<NameAttachmentDesc> Name;
-
-/*! \ingroup GrpSystemFieldContainer
- */
-
-OSG_GEN_CONTAINERPTR(Name)  
-
-#ifdef WIN32
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getType(void);
-
-template <> OSG_SYSTEM_DLLMAPPING
-const SimpleAttachment<NameAttachmentDesc>::TypeObject &
-   SimpleAttachment<NameAttachmentDesc>::getType(void) const;
-
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getClassType(void);
+#ifdef OSG_DOC_FILES_IN_MODULE
+/*! \file OSGBaseFieldTraits.h
+    \ingroup GrpBaseField
+    \ingroup GrpBaseFieldTraits
+*/
 #endif
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup GrpBaseFieldTraits
  */
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \hideinhierarchy */
+#endif
 
-OSG_SYSTEM_DLLMAPPING
-const Char8 *getName(AttachmentContainer * const container);
+template <>
+struct FieldTraits<AttachmentMap> : 
+    public FieldTraitsTemplateBase<AttachmentMap>
+{
+  private:
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
+    static  DataType                                 _type;
 
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     std::string           const  &name     );
+  public:
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
+    typedef FieldTraits<AttachmentMap>  Self;
 
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     Char8                 const *name     );
- 
+
+    enum             { Convertible = Self::NotConvertible                  };
+
+    static OSG_BASE_DLLMAPPING
+                 DataType &getType      (void);
+
+    static const Char8    *getSName     (void) 
+    {
+        return "SFAttachmentPtrMap"; 
+    }
+
+    static const Char8    *getMName     (void)
+    {
+        return "MFAttachmentPtrMap"; 
+    }
+    
+    static UInt32 getBinSize(const AttachmentMap &aMap);
+
+    static UInt32 getBinSize(const AttachmentMap *aMaps,
+                                   UInt32         numObjects)
+    {
+        UInt32 size = 0;
+
+        // defaut: individual field sizes
+        for(UInt32 i = 0; i < numObjects; ++i)
+        {
+            size += getBinSize(aMaps[i]);
+        }
+
+        return size;
+    }
+    
+    static void copyToBin(      BinaryDataHandler &pMem,
+                          const AttachmentMap     &aMap );
+    
+    static void copyToBin(      BinaryDataHandler &pMem,
+                          const AttachmentMap     *aMaps,
+                                UInt32             numObjects)
+    {
+        for(UInt32 i = 0; i < numObjects; ++i)
+        {
+            copyToBin(pMem, aMaps[i]);
+        }
+    }
+    
+    static void copyFromBin(BinaryDataHandler &pMem,
+                            AttachmentMap     &aMap );
+
+    static void copyFromBin(BinaryDataHandler &pMem,
+                            AttachmentMap     *aMaps,
+                            UInt32             numObjects)
+    {
+        for(UInt32 i = 0; i < numObjects; ++i)
+        {
+            copyFromBin(pMem, aMaps[i]);
+        }
+    }
+};
+
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \class  FieldTraitsTemplateBase<ContainerAttachmentMap> */
+/*! \hideinhierarchy                               */
+#endif
+
+#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGNAMEATTACHMENT_H_ */
+#endif /* _OSGATTACHMENTMAPFIELDTRAITS_H_ */

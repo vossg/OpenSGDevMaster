@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                     Copyright 2000-2002 by OpenSG Forum                   *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,109 +36,118 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGOSGWRITER_H_
-#define _OSGOSGWRITER_H_
+#ifndef _OSGASPECTSTORE_H_
+#define _OSGASPECTSTORE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGConfig.h"
+#ifdef OSG_MT_CPTR_ASPECT
 
-#include <iostream>
+#include "OSGBaseTypes.h"
+#include "OSGThread.h"
+#include "OSGThreadManager.h"
 
-#include <string>
-#include <map>
 #include <vector>
-
-#include "OSGNode.h"
-#include "OSGNodeCore.h"
-#include "OSGFieldContainer.h"
-#include "OSGSystemDef.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemDrawablesGeometrymetryWriterLib
- *  \brief Brief OSGWriter
+class FieldContainer;
+
+/*! Memory, simple reference counted memory object. Parent of
+    everything that should be shared, but must not be thread safe.
+    \ingroup GrpBaseBase
  */
 
-class OSG_SYSTEM_DLLMAPPING OSGWriter
+class OSG_BASE_DLLMAPPING AspectStore
 {
+
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
-
-    OSGWriter(OutStream &stream, UInt32 indentStep = 4);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    ~OSGWriter(void);
+ 
+    AspectStore(void);
+    AspectStore(const  AspectStore &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Write                                      */
+    /*! \name                     Access                                   */
     /*! \{                                                                 */
 
-    void write(            FieldContainer *  container );
-    void write(std::vector<FieldContainer *> containers);
+    FieldContainer *getPtr            (      void                      )const;
+    FieldContainer *getPtr            (const UInt32          uiAspect  )const;
+    void            setPtrForAspect   (      FieldContainer *pContainer, 
+                                       const UInt32          uiAspect  );
+    void            removePtrForAspect(const UInt32          uiAspect  );
+
+    UInt32          getNumAspects     (      void                      )const;
     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    void  addRef     (void);
+    void  subRef     (void);    
+    Int32 getRefCount(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    void fillOffsetArray(AspectOffsetStore &       oStore,
+                         FieldContainer    * const pRef  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    void dump(void);
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-  protected:
-      
-    static const UInt32 DefaultSFWidth;
-    static const UInt32 DefaultMFWidth; 
 
-    struct FCInfoHelper
-    {
-        bool        written;
-        bool        hasName;
-        std::string containerName;
-        
-        void        setName      (FieldContainer * const pFC);
-		             
-        FCInfoHelper(void);
-    };
-    
-    typedef std::map<FieldContainer *, FCInfoHelper> FCInfoHelperMap;
+  protected:
+
+    typedef std::vector<FieldContainer *> FieldContainerStore;
+
+    FieldContainerStore _vAspects;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
+    /*! \name                   Destructors                                */
     /*! \{                                                                 */
-
-    FCInfoHelperMap                _visitedFCMap;
-    OutStream                     &_outStream;
-
-    void visitContainer(FieldContainer    * const pFC    );
-    void visitField    (GetFieldHandlePtr         hF     );
-
-    void writeContainer(FieldContainer    * const pFC    ,
-                        bool                      bIndent);
-    void writeField    (GetFieldHandlePtr         hF     );
+ 
+    ~AspectStore(void); 
 
     /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
+   /*==========================  PRIVATE  ================================*/
+
   private:
 
+    Int32 _refCount;
+
     /*!\brief prohibit default function (move to 'public' if needed) */
-    OSGWriter(const OSGWriter &source);
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const OSGWriter &source);
+    void operator =(const AspectStore &source);
 };
 
+typedef AspectStore *AspectStoreP;
+
+inline 
+void addRef(const AspectStoreP pObject);
+
+inline
+void subRef(const AspectStoreP pObject);
+
 OSG_END_NAMESPACE
-    
-#endif /* _OSGOSGWRITER_H_ */
 
+#include "OSGAspectStore.inl"
 
+#endif
 
-
-
-
-
-
+#endif /* _OSGASPECTSTORE_H_ */

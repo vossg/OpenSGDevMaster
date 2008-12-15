@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2005 by the OpenSG Forum                          *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,101 +36,108 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNAMEATTACHMENT_H_
-#define _OSGNAMEATTACHMENT_H_
+#ifndef _OSGCHANGEDFUNCTORFIELDTRAITS_H_
+#define _OSGCHANGEDFUNCTORFIELDTRAITS_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGNameAttachments.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
+#include "OSGFieldTraits.h"
+#include "OSGDataType.h"
 
-#include "OSGBaseTypes.h"
-#include "OSGSimpleAttachment.h"
-#include "OSGBaseSFields.h"
-#include "OSGSystemDef.h"
+#include "OSGContainerForwards.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
-    \hideinhierarchy
- */
+#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-struct NameAttachmentDesc
-{
-    typedef SFString           FieldTypeT;
-
-    static const Char8         *getTypeName  (void) 
-    {
-        return "Name";          
-    }
-
-    static const Char8         *getFieldName (void) 
-    {
-        return "name";          
-    }
-
-    static const Char8         *getGroupName (void) 
-    { 
-        return "name";          
-    }
-
-    static const Char8         *getParentTypeName(void) 
-    {
-        return "Attachment";    
-    }
-
-    static InitContainerF     getInitMethod(void) { return NULL;  }
-};
-
-/*! \ingroup GrpSystemFieldContainer
- */
-
-typedef SimpleAttachment<NameAttachmentDesc> Name;
-
-/*! \ingroup GrpSystemFieldContainer
- */
-
-OSG_GEN_CONTAINERPTR(Name)  
-
-#ifdef WIN32
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getType(void);
-
-template <> OSG_SYSTEM_DLLMAPPING
-const SimpleAttachment<NameAttachmentDesc>::TypeObject &
-   SimpleAttachment<NameAttachmentDesc>::getType(void) const;
-
-template <> OSG_SYSTEM_DLLMAPPING
-SimpleAttachment<NameAttachmentDesc>::TypeObject &
-    SimpleAttachment<NameAttachmentDesc>::getClassType(void);
+#ifdef OSG_DOC_FILES_IN_MODULE
+/*! \file 
+    \ingroup 
+    \ingroup 
+*/
 #endif
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup 
  */
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \hideinhierarchy */
+#endif
 
-OSG_SYSTEM_DLLMAPPING
-const Char8 *getName(AttachmentContainer * const container);
+template <>
+struct FieldTraits<ChangedFunctorCallback> : 
+    public FieldTraitsTemplateBase<ChangedFunctorCallback>
+{
+  private:
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
+    static  DataType                            _type;
 
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     std::string           const  &name     );
+  public:
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
+    typedef FieldTraits<ChangedFunctorCallback>  Self;
 
-OSG_SYSTEM_DLLMAPPING
-      void   setName(AttachmentContainer * const  container, 
-                     Char8                 const *name     );
- 
+
+    enum             { Convertible = Self::NotConvertible                  };
+
+    static OSG_BASE_DLLMAPPING
+                 DataType &getType      (void);
+
+    static const Char8    *getSName     (void) 
+    {
+        return "SFChangedFunctorCallback";   
+    }
+
+    static const Char8    *getMName     (void)
+    { 
+        return "MFChangedFunctorCallback";   
+    }
+
+
+    static UInt32 getBinSize(const ChangedFunctorCallback &)
+    {
+        return 0; //sizeof(ValueT);
+    }
+
+    static UInt32 getBinSize(const ChangedFunctorCallback *,
+                                   UInt32                  uiNumObjects)
+    {
+        return 0; //sizeof(ValueT) * uiNumObjects;
+    }
+
+    static void copyToBin(      BinaryDataHandler      &pMem,
+                          const ChangedFunctorCallback &oObject)
+    {
+//        pMem.putValue(oObject);
+    }
+
+    static void copyToBin(      BinaryDataHandler      &pMem,
+                          const ChangedFunctorCallback *pObjectStore,
+                                UInt32                  uiNumObjects)
+    {
+//        pMem.putValues(&(pObjectStore[0]), uiNumObjects);
+    }
+
+    static void copyFromBin(BinaryDataHandler      &pMem,
+                            ChangedFunctorCallback &oObject)
+    {
+//        pMem.getValue(oObject);
+    }
+
+    static void copyFromBin(BinaryDataHandler      &pMem,
+                            ChangedFunctorCallback *pObjectStore,
+                            UInt32                  uiNumObjects)
+    {
+//        pMem.getValues(&(pObjectStore[0]), uiNumObjects);
+    }
+};
+
+#if !defined(OSG_DOC_DEV_TRAITS)
+/*! \class  FieldTraitsTemplateBase<NodeCorePtr> */
+/*! \hideinhierarchy                         */
+#endif
+
+#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGNAMEATTACHMENT_H_ */
+#endif /* _OSGCHANGEDFUNCTORFIELDTRAITS_H_ */

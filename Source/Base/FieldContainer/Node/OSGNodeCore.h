@@ -36,62 +36,58 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTESTFC_H_
-#define _OSGTESTFC_H_
+#ifndef _OSGNODEOCRE_H_
+#define _OSGNODEOCRE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGMatrix.h"
 #include "OSGFieldContainer.h"
 #include "OSGAttachmentContainer.h"
 
-#include "OSGUInt32Fields.h"
-
+#include "OSGFieldContainerFields.h"
+#include "OSGMatrixFwd.h"
 #include "OSGFieldContainerFactory.h"
 
-#include "OSGSystemDef.h"
+#ifdef OSG_EMBEDDED
+#include "OSGActionBase.h"
+#endif
 
 OSG_BEGIN_NAMESPACE
+
+class Volume;
+class Node;
 
 //! Brief
 //! \ingroup baselib
 
-class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
+class OSG_BASE_DLLMAPPING NodeCore : public AttachmentContainer
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef AttachmentContainer                     Inherited;
-    typedef AttachmentContainer                     ParentContainer;
+    typedef AttachmentContainer                              Inherited;
+    typedef AttachmentContainer                              ParentContainer;
 
-    OSG_GEN_INTERNALPTR(TestFC);
+    typedef MFParentFieldContainerPtr                        ParentsField;
 
-    typedef Inherited::TypeObject                   TypeObject;
+    OSG_GEN_INTERNALPTR(NodeCore);
+
+    typedef Inherited::TypeObject                            TypeObject;
+
+    static const bool isNodeCore = true;
+
+    OSG_RC_FIRST_FIELD_DECL(Parents);
+    OSG_RC_LAST_FIELD_DECL (Parents);
+
+    typedef MFParentFieldContainerPtr   MFParentsType;
     
-    typedef TestFC                                  Self;
-
-    OSG_RC_FIRST_FIELD_DECL(Field1        );
-    
-    OSG_RC_FIELD_DECL      (Field2, Field1);
-    OSG_RC_FIELD_DECL      (Field3, Field2);
-    OSG_RC_FIELD_DECL      (Field4, Field3);
-
-    OSG_RC_LAST_FIELD_DECL (Field4        );
-
-    static const BitVector bLocalFieldMask   = (Field1FieldMask |
-                                                Field2FieldMask |
-                                                Field3FieldMask |
-                                                Field4FieldMask );
-
-    static const BitVector bInvLocalFieldMask = ~bLocalFieldMask;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    OSG_FIELD_CONTAINER_DECL;
+    OSG_ABSTR_FIELD_CONTAINER_DECL;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -113,10 +109,14 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+    const MFParentFieldContainerPtr &getParents(void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
+
+    const MFParentFieldContainerPtr *getMFParents(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -145,17 +145,45 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Binary Access                              */
+    /*! \{                                                                 */
+
+    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
+    virtual void   copyToBin  (BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+    virtual void   copyFromBin(BinaryDataHandler &pMem,
+                               ConstFieldMaskArg  whichField);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                    Assignment                                */
     /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Changed                                 */
+    /*! \{                                                                 */
+
+    virtual void accumulateMatrix(Matrixr &result);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   MT Destruction                             */
+    /*! \{                                                                 */
+
+    virtual void adjustVolume    (Volume &volume);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
-                         BitVector         detail);
+    virtual void invalidateVolume(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -164,23 +192,17 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
     virtual void dump(      UInt32    uiIndent = 0, 
                       const BitVector bvFlags  = 0) const;
-    
+
+#ifdef OSG_EMBEDDED
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-          MFUInt32 *editMFField1(void);
-    const MFUInt32 *getMFField1 (void) const;
+    ActionBase::ResultE defaultEnter(Action *action);
+    ActionBase::ResultE defaultLeave(Action *action);
 
-          SFUInt32 *editSFField2(void);
-    const SFUInt32 *getSFField2 (void) const;
-
-          MFUInt32 *editMFField3(void);
-    const MFUInt32 *getMFField3 (void) const;
-
-          SFUInt32 *editSFField4(void);
-    const SFUInt32 *getSFField4 (void) const;
+#endif
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -201,37 +223,29 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUInt32 _mfField1;
-    SFUInt32 _sfField2;
-    MFUInt32 _mfField3;
-    SFUInt32 _sfField4;
+    MFParentFieldContainerPtr _mfParents;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    TestFC(void);
-    TestFC(const TestFC &source);
+    NodeCore(void);
+    NodeCore(const NodeCore &source);
 
-    virtual ~TestFC(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Changed                                 */
-    /*! \{                                                                 */
-
-    virtual void onDestroyAspect(UInt32 uiContainerId,
-                                 UInt32 uiAspect     );
+    virtual ~NodeCore(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   MT Destruction                             */
+    /*! \name                       Sync                                   */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual ObjCPtr createAspectCopy(const FieldContainer *pRefAspect) const;
-#endif
+    virtual bool linkParent  (FieldContainer * const pParent,
+                              UInt16           const childFieldId,
+                              UInt16           const parentFieldId);
+
+    virtual bool unlinkParent(FieldContainer * const pParent,
+                              UInt16           const parentFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -245,7 +259,7 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      TestFC            *pFrom,
+            void execSync (      NodeCore          *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -254,20 +268,10 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                       Edit                                   */
     /*! \{                                                                 */
 
-    MFUInt32::EditHandlePtr editHandleField1(void);
-    MFUInt32::GetHandlePtr  getHandleField1 (void) const;
-
-    SFUInt32::EditHandlePtr editHandleField2(void);
-    SFUInt32::GetHandlePtr  getHandleField2 (void) const;
-
-    MFUInt32::EditHandlePtr editHandleField3(void);
-    MFUInt32::GetHandlePtr  getHandleField3 (void) const;
-
-    SFUInt32::EditHandlePtr editHandleField4(void);
-    SFUInt32::GetHandlePtr  getHandleField4 (void) const;
+    GetFieldHandlePtr getHandleParents(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -281,16 +285,16 @@ class OSG_SYSTEM_DLLMAPPING TestFC : public AttachmentContainer
 
   private:
 
-    friend class FieldContainer;
-
+    friend class Node;
+    
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const TestFC &source);
+    void operator =(const NodeCore &source);
 };
 
-typedef TestFC::ObjUnrecPtr TestFCUnrecPtr;
+OSG_GEN_CONTAINERPTR(NodeCore);
 
 OSG_END_NAMESPACE
 
-#include "OSGTestFC.inl"
+#include "OSGNodeCore.inl"
 
-#endif /* _OSGTESTFC_H_ */
+#endif /* _OSGNODECORE_H_ */
