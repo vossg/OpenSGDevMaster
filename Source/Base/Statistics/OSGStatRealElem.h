@@ -36,71 +36,68 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSTATINTELEM_H_
-#define _OSGSTATINTELEM_H_
+#ifndef _OSGSTATREALELEM_H_
+#define _OSGSTATREALELEM_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
-#include "OSGSystemDef.h"
-
 #include "OSGStatElem.h"
+
+#include <string>
 
 OSG_BEGIN_NAMESPACE
 
 class StatElemDescBase;
 
-/*! \brief Integer Statistics element, see \ref PageSystemStatistics for 
+/*! \brief Real32 Statistics element, see \ref PageSystemStatistics for 
   details.
-*/
+ */
 
-class OSG_SYSTEM_DLLMAPPING StatIntElem : public StatElem 
+class OSG_BASE_DLLMAPPING StatRealElem : public StatElem 
 {
-     /*==========================  PUBLIC  =================================*/
+    /*==========================  PUBLIC  =================================*/
 
- public:
+  public:
 
     /*---------------------------------------------------------------------*/
     /*! \name                    your_category                             */
     /*! \{                                                                 */
-    
+
     static StatElem *create(StatElemDescBase *desc);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    instance                                  */
     /*! \{                                                                 */
-   
-            void  set  (Int32 value);
-            Int32 get  (void       ) const;
+
+            void   set  (Real32 value);
+            Real32 get  (void        ) const;
+
+            void   add  (Real32 v    );
+            void   sub  (Real32 v    );
     
-            void  add  (Int32 v    );
-            void  sub  (Int32 v    );
-    virtual void  reset(void       );
-    
-            void  inc  (void       );
-            void  dec  (void       );
+    virtual void   reset(void        );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    instance                                  */
     /*! \{                                                                 */
 
-    virtual void   putToString   (      std::string &str, 
+    virtual void   putToString   (      std::string  &str, 
                                   const std::string &format = std::string()) const;
 
-    virtual bool   getFromCString(const Char8      *&inVal        );
+    virtual bool   getFromCString(const Char8       *&inVal        );
 
-    virtual Real64 getValue      (      void                      ) const;
+    virtual Real64 getValue      (      void                       ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   comparison                                 */
+    /*! \name                    comparison                                */
     /*! \{                                                                 */
- 
-    bool operator < (const StatIntElem &other) const;
 
+    bool operator < (const StatRealElem &other) const;
+ 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Creation                                   */
@@ -124,9 +121,9 @@ class OSG_SYSTEM_DLLMAPPING StatIntElem : public StatElem
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    StatIntElem(StatElemDescBase *desc);
+    StatRealElem(StatElemDescBase *desc);
 
-    virtual ~StatIntElem(void); 
+    virtual ~StatRealElem(void); 
 
     /*! \}                                                                 */
     /*=========================  PRIVATE    ===============================*/
@@ -134,22 +131,22 @@ class OSG_SYSTEM_DLLMAPPING StatIntElem : public StatElem
   private:
 
     typedef StatElem Inherited;
-   
-    Int32 _value;
 
+    Real32 _value;
+ 
     // prohibit default functions (move to 'public' if you need one)
-    StatIntElem(const StatIntElem &source);
-    StatIntElem& operator =(const StatIntElem &source);
+    StatRealElem(const StatRealElem &source);
+    StatRealElem& operator =(const StatRealElem &source);
 };
 
 //---------------------------------------------------------------------------
 //   Exported Types
 //---------------------------------------------------------------------------
 
-typedef StatIntElem *StatIntElemP;
+typedef StatRealElem *StatRealElemP;
 
 OSG_END_NAMESPACE
 
-#include "OSGStatIntElem.inl"
+#include "OSGStatRealElem.inl"
 
-#endif /* _OSGSTATINTELEM_H_ */
+#endif /* _OSGSTATREALELEM_H_ */

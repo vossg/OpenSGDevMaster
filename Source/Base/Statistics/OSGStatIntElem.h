@@ -36,70 +36,67 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _STATTIMESTAMPELEM_H_
-#define _STATTIMESTAMPELEM_H_
+#ifndef _OSGSTATINTELEM_H_
+#define _OSGSTATINTELEM_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-
-#include "OSGBaseTypes.h"
-#include "OSGSystemDef.h"
-
 #include "OSGStatElem.h"
-
-#include "OSGTime.h"
 
 OSG_BEGIN_NAMESPACE
 
 class StatElemDescBase;
 
-/*! \brief Time Statistics element, see \ref PageSystemStatistics for details.
+/*! \brief Integer Statistics element, see \ref PageSystemStatistics for 
+  details.
 */
-class OSG_SYSTEM_DLLMAPPING StatTimeStampElem : public StatElem 
-{
 
-    /*==========================  PUBLIC  =================================*/
+class OSG_BASE_DLLMAPPING StatIntElem : public StatElem 
+{
+     /*==========================  PUBLIC  =================================*/
 
  public:
 
     /*---------------------------------------------------------------------*/
     /*! \name                    your_category                             */
     /*! \{                                                                 */
- 
+    
     static StatElem *create(StatElemDescBase *desc);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    instance                                  */
     /*! \{                                                                 */
-
-    virtual void       reset  (void);
+   
+            void  set  (Int32 value);
+            Int32 get  (void       ) const;
     
-    const   TimeStamp &start  (void);
-      
-    const   TimeStamp &stop   (void);
+            void  add  (Int32 v    );
+            void  sub  (Int32 v    );
+    virtual void  reset(void       );
+    
+            void  inc  (void       );
+            void  dec  (void       );
 
-    const   TimeStamp &getTime(void) const;
-  
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    instance                                  */
     /*! \{                                                                 */
-      
-    virtual void   putToString   (      std::string & str, 
-                                  const std::string &format = std::string()) const;
- 
-    virtual bool   getFromCString(const Char8       *&inVal        );
 
-    virtual Real64 getValue      (void                             ) const;
+    virtual void   putToString   (      std::string &str, 
+                                  const std::string &format = std::string()) const;
+
+    virtual bool   getFromCString(const Char8      *&inVal        );
+
+    virtual Real64 getValue      (      void                      ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    comparison                                */
+    /*! \name                   comparison                                 */
     /*! \{                                                                 */
-
-    bool operator < (const StatTimeStampElem &other) const;
+ 
+    bool operator < (const StatIntElem &other) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -118,38 +115,38 @@ class OSG_SYSTEM_DLLMAPPING StatTimeStampElem : public StatElem
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
- protected:
+  protected:
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
-  
-    StatTimeStampElem(StatElemDescBase *desc);
 
-    virtual ~StatTimeStampElem(void); 
+    StatIntElem(StatElemDescBase *desc);
+
+    virtual ~StatIntElem(void); 
 
     /*! \}                                                                 */
     /*=========================  PRIVATE    ===============================*/
 
- private:
+  private:
 
     typedef StatElem Inherited;
-
-    TimeStamp _time;
+   
+    Int32 _value;
 
     // prohibit default functions (move to 'public' if you need one)
-    StatTimeStampElem            (const StatTimeStampElem &source);
-    StatTimeStampElem& operator =(const StatTimeStampElem &source);
+    StatIntElem(const StatIntElem &source);
+    StatIntElem& operator =(const StatIntElem &source);
 };
 
 //---------------------------------------------------------------------------
 //   Exported Types
 //---------------------------------------------------------------------------
 
-typedef StatTimeStampElem *StatTimeStampElemP;
+typedef StatIntElem *StatIntElemP;
 
 OSG_END_NAMESPACE
 
-#include "OSGStatTimeStampElem.inl"
+#include "OSGStatIntElem.inl"
 
-#endif /* _STATTIMESTAMPELEM_H_ */
+#endif /* _OSGSTATINTELEM_H_ */

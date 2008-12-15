@@ -37,106 +37,149 @@
 \*---------------------------------------------------------------------------*/
 
 
-#ifndef _OSGSTATELEM_H_
-#define _OSGSTATELEM_H_
+#ifndef _OSGSTATELEMDESC_H_
+#define _OSGSTATELEMDESC_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
-#include "OSGSystemDef.h"
-
-#include <string>
+#include "OSGIDString.h"
 
 OSG_BEGIN_NAMESPACE
 
-class StatElemDescBase;
+class StatElemCollector;
+class StatElem;
 
-/*! \brief Single Statistics element, see \ref PageSystemStatistics for 
-    details.
-*/
-
-class OSG_SYSTEM_DLLMAPPING StatElem
+/*! \ingroup baselib
+ *  \brief Brief
+ *
+ *  detailed
+ */
+ 
+class OSG_BASE_DLLMAPPING StatElemDescBase
 {
     /*==========================  PUBLIC  =================================*/
-
   public:
 
+   /*---------------------------------------------------------------------*/
+   /*! \name                      Class                                   */
+   /*! \{                                                                 */
+
+    static bool              isValidID     (      Int32  descId);
+
+    static StatElemDescBase *getDesc       (      Int32  descId);
+    static StatElemDescBase *findDescByName(const Char8 *name  );
+    static Int32             getNumOfDescs (      void         );
+
+    static void              printAll      (      void         );
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Instance                                 */
     /*! \{                                                                 */
 
-    bool              isOn   (void   ) const;
-    void              setOn  (bool on);
+          void      print         (void);
 
-    StatElemDescBase *getDesc(void   ) const;
+          Int32     getID         (void);
+    const IDString &getName       (void);
+    const IDString &getDescription(void);
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                */
-    /*! \{                                                                 */
-
-    virtual void   putToString   (      std::string &str, 
-                                  const std::string &format = std::string()) const = 0;
-                                                
-    virtual bool   getFromCString(const Char8      *&inVal        )       = 0;
-
-    virtual Real64 getValue      (void                            ) const = 0; 
-
-    virtual void   reset         (void                            )       = 0; 
+    typedef enum { 
+              RESET_NEVER = 0, //!< Never reset by the system
+              RESET_DRAW,      //!< Reset when drawing
+              RESET_ALWAYS     //!< Reset when StatCollector::reset is called
+            } ResetMode; 
+             
+    ResetMode getResetMode(void          ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                */
+    /*! \name                    Constructors                              */
     /*! \{                                                                 */
 
-    virtual ~StatElem(void);
+    StatElemDescBase(const Char8 *name, 
+                     const Char8 *description,
+                     ResetMode reset = RESET_DRAW);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                  Comparison                                  */
+    /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-     bool operator <  (const StatElem &other) const;
+    virtual ~StatElemDescBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Creation                                   */
+    /*! \name                   Comparison                                 */
     /*! \{                                                                 */
 
-    virtual StatElem *clone(void) const = 0;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Operators                                */
-    /*! \{                                                                 */
-
-    virtual StatElem &operator += (const StatElem &other) = 0;
+    bool operator < (const StatElemDescBase &other) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-
   protected:
-
-    StatElem (StatElemDescBase *desc);
+    static bool terminate(void);
 
     /*==========================  PRIVATE  ================================*/
-
   private:
+    friend class StatCollector;
 
-    bool              _on;
-    StatElemDescBase *_desc;
+    typedef std::vector<StatElemDescBase*> DescStorage;
+
+    static DescStorage *_descVec;
+    
+    Int32           _id;
+    IDString        _name;
+    IDString        _description;
+    ResetMode       _resetMode;
+
+    // only called by OSGStatCollector friend
+    virtual StatElem *createElem(void) = 0;
 
     // prohibit default functions (move to 'public' if you need one)
-
-    StatElem            (const StatElem &source);
-    StatElem& operator =(const StatElem &source);
+    StatElemDescBase(const StatElemDescBase &source);
+    StatElemDescBase &operator =(const StatElemDescBase &source);
 };
 
-typedef StatElem *StatElemP;
+template <class Type>
+class StatElemDesc : public StatElemDescBase
+{
+    /*==========================  PUBLIC  =================================*/
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Constructors                              */
+    /*! \{                                                                 */
+
+    StatElemDesc(const Char8 *name, 
+                 const Char8 *description,
+                 ResetMode    reset = RESET_DRAW);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~StatElemDesc(void);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+
+    /*==========================  PRIVATE  ================================*/
+  private:
+
+    virtual StatElem* createElem(void);
+
+    // prohibit default functions (move to 'public' if you need one)
+    StatElemDesc (const StatElemDesc &source);
+    StatElemDesc &operator =(const StatElemDesc &source);
+};
+
+typedef StatElemDescBase *StatElemDescBaseP;
 
 OSG_END_NAMESPACE
 
-#include "OSGStatElem.inl"
+#include "OSGStatElemDesc.inl"
 
-#endif /* _OSGSTATELEM_H_ */
+#endif /* _OSGSTATELEMDESC_H_ */

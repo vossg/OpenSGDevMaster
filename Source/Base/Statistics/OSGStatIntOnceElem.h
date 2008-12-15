@@ -36,33 +36,34 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _STATTIMEELEM_H_
-#define _STATTIMEELEM_H_
+#ifndef _STATINTONCEELEM_H_
+#define _STATINTONCEELEM_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
-#include "OSGSystemDef.h"
-
 #include "OSGStatElem.h"
 
 #include "OSGTime.h"
+
+#include "OSGDeprecatedCPP.h"
+
 
 OSG_BEGIN_NAMESPACE
 
 class StatElemDescBase;
 
 /*! \brief Time Statistics element, see \ref PageSystemStatistics for details.
- */
-
-class OSG_SYSTEM_DLLMAPPING StatTimeElem : public StatElem 
+*/
+class OSG_BASE_DLLMAPPING StatIntOnceElem : public StatElem 
 {
 
     /*==========================  PUBLIC  =================================*/
 
  public:
 
+    typedef OSG_HASH_SET(UInt32) IdHash;
+    
     /*---------------------------------------------------------------------*/
     /*! \name                    your_category                             */
     /*! \{                                                                 */
@@ -74,18 +75,24 @@ class OSG_SYSTEM_DLLMAPPING StatTimeElem : public StatElem
     /*! \name                    instance                                  */
     /*! \{                                                                 */
 
-    virtual void  reset  (void);
-    
-    const   Time &start  (void);
-    const   Time &stop   (void);
-    const   Time &getTime(void) const;
-        
+    virtual void  reset(void                );
+
+            void  add  (UInt32 contributorId, 
+                         Int32 v            );
+            void  sub  (UInt32 contributorId, 
+                         Int32 v            );
+
+            void  inc  (UInt32 contributorId);
+            void  dec  (UInt32 contributorId);
+
+            Int32 get  (void                ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    instance                                  */
     /*! \{                                                                 */
-
-    virtual void   putToString   (      std::string  &str, 
+        
+    virtual void   putToString   (      std::string & str, 
                                   const std::string &format = std::string()) const;
  
     virtual bool   getFromCString(const Char8       *&inVal        );
@@ -97,7 +104,7 @@ class OSG_SYSTEM_DLLMAPPING StatTimeElem : public StatElem
     /*! \name                    comparison                                */
     /*! \{                                                                 */
 
-    bool operator < (const StatTimeElem &other) const;
+    bool operator < (const StatIntOnceElem &other) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -122,32 +129,33 @@ class OSG_SYSTEM_DLLMAPPING StatTimeElem : public StatElem
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
   
-    StatTimeElem(StatElemDescBase *desc);
+    StatIntOnceElem(StatElemDescBase *desc);
 
-    virtual ~StatTimeElem(void); 
+    virtual ~StatIntOnceElem(void); 
 
     /*! \}                                                                 */
     /*=========================  PRIVATE    ===============================*/
-
  private:
 
     typedef StatElem Inherited;
 
-    Time _time;
+    Int32   _value;
+    
+    IdHash  _ids;
 
     // prohibit default functions (move to 'public' if you need one)
-    StatTimeElem            (const StatTimeElem &source);
-    StatTimeElem& operator =(const StatTimeElem &source);
+    StatIntOnceElem            (const StatIntOnceElem &source);
+    StatIntOnceElem& operator =(const StatIntOnceElem &source);
 };
 
 //---------------------------------------------------------------------------
 //   Exported Types
 //---------------------------------------------------------------------------
 
-typedef StatTimeElem *StatTimeElemP;
+typedef StatIntOnceElem *StatIntOnceElemP;
 
 OSG_END_NAMESPACE
 
-#include "OSGStatTimeElem.inl"
+#include "OSGStatIntOnceElem.inl"
 
-#endif /* _STATTIMEELEM_H_ */
+#endif /* _STATINTONCEELEM_H_ */

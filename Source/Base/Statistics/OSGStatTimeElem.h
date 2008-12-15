@@ -36,48 +36,48 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSTATSTRINGELEM_H_
-#define _OSGSTATSTRINGELEM_H_
+#ifndef _STATTIMEELEM_H_
+#define _STATTIMEELEM_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
-#include "OSGSystemDef.h"
 
 #include "OSGStatElem.h"
+
+#include "OSGTime.h"
 
 OSG_BEGIN_NAMESPACE
 
 class StatElemDescBase;
 
-/*! \brief String Statistics element, see \ref PageSystemStatistics for 
-    details.
-*/
+/*! \brief Time Statistics element, see \ref PageSystemStatistics for details.
+ */
 
-class OSG_SYSTEM_DLLMAPPING StatStringElem : public StatElem 
+class OSG_BASE_DLLMAPPING StatTimeElem : public StatElem 
 {
-     /*==========================  PUBLIC  =================================*/
+
+    /*==========================  PUBLIC  =================================*/
 
  public:
 
     /*---------------------------------------------------------------------*/
     /*! \name                    your_category                             */
     /*! \{                                                                 */
-    
+ 
     static StatElem *create(StatElemDescBase *desc);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    instance                                  */
     /*! \{                                                                 */
+
+    virtual void  reset  (void);
     
-    const   std::string &get  (      void              ) const;
-            void         set  (const std::string &value);
-            void         set  (const Char8       *value);
-
-    virtual void         reset(void                    );
-
+    const   Time &start  (void);
+    const   Time &stop   (void);
+    const   Time &getTime(void) const;
+        
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    instance                                  */
@@ -85,17 +85,17 @@ class OSG_SYSTEM_DLLMAPPING StatStringElem : public StatElem
 
     virtual void   putToString   (      std::string  &str, 
                                   const std::string &format = std::string()) const;
-
+ 
     virtual bool   getFromCString(const Char8       *&inVal        );
 
     virtual Real64 getValue      (      void                       ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   comparison                                 */
+    /*! \name                    comparison                                */
     /*! \{                                                                 */
- 
-    bool operator < (const StatStringElem &other) const;
+
+    bool operator < (const StatTimeElem &other) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -114,39 +114,38 @@ class OSG_SYSTEM_DLLMAPPING StatStringElem : public StatElem
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
-  protected:
+ protected:
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
+  
+    StatTimeElem(StatElemDescBase *desc);
 
-    StatStringElem(StatElemDescBase *desc);
-
-    virtual ~StatStringElem(void); 
+    virtual ~StatTimeElem(void); 
 
     /*! \}                                                                 */
-
     /*=========================  PRIVATE    ===============================*/
-  private:
+
+ private:
 
     typedef StatElem Inherited;
-    
-    std::string _value;
 
+    Time _time;
 
     // prohibit default functions (move to 'public' if you need one)
-    StatStringElem(const StatStringElem &source);
-    StatStringElem &operator =(const StatStringElem &source);
+    StatTimeElem            (const StatTimeElem &source);
+    StatTimeElem& operator =(const StatTimeElem &source);
 };
 
 //---------------------------------------------------------------------------
 //   Exported Types
 //---------------------------------------------------------------------------
 
-typedef StatStringElem *StatStringElemP;
+typedef StatTimeElem *StatTimeElemP;
 
 OSG_END_NAMESPACE
 
-#include "OSGStatStringElem.inl"
+#include "OSGStatTimeElem.inl"
 
-#endif /* _OSGSTATSTRINGELEM_H_ */
+#endif /* _STATTIMEELEM_H_ */

@@ -36,153 +36,114 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-
-#ifndef _OSGSTATELEMDESC_H_
-#define _OSGSTATELEMDESC_H_
+#ifndef _OSGSTATSTRINGELEM_H_
+#define _OSGSTATSTRINGELEM_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
-#include "OSGSystemDef.h"
-
-#include "OSGIDString.h"
+#include "OSGStatElem.h"
 
 OSG_BEGIN_NAMESPACE
 
-class StatElemCollector;
-class StatElem;
+class StatElemDescBase;
 
-/*! \ingroup baselib
- *  \brief Brief
- *
- *  detailed
- */
- 
-class OSG_SYSTEM_DLLMAPPING StatElemDescBase
+/*! \brief String Statistics element, see \ref PageSystemStatistics for 
+    details.
+*/
+
+class OSG_BASE_DLLMAPPING StatStringElem : public StatElem 
 {
-    /*==========================  PUBLIC  =================================*/
-  public:
+     /*==========================  PUBLIC  =================================*/
 
-   /*---------------------------------------------------------------------*/
-   /*! \name                      Class                                   */
-   /*! \{                                                                 */
+ public:
 
-    static bool              isValidID     (      Int32  descId);
-
-    static StatElemDescBase *getDesc       (      Int32  descId);
-    static StatElemDescBase *findDescByName(const Char8 *name  );
-    static Int32             getNumOfDescs (      void         );
-
-    static void              printAll      (      void         );
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Instance                                 */
+    /*! \name                    your_category                             */
     /*! \{                                                                 */
-
-          void      print         (void);
-
-          Int32     getID         (void);
-    const IDString &getName       (void);
-    const IDString &getDescription(void);
-
-    typedef enum { 
-              RESET_NEVER = 0, //!< Never reset by the system
-              RESET_DRAW,      //!< Reset when drawing
-              RESET_ALWAYS     //!< Reset when StatCollector::reset is called
-            } ResetMode; 
-             
-    ResetMode getResetMode(void          ) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Constructors                              */
-    /*! \{                                                                 */
-
-    StatElemDescBase(const Char8 *name, 
-                     const Char8 *description,
-                     ResetMode reset = RESET_DRAW);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~StatElemDescBase(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Comparison                                 */
-    /*! \{                                                                 */
-
-    bool operator < (const StatElemDescBase &other) const;
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-  protected:
-    static bool terminate(void);
-
-    /*==========================  PRIVATE  ================================*/
-  private:
-    friend class StatCollector;
-
-    typedef std::vector<StatElemDescBase*> DescStorage;
-
-    static DescStorage *_descVec;
     
-    Int32           _id;
-    IDString        _name;
-    IDString        _description;
-    ResetMode       _resetMode;
-
-    // only called by OSGStatCollector friend
-    virtual StatElem *createElem(void) = 0;
-
-    // prohibit default functions (move to 'public' if you need one)
-    StatElemDescBase(const StatElemDescBase &source);
-    StatElemDescBase &operator =(const StatElemDescBase &source);
-};
-
-template <class Type>
-class StatElemDesc : public StatElemDescBase
-{
-    /*==========================  PUBLIC  =================================*/
-  public:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Constructors                              */
-    /*! \{                                                                 */
-
-    StatElemDesc(const Char8 *name, 
-                 const Char8 *description,
-                 ResetMode    reset = RESET_DRAW);
+    static StatElem *create(StatElemDescBase *desc);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
+    /*! \name                    instance                                  */
+    /*! \{                                                                 */
+    
+    const   std::string &get  (      void              ) const;
+            void         set  (const std::string &value);
+            void         set  (const Char8       *value);
+
+    virtual void         reset(void                    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    instance                                  */
     /*! \{                                                                 */
 
-    virtual ~StatElemDesc(void);
+    virtual void   putToString   (      std::string  &str, 
+                                  const std::string &format = std::string()) const;
+
+    virtual bool   getFromCString(const Char8       *&inVal        );
+
+    virtual Real64 getValue      (      void                       ) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   comparison                                 */
+    /*! \{                                                                 */
+ 
+    bool operator < (const StatStringElem &other) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Creation                                   */
+    /*! \{                                                                 */
+
+    virtual StatElem *clone(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Operators                                */
+    /*! \{                                                                 */
+
+    virtual StatElem &operator += (const StatElem &other);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
-    /*==========================  PRIVATE  ================================*/
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    StatStringElem(StatElemDescBase *desc);
+
+    virtual ~StatStringElem(void); 
+
+    /*! \}                                                                 */
+
+    /*=========================  PRIVATE    ===============================*/
   private:
 
-    virtual StatElem* createElem(void);
+    typedef StatElem Inherited;
+    
+    std::string _value;
+
 
     // prohibit default functions (move to 'public' if you need one)
-    StatElemDesc (const StatElemDesc &source);
-    StatElemDesc &operator =(const StatElemDesc &source);
+    StatStringElem(const StatStringElem &source);
+    StatStringElem &operator =(const StatStringElem &source);
 };
 
-typedef StatElemDescBase *StatElemDescBaseP;
+//---------------------------------------------------------------------------
+//   Exported Types
+//---------------------------------------------------------------------------
+
+typedef StatStringElem *StatStringElemP;
 
 OSG_END_NAMESPACE
 
-#include "OSGStatElemDesc.inl"
+#include "OSGStatStringElem.inl"
 
-#endif /* _OSGSTATELEMDESC_H_ */
+#endif /* _OSGSTATSTRINGELEM_H_ */

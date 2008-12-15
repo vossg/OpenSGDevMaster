@@ -43,8 +43,6 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-#include "OSGSystemDef.h"
 
 #include "OSGBaseTypes.h"
 #include "OSGFieldTraits.h"
@@ -62,7 +60,7 @@ class StatElemDescBase;
 
 /*! \brief Manager for Stat elements, see \guide(Statistics) for details.
 */
-class OSG_SYSTEM_DLLMAPPING StatCollector : public MemoryObject
+class OSG_BASE_DLLMAPPING StatCollector : public MemoryObject
 {
 
     /*==========================  PUBLIC  =================================*/
