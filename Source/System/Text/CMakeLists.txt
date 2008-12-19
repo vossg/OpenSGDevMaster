@@ -1,0 +1,20 @@
+
+CHECK_PROJECT("OSGText")
+
+###########
+# OSGText
+###########
+
+CLEAR_PROJECT(OSGText)
+
+SET(OSGText_OSG_Dependencies OSGDrawable)
+
+IF(FREETYPE_FOUND)
+    SET(OSGText_Ext_Inc_Dependencies FREETYPE_INCLUDE_DIR_freetype2)
+    SET(OSGText_Ext_Lib_Dependencies FREETYPE_LIBRARIES FONTCONFIG_LIBRARY)
+ENDIF(FREETYPE_FOUND)
+
+SET(OSGText_Test_OSG_Dependencies OSGWindowGLUT OSGUtil)
+
+SETUP_PROJECT(OSGText OSG_COMPILETEXTLIB)
+
