@@ -27,6 +27,8 @@ SET(OSGWindowGLUT_Test_OSG_Dependencies OSGGroup
                                         OSGState
                                         OSGText
                                         OSGWindow
+                                        OSGFileIO
+                                        OSGImageFileIO
                                         OSGUtil)
 
 SETUP_PROJECT(OSGWindowGLUT OSG_COMPILEWINDOWGLUTLIB)
