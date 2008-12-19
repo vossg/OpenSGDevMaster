@@ -53,6 +53,9 @@ for (lib_name, library) in lib_map.iteritems():
    if combo["type"] in ["debugrt","debug"]: 
       lib_env.Append(CPPDEFINES=["OSG_DEBUG",])
 
+   if combo["type"] in ["debugrt"]: 
+      lib_env.Append(CPPDEFINES=["OSG_DEBUGRT",])
+
    # XXX: Apply custom options
    #
    # Add the define needed for declspec to know what library we are building
@@ -125,6 +128,9 @@ for (lib_name, library) in lib_map.iteritems():
       # Define OSG_DEBUG if needed 
       if combo["type"] in ["debugrt","debug"]: 
           test_env.Append(CPPDEFINES=["OSG_DEBUG",])
+
+      if combo["type"] in ["debugrt"]: 
+          test_env.Append(CPPDEFINES=["OSG_DEBUGRT",])
 
       # - Build them all in the local 'test' subdir
       for s in library.test_files:

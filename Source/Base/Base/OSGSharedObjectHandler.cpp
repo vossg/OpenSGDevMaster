@@ -398,7 +398,7 @@ SharedObjectP SharedObjectHandler::getOSGSharedObject(
     tmpString.append(OSGT(".so"));
 #else
     tmpString.append(szName);
-#ifndef NDEBUG
+#ifdef OSG_DEBUGRT
     tmpString.append(OSGT("_d"));
 #endif    
     tmpString.append(OSGT(".dll"));
