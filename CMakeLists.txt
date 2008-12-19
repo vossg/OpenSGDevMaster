@@ -4,6 +4,16 @@ PROJECT(OpenSG)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OpenSG_SOURCE_DIR}/CMake")
 
+##########################
+# Disallow in-source build
+##########################
+
+IF("${OpenSG_SOURCE_DIR}"  STREQUAL "${OpenSG_BINARY_DIR}")
+  MESSAGE(FATAL_ERROR "OpenSG requires an out of source Build. \n"
+                      "Please create a separate binary directory and run "
+                      "CMake there.")
+ENDIF("${OpenSG_SOURCE_DIR}"  STREQUAL "${OpenSG_BINARY_DIR}")
+
 OPTION(BUILD_SHARED_LIBS "Set to OFF to build static libraries" ON)
 
 OPTION(OSG_ENABLE_NEW_SHADER "" OFF)
@@ -137,9 +147,11 @@ SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 SET(OSG_PLATFORM_64 0)
 SET(OSG_PLATFORM_32 0)
+SET(OSG_LIBDIR_SUFFIX "")
 
 IF(CMAKE_CXX_SIZEOF_DATA_PTR EQUAL 8)
     SET(OSG_PLATFORM_64 1)
+    SET(OSG_LIBDIR_SUFFIX "64")
 ELSE()
     SET(OSG_PLATFORM_32 1)
 ENDIF()
@@ -333,6 +345,9 @@ FUNCTION(PROCESS_DIR)
     ENDIF()
 
     FILE(GLOB LOCAL_SRC_IN  . OSG*.cpp)
+    FILE(GLOB LOCAL_HDR     . OSG*.h)
+    FILE(GLOB LOCAL_INL     . OSG*.inl)
+    FILE(GLOB LOCAL_INS     . OSG*.ins)
 
     FOREACH(SRC_FILE  ${LOCAL_SRC_IN})
         IF(NOT ${SRC_FILE} MATCHES OSG.*Test.cpp)
@@ -346,6 +361,21 @@ FUNCTION(PROCESS_DIR)
         FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
              "SET(${PROJECT_NAME}_SRC \${${PROJECT_NAME}_SRC} ${LOCAL_SRC})\n\n")
     ENDIF(LOCAL_SRC)
+
+    IF(LOCAL_HDR)
+        FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
+             "SET(${PROJECT_NAME}_HDR \${${PROJECT_NAME}_HDR} ${LOCAL_HDR})\n\n")
+    ENDIF(LOCAL_HDR)
+
+    IF(LOCAL_INL)
+        FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
+             "SET(${PROJECT_NAME}_INL \${${PROJECT_NAME}_INL} ${LOCAL_INL})\n\n")
+    ENDIF(LOCAL_INL)
+
+    IF(LOCAL_INS)
+        FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
+             "SET(${PROJECT_NAME}_INS \${${PROJECT_NAME}_INS} ${LOCAL_INS})\n\n")
+    ENDIF(LOCAL_INS)
 
     IF(LOCAL_TEST_SRC)
         FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
@@ -412,6 +442,10 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
 
         ADD_LIBRARY(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})
 
+#                                    ${${PROJECT_NAME}_HDR})
+#                                    ${${PROJECT_NAME}_INL}
+#                                    ${${PROJECT_NAME}_INS})
+
         INCLUDE_DIRECTORIES(${${PROJECT_NAME}_INC})
 
         SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES DEFINE_SYMBOL 
@@ -435,6 +469,18 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
         FOREACH(LIB ${${PROJECT_NAME}_Ext_Lib_Dependencies})
             TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${${LIB}})
         ENDFOREACH()    
+
+
+#        INSTALL(TARGETS ${PROJ_NAME}
+#                LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX})
+#        INSTALL(TARGETS ${PROJECT_NAME}
+#                RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX} 
+#                LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX} NAMELINK_SKIP
+#                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX}
+#                PUBLIC_HEADER DESTINATION include/OpenSG 
+#                )
+
+#        INSTALL_TARGETS(/tmp/bar ${PROJECT_NAME})
 
     ENDIF()
 
@@ -536,6 +582,7 @@ FOREACH(PASS ${OSG_CMAKE_PASSES})
      ADD_SUBDIRECTORY(Source/Contrib)
      ADD_SUBDIRECTORY(Source/Test)
 ENDFOREACH()
+
 
 ###############
 # OSGConfigured
