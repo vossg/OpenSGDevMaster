@@ -46,7 +46,6 @@
 
 
 #include <OSGBaseTypes.h>
-#include <OSGBase.h>
 #include <OSGVector.h>
 
 // OpenSG-lib inclued
