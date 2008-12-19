@@ -923,7 +923,15 @@ template <typename ElemDestFunc> inline
 void ShaderCacheTreeV0<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
                                                         ElemDestFunc  destFunc)
 {
-    for(UInt32 i = 0; i < LevelSize; ++i)
+    if(pNode == NULL)
+        return;
+
+    UInt32 uiChildStart = 0;
+
+    if(pNode->_pPrev == NULL)
+        uiChildStart = 1;
+
+    for(UInt32 i = uiChildStart; i < LevelSize; ++i)
     {
         if(pNode->_vChildren[i] != NULL)
         {
@@ -947,6 +955,8 @@ template <typename ElemDestFunc> inline
 void ShaderCacheTreeV0<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 {
     destroyNode(_pRoot, destFunc);
+
+    _vLevelEntries[0] = NULL;
 
     _pRoot = NULL;
 }
@@ -1706,7 +1716,15 @@ template <typename ElemDestFunc> inline
 void ShaderCacheTreeV1<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
                                                         ElemDestFunc  destFunc)
 {
-    for(UInt32 i = 0; i < LevelSize; ++i)
+    if(pNode == NULL)
+        return;
+
+    UInt32 uiChildStart = 0;
+
+    if(pNode->_pPrev == NULL)
+        uiChildStart = 1;
+
+    for(UInt32 i = uiChildStart; i < LevelSize; ++i)
     {
         if(pNode->_vChildren[i].asT2() != NULL)
         {
@@ -1738,6 +1756,8 @@ template <typename ElemDestFunc> inline
 void ShaderCacheTreeV1<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 {
     destroyNode(_pRoot, destFunc);
+
+    _vLevelEntries[0] = NULL;
 
     _pRoot = NULL;
 }
@@ -2623,6 +2643,9 @@ template <typename ElemDestFunc> inline
 void ShaderCacheTreeV2<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
                                                         ElemDestFunc  destFunc)
 {
+    if(pNode == NULL)
+        return;
+
     for(UInt32 i = 0; i < LevelSize; ++i)
     {
         if(pNode->_vChildren[i].asT2() != NULL)
@@ -2655,6 +2678,8 @@ template <typename ElemDestFunc> inline
 void ShaderCacheTreeV2<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 {
     destroyNode(_pRoot, destFunc);
+
+    _vLevelEntries[0] = NULL;
 
     _pRoot = NULL;
 }
@@ -3542,7 +3567,15 @@ template <typename ElemDestFunc> inline
 void ShaderCacheTreeV3<ObjectT, LevelBits>::destroyNode(TreeNode     *pNode,
                                                         ElemDestFunc  destFunc)
 {
-    for(UInt32 i = 0; i < LevelSize; ++i)
+    if(pNode == NULL)
+        return;
+
+    UInt32 uiChildStart = 0;
+
+    if(pNode->_pPrev == NULL)
+        uiChildStart = 1;
+
+    for(UInt32 i = uiChildStart; i < LevelSize; ++i)
     {
         if(pNode->_vChildren[i].asT2() != NULL)
         {
@@ -3574,6 +3607,8 @@ template <typename ElemDestFunc> inline
 void ShaderCacheTreeV3<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 {
     destroyNode(_pRoot, destFunc);
+
+    _vLevelEntries[0] = NULL;
 
     _pRoot = NULL;
 }
