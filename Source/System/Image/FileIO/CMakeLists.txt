@@ -14,4 +14,4 @@ SET(OSGImageFileIO_Test_OSG_Dependencies OSGText
                                          OSGUtil
                                          OSGWindowGLUT)
 
-SETUP_PROJECT(OSGImageFileIO COMPILEIMAGEFILEIOLIB)
+SETUP_PROJECT(OSGImageFileIO OSG_COMPILEIMAGEFILEIOLIB)

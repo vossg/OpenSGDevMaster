@@ -22,7 +22,7 @@ SET(OSGContribBackgroundLoader_Test_OSG_Dependencies OSGGroup
                                                      OSGWindow
                                                      OSGWindowGLUT)
 
-SET(OSGContribBackgroundLoader_Ext_Lib_Dependencies Boost_LIBRARIES)
+SET(OSGContribBackgroundLoader_Ext_Lib_Dependencies OSG_BOOST_LIBS)
 
 SETUP_PROJECT(OSGContribBackgroundLoader OSG_COMPILECONTRIBBACKGROUNDLOADERLIB)
 
