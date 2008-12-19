@@ -27,7 +27,7 @@ OPTION(OSG_ENABLE_MEMORY_DEBUGGING "" OFF)
 
 IF(UNIX)
     OPTION(OSG_ENABLE_ELF_LOCALSTORAGE "" ON)
-ELSEIF(WIN)
+ELSEIF(WIN32)
     OPTION(OSG_ENABLE_WIN_LOCALSTORAGE "" ON)
 ENDIF()
 
@@ -133,6 +133,37 @@ SET(OSG_SHC_MODE_${OSG_SHADER_CACHE_MODE} 1)
 SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+##############
+# Compiler
+##############
+
+SET(OSG_PLATFORM_64 0)
+SET(OSG_PLATFORM_32 0)
+
+IF(CMAKE_CXX_SIZEOF_DATA_PTR EQUAL 8)
+    SET(OSG_PLATFORM_64 1)
+ELSE()
+    SET(OSG_PLATFORM_32 1)
+ENDIF()
+
+IF(${CMAKE_CXX_PLATFORM_ID} STREQUAL "Linux")
+    SET(LINUX 1)
+ENDIF()
+
+IF(NOT CMAKE_BUILD_TYPE)
+  SET(CMAKE_BUILD_TYPE Debug CACHE STRING
+      "Choose the type of build, options are: None Debug Release RelWithDebInfo MinSizeRel."
+      FORCE)
+ENDIF(NOT CMAKE_BUILD_TYPE)
+
+
+IF(NOT OSG_COMPILER_DEFAULTS)
+   INCLUDE(CMake/SetupCompiler.cmake)
+   SET( OSG_COMPILER_DEFAULTS 1 CACHE BOOL "Defaults written" FORCE ) #INTERNAL
+ENDIF(NOT OSG_COMPILER_DEFAULTS)
+
+INCLUDE(CMake/UpdateCompiler.cmake)
+
 ##########
 #### boost
 ##########
@@ -144,8 +175,6 @@ FIND_PACKAGE(Boost COMPONENTS filesystem)
 
 IF(Boost_FOUND)
 
-#    set(BOOST_ROOT ${Boost_INCLUDE_DIR})
-	
     INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR} )
     LINK_DIRECTORIES   (${Boost_LIBRARY_DIRS})
 
@@ -376,8 +405,6 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
         SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES DEFINE_SYMBOL 
                                               ${PROJ_DEFINE})
 
-        SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES LINK_FLAGS -Wl,--no-undefined)
-
         FOREACH(OSGDEP ${${PROJECT_NAME}_OSG_Dependencies})
   
             INCLUDE(${CMAKE_BINARY_DIR}/${OSGDEP}.cmake)
@@ -490,12 +517,14 @@ ENDFOREACH()
 # OSGConfigured
 ###############
 
-CONFIGURE_FILE(OSGConfigured.h.cmake Source/Base/Base/OSGConfigured.h.tmp)
+CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/OSGConfigured.h.cmake 
+               ${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h.tmp)
 
 FIND_PROGRAM(CMAKE_EXE cmake)
 
-EXECUTE_PROCESS(COMMAND cmake -E copy_if_different
-                        Source/Base/Base/OSGConfigured.h.tmp 
-                        Source/Base/Base/OSGConfigured.h)
+EXECUTE_PROCESS(
+    COMMAND cmake -E copy_if_different
+                     ${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h.tmp 
+                     ${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h)
 
 
