@@ -19,8 +19,11 @@
 // press 'c' to connect to the servers and 'd' to disconnect. 
 
 
-#include <OSGGLUT.h>
 #include <OSGConfig.h>
+
+#ifdef OSG_WITH_VTK
+
+#include <OSGGLUT.h>
 #include <OSGSimpleGeometry.h>
 #include <OSGGLUTWindow.h>
 #include <OSGSimpleSceneManager.h>
@@ -838,3 +841,12 @@ int setupGLUT(int *argc, char *argv[])
 
     return winid;
 }
+
+#else
+
+int main (int argc, char **argv)
+{
+    return 0;
+}
+
+#endif

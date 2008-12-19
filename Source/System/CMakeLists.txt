@@ -14,6 +14,10 @@ SET(OSGSystem_Extra_Inc ${CMAKE_SOURCE_DIR}/Source/External)
 SET(OSGSystem_Ext_Lib_Dependencies 
     ZLIB_LIBRARIES OPENGL_gl_LIBRARY OPENGL_glu_LIBRARY)
 
+IF(WIN32 AND ZLIB_FOUND)
+    SET(OSGSystem_Ext_Inc_Dependencies ZLIB_INCLUDE_DIR)
+ENDIF(WIN32 AND ZLIB_FOUND)
+
 SET(OSGSystem_Test_OSG_Dependencies OSGDrawable
                                     OSGState
                                     OSGGroup

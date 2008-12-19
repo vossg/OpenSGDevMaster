@@ -29,6 +29,15 @@ ENDIF(UNIX)
 IF(GLUT_FOUND)
     SET(OSGContribCSM_OSG_Dependencies ${OSGContribCSM_OSG_Dependencies}
                                        OSGWindowGLUT)
+
+    IF(WIN32)
+        SET(OSGContribCSM_Ext_Inc_Dependencies GLUT_INCLUDE_DIR)
+    ENDIF(WIN32)
 ENDIF(GLUT_FOUND)
+
+IF(WIN32)
+    SET(OSGContribCSM_OSG_Dependencies ${OSGContribCSM_OSG_Dependencies}
+                                       OSGWindowWIN32)
+ENDIF(WIN32)
 
 SETUP_PROJECT(OSGContribCSM OSG_COMPILECONTRIBCSMLIB)

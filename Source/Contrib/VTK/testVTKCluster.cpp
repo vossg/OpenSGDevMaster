@@ -3,6 +3,10 @@
 #pragma GCC diagnostic warning "-Wold-style-cast"
 #endif
 
+#include "OSGConfig.h"
+
+#ifdef OSG_WITH_VTK
+
 // #define FRAMEINTERLEAVE
 #include <OSGGLUT.h>
 #include <OSGGLU.h>
@@ -1753,9 +1757,12 @@ int main(int argc,char **argv)
     return 0;
 }
 
+#else
 
+int main (int argc, char **argv)
+{
+    return 0;
+}
 
-
-
-
+#endif
 

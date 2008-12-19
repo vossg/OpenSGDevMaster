@@ -17,6 +17,10 @@ ELSEIF(${PROJECT_NAME} STREQUAL "OSGState")
 
     SET(OSGState_OSG_Dependencies OSGSystem)
 
+    SET(OSGState_Test_OSG_Dependencies OSGDrawable
+                                       OSGWindowGLUT
+                                       OSGUtil)
+
     SETUP_PROJECT(OSGState OSG_COMPILESTATELIB)
 
 ENDIF()

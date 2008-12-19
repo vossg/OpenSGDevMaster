@@ -5,6 +5,8 @@
 
 #include <OSGConfig.h>
 
+#ifdef OSG_WITH_VTK
+
 #include <iostream>
 
 #include <OSGGLUT.h>
@@ -984,3 +986,12 @@ int main (int argc, char **argv)
 
     return 0;
 }
+
+#else
+
+int main (int argc, char **argv)
+{
+    return 0;
+}
+
+#endif
