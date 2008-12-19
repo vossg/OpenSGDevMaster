@@ -1,4 +1,4 @@
-#include <OpenSG/OSGRequest.h>
+#include <OSGRequest.h>
 #include <iostream>
 
 OSG_USING_NAMESPACE

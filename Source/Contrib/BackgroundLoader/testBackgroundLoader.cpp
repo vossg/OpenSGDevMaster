@@ -1,25 +1,25 @@
 // Headers
-#include <OpenSG/OSGGLUT.h>
-#include <OpenSG/OSGConfig.h>
-#include <OpenSG/OSGSimpleGeometry.h>
-#include <OpenSG/OSGGLUTWindow.h>
-#include <OpenSG/OSGSimpleSceneManager.h>
-#include <OpenSG/OSGAction.h>
-#include <OpenSG/OSGSimpleGeometry.h>
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGAction.h>
+#include <OSGSimpleGeometry.h>
 
 // New Headers
 
 // the general scene file loading handler
-#include <OpenSG/OSGSceneFileHandler.h>
-#include <OpenSG/OSGFieldContainerFactory.h>
+#include <OSGSceneFileHandler.h>
+#include <OSGFieldContainerFactory.h>
 #include <boost/bind.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/convenience.hpp>
 namespace fs = boost::filesystem;
 
-#include <OpenSG/OSGBackgroundLoader.h>
-#include <OpenSG/OSGModelRequest.h>
+#include <OSGBackgroundLoader.h>
+#include <OSGModelRequest.h>
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE

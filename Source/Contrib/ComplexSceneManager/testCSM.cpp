@@ -1,7 +1,7 @@
 
-#include <OpenSG/OSGComplexSceneManager.h>
-#include <OpenSG/OSGOSGSceneFileType.h>
-#include <OpenSG/OSGBaseInitFunctions.h>
+#include <OSGComplexSceneManager.h>
+#include <OSGOSGSceneFileType.h>
+#include <OSGBaseInitFunctions.h>
 
 int init(int argc, char **argv)
 {

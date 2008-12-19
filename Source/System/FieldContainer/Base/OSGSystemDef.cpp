@@ -56,3 +56,4 @@ static bool versionAdder(void)
 }
 
 static OSG::StaticInitFuncWrapper versionAdderWrapper(versionAdder);
+

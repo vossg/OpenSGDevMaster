@@ -40,7 +40,7 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include<OSGSystemDef.h>
+#include<OSGBaseDef.h>
 #include<OSGFieldDescriptionBase.h>
 #include<OSGChangedFunctorSFields.h>
 #include<OSGChangedFunctorMFields.h>

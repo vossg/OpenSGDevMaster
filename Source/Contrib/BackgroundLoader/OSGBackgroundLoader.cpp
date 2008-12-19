@@ -1,15 +1,16 @@
-#include <OpenSG/OSGBackgroundLoader.h>
+#include <OSGBackgroundLoader.h>
 
-#include <OpenSG/OSGThread.h>
-#include <OpenSG/OSGThreadManager.h>
-#include <OpenSG/OSGLock.h>
-#include <OpenSG/OSGCondVar.h>
-#include <OpenSG/OSGBaseInitFunctions.h>
+#include <OSGThread.h>
+#include <OSGThreadManager.h>
+#include <OSGLock.h>
+#include <OSGCondVar.h>
+#include <OSGBaseInitFunctions.h>
 #include <boost/lexical_cast.hpp>
-#include <OpenSG/OSGChangeList.h>
+#include <OSGChangeList.h>
 #include <boost/format.hpp>
 
-#include <OpenSG/OSGSingletonHolder.ins>
+#include <OSGSingletonHolder.ins>
+
 OSG_USING_NAMESPACE
 OSG_BEGIN_NAMESPACE
 OSG_SINGLETON_INST(BackgroundLoaderBase)
