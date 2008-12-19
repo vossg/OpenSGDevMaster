@@ -12,8 +12,6 @@
 
 #cmakedefine OSG_NEW_OSB_IO 1
 
-#cmakedefine OSG_GV_BETA 1
-
 /* #define OSG_ELDK 0 */
 
 #cmakedefine OSG_GL_DEFMAPPER 1

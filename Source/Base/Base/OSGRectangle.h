@@ -186,9 +186,9 @@ template< typename T > class Rectangle2
   private:
 };
 
-template<typename T> 
-inline std::ostream &operator<<(      std::ostream  &out, 
-                                const Rectangle2<T> &rect)
+template<typename T> inline 
+std::ostream &operator<<(      std::ostream  &out, 
+                         const Rectangle2<T> &rect)
 {
     return out << rect.x0 << "," 
                << rect.y0 << "," 
@@ -201,20 +201,22 @@ typedef Rectangle2<OSG::Real64> Rectangle2d;
 typedef Rectangle2<OSG::Int32 > Rectangle2i;
 
 
-template<typename T> 
+template<typename T> inline 
 Rectangle2<T> alignRectangle (
     const          Rectangle2<T>            &rect, 
     const typename Rectangle2<T>::PointType &alignment);
 
-template<typename T> 
+template<typename T> inline 
 Rectangle2<T> getIntersection(const Rectangle2<T> &lhs, 
                               const Rectangle2<T> &rhs);
 
-template<typename T> 
+template<typename T> inline 
 Rectangle2<T> getUnion       (const Rectangle2<T> &lhs, 
                               const Rectangle2<T> &rhs);
 
 OSG_END_NAMESPACE
+
+#include "OSGRectangle.inl"
 
 #endif // #ifdef _OSGRECTANGLE_H_
 

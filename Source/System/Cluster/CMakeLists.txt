@@ -11,7 +11,7 @@ IF(${PROJECT_NAME} STREQUAL "OSGCluster")
 
     CLEAR_PROJECT(OSGCluster)
 
-    SET(OSGCluster_OSG_Dependencies OSGWindow OSGGroup OSGDrawable)
+    SET(OSGCluster_OSG_Dependencies OSGWindow OSGGroup OSGDrawable OSGState)
 
     SET(OSGCluster_Test_OSG_Dependencies OSGUtil OSGWindowGLUT)
 
