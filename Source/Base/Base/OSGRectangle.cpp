@@ -123,6 +123,28 @@ void Rectangle2<T>::add(const PointType &p)
 }
 
 
+template<typename T>  
+void Rectangle2<T>::extendBy(T x, T y)
+{
+    if (isEmpty()) {
+        // workaround for 'weak' isEmpty() function:
+        if (x0 == 0 && x1==0) { x0 = x; x1 = x; }
+        if (y0 == 0 && y1==0) { y0 = y; y1 = y; }
+    }
+
+    x0  = (x0 > x) ? x : x0;
+    x1  = (x1 < x) ? x : x1;
+    
+    y0  = (y0 > y) ? y : y0;
+    y1  = (y1 < y) ? y : y1;
+}
+
+template<typename T>  
+void Rectangle2<T>::extendBy(const PointType &p)
+{
+    extendBy(p[0], p[1]);
+}
+
 
 template<typename T>
 bool Rectangle2<T>::contains(T x, T y) const
@@ -213,6 +235,30 @@ template<typename T>
 typename Rectangle2<T>::PointType Rectangle2<T>::getBottomRight(void) const
 {
     return PointType(x1, y1);
+}
+
+template<typename T> 
+T Rectangle2<T>::getLeft(void) const
+{
+    return this->x0;
+}
+
+template<typename T> 
+T Rectangle2<T>::getRight(void) const
+{
+    return this->x1;
+}
+
+template<typename T> 
+T Rectangle2<T>::getBottom(void) const
+{
+    return this->y1;
+}
+
+template<typename T> 
+T Rectangle2<T>::getTop(void) const
+{
+    return this->y0;
 }
 
 

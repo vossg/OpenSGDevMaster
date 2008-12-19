@@ -81,6 +81,11 @@ template< typename T > class Rectangle2
     void add       (      T           x, 
                           T           y);
     void add       (const PointType  &p);
+
+
+    void extendBy  (    T             x, 
+                        T             y);
+    void extendBy  (const PointType  &p);
     
     bool contains  (      T           x, 
                           T           y) const;
@@ -108,6 +113,11 @@ template< typename T > class Rectangle2
     PointType getTopRight   (void) const;
     PointType getBottomLeft (void) const;
     PointType getBottomRight(void) const;
+
+    T getLeft  (void) const;
+    T getRight (void) const;
+    T getBottom(void) const;
+    T getTop   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
