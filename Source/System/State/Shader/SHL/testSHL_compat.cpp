@@ -27,7 +27,7 @@
 #include <OSGMaterialChunk.h>
 #include <OSGTextureObjChunk.h>
 #include <OSGTextureEnvChunk.h>
-#include <OSGSimpleSHLChunk.h>
+#include <OSGSHLChunk.h>
 
 
 // Activate the OpenSG namespace
