@@ -334,6 +334,13 @@ ENDIF(VTK_FOUND)
 
 FIND_PACKAGE(PythonInterp)
 
+###############
+#### Flex/Bison
+###############
+
+FIND_PROGRAM(FLEX_EXE flex)
+FIND_PROGRAM(BISON_EXE bison)
+
 #############
 #### Support
 #############
@@ -364,6 +371,8 @@ FUNCTION(PROCESS_DIR)
     FILE(GLOB LOCAL_INL     . OSG*.inl)
     FILE(GLOB LOCAL_INS     . OSG*.ins)
     FILE(GLOB LOCAL_FCD     . OSG*.fcd)
+    FILE(GLOB LOCAL_LL      . OSG*.ll)
+    FILE(GLOB LOCAL_YY      . OSG*.yy)
 
     FOREACH(SRC_FILE  ${LOCAL_SRC_IN})
         IF(NOT ${SRC_FILE} MATCHES OSG.*Test.cpp)
@@ -397,6 +406,16 @@ FUNCTION(PROCESS_DIR)
         FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
              "SET(${PROJECT_NAME}_FCD \${${PROJECT_NAME}_FCD} ${LOCAL_FCD})\n\n")
     ENDIF(LOCAL_FCD)
+
+    IF(LOCAL_LL)
+        FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
+             "SET(${PROJECT_NAME}_LL \${${PROJECT_NAME}_LL} ${LOCAL_LL})\n\n")
+    ENDIF(LOCAL_LL)
+
+    IF(LOCAL_YY)
+        FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
+             "SET(${PROJECT_NAME}_YY \${${PROJECT_NAME}_YY} ${LOCAL_YY})\n\n")
+    ENDIF(LOCAL_YY)
 
     IF(LOCAL_TEST_SRC)
         FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
@@ -484,6 +503,9 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
             
                 IF(NOT EXISTS ${FCDDir}/${FCDBaseCpp})
                     SET(${PROJECT_NAME}_SRC ${${PROJECT_NAME}_SRC} ${FCDDir}/${FCDBaseCpp})
+                    SET(${PROJECT_NAME}_HDR ${${PROJECT_NAME}_HDR} ${FCDDir}/${FCDBaseHds})
+                    SET(${PROJECT_NAME}_INL ${${PROJECT_NAME}_INL} ${FCDDir}/${FCDBaseInl})
+                    SET(${PROJECT_NAME}_HDR ${${PROJECT_NAME}_HDR} ${FCDDir}/${FCDBaseFld})
                 ENDIF(NOT EXISTS ${FCDDir}/${FCDBaseCpp})
 
                 SET(FCDCommand ${CMAKE_SOURCE_DIR}/Tools/fcd2code/fcd2code)
@@ -499,6 +521,54 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
             ENDFOREACH()
 
         ENDIF(OSG_ENABLE_FCD2CODE AND PYTHONINTERP_FOUND)
+
+        ############
+        # Flex/Bison
+        ############
+
+        IF(OSG_ENABLE_SCANPARSE_REGEN AND FLEX_EXE AND BISON_EXE)
+
+            FOREACH(YYFile ${${PROJECT_NAME}_YY})
+
+                GET_FILENAME_COMPONENT(YYBase ${YYFile} NAME_WE)
+
+                STRING(REPLACE "Parser" "_" YYOpt ${YYBase})
+
+                SET(YYSrc ${CMAKE_CURRENT_BINARY_DIR}/${YYBase}.cpp)
+                SET(YYHdr ${CMAKE_CURRENT_BINARY_DIR}/${YYBase}.hpp)
+
+                ADD_CUSTOM_COMMAND(
+                    OUTPUT ${YYSrc} ${YYHdr}
+                    COMMAND ${BISON_EXE} -d -v -p${YYOpt} -b${YYOpt} -o ${YYSrc} ${YYFile}
+                    MAIN_DEPENDENCY ${YYFile})                      
+
+                SET(${PROJECT_NAME}_SRC ${${PROJECT_NAME}_SRC} ${YYSrc})
+                SET(${PROJECT_NAME}_HDR ${${PROJECT_NAME}_HDR} ${YYHdr})
+
+            ENDFOREACH()
+
+            FOREACH(LLFile ${${PROJECT_NAME}_LL})
+
+                GET_FILENAME_COMPONENT(LLBase ${LLFile} NAME_WE)
+
+                STRING(REPLACE "Scanner" "_" LLOpt ${LLBase})
+
+                SET(LLSrc ${CMAKE_CURRENT_BINARY_DIR}/${LLBase}.cpp)
+
+                ADD_CUSTOM_COMMAND(
+                    OUTPUT ${LLSrc}
+                    COMMAND ${FLEX_EXE} -+ -P${LLOpt} -t ${LLFile} >  ${LLSrc}
+                    MAIN_DEPENDENCY ${LLFile})
+
+                SET(${PROJECT_NAME}_SRC ${${PROJECT_NAME}_SRC} ${LLSrc})
+
+            ENDFOREACH()
+
+            IF(${PROJECT_NAME}_YY OR ${PROJECT_NAME}_LL)
+                SET(${PROJECT_NAME}_INC ${${PROJECT_NAME}_INC} ${CMAKE_CURRENT_BINARY_DIR})
+            ENDIF(${PROJECT_NAME}_YY OR ${PROJECT_NAME}_LL)
+
+        ENDIF(OSG_ENABLE_SCANPARSE_REGEN AND FLEX_EXE AND BISON_EXE)
 
         ADD_LIBRARY(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})
 
