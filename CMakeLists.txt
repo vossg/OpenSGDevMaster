@@ -329,6 +329,12 @@ IF(VTK_FOUND)
 ENDIF(VTK_FOUND)
 
 #############
+#### Python
+#############
+
+FIND_PACKAGE(PythonInterp)
+
+#############
 #### Support
 #############
 
@@ -357,6 +363,7 @@ FUNCTION(PROCESS_DIR)
     FILE(GLOB LOCAL_HDR     . OSG*.h)
     FILE(GLOB LOCAL_INL     . OSG*.inl)
     FILE(GLOB LOCAL_INS     . OSG*.ins)
+    FILE(GLOB LOCAL_FCD     . OSG*.fcd)
 
     FOREACH(SRC_FILE  ${LOCAL_SRC_IN})
         IF(NOT ${SRC_FILE} MATCHES OSG.*Test.cpp)
@@ -385,6 +392,11 @@ FUNCTION(PROCESS_DIR)
         FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
              "SET(${PROJECT_NAME}_INS \${${PROJECT_NAME}_INS} ${LOCAL_INS})\n\n")
     ENDIF(LOCAL_INS)
+
+    IF(LOCAL_FCD)
+        FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
+             "SET(${PROJECT_NAME}_FCD \${${PROJECT_NAME}_FCD} ${LOCAL_FCD})\n\n")
+    ENDIF(LOCAL_FCD)
 
     IF(LOCAL_TEST_SRC)
         FILE(APPEND ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake
@@ -453,6 +465,40 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
         ENDFOREACH()
 
         INCLUDE(${CMAKE_BINARY_DIR}/${PROJECT_NAME}.cmake)
+
+        #####
+        # FCD
+        #####
+
+        IF(OSG_ENABLE_FCD2CODE AND PYTHONINTERP_FOUND)
+
+            FOREACH(FCDFile ${${PROJECT_NAME}_FCD})
+            
+                GET_FILENAME_COMPONENT(FCDBase ${FCDFile} NAME_WE)
+                GET_FILENAME_COMPONENT(FCDDir  ${FCDFile} PATH)
+
+                SET(FCDBaseHdr "${FCDBase}Base.h")
+                SET(FCDBaseCpp "${FCDBase}Base.cpp")
+                SET(FCDBaseInl "${FCDBase}Base.inl")
+                SET(FCDBaseFld "${FCDBase}Fields.h")
+            
+                IF(NOT EXISTS ${FCDDir}/${FCDBaseCpp})
+                    SET(${PROJECT_NAME}_SRC ${${PROJECT_NAME}_SRC} ${FCDDir}/${FCDBaseCpp})
+                ENDIF(NOT EXISTS ${FCDDir}/${FCDBaseCpp})
+
+                SET(FCDCommand ${CMAKE_SOURCE_DIR}/Tools/fcd2code/fcd2code)
+
+                ADD_CUSTOM_COMMAND(
+                    OUTPUT ${FCDDir}/${FCDBaseHdr} 
+                           ${FCDDir}/${FCDBaseCpp}
+                           ${FCDDir}/${FCDBaseInl} 
+                           ${FCDDir}/${FCDBaseFld}
+                    COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -b -d ${FCDFile} -p ${FCDDir} -r ${CMAKE_SOURCE_DIR}
+                    MAIN_DEPENDENCY ${FCDFile})
+
+            ENDFOREACH()
+
+        ENDIF(OSG_ENABLE_FCD2CODE AND PYTHONINTERP_FOUND)
 
         ADD_LIBRARY(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})
 
