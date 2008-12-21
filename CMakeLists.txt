@@ -227,23 +227,24 @@ IF(ZLIB_FOUND)
     SET(OSG_WITH_ZLIB 1)   
 ENDIF(ZLIB_FOUND)
 
-#############
-#### Freetype
-#############
+IF(NOT WIN32)
+    #############
+    #### Freetype
+    #############
 
-FIND_PACKAGE(Freetype)
+    FIND_PACKAGE(Freetype)
 
-IF(FREETYPE_FOUND)
-    SET(OSG_WITH_FT2 1)   
+    IF(FREETYPE_FOUND)
+        SET(OSG_WITH_FT2 1)   
 
-    FIND_LIBRARY(FONTCONFIG_LIBRARY NAMES fontconfig)
+        FIND_LIBRARY(FONTCONFIG_LIBRARY NAMES fontconfig)
 
-    IF(FONTCONFIG_LIBRARY MATCHES "fontconfig")
-        SET(OSG_WITH_FONTCONFIG 1)   
-    ENDIF()
+        IF(FONTCONFIG_LIBRARY MATCHES "fontconfig")
+            SET(OSG_WITH_FONTCONFIG 1)   
+        ENDIF()
 
-ENDIF(FREETYPE_FOUND)
-
+    ENDIF(FREETYPE_FOUND)
+ENDIF(NOT WIN32)
 
 ##############
 #### ImageLibs
@@ -638,6 +639,13 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
         ENDFOREACH()    
 
         FOREACH(OSGTESTDEP ${${PROJ_NAME}_Test_OSG_Dependencies})
+
+            IF(NOT EXISTS ${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake)
+                MESSAGE(STATUS "Test dependency (${OSGTESTDEP}) not found, "
+                               "ignoring tests for ${PROJ_NAME}\n")
+
+                RETURN()
+            ENDIF(NOT EXISTS ${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake)
 
             INCLUDE(${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake)
             INCLUDE_DIRECTORIES(${${OSGTESTDEP}_INC})
