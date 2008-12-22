@@ -179,6 +179,12 @@ IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR
 
 ENDIF()
 
+IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
+
+    SET(OSG_LIBDIR_SUFFIX "${OSG_LIBDIR_SUFFIX}/debugrt")
+
+ENDIF()
+
 ##########
 #### boost
 ##########
@@ -198,14 +204,27 @@ IF(Boost_FOUND)
 
     ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
 
-    SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
+    IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
+        SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG})
+    ELSE()
+        SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
+    ENDIF()
 
     IF(WIN32)
         IF(${Boost_MINOR_VERSION} GREATER 34)
             FIND_PACKAGE(Boost COMPONENTS system)
 
-            SET(OSG_BOOST_LIBS ${OSG_BOOST_LIBS} 
-                               ${Boost_SYSTEM_LIBRARY_RELEASE})
+            IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
+
+                SET(OSG_BOOST_LIBS ${OSG_BOOST_LIBS} 
+                                   ${Boost_SYSTEM_LIBRARY_DEBUG})
+
+            ELSE(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
+
+                SET(OSG_BOOST_LIBS ${OSG_BOOST_LIBS} 
+                                   ${Boost_SYSTEM_LIBRARY_RELEASE})
+
+            ENDIF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
         ENDIF()
     ENDIF(WIN32)
 
@@ -288,7 +307,19 @@ ENDIF(GDAL_FOUND)
 FIND_PACKAGE(Collada)
 
 IF(COLLADA_FOUND)
+
     SET(OSG_WITH_COLLADA 1)
+
+    IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
+        SET(OSG_COLLADA_LIBS ${COLLADA_LIBRARY_DEBUG})
+    ELSE()
+        SET(OSG_COLLADA_LIBS ${COLLADA_LIBRARY})
+    ENDIF()
+
+ELSE(COLLADA_FOUND)
+
+    SET(OSG_COLLADA_LIBS "")
+
 ENDIF(COLLADA_FOUND)
 
 #############
@@ -299,6 +330,9 @@ FIND_PACKAGE(GLUT)
 
 IF(GLUT_FOUND)
     SET(OSG_WITH_GLUT 1)
+    SET(OSG_GLUT_INC_DIR ${GLUT_INCLUDE_DIR})
+ELSE(GLUT_FOUND)
+    SET(OSG_GLUT_INC_DIR )
 ENDIF(GLUT_FOUND)
 
 #############
@@ -578,6 +612,9 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
         SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES DEFINE_SYMBOL 
                                               ${PROJ_DEFINE})
 
+        SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES DEBUGRT_POSTFIX 
+                                              "_d")
+
         FOREACH(OSGDEP ${${PROJECT_NAME}_OSG_Dependencies})
   
             INCLUDE(${CMAKE_BINARY_DIR}/${OSGDEP}.cmake)
@@ -638,6 +675,10 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
             INCLUDE_DIRECTORIES(${${INC}})
         ENDFOREACH()    
 
+        FOREACH(EXTINC ${${PROJ_NAME}_Test_Ext_Inc_Dependencies})
+            INCLUDE_DIRECTORIES(${${EXTINC}})
+        ENDFOREACH()
+
         FOREACH(OSGTESTDEP ${${PROJ_NAME}_Test_OSG_Dependencies})
 
             IF(NOT EXISTS ${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake)
@@ -687,6 +728,7 @@ MACRO(CLEAR_PROJECT PROJ_NAME)
     SET(${PROJ_NAME}_Add_SubDir )
 
     SET(${PROJ_NAME}_Test_OSG_Dependencies )
+    SET(${PROJ_NAME}_Test_Ext_Inc_Dependencies )
 
 ENDMACRO(CLEAR_PROJECT)
 

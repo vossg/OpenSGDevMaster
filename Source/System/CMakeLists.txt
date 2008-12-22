@@ -25,6 +25,8 @@ SET(OSGSystem_Test_OSG_Dependencies OSGDrawable
                                     OSGWindowGLUT
                                     OSGUtil)
 
+SET(OSGSystem_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
+
 SETUP_PROJECT(OSGSystem OSG_COMPILESYSTEMLIB)
 
 

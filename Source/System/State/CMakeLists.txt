@@ -21,6 +21,8 @@ ELSEIF(${PROJECT_NAME} STREQUAL "OSGState")
                                        OSGWindowGLUT
                                        OSGUtil)
 
+    SET(OSGState_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
+
     SETUP_PROJECT(OSGState OSG_COMPILESTATELIB)
 
 ENDIF()

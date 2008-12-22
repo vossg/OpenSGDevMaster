@@ -32,9 +32,7 @@ SET(OSGContribVTK_Test_OSG_Dependencies OSGGroup
                                         OSGWindow
                                         OSGWindowGLUT)
 
-IF(WIN32 AND GLUT_FOUND)
-    SET(OSGContribVTK_Ext_Inc_Dependencies GLUT_INCLUDE_DIR)
-ENDIF(WIN32 AND GLUT_FOUND)
+SET(OSGContribVTK_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
 
 SETUP_PROJECT(OSGContribVTK OSG_COMPILECONTRIBVTKLIB)
 

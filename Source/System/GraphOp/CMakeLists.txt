@@ -24,6 +24,7 @@ ELSEIF(${PROJECT_NAME} STREQUAL "OSGUtil")
                                  OSGText)
 
     SET(OSGUtil_Test_OSG_Dependencies OSGWindowGLUT)
+    SET(OSGUtil_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
 
     SETUP_PROJECT(OSGUtil OSG_COMPILEUTILLIB)
 

@@ -20,6 +20,7 @@ IF(${PROJECT_NAME} STREQUAL "OSGEffectGroups")
                                          OSGWindow)
 
     SET(OSGEffectGroups_Test_OSG_Dependencies OSGUtil OSGWindowGLUT)
+    SET(OSGEffectGroups_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
 
     SETUP_PROJECT(OSGEffectGroups OSG_COMPILEEFFECTGROUPSLIB)
 

@@ -21,6 +21,8 @@ ELSEIF(${PROJECT_NAME} STREQUAL "OSGDrawable")
     SET(OSGDrawable_Test_OSG_Dependencies OSGWindowGLUT
                                           OSGUtil)
 
+    SET(OSGDrawable_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
+
     SETUP_PROJECT(OSGDrawable OSG_COMPILEDRAWABLELIB)
 
 ENDIF()

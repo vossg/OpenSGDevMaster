@@ -248,16 +248,37 @@ LRESULT CALLBACK  CSMNativeWindow::WndProc(HWND   hwnd,
             }
             else
             {
-                if(pNWin != NULL)
-                {
-                    fprintf(stderr, "%WM_KEYDOWN : d\n", (int) wParam);
 #if 0
-                    (*winIt)->key(event.xkey.x,
-                                  event.xkey.y,
-                                  CSMKeyData::ButtonDown,
-                                  Char8(keysym));
+                fprintf(stderr, "%WM_KEYDOWN : d\n", (int) wParam);
 #endif
-                }
+
+                ComplexSceneManager::the()->key(
+                    0,
+                    0,
+                    CSMKeyData::ButtonDown,
+                    Char8(wParam));
+            }
+            break;
+
+        case WM_KEYUP:
+
+            if((int) wParam == VK_ESCAPE)
+            {
+                _bRun = false;
+            }
+            else
+            {
+#if 0
+                fprintf(stderr, "%WM_KEYUP : %d (%c)\n", 
+                        Int32(wParam),
+                        Char8(wParam));
+#endif
+
+                ComplexSceneManager::the()->key(
+                    0,
+                    0,
+                    CSMKeyData::ButtonUp,
+                    Char8(wParam));
             }
             break;
             

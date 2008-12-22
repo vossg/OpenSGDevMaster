@@ -21,6 +21,8 @@ ELSEIF(${PROJECT_NAME} STREQUAL "OSGGroup")
                                        OSGWindowGLUT
                                        OSGUtil)
 
+    SET(OSGGroup_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
+
     SETUP_PROJECT(OSGGroup OSG_COMPILEGROUPLIB)
 
 ELSEIF(${PROJECT_NAME} STREQUAL "OSGEffectGroups")

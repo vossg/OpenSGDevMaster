@@ -24,7 +24,7 @@ ELSEIF(${PROJECT_NAME} STREQUAL "OSGFileIO")
         SET(OSGFileIO_Ext_Inc_Dependencies COLLADA_DAE_INCLUDE_DIR
                                            COLLADA_DOM_INCLUDE_DIR)
 
-        SET(OSGFileIO_Ext_Lib_Dependencies COLLADA_LIBRARY)
+        SET(OSGFileIO_Ext_Lib_Dependencies OSG_COLLADA_LIBS)
 
     ENDIF(COLLADA_FOUND)
 

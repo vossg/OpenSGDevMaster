@@ -14,6 +14,7 @@ IF(${PROJECT_NAME} STREQUAL "OSGCluster")
     SET(OSGCluster_OSG_Dependencies OSGWindow OSGGroup OSGDrawable OSGState)
 
     SET(OSGCluster_Test_OSG_Dependencies OSGUtil OSGWindowGLUT)
+    SET(OSGCluster_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
 
     SETUP_PROJECT(OSGCluster OSG_COMPILECLUSTERLIB)
 

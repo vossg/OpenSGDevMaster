@@ -24,9 +24,7 @@ SET(OSGContribBackgroundLoader_Test_OSG_Dependencies OSGGroup
 
 SET(OSGContribBackgroundLoader_Ext_Lib_Dependencies OSG_BOOST_LIBS)
 
-IF(WIN32 AND GLUT_FOUND)
-    SET(OSGContribBackgroundLoader_Ext_Inc_Dependencies GLUT_INCLUDE_DIR)
-ENDIF(WIN32 AND GLUT_FOUND)
+SET(OSGContribBackgroundLoader_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
 
 SETUP_PROJECT(OSGContribBackgroundLoader OSG_COMPILECONTRIBBACKGROUNDLOADERLIB)
 

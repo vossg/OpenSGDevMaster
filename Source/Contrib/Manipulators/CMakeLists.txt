@@ -20,9 +20,7 @@ SET(OSGContribGUI_OSG_Dependencies OSGBase
                                    OSGState)
 
 SET(OSGContribGUI_Test_OSG_Dependencies OSGWindow OSGUtil OSGWindowGLUT)
+SET(OSGContribGUI_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
 
-IF(WIN32 AND GLUT_FOUND)
-    SET(OSGContribGUI_Ext_Inc_Dependencies GLUT_INCLUDE_DIR)
-ENDIF(WIN32 AND GLUT_FOUND)
 
 SETUP_PROJECT(OSGContribGUI OSG_COMPILECONTRIBGUILIB)

@@ -30,9 +30,7 @@ IF(GLUT_FOUND AND OSGBUILD_WINDOWGLUT)
     SET(OSGContribCSM_OSG_Dependencies ${OSGContribCSM_OSG_Dependencies}
                                        OSGWindowGLUT)
 
-    IF(WIN32)
-        SET(OSGContribCSM_Ext_Inc_Dependencies GLUT_INCLUDE_DIR)
-    ENDIF(WIN32)
+    SET(OSGContribCSM_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
 ENDIF(GLUT_FOUND AND OSGBUILD_WINDOWGLUT)
 
 IF(WIN32)

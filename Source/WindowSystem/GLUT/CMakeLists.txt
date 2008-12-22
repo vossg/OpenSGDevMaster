@@ -19,7 +19,7 @@ CLEAR_PROJECT(OSGWindowGLUT)
 
 SET(OSGWindowGLUT_OSG_Dependencies OSGBase OSGSystem)
 
-SET(OSGWindowGLUT_Ext_Inc_Dependencies GLUT_INCLUDE_DIR)
+SET(OSGWindowGLUT_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
 SET(OSGWindowGLUT_Ext_Lib_Dependencies GLUT_LIBRARIES)
 
 SET(OSGWindowGLUT_Test_OSG_Dependencies OSGGroup 

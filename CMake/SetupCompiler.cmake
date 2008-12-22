@@ -14,6 +14,31 @@ IF(MSVC)
 
     MESSAGE(STATUS "Setup MSVC")
 
+    SET(OSG_CXX_FLAGS_DEBUGRT "${OSG_CXX_FLAGS_DEBUG} -DOSG_DEBUGRT")
+    SET(OSG_C_FLAGS_DEBUGRT   "${OSG_C_FLAGS_DEBUG} -DOSG_DEBUGRT")
+
+    SET(CMAKE_CXX_FLAGS_DEBUGRT 
+        "${OSG_CXX_FLAGS_DEBUGRT}" 
+        CACHE STRING "Flags used by the C++ compiler during maintainer builds."
+        FORCE)
+
+    SET(CMAKE_C_FLAGS_DEBUGRT 
+        "${OSG_C_FLAGS_DEBUGRT}" 
+        CACHE STRING "Flags used by the C compiler during maintainer builds."
+        FORCE)
+
+    SET(CMAKE_EXE_LINKER_FLAGS_DEBUGRT
+        "${CMAKE_EXE_LINKER_FLAGS_DEBUG}" 
+        CACHE STRING "Flags used for linking binaries during maintainer builds."
+        FORCE)
+
+    SET(CMAKE_MODULE_LINKER_FLAGS_DEBUGRT
+        "${CMAKE_MODULE_LINKER_FLAGS_DEBUG}" 
+        CACHE STRING "Flags used for linking binaries during maintainer builds."
+        FORCE)
+
+
+
     STRING(REPLACE "MDd" "MD" OSG_CXX_FLAGS_DEBUG ${OSG_CXX_FLAGS_DEBUG})
     STRING(REPLACE "MDd" "MD" OSG_C_FLAGS_DEBUG   ${OSG_C_FLAGS_DEBUG})
 
@@ -32,8 +57,8 @@ IF(MSVC)
     SET(OSG_EXE_LINKER_FLAGS "${OSG_EXE_LINKER_FLAGS} /nodefaultlib") 
     SET(OSG_SHARED_LINKER_FLAGS "${OSG_SHARED_LINKER_FLAGS} /nodefaultlib") 
 
-    SET(OSG_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} winmm.lib wsock32.lib msvcprt.lib msvcrt.lib")
-    SET(OSG_C_STANDARD_LIBRARIES "${CMAKE_C_STANDARD_LIBRARIES} winmm.lib wsock32.lib msvcrt.lib")
+    SET(OSG_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} winmm.lib wsock32.lib")
+    SET(OSG_C_STANDARD_LIBRARIES "${CMAKE_C_STANDARD_LIBRARIES} winmm.lib wsock32.lib")
 
     SET(OSG_CLEAR_STD_LIBS winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib)
 
@@ -46,6 +71,15 @@ IF(MSVC)
                                      CACHE STRING "OpenSG defaults" FORCE )
     SET(CMAKE_C_STANDARD_LIBRARIES   ${OSG_C_STANDARD_LIBRARIES} 
                                      CACHE STRING "OpenSG defaults" FORCE )
+
+    SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;MinSizeRel;RelWithDebInfo;DebugRT" 
+                                  CACHE STRING "OpenSG Build Types" FORCE )
+
+    SET(CMAKE_SHARED_LINKER_FLAGS_DEBUGRT
+        "${CMAKE_SHARED_LINKER_FLAGS_DEBUG}" 
+        CACHE STRING
+        "Flags used by the shared libraries linker during maintainer builds."
+        FORCE)
 
 ENDIF(MSVC)
 
