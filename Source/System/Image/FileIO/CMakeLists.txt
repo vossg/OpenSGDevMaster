@@ -1,19 +1,5 @@
-#################
-# OSGImageFileIO
-#################
 
-CLEAR_PROJECT(OSGImageFileIO)
+# CMake's ADD_SUBDIRECTORY only looks for CMakeLists.txt, so we include
+# the real file here
 
-SET(OSGImageFileIO_OSG_Dependencies OSGSystem)
-
-SET(OSGImageFileIO_Ext_Inc_Dependencies ${OSG_EXTERNAL_IMAGEINCS})
-SET(OSGImageFileIO_Ext_Lib_Dependencies ${OSG_EXTERNAL_IMAGELIBS})
-
-SET(OSGImageFileIO_Test_OSG_Dependencies OSGText 
-                                         OSGWindow
-                                         OSGUtil
-                                         OSGWindowGLUT)
-
-SET(OSGImageFileIO_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
-
-SETUP_PROJECT(OSGImageFileIO OSG_COMPILEIMAGEFILEIOLIB)
+INCLUDE("CMakeLists.Lib.OSGImageFileIO.txt")

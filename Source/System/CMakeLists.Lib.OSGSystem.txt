@@ -1,0 +1,111 @@
+
+PROJECT("OSGSystem")
+
+OSG_ADD_PROJECT()
+OSG_SELECT_PROJECT()
+
+##############################################################################
+# dependencies
+##############################################################################
+
+# dependencies - OpenSG
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase)
+SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
+                                     OSGGroup
+                                     OSGState
+                                     OSGUtil
+                                     OSGWindow
+                                     OSGWindowGLUT)
+
+# dependencies - External
+SET(${PROJECT_NAME}_DEP_LIB ZLIB_LIBRARIES OPENGL_gl_LIBRARY OPENGL_glu_LIBRARY)
+
+IF(WIN32 AND ZLIB_FOUND)
+    SET(${PROJECT_NAME}_DEP_LIBDIR ZLIB_LIBRARY_DIR)
+    SET(${PROJECT_NAME}_DEP_INCDIR ZLIB_INCLUDE_DIR)
+ENDIF(WIN32 AND ZLIB_FOUND)
+
+# SET(${PROJECT_NAME}_DEP_TEST_LIB)
+# SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
+SET(${PROJECT_NAME}_DEP_TEST_INCDIR OSG_GLUT_INC_DIR)
+
+# dependencies - Additional
+SET(${PROJECT_NAME}_DEP_ADD_INCDIR ${CMAKE_SOURCE_DIR}/Source/External)
+
+OSG_STORE_PROJECT_DEPENDENCIES()
+
+##############################################################################
+# collect sources
+##############################################################################
+
+OSG_ADD_DIRECTORY("Source/System/Action/Base")
+OSG_ADD_DIRECTORY("Source/System/Action/IntersectAction")
+OSG_ADD_DIRECTORY("Source/System/Action/RenderAction")
+OSG_ADD_DIRECTORY("Source/System/FieldContainer/Attachments")
+OSG_ADD_DIRECTORY("Source/System/FieldContainer/Base")
+OSG_ADD_DIRECTORY("Source/System/FieldContainer/Misc")
+OSG_ADD_DIRECTORY("Source/System/FileIO/Base")
+OSG_ADD_DIRECTORY("Source/System/FileIO/OSG")
+OSG_ADD_DIRECTORY("Source/System/FileIO/ScanParseSkel")
+OSG_ADD_DIRECTORY("Source/System/FileIO/ScanParseSkel/prebuild")
+OSG_ADD_DIRECTORY("Source/System/GraphOp/Base")
+OSG_ADD_DIRECTORY("Source/System/Image")
+OSG_ADD_DIRECTORY("Source/System/Image/Squish")
+OSG_ADD_DIRECTORY("Source/System/Image/WS")
+OSG_ADD_DIRECTORY("Source/System/Material/Base")
+OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Base")
+OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Base")
+OSG_ADD_DIRECTORY("Source/System/RenderingBackend")
+OSG_ADD_DIRECTORY("Source/System/State/Base")
+OSG_ADD_DIRECTORY("Source/System/State/Base/WS")
+OSG_ADD_DIRECTORY("Source/System/Statistics/Base")
+OSG_ADD_DIRECTORY("Source/System/Window/Base")
+OSG_ADD_DIRECTORY("Source/System/Window/FrameBufferObjects")
+
+IF(OSG_ENABLE_NEW_SHADER)
+    OSG_ADD_DIRECTORY("Source/System/State/Shader/Base")
+    OSG_ADD_DIRECTORY("Source/System/State/Shader/Chunks")
+    OSG_ADD_DIRECTORY("Source/System/State/Shader/SHL")
+    OSG_ADD_DIRECTORY("Source/System/State/Shader/Variables")
+ENDIF(OSG_ENABLE_NEW_SHADER)
+
+IF(OSGCOMPAT_ENABLE_DEPRECATED)
+    OSG_ADD_DIRECTORY("Source/System/Depreciated")
+    OSG_ADD_DIRECTORY("Source/System/Depreciated/State")
+    OSG_ADD_DIRECTORY("Source/System/Depreciated/State/OpenGL")
+
+    IF(NOT OSG_ENABLE_NEW_SHADER)
+        OSG_ADD_DIRECTORY("Source/System/Depreciated/State/Shader")
+    ENDIF(NOT OSG_ENABLE_NEW_SHADER)
+ENDIF(OSGCOMPAT_ENABLE_DEPRECATED)
+
+
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
+    FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
+        "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_SOURCE_DIR}/Source/External\")\n\n")
+
+    FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
+        "LIST(APPEND ${PROJECT_NAME}_HDR
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/dense_hash_map\"
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/dense_hash_set\"
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparse_hash_map\"
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparse_hash_set\"
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsetable\"
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/config.h\"
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/densehashtable.h\"
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/hash_fun.h\"
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/sparsehashtable.h\")")
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
+
+
+##############################################################################
+# setup library build
+##############################################################################
+
+OSG_SETUP_PROJECT("OSG_COMPILESYSTEMLIB")
+
+##############################################################################
+# setup test build
+##############################################################################
+
+OSG_SETUP_TEST_PROJECT()

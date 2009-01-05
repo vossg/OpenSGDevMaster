@@ -1,33 +1,5 @@
 
-IF(OSG_VERBOSE_SCAN)
-    MESSAGE( STATUS "Looking at : ${CMAKE_CURRENT_SOURCE_DIR}")
-ENDIF(OSG_VERBOSE_SCAN)
+# CMake's ADD_SUBDIRECTORY only looks for CMakeLists.txt, so we include
+# the real file here
 
-IF(${PROJECT_NAME} STREQUAL "OSGSystem")
-
-    ADD_SUBDIRECTORY(Base)
-    ADD_SUBDIRECTORY(ScanParseSkel)
-    ADD_SUBDIRECTORY(OSG)
-
-ELSEIF(${PROJECT_NAME} STREQUAL "OSGFileIO")
-
-    #################
-    # OSGFileIO
-    #################
-
-    CLEAR_PROJECT(OSGFileIO)
-
-    SET(OSGFileIO_OSG_Dependencies OSGDrawable OSGState OSGGroup)
-
-    IF(COLLADA_FOUND)
-
-        SET(OSGFileIO_Ext_Inc_Dependencies COLLADA_DAE_INCLUDE_DIR
-                                           COLLADA_DOM_INCLUDE_DIR)
-
-        SET(OSGFileIO_Ext_Lib_Dependencies OSG_COLLADA_LIBS)
-
-    ENDIF(COLLADA_FOUND)
-
-    SETUP_PROJECT(OSGFileIO OSG_COMPILEFILEIOLIB)
-
-ENDIF()
+INCLUDE("CMakeLists.Lib.OSGFileIO.txt")

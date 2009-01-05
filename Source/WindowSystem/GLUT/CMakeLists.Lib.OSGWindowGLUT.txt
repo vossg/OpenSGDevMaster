@@ -1,0 +1,60 @@
+
+PROJECT("OSGWindowGLUT")
+
+OSG_ADD_PROJECT()
+
+IF(NOT GLUT_FOUND)
+    MESSAGE(STATUS "Dependency (GLUT) not found, can not build (${PROJECT_NAME}).\n")
+    SET(OSGBUILD_${PROJECT_NAME} OFF)
+ENDIF(NOT GLUT_FOUND)
+
+OSG_SELECT_PROJECT()
+
+##############################################################################
+# dependencies
+##############################################################################
+
+# dependencies - OpenSG
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
+                                OSGSystem
+                                OSGWindow)
+SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
+                                     OSGFileIO
+                                     OSGGroup 
+                                     OSGImageFileIO
+                                     OSGState
+                                     OSGText
+                                     OSGUtil
+                                     OSGWindow)
+
+# dependencies - External
+SET(${PROJECT_NAME}_DEP_LIB GLUT_LIBRARIES)
+# SET(${PROJECT_NAME}_DEP_LIBDIR)
+SET(${PROJECT_NAME}_DEP_INCDIR OSG_GLUT_INC_DIR)
+
+# SET(${PROJECT_NAME}_DEP_TEST_LIB)
+# SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
+# SET(${PROJECT_NAME}_DEP_TEST_INCDIR)
+
+# dependencies - Additional
+# SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
+
+OSG_STORE_PROJECT_DEPENDENCIES()
+
+##############################################################################
+# collect sources
+##############################################################################
+
+OSG_ADD_DIRECTORY("Source/WindowSystem/GLUT")
+
+##############################################################################
+# setup library build
+##############################################################################
+
+OSG_SETUP_PROJECT("OSG_COMPILEWINDOWGLUTLIB")
+
+##############################################################################
+# setup test build
+##############################################################################
+
+OSG_SETUP_TEST_PROJECT()

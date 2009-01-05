@@ -1,0 +1,54 @@
+# Template Library build file
+#  - fill in dependencies and source directories
+#  - drop somewhere below Source/ and regen the build system
+
+PROJECT("OSGTemplate")
+
+OSG_ADD_PROJECT()
+
+# check here for conditions that prevent building of this project
+# IF(FOO)
+#     SET(OSGBUILD_${PROJECT_NAME} OFF)
+# ENDIF(FOO)
+
+OSG_SELECT_PROJECT()
+
+##############################################################################
+# dependencies
+##############################################################################
+
+# dependencies - OpenSG
+# SET(${PROJECT_NAME}_DEP_OSG_LIB)
+# SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB)
+
+# dependencies - External
+# SET(${PROJECT_NAME}_DEP_LIB)
+# SET(${PROJECT_NAME}_DEP_LIBDIR)
+# SET(${PROJECT_NAME}_DEP_INCDIR)
+
+# SET(${PROJECT_NAME}_DEP_TEST_LIB)
+# SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
+# SET(${PROJECT_NAME}_DEP_TEST_INCDIR)
+
+# dependencies - Additional
+# SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
+
+OSG_STORE_PROJECT_DEPENDENCIES()
+
+##############################################################################
+# collect sources
+##############################################################################
+
+# OSG_ADD_DIRECTORY("Source/Template")
+
+##############################################################################
+# setup library build
+##############################################################################
+
+OSG_SETUP_PROJECT("OSG_COMPILETEMPLATELIB")
+
+##############################################################################
+# setup test build
+##############################################################################
+
+OSG_SETUP_TEST_PROJECT()

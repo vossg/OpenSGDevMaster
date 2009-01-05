@@ -1,41 +1,5 @@
 
-IF(NOT OSGBUILD_COMPLEXSCENEMANAGER)
-    RETURN()
-ENDIF(NOT OSGBUILD_COMPLEXSCENEMANAGER)
+# CMake's ADD_SUBDIRECTORY only looks for CMakeLists.txt, so we include
+# the real file here
 
-IF(OSG_VERBOSE_SCAN)
-    MESSAGE( STATUS "Looking at : ${CMAKE_CURRENT_SOURCE_DIR}")
-ENDIF(OSG_VERBOSE_SCAN)
-
-
-#################
-# OSGContribCSM
-#################
-
-CLEAR_PROJECT(OSGContribCSM)
-
-SET(OSGContribCSM_OSG_Dependencies OSGBase
-                                   OSGSystem
-                                   OSGDrawable  
-                                   OSGCluster
-                                   OSGFileIO
-                                   OSGUtil)
-
-IF(UNIX)
-    SET(OSGContribCSM_OSG_Dependencies ${OSGContribCSM_OSG_Dependencies}
-                                       OSGWindowX)
-ENDIF(UNIX)
-
-IF(GLUT_FOUND AND OSGBUILD_WINDOWGLUT)
-    SET(OSGContribCSM_OSG_Dependencies ${OSGContribCSM_OSG_Dependencies}
-                                       OSGWindowGLUT)
-
-    SET(OSGContribCSM_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
-ENDIF(GLUT_FOUND AND OSGBUILD_WINDOWGLUT)
-
-IF(WIN32)
-    SET(OSGContribCSM_OSG_Dependencies ${OSGContribCSM_OSG_Dependencies}
-                                       OSGWindowWIN32)
-ENDIF(WIN32)
-
-SETUP_PROJECT(OSGContribCSM OSG_COMPILECONTRIBCSMLIB)
+INCLUDE("CMakeLists.Lib.OSGContribCSM.txt")

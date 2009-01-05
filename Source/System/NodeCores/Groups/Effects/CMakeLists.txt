@@ -1,28 +1,5 @@
 
-CHECK_PROJECT("OSGEffectGroups")
+# CMake's ADD_SUBDIRECTORY only looks for CMakeLists.txt, so we include
+# the real file here
 
-IF(OSG_VERBOSE_SCAN)
-    MESSAGE( STATUS "Looking at : ${CMAKE_CURRENT_SOURCE_DIR}")
-ENDIF(OSG_VERBOSE_SCAN)
-
-
-IF(${PROJECT_NAME} STREQUAL "OSGEffectGroups")
-
-    #################
-    # OSGEffectGroups
-    #################
-
-    CLEAR_PROJECT(OSGEffectGroups)
-
-    SET(OSGEffectGroups_OSG_Dependencies OSGGroup 
-                                         OSGDrawable 
-                                         OSGState 
-                                         OSGWindow)
-
-    SET(OSGEffectGroups_Test_OSG_Dependencies OSGUtil OSGWindowGLUT)
-    SET(OSGEffectGroups_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
-
-    SETUP_PROJECT(OSGEffectGroups OSG_COMPILEEFFECTGROUPSLIB)
-
-ENDIF()
-
+INCLUDE("CMakeLists.Lib.OSGEffectGroups.txt")

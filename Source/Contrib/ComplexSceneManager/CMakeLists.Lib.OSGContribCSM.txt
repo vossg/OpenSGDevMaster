@@ -1,0 +1,71 @@
+
+PROJECT("OSGContribCSM")
+
+OSG_ADD_PROJECT()
+OSG_SELECT_PROJECT()
+
+##############################################################################
+# dependencies
+##############################################################################
+
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
+                                OSGSystem
+                                OSGDrawable
+                                OSGCluster
+                                OSGFileIO
+                                OSGUtil)
+IF(UNIX)
+    SET(${PROJECT_NAME}_DEP_OSG_LIB ${${PROJECT_NAME}_DEP_OSG_LIB}
+                                    OSGWindowX)
+ENDIF(UNIX)
+
+IF(GLUT_FOUND AND OSGBUILD_WINDOWGLUT)
+    SET(${PROJECT_NAME}_DEP_OSG_LIB ${${PROJECT_NAME}_DEP_OSG_LIB}
+                                    OSGWindowGLUT)
+
+    SET(${PROJECT_NAME}_DEP_INCDIR OSG_GLUT_INC_DIR)
+ENDIF(GLUT_FOUND AND OSGBUILD_WINDOWGLUT)
+
+IF(WIN32)
+    SET(${PROJECT_NAME}_DEP_OSG_LIB ${${PROJECT_NAME}_DEP_OSG_LIB}
+                                    OSGWindowWIN32)
+ENDIF(WIN32)
+
+OSG_STORE_PROJECT_DEPENDENCIES()
+
+##############################################################################
+# collect sources
+##############################################################################
+
+OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager")
+OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Helper")
+OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor")
+OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/VRMLNodes")
+
+IF(GLUT_FOUND AND OSGBUILD_WINDOWGLUT)
+    OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/GLUT")
+ENDIF(GLUT_FOUND AND OSGBUILD_WINDOWGLUT)
+
+IF(OSG_ENABLE_NEW_SHADER)
+    OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Helper/Shader")
+ENDIF(OSG_ENABLE_NEW_SHADER)
+
+IF(WIN32)
+    OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Native-WIN32")
+ENDIF(WIN32)
+
+IF(UNIX)
+    OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Native-X")
+ENDIF(UNIX)
+
+##############################################################################
+# setup library build
+##############################################################################
+
+OSG_SETUP_PROJECT("OSG_COMPILECONTRIBCSMLIB")
+
+##############################################################################
+# setup test build
+##############################################################################
+
+OSG_SETUP_TEST_PROJECT()

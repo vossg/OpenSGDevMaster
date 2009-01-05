@@ -1,27 +1,5 @@
 
-IF(OSG_VERBOSE_SCAN)
-    MESSAGE( STATUS "Looking at : ${CMAKE_CURRENT_SOURCE_DIR}")
-ENDIF(OSG_VERBOSE_SCAN)
+# CMake's ADD_SUBDIRECTORY only looks for CMakeLists.txt, so we include
+# the real file here
 
-IF(${PROJECT_NAME} STREQUAL "OSGSystem")
-
-    ADD_SUBDIRECTORY(Base)
-    ADD_SUBDIRECTORY(FrameBufferObjects)
-
-ELSEIF(${PROJECT_NAME} STREQUAL "OSGUtil")
-
-    ADD_SUBDIRECTORY(Utilities)
-
-ELSEIF(${PROJECT_NAME} STREQUAL "OSGWindow")
-
-    ###########
-    # OSGWindow
-    ###########
-
-    CLEAR_PROJECT(OSGWindow)
-
-    SET(OSGWindow_OSG_Dependencies OSGSystem)
-
-    SETUP_PROJECT(OSGWindow OSG_COMPILEWINDOWLIB)
-
-ENDIF()
+INCLUDE("CMakeLists.Lib.OSGWindow.txt")

@@ -1,11 +1,5 @@
 
-IF(NOT OSGBUILD_BASE)
-    RETURN()
-ENDIF(NOT OSGBUILD_BASE)
+# CMake's ADD_SUBDIRECTORY only looks for CMakeLists.txt, so we include
+# the real file here
 
-CLEAR_PROJECT(OSGBase)
-
-SET(OSGBase_Ext_Lib_Dependencies OSG_DL_LIB OSG_THREAD_LIB)
-
-SETUP_PROJECT(OSGBase OSG_COMPILEBASELIB)
-
+INCLUDE("CMakeLists.Lib.OSGBase.txt")

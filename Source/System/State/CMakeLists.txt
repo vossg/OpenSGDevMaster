@@ -1,28 +1,5 @@
 
-IF(OSG_VERBOSE_SCAN)
-    MESSAGE( STATUS "Looking at : ${CMAKE_CURRENT_SOURCE_DIR}")
-ENDIF(OSG_VERBOSE_SCAN)
+# CMake's ADD_SUBDIRECTORY only looks for CMakeLists.txt, so we include
+# the real file here
 
-IF(${PROJECT_NAME} STREQUAL "OSGSystem")
-
-    COLLECT_SUBDIRS()
-
-ELSEIF(${PROJECT_NAME} STREQUAL "OSGState")
-
-    ###########
-    # OSGState
-    ###########
-
-    CLEAR_PROJECT(OSGState)
-
-    SET(OSGState_OSG_Dependencies OSGSystem)
-
-    SET(OSGState_Test_OSG_Dependencies OSGDrawable
-                                       OSGWindowGLUT
-                                       OSGUtil)
-
-    SET(OSGState_Test_Ext_Inc_Dependencies OSG_GLUT_INC_DIR)
-
-    SETUP_PROJECT(OSGState OSG_COMPILESTATELIB)
-
-ENDIF()
+INCLUDE("CMakeLists.Lib.OSGState.txt")
