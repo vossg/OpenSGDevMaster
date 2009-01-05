@@ -85,6 +85,30 @@ void ColladaGlobal::read(void)
         return;
     }
     
+    domAssetRef docAsset = docRoot->getAsset();
+
+    if(docAsset != NULL)
+    {
+        domAsset::domContributor_Array &domContrA = 
+            docAsset->getContributor_array();
+
+        for(UInt32 i = 0; i < domContrA.getCount(); ++i)
+        {
+            domAsset::domContributor::domAuthoring_toolRef docAuthTool = 
+                domContrA.get(i)->getAuthoring_tool();
+
+            if(osgStringNCaseCmp(docAuthTool->getValue(), 
+                                 "Google SketchUp",
+                                 15                     ) == 0)
+            {
+                _invertTransparency = true;
+            }
+
+            if(_invertTransparency == true)
+                break;
+        }
+    }
+
     domInstanceWithExtraRef          instVisScene    =
         scene->getInstance_visual_scene();
     ColladaInstanceVisualSceneRefPtr colInstVisScene =
@@ -97,7 +121,8 @@ void ColladaGlobal::read(void)
 }
 
 ColladaGlobal::ColladaGlobal(void)
-    : Inherited(NULL, this)
+    : Inherited(NULL, this),
+      _invertTransparency(false)
 {
 }
 

@@ -521,6 +521,9 @@ Int32 stringcmp       (const Char8 *string1, const Char8 *string2              )
 inline
 Int32 osgStringCaseCmp(const Char8 *string1, const Char8 *string2              );
 
+inline
+Int32 osgStringNCaseCmp(const Char8 *string1, const Char8 *string2, size_t count);
+
 #ifdef OSG_1_COMPAT
 inline
 Int32 stringcasecmp(const Char8 *string1, const Char8 *string2              );

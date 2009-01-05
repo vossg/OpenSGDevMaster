@@ -271,7 +271,16 @@ void ColladaEffect::setupSimpleColorAndTex(
         shininessVal = shininess->getFloat()->getValue();
 
     if(transparency != NULL && transparency->getFloat() != NULL)
-        transparencyVal = transparency->getFloat()->getValue();
+    {
+        if(_global != NULL && _global->invertTransparency() == true)
+        {
+            transparencyVal = 1.f - transparency->getFloat()->getValue();
+        }
+        else
+        {
+            transparencyVal = transparency->getFloat()->getValue();
+        }
+    }
     
     MaterialChunkTransitPtr matChunk = handleSimpleColor(
             diffuseCol,

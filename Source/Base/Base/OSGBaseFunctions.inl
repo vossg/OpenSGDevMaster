@@ -3548,6 +3548,29 @@ Int32 osgStringCaseCmp(const Char8 *string1,
 #endif
 }
 
+/*! Compare two C strings ignoring differences in case, but considers at most
+    the first \a count characters. The return value has
+    the same sign as the difference of the first differing pair of characters.
+
+    \param[in] string1 First string for comparison.
+    \param[in] string2 Second string for comparison.
+    \return 0 if both strings are equal, -1 if \a string1 is less than
+    \a string2 and 1 otherwise.
+
+    \ingroup GrpBaseBaseStringFn
+ */
+inline
+Int32 osgStringNCaseCmp(const Char8  *string1,
+                        const Char8  *string2,
+                              size_t  count)
+{
+#if !defined(WIN32)
+    return ::strncasecmp(string1, string2, count);
+#else
+    return _strnicmp  (string1, string2, count);
+#endif
+}
+
 #ifdef OSG_1_COMPAT
 /*! Compare two C strings ignoring differences in case. The return value has
     the same sign as the difference of the first differing pair of characters.

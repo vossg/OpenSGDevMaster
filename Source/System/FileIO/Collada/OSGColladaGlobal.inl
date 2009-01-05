@@ -77,4 +77,10 @@ inline void ColladaGlobal::subElement(ColladaElement *elem)
         _elements.erase(elemIt);
 }
 
+inline
+bool ColladaGlobal::invertTransparency(void) const
+{
+    return _invertTransparency;
+}
+
 OSG_END_NAMESPACE

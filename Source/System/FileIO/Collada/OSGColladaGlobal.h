@@ -81,6 +81,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public ColladaElement
     
     inline Node              *getRootNode(void                      ) const;
     
+    bool invertTransparency(void) const;
+
   protected:
     friend class OSG::ColladaElement;
     
@@ -97,7 +99,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public ColladaElement
     
     DAE                 _dae;
     ColladaElementStore _elements;
-    
+
+    bool                _invertTransparency;
 };
 
 typedef ColladaGlobal::ObjRefPtr      ColladaGlobalRefPtr;
