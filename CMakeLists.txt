@@ -610,7 +610,9 @@ FUNCTION(SETUP_PROJECT PROJ_NAME PROJ_DEFINE)
         INCLUDE_DIRECTORIES(${${PROJECT_NAME}_INC})
 
         SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES DEFINE_SYMBOL 
-                                              ${PROJ_DEFINE})
+                                              ${PROJ_DEFINE} 
+					      VERSION 2.0.0
+					      SOVERSION 2.0.0)
 
         SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES DEBUGRT_POSTFIX 
                                               "_d")
