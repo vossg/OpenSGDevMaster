@@ -7,6 +7,10 @@ IF(NOT UNIX)
     SET(OSGBUILD_${PROJECT_NAME} OFF)
 ENDIF(NOT UNIX)
 
+IF(NOT X11_FOUND)
+    SET(OSGBUILD_${PROJECT_NAME} OFF)
+ENDIF(NOT X11_FOUND)
+
 OSG_SELECT_PROJECT()
 
 ##############################################################################
@@ -18,18 +22,15 @@ SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
                                 OSGSystem
                                 OSGWindow)
 
-# OSGWindowGLUT is not really needed, but glut is. There is no good way to
-# have that dependecy checked right now though -- cneumann
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
                                      OSGGroup
                                      OSGUtil
-                                     OSGWindow
-                                     OSGWindowGLUT)
+                                     OSGWindow)
 
 # dependencies - External
-SET(${PROJECT_NAME}_DEP_LIB OSG_X_LIBS)
+SET(${PROJECT_NAME}_DEP_LIB OSG_X_LIBS OSG_GLUT_LIBS)
 # SET(${PROJECT_NAME}_DEP_LIBDIR)
-SET(${PROJECT_NAME}_DEP_INCDIR OSG_GLUT_INC_DIR)
+SET(${PROJECT_NAME}_DEP_INCDIR OSG_X_INC_DIR OSG_GLUT_INC_DIR)
 
 # SET(${PROJECT_NAME}_DEP_TEST_LIB)
 # SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)

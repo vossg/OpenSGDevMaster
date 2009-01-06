@@ -1,17 +1,30 @@
 
+
+#############################################################################
+#print message depending on the setting of OSG_VERBOSE_BUILD_MESSAGES
+
+FUNCTION(OSG_MSG MSG)
+    IF(OSG_VERBOSE_BUILD_MESSAGES)
+        MESSAGE(STATUS "${MSG}")
+    ENDIF(OSG_VERBOSE_BUILD_MESSAGES)
+ENDFUNCTION(OSG_MSG)
+
+#############################################################################
 # register project with build
+
 MACRO(OSG_ADD_PROJECT)
     IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
         OPTION(OSGBUILD_${PROJECT_NAME} "Build the ${PROJECT_NAME} library" ON)
     ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 ENDMACRO(OSG_ADD_PROJECT)
 
-
+#############################################################################
 # select the current project as the one settings are added to
+
 MACRO(OSG_SELECT_PROJECT)
 
     IF(OSGBUILD_${PROJECT_NAME})
-        MESSAGE(STATUS "Processing ${PROJECT_NAME}")
+        OSG_MSG("Processing ${PROJECT_NAME}")
     ELSE(OSGBUILD_${PROJECT_NAME})
         RETURN()
     ENDIF(OSGBUILD_${PROJECT_NAME})
@@ -60,8 +73,9 @@ MACRO(OSG_SELECT_PROJECT)
     SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
 ENDMACRO(OSG_SELECT_PROJECT)
 
-
+#############################################################################
 # write the dependecy variables to the ${${PROJECT_NAME}_CONFIG_FILE file
+
 FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
     IF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
         RETURN()
@@ -82,11 +96,11 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
         "SET(${PROJECT_NAME}_DEP_INCDIR ${${PROJECT_NAME}_DEP_INCDIR})\n\n")
 
     FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
-        "SET(${PROJECT_NAME}_DEP_TEST_LIB ${${PROJECT_NAME}_TEST_DEP_LIB})\n\n")
+        "SET(${PROJECT_NAME}_DEP_TEST_LIB ${${PROJECT_NAME}_DEP_TEST_LIB})\n\n")
     FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
-        "SET(${PROJECT_NAME}_DEP_TEST_LIBDIR ${${PROJECT_NAME}_TEST_DEP_LIBDIR})\n\n")
+        "SET(${PROJECT_NAME}_DEP_TEST_LIBDIR ${${PROJECT_NAME}_DEP_TEST_LIBDIR})\n\n")
     FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
-        "SET(${PROJECT_NAME}_DEP_TEST_INCDIR ${${PROJECT_NAME}_TEST_DEP_INCDIR})\n\n")
+        "SET(${PROJECT_NAME}_DEP_TEST_INCDIR ${${PROJECT_NAME}_DEP_TEST_INCDIR})\n\n")
 
     # dependencies - additional
     FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
@@ -94,15 +108,16 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
 
 ENDFUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
 
-
+#############################################################################
 # add directory DIRNAME to current project
+
 FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
 
     IF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
         RETURN()
     ENDIF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 
-    MESSAGE(STATUS "Adding directory: ${DIRNAME}")
+    OSG_MSG("Adding directory: ${DIRNAME}")
 
     FILE(GLOB LOCAL_SRC          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.cpp")
     FILE(GLOB LOCAL_HDR          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.h")
@@ -174,7 +189,9 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
 
 ENDFUNCTION(OSG_ADD_DIRECTORY)
 
+#############################################################################
 # perform default actions for pass OSGSETUP
+
 FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
 
     IF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGSETUP")
@@ -299,14 +316,17 @@ FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
 
     # dependencies - External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_INCDIR})
+        OSG_MSG("  include dir ${INCDIR} = ${${INCDIR}}")
         INCLUDE_DIRECTORIES(${${INCDIR}})
     ENDFOREACH(INCDIR)
 
     FOREACH(LIBDIR ${${PROJECT_NAME}_DEP_LIBDIR})
+        OSG_MSG("  library dir ${LIBDIR} = ${${LIBDIR}}")
         LINK_DIRECTORIES(${LIBDIR})
     ENDFOREACH(LIBDIR)
 
     FOREACH(LIB ${${PROJECT_NAME}_DEP_LIB})
+        OSG_MSG("  library ${LIB} = ${${LIB}}")
         TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${${LIB}})
     ENDFOREACH(LIB)
 
@@ -336,6 +356,8 @@ FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
 
 ENDFUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
 
+#############################################################################
+# perform default actions for pass OSGSETUPTEST
 
 FUNCTION(OSG_SETUP_TEST_PROJECT)
 
@@ -359,10 +381,12 @@ FUNCTION(OSG_SETUP_TEST_PROJECT)
 
     # dependencies - External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_INCDIR})
+        OSG_MSG("  include dir ${INCDIR} = ${${INCDIR}}")
         INCLUDE_DIRECTORIES(${${INCDIR}})
     ENDFOREACH(INCDIR)
 
     FOREACH(LIBDIR ${${PROJECT_NAME}_DEP_LIBDIR})
+        OSG_MSG("  library dir ${LIBDIR} = ${${LIBDIR}}")
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
@@ -379,10 +403,12 @@ FUNCTION(OSG_SETUP_TEST_PROJECT)
     ENDFOREACH(OSGTESTDEP)
 
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_TEST_INCDIR})
+        OSG_MSG("  test include dir ${INCDIR} = ${${INCDIR}}")
         INCLUDE_DIRECTORIES(${${INCDIR}})
     ENDFOREACH(INCDIR)
 
     FOREACH(LIBDIR ${${PROJECT_NAME}_DEP_TEST_LIBDIR})
+        OSG_MSG("  test library dir ${LIBDIR} = ${${LIBDIR}}")
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
