@@ -6,8 +6,8 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OpenSG_SOURCE_DIR}/CMake")
 
 INCLUDE(BuildFunctions)
 
-# show build command lines
-SET(CMAKE_VERBOSE_MAKEFILE ON)
+# show build command lines, let the user decide
+#SET(CMAKE_VERBOSE_MAKEFILE ON)
 
 ##########################
 # Disallow in-source build

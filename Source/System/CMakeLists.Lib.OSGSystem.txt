@@ -47,7 +47,11 @@ OSG_ADD_DIRECTORY("Source/System/FieldContainer/Misc")
 OSG_ADD_DIRECTORY("Source/System/FileIO/Base")
 OSG_ADD_DIRECTORY("Source/System/FileIO/OSG")
 OSG_ADD_DIRECTORY("Source/System/FileIO/ScanParseSkel")
-OSG_ADD_DIRECTORY("Source/System/FileIO/ScanParseSkel/prebuild")
+
+IF(NOT OSG_ENABLE_SCANPARSE_REGEN)
+    OSG_ADD_DIRECTORY("Source/System/FileIO/ScanParseSkel/prebuild")
+ENDIF(NOT OSG_ENABLE_SCANPARSE_REGEN)
+
 OSG_ADD_DIRECTORY("Source/System/GraphOp/Base")
 OSG_ADD_DIRECTORY("Source/System/Image")
 OSG_ADD_DIRECTORY("Source/System/Image/Squish")
@@ -72,11 +76,17 @@ ENDIF(OSG_ENABLE_NEW_SHADER)
 IF(OSGCOMPAT_ENABLE_DEPRECATED)
     OSG_ADD_DIRECTORY("Source/System/Depreciated")
     OSG_ADD_DIRECTORY("Source/System/Depreciated/State")
-    OSG_ADD_DIRECTORY("Source/System/Depreciated/State/OpenGL")
 
-    IF(NOT OSG_ENABLE_NEW_SHADER)
+    IF(NOT CMAKE_BUILD_TYPE STREQUAL "DebugGV" AND
+       NOT CMAKE_BUILD_TYPE STREQUAL "ReleaseGV" )
+
+        OSG_ADD_DIRECTORY("Source/System/Depreciated/State/OpenGL")
+
+    ENDIF()
+
+    IF(OSG_ENABLE_NEW_SHADER)
         OSG_ADD_DIRECTORY("Source/System/Depreciated/State/Shader")
-    ENDIF(NOT OSG_ENABLE_NEW_SHADER)
+    ENDIF(OSG_ENABLE_NEW_SHADER)
 ENDIF(OSGCOMPAT_ENABLE_DEPRECATED)
 
 
@@ -94,7 +104,7 @@ IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/config.h\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/densehashtable.h\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/hash_fun.h\"
-            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/sparsehashtable.h\")")
+            \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/sparsehashtable.h\")\n\n")
 ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 
 
