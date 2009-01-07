@@ -17,7 +17,8 @@
 
 // New Headers
 #include <OpenSG/OSGAttachment.h>
-#include <OpenSG/OSGSimpleAttachments.h>
+#include <OpenSG/OSGNameAttachment.h>
+#include <OpenSG/OSGVoidPAttachment.h>
 
 /*
     These two headers are needed to define the new MyAttachment type below

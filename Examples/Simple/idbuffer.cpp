@@ -35,7 +35,7 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 
 #include <OpenSG/OSGMaterialGroup.h>
-#include <OpenSG/OSGSimpleAttachments.h>
+#include <OpenSG/OSGNameAttachment.h>
 
 #include <OpenSG/OSGImage.h>
 #include <OpenSG/OSGSolidBackground.h>
@@ -43,7 +43,6 @@
 #include <OpenSG/OSGPassiveWindow.h>
 #include <OpenSG/OSGSwitchMaterial.h>
 
-#include <OpenSG/OSGTextureChunk.h>
 #include <OpenSG/OSGPolygonChunk.h>
 #include <OpenSG/OSGMaterialChunk.h>
 #include <OpenSG/OSGChunkMaterial.h>
