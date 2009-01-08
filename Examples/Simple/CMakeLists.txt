@@ -9,9 +9,20 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OpenSGSimpleExamples_SOURCE_DIR}/.
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
 #############################################################################
+# find sources
+
+FILE(GLOB SRCFILES "*.cpp")
+
+# stuff that is broken -- these examples need to be fixed
+LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/clusterclientshader.cpp")
+LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/geometryshader.cpp")
+LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/phongshaderwithglmaterials.cpp")
+LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/shader.cpp")
+
+#############################################################################
 # get dependencies
 
-SET(OSG_COMPONENTS OSGBase OSGCluster OSGDrawable OSGSystem OSGUtil OSGWindowGLUT)
+SET(OSG_COMPONENTS OSGBase OSGCluster OSGDrawable OSGGroup OSGState OSGSystem OSGUtil OSGWindow OSGWindowGLUT)
 
 SET(DEP_INCLUDE_DIRS)
 SET(DEP_LIBRARY_DIRS)
@@ -21,9 +32,20 @@ SET(DEP_LIBRARIES)
 #### GLUT
 
 FIND_PACKAGE(GLUT REQUIRED)
-LIST(APPEND DEP_INCLUDE_DIRS ${GLUT_INCLUDE_DIRS})
-LIST(APPEND DEP_LIBRARY_DIRS ${GLUT_LIBRARY_DIRS})
+LIST(APPEND DEP_INCLUDE_DIRS ${GLUT_INCLUDE_DIR})
 LIST(APPEND DEP_LIBRARIES ${GLUT_LIBRARIES})
+
+#############
+#### Boost
+
+SET(Boost_USE_MULTITHREAD ON)
+SET(Boost_STATIC_LIBS OFF)
+
+FIND_PACKAGE(Boost REQUIRED)
+
+IF(Boost_FOUND)
+    LIST(APPEND DEP_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
+ENDIF(Boost_FOUND)    
 
 #############
 #### X11 (optional)
@@ -34,6 +56,8 @@ IF(X11_FOUND)
     LIST(APPEND OSG_COMPONENTS OSGWindowX)
     LIST(APPEND DEP_INCLUDE_DIRS ${X11_X11_INCLUDE_PATH})
     LIST(APPEND DEP_LIBRARIES ${X11_X11_LIB})
+ELSE(X11_FOUND)
+    LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/clusterserverx.cpp")
 ENDIF(X11_FOUND)
 
 #############
@@ -41,21 +65,6 @@ ENDIF(X11_FOUND)
 
 FIND_PACKAGE(OpenSG REQUIRED COMPONENTS ${OSG_COMPONENTS})
 
-#############################################################################
-# find sources
-
-FILE(GLOB SRCFILES "*.cpp")
-
-IF(NOT X11_FOUND)
-    LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/clusterserverx.cpp")
-ENDIF(NOT X11_FOUND)
-
-
-# stuff that is broken -- these examples need to be fixed
-LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/clusterclientshader.cpp")
-LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/geometryshader.cpp")
-LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/phongshaderwithglmaterials.cpp")
-LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/shader.cpp")
 
 #############################################################################
 # build executables
