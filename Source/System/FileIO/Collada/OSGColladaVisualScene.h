@@ -51,7 +51,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include <OSGFileIODef.h>
-#include <OSGColladaElement.h>
+#include <OSGColladaInstantiableElement.h>
 
 #include <OSGNode.h>
 #include <OSGGroup.h>
@@ -62,10 +62,15 @@ class domVisual_scene;
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_FILEIO_DLLMAPPING ColladaVisualScene : public ColladaElement
+// forward declarations
+class ColladaInstanceVisualScene;
+
+
+class OSG_FILEIO_DLLMAPPING ColladaVisualScene
+    : public ColladaInstantiableElement
 {
   public:
-    typedef ColladaElement                          Inherited;
+    typedef ColladaInstantiableElement              Inherited;
     typedef ColladaVisualScene                      Self;
     
     typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
@@ -79,6 +84,8 @@ class OSG_FILEIO_DLLMAPPING ColladaVisualScene : public ColladaElement
     inline Node *getNode(void) const;
     
   protected:
+    friend class ColladaInstanceVisualScene;
+      
              ColladaVisualScene(domVisual_scene *visScene,
                                 ColladaGlobal   *global   );
     virtual ~ColladaVisualScene(void                      );

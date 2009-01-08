@@ -69,6 +69,9 @@ void ColladaInstanceGeometry::read(void)
     domGeometryRef           geo     =
         daeSafeCast<domGeometry>(geoUri.getElement());
     
+    OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: geoURI [%s]\n",
+                      geoUri.str().c_str()));
+    
     setInstDOMElement(geo);
     
     ColladaGeometryRefPtr    colGeo  = getUserDataAs<ColladaGeometry>(geo);
@@ -269,11 +272,12 @@ NodeTransitPtr ColladaInstanceGeometry::createInstance(void)
 {
     OSG_COLLADA_LOG(("ColladaInstanceGeometry::createInstance:\n"));
     
-    NodeTransitPtr retVal(_node.get());
+    domGeometryRef        geo    = getInstDOMElementAs<domGeometry>();
+    ColladaGeometryRefPtr colGeo = getUserDataAs<ColladaGeometry>(geo);
     
-    ++_instCount;
-    
-    return retVal;
+    ++colGeo->_instCount;
+
+    return NodeTransitPtr(_node);
 }
 
 ColladaInstanceGeometry::ColladaInstanceGeometry(

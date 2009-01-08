@@ -58,7 +58,6 @@ ColladaInstanceElement::ColladaInstanceElement(
     daeElement *elem, ColladaGlobal *global)
 
     : Inherited (elem, global),
-      _instCount(0           ),
       _instElem (            )
 {
 }

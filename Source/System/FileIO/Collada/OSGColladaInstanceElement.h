@@ -75,9 +75,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceElement : public ColladaElement
   protected:
              ColladaInstanceElement(daeElement *elem, ColladaGlobal *global);
     virtual ~ColladaInstanceElement(void                                   );
-      
-      
-    UInt32        _instCount;
+
     daeElementRef _instElem;
 };
 

@@ -549,6 +549,8 @@ MaterialChunkTransitPtr ColladaEffect::handleSimpleColor(
         
         if(opaqueMode == FX_OPAQUE_ENUM_A_ONE)
         {
+            OSG_COLLADA_LOG(("ColladaEffect::handleSimpleColor: FX_OPAQUE_ENUM_A_ONE mode\n"));
+            
             if(transparent->getValue()[3] * transparency < (1.0 - Eps))
             {
                 blendColor[0] = 0.0;
@@ -566,6 +568,8 @@ MaterialChunkTransitPtr ColladaEffect::handleSimpleColor(
         }
         else if(opaqueMode == FX_OPAQUE_ENUM_RGB_ZERO)
         {
+            OSG_COLLADA_LOG(("ColladaEffect::handleSimpleColor: FX_OPAQUE_ENUM_RGB_ZERO mode\n"));
+            
             if(transparent->getValue()[0] * transparency > Eps ||
                transparent->getValue()[1] * transparency > Eps ||
                transparent->getValue()[2] * transparency > Eps   )

@@ -51,7 +51,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include <OSGFileIODef.h>
-#include <OSGColladaElement.h>
+#include <OSGColladaInstantiableElement.h>
 
 #include <OSGGeometry.h>
 #include <OSGTypedGeoIntegralProperty.h>
@@ -84,11 +84,11 @@ OSG_BEGIN_NAMESPACE
 class ColladaInstanceGeometry;
 
 
-class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaElement
+class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
 {
   public:
-    typedef ColladaElement  Inherited;
-    typedef ColladaGeometry Self;
+    typedef ColladaInstantiableElement      Inherited;
+    typedef ColladaGeometry                 Self;
     
     typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
     typedef TransitPtr <Self                      > ObjTransitPtr;

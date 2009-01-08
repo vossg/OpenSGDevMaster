@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,84 +36,71 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic warning "-Wold-style-cast"
+#ifndef _OSGCOLLADAINSTANTIABLEELEMENT_H_
+#define _OSGCOLLADAINSTANTIABLEELEMENT_H_
+#ifdef __sgi
+#pragma once
 #endif
 
-#include <OSGColladaInstanceVisualScene.h>
-#include <OSGColladaLog.h>
+/*! \file OSGColladaInstantiableElement.h
+    \ingroup GrpLoader
+ */
+
+#include <OSGConfig.h>
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGColladaVisualScene.h>
+#include <OSGFileIODef.h>
+#include <OSGColladaElement.h>
 
-#include <1.4/dom/domVisual_scene.h>
-#include <1.4/dom/domInstanceWithExtra.h>
 
 OSG_BEGIN_NAMESPACE
 
-void ColladaInstanceVisualScene::read(void)
+class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
 {
-    OSG_COLLADA_LOG(("ColladaInstanceVisualScene::read:\n"));
-    
-    domInstanceWithExtraRef instVisScene =
-        getDOMElementAs<domInstanceWithExtra>();
-    
-    daeURI                   visSceneUri = instVisScene->getUrl();
-    domVisual_sceneRef       visScene    =
-        daeSafeCast<domVisual_scene>(visSceneUri.getElement());
-    
-    setInstDOMElement(visScene);
-    
-    ColladaVisualSceneRefPtr colVisScene =
-        getUserDataAs<ColladaVisualScene>(visScene);
-    
-    if(colVisScene == NULL)
-    {
-        colVisScene = ColladaVisualScene::create(visScene, getGlobal());
-        addElement(colVisScene);
-        
-        colVisScene->read();
-    }
-}
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-NodeTransitPtr ColladaInstanceVisualScene::createInstance(void)
-{
-    OSG_COLLADA_LOG(("ColladaInstanceVisualScene::createInstance:\n"));
-    
-    NodeTransitPtr           retVal;
-    domVisual_sceneRef       visScene    =
-        getInstDOMElementAs<domVisual_scene>();
-    ColladaVisualSceneRefPtr colVisScene =
-        getUserDataAs<ColladaVisualScene>(visScene);
-    
-    if(colVisScene->_instCount == 0)
-    {
-        ++colVisScene->_instCount;
+    typedef ColladaElement                          Inherited;
+    typedef ColladaInstantiableElement              Self;
 
-        retVal = colVisScene->getNode();
-    }
-    else
-    {
-        ++colVisScene->_instCount;
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    typedef TransitPtr <Self                      > ObjTransitPtr;
 
-        retVal = cloneTree(colVisScene->getNode());
-    }
-    
-    return retVal;
-}
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
 
-ColladaInstanceVisualScene::ColladaInstanceVisualScene(
-    daeElement *elem, ColladaGlobal *global)
-    
-    : Inherited(elem, global)
-{
-}
+    virtual void read(void) = 0;
 
-ColladaInstanceVisualScene::~ColladaInstanceVisualScene(void)
-{
-}
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+
+             ColladaInstantiableElement(daeElement *elem,
+                                        ColladaGlobal *global);
+    virtual ~ColladaInstantiableElement(void                 ) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    UInt32 _instCount;
+};
+
+typedef ColladaInstantiableElement::ObjRefPtr
+    ColladaInstantiableElementRefPtr;
+typedef ColladaInstantiableElement::ObjTransitPtr
+    ColladaInstantiableElementTransitPtr;
 
 OSG_END_NAMESPACE
 
 #endif // OSG_WITH_COLLADA
+
+#endif // _OSGCOLLADAINSTANTIABLEELEMENT_H_

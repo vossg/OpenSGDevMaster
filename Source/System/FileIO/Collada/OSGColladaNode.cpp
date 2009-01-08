@@ -68,6 +68,9 @@ void ColladaNode::read(void)
     
     domNodeRef node = getDOMElementAs<domNode>();
     
+    OSG_COLLADA_LOG(("ColladaNode::read: [%s]\n",
+                     (node->getName() ? node->getName() : "")));
+    
     _transNode = Node::create();
     
     if(node->getName() != NULL)

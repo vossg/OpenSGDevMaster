@@ -51,7 +51,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include <OSGFileIODef.h>
-#include <OSGColladaElement.h>
+#include <OSGColladaInstantiableElement.h>
 
 #include <OSGNode.h>
 #include <OSGTransform.h>
@@ -67,14 +67,16 @@ class domInstance_node;
 class domInstance_geometry;
 class domNode;
 
-class ColladaGlobal;
-
 OSG_BEGIN_NAMESPACE
 
-class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaElement
+class ColladaGlobal;
+class ColladaInstanceNode;
+
+
+class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
 {
   public:
-    typedef ColladaElement                          Inherited;
+    typedef ColladaInstantiableElement              Inherited;
     typedef ColladaNode                             Self;
     
     typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
@@ -87,6 +89,8 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaElement
     inline Node *getNode(void) const;
     
   protected:
+    friend class ColladaInstanceNode;
+
     NodeUnrecPtr      _transNode;
     TransformUnrecPtr _trans;
     

@@ -73,6 +73,11 @@ void ColladaInstanceNode::read(void)
         
         colNode->read();
     }
+    
+    OSG_COLLADA_LOG(("ColladaInstanceNode::read: [%s] instancing [%s] [%s]\n",
+                     (instNode->getName() ? instNode->getName() : ""),
+                     instNode->getUrl().str().c_str(),
+                     (node->getName() ? node->getName() : "") ));
 }
 
 NodeTransitPtr ColladaInstanceNode::createInstance(void)
@@ -83,15 +88,15 @@ NodeTransitPtr ColladaInstanceNode::createInstance(void)
     domNodeRef        node    = getInstDOMElementAs<domNode>();
     ColladaNodeRefPtr colNode = getUserDataAs<ColladaNode>(node);
     
-    if(_instCount == 0)
+    if(colNode->_instCount == 0)
     {
-        ++_instCount;
+        ++colNode->_instCount;
 
         retVal = colNode->getNode();
     }
     else
     {
-        ++_instCount;
+        ++colNode->_instCount;
 
         retVal = cloneTree(colNode->getNode());
     }
