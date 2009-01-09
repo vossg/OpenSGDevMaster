@@ -41,8 +41,12 @@
 #include "OSGFieldContainerMFields.h"
 #include "OSGAttachment.h"
 #include "OSGAttachmentMapSFields.h"
+#include "OSGNameAttachment.h"
 
+#include <boost/bind.hpp>
 #include <boost/format.hpp>
+
+#include <ostream>
 
 OSG_BEGIN_NAMESPACE
 
@@ -61,34 +65,34 @@ bool comparePointerFields(
     bool              compareIdentity                      )
 {
     bool returnValue = true;
-    
+
     SFAttachmentPtrMap::GetHandlePtr  lhsAMHandle =
         boost::dynamic_pointer_cast<SFAttachmentPtrMap::GetHandle>(
             lhsField);
     SFAttachmentPtrMap::GetHandlePtr  rhsAMHandle =
         boost::dynamic_pointer_cast<SFAttachmentPtrMap::GetHandle>(
             rhsField);
-    
+
     FieldContainerPtrSFieldBase::GetHandlePtr lhsSFHandle =
         boost::dynamic_pointer_cast<
             FieldContainerPtrSFieldBase::GetHandle>(lhsField);
     FieldContainerPtrSFieldBase::GetHandlePtr rhsSFHandle =
         boost::dynamic_pointer_cast<
             FieldContainerPtrSFieldBase::GetHandle>(rhsField);
-    
+
     FieldContainerPtrMFieldBase::GetHandlePtr lhsMFHandle =
         boost::dynamic_pointer_cast<
             FieldContainerPtrMFieldBase::GetHandle>(lhsField);
     FieldContainerPtrMFieldBase::GetHandlePtr rhsMFHandle =
         boost::dynamic_pointer_cast<
             FieldContainerPtrMFieldBase::GetHandle>(rhsField);
-    
+
     if(lhsAMHandle != NULL && lhsAMHandle->isValid() &&
        rhsAMHandle != NULL && rhsAMHandle->isValid()   )
     {
         const AttachmentMap &lhsAM = (*lhsAMHandle)->getValue();
         const AttachmentMap &rhsAM = (*rhsAMHandle)->getValue();
-        
+
         if(lhsAM.size() != rhsAM.size())
         {
             returnValue = false;
@@ -97,10 +101,10 @@ bool comparePointerFields(
         {
             AttachmentMap::const_iterator lhsAMIt  = lhsAM.begin();
             AttachmentMap::const_iterator lhsAMEnd = lhsAM.end  ();
-            
+
             AttachmentMap::const_iterator rhsAMIt  = rhsAM.begin();
             AttachmentMap::const_iterator rhsAMEnd = rhsAM.end  ();
-            
+
             for(; lhsAMIt != lhsAMEnd && returnValue == true; ++lhsAMIt, ++rhsAMIt)
             {
                 returnValue = compareContainerEqual(
@@ -134,7 +138,7 @@ bool comparePointerFields(
             }
         }
     }
-    
+
     return returnValue;
 }
 
@@ -156,48 +160,48 @@ bool compareContainerEqual(
     // compare pointers
     if(lhs == rhs)
         return true;
-    
+
     if(lhs == NULL || rhs == NULL)
         return false;
-    
+
     // different types ?
     if(lhs->getType() != rhs->getType())
         return false;
-    
+
     UInt32 lhsFCount = lhs->getType().getNumFieldDescs();
     UInt32 rhsFCount = rhs->getType().getNumFieldDescs();
-    
+
     // different number of (dynamic) fields ?
     if(lhsFCount != rhsFCount)
         return false;
-    
+
     bool returnValue = true;
-    
+
     for(UInt32 i = 1; i <= lhsFCount && returnValue == true; ++i)
     {
         GetFieldHandlePtr lhsField = lhs->getField(i);
         GetFieldHandlePtr rhsField = rhs->getField(i);
-        
+
         // valid handles ?
         if(lhsField == NULL || lhsField->isValid() == false ||
            rhsField == NULL || rhsField->isValid() == false   )
             continue;
-        
+
         if(lhsField->getType() != rhsField->getType())
         {
             returnValue = false;
             continue;
         }
-        
+
         // skip internal and parent fields
         if(lhsField->isInternal()            == true                      ||
            lhsField->getType   ().getClass() == FieldType::ParentPtrField   )
             continue;
-        
+
         // skip attachments, if the option is set
         if(ignoreAttachments && lhsField->getName() == "attachments")
             continue;
-        
+
         if(compareIdentity == true)
         {
             if(lhsField->equal(rhsField) == false)
@@ -217,24 +221,28 @@ bool compareContainerEqual(
             }
         }
     }
-    
+
     return returnValue;
 }
+
+//---------------------------------------------------------------------------
+//  MemoryConsumption
+//---------------------------------------------------------------------------
 
 void MemoryConsumption::scan(void)
 {
     UInt32 numCont = FieldContainerFactory::the()->getNumContainers();
-    
+
     for(UInt32 i = 0; i < numCont; ++i)
     {
         FieldContainer *pFC = FieldContainerFactory::the()->getContainer(i);
-        
+
         if(pFC == NULL)
             continue;
-        
+
         TypeMemMapIt tmIt    = _memMap.find(pFC->getType().getId());
         UInt32       binSize = pFC->getBinSize(TypeTraits<BitVector>::BitsSet);
-        
+
         if(tmIt != _memMap.end())
         {
             tmIt->second.first  += binSize;
@@ -256,27 +264,27 @@ void MemoryConsumption::print(std::ostream &os, bool ignoreProto) const
     UInt32        totalMem   = 0;
     UInt32        totalCount = 0;
     boost::format formatter("%|1$-25| [%|2$8|] Byte [%|3$8.0f|] kByte [%|4$4|]\n");
-    
+
     for(; tmIt != tmEnd; ++tmIt)
     {
         FieldContainerType *fcType =
             FieldContainerFactory::the()->findType(tmIt->first);
-        
+
         if(fcType == NULL)
             continue;
-        
+
         if(ignoreProto && tmIt->second.second == 1)
             continue;
-        
+
         os << formatter % fcType->getCName()
                         % tmIt->second.first
                         % (tmIt->second.first / 1024.f)
                         % tmIt->second.second;
-        
+
         totalMem   += tmIt->second.first;
         totalCount += tmIt->second.second;
     }
-    
+
     os << "--------------------------------------------\n";
     os << formatter % "Total"
                     % totalMem
@@ -292,6 +300,125 @@ MemoryConsumption::TypeMemMapConstIt MemoryConsumption::beginMap(void) const
 MemoryConsumption::TypeMemMapConstIt MemoryConsumption::endMap(void) const
 {
     return _memMap.end();
+}
+
+//---------------------------------------------------------------------------
+//  SceneGraphPrinter
+//---------------------------------------------------------------------------
+
+SceneGraphPrinter::SceneGraphPrinter(Node *root)
+    : _pRoot  (root),
+      _pStream(NULL),
+      _indent (0)
+{
+    // nothing to do
+}
+
+void SceneGraphPrinter::printDownTree(std::ostream &os)
+{
+    _pStream = &os;
+    _indent  = 0;
+
+    traverse(_pRoot,
+             boost::bind(&Self::traverseEnter, this, _1    ),
+             boost::bind(&Self::traverseLeave, this, _1, _2) );
+
+    os << std::flush;
+}
+
+void SceneGraphPrinter::printUpTree(std::ostream &os)
+{
+    _pStream = &os;
+    _indent  = 0;
+
+    Node *node = _pRoot;
+
+    while(node != NULL)
+    {
+        NodeCore *core = node->getCore();
+
+        os <<      "[" << node
+           <<    "] [" << (getName(node) ? getName(node) : "<unnamed>")
+           << "] -- [" << core
+           <<    "] [" << core->getType().getCName()
+           << "]\n";
+
+        node = node->getParent();
+    }
+}
+
+Action::ResultE SceneGraphPrinter::traverseEnter(Node *node)
+{
+    if(node == NULL)
+        return Action::Continue;
+
+    std::ostream &os = *_pStream;
+    incIndent();
+
+    indentStream(os)
+            <<   "[" << node
+            << "] [" << (getName(node) ? getName(node) : "<unnamed>")
+            << "]";
+
+    NodeCore *pCore = node->getCore();
+
+    if(pCore == NULL)
+    {
+        os << "\n";
+        return Action::Continue;
+    }
+
+    os << " -- [" << pCore << "]"
+       <<    " [" << pCore->getType().getCName() << "]";
+
+    os << " [" << (getName(pCore) ? getName(pCore) : "<unnamed>")
+       << "]";
+
+    NodeCore::MFParentsType::const_iterator pIt  = pCore->getParents().begin();
+    NodeCore::MFParentsType::const_iterator pEnd = pCore->getParents().end  ();
+
+    os << " --";
+
+    for(; pIt != pEnd; ++pIt)
+    {
+        Node *parent = dynamic_cast<Node *>(*pIt);
+        
+        os <<  " [" << *pIt
+           << "] [" << (getName(parent) ? getName(parent) : "<unnamed>")
+           << "]";
+    }
+
+    os << "\n";
+    return Action::Continue;
+}
+
+Action::ResultE SceneGraphPrinter::traverseLeave(
+    Node *node, Action::ResultE res)
+{
+    if(node == NULL)
+        return Action::Continue;
+
+    decIndent();
+
+    return Action::Continue;
+}
+
+void SceneGraphPrinter::incIndent(void)
+{
+    _indent += 2;
+}
+
+void SceneGraphPrinter::decIndent(void)
+{
+    _indent -= 2;
+}
+
+std::ostream &SceneGraphPrinter::indentStream(std::ostream &os)
+{
+    for(UInt32 i = 0; i < _indent; ++i)
+        os << " ";
+
+    return os;
 }
 
 OSG_END_NAMESPACE

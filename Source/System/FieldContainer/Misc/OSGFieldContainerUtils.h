@@ -45,6 +45,9 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 #include "OSGFieldContainer.h"
+#include "OSGAction.h"
+
+#include <iosfwd>
 
 OSG_BEGIN_NAMESPACE
 
@@ -53,6 +56,10 @@ bool compareContainerEqual(const FieldContainer *lhs,
                            const FieldContainer *rhs,
                                  bool            ignoreAttachments = true,
                                  bool            compareIdentity   = false);
+
+//---------------------------------------------------------------------------
+//  MemoryConsumption
+//---------------------------------------------------------------------------
 
 class OSG_SYSTEM_DLLMAPPING MemoryConsumption
 {
@@ -74,6 +81,34 @@ class OSG_SYSTEM_DLLMAPPING MemoryConsumption
   private:
     TypeMemMap _memMap;
 };
+
+//---------------------------------------------------------------------------
+//  SceneGraphPrinter
+//---------------------------------------------------------------------------
+
+class OSG_SYSTEM_DLLMAPPING SceneGraphPrinter
+{
+  public:
+    typedef SceneGraphPrinter Self;
+
+    SceneGraphPrinter(Node *root);
+
+    void printDownTree(std::ostream &os);
+    void printUpTree  (std::ostream &os);
+
+  private:
+    Node         *_pRoot;
+    std::ostream *_pStream;
+    UInt32        _indent;
+
+    Action::ResultE traverseEnter(Node *node                     );
+    Action::ResultE traverseLeave(Node *node, Action::ResultE res);
+
+    void          incIndent   (void            );
+    void          decIndent   (void            );
+    std::ostream &indentStream(std::ostream &os);
+};
+
 
 OSG_END_NAMESPACE
 
