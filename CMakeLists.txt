@@ -19,6 +19,9 @@ IF("${OpenSG_SOURCE_DIR}"  STREQUAL "${OpenSG_BINARY_DIR}")
                       "CMake there.")
 ENDIF("${OpenSG_SOURCE_DIR}"  STREQUAL "${OpenSG_BINARY_DIR}")
 
+##############################################################################
+# BUILD OPTIONS
+##############################################################################
 
 OPTION(OSG_VERBOSE_BUILD_MESSAGES "Print verbose messages when generating the build system" OFF)
 MARK_AS_ADVANCED(OSG_VERBOSE_BUILD_MESSAGES)
@@ -50,6 +53,10 @@ ENDIF()
 OPTION(OSGCOMPAT_ENABLE                  "" OFF)
 OPTION(OSGCOMPAT_ENABLE_DEPRECATED       "" OFF)
 OPTION(OSGCOMPAT_ENABLE_DEPRECATED_PROPS "" OFF)
+
+OPTION(OSG_ENABLE_DOXY_DOC "Build the doxygen documentation - this has to be enabled each time cmake is run!" OFF)
+SET(OSG_DOXY_DOC_TYPE "User" CACHE STRING
+    "The type of documentation to generate (User, Developer, Trac)")
 
 # Not sure
 #OPTION(OSG_ENABLE_MTCPTR "" ON)
@@ -153,6 +160,10 @@ IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
     SET(OSG_LIBDIR_SUFFIX "${OSG_LIBDIR_SUFFIX}/debugrt")
 
 ENDIF()
+
+##############################################################################
+# DEPENDENCIES
+##############################################################################
 
 ##########
 #### boost
@@ -358,9 +369,25 @@ IF(UNIX)
    FIND_LIBRARY(OSG_DL_LIB     NAMES dl)
 ENDIF(UNIX)
 
-########
+###############
+#### Doxygen
+###############
+
+FIND_PACKAGE(Doxygen)
+
+##############################################################################
+# MAIN BUILD STEPS
+##############################################################################
+
+SET(OSG_CMAKE_PASSES "OSGCOLLECT" "OSGSETUP" "OSGSETUPTEST")
+
+SET(OSG_PASSDIR_OSGCOLLECT           "")
+SET(OSG_PASSDIR_OSGSETUP             "")
+SET(OSG_PASSDIR_OSGSETUPTEST         "Test")
+
+###############
 # Clean
-########
+###############
 
 FILE(GLOB OSG_OLD_CONFIG_FILES  ${CMAKE_BINARY_DIR}/*.cmake)
 
@@ -368,15 +395,59 @@ IF(OSG_OLD_CONFIG_FILES)
     FILE(REMOVE ${OSG_OLD_CONFIG_FILES})
 ENDIF(OSG_OLD_CONFIG_FILES)
 
-##############################################################################
-# MAIN BUILD LOOP
-##############################################################################
+#################
+# Documentation I
+#################
 
-SET(OSG_CMAKE_PASSES "OSGCOLLECT" "OSGSETUP" "OSGSETUPTEST")
+IF(OSG_ENABLE_DOXY_DOC)
 
-SET(OSG_PASSDIR_OSGCOLLECT   "")
-SET(OSG_PASSDIR_OSGSETUP     "")
-SET(OSG_PASSDIR_OSGSETUPTEST "Test")
+    LIST(APPEND OSG_CMAKE_PASSES "OSGDOXYDOC")
+    SET(OSG_PASS_DIR_OSGDOXYDOC "Doc")
+
+    # set up variables
+    IF(DOXYGEN_DOT_EXECUTABLE)
+        SET(OSG_DOXY_HAVE_DOT "YES")
+    ENDIF(DOXYGEN_DOT_EXECUTABLE)
+
+    SET(OSG_DOXY_CONFIGURATION_FILE_IN "${CMAKE_SOURCE_DIR}/Doc/opensg-doxy.in")
+    SET(OSG_DOXY_CONFIGURATION_FILE    "${CMAKE_BINARY_DIR}/Doc/opensg-doxy")
+
+    IF(OSG_DOXY_DOC_TYPE STREQUAL "User")
+        SET(OSG_DOXY_FULL_PATH_NAMES "YES")
+        SET(OSG_DOXY_STRIP_FROM_PATH "${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}")
+        SET(OSG_DOXY_INTERNAL_DOCS "NO")
+        SET(OSG_DOXY_STRIP_CODE_COMMENTS "YES")
+        SET(OSG_DOXY_GENERATE_TREEVIEW "NO")
+        SET(OSG_DOXY_SEARCHENGINE "NO")
+
+    ELSEIF(OSG_DOXY_DOC_TYPE STREQUAL "Developer")
+        SET(OSG_DOXY_FULL_PATH_NAMES "YES")
+        SET(OSG_DOXY_STRIP_FROM_PATH "${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}")
+        SET(OSG_DOXY_INTERNAL_DOCS "YES")
+        SET(OSG_DOXY_STRIP_CODE_COMMENTS "NO")
+        SET(OSG_DOXY_GENERATE_TREEVIEW "YES")
+        SET(OSG_DOXY_SEARCHENGINE "NO")
+
+    ELSEIF(OSG_DOXY_DOC_TYPE STREQUAL "Trac")
+        SET(OSG_DOXY_FULL_PATH_NAMES "NO")
+        SET(OSG_DOXY_INTERNAL_DOCS "NO")
+        SET(OSG_DOXY_STRIP_CODE_COMMENTS "YES")
+        SET(OSG_DOXY_HAVE_DOT "NO")
+        SET(OSG_DOXY_GENERATE_TREEVIEW "NO")
+        SET(OSG_DOXY_HTML_HEADER "${CMAKE_SOURCE_DIR}/Doc/TracHeader.html")
+        SET(OSG_DOXY_HTML_FOOTER "${CMAKE_SOURCE_DIR}/Doc/TracFooter.html")
+        SET(OSG_DOXY_SEARCHENGINE "YES")
+    ENDIF(OSG_DOXY_DOC_TYPE STREQUAL "User")
+
+    # write doxygen config file
+    CONFIGURE_FILE("${OSG_DOXY_CONFIGURATION_FILE_IN}"
+                   "${OSG_DOXY_CONFIGURATION_FILE}")
+
+ENDIF(OSG_ENABLE_DOXY_DOC)
+
+###############
+# Passes
+###############
 
 # Find files describing libraries to build
 FILE(GLOB_RECURSE OSG_LIBRARY_CONFIG_FILES RELATIVE "${CMAKE_SOURCE_DIR}"
@@ -401,12 +472,25 @@ ENDFOREACH()
 # OSGConfigured
 ###############
 
-CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/OSGConfigured.h.cmake
-               ${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h.tmp)
-
-FIND_PROGRAM(CMAKE_EXE cmake)
+CONFIGURE_FILE("${CMAKE_SOURCE_DIR}/OSGConfigured.h.cmake"
+               "${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h.tmp")
 
 EXECUTE_PROCESS(
-    COMMAND cmake -E copy_if_different
-                     ${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h.tmp
-                     ${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h)
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+                     "${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h.tmp"
+                     "${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h")
+
+##################
+# Documentation II
+##################
+
+IF(OSG_ENABLE_DOXY_DOC)
+    # run doxygen
+    EXECUTE_PROCESS(
+        COMMAND "${DOXYGEN_EXECUTABLE}" "${OSG_DOXY_CONFIGURATION_FILE}")
+
+    # force the variable to off - prevent rebuilding the doc if you only want
+    # to recompile the lib.
+    SET(OSG_ENABLE_DOXY_DOC "OFF" CACHE BOOL
+        "Build the doxygen documentation - this has to be enabled each time cmake is run!" FORCE)
+ENDIF(OSG_ENABLE_DOXY_DOC)

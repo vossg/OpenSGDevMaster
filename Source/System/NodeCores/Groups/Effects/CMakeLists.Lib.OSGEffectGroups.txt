@@ -42,13 +42,7 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/Projectors")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Groups/Effects/ShadowStage")
 
 ##############################################################################
-# setup library build
+# setup build
 ##############################################################################
 
 OSG_SETUP_PROJECT("OSG_COMPILEEFFECTGROUPSLIB")
-
-##############################################################################
-# setup test build
-##############################################################################
-
-OSG_SETUP_TEST_PROJECT()

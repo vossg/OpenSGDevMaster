@@ -40,13 +40,7 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 OSG_ADD_DIRECTORY("Source/WindowSystem/WIN32")
 
 ##############################################################################
-# setup library build
+# setup build
 ##############################################################################
 
 OSG_SETUP_PROJECT("OSG_COMPILEWINDOWWIN32LIB")
-
-##############################################################################
-# setup test build
-##############################################################################
-
-OSG_SETUP_TEST_PROJECT()

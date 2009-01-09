@@ -38,13 +38,7 @@ OSG_ADD_DIRECTORY("Source/System/State/NVidia")
 OSG_ADD_DIRECTORY("Source/System/State/Auxiliary")
 
 ##############################################################################
-# setup library build
+# setup build
 ##############################################################################
 
 OSG_SETUP_PROJECT("OSG_COMPILESTATELIB")
-
-##############################################################################
-# setup test build
-##############################################################################
-
-OSG_SETUP_TEST_PROJECT()

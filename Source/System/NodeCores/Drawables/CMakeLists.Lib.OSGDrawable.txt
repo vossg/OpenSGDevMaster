@@ -50,13 +50,7 @@ OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Terrain")
 OSG_ADD_DIRECTORY("Source/System/NodeCores/Drawables/Terrain/QuadTree")
 
 ##############################################################################
-# setup library build
+# setup build
 ##############################################################################
 
 OSG_SETUP_PROJECT("OSG_COMPILEDRAWABLELIB")
-
-##############################################################################
-# setup test build
-##############################################################################
-
-OSG_SETUP_TEST_PROJECT()

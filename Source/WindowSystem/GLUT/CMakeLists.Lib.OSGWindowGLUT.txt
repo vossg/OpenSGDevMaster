@@ -48,13 +48,7 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 OSG_ADD_DIRECTORY("Source/WindowSystem/GLUT")
 
 ##############################################################################
-# setup library build
+# setup build
 ##############################################################################
 
 OSG_SETUP_PROJECT("OSG_COMPILEWINDOWGLUTLIB")
-
-##############################################################################
-# setup test build
-##############################################################################
-
-OSG_SETUP_TEST_PROJECT()

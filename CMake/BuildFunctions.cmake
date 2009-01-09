@@ -192,7 +192,7 @@ ENDFUNCTION(OSG_ADD_DIRECTORY)
 #############################################################################
 # perform default actions for pass OSGSETUP
 
-FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
+FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
     IF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGSETUP")
         RETURN()
@@ -361,12 +361,12 @@ FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
                         GROUP_READ
                         WORLD_READ)
 
-ENDFUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
+ENDFUNCTION(OSG_SETUP_LIBRARY_BUILD)
 
 #############################################################################
 # perform default actions for pass OSGSETUPTEST
 
-FUNCTION(OSG_SETUP_TEST_PROJECT)
+FUNCTION(OSG_SETUP_TEST_BUILD)
 
     IF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGSETUPTEST")
         RETURN()
@@ -432,4 +432,47 @@ FUNCTION(OSG_SETUP_TEST_PROJECT)
         TARGET_LINK_LIBRARIES(${EXE} ${PROJECT_NAME})
     ENDFOREACH(EXE_SRC)
 
-ENDFUNCTION(OSG_SETUP_TEST_PROJECT)
+ENDFUNCTION(OSG_SETUP_TEST_BUILD)
+
+#############################################################################
+# perform default actions for pass OSGDOXYDOC
+
+FUNCTION(OSG_SETUP_DOXYDOC)
+    IF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGDOXYDOC")
+        RETURN()
+    ENDIF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGDOXYDOC")
+
+    INCLUDE(${${PROJECT_NAME}_CONFIG_FILE})
+
+    FILE(APPEND ${OSG_DOXY_CONFIGURATION_FILE}
+        "#############################################################################\n"
+        )
+    FILE(APPEND ${OSG_DOXY_CONFIGURATION_FILE}
+        "# doc input files for ${PROJECT_NAME}\n\n"
+        )
+
+    FOREACH(INCDIR ${${PROJECT_NAME}_INC})
+        FILE(APPEND ${OSG_DOXY_CONFIGURATION_FILE}
+            "INPUT += ${INCDIR}\n")
+    ENDFOREACH(INCDIR)
+
+    FILE(APPEND ${OSG_DOXY_CONFIGURATION_FILE} "\n")
+
+ENDFUNCTION(OSG_SETUP_DOXYDOC)
+
+#############################################################################
+# perform default actions for build passes
+
+FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
+    IF(OSG_CMAKE_PASS STREQUAL "OSGSETUP")
+        OSG_SETUP_LIBRARY_BUILD(${PROJ_DEFINE})
+
+    ELSEIF(OSG_CMAKE_PASS STREQUAL "OSGSETUPTEST")
+        OSG_SETUP_TEST_BUILD()
+
+    ELSEIF(OSG_CMAKE_PASS STREQUAL "OSGDOXYDOC")
+        OSG_SETUP_DOXYDOC()
+
+    ENDIF(OSG_CMAKE_PASS STREQUAL "OSGSETUP")
+
+ENDFUNCTION(OSG_SETUP_PROJECT)

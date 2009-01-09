@@ -36,13 +36,7 @@ OSG_ADD_DIRECTORY("Source/System/Window/Foreground")
 OSG_ADD_DIRECTORY("Source/System/Window/Viewport")
 
 ##############################################################################
-# setup library build
+# setup build
 ##############################################################################
 
 OSG_SETUP_PROJECT("OSG_COMPILEWINDOWLIB")
-
-##############################################################################
-# setup test build
-##############################################################################
-
-OSG_SETUP_TEST_PROJECT()
