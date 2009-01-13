@@ -671,8 +671,8 @@ void Geometry::fill(DrawableStatsAttachment *pStat)
 {
     if(pStat == NULL)
     {
-        FINFO(("Geometry::fille StatsAttachment::"
-               "calc: No attachment given.\n"));
+        FINFO(("Geometry::fill(DrawableStatsAttachment *): "
+               "No attachment given.\n"));
 
         return;
     }
