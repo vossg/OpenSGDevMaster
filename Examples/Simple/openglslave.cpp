@@ -65,7 +65,7 @@ bool m_bPaused;
 bool m_bFullscreen, m_bCalibrate = false;
 
 // Load texture into memory
-GLvoid LoadGLTextures(GLvoid) 
+void LoadGLTextures(void) 
 {
     ImageRefPtr image = Image::create();
     if(!image->read("./Data/worldground.jpg"))
@@ -316,7 +316,7 @@ void keyPressed(unsigned char key, int x, int y)
 }
 
 /* The main drawing function. */
-GLvoid DrawGLScene(GLvoid)
+void DrawGLScene(void)
 {
     glMatrixMode(GL_MODELVIEW);
     
