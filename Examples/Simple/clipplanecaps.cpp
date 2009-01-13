@@ -44,6 +44,7 @@ typedef std::vector<ClipPlaneDetails> VecClipPlaneDetailsT;
 
 // global state
 VecClipPlaneDetailsT  vecClipPlaneDetails;
+VecClipPlaneData      vecClipPlaneData;
 SimpleSceneManager   *mgr;
 
 // the number of clipping planes supported by the demo
@@ -132,10 +133,16 @@ void updateClipPlanes(const VecClipPlaneData& vec)
             clipPlaneChunk->setEquation(data._equation);
             clipPlaneChunk->setEnable(data._enabled);
 
-            Matrix mat;
+            Matrix rotMat;
             Vec4f v1(0.f, 0.f, -1.f, 0.f);
             Quaternion q(Vec3f(v1), Vec3f(data._equation));
-            mat.setTransform(q);
+            rotMat.setTransform(q);
+
+            Matrix mat;
+            Vec3f v2(0.0f, 0.0f, data._equation[3]);
+            mat.setTranslate(v2);
+
+            mat.multLeft(rotMat);
 
             Transform *transformCore = dynamic_cast<Transform *>(
                 vecClipPlaneDetails[i]._planeTrafoNode->getCore());
@@ -185,14 +192,61 @@ void motion(int x, int y)
 // react to keys
 void keyboard(unsigned char k, int, int)
 {
+    static Real32 val0 = 0.f;
+    static Real32 val1 = 0.f;
+
     switch(k)
     {
-    case 27:    destroyClipPlaneDetails();
-                delete mgr;
+        case 'a':
+        {
+            vecClipPlaneData[0]._enabled = !vecClipPlaneData[0]._enabled;
+            updateClipPlanes(vecClipPlaneData);
+        }
+        break;
+        case 's':
+        {
+            vecClipPlaneData[1]._enabled = !vecClipPlaneData[1]._enabled;
+            updateClipPlanes(vecClipPlaneData);
+        }
+        break;
+        case 'y':
+        case 'z':
+        {
+            val0 -= 0.2;
+            vecClipPlaneData[0]._equation[3] = val0;
+            updateClipPlanes(vecClipPlaneData);
+        }
+        break;
+        case 'x':
+        {
+            val0 += 0.2;
+            vecClipPlaneData[0]._equation[3] = val0;
+            updateClipPlanes(vecClipPlaneData);
+        }
+        break;
+        case 'n':
+        {
+            val1 -= 0.2;
+            vecClipPlaneData[1]._equation[3] = val1;
+            updateClipPlanes(vecClipPlaneData);
+        }
+        break;
+        case 'm':
+        {
+            val1 += 0.2;
+            vecClipPlaneData[1]._equation[3] = val1;
+            updateClipPlanes(vecClipPlaneData);
+        }
+        break;
 
-                osgExit();
-                exit(0);
-                break;
+        case 27:
+        {
+            destroyClipPlaneDetails();
+            delete mgr;
+
+            osgExit();
+            exit(0);
+        }
     }
 }
 
@@ -263,7 +317,7 @@ int doMain(int argc, char **argv)
     createClipPlaneDetails();
 
 
-    GeometryRefPtr geo1 = makeTorusGeo(0.2, 2, 8, 16);
+    GeometryRefPtr geo1 = makeTorusGeo(0.5, 3, 8, 16);
 
     NodeRefPtr geometryNode = Node::create();
     geometryNode->setCore(geo1);
@@ -361,11 +415,10 @@ int doMain(int argc, char **argv)
     data2._equation = Vec4f(1,0,0,0);
     data2._enabled  = true;
 
-    VecClipPlaneData vecData;
-    vecData.push_back(data1);
-    vecData.push_back(data2);
+    vecClipPlaneData.push_back(data1);
+    vecClipPlaneData.push_back(data2);
 
-    updateClipPlanes(vecData);
+    updateClipPlanes(vecClipPlaneData);
 
     // tell the manager what to manage
     mgr->setRoot(scene);
