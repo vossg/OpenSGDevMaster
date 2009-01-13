@@ -318,7 +318,7 @@ bool HDRImageFileType::checkHDR(std::istream &is, int &width, int &height)
             // directly followed by data
             is.getline(cs, 255);
         
-            i = sscanf(cs, "%s %d %s %d", st1, &height, st2, &width);
+            i = sscanf(cs, "%79s %d %79s %d", st1, &height, st2, &width);
             if (i == 4) 
                 resok = true;
         }
