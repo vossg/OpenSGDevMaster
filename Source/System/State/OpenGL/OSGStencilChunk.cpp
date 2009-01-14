@@ -183,7 +183,7 @@ void StencilChunk::changeFrom(DrawEnv    *pEnv,
     {
         if(old->_sfStencilFunc.getValue() != GL_NONE) 
         {      
-            if(_sfClearBuffer.getValue() == 2)
+            if(old->_sfClearBuffer.getValue() == 2)
             {
                 glClearStencil(0x0);
                 glClear(GL_STENCIL_BUFFER_BIT);
