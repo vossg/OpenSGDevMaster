@@ -60,7 +60,8 @@ IF(MSVC)
     SET(OSG_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} winmm.lib wsock32.lib")
     SET(OSG_C_STANDARD_LIBRARIES "${CMAKE_C_STANDARD_LIBRARIES} winmm.lib wsock32.lib")
 
-    SET(OSG_CLEAR_STD_LIBS winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib)
+    SET(OSG_CLEAR_STD_LIBS winspool.lib shell32.lib ole32.lib oleaut32.lib
+                           uuid.lib comdlg32.lib advapi32.lib msvcprt.lib msvcrt.lib)
 
     FOREACH(STD_LIB ${OSG_CLEAR_STD_LIBS})
         STRING(REPLACE ${STD_LIB} "" OSG_CXX_STANDARD_LIBRARIES ${OSG_CXX_STANDARD_LIBRARIES})
@@ -80,6 +81,47 @@ IF(MSVC)
         CACHE STRING
         "Flags used by the shared libraries linker during maintainer builds."
         FORCE)
+
+    SET(CMAKE_SHARED_LINKER_FLAGS_DEBUG 
+        "${CMAKE_SHARED_LINKER_FLAGS_DEBUG} msvcprt.lib msvcrt.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
+
+    SET(CMAKE_SHARED_LINKER_FLAGS_DEBUGRT 
+        "${CMAKE_SHARED_LINKER_FLAGS_DEBUGRT} msvcprtd.lib msvcrtd.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
+
+    SET(CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL 
+        "${CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL} msvcprt.lib msvcrt.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
+
+    SET(CMAKE_SHARED_LINKER_FLAGS_RELEASE 
+        "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} msvcprt.lib msvcrt.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
+
+    SET(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO 
+        "${CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO} msvcprt.lib msvcrt.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
+
+
+    SET(CMAKE_EXE_LINKER_FLAGS_DEBUG 
+        "${CMAKE_EXE_LINKER_FLAGS_DEBUG} msvcprt.lib msvcrt.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
+
+    SET(CMAKE_EXE_LINKER_FLAGS_DEBUGRT 
+        "${CMAKE_EXE_LINKER_FLAGS_DEBUGRT} msvcprtd.lib msvcrtd.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
+
+    SET(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL 
+        "${CMAKE_EXE_LINKER_FLAGS_MINSIZEREL} msvcprt.lib msvcrt.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
+
+    SET(CMAKE_EXE_LINKER_FLAGS_RELEASE 
+        "${CMAKE_EXE_LINKER_FLAGS_RELEASE} msvcprt.lib msvcrt.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
+
+    SET(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO 
+        "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} msvcprt.lib msvcrt.lib"
+        CACHE STRING "OpenSG defaults" FORCE )
 
 ENDIF(MSVC)
 
