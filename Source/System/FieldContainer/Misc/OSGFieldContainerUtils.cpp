@@ -47,6 +47,7 @@
 #include <boost/format.hpp>
 
 #include <ostream>
+#include <set>
 
 OSG_BEGIN_NAMESPACE
 
@@ -55,105 +56,25 @@ namespace
     // anonymous namespace for implementation details of the compareContainer
     // function.
 
-/*! Compares two PointerFields \a lhsField and \a rhsField by recursively
-    comparing the pointed-to containers.
-    This function is only used in \c compareContainer below.
- */
+typedef std::set<const FieldContainer *> FCSet;
+
+// forward declarations
 bool comparePointerFields(
-    GetFieldHandlePtr lhsField, GetFieldHandlePtr rhsField,
-    bool              ignoreAttachments,
-    bool              compareIdentity                      )
-{
-    bool returnValue = true;
+    GetFieldHandlePtr  lhsField,
+    GetFieldHandlePtr  rhsField,
+    FCSet             &lhsVisitedSet,
+    FCSet             &rhsVisitedSet,
+    bool               ignoreAttachments,
+    bool               compareIdentity   );
 
-    SFAttachmentPtrMap::GetHandlePtr  lhsAMHandle =
-        boost::dynamic_pointer_cast<SFAttachmentPtrMap::GetHandle>(
-            lhsField);
-    SFAttachmentPtrMap::GetHandlePtr  rhsAMHandle =
-        boost::dynamic_pointer_cast<SFAttachmentPtrMap::GetHandle>(
-            rhsField);
-
-    FieldContainerPtrSFieldBase::GetHandlePtr lhsSFHandle =
-        boost::dynamic_pointer_cast<
-            FieldContainerPtrSFieldBase::GetHandle>(lhsField);
-    FieldContainerPtrSFieldBase::GetHandlePtr rhsSFHandle =
-        boost::dynamic_pointer_cast<
-            FieldContainerPtrSFieldBase::GetHandle>(rhsField);
-
-    FieldContainerPtrMFieldBase::GetHandlePtr lhsMFHandle =
-        boost::dynamic_pointer_cast<
-            FieldContainerPtrMFieldBase::GetHandle>(lhsField);
-    FieldContainerPtrMFieldBase::GetHandlePtr rhsMFHandle =
-        boost::dynamic_pointer_cast<
-            FieldContainerPtrMFieldBase::GetHandle>(rhsField);
-
-    if(lhsAMHandle != NULL && lhsAMHandle->isValid() &&
-       rhsAMHandle != NULL && rhsAMHandle->isValid()   )
-    {
-        const AttachmentMap &lhsAM = (*lhsAMHandle)->getValue();
-        const AttachmentMap &rhsAM = (*rhsAMHandle)->getValue();
-
-        if(lhsAM.size() != rhsAM.size())
-        {
-            returnValue = false;
-        }
-        else
-        {
-            AttachmentMap::const_iterator lhsAMIt  = lhsAM.begin();
-            AttachmentMap::const_iterator lhsAMEnd = lhsAM.end  ();
-
-            AttachmentMap::const_iterator rhsAMIt  = rhsAM.begin();
-            AttachmentMap::const_iterator rhsAMEnd = rhsAM.end  ();
-
-            for(; lhsAMIt != lhsAMEnd && returnValue == true; ++lhsAMIt, ++rhsAMIt)
-            {
-                returnValue = compareContainerEqual(
-                    lhsAMIt->second, rhsAMIt->second,
-                    ignoreAttachments, compareIdentity);
-            }
-        }
-    }
-    else if(lhsSFHandle != NULL && lhsSFHandle->isValid() &&
-            rhsSFHandle != NULL && rhsSFHandle->isValid()   )
-    {
-        returnValue = compareContainerEqual(
-            lhsSFHandle->get(), rhsSFHandle->get(),
-            ignoreAttachments, compareIdentity     );
-    }
-    else if(lhsMFHandle != NULL && lhsMFHandle->isValid() &&
-            rhsMFHandle != NULL && rhsMFHandle->isValid()   )
-    {
-        if(lhsMFHandle->size() != rhsMFHandle->size())
-        {
-            returnValue = false;
-        }
-        else
-        {
-            for(UInt32 i = 0; i < lhsMFHandle->size() && returnValue == true;
-                ++i)
-            {
-                returnValue = compareContainerEqual(
-                    lhsMFHandle->get(i), rhsMFHandle->get(i),
-                    ignoreAttachments, compareIdentity       );
-            }
-        }
-    }
-
-    return returnValue;
-}
-
-} // namespace
-
-/*! Compares two FieldContainer \a lhs and \a rhs for equivalence. The meaning
-    of this comparison can be tweaked with the additional arguments.
-    If \a ignoreAttachments is \c true, Attachments are excluded from the
-    comparison.
-    If \a compareIdentity is \c true, pointers are compared by
-    address otherwise the pointed-to objects are compared for equivalence.
+/*! Implementation of \c compareContainerEqual. The two \c FCSet parameters
+    keep track of visited fields in each hierarchy to avoid looping.
  */
-bool compareContainerEqual(
+bool compareContainerEqualImpl(
     const FieldContainer *lhs,
     const FieldContainer *rhs,
+          FCSet          &lhsVisitedSet,
+          FCSet          &rhsVisitedSet,
           bool            ignoreAttachments,
           bool            compareIdentity   )
 {
@@ -174,6 +95,9 @@ bool compareContainerEqual(
     // different number of (dynamic) fields ?
     if(lhsFCount != rhsFCount)
         return false;
+
+    lhsVisitedSet.insert(lhs);
+    rhsVisitedSet.insert(rhs);
 
     bool returnValue = true;
 
@@ -198,10 +122,6 @@ bool compareContainerEqual(
            lhsField->getType   ().getClass() == FieldType::ParentPtrField   )
             continue;
 
-        // skip attachments, if the option is set
-        if(ignoreAttachments && lhsField->getName() == "attachments")
-            continue;
-
         if(compareIdentity == true)
         {
             if(lhsField->equal(rhsField) == false)
@@ -212,7 +132,9 @@ bool compareContainerEqual(
             if(lhsField->isPointerField() == true)
             {
                 returnValue = comparePointerFields(
-                    lhsField, rhsField, ignoreAttachments, compareIdentity);
+                    lhsField,          rhsField,
+                    lhsVisitedSet,     rhsVisitedSet,
+                    ignoreAttachments, compareIdentity);
             }
             else
             {
@@ -223,6 +145,149 @@ bool compareContainerEqual(
     }
 
     return returnValue;
+}
+
+/*! Compares two PointerFields \a lhsField and \a rhsField by recursively
+    comparing the pointed-to containers.
+    This function is only used in \c compareContainer below.
+ */
+bool comparePointerFields(
+    GetFieldHandlePtr  lhsField,
+    GetFieldHandlePtr  rhsField,
+    FCSet             &lhsVisitedSet,
+    FCSet             &rhsVisitedSet,
+    bool               ignoreAttachments,
+    bool               compareIdentity   )
+{
+    bool returnValue = true;
+
+    if(lhsField->getCardinality() == FieldType::SingleField)
+    {
+        FieldContainerPtrSFieldBase::GetHandlePtr lhsSFHandle =
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrSFieldBase::GetHandle>(lhsField);
+        FieldContainerPtrSFieldBase::GetHandlePtr rhsSFHandle =
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrSFieldBase::GetHandle>(rhsField);
+
+        if(lhsSFHandle != NULL && lhsSFHandle->isValid() &&
+           rhsSFHandle != NULL && rhsSFHandle->isValid()   )
+        {
+            if(lhsVisitedSet.count(lhsSFHandle->get()) == 0 ||
+               rhsVisitedSet.count(rhsSFHandle->get()) == 0   )
+            {
+                returnValue = compareContainerEqualImpl(
+                    lhsSFHandle->get(), rhsSFHandle->get(),
+                    lhsVisitedSet,      rhsVisitedSet,
+                    ignoreAttachments,  compareIdentity     );
+            }
+        }
+        else
+        {
+            SFAttachmentPtrMap::GetHandlePtr  lhsAMHandle =
+                boost::dynamic_pointer_cast<SFAttachmentPtrMap::GetHandle>(
+                    lhsField);
+            SFAttachmentPtrMap::GetHandlePtr  rhsAMHandle =
+                boost::dynamic_pointer_cast<SFAttachmentPtrMap::GetHandle>(
+                    rhsField);
+
+            if(lhsAMHandle != NULL && lhsAMHandle->isValid() &&
+            rhsAMHandle != NULL && rhsAMHandle->isValid()   )
+            {
+                const AttachmentMap &lhsAM = (*lhsAMHandle)->getValue();
+                const AttachmentMap &rhsAM = (*rhsAMHandle)->getValue();
+
+                // skip attachments, if the option is set
+                if(ignoreAttachments)
+                {
+                    returnValue = true;
+                }
+                else if(lhsAM.size() != rhsAM.size())
+                {
+                    returnValue = false;
+                }
+                else
+                {
+                    AttachmentMap::const_iterator lhsAMIt  = lhsAM.begin();
+                    AttachmentMap::const_iterator lhsAMEnd = lhsAM.end  ();
+
+                    AttachmentMap::const_iterator rhsAMIt  = rhsAM.begin();
+                    AttachmentMap::const_iterator rhsAMEnd = rhsAM.end  ();
+
+                    for(; lhsAMIt != lhsAMEnd && returnValue == true;
+                        ++lhsAMIt, ++rhsAMIt)
+                    {
+                        if(lhsVisitedSet.count(lhsAMIt->second) == 0 ||
+                        rhsVisitedSet.count(rhsAMIt->second) == 0   )
+                        {
+                            returnValue = compareContainerEqualImpl(
+                                lhsAMIt->second,   rhsAMIt->second,
+                                lhsVisitedSet,     rhsVisitedSet,
+                                ignoreAttachments, compareIdentity );
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        FieldContainerPtrMFieldBase::GetHandlePtr lhsMFHandle =
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrMFieldBase::GetHandle>(lhsField);
+        FieldContainerPtrMFieldBase::GetHandlePtr rhsMFHandle =
+            boost::dynamic_pointer_cast<
+                FieldContainerPtrMFieldBase::GetHandle>(rhsField);
+
+        if(lhsMFHandle != NULL && lhsMFHandle->isValid() &&
+                rhsMFHandle != NULL && rhsMFHandle->isValid()   )
+        {
+            if(lhsMFHandle->size() != rhsMFHandle->size())
+            {
+                returnValue = false;
+            }
+            else
+            {
+                for(UInt32 i = 0; i           <  lhsMFHandle->size() &&
+                                  returnValue == true;                  ++i)
+                {
+                    if(lhsVisitedSet.count(lhsMFHandle->get(i)) == 0 ||
+                       rhsVisitedSet.count(rhsMFHandle->get(i)) == 0   )
+                    {
+                        returnValue = compareContainerEqualImpl(
+                            lhsMFHandle->get(i), rhsMFHandle->get(i),
+                            lhsVisitedSet,       rhsVisitedSet,
+                            ignoreAttachments,   compareIdentity     );
+                    }
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+} // namespace
+
+/*! Compares two FieldContainer \a lhs and \a rhs for equivalence. The meaning
+    of this comparison can be tweaked with the additional arguments.
+    If \a ignoreAttachments is \c true, Attachments are excluded from the
+    comparison.
+    If \a compareIdentity is \c true, pointers are compared by
+    address otherwise the pointed-to objects are compared for equivalence.
+ */
+bool compareContainerEqual(
+    const FieldContainer *lhs,
+    const FieldContainer *rhs,
+          bool            ignoreAttachments,
+          bool            compareIdentity   )
+{
+    FCSet lhsVisitedSet;
+    FCSet rhsVisitedSet;
+
+    return compareContainerEqualImpl(
+        lhs, rhs, lhsVisitedSet, rhsVisitedSet,
+        ignoreAttachments, compareIdentity     );
 }
 
 //---------------------------------------------------------------------------
@@ -374,18 +439,21 @@ Action::ResultE SceneGraphPrinter::traverseEnter(Node *node)
     os << " [" << (getName(pCore) ? getName(pCore) : "<unnamed>")
        << "]";
 
-    NodeCore::MFParentsType::const_iterator pIt  = pCore->getParents().begin();
-    NodeCore::MFParentsType::const_iterator pEnd = pCore->getParents().end  ();
+    NodeCore::MFParentsType::const_iterator pIt  = pCore->getMFParents()->begin();
+    NodeCore::MFParentsType::const_iterator pEnd = pCore->getMFParents()->end  ();
 
-    os << " --";
-
-    for(; pIt != pEnd; ++pIt)
+    if(pCore->getMFParents()->size() > 1)
     {
-        Node *parent = dynamic_cast<Node *>(*pIt);
-        
-        os <<  " [" << *pIt
-           << "] [" << (getName(parent) ? getName(parent) : "<unnamed>")
-           << "]";
+        os << " # parents [" << pCore->getMFParents()->size() << "] #";
+
+        for(; pIt != pEnd; ++pIt)
+        {
+            Node *parent = dynamic_cast<Node *>(*pIt);
+
+            os <<  " [" << *pIt
+            << "] [" << (getName(parent) ? getName(parent) : "<unnamed>")
+            << "]";
+        }
     }
 
     os << "\n";

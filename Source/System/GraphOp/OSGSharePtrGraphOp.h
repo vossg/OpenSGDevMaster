@@ -49,6 +49,7 @@
 
 #include "OSGGraphOp.h"
 #include "OSGUtilDef.h"
+#include <OSGTime.h>
 
 OSG_BEGIN_NAMESPACE
 
@@ -109,28 +110,34 @@ protected:
     /*==========================  PRIVATE  ================================*/
 private:
 
-    Action::ResultE traverseEnter(Node * const node);
-    Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
+    virtual Action::ResultE traverseEnter(Node            * const node );
+    virtual Action::ResultE traverseLeave(Node            * const node,
+                                          Action::ResultE         res  );
+    
+    FieldContainer *shareFC(FieldContainer *fc);
+    
+    typedef std::set<UInt32          > FCIdSet;
+    typedef FCIdSet::iterator          FCIdSetIt;
+    
+    typedef std::set<FieldContainer *> FCSet;
+    typedef FCSet::iterator            FCSetIt;
+    
+    typedef std::map<UInt32, FCSet   > FCTypeMap;
+    typedef FCTypeMap::iterator        FCTypeMapIt;
+    
+    typedef std::map<UInt32, UInt32  > ShareCount;
+    typedef ShareCount::iterator       ShareCountIt;
+    
+    FCTypeMap  _typeMap;
 
-    bool isInList(const std::vector<std::string> &tlist,
-                        FieldContainer * constfc);
-    FieldContainer *compareFCs(FieldContainer * const fc);
-    static bool isEqual(FieldContainer * const a,
-                        FieldContainer * const b);
+    FCIdSet    _includeSet;
+    FCIdSet    _excludeSet;
 
-    //static Action::ResultE clearAttachmentParent(NodePtr &node);
-    //static Action::ResultE addAttachmentParent(NodePtr &node);
-    //static void fillAttachmentParents(const NodePtr &node);
-
-    typedef std::set<FieldContainer *> fcsSet;
-    typedef std::map<std::string, fcsSet> fcsMap;
-    fcsMap      _fctypes;
-
-    std::vector<std::string>            _includes;
-    std::vector<std::string>            _excludes;
-    UInt32                              _share_counter;
-
-    static std::set<FieldContainer *>  _added_cores;
+    FCIdSet    _visitedSet;
+    
+    ShareCount _shareCount;
+    Time       _totalTime;
+    Time       _compareTime;
 };
 
 OSG_END_NAMESPACE
