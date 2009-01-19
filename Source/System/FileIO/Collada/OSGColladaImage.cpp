@@ -68,8 +68,10 @@ void ColladaImage::read(void)
             OSG_COLLADA_LOG(("ColladaImage::read: image uri [%s] [%s]\n",
                              imageUri.getURI(), imageUri.path().c_str()));
             
-            if(imageUri.path().size()     != 0 && 
-               imageUri.path().c_str()[0] == '/')
+#ifdef WIN32
+            if(imageUri.path().size()     > 3    && 
+               imageUri.path().c_str()[0] == '/' && 
+               imageUri.path().c_str()[2] == ':'  )
             {
                 const Char8 *szFileName = imageUri.path().c_str();
 
@@ -80,6 +82,9 @@ void ColladaImage::read(void)
                 _image = 
                     ImageFileHandler::the()->read(imageUri.path().c_str());
             }
+#else
+            _image = ImageFileHandler::the()->read(imageUri.path().c_str());
+#endif
 
             if(_image == NULL)
             {
