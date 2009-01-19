@@ -44,23 +44,27 @@
 
 #include "OSGNodeFieldTraits.h"
 #include "OSGPointerSField.h"
+#include "OSGParentPointerSField.h"
 
 OSG_BEGIN_NAMESPACE
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup  */
 
-typedef PointerSField<Node *, 
-                      RecordedRefCountPolicy  > SFRecNodePtr;
-typedef PointerSField<Node *, 
-                      UnrecordedRefCountPolicy> SFUnrecNodePtr;
-typedef PointerSField<Node *, 
-                      WeakRefCountPolicy      > SFWeakNodePtr;
-typedef PointerSField<Node *, 
-                      NoRefCountPolicy        > SFUncountedNodePtr;
-
-
-//typedef SFNodePtr SFRecNodePtr;
+typedef PointerSField      <Node *,
+                            RecordedRefCountPolicy  > SFRecNodePtr;
+typedef PointerSField      <Node *,
+                            UnrecordedRefCountPolicy> SFUnrecNodePtr;
+typedef PointerSField      <Node *,
+                            WeakRefCountPolicy      > SFWeakNodePtr;
+typedef PointerSField      <Node *,
+                            NoRefCountPolicy        > SFUncountedNodePtr;
+typedef ChildPointerSField <Node *,
+                            UnrecordedRefCountPolicy,
+                            1                       > SFUnrecChildNodePtr;
+typedef ParentPointerSField<Node *,
+                            NoRefCountPolicy,
+                            1                       > SFParentNodePtr;
 #endif
 
 OSG_END_NAMESPACE

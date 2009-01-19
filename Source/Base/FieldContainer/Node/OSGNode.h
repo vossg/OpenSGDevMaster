@@ -100,7 +100,7 @@ class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
 
     typedef SFBoxVolume             SFVolumeType;
     typedef SFUInt32                SFTravMaskType;
-    typedef SFUncountedNodePtr      SFParentType;
+    typedef SFParentNodePtr         SFParentType;
     typedef SFUnrecChildNodeCorePtr SFCoreType;
     typedef MFUnrecChildNodePtr     MFChildrenType;
     
@@ -262,7 +262,7 @@ class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
           SFUInt32                *editSFTravMask(void);
     const SFUInt32                *getSFTravMask (void) const;
 
-    const SFUncountedNodePtr      *getSFParent   (void) const;
+    const SFParentNodePtr         *getSFParent   (void) const;
     const SFUnrecChildNodeCorePtr *getSFCore     (void) const;
     const MFUnrecChildNodePtr     *getMFChildren (void) const;
 
@@ -289,7 +289,7 @@ class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
 
     SFUInt32                _sfTravMask;
 
-    SFUncountedNodePtr      _sfParent;
+    SFParentNodePtr         _sfParent;
     MFUnrecChildNodePtr     _mfChildren;
 
     SFUnrecChildNodeCorePtr _sfCore;

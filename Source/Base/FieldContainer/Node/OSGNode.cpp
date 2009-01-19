@@ -128,7 +128,7 @@ void Node::classDescInserter(TypeObject &oType)
 
 
     pDesc = new SFUncountedNodePtr::Description(
-        SFUncountedNodePtr::getClassType(),
+        SFParentNodePtr::getClassType(),
         "parent",
         "This node's parent.",
         OSG_RC_FIELD_DESC(Node::Parent),
@@ -588,7 +588,7 @@ bool Node::linkParent  (FieldContainer * const pParent,
             
             editSField(ParentFieldMask);
 
-            _sfParent.setValue(pTypedParent);
+            _sfParent.setValue(pTypedParent, childFieldId);
             
             return true;
         }
@@ -610,7 +610,7 @@ bool Node::unlinkParent(FieldContainer * const pParent,
         {
             editSField(ParentFieldMask);
 
-            _sfParent.setValue(NULL);
+            _sfParent.setValue(NULL, 0xFFFF);
             
             return true;
         }
@@ -812,7 +812,7 @@ const SFUInt32 *Node::getSFTravMask(void) const
     return &_sfTravMask;
 }
 
-const SFUncountedNodePtr *Node::getSFParent(void) const
+const SFParentNodePtr *Node::getSFParent(void) const
 {
     return &_sfParent;
 }
@@ -901,8 +901,8 @@ GetFieldHandlePtr Node::getHandleTravMask(void) const
 
 GetFieldHandlePtr Node::getHandleParent(void) const
 {
-    SFUncountedNodePtr::GetHandlePtr returnValue(
-        new SFUncountedNodePtr::GetHandle(
+    SFParentNodePtr::GetHandlePtr returnValue(
+        new SFParentNodePtr::GetHandle(
              &_sfParent, 
              this->getType().getFieldDesc(ParentFieldId)));
 

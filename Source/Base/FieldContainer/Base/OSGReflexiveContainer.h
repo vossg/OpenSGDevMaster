@@ -180,10 +180,10 @@ class ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_BASE_DLLMAPPING 
-    FieldDescriptionBase *getFieldDescription(      UInt32 fieldId  );
+    FieldDescriptionBase *getFieldDescription(      UInt32 fieldId  ) const;
     
     OSG_BASE_DLLMAPPING 
-    FieldDescriptionBase *getFieldDescription(const Char8 *fieldName);
+    FieldDescriptionBase *getFieldDescription(const Char8 *fieldName) const;
 
 
     /*! \}                                                                 */

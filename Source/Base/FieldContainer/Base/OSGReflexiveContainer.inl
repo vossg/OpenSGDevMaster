@@ -275,14 +275,15 @@ FieldHandle ReflexiveContainer::getHandledField(const Char8 *fieldName) const
 
 
 inline
-FieldDescriptionBase *ReflexiveContainer::getFieldDescription(UInt32 fieldId)
+FieldDescriptionBase *ReflexiveContainer::getFieldDescription(
+    UInt32 fieldId) const
 {
     return getType().getFieldDesc(fieldId);
 }
 
 inline
 FieldDescriptionBase *ReflexiveContainer::getFieldDescription(
-    const Char8 *fieldName)
+    const Char8 *fieldName) const
 {
     return getType().getFieldDesc(fieldName);
 }

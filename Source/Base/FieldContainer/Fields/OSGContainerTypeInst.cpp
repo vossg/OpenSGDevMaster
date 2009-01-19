@@ -203,6 +203,24 @@ OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
                          1);
 
 
+OSG_SFIELDTYPE_INST_X(ParentPointerSField,
+                      Node *,
+                      NoRefCountPolicy,
+                      1);
+OSG_MFIELDTYPE_INST_X(ParentPointerMField,
+                      Node *,
+                      NoRefCountPolicy,
+                      1);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
+                         Node *,
+                         NoRefCountPolicy,
+                         1);
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
+                         Node *,
+                         NoRefCountPolicy,
+                         1);
+
 // ChangeFunctor
 
 OSG_FIELD_DLLEXPORT_DEF1(SField, ChangedFunctorCallback);
