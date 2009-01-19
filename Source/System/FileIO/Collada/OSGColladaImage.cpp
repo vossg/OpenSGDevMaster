@@ -68,12 +68,24 @@ void ColladaImage::read(void)
             OSG_COLLADA_LOG(("ColladaImage::read: image uri [%s] [%s]\n",
                              imageUri.getURI(), imageUri.path().c_str()));
             
-            _image = ImageFileHandler::the()->read(imageUri.path().c_str());
-            
+            if(imageUri.path().size()     != 0 && 
+               imageUri.path().c_str()[0] == '/')
+            {
+                const Char8 *szFileName = imageUri.path().c_str();
+
+                _image = ImageFileHandler::the()->read(++szFileName);
+            }
+            else
+            {
+                _image = 
+                    ImageFileHandler::the()->read(imageUri.path().c_str());
+            }
+
             if(_image == NULL)
             {
-                FWARNING(("ColladaImage::read: Loading of image [%s] failed.\n",
-                          imageUri.getURI()));
+                FWARNING(
+                    ("ColladaImage::read: Loading of image [%s] failed.\n",
+                     imageUri.path().c_str()));
             }
         }
     }
