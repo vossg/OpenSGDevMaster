@@ -484,7 +484,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
     ENDFOREACH(LIB)
 
     # install rules
-    if(WIN32)
+    IF(WIN32)
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Release
                 RUNTIME DESTINATION lib/opt
@@ -514,7 +514,12 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 RUNTIME DESTINATION lib/relwithdbg
                 LIBRARY DESTINATION lib/relwithdbg
                 ARCHIVE DESTINATION lib/relwithdbg)
-    endif(WIN32)
+    ELSE(WIN32)
+        INSTALL(TARGETS ${PROJECT_NAME}
+                RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+    ENDIF(WIN32)
 
     INSTALL(FILES ${${PROJECT_NAME}_HDR}
             DESTINATION include/OpenSG
