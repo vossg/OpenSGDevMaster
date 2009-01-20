@@ -71,12 +71,10 @@ class OSG_GROUP_DLLMAPPING Transform : public TransformBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Helper                                    */
+    /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
     virtual void accumulateMatrix(Matrixr &result);
-
-            void adjustVolume    (Volume  &volume);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -113,6 +111,13 @@ class OSG_GROUP_DLLMAPPING Transform : public TransformBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Volume                                  */
+    /*! \{                                                                 */
+
+    virtual void adjustVolume    (Volume &volume);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -83,6 +83,13 @@ class OSG_GROUP_DLLMAPPING InverseTransform : public InverseTransformBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Transformation                             */
+    /*! \{                                                                 */
+
+    virtual void accumulateMatrix(Matrixr &result);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
@@ -111,14 +118,11 @@ class OSG_GROUP_DLLMAPPING InverseTransform : public InverseTransformBase
     virtual ~InverseTransform(void);
 
     /*! \}                                                                 */
-
     /*---------------------------------------------------------------------*/
-    /*! \name                      NodeCore Specific                       */
+    /*! \name                      Volume                                  */
     /*! \{                                                                 */
 
-            void adjustVolume    (Volume  &volume);
-
-    virtual void accumulateMatrix(Matrixr &result);
+    virtual void adjustVolume    (Volume &volume);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

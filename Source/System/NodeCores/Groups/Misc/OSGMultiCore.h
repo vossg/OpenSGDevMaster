@@ -71,12 +71,10 @@ class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Helper                                    */
+    /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
-    virtual void accumulateMatrix(Matrix &result);
-
-            void adjustVolume    (Volume &volume);
+    virtual void accumulateMatrix(Matrixr &result);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -106,6 +104,13 @@ class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
     /*! \{                                                                 */
 
     virtual ~MultiCore(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Volume                                  */
+    /*! \{                                                                 */
+
+    virtual void adjustVolume    (Volume &volume);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

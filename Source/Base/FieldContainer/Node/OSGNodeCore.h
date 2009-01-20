@@ -161,24 +161,18 @@ class OSG_BASE_DLLMAPPING NodeCore : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Changed                                 */
+    /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
     virtual void accumulateMatrix(Matrixr &result);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   MT Destruction                             */
+    /*! \name                      Volume                                  */
     /*! \{                                                                 */
 
     virtual void adjustVolume    (Volume &volume);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Comparison                                */
-    /*! \{                                                                 */
-
-    virtual void invalidateVolume(void);
+    virtual void invalidateVolume(void          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
