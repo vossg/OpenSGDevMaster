@@ -410,6 +410,8 @@ void SceneGraphPrinter::printUpTree(std::ostream &os)
 
         node = node->getParent();
     }
+
+    os << std::flush;
 }
 
 Action::ResultE SceneGraphPrinter::traverseEnter(Node *node)
