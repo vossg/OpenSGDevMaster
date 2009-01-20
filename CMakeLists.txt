@@ -194,6 +194,9 @@ IF(Boost_FOUND)
         SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
     ENDIF()
 
+    SET(OSG_BOOST_LIBDIRS ${BOOST_LIBRARY_DIRS})
+    SET(OSG_BOOST_INCDIRS ${Boost_INCLUDE_DIR})
+
     IF(WIN32)
 
         SET(OSG_BOOST_TARGETS )
@@ -403,7 +406,13 @@ SET(OSG_PASSDIR_OSGSETUPTEST         "Test")
 # Clean
 ###############
 
-FILE(GLOB OSG_OLD_CONFIG_FILES  ${CMAKE_BINARY_DIR}/*.cmake)
+FILE(GLOB OSG_OLD_BUILD_FILES  "${CMAKE_BINARY_DIR}/*.cmake")
+
+IF(OSG_OLD_BUILD_FILES)
+    FILE(REMOVE ${OSG_OLD_BUILD_FILES})
+ENDIF(OSG_OLD_BUILD_FILES)
+
+FILE(GLOB OSG_OLD_CONFIG_FILES "${CMAKE_BINARY_DIR}/bin/osg2-config.part*.tmp")
 
 IF(OSG_OLD_CONFIG_FILES)
     FILE(REMOVE ${OSG_OLD_CONFIG_FILES})
@@ -415,10 +424,11 @@ ENDIF(OSG_OLD_CONFIG_FILES)
 
 IF(OSG_ENABLE_DOXY_DOC)
 
+    # add a pass for doxygen to run
     LIST(APPEND OSG_CMAKE_PASSES "OSGDOXYDOC")
     SET(OSG_PASS_DIR_OSGDOXYDOC "Doc")
 
-    # set up variables
+    # set up variables for the config file
     IF(DOXYGEN_DOT_EXECUTABLE)
         SET(OSG_DOXY_HAVE_DOT "YES")
     ENDIF(DOXYGEN_DOT_EXECUTABLE)
@@ -516,3 +526,27 @@ IF(OSG_ENABLE_DOXY_DOC)
     SET(OSG_ENABLE_DOXY_DOC "OFF" CACHE BOOL
         "Build the doxygen documentation - this has to be enabled each time cmake is run!" FORCE)
 ENDIF(OSG_ENABLE_DOXY_DOC)
+
+##################
+# osg2-config
+##################
+
+CONFIGURE_FILE("${CMAKE_SOURCE_DIR}/CMake/osg2-config.part1.in"
+               "${CMAKE_BINARY_DIR}/bin/osg2-config.part1.tmp")
+CONFIGURE_FILE("${CMAKE_SOURCE_DIR}/CMake/osg2-config.part3.in"
+               "${CMAKE_BINARY_DIR}/bin/osg2-config.part3.tmp")
+
+FILE(READ "${CMAKE_BINARY_DIR}/bin/osg2-config.part1.tmp" OSG2_CONFIG_PART1_CONTENT)
+FILE(READ "${CMAKE_BINARY_DIR}/bin/osg2-config.part2.tmp" OSG2_CONFIG_PART2_CONTENT)
+FILE(READ "${CMAKE_BINARY_DIR}/bin/osg2-config.part3.tmp" OSG2_CONFIG_PART3_CONTENT)
+
+FILE(WRITE  "${CMAKE_BINARY_DIR}/bin/osg2-config" "${OSG2_CONFIG_PART1_CONTENT}")
+FILE(APPEND "${CMAKE_BINARY_DIR}/bin/osg2-config" "${OSG2_CONFIG_PART2_CONTENT}")
+FILE(APPEND "${CMAKE_BINARY_DIR}/bin/osg2-config" "${OSG2_CONFIG_PART3_CONTENT}")
+
+FILE(REMOVE  "${CMAKE_BINARY_DIR}/bin/osg2-config.part1.tmp")
+FILE(REMOVE  "${CMAKE_BINARY_DIR}/bin/osg2-config.part2.tmp")
+FILE(REMOVE  "${CMAKE_BINARY_DIR}/bin/osg2-config.part3.tmp")
+
+INSTALL(PROGRAMS "${CMAKE_BINARY_DIR}/bin/osg2-config"
+        DESTINATION bin)

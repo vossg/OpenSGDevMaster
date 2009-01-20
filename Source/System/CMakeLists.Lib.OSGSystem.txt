@@ -91,10 +91,10 @@ ENDIF(OSGCOMPAT_ENABLE_DEPRECATED)
 
 
 IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
-    FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
+    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_SOURCE_DIR}/Source/External\")\n\n")
 
-    FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
+    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "LIST(APPEND ${PROJECT_NAME}_HDR
             \"${CMAKE_SOURCE_DIR}/Source/External/google/dense_hash_map\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/dense_hash_set\"

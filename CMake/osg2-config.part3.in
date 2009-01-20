@@ -1,0 +1,231 @@
+
+######################## START osg2-config PART III ########################
+
+}
+
+################################################
+## MAIN
+################################################
+
+def main():
+    global lib_dir
+    global inc_dir
+
+    global parser
+    global options
+    global pos_args
+
+    # Determine defaults
+    if "win32" == sys.platform:
+        def_incprefix = "/I"
+        def_libprefix = ""
+        def_libext = ".lib"
+        def_libpathprefix = "/LIBPATH:"
+    else:
+        def_incprefix = "-I"
+        def_libprefix = "-l"
+        def_libext = ""
+        def_libpathprefix = "-L"
+
+    # Create parser
+    parser = OptionParser(usage="%prog [LIBRARY] [OPTIONS]", description="OpenSG config options.")
+
+    parser.add_option("--prefix",     action="store_true",
+                      help="Print the installation prefix.")
+    parser.add_option("--libdir",     action="store_true",
+                      help="Print the library installation dir")
+    parser.add_option("--includedir", action="store_true",
+                      help="Print the header directory")
+    parser.add_option("--cflags",     action="store_true",
+                      help="Print OpenSG specific cflags.")
+    parser.add_option("--lflags",     action="store_true",
+                      help="Print library flags.")
+    parser.add_option("--llibs",      action="store_true",
+                      help="Print library list.")
+    parser.add_option("--libs",       action="store_true",
+                      help="Print libraries and flags.")
+    parser.add_option("--no-prefix-flags", action="store_true",
+                      help="When printing list of libraries and paths, don't include compiler prefix flags (-I,-l,-L)")
+    parser.add_option("--inc-prefix",      default=def_incprefix,
+                      help="Compiler include path prefix to use. (%s)" % def_incprefix)
+    parser.add_option("--lib-prefix",      default=def_libprefix,
+                      help="Linker lib prefix to use. (%s)"%def_libprefix)
+    parser.add_option("--lib-ext",         default=def_libext,
+                      help="Linker lib subfix to use. (%s)"%def_libext)
+    parser.add_option("--libpath-prefix",  default=def_libpathprefix,
+                      help="Linker library path prefix to use. (%s)"%def_libpathprefix)
+
+    parser.set_defaults(build_type=inst_build_type)
+    parser.add_option("--opt",             action="store_const", const="Release", dest="build_type",
+                      help = "Use library search path patterns for optimized OpenSG libraries " + \
+                             "(NOTE: This does not affect external dependencies, those always use the build time settings!).")
+    parser.add_option("--dbg",             action="store_const", const="Debug",   dest="build_type",
+                      help = "Use library search path patterns for debug OpenSG libraries " + \
+                             "(NOTE: This does not affect external dependencies, those always use the build time settings!).")
+    parser.add_option("--dbgrt",           action="store_const", const="DebugRT", dest="build_type",
+                      help = "Use library search path patterns for debug-runtime OpenSG libraries " + \
+                             "(NOTE: This does not affect external dependencies, those always use the build time settings!).")
+
+
+    (options, pos_args) = parser.parse_args()
+
+    lib_suffix = ""
+
+    if inst_platform_32:
+        lib_part = "lib"
+    elif inst_platform_64:
+        lib_part = "lib64"
+
+    if options.build_type == "Release":
+        spez_lib_dir = pj(inst_prefix, lib_part)
+        spez_inc_dir = pj(inst_prefix, "include", "OpenSG")
+    elif options.build_type == "Debug":
+        spez_lib_dir = pj(inst_prefix, lib_part, "debug")
+        spez_inc_dir = pj(inst_prefix, "include", "OpenSG")
+    elif options.build_type == "DebugRT":
+        spez_lib_dir = pj(inst_prefix, lib_part, "debugrt")
+        spez_inc_dir = pj(inst_prefix, "include", "OpenSG")
+        lib_suffix   = "_d"
+
+    # paths for different build type requested, overwrite defaults
+    if options.build_type != inst_build_type:
+        lib_dir = spez_lib_dir
+        inc_dir = spez_inc_dir
+
+    # Process simple single options
+    if options.prefix:
+        print inst_prefix
+        sys.exit(0)
+    elif options.libdir:
+        print lib_dir
+        sys.exit(0)
+    elif options.includedir:
+        print inc_dir
+        sys.exit(0)
+
+    # Try to find libname
+    # - Try given name and name with OSG or OSGWindow prefix
+    libraries = []
+    if len(pos_args):
+        for n in pos_args:
+            for name_alt in [n, "OSG"+n, "OSGWindow"+n, None]:
+                if not name_alt:
+                    print "Error: Can not find library named: ", n
+                elif lib_map_in.has_key(name_alt):
+                    libraries.append(name_alt)
+                    break
+
+    # Make sure we have libraries
+    if len(libraries) == 0:
+        print "Error: No libraries given."
+        printUsage()
+        sys.exit(1)
+
+    # If set to no prefix flags, then clear all defaults
+    if options.no_prefix_flags:
+        options.inc_prefix = ""
+        options.lib_prefix = ""
+        options.lib_ext = ""
+        options.libpath_prefix = ""
+
+    if options.cflags:
+        print string_inc_dir(collect_inc_dir(libraries, lib_map_in))
+    elif options.libs:
+        print string_lib(collect_lib(libraries, lib_map_in))
+    elif options.lflags:
+        print string_lib_dir(collect_lib_dir(libraries, lib_map_in))
+    elif options.llibs:
+        lib_dir = string_lib_dir(collect_lib_dir(libraries, lib_map_in))
+        lib     = string_lib    (collect_lib    (libraries, lib_map_in))
+        print lib_dir + ' ' + lib
+
+    else:
+        printUsage()
+        sys.exit(1)
+
+
+def printUsage():
+    global parser, lib_map
+    parser.print_help()
+    print "\nLibraries: "
+    for lib_name in lib_map.keys():
+        print "   %s"%lib_name
+
+################################################
+## HELPER
+################################################
+
+import copy
+
+# generate a list of all OpenSG libraries needed by those in LIBRARIES
+# (list of strings).
+def collect_osg_libs(libraries, lib_map):
+    out_list = copy.copy(libraries)
+    len_list = len(out_list)
+
+    for i in out_list:
+        for j in lib_map[i]['dep_osg_lib']:
+            if not j in out_list:
+                out_list.insert(len_list, j)
+
+    return out_list
+
+
+def collect_inc_dir(libraries, lib_map):
+    inc_dir_list = []
+    osg_libs     = collect_osg_libs(libraries, lib_map)
+
+    for i in osg_libs:
+        for j in lib_map[i]['dep_inc_dir']:
+            if not j in inc_dir_list:
+                inc_dir_list.append(j)
+
+    if not inc_dir in inc_dir_list:
+        inc_dir_list.append(inc_dir)
+
+    return inc_dir_list
+
+def string_inc_dir(inc_dir):
+    return " ".join(["%s%s" % (options.inc_prefix, i) for i in inc_dir])
+
+
+def collect_lib(libraries, lib_map):
+    lib_list = []
+    osg_libs = collect_osg_libs(libraries, lib_map)
+
+    for i in osg_libs:
+        for j in lib_map[i]['dep_lib']:
+            if not j in lib_list:
+                lib_list.append(j)
+
+    return osg_libs + lib_list
+
+def string_lib(lib):
+    return " ".join(["%s%s" % (options.lib_prefix, l) for l in lib])
+
+
+def collect_lib_dir(libraries, lib_map):
+    lib_dir_list = []
+    osg_libs     = collect_osg_libs(libraries, lib_map)
+
+    for i in osg_libs:
+        for j in lib_map[i]['dep_lib_dir']:
+            if not j in lib_dir_list:
+                lib_dir_list.append(j)
+
+    if not lib_dir in lib_dir_list:
+        lib_dir_list.append(lib_dir)
+
+    return lib_dir_list
+
+def string_lib_dir(lib_dir):
+    return " ".join(["%s%s" % (options.libpath_prefix, l) for l in lib_dir])
+
+
+################################################
+## RUN MAIN
+################################################
+
+main()
+
+######################## END osg2-config PART III ########################
