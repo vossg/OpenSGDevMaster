@@ -1,6 +1,6 @@
 
-if(OSG_BUILD_ACTIVE)
+IF(OSG_BUILD_ACTIVE)
     INCLUDE(./CMakeLists.fromosg.txt)
-else()
+ELSE(OSG_BUILD_ACTIVE)
     INCLUDE(./CMakeLists.standalone.txt)
-endif()
+ENDIF(OSG_BUILD_ACTIVE)
