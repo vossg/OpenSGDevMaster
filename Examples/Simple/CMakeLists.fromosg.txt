@@ -1,0 +1,116 @@
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+PROJECT(OpenSGSimpleExamples)
+
+MESSAGE(STATUS "Building simple examples integrated")
+
+#############################################################################
+# find sources
+
+FILE(GLOB SRCFILES "*.cpp")
+
+# stuff that is broken -- these examples need to be fixed
+LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/clusterclientshader.cpp")
+LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/geometryshader.cpp")
+LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/phongshaderwithglmaterials.cpp")
+LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/shader.cpp")
+
+#############################################################################
+# get dependencies
+
+SET(OSG_COMPONENTS OSGBase OSGCluster OSGDrawable OSGGroup OSGState OSGSystem OSGUtil OSGWindow OSGWindowGLUT)
+
+SET(DEP_INCLUDE_DIRS)
+SET(DEP_LIBRARY_DIRS)
+SET(DEP_LIBRARIES)
+
+SET(OSG_EXTERNAL_COMPONENTS Boost GLUT)
+
+#############
+#### GLUT
+
+#FIND_PACKAGE(GLUT REQUIRED)
+#LIST(APPEND DEP_INCLUDE_DIRS ${GLUT_INCLUDE_DIR})
+#LIST(APPEND DEP_LIBRARIES ${GLUT_LIBRARIES})
+
+#############
+#### Boost
+
+#SET(Boost_USE_MULTITHREAD ON)
+#SET(Boost_STATIC_LIBS OFF)
+
+#FIND_PACKAGE(Boost REQUIRED)
+
+#IF(Boost_FOUND)
+#    LIST(APPEND DEP_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
+#ENDIF(Boost_FOUND)    
+
+#############
+#### X11 (optional)
+
+#FIND_PACKAGE(X11)
+
+IF(X11_FOUND)
+    LIST(APPEND OSG_EXTERNAL_COMPONENTS X11)
+    LIST(APPEND OSG_COMPONENTS OSGWindowX)
+#    LIST(APPEND DEP_INCLUDE_DIRS ${X11_X11_INCLUDE_PATH})
+#    LIST(APPEND DEP_LIBRARIES ${X11_X11_LIB})
+ELSE(X11_FOUND)
+    LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/clusterserverx.cpp")
+ENDIF(X11_FOUND)
+
+#############
+#### OpenSG
+
+#FIND_PACKAGE(OpenSG REQUIRED COMPONENTS ${OSG_COMPONENTS})
+
+FOREACH(OSGDEP ${OSG_COMPONENTS})
+    IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+        MESSAGE(FATAL_ERROR "Dependency (${OSGDEP}) not found, "
+                            "can not build ${PROJECT_NAME}\n")
+        RETURN()
+    ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+
+    INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
+ENDFOREACH()
+
+FOREACH(OSGEXTDEP ${OSG_EXTERNAL_COMPONENTS})
+    IF(NOT ${OSGEXTDEP}_FOUND)
+        MESSAGE(FATAL_ERROR "Dependency (${OSGEXTDEP}) not found, "
+                            "can not build ${PROJECT_NAME}\n")
+        RETURN()
+    ENDIF()
+
+    INCLUDE_DIRECTORIES(${${OSGEXTDEP}_INCLUDE_DIR})
+ENDFOREACH()
+
+
+#############################################################################
+# build executables
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ADD_DEFINITIONS(-D OSG_BUILD_INTEGRATED)
+
+FOREACH(SRC ${SRCFILES})
+
+    GET_FILENAME_COMPONENT(EXE ${SRC} NAME_WE)
+
+#    INCLUDE_DIRECTORIES(${OpenSG_INCLUDE_DIRS})
+#    INCLUDE_DIRECTORIES(${DEP_INCLUDE_DIRS})
+
+#    LINK_DIRECTORIES(${OpenSG_LIBRARY_DIRS})
+#    LINK_DIRECTORIES(${DEP_LIBRARY_DIRS})
+
+    ADD_EXECUTABLE(${EXE} ${SRC})
+
+    FOREACH(OSGDEP ${OSG_COMPONENTS})
+        ADD_DEPENDENCIES(${EXE} ${OSGDEP})
+
+        TARGET_LINK_LIBRARIES(${EXE} ${OSGDEP})
+    ENDFOREACH()
+
+#    TARGET_LINK_LIBRARIES(${EXE} ${OpenSG_LIBRARIES})
+#    TARGET_LINK_LIBRARIES(${EXE} ${DEP_LIBRARIES})
+ENDFOREACH(SRC)

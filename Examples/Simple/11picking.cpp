@@ -9,6 +9,24 @@
 // triangle will be highlighted.
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGeoProperties.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGAction.h>
+#include <OSGGroup.h>
+#include <OSGSceneFileHandler.h>
+#include <OSGTriangleIterator.h>
+
+// New Headers
+
+// the ray intersect traversal
+#include <OSGIntersectAction.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -25,6 +43,7 @@
 
 // the ray intersect traversal
 #include <OpenSG/OSGIntersectAction.h>
+#endif
 
 
 // Activate the OpenSG namespace

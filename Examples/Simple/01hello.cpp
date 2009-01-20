@@ -9,6 +9,22 @@
 // interactive scene viewer.
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// GLUT is used for window handling
+#include <OSGGLUT.h>
+
+// General OpenSG configuration, needed everywhere
+#include <OSGConfig.h>
+
+// Methods to create simple geometry: boxes, spheres, tori etc.
+#include <OSGSimpleGeometry.h>
+
+// The GLUT-OpenSG connection class
+#include <OSGGLUTWindow.h>
+
+// A little helper to simplify scene management and interaction
+#include <OSGSimpleSceneManager.h>
+#else
 // GLUT is used for window handling
 #include <OpenSG/OSGGLUT.h>
 
@@ -23,6 +39,7 @@
 
 // A little helper to simplify scene management and interaction
 #include <OpenSG/OSGSimpleSceneManager.h>
+#endif
 
 // Activate the OpenSG namespace
 // This is not strictly necessary, you can also prefix all OpenSG symbols

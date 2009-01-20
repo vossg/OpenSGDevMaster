@@ -11,6 +11,22 @@
 // printed to the console. ;)
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGBaseFunctions.h>
+#include <OSGTransform.h>
+#include <OSGGroup.h>
+
+// new headers: 
+
+// the Action header, containing the traverse() functions
+#include <OSGAction.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -25,6 +41,7 @@
 
 // the Action header, containing the traverse() functions
 #include <OpenSG/OSGAction.h>
+#endif
 
 // boost::bind - to allow member functions as traversal functors
 #include <boost/bind.hpp>

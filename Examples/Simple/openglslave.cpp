@@ -13,6 +13,25 @@
 // Thanks to nehe.gamedev.net for the BMP image loading routines 
 // The mouse code is based on a tutorial from Dennis Gustavsson (dennis@meqon.com)
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGConfig.h>
+#include <OSGGL.h>
+#include <OSGGLU.h>
+#include <OSGGLUT.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGCamera.h>
+#include <OSGMatrixCamera.h>
+#include <OSGPerspectiveCamera.h>
+#include <OSGViewport.h>
+#include <OSGPassiveWindow.h>
+#include <OSGPassiveBackground.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGSceneFileHandler.h>
+#include <OSGComponentTransform.h>
+#include <OSGImage.h>
+#include <OSGFileSystem.h>
+#else
 // Headers
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGGL.h>
@@ -30,6 +49,7 @@
 #include <OpenSG/OSGComponentTransform.h>
 #include <OpenSG/OSGImage.h>
 #include <OpenSG/OSGFileSystem.h>
+#endif
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE

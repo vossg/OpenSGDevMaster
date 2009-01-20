@@ -3,6 +3,23 @@
 // This example shows how to use Transform nodes to move objects aroung
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+
+// new headers: 
+
+// some wrappers for standard functions for platform independence, e.g. 
+// osgSin, osgCos, osgTan
+#include <OSGBaseFunctions.h>
+
+// the transformation node core
+#include <OSGTransform.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -18,6 +35,7 @@
 
 // the transformation node core
 #include <OpenSG/OSGTransform.h>
+#endif
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE

@@ -5,6 +5,28 @@
 // to do that. OpenSG uses the more flexible concept of Attachments. 
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <string>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGAction.h>
+#include <OSGSceneFileHandler.h>
+
+// New Headers
+#include <OSGAttachment.h>
+#include <OSGNameAttachment.h>
+#include <OSGVoidPAttachment.h>
+
+/*
+    These two headers are needed to define the new MyAttachment type below
+*/
+#include <OSGSimpleAttachment.h>
+#include <OSGSimpleAttachment.ins>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <string>
@@ -25,6 +47,7 @@
 */
 #include <OpenSG/OSGSimpleAttachment.h>
 #include <OpenSG/OSGSimpleAttachment.ins>
+#endif
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE

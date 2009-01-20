@@ -338,10 +338,37 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
     ENDFOREACH(LIB)
 
     # install rules
-    INSTALL(TARGETS ${PROJECT_NAME}
-            RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
-            LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
-            ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+    if(WIN32)
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Release
+                RUNTIME DESTINATION lib/opt
+                LIBRARY DESTINATION lib/opt
+                ARCHIVE DESTINATION lib/opt)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS Debug 
+                RUNTIME DESTINATION lib/dbg
+                LIBRARY DESTINATION lib/dbg
+                ARCHIVE DESTINATION lib/dbg)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS DebugRT
+                RUNTIME DESTINATION lib/debugrt
+                LIBRARY DESTINATION lib/debugrt
+                ARCHIVE DESTINATION lib/debugrt)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS MinSizeRel
+                RUNTIME DESTINATION lib/minsizerel
+                LIBRARY DESTINATION lib/minsizerel
+                ARCHIVE DESTINATION lib/minsizerel)
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS RelWithDebInfo
+                RUNTIME DESTINATION lib/relwithdbg
+                LIBRARY DESTINATION lib/relwithdbg
+                ARCHIVE DESTINATION lib/relwithdbg)
+    endif(WIN32)
 
     INSTALL(FILES ${${PROJECT_NAME}_HDR}
             DESTINATION include/OpenSG

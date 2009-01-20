@@ -17,6 +17,33 @@
 // get's frustum culled if that part of the scene is outside the camera
 // frustum.
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGBaseFunctions.h>
+#include <OSGTransform.h>
+#include <OSGComponentTransform.h>
+
+#include <OSGSimpleStage.h>
+#include <OSGPointLight.h>
+#include <OSGFrameBufferObject.h>
+#include <OSGTextureBuffer.h>
+#include <OSGRenderBuffer.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
+#include <OSGTexGenChunk.h>
+#include <OSGTwoSidedLightingChunk.h>
+#include <OSGSceneFileHandler.h>
+#include <OSGImageFunctions.h>
+#include <OSGSimpleTexturedMaterial.h>
+#include <OSGTextureTransformChunk.h>
+#include <OSGGradientBackground.h>
+#include <OSGPerspectiveCamera.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -42,6 +69,7 @@
 #include <OpenSG/OSGTextureTransformChunk.h>
 #include <OpenSG/OSGGradientBackground.h>
 #include <OpenSG/OSGPerspectiveCamera.h>
+#endif
 
 OSG_USING_NAMESPACE
 

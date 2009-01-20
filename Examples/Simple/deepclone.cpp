@@ -3,6 +3,17 @@
 // This tutorial demonstrates how to create independent (deep) copies of a
 // scene and how to control what types should be shared.
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGComponentTransform.h>
+#include <OSGBaseFunctions.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGSceneFileHandler.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -12,6 +23,7 @@
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGSimpleSceneManager.h>
 #include <OpenSG/OSGSceneFileHandler.h>
+#endif
 
 OSG_USING_NAMESPACE
 

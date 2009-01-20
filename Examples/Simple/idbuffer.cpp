@@ -25,6 +25,31 @@
 // Use Space to pick.
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGAction.h>
+#include <OSGGroup.h>
+#include <OSGSceneFileHandler.h>
+
+#include <OSGMaterialGroup.h>
+#include <OSGNameAttachment.h>
+
+#include <OSGImage.h>
+#include <OSGSolidBackground.h>
+#include <OSGGrabForeground.h>
+#include <OSGPassiveWindow.h>
+#include <OSGSwitchMaterial.h>
+
+#include <OSGPolygonChunk.h>
+#include <OSGMaterialChunk.h>
+#include <OSGChunkMaterial.h>
+#include <OSGTypedGeoIntegralProperty.h>
+#include <OSGTypedGeoVectorProperty.h>
+#else
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
@@ -48,6 +73,7 @@
 #include <OpenSG/OSGChunkMaterial.h>
 #include <OpenSG/OSGTypedGeoIntegralProperty.h>
 #include <OpenSG/OSGTypedGeoVectorProperty.h>
+#endif
 
 #include <map>
 #include <list>

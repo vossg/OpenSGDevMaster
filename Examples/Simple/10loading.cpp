@@ -6,6 +6,20 @@
 // file.
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGAction.h>
+
+// New Headers
+
+// the general scene file loading handler
+#include <OSGSceneFileHandler.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -18,6 +32,8 @@
 
 // the general scene file loading handler
 #include <OpenSG/OSGSceneFileHandler.h>
+#endif
+
 #include <boost/bind.hpp>
 
 // Activate the OpenSG namespace
@@ -30,9 +46,15 @@ SimpleSceneManager *mgr;
 int setupGLUT( int *argc, char *argv[] );
 
 
+#ifdef OSG_BUILD_INTEGRATED
+// helper class to find a named node
+// names are handled as simple attachments, get the header for that
+#include <OSGNameAttachment.h>
+#else
 // helper class to find a named node
 // names are handled as simple attachments, get the header for that
 #include <OpenSG/OSGNameAttachment.h>
+#endif
 
 // There are two convenience functions for name access: getName() and
 // setName(). For details about general attachment handling see the

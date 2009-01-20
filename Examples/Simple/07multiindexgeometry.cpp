@@ -4,6 +4,19 @@
 // for different attributes.
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGeoProperties.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGBaseFunctions.h>
+#include <OSGTransform.h>
+#include <OSGGroup.h>
+#include <OSGGeometry.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -15,6 +28,7 @@
 #include <OpenSG/OSGTransform.h>
 #include <OpenSG/OSGGroup.h>
 #include <OpenSG/OSGGeometry.h>
+#endif
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE

@@ -5,6 +5,28 @@
 // You need a graphics card supporting the GL_ARB_shading_language_100 extension
 // to run this tutorial.
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGBaseFunctions.h>
+#include <OSGTransform.h>
+#include <OSGGroup.h>
+#include <OSGPointLight.h>
+#include <OSGRenderAction.h>
+#include <OSGSceneFileHandler.h>
+
+#include <OSGSimpleMaterial.h>
+#include <OSGImage.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
+#include <OSGGradientBackground.h>
+#include <OSGSHLChunk.h>
+//#include <OSGShadowMapViewport.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -25,6 +47,7 @@
 #include <OpenSG/OSGGradientBackground.h>
 #include <OpenSG/OSGSHLChunk.h>
 //#include <OpenSG/OSGShadowMapViewport.h>
+#endif
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE

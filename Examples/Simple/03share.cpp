@@ -4,6 +4,21 @@
 // of an object, e.g. a geometry, which take up less memory.
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGBaseFunctions.h>
+#include <OSGTransform.h>
+
+// new headers: 
+
+// the Group node core
+#include <OSGGroup.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -17,6 +32,7 @@
 
 // the Group node core
 #include <OpenSG/OSGGroup.h>
+#endif
 
 
 // Activate the OpenSG namespace

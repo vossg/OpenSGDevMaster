@@ -73,7 +73,10 @@ IF(MSVC)
     SET(CMAKE_C_STANDARD_LIBRARIES   ${OSG_C_STANDARD_LIBRARIES} 
                                      CACHE STRING "OpenSG defaults" FORCE )
 
-    SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;MinSizeRel;RelWithDebInfo;DebugRT" 
+#    SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;MinSizeRel;RelWithDebInfo;DebugRT" 
+#                                  CACHE STRING "OpenSG Build Types" FORCE )
+
+    SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;DebugRT" 
                                   CACHE STRING "OpenSG Build Types" FORCE )
 
     SET(CMAKE_SHARED_LINKER_FLAGS_DEBUGRT

@@ -4,6 +4,29 @@
 // Implements a geometry shader which creates for each triangle an
 // extra triangle showing the face normal.
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUT.h>
+#include <OSGGLEXT.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGAction.h>
+#include <OSGSceneFileHandler.h>
+#include <OSGBaseFunctions.h>
+
+#include <OSGNode.h>
+#include <OSGGroup.h>
+#include <OSGTransform.h>
+#include <OSGPointLight.h>
+
+#include <OSGImage.h>
+#include <OSGChunkMaterial.h>
+#include <OSGMaterialChunk.h>
+#include <OSGTextureChunk.h>
+#include <OSGSHLChunk.h>
+#else
 // Headers
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
@@ -25,6 +48,7 @@
 #include <OpenSG/OSGMaterialChunk.h>
 #include <OpenSG/OSGTextureChunk.h>
 #include <OpenSG/OSGSHLChunk.h>
+#endif
 
 
 // Activate the OpenSG namespace

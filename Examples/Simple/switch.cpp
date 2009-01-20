@@ -7,6 +7,21 @@
 // and 'n' to select none.
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGBaseFunctions.h>
+#include <OSGTransform.h>
+
+// new headers: 
+
+// the Switch node core
+#include <OSGSwitch.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -20,6 +35,7 @@
 
 // the Switch node core
 #include <OpenSG/OSGSwitch.h>
+#endif
 
 
 // Activate the OpenSG namespace

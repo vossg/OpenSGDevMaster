@@ -2,6 +2,33 @@
 //
 // This example shows realtime shadows via shadow maps.
 
+#ifdef OSG_BUILD_INTEGRATED
+#include <OSGConfig.h>
+
+#include <OSGGLUT.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGBaseFunctions.h>
+
+#include <OSGSpotLight.h>
+#include <OSGDirectionalLight.h>
+#include <OSGPointLight.h>
+#include <OSGPerspectiveCamera.h>
+#include <OSGGradientBackground.h>
+#include <OSGSolidBackground.h>
+#include <OSGRenderAction.h>
+#include <OSGImage.h>
+#include <OSGSimpleMaterial.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
+#include <OSGTransform.h>
+#include <OSGGroup.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGSceneFileHandler.h>
+
+// New Headers
+#include <OSGSimpleShadowMapEngine.h>
+#else
 #include <OpenSG/OSGConfig.h>
 
 #include <OpenSG/OSGGLUT.h>
@@ -27,6 +54,7 @@
 
 // New Headers
 #include <OpenSG/OSGSimpleShadowMapEngine.h>
+#endif
 
 
 OSG_USING_NAMESPACE

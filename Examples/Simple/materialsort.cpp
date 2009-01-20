@@ -5,6 +5,25 @@
 // not sufficient, so we help out manually and set a sort key for
 // each material.
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGBaseFunctions.h>
+#include <OSGTransform.h>
+#include <OSGGroup.h>
+#include <OSGPointLight.h>
+#include <OSGRenderAction.h>
+#include <OSGSceneFileHandler.h>
+#include <OSGPolygonChunk.h>
+
+// the headers for the SimpleMaterials
+#include <OSGSimpleMaterial.h>
+#include <OSGImage.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -22,6 +41,7 @@
 // the headers for the SimpleMaterials
 #include <OpenSG/OSGSimpleMaterial.h>
 #include <OpenSG/OSGImage.h>
+#endif
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE

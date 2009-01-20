@@ -11,6 +11,18 @@
 
 #include <iostream>
 
+#ifdef OSG_BUILD_INTEGRATED
+// GLUT is used for window handling
+#include <OSGGLUT.h>
+// General OpenSG configuration, needed everywhere
+#include <OSGConfig.h>
+// The Cluster server definition
+#include <OSGClusterServer.h>
+// The GLUT-OpenSG connection class
+#include <OSGGLUTWindow.h>
+// Render action definition. 
+#include <OSGRenderAction.h>
+#else
 // GLUT is used for window handling
 #include <OpenSG/OSGGLUT.h>
 // General OpenSG configuration, needed everywhere
@@ -21,6 +33,7 @@
 #include <OpenSG/OSGGLUTWindow.h>
 // Render action definition. 
 #include <OpenSG/OSGRenderAction.h>
+#endif
 
 OSG_USING_NAMESPACE
 

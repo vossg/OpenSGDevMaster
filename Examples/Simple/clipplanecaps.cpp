@@ -7,6 +7,20 @@
 
 #include <vector>
 
+#ifdef OSG_BUILD_INTEGRATED
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGPassiveWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGSceneFileHandler.h>
+
+#include <OSGMaterialGroup.h>
+#include <OSGChunkMaterial.h>
+#include <OSGSimpleMaterial.h>
+#include <OSGClipPlaneChunk.h>
+#include <OSGStencilChunk.h>
+#else
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
 #include <OpenSG/OSGSimpleGeometry.h>
@@ -19,6 +33,7 @@
 #include <OpenSG/OSGSimpleMaterial.h>
 #include <OpenSG/OSGClipPlaneChunk.h>
 #include <OpenSG/OSGStencilChunk.h>
+#endif
 
 OSG_USING_NAMESPACE
 
@@ -426,6 +441,8 @@ int doMain(int argc, char **argv)
     // show the whole scene
     mgr->showAll();
     mgr->redraw();
+
+    return 0;
 }
 
 int main(int argc, char *argv[])

@@ -19,6 +19,8 @@ IF("${OpenSG_SOURCE_DIR}"  STREQUAL "${OpenSG_BINARY_DIR}")
                       "CMake there.")
 ENDIF("${OpenSG_SOURCE_DIR}"  STREQUAL "${OpenSG_BINARY_DIR}")
 
+SET(OSG_BUILD_ACTIVE TRUE)
+
 ##############################################################################
 # BUILD OPTIONS
 ##############################################################################
@@ -49,6 +51,8 @@ IF(UNIX)
 ELSEIF(WIN32)
     OPTION(OSG_ENABLE_WIN_LOCALSTORAGE "" ON)
 ENDIF()
+
+OPTION(OSGBUILD_EXAMPLES_SIMPLE "" OFF)
 
 OPTION(OSGCOMPAT_ENABLE                  "" OFF)
 OPTION(OSGCOMPAT_ENABLE_DEPRECATED       "" OFF)
@@ -489,6 +493,14 @@ EXECUTE_PROCESS(
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different
                      "${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h.tmp"
                      "${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h")
+
+#################
+# Examples/Simple
+#################
+
+IF(OSGBUILD_EXAMPLES_SIMPLE)
+    ADD_SUBDIRECTORY(Examples/Simple)
+ENDIF(OSGBUILD_EXAMPLES_SIMPLE)
 
 ##################
 # Documentation II

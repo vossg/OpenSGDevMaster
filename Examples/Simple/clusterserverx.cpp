@@ -13,6 +13,16 @@
 
 #include <iostream>
 
+#ifdef OSG_BUILD_INTEGRATED
+// General OpenSG configuration, needed everywhere
+#include <OSGConfig.h>
+// The Cluster server definition
+#include <OSGClusterServer.h>
+// The GLUT-OpenSG connection class
+#include <OSGXWindow.h>
+// Render action definition. 
+#include <OSGRenderAction.h>
+#else
 // General OpenSG configuration, needed everywhere
 #include <OpenSG/OSGConfig.h>
 // The Cluster server definition
@@ -21,6 +31,7 @@
 #include <OpenSG/OSGXWindow.h>
 // Render action definition. 
 #include <OpenSG/OSGRenderAction.h>
+#endif
 
 OSG_USING_NAMESPACE
 

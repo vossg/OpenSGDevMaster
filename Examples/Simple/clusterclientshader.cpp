@@ -22,6 +22,35 @@
 //
 // Libs: Cluster
 
+#ifdef OSG_BUILD_INTEGRATED
+// GLUT is used for window handling
+#include <OSGGLUT.h>
+
+// General OpenSG configuration, needed everywhere
+#include <OSGConfig.h>
+
+// Methods to create simple geometry: boxes, spheres, tori etc.
+#include <OSGSimpleGeometry.h>
+
+// The GLUT-OpenSG connection class
+#include <OSGGLUTWindow.h>
+
+// A little helper to simplify scene management and interaction
+#include <OSGSimpleSceneManager.h>
+
+// A little helper to simplify scene management and interaction
+#include <OSGMultiDisplayWindow.h>
+
+// Scene file handler for loading geometry files
+#include <OSGSceneFileHandler.h>
+
+#include <OSGImage.h>
+#include <OSGChunkMaterial.h>
+#include <OSGMaterialChunk.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
+#include <OSGSHLChunk.h>
+#else
 // GLUT is used for window handling
 #include <OpenSG/OSGGLUT.h>
 
@@ -49,6 +78,7 @@
 #include <OpenSG/OSGTextureObjChunk.h>
 #include <OpenSG/OSGTextureEnvChunk.h>
 #include <OpenSG/OSGSHLChunk.h>
+#endif
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE

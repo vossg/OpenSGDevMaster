@@ -26,6 +26,31 @@
 // OpenGL drivers are happy with that, so if it crashes your X, it's not our
 // fault! ;)
 
+#ifdef OSG_BUILD_INTEGRATED
+// GLUT is used for window handling
+#include <OSGGLUT.h>
+
+// General OpenSG configuration, needed everywhere
+#include <OSGConfig.h>
+
+// Methods to create simple geometry: boxes, spheres, tori etc.
+#include <OSGSimpleGeometry.h>
+
+// The GLUT-OpenSG connection class
+#include <OSGGLUTWindow.h>
+
+// A little helper to simplify scene management and interaction
+#include <OSGSimpleSceneManager.h>
+
+// The cluster window that handles sort-last (scene-split) clustering
+#include <OSGSortLastWindow.h>
+#include <OSGPipelineComposer.h>
+#include <OSGBinarySwapComposer.h>
+#include <OSGParallelComposer.h>
+
+// Scene file handler for loading geometry files
+#include <OSGSceneFileHandler.h>
+#else
 // GLUT is used for window handling
 #include <OpenSG/OSGGLUT.h>
 
@@ -49,6 +74,7 @@
 
 // Scene file handler for loading geometry files
 #include <OpenSG/OSGSceneFileHandler.h>
+#endif
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE

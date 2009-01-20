@@ -3,6 +3,21 @@
 // This example shows how to create and manipulate light sources
 //
 
+#ifdef OSG_BUILD_INTEGRATED
+// Headers
+#include <OSGGLUT.h>
+#include <OSGConfig.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGGLUTWindow.h>
+#include <OSGSimpleSceneManager.h>
+#include <OSGTransform.h>
+#include <OSGGroup.h>
+
+// new header: the light sources
+#include <OSGDirectionalLight.h>
+#include <OSGPointLight.h>
+#include <OSGSpotLight.h>
+#else
 // Headers
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -16,6 +31,7 @@
 #include <OpenSG/OSGDirectionalLight.h>
 #include <OpenSG/OSGPointLight.h>
 #include <OpenSG/OSGSpotLight.h>
+#endif
 
 // Activate the OpenSG namespace
 OSG_USING_NAMESPACE
