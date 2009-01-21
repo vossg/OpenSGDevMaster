@@ -1719,6 +1719,137 @@ inline void
          _matrix[2][2] * vecIn[2]  ) );
 }
 
+/*! \brief Multiplies given row point by matrix, where the resulting point
+    is given (pT * M)
+*/
+
+template<class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multLeft(
+    const PointType3f &src,
+          PointType3f &dst) const
+{
+    dst.setValues((src[0] * _matrix[0][0] +
+                   src[1] * _matrix[0][1] +
+                   src[2] * _matrix[0][2] +
+                            _matrix[0][3]),
+                  (src[0] * _matrix[1][0] +
+                   src[1] * _matrix[1][1] +
+                   src[2] * _matrix[1][2] +
+                            _matrix[1][3]),
+                  (src[0] * _matrix[2][0] +
+                   src[1] * _matrix[2][1] +
+                   src[2] * _matrix[2][2] +
+                            _matrix[2][3]));
+}
+
+/*! \brief Multiplies given row point by matrix, where the resulting point
+    is given. The full (4x4) matrix is used (pT * M).
+*/
+
+template<class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multLeftFull(
+    const PointType3f &src,
+          PointType3f &dst) const
+{
+    ValueTypeT w =  src[0] * _matrix[3][0] +
+                    src[1] * _matrix[3][1] +
+                    src[2] * _matrix[3][2] +
+                             _matrix[3][3];
+
+    if( w == 0.0f )
+    {
+        SINFO << "multFullMatrixPnt: w == 0.0f!" << std::endl;
+
+        dst.setValues(0, 0, 0);
+
+        return;
+    }
+
+    w = 1./w;
+
+    dst.setValues((src[0] * _matrix[0][0] +
+                   src[1] * _matrix[0][1] +
+                   src[2] * _matrix[0][2] +
+                            _matrix[0][3]) * w,
+                  (src[0] * _matrix[1][0] +
+                   src[1] * _matrix[1][1] +
+                   src[2] * _matrix[1][2] +
+                            _matrix[1][3]) * w,
+                  (src[0] * _matrix[2][0] +
+                   src[1] * _matrix[2][1] +
+                   src[2] * _matrix[2][2] +
+                            _matrix[2][3]) * w);
+}
+
+/*! Multiply the 3 vector \a vecIn by this complete 4x4 matrix and store
+    the result in \a vecOut.
+    
+    \note Both \a vecIn and \a vecOut are treated as having w = 0, so actually
+          only the 4x3 part of this matrix is applied.
+    \note It is valid for parameters to be aliased, i.e. &vecIn == &vecOut.
+ */
+template <class ValueTypeT>
+inline void
+    TransformationMatrix<ValueTypeT>::multLeftFull(
+        const VectorType3f &vecIn, VectorType3f &vecOut) const
+{
+    ValueType w = _matrix[3][0] * vecIn[0] +
+                  _matrix[3][1] * vecIn[1] +
+                  _matrix[3][2] * vecIn[2];    
+
+    if(w == TypeTraits<ValueType>::getZeroElement())
+    {
+        FWARNING(("TransformationMatrix<>::multFull(Vec3, Vec3): w == 0.0\n"));
+    
+        vecOut.setValues(
+            (_matrix[0][0] * vecIn[0] +
+             _matrix[0][1] * vecIn[1] +
+             _matrix[0][2] * vecIn[2]  ),
+            (_matrix[1][0] * vecIn[0] +
+             _matrix[1][1] * vecIn[1] +
+             _matrix[1][2] * vecIn[2]  ),
+            (_matrix[2][0] * vecIn[0] +
+             _matrix[2][1] * vecIn[1] +
+             _matrix[2][2] * vecIn[2]  ) );
+    }
+    else
+    {
+        w = TypeTraits<ValueType>::getOneElement() / w;
+        
+        vecOut.setValues(
+            (_matrix[0][0] * vecIn[0] +
+             _matrix[0][1] * vecIn[1] +
+             _matrix[0][2] * vecIn[2]  ) * w,
+            (_matrix[1][0] * vecIn[0] +
+             _matrix[1][1] * vecIn[1] +
+             _matrix[1][2] * vecIn[2]  ) * w,
+            (_matrix[2][0] * vecIn[0] +
+             _matrix[2][1] * vecIn[1] +
+             _matrix[2][2] * vecIn[2]  ) * w );
+    }
+}
+
+/*! \brief Multiplies given row vector by matrix,  where the resulting
+    vector is given (vT * M)
+*/
+
+template<class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multLeft(
+    const VectorType3f &src,
+          VectorType3f &dst) const
+{
+    dst.setValues((src[0] * _matrix[0][0] +
+                   src[1] * _matrix[0][1] +
+                   src[2] * _matrix[0][2]),
+                  (src[0] * _matrix[1][0] +
+                   src[1] * _matrix[1][1] +
+                   src[2] * _matrix[1][2]),
+                  (src[0] * _matrix[2][0] +
+                   src[1] * _matrix[2][1] +
+                   src[2] * _matrix[2][2]));
+}
+
+
 /*! Multiply the point \a pntIn by this complete 4x4 matrix and return
     the result.
 

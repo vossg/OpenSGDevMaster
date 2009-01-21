@@ -294,16 +294,22 @@ class TransformationMatrix
     /*! \name                   Transform                                  */
     /*! \{                                                                 */
     
-    void mult    (const PointType    &pntIn, PointType    &pntOut) const;
-    void multFull(const PointType3f  &pntIn, PointType3f  &pntOut) const;
-    void mult    (const PointType3f  &pntIn, PointType3f  &pntOut) const;
+    void mult        (const PointType    &pntIn, PointType    &pntOut) const;
+    void multFull    (const PointType3f  &pntIn, PointType3f  &pntOut) const;
+    void mult        (const PointType3f  &pntIn, PointType3f  &pntOut) const;
     
-    void mult    (const VectorType   &vecIn, VectorType   &vecOut) const;
-    void multFull(const VectorType3f &vecIn, VectorType3f &vecOut) const;
-    void mult    (const VectorType3f &vecIn, VectorType3f &vecOut) const;
+    void mult        (const VectorType   &vecIn, VectorType   &vecOut) const;
+    void multFull    (const VectorType3f &vecIn, VectorType3f &vecOut) const;
+    void mult        (const VectorType3f &vecIn, VectorType3f &vecOut) const;
     
-    void mult3x3 (const PointType3f  &pntIn, PointType3f  &pntOut) const;
-    void mult3x3 (const VectorType3f &vecIn, VectorType3f &vecOut) const;
+    void mult3x3     (const PointType3f  &pntIn, PointType3f  &pntOut) const;
+    void mult3x3     (const VectorType3f &vecIn, VectorType3f &vecOut) const;
+
+    void multLeftFull(const PointType3f  &pntIn, PointType3f  &pntOut) const;
+    void multLeft    (const PointType3f  &pntIn, PointType3f  &pntOut) const;
+
+    void multLeftFull(const VectorType3f &vecIn, VectorType3f &vecOut) const;
+    void multLeft    (const VectorType3f &vecIn, VectorType3f &vecOut) const;
     
     PointType    operator *(const PointType    &pntIn) const;
     PointType3f  operator *(const PointType3f  &pntIn) const;
