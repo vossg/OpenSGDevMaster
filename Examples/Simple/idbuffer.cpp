@@ -202,12 +202,9 @@ public:
         // We toggle to standard materials
         switchToNormal();
 
+         
         // we remove the Grabber
-        Viewport::MFForegroundsType::iterator i =
-            _window->getPort(0)->editMFForegrounds()->find(_grabber);
-        
-        if(i != _window->getPort(0)->getMFForegrounds()->end())
-            _window->getPort(0)->editMFForegrounds()->erase(i);
+        _window->getPort(0)->removeObjFromForegrounds(_grabber);
     }
 
 private:

@@ -33,6 +33,10 @@
 #include <OpenSG/OSGRenderAction.h>
 #endif
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wold-style-cast"
+#endif
+
 OSG_USING_NAMESPACE
 
 // local glut window
@@ -49,15 +53,16 @@ void reshape( int width, int height );
 
 int wait_for_map_notify(Display *, XEvent *event, char *arg)
 {
-    return( event->type == MapNotify && event->xmap.window == (::Window)arg );
+    return( event->type        == MapNotify && 
+            event->xmap.window == ::Window(arg));
 }
 
 // Initialize GLUT & OpenSG and start the cluster server
 int main(int argc,char **argv)
 {
     int             winid;
-    char           *name           = "ClusterServer";
-    char           *connectionType = "StreamSock";
+    const char     *name           = "ClusterServer";
+    const char     *connectionType = "StreamSock";
     bool            fullscreen     = true;
     std::string     address        = "";
     char           *opt;

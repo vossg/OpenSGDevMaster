@@ -118,7 +118,7 @@ GLvoid InitGL(GLsizei Width, GLsizei Height)  // We call this right after our Op
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();                        // Reset The Projection Matrix
     
-    gluPerspective(45.0,(GLfloat)Width/(GLfloat)Height,0.1f,100.0f);    // Calculate The Aspect Ratio Of The Window  
+    gluPerspective(45.0, GLfloat(Width)/GLfloat(Height),0.1f,100.0f);    // Calculate The Aspect Ratio Of The Window  
     quadric=gluNewQuadric();                  // Create A Pointer To The Quadric Object ( NEW )
     
     // Can also use GLU_NONE, GLU_FLAT
@@ -159,7 +159,7 @@ void renderCursor()
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    glOrtho(0, (GLdouble)Width, 0, (GLdouble)Height, -1.0f, 1.0f);
+    glOrtho(0, GLdouble(Width), 0, GLdouble(Height), -1.0f, 1.0f);
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -208,7 +208,7 @@ void ReSizeGLScene(int mWidth, int mHeight)
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();  
-    gluPerspective(45.0, (GLfloat)Width / (GLfloat)Height, 1, 1000.0f);
+    gluPerspective(45.0, GLfloat(Width) / GLfloat(Height), 1, 1000.0f);
     glMatrixMode(GL_MODELVIEW);
     
     mgr->resize(mWidth,mHeight);

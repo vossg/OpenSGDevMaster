@@ -27,7 +27,7 @@
 #include <OpenSG/OSGGLUT.h>
 // General OpenSG configuration, needed everywhere
 #include <OpenSG/OSGConfig.h>
-// The Cluster server definition
+// The Cluster server defini2tion
 #include <OpenSG/OSGClusterServer.h>
 // The GLUT-OpenSG connection class
 #include <OpenSG/OSGGLUTWindow.h>
@@ -53,8 +53,8 @@ void reshape(int width, int height);
 int main(int argc, char **argv)
 {
     int             winid;
-    char           *name           = "ClusterServer";
-    char           *connectionType = "StreamSock";
+    const char     *name           = "ClusterServer";
+    const char     *connectionType = "StreamSock";
     bool            fullscreen     = true;
     std::string     address        = "";
     char           *opt;
