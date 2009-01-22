@@ -9,7 +9,7 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 #include <OpenSG/OSGDistanceLOD.h>
 #include <OpenSG/OSGSwitch.h>
-#include <OpenSG/OSGSimpleAttachments.h>
+#include <OpenSG/OSGNameAttachment.h>
 #include <OpenSG/OSGComponentTransform.h>
 
 OSG_USING_NAMESPACE

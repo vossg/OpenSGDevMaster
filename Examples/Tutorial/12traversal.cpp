@@ -6,12 +6,12 @@
 #include <OpenSG/OSGSimpleSceneManager.h>
 
 #include <OpenSG/OSGSceneFileHandler.h>
-#include <OpenSG/OSGSimpleAttachments.h>
+#include <OpenSG/OSGNameAttachment.h>
 
 OSG_USING_NAMESPACE
 
 SimpleSceneManager *mgr;
-NodeRecPtr         scene;
+NodeRecPtr          scene;
 
 int setupGLUT(int *argc, char *argv[]);
 

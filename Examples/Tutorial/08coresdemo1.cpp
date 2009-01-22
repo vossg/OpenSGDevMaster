@@ -9,7 +9,7 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 #include <OpenSG/OSGDistanceLOD.h>
 #include <OpenSG/OSGSwitch.h>
-#include <OpenSG/OSGSimpleAttachments.h>
+#include <OpenSG/OSGNameAttachment.h>
 
 OSG_USING_NAMESPACE
 
@@ -28,7 +28,7 @@ Node *checkName(Node *n)
     if (getName(n))
     {
         //check if it is the name we are looking for
-        if (getName(n)== std::string("FACESET_Woman"))
+        if (getName(n) == std::string("FACESET_Woman"))
             // We got the node!
             return n;
     }

@@ -6,7 +6,7 @@
 #include <OpenSG/OSGSimpleSceneManager.h>
 
 #include <OpenSG/OSGSceneFileHandler.h>
-#include <OpenSG/OSGSimpleAttachments.h>
+#include <OpenSG/OSGNameAttachment.h>
 
 #include <OpenSG/OSGGraphOpSeq.h>
 #include <OpenSG/OSGSplitGraphOp.h>
