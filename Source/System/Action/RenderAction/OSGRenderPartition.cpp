@@ -1186,14 +1186,14 @@ void RenderPartition::initFrom(RenderPartition *pSource,
         _visibilityStack.push_back(FrustumVolume::P_NONE);
     }
 
-    if(0x0000 != (uiCopyOnPush & CopyMatrix))
-    {
-        this->pushMatrix(pSource->_currMatrix.second);
-    }
-
     if(0x0000 != (uiCopyOnPush & CopyViewing))
     {
         this->setupViewing(pSource->getViewing());
+    }
+
+    if(0x0000 != (uiCopyOnPush & CopyMatrix))
+    {
+        this->pushMatrix(pSource->_accMatrix);
     }
 
     if(0x0000 != (uiCopyOnPush & CopyProjection))
