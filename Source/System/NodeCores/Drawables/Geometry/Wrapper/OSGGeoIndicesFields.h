@@ -45,7 +45,7 @@
 #include "OSGGeoPropertyFields.h"
 #include "OSGTypedGeoIntegralProperty.h"
 
-#ifdef OSG_DEPRECIATED_PROPS
+#ifdef OSG_DEPRECATED_PROPS
 
 OSG_BEGIN_NAMESPACE
 

@@ -111,22 +111,6 @@ SimpleStage::~SimpleStage(void)
   thid group.
  */
 
-#ifdef OSG_OLD_RENDER_ACTION
-ActionBase::ResultE SimpleStage::render(Action *action)
-{
-/*
-    DrawActionBase *da = dynamic_cast<DrawActionBase *>(action);
-
-    da->useNodeList();
-    
-    if(da->isVisible(getCPtr(getSubTreeRoot())))
-        da->addNode(getSubTreeRoot());
- */
-
-    return Action::Continue;
-}
-#endif
-
 ActionBase::ResultE SimpleStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);

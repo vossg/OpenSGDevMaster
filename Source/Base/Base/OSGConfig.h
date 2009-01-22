@@ -920,10 +920,6 @@
 #define osg OSG
 #endif
 
-#if OSG_DISABLE_DEPRECATED == 0
-# define OSG_DEPRECIATED_PROPS 1
-#endif
-
 #define OSG_ASSERT(expr) assert(expr)
 
 //#define OSG_DBG_MEM

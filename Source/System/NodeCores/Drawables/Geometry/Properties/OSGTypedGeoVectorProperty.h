@@ -678,7 +678,7 @@ OSG_MAKE_PROP(Color4fx, GL_FIXED,  GLfixed, VectorTypeColor, UsageColorSpace);
 #endif
 
 
-#ifdef OSG_DEPRECIATED_PROPS
+#ifdef OSG_DEPRECATED_PROPS
 /*! \brief Backwards Compatibility Typedefs
 */
 
@@ -720,18 +720,19 @@ typedef GeoColor4ubProperty    GeoColors4ub;
 // TexCoords
 
 #ifndef OSG_EMBEDDED
-typedef GeoVec1fProperty     GeoTexCoords1f;
-typedef GeoVec2fProperty     GeoTexCoords2f;
-typedef GeoVec3fProperty     GeoTexCoords3f;
-typedef GeoVec4fProperty     GeoTexCoords4f;
+typedef GeoVec1fProperty           GeoTexCoords1f;
+typedef GeoVec2fProperty           GeoTexCoords2f;
+typedef GeoVec2fPropertyRecPtr     GeoTexCoords2fPtr;
+typedef GeoVec3fProperty           GeoTexCoords3f;
+typedef GeoVec4fProperty           GeoTexCoords4f;
 
-typedef GeoVec1dProperty     GeoTexCoords1d;
-typedef GeoVec2dProperty     GeoTexCoords2d;
-typedef GeoVec3dProperty     GeoTexCoords3d;
-typedef GeoVec4dProperty     GeoTexCoords4d;
+typedef GeoVec1dProperty           GeoTexCoords1d;
+typedef GeoVec2dProperty           GeoTexCoords2d;
+typedef GeoVec3dProperty           GeoTexCoords3d;
+typedef GeoVec4dProperty           GeoTexCoords4d;
 #endif
 
-#endif // OSG_DEPRECIATED_PROPS
+#endif // OSG_DEPRECATED_PROPS
 
 #ifdef OSG_GLES
 #ifdef OSG_FLOAT_PROFILE

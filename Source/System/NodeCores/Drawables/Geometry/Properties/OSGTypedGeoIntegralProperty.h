@@ -402,7 +402,7 @@ OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 #endif
 #endif
 
-#ifdef OSG_DEPRECIATED_PROPS
+#ifdef OSG_DEPRECATED_PROPS
 /*! \brief Backwards Compatibility Typedefs
 */
 

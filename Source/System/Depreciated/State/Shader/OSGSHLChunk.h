@@ -51,6 +51,8 @@ typedef SimpleSHLChunkRecPtr     SHLChunkRecPtr;
 typedef SimpleSHLChunkUnrecPtr   SHLChunkUnrecPtr;
 typedef SimpleSHLChunkTransitPtr SHLChunkTransitPtr;
 
+typedef SimpleSHLChunkRecPtr     SHLChunkPtr;
+
 OSG_END_NAMESPACE
 
 #endif
