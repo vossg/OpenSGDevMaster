@@ -43,9 +43,9 @@
 #pragma once
 #endif
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGradientBackgroundBase.h>
+#include "OSGGradientBackgroundBase.h"
 
 OSG_BEGIN_NAMESPACE
 
