@@ -484,7 +484,7 @@ void OcclusionCullingTreeBuilder::testNode(RenderTreeNode      *pNode,
                 {
                     //Get triangles
                     DrawableStatsAttachment *st =
-                            DrawableStatsAttachment::get(pNode->getNode());
+                        DrawableStatsAttachment::get(pNode->getNode()->getCore());
                     st->validate();
                     UInt32 triangles = st->getTriangles();
 
@@ -729,7 +729,7 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv,
                     sc->getElem(statNOccInvisible)->inc();
 
                 DrawableStatsAttachment *st =
-                        DrawableStatsAttachment::get(pNode->getNode());
+                    DrawableStatsAttachment::get(pNode->getNode()->getCore());
                 
                 st->validate();
                 
