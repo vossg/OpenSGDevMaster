@@ -116,14 +116,6 @@ OSG_BEGIN_NAMESPACE
     The background used to clear this viewport.
 */
 
-/*! \var RenderFunctorCallback SimpleStageBase::_mfPreRenderCallbacks
-    The foreground additions to the rendered image.
-*/
-
-/*! \var RenderFunctorCallback SimpleStageBase::_mfPostRenderCallbacks
-    The foreground additions to the rendered image.
-*/
-
 
 void SimpleStageBase::classDescInserter(TypeObject &oType)
 {
@@ -209,30 +201,6 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&SimpleStage::getHandleBackground));
 
     oType.addInitialDesc(pDesc);
-
-    pDesc = new MFRenderFunctorCallback::Description(
-        MFRenderFunctorCallback::getClassType(),
-        "preRenderCallbacks",
-        "The foreground additions to the rendered image.\n",
-        PreRenderCallbacksFieldId, PreRenderCallbacksFieldMask,
-        false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
-        static_cast     <FieldEditMethodSig>(&SimpleStage::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&SimpleStage::invalidGetField));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new MFRenderFunctorCallback::Description(
-        MFRenderFunctorCallback::getClassType(),
-        "postRenderCallbacks",
-        "The foreground additions to the rendered image.\n",
-        PostRenderCallbacksFieldId, PostRenderCallbacksFieldMask,
-        false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
-        static_cast     <FieldEditMethodSig>(&SimpleStage::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&SimpleStage::invalidGetField));
-
-    oType.addInitialDesc(pDesc);
 }
 
 
@@ -251,7 +219,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     "\n"
     "<FieldContainer\n"
     "        name=\"SimpleStage\"\n"
-    "        parent=\"Stage\"\n"
+    "        parent=\"RenderCallbackStage\"\n"
     "        library=\"Group\"\n"
     "        pointerfieldtypes=\"none\"\n"
     "        structure=\"concrete\"\n"
@@ -328,24 +296,6 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     "                access=\"public\"\n"
     "        >\n"
     "        The background used to clear this viewport.\n"
-    "        </Field>\n"
-    "        <Field\n"
-    "                name=\"preRenderCallbacks\"\n"
-    "                type=\"RenderFunctorCallback\"\n"
-    "                cardinality=\"multi\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"none\"\n"
-    "        >\n"
-    "        The foreground additions to the rendered image.\n"
-    "        </Field>\n"
-    "        <Field\n"
-    "                name=\"postRenderCallbacks\"\n"
-    "                type=\"RenderFunctorCallback\"\n"
-    "                cardinality=\"multi\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"none\"\n"
-    "        >\n"
-    "        The foreground additions to the rendered image.\n"
     "        </Field>\n"
     "</FieldContainer>\n",
     "Extension to the Stage core that provides for viewport support, a camera, backgrounds, and foreground.\n"
@@ -453,8 +403,6 @@ SFUnrecBackgroundPtr *SimpleStageBase::editSFBackground     (void)
 
 
 
-
-
 /*------------------------------ access -----------------------------------*/
 
 UInt32 SimpleStageBase::getBinSize(ConstFieldMaskArg whichField)
@@ -484,14 +432,6 @@ UInt32 SimpleStageBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
     {
         returnValue += _sfBackground.getBinSize();
-    }
-    if(FieldBits::NoField != (PreRenderCallbacksFieldMask & whichField))
-    {
-        returnValue += _mfPreRenderCallbacks.getBinSize();
-    }
-    if(FieldBits::NoField != (PostRenderCallbacksFieldMask & whichField))
-    {
-        returnValue += _mfPostRenderCallbacks.getBinSize();
     }
 
     return returnValue;
@@ -526,14 +466,6 @@ void SimpleStageBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfBackground.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (PreRenderCallbacksFieldMask & whichField))
-    {
-        _mfPreRenderCallbacks.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (PostRenderCallbacksFieldMask & whichField))
-    {
-        _mfPostRenderCallbacks.copyToBin(pMem);
-    }
 }
 
 void SimpleStageBase::copyFromBin(BinaryDataHandler &pMem,
@@ -564,14 +496,6 @@ void SimpleStageBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (BackgroundFieldMask & whichField))
     {
         _sfBackground.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (PreRenderCallbacksFieldMask & whichField))
-    {
-        _mfPreRenderCallbacks.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (PostRenderCallbacksFieldMask & whichField))
-    {
-        _mfPostRenderCallbacks.copyFromBin(pMem);
     }
 }
 
@@ -703,9 +627,7 @@ SimpleStageBase::SimpleStageBase(void) :
     _sfBottom                 (Real32(0.f)),
     _sfTop                    (Real32(1.f)),
     _sfCamera                 (NULL),
-    _sfBackground             (NULL),
-    _mfPreRenderCallbacks     (),
-    _mfPostRenderCallbacks    ()
+    _sfBackground             (NULL)
 {
 }
 
@@ -716,9 +638,7 @@ SimpleStageBase::SimpleStageBase(const SimpleStageBase &source) :
     _sfBottom                 (source._sfBottom                 ),
     _sfTop                    (source._sfTop                    ),
     _sfCamera                 (NULL),
-    _sfBackground             (NULL),
-    _mfPreRenderCallbacks     (source._mfPreRenderCallbacks     ),
-    _mfPostRenderCallbacks    (source._mfPostRenderCallbacks    )
+    _sfBackground             (NULL)
 {
 }
 
@@ -887,34 +807,6 @@ EditFieldHandlePtr SimpleStageBase::editHandleBackground     (void)
     return returnValue;
 }
 
-GetFieldHandlePtr SimpleStageBase::getHandlePreRenderCallbacks (void) const
-{
-    MFRenderFunctorCallback::GetHandlePtr returnValue;
-
-    return returnValue;
-}
-
-EditFieldHandlePtr SimpleStageBase::editHandlePreRenderCallbacks(void)
-{
-    EditFieldHandlePtr returnValue;
-
-    return returnValue;
-}
-
-GetFieldHandlePtr SimpleStageBase::getHandlePostRenderCallbacks (void) const
-{
-    MFRenderFunctorCallback::GetHandlePtr returnValue;
-
-    return returnValue;
-}
-
-EditFieldHandlePtr SimpleStageBase::editHandlePostRenderCallbacks(void)
-{
-    EditFieldHandlePtr returnValue;
-
-    return returnValue;
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SimpleStageBase::execSyncV(      FieldContainer    &oFrom,
@@ -956,25 +848,12 @@ void SimpleStageBase::resolveLinks(void)
 
     static_cast<SimpleStage *>(this)->setBackground(NULL);
 
-#ifdef OSG_MT_CPTR_ASPECT
-    AspectOffsetStore oOffsets;
 
-    _pAspectStore->fillOffsetArray(oOffsets, this);
-#endif
-
-#ifdef OSG_MT_CPTR_ASPECT
-    _mfPreRenderCallbacks.terminateShare(Thread::getCurrentAspect(),
-                                      oOffsets);
-#endif
-#ifdef OSG_MT_CPTR_ASPECT
-    _mfPostRenderCallbacks.terminateShare(Thread::getCurrentAspect(),
-                                      oOffsets);
-#endif
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleStage *>::_type("SimpleStagePtr", "StagePtr");
+DataType FieldTraits<SimpleStage *>::_type("SimpleStagePtr", "RenderCallbackStagePtr");
 #endif
 
 

@@ -1168,22 +1168,27 @@ void RenderPartition::initFrom(RenderPartition *pSource,
         return;
     }
 
+    _sStateOverrides.push(_pStatePool->create());
+
+    _sStateOverrides.top()->setKeyGen(_uiKeyGen);
+
     if(0x0000 != (uiCopyOnPush & CopyStateOverride))
     {
-    }
-    else
-    {
-        _sStateOverrides.push(_pStatePool->create());
-
-        _sStateOverrides.top()->setKeyGen(_uiKeyGen);
+        _sStateOverrides.top()->fillFrom(pSource->_sStateOverrides.top());
     }
 
     if(0x0000 != (uiCopyOnPush & CopyVisibility))
     {
+        _visibilityStack.push_back(pSource->_visibilityStack.back());
     }
     else
     {
         _visibilityStack.push_back(FrustumVolume::P_NONE);
+    }
+
+    if(0x0000 != (uiCopyOnPush & CopyMatrix))
+    {
+        this->pushMatrix(pSource->_currMatrix.second);
     }
 
     if(0x0000 != (uiCopyOnPush & CopyViewing))
@@ -1197,12 +1202,10 @@ void RenderPartition::initFrom(RenderPartition *pSource,
                               pSource->getProjectionTrans());
     }
 
-#if 0
-    if(0x0000 != (uiCopyOnPush & CopyViewport))
+    if(0x0000 != (uiCopyOnPush & CopyTarget))
     {
-        this->setViewport(pSource->getViewport());
+        this->setRenderTarget(pSource->getRenderTarget());
     }
-#endif
 
     if(0x0000 != (uiCopyOnPush & CopyWindow))
     {
@@ -1240,6 +1243,7 @@ void RenderPartition::initFrom(RenderPartition *pSource,
             pInitial->_oDrawEnv.getVPCameraToWorld        (),
             pInitial->_oDrawEnv.getVPWorldToScreen        ());
     }
+
 }
 
 void RenderPartition::initVPMatricesFromCamera(void)

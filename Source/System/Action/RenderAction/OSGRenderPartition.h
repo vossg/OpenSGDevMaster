@@ -189,7 +189,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
 
           void      setupProjection     (const Matrix4f &projection,
-					 const Matrix4f &translation);
+                                         const Matrix4f &translation);
 
     const Matrix4f &getFullProjection   (      void                 );
     const Matrix4f &getProjection       (      void                 );

@@ -495,7 +495,6 @@ void SimpleShadowMapEngine::doAmbientPass(Light         *pLight,
 {
     pAction->pushPartition((RenderPartition::CopyViewing      |
                             RenderPartition::CopyProjection   |
-                            RenderPartition::CopyViewport     | 
                             RenderPartition::CopyWindow       |
                             RenderPartition::CopyViewportSize |
                             RenderPartition::CopyFrustum      |
@@ -537,7 +536,6 @@ void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
 {
     pAction->pushPartition((RenderPartition::CopyViewing      |
                             RenderPartition::CopyProjection   |
-                            RenderPartition::CopyViewport     | 
                             RenderPartition::CopyWindow       |
                             RenderPartition::CopyViewportSize |
                             RenderPartition::CopyFrustum      |

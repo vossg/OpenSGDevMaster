@@ -198,6 +198,9 @@ ActionBase::ResultE Stage::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
+    if(a == NULL)
+        return ActionBase::Continue;
+
     a->popPartition();
 
     return ActionBase::Continue;

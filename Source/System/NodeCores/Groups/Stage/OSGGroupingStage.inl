@@ -36,21 +36,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! Set all of the size-related fields of the viewport.
- */ 
-
-inline 
-void SimpleStage::setSize(Real32 left, 
-                          Real32 bottom, 
-                          Real32 right, 
-                          Real32 top  )
-{
-    setLeft  (left  );
-    setRight (right );
-    setBottom(bottom);
-    setTop   (top   );
-}
-
 OSG_END_NAMESPACE
 
 

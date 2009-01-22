@@ -36,23 +36,25 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSIMPLESTAGE_H_
-#define _OSGSIMPLESTAGE_H_
+#ifndef _OSGRENDERCALLBACKSTAGE_H_
+#define _OSGRENDERCALLBACKSTAGE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include <queue>
 
-#include "OSGSimpleStageBase.h"
+#include "OSGRenderCallbackStageBase.h"
 #include "OSGAction.h"
 
 OSG_BEGIN_NAMESPACE
 
+class RenderPartition;
+
 //! Stage
 //! \ingroup GrpSystemNodeCoresMisc
 
-class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
+class OSG_GROUP_DLLMAPPING RenderCallbackStage : public RenderCallbackStageBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -73,20 +75,39 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
     /*! \name                    access                                    */
     /*! \{                                                                 */
 
-    void setSize(Real32 left,  
-                 Real32 bottom, 
-                 Real32 right, 
-                 Real32 top   );
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
+    UInt32 addPreRenderFunctor    (RenderFunctor func,
+                                   std::string    createSymbol);
+
+    template<class FunctorT>
+    void   subPreRenderFunctor    (FunctorT       func        );
+
+    void   subPreRenderFunctor    (UInt32         uiId        );
+
+    void   clearPreRenderFunctors (void                       );
+
+
+    UInt32 addPostRenderFunctor   (RenderFunctor func,
+                                   std::string    createSymbol);
+
+    template<class FunctorT>
+    void   subPostRenderFunctor   (FunctorT       func        );
+
+    void   subPostRenderFunctor   (UInt32         uiId        );
+
+    void   clearPostRenderFunctors(void                       );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
     /*! \{                                                                 */
+
+    void fillPreRenderStore (RenderFunctorStore &vStore);
+    void fillPostRenderStore(RenderFunctorStore &vStore);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -101,21 +122,21 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
 
   protected:
 
-    typedef SimpleStageBase Inherited;
+    typedef RenderCallbackStageBase Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SimpleStage(void);
-    SimpleStage(const SimpleStage &source);
+    RenderCallbackStage(void);
+    RenderCallbackStage(const RenderCallbackStage &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SimpleStage(void);
+    virtual ~RenderCallbackStage(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -124,6 +145,13 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
 
     ActionBase::ResultE renderEnter(Action *action);
     ActionBase::ResultE renderLeave(Action *action);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
+
+    void addCallbacks(RenderPartition *pPartition);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -138,7 +166,7 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
   private:
 
     friend class FieldContainer;
-    friend class SimpleStageBase;
+    friend class RenderCallbackStageBase;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   thread local                               */
@@ -153,14 +181,14 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
     /*---------------------------------------------------------------------*/
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const SimpleStage &source);
+    void operator =(const RenderCallbackStage &source);
 };
 
-typedef SimpleStage              *SimpleStageP;
+typedef RenderCallbackStage              *RenderCallbackStageP;
 
 OSG_END_NAMESPACE
 
-#include "OSGSimpleStageBase.inl"
-#include "OSGSimpleStage.inl"
+#include "OSGRenderCallbackStageBase.inl"
+#include "OSGRenderCallbackStage.inl"
 
-#endif /* _OSGSIMPLESTAGE_H_ */
+#endif /* _OSGRENDERCALLBACKSTAGE_H_ */

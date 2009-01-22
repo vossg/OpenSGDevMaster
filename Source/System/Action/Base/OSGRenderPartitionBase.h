@@ -92,7 +92,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase
         CopyProjection    = 0x0004,
         CopyVisibility    = 0x0008,
 
-        CopyViewport      = 0x0010,
+        CopyTarget        = 0x0010,
         CopyWindow        = 0x0020,
 
         CopyViewportSize  = 0x0040,
@@ -101,6 +101,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase
         CopyNearFar       = 0x0100,
 
         CopyVPCamera      = 0x0200,
+
+        CopyMatrix        = 0x0400,
 
         CopyAll           = 0xFFFF
     };

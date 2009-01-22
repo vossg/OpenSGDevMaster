@@ -2,7 +2,7 @@
 
 <FieldContainer
         name="SimpleStage"
-        parent="Stage"
+        parent="RenderCallbackStage"
         library="Group"
         pointerfieldtypes="none"
         structure="concrete"
@@ -79,23 +79,5 @@ Extension to the Stage core that provides for viewport support, a camera, backgr
                 access="public"
         >
         The background used to clear this viewport.
-        </Field>
-        <Field
-                name="preRenderCallbacks"
-                type="RenderFunctorCallback"
-                cardinality="multi"
-                visibility="external"
-                access="none"
-        >
-        The foreground additions to the rendered image.
-        </Field>
-        <Field
-                name="postRenderCallbacks"
-                type="RenderFunctorCallback"
-                cardinality="multi"
-                visibility="external"
-                access="none"
-        >
-        The foreground additions to the rendered image.
         </Field>
 </FieldContainer>

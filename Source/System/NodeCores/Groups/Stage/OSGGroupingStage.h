@@ -36,15 +36,15 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSIMPLESTAGE_H_
-#define _OSGSIMPLESTAGE_H_
+#ifndef _OSGGROUPINGSTAGE_H_
+#define _OSGGROUPINGSTAGE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 #include <queue>
 
-#include "OSGSimpleStageBase.h"
+#include "OSGGroupingStageBase.h"
 #include "OSGAction.h"
 
 OSG_BEGIN_NAMESPACE
@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
 //! Stage
 //! \ingroup GrpSystemNodeCoresMisc
 
-class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
+class OSG_GROUP_DLLMAPPING GroupingStage : public GroupingStageBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -73,11 +73,6 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
     /*! \name                    access                                    */
     /*! \{                                                                 */
 
-    void setSize(Real32 left,  
-                 Real32 bottom, 
-                 Real32 right, 
-                 Real32 top   );
-    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
@@ -101,21 +96,21 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
 
   protected:
 
-    typedef SimpleStageBase Inherited;
+    typedef GroupingStageBase Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SimpleStage(void);
-    SimpleStage(const SimpleStage &source);
+    GroupingStage(void);
+    GroupingStage(const GroupingStage &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SimpleStage(void);
+    virtual ~GroupingStage(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -138,7 +133,7 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
   private:
 
     friend class FieldContainer;
-    friend class SimpleStageBase;
+    friend class GroupingStageBase;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   thread local                               */
@@ -153,14 +148,14 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
     /*---------------------------------------------------------------------*/
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const SimpleStage &source);
+    void operator =(const GroupingStage &source);
 };
 
-typedef SimpleStage              *SimpleStageP;
+typedef GroupingStage              *GroupingStageP;
 
 OSG_END_NAMESPACE
 
-#include "OSGSimpleStageBase.inl"
-#include "OSGSimpleStage.inl"
+#include "OSGGroupingStageBase.inl"
+#include "OSGGroupingStage.inl"
 
-#endif /* _OSGSIMPLESTAGE_H_ */
+#endif /* _OSGGROUPINGSTAGE_H_ */

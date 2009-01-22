@@ -50,7 +50,7 @@
 #include <OSGSceneFileHandler.h>
 #include <OSGVolumeDraw.h>
 
-#include "OSGSimpleStage.h"
+#include "OSGRenderCallbackStage.h"
 
 #include "OSGBackground.h"
 #include "OSGFrameBufferObject.h"
@@ -59,16 +59,16 @@
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
-// OSGSimpleStageBase.cpp file.
-// To modify it, please change the .fcd file (OSGSimpleStage.fcd) and
+// OSGRenderCallbackStageBase.cpp file.
+// To modify it, please change the .fcd file (OSGRenderCallbackStage.fcd) and
 // regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
 
-void SimpleStage::changed(ConstFieldMaskArg whichField, 
-                          UInt32            origin,
-                          BitVector         details)
+void RenderCallbackStage::changed(ConstFieldMaskArg whichField, 
+                                  UInt32            origin,
+                                  BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
@@ -76,8 +76,8 @@ void SimpleStage::changed(ConstFieldMaskArg whichField,
 /*-------------------------------------------------------------------------*/
 /*                               Dump                                      */
 
-void SimpleStage::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
-                       const BitVector OSG_CHECK_ARG(bvFlags )) const
+void RenderCallbackStage::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
+                               const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
     SLOG << "Dump VisitSubTree NI" << std::endl;
 }
@@ -85,12 +85,12 @@ void SimpleStage::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-SimpleStage::SimpleStage(void) :
+RenderCallbackStage::RenderCallbackStage(void) :
     Inherited()
 {
 }
 
-SimpleStage::SimpleStage(const SimpleStage &source) :
+RenderCallbackStage::RenderCallbackStage(const RenderCallbackStage &source) :
     Inherited(source)
 {
 }
@@ -98,8 +98,46 @@ SimpleStage::SimpleStage(const SimpleStage &source) :
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-SimpleStage::~SimpleStage(void)
+RenderCallbackStage::~RenderCallbackStage(void)
 {
+}
+
+void RenderCallbackStage::addCallbacks(RenderPartition *pPartition)
+{
+    if(pPartition == NULL)
+        return;
+
+    RenderCallbackStage::RenderFunctorStore vCallbackStore;
+
+    this->fillPreRenderStore(vCallbackStore);
+
+    RenderCallbackStage::RenderFunctorStore::const_iterator cbIt  = 
+        vCallbackStore.begin();
+
+    RenderCallbackStage::RenderFunctorStore::const_iterator cbEnd = 
+        vCallbackStore.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        pPartition->addPreRenderCallback(*cbIt);
+        
+        ++cbIt;
+    }
+
+
+    vCallbackStore.clear();
+
+    this->fillPostRenderStore(vCallbackStore);
+
+    cbIt  = vCallbackStore.begin();
+    cbEnd = vCallbackStore.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        pPartition->addPostRenderCallback(*cbIt);
+        
+        ++cbIt;
+    }
 }
 
 /*-------------------------------------------------------------------------*/
@@ -111,98 +149,25 @@ SimpleStage::~SimpleStage(void)
   thid group.
  */
 
-ActionBase::ResultE SimpleStage::renderEnter(Action *action)
+ActionBase::ResultE RenderCallbackStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     if(a == NULL)
         return ActionBase::Continue;
 
-    RenderPartition   *pParentPart = a   ->getActivePartition();
-    FrameBufferObject *pTarget     = this->getRenderTarget();
+    Inherited::renderEnter(action);
 
-    Background        *pBack   = this->getBackground();
-    Viewport          *pPort   = a->getViewport();
-    Window            *pWin    = a->getWindow  ();
+    RenderPartition *pPart   = a->getActivePartition();
 
-    if(pTarget == NULL && this->getInheritedTarget() == true)
-    {
-        pTarget = pParentPart->getRenderTarget();
-    }
-
-    a->pushPartition();
-    
-    RenderPartition   *pPart   = a->getActivePartition();
-    Camera            *pCam    = this->getCamera();
-    
-    pPart->setRenderTarget(pTarget);
-    
-//    pPart->setViewport(pPort);
-    pPart->setWindow  (pWin );
-    
-    if(pTarget != NULL)
-    {
-        pPart->calcViewportDimension(this->getLeft  (),
-                                     this->getBottom(),
-                                     this->getRight (),
-                                     this->getTop   (),
-                                     
-                                     pTarget->getWidth    (),
-                                     pTarget->getHeight   ());
-    }
-    else if(pWin != NULL)
-    {
-        pPart->calcViewportDimension(this->getLeft  (),
-                                     this->getBottom(),
-                                     this->getRight (),
-                                     this->getTop   (),
-                                     
-                                     pWin->getWidth   (),
-                                     pWin->getHeight  ());
-    }
-    
-    if(pCam != NULL)
-    {
-        Matrix m, t;
-        
-        // set the projection
-        pCam->getProjection          (m, 
-                                      pPart->getViewportWidth (), 
-                                      pPart->getViewportHeight());
-        
-        pCam->getProjectionTranslation(t, 
-                                       pPart->getViewportWidth (), 
-                                       pPart->getViewportHeight());
-        
-        pPart->setupProjection(m, t);
-        
-        pCam->getViewing(m, 
-                         pPart->getViewportWidth (),
-                         pPart->getViewportHeight());
-        
-        
-        pPart->setupViewing(m              );
-        
-        pPart->setNear     (pCam->getNear());
-        pPart->setFar      (pCam->getFar ());
-        
-        pPart->calcFrustum (               );
-        
-    }
-    
-    Inherited::addCallbacks(pPart);
-
-    pPart->setBackground(pBack);
+    this->addCallbacks(pPart);
 
     return ActionBase::Continue;
 }
 
-ActionBase::ResultE SimpleStage::renderLeave(Action *action)
+ActionBase::ResultE RenderCallbackStage::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
-
-    if(a == NULL)
-        return ActionBase::Continue;
 
     a->popPartition();
 
@@ -213,21 +178,106 @@ ActionBase::ResultE SimpleStage::renderLeave(Action *action)
 /*                               loading                                   */
 
 
+UInt32 RenderCallbackStage::addPreRenderFunctor(RenderFunctor func,
+                                                std::string   createSymbol)
+{
+    RenderFunctorCallback oTmp;
+
+    oTmp._func         = func;
+    oTmp._uiId         = _mfPreRenderCallbacks.size();
+    oTmp._createSymbol = createSymbol;
+
+    _mfPreRenderCallbacks.push_back(oTmp);
+
+    return oTmp._uiId;
+}
+
+
+void RenderCallbackStage::subPreRenderFunctor(UInt32 uiId)
+{
+    MFRenderFunctorCallback::iterator       cfIt = 
+        _mfPreRenderCallbacks.begin();
+
+    MFRenderFunctorCallback::const_iterator cfEnd= 
+        _mfPreRenderCallbacks.end();
+
+    while(cfIt != cfEnd)
+    {
+        if(cfIt->_uiId == uiId)
+            break;
+
+        ++cfIt;
+    }
+
+    if(cfIt != cfEnd)
+        _mfPreRenderCallbacks.erase(cfIt);
+}
+
+
+void RenderCallbackStage::clearPreRenderFunctors(void)
+{
+    _mfPreRenderCallbacks.clear();
+}
+
+
+UInt32 RenderCallbackStage::addPostRenderFunctor(RenderFunctor func,
+                                                 std::string   createSymbol)
+{
+    RenderFunctorCallback oTmp;
+
+    oTmp._func         = func;
+    oTmp._uiId         = _mfPostRenderCallbacks.size();
+    oTmp._createSymbol = createSymbol;
+
+    _mfPostRenderCallbacks.push_back(oTmp);
+
+    return oTmp._uiId;
+}
+
+
+void RenderCallbackStage::subPostRenderFunctor(UInt32 uiId)
+{
+    MFRenderFunctorCallback::iterator       cfIt = 
+        _mfPostRenderCallbacks.begin();
+
+    MFRenderFunctorCallback::const_iterator cfEnd= 
+        _mfPostRenderCallbacks.end();
+
+    while(cfIt != cfEnd)
+    {
+        if(cfIt->_uiId == uiId)
+            break;
+
+        ++cfIt;
+    }
+
+    if(cfIt != cfEnd)
+        _mfPostRenderCallbacks.erase(cfIt);
+}
+
+
+void RenderCallbackStage::clearPostRenderFunctors(void)
+{
+    _mfPostRenderCallbacks.clear();
+}
+
 /*-------------------------------------------------------------------------*/
 /*                               Init                                      */
 
-void SimpleStage::initMethod(InitPhase ePhase)
+void RenderCallbackStage::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            SimpleStage::getClassType(), 
-            reinterpret_cast<Action::Callback>(&SimpleStage::renderEnter));
+            RenderCallbackStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(
+                &RenderCallbackStage::renderEnter));
         
         RenderAction::registerLeaveDefault( 
-            SimpleStage::getClassType(), 
-            reinterpret_cast<Action::Callback>(&SimpleStage::renderLeave));
+            RenderCallbackStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(
+                &RenderCallbackStage::renderLeave));
     }
 }

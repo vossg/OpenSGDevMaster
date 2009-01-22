@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class SimpleStage
+ **     class GroupingStage
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGSIMPLESTAGEBASE_H_
-#define _OSGSIMPLESTAGEBASE_H_
+#ifndef _OSGGROUPINGSTAGEBASE_H_
+#define _OSGGROUPINGSTAGEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -65,22 +65,16 @@
 
 #include "OSGRenderCallbackStage.h" // Parent
 
-#include "OSGReal32Fields.h" // Left type
-#include "OSGReal32Fields.h" // Right type
-#include "OSGReal32Fields.h" // Bottom type
-#include "OSGReal32Fields.h" // Top type
-#include "OSGCameraFields.h" // Camera type
-#include "OSGBackgroundFields.h" // Background type
 
-#include "OSGSimpleStageFields.h"
+#include "OSGGroupingStageFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class SimpleStage;
+class GroupingStage;
 
-//! \brief SimpleStage Base Class.
+//! \brief GroupingStage Base Class.
 
-class OSG_GROUP_DLLMAPPING SimpleStageBase : public RenderCallbackStage
+class OSG_GROUP_DLLMAPPING GroupingStageBase : public RenderCallbackStage
 {
   public:
 
@@ -90,44 +84,12 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public RenderCallbackStage
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(SimpleStage);
+    OSG_GEN_INTERNALPTR(GroupingStage);
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    enum
-    {
-        LeftFieldId = Inherited::NextFieldId,
-        RightFieldId = LeftFieldId + 1,
-        BottomFieldId = RightFieldId + 1,
-        TopFieldId = BottomFieldId + 1,
-        CameraFieldId = TopFieldId + 1,
-        BackgroundFieldId = CameraFieldId + 1,
-        NextFieldId = BackgroundFieldId + 1
-    };
-
-    static const OSG::BitVector LeftFieldMask =
-        (TypeTraits<BitVector>::One << LeftFieldId);
-    static const OSG::BitVector RightFieldMask =
-        (TypeTraits<BitVector>::One << RightFieldId);
-    static const OSG::BitVector BottomFieldMask =
-        (TypeTraits<BitVector>::One << BottomFieldId);
-    static const OSG::BitVector TopFieldMask =
-        (TypeTraits<BitVector>::One << TopFieldId);
-    static const OSG::BitVector CameraFieldMask =
-        (TypeTraits<BitVector>::One << CameraFieldId);
-    static const OSG::BitVector BackgroundFieldMask =
-        (TypeTraits<BitVector>::One << BackgroundFieldId);
-    static const OSG::BitVector NextFieldMask =
-        (TypeTraits<BitVector>::One << NextFieldId);
-        
-    typedef SFReal32          SFLeftType;
-    typedef SFReal32          SFRightType;
-    typedef SFReal32          SFBottomType;
-    typedef SFReal32          SFTopType;
-    typedef SFUnrecCameraPtr  SFCameraType;
-    typedef SFUnrecBackgroundPtr SFBackgroundType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -149,67 +111,6 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public RenderCallbackStage
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-
-                  SFReal32            *editSFLeft           (void);
-            const SFReal32            *getSFLeft            (void) const;
-
-                  SFReal32            *editSFRight          (void);
-            const SFReal32            *getSFRight           (void) const;
-
-                  SFReal32            *editSFBottom         (void);
-            const SFReal32            *getSFBottom          (void) const;
-
-                  SFReal32            *editSFTop            (void);
-            const SFReal32            *getSFTop             (void) const;
-            const SFUnrecCameraPtr    *getSFCamera         (void) const;
-                  SFUnrecCameraPtr    *editSFCamera         (void);
-            const SFUnrecBackgroundPtr *getSFBackground     (void) const;
-                  SFUnrecBackgroundPtr *editSFBackground     (void);
-
-
-                  Real32              &editLeft           (void);
-                  Real32               getLeft            (void) const;
-
-                  Real32              &editRight          (void);
-                  Real32               getRight           (void) const;
-
-                  Real32              &editBottom         (void);
-                  Real32               getBottom          (void) const;
-
-                  Real32              &editTop            (void);
-                  Real32               getTop             (void) const;
-
-                  Camera * getCamera         (void) const;
-
-                  Background * getBackground     (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setLeft           (const Real32 value);
-            void setRight          (const Real32 value);
-            void setBottom         (const Real32 value);
-            void setTop            (const Real32 value);
-            void setCamera         (Camera * const value);
-            void setBackground     (Background * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
@@ -225,16 +126,16 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public RenderCallbackStage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SimpleStageTransitPtr  create          (void);
-    static  SimpleStage           *createEmpty     (void);
+    static  GroupingStageTransitPtr  create          (void);
+    static  GroupingStage           *createEmpty     (void);
 
-    static  SimpleStageTransitPtr  createLocal     (
+    static  GroupingStageTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  SimpleStage            *createEmptyLocal(
+    static  GroupingStage            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  SimpleStageTransitPtr  createDependent  (BitVector bFlags);
+    static  GroupingStageTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -258,55 +159,30 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public RenderCallbackStage
     static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
-
-    SFReal32          _sfLeft;
-    SFReal32          _sfRight;
-    SFReal32          _sfBottom;
-    SFReal32          _sfTop;
-    SFUnrecCameraPtr  _sfCamera;
-    SFUnrecBackgroundPtr _sfBackground;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SimpleStageBase(void);
-    SimpleStageBase(const SimpleStageBase &source);
+    GroupingStageBase(void);
+    GroupingStageBase(const GroupingStageBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SimpleStageBase(void);
+    virtual ~GroupingStageBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const SimpleStage *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleLeft            (void) const;
-    EditFieldHandlePtr editHandleLeft           (void);
-    GetFieldHandlePtr  getHandleRight           (void) const;
-    EditFieldHandlePtr editHandleRight          (void);
-    GetFieldHandlePtr  getHandleBottom          (void) const;
-    EditFieldHandlePtr editHandleBottom         (void);
-    GetFieldHandlePtr  getHandleTop             (void) const;
-    EditFieldHandlePtr editHandleTop            (void);
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
-    GetFieldHandlePtr  getHandleBackground      (void) const;
-    EditFieldHandlePtr editHandleBackground     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -320,7 +196,7 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public RenderCallbackStage
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      SimpleStageBase *pFrom,
+            void execSync (      GroupingStageBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -360,14 +236,14 @@ class OSG_GROUP_DLLMAPPING SimpleStageBase : public RenderCallbackStage
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const SimpleStageBase &source);
+    void operator =(const GroupingStageBase &source);
 };
 
-typedef SimpleStageBase *SimpleStageBaseP;
+typedef GroupingStageBase *GroupingStageBaseP;
 
-typedef CoredNodeRefPtr  <SimpleStage> SimpleStageNodeRefPtr;
-typedef CoredNodeMTRefPtr<SimpleStage> SimpleStageNodeMTRefPtr;
+typedef CoredNodeRefPtr  <GroupingStage> GroupingStageNodeRefPtr;
+typedef CoredNodeMTRefPtr<GroupingStage> GroupingStageNodeMTRefPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGSIMPLESTAGEBASE_H_ */
+#endif /* _OSGGROUPINGSTAGEBASE_H_ */

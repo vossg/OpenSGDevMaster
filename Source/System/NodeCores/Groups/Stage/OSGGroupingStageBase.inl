@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class SimpleStage!
+ **     class GroupingStage!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,197 +53,47 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &SimpleStageBase::getClassType(void)
+OSG::FieldContainerType &GroupingStageBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SimpleStageBase::getClassTypeId(void)
+OSG::UInt32 GroupingStageBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 SimpleStageBase::getClassGroupId(void)
+OSG::UInt16 GroupingStageBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the SimpleStage::_sfLeft field.
-
-inline
-Real32 &SimpleStageBase::editLeft(void)
-{
-    editSField(LeftFieldMask);
-
-    return _sfLeft.getValue();
-}
-
-//! Get the value of the SimpleStage::_sfLeft field.
-inline
-      Real32  SimpleStageBase::getLeft(void) const
-{
-    return _sfLeft.getValue();
-}
-
-//! Set the value of the SimpleStage::_sfLeft field.
-inline
-void SimpleStageBase::setLeft(const Real32 value)
-{
-    editSField(LeftFieldMask);
-
-    _sfLeft.setValue(value);
-}
-//! Get the value of the SimpleStage::_sfRight field.
-
-inline
-Real32 &SimpleStageBase::editRight(void)
-{
-    editSField(RightFieldMask);
-
-    return _sfRight.getValue();
-}
-
-//! Get the value of the SimpleStage::_sfRight field.
-inline
-      Real32  SimpleStageBase::getRight(void) const
-{
-    return _sfRight.getValue();
-}
-
-//! Set the value of the SimpleStage::_sfRight field.
-inline
-void SimpleStageBase::setRight(const Real32 value)
-{
-    editSField(RightFieldMask);
-
-    _sfRight.setValue(value);
-}
-//! Get the value of the SimpleStage::_sfBottom field.
-
-inline
-Real32 &SimpleStageBase::editBottom(void)
-{
-    editSField(BottomFieldMask);
-
-    return _sfBottom.getValue();
-}
-
-//! Get the value of the SimpleStage::_sfBottom field.
-inline
-      Real32  SimpleStageBase::getBottom(void) const
-{
-    return _sfBottom.getValue();
-}
-
-//! Set the value of the SimpleStage::_sfBottom field.
-inline
-void SimpleStageBase::setBottom(const Real32 value)
-{
-    editSField(BottomFieldMask);
-
-    _sfBottom.setValue(value);
-}
-//! Get the value of the SimpleStage::_sfTop field.
-
-inline
-Real32 &SimpleStageBase::editTop(void)
-{
-    editSField(TopFieldMask);
-
-    return _sfTop.getValue();
-}
-
-//! Get the value of the SimpleStage::_sfTop field.
-inline
-      Real32  SimpleStageBase::getTop(void) const
-{
-    return _sfTop.getValue();
-}
-
-//! Set the value of the SimpleStage::_sfTop field.
-inline
-void SimpleStageBase::setTop(const Real32 value)
-{
-    editSField(TopFieldMask);
-
-    _sfTop.setValue(value);
-}
-
-//! Get the value of the SimpleStage::_sfCamera field.
-inline
-Camera * SimpleStageBase::getCamera(void) const
-{
-    return _sfCamera.getValue();
-}
-
-//! Set the value of the SimpleStage::_sfCamera field.
-inline
-void SimpleStageBase::setCamera(Camera * const value)
-{
-    editSField(CameraFieldMask);
-
-    _sfCamera.setValue(value);
-}
-
-//! Get the value of the SimpleStage::_sfBackground field.
-inline
-Background * SimpleStageBase::getBackground(void) const
-{
-    return _sfBackground.getValue();
-}
-
-//! Set the value of the SimpleStage::_sfBackground field.
-inline
-void SimpleStageBase::setBackground(Background * const value)
-{
-    editSField(BackgroundFieldMask);
-
-    _sfBackground.setValue(value);
-}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void SimpleStageBase::execSync (      SimpleStageBase *pFrom,
+void GroupingStageBase::execSync (      GroupingStageBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (LeftFieldMask & whichField))
-        _sfLeft.syncWith(pFrom->_sfLeft);
-
-    if(FieldBits::NoField != (RightFieldMask & whichField))
-        _sfRight.syncWith(pFrom->_sfRight);
-
-    if(FieldBits::NoField != (BottomFieldMask & whichField))
-        _sfBottom.syncWith(pFrom->_sfBottom);
-
-    if(FieldBits::NoField != (TopFieldMask & whichField))
-        _sfTop.syncWith(pFrom->_sfTop);
-
-    if(FieldBits::NoField != (CameraFieldMask & whichField))
-        _sfCamera.syncWith(pFrom->_sfCamera);
-
-    if(FieldBits::NoField != (BackgroundFieldMask & whichField))
-        _sfBackground.syncWith(pFrom->_sfBackground);
 }
 #endif
 
 
 inline
-const Char8 *SimpleStageBase::getClassname(void)
+const Char8 *GroupingStageBase::getClassname(void)
 {
-    return "SimpleStage";
+    return "GroupingStage";
 }
-OSG_GEN_CONTAINERPTR(SimpleStage);
+OSG_GEN_CONTAINERPTR(GroupingStage);
 
 OSG_END_NAMESPACE
 

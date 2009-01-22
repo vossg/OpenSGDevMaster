@@ -36,19 +36,80 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! Set all of the size-related fields of the viewport.
- */ 
-
-inline 
-void SimpleStage::setSize(Real32 left, 
-                          Real32 bottom, 
-                          Real32 right, 
-                          Real32 top  )
+template<class FunctorT> inline
+void RenderCallbackStage::subPreRenderFunctor(FunctorT func)
 {
-    setLeft  (left  );
-    setRight (right );
-    setBottom(bottom);
-    setTop   (top   );
+    MFRenderFunctorCallback::iterator       cfIt = 
+        _mfPreRenderCallbacks.begin();
+
+    MFRenderFunctorCallback::const_iterator cfEnd= 
+        _mfPreRenderCallbacks.end();
+
+    while(cfIt != cfEnd)
+    {
+        if(cfIt->_func == func)
+            break;
+
+        ++cfIt;
+    }
+
+    if(cfIt != cfEnd)
+        _mfPreRenderCallbacks.erase(cfIt);
+}
+
+template<class FunctorT> inline
+void RenderCallbackStage::subPostRenderFunctor(FunctorT func)
+{
+    MFRenderFunctorCallback::iterator       cfIt = 
+        _mfPostRenderCallbacks.begin();
+
+    MFRenderFunctorCallback::const_iterator cfEnd= 
+        _mfPostRenderCallbacks.end();
+
+    while(cfIt != cfEnd)
+    {
+        if(cfIt->_func == func)
+            break;
+
+        ++cfIt;
+    }
+
+    if(cfIt != cfEnd)
+        _mfPostRenderCallbacks.erase(cfIt);
+}
+
+inline
+void RenderCallbackStage::fillPreRenderStore (RenderFunctorStore &vStore)
+{
+    MFRenderFunctorCallback::const_iterator cfIt = 
+        _mfPreRenderCallbacks.begin();
+
+    MFRenderFunctorCallback::const_iterator cfEnd= 
+        _mfPreRenderCallbacks.end();
+
+    while(cfIt != cfEnd)
+    {
+        vStore.push_back(cfIt->_func);
+
+        ++cfIt;
+    }
+}
+
+inline
+void RenderCallbackStage::fillPostRenderStore(RenderFunctorStore &vStore)
+{
+    MFRenderFunctorCallback::const_iterator cfIt = 
+        _mfPostRenderCallbacks.begin();
+
+    MFRenderFunctorCallback::const_iterator cfEnd= 
+        _mfPostRenderCallbacks.end();
+
+    while(cfIt != cfEnd)
+    {
+        vStore.push_back(cfIt->_func);
+
+        ++cfIt;
+    }
 }
 
 OSG_END_NAMESPACE

@@ -50,7 +50,7 @@
 #include <OSGSceneFileHandler.h>
 #include <OSGVolumeDraw.h>
 
-#include "OSGSimpleStage.h"
+#include "OSGGroupingStage.h"
 
 #include "OSGBackground.h"
 #include "OSGFrameBufferObject.h"
@@ -59,16 +59,16 @@
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
-// OSGSimpleStageBase.cpp file.
-// To modify it, please change the .fcd file (OSGSimpleStage.fcd) and
+// OSGGroupingStageBase.cpp file.
+// To modify it, please change the .fcd file (OSGGroupingStage.fcd) and
 // regenerate the base file.
 
 /*-------------------------------------------------------------------------*/
 /*                               Sync                                      */
 
-void SimpleStage::changed(ConstFieldMaskArg whichField, 
-                          UInt32            origin,
-                          BitVector         details)
+void GroupingStage::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
@@ -76,8 +76,8 @@ void SimpleStage::changed(ConstFieldMaskArg whichField,
 /*-------------------------------------------------------------------------*/
 /*                               Dump                                      */
 
-void SimpleStage::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
-                       const BitVector OSG_CHECK_ARG(bvFlags )) const
+void GroupingStage::dump(      UInt32    OSG_CHECK_ARG(uiIndent), 
+                         const BitVector OSG_CHECK_ARG(bvFlags )) const
 {
     SLOG << "Dump VisitSubTree NI" << std::endl;
 }
@@ -85,12 +85,12 @@ void SimpleStage::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-SimpleStage::SimpleStage(void) :
+GroupingStage::GroupingStage(void) :
     Inherited()
 {
 }
 
-SimpleStage::SimpleStage(const SimpleStage &source) :
+GroupingStage::GroupingStage(const GroupingStage &source) :
     Inherited(source)
 {
 }
@@ -98,7 +98,7 @@ SimpleStage::SimpleStage(const SimpleStage &source) :
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-SimpleStage::~SimpleStage(void)
+GroupingStage::~GroupingStage(void)
 {
 }
 
@@ -111,7 +111,7 @@ SimpleStage::~SimpleStage(void)
   thid group.
  */
 
-ActionBase::ResultE SimpleStage::renderEnter(Action *action)
+ActionBase::ResultE GroupingStage::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
@@ -119,18 +119,28 @@ ActionBase::ResultE SimpleStage::renderEnter(Action *action)
         return ActionBase::Continue;
 
     RenderPartition   *pParentPart = a   ->getActivePartition();
+    FrameBufferObject *pTarget     = pParentPart->getRenderTarget();
+
+    a->pushPartition(RenderPartition::CopyAll);
+
+    RenderPartition   *pPart   = a->getActivePartition();
+
+    Inherited::addCallbacks(pPart);
+
+#if 0
+    RenderPartition   *pParentPart = a   ->getActivePartition();
     FrameBufferObject *pTarget     = this->getRenderTarget();
 
     Background        *pBack   = this->getBackground();
     Viewport          *pPort   = a->getViewport();
     Window            *pWin    = a->getWindow  ();
 
+
     if(pTarget == NULL && this->getInheritedTarget() == true)
     {
         pTarget = pParentPart->getRenderTarget();
     }
 
-    a->pushPartition();
     
     RenderPartition   *pPart   = a->getActivePartition();
     Camera            *pCam    = this->getCamera();
@@ -190,14 +200,44 @@ ActionBase::ResultE SimpleStage::renderEnter(Action *action)
         
     }
     
-    Inherited::addCallbacks(pPart);
+    this->fillPreRenderStore(vCallbackStore);
+
+    GroupingStage::RenderFunctorStore::const_iterator cbIt  = 
+        vCallbackStore.begin();
+
+    GroupingStage::RenderFunctorStore::const_iterator cbEnd = 
+        vCallbackStore.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        pPart->addPreRenderCallback(*cbIt);
+        
+        ++cbIt;
+    }
+
+
+    vCallbackStore.clear();
+
+    this->fillPostRenderStore(vCallbackStore);
+
+    cbIt  = vCallbackStore.begin();
+    cbEnd = vCallbackStore.end  ();
+
+    while(cbIt != cbEnd)
+    {
+        pPart->addPostRenderCallback(*cbIt);
+        
+        ++cbIt;
+    }
+
 
     pPart->setBackground(pBack);
+#endif
 
     return ActionBase::Continue;
 }
 
-ActionBase::ResultE SimpleStage::renderLeave(Action *action)
+ActionBase::ResultE GroupingStage::renderLeave(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
@@ -213,21 +253,22 @@ ActionBase::ResultE SimpleStage::renderLeave(Action *action)
 /*                               loading                                   */
 
 
+
 /*-------------------------------------------------------------------------*/
 /*                               Init                                      */
 
-void SimpleStage::initMethod(InitPhase ePhase)
+void GroupingStage::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            SimpleStage::getClassType(), 
-            reinterpret_cast<Action::Callback>(&SimpleStage::renderEnter));
+            GroupingStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&GroupingStage::renderEnter));
         
         RenderAction::registerLeaveDefault( 
-            SimpleStage::getClassType(), 
-            reinterpret_cast<Action::Callback>(&SimpleStage::renderLeave));
+            GroupingStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(&GroupingStage::renderLeave));
     }
 }
