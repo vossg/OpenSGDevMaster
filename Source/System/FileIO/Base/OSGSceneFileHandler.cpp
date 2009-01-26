@@ -836,8 +836,8 @@ SceneFileHandlerBase::SceneFileHandlerBase(void) :
     _progressData.length = 0;
     _progressData.is = NULL;
 
-    addPreFactoryInitFunction(initializeDefaultGraphOps);
-    addPreFactoryExitFunction(terminateDefaultGraphOps );
+    addPostFactoryInitFunction(initializeDefaultGraphOps);
+    addPreFactoryExitFunction (terminateDefaultGraphOps );
 }
 
 // read progress stuff.
