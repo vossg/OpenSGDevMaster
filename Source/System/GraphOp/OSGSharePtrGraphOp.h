@@ -113,9 +113,7 @@ private:
     virtual Action::ResultE traverseEnter(Node            * const node );
     virtual Action::ResultE traverseLeave(Node            * const node,
                                           Action::ResultE         res  );
-    
-    FieldContainer *shareFC(FieldContainer *fc);
-    
+
     typedef std::set<UInt32          > FCIdSet;
     typedef FCIdSet::iterator          FCIdSetIt;
     
@@ -128,6 +126,12 @@ private:
     typedef std::map<UInt32, UInt32  > ShareCount;
     typedef ShareCount::iterator       ShareCountIt;
     
+    FieldContainer *shareFC(FieldContainer *fc);
+    
+    bool checkInSet     (UInt32 fcTypeId, const FCIdSet &idSet);
+    bool checkIncludeSet(UInt32 fcTypeId                      );
+    bool checkExcludeSet(UInt32 fcTypeId                      );
+
     FCTypeMap  _typeMap;
 
     FCIdSet    _includeSet;

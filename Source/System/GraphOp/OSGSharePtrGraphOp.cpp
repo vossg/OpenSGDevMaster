@@ -52,6 +52,7 @@
 #include <OSGGeoFunctions.h>
 #include <OSGVector.h>
 #include <OSGFieldContainerUtils.h>
+#include <OSGTypeFactory.h>
 
 OSG_USING_NAMESPACE
 
@@ -326,7 +327,7 @@ FieldContainer *SharePtrGraphOp::shareFC(FieldContainer *fc)
             continue;
 
         FieldContainerPtrSFieldBase::EditHandlePtr sfPtrHandle =
-                boost::dynamic_pointer_cast<
+            boost::dynamic_pointer_cast<
                 FieldContainerPtrSFieldBase::EditHandle>(fc->editField(i));
 
         FieldContainerPtrMFieldBase::EditHandlePtr mfPtrHandle =
@@ -358,17 +359,11 @@ FieldContainer *SharePtrGraphOp::shareFC(FieldContainer *fc)
         }
     }
 
-    if(_includeSet.empty() == false)
-    {
-        if(_includeSet.count(fcTypeId) == 0)
-            return fc;
-    }
+    if(checkIncludeSet(fcTypeId) == false)
+        return fc;
 
-    if(_excludeSet.empty() == false)
-    {
-        if(_excludeSet.count(fcTypeId) > 0)
-            return fc;
-    }
+    if(checkExcludeSet(fcTypeId) == true)
+        return fc;
 
     // can not share a FC with single parents
     if(singleParent == true)
@@ -410,3 +405,56 @@ FieldContainer *SharePtrGraphOp::shareFC(FieldContainer *fc)
 
     return fc;
 }
+
+bool SharePtrGraphOp::checkInSet(UInt32 fcTypeId, const FCIdSet &idSet)
+{
+    bool returnValue = false;
+
+    TypeBase *fcType = TypeFactory::the()->findType(fcTypeId);
+
+    if(fcType != NULL && idSet.empty() == false)
+    {
+        FCIdSetIt isIt  = idSet.begin();
+        FCIdSetIt isEnd = idSet.end  ();
+
+        for(; isIt != isEnd; ++isIt)
+        {
+            TypeBase *isType = TypeFactory::the()->findType(*isIt);
+
+            if(isType != NULL && fcType->isDerivedFrom(*isType))
+            {
+                returnValue = true;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+bool SharePtrGraphOp::checkIncludeSet(UInt32 fcTypeId)
+{
+    bool returnValue = false;
+
+    if(_includeSet.empty(                     ) == false &&
+       checkInSet       (fcTypeId, _includeSet) == true     )
+    {
+        returnValue = true;
+    }
+
+    return returnValue;
+}
+
+bool SharePtrGraphOp::checkExcludeSet(UInt32 fcTypeId)
+{
+    bool returnValue = false;
+
+    if(_excludeSet.empty(                     ) == false &&
+       checkInSet       (fcTypeId, _excludeSet) == true     )
+    {
+        returnValue = true;
+    }
+
+    return returnValue;
+}
+
