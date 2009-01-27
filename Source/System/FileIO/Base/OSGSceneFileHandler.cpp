@@ -650,10 +650,12 @@ bool
     return retVal;
 }
 
+#if defined(OSG_1_COMPAT)
 void SceneFileHandlerBase::setOptions(const std::string &suffix,
                                       const std::string &osg1Options)
 {
 }
+#endif
 
 void SceneFileHandlerBase::print (void )
 {
