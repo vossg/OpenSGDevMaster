@@ -91,6 +91,12 @@ OSG_BEGIN_NAMESPACE
     The vertical field of view, in radians.
 */
 
+/*! \var UInt32          PerspectiveCameraBase::_sfFovMode
+    Defines whether the field of view is measured vertically, horizontally or
+    in the smaller direction. See OSG::PerspectiveCamera::FovMode enum for
+    the actual values, 
+*/
+
 /*! \var Real32          PerspectiveCameraBase::_sfAspect
     The aspect ratio (i.e. width / height) of a pixel.
 */
@@ -110,6 +116,20 @@ void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&PerspectiveCamera::editHandleFov),
         static_cast<FieldGetMethodSig >(&PerspectiveCamera::getHandleFov));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "fovMode",
+        "Defines whether the field of view is measured vertically, horizontally or\n"
+        "in the smaller direction. See OSG::PerspectiveCamera::FovMode enum for\n"
+        "the actual values, \n",
+        FovModeFieldId, FovModeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&PerspectiveCamera::editHandleFovMode),
+        static_cast<FieldGetMethodSig >(&PerspectiveCamera::getHandleFovMode));
 
     oType.addInitialDesc(pDesc);
 
@@ -141,13 +161,13 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"PerspectiveCamera\"\n"
-    "\tparent=\"Camera\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
+    "    name=\"PerspectiveCamera\"\n"
+    "    parent=\"Camera\"\n"
+    "    library=\"System\"\n"
+    "    structure=\"concrete\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
     ">\n"
     "\\ingroup GrpSystemWindowCameras\n"
     "\n"
@@ -155,23 +175,35 @@ PerspectiveCameraBase::TypeObject PerspectiveCameraBase::_type(
     "a description.\n"
     "\n"
     "The only new parameter is the _sfFov.\n"
-    "\t<Field\n"
-    "\t\tname=\"fov\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t>\n"
-    "\tThe vertical field of view, in radians.\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"aspect\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "                defaultValue=\"1\"\n"
-    "\t>\n"
-    "\tThe aspect ratio (i.e. width / height) of a pixel.\n"
-    "\t</Field>\n"
+    "    <Field\n"
+    "        name=\"fov\"\n"
+    "        type=\"Real32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "    >\n"
+    "    The vertical field of view, in radians.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"fovMode\"\n"
+    "        type=\"UInt32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    Defines whether the field of view is measured vertically, horizontally or\n"
+    "    in the smaller direction. See OSG::PerspectiveCamera::FovMode enum for\n"
+    "    the actual values, \n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"aspect\"\n"
+    "        type=\"Real32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"1\"\n"
+    "    >\n"
+    "    The aspect ratio (i.e. width / height) of a pixel.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowCameras\n"
     "\n"
@@ -214,6 +246,19 @@ const SFReal32 *PerspectiveCameraBase::getSFFov(void) const
 }
 
 
+SFUInt32 *PerspectiveCameraBase::editSFFovMode(void)
+{
+    editSField(FovModeFieldMask);
+
+    return &_sfFovMode;
+}
+
+const SFUInt32 *PerspectiveCameraBase::getSFFovMode(void) const
+{
+    return &_sfFovMode;
+}
+
+
 SFReal32 *PerspectiveCameraBase::editSFAspect(void)
 {
     editSField(AspectFieldMask);
@@ -241,6 +286,10 @@ UInt32 PerspectiveCameraBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfFov.getBinSize();
     }
+    if(FieldBits::NoField != (FovModeFieldMask & whichField))
+    {
+        returnValue += _sfFovMode.getBinSize();
+    }
     if(FieldBits::NoField != (AspectFieldMask & whichField))
     {
         returnValue += _sfAspect.getBinSize();
@@ -258,6 +307,10 @@ void PerspectiveCameraBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfFov.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (FovModeFieldMask & whichField))
+    {
+        _sfFovMode.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (AspectFieldMask & whichField))
     {
         _sfAspect.copyToBin(pMem);
@@ -272,6 +325,10 @@ void PerspectiveCameraBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (FovFieldMask & whichField))
     {
         _sfFov.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FovModeFieldMask & whichField))
+    {
+        _sfFovMode.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AspectFieldMask & whichField))
     {
@@ -403,6 +460,7 @@ FieldContainerTransitPtr PerspectiveCameraBase::shallowCopy(void) const
 PerspectiveCameraBase::PerspectiveCameraBase(void) :
     Inherited(),
     _sfFov                    (),
+    _sfFovMode                (UInt32(0)),
     _sfAspect                 (Real32(1))
 {
 }
@@ -410,6 +468,7 @@ PerspectiveCameraBase::PerspectiveCameraBase(void) :
 PerspectiveCameraBase::PerspectiveCameraBase(const PerspectiveCameraBase &source) :
     Inherited(source),
     _sfFov                    (source._sfFov                    ),
+    _sfFovMode                (source._sfFovMode                ),
     _sfAspect                 (source._sfAspect                 )
 {
 }
@@ -441,6 +500,29 @@ EditFieldHandlePtr PerspectiveCameraBase::editHandleFov            (void)
 
 
     editSField(FovFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr PerspectiveCameraBase::getHandleFovMode         (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfFovMode,
+             this->getType().getFieldDesc(FovModeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr PerspectiveCameraBase::editHandleFovMode        (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfFovMode,
+             this->getType().getFieldDesc(FovModeFieldId)));
+
+
+    editSField(FovModeFieldMask);
 
     return returnValue;
 }

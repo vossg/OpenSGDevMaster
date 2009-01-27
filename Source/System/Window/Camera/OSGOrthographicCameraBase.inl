@@ -98,6 +98,31 @@ void OrthographicCameraBase::setVerticalSize(const Real32 value)
 
     _sfVerticalSize.setValue(value);
 }
+//! Get the value of the OrthographicCamera::_sfHorizontalSize field.
+
+inline
+Real32 &OrthographicCameraBase::editHorizontalSize(void)
+{
+    editSField(HorizontalSizeFieldMask);
+
+    return _sfHorizontalSize.getValue();
+}
+
+//! Get the value of the OrthographicCamera::_sfHorizontalSize field.
+inline
+      Real32  OrthographicCameraBase::getHorizontalSize(void) const
+{
+    return _sfHorizontalSize.getValue();
+}
+
+//! Set the value of the OrthographicCamera::_sfHorizontalSize field.
+inline
+void OrthographicCameraBase::setHorizontalSize(const Real32 value)
+{
+    editSField(HorizontalSizeFieldMask);
+
+    _sfHorizontalSize.setValue(value);
+}
 //! Get the value of the OrthographicCamera::_sfAspect field.
 
 inline
@@ -137,6 +162,9 @@ void OrthographicCameraBase::execSync (      OrthographicCameraBase *pFrom,
 
     if(FieldBits::NoField != (VerticalSizeFieldMask & whichField))
         _sfVerticalSize.syncWith(pFrom->_sfVerticalSize);
+
+    if(FieldBits::NoField != (HorizontalSizeFieldMask & whichField))
+        _sfHorizontalSize.syncWith(pFrom->_sfHorizontalSize);
 
     if(FieldBits::NoField != (AspectFieldMask & whichField))
         _sfAspect.syncWith(pFrom->_sfAspect);

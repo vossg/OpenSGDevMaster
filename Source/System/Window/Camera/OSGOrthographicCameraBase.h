@@ -66,6 +66,7 @@
 #include "OSGCamera.h" // Parent
 
 #include "OSGReal32Fields.h" // VerticalSize type
+#include "OSGReal32Fields.h" // HorizontalSize type
 #include "OSGReal32Fields.h" // Aspect type
 
 #include "OSGOrthographicCameraFields.h"
@@ -95,18 +96,22 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
     enum
     {
         VerticalSizeFieldId = Inherited::NextFieldId,
-        AspectFieldId = VerticalSizeFieldId + 1,
+        HorizontalSizeFieldId = VerticalSizeFieldId + 1,
+        AspectFieldId = HorizontalSizeFieldId + 1,
         NextFieldId = AspectFieldId + 1
     };
 
     static const OSG::BitVector VerticalSizeFieldMask =
         (TypeTraits<BitVector>::One << VerticalSizeFieldId);
+    static const OSG::BitVector HorizontalSizeFieldMask =
+        (TypeTraits<BitVector>::One << HorizontalSizeFieldId);
     static const OSG::BitVector AspectFieldMask =
         (TypeTraits<BitVector>::One << AspectFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFReal32          SFVerticalSizeType;
+    typedef SFReal32          SFHorizontalSizeType;
     typedef SFReal32          SFAspectType;
 
     /*---------------------------------------------------------------------*/
@@ -136,12 +141,18 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
                   SFReal32            *editSFVerticalSize   (void);
             const SFReal32            *getSFVerticalSize    (void) const;
 
+                  SFReal32            *editSFHorizontalSize (void);
+            const SFReal32            *getSFHorizontalSize  (void) const;
+
                   SFReal32            *editSFAspect         (void);
             const SFReal32            *getSFAspect          (void) const;
 
 
                   Real32              &editVerticalSize   (void);
                   Real32               getVerticalSize    (void) const;
+
+                  Real32              &editHorizontalSize (void);
+                  Real32               getHorizontalSize  (void) const;
 
                   Real32              &editAspect         (void);
                   Real32               getAspect          (void) const;
@@ -152,6 +163,7 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
     /*! \{                                                                 */
 
             void setVerticalSize   (const Real32 value);
+            void setHorizontalSize (const Real32 value);
             void setAspect         (const Real32 value);
 
     /*! \}                                                                 */
@@ -213,6 +225,7 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
     /*! \{                                                                 */
 
     SFReal32          _sfVerticalSize;
+    SFReal32          _sfHorizontalSize;
     SFReal32          _sfAspect;
 
     /*! \}                                                                 */
@@ -243,6 +256,8 @@ class OSG_WINDOW_DLLMAPPING OrthographicCameraBase : public Camera
 
     GetFieldHandlePtr  getHandleVerticalSize    (void) const;
     EditFieldHandlePtr editHandleVerticalSize   (void);
+    GetFieldHandlePtr  getHandleHorizontalSize  (void) const;
+    EditFieldHandlePtr editHandleHorizontalSize (void);
     GetFieldHandlePtr  getHandleAspect          (void) const;
     EditFieldHandlePtr editHandleAspect         (void);
 

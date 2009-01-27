@@ -1,13 +1,13 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="PerspectiveCamera"
-	parent="Camera"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
+    name="PerspectiveCamera"
+    parent="Camera"
+    library="System"
+    structure="concrete"
+    pointerfieldtypes="both"
+    systemcomponent="true"
+    parentsystemcomponent="true"
 >
 \ingroup GrpSystemWindowCameras
 
@@ -15,21 +15,33 @@ The Perspective Camera class, see \ref PageSystemWindowCameraPerspective for
 a description.
 
 The only new parameter is the _sfFov.
-	<Field
-		name="fov"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-	>
-	The vertical field of view, in radians.
-	</Field>
-	<Field
-		name="aspect"
-		type="Real32"
-		cardinality="single"
-		visibility="external"
-                defaultValue="1"
-	>
-	The aspect ratio (i.e. width / height) of a pixel.
-	</Field>
+    <Field
+        name="fov"
+        type="Real32"
+        cardinality="single"
+        visibility="external"
+    >
+    The vertical field of view, in radians.
+    </Field>
+    <Field
+        name="fovMode"
+        type="UInt32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="0"
+        access="public"
+    >
+    Defines whether the field of view is measured vertically, horizontally or
+    in the smaller direction. See OSG::PerspectiveCamera::FovMode enum for
+    the actual values, 
+    </Field>
+    <Field
+        name="aspect"
+        type="Real32"
+        cardinality="single"
+        visibility="external"
+        defaultValue="1"
+    >
+    The aspect ratio (i.e. width / height) of a pixel.
+    </Field>
 </FieldContainer>

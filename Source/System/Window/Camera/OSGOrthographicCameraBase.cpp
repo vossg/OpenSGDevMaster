@@ -83,7 +83,11 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Real32          OrthographicCameraBase::_sfVerticalSize
-    The vertical size of the camera box, in world units.
+    The vertical size of the camera box, in world units. Ignored when less then or equal to zero.
+*/
+
+/*! \var Real32          OrthographicCameraBase::_sfHorizontalSize
+    The horizontal size of the camera box, in world units. Ignored when less then or equal to zero.
 */
 
 /*! \var Real32          OrthographicCameraBase::_sfAspect
@@ -99,12 +103,24 @@ void OrthographicCameraBase::classDescInserter(TypeObject &oType)
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "verticalSize",
-        "The vertical size of the camera box, in world units.\n",
+        "The vertical size of the camera box, in world units. Ignored when less then or equal to zero.\n",
         VerticalSizeFieldId, VerticalSizeFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&OrthographicCamera::editHandleVerticalSize),
         static_cast<FieldGetMethodSig >(&OrthographicCamera::getHandleVerticalSize));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "horizontalSize",
+        "The horizontal size of the camera box, in world units. Ignored when less then or equal to zero.\n",
+        HorizontalSizeFieldId, HorizontalSizeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&OrthographicCamera::editHandleHorizontalSize),
+        static_cast<FieldGetMethodSig >(&OrthographicCamera::getHandleHorizontalSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -151,14 +167,23 @@ OrthographicCameraBase::TypeObject OrthographicCameraBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t>\n"
-    "\tThe vertical size of the camera box, in world units.\n"
+    "\tThe vertical size of the camera box, in world units. Ignored when less then or equal to zero.\n"
     "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"horizontalSize\"\n"
+    "\t\ttype=\"Real32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        defaultValue=\"-1\"\n"
+    "\t>\n"
+    "\tThe horizontal size of the camera box, in world units. Ignored when less then or equal to zero.\n"
+    " \t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"aspect\"\n"
     "\t\ttype=\"Real32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "                defaultValue=\"1\"\n"
+    "        defaultValue=\"1\"\n"
     "\t>\n"
     "\tThe aspect ratio (i.e. width / height) of a pixel.\n"
     "\t</Field>\n"
@@ -199,6 +224,19 @@ const SFReal32 *OrthographicCameraBase::getSFVerticalSize(void) const
 }
 
 
+SFReal32 *OrthographicCameraBase::editSFHorizontalSize(void)
+{
+    editSField(HorizontalSizeFieldMask);
+
+    return &_sfHorizontalSize;
+}
+
+const SFReal32 *OrthographicCameraBase::getSFHorizontalSize(void) const
+{
+    return &_sfHorizontalSize;
+}
+
+
 SFReal32 *OrthographicCameraBase::editSFAspect(void)
 {
     editSField(AspectFieldMask);
@@ -226,6 +264,10 @@ UInt32 OrthographicCameraBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfVerticalSize.getBinSize();
     }
+    if(FieldBits::NoField != (HorizontalSizeFieldMask & whichField))
+    {
+        returnValue += _sfHorizontalSize.getBinSize();
+    }
     if(FieldBits::NoField != (AspectFieldMask & whichField))
     {
         returnValue += _sfAspect.getBinSize();
@@ -243,6 +285,10 @@ void OrthographicCameraBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfVerticalSize.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (HorizontalSizeFieldMask & whichField))
+    {
+        _sfHorizontalSize.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (AspectFieldMask & whichField))
     {
         _sfAspect.copyToBin(pMem);
@@ -257,6 +303,10 @@ void OrthographicCameraBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (VerticalSizeFieldMask & whichField))
     {
         _sfVerticalSize.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (HorizontalSizeFieldMask & whichField))
+    {
+        _sfHorizontalSize.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (AspectFieldMask & whichField))
     {
@@ -388,6 +438,7 @@ FieldContainerTransitPtr OrthographicCameraBase::shallowCopy(void) const
 OrthographicCameraBase::OrthographicCameraBase(void) :
     Inherited(),
     _sfVerticalSize           (),
+    _sfHorizontalSize         (Real32(-1)),
     _sfAspect                 (Real32(1))
 {
 }
@@ -395,6 +446,7 @@ OrthographicCameraBase::OrthographicCameraBase(void) :
 OrthographicCameraBase::OrthographicCameraBase(const OrthographicCameraBase &source) :
     Inherited(source),
     _sfVerticalSize           (source._sfVerticalSize           ),
+    _sfHorizontalSize         (source._sfHorizontalSize         ),
     _sfAspect                 (source._sfAspect                 )
 {
 }
@@ -426,6 +478,29 @@ EditFieldHandlePtr OrthographicCameraBase::editHandleVerticalSize   (void)
 
 
     editSField(VerticalSizeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr OrthographicCameraBase::getHandleHorizontalSize  (void) const
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfHorizontalSize,
+             this->getType().getFieldDesc(HorizontalSizeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr OrthographicCameraBase::editHandleHorizontalSize (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfHorizontalSize,
+             this->getType().getFieldDesc(HorizontalSizeFieldId)));
+
+
+    editSField(HorizontalSizeFieldMask);
 
     return returnValue;
 }

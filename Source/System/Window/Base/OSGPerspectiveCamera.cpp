@@ -133,11 +133,83 @@ void PerspectiveCamera::getProjection(Matrixr &result,
     if(fov > Pi)
         fov = osgDegree2Rad(fov);
 
-    MatrixPerspective(result, 
-                      fov   / 2, 
-                      width / Real32(height) * getAspect(), 
-                      getNear(), 
-                      getFar ());
+
+    Real32 rNear  = getNear();
+    Real32 rFar   = getFar ();
+    Real32 aspect = Real32(width) / Real32(height) * getAspect();
+    Real32 ct     = osgtan(fov / 2.f);
+
+    if(rNear > rFar)
+    {
+        SWARNING << "MatrixPerspective: near " << rNear << " > far " << rFar
+                 << "!\n" << std::endl;
+        result.setIdentity();
+        return;
+    }
+
+    if(fov <= Eps)
+    {
+        SWARNING << "MatrixPerspective: fov " << fov << " very small!\n"
+                 << std::endl;
+        result.setIdentity();
+        return;
+    }
+
+    if(osgabs(rNear - rFar) < Eps)
+    {
+        SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
+                 << "!\n" << std::endl;
+        result.setIdentity();
+        return;
+    }
+
+    if(aspect < Eps)
+    {
+        SWARNING << "MatrixPerspective: aspect ratio " << aspect
+                 << " very small!\n" << std::endl;
+        result.setIdentity();
+        return;
+    }
+
+    Real32 x = ct * rNear;
+    Real32 y = ct * rNear;
+
+    UInt32 fovMode = getFovMode();
+
+    switch (fovMode)
+    {
+        case VerticalFoV:
+            x *= aspect;
+            break;
+
+        case HorizontalFoV:
+            y /= aspect;
+            break;
+
+        case SmallerFoV:
+            if(width * getAspect() >= height)
+            {
+                x *= aspect;
+            }
+            else
+            {
+                y /= aspect;
+            }
+            break;
+
+        default:
+            result.setIdentity();
+            return;
+    }
+
+    MatrixFrustum( result,
+                  -x,
+                   x,
+                  -y,
+                   y,
+                   rNear,
+                   rFar);
+
 }
     
 

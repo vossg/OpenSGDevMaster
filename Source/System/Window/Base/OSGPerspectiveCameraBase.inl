@@ -98,6 +98,31 @@ void PerspectiveCameraBase::setFov(const Real32 value)
 
     _sfFov.setValue(value);
 }
+//! Get the value of the PerspectiveCamera::_sfFovMode field.
+
+inline
+UInt32 &PerspectiveCameraBase::editFovMode(void)
+{
+    editSField(FovModeFieldMask);
+
+    return _sfFovMode.getValue();
+}
+
+//! Get the value of the PerspectiveCamera::_sfFovMode field.
+inline
+      UInt32  PerspectiveCameraBase::getFovMode(void) const
+{
+    return _sfFovMode.getValue();
+}
+
+//! Set the value of the PerspectiveCamera::_sfFovMode field.
+inline
+void PerspectiveCameraBase::setFovMode(const UInt32 value)
+{
+    editSField(FovModeFieldMask);
+
+    _sfFovMode.setValue(value);
+}
 //! Get the value of the PerspectiveCamera::_sfAspect field.
 
 inline
@@ -137,6 +162,9 @@ void PerspectiveCameraBase::execSync (      PerspectiveCameraBase *pFrom,
 
     if(FieldBits::NoField != (FovFieldMask & whichField))
         _sfFov.syncWith(pFrom->_sfFov);
+
+    if(FieldBits::NoField != (FovModeFieldMask & whichField))
+        _sfFovMode.syncWith(pFrom->_sfFovMode);
 
     if(FieldBits::NoField != (AspectFieldMask & whichField))
         _sfAspect.syncWith(pFrom->_sfAspect);
