@@ -51,13 +51,6 @@ TransitPtr<ObjectT>::TransitPtr(Object * const pObj) :
 }
 
 template<class ObjectT> inline
-TransitPtr<ObjectT>::TransitPtr(Self &other) :
-    _pObj(other._pObj)
-{
-    other._pObj = NULL;
-}
-
-template<class ObjectT> inline
 TransitPtr<ObjectT>::TransitPtr(const Self &other) :
     _pObj(other._pObj)
 {
@@ -77,19 +70,6 @@ TransitPtr<ObjectT>::~TransitPtr(void)
 {
     if(_pObj != NULL)
         _pObj->subReferenceUnrecorded();
-}
-
-template<class ObjectT> inline
-typename TransitPtr<ObjectT>::Self &TransitPtr<ObjectT>::operator =(Self &other)
-{
-    if(_pObj != NULL)
-        _pObj->subReferenceUnrecorded();
-
-    _pObj = other._pObj;
-
-    other._pObj = NULL;
-
-    return *this;
 }
 
 template<class ObjectT> inline

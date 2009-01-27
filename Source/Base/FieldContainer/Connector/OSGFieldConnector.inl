@@ -62,7 +62,7 @@ void BasicFieldConnector::setTargetContainer(FieldContainer *pDst)
 inline
 bool BasicFieldConnector::match(BitVector fieldMask)
 {
-    return (_bSrcMask & fieldMask);
+    return (_bSrcMask & fieldMask) != 0;
 }
 
 inline
@@ -70,11 +70,12 @@ bool BasicFieldConnector::match(      BitVector       bSrcMask,
                                 const FieldContainer *pDst,
                                       BitVector       bDstMask)
 {
-    bool returnValue = (_bSrcMask & bSrcMask);
+    bool returnValue = (_bSrcMask & bSrcMask) != 0;
 
     if(pDst != NULL)
     {
-        returnValue &= (_pDst == pDst) && (_bDstMask & bDstMask);
+        returnValue &= (_pDst                  == pDst) &&
+                       ((_bDstMask & bDstMask) != 0   );
     }
 
     return returnValue;

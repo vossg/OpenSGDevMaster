@@ -992,7 +992,7 @@ struct TypeTraits<Real32> : public TypeTraitsTemplateBase<Real32>
 
     static        Real32             ZeroEps(void)
     {
-        return 1E-30;
+        return 1E-30f;
     }
 
     static        Real32             getZeroElement(void)

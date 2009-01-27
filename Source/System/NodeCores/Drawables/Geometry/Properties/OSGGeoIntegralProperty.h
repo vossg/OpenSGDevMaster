@@ -75,7 +75,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     {
         MaxTypeT ival;
         getGenericValue(ival, index);
-        return ival;
+        return static_cast<ExternalType>(ival);
     }
     
     template <class ExternalType>
@@ -83,7 +83,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     {
         MaxTypeT val;
         getGenericValue(val, index);
-        eval = val;
+        eval = static_cast<ExternalType>(val);
     }
     
     template <class ExternalType>

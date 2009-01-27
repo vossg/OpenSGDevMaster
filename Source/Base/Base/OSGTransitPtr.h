@@ -93,7 +93,6 @@ class TransitPtr
     /*! \{                                                                 */
   
     TransitPtr(      void        );
-    TransitPtr(      Self  &other);
     TransitPtr(const Self  &other);
    
     explicit
@@ -114,7 +113,6 @@ class TransitPtr
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
-    Self &operator =(      Self           &other);
     Self &operator =(const Self           &other);
     Self &operator =(      Object * const  pObj );
 
