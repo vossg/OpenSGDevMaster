@@ -50,6 +50,7 @@
 OSG_BEGIN_NAMESPACE
 
 typedef SFUnrecGeoVectorPropertyPtr SFGeoNormalsPtr;
+typedef SFUnrecGeoVectorPropertyPtr SFUnrecGeoNormalsPtr;
 
 OSG_END_NAMESPACE
 

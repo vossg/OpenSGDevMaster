@@ -683,10 +683,15 @@ OSG_MAKE_PROP(Color4fx, GL_FIXED,  GLfixed, VectorTypeColor, UsageColorSpace);
 /*! \brief Backwards Compatibility Typedefs
 */
 
-typedef GeoVectorPropertyPtr GeoPositionsPtr;
-typedef GeoVectorPropertyPtr GeoNormalsPtr;
-typedef GeoVectorPropertyPtr GeoTexCoordsPtr;
-typedef GeoVectorPropertyPtr GeoColorsPtr;
+typedef GeoVectorProperty       GeoPositions;
+typedef GeoVectorProperty       GeoNormals;
+typedef GeoVectorProperty       GeoTexCoords;
+typedef GeoVectorProperty       GeoColors;
+
+typedef GeoVectorPropertyRecPtr GeoPositionsPtr;
+typedef GeoVectorPropertyRecPtr GeoNormalsPtr;
+typedef GeoVectorPropertyRecPtr GeoTexCoordsPtr;
+typedef GeoVectorPropertyRecPtr GeoColorsPtr;
 
 // Positions
 
@@ -734,10 +739,13 @@ typedef GeoColor4ubProperty    GeoColors4ub;
 
 #ifndef OSG_EMBEDDED
 typedef GeoVec1fProperty           GeoTexCoords1f;
+typedef GeoVec1fPropertyRecPtr     GeoTexCoords1fPtr;
 typedef GeoVec2fProperty           GeoTexCoords2f;
 typedef GeoVec2fPropertyRecPtr     GeoTexCoords2fPtr;
 typedef GeoVec3fProperty           GeoTexCoords3f;
+typedef GeoVec3fPropertyRecPtr     GeoTexCoords3fPtr;
 typedef GeoVec4fProperty           GeoTexCoords4f;
+typedef GeoVec4fPropertyRecPtr     GeoTexCoords4fPtr;
 
 typedef GeoVec1dProperty           GeoTexCoords1d;
 typedef GeoVec2dProperty           GeoTexCoords2d;

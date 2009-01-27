@@ -50,6 +50,7 @@
 OSG_BEGIN_NAMESPACE
 
 typedef SFUnrecGeoIntegralPropertyPtr SFGeoIndicesPtr;
+typedef SFUnrecGeoIntegralPropertyPtr SFUnrecGeoIndicesPtr;
 
 OSG_END_NAMESPACE
 

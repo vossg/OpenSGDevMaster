@@ -61,11 +61,10 @@ enum SliceDataType
     SIDE_SDT
 };
 
-OSG_SYSTEM_DLLMAPPING
-bool createComposedImage ( std::vector<Image *>  srcImageVec,
-                           Image                *dstImage,
-                           SliceDataType         sliceDataType = DEPTH_SDT );
-
+template<class SrcImageStore>
+bool createComposedImage (const SrcImageStore &srcImageVec,
+                                Image         *dstImage,
+                                SliceDataType  sliceDataType = DEPTH_SDT );
 
 OSG_SYSTEM_DLLMAPPING 
 bool createNormalMapFromBump ( Image *srcImage,
