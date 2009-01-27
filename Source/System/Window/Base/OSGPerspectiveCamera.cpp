@@ -137,7 +137,7 @@ void PerspectiveCamera::getProjection(Matrixr &result,
     Real32 rNear  = getNear();
     Real32 rFar   = getFar ();
     Real32 aspect = Real32(width) / Real32(height) * getAspect();
-    Real32 ct     = osgtan(fov / 2.f);
+    Real32 ct     = osgTan(fov / 2.f);
 
     if(rNear > rFar)
     {
@@ -155,7 +155,7 @@ void PerspectiveCamera::getProjection(Matrixr &result,
         return;
     }
 
-    if(osgabs(rNear - rFar) < Eps)
+    if(osgAbs(rNear - rFar) < Eps)
     {
         SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
                  << "!\n" << std::endl;
