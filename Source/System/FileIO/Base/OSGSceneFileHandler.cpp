@@ -650,6 +650,11 @@ bool
     return retVal;
 }
 
+void SceneFileHandlerBase::setOptions(const std::string &suffix,
+                                      const std::string &osg1Options)
+{
+}
+
 void SceneFileHandlerBase::print (void )
 {
     FileTypeMap::iterator sI;

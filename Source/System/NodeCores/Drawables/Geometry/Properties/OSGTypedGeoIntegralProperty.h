@@ -408,31 +408,31 @@ OSG_GEN_CONTAINERPTR(GeoUInt32Property);
 
 typedef GeoIntegralPropertyRecPtr GeoPTypesPtr;
 typedef GeoIntegralPropertyRecPtr GeoPLengthsPtr;
+typedef GeoIntegralPropertyRecPtr GeoIndicesPtr;
 
-//typedef GeoIntegralPropertyPtr         GeoIndicesPtr;
 //typedef ConstGeoIntegralPropertyPtr    ConstGeoIndicesPtr;
 
-typedef GeoUInt8Property       GeoPTypesUI8;
-typedef GeoUInt8Property       GeoPLengthsUI8;
-typedef GeoUInt8Property       GeoIndicesUI8;
-//typedef GeoUInt8PropertyPtr    GeoPTypesUI8Ptr;
+typedef GeoUInt8Property          GeoPTypesUI8;
+typedef GeoUInt8Property          GeoPLengthsUI8;
+typedef GeoUInt8Property          GeoIndicesUI8;
+typedef GeoUInt8PropertyRecPtr    GeoPTypesUI8Ptr;
 //typedef GeoUInt8PropertyPtr    GeoPLengthsUI8Ptr;
 //typedef GeoUInt8PropertyPtr    GeoIndicesUI8Ptr;
 
-typedef GeoUInt16Property      GeoPTypesUI16;
-typedef GeoUInt16Property      GeoPLengthsUI16;
-typedef GeoUInt16Property      GeoIndicesUI16;
+typedef GeoUInt16Property         GeoPTypesUI16;
+typedef GeoUInt16Property         GeoPLengthsUI16;
+typedef GeoUInt16Property         GeoIndicesUI16;
 //typedef GeoUInt16PropertyPtr   GeoPTypesUI16Ptr;
 //typedef GeoUInt16PropertyPtr   GeoPLengthsUI16Ptr;
 //typedef GeoUInt16PropertyPtr   GeoIndicesUI16Ptr;
 
 #ifndef OSG_EMBEDDED
-typedef GeoUInt32Property      GeoPTypesUI32;
-typedef GeoUInt32Property      GeoPLengthsUI32;
-typedef GeoUInt32Property      GeoIndicesUI32;
+typedef GeoUInt32Property         GeoPTypesUI32;
+typedef GeoUInt32Property         GeoPLengthsUI32;
+typedef GeoUInt32Property         GeoIndicesUI32;
 //typedef GeoUInt32PropertyPtr   GeoPTypesUI32Ptr;
-//typedef GeoUInt32PropertyPtr   GeoPLengthsUI32Ptr;
-//typedef GeoUInt32PropertyPtr   GeoIndicesUI32Ptr;
+typedef GeoUInt32PropertyRecPtr   GeoPLengthsUI32Ptr;
+typedef GeoUInt32PropertyRecPtr   GeoIndicesUI32Ptr;
 #endif
 
 #endif

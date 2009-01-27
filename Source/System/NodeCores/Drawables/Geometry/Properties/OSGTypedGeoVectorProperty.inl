@@ -368,6 +368,16 @@ const UInt8 *TypedGeoVectorProperty<GeoPropertyDesc>::getData(void) const
     return reinterpret_cast<const UInt8 *>(&(_field[0]));
 }
 
+/*! \copydoc OSG::GeoVectorProperty::editData
+ */
+template <class GeoPropertyDesc> inline
+UInt8 *TypedGeoVectorProperty<GeoPropertyDesc>::editData(void) 
+{
+    editMField(GeoPropDataFieldMask, _field);
+
+    return reinterpret_cast<UInt8 *>(&(_field[0]));
+}
+
 /*! Returns a const reference to the stored field.
 
     This allows direct access to the data, which is faster than the access via

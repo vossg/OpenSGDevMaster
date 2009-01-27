@@ -37,17 +37,16 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-const StateChunk *ChunkMaterial::getChunk (const UInt32 index) const
+StateChunk *ChunkMaterial::getChunk (const UInt32 index) const
 {
     return Inherited::getChunks(index);
 }
 
-#if 0
 inline
-const MFUnrecStateChunkPtr &ChunkMaterial::getChunks(void) const
+const MFUnrecStateChunkPtr *ChunkMaterial::getMFChunks(void) const
 {
-    return Inherited::getChunks();
+    return Inherited::getMFChunks();
 }
-#endif
+
 
 OSG_END_NAMESPACE

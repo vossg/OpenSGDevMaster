@@ -103,6 +103,8 @@ class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
     typedef SFParentNodePtr         SFParentType;
     typedef SFUnrecChildNodeCorePtr SFCoreType;
     typedef MFUnrecChildNodePtr     MFChildrenType;
+
+    typedef BoxVolume               VolumeType;
     
     /*---------------------------------------------------------------------*/
     /*! \name                      dcast                                   */

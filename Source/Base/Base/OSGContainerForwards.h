@@ -222,7 +222,13 @@ template <class CoreT>
 class CoredNodeRefPtr;
 
 #if defined(OSG_1_COMPAT)
-struct NullFCType {};
+
+#define OSGNullFC NULL
+
+struct NullFCType 
+{ 
+};
+
 
 static const NullFCType NullFC = NullFCType();
 

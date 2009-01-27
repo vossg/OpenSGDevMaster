@@ -138,6 +138,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     virtual       UInt32                 getDimension (void) const;
     virtual       UInt32                 size         (void) const;
     virtual const UInt8                 *getData      (void) const;
+    virtual       UInt8                 *editData     (void);
 
     virtual       GeoPropertyTransitPtr  clone        (void);
     
@@ -682,6 +683,11 @@ OSG_MAKE_PROP(Color4fx, GL_FIXED,  GLfixed, VectorTypeColor, UsageColorSpace);
 /*! \brief Backwards Compatibility Typedefs
 */
 
+typedef GeoVectorPropertyPtr GeoPositionsPtr;
+typedef GeoVectorPropertyPtr GeoNormalsPtr;
+typedef GeoVectorPropertyPtr GeoTexCoordsPtr;
+typedef GeoVectorPropertyPtr GeoColorsPtr;
+
 // Positions
 
 typedef GeoPnt2sProperty    GeoPositions2s;
@@ -690,19 +696,25 @@ typedef GeoPnt4sProperty    GeoPositions4s;
 
 #ifndef OSG_EMBEDDED
 typedef GeoPnt2fProperty           GeoPositions2f;
+typedef GeoPnt2fPropertyRecPtr     GeoPositions2fPtr;
 typedef GeoPnt3fProperty           GeoPositions3f;
 typedef GeoPnt3fPropertyRecPtr     GeoPositions3fPtr;
 typedef GeoPnt4fProperty           GeoPositions4f;
+typedef GeoPnt4fPropertyRecPtr     GeoPositions4fPtr;
 
-typedef GeoPnt2dProperty    GeoPositions2d;
-typedef GeoPnt3dProperty    GeoPositions3d;
-typedef GeoPnt4dProperty    GeoPositions4d;
+typedef GeoPnt2dProperty           GeoPositions2d;
+typedef GeoPnt2dPropertyRecPtr     GeoPositions2dPtr;
+typedef GeoPnt3dProperty           GeoPositions3d;
+typedef GeoPnt3dPropertyRecPtr     GeoPositions3dPtr;
+typedef GeoPnt4dProperty           GeoPositions4d;
+typedef GeoPnt4dPropertyRecPtr     GeoPositions4dPtr;
 #endif
 
 // Normals
 
 #ifndef OSG_EMBEDDED
-typedef GeoVec3fProperty    GeoNormals3f;
+typedef GeoVec3fProperty           GeoNormals3f;
+typedef GeoVec3fPropertyRecPtr     GeoNormals3fPtr;
 #endif
 typedef GeoVec3sProperty    GeoNormals3s;
 typedef GeoVec3bProperty    GeoNormals3b;
@@ -713,6 +725,7 @@ typedef GeoVec3bProperty    GeoNormals3b;
 typedef GeoColor3fProperty         GeoColors3f;
 typedef GeoColor3fPropertyRecPtr   GeoColors3fPtr;
 typedef GeoColor4fProperty         GeoColors4f;
+typedef GeoColor4fPropertyRecPtr   GeoColors4fPtr;
 #endif
 typedef GeoColor3ubProperty    GeoColors3ub;
 typedef GeoColor4ubProperty    GeoColors4ub;

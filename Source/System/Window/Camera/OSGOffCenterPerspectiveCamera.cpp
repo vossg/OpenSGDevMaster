@@ -107,8 +107,9 @@ OffCenterPerspectiveCamera::OffCenterPerspectiveCamera(void) :
 {
 }
 
-OffCenterPerspectiveCamera::
-OffCenterPerspectiveCamera(const OffCenterPerspectiveCamera &source) :
+OffCenterPerspectiveCamera::OffCenterPerspectiveCamera(
+    const OffCenterPerspectiveCamera &source) :
+
     Inherited(source)
 {
 }
@@ -126,62 +127,6 @@ void OffCenterPerspectiveCamera::changed(ConstFieldMaskArg whichField,
 
 /*-------------------------- your_category---------------------------------*/
 
-bool OffCenterPerspectiveCamera::MatrixPerspectivePrincipalPnt(
-    Matrix &result,
-    Real32 rFovy,
-    Real32 rAspect,
-    Real32 rNear,
-    Real32 rFar,
-    Real32 rPrincipalPointX,
-    Real32 rPrincipalPointY)
-{
-    Real32 ct = osgTan(rFovy);
-    bool error = false;
-    
-    if(rNear > rFar)
-    {
-        SWARNING << "MatrixPerspective: near " << rNear << " > far " << rFar
-                 << "!\n" << std::endl;
-        error = true;
-    }
-
-    if(rFovy <= Eps)
-    {
-        SWARNING << "MatrixPerspective: fovy " << rFovy << " very small!\n"
-                 << std::endl;
-        error = true;
-    }
-
-    if(osgAbs(rNear - rFar) < Eps)
-    {
-        SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
-                 << "!\n" << std::endl;
-        error = true;
-    }
-
-    if(rAspect < Eps)
-    {
-        SWARNING << "MatrixPerspective: aspect ratio " << rAspect
-                 << " very small!\n" << std::endl;
-        error = true;
-    }
-
-    if(error)
-    {
-        result.setIdentity();
-        return true;
-    }
-    
-    MatrixFrustum( result, 
-                    -rNear * ct * rAspect * (Real32(1)+rPrincipalPointX), 
-                     rNear * ct * rAspect * (Real32(1)-rPrincipalPointX),
-                    -rNear * ct * (Real32(1)+rPrincipalPointY), 
-                     rNear * ct * (Real32(1)-rPrincipalPointY), 
-                     rNear, 
-                     rFar                );
-
-    return false;
-}
 
 void OffCenterPerspectiveCamera::getProjection(Matrix &result, 
                                                UInt32  width, 
@@ -200,23 +145,98 @@ void OffCenterPerspectiveCamera::getProjection(Matrix &result,
     if(fov > Pi)
         fov = osgDegree2Rad(fov);
 
+
+    Real32 rNear  = getNear();
+    Real32 rFar   = getFar();
+    Real32 aspect = Real32(width) / Real32(height) * getAspect();
+    Real32 ct     = osgtan(fov / 2.f);
+
+    if(rNear > rFar)
+    {
+        SWARNING << "MatrixPerspective: near " << rNear << " > far " << rFar
+                 << "!\n" << std::endl;
+        result.setIdentity();
+        return;
+    }
+
+    if(fov <= Eps)
+    {
+        SWARNING << "MatrixPerspective: fov " << fov << " very small!\n"
+                 << std::endl;
+        result.setIdentity();
+        return;
+    }
+
+    if(osgabs(rNear - rFar) < Eps)
+    {
+        SWARNING << "MatrixPerspective: near " << rNear << " ~= far " << rFar
+                 << "!\n" << std::endl;
+        result.setIdentity();
+        return;
+    }
+
+    if(aspect < Eps)
+    {
+        SWARNING << "MatrixPerspective: aspect ratio " << aspect
+                 << " very small!\n" << std::endl;
+        result.setIdentity();
+        return;
+    }
+
+    Real32 x       = ct * rNear;
+    Real32 y       = ct * rNear;
+    UInt32 fovMode = getFovMode();
+
+    switch (fovMode)
+    {
+        case VerticalFoV:
+            x *= aspect;
+            break;
+
+        case HorizontalFoV:
+            y /= aspect;
+            break;
+
+        case SmallerFoV:
+            if(width * getAspect() >= height)
+            {
+                x *= aspect;
+            }
+            else
+            {
+                y /= aspect;
+            }
+            break;
+
+        default:
+            result.setIdentity();
+            return;
+    }
+    
     Real32 principalPointX = getPrincipalPoint()[0];
     Real32 principalPointY = getPrincipalPoint()[1];
 
     // if principal point (x,y) is default (==(0,0)) everything works
     // like before or rather for an symmetical camera
-    if(principalPointX == Real32(0) && principalPointY == Real32(0)) 
+    if ((principalPointX == 0.f) && (principalPointY == 0.f)) 
     {
-        MatrixPerspective(result, fov / 2, 
-                          width / Real32(height) * getAspect(), 
-                          getNear(), getFar());
-    } 
+        MatrixFrustum( result,
+                      -x,
+                       x,
+                      -y,
+                       y,
+                       rNear,
+                       rFar);
+    }
     else 
     {
-        MatrixPerspectivePrincipalPnt(result, fov / 2, 
-                                      width / Real32(height) * getAspect(), 
-                                      getNear(), getFar(),
-                                      principalPointX, principalPointY);
+        MatrixFrustum( result,
+                      -x * (1.f + principalPointX),
+                       x * (1.f - principalPointX),
+                      -y * (1.f + principalPointY),
+                       y * (1.f - principalPointY),
+                       rNear,
+                       rFar);
     }
 }
     

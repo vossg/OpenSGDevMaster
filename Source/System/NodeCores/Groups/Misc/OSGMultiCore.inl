@@ -40,4 +40,30 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline
+UInt32 MultiCore::getNCores(void) const
+{
+    return _mfCores.size();
+}
+
+inline
+Int32 MultiCore::findCore(NodeCore * const pCore) const
+{
+    return _mfCores.findIndex(pCore);
+}
+
+inline
+void MultiCore::insertCore(UInt32           coreIdx, 
+                           NodeCore * const coreP  )
+{
+    editMField(CoresFieldMask, _mfCores);
+
+    MFCoresType::iterator cIt = _mfCores.begin_nc();
+
+    cIt += coreIdx;
+
+    _mfCores.insert(cIt, coreP);
+}
+
+
 OSG_END_NAMESPACE

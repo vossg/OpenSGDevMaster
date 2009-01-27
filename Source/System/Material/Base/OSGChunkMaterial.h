@@ -78,16 +78,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
 
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual void     draw         (DrawFunctor      &func,
-                                   DrawActionBase   *action);
-
-    virtual void     draw         (MaterialDrawable *geo,
-                                   DrawActionBase   *action);
-
-    virtual State   *makeState    (void                    );
-#endif
-
     virtual void     rebuildState (void                    );
 
     virtual bool     isTransparent(void                    ) const;
@@ -117,10 +107,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
     /*! \name                      Find                                    */
     /*! \{                                                                 */
 
-    const StateChunk           *getChunk (const UInt32 index) const;
-#if 0
-    const MFUnrecStateChunkPtr &getChunks(      void        ) const;
-#endif
+          StateChunk           *getChunk   (const UInt32 index) const;
+    const MFUnrecStateChunkPtr *getMFChunks(      void        ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

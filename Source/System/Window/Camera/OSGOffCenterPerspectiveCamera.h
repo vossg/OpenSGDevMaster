@@ -120,14 +120,6 @@ class OSG_WINDOW_DLLMAPPING OffCenterPerspectiveCamera :
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 
-    bool MatrixPerspectivePrincipalPnt(Matrix &result,
-                                       Real32  rFovy,
-                                       Real32  rAspect,
-                                       Real32  rNear,
-                                       Real32  rFar,
-                                       Real32  rPrincipalPointX,
-                                       Real32  rPrincipalPointY);
-
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/  
 

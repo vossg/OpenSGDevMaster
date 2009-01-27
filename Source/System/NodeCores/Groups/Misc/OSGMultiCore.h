@@ -74,6 +74,16 @@ class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
     /*! \name                   Transformation                             */
     /*! \{                                                                 */
 
+    UInt32 getNCores (void                     ) const;
+    Int32  findCore  (NodeCore * const pCore   ) const;
+    void   insertCore(UInt32           corendex, 
+                      NodeCore * const coreP   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Transformation                             */
+    /*! \{                                                                 */
+
     virtual void accumulateMatrix(Matrixr &result);
 
     /*! \}                                                                 */
