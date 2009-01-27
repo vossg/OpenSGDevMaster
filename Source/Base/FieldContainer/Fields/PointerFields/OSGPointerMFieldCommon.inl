@@ -169,8 +169,8 @@ void PointerMFieldCommon<AccessHandlerT,
                          NamespaceI     >::ptrStoreAssign(InputIteratorT first,
                                                           InputIteratorT last )
 {
-    PtrStoreItType      sI = _ptrStore.begin();
-    PtrStoreConstItType sE = _ptrStore.end  ();
+    PtrStoreItType sI = _ptrStore.begin();
+    PtrStoreItType sE = _ptrStore.end  ();
     
     InputIteratorT iI = first;
     InputIteratorT iE = last;

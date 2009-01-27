@@ -963,5 +963,14 @@ void ParentPointerMField<PtrTypeT,
     
     _vParentPos = source._vParentPos;
 }
-                        
+     
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+void ParentPointerMField<PtrTypeT, 
+                         RefCountPolicy,
+                         NamespaceI>::operator =(const Self &source)
+{
+    this->ptrStoreAssign(source.begin(),
+                         source.end  ());
+}
+                   
 OSG_END_NAMESPACE
