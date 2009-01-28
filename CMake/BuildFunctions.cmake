@@ -681,4 +681,100 @@ MACRO(OSG_ADD_LIB_TARGET TARGET_LIST NEW_LIB)
 
 ENDMACRO(OSG_ADD_LIB_TARGET)
 
+##########################################################################
+# write settings so different variants can be build with the same settings
 
+MACRO(OSG_OPTION NAME DESC VALUE)
+    LIST(APPEND OSG_OPTION_LIST ${NAME})
+
+    OPTION(${NAME} ${DESC} ${VALUE})
+ENDMACRO(OSG_OPTION)
+
+MACRO(OSG_SET_CACHE NAME VALUE TYPE DESC)
+    LIST(APPEND OSG_OPTION_LIST ${NAME})
+
+    SET(${NAME} ${VALUE} CACHE ${TYPE} "${DESC}")
+ENDMACRO(OSG_SET_CACHE)
+
+MACRO(OSG_SET NAME VALUE)
+    LIST(APPEND OSG_OPTION_LIST ${NAME})
+
+    SET(${NAME} ${VALUE})
+ENDMACRO(OSG_SET)
+
+MACRO(OSG_ADD_OPT NAME)
+    LIST(APPEND OSG_OPTION_LIST ${NAME})
+ENDMACRO(OSG_ADD_OPT)
+
+MACRO(OSG_FIND_PACKAGE NAME)
+    FIND_PACKAGE(${NAME})
+
+    IF(${NAME}_FOUND)
+        OSG_ADD_OPT(${NAME}_LIBRARIES)
+        OSG_ADD_OPT(${NAME}_INCLUDE_DIR)        
+    ENDIF(${NAME}_FOUND)
+
+    OSG_ADD_OPT(${NAME}_FOUND)
+ENDMACRO(OSG_FIND_PACKAGE)
+
+MACRO(OSG_BOOST_DEP_SETUP)
+    SET(Boost_USE_MULTITHREAD ON )
+    SET(Boost_USE_STATIC_LIBS OFF)
+
+    FIND_PACKAGE(Boost COMPONENTS filesystem)
+
+    IF(Boost_FOUND)
+
+        # Hide settings
+        SET(Boost_FILESYSTEM_LIBRARY ${Boost_FILESYSTEM_LIBRARY} 
+                                     CACHE INTERNAL "")
+        SET(Boost_FILESYSTEM_LIBRARY_DEBUG ${Boost_FILESYSTEM_LIBRARY_DEBUG} 
+                                           CACHE INTERNAL "")
+        SET(Boost_FILESYSTEM_LIBRARY_RELEASE 
+           ${Boost_FILESYSTEM_LIBRARY_RELEASE}  
+           CACHE INTERNAL "")
+
+        SET(Boost_INCLUDE_DIR ${Boost_INCLUDE_DIR}
+                              CACHE INTERNAL "")
+
+        SET(Boost_LIBRARY_DIRS ${Boost_LIBRARY_DIRS}
+                               CACHE INTERNAL "")
+
+        SET(Boost_USE_MULTITHREADED ${Boost_USE_MULTI_THREADED}
+                                    CACHE INTERNAL "")
+
+
+        INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR} )
+
+        IF(UNIX)
+            LINK_DIRECTORIES   (${Boost_LIBRARY_DIRS})
+        ENDIF(UNIX)
+
+        ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
+
+        IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
+            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG})
+        ELSE()
+            SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
+        ENDIF()
+
+        SET(OSG_BOOST_INCDIRS ${Boost_INCLUDE_DIR})
+
+
+
+    ENDIF(Boost_FOUND)
+ENDMACRO(OSG_BOOST_DEP_SETUP)
+
+FUNCTION(OSG_WRITE_SETTINGS FILENAME)
+    MESSAGE(STATUS "Write settings to ${FILENAME}")
+
+    FILE(WRITE ${FILENAME}
+            "# CMake.settings -- auto generated\n\n")
+
+    FOREACH(OSG_OPT ${OSG_OPTION_LIST})
+        FILE(APPEND ${FILENAME}
+             "SET(${OSG_OPT} ${${OSG_OPT}} CACHE INTERNAL \"\")\n")
+        MESSAGE(STATUS "Processing VAR : ${OSG_OPT} : ${OPT_TYPE}")
+    ENDFOREACH(OSG_OPT ${OSG_OPTION_LIST})
+
+ENDFUNCTION(OSG_WRITE_SETTINGS FILENAME)
