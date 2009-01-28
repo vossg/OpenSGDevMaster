@@ -1,4 +1,26 @@
-
+# - Find OpenSG 2 libraries
+# Find the specified OpenSG 2 libraries and header files.
+#
+# Since OpenSG consists of a number of libraries you need to specify which
+# of those you want to use. To do so, pass a list of their names after
+# the COMPONENTS argument to FIND_PACKAGE. A typical call looks like this:
+# FIND_PACKAGE(OpenSG REQUIRED COMPONENTS OSGBase OSGSystem OSGDrawable)
+#
+# This module specifies the following variables:
+#  OpenSG_INCLUDE_DIRS
+#  OpenSG_LIBRARIES
+#  OpenSG_LIBRARY_DIRS
+#
+#  For each component COMP the capitalized name (e.g. OSGBASE, OSGSYSTEM):
+#  OpenSG_${COMP}_LIBRARY
+#  OpenSG_${COMP}_LIBRARY_RELEASE
+#  OpenSG_${COMP}_LIBRARY_DEBUG
+#
+#  You can control where this module attempts to locate libraries and headers:
+#  you can use the following input variables:
+#  OPENSG_ROOT          root of an installed OpenSG with include/OpenSG and lib below it
+#  OPENSG_INCLUDE_DIR   header directory
+#  OPENSG_LIBRARY_DIR   library directory
 
 SET(__OpenSG_IN_CACHE TRUE)
 IF(OpenSG_INCLUDE_DIR)
@@ -28,7 +50,7 @@ set(OpenSG_ERROR_REASON)
 #########################################################################
 
 MACRO(__OpenSG_ADJUST_LIB_VARS basename)
-    IF(OpenSG_INCLUDE_DIR )
+    IF(OpenSG_INCLUDE_DIR)
         IF(OpenSG_${basename}_LIBRARY_DEBUG AND OpenSG_${basename}_LIBRARY_RELEASE)
         # if the generator supports configuration types then set
         # optimized and debug libraries, or if the CMAKE_BUILD_TYPE has a value
@@ -64,7 +86,7 @@ MACRO(__OpenSG_ADJUST_LIB_VARS basename)
             SET(OpenSG_${basename}_FOUND ON CACHE INTERNAL "Whether the OpenSG ${basename} library found")
         ENDIF(OpenSG_${basename}_LIBRARY)
     
-    ENDIF(OpenSG_INCLUDE_DIR )
+    ENDIF(OpenSG_INCLUDE_DIR)
 
     # Make variables changeble to the advanced user
     MARK_AS_ADVANCED(
@@ -120,19 +142,19 @@ ELSE(__OpenSG_IN_CACHE)
             ${__OpenSG_LIBRARIES_SEARCH_DIRS})
     ENDIF(OPENSG_ROOT)
 
-    # handle input variable OPENSG_INCLUDEDIR
-    IF(OPENSG_INCLUDEDIR)
-        FILE(TO_CMAKE_PATH ${OPENSG_INCLUDEDIR} OPENSG_INCLUDEDIR)
+    # handle input variable OPENSG_INCLUDE_DIR
+    IF(OPENSG_INCLUDE_DIR)
+        FILE(TO_CMAKE_PATH ${OPENSG_INCLUDE_DIR} OPENSG_INCLUDE_DIR)
         SET(__OpenSG_INCLUDE_SEARCH_DIRS
-            ${OPENSG_INCLUDEDIR} ${__OpenSG_INCLUDE_SEARCH_DIRS})
-    ENDIF(OPENSG_INCLUDEDIR)
+            ${OPENSG_INCLUDE_DIR} ${__OpenSG_INCLUDE_SEARCH_DIRS})
+    ENDIF(OPENSG_INCLUDE_DIR)
 
-    # handle input variable OPENSG_LIBRARYDIR
-    IF(OPENSG_LIBRARYDIR)
-        FILE(TO_CMAKE_PATH ${OPENSG_LIBRARYDIR} OPENSG_LIBRARYDIR)
+    # handle input variable OPENSG_LIBRARY_DIR
+    IF(OPENSG_LIBRARY_DIR)
+        FILE(TO_CMAKE_PATH ${OPENSG_LIBRARY_DIR} OPENSG_LIBRARY_DIR)
         SET(__OpenSG_LIBRARIES_SEARCH_DIRS
-            ${OPENSG_LIBRARYDIR} ${__OpenSG_LIBRARIES_SEARCH_DIRS})
-    ENDIF(OPENSG_LIBRARYDIR)
+            ${OPENSG_LIBRARY_DIR} ${__OpenSG_LIBRARIES_SEARCH_DIRS})
+    ENDIF(OPENSG_LIBRARY_DIR)
 
 
     IF(NOT OpenSG_INCLUDE_DIR)
@@ -205,10 +227,10 @@ ELSE(__OpenSG_IN_CACHE)
             LIST(LENGTH __OpenSG_MISSING_COMPONENTS __OpenSG_NUM_MISSING_COMPONENTS)
             IF(${__OpenSG_NUM_COMPONENTS_WANTED} EQUAL ${__OpenSG_NUM_MISSING_COMPONENTS})
                 SET(OpenSG_ERROR_REASON
-                "${OpenSG_ERROR_REASON}No OpenSG libraries were found. You may need to set OPENSG_LIBRARYDIR to the directory containing OpenSG libraries or OPENSG_ROOT to the location of OpenSG.")
+                "${OpenSG_ERROR_REASON}No OpenSG libraries were found. You may need to set OPENSG_LIBRARY_DIR to the directory containing OpenSG libraries or OPENSG_ROOT to the location of OpenSG.")
             ELSE(${__OpenSG_NUM_COMPONENTS_WANTED} EQUAL ${__OpenSG_NUM_MISSING_COMPONENTS})
                 SET(OpenSG_ERROR_REASON
-                "${OpenSG_ERROR_REASON}Some (but not all) of the required OpenSG libraries were found. You may need to install these additional OpenSG libraries. Alternatively, set OPENSG_LIBRARYDIR to the directory containing OpenSG libraries or OPENSG_ROOT to the location of OpenSG.")
+                "${OpenSG_ERROR_REASON}Some (but not all) of the required OpenSG libraries were found. You may need to install these additional OpenSG libraries. Alternatively, set OPENSG_LIBRARY_DIR to the directory containing OpenSG libraries or OPENSG_ROOT to the location of OpenSG.")
             ENDIF(${__OpenSG_NUM_COMPONENTS_WANTED} EQUAL ${__OpenSG_NUM_MISSING_COMPONENTS})
         ENDIF(__OpenSG_MISSING_COMPONENTS)
 

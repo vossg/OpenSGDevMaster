@@ -592,15 +592,21 @@ ENDIF(OSG_ENABLE_DOXY_DOC)
 # osg2-config
 ##################
 
+# osg2-config is created from multiple parts (parts 1 and 3 static, part 2
+# is generated during the OSGCOLLECT pass.
+
+# substitute variables in static parts
 CONFIGURE_FILE("${CMAKE_SOURCE_DIR}/CMake/osg2-config.part1.in"
                "${CMAKE_BINARY_DIR}/bin/osg2-config.part1.tmp")
 CONFIGURE_FILE("${CMAKE_SOURCE_DIR}/CMake/osg2-config.part3.in"
                "${CMAKE_BINARY_DIR}/bin/osg2-config.part3.tmp")
 
+# read in all parts
 FILE(READ "${CMAKE_BINARY_DIR}/bin/osg2-config.part1.tmp" OSG2_CONFIG_PART1_CONTENT)
 FILE(READ "${CMAKE_BINARY_DIR}/bin/osg2-config.part2.tmp" OSG2_CONFIG_PART2_CONTENT)
 FILE(READ "${CMAKE_BINARY_DIR}/bin/osg2-config.part3.tmp" OSG2_CONFIG_PART3_CONTENT)
 
+# concatenate final file
 FILE(WRITE  "${CMAKE_BINARY_DIR}/bin/osg2-config" "${OSG2_CONFIG_PART1_CONTENT}")
 FILE(APPEND "${CMAKE_BINARY_DIR}/bin/osg2-config" "${OSG2_CONFIG_PART2_CONTENT}")
 FILE(APPEND "${CMAKE_BINARY_DIR}/bin/osg2-config" "${OSG2_CONFIG_PART3_CONTENT}")
