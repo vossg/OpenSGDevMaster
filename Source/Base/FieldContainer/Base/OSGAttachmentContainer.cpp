@@ -324,9 +324,6 @@ void AttachmentContainer::execSync(
 
         while(fcI != fcE)
         {
-            (*fcI).second->unlinkParent(this, 
-                                        Attachment::ParentsFieldId);
-
             if(this->isMTLocal())
             {
                 (*fcI).second->subReferenceRecorded();
