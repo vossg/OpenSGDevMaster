@@ -48,8 +48,8 @@
 #include <OSGColladaEffect.h>
 #include <OSGColladaSurface.h>
 
-#include <1.4/dom/domFx_sampler2D_common.h>
-#include <1.4/dom/domFx_surface_common.h>
+#include <dom/domFx_sampler2D_common.h>
+#include <dom/domFx_surface_common.h>
 
 OSG_BEGIN_NAMESPACE
 

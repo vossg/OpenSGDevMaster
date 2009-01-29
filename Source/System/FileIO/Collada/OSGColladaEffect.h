@@ -56,9 +56,9 @@
 #include <OSGChunkMaterial.h>
 #include <OSGMaterialChunk.h>
 
-#include <1.4/dom/domCommon_color_or_texture_type.h>
-#include <1.4/dom/domCommon_float_or_param_type.h>
-#include <1.4/dom/domCommon_transparent_type.h>
+#include <dom/domCommon_color_or_texture_type.h>
+#include <dom/domCommon_float_or_param_type.h>
+#include <dom/domCommon_transparent_type.h>
 
 // forward declarations
 class domEffect;

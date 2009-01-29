@@ -51,14 +51,14 @@
 #include <OSGColladaGeoInputAttachment.h>
 
 
-#include <1.4/dom/domGeometry.h>
-#include <1.4/dom/domLines.h>
-#include <1.4/dom/domLinestrips.h>
-#include <1.4/dom/domPolygons.h>
-#include <1.4/dom/domPolylist.h>
-#include <1.4/dom/domTriangles.h>
-#include <1.4/dom/domTrifans.h>
-#include <1.4/dom/domTristrips.h>
+#include <dom/domGeometry.h>
+#include <dom/domLines.h>
+#include <dom/domLinestrips.h>
+#include <dom/domPolygons.h>
+#include <dom/domPolylist.h>
+#include <dom/domTriangles.h>
+#include <dom/domTrifans.h>
+#include <dom/domTristrips.h>
 
 OSG_BEGIN_NAMESPACE
 

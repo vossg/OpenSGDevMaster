@@ -47,8 +47,8 @@
 
 #include <OSGColladaVisualScene.h>
 
-#include <1.4/dom/domVisual_scene.h>
-#include <1.4/dom/domInstanceWithExtra.h>
+#include <dom/domVisual_scene.h>
+#include <dom/domInstanceWithExtra.h>
 
 OSG_BEGIN_NAMESPACE
 

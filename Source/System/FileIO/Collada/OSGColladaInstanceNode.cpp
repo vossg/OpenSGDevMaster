@@ -47,8 +47,8 @@
 
 #include <OSGColladaNode.h>
 
-#include <1.4/dom/domNode.h>
-#include <1.4/dom/domInstance_node.h>
+#include <dom/domNode.h>
+#include <dom/domInstance_node.h>
 
 OSG_BEGIN_NAMESPACE
 

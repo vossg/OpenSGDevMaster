@@ -49,15 +49,15 @@
 #include <OSGColladaInstanceGeometry.h>
 #include <OSGNameAttachment.h>
 
-#include <1.4/dom/domLookat.h>
-#include <1.4/dom/domMatrix.h>
-#include <1.4/dom/domRotate.h>
-#include <1.4/dom/domScale.h>
-#include <1.4/dom/domSkew.h>
-#include <1.4/dom/domTranslate.h>
-#include <1.4/dom/domInstance_node.h>
-#include <1.4/dom/domInstance_geometry.h>
-#include <1.4/dom/domNode.h>
+#include <dom/domLookat.h>
+#include <dom/domMatrix.h>
+#include <dom/domRotate.h>
+#include <dom/domScale.h>
+#include <dom/domSkew.h>
+#include <dom/domTranslate.h>
+#include <dom/domInstance_node.h>
+#include <dom/domInstance_geometry.h>
+#include <dom/domNode.h>
 
 
 OSG_BEGIN_NAMESPACE

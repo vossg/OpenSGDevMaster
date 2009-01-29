@@ -47,8 +47,8 @@
 
 #include <OSGColladaInstanceVisualScene.h>
 
-#include <1.4/dom/domCOLLADA.h>
-#include <1.4/dom/domInstanceWithExtra.h>
+#include <dom/domCOLLADA.h>
+#include <dom/domInstanceWithExtra.h>
 
 /*! \class OSG::ColladaGlobal
     A special \c ColladaElement that is the loader's entry point for loading a

@@ -52,10 +52,10 @@
 #include <OSGMaterialGroup.h>
 #include <OSGNameAttachment.h>
 
-#include <1.4/dom/domEffect.h>
-#include <1.4/dom/domMaterial.h>
-#include <1.4/dom/domGeometry.h>
-#include <1.4/dom/domInstance_geometry.h>
+#include <dom/domEffect.h>
+#include <dom/domMaterial.h>
+#include <dom/domGeometry.h>
+#include <dom/domInstance_geometry.h>
 
 OSG_BEGIN_NAMESPACE
 

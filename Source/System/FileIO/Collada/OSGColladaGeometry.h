@@ -58,8 +58,8 @@
 #include <OSGGeoVectorProperty.h>
 
 #include <dae/daeDomTypes.h>
-#include <1.4/dom/domInputLocal.h>
-#include <1.4/dom/domInputLocalOffset.h>
+#include <dom/domInputLocal.h>
+#include <dom/domInputLocalOffset.h>
 
 #include <map>
 

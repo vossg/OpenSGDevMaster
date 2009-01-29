@@ -48,8 +48,8 @@
 #include <OSGColladaImage.h>
 #include <OSGImage.h>
 
-#include <1.4/dom/domImage.h>
-#include <1.4/dom/domFx_surface_common.h>
+#include <dom/domImage.h>
+#include <dom/domFx_surface_common.h>
 
 OSG_BEGIN_NAMESPACE
 

@@ -45,7 +45,7 @@
 
 #ifdef OSG_WITH_COLLADA
 
-#include <1.4/dom/domSource.h>
+#include <dom/domSource.h>
 
 OSG_BEGIN_NAMESPACE
 

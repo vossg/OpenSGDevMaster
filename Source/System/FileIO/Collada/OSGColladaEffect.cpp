@@ -55,10 +55,10 @@
 #include <OSGTextureEnvChunk.h>
 #include <OSGTextureObjChunk.h>
 
-#include <1.4/dom/domEffect.h>
-#include <1.4/dom/domProfile_COMMON.h>
-#include <1.4/dom/domProfile_GLSL.h>
-#include <1.4/dom/domProfile_CG.h>
+#include <dom/domEffect.h>
+#include <dom/domProfile_COMMON.h>
+#include <dom/domProfile_GLSL.h>
+#include <dom/domProfile_CG.h>
 
 OSG_BEGIN_NAMESPACE
 

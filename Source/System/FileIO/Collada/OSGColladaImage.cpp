@@ -47,7 +47,7 @@
 
 #include <OSGImageFileHandler.h>
 
-#include <1.4/dom/domImage.h>
+#include <dom/domImage.h>
 
 OSG_BEGIN_NAMESPACE
 
