@@ -414,8 +414,8 @@ bool SharePtrGraphOp::checkInSet(UInt32 fcTypeId, const FCIdSet &idSet)
 
     if(fcType != NULL && idSet.empty() == false)
     {
-        FCIdSetIt isIt  = idSet.begin();
-        FCIdSetIt isEnd = idSet.end  ();
+        FCIdSetConstIt isIt  = idSet.begin();
+        FCIdSetConstIt isEnd = idSet.end  ();
 
         for(; isIt != isEnd; ++isIt)
         {

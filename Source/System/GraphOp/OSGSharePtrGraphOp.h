@@ -116,6 +116,7 @@ private:
 
     typedef std::set<UInt32          > FCIdSet;
     typedef FCIdSet::iterator          FCIdSetIt;
+    typedef FCIdSet::const_iterator    FCIdSetConstIt;
     
     typedef std::set<FieldContainer *> FCSet;
     typedef FCSet::iterator            FCSetIt;
