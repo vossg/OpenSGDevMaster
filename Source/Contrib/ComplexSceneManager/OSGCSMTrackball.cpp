@@ -201,8 +201,6 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
                         b = -2.0 * (0.5 - _iLastY / h);
                         c = -2.0 * (  x / w - 0.5   );
                         d = -2.0 * (0.5 - y / h     );
-
-                        fprintf(stderr, "%f %f - %f %f\n", x, c, y, d);
                     }
 
                     if(_iMouseButtons & (1 << MouseData::LeftButton))
