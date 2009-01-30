@@ -179,17 +179,32 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
             {
                 if(_sfProcessing.getValue() == true)
                 {
-                    Real32 w = mData.getWindow()->getWidth ();
-                    Real32 h = mData.getWindow()->getHeight();
+                    Real32 a,b,c,d;
 
-                    Real32 x = mData.getX();
-                    Real32 y = mData.getY();
+                    if(mData.getMode() == MouseData::RelValues)
+                    {
+                        a = 0.f;
+                        b = 0.f;
+
+                        c = mData.getX();
+                        d = mData.getY();
+                    }
+                    else
+                    {
+                        Real32 w = mData.getWindow()->getWidth ();
+                        Real32 h = mData.getWindow()->getHeight();
+
+                        Real32 x = mData.getX();
+                        Real32 y = mData.getY();
                     
-                    Real32 a = -2.0 * (_iLastX / w - 0.5);
-                    Real32 b = -2.0 * (0.5 - _iLastY / h);
-                    Real32 c = -2.0 * (  x / w - 0.5   );
-                    Real32 d = -2.0 * (0.5 - y / h     );
-                    
+                        a = -2.0 * (_iLastX / w - 0.5);
+                        b = -2.0 * (0.5 - _iLastY / h);
+                        c = -2.0 * (  x / w - 0.5   );
+                        d = -2.0 * (0.5 - y / h     );
+
+                        fprintf(stderr, "%f %f - %f %f\n", x, c, y, d);
+                    }
+
                     if(_iMouseButtons & (1 << MouseData::LeftButton))
                     {
                         _oTrackball.updateRotation(a, b, c, d);     

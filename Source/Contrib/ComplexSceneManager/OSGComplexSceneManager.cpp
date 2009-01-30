@@ -792,6 +792,11 @@ bool ComplexSceneManager::init(const std::vector<std::string> &vParams)
 
     returnValue = _sfDrawManager.getValue()->init();
 
+    if(returnValue == true && _sfSensorTask.getValue() != NULL)
+    {
+        returnValue &= _sfSensorTask.getValue()->init();
+    }
+
     return returnValue;
 }
 
@@ -806,12 +811,18 @@ void ComplexSceneManager::terminate(void)
 
 void ComplexSceneManager::shutdown(void)
 {
+    if(_sfSensorTask.getValue() != NULL)
+    {
+        _sfSensorTask.getValue()->shutdown();
+    }
+
     this->clearGlobals();
 
     if(_sfDrawManager.getValue() != NULL)
     {
         _sfDrawManager.getValue()->shutdown();
     }
+
 
     this->setDrawManager(NULL);
     this->setSensorTask (NULL);

@@ -44,6 +44,7 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGMPBase.h"
+#include "OSGRefCountPtr.h"
 
 #if ! defined (OSG_USE_PTHREADS)   && \
     ! defined (OSG_USE_SPROC)      && \
@@ -449,6 +450,8 @@ class OSG_BASE_DLLMAPPING Lock : public LockBase
     void operator =(const Lock &source);
 };
 
+typedef RefCountPtr<Lock, 
+                    MemObjRefCountPolicy> LockRefPtr;
 
 
 
@@ -565,6 +568,9 @@ class OSG_BASE_DLLMAPPING LockPool : public LockCommonBase
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const LockPool &source);
 };
+
+typedef RefCountPtr<LockPool, 
+                    MemObjRefCountPolicy> LockPoolRefPtr;
 
 OSG_END_NAMESPACE
 

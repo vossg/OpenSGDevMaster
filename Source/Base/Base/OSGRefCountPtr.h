@@ -43,6 +43,7 @@
 
 #include "OSGConfig.h"
 #include "OSGBaseFunctions.h"
+#include "OSGContainerForwards.h"
 
 #include <boost/mpl/if.hpp>
 

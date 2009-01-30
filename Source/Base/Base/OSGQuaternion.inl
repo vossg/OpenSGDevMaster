@@ -243,6 +243,15 @@ void QuaternionBase<ValueTypeT>::setValueAsQuat(const ValueTypeT x,
     _quat[3] = w;
 }
 
+template <class ValueTypeT> inline
+void QuaternionBase<ValueTypeT>::setValue(const Self &quat)
+{
+    _quat[0] = quat[0];
+    _quat[1] = quat[1];
+    _quat[2] = quat[2];
+    _quat[3] = quat[3];
+}
+
 //! Sets value of rotation from a rotation matrix
 
 template <class ValueTypeT> inline

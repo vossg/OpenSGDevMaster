@@ -1346,6 +1346,8 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            @!Classname!@ *,
                            0);
     @@endif // MFPointerField
+@@else
+OSG_FIELDTRAITS_GETTYPE(@!Classname!@ *)
 @@endif // PointerField
 @@if ChildField
 

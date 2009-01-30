@@ -58,21 +58,27 @@ Int32 MouseData::getModifier(void) const
 }
 
 inline
-Int32 MouseData::getX(void) const
+Real32 MouseData::getX(void) const
 {
-    return _iX;
+    return _rX;
 }
 
 inline
-Int32 MouseData::getY(void) const
+Real32 MouseData::getY(void) const
 {
-    return _iY;
+    return _rY;
 }
 
 inline
 Window *MouseData::getWindow(void) const
 {
     return _pWindow;
+}
+
+inline
+UInt32 MouseData::getMode(void) const
+{
+    return _uiMode;
 }
 
 OSG_END_NAMESPACE

@@ -62,6 +62,8 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Helper")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor")
+OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor/InterfaceSensors")
+OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor/InterfaceSensors/Devices")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/VRMLNodes")
 
 IF(_BUILD_CSM_WINDOWGLUT)

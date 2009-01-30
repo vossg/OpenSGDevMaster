@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="LinuxEventOptions"
+    parent="InterfaceOptions"
+    library="ContribCSM"
+    pointerfieldtypes="single"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="true"
+    parentFields="none"
+    childfieldparent="DeviceInterface"
+    childFields="single"
+>
+  <Field
+     name="device"
+     type="std::string"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     defaultValue=""
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+  <Field
+     name="tRange"
+     type="Vec3f"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     defaultValue=""
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+  <Field
+     name="rRange"
+     type="Vec3f"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     defaultValue=""
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+</FieldContainer>

@@ -74,7 +74,9 @@ class OSG_CONTRIBCSM_DLLMAPPING Sensor : public SensorBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void frame(Time oTime, UInt32 uiFrame) = 0;
+    virtual bool init    (void                      );
+    virtual void frame   (Time oTime, UInt32 uiFrame) = 0;
+    virtual void shutdown(void                      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -77,6 +77,9 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     static const UInt32 CtrlActive   = 0x0004;
     static const UInt32 AltActive    = 0x0008;
 
+    static const UInt32 AbsValues    = 0x0001;
+    static const UInt32 RelValues    = 0x0002;
+
     //-----------------------------------------------------------------------
     //   enums                                                               
     //-----------------------------------------------------------------------
@@ -142,9 +145,10 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     Int32      _iButton;
     Int32      _iState;
     Int32      _iModifier;
-    Int32      _iX;
-    Int32      _iY;
+    Real32     _rX;
+    Real32     _rY;
     Window    *_pWindow;
+    UInt32     _uiMode;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  
@@ -170,22 +174,25 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseData
     void setData(Int32      iButton, 
                  Int32      iState,
                  Int32      iModifier,
-                 Int32      x,       
-                 Int32      y,
-                 Window    *pWindow);
+                 Real32     x,       
+                 Real32     y,
+                 Window    *pWindow,
+                 UInt32     uiMode = AbsValues);
 
-    void setData(Int32   x,       
-                 Int32   y,
-                 Window *pWindow);
+    void setData(Real32  x,       
+                 Real32  y,
+                 Window *pWindow,
+                 UInt32  uiMode = AbsValues);
 
     /*------------------------- your_operators ------------------------------*/
 
     Int32      getButton  (void) const;
     Int32      getState   (void) const;
     Int32      getModifier(void) const;
-    Int32      getX       (void) const;
-    Int32      getY       (void) const;
+    Real32     getX       (void) const;
+    Real32     getY       (void) const;
     Window    *getWindow  (void) const;
+    UInt32     getMode    (void) const;
 
     /*------------------------- assignment ----------------------------------*/
 

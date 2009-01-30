@@ -111,6 +111,23 @@ void SensorTask::dump(      UInt32    ,
     SLOG << "Dump SensorTask NI" << std::endl;
 }
 
+bool SensorTask::init(void)
+{
+    bool returnValue = true;
+
+    MFUncountedSensorPtr::const_iterator sensorIt  = getMFSensors()->begin();
+    MFUncountedSensorPtr::const_iterator sensorEnd = getMFSensors()->end  ();
+
+    while(sensorIt != sensorEnd)
+    {
+        returnValue &= (*sensorIt)->init();
+        
+        ++sensorIt;
+    }
+
+    return returnValue;
+}
+
 void SensorTask::frame(Time oTime, UInt32 uiFrame)
 {
     MFUncountedSensorPtr::const_iterator sensorIt  = getMFSensors()->begin();
@@ -119,6 +136,19 @@ void SensorTask::frame(Time oTime, UInt32 uiFrame)
     while(sensorIt != sensorEnd)
     {
         (*sensorIt)->frame(oTime, uiFrame);
+        
+        ++sensorIt;
+    }
+}
+
+void SensorTask::shutdown(void)
+{
+    MFUncountedSensorPtr::const_iterator sensorIt  = getMFSensors()->begin();
+    MFUncountedSensorPtr::const_iterator sensorEnd = getMFSensors()->end  ();
+
+    while(sensorIt != sensorEnd)
+    {
+        (*sensorIt)->shutdown();
         
         ++sensorIt;
     }

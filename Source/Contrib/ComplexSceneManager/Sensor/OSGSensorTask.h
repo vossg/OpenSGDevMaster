@@ -75,7 +75,9 @@ class OSG_CONTRIBCSM_DLLMAPPING SensorTask : public SensorTaskBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void frame(Time oTime, UInt32 uiFrame);
+    bool init    (void                      );
+    void frame   (Time oTime, UInt32 uiFrame);
+    void shutdown(void                      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

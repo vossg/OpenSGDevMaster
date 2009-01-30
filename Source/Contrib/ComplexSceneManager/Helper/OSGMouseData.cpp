@@ -44,12 +44,13 @@
 OSG_BEGIN_NAMESPACE
 
 MouseData::MouseData(void) :
-    _iButton  (-1  ),
-    _iState   (-1  ),
-    _iModifier(-1  ),
-    _iX       (-1  ),
-    _iY       (-1  ),
-    _pWindow  (NULL)
+    _iButton  (-1       ),
+    _iState   (-1       ),
+    _iModifier(-1       ),
+    _rX       (-1.f     ),
+    _rY       (-1.f     ),
+    _pWindow  (NULL     ),
+    _uiMode   (AbsValues)
 {
 }
 
@@ -58,9 +59,10 @@ MouseData::MouseData(const MouseData &source) :
     _iButton  (source._iButton  ),
     _iState   (source._iState   ),
     _iModifier(source._iModifier),
-    _iX       (source._iX       ),
-    _iY       (source._iY       ),
-    _pWindow  (NULL             )
+    _rX       (source._rX       ),
+    _rY       (source._rY       ),
+    _pWindow  (NULL             ),
+    _uiMode   (source._uiMode   )
 {
 }
 
@@ -73,30 +75,35 @@ MouseData::~MouseData(void)
 void MouseData::setData(Int32      iButton, 
                         Int32      iState,
                         Int32      iModifier,
-                        Int32      x,       
-                        Int32      y,
-                        Window    *pWindow  )
+                        Real32     x,       
+                        Real32     y,
+                        Window    *pWindow,
+                        UInt32     uiMode)
 {
     _iButton   = iButton;
     _iState    = iState;
     _iModifier = iModifier;
-    _iX        = x;
-    _iY        = y;
+    _rX        = x;
+    _rY        = y;
     _pWindow   = pWindow;
+    _uiMode    = uiMode;
 }
 
-void MouseData::setData(Int32   x,       
-                        Int32   y,
-                        Window *pWindow)
+void MouseData::setData(Real32  x,       
+                        Real32  y,
+                        Window *pWindow,
+                        UInt32  uiMode)
 {
     _iButton   = -1;
     _iState    = -1;
     _iModifier = -1;
 
-    _iX        = x;
-    _iY        = y;
+    _rX        = x;
+    _rY        = y;
 
     _pWindow   = pWindow;
+
+    _uiMode    = uiMode;
 }
 
 void MouseData::operator = (const MouseData &rhs)
@@ -104,9 +111,10 @@ void MouseData::operator = (const MouseData &rhs)
     _iButton   = rhs._iButton;
     _iState    = rhs._iState;
     _iModifier = rhs._iModifier;
-    _iX        = rhs._iX;
-    _iY        = rhs._iY;
+    _rX        = rhs._rX;
+    _rY        = rhs._rY;
     _pWindow   = rhs._pWindow;
+    _uiMode    = rhs._uiMode;
 }
 
 bool MouseData::operator ==(const MouseData &rhs) const
@@ -114,9 +122,10 @@ bool MouseData::operator ==(const MouseData &rhs) const
     return (_iButton   == rhs._iButton   &&
             _iState    == rhs._iState    &&
             _iModifier == rhs._iModifier &&
-            _iX        == rhs._iX        &&
-            _iY        == rhs._iY        &&
-            _pWindow   == rhs._pWindow    );
+            _rX        == rhs._rX        &&
+            _rY        == rhs._rY        &&
+            _pWindow   == rhs._pWindow   &&
+            _uiMode    == rhs._uiMode      );
 }
 
 

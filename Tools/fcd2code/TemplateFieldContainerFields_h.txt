@@ -97,7 +97,6 @@ struct FieldTraits<@!Classname!@ *> :
     typedef FieldTraits<@!Classname!@ *>  Self;
 
     enum                        { Convertible = NotConvertible };
-@@if PointerField
 
     @@if isInLibrary
     static OSG_@!LIBNAME!@_DLLMAPPING DataType &getType(void);
@@ -105,7 +104,6 @@ struct FieldTraits<@!Classname!@ *> :
     static DataType &getType(void);
     @@endif // isInLibrary
 
-@@endif // PointerField
 @@if SFPointerField
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);

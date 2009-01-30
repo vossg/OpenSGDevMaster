@@ -150,4 +150,13 @@ void Sensor::onDestroy(UInt32 uiContainerId)
     Inherited::onDestroy(uiContainerId);
 }
 
+bool Sensor::init(void)
+{
+    return true;
+}
+
+void Sensor::shutdown(void)
+{
+}
+
 OSG_END_NAMESPACE

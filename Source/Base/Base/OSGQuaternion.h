@@ -60,6 +60,8 @@ class QuaternionBase
 {
     /*==========================  PUBLIC  =================================*/
 
+    typedef QuaternionBase<ValueTypeT> Self;
+
   public:
 
     /*---------------------------------------------------------------------*/
@@ -128,6 +130,7 @@ class QuaternionBase
                            const  ValueTypeT  z,
                            const  ValueTypeT  w         );
 
+    void setValue         (const  Self       &quat      );
     void setValue         (const  MatrixType &matrix    );
 
     void setValueAsAxisRad(const  VectorType &axis,    
