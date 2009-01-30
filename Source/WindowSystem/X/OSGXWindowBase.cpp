@@ -94,6 +94,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Int32           XWindowBase::_sfFbConfigId
+    
+*/
+
 
 void XWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -133,6 +137,18 @@ void XWindowBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&XWindow::editHandleContext),
         static_cast<FieldGetMethodSig >(&XWindow::getHandleContext));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "fbConfigId",
+        "",
+        FbConfigIdFieldId, FbConfigIdFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&XWindow::editHandleFbConfigId),
+        static_cast<FieldGetMethodSig >(&XWindow::getHandleFbConfigId));
 
     oType.addInitialDesc(pDesc);
 }
@@ -188,6 +204,15 @@ XWindowBase::TypeObject XWindowBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"NULL\"\n"
     "\t\theader=\"OSGXWindowDataFields.h\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"fbConfigId\"\n"
+    "\t\ttype=\"Int32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"internal\"\n"
+    "\t\tdefaultValue=\"-1\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -254,6 +279,19 @@ const SFGLXContext *XWindowBase::getSFContext(void) const
 }
 
 
+SFInt32 *XWindowBase::editSFFbConfigId(void)
+{
+    editSField(FbConfigIdFieldMask);
+
+    return &_sfFbConfigId;
+}
+
+const SFInt32 *XWindowBase::getSFFbConfigId(void) const
+{
+    return &_sfFbConfigId;
+}
+
+
 
 
 
@@ -276,6 +314,10 @@ UInt32 XWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfContext.getBinSize();
     }
+    if(FieldBits::NoField != (FbConfigIdFieldMask & whichField))
+    {
+        returnValue += _sfFbConfigId.getBinSize();
+    }
 
     return returnValue;
 }
@@ -297,6 +339,10 @@ void XWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfContext.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (FbConfigIdFieldMask & whichField))
+    {
+        _sfFbConfigId.copyToBin(pMem);
+    }
 }
 
 void XWindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -315,6 +361,10 @@ void XWindowBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ContextFieldMask & whichField))
     {
         _sfContext.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FbConfigIdFieldMask & whichField))
+    {
+        _sfFbConfigId.copyFromBin(pMem);
     }
 }
 
@@ -443,7 +493,8 @@ XWindowBase::XWindowBase(void) :
     Inherited(),
     _sfDisplay                (DisplayP(NULL)),
     _sfWindow                 (X11Window(NULL)),
-    _sfContext                (GLXContext(NULL))
+    _sfContext                (GLXContext(NULL)),
+    _sfFbConfigId             (Int32(-1))
 {
 }
 
@@ -451,7 +502,8 @@ XWindowBase::XWindowBase(const XWindowBase &source) :
     Inherited(source),
     _sfDisplay                (source._sfDisplay                ),
     _sfWindow                 (source._sfWindow                 ),
-    _sfContext                (source._sfContext                )
+    _sfContext                (source._sfContext                ),
+    _sfFbConfigId             (source._sfFbConfigId             )
 {
 }
 
@@ -528,6 +580,29 @@ EditFieldHandlePtr XWindowBase::editHandleContext        (void)
 
 
     editSField(ContextFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr XWindowBase::getHandleFbConfigId      (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfFbConfigId,
+             this->getType().getFieldDesc(FbConfigIdFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr XWindowBase::editHandleFbConfigId     (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfFbConfigId,
+             this->getType().getFieldDesc(FbConfigIdFieldId)));
+
+
+    editSField(FbConfigIdFieldMask);
 
     return returnValue;
 }

@@ -203,7 +203,7 @@ int main(int argc, char **argv)
 {
     // OSG init
     osgInit(argc,argv);
-    Window::ignoreExtensions("GL_EXT_compiled_vertex_array");
+    OSG::Window::ignoreExtensions("GL_EXT_compiled_vertex_array");
 
     // GLUT init
     glutInit(&argc, argv);

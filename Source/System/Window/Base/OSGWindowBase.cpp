@@ -127,6 +127,18 @@ OSG_BEGIN_NAMESPACE
     For cluster window this values equals the clusterId (shl chunk)
 */
 
+/*! \var Int32           WindowBase::_sfRequestMajor
+    
+*/
+
+/*! \var Int32           WindowBase::_sfRequestMinor
+    
+*/
+
+/*! \var Int32           WindowBase::_sfContextFlags
+    
+*/
+
 
 void WindowBase::classDescInserter(TypeObject &oType)
 {
@@ -228,6 +240,42 @@ void WindowBase::classDescInserter(TypeObject &oType)
         (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&Window::editHandleDrawerId),
         static_cast<FieldGetMethodSig >(&Window::getHandleDrawerId));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "requestMajor",
+        "",
+        RequestMajorFieldId, RequestMajorFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Window::editHandleRequestMajor),
+        static_cast<FieldGetMethodSig >(&Window::getHandleRequestMajor));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "requestMinor",
+        "",
+        RequestMinorFieldId, RequestMinorFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Window::editHandleRequestMinor),
+        static_cast<FieldGetMethodSig >(&Window::getHandleRequestMinor));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "contextFlags",
+        "",
+        ContextFlagsFieldId, ContextFlagsFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Window::editHandleContextFlags),
+        static_cast<FieldGetMethodSig >(&Window::getHandleContextFlags));
 
     oType.addInitialDesc(pDesc);
 }
@@ -352,6 +400,36 @@ WindowBase::TypeObject WindowBase::_type(
     "\t>\n"
     "    DrawerId to select window dependent elements (e.g. Distortion filter).\n"
     "    For cluster window this values equals the clusterId (shl chunk)\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"requestMajor\"\n"
+    "\t   type=\"Int32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"-1\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"requestMinor\"\n"
+    "\t   type=\"Int32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"0\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"contextFlags\"\n"
+    "\t   type=\"Int32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"0\"\n"
+    "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindow\n"
@@ -481,6 +559,45 @@ SFInt32 *WindowBase::editSFDrawerId(void)
 const SFInt32 *WindowBase::getSFDrawerId(void) const
 {
     return &_sfDrawerId;
+}
+
+
+SFInt32 *WindowBase::editSFRequestMajor(void)
+{
+    editSField(RequestMajorFieldMask);
+
+    return &_sfRequestMajor;
+}
+
+const SFInt32 *WindowBase::getSFRequestMajor(void) const
+{
+    return &_sfRequestMajor;
+}
+
+
+SFInt32 *WindowBase::editSFRequestMinor(void)
+{
+    editSField(RequestMinorFieldMask);
+
+    return &_sfRequestMinor;
+}
+
+const SFInt32 *WindowBase::getSFRequestMinor(void) const
+{
+    return &_sfRequestMinor;
+}
+
+
+SFInt32 *WindowBase::editSFContextFlags(void)
+{
+    editSField(ContextFlagsFieldMask);
+
+    return &_sfContextFlags;
+}
+
+const SFInt32 *WindowBase::getSFContextFlags(void) const
+{
+    return &_sfContextFlags;
 }
 
 
@@ -627,6 +744,18 @@ UInt32 WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDrawerId.getBinSize();
     }
+    if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
+    {
+        returnValue += _sfRequestMajor.getBinSize();
+    }
+    if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
+    {
+        returnValue += _sfRequestMinor.getBinSize();
+    }
+    if(FieldBits::NoField != (ContextFlagsFieldMask & whichField))
+    {
+        returnValue += _sfContextFlags.getBinSize();
+    }
 
     return returnValue;
 }
@@ -668,6 +797,18 @@ void WindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDrawerId.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
+    {
+        _sfRequestMajor.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
+    {
+        _sfRequestMinor.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ContextFlagsFieldMask & whichField))
+    {
+        _sfContextFlags.copyToBin(pMem);
+    }
 }
 
 void WindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -707,6 +848,18 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfDrawerId.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
+    {
+        _sfRequestMajor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
+    {
+        _sfRequestMinor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ContextFlagsFieldMask & whichField))
+    {
+        _sfContextFlags.copyFromBin(pMem);
+    }
 }
 
 
@@ -725,7 +878,10 @@ WindowBase::WindowBase(void) :
     _sfGlObjectEventCounter   (UInt32(1)),
     _mfGlObjectLastRefresh    (),
     _mfGlObjectLastReinitialize(),
-    _sfDrawerId               (Int32(-1))
+    _sfDrawerId               (Int32(-1)),
+    _sfRequestMajor           (Int32(-1)),
+    _sfRequestMinor           (Int32(0)),
+    _sfContextFlags           (Int32(0))
 {
 }
 
@@ -740,7 +896,10 @@ WindowBase::WindowBase(const WindowBase &source) :
     _sfGlObjectEventCounter   (source._sfGlObjectEventCounter   ),
     _mfGlObjectLastRefresh    (source._mfGlObjectLastRefresh    ),
     _mfGlObjectLastReinitialize(source._mfGlObjectLastReinitialize),
-    _sfDrawerId               (source._sfDrawerId               )
+    _sfDrawerId               (source._sfDrawerId               ),
+    _sfRequestMajor           (source._sfRequestMajor           ),
+    _sfRequestMinor           (source._sfRequestMinor           ),
+    _sfContextFlags           (source._sfContextFlags           )
 {
 }
 
@@ -1012,6 +1171,75 @@ EditFieldHandlePtr WindowBase::editHandleDrawerId       (void)
 
 
     editSField(DrawerIdFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr WindowBase::getHandleRequestMajor    (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfRequestMajor,
+             this->getType().getFieldDesc(RequestMajorFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr WindowBase::editHandleRequestMajor   (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfRequestMajor,
+             this->getType().getFieldDesc(RequestMajorFieldId)));
+
+
+    editSField(RequestMajorFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr WindowBase::getHandleRequestMinor    (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfRequestMinor,
+             this->getType().getFieldDesc(RequestMinorFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr WindowBase::editHandleRequestMinor   (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfRequestMinor,
+             this->getType().getFieldDesc(RequestMinorFieldId)));
+
+
+    editSField(RequestMinorFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr WindowBase::getHandleContextFlags    (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfContextFlags,
+             this->getType().getFieldDesc(ContextFlagsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr WindowBase::editHandleContextFlags   (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfContextFlags,
+             this->getType().getFieldDesc(ContextFlagsFieldId)));
+
+
+    editSField(ContextFlagsFieldMask);
 
     return returnValue;
 }

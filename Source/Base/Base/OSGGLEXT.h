@@ -1738,6 +1738,20 @@ typedef char GLchar;
 #define GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT 0x8CD6
 #endif
 
+/*---------------------------------------------------------------------*/
+/*! \name glxFBConfig                                                  */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*  \{                                                                 */
+
+#define GLX_CONTEXT_MAJOR_VERSION_ARB          0x2091
+#define GLX_CONTEXT_MINOR_VERSION_ARB          0x2092
+#define GLX_CONTEXT_FLAGS_ARB                  0x2094
+
+#define GLX_CONTEXT_DEBUG_BIT_ARB              0x0001
+#define GLX_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB 0x0002
+
+/*! \}                                                                 */
+
 #else
 
 /*---------------------------------------------------------------------*/

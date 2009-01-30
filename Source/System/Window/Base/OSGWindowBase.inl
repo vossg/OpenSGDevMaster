@@ -198,6 +198,81 @@ void WindowBase::setDrawerId(const Int32 value)
 
     _sfDrawerId.setValue(value);
 }
+//! Get the value of the Window::_sfRequestMajor field.
+
+inline
+Int32 &WindowBase::editRequestMajor(void)
+{
+    editSField(RequestMajorFieldMask);
+
+    return _sfRequestMajor.getValue();
+}
+
+//! Get the value of the Window::_sfRequestMajor field.
+inline
+      Int32  WindowBase::getRequestMajor(void) const
+{
+    return _sfRequestMajor.getValue();
+}
+
+//! Set the value of the Window::_sfRequestMajor field.
+inline
+void WindowBase::setRequestMajor(const Int32 value)
+{
+    editSField(RequestMajorFieldMask);
+
+    _sfRequestMajor.setValue(value);
+}
+//! Get the value of the Window::_sfRequestMinor field.
+
+inline
+Int32 &WindowBase::editRequestMinor(void)
+{
+    editSField(RequestMinorFieldMask);
+
+    return _sfRequestMinor.getValue();
+}
+
+//! Get the value of the Window::_sfRequestMinor field.
+inline
+      Int32  WindowBase::getRequestMinor(void) const
+{
+    return _sfRequestMinor.getValue();
+}
+
+//! Set the value of the Window::_sfRequestMinor field.
+inline
+void WindowBase::setRequestMinor(const Int32 value)
+{
+    editSField(RequestMinorFieldMask);
+
+    _sfRequestMinor.setValue(value);
+}
+//! Get the value of the Window::_sfContextFlags field.
+
+inline
+Int32 &WindowBase::editContextFlags(void)
+{
+    editSField(ContextFlagsFieldMask);
+
+    return _sfContextFlags.getValue();
+}
+
+//! Get the value of the Window::_sfContextFlags field.
+inline
+      Int32  WindowBase::getContextFlags(void) const
+{
+    return _sfContextFlags.getValue();
+}
+
+//! Set the value of the Window::_sfContextFlags field.
+inline
+void WindowBase::setContextFlags(const Int32 value)
+{
+    editSField(ContextFlagsFieldMask);
+
+    _sfContextFlags.setValue(value);
+}
 
 //! Get the value of the \a index element the Window::_mfPort field.
 inline
@@ -281,6 +356,15 @@ void WindowBase::execSync (      WindowBase *pFrom,
 
     if(FieldBits::NoField != (DrawerIdFieldMask & whichField))
         _sfDrawerId.syncWith(pFrom->_sfDrawerId);
+
+    if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
+        _sfRequestMajor.syncWith(pFrom->_sfRequestMajor);
+
+    if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
+        _sfRequestMinor.syncWith(pFrom->_sfRequestMinor);
+
+    if(FieldBits::NoField != (ContextFlagsFieldMask & whichField))
+        _sfContextFlags.syncWith(pFrom->_sfContextFlags);
 }
 #endif
 

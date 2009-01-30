@@ -50,6 +50,10 @@
 #include "OSGGL.h"
 #endif
 
+#ifdef OSG_USE_GLX
+#include "GL/glx.h"
+#endif
+
 OSG_BEGIN_NAMESPACE
 
 /*---------------------------------------------------------------------------*/
@@ -179,6 +183,23 @@ typedef void  (OSG_APIENTRY *
 typedef void (OSG_APIENTRY *OSGglGenerateMipmapEXTProc)(GLenum);
 
 /*---------------------------------------------------------------------------*/
+/*! framebuffer config                                                       */
+
+#ifdef OSG_USE_GLX
+typedef GLXFBConfig *(* OSGglxChooseFBConfigProc)(      Display *dpy, 
+                                                        int      screen, 
+                                                  const int     *attrib_list, 
+                                                        int     *nelements);
+
+typedef GLXContext (*OSGglxCreateContextAttribsARB)(
+          Display     *dpy,
+          GLXFBConfig  config,
+          GLXContext   share_context,
+          Bool         direct,
+    const int         *attrib_list);
+#endif
+
+/*---------------------------------------------------------------------------*/
 
 #ifdef OSG_DEBUG
 
@@ -190,6 +211,13 @@ typedef void (OSG_APIENTRY *OSGglGenerateMipmapEXTProc)(GLenum);
  if(FUNCVAR == NULL)                                                    \
     fprintf(stderr, "Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE)
         
+#define OSGGETGLFUNCBYNAME(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)         \
+ FUNCTYPE FUNCVAR =                                                     \
+    reinterpret_cast<FUNCTYPE>(                                         \
+        (WINDOW)->getFunctionByName(FUNCNAME));                         \
+                                                                        \
+ if(FUNCVAR == NULL)                                                    \
+    fprintf(stderr, "Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE)
         
 #else
 
@@ -197,6 +225,11 @@ typedef void (OSG_APIENTRY *OSGglGenerateMipmapEXTProc)(GLenum);
     FUNCTYPE FUNCVAR =                                                  \
         reinterpret_cast<FUNCTYPE>(                                     \
             pEnv->getWindow()->getFunction(FUNCID))
+
+#define OSGGETGLFUNCBYNAME(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)         \
+ FUNCTYPE FUNCVAR =                                                     \
+    reinterpret_cast<FUNCTYPE>(                                         \
+        (WINDOW)->getFunctionByName(FUNCNAME));
 
 #endif
 

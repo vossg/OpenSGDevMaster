@@ -173,6 +173,106 @@ void CSMWindowBase::setDecorEnabled(const bool value)
 
     _sfDecorEnabled.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfRequestMajor field.
+
+inline
+Int32 &CSMWindowBase::editRequestMajor(void)
+{
+    editSField(RequestMajorFieldMask);
+
+    return _sfRequestMajor.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfRequestMajor field.
+inline
+      Int32  CSMWindowBase::getRequestMajor(void) const
+{
+    return _sfRequestMajor.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfRequestMajor field.
+inline
+void CSMWindowBase::setRequestMajor(const Int32 value)
+{
+    editSField(RequestMajorFieldMask);
+
+    _sfRequestMajor.setValue(value);
+}
+//! Get the value of the CSMWindow::_sfRequestMinor field.
+
+inline
+Int32 &CSMWindowBase::editRequestMinor(void)
+{
+    editSField(RequestMinorFieldMask);
+
+    return _sfRequestMinor.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfRequestMinor field.
+inline
+      Int32  CSMWindowBase::getRequestMinor(void) const
+{
+    return _sfRequestMinor.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfRequestMinor field.
+inline
+void CSMWindowBase::setRequestMinor(const Int32 value)
+{
+    editSField(RequestMinorFieldMask);
+
+    _sfRequestMinor.setValue(value);
+}
+//! Get the value of the CSMWindow::_sfEnableForwardCompatContext field.
+
+inline
+bool &CSMWindowBase::editEnableForwardCompatContext(void)
+{
+    editSField(EnableForwardCompatContextFieldMask);
+
+    return _sfEnableForwardCompatContext.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfEnableForwardCompatContext field.
+inline
+      bool  CSMWindowBase::getEnableForwardCompatContext(void) const
+{
+    return _sfEnableForwardCompatContext.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfEnableForwardCompatContext field.
+inline
+void CSMWindowBase::setEnableForwardCompatContext(const bool value)
+{
+    editSField(EnableForwardCompatContextFieldMask);
+
+    _sfEnableForwardCompatContext.setValue(value);
+}
+//! Get the value of the CSMWindow::_sfEnableDebugContext field.
+
+inline
+bool &CSMWindowBase::editEnableDebugContext(void)
+{
+    editSField(EnableDebugContextFieldMask);
+
+    return _sfEnableDebugContext.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfEnableDebugContext field.
+inline
+      bool  CSMWindowBase::getEnableDebugContext(void) const
+{
+    return _sfEnableDebugContext.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfEnableDebugContext field.
+inline
+void CSMWindowBase::setEnableDebugContext(const bool value)
+{
+    editSField(EnableDebugContextFieldMask);
+
+    _sfEnableDebugContext.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMWindow::_mfViewports field.
 inline
@@ -212,6 +312,18 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (DecorEnabledFieldMask & whichField))
         _sfDecorEnabled.syncWith(pFrom->_sfDecorEnabled);
+
+    if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
+        _sfRequestMajor.syncWith(pFrom->_sfRequestMajor);
+
+    if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
+        _sfRequestMinor.syncWith(pFrom->_sfRequestMinor);
+
+    if(FieldBits::NoField != (EnableForwardCompatContextFieldMask & whichField))
+        _sfEnableForwardCompatContext.syncWith(pFrom->_sfEnableForwardCompatContext);
+
+    if(FieldBits::NoField != (EnableDebugContextFieldMask & whichField))
+        _sfEnableDebugContext.syncWith(pFrom->_sfEnableDebugContext);
 }
 #endif
 

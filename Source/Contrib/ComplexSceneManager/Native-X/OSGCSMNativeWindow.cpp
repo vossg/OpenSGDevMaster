@@ -51,6 +51,7 @@
 #ifdef OSG_NEW_SHADER
 #include "OSGShaderCache.h"
 #endif
+#include "OSGGLFuncProtos.h"
 
 #include <X11/keysym.h>
 
@@ -338,15 +339,94 @@ bool CSMNativeWindow::init(void)
         exit(0);
     }
 
-    int dblBuf[] = {GLX_RGBA, 
-                    GLX_DEPTH_SIZE, 1, 
-                    GLX_DOUBLEBUFFER, 
-//                    (_pVSCWindow->stereo() == true) ? GLX_STEREO : None,
-                    None};
+    XWindowUnrecPtr  pXWindow = OSG::XWindow::create();
+    XVisualInfo     *vi       = NULL;
 
-    XVisualInfo          *vi = glXChooseVisual(_pDisplay, 
-                                               DefaultScreen(_pDisplay), 
-                                               dblBuf);
+    pXWindow->setRequestMajor(this->getRequestMajor());
+    pXWindow->setRequestMinor(this->getRequestMinor());
+
+    Int32 iFlags = 0;
+
+    if(this->getEnableForwardCompatContext() == true)
+    {
+        if(this->getRequestMajor() >= 3)
+        {
+            iFlags |= GLX_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB;
+        }
+        else
+        {
+            FWARNING(("forward compat contexts require OpenGL major "
+                      "> 3.0, requested %d\n", 
+                      this->getRequestMajor()));
+        }
+    }
+
+    if(this->getEnableDebugContext() == true)
+    {
+        iFlags |= GLX_CONTEXT_DEBUG_BIT_ARB;
+    }
+
+    if(iFlags != 0)
+        pXWindow->setContextFlags(iFlags);
+
+    OSGGETGLFUNCBYNAME(OSGglxChooseFBConfigProc, 
+                       osgGlxChooseGBConfig,
+                       "glXChooseFBConfig",
+                       pXWindow);
+    
+    if(osgGlxChooseGBConfig == NULL)
+    {
+        int dblBuf[] = {GLX_RGBA, 
+                        GLX_DEPTH_SIZE, 1, 
+                        GLX_DOUBLEBUFFER, 
+//                    (_pVSCWindow->stereo() == true) ? GLX_STEREO : None,
+                        None};
+        
+        vi = glXChooseVisual(_pDisplay, 
+                              DefaultScreen(_pDisplay), 
+                              dblBuf);
+    }
+    else
+    {
+        int iMatching;
+
+        int fbAttr[] =
+        {
+            GLX_RENDER_TYPE,   GLX_RGBA_BIT,
+            GLX_RED_SIZE,      8,
+            GLX_GREEN_SIZE,    8,
+            GLX_BLUE_SIZE,     8,
+            GLX_ALPHA_SIZE,    8,
+            GLX_DEPTH_SIZE,    8,
+            GLX_DRAWABLE_TYPE, GLX_WINDOW_BIT,
+            GLX_DOUBLEBUFFER,  True,
+            GLX_X_RENDERABLE,  True,
+            None
+        };
+
+
+        GLXFBConfig *fbConfigs = 
+            osgGlxChooseGBConfig( _pDisplay,
+                                   DefaultScreen(_pDisplay),
+                                   fbAttr,
+                                 & iMatching);
+        
+        if(iMatching > 0)
+        {
+            vi = glXGetVisualFromFBConfig(_pDisplay, fbConfigs[0]);
+            
+            int iId;
+            
+            glXGetFBConfigAttrib( _pDisplay, 
+                                   fbConfigs[0], 
+                                   GLX_FBCONFIG_ID, 
+                                 & iId);
+            
+            pXWindow->setFbConfigId(iId);
+
+            XFree(fbConfigs);
+        }
+    }
 
     if(vi == NULL) 
     {
@@ -502,7 +582,6 @@ bool CSMNativeWindow::init(void)
 
     XSetInputFocus(_pDisplay,  pHWin, RevertToParent, CurrentTime);
 
-    XWindowUnrecPtr pXWindow = OSG::XWindow::create();
 
     _pXWindow = pXWindow;
 
@@ -511,6 +590,15 @@ bool CSMNativeWindow::init(void)
     _pXWindow->init      (         );
     _pXWindow->resize    ( uiWidth,
                            uiHeight);
+
+    std::string windowName("OpenSG - CSM - ");
+
+    windowName += reinterpret_cast<const char *>(glGetString(GL_VERSION));
+    windowName += " - ";
+    windowName += reinterpret_cast<const char *>(glGetString(GL_RENDERER));
+
+    XStoreName(_pDisplay, pHWin, windowName.c_str());
+
     _pXWindow->deactivate(         );
 
     if(ComplexSceneManager::the() != NULL)

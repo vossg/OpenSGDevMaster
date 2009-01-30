@@ -73,6 +73,9 @@
 #include "OSGUInt32Fields.h" // GlObjectLastRefresh type
 #include "OSGUInt32Fields.h" // GlObjectLastReinitialize type
 #include "OSGInt32Fields.h" // DrawerId type
+#include "OSGInt32Fields.h" // RequestMajor type
+#include "OSGInt32Fields.h" // RequestMinor type
+#include "OSGInt32Fields.h" // ContextFlags type
 
 #include "OSGWindowFields.h"
 
@@ -108,7 +111,10 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         GlObjectLastRefreshFieldId = GlObjectEventCounterFieldId + 1,
         GlObjectLastReinitializeFieldId = GlObjectLastRefreshFieldId + 1,
         DrawerIdFieldId = GlObjectLastReinitializeFieldId + 1,
-        NextFieldId = DrawerIdFieldId + 1
+        RequestMajorFieldId = DrawerIdFieldId + 1,
+        RequestMinorFieldId = RequestMajorFieldId + 1,
+        ContextFlagsFieldId = RequestMinorFieldId + 1,
+        NextFieldId = ContextFlagsFieldId + 1
     };
 
     static const OSG::BitVector WidthFieldMask =
@@ -127,6 +133,12 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << GlObjectLastReinitializeFieldId);
     static const OSG::BitVector DrawerIdFieldMask =
         (TypeTraits<BitVector>::One << DrawerIdFieldId);
+    static const OSG::BitVector RequestMajorFieldMask =
+        (TypeTraits<BitVector>::One << RequestMajorFieldId);
+    static const OSG::BitVector RequestMinorFieldMask =
+        (TypeTraits<BitVector>::One << RequestMinorFieldId);
+    static const OSG::BitVector ContextFlagsFieldMask =
+        (TypeTraits<BitVector>::One << ContextFlagsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -138,6 +150,9 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     typedef MFUInt32          MFGlObjectLastRefreshType;
     typedef MFUInt32          MFGlObjectLastReinitializeType;
     typedef SFInt32           SFDrawerIdType;
+    typedef SFInt32           SFRequestMajorType;
+    typedef SFInt32           SFRequestMinorType;
+    typedef SFInt32           SFContextFlagsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -176,6 +191,15 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   SFInt32             *editSFDrawerId       (void);
             const SFInt32             *getSFDrawerId        (void) const;
 
+                  SFInt32             *editSFRequestMajor   (void);
+            const SFInt32             *getSFRequestMajor    (void) const;
+
+                  SFInt32             *editSFRequestMinor   (void);
+            const SFInt32             *getSFRequestMinor    (void) const;
+
+                  SFInt32             *editSFContextFlags   (void);
+            const SFInt32             *getSFContextFlags    (void) const;
+
 
                   UInt16              &editWidth          (void);
                   UInt16               getWidth           (void) const;
@@ -191,6 +215,15 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   Int32               &editDrawerId       (void);
                   Int32                getDrawerId        (void) const;
 
+                  Int32               &editRequestMajor   (void);
+                  Int32                getRequestMajor    (void) const;
+
+                  Int32               &editRequestMinor   (void);
+                  Int32                getRequestMinor    (void) const;
+
+                  Int32               &editContextFlags   (void);
+                  Int32                getContextFlags    (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -200,6 +233,9 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
             void setHeight         (const UInt16 value);
             void setResizePending  (const bool value);
             void setDrawerId       (const Int32 value);
+            void setRequestMajor   (const Int32 value);
+            void setRequestMinor   (const Int32 value);
+            void setContextFlags   (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,6 +293,9 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     MFUInt32          _mfGlObjectLastRefresh;
     MFUInt32          _mfGlObjectLastReinitialize;
     SFInt32           _sfDrawerId;
+    SFInt32           _sfRequestMajor;
+    SFInt32           _sfRequestMinor;
+    SFInt32           _sfContextFlags;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -309,6 +348,12 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleGlObjectLastReinitialize(void);
     GetFieldHandlePtr  getHandleDrawerId        (void) const;
     EditFieldHandlePtr editHandleDrawerId       (void);
+    GetFieldHandlePtr  getHandleRequestMajor    (void) const;
+    EditFieldHandlePtr editHandleRequestMajor   (void);
+    GetFieldHandlePtr  getHandleRequestMinor    (void) const;
+    EditFieldHandlePtr editHandleRequestMinor   (void);
+    GetFieldHandlePtr  getHandleContextFlags    (void) const;
+    EditFieldHandlePtr editHandleContextFlags   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -40,4 +40,13 @@ The class for X-based windows. See \ref PageWindowX for a description.
 		access="public"
 	>
 	</Field>
+	<Field
+		name="fbConfigId"
+		type="Int32"
+		cardinality="single"
+		visibility="internal"
+		defaultValue="-1"
+		access="public"
+	>
+	</Field>
 </FieldContainer>

@@ -69,4 +69,44 @@
         defaultValue="true"
 	>
 	</Field>
+	<Field
+	   name="requestMajor"
+	   type="Int32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="-1"
+	>
+	</Field>
+	<Field
+	   name="requestMinor"
+	   type="Int32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="0"
+	>
+	</Field>
+	<Field
+	   name="enableForwardCompatContext"
+	   type="bool"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="false"
+	>
+	</Field>
+	<Field
+	   name="enableDebugContext"
+	   type="bool"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="false"
+	>
+	</Field>
 </FieldContainer>

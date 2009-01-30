@@ -91,6 +91,12 @@ ComplexSceneManager
         [
            DEF MainWindow CSMNativeWindow
            {
+#             requestMajor 3
+#             requestMinor 0
+
+#             enableForwardCompatContext TRUE
+#             enableDebugContext         TRUE
+
              size 512 512
              position 200, 200
              decorEnabled TRUE

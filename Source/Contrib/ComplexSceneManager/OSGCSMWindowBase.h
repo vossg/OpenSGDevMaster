@@ -71,6 +71,10 @@
 #include "OSGVec2fFields.h" // Size type
 #include "OSGVec2fFields.h" // Position type
 #include "OSGBoolFields.h" // DecorEnabled type
+#include "OSGInt32Fields.h" // RequestMajor type
+#include "OSGInt32Fields.h" // RequestMinor type
+#include "OSGBoolFields.h" // EnableForwardCompatContext type
+#include "OSGBoolFields.h" // EnableDebugContext type
 
 #include "OSGCSMWindowFields.h"
 
@@ -104,7 +108,11 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         SizeFieldId = MouseDataFieldId + 1,
         PositionFieldId = SizeFieldId + 1,
         DecorEnabledFieldId = PositionFieldId + 1,
-        NextFieldId = DecorEnabledFieldId + 1
+        RequestMajorFieldId = DecorEnabledFieldId + 1,
+        RequestMinorFieldId = RequestMajorFieldId + 1,
+        EnableForwardCompatContextFieldId = RequestMinorFieldId + 1,
+        EnableDebugContextFieldId = EnableForwardCompatContextFieldId + 1,
+        NextFieldId = EnableDebugContextFieldId + 1
     };
 
     static const OSG::BitVector ParentFieldMask =
@@ -119,6 +127,14 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << PositionFieldId);
     static const OSG::BitVector DecorEnabledFieldMask =
         (TypeTraits<BitVector>::One << DecorEnabledFieldId);
+    static const OSG::BitVector RequestMajorFieldMask =
+        (TypeTraits<BitVector>::One << RequestMajorFieldId);
+    static const OSG::BitVector RequestMinorFieldMask =
+        (TypeTraits<BitVector>::One << RequestMinorFieldId);
+    static const OSG::BitVector EnableForwardCompatContextFieldMask =
+        (TypeTraits<BitVector>::One << EnableForwardCompatContextFieldId);
+    static const OSG::BitVector EnableDebugContextFieldMask =
+        (TypeTraits<BitVector>::One << EnableDebugContextFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -128,6 +144,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     typedef SFVec2f           SFSizeType;
     typedef SFVec2f           SFPositionType;
     typedef SFBool            SFDecorEnabledType;
+    typedef SFInt32           SFRequestMajorType;
+    typedef SFInt32           SFRequestMinorType;
+    typedef SFBool            SFEnableForwardCompatContextType;
+    typedef SFBool            SFEnableDebugContextType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -167,6 +187,18 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   SFBool              *editSFDecorEnabled   (void);
             const SFBool              *getSFDecorEnabled    (void) const;
 
+                  SFInt32             *editSFRequestMajor   (void);
+            const SFInt32             *getSFRequestMajor    (void) const;
+
+                  SFInt32             *editSFRequestMinor   (void);
+            const SFInt32             *getSFRequestMinor    (void) const;
+
+                  SFBool              *editSFEnableForwardCompatContext(void);
+            const SFBool              *getSFEnableForwardCompatContext (void) const;
+
+                  SFBool              *editSFEnableDebugContext(void);
+            const SFBool              *getSFEnableDebugContext (void) const;
+
 
                   CSMViewport * getViewports      (const UInt32 index) const;
 
@@ -182,6 +214,18 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   bool                &editDecorEnabled   (void);
                   bool                 getDecorEnabled    (void) const;
 
+                  Int32               &editRequestMajor   (void);
+                  Int32                getRequestMajor    (void) const;
+
+                  Int32               &editRequestMinor   (void);
+                  Int32                getRequestMinor    (void) const;
+
+                  bool                &editEnableForwardCompatContext(void);
+                  bool                 getEnableForwardCompatContext (void) const;
+
+                  bool                &editEnableDebugContext(void);
+                  bool                 getEnableDebugContext (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -191,6 +235,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
             void setSize           (const Vec2f &value);
             void setPosition       (const Vec2f &value);
             void setDecorEnabled   (const bool value);
+            void setRequestMajor   (const Int32 value);
+            void setRequestMinor   (const Int32 value);
+            void setEnableForwardCompatContext(const bool value);
+            void setEnableDebugContext(const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -240,6 +288,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     SFVec2f           _sfSize;
     SFVec2f           _sfPosition;
     SFBool            _sfDecorEnabled;
+    SFInt32           _sfRequestMajor;
+    SFInt32           _sfRequestMinor;
+    SFBool            _sfEnableForwardCompatContext;
+    SFBool            _sfEnableDebugContext;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -291,6 +343,14 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandlePosition       (void);
     GetFieldHandlePtr  getHandleDecorEnabled    (void) const;
     EditFieldHandlePtr editHandleDecorEnabled   (void);
+    GetFieldHandlePtr  getHandleRequestMajor    (void) const;
+    EditFieldHandlePtr editHandleRequestMajor   (void);
+    GetFieldHandlePtr  getHandleRequestMinor    (void) const;
+    EditFieldHandlePtr editHandleRequestMinor   (void);
+    GetFieldHandlePtr  getHandleEnableForwardCompatContext (void) const;
+    EditFieldHandlePtr editHandleEnableForwardCompatContext(void);
+    GetFieldHandlePtr  getHandleEnableDebugContext (void) const;
+    EditFieldHandlePtr editHandleEnableDebugContext(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

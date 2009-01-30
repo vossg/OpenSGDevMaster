@@ -148,6 +148,31 @@ void XWindowBase::setContext(const GLXContext &value)
 
     _sfContext.setValue(value);
 }
+//! Get the value of the XWindow::_sfFbConfigId field.
+
+inline
+Int32 &XWindowBase::editFbConfigId(void)
+{
+    editSField(FbConfigIdFieldMask);
+
+    return _sfFbConfigId.getValue();
+}
+
+//! Get the value of the XWindow::_sfFbConfigId field.
+inline
+      Int32  XWindowBase::getFbConfigId(void) const
+{
+    return _sfFbConfigId.getValue();
+}
+
+//! Set the value of the XWindow::_sfFbConfigId field.
+inline
+void XWindowBase::setFbConfigId(const Int32 value)
+{
+    editSField(FbConfigIdFieldMask);
+
+    _sfFbConfigId.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -168,6 +193,9 @@ void XWindowBase::execSync (      XWindowBase *pFrom,
 
     if(FieldBits::NoField != (ContextFieldMask & whichField))
         _sfContext.syncWith(pFrom->_sfContext);
+
+    if(FieldBits::NoField != (FbConfigIdFieldMask & whichField))
+        _sfFbConfigId.syncWith(pFrom->_sfFbConfigId);
 }
 #endif
 

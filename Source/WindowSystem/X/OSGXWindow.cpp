@@ -48,7 +48,13 @@
 #define OSG_COMPILEWINDOWXINST
 
 #include <OSGGLU.h>
+#include <OSGGLEXT.h>
+
 #include "OSGXWindow.h"
+
+#include "OSGGLFuncProtos.h"
+
+#include "GL/glx.h"
 
 OSG_USING_NAMESPACE
 
@@ -104,12 +110,18 @@ void XWindow::dump(      UInt32    ,
 #undef DisplayString
 #endif
 #define DisplayString(dpy)((reinterpret_cast<_XPrivDisplay>(dpy))->display_name)
+#ifdef ScreenOfDisplay
+#undef ScreenOfDisplay
+#endif
+#ifdef DefaultScreen
+#undef DefaultScreen
+#endif
+#define ScreenOfDisplay(dpy, scr)(&(_XPrivDisplay(dpy))->screens[scr])
+#define DefaultScreen(dpy) 	((_XPrivDisplay(dpy))->default_screen)
 #endif
 
-/*! Init the window: create the context and setup the OpenGL.
-*/
-void XWindow::init(void)
-{    
+void XWindow::classicInit(void)
+{
     XVisualInfo       *vi, visInfo;
     XWindowAttributes winAttr;
 
@@ -125,30 +137,122 @@ void XWindow::init(void)
     {
         setDisplay(XOpenDisplay(DisplayString(getDisplay())));  
     }
-
+        
     // get a visual for the glx context
     int nvis;
-
+    
     vi = XGetVisualInfo(getDisplay(), VisualIDMask, &visInfo, &nvis);
 
     // is the visual GL-capable ?
     int useGL;
-    glXGetConfig(getDisplay(), 
-                 vi, 
-                 GLX_USE_GL, 
+    glXGetConfig( getDisplay(), 
+                  vi, 
+                  GLX_USE_GL, 
                  &useGL );
+
     if (!useGL)
     {
         SFATAL << "Visual is not OpenGL-capable!" << std::endl;
+        exit(0);
     }    
-  
+        
     // create the new context
     this->setContext(glXCreateContext(getDisplay(), vi, None, GL_TRUE));
-
+        
     XFree(vi);
+}
+
+/*! Init the window: create the context and setup the OpenGL.
+*/
+void XWindow::init(void)
+{  
+    if(_sfFbConfigId.getValue() == -1)
+    {
+        classicInit();
+    }
+    else
+    {
+        OSGGETGLFUNCBYNAME(OSGglxChooseFBConfigProc, 
+                           osgGlxChooseFBConfig,
+                           "glXChooseFBConfig",
+                           this);
+
+        OSG_ASSERT(osgGlxChooseFBConfig != NULL);
+
+        int iMatching;
+
+        int fbAttr[] =
+        {
+            GLX_FBCONFIG_ID, _sfFbConfigId.getValue(),
+            None
+        };
+
+        GLXFBConfig *fbConfigs = 
+            osgGlxChooseFBConfig( getDisplay(),
+                                  DefaultScreen(getDisplay()),
+                                  fbAttr,
+                                 &iMatching);
+
+        if(iMatching <= 0)
+        {
+            fprintf(stderr, "no valid fbconfig %d\n",
+                    _sfFbConfigId.getValue());
+
+            exit(0);
+        }
+
+
+        OSGGETGLFUNCBYNAME(OSGglxCreateContextAttribsARB, 
+                           osgGlXCreateContextAttribsARB,
+                           "glXCreateContextAttribsARB",
+                           this);
+
+        if(osgGlXCreateContextAttribsARB != NULL)
+        {
+            std::vector<int> ctxAttr;
+        
+            if(getRequestMajor() > 0)
+            {
+                ctxAttr.push_back(GLX_CONTEXT_MAJOR_VERSION_ARB);
+                ctxAttr.push_back(getRequestMajor());
+                ctxAttr.push_back(GLX_CONTEXT_MINOR_VERSION_ARB);
+                ctxAttr.push_back(getRequestMinor());
+            }
+         
+            if(getContextFlags() != 0)
+            {
+                ctxAttr.push_back(GLX_CONTEXT_FLAGS_ARB);
+                ctxAttr.push_back(getContextFlags()    );
+            }
+            
+            ctxAttr.push_back(None);
+            
+            this->setContext(osgGlXCreateContextAttribsARB( getDisplay(),
+                                                            fbConfigs[0],
+                                                            None,
+                                                            GL_TRUE,
+                                                           &(ctxAttr.front())));
+            
+            if(getContext() == NULL)
+            {
+                FWARNING(("Could not create context, requested version "
+                          "%d.%d might not be supported (guessing)\n",
+                          getRequestMajor(),
+                          getRequestMinor()));
+                
+                exit(0);
+            }
+
+            XFree(fbConfigs);
+        }
+        else
+        {
+            classicInit();
+        }
+    }
 
     glXMakeCurrent(getDisplay(), getWindow(), getContext());
-
+    
     setupGL();
 }
     

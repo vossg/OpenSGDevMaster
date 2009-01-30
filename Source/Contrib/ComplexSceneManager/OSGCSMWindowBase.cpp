@@ -108,6 +108,22 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Int32           CSMWindowBase::_sfRequestMajor
+    
+*/
+
+/*! \var Int32           CSMWindowBase::_sfRequestMinor
+    
+*/
+
+/*! \var bool            CSMWindowBase::_sfEnableForwardCompatContext
+    
+*/
+
+/*! \var bool            CSMWindowBase::_sfEnableDebugContext
+    
+*/
+
 
 void CSMWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -183,6 +199,54 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMWindow::editHandleDecorEnabled),
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleDecorEnabled));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "requestMajor",
+        "",
+        RequestMajorFieldId, RequestMajorFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleRequestMajor),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleRequestMajor));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "requestMinor",
+        "",
+        RequestMinorFieldId, RequestMinorFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleRequestMinor),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleRequestMinor));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enableForwardCompatContext",
+        "",
+        EnableForwardCompatContextFieldId, EnableForwardCompatContextFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleEnableForwardCompatContext),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleEnableForwardCompatContext));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enableDebugContext",
+        "",
+        EnableDebugContextFieldId, EnableDebugContextFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleEnableDebugContext),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleEnableDebugContext));
 
     oType.addInitialDesc(pDesc);
 }
@@ -268,6 +332,46 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"true\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"requestMajor\"\n"
+    "\t   type=\"Int32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"-1\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"requestMinor\"\n"
+    "\t   type=\"Int32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"0\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"enableForwardCompatContext\"\n"
+    "\t   type=\"bool\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"false\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"enableDebugContext\"\n"
+    "\t   type=\"bool\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"false\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -360,6 +464,58 @@ const SFBool *CSMWindowBase::getSFDecorEnabled(void) const
 }
 
 
+SFInt32 *CSMWindowBase::editSFRequestMajor(void)
+{
+    editSField(RequestMajorFieldMask);
+
+    return &_sfRequestMajor;
+}
+
+const SFInt32 *CSMWindowBase::getSFRequestMajor(void) const
+{
+    return &_sfRequestMajor;
+}
+
+
+SFInt32 *CSMWindowBase::editSFRequestMinor(void)
+{
+    editSField(RequestMinorFieldMask);
+
+    return &_sfRequestMinor;
+}
+
+const SFInt32 *CSMWindowBase::getSFRequestMinor(void) const
+{
+    return &_sfRequestMinor;
+}
+
+
+SFBool *CSMWindowBase::editSFEnableForwardCompatContext(void)
+{
+    editSField(EnableForwardCompatContextFieldMask);
+
+    return &_sfEnableForwardCompatContext;
+}
+
+const SFBool *CSMWindowBase::getSFEnableForwardCompatContext(void) const
+{
+    return &_sfEnableForwardCompatContext;
+}
+
+
+SFBool *CSMWindowBase::editSFEnableDebugContext(void)
+{
+    editSField(EnableDebugContextFieldMask);
+
+    return &_sfEnableDebugContext;
+}
+
+const SFBool *CSMWindowBase::getSFEnableDebugContext(void) const
+{
+    return &_sfEnableDebugContext;
+}
+
+
 
 
 void CSMWindowBase::pushToViewports(CSMViewport * const value)
@@ -447,6 +603,22 @@ UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDecorEnabled.getBinSize();
     }
+    if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
+    {
+        returnValue += _sfRequestMajor.getBinSize();
+    }
+    if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
+    {
+        returnValue += _sfRequestMinor.getBinSize();
+    }
+    if(FieldBits::NoField != (EnableForwardCompatContextFieldMask & whichField))
+    {
+        returnValue += _sfEnableForwardCompatContext.getBinSize();
+    }
+    if(FieldBits::NoField != (EnableDebugContextFieldMask & whichField))
+    {
+        returnValue += _sfEnableDebugContext.getBinSize();
+    }
 
     return returnValue;
 }
@@ -480,6 +652,22 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDecorEnabled.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
+    {
+        _sfRequestMajor.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
+    {
+        _sfRequestMinor.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableForwardCompatContextFieldMask & whichField))
+    {
+        _sfEnableForwardCompatContext.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableDebugContextFieldMask & whichField))
+    {
+        _sfEnableDebugContext.copyToBin(pMem);
+    }
 }
 
 void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -511,6 +699,22 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfDecorEnabled.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (RequestMajorFieldMask & whichField))
+    {
+        _sfRequestMajor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RequestMinorFieldMask & whichField))
+    {
+        _sfRequestMinor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableForwardCompatContextFieldMask & whichField))
+    {
+        _sfEnableForwardCompatContext.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableDebugContextFieldMask & whichField))
+    {
+        _sfEnableDebugContext.copyFromBin(pMem);
+    }
 }
 
 
@@ -525,7 +729,11 @@ CSMWindowBase::CSMWindowBase(void) :
     _sfMouseData              (),
     _sfSize                   (Vec2f(300, 300)),
     _sfPosition               (Vec2f(100, 100)),
-    _sfDecorEnabled           (bool(true))
+    _sfDecorEnabled           (bool(true)),
+    _sfRequestMajor           (Int32(-1)),
+    _sfRequestMinor           (Int32(0)),
+    _sfEnableForwardCompatContext(bool(false)),
+    _sfEnableDebugContext     (bool(false))
 {
 }
 
@@ -536,7 +744,11 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _sfMouseData              (source._sfMouseData              ),
     _sfSize                   (source._sfSize                   ),
     _sfPosition               (source._sfPosition               ),
-    _sfDecorEnabled           (source._sfDecorEnabled           )
+    _sfDecorEnabled           (source._sfDecorEnabled           ),
+    _sfRequestMajor           (source._sfRequestMajor           ),
+    _sfRequestMinor           (source._sfRequestMinor           ),
+    _sfEnableForwardCompatContext(source._sfEnableForwardCompatContext),
+    _sfEnableDebugContext     (source._sfEnableDebugContext     )
 {
 }
 
@@ -777,6 +989,98 @@ EditFieldHandlePtr CSMWindowBase::editHandleDecorEnabled   (void)
 
 
     editSField(DecorEnabledFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleRequestMajor    (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfRequestMajor,
+             this->getType().getFieldDesc(RequestMajorFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleRequestMajor   (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfRequestMajor,
+             this->getType().getFieldDesc(RequestMajorFieldId)));
+
+
+    editSField(RequestMajorFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleRequestMinor    (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfRequestMinor,
+             this->getType().getFieldDesc(RequestMinorFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleRequestMinor   (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfRequestMinor,
+             this->getType().getFieldDesc(RequestMinorFieldId)));
+
+
+    editSField(RequestMinorFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleEnableForwardCompatContext (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnableForwardCompatContext,
+             this->getType().getFieldDesc(EnableForwardCompatContextFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleEnableForwardCompatContext(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnableForwardCompatContext,
+             this->getType().getFieldDesc(EnableForwardCompatContextFieldId)));
+
+
+    editSField(EnableForwardCompatContextFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleEnableDebugContext (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnableDebugContext,
+             this->getType().getFieldDesc(EnableDebugContextFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleEnableDebugContext(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnableDebugContext,
+             this->getType().getFieldDesc(EnableDebugContextFieldId)));
+
+
+    editSField(EnableDebugContextFieldMask);
 
     return returnValue;
 }

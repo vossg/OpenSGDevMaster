@@ -115,6 +115,13 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 
+    void classicInit(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Init                                   */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */

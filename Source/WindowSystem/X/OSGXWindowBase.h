@@ -68,6 +68,7 @@
 #include "OSGXWindowDataFields.h" // Display type
 #include "OSGXWindowDataFields.h" // Window type
 #include "OSGXWindowDataFields.h" // Context type
+#include "OSGInt32Fields.h" // FbConfigId type
 
 #include "OSGXWindowFields.h"
 
@@ -98,7 +99,8 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
         DisplayFieldId = Inherited::NextFieldId,
         WindowFieldId = DisplayFieldId + 1,
         ContextFieldId = WindowFieldId + 1,
-        NextFieldId = ContextFieldId + 1
+        FbConfigIdFieldId = ContextFieldId + 1,
+        NextFieldId = FbConfigIdFieldId + 1
     };
 
     static const OSG::BitVector DisplayFieldMask =
@@ -107,12 +109,15 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
         (TypeTraits<BitVector>::One << WindowFieldId);
     static const OSG::BitVector ContextFieldMask =
         (TypeTraits<BitVector>::One << ContextFieldId);
+    static const OSG::BitVector FbConfigIdFieldMask =
+        (TypeTraits<BitVector>::One << FbConfigIdFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFDisplayP        SFDisplayType;
     typedef SFX11Window       SFWindowType;
     typedef SFGLXContext      SFContextType;
+    typedef SFInt32           SFFbConfigIdType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -147,6 +152,9 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
                   SFGLXContext        *editSFContext        (void);
             const SFGLXContext        *getSFContext         (void) const;
 
+                  SFInt32             *editSFFbConfigId     (void);
+            const SFInt32             *getSFFbConfigId      (void) const;
+
 
                   DisplayP            &editDisplay        (void);
             const DisplayP            &getDisplay         (void) const;
@@ -157,6 +165,9 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
                   GLXContext          &editContext        (void);
             const GLXContext          &getContext         (void) const;
 
+                  Int32               &editFbConfigId     (void);
+                  Int32                getFbConfigId      (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -165,6 +176,7 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
             void setDisplay        (const DisplayP &value);
             void setWindow         (const X11Window &value);
             void setContext        (const GLXContext &value);
+            void setFbConfigId     (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -227,6 +239,7 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     SFDisplayP        _sfDisplay;
     SFX11Window       _sfWindow;
     SFGLXContext      _sfContext;
+    SFInt32           _sfFbConfigId;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -260,6 +273,8 @@ class OSG_WINDOWX_DLLMAPPING XWindowBase : public Window
     EditFieldHandlePtr editHandleWindow         (void);
     GetFieldHandlePtr  getHandleContext         (void) const;
     EditFieldHandlePtr editHandleContext        (void);
+    GetFieldHandlePtr  getHandleFbConfigId      (void) const;
+    EditFieldHandlePtr editHandleFbConfigId     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

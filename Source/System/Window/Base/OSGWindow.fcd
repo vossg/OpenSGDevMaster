@@ -107,4 +107,34 @@ init(void), activate(void), deactivate(void) and swap(void).
     DrawerId to select window dependent elements (e.g. Distortion filter).
     For cluster window this values equals the clusterId (shl chunk)
 	</Field>
+	<Field
+	   name="requestMajor"
+	   type="Int32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="-1"
+	>
+	</Field>
+	<Field
+	   name="requestMinor"
+	   type="Int32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="0"
+	>
+	</Field>
+	<Field
+	   name="contextFlags"
+	   type="Int32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="0"
+	>
+	</Field>
 </FieldContainer>
