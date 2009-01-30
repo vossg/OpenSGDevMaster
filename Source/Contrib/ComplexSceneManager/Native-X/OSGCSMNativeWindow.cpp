@@ -46,7 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGCSMNativeWindow.h"
-#include "OSGDrawer.h"
+#include "OSGCSMDrawer.h"
 #include "OSGComplexSceneManager.h"
 #ifdef OSG_NEW_SHADER
 #include "OSGShaderCache.h"
@@ -307,7 +307,7 @@ void CSMNativeWindow::resolveLinks(void)
 
 bool CSMNativeWindow::init(void)
 {
-    Drawer *pDrawer = this->getParent();
+    CSMDrawer *pDrawer = this->getParent();
 
     std::string szDisplayName = ":0.0";
 

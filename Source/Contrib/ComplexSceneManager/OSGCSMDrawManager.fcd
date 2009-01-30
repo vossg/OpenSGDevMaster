@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="DrawManager"
+    name="CSMDrawManager"
     parent="AttachmentContainer"
     library="ContribCSM"
     pointerfieldtypes="both"
@@ -15,7 +15,7 @@
 >
 	<Field
 		name="drawer"
-		type="Drawer"
+		type="CSMDrawer"
 		cardinality="multi"
 		visibility="external"
 		access="public"

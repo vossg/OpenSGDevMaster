@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class DrawManager
+ **     class CSMDrawManager
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGDRAWMANAGERBASE_H_
-#define _OSGDRAWMANAGERBASE_H_
+#ifndef _OSGCSMDRAWMANAGERBASE_H_
+#define _OSGCSMDRAWMANAGERBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -65,20 +65,20 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGDrawerFields.h" // Drawer type
+#include "OSGCSMDrawerFields.h" // Drawer type
 #include "OSGBoolFields.h" // Parallel type
 #include "OSGStringFields.h" // SyncBarrierName type
 #include "OSGStringFields.h" // SwapBarrierName type
 
-#include "OSGDrawManagerFields.h"
+#include "OSGCSMDrawManagerFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class DrawManager;
+class CSMDrawManager;
 
-//! \brief DrawManager Base Class.
+//! \brief CSMDrawManager Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
+class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManagerBase : public AttachmentContainer
 {
   public:
 
@@ -88,7 +88,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(DrawManager);
+    OSG_GEN_INTERNALPTR(CSMDrawManager);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -114,7 +114,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUnrecDrawerPtr  MFDrawerType;
+    typedef MFUnrecCSMDrawerPtr MFDrawerType;
     typedef SFBool            SFParallelType;
     typedef SFString          SFSyncBarrierNameType;
     typedef SFString          SFSwapBarrierNameType;
@@ -142,8 +142,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecDrawerPtr    *getMFDrawer         (void) const;
-                  MFUnrecDrawerPtr    *editMFDrawer         (void);
+            const MFUnrecCSMDrawerPtr *getMFDrawer         (void) const;
+                  MFUnrecCSMDrawerPtr *editMFDrawer         (void);
 
                   SFBool              *editSFParallel       (void);
             const SFBool              *getSFParallel        (void) const;
@@ -155,7 +155,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
             const SFString            *getSFSwapBarrierName (void) const;
 
 
-                  Drawer * getDrawer         (const UInt32 index) const;
+                  CSMDrawer * getDrawer         (const UInt32 index) const;
 
                   bool                &editParallel       (void);
                   bool                 getParallel        (void) const;
@@ -185,10 +185,10 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToDrawer              (Drawer * const value   );
-    void assignDrawer             (const MFUnrecDrawerPtr  &value);
+    void pushToDrawer              (CSMDrawer * const value   );
+    void assignDrawer             (const MFUnrecCSMDrawerPtr &value);
     void removeFromDrawer (UInt32               uiIndex );
-    void removeObjFromDrawer(Drawer * const value   );
+    void removeObjFromDrawer(CSMDrawer * const value   );
     void clearDrawer                (void                         );
 
     /*! \}                                                                 */
@@ -208,16 +208,16 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DrawManagerTransitPtr  create          (void);
-    static  DrawManager           *createEmpty     (void);
+    static  CSMDrawManagerTransitPtr  create          (void);
+    static  CSMDrawManager           *createEmpty     (void);
 
-    static  DrawManagerTransitPtr  createLocal     (
+    static  CSMDrawManagerTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  DrawManager            *createEmptyLocal(
+    static  CSMDrawManager            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  DrawManagerTransitPtr  createDependent  (BitVector bFlags);
+    static  CSMDrawManagerTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -244,7 +244,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecDrawerPtr  _mfDrawer;
+    MFUnrecCSMDrawerPtr _mfDrawer;
     SFBool            _sfParallel;
     SFString          _sfSyncBarrierName;
     SFString          _sfSwapBarrierName;
@@ -254,22 +254,22 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    DrawManagerBase(void);
-    DrawManagerBase(const DrawManagerBase &source);
+    CSMDrawManagerBase(void);
+    CSMDrawManagerBase(const CSMDrawManagerBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DrawManagerBase(void);
+    virtual ~CSMDrawManagerBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const DrawManager *source = NULL);
+    void onCreate(const CSMDrawManager *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -297,7 +297,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      DrawManagerBase *pFrom,
+            void execSync (      CSMDrawManagerBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -337,11 +337,11 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManagerBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const DrawManagerBase &source);
+    void operator =(const CSMDrawManagerBase &source);
 };
 
-typedef DrawManagerBase *DrawManagerBaseP;
+typedef CSMDrawManagerBase *CSMDrawManagerBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGDRAWMANAGERBASE_H_ */
+#endif /* _OSGCSMDRAWMANAGERBASE_H_ */

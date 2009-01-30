@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGCSMClusterWindowBase.h"
-#include "OSGDrawer.h"
+#include "OSGCSMDrawer.h"
 #include "OSGCSMClusterWinOptions.h"
 
 OSG_BEGIN_NAMESPACE

@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class DrawManager!
+ **     class CSMDrawManager!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,105 +53,105 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &DrawManagerBase::getClassType(void)
+OSG::FieldContainerType &CSMDrawManagerBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 DrawManagerBase::getClassTypeId(void)
+OSG::UInt32 CSMDrawManagerBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 DrawManagerBase::getClassGroupId(void)
+OSG::UInt16 CSMDrawManagerBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the DrawManager::_sfParallel field.
+//! Get the value of the CSMDrawManager::_sfParallel field.
 
 inline
-bool &DrawManagerBase::editParallel(void)
+bool &CSMDrawManagerBase::editParallel(void)
 {
     editSField(ParallelFieldMask);
 
     return _sfParallel.getValue();
 }
 
-//! Get the value of the DrawManager::_sfParallel field.
+//! Get the value of the CSMDrawManager::_sfParallel field.
 inline
-      bool  DrawManagerBase::getParallel(void) const
+      bool  CSMDrawManagerBase::getParallel(void) const
 {
     return _sfParallel.getValue();
 }
 
-//! Set the value of the DrawManager::_sfParallel field.
+//! Set the value of the CSMDrawManager::_sfParallel field.
 inline
-void DrawManagerBase::setParallel(const bool value)
+void CSMDrawManagerBase::setParallel(const bool value)
 {
     editSField(ParallelFieldMask);
 
     _sfParallel.setValue(value);
 }
-//! Get the value of the DrawManager::_sfSyncBarrierName field.
+//! Get the value of the CSMDrawManager::_sfSyncBarrierName field.
 
 inline
-std::string &DrawManagerBase::editSyncBarrierName(void)
+std::string &CSMDrawManagerBase::editSyncBarrierName(void)
 {
     editSField(SyncBarrierNameFieldMask);
 
     return _sfSyncBarrierName.getValue();
 }
 
-//! Get the value of the DrawManager::_sfSyncBarrierName field.
+//! Get the value of the CSMDrawManager::_sfSyncBarrierName field.
 inline
-const std::string &DrawManagerBase::getSyncBarrierName(void) const
+const std::string &CSMDrawManagerBase::getSyncBarrierName(void) const
 {
     return _sfSyncBarrierName.getValue();
 }
 
-//! Set the value of the DrawManager::_sfSyncBarrierName field.
+//! Set the value of the CSMDrawManager::_sfSyncBarrierName field.
 inline
-void DrawManagerBase::setSyncBarrierName(const std::string &value)
+void CSMDrawManagerBase::setSyncBarrierName(const std::string &value)
 {
     editSField(SyncBarrierNameFieldMask);
 
     _sfSyncBarrierName.setValue(value);
 }
-//! Get the value of the DrawManager::_sfSwapBarrierName field.
+//! Get the value of the CSMDrawManager::_sfSwapBarrierName field.
 
 inline
-std::string &DrawManagerBase::editSwapBarrierName(void)
+std::string &CSMDrawManagerBase::editSwapBarrierName(void)
 {
     editSField(SwapBarrierNameFieldMask);
 
     return _sfSwapBarrierName.getValue();
 }
 
-//! Get the value of the DrawManager::_sfSwapBarrierName field.
+//! Get the value of the CSMDrawManager::_sfSwapBarrierName field.
 inline
-const std::string &DrawManagerBase::getSwapBarrierName(void) const
+const std::string &CSMDrawManagerBase::getSwapBarrierName(void) const
 {
     return _sfSwapBarrierName.getValue();
 }
 
-//! Set the value of the DrawManager::_sfSwapBarrierName field.
+//! Set the value of the CSMDrawManager::_sfSwapBarrierName field.
 inline
-void DrawManagerBase::setSwapBarrierName(const std::string &value)
+void CSMDrawManagerBase::setSwapBarrierName(const std::string &value)
 {
     editSField(SwapBarrierNameFieldMask);
 
     _sfSwapBarrierName.setValue(value);
 }
 
-//! Get the value of the \a index element the DrawManager::_mfDrawer field.
+//! Get the value of the \a index element the CSMDrawManager::_mfDrawer field.
 inline
-Drawer * DrawManagerBase::getDrawer(const UInt32 index) const
+CSMDrawer * CSMDrawManagerBase::getDrawer(const UInt32 index) const
 {
     return _mfDrawer[index];
 }
@@ -159,7 +159,7 @@ Drawer * DrawManagerBase::getDrawer(const UInt32 index) const
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void DrawManagerBase::execSync (      DrawManagerBase *pFrom,
+void CSMDrawManagerBase::execSync (      CSMDrawManagerBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -186,11 +186,11 @@ void DrawManagerBase::execSync (      DrawManagerBase *pFrom,
 
 
 inline
-const Char8 *DrawManagerBase::getClassname(void)
+const Char8 *CSMDrawManagerBase::getClassname(void)
 {
-    return "DrawManager";
+    return "CSMDrawManager";
 }
-OSG_GEN_CONTAINERPTR(DrawManager);
+OSG_GEN_CONTAINERPTR(CSMDrawManager);
 
 OSG_END_NAMESPACE
 

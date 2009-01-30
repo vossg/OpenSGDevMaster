@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGDRAWMANAGER_H_
-#define _OSGDRAWMANAGER_H_
+#ifndef _OSGCSMDRAWMANAGER_H_
+#define _OSGCSMDRAWMANAGER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGDrawManagerBase.h"
-#include "OSGDrawer.h"
+#include "OSGCSMDrawManagerBase.h"
+#include "OSGCSMDrawer.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief DrawManager class. See \ref
+/*! \brief CSMDrawManager class. See \ref
            PageContribCSMDrawManager for a description.
 */
 
-class OSG_CONTRIBCSM_DLLMAPPING DrawManager : public DrawManagerBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManager : public CSMDrawManagerBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManager : public DrawManagerBase
 
   public:
 
-    typedef DrawManagerBase Inherited;
-    typedef DrawManager     Self;
+    typedef CSMDrawManagerBase Inherited;
+    typedef CSMDrawManager     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -122,15 +122,15 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManager : public DrawManagerBase
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    DrawManager(void);
-    DrawManager(const DrawManager &source);
+    CSMDrawManager(void);
+    CSMDrawManager(const CSMDrawManager &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DrawManager(void);
+    virtual ~CSMDrawManager(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -150,17 +150,17 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawManager : public DrawManagerBase
   private:
 
     friend class FieldContainer;
-    friend class DrawManagerBase;
+    friend class CSMDrawManagerBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const DrawManager &source);
+    void operator =(const CSMDrawManager &source);
 };
 
-typedef DrawManager *DrawManagerP;
+typedef CSMDrawManager *CSMDrawManagerP;
 
 OSG_END_NAMESPACE
 
-#include "OSGDrawManagerBase.inl"
-#include "OSGDrawManager.inl"
+#include "OSGCSMDrawManagerBase.inl"
+#include "OSGCSMDrawManager.inl"
 
-#endif /* _OSGDRAWMANAGER_H_ */
+#endif /* _OSGCSMDRAWMANAGER_H_ */

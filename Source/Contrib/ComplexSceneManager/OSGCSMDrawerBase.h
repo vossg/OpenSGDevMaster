@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Drawer
+ **     class CSMDrawer
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGDRAWERBASE_H_
-#define _OSGDRAWERBASE_H_
+#ifndef _OSGCSMDRAWERBASE_H_
+#define _OSGCSMDRAWERBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -69,15 +69,15 @@
 #include "OSGStringFields.h" // DisplayString type
 #include "OSGUInt32Fields.h" // Aspect type
 
-#include "OSGDrawerFields.h"
+#include "OSGCSMDrawerFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Drawer;
+class CSMDrawer;
 
-//! \brief Drawer Base Class.
+//! \brief CSMDrawer Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
+class OSG_CONTRIBCSM_DLLMAPPING CSMDrawerBase : public AttachmentContainer
 {
   public:
 
@@ -87,7 +87,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(Drawer);
+    OSG_GEN_INTERNALPTR(CSMDrawer);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -196,16 +196,16 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  DrawerTransitPtr  create          (void);
-    static  Drawer           *createEmpty     (void);
+    static  CSMDrawerTransitPtr  create          (void);
+    static  CSMDrawer           *createEmpty     (void);
 
-    static  DrawerTransitPtr  createLocal     (
+    static  CSMDrawerTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  Drawer            *createEmptyLocal(
+    static  CSMDrawer            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  DrawerTransitPtr  createDependent  (BitVector bFlags);
+    static  CSMDrawerTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -241,22 +241,22 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    DrawerBase(void);
-    DrawerBase(const DrawerBase &source);
+    CSMDrawerBase(void);
+    CSMDrawerBase(const CSMDrawerBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~DrawerBase(void);
+    virtual ~CSMDrawerBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const Drawer *source = NULL);
+    void onCreate(const CSMDrawer *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -290,7 +290,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      DrawerBase *pFrom,
+            void execSync (      CSMDrawerBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -330,11 +330,11 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawerBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const DrawerBase &source);
+    void operator =(const CSMDrawerBase &source);
 };
 
-typedef DrawerBase *DrawerBaseP;
+typedef CSMDrawerBase *CSMDrawerBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGDRAWERBASE_H_ */
+#endif /* _OSGCSMDRAWERBASE_H_ */

@@ -45,15 +45,15 @@
 
 #include <OSGConfig.h>
 
-#include "OSGDrawer.h"
+#include "OSGCSMDrawer.h"
 #include "OSGRenderAction.h"
 #include "OSGNameAttachment.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGDrawerBase.cpp file.
-// To modify it, please change the .fcd file (OSGDrawer.fcd) and
+// OSGCSMDrawerBase.cpp file.
+// To modify it, please change the .fcd file (OSGCSMDrawer.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -64,7 +64,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void Drawer::initMethod(InitPhase ePhase)
+void CSMDrawer::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -84,7 +84,7 @@ void Drawer::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-Drawer::Drawer(void) :
+CSMDrawer::CSMDrawer(void) :
      Inherited      (     ),
     _pAction        (NULL ),
     _pDrawThread    (NULL ),
@@ -102,7 +102,7 @@ Drawer::Drawer(void) :
 {
 }
 
-Drawer::Drawer(const Drawer &source) :
+CSMDrawer::CSMDrawer(const CSMDrawer &source) :
      Inherited      (source),
     _pAction        (NULL  ),
     _pDrawThread    (NULL  ),
@@ -120,65 +120,65 @@ Drawer::Drawer(const Drawer &source) :
 {
 }
 
-Drawer::~Drawer(void)
+CSMDrawer::~CSMDrawer(void)
 {
     delete _pAction;
 }
 
-void Drawer::setSyncFromThread(Thread *pThread)
+void CSMDrawer::setSyncFromThread(Thread *pThread)
 {
     _pSyncFromThread = pThread;
 }
 
-void Drawer::setSyncBarrier(Barrier *pSyncBarrier)
+void CSMDrawer::setSyncBarrier(Barrier *pSyncBarrier)
 {
     _pSyncBarrier = pSyncBarrier;
 }
 
-void Drawer::setSwapBarrier(Barrier *pSwapBarrier)
+void CSMDrawer::setSwapBarrier(Barrier *pSwapBarrier)
 {
     _pSwapBarrier = pSwapBarrier;
 }
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-void Drawer::setSyncLock(Lock *pSyncLock)
+void CSMDrawer::setSyncLock(Lock *pSyncLock)
 {
     _pSyncLock = pSyncLock;
 }
 #endif
 
 
-void Drawer::setSyncCount(UInt32 uiSyncCount)
+void CSMDrawer::setSyncCount(UInt32 uiSyncCount)
 {
     _uiSyncCount = uiSyncCount;
 }
 
-void Drawer::setSwapCount(UInt32 uiSwapCount)
+void CSMDrawer::setSwapCount(UInt32 uiSwapCount)
 {
     _uiSwapCount = uiSwapCount;
 }
 
-void Drawer::setParallel(bool bParallel)
+void CSMDrawer::setParallel(bool bParallel)
 {
     _bParallel = bParallel;
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void Drawer::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+void CSMDrawer::changed(ConstFieldMaskArg whichField, 
+                        UInt32            origin,
+                        BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void Drawer::dump(      UInt32    ,
-                         const BitVector ) const
+void CSMDrawer::dump(      UInt32    ,
+                     const BitVector ) const
 {
-    SLOG << "Dump Drawer NI" << std::endl;
+    SLOG << "Dump CSMDrawer NI" << std::endl;
 }
 
-bool Drawer::init(void)
+bool CSMDrawer::init(void)
 {
     bool returnValue = true;
 
@@ -199,7 +199,7 @@ bool Drawer::init(void)
 
     if(_bParallel == true)
     {
-        _pDrawThread  = DrawThread ::get(NULL);
+        _pDrawThread  = CSMDrawThread ::get(NULL);
 
         OSG_ASSERT(_pDrawThread     != NULL);
         OSG_ASSERT(_pSyncBarrier    != NULL);
@@ -219,7 +219,7 @@ bool Drawer::init(void)
     return returnValue;
 }
 
-void Drawer::endDrawThread (void)
+void CSMDrawer::endDrawThread (void)
 {
     if(_bParallel == true)
     {
@@ -227,7 +227,7 @@ void Drawer::endDrawThread (void)
     }
 }
 
-void Drawer::shutdown(void)
+void CSMDrawer::shutdown(void)
 {
     MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
     MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
@@ -240,7 +240,7 @@ void Drawer::shutdown(void)
     }
 }
 
-void Drawer::joinDrawThread(void)
+void CSMDrawer::joinDrawThread(void)
 {
     if(_bParallel == true)
     {
@@ -252,7 +252,7 @@ void Drawer::joinDrawThread(void)
     }
 }
 
-void Drawer::frame(Time oTime, UInt32 uiFrame)
+void CSMDrawer::frame(Time oTime, UInt32 uiFrame)
 {
     MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
     MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
@@ -265,7 +265,7 @@ void Drawer::frame(Time oTime, UInt32 uiFrame)
     }
 }
 
-FieldContainer *Drawer::findNamedComponent(const Char8 *szName) const
+FieldContainer *CSMDrawer::findNamedComponent(const Char8 *szName) const
 {
     MFUnrecChildCSMWindowPtr::const_iterator winIt  = _mfWindows.begin();
     MFUnrecChildCSMWindowPtr::const_iterator winEnd = _mfWindows.end  ();
@@ -295,7 +295,7 @@ FieldContainer *Drawer::findNamedComponent(const Char8 *szName) const
 }
 
 
-void Drawer::runParallel(void)
+void CSMDrawer::runParallel(void)
 {
     fprintf(stderr, "Drawer run par\n");
 
@@ -512,7 +512,7 @@ void Drawer::runParallel(void)
     Thread::getCurrentChangeList()->commitChangesAndClear();
 }
 
-void Drawer::frameRenderActivate(void)
+void CSMDrawer::frameRenderActivate(void)
 {
     MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
     MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
@@ -525,7 +525,7 @@ void Drawer::frameRenderActivate(void)
     }
 }
 
-void Drawer::frameSwapActivate(void)
+void CSMDrawer::frameSwapActivate(void)
 {
     MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
     MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
@@ -538,7 +538,7 @@ void Drawer::frameSwapActivate(void)
     }
 }
 
-void Drawer::frameExit(void)
+void CSMDrawer::frameExit(void)
 {
     MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
     MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
@@ -551,40 +551,40 @@ void Drawer::frameExit(void)
     }
 }
 
-void Drawer::activate(UInt32 uiWindow)
+void CSMDrawer::activate(UInt32 uiWindow)
 {
     OSG_ASSERT(uiWindow < _mfWindows.size());
 
     _mfWindows[uiWindow]->activate();
 }
 
-void Drawer::frameRender(UInt32 uiWindow)
+void CSMDrawer::frameRender(UInt32 uiWindow)
 {
     OSG_ASSERT(uiWindow < _mfWindows.size());
 
     _mfWindows[uiWindow]->frameRender(_pAction);
 }
 
-void Drawer::frameSwap(UInt32 uiWindow)
+void CSMDrawer::frameSwap(UInt32 uiWindow)
 {
     OSG_ASSERT(uiWindow < _mfWindows.size());
 
     _mfWindows[uiWindow]->frameSwap();
 }
 
-void Drawer::deactivate (UInt32 uiWindow)
+void CSMDrawer::deactivate (UInt32 uiWindow)
 {
     OSG_ASSERT(uiWindow < _mfWindows.size());
 
     _mfWindows[uiWindow]->deactivate();
 }
 
-void Drawer::setRunning(bool bVal)
+void CSMDrawer::setRunning(bool bVal)
 {
     _bRun = false;
 }
 
-void Drawer::resolveLinks(void)
+void CSMDrawer::resolveLinks(void)
 {
     Inherited::resolveLinks();
 }
@@ -595,10 +595,10 @@ void Drawer::resolveLinks(void)
  *                           Class variables                               *
 \***************************************************************************/
 
-MPThreadType DrawThread::_type(
-    "OSGDrawThread",
+MPThreadType CSMDrawThread::_type(
+    "OSGCSMDrawThread",
     "OSGThread",
-    static_cast<CreateThreadF>(DrawThread::create),
+    static_cast<CreateThreadF>(CSMDrawThread::create),
     NULL);
 
 /***************************************************************************\
@@ -613,50 +613,50 @@ MPThreadType DrawThread::_type(
  -  private                                                                 -
 \*-------------------------------------------------------------------------*/
 
-DrawThread *DrawThread::find(Char8 *szName)
+CSMDrawThread *CSMDrawThread::find(Char8 *szName)
 {
     BaseThread *pThread = ThreadManager::the()->findThread(szName);
 
-    return dynamic_cast<DrawThread *>(pThread);
+    return dynamic_cast<CSMDrawThread *>(pThread);
 }
 
-DrawThread *DrawThread::get(Char8 *szName) 
+CSMDrawThread *CSMDrawThread::get(Char8 *szName) 
 {
     BaseThread *pThread = ThreadManager::the()->getThread(szName,
-                                                          "OSGDrawThread");
+                                                          "OSGCSMDrawThread");
 
-    return dynamic_cast<DrawThread *>(pThread);
+    return dynamic_cast<CSMDrawThread *>(pThread);
 }
 
-void DrawThread::setDrawer(Drawer *pDrawer)
+void CSMDrawThread::setDrawer(CSMDrawer *pDrawer)
 {
     _pDrawer = pDrawer;
 }
 
-void DrawThread::setRunning(bool bVal)
+void CSMDrawThread::setRunning(bool bVal)
 {
     _pDrawer->setRunning(bVal);
 }
 
 
-BaseThread *DrawThread::create(const Char8  *szName, 
-                                     UInt32  uiId)
+BaseThread *CSMDrawThread::create(const Char8  *szName, 
+                                        UInt32  uiId)
 {
-    return new DrawThread(szName, uiId);
+    return new CSMDrawThread(szName, uiId);
 }
 
-DrawThread::DrawThread(const Char8 *szName, UInt32 uiId) :
+CSMDrawThread::CSMDrawThread(const Char8 *szName, UInt32 uiId) :
      Inherited(szName, 
                uiId  ),
     _pDrawer  (NULL  )
 {
 }
 
-DrawThread::~DrawThread(void)
+CSMDrawThread::~CSMDrawThread(void)
 {
 }
 
-void DrawThread::workProc(void)
+void CSMDrawThread::workProc(void)
 {
     OSG_ASSERT(_pDrawer != NULL);
 

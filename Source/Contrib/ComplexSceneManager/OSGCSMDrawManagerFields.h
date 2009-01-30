@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGDRAWMANAGERFIELDS_H_
-#define _OSGDRAWMANAGERFIELDS_H_
+#ifndef _OSGCSMDRAWMANAGERFIELDS_H_
+#define _OSGCSMDRAWMANAGERFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,12 +64,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-class DrawManager;
+class CSMDrawManager;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DrawManagerPtr
+//! CSMDrawManagerPtr
 
-OSG_GEN_CONTAINERPTR(DrawManager);
+OSG_GEN_CONTAINERPTR(CSMDrawManager);
 
 #endif
 
@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(DrawManager);
 #endif
 
 template <>
-struct FieldTraits<DrawManager *> :
-    public FieldTraitsFCPtrBase<DrawManager *>
+struct FieldTraits<CSMDrawManager *> :
+    public FieldTraitsFCPtrBase<CSMDrawManager *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<DrawManager *> :
 
   public:
 
-    typedef FieldTraits<DrawManager *>  Self;
+    typedef FieldTraits<CSMDrawManager *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -99,63 +99,63 @@ struct FieldTraits<DrawManager *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFDrawManagerPtr"; }
+//    static const char *getSName(void) { return "SFCSMDrawManagerPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDrawManagerPtr"; }
+//    static const char *getMName(void) { return "MFCSMDrawManagerPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<DrawManager *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecDrawManagerPtr"; 
+    return "SFRecCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawManager *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecDrawManagerPtr"; 
+    return "SFUnrecCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawManager *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, 0>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakDrawManagerPtr"; 
+    return "SFWeakCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawManager *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, 0>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdDrawManagerPtr"; 
+    return "SFUnrefdCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawManager *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecDrawManagerPtr"; 
+    return "MFRecCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawManager *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecDrawManagerPtr"; 
+    return "MFUnrecCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawManager *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakDrawManagerPtr"; 
+    return "MFWeakCSMDrawManagerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<DrawManager *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdDrawManagerPtr"; 
+    return "MFUnrefdCSMDrawManagerPtr"; 
 }
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DrawManagerPtr, 0>
+/*! \class  FieldTraitsTemplateBase<CSMDrawManagerPtr, 0>
     \hideinhierarchy
  */
 #endif
@@ -166,31 +166,31 @@ const Char8 *FieldTraits<DrawManager *, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribCSMFieldSingle */
 
-typedef PointerSField<DrawManager *,
-                      RecordedRefCountPolicy  > SFRecDrawManagerPtr;
-typedef PointerSField<DrawManager *,
-                      UnrecordedRefCountPolicy> SFUnrecDrawManagerPtr;
-typedef PointerSField<DrawManager *,
-                      WeakRefCountPolicy      > SFWeakDrawManagerPtr;
-typedef PointerSField<DrawManager *,
-                      NoRefCountPolicy        > SFUncountedDrawManagerPtr;
+typedef PointerSField<CSMDrawManager *,
+                      RecordedRefCountPolicy  > SFRecCSMDrawManagerPtr;
+typedef PointerSField<CSMDrawManager *,
+                      UnrecordedRefCountPolicy> SFUnrecCSMDrawManagerPtr;
+typedef PointerSField<CSMDrawManager *,
+                      WeakRefCountPolicy      > SFWeakCSMDrawManagerPtr;
+typedef PointerSField<CSMDrawManager *,
+                      NoRefCountPolicy        > SFUncountedCSMDrawManagerPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribCSMFieldMulti */
 
-typedef PointerMField<DrawManager *,
-                      RecordedRefCountPolicy  > MFRecDrawManagerPtr;
-typedef PointerMField<DrawManager *,
-                      UnrecordedRefCountPolicy> MFUnrecDrawManagerPtr;
-typedef PointerMField<DrawManager *,
-                      WeakRefCountPolicy      > MFWeakDrawManagerPtr;
-typedef PointerMField<DrawManager *,
-                      NoRefCountPolicy        > MFUncountedDrawManagerPtr;
+typedef PointerMField<CSMDrawManager *,
+                      RecordedRefCountPolicy  > MFRecCSMDrawManagerPtr;
+typedef PointerMField<CSMDrawManager *,
+                      UnrecordedRefCountPolicy> MFUnrecCSMDrawManagerPtr;
+typedef PointerMField<CSMDrawManager *,
+                      WeakRefCountPolicy      > MFWeakCSMDrawManagerPtr;
+typedef PointerMField<CSMDrawManager *,
+                      NoRefCountPolicy        > MFUncountedCSMDrawManagerPtr;
 #endif
 
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGDRAWMANAGERFIELDS_H_ */
+#endif /* _OSGCSMDRAWMANAGERFIELDS_H_ */

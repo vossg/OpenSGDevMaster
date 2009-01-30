@@ -36,24 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGDRAWER_H_
-#define _OSGDRAWER_H_
+#ifndef _OSGCSMDRAWER_H_
+#define _OSGCSMDRAWER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGDrawerBase.h"
+#include "OSGCSMDrawerBase.h"
 #include "OSGCSMWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
-class DrawThread;
+class CSMDrawThread;
 
-/*! \brief Drawer class. See \ref
+/*! \brief CSMDrawer class. See \ref
            PageContribCSMDrawer for a description.
 */
 
-class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMDrawer : public CSMDrawerBase
 {
   protected:
 
@@ -61,8 +61,8 @@ class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
 
   public:
 
-    typedef DrawerBase Inherited;
-    typedef Drawer     Self;
+    typedef CSMDrawerBase Inherited;
+    typedef CSMDrawer     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -132,37 +132,37 @@ class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
 
   protected:
 
-    // Variables should all be in DrawerBase.
+    // Variables should all be in CSMDrawerBase.
 
-    RenderAction *_pAction;
+    RenderAction  *_pAction;
 
-    DrawThread   *_pDrawThread;
+    CSMDrawThread *_pDrawThread;
 
-    Thread       *_pSyncFromThread;
-    Barrier      *_pSyncBarrier;
-    Barrier      *_pSwapBarrier;
+    Thread        *_pSyncFromThread;
+    Barrier       *_pSyncBarrier;
+    Barrier       *_pSwapBarrier;
 #ifdef OSG_GLOBAL_SYNC_LOCK
-    Lock         *_pSyncLock;
+    Lock          *_pSyncLock;
 #endif
 
-    UInt32        _uiSyncCount;
-    UInt32        _uiSwapCount;
-    bool          _bParallel;
-    bool          _bRun;
+    UInt32         _uiSyncCount;
+    UInt32         _uiSwapCount;
+    bool           _bParallel;
+    bool           _bRun;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    Drawer(void);
-    Drawer(const Drawer &source);
+    CSMDrawer(void);
+    CSMDrawer(const CSMDrawer &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~Drawer(void);
+    virtual ~CSMDrawer(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -195,17 +195,17 @@ class OSG_CONTRIBCSM_DLLMAPPING Drawer : public DrawerBase
   private:
 
     friend class FieldContainer;
-    friend class DrawerBase;
-    friend class DrawThread;
+    friend class CSMDrawerBase;
+    friend class CSMDrawThread;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const Drawer &source);
+    void operator =(const CSMDrawer &source);
 };
 
-typedef Drawer *DrawerP;
+typedef CSMDrawer *CSMDrawerP;
 
 
-class OSG_CONTRIBCSM_DLLMAPPING DrawThread : public Thread
+class OSG_CONTRIBCSM_DLLMAPPING CSMDrawThread : public Thread
 {
 
     /*==========================  PUBLIC  =================================*/
@@ -216,15 +216,15 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawThread : public Thread
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
-    static DrawThread *get (Char8 *szName);
-    static DrawThread *find(Char8 *szName);
+    static CSMDrawThread *get (Char8 *szName);
+    static CSMDrawThread *find(Char8 *szName);
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
-    void setDrawer (Drawer *pDrawer);
-    void setRunning(bool    bVal   );
+    void setDrawer (CSMDrawer *pDrawer);
+    void setRunning(bool       bVal   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -240,7 +240,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawThread : public Thread
 
     static  MPThreadType _type;
 
-    Drawer *_pDrawer;
+    CSMDrawer *_pDrawer;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
@@ -254,14 +254,14 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawThread : public Thread
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
  
-    DrawThread(const Char8 *szName, UInt32 uiId);
+    CSMDrawThread(const Char8 *szName, UInt32 uiId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~DrawThread(void); 
+    virtual ~CSMDrawThread(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -281,14 +281,14 @@ class OSG_CONTRIBCSM_DLLMAPPING DrawThread : public Thread
   private:
 
     /*!\brief prohibit default function (move to 'public' if needed) */
-    DrawThread(const DrawThread &source);
-    void operator =(const DrawThread &source);
+    CSMDrawThread(const CSMDrawThread &source);
+    void operator =(const CSMDrawThread &source);
 };
 
 
 OSG_END_NAMESPACE
 
-#include "OSGDrawerBase.inl"
-#include "OSGDrawer.inl"
+#include "OSGCSMDrawerBase.inl"
+#include "OSGCSMDrawer.inl"
 
-#endif /* _OSGDRAWER_H_ */
+#endif /* _OSGCSMDRAWER_H_ */

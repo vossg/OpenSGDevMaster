@@ -60,11 +60,11 @@ ComplexSceneManager
 
   ]
 
-  drawManager DEF DrawManager DrawManager
+  drawManager DEF DrawManager CSMDrawManager
   {
     drawer
     [
-      Drawer
+      CSMDrawer
       {
         windows
         [

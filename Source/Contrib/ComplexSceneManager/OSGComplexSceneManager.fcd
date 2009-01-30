@@ -25,7 +25,7 @@
 	</Field>
 	<Field
 		name="drawManager"
-		type="DrawManager"
+		type="CSMDrawManager"
 		cardinality="single"
 		visibility="external"
 		defaultValue="NULL"

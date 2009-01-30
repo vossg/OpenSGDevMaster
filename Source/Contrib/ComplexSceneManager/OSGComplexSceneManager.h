@@ -45,7 +45,7 @@
 #include <boost/function.hpp>
 
 #include "OSGComplexSceneManagerBase.h"
-#include "OSGDrawManager.h"
+#include "OSGCSMDrawManager.h"
 #include "OSGPathHandler.h"
 #include "OSGSceneFileType.h"
 #include "OSGSensorTask.h"

@@ -76,14 +76,14 @@ OSG::UInt16 ComplexSceneManagerBase::getClassGroupId(void)
 
 //! Get the value of the ComplexSceneManager::_sfDrawManager field.
 inline
-DrawManager * ComplexSceneManagerBase::getDrawManager(void) const
+CSMDrawManager * ComplexSceneManagerBase::getDrawManager(void) const
 {
     return _sfDrawManager.getValue();
 }
 
 //! Set the value of the ComplexSceneManager::_sfDrawManager field.
 inline
-void ComplexSceneManagerBase::setDrawManager(DrawManager * const value)
+void ComplexSceneManagerBase::setDrawManager(CSMDrawManager * const value)
 {
     editSField(DrawManagerFieldMask);
 

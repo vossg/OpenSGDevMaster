@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Drawer!
+ **     class CSMDrawer!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,80 +53,80 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &DrawerBase::getClassType(void)
+OSG::FieldContainerType &CSMDrawerBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 DrawerBase::getClassTypeId(void)
+OSG::UInt32 CSMDrawerBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 DrawerBase::getClassGroupId(void)
+OSG::UInt16 CSMDrawerBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the Drawer::_sfDisplayString field.
+//! Get the value of the CSMDrawer::_sfDisplayString field.
 
 inline
-std::string &DrawerBase::editDisplayString(void)
+std::string &CSMDrawerBase::editDisplayString(void)
 {
     editSField(DisplayStringFieldMask);
 
     return _sfDisplayString.getValue();
 }
 
-//! Get the value of the Drawer::_sfDisplayString field.
+//! Get the value of the CSMDrawer::_sfDisplayString field.
 inline
-const std::string &DrawerBase::getDisplayString(void) const
+const std::string &CSMDrawerBase::getDisplayString(void) const
 {
     return _sfDisplayString.getValue();
 }
 
-//! Set the value of the Drawer::_sfDisplayString field.
+//! Set the value of the CSMDrawer::_sfDisplayString field.
 inline
-void DrawerBase::setDisplayString(const std::string &value)
+void CSMDrawerBase::setDisplayString(const std::string &value)
 {
     editSField(DisplayStringFieldMask);
 
     _sfDisplayString.setValue(value);
 }
-//! Get the value of the Drawer::_sfAspect field.
+//! Get the value of the CSMDrawer::_sfAspect field.
 
 inline
-UInt32 &DrawerBase::editAspect(void)
+UInt32 &CSMDrawerBase::editAspect(void)
 {
     editSField(AspectFieldMask);
 
     return _sfAspect.getValue();
 }
 
-//! Get the value of the Drawer::_sfAspect field.
+//! Get the value of the CSMDrawer::_sfAspect field.
 inline
-      UInt32  DrawerBase::getAspect(void) const
+      UInt32  CSMDrawerBase::getAspect(void) const
 {
     return _sfAspect.getValue();
 }
 
-//! Set the value of the Drawer::_sfAspect field.
+//! Set the value of the CSMDrawer::_sfAspect field.
 inline
-void DrawerBase::setAspect(const UInt32 value)
+void CSMDrawerBase::setAspect(const UInt32 value)
 {
     editSField(AspectFieldMask);
 
     _sfAspect.setValue(value);
 }
 
-//! Get the value of the \a index element the Drawer::_mfWindows field.
+//! Get the value of the \a index element the CSMDrawer::_mfWindows field.
 inline
-CSMWindow * DrawerBase::getWindows(const UInt32 index) const
+CSMWindow * CSMDrawerBase::getWindows(const UInt32 index) const
 {
     return _mfWindows[index];
 }
@@ -134,7 +134,7 @@ CSMWindow * DrawerBase::getWindows(const UInt32 index) const
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void DrawerBase::execSync (      DrawerBase *pFrom,
+void CSMDrawerBase::execSync (      CSMDrawerBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -158,11 +158,11 @@ void DrawerBase::execSync (      DrawerBase *pFrom,
 
 
 inline
-const Char8 *DrawerBase::getClassname(void)
+const Char8 *CSMDrawerBase::getClassname(void)
 {
-    return "Drawer";
+    return "CSMDrawer";
 }
-OSG_GEN_CONTAINERPTR(Drawer);
+OSG_GEN_CONTAINERPTR(CSMDrawer);
 
 OSG_END_NAMESPACE
 

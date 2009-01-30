@@ -45,14 +45,14 @@
 
 #include <OSGConfig.h>
 
-#include "OSGDrawManager.h"
+#include "OSGCSMDrawManager.h"
 #include "OSGNameAttachment.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGDrawManagerBase.cpp file.
-// To modify it, please change the .fcd file (OSGDrawManager.fcd) and
+// OSGCSMDrawManagerBase.cpp file.
+// To modify it, please change the .fcd file (OSGCSMDrawManager.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -63,7 +63,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void DrawManager::initMethod(InitPhase ePhase)
+void CSMDrawManager::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -83,7 +83,7 @@ void DrawManager::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-DrawManager::DrawManager(void) :
+CSMDrawManager::CSMDrawManager(void) :
      Inherited   (    ),
 
     _pThread     (NULL),
@@ -96,7 +96,7 @@ DrawManager::DrawManager(void) :
 {
 }
 
-DrawManager::DrawManager(const DrawManager &source) :
+CSMDrawManager::CSMDrawManager(const CSMDrawManager &source) :
     Inherited    (source),
 
     _pThread     (NULL  ),
@@ -109,31 +109,31 @@ DrawManager::DrawManager(const DrawManager &source) :
 {
 }
 
-DrawManager::~DrawManager(void)
+CSMDrawManager::~CSMDrawManager(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void DrawManager::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+void CSMDrawManager::changed(ConstFieldMaskArg whichField, 
+                             UInt32            origin,
+                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void DrawManager::dump(      UInt32    ,
-                         const BitVector ) const
+void CSMDrawManager::dump(      UInt32    ,
+                          const BitVector ) const
 {
-    SLOG << "Dump DrawManager NI" << std::endl;
+    SLOG << "Dump CSMDrawManager NI" << std::endl;
 }
 
-bool DrawManager::init(void)
+bool CSMDrawManager::init(void)
 {
     bool returnValue = true;
 
-    MFUnrecDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
-    MFUnrecDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
+    MFUnrecCSMDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
+    MFUnrecCSMDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
 
 
     if(_sfParallel.getValue() == true)
@@ -202,12 +202,12 @@ bool DrawManager::init(void)
     return returnValue;
 }
 
-void DrawManager::shutdown(void)
+void CSMDrawManager::shutdown(void)
 {
     if(_sfParallel.getValue() == true)
     {
-        MFUnrecDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
-        MFUnrecDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
+        MFUnrecCSMDrawerPtr::const_iterator dIt  = getMFDrawer()->begin();
+        MFUnrecCSMDrawerPtr::const_iterator dEnd = getMFDrawer()->end  ();
 
 
         // Stop drawer
@@ -313,7 +313,7 @@ void DrawManager::shutdown(void)
     }
 }
 
-void DrawManager::frame(Time oTime, UInt32 uiFrame)
+void CSMDrawManager::frame(Time oTime, UInt32 uiFrame)
 {
     commitChanges();
 
@@ -326,8 +326,8 @@ void DrawManager::frame(Time oTime, UInt32 uiFrame)
     }
     else
     {
-        MFUnrecDrawerPtr::const_iterator drawerIt  = getMFDrawer()->begin();
-        MFUnrecDrawerPtr::const_iterator drawerEnd = getMFDrawer()->end  ();
+        MFUnrecCSMDrawerPtr::const_iterator drawerIt  = getMFDrawer()->begin();
+        MFUnrecCSMDrawerPtr::const_iterator drawerEnd = getMFDrawer()->end  ();
 
         while(drawerIt != drawerEnd)
         {
@@ -338,10 +338,10 @@ void DrawManager::frame(Time oTime, UInt32 uiFrame)
     }
 }
 
-FieldContainer *DrawManager::findNamedComponent(const Char8 *szName) const
+FieldContainer *CSMDrawManager::findNamedComponent(const Char8 *szName) const
 {
-    MFUnrecDrawerPtr::const_iterator drawerIt  = _mfDrawer.begin();
-    MFUnrecDrawerPtr::const_iterator drawerEnd = _mfDrawer.end  ();
+    MFUnrecCSMDrawerPtr::const_iterator drawerIt  = _mfDrawer.begin();
+    MFUnrecCSMDrawerPtr::const_iterator drawerEnd = _mfDrawer.end  ();
 
     const Char8               *szTmpName   = NULL;
 

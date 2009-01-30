@@ -60,7 +60,7 @@ ComplexSceneManager
 
   ]
 
-  drawManager DEF DrawManager DrawManager
+  drawManager DEF DrawManager CSMDrawManager
   {
 	parallel TRUE
 
@@ -69,7 +69,7 @@ ComplexSceneManager
 
     drawer
     [
-      Drawer
+      CSMDrawer
       {
         aspect 1
 

@@ -54,7 +54,7 @@ OSG_BEGIN_NAMESPACE
 */
 
 class RenderAction;
-class Drawer;
+class CSMDrawer;
 
 class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 {
@@ -87,15 +87,15 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    Real32  getXPos  (void) const;
-    Real32  getYPos  (void) const;
+    Real32     getXPos  (void) const;
+    Real32     getYPos  (void) const;
 
-    Real32  getXSize (void) const;
-    Real32  getYSize (void) const;
+    Real32     getXSize (void) const;
+    Real32     getYSize (void) const;
 
-    Drawer *getParent(void) const;
+    CSMDrawer *getParent(void) const;
 
-    Window *getWindow(void) const;
+    Window    *getWindow(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -192,7 +192,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
     friend class FieldContainer;
     friend class CSMWindowBase;
-    friend class Drawer;
+    friend class CSMDrawer;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CSMWindow &source);

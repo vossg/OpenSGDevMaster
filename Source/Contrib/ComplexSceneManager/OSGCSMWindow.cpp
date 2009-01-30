@@ -45,7 +45,7 @@
 
 #include <OSGConfig.h>
 
-#include "OSGDrawer.h"
+#include "OSGCSMDrawer.h"
 #include "OSGCSMWindow.h"
 #include "OSGRenderAction.h"
 
@@ -143,9 +143,9 @@ void CSMWindow::motion(Int32 x,
 }
 
 
-Drawer *CSMWindow::getParent(void) const
+CSMDrawer *CSMWindow::getParent(void) const
 {
-    return dynamic_cast<Drawer *>(_sfParent.getValue());
+    return dynamic_cast<CSMDrawer *>(_sfParent.getValue());
 }
 
 FieldContainer *CSMWindow::findNamedComponent(const Char8 *szName) const

@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class DrawManager!
+ **     class CSMDrawManager!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -58,10 +58,10 @@
 
 
 
-#include <OSGDrawer.h> // Drawer Class
+#include <OSGCSMDrawer.h> // Drawer Class
 
-#include "OSGDrawManagerBase.h"
-#include "OSGDrawManager.h"
+#include "OSGCSMDrawManagerBase.h"
+#include "OSGCSMDrawManager.h"
 
 #include "boost/bind.hpp"
 
@@ -75,7 +75,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::DrawManager
+/*! \class OSG::CSMDrawManager
     
  */
 
@@ -83,37 +83,37 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var Drawer *        DrawManagerBase::_mfDrawer
+/*! \var CSMDrawer *     CSMDrawManagerBase::_mfDrawer
     
 */
 
-/*! \var bool            DrawManagerBase::_sfParallel
+/*! \var bool            CSMDrawManagerBase::_sfParallel
     
 */
 
-/*! \var std::string     DrawManagerBase::_sfSyncBarrierName
+/*! \var std::string     CSMDrawManagerBase::_sfSyncBarrierName
     
 */
 
-/*! \var std::string     DrawManagerBase::_sfSwapBarrierName
+/*! \var std::string     CSMDrawManagerBase::_sfSwapBarrierName
     
 */
 
 
-void DrawManagerBase::classDescInserter(TypeObject &oType)
+void CSMDrawManagerBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFUnrecDrawerPtr::Description(
-        MFUnrecDrawerPtr::getClassType(),
+    pDesc = new MFUnrecCSMDrawerPtr::Description(
+        MFUnrecCSMDrawerPtr::getClassType(),
         "drawer",
         "",
         DrawerFieldId, DrawerFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&DrawManager::editHandleDrawer),
-        static_cast<FieldGetMethodSig >(&DrawManager::getHandleDrawer));
+        static_cast<FieldEditMethodSig>(&CSMDrawManager::editHandleDrawer),
+        static_cast<FieldGetMethodSig >(&CSMDrawManager::getHandleDrawer));
 
     oType.addInitialDesc(pDesc);
 
@@ -124,8 +124,8 @@ void DrawManagerBase::classDescInserter(TypeObject &oType)
         ParallelFieldId, ParallelFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&DrawManager::editHandleParallel),
-        static_cast<FieldGetMethodSig >(&DrawManager::getHandleParallel));
+        static_cast<FieldEditMethodSig>(&CSMDrawManager::editHandleParallel),
+        static_cast<FieldGetMethodSig >(&CSMDrawManager::getHandleParallel));
 
     oType.addInitialDesc(pDesc);
 
@@ -136,8 +136,8 @@ void DrawManagerBase::classDescInserter(TypeObject &oType)
         SyncBarrierNameFieldId, SyncBarrierNameFieldMask,
         true,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&DrawManager::editHandleSyncBarrierName),
-        static_cast<FieldGetMethodSig >(&DrawManager::getHandleSyncBarrierName));
+        static_cast<FieldEditMethodSig>(&CSMDrawManager::editHandleSyncBarrierName),
+        static_cast<FieldGetMethodSig >(&CSMDrawManager::getHandleSyncBarrierName));
 
     oType.addInitialDesc(pDesc);
 
@@ -148,28 +148,28 @@ void DrawManagerBase::classDescInserter(TypeObject &oType)
         SwapBarrierNameFieldId, SwapBarrierNameFieldMask,
         true,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&DrawManager::editHandleSwapBarrierName),
-        static_cast<FieldGetMethodSig >(&DrawManager::getHandleSwapBarrierName));
+        static_cast<FieldEditMethodSig>(&CSMDrawManager::editHandleSwapBarrierName),
+        static_cast<FieldGetMethodSig >(&CSMDrawManager::getHandleSwapBarrierName));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-DrawManagerBase::TypeObject DrawManagerBase::_type(
-    DrawManagerBase::getClassname(),
+CSMDrawManagerBase::TypeObject CSMDrawManagerBase::_type(
+    CSMDrawManagerBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    reinterpret_cast<PrototypeCreateF>(&DrawManagerBase::createEmptyLocal),
-    DrawManager::initMethod,
-    DrawManager::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DrawManagerBase::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&CSMDrawManagerBase::createEmptyLocal),
+    CSMDrawManager::initMethod,
+    CSMDrawManager::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&CSMDrawManagerBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"DrawManager\"\n"
+    "    name=\"CSMDrawManager\"\n"
     "    parent=\"AttachmentContainer\"\n"
     "    library=\"ContribCSM\"\n"
     "    pointerfieldtypes=\"both\"\n"
@@ -183,7 +183,7 @@ DrawManagerBase::TypeObject DrawManagerBase::_type(
     ">\n"
     "\t<Field\n"
     "\t\tname=\"drawer\"\n"
-    "\t\ttype=\"Drawer\"\n"
+    "\t\ttype=\"CSMDrawer\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -222,71 +222,71 @@ DrawManagerBase::TypeObject DrawManagerBase::_type(
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &DrawManagerBase::getType(void)
+FieldContainerType &CSMDrawManagerBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &DrawManagerBase::getType(void) const
+const FieldContainerType &CSMDrawManagerBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 DrawManagerBase::getContainerSize(void) const
+UInt32 CSMDrawManagerBase::getContainerSize(void) const
 {
-    return sizeof(DrawManager);
+    return sizeof(CSMDrawManager);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the DrawManager::_mfDrawer field.
-const MFUnrecDrawerPtr *DrawManagerBase::getMFDrawer(void) const
+//! Get the CSMDrawManager::_mfDrawer field.
+const MFUnrecCSMDrawerPtr *CSMDrawManagerBase::getMFDrawer(void) const
 {
     return &_mfDrawer;
 }
 
-MFUnrecDrawerPtr    *DrawManagerBase::editMFDrawer         (void)
+MFUnrecCSMDrawerPtr *CSMDrawManagerBase::editMFDrawer         (void)
 {
     editMField(DrawerFieldMask, _mfDrawer);
 
     return &_mfDrawer;
 }
 
-SFBool *DrawManagerBase::editSFParallel(void)
+SFBool *CSMDrawManagerBase::editSFParallel(void)
 {
     editSField(ParallelFieldMask);
 
     return &_sfParallel;
 }
 
-const SFBool *DrawManagerBase::getSFParallel(void) const
+const SFBool *CSMDrawManagerBase::getSFParallel(void) const
 {
     return &_sfParallel;
 }
 
 
-SFString *DrawManagerBase::editSFSyncBarrierName(void)
+SFString *CSMDrawManagerBase::editSFSyncBarrierName(void)
 {
     editSField(SyncBarrierNameFieldMask);
 
     return &_sfSyncBarrierName;
 }
 
-const SFString *DrawManagerBase::getSFSyncBarrierName(void) const
+const SFString *CSMDrawManagerBase::getSFSyncBarrierName(void) const
 {
     return &_sfSyncBarrierName;
 }
 
 
-SFString *DrawManagerBase::editSFSwapBarrierName(void)
+SFString *CSMDrawManagerBase::editSFSwapBarrierName(void)
 {
     editSField(SwapBarrierNameFieldMask);
 
     return &_sfSwapBarrierName;
 }
 
-const SFString *DrawManagerBase::getSFSwapBarrierName(void) const
+const SFString *CSMDrawManagerBase::getSFSwapBarrierName(void) const
 {
     return &_sfSwapBarrierName;
 }
@@ -294,21 +294,21 @@ const SFString *DrawManagerBase::getSFSwapBarrierName(void) const
 
 
 
-void DrawManagerBase::pushToDrawer(Drawer * const value)
+void CSMDrawManagerBase::pushToDrawer(CSMDrawer * const value)
 {
     editMField(DrawerFieldMask, _mfDrawer);
 
     _mfDrawer.push_back(value);
 }
 
-void DrawManagerBase::assignDrawer   (const MFUnrecDrawerPtr  &value)
+void CSMDrawManagerBase::assignDrawer   (const MFUnrecCSMDrawerPtr &value)
 {
-    MFUnrecDrawerPtr ::const_iterator elemIt  =
+    MFUnrecCSMDrawerPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecDrawerPtr ::const_iterator elemEnd =
+    MFUnrecCSMDrawerPtr::const_iterator elemEnd =
         value.end  ();
 
-    static_cast<DrawManager *>(this)->clearDrawer();
+    static_cast<CSMDrawManager *>(this)->clearDrawer();
 
     while(elemIt != elemEnd)
     {
@@ -318,7 +318,7 @@ void DrawManagerBase::assignDrawer   (const MFUnrecDrawerPtr  &value)
     }
 }
 
-void DrawManagerBase::removeFromDrawer(UInt32 uiIndex)
+void CSMDrawManagerBase::removeFromDrawer(UInt32 uiIndex)
 {
     if(uiIndex < _mfDrawer.size())
     {
@@ -328,7 +328,7 @@ void DrawManagerBase::removeFromDrawer(UInt32 uiIndex)
     }
 }
 
-void DrawManagerBase::removeObjFromDrawer(Drawer * const value)
+void CSMDrawManagerBase::removeObjFromDrawer(CSMDrawer * const value)
 {
     Int32 iElemIdx = _mfDrawer.findIndex(value);
 
@@ -339,7 +339,7 @@ void DrawManagerBase::removeObjFromDrawer(Drawer * const value)
         _mfDrawer.erase(iElemIdx);
     }
 }
-void DrawManagerBase::clearDrawer(void)
+void CSMDrawManagerBase::clearDrawer(void)
 {
     editMField(DrawerFieldMask, _mfDrawer);
 
@@ -351,7 +351,7 @@ void DrawManagerBase::clearDrawer(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 DrawManagerBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 CSMDrawManagerBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
@@ -375,7 +375,7 @@ UInt32 DrawManagerBase::getBinSize(ConstFieldMaskArg whichField)
     return returnValue;
 }
 
-void DrawManagerBase::copyToBin(BinaryDataHandler &pMem,
+void CSMDrawManagerBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
@@ -398,7 +398,7 @@ void DrawManagerBase::copyToBin(BinaryDataHandler &pMem,
     }
 }
 
-void DrawManagerBase::copyFromBin(BinaryDataHandler &pMem,
+void CSMDrawManagerBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
@@ -422,48 +422,48 @@ void DrawManagerBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-DrawManagerTransitPtr DrawManagerBase::createLocal(BitVector bFlags)
+CSMDrawManagerTransitPtr CSMDrawManagerBase::createLocal(BitVector bFlags)
 {
-    DrawManagerTransitPtr fc;
+    CSMDrawManagerTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<DrawManager>(tmpPtr);
+        fc = dynamic_pointer_cast<CSMDrawManager>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-DrawManagerTransitPtr DrawManagerBase::createDependent(BitVector bFlags)
+CSMDrawManagerTransitPtr CSMDrawManagerBase::createDependent(BitVector bFlags)
 {
-    DrawManagerTransitPtr fc;
+    CSMDrawManagerTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<DrawManager>(tmpPtr);
+        fc = dynamic_pointer_cast<CSMDrawManager>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-DrawManagerTransitPtr DrawManagerBase::create(void)
+CSMDrawManagerTransitPtr CSMDrawManagerBase::create(void)
 {
     return createLocal();
 }
 
-DrawManager *DrawManagerBase::createEmptyLocal(BitVector bFlags)
+CSMDrawManager *CSMDrawManagerBase::createEmptyLocal(BitVector bFlags)
 {
-    DrawManager *returnValue;
+    CSMDrawManager *returnValue;
 
-    newPtr<DrawManager>(returnValue, bFlags);
+    newPtr<CSMDrawManager>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -471,18 +471,18 @@ DrawManager *DrawManagerBase::createEmptyLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-DrawManager *DrawManagerBase::createEmpty(void)
+CSMDrawManager *CSMDrawManagerBase::createEmpty(void)
 {
     return createEmptyLocal();
 }
 
 
-FieldContainerTransitPtr DrawManagerBase::shallowCopyLocal(
+FieldContainerTransitPtr CSMDrawManagerBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    DrawManager *tmpPtr;
+    CSMDrawManager *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const DrawManager *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const CSMDrawManager *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -491,12 +491,12 @@ FieldContainerTransitPtr DrawManagerBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr DrawManagerBase::shallowCopyDependent(
+FieldContainerTransitPtr CSMDrawManagerBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    DrawManager *tmpPtr;
+    CSMDrawManager *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const DrawManager *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const CSMDrawManager *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -505,7 +505,7 @@ FieldContainerTransitPtr DrawManagerBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr DrawManagerBase::shallowCopy(void) const
+FieldContainerTransitPtr CSMDrawManagerBase::shallowCopy(void) const
 {
     return shallowCopyLocal();
 }
@@ -515,7 +515,7 @@ FieldContainerTransitPtr DrawManagerBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-DrawManagerBase::DrawManagerBase(void) :
+CSMDrawManagerBase::CSMDrawManagerBase(void) :
     Inherited(),
     _mfDrawer                 (),
     _sfParallel               (),
@@ -524,7 +524,7 @@ DrawManagerBase::DrawManagerBase(void) :
 {
 }
 
-DrawManagerBase::DrawManagerBase(const DrawManagerBase &source) :
+CSMDrawManagerBase::CSMDrawManagerBase(const CSMDrawManagerBase &source) :
     Inherited(source),
     _mfDrawer                 (),
     _sfParallel               (source._sfParallel               ),
@@ -536,21 +536,21 @@ DrawManagerBase::DrawManagerBase(const DrawManagerBase &source) :
 
 /*-------------------------- destructors ----------------------------------*/
 
-DrawManagerBase::~DrawManagerBase(void)
+CSMDrawManagerBase::~CSMDrawManagerBase(void)
 {
 }
 
-void DrawManagerBase::onCreate(const DrawManager *source)
+void CSMDrawManagerBase::onCreate(const CSMDrawManager *source)
 {
     Inherited::onCreate(source);
 
     if(source != NULL)
     {
-        DrawManager *pThis = static_cast<DrawManager *>(this);
+        CSMDrawManager *pThis = static_cast<CSMDrawManager *>(this);
 
-        MFUnrecDrawerPtr::const_iterator DrawerIt  =
+        MFUnrecCSMDrawerPtr::const_iterator DrawerIt  =
             source->_mfDrawer.begin();
-        MFUnrecDrawerPtr::const_iterator DrawerEnd =
+        MFUnrecCSMDrawerPtr::const_iterator DrawerEnd =
             source->_mfDrawer.end  ();
 
         while(DrawerIt != DrawerEnd)
@@ -562,42 +562,42 @@ void DrawManagerBase::onCreate(const DrawManager *source)
     }
 }
 
-GetFieldHandlePtr DrawManagerBase::getHandleDrawer          (void) const
+GetFieldHandlePtr CSMDrawManagerBase::getHandleDrawer          (void) const
 {
-    MFUnrecDrawerPtr::GetHandlePtr returnValue(
-        new  MFUnrecDrawerPtr::GetHandle(
+    MFUnrecCSMDrawerPtr::GetHandlePtr returnValue(
+        new  MFUnrecCSMDrawerPtr::GetHandle(
              &_mfDrawer,
              this->getType().getFieldDesc(DrawerFieldId)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr DrawManagerBase::editHandleDrawer         (void)
+EditFieldHandlePtr CSMDrawManagerBase::editHandleDrawer         (void)
 {
-    MFUnrecDrawerPtr::EditHandlePtr returnValue(
-        new  MFUnrecDrawerPtr::EditHandle(
+    MFUnrecCSMDrawerPtr::EditHandlePtr returnValue(
+        new  MFUnrecCSMDrawerPtr::EditHandle(
              &_mfDrawer,
              this->getType().getFieldDesc(DrawerFieldId)));
 
     returnValue->setAddMethod(
-        boost::bind(&DrawManager::pushToDrawer,
-                    static_cast<DrawManager *>(this), _1));
+        boost::bind(&CSMDrawManager::pushToDrawer,
+                    static_cast<CSMDrawManager *>(this), _1));
     returnValue->setRemoveMethod(
-        boost::bind(&DrawManager::removeFromDrawer,
-                    static_cast<DrawManager *>(this), _1));
+        boost::bind(&CSMDrawManager::removeFromDrawer,
+                    static_cast<CSMDrawManager *>(this), _1));
     returnValue->setRemoveObjMethod(
-        boost::bind(&DrawManager::removeObjFromDrawer,
-                    static_cast<DrawManager *>(this), _1));
+        boost::bind(&CSMDrawManager::removeObjFromDrawer,
+                    static_cast<CSMDrawManager *>(this), _1));
     returnValue->setClearMethod(
-        boost::bind(&DrawManager::clearDrawer,
-                    static_cast<DrawManager *>(this)));
+        boost::bind(&CSMDrawManager::clearDrawer,
+                    static_cast<CSMDrawManager *>(this)));
 
     editMField(DrawerFieldMask, _mfDrawer);
 
     return returnValue;
 }
 
-GetFieldHandlePtr DrawManagerBase::getHandleParallel        (void) const
+GetFieldHandlePtr CSMDrawManagerBase::getHandleParallel        (void) const
 {
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
@@ -607,7 +607,7 @@ GetFieldHandlePtr DrawManagerBase::getHandleParallel        (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr DrawManagerBase::editHandleParallel       (void)
+EditFieldHandlePtr CSMDrawManagerBase::editHandleParallel       (void)
 {
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
@@ -620,7 +620,7 @@ EditFieldHandlePtr DrawManagerBase::editHandleParallel       (void)
     return returnValue;
 }
 
-GetFieldHandlePtr DrawManagerBase::getHandleSyncBarrierName (void) const
+GetFieldHandlePtr CSMDrawManagerBase::getHandleSyncBarrierName (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -630,7 +630,7 @@ GetFieldHandlePtr DrawManagerBase::getHandleSyncBarrierName (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr DrawManagerBase::editHandleSyncBarrierName(void)
+EditFieldHandlePtr CSMDrawManagerBase::editHandleSyncBarrierName(void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -643,7 +643,7 @@ EditFieldHandlePtr DrawManagerBase::editHandleSyncBarrierName(void)
     return returnValue;
 }
 
-GetFieldHandlePtr DrawManagerBase::getHandleSwapBarrierName (void) const
+GetFieldHandlePtr CSMDrawManagerBase::getHandleSwapBarrierName (void) const
 {
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
@@ -653,7 +653,7 @@ GetFieldHandlePtr DrawManagerBase::getHandleSwapBarrierName (void) const
     return returnValue;
 }
 
-EditFieldHandlePtr DrawManagerBase::editHandleSwapBarrierName(void)
+EditFieldHandlePtr CSMDrawManagerBase::editHandleSwapBarrierName(void)
 {
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
@@ -668,15 +668,15 @@ EditFieldHandlePtr DrawManagerBase::editHandleSwapBarrierName(void)
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void DrawManagerBase::execSyncV(      FieldContainer    &oFrom,
+void CSMDrawManagerBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    DrawManager *pThis = static_cast<DrawManager *>(this);
+    CSMDrawManager *pThis = static_cast<CSMDrawManager *>(this);
 
-    pThis->execSync(static_cast<DrawManager *>(&oFrom),
+    pThis->execSync(static_cast<CSMDrawManager *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -686,41 +686,41 @@ void DrawManagerBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *DrawManagerBase::createAspectCopy(
+FieldContainer *CSMDrawManagerBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    DrawManager *returnValue;
+    CSMDrawManager *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const DrawManager *>(pRefAspect),
-                  dynamic_cast<const DrawManager *>(this));
+                  dynamic_cast<const CSMDrawManager *>(pRefAspect),
+                  dynamic_cast<const CSMDrawManager *>(this));
 
     return returnValue;
 }
 #endif
 
-void DrawManagerBase::resolveLinks(void)
+void CSMDrawManagerBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<DrawManager *>(this)->clearDrawer();
+    static_cast<CSMDrawManager *>(this)->clearDrawer();
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DrawManager *>::_type("DrawManagerPtr", "AttachmentContainerPtr");
+DataType FieldTraits<CSMDrawManager *>::_type("CSMDrawManagerPtr", "AttachmentContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(DrawManager *)
+OSG_FIELDTRAITS_GETTYPE(CSMDrawManager *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DrawManager *,
+                           CSMDrawManager *,
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DrawManager *,
+                           CSMDrawManager *,
                            0);
 
 OSG_END_NAMESPACE

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="Drawer"
+    name="CSMDrawer"
     parent="AttachmentContainer"
     library="ContribCSM"
     pointerfieldtypes="multi"
@@ -21,7 +21,7 @@
 		visibility="external"
 		access="public"
         category="childpointer"
-        childParentType="Drawer"
+        childParentType="CSMDrawer"
         linkParentField="Parent"
 	>
 	</Field>

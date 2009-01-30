@@ -66,7 +66,7 @@
 #include "OSGFieldContainer.h" // Parent
 
 #include "OSGFieldContainerFields.h" // Globals type
-#include "OSGDrawManagerFields.h" // DrawManager type
+#include "OSGCSMDrawManagerFields.h" // DrawManager type
 #include "OSGSensorTaskFields.h" // SensorTask type
 #include "OSGUInt64Fields.h" // FrameCount type
 #include "OSGTimeFields.h" // StartTime type
@@ -147,7 +147,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFUnrecFieldContainerPtr MFGlobalsType;
-    typedef SFUnrecDrawManagerPtr SFDrawManagerType;
+    typedef SFUnrecCSMDrawManagerPtr SFDrawManagerType;
     typedef SFUnrecSensorTaskPtr SFSensorTaskType;
     typedef SFUInt64          SFFrameCountType;
     typedef SFTime            SFStartTimeType;
@@ -184,8 +184,8 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
 
             const MFUnrecFieldContainerPtr *getMFGlobals        (void) const;
                   MFUnrecFieldContainerPtr *editMFGlobals        (void);
-            const SFUnrecDrawManagerPtr *getSFDrawManager    (void) const;
-                  SFUnrecDrawManagerPtr *editSFDrawManager    (void);
+            const SFUnrecCSMDrawManagerPtr *getSFDrawManager    (void) const;
+                  SFUnrecCSMDrawManagerPtr *editSFDrawManager    (void);
             const SFUnrecSensorTaskPtr *getSFSensorTask     (void) const;
                   SFUnrecSensorTaskPtr *editSFSensorTask     (void);
 
@@ -219,7 +219,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
 
                   FieldContainer * getGlobals        (const UInt32 index) const;
 
-                  DrawManager * getDrawManager    (void) const;
+                  CSMDrawManager * getDrawManager    (void) const;
 
                   SensorTask * getSensorTask     (void) const;
 
@@ -255,7 +255,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setDrawManager    (DrawManager * const value);
+            void setDrawManager    (CSMDrawManager * const value);
             void setSensorTask     (SensorTask * const value);
             void setFrameCount     (const UInt64 value);
             void setStartTime      (const Time &value);
@@ -337,7 +337,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \{                                                                 */
 
     MFUnrecFieldContainerPtr _mfGlobals;
-    SFUnrecDrawManagerPtr _sfDrawManager;
+    SFUnrecCSMDrawManagerPtr _sfDrawManager;
     SFUnrecSensorTaskPtr _sfSensorTask;
     SFUInt64          _sfFrameCount;
     SFTime            _sfStartTime;

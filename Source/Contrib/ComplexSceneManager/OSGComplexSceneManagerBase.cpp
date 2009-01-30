@@ -59,7 +59,7 @@
 
 
 #include <OSGFieldContainer.h> // Globals Class
-#include <OSGDrawManager.h> // DrawManager Class
+#include <OSGCSMDrawManager.h> // DrawManager Class
 #include <OSGSensorTask.h> // SensorTask Class
 
 #include "OSGComplexSceneManagerBase.h"
@@ -89,7 +89,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var DrawManager *   ComplexSceneManagerBase::_sfDrawManager
+/*! \var CSMDrawManager * ComplexSceneManagerBase::_sfDrawManager
     
 */
 
@@ -151,8 +151,8 @@ void ComplexSceneManagerBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecDrawManagerPtr::Description(
-        SFUnrecDrawManagerPtr::getClassType(),
+    pDesc = new SFUnrecCSMDrawManagerPtr::Description(
+        SFUnrecCSMDrawManagerPtr::getClassType(),
         "drawManager",
         "",
         DrawManagerFieldId, DrawManagerFieldMask,
@@ -323,7 +323,7 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"drawManager\"\n"
-    "\t\ttype=\"DrawManager\"\n"
+    "\t\ttype=\"CSMDrawManager\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"NULL\"\n"
@@ -464,12 +464,12 @@ MFUnrecFieldContainerPtr *ComplexSceneManagerBase::editMFGlobals        (void)
 }
 
 //! Get the ComplexSceneManager::_sfDrawManager field.
-const SFUnrecDrawManagerPtr *ComplexSceneManagerBase::getSFDrawManager(void) const
+const SFUnrecCSMDrawManagerPtr *ComplexSceneManagerBase::getSFDrawManager(void) const
 {
     return &_sfDrawManager;
 }
 
-SFUnrecDrawManagerPtr *ComplexSceneManagerBase::editSFDrawManager    (void)
+SFUnrecCSMDrawManagerPtr *ComplexSceneManagerBase::editSFDrawManager    (void)
 {
     editSField(DrawManagerFieldMask);
 
@@ -1029,8 +1029,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleGlobals        (void)
 
 GetFieldHandlePtr ComplexSceneManagerBase::getHandleDrawManager     (void) const
 {
-    SFUnrecDrawManagerPtr::GetHandlePtr returnValue(
-        new  SFUnrecDrawManagerPtr::GetHandle(
+    SFUnrecCSMDrawManagerPtr::GetHandlePtr returnValue(
+        new  SFUnrecCSMDrawManagerPtr::GetHandle(
              &_sfDrawManager,
              this->getType().getFieldDesc(DrawManagerFieldId)));
 
@@ -1039,8 +1039,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleDrawManager     (void) const
 
 EditFieldHandlePtr ComplexSceneManagerBase::editHandleDrawManager    (void)
 {
-    SFUnrecDrawManagerPtr::EditHandlePtr returnValue(
-        new  SFUnrecDrawManagerPtr::EditHandle(
+    SFUnrecCSMDrawManagerPtr::EditHandlePtr returnValue(
+        new  SFUnrecCSMDrawManagerPtr::EditHandle(
              &_sfDrawManager,
              this->getType().getFieldDesc(DrawManagerFieldId)));
 

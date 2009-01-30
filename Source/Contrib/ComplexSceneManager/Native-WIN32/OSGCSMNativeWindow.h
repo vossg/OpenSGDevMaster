@@ -44,7 +44,7 @@
 
 #include "OSGCSMNativeWindowBase.h"
 #include "OSGWIN32Window.h"
-#include "OSGDrawer.h"
+#include "OSGCSMDrawer.h"
 
 OSG_BEGIN_NAMESPACE
 

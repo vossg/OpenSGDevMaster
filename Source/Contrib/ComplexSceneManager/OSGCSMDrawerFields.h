@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGDRAWERFIELDS_H_
-#define _OSGDRAWERFIELDS_H_
+#ifndef _OSGCSMDRAWERFIELDS_H_
+#define _OSGCSMDRAWERFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,12 +64,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-class Drawer;
+class CSMDrawer;
 
 #if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DrawerPtr
+//! CSMDrawerPtr
 
-OSG_GEN_CONTAINERPTR(Drawer);
+OSG_GEN_CONTAINERPTR(CSMDrawer);
 
 #endif
 
@@ -81,8 +81,8 @@ OSG_GEN_CONTAINERPTR(Drawer);
 #endif
 
 template <>
-struct FieldTraits<Drawer *> :
-    public FieldTraitsFCPtrBase<Drawer *>
+struct FieldTraits<CSMDrawer *> :
+    public FieldTraitsFCPtrBase<CSMDrawer *>
 {
   private:
 
@@ -90,7 +90,7 @@ struct FieldTraits<Drawer *> :
 
   public:
 
-    typedef FieldTraits<Drawer *>  Self;
+    typedef FieldTraits<CSMDrawer *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -99,43 +99,43 @@ struct FieldTraits<Drawer *> :
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
 
-//    static const char *getMName(void) { return "MFDrawerPtr"; }
+//    static const char *getMName(void) { return "MFCSMDrawerPtr"; }
 };
 
 
 template<> inline
-const Char8 *FieldTraits<Drawer *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecDrawerPtr"; 
+    return "MFRecCSMDrawerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Drawer *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecDrawerPtr"; 
+    return "MFUnrecCSMDrawerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Drawer *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakDrawerPtr"; 
+    return "MFWeakCSMDrawerPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<Drawer *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdDrawerPtr"; 
+    return "MFUnrefdCSMDrawerPtr"; 
 }
 
 #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DrawerPtr, 0>
+/*! \class  FieldTraitsTemplateBase<CSMDrawerPtr, 0>
     \hideinhierarchy
  */
 #endif
 
 template <>
-struct FieldTraits<Drawer *, 1> : 
-    public FieldTraitsFCPtrBase<Drawer *, 1>
+struct FieldTraits<CSMDrawer *, 1> : 
+    public FieldTraitsFCPtrBase<CSMDrawer *, 1>
 {
   private:
 
@@ -145,7 +145,7 @@ struct FieldTraits<Drawer *, 1> :
 
     static const bool bIsPointerField = true;
 
-    typedef FieldTraits<Drawer *, 1>        Self;
+    typedef FieldTraits<CSMDrawer *, 1>        Self;
 
 
     enum             { Convertible = Self::NotConvertible };
@@ -155,12 +155,12 @@ struct FieldTraits<Drawer *, 1> :
 
     static const Char8    *getSName(void) 
     {
-        return "SFParentDrawerPtr"; 
+        return "SFParentCSMDrawerPtr"; 
     }
 
     static const Char8    *getMName(void) 
     { 
-        return "MFParentDrawerPtr"; 
+        return "MFParentCSMDrawerPtr"; 
     }
 };
 
@@ -171,22 +171,22 @@ struct FieldTraits<Drawer *, 1> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpContribCSMFieldMulti */
 
-typedef PointerMField<Drawer *,
-                      RecordedRefCountPolicy  > MFRecDrawerPtr;
-typedef PointerMField<Drawer *,
-                      UnrecordedRefCountPolicy> MFUnrecDrawerPtr;
-typedef PointerMField<Drawer *,
-                      WeakRefCountPolicy      > MFWeakDrawerPtr;
-typedef PointerMField<Drawer *,
-                      NoRefCountPolicy        > MFUncountedDrawerPtr;
+typedef PointerMField<CSMDrawer *,
+                      RecordedRefCountPolicy  > MFRecCSMDrawerPtr;
+typedef PointerMField<CSMDrawer *,
+                      UnrecordedRefCountPolicy> MFUnrecCSMDrawerPtr;
+typedef PointerMField<CSMDrawer *,
+                      WeakRefCountPolicy      > MFWeakCSMDrawerPtr;
+typedef PointerMField<CSMDrawer *,
+                      NoRefCountPolicy        > MFUncountedCSMDrawerPtr;
 #endif
 
 
 
 typedef ParentPointerSField<
-          Drawer *, 
+          CSMDrawer *, 
           NoRefCountPolicy,
-          1    > SFParentDrawerPtr;
+          1    > SFParentCSMDrawerPtr;
 OSG_END_NAMESPACE
 
-#endif /* _OSGDRAWERFIELDS_H_ */
+#endif /* _OSGCSMDRAWERFIELDS_H_ */
