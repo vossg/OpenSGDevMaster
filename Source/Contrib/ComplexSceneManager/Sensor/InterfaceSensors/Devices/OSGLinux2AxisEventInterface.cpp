@@ -71,49 +71,6 @@ MPThreadType Linux2AxisEventInterface::_type(
  *                           Class methods                                 *
 \***************************************************************************/
 
-#if defined(__linux)
-
-struct usbspmdata
-{
-    short buttons;
-    short x,y,z, a,b,c;
-    short count;
-    char type;                          /*| type of data package ... |*/
-};
-
-                          /* driver version */
-#define USBSPM_GETVERSION            _IOR('3', 0x01, unsigned int)
-                          /* read timeout value in 100ms steps */
-#define USBSPM_GETTIMEOUT            _IOR('3', 0x02, unsigned int)
-                          /* read timeout value */
-#define USBSPM_SETTIMEOUT            _IOW('3', 0x03, unsigned int)
-                          /* read product id */
-#define USBSPM_GETPRODUCTID          _IOR('3', 0x04, unsigned int)
-                          /* read vendor id */
-#define USBSPM_GETVENDORID           _IOR('3', 0x05, unsigned int)
-                          /* read current led status */
-#define USBSPM_GETLED                _IOR('3', 0x06, unsigned int)
-                          /* read current led status */
-#define USBSPM_SETLED                _IOW('3', 0x07, unsigned int)
-                          /* read current mode status */
-#define USBSPM_GETMODE               _IOR('3', 0x08, unsigned int)
-                          /* read current mode status */
-#define USBSPM_SETMODE               _IOW('3', 0x09, unsigned int)
-                          /* get product name */
-#define USBSPM_GETPRODUCTSTRING      _IOR('3', 0x0A, char *)
-                          /* read manufacturer name */
-#define USBSPM_GETMANUFACTURERSTRING _IOR('3', 0x0B, char *) 
-                          /* read firmware version */
-#define USBSPM_GETFIRMWAREVERSION    _IOR('3', 0x0C, unsigned int)
-                          /* sleep for 250ms */
-#define USBSPM_250msDELAY            _IOR('3', 0x0D, unsigned int)
-                          /* beep command */
-#define USBSPM_BEEP                  _IOW('3', 0x0E, unsigned int)
-                          /* rezero command */
-#define USBSPM_REZERO                _IOW('3', 0x0F, unsigned int)
-
-#endif
-
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
@@ -152,6 +109,9 @@ Linux2AxisEventInterface::Linux2AxisEventInterface(const Char8  *szName,
     _rTxRange  (1.f   ),
     _rTyRange  (1.f   ),
     _iFileDesc (-1    ),
+#ifdef __linux
+    _rFds      (      ),
+#endif
     _szPort    (      )
 {
 }
@@ -169,7 +129,7 @@ bool Linux2AxisEventInterface::start(void)
     if(_szPort.empty() == true)
         return false;    
 
-    _iFileDesc = open(_szPort.c_str(), O_RDONLY | O_NONBLOCK);
+    _iFileDesc = open(_szPort.c_str(), O_RDONLY); // | O_NONBLOCK);
 
     if(_iFileDesc == -1)
     {
@@ -195,108 +155,126 @@ void Linux2AxisEventInterface::workProc(void)
     {
         getRawData();
 
-        osgSleep(_uiNapTime);
+        if(_uiNapTime > 0)
+            osgSleep(_uiNapTime);
     }
 }
+
+#ifdef OSG_DEBUG_OLD_C_CASTS
+// For my debugging, should not be active for any other case (GV)
+#ifdef __FDMASK
+#undef __FDMASK
+#define __FDMASK(d)     (__fd_mask(1) << ((d) % __NFDBITS))
+#endif
+#endif
 
 void Linux2AxisEventInterface::getRawData(void)
 {
     Int32 iBytesRead = 0;
 
 #if defined(__linux)
-
     input_event ev[64];
+
+    struct timeval tv;
+    Int32  iSelRet = 0;
+
+    FD_ZERO(&_rFds);
+    FD_SET (_iFileDesc, &_rFds);
+
+    tv.tv_sec  = 0;
+    tv.tv_usec = 500000;
  
-    iBytesRead = read(_iFileDesc, ev, sizeof(input_event) * 64);
+    iSelRet = select(_iFileDesc + 1, &_rFds, NULL, NULL, &tv);
  
-    if(iBytesRead > 0)
+    if(iSelRet > 0 && FD_ISSET(_iFileDesc, &_rFds) == true)
     {
-        Inherited::lock();
-
-        _bHasNewData = false;
-
-        Int32 iButton      = -1;
-        Int32 iButtonState = -1;
-
-        Real32 rX = 0.5f;
-        Real32 rY = 0.5f;
-
-        bool  bSetButton   = false;
-
-        for (UInt32 i = 0;
-                    i < UInt32(iBytesRead / sizeof(input_event));
-                  ++i)
+        iBytesRead = read(_iFileDesc, ev, sizeof(input_event) * 64);
+ 
+        if(iBytesRead > 0)
         {
-            if(ev[i].type == EV_KEY)
+            Inherited::lock();
+
+            _bHasNewData = false;
+
+            Int32 iButton      = -1;
+            Int32 iButtonState = -1;
+
+            Real32 rX = 0.0f;
+            Real32 rY = 0.0f;
+
+            bool  bSetButton   = false;
+            
+            for (UInt32 i = 0;
+                        i < UInt32(iBytesRead / sizeof(input_event));
+                      ++i)
             {
-                switch(ev[i].code)
+                if(ev[i].type == EV_KEY)
                 {
-                    case BTN_LEFT:
-                        iButton = MouseData::LeftButton;
-                        break;
-                    case BTN_RIGHT:
-                        iButton = MouseData::RightButton;
-                        break;
-                    case BTN_MIDDLE:
-                        iButton = MouseData::MiddleButton;
-                        break;
-                    default:
-                        break;
+                    switch(ev[i].code)
+                    {
+                        case BTN_LEFT:
+                            iButton = MouseData::LeftButton;
+                            break;
+                        case BTN_RIGHT:
+                            iButton = MouseData::RightButton;
+                            break;
+                        case BTN_MIDDLE:
+                            iButton = MouseData::MiddleButton;
+                            break;
+                        default:
+                            break;
+                    }
+                    
+                    iButtonState = 1 - ev[i].value;
+                    bSetButton   = true;
                 }
-                
-                iButtonState = 1 - ev[i].value;
-                bSetButton   = true;
-            }
-            else if(ev[i].type == EV_REL)
-            {
-                switch(ev[i].code)
+                else if(ev[i].type == EV_REL)
                 {
-                    case REL_X:
-                        rX = ev[i].value;
-                        break;
-                    case REL_Y:
-                        rY = ev[i].value;
-                        break;
-                    default:
-                        break;
+                    switch(ev[i].code)
+                    {
+                        case REL_X:
+                            rX = ev[i].value;
+                            break;
+                        case REL_Y:
+                            rY = ev[i].value;
+                            break;
+                        default:
+                            break;
+                    }
+                    
                 }
-                
+                else if(ev[i].type == EV_SYN)
+                {
+                    break;
+                }
             }
-            else if(ev[i].type == EV_SYN)
+            
+            rX /= _rTxRange;
+            rY /= _rTyRange;
+            
+            if(bSetButton == true)
             {
-                break;
+                _oMouseData.setData(iButton,
+                                    iButtonState,
+                                    MouseData::NoModifier,
+                                    rX, 
+                                    rY,
+                                    NULL,
+                                    MouseData::RelValues);
             }
+            else
+            {
+                _oMouseData.setData(rX, 
+                                    rY,
+                                    NULL,
+                                    MouseData::RelValues);
+            }
+            
+            _bHasNewData = true;
+            
+            Inherited::unlock();
         }
-
-//        rX = -rX / 100.f;
-//        rY =  rY / 100.f;
-
-        rX /= _rTxRange;
-        rY /= _rTyRange;
-
-        if(bSetButton == true)
-        {
-            _oMouseData.setData(iButton,
-                                iButtonState,
-                                MouseData::NoModifier,
-                                rX, 
-                                rY,
-                                NULL,
-                                MouseData::RelValues);
-        }
-        else
-        {
-            _oMouseData.setData(rX, 
-                                rY,
-                                NULL,
-                                MouseData::RelValues);
-        }
-
-        _bHasNewData = true;
-        
-        Inherited::unlock();
     }
-
 #endif
 }
 

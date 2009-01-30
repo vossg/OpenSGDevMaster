@@ -53,6 +53,7 @@
 #include <termios.h>
 #include <sys/ioctl.h>
 #include <linux/input.h>
+#include <sys/time.h>
 #endif
 
 OSG_BEGIN_NAMESPACE
@@ -70,41 +71,6 @@ MPThreadType Linux3AxisEventInterface::_type(
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
-
-#if defined(__linux)
-
-                          /* driver version */
-#define USBSPM_GETVERSION            _IOR('3', 0x01, unsigned int)
-                          /* read timeout value in 100ms steps */
-#define USBSPM_GETTIMEOUT            _IOR('3', 0x02, unsigned int)
-                          /* read timeout value */
-#define USBSPM_SETTIMEOUT            _IOW('3', 0x03, unsigned int)
-                          /* read product id */
-#define USBSPM_GETPRODUCTID          _IOR('3', 0x04, unsigned int)
-                          /* read vendor id */
-#define USBSPM_GETVENDORID           _IOR('3', 0x05, unsigned int)
-                          /* read current led status */
-#define USBSPM_GETLED                _IOR('3', 0x06, unsigned int)
-                          /* read current led status */
-#define USBSPM_SETLED                _IOW('3', 0x07, unsigned int)
-                          /* read current mode status */
-#define USBSPM_GETMODE               _IOR('3', 0x08, unsigned int)
-                          /* read current mode status */
-#define USBSPM_SETMODE               _IOW('3', 0x09, unsigned int)
-                          /* get product name */
-#define USBSPM_GETPRODUCTSTRING      _IOR('3', 0x0A, char *)
-                          /* read manufacturer name */
-#define USBSPM_GETMANUFACTURERSTRING _IOR('3', 0x0B, char *) 
-                          /* read firmware version */
-#define USBSPM_GETFIRMWAREVERSION    _IOR('3', 0x0C, unsigned int)
-                          /* sleep for 250ms */
-#define USBSPM_250msDELAY            _IOR('3', 0x0D, unsigned int)
-                          /* beep command */
-#define USBSPM_BEEP                  _IOW('3', 0x0E, unsigned int)
-                          /* rezero command */
-#define USBSPM_REZERO                _IOW('3', 0x0F, unsigned int)
-
-#endif
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -148,6 +114,9 @@ Linux3AxisEventInterface::Linux3AxisEventInterface(const Char8  *szName,
     _rRyRange (450.f ),
     _rRzRange (450.f ),
     _iFileDesc(-1    ),
+#ifdef __linux
+    _rFds     (      ),
+#endif
     _szPort   (      )
 {
 }
@@ -165,7 +134,7 @@ bool Linux3AxisEventInterface::start(void)
     if(_szPort.empty() == true)
         return false;    
 
-    _iFileDesc = open(_szPort.c_str(), O_RDONLY | O_NONBLOCK);
+    _iFileDesc = open(_szPort.c_str(), O_RDONLY); // | O_NONBLOCK);
 
     if(_iFileDesc == -1)
     {
@@ -193,9 +162,18 @@ void Linux3AxisEventInterface::workProc(void)
     {
         getRawData();
 
-        osgSleep(_uiNapTime);
+        if(_uiNapTime > 0)
+            osgSleep(_uiNapTime);
     }
 }
+
+#ifdef OSG_DEBUG_OLD_C_CASTS
+// For my debugging, should not be active for any other case (GV)
+#ifdef __FDMASK
+#undef __FDMASK
+#define __FDMASK(d)     (__fd_mask(1) << ((d) % __NFDBITS))
+#endif
+#endif
 
 void Linux3AxisEventInterface::getRawData(void)
 {
@@ -205,53 +183,66 @@ void Linux3AxisEventInterface::getRawData(void)
 
     input_event ev[64];
  
-    iBytesRead = read(_iFileDesc, ev, sizeof(input_event) * 64);
+    struct timeval tv;
+    Int32  iSelRet = 0;
+
+    FD_ZERO(&_rFds);
+    FD_SET (_iFileDesc, &_rFds);
+
+    tv.tv_sec  = 0;
+    tv.tv_usec = 500000;
  
-    if(iBytesRead > 0)
+    iSelRet = select(_iFileDesc + 1, &_rFds, NULL, NULL, &tv);
+ 
+    if(iSelRet > 0 && FD_ISSET(_iFileDesc, &_rFds) == true)
     {
-        Inherited::lock();
-
-        _bHasNewData = false;
-
-        for (UInt32 i = 0;
-                    i < UInt32(iBytesRead / sizeof(input_event));
-                  ++i)
+        iBytesRead = read(_iFileDesc, ev, sizeof(input_event) * 64);
+ 
+        if(iBytesRead > 0)
         {
-            if(ev[i].type == EV_REL)
+            Inherited::lock();
+
+            _bHasNewData = false;
+
+            for (UInt32 i = 0;
+                        i < UInt32(iBytesRead / sizeof(input_event));
+                      ++i)
             {
-                if(ev[i].code == REL_X)
+                if(ev[i].type == EV_REL)
                 {
-                    _vTranslate[0] = Real32(ev[i].value) / _rTxRange;
+                    if(ev[i].code == REL_X)
+                    {
+                        _vTranslate[0] = Real32(ev[i].value) / _rTxRange;
+                    }
+                    else if(ev[i].code == REL_Y)
+                    {
+                        _vTranslate[2] = Real32(ev[i].value) / _rTyRange;
+                    }
+                    else if(ev[i].code == REL_Z)
+                    {
+                        _vTranslate[1] = -(Real32(ev[i].value) / _rTzRange);
+                    }
+                    else if(ev[i].code == REL_RX)
+                    {
+                        _qRotate[0] =  Real32(ev[i].value) / _rRxRange;
+                    }
+                    else if(ev[i].code == REL_RY)
+                    {
+                        _qRotate[2] = Real32(ev[i].value) / _rRzRange;
+                    }
+                    else if(ev[i].code == REL_RZ)
+                    {
+                        _qRotate[1] =  -(Real32(ev[i].value) / _rRyRange);
+                    }
+                    
                 }
-                else if(ev[i].code == REL_Y)
-                {
-                    _vTranslate[2] = Real32(ev[i].value) / _rTyRange;
-                }
-                else if(ev[i].code == REL_Z)
-                {
-                    _vTranslate[1] = -(Real32(ev[i].value) / _rTzRange);
-                }
-                else if(ev[i].code == REL_RX)
-                {
-                    _qRotate[0] =  Real32(ev[i].value) / _rRxRange;
-                }
-                else if(ev[i].code == REL_RY)
-                {
-                    _qRotate[2] = Real32(ev[i].value) / _rRzRange;
-                }
-                else if(ev[i].code == REL_RZ)
-                {
-                    _qRotate[1] =  -(Real32(ev[i].value) / _rRyRange);
-                }
-
             }
+            
+            _bHasNewData = true;
+            
+            Inherited::unlock();
         }
-
-        _bHasNewData = true;
-        
-        Inherited::unlock();
     }
-
 #endif
 }
 

@@ -92,7 +92,11 @@ class OSG_CONTRIBCSM_DLLMAPPING Linux3AxisEventInterface :
             Real32                        _rRzRange;
 
             Int32                         _iFileDesc;
+#ifdef __linux
+            fd_set                        _rFds;
+#endif
             std::string                   _szPort;
+
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */

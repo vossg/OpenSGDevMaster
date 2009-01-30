@@ -88,6 +88,9 @@ class OSG_CONTRIBCSM_DLLMAPPING Linux2AxisEventInterface :
             Real32                   _rTyRange;
 
             Int32                    _iFileDesc;
+#ifdef __linux
+            fd_set                   _rFds;
+#endif
             std::string              _szPort;
 
     /*---------------------------------------------------------------------*/
