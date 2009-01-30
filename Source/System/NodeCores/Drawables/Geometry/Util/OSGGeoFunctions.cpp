@@ -2571,7 +2571,8 @@ Int32 createSharedIndex(Geometry *geoPtr)
     std::vector<UInt32       > slaveDSizeVec;
     std::vector<const UInt8 *> slaveDataVec;
 
-    UInt16 mapMask, propMask, masterPropMask;
+    UInt16 mapMask        = 0;
+    UInt16 masterPropMask = 0;
 
     // data pointer and size pair
     typedef std::pair<const UInt8 *, UInt32> Mem;
@@ -2753,15 +2754,14 @@ Int32 createSharedIndex(Geometry *geoPtr)
         }
         else
         {
-            FWARNING(("Invalid masterProp %p, mask: %d, block: %d\n",
-                      masterProp, propMask, indexBlock));
+            FWARNING(("Invalid masterProp %p, block: %d\n",
+                      masterProp, indexBlock));
         }
         
-        FINFO(("Create sharedIndex: %d/%d pass; "
+        FINFO(("Create sharedIndex: %d pass; "
                "data/index remap: %d/%d \n",
-               indexBlock, int(propMask), dataRemapCount, 
+               indexBlock, dataRemapCount,
                indexRemapCount));
-        
     }
 
     return indexRemapCount + dataRemapCount;
