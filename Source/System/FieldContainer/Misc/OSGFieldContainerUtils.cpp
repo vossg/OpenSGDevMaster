@@ -403,8 +403,10 @@ void SceneGraphPrinter::printUpTree(std::ostream &os)
         NodeCore *core = node->getCore();
 
         os <<      "[" << node
+           <<    "] [" << node->getId()
            <<    "] [" << (getName(node) ? getName(node) : "<unnamed>")
            << "] -- [" << core
+           <<    "] [" << core->getId()
            <<    "] [" << core->getType().getCName()
            << "]\n";
 
@@ -424,29 +426,32 @@ Action::ResultE SceneGraphPrinter::traverseEnter(Node *node)
 
     indentStream(os)
             <<   "[" << node
+            << "] [" << node->getId()
             << "] [" << (getName(node) ? getName(node) : "<unnamed>")
             << "]";
 
-    NodeCore *pCore = node->getCore();
+    NodeCore *core = node->getCore();
 
-    if(pCore == NULL)
+    if(core == NULL)
     {
         os << "\n";
         return Action::Continue;
     }
 
-    os << " -- [" << pCore << "]"
-       <<    " [" << pCore->getType().getCName() << "]";
+    os << " -- [" << core
+       <<   "] [" << core->getId()
+       <<   "] [" << core->getType().getCName()
+       <<   "]";
 
-    os << " [" << (getName(pCore) ? getName(pCore) : "<unnamed>")
+    os << " [" << (getName(core) ? getName(core) : "<unnamed>")
        << "]";
 
-    NodeCore::MFParentsType::const_iterator pIt  = pCore->getMFParents()->begin();
-    NodeCore::MFParentsType::const_iterator pEnd = pCore->getMFParents()->end  ();
+    NodeCore::MFParentsType::const_iterator pIt  = core->getMFParents()->begin();
+    NodeCore::MFParentsType::const_iterator pEnd = core->getMFParents()->end  ();
 
-    if(pCore->getMFParents()->size() > 1)
+    if(core->getMFParents()->size() > 1)
     {
-        os << " # parents [" << pCore->getMFParents()->size() << "] #";
+        os << " # parents [" << core->getMFParents()->size() << "] #";
 
         for(; pIt != pEnd; ++pIt)
         {
