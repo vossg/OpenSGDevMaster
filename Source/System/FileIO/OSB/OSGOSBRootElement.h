@@ -87,6 +87,10 @@ class OSG_FILEIO_DLLMAPPING OSBRootElement : public OSBCommonElement
     typedef ElementList::iterator                 ElementListIt;
     typedef ElementList::const_iterator           ElementListConstIt;
 
+    typedef std::map<UInt32, OSBElementBase *>    IdElemMap;
+    typedef IdElemMap::iterator                   IdElemMapIt;
+    typedef IdElemMap::const_iterator             IdElemMapConstIt;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructor                                                  */
@@ -146,6 +150,9 @@ class OSG_FILEIO_DLLMAPPING OSBRootElement : public OSBCommonElement
     inline const ElementList         &getElementList   (void) const;
     inline       ElementList         &editElementList  (void);
 
+    inline const IdElemMap           &getIdElemMap     (void) const;
+    inline       IdElemMap           &editIdElemMap    (void);
+
     inline const FieldContainerList  &getContainerList (void) const;
     inline       FieldContainerList  &editContainerList(void);
 
@@ -174,6 +181,7 @@ class OSG_FILEIO_DLLMAPPING OSBRootElement : public OSBCommonElement
 
            NFIOOptions                                   _options;
            ElementList                                   _elements;
+           IdElemMap                                     _idElemMap;
 
            UInt16                                        _readHeaderVersion;
            FieldContainerIdMap                           _readIdMap;

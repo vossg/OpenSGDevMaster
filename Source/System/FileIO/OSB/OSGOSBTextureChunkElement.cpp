@@ -40,8 +40,9 @@
 
 #include "OSGOSBRootElement.h"
 
-#include "OSGTextureObjChunk.h"
-#include "OSGTextureEnvChunk.h"
+#include <OSGChunkMaterial.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
 
 OSG_USING_NAMESPACE
 
@@ -181,47 +182,58 @@ OSBTextureChunkElement::postRead(void)
 
     for(; ptrFieldIt != ptrFieldEnd; ++ptrFieldIt)
     {
-        UInt32 numIds  = ptrFieldIt->getIdStore     ().size();
-        UInt32 numBind = ptrFieldIt->getBindingStore().size();
-        
-        if(numBind > 0)
+        ChunkMaterial *chkMat =
+            dynamic_cast<ChunkMaterial *>(ptrFieldIt->getContainer());
+
+        if(chkMat != NULL)
         {
-            // TextureChunk is pointed to from an attachment map
-        
-            for(UInt32 i = 0; (i < numIds) && (i < numBind); ++i)
-            {
-                if(ptrFieldIt->getIdStore()[i] == getFCIdFile())
-                {
-                    // insert a pointer to TexEnv right after the TexObj
-                    ptrFieldIt->editIdStore().insert(
-                        ptrFieldIt->editIdStore().begin() + i + 1,
-                        texEnvIdFile                              );
-                    
-                    // duplicate the binding of the TexObj
-                    ptrFieldIt->editBindingStore().insert(
-                        ptrFieldIt->editBindingStore().begin() + i + 1,
-                        ptrFieldIt->getBindingStore()[i]               );
-                        
-                    ++numIds;
-                    ++numBind;
-                }
-            }
+            // OSBChunkMaterialElement takes care of handling the two chunks
+            // replacing TextureChunk
+            continue;
         }
         else
         {
-            for(UInt32 i = 0; i < numIds; ++i)
+            UInt32 numIds  = ptrFieldIt->getIdStore     ().size();
+            UInt32 numBind = ptrFieldIt->getBindingStore().size();
+
+            if(numBind > 0)
             {
-                if(ptrFieldIt->getIdStore()[i] == getFCIdFile())
+                // TextureChunk is pointed to from an attachment map
+                for(UInt32 i = 0; (i < numIds) && (i < numBind); ++i)
                 {
-                    // insert a pointer to TexEnv right after the TexObj
-                    ptrFieldIt->editIdStore().insert(
-                        ptrFieldIt->editIdStore().begin() + i + 1,
-                        texEnvIdFile                              );
-                        
-                    ++numIds;
+                    if(ptrFieldIt->getIdStore()[i] == getFCIdFile())
+                    {
+                        // insert a pointer to TexEnv right after the TexObj
+                        ptrFieldIt->editIdStore().insert(
+                            ptrFieldIt->editIdStore().begin() + i + 1,
+                            texEnvIdFile                              );
+
+                        // duplicate the binding of the TexObj
+                        ptrFieldIt->editBindingStore().insert(
+                            ptrFieldIt->editBindingStore().begin() + i + 1,
+                            ptrFieldIt->getBindingStore()[i]               );
+
+                        ++numIds;
+                        ++numBind;
+                    }
                 }
             }
-        }            
+            else
+            {
+                for(UInt32 i = 0; i < numIds; ++i)
+                {
+                    if(ptrFieldIt->getIdStore()[i] == getFCIdFile())
+                    {
+                        // insert a pointer to TexEnv right after the TexObj
+                        ptrFieldIt->editIdStore().insert(
+                            ptrFieldIt->editIdStore().begin() + i + 1,
+                            texEnvIdFile                              );
+
+                        ++numIds;
+                    }
+                }
+            }
+        }
     }
 }
 

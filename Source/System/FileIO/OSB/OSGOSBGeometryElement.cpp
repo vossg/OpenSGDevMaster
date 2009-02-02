@@ -570,8 +570,10 @@ OSBGeometryElement::readV100(void)
         }
         else
         {
+            // 1.x Geometry has _sfVbo, it can be skipped
+
             readFieldContent(fieldName, fieldTypeName, fieldSize,
-                             "", ptrFieldIt                      );
+                             "'vbo'", ptrFieldIt                      );
         }
     }
 }

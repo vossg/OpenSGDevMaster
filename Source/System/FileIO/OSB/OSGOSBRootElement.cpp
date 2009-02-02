@@ -211,7 +211,8 @@ OSBRootElement::read(const std::string &/*typeName*/)
                 setContainer(elem->getContainer());
             }
 
-            editElementList().push_back(elem);
+            editElementList().push_back(elem                          );
+            editIdElemMap  ().insert   (std::make_pair(fcIdFile, elem));
         }
     }
 }

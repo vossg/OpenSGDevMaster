@@ -279,6 +279,17 @@ OSBCommonElement::readFieldContent(
     FieldDescriptionBase *fieldDesc  =
         getContainer()->getFieldDescription(fieldName.c_str());
 
+    if((!excludeFields.empty()                                        ) &&
+       (excludeFields.find("'" + fieldName + "'") != std::string::npos)   )
+    {
+        FDEBUG(("OSBCommonElement::readFieldContent: "
+                "Skipping excluded field [%s] [%s]\n",
+                fieldName.c_str(), fieldTypeName.c_str()));
+
+        rh->skip(fieldSize);
+        return false;
+    }
+
     if(fieldDesc == 0)
     {
         FWARNING(("OSBCommonElement::readFieldContent: "
@@ -290,37 +301,8 @@ OSBCommonElement::readFieldContent(
     }
 
     const FieldType &fieldType  = fieldDesc->getFieldType();
-    UInt32           fieldId    = 0;
-    BitVector        fieldMask;
-
-    // HACK the 1.0 MaterialChunk had a internal field the 2.0 MaterialChunk
-    // has also a internal field but a internal internal field ;-)
-    // but fDesc->isInternal() returns false BUG ????
-    if(getRoot()->getHeaderVersion() == OSGOSBHeaderVersion100 &&
-       fieldName                     == "internal"                )
-    {
-        FINFO(("OSBCommonElement::readFieldContent: "
-               "Skipping internal field [%s] (%s).\n",
-               fieldName.c_str(), fieldTypeName.c_str()));
-
-        rh->skip(fieldSize);
-        return false;
-    }
-    else
-    {
-        fieldMask = fieldDesc->getFieldMask();
-        fieldId   = fieldDesc->getFieldId  ();
-    }
-
-    if((!excludeFields.empty()                                        ) &&
-       (excludeFields.find("'" + fieldName + "'") != std::string::npos)   )
-    {
-        FDEBUG(("OSBCommonElement::readFieldContent: "
-                "Skipping excluded field [%s]\n", fieldName.c_str()));
-
-        rh->skip(fieldSize);
-        return false;
-    }
+    UInt32           fieldId    = fieldDesc->getFieldId  ();
+    BitVector        fieldMask  = fieldDesc->getFieldMask();
 
     if(fieldType.getContentType().isDerivedFrom(
         FieldTraits<AttachmentMap>::getType()) == true)

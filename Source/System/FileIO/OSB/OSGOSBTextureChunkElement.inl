@@ -2,7 +2,9 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                     Copyright 2000-2002 by OpenSG Forum                   *
+ *                   Copyright (C) 2009 by the OpenSG Forum                  *
+ *                                                                           *
+ *                            www.opensg.org                                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,25 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+
 OSG_BEGIN_NAMESPACE
 
-inline
-StateChunk *ChunkMaterial::getChunk (const UInt32 index) const
+/*-------------------------------------------------------------------------*/
+/* OSBTextureChunkElement                                                  */
+/*-------------------------------------------------------------------------*/
+
+/*-------------------------------------------------------------------------*/
+/* State access                                                            */
+
+inline TextureObjChunk * OSBTextureChunkElement::getTexObjChunk(void) const
 {
-    return Inherited::getChunks(index);
+    return _pTexObj;
 }
 
-inline
-const MFUnrecStateChunkPtr *ChunkMaterial::getMFChunks(void) const
+inline TextureEnvChunk *OSBTextureChunkElement::getTexEnvChunk(void) const
 {
-    return Inherited::getMFChunks();
+    return _pTexEnv;
 }
-
-inline
-const MFInt32 *ChunkMaterial::getMFSlots(void) const
-{
-    return Inherited::getMFSlots();
-}
-
 
 OSG_END_NAMESPACE

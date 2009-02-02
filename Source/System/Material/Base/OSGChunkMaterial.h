@@ -109,6 +109,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkMaterial : public ChunkMaterialBase
 
           StateChunk           *getChunk   (const UInt32 index) const;
     const MFUnrecStateChunkPtr *getMFChunks(      void        ) const;
+    const MFInt32              *getMFSlots (      void        ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

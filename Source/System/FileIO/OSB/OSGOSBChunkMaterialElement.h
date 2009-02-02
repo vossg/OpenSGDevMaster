@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                   Copyright (C) 2008 by the OpenSG Forum                  *
+ *                   Copyright (C) 2009 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGOSBTEXTURECHUNKELEMENT_H_
-#define _OSGOSBTEXTURECHUNKELEMENT_H_
+#ifndef _OSGOSBCHUNKMATERIALELEMENT_H_
+#define _OSGOSBCHUNKMATERIALELEMENT_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -48,12 +48,11 @@
 #include "OSGOSBCommonElement.h"
 #include "OSGOSBElementFactoryHelper.h"
 
-#include "OSGTextureObjChunkFields.h"
-#include "OSGTextureEnvChunkFields.h"
+#include "OSGChunkMaterialFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_FILEIO_DLLMAPPING OSBTextureChunkElement : public OSBCommonElement
+class OSG_FILEIO_DLLMAPPING OSBChunkMaterialElement : public OSBCommonElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -61,22 +60,22 @@ class OSG_FILEIO_DLLMAPPING OSBTextureChunkElement : public OSBCommonElement
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef OSBCommonElement       Inherited;
-    typedef OSBTextureChunkElement Self;
+    typedef OSBCommonElement        Inherited;
+    typedef OSBChunkMaterialElement Self;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructor                                                  */
     /*! \{                                                                 */
 
-    OSBTextureChunkElement(OSBRootElement *root);
+    OSBChunkMaterialElement(OSBRootElement *root);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Destructor                                                   */
     /*! \{                                                                 */
 
-    virtual ~OSBTextureChunkElement(void);
+    virtual ~OSBChunkMaterialElement(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -95,39 +94,19 @@ class OSG_FILEIO_DLLMAPPING OSBTextureChunkElement : public OSBCommonElement
     virtual void write   (void                     );
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name State access                                                 */
-    /*! \{                                                                 */
-
-    inline TextureObjChunk *getTexObjChunk(void) const;
-    inline TextureEnvChunk *getTexEnvChunk(void) const;
-
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   private:
     /*!\brief prohibit default function (move to 'public' if needed)       */
-    OSBTextureChunkElement(const OSBTextureChunkElement &source);
+    OSBChunkMaterialElement(const OSBChunkMaterialElement &source);
     /*!\brief prohibit default function (move to 'public' if needed)       */
-    void operator =(const OSBTextureChunkElement &source);
+    void operator =(const OSBChunkMaterialElement &source);
 
-    /*---------------------------------------------------------------------*/
-    /*! \name Reading Helper Functions                                     */
-    /*! \{                                                                 */
+    static OSBElementRegistrationHelper<OSBChunkMaterialElement> _regHelper;
 
-    bool isTexObjField(const std::string &fieldName) const;
-    bool isTexEnvField(const std::string &fieldName) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-
-    static OSBElementRegistrationHelper<OSBTextureChunkElement> _regHelper;
-    
-    TextureObjChunkUnrecPtr _pTexObj;
-    TextureEnvChunkUnrecPtr _pTexEnv;
+    MFInt32         _mfSlots;
+    PtrFieldListIt  _chunksPtrFieldIt;
 };
 
 OSG_END_NAMESPACE
 
-#include <OSGOSBTextureChunkElement.inl>
-
-#endif /* _OSGOSBTEXTURECHUNKELEMENT_H_ */
+#endif /* _OSGOSBCHUNKMATERIALELEMENT_H_ */

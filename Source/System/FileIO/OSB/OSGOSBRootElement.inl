@@ -118,6 +118,18 @@ OSBRootElement::editElementList(void)
     return _elements;
 }
 
+inline const OSBRootElement::IdElemMap &
+OSBRootElement::getIdElemMap(void) const
+{
+    return _idElemMap;
+}
+
+inline OSBRootElement::IdElemMap &
+OSBRootElement::editIdElemMap(void)
+{
+    return _idElemMap;
+}
+
 inline const OSBRootElement::FieldContainerList &
 OSBRootElement::getContainerList(void) const
 {
