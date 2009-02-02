@@ -140,10 +140,90 @@ UInt16 MaterialChunk::getChunkId(void)
 
 /*------------------------------ Output ----------------------------------*/
 
-void MaterialChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
-                         const BitVector OSG_CHECK_ARG(bvFlags )) const
+void MaterialChunk::dump(      UInt32    uiIndent,
+                         const BitVector bvFlags  ) const
 {
-    SLOG << "Dump MaterialChunk NI" << std::endl;
+    Inherited::dump(uiIndent, bvFlags);
+
+    if((bvFlags & DiffuseFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "diffuse " << _sfDiffuse.getValue() << "\n";
+    }
+
+    if((bvFlags & AmbientFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "ambient " << _sfAmbient.getValue() << "\n";
+    }
+
+    if((bvFlags & SpecularFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "specular " << _sfSpecular.getValue() << "\n";
+    }
+
+    if((bvFlags & EmissionFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "emission " << _sfEmission.getValue() << "\n";
+    }
+
+    if((bvFlags & ShininessFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "shininess " << _sfShininess.getValue() << "\n";
+    }
+
+    if((bvFlags & LitFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "lit " << _sfLit.getValue() << "\n";
+    }
+
+    if((bvFlags & ColorMaterialFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "colorMaterial "
+             << GLDefineMapper::the()->toString(_sfColorMaterial.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & BackMaterialFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "backMaterial " << _sfBackMaterial.getValue() << "\n";
+    }
+
+    if((bvFlags & BackDiffuseFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "backDiffuse " << _sfBackDiffuse.getValue() << "\n";
+    }
+
+    if((bvFlags & BackAmbientFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "backAmbient " << _sfBackAmbient.getValue() << "\n";
+    }
+
+    if((bvFlags & BackSpecularFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "backSpecular " << _sfBackSpecular.getValue() << "\n";
+    }
+
+    if((bvFlags & BackEmissionFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "backEmission " << _sfBackEmission.getValue() << "\n";
+    }
+
+    if((bvFlags & BackShininessFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "backShininess " << _sfBackShininess.getValue() << "\n";
+    }
 }
 
 /*------------------------------ State ------------------------------------*/

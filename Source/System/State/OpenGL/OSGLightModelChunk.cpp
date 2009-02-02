@@ -109,10 +109,30 @@ void LightModelChunk::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-void LightModelChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
-                           const BitVector OSG_CHECK_ARG(bvFlags ) ) const
+void LightModelChunk::dump(      UInt32    uiIndent,
+                           const BitVector bvFlags  ) const
 {
-    SLOG << "Dump LightModelChunk NI" << std::endl;
+    Inherited::dump(uiIndent, bvFlags);
+
+    if((bvFlags & AmbientFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "ambient " << _sfAmbient.getValue() << "\n";
+    }
+
+    if((bvFlags & ColorControlFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "colorControl "
+             << GLDefineMapper::the()->toString(_sfColorControl.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & LocalViewerFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "localViewer " << _sfLocalViewer.getValue() << "\n";
+    }
 }
 
 /*------------------------------ State ------------------------------------*/

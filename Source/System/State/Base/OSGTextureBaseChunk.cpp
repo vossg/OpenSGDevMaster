@@ -171,10 +171,18 @@ void TextureBaseChunk::onCreateAspect(const TextureBaseChunk *createAspect,
 
 /*------------------------------ Output ----------------------------------*/
 
-void TextureBaseChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
-                            const BitVector OSG_CHECK_ARG(bvFlags )) const
+void TextureBaseChunk::dump(      UInt32    uiIndent,
+                            const BitVector bvFlags  ) const
 {
-    SLOG << "Dump TextureBaseChunk NI" << std::endl;
+    Inherited::dump(uiIndent, bvFlags);
+
+    if((bvFlags & TargetFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "target "
+             << GLDefineMapper::the()->toString(_sfTarget.getValue())
+             << "\n";
+    }
 }
 
 bool TextureBaseChunk::isCubeTexture(void)

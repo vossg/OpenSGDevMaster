@@ -313,10 +313,218 @@ void TextureEnvChunk::onCreateAspect(const TextureEnvChunk *createAspect,
 
 /*------------------------------ Output ----------------------------------*/
 
-void TextureEnvChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
-                           const BitVector OSG_CHECK_ARG(bvFlags )) const
+void TextureEnvChunk::dump(      UInt32    uiIndent,
+                           const BitVector bvFlags  ) const
 {
-    SLOG << "Dump TextureEnvChunk NI" << std::endl;
+    Inherited::dump(uiIndent, bvFlags);
+
+    if((bvFlags & EnvModeFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envMode "
+             << GLDefineMapper::the()->toString(_sfEnvMode.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvColorFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envColor " << _sfEnvColor.getValue() << "\n";
+    }
+
+    if((bvFlags & EnvCombineRGBFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envCombineRGB "
+             << GLDefineMapper::the()->toString(_sfEnvCombineRGB.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvCombineAlphaFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envCombineAlpha "
+             << GLDefineMapper::the()->toString(_sfEnvCombineAlpha.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvScaleRGBFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envScaleRGB "
+             << GLDefineMapper::the()->toString(_sfEnvScaleRGB.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvScaleAlphaFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envScaleAlpha "
+             << GLDefineMapper::the()->toString(_sfEnvScaleAlpha.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvSource0RGBFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envSource0RGB "
+             << GLDefineMapper::the()->toString(_sfEnvSource0RGB.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvSource1RGBFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envSource1RGB "
+             << GLDefineMapper::the()->toString(_sfEnvSource1RGB.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvSource2RGBFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envSource2RGB "
+             << GLDefineMapper::the()->toString(_sfEnvSource2RGB.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvSource0AlphaFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envSource0Alpha "
+             << GLDefineMapper::the()->toString(_sfEnvSource0Alpha.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvSource1AlphaFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envSource1Alpha "
+             << GLDefineMapper::the()->toString(_sfEnvSource1Alpha.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvSource2AlphaFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envSource2Alpha "
+             << GLDefineMapper::the()->toString(_sfEnvSource2Alpha.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvOperand0RGBFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envOperand0RGB "
+             << GLDefineMapper::the()->toString(_sfEnvOperand0RGB.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvOperand1RGBFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envOperand1RGB "
+             << GLDefineMapper::the()->toString(_sfEnvOperand1RGB.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvOperand2RGBFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envOperand2RGB "
+             << GLDefineMapper::the()->toString(_sfEnvOperand2RGB.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvOperand0AlphaFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envOperand0Alpha "
+             << GLDefineMapper::the()->toString(_sfEnvOperand0Alpha.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvOperand1AlphaFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envOperand1Alpha "
+             << GLDefineMapper::the()->toString(_sfEnvOperand1Alpha.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & EnvOperand2AlphaFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "envOperand2Alpha "
+             << GLDefineMapper::the()->toString(_sfEnvOperand2Alpha.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & PointSpriteFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "pointSprite " << _sfPointSprite.getValue() << "\n";
+    }
+
+    if((bvFlags & ShaderOperationFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "shaderOperationAlpha "
+             << GLDefineMapper::the()->toString(_sfShaderOperation.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & ShaderInputFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "shaderInputAlpha "
+             << GLDefineMapper::the()->toString(_sfShaderInput.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & ShaderOffsetMatrixFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "shaderOffsetMatrix " << "NIY" << "\n";
+    }
+
+    if((bvFlags & ShaderOffsetScaleFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "shaderOffsetScale " << _sfShaderOffsetScale.getValue() << "\n";
+    }
+
+    if((bvFlags & ShaderOffsetBiasFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "shaderOffsetBias " << _sfShaderOffsetBias.getValue() << "\n";
+    }
+
+    if((bvFlags & ShaderRGBADotProductFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "shaderRGBADotProduct "
+             << GLDefineMapper::the()->toString(_sfShaderRGBADotProduct.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & ShaderCullModesFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "shaderCullModes " << _sfShaderCullModes.getValue() << "\n";
+    }
+
+    if((bvFlags & ShaderConstEyeFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "shaderConstEye " << _sfShaderConstEye.getValue() << "\n";
+    }
+
+    if((bvFlags & LodBiasFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "lodBias " << _sfLodBias.getValue() << "\n";
+    }
 }
 
 

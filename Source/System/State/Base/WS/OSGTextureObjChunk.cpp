@@ -314,10 +314,138 @@ void TextureObjChunk::onCreateAspect(const TextureObjChunk *createAspect,
 
 /*------------------------------ Output ----------------------------------*/
 
-void TextureObjChunk::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
-                           const BitVector OSG_CHECK_ARG(bvFlags )) const
+void TextureObjChunk::dump(      UInt32    uiIndent,
+                           const BitVector bvFlags  ) const
 {
-    SLOG << "Dump TextureObjChunk NI" << std::endl;
+    Inherited::dump(uiIndent, bvFlags);
+
+    if((bvFlags & ImageFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "image " << _sfImage.getValue() << "\n";
+    }
+
+    if((bvFlags & InternalFormatFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "internalFormat "
+             << GLDefineMapper::the()->toString(_sfInternalFormat.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & ExternalFormatFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "externalFormat "
+             << GLDefineMapper::the()->toString(_sfExternalFormat.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & ScaleFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "scale " << _sfScale.getValue() << "\n";
+    }
+
+    if((bvFlags & FrameFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "frame " << _sfFrame.getValue() << "\n";
+    }
+
+    if((bvFlags & MinFilterFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "minFilter "
+             << GLDefineMapper::the()->toString(_sfMinFilter.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & MagFilterFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "magFilter "
+             << GLDefineMapper::the()->toString(_sfMagFilter.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & WrapSFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "warpS "
+             << GLDefineMapper::the()->toString(_sfWrapS.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & WrapTFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "warpT "
+             << GLDefineMapper::the()->toString(_sfWrapT.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & WrapRFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "warpR "
+             << GLDefineMapper::the()->toString(_sfWrapR.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & AnisotropyFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "anisotropy " << _sfAnisotropy.getValue() << "\n";
+    }
+
+    if((bvFlags & BorderColorFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "borderColor " << _sfBorderColor.getValue() << "\n";
+    }
+
+    if((bvFlags & CompareModeFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "compareMode "
+             << GLDefineMapper::the()->toString(_sfCompareMode.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & CompareFuncFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "compareFunc "
+             << GLDefineMapper::the()->toString(_sfCompareFunc.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & DepthModeFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "depthMode "
+             << GLDefineMapper::the()->toString(_sfDepthMode.getValue())
+             << "\n";
+    }
+
+    if((bvFlags & BorderWidthFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "borderWidth " << _sfBorderWidth.getValue() << "\n";
+    }
+
+    if((bvFlags & NPOTMatrixScaleFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "npotMatrixScale " << _sfNPOTMatrixScale.getValue() << "\n";
+    }
+
+    if((bvFlags & SkipMipMapLevelsFieldMask) != 0)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "skipMipMapLevels " << _sfSkipMipMapLevels.getValue() << "\n";
+    }
 }
 
 
