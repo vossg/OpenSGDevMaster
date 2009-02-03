@@ -60,6 +60,10 @@ OSG_BEGIN_NAMESPACE
 //---------------------------------------------------------------------------
 
 class State;
+class MultiCore;
+
+template <class ParentT>
+class StageHandlerMixin;
 
 //---------------------------------------------------------------------------
 //   Types
@@ -133,8 +137,6 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     virtual ~RenderAction(void);
 
     /*------------------------- your_category -------------------------------*/
-
-    ResultE recurseNoNodeCallbacks(Node * const node);
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -387,6 +389,12 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 //            void dump(DrawTreeNode *pRoot, UInt32 uiIndent);
 //    virtual void draw(DrawTreeNode *pRoot);
 
+    ResultE recurseNoNodeCallbacks(Node * const node);
+
+    ResultE recurseMultiCoreFrom(Node      * const pNode,
+                                 MultiCore * const pCore,
+                                 NodeCore  * const pFrom);
+
   private:
 
     //-----------------------------------------------------------------------
@@ -400,6 +408,9 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     //-----------------------------------------------------------------------
     //   friend classes
     //-----------------------------------------------------------------------
+
+    template <class ParentT>
+    friend class StageHandlerMixin;
 
     //-----------------------------------------------------------------------
     //   friend functions

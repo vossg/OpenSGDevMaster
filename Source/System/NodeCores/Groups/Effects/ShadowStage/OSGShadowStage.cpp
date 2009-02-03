@@ -57,6 +57,7 @@
 
 #include "OSGPerspectiveCamera.h"
 #include "OSGMatrixCamera.h"
+#include "OSGMultiCore.h"
 
 #define OSG_HAS_STDMAP
 #define OSG_HAS_PERSPMAP
@@ -472,6 +473,7 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
 #if 0
         _renderSide.clear();
 #endif
+        ract->getActivePartition()->disable();
 
         ract->beginPartitionGroup();
         {
@@ -531,6 +533,28 @@ Action::ResultE ShadowStage::findLight(ShadowStageData *       pData,
         vLights.push_back(
             std::make_pair(node, 
                            dynamic_cast<Light *>(node->getCore())));
+    }
+    else if(node->getCore()->getType().isDerivedFrom(MultiCore::getClassType()))
+    {
+        ShadowStageData::LightStore  &vLights = pData->getLights();
+
+        MultiCore *pCore = dynamic_cast<MultiCore *>(node->getCore());
+
+        MultiCore::MFCoresType::const_iterator cIt = 
+            pCore->getMFCores()->begin();
+
+        MultiCore::MFCoresType::const_iterator cEnd = 
+            pCore->getMFCores()->end();
+
+        for(; cIt != cEnd; ++cIt)
+        {
+            if((*cIt)->getType().isDerivedFrom(Light::getClassType()))
+            {
+                vLights.push_back(
+                    std::make_pair(node, 
+                                   dynamic_cast<Light *>(*cIt)));
+            }
+        }
     }
 
     return Action::Continue;

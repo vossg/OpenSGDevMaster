@@ -500,17 +500,17 @@ void RenderPartition::doExecution   (void)
     if(_pRenderTarget != NULL)
         _pRenderTarget->deactivate(&_oDrawEnv);
     
-    exit();
+    this->exit();
 }
 
 
 void RenderPartition::execute(void)
 {
-    if(_bDone == true)
-        return;
-
-    setupExecution();
-    doExecution   ();  
+    if(_bDone == false)
+    {
+        setupExecution();
+        doExecution   ();  
+    }
 
     GroupStore::iterator gIt  = _vGroupStore.begin();
     GroupStore::iterator gEnd = _vGroupStore.end  ();

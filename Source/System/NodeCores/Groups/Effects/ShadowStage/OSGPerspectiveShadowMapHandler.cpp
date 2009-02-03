@@ -908,7 +908,7 @@ void PerspectiveShadowMapHandler::createShadowMapsFBO(DrawEnv *pEnv)
                         
                         
                         a->overrideMaterial(_unlitMat, a->getActNode());
-                        a->recurse(light);
+                        _pStage->recurse(a, light);
                         a->overrideMaterial( NULL,       a->getActNode());
 
                         if(parent != NULL)
@@ -1018,7 +1018,7 @@ void PerspectiveShadowMapHandler::createShadowMapsFBO(DrawEnv *pEnv)
                             
                             
                             a->overrideMaterial(_unlitMat, a->getActNode());
-                            a->recurse(light);
+                            _pStage->recurse(a, light);
                             a->overrideMaterial( NULL,       a->getActNode());
                             
                             if(parent != NULL)
@@ -1092,7 +1092,7 @@ void PerspectiveShadowMapHandler::createColorMapFBO(DrawEnv *pEnv)
         
         pPart->setBackground(a->getBackground());
 
-        a->recurseNoNodeCallbacks(a->getActNode());
+        _pStage->recurseFromThis(a);
 
         if(parent != NULL)
         {
@@ -1319,7 +1319,7 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
                     }
                              
                     a->overrideMaterial(_shadowCmat, a->getActNode());
-                    a->recurse(light);
+                    _pStage->recurse(a, light);
                     a->overrideMaterial( NULL,       a->getActNode());
 
                     if(parent != NULL)
@@ -1850,7 +1850,7 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
                 }
 
                 a->overrideMaterial(_shadowCmat, a->getActNode());
-                a->recurse(light);
+                _pStage->recurse(a, light);
                 a->overrideMaterial( NULL,       a->getActNode());
 
                 if(parent != NULL)

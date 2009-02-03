@@ -160,6 +160,7 @@ Action::Action(void) :
     _enterFunctors(                            ),
     _leaveFunctors(                            ),
     _actNode      (NULL                        ),
+    _actParent    (NULL                        ),
     _actList      (NULL                        ),
     _useNewList   (false                       ),
     _travMask     (TypeTraits<UInt32>::getMax()),
@@ -180,6 +181,7 @@ Action::Action(const Action & source) :
     _enterFunctors(source._enterFunctors       ),
     _leaveFunctors(source._leaveFunctors       ),
     _actNode      (NULL                        ),
+    _actParent    (NULL                        ),
     _actList      (NULL                        ),
     _useNewList   (false                       ),
     _travMask     (source._travMask            ),
@@ -339,8 +341,9 @@ ActionBase::ResultE Action::recurse(Node * const node)
     
     Action::ResultE result = Continue;
 
-    _actList = NULL;
-    _actNode = node;
+    _actList   = NULL;
+    _actNode   = node;
+    _actParent = node;
 
     _newList.clear();
 
@@ -359,7 +362,8 @@ ActionBase::ResultE Action::recurse(Node * const node)
 
     result = callEnter(node->getCore());
 
-    _actNode = node;
+    _actNode   = node;
+    _actParent = node;
 
     if(result != Continue)
     {
@@ -387,7 +391,8 @@ ActionBase::ResultE Action::recurse(Node * const node)
         }
     }   
     
-    _actNode = node;
+    _actNode   = node;
+    _actParent = node;
 
     if(result == Continue)
     {
@@ -398,7 +403,8 @@ ActionBase::ResultE Action::recurse(Node * const node)
         callLeave(node->getCore());
     }
 
-    _actNode = node;
+    _actNode   = node;
+    _actParent = node;
 
     if(_nodeLeaveCB != NULL)
         _nodeLeaveCB(node, this);

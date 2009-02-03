@@ -480,7 +480,7 @@ void SimpleShadowMapEngine::doLightPass(Light         *pLight,
 
     pAction->useNodeList(false);
 
-    pAction->recurseNoNodeCallbacks(pActNode);
+    this->recurseFrom(pAction, pLight);
 
     pAction->popState();
 
@@ -523,7 +523,7 @@ void SimpleShadowMapEngine::doAmbientPass(Light         *pLight,
 
     pAction->useNodeList(false);
     
-    pAction->recurseNoNodeCallbacks(pAction->getActNode());
+    this->recurseFrom(pAction, pLight);
 
     pAction->popState();
     
@@ -682,7 +682,7 @@ void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
 
     pAction->useNodeList(false);
 
-    pAction->recurseNoNodeCallbacks(pAction->getActNode());
+    this->recurseFrom(pAction, pLight);
  
     pAction->popState();
 
@@ -726,7 +726,7 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
     {
         if(0x0000 != (bvMask & bvDiffusePassMask))
         {
-            pAction->recurseNoNodeCallbacks(pAction->getActNode());
+            this->recurseFrom(pAction, pLight);
             
             setupCamera    (pLight, eType, pAction, pEngineData);
             doFinalPass    (pLight,  pAction, pEngineData);
@@ -734,14 +734,14 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
 
         if(0x0000 != (bvMask & bvAmbientPassMask))
         {
-            pAction->recurseNoNodeCallbacks(pAction->getActNode());
-            
+            this->recurseFrom(pAction, pLight);
+           
             setupLightChunk(pLight, eType, pAction, pEngineData);
         }
 
         if(0x0000 != (bvMask & bvLightPassMask))
         {
-            pAction->recurseNoNodeCallbacks(pAction->getActNode());
+            this->recurseFrom(pAction, pLight);
             
             doLightPass    (pLight,        pAction, pEngineData);
         }

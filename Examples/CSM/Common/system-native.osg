@@ -27,6 +27,7 @@ ComplexSceneManager
             [
               Group {}
               USE GlobalEffect1
+              USE GlobalEffect2
             ]
           }
 
@@ -40,6 +41,12 @@ ComplexSceneManager
                 [
                   Group {}
                   USE SceneEffect1
+                  USE SceneEffect2
+                  USE SceneEffect3
+                  USE SceneEffect4
+                  USE SceneEffect5
+                  USE SceneEffect6
+                  USE SceneEffect7
                 ]
               }
 

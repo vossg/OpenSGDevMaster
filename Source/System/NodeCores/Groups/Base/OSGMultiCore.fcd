@@ -3,7 +3,7 @@
 <FieldContainer
 	name="MultiCore"
 	parent="Group"
-	library="Group"
+	library="System"
 	structure="concrete"
 	pointerfieldtypes="both"
 	systemcomponent="true"
@@ -14,7 +14,7 @@
 		type="NodeCore"
 		cardinality="multi"
 		visibility="external"
-        access="public"
+        access="protected"
         category="childpointer"
         childParentType="FieldContainer"
         linkParentField="Parents"

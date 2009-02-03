@@ -682,6 +682,96 @@ void StageHandlerMixin<ParentT>::onDestroyAspect(UInt32  uiContainerId,
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
 
+template <class ParentT> inline
+Action::ResultE 
+    StageHandlerMixin<ParentT>::recurseFromThis(RenderAction *action)
+{
+    Action::ResultE  returnValue = Action::Continue;
+
+    Node            *pActNode    = action->getActNode  ();
+    FieldContainer  *pActParent  = action->getActParent();
+
+    if(pActNode != pActParent)
+    {
+        OSG_ASSERT(pActParent == pActNode->getCore());
+
+        MultiCore *pCore = dynamic_cast<MultiCore *>(pActParent);               
+
+        if(pCore != NULL)
+        {
+            returnValue = action->recurseMultiCoreFrom(pActNode, 
+                                                       pCore,
+                                                       this);
+        }
+        else
+        {
+            returnValue = action->recurseNoNodeCallbacks(pActNode);
+        }
+    }
+    else
+    {
+        returnValue = action->recurseNoNodeCallbacks(pActNode);
+    }
+
+    action->setActNode  (pActNode  );
+    action->setActParent(pActParent);
+
+    return returnValue;
+}
+
+template <class ParentT> inline
+Action::ResultE 
+    StageHandlerMixin<ParentT>::recurseFrom(RenderAction *action,
+                                            NodeCore     *pFrom )
+{
+    Action::ResultE  returnValue = Action::Continue;
+
+    Node            *pActNode    = action->getActNode  ();
+    FieldContainer  *pActParent  = action->getActParent();
+
+    if(pActNode != pActParent)
+    {
+        OSG_ASSERT(pActParent == pActNode->getCore());
+
+        MultiCore *pCore = dynamic_cast<MultiCore *>(pActParent);               
+
+        if(pCore != NULL)
+        {
+            returnValue = action->recurseMultiCoreFrom(pActNode, 
+                                                       pCore,
+                                                       pFrom);
+        }
+        else
+        {
+            returnValue = action->recurseNoNodeCallbacks(pActNode);
+        }
+    }
+    else
+    {
+        returnValue = action->recurseNoNodeCallbacks(pActNode);
+    }
+
+    action->setActNode  (pActNode  );
+    action->setActParent(pActParent);
+
+    return returnValue;
+}
+
+template <class ParentT> inline
+Action::ResultE StageHandlerMixin<ParentT>::recurse (RenderAction *action,
+                                                     Node         *node  )
+{
+    Node           *pActNode   = action->getActNode  ();
+    FieldContainer *pActParent = action->getActParent();
+
+    Action::ResultE returnValue = action->recurse(node);    
+
+    action->setActNode  (pActNode  );
+    action->setActParent(pActParent);
+
+    return returnValue;
+}
+
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 

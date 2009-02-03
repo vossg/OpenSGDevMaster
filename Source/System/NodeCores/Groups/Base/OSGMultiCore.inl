@@ -56,6 +56,14 @@ inline
 void MultiCore::insertCore(UInt32           coreIdx, 
                            NodeCore * const coreP  )
 {
+    MultiCore *pMCore = dynamic_cast<MultiCore *>(coreP);
+
+    if(pMCore != NULL)
+    {
+        FWARNING(("Can not insert multi-core into multi-core, ignored\n"));
+        return;
+    }
+
     editMField(CoresFieldMask, _mfCores);
 
     MFCoresType::iterator cIt = _mfCores.begin_nc();
@@ -63,6 +71,70 @@ void MultiCore::insertCore(UInt32           coreIdx,
     cIt += coreIdx;
 
     _mfCores.insert(cIt, coreP);
+}
+
+inline
+const MFUnrecChildNodeCorePtr *MultiCore::getMFCores(void) const
+{
+    return Inherited::getMFCores();
+}
+
+inline
+NodeCore *MultiCore::getCores(const UInt32 index) const
+{
+    return Inherited::getCores(index);
+}
+
+inline
+void MultiCore::addCore(NodeCore * const value)
+{
+    MultiCore *pMCore = dynamic_cast<MultiCore *>(value);
+
+    if(pMCore != NULL)
+    {
+        FWARNING(("Can not insert multi-core into multi-core, ignored\n"));
+        return;
+    }
+
+    Inherited::addCore(value);
+}
+
+inline
+void MultiCore::assignCoresFrom(const MFUnrecChildNodeCorePtr &value)
+{
+    MFUnrecChildNodeCorePtr::const_iterator vIt  = value.begin();
+    MFUnrecChildNodeCorePtr::const_iterator vEnd = value.end  ();
+
+    for(; vIt != vEnd; ++vIt)
+    {
+        MultiCore *pMCore = dynamic_cast<MultiCore *>(*vIt);
+
+        if(pMCore != NULL)
+        {
+            FWARNING(("Can not insert multi-core into multi-core, ignored\n"));
+            return;
+        }
+    }
+    
+    Inherited::assignCoresFrom(value);
+}
+
+inline
+void MultiCore::subCore(UInt32 uiIndex)
+{
+    Inherited::subCore(uiIndex);
+}
+
+inline
+void MultiCore::subCoreByObj(NodeCore * const value)
+{
+    Inherited::subCoreByObj(value);
+}
+
+inline
+void MultiCore::clearCores(void)
+{
+    Inherited::clearCores();
 }
 
 

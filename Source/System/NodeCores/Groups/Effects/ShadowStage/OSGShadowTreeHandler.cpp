@@ -570,8 +570,9 @@ void ShadowTreeHandler::setupDrawCombineMap2(Action  *pAction)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(pAction);
     
-    a->pushPartition((RenderPartition::CopyWindow      |
-                      RenderPartition::CopyViewportSize),
+    a->pushPartition((RenderPartition::CopyWindow       |
+                      RenderPartition::CopyViewportSize |
+                      RenderPartition::CopyTarget       ),
                      RenderPartition::SimpleCallback);
     {
         RenderPartition *pPart  = a->getActivePartition();
@@ -661,7 +662,8 @@ void ShadowTreeHandler::setupDrawCombineMap1(Action  *pAction)
     RenderAction *a = dynamic_cast<RenderAction *>(pAction);
     
     a->pushPartition((RenderPartition::CopyWindow      |
-                      RenderPartition::CopyViewportSize),
+                      RenderPartition::CopyViewportSize |
+                      RenderPartition::CopyTarget       ),
                      RenderPartition::SimpleCallback);
     {
         RenderPartition *pPart  = a->getActivePartition();

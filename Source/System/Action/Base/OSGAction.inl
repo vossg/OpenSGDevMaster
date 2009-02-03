@@ -55,6 +55,19 @@ void Action::setActNode(Node * const node)
     _actNode = node;
 }
 
+inline 
+FieldContainer *Action::getActParent(void)
+{
+    return _actParent;
+}
+
+    
+inline 
+void Action::setActParent(FieldContainer * const parent)
+{
+    _actParent = parent;
+}
+
 inline
 Node *Action::getNode(int index)
 {

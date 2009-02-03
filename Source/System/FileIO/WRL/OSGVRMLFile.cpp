@@ -433,6 +433,16 @@ void VRMLFile::addFieldValue(const Char8 *szFieldVal)
     }
 }
 
+void VRMLFile::addImageValue(Image *pImage)
+{
+    if(_pCurrNodeHelper != NULL)
+    {
+        _pCurrNodeHelper->addImageValue(_pCurrentField, 
+                                        _pCurrentFieldDesc,
+                                         pImage           );
+    }
+}
+
 void VRMLFile::beginProto(const Char8 *szProtoname)
 {
     Inherited::beginProto(szProtoname);

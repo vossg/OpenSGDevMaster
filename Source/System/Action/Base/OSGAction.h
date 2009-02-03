@@ -69,11 +69,10 @@ OSG_BEGIN_NAMESPACE
 
 class Node;
 class Action;
+class MultiCore;
 
-ActionBase::ResultE MultiCoreRenderEnter(NodeCore * const &pCore,
-                                         Action           *action);
-ActionBase::ResultE MultiCoreRenderLeave(NodeCore * const &pCore,
-                                         Action           *action);
+template <class ParentT>
+class StageHandlerMixin;
 
 //---------------------------------------------------------------------------
 //  Class
@@ -152,7 +151,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     
     // the node being traversed. Might be needed by the traversed core
     
-    inline Node *getActNode( void );
+    inline Node           *getActNode  (void);
+    inline FieldContainer *getActParent(void);
 
     // the node being traversed. Might be needed by the traversed core
     // needs to be set by the RenderAction, as the draw tree is traversed 
@@ -189,9 +189,6 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     void   setTravMask (UInt32 val);
     
     /*------------------------- comparison ----------------------------------*/
-
-    // recurse through the node
-    ResultE recurse(Node * const node);
 
     /*------------------------- comparison ----------------------------------*/
 
@@ -243,10 +240,14 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     virtual ResultE start(void       );  
     virtual ResultE stop (ResultE res); // res is the exit code of the action
     
+    // recurse through the node
+    ResultE recurse(Node * const node);
    
     // call the _newList list of nodes
     
     ResultE callNewList(void);
+
+    void setActParent(FieldContainer * const parent);
 
     // access default functors
 
@@ -272,7 +273,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //-----------------------------------------------------------------------
 
     Node                 *_actNode;   // the node being traversed right now
-    
+    FieldContainer       *_actParent;
+
     std::vector<Node  *> *_actList;  // list of active objects for this level
                                      // if empty, use the actNode's children
 
@@ -301,6 +303,9 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     //-----------------------------------------------------------------------
     //   friend functions                                                    
     //-----------------------------------------------------------------------
+
+    template <class ParentT>
+    friend class StageHandlerMixin;
 
     friend class MultiCore;
 

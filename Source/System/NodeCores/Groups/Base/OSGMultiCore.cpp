@@ -167,6 +167,8 @@ ActionBase::ResultE MultiCore::renderEnter(Action *action)
 
     while(coreIt != coreEnd)
     {
+        action->setActParent(this);
+
         returnValue = action->callEnter(*coreIt);
 
         if(returnValue != Action::Continue)
@@ -175,8 +177,10 @@ ActionBase::ResultE MultiCore::renderEnter(Action *action)
         ++coreIt;
     }    
 
+#if 0
     if(returnValue == Action::Skip)
         returnValue = Action::Continue;
+#endif
 
     return returnValue;
 }
@@ -195,6 +199,8 @@ ActionBase::ResultE MultiCore::renderLeave(Action *action)
 
     while(coreIt != coreEnd)
     {
+        action->setActParent(this);
+
         returnValue = action->callLeave(*coreIt);
 
         if(returnValue != Action::Continue)
@@ -203,8 +209,92 @@ ActionBase::ResultE MultiCore::renderLeave(Action *action)
         ++coreIt;
     }    
 
+#if 0
     if(returnValue == Action::Skip)
         returnValue = Action::Continue;
+#endif
+
+    return returnValue;
+}
+
+ActionBase::ResultE MultiCore::renderEnterFrom(Action   *action,
+                                               NodeCore *pFrom )
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
+        this->getMFCores()->begin();
+
+    MFUnrecChildNodeCorePtr::const_iterator coreEnd = 
+        this->getMFCores()->end  ();
+
+    Action::ResultE returnValue = Action::Continue;
+
+    bool bActive = false;
+
+    while(coreIt != coreEnd)
+    {
+        if(bActive == true)
+        {
+            action->setActParent(this);
+        
+            returnValue = action->callEnter(*coreIt);
+
+            if(returnValue != Action::Continue)
+                break;
+        }
+
+        if(*coreIt == pFrom)
+            bActive = true;
+        
+        ++coreIt;
+    }    
+
+#if 0
+    if(returnValue == Action::Skip)
+        returnValue = Action::Continue;
+#endif
+
+    return returnValue;
+}
+
+ActionBase::ResultE MultiCore::renderLeaveFrom(Action   *action,
+                                               NodeCore *pFrom )
+{
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+    MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
+        this->getMFCores()->begin();
+
+    MFUnrecChildNodeCorePtr::const_iterator coreEnd = 
+        this->getMFCores()->end  ();
+
+    Action::ResultE returnValue = Action::Continue;
+
+    bool bActive = false;
+
+    while(coreIt != coreEnd)
+    {
+        if(bActive == true)
+        {
+            action->setActParent(this);
+
+            returnValue = action->callLeave(*coreIt);
+
+            if(returnValue != Action::Continue)
+                break;
+        }
+
+        if(*coreIt == pFrom)
+            bActive = true;
+
+        ++coreIt;
+    }    
+
+#if 0
+    if(returnValue == Action::Skip)
+        returnValue = Action::Continue;
+#endif
 
     return returnValue;
 }

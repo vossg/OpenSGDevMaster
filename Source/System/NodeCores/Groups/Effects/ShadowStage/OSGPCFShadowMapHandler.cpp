@@ -327,7 +327,7 @@ void PCFShadowMapHandler::createShadowMapsFBO(DrawEnv *pEnv)
                         
                         
                         a->overrideMaterial(_unlitMat, a->getActNode());
-                        a->recurse(light);
+                        _pStage->recurse(a, light);
                         a->overrideMaterial( NULL,       a->getActNode());
 
                         if(parent != NULL)
@@ -438,7 +438,7 @@ void PCFShadowMapHandler::createShadowMapsFBO(DrawEnv *pEnv)
                             
                             
                             a->overrideMaterial(_unlitMat, a->getActNode());
-                            a->recurse(light);
+                            _pStage->recurse(a, light);
                             a->overrideMaterial( NULL,       a->getActNode());
                             
                             if(parent != NULL)
@@ -510,7 +510,7 @@ void PCFShadowMapHandler::createColorMapFBO(DrawEnv *pEnv)
         
         pPart->setBackground(a->getBackground());
 
-        a->recurseNoNodeCallbacks(a->getActNode());
+        _pStage->recurseFromThis(a);
 
         if(parent != NULL)
         {
@@ -760,7 +760,7 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
       
                     a->overrideMaterial(_vShadowCmat[uiPLightCount], 
                                          a->getActNode());
-                    a->recurse(light);
+                    _pStage->recurse(a, light);
                     a->overrideMaterial( NULL,
                                          a->getActNode());
 
@@ -1190,7 +1190,7 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(DrawEnv *pEnv)
                 commitChanges();
 
                 a->overrideMaterial(_vShadowCmat[uiMatCount], a->getActNode());
-                a->recurse(light);
+                _pStage->recurse(a, light);
                 a->overrideMaterial( NULL,                    a->getActNode());
 
                 if(parent != NULL)

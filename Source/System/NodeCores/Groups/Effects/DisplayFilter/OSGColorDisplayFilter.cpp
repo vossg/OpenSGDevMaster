@@ -216,7 +216,7 @@ void ColorDisplayFilter::changed(ConstFieldMaskArg whichField,
         if(uiSize != getMFColorTable()->size() || uiDepth < 2)
         {
             // create default linear table
-            FWARNING(("Wrong shanding table size\n"));
+            //FWARNING(("Wrong shading table size\n"));
 
             uiWidth = uiHeight = 1;
 

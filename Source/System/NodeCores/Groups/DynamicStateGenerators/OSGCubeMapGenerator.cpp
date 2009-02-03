@@ -284,11 +284,11 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
                 
                 if(this->getRoot() != NULL)
                 {
-                    a->recurse(this->getRoot());
+                    this->recurse(a, this->getRoot());
                 }
                 else
                 {
-                    a->recurse(pPort->getRoot());
+                    this->recurse(a, pPort->getRoot());
                 }
 
                 pActNode->setTravMask(~0);

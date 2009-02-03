@@ -59,7 +59,7 @@
 
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGBaseTypes.h"
 
@@ -75,7 +75,7 @@ class MultiCore;
 
 //! \brief MultiCore Base Class.
 
-class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
+class OSG_SYSTEM_DLLMAPPING MultiCoreBase : public Group
 {
   public:
 
@@ -121,39 +121,6 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const MFUnrecChildNodeCorePtr *getMFCores          (void) const;
-                  MFUnrecChildNodeCorePtr *editMFCores          (void);
-
-
-                  NodeCore * getCores          (const UInt32 index) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    void addCore                   (NodeCore * const value   );
-    void assignCoresFrom          (const MFUnrecChildNodeCorePtr &value);
-    void subCore         (UInt32               uiIndex );
-    void subCoreByObj   (NodeCore * const value   );
-    void clearCores                 (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -247,6 +214,34 @@ class OSG_GROUP_DLLMAPPING MultiCoreBase : public Group
 
     GetFieldHandlePtr  getHandleCores           (void) const;
     EditFieldHandlePtr editHandleCores          (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const MFUnrecChildNodeCorePtr *getMFCores           (void) const;
+                  MFUnrecChildNodeCorePtr *editMFCores          (void);
+
+
+                  NodeCore * getCores          (const UInt32 index) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    void addCore                   (NodeCore * const value   );
+    void assignCoresFrom           (const MFUnrecChildNodeCorePtr &value);
+    void subCore         (UInt32                uiIndex );
+    void subCoreByObj   (NodeCore * const value   );
+    void clearCores                 (void                          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

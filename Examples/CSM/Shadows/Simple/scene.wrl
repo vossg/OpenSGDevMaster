@@ -1,0 +1,167 @@
+#VRML V2.0 utf8
+
+Transform
+{
+  children
+  [
+    Group
+    {
+      children
+      [
+        Shape 
+        {
+          appearance Appearance 
+          {
+            material Material 
+            { 
+              diffuseColor 1.0 1.0 1.0 
+              shininess    0.4
+              transparency 0
+            }
+
+            texture PixelTexture
+            {
+                image 2 2 3  0xFF0000 0x00FF00 0x0000FF 0xFFFF00
+            }
+          } 
+
+          geometry Plane
+          {
+              resolution 128  128
+              size       50.0 50.0
+          }
+        }
+      ]
+    }
+
+
+    Transform
+    {
+      translation 0 0 2
+
+      children
+      [
+        Shape 
+        {
+          appearance Appearance 
+          {
+            material Material 
+            { 
+              diffuseColor 0.0 0.0 1.0 
+              shininess    0.4
+              transparency 0
+            }
+          } 
+
+          geometry Box
+          {
+              size       8.0 8.0 0.8
+          }
+        }
+      ]
+    }
+
+
+    DEF CylinderTr Transform
+    {
+      translation 0 0 5
+
+      children
+      [
+        Shape 
+        {
+          appearance Appearance 
+          {
+            material Material 
+            { 
+              diffuseColor 1.0 0.0 0.0 
+              shininess    0.4
+              transparency 0
+            }
+          } 
+
+          geometry Cylinder
+          {
+            height 30
+            radius 0.9
+          }
+        }
+      ]
+    }
+
+
+    DEF BoxTr Transform
+    {
+      translation 10 0 10
+
+      children
+      [
+        Shape 
+        {
+          appearance Appearance 
+          {
+            material Material 
+            { 
+              diffuseColor 0.0 1.0 0.0 
+              shininess    0.4
+              transparency 0
+            }
+          } 
+
+          geometry Box
+          {
+              size       4.0 4.0 1.0
+          }
+        }
+      ]
+    }
+
+  ]
+}
+
+DEF SceneTimer TimeSensor
+{
+  loop TRUE 
+  cycleInterval 10
+}
+
+DEF Rot360 OrientationInterpolator 
+{
+  key 
+  [   
+      0, 0.25, 0.5, 0.75, 1.0 
+  ]
+
+  keyValue 
+  [
+    1.0 0.0 0.0 0, 
+    1.0 0.0 0.0 1.571,
+    1.0 0.0 0.0 3.141, 
+    1.0 0.0 0.0 4.712,
+    1.0 0.0 0.0 6.282, 
+  ]
+}
+
+DEF Pos9 PositionInterpolator
+{
+  key 
+  [
+    0.0 0.25 0.5 0.75 1.0
+  ]
+
+  keyValue
+  [
+    10.0 0.0  1.0
+    10.0 0.0 10.0
+    10.0 0.0 19.0
+    10.0 0.0 10.0
+    10.0 0.0  1.0
+  ]
+}
+
+
+ROUTE SceneTimer.fraction TO Rot360    .fraction
+ROUTE SceneTimer.fraction TO Pos9      .fraction
+
+ROUTE Rot360    .value    TO CylinderTr.rotation
+ROUTE Pos9      .value    TO BoxTr     .translation

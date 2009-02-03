@@ -144,6 +144,8 @@ class OSG_FILEIO_DLLMAPPING VRMLFile : public Parent
 
     virtual void   addFieldValue(const Char8 *szFieldVal);
 
+    virtual void   addImageValue(      Image *pImage    );
+
 
     virtual UInt32 getFieldType (const Char8 *szFieldname);
 

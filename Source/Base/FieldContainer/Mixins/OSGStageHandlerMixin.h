@@ -49,8 +49,9 @@
 #include "OSGStageValidator.h"
 #include "OSGStageData.h"
 #include "OSGOSGAnyFields.h"
+#include "OSGMultiCore.h"
 
-#include "OSGRenderActionBase.h"
+#include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -281,6 +282,19 @@ class StageHandlerMixin  : public ParentT
                     const UInt32             uiSyncInfo);
 #endif
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Edit                                   */
+    /*! \{                                                                 */
+
+    Action::ResultE recurseFromThis(RenderAction *action);
+
+    Action::ResultE recurseFrom    (RenderAction *action,
+                                    NodeCore     *pFrom );
+
+    Action::ResultE recurse        (RenderAction *action,
+                                    Node         *node  );
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Edit                                   */

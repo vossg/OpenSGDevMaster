@@ -318,7 +318,7 @@ int doMain(int argc, char **argv)
 
         // scene
         scene->addChild(plane);
-        //scene->addChild(box_trans_node);
+        scene->addChild(box_trans_node);
         scene->addChild(cylinder1_trans_node);
         scene->addChild(cylinder2_trans_node);
 

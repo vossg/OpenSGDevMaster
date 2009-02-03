@@ -467,9 +467,7 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
                 pPart->setBackground(pBack);
             }
             
-            Node *pActNode = ract->getActNode();
-            
-            ract->recurseNoNodeCallbacks(pActNode);
+            this->recurseFromThis(ract);
         }
         ract->popPartition();
         

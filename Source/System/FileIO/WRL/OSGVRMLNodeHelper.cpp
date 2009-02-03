@@ -236,6 +236,10 @@ VRMLNodeHelper::VRMLNodeHelper(void) :
                   SFUnrecFieldContainerPtr, 
                   "sfFCPtrHelperDesc"  ),
 
+    OSG_INIT_DESC(_sfImagePtrDesc,  
+                  SFUnrecImagePtr, 
+                  "sfImageHelperDesc"  ),
+
     OSG_INIT_DESC(_sfReal32Desc,
                   SFReal32,            
                   "sfReal32HelperDesc" ),
@@ -872,6 +876,13 @@ void VRMLNodeHelper::addFieldValue(      EditFieldHandlePtr    pField,
     {
         pField->pushValueFromCString(szFieldVal);
     }
+}
+
+void VRMLNodeHelper::addImageValue(      EditFieldHandlePtr    ,
+                                   const FieldDescriptionBase *,
+                                         Image                *    )
+{
+    FWARNING(("addImageValue not caught, something is strange\n"));
 }
 
 void VRMLNodeHelper::setContainerFieldValue(      
@@ -3279,31 +3290,25 @@ VRMLNodeHelperFactoryBase::RegisterHelper
         "Plane");
 
 
+
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \class OSG::VRMLImageTextureHelper
+/*! \class OSG::VRMLTextureHelper
     \ingroup GrpSystemFileIOVRML
     VRML Texture description
 */
 
-VRMLNodeHelper *VRMLImageTextureHelper::create(void)
-{
-    return new VRMLImageTextureHelper();
-}
-
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-VRMLImageTextureHelper::VRMLImageTextureHelper(void) :
+VRMLTextureHelper::VRMLTextureHelper(void) :
      Inherited     (),
 
-    _defaultURL    (),
     _defaultRepeatS(),
     _defaultRepeatT(),
 
-    _url           (),
     _repeatS       (),
     _repeatT       ()
 {
@@ -3312,7 +3317,7 @@ VRMLImageTextureHelper::VRMLImageTextureHelper(void) :
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-VRMLImageTextureHelper::~VRMLImageTextureHelper(void)
+VRMLTextureHelper::~VRMLTextureHelper(void)
 {
 }
 
@@ -3322,17 +3327,13 @@ VRMLImageTextureHelper::~VRMLImageTextureHelper(void)
 /*-------------------------------------------------------------------------*/
 /*                               Field                                     */
 
-bool VRMLImageTextureHelper::prototypeAddField(const Char8  *,
-                                               const UInt32  ,
-                                               const Char8  *szFieldname)
+bool VRMLTextureHelper::prototypeAddField(const Char8  *,
+                                          const UInt32  ,
+                                          const Char8  *szFieldname)
 {
     bool bFound = false;
 
-    if(osgStringCaseCmp("url", szFieldname) == 0)
-    {
-        bFound = true;
-    }
-    else if(osgStringCaseCmp("repeatS", szFieldname) == 0)
+    if(osgStringCaseCmp("repeatS", szFieldname) == 0)
     {
         bFound = true;
     }
@@ -3359,7 +3360,7 @@ bool VRMLImageTextureHelper::prototypeAddField(const Char8  *,
 }
 
 
-void VRMLImageTextureHelper::getFieldAndDesc(
+void VRMLTextureHelper::getFieldAndDesc(
           FieldContainer       *,
     const Char8                * szFieldname,
           FieldContainer       *&pFieldFC,
@@ -3370,20 +3371,7 @@ void VRMLImageTextureHelper::getFieldAndDesc(
     pField.reset();
     pDesc    = NULL;
 
-    if(osgStringCaseCmp("url", szFieldname) == 0)
-    {
-        if(_bProtoInterfaceDone == false)
-        {
-            pField = _mfStringDesc.createEditHandler(&_defaultURL);
-        }
-        else
-        {
-            pField = _mfStringDesc.createEditHandler(&_url);
-        }
-
-        pDesc = &_mfStringDesc;
-    }
-    else if(osgStringCaseCmp("repeatS", szFieldname) == 0)
+    if(osgStringCaseCmp("repeatS", szFieldname) == 0)
     {
         if(_bProtoInterfaceDone == false)
         {
@@ -3414,12 +3402,249 @@ void VRMLImageTextureHelper::getFieldAndDesc(
 /*-------------------------------------------------------------------------*/
 /*                                Node                                     */
 
-FieldContainerTransitPtr VRMLImageTextureHelper::beginNode(
+FieldContainerTransitPtr VRMLTextureHelper::beginNode(
     const Char8       *,
     const Char8       *,
     FieldContainer    *)
 {
     TextureObjChunkTransitPtr returnValue = TextureObjChunk::create();
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "Begin Texture " 
+          << ((returnValue == NULL) ? "invalid obj" : "valid obj") 
+          << std::endl;
+
+    incIndent();
+#endif
+
+    _repeatS = _defaultRepeatS;
+    _repeatT = _defaultRepeatT;
+
+    return FieldContainerTransitPtr(returnValue);
+}
+
+void VRMLTextureHelper::endNode(FieldContainer *pFC)
+{
+#if 0
+    TextureObjChunk    *pTexture = NULL;
+
+    ImageUnrecPtr       pImage   = NULL;
+
+    pTexture = dynamic_cast<TextureObjChunk *>(pFC);
+
+
+    if(pTexture != NULL)
+    {
+        for(UInt32 i = 0; i < _url.size(); ++i)
+        {
+#ifdef OSG_DEBUG_VRML
+            PNOTICE << "VRMLImageTextureDesc::endNode : Reading texture "
+                    << _url[i].c_str() << std::endl;
+#endif
+
+#ifdef OSG_VRML_IMAGETEXTURE_MAP
+            UrlImageMap::iterator mIt = _urlImageMap.find(_url[i]);
+
+            if(mIt != _urlImageMap.end())
+            {
+                pImage = mIt->second;
+            }
+            else
+            {
+                pImage = ImageFileHandler::the()->read(_url[i].c_str());
+
+                if(pImage != NULL)
+                {
+                    _urlImageMap[_url[i]] = pImage;
+                }
+            }
+#else
+            pImage = ImageFileHandler::the()->read(_url[0].c_str());
+#endif
+
+            if(pImage != NULL)
+                break;
+        }
+
+        if(pImage != NULL)
+        {
+            pImage->setForceAlphaBinary(pImage->calcIsAlphaBinary());
+
+            pTexture->setImage(pImage);
+
+            if(_repeatS.getValue() == true)
+            {
+                pTexture->setWrapS(GL_REPEAT);
+            }
+            else
+            {
+                pTexture->setWrapS(GL_CLAMP);
+            }
+            if(_repeatT.getValue() == true)
+            {
+                pTexture->setWrapT(GL_REPEAT);
+            }
+            else
+            {
+                pTexture->setWrapT(GL_CLAMP);
+            }
+        }
+        else
+        {
+            PWARNING << "VRMLImageTextureDesc::endNode : "
+                     << "Couldn't read texture "
+                     << _url[0].c_str()
+                     << " !!!"
+                     << std::endl;
+        }
+    }
+    else
+    {
+        PWARNING <<  "VRMLImageTextureDesc::endNode : Invalid texture ptr"
+                 << std::endl;
+    }
+
+#ifdef OSG_DEBUG_VRML
+    decIndent();
+
+    indentLog(getIndent(), PINFO);
+    PINFO << "End ImageTexture "
+          << _url[0].c_str() << " "
+          << _repeatS.getValue()    << " "
+          << _repeatT.getValue()    << " "
+          << &(*pFC) << std::endl;
+#endif
+#endif
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Dump                                     */
+
+void VRMLTextureHelper::dump(const Char8 *)
+{
+}
+
+
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \class OSG::VRMLImageTextureHelper
+    \ingroup GrpSystemFileIOVRML
+    VRML Texture description
+*/
+
+VRMLNodeHelper *VRMLImageTextureHelper::create(void)
+{
+    return new VRMLImageTextureHelper();
+}
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+VRMLImageTextureHelper::VRMLImageTextureHelper(void) :
+     Inherited     (),
+
+    _defaultURL    (),
+    _url           ()
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+VRMLImageTextureHelper::~VRMLImageTextureHelper(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Helper                                    */
+
+/*-------------------------------------------------------------------------*/
+/*                               Field                                     */
+
+bool VRMLImageTextureHelper::prototypeAddField(const Char8  *szFieldType,
+                                               const UInt32  uiFieldTypeId,
+                                               const Char8  *szFieldname  )
+{
+    bool bFound = false;
+
+    if(osgStringCaseCmp("url", szFieldname) == 0)
+    {
+        bFound = true;
+    }
+    else 
+    {
+        bFound = Inherited::prototypeAddField(szFieldType, 
+                                              uiFieldTypeId, 
+                                              szFieldname);
+    }
+
+    if(bFound == true)
+    {
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+        PINFO << "ImageTextureDesc::prototypeAddField : add part "
+              << szFieldname
+              << std::endl;
+#endif
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+void VRMLImageTextureHelper::getFieldAndDesc(
+          FieldContainer       * pFC,
+    const Char8                * szFieldname,
+          FieldContainer       *&pFieldFC,
+          EditFieldHandlePtr    &pField,
+    const FieldDescriptionBase *&pDesc)
+{
+    pFieldFC = NULL;
+    pField.reset();
+    pDesc    = NULL;
+
+    if(osgStringCaseCmp("url", szFieldname) == 0)
+    {
+        if(_bProtoInterfaceDone == false)
+        {
+            pField = _mfStringDesc.createEditHandler(&_defaultURL);
+        }
+        else
+        {
+            pField = _mfStringDesc.createEditHandler(&_url);
+        }
+
+        pDesc = &_mfStringDesc;
+    }
+    else 
+    {
+        Inherited::getFieldAndDesc(pFC, 
+                                   szFieldname, 
+                                   pFieldFC,
+                                   pField,
+                                   pDesc);
+    }
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Node                                     */
+
+FieldContainerTransitPtr VRMLImageTextureHelper::beginNode(
+    const Char8       *szTypename,
+    const Char8       *szName,
+    FieldContainer    *pCurrentFC)
+{
+    FieldContainerTransitPtr returnValue = 
+        Inherited::beginNode(szTypename, szName, pCurrentFC);
 
 #ifdef OSG_DEBUG_VRML
     indentLog(getIndent(), PINFO);
@@ -3432,10 +3657,7 @@ FieldContainerTransitPtr VRMLImageTextureHelper::beginNode(
 
     _url.clear();
 
-    _repeatS = _defaultRepeatS;
-    _repeatT = _defaultRepeatT;
-
-    return FieldContainerTransitPtr(returnValue);
+    return returnValue;
 }
 
 void VRMLImageTextureHelper::endNode(FieldContainer *pFC)
@@ -3542,6 +3764,204 @@ void VRMLImageTextureHelper::dump(const Char8 *)
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLImageTextureHelper::_regHelper(
     &VRMLImageTextureHelper::create,
     "ImageTexture");
+
+
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \class OSG::VRMLPixelTextureHelper
+    \ingroup GrpSystemFileIOVRML
+    VRML Texture description
+*/
+
+VRMLNodeHelper *VRMLPixelTextureHelper::create(void)
+{
+    return new VRMLPixelTextureHelper();
+}
+
+/*-------------------------------------------------------------------------*/
+/*                            Constructors                                 */
+
+VRMLPixelTextureHelper::VRMLPixelTextureHelper(void) :
+     Inherited(    ),
+    _pImage   (NULL)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                             Destructor                                  */
+
+VRMLPixelTextureHelper::~VRMLPixelTextureHelper(void)
+{
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Helper                                    */
+
+void VRMLPixelTextureHelper::addImageValue(     
+          EditFieldHandlePtr    ,
+    const FieldDescriptionBase *,
+          Image                *pImage    )
+{
+    _pImage = pImage;
+}
+
+/*-------------------------------------------------------------------------*/
+/*                               Field                                     */
+
+bool VRMLPixelTextureHelper::prototypeAddField(const Char8  *szFieldType,
+                                               const UInt32  uiFieldTypeId,
+                                               const Char8  *szFieldname  )
+{
+    bool bFound = false;
+
+    if(osgStringCaseCmp("image", szFieldname) == 0)
+    {
+        bFound = true;
+    }
+    else 
+    {
+        bFound = Inherited::prototypeAddField(szFieldType, 
+                                              uiFieldTypeId, 
+                                              szFieldname);
+    }
+
+    if(bFound == true)
+    {
+#ifdef OSG_DEBUG_VRML
+        indentLog(getIndent(), PINFO);
+        PINFO << "ImageTextureDesc::prototypeAddField : add part "
+              << szFieldname
+              << std::endl;
+#endif
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+void VRMLPixelTextureHelper::getFieldAndDesc(
+          FieldContainer       * pFC,
+    const Char8                * szFieldname,
+          FieldContainer       *&pFieldFC,
+          EditFieldHandlePtr    &pField,
+    const FieldDescriptionBase *&pDesc)
+{
+    pFieldFC = NULL;
+    pField.reset();
+    pDesc    = NULL;
+
+    if(osgStringCaseCmp("image", szFieldname) == 0)
+    {
+        pFieldFC = _pImage;
+        pField.reset();
+        pDesc    = &_sfImagePtrDesc;
+    }
+    else 
+    {
+        Inherited::getFieldAndDesc(pFC, 
+                                   szFieldname, 
+                                   pFieldFC,
+                                   pField,
+                                   pDesc);
+    }
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Node                                     */
+
+FieldContainerTransitPtr VRMLPixelTextureHelper::beginNode(
+    const Char8       *szTypename,
+    const Char8       *szName,
+    FieldContainer    *pCurrentFC)
+{
+    FieldContainerTransitPtr returnValue = 
+        Inherited::beginNode(szTypename, szName, pCurrentFC);
+
+#ifdef OSG_DEBUG_VRML
+    indentLog(getIndent(), PINFO);
+    PINFO << "Begin PixelTexture " 
+          << ((returnValue == NULL) ? "invalid obj" : "valid obj") 
+          << std::endl;
+
+    incIndent();
+#endif
+
+    return returnValue;
+}
+
+void VRMLPixelTextureHelper::endNode(FieldContainer *pFC)
+{
+    TextureObjChunk    *pTexture = NULL;
+
+    pTexture = dynamic_cast<TextureObjChunk *>(pFC);
+
+
+    if(pTexture != NULL)
+    {
+        if(_pImage != NULL)
+        {
+            _pImage->setForceAlphaBinary(_pImage->calcIsAlphaBinary());
+
+            pTexture->setImage(_pImage);
+
+            if(_repeatS.getValue() == true)
+            {
+                pTexture->setWrapS(GL_REPEAT);
+            }
+            else
+            {
+                pTexture->setWrapS(GL_CLAMP);
+            }
+            if(_repeatT.getValue() == true)
+            {
+                pTexture->setWrapT(GL_REPEAT);
+            }
+            else
+            {
+                pTexture->setWrapT(GL_CLAMP);
+            }
+        }
+    }
+    else
+    {
+        PWARNING <<  "VRMLPixelTextureDesc::endNode : Invalid texture ptr"
+                 << std::endl;
+    }
+
+    _pImage = NULL;
+
+#ifdef OSG_DEBUG_VRML
+    decIndent();
+
+    indentLog(getIndent(), PINFO);
+    PINFO << "End PixelTexture "
+          << _repeatS.getValue()    << " "
+          << _repeatT.getValue()    << " "
+          << &(*pFC) << std::endl;
+#endif
+}
+
+/*-------------------------------------------------------------------------*/
+/*                                Dump                                     */
+
+void VRMLPixelTextureHelper::dump(const Char8 *)
+{
+}
+
+
+VRMLNodeHelperFactoryBase::RegisterHelper VRMLPixelTextureHelper::_regHelper(
+    &VRMLPixelTextureHelper::create,
+    "PixelTexture");
+
+
 
 
 

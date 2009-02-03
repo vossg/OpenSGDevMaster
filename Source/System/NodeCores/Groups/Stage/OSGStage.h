@@ -109,6 +109,11 @@ class OSG_GROUP_DLLMAPPING Stage : public StageBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */

@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -74,7 +74,7 @@ OSG_GEN_CONTAINERPTR(MultiCore);
 #endif
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpGroupFieldTraits
+/*! \ingroup GrpSystemFieldTraits
  */
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \hideinhierarchy */
@@ -94,7 +94,7 @@ struct FieldTraits<MultiCore *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_GROUP_DLLMAPPING DataType &getType(void);
+    static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -164,7 +164,7 @@ const Char8 *FieldTraits<MultiCore *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
+/*! \ingroup GrpSystemFieldSingle */
 
 typedef PointerSField<MultiCore *,
                       RecordedRefCountPolicy  > SFRecMultiCorePtr;
@@ -178,7 +178,7 @@ typedef PointerSField<MultiCore *,
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
+/*! \ingroup GrpSystemFieldMulti */
 
 typedef PointerMField<MultiCore *,
                       RecordedRefCountPolicy  > MFRecMultiCorePtr;

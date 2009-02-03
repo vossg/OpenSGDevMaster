@@ -532,11 +532,9 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
                 pPart->setBackground(pBack);
 
                
-                Node *pActNode = a->getActNode();
-                
                 a->useNodeList(false);
 
-                a->recurseNoNodeCallbacks(pActNode);
+                this->recurseFromThis(a);
 
                 pPart->setDrawBuffer(GL_COLOR_ATTACHMENT0_EXT + i);
 

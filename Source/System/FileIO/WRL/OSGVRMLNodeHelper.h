@@ -55,6 +55,7 @@
 #include "OSGChunkMaterial.h"
 #include "OSGMaterialChunk.h"
 #include "OSGVRMLAttachment.h"
+#include "OSGImage.h"
 
 #include "OSGDeprecatedCPP.h"
 
@@ -332,6 +333,11 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
                                 const Char8                *szFieldVal);
 
     virtual 
+    void addImageValue         (      EditFieldHandlePtr    pField,
+                                const FieldDescriptionBase *pFieldDesc,
+                                      Image                *pImage    );
+
+    virtual 
     void setContainerFieldValue(      FieldContainer       *pFC,
                                 const FieldDescriptionBase *pFieldDesc,
                                       FieldContainer       *pFieldFC  );
@@ -372,6 +378,7 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelper
 
     SFVec3f                 ::Description _sfVec3fDesc;
     SFUnrecFieldContainerPtr::Description _sfFCPtrDesc;
+    SFUnrecImagePtr         ::Description _sfImagePtrDesc;
     SFReal32                ::Description _sfReal32Desc;
     SFColor3f               ::Description _sfColor3fDesc;
     MFString                ::Description _mfStringDesc;
@@ -1275,10 +1282,113 @@ class OSG_FILEIO_DLLMAPPING VRMLGeometryObjectHelper : public VRMLNodeHelper
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \brief VRML Texture Helper
+*/
+
+class OSG_FILEIO_DLLMAPPING VRMLTextureHelper : public VRMLNodeHelper
+{
+    /*==========================  PUBLIC  =================================*/
+  public :
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~VRMLTextureHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Helper                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Field                                    */
+    /*! \{                                                                 */
+
+    virtual bool prototypeAddField(const Char8             * szFieldType,
+                                   const UInt32              uiFieldTypeId,
+                                   const Char8             * szFieldName);
+
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
+                                   const Char8                * szFieldname,
+                                         FieldContainer       *&pFieldFC,
+                                         EditFieldHandlePtr    &pField,
+                                   const FieldDescriptionBase *&pDesc);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Node                                    */
+    /*! \{                                                                 */
+
+    virtual 
+        FieldContainerTransitPtr beginNode(const Char8             *szTypename,
+                                           const Char8             *szName,
+                                                 FieldContainer    *pCurrentFC);
+
+    virtual 
+        void                     endNode  (      FieldContainer    *          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    virtual void dump(const Char8 *szNodeName);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    VRMLTextureHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    SFBool      _defaultRepeatS;
+    SFBool      _defaultRepeatT;
+
+    SFBool      _repeatS;
+    SFBool      _repeatT;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+  private:
+
+    typedef VRMLNodeHelper Inherited;
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    VRMLTextureHelper(const VRMLTextureHelper &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const VRMLTextureHelper &source);
+};
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
 /*! \brief VRML Image Texture Helper
 */
 
-class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
+class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLTextureHelper
 {
     /*==========================  PUBLIC  =================================*/
   public :
@@ -1355,12 +1465,8 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
     /*! \{                                                                 */
 
     MFString    _defaultURL;
-    SFBool      _defaultRepeatS;
-    SFBool      _defaultRepeatT;
 
     MFString    _url;
-    SFBool      _repeatS;
-    SFBool      _repeatT;
 
 #ifdef OSG_VRML_IMAGETEXTURE_MAP
     UrlImageMap _urlImageMap;
@@ -1377,12 +1483,121 @@ class OSG_FILEIO_DLLMAPPING VRMLImageTextureHelper : public VRMLNodeHelper
     /*==========================  PRIVATE  ================================*/
   private:
 
-    typedef VRMLNodeHelper Inherited;
+    typedef VRMLTextureHelper Inherited;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     VRMLImageTextureHelper(const VRMLImageTextureHelper &source);
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const VRMLImageTextureHelper &source);
+};
+
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \brief VRML Image Texture Helper
+*/
+
+class OSG_FILEIO_DLLMAPPING VRMLPixelTextureHelper : public VRMLTextureHelper
+{
+    /*==========================  PUBLIC  =================================*/
+  public :
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~VRMLPixelTextureHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Helper                                    */
+    /*! \{                                                                 */
+
+    virtual 
+    void addImageValue(      EditFieldHandlePtr    pField,
+                       const FieldDescriptionBase *pFieldDesc,
+                             Image                *pImage    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Field                                    */
+    /*! \{                                                                 */
+
+    virtual bool prototypeAddField(const Char8             * szFieldType,
+                                   const UInt32              uiFieldTypeId,
+                                   const Char8             * szFieldName);
+
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
+                                   const Char8                * szFieldname,
+                                         FieldContainer       *&pFieldFC,
+                                         EditFieldHandlePtr    &pField,
+                                   const FieldDescriptionBase *&pDesc);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Node                                    */
+    /*! \{                                                                 */
+
+    virtual 
+        FieldContainerTransitPtr beginNode(const Char8             *szTypename,
+                                           const Char8             *szName,
+                                                 FieldContainer    *pCurrentFC);
+
+    virtual 
+        void                     endNode  (      FieldContainer    *          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    virtual void dump(const Char8 *szNodeName);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    static VRMLNodeHelper *create(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    VRMLPixelTextureHelper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    ImageUnrecPtr _pImage;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    static VRMLNodeHelperFactoryBase::RegisterHelper _regHelper;
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+  private:
+
+    typedef VRMLTextureHelper Inherited;
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    VRMLPixelTextureHelper(const VRMLPixelTextureHelper &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const VRMLPixelTextureHelper &source);
 };
 
 

@@ -1,0 +1,268 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF GlobalEffect1 DisplayFilterStage
+    {
+      colorFilter DEF ColFilter ColorDisplayFilter
+      {
+#        enabled FALSE
+        gamma 1.0
+        matrix 0 1 0 0
+               1 0 0 0
+               0 0 1 0
+               0 0 0 1      
+      }
+    }
+
+    # Light 1
+    DEF Light1Beacon Node
+    {
+       core ComponentTransform
+       {
+         translation 0 0 100
+       }
+    }
+
+    DEF SceneEffect1 DirectionalLight
+    {
+      beacon USE Light1Beacon
+
+      ambient   0.15 0.15 0.15 1.0
+      diffuse   0.4  0.4  0.4  1.0
+      specular  0.0  0.0  0.0  1.0
+      direction 0.4  0.2  0.8
+
+      shadowIntensity 0.7
+    }
+
+
+    # Light 2
+    DEF Light2Beacon Node
+    {
+       core ComponentTransform
+       {
+         translation 20 -30 100
+       }
+    }
+
+    DEF SceneEffect2 PointLight
+    {
+      beacon USE Light2Beacon
+
+      ambient  0.15 0.15 0.15 1.0
+      diffuse  0.4  0.4  0.4  1.0
+      specular 0.0  0.0  0.0  1.0
+
+      shadowIntensity 0.7
+    }
+
+
+    # Light 3
+    DEF Light3Beacon Node
+    {
+       core ComponentTransform
+       {
+         translation 10 -15 100
+       }
+    }
+
+    DEF SceneEffect3 PointLight
+    {
+      beacon USE Light3Beacon
+
+      ambient  0.15 0.15 0.15 1.0
+      diffuse  0.4  0.4  0.4  1.0
+      specular 0.0  0.0  0.0  1.0
+
+      shadowIntensity 0.7
+    }
+
+
+    # Light 4
+    DEF Light4Beacon Node
+    {
+       core ComponentTransform
+       {
+         translation 35 45 100
+       }
+    }
+
+    DEF SceneEffect4 PointLight
+    {
+      beacon USE Light4Beacon
+
+      ambient  0.15 0.15 0.15 1.0
+      diffuse  0.4  0.4  0.4  1.0
+      specular 0.0  0.0  0.0  1.0
+
+      shadowIntensity 0.7
+    }
+
+
+    # Light 5
+    DEF Light5Beacon Node
+    {
+       core ComponentTransform
+       {
+         translation 40 -60 100
+       }
+    }
+
+    DEF SceneEffect5 PointLight
+    {
+      beacon USE Light5Beacon
+
+      ambient  0.15 0.15 0.15 1.0
+      diffuse  0.4  0.4  0.4  1.0
+      specular 0.0  0.0  0.0  1.0
+
+      shadowIntensity 0.7
+    }
+
+
+    # Light 6
+    DEF Light6Beacon Node
+    {
+       core ComponentTransform
+       {
+         translation 17 -55 100
+       }
+    }
+
+    DEF SceneEffect6 PointLight
+    {
+      beacon USE Light6Beacon
+
+      ambient  0.15 0.15 0.15 1.0
+      diffuse  0.4  0.4  0.4  1.0
+      specular 0.0  0.0  0.0  1.0
+
+      shadowIntensity 0.7
+    }
+
+
+    # Light 7
+    DEF Light7Beacon Node
+    {
+       core ComponentTransform
+       {
+         translation 5 -42 100
+       }
+    }
+
+    DEF SceneEffect7 PointLight
+    {
+      beacon USE Light7Beacon
+
+      ambient  0.15 0.15 0.15 1.0
+      diffuse  0.4  0.4  0.4  1.0
+      specular 0.0  0.0  0.0  1.0
+
+      shadowIntensity 0.7
+    }
+
+
+    DEF Key1 KeySensor
+    {
+      key "1"
+      stateFlipFlop TRUE
+#      stateFlipFlop FALSE
+    }
+    DEF Key2 KeySensor
+    {
+      key "2"
+#      stateFlipFlop TRUE
+      stateFlipFlop FALSE
+    }
+    DEF Key3 KeySensor
+    {
+      key "3"
+#      stateFlipFlop TRUE
+      stateFlipFlop FALSE
+    }
+    DEF Key4 KeySensor
+    {
+      key "4"
+#      stateFlipFlop TRUE
+      stateFlipFlop FALSE
+    }
+    DEF Key5 KeySensor
+    {
+      key "5"
+#      stateFlipFlop TRUE
+      stateFlipFlop FALSE
+    }
+    DEF Key6 KeySensor
+    {
+      key "6"
+#      stateFlipFlop TRUE
+      stateFlipFlop FALSE
+    }
+    DEF Key7 KeySensor
+    {
+      key "7"
+#      stateFlipFlop TRUE
+      stateFlipFlop FALSE
+    }
+
+
+
+    DEF GlobalEffect2 ShadowStage
+    {
+      mapSize             512
+      shadowSmoothness    0.2
+      autoSearchForLights TRUE
+
+      offFactor 4.0
+      offBias   8.0
+
+      shadowMode          1
+    }
+
+    DEF ShadowModeCounter LimitedUInt32Counter
+    {
+      value 1
+      step  1
+
+      lowerLimit  0x0000
+      upperLimit  0x0006
+    }
+
+    DEF ModeUp KeySensor
+    {
+      key "M"
+      stateFlipFlop TRUE
+    }       
+
+    DEF ModeDown KeySensor
+    {
+      key "m"
+      stateFlipFlop TRUE
+    } 
+      
+    DEF KeyC KeySensor
+    {
+      key "c"
+      stateFlipFlop FALSE
+    }
+ 
+  ]
+}
+
+ROUTE Key1.stateFlipFlop TO SceneEffect1.on
+ROUTE Key2.stateFlipFlop TO SceneEffect2.on
+ROUTE Key3.stateFlipFlop TO SceneEffect3.on
+ROUTE Key4.stateFlipFlop TO SceneEffect4.on
+ROUTE Key5.stateFlipFlop TO SceneEffect5.on
+ROUTE Key6.stateFlipFlop TO SceneEffect6.on
+ROUTE Key7.stateFlipFlop TO SceneEffect7.on
+
+ROUTE ModeUp  .signalPressed  TO ShadowModeCounter.incTrigger
+ROUTE ModeDown.signalPressed  TO ShadowModeCounter.decTrigger
+
+ROUTE ShadowModeCounter.value    TO GlobalEffect2.shadowMode
+
+ROUTE KeyC.stateFlipFlop TO ColFilter .enabled

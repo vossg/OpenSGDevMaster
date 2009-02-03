@@ -220,9 +220,7 @@ ActionBase::ResultE HDRStage::renderEnter(Action *action)
                 pPart->setBackground(pBack);
             }
             
-            Node *pActNode = a->getActNode();
-            
-            a->recurseNoNodeCallbacks(pActNode);
+            this->recurseFromThis(a);
         }
         a->popPartition();
         

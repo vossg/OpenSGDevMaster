@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemMultiCore for a description.
 */
 
-class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
+class OSG_SYSTEM_DLLMAPPING MultiCore : public MultiCoreBase
 {
   protected:
 
@@ -78,6 +78,26 @@ class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
     Int32  findCore  (NodeCore * const pCore   ) const;
     void   insertCore(UInt32           corendex, 
                       NodeCore * const coreP   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Transformation                             */
+    /*! \{                                                                 */
+
+    const MFUnrecChildNodeCorePtr *getMFCores(      void        ) const;
+
+          NodeCore                *getCores  (const UInt32 index) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Transformation                             */
+    /*! \{                                                                 */
+
+    void addCore        (      NodeCore                * const value   );
+    void assignCoresFrom(const MFUnrecChildNodeCorePtr &       value   );
+    void subCore        (      UInt32                          uiIndex );
+    void subCoreByObj   (      NodeCore                * const value   );
+    void clearCores     (      void                                    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -130,6 +150,9 @@ class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
     ActionBase::ResultE renderEnter(Action *action);
     ActionBase::ResultE renderLeave(Action *action);
 
+    ActionBase::ResultE renderEnterFrom(Action *action, NodeCore *pFrom);
+    ActionBase::ResultE renderLeaveFrom(Action *action, NodeCore *pFrom);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
@@ -144,6 +167,7 @@ class OSG_GROUP_DLLMAPPING MultiCore : public MultiCoreBase
 
     friend class FieldContainer;
     friend class MultiCoreBase;
+    friend class RenderAction;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const MultiCore &source);

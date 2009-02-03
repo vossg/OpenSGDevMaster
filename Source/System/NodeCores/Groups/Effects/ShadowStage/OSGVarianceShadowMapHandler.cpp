@@ -325,7 +325,7 @@ void VarianceShadowMapHandler::createShadowMapsFBO(DrawEnv      *pEnv)
                     
                     a->overrideMaterial(_vDepthCmat[uiActiveLightCount], 
                                          a->getActNode());
-                    a->recurse(light);
+                    _pStage->recurse(a, light);
                     a->overrideMaterial( NULL,       
                                          a->getActNode());
                     
@@ -410,7 +410,7 @@ void VarianceShadowMapHandler::createColorMapFBO(DrawEnv *pEnv)
         
         pPart->setBackground(a->getBackground());
 
-        a->recurseNoNodeCallbacks(a->getActNode());
+        _pStage->recurseFromThis(a);
 
         if(parent != NULL)
         {
@@ -703,7 +703,7 @@ void VarianceShadowMapHandler::createShadowFactorMapFBO(
 
             a->overrideMaterial(_vShadowCmat[uiActiveLightCount], 
                                  a->getActNode());
-            a->recurse(light);
+            _pStage->recurse(a, light);
             a->overrideMaterial( NULL,       
                                  a->getActNode());
             

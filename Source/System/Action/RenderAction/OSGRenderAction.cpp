@@ -61,6 +61,7 @@
 #endif
 #include "OSGVolumeDraw.h"
 #include "OSGTreeBuilderBase.h"
+#include "OSGMultiCore.h"
 
 OSG_USING_NAMESPACE
 
@@ -479,9 +480,9 @@ ActionBase::ResultE RenderAction::recurseNoNodeCallbacks(Node * const node)
 
     Action::ResultE result;
 
-    _actList = NULL;
-    _actNode = node;
-
+    _actList   = NULL;
+    _actNode   = node;
+    _actParent = node;
 
     if(! _newList.empty())
     {
@@ -504,11 +505,99 @@ ActionBase::ResultE RenderAction::recurseNoNodeCallbacks(Node * const node)
         }
     }
 
-    _actNode = node;
+    _actNode   = node;
+    _actParent = node;
 
     if(result == Skip)
         return Continue;
 
+    return result;
+}
+
+Action::ResultE RenderAction::recurseMultiCoreFrom(Node      * const pNode,
+                                                   MultiCore * const pCore,
+                                                   NodeCore  * const pFrom)
+{
+    if(pNode == NULL)
+        return Continue;
+
+    if((pNode->getTravMask() & getTravMask()) == 0)
+        return Continue;
+
+#if 0
+    NodeCore *core = node->getCore();
+    
+    if(core == NULL)
+    {
+        SWARNING << "recurse: core is Null,  don't know what to do!" 
+                 << std::endl;
+        return Quit;                    
+    }
+#else
+    OSG_ASSERT(pNode->getCore() == pCore);
+#endif    
+
+    Action::ResultE result = Continue;
+
+    _actList   = NULL;
+    _actNode   = pNode;
+    _actParent = pNode;
+
+
+//    result = callEnter(node->getCore());
+
+    result = pCore->renderEnterFrom(this, pFrom);
+
+    _actNode   = pNode;
+    _actParent = pNode;
+
+    if(result != Continue)
+    {
+        if(result == Skip)
+            return Continue;
+    
+        return result;
+    }
+    
+    if(! _newList.empty())
+    {
+        result = callNewList();
+    }
+    else if(! _useNewList) // new list is empty, but not used?
+    {
+        MFUnrecChildNodePtr::const_iterator it = 
+            pNode->getMFChildren()->begin();
+
+        MFUnrecChildNodePtr::const_iterator en = 
+            pNode->getMFChildren()->end  ();
+
+        for(; it != en; ++it)
+        {
+            result = recurse(*it);
+            
+            if(result != Continue)
+                break;
+        }
+    }   
+    
+    _actNode   = pNode;
+    _actParent = pNode;
+
+    if(result == Continue)
+    {
+        result = pCore->renderLeaveFrom(this, pFrom);
+    }
+    else
+    {
+        pCore->renderLeaveFrom(this, pFrom);
+    }
+
+    _actNode   = pNode;
+    _actParent = pNode;
+
+    if(result == Skip)
+        return Continue;
+        
     return result;
 }
 
