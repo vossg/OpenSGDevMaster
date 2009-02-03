@@ -127,7 +127,7 @@ void Node::classDescInserter(TypeObject &oType)
     oType.addInitialDesc(pDesc);
 
 
-    pDesc = new SFUncountedNodePtr::Description(
+    pDesc = new SFParentNodePtr::Description(
         SFParentNodePtr::getClassType(),
         "parent",
         "This node's parent.",
