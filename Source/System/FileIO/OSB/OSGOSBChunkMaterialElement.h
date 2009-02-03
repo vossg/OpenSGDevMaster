@@ -50,6 +50,8 @@
 
 #include "OSGChunkMaterialFields.h"
 
+#include "OSGSysMFields.h"
+
 OSG_BEGIN_NAMESPACE
 
 class OSG_FILEIO_DLLMAPPING OSBChunkMaterialElement : public OSBCommonElement

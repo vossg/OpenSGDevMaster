@@ -41,6 +41,10 @@
 #include <OSGOSBRootElement.h>
 #include <OSGChunkMaterial.h>
 
+#include <OSGOSBTextureChunkElement.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
+
 OSG_USING_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
@@ -100,7 +104,7 @@ OSBChunkMaterialElement::read(const std::string &typeName)
         {
             // read slots field into separate field - the real field gets
             // filled in postRead
-            _mfSlots.copyFromBin(rh);
+            _mfSlots.copyFromBin(*rh);
         }
         else if(fieldName == "chunks")
         {
@@ -131,13 +135,14 @@ OSBChunkMaterialElement::postRead(void)
     ChunkMaterial        *chkMat = dynamic_cast<ChunkMaterial *>(getContainer());
 
     PtrFieldInfo::PtrIdStoreConstIt idIt  = _chunksPtrFieldIt->getIdStore().begin();
-    PtrFieldInfo::PtrIdStoreConstIt idEnd = _chunksPtrFieldIt->getidStore().end  ();
+    PtrFieldInfo::PtrIdStoreConstIt idEnd = _chunksPtrFieldIt->getIdStore().end  ();
 
     for(UInt32 i = 0; idIt != idEnd; ++idIt, ++i)
     {
-        IdElemMapConstIt mapIt = root->getIdElemMap().find(*idIt);
+        OSBRootElement::IdElemMapConstIt mapIt = 
+            root->getIdElemMap().find(*idIt);
 
-        if(mapIt == root->getFileIdElemMap().end())
+        if(mapIt == root->getIdElemMap().end())
             continue;
 
         OSBElementBase         *chunkElem    = mapIt->second;
