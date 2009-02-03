@@ -695,13 +695,14 @@ Action::ResultE
     {
         OSG_ASSERT(pActParent == pActNode->getCore());
 
-        MultiCore *pCore = dynamic_cast<MultiCore *>(pActParent);               
+        MultiCore *pCore = dynamic_cast<MultiCore *>(pActParent);
+        NodeCore  *pThis = dynamic_cast<NodeCore  *>(this      );
 
-        if(pCore != NULL)
+        if(pCore != NULL && pThis != NULL)
         {
             returnValue = action->recurseMultiCoreFrom(pActNode, 
                                                        pCore,
-                                                       this);
+                                                       pThis);
         }
         else
         {
