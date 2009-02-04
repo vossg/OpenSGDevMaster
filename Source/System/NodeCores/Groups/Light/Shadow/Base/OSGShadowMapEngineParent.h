@@ -53,9 +53,19 @@ struct ShadowMapEngineDesc
     typedef FieldContainer::TypeObject TypeObject;
 };
 
-typedef StageHandlerMixin< 
-          ContainerMixinHead< 
-            ShadowMapEngineDesc > > ShadowMapEngineParent;
+typedef ContainerMixinHead<ShadowMapEngineDesc> SMEMixinParent;
+
+typedef StageHandlerMixin<SMEMixinParent> ShadowMapEngineParent;
+
+#ifdef WIN32
+template <> inline
+Action::ResultE 
+    StageHandlerMixin<SMEMixinParent>::recurseFromThis(RenderAction *)
+{
+    OSG_ASSERT(false);
+    return Action::Continue;
+}
+#endif
 
 OSG_END_NAMESPACE
 
