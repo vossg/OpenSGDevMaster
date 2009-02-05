@@ -448,7 +448,10 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
     ENDFOREACH(LIBDIR)
 
 
-    ADD_LIBRARY(${PROJECT_NAME} ${${PROJECT_NAME}_SRC})
+    ADD_LIBRARY(${PROJECT_NAME} ${${PROJECT_NAME}_SRC}
+                                ${${PROJECT_NAME}_HDR}
+                                ${${PROJECT_NAME}_INL}
+                                ${${PROJECT_NAME}_INS})
 
     INCLUDE_DIRECTORIES(${${PROJECT_NAME}_INC})
 
