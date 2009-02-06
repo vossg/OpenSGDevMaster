@@ -60,7 +60,7 @@
 OSG_BEGIN_NAMESPACE
 
 
-OSG_SINGLETON_INST(TextFaceFactoryBase)
+OSG_SINGLETON_INST(TextFaceFactoryBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<TextFaceFactoryBase>;
 

@@ -41,31 +41,31 @@ OSG_BEGIN_NAMESPACE
 template<class SingletonT>
 SingletonT *SingletonHolder<SingletonT>::_the = NULL;
 
-#define OSG_SINGLETON_INST(OSG_CLASS)                  \
-template <> OSG_DLL_EXPORT                             \
-bool SingletonHolder< OSG_CLASS >::destroy(void)       \
-{                                                      \
-    FDEBUG_GV(("Destroy Singleton %p\n", _the));       \
-                                                       \
-    delete _the;                                       \
-                                                       \
-    _the = NULL;                                       \
-                                                       \
-    return true;                                       \
-}                                                      \
-                                                       \
-template<> OSG_DLL_EXPORT                              \
-OSG_CLASS *SingletonHolder< OSG_CLASS >::the(void)     \
-{                                                      \
-    if(_the == NULL)                                   \
-    {                                                  \
-        _the = new OSG_CLASS();                        \
-                                                       \
-        addPostFactoryExitFunction(&Self::destroy);    \
-    }                                                  \
-                                                       \
-    return _the;                                       \
-}                                                      \
-                                                       \
+#define OSG_SINGLETON_INST(OSG_CLASS, OSG_ADD_EXIT_FUNC)  \
+template <> OSG_DLL_EXPORT                                \
+bool SingletonHolder< OSG_CLASS >::destroy(void)          \
+{                                                         \
+    FDEBUG_GV(("Destroy Singleton %p\n", _the));          \
+                                                          \
+    delete _the;                                          \
+                                                          \
+    _the = NULL;                                          \
+                                                          \
+    return true;                                          \
+}                                                         \
+                                                          \
+template<> OSG_DLL_EXPORT                                 \
+OSG_CLASS *SingletonHolder< OSG_CLASS >::the(void)        \
+{                                                         \
+    if(_the == NULL)                                      \
+    {                                                     \
+        _the = new OSG_CLASS();                           \
+                                                          \
+        OSG_ADD_EXIT_FUNC(&Self::destroy);                \
+    }                                                     \
+                                                          \
+    return _the;                                          \
+}                                                         \
+                                                          \
 
 OSG_END_NAMESPACE

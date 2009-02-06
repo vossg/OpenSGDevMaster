@@ -43,7 +43,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(GeoPropertyFactoryBase)
+OSG_SINGLETON_INST(GeoPropertyFactoryBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<GeoPropertyFactoryBase>;
 

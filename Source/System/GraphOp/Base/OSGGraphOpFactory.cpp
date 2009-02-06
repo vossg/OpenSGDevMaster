@@ -47,7 +47,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(GraphOpFactoryBase)
+OSG_SINGLETON_INST(GraphOpFactoryBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<GraphOpFactoryBase>;
 

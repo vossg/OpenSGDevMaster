@@ -48,7 +48,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(GLDefineMapperBase)
+OSG_SINGLETON_INST(GLDefineMapperBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<GLDefineMapperBase>;
 

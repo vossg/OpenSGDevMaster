@@ -88,7 +88,7 @@ OSG_BEGIN_NAMESPACE
 
 OSG_DYNFIELDATTACHMENT_INST(VRMLGenericAttDesc)
 
-OSG_SINGLETON_INST(VRMLNodeHelperFactoryBase)
+OSG_SINGLETON_INST(VRMLNodeHelperFactoryBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<VRMLNodeHelperFactoryBase>;
 

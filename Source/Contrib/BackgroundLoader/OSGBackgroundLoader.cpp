@@ -13,7 +13,7 @@
 
 OSG_USING_NAMESPACE
 OSG_BEGIN_NAMESPACE
-OSG_SINGLETON_INST(BackgroundLoaderBase)
+OSG_SINGLETON_INST(BackgroundLoaderBase, addPostFactoryExitFunction)
 
 BackgroundLoaderBase::BackgroundLoaderBase(void)
    : mLoadThreads()

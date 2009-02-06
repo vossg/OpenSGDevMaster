@@ -62,7 +62,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(OFRecordFactoryBase)
+OSG_SINGLETON_INST(OFRecordFactoryBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<OFRecordFactoryBase>;
 

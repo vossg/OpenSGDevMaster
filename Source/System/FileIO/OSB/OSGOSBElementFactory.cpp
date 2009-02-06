@@ -44,7 +44,7 @@ OSG_USING_NAMESPACE
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(OSG::OSBElementFactorySingleton)
+OSG_SINGLETON_INST(OSG::OSBElementFactorySingleton, addPostFactoryExitFunction)
 
 template class SingletonHolder<OSG::OSBElementFactorySingleton>;
 

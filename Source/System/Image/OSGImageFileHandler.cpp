@@ -74,7 +74,7 @@ OSG_USING_NAMESPACE
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(ImageFileHandlerBase)
+OSG_SINGLETON_INST(ImageFileHandlerBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<ImageFileHandlerBase>;
 

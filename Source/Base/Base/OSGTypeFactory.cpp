@@ -68,7 +68,7 @@ OSG_BEGIN_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
-OSG_SINGLETON_INST(TypeFactoryBase)
+OSG_SINGLETON_INST(TypeFactoryBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<TypeFactoryBase>;
 

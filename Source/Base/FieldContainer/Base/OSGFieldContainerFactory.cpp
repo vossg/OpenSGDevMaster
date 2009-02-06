@@ -53,7 +53,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(FieldContainerFactoryBase)
+OSG_SINGLETON_INST(FieldContainerFactoryBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<FieldContainerFactoryBase>;
 

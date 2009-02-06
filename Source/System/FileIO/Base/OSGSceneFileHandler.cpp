@@ -69,7 +69,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-OSG_SINGLETON_INST(SceneFileHandlerBase)
+OSG_SINGLETON_INST(SceneFileHandlerBase, addPostFactoryExitFunction)
 
 template class SingletonHolder<SceneFileHandlerBase>;
 

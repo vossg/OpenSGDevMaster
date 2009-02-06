@@ -586,7 +586,7 @@ static char statisticsDefaultFontData[9364] = {
 };
 
 
-OSG_SINGLETON_INST(StatisticsDefaultFontBase)
+OSG_SINGLETON_INST(StatisticsDefaultFontBase, addPreFactoryExitFunction)
 
 template class SingletonHolder<StatisticsDefaultFontBase>;
 
