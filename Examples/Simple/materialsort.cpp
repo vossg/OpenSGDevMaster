@@ -5,7 +5,7 @@
 // not sufficient, so we help out manually and set a sort key for
 // each material.
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGGLUT.h>
 #include <OSGConfig.h>

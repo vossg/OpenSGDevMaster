@@ -5,7 +5,7 @@
 // It shows how to add/remove the phong shader chunk and how to use the
 // OpenGL Materials though built-in variables like gl_FrontMaterial.
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGGLUT.h>
 #include <OSGConfig.h>

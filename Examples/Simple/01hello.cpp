@@ -9,7 +9,7 @@
 // interactive scene viewer.
 //
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // GLUT is used for window handling
 #include <OSGGLUT.h>
 

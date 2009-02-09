@@ -4,7 +4,7 @@
 // Implements a geometry shader which creates for each triangle an
 // extra triangle showing the face normal.
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGConfig.h>
 #include <OSGSimpleGeometry.h>

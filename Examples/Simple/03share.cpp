@@ -4,7 +4,7 @@
 // of an object, e.g. a geometry, which take up less memory.
 //
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGGLUT.h>
 #include <OSGConfig.h>

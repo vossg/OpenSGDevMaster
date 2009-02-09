@@ -2,7 +2,7 @@
 //
 // This example shows realtime shadows via shadow maps.
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 #include <OSGConfig.h>
 
 #include <OSGGLUT.h>

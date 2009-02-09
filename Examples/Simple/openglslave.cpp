@@ -13,7 +13,7 @@
 // Thanks to nehe.gamedev.net for the BMP image loading routines 
 // The mouse code is based on a tutorial from Dennis Gustavsson (dennis@meqon.com)
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGConfig.h>
 #include <OSGGL.h>

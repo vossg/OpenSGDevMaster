@@ -9,7 +9,7 @@
 // triangle will be highlighted.
 //
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGGLUT.h>
 #include <OSGConfig.h>

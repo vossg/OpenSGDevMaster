@@ -5,7 +5,7 @@
 // to do that. OpenSG uses the more flexible concept of Attachments. 
 //
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGGLUT.h>
 #include <string>

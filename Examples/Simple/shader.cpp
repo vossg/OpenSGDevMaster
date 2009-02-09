@@ -5,7 +5,7 @@
 // You need a graphics card supporting the GL_ARB_shading_language_100 extension
 // to run this tutorial.
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGGLUT.h>
 #include <OSGConfig.h>

@@ -17,7 +17,7 @@
 // get's frustum culled if that part of the scene is outside the camera
 // frustum.
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGGLUT.h>
 #include <OSGConfig.h>

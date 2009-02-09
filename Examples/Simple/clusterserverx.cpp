@@ -13,7 +13,7 @@
 
 #include <iostream>
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // General OpenSG configuration, needed everywhere
 #include <OSGConfig.h>
 // The Cluster server definition

@@ -126,6 +126,33 @@ SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+#####################
+# External extenstion
+#####################
+
+FOREACH(EXTERNAL ${OSG_EXTRA_EXTERNAL_MODULES})
+    OPTION(OSGBUILD_${EXTERNAL} 
+           "Build using ${EXTERNAL} module" OFF)
+
+    IF(OSGBUILD_${EXTERNAL})
+      FIND_PATH(OSG_${EXTERNAL}_SOURCE_DIR 
+                CMakeLists.Lib.${EXTERNAL}.txt
+                ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL})
+
+      IF(NOT EXISTS 
+             ${OSG_${EXTERNAL}_SOURCE_DIR}/CMakeLists.Lib.${EXTERNAL}.txt)
+
+          MESSAGE(SEND_ERROR "Cannot find ${EXTERNAL} sources directory: "
+                             "${OSG_${EXTERNAL}_SOURCE_DIR}")
+      ELSE()
+          LIST(APPEND OSG_EXTERNAL_CONFIGS "${EXTERNAL}")
+      ENDIF()
+    ENDIF()
+ENDFOREACH(EXTERNAL)
+
+SET(OSG_EXTRA_EXTERNAL_MODULES "" CACHE STRING 
+    "Extra modules that OpenSG will try to import.")
+
 ##############
 # Compiler
 ##############
@@ -172,6 +199,8 @@ IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
     SET(OSG_LIBDIR_SUFFIX "${OSG_LIBDIR_SUFFIX}/debugrt")
 
 ENDIF()
+
+ADD_DEFINITIONS(-D OSG_BUILD_ACTIVE)
 
 ##############################################################################
 # DEPENDENCIES
@@ -560,6 +589,12 @@ FOREACH(PASS ${OSG_CMAKE_PASSES})
 
         ADD_SUBDIRECTORY(${LIBCONFIGDIR} ${OSG_PASSDIR_${PASS}})
     ENDFOREACH(LIBCONFIGFILE)
+
+    FOREACH(EXTERNAL_CONFIG ${OSG_EXTERNAL_CONFIGS})
+        ADD_SUBDIRECTORY(${OSG_${EXTERNAL_CONFIG}_SOURCE_DIR} 
+                         External/${EXTERNAL_CONFIG}/${OSG_PASSDIR_${PASS}})
+    ENDFOREACH(EXTERNAL_CONFIG ${OSG_EXTERNAL_CONFIGS})
+    
 ENDFOREACH()
 
 

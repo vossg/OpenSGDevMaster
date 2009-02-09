@@ -6,7 +6,7 @@
 // file.
 //
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // Headers
 #include <OSGGLUT.h>
 #include <OSGConfig.h>
@@ -46,7 +46,7 @@ SimpleSceneManager *mgr;
 int setupGLUT( int *argc, char *argv[] );
 
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 // helper class to find a named node
 // names are handled as simple attachments, get the header for that
 #include <OSGNameAttachment.h>

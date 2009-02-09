@@ -35,7 +35,7 @@
 
 #include <vector>
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 
 #include <OSGGLUT.h>
 #include <OSGConfig.h>
@@ -55,7 +55,7 @@
 #include <OSGPassiveBackground.h>
 #include <OSGFieldContainerUtils.h>
 
-#else // OSG_BUILD_INTEGRATED
+#else // OSG_BUILD_ACTIVE
 
 #include <OpenSG/OSGGLUT.h>
 #include <OpenSG/OSGConfig.h>
@@ -75,7 +75,7 @@
 #include <OpenSG/OSGPassiveBackground.h>
 #include <OpenSG/OSGFieldContainerUtils.h>
 
-#endif // OSG_BUILD_INTEGRATED
+#endif // OSG_BUILD_ACTIVE
 
 
 OSG_USING_NAMESPACE

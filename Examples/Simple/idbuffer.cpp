@@ -25,7 +25,7 @@
 // Use Space to pick.
 //
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 #include <OSGGLUT.h>
 #include <OSGConfig.h>
 #include <OSGSimpleGeometry.h>
