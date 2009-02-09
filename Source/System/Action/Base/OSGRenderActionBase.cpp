@@ -54,11 +54,14 @@
 #include "OSGStageValidator.h"
 #include "OSGWindow.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 StatElemDesc<StatTimeElem>
 RenderActionBase::statTravTime       ("RT-TravTime",
                                       "time for traversal"       );
+# if defined(__APPLE__)
+template class DataSlotMixin< MixinHead < RenderDataSlotDesc > >;
+#endif
 
 /*
 StatElemDesc<StatIntElem>
@@ -284,3 +287,5 @@ UInt32 RenderActionBase::selectVisibles(void)
     return count;
 }
 #endif
+
+OSG_END_NAMESPACE
