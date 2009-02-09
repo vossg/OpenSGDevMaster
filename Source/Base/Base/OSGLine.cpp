@@ -412,11 +412,11 @@ bool Line::intersect(const FrustumVolume &frustum) const
 /*! Intersect the line with a frustum, returns points of intersection
     based on Cyrus Beck Algorithm for clipping a line segment to a
     convex volume.
-    \hideinhierarchy
+    \nohierarchy
  */
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 
-/*! \hideinhierarchy */
+/*! \nohierarchy */
 
 struct face
 {
@@ -708,10 +708,11 @@ bool Line::intersect(      Real   OSG_CHECK_ARG(angle),
 #endif
 
 /*! Intersect the line with a triangle.
-* @param: v0-v2  Points definiting a triangle in CW orientation.
-* @param: t  If hit, this returns the distance the hit is down the line.
-* @param: norm If non-NULL, this is set to the normal at the point of intersection
-* @returns: True if there is an intersection.
+* \param [in] v0,v1,v2  Points definiting a triangle in CW orientation.
+* \param [out] t  If hit, this returns the distance the hit is down the line.
+* \param [in,out] norm If non-NULL, this is set to the normal at the point of
+*           intersection 
+* \returns True if there is an intersection.
  */
 bool Line::intersect(const Pnt3r &v0, 
                      const Pnt3r &v1,

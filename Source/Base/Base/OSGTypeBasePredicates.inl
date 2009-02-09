@@ -49,11 +49,10 @@ OSG_BEGIN_NAMESPACE
     \return true, if \a type is derived from any of the types in
         [\a begin, \a end), false otherwise.
  */
-template <class InIteratorTypeT>
-inline bool
-TypePredicates::typeDerivedFrom   (      InIteratorTypeT  begin,
-                                         InIteratorTypeT  end,
-                                   const TypeBase        &type  )
+template <class InIteratorTypeT> inline 
+bool TypePredicates::typeDerivedFrom(      InIteratorTypeT  begin,
+                                           InIteratorTypeT  end,
+                                     const TypeBase        &type  )
 {
     return (std::find_if(begin, end,
                          TypePredicates::IsBaseOf(type)) != end);
@@ -69,11 +68,10 @@ TypePredicates::typeDerivedFrom   (      InIteratorTypeT  begin,
     \return true, if \a type is derived from all of the types in
         [\a begin, \a end), false otherwise.
  */
-template <class InIteratorTypeT>
-inline bool
-TypePredicates::typeDerivedFromAll(      InIteratorTypeT  begin,
-                                         InIteratorTypeT  end,
-                                   const TypeBase        &type  )
+template <class InIteratorTypeT> inline 
+bool TypePredicates::typeDerivedFromAll(      InIteratorTypeT  begin,
+                                              InIteratorTypeT  end,
+                                        const TypeBase        &type  )
 {
     return (std::find_if(begin, end,
                          std::not1(TypePredicates::IsBaseOf(type))) == end);
@@ -90,11 +88,10 @@ TypePredicates::typeDerivedFromAll(      InIteratorTypeT  begin,
     \return true, if \a type is a base type any of the types in
         [\a begin, \a end), false otherwise.
  */
-template <class InIteratorTypeT>
-inline bool
-TypePredicates::typeBaseOf        (      InIteratorTypeT  begin,
-                                         InIteratorTypeT  end,
-                                   const TypeBase        &type  )
+template <class InIteratorTypeT> inline 
+bool TypePredicates::typeBaseOf(      InIteratorTypeT  begin,
+                                      InIteratorTypeT  end,
+                                const TypeBase        &type  )
 {
     return (std::find_if(begin, end,
                          TypePredicates::IsDerivedFrom(type)) != end);
@@ -110,14 +107,14 @@ TypePredicates::typeBaseOf        (      InIteratorTypeT  begin,
     \return true, if \a type is a base type of all of the types in
         [\a begin, \a end), false otherwise.
  */
-template <class InIteratorTypeT>
-inline bool
-TypePredicates::typeBaseOfAll     (      InIteratorTypeT  begin,
+template <class InIteratorTypeT> inline 
+bool TypePredicates::typeBaseOfAll(      InIteratorTypeT  begin,
                                          InIteratorTypeT  end,
                                    const TypeBase        &type  )
 {
-    return (std::find_if(begin, end,
-                         std::not1(TypePredicates::IsDerivedFrom(type))) == end);
+    return (
+        std::find_if(begin, end,
+                     std::not1(TypePredicates::IsDerivedFrom(type))) == end);
 }
 
 OSG_END_NAMESPACE

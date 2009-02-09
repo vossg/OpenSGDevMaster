@@ -50,7 +50,9 @@ OSG_BEGIN_NAMESPACE
 
 class PoolDefaultTag;
 
-/*! \ingroup GrpSystemRenderingBackend
+/*! \ingroup GrpBaseBasePools
+    \ingroup GrpBaseBase
+    \nohierarchy
 */
 
 template <class ValueT, 
@@ -129,6 +131,11 @@ class SimplePool
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const SimplePool &source);
 };
+
+/*! \ingroup GrpBaseBasePools
+    \ingroup GrpBaseBase
+    \nohierarchy
+*/
 
 template<class PoolTag, class LockPolicy>
 class SimplePool<Int32, PoolTag, LockPolicy>

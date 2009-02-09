@@ -50,10 +50,13 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBase
+/*! \ingroup GrpBaseBasePools
+    \ingroup GrpBaseBase
     \brief Pool that can store different classes derived from a common base
     class
-*/
+
+    \nohierarchy
+ */
 
 template<class ValueBaseT>
 class MultiPool 
@@ -90,11 +93,13 @@ class MultiPool
     
     void freeAll(void);
 
-    /*! \}                                                                 */    
+    /*! \}                                                                 */  
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
+    /*! \nohierarchy
+     */
     // Store the data for a single type
     class TypeStore
     {

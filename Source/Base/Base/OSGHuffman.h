@@ -32,20 +32,34 @@
 #ifndef _OSGHUFFMAN_H_
 #define _OSGHUFFMAN_H_
 
+#include "OSGConfig.h"
 
+OSG_BEGIN_NAMESPACE
 
 /*************************************************************************
 * Function prototypes
 *************************************************************************/
 
+/*---------------------------------------------------------------------*/
+/*! \name Compression                                                  */
+/*! \{                                                                 */
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
 int  Huffman_Compress  (unsigned char *in, 
                         unsigned char *out,
                         unsigned int   insize );
+
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
 void Huffman_Uncompress(unsigned char *in, 
                         unsigned char *out,
                         unsigned int   insize, 
                         unsigned int   outsize);
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
-
+OSG_END_NAMESPACE
 
 #endif /* _OSGHUFFMAN_H_ */

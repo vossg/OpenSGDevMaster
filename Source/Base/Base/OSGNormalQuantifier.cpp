@@ -48,7 +48,7 @@
 
 #define EPSILON 0.0000001
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 
 /*--------------------------- Constructors --------------------------------*/
@@ -342,3 +342,4 @@ UInt32 NormalQuantifier::getSubIndex(Vec3f point,
   return index;
 }
 
+OSG_END_NAMESPACE

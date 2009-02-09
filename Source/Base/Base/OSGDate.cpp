@@ -221,7 +221,7 @@ bool Date::operator <(const Date &other)
 }
 
 
-std::ostream &OSG::operator <<(std::ostream &outStream, const Date &obj)
+std::ostream &OSG::operator <<(std::ostream &outStream, const OSG::Date &obj)
 {
   return  outStream << std::setfill('0')
                     << std::setw(2) << obj._day    << '.'
@@ -233,7 +233,7 @@ std::ostream &OSG::operator <<(std::ostream &outStream, const Date &obj)
 }
 
 
-std::istream &OSG::operator >>(std::istream &inStream, Date &obj)
+std::istream &OSG::operator >>(std::istream &inStream, OSG::Date &obj)
 {
     Char8 c;
     

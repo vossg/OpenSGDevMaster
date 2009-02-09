@@ -68,14 +68,14 @@ TypePredicates::IsBaseOf::IsBaseOf(const TypeBase &derivType)
 {
 }
 
-/*! Tests if \a pTestType is a base type of the type specified upon construction.
+/*! Tests if \a pTestType is a base type of the type specified upon
+    construction. 
 
     \param[in] pTestType Type object that is tested.
     \return true, if \a testType is a base type of the type specified at
         construction time, false otherwise.
  */
-bool
-TypePredicates::IsBaseOf::operator()(const TypeBase *pTestType) const
+bool TypePredicates::IsBaseOf::operator()(const TypeBase *pTestType) const
 {
     return _derivType.isDerivedFrom(*pTestType);
 }
@@ -95,10 +95,10 @@ TypePredicates::IsBaseOf::operator()(const TypeBase *pTestType) const
 /*! Constructor. Creates a new predicate that will test if a type is a
     derived from \a baseType.
 
-    \param[in] derivType Type object agains which other types are tested.
+    \param[in] baseType Type object agains which other types are tested.
  */
-TypePredicates::IsDerivedFrom::IsDerivedFrom(const TypeBase &baseType)
-    : _baseType(baseType)
+TypePredicates::IsDerivedFrom::IsDerivedFrom(const TypeBase &baseType) :
+    _baseType(baseType)
 {
 }
 
@@ -108,8 +108,7 @@ TypePredicates::IsDerivedFrom::IsDerivedFrom(const TypeBase &baseType)
     \return true, if \a testType is derived from the type specified at
         construction time, false otherwise.
  */
-bool
-TypePredicates::IsDerivedFrom::operator()(const TypeBase *pTestType) const
+bool TypePredicates::IsDerivedFrom::operator()(const TypeBase *pTestType) const
 {
     return pTestType->isDerivedFrom(_baseType);
 }

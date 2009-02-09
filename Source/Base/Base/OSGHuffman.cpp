@@ -55,14 +55,24 @@
 * marcus.geelnard at home.se
 *************************************************************************/
 
+#include "OSGConfig.h"
+
+OSG_BEGIN_NAMESPACE
+
 /*************************************************************************
 * Types used for Huffman coding
 *************************************************************************/
+
+/*! \nohierarchy
+ */
 
 typedef struct {
     unsigned char *BytePtr;
     unsigned int  BitPos;
 } huff_bitstream_t;
+
+/*! \nohierarchy
+ */
 
 typedef struct {
     int Symbol;
@@ -73,6 +83,9 @@ typedef struct {
 
 typedef struct huff_encodenode_struct huff_encodenode_t;
 
+/*! \nohierarchy
+ */
+
 struct huff_encodenode_struct {
     huff_encodenode_t *ChildA, *ChildB;
     int Count;
@@ -80,6 +93,9 @@ struct huff_encodenode_struct {
 };
 
 typedef struct huff_decodenode_struct huff_decodenode_t;
+
+/*! \nohierarchy
+ */
 
 struct huff_decodenode_struct {
     huff_decodenode_t *ChildA, *ChildB;
@@ -501,3 +517,5 @@ void Huffman_Uncompress( unsigned char *in, unsigned char *out,
     *buf ++ = osghuc(node->Symbol);
   }
 }
+
+OSG_END_NAMESPACE

@@ -34,13 +34,14 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-/*! \class ReferenceCountPointer
+
+OSG_BEGIN_NAMESPACE
+
+/*! \class RefCountPtr
 
     \brief Smart pointer class that manipulates the internal ref count of
     the pointed to object.
 */
-
-OSG_BEGIN_NAMESPACE
 
 template <class ObjectT, 
           class RefCountPolicyT> inline
@@ -265,8 +266,8 @@ Int32 RefCountPtr<ObjectT, RefCountPolicyT>::getRefCount(void) const
 
 
 template <class TargetObjectT, class SourceObjectT, class RP> inline
-RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
-    RefCountPtr<SourceObjectT, RP> const &source)
+OSG::RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
+    OSG::RefCountPtr<SourceObjectT, RP> const &source)
 {
     TargetObjectT *pRet = dynamic_cast<TargetObjectT *>(source.get());
 
@@ -274,8 +275,8 @@ RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
 }
  
 template <class TargetObjectT, class SourceObjectT, class RP> inline
-RefCountPtr<TargetObjectT, RP> static_pointer_cast(
-    RefCountPtr<SourceObjectT, RP> const &source)
+OSG::RefCountPtr<TargetObjectT, RP> static_pointer_cast(
+    OSG::RefCountPtr<SourceObjectT, RP> const &source)
 {
     TargetObjectT *pRet = static_cast<TargetObjectT *>(source.get());
 

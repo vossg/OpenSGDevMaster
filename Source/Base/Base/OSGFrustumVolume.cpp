@@ -440,8 +440,9 @@ fprintf(stderr,"Frustum:(%f %f %f:%f)(%f %f %f:%f)(%f %f %f:%f)"
 */
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const FrustumVolume &frustum, const Volume &vol, 
-               FrustumVolume::PlaneSet &inplanes)
+bool intersect(const OSG::FrustumVolume           &frustum, 
+               const OSG::Volume                  &vol, 
+                     OSG::FrustumVolume::PlaneSet &inplanes)
 {
     Pnt3r min, max;
 

@@ -56,6 +56,7 @@ OSG_BEGIN_NAMESPACE
 
 class Fixed32;
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 struct SetIndent
 {
     SetIndent(unsigned int uiIndent) : _uiIndent(uiIndent) {}
@@ -74,12 +75,29 @@ typedef void (*_DecIndent_)(_DecIndent);
 typedef void (*_BeginElem_)(_BeginElem);
 typedef void (*_EndElem_  )(_EndElem  );
 typedef void (*_EndElemNL_)(_EndElemNL);
+#endif
 
+/*! \name Stream Controls
+    \{
+ */
+
+/*! \ingroup GrpBaseBaseStreamIO */
 OSG_BASE_DLLMAPPING void IncIndent(_IncIndent);
+/*! \ingroup GrpBaseBaseStreamIO */
 OSG_BASE_DLLMAPPING void DecIndent(_DecIndent);
+/*! \ingroup GrpBaseBaseStreamIO */
 OSG_BASE_DLLMAPPING void BeginElem(_BeginElem);
+/*! \ingroup GrpBaseBaseStreamIO */
 OSG_BASE_DLLMAPPING void EndElem  (_EndElem  );
+/*! \ingroup GrpBaseBaseStreamIO */
 OSG_BASE_DLLMAPPING void EndElemNL(_EndElemNL);
+
+/*! \} */
+
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseStreamIO
+    \nohierarchy
+ */
 
 class OSG_BASE_DLLMAPPING OutStream
 {
@@ -171,6 +189,10 @@ class OSG_BASE_DLLMAPPING OutStream
   private:
 };
 
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseStreamIO
+    \nohierarchy
+ */
 
 template<class ParentT>
 class FileStreamMixin : public ParentT
@@ -215,6 +237,10 @@ class FileStreamMixin : public ParentT
   private:
 };
 
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseStreamIO
+    \nohierarchy
+ */
 
 template<class ParentT>
 class IndentOutStreamMixin : public ParentT
@@ -270,6 +296,10 @@ class IndentOutStreamMixin : public ParentT
 };
 
 
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseStreamIO
+    \nohierarchy
+ */
 
 class OSG_BASE_DLLMAPPING InStream
 {
@@ -302,9 +332,17 @@ class OSG_BASE_DLLMAPPING InStream
   private:
 };
 
+/*! \name Streams
+    \{
+ */
 
+/*! \ingroup GrpBaseBaseStreamIO */
 typedef FileStreamMixin                     <OutStream>   FileOutStream;
+/*! \ingroup GrpBaseBaseStreamIO */
 typedef FileStreamMixin<IndentOutStreamMixin<OutStream> > IndentFileOutStream;
+
+/*! \}
+ */
 
 OSG_END_NAMESPACE
 

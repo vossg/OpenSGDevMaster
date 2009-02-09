@@ -48,7 +48,8 @@ OSG_BEGIN_NAMESPACE
 
 class Line;
 
-/*! \ingroup GrpBaseBaseVolume
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseVolume
  */
 
 class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
@@ -186,10 +187,13 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
 
 };
 
-
+/*! \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
+ */
 OSG_BASE_DLLMAPPING 
-bool intersect(const FrustumVolume &frustum, const Volume &vol, 
-               FrustumVolume::PlaneSet &inplanes);
+bool intersect(const OSG::FrustumVolume           &frustum, 
+               const OSG::Volume                  &vol, 
+                     OSG::FrustumVolume::PlaneSet &inplanes);
 
 OSG_END_NAMESPACE
 

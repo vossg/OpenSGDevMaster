@@ -47,19 +47,16 @@
 
 #include <boost/mpl/if.hpp>
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGReferenceCountPointerDecl.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
-
-/*! \ingroup GrpSystemFieldContainer
- */
 
 template <class ObjectT>
 class TransitPtr;
+
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMemory
+    \ingroup GrpBaseBaseRefCounting
+    \nohierarchy
+ */
 
 template <class ObjectT, 
           class RefCountPolicyT>
@@ -195,14 +192,22 @@ class RefCountPtr
     /*---------------------------------------------------------------------*/
   
 };
+
+/*! \ingroup GrpBaseBaseRefCounting
+    \relatesalso RefCountPtr
+ */
        
 template <class TargetObjectT, class SourceObjectT, class RP> inline
-RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
-    RefCountPtr<SourceObjectT, RP> const &source);
- 
+OSG::RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
+    OSG::RefCountPtr<SourceObjectT, RP> const &source);
+
+/*! \ingroup GrpBaseBaseRefCounting
+    \relatesalso RefCountPtr
+ */
+
 template <class TargetObjectT, class SourceObjectT, class RP> inline
-RefCountPtr<TargetObjectT, RP> static_pointer_cast(
-    RefCountPtr<SourceObjectT, RP> const &source);
+OSG::RefCountPtr<TargetObjectT, RP> static_pointer_cast(
+    OSG::RefCountPtr<SourceObjectT, RP> const &source);
   
 #if defined(OSG_1_COMPATX)
 template <class TargetT, class SourceT> inline

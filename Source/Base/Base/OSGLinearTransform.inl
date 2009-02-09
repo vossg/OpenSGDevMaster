@@ -366,7 +366,7 @@ LinearTransform<ValueTypeT> &
   return *this;
 }
 
-/** \NEW LeftSide Operators
+/** LeftSide Operators
  */
 
 template<class ValueTypeT> inline

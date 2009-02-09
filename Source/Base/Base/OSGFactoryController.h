@@ -70,7 +70,10 @@ class TypeFactoryBase;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseTypeSystem
+/*! \brief Accessible via #FactoryController
+    \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseTypeSystem
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING FactoryControllerBase
@@ -212,7 +215,12 @@ class OSG_BASE_DLLMAPPING FactoryControllerBase
 #    endif
 #endif
 
-typedef SingletonHolder<FactoryControllerBase> FactoryController;
+/*! \typedef OSG::SingletonHolder<OSG::FactoryControllerBase> FactoryController;
+    \ingroup GrpBaseBaseTypeSystem
+    \relatesalso OSG::FactoryControllerBase
+ */
+
+typedef OSG::SingletonHolder<OSG::FactoryControllerBase> FactoryController;
 
 OSG_END_NAMESPACE
 

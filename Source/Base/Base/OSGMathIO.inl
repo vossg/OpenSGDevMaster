@@ -42,9 +42,10 @@ OSG_BEGIN_NAMESPACE
  */
 template <class  VecTypeT,
           class  ValueTypeT,
-          UInt32 SizeI      >
-inline void VecToStreamWriter<VecTypeT, ValueTypeT, SizeI>::apply(
-    std::ostream &os, const VecTypeT &vec)
+          UInt32 SizeI      > inline 
+void VecToStreamWriter<VecTypeT, ValueTypeT, SizeI>::apply(
+          std::ostream &os, 
+    const VecTypeT     &vec)
 {
     for(UInt32 i = 0; i < SizeI; ++i)
     {
@@ -57,9 +58,10 @@ inline void VecToStreamWriter<VecTypeT, ValueTypeT, SizeI>::apply(
 
 // Partial specialization to prevent output as ASCII character
 template <class  VecTypeT,
-          UInt32 SizeI    >
-inline void VecToStreamWriter<VecTypeT, Int8, SizeI>::apply(
-    std::ostream &os, const VecTypeT &vec)
+          UInt32 SizeI    > inline 
+void VecToStreamWriter<VecTypeT, Int8, SizeI>::apply(
+          std::ostream &os, 
+    const VecTypeT     &vec)
 {
     for(UInt32 i = 0; i < SizeI; ++i)
     {
@@ -72,9 +74,10 @@ inline void VecToStreamWriter<VecTypeT, Int8, SizeI>::apply(
 
 // Partial specialization to prevent output as ASCII character
 template <class  VecTypeT,
-          UInt32 SizeI    >
-inline void VecToStreamWriter<VecTypeT, UInt8, SizeI>::apply(
-    std::ostream &os, const VecTypeT &vec)
+          UInt32 SizeI    > inline 
+void VecToStreamWriter<VecTypeT, UInt8, SizeI>::apply(
+          std::ostream &os, 
+    const VecTypeT     &vec)
 {
     for(UInt32 i = 0; i < SizeI; ++i)
     {
@@ -90,9 +93,9 @@ inline void VecToStreamWriter<VecTypeT, UInt8, SizeI>::apply(
  */
 template <class  VecTypeT,
           class  ValueTypeT,
-          UInt32 SizeI      >
-inline void VecFromStreamReader<VecTypeT, ValueTypeT, SizeI>::apply(
-    std::istream &is, VecTypeT &vec)
+          UInt32 SizeI      > inline 
+void VecFromStreamReader<VecTypeT, ValueTypeT, SizeI>::apply(std::istream &is, 
+                                                             VecTypeT     &vec)
 {
     for(UInt32 i = 0; i < SizeI; ++i)
     {
@@ -108,9 +111,9 @@ inline void VecFromStreamReader<VecTypeT, ValueTypeT, SizeI>::apply(
 
 // Partial specialization to prevent input as ASCII character
 template <class  VecTypeT,
-          UInt32 SizeI    >
-inline void VecFromStreamReader<VecTypeT, Int8, SizeI>::apply(
-    std::istream &is, VecTypeT &vec)
+          UInt32 SizeI    > inline 
+void VecFromStreamReader<VecTypeT, Int8, SizeI>::apply(std::istream &is, 
+                                                       VecTypeT     &vec)
 {
     for(UInt32 i = 0; i < SizeI; ++i)
     {
@@ -129,9 +132,9 @@ inline void VecFromStreamReader<VecTypeT, Int8, SizeI>::apply(
 
 // Partial specialization to prevent input as ASCII character
 template <class  VecTypeT,
-          UInt32 SizeI    >
-inline void VecFromStreamReader<VecTypeT, UInt8, SizeI>::apply(
-    std::istream &is, VecTypeT &vec)
+          UInt32 SizeI    > inline 
+void VecFromStreamReader<VecTypeT, UInt8, SizeI>::apply(std::istream &is, 
+                                                        VecTypeT     &vec)
 {
     for(UInt32 i = 0; i < SizeI; ++i)
     {

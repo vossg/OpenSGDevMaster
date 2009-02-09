@@ -43,7 +43,7 @@
 #include "OSGConfig.h"
 #include "OSGIDStringLink.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*-------------------------- constructor ----------------------------------*/
 
@@ -68,3 +68,4 @@ IDStringLink::~IDStringLink()
 {
 }
 
+OSG_END_NAMESPACE

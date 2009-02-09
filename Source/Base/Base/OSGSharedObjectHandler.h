@@ -43,10 +43,6 @@
 #endif
 
 
-/*! \file OSGSharedObjectHandler.h
-    \ingroup GrpBaseBase
- */
-
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
@@ -86,12 +82,11 @@ typedef void *AnonSymbolHandle;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpSystemBaseObjects
- */
-
 typedef OSG::SharedObject *SharedObjectP;
 
-/*! \ingroup GrpSystemBaseObjects
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseTypeSystem
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING SharedObject : public MemoryObject
@@ -235,12 +230,11 @@ class OSG_BASE_DLLMAPPING SharedObject : public MemoryObject
 //---------------------------------------------------------------------------
 
 
-/*! \ingroup GrpSystemBaseObjects
- */
-
 typedef OSG::SharedObjectHandler *SharedObjectHandlerP;
 
-/*! \ingroup GrpSystemBaseObjects
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseTypeSystem
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING SharedObjectHandler

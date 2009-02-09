@@ -68,6 +68,7 @@ OSG_OPTION(OSGCOMPAT_ENABLE_DEPRECATED_PROPS "" OFF)
 OPTION(OSG_ENABLE_DOXY_DOC "Build the doxygen documentation - this has to be enabled each time cmake is run!" OFF)
 SET(OSG_DOXY_DOC_TYPE "User" CACHE STRING
     "The type of documentation to generate (User, Developer, Trac)")
+SET(OSG_DOXY_INPUTS CACHE FILEPATH "include given file instead of autogen")
 
 # Not sure
 #OPTION(OSG_ENABLE_MTCPTR "" ON)
@@ -485,9 +486,11 @@ ENDIF(OSG_OLD_CONFIG_FILES)
 
 IF(OSG_ENABLE_DOXY_DOC)
 
-    # add a pass for doxygen to run
-    LIST(APPEND OSG_CMAKE_PASSES "OSGDOXYDOC")
-    SET(OSG_PASS_DIR_OSGDOXYDOC "Doc")
+    IF(NOT OSG_DOXY_INPUTS)
+        # add a pass for doxygen to run
+        LIST(APPEND OSG_CMAKE_PASSES "OSGDOXYDOC")
+        SET(OSG_PASS_DIR_OSGDOXYDOC "Doc")
+    ENDIF(NOT OSG_DOXY_INPUTS)
 
     # set up variables for the config file
     IF(DOXYGEN_DOT_EXECUTABLE)
@@ -524,9 +527,16 @@ IF(OSG_ENABLE_DOXY_DOC)
         SET(OSG_DOXY_SEARCHENGINE "YES")
     ENDIF(OSG_DOXY_DOC_TYPE STREQUAL "User")
 
+    SET(OSG_DOXY_HTML_CSS "${CMAKE_SOURCE_DIR}/Doc/doxygen_osg.css")
+
     # write doxygen config file
     CONFIGURE_FILE("${OSG_DOXY_CONFIGURATION_FILE_IN}"
                    "${OSG_DOXY_CONFIGURATION_FILE}")
+
+    IF(OSG_DOXY_INPUTS)
+        FILE(APPEND ${OSG_DOXY_CONFIGURATION_FILE}
+            "@INCLUDE = ${OSG_DOXY_INPUTS}\n")
+    ENDIF(OSG_DOXY_INPUTS)
 
 ENDIF(OSG_ENABLE_DOXY_DOC)
 

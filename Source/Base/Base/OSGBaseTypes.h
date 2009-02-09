@@ -562,8 +562,18 @@ typedef UInt8 *MemoryHandle;
 #include "OSGFixed.h"
 
 #ifdef OSG_FLOAT_PROFILE
+
+/*! \var Real32 Real;
+ *  \ingroup GrpBaseBaseBaseTypes
+ */
+
 typedef Real32  Real;
 #else
+
+/*! \var Fixed32 Real;
+ *  \ingroup GrpBaseBaseBaseTypes
+ */
+
 typedef Fixed32 Real;
 #endif
 
@@ -699,11 +709,15 @@ enum MathTypeProperties
     BoolValue
 };
 
+/*! \ingroup GrpBaseBaseBaseTypes
+ */
+
 typedef const BitVector ConstFieldMaskArg;
 
 /*! FieldFlags
     \ingroup GrpBaseBaseBaseTypes
     \ingroup GrpBaseBase
+    \nohierarchy
  */
 
 struct FieldFlags
@@ -717,6 +731,10 @@ struct FieldFlags
     FieldFlags(const FieldFlags &source);
     ~FieldFlags(void);
 };
+
+
+/*! \ingroup GrpBaseBaseBaseTypes
+ */
 
 typedef std::vector<Int32> AspectOffsetStore;
 

@@ -48,6 +48,8 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseHelper
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING Date
@@ -116,6 +118,7 @@ class OSG_BASE_DLLMAPPING Date
 
     /*! \}                                                                 */
     /*===========================  PRIVATE  ===============================*/
+
   private:
 
     UInt32 _second;
@@ -127,14 +130,14 @@ class OSG_BASE_DLLMAPPING Date
              
     friend 
     std::ostream &operator <<(      std::ostream &os, 
-                              const Date         &obj);
+                              const OSG::Date    &obj);
     friend 
     std::istream &operator >>(      std::istream &is, 
-                                    Date         &obj);
+                                    OSG::Date    &obj);
 };
 
-std::ostream &operator <<(std::ostream &outStream, const Date &obj);
-std::istream &operator >>(std::istream &inStream,        Date &obj);
+std::ostream &operator <<(std::ostream &outStream, const OSG::Date &obj);
+std::istream &operator >>(std::istream &inStream,        OSG::Date &obj);
 
 OSG_END_NAMESPACE
 

@@ -43,6 +43,15 @@
 #error  Include OSGBaseTypes.h instead of OSGFixed.h
 #endif
 
+#ifdef DOXYGEN_SHOULD_SKIP_THIS
+OSG_BEGIN_NAMESPACE
+#endif
+
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMathObj
+    \nohierarchy
+ */
+
 class OSG_BASE_DLLMAPPING Fixed32
 {
   public:
@@ -112,13 +121,29 @@ class OSG_BASE_DLLMAPPING Fixed32
     Int32 _value;
 };
 
-Fixed32 operator -(const Real32 lhs, const Fixed32 rhs);
-Fixed32 operator /(const Real32 lhs, const Fixed32 rhs);
-Fixed32 operator *(const Real32 lhs, const Fixed32 rhs);
+/*! \relates Fixed32
+ */
+Fixed32 operator -(const OSG::Real32 lhs, const Fixed32 rhs);
 
+/*! \relates Fixed32
+ */
+Fixed32 operator /(const OSG::Real32 lhs, const Fixed32 rhs);
+
+/*! \relates Fixed32
+ */
+Fixed32 operator *(const OSG::Real32 lhs, const Fixed32 rhs);
+
+/*! \relates Fixed32
+ */
 std::ostream &operator << (std::ostream &os, const Fixed32  fVal);
 
+/*! \relates Fixed32
+ */
 std::istream &operator >> (std::istream &is,       Fixed32 &fVal);
+
+#ifdef DOXYGEN_SHOULD_SKIP_THIS
+OSG_END_NAMESPACE
+#endif
 
 #include "OSGFixed.inl"
 

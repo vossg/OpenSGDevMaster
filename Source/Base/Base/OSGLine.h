@@ -51,6 +51,8 @@ class CylinderVolume;
 class FrustumVolume;
 
 /*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMathObj
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING Line
@@ -156,9 +158,11 @@ class OSG_BASE_DLLMAPPING Line
 
 };
 
+/*! \relates Line
+ */
 OSG_BASE_DLLMAPPING 
 std::ostream &operator <<(      std::ostream &os, 
-                          const Line        &obj);
+                          const OSG::Line    &obj);
 
 OSG_END_NAMESPACE
 

@@ -47,7 +47,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseBaseColors
+/*! \ingroup GrpBaseBaseMathObj
  */
 
 template <class ValueTypeT>
@@ -152,7 +152,7 @@ class Color3 : public Vector<ValueTypeT, 3>
   protected:
 };
 
-/*! \ingroup GrpBaseBaseColors
+/*! \ingroup GrpBaseBaseMathObj
  */
 
 template <class ValueTypeT>
@@ -241,7 +241,7 @@ class Color4 : public Vector< ValueTypeT, 4 >
   protected:
 };
 
-/**
+/*
 template <class ValueTypeT> inline
 std::ostream &operator <<(      std::ostream       &outStream,
                           const Color3<ValueTypeT> &color);
@@ -249,62 +249,92 @@ std::ostream &operator <<(      std::ostream       &outStream,
 template <class ValueTypeT> inline
 std::ostream &operator <<(      std::ostream       &outStream,
                           const Color4<ValueTypeT> &color);
-**/
+*/
 
-/*! \var Color3<Real32> Color3f;
- *  \ingroup GrpBaseColors
- *  \brief Color3f
+/*---------------------------------------------------------------------*/
+/*! \name Color Types                                                  */
+/*! \{                                                                 */
+
+/*! \var OSG::Color3<OSG::Real32> Color3f;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color3
  */
+typedef OSG::Color3<OSG::Real32> Color3f;
 
-typedef Color3<Real32> Color3f;
 
-/*! \var Color3<Fixed32> Color3f;
- *  \ingroup GrpBaseColors
- *  \brief Color3f
+/*! \var OSG::Color3<OSG::Fixed32> Color3f;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color3
  */
+typedef OSG::Color3<OSG::Fixed32> Color3fx;
 
-typedef Color3<Fixed32> Color3fx;
 
-/*! \var Color4<Real32> Color4f;
- *  \ingroup GrpBaseColors
- *  \brief Color4f
+/*! \var OSG::Color4<OSG::Real32> Color4f;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color4
  */
+typedef OSG::Color4<OSG::Real32> Color4f;
 
-typedef Color4<Real32> Color4f;
 
-/*! \var Color4<Fixed32> Color4f;
- *  \ingroup GrpBaseColors
- *  \brief Color4f
+/*! \var OSG::Color4<OSG::Fixed32> Color4f;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color4
  */
+typedef OSG::Color4<OSG::Fixed32> Color4fx;
 
-typedef Color4<Fixed32> Color4fx;
 
-
-/*! \var Color3<UInt8> Color3ub;
- *  \ingroup GrpBaseColors
- *  \brief Color3ub
+/*! \var OSG::Color3<OSG::UInt8> Color3ub;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color3
  */
+typedef OSG::Color3<OSG::UInt8> Color3ub;
 
-typedef Color3<UInt8> Color3ub;
 
-/*! \var Color4<UInt8> Color4ub;
- *  \ingroup GrpBaseColors
- *  \brief Color4ub
+/*! \var OSG::Color4<OSG::UInt8> Color4ub;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color4
  */
+typedef OSG::Color4<OSG::UInt8> Color4ub;
 
-typedef Color4<UInt8> Color4ub;
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name Color Profile Types                                          */
+/*! \{                                                                 */
 
 #ifdef OSG_FLOAT_PROFILE
 
-typedef Color3f Color3r;
-typedef Color4f Color4r;
+/*! \var OSG::Color3f Color3r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color3
+ */
+typedef OSG::Color3f Color3r;
+
+
+/*! \var OSG::Color4f Color4r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color4
+ */
+typedef OSG::Color4f Color4r;
 
 #else
 
-typedef Color3fx Color3r;
-typedef Color4fx Color4r;
+/*! \var OSG::Color3fx Color3r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color3
+ */
+typedef OSG::Color3fx Color3r;
+
+
+/*! \var OSG::Color4fx Color4r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Color4
+ */
+typedef OSG::Color4fx Color4r;
 
 #endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

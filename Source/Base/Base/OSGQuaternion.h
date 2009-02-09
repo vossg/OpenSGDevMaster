@@ -52,7 +52,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseBaseMathObj
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMathObj
+    \nohierarchy
  */
 
 template <class ValueTypeT>
@@ -276,56 +278,70 @@ class QuaternionBase
            ValueTypeT     _quat[4];
 };
 
+/*! \relates QuaternionBase
+ */
 template <class ValueTypeT> 
 OSG_BASE_DLLMAPPING std::ostream &operator <<(
           std::ostream               &os, 
     const QuaternionBase<ValueTypeT> &obj);
     
+/*! \relates QuaternionBase
+ */
+
 template <class ValueTypeT> 
 OSG_BASE_DLLMAPPING std::istream &operator >>(
     std::istream               &is, 
     QuaternionBase<ValueTypeT> &obj);
 
-/*! \var typedef QuaternionBase<Real32> Quaternion;
-    \brief Quaternion
+/*---------------------------------------------------------------------*/
+/*! \name Quaternion Types                                             */
+/*! \{                                                                 */
+
+/*! \var typedef OSG::QuaternionBase<OSG::Real32> Quaternion;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::QuaternionBase
  */
+typedef OSG::QuaternionBase<OSG::Real32> Quaternion;
 
-typedef QuaternionBase<Real32> Quaternion;
 
-/*! \var typedef QuaternionBase<Real64> Quaterniond;
-    \brief Quaternion
+/*! \var typedef OSG::QuaternionBase<OSG::Real64> Quaterniond;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::QuaternionBase
  */
+typedef OSG::QuaternionBase<OSG::Real64> Quaterniond;
 
-typedef QuaternionBase<Real64> Quaterniond;
 
-/*! \var typedef QuaternionBase<Fixed32> Quaternionfx;
-    \brief Quaternion
+/*! \var typedef OSG::QuaternionBase<OSG::Fixed32> Quaternionfx;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::QuaternionBase
  */
+typedef OSG::QuaternionBase<OSG::Fixed32> Quaternionfx;
 
-typedef QuaternionBase<Fixed32> Quaternionfx;
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name Profile Quaternion Types                                     */
+/*! \{                                                                 */
 
 #ifdef OSG_FLOAT_PROFILE
 
-/*! \var typedef Matrix4f Matrixr
-    \brief Matrix
+/*! \var OSG::QuaternionBase<OSG::Real32> Quaternionr;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::QuaternionBase
 */
-
-typedef QuaternionBase<Real32> Quaternionr;
+typedef OSG::QuaternionBase<OSG::Real32> Quaternionr;
 
 #else
 
-/*! \var typedef Matrix4fx Matrixr
-    \brief Matrix
+/*! \var OSG::QuaternionBase<OSG::Fixed32> Quaternionr;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::QuaternionBase
 */
-
-typedef QuaternionBase<Fixed32> Quaternionr;
+typedef OSG::QuaternionBase<OSG::Fixed32> Quaternionr;
 
 #endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

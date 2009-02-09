@@ -50,6 +50,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief Group is the basic NodeCore for inner nodes in the tree.
     \ingroup GrpSystemNodeCoresMisc
+    \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING Group : public GroupBase

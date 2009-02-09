@@ -51,6 +51,7 @@ class Line;
 
 /*! 3D cylinder in space defined by axis and radius.
 
+    \ingroup GrpBaseBase
     \ingroup GrpBaseBaseVolume
  */
 

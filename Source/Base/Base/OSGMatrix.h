@@ -65,7 +65,9 @@ template <class ValueTypeT> class QuaternionBase;
     the following applies : M=(V0 V1 V2 V3), M[Column][Row], M[0] = V0
     M[0][0] = V0[0]
     M.getValues() returns M transposed (as it returns the raw storage)
+    \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMathObj
+    \nohierarchy
  */
 
 template<class ValueTypeT>
@@ -461,62 +463,80 @@ class TransformationMatrix
     static TransformationMatrix _identityMatrix;
 };
 
+/*---------------------------------------------------------------------*/
+/*! \name Matrix Types                                                */
+/*! \{                                                                 */
 
-/*! \var typedef TransformationMatrix<Real32> Matrix4f;
+/*! \var typedef OSG::TransformationMatrix<OSG::Real32> Matrix4f;
     \brief Matrix4f
     \ingroup GrpBaseBaseMathObj
-*/
+    \relatesalso OSG::TransformationMatrix
+ */
+typedef OSG::TransformationMatrix<OSG::Real32> Matrix4f;
 
-typedef TransformationMatrix<Real32> Matrix4f;
 
-/*! \var typedef TransformationMatrix<Real64> Matrix4d;
+/*! \var typedef OSG::TransformationMatrix<OSG::Real64> Matrix4d;
     \brief Matrix4d
     \ingroup GrpBaseBaseMathObj
-*/
+    \relatesalso OSG::TransformationMatrix
+ */
+typedef OSG::TransformationMatrix<OSG::Real64> Matrix4d;
 
-typedef TransformationMatrix<Real64> Matrix4d;
 
-/*! \var typedef TransformationMatrix<Fixed32> Matrix4fx;
+/*! \var typedef OSG::TransformationMatrix<OSG::Fixed32> Matrix4fx;
     \brief Matrix4f
     \ingroup GrpBaseBaseMathObj
-*/
+    \relatesalso OSG::TransformationMatrix
+ */
+typedef OSG::TransformationMatrix<OSG::Fixed32> Matrix4fx;
 
-typedef TransformationMatrix<Fixed32> Matrix4fx;
 
-/*! \var typedef TransformationMatrix<Real32> Matrix;
+/*! \var typedef OSG::TransformationMatrix<OSG::Real32> Matrix;
     \brief Matrix
     \ingroup GrpBaseBaseMathObj
-*/
+    \relatesalso OSG::TransformationMatrix
+ */
+typedef OSG::TransformationMatrix<OSG::Real32 > Matrix;
 
-typedef TransformationMatrix<Real32 > Matrix;
 
-/*! \var typedef TransformationMatrix<Fixed32> Matrifx;
-    \brief Matrix
+/*! \var typedef OSG::TransformationMatrix<OSG::Fixed32> Matrixfx;
+    \brief Matrixr
     \ingroup GrpBaseBaseMathObj
-*/
+    \relatesalso OSG::TransformationMatrix
+ */
+typedef OSG::TransformationMatrix<OSG::Fixed32> Matrixfx;
 
-typedef TransformationMatrix<Fixed32> Matrix4fx;
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name Profile Matrix Types                                         */
+/*! \{                                                                 */
 
 #ifdef OSG_FLOAT_PROFILE
 
 /*! \var typedef Matrix4f Matrixr
-    \brief Matrix
     \ingroup GrpBaseBaseMathObj
-*/
+    \relatesalso OSG::TransformationMatrix
+ */
 
 typedef Matrix4f Matrixr;
+
 
 #else
 
 /*! \var typedef Matrix4fx Matrixr
-    \brief Matrix
     \ingroup GrpBaseBaseMathObj
-*/
+    \relatesalso OSG::TransformationMatrix
+ */
 
 typedef Matrix4fx Matrixr;
 
 #endif
 
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+
+/*! \relates TransformationMatrix
+ */
 template<class ValueTypeT>
 std::ostream &operator <<(      std::ostream                     &os,
                           const TransformationMatrix<ValueTypeT> &obj);

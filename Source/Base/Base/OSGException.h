@@ -52,11 +52,16 @@ OSG_BEGIN_NAMESPACE
 
 class Exception;
 
+/*! \ingroup GrpBaseBaseHelper
+    \relates Exception
+ */
+
 OSG_BASE_DLLMAPPING 
-std::ostream &operator <<(      std::ostream &os,
-                          const Exception    &obj);
+std::ostream &operator <<(      std::ostream   &os,
+                          const OSG::Exception &obj);
 
 /*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseHelper
  */
 
 class OSG_BASE_DLLMAPPING Exception : 
@@ -112,10 +117,11 @@ class OSG_BASE_DLLMAPPING Exception :
 
   private:
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     friend OSG_BASE_DLLMAPPING
     std::ostream &operator <<(      std::ostream &os,
                               const Exception    &obj);
-
+#endif
 };
 
 OSG_END_NAMESPACE

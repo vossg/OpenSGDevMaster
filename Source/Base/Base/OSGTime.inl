@@ -40,7 +40,7 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-Time getSystemTime (void)
+OSG::Time getSystemTime (void)
 {
     Time time;
 
@@ -61,7 +61,7 @@ Time getSystemTime (void)
 
 
 inline
-TimeStamp getTimeStamp(void)
+OSG::TimeStamp getTimeStamp(void)
 {
 #ifdef WIN32
 
@@ -89,7 +89,7 @@ TimeStamp getTimeStamp(void)
 
 
 inline
-TimeStamp getTimeStampFreq(void)
+OSG::TimeStamp getTimeStampFreq(void)
 {
 #ifdef WIN32
 
@@ -132,7 +132,7 @@ TimeStamp getTimeStampFreq(void)
 }
 
 inline
-Real64 getTimeStampMsecs(TimeStamp ticks)
+OSG::Real64 getTimeStampMsecs(OSG::TimeStamp ticks)
 {
     return ticks * 1000. / getTimeStampFreq();
 }

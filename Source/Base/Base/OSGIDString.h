@@ -56,6 +56,7 @@ OSG_BEGIN_NAMESPACE
 * and use of string identifiers.
 *
 * \ingroup GrpBaseBase
+* \nohierarchy
 */
 
 class OSG_BASE_DLLMAPPING IDString

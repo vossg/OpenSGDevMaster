@@ -91,6 +91,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMathObj
+    \nohierarchy
+ */
+
 class OSG_BASE_DLLMAPPING Real16
 {
   public:
@@ -206,6 +211,7 @@ class OSG_BASE_DLLMAPPING Real16
 
   public:
 
+    /*! \nohierarchy */
     union uif
     {
     unsigned int    i;

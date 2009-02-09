@@ -46,8 +46,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! Head for container mixin classes.
-//! \ingroup baselib
+/*! Head for container mixin classes.
+    \ingroup GrpBaseBaseHelper
+ */
+
 template <class DescT>
 class MixinHead : public DescT::ParentT
 {

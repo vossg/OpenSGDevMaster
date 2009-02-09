@@ -42,7 +42,7 @@
 #include "OSGConfig.h"
 #include "OSGException.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
@@ -92,10 +92,8 @@ Exception &Exception::operator =(const Exception &source)
     return *this;
 }
 
-OSG_BEGIN_NAMESPACE
-
-OSG_BASE_DLLMAPPING std::ostream &operator <<(      std::ostream &os, 
-                                              const Exception    &obj)
+OSG_BASE_DLLMAPPING std::ostream &operator <<(      std::ostream   &os, 
+                                              const OSG::Exception &obj)
 {
     return os << obj.what() << std::endl;
 }

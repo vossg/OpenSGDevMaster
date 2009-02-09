@@ -66,6 +66,7 @@ class FactoryControllerBase;
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseBaseTypeSystem
+    \ingroup GrpBaseBase
  */
 
 class OSG_BASE_DLLMAPPING FactoryBase

@@ -91,23 +91,23 @@ namespace AccessFlags
 
 namespace File
 {
-    static bool tstAttr(const Char8  *szFilename,
-                              UInt32  uiAccessFlags);
+    static bool tstAttr(const OSG::Char8  *szFilename,
+                              OSG::UInt32  uiAccessFlags);
 }
 
 namespace Directory
 {
-    static bool                  tstAttr   (const Char8  *szDirname,
-                                                  UInt32  uiAccessFlags);
+    static bool                  tstAttr   (const OSG::Char8  *szDirname,
+                                                  OSG::UInt32  uiAccessFlags);
 
 #ifndef OSG_EMBEDDED
-    static Char8                *getCurrent(void);
+    static OSG::Char8           *getCurrent(      void                      );
 
-    static bool                  setCurrent(const Char8 *szDirname);
+    static bool                  setCurrent(const OSG::Char8 *szDirname     );
 #endif
 
-    static std::vector<Char8 *> *getEntries(const Char8 *szDirname,
-                                            const Char8 *szPattern);
+    static std::vector<Char8 *> *getEntries(const OSG::Char8 *szDirname,
+                                            const OSG::Char8 *szPattern     );
 }
 
 namespace Path

@@ -44,28 +44,30 @@
 #include "OSGConfig.h"
 #include "OSGBaseFunctions.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGReferenceCountPointerDecl.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
-
-/*! \ingroup GrpSystemFieldContainer
- */
 
 template <class ObjectT, 
           class RefCountPolicyT>
 class RefCountPtr;
 
-template <class TargetObjectT, class SourceObjectT> inline
-TransitPtr<TargetObjectT> dynamic_pointer_cast(
-    TransitPtr<SourceObjectT> const &source);
 
 template <class TargetObjectT, class SourceObjectT> inline
-TransitPtr<TargetObjectT> static_pointer_cast(
-    TransitPtr<SourceObjectT> const &source);
+OSG::TransitPtr<TargetObjectT> dynamic_pointer_cast(
+    OSG::TransitPtr<SourceObjectT> const &source);
+
+/*! \ingroup GrpBaseBaseRefCounting
+    \relatesalso TransitPtr
+ */
+
+template <class TargetObjectT, class SourceObjectT> inline
+OSG::TransitPtr<TargetObjectT> static_pointer_cast(
+    OSG::TransitPtr<SourceObjectT> const &source);
+
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMemory
+    \ingroup GrpBaseBaseRefCounting
+    \nohierarchy
+ */
 
 template <class ObjectT>
 class TransitPtr
@@ -179,9 +181,10 @@ class TransitPtr
   private:
 
     /*---------------------------------------------------------------------*/
-    /*! \name Internal Helpers                                             */
+    /*! \name Friends                                                      */
     /*! \{                                                                 */
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     template <class TargetObjectT, class SourceObjectT> 
     friend TransitPtr<TargetObjectT> dynamic_pointer_cast(
         TransitPtr<SourceObjectT> const &source);
@@ -189,15 +192,20 @@ class TransitPtr
     template <class TargetObjectT, class SourceObjectT> 
     friend TransitPtr<TargetObjectT> static_pointer_cast(
         TransitPtr<SourceObjectT> const &source);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
   
 };
 
+/*! \ingroup GrpBaseBaseRefCounting
+    \relatesalso TransitPtr
+ */
+
 template <class TargetObjectT, class SourceObjectT> inline
-TransitPtr<TargetObjectT> dynamic_pointer_cast(
-    TransitPtr<SourceObjectT> const &source)
+OSG::TransitPtr<TargetObjectT> dynamic_pointer_cast(
+    OSG::TransitPtr<SourceObjectT> const &source)
 {
     TransitPtr<TargetObjectT> returnValue;
 
@@ -208,26 +216,6 @@ TransitPtr<TargetObjectT> dynamic_pointer_cast(
        
 
 OSG_END_NAMESPACE
-
-
-#if 0
-namespace boost
-{
-
-template <class TargetObjectT, class SourceObjectT, class BaseObjectT>
-OSG::TransitPointer<TargetObjectT, BaseObjectT>
-static_pointer_cast(OSG::TransitPointer<SourceObjectT, BaseObjectT> const &source);
-
-template <class TargetObjectT, class SourceObjectT, class BaseObjectT>
-OSG::TransitPointer<TargetObjectT, BaseObjectT>
-const_pointer_cast(OSG::TransitPointer<SourceObjectT, BaseObjectT> const &source);
-
-template <class TargetObjectT, class SourceObjectT, class BaseObjectT>
-OSG::TransitPointer<TargetObjectT, BaseObjectT>
-dynamic_pointer_cast(OSG::TransitPointer<SourceObjectT, BaseObjectT> const &source);
-          
-} // namespace boost
-#endif
 
 #include "OSGTransitPtr.inl"
 

@@ -8,7 +8,7 @@
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
-\*---------------------------------------------------------------------------*/
+  \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
  *                                License                                    *
  *                                                                           *
@@ -25,7 +25,7 @@
  * License along with this library; if not, write to the Free Software       *
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                 *
  *                                                                           *
-\*---------------------------------------------------------------------------*/
+  \*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*\
  *                                Changes                                    *
  *                                                                           *
@@ -34,7 +34,7 @@
  *                                                                           *
  *                                                                           *
  *                                                                           *
-\*---------------------------------------------------------------------------*/
+  \*---------------------------------------------------------------------------*/
 
 #ifndef _OSGTYPEBASEPREDICATES_H_
 #define _OSGTYPEBASEPREDICATES_H_
@@ -72,9 +72,13 @@ namespace TypePredicates
 //  Class
 //---------------------------------------------------------------------------
 
+    /*! \ingroup GrpBaseBaseTypeSystem
+        \nohierarchy
+     */
+
     class OSG_BASE_DLLMAPPING IsBaseOf
     {
-    public:
+      public:
         /*! Standard library compatibility typedef */
         typedef const TypeBase* argument_type;
 
@@ -85,7 +89,7 @@ namespace TypePredicates
 
         bool operator()(const TypeBase* pTestType) const;
 
-    private:
+      private:
         const TypeBase& _derivType;
     };
 
@@ -93,9 +97,13 @@ namespace TypePredicates
 //  Class
 //---------------------------------------------------------------------------
 
+    /*! \ingroup GrpBaseBaseTypeSystem
+        \nohierarchy
+     */
+
     class OSG_BASE_DLLMAPPING IsDerivedFrom
     {
-    public:
+      public:
         /*! Standard library compatibility typedef */
         typedef const TypeBase* argument_type;
 
@@ -106,7 +114,7 @@ namespace TypePredicates
 
         bool operator()(const TypeBase* pTestType) const;
 
-    private:
+      private:
         const TypeBase& _baseType;
     };
 
@@ -114,25 +122,29 @@ namespace TypePredicates
 //  Functions
 //---------------------------------------------------------------------------
 
-    template <class InIteratorTypeT>
-    inline bool
-    typeDerivedFrom   (      InIteratorTypeT  begin, InIteratorTypeT  end,
-                       const TypeBase        &type  );
+    /*! \ingroup GrpBaseBaseTypeSystem
+     */
+    template <class InIteratorTypeT> inline 
+    bool typeDerivedFrom   (      InIteratorTypeT  begin, InIteratorTypeT  end,
+                            const TypeBase        &type  );
 
-    template <class InIteratorTypeT>
-    inline bool
-    typeDerivedFromAll(      InIteratorTypeT  begin, InIteratorTypeT  end,
-                       const TypeBase        &type  );
+    /*! \ingroup GrpBaseBaseTypeSystem
+     */
+    template <class InIteratorTypeT> inline 
+    bool typeDerivedFromAll(      InIteratorTypeT  begin, InIteratorTypeT  end,
+                            const TypeBase        &type  );
 
-    template <class InIteratorTypeT>
-    inline bool
-    typeBaseOf        (      InIteratorTypeT  begin, InIteratorTypeT  end,
-                       const TypeBase        &type  );
+    /*! \ingroup GrpBaseBaseTypeSystem
+     */
+    template <class InIteratorTypeT> inline
+    bool typeBaseOf        (      InIteratorTypeT  begin, InIteratorTypeT  end,
+                            const TypeBase        &type  );
 
-    template <class InIteratorTypeT>
-    inline bool
-    typeBaseOfAll     (      InIteratorTypeT  begin, InIteratorTypeT  end,
-                       const TypeBase        &type  );
+    /*! \ingroup GrpBaseBaseTypeSystem
+     */
+    template <class InIteratorTypeT> inline
+    bool typeBaseOfAll     (      InIteratorTypeT  begin, InIteratorTypeT  end,
+                            const TypeBase        &type  );
 
 } // namespace TypePredicates
 

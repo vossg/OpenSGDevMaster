@@ -49,6 +49,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \relates ExceptionBinaryDataHandler
+ */
+
 typedef ExceptionBinaryDataHandler BinaryDataHandler;
 
 OSG_END_NAMESPACE

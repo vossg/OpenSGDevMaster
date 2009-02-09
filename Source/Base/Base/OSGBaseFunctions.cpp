@@ -130,8 +130,6 @@ std::string demangleTraceString(char* traceLine)
 }
 
 
-OSG_USING_NAMESPACE
-
 OSG_BEGIN_NAMESPACE
 
 #ifndef OSG_EMBEDDED
@@ -150,11 +148,14 @@ void osgGetHostname(char *szBuffer, UInt32 uiSize)
 #endif
 
 /** Return the callstack at the current point. 
-* See vrjuggler: juggler/modules/vapor/vpr/SystemBase.cpp for complete impl details
-*/
+ * See vrjuggler: juggler/modules/vapor/vpr/SystemBase.cpp for complete impl
+ * details 
+ */
+
 std::string getCallStack()
 {
-   std::string ret_stack("Stack trace:\n   <Call stack printing not supported>\n");
+   std::string ret_stack(
+       "Stack trace:\n   <Call stack printing not supported>\n");
 
 #if defined(HAVE_BACKTRACE)
    void*  trace_syms[1000];
@@ -182,8 +183,6 @@ std::string getCallStack()
    return ret_stack;
 }
 
-
-OSG_END_NAMESPACE
 
 /*! \class string_token_iterator
 
@@ -339,3 +338,5 @@ void string_token_iterator::find_next(void)
 
     _end = _str->find_first_of(_separator, _start);
 }
+
+OSG_END_NAMESPACE

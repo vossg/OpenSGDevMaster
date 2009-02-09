@@ -46,6 +46,11 @@ OSG_BEGIN_NAMESPACE
 
 //-----------------------------------------------------------------------------
 
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMathObj
+    \nohierarchy
+ */
+
 template< typename T > class Rectangle2
 {
     /*==========================  PUBLIC  =================================*/
@@ -186,9 +191,11 @@ template< typename T > class Rectangle2
   private:
 };
 
+/*! \relates Rectangle2
+ */
 template<typename T> inline 
-std::ostream &operator<<(      std::ostream  &out, 
-                         const Rectangle2<T> &rect)
+std::ostream &operator<<(      std::ostream       &out, 
+                         const OSG::Rectangle2<T> &rect)
 {
     return out << rect.x0 << "," 
                << rect.y0 << "," 
@@ -196,23 +203,51 @@ std::ostream &operator<<(      std::ostream  &out,
                << rect.y1;          
 }
 
-typedef Rectangle2<OSG::Real32> Rectangle2f;
-typedef Rectangle2<OSG::Real64> Rectangle2d;
-typedef Rectangle2<OSG::Int32 > Rectangle2i;
 
-
+/*! \relates Rectangle2
+ */
 template<typename T> inline 
-Rectangle2<T> alignRectangle (
-    const          Rectangle2<T>            &rect, 
-    const typename Rectangle2<T>::PointType &alignment);
+OSG::Rectangle2<T> alignRectangle (
+    const          OSG::Rectangle2<T>            &rect, 
+    const typename OSG::Rectangle2<T>::PointType &alignment);
 
+/*! \relates Rectangle2
+ */
 template<typename T> inline 
-Rectangle2<T> getIntersection(const Rectangle2<T> &lhs, 
-                              const Rectangle2<T> &rhs);
+OSG::Rectangle2<T> getIntersection(const OSG::Rectangle2<T> &lhs, 
+                                   const OSG::Rectangle2<T> &rhs);
 
+/*! \relates Rectangle2
+ */
 template<typename T> inline 
-Rectangle2<T> getUnion       (const Rectangle2<T> &lhs, 
-                              const Rectangle2<T> &rhs);
+OSG::Rectangle2<T> getUnion       (const OSG::Rectangle2<T> &lhs, 
+                                   const OSG::Rectangle2<T> &rhs);
+
+/*---------------------------------------------------------------------*/
+/*! \name Rectangle Types                                              */
+/*! \{                                                                 */
+
+/*! \var typedef OSG::Rectangle2<OSG::Real32> Rectangle2f;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Rectangle2
+ */
+typedef OSG::Rectangle2<OSG::Real32> Rectangle2f;
+
+
+/*! \var typedef OSG::Rectangle2<OSG::Real64> Rectangle2d;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Rectangle2
+ */
+typedef OSG::Rectangle2<OSG::Real64> Rectangle2d;
+
+
+/*! \var typedef OSG::Rectangle2<OSG::Int32 > Rectangle2i;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Rectangle2
+ */
+typedef OSG::Rectangle2<OSG::Int32 > Rectangle2i;
+
+/*! \} */
 
 OSG_END_NAMESPACE
 

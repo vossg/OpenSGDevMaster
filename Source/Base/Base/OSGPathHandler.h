@@ -61,6 +61,8 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseFileSystem
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING PathHandler

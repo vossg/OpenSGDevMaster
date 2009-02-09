@@ -41,6 +41,10 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#ifdef DOXYGEN_SHOULD_SKIP_THIS
+OSG_BEGIN_NAMESPACE
+#endif
+
 /*-------------------------- constructor ----------------------------------*/
 
 inline
@@ -282,7 +286,7 @@ Fixed32 Fixed32::tan(Fixed32 rhs)
 /*-------------------------- intersection ---------------------------------*/
 
 inline
-Fixed32 operator -(const Real32 lhs, const Fixed32 rhs)
+Fixed32 operator -(const OSG::Real32 lhs, const Fixed32 rhs)
 {
     Fixed32 returnValue(lhs);
 
@@ -292,7 +296,7 @@ Fixed32 operator -(const Real32 lhs, const Fixed32 rhs)
 }
 
 inline
-Fixed32 operator /(const Real32 lhs, const Fixed32 rhs)
+Fixed32 operator /(const OSG::Real32 lhs, const Fixed32 rhs)
 {
     Fixed32 returnValue(lhs);
 
@@ -302,7 +306,7 @@ Fixed32 operator /(const Real32 lhs, const Fixed32 rhs)
 }
 
 inline
-Fixed32 operator *(const Real32 lhs, const Fixed32 rhs)
+Fixed32 operator *(const OSG::Real32 lhs, const Fixed32 rhs)
 {
     Fixed32 returnValue(lhs);
 
@@ -329,4 +333,8 @@ std::istream &operator >> (std::istream &is, Fixed32 &OSG_CHECK_ARG(fVal))
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
+
+#ifdef DOXYGEN_SHOULD_SKIP_THIS
+OSG_END_NAMESPACE
+#endif
 

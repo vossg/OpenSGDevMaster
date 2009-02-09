@@ -50,7 +50,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-
+/*! \ingroup GrpBaseBaseMathIOFn
+    \nohierarchy
+ */
 template <class  VecTypeT,
           class  ValueTypeT = typename VecTypeT::ValueType,
           UInt32 SizeI      =          VecTypeT::_uiSize   >
@@ -59,6 +61,10 @@ struct VecToStreamWriter
     static void apply(std::ostream &os, const VecTypeT &vec);
 };
 
+
+/*! \ingroup GrpBaseBaseMathIOFn
+    \nohierarchy
+ */
 template <class  VecTypeT,
           UInt32 SizeI    >
 struct VecToStreamWriter<VecTypeT, Int8, SizeI>
@@ -66,6 +72,10 @@ struct VecToStreamWriter<VecTypeT, Int8, SizeI>
     static void apply(std::ostream &os, const VecTypeT &vec);
 };
 
+
+/*! \ingroup GrpBaseBaseMathIOFn
+    \nohierarchy
+ */
 template <class  VecTypeT,
           UInt32 SizeI    >
 struct VecToStreamWriter<VecTypeT, UInt8, SizeI>
@@ -74,6 +84,9 @@ struct VecToStreamWriter<VecTypeT, UInt8, SizeI>
 };
 
 
+/*! \ingroup GrpBaseBaseMathIOFn
+    \nohierarchy
+ */
 template <class  VecTypeT,
           class  ValueTypeT = typename VecTypeT::ValueType,
           UInt32 SizeI      =          VecTypeT::_uiSize   >
@@ -82,6 +95,10 @@ struct VecFromStreamReader
     static void apply(std::istream &is, VecTypeT &vec);
 };
 
+
+/*! \ingroup GrpBaseBaseMathIOFn
+    \nohierarchy
+ */
 template <class  VecTypeT,
           UInt32 SizeI    >
 struct VecFromStreamReader<VecTypeT, Int8, SizeI>
@@ -89,13 +106,16 @@ struct VecFromStreamReader<VecTypeT, Int8, SizeI>
     static void apply(std::istream &is, VecTypeT &vec);
 };
 
+
+/*! \ingroup GrpBaseBaseMathIOFn
+    \nohierarchy
+ */
 template <class  VecTypeT,
           UInt32 SizeI    >
 struct VecFromStreamReader<VecTypeT, UInt8, SizeI>
 {
     static void apply(std::istream &is, VecTypeT &vec);
 };
-
 
 OSG_END_NAMESPACE
 

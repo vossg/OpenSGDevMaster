@@ -76,7 +76,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgSqrt(const Real32 rValue)
+OSG::Real32 osgSqrt(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::sqrt(rValue);
@@ -90,7 +90,7 @@ Real32 osgSqrt(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgSqrt(const Real64 rValue)
+OSG::Real64 osgSqrt(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::sqrt(rValue);
@@ -102,7 +102,7 @@ Real64 osgSqrt(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgSqrt(const Real128 rValue)
+OSG::Real128 osgSqrt(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::sqrt(rValue);
@@ -115,7 +115,7 @@ Real128 osgSqrt(const Real128 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgSqrt(const Fixed32 rValue)
+OSG::Fixed32 osgSqrt(const OSG::Fixed32 rValue)
 {
     return Fixed32::sqrt(rValue);
 }
@@ -157,7 +157,7 @@ osgsqrt(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgsqrt(const Real32 rValue)
+OSG::Real32 osgsqrt(const OSG::Real32 rValue)
 {
     return OSG::osgSqrt(rValue);
 }
@@ -165,7 +165,7 @@ Real32 osgsqrt(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgsqrt(const Real64 rValue)
+OSG::Real64 osgsqrt(const OSG::Real64 rValue)
 {
     return OSG::osgSqrt(rValue);
 }
@@ -173,7 +173,7 @@ Real64 osgsqrt(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgsqrt(const Real128 rValue)
+OSG::Real128 osgsqrt(const OSG::Real128 rValue)
 {
     return OSG::osgSqrt(rValue);
 }
@@ -181,7 +181,7 @@ Real128 osgsqrt(const Real128 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgsqrt(const Fixed32 rValue)
+OSG::Fixed32 osgsqrt(const OSG::Fixed32 rValue)
 {
     return OSG::osgSqrt(rValue);
 }
@@ -217,7 +217,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgCos(const Real32 rValue)
+OSG::Real32 osgCos(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::cos(rValue);
@@ -231,7 +231,7 @@ Real32 osgCos(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgCos(const Real64 rValue)
+OSG::Real64 osgCos(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::cos(rValue);
@@ -243,7 +243,7 @@ Real64 osgCos(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgCos(const Real128 rValue)
+OSG::Real128 osgCos(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::cos(rValue);
@@ -255,7 +255,7 @@ Real128 osgCos(const Real128 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgCos(const Fixed32 rValue)
+OSG::Fixed32 osgCos(const OSG::Fixed32 rValue)
 {
     return Fixed32::cos(rValue);
 }
@@ -288,7 +288,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgcos(const FloatTypeT rValue)
+    osgcos(const FloatTypeT rValue)
 {
     return OSG::osgCos(rValue);
 }
@@ -296,7 +296,7 @@ osgcos(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgcos(const Real32 rValue)
+OSG::Real32 osgcos(const OSG::Real32 rValue)
 {
     return OSG::osgCos(rValue);
 }
@@ -304,7 +304,7 @@ Real32 osgcos(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgcos(const Real64 rValue)
+OSG::Real64 osgcos(const OSG::Real64 rValue)
 {
     return OSG::osgCos(rValue);
 }
@@ -312,7 +312,7 @@ Real64 osgcos(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgcos(const Real128 rValue)
+OSG::Real128 osgcos(const OSG::Real128 rValue)
 {
     return OSG::osgCos(rValue);
 }
@@ -320,7 +320,7 @@ Real128 osgcos(const Real128 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgcos(const Fixed32 rValue)
+OSG::Fixed32 osgcos(const OSG::Fixed32 rValue)
 {
     return OSG::osgCos(rValue);
 }
@@ -356,7 +356,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgSin(const Real32 rValue)
+OSG::Real32 osgSin(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::sin(rValue);
@@ -370,7 +370,7 @@ Real32 osgSin(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgSin(const Real64 rValue)
+OSG::Real64 osgSin(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::sin(rValue);
@@ -382,7 +382,7 @@ Real64 osgSin(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgSin(const Real128 rValue)
+OSG::Real128 osgSin(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::sin(rValue);
@@ -394,7 +394,7 @@ Real128 osgSin(const Real128 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgSin(const Fixed32 rValue)
+OSG::Fixed32 osgSin(const OSG::Fixed32 rValue)
 {
     return Fixed32::sin(rValue);
 }
@@ -427,7 +427,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgsin(const FloatTypeT rValue)
+    osgsin(const FloatTypeT rValue)
 {
     return OSG::osgSin(rValue);
 }
@@ -435,7 +435,7 @@ osgsin(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgsin(const Real32 rValue)
+OSG::Real32 osgsin(const OSG::Real32 rValue)
 {
     return OSG::osgSin(rValue);
 }
@@ -443,7 +443,7 @@ Real32 osgsin(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgsin(const Real64 rValue)
+OSG::Real64 osgsin(const OSG::Real64 rValue)
 {
     return OSG::osgSin(rValue);
 }
@@ -451,7 +451,7 @@ Real64 osgsin(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgsin(const Real128 rValue)
+OSG::Real128 osgsin(const OSG::Real128 rValue)
 {
     return OSG::osgSin(rValue);
 }
@@ -459,7 +459,7 @@ Real128 osgsin(const Real128 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgsin(const Fixed32 rValue)
+OSG::Fixed32 osgsin(const OSG::Fixed32 rValue)
 {
     return OSG::osgSin(rValue);
 }
@@ -497,7 +497,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgTan(const Real32 rValue)
+OSG::Real32 osgTan(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::tan(rValue);
@@ -511,7 +511,7 @@ Real32 osgTan(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgTan(const Real64 rValue)
+OSG::Real64 osgTan(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::tan(rValue);
@@ -523,7 +523,7 @@ Real64 osgTan(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgTan(const Real128 rValue)
+OSG::Real128 osgTan(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::tan(rValue);
@@ -535,7 +535,7 @@ Real128 osgTan(const Real128 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgTan(const Fixed32 rValue)
+OSG::Fixed32 osgTan(const OSG::Fixed32 rValue)
 {
     return Fixed32::tan(rValue);
 }
@@ -570,7 +570,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgtan(const FloatTypeT rValue)
+    osgtan(const FloatTypeT rValue)
 {
     return OSG::osgTan(rValue);
 }
@@ -578,7 +578,7 @@ osgtan(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgtan(const Real32 rValue)
+OSG::Real32 osgtan(const OSG::Real32 rValue)
 {
     return OSG::osgTan(rValue);
 }
@@ -586,7 +586,7 @@ Real32 osgtan(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgtan(const Real64 rValue)
+OSG::Real64 osgtan(const OSG::Real64 rValue)
 {
     return OSG::osgTan(rValue);
 }
@@ -594,7 +594,7 @@ Real64 osgtan(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgtan(const Real128 rValue)
+OSG::Real128 osgtan(const OSG::Real128 rValue)
 {
     return OSG::osgTan(rValue);
 }
@@ -602,7 +602,7 @@ Real128 osgtan(const Real128 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgtan(const Fixed32 rValue)
+OSG::Fixed32 osgtan(const OSG::Fixed32 rValue)
 {
     return OSG::osgTan(rValue);
 }
@@ -640,7 +640,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgACos(const Real32 rValue)
+OSG::Real32 osgACos(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::acos(rValue);
@@ -654,7 +654,7 @@ Real32 osgACos(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgACos(const Real64 rValue)
+OSG::Real64 osgACos(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::acos(rValue);
@@ -666,7 +666,7 @@ Real64 osgACos(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgACos(const Real128 rValue)
+OSG::Real128 osgACos(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::acos(rValue);
@@ -705,7 +705,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgacos(const FloatTypeT rValue)
+    osgacos(const FloatTypeT rValue)
 {
     return OSG::osgACos(rValue);
 }
@@ -713,7 +713,7 @@ osgacos(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgacos(const Real32 rValue)
+OSG::Real32 osgacos(const OSG::Real32 rValue)
 {
     return OSG::osgACos(rValue);
 }
@@ -721,7 +721,7 @@ Real32 osgacos(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgacos(const Real64 rValue)
+OSG::Real64 osgacos(const OSG::Real64 rValue)
 {
     return OSG::osgACos(rValue);
 }
@@ -729,7 +729,7 @@ Real64 osgacos(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgacos(const Real128 rValue)
+OSG::Real128 osgacos(const OSG::Real128 rValue)
 {
     return OSG::osgACos(rValue);
 }
@@ -767,7 +767,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgASin(const Real32 rValue)
+OSG::Real32 osgASin(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::asin(rValue);
@@ -782,7 +782,7 @@ Real32 osgASin(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgASin(const Real64 rValue)
+OSG::Real64 osgASin(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::asin(rValue);
@@ -794,7 +794,7 @@ Real64 osgASin(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgASin(const Real128 rValue)
+OSG::Real128 osgASin(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::asin(rValue);
@@ -833,7 +833,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgasin(const FloatTypeT rValue)
+    osgasin(const FloatTypeT rValue)
 {
     return OSG::osgASin(rValue);
 }
@@ -841,7 +841,7 @@ osgasin(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgasin(const Real32 rValue)
+OSG::Real32 osgasin(const OSG::Real32 rValue)
 {
     return OSG::osgASin(rValue);
 }
@@ -850,7 +850,7 @@ Real32 osgasin(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgasin(const Real64 rValue)
+OSG::Real64 osgasin(const OSG::Real64 rValue)
 {
     return OSG::osgASin(rValue);
 }
@@ -858,7 +858,7 @@ Real64 osgasin(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgasin(const Real128 rValue)
+OSG::Real128 osgasin(const OSG::Real128 rValue)
 {
     return OSG::osgASin(rValue);
 }
@@ -897,7 +897,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgATan(const Real32 rValue)
+OSG::Real32 osgATan(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::atan(rValue);
@@ -911,7 +911,7 @@ Real32 osgATan(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgATan(const Real64 rValue)
+OSG::Real64 osgATan(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::atan(rValue);
@@ -923,7 +923,7 @@ Real64 osgATan(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgATan(const Real128 rValue)
+OSG::Real128 osgATan(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::atan(rValue);
@@ -963,7 +963,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgatan(const FloatTypeT rValue)
+    osgatan(const FloatTypeT rValue)
 {
     return OSG::osgATan(rValue);
 }
@@ -971,7 +971,7 @@ osgatan(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgatan(const Real32 rValue)
+OSG::Real32 osgatan(const OSG::Real32 rValue)
 {
     return OSG::osgATan(rValue);
 }
@@ -979,7 +979,7 @@ Real32 osgatan(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgatan(const Real64 rValue)
+OSG::Real64 osgatan(const OSG::Real64 rValue)
 {
     return OSG::osgATan(rValue);
 }
@@ -987,7 +987,7 @@ Real64 osgatan(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgatan(const Real128 rValue)
+OSG::Real128 osgatan(const OSG::Real128 rValue)
 {
     return OSG::osgATan(rValue);
 }
@@ -1029,7 +1029,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgATan2(const Real32 rValue1, const Real32 rValue2)
+OSG::Real32 osgATan2(const OSG::Real32 rValue1, const OSG::Real32 rValue2)
 {
 #ifdef OSG_USE_STDMATH
     return std::atan2(rValue1, rValue2);
@@ -1049,7 +1049,7 @@ Real32 osgATan2(const Real32 rValue1, const Real32 rValue2)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgATan2(const Real64 rValue1, const Real64 rValue2)
+OSG::Real64 osgATan2(const OSG::Real64 rValue1, const OSG::Real64 rValue2)
 {
 #ifdef OSG_USE_STDMATH
     return std::atan2(rValue1, rValue2);
@@ -1061,7 +1061,7 @@ Real64 osgATan2(const Real64 rValue1, const Real64 rValue2)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgATan2(const Real128 rValue1, const Real128 rValue2)
+OSG::Real128 osgATan2(const OSG::Real128 rValue1, const OSG::Real128 rValue2)
 {
 #ifdef OSG_USE_STDMATH
     return std::atan2(rValue1, rValue2);
@@ -1104,8 +1104,8 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgatan2(const FloatTypeT rValue1,
-         const FloatTypeT rValue2)
+    osgatan2(const FloatTypeT rValue1,
+             const FloatTypeT rValue2)
 {
     return OSG::osgATan2(rValue1, rValue2);
 }
@@ -1113,7 +1113,7 @@ osgatan2(const FloatTypeT rValue1,
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgatan2(const Real32 rValue1, const Real32 rValue2)
+OSG::Real32 osgatan2(const OSG::Real32 rValue1, const OSG::Real32 rValue2)
 {
     return OSG::osgATan2(rValue1, rValue2);
 }
@@ -1121,7 +1121,7 @@ Real32 osgatan2(const Real32 rValue1, const Real32 rValue2)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgatan2(const Real64 rValue1, const Real64 rValue2)
+OSG::Real64 osgatan2(const OSG::Real64 rValue1, const OSG::Real64 rValue2)
 {
     return OSG::osgATan2(rValue1, rValue2);
 }
@@ -1129,7 +1129,7 @@ Real64 osgatan2(const Real64 rValue1, const Real64 rValue2)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgatan2(const Real128 rValue1, const Real128 rValue2)
+OSG::Real128 osgatan2(const OSG::Real128 rValue1, const OSG::Real128 rValue2)
 {
     return OSG::osgATan2(rValue1, rValue2);
 }
@@ -1163,7 +1163,7 @@ TypeT osgAbs(const TypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgAbs(const Real32 rValue)
+OSG::Real32 osgAbs(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::abs(rValue);
@@ -1177,7 +1177,7 @@ Real32 osgAbs(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgAbs(const Real64 rValue)
+OSG::Real64 osgAbs(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::abs(rValue);
@@ -1189,7 +1189,7 @@ Real64 osgAbs(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgAbs(const Fixed32 rValue)
+OSG::Fixed32 osgAbs(const OSG::Fixed32 rValue)
 {
     return Fixed32::abs(rValue);
 }
@@ -1197,7 +1197,7 @@ Fixed32 osgAbs(const Fixed32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgAbs(const Real128 rValue)
+OSG::Real128 osgAbs(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::abs(rValue);
@@ -1239,7 +1239,7 @@ TypeT osgabs(const TypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgabs(const Real32 rValue)
+OSG::Real32 osgabs(const OSG::Real32 rValue)
 {
     return OSG::osgAbs(rValue);
 }
@@ -1247,7 +1247,7 @@ Real32 osgabs(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgabs(const Real64 rValue)
+OSG::Real64 osgabs(const OSG::Real64 rValue)
 {
     return OSG::osgAbs(rValue);
 }
@@ -1255,7 +1255,7 @@ Real64 osgabs(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgabs(const Fixed32 rValue)
+OSG::Fixed32 osgabs(const OSG::Fixed32 rValue)
 {
     return OSG::osgAbs(rValue);
 }
@@ -1263,7 +1263,7 @@ Fixed32 osgabs(const Fixed32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgabs(const Real128 rValue)
+OSG::Real128 osgabs(const OSG::Real128 rValue)
 {
     return OSG::osgAbs(rValue);
 }
@@ -1300,7 +1300,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgPow(const Real32 rValue, const Real32 rExp)
+OSG::Real32 osgPow(const OSG::Real32 rValue, const OSG::Real32 rExp)
 {
 #ifdef OSG_USE_STDMATH
     return std::pow(rValue, rExp);
@@ -1315,7 +1315,7 @@ Real32 osgPow(const Real32 rValue, const Real32 rExp)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgPow(const Real64 rValue, const Real64 rExp)
+OSG::Real64 osgPow(const OSG::Real64 rValue, const OSG::Real64 rExp)
 {
 #ifdef OSG_USE_STDMATH
     return std::pow(rValue, rExp);
@@ -1327,7 +1327,7 @@ Real64 osgPow(const Real64 rValue, const Real64 rExp)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgPow(const Real128 rValue, const Real128 rExp)
+OSG::Real128 osgPow(const OSG::Real128 rValue, const OSG::Real128 rExp)
 {
 #ifdef OSG_USE_STDMATH
     return std::pow(rValue, rExp);
@@ -1365,8 +1365,8 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgpow(const FloatTypeT rValue,
-       const FloatTypeT rExp)
+    osgpow(const FloatTypeT rValue,
+           const FloatTypeT rExp)
 {
     return OSG::osgPow(rValue, rExp);
 }
@@ -1374,7 +1374,7 @@ osgpow(const FloatTypeT rValue,
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgpow(const Real32 rValue, const Real32 rExp)
+OSG::Real32 osgpow(const OSG::Real32 rValue, const OSG::Real32 rExp)
 {
     return OSG::osgPow(rValue, rExp);
 }
@@ -1382,7 +1382,7 @@ Real32 osgpow(const Real32 rValue, const Real32 rExp)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgpow(const Real64 rValue, const Real64 rExp)
+OSG::Real64 osgpow(const OSG::Real64 rValue, const OSG::Real64 rExp)
 {
     return OSG::osgPow(rValue, rExp);
 }
@@ -1390,7 +1390,7 @@ Real64 osgpow(const Real64 rValue, const Real64 rExp)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgpow(const Real128 rValue, const Real128 rExp)
+OSG::Real128 osgpow(const OSG::Real128 rValue, const OSG::Real128 rExp)
 {
     return OSG::osgPow(rValue, rExp);
 }
@@ -1428,7 +1428,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgLog(const Real32 rValue)
+OSG::Real32 osgLog(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::log(rValue);
@@ -1442,7 +1442,7 @@ Real32 osgLog(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgLog(const Real64 rValue)
+OSG::Real64 osgLog(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::log(rValue);
@@ -1454,7 +1454,7 @@ Real64 osgLog(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgLog(const Real128 rValue)
+OSG::Real128 osgLog(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::log(rValue);
@@ -1493,7 +1493,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osglog(const FloatTypeT rValue)
+    osglog(const FloatTypeT rValue)
 {
     return OSG::osgLog(rValue);
 }
@@ -1501,7 +1501,7 @@ osglog(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osglog(const Real32 rValue)
+OSG::Real32 osglog(const OSG::Real32 rValue)
 {
     return OSG::osgLog(rValue);
 }
@@ -1509,7 +1509,7 @@ Real32 osglog(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osglog(const Real64 rValue)
+OSG::Real64 osglog(const OSG::Real64 rValue)
 {
     return OSG::osgLog(rValue);
 }
@@ -1517,7 +1517,7 @@ Real64 osglog(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osglog(const Real128 rValue)
+OSG::Real128 osglog(const OSG::Real128 rValue)
 {
     return OSG::osgLog(rValue);
 }
@@ -1554,7 +1554,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgExp(const Real32 rValue)
+OSG::Real32 osgExp(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::exp(rValue);
@@ -1568,7 +1568,7 @@ Real32 osgExp(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgExp(const Real64 rValue)
+OSG::Real64 osgExp(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::exp(rValue);
@@ -1580,7 +1580,7 @@ Real64 osgExp(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgExp(const Real128 rValue)
+OSG::Real128 osgExp(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::exp(rValue);
@@ -1618,7 +1618,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgexp(const FloatTypeT rValue)
+    osgexp(const FloatTypeT rValue)
 {
     return OSG::osgExp(rValue);
 }
@@ -1626,7 +1626,7 @@ osgexp(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgexp(const Real32 rValue)
+OSG::Real32 osgexp(const OSG::Real32 rValue)
 {
     return OSG::osgExp(rValue);
 }
@@ -1634,7 +1634,7 @@ Real32 osgexp(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgexp(const Real64 rValue)
+OSG::Real64 osgexp(const OSG::Real64 rValue)
 {
     return OSG::osgExp(rValue);
 }
@@ -1642,7 +1642,7 @@ Real64 osgexp(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgexp(const Real128 rValue)
+OSG::Real128 osgexp(const OSG::Real128 rValue)
 {
     return OSG::osgExp(rValue);
 }
@@ -1685,7 +1685,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgFloor(const Real32 rValue)
+OSG::Real32 osgFloor(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::floor(rValue);
@@ -1703,7 +1703,7 @@ Real32 osgFloor(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgFloor(const Real64 rValue)
+OSG::Real64 osgFloor(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::floor(rValue);
@@ -1715,7 +1715,7 @@ Real64 osgFloor(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgFloor(const Real128 rValue)
+OSG::Real128 osgFloor(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::floor(rValue);
@@ -1759,7 +1759,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgfloor(const FloatTypeT rValue)
+    osgfloor(const FloatTypeT rValue)
 {
     return OSG::osgFloor(rValue);
 }
@@ -1767,7 +1767,7 @@ osgfloor(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgfloor(const Real32 rValue)
+OSG::Real32 osgfloor(const OSG::Real32 rValue)
 {
     return OSG::osgFloor(rValue);
 }
@@ -1775,7 +1775,7 @@ Real32 osgfloor(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgfloor(const Real64 rValue)
+OSG::Real64 osgfloor(const OSG::Real64 rValue)
 {
     return OSG::osgFloor(rValue);
 }
@@ -1783,7 +1783,7 @@ Real64 osgfloor(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgfloor(const Real128 rValue)
+OSG::Real128 osgfloor(const OSG::Real128 rValue)
 {
     return OSG::osgFloor(rValue);
 }
@@ -1826,7 +1826,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgCeil(const Real32 rValue)
+OSG::Real32 osgCeil(const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::ceil(rValue);
@@ -1844,7 +1844,7 @@ Real32 osgCeil(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgCeil(const Real64 rValue)
+OSG::Real64 osgCeil(const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::ceil(rValue);
@@ -1856,7 +1856,7 @@ Real64 osgCeil(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgCeil(const Real128 rValue)
+OSG::Real128 osgCeil(const OSG::Real128 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::ceil(rValue);
@@ -1900,7 +1900,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgceil(const FloatTypeT rValue)
+    osgceil(const FloatTypeT rValue)
 {
     return OSG::osgCeil(rValue);
 }
@@ -1908,7 +1908,7 @@ osgceil(const FloatTypeT rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgceil(const Real32 rValue)
+OSG::Real32 osgceil(const OSG::Real32 rValue)
 {
     return OSG::osgCeil(rValue);
 }
@@ -1916,7 +1916,7 @@ Real32 osgceil(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgceil(const Real64 rValue)
+OSG::Real64 osgceil(const OSG::Real64 rValue)
 {
     return OSG::osgCeil(rValue);
 }
@@ -1924,7 +1924,7 @@ Real64 osgceil(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real128 osgceil(const Real128 rValue)
+OSG::Real128 osgceil(const OSG::Real128 rValue)
 {
     return OSG::osgCeil(rValue);
 }
@@ -1947,7 +1947,7 @@ Real128 osgceil(const Real128 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-UInt32 osgFinite(const FloatTypeT rValue)
+OSG::UInt32 osgFinite(const FloatTypeT rValue)
 {
 #ifdef WIN32
     return _finite(rValue);
@@ -1979,7 +1979,7 @@ UInt32 osgFinite(const FloatTypeT rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <class FloatTypeT> inline
-UInt32 osgfinite(const FloatTypeT rValue)
+OSG::UInt32 osgfinite(const FloatTypeT rValue)
 {
     return OSG::osgFinite(rValue);
 }
@@ -1992,7 +1992,7 @@ UInt32 osgfinite(const FloatTypeT rValue)
 
 /*! Return the smaller of the two arguments.
 
-    \param[in] lVal First value for comparison.
+    \param[in] lValue First value for comparison.
     \param[in] rValue Second value for comparison.
     \return The smaller of the two arguments.
 
@@ -2006,7 +2006,7 @@ TypeT osgMin(const TypeT lValue, const TypeT rValue)
 
 /*! Return the larger of the two arguments.
 
-    \param[in] lVal First value for comparison.
+    \param[in] lValue First value for comparison.
     \param[in] rValue Second value for comparison.
     \return The larger of the two arguments.
 
@@ -2065,7 +2065,7 @@ Int8 osgSgn(TypeT val)
 
 /*! Exchanges the values of the arguments.
 
-    \param[in,out] lVal New value for \a rValue, is assigned the
+    \param[in,out] lValue New value for \a rValue, is assigned the
     old value of \a rValue.
     \param[in,out] rValue New value for lVal, is assigned the
     old value of rVal.
@@ -2097,7 +2097,7 @@ void osgSwap(TypeT & lValue, TypeT & rValue)
     \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgDegree2Rad(const Real32 rValue)
+OSG::Real32 osgDegree2Rad(const OSG::Real32 rValue)
 {
    return (rValue/360.f) * 2.f * 3.1415926535f;
 }
@@ -2105,7 +2105,7 @@ Real32 osgDegree2Rad(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgDegree2Rad(const Real64 rValue)
+OSG::Real64 osgDegree2Rad(const OSG::Real64 rValue)
 {
    return (rValue/360) * 2 * 3.1415926535;
 }
@@ -2113,7 +2113,7 @@ Real64 osgDegree2Rad(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgDegree2Rad(const Fixed32 rValue)
+OSG::Fixed32 osgDegree2Rad(const OSG::Fixed32 rValue)
 {
    return (rValue/360.f) * 2.f * 3.1415926535f;
 }
@@ -2141,7 +2141,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgdegree2rad(const Real32 rValue)
+OSG::Real32 osgdegree2rad(const OSG::Real32 rValue)
 {
     return OSG::osgDegree2Rad(rValue);
 }
@@ -2149,7 +2149,7 @@ Real32 osgdegree2rad(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgdegree2rad(const Real64 rValue)
+OSG::Real64 osgdegree2rad(const OSG::Real64 rValue)
 {
     return OSG::osgDegree2Rad(rValue);
 }
@@ -2157,7 +2157,7 @@ Real64 osgdegree2rad(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgdegree2rad(const Fixed32 rValue)
+OSG::Fixed32 osgdegree2rad(const OSG::Fixed32 rValue)
 {
     return OSG::osgDegree2Rad(rValue);
 }
@@ -2167,7 +2167,7 @@ Fixed32 osgdegree2rad(const Fixed32 rValue)
 
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgdegree2rad(const FloatTypeT rValue)
+    osgdegree2rad(const FloatTypeT rValue)
 {
     return OSG::osgDegree2Rad(rValue);
 }
@@ -2187,7 +2187,7 @@ osgdegree2rad(const FloatTypeT rValue)
     \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgRad2Degree(const Real32 rValue)
+OSG::Real32 osgRad2Degree(const OSG::Real32 rValue)
 {
     return (rValue/(2.f * 3.1415926535f)) * 360.f;
 }
@@ -2195,7 +2195,7 @@ Real32 osgRad2Degree(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgRad2Degree(const Real64 rValue)
+OSG::Real64 osgRad2Degree(const OSG::Real64 rValue)
 {
     return (rValue/(2 * 3.1415926535)) * 360;
 }
@@ -2203,7 +2203,7 @@ Real64 osgRad2Degree(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgRad2Degree(const Fixed32 rValue)
+OSG::Fixed32 osgRad2Degree(const OSG::Fixed32 rValue)
 {
     return (rValue/(2.f * 3.1415926535f)) * 360.f;
 }
@@ -2230,7 +2230,7 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     \ingroup GrpBaseBaseMathFn
  */
 inline
-Real32 osgrad2degree(const Real32 rValue)
+OSG::Real32 osgrad2degree(const OSG::Real32 rValue)
 {
     return OSG::osgRad2Degree(rValue);
 }
@@ -2238,7 +2238,7 @@ Real32 osgrad2degree(const Real32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Real64 osgrad2degree(const Real64 rValue)
+OSG::Real64 osgrad2degree(const OSG::Real64 rValue)
 {
     return OSG::osgRad2Degree(rValue);
 }
@@ -2246,7 +2246,7 @@ Real64 osgrad2degree(const Real64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 inline
-Fixed32 osgrad2degree(const Fixed32 rValue)
+OSG::Fixed32 osgrad2degree(const OSG::Fixed32 rValue)
 {
     return OSG::osgRad2Degree(rValue);
 }
@@ -2255,7 +2255,7 @@ Fixed32 osgrad2degree(const Fixed32 rValue)
  */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgrad2degree(const FloatTypeT rValue)
+    osgrad2degree(const FloatTypeT rValue)
 {
     return OSG::osgRad2Degree(rValue);
 }
@@ -2313,25 +2313,25 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-bool osgIsPower2<UInt32>(const UInt32 rValue)
+bool osgIsPower2<UInt32>(const OSG::UInt32 rValue)
 {
     return !(rValue & (rValue - 1));
 }
 
 template <> inline
-bool osgIsPower2<Int32>(const Int32 rValue)
+bool osgIsPower2<Int32>(const OSG::Int32 rValue)
 {
     return (rValue >= 0) && !(rValue & (rValue - 1));
 }
 
 template <> inline
-bool osgIsPower2<UInt64>(const UInt64 rValue)
+bool osgIsPower2<UInt64>(const OSG::UInt64 rValue)
 {
     return !(rValue & (rValue - 1));
 }
 
 template <> inline
-bool osgIsPower2<Int64>(const Int64 rValue)
+bool osgIsPower2<Int64>(const OSG::Int64 rValue)
 {
     return (rValue >= 0) && !(rValue & (rValue - 1));
 }
@@ -2347,25 +2347,25 @@ bool osgIsPower2<Int64>(const Int64 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-bool osgispower2<UInt32>(const UInt32 rValue)
+bool osgispower2<UInt32>(const OSG::UInt32 rValue)
 {
     return OSG::osgIsPower2(rValue);
 }
 
 template <> inline
-bool osgispower2<Int32>(const Int32 rValue)
+bool osgispower2<Int32>(const OSG::Int32 rValue)
 {
     return OSG::osgIsPower2(rValue);
 }
 
 template <> inline
-bool osgispower2<UInt64>(const UInt64 rValue)
+bool osgispower2<UInt64>(const OSG::UInt64 rValue)
 {
     return OSG::osgIsPower2(rValue);
 }
 
 template <> inline
-bool osgispower2<Int64>(const Int64 rValue)
+bool osgispower2<Int64>(const OSG::Int64 rValue)
 {
     return OSG::osgIsPower2(rValue);
 }
@@ -2386,7 +2386,7 @@ bool osgispower2<Int64>(const Int64 rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-UInt32 osgNextPower2<UInt32>(UInt32 rValue)
+OSG::UInt32 osgNextPower2<UInt32>(OSG::UInt32 rValue)
 {
     if(rValue == 0)
         return TypeTraits<UInt32>::getOneElement();
@@ -2405,7 +2405,7 @@ UInt32 osgNextPower2<UInt32>(UInt32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-Int32 osgNextPower2<Int32>(Int32 rValue)
+OSG::Int32 osgNextPower2<Int32>(OSG::Int32 rValue)
 {
     const Int32 maxPower2 = TypeTraits<Int32>::getOneElement() << 30;
 
@@ -2430,7 +2430,7 @@ Int32 osgNextPower2<Int32>(Int32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-UInt64 osgNextPower2<UInt64>(UInt64 rValue)
+OSG::UInt64 osgNextPower2<UInt64>(OSG::UInt64 rValue)
 {
     if(rValue == 0)
         return TypeTraits<UInt64>::getOneElement();
@@ -2450,7 +2450,7 @@ UInt64 osgNextPower2<UInt64>(UInt64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-Int64 osgNextPower2<Int64>(Int64 rValue)
+OSG::Int64 osgNextPower2<Int64>(OSG::Int64 rValue)
 {
     const Int64 maxPower2 = TypeTraits<Int64>::getOneElement() << 62;
 
@@ -2509,7 +2509,7 @@ size_t osgNextPower2<size_t>(size_t rValue)
     \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-UInt32 osgnextpower2<UInt32>(UInt32 rValue)
+OSG::UInt32 osgnextpower2<UInt32>(OSG::UInt32 rValue)
 {
     return OSG::osgNextPower2(rValue);
 }
@@ -2517,7 +2517,7 @@ UInt32 osgnextpower2<UInt32>(UInt32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-Int32 osgnextpower2<Int32>(Int32 rValue)
+OSG::Int32 osgnextpower2<Int32>(OSG::Int32 rValue)
 {
     return OSG::osgNextPower2(rValue);
 }
@@ -2525,7 +2525,7 @@ Int32 osgnextpower2<Int32>(Int32 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-UInt64 osgnextpower2<UInt64>(UInt64 rValue)
+OSG::UInt64 osgnextpower2<UInt64>(OSG::UInt64 rValue)
 {
     return OSG::osgNextPower2(rValue);
 }
@@ -2533,7 +2533,7 @@ UInt64 osgnextpower2<UInt64>(UInt64 rValue)
 /*! \ingroup GrpBaseBaseMathFn
  */
 template <> inline
-Int64 osgnextpower2<Int64>(Int64 rValue)
+OSG::Int64 osgnextpower2<Int64>(OSG::Int64 rValue)
 {
     return OSG::osgNextPower2(rValue);
 }
@@ -2557,13 +2557,13 @@ size_t osgnextpower2<size_t>(size_t rValue)
 /*! \{                                                                 */
 
 inline 
-int osgLog2Int(Real32 v) 
+int osgLog2Int(OSG::Real32 v) 
 {
 	return ((*reinterpret_cast<Int32 *>(&v)) >> 23) - 127;
 }
 
 inline 
-Int32 osgRound2Int(Real64 val) 
+OSG::Int32 osgRound2Int(OSG::Real64 val) 
 {
 #ifdef OSG_FAST_INT
 	val		= val + OSG_DOUBLEMAGIC;
@@ -2582,7 +2582,7 @@ Int32 osgRound2Int(Real64 val)
     \ingroup GrpBaseBaseMiscFn
  */
 template<class VecPntT> inline
-UInt32 getMaxIndexAbs3(const VecPntT &v)
+OSG::UInt32 getMaxIndexAbs3(const VecPntT &v)
 {
     return
         osgAbs(v[0]) > osgAbs(v[1]) ?
@@ -2608,7 +2608,7 @@ UInt32 getMaxIndexAbs3(const VecPntT &v)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-Int32 putenv(Char8 *string)
+OSG::Int32 putenv(Char8 *string)
 {
 #if !defined(WIN32) || defined(BCC)
     return ::putenv(string);
@@ -2631,7 +2631,7 @@ Char8 *getenv(const Char8 *string)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-void osgSleep(UInt32 millisecs)
+void osgSleep(OSG::UInt32 millisecs)
 {
 #ifdef WIN32
     Sleep(millisecs);
@@ -2680,7 +2680,7 @@ void osgSleep(UInt32 millisecs)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-void osgsleep(UInt32 millisecs)
+void osgsleep(OSG::UInt32 millisecs)
 {
     OSG::osgSleep(millisecs);
 }
@@ -2693,7 +2693,7 @@ void osgsleep(UInt32 millisecs)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-Real32 osgRand(void)
+OSG::Real32 osgRand(void)
 {
     return rand() / static_cast<Real32>(RAND_MAX);
 }
@@ -2708,7 +2708,7 @@ Real32 osgRand(void)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-Real32 osgrand(void)
+OSG::Real32 osgrand(void)
 {
     return OSG::osgRand();
 }
@@ -2725,7 +2725,7 @@ Real32 osgrand(void)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-std::ostream &operator<<(std::ostream &os, UInt64 v)
+std::ostream &operator<<(std::ostream &os, OSG::UInt64 v)
 {
     char buf[30];
     sprintf(buf, "%I64u", v);
@@ -2741,7 +2741,7 @@ std::ostream &operator<<(std::ostream &os, UInt64 v)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-std::ostream &operator<<(std::ostream &os, Int64 v)
+std::ostream &operator<<(std::ostream &os, OSG::Int64 v)
 {
     char buf[30];
     sprintf(buf, "%I64d", v);
@@ -2789,9 +2789,8 @@ bool osgIsBigEndian(void)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline UInt16
-osgSwapBytes<UInt16>(UInt16 src)
+template <> inline 
+OSG::UInt16 osgSwapBytes<UInt16>(OSG::UInt16 src)
 {
     return (((src & 0x00ff) << 8) |
             ((src & 0xff00) >> 8)  );
@@ -2799,18 +2798,16 @@ osgSwapBytes<UInt16>(UInt16 src)
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline Int16
-osgSwapBytes<Int16>(Int16 src)
+template <> inline 
+OSG::Int16 osgSwapBytes<Int16>(OSG::Int16 src)
 {
     return static_cast<Int16>(osgSwapBytes<UInt16>(static_cast<UInt16>(src)));
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline UInt32
-osgSwapBytes<UInt32>(UInt32 src)
+template <> inline 
+OSG::UInt32 osgSwapBytes<UInt32>(OSG::UInt32 src)
 {
     return (((src & 0x000000ff) << 24) |
             ((src & 0x0000ff00) <<  8) |
@@ -2820,9 +2817,8 @@ osgSwapBytes<UInt32>(UInt32 src)
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline Int32
-osgSwapBytes<Int32>(Int32 src)
+template <> inline 
+OSG::Int32 osgSwapBytes<Int32>(OSG::Int32 src)
 {
     return static_cast<Int32>(osgSwapBytes<UInt32>(static_cast<UInt32>(src)));
 }
@@ -2830,9 +2826,8 @@ osgSwapBytes<Int32>(Int32 src)
 #ifdef OSG_GLENUM_NEQ_UINT32
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline GLenum
-osgSwapBytes<GLenum>(GLenum src)
+template <> inline 
+GLenum osgSwapBytes<GLenum>(GLenum src)
 {
     return static_cast<GLenum>(osgSwapBytes<UInt32>(static_cast<UInt32>(src)));
 }
@@ -2840,9 +2835,8 @@ osgSwapBytes<GLenum>(GLenum src)
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline UInt64
-osgSwapBytes<UInt64>(UInt64 src)
+template <> inline 
+OSG::UInt64 osgSwapBytes<UInt64>(OSG::UInt64 src)
 {
     return (((src & OSG_UINT64_LITERAL(0x00000000000000ff)) << 56) |
             ((src & OSG_UINT64_LITERAL(0x000000000000ff00)) << 40) |
@@ -2856,18 +2850,16 @@ osgSwapBytes<UInt64>(UInt64 src)
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline Int64
-osgSwapBytes<Int64>(Int64 src)
+template <> inline 
+OSG::Int64 osgSwapBytes<Int64>(OSG::Int64 src)
 {
     return static_cast<Int64>(osgSwapBytes<UInt64>(static_cast<UInt64>(src)));
 }
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline Real32
-osgSwapBytes<Real32>(Real32 src)
+template <> inline 
+OSG::Real32 osgSwapBytes<Real32>(OSG::Real32 src)
 {
     UInt8* pStart = reinterpret_cast<UInt8*>(&src);
     UInt8* pEnd   = reinterpret_cast<UInt8*>(&src) + sizeof(Real32);
@@ -2879,9 +2871,8 @@ osgSwapBytes<Real32>(Real32 src)
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline Real64
-osgSwapBytes<Real64>(Real64 src)
+template <> inline 
+OSG::Real64 osgSwapBytes<Real64>(OSG::Real64 src)
 {
     UInt8* pStart = reinterpret_cast<UInt8*>(&src);
     UInt8* pEnd   = reinterpret_cast<UInt8*>(&src) + sizeof(Real64);
@@ -2900,9 +2891,8 @@ osgSwapBytes<Real64>(Real64 src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <class TypeT>
-inline TypeT
-osgHostToBigEndian(TypeT src)
+template <class TypeT> inline 
+TypeT osgHostToBigEndian(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     return osgSwapBytes(src);
@@ -2913,9 +2903,8 @@ osgHostToBigEndian(TypeT src)
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline Real128
-osgHostToBigEndian<Real128>(Real128 src)
+template <> inline 
+OSG::Real128 osgHostToBigEndian<Real128>(OSG::Real128 src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     char *p = reinterpret_cast<char*>(&src);
@@ -2944,9 +2933,8 @@ osgHostToBigEndian<Real128>(Real128 src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <class TypeT>
-inline TypeT
-osgHostToLittleEndian(TypeT src)
+template <class TypeT> inline 
+TypeT osgHostToLittleEndian(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
@@ -2957,9 +2945,8 @@ osgHostToLittleEndian(TypeT src)
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline Real128
-osgHostToLittleEndian<Real128>(Real128 src)
+template <> inline 
+OSG::Real128 osgHostToLittleEndian<Real128>(OSG::Real128 src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
@@ -2988,9 +2975,8 @@ osgHostToLittleEndian<Real128>(Real128 src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <class TypeT>
-inline TypeT
-osgBigEndianToHost(TypeT src)
+template <class TypeT> inline 
+TypeT osgBigEndianToHost(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     return osgSwapBytes(src);
@@ -3001,9 +2987,8 @@ osgBigEndianToHost(TypeT src)
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline Real128
-osgBigEndianToHost<Real128>(Real128 src)
+template <> inline 
+OSG::Real128 osgBigEndianToHost<Real128>(OSG::Real128 src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     char *p = reinterpret_cast<char*>(&src);
@@ -3032,9 +3017,8 @@ osgBigEndianToHost<Real128>(Real128 src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <class TypeT>
-inline TypeT
-osgLittleEndianToHost(TypeT src)
+template <class TypeT> inline 
+TypeT osgLittleEndianToHost(TypeT src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
@@ -3045,9 +3029,8 @@ osgLittleEndianToHost(TypeT src)
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
-template <>
-inline Real128
-osgLittleEndianToHost<Real128>(Real128 src)
+template <> inline 
+OSG::Real128 osgLittleEndianToHost<Real128>(OSG::Real128 src)
 {
 #if BYTE_ORDER == LITTLE_ENDIAN
     return src;
@@ -3077,9 +3060,8 @@ osgLittleEndianToHost<Real128>(Real128 src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <class TypeT>
-inline TypeT
-osgHostToNet(const TypeT src)
+template <class TypeT> inline 
+TypeT osgHostToNet(const TypeT src)
 {
     return OSG::osgHostToBigEndian(src);
 }
@@ -3094,9 +3076,8 @@ osgHostToNet(const TypeT src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-template <class TypeT>
-inline TypeT
-osgNetToHost(const TypeT src)
+template <class TypeT> inline 
+TypeT osgNetToHost(const TypeT src)
 {
     return OSG::osgBigEndianToHost(src);
 }
@@ -3115,8 +3096,8 @@ osgNetToHost(const TypeT src)
 
     \ingroup GrpBaseBaseMiscFn
  */
-inline
-UInt16 osghtons(UInt16 src)
+inline 
+OSG::UInt16 osghtons(OSG::UInt16 src)
 {
     return OSG::osgHostToNet<UInt16>(src);
 }
@@ -3134,7 +3115,7 @@ UInt16 osghtons(UInt16 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-UInt32 osghtonl(UInt32 src)
+OSG::UInt32 osghtonl(OSG::UInt32 src)
 {
     return OSG::osgHostToNet<UInt32>(src);
 }
@@ -3152,7 +3133,7 @@ UInt32 osghtonl(UInt32 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-UInt64 osghtonll(UInt64 src)
+OSG::UInt64 osghtonll(OSG::UInt64 src)
 {
     return OSG::osgHostToNet<UInt64>(src);
 }
@@ -3170,7 +3151,7 @@ UInt64 osghtonll(UInt64 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-Real32 osghtonf(Real32 src)
+OSG::Real32 osghtonf(OSG::Real32 src)
 {
     return OSG::osgHostToNet<Real32>(src);
 }
@@ -3188,7 +3169,7 @@ Real32 osghtonf(Real32 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-Real64 osghtond(Real64 src)
+OSG::Real64 osghtond(OSG::Real64 src)
 {
     return OSG::osgHostToNet<Real64>(src);
 }
@@ -3206,7 +3187,7 @@ Real64 osghtond(Real64 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-Real128 osghtondd(Real128 src)
+OSG::Real128 osghtondd(OSG::Real128 src)
 {
     return OSG::osgHostToNet<Real128>(src);
 }
@@ -3244,7 +3225,7 @@ UInt16 osgntohs(UInt16 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-UInt32 osgntohl(UInt32 src)
+OSG::UInt32 osgntohl(OSG::UInt32 src)
 {
     return OSG::osgNetToHost<UInt32>(src);
 }
@@ -3262,7 +3243,7 @@ UInt32 osgntohl(UInt32 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-UInt64 osgntohll(UInt64 src)
+OSG::UInt64 osgntohll(OSG::UInt64 src)
 {
     return OSG::osgNetToHost<UInt64>(src);
 }
@@ -3280,12 +3261,12 @@ UInt64 osgntohll(UInt64 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-Real32 osgntohf(Real32 src)
+OSG::Real32 osgntohf(OSG::Real32 src)
 {
     return OSG::osgNetToHost<Real32>(src);
 }
 
-/*! Convert a Real64 from network byte order to host byte order.
+/*! Convert a OSG::Real64 from network byte order to host byte order.
 
     \param[in] src Input value in host byte order.
     \return The input converted to network byte order.
@@ -3298,7 +3279,7 @@ Real32 osgntohf(Real32 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-Real64 osgntohd(Real64 src)
+OSG::Real64 osgntohd(OSG::Real64 src)
 {
     return OSG::osgNetToHost<Real64>(src);
 }
@@ -3316,7 +3297,7 @@ Real64 osgntohd(Real64 src)
     \ingroup GrpBaseBaseMiscFn
  */
 inline
-Real128 osgntohdd(Real128 src)
+OSG::Real128 osgntohdd(OSG::Real128 src)
 {
     return OSG::osgNetToHost<Real128>(src);
 }
@@ -3338,7 +3319,7 @@ Real128 osgntohdd(Real128 src)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-void osgStringDup(const TChar *szInput, TChar *&szOutput)
+void osgStringDup(const OSG::TChar *szInput, OSG::TChar *&szOutput)
 {
     delete [] szOutput;
 
@@ -3370,7 +3351,7 @@ void osgStringDup(const TChar *szInput, TChar *&szOutput)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-void stringDup(const TChar *szInput, TChar *&szOutput)
+void stringDup(const OSG::TChar *szInput, OSG::TChar *&szOutput)
 {
     OSG::osgStringDup(szInput, szOutput);
 }
@@ -3389,7 +3370,7 @@ void stringDup(const TChar *szInput, TChar *&szOutput)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-void  osgStringCopy(const Char8 *szInput, Char8 *szOutput)
+void  osgStringCopy(const OSG::Char8 *szInput, OSG::Char8 *szOutput)
 {
     if(szInput != NULL && szOutput != NULL)
     {
@@ -3413,7 +3394,7 @@ void  osgStringCopy(const Char8 *szInput, Char8 *szOutput)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-void  stringcpy(const Char8 *szInput, Char8 *szOutput)
+void  stringcpy(const OSG::Char8 *szInput, OSG::Char8 *szOutput)
 {
     OSG::osgStringCopy(szInput, szOutput);
 }
@@ -3432,7 +3413,9 @@ void  stringcpy(const Char8 *szInput, Char8 *szOutput)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-Int32 osgStringNCmp(const Char8 *string1, const Char8 *string2, size_t count)
+OSG::Int32 osgStringNCmp(const OSG::Char8 *string1, 
+                         const OSG::Char8 *string2, 
+                               size_t      count)
 {
     return ::strncmp(string1, string2, count);
 }
@@ -3453,7 +3436,9 @@ Int32 osgStringNCmp(const Char8 *string1, const Char8 *string2, size_t count)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-Int32 stringncmp(const Char8 *string1, const Char8 *string2, size_t count)
+OSG::Int32 stringncmp(const OSG::Char8  *string1, 
+                      const OSG::Char8  *string2, 
+                            size_t       count  )
 {
     return OSG::osgStringNCmp(string1, string2, count);
 }
@@ -3468,7 +3453,7 @@ Int32 stringncmp(const Char8 *string1, const Char8 *string2, size_t count)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-Int32 osgStringLen(const Char8 *string1)
+OSG::Int32 osgStringLen(const OSG::Char8 *string1)
 {
     return ::strlen(string1);
 }
@@ -3485,7 +3470,7 @@ Int32 osgStringLen(const Char8 *string1)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-Int32 stringlen(const Char8 *string1)
+OSG::Int32 stringlen(const OSG::Char8 *string1)
 {
     return OSG::osgStringLen(string1);
 }
@@ -3502,7 +3487,7 @@ Int32 stringlen(const Char8 *string1)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-Int32 osgStringCmp(const Char8 *string1, const Char8 *string2)
+OSG::Int32 osgStringCmp(const OSG::Char8 *string1, const OSG::Char8 *string2)
 {
     return ::strcmp(string1, string2);
 }
@@ -3521,7 +3506,7 @@ Int32 osgStringCmp(const Char8 *string1, const Char8 *string2)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-Int32 stringcmp(const Char8 *string1, const Char8 *string2)
+OSG::Int32 stringcmp(const OSG::Char8 *string1, const OSG::Char8 *string2)
 {
     return OSG::osgStringCmp(string1, string2);
 }
@@ -3538,8 +3523,8 @@ Int32 stringcmp(const Char8 *string1, const Char8 *string2)
     \ingroup GrpBaseBaseStringFn
  */
 inline
-Int32 osgStringCaseCmp(const Char8 *string1,
-                       const Char8 *string2)
+OSG::Int32 osgStringCaseCmp(const OSG::Char8 *string1,
+                            const OSG::Char8 *string2)
 {
 #if !defined(WIN32)
     return ::strcasecmp(string1, string2);
@@ -3554,15 +3539,16 @@ Int32 osgStringCaseCmp(const Char8 *string1,
 
     \param[in] string1 First string for comparison.
     \param[in] string2 Second string for comparison.
+    \param[in] count   number of characters to compare
     \return 0 if both strings are equal, -1 if \a string1 is less than
     \a string2 and 1 otherwise.
 
     \ingroup GrpBaseBaseStringFn
  */
 inline
-Int32 osgStringNCaseCmp(const Char8  *string1,
-                        const Char8  *string2,
-                              size_t  count)
+OSG::Int32 osgStringNCaseCmp(const OSG::Char8  *string1,
+                             const OSG::Char8  *string2,
+                                   size_t       count)
 {
 #if !defined(WIN32)
     return ::strncasecmp(string1, string2, count);
@@ -3585,8 +3571,8 @@ Int32 osgStringNCaseCmp(const Char8  *string1,
     \ingroup GrpBaseBaseStringFn
  */
 inline
-Int32 stringcasecmp(const Char8 *string1,
-                    const Char8 *string2)
+OSG::Int32 stringcasecmp(const OSG::Char8 *string1,
+                         const OSG::Char8 *string2)
 {
     return OSG::osgStringCaseCmp(string1, string2);
 }
@@ -3595,12 +3581,12 @@ Int32 stringcasecmp(const Char8 *string1,
 
 // Indirector
 
-template <class ContentT, class IndexT>
+template <class ContentT, class IndexT> inline
 indirector<ContentT, IndexT>::indirector(ContentT cont) : _cont(cont)
 {
 }
 
-template <class ContentT, class IndexT>
+template <class ContentT, class IndexT> inline
 bool indirector<ContentT, IndexT>::operator()(IndexT a, IndexT b)
 {
     if(_cont[a] < _cont[b])

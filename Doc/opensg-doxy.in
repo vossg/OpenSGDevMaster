@@ -488,7 +488,8 @@ INPUT_ENCODING         = UTF-8
 # *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh *.hxx 
 # *.hpp *.h++ *.idl *.odl *.cs *.php *.php3 *.inc *.m *.mm *.py
 
-FILE_PATTERNS          = OSG*.cpp \
+FILE_PATTERNS          = *.dox    \
+                         OSG*.cpp \
                          OSG*.h   \
                          OSG*.inl \
                          OSG*.ins
@@ -517,7 +518,10 @@ EXCLUDE_SYMLINKS       = NO
 # against the file with absolute path, so to exclude all test directories 
 # for example use the pattern */test/*
 
-EXCLUDE_PATTERNS       = OSG*Test.cpp
+EXCLUDE_PATTERNS       = OSG*Test.cpp \
+                         OSG*Fwd.h    \
+                         OSG*_auto.cpp
+                         
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names 
 # (namespaces, classes, functions, etc.) that should be excluded from the output. 
@@ -695,7 +699,8 @@ HTML_FOOTER            = ${OSG_DOXY_HTML_FOOTER}
 # the style sheet file to the HTML output directory, so don't put your own 
 # stylesheet in the HTML output directory as well, or it will be erased!
 
-HTML_STYLESHEET        = 
+HTML_STYLESHEET        = ${OSG_DOXY_HTML_CSS}
+
 
 # If the HTML_ALIGN_MEMBERS tag is set to YES, the members of classes, 
 # files or namespaces will be aligned in HTML using tables. If set to 
@@ -1062,9 +1067,9 @@ PREDEFINED             = DOC_LEVEL=3 \
 # The macro definition that is found in the sources will be used. 
 # Use the PREDEFINED tag if you want to use a different macro definition.
 
-EXPAND_AS_DEFINED      =    OSG_CHECK_ARG \
-                            OSG_BASELIB_DLLMAPPING \
-                            OSG_SYSTEMLIB_DLLMAPPING \
+EXPAND_AS_DEFINED      =    OSG_CHECK_ARG            \
+                            OSG_BASE_DLLMAPPING      \
+                            OSG_SYSTEM_DLLMAPPING    \
                             OSG_UNUSED_ATTRIB        \
                             OSGT
 
@@ -1176,7 +1181,7 @@ GROUP_GRAPHS           = YES
 # collaboration diagrams in a style similar to the OMG's Unified Modeling 
 # Language.
 
-UML_LOOK               = YES
+UML_LOOK               = NO
 
 # If set to YES, the inheritance and collaboration graphs will show the 
 # relations between templates and their instances.

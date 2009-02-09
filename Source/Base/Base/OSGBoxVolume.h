@@ -47,6 +47,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! 3D box defined by min and max point.
 
+    \ingroup GrpBaseBase
     \ingroup GrpBaseBaseVolume
  */
 

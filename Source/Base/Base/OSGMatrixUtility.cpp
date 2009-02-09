@@ -47,14 +47,13 @@
 
 OSG_BEGIN_NAMESPACE
 
-
-OSG_BASE_DLLMAPPING bool MatrixOrthogonal(Matrix &result,
-                                          Real32  rLeft,
-                                          Real32  rRight,
-                                          Real32  rBottom,
-                                          Real32  rTop,
-                                          Real32  rNear,
-                                          Real32  rFar)
+OSG_BASE_DLLMAPPING bool MatrixOrthogonal(OSG::Matrix &result,
+                                          OSG::Real32  rLeft,
+                                          OSG::Real32  rRight,
+                                          OSG::Real32  rBottom,
+                                          OSG::Real32  rTop,
+                                          OSG::Real32  rNear,
+                                          OSG::Real32  rFar)
 {
     result.setValueTransposed(
 
@@ -82,13 +81,13 @@ OSG_BASE_DLLMAPPING bool MatrixOrthogonal(Matrix &result,
 }
 
 
-OSG_BASE_DLLMAPPING bool MatrixFrustum(Matrixr &result,
-                                       Real     rLeft,
-                                       Real     rRight,
-                                       Real     rBottom,
-                                       Real     rTop,
-                                       Real     rNear,
-                                       Real     rFar)
+OSG_BASE_DLLMAPPING bool MatrixFrustum(OSG::Matrixr &result,
+                                       OSG::Real     rLeft,
+                                       OSG::Real     rRight,
+                                       OSG::Real     rBottom,
+                                       OSG::Real     rTop,
+                                       OSG::Real     rNear,
+                                       OSG::Real     rFar)
 {
     Real dz = rFar   - rNear;
     Real dx = rRight - rLeft;
@@ -120,11 +119,11 @@ OSG_BASE_DLLMAPPING bool MatrixFrustum(Matrixr &result,
 }
 
 
-OSG_BASE_DLLMAPPING bool MatrixPerspective(Matrixr &result,
-                                           Real     rFovy,
-                                           Real     rAspect,
-                                           Real     rNear,
-                                           Real     rFar)
+OSG_BASE_DLLMAPPING bool MatrixPerspective(OSG::Matrixr &result,
+                                           OSG::Real     rFovy,
+                                           OSG::Real     rAspect,
+                                           OSG::Real     rNear,
+                                           OSG::Real     rFar)
 {
     Real ct    = osgTan(rFovy);
     bool error = false;
@@ -179,16 +178,16 @@ OSG_BASE_DLLMAPPING bool MatrixPerspective(Matrixr &result,
 }
 
 
-OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(Matrixr &projection,
-                                                 Matrixr &projtrans,
-                                                 Real     rFovy,
-                                                 Real     rAspect,
-                                                 Real     rNear,
-                                                 Real     rFar,
-                                                 Real     rZeroparallax,
-                                                 Real     rEyedistance,
-                                                 Real     rWhicheye,
-                                                 Real     rOverlap)
+OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(OSG::Matrixr &projection,
+                                                 OSG::Matrixr &projtrans,
+                                                 OSG::Real     rFovy,
+                                                 OSG::Real     rAspect,
+                                                 OSG::Real     rNear,
+                                                 OSG::Real     rFar,
+                                                 OSG::Real     rZeroparallax,
+                                                 OSG::Real     rEyedistance,
+                                                 OSG::Real     rWhicheye,
+                                                 OSG::Real     rOverlap)
 {
     Real rLeft;
     Real rRight;
@@ -279,16 +278,16 @@ OSG_BASE_DLLMAPPING bool MatrixStereoPerspective(Matrixr &projection,
       the similarly named OpenGl function!
 */
 
-OSG_BASE_DLLMAPPING bool MatrixLookAt(Matrix &result,
-                                      Real32  fromx,
-                                      Real32  fromy,
-                                      Real32  fromz,
-                                      Real32  atx,
-                                      Real32  aty,
-                                      Real32  atz,
-                                      Real32  upx,
-                                      Real32  upy,
-                                      Real32  upz)
+OSG_BASE_DLLMAPPING bool MatrixLookAt(OSG::Matrix &result,
+                                      OSG::Real32  fromx,
+                                      OSG::Real32  fromy,
+                                      OSG::Real32  fromz,
+                                      OSG::Real32  atx,
+                                      OSG::Real32  aty,
+                                      OSG::Real32  atz,
+                                      OSG::Real32  upx,
+                                      OSG::Real32  upy,
+                                      OSG::Real32  upz)
 {
     Vec3f view;
     Vec3f right;
@@ -328,10 +327,10 @@ OSG_BASE_DLLMAPPING bool MatrixLookAt(Matrix &result,
       the similarly named OpenGl function!
 */
 
-OSG_BASE_DLLMAPPING bool MatrixLookAt(Matrix &result,
-                                      Pnt3f   from, 
-                                      Pnt3f   at, 
-                                      Vec3f   up    )
+OSG_BASE_DLLMAPPING bool MatrixLookAt(OSG::Matrix &result,
+                                      OSG::Pnt3f   from, 
+                                      OSG::Pnt3f   at, 
+                                      OSG::Vec3f   up    )
 {
     Vec3f view;
     Vec3f right;
@@ -365,13 +364,13 @@ OSG_BASE_DLLMAPPING bool MatrixLookAt(Matrix &result,
 }
 
 
-OSG_BASE_DLLMAPPING bool MatrixProjection(Matrix &OSG_CHECK_ARG(result),
-                                          Real32  OSG_CHECK_ARG(rLeft),
-                                          Real32  OSG_CHECK_ARG(rRight),
-                                          Real32  OSG_CHECK_ARG(rBottom),
-                                          Real32  OSG_CHECK_ARG(rTop),
-                                          Real32  OSG_CHECK_ARG(rNear),
-                                          Real32  OSG_CHECK_ARG(rFar) )
+OSG_BASE_DLLMAPPING bool MatrixProjection(OSG::Matrix &OSG_CHECK_ARG(result),
+                                          OSG::Real32  OSG_CHECK_ARG(rLeft),
+                                          OSG::Real32  OSG_CHECK_ARG(rRight),
+                                          OSG::Real32  OSG_CHECK_ARG(rBottom),
+                                          OSG::Real32  OSG_CHECK_ARG(rTop),
+                                          OSG::Real32  OSG_CHECK_ARG(rNear),
+                                          OSG::Real32  OSG_CHECK_ARG(rFar) )
 {
     SFATAL << "MatrixProjection: Not yet implemented!" << std::endl;
 

@@ -70,7 +70,9 @@ OSG_BEGIN_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseTypeSystem
+/*! \brief Accessible via #TypeFactory
+    \ingroup GrpBaseBaseTypeSystem
+    \ingroup GrpBaseBase
  */
 
 class OSG_BASE_DLLMAPPING TypeFactoryBase : public FactoryBase
@@ -235,7 +237,12 @@ template class OSG_BASE_DLLMAPPING SingletonHolder<TypeFactoryBase>;
 #    endif
 #endif
 
-typedef SingletonHolder<TypeFactoryBase> TypeFactory;
+/*! \typedef OSG::SingletonHolder<OSG::TypeFactoryBase> TypeFactory;
+    \ingroup GrpBaseBaseTypeSystem
+    \relatesalso OSG::TypeFactoryBase
+ */
+
+typedef OSG::SingletonHolder<OSG::TypeFactoryBase> TypeFactory;
 
 OSG_END_NAMESPACE
 

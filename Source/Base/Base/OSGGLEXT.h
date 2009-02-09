@@ -66,7 +66,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_secondary_color                                       */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_secondary_color
 #define GL_EXT_secondary_color               1
@@ -83,7 +83,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_multitexture                                          */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_multitexture
 #define GL_ARB_multitexture               1
@@ -128,7 +128,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_texture_cube_map                                      */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_texture_cube_map
 #define GL_ARB_texture_cube_map            1
@@ -150,7 +150,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_texture_compression                                   */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 // This one is not really checked by the system, as it has no functions
 #ifndef GL_ARB_texture_compression
@@ -172,7 +172,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_texture3D                                             */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_texture3D
 #define GL_EXT_texture3D				  1
@@ -212,7 +212,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_texture                                               */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_texture
 #define GL_EXT_texture                    1
@@ -265,7 +265,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_texture_integer                                       */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_texture_integer
 #define GL_EXT_texture_integer            1
@@ -322,7 +322,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_NV_register_combiners                                     */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_NV_register_combiners
 #define GL_NV_register_combiners          1
@@ -383,7 +383,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_NV_register_combiners2                                    */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_NV_register_combiners2
 #define GL_NV_register_combiners2        1
@@ -394,7 +394,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_multitexture                                          */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_paletted_texture
 #define GL_EXT_paletted_texture 1
@@ -425,7 +425,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_multitexture                                          */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_shared_texture_palette
 #define GL_EXT_shared_texture_palette           1
@@ -436,7 +436,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name blend equation legacy handling                               */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 // Some legacy extension handling
 
@@ -479,7 +479,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_texture_env_combine                                   */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_texture_env_combine 
 #define GL_EXT_texture_env_combine          1
@@ -510,7 +510,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_point_parameters                                      */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_point_parameters
 #define GL_ARB_point_parameters 1
@@ -526,7 +526,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_NV_point_sprite                                           */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_NV_point_sprite
 #define GL_NV_point_sprite 1
@@ -539,9 +539,9 @@ typedef char GLchar;
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*! \name GL_ARB_vertex_program                                           */
+/*! \name GL_ARB_vertex_program                                        */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_vertex_program
 #define GL_ARB_vertex_program 1
@@ -631,7 +631,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_fragment_program                                      */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_fragment_program
 #define GL_ARB_fragment_program 1
@@ -721,7 +721,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_NV_texture_shader                                         */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_NV_texture_shader
 #define GL_NV_texture_shader 1
@@ -805,7 +805,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_NV_texture_shader2                                        */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_NV_texture_shader2
 #define GL_NV_texture_shader2 1
@@ -817,7 +817,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_NV_texture_shader3                                        */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_NV_texture_shader3
 #define GL_NV_texture_shader3 1
@@ -844,7 +844,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_SGIS_generate_mipmap                                      */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_SGIS_generate_mipmap
 #define GL_SGIS_generate_mipmap 1
@@ -858,7 +858,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_texture_lod_bias                                      */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_texture_lod_bias
 #define GL_EXT_texture_lod_bias 1
@@ -873,7 +873,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_texture_rectangle                                     */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_texture_rectangle
 #define GL_ARB_texture_rectangle            1
@@ -888,7 +888,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_texture_rectangle                                     */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_texture_rectangle
 #define GL_EXT_texture_rectangle            1
@@ -903,7 +903,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_texture_float                                         */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_texture_float
 #define GL_ARB_texture_float 1
@@ -934,7 +934,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_shader_objects                                        */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_shader_objects
 #define GL_ARB_shader_objects 1
@@ -972,7 +972,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_geometry_shader4                                      */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_geometry_shader4
 #define GL_EXT_geometry_shader4 1
@@ -1003,7 +1003,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_vertex_shader                                         */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_vertex_shader
 #define GL_ARB_vertex_shader 1
@@ -1022,7 +1022,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_fragment_shader                                       */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_fragment_shader
 #define GL_ARB_fragment_shader 1
@@ -1036,7 +1036,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_shading_language_100                                  */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_shading_language_100
 #define GL_ARB_shading_language_100 1
@@ -1046,7 +1046,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_vertex_buffer_object                                  */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_vertex_buffer_object
 #define GL_ARB_vertex_buffer_object 1
@@ -1087,9 +1087,9 @@ typedef char GLchar;
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
-/*! \name GL_EXT_Cg_shader                                                */
+/*! \name GL_EXT_Cg_shader                                             */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_Cg_shader
 #define GL_EXT_Cg_shader 1
@@ -1103,7 +1103,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_NV_occlusion_query                                        */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_NV_occlusion_query
 #define GL_NV_occlusion_query 1
@@ -1126,7 +1126,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_HP_occlusion_test                                         */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_HP_occlusion_test
 #define GL_HP_occlusion_test 1
@@ -1138,7 +1138,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_texture_compression_s3tc                              */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_texture_compression_s3tc
 #define GL_EXT_texture_compression_s3tc 1
@@ -1152,7 +1152,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_texture_filter_anisotropic                            */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_texture_filter_anisotropic
 #define GL_EXT_texture_filter_anisotropic 1
@@ -1176,7 +1176,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_NV_half_float                                             */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_NV_half_float
 #define GL_HALF_FLOAT_NV                  0x140B
@@ -1186,7 +1186,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_blend_func_separate                                   */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_blend_func_separate
 #define GL_BLEND_DST_RGB_EXT              0x80C8
@@ -1199,7 +1199,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_blend_func_separate                                   */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_blend_color
 #define GL_CONSTANT_COLOR_EXT             0x8001
@@ -1213,7 +1213,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_blend_minmax                                          */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_blend_minmax
 #define GL_FUNC_ADD_EXT                   0x8006
@@ -1226,7 +1226,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_blend_substract                                       */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_blend_subtract
 #define GL_FUNC_SUBTRACT_EXT              0x800A
@@ -1237,7 +1237,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_EXT_blend_equation_separate                               */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_EXT_blend_equation_separate
 #define GL_BLEND_EQUATION_RGB_EXT         GL_BLEND_EQUATION
@@ -1248,7 +1248,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_UNSIGNED_SHORT_5_6_5                                      */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_UNSIGNED_SHORT_5_6_5
 #define GL_UNSIGNED_SHORT_5_6_5           0x8363
@@ -1260,7 +1260,7 @@ typedef char GLchar;
 /*---------------------------------------------------------------------*/
 /*! \name GL_ARB_imaging                                               */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #ifndef GL_ARB_imaging
 #define GL_CONSTANT_COLOR                 0x8001
@@ -1342,6 +1342,9 @@ typedef char GLchar;
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
+/*! \name GL_VERSION_1_2                                               */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
 
 #ifndef GL_VERSION_1_2
 #define GL_UNSIGNED_BYTE_3_3_2            0x8032
@@ -1386,6 +1389,12 @@ typedef char GLchar;
 #define GL_ALIASED_POINT_SIZE_RANGE       0x846D
 #define GL_ALIASED_LINE_WIDTH_RANGE       0x846E
 #endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_VERSION_1_3                                               */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
 
 #ifndef GL_VERSION_1_3
 #define GL_TEXTURE0                       0x84C0
@@ -1486,6 +1495,12 @@ typedef char GLchar;
 #define GL_DOT3_RGBA                      0x86AF
 #endif
 
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_VERSION_1_4                                               */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
+
 #ifndef GL_VERSION_1_4
 #define GL_BLEND_DST_RGB                  0x80C8
 #define GL_BLEND_SRC_RGB                  0x80C9
@@ -1527,6 +1542,12 @@ typedef char GLchar;
 #define GL_TEXTURE_COMPARE_FUNC           0x884D
 #define GL_COMPARE_R_TO_TEXTURE           0x884E
 #endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_VERSION_1_5                                               */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
 
 #ifndef GL_VERSION_1_5
 #define GL_BUFFER_SIZE                    0x8764
@@ -1580,6 +1601,12 @@ typedef char GLchar;
 #define GL_SRC1_ALPHA                     GL_SOURCE1_ALPHA
 #define GL_SRC2_ALPHA                     GL_SOURCE2_ALPHA
 #endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_VERSION_2_0                                               */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
 
 #ifndef GL_VERSION_2_0
 #define GL_BLEND_EQUATION_RGB             GL_BLEND_EQUATION
@@ -1668,6 +1695,12 @@ typedef char GLchar;
 #define GL_STENCIL_BACK_WRITEMASK         0x8CA5
 #endif
 
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_EXT_framebuffer_object                                    */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
+
 #ifndef GL_EXT_framebuffer_object
 #define GL_INVALID_FRAMEBUFFER_OPERATION_EXT                0x0506
 #define GL_MAX_RENDERBUFFER_SIZE_EXT                        0x84E8
@@ -1724,6 +1757,18 @@ typedef char GLchar;
 #define GL_RENDERBUFFER_STENCIL_SIZE_EXT                    0x8D55
 #endif
 
+// Hack for SGI Prisms...
+ 
+#ifdef GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENTS_EXT
+#define GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT 0x8CD6
+#endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name GL_ARB_depth_texture                                         */
+/*! \ingroup GrpBaseBaseGLConstants                                    */
+/*! \{                                                                 */
+
 #ifndef GL_ARB_depth_texture
 #define GL_DEPTH_COMPONENT16_ARB  0x81A5
 #define GL_DEPTH_COMPONENT24_ARB  0x81A6
@@ -1732,16 +1777,11 @@ typedef char GLchar;
 #define GL_DEPTH_TEXTURE_MODE_ARB 0x884B
 #endif
 
-// Hack for SGI Prisms...
- 
-#ifdef GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENTS_EXT
-#define GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT 0x8CD6
-#endif
-
+/*! \}                                                                 */
 /*---------------------------------------------------------------------*/
 /*! \name glxFBConfig                                                  */
 /*! \ingroup GrpBaseBaseGLConstants                                    */
-/*  \{                                                                 */
+/*! \{                                                                 */
 
 #define GLX_CONTEXT_MAJOR_VERSION_ARB          0x2091
 #define GLX_CONTEXT_MINOR_VERSION_ARB          0x2092

@@ -48,11 +48,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-/** 
-@brief 3D shadow frustum defined by n planes.
-@author dstaneker
-
-*/
+/*! \brief 3D shadow frustum defined by n planes.
+    \author dstaneker
+    \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseVolume
+ */
 
 class OSG_BASE_DLLMAPPING PolytopeVolume : public Volume
 {

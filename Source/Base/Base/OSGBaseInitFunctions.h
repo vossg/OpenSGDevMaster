@@ -84,6 +84,11 @@ typedef boost::function<bool (void)> InitFuncF;
 
 typedef boost::function<bool (void)> ExitFuncF;
 
+/*! \ingroup GrpBaseBaseInitExit
+    \ingroup GrpBaseBase
+    \nohierarchy
+ */
+
 struct OSG_BASE_DLLMAPPING InitFuncWrapper
 {
     /*---------------------------------------------------------------------*/
@@ -95,6 +100,10 @@ struct OSG_BASE_DLLMAPPING InitFuncWrapper
     /*! \}                                                                 */
 };
 
+/*! \ingroup GrpBaseBaseInitExit
+    \ingroup GrpBaseBase
+    \nohierarchy
+ */
 
 struct OSG_BASE_DLLMAPPING StaticInitFuncWrapper
 {
@@ -109,32 +118,36 @@ struct OSG_BASE_DLLMAPPING StaticInitFuncWrapper
 
 
 OSG_BASE_DLLMAPPING 
-void addPreMPInitFunction      (InitFuncF initFunc);
+void addPreMPInitFunction      (OSG::InitFuncF initFunc);
 
 OSG_BASE_DLLMAPPING 
-void addPreFactoryInitFunction (InitFuncF initFunc);
+void addPreFactoryInitFunction (OSG::InitFuncF initFunc);
 
 OSG_BASE_DLLMAPPING 
-void addPostFactoryInitFunction(InitFuncF initFunc);
+void addPostFactoryInitFunction(OSG::InitFuncF initFunc);
 
 
 OSG_BASE_DLLMAPPING 
-void addPreFactoryExitFunction (ExitFuncF exitFunc);
+void addPreFactoryExitFunction (OSG::ExitFuncF exitFunc);
 
 OSG_BASE_DLLMAPPING 
-void addPostFactoryExitFunction(ExitFuncF exitFunc);
+void addPostFactoryExitFunction(OSG::ExitFuncF exitFunc);
 
 OSG_BASE_DLLMAPPING 
-void addPreMPExitFunction      (ExitFuncF exitFunc);
+void addPreMPExitFunction      (OSG::ExitFuncF exitFunc);
 
 OSG_BASE_DLLMAPPING 
-void addPostMPExitFunction     (ExitFuncF exitFunc);
+void addPostMPExitFunction     (OSG::ExitFuncF exitFunc);
+
+/*---------------------------------------------------------------------*/
+/*! \name init / exit                                                  */
+/*! \{                                                                 */
 
 OSG_BASE_DLLMAPPING
-void preloadSharedObject(const TChar *szName);
+void preloadSharedObject       (const OSG::TChar *szName);
 
 OSG_BASE_DLLMAPPING
-void addLibraryVersion(const Char8 *szName);
+void addLibraryVersion         (const OSG::Char8 *szName);
 
 #ifdef _DEBUG  
 # define OSG_INIT_DEBUG true
@@ -156,27 +169,29 @@ void addLibraryVersion(const Char8 *szName);
 // see OSGBaseInitFunctions.inl for an explanation.
 
 inline
-bool osgInit  (Int32    argc, 
-               Char8  **argv,
-               UInt16   major   = OSG_MAJOR_VERSION, 
-               UInt16   minor   = OSG_MINOR_VERSION, 
-               UInt16   release = OSG_RELEASE_VERSION,
-               bool     debug   = OSG_INIT_DEBUG,
-               bool     dll     = OSG_INIT_DLL,
-               bool     mt      = OSG_INIT_MT        );
-
-OSG_BASE_DLLMAPPING
-bool osgDoInit(Int32    argc,
-               Char8  **argv,
-               UInt16   major   = OSG_MAJOR_VERSION, 
-               UInt16   minor   = OSG_MINOR_VERSION, 
-               UInt16   release = OSG_RELEASE_VERSION,
-               bool     debug   = OSG_INIT_DEBUG,
-               bool     dll     = OSG_INIT_DLL,
-               bool     mt      = OSG_INIT_MT        );
+bool osgInit  (OSG::Int32    argc, 
+               OSG::Char8  **argv,
+               OSG::UInt16   major   = OSG_MAJOR_VERSION, 
+               OSG::UInt16   minor   = OSG_MINOR_VERSION, 
+               OSG::UInt16   release = OSG_RELEASE_VERSION,
+               bool          debug   = OSG_INIT_DEBUG,
+               bool          dll     = OSG_INIT_DLL,
+               bool          mt      = OSG_INIT_MT        );
 
 OSG_BASE_DLLMAPPING 
 bool osgExit(void);
+
+/*! \}                                                                 */
+
+OSG_BASE_DLLMAPPING
+bool osgDoInit(OSG::Int32    argc,
+               OSG::Char8  **argv,
+               OSG::UInt16   major   = OSG_MAJOR_VERSION, 
+               OSG::UInt16   minor   = OSG_MINOR_VERSION, 
+               OSG::UInt16   release = OSG_RELEASE_VERSION,
+               bool          debug   = OSG_INIT_DEBUG,
+               bool          dll     = OSG_INIT_DLL,
+               bool          mt      = OSG_INIT_MT        );
 
 OSG_BASE_DLLMAPPING
 void osgExitWrapper(void);

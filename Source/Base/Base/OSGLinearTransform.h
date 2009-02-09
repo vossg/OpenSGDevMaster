@@ -65,9 +65,10 @@ OSG_BEGIN_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup BaseMathMatrices
- *  \brief A transform that behaves linear under multiplication (+) and
+/*! \ingroup GrpBaseBaseMathObj
+    \brief A transform that behaves linear under multiplication (+) and
     scalar multiplication (*)
+    \nohierarchy
  */
 
 template<class ValueTypeT>
@@ -209,16 +210,25 @@ private:
 //   Exported Types
 //---------------------------------------------------------------------------
 
-template<class ValueTypeT>
-LinearTransform<ValueTypeT> 
-	operator * (const ValueTypeT s, const LinearTransform<ValueTypeT> &lt);
-		
-/** \var typedef LinearTransform<Real32> LinearTransform4f;
- *  \brief Matrix4f
- *  \ingroup BaseMathMatrices
+/*! \relates LinearTransform
  */
+template<class ValueTypeT>
+LinearTransform<ValueTypeT> operator * (const ValueTypeT                   s, 
+                                        const LinearTransform<ValueTypeT> &lt);
+		
 
-typedef LinearTransform<Real32> LinearTransform4f;
+/*---------------------------------------------------------------------*/
+/*! \name LinearTranform Types                                         */
+/*! \{                                                                 */
+
+/*! \var typedef OSG::LinearTransform<OSG::Real32> LinearTransform4f;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::LinearTransform
+ */
+typedef OSG::LinearTransform<OSG::Real32> LinearTransform4f;
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

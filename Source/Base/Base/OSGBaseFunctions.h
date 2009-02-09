@@ -251,11 +251,11 @@ typename TypeTraits<FloatTypeT>::RealReturnType
 
 
 template <class FloatTypeT> inline
-UInt32 osgFinite(const FloatTypeT rValue);
+OSG::UInt32 osgFinite(const FloatTypeT rValue);
 
 #ifdef OSG_1_COMPAT
 template <class FloatTypeT> inline
-UInt32 osgfinite(const FloatTypeT rValue);
+OSG::UInt32 osgfinite(const FloatTypeT rValue);
 #endif
 
 /*---------------------------------------------------------------------*/
@@ -345,50 +345,50 @@ TypeT osgnextpower2(TypeT rValue);
 /*                    Miscellaneous Functions                          */
 
 inline 
-int osgLog2Int(Real32 v);
+int osgLog2Int(OSG::Real32 v);
 
 
 inline 
-Int32 osgRound2Int(Real64 val);
+OSG::Int32 osgRound2Int(OSG::Real64 val);
 
 template<class VecPntT> inline
-UInt32 getMaxIndexAbs3(const VecPntT &v);
+OSG::UInt32 getMaxIndexAbs3(const VecPntT &v);
 
 #ifndef OSG_EMBEDDED
 inline
-Int32  putenv(Char8 *string);
+OSG::Int32  putenv(OSG::Char8 *string);
 #else
 inline
-Char8 *getenv(const Char8 *string);
+OSG::Char8 *getenv(const OSG::Char8 *string);
 #endif
 
 inline
-void osgSleep(UInt32 millisecs);
+void osgSleep(OSG::UInt32 millisecs);
 
 #ifdef OSG_1_COMPAT
 inline
-void osgsleep(UInt32 millisecs);
+void osgsleep(OSG::UInt32 millisecs);
 #endif
 
 
 inline
-Real32 osgRand(void);
+OSG::Real32 osgRand(void);
 
 #ifdef OSG_1_COMPAT
 inline
-Real32 osgrand(void);
+OSG::Real32 osgrand(void);
 #endif
 
 OSG_BASE_DLLMAPPING
-void osgGetHostname(char *szBuffer, UInt32 uiSize);
+void osgGetHostname(char *szBuffer, OSG::UInt32 uiSize);
 
 #if defined(WIN32) && defined(_MSC_VER) 
 #if _MSC_VER <= 1200  // VC6
 inline
-std::ostream &operator<<(std::ostream &os, UInt64 v);
+std::ostream &operator<<(std::ostream &os, OSG::UInt64 v);
 
 inline
-std::ostream &operator<<(std::ostream &os, Int64  v);
+std::ostream &operator<<(std::ostream &os, OSG::Int64  v);
 #endif
 #endif 
 
@@ -402,137 +402,145 @@ std::string getCallStack();
 inline
 bool osgIsBigEndian(void);
 
-template <class ValueTypeT>
-inline ValueTypeT
-osgSwapBytes(ValueTypeT src);
+template <class ValueTypeT> inline 
+ValueTypeT osgSwapBytes(ValueTypeT src);
 
-template <class TypeT>
-inline TypeT
-osgHostToBigEndian(TypeT src);
+template <class TypeT> inline 
+TypeT osgHostToBigEndian(TypeT src);
 
-template <class TypeT>
-inline TypeT
-osgHostToLittleEndian(TypeT src);
+template <class TypeT> inline 
+TypeT osgHostToLittleEndian(TypeT src);
 
-template <class TypeT>
-inline TypeT
-osgBigEndianToHost(TypeT src);
+template <class TypeT> inline 
+TypeT osgBigEndianToHost(TypeT src);
 
-template <class TypeT>
-inline TypeT
-osgLittleEndianToHost(TypeT src);
+template <class TypeT> inline 
+TypeT osgLittleEndianToHost(TypeT src);
 
-template <class TypeT>
-inline TypeT
-osgHostToNet(const TypeT src);
+template <class TypeT> inline 
+TypeT osgHostToNet(const TypeT src);
 
-template <class TypeT>
-inline TypeT
-osgNetToHost(const TypeT src);
+template <class TypeT> inline 
+TypeT osgNetToHost(const TypeT src);
 
 // host to network
 
 inline
-UInt16 osghtons  (UInt16  src);
+OSG::UInt16 osghtons  (OSG::UInt16  src);
 
 inline
-UInt32 osghtonl  (UInt32  src);
+OSG::UInt32 osghtonl  (OSG::UInt32  src);
 
 inline
-UInt64 osghtonll (UInt64  src);
+OSG::UInt64 osghtonll (OSG::UInt64  src);
 
 inline
-Real32 osghtonf  (Real32  src);
+OSG::Real32 osghtonf  (OSG::Real32  src);
 
 inline
-Real64 osghtond  (Real64  src);
+OSG::Real64 osghtond  (OSG::Real64  src);
 
 inline
-Real128 osghtondd(Real128 src);
+OSG::Real128 osghtondd(OSG::Real128 src);
 
 // network to host
 
 inline
-UInt16 osgntohs (UInt16  src);
+OSG::UInt16 osgntohs (OSG::UInt16  src);
 
 inline
-UInt32 osgntohl (UInt32  src);
+OSG::UInt32 osgntohl (OSG::UInt32  src);
 
 inline
-UInt64 osgntohll(UInt64  src);
+OSG::UInt64 osgntohll(OSG::UInt64  src);
 
 inline
-Real32 osgntohf (Real32  src);
+OSG::Real32 osgntohf (OSG::Real32  src);
 
 inline
-Real64 osgntohd (Real64  src);
+OSG::Real64 osgntohd (OSG::Real64  src);
 
 inline
-Real128 osgntohd(Real128 src);
+OSG::Real128 osgntohd(OSG::Real128 src);
 
 /*---------------------------------------------------------------------*/
 /*                   Case String Runtime Functions                     */
 
 inline
-void  osgStringDup    (const TChar *szInput,       TChar *&szOutput            );
+void  osgStringDup     (const OSG::TChar  *szInput,       
+                              OSG::TChar  *&szOutput);
 
 #ifdef OSG_1_COMPAT
 inline
-void  stringDup       (const TChar *szInput,       TChar *&szOutput            );
+void  stringDup        (const OSG::TChar  *szInput,       
+                              OSG::TChar  *&szOutput);
 #endif
 
 
 inline
-void  osgStringCopy   (const Char8 *szInput,       Char8 *szOutput             );
+void  osgStringCopy    (const OSG::Char8  *szInput,       
+                              OSG::Char8  *szOutput);
 
 #ifdef OSG_1_COMPAT
 inline
-void  stringcpy       (const Char8 *szInput,       Char8 *szOutput             );
+void  stringcpy        (const OSG::Char8  *szInput,       
+                              OSG::Char8  *szOutput);
 #endif
 
 
 inline
-Int32 osgStringNCmp   (const Char8 *string1, const Char8 *string2, size_t count);
+Int32 osgStringNCmp    (const OSG::Char8  *string1, 
+                        const OSG::Char8  *string2, 
+                              size_t       count   );
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 stringncmp      (const Char8 *string1, const Char8 *string2, size_t count);
+Int32 stringncmp       (const OSG::Char8  *string1, 
+                        const OSG::Char8  *string2, 
+                              size_t       count  );
 #endif
 
 
 inline
-Int32 osgStringLen    (const Char8 *string1                                    );
+Int32 osgStringLen     (const OSG::Char8  *string1);
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 stringlen       (const Char8 *string1                                    );
+Int32 stringlen        (const OSG::Char8  *string1);
 #endif
 
 
 inline
-Int32 osgStringCmp    (const Char8 *string1, const Char8 *string2              );
+Int32 osgStringCmp     (const OSG::Char8 *string1, 
+                        const OSG::Char8 *string2 );
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 stringcmp       (const Char8 *string1, const Char8 *string2              );
+Int32 stringcmp        (const OSG::Char8 *string1, 
+                        const OSG::Char8 *string2 );
 #endif
 
 
 inline
-Int32 osgStringCaseCmp(const Char8 *string1, const Char8 *string2              );
+Int32 osgStringCaseCmp (const OSG::Char8 *string1, 
+                        const OSG::Char8 *string2 );
 
 inline
-Int32 osgStringNCaseCmp(const Char8 *string1, const Char8 *string2, size_t count);
+Int32 osgStringNCaseCmp(const OSG::Char8  *string1, 
+                        const OSG::Char8  *string2, 
+                              size_t       count  );
 
 #ifdef OSG_1_COMPAT
 inline
-Int32 stringcasecmp(const Char8 *string1, const Char8 *string2              );
+Int32 stringcasecmp    (const OSG::Char8 *string1, 
+                        const OSG::Char8 *string2);
 #endif
 
 /*! String less than compare functor used for a STL weak ordering
-    \ingroup GrpBaseSTLHelpers
+    \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseSTLHelpers
     \ingroup GrpBaseBaseStringFn
-    \hideinhierarchy
+    \nohierarchy
  */
 
 struct LTString
@@ -544,9 +552,10 @@ struct LTString
 };
 
 /*! String equal compare functor
-    \ingroup GrpBaseSTLHelpers
+    \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseSTLHelpers
     \ingroup GrpBaseBaseStringFn
-    \hideinhierarchy
+    \nohierarchy
  */
 
 struct EQString
@@ -557,7 +566,15 @@ struct EQString
     }
 };
 
+
 #ifdef OSG_USE_HASH_COMPARE
+/*! String hash functor
+    \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseSTLHelpers
+    \ingroup GrpBaseBaseStringFn
+    \nohierarchy
+ */
+
 struct HashCmpString : 
     public OSG_STDEXTENSION_NAMESPACE::hash_compare<const Char8 *, LTString>
 {
@@ -580,7 +597,10 @@ struct HashCmpString :
 };
 #endif
 
-// String Tokenizer
+/*! String Tokenizer
+    \ingroup GrpBaseBaseStringFn
+    \nohierarchy
+ */
 
 struct OSG_BASE_DLLMAPPING string_token_iterator :
 #if defined(OSG_HAS_INPUT_ITERATOR)
@@ -620,9 +640,10 @@ struct OSG_BASE_DLLMAPPING string_token_iterator :
 
 
 /*! Indirector
-    \ingroup GrpBaseSTLHelpers
-    \ingroup GrpBaseBaseStringFn 
-    
+    \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseSTLHelpers
+    \nohierarchy
+
     Allows using an indirection field for STL algorithms, e.g. sort.
     
     The idea is to sort an index field instead of the actual data, as the data
@@ -655,6 +676,10 @@ class indirector
 /*---------------------------------------------------------------------*/
 /*                PtrStripper Helper                                   */
 
+/*! Ptr Stripper
+    \ingroup GrpBaseBaseHelper
+    \nohierarchy
+ */
 
 template<class PtrT>
 struct PtrStripper
@@ -663,6 +688,11 @@ struct PtrStripper
     typedef PtrT                        Ptr;
 };
 
+/*! Ptr Stripper
+    \ingroup GrpBaseBaseHelper
+    \nohierarchy
+ */
+
 template<class PtrT>
 struct PtrStripper<PtrT *>
 {
@@ -670,12 +700,22 @@ struct PtrStripper<PtrT *>
     typedef PtrT *Ptr;
 };
 
+/*! Ptr Stripper
+    \ingroup GrpBaseBaseHelper
+    \nohierarchy
+ */
+
 template<class PtrT>
 struct PtrStripper<PtrT const *>
 {
     typedef const PtrT  ConstObject;
     typedef       PtrT *Ptr;
 };
+
+/*! Ptr Stripper
+    \ingroup GrpBaseBaseHelper
+    \nohierarchy
+ */
 
 template<class PtrT>
 struct PtrStripper<PtrT * const>

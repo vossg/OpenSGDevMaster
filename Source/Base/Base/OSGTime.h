@@ -51,7 +51,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseTypes
+/*! \ingroup GrpBaseBaseBaseTypes
  *  \brief OSGTime
  *
  *   Time supplies two time measurement methods.
@@ -71,21 +71,38 @@ OSG_BEGIN_NAMESPACE
  *   very short time periods, but should not be used for long measurements.
  *
  */
-
 typedef Real64 Time;
+
+/*! \ingroup GrpBaseBaseBaseTypes
+ */
 typedef Int64  TimeStamp;
 
-inline
-Time getSystemTime        (void           );
+/*---------------------------------------------------------------------*/
+/*! \name Time functions                                               */
+/*! \{                                                                 */
 
+/*! \ingroup GrpBaseBaseMiscFn
+ */
 inline
-TimeStamp getTimeStamp    (void           );
+OSG::Time getSystemTime        (void                 );
 
+/*! \ingroup GrpBaseBaseMiscFn
+ */
 inline
-TimeStamp getTimeStampFreq(void           );
+OSG::TimeStamp getTimeStamp    (void                 );
 
+/*! \ingroup GrpBaseBaseMiscFn
+ */
 inline
-Real64 getTimeStampMsecs  (TimeStamp ticks);
+OSG::TimeStamp getTimeStampFreq(void                 );
+
+/*! \ingroup GrpBaseBaseMiscFn
+ */
+inline
+OSG::Real64    getTimeStampMsecs(OSG::TimeStamp ticks);
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

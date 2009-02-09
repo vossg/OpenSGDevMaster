@@ -67,12 +67,14 @@ const UInt32 OSGREADONLYFLAG  = FILE_ATTRIBUTE_READONLY;
 namespace File
 {
     /*! \name File Functions           
-        \ingroup GrpBaseBaseFileSystem 
-        @{                             */
+        @{                             
+     */
 
+    /*! \ingroup GrpBaseBaseFileSystem 
+     */
     inline
-    bool tstAttr(const TChar  *szFilename,
-                       UInt32  uiAccessFlags)
+    bool tstAttr(const OSG::TChar  *szFilename,
+                       OSG::UInt32  uiAccessFlags)
     {
         bool  returnValue = false;
 
@@ -147,13 +149,16 @@ namespace File
 namespace Directory
 {
     /*! \name Directory Functions      
-        \ingroup GrpBaseBaseFileSystem 
         @{                             
      */
 
+    /*! \fn bool Directory::tstAttr(const OSG::TChar  *szDirname,
+                                          OSG::UInt32  uiAccessFlags)
+        \ingroup GrpBaseBaseFileSystem
+     */
     inline
-    bool tstAttr(const TChar  *szDirname,
-                       UInt32  uiAccessFlags)
+    bool tstAttr(const OSG::TChar  *szDirname,
+                       OSG::UInt32  uiAccessFlags)
     {
         bool  returnValue = false;
 #ifndef WIN32
@@ -232,7 +237,7 @@ namespace Directory
      */
 
     inline
-    Char8 *getCurrent(void)
+    OSG::Char8 *getCurrent(void)
     {
         UInt32 uiCurrentNameSize = 256;
         
@@ -262,8 +267,10 @@ namespace Directory
 #pragma reset woff 1209
 #endif
     
+    /*! \ingroup GrpBaseBaseFileSystem
+     */
     inline
-    bool setCurrent(const Char8 *szDirname)
+    bool setCurrent(const OSG::Char8 *szDirname)
     {
         bool returnValue = false;
         
@@ -395,8 +402,18 @@ namespace Directory
     /*! @} */
 }
 
+/*!  Directory Functions
+     \ingroup GrpBaseBaseFileSystem
+ */
+
 namespace Path
 {
+    /*! \name Path Functions      
+        @{                             
+     */
+
+    /*! \ingroup GrpBaseBaseFileSystem
+     */
     inline
     static void fixWinNetworkPath(std::string &path)
     {
@@ -419,6 +436,7 @@ namespace Path
         }
 #endif
     }
+    /*! @} */
 }
 
 OSG_END_NAMESPACE

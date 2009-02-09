@@ -47,6 +47,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBase
+ *  \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING IDStringLink : public IDString

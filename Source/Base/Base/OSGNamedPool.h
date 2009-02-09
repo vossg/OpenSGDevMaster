@@ -49,7 +49,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemRenderingBackend
+/*! \ingroup GrpBaseBasePools
+    \ingroup GrpBaseBase
+    \nohierarchy
 */
 
 template <class ValueT>

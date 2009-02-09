@@ -65,8 +65,9 @@ class Vector;
 //---------------------------------------------------------------------------
 
 /*! Vector storage holding 1 elements, for details about how vectors,
-    points and matrices are actually build see \guide(BaseMath).
+    points and matrices are actually build see 
     \ingroup GrpBaseBaseMathObj
+    \nohierarchy
  */
 
 template <class ValueTypeT>
@@ -127,6 +128,7 @@ class VecStorage1
 /*! Vector storage holding 2 elements, for details about how vectors,
     points and matrices are actually build see \guide(BaseMath).
     \ingroup GrpBaseBaseMathObj
+    \nohierarchy
  */
 
 template <class ValueTypeT>
@@ -192,6 +194,7 @@ class VecStorage2
 /*! Vector storage holding 3 elements, for details about how vectors,
     points and matrices are actually build see \guide(BaseMath).
     \ingroup GrpBaseBaseMathObj
+    \nohierarchy
  */
 
 template <class ValueTypeT>
@@ -260,6 +263,7 @@ class VecStorage3
 /*! Vector storage holding 4 elements, for details about how vectors,
     points and matrices are actually build see \guide(BaseMath).
     \ingroup GrpBaseBaseMathObj
+    \nohierarchy
  */
 
 template <class ValueTypeT>
@@ -322,36 +326,32 @@ class VecStorage4
 };
 
 
-/*! \struct SelectVecStorage<ValueTypeT,SizeI>
-    \brief Helper struct to select the correct storage class for vector types.
+/*! \brief Helper struct to select the correct storage class for vector types.
  */
 template <class ValueTypeT, UInt32 SizeI>
 struct SelectVecStorage;
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 template <class ValueTypeT>
-struct SelectVecStorage<ValueTypeT, 1>
+struct SelectVecStorage<ValueTypeT, 1> : public VecStorage1<ValueTypeT>
 {
-    typedef VecStorage1<ValueTypeT> type;
 };
 
 template <class ValueTypeT>
-struct SelectVecStorage<ValueTypeT, 2>
+struct SelectVecStorage<ValueTypeT, 2> : public VecStorage2<ValueTypeT>
 {
-    typedef VecStorage2<ValueTypeT> type;
 };
 
 template <class ValueTypeT>
-struct SelectVecStorage<ValueTypeT, 3>
+struct SelectVecStorage<ValueTypeT, 3> : public VecStorage3<ValueTypeT>
 {
-    typedef VecStorage3<ValueTypeT> type;
 };
 
 template <class ValueTypeT>
-struct SelectVecStorage<ValueTypeT, 4>
+struct SelectVecStorage<ValueTypeT, 4> : public VecStorage4<ValueTypeT>
 {
-    typedef VecStorage4<ValueTypeT> type;
 };
-
+#endif
 
 //---------------------------------------------------------------------------
 //  Class
@@ -359,6 +359,7 @@ struct SelectVecStorage<ValueTypeT, 4>
 
 /*! Point Interface, for details about how vectors, points and matrices
     are actually build see \guide(BaseMath).
+    \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMathObj
  */
 
@@ -367,18 +368,18 @@ struct SelectVecStorage<ValueTypeT, 4>
 #endif
 
 template <class ValueTypeT, UInt32 SizeI>
-class Point : public SelectVecStorage<ValueTypeT, SizeI>::type
+class Point : public SelectVecStorage<ValueTypeT, SizeI>
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef typename SelectVecStorage<ValueTypeT,
-                                      SizeI      >::type    Inherited;
+    typedef          SelectVecStorage<ValueTypeT,
+                                      SizeI      >          Inherited;
     typedef          Point           <ValueTypeT, 
                                       SizeI      >          Self;
-    typedef typename SelectVecStorage<ValueTypeT,
-                                      SizeI      >::type    StorageInterface;
+    typedef          SelectVecStorage<ValueTypeT,
+                                      SizeI      >          StorageInterface;
     
     typedef          ValueTypeT                             ValueType;    
     typedef typename TypeTraits<ValueTypeT>::RealReturnType RealReturnType;
@@ -538,24 +539,28 @@ class Point : public SelectVecStorage<ValueTypeT, SizeI>::type
   private:
 };
 
-
+/*! \relates Point
+ */
 template <class  ValueTypeT,
           UInt32 SizeI      > inline
 Point<ValueTypeT, SizeI>
     operator *(const ValueTypeT                val,
                const Point<ValueTypeT, SizeI> &pnt );
 
+/*! \relates Point
+ */
 template <class  ValueTypeT,
           UInt32 SizeI      >
 OSG_BASE_DLLMAPPING std::ostream &operator <<(
           std::ostream             &os,
     const Point<ValueTypeT, SizeI> &pnt);
 
+/*! \relates Point
+ */
 template <class  ValueTypeT,
           UInt32 SizeI      >
 OSG_BASE_DLLMAPPING std::istream &operator >>(std::istream             &is,
                                               Point<ValueTypeT, SizeI> &pnt);
-
 
 //---------------------------------------------------------------------------
 //  Class
@@ -563,6 +568,7 @@ OSG_BASE_DLLMAPPING std::istream &operator >>(std::istream             &is,
 
 /*! Vector Interface, for details about how vectors, points and matrices
     are actually build see \guide(BaseMath).
+    \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMathObj
  */
 
@@ -701,18 +707,24 @@ class Vector : public Point<ValueTypeT, SizeI>
 #pragma reset woff 1375
 #endif
 
+/*! \relates Vector
+ */
 template <class ValueTypeT,
           UInt32 SizeI     > inline
 Vector<ValueTypeT, SizeI>
     operator *(const ValueTypeT                 val,
                const Vector<ValueTypeT, SizeI> &vec );
 
+/*! \relates Vector
+ */
 template <class ValueTypeT,
           UInt32 SizeI     >
 OSG_BASE_DLLMAPPING std::ostream &operator <<(
           std::ostream              &os,
     const Vector<ValueTypeT, SizeI> &vec);
 
+/*! \relates Vector
+ */
 template <class  ValueTypeT,
           UInt32 SizeI      >
 OSG_BASE_DLLMAPPING std::istream &operator >>(
@@ -722,863 +734,1051 @@ OSG_BASE_DLLMAPPING std::istream &operator >>(
 
 // Actual Types
 
+/*---------------------------------------------------------------------*/
+/*! \name Vector Types                                                 */
+/*! \{                                                                 */
 
-/*! \var typedef Vector< UInt8, 1 > Vec1ub;
+/*! \var typedef OSG::Vector< OSG::UInt8, 1 > Vec1ub;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< UInt8, 1> Vec1ub;
+typedef OSG::Vector< OSG::UInt8, 1> Vec1ub;
 
-/*! \var typedef Vec1ub *Vec1ubP;
+/*! \var typedef OSG::Vec1ub *Vec1ubP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec1ub *Vec1ubP;
-
-/*! \var typedef Vector< Int8, 1 > Vec1b;
-    \ingroup GrpBaseBaseMathObj
- */
-
-#ifndef OSG_NO_INT8_PNT
-typedef Vector< Int8, 1 > Vec1b;
-#endif
-
-/*! \var typedef Vec1b *Vec1bP;
-    \ingroup GrpBaseBaseMathObj
- */
+typedef OSG::Vec1ub *Vec1ubP;
 
 #ifndef OSG_NO_INT8_PNT
-typedef Vec1b *Vec1bP;
+/*! \var typedef OSG::Vector< OSG::Int8, 1 > Vec1b;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int8, 1 > Vec1b;
+
+/*! \var typedef OSG::Vec1b *Vec1bP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec1b *Vec1bP;
 #endif
 
-/*! \var typedef Vector< UInt16, 1 > Vec1us;
+/*! \var typedef OSG::Vector< OSG::UInt16, 1 > Vec1us;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< UInt16, 1 > Vec1us;
+typedef OSG::Vector< OSG::UInt16, 1 > Vec1us;
 
-/*! \var typedef Vec1us *Vec1usP;
+/*! \var typedef OSG::Vec1us *Vec1usP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec1us *Vec1usP;
+typedef OSG::Vec1us *Vec1usP;
 
-/*! \var typedef Vector< Int16, 1 > Vec1s;
+/*! \var typedef OSG::Vector< OSG::Int16, 1 > Vec1s;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Int16, 1 > Vec1s;
+typedef OSG::Vector< OSG::Int16, 1 > Vec1s;
 
-/*! \var typedef Vec1s *Vec1sP;
+/*! \var typedef OSG::Vec1s *Vec1sP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec1s *Vec1sP;
+typedef OSG::Vec1s *Vec1sP;
 
-/*! \var typedef Vector< Real32, 1 > Vec1f;
+/*! \var typedef OSG::Vector< OSG::Real32, 1 > Vec1f;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Real32, 1 > Vec1f;
+typedef OSG::Vector< OSG::Real32, 1 > Vec1f;
 
-/*! \var typedef Vec1f *Vec1fP;
+/*! \var typedef OSG::Vec1f *Vec1fP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec1f *Vec1fP;
+typedef OSG::Vec1f *Vec1fP;
 
-/*! \var typedef Vector< Fixed32, 1 > Vec1fx;
+/*! \var typedef OSG::Vector< Fixed32, 1 > Vec1fx;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Fixed32, 1 > Vec1fx;
+typedef OSG::Vector< Fixed32, 1 > Vec1fx;
 
-/*! \var typedef Vec1fx *Vec1fxP;
+/*! \var typedef OSG::Vec1fx *Vec1fxP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec1fx *Vec1fxP;
+typedef OSG::Vec1fx *Vec1fxP;
 
-/*! \var typedef Vector< Real64, 1 > Vec1d;
+/*! \var typedef OSG::Vector< OSG::Real64, 1 > Vec1d;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Real64, 1 > Vec1d;
+typedef OSG::Vector< OSG::Real64, 1 > Vec1d;
 
-/*! \var typedef Vec1d *Vec1dP;
+/*! \var typedef OSG::Vec1d *Vec1dP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec1d *Vec1dP;
+typedef OSG::Vec1d *Vec1dP;
 
-/*! \var typedef Vector< Real128, 1 > Vec1ld;
+/*! \var typedef OSG::Vector< OSG::Real128, 1 > Vec1ld;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Real128, 1 > Vec1ld;
+typedef OSG::Vector< OSG::Real128, 1 > Vec1ld;
 
-/*! \var typedef Vec1ld *Vec1ldP;
+/*! \var typedef OSG::Vec1ld *Vec1ldP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec1ld *Vec1ldP;
+typedef OSG::Vec1ld *Vec1ldP;
 
 
-/*! \var typedef Vector< UInt8, 2 > Vec2ub;
+/*! \var typedef OSG::Vector< OSG::UInt8, 2 > Vec2ub;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< UInt8, 2 > Vec2ub;
+typedef OSG::Vector< OSG::UInt8, 2 > Vec2ub;
 
-/*! \var typedef Vec2ub *Vec2ubP;
+/*! \var typedef OSG::Vec2ub *Vec2ubP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec2ub *Vec2ubP;
-
-/*! \var typedef Vector< Int8, 2 > Vec2b;
-    \ingroup GrpBaseBaseMathObj
- */
+typedef OSG::Vec2ub *Vec2ubP;
 
 #ifndef OSG_NO_INT8_PNT
-typedef Vector< Int8, 2 > Vec2b;
+/*! \var typedef OSG::Vector< OSG::Int8, 2 > Vec2b;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int8, 2 > Vec2b;
+
+/*! \var typedef OSG::Vec2b *Vec2bP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec2b *Vec2bP;
 #endif
 
-/*! \var typedef Vec2b *Vec2bP;
+/*! \var typedef OSG::Vector< OSG::UInt16, 2 > Vec2us;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
+
+typedef OSG::Vector< OSG::UInt16, 2 > Vec2us;
+
+/*! \var typedef OSG::Vec2us *Vec2usP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec2us *Vec2usP;
+
+/*! \var typedef OSG::Vector< OSG::Int16, 2 > Vec2s;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int16, 2 > Vec2s;
+
+/*! \var typedef OSG::Vec2s *Vec2sP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec2s *Vec2sP;
+
+/*! \var typedef OSG::Vector< OSG::Int32, 2 > Vec2i;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int32, 2 > Vec2i;
+
+/*! \var typedef OSG::Vec2i *Vec2iP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec2i *Vec2iP;
+
+/*! \var typedef OSG::Vector< OSG::Real32, 2 > Vec2f;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Real32, 2 > Vec2f;
+
+/*! \var typedef OSG::Vec2f *Vec2fP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec2f *Vec2fP;
+
+/*! \var typedef OSG::Vector< Fixed32, 2 > Vec2fx;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+
+typedef OSG::Vector< Fixed32, 2 > Vec2fx;
+
+/*! \var typedef OSG::Vec2f *Vec2fP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec2fx *Vec2fxP;
+
+/*! \var typedef OSG::Vector< OSG::Real64, 2 > Vec2d;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Real64, 2 > Vec2d;
+
+/*! \var typedef OSG::Vec2d *Vec2dP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec2d *Vec2dP;
+
+/*! \var typedef OSG::Vector< OSG::Real128, 2 > Vec2ld;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Real128, 2 > Vec2ld;
+
+/*! \var typedef OSG::Vec2ld *Vec2ldP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec2ld *Vec2ldP;
+
+
+/*! \var typedef OSG::Vector< OSG::UInt8, 3 > Vec3ub;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::UInt8, 3 > Vec3ub;
+
+/*! \var typedef OSG::Vec3ub *Vec3ubP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec3ub *Vec3ubP;
 
 #ifndef OSG_NO_INT8_PNT
-typedef Vec2b *Vec2bP;
+/*! \var typedef OSG::Vector< OSG::Int8, 3 > Vec3b;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int8, 3 > Vec3b;
+
+/*! \var typedef OSG::Vec3b *Vec3bP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec3b *Vec3bP;
 #endif
 
-/*! \var typedef Vector< UInt16, 2 > Vec2us;
+/*! \var typedef OSG::Vector< OSG::UInt16, 3 > Vec3us;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< UInt16, 2 > Vec2us;
+typedef OSG::Vector< OSG::UInt16, 3 > Vec3us;
 
-/*! \var typedef Vec2us *Vec2usP;
+/*! \var typedef OSG::Vec3us *Vec3usP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec2us *Vec2usP;
+typedef OSG::Vec3us *Vec3usP;
 
-/*! \var typedef Vector< Int16, 2 > Vec2s;
+/*! \var typedef OSG::Vector< OSG::Int16, 3 > Vec3s;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Int16, 2 > Vec2s;
+typedef OSG::Vector< OSG::Int16, 3 > Vec3s;
 
-/*! \var typedef Vec2s *Vec2sP;
+/*! \var typedef OSG::Vec3s *Vec3sP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec2s *Vec2sP;
+typedef OSG::Vec3s *Vec3sP;
 
-/*! \var typedef Vector< Int32, 2 > Vec2i;
+/*! \var typedef OSG::Vector< OSG::Real32, 3 > Vec3f;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Int32, 2 > Vec2i;
+typedef OSG::Vector < OSG::Real32, 3  > Vec3f;
 
-/*! \var typedef Vec2i *Vec2iP;
+/*! \var typedef OSG::Vec3f *Vec3fP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec2i *Vec2iP;
+typedef OSG::Vec3f *Vec3fP;
 
-/*! \var typedef Vector< Real32, 2 > Vec2f;
+/*! \var typedef OSG::Vector< Fixed32, 3 > Vec3fx;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Real32, 2 > Vec2f;
+typedef OSG::Vector< Fixed32, 3 > Vec3fx;
 
-/*! \var typedef Vec2f *Vec2fP;
+/*! \var typedef OSG::Vec3fx *Vec3fxP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec2f *Vec2fP;
+typedef OSG::Vec3fx *Vec3fxP;
 
-/*! \var typedef Vector< Fixed32, 2 > Vec2fx;
+/*! \var typedef OSG::Vector< OSG::Real64, 3 > Vec3d;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
+typedef OSG::Vector< OSG::Real64, 3 > Vec3d;
 
-typedef Vector< Fixed32, 2 > Vec2fx;
-
-/*! \var typedef Vec2f *Vec2fP;
+/*! \var typedef OSG::Vec3d *Vec3dP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec2fx *Vec2fxP;
+typedef OSG::Vec3d *Vec3dP;
 
-/*! \var typedef Vector< Real64, 2 > Vec2d;
+/*! \var typedef OSG::Vector< OSG::Real128, 3 > Vec3ld;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Real64, 2 > Vec2d;
+typedef OSG::Vector< OSG::Real128, 3 > Vec3ld;
 
-/*! \var typedef Vec2d *Vec2dP;
+/*! \var typedef OSG::Vec3ld *Vec3ldP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec2d *Vec2dP;
+typedef OSG::Vec3ld *Vec3ldP;
 
-/*! \var typedef Vector< Real128, 2 > Vec2ld;
+
+/*! \var typedef OSG::Vector< OSG::UInt8, 4 > Vec4ub;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vector< Real128, 2 > Vec2ld;
+typedef OSG::Vector< OSG::UInt8, 4 > Vec4ub;
 
-/*! \var typedef Vec2ld *Vec2ldP;
+/*! \var typedef OSG::Vec4ub *Vec4ubP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
 
-typedef Vec2ld *Vec2ldP;
-
-
-/*! \var typedef Vector< UInt8, 3 > Vec3ub;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Vector< UInt8, 3 > Vec3ub;
-
-/*! \var typedef Vec3ub *Vec3ubP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Vec3ub *Vec3ubP;
-
-/*! \var typedef Vector< Int8, 3 > Vec3b;
-    \ingroup GrpBaseBaseMathObj
- */
+typedef OSG::Vec4ub *Vec4ubP;
 
 #ifndef OSG_NO_INT8_PNT
-typedef Vector< Int8, 3 > Vec3b;
+/*! \var typedef OSG::Vector< OSG::Int8, 4 > Vec4b;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int8, 4 > Vec4b;
+
+/*! \var typedef OSG::Vec4b *Vec4bP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec4b *Vec4bP;
 #endif
 
-/*! \var typedef Vec3b *Vec3bP;
+/*! \var typedef OSG::Vector< OSG::UInt16, 4 > Vec4us;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
  */
+
+typedef OSG::Vector< OSG::UInt16, 4 > Vec4us;
+
+/*! \var typedef OSG::Vec4us *Vec4usP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec4us *Vec4usP;
+
+/*! \var typedef OSG::Vector< OSG::Int16, 4 > Vec4s;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Int16, 4 > Vec4s;
+
+/*! \var typedef OSG::Vec4s *Vec4sP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec4s *Vec4sP;
+
+/*! \var typedef OSG::Vector< OSG::Real32, 4 > Vec4f;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Real32,  4 > Vec4f;
+
+/*! \var typedef OSG::Vec4f *Vec4fP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec4f *Vec4fP;
+
+/*! \var typedef OSG::Vector< Fixed32, 4 > Vec4fx;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< Fixed32, 4 > Vec4fx;
+
+/*! \var typedef OSG::Vec4fx *Vec4fxP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec4fx *Vec4fxP;
+
+/*! \var typedef OSG::Vector< OSG::Real64, 4 > Vec4d;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Real64, 4 > Vec4d;
+
+/*! \var typedef OSG::Vec4d *Vec4dP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec4d *Vec4dP;
+
+/*! \var typedef OSG::Vector< OSG::Real128, 4 > Vec4ld;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::Real128, 4 > Vec4ld;
+
+/*! \var typedef OSG::Vec4ld *Vec4ldP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec4ld *Vec4ldP;
+
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name Point Types                                                  */
+/*! \{                                                                 */
+
+
+/*! \var typedef OSG::Point< OSG::UInt8, 1 > Pnt1ub;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::UInt8, 1 > Pnt1ub;
+
+/*! \var typedef OSG::Pnt1ub *Pnt1ubP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt1ub *Pnt1ubP;
 
 #ifndef OSG_NO_INT8_PNT
-typedef Vec3b *Vec3bP;
+/*! \var typedef OSG::Point< OSG::Int8, 1 > Pnt1b;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::Int8, 1 > Pnt1b;
+
+/*! \var typedef OSG::Pnt1b *Pnt1bP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt1b *Pnt1bP;
 #endif
 
-/*! \var typedef Vector< UInt16, 3 > Vec3us;
+/*! \var typedef OSG::Point< OSG::UInt16, 1 > Pnt1us;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< UInt16, 3 > Vec3us;
+typedef OSG::Point< OSG::UInt16, 1 > Pnt1us;
 
-/*! \var typedef Vec3us *Vec3usP;
+/*! \var typedef OSG::Pnt1us *Pnt1usP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec3us *Vec3usP;
+typedef OSG::Pnt1us *Pnt1usP;
 
-/*! \var typedef Vector< Int16, 3 > Vec3s;
+/*! \var typedef OSG::Point< OSG::Int16, 1 > Pnt1s;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< Int16, 3 > Vec3s;
+typedef OSG::Point< OSG::Int16, 1 > Pnt1s;
 
-/*! \var typedef Vec3s *Vec3sP;
+/*! \var typedef OSG::Pnt1s *Pnt1sP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec3s *Vec3sP;
+typedef OSG::Pnt1s *Pnt1sP;
 
-/*! \var typedef Vector< Real32, 3 > Vec3f;
+/*! \var typedef OSG::Point< OSG::Real32, 1 > Pnt1f;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector < Real32, 3  > Vec3f;
+typedef OSG::Point< OSG::Real32, 1 > Pnt1f;
 
-/*! \var typedef Vec3f *Vec3fP;
+/*! \var typedef OSG::Pnt1f *Pnt1fP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec3f *Vec3fP;
+typedef OSG::Pnt1f *Pnt1fP;
 
-/*! \var typedef Vector< Fixed32, 3 > Vec3fx;
+/*! \var typedef OSG::Point< Fixed32, 1 > Pnt1fx;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< Fixed32, 3 > Vec3fx;
+typedef OSG::Point< Fixed32, 1 > Pnt1fx;
 
-/*! \var typedef Vec3fx *Vec3fxP;
+/*! \var typedef OSG::Pnt1fx *Pnt1fxP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec3fx *Vec3fxP;
+typedef OSG::Pnt1fx *Pnt1fxP;
 
-/*! \var typedef Vector< Real64, 3 > Vec3d;
+/*! \var typedef OSG::Point< OSG::Real64, 1 > Pnt1d;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< Real64, 3 > Vec3d;
+typedef OSG::Point< OSG::Real64, 1 > Pnt1d;
 
-/*! \var typedef Vec3d *Vec3dP;
+/*! \var typedef OSG::Pnt1d *Pnt1dP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec3d *Vec3dP;
+typedef OSG::Pnt1d *Pnt1dP;
 
-/*! \var typedef Vector< Real128, 3 > Vec3ld;
+/*! \var typedef OSG::Point< OSG::Real128, 1 > Pnt1ld;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< Real128, 3 > Vec3ld;
+typedef OSG::Point< OSG::Real128, 1 > Pnt1ld;
 
-/*! \var typedef Vec3ld *Vec3ldP;
+/*! \var typedef OSG::Pnt1ld *Pnt1ldP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec3ld *Vec3ldP;
+typedef OSG::Pnt1ld *Pnt1ldP;
 
 
-/*! \var typedef Vector< UInt8, 4 > Vec4ub;
+
+/*! \var typedef OSG::Point< OSG::UInt8, 2 > Pnt2ub;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< UInt8, 4 > Vec4ub;
+typedef OSG::Point< OSG::UInt8, 2 > Pnt2ub;
 
-/*! \var typedef Vec4ub *Vec4ubP;
+/*! \var typedef OSG::Pnt2ub *Pnt2ubP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec4ub *Vec4ubP;
-
-/*! \var typedef Vector< Int8, 4 > Vec4b;
-    \ingroup GrpBaseBaseMathObj
- */
+typedef OSG::Pnt2ub *Pnt2ubP;
 
 #ifndef OSG_NO_INT8_PNT
-typedef Vector< Int8, 4 > Vec4b;
+/*! \var typedef OSG::Point< OSG::Int8, 2 > Pnt2b;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::Int8, 2 > Pnt2b;
+
+/*! \var typedef OSG::Pnt2b *Pnt2bP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt2b *Pnt2bP;
 #endif
 
-/*! \var typedef Vec4b *Vec4bP;
+/*! \var typedef OSG::Point< OSG::UInt16, 2 > Pnt2us;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
+
+typedef OSG::Point< OSG::UInt16, 2 > Pnt2us;
+
+/*! \var typedef OSG::Pnt2us *Pnt2usP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt2us *Pnt2usP;
+
+/*! \var typedef OSG::Point< OSG::Int16, 2 > Pnt2s;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::Int16, 2 > Pnt2s;
+
+/*! \var typedef OSG::Pnt2s *Pnt2sP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt2s *Pnt2sP;
+
+/*! \var typedef OSG::Point< OSG::Int32, 2 > Pnt2i;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::Int32, 2 > Pnt2i;
+
+/*! \var typedef OSG::Pnt2i *Pnt2iP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt2i *Pnt2iP;
+
+/*! \var typedef OSG::Point< OSG::Real32, 2 > Pnt2f;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::Real32,  2 > Pnt2f;
+
+/*! \var typedef OSG::Pnt2f *Pnt2fP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt2f *Pnt2fP;
+
+/*! \var typedef OSG::Point< Fixed32, 2 > Pnt2fx;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< Fixed32, 2 > Pnt2fx;
+
+/*! \var typedef OSG::Pnt2fx *Pnt2fxP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt2fx *Pnt2fxP;
+
+/*! \var typedef OSG::Point< OSG::Real64, 2 > Pnt2d;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::Real64, 2 > Pnt2d;
+
+/*! \var typedef OSG::Pnt2d *Pnt2dP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt2d *Pnt2dP;
+
+/*! \var typedef OSG::Point< OSG::Real128, 2 > Pnt2ld;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::Real128, 2 > Pnt2ld;
+
+/*! \var typedef OSG::Pnt2ld *Pnt2ldP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt2ld *Pnt2ldP;
+
+
+/*! \var typedef OSG::Point< OSG::UInt8, 3 > Pnt3ub;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::UInt8, 3 > Pnt3ub;
+
+/*! \var typedef OSG::Pnt3ub *Pnt3ubP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt3ub *Pnt3ubP;
 
 #ifndef OSG_NO_INT8_PNT
-typedef Vec4b *Vec4bP;
+/*! \var typedef OSG::Point< OSG::Int8, 3 > Pnt3b;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::Int8, 3 > Pnt3b;
+
+/*! \var typedef OSG::Pnt3b *Pnt3bP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt3b *Pnt3bP;
 #endif
 
-/*! \var typedef Vector< UInt16, 4 > Vec4us;
+/*! \var typedef OSG::Point< OSG::UInt16, 3 > Pnt3us;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< UInt16, 4 > Vec4us;
+typedef OSG::Point< OSG::UInt16, 3 > Pnt3us;
 
-/*! \var typedef Vec4us *Vec4usP;
+/*! \var typedef OSG::Pnt3us *Pnt3usP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec4us *Vec4usP;
+typedef OSG::Pnt3us *Pnt3usP;
 
-/*! \var typedef Vector< Int16, 4 > Vec4s;
+/*! \var typedef OSG::Point< OSG::Int16, 3 > Pnt3s;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< Int16, 4 > Vec4s;
+typedef OSG::Point< OSG::Int16, 3 > Pnt3s;
 
-/*! \var typedef Vec4s *Vec4sP;
+/*! \var typedef OSG::Pnt3s *Pnt3sP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec4s *Vec4sP;
+typedef OSG::Pnt3s *Pnt3sP;
 
-/*! \var typedef Vector< Real32, 4 > Vec4f;
+/*! \var typedef OSG::Point< OSG::Real32, 3 > Pnt3f;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< Real32,  4 > Vec4f;
+typedef OSG::Point< OSG::Real32, 3 > Pnt3f;
 
-/*! \var typedef Vec4f *Vec4fP;
+/*! \var typedef OSG::Pnt3f *Pnt3fP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec4f *Vec4fP;
+typedef OSG::Pnt3f *Pnt3fP;
 
-/*! \var typedef Vector< Fixed32, 4 > Vec4fx;
+/*! \var typedef OSG::Point< Fixed32, 3 > Pnt3fx;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< Fixed32, 4 > Vec4fx;
+typedef OSG::Point < Fixed32, 3 > Pnt3fx;
 
-/*! \var typedef Vec4fx *Vec4fxP;
+/*! \var typedef OSG::Pnt3fx *Pnt3fxP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec4fx *Vec4fxP;
+typedef OSG::Pnt3fx *Pnt3fxP;
 
-/*! \var typedef Vector< Real64, 4 > Vec4d;
+/*! \var typedef OSG::Point< OSG::Real64, 3 > Pnt3d;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< Real64, 4 > Vec4d;
+typedef OSG::Point< OSG::Real64, 3 > Pnt3d;
 
-/*! \var typedef Vec4d *Vec4dP;
+/*! \var typedef OSG::Pnt3d *Pnt3dP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec4d *Vec4dP;
+typedef OSG::Pnt3d *Pnt3dP;
 
-/*! \var typedef Vector< Real128, 4 > Vec4ld;
+/*! \var typedef OSG::Point< OSG::Real128, 3 > Pnt3ld;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vector< Real128, 4 > Vec4ld;
+typedef OSG::Point< OSG::Real128, 3 > Pnt3ld;
 
-/*! \var typedef Vec4ld *Vec4ldP;
+/*! \var typedef OSG::Pnt3ld *Pnt3ldP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Vec4ld *Vec4ldP;
+typedef OSG::Pnt3ld *Pnt3ldP;
 
 
-
-
-/*! \var typedef Point< UInt8, 1 > Pnt1ub;
+/*! \var typedef OSG::Point< OSG::UInt8, 4 > Pnt4ub;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Point< UInt8, 1 > Pnt1ub;
+typedef OSG::Point< OSG::UInt8, 4 > Pnt4ub;
 
-/*! \var typedef Pnt1ub *Pnt1ubP;
+/*! \var typedef OSG::Pnt4ub *Pnt4ubP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Pnt1ub *Pnt1ubP;
-
-/*! \var typedef Point< Int8, 1 > Pnt1b;
-    \ingroup GrpBaseBaseMathObj
- */
+typedef OSG::Pnt4ub *Pnt4ubP;
 
 #ifndef OSG_NO_INT8_PNT
-typedef Point< Int8, 1 > Pnt1b;
+/*! \var typedef OSG::Point< OSG::Int8, 4 > Pnt4b;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Point< OSG::Int8, 4 > Pnt4b;
+
+/*! \var typedef OSG::Pnt4b *Pnt4bP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+
+typedef OSG::Pnt4b *Pnt4bP;
 #endif
 
-/*! \var typedef Pnt1b *Pnt1bP;
+/*! \var typedef OSG::Point< OSG::UInt16, 4 > Pnt4us;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-#ifndef OSG_NO_INT8_PNT
-typedef Pnt1b *Pnt1bP;
-#endif
+typedef OSG::Point< OSG::UInt16, 4 > Pnt4us;
 
-/*! \var typedef Point< UInt16, 1 > Pnt1us;
+/*! \var typedef OSG::Pnt4us *Pnt4usP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Point< UInt16, 1 > Pnt1us;
+typedef OSG::Pnt4us *Pnt4usP;
 
-/*! \var typedef Pnt1us *Pnt1usP;
+/*! \var typedef OSG::Point< OSG::Int16, 4 > Pnt4s;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Pnt1us *Pnt1usP;
+typedef OSG::Point< OSG::Int16, 4 > Pnt4s;
 
-/*! \var typedef Point< Int16, 1 > Pnt1s;
+/*! \var typedef OSG::Pnt4s *Pnt4sP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Point< Int16, 1 > Pnt1s;
+typedef OSG::Pnt4s *Pnt4sP;
 
-/*! \var typedef Pnt1s *Pnt1sP;
+/*! \var typedef OSG::Point< OSG::Real32, 4 > Pnt4f;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Pnt1s *Pnt1sP;
+typedef OSG::Point< OSG::Real32, 4 > Pnt4f;
 
-/*! \var typedef Point< Real32, 1 > Pnt1f;
+/*! \var typedef OSG::Pnt4f *Pnt4fP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Point< Real32, 1 > Pnt1f;
+typedef OSG::Pnt4f *Pnt4fP;
 
-/*! \var typedef Pnt1f *Pnt1fP;
+/*! \var typedef OSG::Point< Fixed32, 4 > Pnt4fx;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Pnt1f *Pnt1fP;
+typedef OSG::Point< Fixed32, 4 > Pnt4fx;
 
-/*! \var typedef Point< Fixed32, 1 > Pnt1fx;
+/*! \var typedef OSG::Pnt4fx *Pnt4fxP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Point< Fixed32, 1 > Pnt1fx;
+typedef OSG::Pnt4fx *Pnt4fxP;
 
-/*! \var typedef Pnt1fx *Pnt1fxP;
+/*! \var typedef OSG::Point< OSG::Real64, 4 > Pnt4d;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Pnt1fx *Pnt1fxP;
+typedef OSG::Point< OSG::Real64, 4 > Pnt4d;
 
-/*! \var typedef Point< Real64, 1 > Pnt1d;
+/*! \var typedef OSG::Pnt4d *Pnt4dP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Point< Real64, 1 > Pnt1d;
+typedef OSG::Pnt4d *Pnt4dP;
 
-/*! \var typedef Pnt1d *Pnt1dP;
+/*! \var typedef OSG::Point< OSG::Real128, 4 > Pnt4ld;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Pnt1d *Pnt1dP;
+typedef OSG::Point< OSG::Real128, 4 > Pnt4ld;
 
-/*! \var typedef Point< Real128, 1 > Pnt1ld;
+/*! \var typedef OSG::Pnt4ld *Pnt4ldP;
     \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
  */
 
-typedef Point< Real128, 1 > Pnt1ld;
-
-/*! \var typedef Pnt1ld *Pnt1ldP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt1ld *Pnt1ldP;
-
-
-
-/*! \var typedef Point< UInt8, 2 > Pnt2ub;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< UInt8, 2 > Pnt2ub;
-
-/*! \var typedef Pnt2ub *Pnt2ubP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt2ub *Pnt2ubP;
-
-/*! \var typedef Point< Int8, 2 > Pnt2b;
-    \ingroup GrpBaseBaseMathObj
- */
-
-#ifndef OSG_NO_INT8_PNT
-typedef Point< Int8, 2 > Pnt2b;
-#endif
-
-/*! \var typedef Pnt2b *Pnt2bP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-#ifndef OSG_NO_INT8_PNT
-typedef Pnt2b *Pnt2bP;
-#endif
-
-/*! \var typedef Point< UInt16, 2 > Pnt2us;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< UInt16, 2 > Pnt2us;
-
-/*! \var typedef Pnt2us *Pnt2usP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt2us *Pnt2usP;
-
-/*! \var typedef Point< Int16, 2 > Pnt2s;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Int16, 2 > Pnt2s;
-
-/*! \var typedef Pnt2s *Pnt2sP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt2s *Pnt2sP;
-
-/*! \var typedef Point< Int32, 2 > Pnt2i;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Int32, 2 > Pnt2i;
-
-/*! \var typedef Pnt2i *Pnt2iP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt2i *Pnt2iP;
-
-/*! \var typedef Point< Real32, 2 > Pnt2f;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Real32,  2 > Pnt2f;
-
-/*! \var typedef Pnt2f *Pnt2fP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt2f *Pnt2fP;
-
-/*! \var typedef Point< Fixed32, 2 > Pnt2fx;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Fixed32, 2 > Pnt2fx;
-
-/*! \var typedef Pnt2fx *Pnt2fxP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt2fx *Pnt2fxP;
-
-/*! \var typedef Point< Real64, 2 > Pnt2d;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Real64, 2 > Pnt2d;
-
-/*! \var typedef Pnt2d *Pnt2dP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt2d *Pnt2dP;
-
-/*! \var typedef Point< Real128, 2 > Pnt2ld;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Real128, 2 > Pnt2ld;
-
-/*! \var typedef Pnt2ld *Pnt2ldP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt2ld *Pnt2ldP;
-
-
-/*! \var typedef Point< UInt8, 3 > Pnt3ub;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< UInt8, 3 > Pnt3ub;
-
-/*! \var typedef Pnt3ub *Pnt3ubP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt3ub *Pnt3ubP;
-
-/*! \var typedef Point< Int8, 3 > Pnt3b;
-    \ingroup GrpBaseBaseMathObj
- */
-
-#ifndef OSG_NO_INT8_PNT
-typedef Point< Int8, 3 > Pnt3b;
-#endif
-
-/*! \var typedef Pnt3b *Pnt3bP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-#ifndef OSG_NO_INT8_PNT
-typedef Pnt3b *Pnt3bP;
-#endif
-
-/*! \var typedef Point< UInt16, 3 > Pnt3us;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< UInt16, 3 > Pnt3us;
-
-/*! \var typedef Pnt3us *Pnt3usP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt3us *Pnt3usP;
-
-/*! \var typedef Point< Int16, 3 > Pnt3s;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Int16, 3 > Pnt3s;
-
-/*! \var typedef Pnt3s *Pnt3sP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt3s *Pnt3sP;
-
-/*! \var typedef Point< Real32, 3 > Pnt3f;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Real32, 3 > Pnt3f;
-
-/*! \var typedef Pnt3f *Pnt3fP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt3f *Pnt3fP;
-
-/*! \var typedef Point< Fixed32, 3 > Pnt3fx;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point < Fixed32, 3 > Pnt3fx;
-
-/*! \var typedef Pnt3fx *Pnt3fxP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt3fx *Pnt3fxP;
-
-/*! \var typedef Point< Real64, 3 > Pnt3d;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Real64, 3 > Pnt3d;
-
-/*! \var typedef Pnt3d *Pnt3dP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt3d *Pnt3dP;
-
-/*! \var typedef Point< Real128, 3 > Pnt3ld;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Real128, 3 > Pnt3ld;
-
-/*! \var typedef Pnt3ld *Pnt3ldP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt3ld *Pnt3ldP;
-
-
-/*! \var typedef Point< UInt8, 4 > Pnt4ub;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< UInt8, 4 > Pnt4ub;
-
-/*! \var typedef Pnt4ub *Pnt4ubP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt4ub *Pnt4ubP;
-
-/*! \var typedef Point< Int8, 4 > Pnt4b;
-    \ingroup GrpBaseBaseMathObj
- */
-
-#ifndef OSG_NO_INT8_PNT
-typedef Point< Int8, 4 > Pnt4b;
-#endif
-
-/*! \var typedef Pnt4b *Pnt4bP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-#ifndef OSG_NO_INT8_PNT
-typedef Pnt4b *Pnt4bP;
-#endif
-
-/*! \var typedef Point< UInt16, 4 > Pnt4us;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< UInt16, 4 > Pnt4us;
-
-/*! \var typedef Pnt4us *Pnt4usP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt4us *Pnt4usP;
-
-/*! \var typedef Point< Int16, 4 > Pnt4s;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Int16, 4 > Pnt4s;
-
-/*! \var typedef Pnt4s *Pnt4sP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt4s *Pnt4sP;
-
-/*! \var typedef Point< Real32, 4 > Pnt4f;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Real32, 4 > Pnt4f;
-
-/*! \var typedef Pnt4f *Pnt4fP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt4f *Pnt4fP;
-
-/*! \var typedef Point< Fixed32, 4 > Pnt4fx;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Fixed32, 4 > Pnt4fx;
-
-/*! \var typedef Pnt4fx *Pnt4fxP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt4fx *Pnt4fxP;
-
-/*! \var typedef Point< Real64, 4 > Pnt4d;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Real64, 4 > Pnt4d;
-
-/*! \var typedef Pnt4d *Pnt4dP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt4d *Pnt4dP;
-
-/*! \var typedef Point< Real128, 4 > Pnt4ld;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Point< Real128, 4 > Pnt4ld;
-
-/*! \var typedef Pnt4ld *Pnt4ldP;
-    \ingroup GrpBaseBaseMathObj
- */
-
-typedef Pnt4ld *Pnt4ldP;
+typedef OSG::Pnt4ld *Pnt4ldP;
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name Vector/Point Profile Types                                   */
+/*! \{                                                                 */
 
 #ifdef OSG_FLOAT_PROFILE
 
-typedef Vec2f Vec2r;
-typedef Vec3f Vec3r;
-typedef Vec4f Vec4r;
+/*! \var typedef OSG::Vec2f Vec2r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+typedef OSG::Vec2f Vec2r;
 
-typedef Pnt2f Pnt2r;
-typedef Pnt3f Pnt3r;
-typedef Pnt4f Pnt4r;
+/*! \var typedef OSG::Vec3f Vec3r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+typedef OSG::Vec3f Vec3r;
+
+/*! \var typedef OSG::Vec4f Vec4r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+typedef OSG::Vec4f Vec4r;
+
+/*! \var typedef OSG::Pnt2f Pnt2r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+typedef OSG::Pnt2f Pnt2r;
+
+/*! \var typedef OSG::Pnt3f Pnt3r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+typedef OSG::Pnt3f Pnt3r;
+
+/*! \var typedef OSG::Pnt4f Pnt4r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+typedef OSG::Pnt4f Pnt4r;
 
 #else
 
-typedef Vec2fx Vec2r;
-typedef Vec3fx Vec3r;
-typedef Vec4fx Vec4r;
 
-typedef Pnt2fx Pnt2r;
-typedef Pnt3fx Pnt3r;
-typedef Pnt4fx Pnt4r;
+/*! \var typedef OSG::Vec2fx Vec2r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+typedef OSG::Vec2fx Vec2r;
+
+/*! \var typedef OSG::Vec3fx Vec3r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+typedef OSG::Vec3fx Vec3r;
+
+/*! \var typedef OSG::Vec4fx Vec4r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+typedef OSG::Vec4fx Vec4r;
+
+/*! \var typedef OSG::Pnt2fx Pnt2r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+typedef OSG::Pnt2fx Pnt2r;
+
+/*! \var typedef OSG::Pnt3fx Pnt3r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+typedef OSG::Pnt3fx Pnt3r;
+
+/*! \var typedef OSG::Pnt4fx Pnt4r;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Point
+ */
+typedef OSG::Pnt4fx Pnt4r;
 
 #endif
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE
 

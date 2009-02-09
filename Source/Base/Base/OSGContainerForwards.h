@@ -105,6 +105,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 class TypeBase;
 
 class ReflexiveContainerType;
@@ -245,6 +246,8 @@ bool operator !=(ObjectT * const pObj, const NullFCType)
 }
 
 #define osg OSG
+#endif
+
 #endif
 
 OSG_END_NAMESPACE

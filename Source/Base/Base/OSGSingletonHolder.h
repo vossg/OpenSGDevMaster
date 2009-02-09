@@ -47,7 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseMixinLib
+/*! \ingroup GrpBaseBaseHelper
+    \ingroup GrpBaseBase
+    \nohierarchy
  */
 
 template<class SingletonT>

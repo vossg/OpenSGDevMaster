@@ -53,6 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief Transform provides one matrix to transform objects.
     \ingroup GrpSystemNodeCoresMisc
+    \includebasedoc
 */
 
 class OSG_GROUP_DLLMAPPING Transform : public TransformBase

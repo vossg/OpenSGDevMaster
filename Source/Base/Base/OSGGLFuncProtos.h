@@ -56,9 +56,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*---------------------------------------------------------------------------*/
-/*! shader                                                                   */
-
+/*! \name Shader                                                             */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
 
 typedef GLuint (OSG_APIENTRY * OSGglCreateShaderProc )(      GLenum    );
 typedef void   (OSG_APIENTRY * OSGglDeleteShaderProc )(      GLuint    );
@@ -67,16 +69,16 @@ typedef void   (OSG_APIENTRY * OSGglShaderSourceProc )(      GLuint,
                                                        const GLchar  **, 
                                                        const GLint   * );
 
-typedef void   (OSG_APIENTRY * OSGglCompileShaderProc)(      GLuint    );
+typedef void     (OSG_APIENTRY * OSGglCompileShaderProc)(    GLuint    );
 
-typedef void   (OSG_APIENTRY * OSGglAttachShaderProc )(      GLuint, 
+typedef void     (OSG_APIENTRY * OSGglAttachShaderProc )(    GLuint, 
                                                              GLuint    );
 
-typedef void   (OSG_APIENTRY * OSGglGetShaderivProc  )(      GLuint, 
+typedef void     (OSG_APIENTRY * OSGglGetShaderivProc  )(    GLuint, 
                                                              GLenum, 
                                                              GLint   * );
-typedef void   (OSG_APIENTRY * 
-                           OSGglGetShaderInfoLogProc )(      GLuint, 
+typedef void     (OSG_APIENTRY * 
+                             OSGglGetShaderInfoLogProc )(    GLuint, 
                                                              GLsizei, 
                                                              GLsizei *, 
                                                              GLchar  * );
@@ -94,8 +96,11 @@ typedef void   (OSG_APIENTRY *
                                                              GLchar  *);
 typedef void   (OSG_APIENTRY * OSGglUseProgramProc   )(      GLuint   );
 
+/*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
-/*! shader uniform vars                                                      */
+/*! \name Shader Uniforms                                                    */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
 
 typedef GLint (OSG_APIENTRY * OSGglGetUniformLocationProc)(      GLuint, 
                                                            const char  *);
@@ -175,15 +180,20 @@ typedef void  (OSG_APIENTRY *
                                                                  GLenum, 
                                                                  GLint      );
 
+/*! \}                                                                       */
+#endif
 /*---------------------------------------------------------------------------*/
-
-/*---------------------------------------------------------------------------*/
-/*! framebuffer objects                                                      */
+/*! \name FrameBuffer Objects                                                */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
 
 typedef void (OSG_APIENTRY *OSGglGenerateMipmapEXTProc)(GLenum);
 
+/*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
-/*! framebuffer config                                                       */
+/*! \name FrameBuffer Config                                                 */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
 
 #ifdef OSG_USE_GLX
 typedef GLXFBConfig *(* OSGglxChooseFBConfigProc)(      Display *dpy, 
@@ -199,7 +209,11 @@ typedef GLXContext (*OSGglxCreateContextAttribsARB)(
     const int         *attrib_list);
 #endif
 
+/*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name GL Function Helper                                                 */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
 
 #ifdef OSG_DEBUG
 
@@ -232,6 +246,9 @@ typedef GLXContext (*OSGglxCreateContextAttribsARB)(
         (WINDOW)->getFunctionByName(FUNCNAME));
 
 #endif
+
+/*  \}                                                                       */
+/*---------------------------------------------------------------------------*/
 
 
 OSG_END_NAMESPACE

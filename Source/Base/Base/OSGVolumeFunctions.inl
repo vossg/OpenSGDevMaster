@@ -62,7 +62,7 @@ OSG_BEGIN_NAMESPACE
 // # Sphere ###########################################################
 
 inline 
-bool intersect(const SphereVolume &sphere, const BoxVolume &box)
+bool intersect(const OSG::SphereVolume &sphere, const OSG::BoxVolume &box)
 {
     return intersect(box, sphere);
 }
@@ -71,13 +71,14 @@ bool intersect(const SphereVolume &sphere, const BoxVolume &box)
 // # Cylinder ########################################################
 
 inline
-bool intersect(const CylinderVolume &cylinder, const BoxVolume &box)
+bool intersect(const OSG::CylinderVolume &cylinder, const OSG::BoxVolume &box)
 {
     return intersect(box, cylinder);
 }
 
 inline
-bool intersect(const CylinderVolume &cylinder, const SphereVolume &sphere)
+bool intersect(const OSG::CylinderVolume &cylinder, 
+               const OSG::SphereVolume   &sphere)
 {
     return intersect(sphere, cylinder);
 }
@@ -87,19 +88,21 @@ bool intersect(const CylinderVolume &cylinder, const SphereVolume &sphere)
 
 
 inline
-bool intersect(const FrustumVolume &frustum, const BoxVolume      &box)
+bool intersect(const OSG::FrustumVolume &frustum, const OSG::BoxVolume &box)
 {
     return intersect(box, frustum);
 }
 
 inline
-bool intersect(const FrustumVolume &frustum, const SphereVolume   &sphere)
+bool intersect(const OSG::FrustumVolume &frustum, 
+               const OSG::SphereVolume  &sphere)
 {
     return intersect(sphere,frustum);
 }
 
 inline 
-bool intersect(const FrustumVolume &frustum, const CylinderVolume &cylinder)
+bool intersect(const OSG::FrustumVolume  &frustum, 
+               const OSG::CylinderVolume &cylinder)
 {
     return intersect(cylinder,frustum);
 }
@@ -108,25 +111,25 @@ bool intersect(const FrustumVolume &frustum, const CylinderVolume &cylinder)
 // # Volume ########################################################
 
 inline 
-bool intersect(const Volume &srcVol, const BoxVolume      &vol)
+bool intersect(const OSG::Volume &srcVol, const OSG::BoxVolume &vol)
 {
     return intersect(vol,srcVol);
 }
 
 inline 
-bool intersect(const Volume &srcVol, const SphereVolume   &vol)
+bool intersect(const OSG::Volume &srcVol, const OSG::SphereVolume &vol)
 {
     return intersect(vol,srcVol);
 }
 
 inline 
-bool intersect(const Volume &srcVol, const CylinderVolume &vol)
+bool intersect(const OSG::Volume &srcVol, const OSG::CylinderVolume &vol)
 {
     return intersect(vol,srcVol);
 }
 
 inline 
-bool intersect(const Volume &srcVol, const FrustumVolume  &vol)
+bool intersect(const OSG::Volume &srcVol, const OSG::FrustumVolume  &vol)
 {
     return intersect(vol,srcVol);
 }

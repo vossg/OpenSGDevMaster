@@ -38,6 +38,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! class MemoryObject
+ */
+
 /*! \var Int32 MemoryObject::_refCount
  *  \brief reference count
  */
@@ -102,7 +105,7 @@ MemoryObject::MemoryObject(const MemoryObject &) :
 }
 
 inline 
-void addRef(MemoryObjectPConst pObject)
+void addRef(OSG::MemoryObjectPConst pObject)
 {
     if(pObject != NULL)
     {
@@ -111,7 +114,7 @@ void addRef(MemoryObjectPConst pObject)
 }
 
 inline
-void subRef(MemoryObjectPConst pObject)
+void subRef(OSG::MemoryObjectPConst pObject)
 {
     if(pObject != NULL)
     {

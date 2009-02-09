@@ -34,15 +34,147 @@ using namespace OSG;
     ToDo
 */
 
-#if 0
+/*! \defgroup GrpBaseBaseInitExit Initialization / Termination
+    \ingroup GrpBaseBase
 
+    ToDo
+*/
 
+/*! \defgroup GrpBaseBaseHelper Helper
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBasePools Pools
+    \ingroup GrpBaseBaseHelper
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMemory Memory
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+/*! \defgroup GrpBaseBaseRefCounting RefCounting
+    \ingroup GrpBaseBaseMemory
+
+    ToDo
+*/
 
 /*! \defgroup GrpBaseBaseBaseTypeTraits BaseTypesTraits
     \ingroup GrpBaseBase
 
     ToDo
 */
+
+/*! \defgroup GrpBaseBaseSTLHelpers STLHelpers
+    \ingroup GrpBaseBase
+
+    STLHelpers are little structures and classes that are need to run STL
+    algorithms or to use STL containers. 
+ */
+
+/*! \defgroup GrpBaseBaseMath Math
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseFn Base Functions
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseStringFn String Functions
+    \ingroup GrpBaseBaseFn
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMathObj Objects
+    \ingroup GrpBaseBaseMath
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMathFn Math Functions
+    \ingroup GrpBaseBaseFn
+    \ingroup GrpBaseBaseMath
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMathIOFn Math IO Functions
+    \ingroup GrpBaseBaseFn
+    \ingroup GrpBaseBaseMath
+    \ingroup GrpBaseBaseIO
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMathMatrixFn Matrix Utility Functions
+    \ingroup GrpBaseBaseFn
+    \ingroup GrpBaseBaseMath
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseMiscFn Miscellaneous Functions
+    \ingroup GrpBaseBaseFn
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseVolume Volume
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseFileSystem FileSystem
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseIO IO
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseStreamIO StreamIO
+    \ingroup GrpBaseBaseIO
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseLog Log
+    \ingroup GrpBaseBase
+ */
+
+/*! \defgroup GrpBaseBaseGL OpenGL
+    \ingroup GrpBaseBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseGLConstants OpenGL Constants
+    \ingroup GrpBaseBaseGL
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseBaseGLFunc OpenGL Functions
+    \ingroup GrpBaseBaseGL
+
+    ToDo
+*/
+
+#if 0
 
 /*! \defgroup GrpBaseBaseColors Colors
     \ingroup GrpBaseBase
@@ -57,60 +189,6 @@ using namespace OSG;
 */
 
 
-/*! \defgroup GrpBaseBaseFileSystem FileSystem
-    \ingroup GrpBaseBase
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseBaseGLConstants GLConstants
-    \ingroup GrpBaseBase
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseBaseHelper Helper
-    \ingroup GrpBaseBase
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseBaseInitExit Initialization / Termination
-    \ingroup GrpBaseBase
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseBaseMath Math
-    \ingroup GrpBaseBase
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseBaseMathObj Objects
-    \ingroup GrpBaseBaseMath
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseBaseMathFn Functions
-    \ingroup GrpBaseBaseMath
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseBaseMatrixFn Matrix Utility Functions
-    \ingroup GrpBaseBaseMath
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseBaseMiscFn Miscellaneous Functions
-    \ingroup GrpBaseBase
-
-    ToDo
-*/
-
 /*! \defgroup GrpBaseBaseMultiThreading Multithreading
     \ingroup GrpBaseBase
 
@@ -123,18 +201,7 @@ using namespace OSG;
     ToDo
 */
 
-/*! \defgroup GrpBaseBaseStringFn String Functions
-    \ingroup GrpBaseBase
 
-    ToDo
-*/
-
-
-/*! \defgroup GrpBaseBaseVolume Volume
-    \ingroup GrpBaseBase
-
-    ToDo
-*/
 
 
 /*! \defgroup GrpBaseNetwork Network
@@ -145,12 +212,25 @@ communication. This objects are mainly used by OpenSG-Cluster support
 
 */
 
-/*! \defgroup GrpBaseSTLHelpers STLHelpers
-    \ingroup GrpBase
+#endif
 
-    STLHelpers are little structures and classes that are need to run STL
-    algorithms or to use STL containers. 
- */
+/*! \page PageBase Base
+
+\latexonly Starter:NewChapter \endlatexonly
+
+All OpenSG symbols are part of the OSG name space, and they have no prefix.
+The actual files, including headers, all use the OSG prefix.
+
+   \subpage PageBaseTypes
+   \subpage PageBaseMath
+   \subpage PageBaseLine
+   \subpage PageBasePlane
+   \subpage PageBaseVolumes
+   \subpage PageBaseTime
+   \subpage PageBaseIDString
+   \subpage PageBaseLog
+   \subpage PageBaseThreads
+*/
 
 /*! \page PageBaseTypes Base Types
 
@@ -319,7 +399,7 @@ and multVec.
 
 */
 
-/* \page PageBaseLine Line
+/*! \page PageBaseLine Line
 
 A Line defines a ray in space. It is defined by an origin and a direction,
 which is stored normalized. Lines can be constructed from two points or
@@ -333,7 +413,7 @@ line.
 
 */
 
-/* \page PageBasePlane Plane
+/*! \page PageBasePlane Plane
 
 A Plane defines a 3D infinite half-space. It is defined by a normal and the
 distance from the origin, and can be constructed from all useful combinations
@@ -345,7 +425,7 @@ plane.
 
 */
 
-/* \page PageBaseVolumes Volumes
+/*! \page PageBaseVolumes Volumes
 
 Volumes are primarily used for bounding geometry to speed up culling or
 intersection tests. All Volumes are derived from Volume. The supported volumes
@@ -374,7 +454,7 @@ just as intersecting an empty volume is never true.
 
 */
 
-/* \page PageBaseThreads Threads
+/*! \page PageBaseThreads Threads
 
 OpenSG supports a thread abstraction to support efficient threading on all
 supported platforms. On Windows that means Windows threads, on Irix sproc() is
@@ -390,7 +470,7 @@ like standard locks and barriers, see the doc for details.
 
 */
 
-/* \page PageBaseImage Image
+/*! \page PageSystemImage Image
 
 Defines and holds a 1D/2D/3D image and optionally a mipmap pyramid and/or a
 list of equally sized frames with a single frameDelay. Various pixelTypes are
@@ -410,7 +490,7 @@ image loaders to fetch the raster data.
 
 */
 
-/* \page PageBaseIDString IDString
+/*! \page PageBaseIDString IDString
 
 A primitive string class. Mainly used for string IDs (e.g. node type names).
 It is not a generic class like the std::string implementation. It's only for
@@ -422,16 +502,7 @@ not provide all features we needed (e.g. shared memory pointer, automatic
 preferred pointer comparison when comparing objects)
 
 */
-#endif
 
-/*! \page PageBase Base
-
-\latexonly Starter:NewChapter \endlatexonly
-
-All OpenSG symbols are part of the OSG name space, and they have no prefix.
-The actual files, including headers, all use the OSG prefix.
-
-*/
 
 /*! \page PageDoc General Documentation
 
@@ -439,4 +510,6 @@ The actual files, including headers, all use the OSG prefix.
 
    \subpage PageBase
    \subpage PageSystem
+   \subpage PageSystemImage
+   
  */

@@ -46,9 +46,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! Memory, simple reference counted memory object. Parent of
+/*! \class MemoryObject 
+    Memory, simple reference counted memory object. Parent of
     everything that should be shared, but must not be thread safe.
     \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMemory
  */
 
 class OSG_BASE_DLLMAPPING MemoryObject
@@ -99,27 +101,50 @@ class OSG_BASE_DLLMAPPING MemoryObject
     void operator =(const MemoryObject &source);
 };
 
-typedef MemoryObject *       MemoryObjectP;
-typedef MemoryObject * const MemoryObjectPConst;
+/*! \ingroup GrpBaseBaseMemory
+ */
+typedef OSG::MemoryObject *       MemoryObjectP;
 
+/*! \ingroup GrpBaseBaseMemory
+ */
+typedef OSG::MemoryObject * const MemoryObjectPConst;
+
+/*! \relatesalso MemoryObject
+    \ingroup GrpBaseBaseMemory
+ */
 inline 
-void addRef(MemoryObjectPConst pObject);
+void addRef(OSG::MemoryObjectPConst pObject);
 
+/*! \relatesalso MemoryObject
+    \ingroup GrpBaseBaseMemory
+ */
 inline
-void subRef(MemoryObjectPConst pObject);
+void subRef(OSG::MemoryObjectPConst pObject);
 
+/*! \relatesalso MemoryObject
+    \ingroup GrpBaseBaseMemory
+ */
 template <class T> inline
 void setRefd(T *&pObject, T * const pNewObject);
 
+/*! \relatesalso MemoryObject
+    \ingroup GrpBaseBaseMemory
+ */
 template <class T> inline
 void clearRef(T *&pObject);
  
 #ifdef OSG_1_COMPAT
+/*! \relatesalso MemoryObject
+    \ingroup GrpBaseBaseMemory
+ */
 inline
 void subRefP(MemoryObjectPConst pObject)
 {
     subRef(pObject);
 }
+/*! \relatesalso MemoryObject
+    \ingroup GrpBaseBaseMemory
+ */
 inline
 void addRefP(MemoryObjectPConst pObject)
 {
@@ -132,6 +157,12 @@ OSG_END_NAMESPACE
 #include "OSGMemoryObject.inl"
 
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMemory
+    \ingroup GrpBaseBaseRefCounting
+    \nohierarchy
+ */
 
 struct MemObjRefCountPolicy
 {

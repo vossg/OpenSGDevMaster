@@ -101,6 +101,9 @@ struct TypeTraitsBase
 #endif
 };
 
+/*! \ingroup GrpBaseBaseBaseTypeTraits
+ */
+
 template <class LookupTypeT>
 struct TypeTraitsTemplateBase : public TypeTraitsBase
 {

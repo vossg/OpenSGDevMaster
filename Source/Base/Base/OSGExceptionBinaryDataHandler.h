@@ -55,6 +55,8 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseHelper
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler 
@@ -202,7 +204,7 @@ class OSG_BASE_DLLMAPPING ExceptionBinaryDataHandler
 
   protected:
 
-    /*! \hideinhierarchy */
+    /*! \nohierarchy */
 
     struct MemoryBlock 
     {

@@ -51,6 +51,12 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \brief Accessible via #GLDefineMapper
+    \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseGL
+    \nohierarchy
+ */
+
 class OSG_BASE_DLLMAPPING GLDefineMapperBase
 {
     /*==========================  PUBLIC  =================================*/
@@ -126,6 +132,11 @@ class OSG_BASE_DLLMAPPING GLDefineMapperBase
 //template class OSG_BASE_DLLMAPPING SingletonHolder<GLDefineMapperBase>;
 #    endif
 #endif
+
+/*! \typedef OSG::SingletonHolder<GLDefineMapperBase> GLDefineMapper;
+    \ingroup GrpBaseBaseGL
+    \relatesalso OSG::GLDefineMapperBase
+ */
 
 typedef SingletonHolder<GLDefineMapperBase> GLDefineMapper;
 

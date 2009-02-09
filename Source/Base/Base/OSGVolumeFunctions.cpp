@@ -48,7 +48,7 @@ OSG_BEGIN_NAMESPACE
 // ###################################################################
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const Volume &vol1, const Volume &vol2)
+bool intersect(const OSG::Volume &vol1, const OSG::Volume &vol2)
 {
     bool                  retCode = false;
 
@@ -75,7 +75,8 @@ bool intersect(const Volume &vol1, const Volume &vol2)
     }
     else
     {
-        FWARNING(("intersect(Volume, Volume): Argument 1 has unhandled type.\n"));
+        FWARNING(
+            ("intersect(Volume, Volume): Argument 1 has unhandled type.\n"));
     }
 
     return retCode;
@@ -84,7 +85,7 @@ bool intersect(const Volume &vol1, const Volume &vol2)
 // # Box #############################################################
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &box1, const BoxVolume &box2)
+bool intersect(const OSG::BoxVolume &box1, const OSG::BoxVolume &box2)
 {
     bool retCode = false;
 
@@ -112,7 +113,7 @@ bool intersect(const BoxVolume &box1, const BoxVolume &box2)
 
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &box, const SphereVolume &sphere)
+bool intersect(const OSG::BoxVolume &box, const OSG::SphereVolume &sphere)
 {
     // source:
     // J. Arvo. A simple method for box-sphere intersection testing.
@@ -157,7 +158,7 @@ bool intersect(const BoxVolume &box, const SphereVolume &sphere)
 }
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &box, const CylinderVolume &cylinder)
+bool intersect(const OSG::BoxVolume &box, const OSG::CylinderVolume &cylinder)
 {
     bool  retCode;
     Pnt3r apos;
@@ -254,7 +255,7 @@ bool intersect(const BoxVolume &box, const CylinderVolume &cylinder)
 
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &box, const FrustumVolume &frustum)
+bool intersect(const OSG::BoxVolume &box, const OSG::FrustumVolume &frustum)
 {
     Pnt3r min, max;
 
@@ -274,7 +275,7 @@ bool intersect(const BoxVolume &box, const FrustumVolume &frustum)
 }
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &box, const Volume &vol)
+bool intersect(const OSG::BoxVolume &box, const OSG::Volume &vol)
 {
     bool                 retCode = false;
 
@@ -301,7 +302,8 @@ bool intersect(const BoxVolume &box, const Volume &vol)
     }
     else
     {
-        FWARNING(("intersect(BoxVolume, Volume): Argument 2 has unhandled type.\n"));
+        FWARNING(
+            ("intersect(BoxVolume, Volume): Argument 2 has unhandled type.\n"));
     }
 
     return retCode;
@@ -311,7 +313,8 @@ bool intersect(const BoxVolume &box, const Volume &vol)
 // # Sphere ###########################################################
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const SphereVolume &sphere1, const SphereVolume &sphere2)
+bool intersect(const OSG::SphereVolume &sphere1, 
+               const OSG::SphereVolume &sphere2)
 {
     bool retCode = false;
     Real dist    = (sphere2.getCenter() - sphere1.getCenter()).length();
@@ -337,7 +340,8 @@ bool intersect(const SphereVolume &sphere1, const SphereVolume &sphere2)
 
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const SphereVolume &sphere, const CylinderVolume &cylinder)
+bool intersect(const OSG::SphereVolume   &sphere, 
+               const OSG::CylinderVolume &cylinder)
 {
     bool  retCode;
     Pnt3r apos;
@@ -409,7 +413,8 @@ bool intersect(const SphereVolume &sphere, const CylinderVolume &cylinder)
 
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const SphereVolume &sphere, const FrustumVolume &frustum)
+bool intersect(const OSG::SphereVolume  &sphere, 
+               const OSG::FrustumVolume &frustum)
 {
     const Plane             *frust = frustum.getPlanes();
 
@@ -425,7 +430,7 @@ bool intersect(const SphereVolume &sphere, const FrustumVolume &frustum)
 
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const SphereVolume &sphere, const Volume &vol)
+bool intersect(const OSG::SphereVolume &sphere, const OSG::Volume &vol)
 {
     bool                 retCode = false;
 
@@ -452,7 +457,8 @@ bool intersect(const SphereVolume &sphere, const Volume &vol)
     }
     else
     {
-        FWARNING(("intersect(SphereVolume, Volume): Argument 2 has unhandled type.\n"));
+        FWARNING(
+            ("intersect(Sphere, Volume): Argument 2 has unhandled type.\n"));
     }
 
     return retCode;
@@ -461,7 +467,7 @@ bool intersect(const SphereVolume &sphere, const Volume &vol)
 
 // # Cylinder ########################################################
 
-// http://softsurfer.com/Archive/algorithm_0106/algorithm_0106.htm#dist3D_Segment_to_Segment()
+// http://softsurfer.com/Archive/algorithm_0106/algorithm_0106.htm#dist3D_Segment_to_Segment() 
 // Adapted for OpenSG by Marcus Lindblom 2005-09-06
 
 // Copyright 2001, softSurfer (www.softsurfer.com)
@@ -579,8 +585,8 @@ Real dist3D_Segment_to_Segment(const Pnt3r& s1p,
 }
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const CylinderVolume &cyl1, 
-               const CylinderVolume &cyl2)
+bool intersect(const OSG::CylinderVolume &cyl1, 
+               const OSG::CylinderVolume &cyl2)
 {
     Pnt3r p1, p2;
     Vec3r v1, v2;
@@ -595,7 +601,8 @@ bool intersect(const CylinderVolume &cyl1,
 
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const CylinderVolume &cylinder, const FrustumVolume &frustum)
+bool intersect(const OSG::CylinderVolume &cylinder, 
+               const OSG::FrustumVolume  &frustum)
 {
     Pnt3r min, max;
     cylinder.getBounds(min, max);
@@ -615,7 +622,7 @@ bool intersect(const CylinderVolume &cylinder, const FrustumVolume &frustum)
 
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const CylinderVolume &cylinder, const Volume &vol)
+bool intersect(const OSG::CylinderVolume &cylinder, const OSG::Volume &vol)
 {
     bool                 retCode = false;
 
@@ -642,7 +649,8 @@ bool intersect(const CylinderVolume &cylinder, const Volume &vol)
     }
     else
     {
-        FWARNING(("intersect(CylinderVolume, Volume): Argument 2 has unhandled type.\n"));
+        FWARNING(
+            ("intersect(Cylinder, Volume): Argument 2 has unhandled type.\n"));
     }
     
 
@@ -653,15 +661,15 @@ bool intersect(const CylinderVolume &cylinder, const Volume &vol)
 // # Frustum ########################################################
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const FrustumVolume &OSG_CHECK_ARG(frustum1),
-               const FrustumVolume &OSG_CHECK_ARG(frustum2))
+bool intersect(const OSG::FrustumVolume &OSG_CHECK_ARG(frustum1),
+               const OSG::FrustumVolume &OSG_CHECK_ARG(frustum2))
 {
     FFATAL(("intersect (frustum/frustum) is not impl.\n"));
     return false;
 }
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const FrustumVolume &frustum, const Volume &vol)
+bool intersect(const OSG::FrustumVolume &frustum, const OSG::Volume &vol)
 {
     bool                  retCode = false;
 
@@ -688,7 +696,8 @@ bool intersect(const FrustumVolume &frustum, const Volume &vol)
     }
     else
     {
-        FWARNING(("intersect(FrustumVolume, Volume): Argument 2 has unhandled type.\n"));
+        FWARNING(
+            ("intersect(Frustum, Volume): Argument 2 has unhandled type.\n"));
     }
 
     return retCode;
@@ -700,7 +709,7 @@ bool intersect(const FrustumVolume &frustum, const Volume &vol)
 // ###################################################################
 
 OSG_BASE_DLLMAPPING
-void extend(Volume &srcVol, const Volume &vol)
+void extend(OSG::Volume &srcVol, const OSG::Volume &vol)
 {
     BoxVolume      *bv;
     SphereVolume   *sv;
@@ -732,7 +741,7 @@ void extend(Volume &srcVol, const Volume &vol)
 // # Box #############################################################
 
 OSG_BASE_DLLMAPPING 
-void extend(BoxVolume &srcVol, const BoxVolume &vol)
+void extend(OSG::BoxVolume &srcVol, const OSG::BoxVolume &vol)
 {
     if( (!srcVol.isValid   () && !srcVol.isEmpty()) ||
           srcVol.isInfinite()                       ||
@@ -776,7 +785,7 @@ void extend(BoxVolume &srcVol, const BoxVolume &vol)
 
 
 OSG_BASE_DLLMAPPING 
-void extend(BoxVolume &srcVol, const SphereVolume &vol)
+void extend(OSG::BoxVolume &srcVol, const OSG::SphereVolume &vol)
 {
     Pnt3r min, max;
 
@@ -826,7 +835,7 @@ void extend(BoxVolume &srcVol, const SphereVolume &vol)
 
 
 OSG_BASE_DLLMAPPING 
-void extend(BoxVolume &srcVol, const CylinderVolume &vol)
+void extend(OSG::BoxVolume &srcVol, const OSG::CylinderVolume &vol)
 {
     Pnt3r min, max;
 
@@ -876,8 +885,8 @@ void extend(BoxVolume &srcVol, const CylinderVolume &vol)
 
 
 OSG_BASE_DLLMAPPING 
-void extend(      BoxVolume     &OSG_CHECK_ARG(srcVol), 
-            const FrustumVolume &OSG_CHECK_ARG(vol   ))
+void extend(      OSG::BoxVolume     &OSG_CHECK_ARG(srcVol), 
+            const OSG::FrustumVolume &OSG_CHECK_ARG(vol   ))
 {
     FFATAL(("extend (box/frustum) is not impl.\n"));
     return;
@@ -889,7 +898,7 @@ void extend(      BoxVolume     &OSG_CHECK_ARG(srcVol),
 #endif
 
 OSG_BASE_DLLMAPPING 
-void extend(BoxVolume &srcVol, const Volume &vol)
+void extend(OSG::BoxVolume &srcVol, const OSG::Volume &vol)
 {
     const BoxVolume      *bv;
     const SphereVolume   *sv;
@@ -914,7 +923,8 @@ void extend(BoxVolume &srcVol, const Volume &vol)
     }
     else
     {
-        FWARNING(("extend(BoxVolume, Volume): Argument 2 has unhandled type.\n"));
+        FWARNING(
+            ("extend(BoxVolume, Volume): Argument 2 has unhandled type.\n"));
     }
 }
 
@@ -925,7 +935,7 @@ void extend(BoxVolume &srcVol, const Volume &vol)
 // # Sphere ###########################################################
 
 OSG_BASE_DLLMAPPING 
-void extend(SphereVolume &srcVol, const BoxVolume &vol)
+void extend(OSG::SphereVolume &srcVol, const OSG::BoxVolume &vol)
 {
     Pnt3r     min, max, min1, max1, c;
     Real      r;
@@ -988,7 +998,7 @@ void extend(SphereVolume &srcVol, const BoxVolume &vol)
 
 
 OSG_BASE_DLLMAPPING 
-void extend(SphereVolume &srcVol, const SphereVolume &vol)
+void extend(OSG::SphereVolume &srcVol, const OSG::SphereVolume &vol)
 {
     Pnt3r min, max, min1, max1, min2, max2, c;
     Real  r;
@@ -1045,7 +1055,7 @@ void extend(SphereVolume &srcVol, const SphereVolume &vol)
 
 
 OSG_BASE_DLLMAPPING 
-void extend(SphereVolume &srcVol, const CylinderVolume &vol)
+void extend(OSG::SphereVolume &srcVol, const OSG::CylinderVolume &vol)
 {
     Pnt3r min, max, min1, max1, min2, max2, c;
     Real  r;
@@ -1107,8 +1117,8 @@ void extend(SphereVolume &srcVol, const CylinderVolume &vol)
 
 
 OSG_BASE_DLLMAPPING 
-void extend(      SphereVolume  &OSG_CHECK_ARG(srcVol), 
-            const FrustumVolume &OSG_CHECK_ARG(vol   ))
+void extend(      OSG::SphereVolume  &OSG_CHECK_ARG(srcVol), 
+            const OSG::FrustumVolume &OSG_CHECK_ARG(vol   ))
 {
     FFATAL(("extend (sphere/frustum) is not impl.\n"));
     return;
@@ -1116,7 +1126,7 @@ void extend(      SphereVolume  &OSG_CHECK_ARG(srcVol),
 
 
 OSG_BASE_DLLMAPPING 
-void extend(SphereVolume &srcVol, const Volume &vol)
+void extend(OSG::SphereVolume &srcVol, const OSG::Volume &vol)
 {
     const BoxVolume      *bv;
     const SphereVolume   *sv;
@@ -1141,7 +1151,8 @@ void extend(SphereVolume &srcVol, const Volume &vol)
     }
     else
     {
-        FWARNING(("extend(SphereVolume, Volume): Argument 2 has unhandled type.\n"));
+        FWARNING(
+            ("extend(SphereVolume, Volume): Argument 2 has unhandled type.\n"));
     }
 }
 
@@ -1149,7 +1160,7 @@ void extend(SphereVolume &srcVol, const Volume &vol)
 // # Cylinder ########################################################
 
 OSG_BASE_DLLMAPPING 
-void extend(CylinderVolume &srcVol, const BoxVolume &vol)
+void extend(OSG::CylinderVolume &srcVol, const OSG::BoxVolume &vol)
 {
     Pnt3r min, max, min1, max1, min2, max2, apos;
     Vec2r p;
@@ -1217,7 +1228,7 @@ void extend(CylinderVolume &srcVol, const BoxVolume &vol)
 
 
 OSG_BASE_DLLMAPPING 
-void extend(CylinderVolume &srcVol, const SphereVolume &vol)
+void extend(OSG::CylinderVolume &srcVol, const OSG::SphereVolume &vol)
 {
     Pnt3r min, max, min1, max1, min2, max2, apos;
     Vec2r p;
@@ -1284,7 +1295,7 @@ void extend(CylinderVolume &srcVol, const SphereVolume &vol)
 
 
 OSG_BASE_DLLMAPPING 
-void extend(CylinderVolume &srcVol, const CylinderVolume &vol)
+void extend(OSG::CylinderVolume &srcVol, const OSG::CylinderVolume &vol)
 {
     Pnt3r min, max, min1, max1, min2, max2, apos;
     Vec2r p;
@@ -1341,8 +1352,8 @@ void extend(CylinderVolume &srcVol, const CylinderVolume &vol)
 
 
 OSG_BASE_DLLMAPPING 
-void extend(      CylinderVolume &OSG_CHECK_ARG(srcVol),
-            const FrustumVolume  &OSG_CHECK_ARG(vol   ))
+void extend(      OSG::CylinderVolume &OSG_CHECK_ARG(srcVol),
+            const OSG::FrustumVolume  &OSG_CHECK_ARG(vol   ))
 {
     FFATAL(("extend (cylinder/frustum) is not impl.\n"));
     return;
@@ -1350,7 +1361,7 @@ void extend(      CylinderVolume &OSG_CHECK_ARG(srcVol),
 
 
 OSG_BASE_DLLMAPPING 
-void extend(CylinderVolume &srcVol, const Volume &vol)
+void extend(OSG::CylinderVolume &srcVol, const OSG::Volume &vol)
 {
     const BoxVolume      *bv;
     const SphereVolume   *sv;
@@ -1375,7 +1386,8 @@ void extend(CylinderVolume &srcVol, const Volume &vol)
     }
     else
     {
-        FWARNING(("extend(CylinderVolume, Volume): Argument 2 has unhandled type.\n"));
+        FWARNING(
+            ("extend(Cylinder, Volume): Argument 2 has unhandled type.\n"));
     }
 }
 
@@ -1383,8 +1395,8 @@ void extend(CylinderVolume &srcVol, const Volume &vol)
 // # Frustum ########################################################
 
 OSG_BASE_DLLMAPPING 
-void extend(      FrustumVolume &OSG_CHECK_ARG(srcVol), 
-            const BoxVolume     &OSG_CHECK_ARG(vol   ))
+void extend(      OSG::FrustumVolume &OSG_CHECK_ARG(srcVol), 
+            const OSG::BoxVolume     &OSG_CHECK_ARG(vol   ))
 {
     FFATAL(("extend (frustum/box) is not impl.\n"));
     return;
@@ -1392,8 +1404,8 @@ void extend(      FrustumVolume &OSG_CHECK_ARG(srcVol),
 
 
 OSG_BASE_DLLMAPPING 
-void extend(      FrustumVolume &OSG_CHECK_ARG(srcVol), 
-            const SphereVolume  &OSG_CHECK_ARG(vol   ))
+void extend(      OSG::FrustumVolume &OSG_CHECK_ARG(srcVol), 
+            const OSG::SphereVolume  &OSG_CHECK_ARG(vol   ))
 {
     FFATAL(("extend (frustum/sphere) is not impl.\n"));
     return;
@@ -1401,8 +1413,8 @@ void extend(      FrustumVolume &OSG_CHECK_ARG(srcVol),
 
 
 OSG_BASE_DLLMAPPING 
-void extend(      FrustumVolume  &OSG_CHECK_ARG(srcVol),
-            const CylinderVolume &OSG_CHECK_ARG(vol   ))
+void extend(      OSG::FrustumVolume  &OSG_CHECK_ARG(srcVol),
+            const OSG::CylinderVolume &OSG_CHECK_ARG(vol   ))
 {
     FFATAL(("extend (frustum/cylinder) is not impl.\n"));
     return;
@@ -1410,8 +1422,8 @@ void extend(      FrustumVolume  &OSG_CHECK_ARG(srcVol),
 
 
 OSG_BASE_DLLMAPPING 
-void extend(      FrustumVolume &OSG_CHECK_ARG(srcVol),
-            const FrustumVolume &OSG_CHECK_ARG(vol   ))
+void extend(      OSG::FrustumVolume &OSG_CHECK_ARG(srcVol),
+            const OSG::FrustumVolume &OSG_CHECK_ARG(vol   ))
 {
     FFATAL(("extend (frustum/frustum) is not impl.\n"));
     return;
@@ -1419,8 +1431,8 @@ void extend(      FrustumVolume &OSG_CHECK_ARG(srcVol),
 
 
 OSG_BASE_DLLMAPPING 
-void extend(      FrustumVolume &srcVol,
-            const Volume        &vol    )
+void extend(      OSG::FrustumVolume &srcVol,
+            const OSG::Volume        &vol    )
 {
     const BoxVolume      *bv;
     const SphereVolume   *sv;
@@ -1445,7 +1457,8 @@ void extend(      FrustumVolume &srcVol,
     }
     else
     {
-        FWARNING(("extend(FrustumVolume, Volume): Argument 2 has unhandled type.\n"));
+        FWARNING(
+            ("extend(Frustum, Volume): Argument 2 has unhandled type.\n"));
     }
 }
 

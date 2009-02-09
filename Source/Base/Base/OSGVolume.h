@@ -48,7 +48,8 @@ OSG_BEGIN_NAMESPACE
 
 class Line;
 
-/*! \ingroup GrpBaseBaseVolume
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseVolume
  */
 
 class OSG_BASE_DLLMAPPING Volume 
@@ -171,8 +172,10 @@ class OSG_BASE_DLLMAPPING Volume
 
 typedef Volume* VolumeP;
 
-//! helper functions to dump a volume. Useful for debuggers.
-
+/*! helper functions to dump a volume. Useful for debuggers.
+    \ingroup GrpBaseBaseVolume
+    \relatesalso Volume
+ */
 OSG_BASE_DLLMAPPING 
 void volDump(Volume *vol);
 

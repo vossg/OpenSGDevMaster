@@ -541,7 +541,7 @@ inline typename TransformationMatrix<ValueTypeT>::ValueType
     this matrix and stores it in \a result.
     This is used in polarDecomposition.
     
-    \param[out] Transpose of adjoint.
+    \param[out] result Transpose of adjoint.
  */
 template <class ValueTypeT>
 inline void

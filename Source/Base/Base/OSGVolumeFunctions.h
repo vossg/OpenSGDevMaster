@@ -78,193 +78,216 @@ class FrustumVolume;
 //   Volume  |Inline  |Inline  |Inline  |Inline  |Func
 
 /*! \brief intersect Volume / Volume
- *  \ingroup GrpBaseBaseVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso Volume
  */
 
 OSG_BASE_DLLMAPPING 
-bool intersect(const Volume &vol1, const Volume &vol2);
+bool intersect(const OSG::Volume &vol1, const OSG::Volume &vol2);
 
 
 // # Box #############################################################
 
-/*! \brief intersect Box / Box
- *  \ingroup GrpBaseBaseVolume
- */
-
-OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &vol1, const BoxVolume      &vol2);
-
-/*! \brief intersect BoxVolume / Sphere
- *  \ingroup GrpBaseBaseVolume
- */
-
-OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &vol1, const SphereVolume   &vol2);
-
-/*! \brief intersect BoxVolume / Cylinder
- *  \ingroup GrpBaseBaseVolume
- */
-
-OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &vol1, const CylinderVolume &vol2);
-
-/*! \brief intersect BoxVolume / Frustum
- *  \ingroup GrpBaseBaseVolume
- */
-
-OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &vol1, const FrustumVolume  &vol2);
-
-/*! \brief intersect Box / Volume
- *  \ingroup GrpBaseBaseVolume
+/*! \brief intersect BoxVolume / BoxVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
  */
 OSG_BASE_DLLMAPPING 
-bool intersect(const BoxVolume &vol1, const Volume         &vol2);
+bool intersect(const OSG::BoxVolume &vol1, const OSG::BoxVolume &vol2);
+
+
+/*! \brief intersect BoxVolume / SphereVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
+ */
+OSG_BASE_DLLMAPPING 
+bool intersect(const OSG::BoxVolume &vol1, const OSG::SphereVolume &vol2);
+
+
+/*! \brief intersect BoxVolume / CylinderVolume
+ *  \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
+ */
+OSG_BASE_DLLMAPPING 
+bool intersect(const OSG::BoxVolume &vol1, const OSG::CylinderVolume &vol2);
+
+
+/*! \brief intersect BoxVolume / FrustumVolume
+ *  \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
+ */
+OSG_BASE_DLLMAPPING 
+bool intersect(const OSG::BoxVolume &vol1, const OSG::FrustumVolume &vol2);
+
+
+/*! \brief intersect BoxVolume / Volume
+ *  \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
+ */
+OSG_BASE_DLLMAPPING 
+bool intersect(const OSG::BoxVolume &vol1, const OSG::Volume &vol2);
 
 
 // # Sphere ###########################################################
 
-/*! \brief intersect Sphere / Box
- *  \ingroup GrpBaseBaseVolume
+/*! \brief intersect SphereVolume / BoxVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 inline
-bool intersect(const SphereVolume &vol1, const BoxVolume      &vol2);
+bool intersect(const OSG::SphereVolume &vol1, const OSG::BoxVolume &vol2);
 
-/*! \brief intersect SphereVolume / Sphere
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect SphereVolume / SphereVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 OSG_BASE_DLLMAPPING 
-bool intersect(const SphereVolume &vol1, const SphereVolume   &vol2);
+bool intersect(const OSG::SphereVolume &vol1, const OSG::SphereVolume &vol2);
 
-/*! \brief intersect SphereVolume / Cylinder
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect SphereVolume / CylinderVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 OSG_BASE_DLLMAPPING 
-bool intersect(const SphereVolume &vol1, const CylinderVolume &vol2);
+bool intersect(const OSG::SphereVolume &vol1, const OSG::CylinderVolume &vol2);
 
-/*! \brief intersect SphereVolume / Frustum
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect SphereVolume / FrustumVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 OSG_BASE_DLLMAPPING 
-bool intersect(const SphereVolume &vol1, const FrustumVolume  &vol2);
+bool intersect(const OSG::SphereVolume &vol1, const OSG::FrustumVolume &vol2);
 
-/*! \brief intersect Sphere / Volume
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect SphereVolume / Volume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 OSG_BASE_DLLMAPPING 
-bool intersect(const SphereVolume &vol1, const Volume         &vol2);
+bool intersect(const OSG::SphereVolume &vol1, const OSG::Volume &vol2);
 
 
 // # Cylinder ########################################################
 
-/*! \brief intersect Cylinder / Box
- *  \ingroup GrpBaseBaseVolume
+/*! \brief intersect CylinderVolume / BoxVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 inline
-bool intersect(const CylinderVolume &vol1, const BoxVolume      &vol2);
+bool intersect(const OSG::CylinderVolume &vol1, const OSG::BoxVolume &vol2);
 
-/*! \brief intersect CylinderVolume / Sphere
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect CylinderVolume / SphereVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 inline
-bool intersect(const CylinderVolume &vol1, const SphereVolume   &vol2);
+bool intersect(const OSG::CylinderVolume &vol1, const OSG::SphereVolume &vol2);
 
-/*! \brief intersect CylinderVolume / Cylinder
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect CylinderVolume / CylinderVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 OSG_BASE_DLLMAPPING 
-bool intersect(const CylinderVolume &vol1, const CylinderVolume &vol2);
+bool intersect(const OSG::CylinderVolume &vol1, 
+               const OSG::CylinderVolume &vol2);
 
-/*! \brief intersect CylinderVolume / Frustum
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect CylinderVolume / FrustumVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 OSG_BASE_DLLMAPPING 
-bool intersect(const CylinderVolume &vol1, const FrustumVolume  &vol2);
+bool intersect(const OSG::CylinderVolume &vol1, const OSG::FrustumVolume &vol2);
 
-/*! \brief intersect Cylinder / Volume
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect CylinderVolume / Volume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 OSG_BASE_DLLMAPPING 
-bool intersect(const CylinderVolume &vol1, const Volume         &vol2);
+bool intersect(const OSG::CylinderVolume &vol1, const OSG::Volume &vol2);
 
 
 // # Frustum ########################################################
 
-/*! \brief intersect Frustum / Box
- *  \ingroup GrpBaseBaseVolume
+/*! \brief intersect FrustumVolume / BoxVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 inline
-bool intersect(const FrustumVolume &vol1, const BoxVolume      &vol2);
+bool intersect(const OSG::FrustumVolume &vol1, const OSG::BoxVolume &vol2);
 
-/*! \brief intersect FrustumVolume / Sphere
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect FrustumVolume / SphereVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 inline
-bool intersect(const FrustumVolume &vol1, const SphereVolume   &vol2);
+bool intersect(const OSG::FrustumVolume &vol1, const OSG::SphereVolume &vol2);
 
-/*! \brief intersect FrustumVolume / Cylinder
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect FrustumVolume / CylinderVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 inline
-bool intersect(const FrustumVolume  &vol1, const CylinderVolume &vol2);
+bool intersect(const OSG::FrustumVolume  &vol1, 
+               const OSG::CylinderVolume &vol2);
 
-/*! \brief intersect FrustumVolume / Frustum
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect FrustumVolume / FrustumVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 OSG_BASE_DLLMAPPING 
-bool intersect(const FrustumVolume &vol1, const FrustumVolume   &vol2);
+bool intersect(const OSG::FrustumVolume &vol1, const OSG::FrustumVolume &vol2);
 
-/*! \brief intersect Frustum / Volume
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief intersect FrustumVolume / Volume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 OSG_BASE_DLLMAPPING 
-bool intersect(const FrustumVolume &vol1, const Volume          &vol2);
+bool intersect(const OSG::FrustumVolume &vol1, const OSG::Volume &vol2);
 
 
 // # Volume ########################################################
 
-/*! \brief extend Frustum / Box
- *  \ingroup GrpBaseBaseVolume
+/*! \brief extend Volume / BoxVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso Volume
  */
-
 inline
-bool intersect(const Volume &srcVol, const BoxVolume      &vol);
+bool intersect(const OSG::Volume &srcVol, const OSG::BoxVolume &vol);
 
-/*! \brief extend volume / Sphere
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend Volume / SphereVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso Volume
  */
-
 inline
-bool intersect(const Volume &srcVol, const SphereVolume   &vol);
+bool intersect(const OSG::Volume &srcVol, const OSG::SphereVolume &vol);
 
-/*! \brief extend volume / Cylinder
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend Volume / CylinderVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso Volume
  */
-
 inline
-bool intersect(const Volume &srcVol, const CylinderVolume &vol);
+bool intersect(const OSG::Volume &srcVol, const OSG::CylinderVolume &vol);
 
-/*! \brief extend volume / Frustum
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend Volume / FrustumVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso Volume
  */
-
 inline
-bool intersect(const Volume &srcVol, const FrustumVolume  &vol);
+bool intersect(const OSG::Volume &srcVol, const OSG::FrustumVolume  &vol);
 
 // ###################################################################
 // # Volume Extend Functions #########################################
@@ -273,160 +296,180 @@ bool intersect(const Volume &srcVol, const FrustumVolume  &vol);
 /*! @name Extend
  */
 
+/*! \brief extend Volume / Volume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso Volume
+ */
 OSG_BASE_DLLMAPPING 
-void extend(Volume &srcVol,    const Volume         &vol);
+void extend(OSG::Volume &srcVol, const OSG::Volume &vol);
 
 
 // # Box #############################################################
 
-/*! \brief extend Box / Box
- *  \ingroup GrpBaseBaseVolume
+/*! \brief extend BoxVolume / BoxVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(BoxVolume &srcVol, const BoxVolume      &vol);
+void extend(OSG::BoxVolume &srcVol, const OSG::BoxVolume &vol);
 
-/*! \brief extend BoxVolume / Sphere
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend BoxVolume / SphereVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(BoxVolume &srcVol, const SphereVolume   &vol);
+void extend(OSG::BoxVolume &srcVol, const OSG::SphereVolume &vol);
 
-/*! \brief extend BoxVolume / Cylinder
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend BoxVolume / CylinderVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(BoxVolume &srcVol, const CylinderVolume &vol);
+void extend(OSG::BoxVolume &srcVol, const OSG::CylinderVolume &vol);
 
-/*! \brief extend BoxVolume / Frustum
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend BoxVolume / FrustumVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(BoxVolume &srcVol, const FrustumVolume  &vol);
+void extend(OSG::BoxVolume &srcVol, const OSG::FrustumVolume &vol);
 
-/*! \brief extend Box / Volume
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend BoxVolume / Volume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso BoxVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(BoxVolume &srcVol, const Volume         &vol);
+void extend(OSG::BoxVolume &srcVol, const OSG::Volume &vol);
 
 
 // # Sphere ###########################################################
 
-/*! \brief extend Sphere / Box
- *  \ingroup GrpBaseBaseVolume
+/*! \brief extend SphereVolume / BoxVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(SphereVolume &srcVol, const BoxVolume      &vol);
+void extend(OSG::SphereVolume &srcVol, const OSG::BoxVolume &vol);
 
-/*! \brief extend SphereVolume / Sphere
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend SphereVolume / SphereVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 OSG_BASE_DLLMAPPING
-void extend(SphereVolume &srcVol, const SphereVolume   &vol);
+void extend(OSG::SphereVolume &srcVol, const OSG::SphereVolume &vol);
 
-/*! \brief extend SphereVolume / Cylinder
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend SphereVolume / CylinderVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(SphereVolume &srcVol, const CylinderVolume &vol);
+void extend(OSG::SphereVolume &srcVol, const OSG::CylinderVolume &vol);
 
-/*! \brief extend SphereVolume / Frustum
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend SphereVolume / FrustumVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(SphereVolume &srcVol, const FrustumVolume  &vol);
+void extend(OSG::SphereVolume &srcVol, const OSG::FrustumVolume &vol);
+
 
 /*! \brief extend SphereVolume / Volume
- *  \ingroup GrpBaseBaseVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso SphereVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(SphereVolume &srcVol, const Volume         &vol);
+void extend(OSG::SphereVolume &srcVol, const OSG::Volume &vol);
 
 
 // # Cylinder ########################################################
 
-/*! \brief extend Cylinder / Box
- *  \ingroup GrpBaseBaseVolume
+/*! \brief extend CylinderVolume / BoxVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(CylinderVolume &srcVol, const BoxVolume      &vol);
+void extend(OSG::CylinderVolume &srcVol, const OSG::BoxVolume &vol);
 
-/*! \brief extend CylinderVolume / Sphere
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend CylinderVolume / SphereVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(CylinderVolume &srcVol, const SphereVolume   &vol);
+void extend(OSG::CylinderVolume &srcVol, const OSG::SphereVolume &vol);
 
-/*! \brief extend CylinderVolume / Cylinder
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend CylinderVolume / CylinderVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(CylinderVolume &srcVol, const CylinderVolume &vol);
+void extend(OSG::CylinderVolume &srcVol, const OSG::CylinderVolume &vol);
 
-/*! \brief extend CylinderVolume / Frustum
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend CylinderVolume / FrustumVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(CylinderVolume &srcVol, const FrustumVolume  &vol);
+void extend(OSG::CylinderVolume &srcVol, const OSG::FrustumVolume &vol);
 
-/*! \brief extend Sphere / Volume
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend CylinderVolume / Volume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso CylinderVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(CylinderVolume &srcVol, const Volume         &vol);
+void extend(OSG::CylinderVolume &srcVol, const OSG::Volume &vol);
 
 
 // # Frustum ########################################################
 
-/*! \brief extend Frustum / Box
- *  \ingroup GrpBaseBaseVolume
+/*! \brief extend FrustumVolume / BoxVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(FrustumVolume &srcVol, const BoxVolume      &vol);
+void extend(OSG::FrustumVolume &srcVol, const OSG::BoxVolume &vol);
 
-/*! \brief extend FrustumVolume / Sphere
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend FrustumVolume / SphereVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(FrustumVolume &srcVol, const SphereVolume   &vol);
+void extend(OSG::FrustumVolume &srcVol, const OSG::SphereVolume &vol);
 
-/*! \brief extend FrustumVolume / Cylinder
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend FrustumVolume / CylinderVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(FrustumVolume &srcVol, const CylinderVolume &vol);
+void extend(OSG::FrustumVolume &srcVol, const OSG::CylinderVolume &vol);
 
-/*! \brief extend FrustumVolume / Frustum
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend FrustumVolume / FrustumVolume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(FrustumVolume &srcVol, const FrustumVolume  &vol);
+void extend(OSG::FrustumVolume &srcVol, const OSG::FrustumVolume &vol);
 
-/*! \brief extend Frustum / Volume
- *  \ingroup GrpBaseBaseVolume
+
+/*! \brief extend FrustumVolume / Volume
+    \ingroup GrpBaseBaseVolume
+    \relatesalso FrustumVolume
  */
-
 OSG_BASE_DLLMAPPING 
-void extend(FrustumVolume &srcVol, const Volume         &vol);
+void extend(OSG::FrustumVolume &srcVol, const OSG::Volume &vol);
 
 OSG_END_NAMESPACE
 

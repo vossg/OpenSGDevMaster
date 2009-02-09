@@ -152,16 +152,16 @@ class OSG_BASE_DLLMAPPING TypeBase
     //   instance variables
     //-----------------------------------------------------------------------
 
-    UInt32    _uiTypeId;         /*!< Unique id of type in global type system. */
+    UInt32    _uiTypeId;        /*!< Unique id of type in global type system. */
     //UInt32    _uiTypeRootId;
-    UInt32    _uiNameSpace;      /*!< Namespace that the id belongs to. */
+    UInt32    _uiNameSpace;     /*!< Namespace that the id belongs to. */
 
-    TypeBase *_pParentType;      /*!< The type of the parent if one was registered. */
+    TypeBase *_pParentType;     /*!< The type of the parent, if one exists. */
 
-    IDString  _szName;           /*!< The name of this type. */
-    IDString  _szParentName;     /*!< The name of the parent type. */
+    IDString  _szName;          /*!< The name of this type. */
+    IDString  _szParentName;    /*!< The name of the parent type. */
 
-    bool      _bInitialized;     /*!< Set true once type has been initialized. */
+    bool      _bInitialized;    /*!< Set true once type has been initialized. */
 
     //-----------------------------------------------------------------------
     //   instance functions

@@ -50,6 +50,8 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseHelper
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING NormalQuantifier 

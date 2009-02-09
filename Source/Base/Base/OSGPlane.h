@@ -50,6 +50,8 @@ OSG_BEGIN_NAMESPACE
 class Line;
 
 /*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMathObj
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING Plane 
@@ -167,9 +169,11 @@ class OSG_BASE_DLLMAPPING Plane
     UInt8 _directionIndex;
 };
 
+/*! \relates Plane
+ */
 OSG_BASE_DLLMAPPING 
 std::ostream &operator <<(      std::ostream &os, 
-                          const Plane        &obj);
+                          const OSG::Plane   &obj);
 
 OSG_END_NAMESPACE
 

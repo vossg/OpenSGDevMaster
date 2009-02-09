@@ -51,7 +51,9 @@ OSG_BEGIN_NAMESPACE
 
 class PoolDefaultTag;
 
-/*! \ingroup GrpSystemRenderingBackend
+/*! \ingroup GrpBaseBasePools
+    \ingroup GrpBaseBase
+    \nohierarchy
 */
 
 template <class ValueT, 
@@ -130,6 +132,11 @@ class SimpleReusePool
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const SimpleReusePool &source);
 };
+
+/*! \ingroup GrpBaseBasePools
+    \ingroup GrpBaseBase
+    \nohierarchy
+*/
 
 template<class PoolTag, class LockPolicy>
 class SimpleReusePool<Int32, PoolTag, LockPolicy>
