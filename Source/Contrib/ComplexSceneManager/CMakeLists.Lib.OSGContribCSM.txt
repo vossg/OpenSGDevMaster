@@ -2,6 +2,11 @@
 PROJECT("OSGContribCSM")
 
 OSG_ADD_PROJECT()
+
+IF(APPLE)
+    SET(OSGBUILD_${PROJECT_NAME} OFF)
+ENDIF(APPLE)
+
 OSG_SELECT_PROJECT()
 
 ##############################################################################
