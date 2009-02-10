@@ -200,7 +200,27 @@ bool CSMWindow::init(void)
             ++vIt;
         }
     }
-    
+
+    if(_mfIgnoreExtensions.size() == 1 && _mfIgnoreExtensions[0] == "ALL")
+    {
+        const char *gl_extensions = 
+            reinterpret_cast<const char*> (glGetString(GL_EXTENSIONS));
+
+        fprintf(stderr, "Ignoring %s\n", gl_extensions);
+
+        OSG::Window::ignoreExtensions(gl_extensions);
+    }
+    else if(_mfIgnoreExtensions.size() > 0)
+    {
+        MFString::const_iterator sIt  = _mfIgnoreExtensions.begin();
+        MFString::const_iterator sEnd = _mfIgnoreExtensions.end  ();
+
+        for(; sIt != sEnd; ++sIt)
+        {
+            OSG::Window::ignoreExtensions((*sIt).c_str());
+        }
+    }
+
     //OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");
 
     return returnValue;

@@ -252,8 +252,6 @@ bool CSMGLUTWindow::init(void)
     _pWindow     = pGLUTWindow;
     _pGLUTWindow = this;
 
-    Inherited::init();
-
     if(_bGLUTInitialized == false)
     {
         _bGLUTInitialized = true;
@@ -285,6 +283,10 @@ bool CSMGLUTWindow::init(void)
         outFileStream.close();
     } 
 #endif
+
+    Inherited::init();
+
+    pGLUTWindow->deactivate();
 
     return true;
 }

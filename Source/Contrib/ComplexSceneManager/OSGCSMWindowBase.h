@@ -75,6 +75,7 @@
 #include "OSGInt32Fields.h" // RequestMinor type
 #include "OSGBoolFields.h" // EnableForwardCompatContext type
 #include "OSGBoolFields.h" // EnableDebugContext type
+#include "OSGStringFields.h" // IgnoreExtensions type
 
 #include "OSGCSMWindowFields.h"
 
@@ -112,7 +113,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         RequestMinorFieldId = RequestMajorFieldId + 1,
         EnableForwardCompatContextFieldId = RequestMinorFieldId + 1,
         EnableDebugContextFieldId = EnableForwardCompatContextFieldId + 1,
-        NextFieldId = EnableDebugContextFieldId + 1
+        IgnoreExtensionsFieldId = EnableDebugContextFieldId + 1,
+        NextFieldId = IgnoreExtensionsFieldId + 1
     };
 
     static const OSG::BitVector ParentFieldMask =
@@ -135,6 +137,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << EnableForwardCompatContextFieldId);
     static const OSG::BitVector EnableDebugContextFieldMask =
         (TypeTraits<BitVector>::One << EnableDebugContextFieldId);
+    static const OSG::BitVector IgnoreExtensionsFieldMask =
+        (TypeTraits<BitVector>::One << IgnoreExtensionsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -148,6 +152,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     typedef SFInt32           SFRequestMinorType;
     typedef SFBool            SFEnableForwardCompatContextType;
     typedef SFBool            SFEnableDebugContextType;
+    typedef MFString          MFIgnoreExtensionsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -199,6 +204,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   SFBool              *editSFEnableDebugContext(void);
             const SFBool              *getSFEnableDebugContext (void) const;
 
+                  MFString            *editMFIgnoreExtensions(void);
+            const MFString            *getMFIgnoreExtensions (void) const;
+
 
                   CSMViewport * getViewports      (const UInt32 index) const;
 
@@ -225,6 +233,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
                   bool                &editEnableDebugContext(void);
                   bool                 getEnableDebugContext (void) const;
+
+                  std::string         &editIgnoreExtensions(const UInt32 index);
+            const std::string         &getIgnoreExtensions (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -292,6 +303,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     SFInt32           _sfRequestMinor;
     SFBool            _sfEnableForwardCompatContext;
     SFBool            _sfEnableDebugContext;
+    MFString          _mfIgnoreExtensions;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -351,6 +363,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleEnableForwardCompatContext(void);
     GetFieldHandlePtr  getHandleEnableDebugContext (void) const;
     EditFieldHandlePtr editHandleEnableDebugContext(void);
+    GetFieldHandlePtr  getHandleIgnoreExtensions (void) const;
+    EditFieldHandlePtr editHandleIgnoreExtensions(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

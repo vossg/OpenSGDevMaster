@@ -599,8 +599,6 @@ bool CSMNativeWindow::init(void)
 
     XStoreName(_pDisplay, pHWin, windowName.c_str());
 
-    _pXWindow->deactivate(         );
-
     if(ComplexSceneManager::the() != NULL)
         ComplexSceneManager::the()->setMainloop(&CSMNativeWindow::xMainLoop);
     
@@ -613,6 +611,8 @@ bool CSMNativeWindow::init(void)
     _bRun = true;
 
     Inherited::init();
+
+    _pXWindow->deactivate(         );
 
     return true;
 }

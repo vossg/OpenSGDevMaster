@@ -16,16 +16,20 @@ OSG_SELECT_PROJECT()
 ##############################################################################
 # simplify the tests below by setting local variables
 
+SET(_CSM_HAS_NATIVE_WIN FALSE)
+
 IF(GLUT_FOUND AND OSGBUILD_OSGWindowGLUT)
     SET(_BUILD_CSM_WINDOWGLUT ON)
 ENDIF(GLUT_FOUND AND OSGBUILD_OSGWindowGLUT)
 
 IF(WIN32 AND OSGBUILD_OSGWindowWIN32)
     SET(_BUILD_CSM_WINDOWWIN32 ON)
+    SET(_CSM_HAS_NATIVE_WIN TRUE)
 ENDIF(WIN32 AND OSGBUILD_OSGWindowWIN32)
 
 IF(X11_FOUND AND OSGBUILD_OSGWindowX)
     SET(_BUILD_CSM_WINDOWX ON)
+    SET(_CSM_HAS_NATIVE_WIN TRUE)
 ENDIF(X11_FOUND AND OSGBUILD_OSGWindowX)
 
 ##############################################################################
@@ -86,6 +90,10 @@ ENDIF(_BUILD_CSM_WINDOWWIN32)
 IF(_BUILD_CSM_WINDOWX)
     OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Native-X")
 ENDIF(_BUILD_CSM_WINDOWX)
+
+IF(NOT _CSM_HAS_NATIVE_WIN)
+    OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Native-Dummy")
+ENDIF(NOT _CSM_HAS_NATIVE_WIN)
 
 ##############################################################################
 # setup build

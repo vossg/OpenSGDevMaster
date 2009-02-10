@@ -124,6 +124,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var std::string     CSMWindowBase::_mfIgnoreExtensions
+    
+*/
+
 
 void CSMWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -249,6 +253,18 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleEnableDebugContext));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new MFString::Description(
+        MFString::getClassType(),
+        "ignoreExtensions",
+        "",
+        IgnoreExtensionsFieldId, IgnoreExtensionsFieldMask,
+        true,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleIgnoreExtensions),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleIgnoreExtensions));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -372,6 +388,15 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "\t   access=\"public\"\n"
     "       fieldFlags=\"\"\n"
     "       defaultValue=\"false\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"ignoreExtensions\"\n"
+    "\t   type=\"std::string\"\n"
+    "\t   cardinality=\"multi\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -516,6 +541,19 @@ const SFBool *CSMWindowBase::getSFEnableDebugContext(void) const
 }
 
 
+MFString *CSMWindowBase::editMFIgnoreExtensions(void)
+{
+    editMField(IgnoreExtensionsFieldMask, _mfIgnoreExtensions);
+
+    return &_mfIgnoreExtensions;
+}
+
+const MFString *CSMWindowBase::getMFIgnoreExtensions(void) const
+{
+    return &_mfIgnoreExtensions;
+}
+
+
 
 
 void CSMWindowBase::pushToViewports(CSMViewport * const value)
@@ -619,6 +657,10 @@ UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfEnableDebugContext.getBinSize();
     }
+    if(FieldBits::NoField != (IgnoreExtensionsFieldMask & whichField))
+    {
+        returnValue += _mfIgnoreExtensions.getBinSize();
+    }
 
     return returnValue;
 }
@@ -668,6 +710,10 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfEnableDebugContext.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (IgnoreExtensionsFieldMask & whichField))
+    {
+        _mfIgnoreExtensions.copyToBin(pMem);
+    }
 }
 
 void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -715,6 +761,10 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfEnableDebugContext.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (IgnoreExtensionsFieldMask & whichField))
+    {
+        _mfIgnoreExtensions.copyFromBin(pMem);
+    }
 }
 
 
@@ -733,7 +783,8 @@ CSMWindowBase::CSMWindowBase(void) :
     _sfRequestMajor           (Int32(-1)),
     _sfRequestMinor           (Int32(0)),
     _sfEnableForwardCompatContext(bool(false)),
-    _sfEnableDebugContext     (bool(false))
+    _sfEnableDebugContext     (bool(false)),
+    _mfIgnoreExtensions       ()
 {
 }
 
@@ -748,7 +799,8 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _sfRequestMajor           (source._sfRequestMajor           ),
     _sfRequestMinor           (source._sfRequestMinor           ),
     _sfEnableForwardCompatContext(source._sfEnableForwardCompatContext),
-    _sfEnableDebugContext     (source._sfEnableDebugContext     )
+    _sfEnableDebugContext     (source._sfEnableDebugContext     ),
+    _mfIgnoreExtensions       (source._mfIgnoreExtensions       )
 {
 }
 
@@ -1085,6 +1137,29 @@ EditFieldHandlePtr CSMWindowBase::editHandleEnableDebugContext(void)
     return returnValue;
 }
 
+GetFieldHandlePtr CSMWindowBase::getHandleIgnoreExtensions (void) const
+{
+    MFString::GetHandlePtr returnValue(
+        new  MFString::GetHandle(
+             &_mfIgnoreExtensions,
+             this->getType().getFieldDesc(IgnoreExtensionsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleIgnoreExtensions(void)
+{
+    MFString::EditHandlePtr returnValue(
+        new  MFString::EditHandle(
+             &_mfIgnoreExtensions,
+             this->getType().getFieldDesc(IgnoreExtensionsFieldId)));
+
+
+    editMField(IgnoreExtensionsFieldMask, _mfIgnoreExtensions);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void CSMWindowBase::execSyncV(      FieldContainer    &oFrom,
@@ -1111,7 +1186,16 @@ void CSMWindowBase::resolveLinks(void)
 
     static_cast<CSMWindow *>(this)->clearViewports();
 
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
 
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfIgnoreExtensions.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
 }
 
 

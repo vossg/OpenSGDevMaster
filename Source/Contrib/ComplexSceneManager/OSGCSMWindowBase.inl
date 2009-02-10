@@ -281,6 +281,22 @@ CSMViewport * CSMWindowBase::getViewports(const UInt32 index) const
     return _mfViewports[index];
 }
 
+//! Get the value of the \a index element the CSMWindow::_mfIgnoreExtensions field.
+inline
+const std::string &CSMWindowBase::getIgnoreExtensions(const UInt32 index) const
+{
+    return _mfIgnoreExtensions[index];
+}
+
+inline
+std::string &CSMWindowBase::editIgnoreExtensions(const UInt32 index)
+{
+    editMField(IgnoreExtensionsFieldMask, _mfIgnoreExtensions);
+
+    return _mfIgnoreExtensions[index];
+}
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -324,6 +340,12 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (EnableDebugContextFieldMask & whichField))
         _sfEnableDebugContext.syncWith(pFrom->_sfEnableDebugContext);
+
+    if(FieldBits::NoField != (IgnoreExtensionsFieldMask & whichField))
+        _mfIgnoreExtensions.syncWith(pFrom->_mfIgnoreExtensions,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

@@ -445,9 +445,13 @@ bool CSMNativeWindow::init(void)
             &CSMNativeWindow::win32MainLoop);
     }
 
+    _pWin32Window->init();
+
     _bRun = true;
 
     Inherited::init();
+
+    _pWin32Window->dectivate();
 
     return true;
 }

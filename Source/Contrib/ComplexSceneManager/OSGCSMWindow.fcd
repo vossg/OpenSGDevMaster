@@ -109,4 +109,13 @@
        defaultValue="false"
 	>
 	</Field>
+	<Field
+	   name="ignoreExtensions"
+	   type="std::string"
+	   cardinality="multi"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+	>
+	</Field>
 </FieldContainer>
