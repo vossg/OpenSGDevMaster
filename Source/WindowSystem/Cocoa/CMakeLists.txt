@@ -1,8 +1,5 @@
 
-IF(NOT APPLE)
-    RETURN()
-ENDIF(NOT APPLE)
+# CMake's ADD_SUBDIRECTORY only looks for CMakeLists.txt, so we include
+# the real file here
 
-#IF(OSG_VERBOSE_SCAN)
-    MESSAGE( STATUS "Looking at : ${CMAKE_CURRENT_SOURCE_DIR}")
-#ENDIF(OSG_VERBOSE_SCAN)
+INCLUDE("CMakeLists.Lib.OSGWindowCocoa.txt")

@@ -232,6 +232,22 @@ CocoaWindowTransitPtr CocoaWindowBase::createLocal(BitVector bFlags)
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+CocoaWindowTransitPtr CocoaWindowBase::createDependent(BitVector bFlags)
+{
+    CocoaWindowTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<CocoaWindow>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 CocoaWindowTransitPtr CocoaWindowBase::create(void)
 {
@@ -283,6 +299,20 @@ FieldContainerTransitPtr CocoaWindowBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr CocoaWindowBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    CocoaWindow *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const CocoaWindow *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }
@@ -370,11 +400,13 @@ void CocoaWindowBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *CocoaWindowBase::createAspectCopy(void) const
+FieldContainer *CocoaWindowBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     CocoaWindow *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const CocoaWindow *>(pRefAspect),
                   dynamic_cast<const CocoaWindow *>(this));
 
     return returnValue;
