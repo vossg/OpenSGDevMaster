@@ -24,8 +24,8 @@ pj = os.path.join
 from optparse import OptionParser
 
 inst_prefix      = "${CMAKE_INSTALL_PREFIX}"
-inst_lib_dir     = "${CMAKE_INSTALL_PREFIX}/lib${OSG_LIBDIR_SUFFIX}"
-inst_inc_dir     = "${CMAKE_INSTALL_PREFIX}/include"
+inst_lib_dir     = pj("${CMAKE_INSTALL_PREFIX}", "lib${OSG_LIBDIR_SUFFIX}")
+inst_inc_dir     = pj("${CMAKE_INSTALL_PREFIX}", "include")
 
 lib_dir          = inst_lib_dir
 inc_dir          = inst_inc_dir

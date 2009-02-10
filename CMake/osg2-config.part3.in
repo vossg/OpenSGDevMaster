@@ -33,9 +33,9 @@ def main():
     parser.add_option("--prefix",     action="store_true",
                       help="Print the installation prefix.")
     parser.add_option("--libdir",     action="store_true",
-                      help="Print the library installation dir")
+                      help="Print the library installation directory")
     parser.add_option("--includedir", action="store_true",
-                      help="Print the header directory")
+                      help="Print the header installation directory")
     parser.add_option("--cflags",     action="store_true",
                       help="Print OpenSG specific cflags.")
     parser.add_option("--lflags",     action="store_true",
@@ -78,13 +78,13 @@ def main():
 
     if options.build_type == "Release":
         spez_lib_dir = pj(inst_prefix, lib_part)
-        spez_inc_dir = pj(inst_prefix, "include", "OpenSG")
+        spez_inc_dir = pj(inst_prefix, "include")
     elif options.build_type == "Debug":
         spez_lib_dir = pj(inst_prefix, lib_part, "debug")
-        spez_inc_dir = pj(inst_prefix, "include", "OpenSG")
+        spez_inc_dir = pj(inst_prefix, "include")
     elif options.build_type == "DebugRT":
         spez_lib_dir = pj(inst_prefix, lib_part, "debugrt")
-        spez_inc_dir = pj(inst_prefix, "include", "OpenSG")
+        spez_inc_dir = pj(inst_prefix, "include")
         lib_suffix   = "_d"
 
     # paths for different build type requested, overwrite defaults
@@ -180,8 +180,9 @@ def collect_inc_dir(libraries, lib_map):
             if not j in inc_dir_list:
                 inc_dir_list.append(j)
 
-    if not inc_dir in inc_dir_list:
-        inc_dir_list.append(inc_dir)
+    for i in [inc_dir, pj(inc_dir, "OpenSG")]:
+        if not i in inc_dir_list:
+            inc_dir_list.append(i)
 
     return inc_dir_list
 
