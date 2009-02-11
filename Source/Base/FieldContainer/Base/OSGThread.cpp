@@ -760,6 +760,16 @@ void Thread::initThreading(void)
 //                              Thread::freeChangeList);
 
     FFASSERT((rc == 0), 1, ("Failed to create pthread changelist key\n");)
+
+    rc = pthread_key_create(&(Thread::_namespaceMaskKey), NULL); 
+//                              Thread::freeChangeList);
+
+    FFASSERT((rc == 0), 1, ("Failed to create pthread namespaceMask key\n");)
+
+    rc = pthread_key_create(&(Thread::_localFlagsKey), NULL); 
+//                              Thread::freeChangeList);
+
+    FFASSERT((rc == 0), 1, ("Failed to create pthread localFlags key\n");)
 #endif
 
 #if defined(OSG_USE_WINTHREADS) && defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)       
