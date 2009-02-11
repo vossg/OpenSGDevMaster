@@ -115,6 +115,20 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowStageData : public ShadowStageDataBase
             pTexE  = src.pTexE;
             pFBO   = src.pFBO;
         }
+
+        bool operator ==(const ShadowMapElem &other) const
+        {
+            return uiType == other.uiType &&
+                   pImage == other.pImage &&
+                   pTexO  == other.pTexO  &&
+                   pTexE  == other.pTexE  &&
+                   pFBO   == other.pFBO;
+        }
+
+        bool operator !=(const ShadowMapElem &other) const
+        {
+            return ! (*this == other);
+        }
     };
 
     typedef std::vector<ShadowMapElem> ShadowMapStore;
