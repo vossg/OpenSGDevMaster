@@ -772,6 +772,16 @@ void Thread::initThreading(void)
 
     FFASSERT((Thread::_changeListKey != 0xFFFFFFFF), 1, 
              ("Failed to alloc changelist key local storage\n");)
+
+    Thread::_namespaceMaskKey = TlsAlloc();
+
+    FFASSERT((Thread::_namespaceMaskKey != 0xFFFFFFFF), 1, 
+             ("Failed to alloc namespace key local storage\n");)
+
+    Thread::_localFlagsKey = TlsAlloc();
+
+    FFASSERT((Thread::_localFlagsKey != 0xFFFFFFFF), 1, 
+             ("Failed to alloc localflags key local storage\n");)
 #endif
 
     ThreadManager::setAppThreadType("OSGThread");
