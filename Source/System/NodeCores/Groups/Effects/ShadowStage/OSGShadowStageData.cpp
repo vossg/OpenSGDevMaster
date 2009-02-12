@@ -61,6 +61,9 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
+const UInt32 ShadowStageData::ShadowMapElem::DepthShadowMap;
+const UInt32 ShadowStageData::ShadowMapElem::ColorShadowMap;
+
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
