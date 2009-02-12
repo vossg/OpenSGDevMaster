@@ -511,6 +511,11 @@ WalkEngine* Navigator::getWalkNavigator()
     return _walkEngine;
 }
 
+NoneEngine* Navigator::getNoneNavigator(void)
+{ 
+    return _noneEngine;
+}
+
 NavigatorEngine* Navigator::getUserNavigator(void)
 {
     return _userEngine;
