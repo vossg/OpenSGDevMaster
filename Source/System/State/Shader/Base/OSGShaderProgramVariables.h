@@ -196,6 +196,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
                                      MFInt32  *pVarLoc,
                                      MFInt32  *pProcVarLoc);
 
+#if 0
     bool addUniformVariable   (const Char8    *name, 
                                const MFPnt2f  &value,
                                      MFInt32  *pVarLoc,
@@ -205,6 +206,7 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
                                const MFPnt3f  &value,
                                      MFInt32  *pVarLoc,
                                      MFInt32  *pProcVarLoc);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
