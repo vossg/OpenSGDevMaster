@@ -801,6 +801,14 @@ bool ShaderProgram::subUniformVariable(const Char8 *name)
     return false;
 }
 
+void ShaderProgram::clearUniformVariables(void)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        _sfVariables.getValue()->clearUniformVariables();
+    }
+}
+
 bool ShaderProgram::addProceduralVariable(const Char8          *name,
                                                 ProcVarFunctor  pFunc,
                                                 UInt32          uiDependency)
