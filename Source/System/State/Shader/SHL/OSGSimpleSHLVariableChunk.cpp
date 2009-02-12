@@ -170,6 +170,26 @@ void SimpleSHLVariableChunk::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+bool SimpleSHLVariableChunk::subUniformVariable(const Char8 *name)
+{
+    if(_sfVariables.getValue() != NULL)
+    {
+        return _sfVariables.getValue()->subUniformVariable(name, NULL, NULL);
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void SimpleSHLVariableChunk::clearUniformVariables(void)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        _sfVariables.getValue()->clearUniformVariables();
+    }
+}
+
 void SimpleSHLVariableChunk::dump(      UInt32    ,
                                   const BitVector ) const
 {
