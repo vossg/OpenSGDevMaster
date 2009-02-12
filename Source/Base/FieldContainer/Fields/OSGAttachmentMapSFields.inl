@@ -65,6 +65,22 @@ bool
 }
 
 inline
+bool GetSFieldHandle<SFAttachmentPtrMap>::empty(void)
+{
+    bool returnValue = true;
+
+    SFAttachmentPtrMap const *pLhs = 
+        static_cast<SFAttachmentPtrMap const *>(_pField);
+
+    if(pLhs != NULL)
+    {
+        returnValue = pLhs->getValue().empty();
+    }
+
+    return returnValue;
+}
+
+inline
 void GetSFieldHandle<SFAttachmentPtrMap>::pushValueToStream(
     OutStream &str) const
 {
@@ -84,7 +100,7 @@ void GetSFieldHandle<SFAttachmentPtrMap>::pushSizeToStream(
 
 inline
 bool GetSFieldHandle<SFAttachmentPtrMap>::equal(
-    Inherited::Ptr rhs) const
+    Base::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<GetSFieldHandle>(rhs);
 
@@ -148,6 +164,21 @@ bool EditSFieldHandle<SFAttachmentPtrMap>::isPointerField(void) const
 }
 
 inline
+bool EditSFieldHandle<SFAttachmentPtrMap>::empty(void)
+{
+    bool returnValue = true;
+
+    SFAttachmentPtrMap *pLhs = static_cast<SFAttachmentPtrMap *>(_pField);
+
+    if(pLhs != NULL)
+    {
+        returnValue = pLhs->getValue().empty();
+    }
+
+    return returnValue;
+}
+
+inline
 void EditSFieldHandle<SFAttachmentPtrMap>::pushValueToStream(
     OutStream &str) const
 {
@@ -167,7 +198,7 @@ void EditSFieldHandle<SFAttachmentPtrMap>::pushSizeToStream(
 
 inline
 bool EditSFieldHandle<SFAttachmentPtrMap>::equal(
-    Inherited::Ptr rhs) const
+    Base::Ptr rhs) const
 {
     Ptr pOther = boost::dynamic_pointer_cast<EditSFieldHandle>(rhs);
 

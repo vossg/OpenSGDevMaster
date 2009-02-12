@@ -91,7 +91,6 @@ OSG_BEGIN_NAMESPACE
     @!Description!@
  */
 
-@@if hasFields
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
@@ -111,13 +110,13 @@ OSG_BEGIN_NAMESPACE
 
 void @!Classname!@Base::classDescInserter(TypeObject &oType)
 {
-    @@if hasFields
-    FieldDescriptionBase *pDesc = NULL;
-
 @@if hasMixinParent
     Inherited::classDescInserter(oType);
 
 @@endif
+    @@if hasFields
+    FieldDescriptionBase *pDesc = NULL;
+
     @@endif // hasFields
     @@if isDecorator
     pDesc = new SFUnrec@!Parent!@Ptr::Description(
@@ -154,7 +153,6 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
     @@endif // isDecorator
 }
 
-@@endif // hasFields
 
 @!Classname!@Base::TypeObject @!Classname!@Base::_type(
     @!Classname!@Base::getClassname(),
@@ -168,11 +166,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 @@endif // isAbstract
     @!Classname!@::initMethod,
     @!Classname!@::exitMethod,
-@@if hasFields
     reinterpret_cast<InitalInsertDescFunc>(&@!Classname!@Base::classDescInserter),
-@@else // hasFields
-    NULL,
-@@endif // hasFields
     false,
     @!FieldsUnmarkedOnCreate!@,
     @!Fcdxml!@,

@@ -78,7 +78,7 @@
 #include "OSG@!Classname!@Fields.h"
 @@if hasMixinParent
 
-#include "OSG@!MixinParent!@.h"
+#include "@!MixinHeader!@"
 @@endif
 
 OSG_BEGIN_NAMESPACE

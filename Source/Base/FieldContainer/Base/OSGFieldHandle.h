@@ -233,6 +233,112 @@ class OSG_BASE_DLLMAPPING EditFieldHandle : public FieldHandle
 typedef boost::shared_ptr<EditFieldHandle> EditFieldHandlePtr;
 
 
+class GetMapFieldHandle : public GetFieldHandle
+{
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+    
+    void operator =(const GetMapFieldHandle &source);
+
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    typedef GetFieldHandle Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef boost::function<void (FieldContainer *)> TraverseCallback;
+
+    typedef boost::shared_ptr<GetMapFieldHandle    > Ptr;
+
+    typedef std::pair<std::vector<std::string>, 
+                      FieldContainer *             > ListEntry;             
+
+    typedef std::vector<ListEntry                  > MapList;
+
+    /*---------------------------------------------------------------------*/
+
+    GetMapFieldHandle(const GetMapFieldHandle    &source);
+    GetMapFieldHandle(const Field                *pField, 
+                      const FieldDescriptionBase *pDescription);
+
+
+    virtual ~GetMapFieldHandle(void);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void traverse(TraverseCallback oCallBack) = 0;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool empty  (void          ) = 0;
+    virtual void flatten(MapList &vList) = 0;
+
+    /*---------------------------------------------------------------------*/
+};
+
+typedef boost::shared_ptr<GetMapFieldHandle> GetMapFieldHandlePtr;
+
+class EditMapFieldHandle : public EditFieldHandle
+{
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+    
+    void operator =(const EditMapFieldHandle &source);
+
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+
+    typedef EditFieldHandle Inherited;
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    typedef boost::function<void (FieldContainer *)> TraverseCallback;
+
+    typedef boost::shared_ptr<EditMapFieldHandle>    Ptr;
+
+    typedef std::pair<std::vector<std::string>, 
+                      FieldContainer *             > ListEntry;             
+
+    typedef std::vector<ListEntry                  > MapList;
+
+    /*---------------------------------------------------------------------*/
+
+    EditMapFieldHandle(const EditMapFieldHandle   &source);
+    EditMapFieldHandle(      Field                *pField, 
+                       const FieldDescriptionBase *pDescription);
+
+
+    virtual ~EditMapFieldHandle(void);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void add(      FieldContainer *rhs,
+                     const std::string    &szBindings) = 0;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void traverse(TraverseCallback oCallBack) = 0;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool empty  (void          ) = 0;
+    virtual void flatten(MapList &vList) = 0;
+};
+
+typedef boost::shared_ptr<EditMapFieldHandle> EditMapFieldHandlePtr;
+
+
+
 
 template<class FieldT>
 class EditSFieldHandle : public EditFieldHandle

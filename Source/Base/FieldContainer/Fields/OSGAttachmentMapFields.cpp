@@ -48,6 +48,7 @@
 
 #include <OSGTypeBasePredicates.h>
 #include <OSGReflexiveContainerTypePredicates.h>
+#include <OSGMapHelper.h>
 
 #include <OSGSField.ins>
 
@@ -164,19 +165,91 @@ void FieldTraits<AttachmentMap>::copyFromBin(BinaryDataHandler &pMem,
 }
 
 void EditSFieldHandle<SFAttachmentPtrMap>::add(
-    FieldContainer * const rhs,
-    UInt32                 uiBindings)
+          FieldContainer *rhs,
+    const std::string    &szBindings)
 {
-    Attachment * const pVal = 
-        dynamic_cast<Attachment * const>(rhs);
+    Attachment *pVal       = dynamic_cast<Attachment *>(rhs);
+    UInt32      uiBindings = 0;
+
+    if(pVal == NULL)
+    {
+        MapHelper *pMHelper = dynamic_cast<MapHelper *>(rhs);
+ 
+        if(pMHelper != NULL)
+        {
+            pVal = dynamic_cast<Attachment *>(pMHelper->getContainer());
+
+            if(pMHelper->getMFKeys()->empty() == false)
+            {
+                const std::string &szKey = pMHelper->getKeys(0);
+
+                uiBindings = TypeTraits<UInt32>::getFromCString(szKey.c_str());
+            }
+        }
+    }
+    else
+    {
+        if(szBindings.empty() == false)
+        {
+            uiBindings = TypeTraits<UInt32>::getFromCString(szBindings.c_str());
+        }
+    }
 
     if(rhs != NULL && pVal == NULL)
         return;
+
 
     // for whatever reason VS2003 does not like == NULL
     if(_fAddMethod)
     {
         _fAddMethod(pVal, uiBindings);
+    }
+}
+
+void EditSFieldHandle<SFAttachmentPtrMap>::traverse(TraverseCallback oCallback)
+{
+    const SFAttachmentPtrMap *pMap = static_cast<SFAttachmentPtrMap *>(_pField);
+
+    if(oCallback && pMap != NULL)
+    {
+        AttachmentMap::const_iterator mapIt  = pMap->getValue().begin();
+        AttachmentMap::const_iterator mapEnd = pMap->getValue().end  ();
+
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            oCallback(mapIt->second);
+        }
+    }
+}
+
+void EditSFieldHandle<SFAttachmentPtrMap>::flatten(MapList &vList)
+{
+    vList.clear();
+
+    const SFAttachmentPtrMap *pMap = static_cast<SFAttachmentPtrMap *>(_pField);
+
+    if(pMap != NULL)
+    {
+        AttachmentMap::const_iterator mapIt  = pMap->getValue().begin();
+        AttachmentMap::const_iterator mapEnd = pMap->getValue().end  ();
+
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            if(mapIt->second->getInternal().getValue() == true)
+                continue;
+
+            std::string szKey;
+
+            TypeTraits<UInt32>::putToString((mapIt->first & 0x0000FFFF), 
+                                            szKey);
+
+            ListEntry tmpEntry;
+
+            tmpEntry.first.push_back(szKey);
+            tmpEntry.second = mapIt->second;
+
+            vList.push_back(tmpEntry);
+        }
     }
 }
 
@@ -235,6 +308,56 @@ void EditSFieldHandle<SFAttachmentPtrMap>::cloneValues(
         if(_fAddMethod)
         {
             _fAddMethod(att, uiBinding);
+        }
+    }
+}
+
+
+void GetSFieldHandle<SFAttachmentPtrMap>::traverse(TraverseCallback oCallback)
+{
+    SFAttachmentPtrMap const *pMap = 
+        static_cast<SFAttachmentPtrMap const *>(_pField);
+
+    if(oCallback && pMap != NULL)
+    {
+        AttachmentMap::const_iterator mapIt  = pMap->getValue().begin();
+        AttachmentMap::const_iterator mapEnd = pMap->getValue().end  ();
+
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            oCallback(mapIt->second);
+        }
+    }
+}
+
+void GetSFieldHandle<SFAttachmentPtrMap>::flatten(MapList &vList)
+{
+    vList.clear();
+
+    SFAttachmentPtrMap const *pMap = 
+        static_cast<SFAttachmentPtrMap const *>(_pField);
+
+    if(pMap != NULL)
+    {
+        AttachmentMap::const_iterator mapIt  = pMap->getValue().begin();
+        AttachmentMap::const_iterator mapEnd = pMap->getValue().end  ();
+
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            if(mapIt->second->getInternal().getValue() == true)
+                continue;
+
+            std::string szKey;
+
+            TypeTraits<UInt32>::putToString((mapIt->first & 0x0000FFFF), 
+                                            szKey);
+
+            ListEntry tmpEntry;
+
+            tmpEntry.first.push_back(szKey);
+            tmpEntry.second = mapIt->second;
+
+            vList.push_back(tmpEntry);
         }
     }
 }

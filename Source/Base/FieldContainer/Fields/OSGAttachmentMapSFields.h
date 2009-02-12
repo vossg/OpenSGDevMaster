@@ -57,13 +57,14 @@ typedef SField<AttachmentMap> SFAttachmentPtrMap;
 
 template<>
 class OSG_BASE_DLLMAPPING GetSFieldHandle<SFAttachmentPtrMap> : 
-    public GetFieldHandle
+    public GetMapFieldHandle
 {
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    typedef GetFieldHandle Inherited;
+    typedef GetMapFieldHandle Inherited;
+    typedef GetFieldHandle    Base;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -84,12 +85,21 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<SFAttachmentPtrMap> :
 
     /*---------------------------------------------------------------------*/
 
+    virtual void traverse(TraverseCallback oCallBack);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool empty  (void          );
+    virtual void flatten(MapList &vList);
+
+    /*---------------------------------------------------------------------*/
+
     virtual void pushValueToStream(OutStream &str) const;
     virtual void pushSizeToStream (OutStream &str) const;
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool equal(Inherited::Ptr rhs) const;
+    virtual bool equal(Base::Ptr rhs) const;
 
     /*---------------------------------------------------------------------*/
 
@@ -99,13 +109,14 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<SFAttachmentPtrMap> :
 
 template<>
 class OSG_BASE_DLLMAPPING 
-    EditSFieldHandle<SFAttachmentPtrMap> : public EditFieldHandle
+    EditSFieldHandle<SFAttachmentPtrMap> : public EditMapFieldHandle
 {
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    typedef EditFieldHandle Inherited;
+    typedef EditMapFieldHandle Inherited;
+    typedef EditFieldHandle    Base;
 
     typedef boost::function<void(Attachment * const,
                                  UInt32            )> AddMethod;
@@ -132,8 +143,17 @@ class OSG_BASE_DLLMAPPING
 
     /*---------------------------------------------------------------------*/
 
-    virtual void add(FieldContainer * const rhs,
-                     UInt32                 uiBindings);
+    virtual void add(      FieldContainer *rhs,
+                     const std::string    &szBindings);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual void traverse(TraverseCallback oCallBack);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool empty  (void          );
+    virtual void flatten(MapList &vList);
 
     /*---------------------------------------------------------------------*/
 
@@ -144,7 +164,7 @@ class OSG_BASE_DLLMAPPING
 
     void         setAddMethod(AddMethod      fMethod);
 
-    virtual bool equal       (Inherited::Ptr rhs    ) const;
+    virtual bool equal       (Base::Ptr rhs    ) const;
 
     /*---------------------------------------------------------------------*/
 

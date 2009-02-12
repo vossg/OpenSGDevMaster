@@ -183,6 +183,50 @@ bool EditFieldHandle::operator ==(const GetFieldHandle &rhs)
 
 /*---------------------------------------------------------------------*/
 
+inline
+GetMapFieldHandle::GetMapFieldHandle(const GetMapFieldHandle    &source) :
+    Inherited(source)
+{
+}
+
+inline
+GetMapFieldHandle::GetMapFieldHandle(const Field                *pField, 
+                                     const FieldDescriptionBase *pDescription):
+    Inherited(pField,
+              pDescription)
+{
+}
+
+inline
+GetMapFieldHandle::~GetMapFieldHandle(void)
+{
+}
+
+/*---------------------------------------------------------------------*/
+
+inline
+EditMapFieldHandle::EditMapFieldHandle(const EditMapFieldHandle   &source) :
+    Inherited(source)
+{
+}
+
+inline
+EditMapFieldHandle::EditMapFieldHandle(
+          Field                *pField, 
+    const FieldDescriptionBase *pDescription) :
+
+    Inherited(pField,
+              pDescription)
+{
+}
+
+inline
+EditMapFieldHandle::~EditMapFieldHandle(void)
+{
+}
+
+/*---------------------------------------------------------------------*/
+
 template<class FieldT> inline
 EditSFieldHandle<FieldT>::EditSFieldHandle(const EditSFieldHandle &source) :
     Inherited(source)

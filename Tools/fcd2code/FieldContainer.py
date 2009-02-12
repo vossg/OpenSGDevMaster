@@ -20,6 +20,7 @@ class FieldContainer(FCDElement):
         self.setFCD("name",                   "",       True);
         self.setFCD("parent",                 "",       True);
         self.setFCD("mixinparent",            "",       True);
+        self.setFCD("mixinheader",            "",       True);
         self.setFCD("library",                "",       True);
         self.setFCD("pointerfieldtypes",      "",       True);
         self.setFCD("structure",              "",       True);
@@ -108,8 +109,13 @@ class FieldContainer(FCDElement):
             self["Parent"] = "<UNDEF>";
 
         if self.getFCD("mixinparent") != "":
-            self["MixinParent"] = self.getFCD("mixinparent");
+            self["MixinParent"] = self.getFCD("mixinparent");            
             self["hasMixinParent"] = True
+
+            if self.getFCD("mixinheader") != "":
+                self["MixinHeader"] = self.getFCD("mixinheader");
+            else:
+                self["MixinHeader"] = "OSG" + self["MixinParent"] + ".h"
         else:
             self["MixinParent"] = ""
             self["hasMixinParent"] = False

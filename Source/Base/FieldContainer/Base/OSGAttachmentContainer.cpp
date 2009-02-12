@@ -276,6 +276,23 @@ void AttachmentContainer::dump(      UInt32    uiIndent,
     indentLog(uiIndent, PLOG);
     PLOG << "{" << std::endl;
 
+    AttachmentObjPtrMapConstIt fcI = this->_sfAttachments.getValue().begin();
+    AttachmentObjPtrMapConstIt fcE = this->_sfAttachments.getValue().end  ();
+
+    uiIndent += 4;
+
+    for(; fcI != fcE; ++fcI)
+    {
+        indentLog(uiIndent, PLOG);
+        PLOG << "Key  : " << fcI->first << " | " 
+             << "Bind : " << (fcI->first & 0x0000FFFF) << " | "
+             << "Type : " << fcI->second->getType().getCName() << " | "
+             << "Int  : " << fcI->second->getInternal().getValue()
+             << std::endl;
+    }
+
+    uiIndent -= 4;
+
     indentLog(uiIndent, PLOG);
     PLOG << "}" << std::endl;
 }

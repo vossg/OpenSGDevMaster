@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+	name="MapHelper"
+	parent="FieldContainer"
+	library="Base"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+  <Field
+	 name="keys"
+	 type="std::string"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+	 >
+  </Field>
+  <Field
+	 name="container"
+	 type="FieldContainerPtr"
+	 cardinality="single"
+	 visibility="external"
+     access="public"
+	 >
+  </Field>
+</FieldContainer>

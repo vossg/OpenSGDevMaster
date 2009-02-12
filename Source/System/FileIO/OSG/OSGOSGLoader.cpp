@@ -306,9 +306,9 @@ void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
                 FieldContainerPtrMFieldBase::EditHandle>(
                     _pCurrentField);
 
-        SFAttachmentPtrMap::EditHandlePtr pAMapHandle =
+        EditMapFieldHandlePtr pMapHandle = 
             boost::dynamic_pointer_cast<
-                SFAttachmentPtrMap::EditHandle>(_pCurrentField);
+                EditMapFieldHandle>(_pCurrentField);
 
         if(pSFHandle != NULL && pSFHandle->isValid())
         {
@@ -318,9 +318,9 @@ void OSGLoader::setFieldContainerValue(FieldContainer *pNewNode)
         {
             pMFHandle->add(pNewNode);
         }
-        else if(pAMapHandle != NULL && pAMapHandle->isValid())
+        else if(pMapHandle != NULL && pMapHandle->isValid())
         {
-            pAMapHandle->add(pNewNode, 0);
+            pMapHandle->add(pNewNode, "0");
         }
     }
 }

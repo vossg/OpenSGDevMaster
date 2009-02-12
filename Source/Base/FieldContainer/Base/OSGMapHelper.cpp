@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,116 +36,79 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGATTACHMENTMAPFIELDTRAITS_H_
-#define _OSGATTACHMENTMAPFIELDTRAITS_H_
-#ifdef __sgi
-#pragma once
-#endif
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
 
-#include "OSGFieldTraits.h"
-#include "OSGContainerForwards.h"
+#include <cstdlib>
+#include <cstdio>
 
-#include "map"
+#include <OSGConfig.h>
+
+#include "OSGMapHelper.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Attachment;
+// Documentation for this class is emitted in the
+// OSGMapHelperBase.cpp file.
+// To modify it, please change the .fcd file (OSGMapHelper.fcd) and
+// regenerate the base file.
 
-typedef std::map<UInt32, Attachment *>  AttachmentMap;
+/***************************************************************************\
+ *                           Class variables                               *
+\***************************************************************************/
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+/***************************************************************************\
+ *                           Class methods                                 *
+\***************************************************************************/
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGBaseFieldTraits.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldTraits
-*/
-#endif
-
-/*! \ingroup GrpBaseFieldTraits
- */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
-template <>
-struct FieldTraits<AttachmentMap> : 
-    public FieldTraitsTemplateBase<AttachmentMap>
+void MapHelper::initMethod(InitPhase ePhase)
 {
-  private:
+    Inherited::initMethod(ePhase);
 
-    static  DataType                                 _type;
-
-  public:
-
-    typedef FieldTraits<AttachmentMap>  Self;
-
-
-    enum             { Convertible = Self::NotConvertible                  };
-
-    static OSG_BASE_DLLMAPPING
-                 DataType &getType      (void);
-
-    static const Char8    *getSName     (void) 
+    if(ePhase == TypeObject::SystemPost)
     {
-        return "SFAttachmentPtrMap"; 
     }
+}
 
-    static const Char8    *getMName     (void)
-    {
-        return "MFAttachmentPtrMap"; 
-    }
-    
-    static UInt32 getBinSize(const AttachmentMap &aMap);
 
-    static UInt32 getBinSize(const AttachmentMap *aMaps,
-                                   UInt32         numObjects)
-    {
-        UInt32 size = 0;
+/***************************************************************************\
+ *                           Instance methods                              *
+\***************************************************************************/
 
-        // defaut: individual field sizes
-        for(UInt32 i = 0; i < numObjects; ++i)
-        {
-            size += getBinSize(aMaps[i]);
-        }
+/*-------------------------------------------------------------------------*\
+ -  private                                                                 -
+\*-------------------------------------------------------------------------*/
 
-        return size;
-    }
-    
-    static void copyToBin(      BinaryDataHandler &pMem,
-                          const AttachmentMap     &aMap );
-    
-    static void copyToBin(      BinaryDataHandler &pMem,
-                          const AttachmentMap     *aMaps,
-                                UInt32             numObjects)
-    {
-        for(UInt32 i = 0; i < numObjects; ++i)
-        {
-            copyToBin(pMem, aMaps[i]);
-        }
-    }
-    
-    static void copyFromBin(BinaryDataHandler &pMem,
-                            AttachmentMap     &aMap );
+/*----------------------- constructors & destructors ----------------------*/
 
-    static void copyFromBin(BinaryDataHandler &pMem,
-                            AttachmentMap     *aMaps,
-                            UInt32             numObjects)
-    {
-        for(UInt32 i = 0; i < numObjects; ++i)
-        {
-            copyFromBin(pMem, aMaps[i]);
-        }
-    }
-};
+MapHelper::MapHelper(void) :
+    Inherited()
+{
+}
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ContainerAttachmentMap> */
-/*! \hideinhierarchy                               */
-#endif
+MapHelper::MapHelper(const MapHelper &source) :
+    Inherited(source)
+{
+}
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+MapHelper::~MapHelper(void)
+{
+}
+
+/*----------------------------- class specific ----------------------------*/
+
+void MapHelper::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
+{
+    Inherited::changed(whichField, origin, details);
+}
+
+void MapHelper::dump(      UInt32    ,
+                         const BitVector ) const
+{
+    SLOG << "Dump MapHelper NI" << std::endl;
+}
 
 OSG_END_NAMESPACE
-
-#endif /* _OSGATTACHMENTMAPFIELDTRAITS_H_ */

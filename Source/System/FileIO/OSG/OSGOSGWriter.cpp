@@ -46,6 +46,8 @@
 #include <OSGAttachmentMapSFields.h>
 #include <OSGAttachment.h>
 
+#include <boost/bind.hpp>
+
 OSG_USING_NAMESPACE
 
 #define WFC
@@ -233,31 +235,16 @@ void OSGWriter::visitField(GetFieldHandlePtr hF)
 
     const FieldType &fType       = hF->getType();
 
-    SFAttachmentPtrMap::GetHandlePtr sfAttMap = 
+    GetMapFieldHandlePtr sfMap = 
         boost::dynamic_pointer_cast<
-            SFAttachmentPtrMap::GetHandle>(hF);
+            GetMapFieldHandle>(hF);
 
-//    if(strstr(fType.getCName(), "AttachmentPtrMap") != NULL)
-    if(sfAttMap != NULL && sfAttMap->isValid() == true)
+    if(sfMap != NULL && sfMap->isValid() == true)
     {
-        //visit the Attachment FCs
-//        const SFFieldContainerAttachmentPtrMap *sfAttMap = 
-//            reinterpret_cast<const SFFieldContainerAttachmentPtrMap *>(
-//                hF.getField());
-
-        AttachmentMap::const_iterator iter = (*sfAttMap)->getValue().begin();
-        AttachmentMap::const_iterator end  = (*sfAttMap)->getValue().end();
-
-        for(; iter!=end; ++iter)
-        {
-            visitContainer(iter->second);
-        }
+        sfMap->traverse(boost::bind(&OSGWriter::visitContainer, this, _1));
     }
     else
     {
-//        if(strstr(fType->getCName(), "Ptr") != NULL)
-//       {
-
         FieldContainerPtrSFieldBase::GetHandlePtr sfFCPtr = 
             boost::dynamic_pointer_cast<
                 FieldContainerPtrSFieldBase::GetHandle>(hF);
@@ -266,20 +253,12 @@ void OSGWriter::visitField(GetFieldHandlePtr hF)
             boost::dynamic_pointer_cast<
                 FieldContainerPtrMFieldBase::GetHandle>(hF);
 
-//        if(hF->getCardinality() == FieldType::SINGLE_FIELD)
         if(sfFCPtr != NULL && sfFCPtr->isValid() == true)
         {
-//            const SFFieldContainerPtr *sfFCPtr =
-//                reinterpret_cast<const SFFieldContainerPtr *>(hF.getField());
-
             visitContainer((*sfFCPtr)->getValue());
         }
-//        else if(hF->getCardinality() == FieldType::MULTI_FIELD)
         else if(mfFCPtr != NULL && mfFCPtr->isValid() == true)
         {
-//            const MFFieldContainerPtr *mfFCPtr =
-//                reinterpret_cast<const MFFieldContainerPtr *>(hF.getField());
-
             UInt32 mfSize = (*mfFCPtr)->size();
 
             for(UInt32 i=0; i < mfSize; i++)
@@ -394,9 +373,9 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
 
     const FieldType& fType = hF->getType();
 
-    SFAttachmentPtrMap::GetHandlePtr sfAttMap = 
+    GetMapFieldHandlePtr sfMap = 
         boost::dynamic_pointer_cast<
-            SFAttachmentPtrMap::GetHandle>(hF);
+            GetMapFieldHandle>(hF);
 
     FieldContainerPtrSFieldBase::GetHandlePtr sfFCPtr = 
         boost::dynamic_pointer_cast<FieldContainerPtrSFieldBase::GetHandle>(hF);
@@ -404,16 +383,13 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
     FieldContainerPtrMFieldBase::GetHandlePtr mfFCPtr = 
         boost::dynamic_pointer_cast<FieldContainerPtrMFieldBase::GetHandle>(hF);
 
-    if(sfAttMap != NULL && sfAttMap->isValid() == true)
+    if(sfMap != NULL && sfMap->isValid() == true)
     {
-        AttachmentMap::const_iterator iter = (*sfAttMap)->getValue().begin();
-        AttachmentMap::const_iterator end  = (*sfAttMap)->getValue().end();
-
         _outStream << BeginElem 
                    << hF->getName();
 
         //if the Attachment Map is empty write [] as its content
-        if(iter == end)
+        if(sfMap->empty() == true)
         {
             _outStream << " [ ] " << EndElemNL;
         }
@@ -426,12 +402,70 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
 
             _outStream << IncIndent;
         
+            EditMapFieldHandle::MapList fcList;
+
+            sfMap->flatten(fcList);
+
+            EditMapFieldHandle::MapList::iterator iter = fcList.begin();
+            EditMapFieldHandle::MapList::iterator end  = fcList.end  ();
+
             for(; iter!=end; ++iter)
             {
-                if(iter->second->getInternal().getValue() != true)
+                _outStream << BeginElem
+                           << "MapHelper"
+                           << EndElemNL
+                           << BeginElem
+                           << "{"
+                           << EndElemNL;
+
+                _outStream << IncIndent;
+
+                _outStream << BeginElem
+                           << "keys"
+                           << EndElemNL
+                           << BeginElem
+                           << "["
+                           << EndElemNL;
+
+                _outStream << IncIndent;
+
+                std::vector<std::string>::const_iterator kIt  = 
+                    iter->first.begin();
+
+                std::vector<std::string>::const_iterator kEnd = 
+                    iter->first.end();
+
+                _outStream << BeginElem
+                           << "\""
+                           << *kIt
+                           << "\""
+                           << EndElemNL;
+
+                _outStream << DecIndent;
+
+                _outStream << BeginElem
+                           << "]"
+                           << EndElemNL;
+
+                _outStream << BeginElem
+                           << "container ";
+                    
+                if(iter->second == NULL)
                 {
-                    writeContainer(iter->second, true);
+                    _outStream << "NULL"
+                               << EndElemNL;
                 }
+                else
+                {
+                    writeContainer(iter->second, false);
+                    _outStream << EndElemNL;
+                }
+
+                _outStream << DecIndent;
+                                    
+                _outStream << BeginElem
+                           << "}"
+                           << EndElemNL;
             }
 
             _outStream << DecIndent; 
@@ -443,23 +477,13 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
     }
     else if(sfFCPtr != NULL || mfFCPtr != NULL)
     {
-//        if(strstr(fType.getCName(), "Ptr") != NULL)
-//        {
-
         //this Field points to FC
 
         _outStream << BeginElem 
                    << hF->getName();
 
-        //to access the content of a field via a Field*
-        //one must know the cardinality
-
-//        if(hF.getCardinality() == FieldType::SINGLE_FIELD)
         if(sfFCPtr != NULL && sfFCPtr->isValid() == true)
         {
-//            const SFFieldContainerPtr* sfFCPtr =
-//                reinterpret_cast<const SFFieldContainerPtr*>(hF.getField());
-
             if((*sfFCPtr)->getValue() == NULL)
             {
                 _outStream << " NULL" << EndElemNL;
@@ -470,7 +494,6 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
                 writeContainer((*sfFCPtr)->getValue(), false);
             }
         }
-//        else if(hF.getCardinality() == FieldType::MULTI_FIELD)
         else if(mfFCPtr != NULL && mfFCPtr->isValid() == true)
         {
             _outStream << EndElemNL
@@ -479,9 +502,6 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
                        << EndElemNL;
 
             _outStream << IncIndent;
-
-//            const MFFieldContainerPtr* mfFCPtr =
-//                reinterpret_cast<const MFFieldContainerPtr *>(hF.getField());
 
             UInt32 mfSize = (*mfFCPtr)->size();
 
@@ -511,8 +531,6 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
         //this Field contains data -> write it out
 
         _outStream << BeginElem << hF->getName();
-
-//        std::string fieldValue;
 
         //to access the content of a field via a Field*
         //one must know the cardinality
