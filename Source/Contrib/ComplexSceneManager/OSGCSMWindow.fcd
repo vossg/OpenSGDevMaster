@@ -118,4 +118,36 @@
        fieldFlags=""
 	>
 	</Field>
+    <Field
+	   name="requestSamples"
+	   type="UInt32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="0"
+	>
+    </Field>
+
+    <Field
+	   name="enableFSAA"
+	   type="bool"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="false"
+	>
+    </Field>
+    <Field
+	   name="fsaaHint"
+	   type="UInt32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="GL_FASTEST"
+	>
+    </Field>
+
 </FieldContainer>

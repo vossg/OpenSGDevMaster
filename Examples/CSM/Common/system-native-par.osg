@@ -77,6 +77,9 @@ ComplexSceneManager
         [
            DEF MainWindow CSMNativeWindow
            {
+             requestSamples 4
+             enableFSAA     TRUE
+
              size 300 300
              position 200, 200
              decorEnabled TRUE

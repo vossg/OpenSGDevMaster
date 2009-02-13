@@ -76,6 +76,9 @@
 #include "OSGBoolFields.h" // EnableForwardCompatContext type
 #include "OSGBoolFields.h" // EnableDebugContext type
 #include "OSGStringFields.h" // IgnoreExtensions type
+#include "OSGUInt32Fields.h" // RequestSamples type
+#include "OSGBoolFields.h" // EnableFSAA type
+#include "OSGUInt32Fields.h" // FsaaHint type
 
 #include "OSGCSMWindowFields.h"
 
@@ -114,7 +117,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         EnableForwardCompatContextFieldId = RequestMinorFieldId + 1,
         EnableDebugContextFieldId = EnableForwardCompatContextFieldId + 1,
         IgnoreExtensionsFieldId = EnableDebugContextFieldId + 1,
-        NextFieldId = IgnoreExtensionsFieldId + 1
+        RequestSamplesFieldId = IgnoreExtensionsFieldId + 1,
+        EnableFSAAFieldId = RequestSamplesFieldId + 1,
+        FsaaHintFieldId = EnableFSAAFieldId + 1,
+        NextFieldId = FsaaHintFieldId + 1
     };
 
     static const OSG::BitVector ParentFieldMask =
@@ -139,6 +145,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << EnableDebugContextFieldId);
     static const OSG::BitVector IgnoreExtensionsFieldMask =
         (TypeTraits<BitVector>::One << IgnoreExtensionsFieldId);
+    static const OSG::BitVector RequestSamplesFieldMask =
+        (TypeTraits<BitVector>::One << RequestSamplesFieldId);
+    static const OSG::BitVector EnableFSAAFieldMask =
+        (TypeTraits<BitVector>::One << EnableFSAAFieldId);
+    static const OSG::BitVector FsaaHintFieldMask =
+        (TypeTraits<BitVector>::One << FsaaHintFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -153,6 +165,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     typedef SFBool            SFEnableForwardCompatContextType;
     typedef SFBool            SFEnableDebugContextType;
     typedef MFString          MFIgnoreExtensionsType;
+    typedef SFUInt32          SFRequestSamplesType;
+    typedef SFBool            SFEnableFSAAType;
+    typedef SFUInt32          SFFsaaHintType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -207,6 +222,15 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   MFString            *editMFIgnoreExtensions(void);
             const MFString            *getMFIgnoreExtensions (void) const;
 
+                  SFUInt32            *editSFRequestSamples (void);
+            const SFUInt32            *getSFRequestSamples  (void) const;
+
+                  SFBool              *editSFEnableFSAA     (void);
+            const SFBool              *getSFEnableFSAA      (void) const;
+
+                  SFUInt32            *editSFFsaaHint       (void);
+            const SFUInt32            *getSFFsaaHint        (void) const;
+
 
                   CSMViewport * getViewports      (const UInt32 index) const;
 
@@ -237,6 +261,15 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
                   std::string         &editIgnoreExtensions(const UInt32 index);
             const std::string         &getIgnoreExtensions (const UInt32 index) const;
 
+                  UInt32              &editRequestSamples (void);
+                  UInt32               getRequestSamples  (void) const;
+
+                  bool                &editEnableFSAA     (void);
+                  bool                 getEnableFSAA      (void) const;
+
+                  UInt32              &editFsaaHint       (void);
+                  UInt32               getFsaaHint        (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -250,6 +283,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
             void setRequestMinor   (const Int32 value);
             void setEnableForwardCompatContext(const bool value);
             void setEnableDebugContext(const bool value);
+            void setRequestSamples (const UInt32 value);
+            void setEnableFSAA     (const bool value);
+            void setFsaaHint       (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -304,6 +340,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     SFBool            _sfEnableForwardCompatContext;
     SFBool            _sfEnableDebugContext;
     MFString          _mfIgnoreExtensions;
+    SFUInt32          _sfRequestSamples;
+    SFBool            _sfEnableFSAA;
+    SFUInt32          _sfFsaaHint;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -365,6 +404,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleEnableDebugContext(void);
     GetFieldHandlePtr  getHandleIgnoreExtensions (void) const;
     EditFieldHandlePtr editHandleIgnoreExtensions(void);
+    GetFieldHandlePtr  getHandleRequestSamples  (void) const;
+    EditFieldHandlePtr editHandleRequestSamples (void);
+    GetFieldHandlePtr  getHandleEnableFSAA      (void) const;
+    EditFieldHandlePtr editHandleEnableFSAA     (void);
+    GetFieldHandlePtr  getHandleFsaaHint        (void) const;
+    EditFieldHandlePtr editHandleFsaaHint       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

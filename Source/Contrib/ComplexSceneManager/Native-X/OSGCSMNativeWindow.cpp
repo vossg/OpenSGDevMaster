@@ -376,20 +376,41 @@ bool CSMNativeWindow::init(void)
     
     if(osgGlxChooseGBConfig == NULL)
     {
+        std::vector<int> viForm;
+
+        viForm.push_back(GLX_RGBA);
+        viForm.push_back(GLX_DEPTH_SIZE);
+        viForm.push_back(1); 
+        viForm.push_back(GLX_DOUBLEBUFFER);
+
+        if(_sfRequestSamples.getValue() > 0)
+        {
+            viForm.push_back(GLX_SAMPLE_BUFFERS_ARB);
+            viForm.push_back(True);
+
+            viForm.push_back(GLX_SAMPLES_ARB);
+            viForm.push_back(_sfRequestSamples.getValue());
+        }
+
+        viForm.push_back(None);
+
+#if 0
         int dblBuf[] = {GLX_RGBA, 
                         GLX_DEPTH_SIZE, 1, 
                         GLX_DOUBLEBUFFER, 
 //                    (_pVSCWindow->stereo() == true) ? GLX_STEREO : None,
                         None};
+#endif
         
         vi = glXChooseVisual(_pDisplay, 
                               DefaultScreen(_pDisplay), 
-                              dblBuf);
+                             &(viForm.front()));
     }
     else
     {
         int iMatching;
 
+#if 0
         int fbAttr[] =
         {
             GLX_RENDER_TYPE,   GLX_RGBA_BIT,
@@ -403,12 +424,52 @@ bool CSMNativeWindow::init(void)
             GLX_X_RENDERABLE,  True,
             None
         };
+#endif
 
+        std::vector<int> fbAttr;
+        
+        fbAttr.push_back(GLX_RENDER_TYPE);
+        fbAttr.push_back(GLX_RGBA_BIT);
+
+        fbAttr.push_back(GLX_RED_SIZE);
+        fbAttr.push_back(8);
+        
+        fbAttr.push_back(GLX_GREEN_SIZE);
+        fbAttr.push_back(8);
+
+        fbAttr.push_back(GLX_BLUE_SIZE);
+        fbAttr.push_back(8);
+
+        fbAttr.push_back(GLX_ALPHA_SIZE);
+        fbAttr.push_back(8);
+
+        fbAttr.push_back(GLX_DEPTH_SIZE);
+        fbAttr.push_back(8);
+
+        fbAttr.push_back(GLX_DRAWABLE_TYPE);
+        fbAttr.push_back(GLX_WINDOW_BIT);
+
+        fbAttr.push_back(GLX_DOUBLEBUFFER);
+        fbAttr.push_back(True);
+
+        fbAttr.push_back(GLX_X_RENDERABLE);
+        fbAttr.push_back(True);
+
+        if(_sfRequestSamples.getValue() > 0)
+        {
+            fbAttr.push_back(GLX_SAMPLE_BUFFERS_ARB);
+            fbAttr.push_back(True);
+
+            fbAttr.push_back(GLX_SAMPLES_ARB);
+            fbAttr.push_back(_sfRequestSamples.getValue());
+        }
+
+        fbAttr.push_back(None);
 
         GLXFBConfig *fbConfigs = 
             osgGlxChooseGBConfig( _pDisplay,
                                    DefaultScreen(_pDisplay),
-                                   fbAttr,
+                                 &(fbAttr.front()),
                                  & iMatching);
         
         if(iMatching > 0)

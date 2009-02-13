@@ -128,6 +128,18 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          CSMWindowBase::_sfRequestSamples
+    
+*/
+
+/*! \var bool            CSMWindowBase::_sfEnableFSAA
+    
+*/
+
+/*! \var UInt32          CSMWindowBase::_sfFsaaHint
+    
+*/
+
 
 void CSMWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -265,6 +277,42 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleIgnoreExtensions));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "requestSamples",
+        "",
+        RequestSamplesFieldId, RequestSamplesFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleRequestSamples),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleRequestSamples));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enableFSAA",
+        "",
+        EnableFSAAFieldId, EnableFSAAFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleEnableFSAA),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleEnableFSAA));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "fsaaHint",
+        "",
+        FsaaHintFieldId, FsaaHintFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleFsaaHint),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleFsaaHint));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -399,6 +447,38 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "       fieldFlags=\"\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "\t   name=\"requestSamples\"\n"
+    "\t   type=\"UInt32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"0\"\n"
+    "\t>\n"
+    "    </Field>\n"
+    "\n"
+    "    <Field\n"
+    "\t   name=\"enableFSAA\"\n"
+    "\t   type=\"bool\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"false\"\n"
+    "\t>\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "\t   name=\"fsaaHint\"\n"
+    "\t   type=\"UInt32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"GL_FASTEST\"\n"
+    "\t>\n"
+    "    </Field>\n"
+    "\n"
     "</FieldContainer>\n",
     ""
     );
@@ -554,6 +634,45 @@ const MFString *CSMWindowBase::getMFIgnoreExtensions(void) const
 }
 
 
+SFUInt32 *CSMWindowBase::editSFRequestSamples(void)
+{
+    editSField(RequestSamplesFieldMask);
+
+    return &_sfRequestSamples;
+}
+
+const SFUInt32 *CSMWindowBase::getSFRequestSamples(void) const
+{
+    return &_sfRequestSamples;
+}
+
+
+SFBool *CSMWindowBase::editSFEnableFSAA(void)
+{
+    editSField(EnableFSAAFieldMask);
+
+    return &_sfEnableFSAA;
+}
+
+const SFBool *CSMWindowBase::getSFEnableFSAA(void) const
+{
+    return &_sfEnableFSAA;
+}
+
+
+SFUInt32 *CSMWindowBase::editSFFsaaHint(void)
+{
+    editSField(FsaaHintFieldMask);
+
+    return &_sfFsaaHint;
+}
+
+const SFUInt32 *CSMWindowBase::getSFFsaaHint(void) const
+{
+    return &_sfFsaaHint;
+}
+
+
 
 
 void CSMWindowBase::pushToViewports(CSMViewport * const value)
@@ -661,6 +780,18 @@ UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfIgnoreExtensions.getBinSize();
     }
+    if(FieldBits::NoField != (RequestSamplesFieldMask & whichField))
+    {
+        returnValue += _sfRequestSamples.getBinSize();
+    }
+    if(FieldBits::NoField != (EnableFSAAFieldMask & whichField))
+    {
+        returnValue += _sfEnableFSAA.getBinSize();
+    }
+    if(FieldBits::NoField != (FsaaHintFieldMask & whichField))
+    {
+        returnValue += _sfFsaaHint.getBinSize();
+    }
 
     return returnValue;
 }
@@ -714,6 +845,18 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfIgnoreExtensions.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RequestSamplesFieldMask & whichField))
+    {
+        _sfRequestSamples.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableFSAAFieldMask & whichField))
+    {
+        _sfEnableFSAA.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (FsaaHintFieldMask & whichField))
+    {
+        _sfFsaaHint.copyToBin(pMem);
+    }
 }
 
 void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -765,6 +908,18 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _mfIgnoreExtensions.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (RequestSamplesFieldMask & whichField))
+    {
+        _sfRequestSamples.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnableFSAAFieldMask & whichField))
+    {
+        _sfEnableFSAA.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (FsaaHintFieldMask & whichField))
+    {
+        _sfFsaaHint.copyFromBin(pMem);
+    }
 }
 
 
@@ -784,7 +939,10 @@ CSMWindowBase::CSMWindowBase(void) :
     _sfRequestMinor           (Int32(0)),
     _sfEnableForwardCompatContext(bool(false)),
     _sfEnableDebugContext     (bool(false)),
-    _mfIgnoreExtensions       ()
+    _mfIgnoreExtensions       (),
+    _sfRequestSamples         (UInt32(0)),
+    _sfEnableFSAA             (bool(false)),
+    _sfFsaaHint               (UInt32(GL_FASTEST))
 {
 }
 
@@ -800,7 +958,10 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _sfRequestMinor           (source._sfRequestMinor           ),
     _sfEnableForwardCompatContext(source._sfEnableForwardCompatContext),
     _sfEnableDebugContext     (source._sfEnableDebugContext     ),
-    _mfIgnoreExtensions       (source._mfIgnoreExtensions       )
+    _mfIgnoreExtensions       (source._mfIgnoreExtensions       ),
+    _sfRequestSamples         (source._sfRequestSamples         ),
+    _sfEnableFSAA             (source._sfEnableFSAA             ),
+    _sfFsaaHint               (source._sfFsaaHint               )
 {
 }
 
@@ -1156,6 +1317,75 @@ EditFieldHandlePtr CSMWindowBase::editHandleIgnoreExtensions(void)
 
 
     editMField(IgnoreExtensionsFieldMask, _mfIgnoreExtensions);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleRequestSamples  (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfRequestSamples,
+             this->getType().getFieldDesc(RequestSamplesFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleRequestSamples (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfRequestSamples,
+             this->getType().getFieldDesc(RequestSamplesFieldId)));
+
+
+    editSField(RequestSamplesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleEnableFSAA      (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnableFSAA,
+             this->getType().getFieldDesc(EnableFSAAFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleEnableFSAA     (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnableFSAA,
+             this->getType().getFieldDesc(EnableFSAAFieldId)));
+
+
+    editSField(EnableFSAAFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleFsaaHint        (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfFsaaHint,
+             this->getType().getFieldDesc(FsaaHintFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleFsaaHint       (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfFsaaHint,
+             this->getType().getFieldDesc(FsaaHintFieldId)));
+
+
+    editSField(FsaaHintFieldMask);
 
     return returnValue;
 }

@@ -62,6 +62,10 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
+UInt32 CSMWindow::_extMultiSample       = Window::invalidExtensionID;
+UInt32 CSMWindow::_extNVMultiSampleHint = Window::invalidExtensionID;
+UInt32 CSMWindow::FuncIdSampleCoverage  = Window::invalidFunctionID;
+
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -72,6 +76,15 @@ void CSMWindow::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
+        _extMultiSample        = 
+            Window::registerExtension("GL_ARB_multisample");
+
+        _extNVMultiSampleHint  = 
+            Window::registerExtension("GL_NV_multisample_filter_hint");
+
+        FuncIdSampleCoverage   = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glSampleCoverageARB",
+            _extMultiSample);
     }
 }
 
@@ -235,13 +248,34 @@ void CSMWindow::render(RenderAction *pAction)
     OSG::Window *pThreadLocalWin = _pWindow;
 #endif
 
+    pThreadLocalWin->activate ();
+    pThreadLocalWin->frameInit();
+
+    if(_sfRequestSamples.getValue() > 0)
+    {
+        if(_sfEnableFSAA.getValue() == true)
+        {
+            glEnable(GL_MULTISAMPLE_ARB);
+
+            if(pThreadLocalWin->hasExtension(_extNVMultiSampleHint) == true)
+            {
+                glHint(GL_MULTISAMPLE_FILTER_HINT_NV,
+                       _sfFsaaHint.getValue());
+            }
+        }
+        else
+        {
+            glDisable(GL_MULTISAMPLE_ARB);
+        }
+    }
+
     if(_bFirstFrame == true)
     {
         _bFirstFrame = false;
 
         pAction->setFrustumCulling(false);
 
-        pThreadLocalWin->render(pAction);
+        pThreadLocalWin->renderAllViewports(pAction);
 
         pAction->setFrustumCulling(true);
     }
@@ -260,7 +294,7 @@ void CSMWindow::render(RenderAction *pAction)
         }
 #endif        
 
-        pThreadLocalWin->render(pAction);
+        pThreadLocalWin->renderAllViewports(pAction);
 
 #if 0
         if(_bSceneWireframe == true || _bSceneDoubleSided == true)
@@ -276,6 +310,16 @@ void CSMWindow::render(RenderAction *pAction)
 #endif
     }
 
+    if(_sfRequestSamples.getValue() > 0)
+    {
+        if(_sfEnableFSAA.getValue() == true)
+        {
+            glDisable(GL_MULTISAMPLE_ARB);
+        }
+    }    
+    
+    pThreadLocalWin->swap     ();
+    pThreadLocalWin->frameExit();
 }
 
 void CSMWindow::frameRenderActivate(RenderAction *pAction)
@@ -290,6 +334,24 @@ void CSMWindow::frameRenderActivate(RenderAction *pAction)
     pThreadLocalWin->activate          (       );
     pThreadLocalWin->frameInit         (       );
 
+    if(_sfRequestSamples.getValue() > 0)
+    {
+        if(_sfEnableFSAA.getValue() == true)
+        {
+            glEnable(GL_MULTISAMPLE_ARB);
+
+            if(pThreadLocalWin->hasExtension(_extNVMultiSampleHint) == true)
+            {
+                glHint(GL_MULTISAMPLE_FILTER_HINT_NV,
+                       _sfFsaaHint.getValue());
+            }
+        }
+        else
+        {
+            glDisable(GL_MULTISAMPLE_ARB);
+        }
+    }
+
     if(_bFirstFrame == true)
     {
         _bFirstFrame = false;
@@ -303,6 +365,14 @@ void CSMWindow::frameRenderActivate(RenderAction *pAction)
     else
     {
         pThreadLocalWin->renderAllViewports(pAction);
+    }
+
+    if(_sfRequestSamples.getValue() > 0)
+    {
+        if(_sfEnableFSAA.getValue() == true)
+        {
+            glDisable(GL_MULTISAMPLE_ARB);
+        }
     }
 
     pThreadLocalWin->deactivate        (       );
@@ -362,6 +432,24 @@ void CSMWindow::frameRender(RenderAction *pAction)
 
     pThreadLocalWin->frameInit();
 
+    if(_sfRequestSamples.getValue() > 0)
+    {
+        if(_sfEnableFSAA.getValue() == true)
+        {
+            glEnable(GL_MULTISAMPLE_ARB);
+
+            if(pThreadLocalWin->hasExtension(_extNVMultiSampleHint) == true)
+            {
+                glHint(GL_MULTISAMPLE_FILTER_HINT_NV,
+                       _sfFsaaHint.getValue());
+            }
+        }
+        else
+        {
+            glDisable(GL_MULTISAMPLE_ARB);
+        }
+    }
+
     if(_bFirstFrame == true)
     {
         _bFirstFrame = false;
@@ -375,6 +463,14 @@ void CSMWindow::frameRender(RenderAction *pAction)
     else
     {
         pThreadLocalWin->renderAllViewports(pAction);
+    }
+
+    if(_sfRequestSamples.getValue() > 0)
+    {
+        if(_sfEnableFSAA.getValue() == true)
+        {
+            glDisable(GL_MULTISAMPLE_ARB);
+        }
     }
 }
 

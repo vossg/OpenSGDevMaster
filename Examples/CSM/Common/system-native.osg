@@ -107,6 +107,9 @@ ComplexSceneManager
 #             enableForwardCompatContext TRUE
 #             enableDebugContext         TRUE
 
+             requestSamples 4
+             enableFSAA     TRUE
+
              size 512 512
              position 200, 200
              decorEnabled TRUE

@@ -273,6 +273,81 @@ void CSMWindowBase::setEnableDebugContext(const bool value)
 
     _sfEnableDebugContext.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfRequestSamples field.
+
+inline
+UInt32 &CSMWindowBase::editRequestSamples(void)
+{
+    editSField(RequestSamplesFieldMask);
+
+    return _sfRequestSamples.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfRequestSamples field.
+inline
+      UInt32  CSMWindowBase::getRequestSamples(void) const
+{
+    return _sfRequestSamples.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfRequestSamples field.
+inline
+void CSMWindowBase::setRequestSamples(const UInt32 value)
+{
+    editSField(RequestSamplesFieldMask);
+
+    _sfRequestSamples.setValue(value);
+}
+//! Get the value of the CSMWindow::_sfEnableFSAA field.
+
+inline
+bool &CSMWindowBase::editEnableFSAA(void)
+{
+    editSField(EnableFSAAFieldMask);
+
+    return _sfEnableFSAA.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfEnableFSAA field.
+inline
+      bool  CSMWindowBase::getEnableFSAA(void) const
+{
+    return _sfEnableFSAA.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfEnableFSAA field.
+inline
+void CSMWindowBase::setEnableFSAA(const bool value)
+{
+    editSField(EnableFSAAFieldMask);
+
+    _sfEnableFSAA.setValue(value);
+}
+//! Get the value of the CSMWindow::_sfFsaaHint field.
+
+inline
+UInt32 &CSMWindowBase::editFsaaHint(void)
+{
+    editSField(FsaaHintFieldMask);
+
+    return _sfFsaaHint.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfFsaaHint field.
+inline
+      UInt32  CSMWindowBase::getFsaaHint(void) const
+{
+    return _sfFsaaHint.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfFsaaHint field.
+inline
+void CSMWindowBase::setFsaaHint(const UInt32 value)
+{
+    editSField(FsaaHintFieldMask);
+
+    _sfFsaaHint.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMWindow::_mfViewports field.
 inline
@@ -346,6 +421,15 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (RequestSamplesFieldMask & whichField))
+        _sfRequestSamples.syncWith(pFrom->_sfRequestSamples);
+
+    if(FieldBits::NoField != (EnableFSAAFieldMask & whichField))
+        _sfEnableFSAA.syncWith(pFrom->_sfEnableFSAA);
+
+    if(FieldBits::NoField != (FsaaHintFieldMask & whichField))
+        _sfFsaaHint.syncWith(pFrom->_sfFsaaHint);
 }
 #endif
 

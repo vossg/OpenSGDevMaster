@@ -117,6 +117,10 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
   protected:
 
+    static UInt32 _extMultiSample;
+    static UInt32 _extNVMultiSampleHint;
+    static UInt32 FuncIdSampleCoverage;
+
     // Variables should all be in CSMWindowBase.
 
     WindowRecPtr _pWindow;

@@ -17,7 +17,35 @@ ContainerCollection
 	  sceneRef USE ModelRoot
 	  distScale 1.5
     }
-  ]
+
+    DEF KeyA KeySensor
+    {
+      key "A"
+      stateFlipFlop FALSE
+    }
+
+    DEF FSAAHintCounter LimitedUInt32Counter
+    {
+      value 0x1100
+      step  1
+
+      lowerLimit 0x1100
+      upperLimit 0x1102
+    }
+
+    DEF HintUp KeySensor
+    {
+      key "F"
+      stateFlipFlop TRUE
+    }       
+
+    DEF HintDown KeySensor
+    {
+      key "f"
+      stateFlipFlop TRUE
+    } 
+
+   ]
 }
 
 ROUTE ScenePara.sceneDiag   TO Trackball.worldDiag
@@ -26,3 +54,13 @@ ROUTE ScenePara.sceneCenter TO Trackball.transformCenter
 
 ROUTE MainWindow.mouseData   TO Trackball.mouseData
 ROUTE Trackball.matrixResult TO CameraRoot.matrix
+
+ROUTE KeyA.stateFlipFlop     TO MainWindow .enableFSAA
+ROUTE KeyA.stateFlipFlop     TO MainWindow1.enableFSAA
+
+ROUTE HintUp  .signalPressed  TO FSAAHintCounter.incTrigger
+ROUTE HintDown.signalPressed  TO FSAAHintCounter.decTrigger
+
+ROUTE FSAAHintCounter.value   TO MainWindow .fsaaHint
+ROUTE FSAAHintCounter.value   TO MainWindow1.fsaaHint
+
