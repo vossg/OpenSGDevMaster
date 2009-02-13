@@ -149,12 +149,11 @@ bool OcclusionCullingTreeBuilder::staticInit(void)
 
 
 OcclusionCullingTreeBuilder::OcclusionCullingTreeBuilder(void)
-: uNumNodes (0),
-  _isOccSetup(false),
-  _currSample(0),
-  _numTestSamples(0)
+    : uNumNodes      (0),
+      _isOccSetup    (false),
+      _currSample    (0),
+      _numTestSamples(0)
 {
-     
     _buckets.clear();
     _buckets.resize(_nBuckets);   
     _bucketsWork.clear();
@@ -164,7 +163,6 @@ OcclusionCullingTreeBuilder::OcclusionCullingTreeBuilder(void)
 OcclusionCullingTreeBuilder::~OcclusionCullingTreeBuilder(void)
 {
     // Should delete queries here, but those need GL context...
-    delete [] _testSamples;
 }
 
 
@@ -277,17 +275,17 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
     }
 
     _uiActiveMatrix = 0;
-    Real32 screen_covered_percentage = 0.f;
+    Real32 screenCoveredPercentage = 0.f;
     if(_rt->getOcclusionCullingQueryBufferSize() != _numTestSamples || !_isOccSetup)
     {
         _numTestSamples = _rt->getOcclusionCullingQueryBufferSize();
         //std::cout << "Buf size: " << _numTestSamples << std::endl;
-        _testSamples = new GLuint[_numTestSamples];
+        _testSamples.resize(_numTestSamples);
         //std::cout << "Performing OCC on " << uNumNodes << " nodes." << std::endl;
 
         GenQueryT genquer = reinterpret_cast<GenQueryT>(
             win->getFunction(_funcGenQueriesARB));
-        genquer(_numTestSamples, _testSamples);
+        genquer(_numTestSamples, &(_testSamples.front()));
         _isOccSetup = true;
     }
     
@@ -342,7 +340,7 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
     
     _currSample = 0;
 //DRAW / TEST / RE-DRAW ON BUFFER FULL
-    testNode(_pRoot, denv, part, screen_covered_percentage);
+    testNode(_pRoot, denv, part, screenCoveredPercentage);
     
     StatCollector *sc = _rt->getStatCollector();
     if(sc != NULL)

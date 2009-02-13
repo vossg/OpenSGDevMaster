@@ -230,7 +230,7 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
     static State                  *_testingState;
 
 
-    GLuint* _testSamples;
+    std::vector<GLuint> _testSamples;
     UInt32  _numTestSamples;
     bool    _isOccSetup;
     UInt32  _currSample; //!< Last current sample test number
