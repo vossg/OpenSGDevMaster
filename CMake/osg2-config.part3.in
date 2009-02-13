@@ -11,6 +11,7 @@ def main():
     global lib_dir
     global inc_dir
 
+    global lib_map
     global parser
     global options
     global pos_args
@@ -111,7 +112,7 @@ def main():
             for name_alt in [n, "OSG"+n, "OSGWindow"+n, None]:
                 if not name_alt:
                     print "Error: Can not find library named: ", n
-                elif lib_map_in.has_key(name_alt):
+                elif lib_map.has_key(name_alt):
                     libraries.append(name_alt)
                     break
 
@@ -129,14 +130,14 @@ def main():
         options.libpath_prefix = ""
 
     if options.cflags:
-        print string_inc_dir(collect_inc_dir(libraries, lib_map_in))
+        print string_inc_dir(collect_inc_dir(libraries, lib_map))
     elif options.libs:
-        print string_lib(collect_lib(libraries, lib_map_in))
+        print string_lib(collect_lib(libraries, lib_map))
     elif options.lflags:
-        print string_lib_dir(collect_lib_dir(libraries, lib_map_in))
+        print string_lib_dir(collect_lib_dir(libraries, lib_map))
     elif options.llibs:
-        lib_dir = string_lib_dir(collect_lib_dir(libraries, lib_map_in))
-        lib     = string_lib    (collect_lib    (libraries, lib_map_in))
+        lib_dir = string_lib_dir(collect_lib_dir(libraries, lib_map))
+        lib     = string_lib    (collect_lib    (libraries, lib_map))
         print lib_dir + ' ' + lib
 
     else:

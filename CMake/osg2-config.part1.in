@@ -40,9 +40,7 @@ parser   = None
 options  = None
 pos_args = None
 
-lib_map = {}
-
-lib_map_in = {
+lib_map = {
 
 ######################## END osg2-config PART I ########################
 
