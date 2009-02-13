@@ -229,8 +229,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     bool updateUniformVariable(const Char8 *name, const MFVec3f  &value);
     bool updateUniformVariable(const Char8 *name, const MFVec4f  &value);
     bool updateUniformVariable(const Char8 *name, const MFMatrix &value);
+#if 0
     bool updateUniformVariable(const Char8 *name, const MFPnt2f  &value);
     bool updateUniformVariable(const Char8 *name, const MFPnt3f  &value);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -253,8 +255,10 @@ class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables :
     bool getUniformVariable   (const Char8 *name,       MFVec3f  &value);
     bool getUniformVariable   (const Char8 *name,       MFVec4f  &value);
     bool getUniformVariable   (const Char8 *name,       MFMatrix &value);
+#if 0
     bool getUniformVariable   (const Char8 *name,       MFPnt2f  &value);
     bool getUniformVariable   (const Char8 *name,       MFPnt3f  &value);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
