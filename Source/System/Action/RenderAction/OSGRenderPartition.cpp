@@ -1021,7 +1021,7 @@ void RenderPartition::releaseLightIndex(void)
 {
     --_iNextLightIndex;
 
-    _uiLightState &= 1 << _iNextLightIndex;
+    _uiLightState &= ~(1 << _iNextLightIndex);
 }
 
 // test a single node
