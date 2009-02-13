@@ -241,30 +241,32 @@ void ColladaInstanceGeometry::read(void)
     
     for(; geoIt != geoEnd; ++geoIt)
     {
+        MaterialGroupUnrecPtr matGroup     = MaterialGroup::create();
+        NodeUnrecPtr          matGroupNode = Node         ::create();
+
+        MaterialMapIt matIt = _matMap.find(geoIt->first);
+
+        ChunkMaterial *cm = NULL;
+
+        if(matIt != _matMap.end())
+            cm = matIt->second;
+
+        matGroup    ->setMaterial(cm      );
+        matGroupNode->setCore    (matGroup);
+
         for(UInt32 i = 0; i < geoIt->second.size(); ++i)
         {
-            MaterialGroupUnrecPtr matGroup     = MaterialGroup::create();
-            NodeUnrecPtr          matGroupNode = Node         ::create();
-            
-            NodeUnrecPtr          geoNode      = Node         ::create();
-            
-            MaterialMapIt matIt = _matMap.find(geoIt->first);
+            NodeUnrecPtr geoNode = Node::create();
 
-            ChunkMaterial *cm = NULL;
-            
-            if(matIt != _matMap.end())
-                cm = matIt->second;
-            
             updateGeoTexBindings(geoIt->second[i]);
 
             geoNode     ->setCore    (geoIt->second[i]->geo);
-
-            matGroup    ->setMaterial(cm                   );
-            matGroupNode->setCore    (matGroup             );
             matGroupNode->addChild   (geoNode              );
-            
-            _node       ->addChild   (matGroupNode         );
         }
+
+        setName(matGroupNode, matIt->first);
+
+        _node->addChild(matGroupNode);
     }
 }
 
