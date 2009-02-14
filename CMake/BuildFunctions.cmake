@@ -56,6 +56,8 @@ MACRO(OSG_SELECT_PROJECT)
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
             "SET(${PROJECT_NAME}_YY)\n")
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+             "SET(${PROJECT_NAME}_MOC)\n")
+        FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
             "SET(${PROJECT_NAME}_UNITTEST_SRC)\n")
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
             "SET(${PROJECT_NAME}_TEST_SRC)\n")
@@ -76,6 +78,7 @@ MACRO(OSG_SELECT_PROJECT)
     SET(${PROJECT_NAME}_DEP_TEST_INCDIR)
 
     SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
+    SET(${PROJECT_NAME}_DEP_CPP_DEF)
 ENDMACRO(OSG_SELECT_PROJECT)
 
 #############################################################################
@@ -157,8 +160,10 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
     # dependencies - additional
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "SET(${PROJECT_NAME}_DEP_ADD_INCDIR ${${PROJECT_NAME}_DEP_ADD_INCDIR})\n\n")
+    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+        "SET(${PROJECT_NAME}_DEP_CPP_DEF ${${PROJECT_NAME}_DEP_CPP_DEF})\n\n")
 
-    #########################################
+    #########################################################################
     # Store dependencies for osg2-config.
     # This is a bit lengthy as it writes a python dictionary
 
@@ -214,9 +219,11 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
         LIST(REMOVE_DUPLICATES DEPINCDIRS)
     ENDIF(DEPINCDIRS)
 
-    OSG_MSG("   DEPLIBS: ${DEPLIBS}")
-    OSG_MSG("   DEPLIBDIRS: ${DEPLIBDIRS}")
-    OSG_MSG("   DEPINCDIRS: ${DEPINCDIRS}")
+    IF(DEPLIBS OR DEPLIBDIRS OR DEPINCDIRS)
+        OSG_MSG("   DEPLIBS: ${DEPLIBS}")
+        OSG_MSG("   DEPLIBDIRS: ${DEPLIBDIRS}")
+        OSG_MSG("   DEPINCDIRS: ${DEPINCDIRS}")
+    ENDIF(DEPLIBS OR DEPLIBDIRS OR DEPINCDIRS)
 
     FILE(APPEND ${${PROJECT_NAME}_CONFIG_FILE}
         "    \"dep_lib\"  :  [")
@@ -267,16 +274,18 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
     OSG_MSG("Adding directory: ${DIRNAME}")
 
     IF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
-        FILE(GLOB LOCAL_SRC          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.cpp" "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.mm")
+        FILE(GLOB LOCAL_SRC          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.cpp"
+                                     "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.mm")
         FILE(GLOB LOCAL_HDR          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.h")
         FILE(GLOB LOCAL_INL          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.inl")
         FILE(GLOB LOCAL_INS          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.ins")
         FILE(GLOB LOCAL_FCD          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.fcd")
         FILE(GLOB LOCAL_LL           "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.ll")
         FILE(GLOB LOCAL_YY           "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*.yy")
-        FILE(GLOB LOCAL_UNITTEST_SRC 
-                                  "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Test.cpp")
-        FILE(GLOB LOCAL_TEST_SRC     "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.cpp" "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.mm")
+        FILE(GLOB LOCAL_MOC          "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*_qt.h")
+        FILE(GLOB LOCAL_UNITTEST_SRC "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Test.cpp")
+        FILE(GLOB LOCAL_TEST_SRC     "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.cpp"
+                                     "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.mm")
     ELSE()
         # Guess it's an absolute dir we got as the rel one is not there
         FILE(GLOB LOCAL_SRC          "${DIRNAME}/OSG*.cpp" "${DIRNAME}/OSG*.mm")
@@ -286,11 +295,12 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(GLOB LOCAL_FCD          "${DIRNAME}/OSG*.fcd")
         FILE(GLOB LOCAL_LL           "${DIRNAME}/OSG*.ll")
         FILE(GLOB LOCAL_YY           "${DIRNAME}/OSG*.yy")
+        FILE(GLOB LOCAL_MOC          "${DIRNAME}/OSG*_qt.h")
         FILE(GLOB LOCAL_UNITTEST_SRC "${DIRNAME}/OSG*Test.cpp")
         FILE(GLOB LOCAL_TEST_SRC     "${DIRNAME}/test*.cpp" "${DIRNAME}/test*.mm")
     ENDIF()
 
-    # filter unittest sources
+    # filter unittest sources out of library sources
     IF(LOCAL_UNITTEST_SRC)
         LIST(REMOVE_ITEM LOCAL_SRC ${LOCAL_UNITTEST_SRC})
     ENDIF(LOCAL_UNITTEST_SRC)
@@ -333,6 +343,11 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
              "LIST(APPEND ${PROJECT_NAME}_YY \"${LOCAL_YY}\")\n\n")
     ENDIF(LOCAL_YY)
+
+    IF(LOCAL_MOC)
+        FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+             "LIST(APPEND ${PROJECT_NAME}_MOC \"${LOCAL_MOC}\")\n\n")
+    ENDIF(LOCAL_MOC)
 
     # unittests
     IF(LOCAL_UNITTEST_SRC)
@@ -399,6 +414,29 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
     ENDIF(OSG_ENABLE_FCD2CODE AND PYTHONINTERP_FOUND)
 
     ############
+    # Qt4
+    ############
+
+    IF(${PROJECT_NAME} STREQUAL "OSGWindowQT4")
+        # Here only the OSG_WITH_QT define is passes to qt moc.
+        SET(moc_flags -DOSG_WITH_QT)
+
+        SET(${PROJECT_NAME}_INC ${${PROJECT_NAME}_INC} ${CMAKE_CURRENT_BINARY_DIR})
+
+        FOREACH(MOCFile ${${PROJECT_NAME}_MOC})
+            GET_FILENAME_COMPONENT(MOCFile ${MOCFile} ABSOLUTE)
+            QT4_MAKE_OUTPUT_FILE(${MOCFile} moc_ cpp MOCOutFile)
+
+            ADD_CUSTOM_COMMAND(
+                OUTPUT ${MOCOutFile}
+                COMMAND ${QT_MOC_EXECUTABLE}
+                ARGS ${moc_flags} ${moc_options} -o ${MOCOutFile} ${MOCFile}
+                DEPENDS ${MOCFile})
+            LIST(APPEND ${PROJECT_NAME}_SRC ${MOCOutFile})
+        ENDFOREACH(MOCFile)
+    ENDIF(${PROJECT_NAME} STREQUAL "OSGWindowQT4")
+    
+    ############
     # Flex/Bison
     ############
 
@@ -418,8 +456,8 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 COMMAND ${BISON_EXE} -d -v -p${YYOpt} -b${YYOpt} -o ${YYSrc} ${YYFile}
                 MAIN_DEPENDENCY ${YYFile})
 
-            SET(${PROJECT_NAME}_SRC ${${PROJECT_NAME}_SRC} ${YYSrc})
-            SET(${PROJECT_NAME}_HDR ${${PROJECT_NAME}_HDR} ${YYHdr})
+            LIST(APPEND ${PROJECT_NAME}_SRC ${YYSrc})
+            LIST(APPEND ${PROJECT_NAME}_HDR ${YYHdr})
 
         ENDFOREACH()
 
@@ -501,6 +539,12 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         OSG_MSG("  library ${LIB} = ${${LIB}}")
         TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${${LIB}})
     ENDFOREACH(LIB)
+
+    IF(${PROJECT_NAME}_DEP_CPP_DEF)
+        OSG_MSG("  definitions = ${${PROJECT_NAME}_DEP_CPP_DEF}")
+        SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES
+            COMPILE_DEFINITIONS "${${PROJECT_NAME}_DEP_CPP_DEF}")
+    ENDIF(${PROJECT_NAME}_DEP_CPP_DEF)
 
     # install rules
     IF(WIN32)

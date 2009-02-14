@@ -280,7 +280,7 @@ IF(NOT OSG_BUILD_DEPENDEND)
         OSG_SET(OSG_WITH_ZLIB 1)
     ENDIF(ZLIB_FOUND)
 
-    IF(NOT WIN32 AND NOT APPLE)
+    IF(UNIX AND NOT APPLE)
         #############
         #### Freetype
         #############
@@ -302,7 +302,7 @@ IF(NOT OSG_BUILD_DEPENDEND)
         OSG_ADD_OPT(FREETYPE_INCLUDE_DIR_freetype2)
         OSG_ADD_OPT(FONTCONFIG_LIBRARY)
         OSG_ADD_OPT(FREETYPE_LIBRARIES)
-    ENDIF(NOT WIN32 AND NOT APPLE)
+    ENDIF(UNIX AND NOT APPLE)
 
     ##############
     #### ImageLibs
@@ -394,6 +394,21 @@ IF(NOT OSG_BUILD_DEPENDEND)
         OSG_SET(OSG_GLUT_INC_DIR)
         OSG_SET(OSG_GLUT_LIBS)
     ENDIF(GLUT_FOUND)
+
+    #############
+    #### QT
+    #############
+
+    OSG_FIND_PACKAGE(Qt4)
+
+    IF(QT4_FOUND)
+        OSG_SET(OSG_WITH_QT 1)
+        OSG_SET(OSG_QT4_INC_DIR ${QT_INCLUDE_DIR})
+        OSG_SET(OSG_QT4_LIBS ${QT_LIBRARY_DIR})
+    ELSE(QT4_FOUND)
+        OSG_SET(OSG_QT4_INC_DIR)
+        OSG_SET(OSG_QT4_LIBS)
+    ENDIF(QT4_FOUND)
 
     #############
     #### OpenGL

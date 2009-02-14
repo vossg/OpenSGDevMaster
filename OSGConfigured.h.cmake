@@ -20,22 +20,22 @@
 
 #cmakedefine OSG_ENABLE_MEMORY_DEBUGGING 1
 
-#cmakedefine OSG_WITH_GDAL 
+#cmakedefine OSG_WITH_GDAL 1
 
 /* Do not use GL subdir for glut */
 /* #define OSG_NO_GLUT_GLSUBDIR 0 */
 
-#cmakedefine OSG_WITH_PNG 
+#cmakedefine OSG_WITH_PNG 1
 
-#cmakedefine OSG_WITH_JPG 
+#cmakedefine OSG_WITH_JPG 1
 
 #cmakedefine OSG_OGL2_SHADERFUNCS 1
 
-#cmakedefine OSG_WITH_ZLIB 
+#cmakedefine OSG_WITH_ZLIB 1
 
-#cmakedefine OSG_WITH_TIF 
+#cmakedefine OSG_WITH_TIF 1
 
-#cmakedefine OSG_WITH_FONTCONFIG 
+#cmakedefine OSG_WITH_FONTCONFIG 1
 
 #cmakedefine OSG_NEW_SHADER 1
 
@@ -75,4 +75,6 @@
 
 #cmakedefine OSG_DEPRECATED_PROPS 1
 
-#endif
+#cmakedefine OSG_WITH_QT 1
+
+#endif // _OSGCONFIGURED_H_
