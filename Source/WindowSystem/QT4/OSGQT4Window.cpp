@@ -141,13 +141,13 @@ void QTWindow::init( void )
 
     ///// create a new GLX context
     setDisplay(XOpenDisplay(NULL));
-    setWindow(((QWidget*)getGlWidget())->winId());
+    setWindow(static_cast<QWidget*>(getGlWidget())->winId());
 
     // get the existing glWidget's visual-id and a visual for the new context
     XVisualInfo visInfo;
     memset(&visInfo, 0, sizeof(XVisualInfo));
     visInfo.visualid = XVisualIDFromVisual(
-                       ((Visual*)QX11Info::appVisual()));
+        static_cast<Visual*>(QX11Info::appVisual()));
     int nvis;
     vi = XGetVisualInfo( getDisplay(), VisualIDMask, &visInfo, &nvis );
 

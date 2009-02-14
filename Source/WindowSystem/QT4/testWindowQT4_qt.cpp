@@ -111,7 +111,7 @@ MyOSGQGLWidget::MyOSGQGLWidget( MyQGLContext * context,
     QWidget * parent,
     const QGLWidget * shareWidget,
     Qt::WindowFlags f) :
-OSGQGLWidget((QGLContext*)context, parent, shareWidget, f)
+OSGQGLWidget(context, parent, shareWidget, f)
 {}
 
 void MyOSGQGLWidget::initializeGL ( void )
