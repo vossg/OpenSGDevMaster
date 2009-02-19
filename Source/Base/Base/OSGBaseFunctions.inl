@@ -2655,7 +2655,7 @@ void osgSleep(OSG::UInt32 millisecs)
     int ns;
 
     req.tv_sec  = static_cast<long> (millisecs / 1000);
-    req.tv_nsec = static_cast<long>((millisecs % 1000) * 1000);
+    req.tv_nsec = static_cast<long>((millisecs % 1000) * 1000 * 1000);
 
     while((req.tv_sec > 0 || req.tv_nsec > 0) &&
           (ns = nanosleep(&req, &req)) < 0)
