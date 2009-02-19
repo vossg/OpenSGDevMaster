@@ -252,6 +252,13 @@ class OSG_TEXT_DLLMAPPING TextTXFFace: public TextFace
                      Vec2f offset = Vec2f(0,0), Color3f color = Color3f(-1,-1,-1));
 
     /**
+     * Helper method to draw the results of a layout using this face.
+     * @param layoutResult  The results of a previous layout
+     * @pre   The texture for this face *must* be active before calling this method
+     */
+    void drawCharacters(const TextLayoutResult &layoutResult);
+
+    /**
      * Tries to create a TXF face.
      * @param family The font family of the face (Arial, Courier etc.)
      * @param style The style of the face (bold, italic etc.)

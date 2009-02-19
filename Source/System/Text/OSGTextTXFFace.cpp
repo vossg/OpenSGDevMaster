@@ -337,6 +337,53 @@ NodeTransitPtr TextTXFFace::makeNode(const TextLayoutResult &layoutResult, Real3
     return node;
 }
 
+// Render the text using the layout
+void TextTXFFace::drawCharacters(const TextLayoutResult &layoutResult)
+{
+    glBegin(GL_QUADS);
+
+    UInt32 i, numGlyphs = layoutResult.getNumGlyphs();
+    for(i = 0; i < numGlyphs; ++i)
+    {
+        const TextTXFGlyph &glyph = getTXFGlyph(layoutResult.indices[i]);
+        Real32 width = glyph.getWidth();
+        Real32 height = glyph.getHeight();
+        // No need to draw invisible glyphs
+        if ((width <= 0.f) || (height <= 0.f))
+            continue;
+
+        // Calculate coordinates
+        const Vec2f &pos = layoutResult.positions[i];
+        Real32 posLeft   = pos.x();
+        Real32 posTop    = pos.y();
+        Real32 posRight  = pos.x() + width;
+        Real32 posBottom = pos.y() - height;
+        Real32 texCoordLeft   = glyph.getTexCoord(TextTXFGlyph::COORD_LEFT);
+        Real32 texCoordTop    = glyph.getTexCoord(TextTXFGlyph::COORD_TOP);
+        Real32 texCoordRight  = glyph.getTexCoord(TextTXFGlyph::COORD_RIGHT);
+        Real32 texCoordBottom = glyph.getTexCoord(TextTXFGlyph::COORD_BOTTOM);
+
+        // lower left corner
+        glTexCoord2f(texCoordLeft, texCoordBottom);
+        glVertex2f(posLeft, posBottom);
+
+        // lower right corner
+        glTexCoord2f(texCoordRight, texCoordBottom);
+        glVertex2f(posRight, posBottom);
+
+        // upper right corner
+        glTexCoord2f(texCoordRight, texCoordTop);
+        glVertex2f(posRight, posTop);
+
+        // upper left corner
+        glTexCoord2f(texCoordLeft, texCoordTop);
+        glVertex2f(posLeft, posTop);
+    }
+
+    glEnd();
+}
+
+
 
 //----------------------------------------------------------------------
 // Tries to create a TXF face
