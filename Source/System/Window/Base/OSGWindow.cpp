@@ -95,6 +95,90 @@ OSG_BEGIN_NAMESPACE
 // OSGWindowBase.cpp file.
 // To modify it, please change the .fcd file (OSGWindow.fcd) and
 // regenerate the base file.
+/*! \page PageSystemOGLObjects OpenGL Objects & Extension Handling
+
+\section PageSystemOGLObj OpenGL Objects
+
+OpenGL objects are an important way to manage data and speed up repetitive use.
+OpenGL objects in OpenSG include everything that can be stored inside
+OpenGL, most prominently display lists and texture objects.
+
+Handling OpenGL objects in a multi-window and possibly multi-pipe environment
+becomes an interesting problem. As the different windows may show different
+parts of a scene or different scenes alltogether the actually used and defined
+set of OpenGL objects should include only what's necessary to reduce the
+consumed ressources.
+
+To do that OpenGL objects are managed by the OpenSG Windows. Before they are
+used they have to be registered with the osg::Window class. This is a static
+operation on the Window class, as it affects all exisiting Windows. Multiple
+objects can be registered in one call, and they will receive consecutive
+object ids. The ids are assigned by the object manager. It can not be queried
+from OpenGL, as the thread which creates the objects usually doesn't have a
+valid OpenGL context. As a consequence you should not use OpenGL-assigned ids,
+as they might interfere with OpenSGs handling of ids.
+
+Part of the registration is to provide an update osg::Functor, which is called
+whenever the object needs to be updated. This functor gets passed the id and
+status of the object and has to execute the correct function. There are a
+number of stati that the functor has to handle.
+
+The first time it is called the status be osg::Window::GLObjectE::initialize.
+The functor has to create the necessary OpenGL ressources and initialize the
+OpenGL object. For a texture object this is the definition of the image via
+glTexImage(). 
+
+When the object changes there are two cases to distinguish. In the simple case
+the object has changed significantly, needing a
+osg::Window::GLObjectE::reinitialize. For textures this would be changing the
+filter or changing the image size. Both of these actions necessitate a
+recreation of the actual texture object. If only the data of the image changes
+this can be handledmore efficiently via glTexSubImage() calls, which is an
+example for a osg::Window::GLObjectE::refresh. The osg::Window is responsible
+for keeping track of the current of the objects, and thus it has to be
+notified whenever the state of the OpenSG object underlying an OpenGL has
+changed, necessitating either a refresh or a reinitialize. This can be done by
+calling the static osg::Window::refreshGLObject or
+osg::Window::reinitializeGLObject methods. The object will be flagged as
+changed in all Windows and at the next validate time it will be
+refreshed/recreated.
+
+Before an object can be used it has to be validated. This has to be done when
+the OpenGL context is valid and should usually be done just before the object
+is used. If the object is still valid, nothing happens. The
+osg::Window::validateObject method is inline and thus the overhead of calling
+it before every use is minimal.
+
+When an object is not needed any more is needs to be destroyed. The
+destruction can be started via osg::Window::destroyGLObject. It will actually
+be executed the next time a Window has finished rendering (i.e. its
+osg::Window::frameExit() function is called). The object's functor will be
+called for the osg::Window::GLObjectE::destroy state, and it should free
+context-specific resources. After this has happened for all Windows it will be
+called one final time with osg::Window::GLObjectE::finaldestroy. Here
+context-independent resources can be freed.
+
+\section PageSystemOGLExt OpenGL Extensions
+
+The situation with OpenGL extensions is similar to the one with OpenGL objects:
+as the thread that initializes things probably has no OpenGL context, it cannot
+call the necessary OpenGL functions directly. Further complicating matters is
+the fact that in systems with multiple graohics cards they may not all be of
+the same type, and thus might support different extensions.
+
+To handle these situations the extensions themselves and the extension
+functions need to be registered and accessed using the osg::Window. The
+registration (osg::Window::registerExtension, osg::Window::registerFunction)
+just needs the names and returns a handle that has to be be used to access the
+extensions/functions. This registration can be done from any thread.
+
+When using the extension/function it is necessary to check if it supported on
+the currently active OpenGL context. To speed this up the Window caches the
+test results and provides the osg::Window::hasExtension method to check it.
+To access the functions osg::Window::getFunction method can be used. It is not
+advisable to store the received extension functions, as there is no guarantee
+that the pointer will be the same for different contexts.
+*/
 
 // Window-sytem specific virtual functions
 
@@ -125,69 +209,6 @@ OSG_BEGIN_NAMESPACE
   
   \warning The correct OpenGL context needs to be active for this to work!
  */
-
-// only needed in dev docs
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-
-/*! \enum OSG::Window::GLObjectStatusE
-  Enumeration values for the status of the GL objects. This is primarily
-  used to signal the object's callback functions what to do. See \ref
-  PageSystemOGLObjects for a description.
- */
-
-/*! \var OSG::Window::GLObjectStatusE Window::notused
-  Object is not used at all right now.
- */
-
-/*! \var OSG::Window::GLObjectStatusE Window::initialize
-  The object is being initialized for the first time.
- */
-
-/*! \var OSG::Window::GLObjectStatusE Window::reinitialize
-  The object is being re-initialized, i.e. it has changed significantly.
- */
-
-/*! \var OSG::Window::GLObjectStatusE Window::initialized
-  The object is initialized and valid.
- */
-
-/*! \var OSG::Window::GLObjectStatusE Window::needrefresh
-  The object is initialized but needs a refresh.
- */
-
-/*! \var OSG::Window::GLObjectStatusE Window::destroy
-  The object is to be destroyed, i.e. removed from the current OpenGL context.
- */
-
-/*! \var OSG::Window::GLObjectStatusE Window::finaldestroy
-  The object has been removed from all OpenGL contexts and used ressources
-  but be freed now.
- */
-
-/*! \enum OSG::Window::invalidExtensionID
- */
-
-/*! \enum OSG::Window::invalidFunctionID
- */
-
-/*! \enum OSG::Window::statusShift
-  Shift value to transform object id and status into  asingle int.
- */
-
-/*! \enum OSG::Window::statusMask
-  Mask value to transform object id and status into  asingle int.
- */
-
-/*! \class OSG::Window::GLObject
-  \ingroup GrpSystemWindow
-  
-  The GLObject class is used to keep track of the OpenGL objects registered 
-  with the system. See \ref PageSystemOGLObjects for a description.
-  
- */
-
-#endif
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -1016,8 +1037,10 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
 /*----------------------- GL extension handling ---------------------------*/
 
 
-/*! Register a new OpenGL extension. See \ref PageSystemOGLExt for details. 
+/*! Register a new OpenGL extension. 
+    
     Ignores NULL strings. 
+    See \ref PageSystemOGLExt for details.     
 */
 UInt32 OSG::Window::registerExtension(const Char8 *s)
 {
@@ -1079,6 +1102,8 @@ bool OSG::Window::hasExtension(const Char8 *s)
 
 /*! Register new OpenGL extensions to ignore. See \ref PageSystemOGLExt 
   for details. 
+  These extensions get added to _ignoredExtensions and are prevented from
+  being looked up.
  */
 
 void OSG::Window::ignoreExtensions(const Char8 *s)

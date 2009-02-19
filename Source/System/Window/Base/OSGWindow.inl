@@ -66,7 +66,7 @@ bool Window::hasExtension(UInt32 extId)
 }
 
 /*! Check if the window has the indicated extension.
-    \warning No error checks are done on the passed index!
+    If extId is out of range, then automatically returns false.
  */
 inline 
 bool Window::hasCommonExtension(UInt32 extId)
@@ -144,10 +144,9 @@ UInt32 Window::getGLVersion(void)
     return _glVersion;
 }
 
-/*! Find the id of a registered extension. Return -1 if extension not
+/*! Return the id of a registered extension. Return -1 if extension not
     registered.
  */
-
 inline 
 Int32 Window::getExtensionId(const Char8  *s)
 {
@@ -172,9 +171,8 @@ const std::vector<std::string> &Window::getExtensions(void)
     return _extensions;
 }
 
-/*! Access the registered extensions.
+/*! Reutrn the list of registered extensions.
  */
-
 inline 
 const std::vector<std::string> &Window::getRegisteredExtensions(void)
 {

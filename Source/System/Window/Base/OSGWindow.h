@@ -68,22 +68,26 @@ class ShaderCache;
 
 /*! \brief Window base class. See \ref PageSystemWindowWindow
 for a description. */
-
 class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
+    /**
+     * Enumeration values for the status of the GL objects. This is primarily
+     * used to signal the object's callback functions what to do. See \ref
+     * PageSystemOGLObjects for a description.
+     */
     enum GLObjectStatusE
     {
-        notused      = 0x0001,
-        initialize   = 0x0002,
-        reinitialize = 0x0003,
-        initialized  = 0x0004,
-        needrefresh  = 0x0005,
-        destroy      = 0x0006,
-        finaldestroy = 0x0007
+        notused      = 0x0001,  /**< Object is not used at all right now. */
+        initialize   = 0x0002,  /**< Object is being initialized for the first time. */
+        reinitialize = 0x0003,  /**< Object is being re-initialized (ie. significant change) */
+        initialized  = 0x0004,  /**< Object is initialized and valid. */
+        needrefresh  = 0x0005,  /**< Object is initialized but needs a refresh. */
+        destroy      = 0x0006,  /**< Object is to be destroyed (removed from context) */
+        finaldestroy = 0x0007   /**< Object has been removed from contexts, now release resources. */
     };
 
     enum
@@ -138,7 +142,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name             Extension registration                           */
+    /*! \name             Extension registration                           
+    * See \ref */
     /*! \{                                                                 */
 
     static UInt32 registerExtension(const Char8 *s               );
@@ -336,6 +341,9 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     friend class GLObject;
 
+    /** Used to keep track of the OpenGL objects registered with the system.
+     * See \ref PageSystemOGLObjects for a description.
+     */
     class GLObject
     {
       public:
@@ -413,9 +421,14 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     static std::vector<GLObject  *>   _glObjects;
     static const Char8               *_glLibraryName;
 
+    /**
+     * List of registered extension names. The index of the entry is the
+     * id/handle of the extention.
+     */
     static  std::vector<std::string>  _registeredExtensions;
+    /** List of names of extensions to ignore. */
     static  std::vector<std::string>  _ignoredExtensions;
-    static  std::vector<bool       >  _commonExtensions;
+    static  std::vector<bool       >  _commonExtensions;       /**< ??? */
     static  std::vector<std::string>  _registeredFunctions;
     static  std::vector<Int32      >  _registeredFunctionExts;
     static  std::vector<UInt32     >  _registeredFunctionVersions;
@@ -436,6 +449,10 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     UInt32                            _glVersion;
     std::vector<std::string        >  _extensions;
+    /**
+     * List of whether extension can be used in current context. Indexed by
+     * extension id (registeredExtensions).
+     */
     std::vector<bool               >  _availExtensions;
     std::vector<GLExtensionFunction>  _extFunctions;
 
