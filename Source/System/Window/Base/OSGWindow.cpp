@@ -1053,23 +1053,20 @@ UInt32 OSG::Window::registerExtension(const Char8 *s)
         staticRelease();
         return TypeTraits<UInt32>::getMax();
     }
-    
-    std::vector<std::string>::iterator i;
-    
-    i = std::find(_registeredExtensions.begin(), _registeredExtensions.end(), 
-                  s);
-    
-    if(i < _registeredExtensions.end())
+
+    // Check if it has already been registered and if it has then return the
+    // index we already used.
+    UInt32 r = getExtensionId(s);
+    if (-1 != r)
     {
-        staticRelease();
-        FPDEBUG(("reusing id %d\n", i - _registeredExtensions.begin()));
-        return i - _registeredExtensions.begin();
+        FPDEBUG(("reusing id %d\n", r));
     }
-        
-    UInt32 r = _registeredExtensions.size();
-    _registeredExtensions.push_back(s);
-    
-    FPDEBUG(("new id %d\n", r));
+    else
+    {
+        r = _registeredExtensions.size();
+        _registeredExtensions.push_back(s);
+        FPDEBUG(("new id %d\n", r));
+    }
     
     staticRelease();
     return r;
