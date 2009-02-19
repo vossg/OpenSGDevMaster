@@ -1044,7 +1044,7 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
 */
 UInt32 OSG::Window::registerExtension(const Char8 *s)
 {
-    FDEBUG(("Window::registerExtension: register '%s': ", s));
+    FDEBUG(("Window::registerExtension: register '%s': \n", s));
 
     staticAcquire();
    
@@ -1208,7 +1208,7 @@ UInt32 OSG::Window::registerFunction(const Char8 *s,
     if(s == NULL)
         return TypeTraits<UInt32>::getMax();
 
-    FDEBUG(("Window::registerFunction: register '%s': ", s));
+    FDEBUG(("Window::registerFunction: register '%s': \n", s));
 
     staticAcquire();
     
@@ -1220,7 +1220,7 @@ UInt32 OSG::Window::registerFunction(const Char8 *s,
     if(i < _registeredFunctions.end())
     {
         staticRelease();
-        FPDEBUG(("reusing id %d\n", i - _registeredFunctions.begin()));
+        FDEBUG(("reusing id %d\n", i - _registeredFunctions.begin()));
         return i - _registeredFunctions.begin();
     }
             
@@ -1353,7 +1353,7 @@ void OSG::Window::frameInit(void)
 
         std::string foo(gl_extensions != NULL ? gl_extensions : "");
 
-        FDEBUG(("Window %p: Ignored: ", this));
+        FDEBUG(("Window %p: Ignored extensions: ", this));
 
         for(string_token_iterator it = string_token_iterator(foo, ",. ");
             it != string_token_iterator(); ++it)
@@ -1441,14 +1441,30 @@ void OSG::Window::frameInit(void)
     while(_registeredFunctions.size() > _extFunctions.size())
     {   
         const Char8 *s    = _registeredFunctions[_extFunctions.size()].c_str();
+        FPDEBUG(("Window %p: Looking up ext function: %s ... ", this, s));
 
         Int32        ext  = _registeredFunctionExts    [_extFunctions.size()];
         UInt32       ver  = _registeredFunctionVersions[_extFunctions.size()];
 
         GLExtensionFunction func = NULL;
         
+        // XXX: I think this should be "and".  And what is "ext"?
         if(ext == -1 || _availExtensions[ext] == true || _glVersion >= ver)
+        {
             func = getFunctionByName(s);
+            if (NULL != func)
+            {
+                FDEBUG((" FOUND\n"));
+            }
+            else
+            {
+                FDEBUG((" NULL\n"));
+            }
+        }
+        else
+        {
+            FDEBUG((" N/A\n"));
+        }
 
         _extFunctions.push_back(func);
     }
