@@ -82,7 +82,7 @@ OSG::TimeStamp getTimeStamp(void)
     
 #else
 
-    return static_cast<TimeStamp>(getSystemTime() * 1000.f);
+    return static_cast<TimeStamp>(getSystemTime() * 1000000.f);
 
 #endif
 }
