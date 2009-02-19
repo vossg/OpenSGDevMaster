@@ -91,6 +91,9 @@ OSG_BEGIN_NAMESPACE
 #pragma warning (disable)
 #endif
 
+// If true, then try just using glXGetProcAddress() directly.
+#define TRY_USING_GLXGETPROC_DIRECTLY 1
+
 // Documentation for this class is emited in the
 // OSGWindowBase.cpp file.
 // To modify it, please change the .fcd file (OSGWindow.fcd) and
@@ -1616,6 +1619,10 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
 {
     GLExtensionFunction retval = NULL;
 
+    FINFO(("Window::getFunctionByName: %s", s));
+
+    FDEBUG(("Window %p: GL Vendor: %s\n", this, glGetString(GL_VENDOR)));
+
 #if defined(__APPLE__)
 
     if (NSIsSymbolNameDefined(s))
@@ -1644,36 +1651,54 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
     static void (*(*__GetProcAddress)(const GLubyte *))(void) = NULL; 
 
     static void *libHandle = NULL; 
+    std::string  libHandleName;
 
+    // If we haven't found the library previously, then look for it.
     if(libHandle == NULL) 
     { 
         libHandle = dlopen(_glLibraryName, RTLD_NOW | RTLD_LOCAL); 
 
         if(!libHandle) 
         { 
-            FWARNING(("Error in dlopen: %s\n",dlerror())); 
+            FWARNING(("Error in dlopen when opening GL lib: %s\n",dlerror())); 
             abort(); 
         } 
         else
         {
+            libHandleName = (_glLibraryName == NULL ? "(executable)"
+                                                    : _glLibraryName);
             FDEBUG(("Opened lib %s for GL extension handling.\n", 
-                    (_glLibraryName==NULL) ? "(executable)" : _glLibraryName));
+                    libHandleName.c_str()));
         }
     } 
 
     if(__GetProcAddress == NULL) 
     { 
-        __GetProcAddress = 
-#if __GNUC__ < 4
-            (void (*(*)(const GLubyte*))())
-#else
-            reinterpret_cast<void (*(*)(const GLubyte*))()>
-#endif
-                (dlsym(libHandle, 
-                      "glXGetProcAddressARB")); 
+        FINFO(("Finding glxGetProcAddress method: "));
 
-        if(__GetProcAddress == NULL) 
-        { 
+#ifdef TRY_USING_GLXGETPROC_DIRECTLY
+
+        // Try pulling in ARB function directly.
+/*
+#ifdef GLX_ARB_get_proc_address
+        if(__GetProcAddress == NULL)
+        {
+            __GetProcAddress = glXGetProcAddressARB;
+            FINFO((" Using glxGetProcAddressARB directly.\n"));
+        }
+#endif
+*/
+        // If GLX version is 1.4 or greater then the method should exist.
+#ifdef GLX_VERSION_1_4
+        if(__GetProcAddress == NULL)
+        {
+            __GetProcAddress = glXGetProcAddress;
+            FINFO((" Using glxGetProcAddress directly.\n"));
+        }
+#endif
+#endif
+        if(__GetProcAddress == NULL)
+        {
             __GetProcAddress = 
 #if __GNUC__ < 4
                 (void (*(*)(const GLubyte*))())
@@ -1681,68 +1706,80 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
                 reinterpret_cast<void (*(*)(const GLubyte*))()>
 #endif
                     (dlsym(libHandle, 
-                          "glXGetProcAddress")); 
+                          "glXGetProcAddressARB")); 
 
             if(__GetProcAddress == NULL) 
-            {
-                // Couldn't find it linked to the executable. Try to open
-                // libGL.so directly.
-                
-                dlclose(libHandle);
-                
-                libHandle = dlopen("libGL.so", RTLD_NOW | RTLD_GLOBAL); 
-
-                if(!libHandle) 
-                { 
-                    FWARNING(("Error in dlopen: %s\n",dlerror())); 
-                    abort(); 
-                } 
-                else
-                {
-                    FDEBUG(("Opened libGL.so for GL extension handling.\n"));
-                }
-                
+            { 
                 __GetProcAddress = 
 #if __GNUC__ < 4
                     (void (*(*)(const GLubyte*))())
 #else
                     reinterpret_cast<void (*(*)(const GLubyte*))()>
 #endif
-                        (dlsym(libHandle, "glXGetProcAddressARB")); 
+                        (dlsym(libHandle, 
+                              "glXGetProcAddress")); 
 
                 if(__GetProcAddress == NULL) 
-                { 
+                {
+                    // Couldn't find it linked to the executable. Try to open
+                    // libGL.so directly.
+
+                    dlclose(libHandle);
+
+                    libHandle = dlopen("libGL.so", RTLD_NOW | RTLD_GLOBAL); 
+
+                    if(!libHandle) 
+                    { 
+                        FWARNING(("Error in dlopen: %s\n",dlerror())); 
+                        abort(); 
+                    } 
+                    else
+                    {
+                        FDEBUG((" Using libGL.so directly.\n"));
+                    }
+                   
                     __GetProcAddress = 
 #if __GNUC__ < 4
                         (void (*(*)(const GLubyte*))())
 #else
                         reinterpret_cast<void (*(*)(const GLubyte*))()>
 #endif
-                            (dlsym(libHandle, "glXGetProcAddress")); 
-                }
+                            (dlsym(libHandle, "glXGetProcAddressARB")); 
+
+                    if(__GetProcAddress == NULL) 
+                    { 
+                        __GetProcAddress = 
+#if __GNUC__ < 4
+                            (void (*(*)(const GLubyte*))())
+#else
+                            reinterpret_cast<void (*(*)(const GLubyte*))()>
+#endif
+                                (dlsym(libHandle, "glXGetProcAddress")); 
+                    }
 
 
-                if(__GetProcAddress == NULL) 
+                    if(__GetProcAddress == NULL) 
+                    {
+                        FWARNING(("Neither glXGetProcAddress nor "
+                                  "glXGetProcAddressARB found! Disabling all "
+                                  " extensions for Window %p!\n")); 
+
+                        _availExtensions.clear();
+                        _availExtensions.resize(_registeredExtensions.size(), 
+                                                false);
+                    }
+                } 
+                else
                 {
-                    FWARNING(("Neither glXGetProcAddress nor "
-                              "glXGetProcAddressARB found! Disabling all "
-                              " extensions for Window %p!\n")); 
-                    
-                    _availExtensions.clear();
-                    _availExtensions.resize(_registeredExtensions.size(), 
-                                            false);
+                    FDEBUG((" Using glXGetProcAddress (from %s).\n",
+                            libHandleName.c_str()));
                 }
             } 
             else
             {
-                FDEBUG(("Using glXGetProcAddress for GL "
-                        "extension handling.\n"));
+                FDEBUG(("Using glXGetProcAddressARB (from %s).\n",
+                        libHandleName.c_str()));                    
             }
-        } 
-        else
-        {
-            FDEBUG(("Using glXGetProcAddressARB for GL "
-                    "extension handling.\n"));
         }
     } 
 
