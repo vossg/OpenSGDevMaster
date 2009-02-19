@@ -360,13 +360,13 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     glPushMatrix();
     glTranslatef(getShadowOffset().x(), getShadowOffset().y(), 0);
     glScalef(scale, scale, 1);
-    drawCharacters(layoutResult);
+    _face->drawCharacters(layoutResult);
 
     // draw text
     glColor4fv(static_cast<const GLfloat *>(getColor().getValuesRGBA()));
     glPopMatrix();
     glScalef(scale, scale, 1);
-    drawCharacters(layoutResult);
+    _face->drawCharacters(layoutResult);
 
     _texchunk   ->deactivate(pEnv);
     _texenvchunk->deactivate(pEnv);
@@ -378,49 +378,4 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     glPopMatrix();
 
     glPopAttrib();
-}
-
-void SimpleStatisticsForeground::drawCharacters(const TextLayoutResult &layoutResult) const
-{
-    glBegin(GL_QUADS);
-
-    UInt32 i, numGlyphs = layoutResult.getNumGlyphs();
-    for(i = 0; i < numGlyphs; ++i)
-    {
-        const TextTXFGlyph &glyph = _face->getTXFGlyph(layoutResult.indices[i]);
-        Real32 width = glyph.getWidth();
-        Real32 height = glyph.getHeight();
-        // No need to draw invisible glyphs
-        if ((width <= 0.f) || (height <= 0.f))
-            continue;
-
-        // Calculate coordinates
-        const Vec2f &pos = layoutResult.positions[i];
-        Real32 posLeft = pos.x();
-        Real32 posTop = pos.y();
-        Real32 posRight = pos.x() + width;
-        Real32 posBottom = pos.y() - height;
-        Real32 texCoordLeft = glyph.getTexCoord(TextTXFGlyph::COORD_LEFT);
-        Real32 texCoordTop = glyph.getTexCoord(TextTXFGlyph::COORD_TOP);
-        Real32 texCoordRight = glyph.getTexCoord(TextTXFGlyph::COORD_RIGHT);
-        Real32 texCoordBottom = glyph.getTexCoord(TextTXFGlyph::COORD_BOTTOM);
-
-        // lower left corner
-        glTexCoord2f(texCoordLeft, texCoordBottom);
-        glVertex2f(posLeft, posBottom);
-
-        // lower right corner
-        glTexCoord2f(texCoordRight, texCoordBottom);
-        glVertex2f(posRight, posBottom);
-
-        // upper right corner
-        glTexCoord2f(texCoordRight, texCoordTop);
-        glVertex2f(posRight, posTop);
-
-        // upper left corner
-        glTexCoord2f(texCoordLeft, texCoordTop);
-        glVertex2f(posLeft, posTop);
-    }
-
-    glEnd();
 }

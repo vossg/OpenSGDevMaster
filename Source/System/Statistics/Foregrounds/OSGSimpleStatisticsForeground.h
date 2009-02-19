@@ -152,8 +152,6 @@ class OSG_UTIL_DLLMAPPING SimpleStatisticsForeground :
 
     void initText(const std::string &family, Real32 size);
 
-    void drawCharacters(const TextLayoutResult &layoutResult) const;
-
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SimpleStatisticsForeground &source);
 };
