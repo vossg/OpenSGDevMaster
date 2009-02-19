@@ -105,6 +105,19 @@ Real32 IntersectAction::getMaxDist(void) const
 }
 
 inline 
+bool IntersectAction::getTestLines(void) const
+{
+   return _testLines;
+}
+
+inline
+Real32 IntersectAction::getTestLineWidth(void) const
+{
+   return _lineTestWidth;
+}
+          
+
+inline 
 bool IntersectAction::didHit(void) const
 {
     return _hit;

@@ -182,15 +182,19 @@ IntersectAction *IntersectAction::getPrototype(void)
  */
 
 IntersectAction::IntersectAction(void) :
-     Inherited  (     ),
-    _line       (     ), 
-    _maxdist    (     ), 
-    _hit        (false), 
-    _enterT     (   -1), 
-    _leaveT     (   -1), 
-    _hitT       (   -1), 
-    _hitObject  (     ),
-    _hitTriangle(   -1)
+     Inherited    (     ),
+    _line         (     ),
+    _testLines    (false),
+    _lineTestWidth(  0.0),
+    _maxdist      (     ), 
+    _hit          (false), 
+    _enterT       (   -1), 
+    _leaveT       (   -1), 
+    _hitT         (   -1), 
+    _hitObject    (     ),
+    _hitTriangle  (   -1),
+    _hitNormal    (     ),
+    _hitLine      (   -1)
 {
     if(_defaultEnterFunctors)
         _enterFunctors = *_defaultEnterFunctors;
@@ -201,15 +205,19 @@ IntersectAction::IntersectAction(void) :
 
 
 IntersectAction::IntersectAction(const IntersectAction& source) :
-     Inherited  (source             ),
-    _line       (source._line       ), 
-    _maxdist    (source._maxdist    ), 
-    _hit        (source._hit        ), 
-    _enterT     (source._enterT     ), 
-    _leaveT     (source._leaveT     ), 
-    _hitT       (source._hitT       ), 
-    _hitObject  (source._hitObject  ),
-    _hitTriangle(source._hitTriangle)
+     Inherited    (source             ),
+    _line         (source._line       ),
+    _testLines    (source._testLines  ),
+    _lineTestWidth( source._lineTestWidth),
+    _maxdist      (source._maxdist    ), 
+    _hit          (source._hit        ), 
+    _enterT       (source._enterT     ), 
+    _leaveT       (source._leaveT     ), 
+    _hitT         (source._hitT       ), 
+    _hitObject    (source._hitObject  ),
+    _hitTriangle  (source._hitTriangle),
+    _hitNormal    (source._hitNormal  ),
+    _hitLine      (source._hitLine    )
 {
 }
 
@@ -264,6 +272,22 @@ void IntersectAction::setLine(const Line &line, const Real32 maxdist)
     _line    = line;
     _maxdist = maxdist;
 }
+
+void IntersectAction::setTestLines( bool value )
+{
+    _testLines = value;
+}
+
+void IntersectAction::setTestLineWidth(Real32 width)
+{
+    _lineTestWidth = width;
+}
+
+Int32 IntersectAction::getHitLine() const
+{
+   return _hitLine;
+}
+
     
 Action::ResultE IntersectAction::setEnterLeave(Real32 enter, Real32 leave)
 {
@@ -276,10 +300,18 @@ Action::ResultE IntersectAction::setEnterLeave(Real32 enter, Real32 leave)
     return Action::Continue;
 }
 
+/** Attempt to set the new hit for the intersection.
+ *  The hit is only set if this hit would be closer then the existing hit position.
+ *  @param t  The distance along the ray that the hit occurred.
+ *  @param obj The Node object that was hit.
+ *  @param triIndex The index of the triangle in the geometry hit.
+ *  @param normal   The normal at the hit location.
+ */
 void IntersectAction::setHit(Real32  t, 
                              Node   *obj, 
                              Int32   triIndex, 
-                             Vec3f  &normal  )
+                             Vec3f  &normal,
+                             Int32   lineIndex)
 {
     if(t < 0 || t > _hitT || t > _maxdist)
         return;
@@ -288,6 +320,7 @@ void IntersectAction::setHit(Real32  t,
     _hitObject   = obj;
     _hitTriangle = triIndex;
     _hitNormal   = normal;
+    _hitLine     = lineIndex;
     _hit         = true;
 }
 
@@ -305,6 +338,7 @@ Action::ResultE IntersectAction::start(void)
     _hitT        = Inf;
     _hitObject   = NULL;
     _hitTriangle = -1;
+    _hitLine     = -1;
     _hit         = false;
 
     return Continue;

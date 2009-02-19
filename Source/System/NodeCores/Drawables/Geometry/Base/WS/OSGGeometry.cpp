@@ -483,6 +483,7 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
 Action::ResultE Geometry::intersect(Action * action)
 {
     IntersectAction      *ia = dynamic_cast<IntersectAction*>(action);
+   
     ia->getActNode()->updateVolume();
     const BoxVolume      &bv = ia->getActNode()->getVolume();
 
@@ -495,15 +496,43 @@ Action::ResultE Geometry::intersect(Action * action)
     TriangleIterator end = this->endTriangles  ();
     Real32           t;
     Vec3f            norm;
+    Line             ia_line(ia->getLine());
 
     for(; it != end; ++it)
     {
-        if(ia->getLine().intersect(it.getPosition(0),
-                                   it.getPosition(1),
-                                   it.getPosition(2), t, &norm))
+        if(ia_line.intersect(it.getPosition(0),
+                             it.getPosition(1),
+                             it.getPosition(2), t, &norm))
         {
-            ia->setHit(t, ia->getActNode(), it.getIndex(), norm);
+            ia->setHit(t, ia->getActNode(), it.getIndex(), norm, -1);
         }
+    }
+
+    // If we need to test lines, iterate over lines and test for
+    // lines that are within width distance from the line
+    if(ia->getTestLines())
+    {       
+       Real32 range_sq  = ia->getTestLineWidth();
+       range_sq         = range_sq * range_sq;
+       LineIterator it  = this->beginLines();
+       LineIterator end = this->endLines  ();
+       Real32 dist;
+       Pnt3r  pt1, pt2;
+       OSG::Vec3f  norm;       
+
+       // Find closest points and if they are within the range, then add a hit
+       for(; it != end; ++it)
+       {          
+          Line cur_line(it.getPosition(0), it.getPosition(1));
+          ia_line.getClosestPoints(cur_line, pt1, pt2);
+          Real32 dist_sq( pt1.dist2(pt2) );
+
+          if (dist_sq <= range_sq)
+          {
+             t = ia_line.getPosition().dist(pt1);
+             ia->setHit(t, ia->getActNode(), -1, norm, it.getIndex());
+          }
+       }
     }
 
     return Action::Continue;

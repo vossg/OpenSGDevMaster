@@ -113,10 +113,16 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     // set input data
           void     setLine(       const Line   &line, 
                                   const Real32  maxdist = Inf);
+          void     setTestLines     ( bool value );
+          void     setTestLineWidth (Real32 width);
+
 
     // get input data
     const Line    &getLine       (      void                 ) const;
           Real32   getMaxDist    (      void                 ) const;
+          bool     getTestLines  (      void                 ) const;
+          Real32   getTestLineWidth (   void                 ) const;
+          
     
     // get result data
           bool     didHit        (      void                 ) const;
@@ -131,6 +137,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     
           Int32    getHitTriangle(      void                 ) const;
 
+          Int32    getHitLine    (      void                 ) const;
+
     /*------------------------- access ------------------------------*/
 
     // to be used by the traversed nodes
@@ -140,7 +148,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     void            setHit       (Real32   t, 
                                   Node    *obj, 
                                   Int32    triIndex, 
-                                  Vec3f   &normal  );
+                                  Vec3f   &normal,
+                                  Int32    lineIndex );
 
     // when entering/leaving a different coordinate system, the values might
     // have to be scaled
@@ -245,6 +254,8 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
     
     // the line to be tested
     Line   _line;
+    bool   _testLines;     /**< If true, attempt to intersect lines as well as geom. */
+    float  _lineTestWidth; /**< The width to assume for all lines we intersect against. */
     
     // the maximum distance along the line
     Real32 _maxdist;
@@ -267,6 +278,9 @@ class OSG_SYSTEM_DLLMAPPING IntersectAction : public Action
 
     // Normal of the hit triangle
     Vec3f   _hitNormal;
+
+    // Index of the hit line ( from LineInterator::getIndex() )
+    Int32   _hitLine;
     
     //-----------------------------------------------------------------------
     //   instance functions                                                  
