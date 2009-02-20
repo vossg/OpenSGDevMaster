@@ -95,10 +95,13 @@ OSG::TimeStamp getTimeStampFreq(void)
 {
 #ifdef WIN32
 
-    Int64 iCounterFreq;
-    
-    QueryPerformanceFrequency(
-        reinterpret_cast<LARGE_INTEGER *>(&iCounterFreq));
+    static Int64 iCounterFreq = 0;
+
+    if(0 == iCounterFreq)
+    {    
+       QueryPerformanceFrequency(
+           reinterpret_cast<LARGE_INTEGER *>(&iCounterFreq));
+    }
 
     return static_cast<TimeStamp>(iCounterFreq);
     
