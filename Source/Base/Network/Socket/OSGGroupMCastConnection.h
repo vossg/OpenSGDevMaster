@@ -60,6 +60,10 @@ OSG_BEGIN_NAMESPACE
 
 class PointMCastConnection;
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
+
 class OSG_BASE_DLLMAPPING GroupMCastConnection : 
     public GroupSockConnection
 {
@@ -114,6 +118,9 @@ class OSG_BASE_DLLMAPPING GroupMCastConnection :
     /*---------------------------------------------------------------------*/
     /*! \name                   Types                                      */
     /*! \{                                                                 */
+
+    /*! \nohierarchy
+     */
 
     struct SocketBufferHeader 
     {

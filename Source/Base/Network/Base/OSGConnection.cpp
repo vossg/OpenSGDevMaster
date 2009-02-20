@@ -49,7 +49,7 @@
 OSG_USING_NAMESPACE
 
 /** \class OSG::Connection
- *  \ingroup GrpBaseNetwork
+ *
  *  \brief Abstract 1 to n connection
  *
  * Connection defines an interface for a reliable 1 to n connection.
@@ -89,7 +89,7 @@ Connection::~Connection(void)
 /*! set connections parameters, a comma separated list e.g. "TTL=255"
  */
 
-void Connection::setParams(const std::string &OSG_CHECK_ARG(params))
+void Connection::setParams(const std::string &)
 {
     // do nothing this is implemented in the derived classes e.g. 
     // OSGGroupMCastConnection.cpp

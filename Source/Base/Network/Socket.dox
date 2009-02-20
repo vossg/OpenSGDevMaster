@@ -2,6 +2,25 @@
 
 using namespace OSG;
 
+/*! \defgroup GrpBaseNetwork Network
+    \ingroup GrpBase
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseNetworkBase Base
+    \ingroup GrpBaseNetwork
+
+    ToDo
+*/
+
+/*! \defgroup GrpBaseNetworkSockets Sockets
+    \ingroup GrpBaseNetwork
+
+    ToDo
+*/
+
+
 /*! \page PageBaseSocket Socket
 
 Socket baseclass. The Socket class wraps a socket descriptor. This

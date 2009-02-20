@@ -54,6 +54,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
+
 class OSG_BASE_DLLMAPPING SocketException : public Exception 
 {
     /*==========================  PUBLIC  =================================*/
@@ -66,6 +70,10 @@ class OSG_BASE_DLLMAPPING SocketException : public Exception
 
     /*! \}                                                                 */
 };
+
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
 
 class OSG_BASE_DLLMAPPING SocketError : public SocketException 
 {
@@ -80,6 +88,10 @@ class OSG_BASE_DLLMAPPING SocketError : public SocketException
     /*! \}                                                                 */
 };
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
+
 class OSG_BASE_DLLMAPPING SocketHostError : public SocketException 
 {
     /*==========================  PUBLIC  =================================*/
@@ -93,6 +105,10 @@ class OSG_BASE_DLLMAPPING SocketHostError : public SocketException
     /*! \}                                                                 */
 };
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
+
 class OSG_BASE_DLLMAPPING SocketInUse : public SocketError
 {
     /*==========================  PUBLIC  =================================*/
@@ -105,6 +121,10 @@ class OSG_BASE_DLLMAPPING SocketInUse : public SocketError
 
     /*! \}                                                                 */
 };
+
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
 
 class OSG_BASE_DLLMAPPING SocketConnReset : public SocketError
 {

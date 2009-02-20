@@ -65,7 +65,6 @@
 OSG_USING_NAMESPACE
 
 /** \class OSG::StreamSocket
- *  \ingroup GrpBaseNetwork
  *  \brief Stream socket handler
  *
  * This class is a Handler to connection oriented sockets. A call to

@@ -63,8 +63,7 @@ OSG_SINGLETON_INST(ConnectionFactoryBase, addPostFactoryExitFunction)
 template class SingletonHolder<ConnectionFactoryBase>;
 
 
-/** \class OSG::ConnectionFactory
- *  \ingroup GrpBaseNetwork
+/** \class OSG::ConnectionFactoryBase
  *
  * The ConnectionFactory knows all types of connections by name. 
  * A new connection object could be crated by calling 

@@ -61,7 +61,6 @@
 OSG_USING_NAMESPACE
 
 /** \class OSG::SocketAddress
- *  \ingroup GrpBaseNetwork
  *  \brief Network address
  *
  * The class SocketAddress holds an ip-address and a socket port number.

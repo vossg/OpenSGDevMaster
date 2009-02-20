@@ -70,7 +70,6 @@
 OSG_USING_NAMESPACE
 
 /** \class OSG::DgramSocket
- *  \ingroup GrpBaseNetwork
  *  \brief Datagramm socket handler
  *
  * This class is a handler to packet oriented socket.

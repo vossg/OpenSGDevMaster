@@ -53,6 +53,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
+
 class OSG_BASE_DLLMAPPING DgramSocket:public Socket
 {
     /*==========================  PUBLIC  =================================*/

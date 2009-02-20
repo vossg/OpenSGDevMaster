@@ -60,6 +60,11 @@ OSG_BEGIN_NAMESPACE
 
 //#define TEST_LOST_DGRAM_RATE 0.1
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+    \nohierarchy
+*/
+
 class OSG_BASE_DLLMAPPING Dgram
 {
     /*==========================  PUBLIC  =================================*/
@@ -133,6 +138,8 @@ class OSG_BASE_DLLMAPPING Dgram
     bool   _earlySend;
     UInt32 _size;
 
+    /*! \nohierarchy 
+     */
     struct 
     {
         UInt16 _id;

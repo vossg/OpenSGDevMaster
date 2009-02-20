@@ -239,7 +239,7 @@ TransformationMatrix<ValueTypeT> LinearTransform<ValueTypeT>::getTransform()
 
 template<class ValueTypeT> inline
   LinearTransform<ValueTypeT>::operator
-		TransformationMatrix<ValueTypeT>()
+		MatrixType()
 {
 	MatrixType mat;
 	mat.expOf(_logMatrix);

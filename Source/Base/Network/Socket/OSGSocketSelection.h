@@ -61,6 +61,10 @@ OSG_BEGIN_NAMESPACE
 //---------------------------------------------------------------------------
 class Socket;
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
+
 class OSG_BASE_DLLMAPPING SocketSelection
 {
     /*==========================  PUBLIC  =================================*/
@@ -82,7 +86,7 @@ class OSG_BASE_DLLMAPPING SocketSelection
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   SocketSelection functions                        */
+    /*! \name                   SocketSelection functions                  */
     /*! \{                                                                 */
 
     void clear     (void                                );

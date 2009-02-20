@@ -46,7 +46,6 @@
 OSG_USING_NAMESPACE
 
 /** \class OSG::SocketException
- *  \ingroup GrpBaseNetwork
  *  \brief Base class for socket exceptions
  **/
 
@@ -59,7 +58,6 @@ SocketException::SocketException():
 }
 
 /** \class OSG::SocketError
- *  \ingroup GrpBaseNetwork
  *  \brief Execption caused by socket error return codes
  **/
 
@@ -74,7 +72,6 @@ SocketError::SocketError(const char *function):SocketException()
 }
 
 /** \class OSG::SocketHostError
- *  \ingroup GrpBaseNetwork
  *  \brief Execption caused by host name resolution
  **/
 
@@ -89,7 +86,6 @@ SocketHostError::SocketHostError(const char *function):SocketException()
 }
 
 /** \class OSG::SocketInUse
- *  \ingroup GrpBaseNetwork
  *  \brief Execption caused by reusage of ports
  **/
 
@@ -101,7 +97,6 @@ SocketInUse::SocketInUse(const char *function):
 }
 
 /** \class OSG::SocketConnReset
- *  \ingroup GrpBaseNetwork
  *  \brief Execption caused by connection reset of remote endpoint
  **/
 

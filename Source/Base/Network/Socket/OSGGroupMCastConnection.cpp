@@ -59,7 +59,6 @@
 OSG_USING_NAMESPACE
 
 /** \class OSG::GroupMCastConnection
- *  \ingroup GrpBaseNetwork
  **/
 
 /*-------------------------------------------------------------------------*/

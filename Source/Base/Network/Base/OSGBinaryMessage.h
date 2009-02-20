@@ -51,6 +51,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkBase
+*/
+
 class OSG_BASE_DLLMAPPING BinaryMessage : public NetworkMessage
 {
     /*==========================  PUBLIC  =================================*/

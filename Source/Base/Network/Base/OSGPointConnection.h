@@ -55,6 +55,10 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkBase
+*/
+
 class OSG_BASE_DLLMAPPING PointConnection : public Connection
 {
     /*==========================  PUBLIC  =================================*/

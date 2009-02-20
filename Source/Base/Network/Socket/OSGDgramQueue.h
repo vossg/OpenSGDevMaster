@@ -57,6 +57,11 @@ OSG_BEGIN_NAMESPACE
 
 class BaseThread;
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+    \nohierarchy
+*/
+
 class OSG_BASE_DLLMAPPING DgramQueue 
 {
     /*==========================  PUBLIC  =================================*/

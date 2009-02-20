@@ -51,8 +51,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! \brief Factory for Connections, see 
-//! \ingroup GrpBaseNetwork
+/*! \brief Factory for Connections, accessible via #ConnectionFactory
+    \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkBase
+    \nohierarchy
+ */
 
 class OSG_BASE_DLLMAPPING ConnectionFactoryBase 
 {
@@ -141,12 +144,17 @@ class OSG_BASE_DLLMAPPING ConnectionFactoryBase
 
 #if defined(WIN32)
 #    if !defined(OSG_COMPILE_CONNECTIONFACTORY)
-OSG_BASE_EXPIMP_TMPL 
-template class OSG_BASE_DLLMAPPING SingletonHolder<ConnectionFactoryBase>;
+//OSG_BASE_EXPIMP_TMPL 
+//template class OSG_BASE_DLLMAPPING SingletonHolder<ConnectionFactoryBase>;
 #    endif
 #endif
 
-typedef SingletonHolder<ConnectionFactoryBase> ConnectionFactory;
+/*! \typedef OSG::SingletonHolder<OSG::ConnectionFactoryBase> ConnectionFactory;
+    \ingroup GrpBaseNetworkBase
+    \relatesalso OSG::ConnectionFactoryBase
+ */
+
+typedef OSG::SingletonHolder<OSG::ConnectionFactoryBase> ConnectionFactory;
 
 OSG_END_NAMESPACE
 

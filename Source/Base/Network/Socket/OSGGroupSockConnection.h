@@ -59,6 +59,10 @@ OSG_BEGIN_NAMESPACE
 
 class PointSockConnection;
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
+
 class OSG_BASE_DLLMAPPING GroupSockConnection : public GroupConnection
 {
     /*==========================  PUBLIC  =================================*/
@@ -118,6 +122,9 @@ class OSG_BASE_DLLMAPPING GroupSockConnection : public GroupConnection
     /*---------------------------------------------------------------------*/
     /*! \name                   Types                                      */
     /*! \{                                                                 */
+
+    /*! \nohierarchy
+     */
 
     struct SocketBufferHeader {
         UInt32 size;

@@ -60,6 +60,10 @@ OSG_BEGIN_NAMESPACE
 
 class PointSockPipeline;
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
+
 class OSG_BASE_DLLMAPPING GroupSockPipeline : 
     public GroupSockConnection
 {

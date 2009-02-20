@@ -47,15 +47,18 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkBase
+ */
+
 class OSG_BASE_DLLMAPPING NetworkMessage 
 {
     /*==========================  PUBLIC  =================================*/
   public:
     
-    /** \class Header
-     *  \ingroup GrpBaseNetwork
-     *  \brief Header of socket messages
-     **/
+    /*! \ingroup GrpBaseNetworkBase
+        \nohierarchy
+     */
     struct Header
     {
         UInt32 size;

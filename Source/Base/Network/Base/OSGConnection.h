@@ -58,6 +58,10 @@ OSG_BEGIN_NAMESPACE
 
 class ConnectionType;
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkBase
+*/
+
 class OSG_BASE_DLLMAPPING Connection : public BinaryDataHandler
 {
     /*==========================  PUBLIC  =================================*/

@@ -55,12 +55,17 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+    \nohierarchy
+*/
+
 class OSG_BASE_DLLMAPPING SocketAddress 
 {
     /*==========================  PUBLIC  =================================*/
   public:
 
-    /*! \enum SocketAddress type */
+    /*! socket address type */
     enum Type { ANY,BROADCAST,MULTICAST };
 
 #if   defined(WIN32)

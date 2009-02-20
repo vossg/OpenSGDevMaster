@@ -57,7 +57,6 @@
 OSG_USING_NAMESPACE
 
 /** \class OSG::GroupSockPipeline
- *  \ingroup GrpBaseNetwork
  **/
 
 /*-------------------------------------------------------------------------*/

@@ -49,7 +49,6 @@
 OSG_USING_NAMESPACE
 
 /** \class OSG::NetworkMessage
- *  \ingroup GrpBaseNetwork
  *  \brief Abstract socket message buffer
  *
  * This is the base class for socket messages. It provides an Interface

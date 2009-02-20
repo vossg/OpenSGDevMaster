@@ -73,7 +73,6 @@
 OSG_USING_NAMESPACE
 
 /*! \class OSG::Socket
-    \ingroup GrpBaseNetwork
     \brief Abstract network socket handler
 
 Socket base class. The Socket class wraps a socket descriptor. This

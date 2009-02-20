@@ -53,7 +53,6 @@
 OSG_USING_NAMESPACE
 
 /** \class OSG::PointSockConnection
- *  \ingroup GrpBaseNetwork
  **/
 
 /*-------------------------------------------------------------------------*/

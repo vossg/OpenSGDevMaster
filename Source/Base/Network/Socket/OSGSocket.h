@@ -50,6 +50,10 @@ OSG_BEGIN_NAMESPACE
 
 class NetworkMessage;
 
+/*! \ingroup GrpBaseNetwork
+    \ingroup GrpBaseNetworkSockets
+*/
+
 class OSG_BASE_DLLMAPPING Socket
 {
     /*==========================  PUBLIC  =================================*/
