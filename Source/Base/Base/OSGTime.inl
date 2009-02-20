@@ -71,7 +71,8 @@ OSG::TimeStamp getTimeStamp(void)
 
     return  static_cast<TimeStamp>(iCounter);
 
-#elif defined(__linux) && defined(__i386)
+/*  NOTE: Not reliable on multi-core processors
+#elif defined(__linux) && (defined(__i386) || defined(__x86_64))
 
     register uint64_t result;
     //asm volatile ("rdtsc" : "=A"(result));
@@ -79,6 +80,7 @@ OSG::TimeStamp getTimeStamp(void)
     asm volatile (".byte 0x0f, 0x31" : "=A" (result)); 
 
     return static_cast<TimeStamp>(result);
+*/
     
 #else
 
@@ -100,7 +102,8 @@ OSG::TimeStamp getTimeStampFreq(void)
 
     return static_cast<TimeStamp>(iCounterFreq);
     
-#elif defined(__linux) && defined(__i386)
+/*
+#elif defined(__linux) && (defined(__i386) || defined(__x86_64))
 
     static Int64 iCounterFreq = 0;
     
@@ -123,6 +126,7 @@ OSG::TimeStamp getTimeStampFreq(void)
     }
 
     return static_cast<TimeStamp>(iCounterFreq);
+*/
     
 #else
 
