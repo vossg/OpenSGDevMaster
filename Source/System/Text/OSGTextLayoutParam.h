@@ -58,6 +58,9 @@ OSG_BEGIN_NAMESPACE
  * about these parameters, the the documentation for the VRML Text and
  * FontStyle nodes - all parameters correspond to fields of these nodes
  * and have exactly the same meaning.
+ * 
+ * See: http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/nodesRef.html#Text
+ * See: http://www.web3d.org/x3d/specifications/vrml/ISO-IEC-14772-VRML97/part1/nodesRef.html#FontStyle
  *
  * @author Patrick D&auml;hne
  */
