@@ -203,7 +203,7 @@ def collect_lib(libraries, lib_map):
     return osg_libs + lib_list
 
 def string_lib(lib):
-    return " ".join(["%s%s" % (options.lib_prefix, l) for l in lib])
+    return " ".join(["%s%s%s" % (options.lib_prefix, l, options.lib_ext) for l in lib])
 
 
 def collect_lib_dir(libraries, lib_map):
