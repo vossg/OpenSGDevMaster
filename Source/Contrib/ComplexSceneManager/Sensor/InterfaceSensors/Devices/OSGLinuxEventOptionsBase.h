@@ -68,6 +68,7 @@
 #include "OSGStringFields.h" // Device type
 #include "OSGVec3fFields.h" // TRange type
 #include "OSGVec3fFields.h" // RRange type
+#include "OSGUInt32Fields.h" // BufferSize type
 
 #include "OSGLinuxEventOptionsFields.h"
 
@@ -98,7 +99,8 @@ class OSG_CONTRIBCSM_DLLMAPPING LinuxEventOptionsBase : public InterfaceOptions
         DeviceFieldId = Inherited::NextFieldId,
         TRangeFieldId = DeviceFieldId + 1,
         RRangeFieldId = TRangeFieldId + 1,
-        NextFieldId = RRangeFieldId + 1
+        BufferSizeFieldId = RRangeFieldId + 1,
+        NextFieldId = BufferSizeFieldId + 1
     };
 
     static const OSG::BitVector DeviceFieldMask =
@@ -107,12 +109,15 @@ class OSG_CONTRIBCSM_DLLMAPPING LinuxEventOptionsBase : public InterfaceOptions
         (TypeTraits<BitVector>::One << TRangeFieldId);
     static const OSG::BitVector RRangeFieldMask =
         (TypeTraits<BitVector>::One << RRangeFieldId);
+    static const OSG::BitVector BufferSizeFieldMask =
+        (TypeTraits<BitVector>::One << BufferSizeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFString          SFDeviceType;
     typedef SFVec3f           SFTRangeType;
     typedef SFVec3f           SFRRangeType;
+    typedef SFUInt32          SFBufferSizeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -147,6 +152,9 @@ class OSG_CONTRIBCSM_DLLMAPPING LinuxEventOptionsBase : public InterfaceOptions
                   SFVec3f             *editSFRRange         (void);
             const SFVec3f             *getSFRRange          (void) const;
 
+                  SFUInt32            *editSFBufferSize     (void);
+            const SFUInt32            *getSFBufferSize      (void) const;
+
 
                   std::string         &editDevice         (void);
             const std::string         &getDevice          (void) const;
@@ -157,6 +165,9 @@ class OSG_CONTRIBCSM_DLLMAPPING LinuxEventOptionsBase : public InterfaceOptions
                   Vec3f               &editRRange         (void);
             const Vec3f               &getRRange          (void) const;
 
+                  UInt32              &editBufferSize     (void);
+                  UInt32               getBufferSize      (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -165,6 +176,7 @@ class OSG_CONTRIBCSM_DLLMAPPING LinuxEventOptionsBase : public InterfaceOptions
             void setDevice         (const std::string &value);
             void setTRange         (const Vec3f &value);
             void setRRange         (const Vec3f &value);
+            void setBufferSize     (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -227,6 +239,7 @@ class OSG_CONTRIBCSM_DLLMAPPING LinuxEventOptionsBase : public InterfaceOptions
     SFString          _sfDevice;
     SFVec3f           _sfTRange;
     SFVec3f           _sfRRange;
+    SFUInt32          _sfBufferSize;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -260,6 +273,8 @@ class OSG_CONTRIBCSM_DLLMAPPING LinuxEventOptionsBase : public InterfaceOptions
     EditFieldHandlePtr editHandleTRange         (void);
     GetFieldHandlePtr  getHandleRRange          (void) const;
     EditFieldHandlePtr editHandleRRange         (void);
+    GetFieldHandlePtr  getHandleBufferSize      (void) const;
+    EditFieldHandlePtr editHandleBufferSize     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

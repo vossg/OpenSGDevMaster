@@ -127,9 +127,19 @@ void MouseDataInterfaceSensor::frame(Time tTime, UInt32 uiFrame)
 
     if(_pMDDevice->hasNewData() == true)
     {
-        editSField(MouseDataFieldMask);
+        MouseDataDeviceInterface::MouseDataBuffer::const_iterator mIt  =
+            _pMDDevice->getDataBuffer().begin();
+        MouseDataDeviceInterface::MouseDataBuffer::const_iterator mEnd =
+            _pMDDevice->getDataBuffer().end();
 
-        _sfMouseData.getValue() = _pMDDevice->getData();
+        for(; mIt != mEnd; ++mIt)
+        {
+            editSField(MouseDataFieldMask);
+
+            _sfMouseData.getValue() = *mIt;
+
+            commitChanges();
+        }
 
         _pMDDevice->clearNewData();
     }

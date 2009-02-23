@@ -94,6 +94,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          LinuxEventOptionsBase::_sfBufferSize
+    
+*/
+
 
 void LinuxEventOptionsBase::classDescInserter(TypeObject &oType)
 {
@@ -133,6 +137,18 @@ void LinuxEventOptionsBase::classDescInserter(TypeObject &oType)
         (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&LinuxEventOptions::editHandleRRange),
         static_cast<FieldGetMethodSig >(&LinuxEventOptions::getHandleRRange));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "bufferSize",
+        "",
+        BufferSizeFieldId, BufferSizeFieldMask,
+        true,
+        (Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&LinuxEventOptions::editHandleBufferSize),
+        static_cast<FieldGetMethodSig >(&LinuxEventOptions::getHandleBufferSize));
 
     oType.addInitialDesc(pDesc);
 }
@@ -194,6 +210,16 @@ LinuxEventOptionsBase::TypeObject LinuxEventOptionsBase::_type(
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     defaultValue=\"\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"bufferSize\"\n"
+    "     type=\"UInt32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"internal\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"128\"\n"
     "     fieldFlags=\"FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
@@ -260,6 +286,19 @@ const SFVec3f *LinuxEventOptionsBase::getSFRRange(void) const
 }
 
 
+SFUInt32 *LinuxEventOptionsBase::editSFBufferSize(void)
+{
+    editSField(BufferSizeFieldMask);
+
+    return &_sfBufferSize;
+}
+
+const SFUInt32 *LinuxEventOptionsBase::getSFBufferSize(void) const
+{
+    return &_sfBufferSize;
+}
+
+
 
 
 
@@ -282,6 +321,10 @@ UInt32 LinuxEventOptionsBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRRange.getBinSize();
     }
+    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
+    {
+        returnValue += _sfBufferSize.getBinSize();
+    }
 
     return returnValue;
 }
@@ -303,6 +346,10 @@ void LinuxEventOptionsBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRRange.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
+    {
+        _sfBufferSize.copyToBin(pMem);
+    }
 }
 
 void LinuxEventOptionsBase::copyFromBin(BinaryDataHandler &pMem,
@@ -321,6 +368,10 @@ void LinuxEventOptionsBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RRangeFieldMask & whichField))
     {
         _sfRRange.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (BufferSizeFieldMask & whichField))
+    {
+        _sfBufferSize.copyFromBin(pMem);
     }
 }
 
@@ -422,7 +473,8 @@ LinuxEventOptionsBase::LinuxEventOptionsBase(void) :
     Inherited(),
     _sfDevice                 (),
     _sfTRange                 (),
-    _sfRRange                 ()
+    _sfRRange                 (),
+    _sfBufferSize             (UInt32(128))
 {
 }
 
@@ -430,7 +482,8 @@ LinuxEventOptionsBase::LinuxEventOptionsBase(const LinuxEventOptionsBase &source
     Inherited(source),
     _sfDevice                 (source._sfDevice                 ),
     _sfTRange                 (source._sfTRange                 ),
-    _sfRRange                 (source._sfRRange                 )
+    _sfRRange                 (source._sfRRange                 ),
+    _sfBufferSize             (source._sfBufferSize             )
 {
 }
 
@@ -507,6 +560,29 @@ EditFieldHandlePtr LinuxEventOptionsBase::editHandleRRange         (void)
 
 
     editSField(RRangeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr LinuxEventOptionsBase::getHandleBufferSize      (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfBufferSize,
+             this->getType().getFieldDesc(BufferSizeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr LinuxEventOptionsBase::editHandleBufferSize     (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfBufferSize,
+             this->getType().getFieldDesc(BufferSizeFieldId)));
+
+
+    editSField(BufferSizeFieldMask);
 
     return returnValue;
 }

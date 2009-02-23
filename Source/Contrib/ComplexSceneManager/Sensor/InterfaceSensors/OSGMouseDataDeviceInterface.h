@@ -45,6 +45,8 @@
 #include "OSGMouseData.h"
 #include "OSGDeviceInterface.h"
 
+#include <boost/circular_buffer.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 class OSG_CONTRIBCSM_DLLMAPPING MouseDataDeviceInterface : 
@@ -55,20 +57,24 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseDataDeviceInterface :
 
   public:
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                 Reference Counting                           */
-    /*! \{                                                                 */
+    typedef boost::circular_buffer<MouseData> MouseDataBuffer;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
-    const MouseData &getData(void) const;
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    const MouseDataBuffer &getDataBuffer(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
+
+    virtual void clearNewData(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -77,7 +83,7 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseDataDeviceInterface :
 
     typedef DeviceInterface Inherited;
 
-    MouseData      _oMouseData;
+    MouseDataBuffer _cbMouseData;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */

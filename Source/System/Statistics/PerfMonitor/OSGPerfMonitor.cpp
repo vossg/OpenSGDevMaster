@@ -41,7 +41,7 @@
 #include <sstream>
 
 #include "OSGPerfMonitor.h"
-//#include <boost/format.hpp>
+#include <boost/format.hpp>
 #include "OSGBaseInitFunctions.h"
 #include "OSGSingletonHolder.ins"
 #include "OSGBaseFunctions.h"

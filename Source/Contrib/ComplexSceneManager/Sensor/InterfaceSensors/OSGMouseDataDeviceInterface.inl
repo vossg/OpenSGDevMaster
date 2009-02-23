@@ -41,9 +41,10 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-const MouseData &MouseDataDeviceInterface::getData(void) const
+const MouseDataDeviceInterface::MouseDataBuffer &
+    MouseDataDeviceInterface::getDataBuffer(void) const
 {
-    return _oMouseData;
+    return _cbMouseData;
 }
 
 OSG_END_NAMESPACE

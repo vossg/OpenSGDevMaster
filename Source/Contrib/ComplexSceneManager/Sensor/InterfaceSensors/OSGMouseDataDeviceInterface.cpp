@@ -70,15 +70,22 @@ MouseDataDeviceInterface::MouseDataDeviceInterface(
     const Char8  *szName, 
           UInt32  uiId) :
 
-      Inherited (szName, 
-                 uiId  ),
-     _oMouseData(      )
+      Inherited  (szName, 
+                  uiId  ),
+     _cbMouseData(128   )
 
 {
 }
 
 MouseDataDeviceInterface::~MouseDataDeviceInterface(void)
 {
+}
+
+void MouseDataDeviceInterface::clearNewData(void)
+{
+    Inherited::clearNewData();
+
+    _cbMouseData.clear();
 }
 
 OSG_END_NAMESPACE

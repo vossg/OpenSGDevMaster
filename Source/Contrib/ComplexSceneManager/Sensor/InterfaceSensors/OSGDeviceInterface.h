@@ -70,9 +70,9 @@ class OSG_CONTRIBCSM_DLLMAPPING DeviceInterface : public Thread
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
-    bool isRunning   (void);
-    bool hasNewData  (void);
-    void clearNewData(void);
+            bool isRunning   (void);
+            bool hasNewData  (void);
+    virtual void clearNewData(void);
 
     void lock        (void);
     void unlock      (void);

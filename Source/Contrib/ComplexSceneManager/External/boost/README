@@ -1,0 +1,4 @@
+needed as only present in boost versions greater than 1.35 which don't
+seem to be installed by current distributions
+
+Slightly modified to produce less warnings (old-style casts)

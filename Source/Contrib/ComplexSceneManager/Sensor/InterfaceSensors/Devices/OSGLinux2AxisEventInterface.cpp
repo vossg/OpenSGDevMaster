@@ -204,6 +204,8 @@ void Linux2AxisEventInterface::getRawData(void)
 
             bool  bSetButton   = false;
             
+            bool  bGotData     = false;
+
             for (UInt32 i = 0;
                         i < UInt32(iBytesRead / sizeof(input_event));
                       ++i)
@@ -227,6 +229,7 @@ void Linux2AxisEventInterface::getRawData(void)
                     
                     iButtonState = 1 - ev[i].value;
                     bSetButton   = true;
+                    bGotData     = true;
                 }
                 else if(ev[i].type == EV_REL)
                 {
@@ -234,9 +237,11 @@ void Linux2AxisEventInterface::getRawData(void)
                     {
                         case REL_X:
                             rX = ev[i].value;
+                            bGotData = true;
                             break;
                         case REL_Y:
                             rY = ev[i].value;
+                            bGotData = true;
                             break;
                         default:
                             break;
@@ -249,29 +254,36 @@ void Linux2AxisEventInterface::getRawData(void)
                 }
             }
             
-            rX /= _rTxRange;
-            rY /= _rTyRange;
-            
-            if(bSetButton == true)
+            if(bGotData == true)
             {
-                _oMouseData.setData(iButton,
+                MouseData tmpElem;
+
+                rX /= _rTxRange;
+                rY /= _rTyRange;
+            
+                if(bSetButton == true)
+                {
+                    tmpElem.setData(iButton,
                                     iButtonState,
                                     MouseData::NoModifier,
                                     rX, 
                                     rY,
                                     NULL,
                                     MouseData::RelValues);
-            }
-            else
-            {
-                _oMouseData.setData(rX, 
+                }
+                else
+                {
+                    tmpElem.setData(rX, 
                                     rY,
                                     NULL,
                                     MouseData::RelValues);
+                }
+                
+                _cbMouseData.push_back(tmpElem);
+
+                _bHasNewData = true;
             }
-            
-            _bHasNewData = true;
-            
+
             Inherited::unlock();
         }
     }
@@ -294,6 +306,8 @@ void Linux2AxisEventInterface::setOptions(InterfaceOptions *pOptions)
 
         _rTxRange = pOpts->getTRange()[0];
         _rTyRange = pOpts->getTRange()[1];
+
+        _cbMouseData.set_capacity(pOpts->getBufferSize());
     }
 }
 
