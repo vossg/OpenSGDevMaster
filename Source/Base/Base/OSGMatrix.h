@@ -342,8 +342,10 @@ class TransformationMatrix
     bool       transpose    (      void                        );
     bool       transposeFrom(const TransformationMatrix &matrix);
 
-    void       mult         (const TransformationMatrix &matrix);
-    void       multLeft     (const TransformationMatrix &matrix);
+    template<class ValueTypeR>
+    void       mult         (const TransformationMatrix<ValueTypeR>& mat);
+    template<class ValueTypeR>
+    void       multLeft     (const TransformationMatrix<ValueTypeR>& mat);
 
     void       add          (const TransformationMatrix &matrix);
     void       scale        (      ValueTypeT            s     );
@@ -404,10 +406,11 @@ class TransformationMatrix
     /*! \name                   Internal Math                              */
     /*! \{                                                                 */
 
-    ValueTypeT rowMulCol4(const TransformationMatrix &gRowMat,
-                                UInt32                iRow,
-                          const TransformationMatrix &gColMat,
-                                UInt32                iColumn) const;
+    template<class ValueTypeR, class ValueTypeS>
+    ValueTypeT rowMulCol4(const TransformationMatrix<ValueTypeR> &gRowMat,
+                                 UInt32                iRow,
+                          const TransformationMatrix<ValueTypeS> &gColMat,
+                                 UInt32                iColumn) const;
 
     ValueTypeT det2_calc (const ValueTypeT            a1,
                           const ValueTypeT            a2,

@@ -745,14 +745,32 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         Pnt3f         objPos;
         
         actNode->getVolume().getCenter(objPos);
-        
+
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
         _currMatrix.second.mult(objPos, objPos);
+#else
+        Pnt3d temp(objPos[0], objPos[1], objPos[2]);
+        _currMatrix.second.mult(temp);
+#endif
         
         pNewElem->setNode        (&*actNode  );
         pNewElem->setFunctor     ( func      );
-        pNewElem->setMatrixStore (_currMatrix);
         pNewElem->setState       ( pState    );
+
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
+        pNewElem->setMatrixStore (_currMatrix);
         pNewElem->setScalar      ( objPos[2] );
+#else
+        // Now that we have accumulated all transformations we can convert back
+        // to a floating point matrix.
+        Matrix4f tempMat;
+        tempMat.convertFrom(_currMatrix.second);
+        std::pair<UInt32, Matrix> temp_ms(_currMatrix.first, tempMat);
+
+        pNewElem->setMatrixStore (temp_ms      );
+        pNewElem->setScalar      ( temp[2]     );
+#endif
+
         pNewElem->setLightState  (_uiLightState);
 
         if(_sStateOverrides.top()->empty() == false && 
@@ -792,8 +810,12 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         }
         
         RenderTreeNode  *pNewElem = _pNodePool->create();
-        
+      
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
         Pnt3f            objPos;
+#else
+        Pnt3d           objPos;
+#endif
         
         //_oDrawEnv.getRTAction()->getActNode()->getVolume().getCenter(objPos);
         
@@ -805,7 +827,11 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 
         objVol.getBounds(min,max);
 
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
         Pnt3r p[8];
+#else
+        Pnt3d p[8];
+#endif
         p[0].setValues(min[0],min[1],min[2]);
         p[1].setValues(max[0],min[1],min[2]);
         p[2].setValues(min[0],max[1],min[2]);
@@ -834,9 +860,20 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         pNewElem->setNode       (&*actNode    );
 
         pNewElem->setFunctor    ( func        );
-        pNewElem->setMatrixStore(_currMatrix  );
         pNewElem->setState      ( pState      );
         pNewElem->setLightState (_uiLightState);
+
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
+        pNewElem->setMatrixStore(_currMatrix  );
+#else
+        // Now that we have accumulated all transformations we can convert back
+        // to a floating point matrix.
+        Matrix4f tempMat;
+        tempMat.convertFrom(_currMatrix.second);
+        std::pair<UInt32, Matrix> temp_ms(_currMatrix.first, tempMat);
+
+        pNewElem->setMatrixStore(temp_ms      );
+#endif
 
         // Normalize scalar to 0..1 for bucket sorting
         pNewElem->setScalar     ( (-objPos[2] - getNear()) / 
@@ -882,7 +919,19 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 
         pNewElem->setNode       (&* actNode   );
         pNewElem->setFunctor    (   func      );
+
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
         pNewElem->setMatrixStore(  _currMatrix);
+#else
+        // Now that we have accumulated all transformations we can convert back
+        // to a floating point matrix.
+        Matrix4f tempMat;
+        tempMat.convertFrom(_currMatrix.second);
+        std::pair<UInt32, Matrix> temp_ms(_currMatrix.first, tempMat);
+
+        pNewElem->setMatrixStore(  temp_ms    );
+#endif
+
         pNewElem->setLightState (_uiLightState);
                
         if(_sStateOverrides.top()->empty() == false &&
@@ -1268,16 +1317,6 @@ void RenderPartition::updateTopMatrix(void)
 {
     _accMatrix = _oDrawEnv.getCameraToWorld();
     _accMatrix.mult(_currMatrix.second);
-}
-
-void RenderPartition::pushMatrix(const Matrix &matrix)
-{
-    _vMatrixStack.push_back(_currMatrix);
-    
-    _currMatrix.first = ++_uiMatrixId;
-    _currMatrix.second.mult(matrix);
-   
-    updateTopMatrix();
 }
 
 void RenderPartition::popMatrix(void         )

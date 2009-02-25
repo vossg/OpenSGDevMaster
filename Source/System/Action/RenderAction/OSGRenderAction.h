@@ -168,7 +168,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*--------------------------- matrix ------------------------------------*/
 
-          void    pushMatrix (const Matrix &matrix);
+    template<class MatrixType>
+          void    pushMatrix (const MatrixType &matrix);
           void    popMatrix  (      void          );
 
     const Matrix &topMatrix  (      void          );

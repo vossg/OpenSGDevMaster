@@ -85,6 +85,13 @@ OSG_BEGIN_NAMESPACE
 
 /*---------------------------- properties ---------------------------------*/
 
+template<class MatrixType> inline
+void RenderAction::pushMatrix(const MatrixType &matrix)
+{
+    _pActivePartition->pushMatrix(matrix);
+}
+
+
 inline
 void RenderAction::setKeyGen(UInt32 uiKeyGen)
 {

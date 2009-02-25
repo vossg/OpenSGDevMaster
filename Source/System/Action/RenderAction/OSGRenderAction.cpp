@@ -858,11 +858,6 @@ void  RenderAction::releaseLightIndex(void)
     _pActivePartition->releaseLightIndex();
 }
 
-void RenderAction::pushMatrix(const Matrix &matrix)
-{
-    _pActivePartition->pushMatrix(matrix);
-}
-
 void RenderAction::popMatrix(void)
 {
     _pActivePartition->popMatrix();

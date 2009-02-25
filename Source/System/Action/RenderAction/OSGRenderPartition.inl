@@ -233,8 +233,25 @@ void RenderPartition::setupViewing(const Matrix4f &matrix)
 {
     _oDrawEnv.setupViewing(matrix);
 
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
     _currMatrix.second = matrix;
+#else
+    Matrix4d temp;
+    temp.convertFrom(matrix);
+    _currMatrix.second = temp;
+#endif
 
+    updateTopMatrix();
+}
+
+template<class MatrixType> inline
+void RenderPartition::pushMatrix(const MatrixType &matrix)
+{
+    _vMatrixStack.push_back(_currMatrix);
+    
+    _currMatrix.first = ++_uiMatrixId;
+    _currMatrix.second.mult(matrix);
+   
     updateTopMatrix();
 }
 

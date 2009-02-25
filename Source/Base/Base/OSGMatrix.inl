@@ -433,10 +433,11 @@ const ValueTypeT *TransformationMatrix<ValueTypeT>::getValues(void) const
 /*-------------------------------------------------------------------------*/
 /*                               Helper                                    */
 
-template<class ValueTypeT> inline
-ValueTypeT TransformationMatrix<ValueTypeT>::rowMulCol4(
-    const TransformationMatrix &gRowMat, UInt32 iRow,
-    const TransformationMatrix &gColMat, UInt32 iColumn) const
+template<class ValueTypeT>
+template<class ValueTypeR, class ValueTypeS> inline
+ ValueTypeT TransformationMatrix<ValueTypeT>::rowMulCol4(
+    const TransformationMatrix<ValueTypeR> &gRowMat, UInt32 iRow,
+    const TransformationMatrix<ValueTypeS> &gColMat, UInt32 iColumn) const
 {
     return
         gRowMat[0][iRow] * gColMat[iColumn][0] +
@@ -2506,8 +2507,9 @@ bool TransformationMatrix<ValueTypeT>::transposeFrom(
     return true;
 }
 
-template<class ValueTypeT> inline
-void TransformationMatrix<ValueTypeT>::mult(const TransformationMatrix &matrix)
+template<class ValueTypeT>
+template<class ValueTypeR> inline
+void TransformationMatrix<ValueTypeT>::mult(const TransformationMatrix<ValueTypeR> &matrix)
 {
     ValueTypeT rTmpMat[4][4];
 
@@ -2552,9 +2554,10 @@ void TransformationMatrix<ValueTypeT>::mult(const TransformationMatrix &matrix)
     _matrix[3][3] = rTmpMat[3][3];
 }
 
-template<class ValueTypeT> inline
+template<class ValueTypeT>
+template<class ValueTypeR> inline
 void TransformationMatrix<ValueTypeT>::multLeft(
-    const TransformationMatrix &matrix)
+    const TransformationMatrix<ValueTypeR> &matrix)
 {
     ValueTypeT rTmpMat[4][4];
 

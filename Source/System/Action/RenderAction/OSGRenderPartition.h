@@ -109,7 +109,11 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
         The UInt32 is used to quickly identify the same matrix without having
         to compare actual matrix elements.
     */
+#ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
     typedef std::pair<UInt32, Matrix>               MatrixStore;
+#else
+    typedef std::pair<UInt32, Matrix4d>             MatrixStore;
+#endif
     
     /*! DrawFunctor is the signature for the methods that are called 
         from within the draw tree
@@ -260,8 +264,9 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     void disable(void);
 
     /*------------------------- assignment ----------------------------------*/
-    
-          void    pushMatrix(const Matrix &matrix);
+
+    template<class MatrixType>
+          void    pushMatrix(const MatrixType &matrix);
           void    popMatrix (      void          );
 
     const Matrix &topMatrix (      void          );
