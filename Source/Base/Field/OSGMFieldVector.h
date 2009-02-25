@@ -155,6 +155,9 @@ class MFieldVector : public std::vector<Ty, A>
 
   public :	
 
+    typedef typename Inherited::allocator_type allocator_type;
+    typedef typename Inherited::size_type      size_type;
+
     explicit MFieldVector(const A& _Al = A());
 
 	explicit MFieldVector(      size_type  _N, 
