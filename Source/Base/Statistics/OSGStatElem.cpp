@@ -55,7 +55,6 @@ OSG_USING_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StatElem
-    \ingroup Statistics
 
   The StatElem is the abstract base class for all the data types that can be 
   recorded statistically. See \ref PageSystemStatistics for an overview of the
@@ -80,8 +79,8 @@ OSG_USING_NAMESPACE
 
  */
 
-/*! \fn void OSG::StatElem::putToString(std::string &str, 
-                                        const char *format) const
+/*! \fn void OSG::StatElem::putToString(      std::string &str, 
+                                        const std::string &format) const
   
   The putToString method converts the value of the StatElem into a standard 
   STL string. 

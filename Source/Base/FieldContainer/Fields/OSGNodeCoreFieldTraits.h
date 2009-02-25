@@ -50,20 +50,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file 
-    \ingroup 
-    \ingroup 
-*/
-#endif
-
-/*! \ingroup 
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<NodeCore *> : 
@@ -143,6 +131,8 @@ const Char8 *FieldTraits<NodeCore *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
+/*! \ingroup GrpBaseFieldContainerFieldTraits
+ */
 
 template <>
 struct FieldTraits<NodeCore *, 1> : 
@@ -222,8 +212,6 @@ const Char8 *FieldTraits<NodeCore *, 1>::getMName<NoRefCountPolicy>(void)
 {
     return "MFUnrefdChildNodeCorePtr"; 
 }
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

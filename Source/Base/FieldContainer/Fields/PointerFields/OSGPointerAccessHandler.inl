@@ -36,12 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file PointerAccessHandlerDecl.inl
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/

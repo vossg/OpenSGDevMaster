@@ -58,7 +58,7 @@ OSG_BEGIN_NAMESPACE
 //   Class         
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpSystemFieldContainer
+/*! \ingroup GrpBaseFieldContainerBase
  */
 
 class ReflexiveContainer 

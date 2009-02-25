@@ -89,8 +89,7 @@ ReflexiveContainer::ReflexiveContainer(void) :
 }
 
 inline
-ReflexiveContainer::ReflexiveContainer(const ReflexiveContainer
-                                                &OSG_CHECK_ARG(source)) :
+ReflexiveContainer::ReflexiveContainer(const ReflexiveContainer &) :
     _bvChanged        (TypeTraits<BitVector>::BitsClear),
     _pContainerChanges(NULL                            ),
     _uiContainerId    (0                               )
@@ -111,7 +110,7 @@ ReflexiveContainer::~ReflexiveContainer(void)
 
 
 inline
-void ReflexiveContainer::initMethod(InitPhase OSG_CHECK_ARG(ePhase))
+void ReflexiveContainer::initMethod(InitPhase)
 {
 }
 
@@ -126,8 +125,8 @@ void ReflexiveContainer::onDestroy(UInt32)
 }
 
 inline
-void ReflexiveContainer::onDestroyAspect(UInt32 OSG_CHECK_ARG(uiContainerId),
-                                         UInt32 OSG_CHECK_ARG(uiAspect))
+void ReflexiveContainer::onDestroyAspect(UInt32,
+                                         UInt32)
 {
 }
 

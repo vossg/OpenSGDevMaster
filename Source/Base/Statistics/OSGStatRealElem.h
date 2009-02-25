@@ -51,7 +51,8 @@ OSG_BEGIN_NAMESPACE
 class StatElemDescBase;
 
 /*! \brief Real32 Statistics element, see \ref PageSystemStatistics for 
-  details.
+           details.
+    \ingroup GrpBaseStatistics
  */
 
 class OSG_BASE_DLLMAPPING StatRealElem : public StatElem 

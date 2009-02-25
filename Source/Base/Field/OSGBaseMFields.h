@@ -47,100 +47,54 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpBaseFieldMulti */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldMulti */
 typedef MField<Color3f> MFColor3f;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Color3fx> MFColor3fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Color4f> MFColor4f;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Color4fx> MFColor4fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Color3ub> MFColor3ub;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Color4ub> MFColor4ub;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<std::string> MFString;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Time, 1> MFTime;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<BoxVolume> MFBoxVolume;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<BitVector, 1>  MFBitVector;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<GLenum, 1>  MFGLenum;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Plane> MFPlane;
-#endif
-
 
 
 #ifdef OSG_FLOAT_PROFILE
@@ -150,6 +104,49 @@ typedef MFColor4f  MFColor4r;
 typedef MFColor3fx MFColor3r;
 typedef MFColor4fx MFColor4r;
 #endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldMulti */
+struct MFColor3f : public MField<Color3f> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFColor3fx : public MField<Color3fx> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFColor4f : public MField<Color4f> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFColor4fx : public MField<Color4fx> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFColor3ub : public MField<Color3ub> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFColor4ub : public MField<Color4ub> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFString : public MField<std::string> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFTime : public MField<Time, 1> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFBoxVolume : public MField<BoxVolume> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFBitVector : public MField<BitVector, 1> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFGLenum : public MField<GLenum, 1> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFPlane : public MField<Plane> {};
+
+
+#ifdef OSG_FLOAT_PROFILE
+/*! \ingroup GrpBaseFieldMulti */
+typedef MFColor3f  MFColor3r;
+/*! \ingroup GrpBaseFieldMulti */
+typedef MFColor4f  MFColor4r;
+#else
+/*! \ingroup GrpBaseFieldMulti */
+typedef MFColor3fx MFColor3r;
+/*! \ingroup GrpBaseFieldMulti */
+typedef MFColor4fx MFColor4r;
+#endif
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

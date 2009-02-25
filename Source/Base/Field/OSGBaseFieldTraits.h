@@ -57,20 +57,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGBaseFieldTraits.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldTraits
-*/
-#endif
-
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Color3f> : public FieldTraitsVec3TemplateBase<Color3f>
@@ -96,17 +84,9 @@ struct FieldTraits<Color3f> : public FieldTraitsVec3TemplateBase<Color3f>
     static const Color3f   getDefault   (void) { return Color3f();     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Color3f> */
-/*! \hideinhierarchy                         */
-#endif
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Color3fx> : public FieldTraitsVec3TemplateBase<Color3fx>
@@ -132,17 +112,9 @@ struct FieldTraits<Color3fx> : public FieldTraitsVec3TemplateBase<Color3fx>
     static const Color3fx  getDefault   (void) { return Color3fx();     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Color3fx> */
-/*! \hideinhierarchy                         */
-#endif
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Color4f> : public FieldTraitsVec4TemplateBase<Color4f>
@@ -168,17 +140,9 @@ struct FieldTraits<Color4f> : public FieldTraitsVec4TemplateBase<Color4f>
     static       Color4f   getDefault   (void){ return Color4f();      }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Color4f> */
-/*! \hideinhierarchy                         */
-#endif
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Color4fx> : public FieldTraitsVec4TemplateBase<Color4fx>
@@ -204,16 +168,9 @@ struct FieldTraits<Color4fx> : public FieldTraitsVec4TemplateBase<Color4fx>
     static       Color4fx  getDefault   (void){ return Color4fx();      }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Color4fx> */
-/*! \hideinhierarchy                         */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Color3ub> : public FieldTraitsVec3TemplateBase<Color3ub>
@@ -238,16 +195,9 @@ struct FieldTraits<Color3ub> : public FieldTraitsVec3TemplateBase<Color3ub>
     static       Color3ub  getDefault   (void) { return Color3ub();    }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Color3ub> */
-/*! \hideinhierarchy                          */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Color4ub> : public FieldTraitsVec4TemplateBase<Color4ub>
@@ -273,16 +223,9 @@ struct FieldTraits<Color4ub> : public FieldTraitsVec4TemplateBase<Color4ub>
     static       Color4ub  getDefault   (void) { return Color4ub();    }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Color4ub> */
-/*! \hideinhierarchy                          */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<std::string> : public FieldTraitsTemplateBase<std::string>
@@ -375,16 +318,9 @@ struct FieldTraits<std::string> : public FieldTraitsTemplateBase<std::string>
     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<std::string> */
-/*! \hideinhierarchy                             */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Time, 1> : public FieldTraitsPODTemplateBase<Time, 1>
@@ -410,16 +346,9 @@ struct FieldTraits<Time, 1> : public FieldTraitsPODTemplateBase<Time, 1>
     static       Time      getDefault   (void) { return Time();        }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Time, 1> */
-/*! \hideinhierarchy                         */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<BoxVolume> : 
@@ -603,17 +532,9 @@ struct FieldTraits<BoxVolume> :
     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<BoxVolume> */
-/*! \hideinhierarchy                           */
-#endif
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<BitVector, 1> : public FieldTraitsTemplateBase<BitVector, 1>
@@ -638,16 +559,9 @@ struct FieldTraits<BitVector, 1> : public FieldTraitsTemplateBase<BitVector, 1>
     static       BitVector  getDefault(void) { return BitVector();     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<BitVector, 1> */
-/*! \hideinhierarchy                              */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<GLenum, 1> : public FieldTraitsPODTemplateBase<GLenum, 1>
@@ -699,16 +613,9 @@ struct FieldTraits<GLenum, 1> : public FieldTraitsPODTemplateBase<GLenum, 1>
 #endif
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GLenum, 1> */
-/*! \hideinhierarchy                           */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Plane> : public FieldTraitsTemplateBase<Plane>
@@ -785,13 +692,6 @@ struct FieldTraits<Plane> : public FieldTraitsTemplateBase<Plane>
         }
     }
 };
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Plane> */
-/*! \hideinhierarchy                       */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

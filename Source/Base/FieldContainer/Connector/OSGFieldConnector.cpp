@@ -43,8 +43,18 @@
 
 OSG_BEGIN_NAMESPACE
 
-bool addConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
-                   FieldContainer      *pDstContainer, const Char8 *szDstName)
+/*---------------------------------------------------------------------*/
+/*! \name Connection handling                                          */
+/*! \{                                                                 */
+
+/*! \ingroup GrpBaseFieldContainerConnector
+    \relatesalso AttachmentContainer
+ */
+
+bool addConnection(      OSG::AttachmentContainer *pSrcContainer, 
+                   const OSG::Char8               *szSrcName,
+                         OSG::FieldContainer      *pDstContainer, 
+                   const OSG::Char8               *szDstName    )
 {
     if(pSrcContainer == NULL || szSrcName == NULL ||
        pDstContainer == NULL || szDstName == NULL  )
@@ -112,8 +122,14 @@ bool addConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
     return true;
 }
 
-bool subConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
-                   FieldContainer      *pDstContainer, const Char8 *szDstName)
+/*! \ingroup GrpBaseFieldContainerConnector
+    \relatesalso AttachmentContainer
+ */
+
+bool subConnection(      OSG::AttachmentContainer *pSrcContainer, 
+                   const OSG::Char8               *szSrcName,
+                         OSG::FieldContainer      *pDstContainer, 
+                   const OSG::Char8               *szDstName    )
 {
     if(pSrcContainer == NULL)
     {
@@ -188,5 +204,8 @@ bool subConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
 
     return false;
 }
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE

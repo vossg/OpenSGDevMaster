@@ -47,21 +47,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGSysFieldTraits.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldTraits
-*/
-#endif
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<bool, 2> : public FieldTraitsPODTemplateBase<bool, 2>
@@ -121,16 +109,9 @@ struct FieldTraits<bool, 2> : public FieldTraitsPODTemplateBase<bool, 2>
     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<bool, 2> */
-/*! \hideinhierarchy                         */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Int8> : public FieldTraitsPODTemplateBase<Int8>
@@ -155,16 +136,9 @@ struct FieldTraits<Int8> : public FieldTraitsPODTemplateBase<Int8>
     static       Int8      getDefault   (void) { return 0;                   }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Int8> */
-/*! \hideinhierarchy                      */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<UInt8> : public FieldTraitsPODTemplateBase<UInt8>
@@ -190,16 +164,9 @@ struct FieldTraits<UInt8> : public FieldTraitsPODTemplateBase<UInt8>
 
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<UInt8> */
-/*! \hideinhierarchy                       */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Int16> : public FieldTraitsPODTemplateBase<Int16>
@@ -225,16 +192,9 @@ struct FieldTraits<Int16> : public FieldTraitsPODTemplateBase<Int16>
 
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Int16> */
-/*! \hideinhierarchy                       */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<UInt16> : public FieldTraitsPODTemplateBase<UInt16>
@@ -260,16 +220,9 @@ struct FieldTraits<UInt16> : public FieldTraitsPODTemplateBase<UInt16>
 
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<UInt16> */
-/*! \hideinhierarchy                        */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Int32> : public FieldTraitsPODTemplateBase<Int32>
@@ -295,16 +248,9 @@ struct FieldTraits<Int32> : public FieldTraitsPODTemplateBase<Int32>
 
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Int32> */
-/*! \hideinhierarchy                       */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<UInt32> : public FieldTraitsPODTemplateBase<UInt32>
@@ -329,23 +275,10 @@ struct FieldTraits<UInt32> : public FieldTraitsPODTemplateBase<UInt32>
     static       UInt32    getDefault   (void) { return 0;                   }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<UInt32> */
-/*! \hideinhierarchy                        */
-#endif
 
-#ifdef FDFOO
-struct UInt32FieldDesc : public FieldDescBase
-{
-    typedef UInt32 ValueType;
-};
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Int64> : public FieldTraitsPODTemplateBase<Int64>
@@ -370,16 +303,9 @@ struct FieldTraits<Int64> : public FieldTraitsPODTemplateBase<Int64>
     static       Int64     getDefault   (void) { return 0;                   }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Int64> */
-/*! \hideinhierarchy                       */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<UInt64> : public FieldTraitsPODTemplateBase<UInt64>
@@ -404,16 +330,9 @@ struct FieldTraits<UInt64> : public FieldTraitsPODTemplateBase<UInt64>
     static       UInt64    getDefault   (void) { return 0;                   }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<UInt64> */
-/*! \hideinhierarchy                        */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Real16> : public FieldTraitsPODTemplateBase<Real16>
@@ -438,17 +357,9 @@ struct FieldTraits<Real16> : public FieldTraitsPODTemplateBase<Real16>
     static       Real32    getDefault   (void) { return 0.f;                 }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Real16> */
-/*! \hideinhierarchy                        */
-#endif
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Real32> : public FieldTraitsPODTemplateBase<Real32>
@@ -473,17 +384,9 @@ struct FieldTraits<Real32> : public FieldTraitsPODTemplateBase<Real32>
     static       Real32    getDefault   (void) { return 0.f;                 }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Real32> */
-/*! \hideinhierarchy                        */
-#endif
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Fixed32> : public FieldTraitsPODTemplateBase<Fixed32>
@@ -508,16 +411,9 @@ struct FieldTraits<Fixed32> : public FieldTraitsPODTemplateBase<Fixed32>
     static       Fixed32    getDefault   (void) { return Fixed32(0.f);        }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Real32> */
-/*! \hideinhierarchy                        */
-#endif
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Real64> : public FieldTraitsPODTemplateBase<Real64>
@@ -543,17 +439,9 @@ struct FieldTraits<Real64> : public FieldTraitsPODTemplateBase<Real64>
 
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class FieldTraitsTemplateBase<Real64> */
-/*! \hideinhierarchy                       */
-#endif
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<void *> : public FieldTraitsPODTemplateBase<void *>
@@ -615,8 +503,6 @@ struct FieldTraits<void *> : public FieldTraitsPODTemplateBase<void *>
     {
     }
 };
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

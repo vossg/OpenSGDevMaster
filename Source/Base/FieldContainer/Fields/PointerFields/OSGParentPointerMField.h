@@ -47,12 +47,6 @@
 #include "OSGPointerMFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGParentPointerMField.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
@@ -65,6 +59,10 @@ class ParentMFieldIterator;
 /*---------------------------------------------------------------------------*/
 /* ParentMFieldConstIterator<PtrTypeT>                                    */
 /*---------------------------------------------------------------------------*/
+
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
 
 template <class StorageTypeT>
 class ParentMFieldConstIterator : protected StorageTypeT::PtrStoreConstItType
@@ -193,6 +191,10 @@ ParentMFieldConstIterator<PtrTypeT>
 /* ParentMFieldIterator<PtrTypeT>                                    */
 /*---------------------------------------------------------------------------*/
 
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
+
 template <class StorageTypeT>
 class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
 {
@@ -318,6 +320,9 @@ class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
 /*                     NamespaceI  >                                         */
 /*---------------------------------------------------------------------------*/
 
+/*! \ingroup GrpBaseFieldContainerFields
+ */
+
 template <class    PtrTypeT,
           typename RefCountPolicy, 
           Int32    NamespaceI  = 0>
@@ -358,7 +363,11 @@ class ParentPointerMField :
     typedef          std::reverse_iterator<iterator>    reverse_iterator;
 
     typedef          UInt16                             IdStoredType;
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     typedef          MFieldVector<IdStoredType        > IdStoreType;
+#else 
+    typedef          vector      <IdStoredType        > IdStoreType;
+#endif
     typedef typename IdStoreType::iterator              IdStoreItType;
     typedef typename IdStoreType::const_iterator        IdStoreConstItType;
     

@@ -45,57 +45,29 @@
 #include "OSGMField.h"
 #include "OSGMathFieldTraits.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGMathMFields.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldMulti
-*/
-#endif
-
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+
 /*! \ingroup GrpBaseFieldMulti */
-
-typedef MField          <Matrix         > MFMatrix;
-
-#endif
+typedef MField<Matrix      > MFMatrix;
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
-typedef MField          <Matrix4d       > MFMatrix4d;
-
-#endif
+typedef MField<Matrix4d    > MFMatrix4d;
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
-typedef MField          <Matrix4fx      > MFMatrix4fx;
-
-#endif
+typedef MField<Matrix4fx   > MFMatrix4fx;
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
-typedef MField          <Quaternion         > MFQuaternion;
-
-#endif
+typedef MField<Quaternion  > MFQuaternion;
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
-typedef MField          <Quaternionfx       > MFQuaternionfx;
-
-#endif
+typedef MField<Quaternionfx> MFQuaternionfx;
 
 
 
@@ -106,6 +78,34 @@ typedef MFQuaternion   MFQuaternionr;
 typedef MFMatrix4fx    MFMatrixr;
 typedef MFQuaternionfx MFQuaternionr;
 #endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldMulti */
+struct MFMatrix : public MField<Matrix> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFMatrix4d : public MField<Matrix4d> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFMatrix4fx : public MField<Matrix4fx> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFQuaternion : public MField<Quaternion> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFQuaternionfx : MField<Quaternionfx> {};
+
+
+#ifdef OSG_FLOAT_PROFILE
+/*! \ingroup GrpBaseFieldMulti */
+typedef MFMatrix       MFMatrixr;
+/*! \ingroup GrpBaseFieldMulti */
+typedef MFQuaternion   MFQuaternionr;
+#else
+/*! \ingroup GrpBaseFieldMulti */
+typedef MFMatrix4fx    MFMatrixr;
+/*! \ingroup GrpBaseFieldMulti */
+typedef MFQuaternionfx MFQuaternionr;
+#endif
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -54,7 +54,9 @@ OSG_BEGIN_NAMESPACE
 class StatElemDescBase;
 
 /*! \brief Time Statistics element, see \ref PageSystemStatistics for details.
-*/
+    \ingroup GrpBaseStatistics
+ */
+
 class OSG_BASE_DLLMAPPING StatIntOnceElem : public StatElem 
 {
 

@@ -47,26 +47,48 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<
           AttachmentContainer *,
           RecordedRefCountPolicy     > MFRecAttachmentContainerPtr;
 
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<
           AttachmentContainer *,
           UnrecordedRefCountPolicy   > MFUnrecAttachmentContainerPtr;
 
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<
           AttachmentContainer *,
           WeakRefCountPolicy         > MFWeakAttachmentContainerPtr;
 
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<
           AttachmentContainer *,
           NoRefCountPolicy           > MFUncountedAttachmentContainerPtr;
 
-#endif
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFRecAttachmentContainerPtr :
+    public PointerMField<AttachmentContainer *,
+                         RecordedRefCountPolicy     > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUnrecAttachmentContainerPtr :
+    public PointerMField<AttachmentContainer *,
+                         UnrecordedRefCountPolicy   > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFWeakAttachmentContainerPtr :
+    public PointerMField<AttachmentContainer *,
+                         WeakRefCountPolicy         > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUncountedAttachmentContainerPtr :
+    public PointerMField<AttachmentContainer *,
+                         NoRefCountPolicy           > {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -43,6 +43,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseFieldContainerConnector
+ */
+
 class OSG_BASE_DLLMAPPING BasicFieldConnector
 {
   public:
@@ -72,6 +75,8 @@ class OSG_BASE_DLLMAPPING BasicFieldConnector
     FieldContainer *_pDst;
 };
 
+/*! \ingroup GrpBaseFieldContainerConnector
+ */
 
 template <class FieldT>
 class SFieldConnector : public BasicFieldConnector
@@ -96,6 +101,9 @@ class SFieldConnector : public BasicFieldConnector
     
           FieldT    *_pDstField;
 };
+
+/*! \ingroup GrpBaseFieldContainerConnector
+ */
 
 template <class FieldT>
 class MFieldConnector : public BasicFieldConnector
@@ -122,12 +130,16 @@ class MFieldConnector : public BasicFieldConnector
 };
 
 OSG_BASE_DLLMAPPING
-bool addConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
-                   FieldContainer      *pDstContainer, const Char8 *szDstName);
+bool addConnection(      OSG::AttachmentContainer *pSrcContainer, 
+                   const OSG::Char8               *szSrcName,
+                         OSG::FieldContainer      *pDstContainer, 
+                   const OSG::Char8               *szDstName    );
 
 OSG_BASE_DLLMAPPING
-bool subConnection(AttachmentContainer *pSrcContainer, const Char8 *szSrcName,
-                   FieldContainer      *pDstContainer, const Char8 *szDstName);
+bool subConnection(      OSG::AttachmentContainer *pSrcContainer, 
+                   const OSG::Char8               *szSrcName,
+                         OSG::FieldContainer      *pDstContainer, 
+                   const OSG::Char8               *szDstName);
 
 
 OSG_END_NAMESPACE

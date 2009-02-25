@@ -54,9 +54,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! Memory, simple reference counted memory object. Parent of
-    everything that should be shared, but must not be thread safe.
-    \ingroup GrpBaseBase
+/*! \ingroup GrpBaseMultiThreading
+    \nohierarchy
  */
 
 class NoLockPolicy
@@ -103,6 +102,11 @@ class NoLockPolicy
 };
 
 #ifndef OSG_EMBEDDED
+
+/*! \ingroup GrpBaseMultiThreading
+    \nohierarchy
+ */
+
 class SingleLockPolicy
 {
 
@@ -148,6 +152,10 @@ class SingleLockPolicy
     void operator =(const SingleLockPolicy &source);
 };
 
+
+/*! \ingroup GrpBaseMultiThreading
+    \nohierarchy
+ */
 
 class SingleStaticInitLockPolicy
 {

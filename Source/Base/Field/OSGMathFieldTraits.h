@@ -50,20 +50,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGMathFieldTraits.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldTraits
-*/
-#endif
-
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Matrix> : public FieldTraitsTemplateBase<Matrix>
@@ -176,11 +164,9 @@ struct FieldTraits<Matrix> : public FieldTraitsTemplateBase<Matrix>
 
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Matrix> */
-/*! \hideinhierarchy                        */
-#endif
 
+/*! \ingroup GrpBaseFieldTraits
+ */
 
 template <>
 struct FieldTraits<Matrix4d> : public FieldTraitsTemplateBase<Matrix4d>
@@ -295,9 +281,6 @@ struct FieldTraits<Matrix4d> : public FieldTraitsTemplateBase<Matrix4d>
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Matrix4fx> : public FieldTraitsTemplateBase<Matrix4fx>
@@ -368,18 +351,9 @@ struct FieldTraits<Matrix4fx> : public FieldTraitsTemplateBase<Matrix4fx>
 
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Matrix4fx> */
-/*! \hideinhierarchy                        */
-#endif
-
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Quaternion> : public FieldTraitsVec4TemplateBase<Quaternion>
@@ -414,25 +388,9 @@ struct FieldTraits<Quaternion> : public FieldTraitsVec4TemplateBase<Quaternion>
 
 };
 
-#ifdef FDFOO
-struct QuaternionFieldDesc : public FieldDescBase
-{
-    typedef Quaternion ValueType;
-};
-#endif
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Quaternion> */
-/*! \hideinhierarchy                            */
-#endif
-
-
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<Quaternionfx> : 
@@ -457,20 +415,6 @@ struct FieldTraits<Quaternionfx> :
     static       Quaternionfx  getDefault   (void) { return Quaternionfx();   }
 
 };
-
-#ifdef FDFOO
-struct QuaternionFieldDesc : public FieldDescBase
-{
-    typedef Quaternion ValueType;
-};
-#endif
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<Quaternionfx> */
-/*! \hideinhierarchy                              */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

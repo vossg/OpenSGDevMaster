@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void ConnectorAttachmentBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 ConnectorAttachmentBase::TypeObject ConnectorAttachmentBase::_type(
     ConnectorAttachmentBase::getClassname(),
@@ -87,23 +96,24 @@ ConnectorAttachmentBase::TypeObject ConnectorAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ConnectorAttachmentBase::createEmptyLocal),
     ConnectorAttachment::initMethod,
     ConnectorAttachment::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&ConnectorAttachmentBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"ConnectorAttachment\"\n"
-    "    parent=\"Attachment\"\n"
-    "    library=\"Base\"\n"
-    "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    "    isBundle=\"true\"\n"
+    "   name=\"ConnectorAttachment\"\n"
+    "   parent=\"Attachment\"\n"
+    "   library=\"Base\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   isNodeCore=\"false\"\n"
+    "   isBundle=\"true\"\n"
+    "   docGroupBase=\"GrpBaseFieldContainer\"\n"
     ">\n"
     "</FieldContainer>\n",
     ""

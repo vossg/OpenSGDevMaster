@@ -45,57 +45,28 @@
 #include "OSGSField.h"
 #include "OSGMathFieldTraits.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGMathSFields.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldSingle
-*/
-#endif
-
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
 /*! \ingroup GrpBaseFieldSingle */
-
-typedef SField          <Matrix         > SFMatrix;
-
-#endif
+typedef SField<Matrix      > SFMatrix;
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
-typedef SField          <Matrix4d       > SFMatrix4d;
-
-#endif
+typedef SField<Matrix4d    > SFMatrix4d;
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
-typedef SField          <Matrix4fx      > SFMatrix4fx;
-
-#endif
+typedef SField<Matrix4fx   > SFMatrix4fx;
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
-typedef SField          <Quaternion         > SFQuaternion;
-
-#endif
+typedef SField<Quaternion  > SFQuaternion;
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
-typedef SField          <Quaternionfx       > SFQuaternionfx;
-
-#endif
+typedef SField<Quaternionfx> SFQuaternionfx;
 
 
 #ifdef OSG_FLOAT_PROFILE
@@ -105,6 +76,34 @@ typedef SFQuaternion   SFQuaternionr;
 typedef SFMatrix4fx    SFMatrixr;
 typedef SFQuaternionfx SFQuaternionr;
 #endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldSingle */
+struct SFMatrix : public SField<Matrix> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFMatrix4d : public SField<Matrix4d> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFMatrix4fx : public SField<Matrix4fx> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFQuaternion : public SField<Quaternion> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFQuaternionfx : public SField<Quaternionfx> {};
+
+
+#ifdef OSG_FLOAT_PROFILE
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFMatrix       SFMatrixr;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFQuaternion   SFQuaternionr;
+#else
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFMatrix4fx    SFMatrixr;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFQuaternionfx SFQuaternionr;
+#endif
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

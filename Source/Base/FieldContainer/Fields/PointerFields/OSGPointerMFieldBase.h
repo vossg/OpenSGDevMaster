@@ -47,15 +47,10 @@
 #include "OSGMField.h"
 #include "OSGFieldContainerFieldTraits.h"
 
-
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGPointerMFieldBase.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
 {
@@ -227,6 +222,7 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
     /*! \name Cast Store Access                                            */
     /*! \{                                                                 */
     
+    /*! \nohierarchy */
     template <class TargetStoredTypeT>
     struct rebindStore
     {

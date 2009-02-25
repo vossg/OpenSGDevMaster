@@ -52,7 +52,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainer
+/*! \ingroup GrpBaseBaseMemory
+    \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpBaseFieldContainerBase
+    \nohierarchy
  */
 
 template <class ObjectT>

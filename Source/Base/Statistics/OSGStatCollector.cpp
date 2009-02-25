@@ -59,7 +59,6 @@ OSG_USING_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StatCollector
-    \ingroup GrpSystemStatistics
 
     The StatCollector is responsible for managing a set of OSG::StatElem
     elements, see \ref PageSystemStatistics for details.

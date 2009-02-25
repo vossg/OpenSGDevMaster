@@ -70,7 +70,7 @@ typedef void        (*InitThreadingF) (void);
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING MPType : public TypeBase
@@ -122,7 +122,7 @@ class OSG_BASE_DLLMAPPING MPType : public TypeBase
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING MPThreadType : public MPType
@@ -191,7 +191,7 @@ class OSG_BASE_DLLMAPPING MPThreadType : public MPType
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING MPBarrierType : public MPType
@@ -256,7 +256,7 @@ class OSG_BASE_DLLMAPPING MPBarrierType : public MPType
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING MPCondVarType : public MPType
@@ -322,7 +322,7 @@ class OSG_BASE_DLLMAPPING MPCondVarType : public MPType
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING MPLockType : public MPType
@@ -389,7 +389,7 @@ class OSG_BASE_DLLMAPPING MPLockType : public MPType
 //  Class
 //---------------------------------------------------------------------------
 
-//! \ingroup GrpBaseBaseMultiThreading
+//! \ingroup GrpBaseMultiThreading
 
 class OSG_BASE_DLLMAPPING MPLockPoolType : public MPType
 {
@@ -456,7 +456,7 @@ class OSG_BASE_DLLMAPPING MPLockPoolType : public MPType
 //  Class
 //---------------------------------------------------------------------------
 
-//! \ingroup GrpBaseBaseMultiThreading
+//! \ingroup GrpBaseMultiThreading
 
 class OSG_BASE_DLLMAPPING MPBase : public MemoryObject
 {

@@ -36,15 +36,9 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGPointerSFieldCommon.inl
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
-/*! \class PointerSFieldCommon<AccessHandlerT,NamespaceI>
+/*! \class PointerSFieldCommon
 
  */
 

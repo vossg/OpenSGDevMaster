@@ -36,6 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifdef DOXYGEN_SHOULD_SKIP_THIS
+#include "OSGConfig.h"
+#endif
+
 OSG_BEGIN_NAMESPACE
 
 /*! \class QuaternionBase
@@ -570,13 +574,13 @@ void QuaternionBase<ValueTypeT>::setValueFromCString(      Char8 *szString)
 
 #ifndef OSG_DISABLE_DEPRECATED
 template <class ValueTypeT> inline
-void QuaternionBase<ValueTypeT>::setValue           (const Char8 *szString)
+void QuaternionBase<ValueTypeT>::setValue(const Char8 *szString)
 {
     setValueAsAxisRad(szString);
 }
 
 template <class ValueTypeT> inline
-void QuaternionBase<ValueTypeT>::setValue           (      Char8 *szString)
+void QuaternionBase<ValueTypeT>::setValue(Char8 *szString)
 {
     setValueAsAxisRad(szString);
 }

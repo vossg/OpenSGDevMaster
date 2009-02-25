@@ -58,13 +58,13 @@
 
 OSG_BEGIN_NAMESPACE
 
-/**
+/*!
  * A Node in OpenSG is a node in the graph.
  *
  * Nodes are responsible for holding children nodes and a link to their parent
  * node.
  *
- * \ingroup baselib
+ * \ingroup GrpBaseFieldContainerNodes
  */
 class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
 {
@@ -402,7 +402,7 @@ class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
 
 OSG_BASE_DLLMAPPING
 NodeTransitPtr cloneTree(      
-    const Node                                    *rootNode,
+    const OSG::Node                               *rootNode,
     const std::vector<std::string>                &cloneTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames   =
@@ -416,14 +416,14 @@ NodeTransitPtr cloneTree(
 
 OSG_BASE_DLLMAPPING
 NodeTransitPtr cloneTree(      
-    const Node                                    *rootNode,
-    const std::vector<UInt16>                     &cloneGroupIds,
-    const std::vector<UInt16>                     &ignoreGroupIds    =
-              std::vector<UInt16>()                                   );
+    const OSG::Node                                    *rootNode,
+    const std::vector<OSG::UInt16>                     &cloneGroupIds,
+    const std::vector<OSG::UInt16>                     &ignoreGroupIds    =
+              std::vector<OSG::UInt16>()                                   );
 
 OSG_BASE_DLLMAPPING
 NodeTransitPtr cloneTree(      
-    const Node                                    *rootNode,
+    const OSG::Node                               *rootNode,
     const std::string                             &cloneTypesString,
     const std::string                             &ignoreTypesString =
               std::string()                                           );
@@ -431,40 +431,40 @@ NodeTransitPtr cloneTree(
 #ifdef OSG_1_COMPAT
 OSG_BASE_DLLMAPPING
 NodeTransitPtr cloneTree(      
-    const Node                                        *rootNode,
+    const OSG::Node                                        *rootNode,
 
-    const std::vector<const ReflexiveContainerType *> &cloneTypes        =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &cloneTypes        =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes       =
           boost::assign::list_of(
-              &Attachment::getClassType()),
+              &OSG::Attachment::getClassType()),
 
-    const std::vector<UInt16>                     &cloneGroupIds     =
-              std::vector<UInt16>(),
-    const std::vector<UInt16>                     &ignoreGroupIds    =
-              std::vector<UInt16>()                                          );
+    const std::vector<OSG::UInt16>                     &cloneGroupIds     =
+              std::vector<OSG::UInt16>(),
+    const std::vector<OSG::UInt16>                     &ignoreGroupIds    =
+              std::vector<OSG::UInt16>()                                     );
 #else
 OSG_BASE_DLLMAPPING
 NodeTransitPtr cloneTree(      
-    const Node                                        *rootNode,
+    const OSG::Node                                        *rootNode,
 
-    const std::vector<const ReflexiveContainerType *> &cloneTypes        =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &cloneTypes        =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes       =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<UInt16>                     &cloneGroupIds     =
-              std::vector<UInt16>(),
+    const std::vector<OSG::UInt16>                     &cloneGroupIds     =
+              std::vector<OSG::UInt16>(),
 
-    const std::vector<UInt16>                     &ignoreGroupIds    =
-              std::vector<UInt16>()                                          );
+    const std::vector<OSG::UInt16>                     &ignoreGroupIds    =
+              std::vector<OSG::UInt16>()                                      );
 #endif
 
 OSG_BASE_DLLMAPPING
 NodeTransitPtr deepCloneTree(
-    const Node                                    *rootNode,
+    const OSG::Node                               *rootNode,
     const std::vector<std::string>                &shareTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames  =
@@ -478,15 +478,15 @@ NodeTransitPtr deepCloneTree(
 
 OSG_BASE_DLLMAPPING
 NodeTransitPtr deepCloneTree(      
-    const Node                                    *rootNode,
-    const std::vector<UInt16>                     &shareGroupIds,
+    const OSG::Node                                    *rootNode,
+    const std::vector<OSG::UInt16>                     &shareGroupIds,
 
-    const std::vector<UInt16>                     &ignoreGroupIds   =
-              std::vector<UInt16>()                                       );
+    const std::vector<OSG::UInt16>                     &ignoreGroupIds   =
+              std::vector<OSG::UInt16>()                                  );
 
 OSG_BASE_DLLMAPPING
 NodeTransitPtr deepCloneTree(      
-    const Node                                    *rootNode,
+    const OSG::Node                               *rootNode,
     const std::string                             &shareTypesString,
 
     const std::string                             &ignoreTypesString =
@@ -494,30 +494,42 @@ NodeTransitPtr deepCloneTree(
 
 OSG_BASE_DLLMAPPING
 NodeTransitPtr deepCloneTree(      
-    const Node                                        *rootNode,
+    const OSG::Node                                        *rootNode,
 
-    const std::vector<const ReflexiveContainerType *> &shareTypes     =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &shareTypes     =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes    =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes    =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<UInt16>                     &shareGroupIds  =
-              std::vector<UInt16>(),
-    const std::vector<UInt16>                     &ignoreGroupIds =
-              std::vector<UInt16>()                                       );
+    const std::vector<OSG::UInt16>                     &shareGroupIds  =
+              std::vector<OSG::UInt16>(),
+    const std::vector<OSG::UInt16>                     &ignoreGroupIds =
+              std::vector<OSG::UInt16>()                                   );
 
+/*! \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
+ */
 template <class Core> inline
 NodeTransitPtr makeCoredNode(typename Core::ObjRecPtr   *pCore);
 
+/*! \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
+ */
 template <class Core> inline
 NodeTransitPtr makeCoredNode(typename Core::ObjUnrecPtr *pCore = NULL);
 
 
+/*! \ingroup GrpBaseFieldContainerNodes
+    \relatesalso NodeCore
+ */
 template <class CorePtr> inline
 NodeTransitPtr makeNodeFor(CorePtr core);
 
 #if defined(OSG_1_COMPAT)
+/*! \ingroup GrpBaseFieldContainerNodes
+    \relatesalso OSG::NodeCore
+ */
 inline
 Node *parentToNode(FieldContainer * const pSource)
 {

@@ -49,20 +49,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file 
-    \ingroup 
-    \ingroup 
-*/
-#endif
-
-/*! \ingroup 
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<AttachmentContainer *>
@@ -148,14 +136,6 @@ const Char8 *
 {
     return "MFUnrefdAttachmentContainerPtr"; 
 }
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<AttachmentContainerPtr>
-    \hideinhierarchy
- */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

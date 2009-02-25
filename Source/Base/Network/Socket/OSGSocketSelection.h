@@ -63,6 +63,7 @@ class Socket;
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
+    \nohierarchy
 */
 
 class OSG_BASE_DLLMAPPING SocketSelection

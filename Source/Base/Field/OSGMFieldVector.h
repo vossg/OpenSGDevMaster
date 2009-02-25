@@ -48,12 +48,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGMFieldVector.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldMulti
- */
-#endif
 
 #if defined(__sgi) || defined(__linux) || defined(__APPLE__) || \
     defined(__sun) || defined(__hpux)
@@ -82,7 +76,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseField
     \ingroup GrpBaseFieldMulti
-    \hideinhierarchy
+    \nohierarchy
  */
 
 template <class Tp, class Alloc OSG_STL_ALLOCATOR_DEFAULT(Tp) >
@@ -141,7 +135,7 @@ class MFieldVector : public std::vector<Tp, Alloc>
 
 /*! \ingroup GrpBaseField
     \ingroup GrpBaseFieldMulti
-    \hideinhierarchy
+    \nohierarchy
  */
 
 #define OSG_STL_ALLOCATOR_DEFAULT(TP) = std::allocator< TP >

@@ -42,16 +42,11 @@
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGDynamicAttachmentMixin.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
-#include "OSGSystemDef.h"
+#include "OSGBaseDef.h"
 
 #include "OSGFieldContainerSFields.h"
 #include "OSGFieldContainerMFields.h"
+#include "OSGContainerDefines.h"
 
 #include "boost/bind.hpp"
 
@@ -61,9 +56,8 @@ OSG_BEGIN_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
-//! Template to build simple attachment classes which store an arbitrary
-//! number of fields.
-//! \ingroup GrpSystemFieldContainer
+/*! \ingroup GrpBaseFieldContainerMixins
+ */
 
 template <class AttachmentDescT>
 class DynFieldAttachment : public AttachmentDescT::Parent

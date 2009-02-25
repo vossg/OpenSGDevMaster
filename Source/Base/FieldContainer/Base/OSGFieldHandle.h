@@ -54,9 +54,7 @@ OSG_BEGIN_NAMESPACE
 //   Class         
 //---------------------------------------------------------------------------
 
-/*! FieldDescriptionBase point less than
-    \ingroup GrpSystemFieldContainerFuncs
-    \hideinhierarchy
+/*! \ingroup GrpBaseFieldContainerHandle
  */
 
 class OSG_BASE_DLLMAPPING FieldHandle
@@ -111,6 +109,9 @@ class OSG_BASE_DLLMAPPING FieldHandle
 
 class EditFieldHandle;
 
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
+
 class OSG_BASE_DLLMAPPING GetFieldHandle : public FieldHandle
 {
     /*==========================  PRIVATE  ================================*/
@@ -162,10 +163,15 @@ class OSG_BASE_DLLMAPPING GetFieldHandle : public FieldHandle
     bool operator ==(const GetFieldHandle  &rhs);
 };
 
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
+
 typedef boost::shared_ptr<GetFieldHandle > GetFieldHandlePtr;
 
 
 
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
 
 class OSG_BASE_DLLMAPPING EditFieldHandle : public FieldHandle
 {
@@ -230,8 +236,14 @@ class OSG_BASE_DLLMAPPING EditFieldHandle : public FieldHandle
         const TypeIdVector      &ignoreGroupIds = TypeIdVector ()) const = 0;
 };
 
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
+
 typedef boost::shared_ptr<EditFieldHandle> EditFieldHandlePtr;
 
+
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
 
 class GetMapFieldHandle : public GetFieldHandle
 {
@@ -281,7 +293,13 @@ class GetMapFieldHandle : public GetFieldHandle
     /*---------------------------------------------------------------------*/
 };
 
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
+
 typedef boost::shared_ptr<GetMapFieldHandle> GetMapFieldHandlePtr;
+
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
 
 class EditMapFieldHandle : public EditFieldHandle
 {
@@ -335,10 +353,14 @@ class EditMapFieldHandle : public EditFieldHandle
     virtual void flatten(MapList &vList) = 0;
 };
 
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
+
 typedef boost::shared_ptr<EditMapFieldHandle> EditMapFieldHandlePtr;
 
 
-
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
 
 template<class FieldT>
 class EditSFieldHandle : public EditFieldHandle
@@ -411,6 +433,8 @@ class EditSFieldHandle : public EditFieldHandle
 };
 
 
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
 
 template<class FieldT>
 class EditMFieldHandle : public EditFieldHandle
@@ -482,6 +506,9 @@ class EditMFieldHandle : public EditFieldHandle
     FieldT & operator * (void);
 };
 
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
+
 template<class FieldT>
 class GetSFieldHandle : public GetFieldHandle
 {
@@ -534,6 +561,9 @@ class GetSFieldHandle : public GetFieldHandle
     FieldT const * operator ->(void);
     FieldT const & operator * (void);
 };
+
+/*! \ingroup GrpBaseFieldContainerHandle
+ */
 
 template<class FieldT>
 class GetMFieldHandle : public GetFieldHandle

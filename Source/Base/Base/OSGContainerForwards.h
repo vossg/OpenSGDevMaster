@@ -248,7 +248,7 @@ bool operator !=(ObjectT * const pObj, const NullFCType)
 #define osg OSG
 #endif
 
-#endif
+#endif //DOXYGEN_SHOULD_SKIP_THIS
 
 OSG_END_NAMESPACE
 

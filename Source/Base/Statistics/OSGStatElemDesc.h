@@ -50,10 +50,10 @@ OSG_BEGIN_NAMESPACE
 class StatElemCollector;
 class StatElem;
 
-/*! \ingroup baselib
- *  \brief Brief
- *
- *  detailed
+/*! \brief Single Statistics element, see \ref PageSystemStatistics for 
+           details.
+    \ingroup GrpBaseStatistics
+    \nohierarchy
  */
  
 class OSG_BASE_DLLMAPPING StatElemDescBase
@@ -140,6 +140,12 @@ class OSG_BASE_DLLMAPPING StatElemDescBase
     StatElemDescBase(const StatElemDescBase &source);
     StatElemDescBase &operator =(const StatElemDescBase &source);
 };
+
+/*! \brief Single Statistics element, see \ref PageSystemStatistics for 
+           details.
+    \ingroup GrpBaseStatistics
+    \nohierarchy
+ */
 
 template <class Type>
 class StatElemDesc : public StatElemDescBase

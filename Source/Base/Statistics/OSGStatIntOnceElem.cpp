@@ -58,7 +58,6 @@ OSG_USING_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StatIntOnceElem
-    \ingroup GrpSystemStatistics
 
     The StatIntOnceElem is similar to the OSG::StatIntElem, but it keeps
     track of who has contributed already and only allows each ID to

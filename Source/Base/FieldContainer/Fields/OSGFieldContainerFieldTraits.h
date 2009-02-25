@@ -52,14 +52,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file 
-    \ingroup 
-    \ingroup 
-*/
-#endif
+/*! \ingroup GrpBaseFieldContainerFieldTraits
+ */
 
 template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsFCPtrBase : 
@@ -145,11 +140,9 @@ struct FieldTraitsFCPtrBase :
     }   
 };
 
-/*! \ingroup 
+
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<FieldContainer *> : 
@@ -242,17 +235,9 @@ const Char8 *FieldTraits<FieldContainer *,
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FieldContainerPtr> */
-/*! \hideinhierarchy                         */
-#endif
-
-
-/*! \ingroup 
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
+
 template <>
 struct FieldTraits<FieldContainer *, 1> : 
     public FieldTraitsFCPtrBase<FieldContainer *, 1>
@@ -283,14 +268,6 @@ struct FieldTraits<FieldContainer *, 1> :
         return "MFParentFieldContainerPtr"; 
     }
 };
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ParentFieldContainerPtr> */
-/*! \hideinhierarchy                         */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
 
 OSG_END_NAMESPACE
 

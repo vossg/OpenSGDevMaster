@@ -55,6 +55,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseFieldContainerBase
+    \nohierarchy
+ */
 struct FieldContainerFactoryDesc
 {
     typedef FieldContainerType        ContainerType;
@@ -69,8 +72,9 @@ struct FieldContainerFactoryDesc
 
 
 /*! \brief FieldContainerFactoryBase is the central class in OpenSG for 
-  accessing, allocating, and mapping field containers allocated in the system.
-    \ingroup GrpSystemFieldContainer
+           accessing, allocating, and mapping field containers allocated in
+           the system. Accessible via #FieldContainerFactory
+    \ingroup GrpBaseFieldContainerBase
  */
 class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
     public ContainerFactory<FieldContainerFactoryDesc>
@@ -256,7 +260,13 @@ class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
 #    endif
 #endif
 
-typedef SingletonHolder<FieldContainerFactoryBase> FieldContainerFactory;
+/*! \typedef OSG::SingletonHolder<OSG::FieldContainerFactoryBase> FieldContainerFactory;
+    \ingroup GrpBaseFieldContainerBase
+    \relatesalso OSG::FieldContainerFactoryBase
+ */
+
+typedef OSG::SingletonHolder<
+            OSG::FieldContainerFactoryBase> FieldContainerFactory;
 
 OSG_END_NAMESPACE
 

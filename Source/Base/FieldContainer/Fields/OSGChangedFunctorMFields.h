@@ -47,11 +47,17 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef MField<ChangedFunctorCallback> MFChangedFunctorCallback;
-#endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+typedef MFChangedFunctorCallback : public MField<ChangedFunctorCallback> {};
+
+#endif // these are the doxygen hacks
 
 // there is no good way of comparing boost function objects
 template<> inline

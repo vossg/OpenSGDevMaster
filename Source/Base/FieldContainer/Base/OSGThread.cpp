@@ -36,12 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGThread.cpp
-    \ingroup GrpSystemMultithreading
- */
-#endif
-
 #include <cstdlib>
 #include <cstdio>
 

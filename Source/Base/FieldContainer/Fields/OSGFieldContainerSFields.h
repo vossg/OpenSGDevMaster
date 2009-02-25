@@ -56,31 +56,54 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup  */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<FieldContainer *,
                       RecordedRefCountPolicy  > SFRecFieldContainerPtr;
 
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<FieldContainer *,
                       UnrecordedRefCountPolicy> SFUnrecFieldContainerPtr;
 
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<FieldContainer *,
                       WeakRefCountPolicy      > SFWeakFieldContainerPtr;
 
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<FieldContainer *,
                       NoRefCountPolicy        > SFUncountedFieldContainerPtr;
 
-#endif
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
-
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef ParentPointerSField<FieldContainer *, 
                             NoRefCountPolicy,
                             1                > SFParentFieldContainerPtr;
-#endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct  SFRecFieldContainerPtr :
+    public PointerSField<FieldContainer *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFUnrecFieldContainerPtr :
+    public PointerSField<FieldContainer *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFWeakFieldContainerPtr :
+    public PointerSField<FieldContainer *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFUncountedFieldContainerPtr :
+    public PointerSField<FieldContainer *,
+                         NoRefCountPolicy        > {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFParentFieldContainerPtr :
+    public ParentPointerSField<FieldContainer *, 
+                               NoRefCountPolicy,
+                               1                 > {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

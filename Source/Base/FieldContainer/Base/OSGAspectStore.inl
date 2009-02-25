@@ -170,14 +170,14 @@ void AspectStore::dump(void)
 }
 
 inline 
-void addRef(const AspectStoreP pObject)
+void addRef(const OSG::AspectStoreP pObject)
 {
     if(pObject != NULL)
         pObject->addRef();
 }
 
 inline
-void subRef(const AspectStoreP pObject)
+void subRef(const OSG::AspectStoreP pObject)
 {
     if(pObject != NULL)
         pObject->subRef();

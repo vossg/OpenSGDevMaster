@@ -47,7 +47,7 @@
 
 #include "OSGAttachment.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
 /*                               Fields                                    */
@@ -286,6 +286,4 @@ void Attachment::execSyncV(
 }
 #endif
 
-/*-------------------------------------------------------------------------*/
-/*                             Comparison                                  */
-
+OSG_END_NAMESPACE

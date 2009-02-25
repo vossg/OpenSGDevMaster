@@ -1,13 +1,14 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="MapHelper"
-	parent="FieldContainer"
-	library="Base"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
+   name="MapHelper"
+   parent="FieldContainer"
+   library="Base"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpBaseFieldContainer"
 >
   <Field
 	 name="keys"

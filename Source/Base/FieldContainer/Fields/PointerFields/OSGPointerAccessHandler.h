@@ -45,17 +45,15 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGWeakAccessHandlerDecl.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
 class PointerMFieldBase;
 class PointerSFieldBase;
+
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
 
 template<typename RefCountPolicyT>
 class PointerAccessHandler
@@ -129,8 +127,11 @@ class PointerAccessHandler
     }
 };
 
+/*! \ingroup GrpBaseFieldContainerFields */
 typedef PointerAccessHandler<NoRefCountPolicy        > NoRefCountAccessHandler;
+/*! \ingroup GrpBaseFieldContainerFields */
 typedef PointerAccessHandler<WeakRefCountPolicy      > WeakAccessHandler;
+/*! \ingroup GrpBaseFieldContainerFields */
 typedef PointerAccessHandler<UnrecordedRefCountPolicy> UnrecordedAccessHandler;
 
 OSG_END_NAMESPACE

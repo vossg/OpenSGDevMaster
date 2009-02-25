@@ -59,20 +59,8 @@ class BasicFieldConnector;
 template<class FieldTypeT>
 class FieldConnector;
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGFieldTraits.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldTraits
-*/
-#endif
-
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 struct FieldTraitsBase
 {
@@ -105,14 +93,16 @@ enum VecSize
 template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraits;
 
+/*! \ingroup GrpBaseFieldTraits
+    \nohierarchy
+ */
+
 struct InvalidTrait
 {
 };
 
-/*! \ingroup GrpBaseFieldTraits */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy            */
-#endif
+/*! \ingroup GrpBaseFieldTraits 
+ */
 
 template<class ValueT, Int32 NamespaceI = 0>
 struct FieldTraitsTemplateBase : public FieldTraitsBase
@@ -141,6 +131,9 @@ struct FieldTraitsTemplateBase : public FieldTraitsBase
     static const Int32                 iNamespace      = NamespaceI;
     static const bool                  bIsPointerField = false;
 };
+
+/*! \ingroup GrpBaseFieldTraits 
+ */
 
 template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsPODTemplateBase : public FieldTraitsTemplateBase<ValueT,
@@ -206,6 +199,8 @@ struct FieldTraitsPODTemplateBase : public FieldTraitsTemplateBase<ValueT,
     }
 };
 
+/*! \ingroup GrpBaseFieldTraits 
+ */
 
 template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsVecTemplateBase : public FieldTraitsTemplateBase<ValueT,
@@ -265,6 +260,9 @@ struct FieldTraitsVecTemplateBase : public FieldTraitsTemplateBase<ValueT,
         pMem.getValues(&(pObjectStore[0][0]), uiNumObjects * _uiSize);
     }
 };
+
+/*! \ingroup GrpBaseFieldTraits 
+ */
 
 template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsPtrToStringTemplateBase :
@@ -358,9 +356,6 @@ struct FieldTraitsPtrToStringTemplateBase :
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsVec1TemplateBase :
@@ -380,9 +375,6 @@ struct FieldTraitsVec1TemplateBase :
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsVec2TemplateBase :
@@ -407,9 +399,6 @@ struct FieldTraitsVec2TemplateBase :
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsVec3TemplateBase :
@@ -438,9 +427,6 @@ struct FieldTraitsVec3TemplateBase :
 
 /*! \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraitsVec4TemplateBase :
@@ -470,6 +456,9 @@ struct FieldTraitsVec4TemplateBase :
     }
 };
 
+/*! \ingroup GrpBaseField
+ */
+
 struct FieldDescBase
 {
     static  const Int32                iNamespace = 0;
@@ -477,6 +466,9 @@ struct FieldDescBase
     typedef       FieldDescriptionBase Parent;
 };
 
+/*! \ingroup GrpBaseFieldTraits
+    \nohierarchy
+ */
 
 template <class T, Int32 iNamespace = 0>
 struct StreamConversionError
@@ -495,6 +487,10 @@ struct StreamConversionError
              << FieldTraits<T, iNamespace>::getType().getCName() << std::endl;
     }
 };
+
+/*! \ingroup GrpBaseFieldTraits
+    \nohierarchy
+ */
 
 template <class T, Int32 iNamespace = 0>
 struct StringConversionError
@@ -519,8 +515,6 @@ template<class    DescT,
          typename RefCountPolicy                    , 
          enum     FieldType::Class       eFieldClass>
 class FieldDescription;
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

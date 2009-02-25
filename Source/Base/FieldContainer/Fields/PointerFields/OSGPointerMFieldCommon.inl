@@ -36,15 +36,9 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGPointerMFieldCommon.inl
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
-/*! \class PointerMFieldCommon<AccessHandlerT,NamespaceI>
+/*! \class PointerMFieldCommon
 
     Common interface implementation for pointer MFields. This class exists
     only to facilitate code reuse; to actually use the provided ptrStore

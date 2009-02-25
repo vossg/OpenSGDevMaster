@@ -47,24 +47,52 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField     <NodeCore *, 
                            RecordedRefCountPolicy  > MFNodeCorePtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField     <NodeCore *, 
                            UnrecordedRefCountPolicy> MFUnrecNodeCorePtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField     <NodeCore *, 
                            WeakRefCountPolicy      > MFWeakNodeCorePtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField     <NodeCore *, 
                            NoRefCountPolicy        > MFUncountedNodeCorePtr;
 
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ChildPointerMField<NodeCore *, 
                            UnrecordedRefCountPolicy,
                            1                       > MFUnrecChildNodeCorePtr;
 
-#endif
+#else // these are the doxygen hacks
 
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFNodeCorePtr : 
+    public PointerMField     <NodeCore *, 
+                              RecordedRefCountPolicy  > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUnrecNodeCorePtr : 
+    public PointerMField     <NodeCore *, 
+                              UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFWeakNodeCorePtr :
+    public PointerMField     <NodeCore *, 
+                              WeakRefCountPolicy      > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUncountedNodeCorePtr :
+    public PointerMField     <NodeCore *, 
+                              NoRefCountPolicy        > {};
+
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUnrecChildNodeCorePtr :
+    public ChildPointerMField<NodeCore *, 
+                              UnrecordedRefCountPolicy,
+                              1                       > {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

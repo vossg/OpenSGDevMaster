@@ -45,13 +45,10 @@
 
 #include "OSGChildPointerSFieldBase.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGChildPointerSField.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 /*---------------------------------------------------------------------------*/
 /* ChildPointerSField<FieldConfigT>                                          */

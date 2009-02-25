@@ -110,7 +110,7 @@ StatElem *StatCollector::getElem(Int32 elemId, bool create)
 /*! Return a pointer to the StatElem for the id.
     It will return NULL if the element doesn't exist yet.
 
-    \param[in] id Id of the StatElem to return.
+    \param[in] elemId Id of the StatElem to return.
     \return StatElem with given id, or NULL if it does not exist.
 */
 inline StatElem *StatCollector::getElem(Int32 elemId) const

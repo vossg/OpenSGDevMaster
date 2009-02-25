@@ -69,7 +69,7 @@ class SFieldConnector;
 template <class FieldT>
 class MFieldConnector;
 
-/*! \ingroup GrpSystemFieldContainer
+/*! \ingroup GrpBaseFieldContainerBase
  */
 
 class FieldContainer : public ReflexiveContainer
@@ -91,6 +91,7 @@ class FieldContainer : public ReflexiveContainer
 
     OSG_GEN_INTERNALPTR(FieldContainer);
 
+    /*! \nohierarchy */
     struct  attempt_to_create_CoredNodePtr_on_non_NodeCore_FC {};
 
     static const bool isNodeCore = false;
@@ -485,20 +486,21 @@ class FieldContainer : public ReflexiveContainer
     void operator =(const FieldContainer &source);
 };
 
+
 OSG_BASE_DLLMAPPING
 void appendTypesVector(
     const std::vector<std::string                   > &typeNames,
-          std::vector<const ReflexiveContainerType *> &types      );
+          std::vector<const OSG::ReflexiveContainerType *> &types      );
 
 OSG_BASE_DLLMAPPING
 void appendGroupsVector(
     const std::vector<std::string>                    &groupNames,
-          std::vector<UInt16     >                    &groupIds   );
+          std::vector<OSG::UInt16>                    &groupIds   );
 
 OSG_BASE_DLLMAPPING
 void appendTypesString(
-    const std::string                                 &typesString,
-          std::vector<const ReflexiveContainerType *> &types      );
+    const std::string                                      &typesString,
+          std::vector<const OSG::ReflexiveContainerType *> &types      );
 
 OSG_BASE_DLLMAPPING
 FieldContainerTransitPtr deepClone(      
@@ -516,15 +518,15 @@ FieldContainerTransitPtr deepClone(
 
 OSG_BASE_DLLMAPPING
 FieldContainerTransitPtr deepClone(
-          FieldContainer const *                       src,
-    const std::vector<UInt16>                         &shareGroupIds,
+          OSG::FieldContainer const *                       src,
+    const std::vector<OSG::UInt16>                         &shareGroupIds,
 
-    const std::vector<UInt16>                         &ignoreGroupIds    =
-              std::vector<UInt16>()                                       );
+    const std::vector<OSG::UInt16>                         &ignoreGroupIds =
+              std::vector<OSG::UInt16>()                                     );
 
 OSG_BASE_DLLMAPPING
 FieldContainerTransitPtr deepClone(      
-          FieldContainer const *                       src,
+          OSG::FieldContainer const *                  src,
     const std::string                                 &shareTypesString,
 
     const std::string                                 &ignoreTypesString =
@@ -532,21 +534,26 @@ FieldContainerTransitPtr deepClone(
 
 OSG_BASE_DLLMAPPING
 FieldContainerTransitPtr deepClone(
-          FieldContainer const *                       src,
+          OSG::FieldContainer const *                       src,
 
-    const std::vector<const ReflexiveContainerType *> &shareTypes        =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &shareTypes        =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes       =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<UInt16>                         &shareGroupIds     =
-              std::vector<UInt16>(),
+    const std::vector<OSG::UInt16>                         &shareGroupIds     =
+              std::vector<OSG::UInt16>(),
 
-    const std::vector<UInt16>                         &ignoreGroupIds    =
-              std::vector<UInt16>()                                       );
+    const std::vector<OSG::UInt16>                         &ignoreGroupIds    =
+              std::vector<OSG::UInt16>()                                      );
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
+/*! \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso OSG::FieldContainer
+ */
 template<class ContainerPtr> inline
 ContainerPtr convertToCurrentAspect(ContainerPtr pFC);
 #endif

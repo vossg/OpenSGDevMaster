@@ -61,8 +61,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
 DataType FieldTraits<FieldContainer          *>::_type(
     "FieldContainerPtr",
     NULL);
@@ -109,8 +107,6 @@ DataType &FieldTraits< Node *, 1 >::getType(void)
 {                                                           
     return FieldTraits<Node *, 0>::getType();
 }
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 // FieldContainer
 

@@ -58,8 +58,8 @@ OSG_BEGIN_NAMESPACE
 class Volume;
 class Node;
 
-//! Brief
-//! \ingroup baselib
+/*! \ingroup GrpBaseFieldContainerNodes
+ */
 
 class OSG_BASE_DLLMAPPING NodeCore : public AttachmentContainer
 {

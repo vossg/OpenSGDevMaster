@@ -48,14 +48,10 @@
 #include "OSGPointerMFieldCommon.h"
 #include "OSGChildAccessHandler.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGChildPointerMFieldBase.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template <typename AccessHandlerT,
           Int32    NamespaceI = 0>

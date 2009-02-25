@@ -155,9 +155,11 @@ void AttachmentContainer::copyFromBin(BinaryDataHandler &pMem,
 /**
  * Add an attachment at the binding point.
  *
- * \param pAttachment  The FCPtr to attach
- * \param binding      id that is combined with the groupId of the attachment
- *                     to determine the slot in the attachment map.
+ * \param [in] pAttachment  The FCPtr to attach
+ * \param [in] binding      id that is combined with the groupId of the
+ *                          attachment to determine the slot in the attachment
+ *                          map. 
+ *
  * If the derived key (binding | group) matches an existing key this will
  * replace the old entry in the map.
  * The attachment will have this node set as it's parent.
@@ -216,9 +218,10 @@ void AttachmentContainer::addAttachment(
 /**
  * Erase the attachment at the binding point.
  *
- * \param pAttachment  The FCPtr to detach (needed to get groupId())
- * \param binding      id that is combined with the groupId of the attachment
- *                     to determine the slot in the attachment map.
+ * \param [in] pAttachment  The FCPtr to detach (needed to get groupId())
+ * \param [in] binding      id that is combined with the groupId of the
+ *                          attachment to determine the slot in the attachment
+ *                          map. 
  *
  * Attempt to find attachment in map using key (binding|groupId).
  * If found, remove it.
@@ -416,8 +419,9 @@ GetFieldHandlePtr AttachmentContainer::getHandleAttachments(void) const
 
 
 
-/*-------------------------------------------------------------------------*/
-/*                              Cloning                                    */
+/*---------------------------------------------------------------------*/
+/*! \name Attachment Container cloning                                 */
+/*! \{                                                                 */
 
 /*! Adds the attachments of \a src to \a dst, overwriting existing attachments
     of the same type and binding. By default attachments are shared, only if
@@ -432,11 +436,14 @@ GetFieldHandlePtr AttachmentContainer::getHandleAttachments(void) const
     \param[in] ignoreTypeNames List of type names that are ignored.
     \param[in] cloneGroupNames List of group names that are cloned.
     \param[in] ignoreGroupNames LIst of group names that are ignored.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso AttachmentContainer
  */
 
 void cloneAttachments(
-          AttachmentContainer const      *src,
-          AttachmentContainer            *dst,
+          OSG::AttachmentContainer const *src,
+          OSG::AttachmentContainer       *dst,
     const std::vector<std::string>       &cloneTypeNames,
     const std::vector<std::string>       &ignoreTypeNames,
     const std::vector<std::string>       &cloneGroupNames,
@@ -465,13 +472,16 @@ void cloneAttachments(
     \param[out] dst AttachmentContainer where cloned attachments are added.
     \param[in] cloneGroupIds List of group ids, whose members are cloned.
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso AttachmentContainer
  */
 
 void cloneAttachments(
-          AttachmentContainer const      *src,
-          AttachmentContainer            *dst,
-    const std::vector<UInt16>            &cloneGroupIds,
-    const std::vector<UInt16>            &ignoreGroupIds)
+          OSG::AttachmentContainer const      *src,
+          OSG::AttachmentContainer            *dst,
+    const std::vector<OSG::UInt16>            &cloneGroupIds,
+    const std::vector<OSG::UInt16>            &ignoreGroupIds)
 {
     std::vector<const ReflexiveContainerType *> cloneTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -493,11 +503,14 @@ void cloneAttachments(
         cloned instead of shared.
     \param[in] ignoreTypesString Comma separated string of type names that are
         ignored.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso AttachmentContainer
  */
 
 void cloneAttachments(
-          AttachmentContainer const      *src,
-          AttachmentContainer            *dst,
+          OSG::AttachmentContainer const *src,
+          OSG::AttachmentContainer       *dst,
     const std::string                    &cloneTypesString,
     const std::string                    &ignoreTypesString)
 {
@@ -525,15 +538,18 @@ void cloneAttachments(
     \param[in] ignoreTypes List of types to ignore.
     \param[in] cloneGroupIds List of group ids, whose members are cloned.
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso AttachmentContainer
  */
 
 void cloneAttachments(
-          AttachmentContainer const                   *src,
-          AttachmentContainer                         *dst,
-    const std::vector<const ReflexiveContainerType *> &cloneTypes,
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes,
-    const std::vector<UInt16>                         &cloneGroupIds,
-    const std::vector<UInt16>                         &ignoreGroupIds)
+          OSG::AttachmentContainer const                   *src,
+          OSG::AttachmentContainer                         *dst,
+    const std::vector<const OSG::ReflexiveContainerType *> &cloneTypes,
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes,
+    const std::vector<OSG::UInt16>                         &cloneGroupIds,
+    const std::vector<OSG::UInt16>                         &ignoreGroupIds)
 {
 #if 0
     const FieldContainerType   &type     = dst->getType();
@@ -597,15 +613,18 @@ void cloneAttachments(
 
     \param[in] src AttachmentContainer whose attachments are cloned.
     \param[out] dst AttachmentContainer where cloned attachments are added.
-    \param[in] cloneTypeNames List of type names that are shareed.
+    \param[in] shareTypeNames List of type names that are shareed.
     \param[in] ignoreTypeNames List of type names that are ignored.
-    \param[in] cloneGroupNames List of group names that are shareed.
+    \param[in] shareGroupNames List of group names that are shareed.
     \param[in] ignoreGroupNames LIst of group names that are ignored.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso AttachmentContainer
  */
 
 void deepCloneAttachments(
-          AttachmentContainer const       *src,
-          AttachmentContainer             *dst,
+          OSG::AttachmentContainer const  *src,
+          OSG::AttachmentContainer        *dst,
     const std::vector<std::string>        &shareTypeNames,
     const std::vector<std::string>        &ignoreTypeNames,
     const std::vector<std::string>        &shareGroupNames,
@@ -634,13 +653,16 @@ void deepCloneAttachments(
     \param[out] dst AttachmentContainer where cloned attachments are added.
     \param[in] shareGroupIds List of group ids, whose members are shared.
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso AttachmentContainer
  */
 
 void deepCloneAttachments(
-          AttachmentContainer const      *src,
-          AttachmentContainer            *dst,
-    const std::vector<UInt16>            &shareGroupIds,
-    const std::vector<UInt16>            &ignoreGroupIds)
+          OSG::AttachmentContainer const      *src,
+          OSG::AttachmentContainer            *dst,
+    const std::vector<OSG::UInt16>            &shareGroupIds,
+    const std::vector<OSG::UInt16>            &ignoreGroupIds)
 {
     std::vector<const ReflexiveContainerType *> shareTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -662,11 +684,14 @@ void deepCloneAttachments(
         shared instead of shared.
     \param[in] ignoreTypesString Comma separated string of type names that are
         ignored.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso AttachmentContainer
  */
 
 void deepCloneAttachments(
-          AttachmentContainer const      *src,
-          AttachmentContainer            *dst,
+          OSG::AttachmentContainer const *src,
+          OSG::AttachmentContainer       *dst,
     const std::string                    &shareTypesString,
     const std::string                    &ignoreTypesString)
 {
@@ -694,15 +719,18 @@ void deepCloneAttachments(
     \param[in] ignoreTypes list of types to ignore.
     \param[in] shareGroupIds list of group ids, whose members are shared.
     \param[in] ignoreGroupIds list of group ids, whose members are ignored.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso AttachmentContainer
  */
 
 void deepCloneAttachments(
-          AttachmentContainer const                   *src,
-          AttachmentContainer                         *dst,
-    const std::vector<const ReflexiveContainerType *> &shareTypes,
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes,
-    const std::vector<UInt16>                         &shareGroupIds,
-    const std::vector<UInt16>                         &ignoreGroupIds)
+          OSG::AttachmentContainer const                   *src,
+          OSG::AttachmentContainer                         *dst,
+    const std::vector<const OSG::ReflexiveContainerType *> &shareTypes,
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes,
+    const std::vector<OSG::UInt16>                         &shareGroupIds,
+    const std::vector<OSG::UInt16>                         &ignoreGroupIds)
 {
 #if 0
     const FieldContainerType   &type     = dst->getType();
@@ -756,5 +784,8 @@ void deepCloneAttachments(
     }
 #endif
 }
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE

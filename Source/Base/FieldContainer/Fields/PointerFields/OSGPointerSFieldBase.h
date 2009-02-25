@@ -47,14 +47,10 @@
 #include "OSGSField.h"
 #include "OSGFieldContainerFieldTraits.h"
 
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGPointerSFieldBase.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 class OSG_BASE_DLLMAPPING PointerSFieldBase : public Field
 {

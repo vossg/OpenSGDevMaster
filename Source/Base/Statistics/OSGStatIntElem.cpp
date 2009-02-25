@@ -58,7 +58,6 @@ OSG_USING_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StatIntElem
-    \ingroup GrpSystemStatistics
 
     The StatIntElem keeps an Int32 counter, see \ref PageSystemStatistics for
     details. 

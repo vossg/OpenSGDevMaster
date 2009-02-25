@@ -76,7 +76,7 @@ class MPFieldStore;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING BaseThreadCommonBase : public MPBase
@@ -133,7 +133,7 @@ class OSG_BASE_DLLMAPPING BaseThreadCommonBase : public MPBase
 
 #ifdef OSG_USE_PTHREADS
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class BasePThreadBase : public BaseThreadCommonBase
@@ -273,7 +273,7 @@ typedef BasePThreadBase BaseThreadBase;
 
 #ifdef OSG_USE_SPROC
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class BaseSprocBase : public BaseThreadCommonBase
@@ -408,7 +408,7 @@ typedef BaseSprocBase BaseThreadBase;
 
 #ifdef OSG_USE_WINTHREADS
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class BaseWinThreadBase : public BaseThreadCommonBase
@@ -565,7 +565,7 @@ typedef BaseWinThreadBase BaseThreadBase;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING BaseThread : public BaseThreadBase

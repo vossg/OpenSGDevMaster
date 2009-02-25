@@ -295,8 +295,8 @@ void SimpleAttachment<AttachmentDescT>::copyFromBin(
 
 template <class AttachmentDescT> inline
 void SimpleAttachment<AttachmentDescT>::dump(
-          UInt32    OSG_CHECK_ARG(uiIndent), 
-    const BitVector OSG_CHECK_ARG(bvFlags)) const
+          UInt32, 
+    const BitVector) const
 {
 }
 

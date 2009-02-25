@@ -673,7 +673,7 @@ void FieldContainer::onCreateAspect(const FieldContainer *,
 }
 
 inline
-void FieldContainer::onCreate(const FieldContainer *OSG_CHECK_ARG(source))
+void FieldContainer::onCreate(const FieldContainer *)
 {
     registerChangedContainer();
     

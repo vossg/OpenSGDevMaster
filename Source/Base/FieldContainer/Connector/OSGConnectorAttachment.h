@@ -48,9 +48,9 @@ OSG_BEGIN_NAMESPACE
 
 class BasicFieldConnector;
 
-/*! \brief ConnectorAttachment class. See \ref
-           PageSystemConnectorAttachment for a description.
-*/
+/*! \ingroup GrpBaseFieldContainerConnector
+    \includebasedoc
+ */
 
 class OSG_BASE_DLLMAPPING ConnectorAttachment : 
     public ConnectorAttachmentBase
@@ -176,12 +176,14 @@ class OSG_BASE_DLLMAPPING ConnectorAttachment :
 typedef ConnectorAttachment *ConnectorAttachmentP;
 
 OSG_BASE_DLLMAPPING
-void addConnector(AttachmentContainer *pContainer,
-                  BasicFieldConnector *pConn     );
+void addConnector(OSG::AttachmentContainer *pContainer,
+                  OSG::BasicFieldConnector *pConn     );
 
 OSG_BASE_DLLMAPPING
-void subConnector(AttachmentContainer *pSrcContainer, BitVector bSrcMask,
-                  FieldContainer      *pDstContainer, BitVector bDstMask);
+void subConnector(OSG::AttachmentContainer *pSrcContainer, 
+                  OSG::BitVector            bSrcMask,
+                  OSG::FieldContainer      *pDstContainer, 
+                  OSG::BitVector            bDstMask     );
 
 OSG_END_NAMESPACE
 

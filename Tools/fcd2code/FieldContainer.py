@@ -36,13 +36,13 @@ class FieldContainer(FCDElement):
         self.setFCD("decorateeFieldFlags",    "",       True);
         self.setFCD("additionalIncludes",     "",       True);
         self.setFCD("fcdFileLines",           [],       True);
-        self.setFCD("fieldsUnmarkedOnCreate", "0",      True)
-        self.setFCD("libnamespace",           "OSG",    True)
-        self.setFCD("childfieldparent",       "",       True)
-        self.setFCD("parentfieldcard",        "",       True)
-        self.setFCD("childFields",            "none",   True)
-        self.setFCD("parentFields",           "none",   True)
-
+        self.setFCD("fieldsUnmarkedOnCreate", "0",      True);
+        self.setFCD("libnamespace",           "OSG",    True);
+        self.setFCD("childfieldparent",       "",       True);
+        self.setFCD("parentfieldcard",        "",       True);
+        self.setFCD("childFields",            "none",   True);
+        self.setFCD("parentFields",           "none",   True);
+        self.setFCD("docGroupBase",           "",       True);
     #
     # Access fields
     
@@ -79,6 +79,7 @@ class FieldContainer(FCDElement):
         else:
             self["hasFields"] = False;
         
+            
         if self.getFCD("library") != "":
             self["isInLibrary"] = True;
             self["Libname"]     = self.getFCD("library");
@@ -93,6 +94,11 @@ class FieldContainer(FCDElement):
                 self["isInLibrary"] = False;
                 self["Libname"]     = None;
                 self["LIBNAME"]     = None;
+
+        if self.getFCD("docGroupBase") != "":
+            self["DocGroupBase"] = self.getFCD("docGroupBase")
+        else:
+            self["DocGroupBase"] = "Grp" + self["Libname"]
         
         if self.getFCD("name") != "":
             self["Classname"] = self.getFCD("name");

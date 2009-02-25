@@ -59,7 +59,9 @@ class StatElem;
 class StatElemDescBase;
 
 /*! \brief Manager for Stat elements, see \guide(Statistics) for details.
+    \ingroup GrpBaseStatistics
 */
+
 class OSG_BASE_DLLMAPPING StatCollector : public MemoryObject
 {
 
@@ -172,11 +174,11 @@ typedef StatCollector * const StatCollectorPConstArg;
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
-/*! \ingroup GrpSystemFieldTraits
+/*! \brief Single Statistics element, see \ref PageSystemStatistics for 
+           details.
+    \ingroup GrpBaseStatistics
+    \ingroup GrpBaseFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<StatCollectorP> :
@@ -241,19 +243,24 @@ struct FieldTraits<StatCollectorP> :
     }
 };
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class FieldTraitsRecurseBase<StatCollector> */
-/*! \hideinhierarchy                             */
-#endif
-
 #endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldSingle 
+    \ingroup GrpBaseStatistics
+ */
 typedef SField<StatCollectorP> SFStatCollectorP;
-#endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldSingle 
+    \ingroup GrpBaseStatistics
+ */
+struct SFStatCollectorP : public SField<StatCollectorP> {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

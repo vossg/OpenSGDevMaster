@@ -42,12 +42,6 @@
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGChangeList.h
-    \ingroup GrpSystemMultithreading
- */
-#endif
-
 #include "OSGBaseTypes.h"
 #include "OSGMemoryObject.h"
 #include "OSGThread.h"
@@ -64,7 +58,8 @@ class WinThreadBase;
 class StatCollector;
 class FieldContainer;
 
-/*! \ingroup GrpSystemMultithreading
+/*! \ingroup GrpBaseFieldContainerBase
+    \nohierarchy
  */
 
 struct OSG_BASE_DLLMAPPING ContainerChangeEntry
@@ -114,7 +109,7 @@ struct OSG_BASE_DLLMAPPING ContainerChangeEntry
     void commitChanges(void);
 };
 
-/*! \ingroup GrpSystemMultithreading
+/*! \ingroup GrpBaseFieldContainerBase
  */
 
 class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
@@ -379,9 +374,17 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 };
 
 
-/*! Convenience function for committing changes */
+/*! \brief Convenience function for committing changes
+    \ingroup GrpBaseFieldContainerFuncs
+ */
 void commitChanges        (void);
+/*! \brief Convenience function for committing changes
+    \ingroup GrpBaseFieldContainerFuncs
+ */
 void commitChangesAndClear(void);
+/*! \brief Convenience function for committing changes
+    \ingroup GrpBaseFieldContainerFuncs
+ */
 void clearChangeList      (void);
 
 OSG_END_NAMESPACE

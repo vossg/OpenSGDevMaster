@@ -48,24 +48,59 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup  */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField      <Node *,
                             RecordedRefCountPolicy  > MFRecNodePtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField      <Node *,
                             UnrecordedRefCountPolicy> MFUnrecNodePtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField      <Node *,
                             WeakRefCountPolicy      > MFWeakNodePtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField      <Node *,
                             NoRefCountPolicy        > MFUncountedNodePtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ChildPointerMField <Node *,
                             UnrecordedRefCountPolicy,
                             1                       > MFUnrecChildNodePtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef ParentPointerMField<Node *,
                             NoRefCountPolicy,
                             1                       > MFParentNodePtr;
-#endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFRecNodePtr :
+    public PointerMField      <Node *,
+                               RecordedRefCountPolicy  > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUnrecNodePtr :
+    public PointerMField      <Node *,
+                               UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFWeakNodePtr :
+    public PointerMField      <Node *,
+                               WeakRefCountPolicy      > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUncountedNodePtr :
+    public PointerMField      <Node *,
+                               NoRefCountPolicy        > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUnrecChildNodePtr :
+    public ChildPointerMField <Node *,
+                               UnrecordedRefCountPolicy,
+                               1                       > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFParentNodePtr :
+    public ParentPointerMField<Node *,
+                               NoRefCountPolicy,
+                               1                       > {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

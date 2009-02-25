@@ -49,20 +49,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file 
-    \ingroup 
-    \ingroup 
-*/
-#endif
-
-/*! \ingroup 
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<ChangedFunctorCallback> : 
@@ -130,13 +118,6 @@ struct FieldTraits<ChangedFunctorCallback> :
 //        pMem.getValues(&(pObjectStore[0]), uiNumObjects);
     }
 };
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<NodeCorePtr> */
-/*! \hideinhierarchy                         */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

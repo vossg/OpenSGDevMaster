@@ -47,99 +47,54 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpBaseFieldSingle */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldSingle */
 typedef SField<Color3f> SFColor3f;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Color3fx> SFColor3fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Color4f> SFColor4f;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Color4fx> SFColor4fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Color3ub> SFColor3ub;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Color4ub> SFColor4ub;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<std::string> SFString;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Time, 1> SFTime;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
-typedef SField          <BoxVolume            > SFBoxVolume;
-#endif
+typedef SField<BoxVolume> SFBoxVolume;
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<BitVector, 1>  SFBitVector;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<GLenum, 1>  SFGLenum;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Plane> SFPlane;
-#endif
 
 
 #ifdef OSG_FLOAT_PROFILE
@@ -149,6 +104,49 @@ typedef SFColor4f  SFColor4r;
 typedef SFColor3fx SFColor3r;
 typedef SFColor4fx SFColor4r;
 #endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldSingle */
+struct SFColor3f : public SField<Color3f> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFColor3fx : public SField<Color3fx> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFColor4f : public SField<Color4f> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFColor4fx : public SField<Color4fx> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFColor3ub : public SField<Color3ub> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFColor4ub : public SField<Color4ub> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFString : public SField<std::string> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFTime : public SField<Time, 1> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFBoxVolume : public SField<BoxVolume> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFBitVector : public SField<BitVector, 1>  {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFGLenum : public SField<GLenum, 1> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPlane : public SField<Plane> {};
+
+
+#ifdef OSG_FLOAT_PROFILE
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFColor3f  SFColor3r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFColor4f  SFColor4r;
+#else
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFColor3fx SFColor3r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFColor4fx SFColor4r;
+#endif
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

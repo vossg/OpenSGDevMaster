@@ -52,7 +52,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemContainer
+/*! \ingroup GrpBaseFieldContainer
+    \ingroup GrpBaseFieldContainerBase 
  */
 
 namespace FieldBits
@@ -103,7 +104,8 @@ namespace FieldBits
     const BitVector Field31   = OSGLL(0x0000000080000000);
 }
 
-/*! \ingroup GrpSystemContainer
+/*! \ingroup GrpBaseFieldContainer
+    \ingroup GrpBaseFieldContainerBase 
  */
 
 namespace ChangedOrigin
@@ -114,7 +116,8 @@ namespace ChangedOrigin
     const UInt32 Commit           = 0x0008;
 }
 
-/*! \ingroup GrpSystemContainer
+/*! \ingroup GrpBaseFieldContainer
+    \ingroup GrpBaseFieldContainerBase 
  */
 
 namespace FCDumpFlags
@@ -126,7 +129,10 @@ namespace FCDumpFlags
     const BitVector All        = 0xFFFFFFFF;
 }
 
-static const UInt16 InvalidParentEPos = 0xFFFF;
+/*! \ingroup GrpBaseFieldContainerBase 
+ */
+
+static const OSG::UInt16 InvalidParentEPos = 0xFFFF;
 
 OSG_END_NAMESPACE
 

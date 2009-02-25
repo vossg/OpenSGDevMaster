@@ -45,415 +45,226 @@
 #include "OSGSField.h"
 #include "OSGVecFieldTraits.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGVecSFields.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldSingle
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec2ub> SFVec2ub;
-#endif
-
 
 
 #ifndef OSG_NO_INT8_PNT
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec2b> SFVec2b;
 #endif
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec2us> SFVec2us;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec2s> SFVec2s;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec2f> SFVec2f;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec2fx> SFVec2fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec2d> SFVec2d;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec2ld> SFVec2ld;
-#endif
 
 
 
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec3ub> SFVec3ub;
-#endif
-
 
 
 #ifndef OSG_NO_INT8_PNT
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec3b> SFVec3b;
 #endif
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec3us> SFVec3us;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec3s> SFVec3s;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec3f> SFVec3f;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec3fx> SFVec3fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec3d> SFVec3d;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec3ld> SFVec3ld;
-#endif
 
 
 
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec4ub> SFVec4ub;
-#endif
-
 
 
 #ifndef OSG_NO_INT8_PNT
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec4b> SFVec4b;
 #endif
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec4us> SFVec4us;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec4s> SFVec4s;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec4f> SFVec4f;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec4fx> SFVec4fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec4d> SFVec4d;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Vec4ld> SFVec4ld;
-#endif
 
 
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt2ub> SFPnt2ub;
-#endif
-
 
 
 #ifndef OSG_NO_INT8_PNT
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt2b> SFPnt2b;
 #endif
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt2us> SFPnt2us;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt2s> SFPnt2s;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt2f> SFPnt2f;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt2fx> SFPnt2fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt2d> SFPnt2d;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt2ld> SFPnt2ld;
-#endif
 
 
 
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt3ub> SFPnt3ub;
-#endif
-
 
 
 #ifndef OSG_NO_INT8_PNT
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt3b> SFPnt3b;
 #endif
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt3us> SFPnt3us;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt3s> SFPnt3s;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt3f> SFPnt3f;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt3fx> SFPnt3fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt3d> SFPnt3d;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt3ld> SFPnt3ld;
-#endif
 
 
 
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt4ub> SFPnt4ub;
-#endif
-
 
 
 #ifndef OSG_NO_INT8_PNT
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt4b> SFPnt4b;
 #endif
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt4us> SFPnt4us;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt4s> SFPnt4s;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt4f> SFPnt4f;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt4fx> SFPnt4fx;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt4d> SFPnt4d;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Pnt4ld> SFPnt4ld;
-#endif
 
 
 
@@ -475,6 +286,156 @@ typedef SFPnt3fx SFPnt3r;
 typedef SFPnt4fx SFPnt4r;
 #endif
 
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec2ub : public SField<Vec2ub> {};
+#ifndef OSG_NO_INT8_PNT
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec2b : public SField<Vec2b> {};
+#endif
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec2us : public SField<Vec2us> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec2s : public SField<Vec2s> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec2f : public SField<Vec2f> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec2fx : public SField<Vec2fx> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec2d : public SField<Vec2d> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec2ld : public SField<Vec2ld> {};
+
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec3ub : public SField<Vec3ub> {};
+#ifndef OSG_NO_INT8_PNT
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec3b : public SField<Vec3b> {};
+#endif
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec3us : public SField<Vec3us> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec3s : public SField<Vec3s> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec3f : public SField<Vec3f> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec3fx : public SField<Vec3fx> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec3d : public SField<Vec3d> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec3ld : public SField<Vec3ld> {};
+
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec4ub : public SField<Vec4ub> {};
+#ifndef OSG_NO_INT8_PNT
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec4b : public SField<Vec4b> {};
+#endif
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec4us : public SField<Vec4us> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec4s : public SField<Vec4s> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec4f : public SField<Vec4f> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec4fx : public SField<Vec4fx> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec4d : public SField<Vec4d> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVec4ld : public SField<Vec4ld> {};
+
+
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt2ub : public SField<Pnt2ub> {};
+#ifndef OSG_NO_INT8_PNT
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt2b : public SField<Pnt2b> {};
+#endif
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt2us : public SField<Pnt2us> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt2s : public SField<Pnt2s> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt2f : public SField<Pnt2f> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt2fx : public SField<Pnt2fx> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt2d : public SField<Pnt2d> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt2ld : public SField<Pnt2ld> {};
+
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt3ub : public SField<Pnt3ub> {};
+#ifndef OSG_NO_INT8_PNT
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt3b : public SField<Pnt3b> {};
+#endif
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt3us : public SField<Pnt3us> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt3s : public SField<Pnt3s> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt3f : public SField<Pnt3f> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt3fx : public SField<Pnt3fx> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt3d : public SField<Pnt3d> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt3ld : public SField<Pnt3ld> {};
+
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt4ub : public SField<Pnt4ub> {};
+#ifndef OSG_NO_INT8_PNT
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt4b : public SField<Pnt4b> {};
+#endif
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt4us : public SField<Pnt4us> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt4s : public SField<Pnt4s> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt4f : public SField<Pnt4f> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt4fx : public SField<Pnt4fx> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt4d : public SField<Pnt4d> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFPnt4ld : public SField<Pnt4ld> {};
+
+
+
+#ifdef OSG_FLOAT_PROFILE
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFVec2f  SFVec2r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFVec3f  SFVec3r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFVec4f  SFVec4r;
+
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFPnt2f  SFPnt2r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFPnt3f  SFPnt3r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFPnt4f  SFPnt4r;
+#else
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFVec2fx SFVec2r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFVec3fx SFVec3r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFVec4fx SFVec4r;
+
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFPnt2fx SFPnt2r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFPnt3fx SFPnt3r;
+/*! \ingroup GrpBaseFieldSingle */
+typedef SFPnt4fx SFPnt4r;
+#endif
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

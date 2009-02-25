@@ -974,8 +974,9 @@ void Node::resolveLinks(void)
     _mfChildren.clear();
 }
 
-/*-------------------------------------------------------------------------*/
-/*                             Cloning                                     */
+/*---------------------------------------------------------------------*/
+/*! \name Node cloning                                                 */
+/*! \{                                                                 */
 
 /*! Clones the scene starting at \a rootNode. By default FieldContainers,
     especially NodeCores, are shared, only if a container's type name is in
@@ -989,9 +990,12 @@ void Node::resolveLinks(void)
     \param[in] cloneGroupNames List of group names that are cloned.
     \param[in] ignoreGroupNames LIst of group names that are ignored.
     \return The root Node of the cloned scene.
+
+    \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
  */
 
-NodeTransitPtr cloneTree(const Node                     *rootNode,
+NodeTransitPtr cloneTree(const OSG::Node                *rootNode,
                          const std::vector<std::string> &cloneTypeNames,
                          const std::vector<std::string> &ignoreTypeNames,
                          const std::vector<std::string> &cloneGroupNames,
@@ -1020,11 +1024,14 @@ NodeTransitPtr cloneTree(const Node                     *rootNode,
     \param[in] cloneGroupIds List of group ids, whose members are cloned.
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
     \return The root Node of the cloned scene.
+
+    \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
  */
 
-NodeTransitPtr cloneTree(const Node                *rootNode,
-                         const std::vector<UInt16> &cloneGroupIds,
-                         const std::vector<UInt16> &ignoreGroupIds)
+NodeTransitPtr cloneTree(const OSG::Node                *rootNode,
+                         const std::vector<OSG::UInt16> &cloneGroupIds,
+                         const std::vector<OSG::UInt16> &ignoreGroupIds)
 {
     std::vector<const ReflexiveContainerType *> cloneTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -1044,9 +1051,12 @@ NodeTransitPtr cloneTree(const Node                *rootNode,
     \param[in] ignoreTypesString Comma separated string of type names that are
         ignored.
     \return The root Node of the cloned scene.
+
+    \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
  */
 
-NodeTransitPtr cloneTree(const Node            *rootNode,
+NodeTransitPtr cloneTree(const OSG::Node       *rootNode,
                          const std::string     &cloneTypesString,
                          const std::string     &ignoreTypesString)
 {
@@ -1074,14 +1084,17 @@ NodeTransitPtr cloneTree(const Node            *rootNode,
     \param[in] cloneGroupIds List of group ids, whose members are cloned.
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
     \return The root Node of the cloned scene.
+
+    \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
  */
 
 NodeTransitPtr cloneTree(      
-    const Node                                        *rootNode,
-    const std::vector<const ReflexiveContainerType *> &cloneTypes,
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes,
-    const std::vector<UInt16>                         &cloneGroupIds,
-    const std::vector<UInt16>                         &ignoreGroupIds)
+    const OSG::Node                                        *rootNode,
+    const std::vector<const OSG::ReflexiveContainerType *> &cloneTypes,
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes,
+    const std::vector<OSG::UInt16>                         &cloneGroupIds,
+    const std::vector<OSG::UInt16>                         &ignoreGroupIds)
 {
     NodeUnrecPtr rootClone(NULL);
 
@@ -1160,9 +1173,12 @@ NodeTransitPtr cloneTree(
     \param[in] shareGroupNames List of group names that are shared.
     \param[in] ignoreGroupNames LIst of group names that are ignored.
     \return The root Node of the cloned scene.
+
+    \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
  */
 
-NodeTransitPtr deepCloneTree(const Node                     *rootNode,
+NodeTransitPtr deepCloneTree(const OSG::Node                *rootNode,
                              const std::vector<std::string> &shareTypeNames,
                              const std::vector<std::string> &ignoreTypeNames,
                              const std::vector<std::string> &shareGroupNames,
@@ -1191,11 +1207,14 @@ NodeTransitPtr deepCloneTree(const Node                     *rootNode,
     \param[in] shareGroupIds List of group ids, whose members are shared.
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
     \return The root Node of the cloned scene.
+
+    \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
  */
 
-NodeTransitPtr deepCloneTree(const Node                *rootNode,
-                             const std::vector<UInt16> &shareGroupIds,
-                             const std::vector<UInt16> &ignoreGroupIds)
+NodeTransitPtr deepCloneTree(const OSG::Node                *rootNode,
+                             const std::vector<OSG::UInt16> &shareGroupIds,
+                             const std::vector<OSG::UInt16> &ignoreGroupIds)
 {
     std::vector<const ReflexiveContainerType *> shareTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -1215,6 +1234,9 @@ NodeTransitPtr deepCloneTree(const Node                *rootNode,
     \param[in] ignoreTypesString Comma separated string of type names that are
         ignored.
     \return The root Node of the cloned scene.
+
+    \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
  */
 
 NodeTransitPtr deepCloneTree(const Node            *rootNode,
@@ -1245,14 +1267,17 @@ NodeTransitPtr deepCloneTree(const Node            *rootNode,
     \param[in] shareGroupIds List of group ids, whose members are shared.
     \param[in] ignoreGroupIds List of group ids, whose members are ignored.
     \return The root Node of the cloned scene.
+
+    \ingroup GrpBaseFieldContainerNodes
+    \relatesalso Node
  */
 
 NodeTransitPtr deepCloneTree(      
-    const Node                                        *rootNode,
-    const std::vector<const ReflexiveContainerType *> &shareTypes,
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes,
-    const std::vector<UInt16>                         &shareGroupIds,
-    const std::vector<UInt16>                         &ignoreGroupIds)
+    const OSG::Node                                        *rootNode,
+    const std::vector<const OSG::ReflexiveContainerType *> &shareTypes,
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes,
+    const std::vector<OSG::UInt16>                         &shareGroupIds,
+    const std::vector<OSG::UInt16>                         &ignoreGroupIds)
 {
     NodeUnrecPtr rootClone(NULL);
 
@@ -1318,5 +1343,8 @@ NodeTransitPtr deepCloneTree(
 
     return NodeTransitPtr(rootClone);
 }
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE

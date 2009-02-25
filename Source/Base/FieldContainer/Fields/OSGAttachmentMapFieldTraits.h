@@ -51,22 +51,13 @@ OSG_BEGIN_NAMESPACE
 
 class Attachment;
 
+/*! \ingroup GrpBaseFieldContainerFields
+ */
+
 typedef std::map<UInt32, Attachment *>  AttachmentMap;
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGBaseFieldTraits.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldTraits
-*/
-#endif
-
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
 
 template <>
 struct FieldTraits<AttachmentMap> : 
@@ -138,13 +129,6 @@ struct FieldTraits<AttachmentMap> :
         }
     }
 };
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ContainerAttachmentMap> */
-/*! \hideinhierarchy                               */
-#endif
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

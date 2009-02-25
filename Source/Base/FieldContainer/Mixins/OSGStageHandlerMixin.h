@@ -55,10 +55,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! Mixin for creating Stages.
-* \ingroup baselib
-* \param ParentT  The type to derive from for mixing.
-*/
+/*! \ingroup GrpBaseFieldContainerMixins
+ */
 template <class ParentT>
 class StageHandlerMixin  : public ParentT
 {

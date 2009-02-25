@@ -49,8 +49,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! Template to build simple attachment classes which store only one field.
-//! \ingroup GrpSystemFieldContainer
+/*! \ingroup GrpBaseFieldContainerMixins
+ */
 
 template <class AttachmentDescT>
 class SimpleAttachment : public Attachment
@@ -82,6 +82,7 @@ class SimpleAttachment : public Attachment
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
+    /*! \nohierarchy */
     struct SFieldValFunctions
     {
         static StoredFieldType   *editFieldPtr   (StoredFieldType  *pField,
@@ -92,6 +93,7 @@ class SimpleAttachment : public Attachment
                                                   SimpleAttachment *pThis);
     };
 
+    /*! \nohierarchy */
     struct SFieldPtrFunctions
     {
         static StoredFieldType   *editFieldPtr   (StoredFieldType  *pField,
@@ -102,6 +104,7 @@ class SimpleAttachment : public Attachment
                                                   SimpleAttachment *pThis);
     };
 
+    /*! \nohierarchy */
     struct MFieldValFunctions
     {
         static StoredFieldType   *editFieldPtr   (StoredFieldType  *pField,
@@ -112,6 +115,7 @@ class SimpleAttachment : public Attachment
                                                   SimpleAttachment *pThis);
     };
 
+    /*! \nohierarchy */
     struct MFieldPtrFunctions
     {
         static StoredFieldType   *editFieldPtr   (StoredFieldType  *pField,

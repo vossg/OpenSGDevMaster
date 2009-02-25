@@ -49,11 +49,20 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpBaseFieldSingle */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef SField<AttachmentMap> SFAttachmentPtrMap;
-#endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFAttachmentPtrMap : public SField<AttachmentMap> {};
+
+#endif // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template<>
 class OSG_BASE_DLLMAPPING GetSFieldHandle<SFAttachmentPtrMap> : 
@@ -106,6 +115,9 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<SFAttachmentPtrMap> :
     SFAttachmentPtrMap const * operator ->(void);
     SFAttachmentPtrMap const & operator * (void);
 };
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template<>
 class OSG_BASE_DLLMAPPING 

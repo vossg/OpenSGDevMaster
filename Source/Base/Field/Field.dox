@@ -9,7 +9,7 @@ using namespace OSG;
 */
 
 #if (OSG_DOC_LEVEL >= 3)
-/*! \defgroup GrpBaseFieldTraits Field Data Traits
+/*! \defgroup GrpBaseFieldTraits Field Traits
     \ingroup GrpBaseField
 
     ToDo
@@ -29,7 +29,7 @@ using namespace OSG;
 */
 
 /*! \defgroup GrpBaseFieldHelper Field Helper
-    \ingroup GrpBaseFieldHelper
+    \ingroup GrpBaseField
 
     ToDo
 */

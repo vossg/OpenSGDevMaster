@@ -49,8 +49,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-//! Brief
-//! \ingroup baselib
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 
 class OSG_BASE_DLLMAPPING Attachment : public AttachmentContainer
 {

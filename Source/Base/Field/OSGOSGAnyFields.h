@@ -49,6 +49,10 @@ OSG_BEGIN_NAMESPACE
 
 class Window;
 
+/*! \ingroup GrpBaseBaseBaseTypes
+    \nohierarchy
+ */
+
 struct OSGAny
 {
     bool operator ==(const OSGAny &) const
@@ -57,6 +61,9 @@ struct OSGAny
     }
 };
 
+
+/*! \ingroup GrpBaseFieldTraits
+ */
 
 template <>
 struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
@@ -137,8 +144,21 @@ struct FieldTraits<OSGAny> : public FieldTraitsTemplateBase<OSGAny>
     }
 };
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+/*! \ingroup GrpBaseFieldSingle */
 typedef SField<OSGAny> SFOSGAny;
+/*! \ingroup GrpBaseFieldMulti */
 typedef MField<OSGAny> MFOSGAny;
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldSingle */
+struct SFOSGAny : public SField<OSGAny> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFOSGAny : public MField<OSGAny> {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

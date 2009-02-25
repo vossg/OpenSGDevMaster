@@ -74,7 +74,7 @@ StatElemDescBase::DescStorage *StatElemDescBase::_descVec = NULL;
 /*! Returns the descriptor with the given \a name, or NULL if no such
     descriptor is found.
 
-    \param[i] name Name of the descriptor to return.
+    \param[in] name Name of the descriptor to return.
     \return Descriptor with the given name, or NULL if it is not found.
  */
 StatElemDescBase *StatElemDescBase::findDescByName(const Char8 *name)
@@ -124,10 +124,11 @@ StatElemDescBase *StatElemDescBase::findDescByName(const Char8 *name)
     \param[in] name Name for the descriptor; must be unique.
     \param[in] description Description of the purpose of the StatElem, this
         descriptor belongs to.
+    \param[in] reset
  */
-StatElemDescBase::StatElemDescBase(const Char8 *name, 
-                                   const Char8 *description,
-                                   ResetMode    reset) :
+StatElemDescBase::StatElemDescBase(const Char8     *name, 
+                                   const Char8     *description,
+                                         ResetMode  reset) :
     _id         (         -1),
     _name       (       name),
     _description(description),

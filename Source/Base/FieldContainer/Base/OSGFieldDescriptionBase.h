@@ -58,60 +58,71 @@ class Field;
 template <class AttachmentDescT>
 class DynFieldAttachment;
 
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 typedef 
-    EditFieldHandlePtr(ReflexiveContainer::*FieldEditMethodSig)(void);
+  EditFieldHandlePtr(OSG::ReflexiveContainer::*FieldEditMethodSig)(void);
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 typedef 
-    GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethodSig )(void) const;
+  GetFieldHandlePtr (OSG::ReflexiveContainer::*FieldGetMethodSig )(void) const;
 
 
-typedef EditFieldHandlePtr (ReflexiveContainer::*FieldIndexEditMethodSig)(
-    UInt32);
-typedef GetFieldHandlePtr  (ReflexiveContainer::*FieldIndexGetMethodSig )(
-    UInt32) const;
-
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup GrpBaseFieldContainerBase
  */
+typedef EditFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexEditMethodSig)(
+    OSG::UInt32);
 
+/*! \ingroup GrpBaseFieldContainerBase
+ */
+typedef GetFieldHandlePtr  (OSG::ReflexiveContainer::*FieldIndexGetMethodSig )(
+    OSG::UInt32) const;
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 #ifdef FDESC_USE_BOOST
-typedef boost::function<Field *(ReflexiveContainer *)> FieldEditMethod;
+typedef boost::function<Field *(OSG::ReflexiveContainer *)> FieldEditMethod;
 #else
-typedef EditFieldHandlePtr (ReflexiveContainer::*FieldEditMethod)(void  );
+typedef EditFieldHandlePtr (OSG::ReflexiveContainer::*FieldEditMethod)(void  );
 #endif
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
 
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 #ifdef FDESC_USE_BOOST
 typedef boost::function<
-          const Field *(const ReflexiveContainer *)> FieldGetMethod;
+          const Field *(const OSG::ReflexiveContainer *)> FieldGetMethod;
 #else
-typedef GetFieldHandlePtr (ReflexiveContainer::*FieldGetMethod)(void) const;
+typedef GetFieldHandlePtr(OSG::ReflexiveContainer::*FieldGetMethod)(void) const;
 #endif
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
 
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 #ifdef FDESC_USE_BOOST
 typedef boost::function<
-          Field *(ReflexiveContainer *, int)>             FieldIndexEditMethod;
+          Field *(OSG::ReflexiveContainer *, int)>        FieldIndexEditMethod;
 #else
-typedef EditFieldHandlePtr (ReflexiveContainer::*FieldIndexEditMethod)(UInt32);
+typedef EditFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexEditMethod)(
+    OSG::UInt32);
 #endif
 
-/*! \ingroup GrpSystemFieldContainerFuncs
- */
 
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 #ifdef FDESC_USE_BOOST
 typedef boost::function<
-          const Field *(const ReflexiveContainer *, int)> FieldIndexGetMethod;
+          const Field *(const OSG::ReflexiveContainer *, 
+                              int                      )> FieldIndexGetMethod;
 #else
-typedef GetFieldHandlePtr (ReflexiveContainer::*FieldIndexGetMethod)(
-    UInt32) const;
+typedef GetFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexGetMethod)(
+    OSG::UInt32) const;
 #endif
 
 class BasicFieldConnector;
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup GrpBaseFieldContainerBase
  */
 
 class OSG_BASE_DLLMAPPING FieldDescriptionBase
@@ -400,8 +411,8 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
 //---------------------------------------------------------------------------
 
 /*! FieldDescriptionBase point less than
-    \ingroup GrpSystemFieldContainerFuncs
-    \hideinhierarchy
+    \ingroup GrpBaseFieldContainerBase
+    \nohierarchy
  */
 
 struct FieldDescriptionBasePLT
@@ -414,6 +425,9 @@ struct FieldDescriptionBasePLT
 //---------------------------------------------------------------------------
 //   Class
 //---------------------------------------------------------------------------
+
+/*! \ingroup GrpBaseFieldContainerBase
+ */
 
 template<class    DescT, 
          enum     FieldType::Cardinality eFieldCard, 
@@ -496,6 +510,7 @@ class FieldDescription : public DescT::FieldDescParent
     typedef typename HandledField::EditHandle    EditHandle;
     typedef typename HandledField::EditHandlePtr EditHandlePtr;
 
+    /*! \nohierarchy */
     struct SFieldFunctions
     {
         typedef SFieldConnector<HandledField>     FConnector;
@@ -507,6 +522,7 @@ class FieldDescription : public DescT::FieldDescParent
         static bool isShared (HandledField       *pField  );
     };
 
+    /*! \nohierarchy */
     struct MFieldFunctions
     {
         typedef MFieldConnector<HandledField>     FConnector;
@@ -518,6 +534,7 @@ class FieldDescription : public DescT::FieldDescParent
         static bool isShared (HandledField       *pField  );
     };
 
+    /*! \nohierarchy */
     struct DefaultFieldCreateHandler
     {
         static Field *createField(void)
@@ -532,6 +549,7 @@ class FieldDescription : public DescT::FieldDescParent
                   HandledField         *pDst    );    
     };
     
+    /*! \nohierarchy */
     struct ChildFieldCreateHandler
     {
         static Field *createField(void)
@@ -549,6 +567,7 @@ class FieldDescription : public DescT::FieldDescParent
         }
     };
 
+    /*! \nohierarchy */
     struct DefaultCreateEditHandler
     {
         static EditFieldHandlePtr createHandler(Field            *pField,
@@ -562,6 +581,7 @@ class FieldDescription : public DescT::FieldDescParent
         }
     };
 
+    /*! \nohierarchy */
     struct ParentCreateEditHandler
     {
         static EditFieldHandlePtr createHandler(Field            *pField,

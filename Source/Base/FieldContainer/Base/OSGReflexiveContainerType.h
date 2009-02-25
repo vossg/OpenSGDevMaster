@@ -52,10 +52,13 @@ OSG_BEGIN_NAMESPACE
 
 class ReflexiveContainerType;
 
-typedef void (*InitalInsertDescFunc)(ReflexiveContainerType *);
+/*! \ingroup GrpBaseFieldContainerBase
+ */
+
+typedef void (*InitalInsertDescFunc)(OSG::ReflexiveContainerType *);
 
 /*! \class ReflexiveContainerType
-    \ingroup GrpSystemFieldContainer
+    \ingroup GrpBaseFieldContainerBase
  */
 
 class OSG_BASE_DLLMAPPING ReflexiveContainerType : public DataType

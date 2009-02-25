@@ -42,12 +42,6 @@
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGThread.h
-    \ingroup GrpSystemMultithreading
- */
-#endif
-
 #include "OSGBaseTypes.h"
 #include "OSGContainerForwards.h"
 
@@ -91,7 +85,7 @@ class ChangeList;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpSystemMultithreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING ThreadCommonBase : public BaseThread
@@ -183,7 +177,7 @@ class OSG_BASE_DLLMAPPING ThreadCommonBase : public BaseThread
 
 #ifdef OSG_USE_PTHREADS
 
-/*! \ingroup GrpSystemMultithreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class PThreadBase : public ThreadCommonBase
@@ -301,7 +295,7 @@ typedef PThreadBase ThreadBase;
 
 #ifdef OSG_USE_SPROC
 
-/*! \ingroup GrpSystemMultithreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class SprocBase : public ThreadCommonBase
@@ -386,7 +380,7 @@ typedef SprocBase ThreadBase;
 
 #ifdef OSG_USE_WINTHREADS
 
-/*! \ingroup GrpSystemMultithreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class WinThreadBase : public ThreadCommonBase
@@ -532,7 +526,7 @@ typedef WinThreadBase ThreadBase;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpSystemMultithreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING Thread : public ThreadBase
@@ -656,7 +650,7 @@ class OSG_BASE_DLLMAPPING Thread : public ThreadBase
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpSystemMultithreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING ExternalThread : public ThreadBase
@@ -733,6 +727,9 @@ class OSG_BASE_DLLMAPPING ExternalThread : public ThreadBase
 #else /* OSG_WIN_CE */
 
 class ChangeList;
+
+/*! \ingroup GrpBaseMultiThreading
+ */
 
 class OSG_BASE_DLLMAPPING Thread
 {

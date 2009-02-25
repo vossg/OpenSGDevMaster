@@ -295,8 +295,16 @@ void ConnectorAttachment::resolveLinks(void)
     _vConnections.clear();
 }
 
-void addConnector(AttachmentContainer *pContainer,
-                  BasicFieldConnector *pConn     )
+/*---------------------------------------------------------------------*/
+/*! \name Connector handling                                           */
+/*! \{                                                                 */
+
+/*! \ingroup GrpBaseFieldContainerConnector
+    \relatesalso AttachmentContainer
+ */
+
+void addConnector(OSG::AttachmentContainer *pContainer,
+                  OSG::BasicFieldConnector *pConn     )
 {
     if(pContainer == NULL)
     {
@@ -354,8 +362,14 @@ void addConnector(AttachmentContainer *pContainer,
     pCA->addConnection(pConn);
 }
 
-void subConnector(AttachmentContainer *pSrcContainer, BitVector bSrcMask,
-                  FieldContainer      *pDstContainer, BitVector bDstMask)
+/*! \ingroup GrpBaseFieldContainerConnector
+    \relatesalso AttachmentContainer
+ */
+
+void subConnector(OSG::AttachmentContainer *pSrcContainer, 
+                  OSG::BitVector            bSrcMask,
+                  OSG::FieldContainer      *pDstContainer, 
+                  OSG::BitVector            bDstMask)
 {
     if(pSrcContainer == NULL)
     {
@@ -375,5 +389,8 @@ void subConnector(AttachmentContainer *pSrcContainer, BitVector bSrcMask,
         pCA->removeConnections(bSrcMask, pDstContainer, bDstMask);
     }
 }
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE

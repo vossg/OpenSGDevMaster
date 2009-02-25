@@ -45,134 +45,112 @@
 #include "OSGSField.h"
 #include "OSGSysFieldTraits.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGSysSFields.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldSingle
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpBaseFieldSingle */
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
+/*! \ingroup GrpBaseFieldSingle */
 typedef SField<bool, 2>   SFBool;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Int8>   SFInt8;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<UInt8>  SFUInt8;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Int16>  SFInt16;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<UInt16> SFUInt16;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Int32>  SFInt32;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<UInt32> SFUInt32;
 
-#endif
 
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Int64>  SFInt64;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<UInt64> SFUInt64;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Real16> SFReal16;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Real32> SFReal32;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Fixed32> SFFixed32;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<Real64> SFReal64;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldSingle */
-
 typedef SField<void *>   SFVoidP;
-#endif
 
 
-
+/*! \ingroup GrpBaseFieldSingle */
 #ifdef OSG_FLOAT_PROFILE
 typedef SFReal32  SFReal;
 #else
 typedef SFFixed32 SFReal;
 #endif
 
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldSingle  */
+struct SFBool    : public SField<bool, 2> {};
+/*! \ingroup GrpBaseFieldSingle  */
+struct SFInt8    : public SField<Int8> {};
+/*! \ingroup GrpBaseFieldSingle  */
+struct SFUInt8   : public SField<UInt8> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFInt16   : public SField<Int16> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFUInt16  : public SField<UInt16> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFInt32   : public SField<Int32> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFUInt32  : public SField<UInt32> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFInt64   : public SField<Int64> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFUInt64  : public SField<UInt64> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFReal16  : public SField<Real16> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFReal32  : public SField<Real32> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFFixed32 : public SField<Fixed32> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFReal64  : public SField<Real64> {};
+/*! \ingroup GrpBaseFieldSingle */
+struct SFVoidP   : public SField<void *> {};
+
+/*! \ingroup GrpBaseFieldSingle */
+#ifdef OSG_FLOAT_PROFILE
+typedef SFReal32  SFReal;
+#else
+typedef SFFixed32 SFReal;
+#endif
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

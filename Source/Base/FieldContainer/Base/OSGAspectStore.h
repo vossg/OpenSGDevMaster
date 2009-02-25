@@ -42,9 +42,10 @@
 #pragma once
 #endif
 
+#include "OSGBaseTypes.h"
+
 #ifdef OSG_MT_CPTR_ASPECT
 
-#include "OSGBaseTypes.h"
 #include "OSGThread.h"
 #include "OSGThreadManager.h"
 
@@ -54,9 +55,8 @@ OSG_BEGIN_NAMESPACE
 
 class FieldContainer;
 
-/*! Memory, simple reference counted memory object. Parent of
-    everything that should be shared, but must not be thread safe.
-    \ingroup GrpBaseBase
+/*! \ingroup GrpBaseFieldContainerBase
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING AspectStore
@@ -136,13 +136,22 @@ class OSG_BASE_DLLMAPPING AspectStore
     void operator =(const AspectStore &source);
 };
 
-typedef AspectStore *AspectStoreP;
+typedef OSG::AspectStore *AspectStoreP;
+
+
+/*! \ingroup GrpBaseFieldContainerBase
+    \relatesalso OSG::AspectStore
+ */
 
 inline 
-void addRef(const AspectStoreP pObject);
+void addRef(const OSG::AspectStoreP pObject);
+
+/*! \ingroup GrpBaseFieldContainerBase
+    \relatesalso OSG::AspectStore
+ */
 
 inline
-void subRef(const AspectStoreP pObject);
+void subRef(const OSG::AspectStoreP pObject);
 
 OSG_END_NAMESPACE
 

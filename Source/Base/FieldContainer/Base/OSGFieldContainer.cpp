@@ -219,8 +219,9 @@ void FieldContainer::resolveLinks(void)
     callChangedFunctors(0);
 }
 
-/*-------------------------------------------------------------------------*/
-/*                              Cloning                                    */
+/*---------------------------------------------------------------------*/
+/*! \name Container cloning                                            */
+/*! \{                                                                 */
 
 /*! Fills \a types with the type objects corresponding to the types named in
     \a typeNames. This is a helper function for deepClone.
@@ -230,11 +231,14 @@ void FieldContainer::resolveLinks(void)
 
     \param[in] typeNames FieldContainer type names.
     \param[out] types Type objects corresponding to \a typeNames.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso FieldContainer
  */
 
 void appendTypesVector(
-    const std::vector<std::string>                    &typeNames,
-          std::vector<const ReflexiveContainerType *> &types     )
+    const std::vector<std::string>                         &typeNames,
+          std::vector<const OSG::ReflexiveContainerType *> &types     )
 {
     const FieldContainerType *pType;
 
@@ -258,10 +262,13 @@ void appendTypesVector(
 
     \param[in] groupNames Names of groups.
     \param[out] groupIds Ids of the groups in \a groupNames.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso FieldContainer
  */
 
 void appendGroupsVector(const std::vector<std::string> &groupNames,
-                              std::vector<UInt16>      &groupIds   )
+                              std::vector<OSG::UInt16> &groupIds   )
 {
     UInt16 groupId;
 
@@ -283,11 +290,14 @@ void appendGroupsVector(const std::vector<std::string> &groupNames,
 
     \param[in] typesString String of comma separated FieldContainer type names.
     \param[out] types Type objects corresponding to elements of \a typesString.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso FieldContainer
  */
 
 void appendTypesString(
-    const std::string                                 &typesString,
-          std::vector<const ReflexiveContainerType *> &types       )
+    const std::string                                      &typesString,
+          std::vector<const OSG::ReflexiveContainerType *> &types       )
 {
     const FieldContainerType *pType;
 
@@ -316,6 +326,9 @@ void appendTypesString(
         instead of cloned.
     \param[in] ignoreGroupNames Names of type groups that should be ignored.
     \return deep copy of \a src.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso FieldContainer
  */
 
 FieldContainerTransitPtr deepClone(
@@ -349,12 +362,15 @@ FieldContainerTransitPtr deepClone(
         of cloned.
     \param[in] ignoreGroupIds Type groups that should be ignored.
     \return deep copy of \a src.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso FieldContainer
  */
 
 FieldContainerTransitPtr deepClone(
           FieldContainer const      *src,
-    const std::vector<UInt16>       &shareGroupIds,
-    const std::vector<UInt16>       &ignoreGroupIds)
+    const std::vector<OSG::UInt16>       &shareGroupIds,
+    const std::vector<OSG::UInt16>       &ignoreGroupIds)
 {
     std::vector<const ReflexiveContainerType *> shareTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -374,12 +390,15 @@ FieldContainerTransitPtr deepClone(
     \param[in] ignoreTypesString Comma separated string of type names that
         should be ignored.
     \return deep copy of \a src.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso FieldContainer
  */
 
 FieldContainerTransitPtr deepClone(      
-          FieldContainer const      *src,
-    const std::string               &shareTypesString,
-    const std::string               &ignoreTypesString)
+          OSG::FieldContainer const  *src,
+    const std::string                &shareTypesString,
+    const std::string                &ignoreTypesString)
 {
     std::vector<const ReflexiveContainerType *> shareTypes;
     std::vector<const ReflexiveContainerType *> ignoreTypes;
@@ -405,14 +424,17 @@ FieldContainerTransitPtr deepClone(
         of cloned.
     \param[in] ignoreGroupIds Type groups that should be ignored.
     \return deep copy of \a src.
+
+    \ingroup GrpBaseFieldContainerFuncs
+    \relatesalso FieldContainer
  */
 
 FieldContainerTransitPtr deepClone(
-          FieldContainer const                        *src,
-    const std::vector<const ReflexiveContainerType *> &shareTypes,
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes,
-    const std::vector<UInt16>                         &shareGroupIds,
-    const std::vector<UInt16>                         &ignoreGroupIds)
+          OSG::FieldContainer const                        *src,
+    const std::vector<const OSG::ReflexiveContainerType *> &shareTypes,
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes,
+    const std::vector<OSG::UInt16>                         &shareGroupIds,
+    const std::vector<OSG::UInt16>                         &ignoreGroupIds)
 {
     if(src == NULL)
         return FieldContainerTransitPtr(NULL);
@@ -462,5 +484,8 @@ FieldContainerTransitPtr deepClone(
 
     return fcClone;
 }
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
 
 OSG_END_NAMESPACE

@@ -46,6 +46,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseFieldContainerMixins
+ */
+
 template <class ParentT>
 class DataSlotMixin : public ParentT
 {

@@ -71,9 +71,13 @@ namespace TypePredicates
 //  Class
 //---------------------------------------------------------------------------
 
+    /*! \ingroup GrpBaseBaseTypeSystem
+        \ingroup GrpBaseFieldContainerHelper
+        \nohierarchy
+     */
     class OSG_BASE_DLLMAPPING IsSameGroupIdAs
     {
-    public:
+      public:
         /*! Standard library compatibility typedef */
         typedef UInt16 argument_type;
 
@@ -85,7 +89,7 @@ namespace TypePredicates
 
         bool operator()(const UInt16 testGroupId);
 
-    private:
+      private:
         UInt16 _groupId;
     };
 
@@ -93,9 +97,13 @@ namespace TypePredicates
 //  Class
 //---------------------------------------------------------------------------
 
+    /*! \ingroup GrpBaseBaseTypeSystem
+        \ingroup GrpBaseFieldContainerHelper
+        \nohierarchy
+     */
     class OSG_BASE_DLLMAPPING IsSameGroupAs
     {
-    public:
+      public:
         /*! Standard library compatibility typedef */
         typedef const ReflexiveContainerType* argument_type;
 
@@ -107,7 +115,7 @@ namespace TypePredicates
 
         bool operator()(const ReflexiveContainerType *pTestType);
 
-    private:
+      private:
         UInt16 _groupId;
     };
 
@@ -115,15 +123,19 @@ namespace TypePredicates
 //  Functions
 //---------------------------------------------------------------------------
 
-    template <class InIteratorTypeT>
-    inline bool
-    typeInGroups(      InIteratorTypeT         begin, InIteratorTypeT end,
-                 const ReflexiveContainerType &type                       );
+    /*! \ingroup GrpBaseBaseTypeSystem
+     */
+    template <class InIteratorTypeT> inline 
+    bool typeInGroups(      InIteratorTypeT              begin, 
+                            InIteratorTypeT              end,
+                      const OSG::ReflexiveContainerType &type   );
 
-    template <class InIteratorTypeT>
-    inline bool
-    typeInGroupIds(      InIteratorTypeT         begin, InIteratorTypeT end,
-                   const ReflexiveContainerType &type                       );
+    /*! \ingroup GrpBaseBaseTypeSystem
+     */
+    template <class InIteratorTypeT> inline 
+    bool typeInGroupIds(      InIteratorTypeT              begin, 
+                              InIteratorTypeT              end,
+                        const OSG::ReflexiveContainerType &type );
 
 } // namespace TypePredicates
 

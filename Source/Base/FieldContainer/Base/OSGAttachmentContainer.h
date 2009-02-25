@@ -50,11 +50,10 @@ OSG_BEGIN_NAMESPACE
 class BasicFieldConnector;
 class Attachment;
 
-/**
-* An AttachmentContainer is a field container that can store attachments to 
-  other FieldContainers.
-* \ingroup baselib
-*/
+/*! An AttachmentContainer is a field container that can store attachments to 
+    other FieldContainers.
+    \ingroup GrpBaseFieldContainerBase
+ */
 class OSG_BASE_DLLMAPPING AttachmentContainer : public FieldContainer
 {
     /*==========================  PUBLIC  =================================*/
@@ -121,10 +120,10 @@ class OSG_BASE_DLLMAPPING AttachmentContainer : public FieldContainer
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    void             addAttachment (Attachment * const attachmentP,
+    void             addAttachment (Attachment * const pAttachment,
                                     UInt16             binding    = 0);
 
-    void             subAttachment (Attachment * const attachmentP,
+    void             subAttachment (Attachment * const pAttachment,
                                     UInt16             binding    = 0);
 
     /*! \}                                                                 */
@@ -250,8 +249,8 @@ OSG_GEN_CONTAINERPTR(AttachmentContainer);
 
 OSG_BASE_DLLMAPPING
 void cloneAttachments(
-          AttachmentContainer const *              src,
-          AttachmentContainer       *              dst,
+          OSG::AttachmentContainer const *         src,
+          OSG::AttachmentContainer       *         dst,
     const std::vector<std::string>                &cloneTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames   =
@@ -265,17 +264,17 @@ void cloneAttachments(
 
 OSG_BASE_DLLMAPPING
 void cloneAttachments(
-          AttachmentContainer const *              src,
-          AttachmentContainer       *              dst,
-    const std::vector<UInt16>                     &cloneGroupIds,
+          OSG::AttachmentContainer const *              src,
+          OSG::AttachmentContainer       *              dst,
+    const std::vector<OSG::UInt16>                     &cloneGroupIds,
 
-    const std::vector<UInt16>                     &ignoreGroupIds    =
-              std::vector<UInt16>()                                   );
+    const std::vector<OSG::UInt16>                     &ignoreGroupIds    =
+              std::vector<OSG::UInt16>()                                   );
 
 OSG_BASE_DLLMAPPING
 void cloneAttachments(
-          AttachmentContainer const *              src,
-          AttachmentContainer       *              dst,
+          OSG::AttachmentContainer const *         src,
+          OSG::AttachmentContainer       *         dst,
     const std::string                             &cloneTypesString,
 
     const std::string                             &ignoreTypesString =
@@ -283,25 +282,25 @@ void cloneAttachments(
 
 OSG_BASE_DLLMAPPING
 void cloneAttachments(
-          AttachmentContainer const *              src,
-          AttachmentContainer       *              dst,
+          OSG::AttachmentContainer const *              src,
+          OSG::AttachmentContainer       *              dst,
 
-    const std::vector<const ReflexiveContainerType *> &cloneTypes    =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &cloneTypes    =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes       =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes       =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<UInt16>                     &cloneGroupIds     =
-              std::vector<UInt16>(),
+    const std::vector<OSG::UInt16>                     &cloneGroupIds     =
+              std::vector<OSG::UInt16>(),
 
-    const std::vector<UInt16>                     &ignoreGroupIds    =
-              std::vector<UInt16>()                                   );
+    const std::vector<OSG::UInt16>                     &ignoreGroupIds    =
+              std::vector<OSG::UInt16>()                                   );
 
 OSG_BASE_DLLMAPPING
 void deepCloneAttachments(
-          AttachmentContainer const *              src,
-          AttachmentContainer       *              dst,
+          OSG::AttachmentContainer const *              src,
+          OSG::AttachmentContainer       *              dst,
     const std::vector<std::string>                &cloneTypeNames,
 
     const std::vector<std::string>                &ignoreTypeNames   =
@@ -315,17 +314,17 @@ void deepCloneAttachments(
 
 OSG_BASE_DLLMAPPING
 void deepCloneAttachments(
-          AttachmentContainer const *              src,
-          AttachmentContainer       *              dst,
-    const std::vector<UInt16>                     &cloneGroupIds,
+          OSG::AttachmentContainer const *              src,
+          OSG::AttachmentContainer       *              dst,
+    const std::vector<OSG::UInt16>                     &cloneGroupIds,
 
-    const std::vector<UInt16>                     &ignoreGroupIds    =
-              std::vector<UInt16>()                                    );
+    const std::vector<OSG::UInt16>                     &ignoreGroupIds    =
+              std::vector<OSG::UInt16>()                                    );
 
 OSG_BASE_DLLMAPPING
 void deepCloneAttachments(
-          AttachmentContainer const *              src,
-          AttachmentContainer       *              dst,
+          OSG::AttachmentContainer const *              src,
+          OSG::AttachmentContainer       *              dst,
     const std::string                             &cloneTypesString,
 
     const std::string                             &ignoreTypesString =
@@ -333,20 +332,20 @@ void deepCloneAttachments(
 
 OSG_BASE_DLLMAPPING
 void deepCloneAttachments(
-          AttachmentContainer const *              src,
-          AttachmentContainer       *              dst,
+          OSG::AttachmentContainer const *              src,
+          OSG::AttachmentContainer       *              dst,
 
-    const std::vector<const ReflexiveContainerType *> &shareTypes    =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &shareTypes    =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<const ReflexiveContainerType *> &ignoreTypes   =
-              std::vector<const ReflexiveContainerType *>(),
+    const std::vector<const OSG::ReflexiveContainerType *> &ignoreTypes   =
+              std::vector<const OSG::ReflexiveContainerType *>(),
 
-    const std::vector<UInt16>                     &shareGroupIds     =
-              std::vector<UInt16>(),
+    const std::vector<OSG::UInt16>                     &shareGroupIds     =
+              std::vector<OSG::UInt16>(),
 
-    const std::vector<UInt16>                     &ignoreGroupIds    =
-              std::vector<UInt16>()                                         );
+    const std::vector<OSG::UInt16>                     &ignoreGroupIds    =
+              std::vector<OSG::UInt16>()                                   );
 
 OSG_END_NAMESPACE
 

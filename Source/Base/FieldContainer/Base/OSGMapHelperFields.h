@@ -66,20 +66,10 @@ OSG_BEGIN_NAMESPACE
 
 class MapHelper;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MapHelperPtr
-
 OSG_GEN_CONTAINERPTR(MapHelper);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MapHelper *> :
     public FieldTraitsFCPtrBase<MapHelper *>
@@ -154,42 +144,78 @@ const Char8 *FieldTraits<MapHelper *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdMapHelperPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MapHelperPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpBaseFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<MapHelper *,
                       RecordedRefCountPolicy  > SFRecMapHelperPtr;
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<MapHelper *,
                       UnrecordedRefCountPolicy> SFUnrecMapHelperPtr;
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<MapHelper *,
                       WeakRefCountPolicy      > SFWeakMapHelperPtr;
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<MapHelper *,
                       NoRefCountPolicy        > SFUncountedMapHelperPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpBaseFieldMulti */
-
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<MapHelper *,
                       RecordedRefCountPolicy  > MFRecMapHelperPtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<MapHelper *,
                       UnrecordedRefCountPolicy> MFUnrecMapHelperPtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<MapHelper *,
                       WeakRefCountPolicy      > MFWeakMapHelperPtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<MapHelper *,
                       NoRefCountPolicy        > MFUncountedMapHelperPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFRecMapHelperPtr : 
+    public PointerSField<MapHelper *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFUnrecMapHelperPtr : 
+    public PointerSField<MapHelper *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFWeakMapHelperPtr :
+    public PointerSField<MapHelper *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFUncountedMapHelperPtr :
+    public PointerSField<MapHelper *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFRecMapHelperPtr :
+    public PointerMField<MapHelper *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUnrecMapHelperPtr :
+    public PointerMField<MapHelper *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFWeakMapHelperPtr :
+    public PointerMField<MapHelper *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUncountedMapHelperPtr :
+    public PointerMField<MapHelper *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

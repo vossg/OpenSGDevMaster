@@ -44,7 +44,7 @@
 #include "OSGTypeBase.h"
 #include "OSGTypeFactory.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------------
 //  Class
@@ -112,3 +112,5 @@ bool TypePredicates::IsDerivedFrom::operator()(const TypeBase *pTestType) const
 {
     return pTestType->isDerivedFrom(_baseType);
 }
+
+OSG_END_NAMESPACE

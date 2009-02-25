@@ -50,6 +50,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
 class Field;
 
 template<class ValueT, Int32 iNamespace>
@@ -115,6 +117,8 @@ typedef Field * (ReflexiveContainer::*FieldIndexAccessMethod)(UInt32);
 #endif
 
 struct NoRefCounts;
+
+#endif //DOXYGEN_SHOULD_SKIP_THIS
 
 OSG_END_NAMESPACE
 

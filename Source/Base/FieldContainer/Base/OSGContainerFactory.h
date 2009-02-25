@@ -57,7 +57,7 @@
 
 OSG_BEGIN_NAMESPACE
 /*!
-    \ingroup GrpSystemFieldContainer
+    \ingroup GrpBaseFieldContainerBase
  */
 template <class DescT>
 class ContainerFactory : public FactoryBase

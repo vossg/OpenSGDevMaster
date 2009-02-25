@@ -46,18 +46,15 @@
 #include "OSGPointerSFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGParentPointerSField.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 /*---------------------------------------------------------------------------*/
 /* ParentPointerSField<PtrTypeT,                                             */
 /*                     NamespaceI  >                                         */
 /*---------------------------------------------------------------------------*/
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template <class    PtrTypeT,
           typename RefCountPolicy,

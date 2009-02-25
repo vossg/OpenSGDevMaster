@@ -43,14 +43,15 @@
 #include "OSGReflexiveContainerTypePredicates.h"
 #include "OSGReflexiveContainerType.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 //---------------------------------------------------------------------------
 //  Class
 //---------------------------------------------------------------------------
 /*! \class TypePredicates::IsSameGroupIdAs
 
-    \brief A predicate to test if a group id is the same as that of a fixed type.
+    \brief A predicate to test if a group id is the same as that of a fixed
+           type. 
  */
 
 /*! Constructor. Initializes the predicate with the \a groupId to compare
@@ -116,7 +117,8 @@ TypePredicates::IsSameGroupAs::IsSameGroupAs(
 {
 }
 
-/*! Compare the group id of \a pTestType against the one stored in the predicate.
+/*! Compare the group id of \a pTestType against the one stored in the
+    predicate. 
 
     \param[in] pTestType Type whose Group id is compared with the stored one.
     \return true, if both group ids are the same, false otherwise.
@@ -127,3 +129,5 @@ TypePredicates::IsSameGroupAs::operator()(
 {
     return _groupId == pTestType->getGroupId();
 }
+
+OSG_END_NAMESPACE

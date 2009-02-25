@@ -58,11 +58,7 @@
 #include "OSGVecSFields.h"
 #include "OSGVecMFields.h"
 
-OSG_USING_NAMESPACE
-
 OSG_BEGIN_NAMESPACE
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 namespace
 {
@@ -319,8 +315,6 @@ OSG_FIELDTRAITS_GETTYPE   (Matrix4d       )
 OSG_FIELDTRAITS_GETTYPE   (Matrix4fx      )
 OSG_FIELDTRAITS_GETTYPE   (Quaternion     )
 OSG_FIELDTRAITS_GETTYPE   (Quaternionfx   )
-
-#endif //!defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_FIELD_DLLEXPORT_DEF2(SField,   bool,       2)
 OSG_FIELD_DLLEXPORT_DEF1(SField,   Int8         )

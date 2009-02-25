@@ -63,8 +63,8 @@ OSG_BEGIN_NAMESPACE
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
-    \hideinhierarchy
+/*! \ingroup GrpBaseMultiThreading
+    \nohierarchy
  */
 
 template <class MPFieldT>
@@ -161,7 +161,8 @@ class MPFieldStore
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
+    \nohierarchy
  */
 
 class OSG_BASE_DLLMAPPING ThreadManager

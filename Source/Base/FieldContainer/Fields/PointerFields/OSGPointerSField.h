@@ -47,17 +47,14 @@
 #include "OSGPointerSFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGWeakPointerSField.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 /*---------------------------------------------------------------------------*/
 /* WeakPointerSField<FieldConfigT>                                           */
 /*---------------------------------------------------------------------------*/
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template <class    PtrTypeT,
           typename RefCountPolicy,

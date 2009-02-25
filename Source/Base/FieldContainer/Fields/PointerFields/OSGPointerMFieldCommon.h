@@ -47,18 +47,14 @@
 #include "OSGPointerMFieldBase.h"
 #include "OSGBinaryDataHandler.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGPointerMFieldCommon.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
 template <Int32 NamespaceI>
 class PointerFieldTraitsBase;
 
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template <class AccessHandlerT,
           Int32 NamespaceI     = 0>

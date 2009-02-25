@@ -71,7 +71,7 @@ class MPFieldStore;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING CondVarCommonBase : public MPBase
@@ -122,7 +122,7 @@ class OSG_BASE_DLLMAPPING CondVarCommonBase : public MPBase
 
 #if defined (OSG_USE_PTHREADS)
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class PThreadCondVarBase : public CondVarCommonBase
@@ -206,7 +206,7 @@ typedef PThreadCondVarBase CondVarBase;
 
 #if defined (OSG_USE_SPROC)
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class SprocCondVarBase : public CondVarCommonBase
@@ -292,6 +292,10 @@ typedef SprocCondVarBase CondVarBase;
 
 #if defined (OSG_USE_WINTHREADS)
 
+/*! \ingroup GrpBaseMultiThreading
+    \nohierarchy
+ */
+
 typedef struct
 {
     // Number of waiting threads.
@@ -316,14 +320,24 @@ typedef struct
 
 typedef HANDLE pthread_mutex_t;
 
+/*! \ingroup GrpBaseMultiThreading
+ */
 int pthread_cond_init(pthread_cond_t *cv, void* dummy);
+
+/*! \ingroup GrpBaseMultiThreading
+ */
 int pthread_cond_wait(pthread_cond_t *cv, 
                       pthread_mutex_t *external_mutex);
+
+/*! \ingroup GrpBaseMultiThreading
+ */
 int pthread_cond_signal(pthread_cond_t *cv);
 
+/*! \ingroup GrpBaseMultiThreading
+ */
 int pthread_cond_broadcast(pthread_cond_t *cv);
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING WinThreadCondVarBase : public CondVarCommonBase
@@ -421,7 +435,7 @@ typedef WinThreadCondVarBase CondVarBase;
 //  Class
 //---------------------------------------------------------------------------
 
-/*! \ingroup GrpBaseBaseMultiThreading
+/*! \ingroup GrpBaseMultiThreading
  */
 
 class OSG_BASE_DLLMAPPING CondVar : public CondVarBase

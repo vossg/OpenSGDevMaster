@@ -56,13 +56,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGMField.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldMulti
- */
-#endif
-
 /*! Base class for all multi field, for example MFMatrix
    \ingroup GrpBaseField
    \ingroup GrpBaseFieldMulti
@@ -77,7 +70,11 @@ class MField : public Field
 
   public:
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
     typedef          MFieldVector<ValueT, AllocT>       StorageType;
+#else
+    typedef          vector      <ValueT, AllocT>       StorageType;
+#endif
     typedef typename StorageType::Inherited             StorageTypeParent;
 
     typedef typename StorageType::iterator              iterator;

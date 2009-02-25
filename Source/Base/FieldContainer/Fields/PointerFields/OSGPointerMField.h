@@ -46,12 +46,6 @@
 #include "OSGPointerMFieldCommon.h"
 #include "OSGPointerAccessHandler.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGWeakPointerMField.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
@@ -75,6 +69,10 @@ class PointerMFieldConstIterator;
 /*---------------------------------------------------------------------------*/
 /* WeakMFieldIterator<PtrTypeT>                                           */
 /*---------------------------------------------------------------------------*/
+
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class PointerMFieldIterator : 
@@ -223,6 +221,10 @@ WeakMFieldIterator<PtrTypeT>
 /* WeakMFieldConstIterator<PtrTypeT>                                      */
 /*---------------------------------------------------------------------------*/
 
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
+
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class PointerMFieldConstIterator :
     protected PointerMField<PtrTypeT,
@@ -364,6 +366,10 @@ WeakMFieldConstIterator<PtrTypeT>
 /* WeakMFieldReferenceProxy<PtrTypeT>                                   */
 /*-------------------------------------------------------------------------*/
 
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
+
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
 class PointerMFieldReferenceProxy
 {
@@ -432,6 +438,9 @@ class PointerMFieldReferenceProxy
 /*---------------------------------------------------------------------------*/
 /* WeakPointerMField<FieldConfigT>                                           */
 /*---------------------------------------------------------------------------*/
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template <class    PtrTypeT,
           typename RefCountPolicy,

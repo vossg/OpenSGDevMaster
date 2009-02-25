@@ -46,12 +46,6 @@
 #include "OSGConfig.h"
 #include "OSGChildPointerMFieldBase.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGChildPointerMField.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
@@ -69,6 +63,10 @@ class ChildMFieldReferenceProxy;
 /*---------------------------------------------------------------------------*/
 /* ChildMFieldIterator<PtrTypeT>                                          */
 /*---------------------------------------------------------------------------*/
+
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace>
 class ChildMFieldIterator :
@@ -212,6 +210,10 @@ ChildMFieldIterator<PtrTypeT, iNamespace>
 /* ChildMFieldConstIterator<PtrTypeT>                                     */
 /*---------------------------------------------------------------------------*/
 
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
+
 template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace>
 class ChildMFieldConstIterator :
     protected ChildPointerMField<PtrTypeT, 
@@ -349,6 +351,10 @@ ChildMFieldConstIterator<PtrTypeT, iNamespace>
 /* ChildMFieldReferenceProxy<PtrTypeT>                                  */
 /*-------------------------------------------------------------------------*/
 
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
+
 template <class PtrTypeT, typename RefCountPolicy, Int32 iNamespace>
 class ChildMFieldReferenceProxy
 {
@@ -414,6 +420,9 @@ class ChildMFieldReferenceProxy
 /*---------------------------------------------------------------------------*/
 /* ChildPointerMField<FieldConfigT>                                          */
 /*---------------------------------------------------------------------------*/
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template <class    PtrTypeT,
           typename RefCountPolicy,

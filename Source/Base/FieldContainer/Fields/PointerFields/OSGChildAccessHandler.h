@@ -45,12 +45,6 @@
 
 #include "OSGConfig.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGChildAccessHandlerDecl.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 // forward declarations
@@ -63,6 +57,10 @@ class ChildPointerMFieldBase;
 
 template <typename AccessHandlerT, Int32 NamespaceI>
 class ChildPointerSFieldBase;
+
+/*! \ingroup GrpBaseFieldContainerFields
+    \nohierarchy
+ */
 
 template<typename RefCountPolicyT>
 class ChildAccessHandler 
@@ -168,6 +166,7 @@ class ChildAccessHandler
     /*---------------------------------------------------------------------*/
 };
 
+/*! \ingroup GrpBaseFieldContainerFields */
 typedef ChildAccessHandler<UnrecordedRefCountPolicy> UnrecChildAccessHandler;
 
 OSG_END_NAMESPACE

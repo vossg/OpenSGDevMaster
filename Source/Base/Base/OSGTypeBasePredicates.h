@@ -126,25 +126,25 @@ namespace TypePredicates
      */
     template <class InIteratorTypeT> inline 
     bool typeDerivedFrom   (      InIteratorTypeT  begin, InIteratorTypeT  end,
-                            const TypeBase        &type  );
+                            const OSG::TypeBase   &type  );
 
     /*! \ingroup GrpBaseBaseTypeSystem
      */
     template <class InIteratorTypeT> inline 
     bool typeDerivedFromAll(      InIteratorTypeT  begin, InIteratorTypeT  end,
-                            const TypeBase        &type  );
+                            const OSG::TypeBase   &type  );
 
     /*! \ingroup GrpBaseBaseTypeSystem
      */
     template <class InIteratorTypeT> inline
     bool typeBaseOf        (      InIteratorTypeT  begin, InIteratorTypeT  end,
-                            const TypeBase        &type  );
+                            const OSG::TypeBase   &type  );
 
     /*! \ingroup GrpBaseBaseTypeSystem
      */
     template <class InIteratorTypeT> inline
     bool typeBaseOfAll     (      InIteratorTypeT  begin, InIteratorTypeT  end,
-                            const TypeBase        &type  );
+                            const OSG::TypeBase   &type  );
 
 } // namespace TypePredicates
 

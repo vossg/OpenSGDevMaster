@@ -46,8 +46,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief MapHelper class. See \ref
-           PageSystemMapHelper for a description.
+/*! \brief MapHelper class. 
+    \ingroup GrpBaseFieldContainerHelper
+    \includebasedoc
 */
 
 class OSG_BASE_DLLMAPPING MapHelper : public MapHelperBase

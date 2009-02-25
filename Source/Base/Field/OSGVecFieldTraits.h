@@ -48,20 +48,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGVecFieldTraits.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldTraits
-*/
-#endif
-
-
 #undef defineTrait
 #undef doDefineTrait
 
 #define doDefineTrait(base, dim, type)                                      \
+/*! \ingroup GrpBaseFieldTraits                                             \
+ */                                                                         \
 template <>                                                                 \
 struct FieldTraits<base##dim##type> :                                       \
     public FieldTraitsVec##dim##TemplateBase<base##dim##type>               \
@@ -91,25 +83,9 @@ struct FieldTraits<base##dim##type> :                                       \
 
 
 
+#define defineTrait(base, dim, type)    \
+    doDefineTrait(base, dim, type);    
 
-
-/*! \ingroup GrpBaseFieldTraits
- */
-
-#if !defined(OSG_DOC_DEV_TRAITS)
-
-#define defineTrait(base, dim, type)                        \
-/*! \hideinhierarchy */                                     \
-doDefineTrait(base, dim, type);                             \
-/*! \class  FieldTraitsTemplateBase<base##dim##type> */     \
-/*! \hideinhierarchy                        */
-
-#else
-
-#define defineTrait(base, dim, type) \
-doDefineTrait(base, dim, type)
-
-#endif
 
 // Filler Macros
 #undef  defineBTrait
@@ -138,8 +114,6 @@ defineDTrait( d)
 defineDTrait(ld)
 
 defineDTrait(fx) 
-
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 OSG_END_NAMESPACE
 

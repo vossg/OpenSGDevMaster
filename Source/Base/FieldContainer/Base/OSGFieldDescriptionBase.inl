@@ -72,7 +72,7 @@ BitVector FieldDescriptionBase::getFieldMask(void) const
 }
 
 inline
-void FieldDescriptionBase::setFieldMask(BitVector vFieldMask)
+void FieldDescriptionBase::setFieldMask(ConstFieldMaskArg vFieldMask)
 {
     _vFieldMask = vFieldMask;
 }

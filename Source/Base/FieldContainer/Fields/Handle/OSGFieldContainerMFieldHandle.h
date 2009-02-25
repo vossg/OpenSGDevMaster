@@ -51,6 +51,9 @@ OSG_BEGIN_NAMESPACE
 /* GetMFieldHandle<FieldContainerPtrMFieldBase>                              */
 /*---------------------------------------------------------------------------*/
 
+/*! \ingroup GrpBaseFieldContainerFields
+ */
+
 template<>
 class OSG_BASE_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> : 
     public GetFieldHandle
@@ -120,6 +123,9 @@ class OSG_BASE_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
 /*---------------------------------------------------------------------------*/
 /* EditMFieldHandle<FieldContainerPtrMFieldBase>                             */
 /*---------------------------------------------------------------------------*/
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template<>
 class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
@@ -230,6 +236,9 @@ class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
 /* GetFCPtrMFieldHandle<FieldT>                                              */
 /*---------------------------------------------------------------------------*/
 
+/*! \ingroup GrpBaseFieldContainerFields
+ */
+
 template <class FieldT>
 class GetFCPtrMFieldHandle : public GetMFieldHandle<FieldContainerPtrMFieldBase>
 {
@@ -293,6 +302,9 @@ class GetFCPtrMFieldHandle : public GetMFieldHandle<FieldContainerPtrMFieldBase>
 /*---------------------------------------------------------------------------*/
 /* EditFCPtrMFieldHandle<FieldT>                                             */
 /*---------------------------------------------------------------------------*/
+
+/*! \ingroup GrpBaseFieldContainerFields
+ */
 
 template <class FieldT>
 class EditFCPtrMFieldHandle : 

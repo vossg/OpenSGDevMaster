@@ -66,20 +66,10 @@ OSG_BEGIN_NAMESPACE
 
 class ConnectorAttachment;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ConnectorAttachmentPtr
-
 OSG_GEN_CONTAINERPTR(ConnectorAttachment);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldContainerFieldTraits
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ConnectorAttachment *> :
     public FieldTraitsFCPtrBase<ConnectorAttachment *>
@@ -154,42 +144,78 @@ const Char8 *FieldTraits<ConnectorAttachment *, 0>::getMName<NoRefCountPolicy>(v
     return "MFUnrefdConnectorAttachmentPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ConnectorAttachmentPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpBaseFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<ConnectorAttachment *,
                       RecordedRefCountPolicy  > SFRecConnectorAttachmentPtr;
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<ConnectorAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecConnectorAttachmentPtr;
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<ConnectorAttachment *,
                       WeakRefCountPolicy      > SFWeakConnectorAttachmentPtr;
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
 typedef PointerSField<ConnectorAttachment *,
                       NoRefCountPolicy        > SFUncountedConnectorAttachmentPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpBaseFieldMulti */
-
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<ConnectorAttachment *,
                       RecordedRefCountPolicy  > MFRecConnectorAttachmentPtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<ConnectorAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecConnectorAttachmentPtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<ConnectorAttachment *,
                       WeakRefCountPolicy      > MFWeakConnectorAttachmentPtr;
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
 typedef PointerMField<ConnectorAttachment *,
                       NoRefCountPolicy        > MFUncountedConnectorAttachmentPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFRecConnectorAttachmentPtr : 
+    public PointerSField<ConnectorAttachment *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFUnrecConnectorAttachmentPtr : 
+    public PointerSField<ConnectorAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFWeakConnectorAttachmentPtr :
+    public PointerSField<ConnectorAttachment *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldSFields */
+struct SFUncountedConnectorAttachmentPtr :
+    public PointerSField<ConnectorAttachment *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFRecConnectorAttachmentPtr :
+    public PointerMField<ConnectorAttachment *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUnrecConnectorAttachmentPtr :
+    public PointerMField<ConnectorAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFWeakConnectorAttachmentPtr :
+    public PointerMField<ConnectorAttachment *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields */
+struct MFUncountedConnectorAttachmentPtr :
+    public PointerMField<ConnectorAttachment *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

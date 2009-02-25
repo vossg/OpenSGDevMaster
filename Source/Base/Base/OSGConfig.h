@@ -309,7 +309,6 @@
 # if defined(__GNUC__) && defined(__linux)
 
 /*! \brief streams in std namespace
- *  \ingroup GrpBaseDefines
  */
 
 # define OSG_LINUX_TYPES
@@ -935,8 +934,10 @@
 #    define OSG_STDEXTENSION_NAMESPACE  std
 #endif
 
-#if !defined(OSG_DOC_LEVEL)
-#    define OSG_DOC_LEVEL 0
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+# if !defined(OSG_DOC_LEVEL)
+#  define OSG_DOC_LEVEL 0
+# endif
 #endif
 
 #define OSG_FLEX_USE_IOSTREAM_INPUT 1

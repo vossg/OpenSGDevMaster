@@ -48,18 +48,22 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup GrpBaseFieldContainerBase
  */
 
-typedef void (*InitContainerF) (ReflexiveContainerType::InitPhase);
-typedef void (*ExitContainerF) (ReflexiveContainerType::InitPhase);
+typedef void (*InitContainerF) (OSG::ReflexiveContainerType::InitPhase);
 
-/*! \ingroup GrpSystemFieldContainerFuncs
+/*! \ingroup GrpBaseFieldContainerBase
  */
 
-typedef FieldContainer *(*PrototypeCreateF)(BitVector);
+typedef void (*ExitContainerF) (OSG::ReflexiveContainerType::InitPhase);
 
-/*! \ingroup GrpSystemFieldContainer
+/*! \ingroup GrpBaseFieldContainerBase
+ */
+
+typedef FieldContainer *(*PrototypeCreateF)(OSG::BitVector);
+
+/*! \ingroup GrpBaseFieldContainerBase
  */
 
 class OSG_BASE_DLLMAPPING FieldContainerType : public ReflexiveContainerType

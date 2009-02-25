@@ -48,7 +48,8 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief Helper class for mapping field container id's from one system to 
           another.
-    \ingroup GrpSystemFieldContainer
+    \ingroup GrpBaseFieldContainerHelper
+    \nohierarchy
 */
 
 struct OSG_BASE_DLLMAPPING ContainerIdMapper

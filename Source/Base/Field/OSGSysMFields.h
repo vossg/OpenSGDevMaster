@@ -45,16 +45,10 @@
 #include "OSGMField.h"
 #include "OSGSysFieldTraits.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGSysMFields.h
-    \ingroup GrpBaseField
-    \ingroup GrpBaseFieldMulti
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
 /*! \ingroup GrpBaseFieldMulti
     \warning the getValue and operator[] functions may not return what
              you expect them to return. Descent STL implementation will 
@@ -62,7 +56,6 @@ OSG_BEGIN_NAMESPACE
  */
 
 typedef MField<bool, 2>   MFBool;
-#endif
 
 #if 0
 #if ! defined(OSG_WIN32_CL)             || \
@@ -119,108 +112,56 @@ void MField<bool, 2>::copyFromBin(BinaryDataHandler &pMem)
 #endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Int8>   MFInt8;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<UInt8>  MFUInt8;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Int16>  MFInt16;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<UInt16> MFUInt16;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Int32>  MFInt32;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<UInt32> MFUInt32;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Int64>  MFInt64;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<UInt64> MFUInt64;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Real16> MFReal16;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Real32> MFReal32;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Fixed32> MFFixed32;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<Real64> MFReal64;
-#endif
 
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
 /*! \ingroup GrpBaseFieldMulti */
-
 typedef MField<void *>   MFVoidP;
-#endif
 
 
 
@@ -229,6 +170,50 @@ typedef MFReal32  MFReal;
 #else
 typedef MFFixed32 MFReal;
 #endif
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpBaseFieldMulti 
+    \warning the getValue and operator[] functions may not return what
+             you expect them to return. Descent STL implementation will 
+             certainly not return 'bool &' nor 'const bool &'.
+ */
+struct MFBool : public MField<bool, 2>   {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFInt8 : public MField<Int8>   {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFUInt8 : public MField<UInt8>  {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFInt16 : public MField<Int16>  {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFUInt16 : public MField<UInt16> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFInt32 : public MField<Int32>  {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFUInt32 : public MField<UInt32> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFInt64 : public MField<Int64>  {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFUInt64 : public MField<UInt64> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFReal16 : public MField<Real16> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFReal32 : public MField<Real32> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFFixed32 : public MField<Fixed32> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFReal64 : public MField<Real64> {};
+/*! \ingroup GrpBaseFieldMulti */
+struct MFVoidP : public MField<void *>   {};
+
+
+#ifdef OSG_FLOAT_PROFILE
+typedef MFReal32  MFReal;
+#else
+typedef MFFixed32 MFReal;
+#endif
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

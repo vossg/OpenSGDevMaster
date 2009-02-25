@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
 template <class InIteratorTypeT> inline 
 bool TypePredicates::typeDerivedFrom(      InIteratorTypeT  begin,
                                            InIteratorTypeT  end,
-                                     const TypeBase        &type  )
+                                     const OSG::TypeBase   &type  )
 {
     return (std::find_if(begin, end,
                          TypePredicates::IsBaseOf(type)) != end);
@@ -71,7 +71,7 @@ bool TypePredicates::typeDerivedFrom(      InIteratorTypeT  begin,
 template <class InIteratorTypeT> inline 
 bool TypePredicates::typeDerivedFromAll(      InIteratorTypeT  begin,
                                               InIteratorTypeT  end,
-                                        const TypeBase        &type  )
+                                        const OSG::TypeBase   &type  )
 {
     return (std::find_if(begin, end,
                          std::not1(TypePredicates::IsBaseOf(type))) == end);
@@ -91,7 +91,7 @@ bool TypePredicates::typeDerivedFromAll(      InIteratorTypeT  begin,
 template <class InIteratorTypeT> inline 
 bool TypePredicates::typeBaseOf(      InIteratorTypeT  begin,
                                       InIteratorTypeT  end,
-                                const TypeBase        &type  )
+                                const OSG::TypeBase   &type  )
 {
     return (std::find_if(begin, end,
                          TypePredicates::IsDerivedFrom(type)) != end);
@@ -110,7 +110,7 @@ bool TypePredicates::typeBaseOf(      InIteratorTypeT  begin,
 template <class InIteratorTypeT> inline 
 bool TypePredicates::typeBaseOfAll(      InIteratorTypeT  begin,
                                          InIteratorTypeT  end,
-                                   const TypeBase        &type  )
+                                   const OSG::TypeBase   &type  )
 {
     return (
         std::find_if(begin, end,

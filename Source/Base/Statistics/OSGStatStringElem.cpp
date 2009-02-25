@@ -57,7 +57,6 @@ OSG_USING_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StatStringElem
-    \ingroup GrpSystemStatistics
 
     The StatIntElem keeps a std::string for messages, states or status
     information, see \ref PageSystemStatistics for details. 

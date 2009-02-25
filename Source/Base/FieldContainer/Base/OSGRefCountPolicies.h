@@ -44,6 +44,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseBaseRefCounting
+    \nohierarchy
+ */
+
 struct RecordedRefCountPolicy
 {
     static void addRef(FieldContainer * const objectP)
@@ -98,6 +103,11 @@ struct RecordedRefCountPolicy
     } 
 };
 
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseBaseRefCounting
+    \nohierarchy
+ */
+
 struct MTRecordedRefCountPolicy : public RecordedRefCountPolicy
 {
     template <class T>
@@ -112,6 +122,11 @@ struct MTRecordedRefCountPolicy : public RecordedRefCountPolicy
         return *(validate(pObject));
     }
 };
+
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseBaseRefCounting
+    \nohierarchy
+ */
 
 struct UnrecordedRefCountPolicy
 {
@@ -158,6 +173,11 @@ struct UnrecordedRefCountPolicy
     } 
 };
 
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseBaseRefCounting
+    \nohierarchy
+ */
+
 struct NoRefCountPolicy
 {
     static void addRef(FieldContainer * const)
@@ -186,6 +206,11 @@ struct NoRefCountPolicy
         OSG_ASSERT(false);
     } 
 };
+
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseBaseRefCounting
+    \nohierarchy
+ */
 
 struct WeakRefCountPolicy
 {
@@ -251,4 +276,4 @@ struct WeakRefCountPolicy
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGFIELDCONTAINERFIELDTRAITS_H_ */
+#endif /* _OSGREFCOUNTPOLICIES_H_ */
