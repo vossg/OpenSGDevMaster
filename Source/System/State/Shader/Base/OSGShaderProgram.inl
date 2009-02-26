@@ -93,6 +93,17 @@ bool ShaderProgram::updateUniformVariable(const Char8  *name,
     return _sfVariables.getValue()->updateUniformVariable(name, value);
 }
 
+template<class ValueT>
+bool ShaderProgram::getUniformVariable(const Char8  *name,
+                                             ValueT &value)
+{
+    if(_sfVariables.getValue() == NULL)
+    {
+        return _sfVariables.getValue()->getUniformVariable(name, value);
+    }
+
+    return false;
+}
 
 inline
 void ShaderProgram::addDestroyedFunctor(ChangedFunctor func,
