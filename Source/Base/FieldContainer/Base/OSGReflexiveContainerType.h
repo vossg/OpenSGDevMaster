@@ -172,14 +172,14 @@ class OSG_BASE_DLLMAPPING ReflexiveContainerType : public DataType
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    typedef std::map   <IDStringLink, FieldDescriptionBase *> DescMap;
-    typedef std::vector<              FieldDescriptionBase *> DescVec;
+    typedef std::map   <std::string, FieldDescriptionBase *> DescMap;
+    typedef std::vector<             FieldDescriptionBase *> DescVec;
 
-    typedef DescMap::iterator                                 DescMapIt;
-    typedef DescMap::const_iterator                           DescMapConstIt;
+    typedef DescMap::iterator                                DescMapIt;
+    typedef DescMap::const_iterator                          DescMapConstIt;
 
-    typedef DescVec::iterator                                 DescVecIt;
-    typedef DescVec::const_iterator                           DescVecConstIt;
+    typedef DescVec::iterator                                DescVecIt;
+    typedef DescVec::const_iterator                          DescVecConstIt;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -196,7 +196,7 @@ class OSG_BASE_DLLMAPPING ReflexiveContainerType : public DataType
     UInt16               _uiGroupId;
 
     bool                 _bDescsAddable;
-    IDString             _szGroupName;
+    std::string          _szGroupName;
 
     DescVec              _vInitialDescs;
 

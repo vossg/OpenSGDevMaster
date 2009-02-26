@@ -70,7 +70,7 @@ ReflexiveContainerType::ReflexiveContainerType(
 
     _uiGroupId        (                  0),
     _bDescsAddable    (      bDescsAddable),
-    _szGroupName      (        szGroupName),
+    _szGroupName      (                   ),
 
     _vInitialDescs    (                   ),
 
@@ -80,6 +80,9 @@ ReflexiveContainerType::ReflexiveContainerType(
    _descInsertFunc    (descInsertFunc     ),
    _bvUnmarkedOnCreate(~bvUnmarkedOnCreate)      
 {
+    if(szGroupName != NULL)
+        _szGroupName.assign(szGroupName);
+
 }
 
 ReflexiveContainerType::ReflexiveContainerType(
@@ -182,13 +185,13 @@ bool ReflexiveContainerType::initFields(void)
         if(_vInitialDescs[i]->isValid())
         {
             descIt =
-                _mDescMap.find(IDStringLink(_vInitialDescs[i]->getCName()));
+                _mDescMap.find(_vInitialDescs[i]->getName());
 
             if(descIt == _mDescMap.end())
             {
                 pDesc = _vInitialDescs[i]->clone();
 
-                _mDescMap[IDStringLink(_vInitialDescs[i]->getCName())] =
+                _mDescMap[_vInitialDescs[i]->getName()] =
                     pDesc;
 
                 _vDescVec.push_back(pDesc);
@@ -196,7 +199,7 @@ bool ReflexiveContainerType::initFields(void)
             else
             {
                 SWARNING << "ERROR: Double field description "
-                         << "in " << _szName.str() << "from "
+                         << "in " << _szName.c_str() << "from "
                          << _vInitialDescs[i]->getCName()
                          << _vInitialDescs[i]->getTypeId() << std::endl;
 
@@ -206,7 +209,7 @@ bool ReflexiveContainerType::initFields(void)
         else
         {
             SWARNING << "ERROR: Invalid field description "
-                     << "in " << _szName.str() << "from "
+                     << "in " << _szName.c_str() << "from "
                      << _vInitialDescs[i]->getTypeId() << std::endl;
 
             returnValue = false;
@@ -243,12 +246,12 @@ bool ReflexiveContainerType::initParentFields(void)
                   dVIt != pReflexParent->_vDescVec.end  ();
                 ++dVIt)
             {
-                if(_mDescMap.find(IDStringLink((*dVIt)->getCName())) == 
+                if(_mDescMap.find((*dVIt)->getName()) == 
                        _mDescMap.end())
                 {
                     pDesc = (*dVIt)->clone();
 
-                    _mDescMap[IDStringLink((*dVIt)->getCName())] =
+                    _mDescMap[(*dVIt)->getName()] =
                         pDesc;
                     
                     _vDescVec.push_back(pDesc);
@@ -289,7 +292,7 @@ bool ReflexiveContainerType::initParentFields(void)
         else
         {
             SWARNING << "ERROR: parent not initialized "
-                     << "name " << _szParentName.str()
+                     << "name " << _szParentName.c_str()
                      << std::endl;
 
             returnValue = false;
@@ -319,7 +322,7 @@ UInt32 ReflexiveContainerType::addDescription(const FieldDescriptionBase &desc)
     if(_bDescsAddable == false)
         return returnValue;
 
-    descIt = _mDescMap.find(IDStringLink(desc.getCName()));
+    descIt = _mDescMap.find(desc.getName());
 
     if(desc.isValid())
     {
@@ -327,7 +330,7 @@ UInt32 ReflexiveContainerType::addDescription(const FieldDescriptionBase &desc)
         {
             pDesc = desc.clone();
 
-            _mDescMap[IDStringLink(pDesc->getCName())] = pDesc;
+            _mDescMap[pDesc->getName()] = pDesc;
 
             descVIt = std::find(_vDescVec.begin(),
                                 _vDescVec.end(),
@@ -350,7 +353,7 @@ UInt32 ReflexiveContainerType::addDescription(const FieldDescriptionBase &desc)
         else
         {
             SWARNING << "ERROR: Double field description "
-                        << "in " << _szName.str() << " from "
+                        << "in " << _szName.c_str() << " from "
                         << desc.getCName() << " (id:"
                         << desc.getTypeId() << ")" << std::endl;
         }
@@ -358,7 +361,7 @@ UInt32 ReflexiveContainerType::addDescription(const FieldDescriptionBase &desc)
     else
     {
         SWARNING << "ERROR: Invalid field description "
-                    << "in " << _szName.str() << " from "
+                    << "in " << _szName.c_str() << " from "
                     << desc.getTypeId() << std::endl;
     }
 
@@ -375,7 +378,7 @@ bool ReflexiveContainerType::subDescription(UInt32 uiFieldId)
     if(pDesc == NULL || _bDescsAddable == false)
         return false;
 
-    descMIt = _mDescMap.find(IDStringLink(pDesc->getCName()));
+    descMIt = _mDescMap.find(pDesc->getName());
 
     if(descMIt != _mDescMap.end())
     {

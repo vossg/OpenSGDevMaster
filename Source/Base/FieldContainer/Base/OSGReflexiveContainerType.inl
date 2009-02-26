@@ -67,7 +67,7 @@ inline
 FieldDescriptionBase *ReflexiveContainerType::getFieldDesc(
     const Char8 *szFieldName)
 {
-    DescMapIt descIt = _mDescMap.find(IDStringLink(szFieldName));
+    DescMapIt descIt = _mDescMap.find(std::string(szFieldName));
 
     return (descIt == _mDescMap.end()) ? NULL : (*descIt).second;
 }
@@ -76,7 +76,7 @@ inline
 FieldDescriptionBase *ReflexiveContainerType::getFieldDesc(
     const Char8 *szFieldName) const
 {
-    DescMapConstIt descIt = _mDescMap.find(IDStringLink(szFieldName));
+    DescMapConstIt descIt = _mDescMap.find(std::string(szFieldName));
 
     return (descIt == _mDescMap.end()) ? NULL : (*descIt).second;
 }

@@ -256,7 +256,7 @@ bool FactoryControllerBase::registerTypeFactory(TypeFactoryBase *pFactory)
 		return false;        
     }
 
-	if(pFactory->getName().isEmpty() == true) 
+	if(pFactory->getName().empty() == true) 
     {
 		SWARNING << "TypeFactory without name" << std::endl;
 
@@ -290,7 +290,7 @@ bool FactoryControllerBase::registerFactory(FactoryBase *pFactory)
 		return false;        
     }
 
-	if(pFactory->getName().isEmpty() == true) 
+	if(pFactory->getName().empty() == true) 
     {
 		SWARNING << "FactoryBase without name" << std::endl;
 
@@ -320,7 +320,7 @@ FactoryBase *FactoryControllerBase::findFactory(const Char8 *szName)
     if(szName == NULL)
         return NULL;
 
-    factIt = _mFactoryMap.find(IDStringLink(szName));
+    factIt = _mFactoryMap.find(std::string(szName));
 
     return ((factIt == _mFactoryMap.end()) ? NULL : (*factIt).second);
 }

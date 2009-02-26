@@ -210,7 +210,7 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
         return returnValue;
     }
 
-    if(pType->getName().isEmpty() == true) 
+    if(pType->getName().empty() == true) 
     {
         SWARNING << "DataElementType without name" << endLog;
 
@@ -256,7 +256,7 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
     }
 
     (*(_vTypeNameMaps[pType->getNameSpace()]))
-        [IDStringLink(pType->getCName())] = returnValue;
+        [pType->getName()] = returnValue;
 
 
     FDEBUG(("Registered type %s | %d (%d)\n", pType->getCName(), returnValue,
@@ -279,7 +279,7 @@ UInt32 TypeFactoryBase::findTypeId(const Char8 *szName,
 
     TypeNameMap *pMap = _vTypeNameMaps[uiNameSpace];
 
-    typeIt   = pMap->find(IDStringLink(szName));
+    typeIt   = pMap->find(std::string(szName));
 
     uiTypeId = (typeIt == pMap->end()) ? 0 : (*typeIt).second;
 

@@ -48,7 +48,6 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGBaseInitFunctions.h"
-#include "OSGIDStringLink.h"
 #include "OSGSingletonHolder.h"
 
 #include <map>
@@ -108,10 +107,10 @@ class OSG_BASE_DLLMAPPING FactoryControllerBase
     //   types                                                               
     //-----------------------------------------------------------------------
 
-    typedef std::map<IDStringLink, FactoryBase *> FactoryMap;
+    typedef std::map<std::string, FactoryBase *> FactoryMap;
 
-    typedef FactoryMap::      iterator            FactoryMapIt;
-    typedef FactoryMap::const_iterator            FactoryMapConstIt;
+    typedef FactoryMap::      iterator           FactoryMapIt;
+    typedef FactoryMap::const_iterator           FactoryMapConstIt;
 
     //-----------------------------------------------------------------------
     //   friend classes                                                      

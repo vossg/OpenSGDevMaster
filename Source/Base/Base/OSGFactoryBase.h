@@ -47,7 +47,6 @@
 //---------------------------------------------------------------------------
 
 #include "OSGBaseTypes.h"
-#include "OSGIDString.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -154,7 +153,7 @@ class OSG_BASE_DLLMAPPING FactoryBase
     //   instance variables                                                  
     //-----------------------------------------------------------------------
 
-    IDStringLink _szName;
+    std::string _szName;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  
@@ -181,7 +180,7 @@ class OSG_BASE_DLLMAPPING FactoryBase
     //   instance functions                                                  
     //-----------------------------------------------------------------------
 
-    const IDStringLink &getName (void) const;
+    const std::string &getName (void) const;
     const Char8        *getCName(void) const;
 };
 

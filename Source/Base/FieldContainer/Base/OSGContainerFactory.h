@@ -175,8 +175,8 @@ class ContainerFactory : public FactoryBase
     /*! \{                                                                 */
 
     typedef std::map   <UInt32,       ContainerType *>    TypeIdMap;
-    typedef std::map   <IDStringLink, ContainerType *>    TypeNameMap;
-    typedef std::map   <IDStringLink, UInt16         >    GroupMap;
+    typedef std::map   <std::string,  ContainerType *>    TypeNameMap;
+    typedef std::map   <std::string,  UInt16         >    GroupMap;
 
     typedef std::vector<              ContainerType *>    UninitTypeStore;
 

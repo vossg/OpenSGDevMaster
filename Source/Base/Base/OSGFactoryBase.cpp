@@ -118,13 +118,13 @@ bool FactoryBase::initializePendingElementsFactoryPost(void)
  -  public                                                                 -
 \*-------------------------------------------------------------------------*/
 
-const IDStringLink &FactoryBase::getName (void) const
+const std::string &FactoryBase::getName (void) const
 {
     return _szName;
 }
 
 const Char8 *FactoryBase::getCName(void) const
 {
-    return _szName.str();
+    return _szName.c_str();
 }
 

@@ -323,7 +323,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                     FieldContainer *fcPtr = factory->getContainer(localId);
 
                     FDEBUG(("AddRef: %s ID:%d\n", 
-                            fcPtr->getType().getName().str(),
+                            fcPtr->getType().getCName(),
                             fcPtr->getId()));
 
                     fcPtr->addReferenceRecorded();
@@ -346,7 +346,7 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                     FieldContainer *fcPtr = factory->getContainer(localId);
 
                     FDEBUG(("SubRef: %s ID:%d\n", 
-                            fcPtr->getType().getName().str(),
+                            fcPtr->getType().getCName(),
                             fcPtr->getId()));
                     
                     fcPtr->subReferenceRecorded();
@@ -465,7 +465,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
                 // send new type
                 cmd = NEWTYPE;
 
-                typeName = fcPtr->getType().getName().str();
+                typeName = fcPtr->getType().getCName();
                 connection.putValue(cmd);
                 connection.putValue(typeId);
                 connection.putValue(typeName);
@@ -556,7 +556,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
                 fcPtr->copyToBin(connection, mask);
 
                 FDEBUG(("Changed: %s ID:%d Mask:%lld\n", 
-                        fcPtr->getType().getName().str(),
+                        fcPtr->getType().getCName(),
                         fcPtr->getId(), 
                         mask));
             }
@@ -853,7 +853,7 @@ bool RemoteAspect::_defaultCreatedFunction(FieldContainer * const fcp,
                                            RemoteAspect   *          )
 {
     FDEBUG(("Created:%s %d\n", 
-            fcp->getType().getName().str(),
+            fcp->getType().getCName(),
             fcp->getId()))
 
     return true;
@@ -866,7 +866,7 @@ bool RemoteAspect::_defaultDestroyedFunction(FieldContainer * const fcp,
                                              RemoteAspect   *          )
 {
     FDEBUG(("Destroyed:%s %d\n",
-            fcp->getType().getName().str(),
+            fcp->getType().getCName(),
             fcp->getId()))
 
     return true;
@@ -879,7 +879,7 @@ bool RemoteAspect::_defaultChangedFunction(FieldContainer * const fcp,
                                            RemoteAspect   *          )
 {
     FDEBUG(("Changed:%s %d\n", 
-            fcp->getType().getName().str(),
+            fcp->getType().getCName(),
             fcp->getId()))
 
     return true;

@@ -62,7 +62,7 @@ UInt16 ContainerFactory<DescT>::findGroupId(const Char8  *szName) const
         _pLock->acquire();
 #endif
 
-    gIt         = _mGroupMap.find(IDStringLink(szName));
+    gIt         = _mGroupMap.find(std::string(szName));
 
     returnValue = ((gIt == _mGroupMap.end()) ? 0 : (*gIt).second);
 
@@ -95,7 +95,7 @@ const Char8 *ContainerFactory<DescT>::findGroupName(
     while(gIt != gEnd)
     {
         if((*gIt).second == uiGroupId)
-            returnValue = (*gIt).first.str();
+            returnValue = (*gIt).first.c_str();
 
         ++gIt;
     }
@@ -173,9 +173,9 @@ UInt16 ContainerFactory<DescT>::registerGroup(const Char8 *szGroupName)
             _pLock->acquire();
 #endif
 
-        returnValue                           = _mGroupMap.size() + 1;
+        returnValue                          = _mGroupMap.size() + 1;
 
-        _mGroupMap[IDStringLink(szGroupName)] = returnValue;
+        _mGroupMap[std::string(szGroupName)] = returnValue;
 
 #ifndef OSG_EMBEDDED
         if(_pLock != NULL)
@@ -207,7 +207,7 @@ typename ContainerFactory<DescT>::ContainerType *
     TypeNameMapCnstIt  typeIt;
     ContainerType     *pType = NULL;
 
-    typeIt = _mTypeNameMap.find(IDStringLink(szName));
+    typeIt = _mTypeNameMap.find(std::string(szName));
 
     pType  = (typeIt == _mTypeNameMap.end()) ? NULL : (*typeIt).second;
 
@@ -278,7 +278,7 @@ bool ContainerFactory<FactoryDescT>::initializePendingElements(void)
     bool           returnValue = true;
     ContainerType *pType       = NULL;
 
-    PINFO << this->_szName.str() << " init pending types" << std::endl;
+    PINFO << this->_szName.c_str() << " init pending types" << std::endl;
 
 #ifndef OSG_EMBEDDED
     if(_pLock != NULL)
@@ -295,8 +295,8 @@ bool ContainerFactory<FactoryDescT>::initializePendingElements(void)
         {
             uninitIt = _vUnitTypesStore.erase(uninitIt);
 
-            _mTypeIdMap  [pType->getId()                  ] = pType;
-            _mTypeNameMap[IDStringLink(pType->getCName()) ] = pType;
+            _mTypeIdMap  [pType->getId()  ] = pType;
+            _mTypeNameMap[pType->getName()] = pType;
 
             _vPostUnitTypes.push_back(pType);
         }
@@ -306,8 +306,8 @@ bool ContainerFactory<FactoryDescT>::initializePendingElements(void)
             {
                 uninitIt = _vUnitTypesStore.erase(uninitIt);
 
-                _mTypeIdMap  [pType->getId()                  ] = pType;
-                _mTypeNameMap[IDStringLink(pType->getCName()) ] = pType;
+                _mTypeIdMap  [pType->getId()  ] = pType;
+                _mTypeNameMap[pType->getName()] = pType;
 
                 _vPostUnitTypes.push_back(pType);
             }
@@ -345,7 +345,7 @@ bool ContainerFactory<DescT>::initialize(void)
         return true;
 
 
-    PINFO << "init singleton " << this->_szName.str() << std::endl;
+    PINFO << "init singleton " << this->_szName.c_str() << std::endl;
 
 #ifndef OSG_EMBEDDED
     _pLock   =

@@ -146,24 +146,24 @@ bool TypeBase::initialize(void)
     if(_bInitialized == true)
         return _bInitialized;
 
-    if(_szParentName.isEmpty() == false)
+    if(_szParentName.empty() == false)
     {
         _pParentType =
-            TypeFactory::the()->findType(_szParentName.str(), _uiNameSpace);
+            TypeFactory::the()->findType(_szParentName.c_str(), _uiNameSpace);
 
         if(_pParentType == NULL)
         {
             _pParentType =
-                TypeFactory::the()->findType(_szParentName.str(),
+                TypeFactory::the()->findType(_szParentName.c_str(),
                                               GlobalNamespace);
         }
 
         if(_pParentType == NULL)
         {
             SWARNING << "ERROR: could not find parent type named "
-                     << _szParentName.str()
+                     << _szParentName.c_str()
                      << " in "
-                     << _szName.str()
+                     << _szName.c_str()
                      << endLog;
         }
         else
@@ -176,7 +176,7 @@ bool TypeBase::initialize(void)
         _bInitialized = true;
     }
 
-    FDEBUG(("Initialized Type %s | %d\n",_szName.str(), _bInitialized));
+    FDEBUG(("Initialized Type %s | %d\n",_szName.c_str(), _bInitialized));
 
     return _bInitialized;
 }
@@ -213,10 +213,13 @@ TypeBase::TypeBase(const Char8 *szName,
     _pParentType (NULL        ),
 
     _szName      (szName      ),
-    _szParentName(szParentName),
+    _szParentName(            ),
 
     _bInitialized(false       )
 {
+    if(szParentName != NULL)
+        _szParentName.assign(szParentName);
+
     _uiTypeId = TypeFactory::the()->registerType(this);
 }
 
@@ -246,7 +249,7 @@ UInt32 TypeBase::getId(void) const
 
     \return The types name.
  */
-const IDString &TypeBase::getName(void) const
+const std::string &TypeBase::getName(void) const
 {
     return _szName;
 }
@@ -257,7 +260,7 @@ const IDString &TypeBase::getName(void) const
  */
 const Char8 *TypeBase::getCName(void) const
 {
-    return _szName.str();
+    return _szName.c_str();
 }
 
 /*! Returns an object describing the parent of the type described by this.
@@ -275,7 +278,7 @@ const TypeBase &TypeBase::getParent(void) const
 
     \return Name of the parent type.
  */
-const IDString &TypeBase::getParentName (void) const
+const std::string &TypeBase::getParentName (void) const
 {
     return _szParentName;
 }
@@ -286,7 +289,7 @@ const IDString &TypeBase::getParentName (void) const
  */
 const Char8 *TypeBase::getCParentName(void) const
 {
-    return _szParentName.str();
+    return _szParentName.c_str();
 }
 
 /*! Returns the namespace the descibed type belongs to.

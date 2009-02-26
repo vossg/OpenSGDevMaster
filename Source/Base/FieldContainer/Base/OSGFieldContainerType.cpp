@@ -239,10 +239,12 @@ void FieldContainerType::registerType(void)
     FieldContainerFactory::the()->registerType(this);
 
     _uiGroupId = FieldContainerFactory::the()->registerGroup(
-        _szGroupName.str() != NULL ? _szGroupName.str() : _szName.str());
+        _szGroupName.empty() == false ? _szGroupName.c_str() : _szName.c_str());
 }
 
-/*! Return a string with the XML representation of the original contents of the fcd file. */
+/*! Return a string with the XML representation of the original 
+    contents of the fcd file. 
+ */
 std::string FieldContainerType::getFcdXML() const
 {
    return _fcdXML;

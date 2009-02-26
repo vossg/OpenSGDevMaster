@@ -47,7 +47,6 @@
 //---------------------------------------------------------------------------
 
 #include "OSGBaseTypes.h"
-#include "OSGIDString.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -152,16 +151,16 @@ class OSG_BASE_DLLMAPPING TypeBase
     //   instance variables
     //-----------------------------------------------------------------------
 
-    UInt32    _uiTypeId;        /*!< Unique id of type in global type system. */
-    //UInt32    _uiTypeRootId;
-    UInt32    _uiNameSpace;     /*!< Namespace that the id belongs to. */
+    UInt32       _uiTypeId;     /*!< Unique id of type in global type system. */
+    //UInt32     _uiTypeRootId;
+    UInt32       _uiNameSpace;  /*!< Namespace that the id belongs to. */
 
-    TypeBase *_pParentType;     /*!< The type of the parent, if one exists. */
+    TypeBase    *_pParentType;  /*!< The type of the parent, if one exists. */
 
-    IDString  _szName;          /*!< The name of this type. */
-    IDString  _szParentName;    /*!< The name of the parent type. */
+    std::string  _szName;       /*!< The name of this type. */
+    std::string  _szParentName; /*!< The name of the parent type. */
 
-    bool      _bInitialized;    /*!< Set true once type has been initialized. */
+    bool         _bInitialized; /*!< Set true once type has been initialized. */
 
     //-----------------------------------------------------------------------
     //   instance functions
@@ -190,16 +189,16 @@ class OSG_BASE_DLLMAPPING TypeBase
 
     /*----------------------------- id --------------------------------------*/
 
-          UInt32    getId         (void) const;
+          UInt32       getId         (void) const;
 
-    const IDString &getName       (void) const;
-    const Char8    *getCName      (void) const;
+    const std::string &getName       (void) const;
+    const Char8       *getCName      (void) const;
 
-    const TypeBase &getParent     (void) const;
-    const IDString &getParentName (void) const;
-    const Char8    *getCParentName(void) const;
+    const TypeBase    &getParent     (void) const;
+    const std::string &getParentName (void) const;
+    const Char8       *getCParentName(void) const;
 
-          UInt32    getNameSpace  (void) const;
+          UInt32       getNameSpace  (void) const;
 
     /*------------------------- your_operators ------------------------------*/
 

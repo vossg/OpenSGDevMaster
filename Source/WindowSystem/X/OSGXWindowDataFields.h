@@ -51,7 +51,6 @@
 #include "OSGBaseTypes.h"
 #include "OSGFieldTraits.h"
 
-
 OSG_BEGIN_NAMESPACE
 
 
@@ -68,11 +67,11 @@ typedef ::Window X11Window;
 #endif
 
 template <>
-struct FieldTraits<DisplayP> : 
-    public FieldTraitsPtrToStringTemplateBase<DisplayP>
+struct FieldTraits<DisplayP, 2> : 
+    public FieldTraitsPtrToStringTemplateBase<DisplayP, 2>
 {
-    static  DataType              _type;                       
-    typedef FieldTraits<DisplayP>  Self;
+    static  DataType                 _type;                       
+    typedef FieldTraits<DisplayP, 2>  Self;
 
     enum                        { Convertible = (Self::ToStringConvertible  |
                                                  Self::FromStringConvertible)};
@@ -110,11 +109,11 @@ struct FieldTraits<DisplayP> :
 #if ( !defined(__GNUC__) || !defined(__linux) || ( !defined(__ia64) && !defined(__x86_64) && !defined(_ARCH_PPC64)) ) && (!defined(_MIPS_SZPTR) || _MIPS_SZPTR != 64)
 
 template <>
-struct OSG_WINDOWX_DLLMAPPING FieldTraits<X11Window> : 
-    public FieldTraitsPtrToStringTemplateBase<X11Window>
+struct FieldTraits<X11Window, 2> : 
+    public FieldTraitsPtrToStringTemplateBase<X11Window, 2>
 {
-    static  DataType               _type;                       
-    typedef FieldTraits<X11Window>  Self;
+    static  DataType                  _type;                       
+    typedef FieldTraits<X11Window, 2>  Self;
 
     enum                        { Convertible = (Self::ToStringConvertible  |
                                                  Self::FromStringConvertible)};
@@ -146,11 +145,11 @@ struct OSG_WINDOWX_DLLMAPPING FieldTraits<X11Window> :
 #endif
 
 template <>
-struct OSG_WINDOWX_DLLMAPPING FieldTraits<GLXContext, 1> : 
-    public FieldTraitsPtrToStringTemplateBase<GLXContext, 1>
+struct FieldTraits<GLXContext, 2> : 
+    public FieldTraitsPtrToStringTemplateBase<GLXContext, 2>
 {
     static  DataType                   _type;                       
-    typedef FieldTraits<GLXContext, 1>  Self;
+    typedef FieldTraits<GLXContext, 2>  Self;
 
     enum                        { Convertible = (Self::ToStringConvertible  |
                                                  Self::FromStringConvertible)};
@@ -187,30 +186,29 @@ struct OSG_WINDOWX_DLLMAPPING FieldTraits<GLXContext, 1> :
 /*! \ingroup GrpWindowXFieldSingle
  */
 
-typedef SField<DisplayP> SFDisplayP;
+typedef SField<DisplayP, 2> SFDisplayP;
 
 /*! \ingroup GrpWindowXFieldMulti
  */
 
-typedef MField<DisplayP> MFDisplayP;
+typedef MField<DisplayP, 2> MFDisplayP;
 
-#if (!defined(__GNUC__) || !defined(__linux) || !defined(__ia64) && !defined(_ARCH_PPC64)) || (defined(_MIPS_SZPTR) && _MIPS_SZPTR != 64 )
+#if ( !defined(__GNUC__) || !defined(__linux) || ( !defined(__ia64) && !defined(__x86_64) && !defined(_ARCH_PPC64)) ) && (!defined(_MIPS_SZPTR) || _MIPS_SZPTR != 64)
 
 /*! \ingroup GrpWindowXFieldSingle
  */
 
-typedef SField<X11Window> SFX11Window;
+typedef SField<X11Window, 2> SFX11Window;
 
 /*! \ingroup GrpWindowXFieldMulti
  */
 
-typedef MField<X11Window> MFX11Window;
+typedef MField<X11Window, 2> MFX11Window;
 
 #else
 
 /*! \ingroup GrpWindowXFieldSingle
  */
-
 typedef SField<UInt64> SFX11Window;
 
 /*! \ingroup GrpWindowXFieldMulti
@@ -223,12 +221,12 @@ typedef MField<UInt64> MFX11Window;
 /*! \ingroup GrpWindowXFieldSingle
  */
 
-typedef SField<GLXContext, 1> SFGLXContext;
+typedef SField<GLXContext, 2> SFGLXContext;
 
 /*! \ingroup GrpWindowXFieldMulti
  */
 
-typedef MField<GLXContext, 1> MFGLXContext;
+typedef MField<GLXContext, 2> MFGLXContext;
 
 #endif
 

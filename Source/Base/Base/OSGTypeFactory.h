@@ -47,7 +47,6 @@
 //---------------------------------------------------------------------------
 
 #include "OSGBaseTypes.h"
-#include "OSGIDString.h"
 #include "OSGFactoryBase.h"
 #include "OSGSingletonHolder.h"
 #include "OSGTypeBase.h"
@@ -103,7 +102,7 @@ class OSG_BASE_DLLMAPPING TypeFactoryBase : public FactoryBase
     //   types                                                               
     //-----------------------------------------------------------------------
 
-    typedef std::map   <IDStringLink, UInt32>  TypeNameMap;
+    typedef std::map   <std::string, UInt32>   TypeNameMap;
 
     typedef TypeNameMap::iterator              TypeNameMapIt;
     typedef TypeNameMap::const_iterator        TypeNameMapConstIt;
