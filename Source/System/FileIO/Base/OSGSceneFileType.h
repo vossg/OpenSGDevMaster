@@ -45,7 +45,6 @@
 #include "OSGIOFileTypeBase.h"
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
-#include "OSGIDString.h"
 #include "OSGNode.h"
 
 #include <list>
@@ -90,10 +89,10 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType : public IOFileTypeBase
     /*! \name                   Get                                        */
     /*! \{                                                                 */
 
-    virtual std::list<IDString> &suffixList         (void);
+    virtual std::list<std::string> &suffixList         (void);
 
-            bool                 doOverride         (void);
-            UInt32               getOverridePriority(void);
+            bool                    doOverride         (void);
+            UInt32                  getOverridePriority(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -138,10 +137,13 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType : public IOFileTypeBase
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    std::list<IDString> _suffixList;   /*! List of valid suffixes for this loader. */
+    /*! List of valid suffixes for this loader. */
+    std::list<std::string> _suffixList;   
 
-    bool                _override;           /*! If true loader can override others. */
-    UInt32              _overridePriority;   /*! The priority for overriding. */
+    /*! If true loader can override others. */
+    bool                   _override;         
+    /*! The priority for overriding. */
+    UInt32                 _overridePriority; 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

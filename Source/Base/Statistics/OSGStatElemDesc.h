@@ -43,7 +43,9 @@
 #pragma once
 #endif
 
-#include "OSGIDString.h"
+#include "OSGBaseTypes.h"
+
+#include "string"
 
 OSG_BEGIN_NAMESPACE
 
@@ -78,11 +80,11 @@ class OSG_BASE_DLLMAPPING StatElemDescBase
     /*! \name                     Instance                                 */
     /*! \{                                                                 */
 
-          void      print         (void);
+          void         print         (void);
 
-          Int32     getID         (void);
-    const IDString &getName       (void);
-    const IDString &getDescription(void);
+          Int32        getID         (void);
+    const std::string &getName       (void);
+    const std::string &getDescription(void);
 
     typedef enum { 
               RESET_NEVER = 0, //!< Never reset by the system
@@ -129,8 +131,8 @@ class OSG_BASE_DLLMAPPING StatElemDescBase
     static DescStorage *_descVec;
     
     Int32           _id;
-    IDString        _name;
-    IDString        _description;
+    std::string     _name;
+    std::string     _description;
     ResetMode       _resetMode;
 
     // only called by OSGStatCollector friend

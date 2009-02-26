@@ -235,8 +235,8 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
 
   protected:
 
-    typedef std::list<          SceneFileType *> FileTypeList;
-    typedef std::map <IDString, FileTypeList  *> FileTypeMap;
+    typedef std::list<             SceneFileType *> FileTypeList;
+    typedef std::map <std::string, FileTypeList  *> FileTypeMap;
 
     struct FindOverride
     {

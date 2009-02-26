@@ -43,7 +43,6 @@
 #endif
 
 #include "OSGBaseFunctions.h"
-#include "OSGIDStringLink.h"
 #include "OSGLog.h"
 
 #if defined(OSG_USE_SPROC)
@@ -124,12 +123,12 @@ class MPFieldStore
     /*! \name                      Types                                   */
     /*! \{                                                                 */
 
-    typedef std::map<IDStringLink, MPFieldType  *>  MPFieldTypeMap;
+    typedef std::map<std::string, MPFieldType   *>  MPFieldTypeMap;
     typedef typename MPFieldTypeMap::iterator       MPFieldTypeMapIt;
 
     typedef typename MPFieldTypeMap::const_iterator MPFieldTypeMapCIt;
 
-    typedef std::map<IDStringLink, MPFieldT     *>  MPFieldMap;
+    typedef std::map<std::string, MPFieldT      *>  MPFieldMap;
     typedef typename MPFieldMap::iterator           MPFieldMapIt;
 
     typedef typename MPFieldMap::const_iterator     MPFieldMapCIt;

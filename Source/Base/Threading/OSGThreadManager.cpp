@@ -437,7 +437,7 @@ bool ThreadManager::shutdown(void)
     {
         FWARNING(("ThreadManager::shutdown: "
                   "thread [%s|%p] is still alive ([%d]). \n", 
-                  (*tI).first.str(),
+                  (*tI).first.c_str(),
                   (*tI).second,
                   (*tI).second->exists()));
 
@@ -450,7 +450,7 @@ bool ThreadManager::shutdown(void)
     {
         FWARNING(("ThreadManager::shutdown: "
                   "barrier [%s|%p] is still alive\n", 
-                  (*bI).first.str(),
+                  (*bI).first.c_str(),
                   (*bI).second));
 
     }
@@ -462,7 +462,7 @@ bool ThreadManager::shutdown(void)
     {
         FWARNING(("ThreadManager::shutdown: "
                   "condvar [%s|%p] is still alive\n", 
-                  (*cI).first.str(),
+                  (*cI).first.c_str(),
                   (*cI).second));
 
     }
@@ -474,7 +474,7 @@ bool ThreadManager::shutdown(void)
     {
         FWARNING(("ThreadManager::shutdown: "
                   "lock [%s|%p] is still alive\n", 
-                  (*lI).first.str(),
+                  (*lI).first.c_str(),
                   (*lI).second));
 
     }
@@ -486,7 +486,7 @@ bool ThreadManager::shutdown(void)
     {
         FWARNING(("ThreadManager::shutdown: "
                   "lockpool [%s|%p] is still alive\n", 
-                  (*lpI).first.str(),
+                  (*lpI).first.c_str(),
                   (*lpI).second));
 
     }

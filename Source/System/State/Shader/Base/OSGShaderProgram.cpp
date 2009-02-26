@@ -432,7 +432,10 @@ void ShaderProgram::onCreate(const ShaderProgram *source)
     // ignore prototypes.
     if(GlobalSystemState == Startup)
     {
-        _pProgIdPool = new ProgramIdPool;
+        if(_pProgIdPool == NULL)
+        {
+            _pProgIdPool = new ProgramIdPool;
+        }
 
         return;
     }

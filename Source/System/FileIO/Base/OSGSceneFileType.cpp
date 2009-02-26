@@ -92,13 +92,13 @@ SceneFileType::SceneFileType(const Char8  *suffixArray[],
 
     int count = (suffixByteCount / sizeof(const Char8 *)), i = 0;
 
-    std::list<IDString>::iterator sI;
+    std::list<std::string>::iterator sI;
 
     _suffixList.resize(count);
 
     for(sI = _suffixList.begin(); sI != _suffixList.end(); sI++)
     {
-        sI->set(suffixArray[i++]);
+        sI->assign(suffixArray[i++]);
     }
 
 #ifndef OSG_EMBEDDED
@@ -130,7 +130,7 @@ SceneFileType::~SceneFileType(void)
 /*! Print supported suffixes to osgLog. */
 void SceneFileType::print(void)
 {
-    std::list<IDString>::iterator sI;
+    std::list<std::string>::iterator sI;
 
     osgLog() << getName();
 
@@ -142,7 +142,7 @@ void SceneFileType::print(void)
     {
         for (sI = _suffixList.begin(); sI != _suffixList.end(); sI++)
         {
-            osgLog().stream(OSG::LOG_DEBUG) << sI->str() << " ";
+            osgLog().stream(OSG::LOG_DEBUG) << sI->c_str() << " ";
         }
     }
     osgLog() << std::endl;
@@ -150,7 +150,7 @@ void SceneFileType::print(void)
 
 //---------------------------------------------------------
 /*! Return list of supported suffix strings. */
-std::list<IDString> &SceneFileType::suffixList(void)
+std::list<std::string> &SceneFileType::suffixList(void)
 {
     return _suffixList;
 }

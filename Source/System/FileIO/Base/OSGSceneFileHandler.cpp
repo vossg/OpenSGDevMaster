@@ -114,10 +114,11 @@ SceneFileType *SceneFileHandlerBase::getFileType(
         }
     }
 
-    IDString suffix;
+    std::string suffix;
 
-    suffix.set    (ext.c_str());
-    suffix.toLower(           );
+    suffix.assign (ext.c_str());
+//    suffix.toLower(           );
+    std::transform(suffix.begin(), suffix.end(), suffix.begin(), ::tolower);
 
     FileTypeMap::iterator sI = _suffixTypeMap.find(suffix);
 
@@ -146,7 +147,7 @@ Int32 SceneFileHandlerBase::getSuffixList(std::list<const Char8 *> &suffixList,
 
         if((type->getFlags() & flags) == flags)
         {
-            suffixList.push_back(sI->first.str());
+            suffixList.push_back(sI->first.c_str());
             count++;
         }
     }
@@ -680,7 +681,7 @@ void SceneFileHandlerBase::print (void )
                 rw = "writer";
         }
 
-        std::cerr << "suffix: " << sI->first.str()
+        std::cerr << "suffix: " << sI->first.c_str()
                   << ", type: " << sI->second->front()->getName()
                   << " "        << rw
                   << std::endl;
@@ -710,17 +711,18 @@ bool SceneFileHandlerBase::addSceneFileType(SceneFileType &fileType)
 {
     bool retCode = false;
 
-    std::list<IDString>::iterator sI;
-         FileTypeMap   ::iterator smI;
+    std::list<std::string>::iterator sI;
+         FileTypeMap      ::iterator smI;
 
-    IDString suffix;
+    std::string suffix;
 
     for(  sI  = fileType.suffixList().begin();
           sI != fileType.suffixList().end();
         ++sI)
     {
-        suffix.set(sI->str());
-        suffix.toLower();
+        suffix.assign (sI->c_str());
+//        suffix.toLower();
+        std::transform(suffix.begin(), suffix.end(), suffix.begin(), ::tolower);
 
         smI = _suffixTypeMap.find(suffix);
 
@@ -773,18 +775,18 @@ bool SceneFileHandlerBase::subSceneFileType(SceneFileType &fileType)
 {
     bool retCode = false;
 
-    std::list<IDString>::iterator sI;
-         FileTypeMap   ::iterator smI;
+    std::list<std::string>::iterator sI;
+         FileTypeMap      ::iterator smI;
 
-    IDString suffix;
+    std::string suffix;
 
     for(  sI  = fileType.suffixList().begin();
           sI != fileType.suffixList().end();
         ++sI)
     {
-        suffix.set(sI->str());
-        suffix.toLower();
-
+        suffix.assign(sI->c_str());
+        //suffix.toLower();
+        std::transform(suffix.begin(), suffix.end(), suffix.begin(), ::tolower);
         smI = _suffixTypeMap.find(suffix);
 
         if (smI != _suffixTypeMap.end())

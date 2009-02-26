@@ -266,7 +266,7 @@ void SimpleStatisticsForeground::draw(DrawEnv *pEnv, Viewport *pPort)
             el = col->getElem(i, false);
             if(el)
             {
-                std::string desc(el->getDesc()->getName().str()), eltext;
+                std::string desc(el->getDesc()->getName()), eltext;
 
                 el->putToString(eltext);
                 desc = desc + " : " + eltext;

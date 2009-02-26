@@ -86,7 +86,7 @@ StatElemDescBase *StatElemDescBase::findDescByName(const Char8 *name)
     {
         for(Int32 i = 0; i < n; ++i)
         {
-            if (!osgStringCmp(name, (*_descVec)[i]->_name.str()))
+            if (!osgStringCmp(name, (*_descVec)[i]->_name.c_str()))
             {
                 desc = (*_descVec)[i];
                 break;
@@ -184,8 +184,8 @@ void StatElemDescBase::print(void)
 {
     FLOG(( "StatElemDescBase: ID/Name/Description: %d/%s/%s\n",
            _id, 
-           _name.str(), 
-           _description.str()));
+           _name.c_str(), 
+           _description.c_str()));
 }
 
 /*------------------------------ access -----------------------------------*/

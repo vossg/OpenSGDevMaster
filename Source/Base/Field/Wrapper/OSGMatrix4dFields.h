@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,87 +36,13 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-OSG_BEGIN_NAMESPACE
+/*
+  This is a dummy header to allow automatic inference from the type to the 
+  field type header.
+*/
 
-/*-------------------------------------------------------------------------*/
-
-inline 
-bool StatElemDescBase::isValidID(Int32 descId)
-{ 
-    return (_descVec && (descId >= 0) && (descId < static_cast<Int32>(_descVec->size())));
-}
-
-/*-------------------------------------------------------------------------*/
-
-inline
-StatElemDescBase *StatElemDescBase::getDesc(Int32 descId)
-{ 
-    return (*_descVec)[descId];
-}
-
-/*-------------------------------------------------------------------------*/
-
-inline
-Int32 StatElemDescBase::getNumOfDescs(void)
-{ 
-    return _descVec ? _descVec->size() : 0;
-}
-
-/*-------------------------------------------------------------------------*/
-
-inline
-Int32 StatElemDescBase::getID(void) 
-{ 
-    return _id;
-}
-
-/*-------------------------------------------------------------------------*/
-
-inline  
-const std::string &StatElemDescBase::getName(void) 
-{ 
-    return _name; 
-}
-
-/*-------------------------------------------------------------------------*/
-
-inline
-const std::string &StatElemDescBase::getDescription(void) 
-{ 
-    return _description; 
-}
-
-/*-------------------------------------------------------------------------*/
-
-inline
-StatElemDescBase::ResetMode StatElemDescBase::getResetMode(void) const
-{ 
-    return _resetMode; 
-}
+#include "OSGMathSFields.h"
+#include "OSGMathMFields.h"
 
 
-// The templated StatElemDesc
 
-template <class T> inline
-StatElemDesc<T>::StatElemDesc(const Char8 *name, 
-                              const Char8 *description,
-                              ResetMode reset) :
-    StatElemDescBase(name, description, reset)
-{
-}
-
-
-template <class T> inline
-StatElemDesc<T>::~StatElemDesc()
-{
-}
-
-
-template <class T> inline
-StatElem *StatElemDesc<T>::createElem(void)
-{
-    return T::create(this);
-}
-
-
-OSG_END_NAMESPACE

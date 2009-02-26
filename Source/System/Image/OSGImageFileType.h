@@ -214,7 +214,7 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType : public IOFileTypeBase
 
     std::list<std::string> _suffixList;
 
-         IDString          _mimeType;
+    std::string            _mimeType;
 };
 
 typedef ImageFileType *ImageFileTypeP;

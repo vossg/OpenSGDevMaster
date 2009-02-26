@@ -148,7 +148,7 @@ void StatCollector::putToString(std::string &str) const
             if(!first)
                 str.append("|");
 
-            str.append((*it)->getDesc()->getName().str());
+            str.append((*it)->getDesc()->getName().c_str());
             str.append("=");
             (*it)->putToString(elem);
             str.append(elem);

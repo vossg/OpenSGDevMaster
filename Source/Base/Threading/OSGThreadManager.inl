@@ -74,7 +74,7 @@ MPFieldT *MPFieldStore<MPFieldT>::getMPField(const Char8 *szName,
 
             if(returnValue != NULL)
             {
-                _mFieldMap[IDStringLink(returnValue->getCName())]= returnValue;
+                _mFieldMap[std::string(returnValue->getCName())]= returnValue;
             }
         }
         else
@@ -99,7 +99,7 @@ MPFieldT *MPFieldStore<MPFieldT>::findMPField(const Char8 *szName)
     if(szName == NULL)
         return NULL;
 
-    gIt = _mFieldMap.find(IDStringLink(szName));
+    gIt = _mFieldMap.find(std::string(szName));
 
     if(gIt != _mFieldMap.end())
     {
@@ -117,7 +117,7 @@ void MPFieldStore<MPFieldT>::removeMPField(MPFieldT *pField)
     if(pField == NULL)
         return;
 
-    MPFieldMapIt gIt = _mFieldMap.find(IDStringLink(pField->getCName()));
+    MPFieldMapIt gIt = _mFieldMap.find(std::string(pField->getCName()));
 
     if(gIt != _mFieldMap.end())
     {
@@ -156,7 +156,7 @@ typename MPFieldStore<MPFieldT>::MPFieldType *
         return NULL;
     }
 
-    gIt = _mFieldTypeMap.find(IDStringLink(szName));
+    gIt = _mFieldTypeMap.find(std::string(szName));
 
     if(gIt != _mFieldTypeMap.end())
     {
@@ -200,7 +200,7 @@ UInt32 MPFieldStore<MPFieldT>::registerMPType(MPFieldType *pType)
     }
 */
 
-    _mFieldTypeMap[IDStringLink(pType->getCName())] = pType;
+    _mFieldTypeMap[std::string(pType->getCName())] = pType;
 
     return returnValue;
 }

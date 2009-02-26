@@ -47,7 +47,6 @@
 #include <map>
 
 #include "OSGSystemDef.h"
-#include "OSGIDStringLink.h"
 #include "OSGImageFileType.h"
 #include "OSGSingletonHolder.h"
 

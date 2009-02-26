@@ -109,7 +109,7 @@ bool ImageFileType::Head::hostToNet(void)
 
 const Char8 *ImageFileType::getMimeType(void) const
 {
-    return _mimeType.str();
+    return _mimeType.c_str();
 }
 
 //-------------------------------------------------------------------------
@@ -220,7 +220,7 @@ ImageFileType::ImageFileType(const char   *mimeType,
         FFATAL (("ImageFileType without valid mimeType\n"));
     }
 
-    _mimeType.set(mimeType);
+    _mimeType.assign(mimeType);
 
     _suffixList.resize(suffixCount);
 
