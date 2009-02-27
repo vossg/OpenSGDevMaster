@@ -55,6 +55,8 @@ def main():
                       help="Linker lib subfix to use. (%s)"%def_libext)
     parser.add_option("--libpath-prefix",  default=def_libpathprefix,
                       help="Linker library path prefix to use. (%s)"%def_libpathprefix)
+    parser.add_option("--version",     action="store_true",
+                      help="Print the OpenSG version and exit.")
 
     parser.set_defaults(build_type=inst_build_type)
     parser.add_option("--opt",             action="store_const", const="Release", dest="build_type",
@@ -102,6 +104,9 @@ def main():
         sys.exit(0)
     elif options.includedir:
         print inc_dir
+        sys.exit(0)
+    elif options.version:
+        print "${OSG_VERSION}"
         sys.exit(0)
 
     # Try to find libname
