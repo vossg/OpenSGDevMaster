@@ -58,6 +58,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -86,6 +87,7 @@ struct FieldTraits<Color3f> : public FieldTraitsVec3TemplateBase<Color3f>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -114,6 +116,7 @@ struct FieldTraits<Color3fx> : public FieldTraitsVec3TemplateBase<Color3fx>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -142,6 +145,7 @@ struct FieldTraits<Color4f> : public FieldTraitsVec4TemplateBase<Color4f>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -170,6 +174,7 @@ struct FieldTraits<Color4fx> : public FieldTraitsVec4TemplateBase<Color4fx>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -197,6 +202,7 @@ struct FieldTraits<Color3ub> : public FieldTraitsVec3TemplateBase<Color3ub>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -225,6 +231,7 @@ struct FieldTraits<Color4ub> : public FieldTraitsVec4TemplateBase<Color4ub>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -320,6 +327,7 @@ struct FieldTraits<std::string> : public FieldTraitsTemplateBase<std::string>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -348,6 +356,7 @@ struct FieldTraits<Time, 1> : public FieldTraitsPODTemplateBase<Time, 1>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -534,6 +543,7 @@ struct FieldTraits<BoxVolume> :
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -561,6 +571,7 @@ struct FieldTraits<BitVector, 1> : public FieldTraitsTemplateBase<BitVector, 1>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -615,6 +626,7 @@ struct FieldTraits<GLenum, 1> : public FieldTraitsPODTemplateBase<GLenum, 1>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>

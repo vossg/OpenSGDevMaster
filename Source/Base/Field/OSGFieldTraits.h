@@ -60,6 +60,7 @@ template<class FieldTypeT>
 class FieldConnector;
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 struct FieldTraitsBase
@@ -94,6 +95,7 @@ template<class ValueT, Int32 iNamespace = 0>
 struct FieldTraits;
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
     \nohierarchy
  */
 
@@ -102,6 +104,7 @@ struct InvalidTrait
 };
 
 /*! \ingroup GrpBaseFieldTraits 
+    \ingroup GrpLibOSGBase 
  */
 
 template<class ValueT, Int32 NamespaceI = 0>
@@ -133,6 +136,7 @@ struct FieldTraitsTemplateBase : public FieldTraitsBase
 };
 
 /*! \ingroup GrpBaseFieldTraits 
+    \ingroup GrpLibOSGBase 
  */
 
 template<class ValueT, Int32 iNamespace = 0>
@@ -200,6 +204,7 @@ struct FieldTraitsPODTemplateBase : public FieldTraitsTemplateBase<ValueT,
 };
 
 /*! \ingroup GrpBaseFieldTraits 
+    \ingroup GrpLibOSGBase 
  */
 
 template<class ValueT, Int32 iNamespace = 0>
@@ -262,6 +267,7 @@ struct FieldTraitsVecTemplateBase : public FieldTraitsTemplateBase<ValueT,
 };
 
 /*! \ingroup GrpBaseFieldTraits 
+    \ingroup GrpLibOSGBase 
  */
 
 template<class ValueT, Int32 iNamespace = 0>
@@ -355,6 +361,7 @@ struct FieldTraitsPtrToStringTemplateBase :
 };
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template<class ValueT, Int32 iNamespace = 0>
@@ -374,6 +381,7 @@ struct FieldTraitsVec1TemplateBase :
 };
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template<class ValueT, Int32 iNamespace = 0>
@@ -398,6 +406,7 @@ struct FieldTraitsVec2TemplateBase :
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template<class ValueT, Int32 iNamespace = 0>
@@ -426,6 +435,7 @@ struct FieldTraitsVec3TemplateBase :
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template<class ValueT, Int32 iNamespace = 0>
@@ -457,6 +467,7 @@ struct FieldTraitsVec4TemplateBase :
 };
 
 /*! \ingroup GrpBaseField
+    \ingroup GrpLibOSGBase 
  */
 
 struct FieldDescBase
@@ -467,6 +478,7 @@ struct FieldDescBase
 };
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
     \nohierarchy
  */
 
@@ -489,6 +501,7 @@ struct StreamConversionError
 };
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
     \nohierarchy
  */
 

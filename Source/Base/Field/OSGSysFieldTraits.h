@@ -49,6 +49,7 @@ OSG_BEGIN_NAMESPACE
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -111,6 +112,7 @@ struct FieldTraits<bool, 2> : public FieldTraitsPODTemplateBase<bool, 2>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -138,6 +140,7 @@ struct FieldTraits<Int8> : public FieldTraitsPODTemplateBase<Int8>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -166,6 +169,7 @@ struct FieldTraits<UInt8> : public FieldTraitsPODTemplateBase<UInt8>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -194,6 +198,7 @@ struct FieldTraits<Int16> : public FieldTraitsPODTemplateBase<Int16>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -222,6 +227,7 @@ struct FieldTraits<UInt16> : public FieldTraitsPODTemplateBase<UInt16>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -250,6 +256,7 @@ struct FieldTraits<Int32> : public FieldTraitsPODTemplateBase<Int32>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -278,6 +285,7 @@ struct FieldTraits<UInt32> : public FieldTraitsPODTemplateBase<UInt32>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -305,6 +313,7 @@ struct FieldTraits<Int64> : public FieldTraitsPODTemplateBase<Int64>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -332,6 +341,7 @@ struct FieldTraits<UInt64> : public FieldTraitsPODTemplateBase<UInt64>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -359,6 +369,7 @@ struct FieldTraits<Real16> : public FieldTraitsPODTemplateBase<Real16>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -386,6 +397,7 @@ struct FieldTraits<Real32> : public FieldTraitsPODTemplateBase<Real32>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -413,6 +425,7 @@ struct FieldTraits<Fixed32> : public FieldTraitsPODTemplateBase<Fixed32>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -441,6 +454,7 @@ struct FieldTraits<Real64> : public FieldTraitsPODTemplateBase<Real64>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>

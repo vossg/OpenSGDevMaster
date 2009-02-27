@@ -61,6 +61,7 @@ class ParentMFieldIterator;
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -192,6 +193,7 @@ ParentMFieldConstIterator<PtrTypeT>
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -321,6 +323,7 @@ class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template <class    PtrTypeT,

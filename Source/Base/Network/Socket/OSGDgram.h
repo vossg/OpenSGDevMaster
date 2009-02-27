@@ -62,8 +62,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
+    \ingroup GrpLibOSGBase
     \nohierarchy
-*/
+ */
 
 class OSG_BASE_DLLMAPPING Dgram
 {

@@ -59,6 +59,7 @@ typedef void (*InitalInsertDescFunc)(OSG::ReflexiveContainerType *);
 
 /*! \class ReflexiveContainerType
     \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING ReflexiveContainerType : public DataType

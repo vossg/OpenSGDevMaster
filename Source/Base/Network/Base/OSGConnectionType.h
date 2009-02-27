@@ -53,6 +53,7 @@ class GroupConnection;
 /*! \brief Types for Connection, see XXX for details.
     \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
 */
 

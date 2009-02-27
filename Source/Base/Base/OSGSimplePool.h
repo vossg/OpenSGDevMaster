@@ -52,6 +52,7 @@ class PoolDefaultTag;
 
 /*! \ingroup GrpBaseBasePools
     \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
 */
 
@@ -134,6 +135,7 @@ class SimplePool
 
 /*! \ingroup GrpBaseBasePools
     \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
 */
 

@@ -51,6 +51,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBasePools
     \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
 */
 

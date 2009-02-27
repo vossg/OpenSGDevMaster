@@ -40,17 +40,12 @@
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGCoredNodePtr.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 #include "OSGNode.h"
 
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpSystemFieldContainer
+    \ingroup GrpLibOSGBase
  */
 
 template <class CoreT>
@@ -145,6 +140,7 @@ class CoredNodeRefPtr
 };
 
 /*! \ingroup GrpSystemFieldContainer
+    \ingroup GrpLibOSGBase
  */
 
 template <class CoreT>

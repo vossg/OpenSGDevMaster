@@ -114,33 +114,33 @@ typedef SFFixed32 SFReal;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldSingle  */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFBool    : public SField<bool, 2> {};
-/*! \ingroup GrpBaseFieldSingle  */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFInt8    : public SField<Int8> {};
-/*! \ingroup GrpBaseFieldSingle  */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFUInt8   : public SField<UInt8> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFInt16   : public SField<Int16> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFUInt16  : public SField<UInt16> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFInt32   : public SField<Int32> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFUInt32  : public SField<UInt32> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFInt64   : public SField<Int64> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFUInt64  : public SField<UInt64> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFReal16  : public SField<Real16> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFReal32  : public SField<Real32> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFFixed32 : public SField<Fixed32> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFReal64  : public SField<Real64> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVoidP   : public SField<void *> {};
 
 /*! \ingroup GrpBaseFieldSingle */

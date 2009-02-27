@@ -50,13 +50,14 @@ OSG_BEGIN_NAMESPACE
 
 class Field;
 
-/*! \ingroup GrpBaseField
- */
-
 #ifdef OSG_1_GET_COMPAT
 #define SINGLE_FIELD SingleField
 #define MULTI_FIELD MultiField
 #endif
+
+/*! \ingroup GrpBaseField
+    \ingroup GrpLibOSGBase 
+ */
 
 class OSG_BASE_DLLMAPPING FieldType : public DataType
 {

@@ -51,6 +51,7 @@ OSG_BEGIN_NAMESPACE
     everything that should be shared, but must not be thread safe.
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMemory
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING MemoryObject
@@ -161,6 +162,7 @@ OSG_BEGIN_NAMESPACE
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMemory
     \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

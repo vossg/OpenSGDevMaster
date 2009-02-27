@@ -72,6 +72,7 @@ class MPFieldStore;
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING CondVarCommonBase : public MPBase
@@ -123,6 +124,7 @@ class OSG_BASE_DLLMAPPING CondVarCommonBase : public MPBase
 #if defined (OSG_USE_PTHREADS)
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class PThreadCondVarBase : public CondVarCommonBase
@@ -207,6 +209,7 @@ typedef PThreadCondVarBase CondVarBase;
 #if defined (OSG_USE_SPROC)
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class SprocCondVarBase : public CondVarCommonBase
@@ -293,6 +296,7 @@ typedef SprocCondVarBase CondVarBase;
 #if defined (OSG_USE_WINTHREADS)
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -338,6 +342,7 @@ int pthread_cond_signal(pthread_cond_t *cv);
 int pthread_cond_broadcast(pthread_cond_t *cv);
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING WinThreadCondVarBase : public CondVarCommonBase
@@ -436,6 +441,7 @@ typedef WinThreadCondVarBase CondVarBase;
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING CondVar : public CondVarBase

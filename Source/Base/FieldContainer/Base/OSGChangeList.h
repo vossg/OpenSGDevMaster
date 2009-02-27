@@ -59,6 +59,7 @@ class StatCollector;
 class FieldContainer;
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -110,6 +111,7 @@ struct OSG_BASE_DLLMAPPING ContainerChangeEntry
 };
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject

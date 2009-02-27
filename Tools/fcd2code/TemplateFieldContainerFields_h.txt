@@ -72,6 +72,7 @@ OSG_GEN_CONTAINERPTR(@!Classname!@);
 
 @@if isInLibrary
 /*! \ingroup @!DocGroupBase!@FieldTraits
+    \ingroup GrpLibOSG@!Libname!@
  */
 @@endif
 template <>
@@ -399,25 +400,25 @@ typedef ParentPointerMField<
 
 @@if SFPointerField
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldSFields */
+/*! \ingroup @!DocGroupBase!@FieldSFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct SFRec@!Classname!@Ptr : 
     public PointerSField<@!Classname!@ *,
                          RecordedRefCountPolicy> {};
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldSFields */
+/*! \ingroup @!DocGroupBase!@FieldSFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct SFUnrec@!Classname!@Ptr : 
     public PointerSField<@!Classname!@ *,
                          UnrecordedRefCountPolicy> {};
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldSFields */
+/*! \ingroup @!DocGroupBase!@FieldSFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct SFWeak@!Classname!@Ptr :
     public PointerSField<@!Classname!@ *,
                          WeakRefCountPolicy> {};
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldSFields */
+/*! \ingroup @!DocGroupBase!@FieldSFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct SFUncounted@!Classname!@Ptr :
     public PointerSField<@!Classname!@ *,
@@ -427,25 +428,25 @@ struct SFUncounted@!Classname!@Ptr :
 
 @@if MFPointerField
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldMFields */
+/*! \ingroup @!DocGroupBase!@FieldMFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct MFRec@!Classname!@Ptr :
     public PointerMField<@!Classname!@ *,
                          RecordedRefCountPolicy  > {};
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldMFields */
+/*! \ingroup @!DocGroupBase!@FieldMFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct MFUnrec@!Classname!@Ptr :
     public PointerMField<@!Classname!@ *,
                          UnrecordedRefCountPolicy> {};
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldMFields */
+/*! \ingroup @!DocGroupBase!@FieldMFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct MFWeak@!Classname!@Ptr :
     public PointerMField<@!Classname!@ *,
                          WeakRefCountPolicy      > {};
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldMFields */
+/*! \ingroup @!DocGroupBase!@FieldMFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct MFUncounted@!Classname!@Ptr :
     public PointerMField<@!Classname!@ *,
@@ -456,7 +457,7 @@ struct MFUncounted@!Classname!@Ptr :
 @@if ChildSFields
 
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldSFields */
+/*! \ingroup @!DocGroupBase!@FieldSFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct SFUnrecChild@!Classname!@Ptr :
     public ChildPointerSField<
@@ -468,7 +469,7 @@ struct SFUnrecChild@!Classname!@Ptr :
 @@if ChildMFields
 
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldMFields */
+/*! \ingroup @!DocGroupBase!@FieldMFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct MFUnrecChild@!Classname!@Ptr :
     public ChildPointerMField<
@@ -480,7 +481,7 @@ struct MFUnrecChild@!Classname!@Ptr :
 @@if ParentSFields
 
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldSFields */
+/*! \ingroup @!DocGroupBase!@FieldSFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct SFParent@!Classname!@Ptr :
     public ParentPointerSField<
@@ -491,7 +492,7 @@ struct SFParent@!Classname!@Ptr :
 @@if ParentMFields
 
     @@if isInLibrary
-/*! \ingroup @!DocGroupBase!@FieldMFields */
+/*! \ingroup @!DocGroupBase!@FieldMFields \ingroup GrpLibOSG@!Libname!@ */
     @@endif // isInLibrary
 struct MFParent@!Classname!@Ptr :
     public  ParentPointerMField<

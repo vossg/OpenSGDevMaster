@@ -123,6 +123,7 @@ typedef GetFieldHandlePtr (OSG::ReflexiveContainer::*FieldIndexGetMethod)(
 class BasicFieldConnector;
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING FieldDescriptionBase
@@ -412,6 +413,7 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
 
 /*! FieldDescriptionBase point less than
     \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -427,6 +429,7 @@ struct FieldDescriptionBasePLT
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 
 template<class    DescT, 

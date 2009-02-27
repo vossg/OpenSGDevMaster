@@ -2,6 +2,13 @@
 
 using namespace OSG;
 
+/*! \defgroup GrpByLib By Lib
+ */
+
+/*! \defgroup GrpLibOSGBase libOSGBase
+    \ingroup GrpByLib
+ */
+
 /*! \defgroup GrpBase OpenSG Base Library
 
     \brief The Base Library contains fundamental classes, functions and, 

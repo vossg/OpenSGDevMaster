@@ -50,6 +50,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING Attachment : public AttachmentContainer

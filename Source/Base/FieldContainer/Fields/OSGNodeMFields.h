@@ -73,28 +73,28 @@ typedef ParentPointerMField<Node *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFRecNodePtr :
     public PointerMField      <Node *,
                                RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecNodePtr :
     public PointerMField      <Node *,
                                UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFWeakNodePtr :
     public PointerMField      <Node *,
                                WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUncountedNodePtr :
     public PointerMField      <Node *,
                                NoRefCountPolicy        > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecChildNodePtr :
     public ChildPointerMField <Node *,
                                UnrecordedRefCountPolicy,
                                1                       > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFParentNodePtr :
     public ParentPointerMField<Node *,
                                NoRefCountPolicy,

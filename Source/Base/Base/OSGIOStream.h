@@ -96,6 +96,7 @@ OSG_BASE_DLLMAPPING void EndElemNL(_EndElemNL);
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseStreamIO
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -191,6 +192,7 @@ class OSG_BASE_DLLMAPPING OutStream
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseStreamIO
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -239,6 +241,7 @@ class FileStreamMixin : public ParentT
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseStreamIO
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -298,6 +301,7 @@ class IndentOutStreamMixin : public ParentT
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseStreamIO
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

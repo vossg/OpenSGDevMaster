@@ -69,6 +69,7 @@ class MapHelper;
 OSG_GEN_CONTAINERPTR(MapHelper);
 
 /*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
  */
 template <>
 struct FieldTraits<MapHelper *> :
@@ -178,37 +179,37 @@ typedef PointerMField<MapHelper *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFRecMapHelperPtr : 
     public PointerSField<MapHelper *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecMapHelperPtr : 
     public PointerSField<MapHelper *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFWeakMapHelperPtr :
     public PointerSField<MapHelper *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUncountedMapHelperPtr :
     public PointerSField<MapHelper *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFRecMapHelperPtr :
     public PointerMField<MapHelper *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecMapHelperPtr :
     public PointerMField<MapHelper *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFWeakMapHelperPtr :
     public PointerMField<MapHelper *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUncountedMapHelperPtr :
     public PointerMField<MapHelper *,
                          NoRefCountPolicy        > {};

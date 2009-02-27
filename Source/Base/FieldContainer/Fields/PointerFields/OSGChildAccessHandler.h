@@ -59,6 +59,7 @@ template <typename AccessHandlerT, Int32 NamespaceI>
 class ChildPointerSFieldBase;
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

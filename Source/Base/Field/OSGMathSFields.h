@@ -79,15 +79,15 @@ typedef SFQuaternionfx SFQuaternionr;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFMatrix : public SField<Matrix> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFMatrix4d : public SField<Matrix4d> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFMatrix4fx : public SField<Matrix4fx> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFQuaternion : public SField<Quaternion> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFQuaternionfx : public SField<Quaternionfx> {};
 
 

@@ -717,6 +717,7 @@ typedef const BitVector ConstFieldMaskArg;
 /*! FieldFlags
     \ingroup GrpBaseBaseBaseTypes
     \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

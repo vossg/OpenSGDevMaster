@@ -48,6 +48,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseTypeSystem
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING DataType : public TypeBase

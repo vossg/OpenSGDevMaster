@@ -72,6 +72,7 @@ class TypeFactoryBase;
 /*! \brief Accessible via #FactoryController
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseTypeSystem
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

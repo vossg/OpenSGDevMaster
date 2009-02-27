@@ -50,6 +50,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>

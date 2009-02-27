@@ -69,6 +69,7 @@ class MPFieldStore;
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING BarrierCommonBase : public MPBase
@@ -127,6 +128,7 @@ class OSG_BASE_DLLMAPPING BarrierCommonBase : public MPBase
 #if defined (OSG_USE_PTHREADS)
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class PThreadBarrierBase : public BarrierCommonBase
@@ -206,6 +208,7 @@ typedef PThreadBarrierBase BarrierBase;
 #if defined (OSG_USE_SPROC)
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class SprocBarrierBase : public BarrierCommonBase
@@ -282,6 +285,7 @@ typedef SprocBarrierBase BarrierBase;
 #if defined (OSG_USE_WINTHREADS)
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING WinThreadBarrierBase : public BarrierCommonBase
@@ -359,6 +363,7 @@ typedef WinThreadBarrierBase BarrierBase;
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING Barrier : public BarrierBase

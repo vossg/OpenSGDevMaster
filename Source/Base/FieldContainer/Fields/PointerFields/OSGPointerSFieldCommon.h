@@ -55,6 +55,7 @@ template <Int32 NamespaceI>
 class PointerFieldTraitsBase;
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template <class AccessHandlerT,

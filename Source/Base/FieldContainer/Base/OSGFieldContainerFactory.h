@@ -56,6 +56,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 struct FieldContainerFactoryDesc
@@ -75,6 +76,7 @@ struct FieldContainerFactoryDesc
            accessing, allocating, and mapping field containers allocated in
            the system. Accessible via #FieldContainerFactory
     \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
     public ContainerFactory<FieldContainerFactoryDesc>

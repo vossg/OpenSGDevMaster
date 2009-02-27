@@ -49,6 +49,7 @@ OSG_BEGIN_NAMESPACE
 class BasicFieldConnector;
 
 /*! \ingroup GrpBaseFieldContainerConnector
+    \ingroup GrpLibOSGBase
     \includebasedoc
  */
 

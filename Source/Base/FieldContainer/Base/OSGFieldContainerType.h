@@ -64,6 +64,7 @@ typedef void (*ExitContainerF) (OSG::ReflexiveContainerType::InitPhase);
 typedef FieldContainer *(*PrototypeCreateF)(OSG::BitVector);
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING FieldContainerType : public ReflexiveContainerType

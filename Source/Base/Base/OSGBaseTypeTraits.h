@@ -68,6 +68,7 @@ template <class LookupTypeT>
 struct TypeTraits;
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 struct TypeTraitsBase
@@ -102,6 +103,7 @@ struct TypeTraitsBase
 };
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <class LookupTypeT>
@@ -125,6 +127,7 @@ struct TypeTraitsTemplateBase : public TypeTraitsBase
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <class LookupTypeT>
@@ -144,6 +147,7 @@ const bool TypeTraits<LookupTypeT>::IsPOD;
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -224,6 +228,7 @@ struct TypeTraits<bool> : public TypeTraitsTemplateBase<bool>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -316,6 +321,7 @@ struct TypeTraits<UInt8> : public TypeTraitsTemplateBase<UInt8>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -402,6 +408,7 @@ struct TypeTraits<Int8> : public TypeTraitsTemplateBase<Int8>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -487,6 +494,7 @@ struct TypeTraits<UInt16> : public TypeTraitsTemplateBase<UInt16>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -567,6 +575,7 @@ struct TypeTraits<Int16> : public TypeTraitsTemplateBase<Int16>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -649,6 +658,7 @@ struct TypeTraits<UInt32> : public TypeTraitsTemplateBase<UInt32>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -729,6 +739,7 @@ struct TypeTraits<Int32> : public TypeTraitsTemplateBase<Int32>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -821,6 +832,7 @@ struct TypeTraits<UInt64> : public TypeTraitsTemplateBase<UInt64>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -909,6 +921,7 @@ struct TypeTraits<Int64> : public TypeTraitsTemplateBase<Int64>
 };
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits 
+    \ingroup GrpLibOSGBase
 */
 
 template <>
@@ -982,6 +995,7 @@ struct TypeTraits<Real16> : public TypeTraitsTemplateBase<Real16>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits 
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -1061,6 +1075,7 @@ struct TypeTraits<Real32> : public TypeTraitsTemplateBase<Real32>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits 
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -1176,6 +1191,7 @@ struct TypeTraits<Fixed32> : public TypeTraitsTemplateBase<Fixed32>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -1250,6 +1266,7 @@ struct TypeTraits<Real64> : public TypeTraitsTemplateBase<Real64>
 
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -1325,6 +1342,7 @@ struct TypeTraits<Real128> : public TypeTraitsTemplateBase<Real128>
 #ifdef SIZE_T_NEQ_UINT32
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -1400,6 +1418,7 @@ struct TypeTraits<size_t> : public TypeTraitsTemplateBase<size_t>
 #ifdef OSG_GLENUM_NEQ_UINT32
 
 /*! \ingroup GrpBaseBaseBaseTypeTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>

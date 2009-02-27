@@ -50,6 +50,7 @@ OSG_BEGIN_NAMESPACE
 class Window;
 
 /*! \ingroup GrpBaseBaseBaseTypes
+    \ingroup GrpLibOSGBase 
     \nohierarchy
  */
 
@@ -63,6 +64,7 @@ struct OSGAny
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -153,9 +155,9 @@ typedef MField<OSGAny> MFOSGAny;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFOSGAny : public SField<OSGAny> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFOSGAny : public MField<OSGAny> {};
 
 #endif // these are the doxygen hacks

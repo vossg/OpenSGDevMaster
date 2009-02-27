@@ -53,6 +53,7 @@ class Attachment;
 /*! An AttachmentContainer is a field container that can store attachments to 
     other FieldContainers.
     \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 class OSG_BASE_DLLMAPPING AttachmentContainer : public FieldContainer
 {

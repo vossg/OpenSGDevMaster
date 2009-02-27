@@ -50,7 +50,8 @@
 OSG_BEGIN_NAMESPACE
 
 /*! Base class for all fields
-   \ingroup GrpBaseField
+    \ingroup GrpBaseField
+    \ingroup GrpLibOSGBase 
  */
 
 class OSG_BASE_DLLMAPPING Field

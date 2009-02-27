@@ -2,6 +2,10 @@
 
 using namespace OSG;
 
+/*! \defgroup GrpLibOSGSystem libOSGSystem
+    \ingroup GrpByLib
+ */
+
 /*! \defgroup GrpSystem OpenSG System Library
 
     \brief The System Library contains the main system-independent parts of 

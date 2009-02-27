@@ -60,6 +60,7 @@ class StatElemDescBase;
 
 /*! \brief Manager for Stat elements, see \guide(Statistics) for details.
     \ingroup GrpBaseStatistics
+    \ingroup GrpLibOSGBase
 */
 
 class OSG_BASE_DLLMAPPING StatCollector : public MemoryObject
@@ -178,6 +179,7 @@ typedef StatCollector * const StatCollectorPConstArg;
            details.
     \ingroup GrpBaseStatistics
     \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -249,7 +251,6 @@ struct FieldTraits<StatCollectorP> :
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 /*! \ingroup GrpBaseFieldSingle 
-    \ingroup GrpBaseStatistics
  */
 typedef SField<StatCollectorP> SFStatCollectorP;
 
@@ -257,6 +258,7 @@ typedef SField<StatCollectorP> SFStatCollectorP;
 
 /*! \ingroup GrpBaseFieldSingle 
     \ingroup GrpBaseStatistics
+    \ingroup GrpLibOSGBase
  */
 struct SFStatCollectorP : public SField<StatCollectorP> {};
 

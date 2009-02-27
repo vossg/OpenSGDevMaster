@@ -51,6 +51,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBaseMathIOFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 template <class  VecTypeT,
@@ -63,6 +64,7 @@ struct VecToStreamWriter
 
 
 /*! \ingroup GrpBaseBaseMathIOFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 template <class  VecTypeT,
@@ -74,6 +76,7 @@ struct VecToStreamWriter<VecTypeT, Int8, SizeI>
 
 
 /*! \ingroup GrpBaseBaseMathIOFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 template <class  VecTypeT,
@@ -85,6 +88,7 @@ struct VecToStreamWriter<VecTypeT, UInt8, SizeI>
 
 
 /*! \ingroup GrpBaseBaseMathIOFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 template <class  VecTypeT,
@@ -97,6 +101,7 @@ struct VecFromStreamReader
 
 
 /*! \ingroup GrpBaseBaseMathIOFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 template <class  VecTypeT,
@@ -108,6 +113,7 @@ struct VecFromStreamReader<VecTypeT, Int8, SizeI>
 
 
 /*! \ingroup GrpBaseBaseMathIOFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 template <class  VecTypeT,

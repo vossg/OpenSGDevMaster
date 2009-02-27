@@ -62,6 +62,7 @@ class PointSockPipeline;
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
+    \ingroup GrpLibOSGBase
 */
 
 class OSG_BASE_DLLMAPPING GroupSockPipeline : 

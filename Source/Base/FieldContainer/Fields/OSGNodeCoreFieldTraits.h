@@ -51,6 +51,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -132,6 +133,7 @@ const Char8 *FieldTraits<NodeCore *, 0>::getMName<NoRefCountPolicy>(void)
 
 
 /*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>

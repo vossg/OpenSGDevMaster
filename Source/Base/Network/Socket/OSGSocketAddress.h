@@ -57,6 +57,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
+    \ingroup GrpLibOSGBase
     \nohierarchy
 */
 

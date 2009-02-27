@@ -56,8 +56,9 @@
 #include "vector"
 
 OSG_BEGIN_NAMESPACE
-/*!
-    \ingroup GrpBaseFieldContainerBase
+
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 template <class DescT>
 class ContainerFactory : public FactoryBase

@@ -76,6 +76,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseField
     \ingroup GrpBaseFieldMulti
+    \ingroup GrpLibOSGBase 
     \nohierarchy
  */
 
@@ -135,6 +136,7 @@ class MFieldVector : public std::vector<Tp, Alloc>
 
 /*! \ingroup GrpBaseField
     \ingroup GrpBaseFieldMulti
+    \ingroup GrpLibOSGBase 
     \nohierarchy
  */
 

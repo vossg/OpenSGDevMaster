@@ -86,6 +86,7 @@ typedef OSG::SharedObject *SharedObjectP;
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseTypeSystem
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -234,6 +235,7 @@ typedef OSG::SharedObjectHandler *SharedObjectHandlerP;
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseTypeSystem
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

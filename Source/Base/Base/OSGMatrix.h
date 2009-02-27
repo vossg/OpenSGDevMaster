@@ -67,6 +67,7 @@ template <class ValueTypeT> class QuaternionBase;
     M.getValues() returns M transposed (as it returns the raw storage)
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMathObj
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

@@ -48,6 +48,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief MapHelper class. 
     \ingroup GrpBaseFieldContainerHelper
+    \ingroup GrpLibOSGBase
     \includebasedoc
 */
 

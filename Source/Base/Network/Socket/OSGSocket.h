@@ -52,6 +52,7 @@ class NetworkMessage;
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
+    \ingroup GrpLibOSGBase
 */
 
 class OSG_BASE_DLLMAPPING Socket

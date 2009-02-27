@@ -65,6 +65,7 @@ class ChildMFieldReferenceProxy;
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -211,6 +212,7 @@ ChildMFieldIterator<PtrTypeT, iNamespace>
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -352,6 +354,7 @@ ChildMFieldConstIterator<PtrTypeT, iNamespace>
 /*-------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -422,6 +425,7 @@ class ChildMFieldReferenceProxy
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template <class    PtrTypeT,

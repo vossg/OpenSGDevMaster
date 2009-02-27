@@ -52,6 +52,7 @@ OSG_BEGIN_NAMESPACE
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template<>
@@ -125,6 +126,7 @@ class OSG_BASE_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template<>
@@ -237,6 +239,7 @@ class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template <class FieldT>
@@ -304,6 +307,7 @@ class GetFCPtrMFieldHandle : public GetMFieldHandle<FieldContainerPtrMFieldBase>
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template <class FieldT>

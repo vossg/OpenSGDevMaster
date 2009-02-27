@@ -50,6 +50,7 @@ class Line;
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseVolume
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING FrustumVolume : public Volume

@@ -53,6 +53,7 @@ class StatElemDescBase;
 /*! \brief Real32 Statistics element, see \ref PageSystemStatistics for 
            details.
     \ingroup GrpBaseStatistics
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING StatRealElem : public StatElem 

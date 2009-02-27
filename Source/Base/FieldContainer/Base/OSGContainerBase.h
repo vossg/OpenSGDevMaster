@@ -42,12 +42,6 @@
 #pragma once
 #endif
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGContainerBase.h
-    \ingroup GrpSystemContainer
- */
-#endif
-
 #include "OSGBaseTypes.h"
 
 OSG_BEGIN_NAMESPACE

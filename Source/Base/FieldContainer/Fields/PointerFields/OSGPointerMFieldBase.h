@@ -50,6 +50,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field

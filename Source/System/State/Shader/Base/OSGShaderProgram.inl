@@ -97,7 +97,7 @@ template<class ValueT>
 bool ShaderProgram::getUniformVariable(const Char8  *name,
                                              ValueT &value)
 {
-    if(_sfVariables.getValue() == NULL)
+    if(_sfVariables.getValue() != NULL)
     {
         return _sfVariables.getValue()->getUniformVariable(name, value);
     }

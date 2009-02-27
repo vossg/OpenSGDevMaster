@@ -63,6 +63,7 @@ class Socket;
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
+    \ingroup GrpLibOSGBase
     \nohierarchy
 */
 

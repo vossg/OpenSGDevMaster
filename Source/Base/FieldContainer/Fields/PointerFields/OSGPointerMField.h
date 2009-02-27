@@ -71,6 +71,7 @@ class PointerMFieldConstIterator;
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -222,6 +223,7 @@ WeakMFieldIterator<PtrTypeT>
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -367,6 +369,7 @@ WeakMFieldConstIterator<PtrTypeT>
 /*-------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -440,6 +443,7 @@ class PointerMFieldReferenceProxy
 /*---------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template <class    PtrTypeT,

@@ -50,6 +50,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerMixins
+    \ingroup GrpLibOSGBase
  */
 
 template <class AttachmentDescT>

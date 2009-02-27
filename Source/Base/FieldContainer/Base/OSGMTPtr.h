@@ -44,17 +44,12 @@
 #include "OSGConfig.h"
 #include "OSGBaseFunctions.h"
 
-#ifdef OSG_DOC_FILES_IN_MODULE
-/*! \file OSGReferenceCountPointerDecl.h
-    \ingroup GrpSystemFieldContainer
- */
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBaseMemory
     \ingroup GrpBaseBaseRefCounting
     \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

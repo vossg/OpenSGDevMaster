@@ -55,6 +55,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -104,6 +105,7 @@ class NoLockPolicy
 #ifndef OSG_EMBEDDED
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -154,6 +156,7 @@ class SingleLockPolicy
 
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

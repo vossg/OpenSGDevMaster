@@ -62,6 +62,7 @@ std::ostream &operator <<(      std::ostream   &os,
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseHelper
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING Exception : 

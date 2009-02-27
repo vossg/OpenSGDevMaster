@@ -63,6 +63,7 @@ OSG_BEGIN_NAMESPACE
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -161,6 +162,7 @@ class MPFieldStore
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

@@ -51,6 +51,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -166,6 +167,7 @@ struct FieldTraits<Matrix> : public FieldTraitsTemplateBase<Matrix>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -280,6 +282,7 @@ struct FieldTraits<Matrix4d> : public FieldTraitsTemplateBase<Matrix4d>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>
@@ -352,7 +355,7 @@ struct FieldTraits<Matrix4fx> : public FieldTraitsTemplateBase<Matrix4fx>
 };
 
 
-/*! \ingroup GrpBaseFieldTraits
+/*! \ingroup GrpBaseFieldTraits 
  */
 
 template <>
@@ -390,6 +393,7 @@ struct FieldTraits<Quaternion> : public FieldTraitsVec4TemplateBase<Quaternion>
 
 
 /*! \ingroup GrpBaseFieldTraits
+    \ingroup GrpLibOSGBase 
  */
 
 template <>

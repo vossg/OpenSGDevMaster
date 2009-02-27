@@ -69,24 +69,24 @@ typedef ChildPointerMField<NodeCore *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFNodeCorePtr : 
     public PointerMField     <NodeCore *, 
                               RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecNodeCorePtr : 
     public PointerMField     <NodeCore *, 
                               UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFWeakNodeCorePtr :
     public PointerMField     <NodeCore *, 
                               WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUncountedNodeCorePtr :
     public PointerMField     <NodeCore *, 
                               NoRefCountPolicy        > {};
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecChildNodeCorePtr :
     public ChildPointerMField<NodeCore *, 
                               UnrecordedRefCountPolicy,

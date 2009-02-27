@@ -364,157 +364,157 @@ typedef MFPnt4fx MFPnt4r;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1ub : public MField<Vec1ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1b : public MField<Vec1b> {};
 #endif
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1us : public MField<Vec1us> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1s : public MField<Vec1s> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1f : public MField<Vec1f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1fx : public MField<Vec1fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1d : public MField<Vec1d> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec1ld : public MField<Vec1ld> {};
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2ub : public MField<Vec2ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2b : public MField<Vec2b> {};
 #endif
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2us : public MField<Vec2us> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2s : public MField<Vec2s> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2f : public MField<Vec2f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2fx : public MField<Vec2fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2d : public MField<Vec2d> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec2ld : public MField<Vec2ld> {};
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3ub : public MField<Vec3ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3b : public MField<Vec3b> {};
 #endif
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3us : public MField<Vec3us> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3s : public MField<Vec3s> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3f : public MField<Vec3f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3fx : public MField<Vec3fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3d : public MField<Vec3d> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec3ld : public MField<Vec3ld> {};
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4ub : public MField<Vec4ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4b : public MField<Vec4b> {};
 #endif
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4us : public MField<Vec4us> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4s : public MField<Vec4s> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4f : public MField<Vec4f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4fx : public MField<Vec4fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4d : public MField<Vec4d> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVec4ld : public MField<Vec4ld> {};
 
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt1ub : public MField<Pnt1ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt1b : public MField<Pnt1b> {};
 #endif
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt1us : public MField<Pnt1us> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt1s : public MField<Pnt1s> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt1f : public MField<Pnt1f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt1fx : public MField<Pnt1fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt1d : public MField<Pnt1d> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt1ld : public MField<Pnt1ld> {};
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt2ub : public MField<Pnt2ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt2b : public MField<Pnt2b> {};
 #endif
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt2us : public MField<Pnt2us> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt2s : public MField<Pnt2s> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt2f : public MField<Pnt2f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt2fx : public MField<Pnt2fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt2d : public MField<Pnt2d> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt2ld : public MField<Pnt2ld> {};
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt3ub : public MField<Pnt3ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt3b : public MField<Pnt3b> {};
 #endif
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt3us : public MField<Pnt3us> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt3s : public MField<Pnt3s> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt3f : public MField<Pnt3f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt3fx : public MField<Pnt3fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt3d : public MField<Pnt3d> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt3ld : public MField<Pnt3ld> {};
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt4ub : public MField<Pnt4ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt4b : public MField<Pnt4b> {};
 #endif
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt4us : public MField<Pnt4us> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt4s : public MField<Pnt4s> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt4f : public MField<Pnt4f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt4fx : public MField<Pnt4fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt4d : public MField<Pnt4d> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPnt4ld : public MField<Pnt4ld> {};
 
 

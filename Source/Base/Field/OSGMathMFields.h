@@ -81,15 +81,15 @@ typedef MFQuaternionfx MFQuaternionr;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFMatrix : public MField<Matrix> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFMatrix4d : public MField<Matrix4d> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFMatrix4fx : public MField<Matrix4fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFQuaternion : public MField<Quaternion> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFQuaternionfx : MField<Quaternionfx> {};
 
 

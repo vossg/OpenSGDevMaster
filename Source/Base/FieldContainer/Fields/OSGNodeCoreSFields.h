@@ -70,23 +70,23 @@ typedef ChildPointerSField<NodeCore *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFRecNodeCorePtr : 
     public PointerSField     <NodeCore *, 
                               RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecNodeCorePtr :
     public PointerSField     <NodeCore *, 
                               UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFWeakNodeCorePtr :
     public PointerSField     <NodeCore *, 
                               WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUncountedNodeCorePtr :
     public PointerSField     <NodeCore *, 
                               NoRefCountPolicy        > {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecChildNodeCorePtr :
     public ChildPointerSField<NodeCore *, 
                               UnrecordedRefCountPolicy,

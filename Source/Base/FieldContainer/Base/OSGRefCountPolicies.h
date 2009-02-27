@@ -46,6 +46,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerBase
     \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -105,6 +106,7 @@ struct RecordedRefCountPolicy
 
 /*! \ingroup GrpBaseFieldContainerBase
     \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -125,6 +127,7 @@ struct MTRecordedRefCountPolicy : public RecordedRefCountPolicy
 
 /*! \ingroup GrpBaseFieldContainerBase
     \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -175,6 +178,7 @@ struct UnrecordedRefCountPolicy
 
 /*! \ingroup GrpBaseFieldContainerBase
     \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -209,6 +213,7 @@ struct NoRefCountPolicy
 
 /*! \ingroup GrpBaseFieldContainerBase
     \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

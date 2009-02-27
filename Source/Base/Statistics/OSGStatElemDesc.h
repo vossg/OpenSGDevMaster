@@ -55,6 +55,7 @@ class StatElem;
 /*! \brief Single Statistics element, see \ref PageSystemStatistics for 
            details.
     \ingroup GrpBaseStatistics
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
  
@@ -146,6 +147,7 @@ class OSG_BASE_DLLMAPPING StatElemDescBase
 /*! \brief Single Statistics element, see \ref PageSystemStatistics for 
            details.
     \ingroup GrpBaseStatistics
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 /*! Base class for all multi field, for example MFMatrix
    \ingroup GrpBaseField
    \ingroup GrpBaseFieldMulti
+   \ingroup GrpLibOSGBase 
  */
 
 template<class  ValueT, 

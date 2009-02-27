@@ -44,6 +44,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerConnector
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING BasicFieldConnector
@@ -76,6 +77,7 @@ class OSG_BASE_DLLMAPPING BasicFieldConnector
 };
 
 /*! \ingroup GrpBaseFieldContainerConnector
+    \ingroup GrpLibOSGBase
  */
 
 template <class FieldT>
@@ -103,6 +105,7 @@ class SFieldConnector : public BasicFieldConnector
 };
 
 /*! \ingroup GrpBaseFieldContainerConnector
+    \ingroup GrpLibOSGBase
  */
 
 template <class FieldT>

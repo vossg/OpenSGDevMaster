@@ -59,12 +59,13 @@
 OSG_BEGIN_NAMESPACE
 
 /*!
- * A Node in OpenSG is a node in the graph.
- *
- * Nodes are responsible for holding children nodes and a link to their parent
- * node.
- *
- * \ingroup GrpBaseFieldContainerNodes
+   A Node in OpenSG is a node in the graph.
+  
+   Nodes are responsible for holding children nodes and a link to their parent
+   node.
+  
+   \ingroup GrpBaseFieldContainerNodes
+   \ingroup GrpLibOSGBase
  */
 class OSG_BASE_DLLMAPPING Node : public AttachmentContainer
 {

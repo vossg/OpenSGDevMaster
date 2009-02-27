@@ -54,6 +54,7 @@ OSG_BEGIN_NAMESPACE
 /*! \brief Factory for Connections, accessible via #ConnectionFactory
     \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

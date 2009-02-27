@@ -54,6 +54,7 @@ OSG_BEGIN_NAMESPACE
 /*! Base class for all single fields, for example SFMatrix.
     \ingroup GrpBaseField
     \ingroup GrpBaseFieldSingle
+    \ingroup GrpLibOSGBase 
  */
 
 template<class ValueT, Int32 iNamespace = 0>

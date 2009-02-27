@@ -72,6 +72,7 @@ OSG_BEGIN_NAMESPACE
 /*! \brief Accessible via #TypeFactory
     \ingroup GrpBaseBaseTypeSystem
     \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING TypeFactoryBase : public FactoryBase

@@ -51,6 +51,7 @@ class StatElemDescBase;
 /*! \brief String Statistics element, see \ref PageSystemStatistics for 
            details.
     \ingroup GrpBaseStatistics
+    \ingroup GrpLibOSGBase
 */
 
 class OSG_BASE_DLLMAPPING StatStringElem : public StatElem 

@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
+    \ingroup GrpLibOSGBase
 */
 
 class OSG_BASE_DLLMAPPING PointSockConnection : public PointConnection

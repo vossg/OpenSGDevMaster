@@ -62,7 +62,8 @@ class PointMCastConnection;
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
-*/
+    \ingroup GrpLibOSGBase
+ */
 
 class OSG_BASE_DLLMAPPING GroupMCastConnection : 
     public GroupSockConnection

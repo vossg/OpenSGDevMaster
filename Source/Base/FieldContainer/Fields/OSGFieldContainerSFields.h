@@ -81,23 +81,23 @@ typedef ParentPointerSField<FieldContainer *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct  SFRecFieldContainerPtr :
     public PointerSField<FieldContainer *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecFieldContainerPtr :
     public PointerSField<FieldContainer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFWeakFieldContainerPtr :
     public PointerSField<FieldContainer *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUncountedFieldContainerPtr :
     public PointerSField<FieldContainer *,
                          NoRefCountPolicy        > {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFParentFieldContainerPtr :
     public ParentPointerSField<FieldContainer *, 
                                NoRefCountPolicy,

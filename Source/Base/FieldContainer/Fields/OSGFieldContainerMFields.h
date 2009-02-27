@@ -84,23 +84,23 @@ typedef
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFRecFieldContainerPtr : 
     public PointerMField<FieldContainer *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecFieldContainerPtr :
     public PointerMField<FieldContainer *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFWeakFieldContainerPtr : 
     public PointerMField<FieldContainer *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUncountedFieldContainerPtr :
     public : PointerMField<FieldContainer *,
                            NoRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFParentFieldContainerPtr :
     public ParentPointerMField<FieldContainer *, 
                                NoRefCountPolicy,

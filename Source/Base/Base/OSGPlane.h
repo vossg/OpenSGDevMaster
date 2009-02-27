@@ -51,6 +51,7 @@ class Line;
 
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMathObj
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

@@ -59,6 +59,7 @@ OSG_BEGIN_NAMESPACE
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 
 class ReflexiveContainer 

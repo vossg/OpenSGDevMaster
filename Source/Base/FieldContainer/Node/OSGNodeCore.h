@@ -59,6 +59,7 @@ class Volume;
 class Node;
 
 /*! \ingroup GrpBaseFieldContainerNodes
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING NodeCore : public AttachmentContainer

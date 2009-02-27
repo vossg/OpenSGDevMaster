@@ -66,6 +66,7 @@ OSG_BEGIN_NAMESPACE
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseBaseMathObj
+    \ingroup GrpLibOSGBase
     \brief A transform that behaves linear under multiplication (+) and
     scalar multiplication (*)
     \nohierarchy

@@ -48,6 +48,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBaseMathObj
+    \ingroup GrpLibOSGBase
  */
 
 template <class ValueTypeT>
@@ -153,6 +154,7 @@ class Color3 : public Vector<ValueTypeT, 3>
 };
 
 /*! \ingroup GrpBaseBaseMathObj
+    \ingroup GrpLibOSGBase
  */
 
 template <class ValueTypeT>

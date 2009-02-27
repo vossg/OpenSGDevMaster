@@ -58,8 +58,6 @@ OSG_BEGIN_NAMESPACE
 //---------------------------------------------------------------------------
 
 /*! \class TypeBase
-    \ingroup GrpBaseBaseTypeSystem
-    \ingroup GrpBaseBase
 
     Base for all types in the type system.
 

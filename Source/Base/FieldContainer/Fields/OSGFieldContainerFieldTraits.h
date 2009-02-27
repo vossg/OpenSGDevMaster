@@ -54,6 +54,7 @@ OSG_BEGIN_NAMESPACE
 
 
 /*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
  */
 
 template<class ValueT, Int32 iNamespace = 0>
@@ -142,6 +143,7 @@ struct FieldTraitsFCPtrBase :
 
 
 /*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>
@@ -236,6 +238,7 @@ const Char8 *FieldTraits<FieldContainer *,
 
 
 /*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>

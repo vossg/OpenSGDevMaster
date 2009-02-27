@@ -60,6 +60,7 @@ class ConnectionType;
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkBase
+    \ingroup GrpLibOSGBase
 */
 
 class OSG_BASE_DLLMAPPING Connection : public BinaryDataHandler

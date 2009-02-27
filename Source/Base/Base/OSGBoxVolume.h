@@ -49,6 +49,7 @@ OSG_BEGIN_NAMESPACE
 
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseVolume
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING BoxVolume : public Volume

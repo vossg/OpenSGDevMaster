@@ -54,6 +54,7 @@ OSG_BEGIN_NAMESPACE
 /*! \brief Accessible via #GLDefineMapper
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseGL
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

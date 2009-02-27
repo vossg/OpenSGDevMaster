@@ -55,6 +55,7 @@ OSG_BEGIN_NAMESPACE
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseFieldContainerHandle
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING FieldHandle
@@ -110,6 +111,7 @@ class OSG_BASE_DLLMAPPING FieldHandle
 class EditFieldHandle;
 
 /*! \ingroup GrpBaseFieldContainerHandle
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING GetFieldHandle : public FieldHandle
@@ -171,6 +173,7 @@ typedef boost::shared_ptr<GetFieldHandle > GetFieldHandlePtr;
 
 
 /*! \ingroup GrpBaseFieldContainerHandle
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING EditFieldHandle : public FieldHandle
@@ -243,6 +246,7 @@ typedef boost::shared_ptr<EditFieldHandle> EditFieldHandlePtr;
 
 
 /*! \ingroup GrpBaseFieldContainerHandle
+    \ingroup GrpLibOSGBase
  */
 
 class GetMapFieldHandle : public GetFieldHandle
@@ -299,6 +303,7 @@ class GetMapFieldHandle : public GetFieldHandle
 typedef boost::shared_ptr<GetMapFieldHandle> GetMapFieldHandlePtr;
 
 /*! \ingroup GrpBaseFieldContainerHandle
+    \ingroup GrpLibOSGBase
  */
 
 class EditMapFieldHandle : public EditFieldHandle
@@ -360,6 +365,7 @@ typedef boost::shared_ptr<EditMapFieldHandle> EditMapFieldHandlePtr;
 
 
 /*! \ingroup GrpBaseFieldContainerHandle
+    \ingroup GrpLibOSGBase
  */
 
 template<class FieldT>
@@ -434,6 +440,7 @@ class EditSFieldHandle : public EditFieldHandle
 
 
 /*! \ingroup GrpBaseFieldContainerHandle
+    \ingroup GrpLibOSGBase
  */
 
 template<class FieldT>
@@ -507,6 +514,7 @@ class EditMFieldHandle : public EditFieldHandle
 };
 
 /*! \ingroup GrpBaseFieldContainerHandle
+    \ingroup GrpLibOSGBase
  */
 
 template<class FieldT>
@@ -563,6 +571,7 @@ class GetSFieldHandle : public GetFieldHandle
 };
 
 /*! \ingroup GrpBaseFieldContainerHandle
+    \ingroup GrpLibOSGBase
  */
 
 template<class FieldT>

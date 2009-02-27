@@ -107,29 +107,29 @@ typedef MFColor4fx MFColor4r;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFColor3f : public MField<Color3f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFColor3fx : public MField<Color3fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFColor4f : public MField<Color4f> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFColor4fx : public MField<Color4fx> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFColor3ub : public MField<Color3ub> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFColor4ub : public MField<Color4ub> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFString : public MField<std::string> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFTime : public MField<Time, 1> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFBoxVolume : public MField<BoxVolume> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFBitVector : public MField<BitVector, 1> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFGLenum : public MField<GLenum, 1> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFPlane : public MField<Plane> {};
 
 

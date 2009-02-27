@@ -173,37 +173,37 @@ typedef MFFixed32 MFReal;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldMulti 
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase  
     \warning the getValue and operator[] functions may not return what
              you expect them to return. Descent STL implementation will 
              certainly not return 'bool &' nor 'const bool &'.
  */
 struct MFBool : public MField<bool, 2>   {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFInt8 : public MField<Int8>   {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFUInt8 : public MField<UInt8>  {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFInt16 : public MField<Int16>  {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFUInt16 : public MField<UInt16> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFInt32 : public MField<Int32>  {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFUInt32 : public MField<UInt32> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFInt64 : public MField<Int64>  {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFUInt64 : public MField<UInt64> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFReal16 : public MField<Real16> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFReal32 : public MField<Real32> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFFixed32 : public MField<Fixed32> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFReal64 : public MField<Real64> {};
-/*! \ingroup GrpBaseFieldMulti */
+/*! \ingroup GrpBaseFieldMulti \ingroup GrpLibOSGBase */
 struct MFVoidP : public MField<void *>   {};
 
 

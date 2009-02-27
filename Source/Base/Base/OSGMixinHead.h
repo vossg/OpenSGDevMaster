@@ -48,6 +48,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! Head for container mixin classes.
     \ingroup GrpBaseBaseHelper
+    \ingroup GrpLibOSGBase
  */
 
 template <class DescT>

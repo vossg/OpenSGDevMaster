@@ -56,6 +56,7 @@ OSG_BEGIN_NAMESPACE
 class FieldContainer;
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

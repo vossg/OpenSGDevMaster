@@ -107,29 +107,29 @@ typedef SFColor4fx SFColor4r;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFColor3f : public SField<Color3f> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFColor3fx : public SField<Color3fx> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFColor4f : public SField<Color4f> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFColor4fx : public SField<Color4fx> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFColor3ub : public SField<Color3ub> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFColor4ub : public SField<Color4ub> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFString : public SField<std::string> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFTime : public SField<Time, 1> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFBoxVolume : public SField<BoxVolume> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFBitVector : public SField<BitVector, 1>  {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFGLenum : public SField<GLenum, 1> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPlane : public SField<Plane> {};
 
 

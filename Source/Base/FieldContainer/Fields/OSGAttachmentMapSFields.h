@@ -56,12 +56,13 @@ typedef SField<AttachmentMap> SFAttachmentPtrMap;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFAttachmentPtrMap : public SField<AttachmentMap> {};
 
 #endif // these are the doxygen hacks
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template<>
@@ -117,6 +118,7 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<SFAttachmentPtrMap> :
 };
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
  */
 
 template<>

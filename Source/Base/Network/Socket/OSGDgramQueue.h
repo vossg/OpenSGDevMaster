@@ -59,8 +59,9 @@ class BaseThread;
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
+    \ingroup GrpLibOSGBase
     \nohierarchy
-*/
+ */
 
 class OSG_BASE_DLLMAPPING DgramQueue 
 {

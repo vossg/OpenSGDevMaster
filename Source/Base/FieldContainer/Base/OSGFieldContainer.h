@@ -70,6 +70,7 @@ template <class FieldT>
 class MFieldConnector;
 
 /*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpLibOSGBase
  */
 
 class FieldContainer : public ReflexiveContainer

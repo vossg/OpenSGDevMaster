@@ -288,119 +288,119 @@ typedef SFPnt4fx SFPnt4r;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2ub : public SField<Vec2ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2b : public SField<Vec2b> {};
 #endif
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2us : public SField<Vec2us> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2s : public SField<Vec2s> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2f : public SField<Vec2f> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2fx : public SField<Vec2fx> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2d : public SField<Vec2d> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec2ld : public SField<Vec2ld> {};
 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3ub : public SField<Vec3ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3b : public SField<Vec3b> {};
 #endif
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3us : public SField<Vec3us> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3s : public SField<Vec3s> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3f : public SField<Vec3f> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3fx : public SField<Vec3fx> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3d : public SField<Vec3d> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec3ld : public SField<Vec3ld> {};
 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4ub : public SField<Vec4ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4b : public SField<Vec4b> {};
 #endif
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4us : public SField<Vec4us> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4s : public SField<Vec4s> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4f : public SField<Vec4f> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4fx : public SField<Vec4fx> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4d : public SField<Vec4d> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFVec4ld : public SField<Vec4ld> {};
 
 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt2ub : public SField<Pnt2ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt2b : public SField<Pnt2b> {};
 #endif
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt2us : public SField<Pnt2us> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt2s : public SField<Pnt2s> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt2f : public SField<Pnt2f> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt2fx : public SField<Pnt2fx> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt2d : public SField<Pnt2d> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt2ld : public SField<Pnt2ld> {};
 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt3ub : public SField<Pnt3ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt3b : public SField<Pnt3b> {};
 #endif
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt3us : public SField<Pnt3us> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt3s : public SField<Pnt3s> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt3f : public SField<Pnt3f> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt3fx : public SField<Pnt3fx> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt3d : public SField<Pnt3d> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt3ld : public SField<Pnt3ld> {};
 
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt4ub : public SField<Pnt4ub> {};
 #ifndef OSG_NO_INT8_PNT
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt4b : public SField<Pnt4b> {};
 #endif
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt4us : public SField<Pnt4us> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt4s : public SField<Pnt4s> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt4f : public SField<Pnt4f> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt4fx : public SField<Pnt4fx> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt4d : public SField<Pnt4d> {};
-/*! \ingroup GrpBaseFieldSingle */
+/*! \ingroup GrpBaseFieldSingle \ingroup GrpLibOSGBase */
 struct SFPnt4ld : public SField<Pnt4ld> {};
 
 

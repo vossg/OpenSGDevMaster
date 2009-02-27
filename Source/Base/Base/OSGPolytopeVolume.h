@@ -52,6 +52,7 @@ OSG_BEGIN_NAMESPACE
     \author dstaneker
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseVolume
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING PolytopeVolume : public Volume

@@ -66,6 +66,7 @@ OSG::TransitPtr<TargetObjectT> static_pointer_cast(
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMemory
     \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

@@ -52,6 +52,7 @@ class PointerMFieldBase;
 class PointerSFieldBase;
 
 /*! \ingroup GrpBaseFieldContainerFields
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

@@ -71,19 +71,19 @@ typedef PointerSField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFRecAttachmentContainerPtr :
     public PointerSField<AttachmentContainer *,
                          RecordedRefCountPolicy     > {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecAttachmentContainerPtr :
     public PointerSField<AttachmentContainer *,
                          UnrecordedRefCountPolicy   > {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFWeakAttachmentContainerPtr : 
     public PointerSField<AttachmentContainer *,
                          WeakRefCountPolicy         > {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUncountedAttachmentContainerPtr :
     public PointerSField<AttachmentContainer *,
                          NoRefCountPolicy           > {};

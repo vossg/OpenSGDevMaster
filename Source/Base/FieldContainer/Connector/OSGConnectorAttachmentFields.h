@@ -69,6 +69,7 @@ class ConnectorAttachment;
 OSG_GEN_CONTAINERPTR(ConnectorAttachment);
 
 /*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
  */
 template <>
 struct FieldTraits<ConnectorAttachment *> :
@@ -178,37 +179,37 @@ typedef PointerMField<ConnectorAttachment *,
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFRecConnectorAttachmentPtr : 
     public PointerSField<ConnectorAttachment *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUnrecConnectorAttachmentPtr : 
     public PointerSField<ConnectorAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFWeakConnectorAttachmentPtr :
     public PointerSField<ConnectorAttachment *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldSFields */
+/*! \ingroup GrpBaseFieldContainerFieldSFields \ingroup GrpLibOSGBase */
 struct SFUncountedConnectorAttachmentPtr :
     public PointerSField<ConnectorAttachment *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFRecConnectorAttachmentPtr :
     public PointerMField<ConnectorAttachment *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUnrecConnectorAttachmentPtr :
     public PointerMField<ConnectorAttachment *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFWeakConnectorAttachmentPtr :
     public PointerMField<ConnectorAttachment *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
 struct MFUncountedConnectorAttachmentPtr :
     public PointerMField<ConnectorAttachment *,
                          NoRefCountPolicy        > {};

@@ -53,6 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 #define doDefineTrait(base, dim, type)                                      \
 /*! \ingroup GrpBaseFieldTraits                                             \
+    \ingroup GrpLibOSGBase
  */                                                                         \
 template <>                                                                 \
 struct FieldTraits<base##dim##type> :                                       \

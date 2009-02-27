@@ -73,6 +73,7 @@ namespace TypePredicates
 //---------------------------------------------------------------------------
 
     /*! \ingroup GrpBaseBaseTypeSystem
+        \ingroup GrpLibOSGBase
         \nohierarchy
      */
 
@@ -98,6 +99,7 @@ namespace TypePredicates
 //---------------------------------------------------------------------------
 
     /*! \ingroup GrpBaseBaseTypeSystem
+        \ingroup GrpLibOSGBase
         \nohierarchy
      */
 

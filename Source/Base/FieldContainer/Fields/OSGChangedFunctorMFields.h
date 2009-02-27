@@ -54,8 +54,8 @@ typedef MField<ChangedFunctorCallback> MFChangedFunctorCallback;
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpBaseFieldContainerFieldMFields */
-typedef MFChangedFunctorCallback : public MField<ChangedFunctorCallback> {};
+/*! \ingroup GrpBaseFieldContainerFieldMFields \ingroup GrpLibOSGBase */
+struct MFChangedFunctorCallback : public MField<ChangedFunctorCallback> {};
 
 #endif // these are the doxygen hacks
 

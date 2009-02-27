@@ -64,6 +64,11 @@ class TypeFactoryBase;
 //  Class
 //---------------------------------------------------------------------------
 
+/*! \ingroup GrpBaseBaseTypeSystem
+    \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
+ */
+
 class OSG_BASE_DLLMAPPING TypeBase
 {
   public:

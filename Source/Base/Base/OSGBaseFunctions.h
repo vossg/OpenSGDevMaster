@@ -540,6 +540,7 @@ Int32 stringcasecmp    (const OSG::Char8 *string1,
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseSTLHelpers
     \ingroup GrpBaseBaseStringFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -555,6 +556,7 @@ struct LTString
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseSTLHelpers
     \ingroup GrpBaseBaseStringFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -572,6 +574,7 @@ struct EQString
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseSTLHelpers
     \ingroup GrpBaseBaseStringFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -599,6 +602,7 @@ struct HashCmpString :
 
 /*! String Tokenizer
     \ingroup GrpBaseBaseStringFn
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -642,6 +646,7 @@ struct OSG_BASE_DLLMAPPING string_token_iterator :
 /*! Indirector
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseSTLHelpers
+    \ingroup GrpLibOSGBase
     \nohierarchy
 
     Allows using an indirection field for STL algorithms, e.g. sort.
@@ -678,6 +683,7 @@ class indirector
 
 /*! Ptr Stripper
     \ingroup GrpBaseBaseHelper
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -690,6 +696,7 @@ struct PtrStripper
 
 /*! Ptr Stripper
     \ingroup GrpBaseBaseHelper
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -702,6 +709,7 @@ struct PtrStripper<PtrT *>
 
 /*! Ptr Stripper
     \ingroup GrpBaseBaseHelper
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -714,6 +722,7 @@ struct PtrStripper<PtrT const *>
 
 /*! Ptr Stripper
     \ingroup GrpBaseBaseHelper
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

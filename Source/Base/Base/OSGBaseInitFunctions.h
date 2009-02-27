@@ -86,6 +86,7 @@ typedef boost::function<bool (void)> ExitFuncF;
 
 /*! \ingroup GrpBaseBaseInitExit
     \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
@@ -102,6 +103,7 @@ struct OSG_BASE_DLLMAPPING InitFuncWrapper
 
 /*! \ingroup GrpBaseBaseInitExit
     \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

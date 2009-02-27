@@ -49,6 +49,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBaseHelper
     \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
     \nohierarchy
  */
 

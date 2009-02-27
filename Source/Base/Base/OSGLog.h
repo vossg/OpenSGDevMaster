@@ -134,6 +134,7 @@ enum LogModuleHandling
 
 
 /*! \ingroup GrpBaseBaseLog
+    \ingroup GrpLibOSGBase
     Logger ostream, required to fix some problems between the different
     plattforms
     \nohierarchy
@@ -151,6 +152,7 @@ struct OSG_BASE_DLLMAPPING LogOStream : public std::ostream
 };
 
 /*! \ingroup GrpBaseBaseLog
+    \ingroup GrpLibOSGBase
     \nohierarchy
     stream buf helper class; creates a chunk buffer of all messages
     which can ge fetched by a application (e.g. gui)
@@ -241,6 +243,7 @@ class OSG_BASE_DLLMAPPING LogBuf : public std::streambuf
 };
 
 /*! \ingroup GrpBaseBaseLog
+    \ingroup GrpLibOSGBase
     \nohierarchy
     Message logger class, handles info,warning and error messages
 
@@ -456,6 +459,7 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
 typedef Log *LogP;
 
 /*! \ingroup GrpBaseBaseLog
+    \ingroup GrpLibOSGBase
     \nohierarchy
  *  Helper class that handles locking and unlocking of the Log object
  */

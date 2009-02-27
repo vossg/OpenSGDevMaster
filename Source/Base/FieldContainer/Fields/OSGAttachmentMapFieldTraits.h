@@ -57,6 +57,7 @@ class Attachment;
 typedef std::map<UInt32, Attachment *>  AttachmentMap;
 
 /*! \ingroup GrpBaseFieldContainerFieldTraits
+    \ingroup GrpLibOSGBase
  */
 
 template <>

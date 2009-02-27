@@ -52,6 +52,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBasePools
     \ingroup GrpBaseBase
+    \ingroup GrpLibOSGBase
     \brief Pool that can store different classes derived from a common base
     class
 

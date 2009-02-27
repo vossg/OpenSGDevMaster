@@ -56,6 +56,7 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerMixins
+    \ingroup GrpLibOSGBase
  */
 template <class ParentT>
 class StageHandlerMixin  : public ParentT

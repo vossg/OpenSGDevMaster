@@ -73,6 +73,7 @@ namespace TypePredicates
 
     /*! \ingroup GrpBaseBaseTypeSystem
         \ingroup GrpBaseFieldContainerHelper
+        \ingroup GrpLibOSGBase
         \nohierarchy
      */
     class OSG_BASE_DLLMAPPING IsSameGroupIdAs
@@ -99,6 +100,7 @@ namespace TypePredicates
 
     /*! \ingroup GrpBaseBaseTypeSystem
         \ingroup GrpBaseFieldContainerHelper
+        \ingroup GrpLibOSGBase
         \nohierarchy
      */
     class OSG_BASE_DLLMAPPING IsSameGroupAs

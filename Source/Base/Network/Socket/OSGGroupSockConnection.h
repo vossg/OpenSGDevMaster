@@ -61,7 +61,8 @@ class PointSockConnection;
 
 /*! \ingroup GrpBaseNetwork
     \ingroup GrpBaseNetworkSockets
-*/
+    \ingroup GrpLibOSGBase
+ */
 
 class OSG_BASE_DLLMAPPING GroupSockConnection : public GroupConnection
 {

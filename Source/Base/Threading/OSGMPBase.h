@@ -71,6 +71,7 @@ typedef void        (*InitThreadingF) (void);
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING MPType : public TypeBase
@@ -123,6 +124,7 @@ class OSG_BASE_DLLMAPPING MPType : public TypeBase
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING MPThreadType : public MPType
@@ -192,6 +194,7 @@ class OSG_BASE_DLLMAPPING MPThreadType : public MPType
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING MPBarrierType : public MPType
@@ -257,6 +260,7 @@ class OSG_BASE_DLLMAPPING MPBarrierType : public MPType
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING MPCondVarType : public MPType
@@ -323,6 +327,7 @@ class OSG_BASE_DLLMAPPING MPCondVarType : public MPType
 //---------------------------------------------------------------------------
 
 /*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
  */
 
 class OSG_BASE_DLLMAPPING MPLockType : public MPType
@@ -389,8 +394,9 @@ class OSG_BASE_DLLMAPPING MPLockType : public MPType
 //  Class
 //---------------------------------------------------------------------------
 
-//! \ingroup GrpBaseMultiThreading
-
+/*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
+ */
 class OSG_BASE_DLLMAPPING MPLockPoolType : public MPType
 {
     /*==========================  PRIVATE  ================================*/
@@ -456,8 +462,9 @@ class OSG_BASE_DLLMAPPING MPLockPoolType : public MPType
 //  Class
 //---------------------------------------------------------------------------
 
-//! \ingroup GrpBaseMultiThreading
-
+/*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
+ */
 class OSG_BASE_DLLMAPPING MPBase : public MemoryObject
 {
     /*==========================  PUBLIC  =================================*/
