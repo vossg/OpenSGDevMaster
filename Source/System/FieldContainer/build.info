@@ -1,9 +1,0 @@
-#!python
-#
-if option_pass:
-   print "Processing option pass"
-else:
-
-   library = "OSGSystem"
-
-   doc_extra_files = ['FieldContainer.dox']
