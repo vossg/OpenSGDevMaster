@@ -352,7 +352,7 @@ void TextureEnvChunk::dump(      UInt32    uiIndent,
     {
         indentLog(uiIndent, PLOG);
         PLOG << "envScaleRGB "
-             << GLDefineMapper::the()->toString(_sfEnvScaleRGB.getValue())
+             << _sfEnvScaleRGB.getValue()
              << "\n";
     }
 
@@ -360,7 +360,7 @@ void TextureEnvChunk::dump(      UInt32    uiIndent,
     {
         indentLog(uiIndent, PLOG);
         PLOG << "envScaleAlpha "
-             << GLDefineMapper::the()->toString(_sfEnvScaleAlpha.getValue())
+             << _sfEnvScaleAlpha.getValue()
              << "\n";
     }
 
