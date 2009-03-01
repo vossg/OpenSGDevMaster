@@ -689,31 +689,6 @@ void TextureObjChunkBase::setBorderWidth(const UInt32 value)
 
     _sfBorderWidth.setValue(value);
 }
-//! Get the value of the TextureObjChunk::_sfNPOTMatrixScale field.
-
-inline
-UInt32 &TextureObjChunkBase::editNPOTMatrixScale(void)
-{
-    editSField(NPOTMatrixScaleFieldMask);
-
-    return _sfNPOTMatrixScale.getValue();
-}
-
-//! Get the value of the TextureObjChunk::_sfNPOTMatrixScale field.
-inline
-      UInt32  TextureObjChunkBase::getNPOTMatrixScale(void) const
-{
-    return _sfNPOTMatrixScale.getValue();
-}
-
-//! Set the value of the TextureObjChunk::_sfNPOTMatrixScale field.
-inline
-void TextureObjChunkBase::setNPOTMatrixScale(const UInt32 value)
-{
-    editSField(NPOTMatrixScaleFieldMask);
-
-    _sfNPOTMatrixScale.setValue(value);
-}
 //! Get the value of the TextureObjChunk::_sfSkipMipMapLevels field.
 
 inline
@@ -825,9 +800,6 @@ void TextureObjChunkBase::execSync (      TextureObjChunkBase *pFrom,
 
     if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
         _sfBorderWidth.syncWith(pFrom->_sfBorderWidth);
-
-    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
-        _sfNPOTMatrixScale.syncWith(pFrom->_sfNPOTMatrixScale);
 
     if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
         _sfSkipMipMapLevels.syncWith(pFrom->_sfSkipMipMapLevels);

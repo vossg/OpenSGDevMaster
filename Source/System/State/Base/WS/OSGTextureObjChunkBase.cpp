@@ -246,10 +246,6 @@ OSG_BEGIN_NAMESPACE
     Texture border width in pixels.
 */
 
-/*! \var UInt32          TextureObjChunkBase::_sfNPOTMatrixScale
-    Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
-*/
-
 /*! \var Real32          TextureObjChunkBase::_sfSkipMipMapLevels
     Percentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.
 */
@@ -579,18 +575,6 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleBorderWidth),
         static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleBorderWidth));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
-        "NPOTMatrixScale",
-        "Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!\n",
-        NPOTMatrixScaleFieldId, NPOTMatrixScaleFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureObjChunk::editHandleNPOTMatrixScale),
-        static_cast<FieldGetMethodSig >(&TextureObjChunk::getHandleNPOTMatrixScale));
 
     oType.addInitialDesc(pDesc);
 
@@ -956,6 +940,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t>\n"
     "\tTexture border width in pixels.\n"
     "\t</Field>\n"
+    "<!-- DISABLED - does not interact well with TextureTransformChunk\n"
     "\t<Field\n"
     "\t\tname=\"NPOTMatrixScale\"\n"
     "\t\ttype=\"UInt32\"\n"
@@ -966,6 +951,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t>\n"
     "\tUse the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!\n"
     "\t</Field>\n"
+    "-->\n"
     "\t<Field\n"
     "\t\tname=\"skipMipMapLevels\"\n"
     "\t\ttype=\"Real32\"\n"
@@ -1356,19 +1342,6 @@ const SFUInt32 *TextureObjChunkBase::getSFBorderWidth(void) const
 }
 
 
-SFUInt32 *TextureObjChunkBase::editSFNPOTMatrixScale(void)
-{
-    editSField(NPOTMatrixScaleFieldMask);
-
-    return &_sfNPOTMatrixScale;
-}
-
-const SFUInt32 *TextureObjChunkBase::getSFNPOTMatrixScale(void) const
-{
-    return &_sfNPOTMatrixScale;
-}
-
-
 SFReal32 *TextureObjChunkBase::editSFSkipMipMapLevels(void)
 {
     editSField(SkipMipMapLevelsFieldMask);
@@ -1492,10 +1465,6 @@ UInt32 TextureObjChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfBorderWidth.getBinSize();
     }
-    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
-    {
-        returnValue += _sfNPOTMatrixScale.getBinSize();
-    }
     if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
     {
         returnValue += _sfSkipMipMapLevels.getBinSize();
@@ -1609,10 +1578,6 @@ void TextureObjChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfBorderWidth.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
-    {
-        _sfNPOTMatrixScale.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
     {
         _sfSkipMipMapLevels.copyToBin(pMem);
@@ -1723,10 +1688,6 @@ void TextureObjChunkBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
     {
         _sfBorderWidth.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
-    {
-        _sfNPOTMatrixScale.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
     {
@@ -1884,7 +1845,6 @@ TextureObjChunkBase::TextureObjChunkBase(void) :
     _sfCompareFunc            (GLenum(GL_LEQUAL)),
     _sfDepthMode              (GLenum(GL_LUMINANCE)),
     _sfBorderWidth            (UInt32(0)),
-    _sfNPOTMatrixScale        (UInt32(0)),
     _sfSkipMipMapLevels       (Real32(0))
 {
 }
@@ -1918,7 +1878,6 @@ TextureObjChunkBase::TextureObjChunkBase(const TextureObjChunkBase &source) :
     _sfCompareFunc            (source._sfCompareFunc            ),
     _sfDepthMode              (source._sfDepthMode              ),
     _sfBorderWidth            (source._sfBorderWidth            ),
-    _sfNPOTMatrixScale        (source._sfNPOTMatrixScale        ),
     _sfSkipMipMapLevels       (source._sfSkipMipMapLevels       )
 {
 }
@@ -2552,29 +2511,6 @@ EditFieldHandlePtr TextureObjChunkBase::editHandleBorderWidth    (void)
 
 
     editSField(BorderWidthFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureObjChunkBase::getHandleNPOTMatrixScale (void) const
-{
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
-             &_sfNPOTMatrixScale,
-             this->getType().getFieldDesc(NPOTMatrixScaleFieldId)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureObjChunkBase::editHandleNPOTMatrixScale(void)
-{
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
-             &_sfNPOTMatrixScale,
-             this->getType().getFieldDesc(NPOTMatrixScaleFieldId)));
-
-
-    editSField(NPOTMatrixScaleFieldMask);
 
     return returnValue;
 }

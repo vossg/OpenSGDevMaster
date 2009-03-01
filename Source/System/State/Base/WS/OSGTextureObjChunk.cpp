@@ -435,12 +435,6 @@ void TextureObjChunk::dump(      UInt32    uiIndent,
         PLOG << "borderWidth " << _sfBorderWidth.getValue() << "\n";
     }
 
-    if((bvFlags & NPOTMatrixScaleFieldMask) != 0)
-    {
-        indentLog(uiIndent, PLOG);
-        PLOG << "npotMatrixScale " << _sfNPOTMatrixScale.getValue() << "\n";
-    }
-
     if((bvFlags & SkipMipMapLevelsFieldMask) != 0)
     {
         indentLog(uiIndent, PLOG);
@@ -1841,119 +1835,6 @@ void TextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
         glEnable(target);
     }
 
-#if 0
-    // Use texture matrix for scaling
-    UInt32 NpotMatScale = getNPOTMatrixScale();
-    bool setMatrix = false;
-	Matrix texMat;
-    
-    if ( idx < static_cast<UInt32>(ntexcoords) &&
-        !getScale() && NpotMatScale )
-    {
-        ImagePtr i = getImage();
-        
-        if (i != NullFC)
-        {
-            Real32 sw=1.f, sh=1.f, sd=1.f,
-                   tw=0.f, th=0.f, td=0.f;
-            
-            if ( (NpotMatScale & NPotTexScale_TT) &&
-                  getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
-                 !win->hasExtension(_arbTextureNonPowerOfTwo) )
-            {
-                UInt32 w,h,d,nw,nh,nd;
-                
-                w = i->getWidth();
-                h = i->getHeight();
-                d = i->getDepth();
-                
-                nw = osgnextpower2(w);
-                nh = osgnextpower2(h);
-                nd = osgnextpower2(d);
-                
-                sw = w / static_cast<Real32>(nw);
-                sh = h / static_cast<Real32>(nh);
-                sd = d / static_cast<Real32>(nd);
-                
-                setMatrix = true;
-            }
-            if ( (NpotMatScale & XFlip_TT) )
-            {
-                tw = sw - 1.f;
-                sw *= -1.f;
-                
-                setMatrix = true;
-            }
-            if ( (NpotMatScale & YFlip_TT) )
-            {
-                th = sh - 1.f;
-                sh *= -1.f;
-                
-                setMatrix = true;
-            }
-            if ( (NpotMatScale & ZFlip_TT) )
-            {
-                td = sd - 1.f;
-                sd *= -1.f;
-                
-                setMatrix = true;
-            }
-            
-            if (setMatrix)
-            {
-                Matrix m;
-                
-                m.setIdentity();
-                m.setScale( Vec3f(sw, sh, sd) );
-                m.setTranslate( Vec3f(tw, th, td) );
-
-                glPushAttrib(GL_TRANSFORM_BIT);
-                glMatrixMode(GL_TEXTURE);
-				
-				glLoadMatrixf(m.getValues());
-				
-#if TMHACK
-				if (TextureTransformChunk::activeMatrix(texMat, idx))
-					glMultMatrixf(texMat.getValues());
-#endif
-                
-                glPopAttrib();
-				
-				if (idx >= _needTexMat.size())
-				{
-					_needTexMat.resize(idx+1, false);
-					_lastTexMat.resize(idx+1, Matrix::identity());
-				}
-				_needTexMat[idx] = true;
-				_lastTexMat[idx] = m;
-            }
-        }
-    }
-    
-    if (!setMatrix && idx < static_cast<UInt32>(ntexcoords))
-    {
-        glPushAttrib(GL_TRANSFORM_BIT);
-        glMatrixMode(GL_TEXTURE);
-		
-#if TMHACK
-		if (TextureTransformChunk::activeMatrix(texMat, idx))
-			glLoadMatrixf(texMat.getValues());
-		else
-#endif
-			glLoadIdentity();
-        
-		glPopAttrib();
-		
-		if (idx >= _needTexMat.size())
-		{
-			_needTexMat.resize(idx+1, false);
-			_lastTexMat.resize(idx+1, Matrix::identity());
-		}
-		_needTexMat[idx] = false;
-		_lastTexMat[idx].setIdentity();
-    }
-#endif
-
     glErr("TextureObjChunk::activate");
 }
 
@@ -2145,119 +2026,6 @@ void TextureObjChunk::changeFrom(DrawEnv    *pEnv,
         }
     }
 
-#if 0
-    // Use texture matrix for scaling
-    UInt32 NpotMatScale = getNPOTMatrixScale();
-    bool setMatrix = false;
-	Matrix texMat;
-    
-    if ( idx < static_cast<UInt32>(ntexcoords) &&
-        !getScale() && NpotMatScale )
-    {
-        ImagePtr i = getImage();
-        
-        if (i != NullFC)
-        {
-            Real32 sw=1.f, sh=1.f, sd=1.f,
-                   tw=0.f, th=0.f, td=0.f;
-            
-            if ( (NpotMatScale & NPotTexScale_TT) &&
-                  getTarget() != GL_TEXTURE_RECTANGLE_ARB &&
-                 !win->hasExtension(_arbTextureNonPowerOfTwo) )
-            {
-                UInt32 w,h,d,nw,nh,nd;
-                
-                w = i->getWidth();
-                h = i->getHeight();
-                d = i->getDepth();
-                
-                nw = osgnextpower2(w);
-                nh = osgnextpower2(h);
-                nd = osgnextpower2(d);
-                
-                sw = w / static_cast<Real32>(nw);
-                sh = h / static_cast<Real32>(nh);
-                sd = d / static_cast<Real32>(nd);
-                
-                setMatrix = true;
-            }
-            if ( (NpotMatScale & XFlip_TT) )
-            {
-                tw = sw - 1.f;
-                sw *= -1.f;
-                
-                setMatrix = true;
-            }
-            if ( (NpotMatScale & YFlip_TT) )
-            {
-                th = sh - 1.f;
-                sh *= -1.f;
-                
-                setMatrix = true;
-            }
-            if ( (NpotMatScale & ZFlip_TT) )
-            {
-                td = sd - 1.f;
-                sd *= -1.f;
-                
-                setMatrix = true;
-            }
-            
-            if (setMatrix)
-            {
-                Matrix m;
-                
-                m.setIdentity();
-                m.setScale( Vec3f(sw, sh, sd) );
-                m.setTranslate( Vec3f(tw, th, td) );
-                
-                glPushAttrib(GL_TRANSFORM_BIT);
-                glMatrixMode(GL_TEXTURE);
-				
-                glLoadMatrixf(m.getValues());
-                
-#if TMHACK
-				if (TextureTransformChunk::activeMatrix(texMat, idx))
-					glMultMatrixf(texMat.getValues());
-#endif
-				
-				glPopAttrib();
-				
-				if (idx >= _needTexMat.size())
-				{
-					_needTexMat.resize(idx+1, false);
-					_lastTexMat.resize(idx+1, Matrix::identity());
-				}
-				_needTexMat[idx] = true;
-				_lastTexMat[idx] = m;
-            }
-        }
-    }
-
-    if (!setMatrix && idx < static_cast<UInt32>(ntexcoords))
-    {
-        glPushAttrib(GL_TRANSFORM_BIT);
-        glMatrixMode(GL_TEXTURE);
-		
-#if TMHACK
-        if (TextureTransformChunk::activeMatrix(texMat, idx))
-			glLoadMatrixf(texMat.getValues());
-		else
-#endif
-			glLoadIdentity();
-        
-		glPopAttrib();
-		
-		if (idx >= _needTexMat.size())
-		{
-			_needTexMat.resize(idx+1, false);
-			_lastTexMat.resize(idx+1, Matrix::identity());
-		}
-		_needTexMat[idx] = false;
-		_lastTexMat[idx].setIdentity();
-    }
-#endif
-
     glErr("TextureObjChunk::changeFrom");
 }
 
@@ -2350,35 +2118,6 @@ void TextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
         target = GL_TEXTURE_CUBE_MAP_ARB;
     }
 
-#if 0
-    // be consistent with TextureTransform which has to multiply
-    //UInt32 NpotMatScale = getNPOTMatrixScale();
-	Matrix texMat;
-    
-    if ( idx < static_cast<UInt32>(ntexcoords) )
-    {
-        glPushAttrib(GL_TRANSFORM_BIT);
-        glMatrixMode(GL_TEXTURE);
-		
-#if TMHACK
-        if (TextureTransformChunk::activeMatrix(texMat, idx))
-			glLoadMatrixf(texMat.getValues());
-		else
-#endif
-			glLoadIdentity();
-        
-		glPopAttrib();
-		
-		if (idx >= _needTexMat.size())
-		{
-			_needTexMat.resize(idx+1, false);
-			_lastTexMat.resize(idx+1, Matrix::identity());
-		}
-		_needTexMat[idx] = false;
-		_lastTexMat[idx].setIdentity();
-    }
-#endif
-
     glDisable(target);
 
     pEnv->setActiveTexTarget(idx, GL_NONE);
@@ -2456,8 +2195,7 @@ bool TextureObjChunk::operator == (const StateChunk &other) const
         getWrapS          () == tother->getWrapS          () &&
         getWrapT          () == tother->getWrapT          () &&
         getWrapR          () == tother->getWrapR          () &&
-        getPriority       () == tother->getPriority       () &&
-		getNPOTMatrixScale() == tother->getNPOTMatrixScale();
+        getPriority       () == tother->getPriority       ();
 
     return returnValue;
 }

@@ -90,7 +90,6 @@
 #include "OSGGLenumFields.h" // CompareFunc type
 #include "OSGGLenumFields.h" // DepthMode type
 #include "OSGUInt32Fields.h" // BorderWidth type
-#include "OSGUInt32Fields.h" // NPOTMatrixScale type
 #include "OSGReal32Fields.h" // SkipMipMapLevels type
 
 #include "OSGTextureObjChunkFields.h"
@@ -144,8 +143,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         CompareFuncFieldId = CompareModeFieldId + 1,
         DepthModeFieldId = CompareFuncFieldId + 1,
         BorderWidthFieldId = DepthModeFieldId + 1,
-        NPOTMatrixScaleFieldId = BorderWidthFieldId + 1,
-        SkipMipMapLevelsFieldId = NPOTMatrixScaleFieldId + 1,
+        SkipMipMapLevelsFieldId = BorderWidthFieldId + 1,
         NextFieldId = SkipMipMapLevelsFieldId + 1
     };
 
@@ -199,8 +197,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
         (TypeTraits<BitVector>::One << DepthModeFieldId);
     static const OSG::BitVector BorderWidthFieldMask =
         (TypeTraits<BitVector>::One << BorderWidthFieldId);
-    static const OSG::BitVector NPOTMatrixScaleFieldMask =
-        (TypeTraits<BitVector>::One << NPOTMatrixScaleFieldId);
     static const OSG::BitVector SkipMipMapLevelsFieldMask =
         (TypeTraits<BitVector>::One << SkipMipMapLevelsFieldId);
     static const OSG::BitVector NextFieldMask =
@@ -231,7 +227,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     typedef SFGLenum          SFCompareFuncType;
     typedef SFGLenum          SFDepthModeType;
     typedef SFUInt32          SFBorderWidthType;
-    typedef SFUInt32          SFNPOTMatrixScaleType;
     typedef SFReal32          SFSkipMipMapLevelsType;
 
     /*---------------------------------------------------------------------*/
@@ -332,9 +327,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
                   SFUInt32            *editSFBorderWidth    (void);
             const SFUInt32            *getSFBorderWidth     (void) const;
 
-                  SFUInt32            *editSFNPOTMatrixScale(void);
-            const SFUInt32            *getSFNPOTMatrixScale (void) const;
-
                   SFReal32            *editSFSkipMipMapLevels(void);
             const SFReal32            *getSFSkipMipMapLevels (void) const;
 
@@ -413,9 +405,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
                   UInt32              &editBorderWidth    (void);
                   UInt32               getBorderWidth     (void) const;
 
-                  UInt32              &editNPOTMatrixScale(void);
-                  UInt32               getNPOTMatrixScale (void) const;
-
                   Real32              &editSkipMipMapLevels(void);
                   Real32               getSkipMipMapLevels (void) const;
 
@@ -449,7 +438,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
             void setCompareFunc    (const GLenum &value);
             void setDepthMode      (const GLenum &value);
             void setBorderWidth    (const UInt32 value);
-            void setNPOTMatrixScale(const UInt32 value);
             void setSkipMipMapLevels(const Real32 value);
 
     /*! \}                                                                 */
@@ -540,7 +528,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     SFGLenum          _sfCompareFunc;
     SFGLenum          _sfDepthMode;
     SFUInt32          _sfBorderWidth;
-    SFUInt32          _sfNPOTMatrixScale;
     SFReal32          _sfSkipMipMapLevels;
 
     /*! \}                                                                 */
@@ -628,8 +615,6 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunkBase : public TextureBaseChunk
     EditFieldHandlePtr editHandleDepthMode      (void);
     GetFieldHandlePtr  getHandleBorderWidth     (void) const;
     EditFieldHandlePtr editHandleBorderWidth    (void);
-    GetFieldHandlePtr  getHandleNPOTMatrixScale (void) const;
-    EditFieldHandlePtr editHandleNPOTMatrixScale(void);
     GetFieldHandlePtr  getHandleSkipMipMapLevels (void) const;
     EditFieldHandlePtr editHandleSkipMipMapLevels(void);
 

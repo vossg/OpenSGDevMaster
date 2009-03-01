@@ -335,6 +335,7 @@ extension(s) are also available.
 	>
 	Texture border width in pixels.
 	</Field>
+<!-- DISABLED - was in 1.x, but does not interact well with TextureTransformChunk
 	<Field
 		name="NPOTMatrixScale"
 		type="UInt32"
@@ -345,6 +346,7 @@ extension(s) are also available.
 	>
 	Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
 	</Field>
+-->
 	<Field
 		name="skipMipMapLevels"
 		type="Real32"
