@@ -556,9 +556,9 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Debug 
-                RUNTIME DESTINATION lib/dbg
-                LIBRARY DESTINATION lib/dbg
-                ARCHIVE DESTINATION lib/dbg)
+                RUNTIME DESTINATION lib/debug
+                LIBRARY DESTINATION lib/debug
+                ARCHIVE DESTINATION lib/debug)
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS DebugRT
