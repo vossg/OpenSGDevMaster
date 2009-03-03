@@ -249,7 +249,10 @@ void ColladaInstanceGeometry::read(void)
         ChunkMaterial *cm = NULL;
 
         if(matIt != _matMap.end())
+        {
             cm = matIt->second;
+            setName(matGroupNode, matIt->first);
+        }
 
         matGroup    ->setMaterial(cm      );
         matGroupNode->setCore    (matGroup);
@@ -263,8 +266,6 @@ void ColladaInstanceGeometry::read(void)
             geoNode     ->setCore    (geoIt->second[i]->geo);
             matGroupNode->addChild   (geoNode              );
         }
-
-        setName(matGroupNode, matIt->first);
 
         _node->addChild(matGroupNode);
     }
