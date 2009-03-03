@@ -47,6 +47,7 @@ OSG_ADD_DIRECTORY("Source/System/FileIO/RAW")
 OSG_ADD_DIRECTORY("Source/System/FileIO/OpenFlight")
 OSG_ADD_DIRECTORY("Source/System/FileIO/OSB")
 OSG_ADD_DIRECTORY("Source/System/FileIO/OBJ")
+OSG_ADD_DIRECTORY("Source/System/FileIO/OFF")
 OSG_ADD_DIRECTORY("Source/System/FileIO/STL")
 
 IF(COLLADA_FOUND)
