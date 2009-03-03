@@ -44,6 +44,7 @@ OSG_ADD_DIRECTORY("Source/Base/FieldContainer/Node")
 OSG_ADD_DIRECTORY("Source/Base/Network")
 OSG_ADD_DIRECTORY("Source/Base/Network/Base")
 OSG_ADD_DIRECTORY("Source/Base/Network/Socket")
+OSG_ADD_DIRECTORY("Source/Base/PerfMonitor")
 OSG_ADD_DIRECTORY("Source/Base/Statistics")
 OSG_ADD_DIRECTORY("Source/Base/Threading")
 

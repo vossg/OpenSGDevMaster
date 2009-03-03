@@ -40,7 +40,7 @@
 #define _OSG_PERF_MONITOR_
 
 #include "OSGConfig.h"
-#include "OSGUtilDef.h"
+#include "OSGBaseDef.h"
 
 #include "OSGTime.h"
 #include "OSGConfig.h"
@@ -66,7 +66,7 @@ typedef boost::shared_ptr<NestedSampleInfo> NestedSampleInfoPtr;
  * Helper class to hold samples and sub samples.
  * A node in the "performance tree".
  */
-class OSG_UTIL_DLLMAPPING NestedSampleInfo
+class OSG_BASE_DLLMAPPING NestedSampleInfo
 {
 public:
 #ifdef OSG_STL_HAS_HASH_MAP
@@ -171,7 +171,7 @@ public:
  * Performance tracker that tracks the performance of nested calls.  This is
  * useful for later visualization of the performance from these values. 
  */
-class OSG_UTIL_DLLMAPPING NestedPerfTracker
+class OSG_BASE_DLLMAPPING NestedPerfTracker
 {
 public:
     class SamplePair
@@ -342,7 +342,7 @@ public:
  *    One line per sample.  Each list is a list of comma separated values.
  *  <thread id: int>,<timestamp: double>,<type: int>,<metric: double>,<name:"string",<desc: "string">
 */
-class OSG_UTIL_DLLMAPPING PerfMonitorBase
+class OSG_BASE_DLLMAPPING PerfMonitorBase
 {
 public:
     enum SampleType
