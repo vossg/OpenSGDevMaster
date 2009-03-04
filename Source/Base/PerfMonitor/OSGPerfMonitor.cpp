@@ -286,7 +286,7 @@ void PerfMonitorBase::updateFrame()
     // TODO: Update helpers
 
     // Flush as needed
-    if ((mSamples.size() % mFlushingRate) == 0)
+    if (mSamples.size() >= mFlushingRate)
     {
        flushOutput();
        mSamples.clear();
