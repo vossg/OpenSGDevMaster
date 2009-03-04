@@ -62,15 +62,17 @@ OSG_BEGIN_NAMESPACE
 class NestedSampleInfo;
 typedef boost::shared_ptr<NestedSampleInfo> NestedSampleInfoPtr;
 
-/**
+/*! \ingroup BaseGrpPerfMon
+ *  \nohierarchy
  * Helper class to hold samples and sub samples.
  * A node in the "performance tree".
  */
 class OSG_BASE_DLLMAPPING NestedSampleInfo
 {
-public:
+  public:
 #ifdef OSG_STL_HAS_HASH_MAP
 #ifndef WIN32
+    /*! \nohierarchy */
     struct string_hash
     {
         size_t operator()(const std::string &s) const
@@ -167,13 +169,15 @@ public:
    Real32           mPercentage;  /**< Percentage of time consumed relative to siblings. */   
 };
 
-/**
+/*! \ingroup GrpBasePerfMon
+ *  \nohierarchy
  * Performance tracker that tracks the performance of nested calls.  This is
  * useful for later visualization of the performance from these values. 
  */
 class OSG_BASE_DLLMAPPING NestedPerfTracker
 {
 public:
+    /*! \nohierarchy */
     class SamplePair
     {
     public:
@@ -326,7 +330,8 @@ public:
 };
 
 
-/**
+/*! \ingroup GrpBasePerfMon
+ *  \nohierarchy
  * Central class for all performance monitoring.
  * This class is a singleton that provides the interface for collecting
  * performance monitoring data.  It makes use of other helper classes to
@@ -355,7 +360,9 @@ public:
         LAST
     };
 
-    /** Data for a single sample. */
+    /*! \nohierarchy
+        Data for a single sample. 
+     */
     struct SampleData
     {
         SampleData()

@@ -44,7 +44,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-/**
+/*! \ingroup GrpBasePerfMon
+ *  \nohierarchy
  * Helper class that uses the guard idiom to create and monitor performance.
  * To use, just create a PerfMonitorGuard with the name of the perf sample
  * point. It will automatically call enter on creation and exit on destruction.

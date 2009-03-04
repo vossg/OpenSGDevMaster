@@ -193,6 +193,12 @@ using namespace OSG;
     ToDo
 */
 
+/*! \defgroup GrpBasePerfMon Perfomance Monitor
+    \ingroup GrpBase
+
+    ToDo
+*/
+
 #if 0
 
 /*! \defgroup GrpBaseBaseColors Colors
