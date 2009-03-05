@@ -75,8 +75,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StateChunk
-    \ingroup GrpSystemState
-
     See \ref PageSystemState for the conceptual background.
  */
 
@@ -122,18 +120,17 @@ StateChunkBase::TypeObject StateChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"StateChunk\"\n"
-    "\tparent=\"Attachment\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
+    "   name=\"StateChunk\"\n"
+    "   parent=\"Attachment\"\n"
+    "   library=\"System\"\n"
+    "   structure=\"abstract\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemState\"\n"
     ">\n"
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemState for the conceptual background.\n"
     "\t<Field\n"
     "\t\tname=\"ignore\"\n"
@@ -146,8 +143,6 @@ StateChunkBase::TypeObject StateChunkBase::_type(
     "\tEnables / disables a chunk\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemState for the conceptual background.\n"
     );
 

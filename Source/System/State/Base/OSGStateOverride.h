@@ -60,7 +60,9 @@ class ShaderProgramChunk;
 class ShaderProgramVariableChunk;
 class ShaderProgram;
 
-/*! \ingroup GrpSystemRenderingBackend
+/*! \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
 */
 
 class OSG_SYSTEM_DLLMAPPING StateOverride 

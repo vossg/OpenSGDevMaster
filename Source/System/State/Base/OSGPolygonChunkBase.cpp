@@ -83,8 +83,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::PolygonChunk
-    \ingroup GrpSystemState
-
     See \ref PageSystemPolygonChunk for details.
 
     The parameters of the following functions are wrapped here:
@@ -307,15 +305,15 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"PolygonChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
+    "   name=\"PolygonChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"System\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpSystemState\"\n"
     "><![CDATA[\n"
-    "\\ingroup GrpSystemState\n"
     "\n"
     "See \\ref PageSystemPolygonChunk for details.\n"
     "\n"
@@ -445,8 +443,6 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "        32 elements.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemPolygonChunk for details.\n"
     "\n"
     "The parameters of the following functions are wrapped here:\n"

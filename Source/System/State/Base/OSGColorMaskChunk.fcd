@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ColorMaskChunk"
-	parent="StateChunk"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
+   name="ColorMaskChunk"
+   parent="StateChunk"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemState"
 >
 The color mask chunk contains the parameters that are specific for color writing.
 	<Field

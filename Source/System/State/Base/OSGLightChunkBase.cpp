@@ -76,8 +76,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::LightChunk
-    \ingroup GrpSystemState
-
     See \ref PageSystemLightChunk for a description.
 
     The light chunk contains the parameter set for a single light source. It's taken
@@ -294,16 +292,15 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"LightChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
+    "   name=\"LightChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"System\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpSystemState\"\n"
     ">\n"
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemLightChunk for a description.\n"
     "\n"
     "The light chunk contains the parameter set for a single light source. It's taken\n"
@@ -418,8 +415,6 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemLightChunk for a description.\n"
     "\n"
     "The light chunk contains the parameter set for a single light source. It's taken\n"

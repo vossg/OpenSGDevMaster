@@ -58,10 +58,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup STLHelpers
-    \hideinhierarchy
-    Helper struct to remove chunks from a state.
-*/
 template<typename _InputIterator, typename _Function>
 _Function for_each_iterator(_InputIterator __first, 
                             _InputIterator __last, 
@@ -78,6 +74,9 @@ _Function for_each_iterator(_InputIterator __first,
 
     return __f;
 }
+
+/*! \nohierarchy
+ */
 
 struct ClearSlot : public std::unary_function<MFUnrecStateChunkPtr::iterator &, 
                                               void>

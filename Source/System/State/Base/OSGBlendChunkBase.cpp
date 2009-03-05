@@ -79,8 +79,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::BlendChunk
-    \ingroup GrpSystemState
-
     See \ref PageSystemBlendChunk for a description. 
 
     The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel
@@ -257,15 +255,15 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"BlendChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    ">\n"
-    "\\ingroup GrpSystemState\n"
+    "   name=\"BlendChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpSystemState\"\n"
+    "   >\n"
     "\n"
     "See \\ref PageSystemBlendChunk for a description. \n"
     "\n"
@@ -367,8 +365,6 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     "        The default is GL_NONE, which indicates using the standard BlendFunction.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemBlendChunk for a description. \n"
     "\n"
     "The blending chunk handles OpenGL blending, i.e. the definition how incoming pixel\n"

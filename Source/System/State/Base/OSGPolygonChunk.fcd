@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="PolygonChunk"
-	parent="StateChunk"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
+   name="PolygonChunk"
+   parent="StateChunk"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemState"
 ><![CDATA[
-\ingroup GrpSystemState
 
 See \ref PageSystemPolygonChunk for details.
 

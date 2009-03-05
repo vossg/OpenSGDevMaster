@@ -86,8 +86,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TextureObjChunk
-    \ingroup GrpSystemState
-
     See \ref PageSystemTextureObjChunk for a description.
 
     This chunk wraps glTexImage[123]D (OSG::TextureObjChunk::_sfImage,
@@ -606,18 +604,17 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"TextureObjChunk\"\n"
-    "\tparent=\"TextureBaseChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    "\\ingroup GrpSystemState\n"
-    "\n"
+    "   name=\"TextureObjChunk\"\n"
+    "   parent=\"TextureBaseChunk\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemState\"\n"
+    "   >\n"
     "See \\ref PageSystemTextureObjChunk for a description.\n"
     "\n"
     "This chunk wraps glTexImage[123]D (OSG::TextureObjChunk::_sfImage,\n"
@@ -940,7 +937,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t>\n"
     "\tTexture border width in pixels.\n"
     "\t</Field>\n"
-    "<!-- DISABLED - does not interact well with TextureTransformChunk\n"
+    "<!-- DISABLED - was in 1.x, but does not interact well with TextureTransformChunk\n"
     "\t<Field\n"
     "\t\tname=\"NPOTMatrixScale\"\n"
     "\t\ttype=\"UInt32\"\n"
@@ -963,8 +960,6 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\tPercentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemTextureObjChunk for a description.\n"
     "\n"
     "This chunk wraps glTexImage[123]D (OSG::TextureObjChunk::_sfImage,\n"

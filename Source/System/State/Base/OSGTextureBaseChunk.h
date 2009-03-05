@@ -50,7 +50,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for textures. See \ref PageSystemTextureBaseChunk 
-    for a description.
+           for a description.
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
  */
 
 class OSG_SYSTEM_DLLMAPPING TextureBaseChunk : public TextureBaseChunkBase

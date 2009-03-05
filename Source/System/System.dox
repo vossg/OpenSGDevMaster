@@ -14,6 +14,144 @@ using namespace OSG;
     See \ref PageSystem for details.
 */
 
+/*! \defgroup GrpSystemAction Action
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemRenderAction Render Action
+    \ingroup GrpSystemAction
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemRenderingBackend Rendering Backend
+    \ingroup GrpSystemAction
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemIntersectAction Intersect Action
+    \ingroup GrpSystemAction
+    
+    See \ref PageBaseField for details.
+*/
+
+
+/*! \defgroup GrpSystemState State
+    \ingroup GrpSystem
+    
+    The OpenGL State Handling Group contains the wrapper classes for OpenGL
+    state.
+
+    See \ref PageSystemState for details.
+*/
+
+/*! \defgroup GrpSystemStateBase State - Base
+    \ingroup GrpSystemState
+    
+    The OpenGL State Handling Group contains the wrapper classes for OpenGL
+    state.
+
+    See \ref PageSystemState for details.
+*/
+
+/*! \defgroup GrpSystemStateShader State - Shader
+    \ingroup GrpSystemState
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemStateFieldTraits State - Field Traits
+    \ingroup GrpSystemState
+    
+    See \ref PageBaseField for details.
+*/
+/*! \defgroup GrpSystemStateFieldSFields State - Single-Field
+    \ingroup GrpSystemState
+    
+    See \ref PageBaseField for details.
+*/
+/*! \defgroup GrpSystemStateFieldMFields State - Multi-Fields
+    \ingroup GrpSystemState
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemMaterial Material
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemFieldContainer FieldContainer
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemNodeCores NodeCores
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemNodeCoresGroups Group NodeCores - Base
+    \ingroup GrpSystemNodeCores
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemNodeCoresDrawables Drawable NodeCores - Base
+    \ingroup GrpSystemNodeCores
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemFileIO FileIO
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemFileIOScanParse FileIO - ScanParse Skel
+    \ingroup GrpSystemFileIO
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemGraphOp GraphOp - Base
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemImage Image
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemImageFileIO Image - FileIO
+    \ingroup GrpSystemImage
+    
+    See \ref PageBaseField for details.
+*/
+
+
+/*! \defgroup GrpSystemWindow Window
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemWindowFBO Window - Framebuffer Objects
+    \ingroup GrpSystemWindow
+    
+    See \ref PageBaseField for details.
+*/
+
 #if 0
 /*! \defgroup GrpSystemField Fields
     \ingroup GrpSystem
@@ -47,6 +185,7 @@ using namespace OSG;
    
    SystemLib
 
+   \subpage PageSystemState
    \subpage PageSystemImage
    \subpage PageSystemStatistics
 */

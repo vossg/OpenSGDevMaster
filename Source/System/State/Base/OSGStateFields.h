@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class State;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! StatePtr
-
 OSG_GEN_CONTAINERPTR(State);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemStateFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<State *> :
     public FieldTraitsFCPtrBase<State *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<State *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdStatePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<StatePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<State *,
                       RecordedRefCountPolicy  > SFRecStatePtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<State *,
                       UnrecordedRefCountPolicy> SFUnrecStatePtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<State *,
                       WeakRefCountPolicy      > SFWeakStatePtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<State *,
                       NoRefCountPolicy        > SFUncountedStatePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<State *,
                       RecordedRefCountPolicy  > MFRecStatePtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<State *,
                       UnrecordedRefCountPolicy> MFUnrecStatePtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<State *,
                       WeakRefCountPolicy      > MFWeakStatePtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<State *,
                       NoRefCountPolicy        > MFUncountedStatePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecStatePtr : 
+    public PointerSField<State *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecStatePtr : 
+    public PointerSField<State *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakStatePtr :
+    public PointerSField<State *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedStatePtr :
+    public PointerSField<State *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecStatePtr :
+    public PointerMField<State *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecStatePtr :
+    public PointerMField<State *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakStatePtr :
+    public PointerMField<State *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedStatePtr :
+    public PointerMField<State *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -47,7 +47,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for material properties. See \ref 
-    PageSystemMaterialChunk for a description.
+           PageSystemMaterialChunk for a description.
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
  */
 
 class OSG_SYSTEM_DLLMAPPING MaterialChunk : public MaterialChunkBase

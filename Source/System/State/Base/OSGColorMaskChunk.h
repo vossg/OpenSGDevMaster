@@ -46,9 +46,12 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief ColorMaskChunk class. See \ref
-    PageSystemColorMaskChunk for a description.
-*/
+/*! \brief ColorMaskChunk class. See \ref PageSystemColorMaskChunk 
+           for a description.
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ColorMaskChunk : public ColorMaskChunkBase
 {

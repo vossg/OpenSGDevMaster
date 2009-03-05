@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TextureBaseChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TextureBaseChunkPtr
-
 OSG_GEN_CONTAINERPTR(TextureBaseChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemStateFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TextureBaseChunk *> :
     public FieldTraitsFCPtrBase<TextureBaseChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<TextureBaseChunk *, 0>::getMName<NoRefCountPolicy>(void
     return "MFUnrefdTextureBaseChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TextureBaseChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<TextureBaseChunk *,
                       RecordedRefCountPolicy  > SFRecTextureBaseChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<TextureBaseChunk *,
                       UnrecordedRefCountPolicy> SFUnrecTextureBaseChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<TextureBaseChunk *,
                       WeakRefCountPolicy      > SFWeakTextureBaseChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<TextureBaseChunk *,
                       NoRefCountPolicy        > SFUncountedTextureBaseChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<TextureBaseChunk *,
                       RecordedRefCountPolicy  > MFRecTextureBaseChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<TextureBaseChunk *,
                       UnrecordedRefCountPolicy> MFUnrecTextureBaseChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<TextureBaseChunk *,
                       WeakRefCountPolicy      > MFWeakTextureBaseChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<TextureBaseChunk *,
                       NoRefCountPolicy        > MFUncountedTextureBaseChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecTextureBaseChunkPtr : 
+    public PointerSField<TextureBaseChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecTextureBaseChunkPtr : 
+    public PointerSField<TextureBaseChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakTextureBaseChunkPtr :
+    public PointerSField<TextureBaseChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedTextureBaseChunkPtr :
+    public PointerSField<TextureBaseChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecTextureBaseChunkPtr :
+    public PointerMField<TextureBaseChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecTextureBaseChunkPtr :
+    public PointerMField<TextureBaseChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakTextureBaseChunkPtr :
+    public PointerMField<TextureBaseChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedTextureBaseChunkPtr :
+    public PointerMField<TextureBaseChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

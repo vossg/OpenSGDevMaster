@@ -52,9 +52,11 @@ class DrawActionBase;
 class StateOverride;
 class DrawEnv;
 
-/*! \brief Wrapper for a complete State. See \ref State
-    for a description.
-*/
+/*! \brief Wrapper for a complete State. See \ref State for a description.
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING State : public StateBase
 {

@@ -76,8 +76,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::TextureBaseChunk
-    \ingroup GrpSystemState
-
     See \ref PageSystemTextureChunk for a description.
  */
 
@@ -129,17 +127,17 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"TextureBaseChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    "\\ingroup GrpSystemState\n"
+    "   name=\"TextureBaseChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"abstract\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemState\"\n"
+    "   >\n"
     "\n"
     "See \\ref PageSystemTextureChunk for a description.\n"
     "    <Field\n"
@@ -157,8 +155,6 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(
     "        when using it!\n"
     "    </Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemTextureChunk for a description.\n"
     );
 

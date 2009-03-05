@@ -46,9 +46,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief DepthChunk class. See \ref 
-    PageSystemDepthChunk for a description.
-*/
+/*! \brief DepthChunk class. See \ref PageSystemDepthChunk for a description.
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING DepthChunk : public DepthChunkBase
 {

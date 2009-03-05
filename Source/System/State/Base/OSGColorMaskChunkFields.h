@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ColorMaskChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ColorMaskChunkPtr
-
 OSG_GEN_CONTAINERPTR(ColorMaskChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemStateFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ColorMaskChunk *> :
     public FieldTraitsFCPtrBase<ColorMaskChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ColorMaskChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdColorMaskChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ColorMaskChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<ColorMaskChunk *,
                       RecordedRefCountPolicy  > SFRecColorMaskChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<ColorMaskChunk *,
                       UnrecordedRefCountPolicy> SFUnrecColorMaskChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<ColorMaskChunk *,
                       WeakRefCountPolicy      > SFWeakColorMaskChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<ColorMaskChunk *,
                       NoRefCountPolicy        > SFUncountedColorMaskChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<ColorMaskChunk *,
                       RecordedRefCountPolicy  > MFRecColorMaskChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<ColorMaskChunk *,
                       UnrecordedRefCountPolicy> MFUnrecColorMaskChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<ColorMaskChunk *,
                       WeakRefCountPolicy      > MFWeakColorMaskChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<ColorMaskChunk *,
                       NoRefCountPolicy        > MFUncountedColorMaskChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecColorMaskChunkPtr : 
+    public PointerSField<ColorMaskChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecColorMaskChunkPtr : 
+    public PointerSField<ColorMaskChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakColorMaskChunkPtr :
+    public PointerSField<ColorMaskChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedColorMaskChunkPtr :
+    public PointerSField<ColorMaskChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecColorMaskChunkPtr :
+    public PointerMField<ColorMaskChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecColorMaskChunkPtr :
+    public PointerMField<ColorMaskChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakColorMaskChunkPtr :
+    public PointerMField<ColorMaskChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedColorMaskChunkPtr :
+    public PointerMField<ColorMaskChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class DepthChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DepthChunkPtr
-
 OSG_GEN_CONTAINERPTR(DepthChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemStateFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<DepthChunk *> :
     public FieldTraitsFCPtrBase<DepthChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<DepthChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdDepthChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DepthChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<DepthChunk *,
                       RecordedRefCountPolicy  > SFRecDepthChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<DepthChunk *,
                       UnrecordedRefCountPolicy> SFUnrecDepthChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<DepthChunk *,
                       WeakRefCountPolicy      > SFWeakDepthChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<DepthChunk *,
                       NoRefCountPolicy        > SFUncountedDepthChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<DepthChunk *,
                       RecordedRefCountPolicy  > MFRecDepthChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<DepthChunk *,
                       UnrecordedRefCountPolicy> MFUnrecDepthChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<DepthChunk *,
                       WeakRefCountPolicy      > MFWeakDepthChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<DepthChunk *,
                       NoRefCountPolicy        > MFUncountedDepthChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecDepthChunkPtr : 
+    public PointerSField<DepthChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecDepthChunkPtr : 
+    public PointerSField<DepthChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakDepthChunkPtr :
+    public PointerSField<DepthChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedDepthChunkPtr :
+    public PointerSField<DepthChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecDepthChunkPtr :
+    public PointerMField<DepthChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecDepthChunkPtr :
+    public PointerMField<DepthChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakDepthChunkPtr :
+    public PointerMField<DepthChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedDepthChunkPtr :
+    public PointerMField<DepthChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

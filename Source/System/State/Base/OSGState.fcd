@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="State"
-	parent="FieldContainer"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
+   name="State"
+   parent="FieldContainer"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemState"
 >
-\ingroup GrpSystemState
 
 The state base class. See \ref PageSystemState for the conceptual background.
 	<Field

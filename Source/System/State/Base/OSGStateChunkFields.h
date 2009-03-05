@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class StateChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! StateChunkPtr
-
 OSG_GEN_CONTAINERPTR(StateChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemStateFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<StateChunk *> :
     public FieldTraitsFCPtrBase<StateChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<StateChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdStateChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<StateChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<StateChunk *,
                       RecordedRefCountPolicy  > SFRecStateChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<StateChunk *,
                       UnrecordedRefCountPolicy> SFUnrecStateChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<StateChunk *,
                       WeakRefCountPolicy      > SFWeakStateChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<StateChunk *,
                       NoRefCountPolicy        > SFUncountedStateChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<StateChunk *,
                       RecordedRefCountPolicy  > MFRecStateChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<StateChunk *,
                       UnrecordedRefCountPolicy> MFUnrecStateChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<StateChunk *,
                       WeakRefCountPolicy      > MFWeakStateChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<StateChunk *,
                       NoRefCountPolicy        > MFUncountedStateChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecStateChunkPtr : 
+    public PointerSField<StateChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecStateChunkPtr : 
+    public PointerSField<StateChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakStateChunkPtr :
+    public PointerSField<StateChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedStateChunkPtr :
+    public PointerSField<StateChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecStateChunkPtr :
+    public PointerMField<StateChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecStateChunkPtr :
+    public PointerMField<StateChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakStateChunkPtr :
+    public PointerMField<StateChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedStateChunkPtr :
+    public PointerMField<StateChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

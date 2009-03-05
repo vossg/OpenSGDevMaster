@@ -1,16 +1,15 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="LightChunk"
-	parent="StateChunk"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
+   name="LightChunk"
+   parent="StateChunk"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemState"
 >
-\ingroup GrpSystemState
-
 See \ref PageSystemLightChunk for a description.
 
 The light chunk contains the parameter set for a single light source. It's taken

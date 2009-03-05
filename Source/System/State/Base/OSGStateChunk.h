@@ -53,7 +53,10 @@ class  DrawEnv;
 struct StateChunkClassInit;
 
 /*! \brief The classification class for StateChunks, see \ref StateChunkClass
-    for a description. 
+           for a description. 
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
 */
 
 class OSG_SYSTEM_DLLMAPPING StateChunkClass
@@ -105,6 +108,7 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
 
     friend struct StateChunkClassInit;
 
+    /*! \nohierarchy */
     struct StateChunkClassInit
     {
         StateChunkClassInit(void) 
@@ -131,7 +135,10 @@ class OSG_SYSTEM_DLLMAPPING StateChunkClass
 };
 
 /*! \brief The abstract base class for StateChunks, see \ref StateChunk
-    for a description. 
+           for a description. 
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
  */
 
 class OSG_SYSTEM_DLLMAPPING StateChunk : public StateChunkBase

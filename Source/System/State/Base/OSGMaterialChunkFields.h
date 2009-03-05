@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class MaterialChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MaterialChunkPtr
-
 OSG_GEN_CONTAINERPTR(MaterialChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemStateFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MaterialChunk *> :
     public FieldTraitsFCPtrBase<MaterialChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<MaterialChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdMaterialChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MaterialChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<MaterialChunk *,
                       RecordedRefCountPolicy  > SFRecMaterialChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<MaterialChunk *,
                       UnrecordedRefCountPolicy> SFUnrecMaterialChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<MaterialChunk *,
                       WeakRefCountPolicy      > SFWeakMaterialChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<MaterialChunk *,
                       NoRefCountPolicy        > SFUncountedMaterialChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<MaterialChunk *,
                       RecordedRefCountPolicy  > MFRecMaterialChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<MaterialChunk *,
                       UnrecordedRefCountPolicy> MFUnrecMaterialChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<MaterialChunk *,
                       WeakRefCountPolicy      > MFWeakMaterialChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<MaterialChunk *,
                       NoRefCountPolicy        > MFUncountedMaterialChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecMaterialChunkPtr : 
+    public PointerSField<MaterialChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecMaterialChunkPtr : 
+    public PointerSField<MaterialChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakMaterialChunkPtr :
+    public PointerSField<MaterialChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedMaterialChunkPtr :
+    public PointerSField<MaterialChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecMaterialChunkPtr :
+    public PointerMField<MaterialChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecMaterialChunkPtr :
+    public PointerMField<MaterialChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakMaterialChunkPtr :
+    public PointerMField<MaterialChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedMaterialChunkPtr :
+    public PointerMField<MaterialChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -77,8 +77,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::MaterialChunk
-    \ingroup GrpSystemState
-
     See \ref PageSystemMaterialChunk for details.
 
     This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,
@@ -344,16 +342,15 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"MaterialChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
+    "   name=\"MaterialChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"System\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpSystemState\"\n"
     ">\n"
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemMaterialChunk for details.\n"
     "\n"
     "This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,\n"
@@ -483,8 +480,6 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n"
     "\t</Field>       \n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "See \\ref PageSystemMaterialChunk for details.\n"
     "\n"
     "This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,\n"

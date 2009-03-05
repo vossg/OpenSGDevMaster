@@ -1,16 +1,15 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="MaterialChunk"
-	parent="StateChunk"
-	library="System"
-	structure="concrete"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
+   name="MaterialChunk"
+   parent="StateChunk"
+   library="System"
+   structure="concrete"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemState"
 >
-\ingroup GrpSystemState
-
 See \ref PageSystemMaterialChunk for details.
 
 This chunk wraps glMaterial() (OSG::MaterialChunk::_sfDiffuse,

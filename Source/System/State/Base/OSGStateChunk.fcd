@@ -1,18 +1,17 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="StateChunk"
-	parent="Attachment"
-	library="System"
-	structure="abstract"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
+   name="StateChunk"
+   parent="Attachment"
+   library="System"
+   structure="abstract"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemState"
 >
-\ingroup GrpSystemState
-
 See \ref PageSystemState for the conceptual background.
 	<Field
 		name="ignore"

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class BlendChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! BlendChunkPtr
-
 OSG_GEN_CONTAINERPTR(BlendChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemStateFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<BlendChunk *> :
     public FieldTraitsFCPtrBase<BlendChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<BlendChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdBlendChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<BlendChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<BlendChunk *,
                       RecordedRefCountPolicy  > SFRecBlendChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<BlendChunk *,
                       UnrecordedRefCountPolicy> SFUnrecBlendChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<BlendChunk *,
                       WeakRefCountPolicy      > SFWeakBlendChunkPtr;
+/*! \ingroup GrpSystemStateFieldSFields */
 typedef PointerSField<BlendChunk *,
                       NoRefCountPolicy        > SFUncountedBlendChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<BlendChunk *,
                       RecordedRefCountPolicy  > MFRecBlendChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<BlendChunk *,
                       UnrecordedRefCountPolicy> MFUnrecBlendChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<BlendChunk *,
                       WeakRefCountPolicy      > MFWeakBlendChunkPtr;
+/*! \ingroup GrpSystemStateFieldMFields */
 typedef PointerMField<BlendChunk *,
                       NoRefCountPolicy        > MFUncountedBlendChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecBlendChunkPtr : 
+    public PointerSField<BlendChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecBlendChunkPtr : 
+    public PointerSField<BlendChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakBlendChunkPtr :
+    public PointerSField<BlendChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedBlendChunkPtr :
+    public PointerSField<BlendChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecBlendChunkPtr :
+    public PointerMField<BlendChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecBlendChunkPtr :
+    public PointerMField<BlendChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakBlendChunkPtr :
+    public PointerMField<BlendChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemStateFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedBlendChunkPtr :
+    public PointerMField<BlendChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

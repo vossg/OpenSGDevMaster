@@ -1,18 +1,17 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="TextureObjChunk"
-	parent="TextureBaseChunk"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-\ingroup GrpSystemState
-
+   name="TextureObjChunk"
+   parent="TextureBaseChunk"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemState"
+   >
 See \ref PageSystemTextureObjChunk for a description.
 
 This chunk wraps glTexImage[123]D (OSG::TextureObjChunk::_sfImage,

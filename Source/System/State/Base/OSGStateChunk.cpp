@@ -51,6 +51,9 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemStateBase
+    \nohierarchy
+ */
 struct StateChunkClassCompare
 {
     bool operator()(const StateChunkClass *lhs, 
@@ -74,7 +77,6 @@ OSG_USING_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::StateChunkClass
-    \ingroup GrpSystemState
 
 See \ref StateChunkClass for the
 conceptual background.

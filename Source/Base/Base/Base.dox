@@ -243,6 +243,7 @@ The actual files, including headers, all use the OSG prefix.
 
    \subpage PageBaseTypes
    \subpage PageBaseField
+   \subpage PageBaseFieldExt
    \subpage PageBaseMath
    \subpage PageBaseLine
    \subpage PageBasePlane

@@ -48,7 +48,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for polygon-specific modes. See \ref 
-    PageSystemPolygonChunk for a description.
+           PageSystemPolygonChunk for a description.
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING PolygonChunk : public PolygonChunkBase

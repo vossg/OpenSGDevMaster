@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="BlendChunk"
-	parent="StateChunk"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
->
-\ingroup GrpSystemState
+   name="BlendChunk"
+   parent="StateChunk"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   docGroupBase="GrpSystemState"
+   >
 
 See \ref PageSystemBlendChunk for a description. 
 

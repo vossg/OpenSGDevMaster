@@ -76,8 +76,6 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::State
-    \ingroup GrpSystemState
-
     The state base class. See \ref PageSystemState for the conceptual background.
  */
 
@@ -123,15 +121,15 @@ StateBase::TypeObject StateBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"State\"\n"
-    "\tparent=\"FieldContainer\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
+    "   name=\"State\"\n"
+    "   parent=\"FieldContainer\"\n"
+    "   library=\"System\"\n"
+    "   structure=\"concrete\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   docGroupBase=\"GrpSystemState\"\n"
     ">\n"
-    "\\ingroup GrpSystemState\n"
     "\n"
     "The state base class. See \\ref PageSystemState for the conceptual background.\n"
     "\t<Field\n"
@@ -145,8 +143,6 @@ StateBase::TypeObject StateBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "\\ingroup GrpSystemState\n"
-    "\n"
     "The state base class. See \\ref PageSystemState for the conceptual background.\n"
     );
 

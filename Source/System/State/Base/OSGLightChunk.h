@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief State chunk for lights. See \ref PageSystemLightChunk 
-    for a description.
-*/
+           for a description.
+    \ingroup GrpSystemStateBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING LightChunk : public LightChunkBase
 {
