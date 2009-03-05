@@ -74,11 +74,20 @@ OSG::UInt16 ChunkOverrideGroupBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the ChunkOverrideGroup::_mfChunks field.
+//! Get the value of the ChunkOverrideGroup::_sfFallbackChunkBlock field.
 inline
-StateChunk * ChunkOverrideGroupBase::getChunks(const UInt32 index) const
+ChunkBlock * ChunkOverrideGroupBase::getFallbackChunkBlock(void) const
 {
-    return _mfChunks[index];
+    return _sfFallbackChunkBlock.getValue();
+}
+
+//! Set the value of the ChunkOverrideGroup::_sfFallbackChunkBlock field.
+inline
+void ChunkOverrideGroupBase::setFallbackChunkBlock(ChunkBlock * const value)
+{
+    editSField(FallbackChunkBlockFieldMask);
+
+    _sfFallbackChunkBlock.setValue(value);
 }
 
 
@@ -92,11 +101,8 @@ void ChunkOverrideGroupBase::execSync (      ChunkOverrideGroupBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (ChunksFieldMask & whichField))
-        _mfChunks.syncWith(pFrom->_mfChunks,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
+    if(FieldBits::NoField != (FallbackChunkBlockFieldMask & whichField))
+        _sfFallbackChunkBlock.syncWith(pFrom->_sfFallbackChunkBlock);
 }
 #endif
 

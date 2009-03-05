@@ -131,7 +131,16 @@ void VariantMaterial::changed(ConstFieldMaskArg whichField,
 
 PrimeMaterial *VariantMaterial::finalize(MaterialMapKey oKey)
 {
-    return this->findMaterial(oKey);
+    MaterialPtrMapConstIt fcI = _sfMaterialStore.getValue().find(oKey);
+
+    if(fcI == _sfMaterialStore.getValue().end())
+    {
+        return _sfFallbackMaterial.getValue();
+    }
+    else
+    {
+        return (*fcI).second;
+    }
 }
 
 /*------------------------------- dump ----------------------------------*/

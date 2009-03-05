@@ -43,7 +43,7 @@ PrimeMaterial *VariantMaterial::findMaterial(MaterialMapKey key) const
 
     if(fcI == _sfMaterialStore.getValue().end())
     {
-        return _sfFallbackMaterial.getValue();
+        return NULL;
     }
     else
     {

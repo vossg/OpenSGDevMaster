@@ -47,6 +47,7 @@
 
 #include "OSGChunkOverrideGroup.h"
 #include "OSGRenderAction.h"
+#include "OSGChunkBlock.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -62,6 +63,27 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
+
+void ChunkOverrideGroup::classDescInserter(TypeObject &oType)
+{
+    Inherited::classDescInserter(oType);
+
+    FieldDescriptionBase *pDesc;
+
+    typedef SFChunkBlockPtrMap::Description SFDesc;
+
+    pDesc = new SFDesc(
+        SFChunkBlockPtrMap::getClassType(),
+        "chunkBlockStore",
+        "chunk block store.",
+        OSG_RC_FIELD_DESC(ChunkBlockStore),
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&Self::editHandleChunkBlockStore),
+        static_cast<FieldGetMethodSig >(&Self::getHandleChunkBlockStore ));
+
+    oType.addInitialDesc(pDesc);
+}
 
 void ChunkOverrideGroup::initMethod(InitPhase ePhase)
 {
@@ -93,12 +115,14 @@ void ChunkOverrideGroup::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ChunkOverrideGroup::ChunkOverrideGroup(void) :
-    Inherited()
+     Inherited        (),
+    _sfChunkBlockStore()
 {
 }
 
 ChunkOverrideGroup::ChunkOverrideGroup(const ChunkOverrideGroup &source) :
-    Inherited(source)
+     Inherited        (source),
+    _sfChunkBlockStore(      )
 {
 }
 
@@ -111,79 +135,16 @@ ChunkOverrideGroup::~ChunkOverrideGroup(void)
 bool ChunkOverrideGroup::addChunk(StateChunk *chunk, 
                                   Int32       slot)
 {
-    if(chunk == NULL)
-    {
-        SWARNING << "addChunk: no chunk given, use subChunk to clear a slot" 
-                 << std::endl;
+    ChunkBlockUnrecPtr pBlock = this->finalize(0x0000);
 
-        return false;
+    if(pBlock == NULL)
+    {
+        pBlock = ChunkBlock::create();
+
+        this->addChunkBlock(pBlock, 0x0000);
     }
 
-    if(slot > 0 && slot > chunk->getClass()->getNumSlots())
-    {
-        SWARNING << "addChunk: index " 
-                 << slot
-                 << " > Numslots "
-                 << chunk->getClass()->getNumSlots()
-                 << ",  ignored!" 
-                 << std::endl;
-
-        return false;
-    }
-
-    UInt32 cindex =  chunk->getClassId();
-    UInt32 csize  = _mfChunks.size();
-
-    const ChunkOverrideGroup *pThis = this;
-
-    // special case: find empty slot automatically
-    if(slot == State::AutoSlot || slot == State::AutoSlotReplace)
-    {
-        UInt8 nslots = chunk->getClass()->getNumSlots();
-        UInt8 ci;
-
-        for(ci = cindex; ci < cindex + nslots && ci < csize; ++ci)
-        {
-            if(pThis->_mfChunks[ci] == NULL)
-            {
-                break;
-            }
-        }
-
-        if(ci >= cindex + nslots)    // no free slot found
-        {
-            if(slot == State::AutoSlot)
-            {
-                SWARNING << "addChunk: no free slot found for "
-                         << chunk->getClass()->getName() 
-                         << " class, ignored!" << std::endl;
-                return false;
-            }
-            // use last slot
-            --ci;
-        }
-
-        cindex = ci;
-    }
-    else
-    {
-        cindex += slot;
-    }
-
-    editMField(ChunksFieldMask, _mfChunks);
-
-    // add the chunk to the state at cindex
-    if(cindex >= csize)
-    {
-        UInt32 oldsize = csize;
-        UInt32 newsize = cindex + 1;
-
-        _mfChunks.resize(newsize, NULL);
-    }
-
-    _mfChunks.replace(cindex, chunk);
-    
-    return true;
+    return pBlock->addChunk(chunk, slot);
 }
 
 bool ChunkOverrideGroup::subChunk(StateChunk *chunk, 
@@ -191,126 +152,187 @@ bool ChunkOverrideGroup::subChunk(StateChunk *chunk,
 {
     if(chunk == NULL)
         return false;
-        
-    UInt32 cindex =  chunk->getClassId();
-    UInt32 csize  = _mfChunks.size();
 
-    // special case: find it in the slots
-    UInt8 nslots = chunk->getClass()->getNumSlots();
-    UInt8 ci;
+    ChunkBlock *pBlock = this->finalize(0x0000);
 
-    const ChunkOverrideGroup *pThis = this;
-
-    if(slot == State::AutoSlot || slot == State::AutoSlotReplace)
+    if(pBlock != NULL)
     {
-        for(ci = cindex; ci < cindex + nslots && ci < csize; ci++)
-        {
-            if(pThis->_mfChunks[ci] == chunk)
-            {
-                break;
-            }
-        }
-        
-        if(ci >= cindex + nslots || ci >= csize)    // chunk not found
-        {
-            SWARNING << "subChunk: chunk " 
-                     << chunk
-                     << " of class "
-                     << chunk->getClass()->getName()
-                     << " not found!" 
-                     << std::endl;
-            return false;
-        }
-        
-        editMField(ChunksFieldMask, _mfChunks);
-        
-        // remove the chunk from the state
-        _mfChunks.replace(ci, NULL);
-    }
-    else
-    {
-        ci = cindex + slot;
-
-        if(ci    >=  cindex + nslots        || 
-           ci    >= pThis->_mfChunks.size() ||
-           chunk != pThis->_mfChunks[ci]     )    // chunk not found
-        {
-            SWARNING << "subChunk: chunk " 
-                     << chunk
-                     << " of class "
-                     << chunk->getClass()->getName()
-                     << " not found!" 
-                     << std::endl;
-            return false;
-        }        
-
-        editMField(ChunksFieldMask, _mfChunks);
-        
-        // remove the chunk from the state
-        _mfChunks.replace(ci, NULL);
+        return pBlock->subChunk(chunk, slot);
     }
 
-    return true;
+    return false;
 }
 
 Int32 ChunkOverrideGroup::find(StateChunk *chunk)
 {
-    UInt32 i;
+    ChunkBlock *pBlock = this->finalize(0x0000);
 
-    const ChunkOverrideGroup *pThis = this;
-    
-    for(i = 0; i < _mfChunks.size(); ++i)
+    if(pBlock != NULL)
     {
-        if(pThis->_mfChunks[i] == chunk)
-            return i;
+        return pBlock->find(chunk);
     }
-             
+
     return -1;
 }
 
 StateChunk *ChunkOverrideGroup::find(const StateChunkClass &type, 
                                            Int32            slot)
 {
-    UInt32 cindex =  type.getId();
-    UInt32 csize  = _mfChunks.size();
+    ChunkBlock *pBlock = this->finalize(0x0000);
 
-    // special case: find it in the slots
-    UInt8 nslots = type.getNumSlots();
-    UInt8 ci;
-
-    const ChunkOverrideGroup *pThis = this;
-
-    if(slot == State::AutoSlot || slot == State::AutoSlotReplace)
+    if(pBlock != NULL)
     {
-        for(ci = cindex; ci < cindex + nslots && ci < csize; ci++)
-        {
-            StateChunk *chunk = pThis->_mfChunks[ci];
-
-            if(chunk != NULL && *(chunk->getClass()) == type)
-            {
-                return chunk;
-            }
-        }
-    }
-    else
-    {
-        ci = cindex + slot;
-
-        if(ci    <  cindex + nslots || 
-           ci    < _mfChunks.size()  )    
-        {
-            StateChunk *chunk = pThis->_mfChunks[ci];
-
-            if(chunk != NULL && *(chunk->getClass()) == type)
-            {
-                return chunk;
-            }
-        }
+        return pBlock->find(type, slot);
     }
 
     return NULL;
 }
 
+/*-------------------------------------------------------------------------*/
+/* Binary access                                                           */
+
+UInt32 ChunkOverrideGroup::getBinSize(ConstFieldMaskArg whichField)
+{
+    UInt32 returnValue = Inherited::getBinSize(whichField);
+
+    if(FieldBits::NoField != (ChunkBlockStoreFieldMask & whichField))
+    {
+        returnValue += _sfChunkBlockStore.getBinSize();
+    }
+
+    return returnValue;
+}
+
+void ChunkOverrideGroup::copyToBin(BinaryDataHandler  &pMem, 
+                                   ConstFieldMaskArg   whichField)
+{
+    Inherited::copyToBin(pMem, whichField);
+
+    if(FieldBits::NoField != (ChunkBlockStoreFieldMask & whichField))
+    {
+        _sfChunkBlockStore.copyToBin(pMem);
+    }
+}
+
+void ChunkOverrideGroup::copyFromBin(BinaryDataHandler &pMem, 
+                                     ConstFieldMaskArg  whichField)
+{
+    Inherited::copyFromBin(pMem, whichField);
+
+    if(FieldBits::NoField != (ChunkBlockStoreFieldMask & whichField))
+    {
+        _sfChunkBlockStore.copyFromBin(pMem);
+    }
+}
+
+void ChunkOverrideGroup::addChunkBlock(ChunkBlock       * const pBlock,
+                                       ChunkBlockMapKey         key)
+{
+    if(pBlock == NULL)
+        return;
+
+    if(key == MapKeyPool::the()->getDefault())
+    {
+        setFallbackChunkBlock(pBlock);
+        return;
+    }
+
+    if(this->isMTLocal())
+    {
+        pBlock->addReferenceRecorded();
+    }
+    else
+    {
+        pBlock->addReferenceUnrecorded();
+    }
+
+#if 0
+    pAttachment->linkParent(this, 
+                            AttachmentsFieldId, 
+                            Attachment::ParentsFieldId);
+#endif
+
+    Self::editSField(ChunkBlockStoreFieldMask);
+
+    ChunkBlockPtrMapIt fcI = _sfChunkBlockStore.getValue().find(key);
+
+    if(fcI != _sfChunkBlockStore.getValue().end())
+    {
+#if 0
+        (*fcI).second->unlinkParent(this, 
+                                    Attachment::ParentsFieldId);
+#endif
+
+        if(this->isMTLocal())
+        {
+            (*fcI).second->subReferenceRecorded();
+        }
+        else
+        {
+            (*fcI).second->subReferenceUnrecorded();
+        }
+
+        (*fcI).second = pBlock;
+    }
+    else
+    {
+        _sfChunkBlockStore.getValue()[key] = pBlock;
+    }
+}
+
+
+void ChunkOverrideGroup::subChunkBlock(ChunkBlockMapKey key)
+{
+    if(key == MapKeyPool::the()->getDefault())
+    {
+        setFallbackChunkBlock(NULL);
+        return;
+    }
+
+    Self::editSField(ChunkBlockStoreFieldMask);
+
+    ChunkBlockPtrMapIt fcI;
+
+    fcI = _sfChunkBlockStore.getValue().find(key);
+
+    if(fcI != _sfChunkBlockStore.getValue().end())
+    {
+#if 0
+        (*fcI).second->unlinkParent(this, 
+                                    Attachment::ParentsFieldId);
+#endif
+
+        if(this->isMTLocal())
+        {
+            (*fcI).second->subReferenceRecorded();
+        }
+        else
+        {
+            (*fcI).second->subReferenceUnrecorded();
+        }
+
+        _sfChunkBlockStore.getValue().erase(fcI);
+    }
+}
+
+ChunkBlock *ChunkOverrideGroup::finalize(ChunkBlockMapKey oKey)
+{
+    ChunkBlockPtrMapConstIt fcI = _sfChunkBlockStore.getValue().find(oKey);
+
+    if(fcI == _sfChunkBlockStore.getValue().end())
+    {
+        return _sfFallbackChunkBlock.getValue();
+    }
+    else
+    {
+        return (*fcI).second;
+    }
+}
+
+const SFChunkBlockPtrMap *ChunkOverrideGroup::getSFChunkBlockStore(void) const
+{
+    return &_sfChunkBlockStore;
+}
 
 void ChunkOverrideGroup::changed(ConstFieldMaskArg whichField, 
                                  UInt32            origin,
@@ -327,15 +349,19 @@ void ChunkOverrideGroup::dump(      UInt32    ,
 
 ActionBase::ResultE ChunkOverrideGroup::renderEnter(Action *action)
 {
-    RenderAction *pAction = 
-        dynamic_cast<RenderAction *>(action);
+    RenderAction *pAction = dynamic_cast<RenderAction *>(action);
 
     if(pAction != NULL)
     {
         pAction->pushState();
 
-        MFUnrecStateChunkPtr::const_iterator chIt   = this->beginChunks();
-        MFUnrecStateChunkPtr::const_iterator chEnd  = this->endChunks  ();
+        ChunkBlock *pBlock = this->finalize(pAction->getRenderProperties());
+
+        if(pBlock == NULL)
+            return Inherited::renderEnter(action);
+
+        MFUnrecStateChunkPtr::const_iterator chIt   = pBlock->beginChunks();
+        MFUnrecStateChunkPtr::const_iterator chEnd  = pBlock->endChunks  ();
         UInt32                               uiSlot = 0;
 
         while(chIt != chEnd)
@@ -365,66 +391,119 @@ ActionBase::ResultE ChunkOverrideGroup::renderLeave(Action *action)
     return Inherited::renderLeave(action);
 }
 
-
-void ChunkOverrideGroup::pushToChunks(StateChunk * const value)
+#ifdef OSG_MT_CPTR_ASPECT
+void ChunkOverrideGroup::execSync(
+          ChunkOverrideGroup *pFrom,
+          ConstFieldMaskArg   whichField,
+          AspectOffsetStore  &oOffsets,
+          ConstFieldMaskArg   syncMode  ,
+    const UInt32              uiSyncInfo)
 {
-    if(value != NULL)
-    {
-        // addChunk(value) does not work as expected
-        //
-        // Do at least a sanity check if the slot matches
-        // the chunk
+    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-        if(_mfChunks.size() < value->getClassId() ||
-           _mfChunks.size() >= (value->getClassId() + 
-                                value->getClass()->getNumSlots()))
+    if(FieldBits::NoField != (ChunkBlockStoreFieldMask & whichField))
+    {
+//        _sfAttachments.syncWith(pFrom->_sfAttachments);
+
+        // needs optimizing
+
+#if 1
+        ChunkBlockMap tmpMap;
+
+        ChunkBlockPtrMapIt fcI = pFrom->_sfChunkBlockStore.getValue().begin();
+        ChunkBlockPtrMapIt fcE = pFrom->_sfChunkBlockStore.getValue().end  ();
+        
+        while(fcI != fcE)
         {
-            SWARNING << "pushToChunk: chunk ( " 
-                     << value->getClassId()
-                     << " | "
-                     << value->getClass()->getNumSlots()
-                     << "does not match available slot "
-                     << _mfChunks.size()
-                     << ",  ignored!" 
-                     << std::endl;
-            
-            
-            return;
+            ChunkBlock *pBlock = convertToCurrentAspect((*fcI).second);
+
+            if(pBlock != NULL)
+            {
+                tmpMap[(*fcI).first] = pBlock;
+
+                pBlock->addReferenceUnrecorded();
+            }
+
+            ++fcI;
         }
+
+        fcI = _sfChunkBlockStore.getValue().begin();
+        fcE = _sfChunkBlockStore.getValue().end  ();
+
+        while(fcI != fcE)
+        {
+            if(this->isMTLocal())
+            {
+                (*fcI).second->subReferenceRecorded();
+            }
+            else
+            {
+                (*fcI).second->subReferenceUnrecorded();
+            }
+            
+            ++fcI;
+        }
+
+        _sfChunkBlockStore.setValue(tmpMap);
+#endif
     }
-
-    editMField(ChunksFieldMask, _mfChunks);
-
-    _mfChunks.push_back(value);
 }
+#endif
 
-void ChunkOverrideGroup::removeFromChunks(UInt32 uiIndex)
+void ChunkOverrideGroup::resolveLinks(void)
 {
-    if(uiIndex < _mfChunks.size())
+    Inherited::resolveLinks();
+
+    ChunkBlockPtrMapIt fcI = _sfChunkBlockStore.getValue().begin();
+    ChunkBlockPtrMapIt fcE = _sfChunkBlockStore.getValue().end  ();
+
+    while(fcI != fcE)
     {
-        editMField(ChunksFieldMask, _mfChunks);
+#if 0
+        (*fcI).second->unlinkParent(this, 
+                                    Material::ParentsFieldId);
+#endif
 
-        _mfChunks.replace(uiIndex, NULL);
+        if(this->isMTLocal())
+        {
+            (*fcI).second->subReferenceRecorded();
+        }
+        else
+        {
+            (*fcI).second->subReferenceUnrecorded();
+        }
+
+        ++fcI;
     }
+
+    _sfChunkBlockStore.getValue().clear();
 }
 
-void ChunkOverrideGroup::removeFromChunks(StateChunk * const value)
+EditFieldHandlePtr ChunkOverrideGroup::editHandleChunkBlockStore(void) 
 {
-    Int32 iElemIdx = _mfChunks.findIndex(value);
+    SFChunkBlockPtrMap::EditHandlePtr returnValue(
+        new  SFChunkBlockPtrMap::EditHandle(
+             &_sfChunkBlockStore, 
+             this->getType().getFieldDesc(ChunkBlockStoreFieldId)));
 
-    if(iElemIdx != -1)
-    {
-        editMField(ChunksFieldMask, _mfChunks);
+    returnValue->setAddMethod(boost::bind(&ChunkOverrideGroup::addChunkBlock,
+                                          this,
+                                          _1,
+                                          _2));
 
-        _mfChunks.replace(iElemIdx, NULL);
-    }
+    editSField(ChunkBlockStoreFieldMask);
+
+    return returnValue;
 }
 
-void ChunkOverrideGroup::clearChunks(void)
+GetFieldHandlePtr ChunkOverrideGroup::getHandleChunkBlockStore(void) const
 {
-    editMField(ChunksFieldMask, _mfChunks);
+    SFChunkBlockPtrMap::GetHandlePtr returnValue(
+        new  SFChunkBlockPtrMap::GetHandle(
+             &_sfChunkBlockStore, 
+             this->getType().getFieldDesc(ChunkBlockStoreFieldId)));
 
-    _mfChunks.clear();
+    return returnValue;
 }
 
 OSG_END_NAMESPACE

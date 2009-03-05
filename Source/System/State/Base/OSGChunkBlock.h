@@ -36,23 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCHUNKOVERRIDEGROUP_H_
-#define _OSGCHUNKOVERRIDEGROUP_H_
+#ifndef _OSGCHUNKBLOCK_H_
+#define _OSGCHUNKBLOCK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGChunkOverrideGroupBase.h"
-#include "OSGChunkBlockFields.h"
-#include "OSGChunkBlockMapFields.h"
+#include "OSGChunkBlockBase.h"
+#include "OSGState.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief ChunkOverrideGroup class. See \ref
-           PageSystemChunkOverrideGroup for a description.
+class ChunkOverrideGroup;
+
+/*! \brief ChunkBlock class. See \ref
+           PageSystemChunkBlock for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
+class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
 {
   protected:
 
@@ -60,13 +61,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
 
   public:
 
-    typedef ChunkOverrideGroupBase Inherited;
-    typedef ChunkOverrideGroup     Self;
-
-    typedef SFChunkBlockPtrMap     SFChunkBlockStorePtr;
-
-    OSG_RC_FIRST_FIELD_DECL(ChunkBlockStore);
-    OSG_RC_LAST_FIELD_DECL (ChunkBlockStore);
+    typedef ChunkBlockBase Inherited;
+    typedef ChunkBlock     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -75,48 +71,6 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Get                                     */
-    /*! \{                                                                 */
-
-    virtual UInt32 getBinSize (ConstFieldMaskArg   whichField);
-    virtual void   copyToBin  (BinaryDataHandler  &pMem,
-                               ConstFieldMaskArg   whichField);
-    virtual void   copyFromBin(BinaryDataHandler  &pMem,
-                               ConstFieldMaskArg   whichField);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    void             addChunkBlock(ChunkBlock       * const pChunkBlock,
-                                   ChunkBlockMapKey         key    = 0);
-
-    void             subChunkBlock(ChunkBlockMapKey         key    = 0);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    ChunkBlock *findChunkBlock(ChunkBlockMapKey key) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   your_category                              */
-    /*! \{                                                                 */
-
-    const SFChunkBlockStorePtr *getSFChunkBlockStore(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Rendering                                  */
-    /*! \{                                                                 */
-
-    virtual ChunkBlock *finalize(ChunkBlockMapKey oKey);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -143,6 +97,9 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    MFUnrecStateChunkPtr::const_iterator beginChunks(void) const;
+    MFUnrecStateChunkPtr::const_iterator endChunks  (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
@@ -156,72 +113,41 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
 
   protected:
 
-    typedef SFChunkBlockPtrMap::StoredType          ChunkBlockPtrMap;
-    typedef ChunkBlockPtrMap  ::iterator            ChunkBlockPtrMapIt;
-    typedef ChunkBlockPtrMap  ::const_iterator      ChunkBlockPtrMapConstIt;
+    // Variables should all be in ChunkBlockBase.
 
-    typedef SFChunkBlockPtrMap::EditHandle::KeyPool MapKeyPool;
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Type information                            */
-    /*! \{                                                                 */
-
-    static void classDescInserter(TypeObject &oType);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
-
-    SFChunkBlockStorePtr _sfChunkBlockStore;
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    ChunkOverrideGroup(void);
-    ChunkOverrideGroup(const ChunkOverrideGroup &source);
+    ChunkBlock(void);
+    ChunkBlock(const ChunkBlock &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ChunkOverrideGroup(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Changed                                 */
-    /*! \{                                                                 */
-
-#ifdef OSG_MT_CPTR_ASPECT
-    void execSync  (      ChunkOverrideGroup *pFrom,
-                          ConstFieldMaskArg   whichField,
-                          AspectOffsetStore  &oOffsets,
-                          ConstFieldMaskArg   syncMode  ,
-                    const UInt32              uiSyncInfo);
-#endif
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   MT Destruction                             */
-    /*! \{                                                                 */
-
-    virtual void resolveLinks(void);
+    virtual ~ChunkBlock(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Render                                  */
     /*! \{                                                                 */
 
+#if 0
     ActionBase::ResultE renderEnter(Action *action);
     ActionBase::ResultE renderLeave(Action *action);
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
+    void pushToChunks    (StateChunk * const value   );
+    void removeFromChunks(UInt32             uiIndex );
+    void removeFromChunks(StateChunk * const value   );
+    void clearChunks     (void                       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -231,30 +157,23 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : public ChunkOverrideGroupBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    EditFieldHandlePtr editHandleChunkBlockStore(void);
-    GetFieldHandlePtr  getHandleChunkBlockStore (void) const;
-
-    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class ChunkOverrideGroupBase;
+    friend class ChunkBlockBase;
+    friend class ChunkOverrideGroup;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ChunkOverrideGroup &source);
+    void operator =(const ChunkBlock &source);
 };
 
-typedef ChunkOverrideGroup *ChunkOverrideGroupP;
+typedef ChunkBlock *ChunkBlockP;
 
 OSG_END_NAMESPACE
 
-#include "OSGChunkOverrideGroupBase.inl"
-#include "OSGChunkOverrideGroup.inl"
+#include "OSGChunkBlockBase.inl"
+#include "OSGChunkBlock.inl"
 
-#endif /* _OSGCHUNKOVERRIDEGROUP_H_ */
+#endif /* _OSGCHUNKBLOCK_H_ */

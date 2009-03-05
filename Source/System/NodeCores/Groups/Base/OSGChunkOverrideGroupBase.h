@@ -65,7 +65,7 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGStateChunkFields.h" // Chunks type
+#include "OSGChunkBlock.h" // FallbackChunkBlock type
 
 #include "OSGChunkOverrideGroupFields.h"
 
@@ -93,16 +93,16 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
 
     enum
     {
-        ChunksFieldId = Inherited::NextFieldId,
-        NextFieldId = ChunksFieldId + 1
+        FallbackChunkBlockFieldId = Inherited::NextFieldId,
+        NextFieldId = FallbackChunkBlockFieldId + 1
     };
 
-    static const OSG::BitVector ChunksFieldMask =
-        (TypeTraits<BitVector>::One << ChunksFieldId);
+    static const OSG::BitVector FallbackChunkBlockFieldMask =
+        (TypeTraits<BitVector>::One << FallbackChunkBlockFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUnrecStateChunkPtr MFChunksType;
+    typedef SFUnrecChunkBlockPtr SFFallbackChunkBlockType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -121,6 +121,34 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecChunkBlockPtr *getSFFallbackChunkBlock(void) const;
+                  SFUnrecChunkBlockPtr *editSFFallbackChunkBlock(void);
+
+
+                  ChunkBlock * getFallbackChunkBlock(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setFallbackChunkBlock(ChunkBlock * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -175,7 +203,7 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecStateChunkPtr _mfChunks;
+    SFUnrecChunkBlockPtr _sfFallbackChunkBlock;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -204,29 +232,8 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroupBase : public Group
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleChunks          (void) const;
-    EditFieldHandlePtr editHandleChunks         (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const MFUnrecStateChunkPtr *getMFChunks          (void) const;
-
-
-                  StateChunk * getChunks         (const UInt32 index) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
+    GetFieldHandlePtr  getHandleFallbackChunkBlock (void) const;
+    EditFieldHandlePtr editHandleFallbackChunkBlock(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

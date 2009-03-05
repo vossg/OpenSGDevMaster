@@ -41,18 +41,15 @@
 OSG_BEGIN_NAMESPACE
 
 inline
-ChunkBlock *ChunkOverrideGroup::findChunkBlock(ChunkBlockMapKey key) const
+MFUnrecStateChunkPtr::const_iterator ChunkBlock::beginChunks(void) const
 {
-    ChunkBlockPtrMapConstIt fcI = _sfChunkBlockStore.getValue().find(key);
+    return _mfChunks.begin();
+}
 
-    if(fcI == _sfChunkBlockStore.getValue().end())
-    {
-        return NULL;
-    }
-    else
-    {
-        return (*fcI).second;
-    }
+inline
+MFUnrecStateChunkPtr::const_iterator ChunkBlock::endChunks(void) const
+{
+    return _mfChunks.end();
 }
 
 OSG_END_NAMESPACE

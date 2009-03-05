@@ -1,0 +1,250 @@
+#OSG V1.0 
+
+Node
+{
+  core ChunkOverrideGroup
+  {
+    chunkBlockStore 
+    [
+      MapHelper
+      {
+        keys
+        [
+          "OGLFixedFunc@"
+        ]
+        container ChunkBlock
+        {
+          chunks
+          [
+            NULL, #[0][0] ShaderProgram 5 1
+            NULL, #[1][1] ShaderProgramVariable 6 1
+            NULL, #[2][2] ShaderExecutable 7 1
+            NULL, #[3][3] ShaderExeVariable 8 1
+            NULL, #[4][4] Stencil 10 1
+            NULL, #[5][5] Texture 15 16
+            NULL, #[6][5] Texture 15 16
+            NULL, #[7][5] Texture 15 16
+            NULL, #[8][5] Texture 15 16
+            NULL, #[9][5] Texture 15 16
+            NULL, #[10][5] Texture 15 16
+            NULL, #[11][5] Texture 15 16
+            NULL, #[12][5] Texture 15 16
+            NULL, #[13][5] Texture 15 16
+            NULL, #[14][5] Texture 15 16
+            NULL, #[15][5] Texture 15 16
+            NULL, #[16][5] Texture 15 16
+            NULL, #[17][5] Texture 15 16
+            NULL, #[18][5] Texture 15 16
+            NULL, #[19][5] Texture 15 16
+            NULL, #[20][5] Texture 15 16
+            NULL, #[21][21] TextureEnv 20 16
+            NULL, #[22][21] TextureEnv 20 16
+            NULL, #[23][21] TextureEnv 20 16
+            NULL, #[24][21] TextureEnv 20 16
+            NULL, #[25][21] TextureEnv 20 16
+            NULL, #[26][21] TextureEnv 20 16
+            NULL, #[27][21] TextureEnv 20 16
+            NULL, #[28][21] TextureEnv 20 16
+            NULL, #[29][21] TextureEnv 20 16
+            NULL, #[30][21] TextureEnv 20 16
+            NULL, #[31][21] TextureEnv 20 16
+            NULL, #[32][21] TextureEnv 20 16
+            NULL, #[33][21] TextureEnv 20 16
+            NULL, #[34][21] TextureEnv 20 16
+            NULL, #[35][21] TextureEnv 20 16
+            NULL, #[36][21] TextureEnv 20 16
+            NULL, #[37][37] TexGen 20 8
+            NULL, #[38][37] TexGen 20 8
+            NULL, #[39][37] TexGen 20 8
+            NULL, #[40][37] TexGen 20 8
+            NULL, #[41][37] TexGen 20 8
+            NULL, #[42][37] TexGen 20 8
+            NULL, #[43][37] TexGen 20 8
+            NULL, #[44][37] TexGen 20 8
+            NULL, #[45][45] Blend 50 1
+            NULL, #[46][46] Polygon 50 1
+            NULL, #[47][47] Color 50 1
+            NULL, #[48][48] Depth 50 1
+            NULL, #[49][49] Light 50 8
+            NULL, #[50][49] Light 50 8
+            NULL, #[51][49] Light 50 8
+            NULL, #[52][49] Light 50 8
+            NULL, #[53][49] Light 50 8
+            NULL, #[54][49] Light 50 8
+            NULL, #[55][49] Light 50 8
+            NULL, #[56][49] Light 50 8
+
+            MaterialChunk  
+            { 
+              diffuse      0.8 0.0 0.0 1.0
+              ambient      0.0 0.0 0.0 1.0
+              specular     0.0 0.0 0.0 1.0
+              shininess    0.4
+            }
+          ]
+        }
+      }
+
+      MapHelper
+      {
+        keys
+        [
+          "OGLShader@"
+        ]
+        container ChunkBlock
+        {
+          chunks
+          [
+            NULL, #[0][0] ShaderProgram 5 1
+            NULL, #[1][1] ShaderProgramVariable 6 1
+            NULL, #[2][2] ShaderExecutable 7 1
+            NULL, #[3][3] ShaderExeVariable 8 1
+            NULL, #[4][4] Stencil 10 1
+            NULL, #[5][5] Texture 15 16
+            NULL, #[6][5] Texture 15 16
+            NULL, #[7][5] Texture 15 16
+            NULL, #[8][5] Texture 15 16
+            NULL, #[9][5] Texture 15 16
+            NULL, #[10][5] Texture 15 16
+            NULL, #[11][5] Texture 15 16
+            NULL, #[12][5] Texture 15 16
+            NULL, #[13][5] Texture 15 16
+            NULL, #[14][5] Texture 15 16
+            NULL, #[15][5] Texture 15 16
+            NULL, #[16][5] Texture 15 16
+            NULL, #[17][5] Texture 15 16
+            NULL, #[18][5] Texture 15 16
+            NULL, #[19][5] Texture 15 16
+            NULL, #[20][5] Texture 15 16
+            NULL, #[21][21] TextureEnv 20 16
+            NULL, #[22][21] TextureEnv 20 16
+            NULL, #[23][21] TextureEnv 20 16
+            NULL, #[24][21] TextureEnv 20 16
+            NULL, #[25][21] TextureEnv 20 16
+            NULL, #[26][21] TextureEnv 20 16
+            NULL, #[27][21] TextureEnv 20 16
+            NULL, #[28][21] TextureEnv 20 16
+            NULL, #[29][21] TextureEnv 20 16
+            NULL, #[30][21] TextureEnv 20 16
+            NULL, #[31][21] TextureEnv 20 16
+            NULL, #[32][21] TextureEnv 20 16
+            NULL, #[33][21] TextureEnv 20 16
+            NULL, #[34][21] TextureEnv 20 16
+            NULL, #[35][21] TextureEnv 20 16
+            NULL, #[36][21] TextureEnv 20 16
+            NULL, #[37][37] TexGen 20 8
+            NULL, #[38][37] TexGen 20 8
+            NULL, #[39][37] TexGen 20 8
+            NULL, #[40][37] TexGen 20 8
+            NULL, #[41][37] TexGen 20 8
+            NULL, #[42][37] TexGen 20 8
+            NULL, #[43][37] TexGen 20 8
+            NULL, #[44][37] TexGen 20 8
+            NULL, #[45][45] Blend 50 1
+            NULL, #[46][46] Polygon 50 1
+            NULL, #[47][47] Color 50 1
+            NULL, #[48][48] Depth 50 1
+            NULL, #[49][49] Light 50 8
+            NULL, #[50][49] Light 50 8
+            NULL, #[51][49] Light 50 8
+            NULL, #[52][49] Light 50 8
+            NULL, #[53][49] Light 50 8
+            NULL, #[54][49] Light 50 8
+            NULL, #[55][49] Light 50 8
+            NULL, #[56][49] Light 50 8
+
+            MaterialChunk  
+            { 
+              diffuse      0.0 0.8 0.0 1.0
+              ambient      0.0 0.0 0.0 1.0
+              specular     0.0 0.0 0.0 1.0
+              shininess    0.4
+            }
+          ]
+        }
+      }
+    ]
+
+    fallbackChunkBlock ChunkBlock
+    {
+      chunks
+      [
+        NULL, #[0][0] ShaderProgram 5 1
+        NULL, #[1][1] ShaderProgramVariable 6 1
+        NULL, #[2][2] ShaderExecutable 7 1
+        NULL, #[3][3] ShaderExeVariable 8 1
+        NULL, #[4][4] Stencil 10 1
+        NULL, #[5][5] Texture 15 16
+        NULL, #[6][5] Texture 15 16
+        NULL, #[7][5] Texture 15 16
+        NULL, #[8][5] Texture 15 16
+        NULL, #[9][5] Texture 15 16
+        NULL, #[10][5] Texture 15 16
+        NULL, #[11][5] Texture 15 16
+        NULL, #[12][5] Texture 15 16
+        NULL, #[13][5] Texture 15 16
+        NULL, #[14][5] Texture 15 16
+        NULL, #[15][5] Texture 15 16
+        NULL, #[16][5] Texture 15 16
+        NULL, #[17][5] Texture 15 16
+        NULL, #[18][5] Texture 15 16
+        NULL, #[19][5] Texture 15 16
+        NULL, #[20][5] Texture 15 16
+        NULL, #[21][21] TextureEnv 20 16
+        NULL, #[22][21] TextureEnv 20 16
+        NULL, #[23][21] TextureEnv 20 16
+        NULL, #[24][21] TextureEnv 20 16
+        NULL, #[25][21] TextureEnv 20 16
+        NULL, #[26][21] TextureEnv 20 16
+        NULL, #[27][21] TextureEnv 20 16
+        NULL, #[28][21] TextureEnv 20 16
+        NULL, #[29][21] TextureEnv 20 16
+        NULL, #[30][21] TextureEnv 20 16
+        NULL, #[31][21] TextureEnv 20 16
+        NULL, #[32][21] TextureEnv 20 16
+        NULL, #[33][21] TextureEnv 20 16
+        NULL, #[34][21] TextureEnv 20 16
+        NULL, #[35][21] TextureEnv 20 16
+        NULL, #[36][21] TextureEnv 20 16
+        NULL, #[37][37] TexGen 20 8
+        NULL, #[38][37] TexGen 20 8
+        NULL, #[39][37] TexGen 20 8
+        NULL, #[40][37] TexGen 20 8
+        NULL, #[41][37] TexGen 20 8
+        NULL, #[42][37] TexGen 20 8
+        NULL, #[43][37] TexGen 20 8
+        NULL, #[44][37] TexGen 20 8
+        NULL, #[45][45] Blend 50 1
+        NULL, #[46][46] Polygon 50 1
+        NULL, #[47][47] Color 50 1
+        NULL, #[48][48] Depth 50 1
+        NULL, #[49][49] Light 50 8
+        NULL, #[50][49] Light 50 8
+        NULL, #[51][49] Light 50 8
+        NULL, #[52][49] Light 50 8
+        NULL, #[53][49] Light 50 8
+        NULL, #[54][49] Light 50 8
+        NULL, #[55][49] Light 50 8
+        NULL, #[56][49] Light 50 8
+        MaterialChunk  
+        { 
+          diffuse      0.0 0.0 0.8 1.0
+          ambient      0.0 0.0 0.0 1.0
+          specular     0.0 0.0 0.0 1.0
+          shininess    0.4
+        }
+      ]
+    }
+  }
+  
+  children
+  [
+    Node
+    {
+      core Inline
+      {
+        url "../Models/teapot.wrl"
+      }
+    }
+  ]
+}

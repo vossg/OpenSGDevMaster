@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ChunkOverrideGroup!
+ **     class ChunkBlock!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -58,10 +58,10 @@
 
 
 
-#include <OSGChunkBlock.h> // FallbackChunkBlock Class
+#include <OSGStateChunk.h> // Chunks Class
 
-#include "OSGChunkOverrideGroupBase.h"
-#include "OSGChunkOverrideGroup.h"
+#include "OSGChunkBlockBase.h"
+#include "OSGChunkBlock.h"
 
 #include "boost/bind.hpp"
 
@@ -75,117 +75,101 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::ChunkOverrideGroup
-    ChunkOverrideGroup is a simple group node that allows for material chunks
-    to be set that will override all chunks stored in materials in the entire 
-    subtree. Currently the last chunk override wins (note the difference to
-    the material group). This might change in future
+/*! \class OSG::ChunkBlock
+    
  */
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var ChunkBlock *    ChunkOverrideGroupBase::_sfFallbackChunkBlock
+/*! \var StateChunk *    ChunkBlockBase::_mfChunks
     
 */
 
 
-void ChunkOverrideGroupBase::classDescInserter(TypeObject &oType)
+void ChunkBlockBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecChunkBlockPtr::Description(
-        SFUnrecChunkBlockPtr::getClassType(),
-        "fallbackChunkBlock",
+    pDesc = new MFUnrecStateChunkPtr::Description(
+        MFUnrecStateChunkPtr::getClassType(),
+        "chunks",
         "",
-        FallbackChunkBlockFieldId, FallbackChunkBlockFieldMask,
+        ChunksFieldId, ChunksFieldMask,
         false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&ChunkOverrideGroup::editHandleFallbackChunkBlock),
-        static_cast<FieldGetMethodSig >(&ChunkOverrideGroup::getHandleFallbackChunkBlock));
+        (Field::MFDefaultFlags | Field::FCustomAccess),
+        static_cast<FieldEditMethodSig>(&ChunkBlock::editHandleChunks),
+        static_cast<FieldGetMethodSig >(&ChunkBlock::getHandleChunks));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
-    ChunkOverrideGroupBase::getClassname(),
+ChunkBlockBase::TypeObject ChunkBlockBase::_type(
+    ChunkBlockBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    reinterpret_cast<PrototypeCreateF>(&ChunkOverrideGroupBase::createEmptyLocal),
-    ChunkOverrideGroup::initMethod,
-    ChunkOverrideGroup::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ChunkOverrideGroup::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&ChunkBlockBase::createEmptyLocal),
+    ChunkBlock::initMethod,
+    ChunkBlock::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&ChunkBlockBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ChunkOverrideGroup\"\n"
-    "\tparent=\"Group\"\n"
+    "\tname=\"ChunkBlock\"\n"
+    "\tparent=\"FieldContainer\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
-    "    isNodeCore=\"true\"\n"
+    "    isNodeCore=\"false\"\n"
     ">\n"
-    "ChunkOverrideGroup is a simple group node that allows for material chunks\n"
-    "to be set that will override all chunks stored in materials in the entire \n"
-    "subtree. Currently the last chunk override wins (note the difference to\n"
-    "the material group). This might change in future\n"
-    "    <Field\n"
-    "\t   name=\"fallbackChunkBlock\"\n"
-    "\t   type=\"ChunkBlockPtr\"\n"
-    "\t   cardinality=\"single\"\n"
-    "\t   visibility=\"external\"\n"
-    "\t   header=\"OSGChunkBlock.h\"\n"
-    "\t   access=\"public\"\n"
-    "\t   >\n"
+    "\t<Field\n"
+    "\t\tname=\"chunks\"\n"
+    "\t\ttype=\"StateChunkPtr\"\n"
+    "\t\tcardinality=\"multi\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "        access=\"protected\"\n"
+    "        ptrFieldAccess = \"custom\"\n"
+    "        pushToFieldAs=\"pushToChunks\"\n"
+    "    >\n"
     "\t</Field>\n"
-    "</FieldContainer>\n"
-    "\n",
-    "ChunkOverrideGroup is a simple group node that allows for material chunks\n"
-    "to be set that will override all chunks stored in materials in the entire \n"
-    "subtree. Currently the last chunk override wins (note the difference to\n"
-    "the material group). This might change in future\n"
+    "</FieldContainer>\n",
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ChunkOverrideGroupBase::getType(void)
+FieldContainerType &ChunkBlockBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &ChunkOverrideGroupBase::getType(void) const
+const FieldContainerType &ChunkBlockBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 ChunkOverrideGroupBase::getContainerSize(void) const
+UInt32 ChunkBlockBase::getContainerSize(void) const
 {
-    return sizeof(ChunkOverrideGroup);
+    return sizeof(ChunkBlock);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the ChunkOverrideGroup::_sfFallbackChunkBlock field.
-const SFUnrecChunkBlockPtr *ChunkOverrideGroupBase::getSFFallbackChunkBlock(void) const
+//! Get the ChunkBlock::_mfChunks field.
+const MFUnrecStateChunkPtr *ChunkBlockBase::getMFChunks(void) const
 {
-    return &_sfFallbackChunkBlock;
+    return &_mfChunks;
 }
 
-SFUnrecChunkBlockPtr *ChunkOverrideGroupBase::editSFFallbackChunkBlock(void)
-{
-    editSField(FallbackChunkBlockFieldMask);
-
-    return &_sfFallbackChunkBlock;
-}
 
 
 
@@ -193,93 +177,93 @@ SFUnrecChunkBlockPtr *ChunkOverrideGroupBase::editSFFallbackChunkBlock(void)
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ChunkOverrideGroupBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 ChunkBlockBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (FallbackChunkBlockFieldMask & whichField))
+    if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
-        returnValue += _sfFallbackChunkBlock.getBinSize();
+        returnValue += _mfChunks.getBinSize();
     }
 
     return returnValue;
 }
 
-void ChunkOverrideGroupBase::copyToBin(BinaryDataHandler &pMem,
+void ChunkBlockBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FallbackChunkBlockFieldMask & whichField))
+    if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
-        _sfFallbackChunkBlock.copyToBin(pMem);
+        _mfChunks.copyToBin(pMem);
     }
 }
 
-void ChunkOverrideGroupBase::copyFromBin(BinaryDataHandler &pMem,
+void ChunkBlockBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FallbackChunkBlockFieldMask & whichField))
+    if(FieldBits::NoField != (ChunksFieldMask & whichField))
     {
-        _sfFallbackChunkBlock.copyFromBin(pMem);
+        _mfChunks.copyFromBin(pMem);
     }
 }
 
 //! create a new instance of the class
-ChunkOverrideGroupTransitPtr ChunkOverrideGroupBase::createLocal(BitVector bFlags)
+ChunkBlockTransitPtr ChunkBlockBase::createLocal(BitVector bFlags)
 {
-    ChunkOverrideGroupTransitPtr fc;
+    ChunkBlockTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<ChunkOverrideGroup>(tmpPtr);
+        fc = dynamic_pointer_cast<ChunkBlock>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-ChunkOverrideGroupTransitPtr ChunkOverrideGroupBase::createDependent(BitVector bFlags)
+ChunkBlockTransitPtr ChunkBlockBase::createDependent(BitVector bFlags)
 {
-    ChunkOverrideGroupTransitPtr fc;
+    ChunkBlockTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<ChunkOverrideGroup>(tmpPtr);
+        fc = dynamic_pointer_cast<ChunkBlock>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-ChunkOverrideGroupTransitPtr ChunkOverrideGroupBase::create(void)
+ChunkBlockTransitPtr ChunkBlockBase::create(void)
 {
-    ChunkOverrideGroupTransitPtr fc;
+    ChunkBlockTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<ChunkOverrideGroup>(tmpPtr);
+        fc = dynamic_pointer_cast<ChunkBlock>(tmpPtr);
     }
 
     return fc;
 }
 
-ChunkOverrideGroup *ChunkOverrideGroupBase::createEmptyLocal(BitVector bFlags)
+ChunkBlock *ChunkBlockBase::createEmptyLocal(BitVector bFlags)
 {
-    ChunkOverrideGroup *returnValue;
+    ChunkBlock *returnValue;
 
-    newPtr<ChunkOverrideGroup>(returnValue, bFlags);
+    newPtr<ChunkBlock>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -287,11 +271,11 @@ ChunkOverrideGroup *ChunkOverrideGroupBase::createEmptyLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ChunkOverrideGroup *ChunkOverrideGroupBase::createEmpty(void)
+ChunkBlock *ChunkBlockBase::createEmpty(void)
 {
-    ChunkOverrideGroup *returnValue;
+    ChunkBlock *returnValue;
 
-    newPtr<ChunkOverrideGroup>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<ChunkBlock>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -300,12 +284,12 @@ ChunkOverrideGroup *ChunkOverrideGroupBase::createEmpty(void)
 }
 
 
-FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopyLocal(
+FieldContainerTransitPtr ChunkBlockBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ChunkOverrideGroup *tmpPtr;
+    ChunkBlock *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ChunkOverrideGroup *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ChunkBlock *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -314,12 +298,12 @@ FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopyDependent(
+FieldContainerTransitPtr ChunkBlockBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    ChunkOverrideGroup *tmpPtr;
+    ChunkBlock *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ChunkOverrideGroup *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const ChunkBlock *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -328,12 +312,12 @@ FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopy(void) const
+FieldContainerTransitPtr ChunkBlockBase::shallowCopy(void) const
 {
-    ChunkOverrideGroup *tmpPtr;
+    ChunkBlock *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const ChunkOverrideGroup *>(this),
+           dynamic_cast<const ChunkBlock *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -348,74 +332,84 @@ FieldContainerTransitPtr ChunkOverrideGroupBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-ChunkOverrideGroupBase::ChunkOverrideGroupBase(void) :
+ChunkBlockBase::ChunkBlockBase(void) :
     Inherited(),
-    _sfFallbackChunkBlock     (NULL)
+    _mfChunks                 ()
 {
 }
 
-ChunkOverrideGroupBase::ChunkOverrideGroupBase(const ChunkOverrideGroupBase &source) :
+ChunkBlockBase::ChunkBlockBase(const ChunkBlockBase &source) :
     Inherited(source),
-    _sfFallbackChunkBlock     (NULL)
+    _mfChunks                 ()
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-ChunkOverrideGroupBase::~ChunkOverrideGroupBase(void)
+ChunkBlockBase::~ChunkBlockBase(void)
 {
 }
 
-void ChunkOverrideGroupBase::onCreate(const ChunkOverrideGroup *source)
+void ChunkBlockBase::onCreate(const ChunkBlock *source)
 {
     Inherited::onCreate(source);
 
     if(source != NULL)
     {
-        ChunkOverrideGroup *pThis = static_cast<ChunkOverrideGroup *>(this);
+        ChunkBlock *pThis = static_cast<ChunkBlock *>(this);
 
-        pThis->setFallbackChunkBlock(source->getFallbackChunkBlock());
+        MFUnrecStateChunkPtr::const_iterator ChunksIt  =
+            source->_mfChunks.begin();
+        MFUnrecStateChunkPtr::const_iterator ChunksEnd =
+            source->_mfChunks.end  ();
+
+        while(ChunksIt != ChunksEnd)
+        {
+            pThis->pushToChunks(*ChunksIt);
+
+            ++ChunksIt;
+        }
     }
 }
 
-GetFieldHandlePtr ChunkOverrideGroupBase::getHandleFallbackChunkBlock (void) const
+GetFieldHandlePtr ChunkBlockBase::getHandleChunks          (void) const
 {
-    SFUnrecChunkBlockPtr::GetHandlePtr returnValue(
-        new  SFUnrecChunkBlockPtr::GetHandle(
-             &_sfFallbackChunkBlock,
-             this->getType().getFieldDesc(FallbackChunkBlockFieldId)));
+    MFUnrecStateChunkPtr::GetHandlePtr returnValue(
+        new  MFUnrecStateChunkPtr::GetHandle(
+             &_mfChunks,
+             this->getType().getFieldDesc(ChunksFieldId)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr ChunkOverrideGroupBase::editHandleFallbackChunkBlock(void)
+EditFieldHandlePtr ChunkBlockBase::editHandleChunks         (void)
 {
-    SFUnrecChunkBlockPtr::EditHandlePtr returnValue(
-        new  SFUnrecChunkBlockPtr::EditHandle(
-             &_sfFallbackChunkBlock,
-             this->getType().getFieldDesc(FallbackChunkBlockFieldId)));
+    MFUnrecStateChunkPtr::EditHandlePtr returnValue(
+        new  MFUnrecStateChunkPtr::EditHandle(
+             &_mfChunks,
+             this->getType().getFieldDesc(ChunksFieldId)));
 
-    returnValue->setSetMethod(
-        boost::bind(&ChunkOverrideGroup::setFallbackChunkBlock,
-                    static_cast<ChunkOverrideGroup *>(this), _1));
+    returnValue->setAddMethod(
+        boost::bind(&ChunkBlock::pushToChunks,
+                    static_cast<ChunkBlock *>(this), _1));
 
-    editSField(FallbackChunkBlockFieldMask);
+    editMField(ChunksFieldMask, _mfChunks);
 
     return returnValue;
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void ChunkOverrideGroupBase::execSyncV(      FieldContainer    &oFrom,
+void ChunkBlockBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    ChunkOverrideGroup *pThis = static_cast<ChunkOverrideGroup *>(this);
+    ChunkBlock *pThis = static_cast<ChunkBlock *>(this);
 
-    pThis->execSync(static_cast<ChunkOverrideGroup *>(&oFrom),
+    pThis->execSync(static_cast<ChunkBlock *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -425,41 +419,41 @@ void ChunkOverrideGroupBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ChunkOverrideGroupBase::createAspectCopy(
+FieldContainer *ChunkBlockBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    ChunkOverrideGroup *returnValue;
+    ChunkBlock *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const ChunkOverrideGroup *>(pRefAspect),
-                  dynamic_cast<const ChunkOverrideGroup *>(this));
+                  dynamic_cast<const ChunkBlock *>(pRefAspect),
+                  dynamic_cast<const ChunkBlock *>(this));
 
     return returnValue;
 }
 #endif
 
-void ChunkOverrideGroupBase::resolveLinks(void)
+void ChunkBlockBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<ChunkOverrideGroup *>(this)->setFallbackChunkBlock(NULL);
+    static_cast<ChunkBlock *>(this)->clearChunks();
 
 
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkOverrideGroup *>::_type("ChunkOverrideGroupPtr", "GroupPtr");
+DataType FieldTraits<ChunkBlock *>::_type("ChunkBlockPtr", "FieldContainerPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroup *)
+OSG_FIELDTRAITS_GETTYPE(ChunkBlock *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ChunkOverrideGroup *,
+                           ChunkBlock *,
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ChunkOverrideGroup *,
+                           ChunkBlock *,
                            0);
 
 OSG_END_NAMESPACE

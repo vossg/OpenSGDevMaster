@@ -81,6 +81,7 @@
 
 #include "OSGFieldConnector.h"
 #include "OSGMaterialMapFields.h"
+#include "OSGChunkBlockMapFields.h"
 
 //#include <OSGSimpleAttachments.h>
 
@@ -274,6 +275,9 @@ void OSGLoader::initFieldTypeMapper(void)
                      ScanParseSkel::OSGmfNode);
 
     setIntExtMapping(SFMaterialPtrMap::getClassType().getId(),
+                     ScanParseSkel::OSGmfNode);
+
+    setIntExtMapping(SFChunkBlockPtrMap::getClassType().getId(),
                      ScanParseSkel::OSGmfNode);
 
     /* extended types */

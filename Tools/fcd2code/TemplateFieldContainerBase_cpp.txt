@@ -166,7 +166,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
 @@endif // isAbstract
     @!Classname!@::initMethod,
     @!Classname!@::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&@!Classname!@Base::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&@!Classname!@::classDescInserter),
     false,
     @!FieldsUnmarkedOnCreate!@,
     @!Fcdxml!@,
