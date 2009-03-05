@@ -598,7 +598,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureObjChunkBase::createEmptyLocal),
     TextureObjChunk::initMethod,
     TextureObjChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TextureObjChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TextureObjChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

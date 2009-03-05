@@ -162,7 +162,7 @@ ColorMaskChunkBase::TypeObject ColorMaskChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ColorMaskChunkBase::createEmptyLocal),
     ColorMaskChunk::initMethod,
     ColorMaskChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ColorMaskChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ColorMaskChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -184,7 +184,7 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DepthChunkBase::createEmptyLocal),
     DepthChunk::initMethod,
     DepthChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DepthChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DepthChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

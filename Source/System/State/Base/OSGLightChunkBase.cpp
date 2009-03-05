@@ -286,7 +286,7 @@ LightChunkBase::TypeObject LightChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LightChunkBase::createEmptyLocal),
     LightChunk::initMethod,
     LightChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&LightChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&LightChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
