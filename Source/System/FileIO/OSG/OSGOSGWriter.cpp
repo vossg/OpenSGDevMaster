@@ -435,11 +435,14 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
                 std::vector<std::string>::const_iterator kEnd = 
                     iter->first.end();
 
-                _outStream << BeginElem
-                           << "\""
-                           << *kIt
-                           << "\""
-                           << EndElemNL;
+                for(; kIt != kEnd; ++kIt)
+                {
+                    _outStream << BeginElem
+                               << "\""
+                               << *kIt
+                               << "\""
+                               << EndElemNL;
+                }
 
                 _outStream << DecIndent;
 

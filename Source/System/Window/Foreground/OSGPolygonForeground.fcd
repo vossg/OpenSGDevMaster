@@ -23,7 +23,7 @@ coordinates as positions). The interpretation of the positions is
 controlled by _sfNormalizedX and _sfNormalizedY.
 	<Field
 		name="material"
-		type="MaterialPtr"
+		type="PrimeMaterialPtr"
 		cardinality="single"
 		visibility="external"
 		access="public"

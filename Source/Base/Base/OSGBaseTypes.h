@@ -684,11 +684,19 @@ namespace PointerSize
 
     typedef boost::mpl::if_<boost::mpl::bool_<(sizeof(void *) == 4)>,
                             UInt32,
-                            UnknowSize>::type Tmp1;
+                            UnknowSize>::type UITmp1;
+
+    typedef boost::mpl::if_<boost::mpl::bool_<(sizeof(void *) == 4)>,
+                            Int32,
+                            UnknowSize>::type ITmp1;
 
     typedef boost::mpl::if_<boost::mpl::bool_<(sizeof(void *) == 8)>,
                             UInt64,
-                            Tmp1  >::type PtrSize;
+                            UITmp1  >::type UIPtrSize;
+
+    typedef boost::mpl::if_<boost::mpl::bool_<(sizeof(void *) == 8)>,
+                            Int64,
+                            ITmp1  >::type IPtrSize;
 }
 
 #endif
@@ -696,7 +704,8 @@ namespace PointerSize
 /*! \ingroup GrpBaseBaseBaseTypes
  */
 
-typedef PointerSize::PtrSize UIntPointer;
+typedef PointerSize::UIPtrSize UIntPointer;
+typedef PointerSize::IPtrSize  IntPointer;
 
 /*! MathTypeProperties
  *  \ingroup GrpBaseBaseConstants
@@ -737,7 +746,30 @@ struct FieldFlags
 /*! \ingroup GrpBaseBaseBaseTypes
  */
 
-typedef std::vector<Int32> AspectOffsetStore;
+typedef std::vector<IntPointer> AspectOffsetStore;
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+namespace RenderPropBitVectorSize
+{
+    struct UnknowSize {};
+
+    typedef boost::mpl::if_<boost::mpl::bool_< (RenderPropertyBits <= 64 &&
+                                                RenderPropertyBits >  32   )>,
+                            UInt64,
+                            UnknowSize>::type Tmp1;
+
+    typedef boost::mpl::if_<boost::mpl::bool_< (RenderPropertyBits <= 32) >,
+                            UInt32,
+                            Tmp1  >::type BitVectorSize;
+}
+
+#endif
+
+/*! \ingroup GrpBaseBaseBaseTypes
+ */
+
+typedef RenderPropBitVectorSize::BitVectorSize RenderPropBitVector;
 
 OSG_END_NAMESPACE
 

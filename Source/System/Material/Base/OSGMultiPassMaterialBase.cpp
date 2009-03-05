@@ -58,7 +58,7 @@
 
 
 
-#include <OSGMaterial.h> // Materials Class
+#include <OSGPrimeMaterial.h> // Materials Class
 
 #include "OSGMultiPassMaterialBase.h"
 #include "OSGMultiPassMaterial.h"
@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var Material *      MultiPassMaterialBase::_mfMaterials
+/*! \var PrimeMaterial * MultiPassMaterialBase::_mfMaterials
     
 */
 
@@ -93,8 +93,8 @@ void MultiPassMaterialBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFUnrecMaterialPtr::Description(
-        MFUnrecMaterialPtr::getClassType(),
+    pDesc = new MFUnrecPrimeMaterialPtr::Description(
+        MFUnrecPrimeMaterialPtr::getClassType(),
         "materials",
         "",
         MaterialsFieldId, MaterialsFieldMask,
@@ -122,7 +122,7 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"MultiPassMaterial\"\n"
-    "\tparent=\"Material\"\n"
+    "\tparent=\"PrimeMaterial\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
@@ -133,7 +133,7 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     ">\n"
     "\t<Field\n"
     "\t\tname=\"materials\"\n"
-    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\ttype=\"PrimeMaterialPtr\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -172,12 +172,12 @@ UInt32 MultiPassMaterialBase::getContainerSize(void) const
 
 
 //! Get the MultiPassMaterial::_mfMaterials field.
-const MFUnrecMaterialPtr *MultiPassMaterialBase::getMFMaterials(void) const
+const MFUnrecPrimeMaterialPtr *MultiPassMaterialBase::getMFMaterials(void) const
 {
     return &_mfMaterials;
 }
 
-MFUnrecMaterialPtr  *MultiPassMaterialBase::editMFMaterials      (void)
+MFUnrecPrimeMaterialPtr *MultiPassMaterialBase::editMFMaterials      (void)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
@@ -186,18 +186,18 @@ MFUnrecMaterialPtr  *MultiPassMaterialBase::editMFMaterials      (void)
 
 
 
-void MultiPassMaterialBase::addMaterial(Material * const value)
+void MultiPassMaterialBase::addMaterial(PrimeMaterial * const value)
 {
     editMField(MaterialsFieldMask, _mfMaterials);
 
     _mfMaterials.push_back(value);
 }
 
-void MultiPassMaterialBase::assignMaterialsFrom(const MFUnrecMaterialPtr &value)
+void MultiPassMaterialBase::assignMaterialsFrom(const MFUnrecPrimeMaterialPtr &value)
 {
-    MFUnrecMaterialPtr::const_iterator elemIt  =
+    MFUnrecPrimeMaterialPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecMaterialPtr::const_iterator elemEnd =
+    MFUnrecPrimeMaterialPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<MultiPassMaterial *>(this)->clearMaterials();
@@ -220,7 +220,7 @@ void MultiPassMaterialBase::subMaterial(UInt32 uiIndex)
     }
 }
 
-void MultiPassMaterialBase::subMaterialByObj(Material * const value)
+void MultiPassMaterialBase::subMaterialByObj(PrimeMaterial * const value)
 {
     Int32 iElemIdx = _mfMaterials.findIndex(value);
 
@@ -425,9 +425,9 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
     {
         MultiPassMaterial *pThis = static_cast<MultiPassMaterial *>(this);
 
-        MFUnrecMaterialPtr::const_iterator MaterialsIt  =
+        MFUnrecPrimeMaterialPtr::const_iterator MaterialsIt  =
             source->_mfMaterials.begin();
-        MFUnrecMaterialPtr::const_iterator MaterialsEnd =
+        MFUnrecPrimeMaterialPtr::const_iterator MaterialsEnd =
             source->_mfMaterials.end  ();
 
         while(MaterialsIt != MaterialsEnd)
@@ -441,8 +441,8 @@ void MultiPassMaterialBase::onCreate(const MultiPassMaterial *source)
 
 GetFieldHandlePtr MultiPassMaterialBase::getHandleMaterials       (void) const
 {
-    MFUnrecMaterialPtr::GetHandlePtr returnValue(
-        new  MFUnrecMaterialPtr::GetHandle(
+    MFUnrecPrimeMaterialPtr::GetHandlePtr returnValue(
+        new  MFUnrecPrimeMaterialPtr::GetHandle(
              &_mfMaterials,
              this->getType().getFieldDesc(MaterialsFieldId)));
 
@@ -451,8 +451,8 @@ GetFieldHandlePtr MultiPassMaterialBase::getHandleMaterials       (void) const
 
 EditFieldHandlePtr MultiPassMaterialBase::editHandleMaterials      (void)
 {
-    MFUnrecMaterialPtr::EditHandlePtr returnValue(
-        new  MFUnrecMaterialPtr::EditHandle(
+    MFUnrecPrimeMaterialPtr::EditHandlePtr returnValue(
+        new  MFUnrecPrimeMaterialPtr::EditHandle(
              &_mfMaterials,
              this->getType().getFieldDesc(MaterialsFieldId)));
 
@@ -518,7 +518,7 @@ void MultiPassMaterialBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiPassMaterial *>::_type("MultiPassMaterialPtr", "MaterialPtr");
+DataType FieldTraits<MultiPassMaterial *>::_type("MultiPassMaterialPtr", "PrimeMaterialPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(MultiPassMaterial *)

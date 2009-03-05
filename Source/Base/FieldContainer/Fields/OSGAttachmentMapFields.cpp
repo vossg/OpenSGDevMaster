@@ -134,7 +134,7 @@ void FieldTraits<AttachmentMap>::copyFromBin(BinaryDataHandler &pMem,
 
 
     AttachmentMap::const_iterator mapIt  = aMap.begin();
-    AttachmentMap::const_iterator mapEnd = aMap.begin();
+    AttachmentMap::const_iterator mapEnd = aMap.end  ();
 
     for(; mapIt != mapEnd; ++mapIt)
     {
@@ -253,6 +253,61 @@ void EditSFieldHandle<SFAttachmentPtrMap>::flatten(MapList &vList)
     }
 }
 
+void EditSFieldHandle<SFAttachmentPtrMap>::flatten(ContainerList &vList)
+{
+    vList.clear();
+
+    const SFAttachmentPtrMap *pMap = static_cast<SFAttachmentPtrMap *>(_pField);
+
+    if(pMap != NULL)
+    {
+        AttachmentMap::const_iterator mapIt  = pMap->getValue().begin();
+        AttachmentMap::const_iterator mapEnd = pMap->getValue().end  ();
+
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            if(mapIt->second->getInternal().getValue() == true)
+                continue;
+
+            vList.push_back(mapIt->second);
+        }
+    }
+}
+
+bool EditSFieldHandle<SFAttachmentPtrMap>::loadFromBin(      
+    BinaryDataHandler        *pMem,
+    UInt32                    uiNumElements,
+    bool                      hasBindingInfo,
+    std::vector<UInt16>      &vBindings,
+    std::vector<UInt32>      &vIds          )
+{
+    UInt32             ptrId;
+    UInt16             binding;
+
+    for(UInt32 i = 0; i < uiNumElements; ++i)
+    {
+        pMem->getValue(binding);
+        pMem->getValue(ptrId  );
+        
+        FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+                "attachment [%u], binding [%u], id [%u].\n",
+                i, binding, ptrId));
+        
+        vBindings.push_back(binding);
+        vIds     .push_back(ptrId  );
+    }
+
+    return false;
+}
+
+
+void EditSFieldHandle<SFAttachmentPtrMap>::fillFrom(
+    const std::vector<UInt16>      &vBindings,
+    const std::vector<UInt32>      &vIds,
+    const std::map<UInt32, UInt32> &vIdMap   )
+{
+}
+
 void EditSFieldHandle<SFAttachmentPtrMap>::cloneValues(
           GetFieldHandlePtr  pSrc,
     const TypePtrVector     &shareTypes,
@@ -362,11 +417,33 @@ void GetSFieldHandle<SFAttachmentPtrMap>::flatten(MapList &vList)
     }
 }
 
+void GetSFieldHandle<SFAttachmentPtrMap>::flatten(ContainerList &vList)
+{
+    vList.clear();
+
+    SFAttachmentPtrMap const *pMap = 
+        static_cast<SFAttachmentPtrMap const *>(_pField);
+
+    if(pMap != NULL)
+    {
+        AttachmentMap::const_iterator mapIt  = pMap->getValue().begin();
+        AttachmentMap::const_iterator mapEnd = pMap->getValue().end  ();
+
+        for(; mapIt != mapEnd; ++mapIt)
+        {
+            if(mapIt->second->getInternal().getValue() == true)
+                continue;
+
+            vList.push_back(mapIt->second);
+        }
+    }
+}
+
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
 DataType FieldTraits<AttachmentMap>::_type(
     "AttachmentMap",
-    NULL);
+    "FieldContainerPtrMap");
 
 OSG_FIELDTRAITS_GETTYPE(AttachmentMap)
 

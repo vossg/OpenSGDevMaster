@@ -1,0 +1,80 @@
+#OSG V1.0 
+
+Node
+{
+  core MaterialGroup
+  {
+    material VariantMaterial
+    {
+      materialStore
+      [
+        MapHelper
+        {
+          keys
+          [
+            "OGLFixedFunc@"
+          ]
+          container ChunkMaterial
+          {
+            chunks
+            [
+              MaterialChunk  
+              { 
+                diffuse      0.8 0.0 0.0 1.0
+                ambient      0.0 0.0 0.0 1.0
+                specular     0.0 0.0 0.0 1.0
+                shininess    0.4
+              }
+            ]
+          }
+        }
+
+        MapHelper
+        {
+          keys
+          [
+            "OGLShader@"
+          ]
+          container ChunkMaterial
+          {
+            chunks
+            [
+              MaterialChunk  
+              { 
+                diffuse      0.0 0.8 0.0 1.0
+                ambient      0.0 0.0 0.0 1.0
+                specular     0.0 0.0 0.0 1.0
+                shininess    0.4
+              }
+            ]
+          }
+        }
+      ]
+      
+      fallbackMaterial ChunkMaterial
+      {
+        chunks
+        [
+          MaterialChunk  
+          { 
+            diffuse      0.0 0.0 0.8 1.0
+            ambient      0.0 0.0 0.0 1.0
+            specular     0.0 0.0 0.0 1.0
+            shininess    0.4
+          }
+        ]
+      }
+    }
+  }
+
+  children
+  [
+    Node
+    {
+      core Inline
+      {
+        url "../Models/teapot.wrl"
+      }
+    }
+  ]
+}

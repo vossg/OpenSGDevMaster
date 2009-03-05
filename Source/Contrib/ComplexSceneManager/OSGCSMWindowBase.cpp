@@ -60,6 +60,7 @@
 
 #include <OSGFieldContainer.h> // Parent Class
 #include <OSGCSMViewport.h> // Viewports Class
+#include <OSGRenderOptions.h> // RenderOptions Class
 
 #include "OSGCSMWindowBase.h"
 #include "OSGCSMWindow.h"
@@ -137,6 +138,10 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var UInt32          CSMWindowBase::_sfFsaaHint
+    
+*/
+
+/*! \var RenderOptions * CSMWindowBase::_sfRenderOptions
     
 */
 
@@ -313,6 +318,18 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleFsaaHint));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecRenderOptionsPtr::Description(
+        SFUnrecRenderOptionsPtr::getClassType(),
+        "renderOptions",
+        "",
+        RenderOptionsFieldId, RenderOptionsFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleRenderOptions),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleRenderOptions));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -478,7 +495,15 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "       defaultValue=\"GL_FASTEST\"\n"
     "\t>\n"
     "    </Field>\n"
-    "\n"
+    "\t<Field\n"
+    "\t   name=\"renderOptions\"\n"
+    "\t   type=\"RenderOptionsPtr\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue=\"NULL\"\n"
+    "\t>\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -673,6 +698,19 @@ const SFUInt32 *CSMWindowBase::getSFFsaaHint(void) const
 }
 
 
+//! Get the CSMWindow::_sfRenderOptions field.
+const SFUnrecRenderOptionsPtr *CSMWindowBase::getSFRenderOptions(void) const
+{
+    return &_sfRenderOptions;
+}
+
+SFUnrecRenderOptionsPtr *CSMWindowBase::editSFRenderOptions  (void)
+{
+    editSField(RenderOptionsFieldMask);
+
+    return &_sfRenderOptions;
+}
+
 
 
 void CSMWindowBase::pushToViewports(CSMViewport * const value)
@@ -792,6 +830,10 @@ UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfFsaaHint.getBinSize();
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        returnValue += _sfRenderOptions.getBinSize();
+    }
 
     return returnValue;
 }
@@ -857,6 +899,10 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfFsaaHint.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        _sfRenderOptions.copyToBin(pMem);
+    }
 }
 
 void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -920,6 +966,10 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfFsaaHint.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        _sfRenderOptions.copyFromBin(pMem);
+    }
 }
 
 
@@ -942,7 +992,8 @@ CSMWindowBase::CSMWindowBase(void) :
     _mfIgnoreExtensions       (),
     _sfRequestSamples         (UInt32(0)),
     _sfEnableFSAA             (bool(false)),
-    _sfFsaaHint               (UInt32(GL_FASTEST))
+    _sfFsaaHint               (UInt32(GL_FASTEST)),
+    _sfRenderOptions          (NULL)
 {
 }
 
@@ -961,7 +1012,8 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _mfIgnoreExtensions       (source._mfIgnoreExtensions       ),
     _sfRequestSamples         (source._sfRequestSamples         ),
     _sfEnableFSAA             (source._sfEnableFSAA             ),
-    _sfFsaaHint               (source._sfFsaaHint               )
+    _sfFsaaHint               (source._sfFsaaHint               ),
+    _sfRenderOptions          (NULL)
 {
 }
 
@@ -1062,6 +1114,8 @@ void CSMWindowBase::onCreate(const CSMWindow *source)
 
             ++ViewportsIt;
         }
+
+        pThis->setRenderOptions(source->getRenderOptions());
     }
 }
 
@@ -1390,6 +1444,32 @@ EditFieldHandlePtr CSMWindowBase::editHandleFsaaHint       (void)
     return returnValue;
 }
 
+GetFieldHandlePtr CSMWindowBase::getHandleRenderOptions   (void) const
+{
+    SFUnrecRenderOptionsPtr::GetHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::GetHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleRenderOptions  (void)
+{
+    SFUnrecRenderOptionsPtr::EditHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::EditHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId)));
+
+    returnValue->setSetMethod(
+        boost::bind(&CSMWindow::setRenderOptions,
+                    static_cast<CSMWindow *>(this), _1));
+
+    editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void CSMWindowBase::execSyncV(      FieldContainer    &oFrom,
@@ -1415,6 +1495,8 @@ void CSMWindowBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<CSMWindow *>(this)->clearViewports();
+
+    static_cast<CSMWindow *>(this)->setRenderOptions(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;

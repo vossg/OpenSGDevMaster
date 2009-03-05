@@ -42,8 +42,7 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
-
+#include "OSGPrimeMaterial.h"
 #include "OSGPolygonForegroundBase.h"
 
 OSG_BEGIN_NAMESPACE

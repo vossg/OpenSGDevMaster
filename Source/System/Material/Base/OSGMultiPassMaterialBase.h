@@ -63,9 +63,9 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGMaterial.h" // Parent
+#include "OSGPrimeMaterial.h" // Parent
 
-#include "OSGMaterialFields.h" // Materials type
+#include "OSGPrimeMaterialFields.h" // Materials type
 
 #include "OSGMultiPassMaterialFields.h"
 
@@ -75,12 +75,12 @@ class MultiPassMaterial;
 
 //! \brief MultiPassMaterial Base Class.
 
-class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
+class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public PrimeMaterial
 {
   public:
 
-    typedef Material Inherited;
-    typedef Material ParentContainer;
+    typedef PrimeMaterial Inherited;
+    typedef PrimeMaterial ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -102,7 +102,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUnrecMaterialPtr MFMaterialsType;
+    typedef MFUnrecPrimeMaterialPtr MFMaterialsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -127,11 +127,11 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecMaterialPtr  *getMFMaterials      (void) const;
-                  MFUnrecMaterialPtr  *editMFMaterials      (void);
+            const MFUnrecPrimeMaterialPtr *getMFMaterials      (void) const;
+                  MFUnrecPrimeMaterialPtr *editMFMaterials      (void);
 
 
-                  Material * getMaterials      (const UInt32 index) const;
+                  PrimeMaterial * getMaterials      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -149,10 +149,10 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void addMaterial               (Material * const value   );
-    void assignMaterialsFrom          (const MFUnrecMaterialPtr &value);
+    void addMaterial               (PrimeMaterial * const value   );
+    void assignMaterialsFrom          (const MFUnrecPrimeMaterialPtr &value);
     void subMaterial     (UInt32               uiIndex );
-    void subMaterialByObj(Material * const value   );
+    void subMaterialByObj(PrimeMaterial * const value   );
     void clearMaterials             (void                         );
 
     /*! \}                                                                 */
@@ -208,7 +208,7 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterialBase : public Material
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecMaterialPtr _mfMaterials;
+    MFUnrecPrimeMaterialPtr _mfMaterials;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

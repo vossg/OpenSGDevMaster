@@ -77,43 +77,45 @@ StatElemDesc<StatIntElem>
 /*                            Constructors                                 */
 
 RenderActionBase::RenderActionBase(void) :
-     Inherited       (     ),
-    _pCamera         (NULL ),
-    _pBackground     (NULL ),
-    _pWindow         (NULL ),
-    _pViewport       (NULL ),
-    _pGlobalOverride (NULL ),
-    _pStatistics     (NULL ),
-    _pStageValidator (NULL ),
+     Inherited         (      ),
+    _pCamera           (NULL  ),
+    _pBackground       (NULL  ),
+    _pWindow           (NULL  ),
+    _pViewport         (NULL  ),
+    _pGlobalOverride   (NULL  ),
+    _pStatistics       (NULL  ),
+    _pStageValidator   (NULL  ),
 
-    _bFrustumCulling (true ),
-    _bVolumeDrawing  (false),
-    _bAutoFrustum    (true ),
-    _oFrustum        (     ),
-    _uiFrameTravCount(0    ),
-    _iDrawerId       (-1   ),
-    _iDrawableId     (-1   )
+    _bFrustumCulling   (true  ),
+    _bVolumeDrawing    (false ),
+    _bAutoFrustum      (true  ),
+    _oFrustum          (      ),
+    _uiFrameTravCount  (0     ),
+    _iDrawerId         (-1    ),
+    _iDrawableId       (-1    ),
+    _oCurrentRenderProp(0x0000)
 {
     _pStageValidator = new StageValidator();
 }
 
 RenderActionBase::RenderActionBase(const RenderActionBase &source) :
 
-     Inherited       (source                  ),
-    _pCamera         (source._pCamera         ),
-    _pBackground     (source._pBackground     ),
-    _pWindow         (source._pWindow         ),
-    _pViewport       (source._pViewport       ),
-    _pGlobalOverride (source._pGlobalOverride ),
-    _pStageValidator (NULL                    ),
-    _pStatistics     (NULL                    ),
-    _bFrustumCulling (source._bFrustumCulling ),
-    _bVolumeDrawing  (source._bVolumeDrawing  ),
-    _bAutoFrustum    (source._bAutoFrustum    ),
-    _oFrustum        (source._oFrustum        ),
-    _uiFrameTravCount(source._uiFrameTravCount),
-    _iDrawerId       (source._iDrawerId       ),
-    _iDrawableId     (source._iDrawableId     )
+     Inherited         (source                  ),
+    _pCamera           (source._pCamera         ),
+    _pBackground       (source._pBackground     ),
+    _pWindow           (source._pWindow         ),
+    _pViewport         (source._pViewport       ),
+    _pGlobalOverride   (source._pGlobalOverride ),
+    _pStageValidator   (NULL                    ),
+    _pStatistics       (NULL                    ),
+    _bFrustumCulling   (source._bFrustumCulling ),
+    _bVolumeDrawing    (source._bVolumeDrawing  ),
+    _bAutoFrustum      (source._bAutoFrustum    ),
+    _oFrustum          (source._oFrustum        ),
+    _uiFrameTravCount  (source._uiFrameTravCount),
+    _iDrawerId         (source._iDrawerId       ),
+    _iDrawableId       (source._iDrawableId     ),
+    _oCurrentRenderProp(0x0000                  )
 {
     OSG::setRefd(_pStatistics, source._pStatistics);
 

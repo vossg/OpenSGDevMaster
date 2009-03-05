@@ -139,7 +139,7 @@ SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"SwitchMaterial\"\n"
-    "\tparent=\"Material\"\n"
+    "\tparent=\"CompositeMaterial\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
@@ -590,7 +590,7 @@ void SwitchMaterialBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SwitchMaterial *>::_type("SwitchMaterialPtr", "MaterialPtr");
+DataType FieldTraits<SwitchMaterial *>::_type("SwitchMaterialPtr", "CompositeMaterialPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(SwitchMaterial *)

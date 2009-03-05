@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGMaterial.h" // Parent
+#include "OSGPrimeMaterial.h" // Parent
 
 #include "OSGStateChunkFields.h" // Chunks type
 #include "OSGInt32Fields.h" // Slots type
@@ -76,12 +76,12 @@ class ChunkMaterial;
 
 //! \brief ChunkMaterial Base Class.
 
-class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public Material
+class OSG_SYSTEM_DLLMAPPING ChunkMaterialBase : public PrimeMaterial
 {
   public:
 
-    typedef Material Inherited;
-    typedef Material ParentContainer;
+    typedef PrimeMaterial Inherited;
+    typedef PrimeMaterial ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

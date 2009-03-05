@@ -81,13 +81,9 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterial : public SimpleMaterialBase
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
 
-#ifdef OLD
-    virtual StatePtr makeState    (void);
-#endif
+    virtual void rebuildState (void);
 
-    virtual void     rebuildState (void);
-
-    virtual bool     isTransparent(void) const;
+    virtual bool isTransparent(void) const;
 
     /*! \}                                                                 */
 

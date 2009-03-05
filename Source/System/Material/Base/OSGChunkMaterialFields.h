@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ChunkMaterial;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ChunkMaterialPtr
-
 OSG_GEN_CONTAINERPTR(ChunkMaterial);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ChunkMaterial *> :
     public FieldTraitsFCPtrBase<ChunkMaterial *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ChunkMaterial *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdChunkMaterialPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ChunkMaterialPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ChunkMaterial *,
                       RecordedRefCountPolicy  > SFRecChunkMaterialPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ChunkMaterial *,
                       UnrecordedRefCountPolicy> SFUnrecChunkMaterialPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ChunkMaterial *,
                       WeakRefCountPolicy      > SFWeakChunkMaterialPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ChunkMaterial *,
                       NoRefCountPolicy        > SFUncountedChunkMaterialPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ChunkMaterial *,
                       RecordedRefCountPolicy  > MFRecChunkMaterialPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ChunkMaterial *,
                       UnrecordedRefCountPolicy> MFUnrecChunkMaterialPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ChunkMaterial *,
                       WeakRefCountPolicy      > MFWeakChunkMaterialPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ChunkMaterial *,
                       NoRefCountPolicy        > MFUncountedChunkMaterialPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecChunkMaterialPtr : 
+    public PointerSField<ChunkMaterial *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecChunkMaterialPtr : 
+    public PointerSField<ChunkMaterial *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakChunkMaterialPtr :
+    public PointerSField<ChunkMaterial *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedChunkMaterialPtr :
+    public PointerSField<ChunkMaterial *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecChunkMaterialPtr :
+    public PointerMField<ChunkMaterial *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecChunkMaterialPtr :
+    public PointerMField<ChunkMaterial *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakChunkMaterialPtr :
+    public PointerMField<ChunkMaterial *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedChunkMaterialPtr :
+    public PointerMField<ChunkMaterial *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

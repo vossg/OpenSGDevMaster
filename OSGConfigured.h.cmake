@@ -61,6 +61,11 @@
 #cmakedefine OSG_SHC_MODE_9  1
 #cmakedefine OSG_SHC_MODE_10 1
 
+OSG_BEGIN_NAMESPACE
+static const unsigned int RenderPropertyBits = @OSG_RENDERPROPERTY_BITS@;
+static const unsigned int RenderPropertyUniqueBits = @OSG_RENDERPROPERTY_UNIQUE_BITS@;
+OSG_END_NAMESPACE
+
 #define OSG_WITH_GIF 1
 
 #cmakedefine OSG_PREBUILD_SCANPARSE 1

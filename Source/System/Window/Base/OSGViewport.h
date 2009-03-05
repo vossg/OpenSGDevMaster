@@ -43,6 +43,7 @@
 #pragma once
 #endif
 
+#include "OSGRenderOptions.h"
 #include "OSGViewportBase.h"
 #include "OSGWindowFields.h"
 #include "OSGBackground.h"
@@ -101,13 +102,9 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
-    virtual void activateSize(void                             );
-    virtual void activate    (void                             );
-    virtual void deactivate  (void                             );
-
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual void render      (DrawActionBase   *action);
-#endif
+    virtual void activateSize(void                    );
+    virtual void activate    (void                    );
+    virtual void deactivate  (void                    );
 
     virtual void render      (RenderActionBase *action);
 

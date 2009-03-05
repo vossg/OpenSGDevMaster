@@ -124,9 +124,10 @@ bool CSMViewport::init(void)
 
     _pViewport = Viewport::create();
 
-    _pViewport->setRoot      (_sfRoot      .getValue());
-    _pViewport->setCamera    (_sfCamera    .getValue());
-    _pViewport->setBackground(_sfBackground.getValue());
+    _pViewport->setRoot         (_sfRoot         .getValue());
+    _pViewport->setCamera       (_sfCamera       .getValue());
+    _pViewport->setBackground   (_sfBackground   .getValue());
+    _pViewport->setRenderOptions(_sfRenderOptions.getValue());
 
     MFUnrecForegroundPtr::const_iterator fIt  = getMFForegrounds()->begin();
     MFUnrecForegroundPtr::const_iterator fEnd = getMFForegrounds()->end  ();

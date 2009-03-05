@@ -46,7 +46,6 @@
 #include "OSGNode.h"
 
 #include "OSGAction.h"
-#include "OSGMaterial.h"
 
 #include "OSGVolume.h"
 #include "OSGBoxVolume.h"

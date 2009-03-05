@@ -163,4 +163,13 @@ all the different ClusterWindows!
 	>
     DrawableId to select viewport dependent elements (e.g. Distortion filter).
 	</Field>
+	<Field
+	   name="renderOptions"
+	   type="RenderOptionsPtr"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       defaultValue="NULL"
+	>
+	</Field>
 </FieldContainer>

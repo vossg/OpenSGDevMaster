@@ -305,7 +305,7 @@ OSBCommonElement::readFieldContent(
     BitVector        fieldMask  = fieldDesc->getFieldMask();
 
     if(fieldType.getContentType().isDerivedFrom(
-        FieldTraits<AttachmentMap>::getType()) == true)
+        FieldTraits<FieldContainer *>::getMapType()) == true)
     {
         ptrFieldIt = readAttachmentMapField(fieldId, fieldSize);
         isPtrField = true;
@@ -552,6 +552,7 @@ OSBCommonElement::readAttachmentMapField(
     BinaryReadHandler *rh             = editRoot()->getReadHandler();
 
     root->editPtrFieldList().push_back(PtrFieldInfo(getContainer(), fieldId));
+
     PtrFieldInfo &pfi = root->editPtrFieldList().back();
 
     rh->getValue(numElements);
@@ -585,6 +586,19 @@ OSBCommonElement::readAttachmentMapField(
         FDEBUG(("OSBCommonElement::readAttachmentMapField: "
                 "reading [%u] attachments with binding info.\n", numElements));
     
+        EditMapFieldHandlePtr sfMapField =
+            boost::dynamic_pointer_cast<EditMapFieldHandle>(
+                getContainer()->editField(fieldId));
+
+        if(sfMapField == NULL || sfMapField->isValid() == false)
+            return --(root->editPtrFieldList().end());
+
+        pfi.setHandledField(sfMapField->loadFromBin(rh,
+                                                    numElements,
+                                                    hasBindingInfo,
+                                                    pfi.editBindingStore(),
+                                                    pfi.editIdStore     ()));
+#if 0
         for(UInt32 i = 0; i < numElements; ++i)
         {
             rh->getValue(binding);
@@ -597,6 +611,7 @@ OSBCommonElement::readAttachmentMapField(
             pfi.editBindingStore().push_back(binding);
             pfi.editIdStore     ().push_back(ptrId  );
         }
+#endif
     }
     else
     {
@@ -724,12 +739,24 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
 
     \param[in] fieldId Id of the field in the container of this element.
  */
-void
-OSBCommonElement::preWriteAttachmentMapField(const UInt32 fieldId)
+void OSBCommonElement::preWriteMapField(const UInt32 fieldId)
 {
     FDEBUG(("OSBCommonElement::preWriteAttachmentMapField: "
             "fieldId: [%u]\n", fieldId));
 
+    GetMapFieldHandlePtr sfMapField =
+        boost::dynamic_pointer_cast<GetMapFieldHandle>(
+            getContainer()->getField(fieldId));
+
+    if(sfMapField == NULL || sfMapField->isValid() == false)
+        return;
+
+    sfMapField->traverse(
+        boost::bind(&OSBCommonElement::handleMapElementPreWrite,
+                    this,
+                    _1));
+                                    
+#if 0
     OSBRootElement                        *root        = editRoot();
 
     SFAttachmentPtrMap::GetHandlePtr sfAMapField =
@@ -765,6 +792,29 @@ OSBCommonElement::preWriteAttachmentMapField(const UInt32 fieldId)
         elem->setContainer(refedFC);
         elem->preWrite    (refedFC);
     }
+#endif
+}
+
+void OSBCommonElement::handleMapElementPreWrite(FieldContainer *refedFC)
+{
+    OSBRootElement                        *root        = editRoot();
+
+    if(refedFC == NULL)
+        return;
+
+    UInt32      refedId  = refedFC->getId  ();
+    std::string typeName = refedFC->getType().getCName();
+
+    // only schedule a container once
+    if(root->getIdSet().count(refedId) > 0)
+        return;
+    
+    OSBElementBase *elem = OSBElementFactory::the()->acquire(typeName, root);
+    
+    root->editIdSet      ().insert   (refedId);
+    root->editElementList().push_back(elem   );
+    elem->setContainer(refedFC);
+    elem->preWrite    (refedFC);
 }
 
 /*! Visits the given container \a fc during preWrite and creates elements
@@ -817,9 +867,10 @@ OSBCommonElement::preWriteFieldContainer(
 
         // check if field refers to another FC, i.e. its a field holding
         // FieldContainerPtr or an FieldContainerAttachmentMap
-        if(fieldName == "attachments")
+        if(fieldType.getContentType().isDerivedFrom(
+               FieldTraits<FieldContainer *>::getMapType()) == true)
         {
-            preWriteAttachmentMapField(fieldId);
+            preWriteMapField(fieldId);
         }
         else if(fieldType.getContentType().isDerivedFrom(
             FieldTraits<FieldContainer *>::getType()) == true)

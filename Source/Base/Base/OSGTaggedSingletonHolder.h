@@ -63,6 +63,8 @@ class TaggedSingletonHolder
 
   public:
 
+    typedef SingletonT Singleton;
+
     /*---------------------------------------------------------------------*/
     /*! \name                      access                                  */
     /*! \{                                                                 */

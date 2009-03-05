@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class MultiPassMaterial;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MultiPassMaterialPtr
-
 OSG_GEN_CONTAINERPTR(MultiPassMaterial);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MultiPassMaterial *> :
     public FieldTraitsFCPtrBase<MultiPassMaterial *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<MultiPassMaterial *, 0>::getMName<NoRefCountPolicy>(voi
     return "MFUnrefdMultiPassMaterialPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MultiPassMaterialPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
                       RecordedRefCountPolicy  > SFRecMultiPassMaterialPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
                       UnrecordedRefCountPolicy> SFUnrecMultiPassMaterialPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
                       WeakRefCountPolicy      > SFWeakMultiPassMaterialPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MultiPassMaterial *,
                       NoRefCountPolicy        > SFUncountedMultiPassMaterialPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
                       RecordedRefCountPolicy  > MFRecMultiPassMaterialPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
                       UnrecordedRefCountPolicy> MFUnrecMultiPassMaterialPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
                       WeakRefCountPolicy      > MFWeakMultiPassMaterialPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MultiPassMaterial *,
                       NoRefCountPolicy        > MFUncountedMultiPassMaterialPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecMultiPassMaterialPtr : 
+    public PointerSField<MultiPassMaterial *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecMultiPassMaterialPtr : 
+    public PointerSField<MultiPassMaterial *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakMultiPassMaterialPtr :
+    public PointerSField<MultiPassMaterial *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedMultiPassMaterialPtr :
+    public PointerSField<MultiPassMaterial *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecMultiPassMaterialPtr :
+    public PointerMField<MultiPassMaterial *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecMultiPassMaterialPtr :
+    public PointerMField<MultiPassMaterial *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakMultiPassMaterialPtr :
+    public PointerMField<MultiPassMaterial *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedMultiPassMaterialPtr :
+    public PointerMField<MultiPassMaterial *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

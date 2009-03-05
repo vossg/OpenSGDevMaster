@@ -14,7 +14,7 @@
 A Background that renders a single polygon using the specified material.
 	<Field
 		name="material"
-		type="MaterialPtr"
+		type="PrimeMaterialPtr"
 		cardinality="single"
 		visibility="external"
 		access="public"

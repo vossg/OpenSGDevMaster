@@ -83,6 +83,10 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
+/*! \var MaterialMapKey  RenderOptionsBase::_sfRenderProperties
+    
+*/
+
 /*! \var bool            RenderOptionsBase::_sfStatistic
     
 */
@@ -196,6 +200,18 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
+
+    pDesc = new SFMaterialMapKey::Description(
+        SFMaterialMapKey::getClassType(),
+        "renderProperties",
+        "",
+        RenderPropertiesFieldId, RenderPropertiesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleRenderProperties),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleRenderProperties));
+
+    oType.addInitialDesc(pDesc);
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
@@ -548,6 +564,16 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\tuseLocalIncludes=\"false\"\n"
     ">\n"
     "\t<Field\n"
+    "\t   name=\"renderProperties\"\n"
+    "\t   type=\"MaterialMapKey\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"external\"\n"
+    "\t   defaultValue=\"0x0000\"\n"
+    "\t   access=\"public\"\n"
+    "       header=\"OSGMaterialMapFields.h\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
     "\t\tname=\"statistic\"\n"
     "\t\ttype=\"bool\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -812,6 +838,19 @@ UInt32 RenderOptionsBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
+SFMaterialMapKey *RenderOptionsBase::editSFRenderProperties(void)
+{
+    editSField(RenderPropertiesFieldMask);
+
+    return &_sfRenderProperties;
+}
+
+const SFMaterialMapKey *RenderOptionsBase::getSFRenderProperties(void) const
+{
+    return &_sfRenderProperties;
+}
 
 
 SFBool *RenderOptionsBase::editSFStatistic(void)
@@ -1175,6 +1214,10 @@ UInt32 RenderOptionsBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (RenderPropertiesFieldMask & whichField))
+    {
+        returnValue += _sfRenderProperties.getBinSize();
+    }
     if(FieldBits::NoField != (StatisticFieldMask & whichField))
     {
         returnValue += _sfStatistic.getBinSize();
@@ -1292,6 +1335,10 @@ void RenderOptionsBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (RenderPropertiesFieldMask & whichField))
+    {
+        _sfRenderProperties.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (StatisticFieldMask & whichField))
     {
         _sfStatistic.copyToBin(pMem);
@@ -1407,6 +1454,10 @@ void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (RenderPropertiesFieldMask & whichField))
+    {
+        _sfRenderProperties.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (StatisticFieldMask & whichField))
     {
         _sfStatistic.copyFromBin(pMem);
@@ -1640,6 +1691,7 @@ FieldContainerTransitPtr RenderOptionsBase::shallowCopy(void) const
 
 RenderOptionsBase::RenderOptionsBase(void) :
     Inherited(),
+    _sfRenderProperties       (MaterialMapKey(0x0000)),
     _sfStatistic              (bool(false)),
     _sfPolygonMode            (GLenum(GL_FILL)),
     _sfTwoSidedLighting       (bool(false)),
@@ -1672,6 +1724,7 @@ RenderOptionsBase::RenderOptionsBase(void) :
 
 RenderOptionsBase::RenderOptionsBase(const RenderOptionsBase &source) :
     Inherited(source),
+    _sfRenderProperties       (source._sfRenderProperties       ),
     _sfStatistic              (source._sfStatistic              ),
     _sfPolygonMode            (source._sfPolygonMode            ),
     _sfTwoSidedLighting       (source._sfTwoSidedLighting       ),
@@ -1709,6 +1762,29 @@ RenderOptionsBase::~RenderOptionsBase(void)
 {
 }
 
+
+GetFieldHandlePtr RenderOptionsBase::getHandleRenderProperties (void) const
+{
+    SFMaterialMapKey::GetHandlePtr returnValue(
+        new  SFMaterialMapKey::GetHandle(
+             &_sfRenderProperties,
+             this->getType().getFieldDesc(RenderPropertiesFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleRenderProperties(void)
+{
+    SFMaterialMapKey::EditHandlePtr returnValue(
+        new  SFMaterialMapKey::EditHandle(
+             &_sfRenderProperties,
+             this->getType().getFieldDesc(RenderPropertiesFieldId)));
+
+
+    editSField(RenderPropertiesFieldMask);
+
+    return returnValue;
+}
 
 GetFieldHandlePtr RenderOptionsBase::getHandleStatistic       (void) const
 {

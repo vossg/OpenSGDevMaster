@@ -53,6 +53,7 @@
 #include <OSGFrustumVolume.h>
 #include <OSGCylinderVolume.h>
 #include <OSGRenderAction.h>
+#include "OSGPrimeMaterial.h"
 
 #include "OSGVolumeDraw.h"
 

@@ -90,14 +90,6 @@ SwitchMaterial::SwitchMaterial(const SwitchMaterial &source) :
 
 SwitchMaterial::~SwitchMaterial(void)
 {
-    // ACHTUNG _pState wird der State vom jeweiligen aktiven Material 
-    // zugewiesen. wenn nun die Materialien zerstoert werden dann wird im 
-    // Material::~Material ein subRefCP(_pState) aufgerufen. Dieser 
-    // subRefCP wuerde dann nochmal mit dem gleichen ungueltigen pointer 
-    // fuer das SwitchMaterial aufgerufen werden und
-    // das kracht natuerlich, deswegen wird er jetzt einfach auf NULL gesetzt!
-
-    _pState = NULL;
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -165,170 +157,10 @@ Material *SwitchMaterial::getCurrentMaterial(void) const
     return _mfMaterials[choice];
 }
 
-#if OLD
-/*! Draw the geometry with this material.
-*/
-
-void SwitchMaterial::draw(Geometry *OSG_CHECK_ARG(geo), DrawActionBase *OSG_CHECK_ARG(action))
-{
-}
-
-/*! Draw the function behind the functor with this material. The functored
-    function should be very careful changing OpenGL state, better just use
-    glBegin(), glEnd() and the standard stuff in between.
-*/
-
-void SwitchMaterial::draw(DrawFunctor &OSG_CHECK_ARG(func), DrawActionBase *OSG_CHECK_ARG(action))
-{
-}
-
-/*! Create a OSG::State that represents this Material and return it.
-*/
-
-State *SwitchMaterial::makeState(void)
-{
-    UInt32 choice = getChoice();
-    if(choice >= _mfMaterials.size())
-    {
-        if(!_mfMaterials.empty())
-            SWARNING << "SwitchMaterial::makeState: choice index (" << choice << ") out of range!" << std::endl;
-        if(getSortKey() != OSG::getDefaultMaterial()->getSortKey())
-        {
-            SwitchMaterial *tmpPtr(*this);
-            beginEditCP(tmpPtr, SwitchMaterial::SortKeyFieldMask);
-                setSortKey(OSG::getDefaultMaterial()->getSortKey());
-            endEditCP(tmpPtr, SwitchMaterial::SortKeyFieldMask);
-        }
-        return OSG::getDefaultMaterial()->makeState();
-    }
-
-    if(_mfMaterials[choice] != NULL)
-    {
-        if(getSortKey() != _mfMaterials[choice]->getSortKey())
-        {
-            SwitchMaterialPtr tmpPtr(*this);
-            beginEditCP(tmpPtr, SwitchMaterial::SortKeyFieldMask);
-                setSortKey(_mfMaterials[choice]->getSortKey());
-            endEditCP(tmpPtr, SwitchMaterial::SortKeyFieldMask);
-        }
-        return _mfMaterials[choice]->makeState();
-    }
-
-    if(getSortKey() != OSG::getDefaultMaterial()->getSortKey())
-    {
-        SwitchMaterialPtr tmpPtr(*this);
-        beginEditCP(tmpPtr, SwitchMaterial::SortKeyFieldMask);
-            setSortKey(OSG::getDefaultMaterial()->getSortKey());
-        endEditCP(tmpPtr, SwitchMaterial::SortKeyFieldMask);
-    }
-    return OSG::getDefaultMaterial()->makeState();
-}
-#endif
-
-/*! Rebuild the internal State. Just collects the chunks in the State.
-*/
-
-void SwitchMaterial::rebuildState(void) 
-{
-    UInt32 choice = getChoice();
-
-    if(choice >= _mfMaterials.size())
-    {
-        if(!_mfMaterials.empty())
-        {
-            SWARNING << "SwitchMaterial::rebuildState: choice index (" 
-                     << choice << ") out of range!" 
-                     << std::endl;
-        }
-
-        if(getSortKey() != OSG::getDefaultMaterial()->getSortKey())
-        {
-            setSortKey(OSG::getDefaultMaterial()->getSortKey());
-        }
-
-        OSG::getDefaultMaterial()->rebuildState();
-
-        //_pState = OSG::getDefaultMaterial()->getState();
-        return;
-    }
-
-    const SwitchMaterial *pThis = this;
-
-    if(pThis->_mfMaterials[choice] != NULL)
-    {
-        if(getSortKey() != pThis->_mfMaterials[choice]->getSortKey())
-        {
-            setSortKey(pThis->_mfMaterials[choice]->getSortKey());
-        }
-
-        pThis->_mfMaterials[choice]->rebuildState();
-        //_pState = _mfMaterials[choice]->getState();
-    }
-    else
-    {
-        if(getSortKey() != OSG::getDefaultMaterial()->getSortKey())
-        {
-            setSortKey(OSG::getDefaultMaterial()->getSortKey());
-        }
-
-        OSG::getDefaultMaterial()->rebuildState();
-        //_pState = OSG::getDefaultMaterial()->getState();
-    }
-}
-
-State *SwitchMaterial::getState(UInt32 index)
-{
-    UInt32 choice = getChoice();
-
-    if(choice >= _mfMaterials.size())
-    {
-        if(!_mfMaterials.empty())
-        {
-            SWARNING << "SwitchMaterial::getState: choice index out of range!"
-                     << std::endl;
-        }
-
-        return NULL;
-    }
-
-    const SwitchMaterial *pThis = this;
-
-    if(pThis->_mfMaterials[choice] != NULL)
-    {
-        if(pThis->_mfMaterials[choice]->getState(index) == NULL)
-            rebuildState();
-
-        return pThis->_mfMaterials[choice]->getState(index);
-    }
-
-    return NULL;
-}
-
-
-UInt32 SwitchMaterial::getNPasses(void) const
-{
-    UInt32 choice = getChoice();
-
-    if(choice >= _mfMaterials.size())
-    {
-        if(!_mfMaterials.empty())
-        {
-            SWARNING << "SwitchMaterial::getNPasses: choice index out of "
-                     << "range!" 
-                     << std::endl;
-        }
-
-        return 1;
-    }
-
-    if(_mfMaterials[choice] != NULL)
-        return _mfMaterials[choice]->getNPasses();
-
-    return 1;
-}
 
 /*! Check if the Material (i.e. any of its materials) is transparent..
-*/
+ */
+
 bool SwitchMaterial::isTransparent(void) const
 {
     UInt32 choice = getChoice();
@@ -349,6 +181,30 @@ bool SwitchMaterial::isTransparent(void) const
         return _mfMaterials[choice]->isTransparent();
 
     return false;
+}
+
+/*! Check if the Material (i.e. any of its materials) is transparent..
+*/
+PrimeMaterial *SwitchMaterial::finalize(MaterialMapKey oKey) 
+{
+    UInt32 choice = getChoice();
+
+    if(choice >= _mfMaterials.size())
+    {
+        if(!_mfMaterials.empty())
+        {
+            SWARNING << "SwitchMaterial::finalize choice index out "
+                     << "of range!" 
+                     << std::endl;
+        }
+
+        return NULL;
+    }
+
+    if(_mfMaterials[choice] != NULL)
+        return _mfMaterials[choice]->finalize(oKey);
+
+    return NULL;
 }
 
 void SwitchMaterial::dump(      UInt32    , 

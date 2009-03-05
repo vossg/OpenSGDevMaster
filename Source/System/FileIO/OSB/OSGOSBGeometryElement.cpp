@@ -295,7 +295,7 @@ OSBGeometryElement::preWrite(FieldContainer * const fc)
         }
         else if(fieldName == "attachments")
         {
-            preWriteAttachmentMapField(fieldId);
+            preWriteMapField(fieldId);
         }
         else
         {

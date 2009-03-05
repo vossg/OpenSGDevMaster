@@ -361,43 +361,65 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
     PtrFieldInfo::BindingStoreConstIt bindingEnd = ptrField.endBindingStore  ();
 
     const FieldContainerIdMap        &idMap      = getIdMap();
-    FieldContainerIdMapConstIt        idMapIt;
-    FieldContainerIdMapConstIt        idMapEnd   = idMap.end();
-
+          FieldContainerIdMapConstIt  idMapIt;
+          FieldContainerIdMapConstIt  idMapEnd   = idMap.end();
+        
     if(bindingIt != bindingEnd)
     {
-        Attachment          *att    = NULL;
-        AttachmentContainer *attCon =
-            dynamic_cast<AttachmentContainer *>(ptrField.getContainer());
-
-        for(; (idIt != idEnd) && (bindingIt != bindingEnd); ++idIt, ++bindingIt)
+        if(ptrField.getHandledField() == true)
         {
-            if(*idIt != 0)
-            {
-                idMapIt = idMap.find(*idIt);
+            FieldContainer    *fieldCon = ptrField.getContainer();
+            UInt32             fieldId  = ptrField.getFieldId();
+        
+            EditFieldHandlePtr fHandle  = fieldCon->editField(fieldId);
 
-                if(idMapIt != idMapEnd)
+            EditMapFieldHandlePtr sfMapField =
+                boost::dynamic_pointer_cast<EditMapFieldHandle>(fHandle);
+
+            if(sfMapField == NULL || sfMapField->isValid() == false)
+                return;
+
+            sfMapField->fillFrom(ptrField.getBindingStore(),
+                                 ptrField.getIdStore     (),
+                                 idMap);
+        }
+        else
+        {
+            Attachment          *att    = NULL;
+            AttachmentContainer *attCon =
+                dynamic_cast<AttachmentContainer *>(ptrField.getContainer());
+            
+            for(; (idIt != idEnd) && (bindingIt != bindingEnd); ++idIt, 
+                                                                ++bindingIt)
+            {
+                if(*idIt != 0)
                 {
-                    att = dynamic_cast<Attachment *>(
-                        FieldContainerFactory::the()->getContainer(
-                            idMapIt->second));
+                    idMapIt = idMap.find(*idIt);
+                    
+                    if(idMapIt != idMapEnd)
+                    {
+                        att = dynamic_cast<Attachment *>(
+                            FieldContainerFactory::the()->getContainer(
+                                idMapIt->second));
+                    }
+                    else
+                    {
+                        FWARNING(("OSBRootElement::mapPtrField: could not find "
+                                  "FieldContainer with id [%u]\n", *idIt));
+                        att = NULL;
+                    }
                 }
                 else
                 {
-                    FWARNING(("OSBRootElement::mapPtrField: could not find "
-                              "FieldContainer with id [%u]\n", *idIt));
                     att = NULL;
                 }
+                
+                FDEBUG(("OSBRootElement::mapPtrField: adding "
+                        "attchment [%u] [%u]\n",
+                        att->getType().getGroupId(), *bindingIt));
+                
+                attCon->addAttachment(att, *bindingIt);
             }
-            else
-            {
-                att = NULL;
-            }
-
-            FDEBUG(("OSBRootElement::mapPtrField: adding attchment [%u] [%u]\n",
-                    att->getType().getGroupId(), *bindingIt));
-
-            attCon->addAttachment(att, *bindingIt);
         }
     }
     else
@@ -405,25 +427,23 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
         FieldContainer    *fc       = NULL;
         FieldContainer    *fieldCon = ptrField.getContainer();
         UInt32             fieldId  = ptrField.getFieldId();
-
+        
         EditFieldHandlePtr fHandle  = fieldCon->editField(fieldId);
-
+        
         FieldContainerPtrSFieldBase::EditHandlePtr pSFHandle = 
             boost::dynamic_pointer_cast<
-                FieldContainerPtrSFieldBase::EditHandle>(
-                    fHandle);
-
+                FieldContainerPtrSFieldBase::EditHandle>(fHandle);
+            
         FieldContainerPtrMFieldBase::EditHandlePtr pMFHandle = 
             boost::dynamic_pointer_cast<
-                FieldContainerPtrMFieldBase::EditHandle>(
-                    fHandle);
-
+                FieldContainerPtrMFieldBase::EditHandle>(fHandle);
+        
         for(; idIt != idEnd; ++idIt)
         {
             if(*idIt != 0)
             {
                 idMapIt = idMap.find(*idIt);
-
+                
                 if(idMapIt != idMapEnd)
                 {
                     fc = FieldContainerFactory::the()->getContainer(
@@ -440,7 +460,7 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
             {
                 fc = NULL;
             }
-
+            
             if(pSFHandle != NULL && pSFHandle->isValid())
             {
                 pSFHandle->set(fc);

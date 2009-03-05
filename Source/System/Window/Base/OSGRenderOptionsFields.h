@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class RenderOptions;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! RenderOptionsPtr
-
 OSG_GEN_CONTAINERPTR(RenderOptions);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<RenderOptions *> :
     public FieldTraitsFCPtrBase<RenderOptions *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<RenderOptions *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdRenderOptionsPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<RenderOptionsPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<RenderOptions *,
                       RecordedRefCountPolicy  > SFRecRenderOptionsPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<RenderOptions *,
                       UnrecordedRefCountPolicy> SFUnrecRenderOptionsPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<RenderOptions *,
                       WeakRefCountPolicy      > SFWeakRenderOptionsPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<RenderOptions *,
                       NoRefCountPolicy        > SFUncountedRenderOptionsPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<RenderOptions *,
                       RecordedRefCountPolicy  > MFRecRenderOptionsPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<RenderOptions *,
                       UnrecordedRefCountPolicy> MFUnrecRenderOptionsPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<RenderOptions *,
                       WeakRefCountPolicy      > MFWeakRenderOptionsPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<RenderOptions *,
                       NoRefCountPolicy        > MFUncountedRenderOptionsPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecRenderOptionsPtr : 
+    public PointerSField<RenderOptions *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecRenderOptionsPtr : 
+    public PointerSField<RenderOptions *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakRenderOptionsPtr :
+    public PointerSField<RenderOptions *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedRenderOptionsPtr :
+    public PointerSField<RenderOptions *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecRenderOptionsPtr :
+    public PointerMField<RenderOptions *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecRenderOptionsPtr :
+    public PointerMField<RenderOptions *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakRenderOptionsPtr :
+    public PointerMField<RenderOptions *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedRenderOptionsPtr :
+    public PointerMField<RenderOptions *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

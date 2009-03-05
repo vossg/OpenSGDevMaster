@@ -62,6 +62,8 @@ class SingletonHolder
 
   public:
 
+    typedef SingletonT Singleton;
+
     /*---------------------------------------------------------------------*/
     /*! \name                      access                                  */
     /*! \{                                                                 */

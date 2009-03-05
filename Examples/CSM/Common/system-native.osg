@@ -114,6 +114,10 @@ ComplexSceneManager
              position 200, 200
              decorEnabled TRUE
 
+             renderOptions DEF WinRenderOpts RenderOptions
+             {
+             }
+
              viewports
              [
                CSMViewport

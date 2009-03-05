@@ -65,6 +65,10 @@ DataType FieldTraits<FieldContainer          *>::_type(
     "FieldContainerPtr",
     NULL);
 
+DataType FieldTraits<FieldContainer          *>::_mapType(
+    "FieldContainerPtrMap",
+    NULL);
+
 DataType FieldTraits<Attachment              *>::_type(
     "AttachmentPtr",
     "FieldContainerPtr");
@@ -92,6 +96,11 @@ OSG_FIELDTRAITS_GETTYPE   (AttachmentContainer    *)
 OSG_FIELDTRAITS_GETTYPE   (NodeCore               *)
 OSG_FIELDTRAITS_GETTYPE   (Node                   *)
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback  )
+
+DataType &FieldTraits< FieldContainer *, 0 >::getMapType(void)
+{                                                           
+    return _mapType;
+}
 
 DataType &FieldTraits< FieldContainer *, 1 >::getType(void)
 {                                                           

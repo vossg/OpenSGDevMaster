@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="MultiPassMaterial"
-	parent="Material"
+	parent="PrimeMaterial"
 	library="System"
 	pointerfieldtypes="both"
 	structure="concrete"
@@ -13,7 +13,7 @@
 >
 	<Field
 		name="materials"
-		type="MaterialPtr"
+		type="PrimeMaterialPtr"
 		cardinality="multi"
 		visibility="external"
 		access="public"

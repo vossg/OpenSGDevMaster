@@ -146,7 +146,7 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"ChunkMaterial\"\n"
-    "\tparent=\"Material\"\n"
+    "\tparent=\"PrimeMaterial\"\n"
     "\tlibrary=\"System\"\n"
     "\tstructure=\"concrete\"\n"
     "\tpointerfieldtypes=\"both\"\n"
@@ -566,7 +566,7 @@ void ChunkMaterialBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkMaterial *>::_type("ChunkMaterialPtr", "MaterialPtr");
+DataType FieldTraits<ChunkMaterial *>::_type("ChunkMaterialPtr", "PrimeMaterialPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(ChunkMaterial *)

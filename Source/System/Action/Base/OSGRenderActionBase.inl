@@ -175,6 +175,24 @@ Int32 RenderActionBase::getDrawableId(void)
     return _iDrawableId;
 }
 
+inline
+RenderActionBase::RenderPropType RenderActionBase::getRenderProperties(void)
+{
+    return _oCurrentRenderProp;
+}
+
+inline
+void RenderActionBase::setRenderProperties(RenderPropType oProp)
+{
+    _oCurrentRenderProp = oProp;
+}
+
+inline
+void RenderActionBase::resetRenderProperties(void)
+{
+    _oCurrentRenderProp = 0x0000;
+}
+
 /*-------------------------------------------------------------------------*\
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/

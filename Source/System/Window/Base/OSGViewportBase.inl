@@ -297,6 +297,22 @@ void ViewportBase::setDrawableId(const Int32 value)
     _sfDrawableId.setValue(value);
 }
 
+//! Get the value of the Viewport::_sfRenderOptions field.
+inline
+RenderOptions * ViewportBase::getRenderOptions(void) const
+{
+    return _sfRenderOptions.getValue();
+}
+
+//! Set the value of the Viewport::_sfRenderOptions field.
+inline
+void ViewportBase::setRenderOptions(RenderOptions * const value)
+{
+    editSField(RenderOptionsFieldMask);
+
+    _sfRenderOptions.setValue(value);
+}
+
 //! Get the value of the \a index element the Viewport::_mfForegrounds field.
 inline
 Foreground * ViewportBase::getForegrounds(const UInt32 index) const
@@ -353,6 +369,9 @@ void ViewportBase::execSync (      ViewportBase *pFrom,
 
     if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
         _sfDrawableId.syncWith(pFrom->_sfDrawableId);
+
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+        _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
 }
 #endif
 

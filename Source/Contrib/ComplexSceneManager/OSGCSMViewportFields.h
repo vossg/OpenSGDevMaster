@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CSMViewport;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CSMViewportPtr
-
 OSG_GEN_CONTAINERPTR(CSMViewport);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CSMViewport *> :
     public FieldTraitsFCPtrBase<CSMViewport *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CSMViewport *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdCSMViewportPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CSMViewportPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMViewport *,
                       RecordedRefCountPolicy  > SFRecCSMViewportPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMViewport *,
                       UnrecordedRefCountPolicy> SFUnrecCSMViewportPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMViewport *,
                       WeakRefCountPolicy      > SFWeakCSMViewportPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMViewport *,
                       NoRefCountPolicy        > SFUncountedCSMViewportPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldMulti */
-
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMViewport *,
                       RecordedRefCountPolicy  > MFRecCSMViewportPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMViewport *,
                       UnrecordedRefCountPolicy> MFUnrecCSMViewportPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMViewport *,
                       WeakRefCountPolicy      > MFWeakCSMViewportPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMViewport *,
                       NoRefCountPolicy        > MFUncountedCSMViewportPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecCSMViewportPtr : 
+    public PointerSField<CSMViewport *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecCSMViewportPtr : 
+    public PointerSField<CSMViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakCSMViewportPtr :
+    public PointerSField<CSMViewport *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedCSMViewportPtr :
+    public PointerSField<CSMViewport *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFRecCSMViewportPtr :
+    public PointerMField<CSMViewport *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUnrecCSMViewportPtr :
+    public PointerMField<CSMViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFWeakCSMViewportPtr :
+    public PointerMField<CSMViewport *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUncountedCSMViewportPtr :
+    public PointerMField<CSMViewport *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

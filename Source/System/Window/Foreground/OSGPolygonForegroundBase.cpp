@@ -58,7 +58,7 @@
 
 
 
-#include <OSGMaterial.h> // Material Class
+#include <OSGPrimeMaterial.h> // Material Class
 
 #include "OSGPolygonForegroundBase.h"
 #include "OSGPolygonForeground.h"
@@ -92,7 +92,7 @@ OSG_BEGIN_NAMESPACE
  *                         Field Description                               *
 \***************************************************************************/
 
-/*! \var Material *      PolygonForegroundBase::_sfMaterial
+/*! \var PrimeMaterial * PolygonForegroundBase::_sfMaterial
     The material used to display.
 */
 
@@ -134,8 +134,8 @@ void PolygonForegroundBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecMaterialPtr::Description(
-        SFUnrecMaterialPtr::getClassType(),
+    pDesc = new SFUnrecPrimeMaterialPtr::Description(
+        SFUnrecPrimeMaterialPtr::getClassType(),
         "material",
         "The material used to display.\n",
         MaterialFieldId, MaterialFieldMask,
@@ -280,7 +280,7 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(
     "controlled by _sfNormalizedX and _sfNormalizedY.\n"
     "\t<Field\n"
     "\t\tname=\"material\"\n"
-    "\t\ttype=\"MaterialPtr\"\n"
+    "\t\ttype=\"PrimeMaterialPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
@@ -399,12 +399,12 @@ UInt32 PolygonForegroundBase::getContainerSize(void) const
 
 
 //! Get the PolygonForeground::_sfMaterial field.
-const SFUnrecMaterialPtr *PolygonForegroundBase::getSFMaterial(void) const
+const SFUnrecPrimeMaterialPtr *PolygonForegroundBase::getSFMaterial(void) const
 {
     return &_sfMaterial;
 }
 
-SFUnrecMaterialPtr  *PolygonForegroundBase::editSFMaterial       (void)
+SFUnrecPrimeMaterialPtr *PolygonForegroundBase::editSFMaterial       (void)
 {
     editSField(MaterialFieldMask);
 
@@ -821,8 +821,8 @@ void PolygonForegroundBase::onCreate(const PolygonForeground *source)
 
 GetFieldHandlePtr PolygonForegroundBase::getHandleMaterial        (void) const
 {
-    SFUnrecMaterialPtr::GetHandlePtr returnValue(
-        new  SFUnrecMaterialPtr::GetHandle(
+    SFUnrecPrimeMaterialPtr::GetHandlePtr returnValue(
+        new  SFUnrecPrimeMaterialPtr::GetHandle(
              &_sfMaterial,
              this->getType().getFieldDesc(MaterialFieldId)));
 
@@ -831,8 +831,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleMaterial        (void) const
 
 EditFieldHandlePtr PolygonForegroundBase::editHandleMaterial       (void)
 {
-    SFUnrecMaterialPtr::EditHandlePtr returnValue(
-        new  SFUnrecMaterialPtr::EditHandle(
+    SFUnrecPrimeMaterialPtr::EditHandlePtr returnValue(
+        new  SFUnrecPrimeMaterialPtr::EditHandle(
              &_sfMaterial,
              this->getType().getFieldDesc(MaterialFieldId)));
 

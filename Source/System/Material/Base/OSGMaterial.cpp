@@ -103,8 +103,6 @@ void Material::initMethod(InitPhase ePhase)
 void Material::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    _pState = NULL;
 }
 
 /***************************************************************************\
@@ -119,19 +117,13 @@ void Material::resolveLinks(void)
 /*------------- constructors & destructors --------------------------------*/
 
 Material::Material(void) :
-     Inherited(),
-    _pState   ()
+    Inherited()
 {
 }
 
 Material::Material(const Material &source) :
-     Inherited(source),
-    _pState   (      )
+     Inherited(source)
 {
-// Doing this kills using prototypes with preset states. 
-// What's the point of this anyway? Sharing _pState between Materials never
-// makes sense
-//    setRefdCP(_pState, source._pState); 
 }
 
 Material::~Material(void)
@@ -139,28 +131,11 @@ Material::~Material(void)
 }
 
 
-State *Material::getState(UInt32)
-{
-    return _pState;
-}
-
-UInt32 Material::getNPasses(void)
-{
-    return 1;
-}
-
 void Material::changed(ConstFieldMaskArg whichField, 
                        UInt32            origin,
                        BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
-
-    rebuildState();
-}
-
-Int32 Material::getRealSortKey(void) const
-{
-    return _sfSortKey.getValue();
 }
 
 /*------------------------------- dump ----------------------------------*/
@@ -186,6 +161,7 @@ ActionBase::ResultE Material::renderLeave(NodeCore * const pCore,
 
 /*-------------------------- comparison -----------------------------------*/
 
+#if 0
 bool Material::operator < (const Material &other) const
 {
     return this < &other;
@@ -200,7 +176,7 @@ bool Material::operator != (const Material &other) const
 {
     return ! (*this == other);
 }
-
+#endif
 
 
 /***************************************************************************\
@@ -227,7 +203,7 @@ static SimpleMaterialMTRecPtr _defaultMaterial;
     an arbitrary material is needed.
 */
 
-Material *getDefaultMaterial(void)
+PrimeMaterial *getDefaultMaterial(void)
 {
     if(_defaultMaterial == NULL)
     {
@@ -256,7 +232,7 @@ static SimpleMaterialMTRecPtr _defaultUnlitMaterial;
     an arbitrary unlit material is needed.
 */
 
-Material *getDefaultUnlitMaterial(void)
+PrimeMaterial *getDefaultUnlitMaterial(void)
 {
     if(_defaultUnlitMaterial == NULL)
     {

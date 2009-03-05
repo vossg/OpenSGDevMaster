@@ -47,9 +47,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_OLD_RENDER_ACTION
-class RenderAction;
-#endif
+class RenderActionBase;
 
 class OSG_SYSTEM_DLLMAPPING RenderOptions : public RenderOptionsBase
 {
@@ -77,6 +75,14 @@ class OSG_SYSTEM_DLLMAPPING RenderOptions : public RenderOptionsBase
     bool      getWireframe   (void                );
     BitVector getChanged     (void                );
     BitVector getLastChanged (void                );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Output                                  */
+    /*! \{                                                                 */
+
+    void activate  (RenderActionBase *pAction);
+    void deactivate(RenderActionBase *pAction);
 
 #ifdef OSG_OLD_RENDER_ACTION
     void      activateOptions(RenderAction *action);

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Viewport;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ViewportPtr
-
 OSG_GEN_CONTAINERPTR(Viewport);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Viewport *> :
     public FieldTraitsFCPtrBase<Viewport *>
@@ -154,14 +145,11 @@ const Char8 *FieldTraits<Viewport *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdViewportPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ViewportPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
 class FieldContainer;
 
+/*! \ingroup GrpSystemFieldTraits
+ */
 template <>
 struct FieldTraits<Viewport *, 1> :
     public FieldTraitsFCPtrBase<Viewport *, 1>
@@ -238,42 +226,92 @@ const Char8 *FieldTraits<Viewport *, 1>::getMName<NoRefCountPolicy>(void)
 }
 
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Viewport *,
                       RecordedRefCountPolicy  > SFRecViewportPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Viewport *,
                       UnrecordedRefCountPolicy> SFUnrecViewportPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Viewport *,
                       WeakRefCountPolicy      > SFWeakViewportPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Viewport *,
                       NoRefCountPolicy        > SFUncountedViewportPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Viewport *,
                       RecordedRefCountPolicy  > MFRecViewportPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Viewport *,
                       UnrecordedRefCountPolicy> MFUnrecViewportPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Viewport *,
                       WeakRefCountPolicy      > MFWeakViewportPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Viewport *,
                       NoRefCountPolicy        > MFUncountedViewportPtr;
-#endif
 
 
 
+/*! \ingroup GrpSystemFieldMFields */
 typedef ChildPointerMField<
           Viewport *, 
           UnrecordedRefCountPolicy,
           1             > MFUnrecChildViewportPtr;
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecViewportPtr : 
+    public PointerSField<Viewport *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecViewportPtr : 
+    public PointerSField<Viewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakViewportPtr :
+    public PointerSField<Viewport *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedViewportPtr :
+    public PointerSField<Viewport *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecViewportPtr :
+    public PointerMField<Viewport *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecViewportPtr :
+    public PointerMField<Viewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakViewportPtr :
+    public PointerMField<Viewport *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedViewportPtr :
+    public PointerMField<Viewport *,
+                         NoRefCountPolicy        > {};
+
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecChildViewportPtr :
+    public ChildPointerMField<
+        Viewport *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

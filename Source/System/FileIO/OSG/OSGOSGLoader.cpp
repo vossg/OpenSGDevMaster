@@ -80,6 +80,7 @@
 #endif
 
 #include "OSGFieldConnector.h"
+#include "OSGMaterialMapFields.h"
 
 //#include <OSGSimpleAttachments.h>
 
@@ -270,6 +271,9 @@ void OSGLoader::initFieldTypeMapper(void)
     /* To Node Mappings */
 
     setIntExtMapping(SFAttachmentPtrMap::getClassType().getId(),
+                     ScanParseSkel::OSGmfNode);
+
+    setIntExtMapping(SFMaterialPtrMap::getClassType().getId(),
                      ScanParseSkel::OSGmfNode);
 
     /* extended types */

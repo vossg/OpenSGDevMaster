@@ -12,6 +12,16 @@
 	useLocalIncludes="false"
 >
 	<Field
+	   name="renderProperties"
+	   type="MaterialMapKey"
+	   cardinality="single"
+	   visibility="external"
+	   defaultValue="0x0000"
+	   access="public"
+       header="OSGMaterialMapFields.h"
+	>
+	</Field>
+	<Field
 		name="statistic"
 		type="bool"
 		cardinality="single"

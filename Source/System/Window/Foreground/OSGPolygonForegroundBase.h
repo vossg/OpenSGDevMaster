@@ -65,7 +65,7 @@
 
 #include "OSGForeground.h" // Parent
 
-#include "OSGMaterialFields.h" // Material type
+#include "OSGPrimeMaterialFields.h" // Material type
 #include "OSGPnt2fFields.h" // Positions type
 #include "OSGVec3fFields.h" // TexCoords type
 #include "OSGBoolFields.h" // NormalizedX type
@@ -134,7 +134,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecMaterialPtr SFMaterialType;
+    typedef SFUnrecPrimeMaterialPtr SFMaterialType;
     typedef MFPnt2f           MFPositionsType;
     typedef MFVec3f           MFTexCoordsType;
     typedef SFBool            SFNormalizedXType;
@@ -167,8 +167,8 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecMaterialPtr  *getSFMaterial       (void) const;
-                  SFUnrecMaterialPtr  *editSFMaterial       (void);
+            const SFUnrecPrimeMaterialPtr *getSFMaterial       (void) const;
+                  SFUnrecPrimeMaterialPtr *editSFMaterial       (void);
 
                   MFPnt2f             *editMFPositions      (void);
             const MFPnt2f             *getMFPositions       (void) const;
@@ -195,7 +195,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
             const SFBool              *getSFTile            (void) const;
 
 
-                  Material * getMaterial       (void) const;
+                  PrimeMaterial * getMaterial       (void) const;
 
                   Pnt2f               &editPositions      (const UInt32 index);
             const Pnt2f               &getPositions       (const UInt32 index) const;
@@ -226,7 +226,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMaterial       (Material * const value);
+            void setMaterial       (PrimeMaterial * const value);
             void setNormalizedX    (const bool value);
             void setNormalizedY    (const bool value);
             void setAspectHeight   (const UInt16 value);
@@ -297,7 +297,7 @@ class OSG_WINDOW_DLLMAPPING PolygonForegroundBase : public Foreground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecMaterialPtr _sfMaterial;
+    SFUnrecPrimeMaterialPtr _sfMaterial;
     MFPnt2f           _mfPositions;
     MFVec3f           _mfTexCoords;
     SFBool            _sfNormalizedX;

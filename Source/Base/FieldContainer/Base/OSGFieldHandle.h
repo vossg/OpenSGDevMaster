@@ -275,6 +275,7 @@ class GetMapFieldHandle : public GetFieldHandle
                       FieldContainer *             > ListEntry;             
 
     typedef std::vector<ListEntry                  > MapList;
+    typedef std::vector<FieldContainer *           > ContainerList;
 
     /*---------------------------------------------------------------------*/
 
@@ -291,8 +292,9 @@ class GetMapFieldHandle : public GetFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool empty  (void          ) = 0;
-    virtual void flatten(MapList &vList) = 0;
+    virtual bool empty  (void                ) = 0;
+    virtual void flatten(MapList       &vList) = 0;
+    virtual void flatten(ContainerList &vList) = 0;
 
     /*---------------------------------------------------------------------*/
 };
@@ -333,6 +335,7 @@ class EditMapFieldHandle : public EditFieldHandle
                       FieldContainer *             > ListEntry;             
 
     typedef std::vector<ListEntry                  > MapList;
+    typedef std::vector<FieldContainer *           > ContainerList;
 
     /*---------------------------------------------------------------------*/
 
@@ -354,8 +357,23 @@ class EditMapFieldHandle : public EditFieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool empty  (void          ) = 0;
-    virtual void flatten(MapList &vList) = 0;
+    virtual bool empty  (void                ) = 0;
+    virtual void flatten(MapList       &vList) = 0;
+    virtual void flatten(ContainerList &vList) = 0;
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool loadFromBin(      BinaryDataHandler        *pMem,
+                                   UInt32                    uiNumElements,
+                                   bool                      hasBindingInfo,
+                                   std::vector<UInt16>      &vBindings,
+                                   std::vector<UInt32>      &vIds          )= 0;
+
+    virtual void fillFrom   (const std::vector<UInt16>      &vBindings,
+                             const std::vector<UInt32>      &vIds,
+                             const std::map<UInt32, UInt32> &vIdMap       ) = 0;
+
+    /*---------------------------------------------------------------------*/
 };
 
 /*! \ingroup GrpBaseFieldContainerHandle

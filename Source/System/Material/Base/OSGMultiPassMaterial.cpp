@@ -114,45 +114,8 @@ bool MultiPassMaterial::hasMaterial(Material *pMat) const
     return false;
 }
 
-
-#ifdef OLD
-/*! Draw the geometry with this material.
-*/
-
-void MultiPassMaterial::draw(MaterialDrawable* geo, DrawActionBase * action)
-{
-}
-
-/*! Draw the function behind the functor with this material. The functored
-    function should be very careful changing OpenGL state, better just use
-    glBegin(), glEnd() and the standard stuff in between.
-*/
-
-void MultiPassMaterial::draw(DrawFunctor& func, DrawActionBase * action)
-{
-}
-
-/*! Create a OSG::State that represents this Material and return it.
-*/
-
-StatePtr MultiPassMaterial::makeState(void)
-{
-    return NULL;
-}
-#endif
-
-/*! Rebuild the internal State. Just collects the chunks in the State.
-*/
-
 void MultiPassMaterial::rebuildState(void)
 {
-    const MultiPassMaterial *pThis = this;
-
-    for(UInt32 i = 0; i < _mfMaterials.size(); ++i)
-    {
-        if(pThis->_mfMaterials[i] != NULL)
-            pThis->_mfMaterials[i]->rebuildState();
-    }
 }
 
 State *MultiPassMaterial::getState(UInt32 index)
@@ -190,8 +153,8 @@ bool MultiPassMaterial::isTransparent(void) const
         return (tm == Material::TransparencyForceTransparent);
     }
 
-    MFUnrecMaterialPtr::const_iterator it      = _mfMaterials.begin();
-    MFUnrecMaterialPtr::const_iterator matsEnd = _mfMaterials.end();
+    MFUnrecPrimeMaterialPtr::const_iterator it      = _mfMaterials.begin();
+    MFUnrecPrimeMaterialPtr::const_iterator matsEnd = _mfMaterials.end();
 
     // ok just check the first (base) material.
     if(  it                   != matsEnd && 

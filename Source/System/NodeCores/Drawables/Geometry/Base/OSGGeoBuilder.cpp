@@ -48,7 +48,7 @@
 
 #include "OSGConfig.h"
 
-//#include "OSGSimpleGeometry.h"
+#include "OSGPrimeMaterial.h"
 #include "OSGGeoBuilder.h"
 
 OSG_USING_NAMESPACE
@@ -101,7 +101,7 @@ void GeoBuilder::reset(void)
 
     _geo = Geometry::create();
 
-    Material *mat = getDefaultMaterial();
+    PrimeMaterial *mat = getDefaultMaterial();
 
     _geo->setMaterial(mat);
 

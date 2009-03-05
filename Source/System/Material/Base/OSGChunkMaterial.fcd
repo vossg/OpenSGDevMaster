@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="ChunkMaterial"
-	parent="Material"
+	parent="PrimeMaterial"
 	library="System"
 	structure="concrete"
 	pointerfieldtypes="both"

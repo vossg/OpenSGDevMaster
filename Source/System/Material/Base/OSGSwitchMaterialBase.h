@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGMaterial.h" // Parent
+#include "OSGCompositeMaterial.h" // Parent
 
 #include "OSGMaterialFields.h" // Materials type
 #include "OSGUInt32Fields.h" // Choice type
@@ -76,12 +76,12 @@ class SwitchMaterial;
 
 //! \brief SwitchMaterial Base Class.
 
-class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public Material
+class OSG_SYSTEM_DLLMAPPING SwitchMaterialBase : public CompositeMaterial
 {
   public:
 
-    typedef Material Inherited;
-    typedef Material ParentContainer;
+    typedef CompositeMaterial Inherited;
+    typedef CompositeMaterial ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

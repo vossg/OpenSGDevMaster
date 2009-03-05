@@ -65,7 +65,7 @@
 
 #include "OSGTileableBackground.h" // Parent
 
-#include "OSGMaterialFields.h" // Material type
+#include "OSGPrimeMaterialFields.h" // Material type
 #include "OSGVec3fFields.h" // TexCoords type
 #include "OSGPnt2fFields.h" // Positions type
 #include "OSGBoolFields.h" // NormalizedX type
@@ -134,7 +134,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public TileableBackground
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecMaterialPtr SFMaterialType;
+    typedef SFUnrecPrimeMaterialPtr SFMaterialType;
     typedef MFVec3f           MFTexCoordsType;
     typedef MFPnt2f           MFPositionsType;
     typedef SFBool            SFNormalizedXType;
@@ -167,8 +167,8 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public TileableBackground
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecMaterialPtr  *getSFMaterial       (void) const;
-                  SFUnrecMaterialPtr  *editSFMaterial       (void);
+            const SFUnrecPrimeMaterialPtr *getSFMaterial       (void) const;
+                  SFUnrecPrimeMaterialPtr *editSFMaterial       (void);
 
                   MFVec3f             *editMFTexCoords      (void);
             const MFVec3f             *getMFTexCoords       (void) const;
@@ -195,7 +195,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public TileableBackground
             const SFBool              *getSFCleanup         (void) const;
 
 
-                  Material * getMaterial       (void) const;
+                  PrimeMaterial * getMaterial       (void) const;
 
                   Vec3f               &editTexCoords      (const UInt32 index);
             const Vec3f               &getTexCoords       (const UInt32 index) const;
@@ -226,7 +226,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public TileableBackground
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setMaterial       (Material * const value);
+            void setMaterial       (PrimeMaterial * const value);
             void setNormalizedX    (const bool value);
             void setNormalizedY    (const bool value);
             void setAspectHeight   (const UInt16 value);
@@ -297,7 +297,7 @@ class OSG_WINDOW_DLLMAPPING PolygonBackgroundBase : public TileableBackground
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecMaterialPtr _sfMaterial;
+    SFUnrecPrimeMaterialPtr _sfMaterial;
     MFVec3f           _mfTexCoords;
     MFPnt2f           _mfPositions;
     SFBool            _sfNormalizedX;

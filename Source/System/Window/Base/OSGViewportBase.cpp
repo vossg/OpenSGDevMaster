@@ -63,6 +63,7 @@
 #include <OSGNode.h> // Root Class
 #include <OSGBackground.h> // Background Class
 #include <OSGForeground.h> // Foregrounds Class
+#include <OSGRenderOptions.h> // RenderOptions Class
 
 #include "OSGViewportBase.h"
 #include "OSGViewport.h"
@@ -164,6 +165,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Int32           ViewportBase::_sfDrawableId
     DrawableId to select viewport dependent elements (e.g. Distortion filter).
+*/
+
+/*! \var RenderOptions * ViewportBase::_sfRenderOptions
+    
 */
 
 
@@ -321,6 +326,18 @@ void ViewportBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Viewport::editHandleDrawableId),
         static_cast<FieldGetMethodSig >(&Viewport::getHandleDrawableId));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecRenderOptionsPtr::Description(
+        SFUnrecRenderOptionsPtr::getClassType(),
+        "renderOptions",
+        "",
+        RenderOptionsFieldId, RenderOptionsFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Viewport::editHandleRenderOptions),
+        static_cast<FieldGetMethodSig >(&Viewport::getHandleRenderOptions));
 
     oType.addInitialDesc(pDesc);
 }
@@ -501,6 +518,15 @@ ViewportBase::TypeObject ViewportBase::_type(
     "       defaultValue=\"-1\"\n"
     "\t>\n"
     "    DrawableId to select viewport dependent elements (e.g. Distortion filter).\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"renderOptions\"\n"
+    "\t   type=\"RenderOptionsPtr\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue=\"NULL\"\n"
+    "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindowsViewports\n"
@@ -693,6 +719,19 @@ const SFInt32 *ViewportBase::getSFDrawableId(void) const
 }
 
 
+//! Get the Viewport::_sfRenderOptions field.
+const SFUnrecRenderOptionsPtr *ViewportBase::getSFRenderOptions(void) const
+{
+    return &_sfRenderOptions;
+}
+
+SFUnrecRenderOptionsPtr *ViewportBase::editSFRenderOptions  (void)
+{
+    editSField(RenderOptionsFieldMask);
+
+    return &_sfRenderOptions;
+}
+
 
 
 void ViewportBase::addForeground(Foreground * const value)
@@ -804,6 +843,10 @@ UInt32 ViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDrawableId.getBinSize();
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        returnValue += _sfRenderOptions.getBinSize();
+    }
 
     return returnValue;
 }
@@ -861,6 +904,10 @@ void ViewportBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDrawableId.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        _sfRenderOptions.copyToBin(pMem);
+    }
 }
 
 void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
@@ -915,6 +962,10 @@ void ViewportBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (DrawableIdFieldMask & whichField))
     {
         _sfDrawableId.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        _sfRenderOptions.copyFromBin(pMem);
     }
 }
 
@@ -1052,7 +1103,8 @@ ViewportBase::ViewportBase(void) :
     _mfForegrounds            (),
     _sfTravMask               (UInt32(TypeTraits<UInt32>::getMax())),
     _sfDrawTime               (Real32(0.0f)),
-    _sfDrawableId             (Int32(-1))
+    _sfDrawableId             (Int32(-1)),
+    _sfRenderOptions          (NULL)
 {
 }
 
@@ -1069,7 +1121,8 @@ ViewportBase::ViewportBase(const ViewportBase &source) :
     _mfForegrounds            (),
     _sfTravMask               (source._sfTravMask               ),
     _sfDrawTime               (source._sfDrawTime               ),
-    _sfDrawableId             (source._sfDrawableId             )
+    _sfDrawableId             (source._sfDrawableId             ),
+    _sfRenderOptions          (NULL)
 {
 }
 
@@ -1176,6 +1229,8 @@ void ViewportBase::onCreate(const Viewport *source)
 
             ++ForegroundsIt;
         }
+
+        pThis->setRenderOptions(source->getRenderOptions());
     }
 }
 
@@ -1467,6 +1522,32 @@ EditFieldHandlePtr ViewportBase::editHandleDrawableId     (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ViewportBase::getHandleRenderOptions   (void) const
+{
+    SFUnrecRenderOptionsPtr::GetHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::GetHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ViewportBase::editHandleRenderOptions  (void)
+{
+    SFUnrecRenderOptionsPtr::EditHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::EditHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId)));
+
+    returnValue->setSetMethod(
+        boost::bind(&Viewport::setRenderOptions,
+                    static_cast<Viewport *>(this), _1));
+
+    editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ViewportBase::execSyncV(      FieldContainer    &oFrom,
@@ -1511,6 +1592,8 @@ void ViewportBase::resolveLinks(void)
     static_cast<Viewport *>(this)->setBackground(NULL);
 
     static_cast<Viewport *>(this)->clearForegrounds();
+
+    static_cast<Viewport *>(this)->setRenderOptions(NULL);
 
 
 }

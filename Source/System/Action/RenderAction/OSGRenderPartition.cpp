@@ -563,13 +563,17 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
     _uiNumTriangles += st->getTriangles();
 
 #ifdef OSG_NEW_SHADER
+#if 0
     if(_pMaterial != NULL && (pState != _pMaterial->getState()))
     {
         fprintf(stderr, "Error try to overrule material override, ignored\n");
 
         pState = _pMaterial->getState();
     }
-    else if(_pMaterial == NULL && pState != NULL)
+    else if(_pMaterial == NULL && pState != NULL) ;
+
+#endif
+    if(pState != NULL)
     {
         ShaderProgramChunk *pSPChunk = 
             static_cast<ShaderProgramChunk *>(
@@ -987,7 +991,7 @@ void RenderPartition::overrideMaterial(Material *       pMaterial,
         _pMaterial     = pMaterial;
         _pMaterialNode = pNode;
 
-#ifdef OSG_NEW_SHADER
+#ifdef OSG_NEW_SHADER_DISABLE
         State *pState = _pMaterial->getState();
 
         OSG_ASSERT(pState != NULL);
@@ -1034,7 +1038,7 @@ void RenderPartition::overrideMaterial(Material *       pMaterial,
             _pMaterial     = NULL;
             _pMaterialNode = NULL;
 
-#ifdef OSG_NEW_SHADER
+#ifdef OSG_NEW_SHADER_DISABLE
             if(_addedStateOverride == true)
             {
                 this->popState();

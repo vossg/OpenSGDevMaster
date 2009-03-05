@@ -200,11 +200,15 @@ class OSG_FILEIO_DLLMAPPING OSBElementBase
         inline       BindingStoreConstIt  endBindingStore  (void) const;
         inline       BindingStoreIt       endBindingStore  (void);
 
+        void setHandledField(bool bVal);
+        bool getHandledField(void     ) const;
+
       private:
         FieldContainer   *_fc;
         UInt32            _fieldId;
         PtrIdStore        _ptrIds;
         BindingStore      _bindings;
+        bool              _bHandledField;
     };
 
     typedef std::list<PtrFieldInfo>             PtrFieldList;

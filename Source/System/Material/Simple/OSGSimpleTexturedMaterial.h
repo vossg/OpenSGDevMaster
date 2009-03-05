@@ -82,13 +82,9 @@ class OSG_DRAWABLE_DLLMAPPING SimpleTexturedMaterial :
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
 
-#ifdef OLD
-    virtual StatePtr makeState    (void);
-#endif
+    virtual void rebuildState (void);
 
-    virtual void     rebuildState (void);
-
-    virtual bool     isTransparent(void) const;
+    virtual bool isTransparent(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

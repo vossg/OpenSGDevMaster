@@ -195,4 +195,16 @@ OSBElementBase::PtrFieldInfo::endBindingStore(void)
     return _bindings.end();
 }
 
+inline
+void OSBElementBase::PtrFieldInfo::setHandledField(bool bVal)
+{
+    _bHandledField = bVal;
+}
+
+inline
+bool OSBElementBase::PtrFieldInfo::getHandledField(void) const
+{
+    return _bHandledField;
+}
+
 OSG_END_NAMESPACE

@@ -327,49 +327,6 @@ void Viewport::deactivate(void)
 {
 }
 
-#ifdef OSG_OLD_RENDER_ACTION
-void Viewport::render(DrawActionBase *action)
-{
-    if(getCamera() == NULL)
-    {
-        SWARNING << "Viewport::render: no camera!" << std::endl;
-        return;
-    }
-    if(getBackground() == NULL)
-    {
-        SWARNING << "Viewport::render: no Background!" << std::endl;
-        return;
-    }
-    if(getRoot() == NULL)
-    {
-        SWARNING << "Viewport::render: no root!" << std::endl;
-        return;
-    }
-
-#if 0 // Have to check GV
-    activate();
-#endif
-
-    action->setCamera    (getCamera    ());
-    action->setBackground(getBackground());
-    action->setViewport  (this           );
-    action->setTravMask  (getTravMask()  );
-
-    action->apply(getRoot());
-
-    DrawEnv oEnv;
-    
-    oEnv.setWindow(action->getWindow());
-    
-    for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
-        getForegrounds(i)->draw(&oEnv, this);
-
-#if 0 // Have to check GV
-    deactivate();
-#endif
-}
-#endif
-
 void Viewport::render(RenderActionBase *action)
 {
      _pStageValidator->incEventCounter();

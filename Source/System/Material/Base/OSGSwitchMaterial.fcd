@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="SwitchMaterial"
-	parent="Material"
+	parent="CompositeMaterial"
 	library="System"
 	pointerfieldtypes="both"
 	structure="concrete"

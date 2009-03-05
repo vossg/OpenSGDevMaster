@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class PolygonForeground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! PolygonForegroundPtr
-
 OSG_GEN_CONTAINERPTR(PolygonForeground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<PolygonForeground *> :
     public FieldTraitsFCPtrBase<PolygonForeground *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<PolygonForeground *, 0>::getMName<NoRefCountPolicy>(voi
     return "MFUnrefdPolygonForegroundPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<PolygonForegroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PolygonForeground *,
                       RecordedRefCountPolicy  > SFRecPolygonForegroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PolygonForeground *,
                       UnrecordedRefCountPolicy> SFUnrecPolygonForegroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PolygonForeground *,
                       WeakRefCountPolicy      > SFWeakPolygonForegroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PolygonForeground *,
                       NoRefCountPolicy        > SFUncountedPolygonForegroundPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<PolygonForeground *,
                       RecordedRefCountPolicy  > MFRecPolygonForegroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<PolygonForeground *,
                       UnrecordedRefCountPolicy> MFUnrecPolygonForegroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<PolygonForeground *,
                       WeakRefCountPolicy      > MFWeakPolygonForegroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<PolygonForeground *,
                       NoRefCountPolicy        > MFUncountedPolygonForegroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecPolygonForegroundPtr : 
+    public PointerSField<PolygonForeground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecPolygonForegroundPtr : 
+    public PointerSField<PolygonForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakPolygonForegroundPtr :
+    public PointerSField<PolygonForeground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedPolygonForegroundPtr :
+    public PointerSField<PolygonForeground *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecPolygonForegroundPtr :
+    public PointerMField<PolygonForeground *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecPolygonForegroundPtr :
+    public PointerMField<PolygonForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakPolygonForegroundPtr :
+    public PointerMField<PolygonForeground *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedPolygonForegroundPtr :
+    public PointerMField<PolygonForeground *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

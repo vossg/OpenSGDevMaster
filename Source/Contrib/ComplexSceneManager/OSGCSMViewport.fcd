@@ -69,4 +69,13 @@
         defaultValue="1.f, 1.f"
 	>
 	</Field>
+	<Field
+	   name="renderOptions"
+	   type="RenderOptionsPtr"
+	   cardinality="single"
+	   visibility="external"
+	   access="public"
+       defaultValue="NULL"
+	>
+	</Field>
 </FieldContainer>

@@ -153,21 +153,6 @@ void SimpleTexturedMaterial::changed(ConstFieldMaskArg whichField,
 #pragma warning (default : 383)
 #endif
 
-#ifdef OLD
-StatePtr SimpleTexturedMaterial::makeState(void)
-{
-    StatePtr state = Inherited::makeState();
-
-    prepareLocalChunks();
-
-    state->addChunk(_textureChunk);
-    state->addChunk(_texGenChunk );
-    state->addChunk(_texEnvChunk );
-
-    return state;
-}
-#endif
-
 void SimpleTexturedMaterial::rebuildState(void)
 {
     Inherited::rebuildState();

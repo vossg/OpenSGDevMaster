@@ -51,6 +51,7 @@
 #include "OSGDataSlotMixin.h"
 
 #include "OSGRenderPartitionBase.h"
+#include "OSGRenderPropertiesPool.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -92,11 +93,13 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 
   public:
 
-    typedef RenderActionBaseParent Inherited;
+    typedef RenderActionBaseParent                     Inherited;
+    typedef RenderPropertiesPool::Singleton::ValueType RenderPropType;
 
     static StatElemDesc<StatTimeElem> statTravTime;
 //    static StatElemDesc<StatIntElem>  statCullTestedNodes;
 //    static StatElemDesc<StatIntElem>  statCulledNodes;
+
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
@@ -183,6 +186,14 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 
     void            setDrawableId    (Int32 iId);
     Int32           getDrawableId    (void     );
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Lights                                     */
+    /*! \{                                                                 */
+
+    RenderPropType getRenderProperties  (void                );
+    void           setRenderProperties  (RenderPropType oProp);
+    void           resetRenderProperties(void                );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -241,15 +252,16 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 
     // frustum culling attributes
     
-    bool          _bFrustumCulling;
-    bool          _bVolumeDrawing;
-    bool          _bAutoFrustum;
-    FrustumVolume _oFrustum;
+    bool            _bFrustumCulling;
+    bool            _bVolumeDrawing;
+    bool            _bAutoFrustum;
+    FrustumVolume   _oFrustum;
 
-    UInt16        _uiFrameTravCount;
+    UInt16          _uiFrameTravCount;
 
-    Int32         _iDrawerId;
-    Int32         _iDrawableId;
+    Int32           _iDrawerId;
+    Int32           _iDrawableId;
+    RenderPropType  _oCurrentRenderProp;
 
     /*==========================  PRIVATE  ================================*/
 

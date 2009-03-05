@@ -321,10 +321,7 @@ GeoIntegralProperty *Geometry::getIndex(UInt16 index) const
 inline
 void Geometry::setMaterial(Material * const value)
 {
-    editSField(MaterialFieldMask);
-
-//    setRefd(_sfMaterial.getValue(), value);
-    _sfMaterial.setValue(value);
+    Inherited::setMaterial(value);
 }
 
 

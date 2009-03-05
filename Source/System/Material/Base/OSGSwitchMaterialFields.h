@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SwitchMaterial;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SwitchMaterialPtr
-
 OSG_GEN_CONTAINERPTR(SwitchMaterial);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SwitchMaterial *> :
     public FieldTraitsFCPtrBase<SwitchMaterial *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<SwitchMaterial *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdSwitchMaterialPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SwitchMaterialPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<SwitchMaterial *,
                       RecordedRefCountPolicy  > SFRecSwitchMaterialPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<SwitchMaterial *,
                       UnrecordedRefCountPolicy> SFUnrecSwitchMaterialPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<SwitchMaterial *,
                       WeakRefCountPolicy      > SFWeakSwitchMaterialPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<SwitchMaterial *,
                       NoRefCountPolicy        > SFUncountedSwitchMaterialPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<SwitchMaterial *,
                       RecordedRefCountPolicy  > MFRecSwitchMaterialPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<SwitchMaterial *,
                       UnrecordedRefCountPolicy> MFUnrecSwitchMaterialPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<SwitchMaterial *,
                       WeakRefCountPolicy      > MFWeakSwitchMaterialPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<SwitchMaterial *,
                       NoRefCountPolicy        > MFUncountedSwitchMaterialPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecSwitchMaterialPtr : 
+    public PointerSField<SwitchMaterial *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecSwitchMaterialPtr : 
+    public PointerSField<SwitchMaterial *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakSwitchMaterialPtr :
+    public PointerSField<SwitchMaterial *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedSwitchMaterialPtr :
+    public PointerSField<SwitchMaterial *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecSwitchMaterialPtr :
+    public PointerMField<SwitchMaterial *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecSwitchMaterialPtr :
+    public PointerMField<SwitchMaterial *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakSwitchMaterialPtr :
+    public PointerMField<SwitchMaterial *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedSwitchMaterialPtr :
+    public PointerMField<SwitchMaterial *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

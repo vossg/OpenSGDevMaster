@@ -43,6 +43,7 @@
 #include <OSGGLEXT.h>
 
 #include "OSGRenderOptions.h"
+#include "OSGRenderActionBase.h"
 
 OSG_USING_NAMESPACE
 
@@ -151,6 +152,27 @@ BitVector RenderOptions::getLastChanged(void)
 {
     return _last_changed;
 }
+
+void RenderOptions::activate(RenderActionBase *pAction)
+{
+    if(pAction == NULL)
+        return;
+
+/*
+    fprintf(stderr, "ac:pro : %016llx\n",
+            this->getRenderProperties());
+ */
+    pAction->setRenderProperties(this->getRenderProperties());
+}
+
+void RenderOptions::deactivate(RenderActionBase *pAction)
+{
+    if(pAction == NULL)
+        return;
+
+    pAction->resetRenderProperties();
+}
+
 
 #ifdef OSG_OLD_RENDER_ACTION
 void RenderOptions::activateOptions(RenderAction *action)

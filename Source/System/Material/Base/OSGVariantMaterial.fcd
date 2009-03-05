@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+	name="VariantMaterial"
+	parent="CompositeMaterial"
+	library="System"
+	structure="concrete"
+	pointerfieldtypes="both"
+	systemcomponent="true"
+	parentsystemcomponent="true"
+>
+    <Field
+	   name="fallbackMaterial"
+	   type="PrimeMaterialPtr"
+	   cardinality="single"
+	   visibility="external"
+	   header="OSGMaterial.h"
+	   access="public"
+	   >
+	</Field>
+</FieldContainer>

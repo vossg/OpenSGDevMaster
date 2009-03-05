@@ -76,14 +76,14 @@ OSG::UInt16 PolygonBackgroundBase::getClassGroupId(void)
 
 //! Get the value of the PolygonBackground::_sfMaterial field.
 inline
-Material * PolygonBackgroundBase::getMaterial(void) const
+PrimeMaterial * PolygonBackgroundBase::getMaterial(void) const
 {
     return _sfMaterial.getValue();
 }
 
 //! Set the value of the PolygonBackground::_sfMaterial field.
 inline
-void PolygonBackgroundBase::setMaterial(Material * const value)
+void PolygonBackgroundBase::setMaterial(PrimeMaterial * const value)
 {
     editSField(MaterialFieldMask);
 

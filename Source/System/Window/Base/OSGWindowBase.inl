@@ -274,6 +274,22 @@ void WindowBase::setContextFlags(const Int32 value)
     _sfContextFlags.setValue(value);
 }
 
+//! Get the value of the Window::_sfRenderOptions field.
+inline
+RenderOptions * WindowBase::getRenderOptions(void) const
+{
+    return _sfRenderOptions.getValue();
+}
+
+//! Set the value of the Window::_sfRenderOptions field.
+inline
+void WindowBase::setRenderOptions(RenderOptions * const value)
+{
+    editSField(RenderOptionsFieldMask);
+
+    _sfRenderOptions.setValue(value);
+}
+
 //! Get the value of the \a index element the Window::_mfPort field.
 inline
 Viewport * WindowBase::getPort(const UInt32 index) const
@@ -365,6 +381,9 @@ void WindowBase::execSync (      WindowBase *pFrom,
 
     if(FieldBits::NoField != (ContextFlagsFieldMask & whichField))
         _sfContextFlags.syncWith(pFrom->_sfContextFlags);
+
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+        _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
 }
 #endif
 

@@ -77,21 +77,12 @@ class OSG_SYSTEM_DLLMAPPING MultiPassMaterial : public MultiPassMaterialBase
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
 
-#ifdef OLD
-    virtual void     draw         (DrawFunctor      &func,
-                                   DrawActionBase   *action);
+    virtual void    rebuildState (void        );
 
-    virtual void     draw         (MaterialDrawable *geo,
-                                   DrawActionBase   *action);
+    virtual State  *getState     (UInt32 index);
+    virtual UInt32  getNPasses   (void        );
 
-    virtual StatePtr makeState    (void                    );
-#endif
-
-    virtual void    rebuildState (void                    );
-    virtual State  *getState     (UInt32            index );
-    virtual UInt32  getNPasses   (void                    );
-
-    virtual bool    isTransparent(void                    ) const;
+    virtual bool    isTransparent(void        ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

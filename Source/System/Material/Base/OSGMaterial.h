@@ -47,17 +47,15 @@
 #include "OSGAction.h"
 #include "OSGMaterialBase.h"
 #include "OSGState.h"
+#include "OSGMaterialMapFields.h"
 
 OSG_BEGIN_NAMESPACE
 
 
 class MaterialDrawable;
-
-#ifdef OSG_OLD_RENDER_ACTION
-class DrawActionBase;
-#endif
-
 class DrawEnv;
+class VariantMaterial;
+class PrimeMaterial;
 
 /*! \brief Abstract Material base class. See \ref PageSystemMaterial for a
     description.
@@ -102,27 +100,8 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
 
-    // TODO: switch geo to functor too, remove makeState, replace by rebuild
-    
-
-#ifdef OLD
-    virtual void     draw          (DrawFunctor      &func,
-                                    DrawActionBase   *action   )       = 0;
-
-    virtual void     draw          (MaterialDrawable *geo,
-                                    DrawActionBase   *action   )       = 0;
-
-    virtual StatePtr makeState     (void                       )       = 0;
-#endif
-
-    virtual void     rebuildState  (void                       )       = 0;
-
-    virtual State   *getState      (UInt32            index = 0);
-    virtual UInt32   getNPasses    (void                       );
-  
-    virtual bool     isTransparent (void                       ) const = 0;
-
-    virtual Int32    getRealSortKey(void                       ) const;
+    virtual PrimeMaterial *finalize     (MaterialMapKey oKey)       = 0;
+    virtual bool           isTransparent(void               ) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -140,24 +119,17 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
+#if 0
     virtual bool operator <  (const Material &other) const;
 
     virtual bool operator == (const Material &other) const;
     virtual bool operator != (const Material &other) const;
+#endif
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
-
-    StateUnrecPtr _pState;  // !!! TODO is that MT safe?
-
-    // Yes, but not efficient. Every material has as many States as there
-    // are aspects, each of which itself is threadsafe (i.e. multibuffered).
-    // A single State per Material would be better. I'm just not sure how to
-    // initialize it. :( DR
-    // Actually, no, it isn't!!! Multiple materials updating the same aspect 
-    // in different threads make this crash!!! DR
     
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -196,6 +168,7 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
 
     friend class FieldContainer;
     friend class MaterialBase;
+    friend class VariantMaterial;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const Material &source);
@@ -207,8 +180,8 @@ typedef Material *MaterialP;
 /*! \name                     Material Access                          */
 /*! \{                                                                 */
 
-OSG_SYSTEM_DLLMAPPING Material *getDefaultMaterial     (void);
-OSG_SYSTEM_DLLMAPPING Material *getDefaultUnlitMaterial(void);
+OSG_SYSTEM_DLLMAPPING PrimeMaterial *getDefaultMaterial     (void);
+OSG_SYSTEM_DLLMAPPING PrimeMaterial *getDefaultUnlitMaterial(void);
 
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/

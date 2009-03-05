@@ -62,6 +62,7 @@
 #include "OSGVolumeDraw.h"
 #include "OSGTreeBuilderBase.h"
 #include "OSGMultiCore.h"
+#include "OSGPrimeMaterial.h"
 
 OSG_USING_NAMESPACE
 
@@ -612,6 +613,15 @@ Action::ResultE RenderAction::start(void)
     }
 #endif
 
+    if(_pViewport != NULL && _pViewport->getRenderOptions() != NULL)
+    {
+        _pViewport->getRenderOptions()->activate(this);
+    }
+    else if(_pWindow != NULL && _pWindow->getRenderOptions() != NULL)
+    {
+        _pWindow->getRenderOptions()->activate(this);
+    }
+
     _vRenderPartitions[_currentBuffer].clear   ();
 
     _pPartitionPools  [_currentBuffer]->freeAll();
@@ -752,6 +762,15 @@ Action::ResultE RenderAction::stop(ResultE res)
         }
     }
 
+    if(_pViewport != NULL && _pViewport->getRenderOptions() != NULL)
+    {
+        _pViewport->getRenderOptions()->deactivate(this);
+    }
+    else if(_pWindow != NULL && _pWindow->getRenderOptions() != NULL)
+    { 
+        _pWindow->getRenderOptions()->deactivate(this);
+    }
+
     return Action::Continue;
 }
 
@@ -809,18 +828,23 @@ void RenderAction::dropFunctor(Material::DrawFunctor &func,
     if(pMat == NULL)
         return;
 
-    UInt32 uiNPasses = pMat->getNPasses();
+    PrimeMaterial *pPrimeMat = pMat->finalize(_oCurrentRenderProp);
+
+    if(pPrimeMat == NULL)
+        return;
+
+    UInt32 uiNPasses = pPrimeMat->getNPasses();
     
     for(UInt32 uiPass = 0; uiPass < uiNPasses; ++uiPass)
     {
-        State *st = pMat->getState(uiPass);
+        State *st = pPrimeMat->getState(uiPass);
         
         if(st != NULL)
         {
             this->dropFunctor(func, 
                               st, 
-                              pMat->getSortKey() + uiPass,
-                              bIgnoreOverrides           );
+                              pPrimeMat->getSortKey() + uiPass,
+                              bIgnoreOverrides                );
         }
         else
         {

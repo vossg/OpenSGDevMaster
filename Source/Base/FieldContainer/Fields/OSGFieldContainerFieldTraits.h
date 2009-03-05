@@ -153,6 +153,7 @@ struct FieldTraits<FieldContainer *> :
   private:
 
     static  DataType                       _type;
+    static  DataType                       _mapType;
 
   public:
 
@@ -165,6 +166,8 @@ struct FieldTraits<FieldContainer *> :
 
     static OSG_BASE_DLLMAPPING
                  DataType &getType (void);
+    static OSG_BASE_DLLMAPPING
+                 DataType &getMapType (void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName(void);

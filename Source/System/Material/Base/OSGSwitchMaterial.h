@@ -77,22 +77,8 @@ class OSG_SYSTEM_DLLMAPPING SwitchMaterial : public SwitchMaterialBase
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
 
-#if OLD
-    virtual void       draw              (DrawFunctor& func,
-                                          DrawActionBase * action );
-
-    virtual void       draw              (Geometry* geo,
-                                          DrawActionBase * action);
-
-    virtual StatePtr   makeState         (void);
-#endif
-
-    virtual void       rebuildState (void            );
-
-    virtual State     *getState     (UInt32 index = 0);
-    virtual UInt32     getNPasses   (void            ) const;
-
-    virtual bool       isTransparent(void            ) const;
+    virtual PrimeMaterial *finalize     (MaterialMapKey oKey);
+    virtual bool           isTransparent(void               ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

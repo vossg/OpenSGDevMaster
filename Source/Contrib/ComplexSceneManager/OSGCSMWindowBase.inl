@@ -349,6 +349,22 @@ void CSMWindowBase::setFsaaHint(const UInt32 value)
     _sfFsaaHint.setValue(value);
 }
 
+//! Get the value of the CSMWindow::_sfRenderOptions field.
+inline
+RenderOptions * CSMWindowBase::getRenderOptions(void) const
+{
+    return _sfRenderOptions.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfRenderOptions field.
+inline
+void CSMWindowBase::setRenderOptions(RenderOptions * const value)
+{
+    editSField(RenderOptionsFieldMask);
+
+    _sfRenderOptions.setValue(value);
+}
+
 //! Get the value of the \a index element the CSMWindow::_mfViewports field.
 inline
 CSMViewport * CSMWindowBase::getViewports(const UInt32 index) const
@@ -430,6 +446,9 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (FsaaHintFieldMask & whichField))
         _sfFsaaHint.syncWith(pFrom->_sfFsaaHint);
+
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+        _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
 }
 #endif
 

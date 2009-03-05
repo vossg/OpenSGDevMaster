@@ -69,6 +69,10 @@ OSG_OPTION(OSGCOMPAT_ENABLE                  "" OFF)
 OSG_OPTION(OSGCOMPAT_ENABLE_DEPRECATED       "" OFF)
 OSG_OPTION(OSGCOMPAT_ENABLE_DEPRECATED_PROPS "" OFF)
 
+OSG_SET_CACHE(OSG_RENDERPROPERTY_BITS 64 STRING "")
+OSG_SET_CACHE(OSG_RENDERPROPERTY_UNIQUE_BITS 16 STRING "")
+
+
 OPTION(OSG_ENABLE_DOXY_DOC "Build the doxygen documentation - this has to be enabled each time cmake is run!" OFF)
 SET(OSG_DOXY_DOC_TYPE "User" CACHE STRING
     "The type of documentation to generate (User, Developer, Trac)")

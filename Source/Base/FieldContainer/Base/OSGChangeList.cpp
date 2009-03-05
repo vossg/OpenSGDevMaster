@@ -572,6 +572,8 @@ void ChangeList::doApply(bool bClear)
     }
 
     commitDelayedSubRefs();
+
+    Thread::getCurrentChangeList()->commitDelayedSubRefs();
 #endif
 }
 

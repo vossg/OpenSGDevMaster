@@ -1,0 +1,48 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF PropChoiceCounter LimitedUInt32Counter
+    {
+      value 0
+      step  1
+
+      lowerLimit  0
+      upperLimit  6
+    }
+
+    DEF PropChoiceUp KeySensor
+    {
+      key "C"
+      stateFlipFlop TRUE
+    }       
+
+    DEF PropChoiceDown KeySensor
+    {
+      key "c"
+      stateFlipFlop TRUE
+    } 
+
+    DEF PropChoiceEmitter SelectMaterialKeyEmitter
+    {
+      choice 0
+      choiceValues
+      [
+        "OGLFixedFunc@"
+        "OGLShader@"
+        "foobar@"
+        "fallback"
+      ]
+    }   
+  ]
+}
+
+
+ROUTE PropChoiceUp  .signalPressed  TO PropChoiceCounter.incTrigger
+ROUTE PropChoiceDown.signalPressed  TO PropChoiceCounter.decTrigger
+
+ROUTE PropChoiceCounter.value       TO PropChoiceEmitter.choice
+ROUTE PropChoiceEmitter.value       TO WinRenderOpts    .renderProperties
+

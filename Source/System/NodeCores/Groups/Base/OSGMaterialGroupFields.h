@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class MaterialGroup;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MaterialGroupPtr
-
 OSG_GEN_CONTAINERPTR(MaterialGroup);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MaterialGroup *> :
     public FieldTraitsFCPtrBase<MaterialGroup *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<MaterialGroup *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdMaterialGroupPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MaterialGroupPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MaterialGroup *,
                       RecordedRefCountPolicy  > SFRecMaterialGroupPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MaterialGroup *,
                       UnrecordedRefCountPolicy> SFUnrecMaterialGroupPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MaterialGroup *,
                       WeakRefCountPolicy      > SFWeakMaterialGroupPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MaterialGroup *,
                       NoRefCountPolicy        > SFUncountedMaterialGroupPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MaterialGroup *,
                       RecordedRefCountPolicy  > MFRecMaterialGroupPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MaterialGroup *,
                       UnrecordedRefCountPolicy> MFUnrecMaterialGroupPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MaterialGroup *,
                       WeakRefCountPolicy      > MFWeakMaterialGroupPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MaterialGroup *,
                       NoRefCountPolicy        > MFUncountedMaterialGroupPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecMaterialGroupPtr : 
+    public PointerSField<MaterialGroup *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecMaterialGroupPtr : 
+    public PointerSField<MaterialGroup *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakMaterialGroupPtr :
+    public PointerSField<MaterialGroup *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedMaterialGroupPtr :
+    public PointerSField<MaterialGroup *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecMaterialGroupPtr :
+    public PointerMField<MaterialGroup *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecMaterialGroupPtr :
+    public PointerMField<MaterialGroup *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakMaterialGroupPtr :
+    public PointerMField<MaterialGroup *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedMaterialGroupPtr :
+    public PointerMField<MaterialGroup *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -65,6 +65,7 @@
 
 #include "OSGAttachment.h" // Parent
 
+#include "OSGMaterialMapFields.h" // RenderProperties type
 #include "OSGBoolFields.h" // Statistic type
 #include "OSGGLenumFields.h" // PolygonMode type
 #include "OSGBoolFields.h" // TwoSidedLighting type
@@ -119,7 +120,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
 
     enum
     {
-        StatisticFieldId = Inherited::NextFieldId,
+        RenderPropertiesFieldId = Inherited::NextFieldId,
+        StatisticFieldId = RenderPropertiesFieldId + 1,
         PolygonModeFieldId = StatisticFieldId + 1,
         TwoSidedLightingFieldId = PolygonModeFieldId + 1,
         SpecTexLightingFieldId = TwoSidedLightingFieldId + 1,
@@ -149,6 +151,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
         NextFieldId = FogModeFieldId + 1
     };
 
+    static const OSG::BitVector RenderPropertiesFieldMask =
+        (TypeTraits<BitVector>::One << RenderPropertiesFieldId);
     static const OSG::BitVector StatisticFieldMask =
         (TypeTraits<BitVector>::One << StatisticFieldId);
     static const OSG::BitVector PolygonModeFieldMask =
@@ -206,6 +210,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
+    typedef SFMaterialMapKey  SFRenderPropertiesType;
     typedef SFBool            SFStatisticType;
     typedef SFGLenum          SFPolygonModeType;
     typedef SFBool            SFTwoSidedLightingType;
@@ -257,6 +262,9 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+
+                  SFMaterialMapKey    *editSFRenderProperties(void);
+            const SFMaterialMapKey    *getSFRenderProperties (void) const;
 
                   SFBool              *editSFStatistic      (void);
             const SFBool              *getSFStatistic       (void) const;
@@ -339,6 +347,9 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
                   SFInt32             *editSFFogMode        (void);
             const SFInt32             *getSFFogMode         (void) const;
 
+
+                  MaterialMapKey      &editRenderProperties(void);
+            const MaterialMapKey      &getRenderProperties (void) const;
 
                   bool                &editStatistic      (void);
                   bool                 getStatistic       (void) const;
@@ -426,6 +437,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setRenderProperties(const MaterialMapKey &value);
             void setStatistic      (const bool value);
             void setPolygonMode    (const GLenum &value);
             void setTwoSidedLighting(const bool value);
@@ -512,6 +524,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFMaterialMapKey  _sfRenderProperties;
     SFBool            _sfStatistic;
     SFGLenum          _sfPolygonMode;
     SFBool            _sfTwoSidedLighting;
@@ -566,6 +579,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleRenderProperties (void) const;
+    EditFieldHandlePtr editHandleRenderProperties(void);
     GetFieldHandlePtr  getHandleStatistic       (void) const;
     EditFieldHandlePtr editHandleStatistic      (void);
     GetFieldHandlePtr  getHandlePolygonMode     (void) const;

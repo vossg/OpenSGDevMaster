@@ -137,4 +137,13 @@ init(void), activate(void), deactivate(void) and swap(void).
        defaultValue="0"
 	>
 	</Field>
+	<Field
+	   name="renderOptions"
+	   type="RenderOptionsPtr"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       defaultValue="NULL"
+	>
+	</Field>
 </FieldContainer>

@@ -149,5 +149,13 @@
        defaultValue="GL_FASTEST"
 	>
     </Field>
-
+	<Field
+	   name="renderOptions"
+	   type="RenderOptionsPtr"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       defaultValue="NULL"
+	>
+	</Field>
 </FieldContainer>

@@ -99,8 +99,9 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<SFAttachmentPtrMap> :
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool empty  (void          );
-    virtual void flatten(MapList &vList);
+    virtual bool empty  (void                );
+    virtual void flatten(MapList       &vList);
+    virtual void flatten(ContainerList &vList);
 
     /*---------------------------------------------------------------------*/
 
@@ -166,8 +167,21 @@ class OSG_BASE_DLLMAPPING
 
     /*---------------------------------------------------------------------*/
 
-    virtual bool empty  (void          );
-    virtual void flatten(MapList &vList);
+    virtual bool empty  (void                );
+    virtual void flatten(MapList       &vList);
+    virtual void flatten(ContainerList &vList);
+
+    /*---------------------------------------------------------------------*/
+
+    virtual bool loadFromBin(      BinaryDataHandler        *pMem,
+                                   UInt32                    uiNumElements,
+                                   bool                      hasBindingInfo,
+                                   std::vector<UInt16>      &vBindings,
+                                   std::vector<UInt32>      &vIds          );
+
+    virtual void fillFrom   (const std::vector<UInt16>      &vBindings,
+                             const std::vector<UInt32>      &vIds,
+                             const std::map<UInt32, UInt32> &vIdMap        );
 
     /*---------------------------------------------------------------------*/
 

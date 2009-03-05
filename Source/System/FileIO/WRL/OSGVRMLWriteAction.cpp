@@ -1219,8 +1219,10 @@ void VRMLWriteAction::writeMaterial(Geometry        *pGeo,
         return;
     }
 
-    pMat->rebuildState();
-    State *st = pMat->getState();
+    PrimeMaterial *pPrimeMat = pMat->finalize(0x0000);
+
+    pPrimeMat->rebuildState();
+    State *st = pPrimeMat->getState();
     
     StateChunk *sChunk =
         st->getChunk(MaterialChunk::getStaticClassId());
@@ -1234,7 +1236,8 @@ void VRMLWriteAction::writeMaterial(Geometry        *pGeo,
         return;
 
     pWriter->printIndent();
-    fprintf(pFile, "appearance DEF App_%u Appearance\n", pWriter->setWritten(pMat));
+    fprintf(pFile, "appearance DEF App_%u Appearance\n", 
+            pWriter->setWritten(pMat));
     
     pWriter->printIndent();
     fprintf(pFile, "{\n");

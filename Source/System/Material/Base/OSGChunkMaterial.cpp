@@ -316,10 +316,12 @@ StateChunk *ChunkMaterial::find(const FieldContainerType &type,
     return NULL;
 }
 
+#if 0
 bool ChunkMaterial::operator==(const ChunkMaterial &other) const
 {
     return Inherited::operator==(other);
 }
+#endif
 
 void ChunkMaterial::clearChunks(void)
 {

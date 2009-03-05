@@ -59,6 +59,7 @@
 
 
 #include <OSGViewport.h> // Port Class
+#include <OSGRenderOptions.h> // RenderOptions Class
 
 #include "OSGWindowBase.h"
 #include "OSGWindow.h"
@@ -136,6 +137,10 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var Int32           WindowBase::_sfContextFlags
+    
+*/
+
+/*! \var RenderOptions * WindowBase::_sfRenderOptions
     
 */
 
@@ -276,6 +281,18 @@ void WindowBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Window::editHandleContextFlags),
         static_cast<FieldGetMethodSig >(&Window::getHandleContextFlags));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecRenderOptionsPtr::Description(
+        SFUnrecRenderOptionsPtr::getClassType(),
+        "renderOptions",
+        "",
+        RenderOptionsFieldId, RenderOptionsFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Window::editHandleRenderOptions),
+        static_cast<FieldGetMethodSig >(&Window::getHandleRenderOptions));
 
     oType.addInitialDesc(pDesc);
 }
@@ -429,6 +446,15 @@ WindowBase::TypeObject WindowBase::_type(
     "\t   access=\"public\"\n"
     "       fieldFlags=\"\"\n"
     "       defaultValue=\"0\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"renderOptions\"\n"
+    "\t   type=\"RenderOptionsPtr\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue=\"NULL\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -601,6 +627,19 @@ const SFInt32 *WindowBase::getSFContextFlags(void) const
 }
 
 
+//! Get the Window::_sfRenderOptions field.
+const SFUnrecRenderOptionsPtr *WindowBase::getSFRenderOptions(void) const
+{
+    return &_sfRenderOptions;
+}
+
+SFUnrecRenderOptionsPtr *WindowBase::editSFRenderOptions  (void)
+{
+    editSField(RenderOptionsFieldMask);
+
+    return &_sfRenderOptions;
+}
+
 
 
 void WindowBase::addPort(Viewport * const value)
@@ -756,6 +795,10 @@ UInt32 WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfContextFlags.getBinSize();
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        returnValue += _sfRenderOptions.getBinSize();
+    }
 
     return returnValue;
 }
@@ -809,6 +852,10 @@ void WindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfContextFlags.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        _sfRenderOptions.copyToBin(pMem);
+    }
 }
 
 void WindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -860,6 +907,10 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfContextFlags.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        _sfRenderOptions.copyFromBin(pMem);
+    }
 }
 
 
@@ -881,7 +932,8 @@ WindowBase::WindowBase(void) :
     _sfDrawerId               (Int32(-1)),
     _sfRequestMajor           (Int32(-1)),
     _sfRequestMinor           (Int32(0)),
-    _sfContextFlags           (Int32(0))
+    _sfContextFlags           (Int32(0)),
+    _sfRenderOptions          (NULL)
 {
 }
 
@@ -899,7 +951,8 @@ WindowBase::WindowBase(const WindowBase &source) :
     _sfDrawerId               (source._sfDrawerId               ),
     _sfRequestMajor           (source._sfRequestMajor           ),
     _sfRequestMinor           (source._sfRequestMinor           ),
-    _sfContextFlags           (source._sfContextFlags           )
+    _sfContextFlags           (source._sfContextFlags           ),
+    _sfRenderOptions          (NULL)
 {
 }
 
@@ -967,6 +1020,8 @@ void WindowBase::onCreate(const Window *source)
 
             ++PortIt;
         }
+
+        pThis->setRenderOptions(source->getRenderOptions());
     }
 }
 
@@ -1244,6 +1299,32 @@ EditFieldHandlePtr WindowBase::editHandleContextFlags   (void)
     return returnValue;
 }
 
+GetFieldHandlePtr WindowBase::getHandleRenderOptions   (void) const
+{
+    SFUnrecRenderOptionsPtr::GetHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::GetHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr WindowBase::editHandleRenderOptions  (void)
+{
+    SFUnrecRenderOptionsPtr::EditHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::EditHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId)));
+
+    returnValue->setSetMethod(
+        boost::bind(&Window::setRenderOptions,
+                    static_cast<Window *>(this), _1));
+
+    editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void WindowBase::execSyncV(      FieldContainer    &oFrom,
@@ -1269,6 +1350,8 @@ void WindowBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<Window *>(this)->clearPorts();
+
+    static_cast<Window *>(this)->setRenderOptions(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;

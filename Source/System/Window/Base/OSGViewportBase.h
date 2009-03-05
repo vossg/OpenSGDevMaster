@@ -77,6 +77,7 @@
 #include "OSGUInt32Fields.h" // TravMask type
 #include "OSGReal32Fields.h" // DrawTime type
 #include "OSGInt32Fields.h" // DrawableId type
+#include "OSGRenderOptionsFields.h" // RenderOptions type
 
 #include "OSGViewportFields.h"
 
@@ -116,7 +117,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
         TravMaskFieldId = ForegroundsFieldId + 1,
         DrawTimeFieldId = TravMaskFieldId + 1,
         DrawableIdFieldId = DrawTimeFieldId + 1,
-        NextFieldId = DrawableIdFieldId + 1
+        RenderOptionsFieldId = DrawableIdFieldId + 1,
+        NextFieldId = RenderOptionsFieldId + 1
     };
 
     static const OSG::BitVector LeftFieldMask =
@@ -143,6 +145,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << DrawTimeFieldId);
     static const OSG::BitVector DrawableIdFieldMask =
         (TypeTraits<BitVector>::One << DrawableIdFieldId);
+    static const OSG::BitVector RenderOptionsFieldMask =
+        (TypeTraits<BitVector>::One << RenderOptionsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -158,6 +162,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     typedef SFUInt32          SFTravMaskType;
     typedef SFReal32          SFDrawTimeType;
     typedef SFInt32           SFDrawableIdType;
+    typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -211,6 +216,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
 
                   SFInt32             *editSFDrawableId     (void);
             const SFInt32             *getSFDrawableId      (void) const;
+            const SFUnrecRenderOptionsPtr *getSFRenderOptions  (void) const;
+                  SFUnrecRenderOptionsPtr *editSFRenderOptions  (void);
 
 
                   Real32              &editLeft           (void);
@@ -242,6 +249,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
                   Int32               &editDrawableId     (void);
                   Int32                getDrawableId      (void) const;
 
+                  RenderOptions * getRenderOptions  (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -257,6 +266,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
             void setTravMask       (const UInt32 value);
             void setDrawTime       (const Real32 value);
             void setDrawableId     (const Int32 value);
+            void setRenderOptions  (RenderOptions * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -339,6 +349,7 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     SFUInt32          _sfTravMask;
     SFReal32          _sfDrawTime;
     SFInt32           _sfDrawableId;
+    SFUnrecRenderOptionsPtr _sfRenderOptions;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -402,6 +413,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportBase : public AttachmentContainer
     EditFieldHandlePtr editHandleDrawTime       (void);
     GetFieldHandlePtr  getHandleDrawableId      (void) const;
     EditFieldHandlePtr editHandleDrawableId     (void);
+    GetFieldHandlePtr  getHandleRenderOptions   (void) const;
+    EditFieldHandlePtr editHandleRenderOptions  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

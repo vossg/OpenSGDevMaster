@@ -1,0 +1,5 @@
+--global ../Common/default-setup.osg
+--system ../Common/system-native-par.osg
+--data   ./scene.osg
+--global ../Common/simple_mouse.osg
+--global ./globals.osg

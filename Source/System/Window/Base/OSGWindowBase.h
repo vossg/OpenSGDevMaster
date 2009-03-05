@@ -76,6 +76,7 @@
 #include "OSGInt32Fields.h" // RequestMajor type
 #include "OSGInt32Fields.h" // RequestMinor type
 #include "OSGInt32Fields.h" // ContextFlags type
+#include "OSGRenderOptionsFields.h" // RenderOptions type
 
 #include "OSGWindowFields.h"
 
@@ -114,7 +115,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         RequestMajorFieldId = DrawerIdFieldId + 1,
         RequestMinorFieldId = RequestMajorFieldId + 1,
         ContextFlagsFieldId = RequestMinorFieldId + 1,
-        NextFieldId = ContextFlagsFieldId + 1
+        RenderOptionsFieldId = ContextFlagsFieldId + 1,
+        NextFieldId = RenderOptionsFieldId + 1
     };
 
     static const OSG::BitVector WidthFieldMask =
@@ -139,6 +141,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << RequestMinorFieldId);
     static const OSG::BitVector ContextFlagsFieldMask =
         (TypeTraits<BitVector>::One << ContextFlagsFieldId);
+    static const OSG::BitVector RenderOptionsFieldMask =
+        (TypeTraits<BitVector>::One << RenderOptionsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -153,6 +157,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     typedef SFInt32           SFRequestMajorType;
     typedef SFInt32           SFRequestMinorType;
     typedef SFInt32           SFContextFlagsType;
+    typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -199,6 +204,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
                   SFInt32             *editSFContextFlags   (void);
             const SFInt32             *getSFContextFlags    (void) const;
+            const SFUnrecRenderOptionsPtr *getSFRenderOptions  (void) const;
+                  SFUnrecRenderOptionsPtr *editSFRenderOptions  (void);
 
 
                   UInt16              &editWidth          (void);
@@ -224,6 +231,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
                   Int32               &editContextFlags   (void);
                   Int32                getContextFlags    (void) const;
 
+                  RenderOptions * getRenderOptions  (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -236,6 +245,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
             void setRequestMajor   (const Int32 value);
             void setRequestMinor   (const Int32 value);
             void setContextFlags   (const Int32 value);
+            void setRenderOptions  (RenderOptions * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -296,6 +306,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     SFInt32           _sfRequestMajor;
     SFInt32           _sfRequestMinor;
     SFInt32           _sfContextFlags;
+    SFUnrecRenderOptionsPtr _sfRenderOptions;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -354,6 +365,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleRequestMinor   (void);
     GetFieldHandlePtr  getHandleContextFlags    (void) const;
     EditFieldHandlePtr editHandleContextFlags   (void);
+    GetFieldHandlePtr  getHandleRenderOptions   (void) const;
+    EditFieldHandlePtr editHandleRenderOptions  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

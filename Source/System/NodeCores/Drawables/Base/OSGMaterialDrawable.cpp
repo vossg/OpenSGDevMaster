@@ -48,7 +48,8 @@
 
 #include "OSGMaterialDrawable.h"
 
-#include <OSGRenderAction.h>
+#include "OSGRenderAction.h"
+#include "OSGPrimeMaterial.h"
 
 OSG_USING_NAMESPACE
 
@@ -86,33 +87,40 @@ Action::ResultE MaterialDrawable::renderActionEnterHandler(Action *action)
 
     func = boost::bind(&MaterialDrawable::drawPrimitives, this, _1);
 
-    Material *m = a->getMaterial();
+    Material      *m         = a->getMaterial();
+    PrimeMaterial *pPrimeMat = NULL;
 
     if(m == NULL)
     {
         if(this->getMaterial() != NULL)
         {
-            m = this->getMaterial();
-        }
-        else
-        {
-            m = getDefaultMaterial();
-            
-            FNOTICE(("MaterialDrawable::render: no Material!?!\n"));
+            pPrimeMat = 
+                this->getMaterial()->finalize(a->getRenderProperties());
         }
     }
+    else
+    {
+        pPrimeMat = m->finalize(a->getRenderProperties());
+    }
 
-    UInt32 uiNPasses = m->getNPasses();
+    if(pPrimeMat == NULL)
+    {
+        pPrimeMat = getDefaultMaterial();
+        
+        FNOTICE(("MaterialDrawable::render: no Material!?!\n"));
+    }
+
+    UInt32 uiNPasses = pPrimeMat->getNPasses();
     
     for(UInt32 uiPass = 0; uiPass < uiNPasses; ++uiPass)
     {
-        State *st = m->getState(uiPass);
+        State *st = pPrimeMat->getState(uiPass);
         
         if(st != NULL)
         {
             a->dropFunctor(func, 
                            st, 
-                           m->getSortKey() + uiPass);
+                           pPrimeMat->getSortKey() + uiPass);
         }
         else
         {

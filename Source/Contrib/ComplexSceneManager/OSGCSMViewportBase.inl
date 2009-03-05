@@ -172,6 +172,22 @@ void CSMViewportBase::setRightTop(const Vec2f &value)
     _sfRightTop.setValue(value);
 }
 
+//! Get the value of the CSMViewport::_sfRenderOptions field.
+inline
+RenderOptions * CSMViewportBase::getRenderOptions(void) const
+{
+    return _sfRenderOptions.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfRenderOptions field.
+inline
+void CSMViewportBase::setRenderOptions(RenderOptions * const value)
+{
+    editSField(RenderOptionsFieldMask);
+
+    _sfRenderOptions.setValue(value);
+}
+
 //! Get the value of the \a index element the CSMViewport::_mfForegrounds field.
 inline
 Foreground * CSMViewportBase::getForegrounds(const UInt32 index) const
@@ -210,6 +226,9 @@ void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
 
     if(FieldBits::NoField != (RightTopFieldMask & whichField))
         _sfRightTop.syncWith(pFrom->_sfRightTop);
+
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+        _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
 }
 #endif
 

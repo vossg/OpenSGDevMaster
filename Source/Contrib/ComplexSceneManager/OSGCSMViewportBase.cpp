@@ -62,6 +62,7 @@
 #include <OSGCamera.h> // Camera Class
 #include <OSGBackground.h> // Background Class
 #include <OSGForeground.h> // Foregrounds Class
+#include <OSGRenderOptions.h> // RenderOptions Class
 
 #include "OSGCSMViewportBase.h"
 #include "OSGCSMViewport.h"
@@ -107,6 +108,10 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var Vec2f           CSMViewportBase::_sfRightTop
+    
+*/
+
+/*! \var RenderOptions * CSMViewportBase::_sfRenderOptions
     
 */
 
@@ -185,6 +190,18 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMViewport::editHandleRightTop),
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleRightTop));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecRenderOptionsPtr::Description(
+        SFUnrecRenderOptionsPtr::getClassType(),
+        "renderOptions",
+        "",
+        RenderOptionsFieldId, RenderOptionsFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMViewport::editHandleRenderOptions),
+        static_cast<FieldGetMethodSig >(&CSMViewport::getHandleRenderOptions));
 
     oType.addInitialDesc(pDesc);
 }
@@ -270,6 +287,15 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "        defaultValue=\"1.f, 1.f\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"renderOptions\"\n"
+    "\t   type=\"RenderOptionsPtr\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"external\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue=\"NULL\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -374,6 +400,19 @@ const SFVec2f *CSMViewportBase::getSFRightTop(void) const
 }
 
 
+//! Get the CSMViewport::_sfRenderOptions field.
+const SFUnrecRenderOptionsPtr *CSMViewportBase::getSFRenderOptions(void) const
+{
+    return &_sfRenderOptions;
+}
+
+SFUnrecRenderOptionsPtr *CSMViewportBase::editSFRenderOptions  (void)
+{
+    editSField(RenderOptionsFieldMask);
+
+    return &_sfRenderOptions;
+}
+
 
 
 void CSMViewportBase::pushToForegrounds(Foreground * const value)
@@ -461,6 +500,10 @@ UInt32 CSMViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRightTop.getBinSize();
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        returnValue += _sfRenderOptions.getBinSize();
+    }
 
     return returnValue;
 }
@@ -494,6 +537,10 @@ void CSMViewportBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRightTop.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        _sfRenderOptions.copyToBin(pMem);
+    }
 }
 
 void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
@@ -524,6 +571,10 @@ void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RightTopFieldMask & whichField))
     {
         _sfRightTop.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
+    {
+        _sfRenderOptions.copyFromBin(pMem);
     }
 }
 
@@ -628,7 +679,8 @@ CSMViewportBase::CSMViewportBase(void) :
     _sfBackground             (NULL),
     _mfForegrounds            (),
     _sfLeftBottom             (Vec2f(0.f, 0.f)),
-    _sfRightTop               (Vec2f(1.f, 1.f))
+    _sfRightTop               (Vec2f(1.f, 1.f)),
+    _sfRenderOptions          (NULL)
 {
 }
 
@@ -639,7 +691,8 @@ CSMViewportBase::CSMViewportBase(const CSMViewportBase &source) :
     _sfBackground             (NULL),
     _mfForegrounds            (),
     _sfLeftBottom             (source._sfLeftBottom             ),
-    _sfRightTop               (source._sfRightTop               )
+    _sfRightTop               (source._sfRightTop               ),
+    _sfRenderOptions          (NULL)
 {
 }
 
@@ -675,6 +728,8 @@ void CSMViewportBase::onCreate(const CSMViewport *source)
 
             ++ForegroundsIt;
         }
+
+        pThis->setRenderOptions(source->getRenderOptions());
     }
 }
 
@@ -837,6 +892,32 @@ EditFieldHandlePtr CSMViewportBase::editHandleRightTop       (void)
     return returnValue;
 }
 
+GetFieldHandlePtr CSMViewportBase::getHandleRenderOptions   (void) const
+{
+    SFUnrecRenderOptionsPtr::GetHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::GetHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMViewportBase::editHandleRenderOptions  (void)
+{
+    SFUnrecRenderOptionsPtr::EditHandlePtr returnValue(
+        new  SFUnrecRenderOptionsPtr::EditHandle(
+             &_sfRenderOptions,
+             this->getType().getFieldDesc(RenderOptionsFieldId)));
+
+    returnValue->setSetMethod(
+        boost::bind(&CSMViewport::setRenderOptions,
+                    static_cast<CSMViewport *>(this), _1));
+
+    editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void CSMViewportBase::execSyncV(      FieldContainer    &oFrom,
@@ -881,6 +962,8 @@ void CSMViewportBase::resolveLinks(void)
     static_cast<CSMViewport *>(this)->setBackground(NULL);
 
     static_cast<CSMViewport *>(this)->clearForegrounds();
+
+    static_cast<CSMViewport *>(this)->setRenderOptions(NULL);
 
 
 }

@@ -73,6 +73,31 @@ OSG::UInt16 RenderOptionsBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the RenderOptions::_sfRenderProperties field.
+
+inline
+MaterialMapKey &RenderOptionsBase::editRenderProperties(void)
+{
+    editSField(RenderPropertiesFieldMask);
+
+    return _sfRenderProperties.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfRenderProperties field.
+inline
+const MaterialMapKey &RenderOptionsBase::getRenderProperties(void) const
+{
+    return _sfRenderProperties.getValue();
+}
+
+//! Set the value of the RenderOptions::_sfRenderProperties field.
+inline
+void RenderOptionsBase::setRenderProperties(const MaterialMapKey &value)
+{
+    editSField(RenderPropertiesFieldMask);
+
+    _sfRenderProperties.setValue(value);
+}
 //! Get the value of the RenderOptions::_sfStatistic field.
 
 inline
@@ -759,6 +784,9 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (RenderPropertiesFieldMask & whichField))
+        _sfRenderProperties.syncWith(pFrom->_sfRenderProperties);
 
     if(FieldBits::NoField != (StatisticFieldMask & whichField))
         _sfStatistic.syncWith(pFrom->_sfStatistic);
