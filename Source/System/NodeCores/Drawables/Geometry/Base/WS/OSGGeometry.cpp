@@ -544,43 +544,57 @@ void Geometry::changed(ConstFieldMaskArg whichField,
                        UInt32            origin,
                        BitVector         details)
 {
-    // invalidate the dlist cache
-    if(getDlistCache())
+    // Handle change to the display list cache field.
+    if(whichField & DlistCacheFieldMask)
     {
-        if(getClassicGLId() == 0)
+        if(getDlistCache())
         {
-            setClassicGLId(               
-                Window::registerGLObject(
-                    boost::bind(&Geometry::handleClassicGL, 
-                                GeometryMTPtr(this), 
-                                _1, _2, _3, _4),
-                    &Geometry::handleClassicDestroyGL));
+            // Ensure that we have OpenGL objects for display list.
+            if(getClassicGLId() == 0)
+            {
+                setClassicGLId(               
+                    Window::registerGLObject(
+                        boost::bind(&Geometry::handleClassicGL, 
+                                    GeometryMTPtr(this), 
+                                    _1, _2, _3, _4),
+                        &Geometry::handleClassicDestroyGL));
+            }
+            if(getAttGLId() == 0)
+            {
+                setAttGLId(               
+                    Window::registerGLObject(
+                        boost::bind(&Geometry::handleAttGL, GeometryMTPtr(this), 
+                                    _1, _2, _3, _4),
+                        &Geometry::handleAttDestroyGL));
+            }
         }
-        if(getAttGLId() == 0)
+        else
         {
-            setAttGLId(               
-                Window::registerGLObject(
-                    boost::bind(&Geometry::handleAttGL, GeometryMTPtr(this), 
-                                _1, _2, _3, _4),
-                    &Geometry::handleAttDestroyGL));
-        }
+            // Delete old display list objects.
+            if(getClassicGLId() != 0)
+            {
+                Window::destroyGLObject(getClassicGLId(), 1);
 
-        Window::refreshGLObject(getClassicGLId());
-        Window::refreshGLObject(getAttGLId    ());
+                setClassicGLId(0);
+            }
+            if(getAttGLId() != 0)
+            {
+                Window::destroyGLObject(getAttGLId(), 1);
+
+                setAttGLId(0);
+            }
+        }
     }
-    else
+
+    // If something changed inside the geometry fields and we are using
+    // display lists, refresh them.
+    if(whichField & (TypesFieldMask | LengthsFieldMask |
+                     PropertiesFieldMask | PropIndicesFieldMask))
     {
-        if(getClassicGLId() != 0)
+        if(getDlistCache())
         {
-            Window::destroyGLObject(getClassicGLId(), 1);
-
-            setClassicGLId(0);
-        }
-        if(getAttGLId() != 0)
-        {
-            Window::destroyGLObject(getAttGLId(), 1);
-
-            setAttGLId(0);
+            Window::refreshGLObject(getClassicGLId());
+            Window::refreshGLObject(getAttGLId    ());
         }
     }
 

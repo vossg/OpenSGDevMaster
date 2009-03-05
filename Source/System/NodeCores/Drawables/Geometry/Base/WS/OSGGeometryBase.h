@@ -328,6 +328,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
+    public:
 
                   SFInt32             *editSFClassicGLId    (void);
             const SFInt32             *getSFClassicGLId     (void) const;
@@ -341,6 +342,7 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
                   Int32               &editAttGLId        (void);
                   Int32                getAttGLId         (void) const;
+    protected:
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
