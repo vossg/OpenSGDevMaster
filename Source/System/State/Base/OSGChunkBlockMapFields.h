@@ -42,6 +42,7 @@
 #pragma once
 #endif
 
+#include "OSGSystemDef.h"
 #include "OSGSField.h"
 #include "OSGFieldTraits.h"
 #include "OSGContainerForwards.h"
@@ -91,7 +92,7 @@ struct FieldTraits<ChunkBlockMap> :
 
     enum             { Convertible = Self::NotConvertible                  };
 
-    static OSG_BASE_DLLMAPPING
+    static OSG_SYSTEM_DLLMAPPING
                  DataType &getType      (void);
 
     static const Char8    *getSName     (void) 
@@ -104,7 +105,7 @@ struct FieldTraits<ChunkBlockMap> :
         return "MFChunkBlockPtrMap"; 
     }
     
-    static UInt32 getBinSize(const ChunkBlockMap &aMap);
+    static OSG_SYSTEM_DLLMAPPING UInt32 getBinSize(const ChunkBlockMap &aMap);
 
     static UInt32 getBinSize(const ChunkBlockMap *aMaps,
                                    UInt32         numObjects)
@@ -120,8 +121,8 @@ struct FieldTraits<ChunkBlockMap> :
         return size;
     }
     
-    static void copyToBin(      BinaryDataHandler &pMem,
-                          const ChunkBlockMap     &aMap );
+    static OSG_SYSTEM_DLLMAPPING void copyToBin(      BinaryDataHandler &pMem,
+                                                const ChunkBlockMap     &aMap);
     
     static void copyToBin(      BinaryDataHandler &pMem,
                           const ChunkBlockMap     *aMaps,
@@ -133,8 +134,8 @@ struct FieldTraits<ChunkBlockMap> :
         }
     }
     
-    static void copyFromBin(BinaryDataHandler &pMem,
-                            ChunkBlockMap     &aMap );
+    static OSG_SYSTEM_DLLMAPPING void copyFromBin(BinaryDataHandler &pMem,
+                                                  ChunkBlockMap     &aMap );
 
     static void copyFromBin(BinaryDataHandler &pMem,
                             ChunkBlockMap     *aMaps,
@@ -154,7 +155,7 @@ typedef SField<ChunkBlockMap> SFChunkBlockPtrMap;
 #endif
 
 template<>
-class OSG_BASE_DLLMAPPING GetSFieldHandle<SFChunkBlockPtrMap> : 
+class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFChunkBlockPtrMap> : 
     public GetMapFieldHandle
 {
     /*=========================  PROTECTED  ===============================*/
@@ -210,7 +211,7 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<SFChunkBlockPtrMap> :
 };
 
 template<>
-class OSG_BASE_DLLMAPPING 
+class OSG_SYSTEM_DLLMAPPING 
     EditSFieldHandle<SFChunkBlockPtrMap> : public EditMapFieldHandle
 {
     /*=========================  PROTECTED  ===============================*/

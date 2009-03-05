@@ -42,6 +42,7 @@
 #pragma once
 #endif
 
+#include "OSGSystemDef.h"
 #include "OSGSField.h"
 #include "OSGFieldTraits.h"
 #include "OSGContainerForwards.h"
@@ -93,7 +94,7 @@ struct FieldTraits<MaterialMap> :
 
     enum             { Convertible = Self::NotConvertible                  };
 
-    static OSG_BASE_DLLMAPPING
+    static OSG_SYSTEM_DLLMAPPING
                  DataType &getType      (void);
 
     static const Char8    *getSName     (void) 
@@ -106,7 +107,7 @@ struct FieldTraits<MaterialMap> :
         return "MFMaterialPtrMap"; 
     }
     
-    static UInt32 getBinSize(const MaterialMap &aMap);
+    static OSG_SYSTEM_DLLMAPPING UInt32 getBinSize(const MaterialMap &aMap);
 
     static UInt32 getBinSize(const MaterialMap *aMaps,
                                    UInt32       numObjects)
@@ -122,8 +123,8 @@ struct FieldTraits<MaterialMap> :
         return size;
     }
     
-    static void copyToBin(      BinaryDataHandler &pMem,
-                          const MaterialMap       &aMap );
+    static OSG_SYSTEM_DLLMAPPING void copyToBin(      BinaryDataHandler &pMem,
+                                                const MaterialMap       &aMap);
     
     static void copyToBin(      BinaryDataHandler &pMem,
                           const MaterialMap       *aMaps,
@@ -135,8 +136,8 @@ struct FieldTraits<MaterialMap> :
         }
     }
     
-    static void copyFromBin(BinaryDataHandler &pMem,
-                            MaterialMap       &aMap );
+    static OSG_SYSTEM_DLLMAPPING void copyFromBin(BinaryDataHandler &pMem,
+                                                  MaterialMap       &aMap );
 
     static void copyFromBin(BinaryDataHandler &pMem,
                             MaterialMap       *aMaps,
@@ -156,7 +157,7 @@ typedef SField<MaterialMap> SFMaterialPtrMap;
 #endif
 
 template<>
-class OSG_BASE_DLLMAPPING GetSFieldHandle<SFMaterialPtrMap> : 
+class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFMaterialPtrMap> : 
     public GetMapFieldHandle
 {
     /*=========================  PROTECTED  ===============================*/
@@ -212,7 +213,7 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<SFMaterialPtrMap> :
 };
 
 template<>
-class OSG_BASE_DLLMAPPING 
+class OSG_SYSTEM_DLLMAPPING 
     EditSFieldHandle<SFMaterialPtrMap> : public EditMapFieldHandle
 {
     /*=========================  PROTECTED  ===============================*/
