@@ -43,7 +43,7 @@
 
 #cmakedefine OSG_1_COMPAT 1
 
-/* #define OSG_WITH_NVPERFSDK 0 */
+#cmakedefine OSG_WITH_NVPERFSDK 1 
 
 #cmakedefine OSG_WITH_VTK 1
 

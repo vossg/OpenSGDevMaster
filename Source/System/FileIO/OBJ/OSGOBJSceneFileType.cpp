@@ -441,9 +441,7 @@ NodeTransitPtr OBJSceneFileType::read(      std::istream &is,
 				}
 
                 // need to port the geometry functions ...
-#if 0
                 createSharedIndex( geoPtr );
-#endif
     
                 // check if we have normals
                 // need to port the geometry functions ...

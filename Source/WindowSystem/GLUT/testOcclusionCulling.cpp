@@ -101,10 +101,10 @@ class NVDataProvider
                 }
             }
             
-        virtual bool add(char *counterName)
+        virtual bool add(const char *counterName)
             {
                 GLuint counterIndex;
-                if (NVPMGetCounterIndex(counterName, &counterIndex) == NVPM_OK) {
+                if (NVPMGetCounterIndex(const_cast<char *>(counterName), &counterIndex) == NVPM_OK) {
                     return add(counterIndex);
                 } else {
                     return false;
@@ -138,7 +138,7 @@ class NVDataProvider
                     NVPMGetCounterValue(m_counterIndexArray[counterIndex], 0, &events, &cycles);
                     
                     m_counterValues[counterIndex][m_counterValuesRRIndex] =
-                        100.0f * (float) events / (float) cycles;
+                        100.0f * float(events) / float(cycles);
                 }
                 m_counterValuesRRIndex++;
                 if (m_counterValuesRRIndex >= bufferEntryCount) {
@@ -154,7 +154,7 @@ class NVDataProvider
                 GLfloat runningTotal = 0.0f;
                 for (entryIndex = 0; entryIndex < bufferEntryCount; entryIndex++) {
                     runningTotal += 
-                        m_counterValues[counterIndex][entryIndex] / (float)bufferEntryCount;
+                        m_counterValues[counterIndex][entryIndex] / float(bufferEntryCount);
                 }
                 return runningTotal;
             }
@@ -192,7 +192,7 @@ void display(void)
             {
                 if(collector != NULL)
                 {
-                    sprintf(str, "%s: %f", nvStatElems[i]->getDescription().str(),
+                    sprintf(str, "%s: %f", nvStatElems[i]->getDescription().c_str(),
                             nvDataProvider->value(i)); 
 
                     StatStringElem *e = dynamic_cast<StatStringElem*>(
@@ -207,7 +207,7 @@ void display(void)
         {
             int nCount;
             
-            char *expCounters[] = { 
+            const char *expCounters[] = { 
                 "2D Bottleneck", "2D SOL", 
                 "IDX Bottleneck", "IDX SOL", 
                 "GEOM Bottleneck", "GEOM SOL", 
@@ -221,7 +221,7 @@ void display(void)
             
             for(int i = 0; expCounters[i] != NULL; ++i)
             {
-                NVPMAddCounterByName(expCounters[i]);
+                NVPMAddCounterByName(const_cast<char *>(expCounters[i]));
             }
             
             NVPMBeginExperiment(&nCount);
@@ -240,7 +240,7 @@ void display(void)
             
             for(int i = 0; expCounters[i] != NULL; ++i)
             {
-                NVPMGetCounterValueByName(expCounters[i], 0, &value, &cycles);
+                NVPMGetCounterValueByName(const_cast<char *>(expCounters[i]), 0, &value, &cycles);
                 FLOG(("%s: %lld value, %lld cycles (%.4f%%)\n", 
                         expCounters[i], value, cycles, value * 100. / cycles));
             }
