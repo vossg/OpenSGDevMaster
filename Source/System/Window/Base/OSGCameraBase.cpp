@@ -153,20 +153,21 @@ CameraBase::TypeObject CameraBase::_type(
     NULL,
     Camera::initMethod,
     Camera::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CameraBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Camera::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"Camera\"\n"
-    "\tparent=\"AttachmentContainer\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"true\"\n"
+    "   name=\"Camera\"\n"
+    "   parent=\"AttachmentContainer\"\n"
+    "   library=\"System\"\n"
+    "   structure=\"abstract\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"true\"\n"
+    "   decorateeFieldFlags=\"SFDefaultFlags | Field::FStdAccess\"\n"
     ">\n"
     "\\ingroup GrpSystemWindowCameras\n"
     "\n"

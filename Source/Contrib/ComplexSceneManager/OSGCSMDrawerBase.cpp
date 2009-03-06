@@ -147,7 +147,7 @@ CSMDrawerBase::TypeObject CSMDrawerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMDrawerBase::createEmptyLocal),
     CSMDrawer::initMethod,
     CSMDrawer::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CSMDrawerBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CSMDrawer::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -191,6 +191,7 @@ CSMDrawerBase::TypeObject CSMDrawerBase::_type(
     "       cardinality=\"single\"\n"
     "       visibility=\"external\"\n"
     "       access=\"public\"\n"
+    "       defaultValue=\"1\"\n"
     "    >\n"
     "    </Field>\n"
     "</FieldContainer>\n",
@@ -473,7 +474,7 @@ CSMDrawerBase::CSMDrawerBase(void) :
                           WindowsFieldId,
                           CSMWindow::ParentFieldId),
     _sfDisplayString          (),
-    _sfAspect                 ()
+    _sfAspect                 (UInt32(1))
 {
 }
 

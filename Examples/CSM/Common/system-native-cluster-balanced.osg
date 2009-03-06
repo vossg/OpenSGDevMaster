@@ -49,7 +49,7 @@ ComplexSceneManager
       ] 
     }
 
-    DEF PerspCamGL PerspectiveCamera
+    DEF PerspCamGL CSMPerspectiveCamera
     {
       near   0.1
       far    20000.0

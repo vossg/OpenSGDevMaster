@@ -137,18 +137,31 @@ void ProjectionCameraDecorator::getViewing(Matrix &result,
                                            UInt32  OSG_CHECK_ARG(width ),
                                            UInt32  OSG_CHECK_ARG(height))
 {
-    if(getUser() == NULL)
+    Node *pUser = getUser();
+
+    if(pUser == NULL)
     {
-        FWARNING(("ProjectionCameraDecorator::getViewing: no user!"));
+        FWARNING(("ProjectionCameraDecorator::getViewing: no user!\n"));
 
-        result.setIdentity();
+        Camera *pCamera = getDecoratee();
 
-        return;
+        if(pCamera == NULL)
+        {
+            result.setIdentity();
+
+            return;
+        }
+
+        pCamera->getBeacon()->getToWorld(result);
+
+        result.invert();
     }   
-
-    getUser()->getToWorld(result);  
-
-    result.invert();
+    else
+    {
+        pUser->getToWorld(result);  
+        
+        result.invert();
+    }
 }
 
 void ProjectionCameraDecorator::getProjection(Matrix &result, 
@@ -156,7 +169,8 @@ void ProjectionCameraDecorator::getProjection(Matrix &result,
                                               UInt32  OSG_CHECK_ARG(height))
 {
     Camera *camera = getDecoratee();
-    
+    Node   *pUser  = getUser     ();
+
     if(camera == NULL)
     {
         FWARNING(("ProjectionCameraDecorator::getProjection: no "
@@ -167,11 +181,21 @@ void ProjectionCameraDecorator::getProjection(Matrix &result,
         return;
     }
     
+
     Matrix cam,user;
     
     camera->getBeacon()->getToWorld(cam);
 
-    getUser()->getToWorld(user);    
+    if(pUser == NULL)
+    {
+        FWARNING(("ProjectionCameraDecorator::getProjection: no user!\n"));
+
+        user = cam;
+    }   
+    else
+    {
+        pUser->getToWorld(user);    
+    }
 
     cam.invert();
     
@@ -209,7 +233,8 @@ void ProjectionCameraDecorator::getProjectionTranslation(
     UInt32  OSG_CHECK_ARG(height))
 {
     Camera *camera = getDecoratee();
-    
+    Node   *pUser  = getUser     ();
+
     if(camera == NULL)
     {
         FFATAL(("ProjectionCameraDecorator::getProjectionTranslation: "
@@ -220,10 +245,22 @@ void ProjectionCameraDecorator::getProjectionTranslation(
         return;
     }
     
+
     Matrix cam,user;
     
     camera->getBeacon()->getToWorld(cam);
-    getUser()->getToWorld(user);
+
+    if(pUser == NULL)
+    {
+        FWARNING(("ProjectionCameraDecorator::getProjectionTranslation: "
+                  "no user!\n"));
+
+        user = cam;
+    }   
+    else
+    {
+        pUser->getToWorld(user);
+    }
     
     cam.invert();
     cam.mult(user);

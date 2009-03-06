@@ -36,27 +36,21 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCSMWINDOW_H_
-#define _OSGCSMWINDOW_H_
+#ifndef _OSGCSMPERSPECTIVECAMERA_H_
+#define _OSGCSMPERSPECTIVECAMERA_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCSMWindowBase.h"
-#include "OSGWindow.h"
-#include "OSGCSMViewport.h"
-#include "OSGImageComposer.h"
+#include "OSGCSMPerspectiveCameraBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief CSMWindow class. See \ref
-           PageContribCSMCSMWindow for a description.
+/*! \brief CSMPerspectiveCamera class. See \ref
+           PageContribCSMCSMPerspectiveCamera for a description.
 */
 
-class RenderAction;
-class CSMDrawer;
-
-class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMPerspectiveCamera : public CSMPerspectiveCameraBase
 {
   protected:
 
@@ -64,8 +58,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
   public:
 
-    typedef CSMWindowBase Inherited;
-    typedef CSMWindow     Self;
+    typedef CSMPerspectiveCameraBase Inherited;
+    typedef CSMPerspectiveCamera     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -80,35 +74,6 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual bool init(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    Real32     getXPos  (void) const;
-    Real32     getYPos  (void) const;
-
-    Real32     getXSize (void) const;
-    Real32     getYSize (void) const;
-
-    CSMDrawer *getParent(void) const;
-
-    Window    *getWindow(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual FieldContainer *findNamedComponent(const Char8 *szName) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
@@ -117,77 +82,21 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
   protected:
 
-    static UInt32 _extMultiSample;
-    static UInt32 _extNVMultiSampleHint;
-    static UInt32 FuncIdSampleCoverage;
-
-    // Variables should all be in CSMWindowBase.
-
-    WindowRecPtr _pWindow;
-    bool         _bFirstFrame;
+    // Variables should all be in CSMPerspectiveCameraBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    CSMWindow(void);
-    CSMWindow(const CSMWindow &source);
+    CSMPerspectiveCamera(void);
+    CSMPerspectiveCamera(const CSMPerspectiveCamera &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CSMWindow(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    virtual void resolveLinks(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    void reshape(Int32 w, 
-                 Int32 h        );
-
-    void mouse  (Int32 iButton, 
-                 Int32 iState,
-                 Int32 iModifier,
-                 Int32 x,       
-                 Int32 y        );
-
-    void motion (Int32 x, 
-                 Int32 y        );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    void render             (RenderAction *pAction);
-
-    void frameRenderActivate(RenderAction *pAction);
-    void frameSwapActivate  (void                 );
-    void frameExit          (void                 );
-
-    void activate           (void                 );
-    void frameRender        (RenderAction *pAction);
-    void frameSwap          (void                 );
-    void deactivate         (void                 );
-
-    void shutdown           (void                 );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
-    /*! \{                                                                 */
-
-    bool requestStereoVisual(void);
+    virtual ~CSMPerspectiveCamera(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -202,18 +111,17 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
   private:
 
     friend class FieldContainer;
-    friend class CSMWindowBase;
-    friend class CSMDrawer;
+    friend class CSMPerspectiveCameraBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CSMWindow &source);
+    void operator =(const CSMPerspectiveCamera &source);
 };
 
-typedef CSMWindow *CSMWindowP;
+typedef CSMPerspectiveCamera *CSMPerspectiveCameraP;
 
 OSG_END_NAMESPACE
 
-#include "OSGCSMWindowBase.inl"
-#include "OSGCSMWindow.inl"
+#include "OSGCSMPerspectiveCameraBase.inl"
+#include "OSGCSMPerspectiveCamera.inl"
 
-#endif /* _OSGCSMWINDOW_H_ */
+#endif /* _OSGCSMPERSPECTIVECAMERA_H_ */

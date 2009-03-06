@@ -115,6 +115,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var std::string     CSMViewportBase::_sfStereoMode
+    
+*/
+
 
 void CSMViewportBase::classDescInserter(TypeObject &oType)
 {
@@ -204,6 +208,18 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleRenderOptions));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "stereoMode",
+        "",
+        StereoModeFieldId, StereoModeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMViewport::editHandleStereoMode),
+        static_cast<FieldGetMethodSig >(&CSMViewport::getHandleStereoMode));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -215,7 +231,7 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMViewportBase::createEmptyLocal),
     CSMViewport::initMethod,
     CSMViewport::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CSMViewportBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CSMViewport::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -296,6 +312,15 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     "\t   visibility=\"external\"\n"
     "\t   access=\"public\"\n"
     "       defaultValue=\"NULL\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t   name=\"stereoMode\"\n"
+    "\t   type=\"std::string\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"external\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue='\"none\"'\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
@@ -413,6 +438,19 @@ SFUnrecRenderOptionsPtr *CSMViewportBase::editSFRenderOptions  (void)
     return &_sfRenderOptions;
 }
 
+SFString *CSMViewportBase::editSFStereoMode(void)
+{
+    editSField(StereoModeFieldMask);
+
+    return &_sfStereoMode;
+}
+
+const SFString *CSMViewportBase::getSFStereoMode(void) const
+{
+    return &_sfStereoMode;
+}
+
+
 
 
 void CSMViewportBase::pushToForegrounds(Foreground * const value)
@@ -504,6 +542,10 @@ UInt32 CSMViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderOptions.getBinSize();
     }
+    if(FieldBits::NoField != (StereoModeFieldMask & whichField))
+    {
+        returnValue += _sfStereoMode.getBinSize();
+    }
 
     return returnValue;
 }
@@ -541,6 +583,10 @@ void CSMViewportBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRenderOptions.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (StereoModeFieldMask & whichField))
+    {
+        _sfStereoMode.copyToBin(pMem);
+    }
 }
 
 void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
@@ -575,6 +621,10 @@ void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
     {
         _sfRenderOptions.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (StereoModeFieldMask & whichField))
+    {
+        _sfStereoMode.copyFromBin(pMem);
     }
 }
 
@@ -680,7 +730,8 @@ CSMViewportBase::CSMViewportBase(void) :
     _mfForegrounds            (),
     _sfLeftBottom             (Vec2f(0.f, 0.f)),
     _sfRightTop               (Vec2f(1.f, 1.f)),
-    _sfRenderOptions          (NULL)
+    _sfRenderOptions          (NULL),
+    _sfStereoMode             (std::string("none"))
 {
 }
 
@@ -692,7 +743,8 @@ CSMViewportBase::CSMViewportBase(const CSMViewportBase &source) :
     _mfForegrounds            (),
     _sfLeftBottom             (source._sfLeftBottom             ),
     _sfRightTop               (source._sfRightTop               ),
-    _sfRenderOptions          (NULL)
+    _sfRenderOptions          (NULL),
+    _sfStereoMode             (source._sfStereoMode             )
 {
 }
 
@@ -914,6 +966,29 @@ EditFieldHandlePtr CSMViewportBase::editHandleRenderOptions  (void)
                     static_cast<CSMViewport *>(this), _1));
 
     editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMViewportBase::getHandleStereoMode      (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfStereoMode,
+             this->getType().getFieldDesc(StereoModeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMViewportBase::editHandleStereoMode     (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfStereoMode,
+             this->getType().getFieldDesc(StereoModeFieldId)));
+
+
+    editSField(StereoModeFieldMask);
 
     return returnValue;
 }

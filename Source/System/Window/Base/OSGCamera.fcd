@@ -1,14 +1,15 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="Camera"
-	parent="AttachmentContainer"
-	library="System"
-	structure="abstract"
-	pointerfieldtypes="both"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="true"
+   name="Camera"
+   parent="AttachmentContainer"
+   library="System"
+   structure="abstract"
+   pointerfieldtypes="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="true"
+   decorateeFieldFlags="SFDefaultFlags | Field::FStdAccess"
 >
 \ingroup GrpSystemWindowCameras
 

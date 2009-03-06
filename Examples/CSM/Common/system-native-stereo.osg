@@ -15,7 +15,12 @@ ComplexSceneManager
           core Transform {}
 
           children 
-          [ 
+          [             
+            DEF HeadBeacon Node
+            {
+              core MatrixTransform {}
+
+            }
           ]
         },
 
@@ -83,32 +88,32 @@ ComplexSceneManager
       far    20000.0
       fov    60.0
 
-      beacon USE CameraRoot
+      eyeSeparation  1.00
+      zeroParallax   2.00
+
+      beacon     USE CameraRoot
+      headBeacon USE HeadBeacon
     }
 
   ]
 
   drawManager DEF DrawManager CSMDrawManager
   {
+#	parallel TRUE
     drawer
     [
       CSMDrawer
       {
+#        aspect 1
         windows
         [
            DEF MainWindow CSMNativeWindow
            {
-#             ignoreExtensions [ "ALL" ]
-#             ignoreExtensions [ "GL_ARB_framebuffer_object",
-#                                "GL_ARB_geometry_shader4 GL_ARB_multitexture" ]
 #             requestMajor 3
 #             requestMinor 0
 
 #             enableForwardCompatContext TRUE
 #             enableDebugContext         TRUE
-
-             requestSamples 4
-             enableFSAA     TRUE
 
              size 512 512
              position 200, 200
@@ -123,8 +128,34 @@ ComplexSceneManager
                CSMViewport
                {
                  root       USE RootNode
-                 camera     USE PerspCamGL
+                 camera         ProjectionCameraDecorator
+                 {
+                   surface 
+                   [
+                     -1195.0 -950.0 -2000.0,
+                      1195.0 -950.0 -2000.0,
+                      1195.0  950.0 -2000.0,
+                     -1195.0  950.0 -2000.0
+
+#                     -1.195 -0.95 -2.0,
+#                      1.195 -0.95 -2.0,
+#                      1.195  0.95 -2.0,
+#                     -1.195  0.95 -2.0
+                   ]
+
+                   decoratee USE PerspCamGL
+                 }
+
+#                 camera USE PerspCamGL
+
                  background USE BGnd
+
+#                 stereoMode "quadBuffer"
+#                 stereoMode "splitHorizontal"
+                 stereoMode "splitVertical"
+#                 stereoMode "amberBlue"
+#                 stereoMode "stereoLeft"
+#                 stereoMode "stereoRight"
 
                  foregrounds
                  [

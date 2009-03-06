@@ -45,6 +45,24 @@ ContainerCollection
       stateFlipFlop TRUE
     } 
 
+    DEF CEUp KeySensor
+    {
+      key "E"
+      stateFlipFlop TRUE
+    }       
+
+    DEF CEDown KeySensor
+    {
+      key "e"
+      stateFlipFlop TRUE
+    }       
+
+    DEF EyeSepCounter Real32Counter
+    {
+      value 1.0
+      step  0.01
+    }
+
    ]
 }
 
@@ -64,3 +82,7 @@ ROUTE HintDown.signalPressed  TO FSAAHintCounter.decTrigger
 ROUTE FSAAHintCounter.value   TO MainWindow .fsaaHint
 ROUTE FSAAHintCounter.value   TO MainWindow1.fsaaHint
 
+ROUTE CEUp  .signalPressed  TO EyeSepCounter.incTrigger
+ROUTE CEDown.signalPressed  TO EyeSepCounter.decTrigger
+
+ROUTE EyeSepCounter.value   TO PerspCamGL.eyeSeparation

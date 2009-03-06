@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CSMDrawer;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CSMDrawerPtr
-
 OSG_GEN_CONTAINERPTR(CSMDrawer);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CSMDrawer *> :
     public FieldTraitsFCPtrBase<CSMDrawer *>
@@ -127,12 +118,9 @@ const Char8 *FieldTraits<CSMDrawer *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdCSMDrawerPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CSMDrawerPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
+/*! \ingroup GrpContribCSMFieldTraits
+ */
 template <>
 struct FieldTraits<CSMDrawer *, 1> : 
     public FieldTraitsFCPtrBase<CSMDrawer *, 1>
@@ -164,29 +152,61 @@ struct FieldTraits<CSMDrawer *, 1> :
     }
 };
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldMulti */
-
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawer *,
                       RecordedRefCountPolicy  > MFRecCSMDrawerPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawer *,
                       UnrecordedRefCountPolicy> MFUnrecCSMDrawerPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawer *,
                       WeakRefCountPolicy      > MFWeakCSMDrawerPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawer *,
                       NoRefCountPolicy        > MFUncountedCSMDrawerPtr;
-#endif
 
 
 
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef ParentPointerSField<
           CSMDrawer *, 
           NoRefCountPolicy,
           1    > SFParentCSMDrawerPtr;
+
+
+#else // these are the doxygen hacks
+
+
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFRecCSMDrawerPtr :
+    public PointerMField<CSMDrawer *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUnrecCSMDrawerPtr :
+    public PointerMField<CSMDrawer *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFWeakCSMDrawerPtr :
+    public PointerMField<CSMDrawer *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUncountedCSMDrawerPtr :
+    public PointerMField<CSMDrawer *,
+                         NoRefCountPolicy        > {};
+
+
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFParentCSMDrawerPtr :
+    public ParentPointerSField<
+        CSMDrawer *, 
+        NoRefCountPolicy,
+        1    > {};
+
+#endif // these are the doxygen hacks
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGCSMDRAWERFIELDS_H_ */

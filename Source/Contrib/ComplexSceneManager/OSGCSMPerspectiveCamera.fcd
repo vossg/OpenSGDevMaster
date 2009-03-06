@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="CSMPerspectiveCamera"
+    parent="PerspectiveCamera"
+    library="ContribCSM"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="false"
+>
+	<Field
+		name="eyeSeparation"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        defaultValue="0.5f"
+	>
+	</Field>
+	<Field
+		name="zeroParallax"
+		type="Real32"
+		cardinality="single"
+		visibility="external"
+		access="public"
+        defaultValue="10.0f"
+	>
+	</Field>
+    <Field
+      name="headBeacon"
+      type="Node"
+      category="weakpointer"
+      cardinality="single"
+      visibility="external"
+    >
+	</Field>
+</FieldContainer>

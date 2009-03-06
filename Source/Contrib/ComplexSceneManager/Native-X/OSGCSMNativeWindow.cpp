@@ -370,11 +370,11 @@ bool CSMNativeWindow::init(void)
         pXWindow->setContextFlags(iFlags);
 
     OSGGETGLFUNCBYNAME(OSGglxChooseFBConfigProc, 
-                       osgGlxChooseGBConfig,
+                       osgGlxChooseFBConfig,
                        "glXChooseFBConfig",
                        pXWindow);
     
-    if(osgGlxChooseGBConfig == NULL)
+    if(osgGlxChooseFBConfig == NULL)
     {
         std::vector<int> viForm;
 
@@ -390,6 +390,13 @@ bool CSMNativeWindow::init(void)
 
             viForm.push_back(GLX_SAMPLES_ARB);
             viForm.push_back(_sfRequestSamples.getValue());
+        }
+
+        if(this->requestStereoVisual() == true)
+        {
+            fprintf(stderr, "Choose stereo visual\n");
+            viForm.push_back(GLX_DOUBLEBUFFER); 
+            viForm.push_back(True);
         }
 
         viForm.push_back(None);
@@ -464,10 +471,17 @@ bool CSMNativeWindow::init(void)
             fbAttr.push_back(_sfRequestSamples.getValue());
         }
 
+        if(this->requestStereoVisual() == true)
+        {
+            fprintf(stderr, "FBConfig stereo\n");
+            fbAttr.push_back(GLX_STEREO);
+            fbAttr.push_back(True);
+        }
+
         fbAttr.push_back(None);
 
         GLXFBConfig *fbConfigs = 
-            osgGlxChooseGBConfig( _pDisplay,
+            osgGlxChooseFBConfig( _pDisplay,
                                    DefaultScreen(_pDisplay),
                                  &(fbAttr.front()),
                                  & iMatching);

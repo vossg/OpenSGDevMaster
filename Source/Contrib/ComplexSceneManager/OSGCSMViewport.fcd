@@ -78,4 +78,13 @@
        defaultValue="NULL"
 	>
 	</Field>
+	<Field
+	   name="stereoMode"
+	   type="std::string"
+	   cardinality="single"
+	   visibility="external"
+	   access="public"
+       defaultValue='"none"'
+	>
+	</Field>
 </FieldContainer>

@@ -204,19 +204,21 @@ bool CSMWindow::init(void)
         vIt  = getMFViewports()->begin();
         vEnd = getMFViewports()->end  ();
 
-        while(vIt != vEnd)
+        for(; vIt != vEnd; ++vIt)
         {
-            _pWindow->addPort((*vIt)->getPort());
+            CSMViewport::ViewportStoreConstIt pIt  = (*vIt)->beginViewports();
+            CSMViewport::ViewportStoreConstIt pEnd = (*vIt)->endViewports  ();
 
-            ++vIt;
+            for(; pIt != pEnd; ++pIt)
+            {
+                _pWindow->addPort((*pIt));
+            }
         }
 
         _pWindow->setRenderOptions(this->getRenderOptions());
     }
     
-    
-
-    //OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");
+    OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");
 
     return returnValue;
 }
@@ -437,6 +439,26 @@ void CSMWindow::shutdown(void)
         return;
 
     pThreadLocalWin->resolveLinks();
+}
+
+bool CSMWindow::requestStereoVisual(void)
+{
+    bool returnValue = false;
+
+    MFUnrecCSMViewportPtr::const_iterator vIt  = getMFViewports()->begin();
+    MFUnrecCSMViewportPtr::const_iterator vEnd = getMFViewports()->end  ();
+
+    for(; vIt != vEnd; ++vIt)
+    {
+        returnValue = (*vIt)->needsStereoVisual();
+
+        if(returnValue == true)
+        {
+            break;
+        }
+    }
+
+    return returnValue;
 }
 
 OSG_END_NAMESPACE

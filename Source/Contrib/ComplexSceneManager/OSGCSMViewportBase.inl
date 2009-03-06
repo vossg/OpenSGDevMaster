@@ -187,6 +187,31 @@ void CSMViewportBase::setRenderOptions(RenderOptions * const value)
 
     _sfRenderOptions.setValue(value);
 }
+//! Get the value of the CSMViewport::_sfStereoMode field.
+
+inline
+std::string &CSMViewportBase::editStereoMode(void)
+{
+    editSField(StereoModeFieldMask);
+
+    return _sfStereoMode.getValue();
+}
+
+//! Get the value of the CSMViewport::_sfStereoMode field.
+inline
+const std::string &CSMViewportBase::getStereoMode(void) const
+{
+    return _sfStereoMode.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfStereoMode field.
+inline
+void CSMViewportBase::setStereoMode(const std::string &value)
+{
+    editSField(StereoModeFieldMask);
+
+    _sfStereoMode.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMViewport::_mfForegrounds field.
 inline
@@ -229,6 +254,9 @@ void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
 
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
         _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
+
+    if(FieldBits::NoField != (StereoModeFieldMask & whichField))
+        _sfStereoMode.syncWith(pFrom->_sfStereoMode);
 }
 #endif
 

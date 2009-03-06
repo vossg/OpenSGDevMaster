@@ -124,7 +124,7 @@ void @!Classname!@Base::classDescInserter(TypeObject &oType)
         "decoratee",
         "undocumented decoratee",
         DecorateeFieldId, DecorateeFieldMask,
-        true,
+        false,
         @!DecorateeFieldFlags!@,
         static_cast<FieldEditMethodSig>(&@!Classname!@::editHandleDecoratee),
         static_cast<FieldGetMethodSig >(&@!Classname!@::getHandleDecoratee ));

@@ -63,8 +63,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
 
   public:
 
-    typedef CSMViewportBase Inherited;
-    typedef CSMViewport     Self;
+    typedef CSMViewportBase               Inherited;
+    typedef CSMViewport                   Self;
+
+    typedef std::vector<ViewportUnrecPtr> ViewportStore;
+    typedef ViewportStore::iterator       ViewportStoreIt;
+    typedef ViewportStore::const_iterator ViewportStoreConstIt;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -79,8 +83,22 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    bool      init   (void);
-    Viewport *getPort(void);
+    bool init(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    ViewportStoreConstIt beginViewports(void) const;
+    ViewportStoreConstIt endViewports  (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    bool needsStereoVisual(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -95,9 +113,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewport : public CSMViewportBase
 
   protected:
 
-    // Variables should all be in CSMViewportBase.
-
-    ViewportUnrecPtr _pViewport;
+    ViewportStore _vViewports;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

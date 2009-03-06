@@ -35,6 +35,7 @@ SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
                                 OSGSystem
                                 OSGDrawable
                                 OSGCluster
+                                OSGWindow
                                 OSGFileIO
                                 OSGUtil)
 

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Camera;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CameraPtr
-
 OSG_GEN_CONTAINERPTR(Camera);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Camera *> :
     public FieldTraitsFCPtrBase<Camera *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Camera *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdCameraPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CameraPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Camera *,
                       RecordedRefCountPolicy  > SFRecCameraPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Camera *,
                       UnrecordedRefCountPolicy> SFUnrecCameraPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Camera *,
                       WeakRefCountPolicy      > SFWeakCameraPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Camera *,
                       NoRefCountPolicy        > SFUncountedCameraPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Camera *,
                       RecordedRefCountPolicy  > MFRecCameraPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Camera *,
                       UnrecordedRefCountPolicy> MFUnrecCameraPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Camera *,
                       WeakRefCountPolicy      > MFWeakCameraPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Camera *,
                       NoRefCountPolicy        > MFUncountedCameraPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecCameraPtr : 
+    public PointerSField<Camera *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecCameraPtr : 
+    public PointerSField<Camera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakCameraPtr :
+    public PointerSField<Camera *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedCameraPtr :
+    public PointerSField<Camera *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecCameraPtr :
+    public PointerMField<Camera *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecCameraPtr :
+    public PointerMField<Camera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakCameraPtr :
+    public PointerMField<Camera *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedCameraPtr :
+    public PointerMField<Camera *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 
