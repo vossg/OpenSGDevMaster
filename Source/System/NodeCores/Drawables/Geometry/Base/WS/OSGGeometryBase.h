@@ -337,10 +337,14 @@ class OSG_DRAWABLE_DLLMAPPING GeometryBase : public MaterialDrawable
 
 
                   Int32               &editClassicGLId    (void);
+                  Int32               &editAttGLId        (void);
+
+    public:
                   Int32                getClassicGLId     (void) const;
 
-                  Int32               &editAttGLId        (void);
                   Int32                getAttGLId         (void) const;
+
+    protected:
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
