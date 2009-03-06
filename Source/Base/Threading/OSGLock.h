@@ -455,7 +455,7 @@ class OSG_BASE_DLLMAPPING Lock : public LockBase
     void operator =(const Lock &source);
 };
 
-typedef RefCountPtr<Lock, 
+typedef RefCountPtr<Lock,
                     MemObjRefCountPolicy> LockRefPtr;
 
 

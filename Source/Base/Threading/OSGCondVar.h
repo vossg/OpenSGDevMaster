@@ -44,6 +44,7 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGMPBase.h"
+#include "OSGRefCountPtr.h"
 
 #if ! defined (OSG_USE_PTHREADS)   && \
     ! defined (OSG_USE_SPROC)      && \
@@ -517,6 +518,9 @@ class OSG_BASE_DLLMAPPING CondVar : public CondVarBase
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const CondVar &source);
 };
+
+typedef RefCountPtr<CondVar,
+                    MemObjRefCountPolicy> CondVarRefPtr;
 
 OSG_END_NAMESPACE
 

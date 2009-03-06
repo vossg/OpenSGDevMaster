@@ -48,6 +48,7 @@
 #ifndef OSG_EMBEDDED
 
 #include "OSGBaseThread.h"
+#include "OSGRefCountPtr.h"
 
 #include <utility>
 
@@ -810,6 +811,9 @@ class OSG_BASE_DLLMAPPING Thread
     void operator =(const Thread &source);
 };
 #endif /* OSG_WIN_CE  */
+
+typedef RefCountPtr<Thread, 
+                    MemObjRefCountPolicy> ThreadRefPtr;
 
 OSG_END_NAMESPACE
 
