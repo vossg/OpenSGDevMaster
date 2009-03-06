@@ -324,6 +324,9 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
                                          UInt32                   id, 
                                          Window::GLObjectStatusE  mode    );
 
+           Int32  getClassicGLId         (void) const;
+           Int32  getAttGLId             (void) const;
+
     void onCreate(const Geometry *source = NULL);
     void onDestroy(UInt32 id);
 

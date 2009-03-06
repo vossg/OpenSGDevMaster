@@ -55,6 +55,19 @@ void Geometry::invalidateDlistCache(void)
     Window::refreshGLObject( getAttGLId() );
 }
 
+inline
+Int32  Geometry::getClassicGLId(void) const
+{
+    return Inherited::getClassicGLId();
+}
+
+inline
+Int32  Geometry::getAttGLId(void) const
+{
+    return Inherited::getAttGLId();
+}
+
+
 /*------------------------------ access -----------------------------------*/
 
 //--------------------------
