@@ -230,6 +230,9 @@ void CSMWindow::render(RenderAction *pAction)
     OSG::Window *pThreadLocalWin = _pWindow;
 #endif
 
+    if(pThreadLocalWin == NULL)
+        return;
+
     if(_bFirstFrame == true)
     {
         _bFirstFrame = false;
@@ -282,6 +285,9 @@ void CSMWindow::frameRenderActivate(RenderAction *pAction)
     Window *pThreadLocalWin = _pWindow;
 #endif
 
+    if(pThreadLocalWin == NULL)
+        return;
+
     pThreadLocalWin->activate          (       );
     pThreadLocalWin->frameInit         (       );
 
@@ -312,6 +318,9 @@ void CSMWindow::frameSwapActivate(void)
     Window *pThreadLocalWin = _pWindow;
 #endif
 
+    if(pThreadLocalWin == NULL)
+        return;
+
     pThreadLocalWin->activate  ();
     pThreadLocalWin->swap      ();
     pThreadLocalWin->frameExit ();
@@ -327,6 +336,9 @@ void CSMWindow::frameExit(void)
     Window *pThreadLocalWin = _pWindow;
 #endif
 
+    if(pThreadLocalWin == NULL)
+        return;
+
     pThreadLocalWin->activate  ();
     pThreadLocalWin->frameExit ();
     pThreadLocalWin->deactivate();
@@ -341,6 +353,9 @@ void CSMWindow::activate(void)
     Window *pThreadLocalWin = _pWindow;
 #endif
 
+    if(pThreadLocalWin == NULL)
+        return;
+
     pThreadLocalWin->activate();
 }
 
@@ -354,6 +369,9 @@ void CSMWindow::frameRender(RenderAction *pAction)
 #endif
 
 //    fprintf(stderr, "%p %p\n", pThreadLocalWin, _pWindow.get());
+
+    if(pThreadLocalWin == NULL)
+        return;
 
     pThreadLocalWin->frameInit();
 
@@ -382,6 +400,9 @@ void CSMWindow::frameSwap(void)
     Window *pThreadLocalWin = _pWindow;
 #endif
 
+    if(pThreadLocalWin == NULL)
+        return;
+
     pThreadLocalWin->swap     ();
     pThreadLocalWin->frameExit();
 }
@@ -394,6 +415,9 @@ void CSMWindow::deactivate(void)
 #else
     Window *pThreadLocalWin = _pWindow;
 #endif
+
+    if(pThreadLocalWin == NULL)
+        return;
 
     pThreadLocalWin->deactivate();
 }
@@ -408,6 +432,10 @@ void CSMWindow::shutdown(void)
 #endif
 
     Inherited::resolveLinks();
+
+    if(pThreadLocalWin == NULL)
+        return;
+
     pThreadLocalWin->resolveLinks();
 }
 
