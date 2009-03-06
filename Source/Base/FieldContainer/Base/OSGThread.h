@@ -650,7 +650,8 @@ class OSG_BASE_DLLMAPPING Thread : public ThreadBase
     void operator =(const Thread &source);
 };
 
-
+typedef RefCountPtr<Thread, 
+                    MemObjRefCountPolicy> ThreadRefPtr;
 
 //---------------------------------------------------------------------------
 //  Class
@@ -730,6 +731,9 @@ class OSG_BASE_DLLMAPPING ExternalThread : public ThreadBase
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const ExternalThread &source);
 };
+
+typedef RefCountPtr<ExternalThread, 
+                    MemObjRefCountPolicy> ExternalThreadRefPtr;
 
 #else /* OSG_WIN_CE */
 
@@ -811,9 +815,6 @@ class OSG_BASE_DLLMAPPING Thread
     void operator =(const Thread &source);
 };
 #endif /* OSG_WIN_CE  */
-
-typedef RefCountPtr<Thread, 
-                    MemObjRefCountPolicy> ThreadRefPtr;
 
 OSG_END_NAMESPACE
 
