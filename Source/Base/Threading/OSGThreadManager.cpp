@@ -435,12 +435,14 @@ bool ThreadManager::shutdown(void)
 
     for(; tI != tE; ++tI)
     {
-        FWARNING(("ThreadManager::shutdown: "
-                  "thread [%s|%p] is still alive ([%d]). \n", 
-                  (*tI).first.c_str(),
-                  (*tI).second,
-                  (*tI).second->exists()));
-
+        if(tI->first != "OSGAppThread")
+        {
+            FWARNING(("ThreadManager::shutdown: "
+                      "thread [%s|%p] is still alive ([%d]). \n", 
+                      (*tI).first.c_str(),
+                      (*tI).second,
+                      (*tI).second->exists()));
+        }
     }
 
     BarrierStore::MPFieldMapCIt bI = _sBarrierStore._mFieldMap.begin();
@@ -472,11 +474,14 @@ bool ThreadManager::shutdown(void)
 
     for(; lI != lE; ++lI)
     {
-        FWARNING(("ThreadManager::shutdown: "
-                  "lock [%s|%p] is still alive\n", 
-                  (*lI).first.c_str(),
-                  (*lI).second));
-
+        if(lI->first != "OSGTMStoreLock"    &&
+           lI->first != "OSG::Log::_pLogLock"  )
+        {
+            FWARNING(("ThreadManager::shutdown: "
+                      "lock [%s|%p] is still alive\n", 
+                      (*lI).first.c_str(),
+                      (*lI).second));
+        }
     }
 
     LockPoolStore::MPFieldMapCIt lpI = _sLockPoolStore._mFieldMap.begin();
