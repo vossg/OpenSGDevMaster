@@ -1899,6 +1899,8 @@ void OSG::Window::renderAllViewports(RenderActionBase *action)
 
     if(action != NULL)
     {
+        commitChanges();
+
         action->setWindow(this);
         
         if(this->getDrawerId() < 0)
