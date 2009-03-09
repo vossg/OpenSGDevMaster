@@ -150,6 +150,9 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     inline void setIndex          (GeoIntegralProperty * const value,
                                    UInt16                      index);
 
+          Int32 getClassicGLId    (void) const;
+          Int32 getAttGLId        (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name           Property/Index MField Changes                      */
@@ -323,9 +326,6 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
     static void   handleAttDestroyGL    (DrawEnv                 *pEnv, 
                                          UInt32                   id, 
                                          Window::GLObjectStatusE  mode    );
-
-           Int32  getClassicGLId         (void) const;
-           Int32  getAttGLId             (void) const;
 
     void onCreate(const Geometry *source = NULL);
     void onDestroy(UInt32 id);
