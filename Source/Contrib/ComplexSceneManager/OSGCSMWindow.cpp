@@ -218,7 +218,7 @@ bool CSMWindow::init(void)
         _pWindow->setRenderOptions(this->getRenderOptions());
     }
     
-    OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");
+//    OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");
 
     return returnValue;
 }

@@ -9,6 +9,8 @@ int init(int argc, char **argv)
     OSG::preloadSharedObject("OSGImageFileIO");
 #endif
 
+    OSG::ChangeList::setReadWriteDefault(true);
+
     OSG::osgInit(argc,argv);
 
     // Assume dir is given

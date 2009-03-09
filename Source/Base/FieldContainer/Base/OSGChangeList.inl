@@ -48,6 +48,8 @@ void ChangeList::clearPool(void)
     _changedStore     .clear();
     _createdStore     .clear();
     _uncommitedChanges.clear();
+
+    _qFreeElements.clear();
 }
 
 #if 0
@@ -187,6 +189,12 @@ void ChangeList::decSubRefLevel(void)
     --_iSubRefLevel;
 }
 
+inline
+void ChangeList::setReadWriteDefault(bool bReadWrite)
+{
+    _bReadWriteDefault = bReadWrite;
+}
+
 inline 
 void commitChanges(void)
 {
@@ -204,6 +212,7 @@ void clearChangeList(void)
 {
     Thread::getCurrentChangeList()->clear();
 }
+
 
 OSG_END_NAMESPACE
 

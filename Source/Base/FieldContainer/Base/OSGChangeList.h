@@ -49,6 +49,7 @@
 
 #include <list>
 #include <vector>
+#include <deque>
 
 OSG_BEGIN_NAMESPACE
 
@@ -84,30 +85,34 @@ struct OSG_BASE_DLLMAPPING ContainerChangeEntry
           BitVector  *bvUncommittedChanges;  /* Bit vector of changes that 
                                                 still need to be committed 
                                                 for this entry. */
+          ChangeList *pList;
 
-    ContainerChangeEntry()        
+    ContainerChangeEntry(void)        
     {
-        uiEntryDesc   = 0;
-        uiContainerId = 0;
-        pFieldFlags   = NULL;
-        whichField    = 0;
+        uiEntryDesc          = 0;
+        uiContainerId        = 0;
+        pFieldFlags          = NULL;
+        whichField           = 0;
         bvUncommittedChanges = NULL;
+        pList                = NULL;
     }    
 
     void operator =(const ContainerChangeEntry &)
     {
     }
 
-    void clear(void)
+    void clear(ChangeList *pListParent)
     {
-        uiEntryDesc   = 0;
-        uiContainerId = 0;
-        pFieldFlags   = NULL;
-        whichField    = 0;
+        uiEntryDesc          = 0;
+        uiContainerId        = 0;
+        pFieldFlags          = NULL;
+        whichField           = 0;
         bvUncommittedChanges = NULL;
+        pList                = pListParent;
     }
 
     void commitChanges(void);
+    void release      (void);
 };
 
 /*! \ingroup GrpBaseFieldContainerBase
@@ -207,9 +212,7 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
-#ifdef OSG_1_COMPAT
-    static void setReadWriteDefault(void);
-#endif
+    static void setReadWriteDefault(bool bReadWrite = true);
 
 #ifdef OSG_THREAD_DEBUG_SETASPECTTO
     void setAspectTo(UInt32 uiNewAspect);
@@ -244,30 +247,33 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
 
   protected:
 
+    static bool _bReadWriteDefault;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    ChangeEntryPool               _entryPool;
+    ChangeEntryPool                     _entryPool;
 
-    ChangeEntryPoolIt             _currentPoolElement;
-    ChangeEntryStoreIt            _currentEntry;
+    ChangeEntryPoolIt                   _currentPoolElement;
+    ChangeEntryStoreIt                  _currentEntry;
 
-    ChangedStore                  _changedStore;
-    ChangedStore                  _createdStore;
+    ChangedStore                        _changedStore;
+    ChangedStore                        _createdStore;
 
-    ChangedStore                  _uncommitedChanges;
-    ChangedStore                  _workStore;
+    ChangedStore                        _uncommitedChanges;
+    ChangedStore                        _workStore;
 
-    UInt32                        _uiAspect;
-    Int32                         _iSubRefLevel;
+    UInt32                              _uiAspect;
+    Int32                               _iSubRefLevel;
 
-    bool                          _bExternal;
-    
-    std::vector<FieldContainer *> _vDelayedUnrecSubRefs;
-    std::vector<FieldContainer *> _vDelayedRecSubRefs;
-    std::vector<FieldContainer *> _vDelayedWeakSubRefs;
+    bool                                _bExternal;
+    bool                                _bReadOnly;
 
+    std::vector<FieldContainer *>       _vDelayedUnrecSubRefs;
+    std::vector<FieldContainer *>       _vDelayedRecSubRefs;
+    std::vector<FieldContainer *>       _vDelayedWeakSubRefs;
+    std::deque <ContainerChangeEntry *> _qFreeElements;
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -366,6 +372,7 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     friend class  WinThreadBase;
     friend class  FieldContainer;
     friend struct RecordedRefCountPolicy;
+    friend class  ContainerChangeEntry;
 
     typedef MemoryObject Inherited;
 

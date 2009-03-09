@@ -74,10 +74,14 @@ void ChangeList::addAddRefd(const UInt32 uiContainerId)
             uiContainerId);
 #endif
 
+    if(_bReadOnly == true)
+        return;
+
     ContainerChangeEntry *pEntry = getNewEntry();
 
     pEntry->uiEntryDesc   = ContainerChangeEntry::AddReference;
     pEntry->uiContainerId = uiContainerId;
+    pEntry->pList         = this;
 }
 
 void ChangeList::addSubRefd(const UInt32 uiContainerId,
@@ -91,6 +95,9 @@ void ChangeList::addSubRefd(const UInt32 uiContainerId,
     fprintf(stderr, "Add SubRef %u\n", uiContainerId);
 #endif
 
+    if(_bReadOnly == true)
+        return;
+
     ContainerChangeEntry *pEntry = getNewEntry();
 
     if(_iSubRefLevel == 0 || ignoreLevel == true)
@@ -103,6 +110,7 @@ void ChangeList::addSubRefd(const UInt32 uiContainerId,
     }
 
     pEntry->uiContainerId = uiContainerId;
+    pEntry->pList         = this;
 }
 
 void ChangeList::addCreated(const UInt32 uiContainerId, 
@@ -121,6 +129,8 @@ void ChangeList::addCreated(const UInt32 uiContainerId,
             fcPtr != NULL ? fcPtr->getTypeId() : -1,
             fcPtr != NULL ? fcPtr->getType  ().getCName() : "Unknow");
 #endif
+    if(_bReadOnly == true)
+        return;
 
     ContainerChangeEntry *pEntry = getNewCreatedEntry();
 
@@ -175,6 +185,35 @@ void ContainerChangeEntry::commitChanges(void)
     }
 }
 
+void ContainerChangeEntry::release(void)
+{
+    if(pList == NULL)
+        return;
+
+    if(pList->_bReadOnly == false)
+        return;
+
+    ChangeList::ChangedStoreIt cIt = std::find(pList->_changedStore.begin(),
+                                               pList->_changedStore.end  (),
+                                               this                        );
+
+    if(cIt != pList->_changedStore.end())
+    {
+        pList->_qFreeElements.push_back(this);
+
+        pList->_changedStore.erase(cIt);
+    }
+
+    cIt = std::find(pList->_uncommitedChanges.begin(),
+                    pList->_uncommitedChanges.end  (),
+                    this                             );
+
+    if(cIt != pList->_uncommitedChanges.end())
+    {
+        pList->_uncommitedChanges.erase(cIt);
+    }
+
+}
 
 StatElemDesc<StatIntElem> ChangeList::statNChangedStoreSize(
     "changedStoreSize",
@@ -196,6 +235,11 @@ StatElemDesc<StatIntElem> ChangeList::statNPoolSize(
     "number of elements in the entry pool",
     StatElemDescBase::RESET_NEVER);
 
+#ifdef OSG_ENABLE_DEFAULT_READONLY_CHANGELIST
+bool ChangeList::_bReadWriteDefault = false;
+#else
+bool ChangeList::_bReadWriteDefault = true;
+#endif
 
 ChangeList *ChangeList::create(void)
 {
@@ -223,9 +267,11 @@ ChangeList::ChangeList(void) :
     _uiAspect            (                  0),
     _iSubRefLevel        (                  0),
     _bExternal           (false              ),
+    _bReadOnly           (!_bReadWriteDefault),
     _vDelayedUnrecSubRefs(                   ),
     _vDelayedRecSubRefs  (                   ),
-    _vDelayedWeakSubRefs (                   )
+    _vDelayedWeakSubRefs (                   ),
+    _qFreeElements       (                   )
 {
     _entryPool.push_back(ChangeEntryStore());
 
@@ -248,6 +294,15 @@ ChangeList::~ChangeList(void)
 
 ContainerChangeEntry *ChangeList::createNewEntry(void)
 {
+    if(_qFreeElements.empty() == false)
+    {
+        ContainerChangeEntry *returnValue = _qFreeElements.back();
+
+        _qFreeElements.pop_back();
+
+        return returnValue;
+    }
+
     if(_currentEntry == _currentPoolElement->end())
     {
         ++_currentPoolElement;
@@ -278,7 +333,7 @@ ContainerChangeEntry *ChangeList::createNewEntry(void)
 ContainerChangeEntry *ChangeList::getNewEntry(void)
 {
     ContainerChangeEntry *returnValue = createNewEntry();
-    returnValue->clear();
+    returnValue->clear(this);
 
     _changedStore.push_back(returnValue);
 
@@ -289,7 +344,7 @@ ContainerChangeEntry *ChangeList::getNewEntry(void)
 ContainerChangeEntry *ChangeList::getNewCreatedEntry(void)
 {
     ContainerChangeEntry *returnValue = createNewEntry();
-    returnValue->clear();
+    returnValue->clear(this);
 
     _createdStore.push_back(returnValue);
 
@@ -370,6 +425,12 @@ void ChangeList::commitChangesAndClear(void)
 
 void ChangeList::doApply(bool bClear)
 {
+    if(_bReadOnly == true)
+    {
+        FWARNING(("Read-only changelist, can not apply\n"));
+        return;
+    }
+
 #ifdef OSG_MT_CPTR_ASPECT
     FieldContainer      *pSrc  = NULL;
     FieldContainer      *pDst  = NULL;
@@ -646,6 +707,7 @@ void ChangeList::merge(ChangeList &other)
      
             pEntry->uiEntryDesc   = (*cIt)->uiEntryDesc;
             pEntry->uiContainerId = (*cIt)->uiContainerId;
+            pEntry->pList         = this;
         }
         else if((*cIt)->uiEntryDesc == ContainerChangeEntry::Change)
         {
@@ -655,6 +717,7 @@ void ChangeList::merge(ChangeList &other)
             pEntry->pFieldFlags   = (*cIt)->pFieldFlags;
             pEntry->uiContainerId = (*cIt)->uiContainerId;
             pEntry->whichField    = (*cIt)->whichField;
+            pEntry->pList         = this;
         }
 
         ++cIt;
@@ -691,15 +754,10 @@ void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId)
             pEntry->pFieldFlags   = pContainer->getFieldFlags();
             pEntry->uiContainerId = i;
             pEntry->whichField    = FieldBits::AllFields;
+            pEntry->pList         = this;                
         }
     } 
 }
-
-#ifdef OSG_1_COMPAT
-void ChangeList::setReadWriteDefault(void)
-{
-}
-#endif
 
 #ifdef OSG_THREAD_DEBUG_SETASPECTTO
 void ChangeList::setAspectTo(UInt32 uiNewAspect)

@@ -419,6 +419,13 @@ FieldContainer::~FieldContainer(void)
        delete _pFieldFlags;
        _pFieldFlags = NULL;
     }
+
+    if(_pContainerChanges != NULL)
+    {
+        _pContainerChanges->release();
+
+        _pContainerChanges = NULL;
+    }
 }
 
 inline
