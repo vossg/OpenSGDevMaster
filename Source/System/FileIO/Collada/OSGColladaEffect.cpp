@@ -249,7 +249,7 @@ void ColladaEffect::setupSimpleColorAndTex(
     
     domCommon_color_or_texture_type::domColorRef   ambientCol  = NULL;
     domCommon_color_or_texture_type::domTextureRef ambientTex  = NULL;
-       
+    
     domCommon_color_or_texture_type::domColorRef   emissionCol = NULL;
     domCommon_color_or_texture_type::domTextureRef emissionTex = NULL;
 
@@ -333,7 +333,23 @@ void ColladaEffect::setupSimpleColorAndTex(
                 texEnv->setEnvMode(GL_REPLACE);
                 
                 setTexCoordMapping(currTex++, ambientTex->getTexcoord());
-//                 _texCoordMapping[currTex++] = ambientTex->getTexcoord();
+
+                if(texObj->getImage()                    != NULL &&
+                   texObj->getImage()->hasAlphaChannel() == true   )
+                {
+                    StateChunk *stateChunk =
+                        _material->find(BlendChunk::getClassType());
+
+                    if(stateChunk == NULL)
+                    {
+                        BlendChunkUnrecPtr blendChunk = BlendChunk::create();
+
+                        blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                        blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                        _material->addChunk(blendChunk);
+                    }
+                }
             }
         }
         else
@@ -388,7 +404,23 @@ void ColladaEffect::setupSimpleColorAndTex(
                 texEnv->setEnvMode(GL_REPLACE);
                 
                 setTexCoordMapping(currTex++, ambientTex->getTexcoord());
-//                 _texCoordMapping[currTex++] = ambientTex->getTexcoord();
+
+                if(texObj->getImage()                    != NULL &&
+                   texObj->getImage()->hasAlphaChannel() == true   )
+                {
+                    StateChunk *stateChunk =
+                        _material->find(BlendChunk::getClassType());
+
+                    if(stateChunk == NULL)
+                    {
+                        BlendChunkUnrecPtr blendChunk = BlendChunk::create();
+
+                        blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                        blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                        _material->addChunk(blendChunk);
+                    }
+                }
             }
         }
     }
@@ -444,7 +476,23 @@ void ColladaEffect::setupSimpleColorAndTex(
                                  currTex, diffuseTex->getTexcoord()));
                 
                 setTexCoordMapping(currTex++, diffuseTex->getTexcoord());
-//                 _texCoordMapping[currTex++] = diffuseTex->getTexcoord();
+
+                if(texObj->getImage()                    != NULL &&
+                   texObj->getImage()->hasAlphaChannel() == true   )
+                {
+                    StateChunk *stateChunk =
+                        _material->find(BlendChunk::getClassType());
+
+                    if(stateChunk == NULL)
+                    {
+                        BlendChunkUnrecPtr blendChunk = BlendChunk::create();
+
+                        blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                        blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                        _material->addChunk(blendChunk);
+                    }
+                }
             }
         }
         else
@@ -502,7 +550,23 @@ void ColladaEffect::setupSimpleColorAndTex(
                                  currTex, diffuseTex->getTexcoord()));
                 
                 setTexCoordMapping(currTex++, diffuseTex->getTexcoord());
-//                 _texCoordMapping[currTex++] = diffuseTex->getTexcoord();
+
+                if(texObj->getImage()                    != NULL &&
+                   texObj->getImage()->hasAlphaChannel() == true   )
+                {
+                    StateChunk *stateChunk =
+                        _material->find(BlendChunk::getClassType());
+
+                    if(stateChunk == NULL)
+                    {
+                        BlendChunkUnrecPtr blendChunk = BlendChunk::create();
+
+                        blendChunk->setSrcFactor (GL_SRC_ALPHA          );
+                        blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
+
+                        _material->addChunk(blendChunk);
+                    }
+                }
             }
         }
     }
@@ -557,7 +621,7 @@ MaterialChunkTransitPtr ColladaEffect::handleSimpleColor(
                 blendColor[1] = 0.0;
                 blendColor[2] = 0.0;
                 blendColor[3] = transparent->getValue()[3] * transparency;
-                
+
                 blendChunk = BlendChunk::create();
                 blendChunk->setSrcFactor (GL_CONSTANT_ALPHA_EXT          );
                 blendChunk->setDestFactor(GL_ONE_MINUS_CONSTANT_ALPHA_EXT);
@@ -580,7 +644,7 @@ MaterialChunkTransitPtr ColladaEffect::handleSimpleColor(
                 blendColor[3] = computeLuminance(blendColor[0],
                                                  blendColor[1],
                                                  blendColor[2] );
-                
+
                 blendChunk = BlendChunk::create();
                 blendChunk->setSrcFactor (GL_ONE_MINUS_CONSTANT_COLOR_EXT);
                 blendChunk->setDestFactor(GL_CONSTANT_COLOR_EXT          );
