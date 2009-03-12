@@ -56,6 +56,7 @@
 #define OSG_GEN_INTERNALPTR(CLASST)                                      \
     typedef TransitPtr< CLASST                          > ObjTransitPtr; \
     typedef RefCountPtr<CLASST, RecordedRefCountPolicy  > ObjRecPtr;     \
+    typedef RefCountPtr<CLASST, MTRecordedRefCountPolicy> ObjMTRecPtr;   \
     typedef RefCountPtr<CLASST, UnrecordedRefCountPolicy> ObjUnrecPtr;   \
     typedef RefCountPtr<CLASST, WeakRefCountPolicy      > ObjWeakPtr;    \
                                                                          \
