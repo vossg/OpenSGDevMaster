@@ -1,0 +1,258 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \defgroup GrpLibOSGSystem libOSGSystem
+    \ingroup GrpByLib
+ */
+
+/*! \defgroup GrpSystem OpenSG System Library
+
+    \brief The System Library contains the main system-independent parts of 
+           OpenSG.
+
+    See \ref PageSystem for details.
+*/
+
+/*! \defgroup GrpSystemAction Action
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemRenderAction Render Action
+    \ingroup GrpSystemAction
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemRenderingBackend Rendering Backend
+    \ingroup GrpSystemAction
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemIntersectAction Intersect Action
+    \ingroup GrpSystemAction
+    
+    See \ref PageBaseField for details.
+*/
+
+
+/*! \defgroup GrpSystemState State
+    \ingroup GrpSystem
+    
+    The OpenGL State Handling Group contains the wrapper classes for OpenGL
+    state.
+
+    See \ref PageSystemState for details.
+*/
+
+/*! \defgroup GrpSystemStateBase State - Base
+    \ingroup GrpSystemState
+    
+    The OpenGL State Handling Group contains the wrapper classes for OpenGL
+    state.
+
+    See \ref PageSystemState for details.
+*/
+
+/*! \defgroup GrpSystemStateFieldTraits State - Field Traits
+    \ingroup GrpSystemState
+    
+    See \ref PageBaseField for details.
+*/
+/*! \defgroup GrpSystemStateFieldSFields State - Single-Field
+    \ingroup GrpSystemState
+    
+    See \ref PageBaseField for details.
+*/
+/*! \defgroup GrpSystemStateFieldMFields State - Multi-Fields
+    \ingroup GrpSystemState
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemShader Shader
+    \ingroup GrpSystem
+    
+    The OpenGL Shader Handling Group
+
+    See \ref PageSystemShader for details.
+*/
+
+/*! \defgroup GrpSystemShaderBase Shader - Base
+    \ingroup GrpSystemShader
+    
+    The OpenGL Shader Handling Group
+
+    See \ref PageSystemShader for details.
+*/
+
+/*! \defgroup GrpSystemShaderChunks Shader - Chunks
+    \ingroup GrpSystemShader
+    
+    The OpenGL Shader Handling Group
+
+    See \ref PageSystemShader for details.
+*/
+
+/*! \defgroup GrpSystemShaderVariables Shader - Variables
+    \ingroup GrpSystemShader
+    
+    The OpenGL Shader Handling Group
+
+    See \ref PageSystemShader for details.
+*/
+
+/*! \defgroup GrpSystemShaderSHLChunk Shader - SHLChunk
+    \ingroup GrpSystemShader
+    
+    The OpenGL Shader Handling Group
+
+    See \ref PageSystemShader for details.
+*/
+
+/*! \defgroup GrpSystemShaderSHLFuncs Shader - SHL Functions
+    \ingroup GrpSystemShader
+    
+    The OpenGL Shader Handling Group
+
+    See \ref PageSystemShader for details.
+*/
+
+
+/*! \defgroup GrpSystemShaderFieldTraits Shader - Field Traits
+    \ingroup GrpSystemShader
+    
+    See \ref PageBaseField for details.
+*/
+/*! \defgroup GrpSystemShaderFieldSFields Shader - Single-Field
+    \ingroup GrpSystemShader
+    
+    See \ref PageBaseField for details.
+*/
+/*! \defgroup GrpSystemShaderFieldMFields Shader - Multi-Fields
+    \ingroup GrpSystemShader
+    
+    See \ref PageBaseField for details.
+*/
+
+
+/*! \defgroup GrpSystemMaterial Material
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemFieldContainer FieldContainer
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemNodeCores NodeCores
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemNodeCoresGroups Group NodeCores - Base
+    \ingroup GrpSystemNodeCores
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemNodeCoresDrawables Drawable NodeCores - Base
+    \ingroup GrpSystemNodeCores
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemFileIO FileIO
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemFileIOScanParse FileIO - ScanParse Skel
+    \ingroup GrpSystemFileIO
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemGraphOp GraphOp - Base
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemImage Image
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemImageFileIO Image - FileIO
+    \ingroup GrpSystemImage
+    
+    See \ref PageBaseField for details.
+*/
+
+
+/*! \defgroup GrpSystemWindow Window
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+/*! \defgroup GrpSystemWindowFBO Window - Framebuffer Objects
+    \ingroup GrpSystemWindow
+    
+    See \ref PageBaseField for details.
+*/
+
+#if 0
+/*! \defgroup GrpSystemField Fields
+    \ingroup GrpSystem
+    
+    See \ref PageBaseField for details.
+*/
+
+#if (OSG_DOC_LEVEL >= 3)
+/*! \defgroup GrpSystemFieldTraits Field Data Traits
+    \ingroup GrpSystemField
+
+    ToDo
+*/
+#endif
+
+/*! \defgroup GrpSystemFieldSingle Single-Element Fields
+    \ingroup GrpSystemField
+
+    ToDo
+*/
+
+/*! \defgroup GrpSystemFieldMulti Multi-Element Fields
+    \ingroup GrpSystemField
+
+    ToDo
+*/
+
+#endif
+
+
+
+/*! \defgroup GrpSystemStatistics Statistics
+    \ingroup GrpSystem
+    
+Statistics contains general facilities for recording and collecting 
+statistical data like counts and times. It is mainly used for collecting 
+rendering statistics like the amount of time need for a frame or the number of 
+visible polygons, but it can be used for any kind of statistics.
+See \ref PageSystemStatistics for more details
+
+The \link OSG::StatElem StatElem \endlink OSG::StatElem is the basic unit that 
+keeps a single statistical value.
+
+*/

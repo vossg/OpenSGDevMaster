@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderVariablePnt3f class. See \ref 
-    PageSystemShaderVariablePnt3f for a description.
-*/
+           PageSystemShaderVariablePnt3f for a description.
+    \ingroup GrpSystemShaderVariables
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderVariablePnt3f : 
     public ShaderVariablePnt3fBase

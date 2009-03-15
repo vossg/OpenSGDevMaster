@@ -1,23 +1,24 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ShaderVariableVec4f"
-	parent="ShaderValueVariable"
-	library="System"
-	pointerfieldtypes="both"
-	structure="concrete"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
->
-	<Field
-		name="value"
-		type="Vec4f"
-		cardinality="single"
-		visibility="external"
-		access="public"
-	>
+   name="ShaderVariableVec4f"
+   parent="ShaderValueVariable"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   docGroupBase="GrpSystemShader"
+   >
+  <Field
+	 name="value"
+	 type="Vec4f"
+	 cardinality="single"
+	 visibility="external"
+	 access="public"
+	 >
 	variable value
-	</Field>
+  </Field>
 </FieldContainer>

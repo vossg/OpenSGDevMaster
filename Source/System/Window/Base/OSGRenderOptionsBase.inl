@@ -773,6 +773,56 @@ void RenderOptionsBase::setFogMode(const Int32 value)
 
     _sfFogMode.setValue(value);
 }
+//! Get the value of the RenderOptions::_sfMultiSample field.
+
+inline
+UInt32 &RenderOptionsBase::editMultiSample(void)
+{
+    editSField(MultiSampleFieldMask);
+
+    return _sfMultiSample.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfMultiSample field.
+inline
+      UInt32  RenderOptionsBase::getMultiSample(void) const
+{
+    return _sfMultiSample.getValue();
+}
+
+//! Set the value of the RenderOptions::_sfMultiSample field.
+inline
+void RenderOptionsBase::setMultiSample(const UInt32 value)
+{
+    editSField(MultiSampleFieldMask);
+
+    _sfMultiSample.setValue(value);
+}
+//! Get the value of the RenderOptions::_sfMultiSampleFilterMode field.
+
+inline
+UInt32 &RenderOptionsBase::editMultiSampleFilterMode(void)
+{
+    editSField(MultiSampleFilterModeFieldMask);
+
+    return _sfMultiSampleFilterMode.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfMultiSampleFilterMode field.
+inline
+      UInt32  RenderOptionsBase::getMultiSampleFilterMode(void) const
+{
+    return _sfMultiSampleFilterMode.getValue();
+}
+
+//! Set the value of the RenderOptions::_sfMultiSampleFilterMode field.
+inline
+void RenderOptionsBase::setMultiSampleFilterMode(const UInt32 value)
+{
+    editSField(MultiSampleFilterModeFieldMask);
+
+    _sfMultiSampleFilterMode.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -868,6 +918,12 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
 
     if(FieldBits::NoField != (FogModeFieldMask & whichField))
         _sfFogMode.syncWith(pFrom->_sfFogMode);
+
+    if(FieldBits::NoField != (MultiSampleFieldMask & whichField))
+        _sfMultiSample.syncWith(pFrom->_sfMultiSample);
+
+    if(FieldBits::NoField != (MultiSampleFilterModeFieldMask & whichField))
+        _sfMultiSampleFilterMode.syncWith(pFrom->_sfMultiSampleFilterMode);
 }
 #endif
 

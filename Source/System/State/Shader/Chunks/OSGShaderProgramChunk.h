@@ -49,7 +49,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderProgramChunk class. See \ref
            PageSystemShaderProgramChunk for a description.
-*/
+    \ingroup GrpSystemShaderChunks
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderProgramChunk : public ShaderProgramChunkBase
 {

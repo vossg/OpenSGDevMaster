@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SimpleSHLVariableChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SimpleSHLVariableChunkPtr
-
 OSG_GEN_CONTAINERPTR(SimpleSHLVariableChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemShaderFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SimpleSHLVariableChunk *> :
     public FieldTraitsFCPtrBase<SimpleSHLVariableChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<SimpleSHLVariableChunk *, 0>::getMName<NoRefCountPolicy
     return "MFUnrefdSimpleSHLVariableChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SimpleSHLVariableChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLVariableChunk *,
                       RecordedRefCountPolicy  > SFRecSimpleSHLVariableChunkPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLVariableChunk *,
                       UnrecordedRefCountPolicy> SFUnrecSimpleSHLVariableChunkPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLVariableChunk *,
                       WeakRefCountPolicy      > SFWeakSimpleSHLVariableChunkPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLVariableChunk *,
                       NoRefCountPolicy        > SFUncountedSimpleSHLVariableChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLVariableChunk *,
                       RecordedRefCountPolicy  > MFRecSimpleSHLVariableChunkPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLVariableChunk *,
                       UnrecordedRefCountPolicy> MFUnrecSimpleSHLVariableChunkPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLVariableChunk *,
                       WeakRefCountPolicy      > MFWeakSimpleSHLVariableChunkPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLVariableChunk *,
                       NoRefCountPolicy        > MFUncountedSimpleSHLVariableChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecSimpleSHLVariableChunkPtr : 
+    public PointerSField<SimpleSHLVariableChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecSimpleSHLVariableChunkPtr : 
+    public PointerSField<SimpleSHLVariableChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakSimpleSHLVariableChunkPtr :
+    public PointerSField<SimpleSHLVariableChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedSimpleSHLVariableChunkPtr :
+    public PointerSField<SimpleSHLVariableChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecSimpleSHLVariableChunkPtr :
+    public PointerMField<SimpleSHLVariableChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecSimpleSHLVariableChunkPtr :
+    public PointerMField<SimpleSHLVariableChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakSimpleSHLVariableChunkPtr :
+    public PointerMField<SimpleSHLVariableChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedSimpleSHLVariableChunkPtr :
+    public PointerMField<SimpleSHLVariableChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

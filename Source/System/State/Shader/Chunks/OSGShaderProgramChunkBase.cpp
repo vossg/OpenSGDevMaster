@@ -199,22 +199,23 @@ ShaderProgramChunkBase::TypeObject ShaderProgramChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramChunkBase::createEmptyLocal),
     ShaderProgramChunk::initMethod,
     ShaderProgramChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderProgramChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
+    "   name=\"ShaderProgramChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
     "  <Field\n"
     "\t name=\"vertexShader\"\n"
     "\t type=\"ShaderProgram\"\n"

@@ -38,16 +38,17 @@ osg::StateChunk type is also stored in the osg::StateChunkClass.
 \anchor State The complete OpenGL state wrapper is the osg::State. It
 primarily contains a vector of osg::StateChunks. For every type of chunk there
 are as many slots as possibly concurrently active copies of the chunk. A chunk
-can be \ref StateChunk::activate "activated", which sets the OpenGL state
-it covers to its settings, if the settings differ from an internally defined
-default state. It is possible to \ref StateChunk::changeFrom "switch"
-from one instance of a state chunk to another instance of the same type. This
-tries to optimize and minimize the changes, to speed up switching. The cost of
-switching can be \ref StateChunk::switchCost "estimated", currently that
-estimation will always be 0, though. Finally a chunk can be \ref
-StateChunk::deactivate "deactivated", which resets the OpenGL state it
-covers to the default value. All the chunks in a osg::State can be managed at
-the same time by using the equivalent methods of the osg::State.
+can be \link OSG::StateChunk::activate "activated" \endlink, which sets the
+OpenGL state it covers to its settings, if the settings differ from an
+internally defined default state. It is possible to \link
+OSG::StateChunk::changeFrom() "switch" \endlink from one instance of a state
+chunk to another instance of the same type. This tries to optimize and
+minimize the changes, to speed up switching. The cost of switching can be
+\link OSG::StateChunk::switchCost "estimated" \endlink, currently that 
+estimation will always be 0, though. Finally a chunk can be \link
+OSG::StateChunk::deactivate "deactivated" \endlink, which resets the OpenGL
+state it covers to the default value. All the chunks in a osg::State can be
+managed at the same time by using the equivalent methods of the osg::State.
 
 \ext To add new chunks you need to derive it from osg::StateChunk. It needs to
 keep  a static instance of osg::StateChunkClass and implement the public
@@ -334,5 +335,10 @@ The osg::FragmentProgramChunk wraps the GL_ARB_fragment_program extension. This
 extension is also much too big to be reproduced here (~100 pages), see the 
 <a HREF="http://oss.sgi.com/projects/ogl-sample/registry/ARB/fragment_program.txt">
 specification</A> for details.
+
+\section PageSystemTextureBaseChunk TextureBaseChunk
+\section PageSystemTextureObjChunk TextureObjChunk
+\section PageSystemColorMaskChunk ColorMaskChunk
+\section PageSystemDepthChunk DepthChunk
 
 */

@@ -114,30 +114,31 @@ ShaderValueVariableBase::TypeObject ShaderValueVariableBase::_type(
     NULL,
     ShaderValueVariable::initMethod,
     ShaderValueVariable::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderValueVariableBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderValueVariable::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderValueVariable\"\n"
-    "\tparent=\"ShaderVariable\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"variableIdx\"\n"
-    "\t\ttype=\"UInt16\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"none\"\n"
-    "\t>\n"
-    "\t</Field> \n"
+    "   name=\"ShaderValueVariable\"\n"
+    "   parent=\"ShaderVariable\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"abstract\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
+    "  <Field\n"
+    "\t name=\"variableIdx\"\n"
+    "\t type=\"UInt16\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"internal\"\n"
+    "\t access=\"none\"\n"
+    "\t >\n"
+    "  </Field> \n"
     "</FieldContainer>\n",
     ""
     );

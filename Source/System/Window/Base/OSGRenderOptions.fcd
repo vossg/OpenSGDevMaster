@@ -264,4 +264,24 @@
 		access="public"
 	>
 	</Field>
+	<Field
+		name="multiSample"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="1"
+		access="public"
+	>
+	number of multi-sample-buffer used for FSAA
+	</Field>
+	<Field
+		name="multiSampleFilterMode"
+		type="UInt32"
+		cardinality="single"
+		visibility="external"
+		defaultValue="0"
+		access="public"
+	>
+	defindes the filter-method for multi-sample buffer, must be GL_FALSE/0 (off), GL_DONT_CARE, GL_FASTEST or GL_NICEST
+	</Field>
 </FieldContainer>

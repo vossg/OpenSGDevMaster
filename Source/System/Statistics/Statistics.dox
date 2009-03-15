@@ -2,20 +2,6 @@
 
 using namespace OSG;
 
-/*! \defgroup GrpSystemStatistics Statistics
-    \ingroup GrpSystem
-    
-Statistics contains general facilities for recording and collecting 
-statistical data like counts and times. It is mainly used for collecting 
-rendering statistics like the amount of time need for a frame or the number of 
-visible polygons, but it can be used for any kind of statistics.
-See \ref PageSystemStatistics for more details
-
-The \link OSG::StatElem StatElem \endlink OSG::StatElem is the basic unit that 
-keeps a single statistical value.
-
-*/
-
 /*! \page PageSystemStatistics Statistics 
 
 \latexonly Starter:NewChapter \endlatexonly
@@ -57,7 +43,6 @@ To extend the Statistics you just need to create an instance of the
 osg::StatElemDesc class. It is templated and parametrized by the osg::StatElem
 that the new variable should have. 
 
-\endext
-
 \enddev
+
 */

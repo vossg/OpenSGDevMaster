@@ -3,6 +3,12 @@
 
 \mainpage OpenSG - The Open Source Scenegraph
 
+<b> Warning </b> a lot of the documentation is currently just copied from 1.8 and was
+    not updated, hence the concepts will be <b> out of date </b> for now.
+
+*/
+
+/*
 Welcome to OpenSG.
 
 OpenSG is a scenegraph system for realtime rendering, e.g. for Virtual Reality

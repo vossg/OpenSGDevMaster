@@ -114,31 +114,32 @@ ShaderVariableMRealBase::TypeObject ShaderVariableMRealBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableMRealBase::createEmptyLocal),
     ShaderVariableMReal::initMethod,
     ShaderVariableMReal::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableMRealBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableMReal::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderVariableMReal\"\n"
-    "\tparent=\"ShaderValueVariable\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"value\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "   name=\"ShaderVariableMReal\"\n"
+    "   parent=\"ShaderValueVariable\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
+    "  <Field\n"
+    "\t name=\"value\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tvariable value\n"
-    "\t</Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );

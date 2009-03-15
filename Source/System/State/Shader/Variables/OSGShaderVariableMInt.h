@@ -49,7 +49,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderVariableMInt class. See \ref 
            PageSystemShaderVariableMInt for a description.
-*/
+    \ingroup GrpSystemShaderVariables
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderVariableMInt : public ShaderVariableMIntBase
 {

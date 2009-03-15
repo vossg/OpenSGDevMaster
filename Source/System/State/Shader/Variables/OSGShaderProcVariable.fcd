@@ -1,19 +1,20 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ShaderProcVariable"
-	parent="ShaderVariable"
-	library="System"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
-    childfieldparent="FieldContainer"
-    parentfieldcard="multi"
-    childFields="multi"
->
+   name="ShaderProcVariable"
+   parent="ShaderVariable"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   childfieldparent="FieldContainer"
+   parentfieldcard="multi"
+   childFields="multi"
+   docGroupBase="GrpSystemShader"
+   >
   <Field
 	 name="dependency"
 	 type="UInt32"

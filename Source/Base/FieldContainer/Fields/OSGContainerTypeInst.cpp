@@ -97,7 +97,7 @@ OSG_FIELDTRAITS_GETTYPE   (NodeCore               *)
 OSG_FIELDTRAITS_GETTYPE   (Node                   *)
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback  )
 
-DataType &FieldTraits< FieldContainer *, 0 >::getMapType(void)
+DataType &FieldTraits< FieldContainer *>::getMapType(void)
 {                                                           
     return _mapType;
 }

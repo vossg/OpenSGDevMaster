@@ -114,31 +114,32 @@ ShaderVariableMatrixBase::TypeObject ShaderVariableMatrixBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableMatrixBase::createEmptyLocal),
     ShaderVariableMatrix::initMethod,
     ShaderVariableMatrix::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableMatrixBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableMatrix::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderVariableMatrix\"\n"
-    "\tparent=\"ShaderValueVariable\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"value\"\n"
-    "\t\ttype=\"Matrix\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "   name=\"ShaderVariableMatrix\"\n"
+    "   parent=\"ShaderValueVariable\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
+    "  <Field\n"
+    "\t name=\"value\"\n"
+    "\t type=\"Matrix\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tvariable value\n"
-    "\t</Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );

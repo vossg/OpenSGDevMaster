@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderVariableMMatrix class. See \ref 
            PageSystemShaderVariableMMatrix for a description.
-*/
+    \ingroup GrpSystemShaderVariables
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderVariableMMatrix : 
     public ShaderVariableMMatrixBase

@@ -44,7 +44,17 @@
 
 OSG_BEGIN_NAMESPACE
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef MField<ShaderParameter> MFShaderParameter;
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct MFShaderParameter : public MField<ShaderParameter> {};
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

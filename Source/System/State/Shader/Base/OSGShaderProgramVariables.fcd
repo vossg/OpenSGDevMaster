@@ -13,6 +13,7 @@
    childfieldparent="FieldContainer"
    parentfieldcard="multi"
    childFields="single"
+   docGroupBase="GrpSystemShader"
    >
 
   <Field

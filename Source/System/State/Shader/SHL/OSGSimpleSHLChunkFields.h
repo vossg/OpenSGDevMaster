@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SimpleSHLChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SimpleSHLChunkPtr
-
 OSG_GEN_CONTAINERPTR(SimpleSHLChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemShaderFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SimpleSHLChunk *> :
     public FieldTraitsFCPtrBase<SimpleSHLChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<SimpleSHLChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdSimpleSHLChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SimpleSHLChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLChunk *,
                       RecordedRefCountPolicy  > SFRecSimpleSHLChunkPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLChunk *,
                       UnrecordedRefCountPolicy> SFUnrecSimpleSHLChunkPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLChunk *,
                       WeakRefCountPolicy      > SFWeakSimpleSHLChunkPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<SimpleSHLChunk *,
                       NoRefCountPolicy        > SFUncountedSimpleSHLChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLChunk *,
                       RecordedRefCountPolicy  > MFRecSimpleSHLChunkPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLChunk *,
                       UnrecordedRefCountPolicy> MFUnrecSimpleSHLChunkPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLChunk *,
                       WeakRefCountPolicy      > MFWeakSimpleSHLChunkPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<SimpleSHLChunk *,
                       NoRefCountPolicy        > MFUncountedSimpleSHLChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecSimpleSHLChunkPtr : 
+    public PointerSField<SimpleSHLChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecSimpleSHLChunkPtr : 
+    public PointerSField<SimpleSHLChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakSimpleSHLChunkPtr :
+    public PointerSField<SimpleSHLChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedSimpleSHLChunkPtr :
+    public PointerSField<SimpleSHLChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecSimpleSHLChunkPtr :
+    public PointerMField<SimpleSHLChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecSimpleSHLChunkPtr :
+    public PointerMField<SimpleSHLChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakSimpleSHLChunkPtr :
+    public PointerMField<SimpleSHLChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedSimpleSHLChunkPtr :
+    public PointerMField<SimpleSHLChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

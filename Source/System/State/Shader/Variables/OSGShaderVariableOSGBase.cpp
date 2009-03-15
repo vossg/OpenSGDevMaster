@@ -114,22 +114,23 @@ ShaderVariableOSGBase::TypeObject ShaderVariableOSGBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableOSGBase::createEmptyLocal),
     ShaderVariableOSG::initMethod,
     ShaderVariableOSG::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableOSGBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableOSG::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderVariableOSG\"\n"
-    "\tparent=\"ShaderProcVariable\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
+    "   name=\"ShaderVariableOSG\"\n"
+    "   parent=\"ShaderProcVariable\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
     "  <Field\n"
     "\t name=\"osgVarType\"\n"
     "\t type=\"UInt32\"\n"

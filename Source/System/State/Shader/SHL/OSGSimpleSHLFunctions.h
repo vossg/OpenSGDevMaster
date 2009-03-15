@@ -45,6 +45,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemShaderSHLFuncs
+ */
 OSG_SYSTEM_DLLMAPPING
 SimpleSHLChunkTransitPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
                                                        bool   vertical, 
@@ -52,6 +54,8 @@ SimpleSHLChunkTransitPtr generate1DConvolutionFilterFP(Real32 fBlurWidth,
                                                        Int32  imgWidth, 
                                                        Int32  imgHeight);
 
+/*! \ingroup GrpSystemShaderSHLFuncs
+ */
 OSG_SYSTEM_DLLMAPPING
 SimpleSHLChunkTransitPtr generate2DShrinkHalfFilterFP(UInt32 uiTexCoord = 0);
 

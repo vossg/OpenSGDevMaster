@@ -132,22 +132,23 @@ ShaderProgramVariableChunkBase::TypeObject ShaderProgramVariableChunkBase::_type
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramVariableChunkBase::createEmptyLocal),
     ShaderProgramVariableChunk::initMethod,
     ShaderProgramVariableChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramVariableChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramVariableChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderProgramVariableChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
+    "   name=\"ShaderProgramVariableChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
     "  <Field\n"
     "\t name=\"variables\"\n"
     "\t type=\"ShaderProgramVariables\"\n"

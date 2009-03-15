@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShaderProgramVariables;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShaderProgramVariablesPtr
-
 OSG_GEN_CONTAINERPTR(ShaderProgramVariables);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemShaderFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShaderProgramVariables *> :
     public FieldTraitsFCPtrBase<ShaderProgramVariables *>
@@ -154,14 +145,11 @@ const Char8 *FieldTraits<ShaderProgramVariables *, 0>::getMName<NoRefCountPolicy
     return "MFUnrefdShaderProgramVariablesPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShaderProgramVariablesPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
 class FieldContainer;
 
+/*! \ingroup GrpSystemShaderFieldTraits
+ */
 template <>
 struct FieldTraits<ShaderProgramVariables *, 1> :
     public FieldTraitsFCPtrBase<ShaderProgramVariables *, 1>
@@ -238,42 +226,92 @@ const Char8 *FieldTraits<ShaderProgramVariables *, 1>::getMName<NoRefCountPolicy
 }
 
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderProgramVariables *,
                       RecordedRefCountPolicy  > SFRecShaderProgramVariablesPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderProgramVariables *,
                       UnrecordedRefCountPolicy> SFUnrecShaderProgramVariablesPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderProgramVariables *,
                       WeakRefCountPolicy      > SFWeakShaderProgramVariablesPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderProgramVariables *,
                       NoRefCountPolicy        > SFUncountedShaderProgramVariablesPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderProgramVariables *,
                       RecordedRefCountPolicy  > MFRecShaderProgramVariablesPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderProgramVariables *,
                       UnrecordedRefCountPolicy> MFUnrecShaderProgramVariablesPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderProgramVariables *,
                       WeakRefCountPolicy      > MFWeakShaderProgramVariablesPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderProgramVariables *,
                       NoRefCountPolicy        > MFUncountedShaderProgramVariablesPtr;
-#endif
 
 
 
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef ChildPointerSField<
           ShaderProgramVariables *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildShaderProgramVariablesPtr;
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecShaderProgramVariablesPtr : 
+    public PointerSField<ShaderProgramVariables *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecShaderProgramVariablesPtr : 
+    public PointerSField<ShaderProgramVariables *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakShaderProgramVariablesPtr :
+    public PointerSField<ShaderProgramVariables *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedShaderProgramVariablesPtr :
+    public PointerSField<ShaderProgramVariables *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecShaderProgramVariablesPtr :
+    public PointerMField<ShaderProgramVariables *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecShaderProgramVariablesPtr :
+    public PointerMField<ShaderProgramVariables *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakShaderProgramVariablesPtr :
+    public PointerMField<ShaderProgramVariables *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedShaderProgramVariablesPtr :
+    public PointerMField<ShaderProgramVariables *,
+                         NoRefCountPolicy        > {};
+
+
+
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecChildShaderProgramVariablesPtr :
+    public ChildPointerSField<
+        ShaderProgramVariables *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

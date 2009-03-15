@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShaderVariableMMatrix;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShaderVariableMMatrixPtr
-
 OSG_GEN_CONTAINERPTR(ShaderVariableMMatrix);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemShaderFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShaderVariableMMatrix *> :
     public FieldTraitsFCPtrBase<ShaderVariableMMatrix *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ShaderVariableMMatrix *, 0>::getMName<NoRefCountPolicy>
     return "MFUnrefdShaderVariableMMatrixPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShaderVariableMMatrixPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderVariableMMatrix *,
                       RecordedRefCountPolicy  > SFRecShaderVariableMMatrixPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderVariableMMatrix *,
                       UnrecordedRefCountPolicy> SFUnrecShaderVariableMMatrixPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderVariableMMatrix *,
                       WeakRefCountPolicy      > SFWeakShaderVariableMMatrixPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderVariableMMatrix *,
                       NoRefCountPolicy        > SFUncountedShaderVariableMMatrixPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderVariableMMatrix *,
                       RecordedRefCountPolicy  > MFRecShaderVariableMMatrixPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderVariableMMatrix *,
                       UnrecordedRefCountPolicy> MFUnrecShaderVariableMMatrixPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderVariableMMatrix *,
                       WeakRefCountPolicy      > MFWeakShaderVariableMMatrixPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderVariableMMatrix *,
                       NoRefCountPolicy        > MFUncountedShaderVariableMMatrixPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecShaderVariableMMatrixPtr : 
+    public PointerSField<ShaderVariableMMatrix *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecShaderVariableMMatrixPtr : 
+    public PointerSField<ShaderVariableMMatrix *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakShaderVariableMMatrixPtr :
+    public PointerSField<ShaderVariableMMatrix *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedShaderVariableMMatrixPtr :
+    public PointerSField<ShaderVariableMMatrix *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecShaderVariableMMatrixPtr :
+    public PointerMField<ShaderVariableMMatrix *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecShaderVariableMMatrixPtr :
+    public PointerMField<ShaderVariableMMatrix *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakShaderVariableMMatrixPtr :
+    public PointerMField<ShaderVariableMMatrix *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedShaderVariableMMatrixPtr :
+    public PointerMField<ShaderVariableMMatrix *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

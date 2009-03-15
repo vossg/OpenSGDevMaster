@@ -53,7 +53,10 @@ class SimpleSHLVariableChunk;
 
 /*! \brief ShaderExecutableVarChunk class. See \ref
            PageStateShaderExecutableVarChunk for a description.
-*/
+    \ingroup GrpSystemShaderChunks
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderExecutableVarChunk : 
     public ShaderExecutableVarChunkBase

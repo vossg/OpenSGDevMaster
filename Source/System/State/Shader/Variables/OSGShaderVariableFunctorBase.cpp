@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void ShaderVariableFunctorBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 ShaderVariableFunctorBase::TypeObject ShaderVariableFunctorBase::_type(
     ShaderVariableFunctorBase::getClassname(),
@@ -87,22 +96,23 @@ ShaderVariableFunctorBase::TypeObject ShaderVariableFunctorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableFunctorBase::createEmptyLocal),
     ShaderVariableFunctor::initMethod,
     ShaderVariableFunctor::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableFunctor::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderVariableFunctor\"\n"
-    "\tparent=\"ShaderProcVariable\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
+    "   name=\"ShaderVariableFunctor\"\n"
+    "   parent=\"ShaderProcVariable\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
     "</FieldContainer>\n",
     ""
     );

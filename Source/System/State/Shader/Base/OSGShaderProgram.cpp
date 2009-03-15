@@ -839,6 +839,9 @@ bool ShaderProgram::addProceduralVariable(const Char8          *name,
 #endif
 }
 
+/*! \nohierarchy
+ */
+
 struct ParamEqual
 {
     GLenum _ref;

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShaderProgramChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShaderProgramChunkPtr
-
 OSG_GEN_CONTAINERPTR(ShaderProgramChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \ingroup GrpSystemFieldTraits
+/*! \ingroup GrpSystemShaderFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShaderProgramChunk *> :
     public FieldTraitsFCPtrBase<ShaderProgramChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ShaderProgramChunk *, 0>::getMName<NoRefCountPolicy>(vo
     return "MFUnrefdShaderProgramChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShaderProgramChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderProgramChunk *,
                       RecordedRefCountPolicy  > SFRecShaderProgramChunkPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderProgramChunk *,
                       UnrecordedRefCountPolicy> SFUnrecShaderProgramChunkPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderProgramChunk *,
                       WeakRefCountPolicy      > SFWeakShaderProgramChunkPtr;
+/*! \ingroup GrpSystemShaderFieldSFields */
 typedef PointerSField<ShaderProgramChunk *,
                       NoRefCountPolicy        > SFUncountedShaderProgramChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderProgramChunk *,
                       RecordedRefCountPolicy  > MFRecShaderProgramChunkPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderProgramChunk *,
                       UnrecordedRefCountPolicy> MFUnrecShaderProgramChunkPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderProgramChunk *,
                       WeakRefCountPolicy      > MFWeakShaderProgramChunkPtr;
+/*! \ingroup GrpSystemShaderFieldMFields */
 typedef PointerMField<ShaderProgramChunk *,
                       NoRefCountPolicy        > MFUncountedShaderProgramChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecShaderProgramChunkPtr : 
+    public PointerSField<ShaderProgramChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecShaderProgramChunkPtr : 
+    public PointerSField<ShaderProgramChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakShaderProgramChunkPtr :
+    public PointerSField<ShaderProgramChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedShaderProgramChunkPtr :
+    public PointerSField<ShaderProgramChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecShaderProgramChunkPtr :
+    public PointerMField<ShaderProgramChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecShaderProgramChunkPtr :
+    public PointerMField<ShaderProgramChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakShaderProgramChunkPtr :
+    public PointerMField<ShaderProgramChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemShaderFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedShaderProgramChunkPtr :
+    public PointerMField<ShaderProgramChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

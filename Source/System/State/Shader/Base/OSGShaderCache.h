@@ -51,8 +51,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpSystemRenderingBackend
-*/
+/*! \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderCache
 {

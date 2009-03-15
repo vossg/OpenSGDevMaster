@@ -45,10 +45,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \class OSG::DrawEnv
-    \ingroup GrpSystemRenderingBackend
- */
-
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 

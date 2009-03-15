@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderVariableReal class. See \ref 
-    PageSystemShaderVariableReal for a description.
-*/
+           PageSystemShaderVariableReal for a description.
+    \ingroup GrpSystemShaderVariables
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderVariableReal : 
     public ShaderVariableRealBase

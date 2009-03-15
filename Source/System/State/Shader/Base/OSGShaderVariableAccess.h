@@ -51,9 +51,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief ShaderVariableAccess class. See \ref 
-    PageSystemShaderVariableAccess for a description.
-*/
+/*! \brief ShaderVariableAccess class. 
+    \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderVariableAccess 
 {

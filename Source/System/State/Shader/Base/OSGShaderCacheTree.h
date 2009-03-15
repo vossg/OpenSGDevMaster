@@ -51,6 +51,11 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
+
 template<class ObjectT>
 class ShaderMapCache
 {
@@ -130,6 +135,10 @@ typedef ShaderMapCache<ShaderExecutableVarChunk> ActiveShaderVarTree;
 
 
 
+/*! \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
 
 template<class ObjectT>
 class ShaderVectorCache
@@ -229,17 +238,28 @@ bool operator < (const ShaderVarVector::StoreElement    &rhs,
 
 #ifndef WIN32
 
+/*! \nohierarchy
+ */
+
 template<UInt32 Base, UInt32 Exponent>
 struct osgPow_s
 {
     static const UInt32 result = Base * osgPow_s<Base, Exponent - 1>::result;
 };
 
+/*! \nohierarchy
+ */
+
 template<UInt32 Base>
 struct osgPow_s<Base, 1>
 {
     static const UInt32 result = Base;
 };
+
+/*! \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
 
 template<class ObjectT, UInt32 LevelBits>
 class ShaderCacheTreeV0
@@ -299,6 +319,8 @@ class ShaderCacheTreeV0
 
   protected:
   
+    /*! \nohierarchy
+     */
     struct TreeNode
     {
         TreeNode(void);
@@ -351,6 +373,10 @@ typedef ShaderCacheTreeV0<ShaderExecutableVarChunk,
 #endif
 
 
+/*! \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
 
 template<typename Object1T, typename RefCountPol1, 
          typename Object2T, typename RefCountPol2>
@@ -377,6 +403,8 @@ class VariantPtr
     static const UIntPointer UIMaskChoice =  0x0001;
     static const UIntPointer UIMaskPtr    = ~0x0001;
 
+    /*! \nohierarchy
+     */
     union MemberU
     {
         UIntPointer  _uiIntVal;
@@ -392,6 +420,10 @@ class VariantPtr
     void operator =(const VariantPtr &rhs);
 };
 
+/*! \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
 
 template<class ObjectT, UInt32 LevelBits>
 class ShaderCacheTreeV1
@@ -451,6 +483,8 @@ class ShaderCacheTreeV1
 
   protected:
   
+    /*! \nohierarchy
+     */
     struct TreeNode
     {
         typedef VariantPtr<ObjectT,  UnrecordedRefCountPolicy,
@@ -505,6 +539,10 @@ typedef ShaderCacheTreeV1<ShaderExecutableVarChunk,
                           6                              > ActiveShaderVarTree;
 #endif
 
+/*! \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
 
 template<class ObjectT, UInt32 LevelBits>
 class ShaderCacheTreeV2
@@ -564,6 +602,9 @@ class ShaderCacheTreeV2
 
   protected:
   
+    /*! \nohierarchy
+     */
+
     struct TreeNode
     {
         typedef VariantPtr<ObjectT,  UnrecordedRefCountPolicy,
@@ -620,7 +661,10 @@ typedef ShaderCacheTreeV2<ShaderExecutableVarChunk,
 #endif
 
 
-
+/*! \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \nohierarchy
+ */
 
 template<class ObjectT, UInt32 LevelBits>
 class ShaderCacheTreeV3
@@ -680,6 +724,8 @@ class ShaderCacheTreeV3
 
   protected:
   
+    /*! \nohierarchy
+     */
     struct TreeNode
     {
         typedef VariantPtr<ObjectT,  UnrecordedRefCountPolicy,

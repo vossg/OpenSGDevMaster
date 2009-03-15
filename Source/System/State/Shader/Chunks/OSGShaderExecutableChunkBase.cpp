@@ -280,23 +280,23 @@ ShaderExecutableChunkBase::TypeObject ShaderExecutableChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderExecutableChunkBase::createEmptyLocal),
     ShaderExecutableChunk::initMethod,
     ShaderExecutableChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderExecutableChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderExecutableChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderExecutableChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    " \n"
+    "   name=\"ShaderExecutableChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
     "  <Field\n"
     "\t name=\"vertexShader\"\n"
     "\t type=\"ShaderProgram\"\n"

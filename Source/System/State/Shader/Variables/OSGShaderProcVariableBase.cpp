@@ -114,25 +114,26 @@ ShaderProcVariableBase::TypeObject ShaderProcVariableBase::_type(
     NULL,
     ShaderProcVariable::initMethod,
     ShaderProcVariable::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderProcVariableBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderProcVariable::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderProcVariable\"\n"
-    "\tparent=\"ShaderVariable\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    "    childfieldparent=\"FieldContainer\"\n"
-    "    parentfieldcard=\"multi\"\n"
-    "    childFields=\"multi\"\n"
-    ">\n"
+    "   name=\"ShaderProcVariable\"\n"
+    "   parent=\"ShaderVariable\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"abstract\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   childfieldparent=\"FieldContainer\"\n"
+    "   parentfieldcard=\"multi\"\n"
+    "   childFields=\"multi\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
     "  <Field\n"
     "\t name=\"dependency\"\n"
     "\t type=\"UInt32\"\n"

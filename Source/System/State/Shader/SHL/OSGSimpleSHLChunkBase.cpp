@@ -243,22 +243,23 @@ SimpleSHLChunkBase::TypeObject SimpleSHLChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleSHLChunkBase::createEmptyLocal),
     SimpleSHLChunk::initMethod,
     SimpleSHLChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleSHLChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleSHLChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"SimpleSHLChunk\"\n"
-    "\tparent=\"ShaderProgramChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
+    "   name=\"SimpleSHLChunk\"\n"
+    "   parent=\"ShaderProgramChunk\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
     "  <Field\n"
     "\t name=\"vertexProgram\"\n"
     "\t type=\"std::string\"\n"

@@ -56,6 +56,9 @@ class Window;
 
 /*! \brief SimpleSHLChunk class. See \ref
            PageStateSimpleSHLChunk for a description.
+    \ingroup GrpSystemShaderSHLChunk
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase

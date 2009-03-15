@@ -131,21 +131,22 @@ SimpleSHLVariableChunkBase::TypeObject SimpleSHLVariableChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleSHLVariableChunkBase::createEmptyLocal),
     SimpleSHLVariableChunk::initMethod,
     SimpleSHLVariableChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleSHLVariableChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleSHLVariableChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"SimpleSHLVariableChunk\"\n"
-    "\tparent=\"StateChunk\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
+    "   name=\"SimpleSHLVariableChunk\"\n"
+    "   parent=\"StateChunk\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
     ">\n"
     "<!--  <Field\n"
     "\t name=\"SHLChunk\"\n"

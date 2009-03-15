@@ -47,7 +47,10 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderVariableString class. See \ref 
-    PageSystemShaderVariableString for a description.
+           PageSystemShaderVariableString for a description.
+    \ingroup GrpSystemShaderVariables
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING ShaderVariableString : 

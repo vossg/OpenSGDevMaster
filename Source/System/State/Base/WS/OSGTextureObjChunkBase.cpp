@@ -147,7 +147,8 @@ OSG_BEGIN_NAMESPACE
 /*! \var UInt32          TextureObjChunkBase::_sfFrame
     Select the frame of the image to be used. See OSG::Image about details
     concerning multi-frame images.
-    @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.
+    \hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap
+    creation is slow right now \endhint.
 */
 
 /*! \var GLenum          TextureObjChunkBase::_sfMinFilter
@@ -313,7 +314,8 @@ void TextureObjChunkBase::classDescInserter(TypeObject &oType)
         "frame",
         "Select the frame of the image to be used. See OSG::Image about details\n"
         "concerning multi-frame images.\n"
-        "@hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n",
+        "\\hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap\n"
+        "creation is slow right now \\endhint.\n",
         FrameFieldId, FrameFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -707,7 +709,8 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t>\n"
     "        Select the frame of the image to be used. See OSG::Image about details\n"
     "        concerning multi-frame images.\n"
-    "        @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n"
+    "        \\hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap\n"
+    "\t\tcreation is slow right now \\endhint.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"minFilter\"\n"

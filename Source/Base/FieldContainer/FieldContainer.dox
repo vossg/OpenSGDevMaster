@@ -2,58 +2,6 @@
 
 using namespace OSG;
 
-/*! \defgroup GrpBaseFieldContainer Field Container
-    \ingroup GrpBase
- */
-
-/*! \defgroup GrpBaseFieldContainerBase Field Container Base
-    \ingroup GrpBaseFieldContainer
- */
-
-/*! \defgroup GrpBaseFieldContainerFields Field Container Fields
-    \ingroup GrpBaseFieldContainer
- */
-
-/*! \defgroup GrpBaseFieldContainerFieldTraits Field Container Field Traits
-    \ingroup GrpBaseFieldContainerFields
- */
-
-/*! \defgroup GrpBaseFieldContainerFieldSFields Field Container Single-Fields
-    \ingroup GrpBaseFieldContainerFields
- */
-/*! \defgroup GrpBaseFieldContainerFieldMFields Field Container Multi-Fields
-    \ingroup GrpBaseFieldContainerFields
- */
-
-/*! \defgroup GrpBaseFieldContainerConnector Field Container Connector
-    \ingroup GrpBaseFieldContainer
- */
-
-/*! \defgroup GrpBaseFieldContainerNodes Field Container Node Base
-    \ingroup GrpBaseFieldContainer
- */
-
-/*! \defgroup GrpBaseFieldContainerMixins Field Container Mixins
-    \ingroup GrpBaseFieldContainer
- */
-
-/*! \defgroup GrpBaseFieldContainerHandle Field Container Field Handle
-    \ingroup GrpBaseFieldContainer
- */
-
-/*! \defgroup GrpBaseFieldContainerHelper Field Container Helper
-    \ingroup GrpBaseFieldContainer
- */
-
-/*! \defgroup GrpBaseFieldContainerFuncs Container Functions
-    \ingroup GrpBaseFieldContainer
- */
-
-#if 0
-/*! \defgroup GrpSystemMultithreading Multithreading
-    \ingroup GrpSystem
- */
-#endif
 
 /*! \page PageBaseFieldsNFieldContainers Fields & Field Containers
 

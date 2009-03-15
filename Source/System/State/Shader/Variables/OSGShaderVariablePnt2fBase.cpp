@@ -114,31 +114,32 @@ ShaderVariablePnt2fBase::TypeObject ShaderVariablePnt2fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariablePnt2fBase::createEmptyLocal),
     ShaderVariablePnt2f::initMethod,
     ShaderVariablePnt2f::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariablePnt2fBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariablePnt2f::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderVariablePnt2f\"\n"
-    "\tparent=\"ShaderValueVariable\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"value\"\n"
-    "\t\ttype=\"Pnt2f\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "   name=\"ShaderVariablePnt2f\"\n"
+    "   parent=\"ShaderValueVariable\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
+    "  <Field\n"
+    "\t name=\"value\"\n"
+    "\t type=\"Pnt2f\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tvariable value\n"
-    "\t</Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );

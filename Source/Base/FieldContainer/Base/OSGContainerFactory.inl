@@ -151,7 +151,7 @@ void ContainerFactory<DescT>::registerType(ContainerType *pType)
 /*! Register a new group name with the factory.
 * \param szGroupName  The new group name to register.
 * \return Returns id of the (new) group.
-* \postcond If already registered, just returns the id without updating the map.
+* \post If already registered, just returns the id without updating the map.
 */
 template <class DescT> inline
 UInt16 ContainerFactory<DescT>::registerGroup(const Char8 *szGroupName)

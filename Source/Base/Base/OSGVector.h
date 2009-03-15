@@ -127,7 +127,7 @@ class VecStorage1
 //---------------------------------------------------------------------------
 
 /*! Vector storage holding 2 elements, for details about how vectors,
-    points and matrices are actually build see \guide(BaseMath).
+    points and matrices are actually build see \guide{BaseMath}.
     \ingroup GrpBaseBaseMathObj
     \ingroup GrpLibOSGBase
     \nohierarchy
@@ -194,7 +194,7 @@ class VecStorage2
 //---------------------------------------------------------------------------
 
 /*! Vector storage holding 3 elements, for details about how vectors,
-    points and matrices are actually build see \guide(BaseMath).
+    points and matrices are actually build see \guide{BaseMath}.
     \ingroup GrpBaseBaseMathObj
     \ingroup GrpLibOSGBase
     \nohierarchy
@@ -264,7 +264,7 @@ class VecStorage3
 //---------------------------------------------------------------------------
 
 /*! Vector storage holding 4 elements, for details about how vectors,
-    points and matrices are actually build see \guide(BaseMath).
+    points and matrices are actually build see \guide{BaseMath}.
     \ingroup GrpBaseBaseMathObj
     \ingroup GrpLibOSGBase
     \nohierarchy
@@ -362,7 +362,7 @@ struct SelectVecStorage<ValueTypeT, 4> : public VecStorage4<ValueTypeT>
 //---------------------------------------------------------------------------
 
 /*! Point Interface, for details about how vectors, points and matrices
-    are actually build see \guide(BaseMath).
+    are actually build see \guide{BaseMath}.
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMathObj
     \ingroup GrpLibOSGBase
@@ -572,7 +572,7 @@ OSG_BASE_DLLMAPPING std::istream &operator >>(std::istream             &is,
 //---------------------------------------------------------------------------
 
 /*! Vector Interface, for details about how vectors, points and matrices
-    are actually build see \guide(BaseMath).
+    are actually build see \guide{BaseMath}.
     \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMathObj
     \ingroup GrpLibOSGBase

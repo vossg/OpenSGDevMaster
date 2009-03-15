@@ -49,6 +49,9 @@ OSG_BEGIN_NAMESPACE
 
 typedef std::pair<GLenum, UInt32> ShaderParameter;
 
+/*! \ingroup GrpSystemShaderFieldTraits
+    \ingroup GrpLibOSGSystem
+ */
 template <>
 struct FieldTraits<ShaderParameter> : 
     public FieldTraitsTemplateBase<ShaderParameter>

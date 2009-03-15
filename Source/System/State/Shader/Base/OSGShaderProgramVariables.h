@@ -54,7 +54,10 @@ class ShaderVariableAccess;
 
 /*! \brief ShaderProgramVariables class. See \ref
            PageSystemShaderProgramVariables for a description.
-*/
+    \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderProgramVariables : 
     public ShaderProgramVariablesBase

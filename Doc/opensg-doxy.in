@@ -187,7 +187,14 @@ TAB_SIZE               = 4
 # will result in a user-defined paragraph with heading "Side Effects:". 
 # You can put \n's in the value part of an alias to insert newlines.
 
-ALIASES                = 
+ALIASES                = "hint=<em>Hint! "             \
+                         endhint=</em>                 \
+                         "dev=\if dev\n<em>Dev:</em> " \
+                         enddev=\n\endif               \
+                         "ext=\if ext\n<b>Ext:</b> "   \
+                         endext=\n\endif
+ALIASES               += "guide{1}= "
+                     
 
 # Set the OPTIMIZE_OUTPUT_FOR_C tag to YES if your project consists of C 
 # sources only. Doxygen will then generate output that is more tailored for C. 
@@ -488,8 +495,7 @@ INPUT_ENCODING         = UTF-8
 # *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh *.hxx 
 # *.hpp *.h++ *.idl *.odl *.cs *.php *.php3 *.inc *.m *.mm *.py
 
-FILE_PATTERNS          = *.dox    \
-                         OSG*.cpp \
+FILE_PATTERNS          = OSG*.cpp \
                          OSG*.h   \
                          OSG*.inl \
                          OSG*.ins
@@ -1180,7 +1186,7 @@ CLASS_GRAPH            = YES
 # indirect implementation dependencies (inheritance, containment, and 
 # class references variables) of the class with other documented classes.
 
-COLLABORATION_GRAPH    = YES
+COLLABORATION_GRAPH    = NO
 
 # If the GROUP_GRAPHS and HAVE_DOT tags are set to YES then doxygen 
 # will generate a graph for groups, showing the direct groups dependencies
@@ -1300,4 +1306,17 @@ DOT_CLEANUP            = YES
 # used. If set to NO the values of all tags below this one will be ignored.
 
 SEARCHENGINE           = ${OSG_DOXY_SEARCHENGINE}
+
+INPUT += ${CMAKE_SOURCE_DIR}/Doc/mainpage.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Base/Base.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Base/BaseGroups.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Network/Socket.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/Field/Field.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/Base/FieldContainer/FieldContainer.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/System.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/SystemGroups.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Statistics/Statistics.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/State.dox 
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/Window/Base/OGLExt.dox
+INPUT += ${CMAKE_SOURCE_DIR}/Source/System/State/Shader/Shader.dox
 

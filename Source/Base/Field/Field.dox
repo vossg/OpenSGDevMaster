@@ -2,37 +2,6 @@
 
 using namespace OSG;
 
-/*! \defgroup GrpBaseField Fields
-    \ingroup GrpBase
-    
-    See \ref PageBaseField for details.
-*/
-
-#if (OSG_DOC_LEVEL >= 3)
-/*! \defgroup GrpBaseFieldTraits Field Traits
-    \ingroup GrpBaseField
-
-    ToDo
-*/
-#endif
-
-/*! \defgroup GrpBaseFieldSingle Single-Element Fields
-    \ingroup GrpBaseField
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseFieldMulti Multi-Element Fields
-    \ingroup GrpBaseField
-
-    ToDo
-*/
-
-/*! \defgroup GrpBaseFieldHelper Field Helper
-    \ingroup GrpBaseField
-
-    ToDo
-*/
 
 /*! \page PageBaseField Fields
 

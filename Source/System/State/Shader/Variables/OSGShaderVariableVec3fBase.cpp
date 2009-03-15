@@ -114,31 +114,32 @@ ShaderVariableVec3fBase::TypeObject ShaderVariableVec3fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderVariableVec3fBase::createEmptyLocal),
     ShaderVariableVec3f::initMethod,
     ShaderVariableVec3f::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableVec3fBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderVariableVec3f::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"ShaderVariableVec3f\"\n"
-    "\tparent=\"ShaderValueVariable\"\n"
-    "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"value\"\n"
-    "\t\ttype=\"Vec3f\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
+    "   name=\"ShaderVariableVec3f\"\n"
+    "   parent=\"ShaderValueVariable\"\n"
+    "   library=\"System\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
+    "   >\n"
+    "  <Field\n"
+    "\t name=\"value\"\n"
+    "\t type=\"Vec3f\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "\t >\n"
     "\tparameter value\n"
-    "\t</Field>\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );

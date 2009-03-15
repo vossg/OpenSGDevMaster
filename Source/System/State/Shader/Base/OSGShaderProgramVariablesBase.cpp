@@ -148,7 +148,7 @@ ShaderProgramVariablesBase::TypeObject ShaderProgramVariablesBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramVariablesBase::createEmptyLocal),
     ShaderProgramVariables::initMethod,
     ShaderProgramVariables::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramVariablesBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramVariables::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -166,6 +166,7 @@ ShaderProgramVariablesBase::TypeObject ShaderProgramVariablesBase::_type(
     "   childfieldparent=\"FieldContainer\"\n"
     "   parentfieldcard=\"multi\"\n"
     "   childFields=\"single\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
     "   >\n"
     "\n"
     "  <Field\n"

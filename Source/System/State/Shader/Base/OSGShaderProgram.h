@@ -53,7 +53,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderProgram class. See \ref
            PageSystemShaderProgram for a description.
-*/
+    \ingroup GrpSystemShaderBase
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderProgram : public ShaderProgramBase
 {

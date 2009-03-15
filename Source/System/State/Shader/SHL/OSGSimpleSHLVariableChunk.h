@@ -51,6 +51,9 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief SimpleSHLVariableChunk class. See \ref
            PageStateSimpleSHLVariableChunk for a description.
+    \ingroup GrpSystemShaderSHLChunk
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
 */
 
 class OSG_SYSTEM_DLLMAPPING SimpleSHLVariableChunk : 

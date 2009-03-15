@@ -54,7 +54,10 @@ class SimpleSHLChunk;
 
 /*! \brief ShaderExecutableChunk class. See \ref
            PageSystemShaderExecutableChunk for a description.
-*/
+    \ingroup GrpSystemShaderChunks
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderExecutableChunk : 
     public ShaderExecutableChunkBase

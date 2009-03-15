@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderVariableBool class. See \ref 
-  PageSystemShaderVariableBool for a description.
-*/
+           PageSystemShaderVariableBool for a description.
+    \ingroup GrpSystemShaderVariables
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderVariableBool : 
     public ShaderVariableBoolBase

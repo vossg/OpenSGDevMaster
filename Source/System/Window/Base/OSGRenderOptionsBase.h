@@ -93,6 +93,8 @@
 #include "OSGVec2fFields.h" // FogRange type
 #include "OSGReal32Fields.h" // FogDensity type
 #include "OSGInt32Fields.h" // FogMode type
+#include "OSGUInt32Fields.h" // MultiSample type
+#include "OSGUInt32Fields.h" // MultiSampleFilterMode type
 
 #include "OSGRenderOptionsFields.h"
 
@@ -148,7 +150,9 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
         FogRangeFieldId = FogColorFieldId + 1,
         FogDensityFieldId = FogRangeFieldId + 1,
         FogModeFieldId = FogDensityFieldId + 1,
-        NextFieldId = FogModeFieldId + 1
+        MultiSampleFieldId = FogModeFieldId + 1,
+        MultiSampleFilterModeFieldId = MultiSampleFieldId + 1,
+        NextFieldId = MultiSampleFilterModeFieldId + 1
     };
 
     static const OSG::BitVector RenderPropertiesFieldMask =
@@ -207,6 +211,10 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
         (TypeTraits<BitVector>::One << FogDensityFieldId);
     static const OSG::BitVector FogModeFieldMask =
         (TypeTraits<BitVector>::One << FogModeFieldId);
+    static const OSG::BitVector MultiSampleFieldMask =
+        (TypeTraits<BitVector>::One << MultiSampleFieldId);
+    static const OSG::BitVector MultiSampleFilterModeFieldMask =
+        (TypeTraits<BitVector>::One << MultiSampleFilterModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -238,6 +246,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     typedef SFVec2f           SFFogRangeType;
     typedef SFReal32          SFFogDensityType;
     typedef SFInt32           SFFogModeType;
+    typedef SFUInt32          SFMultiSampleType;
+    typedef SFUInt32          SFMultiSampleFilterModeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -347,6 +357,12 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
                   SFInt32             *editSFFogMode        (void);
             const SFInt32             *getSFFogMode         (void) const;
 
+                  SFUInt32            *editSFMultiSample    (void);
+            const SFUInt32            *getSFMultiSample     (void) const;
+
+                  SFUInt32            *editSFMultiSampleFilterMode(void);
+            const SFUInt32            *getSFMultiSampleFilterMode (void) const;
+
 
                   MaterialMapKey      &editRenderProperties(void);
             const MaterialMapKey      &getRenderProperties (void) const;
@@ -432,6 +448,12 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
                   Int32               &editFogMode        (void);
                   Int32                getFogMode         (void) const;
 
+                  UInt32              &editMultiSample    (void);
+                  UInt32               getMultiSample     (void) const;
+
+                  UInt32              &editMultiSampleFilterMode(void);
+                  UInt32               getMultiSampleFilterMode (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -465,6 +487,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
             void setFogRange       (const Vec2f &value);
             void setFogDensity     (const Real32 value);
             void setFogMode        (const Int32 value);
+            void setMultiSample    (const UInt32 value);
+            void setMultiSampleFilterMode(const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -552,6 +576,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     SFVec2f           _sfFogRange;
     SFReal32          _sfFogDensity;
     SFInt32           _sfFogMode;
+    SFUInt32          _sfMultiSample;
+    SFUInt32          _sfMultiSampleFilterMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -635,6 +661,10 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     EditFieldHandlePtr editHandleFogDensity     (void);
     GetFieldHandlePtr  getHandleFogMode         (void) const;
     EditFieldHandlePtr editHandleFogMode        (void);
+    GetFieldHandlePtr  getHandleMultiSample     (void) const;
+    EditFieldHandlePtr editHandleMultiSample    (void);
+    GetFieldHandlePtr  getHandleMultiSampleFilterMode (void) const;
+    EditFieldHandlePtr editHandleMultiSampleFilterMode(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

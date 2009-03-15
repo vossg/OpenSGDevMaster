@@ -195,6 +195,14 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          RenderOptionsBase::_sfMultiSample
+    number of multi-sample-buffer used for FSAA
+*/
+
+/*! \var UInt32          RenderOptionsBase::_sfMultiSampleFilterMode
+    defindes the filter-method for multi-sample buffer, must be GL_FALSE/0 (off), GL_DONT_CARE, GL_FASTEST or GL_NICEST
+*/
+
 
 void RenderOptionsBase::classDescInserter(TypeObject &oType)
 {
@@ -536,6 +544,30 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&RenderOptions::getHandleFogMode));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "multiSample",
+        "number of multi-sample-buffer used for FSAA\n",
+        MultiSampleFieldId, MultiSampleFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleMultiSample),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleMultiSample));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "multiSampleFilterMode",
+        "defindes the filter-method for multi-sample buffer, must be GL_FALSE/0 (off), GL_DONT_CARE, GL_FASTEST or GL_NICEST\n",
+        MultiSampleFilterModeFieldId, MultiSampleFilterModeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleMultiSampleFilterMode),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleMultiSampleFilterMode));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -547,7 +579,7 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RenderOptionsBase::createEmptyLocal),
     RenderOptions::initMethod,
     RenderOptions::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&RenderOptionsBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&RenderOptions::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -815,6 +847,26 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\t\tdefaultValue=\"0\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"multiSample\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"1\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tnumber of multi-sample-buffer used for FSAA\n"
+    "\t</Field>\n"
+    "\t<Field\n"
+    "\t\tname=\"multiSampleFilterMode\"\n"
+    "\t\ttype=\"UInt32\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"0\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\tdefindes the filter-method for multi-sample buffer, must be GL_FALSE/0 (off), GL_DONT_CARE, GL_FASTEST or GL_NICEST\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     ""
@@ -1204,6 +1256,32 @@ const SFInt32 *RenderOptionsBase::getSFFogMode(void) const
 }
 
 
+SFUInt32 *RenderOptionsBase::editSFMultiSample(void)
+{
+    editSField(MultiSampleFieldMask);
+
+    return &_sfMultiSample;
+}
+
+const SFUInt32 *RenderOptionsBase::getSFMultiSample(void) const
+{
+    return &_sfMultiSample;
+}
+
+
+SFUInt32 *RenderOptionsBase::editSFMultiSampleFilterMode(void)
+{
+    editSField(MultiSampleFilterModeFieldMask);
+
+    return &_sfMultiSampleFilterMode;
+}
+
+const SFUInt32 *RenderOptionsBase::getSFMultiSampleFilterMode(void) const
+{
+    return &_sfMultiSampleFilterMode;
+}
+
+
 
 
 
@@ -1326,6 +1404,14 @@ UInt32 RenderOptionsBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfFogMode.getBinSize();
     }
+    if(FieldBits::NoField != (MultiSampleFieldMask & whichField))
+    {
+        returnValue += _sfMultiSample.getBinSize();
+    }
+    if(FieldBits::NoField != (MultiSampleFilterModeFieldMask & whichField))
+    {
+        returnValue += _sfMultiSampleFilterMode.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1447,6 +1533,14 @@ void RenderOptionsBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfFogMode.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (MultiSampleFieldMask & whichField))
+    {
+        _sfMultiSample.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (MultiSampleFilterModeFieldMask & whichField))
+    {
+        _sfMultiSampleFilterMode.copyToBin(pMem);
+    }
 }
 
 void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
@@ -1565,6 +1659,14 @@ void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (FogModeFieldMask & whichField))
     {
         _sfFogMode.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MultiSampleFieldMask & whichField))
+    {
+        _sfMultiSample.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (MultiSampleFilterModeFieldMask & whichField))
+    {
+        _sfMultiSampleFilterMode.copyFromBin(pMem);
     }
 }
 
@@ -1718,7 +1820,9 @@ RenderOptionsBase::RenderOptionsBase(void) :
     _sfFogColor               (Color4f(0,0,0,0)),
     _sfFogRange               (Vec2f(0,1)),
     _sfFogDensity             (Real32(1)),
-    _sfFogMode                (Int32(0))
+    _sfFogMode                (Int32(0)),
+    _sfMultiSample            (UInt32(1)),
+    _sfMultiSampleFilterMode  (UInt32(0))
 {
 }
 
@@ -1751,7 +1855,9 @@ RenderOptionsBase::RenderOptionsBase(const RenderOptionsBase &source) :
     _sfFogColor               (source._sfFogColor               ),
     _sfFogRange               (source._sfFogRange               ),
     _sfFogDensity             (source._sfFogDensity             ),
-    _sfFogMode                (source._sfFogMode                )
+    _sfFogMode                (source._sfFogMode                ),
+    _sfMultiSample            (source._sfMultiSample            ),
+    _sfMultiSampleFilterMode  (source._sfMultiSampleFilterMode  )
 {
 }
 
@@ -2403,6 +2509,52 @@ EditFieldHandlePtr RenderOptionsBase::editHandleFogMode        (void)
 
 
     editSField(FogModeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderOptionsBase::getHandleMultiSample     (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfMultiSample,
+             this->getType().getFieldDesc(MultiSampleFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleMultiSample    (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfMultiSample,
+             this->getType().getFieldDesc(MultiSampleFieldId)));
+
+
+    editSField(MultiSampleFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderOptionsBase::getHandleMultiSampleFilterMode (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfMultiSampleFilterMode,
+             this->getType().getFieldDesc(MultiSampleFilterModeFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleMultiSampleFilterMode(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfMultiSampleFilterMode,
+             this->getType().getFieldDesc(MultiSampleFilterModeFieldId)));
+
+
+    editSField(MultiSampleFilterModeFieldMask);
 
     return returnValue;
 }

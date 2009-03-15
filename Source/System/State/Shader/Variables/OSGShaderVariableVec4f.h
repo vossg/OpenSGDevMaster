@@ -47,8 +47,11 @@
 OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderVariableVec4f class. See \ref 
-    PageSystemShaderVariableVec4f for a description.
-*/
+           PageSystemShaderVariableVec4f for a description.
+    \ingroup GrpSystemShaderVariables
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderVariableVec4f : 
     public ShaderVariableVec4fBase

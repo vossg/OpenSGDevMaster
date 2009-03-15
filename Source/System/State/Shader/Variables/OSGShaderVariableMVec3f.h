@@ -48,7 +48,10 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief ShaderVariableMVec3f class. See \ref 
            PageSystemShaderVariableMVec3f for a description.
-*/
+    \ingroup GrpSystemShaderVariables
+    \ingroup GrpLibOSGSystem
+    \includebasedoc
+ */
 
 class OSG_SYSTEM_DLLMAPPING ShaderVariableMVec3f : 
     public ShaderVariableMVec3fBase

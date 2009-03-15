@@ -1,37 +1,37 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-	name="ShaderVariable"
-	parent="FieldContainer"
-	library="System"
-	pointerfieldtypes="both"
-	structure="abstract"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-	decoratable="false"
-	useLocalIncludes="false"
-    childfieldparent="FieldContainer"
-    parentfieldcard="multi"
-    childFields="multi"
->
-	<Field
-		name="name"
-		type="std::string"
-		cardinality="single"
-		visibility="external"
-		access="protected"
-	>
+   name="ShaderVariable"
+   parent="FieldContainer"
+   library="System"
+   pointerfieldtypes="both"
+   structure="abstract"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   childfieldparent="FieldContainer"
+   parentfieldcard="multi"
+   childFields="multi"
+   docGroupBase="GrpSystemShader"
+   >
+  <Field
+	 name="name"
+	 type="std::string"
+	 cardinality="single"
+	 visibility="external"
+	 access="protected"
+	 >
 	parameter name
-	</Field>
-
-	<Field
-		name="parents"
-		type="FieldContainer"
-		cardinality="multi"
-		visibility="internal"
-		access="none"
-        category="parentpointer"
-	>
-	</Field> 
-
+  </Field>
+  
+  <Field
+	 name="parents"
+	 type="FieldContainer"
+	 cardinality="multi"
+	 visibility="internal"
+	 access="none"
+     category="parentpointer"
+	 >
+  </Field> 
 </FieldContainer>

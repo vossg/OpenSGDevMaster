@@ -1,0 +1,45 @@
+#include <OSGConfig.h>
+
+using namespace OSG;
+
+/*! \page PageSystemShader Shader
+
+
+    \section PageStateSimpleSHLVariableChunk SimpleSHLVariableChunk
+    \section PageStateSimpleSHLChunk SimpleSHLChunk
+
+
+    \section PageSystemShaderExecutableChunk ShaderExecutableChunk
+    \section PageStateShaderExecutableVarChunk ShaderExecutableVarChunk
+
+
+    \section PageSystemShaderProgramChunk ShaderProgramChunk
+    \section PageStateShaderProgramVariableChunk ShaderProgramVariableChunk
+
+
+    \section PageSystemShaderProgram ShaderProgram
+    \section PageSystemShaderProgramVariables ShaderProgramVariables
+    \section PageSystemShaderParameter ShaderParameter
+
+
+    \section PageSystemShaderVariableFunctor ShaderVariableFunctor
+    \section PageSystemShaderVariableOSG ShaderVariableOSG
+
+
+    \section PageSystemShaderVariableMVec2f ShaderVariableMVec2f
+    \section PageSystemShaderVariableMVec3f ShaderVariableMVec3f
+    \section PageSystemShaderVariableMVec4f ShaderVariableMVec4f
+    \section PageSystemShaderVariablePnt2f ShaderVariablePnt2f
+    \section PageSystemShaderVariablePnt3f ShaderVariablePnt3f
+    \section PageSystemShaderVariableReal ShaderVariableReal
+    \section PageSystemShaderVariableString ShaderVariableString
+    \section PageSystemShaderVariableVec2f ShaderVariableVec2f
+    \section PageSystemShaderVariableVec3f ShaderVariableVec3f
+    \section PageSystemShaderVariableVec4f ShaderVariableVec4f
+    \section PageSystemShaderVariableBool ShaderVariableBool
+    \section PageSystemShaderVariableInt ShaderVariableInt
+    \section PageSystemShaderVariableMatrix ShaderVariableMatrix
+    \section PageSystemShaderVariableMInt ShaderVariableMInt
+    \section PageSystemShaderVariableMMatrix ShaderVariableMMatrix
+    \section PageSystemShaderVariableMReal ShaderVariableMReal
+ */

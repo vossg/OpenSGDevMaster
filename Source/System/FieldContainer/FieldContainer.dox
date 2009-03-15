@@ -2,21 +2,6 @@
 
 using namespace OSG;
 
-/*! \defgroup GrpSystemFieldContainer Field Container
-    \ingroup GrpSystem
- */
-
-#if 0
-
-/*! \defgroup GrpSystemFieldContainerFuncs Field Container Functions
-    \ingroup GrpSystem
- */
-
-/*! \defgroup GrpSystemMultithreading Multithreading
-    \ingroup GrpSystem
- */
-#endif
-
 /*! \page PageSystemFieldsNFieldContainers Fields & Field Containers
 
  */

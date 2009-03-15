@@ -246,7 +246,7 @@ ShaderProgramBase::TypeObject ShaderProgramBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramBase::createEmptyLocal),
     ShaderProgram::initMethod,
     ShaderProgram::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgram::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -261,6 +261,7 @@ ShaderProgramBase::TypeObject ShaderProgramBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
+    "   docGroupBase=\"GrpSystemShader\"\n"
     "   >\n"
     "\n"
     "  <Field\n"
