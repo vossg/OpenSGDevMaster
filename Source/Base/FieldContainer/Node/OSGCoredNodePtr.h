@@ -156,7 +156,7 @@ class CoredNodeMTRefPtr
     typedef CoredNodeMTRefPtr             Self;
     
     typedef          Core                *CorePtr;
-    typedef typename Core::ObjMTRefPtr    CoreMTRefPtr;
+    typedef typename Core::ObjMTRecPtr    CoreMTRefPtr;
     typedef typename Core::ObjTransitPtr  CoreTransitPtr;
     
     /*! \}                                                                 */
