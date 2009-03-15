@@ -54,8 +54,10 @@ OSG_BEGIN_NAMESPACE
 
 class MaterialDrawable;
 class DrawEnv;
-class VariantMaterial;
 class PrimeMaterial;
+
+template <class Desc>
+class MapCacheHandlerMixin;
 
 /*! \brief Abstract Material base class. See \ref PageSystemMaterial for a
     description.
@@ -168,7 +170,9 @@ class OSG_SYSTEM_DLLMAPPING Material : public MaterialBase
 
     friend class FieldContainer;
     friend class MaterialBase;
-    friend class VariantMaterial;
+
+    template <class Desc>
+    friend class MapCacheHandlerMixin;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const Material &source);

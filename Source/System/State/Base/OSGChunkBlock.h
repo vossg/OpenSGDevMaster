@@ -47,7 +47,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-class ChunkOverrideGroup;
+template <class Desc>
+class MapCacheHandlerMixin;
 
 /*! \brief ChunkBlock class. See \ref
            PageSystemChunkBlock for a description.
@@ -163,7 +164,9 @@ class OSG_SYSTEM_DLLMAPPING ChunkBlock : public ChunkBlockBase
 
     friend class FieldContainer;
     friend class ChunkBlockBase;
-    friend class ChunkOverrideGroup;
+
+    template <class Desc>
+    friend class MapCacheHandlerMixin;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const ChunkBlock &source);

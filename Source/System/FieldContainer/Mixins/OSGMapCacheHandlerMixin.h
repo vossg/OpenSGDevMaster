@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,141 +36,160 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCHUNKOVERRIDEGROUP_H_
-#define _OSGCHUNKOVERRIDEGROUP_H_
+#ifndef _OSGMAPCACHEHANDLERMIXIN_H_
+#define _OSGMAPCACHEHANDLERMIXIN_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGChunkOverrideGroupBase.h"
-#include "OSGChunkBlockFields.h"
-#include "OSGChunkBlockMapFields.h"
-#include "OSGMapCacheHandlerMixin.h"
+#include "OSGBaseTypes.h"
+
+#include <boost/bind.hpp>
 
 OSG_BEGIN_NAMESPACE
 
-class ChunkOverrideGroup;
+class PrimeMaterial;
 
-struct ChunkOverrideMapCache
+/*! Mixin for creating Stages.
+  \ingroup baselib
+  \param ParentT  The type to derive from for mixing.
+ */
+
+template <class Desc>
+class MapCacheHandlerMixin  : public Desc::ParentT
 {
-    typedef ChunkOverrideGroupBase                  ParentT;
-    typedef ChunkOverrideGroup                      FinalContainer;
+    /*==========================  PRIVATE  ================================*/
 
-    typedef SFChunkBlockPtrMap                      MapCacheField;
-    typedef MapCacheField::StoredType               MapCache;
-    typedef SFChunkBlockPtrMap::EditHandle::KeyPool MapKeyPool;
+  private:
 
-    typedef MapCache::mapped_type                   MapCacheElement;
-    typedef MapCache::key_type                      MapCacheKey;
-
-    typedef ChunkBlock                              FinalizedElement;
-
-    static void setFallback(ParentT *pContainer, MapCacheElement pElem)
-    {
-        pContainer->setFallbackChunkBlock(pElem);
-    }
-                     
-    static MapCacheElement getFallback(ParentT *pContainer)
-    {
-        return pContainer->getFallbackChunkBlock();
-    }
-
-    static const Char8 *getFieldName(void)
-    {
-        return "chunkBlockStore";
-    }
-};
-
-/*! \brief ChunkOverrideGroup class. See \ref
-           PageSystemChunkOverrideGroup for a description.
-*/
-
-class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup : 
-    public MapCacheHandlerMixin<ChunkOverrideMapCache>
-{
-  protected:
+    typedef typename Desc::ParentT Inherited;
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef MapCacheHandlerMixin<ChunkOverrideMapCache> Inherited;
-    typedef ChunkOverrideGroup                          Self;
+    typedef          MapCacheHandlerMixin<Desc>    Self;
+
+    typedef typename Inherited::TypeObject         TypeObject;
+
+    typedef typename Desc::FinalContainer          FinalContainer;
+
+    typedef typename Desc::MapCacheField           MapCacheField;
+    typedef typename Desc::MapCache                MapCache;
+
+    typedef typename Desc::MapCacheElement         MapCacheElement;
+    typedef typename Desc::MapCacheKey             MapCacheKey;
+
+    typedef typename Desc::MapKeyPool              MapKeyPool;
+
+    typedef typename MapCache::iterator            MapCacheFieldIt;
+    typedef typename MapCache::const_iterator      MapCacheFieldConstIt;
+
+    typedef typename Desc::FinalizedElement        FinalizedElement;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name                      dcast                                   */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin,
-                         BitVector         details    );
+    OSG_RC_FIRST_FIELD_DECL(MapCache);
+    OSG_RC_LAST_FIELD_DECL (MapCache);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name        General Fieldcontainer Declaration                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Helper                                    */
+    /*! \{                                                                 */
+
+    void changed(ConstFieldMaskArg whichField, 
+                 UInt32            origin,
+                 BitVector         details);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    void             addChunkBlock(ChunkBlock       * const pChunkBlock,
-                                   ChunkBlockMapKey         key    = 0);
-
-    void             subChunkBlock(ChunkBlockMapKey         key    = 0);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    ChunkBlock *findChunkBlock(ChunkBlockMapKey key) const;
+    virtual FinalizedElement *finalize(MapCacheKey oKey);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
     /*! \{                                                                 */
 
-    const SFChunkBlockPtrMap *getSFChunkBlockStore(void) const;
+    const MapCacheField *getMapCacheField(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Rendering                                  */
+    /*! \name                 Container Access                             */
+    /*! \{                                                                 */
+
+    void addElement(MapCacheElement const pElement,
+                    MapCacheKey           key    = 0);
+
+    void subElement(MapCacheKey           key    = 0);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   your_category                              */
+    /*! \{                                                                 */
+
+    MapCacheElement findElement(MapCacheKey key) const;
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Binary Access                              */
+    /*! \{                                                                 */
+
+    virtual UInt32 getBinSize (ConstFieldMaskArg   whichField);
+    virtual void   copyToBin  (BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
+    virtual void   copyFromBin(BinaryDataHandler  &pMem,
+                               ConstFieldMaskArg   whichField);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   your_operators                             */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Assignment                                */
     /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    bool addChunk(StateChunk *chunk, 
-                  Int32       slot = State::AutoSlotReplace);
-
-    bool subChunk(StateChunk *chunk, 
-                  Int32       slot = State::AutoSlotReplace);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    Int32       find(      StateChunk      *chunk);
-    StateChunk *find(const StateChunkClass &type, 
-                           Int32            slot =State::AutoSlotReplace);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                    Comparison                                */
     /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                        Dump                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
+    virtual void dump(      UInt32    uiIndent = 0,
+                      const BitVector bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -181,80 +200,85 @@ class OSG_SYSTEM_DLLMAPPING ChunkOverrideGroup :
     /*! \name                  Type information                            */
     /*! \{                                                                 */
 
-    static void classDescInserter(TypeObject &oType);
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Constructors                                */
-    /*! \{                                                                 */
-
-    ChunkOverrideGroup(void);
-    ChunkOverrideGroup(const ChunkOverrideGroup &source);
+    MapCacheField _fMapCache;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    virtual ~ChunkOverrideGroup(void);
+    MapCacheHandlerMixin(void);
+    MapCacheHandlerMixin(const MapCacheHandlerMixin &source);
+
+    virtual ~MapCacheHandlerMixin(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
+    static void classDescInserter(TypeObject &oType);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Render                                  */
-    /*! \{                                                                 */
+#ifdef OSG_MT_CPTR_ASPECT
+    void execSync  (      Self              *pFrom,
+                          ConstFieldMaskArg  whichField,
+                          AspectOffsetStore &oOffsets,
+                          ConstFieldMaskArg  syncMode  ,
+                    const UInt32             uiSyncInfo);
+#endif
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                       Edit                                   */
     /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
+    /*! \name                       Edit                                   */
     /*! \{                                                                 */
+
+    EditFieldHandlePtr editHandleMapCache(void);
+    GetFieldHandlePtr  getHandleMapCache (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Sync                                   */
+    /*! \{                                                                 */
+
+            void onCreateAspect (const FinalContainer *createAspect,
+                                 const FinalContainer *source      = NULL);
+
+            void onCreate       (const FinalContainer *source      = NULL);
+
+    virtual void onDestroy      (      UInt32          uiContainerId     );
+
+    virtual void onDestroyAspect(      UInt32          uiContainerId,
+                                       UInt32          uiAspect          );
+
+    virtual void resolveLinks   (      void                              );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
-    friend class ChunkOverrideGroupBase;
-
-    // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ChunkOverrideGroup &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const MapCacheHandlerMixin &source);
 };
-
-typedef ChunkOverrideGroup *ChunkOverrideGroupP;
 
 OSG_END_NAMESPACE
 
-#include "OSGChunkOverrideGroupBase.inl"
-#include "OSGChunkOverrideGroup.inl"
+#include "OSGMapCacheHandlerMixin.inl"
 
-#endif /* _OSGCHUNKOVERRIDEGROUP_H_ */
+#endif /* _OSGMAPCACHEHANDLERMIXIN_H_ */

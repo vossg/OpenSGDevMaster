@@ -67,22 +67,6 @@ OSG_BEGIN_NAMESPACE
 void ChunkOverrideGroup::classDescInserter(TypeObject &oType)
 {
     Inherited::classDescInserter(oType);
-
-    FieldDescriptionBase *pDesc;
-
-    typedef SFChunkBlockPtrMap::Description SFDesc;
-
-    pDesc = new SFDesc(
-        SFChunkBlockPtrMap::getClassType(),
-        "chunkBlockStore",
-        "chunk block store.",
-        OSG_RC_FIELD_DESC(ChunkBlockStore),
-        false,
-        Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&Self::editHandleChunkBlockStore),
-        static_cast<FieldGetMethodSig >(&Self::getHandleChunkBlockStore ));
-
-    oType.addInitialDesc(pDesc);
 }
 
 void ChunkOverrideGroup::initMethod(InitPhase ePhase)
@@ -115,14 +99,12 @@ void ChunkOverrideGroup::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 ChunkOverrideGroup::ChunkOverrideGroup(void) :
-     Inherited        (),
-    _sfChunkBlockStore()
+    Inherited()
 {
 }
 
 ChunkOverrideGroup::ChunkOverrideGroup(const ChunkOverrideGroup &source) :
-     Inherited        (source),
-    _sfChunkBlockStore(      )
+    Inherited(source)
 {
 }
 
@@ -191,147 +173,21 @@ StateChunk *ChunkOverrideGroup::find(const StateChunkClass &type,
 /*-------------------------------------------------------------------------*/
 /* Binary access                                                           */
 
-UInt32 ChunkOverrideGroup::getBinSize(ConstFieldMaskArg whichField)
-{
-    UInt32 returnValue = Inherited::getBinSize(whichField);
-
-    if(FieldBits::NoField != (ChunkBlockStoreFieldMask & whichField))
-    {
-        returnValue += _sfChunkBlockStore.getBinSize();
-    }
-
-    return returnValue;
-}
-
-void ChunkOverrideGroup::copyToBin(BinaryDataHandler  &pMem, 
-                                   ConstFieldMaskArg   whichField)
-{
-    Inherited::copyToBin(pMem, whichField);
-
-    if(FieldBits::NoField != (ChunkBlockStoreFieldMask & whichField))
-    {
-        _sfChunkBlockStore.copyToBin(pMem);
-    }
-}
-
-void ChunkOverrideGroup::copyFromBin(BinaryDataHandler &pMem, 
-                                     ConstFieldMaskArg  whichField)
-{
-    Inherited::copyFromBin(pMem, whichField);
-
-    if(FieldBits::NoField != (ChunkBlockStoreFieldMask & whichField))
-    {
-        _sfChunkBlockStore.copyFromBin(pMem);
-    }
-}
-
 void ChunkOverrideGroup::addChunkBlock(ChunkBlock       * const pBlock,
                                        ChunkBlockMapKey         key)
 {
-    if(pBlock == NULL)
-        return;
-
-    if(key == MapKeyPool::the()->getDefault())
-    {
-        setFallbackChunkBlock(pBlock);
-        return;
-    }
-
-    if(this->isMTLocal())
-    {
-        pBlock->addReferenceRecorded();
-    }
-    else
-    {
-        pBlock->addReferenceUnrecorded();
-    }
-
-#if 0
-    pAttachment->linkParent(this, 
-                            AttachmentsFieldId, 
-                            Attachment::ParentsFieldId);
-#endif
-
-    Self::editSField(ChunkBlockStoreFieldMask);
-
-    ChunkBlockPtrMapIt fcI = _sfChunkBlockStore.getValue().find(key);
-
-    if(fcI != _sfChunkBlockStore.getValue().end())
-    {
-#if 0
-        (*fcI).second->unlinkParent(this, 
-                                    Attachment::ParentsFieldId);
-#endif
-
-        if(this->isMTLocal())
-        {
-            (*fcI).second->subReferenceRecorded();
-        }
-        else
-        {
-            (*fcI).second->subReferenceUnrecorded();
-        }
-
-        (*fcI).second = pBlock;
-    }
-    else
-    {
-        _sfChunkBlockStore.getValue()[key] = pBlock;
-    }
+    Inherited::addElement(pBlock, key);
 }
 
 
 void ChunkOverrideGroup::subChunkBlock(ChunkBlockMapKey key)
 {
-    if(key == MapKeyPool::the()->getDefault())
-    {
-        setFallbackChunkBlock(NULL);
-        return;
-    }
-
-    Self::editSField(ChunkBlockStoreFieldMask);
-
-    ChunkBlockPtrMapIt fcI;
-
-    fcI = _sfChunkBlockStore.getValue().find(key);
-
-    if(fcI != _sfChunkBlockStore.getValue().end())
-    {
-#if 0
-        (*fcI).second->unlinkParent(this, 
-                                    Attachment::ParentsFieldId);
-#endif
-
-        if(this->isMTLocal())
-        {
-            (*fcI).second->subReferenceRecorded();
-        }
-        else
-        {
-            (*fcI).second->subReferenceUnrecorded();
-        }
-
-        _sfChunkBlockStore.getValue().erase(fcI);
-    }
-}
-
-ChunkBlock *ChunkOverrideGroup::finalize(ChunkBlockMapKey oKey)
-{
-    ChunkBlockPtrMapConstIt fcI = _sfChunkBlockStore.getValue().find(oKey);
-
-    if(fcI == _sfChunkBlockStore.getValue().end())
-    {
-        return _sfFallbackChunkBlock.getValue();
-    }
-    else
-    {
-        return (*fcI).second;
-    }
+    Inherited::subElement(key);
 }
 
 const SFChunkBlockPtrMap *ChunkOverrideGroup::getSFChunkBlockStore(void) const
 {
-    return &_sfChunkBlockStore;
+    return Inherited::getMapCacheField();
 }
 
 void ChunkOverrideGroup::changed(ConstFieldMaskArg whichField, 
@@ -389,121 +245,6 @@ ActionBase::ResultE ChunkOverrideGroup::renderLeave(Action *action)
 
 
     return Inherited::renderLeave(action);
-}
-
-#ifdef OSG_MT_CPTR_ASPECT
-void ChunkOverrideGroup::execSync(
-          ChunkOverrideGroup *pFrom,
-          ConstFieldMaskArg   whichField,
-          AspectOffsetStore  &oOffsets,
-          ConstFieldMaskArg   syncMode  ,
-    const UInt32              uiSyncInfo)
-{
-    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (ChunkBlockStoreFieldMask & whichField))
-    {
-//        _sfAttachments.syncWith(pFrom->_sfAttachments);
-
-        // needs optimizing
-
-#if 1
-        ChunkBlockMap tmpMap;
-
-        ChunkBlockPtrMapIt fcI = pFrom->_sfChunkBlockStore.getValue().begin();
-        ChunkBlockPtrMapIt fcE = pFrom->_sfChunkBlockStore.getValue().end  ();
-        
-        while(fcI != fcE)
-        {
-            ChunkBlock *pBlock = convertToCurrentAspect((*fcI).second);
-
-            if(pBlock != NULL)
-            {
-                tmpMap[(*fcI).first] = pBlock;
-
-                pBlock->addReferenceUnrecorded();
-            }
-
-            ++fcI;
-        }
-
-        fcI = _sfChunkBlockStore.getValue().begin();
-        fcE = _sfChunkBlockStore.getValue().end  ();
-
-        while(fcI != fcE)
-        {
-            if(this->isMTLocal())
-            {
-                (*fcI).second->subReferenceRecorded();
-            }
-            else
-            {
-                (*fcI).second->subReferenceUnrecorded();
-            }
-            
-            ++fcI;
-        }
-
-        _sfChunkBlockStore.setValue(tmpMap);
-#endif
-    }
-}
-#endif
-
-void ChunkOverrideGroup::resolveLinks(void)
-{
-    Inherited::resolveLinks();
-
-    ChunkBlockPtrMapIt fcI = _sfChunkBlockStore.getValue().begin();
-    ChunkBlockPtrMapIt fcE = _sfChunkBlockStore.getValue().end  ();
-
-    while(fcI != fcE)
-    {
-#if 0
-        (*fcI).second->unlinkParent(this, 
-                                    Material::ParentsFieldId);
-#endif
-
-        if(this->isMTLocal())
-        {
-            (*fcI).second->subReferenceRecorded();
-        }
-        else
-        {
-            (*fcI).second->subReferenceUnrecorded();
-        }
-
-        ++fcI;
-    }
-
-    _sfChunkBlockStore.getValue().clear();
-}
-
-EditFieldHandlePtr ChunkOverrideGroup::editHandleChunkBlockStore(void) 
-{
-    SFChunkBlockPtrMap::EditHandlePtr returnValue(
-        new  SFChunkBlockPtrMap::EditHandle(
-             &_sfChunkBlockStore, 
-             this->getType().getFieldDesc(ChunkBlockStoreFieldId)));
-
-    returnValue->setAddMethod(boost::bind(&ChunkOverrideGroup::addChunkBlock,
-                                          this,
-                                          _1,
-                                          _2));
-
-    editSField(ChunkBlockStoreFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ChunkOverrideGroup::getHandleChunkBlockStore(void) const
-{
-    SFChunkBlockPtrMap::GetHandlePtr returnValue(
-        new  SFChunkBlockPtrMap::GetHandle(
-             &_sfChunkBlockStore, 
-             this->getType().getFieldDesc(ChunkBlockStoreFieldId)));
-
-    return returnValue;
 }
 
 OSG_END_NAMESPACE

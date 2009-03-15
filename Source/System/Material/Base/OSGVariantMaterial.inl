@@ -39,16 +39,7 @@ OSG_BEGIN_NAMESPACE
 inline
 PrimeMaterial *VariantMaterial::findMaterial(MaterialMapKey key) const
 {
-    MaterialPtrMapConstIt fcI = _sfMaterialStore.getValue().find(key);
-
-    if(fcI == _sfMaterialStore.getValue().end())
-    {
-        return NULL;
-    }
-    else
-    {
-        return (*fcI).second;
-    }
+    return Inherited::findElement(key);
 }
 
 OSG_END_NAMESPACE

@@ -45,24 +45,55 @@
 
 #include "OSGPrimeMaterial.h"
 #include "OSGVariantMaterialBase.h"
+#include "OSGMapCacheHandlerMixin.h"
 
 OSG_BEGIN_NAMESPACE
+
+class VariantMaterial;
+
+struct VarMatMapCache
+{
+    typedef VariantMaterialBase                   ParentT;
+    typedef VariantMaterial                       FinalContainer;
+
+    typedef SFMaterialPtrMap                      MapCacheField;
+    typedef MapCacheField::StoredType             MapCache;
+    typedef SFMaterialPtrMap::EditHandle::KeyPool MapKeyPool;
+
+    typedef MapCache::mapped_type                 MapCacheElement;
+    typedef MapCache::key_type                    MapCacheKey;
+
+    typedef PrimeMaterial                         FinalizedElement;
+
+    static void setFallback(ParentT *pContainer, MapCacheElement pElem)
+    {
+        pContainer->setFallbackMaterial(pElem);
+    }
+                     
+    static MapCacheElement getFallback(ParentT *pContainer)
+    {
+        return pContainer->getFallbackMaterial();
+    }
+
+    static const Char8 *getFieldName(void)
+    {
+        return "materialStore";
+    }
+};
 
 /*! \brief Material using variant set.  See \ref 
     PageSystemMaterialVariantMaterial for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING VariantMaterial : public VariantMaterialBase
+class OSG_SYSTEM_DLLMAPPING VariantMaterial : 
+    public MapCacheHandlerMixin<VarMatMapCache>
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef VariantMaterialBase Inherited;
-    typedef VariantMaterial     Self;
-
-    OSG_RC_FIRST_FIELD_DECL(MaterialStore);
-    OSG_RC_LAST_FIELD_DECL (MaterialStore);
+    typedef MapCacheHandlerMixin<VarMatMapCache> Inherited;
+    typedef VariantMaterial                      Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -76,12 +107,6 @@ class OSG_SYSTEM_DLLMAPPING VariantMaterial : public VariantMaterialBase
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
-
-    virtual UInt32 getBinSize (ConstFieldMaskArg   whichField);
-    virtual void   copyToBin  (BinaryDataHandler  &pMem,
-                               ConstFieldMaskArg   whichField);
-    virtual void   copyFromBin(BinaryDataHandler  &pMem,
-                               ConstFieldMaskArg   whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -126,8 +151,6 @@ class OSG_SYSTEM_DLLMAPPING VariantMaterial : public VariantMaterialBase
     /*---------------------------------------------------------------------*/
     /*! \name                   Rendering                                  */
     /*! \{                                                                 */
-
-    virtual PrimeMaterial *finalize(MaterialMapKey oKey);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -180,8 +203,6 @@ class OSG_SYSTEM_DLLMAPPING VariantMaterial : public VariantMaterialBase
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFMaterialPtrMap _sfMaterialStore;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -202,20 +223,10 @@ class OSG_SYSTEM_DLLMAPPING VariantMaterial : public VariantMaterialBase
     /*! \name                      Changed                                 */
     /*! \{                                                                 */
 
-#ifdef OSG_MT_CPTR_ASPECT
-    void execSync  (      VariantMaterial   *pFrom,
-                          ConstFieldMaskArg  whichField,
-                          AspectOffsetStore &oOffsets,
-                          ConstFieldMaskArg  syncMode  ,
-                    const UInt32             uiSyncInfo);
-#endif
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   MT Destruction                             */
     /*! \{                                                                 */
-
-    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -228,9 +239,6 @@ class OSG_SYSTEM_DLLMAPPING VariantMaterial : public VariantMaterialBase
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    EditFieldHandlePtr editHandleMaterialStore(void);
-    GetFieldHandlePtr  getHandleMaterialStore (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

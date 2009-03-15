@@ -43,16 +43,7 @@ OSG_BEGIN_NAMESPACE
 inline
 ChunkBlock *ChunkOverrideGroup::findChunkBlock(ChunkBlockMapKey key) const
 {
-    ChunkBlockPtrMapConstIt fcI = _sfChunkBlockStore.getValue().find(key);
-
-    if(fcI == _sfChunkBlockStore.getValue().end())
-    {
-        return NULL;
-    }
-    else
-    {
-        return (*fcI).second;
-    }
+    return Inherited::findElement(key);
 }
 
 OSG_END_NAMESPACE

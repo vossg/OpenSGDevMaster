@@ -70,22 +70,6 @@ OSG_USING_NAMESPACE
 void VariantMaterial::classDescInserter(TypeObject &oType)
 {
     Inherited::classDescInserter(oType);
-
-    FieldDescriptionBase *pDesc;
-
-    typedef SFMaterialPtrMap::Description SFDesc;
-
-    pDesc = new SFDesc(
-        SFMaterialPtrMap::getClassType(),
-        "materialStore",
-        "material store.",
-        OSG_RC_FIELD_DESC(MaterialStore),
-        false,
-        Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&Self::editHandleMaterialStore),
-        static_cast<FieldGetMethodSig >(&Self::getHandleMaterialStore ));
-
-    oType.addInitialDesc(pDesc);
 }
 
 void VariantMaterial::initMethod(InitPhase ePhase)
@@ -104,14 +88,12 @@ void VariantMaterial::initMethod(InitPhase ePhase)
 /*------------- constructors & destructors --------------------------------*/
 
 VariantMaterial::VariantMaterial(void) :
-     Inherited      (),
-    _sfMaterialStore()
+    Inherited()
 {
 }
 
 VariantMaterial::VariantMaterial(const VariantMaterial &source) :
-     Inherited      (source),
-    _sfMaterialStore(      )
+    Inherited(source)
 {
 }
 
@@ -128,20 +110,6 @@ void VariantMaterial::changed(ConstFieldMaskArg whichField,
 
 
 /*-------------------------- your_category---------------------------------*/
-
-PrimeMaterial *VariantMaterial::finalize(MaterialMapKey oKey)
-{
-    MaterialPtrMapConstIt fcI = _sfMaterialStore.getValue().find(oKey);
-
-    if(fcI == _sfMaterialStore.getValue().end())
-    {
-        return _sfFallbackMaterial.getValue();
-    }
-    else
-    {
-        return (*fcI).second;
-    }
-}
 
 /*------------------------------- dump ----------------------------------*/
 
@@ -169,128 +137,16 @@ void VariantMaterial::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 /*-------------------------------------------------------------------------*/
 /* Binary access                                                           */
 
-UInt32 VariantMaterial::getBinSize(ConstFieldMaskArg whichField)
-{
-    UInt32 returnValue = Inherited::getBinSize(whichField);
-
-    if(FieldBits::NoField != (MaterialStoreFieldMask & whichField))
-    {
-        returnValue += _sfMaterialStore.getBinSize();
-    }
-
-    return returnValue;
-}
-
-void VariantMaterial::copyToBin(BinaryDataHandler  &pMem, 
-                                ConstFieldMaskArg   whichField)
-{
-    Inherited::copyToBin(pMem, whichField);
-
-    if(FieldBits::NoField != (MaterialStoreFieldMask & whichField))
-    {
-        _sfMaterialStore.copyToBin(pMem);
-    }
-}
-
-void VariantMaterial::copyFromBin(BinaryDataHandler &pMem, 
-                                  ConstFieldMaskArg  whichField)
-{
-    Inherited::copyFromBin(pMem, whichField);
-
-    if(FieldBits::NoField != (MaterialStoreFieldMask & whichField))
-    {
-        _sfMaterialStore.copyFromBin(pMem);
-    }
-}
-
 void VariantMaterial::addMaterial(PrimeMaterial  * const pMaterial,
                                   MaterialMapKey         key)
 {
-    if(pMaterial == NULL)
-        return;
-
-    if(key == MapKeyPool::the()->getDefault())
-    {
-        setFallbackMaterial(pMaterial);
-        return;
-    }
-
-    if(this->isMTLocal())
-    {
-        pMaterial->addReferenceRecorded();
-    }
-    else
-    {
-        pMaterial->addReferenceUnrecorded();
-    }
-
-#if 0
-    pAttachment->linkParent(this, 
-                            AttachmentsFieldId, 
-                            Attachment::ParentsFieldId);
-#endif
-
-    Self::editSField(MaterialStoreFieldMask);
-
-    MaterialPtrMapIt fcI = _sfMaterialStore.getValue().find(key);
-
-    if(fcI != _sfMaterialStore.getValue().end())
-    {
-#if 0
-        (*fcI).second->unlinkParent(this, 
-                                    Attachment::ParentsFieldId);
-#endif
-
-        if(this->isMTLocal())
-        {
-            (*fcI).second->subReferenceRecorded();
-        }
-        else
-        {
-            (*fcI).second->subReferenceUnrecorded();
-        }
-
-        (*fcI).second = pMaterial;
-    }
-    else
-    {
-        _sfMaterialStore.getValue()[key] = pMaterial;
-    }
+    Inherited::addElement(pMaterial, key);
 }
 
 
 void VariantMaterial::subMaterial(MaterialMapKey key)
 {
-    if(key == MapKeyPool::the()->getDefault())
-    {
-        setFallbackMaterial(NULL);
-        return;
-    }
-
-    Self::editSField(MaterialStoreFieldMask);
-
-    MaterialPtrMapIt fcI;
-
-    fcI = _sfMaterialStore.getValue().find(key);
-
-    if(fcI != _sfMaterialStore.getValue().end())
-    {
-#if 0
-        (*fcI).second->unlinkParent(this, 
-                                    Attachment::ParentsFieldId);
-#endif
-
-        if(this->isMTLocal())
-        {
-            (*fcI).second->subReferenceRecorded();
-        }
-        else
-        {
-            (*fcI).second->subReferenceUnrecorded();
-        }
-
-        _sfMaterialStore.getValue().erase(fcI);
-    }
+    Inherited::subElement(key);
 }
 
 bool VariantMaterial::isTransparent(void) const
@@ -300,121 +156,5 @@ bool VariantMaterial::isTransparent(void) const
 
 const SFMaterialPtrMap *VariantMaterial::getSFMaterialStore(void) const
 {
-    return &_sfMaterialStore;
+    return Inherited::getMapCacheField();
 }
-
-#ifdef OSG_MT_CPTR_ASPECT
-void VariantMaterial::execSync(
-          VariantMaterial   *pFrom,
-          ConstFieldMaskArg  whichField,
-          AspectOffsetStore &oOffsets,
-          ConstFieldMaskArg  syncMode  ,
-    const UInt32             uiSyncInfo)
-{
-    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (MaterialStoreFieldMask & whichField))
-    {
-//        _sfAttachments.syncWith(pFrom->_sfAttachments);
-
-        // needs optimizing
-
-#if 1
-        MaterialMap tmpMap;
-
-        MaterialPtrMapIt fcI = pFrom->_sfMaterialStore.getValue().begin();
-        MaterialPtrMapIt fcE = pFrom->_sfMaterialStore.getValue().end  ();
-        
-        while(fcI != fcE)
-        {
-            PrimeMaterial *pMat = convertToCurrentAspect((*fcI).second);
-
-            if(pMat != NULL)
-            {
-                tmpMap[(*fcI).first] = pMat;
-
-                pMat->addReferenceUnrecorded();
-            }
-
-            ++fcI;
-        }
-
-        fcI = _sfMaterialStore.getValue().begin();
-        fcE = _sfMaterialStore.getValue().end  ();
-
-        while(fcI != fcE)
-        {
-            if(this->isMTLocal())
-            {
-                (*fcI).second->subReferenceRecorded();
-            }
-            else
-            {
-                (*fcI).second->subReferenceUnrecorded();
-            }
-            
-            ++fcI;
-        }
-
-        _sfMaterialStore.setValue(tmpMap);
-#endif
-    }
-}
-#endif
-
-void VariantMaterial::resolveLinks(void)
-{
-    Inherited::resolveLinks();
-
-    MaterialPtrMapIt fcI = _sfMaterialStore.getValue().begin();
-    MaterialPtrMapIt fcE = _sfMaterialStore.getValue().end  ();
-
-    while(fcI != fcE)
-    {
-#if 0
-        (*fcI).second->unlinkParent(this, 
-                                    Material::ParentsFieldId);
-#endif
-
-        if(this->isMTLocal())
-        {
-            (*fcI).second->subReferenceRecorded();
-        }
-        else
-        {
-            (*fcI).second->subReferenceUnrecorded();
-        }
-
-        ++fcI;
-    }
-
-    _sfMaterialStore.getValue().clear();
-}
-
-EditFieldHandlePtr VariantMaterial::editHandleMaterialStore(void) 
-{
-    SFMaterialPtrMap::EditHandlePtr returnValue(
-        new  SFMaterialPtrMap::EditHandle(
-             &_sfMaterialStore, 
-             this->getType().getFieldDesc(MaterialStoreFieldId)));
-
-    returnValue->setAddMethod(boost::bind(&VariantMaterial::addMaterial,
-                                          this,
-                                          _1,
-                                          _2));
-
-    editSField(MaterialStoreFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr VariantMaterial::getHandleMaterialStore(void) const
-{
-    SFMaterialPtrMap::GetHandlePtr returnValue(
-        new  SFMaterialPtrMap::GetHandle(
-             &_sfMaterialStore, 
-             this->getType().getFieldDesc(MaterialStoreFieldId)));
-
-    return returnValue;
-}
-
