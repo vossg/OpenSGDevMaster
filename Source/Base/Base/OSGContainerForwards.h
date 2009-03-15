@@ -59,6 +59,7 @@
     typedef RefCountPtr<CLASST, MTRecordedRefCountPolicy> ObjMTRecPtr;   \
     typedef RefCountPtr<CLASST, UnrecordedRefCountPolicy> ObjUnrecPtr;   \
     typedef RefCountPtr<CLASST, WeakRefCountPolicy      > ObjWeakPtr;    \
+    typedef RefCountPtr<CLASST, MTWeakRefCountPolicy    > ObjMTWeakPtr;  \
                                                                          \
     typedef CLASST       *                                ObjCPtr;       \
     typedef CLASST const *                                ConstObjCPtr;  \
@@ -91,6 +92,8 @@
                          WeakRefCountPolicy      > CLASST##WeakPtr;      \
     typedef RefCountPtr< CLASST,                                         \
                          MTRecordedRefCountPolicy> CLASST##MTRecPtr;     \
+    typedef RefCountPtr< CLASST,                                         \
+                         MTWeakRefCountPolicy>     CLASST##MTWeakPtr;    \
     typedef CLASST##RecPtr                         CLASST##RefPtr;       \
     typedef CLASST##MTRecPtr                       CLASST##MTRefPtr;     \
                                                                          \
@@ -133,6 +136,7 @@ struct RecordedRefCountPolicy;
 struct MTRecordedRefCountPolicy;
 struct UnrecordedRefCountPolicy;
 struct WeakRefCountPolicy;
+struct MTWeakRefCountPolicy;
 
 template<class ObjT> 
 class TransitPtr;

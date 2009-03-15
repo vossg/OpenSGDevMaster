@@ -278,6 +278,26 @@ struct WeakRefCountPolicy
     } 
 };
 
+/*! \ingroup GrpBaseFieldContainerBase
+    \ingroup GrpBaseBaseRefCounting
+    \ingroup GrpLibOSGBase
+    \nohierarchy
+ */
+struct MTWeakRefCountPolicy : public WeakRefCountPolicy
+{
+    template <class T>
+    static T *validate   (T *pObject)
+    {
+        return convertToCurrentAspect(pObject);
+    }
+
+    template <class T>
+    static T &dereference(T *pObject)
+    {
+        return *(validate(pObject));
+    }
+};
+
 
 OSG_END_NAMESPACE
 
