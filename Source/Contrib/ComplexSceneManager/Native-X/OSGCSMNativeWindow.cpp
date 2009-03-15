@@ -155,6 +155,10 @@ void CSMNativeWindow::xMainLoop(void)
                             (*winIt)->getWindow()->getShaderCache()->dump();
 #endif
                         }
+                        if(keysym == XK_Home) 
+                        {
+                            ComplexSceneManager::the()->resetScene();
+                        }
                         else if((XK_space      <= keysym) && 
                                 (XK_asciitilde >= keysym))
                         {

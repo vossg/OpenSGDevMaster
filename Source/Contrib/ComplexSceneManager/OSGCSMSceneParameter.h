@@ -44,6 +44,7 @@
 
 #include "OSGCSMSceneParameterBase.h"
 #include "OSGNode.h"
+#include "OSGCSMResetInterface.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -51,7 +52,9 @@ OSG_BEGIN_NAMESPACE
            PageContribCSMCSMSceneParameter for a description.
 */
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameter : public CSMSceneParameterBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameter : 
+    public CSMSceneParameterBase,
+    public CSMResetInterface
 {
   protected:
 
@@ -69,6 +72,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMSceneParameter : public CSMSceneParameterBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual void reset(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

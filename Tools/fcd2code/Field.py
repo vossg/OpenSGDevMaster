@@ -26,7 +26,9 @@ podTable = {
     "Real16"  : True,
     "Real32"  : True,
     "Real64"  : True,
-    "Real128" : True
+    "Real128" : True,
+
+    "Real"    : True
 }
 
 class Field(FCDElement):
@@ -249,10 +251,16 @@ class Field(FCDElement):
         # -----------------------------------------------------------------
         # Name and Cardinality
         # -----------------------------------------------------------------
-
+          
         self["Name"]          = self.getFCD("name")[0].upper() + self.getFCD("name")[1:];
         self["DescName"]      = self.getFCD("name");
-               
+
+        if self.getFCD("name") == "id":
+            self.m_log.warning("finalize: invalid field name: >%s<", 
+                               self.getFCD("name"))
+            self["Name"] = self["Name"] + "_invalidFieldname"
+            self["DescName"] = self["DescName"] + "_invalidFieldname"
+
         self["isSField"] = False;
         self["isMField"] = False;
         

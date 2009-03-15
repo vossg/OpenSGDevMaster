@@ -106,37 +106,44 @@ void CSMSceneParameter::changed(ConstFieldMaskArg whichField,
 
     if(0x0000 != (whichField & SceneRefFieldMask))
     {
-        if(_sfSceneRef.getValue() != NULL)
-        {
-            Vec3f vVolMin;
-            Vec3f vVolMax;
+        reset();
+    }
+}
 
-            _sfSceneRef.getValue()->editVolume(true).getBounds(vVolMin, 
-                                                               vVolMax);
+void CSMSceneParameter::reset(void)
+{
+    fprintf(stderr, "CSMSceneParameter::reset\n");
 
-            std::cerr << "Volume: from " 
-                      << vVolMin << " to " 
-                      << vVolMax << std::endl;
+    if(_sfSceneRef.getValue() != NULL)
+    {
+        Vec3f vVolMin;
+        Vec3f vVolMax;
+        
+        _sfSceneRef.getValue()->editVolume(true).getBounds(vVolMin, 
+                                                           vVolMax);
 
-            editSFSceneDiag()->setValue(vVolMax - vVolMin);
-
-            editSFSceneCenter()->setValue(
-                Pnt3f((vVolMin[0] + vVolMax[0]) * .5,
-                      (vVolMin[1] + vVolMax[1]) * .5,
-                      (vVolMin[2] + vVolMax[2]) * .5));
-
-            Real32 rDist = 
-                osgMax(_sfSceneDiag.getValue()[0],
-                       _sfSceneDiag.getValue()[1]) * _sfDistScale.getValue();
-
-            editSFInitViewPos()->setValue(
-                Pnt3f(_sfSceneCenter.getValue()[0],
-                      _sfSceneCenter.getValue()[1],
-                      _sfSceneCenter.getValue()[2] + rDist));
-
-            std::cerr << "Center: " << getSceneCenter()
-                      << std::endl;
-        }
+        std::cerr << "Volume: from " 
+                  << vVolMin << " to " 
+                  << vVolMax << std::endl;
+        
+        editSFSceneDiag()->setValue(vVolMax - vVolMin);
+        
+        editSFSceneCenter()->setValue(
+            Pnt3f((vVolMin[0] + vVolMax[0]) * .5,
+                  (vVolMin[1] + vVolMax[1]) * .5,
+                  (vVolMin[2] + vVolMax[2]) * .5));
+        
+        Real32 rDist = 
+            osgMax(_sfSceneDiag.getValue()[0],
+                   _sfSceneDiag.getValue()[1]) * _sfDistScale.getValue();
+        
+        editSFInitViewPos()->setValue(
+            Pnt3f(_sfSceneCenter.getValue()[0],
+                  _sfSceneCenter.getValue()[1],
+                  _sfSceneCenter.getValue()[2] + rDist));
+        
+        std::cerr << "Center: " << getSceneCenter()
+                  << std::endl;
     }
 }
 

@@ -361,9 +361,13 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
              "LIST(APPEND ${PROJECT_NAME}_TEST_SRC \"${LOCAL_TEST_SRC}\")\n\n")
     ENDIF(LOCAL_TEST_SRC)
 
-    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
-         "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_SOURCE_DIR}/${DIRNAME}\")\n\n")
-
+    IF(EXISTS "${CMAKE_SOURCE_DIR}/${DIRNAME}")
+        FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+             "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_SOURCE_DIR}/${DIRNAME}\")\n\n")
+    ELSE()
+        FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+             "LIST(APPEND ${PROJECT_NAME}_INC \"${DIRNAME}\")\n\n")
+    ENDIF()
 ENDFUNCTION(OSG_ADD_DIRECTORY)
 
 #############################################################################
@@ -393,22 +397,39 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
             SET(FCDBaseInl "${FCDBase}Base.inl")
             SET(FCDBaseFld "${FCDBase}Fields.h")
 
+            SET(FCDClassHdr "${FCDBase}.h")
+            SET(FCDClassCpp "${FCDBase}.cpp")
+            SET(FCDClassInl "${FCDBase}.inl")
+
             IF(NOT EXISTS ${FCDDir}/${FCDBaseCpp})
                 SET(${PROJECT_NAME}_SRC ${${PROJECT_NAME}_SRC} ${FCDDir}/${FCDBaseCpp})
                 SET(${PROJECT_NAME}_HDR ${${PROJECT_NAME}_HDR} ${FCDDir}/${FCDBaseHdr})
                 SET(${PROJECT_NAME}_INL ${${PROJECT_NAME}_INL} ${FCDDir}/${FCDBaseInl})
                 SET(${PROJECT_NAME}_HDR ${${PROJECT_NAME}_HDR} ${FCDDir}/${FCDBaseFld})
+
+                IF(NOT EXISTS ${FCDDir}/${FCDClassHdr})
+                    SET(${PROJECT_NAME}_SRC ${${PROJECT_NAME}_SRC} ${FCDDir}/${FCDClassCpp})
+                    SET(${PROJECT_NAME}_HDR ${${PROJECT_NAME}_HDR} ${FCDDir}/${FCDClassHdr})
+                    SET(${PROJECT_NAME}_INL ${${PROJECT_NAME}_INL} ${FCDDir}/${FCDClassInl})
+
+                    SET(FCD_TMP_OUT ${FCDDir}/${FCDClassCpp}
+                                    ${FCDDir}/${FCDClassHdr}
+                                    ${FCDDir}/${FCDClassInl})
+                ENDIF(NOT EXISTS ${FCDDir}/${FCDClassHdr})
             ENDIF(NOT EXISTS ${FCDDir}/${FCDBaseCpp})
 
             SET(FCDCommand ${CMAKE_SOURCE_DIR}/Tools/fcd2code/fcd2code)
 
             ADD_CUSTOM_COMMAND(
                 OUTPUT ${FCDDir}/${FCDBaseHdr}
-                        ${FCDDir}/${FCDBaseCpp}
-                        ${FCDDir}/${FCDBaseInl}
-                        ${FCDDir}/${FCDBaseFld}
+                       ${FCDDir}/${FCDBaseCpp}
+                       ${FCDDir}/${FCDBaseInl}
+                       ${FCDDir}/${FCDBaseFld}
+                       ${FCD_TMP_OUT}
                 COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -b -d ${FCDFile} -p ${FCDDir} -r ${CMAKE_SOURCE_DIR}
                 MAIN_DEPENDENCY ${FCDFile})
+
+            SET(FCD_TMP_OUT )
         ENDFOREACH(FCDFile)
 
     ENDIF(OSG_ENABLE_FCD2CODE AND PYTHONINTERP_FOUND)

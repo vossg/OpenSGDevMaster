@@ -54,6 +54,7 @@
 #include "OSGImageFileHandler.h"
 #include "OSGNameAttachment.h"
 #include "OSGAction.h"
+#include "OSGCSMResetInterface.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -896,6 +897,26 @@ void ComplexSceneManager::frame(void)
     {
         _sfDrawManager.getValue()->frame(_sfTimeStamp.getValue (), 
                                          _sfFrameCount.getValue());
+    }
+}
+
+void ComplexSceneManager::resetScene(void)
+{
+    MFUnrecFieldContainerPtr::const_iterator gIt  = _mfGlobals.begin();
+    MFUnrecFieldContainerPtr::const_iterator gEnd = _mfGlobals.end  ();
+
+    CSMResetInterface *pIf = NULL;
+
+    for(; gIt != gEnd; ++gIt)
+    {
+        pIf = dynamic_cast<CSMResetInterface *>(*gIt);
+        
+        if(pIf != NULL)
+        {
+            fprintf(stderr, "found if %p\n", pIf);
+
+            pIf->reset();
+        }
     }
 }
 

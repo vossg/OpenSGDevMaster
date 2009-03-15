@@ -434,11 +434,13 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                    Local Edit                                */
     /*! \{                                                                 */
 
-    void editSField(ConstFieldMaskArg whichField);
+    void editSField     (ConstFieldMaskArg whichField);
 
     template<class FieldT>
-    void editMField(ConstFieldMaskArg whichField,
-                    FieldT            &oField   );
+    void editMField     (ConstFieldMaskArg whichField,
+                         FieldT            &oField   );
+
+    void clearUncommited(ConstFieldMaskArg whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

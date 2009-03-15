@@ -169,6 +169,7 @@ void FieldContainer::subReferenceRecorded(void)
             }
 
             OSG::subRef(_pAspectStore);
+            _pAspectStore = NULL;
 #else
             this->deregister     (Inherited::getId()   );
             this->onDestroyAspect(Inherited::getId(), 0);
@@ -248,6 +249,7 @@ void FieldContainer::subReferenceUnrecorded(void)
             }
             
             OSG::subRef(_pAspectStore);
+            _pAspectStore = NULL;
 #else
             this->deregister     (Inherited::getId()   );
             this->onDestroyAspect(Inherited::getId(), 0);
@@ -361,6 +363,7 @@ void FieldContainer::subWeakReference(void)
         }
 
         OSG::subRef(_pAspectStore);
+        _pAspectStore = NULL;
 #else
         this->deregister     (Inherited::getId()   );
         this->onDestroyAspect(Inherited::getId(), 0);
@@ -586,6 +589,16 @@ void FieldContainer::editMField(ConstFieldMaskArg  whichField,
 }
 #endif
 
+inline
+void FieldContainer::clearUncommited(ConstFieldMaskArg whichField)
+{
+    if(_pContainerChanges != NULL)
+    {
+          _pContainerChanges->whichField            |=  whichField;
+        *(_pContainerChanges->bvUncommittedChanges) &= ~whichField;
+    }
+}
+
 #ifdef OSG_MT_CPTR_ASPECT
 inline
 void FieldContainer::execSync(      FieldContainer    *pFrom,
@@ -619,6 +632,7 @@ void FieldContainer::subReferenceUnresolved(void)
         }
 
         OSG::subRef(_pAspectStore);
+        _pAspectStore = NULL;
 #else
         this->deregister     (Inherited::getId()   );
         this->onDestroyAspect(Inherited::getId(), 0);

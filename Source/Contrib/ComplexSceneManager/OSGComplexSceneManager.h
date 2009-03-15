@@ -121,6 +121,13 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManager :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    void resetScene(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     void key(Int32 x,
              Int32 y,
              Int32 iState,
