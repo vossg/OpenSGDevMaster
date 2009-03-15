@@ -94,6 +94,9 @@ ChunkMaterial::~ChunkMaterial(void)
 
 void ChunkMaterial::pushToChunks(StateChunk * const value)
 {
+    if(value == NULL)
+        return;
+
     editMField(ChunksFieldMask, _mfChunks);
 
     _mfChunks.push_back(value);
@@ -177,7 +180,7 @@ void ChunkMaterial::removeFromChunksByObj(StateChunk * const value)
 void ChunkMaterial::replaceChunk(UInt32                       uiIndex,
                                  StateChunk           * const value  )
 {
-    if(uiIndex < _mfChunks.size())
+    if(uiIndex < _mfChunks.size() && value != NULL)
     {
         editMField(ChunksFieldMask, _mfChunks);
 
@@ -204,6 +207,9 @@ void ChunkMaterial::changed(ConstFieldMaskArg whichField,
 
 bool ChunkMaterial::addChunk(StateChunk *chunk, Int32 slot)
 {
+    if(chunk == NULL)
+        return false;
+
     if(slot != State::AutoSlotReplace)
     {
         editMField(SlotsFieldMask, _mfSlots);

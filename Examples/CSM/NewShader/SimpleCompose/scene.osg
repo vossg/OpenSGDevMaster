@@ -4,55 +4,58 @@ Node
 {
   core ChunkOverrideGroup 
   {
-    chunks
-    [
-      ShaderProgramChunk
-      {
-        vertexShader 
-        [
-          ShaderProgram
-          {
-            shaderType GL_VERTEX_SHADER
+    fallbackChunkBlock ChunkBlock
+    {
+      chunks
+      [
+        ShaderProgramChunk
+        {
+          vertexShader 
+          [
+            ShaderProgram
+            {
+              shaderType GL_VERTEX_SHADER
 
-            program "
+              program "
 
-              float simpleLight(void)
-              {
-                // calculate vertex position in eye coordinates
-                vec4 ecPosition = -normalize(gl_ModelViewMatrix * 
-                                             gl_Vertex);
+                float simpleLight(void)
+                {
+                  // calculate vertex position in eye coordinates
+                  vec4 ecPosition = -normalize(gl_ModelViewMatrix * 
+                                               gl_Vertex);
 
-                // compute the transformed normal
-                vec3 tnorm      = normalize(gl_NormalMatrix * gl_Normal);
+                  // compute the transformed normal
+                  vec3 tnorm      = normalize(gl_NormalMatrix * gl_Normal);
 
-                // Calculate a diffuse light intensity
-                return dot(ecPosition.xyz, tnorm);
-              }
-            "
-          }
+                  // Calculate a diffuse light intensity
+                  return dot(ecPosition.xyz, tnorm);
+                }
+              "
+            }
 
-          ShaderProgram
-          {
-            shaderType GL_VERTEX_SHADER
+            ShaderProgram
+            {
+              shaderType GL_VERTEX_SHADER
 
-            program "
+              program "
 
-              float simpleLight(void);
+                float simpleLight(void);
 
-              varying float Diffuse; 
+                varying float Diffuse; 
 
-              void main(void)
-              {
-                Diffuse = simpleLight();
+                void main(void)
+                {
+                  Diffuse = simpleLight();
 
-                // output final vertex information
-                gl_Position     = gl_ModelViewProjectionMatrix * gl_Vertex;
-              }
-            "
-          }
-        ]
-      }
-    ]
+                  // output final vertex information
+                  gl_Position     = gl_ModelViewProjectionMatrix * gl_Vertex;
+                }
+              "
+            }
+          ]       
+        }
+      ]
+    }
   }
 
   children
@@ -61,56 +64,59 @@ Node
     {
       core ChunkOverrideGroup
       {
-        chunks
-        [
-          ShaderProgramChunk
-          {
-            fragmentShader 
-            [
-              ShaderProgram
-              {
-                shaderType GL_FRAGMENT_SHADER
-
-                variables ShaderProgramVariables
+        fallbackChunkBlock ChunkBlock
+        {
+          chunks
+          [
+            ShaderProgramChunk
+            {
+              fragmentShader 
+              [
+                ShaderProgram
                 {
-                  variables
-                  [
-                    ShaderVariableReal
-                    {
-                      name "ColR"
-                      value 1.0
-                    }
-                     ShaderVariableReal
-                    {
-                      name "ColG"
-                      value 0.6
-                    }
-                    ShaderVariableReal
-                    {
-                      name "ColB"
-                      value 0.6
-                    }
-                  ]
-                }
+                  shaderType GL_FRAGMENT_SHADER
 
-                program "
-                  varying float Diffuse; 
-                  uniform float ColR;
-                  uniform float ColG;
-                  uniform float ColB;
-
-                  void main (void)
+                  variables ShaderProgramVariables
                   {
-                    gl_FragColor = vec4(ColR * Diffuse, 
-                                        ColG * Diffuse, 
-                                        ColB * Diffuse, 
-                                        1.);
+                    variables
+                    [
+                      ShaderVariableReal
+                      {
+                        name "ColR"
+                        value 1.0
+                      }
+                       ShaderVariableReal
+                      {
+                        name "ColG"
+                        value 0.6
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColB"
+                        value 0.6
+                      }
+                    ]
                   }
-                "
-              }
-            ]
-          }
-        ]
+
+                  program "
+                    varying float Diffuse; 
+                    uniform float ColR;
+                    uniform float ColG;
+                    uniform float ColB;
+
+                    void main (void)
+                    {
+                      gl_FragColor = vec4(ColR * Diffuse, 
+                                          ColG * Diffuse, 
+                                          ColB * Diffuse, 
+                                          1.);
+                    }
+                  "
+                }
+              ]
+            }
+          ]
+        }
       }
   
       children
@@ -142,56 +148,59 @@ Node
     {
       core ChunkOverrideGroup
       {
-        chunks
-        [
-          ShaderProgramChunk
-          {
-            fragmentShader 
-            [
-              ShaderProgram
-              {
-                shaderType GL_FRAGMENT_SHADER
-
-                variables ShaderProgramVariables
+        fallbackChunkBlock ChunkBlock
+        {
+          chunks
+          [
+            ShaderProgramChunk
+            {
+              fragmentShader 
+              [
+                ShaderProgram
                 {
-                  variables
-                  [
-                    ShaderVariableReal
-                    {
-                      name "ColR"
-                      value 0.6
-                    }
-                     ShaderVariableReal
-                    {
-                      name "ColG"
-                      value 1.0
-                    }
-                    ShaderVariableReal
-                    {
-                      name "ColB"
-                      value 0.6
-                    }
-                  ]
-                }
-
-                program "
-                  varying float Diffuse; 
-                  uniform float ColR;
-                  uniform float ColG;
-                  uniform float ColB;
-
-                  void main (void)
+                  shaderType GL_FRAGMENT_SHADER
+  
+                  variables ShaderProgramVariables
                   {
-                    gl_FragColor = vec4(ColR * Diffuse, 
-                                        ColG * Diffuse, 
-                                        ColB * Diffuse, 
-                                        1.);
+                    variables
+                    [
+                      ShaderVariableReal
+                      {
+                        name "ColR"
+                        value 0.6
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColG"
+                        value 1.0
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColB"
+                        value 0.6
+                      }
+                    ]
                   }
-                "
-              }
-            ]
-          }
-        ]
+
+                  program "
+                    varying float Diffuse; 
+                    uniform float ColR;
+                    uniform float ColG;
+                    uniform float ColB;
+
+                    void main (void)
+                    {
+                      gl_FragColor = vec4(ColR * Diffuse, 
+                                          ColG * Diffuse, 
+                                          ColB * Diffuse, 
+                                          1.);
+                    }
+                  "
+                }
+              ]
+            }
+          ]
+        }
       }
   
       children
@@ -223,56 +232,59 @@ Node
     {
       core ChunkOverrideGroup
       {
-        chunks
-        [
-          ShaderProgramChunk
-          {
-            fragmentShader 
-            [
-              ShaderProgram
-              {
-                shaderType GL_FRAGMENT_SHADER
-
-                variables ShaderProgramVariables
+        fallbackChunkBlock ChunkBlock
+        {
+          chunks
+          [
+            ShaderProgramChunk
+            {
+              fragmentShader 
+              [
+                ShaderProgram
                 {
-                  variables
-                  [
-                    ShaderVariableReal
-                    {
-                      name "ColR"
-                      value 0.6
-                    }
-                     ShaderVariableReal
-                    {
-                      name "ColG"
-                      value 0.6
-                    }
-                    ShaderVariableReal
-                    {
-                      name "ColB"
-                      value 1.0
-                    }
-                  ]
-                }
+                  shaderType GL_FRAGMENT_SHADER
 
-                program "
-                  varying float Diffuse; 
-                  uniform float ColR;
-                  uniform float ColG;
-                  uniform float ColB;
-
-                  void main (void)
+                  variables ShaderProgramVariables
                   {
-                    gl_FragColor = vec4(ColR * Diffuse, 
-                                        ColG * Diffuse, 
-                                        ColB * Diffuse, 
-                                        1.);
+                    variables
+                    [
+                      ShaderVariableReal
+                      {
+                        name "ColR"
+                        value 0.6
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColG"
+                        value 0.6
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColB"
+                        value 1.0
+                      }
+                    ]
                   }
-                "
-              }
-            ]
-          }
-        ]
+  
+                  program "
+                    varying float Diffuse; 
+                    uniform float ColR;
+                    uniform float ColG;
+                    uniform float ColB;
+
+                    void main (void)
+                    {
+                      gl_FragColor = vec4(ColR * Diffuse, 
+                                          ColG * Diffuse, 
+                                          ColB * Diffuse, 
+                                          1.);
+                    }
+                  "
+                }
+              ]
+            }
+          ]
+        }
       }
   
       children
@@ -304,56 +316,59 @@ Node
     {
       core ChunkOverrideGroup
       {
-        chunks
-        [
-          ShaderProgramChunk
-          {
-            fragmentShader 
-            [
-              ShaderProgram
-              {
-                shaderType GL_FRAGMENT_SHADER
-
-                variables ShaderProgramVariables
+        fallbackChunkBlock ChunkBlock
+        {
+          chunks
+          [
+            ShaderProgramChunk
+            {
+              fragmentShader 
+              [
+                ShaderProgram
                 {
-                  variables
-                  [
-                    ShaderVariableReal
-                    {
-                      name "ColR"
-                      value 0.6
-                    }
-                     ShaderVariableReal
-                    {
-                      name "ColG"
-                      value 1.0
-                    }
-                    ShaderVariableReal
-                    {
-                      name "ColB"
-                      value 1.0
-                    }
-                  ]
-                }
+                  shaderType GL_FRAGMENT_SHADER
 
-                program "
-                  varying float Diffuse; 
-                  uniform float ColR;
-                  uniform float ColG;
-                  uniform float ColB;
-
-                  void main (void)
+                  variables ShaderProgramVariables
                   {
-                    gl_FragColor = vec4(ColR * Diffuse, 
-                                        ColG * Diffuse, 
-                                        ColB * Diffuse, 
-                                        1.);
+                    variables
+                    [
+                      ShaderVariableReal
+                      {
+                        name "ColR"
+                        value 0.6
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColG"
+                        value 1.0
+                      }
+                      ShaderVariableReal
+                      {
+                        name "ColB"
+                        value 1.0
+                      }
+                    ]
                   }
-                "
-              }
-            ]
-          }
-        ]
+
+                  program "
+                    varying float Diffuse; 
+                    uniform float ColR;
+                    uniform float ColG;
+                    uniform float ColB;
+ 
+                    void main (void)
+                    {
+                      gl_FragColor = vec4(ColR * Diffuse, 
+                                          ColG * Diffuse, 
+                                          ColB * Diffuse, 
+                                          1.);
+                    }
+                  "
+                }
+              ]
+            }
+          ]
+        }
       }
   
       children
