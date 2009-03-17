@@ -299,8 +299,12 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
 
-    virtual GetFieldHandlePtr  createGetHandler (const Field *pField) = 0;
-    virtual EditFieldHandlePtr createEditHandler(      Field *pField) = 0;
+    virtual 
+        GetFieldHandlePtr  createGetHandler (const Field          *pField,
+                                                   FieldContainer *pCnt  ) = 0;
+    virtual 
+        EditFieldHandlePtr createEditHandler(      Field          *pField,
+                                                   FieldContainer *pCnt  ) = 0;
 
 #if 0
     /*! \}                                                                 */
@@ -321,8 +325,8 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
 
     virtual BasicFieldConnector *createConnector(
         const Field                *pSrc,
-              FieldDescriptionBase *pDstDesc,
-              Field                *pDst        ) = 0;
+        const FieldDescriptionBase *pDstDesc,
+              Field                *pDst        ) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -546,9 +550,9 @@ class FieldDescription : public DescT::FieldDescParent
         }
 
         static BasicFieldConnector   *createConnector(
-                  FieldDescriptionBase *pSrcDesc,
+            const FieldDescriptionBase *pSrcDesc,
             const HandledField         *pSrc,
-                  FieldDescriptionBase *pDstDesc,
+            const FieldDescriptionBase *pDstDesc,
                   HandledField         *pDst    );    
     };
     
@@ -561,9 +565,9 @@ class FieldDescription : public DescT::FieldDescParent
         }
 
         static BasicFieldConnector   *createConnector(
-                  FieldDescriptionBase *,
+            const FieldDescriptionBase *,
             const Field                *,
-                  FieldDescriptionBase *,
+            const FieldDescriptionBase *,
                   Field                *)
         {
             return NULL;
@@ -574,11 +578,12 @@ class FieldDescription : public DescT::FieldDescParent
     struct DefaultCreateEditHandler
     {
         static EditFieldHandlePtr createHandler(Field            *pField,
-                                                FieldDescription *pDesc )
+                                                FieldDescription *pDesc,
+                                                FieldContainer   *pCnt  )
         {
             HandledField *pTypedField = pDesc->dcast(pField);
             
-            EditHandlePtr returnValue(new EditHandle(pTypedField, pDesc));
+            EditHandlePtr returnValue(new EditHandle(pTypedField, pDesc, pCnt));
             
             return returnValue;
         }
@@ -588,7 +593,8 @@ class FieldDescription : public DescT::FieldDescParent
     struct ParentCreateEditHandler
     {
         static EditFieldHandlePtr createHandler(Field            *pField,
-                                                FieldDescription *pDesc )
+                                                FieldDescription *pDesc,
+                                                FieldContainer   *pCnt  )
         {
             EditFieldHandlePtr returnValue;
             
@@ -656,13 +662,17 @@ class FieldDescription : public DescT::FieldDescParent
 
     virtual FieldDescriptionBase *clone       (void         ) const;
 
-    virtual GetFieldHandlePtr   createGetHandler (const Field *pField);
-    virtual EditFieldHandlePtr  createEditHandler(      Field *pField);
+    virtual 
+        GetFieldHandlePtr   createGetHandler (const Field          *pField,
+                                                    FieldContainer *pCnt  );
+    virtual 
+        EditFieldHandlePtr  createEditHandler(      Field          *pField,
+                                                    FieldContainer *pCnt  );
 
     virtual BasicFieldConnector   *createConnector(
         const Field                *pSrc,
-              FieldDescriptionBase *pDstDesc,
-              Field                *pDst    );
+        const FieldDescriptionBase *pDstDesc,
+              Field                *pDst    ) const;
 };
 
 OSG_END_NAMESPACE

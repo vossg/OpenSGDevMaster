@@ -243,7 +243,8 @@ EditFieldHandlePtr Attachment::editInternalHandler(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfInternal, 
-             this->getType().getFieldDesc(InternalFieldId)));
+             this->getType().getFieldDesc(InternalFieldId),
+             this));
 
     editSField(InternalFieldMask);
 
@@ -255,7 +256,8 @@ GetFieldHandlePtr Attachment::getInternalHandler(void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfInternal, 
-             this->getType().getFieldDesc(InternalFieldId)));
+             this->getType().getFieldDesc(InternalFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -265,7 +267,8 @@ GetFieldHandlePtr Attachment::getHandleParents(void) const
     MFParentFieldContainerPtr::GetHandlePtr returnValue(
         new  MFParentFieldContainerPtr::GetHandle(
              &_mfParents, 
-             this->getType().getFieldDesc(ParentsFieldId)));
+             this->getType().getFieldDesc(ParentsFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }

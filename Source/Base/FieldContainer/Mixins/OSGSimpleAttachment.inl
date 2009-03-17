@@ -61,7 +61,8 @@ EditFieldHandlePtr
     typename SimpleAttachment::EditHandlePtr returnValue(
         new typename SimpleAttachment::EditHandle(
              pField, 
-             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId)));
+             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId),
+             pThis));
 
     pThis->editSField(SimpleAttachment::SimpleFieldId);
 
@@ -87,7 +88,8 @@ EditFieldHandlePtr
     typename SimpleAttachment::EditHandlePtr returnValue(
         new typename SimpleAttachment::EditHandle(
              pField, 
-             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId)));
+             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId),
+             pThis));
 
     pThis->editSField(SimpleAttachment::SimpleFieldId);
 
@@ -118,7 +120,8 @@ EditFieldHandlePtr
     typename SimpleAttachment::EditHandlePtr returnValue(
         new typename SimpleAttachment::EditHandle(
              pField, 
-             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId)));
+             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId),
+             pThis));
 
     pThis->editMField(*pField, SimpleAttachment::SimpleFieldId);
 
@@ -144,7 +147,8 @@ EditFieldHandlePtr
     typename SimpleAttachment::EditHandlePtr returnValue(
         new typename SimpleAttachment::EditHandle(
              pField, 
-             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId)));
+             pThis->getType().getFieldDesc(SimpleAttachment::SimpleFieldId),
+             pThis));
 
     pThis->editMField(*pField, SimpleAttachment::SimpleFieldId);
 
@@ -306,7 +310,8 @@ GetFieldHandlePtr SimpleAttachment<AttachmentDescT>::getHandleField(void) const
     GetHandlePtr returnValue(
         new  GetHandle(
              &_field, 
-             this->getType().getFieldDesc(SimpleFieldId)));
+             this->getType().getFieldDesc(SimpleFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -318,7 +323,8 @@ EditFieldHandlePtr SimpleAttachment<AttachmentDescT>::editHandleField(void)
     EditHandlePtr returnValue(
         new  EditHandle(
              &_field, 
-             this->getType().getFieldDesc(SimpleFieldId)));
+             this->getType().getFieldDesc(SimpleFieldId),
+             this));
 #endif
 //    editSField(TravMaskFieldMask);
 

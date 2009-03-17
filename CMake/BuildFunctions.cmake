@@ -418,6 +418,8 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                 ENDIF(NOT EXISTS ${FCDDir}/${FCDClassHdr})
             ENDIF(NOT EXISTS ${FCDDir}/${FCDBaseCpp})
 
+            SET(FCDBaseDir ${CMAKE_SOURCE_DIR}/Tools/fcd2code)
+
             SET(FCDCommand ${CMAKE_SOURCE_DIR}/Tools/fcd2code/fcd2code)
 
             ADD_CUSTOM_COMMAND(
@@ -427,7 +429,11 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                        ${FCDDir}/${FCDBaseFld}
                        ${FCD_TMP_OUT}
                 COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -b -d ${FCDFile} -p ${FCDDir} -r ${CMAKE_SOURCE_DIR}
-                MAIN_DEPENDENCY ${FCDFile})
+                MAIN_DEPENDENCY ${FCDFile}
+                DEPENDS ${FCDBaseDir}/TemplateFieldContainerBase_h.txt
+                        ${FCDBaseDir}/TemplateFieldContainerBase_inl.txt
+                        ${FCDBaseDir}/TemplateFieldContainerBase_cpp.txt
+                        ${FCDBaseDir}/TemplateFieldContainerFields_h.txt)
 
             SET(FCD_TMP_OUT )
         ENDFOREACH(FCDFile)

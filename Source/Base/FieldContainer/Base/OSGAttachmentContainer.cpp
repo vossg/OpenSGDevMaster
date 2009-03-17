@@ -49,6 +49,7 @@
 #include "OSGAttachment.h"
 #include "OSGTypeBasePredicates.h"
 #include "OSGReflexiveContainerTypePredicates.h"
+#include "OSGNameAttachment.h"
 
 #include "boost/bind.hpp"
 
@@ -300,6 +301,19 @@ void AttachmentContainer::dump(      UInt32    uiIndent,
     PLOG << "}" << std::endl;
 }
 
+FieldContainer *AttachmentContainer::findNamedComponent(const Char8 *szName) 
+{
+    const Char8 *szTmpName = NULL;
+
+    szTmpName = OSG::getName(this);
+        
+    if(szTmpName != NULL && osgStringCmp(szTmpName, szName) == 0)
+    {
+        return this;
+    }
+    
+    return NULL;
+}
 
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
@@ -394,7 +408,8 @@ EditFieldHandlePtr AttachmentContainer::editHandleAttachments(void)
     SFAttachmentObjPtrMap::EditHandlePtr returnValue(
         new  SFAttachmentObjPtrMap::EditHandle(
              &_sfAttachments, 
-             this->getType().getFieldDesc(AttachmentsFieldId)));
+             this->getType().getFieldDesc(AttachmentsFieldId),
+             this));
 
     returnValue->setAddMethod(boost::bind(&AttachmentContainer::addAttachment,
                                           this,
@@ -411,7 +426,8 @@ GetFieldHandlePtr AttachmentContainer::getHandleAttachments(void) const
     SFAttachmentObjPtrMap::GetHandlePtr returnValue(
         new  SFAttachmentObjPtrMap::GetHandle(
              &_sfAttachments, 
-             this->getType().getFieldDesc(AttachmentsFieldId)));
+             this->getType().getFieldDesc(AttachmentsFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }

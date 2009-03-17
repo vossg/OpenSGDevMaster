@@ -657,12 +657,10 @@ FieldContainer *ComplexSceneManager::findNamedComponent(
             }
             else
             {
-#if 0                                                                    
                 FieldContainer *tmpVal = pAttCnt->findNamedComponent(szName);
                 
                 if(tmpVal != NULL)
                     return tmpVal;
-#endif
             }
         }
 

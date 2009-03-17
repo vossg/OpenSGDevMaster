@@ -283,7 +283,8 @@ EditFieldHandlePtr MapCacheHandlerMixin<Desc>::editHandleMapCache(void)
     typename MapCacheField::EditHandlePtr returnValue(
         new  typename MapCacheField::EditHandle(
              &_fMapCache,
-             this->getType().getFieldDesc(MapCacheFieldId)));
+             this->getType().getFieldDesc(MapCacheFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&Self::addElement,
@@ -300,7 +301,8 @@ GetFieldHandlePtr  MapCacheHandlerMixin<Desc>::getHandleMapCache(void) const
     typename MapCacheField::GetHandlePtr returnValue(
         new  typename MapCacheField::GetHandle(
              &_fMapCache,
-             this->getType().getFieldDesc(MapCacheFieldId)));
+             this->getType().getFieldDesc(MapCacheFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }

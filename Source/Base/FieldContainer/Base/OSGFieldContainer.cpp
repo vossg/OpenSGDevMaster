@@ -219,6 +219,11 @@ void FieldContainer::resolveLinks(void)
     callChangedFunctors(0);
 }
 
+FieldContainer *FieldContainer::findNamedComponent(const Char8 *)
+{
+    return NULL;
+}
+
 /*---------------------------------------------------------------------*/
 /*! \name Container cloning                                            */
 /*! \{                                                                 */

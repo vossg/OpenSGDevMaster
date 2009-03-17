@@ -303,7 +303,8 @@ GetFieldHandlePtr SValueEmitter<Desc>::getHandleValue(void) const
     typename SFValueType::GetHandlePtr returnValue(
         new typename SFValueType::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -314,7 +315,8 @@ EditFieldHandlePtr SValueEmitter<Desc>::editHandleValue(void)
     typename SFValueType::EditHandlePtr returnValue(
         new typename SFValueType::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);
@@ -328,7 +330,8 @@ GetFieldHandlePtr SValueEmitter<Desc>::getHandleIgnoreNextChange (void) const
     typename SFBool::GetHandlePtr returnValue(
         new typename SFBool::GetHandle(
              &_sfIgnoreNextChange,
-             this->getType().getFieldDesc(IgnoreNextChangeFieldId)));
+             this->getType().getFieldDesc(IgnoreNextChangeFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -339,7 +342,8 @@ EditFieldHandlePtr SValueEmitter<Desc>::editHandleIgnoreNextChange(void)
     typename SFBool::EditHandlePtr returnValue(
         new typename SFBool::EditHandle(
              &_sfIgnoreNextChange,
-             this->getType().getFieldDesc(IgnoreNextChangeFieldId)));
+             this->getType().getFieldDesc(IgnoreNextChangeFieldId),
+             this));
 
 
     editSField(IgnoreNextChangeFieldMask);

@@ -77,7 +77,8 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<FieldContainerPtrSFieldBase> :
 
     GetSFieldHandle(const GetSFieldHandle             &source);
     GetSFieldHandle(const FieldContainerPtrSFieldBase *pField, 
-                    const FieldDescriptionBase        *pDescription);
+                    const FieldDescriptionBase        *pDescription,
+                          FieldContainer              *pContainer  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -152,7 +153,8 @@ class OSG_BASE_DLLMAPPING EditSFieldHandle<FieldContainerPtrSFieldBase> :
 
     EditSFieldHandle(const EditSFieldHandle            &source);
     EditSFieldHandle(      FieldContainerPtrSFieldBase *pField, 
-                     const FieldDescriptionBase        *pDescription);
+                     const FieldDescriptionBase        *pDescription,
+                           FieldContainer              *pContainer  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,7 +237,8 @@ class GetFCPtrSFieldHandle :
 
     GetFCPtrSFieldHandle(const GetFCPtrSFieldHandle &source);
     GetFCPtrSFieldHandle(const FieldT               *pField, 
-                         const FieldDescriptionBase *pDescription);
+                         const FieldDescriptionBase *pDescription,
+                               FieldContainer       *pContainer  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -309,7 +312,8 @@ class EditFCPtrSFieldHandle :
 
     EditFCPtrSFieldHandle(const EditFCPtrSFieldHandle &source      );
     EditFCPtrSFieldHandle(      FieldT                *pField, 
-                          const FieldDescriptionBase  *pDescription);
+                          const FieldDescriptionBase  *pDescription,
+                                FieldContainer        *pContainer  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

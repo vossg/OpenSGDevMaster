@@ -77,7 +77,8 @@ class OSG_BASE_DLLMAPPING GetMFieldHandle<FieldContainerPtrMFieldBase> :
 
     GetMFieldHandle(const GetMFieldHandle             &source);
     GetMFieldHandle(const FieldContainerPtrMFieldBase *pField, 
-                    const FieldDescriptionBase        *pDescription);
+                    const FieldDescriptionBase        *pDescription,
+                          FieldContainer              *pContainer  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -159,7 +160,8 @@ class OSG_BASE_DLLMAPPING EditMFieldHandle<FieldContainerPtrMFieldBase> :
 
     EditMFieldHandle(const EditMFieldHandle            &source);
     EditMFieldHandle(      FieldContainerPtrMFieldBase *pField, 
-                     const FieldDescriptionBase        *pDescription);
+                     const FieldDescriptionBase        *pDescription,
+                           FieldContainer              *pContainer  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -262,7 +264,8 @@ class GetFCPtrMFieldHandle : public GetMFieldHandle<FieldContainerPtrMFieldBase>
 
     GetFCPtrMFieldHandle(const GetFCPtrMFieldHandle &source);
     GetFCPtrMFieldHandle(const FieldT               *pField, 
-                         const FieldDescriptionBase *pDescription);
+                         const FieldDescriptionBase *pDescription,
+                               FieldContainer       *pContainer  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -374,7 +377,8 @@ class EditFCPtrMFieldHandle :
 
     EditFCPtrMFieldHandle(const EditFCPtrMFieldHandle &source);
     EditFCPtrMFieldHandle(      FieldT                *pField, 
-                          const FieldDescriptionBase  *pDescription);
+                          const FieldDescriptionBase  *pDescription,
+                                FieldContainer        *pContainer  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

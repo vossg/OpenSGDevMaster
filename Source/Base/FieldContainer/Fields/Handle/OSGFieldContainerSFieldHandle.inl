@@ -56,9 +56,10 @@ GetSFieldHandle<FieldContainerPtrSFieldBase>::GetSFieldHandle(
 inline
 GetSFieldHandle<FieldContainerPtrSFieldBase>::GetSFieldHandle(
     const FieldContainerPtrSFieldBase *pField, 
-    const FieldDescriptionBase        *pDescription) :
+    const FieldDescriptionBase        *pDescription,
+          FieldContainer              *pContainer  ) :
 
-    Inherited(pField, pDescription)
+    Inherited(pField, pDescription, pContainer)
 {
 }
 
@@ -164,10 +165,12 @@ EditSFieldHandle<FieldContainerPtrSFieldBase>::EditSFieldHandle(
 inline
 EditSFieldHandle<FieldContainerPtrSFieldBase>::EditSFieldHandle(      
           FieldContainerPtrSFieldBase *pField, 
-    const FieldDescriptionBase        *pDescription) :
+    const FieldDescriptionBase        *pDescription,
+          FieldContainer              *pContainer  ) :
 
      Inherited(pField, 
-               pDescription)
+               pDescription,
+               pContainer  )
 {
 }
 
@@ -288,9 +291,10 @@ GetFCPtrSFieldHandle<FieldT>::GetFCPtrSFieldHandle(
 template <class FieldT> inline
 GetFCPtrSFieldHandle<FieldT>::GetFCPtrSFieldHandle(
     const FieldT               *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
 
-    Inherited(pField, pDescription)
+    Inherited(pField, pDescription, pContainer)
 {
 }
 
@@ -378,10 +382,12 @@ EditFCPtrSFieldHandle<FieldT>::EditFCPtrSFieldHandle(
 template <class FieldT> inline
 EditFCPtrSFieldHandle<FieldT>::EditFCPtrSFieldHandle(
           FieldT                *pField, 
-    const FieldDescriptionBase  *pDescription) :
+    const FieldDescriptionBase  *pDescription,
+          FieldContainer        *pContainer  ) :
     
      Inherited (pField, 
-                pDescription),
+                pDescription,
+                pContainer  ),
     _fSetMethod(NULL        )
 {
 }

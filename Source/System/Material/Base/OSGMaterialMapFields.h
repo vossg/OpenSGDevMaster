@@ -180,7 +180,8 @@ class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFMaterialPtrMap> :
 
     GetSFieldHandle(const GetSFieldHandle       &source);
     GetSFieldHandle(const SFMaterialPtrMap      *pField, 
-                    const FieldDescriptionBase  *pDescription);
+                    const FieldDescriptionBase  *pDescription,
+                          FieldContainer        *pContainer  );
 
     /*---------------------------------------------------------------------*/
 
@@ -242,7 +243,8 @@ class OSG_SYSTEM_DLLMAPPING
 
     EditSFieldHandle(const EditSFieldHandle     &source      );
     EditSFieldHandle(      SFMaterialPtrMap     *pField, 
-                     const FieldDescriptionBase *pDescription);
+                     const FieldDescriptionBase *pDescription,
+                           FieldContainer       *pContainer  );
 
     /*---------------------------------------------------------------------*/
 

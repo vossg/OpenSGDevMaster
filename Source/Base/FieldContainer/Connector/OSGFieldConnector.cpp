@@ -62,11 +62,21 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
         return false;
     }
 
-    FieldDescriptionBase *pSrcDesc = 
-        pSrcContainer->getFieldDescription(szSrcName);
+    const FieldDescriptionBase *pSrcDesc = NULL;
+    const FieldDescriptionBase *pDstDesc = NULL;
 
-    FieldDescriptionBase *pDstDesc = 
-        pDstContainer->getFieldDescription(szDstName);
+    GetFieldHandlePtr pSrcHnd = pSrcContainer->getField(szSrcName);
+    GetFieldHandlePtr pDstHnd = pDstContainer->getField(szDstName);
+
+    if(pSrcHnd != NULL && pSrcHnd->isValid() == true)
+    {
+        pSrcDesc = pSrcHnd->getDescription();
+    }
+
+    if(pDstHnd != NULL && pDstHnd->isValid() == true)
+    {
+        pDstDesc = pDstHnd->getDescription();
+    }
 
     // check core for node
     if(pSrcDesc == NULL)
@@ -75,9 +85,12 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
 
         if(pNode != NULL && pNode->getCore() != NULL)
         {
-            pSrcDesc = pNode->getCore()->getFieldDescription(szSrcName);
+            pSrcHnd = pNode->getCore()->getField(szSrcName);
 
-            pSrcContainer = pNode->getCore();
+            if(pSrcHnd != NULL && pSrcHnd->isValid() == true)
+            {
+                pSrcDesc = pSrcHnd->getDescription();
+            }
         }
     }
 
@@ -88,26 +101,42 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
 
         if(pNode != NULL && pNode->getCore() != NULL)
         {
-            pDstDesc = pNode->getCore()->getFieldDescription(szDstName);
+            pDstHnd = pNode->getCore()->getField(szDstName);
 
-            pDstContainer = pNode->getCore();
+            if(pDstHnd != NULL && pDstHnd->isValid() == true)
+            {
+                pDstDesc = pDstHnd->getDescription();
+            }
         }
     }
 
     if(pSrcDesc == NULL || pDstDesc == NULL)
     {
-        FWARNING(("Failed desc %p %p\n", pSrcDesc, pDstDesc));
+        FWARNING(("Failed desc %p %p | %s %s\n", 
+                  pSrcDesc, pDstDesc,
+                  szSrcName, szDstName));
 
         return false;
     }
 
-    const Field *pSrcField = pSrcContainer->getField(szSrcName)->getField();
+    const Field *pSrcField = pSrcHnd->getField();
+          Field *pDstField = const_cast<Field *>(pDstHnd->getField());
 
-          Field *pDstField = 
-              const_cast<Field *>(
-                  pDstContainer->getField(szDstName)->getField());
+    pSrcContainer = 
+              dynamic_cast<AttachmentContainer *>(pSrcHnd->getContainer());
 
+    pDstContainer = 
+              dynamic_cast<AttachmentContainer *>(pDstHnd->getContainer());
           
+    if(pSrcDesc == NULL || pDstDesc == NULL)
+    {
+        FWARNING(("Failed handle container %p %p\n", 
+                  pSrcContainer, 
+                  pDstContainer));
+
+        return false;
+    }
+
     BasicFieldConnector *pConn = pSrcDesc->createConnector(pSrcField,
                                                            pDstDesc,
                                                            pDstField);
@@ -137,11 +166,18 @@ bool subConnection(      OSG::AttachmentContainer *pSrcContainer,
     }
 
     
-    FieldDescriptionBase *pSrcDesc = NULL;
+    const FieldDescriptionBase *pSrcDesc = NULL;
+
+    GetFieldHandlePtr pSrcHnd;
 
     if(szSrcName != NULL)
     {
-        pSrcDesc = pSrcContainer->getFieldDescription(szSrcName);
+        pSrcHnd = pSrcContainer->getField(szSrcName);
+
+        if(pSrcHnd != NULL && pSrcHnd->isValid() == true)
+        {
+            pSrcDesc = pSrcHnd->getDescription();
+        }
 
         // check core for node
         if(pSrcDesc == NULL)
@@ -150,19 +186,29 @@ bool subConnection(      OSG::AttachmentContainer *pSrcContainer,
             
             if(pNode != NULL && pNode->getCore() != NULL)
             {
-                pSrcDesc = pNode->getCore()->getFieldDescription(szSrcName);
-                
-                pSrcContainer = pNode->getCore();
+                pSrcHnd = pNode->getCore()->getField(szSrcName);
+
+                if(pSrcHnd != NULL && pSrcHnd->isValid() == true)
+                {
+                    pSrcDesc = pSrcHnd->getDescription();
+                }
             }
         }
     }
 
 
-    FieldDescriptionBase *pDstDesc = NULL;
+    const FieldDescriptionBase *pDstDesc = NULL;
+
+    GetFieldHandlePtr pDstHnd;
 
     if(pDstContainer != NULL && szDstName != NULL)
     {
-        pDstDesc = pDstContainer->getFieldDescription(szDstName);
+        pDstHnd = pDstContainer->getField(szDstName);
+
+        if(pDstHnd != NULL && pDstHnd->isValid() == true)
+        {
+            pDstDesc = pDstHnd->getDescription();
+        }
 
         // same here
         if(pDstDesc == NULL)
@@ -171,11 +217,29 @@ bool subConnection(      OSG::AttachmentContainer *pSrcContainer,
 
             if(pNode != NULL && pNode->getCore() != NULL)
             {
-                pDstDesc = pNode->getCore()->getFieldDescription(szDstName);
-                
-                pDstContainer = pNode->getCore();
+                pDstHnd = pNode->getCore()->getField(szDstName);
+
+                if(pDstHnd != NULL && pDstHnd->isValid() == true)
+                {
+                    pDstDesc = pDstHnd->getDescription();
+                }
             }
         }
+    }
+
+    pSrcContainer = 
+              dynamic_cast<AttachmentContainer *>(pSrcHnd->getContainer());
+
+    pDstContainer = 
+              dynamic_cast<AttachmentContainer *>(pDstHnd->getContainer());
+          
+    if(pSrcDesc == NULL || pDstDesc == NULL)
+    {
+        FWARNING(("Failed handle container %p %p\n", 
+                  pSrcContainer, 
+                  pDstContainer));
+
+        return false;
     }
 
     BitVector bSrcMask = TypeTraits<BitVector>::BitsClear;

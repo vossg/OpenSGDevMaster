@@ -550,7 +550,8 @@ EditFieldHandlePtr TypedGeoIntegralProperty<GeoPropertyDesc>::editHandleField(
     StoredEditHandlePtr returnValue(
         new  StoredEditHandle(
              &_field, 
-             this->getType().getFieldDesc(GeoPropDataFieldId)));
+             this->getType().getFieldDesc(GeoPropDataFieldId),
+             this));
 
     editMField(GeoPropDataFieldMask, _field);
 
@@ -564,7 +565,8 @@ GetFieldHandlePtr TypedGeoIntegralProperty<GeoPropertyDesc>::getHandleField(
     StoredGetHandlePtr returnValue(
         new  StoredGetHandle(
              &_field, 
-             this->getType().getFieldDesc(GeoPropDataFieldId)));
+             this->getType().getFieldDesc(GeoPropDataFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }

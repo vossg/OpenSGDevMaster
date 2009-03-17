@@ -367,11 +367,13 @@ GetFieldHandlePtr
     FieldDescription<DescT, 
                      eFieldCard,  
                      RefCountPolicy,
-                     eFieldClass   >::createGetHandler(const Field *pField)
+                     eFieldClass   >::createGetHandler(
+                         const Field          *pField,
+                               FieldContainer *pCnt  )
 {
     const HandledField *pTypedField = dcast_const(pField);
 
-    GetHandlePtr returnValue(new GetHandle(pTypedField, this));
+    GetHandlePtr returnValue(new GetHandle(pTypedField, this, pCnt));
 
     return returnValue;
 }
@@ -384,9 +386,10 @@ EditFieldHandlePtr
     FieldDescription<DescT, 
                      eFieldCard,  
                      RefCountPolicy,
-                     eFieldClass   >::createEditHandler(Field *pField)
+                     eFieldClass   >::createEditHandler(Field          *pField,
+                                                        FieldContainer *pCnt)
 {
-    return CreateEditHandler::createHandler(pField, this);
+    return CreateEditHandler::createHandler(pField, this, pCnt);
 }
 
 template<class    DescT, 
@@ -399,9 +402,9 @@ BasicFieldConnector *FieldDescription<
           RefCountPolicy,
           eFieldClass   >::DefaultFieldCreateHandler::createConnector(
 
-          FieldDescriptionBase *pSrcDesc,
+    const FieldDescriptionBase *pSrcDesc,
     const HandledField         *pSrc,
-          FieldDescriptionBase *pDstDesc,
+    const FieldDescriptionBase *pDstDesc,
           HandledField         *pDst)
 {
     typedef typename FieldFunctions::FConnector ReturnType;
@@ -438,8 +441,8 @@ BasicFieldConnector *FieldDescription<DescT,
                      RefCountPolicy,
                      eFieldClass   >::createConnector(
     const Field                *pSrc,
-          FieldDescriptionBase *pDstDesc,
-          Field                *pDst)
+    const FieldDescriptionBase *pDstDesc,
+          Field                *pDst) const
 {
     return FieldCreateHandler::createConnector(this,
                                                dcast_const(pSrc),

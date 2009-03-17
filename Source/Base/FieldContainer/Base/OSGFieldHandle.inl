@@ -90,21 +90,29 @@ std::string FieldHandle::getName(void) const
     }
 }
 
+inline
+const FieldDescriptionBase *FieldHandle::getDescription(void)
+{
+    return _pDescription;
+}
 
 /*---------------------------------------------------------------------*/
 
 inline
 GetFieldHandle::GetFieldHandle(const GetFieldHandle &source) :
-     Inherited(source        ),
-    _pField   (source._pField)
+     Inherited (source            ),
+    _pField    (source._pField    ),
+    _pContainer(source._pContainer)
 {
 }
 
 inline
 GetFieldHandle::GetFieldHandle(const Field                *pField,
-                               const FieldDescriptionBase *pDescription) :
-     Inherited(pDescription),
-    _pField   (pField      )
+                               const FieldDescriptionBase *pDescription,
+                                     FieldContainer       *pContainer  ) :
+     Inherited (pDescription),
+    _pField    (pField      ),
+    _pContainer(pContainer  )
 {
 }
 
@@ -126,6 +134,12 @@ const Field *GetFieldHandle::getField(void)
 }
 
 inline
+FieldContainer *GetFieldHandle::getContainer(void)
+{
+    return _pContainer;
+}
+
+inline
 bool GetFieldHandle::operator ==(const EditFieldHandle &rhs)
 {
     return (_pDescription == rhs._pDescription &&
@@ -143,16 +157,19 @@ bool GetFieldHandle::operator ==(const GetFieldHandle &rhs)
 
 inline
 EditFieldHandle::EditFieldHandle(const EditFieldHandle &source) :
-     Inherited(source        ),
-    _pField   (source._pField)
+     Inherited (source            ),
+    _pField    (source._pField    ),
+    _pContainer(source._pContainer)
 {
 }
 
 inline
 EditFieldHandle::EditFieldHandle(      Field                *pField,
-                                 const FieldDescriptionBase *pDescription) :
-     Inherited(pDescription),
-    _pField   (pField      )
+                                 const FieldDescriptionBase *pDescription,
+                                       FieldContainer       *pContainer  ) :
+     Inherited (pDescription),
+    _pField    (pField      ),
+    _pContainer(pContainer  )
 {
 }
 
@@ -165,6 +182,18 @@ inline
 bool EditFieldHandle::isValid(void) const
 {
     return _pField != NULL;
+}
+
+inline
+Field *EditFieldHandle::getField(void)
+{
+    return _pField;
+}
+
+inline
+FieldContainer *EditFieldHandle::getContainer(void)
+{
+    return _pContainer;
 }
 
 inline
@@ -191,9 +220,11 @@ GetMapFieldHandle::GetMapFieldHandle(const GetMapFieldHandle    &source) :
 
 inline
 GetMapFieldHandle::GetMapFieldHandle(const Field                *pField, 
-                                     const FieldDescriptionBase *pDescription):
+                                     const FieldDescriptionBase *pDescription,
+                                           FieldContainer       *pContainer  ):
     Inherited(pField,
-              pDescription)
+              pDescription,
+              pContainer  )
 {
 }
 
@@ -213,10 +244,12 @@ EditMapFieldHandle::EditMapFieldHandle(const EditMapFieldHandle   &source) :
 inline
 EditMapFieldHandle::EditMapFieldHandle(
           Field                *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
 
     Inherited(pField,
-              pDescription)
+              pDescription,
+              pContainer  )
 {
 }
 
@@ -236,9 +269,10 @@ EditSFieldHandle<FieldT>::EditSFieldHandle(const EditSFieldHandle &source) :
 template<class FieldT> inline
 EditSFieldHandle<FieldT>::EditSFieldHandle(     
           FieldT               *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
     
-    Inherited(pField, pDescription)
+    Inherited(pField, pDescription, pContainer)
 {
 }
 
@@ -360,9 +394,10 @@ EditMFieldHandle<FieldT>::EditMFieldHandle(const EditMFieldHandle &source):
 template<class FieldT> inline
 EditMFieldHandle<FieldT>::EditMFieldHandle(     
           FieldT               *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
 
-    Inherited(pField, pDescription)
+    Inherited(pField, pDescription, pContainer)
 {
 }
 
@@ -483,9 +518,10 @@ GetSFieldHandle<FieldT>::GetSFieldHandle(const GetSFieldHandle &source) :
 template<class FieldT> inline
 GetSFieldHandle<FieldT>::GetSFieldHandle(
     const FieldT               *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
 
-    Inherited(pField, pDescription)
+    Inherited(pField, pDescription, pContainer)
 {
 }
 
@@ -564,9 +600,10 @@ GetMFieldHandle<FieldT>::GetMFieldHandle(const GetMFieldHandle &source) :
 template<class FieldT> inline
 GetMFieldHandle<FieldT>::GetMFieldHandle(
     const FieldT               *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
 
-    Inherited(pField, pDescription)
+    Inherited(pField, pDescription, pContainer)
 {
 }
 

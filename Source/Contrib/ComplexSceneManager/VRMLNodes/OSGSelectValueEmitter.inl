@@ -423,7 +423,8 @@ GetFieldHandlePtr  SelectSValueEmitter<Desc>::getHandleChoice(void) const
     typename SFChoiceType::GetHandlePtr returnValue(
         new typename SFChoiceType::GetHandle(
              &_sfChoice,
-             this->getType().getFieldDesc(ChoiceFieldId)));
+             this->getType().getFieldDesc(ChoiceFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -434,7 +435,8 @@ EditFieldHandlePtr SelectSValueEmitter<Desc>::editHandleChoice(void)
     typename SFChoiceType::EditHandlePtr returnValue(
         new typename SFChoiceType::EditHandle(
              &_sfChoice,
-             this->getType().getFieldDesc(ChoiceFieldId)));
+             this->getType().getFieldDesc(ChoiceFieldId),
+             this));
 
 
     editSField(ChoiceFieldMask);
@@ -448,7 +450,8 @@ GetFieldHandlePtr  SelectSValueEmitter<Desc>::getHandleChoiceValues(void) const
     typename MFChoiceValuesType::GetHandlePtr returnValue(
         new typename MFChoiceValuesType::GetHandle(
              &_mfChoiceValues,
-             this->getType().getFieldDesc(ChoiceValuesFieldId)));
+             this->getType().getFieldDesc(ChoiceValuesFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -459,7 +462,8 @@ EditFieldHandlePtr SelectSValueEmitter<Desc>::editHandleChoiceValues(void)
     typename MFChoiceValuesType::EditHandlePtr returnValue(
         new typename MFChoiceValuesType::EditHandle(
              &_mfChoiceValues,
-             this->getType().getFieldDesc(ChoiceValuesFieldId)));
+             this->getType().getFieldDesc(ChoiceValuesFieldId),
+             this));
 
 
     editMField(ChoiceValuesFieldMask, _mfChoiceValues);
@@ -473,7 +477,8 @@ GetFieldHandlePtr SelectSValueEmitter<Desc>::getHandleValue(void) const
     typename SFValueType::GetHandlePtr returnValue(
         new typename SFValueType::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -484,7 +489,8 @@ EditFieldHandlePtr SelectSValueEmitter<Desc>::editHandleValue(void)
     typename SFValueType::EditHandlePtr returnValue(
         new typename SFValueType::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);
@@ -499,7 +505,8 @@ GetFieldHandlePtr
     typename SFBool::GetHandlePtr returnValue(
         new typename SFBool::GetHandle(
              &_sfIgnoreNextChange,
-             this->getType().getFieldDesc(IgnoreNextChangeFieldId)));
+             this->getType().getFieldDesc(IgnoreNextChangeFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -510,7 +517,8 @@ EditFieldHandlePtr SelectSValueEmitter<Desc>::editHandleIgnoreNextChange(void)
     typename SFBool::EditHandlePtr returnValue(
         new typename SFBool::EditHandle(
              &_sfIgnoreNextChange,
-             this->getType().getFieldDesc(IgnoreNextChangeFieldId)));
+             this->getType().getFieldDesc(IgnoreNextChangeFieldId),
+             this));
 
 
     editSField(IgnoreNextChangeFieldMask);

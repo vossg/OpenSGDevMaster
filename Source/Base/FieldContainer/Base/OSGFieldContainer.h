@@ -133,6 +133,8 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+    virtual FieldContainer *findNamedComponent(const Char8 *szName);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */

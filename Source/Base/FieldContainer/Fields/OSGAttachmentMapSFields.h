@@ -86,7 +86,8 @@ class OSG_BASE_DLLMAPPING GetSFieldHandle<SFAttachmentPtrMap> :
 
     GetSFieldHandle(const GetSFieldHandle       &source);
     GetSFieldHandle(const SFAttachmentPtrMap    *pField, 
-                    const FieldDescriptionBase  *pDescription);
+                    const FieldDescriptionBase  *pDescription,
+                          FieldContainer        *pContainer  );
 
     /*---------------------------------------------------------------------*/
 
@@ -149,7 +150,8 @@ class OSG_BASE_DLLMAPPING
 
     EditSFieldHandle(const EditSFieldHandle     &source      );
     EditSFieldHandle(      SFAttachmentPtrMap   *pField, 
-                     const FieldDescriptionBase *pDescription);
+                     const FieldDescriptionBase *pDescription,
+                           FieldContainer       *pContainer  );
 
     /*---------------------------------------------------------------------*/
 

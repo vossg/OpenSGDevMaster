@@ -558,7 +558,8 @@ EditFieldHandlePtr StageHandlerMixin<ParentT>::editHandleUpdateMode(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfUpdateMode, 
-             this->getType().getFieldDesc(UpdateModeFieldId)));
+             this->getType().getFieldDesc(UpdateModeFieldId),
+             this));
 
     Self::editSField(UpdateModeFieldMask);
 
@@ -572,7 +573,8 @@ GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleUpdateMode(
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfUpdateMode, 
-             this->getType().getFieldDesc(UpdateModeFieldId)));
+             this->getType().getFieldDesc(UpdateModeFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -584,7 +586,8 @@ GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleRequestRun(
     SFOSGAny::GetHandlePtr returnValue(
         new  SFOSGAny::GetHandle(
              &_sfRequestRun, 
-             this->getType().getFieldDesc(RequestRunFieldId)));
+             this->getType().getFieldDesc(RequestRunFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }

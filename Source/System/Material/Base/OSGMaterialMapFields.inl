@@ -49,9 +49,10 @@ GetSFieldHandle<SFMaterialPtrMap>::GetSFieldHandle(
 inline
 GetSFieldHandle<SFMaterialPtrMap>::GetSFieldHandle(
     const SFMaterialPtrMap     *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
 
-    Inherited(pField, pDescription)
+    Inherited(pField, pDescription, pContainer)
 {
 }
 
@@ -145,10 +146,12 @@ EditSFieldHandle<SFMaterialPtrMap>::EditSFieldHandle(
 inline
 EditSFieldHandle<SFMaterialPtrMap>::EditSFieldHandle(      
           SFMaterialPtrMap     *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
 
      Inherited (pField, 
-                pDescription),
+                pDescription,
+                pContainer  ),
     _pContainer(NULL        ),
     _fAddMethod(NULL        )
 {

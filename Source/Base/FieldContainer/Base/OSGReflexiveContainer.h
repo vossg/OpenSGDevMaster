@@ -142,19 +142,19 @@ class ReflexiveContainer
 
 
     OSG_BASE_DLLMAPPING
-          UInt32  getNumFields(      void            ) const;
+    virtual UInt32             getNumFields(      void            ) const;
 
     OSG_BASE_DLLMAPPING 
-    EditFieldHandlePtr editField(      UInt32 fieldId  );
+    virtual EditFieldHandlePtr editField   (      UInt32 fieldId  );
     
     OSG_BASE_DLLMAPPING 
-    EditFieldHandlePtr editField(const Char8 *fieldName);
+    virtual EditFieldHandlePtr editField   (const Char8 *fieldName);
 
     OSG_BASE_DLLMAPPING 
-    GetFieldHandlePtr  getField (      UInt32 fieldId  ) const;
+    virtual GetFieldHandlePtr  getField    (      UInt32 fieldId  ) const;
     
     OSG_BASE_DLLMAPPING 
-    GetFieldHandlePtr  getField (const Char8 *fieldName) const;
+    virtual GetFieldHandlePtr  getField    (const Char8 *fieldName) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -181,10 +181,12 @@ class ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_BASE_DLLMAPPING 
-    FieldDescriptionBase *getFieldDescription(      UInt32 fieldId  ) const;
+    virtual FieldDescriptionBase *
+                           getFieldDescription(      UInt32 fieldId  ) const;
     
     OSG_BASE_DLLMAPPING 
-    FieldDescriptionBase *getFieldDescription(const Char8 *fieldName) const;
+    virtual FieldDescriptionBase *
+                           getFieldDescription(const Char8 *fieldName) const;
 
 
     /*! \}                                                                 */

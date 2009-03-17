@@ -929,7 +929,8 @@ GetFieldHandlePtr  @!Classname!@Base::getHandleDecoratee (void) const
     SFUnrec@!Parent!@Ptr::GetHandlePtr returnValue(
         new SFUnrec@!Parent!@Ptr::GetHandle(
             &_sfDecoratee,
-            this->getType().getFieldDesc(DecorateeFieldId)));
+            this->getType().getFieldDesc(DecorateeFieldId),
+            const_cast<@!Classname!@Base *>(this)));
 
     return returnValue;
 }
@@ -939,7 +940,8 @@ EditFieldHandlePtr @!Classname!@Base::editHandleDecoratee(void)
     SFUnrec@!Parent!@Ptr::EditHandlePtr returnValue(
         new SFUnrec@!Parent!@Ptr::EditHandle(
             &_sfDecoratee,
-            this->getType().getFieldDesc(DecorateeFieldId)));
+            this->getType().getFieldDesc(DecorateeFieldId),
+            this));
 
     returnValue->setSetMethod(boost::bind(&@!Classname!@::setDecoratee,
                               static_cast<@!Classname!@ *>(this), _1));
@@ -957,7 +959,8 @@ GetFieldHandlePtr @!Classname!@Base::getHandle@!field.Name:15!@ (void) const
     @!field.CARD!@@!field.FieldTypeCaps!@::GetHandlePtr returnValue(
         new  @!field.CARD!@@!field.FieldTypeCaps!@::GetHandle(
              &_@!field.VarName!@,
-             this->getType().getFieldDesc(@!field.Name!@FieldId)));
+             this->getType().getFieldDesc(@!field.Name!@FieldId),
+             const_cast<@!Classname!@Base *>(this)));
 @@else // !field.noAccess
     @!field.CARD!@@!field.FieldTypeCaps!@::GetHandlePtr returnValue;
 @@endif
@@ -971,7 +974,8 @@ EditFieldHandlePtr @!Classname!@Base::editHandle@!field.Name:15!@(void)
     @!field.CARD!@@!field.FieldTypeCaps!@::EditHandlePtr returnValue(
         new  @!field.CARD!@@!field.FieldTypeCaps!@::EditHandle(
              &_@!field.VarName!@,
-             this->getType().getFieldDesc(@!field.Name!@FieldId)));
+             this->getType().getFieldDesc(@!field.Name!@FieldId),
+             this));
 
     @@if field.isMField
         @@if field.isPtrField

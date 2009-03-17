@@ -71,7 +71,7 @@ class OSG_BASE_DLLMAPPING FieldHandle
   protected:
 
     const FieldDescriptionBase *_pDescription;
-
+    
     /*---------------------------------------------------------------------*/
 
     typedef std::vector<const ReflexiveContainerType *> TypePtrVector;
@@ -94,6 +94,10 @@ class OSG_BASE_DLLMAPPING FieldHandle
     FieldType::Cardinality  getCardinality(void) const;
 
     std::string             getName       (void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    const FieldDescriptionBase *getDescription(void);
 
     /*---------------------------------------------------------------------*/
 
@@ -132,7 +136,8 @@ class OSG_BASE_DLLMAPPING GetFieldHandle : public FieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    const Field *_pField;
+    const Field          *_pField;
+          FieldContainer *_pContainer;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -142,9 +147,10 @@ class OSG_BASE_DLLMAPPING GetFieldHandle : public FieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    GetFieldHandle(const GetFieldHandle      &source);
+    GetFieldHandle(const GetFieldHandle       &source);
     GetFieldHandle(const Field                *pField, 
-                   const FieldDescriptionBase *pDescription);
+                   const FieldDescriptionBase *pDescription,
+                         FieldContainer       *pContainer  );
 
 
     virtual ~GetFieldHandle(void);
@@ -155,7 +161,8 @@ class OSG_BASE_DLLMAPPING GetFieldHandle : public FieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    const Field *getField(void);
+    const Field          *getField    (void);
+          FieldContainer *getContainer(void);
 
     /*---------------------------------------------------------------------*/
 
@@ -194,7 +201,8 @@ class OSG_BASE_DLLMAPPING EditFieldHandle : public FieldHandle
 
     /*---------------------------------------------------------------------*/
 
-    Field *_pField;
+    Field          *_pField;
+    FieldContainer *_pContainer;
 
     /*==========================  PUBLIC  =================================*/
 
@@ -206,7 +214,8 @@ class OSG_BASE_DLLMAPPING EditFieldHandle : public FieldHandle
 
     EditFieldHandle(const EditFieldHandle      &source);
     EditFieldHandle(      Field                *pField, 
-                    const FieldDescriptionBase *pDescription);
+                    const FieldDescriptionBase *pDescription,
+                          FieldContainer       *pContainer);
 
 
     virtual ~EditFieldHandle(void);
@@ -214,6 +223,11 @@ class OSG_BASE_DLLMAPPING EditFieldHandle : public FieldHandle
     /*---------------------------------------------------------------------*/
 
     bool isValid(void) const;
+
+    /*---------------------------------------------------------------------*/
+
+    Field          *getField    (void);
+    FieldContainer *getContainer(void);
 
     /*---------------------------------------------------------------------*/
 
@@ -281,7 +295,8 @@ class GetMapFieldHandle : public GetFieldHandle
 
     GetMapFieldHandle(const GetMapFieldHandle    &source);
     GetMapFieldHandle(const Field                *pField, 
-                      const FieldDescriptionBase *pDescription);
+                      const FieldDescriptionBase *pDescription,
+                            FieldContainer       *pContainer  );
 
 
     virtual ~GetMapFieldHandle(void);
@@ -341,7 +356,8 @@ class EditMapFieldHandle : public EditFieldHandle
 
     EditMapFieldHandle(const EditMapFieldHandle   &source);
     EditMapFieldHandle(      Field                *pField, 
-                       const FieldDescriptionBase *pDescription);
+                       const FieldDescriptionBase *pDescription,
+                             FieldContainer       *pContainer  );
 
 
     virtual ~EditMapFieldHandle(void);
@@ -411,7 +427,8 @@ class EditSFieldHandle : public EditFieldHandle
 
     EditSFieldHandle(const EditSFieldHandle     &source);
     EditSFieldHandle(      FieldT               *pField, 
-                     const FieldDescriptionBase *pDescription);
+                     const FieldDescriptionBase *pDescription,
+                           FieldContainer       *pContainer  );
 
 
     virtual ~EditSFieldHandle(void);
@@ -486,7 +503,8 @@ class EditMFieldHandle : public EditFieldHandle
 
     EditMFieldHandle(const EditMFieldHandle     &source);
     EditMFieldHandle(      FieldT               *pField, 
-                     const FieldDescriptionBase *pDescription);
+                     const FieldDescriptionBase *pDescription,
+                           FieldContainer       *pContainer  );
 
 
     virtual ~EditMFieldHandle(void);
@@ -560,7 +578,8 @@ class GetSFieldHandle : public GetFieldHandle
 
     GetSFieldHandle(const GetSFieldHandle      &source);
     GetSFieldHandle(const FieldT               *pField, 
-                    const FieldDescriptionBase *pDescription);
+                    const FieldDescriptionBase *pDescription,
+                          FieldContainer       *pContainer  );
 
     virtual ~GetSFieldHandle(void);
 
@@ -617,7 +636,8 @@ class GetMFieldHandle : public GetFieldHandle
 
     GetMFieldHandle(const GetMFieldHandle      &source);
     GetMFieldHandle(const FieldT               *pField, 
-                    const FieldDescriptionBase *pDescription);
+                    const FieldDescriptionBase *pDescription,
+                          FieldContainer       *pContainer  );
 
 
     virtual ~GetMFieldHandle(void);

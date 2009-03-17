@@ -44,14 +44,13 @@
 
 #ifdef OSG_DOC_FILES_IN_MODULE
 /*! \file OSGNameAttachments.h
-    \ingroup GrpSystemFieldContainer
+    \ingroup GrpBaseFieldContainer
  */
 #endif
 
 #include "OSGBaseTypes.h"
 #include "OSGSimpleAttachment.h"
 #include "OSGBaseSFields.h"
-#include "OSGSystemDef.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -97,15 +96,15 @@ typedef SimpleAttachment<NameAttachmentDesc> Name;
 OSG_GEN_CONTAINERPTR(Name)  
 
 #ifdef WIN32
-template <> OSG_SYSTEM_DLLMAPPING
+template <> OSG_BASE_DLLMAPPING
 SimpleAttachment<NameAttachmentDesc>::TypeObject &
     SimpleAttachment<NameAttachmentDesc>::getType(void);
 
-template <> OSG_SYSTEM_DLLMAPPING
+template <> OSG_BASE_DLLMAPPING
 const SimpleAttachment<NameAttachmentDesc>::TypeObject &
    SimpleAttachment<NameAttachmentDesc>::getType(void) const;
 
-template <> OSG_SYSTEM_DLLMAPPING
+template <> OSG_BASE_DLLMAPPING
 SimpleAttachment<NameAttachmentDesc>::TypeObject &
     SimpleAttachment<NameAttachmentDesc>::getClassType(void);
 #endif
@@ -113,20 +112,20 @@ SimpleAttachment<NameAttachmentDesc>::TypeObject &
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
-OSG_SYSTEM_DLLMAPPING
+OSG_BASE_DLLMAPPING
 const Char8 *getName(AttachmentContainer * const container);
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
-OSG_SYSTEM_DLLMAPPING
+OSG_BASE_DLLMAPPING
       void   setName(AttachmentContainer * const  container, 
                      std::string           const  &name     );
 
 /*! \ingroup GrpSystemFieldContainerFuncs
  */
 
-OSG_SYSTEM_DLLMAPPING
+OSG_BASE_DLLMAPPING
       void   setName(AttachmentContainer * const  container, 
                      Char8                 const *name     );
  

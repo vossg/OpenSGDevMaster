@@ -424,8 +424,9 @@ GetFieldHandlePtr LimitedCounterImpl<Desc>::getHandleUpperLimit(void) const
     typename SFLimitType::GetHandlePtr returnValue(
         new typename SFLimitType::GetHandle(
              &_sfUpperLimit,
-             this->getType().getFieldDesc(UpperLimitFieldId)));
-
+             this->getType().getFieldDesc(UpperLimitFieldId),
+             const_cast<Self *>(this)));
+    
     return returnValue;
 }
 
@@ -435,7 +436,8 @@ EditFieldHandlePtr LimitedCounterImpl<Desc>::editHandleUpperLimit(void)
     typename SFLimitType::EditHandlePtr returnValue(
         new typename SFLimitType::EditHandle(
              &_sfUpperLimit,
-             this->getType().getFieldDesc(UpperLimitFieldId)));
+             this->getType().getFieldDesc(UpperLimitFieldId),
+             this));
 
 
     Self::editSField(UpperLimitFieldMask);
@@ -449,7 +451,8 @@ GetFieldHandlePtr LimitedCounterImpl<Desc>::getHandleLowerLimit(void) const
     typename SFLimitType::GetHandlePtr returnValue(
         new typename SFLimitType::GetHandle(
              &_sfLowerLimit,
-             this->getType().getFieldDesc(LowerLimitFieldId)));
+             this->getType().getFieldDesc(LowerLimitFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -460,7 +463,8 @@ EditFieldHandlePtr LimitedCounterImpl<Desc>::editHandleLowerLimit(void)
     typename SFLimitType::EditHandlePtr returnValue(
         new typename SFLimitType::EditHandle(
              &_sfLowerLimit,
-             this->getType().getFieldDesc(LowerLimitFieldId)));
+             this->getType().getFieldDesc(LowerLimitFieldId),
+             this));
 
 
     Self::editSField(LowerLimitFieldMask);
@@ -474,7 +478,8 @@ GetFieldHandlePtr LimitedCounterImpl<Desc>::getHandleLoop(void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfLoop,
-             this->getType().getFieldDesc(LoopFieldId)));
+             this->getType().getFieldDesc(LoopFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -485,7 +490,8 @@ EditFieldHandlePtr LimitedCounterImpl<Desc>::editHandleLoop(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfLoop,
-             this->getType().getFieldDesc(LoopFieldId)));
+             this->getType().getFieldDesc(LoopFieldId),
+             this));
 
 
     Self::editSField(LoopFieldMask);

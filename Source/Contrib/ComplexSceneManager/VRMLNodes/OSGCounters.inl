@@ -426,7 +426,8 @@ GetFieldHandlePtr CounterImpl<Desc>::getHandleStep            (void) const
     typename SFValueType::GetHandlePtr returnValue(
         new typename SFValueType::GetHandle(
              &_sfStep,
-             this->getType().getFieldDesc(StepFieldId)));
+             this->getType().getFieldDesc(StepFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -437,7 +438,8 @@ EditFieldHandlePtr CounterImpl<Desc>::editHandleStep           (void)
     typename SFValueType::EditHandlePtr returnValue(
         new typename SFValueType::EditHandle(
              &_sfStep,
-             this->getType().getFieldDesc(StepFieldId)));
+             this->getType().getFieldDesc(StepFieldId),
+             this));
 
 
     editSField(StepFieldMask);
@@ -451,7 +453,8 @@ GetFieldHandlePtr CounterImpl<Desc>::getHandleResetValue      (void) const
     typename SFValueType::GetHandlePtr returnValue(
         new typename SFValueType::GetHandle(
              &_sfResetValue,
-             this->getType().getFieldDesc(ResetValueFieldId)));
+             this->getType().getFieldDesc(ResetValueFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -462,7 +465,8 @@ EditFieldHandlePtr CounterImpl<Desc>::editHandleResetValue     (void)
     typename SFValueType::EditHandlePtr returnValue(
         new typename SFValueType::EditHandle(
              &_sfResetValue,
-             this->getType().getFieldDesc(ResetValueFieldId)));
+             this->getType().getFieldDesc(ResetValueFieldId),
+             this));
 
 
     editSField(ResetValueFieldMask);
@@ -476,7 +480,8 @@ GetFieldHandlePtr CounterImpl<Desc>::getHandleValue           (void) const
     typename SFValueType::GetHandlePtr returnValue(
         new typename SFValueType::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<Self *>(this)));
 
     return returnValue;
 }
@@ -487,7 +492,8 @@ EditFieldHandlePtr CounterImpl<Desc>::editHandleValue          (void)
     typename SFValueType::EditHandlePtr returnValue(
         new typename SFValueType::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);

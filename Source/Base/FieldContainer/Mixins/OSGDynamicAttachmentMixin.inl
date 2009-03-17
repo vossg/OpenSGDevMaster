@@ -144,7 +144,7 @@ GetFieldHandlePtr DynFieldAttachment<AttachmentDescT>::getDynamicField(
     {
         pField = _dynFieldsV[index - Inherited::NextFieldId];
 
-        returnValue = pDesc->createGetHandler(pField);
+        returnValue = pDesc->createGetHandler(pField, const_cast<Self *>(this));
     }
 
     return returnValue;
@@ -163,7 +163,7 @@ EditFieldHandlePtr DynFieldAttachment<AttachmentDescT>::editDynamicField(
     {
         pField = _dynFieldsV[index - Inherited::NextFieldId];
 
-        returnValue = pDesc->createEditHandler(pField);
+        returnValue = pDesc->createEditHandler(pField, this);
 
         this->editSField(pDesc->getFieldMask());
 
