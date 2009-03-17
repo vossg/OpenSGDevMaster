@@ -841,7 +841,8 @@ GetFieldHandlePtr SimpleSHLChunkBase::getHandleVertexProgram   (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfVertexProgram,
-             this->getType().getFieldDesc(VertexProgramFieldId)));
+             this->getType().getFieldDesc(VertexProgramFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -851,7 +852,8 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandleVertexProgram  (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfVertexProgram,
-             this->getType().getFieldDesc(VertexProgramFieldId)));
+             this->getType().getFieldDesc(VertexProgramFieldId),
+             this));
 
 
     editSField(VertexProgramFieldMask);
@@ -864,7 +866,8 @@ GetFieldHandlePtr SimpleSHLChunkBase::getHandleGeometryProgram (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfGeometryProgram,
-             this->getType().getFieldDesc(GeometryProgramFieldId)));
+             this->getType().getFieldDesc(GeometryProgramFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -874,7 +877,8 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandleGeometryProgram(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfGeometryProgram,
-             this->getType().getFieldDesc(GeometryProgramFieldId)));
+             this->getType().getFieldDesc(GeometryProgramFieldId),
+             this));
 
 
     editSField(GeometryProgramFieldMask);
@@ -887,7 +891,8 @@ GetFieldHandlePtr SimpleSHLChunkBase::getHandleFragmentProgram (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfFragmentProgram,
-             this->getType().getFieldDesc(FragmentProgramFieldId)));
+             this->getType().getFieldDesc(FragmentProgramFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -897,7 +902,8 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandleFragmentProgram(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfFragmentProgram,
-             this->getType().getFieldDesc(FragmentProgramFieldId)));
+             this->getType().getFieldDesc(FragmentProgramFieldId),
+             this));
 
 
     editSField(FragmentProgramFieldMask);
@@ -910,7 +916,8 @@ GetFieldHandlePtr SimpleSHLChunkBase::getHandleCgFrontEnd      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfCgFrontEnd,
-             this->getType().getFieldDesc(CgFrontEndFieldId)));
+             this->getType().getFieldDesc(CgFrontEndFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -920,7 +927,8 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandleCgFrontEnd     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfCgFrontEnd,
-             this->getType().getFieldDesc(CgFrontEndFieldId)));
+             this->getType().getFieldDesc(CgFrontEndFieldId),
+             this));
 
 
     editSField(CgFrontEndFieldMask);
@@ -933,7 +941,8 @@ GetFieldHandlePtr SimpleSHLChunkBase::getHandleVariables       (void) const
     SFUnrecChildShaderProgramVariablesPtr::GetHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::GetHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -943,7 +952,8 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandleVariables      (void)
     SFUnrecChildShaderProgramVariablesPtr::EditHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::EditHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&SimpleSHLChunk::setVariables,
@@ -959,7 +969,8 @@ GetFieldHandlePtr SimpleSHLChunkBase::getHandleVariableLocations (void) const
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfVariableLocations,
-             this->getType().getFieldDesc(VariableLocationsFieldId)));
+             this->getType().getFieldDesc(VariableLocationsFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -969,7 +980,8 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandleVariableLocations(void)
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfVariableLocations,
-             this->getType().getFieldDesc(VariableLocationsFieldId)));
+             this->getType().getFieldDesc(VariableLocationsFieldId),
+             this));
 
 
     editMField(VariableLocationsFieldMask, _mfVariableLocations);
@@ -982,7 +994,8 @@ GetFieldHandlePtr SimpleSHLChunkBase::getHandleProceduralVariableLocations (void
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfProceduralVariableLocations,
-             this->getType().getFieldDesc(ProceduralVariableLocationsFieldId)));
+             this->getType().getFieldDesc(ProceduralVariableLocationsFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -992,7 +1005,8 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandleProceduralVariableLocations(voi
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfProceduralVariableLocations,
-             this->getType().getFieldDesc(ProceduralVariableLocationsFieldId)));
+             this->getType().getFieldDesc(ProceduralVariableLocationsFieldId),
+             this));
 
 
     editMField(ProceduralVariableLocationsFieldMask, _mfProceduralVariableLocations);
@@ -1005,7 +1019,8 @@ GetFieldHandlePtr SimpleSHLChunkBase::getHandleGLId            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1015,7 +1030,8 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandleGLId           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             this));
 
 
     editSField(GLIdFieldMask);
@@ -1028,7 +1044,8 @@ GetFieldHandlePtr SimpleSHLChunkBase::getHandlePointSize       (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfPointSize,
-             this->getType().getFieldDesc(PointSizeFieldId)));
+             this->getType().getFieldDesc(PointSizeFieldId),
+             const_cast<SimpleSHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1038,7 +1055,8 @@ EditFieldHandlePtr SimpleSHLChunkBase::editHandlePointSize      (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfPointSize,
-             this->getType().getFieldDesc(PointSizeFieldId)));
+             this->getType().getFieldDesc(PointSizeFieldId),
+             this));
 
 
     editSField(PointSizeFieldMask);

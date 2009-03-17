@@ -212,7 +212,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleStageBase::createEmptyLocal),
     SimpleStage::initMethod,
     SimpleStage::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleStageBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleStage::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -668,7 +668,8 @@ GetFieldHandlePtr SimpleStageBase::getHandleLeft            (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId)));
+             this->getType().getFieldDesc(LeftFieldId),
+             const_cast<SimpleStageBase *>(this)));
 
     return returnValue;
 }
@@ -678,7 +679,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleLeft           (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId)));
+             this->getType().getFieldDesc(LeftFieldId),
+             this));
 
 
     editSField(LeftFieldMask);
@@ -691,7 +693,8 @@ GetFieldHandlePtr SimpleStageBase::getHandleRight           (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfRight,
-             this->getType().getFieldDesc(RightFieldId)));
+             this->getType().getFieldDesc(RightFieldId),
+             const_cast<SimpleStageBase *>(this)));
 
     return returnValue;
 }
@@ -701,7 +704,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleRight          (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfRight,
-             this->getType().getFieldDesc(RightFieldId)));
+             this->getType().getFieldDesc(RightFieldId),
+             this));
 
 
     editSField(RightFieldMask);
@@ -714,7 +718,8 @@ GetFieldHandlePtr SimpleStageBase::getHandleBottom          (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId)));
+             this->getType().getFieldDesc(BottomFieldId),
+             const_cast<SimpleStageBase *>(this)));
 
     return returnValue;
 }
@@ -724,7 +729,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleBottom         (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId)));
+             this->getType().getFieldDesc(BottomFieldId),
+             this));
 
 
     editSField(BottomFieldMask);
@@ -737,7 +743,8 @@ GetFieldHandlePtr SimpleStageBase::getHandleTop             (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfTop,
-             this->getType().getFieldDesc(TopFieldId)));
+             this->getType().getFieldDesc(TopFieldId),
+             const_cast<SimpleStageBase *>(this)));
 
     return returnValue;
 }
@@ -747,7 +754,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleTop            (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfTop,
-             this->getType().getFieldDesc(TopFieldId)));
+             this->getType().getFieldDesc(TopFieldId),
+             this));
 
 
     editSField(TopFieldMask);
@@ -760,7 +768,8 @@ GetFieldHandlePtr SimpleStageBase::getHandleCamera          (void) const
     SFUnrecCameraPtr::GetHandlePtr returnValue(
         new  SFUnrecCameraPtr::GetHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             const_cast<SimpleStageBase *>(this)));
 
     return returnValue;
 }
@@ -770,7 +779,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleCamera         (void)
     SFUnrecCameraPtr::EditHandlePtr returnValue(
         new  SFUnrecCameraPtr::EditHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&SimpleStage::setCamera,
@@ -786,7 +796,8 @@ GetFieldHandlePtr SimpleStageBase::getHandleBackground      (void) const
     SFUnrecBackgroundPtr::GetHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::GetHandle(
              &_sfBackground,
-             this->getType().getFieldDesc(BackgroundFieldId)));
+             this->getType().getFieldDesc(BackgroundFieldId),
+             const_cast<SimpleStageBase *>(this)));
 
     return returnValue;
 }
@@ -796,7 +807,8 @@ EditFieldHandlePtr SimpleStageBase::editHandleBackground     (void)
     SFUnrecBackgroundPtr::EditHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::EditHandle(
              &_sfBackground,
-             this->getType().getFieldDesc(BackgroundFieldId)));
+             this->getType().getFieldDesc(BackgroundFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&SimpleStage::setBackground,
@@ -856,5 +868,6 @@ void SimpleStageBase::resolveLinks(void)
 DataType FieldTraits<SimpleStage *>::_type("SimpleStagePtr", "RenderCallbackStagePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(SimpleStage *)
 
 OSG_END_NAMESPACE

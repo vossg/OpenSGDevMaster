@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class DynamicStateGenerator;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DynamicStateGeneratorPtr
-
 OSG_GEN_CONTAINERPTR(DynamicStateGenerator);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<DynamicStateGenerator *> :
     public FieldTraitsFCPtrBase<DynamicStateGenerator *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<DynamicStateGenerator *, 0>::getMName<NoRefCountPolicy>
     return "MFUnrefdDynamicStateGeneratorPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DynamicStateGeneratorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<DynamicStateGenerator *,
                       RecordedRefCountPolicy  > SFRecDynamicStateGeneratorPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<DynamicStateGenerator *,
                       UnrecordedRefCountPolicy> SFUnrecDynamicStateGeneratorPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<DynamicStateGenerator *,
                       WeakRefCountPolicy      > SFWeakDynamicStateGeneratorPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<DynamicStateGenerator *,
                       NoRefCountPolicy        > SFUncountedDynamicStateGeneratorPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<DynamicStateGenerator *,
                       RecordedRefCountPolicy  > MFRecDynamicStateGeneratorPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<DynamicStateGenerator *,
                       UnrecordedRefCountPolicy> MFUnrecDynamicStateGeneratorPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<DynamicStateGenerator *,
                       WeakRefCountPolicy      > MFWeakDynamicStateGeneratorPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<DynamicStateGenerator *,
                       NoRefCountPolicy        > MFUncountedDynamicStateGeneratorPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecDynamicStateGeneratorPtr : 
+    public PointerSField<DynamicStateGenerator *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecDynamicStateGeneratorPtr : 
+    public PointerSField<DynamicStateGenerator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakDynamicStateGeneratorPtr :
+    public PointerSField<DynamicStateGenerator *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedDynamicStateGeneratorPtr :
+    public PointerSField<DynamicStateGenerator *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecDynamicStateGeneratorPtr :
+    public PointerMField<DynamicStateGenerator *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecDynamicStateGeneratorPtr :
+    public PointerMField<DynamicStateGenerator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakDynamicStateGeneratorPtr :
+    public PointerMField<DynamicStateGenerator *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedDynamicStateGeneratorPtr :
+    public PointerMField<DynamicStateGenerator *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

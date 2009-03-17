@@ -131,7 +131,7 @@ DeviceInterfaceSensorBase::TypeObject DeviceInterfaceSensorBase::_type(
     NULL,
     DeviceInterfaceSensor::initMethod,
     DeviceInterfaceSensor::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DeviceInterfaceSensorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DeviceInterfaceSensor::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -356,7 +356,8 @@ GetFieldHandlePtr DeviceInterfaceSensorBase::getHandleInterfaceName   (void) con
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfInterfaceName,
-             this->getType().getFieldDesc(InterfaceNameFieldId)));
+             this->getType().getFieldDesc(InterfaceNameFieldId),
+             const_cast<DeviceInterfaceSensorBase *>(this)));
 
     return returnValue;
 }
@@ -366,7 +367,8 @@ EditFieldHandlePtr DeviceInterfaceSensorBase::editHandleInterfaceName  (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfInterfaceName,
-             this->getType().getFieldDesc(InterfaceNameFieldId)));
+             this->getType().getFieldDesc(InterfaceNameFieldId),
+             this));
 
 
     editSField(InterfaceNameFieldMask);
@@ -379,7 +381,8 @@ GetFieldHandlePtr DeviceInterfaceSensorBase::getHandleOptions         (void) con
     SFUnrecChildInterfaceOptionsPtr::GetHandlePtr returnValue(
         new  SFUnrecChildInterfaceOptionsPtr::GetHandle(
              &_sfOptions,
-             this->getType().getFieldDesc(OptionsFieldId)));
+             this->getType().getFieldDesc(OptionsFieldId),
+             const_cast<DeviceInterfaceSensorBase *>(this)));
 
     return returnValue;
 }
@@ -389,7 +392,8 @@ EditFieldHandlePtr DeviceInterfaceSensorBase::editHandleOptions        (void)
     SFUnrecChildInterfaceOptionsPtr::EditHandlePtr returnValue(
         new  SFUnrecChildInterfaceOptionsPtr::EditHandle(
              &_sfOptions,
-             this->getType().getFieldDesc(OptionsFieldId)));
+             this->getType().getFieldDesc(OptionsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DeviceInterfaceSensor::setOptions,

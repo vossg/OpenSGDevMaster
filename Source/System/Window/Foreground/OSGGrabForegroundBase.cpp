@@ -134,7 +134,7 @@ GrabForegroundBase::TypeObject GrabForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GrabForegroundBase::createEmptyLocal),
     GrabForeground::initMethod,
     GrabForeground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&GrabForegroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&GrabForeground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -437,7 +437,8 @@ GetFieldHandlePtr GrabForegroundBase::getHandleImage           (void) const
     SFUnrecImagePtr::GetHandlePtr returnValue(
         new  SFUnrecImagePtr::GetHandle(
              &_sfImage,
-             this->getType().getFieldDesc(ImageFieldId)));
+             this->getType().getFieldDesc(ImageFieldId),
+             const_cast<GrabForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -447,7 +448,8 @@ EditFieldHandlePtr GrabForegroundBase::editHandleImage          (void)
     SFUnrecImagePtr::EditHandlePtr returnValue(
         new  SFUnrecImagePtr::EditHandle(
              &_sfImage,
-             this->getType().getFieldDesc(ImageFieldId)));
+             this->getType().getFieldDesc(ImageFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&GrabForeground::setImage,
@@ -463,7 +465,8 @@ GetFieldHandlePtr GrabForegroundBase::getHandleAutoResize      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAutoResize,
-             this->getType().getFieldDesc(AutoResizeFieldId)));
+             this->getType().getFieldDesc(AutoResizeFieldId),
+             const_cast<GrabForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -473,7 +476,8 @@ EditFieldHandlePtr GrabForegroundBase::editHandleAutoResize     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAutoResize,
-             this->getType().getFieldDesc(AutoResizeFieldId)));
+             this->getType().getFieldDesc(AutoResizeFieldId),
+             this));
 
 
     editSField(AutoResizeFieldMask);

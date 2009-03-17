@@ -132,7 +132,7 @@ SwitchMaterialBase::TypeObject SwitchMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SwitchMaterialBase::createEmptyLocal),
     SwitchMaterial::initMethod,
     SwitchMaterial::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SwitchMaterialBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SwitchMaterial::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -493,7 +493,8 @@ GetFieldHandlePtr SwitchMaterialBase::getHandleMaterials       (void) const
     MFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  MFUnrecMaterialPtr::GetHandle(
              &_mfMaterials,
-             this->getType().getFieldDesc(MaterialsFieldId)));
+             this->getType().getFieldDesc(MaterialsFieldId),
+             const_cast<SwitchMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -503,7 +504,8 @@ EditFieldHandlePtr SwitchMaterialBase::editHandleMaterials      (void)
     MFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  MFUnrecMaterialPtr::EditHandle(
              &_mfMaterials,
-             this->getType().getFieldDesc(MaterialsFieldId)));
+             this->getType().getFieldDesc(MaterialsFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&SwitchMaterial::pushToMaterials,
@@ -528,7 +530,8 @@ GetFieldHandlePtr SwitchMaterialBase::getHandleChoice          (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfChoice,
-             this->getType().getFieldDesc(ChoiceFieldId)));
+             this->getType().getFieldDesc(ChoiceFieldId),
+             const_cast<SwitchMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -538,7 +541,8 @@ EditFieldHandlePtr SwitchMaterialBase::editHandleChoice         (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfChoice,
-             this->getType().getFieldDesc(ChoiceFieldId)));
+             this->getType().getFieldDesc(ChoiceFieldId),
+             this));
 
 
     editSField(ChoiceFieldMask);

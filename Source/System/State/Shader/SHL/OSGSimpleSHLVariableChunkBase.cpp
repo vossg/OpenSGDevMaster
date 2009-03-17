@@ -480,7 +480,8 @@ GetFieldHandlePtr SimpleSHLVariableChunkBase::getHandleVariables       (void) co
     SFUnrecChildShaderProgramVariablesPtr::GetHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::GetHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             const_cast<SimpleSHLVariableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -490,7 +491,8 @@ EditFieldHandlePtr SimpleSHLVariableChunkBase::editHandleVariables      (void)
     SFUnrecChildShaderProgramVariablesPtr::EditHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::EditHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&SimpleSHLVariableChunk::setVariables,
@@ -506,7 +508,8 @@ GetFieldHandlePtr SimpleSHLVariableChunkBase::getHandleVariableLocations (void) 
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfVariableLocations,
-             this->getType().getFieldDesc(VariableLocationsFieldId)));
+             this->getType().getFieldDesc(VariableLocationsFieldId),
+             const_cast<SimpleSHLVariableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -516,7 +519,8 @@ EditFieldHandlePtr SimpleSHLVariableChunkBase::editHandleVariableLocations(void)
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfVariableLocations,
-             this->getType().getFieldDesc(VariableLocationsFieldId)));
+             this->getType().getFieldDesc(VariableLocationsFieldId),
+             this));
 
 
     editMField(VariableLocationsFieldMask, _mfVariableLocations);

@@ -178,7 +178,7 @@ KeySensorBase::TypeObject KeySensorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&KeySensorBase::createEmptyLocal),
     KeySensor::initMethod,
     KeySensor::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&KeySensorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&KeySensor::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -549,7 +549,8 @@ GetFieldHandlePtr KeySensorBase::getHandleKey             (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             const_cast<KeySensorBase *>(this)));
 
     return returnValue;
 }
@@ -559,7 +560,8 @@ EditFieldHandlePtr KeySensorBase::editHandleKey            (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             this));
 
 
     editSField(KeyFieldMask);
@@ -572,7 +574,8 @@ GetFieldHandlePtr KeySensorBase::getHandleStateRaw        (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfStateRaw,
-             this->getType().getFieldDesc(StateRawFieldId)));
+             this->getType().getFieldDesc(StateRawFieldId),
+             const_cast<KeySensorBase *>(this)));
 
     return returnValue;
 }
@@ -582,7 +585,8 @@ EditFieldHandlePtr KeySensorBase::editHandleStateRaw       (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfStateRaw,
-             this->getType().getFieldDesc(StateRawFieldId)));
+             this->getType().getFieldDesc(StateRawFieldId),
+             this));
 
 
     editSField(StateRawFieldMask);
@@ -595,7 +599,8 @@ GetFieldHandlePtr KeySensorBase::getHandleStateFlipFlop   (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfStateFlipFlop,
-             this->getType().getFieldDesc(StateFlipFlopFieldId)));
+             this->getType().getFieldDesc(StateFlipFlopFieldId),
+             const_cast<KeySensorBase *>(this)));
 
     return returnValue;
 }
@@ -605,7 +610,8 @@ EditFieldHandlePtr KeySensorBase::editHandleStateFlipFlop  (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfStateFlipFlop,
-             this->getType().getFieldDesc(StateFlipFlopFieldId)));
+             this->getType().getFieldDesc(StateFlipFlopFieldId),
+             this));
 
 
     editSField(StateFlipFlopFieldMask);
@@ -618,7 +624,8 @@ GetFieldHandlePtr KeySensorBase::getHandleSignalPressed   (void) const
     SFOSGAny::GetHandlePtr returnValue(
         new  SFOSGAny::GetHandle(
              &_sfSignalPressed,
-             this->getType().getFieldDesc(SignalPressedFieldId)));
+             this->getType().getFieldDesc(SignalPressedFieldId),
+             const_cast<KeySensorBase *>(this)));
 
     return returnValue;
 }
@@ -628,7 +635,8 @@ EditFieldHandlePtr KeySensorBase::editHandleSignalPressed  (void)
     SFOSGAny::EditHandlePtr returnValue(
         new  SFOSGAny::EditHandle(
              &_sfSignalPressed,
-             this->getType().getFieldDesc(SignalPressedFieldId)));
+             this->getType().getFieldDesc(SignalPressedFieldId),
+             this));
 
 
     editSField(SignalPressedFieldMask);
@@ -641,7 +649,8 @@ GetFieldHandlePtr KeySensorBase::getHandleSignalReleased  (void) const
     SFOSGAny::GetHandlePtr returnValue(
         new  SFOSGAny::GetHandle(
              &_sfSignalReleased,
-             this->getType().getFieldDesc(SignalReleasedFieldId)));
+             this->getType().getFieldDesc(SignalReleasedFieldId),
+             const_cast<KeySensorBase *>(this)));
 
     return returnValue;
 }
@@ -651,7 +660,8 @@ EditFieldHandlePtr KeySensorBase::editHandleSignalReleased (void)
     SFOSGAny::EditHandlePtr returnValue(
         new  SFOSGAny::EditHandle(
              &_sfSignalReleased,
-             this->getType().getFieldDesc(SignalReleasedFieldId)));
+             this->getType().getFieldDesc(SignalReleasedFieldId),
+             this));
 
 
     editSField(SignalReleasedFieldMask);
@@ -704,5 +714,6 @@ void KeySensorBase::resolveLinks(void)
 DataType FieldTraits<KeySensor *>::_type("KeySensorPtr", "AttachmentContainerPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(KeySensor *)
 
 OSG_END_NAMESPACE

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ColorBufferViewport;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ColorBufferViewportPtr
-
 OSG_GEN_CONTAINERPTR(ColorBufferViewport);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ColorBufferViewport *> :
     public FieldTraitsFCPtrBase<ColorBufferViewport *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ColorBufferViewport *, 0>::getMName<NoRefCountPolicy>(v
     return "MFUnrefdColorBufferViewportPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ColorBufferViewportPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ColorBufferViewport *,
                       RecordedRefCountPolicy  > SFRecColorBufferViewportPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ColorBufferViewport *,
                       UnrecordedRefCountPolicy> SFUnrecColorBufferViewportPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ColorBufferViewport *,
                       WeakRefCountPolicy      > SFWeakColorBufferViewportPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ColorBufferViewport *,
                       NoRefCountPolicy        > SFUncountedColorBufferViewportPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ColorBufferViewport *,
                       RecordedRefCountPolicy  > MFRecColorBufferViewportPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ColorBufferViewport *,
                       UnrecordedRefCountPolicy> MFUnrecColorBufferViewportPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ColorBufferViewport *,
                       WeakRefCountPolicy      > MFWeakColorBufferViewportPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ColorBufferViewport *,
                       NoRefCountPolicy        > MFUncountedColorBufferViewportPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecColorBufferViewportPtr : 
+    public PointerSField<ColorBufferViewport *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecColorBufferViewportPtr : 
+    public PointerSField<ColorBufferViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakColorBufferViewportPtr :
+    public PointerSField<ColorBufferViewport *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedColorBufferViewportPtr :
+    public PointerSField<ColorBufferViewport *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecColorBufferViewportPtr :
+    public PointerMField<ColorBufferViewport *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecColorBufferViewportPtr :
+    public PointerMField<ColorBufferViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakColorBufferViewportPtr :
+    public PointerMField<ColorBufferViewport *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedColorBufferViewportPtr :
+    public PointerMField<ColorBufferViewport *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -119,7 +119,7 @@ TextureTransformChunkBase::TypeObject TextureTransformChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureTransformChunkBase::createEmptyLocal),
     TextureTransformChunk::initMethod,
     TextureTransformChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TextureTransformChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TextureTransformChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -379,7 +379,8 @@ GetFieldHandlePtr TextureTransformChunkBase::getHandleUseCameraBeacon (void) con
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfUseCameraBeacon,
-             this->getType().getFieldDesc(UseCameraBeaconFieldId)));
+             this->getType().getFieldDesc(UseCameraBeaconFieldId),
+             const_cast<TextureTransformChunkBase *>(this)));
 
     return returnValue;
 }
@@ -389,7 +390,8 @@ EditFieldHandlePtr TextureTransformChunkBase::editHandleUseCameraBeacon(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfUseCameraBeacon,
-             this->getType().getFieldDesc(UseCameraBeaconFieldId)));
+             this->getType().getFieldDesc(UseCameraBeaconFieldId),
+             this));
 
 
     editSField(UseCameraBeaconFieldMask);

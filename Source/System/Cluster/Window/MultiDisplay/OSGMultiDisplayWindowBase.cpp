@@ -178,7 +178,7 @@ MultiDisplayWindowBase::TypeObject MultiDisplayWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiDisplayWindowBase::createEmptyLocal),
     MultiDisplayWindow::initMethod,
     MultiDisplayWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MultiDisplayWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&MultiDisplayWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -574,7 +574,8 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleHServers        (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfHServers,
-             this->getType().getFieldDesc(HServersFieldId)));
+             this->getType().getFieldDesc(HServersFieldId),
+             const_cast<MultiDisplayWindowBase *>(this)));
 
     return returnValue;
 }
@@ -584,7 +585,8 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleHServers       (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfHServers,
-             this->getType().getFieldDesc(HServersFieldId)));
+             this->getType().getFieldDesc(HServersFieldId),
+             this));
 
 
     editSField(HServersFieldMask);
@@ -597,7 +599,8 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleVServers        (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfVServers,
-             this->getType().getFieldDesc(VServersFieldId)));
+             this->getType().getFieldDesc(VServersFieldId),
+             const_cast<MultiDisplayWindowBase *>(this)));
 
     return returnValue;
 }
@@ -607,7 +610,8 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleVServers       (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfVServers,
-             this->getType().getFieldDesc(VServersFieldId)));
+             this->getType().getFieldDesc(VServersFieldId),
+             this));
 
 
     editSField(VServersFieldMask);
@@ -620,7 +624,8 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleManageClientViewports (void) 
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfManageClientViewports,
-             this->getType().getFieldDesc(ManageClientViewportsFieldId)));
+             this->getType().getFieldDesc(ManageClientViewportsFieldId),
+             const_cast<MultiDisplayWindowBase *>(this)));
 
     return returnValue;
 }
@@ -630,7 +635,8 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleManageClientViewports(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfManageClientViewports,
-             this->getType().getFieldDesc(ManageClientViewportsFieldId)));
+             this->getType().getFieldDesc(ManageClientViewportsFieldId),
+             this));
 
 
     editSField(ManageClientViewportsFieldMask);
@@ -643,7 +649,8 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleXOverlap        (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfXOverlap,
-             this->getType().getFieldDesc(XOverlapFieldId)));
+             this->getType().getFieldDesc(XOverlapFieldId),
+             const_cast<MultiDisplayWindowBase *>(this)));
 
     return returnValue;
 }
@@ -653,7 +660,8 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleXOverlap       (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfXOverlap,
-             this->getType().getFieldDesc(XOverlapFieldId)));
+             this->getType().getFieldDesc(XOverlapFieldId),
+             this));
 
 
     editSField(XOverlapFieldMask);
@@ -666,7 +674,8 @@ GetFieldHandlePtr MultiDisplayWindowBase::getHandleYOverlap        (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfYOverlap,
-             this->getType().getFieldDesc(YOverlapFieldId)));
+             this->getType().getFieldDesc(YOverlapFieldId),
+             const_cast<MultiDisplayWindowBase *>(this)));
 
     return returnValue;
 }
@@ -676,7 +685,8 @@ EditFieldHandlePtr MultiDisplayWindowBase::editHandleYOverlap       (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfYOverlap,
-             this->getType().getFieldDesc(YOverlapFieldId)));
+             this->getType().getFieldDesc(YOverlapFieldId),
+             this));
 
 
     editSField(YOverlapFieldMask);
@@ -729,5 +739,6 @@ void MultiDisplayWindowBase::resolveLinks(void)
 DataType FieldTraits<MultiDisplayWindow *>::_type("MultiDisplayWindowPtr", "ClusterWindowPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(MultiDisplayWindow *)
 
 OSG_END_NAMESPACE

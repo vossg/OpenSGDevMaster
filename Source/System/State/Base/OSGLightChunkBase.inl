@@ -210,14 +210,14 @@ Real &LightChunkBase::editExponent(void)
 
 //! Get the value of the LightChunk::_sfExponent field.
 inline
-const Real &LightChunkBase::getExponent(void) const
+      Real  LightChunkBase::getExponent(void) const
 {
     return _sfExponent.getValue();
 }
 
 //! Set the value of the LightChunk::_sfExponent field.
 inline
-void LightChunkBase::setExponent(const Real &value)
+void LightChunkBase::setExponent(const Real value)
 {
     editSField(ExponentFieldMask);
 
@@ -235,14 +235,14 @@ Real &LightChunkBase::editCutoff(void)
 
 //! Get the value of the LightChunk::_sfCutoff field.
 inline
-const Real &LightChunkBase::getCutoff(void) const
+      Real  LightChunkBase::getCutoff(void) const
 {
     return _sfCutoff.getValue();
 }
 
 //! Set the value of the LightChunk::_sfCutoff field.
 inline
-void LightChunkBase::setCutoff(const Real &value)
+void LightChunkBase::setCutoff(const Real value)
 {
     editSField(CutoffFieldMask);
 
@@ -260,14 +260,14 @@ Real &LightChunkBase::editConstantAttenuation(void)
 
 //! Get the value of the LightChunk::_sfConstantAttenuation field.
 inline
-const Real &LightChunkBase::getConstantAttenuation(void) const
+      Real  LightChunkBase::getConstantAttenuation(void) const
 {
     return _sfConstantAttenuation.getValue();
 }
 
 //! Set the value of the LightChunk::_sfConstantAttenuation field.
 inline
-void LightChunkBase::setConstantAttenuation(const Real &value)
+void LightChunkBase::setConstantAttenuation(const Real value)
 {
     editSField(ConstantAttenuationFieldMask);
 
@@ -285,14 +285,14 @@ Real &LightChunkBase::editLinearAttenuation(void)
 
 //! Get the value of the LightChunk::_sfLinearAttenuation field.
 inline
-const Real &LightChunkBase::getLinearAttenuation(void) const
+      Real  LightChunkBase::getLinearAttenuation(void) const
 {
     return _sfLinearAttenuation.getValue();
 }
 
 //! Set the value of the LightChunk::_sfLinearAttenuation field.
 inline
-void LightChunkBase::setLinearAttenuation(const Real &value)
+void LightChunkBase::setLinearAttenuation(const Real value)
 {
     editSField(LinearAttenuationFieldMask);
 
@@ -310,14 +310,14 @@ Real &LightChunkBase::editQuadraticAttenuation(void)
 
 //! Get the value of the LightChunk::_sfQuadraticAttenuation field.
 inline
-const Real &LightChunkBase::getQuadraticAttenuation(void) const
+      Real  LightChunkBase::getQuadraticAttenuation(void) const
 {
     return _sfQuadraticAttenuation.getValue();
 }
 
 //! Set the value of the LightChunk::_sfQuadraticAttenuation field.
 inline
-void LightChunkBase::setQuadraticAttenuation(const Real &value)
+void LightChunkBase::setQuadraticAttenuation(const Real value)
 {
     editSField(QuadraticAttenuationFieldMask);
 

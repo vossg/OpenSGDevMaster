@@ -363,7 +363,8 @@ GetFieldHandlePtr ShaderVariableStringBase::getHandleValue           (void) cons
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderVariableStringBase *>(this)));
 
     return returnValue;
 }
@@ -373,7 +374,8 @@ EditFieldHandlePtr ShaderVariableStringBase::editHandleValue          (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);

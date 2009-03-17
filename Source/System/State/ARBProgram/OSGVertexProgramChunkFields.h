@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class VertexProgramChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! VertexProgramChunkPtr
-
 OSG_GEN_CONTAINERPTR(VertexProgramChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<VertexProgramChunk *> :
     public FieldTraitsFCPtrBase<VertexProgramChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<VertexProgramChunk *, 0>::getMName<NoRefCountPolicy>(vo
     return "MFUnrefdVertexProgramChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<VertexProgramChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
                       RecordedRefCountPolicy  > SFRecVertexProgramChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
                       UnrecordedRefCountPolicy> SFUnrecVertexProgramChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
                       WeakRefCountPolicy      > SFWeakVertexProgramChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<VertexProgramChunk *,
                       NoRefCountPolicy        > SFUncountedVertexProgramChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
                       RecordedRefCountPolicy  > MFRecVertexProgramChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
                       UnrecordedRefCountPolicy> MFUnrecVertexProgramChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
                       WeakRefCountPolicy      > MFWeakVertexProgramChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<VertexProgramChunk *,
                       NoRefCountPolicy        > MFUncountedVertexProgramChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecVertexProgramChunkPtr : 
+    public PointerSField<VertexProgramChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecVertexProgramChunkPtr : 
+    public PointerSField<VertexProgramChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakVertexProgramChunkPtr :
+    public PointerSField<VertexProgramChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedVertexProgramChunkPtr :
+    public PointerSField<VertexProgramChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecVertexProgramChunkPtr :
+    public PointerMField<VertexProgramChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecVertexProgramChunkPtr :
+    public PointerMField<VertexProgramChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakVertexProgramChunkPtr :
+    public PointerMField<VertexProgramChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedVertexProgramChunkPtr :
+    public PointerMField<VertexProgramChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

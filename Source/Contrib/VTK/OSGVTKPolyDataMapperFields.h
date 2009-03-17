@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class VTKPolyDataMapper;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! VTKPolyDataMapperPtr
-
 OSG_GEN_CONTAINERPTR(VTKPolyDataMapper);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribVTKFieldTraits
+    \ingroup GrpLibOSGContribVTK
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<VTKPolyDataMapper *> :
     public FieldTraitsFCPtrBase<VTKPolyDataMapper *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<VTKPolyDataMapper *, 0>::getMName<NoRefCountPolicy>(voi
     return "MFUnrefdVTKPolyDataMapperPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<VTKPolyDataMapperPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribVTKFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribVTKFieldSFields */
 typedef PointerSField<VTKPolyDataMapper *,
                       RecordedRefCountPolicy  > SFRecVTKPolyDataMapperPtr;
+/*! \ingroup GrpContribVTKFieldSFields */
 typedef PointerSField<VTKPolyDataMapper *,
                       UnrecordedRefCountPolicy> SFUnrecVTKPolyDataMapperPtr;
+/*! \ingroup GrpContribVTKFieldSFields */
 typedef PointerSField<VTKPolyDataMapper *,
                       WeakRefCountPolicy      > SFWeakVTKPolyDataMapperPtr;
+/*! \ingroup GrpContribVTKFieldSFields */
 typedef PointerSField<VTKPolyDataMapper *,
                       NoRefCountPolicy        > SFUncountedVTKPolyDataMapperPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribVTKFieldMulti */
-
+/*! \ingroup GrpContribVTKFieldMFields */
 typedef PointerMField<VTKPolyDataMapper *,
                       RecordedRefCountPolicy  > MFRecVTKPolyDataMapperPtr;
+/*! \ingroup GrpContribVTKFieldMFields */
 typedef PointerMField<VTKPolyDataMapper *,
                       UnrecordedRefCountPolicy> MFUnrecVTKPolyDataMapperPtr;
+/*! \ingroup GrpContribVTKFieldMFields */
 typedef PointerMField<VTKPolyDataMapper *,
                       WeakRefCountPolicy      > MFWeakVTKPolyDataMapperPtr;
+/*! \ingroup GrpContribVTKFieldMFields */
 typedef PointerMField<VTKPolyDataMapper *,
                       NoRefCountPolicy        > MFUncountedVTKPolyDataMapperPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribVTKFieldSFields \ingroup GrpLibOSGContribVTK */
+struct SFRecVTKPolyDataMapperPtr : 
+    public PointerSField<VTKPolyDataMapper *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribVTKFieldSFields \ingroup GrpLibOSGContribVTK */
+struct SFUnrecVTKPolyDataMapperPtr : 
+    public PointerSField<VTKPolyDataMapper *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribVTKFieldSFields \ingroup GrpLibOSGContribVTK */
+struct SFWeakVTKPolyDataMapperPtr :
+    public PointerSField<VTKPolyDataMapper *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribVTKFieldSFields \ingroup GrpLibOSGContribVTK */
+struct SFUncountedVTKPolyDataMapperPtr :
+    public PointerSField<VTKPolyDataMapper *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpContribVTKFieldMFields \ingroup GrpLibOSGContribVTK */
+struct MFRecVTKPolyDataMapperPtr :
+    public PointerMField<VTKPolyDataMapper *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribVTKFieldMFields \ingroup GrpLibOSGContribVTK */
+struct MFUnrecVTKPolyDataMapperPtr :
+    public PointerMField<VTKPolyDataMapper *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribVTKFieldMFields \ingroup GrpLibOSGContribVTK */
+struct MFWeakVTKPolyDataMapperPtr :
+    public PointerMField<VTKPolyDataMapper *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribVTKFieldMFields \ingroup GrpLibOSGContribVTK */
+struct MFUncountedVTKPolyDataMapperPtr :
+    public PointerMField<VTKPolyDataMapper *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

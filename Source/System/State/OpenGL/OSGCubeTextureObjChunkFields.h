@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CubeTextureObjChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CubeTextureObjChunkPtr
-
 OSG_GEN_CONTAINERPTR(CubeTextureObjChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CubeTextureObjChunk *> :
     public FieldTraitsFCPtrBase<CubeTextureObjChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CubeTextureObjChunk *, 0>::getMName<NoRefCountPolicy>(v
     return "MFUnrefdCubeTextureObjChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CubeTextureObjChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
                       RecordedRefCountPolicy  > SFRecCubeTextureObjChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
                       UnrecordedRefCountPolicy> SFUnrecCubeTextureObjChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
                       WeakRefCountPolicy      > SFWeakCubeTextureObjChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<CubeTextureObjChunk *,
                       NoRefCountPolicy        > SFUncountedCubeTextureObjChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
                       RecordedRefCountPolicy  > MFRecCubeTextureObjChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
                       UnrecordedRefCountPolicy> MFUnrecCubeTextureObjChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
                       WeakRefCountPolicy      > MFWeakCubeTextureObjChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<CubeTextureObjChunk *,
                       NoRefCountPolicy        > MFUncountedCubeTextureObjChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecCubeTextureObjChunkPtr : 
+    public PointerSField<CubeTextureObjChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecCubeTextureObjChunkPtr : 
+    public PointerSField<CubeTextureObjChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakCubeTextureObjChunkPtr :
+    public PointerSField<CubeTextureObjChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedCubeTextureObjChunkPtr :
+    public PointerSField<CubeTextureObjChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecCubeTextureObjChunkPtr :
+    public PointerMField<CubeTextureObjChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecCubeTextureObjChunkPtr :
+    public PointerMField<CubeTextureObjChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakCubeTextureObjChunkPtr :
+    public PointerMField<CubeTextureObjChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedCubeTextureObjChunkPtr :
+    public PointerMField<CubeTextureObjChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

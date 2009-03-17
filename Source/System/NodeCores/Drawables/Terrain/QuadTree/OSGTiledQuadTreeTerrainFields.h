@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TiledQuadTreeTerrain;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TiledQuadTreeTerrainPtr
-
 OSG_GEN_CONTAINERPTR(TiledQuadTreeTerrain);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpDrawableFieldTraits
+    \ingroup GrpLibOSGDrawable
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TiledQuadTreeTerrain *> :
     public FieldTraitsFCPtrBase<TiledQuadTreeTerrain *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<TiledQuadTreeTerrain *, 0>::getMName<NoRefCountPolicy>(
     return "MFUnrefdTiledQuadTreeTerrainPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TiledQuadTreeTerrainPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<TiledQuadTreeTerrain *,
                       RecordedRefCountPolicy  > SFRecTiledQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<TiledQuadTreeTerrain *,
                       UnrecordedRefCountPolicy> SFUnrecTiledQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<TiledQuadTreeTerrain *,
                       WeakRefCountPolicy      > SFWeakTiledQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<TiledQuadTreeTerrain *,
                       NoRefCountPolicy        > SFUncountedTiledQuadTreeTerrainPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<TiledQuadTreeTerrain *,
                       RecordedRefCountPolicy  > MFRecTiledQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<TiledQuadTreeTerrain *,
                       UnrecordedRefCountPolicy> MFUnrecTiledQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<TiledQuadTreeTerrain *,
                       WeakRefCountPolicy      > MFWeakTiledQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<TiledQuadTreeTerrain *,
                       NoRefCountPolicy        > MFUncountedTiledQuadTreeTerrainPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFRecTiledQuadTreeTerrainPtr : 
+    public PointerSField<TiledQuadTreeTerrain *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUnrecTiledQuadTreeTerrainPtr : 
+    public PointerSField<TiledQuadTreeTerrain *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFWeakTiledQuadTreeTerrainPtr :
+    public PointerSField<TiledQuadTreeTerrain *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUncountedTiledQuadTreeTerrainPtr :
+    public PointerSField<TiledQuadTreeTerrain *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFRecTiledQuadTreeTerrainPtr :
+    public PointerMField<TiledQuadTreeTerrain *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUnrecTiledQuadTreeTerrainPtr :
+    public PointerMField<TiledQuadTreeTerrain *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFWeakTiledQuadTreeTerrainPtr :
+    public PointerMField<TiledQuadTreeTerrain *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUncountedTiledQuadTreeTerrainPtr :
+    public PointerMField<TiledQuadTreeTerrain *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

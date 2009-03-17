@@ -131,7 +131,7 @@ ContainerCollectionBase::TypeObject ContainerCollectionBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ContainerCollectionBase::createEmptyLocal),
     ContainerCollection::initMethod,
     ContainerCollection::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ContainerCollectionBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ContainerCollection::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -487,7 +487,8 @@ GetFieldHandlePtr ContainerCollectionBase::getHandleName            (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfName,
-             this->getType().getFieldDesc(NameFieldId)));
+             this->getType().getFieldDesc(NameFieldId),
+             const_cast<ContainerCollectionBase *>(this)));
 
     return returnValue;
 }
@@ -497,7 +498,8 @@ EditFieldHandlePtr ContainerCollectionBase::editHandleName           (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfName,
-             this->getType().getFieldDesc(NameFieldId)));
+             this->getType().getFieldDesc(NameFieldId),
+             this));
 
 
     editSField(NameFieldMask);
@@ -510,7 +512,8 @@ GetFieldHandlePtr ContainerCollectionBase::getHandleContainers      (void) const
     MFUnrecFieldContainerPtr::GetHandlePtr returnValue(
         new  MFUnrecFieldContainerPtr::GetHandle(
              &_mfContainers,
-             this->getType().getFieldDesc(ContainersFieldId)));
+             this->getType().getFieldDesc(ContainersFieldId),
+             const_cast<ContainerCollectionBase *>(this)));
 
     return returnValue;
 }
@@ -520,7 +523,8 @@ EditFieldHandlePtr ContainerCollectionBase::editHandleContainers     (void)
     MFUnrecFieldContainerPtr::EditHandlePtr returnValue(
         new  MFUnrecFieldContainerPtr::EditHandle(
              &_mfContainers,
-             this->getType().getFieldDesc(ContainersFieldId)));
+             this->getType().getFieldDesc(ContainersFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ContainerCollection::pushToContainers,

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class InverseTransform;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! InverseTransformPtr
-
 OSG_GEN_CONTAINERPTR(InverseTransform);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<InverseTransform *> :
     public FieldTraitsFCPtrBase<InverseTransform *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<InverseTransform *, 0>::getMName<NoRefCountPolicy>(void
     return "MFUnrefdInverseTransformPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<InverseTransformPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<InverseTransform *,
                       RecordedRefCountPolicy  > SFRecInverseTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<InverseTransform *,
                       UnrecordedRefCountPolicy> SFUnrecInverseTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<InverseTransform *,
                       WeakRefCountPolicy      > SFWeakInverseTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<InverseTransform *,
                       NoRefCountPolicy        > SFUncountedInverseTransformPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<InverseTransform *,
                       RecordedRefCountPolicy  > MFRecInverseTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<InverseTransform *,
                       UnrecordedRefCountPolicy> MFUnrecInverseTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<InverseTransform *,
                       WeakRefCountPolicy      > MFWeakInverseTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<InverseTransform *,
                       NoRefCountPolicy        > MFUncountedInverseTransformPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecInverseTransformPtr : 
+    public PointerSField<InverseTransform *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecInverseTransformPtr : 
+    public PointerSField<InverseTransform *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakInverseTransformPtr :
+    public PointerSField<InverseTransform *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedInverseTransformPtr :
+    public PointerSField<InverseTransform *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecInverseTransformPtr :
+    public PointerMField<InverseTransform *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecInverseTransformPtr :
+    public PointerMField<InverseTransform *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakInverseTransformPtr :
+    public PointerMField<InverseTransform *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedInverseTransformPtr :
+    public PointerMField<InverseTransform *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

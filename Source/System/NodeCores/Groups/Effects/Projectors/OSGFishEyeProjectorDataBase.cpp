@@ -182,7 +182,7 @@ FishEyeProjectorDataBase::TypeObject FishEyeProjectorDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FishEyeProjectorDataBase::createEmptyLocal),
     FishEyeProjectorData::initMethod,
     FishEyeProjectorData::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&FishEyeProjectorDataBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&FishEyeProjectorData::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -657,7 +657,8 @@ GetFieldHandlePtr FishEyeProjectorDataBase::getHandleRenderTarget    (void) cons
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId)));
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             const_cast<FishEyeProjectorDataBase *>(this)));
 
     return returnValue;
 }
@@ -667,7 +668,8 @@ EditFieldHandlePtr FishEyeProjectorDataBase::editHandleRenderTarget   (void)
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId)));
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FishEyeProjectorData::setRenderTarget,
@@ -683,7 +685,8 @@ GetFieldHandlePtr FishEyeProjectorDataBase::getHandleTextures        (void) cons
     MFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecTextureObjChunkPtr::GetHandle(
              &_mfTextures,
-             this->getType().getFieldDesc(TexturesFieldId)));
+             this->getType().getFieldDesc(TexturesFieldId),
+             const_cast<FishEyeProjectorDataBase *>(this)));
 
     return returnValue;
 }
@@ -693,7 +696,8 @@ EditFieldHandlePtr FishEyeProjectorDataBase::editHandleTextures       (void)
     MFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecTextureObjChunkPtr::EditHandle(
              &_mfTextures,
-             this->getType().getFieldDesc(TexturesFieldId)));
+             this->getType().getFieldDesc(TexturesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FishEyeProjectorData::pushToTextures,
@@ -718,7 +722,8 @@ GetFieldHandlePtr FishEyeProjectorDataBase::getHandleTextureRes      (void) cons
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfTextureRes,
-             this->getType().getFieldDesc(TextureResFieldId)));
+             this->getType().getFieldDesc(TextureResFieldId),
+             const_cast<FishEyeProjectorDataBase *>(this)));
 
     return returnValue;
 }
@@ -728,7 +733,8 @@ EditFieldHandlePtr FishEyeProjectorDataBase::editHandleTextureRes     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfTextureRes,
-             this->getType().getFieldDesc(TextureResFieldId)));
+             this->getType().getFieldDesc(TextureResFieldId),
+             this));
 
 
     editSField(TextureResFieldMask);
@@ -741,7 +747,8 @@ GetFieldHandlePtr FishEyeProjectorDataBase::getHandleTextureFormat   (void) cons
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfTextureFormat,
-             this->getType().getFieldDesc(TextureFormatFieldId)));
+             this->getType().getFieldDesc(TextureFormatFieldId),
+             const_cast<FishEyeProjectorDataBase *>(this)));
 
     return returnValue;
 }
@@ -751,7 +758,8 @@ EditFieldHandlePtr FishEyeProjectorDataBase::editHandleTextureFormat  (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfTextureFormat,
-             this->getType().getFieldDesc(TextureFormatFieldId)));
+             this->getType().getFieldDesc(TextureFormatFieldId),
+             this));
 
 
     editSField(TextureFormatFieldMask);
@@ -764,7 +772,8 @@ GetFieldHandlePtr FishEyeProjectorDataBase::getHandleCamera          (void) cons
     SFUnrecCameraPtr::GetHandlePtr returnValue(
         new  SFUnrecCameraPtr::GetHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             const_cast<FishEyeProjectorDataBase *>(this)));
 
     return returnValue;
 }
@@ -774,7 +783,8 @@ EditFieldHandlePtr FishEyeProjectorDataBase::editHandleCamera         (void)
     SFUnrecCameraPtr::EditHandlePtr returnValue(
         new  SFUnrecCameraPtr::EditHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FishEyeProjectorData::setCamera,
@@ -836,5 +846,6 @@ void FishEyeProjectorDataBase::resolveLinks(void)
 DataType FieldTraits<FishEyeProjectorData *>::_type("FishEyeProjectorDataPtr", "StageDataPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(FishEyeProjectorData *)
 
 OSG_END_NAMESPACE

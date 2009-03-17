@@ -364,7 +364,8 @@ GetFieldHandlePtr ShaderVariableOSGBase::getHandleOsgVarType      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfOsgVarType,
-             this->getType().getFieldDesc(OsgVarTypeFieldId)));
+             this->getType().getFieldDesc(OsgVarTypeFieldId),
+             const_cast<ShaderVariableOSGBase *>(this)));
 
     return returnValue;
 }
@@ -374,7 +375,8 @@ EditFieldHandlePtr ShaderVariableOSGBase::editHandleOsgVarType     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfOsgVarType,
-             this->getType().getFieldDesc(OsgVarTypeFieldId)));
+             this->getType().getFieldDesc(OsgVarTypeFieldId),
+             this));
 
 
     editSField(OsgVarTypeFieldMask);

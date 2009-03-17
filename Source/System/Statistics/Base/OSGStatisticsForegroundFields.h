@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class StatisticsForeground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! StatisticsForegroundPtr
-
 OSG_GEN_CONTAINERPTR(StatisticsForeground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<StatisticsForeground *> :
     public FieldTraitsFCPtrBase<StatisticsForeground *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<StatisticsForeground *, 0>::getMName<NoRefCountPolicy>(
     return "MFUnrefdStatisticsForegroundPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<StatisticsForegroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StatisticsForeground *,
                       RecordedRefCountPolicy  > SFRecStatisticsForegroundPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StatisticsForeground *,
                       UnrecordedRefCountPolicy> SFUnrecStatisticsForegroundPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StatisticsForeground *,
                       WeakRefCountPolicy      > SFWeakStatisticsForegroundPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StatisticsForeground *,
                       NoRefCountPolicy        > SFUncountedStatisticsForegroundPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<StatisticsForeground *,
                       RecordedRefCountPolicy  > MFRecStatisticsForegroundPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<StatisticsForeground *,
                       UnrecordedRefCountPolicy> MFUnrecStatisticsForegroundPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<StatisticsForeground *,
                       WeakRefCountPolicy      > MFWeakStatisticsForegroundPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<StatisticsForeground *,
                       NoRefCountPolicy        > MFUncountedStatisticsForegroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecStatisticsForegroundPtr : 
+    public PointerSField<StatisticsForeground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecStatisticsForegroundPtr : 
+    public PointerSField<StatisticsForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakStatisticsForegroundPtr :
+    public PointerSField<StatisticsForeground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedStatisticsForegroundPtr :
+    public PointerSField<StatisticsForeground *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecStatisticsForegroundPtr :
+    public PointerMField<StatisticsForeground *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecStatisticsForegroundPtr :
+    public PointerMField<StatisticsForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakStatisticsForegroundPtr :
+    public PointerMField<StatisticsForeground *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedStatisticsForegroundPtr :
+    public PointerMField<StatisticsForeground *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

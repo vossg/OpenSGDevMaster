@@ -162,7 +162,7 @@ ScalarInterpolatorBase::TypeObject ScalarInterpolatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ScalarInterpolatorBase::createEmptyLocal),
     ScalarInterpolator::initMethod,
     ScalarInterpolator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ScalarInterpolatorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ScalarInterpolator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -525,7 +525,8 @@ GetFieldHandlePtr ScalarInterpolatorBase::getHandleFraction        (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             const_cast<ScalarInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -535,7 +536,8 @@ EditFieldHandlePtr ScalarInterpolatorBase::editHandleFraction       (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             this));
 
 
     editSField(FractionFieldMask);
@@ -548,7 +550,8 @@ GetFieldHandlePtr ScalarInterpolatorBase::getHandleKey             (void) const
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             const_cast<ScalarInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -558,7 +561,8 @@ EditFieldHandlePtr ScalarInterpolatorBase::editHandleKey            (void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             this));
 
 
     editMField(KeyFieldMask, _mfKey);
@@ -571,7 +575,8 @@ GetFieldHandlePtr ScalarInterpolatorBase::getHandleKeyValue        (void) const
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId)));
+             this->getType().getFieldDesc(KeyValueFieldId),
+             const_cast<ScalarInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -581,7 +586,8 @@ EditFieldHandlePtr ScalarInterpolatorBase::editHandleKeyValue       (void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId)));
+             this->getType().getFieldDesc(KeyValueFieldId),
+             this));
 
 
     editMField(KeyValueFieldMask, _mfKeyValue);
@@ -594,7 +600,8 @@ GetFieldHandlePtr ScalarInterpolatorBase::getHandleValue           (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ScalarInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -604,7 +611,8 @@ EditFieldHandlePtr ScalarInterpolatorBase::editHandleValue          (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);
@@ -670,5 +678,6 @@ void ScalarInterpolatorBase::resolveLinks(void)
 DataType FieldTraits<ScalarInterpolator *>::_type("ScalarInterpolatorPtr", "NodeCorePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ScalarInterpolator *)
 
 OSG_END_NAMESPACE

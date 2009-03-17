@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Drawable;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DrawablePtr
-
 OSG_GEN_CONTAINERPTR(Drawable);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Drawable *> :
     public FieldTraitsFCPtrBase<Drawable *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Drawable *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdDrawablePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DrawablePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Drawable *,
                       RecordedRefCountPolicy  > SFRecDrawablePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Drawable *,
                       UnrecordedRefCountPolicy> SFUnrecDrawablePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Drawable *,
                       WeakRefCountPolicy      > SFWeakDrawablePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Drawable *,
                       NoRefCountPolicy        > SFUncountedDrawablePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Drawable *,
                       RecordedRefCountPolicy  > MFRecDrawablePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Drawable *,
                       UnrecordedRefCountPolicy> MFUnrecDrawablePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Drawable *,
                       WeakRefCountPolicy      > MFWeakDrawablePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Drawable *,
                       NoRefCountPolicy        > MFUncountedDrawablePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecDrawablePtr : 
+    public PointerSField<Drawable *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecDrawablePtr : 
+    public PointerSField<Drawable *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakDrawablePtr :
+    public PointerSField<Drawable *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedDrawablePtr :
+    public PointerSField<Drawable *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecDrawablePtr :
+    public PointerMField<Drawable *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecDrawablePtr :
+    public PointerMField<Drawable *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakDrawablePtr :
+    public PointerMField<Drawable *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedDrawablePtr :
+    public PointerMField<Drawable *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

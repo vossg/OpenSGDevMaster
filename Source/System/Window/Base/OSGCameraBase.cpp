@@ -376,7 +376,8 @@ GetFieldHandlePtr CameraBase::getHandleBeacon          (void) const
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
              &_sfBeacon,
-             this->getType().getFieldDesc(BeaconFieldId)));
+             this->getType().getFieldDesc(BeaconFieldId),
+             const_cast<CameraBase *>(this)));
 
     return returnValue;
 }
@@ -386,7 +387,8 @@ EditFieldHandlePtr CameraBase::editHandleBeacon         (void)
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
              &_sfBeacon,
-             this->getType().getFieldDesc(BeaconFieldId)));
+             this->getType().getFieldDesc(BeaconFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Camera::setBeacon,
@@ -402,7 +404,8 @@ GetFieldHandlePtr CameraBase::getHandleNear            (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfNear,
-             this->getType().getFieldDesc(NearFieldId)));
+             this->getType().getFieldDesc(NearFieldId),
+             const_cast<CameraBase *>(this)));
 
     return returnValue;
 }
@@ -412,7 +415,8 @@ EditFieldHandlePtr CameraBase::editHandleNear           (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfNear,
-             this->getType().getFieldDesc(NearFieldId)));
+             this->getType().getFieldDesc(NearFieldId),
+             this));
 
 
     editSField(NearFieldMask);
@@ -425,7 +429,8 @@ GetFieldHandlePtr CameraBase::getHandleFar             (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfFar,
-             this->getType().getFieldDesc(FarFieldId)));
+             this->getType().getFieldDesc(FarFieldId),
+             const_cast<CameraBase *>(this)));
 
     return returnValue;
 }
@@ -435,7 +440,8 @@ EditFieldHandlePtr CameraBase::editHandleFar            (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfFar,
-             this->getType().getFieldDesc(FarFieldId)));
+             this->getType().getFieldDesc(FarFieldId),
+             this));
 
 
     editSField(FarFieldMask);

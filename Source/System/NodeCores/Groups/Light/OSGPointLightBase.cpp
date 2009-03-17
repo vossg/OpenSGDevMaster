@@ -118,7 +118,7 @@ PointLightBase::TypeObject PointLightBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PointLightBase::createEmptyLocal),
     PointLight::initMethod,
     PointLight::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&PointLightBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&PointLight::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -373,7 +373,8 @@ GetFieldHandlePtr PointLightBase::getHandlePosition        (void) const
     SFPnt3r::GetHandlePtr returnValue(
         new  SFPnt3r::GetHandle(
              &_sfPosition,
-             this->getType().getFieldDesc(PositionFieldId)));
+             this->getType().getFieldDesc(PositionFieldId),
+             const_cast<PointLightBase *>(this)));
 
     return returnValue;
 }
@@ -383,7 +384,8 @@ EditFieldHandlePtr PointLightBase::editHandlePosition       (void)
     SFPnt3r::EditHandlePtr returnValue(
         new  SFPnt3r::EditHandle(
              &_sfPosition,
-             this->getType().getFieldDesc(PositionFieldId)));
+             this->getType().getFieldDesc(PositionFieldId),
+             this));
 
 
     editSField(PositionFieldMask);
@@ -436,5 +438,6 @@ void PointLightBase::resolveLinks(void)
 DataType FieldTraits<PointLight *>::_type("PointLightPtr", "LightPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(PointLight *)
 
 OSG_END_NAMESPACE

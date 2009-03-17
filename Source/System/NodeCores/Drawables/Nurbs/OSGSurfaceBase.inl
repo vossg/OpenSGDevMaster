@@ -151,14 +151,14 @@ Real &SurfaceBase::editError(void)
 
 //! Get the value of the Surface::_sfError field.
 inline
-const Real &SurfaceBase::getError(void) const
+      Real  SurfaceBase::getError(void) const
 {
     return _sfError.getValue();
 }
 
 //! Set the value of the Surface::_sfError field.
 inline
-void SurfaceBase::setError(const Real &value)
+void SurfaceBase::setError(const Real value)
 {
     editSField(ErrorFieldMask);
 
@@ -283,7 +283,7 @@ void SurfaceBase::setSurfaceGLId(const Int32 value)
 
 //! Get the value of the \a index element the Surface::_mfKnotsU field.
 inline
-const Real &SurfaceBase::getKnotsU(const UInt32 index) const
+      Real  SurfaceBase::getKnotsU(const UInt32 index) const
 {
     return _mfKnotsU[index];
 }
@@ -299,7 +299,7 @@ Real &SurfaceBase::editKnotsU(const UInt32 index)
 
 //! Get the value of the \a index element the Surface::_mfKnotsV field.
 inline
-const Real &SurfaceBase::getKnotsV(const UInt32 index) const
+      Real  SurfaceBase::getKnotsV(const UInt32 index) const
 {
     return _mfKnotsV[index];
 }
@@ -363,7 +363,7 @@ Pnt3r &SurfaceBase::editCurveControlPoints(const UInt32 index)
 
 //! Get the value of the \a index element the Surface::_mfKnots field.
 inline
-const Real &SurfaceBase::getKnots(const UInt32 index) const
+      Real  SurfaceBase::getKnots(const UInt32 index) const
 {
     return _mfKnots[index];
 }

@@ -134,7 +134,7 @@ MultiSwitchBase::TypeObject MultiSwitchBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiSwitchBase::createEmptyLocal),
     MultiSwitch::initMethod,
     MultiSwitch::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MultiSwitchBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&MultiSwitch::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -424,7 +424,8 @@ GetFieldHandlePtr MultiSwitchBase::getHandleChoices         (void) const
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
              &_mfChoices,
-             this->getType().getFieldDesc(ChoicesFieldId)));
+             this->getType().getFieldDesc(ChoicesFieldId),
+             const_cast<MultiSwitchBase *>(this)));
 
     return returnValue;
 }
@@ -434,7 +435,8 @@ EditFieldHandlePtr MultiSwitchBase::editHandleChoices        (void)
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
              &_mfChoices,
-             this->getType().getFieldDesc(ChoicesFieldId)));
+             this->getType().getFieldDesc(ChoicesFieldId),
+             this));
 
 
     editMField(ChoicesFieldMask, _mfChoices);
@@ -447,7 +449,8 @@ GetFieldHandlePtr MultiSwitchBase::getHandleSwitchMode      (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfSwitchMode,
-             this->getType().getFieldDesc(SwitchModeFieldId)));
+             this->getType().getFieldDesc(SwitchModeFieldId),
+             const_cast<MultiSwitchBase *>(this)));
 
     return returnValue;
 }
@@ -457,7 +460,8 @@ EditFieldHandlePtr MultiSwitchBase::editHandleSwitchMode     (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfSwitchMode,
-             this->getType().getFieldDesc(SwitchModeFieldId)));
+             this->getType().getFieldDesc(SwitchModeFieldId),
+             this));
 
 
     editSField(SwitchModeFieldMask);

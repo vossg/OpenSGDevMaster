@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TileableBackground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TileableBackgroundPtr
-
 OSG_GEN_CONTAINERPTR(TileableBackground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TileableBackground *> :
     public FieldTraitsFCPtrBase<TileableBackground *>
@@ -127,28 +118,46 @@ const Char8 *FieldTraits<TileableBackground *, 0>::getSName<NoRefCountPolicy>(vo
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TileableBackgroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TileableBackground *,
                       RecordedRefCountPolicy  > SFRecTileableBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TileableBackground *,
                       UnrecordedRefCountPolicy> SFUnrecTileableBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TileableBackground *,
                       WeakRefCountPolicy      > SFWeakTileableBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TileableBackground *,
                       NoRefCountPolicy        > SFUncountedTileableBackgroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecTileableBackgroundPtr : 
+    public PointerSField<TileableBackground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecTileableBackgroundPtr : 
+    public PointerSField<TileableBackground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakTileableBackgroundPtr :
+    public PointerSField<TileableBackground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedTileableBackgroundPtr :
+    public PointerSField<TileableBackground *,
+                         NoRefCountPolicy> {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

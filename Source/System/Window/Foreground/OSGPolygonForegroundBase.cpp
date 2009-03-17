@@ -252,7 +252,7 @@ PolygonForegroundBase::TypeObject PolygonForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PolygonForegroundBase::createEmptyLocal),
     PolygonForeground::initMethod,
     PolygonForeground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&PolygonForegroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&PolygonForeground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -824,7 +824,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleMaterial        (void) const
     SFUnrecPrimeMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecPrimeMaterialPtr::GetHandle(
              &_sfMaterial,
-             this->getType().getFieldDesc(MaterialFieldId)));
+             this->getType().getFieldDesc(MaterialFieldId),
+             const_cast<PolygonForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -834,7 +835,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandleMaterial       (void)
     SFUnrecPrimeMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecPrimeMaterialPtr::EditHandle(
              &_sfMaterial,
-             this->getType().getFieldDesc(MaterialFieldId)));
+             this->getType().getFieldDesc(MaterialFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&PolygonForeground::setMaterial,
@@ -850,7 +852,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandlePositions       (void) const
     MFPnt2f::GetHandlePtr returnValue(
         new  MFPnt2f::GetHandle(
              &_mfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             const_cast<PolygonForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -860,7 +863,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandlePositions      (void)
     MFPnt2f::EditHandlePtr returnValue(
         new  MFPnt2f::EditHandle(
              &_mfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             this));
 
 
     editMField(PositionsFieldMask, _mfPositions);
@@ -873,7 +877,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleTexCoords       (void) const
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
              &_mfTexCoords,
-             this->getType().getFieldDesc(TexCoordsFieldId)));
+             this->getType().getFieldDesc(TexCoordsFieldId),
+             const_cast<PolygonForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -883,7 +888,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandleTexCoords      (void)
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
              &_mfTexCoords,
-             this->getType().getFieldDesc(TexCoordsFieldId)));
+             this->getType().getFieldDesc(TexCoordsFieldId),
+             this));
 
 
     editMField(TexCoordsFieldMask, _mfTexCoords);
@@ -896,7 +902,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleNormalizedX     (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfNormalizedX,
-             this->getType().getFieldDesc(NormalizedXFieldId)));
+             this->getType().getFieldDesc(NormalizedXFieldId),
+             const_cast<PolygonForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -906,7 +913,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandleNormalizedX    (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfNormalizedX,
-             this->getType().getFieldDesc(NormalizedXFieldId)));
+             this->getType().getFieldDesc(NormalizedXFieldId),
+             this));
 
 
     editSField(NormalizedXFieldMask);
@@ -919,7 +927,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleNormalizedY     (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfNormalizedY,
-             this->getType().getFieldDesc(NormalizedYFieldId)));
+             this->getType().getFieldDesc(NormalizedYFieldId),
+             const_cast<PolygonForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -929,7 +938,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandleNormalizedY    (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfNormalizedY,
-             this->getType().getFieldDesc(NormalizedYFieldId)));
+             this->getType().getFieldDesc(NormalizedYFieldId),
+             this));
 
 
     editSField(NormalizedYFieldMask);
@@ -942,7 +952,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleAspectHeight    (void) const
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
              &_sfAspectHeight,
-             this->getType().getFieldDesc(AspectHeightFieldId)));
+             this->getType().getFieldDesc(AspectHeightFieldId),
+             const_cast<PolygonForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -952,7 +963,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandleAspectHeight   (void)
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
              &_sfAspectHeight,
-             this->getType().getFieldDesc(AspectHeightFieldId)));
+             this->getType().getFieldDesc(AspectHeightFieldId),
+             this));
 
 
     editSField(AspectHeightFieldMask);
@@ -965,7 +977,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleAspectWidth     (void) const
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
              &_sfAspectWidth,
-             this->getType().getFieldDesc(AspectWidthFieldId)));
+             this->getType().getFieldDesc(AspectWidthFieldId),
+             const_cast<PolygonForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -975,7 +988,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandleAspectWidth    (void)
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
              &_sfAspectWidth,
-             this->getType().getFieldDesc(AspectWidthFieldId)));
+             this->getType().getFieldDesc(AspectWidthFieldId),
+             this));
 
 
     editSField(AspectWidthFieldMask);
@@ -988,7 +1002,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleScale           (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfScale,
-             this->getType().getFieldDesc(ScaleFieldId)));
+             this->getType().getFieldDesc(ScaleFieldId),
+             const_cast<PolygonForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -998,7 +1013,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandleScale          (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfScale,
-             this->getType().getFieldDesc(ScaleFieldId)));
+             this->getType().getFieldDesc(ScaleFieldId),
+             this));
 
 
     editSField(ScaleFieldMask);
@@ -1011,7 +1027,8 @@ GetFieldHandlePtr PolygonForegroundBase::getHandleTile            (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfTile,
-             this->getType().getFieldDesc(TileFieldId)));
+             this->getType().getFieldDesc(TileFieldId),
+             const_cast<PolygonForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1021,7 +1038,8 @@ EditFieldHandlePtr PolygonForegroundBase::editHandleTile           (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfTile,
-             this->getType().getFieldDesc(TileFieldId)));
+             this->getType().getFieldDesc(TileFieldId),
+             this));
 
 
     editSField(TileFieldMask);

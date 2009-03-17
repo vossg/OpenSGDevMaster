@@ -973,7 +973,8 @@ GetFieldHandlePtr ShaderExecutableChunkBase::getHandleVariables       (void) con
     SFUnrecChildShaderProgramVariablesPtr::GetHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::GetHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             const_cast<ShaderExecutableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -983,7 +984,8 @@ EditFieldHandlePtr ShaderExecutableChunkBase::editHandleVariables      (void)
     SFUnrecChildShaderProgramVariablesPtr::EditHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::EditHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShaderExecutableChunk::setVariables,
@@ -999,7 +1001,8 @@ GetFieldHandlePtr ShaderExecutableChunkBase::getHandleVariableLocations (void) c
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfVariableLocations,
-             this->getType().getFieldDesc(VariableLocationsFieldId)));
+             this->getType().getFieldDesc(VariableLocationsFieldId),
+             const_cast<ShaderExecutableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1009,7 +1012,8 @@ EditFieldHandlePtr ShaderExecutableChunkBase::editHandleVariableLocations(void)
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfVariableLocations,
-             this->getType().getFieldDesc(VariableLocationsFieldId)));
+             this->getType().getFieldDesc(VariableLocationsFieldId),
+             this));
 
 
     editMField(VariableLocationsFieldMask, _mfVariableLocations);
@@ -1022,7 +1026,8 @@ GetFieldHandlePtr ShaderExecutableChunkBase::getHandleProceduralVariableLocation
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfProceduralVariableLocations,
-             this->getType().getFieldDesc(ProceduralVariableLocationsFieldId)));
+             this->getType().getFieldDesc(ProceduralVariableLocationsFieldId),
+             const_cast<ShaderExecutableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1032,7 +1037,8 @@ EditFieldHandlePtr ShaderExecutableChunkBase::editHandleProceduralVariableLocati
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfProceduralVariableLocations,
-             this->getType().getFieldDesc(ProceduralVariableLocationsFieldId)));
+             this->getType().getFieldDesc(ProceduralVariableLocationsFieldId),
+             this));
 
 
     editMField(ProceduralVariableLocationsFieldMask, _mfProceduralVariableLocations);
@@ -1045,7 +1051,8 @@ GetFieldHandlePtr ShaderExecutableChunkBase::getHandleGeometryVerticesOut (void)
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGeometryVerticesOut,
-             this->getType().getFieldDesc(GeometryVerticesOutFieldId)));
+             this->getType().getFieldDesc(GeometryVerticesOutFieldId),
+             const_cast<ShaderExecutableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1055,7 +1062,8 @@ EditFieldHandlePtr ShaderExecutableChunkBase::editHandleGeometryVerticesOut(void
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGeometryVerticesOut,
-             this->getType().getFieldDesc(GeometryVerticesOutFieldId)));
+             this->getType().getFieldDesc(GeometryVerticesOutFieldId),
+             this));
 
 
     editSField(GeometryVerticesOutFieldMask);
@@ -1068,7 +1076,8 @@ GetFieldHandlePtr ShaderExecutableChunkBase::getHandleGeometryInputType (void) c
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfGeometryInputType,
-             this->getType().getFieldDesc(GeometryInputTypeFieldId)));
+             this->getType().getFieldDesc(GeometryInputTypeFieldId),
+             const_cast<ShaderExecutableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1078,7 +1087,8 @@ EditFieldHandlePtr ShaderExecutableChunkBase::editHandleGeometryInputType(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfGeometryInputType,
-             this->getType().getFieldDesc(GeometryInputTypeFieldId)));
+             this->getType().getFieldDesc(GeometryInputTypeFieldId),
+             this));
 
 
     editSField(GeometryInputTypeFieldMask);
@@ -1091,7 +1101,8 @@ GetFieldHandlePtr ShaderExecutableChunkBase::getHandleGeometryOutputType (void) 
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfGeometryOutputType,
-             this->getType().getFieldDesc(GeometryOutputTypeFieldId)));
+             this->getType().getFieldDesc(GeometryOutputTypeFieldId),
+             const_cast<ShaderExecutableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1101,7 +1112,8 @@ EditFieldHandlePtr ShaderExecutableChunkBase::editHandleGeometryOutputType(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfGeometryOutputType,
-             this->getType().getFieldDesc(GeometryOutputTypeFieldId)));
+             this->getType().getFieldDesc(GeometryOutputTypeFieldId),
+             this));
 
 
     editSField(GeometryOutputTypeFieldMask);
@@ -1114,7 +1126,8 @@ GetFieldHandlePtr ShaderExecutableChunkBase::getHandleGLId            (void) con
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             const_cast<ShaderExecutableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1124,7 +1137,8 @@ EditFieldHandlePtr ShaderExecutableChunkBase::editHandleGLId           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             this));
 
 
     editSField(GLIdFieldMask);
@@ -1137,7 +1151,8 @@ GetFieldHandlePtr ShaderExecutableChunkBase::getHandlePointSize       (void) con
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfPointSize,
-             this->getType().getFieldDesc(PointSizeFieldId)));
+             this->getType().getFieldDesc(PointSizeFieldId),
+             const_cast<ShaderExecutableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1147,7 +1162,8 @@ EditFieldHandlePtr ShaderExecutableChunkBase::editHandlePointSize      (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfPointSize,
-             this->getType().getFieldDesc(PointSizeFieldId)));
+             this->getType().getFieldDesc(PointSizeFieldId),
+             this));
 
 
     editSField(PointSizeFieldMask);

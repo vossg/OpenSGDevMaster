@@ -1874,7 +1874,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleRenderProperties (void) const
     SFMaterialMapKey::GetHandlePtr returnValue(
         new  SFMaterialMapKey::GetHandle(
              &_sfRenderProperties,
-             this->getType().getFieldDesc(RenderPropertiesFieldId)));
+             this->getType().getFieldDesc(RenderPropertiesFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -1884,7 +1885,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleRenderProperties(void)
     SFMaterialMapKey::EditHandlePtr returnValue(
         new  SFMaterialMapKey::EditHandle(
              &_sfRenderProperties,
-             this->getType().getFieldDesc(RenderPropertiesFieldId)));
+             this->getType().getFieldDesc(RenderPropertiesFieldId),
+             this));
 
 
     editSField(RenderPropertiesFieldMask);
@@ -1897,7 +1899,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleStatistic       (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfStatistic,
-             this->getType().getFieldDesc(StatisticFieldId)));
+             this->getType().getFieldDesc(StatisticFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -1907,7 +1910,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleStatistic      (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfStatistic,
-             this->getType().getFieldDesc(StatisticFieldId)));
+             this->getType().getFieldDesc(StatisticFieldId),
+             this));
 
 
     editSField(StatisticFieldMask);
@@ -1920,7 +1924,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandlePolygonMode     (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfPolygonMode,
-             this->getType().getFieldDesc(PolygonModeFieldId)));
+             this->getType().getFieldDesc(PolygonModeFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -1930,7 +1935,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandlePolygonMode    (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfPolygonMode,
-             this->getType().getFieldDesc(PolygonModeFieldId)));
+             this->getType().getFieldDesc(PolygonModeFieldId),
+             this));
 
 
     editSField(PolygonModeFieldMask);
@@ -1943,7 +1949,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleTwoSidedLighting (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfTwoSidedLighting,
-             this->getType().getFieldDesc(TwoSidedLightingFieldId)));
+             this->getType().getFieldDesc(TwoSidedLightingFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -1953,7 +1960,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleTwoSidedLighting(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfTwoSidedLighting,
-             this->getType().getFieldDesc(TwoSidedLightingFieldId)));
+             this->getType().getFieldDesc(TwoSidedLightingFieldId),
+             this));
 
 
     editSField(TwoSidedLightingFieldMask);
@@ -1966,7 +1974,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleSpecTexLighting (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfSpecTexLighting,
-             this->getType().getFieldDesc(SpecTexLightingFieldId)));
+             this->getType().getFieldDesc(SpecTexLightingFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -1976,7 +1985,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleSpecTexLighting(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfSpecTexLighting,
-             this->getType().getFieldDesc(SpecTexLightingFieldId)));
+             this->getType().getFieldDesc(SpecTexLightingFieldId),
+             this));
 
 
     editSField(SpecTexLightingFieldMask);
@@ -1989,7 +1999,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleSortTrans       (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfSortTrans,
-             this->getType().getFieldDesc(SortTransFieldId)));
+             this->getType().getFieldDesc(SortTransFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -1999,7 +2010,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleSortTrans      (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfSortTrans,
-             this->getType().getFieldDesc(SortTransFieldId)));
+             this->getType().getFieldDesc(SortTransFieldId),
+             this));
 
 
     editSField(SortTransFieldMask);
@@ -2012,7 +2024,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleZWriteTrans     (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfZWriteTrans,
-             this->getType().getFieldDesc(ZWriteTransFieldId)));
+             this->getType().getFieldDesc(ZWriteTransFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2022,7 +2035,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleZWriteTrans    (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfZWriteTrans,
-             this->getType().getFieldDesc(ZWriteTransFieldId)));
+             this->getType().getFieldDesc(ZWriteTransFieldId),
+             this));
 
 
     editSField(ZWriteTransFieldMask);
@@ -2035,7 +2049,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleLocalLights     (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfLocalLights,
-             this->getType().getFieldDesc(LocalLightsFieldId)));
+             this->getType().getFieldDesc(LocalLightsFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2045,7 +2060,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleLocalLights    (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfLocalLights,
-             this->getType().getFieldDesc(LocalLightsFieldId)));
+             this->getType().getFieldDesc(LocalLightsFieldId),
+             this));
 
 
     editSField(LocalLightsFieldMask);
@@ -2058,7 +2074,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleCorrectTwoSidedLighting (void) con
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfCorrectTwoSidedLighting,
-             this->getType().getFieldDesc(CorrectTwoSidedLightingFieldId)));
+             this->getType().getFieldDesc(CorrectTwoSidedLightingFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2068,7 +2085,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleCorrectTwoSidedLighting(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfCorrectTwoSidedLighting,
-             this->getType().getFieldDesc(CorrectTwoSidedLightingFieldId)));
+             this->getType().getFieldDesc(CorrectTwoSidedLightingFieldId),
+             this));
 
 
     editSField(CorrectTwoSidedLightingFieldMask);
@@ -2081,7 +2099,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleOcclusionCulling (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfOcclusionCulling,
-             this->getType().getFieldDesc(OcclusionCullingFieldId)));
+             this->getType().getFieldDesc(OcclusionCullingFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2091,7 +2110,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleOcclusionCulling(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfOcclusionCulling,
-             this->getType().getFieldDesc(OcclusionCullingFieldId)));
+             this->getType().getFieldDesc(OcclusionCullingFieldId),
+             this));
 
 
     editSField(OcclusionCullingFieldMask);
@@ -2104,7 +2124,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleOcclusionCullingMode (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfOcclusionCullingMode,
-             this->getType().getFieldDesc(OcclusionCullingModeFieldId)));
+             this->getType().getFieldDesc(OcclusionCullingModeFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2114,7 +2135,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleOcclusionCullingMode(void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfOcclusionCullingMode,
-             this->getType().getFieldDesc(OcclusionCullingModeFieldId)));
+             this->getType().getFieldDesc(OcclusionCullingModeFieldId),
+             this));
 
 
     editSField(OcclusionCullingModeFieldMask);
@@ -2127,7 +2149,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleOcclusionCullingPixels (void) cons
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfOcclusionCullingPixels,
-             this->getType().getFieldDesc(OcclusionCullingPixelsFieldId)));
+             this->getType().getFieldDesc(OcclusionCullingPixelsFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2137,7 +2160,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleOcclusionCullingPixels(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfOcclusionCullingPixels,
-             this->getType().getFieldDesc(OcclusionCullingPixelsFieldId)));
+             this->getType().getFieldDesc(OcclusionCullingPixelsFieldId),
+             this));
 
 
     editSField(OcclusionCullingPixelsFieldMask);
@@ -2150,7 +2174,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleAntialiasing    (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAntialiasing,
-             this->getType().getFieldDesc(AntialiasingFieldId)));
+             this->getType().getFieldDesc(AntialiasingFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2160,7 +2185,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleAntialiasing   (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAntialiasing,
-             this->getType().getFieldDesc(AntialiasingFieldId)));
+             this->getType().getFieldDesc(AntialiasingFieldId),
+             this));
 
 
     editSField(AntialiasingFieldMask);
@@ -2173,7 +2199,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleAntialiasingDistance (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfAntialiasingDistance,
-             this->getType().getFieldDesc(AntialiasingDistanceFieldId)));
+             this->getType().getFieldDesc(AntialiasingDistanceFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2183,7 +2210,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleAntialiasingDistance(void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfAntialiasingDistance,
-             this->getType().getFieldDesc(AntialiasingDistanceFieldId)));
+             this->getType().getFieldDesc(AntialiasingDistanceFieldId),
+             this));
 
 
     editSField(AntialiasingDistanceFieldMask);
@@ -2196,7 +2224,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleAntialiasingScale (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfAntialiasingScale,
-             this->getType().getFieldDesc(AntialiasingScaleFieldId)));
+             this->getType().getFieldDesc(AntialiasingScaleFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2206,7 +2235,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleAntialiasingScale(void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfAntialiasingScale,
-             this->getType().getFieldDesc(AntialiasingScaleFieldId)));
+             this->getType().getFieldDesc(AntialiasingScaleFieldId),
+             this));
 
 
     editSField(AntialiasingScaleFieldMask);
@@ -2219,7 +2249,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleAntialiasingTrigger (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfAntialiasingTrigger,
-             this->getType().getFieldDesc(AntialiasingTriggerFieldId)));
+             this->getType().getFieldDesc(AntialiasingTriggerFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2229,7 +2260,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleAntialiasingTrigger(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfAntialiasingTrigger,
-             this->getType().getFieldDesc(AntialiasingTriggerFieldId)));
+             this->getType().getFieldDesc(AntialiasingTriggerFieldId),
+             this));
 
 
     editSField(AntialiasingTriggerFieldMask);
@@ -2242,7 +2274,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleFrustumCulling  (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfFrustumCulling,
-             this->getType().getFieldDesc(FrustumCullingFieldId)));
+             this->getType().getFieldDesc(FrustumCullingFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2252,7 +2285,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleFrustumCulling (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfFrustumCulling,
-             this->getType().getFieldDesc(FrustumCullingFieldId)));
+             this->getType().getFieldDesc(FrustumCullingFieldId),
+             this));
 
 
     editSField(FrustumCullingFieldMask);
@@ -2265,7 +2299,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleBackfaceCulling (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfBackfaceCulling,
-             this->getType().getFieldDesc(BackfaceCullingFieldId)));
+             this->getType().getFieldDesc(BackfaceCullingFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2275,7 +2310,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleBackfaceCulling(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfBackfaceCulling,
-             this->getType().getFieldDesc(BackfaceCullingFieldId)));
+             this->getType().getFieldDesc(BackfaceCullingFieldId),
+             this));
 
 
     editSField(BackfaceCullingFieldMask);
@@ -2288,7 +2324,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleSmallFeatureCulling (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfSmallFeatureCulling,
-             this->getType().getFieldDesc(SmallFeatureCullingFieldId)));
+             this->getType().getFieldDesc(SmallFeatureCullingFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2298,7 +2335,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleSmallFeatureCulling(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfSmallFeatureCulling,
-             this->getType().getFieldDesc(SmallFeatureCullingFieldId)));
+             this->getType().getFieldDesc(SmallFeatureCullingFieldId),
+             this));
 
 
     editSField(SmallFeatureCullingFieldMask);
@@ -2311,7 +2349,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleSmallFeaturePixels (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfSmallFeaturePixels,
-             this->getType().getFieldDesc(SmallFeaturePixelsFieldId)));
+             this->getType().getFieldDesc(SmallFeaturePixelsFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2321,7 +2360,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleSmallFeaturePixels(void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfSmallFeaturePixels,
-             this->getType().getFieldDesc(SmallFeaturePixelsFieldId)));
+             this->getType().getFieldDesc(SmallFeaturePixelsFieldId),
+             this));
 
 
     editSField(SmallFeaturePixelsFieldMask);
@@ -2334,7 +2374,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleSmallFeatureThreshold (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfSmallFeatureThreshold,
-             this->getType().getFieldDesc(SmallFeatureThresholdFieldId)));
+             this->getType().getFieldDesc(SmallFeatureThresholdFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2344,7 +2385,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleSmallFeatureThreshold(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfSmallFeatureThreshold,
-             this->getType().getFieldDesc(SmallFeatureThresholdFieldId)));
+             this->getType().getFieldDesc(SmallFeatureThresholdFieldId),
+             this));
 
 
     editSField(SmallFeatureThresholdFieldMask);
@@ -2357,7 +2399,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleFirstFrame      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfFirstFrame,
-             this->getType().getFieldDesc(FirstFrameFieldId)));
+             this->getType().getFieldDesc(FirstFrameFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2367,7 +2410,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleFirstFrame     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfFirstFrame,
-             this->getType().getFieldDesc(FirstFrameFieldId)));
+             this->getType().getFieldDesc(FirstFrameFieldId),
+             this));
 
 
     editSField(FirstFrameFieldMask);
@@ -2380,7 +2424,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleDepthOnlyPass   (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfDepthOnlyPass,
-             this->getType().getFieldDesc(DepthOnlyPassFieldId)));
+             this->getType().getFieldDesc(DepthOnlyPassFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2390,7 +2435,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleDepthOnlyPass  (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfDepthOnlyPass,
-             this->getType().getFieldDesc(DepthOnlyPassFieldId)));
+             this->getType().getFieldDesc(DepthOnlyPassFieldId),
+             this));
 
 
     editSField(DepthOnlyPassFieldMask);
@@ -2403,7 +2449,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleLightModelAmbient (void) const
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfLightModelAmbient,
-             this->getType().getFieldDesc(LightModelAmbientFieldId)));
+             this->getType().getFieldDesc(LightModelAmbientFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2413,7 +2460,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleLightModelAmbient(void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfLightModelAmbient,
-             this->getType().getFieldDesc(LightModelAmbientFieldId)));
+             this->getType().getFieldDesc(LightModelAmbientFieldId),
+             this));
 
 
     editSField(LightModelAmbientFieldMask);
@@ -2426,7 +2474,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleFogColor        (void) const
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfFogColor,
-             this->getType().getFieldDesc(FogColorFieldId)));
+             this->getType().getFieldDesc(FogColorFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2436,7 +2485,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleFogColor       (void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfFogColor,
-             this->getType().getFieldDesc(FogColorFieldId)));
+             this->getType().getFieldDesc(FogColorFieldId),
+             this));
 
 
     editSField(FogColorFieldMask);
@@ -2449,7 +2499,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleFogRange        (void) const
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfFogRange,
-             this->getType().getFieldDesc(FogRangeFieldId)));
+             this->getType().getFieldDesc(FogRangeFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2459,7 +2510,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleFogRange       (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfFogRange,
-             this->getType().getFieldDesc(FogRangeFieldId)));
+             this->getType().getFieldDesc(FogRangeFieldId),
+             this));
 
 
     editSField(FogRangeFieldMask);
@@ -2472,7 +2524,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleFogDensity      (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfFogDensity,
-             this->getType().getFieldDesc(FogDensityFieldId)));
+             this->getType().getFieldDesc(FogDensityFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2482,7 +2535,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleFogDensity     (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfFogDensity,
-             this->getType().getFieldDesc(FogDensityFieldId)));
+             this->getType().getFieldDesc(FogDensityFieldId),
+             this));
 
 
     editSField(FogDensityFieldMask);
@@ -2495,7 +2549,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleFogMode         (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfFogMode,
-             this->getType().getFieldDesc(FogModeFieldId)));
+             this->getType().getFieldDesc(FogModeFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2505,7 +2560,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleFogMode        (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfFogMode,
-             this->getType().getFieldDesc(FogModeFieldId)));
+             this->getType().getFieldDesc(FogModeFieldId),
+             this));
 
 
     editSField(FogModeFieldMask);
@@ -2518,7 +2574,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleMultiSample     (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfMultiSample,
-             this->getType().getFieldDesc(MultiSampleFieldId)));
+             this->getType().getFieldDesc(MultiSampleFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2528,7 +2585,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleMultiSample    (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfMultiSample,
-             this->getType().getFieldDesc(MultiSampleFieldId)));
+             this->getType().getFieldDesc(MultiSampleFieldId),
+             this));
 
 
     editSField(MultiSampleFieldMask);
@@ -2541,7 +2599,8 @@ GetFieldHandlePtr RenderOptionsBase::getHandleMultiSampleFilterMode (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfMultiSampleFilterMode,
-             this->getType().getFieldDesc(MultiSampleFilterModeFieldId)));
+             this->getType().getFieldDesc(MultiSampleFilterModeFieldId),
+             const_cast<RenderOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -2551,7 +2610,8 @@ EditFieldHandlePtr RenderOptionsBase::editHandleMultiSampleFilterMode(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfMultiSampleFilterMode,
-             this->getType().getFieldDesc(MultiSampleFilterModeFieldId)));
+             this->getType().getFieldDesc(MultiSampleFilterModeFieldId),
+             this));
 
 
     editSField(MultiSampleFilterModeFieldMask);

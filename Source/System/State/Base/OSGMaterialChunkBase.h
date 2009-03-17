@@ -249,7 +249,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
             const Color4r             &getEmission        (void) const;
 
                   Real                &editShininess      (void);
-            const Real                &getShininess       (void) const;
+                  Real                 getShininess       (void) const;
 
                   bool                &editLit            (void);
                   bool                 getLit             (void) const;
@@ -273,7 +273,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
             const Color4r             &getBackEmission    (void) const;
 
                   Real                &editBackShininess  (void);
-            const Real                &getBackShininess   (void) const;
+                  Real                 getBackShininess   (void) const;
 
                   GLenum              &editBackColorMaterial(void);
             const GLenum              &getBackColorMaterial (void) const;
@@ -287,7 +287,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
             void setAmbient        (const Color4r &value);
             void setSpecular       (const Color4r &value);
             void setEmission       (const Color4r &value);
-            void setShininess      (const Real &value);
+            void setShininess      (const Real value);
             void setLit            (const bool value);
             void setColorMaterial  (const GLenum &value);
             void setBackMaterial   (const bool value);
@@ -295,7 +295,7 @@ class OSG_SYSTEM_DLLMAPPING MaterialChunkBase : public StateChunk
             void setBackAmbient    (const Color4r &value);
             void setBackSpecular   (const Color4r &value);
             void setBackEmission   (const Color4r &value);
-            void setBackShininess  (const Real &value);
+            void setBackShininess  (const Real value);
             void setBackColorMaterial(const GLenum &value);
 
     /*! \}                                                                 */

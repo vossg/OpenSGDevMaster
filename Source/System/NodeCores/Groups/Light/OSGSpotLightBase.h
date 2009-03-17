@@ -152,10 +152,10 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
             const Vec3r               &getDirection       (void) const;
 
                   Real                &editSpotExponent   (void);
-            const Real                &getSpotExponent    (void) const;
+                  Real                 getSpotExponent    (void) const;
 
                   Real                &editSpotCutOff     (void);
-            const Real                &getSpotCutOff      (void) const;
+                  Real                 getSpotCutOff      (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -163,8 +163,8 @@ class OSG_GROUP_DLLMAPPING SpotLightBase : public PointLight
     /*! \{                                                                 */
 
             void setDirection      (const Vec3r &value);
-            void setSpotExponent   (const Real &value);
-            void setSpotCutOff     (const Real &value);
+            void setSpotExponent   (const Real value);
+            void setSpotCutOff     (const Real value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

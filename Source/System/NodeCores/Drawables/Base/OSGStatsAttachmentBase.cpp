@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     The base class for statistics attachments.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void StatsAttachmentBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(
     StatsAttachmentBase::getClassname(),
@@ -87,7 +96,7 @@ StatsAttachmentBase::TypeObject StatsAttachmentBase::_type(
     NULL,
     StatsAttachment::initMethod,
     StatsAttachment::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&StatsAttachment::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

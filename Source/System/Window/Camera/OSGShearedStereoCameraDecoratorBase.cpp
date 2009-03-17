@@ -133,7 +133,7 @@ ShearedStereoCameraDecoratorBase::TypeObject ShearedStereoCameraDecoratorBase::_
     reinterpret_cast<PrototypeCreateF>(&ShearedStereoCameraDecoratorBase::createEmptyLocal),
     ShearedStereoCameraDecorator::initMethod,
     ShearedStereoCameraDecorator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShearedStereoCameraDecoratorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShearedStereoCameraDecorator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -425,7 +425,8 @@ GetFieldHandlePtr ShearedStereoCameraDecoratorBase::getHandleZeroParallaxDistanc
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfZeroParallaxDistance,
-             this->getType().getFieldDesc(ZeroParallaxDistanceFieldId)));
+             this->getType().getFieldDesc(ZeroParallaxDistanceFieldId),
+             const_cast<ShearedStereoCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -435,7 +436,8 @@ EditFieldHandlePtr ShearedStereoCameraDecoratorBase::editHandleZeroParallaxDista
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfZeroParallaxDistance,
-             this->getType().getFieldDesc(ZeroParallaxDistanceFieldId)));
+             this->getType().getFieldDesc(ZeroParallaxDistanceFieldId),
+             this));
 
 
     editSField(ZeroParallaxDistanceFieldMask);
@@ -448,7 +450,8 @@ GetFieldHandlePtr ShearedStereoCameraDecoratorBase::getHandleOverlap         (vo
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfOverlap,
-             this->getType().getFieldDesc(OverlapFieldId)));
+             this->getType().getFieldDesc(OverlapFieldId),
+             const_cast<ShearedStereoCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -458,7 +461,8 @@ EditFieldHandlePtr ShearedStereoCameraDecoratorBase::editHandleOverlap        (v
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfOverlap,
-             this->getType().getFieldDesc(OverlapFieldId)));
+             this->getType().getFieldDesc(OverlapFieldId),
+             this));
 
 
     editSField(OverlapFieldMask);

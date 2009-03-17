@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CSMClusterWinOptions;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CSMClusterWinOptionsPtr
-
 OSG_GEN_CONTAINERPTR(CSMClusterWinOptions);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CSMClusterWinOptions *> :
     public FieldTraitsFCPtrBase<CSMClusterWinOptions *>
@@ -127,14 +118,11 @@ const Char8 *FieldTraits<CSMClusterWinOptions *, 0>::getSName<NoRefCountPolicy>(
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CSMClusterWinOptionsPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
 class CSMClusterWindow;
 
+/*! \ingroup GrpContribCSMFieldTraits
+ */
 template <>
 struct FieldTraits<CSMClusterWinOptions *, 1> :
     public FieldTraitsFCPtrBase<CSMClusterWinOptions *, 1>
@@ -183,28 +171,60 @@ const Char8 *FieldTraits<CSMClusterWinOptions *, 1>::getSName<NoRefCountPolicy>(
 
 
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMClusterWinOptions *,
                       RecordedRefCountPolicy  > SFRecCSMClusterWinOptionsPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMClusterWinOptions *,
                       UnrecordedRefCountPolicy> SFUnrecCSMClusterWinOptionsPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMClusterWinOptions *,
                       WeakRefCountPolicy      > SFWeakCSMClusterWinOptionsPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMClusterWinOptions *,
                       NoRefCountPolicy        > SFUncountedCSMClusterWinOptionsPtr;
-#endif
 
 
 
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef ChildPointerSField<
           CSMClusterWinOptions *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildCSMClusterWinOptionsPtr;
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecCSMClusterWinOptionsPtr : 
+    public PointerSField<CSMClusterWinOptions *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecCSMClusterWinOptionsPtr : 
+    public PointerSField<CSMClusterWinOptions *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakCSMClusterWinOptionsPtr :
+    public PointerSField<CSMClusterWinOptions *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedCSMClusterWinOptionsPtr :
+    public PointerSField<CSMClusterWinOptions *,
+                         NoRefCountPolicy> {};
+
+
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecChildCSMClusterWinOptionsPtr :
+    public ChildPointerSField<
+        CSMClusterWinOptions *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

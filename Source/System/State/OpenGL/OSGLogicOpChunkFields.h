@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class LogicOpChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! LogicOpChunkPtr
-
 OSG_GEN_CONTAINERPTR(LogicOpChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<LogicOpChunk *> :
     public FieldTraitsFCPtrBase<LogicOpChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<LogicOpChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdLogicOpChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<LogicOpChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LogicOpChunk *,
                       RecordedRefCountPolicy  > SFRecLogicOpChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LogicOpChunk *,
                       UnrecordedRefCountPolicy> SFUnrecLogicOpChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LogicOpChunk *,
                       WeakRefCountPolicy      > SFWeakLogicOpChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LogicOpChunk *,
                       NoRefCountPolicy        > SFUncountedLogicOpChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LogicOpChunk *,
                       RecordedRefCountPolicy  > MFRecLogicOpChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LogicOpChunk *,
                       UnrecordedRefCountPolicy> MFUnrecLogicOpChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LogicOpChunk *,
                       WeakRefCountPolicy      > MFWeakLogicOpChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LogicOpChunk *,
                       NoRefCountPolicy        > MFUncountedLogicOpChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecLogicOpChunkPtr : 
+    public PointerSField<LogicOpChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecLogicOpChunkPtr : 
+    public PointerSField<LogicOpChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakLogicOpChunkPtr :
+    public PointerSField<LogicOpChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedLogicOpChunkPtr :
+    public PointerSField<LogicOpChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecLogicOpChunkPtr :
+    public PointerMField<LogicOpChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecLogicOpChunkPtr :
+    public PointerMField<LogicOpChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakLogicOpChunkPtr :
+    public PointerMField<LogicOpChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedLogicOpChunkPtr :
+    public PointerMField<LogicOpChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -125,7 +125,7 @@ ForegroundBase::TypeObject ForegroundBase::_type(
     NULL,
     Foreground::initMethod,
     Foreground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ForegroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Foreground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -279,7 +279,8 @@ GetFieldHandlePtr ForegroundBase::getHandleActive          (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfActive,
-             this->getType().getFieldDesc(ActiveFieldId)));
+             this->getType().getFieldDesc(ActiveFieldId),
+             const_cast<ForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -289,7 +290,8 @@ EditFieldHandlePtr ForegroundBase::editHandleActive         (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfActive,
-             this->getType().getFieldDesc(ActiveFieldId)));
+             this->getType().getFieldDesc(ActiveFieldId),
+             this));
 
 
     editSField(ActiveFieldMask);

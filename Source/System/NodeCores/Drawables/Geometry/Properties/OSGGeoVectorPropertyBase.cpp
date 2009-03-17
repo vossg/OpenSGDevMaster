@@ -80,6 +80,15 @@ OSG_BEGIN_NAMESPACE
     automatic conversion methods.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void GeoVectorPropertyBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(
     GeoVectorPropertyBase::getClassname(),
@@ -89,7 +98,7 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(
     NULL,
     GeoVectorProperty::initMethod,
     GeoVectorProperty::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&GeoVectorProperty::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

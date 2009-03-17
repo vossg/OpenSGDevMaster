@@ -125,7 +125,7 @@ ScreenLODBase::TypeObject ScreenLODBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ScreenLODBase::createEmptyLocal),
     ScreenLOD::initMethod,
     ScreenLOD::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ScreenLODBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ScreenLOD::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -383,7 +383,8 @@ GetFieldHandlePtr ScreenLODBase::getHandleCoverageOverride (void) const
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfCoverageOverride,
-             this->getType().getFieldDesc(CoverageOverrideFieldId)));
+             this->getType().getFieldDesc(CoverageOverrideFieldId),
+             const_cast<ScreenLODBase *>(this)));
 
     return returnValue;
 }
@@ -393,7 +394,8 @@ EditFieldHandlePtr ScreenLODBase::editHandleCoverageOverride(void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfCoverageOverride,
-             this->getType().getFieldDesc(CoverageOverrideFieldId)));
+             this->getType().getFieldDesc(CoverageOverrideFieldId),
+             this));
 
 
     editMField(CoverageOverrideFieldMask, _mfCoverageOverride);
@@ -455,5 +457,6 @@ void ScreenLODBase::resolveLinks(void)
 DataType FieldTraits<ScreenLOD *>::_type("ScreenLODPtr", "GroupPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ScreenLOD *)
 
 OSG_END_NAMESPACE

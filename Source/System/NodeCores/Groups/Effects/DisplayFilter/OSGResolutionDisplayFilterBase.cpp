@@ -114,7 +114,7 @@ ResolutionDisplayFilterBase::TypeObject ResolutionDisplayFilterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ResolutionDisplayFilterBase::createEmptyLocal),
     ResolutionDisplayFilter::initMethod,
     ResolutionDisplayFilter::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ResolutionDisplayFilterBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ResolutionDisplayFilter::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -361,7 +361,8 @@ GetFieldHandlePtr ResolutionDisplayFilterBase::getHandleDownScale       (void) c
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfDownScale,
-             this->getType().getFieldDesc(DownScaleFieldId)));
+             this->getType().getFieldDesc(DownScaleFieldId),
+             const_cast<ResolutionDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -371,7 +372,8 @@ EditFieldHandlePtr ResolutionDisplayFilterBase::editHandleDownScale      (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfDownScale,
-             this->getType().getFieldDesc(DownScaleFieldId)));
+             this->getType().getFieldDesc(DownScaleFieldId),
+             this));
 
 
     editSField(DownScaleFieldMask);

@@ -131,7 +131,7 @@ RenderCallbackStageBase::TypeObject RenderCallbackStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RenderCallbackStageBase::createEmptyLocal),
     RenderCallbackStage::initMethod,
     RenderCallbackStage::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&RenderCallbackStageBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&RenderCallbackStage::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -477,5 +477,6 @@ void RenderCallbackStageBase::resolveLinks(void)
 DataType FieldTraits<RenderCallbackStage *>::_type("RenderCallbackStagePtr", "StagePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(RenderCallbackStage *)
 
 OSG_END_NAMESPACE

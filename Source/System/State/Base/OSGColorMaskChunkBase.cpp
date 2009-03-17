@@ -524,7 +524,8 @@ GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskR           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfMaskR,
-             this->getType().getFieldDesc(MaskRFieldId)));
+             this->getType().getFieldDesc(MaskRFieldId),
+             const_cast<ColorMaskChunkBase *>(this)));
 
     return returnValue;
 }
@@ -534,7 +535,8 @@ EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskR          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfMaskR,
-             this->getType().getFieldDesc(MaskRFieldId)));
+             this->getType().getFieldDesc(MaskRFieldId),
+             this));
 
 
     editSField(MaskRFieldMask);
@@ -547,7 +549,8 @@ GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskG           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfMaskG,
-             this->getType().getFieldDesc(MaskGFieldId)));
+             this->getType().getFieldDesc(MaskGFieldId),
+             const_cast<ColorMaskChunkBase *>(this)));
 
     return returnValue;
 }
@@ -557,7 +560,8 @@ EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskG          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfMaskG,
-             this->getType().getFieldDesc(MaskGFieldId)));
+             this->getType().getFieldDesc(MaskGFieldId),
+             this));
 
 
     editSField(MaskGFieldMask);
@@ -570,7 +574,8 @@ GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskB           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfMaskB,
-             this->getType().getFieldDesc(MaskBFieldId)));
+             this->getType().getFieldDesc(MaskBFieldId),
+             const_cast<ColorMaskChunkBase *>(this)));
 
     return returnValue;
 }
@@ -580,7 +585,8 @@ EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskB          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfMaskB,
-             this->getType().getFieldDesc(MaskBFieldId)));
+             this->getType().getFieldDesc(MaskBFieldId),
+             this));
 
 
     editSField(MaskBFieldMask);
@@ -593,7 +599,8 @@ GetFieldHandlePtr ColorMaskChunkBase::getHandleMaskA           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfMaskA,
-             this->getType().getFieldDesc(MaskAFieldId)));
+             this->getType().getFieldDesc(MaskAFieldId),
+             const_cast<ColorMaskChunkBase *>(this)));
 
     return returnValue;
 }
@@ -603,7 +610,8 @@ EditFieldHandlePtr ColorMaskChunkBase::editHandleMaskA          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfMaskA,
-             this->getType().getFieldDesc(MaskAFieldId)));
+             this->getType().getFieldDesc(MaskAFieldId),
+             this));
 
 
     editSField(MaskAFieldMask);

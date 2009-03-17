@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class MultiCore;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MultiCorePtr
-
 OSG_GEN_CONTAINERPTR(MultiCore);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MultiCore *> :
     public FieldTraitsFCPtrBase<MultiCore *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<MultiCore *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdMultiCorePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MultiCorePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MultiCore *,
                       RecordedRefCountPolicy  > SFRecMultiCorePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MultiCore *,
                       UnrecordedRefCountPolicy> SFUnrecMultiCorePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MultiCore *,
                       WeakRefCountPolicy      > SFWeakMultiCorePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MultiCore *,
                       NoRefCountPolicy        > SFUncountedMultiCorePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MultiCore *,
                       RecordedRefCountPolicy  > MFRecMultiCorePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MultiCore *,
                       UnrecordedRefCountPolicy> MFUnrecMultiCorePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MultiCore *,
                       WeakRefCountPolicy      > MFWeakMultiCorePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MultiCore *,
                       NoRefCountPolicy        > MFUncountedMultiCorePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecMultiCorePtr : 
+    public PointerSField<MultiCore *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecMultiCorePtr : 
+    public PointerSField<MultiCore *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakMultiCorePtr :
+    public PointerSField<MultiCore *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedMultiCorePtr :
+    public PointerSField<MultiCore *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecMultiCorePtr :
+    public PointerMField<MultiCore *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecMultiCorePtr :
+    public PointerMField<MultiCore *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakMultiCorePtr :
+    public PointerMField<MultiCore *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedMultiCorePtr :
+    public PointerMField<MultiCore *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

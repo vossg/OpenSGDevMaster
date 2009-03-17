@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TextureBuffer;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TextureBufferPtr
-
 OSG_GEN_CONTAINERPTR(TextureBuffer);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TextureBuffer *> :
     public FieldTraitsFCPtrBase<TextureBuffer *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<TextureBuffer *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdTextureBufferPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TextureBufferPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<TextureBuffer *,
                       RecordedRefCountPolicy  > SFRecTextureBufferPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<TextureBuffer *,
                       UnrecordedRefCountPolicy> SFUnrecTextureBufferPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<TextureBuffer *,
                       WeakRefCountPolicy      > SFWeakTextureBufferPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<TextureBuffer *,
                       NoRefCountPolicy        > SFUncountedTextureBufferPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<TextureBuffer *,
                       RecordedRefCountPolicy  > MFRecTextureBufferPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<TextureBuffer *,
                       UnrecordedRefCountPolicy> MFUnrecTextureBufferPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<TextureBuffer *,
                       WeakRefCountPolicy      > MFWeakTextureBufferPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<TextureBuffer *,
                       NoRefCountPolicy        > MFUncountedTextureBufferPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecTextureBufferPtr : 
+    public PointerSField<TextureBuffer *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecTextureBufferPtr : 
+    public PointerSField<TextureBuffer *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakTextureBufferPtr :
+    public PointerSField<TextureBuffer *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedTextureBufferPtr :
+    public PointerSField<TextureBuffer *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecTextureBufferPtr :
+    public PointerMField<TextureBuffer *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecTextureBufferPtr :
+    public PointerMField<TextureBuffer *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakTextureBufferPtr :
+    public PointerMField<TextureBuffer *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedTextureBufferPtr :
+    public PointerMField<TextureBuffer *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

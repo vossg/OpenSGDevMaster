@@ -624,7 +624,7 @@ RegisterCombinersChunkBase::TypeObject RegisterCombinersChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RegisterCombinersChunkBase::createEmptyLocal),
     RegisterCombinersChunk::initMethod,
     RegisterCombinersChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&RegisterCombinersChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&RegisterCombinersChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1983,7 +1983,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleColor0          (void) co
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfColor0,
-             this->getType().getFieldDesc(Color0FieldId)));
+             this->getType().getFieldDesc(Color0FieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1993,7 +1994,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleColor0         (void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfColor0,
-             this->getType().getFieldDesc(Color0FieldId)));
+             this->getType().getFieldDesc(Color0FieldId),
+             this));
 
 
     editSField(Color0FieldMask);
@@ -2006,7 +2008,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleColor1          (void) co
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfColor1,
-             this->getType().getFieldDesc(Color1FieldId)));
+             this->getType().getFieldDesc(Color1FieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2016,7 +2019,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleColor1         (void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfColor1,
-             this->getType().getFieldDesc(Color1FieldId)));
+             this->getType().getFieldDesc(Color1FieldId),
+             this));
 
 
     editSField(Color1FieldMask);
@@ -2029,7 +2033,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleColorSumClamp   (void) co
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfColorSumClamp,
-             this->getType().getFieldDesc(ColorSumClampFieldId)));
+             this->getType().getFieldDesc(ColorSumClampFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2039,7 +2044,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleColorSumClamp  (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfColorSumClamp,
-             this->getType().getFieldDesc(ColorSumClampFieldId)));
+             this->getType().getFieldDesc(ColorSumClampFieldId),
+             this));
 
 
     editSField(ColorSumClampFieldMask);
@@ -2052,7 +2058,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableArgb    (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableArgb,
-             this->getType().getFieldDesc(VariableArgbFieldId)));
+             this->getType().getFieldDesc(VariableArgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2062,7 +2069,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableArgb   (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableArgb,
-             this->getType().getFieldDesc(VariableArgbFieldId)));
+             this->getType().getFieldDesc(VariableArgbFieldId),
+             this));
 
 
     editMField(VariableArgbFieldMask, _mfVariableArgb);
@@ -2075,7 +2083,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableBrgb    (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableBrgb,
-             this->getType().getFieldDesc(VariableBrgbFieldId)));
+             this->getType().getFieldDesc(VariableBrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2085,7 +2094,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableBrgb   (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableBrgb,
-             this->getType().getFieldDesc(VariableBrgbFieldId)));
+             this->getType().getFieldDesc(VariableBrgbFieldId),
+             this));
 
 
     editMField(VariableBrgbFieldMask, _mfVariableBrgb);
@@ -2098,7 +2108,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableCrgb    (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableCrgb,
-             this->getType().getFieldDesc(VariableCrgbFieldId)));
+             this->getType().getFieldDesc(VariableCrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2108,7 +2119,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableCrgb   (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableCrgb,
-             this->getType().getFieldDesc(VariableCrgbFieldId)));
+             this->getType().getFieldDesc(VariableCrgbFieldId),
+             this));
 
 
     editMField(VariableCrgbFieldMask, _mfVariableCrgb);
@@ -2121,7 +2133,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableDrgb    (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableDrgb,
-             this->getType().getFieldDesc(VariableDrgbFieldId)));
+             this->getType().getFieldDesc(VariableDrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2131,7 +2144,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableDrgb   (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableDrgb,
-             this->getType().getFieldDesc(VariableDrgbFieldId)));
+             this->getType().getFieldDesc(VariableDrgbFieldId),
+             this));
 
 
     editMField(VariableDrgbFieldMask, _mfVariableDrgb);
@@ -2144,7 +2158,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableAalpha  (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableAalpha,
-             this->getType().getFieldDesc(VariableAalphaFieldId)));
+             this->getType().getFieldDesc(VariableAalphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2154,7 +2169,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableAalpha (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableAalpha,
-             this->getType().getFieldDesc(VariableAalphaFieldId)));
+             this->getType().getFieldDesc(VariableAalphaFieldId),
+             this));
 
 
     editMField(VariableAalphaFieldMask, _mfVariableAalpha);
@@ -2167,7 +2183,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableBalpha  (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableBalpha,
-             this->getType().getFieldDesc(VariableBalphaFieldId)));
+             this->getType().getFieldDesc(VariableBalphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2177,7 +2194,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableBalpha (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableBalpha,
-             this->getType().getFieldDesc(VariableBalphaFieldId)));
+             this->getType().getFieldDesc(VariableBalphaFieldId),
+             this));
 
 
     editMField(VariableBalphaFieldMask, _mfVariableBalpha);
@@ -2190,7 +2208,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableCalpha  (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableCalpha,
-             this->getType().getFieldDesc(VariableCalphaFieldId)));
+             this->getType().getFieldDesc(VariableCalphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2200,7 +2219,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableCalpha (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableCalpha,
-             this->getType().getFieldDesc(VariableCalphaFieldId)));
+             this->getType().getFieldDesc(VariableCalphaFieldId),
+             this));
 
 
     editMField(VariableCalphaFieldMask, _mfVariableCalpha);
@@ -2213,7 +2233,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableDalpha  (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableDalpha,
-             this->getType().getFieldDesc(VariableDalphaFieldId)));
+             this->getType().getFieldDesc(VariableDalphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2223,7 +2244,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableDalpha (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableDalpha,
-             this->getType().getFieldDesc(VariableDalphaFieldId)));
+             this->getType().getFieldDesc(VariableDalphaFieldId),
+             this));
 
 
     editMField(VariableDalphaFieldMask, _mfVariableDalpha);
@@ -2236,7 +2258,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleOutputABrgb     (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfOutputABrgb,
-             this->getType().getFieldDesc(OutputABrgbFieldId)));
+             this->getType().getFieldDesc(OutputABrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2246,7 +2269,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleOutputABrgb    (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfOutputABrgb,
-             this->getType().getFieldDesc(OutputABrgbFieldId)));
+             this->getType().getFieldDesc(OutputABrgbFieldId),
+             this));
 
 
     editMField(OutputABrgbFieldMask, _mfOutputABrgb);
@@ -2259,7 +2283,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleOutputCDrgb     (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfOutputCDrgb,
-             this->getType().getFieldDesc(OutputCDrgbFieldId)));
+             this->getType().getFieldDesc(OutputCDrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2269,7 +2294,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleOutputCDrgb    (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfOutputCDrgb,
-             this->getType().getFieldDesc(OutputCDrgbFieldId)));
+             this->getType().getFieldDesc(OutputCDrgbFieldId),
+             this));
 
 
     editMField(OutputCDrgbFieldMask, _mfOutputCDrgb);
@@ -2282,7 +2308,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleOutputSumrgb    (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfOutputSumrgb,
-             this->getType().getFieldDesc(OutputSumrgbFieldId)));
+             this->getType().getFieldDesc(OutputSumrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2292,7 +2319,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleOutputSumrgb   (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfOutputSumrgb,
-             this->getType().getFieldDesc(OutputSumrgbFieldId)));
+             this->getType().getFieldDesc(OutputSumrgbFieldId),
+             this));
 
 
     editMField(OutputSumrgbFieldMask, _mfOutputSumrgb);
@@ -2305,7 +2333,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleScalergb        (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfScalergb,
-             this->getType().getFieldDesc(ScalergbFieldId)));
+             this->getType().getFieldDesc(ScalergbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2315,7 +2344,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleScalergb       (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfScalergb,
-             this->getType().getFieldDesc(ScalergbFieldId)));
+             this->getType().getFieldDesc(ScalergbFieldId),
+             this));
 
 
     editMField(ScalergbFieldMask, _mfScalergb);
@@ -2328,7 +2358,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleBiasrgb         (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfBiasrgb,
-             this->getType().getFieldDesc(BiasrgbFieldId)));
+             this->getType().getFieldDesc(BiasrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2338,7 +2369,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleBiasrgb        (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfBiasrgb,
-             this->getType().getFieldDesc(BiasrgbFieldId)));
+             this->getType().getFieldDesc(BiasrgbFieldId),
+             this));
 
 
     editMField(BiasrgbFieldMask, _mfBiasrgb);
@@ -2351,7 +2383,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleOutputABalpha   (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfOutputABalpha,
-             this->getType().getFieldDesc(OutputABalphaFieldId)));
+             this->getType().getFieldDesc(OutputABalphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2361,7 +2394,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleOutputABalpha  (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfOutputABalpha,
-             this->getType().getFieldDesc(OutputABalphaFieldId)));
+             this->getType().getFieldDesc(OutputABalphaFieldId),
+             this));
 
 
     editMField(OutputABalphaFieldMask, _mfOutputABalpha);
@@ -2374,7 +2408,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleOutputCDalpha   (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfOutputCDalpha,
-             this->getType().getFieldDesc(OutputCDalphaFieldId)));
+             this->getType().getFieldDesc(OutputCDalphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2384,7 +2419,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleOutputCDalpha  (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfOutputCDalpha,
-             this->getType().getFieldDesc(OutputCDalphaFieldId)));
+             this->getType().getFieldDesc(OutputCDalphaFieldId),
+             this));
 
 
     editMField(OutputCDalphaFieldMask, _mfOutputCDalpha);
@@ -2397,7 +2433,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleOutputSumalpha  (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfOutputSumalpha,
-             this->getType().getFieldDesc(OutputSumalphaFieldId)));
+             this->getType().getFieldDesc(OutputSumalphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2407,7 +2444,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleOutputSumalpha (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfOutputSumalpha,
-             this->getType().getFieldDesc(OutputSumalphaFieldId)));
+             this->getType().getFieldDesc(OutputSumalphaFieldId),
+             this));
 
 
     editMField(OutputSumalphaFieldMask, _mfOutputSumalpha);
@@ -2420,7 +2458,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleDotABrgb        (void) co
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
              &_mfDotABrgb,
-             this->getType().getFieldDesc(DotABrgbFieldId)));
+             this->getType().getFieldDesc(DotABrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2430,7 +2469,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleDotABrgb       (void)
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
              &_mfDotABrgb,
-             this->getType().getFieldDesc(DotABrgbFieldId)));
+             this->getType().getFieldDesc(DotABrgbFieldId),
+             this));
 
 
     editMField(DotABrgbFieldMask, _mfDotABrgb);
@@ -2443,7 +2483,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleDotCDrgb        (void) co
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
              &_mfDotCDrgb,
-             this->getType().getFieldDesc(DotCDrgbFieldId)));
+             this->getType().getFieldDesc(DotCDrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2453,7 +2494,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleDotCDrgb       (void)
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
              &_mfDotCDrgb,
-             this->getType().getFieldDesc(DotCDrgbFieldId)));
+             this->getType().getFieldDesc(DotCDrgbFieldId),
+             this));
 
 
     editMField(DotCDrgbFieldMask, _mfDotCDrgb);
@@ -2466,7 +2508,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleMuxSumrgb       (void) co
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
              &_mfMuxSumrgb,
-             this->getType().getFieldDesc(MuxSumrgbFieldId)));
+             this->getType().getFieldDesc(MuxSumrgbFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2476,7 +2519,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleMuxSumrgb      (void)
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
              &_mfMuxSumrgb,
-             this->getType().getFieldDesc(MuxSumrgbFieldId)));
+             this->getType().getFieldDesc(MuxSumrgbFieldId),
+             this));
 
 
     editMField(MuxSumrgbFieldMask, _mfMuxSumrgb);
@@ -2489,7 +2533,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleScalealpha      (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfScalealpha,
-             this->getType().getFieldDesc(ScalealphaFieldId)));
+             this->getType().getFieldDesc(ScalealphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2499,7 +2544,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleScalealpha     (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfScalealpha,
-             this->getType().getFieldDesc(ScalealphaFieldId)));
+             this->getType().getFieldDesc(ScalealphaFieldId),
+             this));
 
 
     editMField(ScalealphaFieldMask, _mfScalealpha);
@@ -2512,7 +2558,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleBiasalpha       (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfBiasalpha,
-             this->getType().getFieldDesc(BiasalphaFieldId)));
+             this->getType().getFieldDesc(BiasalphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2522,7 +2569,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleBiasalpha      (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfBiasalpha,
-             this->getType().getFieldDesc(BiasalphaFieldId)));
+             this->getType().getFieldDesc(BiasalphaFieldId),
+             this));
 
 
     editMField(BiasalphaFieldMask, _mfBiasalpha);
@@ -2535,7 +2583,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleMuxSumalpha     (void) co
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
              &_mfMuxSumalpha,
-             this->getType().getFieldDesc(MuxSumalphaFieldId)));
+             this->getType().getFieldDesc(MuxSumalphaFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2545,7 +2594,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleMuxSumalpha    (void)
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
              &_mfMuxSumalpha,
-             this->getType().getFieldDesc(MuxSumalphaFieldId)));
+             this->getType().getFieldDesc(MuxSumalphaFieldId),
+             this));
 
 
     editMField(MuxSumalphaFieldMask, _mfMuxSumalpha);
@@ -2558,7 +2608,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableE       (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableE,
-             this->getType().getFieldDesc(VariableEFieldId)));
+             this->getType().getFieldDesc(VariableEFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2568,7 +2619,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableE      (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableE,
-             this->getType().getFieldDesc(VariableEFieldId)));
+             this->getType().getFieldDesc(VariableEFieldId),
+             this));
 
 
     editMField(VariableEFieldMask, _mfVariableE);
@@ -2581,7 +2633,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableF       (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableF,
-             this->getType().getFieldDesc(VariableFFieldId)));
+             this->getType().getFieldDesc(VariableFFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2591,7 +2644,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableF      (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableF,
-             this->getType().getFieldDesc(VariableFFieldId)));
+             this->getType().getFieldDesc(VariableFFieldId),
+             this));
 
 
     editMField(VariableFFieldMask, _mfVariableF);
@@ -2604,7 +2658,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleVariableG       (void) co
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfVariableG,
-             this->getType().getFieldDesc(VariableGFieldId)));
+             this->getType().getFieldDesc(VariableGFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2614,7 +2669,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleVariableG      (void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfVariableG,
-             this->getType().getFieldDesc(VariableGFieldId)));
+             this->getType().getFieldDesc(VariableGFieldId),
+             this));
 
 
     editMField(VariableGFieldMask, _mfVariableG);
@@ -2627,7 +2683,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleCombinerColor0  (void) co
     MFColor4f::GetHandlePtr returnValue(
         new  MFColor4f::GetHandle(
              &_mfCombinerColor0,
-             this->getType().getFieldDesc(CombinerColor0FieldId)));
+             this->getType().getFieldDesc(CombinerColor0FieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2637,7 +2694,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleCombinerColor0 (void)
     MFColor4f::EditHandlePtr returnValue(
         new  MFColor4f::EditHandle(
              &_mfCombinerColor0,
-             this->getType().getFieldDesc(CombinerColor0FieldId)));
+             this->getType().getFieldDesc(CombinerColor0FieldId),
+             this));
 
 
     editMField(CombinerColor0FieldMask, _mfCombinerColor0);
@@ -2650,7 +2708,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandleCombinerColor1  (void) co
     MFColor4f::GetHandlePtr returnValue(
         new  MFColor4f::GetHandle(
              &_mfCombinerColor1,
-             this->getType().getFieldDesc(CombinerColor1FieldId)));
+             this->getType().getFieldDesc(CombinerColor1FieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2660,7 +2719,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandleCombinerColor1 (void)
     MFColor4f::EditHandlePtr returnValue(
         new  MFColor4f::EditHandle(
              &_mfCombinerColor1,
-             this->getType().getFieldDesc(CombinerColor1FieldId)));
+             this->getType().getFieldDesc(CombinerColor1FieldId),
+             this));
 
 
     editMField(CombinerColor1FieldMask, _mfCombinerColor1);
@@ -2673,7 +2733,8 @@ GetFieldHandlePtr RegisterCombinersChunkBase::getHandlePerStageConstants (void) 
     SFUInt8::GetHandlePtr returnValue(
         new  SFUInt8::GetHandle(
              &_sfPerStageConstants,
-             this->getType().getFieldDesc(PerStageConstantsFieldId)));
+             this->getType().getFieldDesc(PerStageConstantsFieldId),
+             const_cast<RegisterCombinersChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2683,7 +2744,8 @@ EditFieldHandlePtr RegisterCombinersChunkBase::editHandlePerStageConstants(void)
     SFUInt8::EditHandlePtr returnValue(
         new  SFUInt8::EditHandle(
              &_sfPerStageConstants,
-             this->getType().getFieldDesc(PerStageConstantsFieldId)));
+             this->getType().getFieldDesc(PerStageConstantsFieldId),
+             this));
 
 
     editSField(PerStageConstantsFieldMask);

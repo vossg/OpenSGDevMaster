@@ -249,7 +249,8 @@ GetFieldHandlePtr StateChunkBase::getHandleIgnore          (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfIgnore,
-             this->getType().getFieldDesc(IgnoreFieldId)));
+             this->getType().getFieldDesc(IgnoreFieldId),
+             const_cast<StateChunkBase *>(this)));
 
     return returnValue;
 }
@@ -259,7 +260,8 @@ EditFieldHandlePtr StateChunkBase::editHandleIgnore         (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfIgnore,
-             this->getType().getFieldDesc(IgnoreFieldId)));
+             this->getType().getFieldDesc(IgnoreFieldId),
+             this));
 
 
     editSField(IgnoreFieldMask);

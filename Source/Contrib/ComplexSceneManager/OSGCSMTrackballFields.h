@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CSMTrackball;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CSMTrackballPtr
-
 OSG_GEN_CONTAINERPTR(CSMTrackball);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CSMTrackball *> :
     public FieldTraitsFCPtrBase<CSMTrackball *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CSMTrackball *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdCSMTrackballPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CSMTrackballPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMTrackball *,
                       RecordedRefCountPolicy  > SFRecCSMTrackballPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMTrackball *,
                       UnrecordedRefCountPolicy> SFUnrecCSMTrackballPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMTrackball *,
                       WeakRefCountPolicy      > SFWeakCSMTrackballPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMTrackball *,
                       NoRefCountPolicy        > SFUncountedCSMTrackballPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldMulti */
-
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMTrackball *,
                       RecordedRefCountPolicy  > MFRecCSMTrackballPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMTrackball *,
                       UnrecordedRefCountPolicy> MFUnrecCSMTrackballPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMTrackball *,
                       WeakRefCountPolicy      > MFWeakCSMTrackballPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMTrackball *,
                       NoRefCountPolicy        > MFUncountedCSMTrackballPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecCSMTrackballPtr : 
+    public PointerSField<CSMTrackball *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecCSMTrackballPtr : 
+    public PointerSField<CSMTrackball *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakCSMTrackballPtr :
+    public PointerSField<CSMTrackball *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedCSMTrackballPtr :
+    public PointerSField<CSMTrackball *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFRecCSMTrackballPtr :
+    public PointerMField<CSMTrackball *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUnrecCSMTrackballPtr :
+    public PointerMField<CSMTrackball *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFWeakCSMTrackballPtr :
+    public PointerMField<CSMTrackball *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUncountedCSMTrackballPtr :
+    public PointerMField<CSMTrackball *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class FragmentProgramChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FragmentProgramChunkPtr
-
 OSG_GEN_CONTAINERPTR(FragmentProgramChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<FragmentProgramChunk *> :
     public FieldTraitsFCPtrBase<FragmentProgramChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<FragmentProgramChunk *, 0>::getMName<NoRefCountPolicy>(
     return "MFUnrefdFragmentProgramChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FragmentProgramChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
                       RecordedRefCountPolicy  > SFRecFragmentProgramChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
                       UnrecordedRefCountPolicy> SFUnrecFragmentProgramChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
                       WeakRefCountPolicy      > SFWeakFragmentProgramChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<FragmentProgramChunk *,
                       NoRefCountPolicy        > SFUncountedFragmentProgramChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
                       RecordedRefCountPolicy  > MFRecFragmentProgramChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
                       UnrecordedRefCountPolicy> MFUnrecFragmentProgramChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
                       WeakRefCountPolicy      > MFWeakFragmentProgramChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<FragmentProgramChunk *,
                       NoRefCountPolicy        > MFUncountedFragmentProgramChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecFragmentProgramChunkPtr : 
+    public PointerSField<FragmentProgramChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecFragmentProgramChunkPtr : 
+    public PointerSField<FragmentProgramChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakFragmentProgramChunkPtr :
+    public PointerSField<FragmentProgramChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedFragmentProgramChunkPtr :
+    public PointerSField<FragmentProgramChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecFragmentProgramChunkPtr :
+    public PointerMField<FragmentProgramChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecFragmentProgramChunkPtr :
+    public PointerMField<FragmentProgramChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakFragmentProgramChunkPtr :
+    public PointerMField<FragmentProgramChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedFragmentProgramChunkPtr :
+    public PointerMField<FragmentProgramChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

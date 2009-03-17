@@ -115,7 +115,7 @@ SwitchBase::TypeObject SwitchBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SwitchBase::createEmptyLocal),
     Switch::initMethod,
     Switch::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SwitchBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Switch::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -366,7 +366,8 @@ GetFieldHandlePtr SwitchBase::getHandleChoice          (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfChoice,
-             this->getType().getFieldDesc(ChoiceFieldId)));
+             this->getType().getFieldDesc(ChoiceFieldId),
+             const_cast<SwitchBase *>(this)));
 
     return returnValue;
 }
@@ -376,7 +377,8 @@ EditFieldHandlePtr SwitchBase::editHandleChoice         (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfChoice,
-             this->getType().getFieldDesc(ChoiceFieldId)));
+             this->getType().getFieldDesc(ChoiceFieldId),
+             this));
 
 
     editSField(ChoiceFieldMask);

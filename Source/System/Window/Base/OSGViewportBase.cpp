@@ -351,7 +351,7 @@ ViewportBase::TypeObject ViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ViewportBase::createEmptyLocal),
     Viewport::initMethod,
     Viewport::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ViewportBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Viewport::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1239,7 +1239,8 @@ GetFieldHandlePtr ViewportBase::getHandleLeft            (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId)));
+             this->getType().getFieldDesc(LeftFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1249,7 +1250,8 @@ EditFieldHandlePtr ViewportBase::editHandleLeft           (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId)));
+             this->getType().getFieldDesc(LeftFieldId),
+             this));
 
 
     editSField(LeftFieldMask);
@@ -1262,7 +1264,8 @@ GetFieldHandlePtr ViewportBase::getHandleRight           (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfRight,
-             this->getType().getFieldDesc(RightFieldId)));
+             this->getType().getFieldDesc(RightFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1272,7 +1275,8 @@ EditFieldHandlePtr ViewportBase::editHandleRight          (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfRight,
-             this->getType().getFieldDesc(RightFieldId)));
+             this->getType().getFieldDesc(RightFieldId),
+             this));
 
 
     editSField(RightFieldMask);
@@ -1285,7 +1289,8 @@ GetFieldHandlePtr ViewportBase::getHandleBottom          (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId)));
+             this->getType().getFieldDesc(BottomFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1295,7 +1300,8 @@ EditFieldHandlePtr ViewportBase::editHandleBottom         (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId)));
+             this->getType().getFieldDesc(BottomFieldId),
+             this));
 
 
     editSField(BottomFieldMask);
@@ -1308,7 +1314,8 @@ GetFieldHandlePtr ViewportBase::getHandleTop             (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfTop,
-             this->getType().getFieldDesc(TopFieldId)));
+             this->getType().getFieldDesc(TopFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1318,7 +1325,8 @@ EditFieldHandlePtr ViewportBase::editHandleTop            (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfTop,
-             this->getType().getFieldDesc(TopFieldId)));
+             this->getType().getFieldDesc(TopFieldId),
+             this));
 
 
     editSField(TopFieldMask);
@@ -1345,7 +1353,8 @@ GetFieldHandlePtr ViewportBase::getHandleCamera          (void) const
     SFUnrecCameraPtr::GetHandlePtr returnValue(
         new  SFUnrecCameraPtr::GetHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1355,7 +1364,8 @@ EditFieldHandlePtr ViewportBase::editHandleCamera         (void)
     SFUnrecCameraPtr::EditHandlePtr returnValue(
         new  SFUnrecCameraPtr::EditHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Viewport::setCamera,
@@ -1371,7 +1381,8 @@ GetFieldHandlePtr ViewportBase::getHandleRoot            (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfRoot,
-             this->getType().getFieldDesc(RootFieldId)));
+             this->getType().getFieldDesc(RootFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1381,7 +1392,8 @@ EditFieldHandlePtr ViewportBase::editHandleRoot           (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfRoot,
-             this->getType().getFieldDesc(RootFieldId)));
+             this->getType().getFieldDesc(RootFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Viewport::setRoot,
@@ -1397,7 +1409,8 @@ GetFieldHandlePtr ViewportBase::getHandleBackground      (void) const
     SFUnrecBackgroundPtr::GetHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::GetHandle(
              &_sfBackground,
-             this->getType().getFieldDesc(BackgroundFieldId)));
+             this->getType().getFieldDesc(BackgroundFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1407,7 +1420,8 @@ EditFieldHandlePtr ViewportBase::editHandleBackground     (void)
     SFUnrecBackgroundPtr::EditHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::EditHandle(
              &_sfBackground,
-             this->getType().getFieldDesc(BackgroundFieldId)));
+             this->getType().getFieldDesc(BackgroundFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Viewport::setBackground,
@@ -1423,7 +1437,8 @@ GetFieldHandlePtr ViewportBase::getHandleForegrounds     (void) const
     MFUnrecForegroundPtr::GetHandlePtr returnValue(
         new  MFUnrecForegroundPtr::GetHandle(
              &_mfForegrounds,
-             this->getType().getFieldDesc(ForegroundsFieldId)));
+             this->getType().getFieldDesc(ForegroundsFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1433,7 +1448,8 @@ EditFieldHandlePtr ViewportBase::editHandleForegrounds    (void)
     MFUnrecForegroundPtr::EditHandlePtr returnValue(
         new  MFUnrecForegroundPtr::EditHandle(
              &_mfForegrounds,
-             this->getType().getFieldDesc(ForegroundsFieldId)));
+             this->getType().getFieldDesc(ForegroundsFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&Viewport::addForeground,
@@ -1458,7 +1474,8 @@ GetFieldHandlePtr ViewportBase::getHandleTravMask        (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfTravMask,
-             this->getType().getFieldDesc(TravMaskFieldId)));
+             this->getType().getFieldDesc(TravMaskFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1468,7 +1485,8 @@ EditFieldHandlePtr ViewportBase::editHandleTravMask       (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfTravMask,
-             this->getType().getFieldDesc(TravMaskFieldId)));
+             this->getType().getFieldDesc(TravMaskFieldId),
+             this));
 
 
     editSField(TravMaskFieldMask);
@@ -1481,7 +1499,8 @@ GetFieldHandlePtr ViewportBase::getHandleDrawTime        (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfDrawTime,
-             this->getType().getFieldDesc(DrawTimeFieldId)));
+             this->getType().getFieldDesc(DrawTimeFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1491,7 +1510,8 @@ EditFieldHandlePtr ViewportBase::editHandleDrawTime       (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfDrawTime,
-             this->getType().getFieldDesc(DrawTimeFieldId)));
+             this->getType().getFieldDesc(DrawTimeFieldId),
+             this));
 
 
     editSField(DrawTimeFieldMask);
@@ -1504,7 +1524,8 @@ GetFieldHandlePtr ViewportBase::getHandleDrawableId      (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfDrawableId,
-             this->getType().getFieldDesc(DrawableIdFieldId)));
+             this->getType().getFieldDesc(DrawableIdFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1514,7 +1535,8 @@ EditFieldHandlePtr ViewportBase::editHandleDrawableId     (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfDrawableId,
-             this->getType().getFieldDesc(DrawableIdFieldId)));
+             this->getType().getFieldDesc(DrawableIdFieldId),
+             this));
 
 
     editSField(DrawableIdFieldMask);
@@ -1527,7 +1549,8 @@ GetFieldHandlePtr ViewportBase::getHandleRenderOptions   (void) const
     SFUnrecRenderOptionsPtr::GetHandlePtr returnValue(
         new  SFUnrecRenderOptionsPtr::GetHandle(
              &_sfRenderOptions,
-             this->getType().getFieldDesc(RenderOptionsFieldId)));
+             this->getType().getFieldDesc(RenderOptionsFieldId),
+             const_cast<ViewportBase *>(this)));
 
     return returnValue;
 }
@@ -1537,7 +1560,8 @@ EditFieldHandlePtr ViewportBase::editHandleRenderOptions  (void)
     SFUnrecRenderOptionsPtr::EditHandlePtr returnValue(
         new  SFUnrecRenderOptionsPtr::EditHandle(
              &_sfRenderOptions,
-             this->getType().getFieldDesc(RenderOptionsFieldId)));
+             this->getType().getFieldDesc(RenderOptionsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Viewport::setRenderOptions,

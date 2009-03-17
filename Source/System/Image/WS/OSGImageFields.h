@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Image;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ImagePtr
-
 OSG_GEN_CONTAINERPTR(Image);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Image *> :
     public FieldTraitsFCPtrBase<Image *>
@@ -154,14 +145,11 @@ const Char8 *FieldTraits<Image *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdImagePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ImagePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
 class FieldContainer;
 
+/*! \ingroup GrpSystemFieldTraits
+ */
 template <>
 struct FieldTraits<Image *, 1> :
     public FieldTraitsFCPtrBase<Image *, 1>
@@ -238,42 +226,92 @@ const Char8 *FieldTraits<Image *, 1>::getMName<NoRefCountPolicy>(void)
 }
 
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Image *,
                       RecordedRefCountPolicy  > SFRecImagePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Image *,
                       UnrecordedRefCountPolicy> SFUnrecImagePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Image *,
                       WeakRefCountPolicy      > SFWeakImagePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Image *,
                       NoRefCountPolicy        > SFUncountedImagePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Image *,
                       RecordedRefCountPolicy  > MFRecImagePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Image *,
                       UnrecordedRefCountPolicy> MFUnrecImagePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Image *,
                       WeakRefCountPolicy      > MFWeakImagePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Image *,
                       NoRefCountPolicy        > MFUncountedImagePtr;
-#endif
 
 
 
+/*! \ingroup GrpSystemFieldSFields */
 typedef ChildPointerSField<
           Image *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildImagePtr;
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecImagePtr : 
+    public PointerSField<Image *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecImagePtr : 
+    public PointerSField<Image *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakImagePtr :
+    public PointerSField<Image *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedImagePtr :
+    public PointerSField<Image *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecImagePtr :
+    public PointerMField<Image *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecImagePtr :
+    public PointerMField<Image *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakImagePtr :
+    public PointerMField<Image *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedImagePtr :
+    public PointerMField<Image *,
+                         NoRefCountPolicy        > {};
+
+
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecChildImagePtr :
+    public ChildPointerSField<
+        Image *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

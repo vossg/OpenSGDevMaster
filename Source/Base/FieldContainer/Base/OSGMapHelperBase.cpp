@@ -131,7 +131,7 @@ MapHelperBase::TypeObject MapHelperBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MapHelperBase::createEmptyLocal),
     MapHelper::initMethod,
     MapHelper::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MapHelperBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&MapHelper::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -423,7 +423,8 @@ GetFieldHandlePtr MapHelperBase::getHandleKeys            (void) const
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfKeys,
-             this->getType().getFieldDesc(KeysFieldId)));
+             this->getType().getFieldDesc(KeysFieldId),
+             const_cast<MapHelperBase *>(this)));
 
     return returnValue;
 }
@@ -433,7 +434,8 @@ EditFieldHandlePtr MapHelperBase::editHandleKeys           (void)
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfKeys,
-             this->getType().getFieldDesc(KeysFieldId)));
+             this->getType().getFieldDesc(KeysFieldId),
+             this));
 
 
     editMField(KeysFieldMask, _mfKeys);
@@ -446,7 +448,8 @@ GetFieldHandlePtr MapHelperBase::getHandleContainer       (void) const
     SFUnrecFieldContainerPtr::GetHandlePtr returnValue(
         new  SFUnrecFieldContainerPtr::GetHandle(
              &_sfContainer,
-             this->getType().getFieldDesc(ContainerFieldId)));
+             this->getType().getFieldDesc(ContainerFieldId),
+             const_cast<MapHelperBase *>(this)));
 
     return returnValue;
 }
@@ -456,7 +459,8 @@ EditFieldHandlePtr MapHelperBase::editHandleContainer      (void)
     SFUnrecFieldContainerPtr::EditHandlePtr returnValue(
         new  SFUnrecFieldContainerPtr::EditHandle(
              &_sfContainer,
-             this->getType().getFieldDesc(ContainerFieldId)));
+             this->getType().getFieldDesc(ContainerFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&MapHelper::setContainer,

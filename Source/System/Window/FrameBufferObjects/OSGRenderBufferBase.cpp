@@ -133,7 +133,7 @@ RenderBufferBase::TypeObject RenderBufferBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RenderBufferBase::createEmptyLocal),
     RenderBuffer::initMethod,
     RenderBuffer::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&RenderBufferBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&RenderBuffer::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -425,7 +425,8 @@ GetFieldHandlePtr RenderBufferBase::getHandleGLId            (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             const_cast<RenderBufferBase *>(this)));
 
     return returnValue;
 }
@@ -435,7 +436,8 @@ EditFieldHandlePtr RenderBufferBase::editHandleGLId           (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             this));
 
 
     editSField(GLIdFieldMask);
@@ -448,7 +450,8 @@ GetFieldHandlePtr RenderBufferBase::getHandleInternalFormat  (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfInternalFormat,
-             this->getType().getFieldDesc(InternalFormatFieldId)));
+             this->getType().getFieldDesc(InternalFormatFieldId),
+             const_cast<RenderBufferBase *>(this)));
 
     return returnValue;
 }
@@ -458,7 +461,8 @@ EditFieldHandlePtr RenderBufferBase::editHandleInternalFormat (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfInternalFormat,
-             this->getType().getFieldDesc(InternalFormatFieldId)));
+             this->getType().getFieldDesc(InternalFormatFieldId),
+             this));
 
 
     editSField(InternalFormatFieldMask);

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class LinuxEventOptions;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! LinuxEventOptionsPtr
-
 OSG_GEN_CONTAINERPTR(LinuxEventOptions);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<LinuxEventOptions *> :
     public FieldTraitsFCPtrBase<LinuxEventOptions *>
@@ -127,14 +118,11 @@ const Char8 *FieldTraits<LinuxEventOptions *, 0>::getSName<NoRefCountPolicy>(voi
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<LinuxEventOptionsPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
 class DeviceInterface;
 
+/*! \ingroup GrpContribCSMFieldTraits
+ */
 template <>
 struct FieldTraits<LinuxEventOptions *, 1> :
     public FieldTraitsFCPtrBase<LinuxEventOptions *, 1>
@@ -183,28 +171,60 @@ const Char8 *FieldTraits<LinuxEventOptions *, 1>::getSName<NoRefCountPolicy>(voi
 
 
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<LinuxEventOptions *,
                       RecordedRefCountPolicy  > SFRecLinuxEventOptionsPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<LinuxEventOptions *,
                       UnrecordedRefCountPolicy> SFUnrecLinuxEventOptionsPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<LinuxEventOptions *,
                       WeakRefCountPolicy      > SFWeakLinuxEventOptionsPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<LinuxEventOptions *,
                       NoRefCountPolicy        > SFUncountedLinuxEventOptionsPtr;
-#endif
 
 
 
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef ChildPointerSField<
           LinuxEventOptions *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildLinuxEventOptionsPtr;
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecLinuxEventOptionsPtr : 
+    public PointerSField<LinuxEventOptions *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecLinuxEventOptionsPtr : 
+    public PointerSField<LinuxEventOptions *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakLinuxEventOptionsPtr :
+    public PointerSField<LinuxEventOptions *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedLinuxEventOptionsPtr :
+    public PointerSField<LinuxEventOptions *,
+                         NoRefCountPolicy> {};
+
+
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecChildLinuxEventOptionsPtr :
+    public ChildPointerSField<
+        LinuxEventOptions *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

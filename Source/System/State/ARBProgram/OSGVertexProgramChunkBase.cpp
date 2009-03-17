@@ -82,6 +82,15 @@ OSG_BEGIN_NAMESPACE
     FragmentProgramChunk.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void VertexProgramChunkBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     VertexProgramChunkBase::getClassname(),
@@ -91,7 +100,7 @@ VertexProgramChunkBase::TypeObject VertexProgramChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VertexProgramChunkBase::createEmptyLocal),
     VertexProgramChunk::initMethod,
     VertexProgramChunk::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&VertexProgramChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

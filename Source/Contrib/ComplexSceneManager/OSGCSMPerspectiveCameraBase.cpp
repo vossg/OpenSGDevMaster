@@ -479,7 +479,8 @@ GetFieldHandlePtr CSMPerspectiveCameraBase::getHandleEyeSeparation   (void) cons
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfEyeSeparation,
-             this->getType().getFieldDesc(EyeSeparationFieldId)));
+             this->getType().getFieldDesc(EyeSeparationFieldId),
+             const_cast<CSMPerspectiveCameraBase *>(this)));
 
     return returnValue;
 }
@@ -489,7 +490,8 @@ EditFieldHandlePtr CSMPerspectiveCameraBase::editHandleEyeSeparation  (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfEyeSeparation,
-             this->getType().getFieldDesc(EyeSeparationFieldId)));
+             this->getType().getFieldDesc(EyeSeparationFieldId),
+             this));
 
 
     editSField(EyeSeparationFieldMask);
@@ -502,7 +504,8 @@ GetFieldHandlePtr CSMPerspectiveCameraBase::getHandleZeroParallax    (void) cons
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfZeroParallax,
-             this->getType().getFieldDesc(ZeroParallaxFieldId)));
+             this->getType().getFieldDesc(ZeroParallaxFieldId),
+             const_cast<CSMPerspectiveCameraBase *>(this)));
 
     return returnValue;
 }
@@ -512,7 +515,8 @@ EditFieldHandlePtr CSMPerspectiveCameraBase::editHandleZeroParallax   (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfZeroParallax,
-             this->getType().getFieldDesc(ZeroParallaxFieldId)));
+             this->getType().getFieldDesc(ZeroParallaxFieldId),
+             this));
 
 
     editSField(ZeroParallaxFieldMask);
@@ -525,7 +529,8 @@ GetFieldHandlePtr CSMPerspectiveCameraBase::getHandleHeadBeacon      (void) cons
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
              &_sfHeadBeacon,
-             this->getType().getFieldDesc(HeadBeaconFieldId)));
+             this->getType().getFieldDesc(HeadBeaconFieldId),
+             const_cast<CSMPerspectiveCameraBase *>(this)));
 
     return returnValue;
 }
@@ -535,7 +540,8 @@ EditFieldHandlePtr CSMPerspectiveCameraBase::editHandleHeadBeacon     (void)
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
              &_sfHeadBeacon,
-             this->getType().getFieldDesc(HeadBeaconFieldId)));
+             this->getType().getFieldDesc(HeadBeaconFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&CSMPerspectiveCamera::setHeadBeacon,

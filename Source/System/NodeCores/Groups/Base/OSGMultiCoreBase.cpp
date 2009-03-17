@@ -115,7 +115,7 @@ MultiCoreBase::TypeObject MultiCoreBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiCoreBase::createEmptyLocal),
     MultiCore::initMethod,
     MultiCore::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MultiCoreBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&MultiCore::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -488,7 +488,8 @@ GetFieldHandlePtr MultiCoreBase::getHandleCores           (void) const
     MFUnrecChildNodeCorePtr::GetHandlePtr returnValue(
         new  MFUnrecChildNodeCorePtr::GetHandle(
              &_mfCores,
-             this->getType().getFieldDesc(CoresFieldId)));
+             this->getType().getFieldDesc(CoresFieldId),
+             const_cast<MultiCoreBase *>(this)));
 
     return returnValue;
 }
@@ -498,7 +499,8 @@ EditFieldHandlePtr MultiCoreBase::editHandleCores          (void)
     MFUnrecChildNodeCorePtr::EditHandlePtr returnValue(
         new  MFUnrecChildNodeCorePtr::EditHandle(
              &_mfCores,
-             this->getType().getFieldDesc(CoresFieldId)));
+             this->getType().getFieldDesc(CoresFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&MultiCore::addCore,

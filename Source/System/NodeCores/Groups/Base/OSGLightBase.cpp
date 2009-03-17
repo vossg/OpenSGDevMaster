@@ -282,7 +282,7 @@ LightBase::TypeObject LightBase::_type(
     NULL,
     Light::initMethod,
     Light::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&LightBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Light::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -811,7 +811,8 @@ GetFieldHandlePtr LightBase::getHandleAmbient         (void) const
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
              &_sfAmbient,
-             this->getType().getFieldDesc(AmbientFieldId)));
+             this->getType().getFieldDesc(AmbientFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -821,7 +822,8 @@ EditFieldHandlePtr LightBase::editHandleAmbient        (void)
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
              &_sfAmbient,
-             this->getType().getFieldDesc(AmbientFieldId)));
+             this->getType().getFieldDesc(AmbientFieldId),
+             this));
 
 
     editSField(AmbientFieldMask);
@@ -834,7 +836,8 @@ GetFieldHandlePtr LightBase::getHandleDiffuse         (void) const
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
              &_sfDiffuse,
-             this->getType().getFieldDesc(DiffuseFieldId)));
+             this->getType().getFieldDesc(DiffuseFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -844,7 +847,8 @@ EditFieldHandlePtr LightBase::editHandleDiffuse        (void)
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
              &_sfDiffuse,
-             this->getType().getFieldDesc(DiffuseFieldId)));
+             this->getType().getFieldDesc(DiffuseFieldId),
+             this));
 
 
     editSField(DiffuseFieldMask);
@@ -857,7 +861,8 @@ GetFieldHandlePtr LightBase::getHandleSpecular        (void) const
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
              &_sfSpecular,
-             this->getType().getFieldDesc(SpecularFieldId)));
+             this->getType().getFieldDesc(SpecularFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -867,7 +872,8 @@ EditFieldHandlePtr LightBase::editHandleSpecular       (void)
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
              &_sfSpecular,
-             this->getType().getFieldDesc(SpecularFieldId)));
+             this->getType().getFieldDesc(SpecularFieldId),
+             this));
 
 
     editSField(SpecularFieldMask);
@@ -880,7 +886,8 @@ GetFieldHandlePtr LightBase::getHandleBeacon          (void) const
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
              &_sfBeacon,
-             this->getType().getFieldDesc(BeaconFieldId)));
+             this->getType().getFieldDesc(BeaconFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -890,7 +897,8 @@ EditFieldHandlePtr LightBase::editHandleBeacon         (void)
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
              &_sfBeacon,
-             this->getType().getFieldDesc(BeaconFieldId)));
+             this->getType().getFieldDesc(BeaconFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Light::setBeacon,
@@ -906,7 +914,8 @@ GetFieldHandlePtr LightBase::getHandleOn              (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfOn,
-             this->getType().getFieldDesc(OnFieldId)));
+             this->getType().getFieldDesc(OnFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -916,7 +925,8 @@ EditFieldHandlePtr LightBase::editHandleOn             (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfOn,
-             this->getType().getFieldDesc(OnFieldId)));
+             this->getType().getFieldDesc(OnFieldId),
+             this));
 
 
     editSField(OnFieldMask);
@@ -929,7 +939,8 @@ GetFieldHandlePtr LightBase::getHandleConstantAttenuation (void) const
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
              &_sfConstantAttenuation,
-             this->getType().getFieldDesc(ConstantAttenuationFieldId)));
+             this->getType().getFieldDesc(ConstantAttenuationFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -939,7 +950,8 @@ EditFieldHandlePtr LightBase::editHandleConstantAttenuation(void)
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
              &_sfConstantAttenuation,
-             this->getType().getFieldDesc(ConstantAttenuationFieldId)));
+             this->getType().getFieldDesc(ConstantAttenuationFieldId),
+             this));
 
 
     editSField(ConstantAttenuationFieldMask);
@@ -952,7 +964,8 @@ GetFieldHandlePtr LightBase::getHandleLinearAttenuation (void) const
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
              &_sfLinearAttenuation,
-             this->getType().getFieldDesc(LinearAttenuationFieldId)));
+             this->getType().getFieldDesc(LinearAttenuationFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -962,7 +975,8 @@ EditFieldHandlePtr LightBase::editHandleLinearAttenuation(void)
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
              &_sfLinearAttenuation,
-             this->getType().getFieldDesc(LinearAttenuationFieldId)));
+             this->getType().getFieldDesc(LinearAttenuationFieldId),
+             this));
 
 
     editSField(LinearAttenuationFieldMask);
@@ -975,7 +989,8 @@ GetFieldHandlePtr LightBase::getHandleQuadraticAttenuation (void) const
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
              &_sfQuadraticAttenuation,
-             this->getType().getFieldDesc(QuadraticAttenuationFieldId)));
+             this->getType().getFieldDesc(QuadraticAttenuationFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -985,7 +1000,8 @@ EditFieldHandlePtr LightBase::editHandleQuadraticAttenuation(void)
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
              &_sfQuadraticAttenuation,
-             this->getType().getFieldDesc(QuadraticAttenuationFieldId)));
+             this->getType().getFieldDesc(QuadraticAttenuationFieldId),
+             this));
 
 
     editSField(QuadraticAttenuationFieldMask);
@@ -998,7 +1014,8 @@ GetFieldHandlePtr LightBase::getHandleLightEngine     (void) const
     SFUnrecLightEnginePtr::GetHandlePtr returnValue(
         new  SFUnrecLightEnginePtr::GetHandle(
              &_sfLightEngine,
-             this->getType().getFieldDesc(LightEngineFieldId)));
+             this->getType().getFieldDesc(LightEngineFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -1008,7 +1025,8 @@ EditFieldHandlePtr LightBase::editHandleLightEngine    (void)
     SFUnrecLightEnginePtr::EditHandlePtr returnValue(
         new  SFUnrecLightEnginePtr::EditHandle(
              &_sfLightEngine,
-             this->getType().getFieldDesc(LightEngineFieldId)));
+             this->getType().getFieldDesc(LightEngineFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Light::setLightEngine,
@@ -1024,7 +1042,8 @@ GetFieldHandlePtr LightBase::getHandleShadowIntensity (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfShadowIntensity,
-             this->getType().getFieldDesc(ShadowIntensityFieldId)));
+             this->getType().getFieldDesc(ShadowIntensityFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -1034,7 +1053,8 @@ EditFieldHandlePtr LightBase::editHandleShadowIntensity(void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfShadowIntensity,
-             this->getType().getFieldDesc(ShadowIntensityFieldId)));
+             this->getType().getFieldDesc(ShadowIntensityFieldId),
+             this));
 
 
     editSField(ShadowIntensityFieldMask);
@@ -1047,7 +1067,8 @@ GetFieldHandlePtr LightBase::getHandleShadowMode      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfShadowMode,
-             this->getType().getFieldDesc(ShadowModeFieldId)));
+             this->getType().getFieldDesc(ShadowModeFieldId),
+             const_cast<LightBase *>(this)));
 
     return returnValue;
 }
@@ -1057,7 +1078,8 @@ EditFieldHandlePtr LightBase::editHandleShadowMode     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfShadowMode,
-             this->getType().getFieldDesc(ShadowModeFieldId)));
+             this->getType().getFieldDesc(ShadowModeFieldId),
+             this));
 
 
     editSField(ShadowModeFieldMask);
@@ -1101,5 +1123,6 @@ void LightBase::resolveLinks(void)
 DataType FieldTraits<Light *>::_type("LightPtr", "GroupPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(Light *)
 
 OSG_END_NAMESPACE

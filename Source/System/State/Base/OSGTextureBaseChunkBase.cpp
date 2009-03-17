@@ -261,7 +261,8 @@ GetFieldHandlePtr TextureBaseChunkBase::getHandleTarget          (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfTarget,
-             this->getType().getFieldDesc(TargetFieldId)));
+             this->getType().getFieldDesc(TargetFieldId),
+             const_cast<TextureBaseChunkBase *>(this)));
 
     return returnValue;
 }
@@ -271,7 +272,8 @@ EditFieldHandlePtr TextureBaseChunkBase::editHandleTarget         (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfTarget,
-             this->getType().getFieldDesc(TargetFieldId)));
+             this->getType().getFieldDesc(TargetFieldId),
+             this));
 
 
     editSField(TargetFieldMask);

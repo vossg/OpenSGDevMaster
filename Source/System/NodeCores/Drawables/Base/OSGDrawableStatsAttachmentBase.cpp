@@ -222,7 +222,7 @@ DrawableStatsAttachmentBase::TypeObject DrawableStatsAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DrawableStatsAttachmentBase::createEmptyLocal),
     DrawableStatsAttachment::initMethod,
     DrawableStatsAttachment::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DrawableStatsAttachmentBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DrawableStatsAttachment::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -711,7 +711,8 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleVertices        (void) c
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfVertices,
-             this->getType().getFieldDesc(VerticesFieldId)));
+             this->getType().getFieldDesc(VerticesFieldId),
+             const_cast<DrawableStatsAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -721,7 +722,8 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleVertices       (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfVertices,
-             this->getType().getFieldDesc(VerticesFieldId)));
+             this->getType().getFieldDesc(VerticesFieldId),
+             this));
 
 
     editSField(VerticesFieldMask);
@@ -734,7 +736,8 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandlePoints          (void) c
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfPoints,
-             this->getType().getFieldDesc(PointsFieldId)));
+             this->getType().getFieldDesc(PointsFieldId),
+             const_cast<DrawableStatsAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -744,7 +747,8 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandlePoints         (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfPoints,
-             this->getType().getFieldDesc(PointsFieldId)));
+             this->getType().getFieldDesc(PointsFieldId),
+             this));
 
 
     editSField(PointsFieldMask);
@@ -757,7 +761,8 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleLines           (void) c
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfLines,
-             this->getType().getFieldDesc(LinesFieldId)));
+             this->getType().getFieldDesc(LinesFieldId),
+             const_cast<DrawableStatsAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -767,7 +772,8 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleLines          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfLines,
-             this->getType().getFieldDesc(LinesFieldId)));
+             this->getType().getFieldDesc(LinesFieldId),
+             this));
 
 
     editSField(LinesFieldMask);
@@ -780,7 +786,8 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleTriangles       (void) c
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfTriangles,
-             this->getType().getFieldDesc(TrianglesFieldId)));
+             this->getType().getFieldDesc(TrianglesFieldId),
+             const_cast<DrawableStatsAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -790,7 +797,8 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleTriangles      (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfTriangles,
-             this->getType().getFieldDesc(TrianglesFieldId)));
+             this->getType().getFieldDesc(TrianglesFieldId),
+             this));
 
 
     editSField(TrianglesFieldMask);
@@ -803,7 +811,8 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleProcessedAttributeBytes 
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfProcessedAttributeBytes,
-             this->getType().getFieldDesc(ProcessedAttributeBytesFieldId)));
+             this->getType().getFieldDesc(ProcessedAttributeBytesFieldId),
+             const_cast<DrawableStatsAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -813,7 +822,8 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleProcessedAttributeByte
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfProcessedAttributeBytes,
-             this->getType().getFieldDesc(ProcessedAttributeBytesFieldId)));
+             this->getType().getFieldDesc(ProcessedAttributeBytesFieldId),
+             this));
 
 
     editSField(ProcessedAttributeBytesFieldMask);
@@ -826,7 +836,8 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleStoredAttributeBytes (vo
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfStoredAttributeBytes,
-             this->getType().getFieldDesc(StoredAttributeBytesFieldId)));
+             this->getType().getFieldDesc(StoredAttributeBytesFieldId),
+             const_cast<DrawableStatsAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -836,7 +847,8 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleStoredAttributeBytes(v
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfStoredAttributeBytes,
-             this->getType().getFieldDesc(StoredAttributeBytesFieldId)));
+             this->getType().getFieldDesc(StoredAttributeBytesFieldId),
+             this));
 
 
     editSField(StoredAttributeBytesFieldMask);
@@ -849,7 +861,8 @@ GetFieldHandlePtr DrawableStatsAttachmentBase::getHandleValid           (void) c
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfValid,
-             this->getType().getFieldDesc(ValidFieldId)));
+             this->getType().getFieldDesc(ValidFieldId),
+             const_cast<DrawableStatsAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -859,7 +872,8 @@ EditFieldHandlePtr DrawableStatsAttachmentBase::editHandleValid          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfValid,
-             this->getType().getFieldDesc(ValidFieldId)));
+             this->getType().getFieldDesc(ValidFieldId),
+             this));
 
 
     editSField(ValidFieldMask);

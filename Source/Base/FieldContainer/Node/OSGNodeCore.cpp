@@ -238,7 +238,8 @@ GetFieldHandlePtr NodeCore::getHandleParents(void) const
     MFParentFieldContainerPtr::GetHandlePtr returnValue(
         new  MFParentFieldContainerPtr::GetHandle(
              &_mfParents, 
-             this->getType().getFieldDesc(ParentsFieldId)));
+             this->getType().getFieldDesc(ParentsFieldId),
+             const_cast<NodeCore *>(this)));
 
     return returnValue;
 }

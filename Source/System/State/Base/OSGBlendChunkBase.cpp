@@ -785,7 +785,8 @@ GetFieldHandlePtr BlendChunkBase::getHandleSrcFactor       (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfSrcFactor,
-             this->getType().getFieldDesc(SrcFactorFieldId)));
+             this->getType().getFieldDesc(SrcFactorFieldId),
+             const_cast<BlendChunkBase *>(this)));
 
     return returnValue;
 }
@@ -795,7 +796,8 @@ EditFieldHandlePtr BlendChunkBase::editHandleSrcFactor      (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfSrcFactor,
-             this->getType().getFieldDesc(SrcFactorFieldId)));
+             this->getType().getFieldDesc(SrcFactorFieldId),
+             this));
 
 
     editSField(SrcFactorFieldMask);
@@ -808,7 +810,8 @@ GetFieldHandlePtr BlendChunkBase::getHandleDestFactor      (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfDestFactor,
-             this->getType().getFieldDesc(DestFactorFieldId)));
+             this->getType().getFieldDesc(DestFactorFieldId),
+             const_cast<BlendChunkBase *>(this)));
 
     return returnValue;
 }
@@ -818,7 +821,8 @@ EditFieldHandlePtr BlendChunkBase::editHandleDestFactor     (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfDestFactor,
-             this->getType().getFieldDesc(DestFactorFieldId)));
+             this->getType().getFieldDesc(DestFactorFieldId),
+             this));
 
 
     editSField(DestFactorFieldMask);
@@ -831,7 +835,8 @@ GetFieldHandlePtr BlendChunkBase::getHandleEquation        (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEquation,
-             this->getType().getFieldDesc(EquationFieldId)));
+             this->getType().getFieldDesc(EquationFieldId),
+             const_cast<BlendChunkBase *>(this)));
 
     return returnValue;
 }
@@ -841,7 +846,8 @@ EditFieldHandlePtr BlendChunkBase::editHandleEquation       (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEquation,
-             this->getType().getFieldDesc(EquationFieldId)));
+             this->getType().getFieldDesc(EquationFieldId),
+             this));
 
 
     editSField(EquationFieldMask);
@@ -854,7 +860,8 @@ GetFieldHandlePtr BlendChunkBase::getHandleColor           (void) const
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             const_cast<BlendChunkBase *>(this)));
 
     return returnValue;
 }
@@ -864,7 +871,8 @@ EditFieldHandlePtr BlendChunkBase::editHandleColor          (void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             this));
 
 
     editSField(ColorFieldMask);
@@ -877,7 +885,8 @@ GetFieldHandlePtr BlendChunkBase::getHandleAlphaFunc       (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfAlphaFunc,
-             this->getType().getFieldDesc(AlphaFuncFieldId)));
+             this->getType().getFieldDesc(AlphaFuncFieldId),
+             const_cast<BlendChunkBase *>(this)));
 
     return returnValue;
 }
@@ -887,7 +896,8 @@ EditFieldHandlePtr BlendChunkBase::editHandleAlphaFunc      (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfAlphaFunc,
-             this->getType().getFieldDesc(AlphaFuncFieldId)));
+             this->getType().getFieldDesc(AlphaFuncFieldId),
+             this));
 
 
     editSField(AlphaFuncFieldMask);
@@ -900,7 +910,8 @@ GetFieldHandlePtr BlendChunkBase::getHandleAlphaValue      (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfAlphaValue,
-             this->getType().getFieldDesc(AlphaValueFieldId)));
+             this->getType().getFieldDesc(AlphaValueFieldId),
+             const_cast<BlendChunkBase *>(this)));
 
     return returnValue;
 }
@@ -910,7 +921,8 @@ EditFieldHandlePtr BlendChunkBase::editHandleAlphaValue     (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfAlphaValue,
-             this->getType().getFieldDesc(AlphaValueFieldId)));
+             this->getType().getFieldDesc(AlphaValueFieldId),
+             this));
 
 
     editSField(AlphaValueFieldMask);
@@ -923,7 +935,8 @@ GetFieldHandlePtr BlendChunkBase::getHandleAlphaSrcFactor  (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfAlphaSrcFactor,
-             this->getType().getFieldDesc(AlphaSrcFactorFieldId)));
+             this->getType().getFieldDesc(AlphaSrcFactorFieldId),
+             const_cast<BlendChunkBase *>(this)));
 
     return returnValue;
 }
@@ -933,7 +946,8 @@ EditFieldHandlePtr BlendChunkBase::editHandleAlphaSrcFactor (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfAlphaSrcFactor,
-             this->getType().getFieldDesc(AlphaSrcFactorFieldId)));
+             this->getType().getFieldDesc(AlphaSrcFactorFieldId),
+             this));
 
 
     editSField(AlphaSrcFactorFieldMask);
@@ -946,7 +960,8 @@ GetFieldHandlePtr BlendChunkBase::getHandleAlphaDestFactor (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfAlphaDestFactor,
-             this->getType().getFieldDesc(AlphaDestFactorFieldId)));
+             this->getType().getFieldDesc(AlphaDestFactorFieldId),
+             const_cast<BlendChunkBase *>(this)));
 
     return returnValue;
 }
@@ -956,7 +971,8 @@ EditFieldHandlePtr BlendChunkBase::editHandleAlphaDestFactor(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfAlphaDestFactor,
-             this->getType().getFieldDesc(AlphaDestFactorFieldId)));
+             this->getType().getFieldDesc(AlphaDestFactorFieldId),
+             this));
 
 
     editSField(AlphaDestFactorFieldMask);

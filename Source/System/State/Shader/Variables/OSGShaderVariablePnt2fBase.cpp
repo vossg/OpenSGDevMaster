@@ -363,7 +363,8 @@ GetFieldHandlePtr ShaderVariablePnt2fBase::getHandleValue           (void) const
     SFPnt2f::GetHandlePtr returnValue(
         new  SFPnt2f::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderVariablePnt2fBase *>(this)));
 
     return returnValue;
 }
@@ -373,7 +374,8 @@ EditFieldHandlePtr ShaderVariablePnt2fBase::editHandleValue          (void)
     SFPnt2f::EditHandlePtr returnValue(
         new  SFPnt2f::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);

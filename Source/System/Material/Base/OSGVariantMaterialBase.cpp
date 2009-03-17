@@ -372,7 +372,8 @@ GetFieldHandlePtr VariantMaterialBase::getHandleFallbackMaterial (void) const
     SFUnrecPrimeMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecPrimeMaterialPtr::GetHandle(
              &_sfFallbackMaterial,
-             this->getType().getFieldDesc(FallbackMaterialFieldId)));
+             this->getType().getFieldDesc(FallbackMaterialFieldId),
+             const_cast<VariantMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -382,7 +383,8 @@ EditFieldHandlePtr VariantMaterialBase::editHandleFallbackMaterial(void)
     SFUnrecPrimeMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecPrimeMaterialPtr::EditHandle(
              &_sfFallbackMaterial,
-             this->getType().getFieldDesc(FallbackMaterialFieldId)));
+             this->getType().getFieldDesc(FallbackMaterialFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&VariantMaterial::setFallbackMaterial,

@@ -369,7 +369,8 @@ GetFieldHandlePtr QTWindowBase::getHandleGlWidget          (void) const
     SFOSGQGLWidgetP::GetHandlePtr returnValue(
         new  SFOSGQGLWidgetP::GetHandle(
              &_sfGlWidget,
-             this->getType().getFieldDesc(GlWidgetFieldId)));
+             this->getType().getFieldDesc(GlWidgetFieldId),
+             const_cast<QTWindowBase *>(this)));
 
     return returnValue;
 }
@@ -379,7 +380,8 @@ EditFieldHandlePtr QTWindowBase::editHandleGlWidget         (void)
     SFOSGQGLWidgetP::EditHandlePtr returnValue(
         new  SFOSGQGLWidgetP::EditHandle(
              &_sfGlWidget,
-             this->getType().getFieldDesc(GlWidgetFieldId)));
+             this->getType().getFieldDesc(GlWidgetFieldId),
+             this));
 
 
     editSField(GlWidgetFieldMask);

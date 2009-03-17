@@ -162,7 +162,7 @@ XWindowBase::TypeObject XWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&XWindowBase::createEmptyLocal),
     XWindow::initMethod,
     XWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&XWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&XWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -520,7 +520,8 @@ GetFieldHandlePtr XWindowBase::getHandleDisplay         (void) const
     SFDisplayP::GetHandlePtr returnValue(
         new  SFDisplayP::GetHandle(
              &_sfDisplay,
-             this->getType().getFieldDesc(DisplayFieldId)));
+             this->getType().getFieldDesc(DisplayFieldId),
+             const_cast<XWindowBase *>(this)));
 
     return returnValue;
 }
@@ -530,7 +531,8 @@ EditFieldHandlePtr XWindowBase::editHandleDisplay        (void)
     SFDisplayP::EditHandlePtr returnValue(
         new  SFDisplayP::EditHandle(
              &_sfDisplay,
-             this->getType().getFieldDesc(DisplayFieldId)));
+             this->getType().getFieldDesc(DisplayFieldId),
+             this));
 
 
     editSField(DisplayFieldMask);
@@ -543,7 +545,8 @@ GetFieldHandlePtr XWindowBase::getHandleWindow          (void) const
     SFX11Window::GetHandlePtr returnValue(
         new  SFX11Window::GetHandle(
              &_sfWindow,
-             this->getType().getFieldDesc(WindowFieldId)));
+             this->getType().getFieldDesc(WindowFieldId),
+             const_cast<XWindowBase *>(this)));
 
     return returnValue;
 }
@@ -553,7 +556,8 @@ EditFieldHandlePtr XWindowBase::editHandleWindow         (void)
     SFX11Window::EditHandlePtr returnValue(
         new  SFX11Window::EditHandle(
              &_sfWindow,
-             this->getType().getFieldDesc(WindowFieldId)));
+             this->getType().getFieldDesc(WindowFieldId),
+             this));
 
 
     editSField(WindowFieldMask);
@@ -566,7 +570,8 @@ GetFieldHandlePtr XWindowBase::getHandleContext         (void) const
     SFGLXContext::GetHandlePtr returnValue(
         new  SFGLXContext::GetHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             const_cast<XWindowBase *>(this)));
 
     return returnValue;
 }
@@ -576,7 +581,8 @@ EditFieldHandlePtr XWindowBase::editHandleContext        (void)
     SFGLXContext::EditHandlePtr returnValue(
         new  SFGLXContext::EditHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             this));
 
 
     editSField(ContextFieldMask);
@@ -589,7 +595,8 @@ GetFieldHandlePtr XWindowBase::getHandleFbConfigId      (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfFbConfigId,
-             this->getType().getFieldDesc(FbConfigIdFieldId)));
+             this->getType().getFieldDesc(FbConfigIdFieldId),
+             const_cast<XWindowBase *>(this)));
 
     return returnValue;
 }
@@ -599,7 +606,8 @@ EditFieldHandlePtr XWindowBase::editHandleFbConfigId     (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfFbConfigId,
-             this->getType().getFieldDesc(FbConfigIdFieldId)));
+             this->getType().getFieldDesc(FbConfigIdFieldId),
+             this));
 
 
     editSField(FbConfigIdFieldMask);

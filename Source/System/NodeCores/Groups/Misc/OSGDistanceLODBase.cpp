@@ -165,7 +165,7 @@ DistanceLODBase::TypeObject DistanceLODBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DistanceLODBase::createEmptyLocal),
     DistanceLOD::initMethod,
     DistanceLOD::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DistanceLODBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DistanceLOD::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -519,7 +519,8 @@ GetFieldHandlePtr DistanceLODBase::getHandleCenter          (void) const
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
              &_sfCenter,
-             this->getType().getFieldDesc(CenterFieldId)));
+             this->getType().getFieldDesc(CenterFieldId),
+             const_cast<DistanceLODBase *>(this)));
 
     return returnValue;
 }
@@ -529,7 +530,8 @@ EditFieldHandlePtr DistanceLODBase::editHandleCenter         (void)
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
              &_sfCenter,
-             this->getType().getFieldDesc(CenterFieldId)));
+             this->getType().getFieldDesc(CenterFieldId),
+             this));
 
 
     editSField(CenterFieldMask);
@@ -542,7 +544,8 @@ GetFieldHandlePtr DistanceLODBase::getHandleRange           (void) const
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfRange,
-             this->getType().getFieldDesc(RangeFieldId)));
+             this->getType().getFieldDesc(RangeFieldId),
+             const_cast<DistanceLODBase *>(this)));
 
     return returnValue;
 }
@@ -552,7 +555,8 @@ EditFieldHandlePtr DistanceLODBase::editHandleRange          (void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfRange,
-             this->getType().getFieldDesc(RangeFieldId)));
+             this->getType().getFieldDesc(RangeFieldId),
+             this));
 
 
     editMField(RangeFieldMask, _mfRange);
@@ -614,5 +618,6 @@ void DistanceLODBase::resolveLinks(void)
 DataType FieldTraits<DistanceLOD *>::_type("DistanceLODPtr", "GroupPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(DistanceLOD *)
 
 OSG_END_NAMESPACE

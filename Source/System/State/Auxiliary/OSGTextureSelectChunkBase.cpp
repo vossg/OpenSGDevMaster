@@ -136,7 +136,7 @@ TextureSelectChunkBase::TypeObject TextureSelectChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureSelectChunkBase::createEmptyLocal),
     TextureSelectChunk::initMethod,
     TextureSelectChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TextureSelectChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TextureSelectChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -506,7 +506,8 @@ GetFieldHandlePtr TextureSelectChunkBase::getHandleChoice          (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfChoice,
-             this->getType().getFieldDesc(ChoiceFieldId)));
+             this->getType().getFieldDesc(ChoiceFieldId),
+             const_cast<TextureSelectChunkBase *>(this)));
 
     return returnValue;
 }
@@ -516,7 +517,8 @@ EditFieldHandlePtr TextureSelectChunkBase::editHandleChoice         (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfChoice,
-             this->getType().getFieldDesc(ChoiceFieldId)));
+             this->getType().getFieldDesc(ChoiceFieldId),
+             this));
 
 
     editSField(ChoiceFieldMask);
@@ -529,7 +531,8 @@ GetFieldHandlePtr TextureSelectChunkBase::getHandleTextures        (void) const
     MFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecTextureBaseChunkPtr::GetHandle(
              &_mfTextures,
-             this->getType().getFieldDesc(TexturesFieldId)));
+             this->getType().getFieldDesc(TexturesFieldId),
+             const_cast<TextureSelectChunkBase *>(this)));
 
     return returnValue;
 }
@@ -539,7 +542,8 @@ EditFieldHandlePtr TextureSelectChunkBase::editHandleTextures       (void)
     MFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecTextureBaseChunkPtr::EditHandle(
              &_mfTextures,
-             this->getType().getFieldDesc(TexturesFieldId)));
+             this->getType().getFieldDesc(TexturesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&TextureSelectChunk::pushToTextures,

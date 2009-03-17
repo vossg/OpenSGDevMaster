@@ -162,7 +162,7 @@ PositionInterpolatorBase::TypeObject PositionInterpolatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PositionInterpolatorBase::createEmptyLocal),
     PositionInterpolator::initMethod,
     PositionInterpolator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&PositionInterpolatorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&PositionInterpolator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -525,7 +525,8 @@ GetFieldHandlePtr PositionInterpolatorBase::getHandleFraction        (void) cons
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             const_cast<PositionInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -535,7 +536,8 @@ EditFieldHandlePtr PositionInterpolatorBase::editHandleFraction       (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             this));
 
 
     editSField(FractionFieldMask);
@@ -548,7 +550,8 @@ GetFieldHandlePtr PositionInterpolatorBase::getHandleKey             (void) cons
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             const_cast<PositionInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -558,7 +561,8 @@ EditFieldHandlePtr PositionInterpolatorBase::editHandleKey            (void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             this));
 
 
     editMField(KeyFieldMask, _mfKey);
@@ -571,7 +575,8 @@ GetFieldHandlePtr PositionInterpolatorBase::getHandleKeyValue        (void) cons
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
              &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId)));
+             this->getType().getFieldDesc(KeyValueFieldId),
+             const_cast<PositionInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -581,7 +586,8 @@ EditFieldHandlePtr PositionInterpolatorBase::editHandleKeyValue       (void)
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
              &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId)));
+             this->getType().getFieldDesc(KeyValueFieldId),
+             this));
 
 
     editMField(KeyValueFieldMask, _mfKeyValue);
@@ -594,7 +600,8 @@ GetFieldHandlePtr PositionInterpolatorBase::getHandleValue           (void) cons
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<PositionInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -604,7 +611,8 @@ EditFieldHandlePtr PositionInterpolatorBase::editHandleValue          (void)
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);
@@ -670,5 +678,6 @@ void PositionInterpolatorBase::resolveLinks(void)
 DataType FieldTraits<PositionInterpolator *>::_type("PositionInterpolatorPtr", "NodeCorePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(PositionInterpolator *)
 
 OSG_END_NAMESPACE

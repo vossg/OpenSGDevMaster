@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Transform;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TransformPtr
-
 OSG_GEN_CONTAINERPTR(Transform);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Transform *> :
     public FieldTraitsFCPtrBase<Transform *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Transform *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdTransformPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TransformPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Transform *,
                       RecordedRefCountPolicy  > SFRecTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Transform *,
                       UnrecordedRefCountPolicy> SFUnrecTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Transform *,
                       WeakRefCountPolicy      > SFWeakTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Transform *,
                       NoRefCountPolicy        > SFUncountedTransformPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Transform *,
                       RecordedRefCountPolicy  > MFRecTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Transform *,
                       UnrecordedRefCountPolicy> MFUnrecTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Transform *,
                       WeakRefCountPolicy      > MFWeakTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Transform *,
                       NoRefCountPolicy        > MFUncountedTransformPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecTransformPtr : 
+    public PointerSField<Transform *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecTransformPtr : 
+    public PointerSField<Transform *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakTransformPtr :
+    public PointerSField<Transform *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedTransformPtr :
+    public PointerSField<Transform *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecTransformPtr :
+    public PointerMField<Transform *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecTransformPtr :
+    public PointerMField<Transform *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakTransformPtr :
+    public PointerMField<Transform *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedTransformPtr :
+    public PointerMField<Transform *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

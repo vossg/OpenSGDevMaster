@@ -242,7 +242,7 @@ StencilChunkBase::TypeObject StencilChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&StencilChunkBase::createEmptyLocal),
     StencilChunk::initMethod,
     StencilChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&StencilChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&StencilChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -761,7 +761,8 @@ GetFieldHandlePtr StencilChunkBase::getHandleStencilFunc     (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfStencilFunc,
-             this->getType().getFieldDesc(StencilFuncFieldId)));
+             this->getType().getFieldDesc(StencilFuncFieldId),
+             const_cast<StencilChunkBase *>(this)));
 
     return returnValue;
 }
@@ -771,7 +772,8 @@ EditFieldHandlePtr StencilChunkBase::editHandleStencilFunc    (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfStencilFunc,
-             this->getType().getFieldDesc(StencilFuncFieldId)));
+             this->getType().getFieldDesc(StencilFuncFieldId),
+             this));
 
 
     editSField(StencilFuncFieldMask);
@@ -784,7 +786,8 @@ GetFieldHandlePtr StencilChunkBase::getHandleStencilValue    (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfStencilValue,
-             this->getType().getFieldDesc(StencilValueFieldId)));
+             this->getType().getFieldDesc(StencilValueFieldId),
+             const_cast<StencilChunkBase *>(this)));
 
     return returnValue;
 }
@@ -794,7 +797,8 @@ EditFieldHandlePtr StencilChunkBase::editHandleStencilValue   (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfStencilValue,
-             this->getType().getFieldDesc(StencilValueFieldId)));
+             this->getType().getFieldDesc(StencilValueFieldId),
+             this));
 
 
     editSField(StencilValueFieldMask);
@@ -807,7 +811,8 @@ GetFieldHandlePtr StencilChunkBase::getHandleStencilMask     (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfStencilMask,
-             this->getType().getFieldDesc(StencilMaskFieldId)));
+             this->getType().getFieldDesc(StencilMaskFieldId),
+             const_cast<StencilChunkBase *>(this)));
 
     return returnValue;
 }
@@ -817,7 +822,8 @@ EditFieldHandlePtr StencilChunkBase::editHandleStencilMask    (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfStencilMask,
-             this->getType().getFieldDesc(StencilMaskFieldId)));
+             this->getType().getFieldDesc(StencilMaskFieldId),
+             this));
 
 
     editSField(StencilMaskFieldMask);
@@ -830,7 +836,8 @@ GetFieldHandlePtr StencilChunkBase::getHandleStencilOpFail   (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfStencilOpFail,
-             this->getType().getFieldDesc(StencilOpFailFieldId)));
+             this->getType().getFieldDesc(StencilOpFailFieldId),
+             const_cast<StencilChunkBase *>(this)));
 
     return returnValue;
 }
@@ -840,7 +847,8 @@ EditFieldHandlePtr StencilChunkBase::editHandleStencilOpFail  (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfStencilOpFail,
-             this->getType().getFieldDesc(StencilOpFailFieldId)));
+             this->getType().getFieldDesc(StencilOpFailFieldId),
+             this));
 
 
     editSField(StencilOpFailFieldMask);
@@ -853,7 +861,8 @@ GetFieldHandlePtr StencilChunkBase::getHandleStencilOpZFail  (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfStencilOpZFail,
-             this->getType().getFieldDesc(StencilOpZFailFieldId)));
+             this->getType().getFieldDesc(StencilOpZFailFieldId),
+             const_cast<StencilChunkBase *>(this)));
 
     return returnValue;
 }
@@ -863,7 +872,8 @@ EditFieldHandlePtr StencilChunkBase::editHandleStencilOpZFail (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfStencilOpZFail,
-             this->getType().getFieldDesc(StencilOpZFailFieldId)));
+             this->getType().getFieldDesc(StencilOpZFailFieldId),
+             this));
 
 
     editSField(StencilOpZFailFieldMask);
@@ -876,7 +886,8 @@ GetFieldHandlePtr StencilChunkBase::getHandleStencilOpZPass  (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfStencilOpZPass,
-             this->getType().getFieldDesc(StencilOpZPassFieldId)));
+             this->getType().getFieldDesc(StencilOpZPassFieldId),
+             const_cast<StencilChunkBase *>(this)));
 
     return returnValue;
 }
@@ -886,7 +897,8 @@ EditFieldHandlePtr StencilChunkBase::editHandleStencilOpZPass (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfStencilOpZPass,
-             this->getType().getFieldDesc(StencilOpZPassFieldId)));
+             this->getType().getFieldDesc(StencilOpZPassFieldId),
+             this));
 
 
     editSField(StencilOpZPassFieldMask);
@@ -899,7 +911,8 @@ GetFieldHandlePtr StencilChunkBase::getHandleClearBuffer     (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfClearBuffer,
-             this->getType().getFieldDesc(ClearBufferFieldId)));
+             this->getType().getFieldDesc(ClearBufferFieldId),
+             const_cast<StencilChunkBase *>(this)));
 
     return returnValue;
 }
@@ -909,7 +922,8 @@ EditFieldHandlePtr StencilChunkBase::editHandleClearBuffer    (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfClearBuffer,
-             this->getType().getFieldDesc(ClearBufferFieldId)));
+             this->getType().getFieldDesc(ClearBufferFieldId),
+             this));
 
 
     editSField(ClearBufferFieldMask);
@@ -922,7 +936,8 @@ GetFieldHandlePtr StencilChunkBase::getHandleBitMask         (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfBitMask,
-             this->getType().getFieldDesc(BitMaskFieldId)));
+             this->getType().getFieldDesc(BitMaskFieldId),
+             const_cast<StencilChunkBase *>(this)));
 
     return returnValue;
 }
@@ -932,7 +947,8 @@ EditFieldHandlePtr StencilChunkBase::editHandleBitMask        (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfBitMask,
-             this->getType().getFieldDesc(BitMaskFieldId)));
+             this->getType().getFieldDesc(BitMaskFieldId),
+             this));
 
 
     editSField(BitMaskFieldMask);
@@ -985,5 +1001,6 @@ void StencilChunkBase::resolveLinks(void)
 DataType FieldTraits<StencilChunk *>::_type("StencilChunkPtr", "StateChunkPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(StencilChunk *)
 
 OSG_END_NAMESPACE

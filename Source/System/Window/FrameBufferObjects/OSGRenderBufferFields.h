@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class RenderBuffer;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! RenderBufferPtr
-
 OSG_GEN_CONTAINERPTR(RenderBuffer);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<RenderBuffer *> :
     public FieldTraitsFCPtrBase<RenderBuffer *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<RenderBuffer *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdRenderBufferPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<RenderBufferPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<RenderBuffer *,
                       RecordedRefCountPolicy  > SFRecRenderBufferPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<RenderBuffer *,
                       UnrecordedRefCountPolicy> SFUnrecRenderBufferPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<RenderBuffer *,
                       WeakRefCountPolicy      > SFWeakRenderBufferPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<RenderBuffer *,
                       NoRefCountPolicy        > SFUncountedRenderBufferPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<RenderBuffer *,
                       RecordedRefCountPolicy  > MFRecRenderBufferPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<RenderBuffer *,
                       UnrecordedRefCountPolicy> MFUnrecRenderBufferPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<RenderBuffer *,
                       WeakRefCountPolicy      > MFWeakRenderBufferPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<RenderBuffer *,
                       NoRefCountPolicy        > MFUncountedRenderBufferPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecRenderBufferPtr : 
+    public PointerSField<RenderBuffer *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecRenderBufferPtr : 
+    public PointerSField<RenderBuffer *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakRenderBufferPtr :
+    public PointerSField<RenderBuffer *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedRenderBufferPtr :
+    public PointerSField<RenderBuffer *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecRenderBufferPtr :
+    public PointerMField<RenderBuffer *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecRenderBufferPtr :
+    public PointerMField<RenderBuffer *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakRenderBufferPtr :
+    public PointerMField<RenderBuffer *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedRenderBufferPtr :
+    public PointerMField<RenderBuffer *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

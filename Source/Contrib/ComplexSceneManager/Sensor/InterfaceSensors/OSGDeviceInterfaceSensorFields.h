@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class DeviceInterfaceSensor;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DeviceInterfaceSensorPtr
-
 OSG_GEN_CONTAINERPTR(DeviceInterfaceSensor);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<DeviceInterfaceSensor *> :
     public FieldTraitsFCPtrBase<DeviceInterfaceSensor *>
@@ -100,12 +91,9 @@ struct FieldTraits<DeviceInterfaceSensor *> :
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DeviceInterfaceSensorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
+/*! \ingroup GrpContribCSMFieldTraits
+ */
 template <>
 struct FieldTraits<DeviceInterfaceSensor *, 1> : 
     public FieldTraitsFCPtrBase<DeviceInterfaceSensor *, 1>
@@ -137,15 +125,29 @@ struct FieldTraits<DeviceInterfaceSensor *, 1> :
     }
 };
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
-
-
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef ParentPointerSField<
           DeviceInterfaceSensor *, 
           NoRefCountPolicy,
           1    > SFParentDeviceInterfaceSensorPtr;
+
+
+#else // these are the doxygen hacks
+
+
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFParentDeviceInterfaceSensorPtr :
+    public ParentPointerSField<
+        DeviceInterfaceSensor *, 
+        NoRefCountPolicy,
+        1    > {};
+
+#endif // these are the doxygen hacks
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGDEVICEINTERFACESENSORFIELDS_H_ */

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class FrameBufferAttachment;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FrameBufferAttachmentPtr
-
 OSG_GEN_CONTAINERPTR(FrameBufferAttachment);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<FrameBufferAttachment *> :
     public FieldTraitsFCPtrBase<FrameBufferAttachment *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<FrameBufferAttachment *, 0>::getMName<NoRefCountPolicy>
     return "MFUnrefdFrameBufferAttachmentPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FrameBufferAttachmentPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
                       RecordedRefCountPolicy  > SFRecFrameBufferAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecFrameBufferAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
                       WeakRefCountPolicy      > SFWeakFrameBufferAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FrameBufferAttachment *,
                       NoRefCountPolicy        > SFUncountedFrameBufferAttachmentPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
                       RecordedRefCountPolicy  > MFRecFrameBufferAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecFrameBufferAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
                       WeakRefCountPolicy      > MFWeakFrameBufferAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FrameBufferAttachment *,
                       NoRefCountPolicy        > MFUncountedFrameBufferAttachmentPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecFrameBufferAttachmentPtr : 
+    public PointerSField<FrameBufferAttachment *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecFrameBufferAttachmentPtr : 
+    public PointerSField<FrameBufferAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakFrameBufferAttachmentPtr :
+    public PointerSField<FrameBufferAttachment *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedFrameBufferAttachmentPtr :
+    public PointerSField<FrameBufferAttachment *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecFrameBufferAttachmentPtr :
+    public PointerMField<FrameBufferAttachment *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecFrameBufferAttachmentPtr :
+    public PointerMField<FrameBufferAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakFrameBufferAttachmentPtr :
+    public PointerMField<FrameBufferAttachment *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedFrameBufferAttachmentPtr :
+    public PointerMField<FrameBufferAttachment *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -228,7 +228,7 @@ PerfMonitorForegroundBase::TypeObject PerfMonitorForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PerfMonitorForegroundBase::createEmptyLocal),
     PerfMonitorForeground::initMethod,
     PerfMonitorForeground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&PerfMonitorForegroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&PerfMonitorForeground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -739,7 +739,8 @@ GetFieldHandlePtr PerfMonitorForegroundBase::getHandleMode            (void) con
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfMode,
-             this->getType().getFieldDesc(ModeFieldId)));
+             this->getType().getFieldDesc(ModeFieldId),
+             const_cast<PerfMonitorForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -749,7 +750,8 @@ EditFieldHandlePtr PerfMonitorForegroundBase::editHandleMode           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfMode,
-             this->getType().getFieldDesc(ModeFieldId)));
+             this->getType().getFieldDesc(ModeFieldId),
+             this));
 
 
     editSField(ModeFieldMask);
@@ -762,7 +764,8 @@ GetFieldHandlePtr PerfMonitorForegroundBase::getHandleMaxSize         (void) con
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfMaxSize,
-             this->getType().getFieldDesc(MaxSizeFieldId)));
+             this->getType().getFieldDesc(MaxSizeFieldId),
+             const_cast<PerfMonitorForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -772,7 +775,8 @@ EditFieldHandlePtr PerfMonitorForegroundBase::editHandleMaxSize        (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfMaxSize,
-             this->getType().getFieldDesc(MaxSizeFieldId)));
+             this->getType().getFieldDesc(MaxSizeFieldId),
+             this));
 
 
     editSField(MaxSizeFieldMask);
@@ -785,7 +789,8 @@ GetFieldHandlePtr PerfMonitorForegroundBase::getHandleColor           (void) con
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             const_cast<PerfMonitorForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -795,7 +800,8 @@ EditFieldHandlePtr PerfMonitorForegroundBase::editHandleColor          (void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             this));
 
 
     editSField(ColorFieldMask);
@@ -808,7 +814,8 @@ GetFieldHandlePtr PerfMonitorForegroundBase::getHandleBgColor         (void) con
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfBgColor,
-             this->getType().getFieldDesc(BgColorFieldId)));
+             this->getType().getFieldDesc(BgColorFieldId),
+             const_cast<PerfMonitorForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -818,7 +825,8 @@ EditFieldHandlePtr PerfMonitorForegroundBase::editHandleBgColor        (void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfBgColor,
-             this->getType().getFieldDesc(BgColorFieldId)));
+             this->getType().getFieldDesc(BgColorFieldId),
+             this));
 
 
     editSField(BgColorFieldMask);
@@ -831,7 +839,8 @@ GetFieldHandlePtr PerfMonitorForegroundBase::getHandleFamily          (void) con
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfFamily,
-             this->getType().getFieldDesc(FamilyFieldId)));
+             this->getType().getFieldDesc(FamilyFieldId),
+             const_cast<PerfMonitorForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -841,7 +850,8 @@ EditFieldHandlePtr PerfMonitorForegroundBase::editHandleFamily         (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfFamily,
-             this->getType().getFieldDesc(FamilyFieldId)));
+             this->getType().getFieldDesc(FamilyFieldId),
+             this));
 
 
     editSField(FamilyFieldMask);
@@ -854,7 +864,8 @@ GetFieldHandlePtr PerfMonitorForegroundBase::getHandleBorderColor     (void) con
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfBorderColor,
-             this->getType().getFieldDesc(BorderColorFieldId)));
+             this->getType().getFieldDesc(BorderColorFieldId),
+             const_cast<PerfMonitorForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -864,7 +875,8 @@ EditFieldHandlePtr PerfMonitorForegroundBase::editHandleBorderColor    (void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfBorderColor,
-             this->getType().getFieldDesc(BorderColorFieldId)));
+             this->getType().getFieldDesc(BorderColorFieldId),
+             this));
 
 
     editSField(BorderColorFieldMask);
@@ -877,7 +889,8 @@ GetFieldHandlePtr PerfMonitorForegroundBase::getHandleBorderOffset    (void) con
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfBorderOffset,
-             this->getType().getFieldDesc(BorderOffsetFieldId)));
+             this->getType().getFieldDesc(BorderOffsetFieldId),
+             const_cast<PerfMonitorForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -887,7 +900,8 @@ EditFieldHandlePtr PerfMonitorForegroundBase::editHandleBorderOffset   (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfBorderOffset,
-             this->getType().getFieldDesc(BorderOffsetFieldId)));
+             this->getType().getFieldDesc(BorderOffsetFieldId),
+             this));
 
 
     editSField(BorderOffsetFieldMask);
@@ -900,7 +914,8 @@ GetFieldHandlePtr PerfMonitorForegroundBase::getHandleTextMargin      (void) con
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfTextMargin,
-             this->getType().getFieldDesc(TextMarginFieldId)));
+             this->getType().getFieldDesc(TextMarginFieldId),
+             const_cast<PerfMonitorForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -910,7 +925,8 @@ EditFieldHandlePtr PerfMonitorForegroundBase::editHandleTextMargin     (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfTextMargin,
-             this->getType().getFieldDesc(TextMarginFieldId)));
+             this->getType().getFieldDesc(TextMarginFieldId),
+             this));
 
 
     editSField(TextMarginFieldMask);

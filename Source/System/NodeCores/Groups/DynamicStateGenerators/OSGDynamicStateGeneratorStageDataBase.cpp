@@ -132,7 +132,7 @@ DynamicStateGeneratorStageDataBase::TypeObject DynamicStateGeneratorStageDataBas
     reinterpret_cast<PrototypeCreateF>(&DynamicStateGeneratorStageDataBase::createEmptyLocal),
     DynamicStateGeneratorStageData::initMethod,
     DynamicStateGeneratorStageData::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DynamicStateGeneratorStageDataBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DynamicStateGeneratorStageData::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -410,7 +410,8 @@ GetFieldHandlePtr DynamicStateGeneratorStageDataBase::getHandleRenderTarget    (
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId)));
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             const_cast<DynamicStateGeneratorStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -420,7 +421,8 @@ EditFieldHandlePtr DynamicStateGeneratorStageDataBase::editHandleRenderTarget   
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId)));
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DynamicStateGeneratorStageData::setRenderTarget,
@@ -436,7 +438,8 @@ GetFieldHandlePtr DynamicStateGeneratorStageDataBase::getHandleChunks          (
     MFUnrecStateChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::GetHandle(
              &_mfChunks,
-             this->getType().getFieldDesc(ChunksFieldId)));
+             this->getType().getFieldDesc(ChunksFieldId),
+             const_cast<DynamicStateGeneratorStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -446,7 +449,8 @@ EditFieldHandlePtr DynamicStateGeneratorStageDataBase::editHandleChunks         
     MFUnrecStateChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::EditHandle(
              &_mfChunks,
-             this->getType().getFieldDesc(ChunksFieldId)));
+             this->getType().getFieldDesc(ChunksFieldId),
+             this));
 
 
     editMField(ChunksFieldMask, _mfChunks);
@@ -503,5 +507,6 @@ void DynamicStateGeneratorStageDataBase::resolveLinks(void)
 DataType FieldTraits<DynamicStateGeneratorStageData *>::_type("DynamicStateGeneratorStageDataPtr", "StageDataPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(DynamicStateGeneratorStageData *)
 
 OSG_END_NAMESPACE

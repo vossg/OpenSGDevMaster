@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void AlgorithmBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 AlgorithmBase::TypeObject AlgorithmBase::_type(
     AlgorithmBase::getClassname(),
@@ -87,7 +96,7 @@ AlgorithmBase::TypeObject AlgorithmBase::_type(
     NULL,
     Algorithm::initMethod,
     Algorithm::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&Algorithm::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

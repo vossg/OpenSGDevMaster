@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class MultiSwitch;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MultiSwitchPtr
-
 OSG_GEN_CONTAINERPTR(MultiSwitch);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MultiSwitch *> :
     public FieldTraitsFCPtrBase<MultiSwitch *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<MultiSwitch *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdMultiSwitchPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MultiSwitchPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<MultiSwitch *,
                       RecordedRefCountPolicy  > SFRecMultiSwitchPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<MultiSwitch *,
                       UnrecordedRefCountPolicy> SFUnrecMultiSwitchPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<MultiSwitch *,
                       WeakRefCountPolicy      > SFWeakMultiSwitchPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<MultiSwitch *,
                       NoRefCountPolicy        > SFUncountedMultiSwitchPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<MultiSwitch *,
                       RecordedRefCountPolicy  > MFRecMultiSwitchPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<MultiSwitch *,
                       UnrecordedRefCountPolicy> MFUnrecMultiSwitchPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<MultiSwitch *,
                       WeakRefCountPolicy      > MFWeakMultiSwitchPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<MultiSwitch *,
                       NoRefCountPolicy        > MFUncountedMultiSwitchPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecMultiSwitchPtr : 
+    public PointerSField<MultiSwitch *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecMultiSwitchPtr : 
+    public PointerSField<MultiSwitch *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakMultiSwitchPtr :
+    public PointerSField<MultiSwitch *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedMultiSwitchPtr :
+    public PointerSField<MultiSwitch *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecMultiSwitchPtr :
+    public PointerMField<MultiSwitch *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecMultiSwitchPtr :
+    public PointerMField<MultiSwitch *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakMultiSwitchPtr :
+    public PointerMField<MultiSwitch *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedMultiSwitchPtr :
+    public PointerMField<MultiSwitch *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

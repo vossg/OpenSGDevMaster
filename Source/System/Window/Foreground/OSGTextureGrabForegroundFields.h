@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TextureGrabForeground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TextureGrabForegroundPtr
-
 OSG_GEN_CONTAINERPTR(TextureGrabForeground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TextureGrabForeground *> :
     public FieldTraitsFCPtrBase<TextureGrabForeground *>
@@ -93,19 +84,23 @@ struct FieldTraits<TextureGrabForeground *> :
     typedef FieldTraits<TextureGrabForeground *>  Self;
 
     enum                        { Convertible = NotConvertible };
+
+    static OSG_WINDOW_DLLMAPPING DataType &getType(void);
+
 };
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TextureGrabForegroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

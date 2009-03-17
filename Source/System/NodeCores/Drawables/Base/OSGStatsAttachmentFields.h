@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class StatsAttachment;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! StatsAttachmentPtr
-
 OSG_GEN_CONTAINERPTR(StatsAttachment);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<StatsAttachment *> :
     public FieldTraitsFCPtrBase<StatsAttachment *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<StatsAttachment *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdStatsAttachmentPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<StatsAttachmentPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StatsAttachment *,
                       RecordedRefCountPolicy  > SFRecStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StatsAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StatsAttachment *,
                       WeakRefCountPolicy      > SFWeakStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StatsAttachment *,
                       NoRefCountPolicy        > SFUncountedStatsAttachmentPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<StatsAttachment *,
                       RecordedRefCountPolicy  > MFRecStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<StatsAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<StatsAttachment *,
                       WeakRefCountPolicy      > MFWeakStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<StatsAttachment *,
                       NoRefCountPolicy        > MFUncountedStatsAttachmentPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecStatsAttachmentPtr : 
+    public PointerSField<StatsAttachment *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecStatsAttachmentPtr : 
+    public PointerSField<StatsAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakStatsAttachmentPtr :
+    public PointerSField<StatsAttachment *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedStatsAttachmentPtr :
+    public PointerSField<StatsAttachment *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecStatsAttachmentPtr :
+    public PointerMField<StatsAttachment *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecStatsAttachmentPtr :
+    public PointerMField<StatsAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakStatsAttachmentPtr :
+    public PointerMField<StatsAttachment *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedStatsAttachmentPtr :
+    public PointerMField<StatsAttachment *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

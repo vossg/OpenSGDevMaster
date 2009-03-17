@@ -162,7 +162,7 @@ CSMSortFirstWinOptionsBase::TypeObject CSMSortFirstWinOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMSortFirstWinOptionsBase::createEmptyLocal),
     CSMSortFirstWinOptions::initMethod,
     CSMSortFirstWinOptions::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CSMSortFirstWinOptionsBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CSMSortFirstWinOptions::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -494,7 +494,8 @@ GetFieldHandlePtr CSMSortFirstWinOptionsBase::getHandleCompression     (void) co
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfCompression,
-             this->getType().getFieldDesc(CompressionFieldId)));
+             this->getType().getFieldDesc(CompressionFieldId),
+             const_cast<CSMSortFirstWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -504,7 +505,8 @@ EditFieldHandlePtr CSMSortFirstWinOptionsBase::editHandleCompression    (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfCompression,
-             this->getType().getFieldDesc(CompressionFieldId)));
+             this->getType().getFieldDesc(CompressionFieldId),
+             this));
 
 
     editSField(CompressionFieldMask);
@@ -517,7 +519,8 @@ GetFieldHandlePtr CSMSortFirstWinOptionsBase::getHandleSubtileSize     (void) co
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfSubtileSize,
-             this->getType().getFieldDesc(SubtileSizeFieldId)));
+             this->getType().getFieldDesc(SubtileSizeFieldId),
+             const_cast<CSMSortFirstWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -527,7 +530,8 @@ EditFieldHandlePtr CSMSortFirstWinOptionsBase::editHandleSubtileSize    (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfSubtileSize,
-             this->getType().getFieldDesc(SubtileSizeFieldId)));
+             this->getType().getFieldDesc(SubtileSizeFieldId),
+             this));
 
 
     editSField(SubtileSizeFieldMask);
@@ -540,7 +544,8 @@ GetFieldHandlePtr CSMSortFirstWinOptionsBase::getHandleCompose         (void) co
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfCompose,
-             this->getType().getFieldDesc(ComposeFieldId)));
+             this->getType().getFieldDesc(ComposeFieldId),
+             const_cast<CSMSortFirstWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -550,7 +555,8 @@ EditFieldHandlePtr CSMSortFirstWinOptionsBase::editHandleCompose        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfCompose,
-             this->getType().getFieldDesc(ComposeFieldId)));
+             this->getType().getFieldDesc(ComposeFieldId),
+             this));
 
 
     editSField(ComposeFieldMask);
@@ -563,7 +569,8 @@ GetFieldHandlePtr CSMSortFirstWinOptionsBase::getHandleUseFaceDistribution (void
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfUseFaceDistribution,
-             this->getType().getFieldDesc(UseFaceDistributionFieldId)));
+             this->getType().getFieldDesc(UseFaceDistributionFieldId),
+             const_cast<CSMSortFirstWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -573,7 +580,8 @@ EditFieldHandlePtr CSMSortFirstWinOptionsBase::editHandleUseFaceDistribution(voi
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfUseFaceDistribution,
-             this->getType().getFieldDesc(UseFaceDistributionFieldId)));
+             this->getType().getFieldDesc(UseFaceDistributionFieldId),
+             this));
 
 
     editSField(UseFaceDistributionFieldMask);
@@ -626,5 +634,6 @@ void CSMSortFirstWinOptionsBase::resolveLinks(void)
 DataType FieldTraits<CSMSortFirstWinOptions *>::_type("CSMSortFirstWinOptionsPtr", "CSMClusterWinOptionsPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(CSMSortFirstWinOptions *)
 
 OSG_END_NAMESPACE

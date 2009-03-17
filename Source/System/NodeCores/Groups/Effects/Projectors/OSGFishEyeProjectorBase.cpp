@@ -308,7 +308,7 @@ FishEyeProjectorBase::TypeObject FishEyeProjectorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FishEyeProjectorBase::createEmptyLocal),
     FishEyeProjector::initMethod,
     FishEyeProjector::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&FishEyeProjectorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&FishEyeProjector::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1039,7 +1039,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleMode            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfMode,
-             this->getType().getFieldDesc(ModeFieldId)));
+             this->getType().getFieldDesc(ModeFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1049,7 +1050,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleMode           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfMode,
-             this->getType().getFieldDesc(ModeFieldId)));
+             this->getType().getFieldDesc(ModeFieldId),
+             this));
 
 
     editSField(ModeFieldMask);
@@ -1062,7 +1064,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleGeometries      (void) const
     MFUnrecGeometryPtr::GetHandlePtr returnValue(
         new  MFUnrecGeometryPtr::GetHandle(
              &_mfGeometries,
-             this->getType().getFieldDesc(GeometriesFieldId)));
+             this->getType().getFieldDesc(GeometriesFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1072,7 +1075,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleGeometries     (void)
     MFUnrecGeometryPtr::EditHandlePtr returnValue(
         new  MFUnrecGeometryPtr::EditHandle(
              &_mfGeometries,
-             this->getType().getFieldDesc(GeometriesFieldId)));
+             this->getType().getFieldDesc(GeometriesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FishEyeProjector::pushToGeometries,
@@ -1097,7 +1101,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleShowDomeIntensity (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfShowDomeIntensity,
-             this->getType().getFieldDesc(ShowDomeIntensityFieldId)));
+             this->getType().getFieldDesc(ShowDomeIntensityFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1107,7 +1112,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleShowDomeIntensity(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfShowDomeIntensity,
-             this->getType().getFieldDesc(ShowDomeIntensityFieldId)));
+             this->getType().getFieldDesc(ShowDomeIntensityFieldId),
+             this));
 
 
     editSField(ShowDomeIntensityFieldMask);
@@ -1120,7 +1126,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleResolution      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfResolution,
-             this->getType().getFieldDesc(ResolutionFieldId)));
+             this->getType().getFieldDesc(ResolutionFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1130,7 +1137,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleResolution     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfResolution,
-             this->getType().getFieldDesc(ResolutionFieldId)));
+             this->getType().getFieldDesc(ResolutionFieldId),
+             this));
 
 
     editSField(ResolutionFieldMask);
@@ -1143,7 +1151,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleMeshRefinementLevel (void) cons
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfMeshRefinementLevel,
-             this->getType().getFieldDesc(MeshRefinementLevelFieldId)));
+             this->getType().getFieldDesc(MeshRefinementLevelFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1153,7 +1162,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleMeshRefinementLevel(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfMeshRefinementLevel,
-             this->getType().getFieldDesc(MeshRefinementLevelFieldId)));
+             this->getType().getFieldDesc(MeshRefinementLevelFieldId),
+             this));
 
 
     editSField(MeshRefinementLevelFieldMask);
@@ -1166,7 +1176,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleBufferFormat    (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfBufferFormat,
-             this->getType().getFieldDesc(BufferFormatFieldId)));
+             this->getType().getFieldDesc(BufferFormatFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1176,7 +1187,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleBufferFormat   (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfBufferFormat,
-             this->getType().getFieldDesc(BufferFormatFieldId)));
+             this->getType().getFieldDesc(BufferFormatFieldId),
+             this));
 
 
     editSField(BufferFormatFieldMask);
@@ -1189,7 +1201,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleDomeRadius      (void) const
     SFReal64::GetHandlePtr returnValue(
         new  SFReal64::GetHandle(
              &_sfDomeRadius,
-             this->getType().getFieldDesc(DomeRadiusFieldId)));
+             this->getType().getFieldDesc(DomeRadiusFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1199,7 +1212,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleDomeRadius     (void)
     SFReal64::EditHandlePtr returnValue(
         new  SFReal64::EditHandle(
              &_sfDomeRadius,
-             this->getType().getFieldDesc(DomeRadiusFieldId)));
+             this->getType().getFieldDesc(DomeRadiusFieldId),
+             this));
 
 
     editSField(DomeRadiusFieldMask);
@@ -1212,7 +1226,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleMirrorRadius    (void) const
     SFReal64::GetHandlePtr returnValue(
         new  SFReal64::GetHandle(
              &_sfMirrorRadius,
-             this->getType().getFieldDesc(MirrorRadiusFieldId)));
+             this->getType().getFieldDesc(MirrorRadiusFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1222,7 +1237,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleMirrorRadius   (void)
     SFReal64::EditHandlePtr returnValue(
         new  SFReal64::EditHandle(
              &_sfMirrorRadius,
-             this->getType().getFieldDesc(MirrorRadiusFieldId)));
+             this->getType().getFieldDesc(MirrorRadiusFieldId),
+             this));
 
 
     editSField(MirrorRadiusFieldMask);
@@ -1235,7 +1251,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleMirrorPos       (void) const
     SFVec3d::GetHandlePtr returnValue(
         new  SFVec3d::GetHandle(
              &_sfMirrorPos,
-             this->getType().getFieldDesc(MirrorPosFieldId)));
+             this->getType().getFieldDesc(MirrorPosFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1245,7 +1262,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleMirrorPos      (void)
     SFVec3d::EditHandlePtr returnValue(
         new  SFVec3d::EditHandle(
              &_sfMirrorPos,
-             this->getType().getFieldDesc(MirrorPosFieldId)));
+             this->getType().getFieldDesc(MirrorPosFieldId),
+             this));
 
 
     editSField(MirrorPosFieldMask);
@@ -1258,7 +1276,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleProjectorPos    (void) const
     SFVec3d::GetHandlePtr returnValue(
         new  SFVec3d::GetHandle(
              &_sfProjectorPos,
-             this->getType().getFieldDesc(ProjectorPosFieldId)));
+             this->getType().getFieldDesc(ProjectorPosFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1268,7 +1287,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleProjectorPos   (void)
     SFVec3d::EditHandlePtr returnValue(
         new  SFVec3d::EditHandle(
              &_sfProjectorPos,
-             this->getType().getFieldDesc(ProjectorPosFieldId)));
+             this->getType().getFieldDesc(ProjectorPosFieldId),
+             this));
 
 
     editSField(ProjectorPosFieldMask);
@@ -1281,7 +1301,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleAspectRatio     (void) const
     SFReal64::GetHandlePtr returnValue(
         new  SFReal64::GetHandle(
              &_sfAspectRatio,
-             this->getType().getFieldDesc(AspectRatioFieldId)));
+             this->getType().getFieldDesc(AspectRatioFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1291,7 +1312,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleAspectRatio    (void)
     SFReal64::EditHandlePtr returnValue(
         new  SFReal64::EditHandle(
              &_sfAspectRatio,
-             this->getType().getFieldDesc(AspectRatioFieldId)));
+             this->getType().getFieldDesc(AspectRatioFieldId),
+             this));
 
 
     editSField(AspectRatioFieldMask);
@@ -1304,7 +1326,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleThrowDist       (void) const
     SFReal64::GetHandlePtr returnValue(
         new  SFReal64::GetHandle(
              &_sfThrowDist,
-             this->getType().getFieldDesc(ThrowDistFieldId)));
+             this->getType().getFieldDesc(ThrowDistFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1314,7 +1337,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleThrowDist      (void)
     SFReal64::EditHandlePtr returnValue(
         new  SFReal64::EditHandle(
              &_sfThrowDist,
-             this->getType().getFieldDesc(ThrowDistFieldId)));
+             this->getType().getFieldDesc(ThrowDistFieldId),
+             this));
 
 
     editSField(ThrowDistFieldMask);
@@ -1327,7 +1351,8 @@ GetFieldHandlePtr FishEyeProjectorBase::getHandleShowMesh        (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfShowMesh,
-             this->getType().getFieldDesc(ShowMeshFieldId)));
+             this->getType().getFieldDesc(ShowMeshFieldId),
+             const_cast<FishEyeProjectorBase *>(this)));
 
     return returnValue;
 }
@@ -1337,7 +1362,8 @@ EditFieldHandlePtr FishEyeProjectorBase::editHandleShowMesh       (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfShowMesh,
-             this->getType().getFieldDesc(ShowMeshFieldId)));
+             this->getType().getFieldDesc(ShowMeshFieldId),
+             this));
 
 
     editSField(ShowMeshFieldMask);
@@ -1392,5 +1418,6 @@ void FishEyeProjectorBase::resolveLinks(void)
 DataType FieldTraits<FishEyeProjector *>::_type("FishEyeProjectorPtr", "StagePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(FishEyeProjector *)
 
 OSG_END_NAMESPACE

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TextureEnvChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TextureEnvChunkPtr
-
 OSG_GEN_CONTAINERPTR(TextureEnvChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TextureEnvChunk *> :
     public FieldTraitsFCPtrBase<TextureEnvChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<TextureEnvChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdTextureEnvChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TextureEnvChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
                       RecordedRefCountPolicy  > SFRecTextureEnvChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
                       UnrecordedRefCountPolicy> SFUnrecTextureEnvChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
                       WeakRefCountPolicy      > SFWeakTextureEnvChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TextureEnvChunk *,
                       NoRefCountPolicy        > SFUncountedTextureEnvChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
                       RecordedRefCountPolicy  > MFRecTextureEnvChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
                       UnrecordedRefCountPolicy> MFUnrecTextureEnvChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
                       WeakRefCountPolicy      > MFWeakTextureEnvChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TextureEnvChunk *,
                       NoRefCountPolicy        > MFUncountedTextureEnvChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecTextureEnvChunkPtr : 
+    public PointerSField<TextureEnvChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecTextureEnvChunkPtr : 
+    public PointerSField<TextureEnvChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakTextureEnvChunkPtr :
+    public PointerSField<TextureEnvChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedTextureEnvChunkPtr :
+    public PointerSField<TextureEnvChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecTextureEnvChunkPtr :
+    public PointerMField<TextureEnvChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecTextureEnvChunkPtr :
+    public PointerMField<TextureEnvChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakTextureEnvChunkPtr :
+    public PointerMField<TextureEnvChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedTextureEnvChunkPtr :
+    public PointerMField<TextureEnvChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -118,7 +118,7 @@ TransformChunkBase::TypeObject TransformChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TransformChunkBase::createEmptyLocal),
     TransformChunk::initMethod,
     TransformChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TransformChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TransformChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -371,7 +371,8 @@ GetFieldHandlePtr TransformChunkBase::getHandleMatrix          (void) const
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
              &_sfMatrix,
-             this->getType().getFieldDesc(MatrixFieldId)));
+             this->getType().getFieldDesc(MatrixFieldId),
+             const_cast<TransformChunkBase *>(this)));
 
     return returnValue;
 }
@@ -381,7 +382,8 @@ EditFieldHandlePtr TransformChunkBase::editHandleMatrix         (void)
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
              &_sfMatrix,
-             this->getType().getFieldDesc(MatrixFieldId)));
+             this->getType().getFieldDesc(MatrixFieldId),
+             this));
 
 
     editSField(MatrixFieldMask);

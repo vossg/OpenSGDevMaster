@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CSMNativeWindow;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CSMNativeWindowPtr
-
 OSG_GEN_CONTAINERPTR(CSMNativeWindow);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CSMNativeWindow *> :
     public FieldTraitsFCPtrBase<CSMNativeWindow *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CSMNativeWindow *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdCSMNativeWindowPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CSMNativeWindowPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMNativeWindow *,
                       RecordedRefCountPolicy  > SFRecCSMNativeWindowPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMNativeWindow *,
                       UnrecordedRefCountPolicy> SFUnrecCSMNativeWindowPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMNativeWindow *,
                       WeakRefCountPolicy      > SFWeakCSMNativeWindowPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMNativeWindow *,
                       NoRefCountPolicy        > SFUncountedCSMNativeWindowPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldMulti */
-
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMNativeWindow *,
                       RecordedRefCountPolicy  > MFRecCSMNativeWindowPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMNativeWindow *,
                       UnrecordedRefCountPolicy> MFUnrecCSMNativeWindowPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMNativeWindow *,
                       WeakRefCountPolicy      > MFWeakCSMNativeWindowPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMNativeWindow *,
                       NoRefCountPolicy        > MFUncountedCSMNativeWindowPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecCSMNativeWindowPtr : 
+    public PointerSField<CSMNativeWindow *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecCSMNativeWindowPtr : 
+    public PointerSField<CSMNativeWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakCSMNativeWindowPtr :
+    public PointerSField<CSMNativeWindow *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedCSMNativeWindowPtr :
+    public PointerSField<CSMNativeWindow *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFRecCSMNativeWindowPtr :
+    public PointerMField<CSMNativeWindow *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUnrecCSMNativeWindowPtr :
+    public PointerMField<CSMNativeWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFWeakCSMNativeWindowPtr :
+    public PointerMField<CSMNativeWindow *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUncountedCSMNativeWindowPtr :
+    public PointerMField<CSMNativeWindow *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

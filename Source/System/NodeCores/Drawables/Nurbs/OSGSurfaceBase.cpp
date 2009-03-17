@@ -364,7 +364,7 @@ SurfaceBase::TypeObject SurfaceBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SurfaceBase::createEmptyLocal),
     Surface::initMethod,
     Surface::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SurfaceBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Surface::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1255,7 +1255,8 @@ GetFieldHandlePtr SurfaceBase::getHandleDimU            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfDimU,
-             this->getType().getFieldDesc(DimUFieldId)));
+             this->getType().getFieldDesc(DimUFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1265,7 +1266,8 @@ EditFieldHandlePtr SurfaceBase::editHandleDimU           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfDimU,
-             this->getType().getFieldDesc(DimUFieldId)));
+             this->getType().getFieldDesc(DimUFieldId),
+             this));
 
 
     editSField(DimUFieldMask);
@@ -1278,7 +1280,8 @@ GetFieldHandlePtr SurfaceBase::getHandleDimV            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfDimV,
-             this->getType().getFieldDesc(DimVFieldId)));
+             this->getType().getFieldDesc(DimVFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1288,7 +1291,8 @@ EditFieldHandlePtr SurfaceBase::editHandleDimV           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfDimV,
-             this->getType().getFieldDesc(DimVFieldId)));
+             this->getType().getFieldDesc(DimVFieldId),
+             this));
 
 
     editSField(DimVFieldMask);
@@ -1301,7 +1305,8 @@ GetFieldHandlePtr SurfaceBase::getHandleKnotsU          (void) const
     MFReal::GetHandlePtr returnValue(
         new  MFReal::GetHandle(
              &_mfKnotsU,
-             this->getType().getFieldDesc(KnotsUFieldId)));
+             this->getType().getFieldDesc(KnotsUFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1311,7 +1316,8 @@ EditFieldHandlePtr SurfaceBase::editHandleKnotsU         (void)
     MFReal::EditHandlePtr returnValue(
         new  MFReal::EditHandle(
              &_mfKnotsU,
-             this->getType().getFieldDesc(KnotsUFieldId)));
+             this->getType().getFieldDesc(KnotsUFieldId),
+             this));
 
 
     editMField(KnotsUFieldMask, _mfKnotsU);
@@ -1324,7 +1330,8 @@ GetFieldHandlePtr SurfaceBase::getHandleKnotsV          (void) const
     MFReal::GetHandlePtr returnValue(
         new  MFReal::GetHandle(
              &_mfKnotsV,
-             this->getType().getFieldDesc(KnotsVFieldId)));
+             this->getType().getFieldDesc(KnotsVFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1334,7 +1341,8 @@ EditFieldHandlePtr SurfaceBase::editHandleKnotsV         (void)
     MFReal::EditHandlePtr returnValue(
         new  MFReal::EditHandle(
              &_mfKnotsV,
-             this->getType().getFieldDesc(KnotsVFieldId)));
+             this->getType().getFieldDesc(KnotsVFieldId),
+             this));
 
 
     editMField(KnotsVFieldMask, _mfKnotsV);
@@ -1347,7 +1355,8 @@ GetFieldHandlePtr SurfaceBase::getHandleControlPoints   (void) const
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfControlPoints,
-             this->getType().getFieldDesc(ControlPointsFieldId)));
+             this->getType().getFieldDesc(ControlPointsFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1357,7 +1366,8 @@ EditFieldHandlePtr SurfaceBase::editHandleControlPoints  (void)
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfControlPoints,
-             this->getType().getFieldDesc(ControlPointsFieldId)));
+             this->getType().getFieldDesc(ControlPointsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Surface::setControlPoints,
@@ -1373,7 +1383,8 @@ GetFieldHandlePtr SurfaceBase::getHandleError           (void) const
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
              &_sfError,
-             this->getType().getFieldDesc(ErrorFieldId)));
+             this->getType().getFieldDesc(ErrorFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1383,7 +1394,8 @@ EditFieldHandlePtr SurfaceBase::editHandleError          (void)
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
              &_sfError,
-             this->getType().getFieldDesc(ErrorFieldId)));
+             this->getType().getFieldDesc(ErrorFieldId),
+             this));
 
 
     editSField(ErrorFieldMask);
@@ -1396,7 +1408,8 @@ GetFieldHandlePtr SurfaceBase::getHandleNumCurves       (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfNumCurves,
-             this->getType().getFieldDesc(NumCurvesFieldId)));
+             this->getType().getFieldDesc(NumCurvesFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1406,7 +1419,8 @@ EditFieldHandlePtr SurfaceBase::editHandleNumCurves      (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfNumCurves,
-             this->getType().getFieldDesc(NumCurvesFieldId)));
+             this->getType().getFieldDesc(NumCurvesFieldId),
+             this));
 
 
     editSField(NumCurvesFieldMask);
@@ -1419,7 +1433,8 @@ GetFieldHandlePtr SurfaceBase::getHandleKnotLengths     (void) const
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
              &_mfKnotLengths,
-             this->getType().getFieldDesc(KnotLengthsFieldId)));
+             this->getType().getFieldDesc(KnotLengthsFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1429,7 +1444,8 @@ EditFieldHandlePtr SurfaceBase::editHandleKnotLengths    (void)
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
              &_mfKnotLengths,
-             this->getType().getFieldDesc(KnotLengthsFieldId)));
+             this->getType().getFieldDesc(KnotLengthsFieldId),
+             this));
 
 
     editMField(KnotLengthsFieldMask, _mfKnotLengths);
@@ -1442,7 +1458,8 @@ GetFieldHandlePtr SurfaceBase::getHandleDimensions      (void) const
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
              &_mfDimensions,
-             this->getType().getFieldDesc(DimensionsFieldId)));
+             this->getType().getFieldDesc(DimensionsFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1452,7 +1469,8 @@ EditFieldHandlePtr SurfaceBase::editHandleDimensions     (void)
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
              &_mfDimensions,
-             this->getType().getFieldDesc(DimensionsFieldId)));
+             this->getType().getFieldDesc(DimensionsFieldId),
+             this));
 
 
     editMField(DimensionsFieldMask, _mfDimensions);
@@ -1465,7 +1483,8 @@ GetFieldHandlePtr SurfaceBase::getHandleCurveControlPoints (void) const
     MFPnt3r::GetHandlePtr returnValue(
         new  MFPnt3r::GetHandle(
              &_mfCurveControlPoints,
-             this->getType().getFieldDesc(CurveControlPointsFieldId)));
+             this->getType().getFieldDesc(CurveControlPointsFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1475,7 +1494,8 @@ EditFieldHandlePtr SurfaceBase::editHandleCurveControlPoints(void)
     MFPnt3r::EditHandlePtr returnValue(
         new  MFPnt3r::EditHandle(
              &_mfCurveControlPoints,
-             this->getType().getFieldDesc(CurveControlPointsFieldId)));
+             this->getType().getFieldDesc(CurveControlPointsFieldId),
+             this));
 
 
     editMField(CurveControlPointsFieldMask, _mfCurveControlPoints);
@@ -1488,7 +1508,8 @@ GetFieldHandlePtr SurfaceBase::getHandleKnots           (void) const
     MFReal::GetHandlePtr returnValue(
         new  MFReal::GetHandle(
              &_mfKnots,
-             this->getType().getFieldDesc(KnotsFieldId)));
+             this->getType().getFieldDesc(KnotsFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1498,7 +1519,8 @@ EditFieldHandlePtr SurfaceBase::editHandleKnots          (void)
     MFReal::EditHandlePtr returnValue(
         new  MFReal::EditHandle(
              &_mfKnots,
-             this->getType().getFieldDesc(KnotsFieldId)));
+             this->getType().getFieldDesc(KnotsFieldId),
+             this));
 
 
     editMField(KnotsFieldMask, _mfKnots);
@@ -1511,7 +1533,8 @@ GetFieldHandlePtr SurfaceBase::getHandleCurvesPerLoop   (void) const
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
              &_mfCurvesPerLoop,
-             this->getType().getFieldDesc(CurvesPerLoopFieldId)));
+             this->getType().getFieldDesc(CurvesPerLoopFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1521,7 +1544,8 @@ EditFieldHandlePtr SurfaceBase::editHandleCurvesPerLoop  (void)
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
              &_mfCurvesPerLoop,
-             this->getType().getFieldDesc(CurvesPerLoopFieldId)));
+             this->getType().getFieldDesc(CurvesPerLoopFieldId),
+             this));
 
 
     editMField(CurvesPerLoopFieldMask, _mfCurvesPerLoop);
@@ -1534,7 +1558,8 @@ GetFieldHandlePtr SurfaceBase::getHandleIsDelaunay      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfIsDelaunay,
-             this->getType().getFieldDesc(IsDelaunayFieldId)));
+             this->getType().getFieldDesc(IsDelaunayFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1544,7 +1569,8 @@ EditFieldHandlePtr SurfaceBase::editHandleIsDelaunay     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfIsDelaunay,
-             this->getType().getFieldDesc(IsDelaunayFieldId)));
+             this->getType().getFieldDesc(IsDelaunayFieldId),
+             this));
 
 
     editSField(IsDelaunayFieldMask);
@@ -1557,7 +1583,8 @@ GetFieldHandlePtr SurfaceBase::getHandleTextureControlPoints (void) const
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfTextureControlPoints,
-             this->getType().getFieldDesc(TextureControlPointsFieldId)));
+             this->getType().getFieldDesc(TextureControlPointsFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1567,7 +1594,8 @@ EditFieldHandlePtr SurfaceBase::editHandleTextureControlPoints(void)
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfTextureControlPoints,
-             this->getType().getFieldDesc(TextureControlPointsFieldId)));
+             this->getType().getFieldDesc(TextureControlPointsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Surface::setTextureControlPoints,
@@ -1583,7 +1611,8 @@ GetFieldHandlePtr SurfaceBase::getHandleDirtyMask       (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfDirtyMask,
-             this->getType().getFieldDesc(DirtyMaskFieldId)));
+             this->getType().getFieldDesc(DirtyMaskFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1593,7 +1622,8 @@ EditFieldHandlePtr SurfaceBase::editHandleDirtyMask      (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfDirtyMask,
-             this->getType().getFieldDesc(DirtyMaskFieldId)));
+             this->getType().getFieldDesc(DirtyMaskFieldId),
+             this));
 
 
     editSField(DirtyMaskFieldMask);
@@ -1606,7 +1636,8 @@ GetFieldHandlePtr SurfaceBase::getHandleSurfaceGLId     (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfSurfaceGLId,
-             this->getType().getFieldDesc(SurfaceGLIdFieldId)));
+             this->getType().getFieldDesc(SurfaceGLIdFieldId),
+             const_cast<SurfaceBase *>(this)));
 
     return returnValue;
 }
@@ -1616,7 +1647,8 @@ EditFieldHandlePtr SurfaceBase::editHandleSurfaceGLId    (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfSurfaceGLId,
-             this->getType().getFieldDesc(SurfaceGLIdFieldId)));
+             this->getType().getFieldDesc(SurfaceGLIdFieldId),
+             this));
 
 
     editSField(SurfaceGLIdFieldMask);

@@ -1214,11 +1214,13 @@ void VRMLMaterialHelper::getFieldAndDesc(
         if(_bProtoInterfaceDone == false)
         {
             pField = 
-                _sfReal32Desc.createEditHandler(&_defaultAmbientIntensity);
+                _sfReal32Desc.createEditHandler(&_defaultAmbientIntensity,
+                                                  NULL                   );
         }
         else
         {
-            pField = _sfReal32Desc.createEditHandler(&_ambientIntensity);
+            pField = _sfReal32Desc.createEditHandler(&_ambientIntensity,
+                                                       NULL            );
         }
 
         pDesc = &_sfReal32Desc;
@@ -1229,11 +1231,13 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = _sfColor3fDesc.createEditHandler(&_defaultDiffuseColor);
+            pField = _sfColor3fDesc.createEditHandler(&_defaultDiffuseColor,
+                                                        NULL               );
         }
         else
         {
-            pField = _sfColor3fDesc.createEditHandler(&_diffuseColor);
+            pField = _sfColor3fDesc.createEditHandler(&_diffuseColor,
+                                                        NULL        );
         }
 
         pDesc = &_sfColor3fDesc;
@@ -1244,11 +1248,13 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = _sfColor3fDesc.createEditHandler(&_defaultEmissiveColor);
+            pField = _sfColor3fDesc.createEditHandler(&_defaultEmissiveColor,
+                                                        NULL                );
         }
         else
         {
-            pField = _sfColor3fDesc.createEditHandler(&_emissiveColor);
+            pField = _sfColor3fDesc.createEditHandler(&_emissiveColor,
+                                                        NULL         );
         }
 
         pDesc = &_sfColor3fDesc;
@@ -1259,11 +1265,13 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = _sfReal32Desc.createEditHandler(&_defaultShininess);
+            pField = _sfReal32Desc.createEditHandler(&_defaultShininess,
+                                                       NULL            );
         }
         else
         {
-            pField = _sfReal32Desc.createEditHandler(&_shininess);
+            pField = _sfReal32Desc.createEditHandler(&_shininess,
+                                                       NULL     );
         }
 
         pDesc = &_sfReal32Desc;
@@ -1274,11 +1282,13 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = _sfColor3fDesc.createEditHandler(&_defaultSpecularColor);
+            pField = _sfColor3fDesc.createEditHandler(&_defaultSpecularColor,
+                                                        NULL                );
         }
         else
         {
-            pField = _sfColor3fDesc.createEditHandler(&_specularColor);
+            pField = _sfColor3fDesc.createEditHandler(&_specularColor,
+                                                        NULL         );
         }
 
         pDesc = &_sfColor3fDesc;
@@ -1289,11 +1299,13 @@ void VRMLMaterialHelper::getFieldAndDesc(
 
         if(_bProtoInterfaceDone == false)
         {
-            pField = _sfReal32Desc.createEditHandler(&_defaultTransparency);
+            pField = _sfReal32Desc.createEditHandler(&_defaultTransparency,
+                                                       NULL               );
         }
         else
         {
-            pField = _sfReal32Desc.createEditHandler(&_transparency);
+            pField = _sfReal32Desc.createEditHandler(&_transparency,
+                                                       NULL        );
         }
 
         pDesc = &_sfReal32Desc;
@@ -3375,11 +3387,13 @@ void VRMLTextureHelper::getFieldAndDesc(
     {
         if(_bProtoInterfaceDone == false)
         {
-            pField = _sfBoolDesc.createEditHandler(&_defaultRepeatS);
+            pField = _sfBoolDesc.createEditHandler(&_defaultRepeatS,
+                                                     NULL          );
         }
         else
         {
-            pField = _sfBoolDesc.createEditHandler(&_repeatS);
+            pField = _sfBoolDesc.createEditHandler(&_repeatS,
+                                                     NULL   );
         }
 
         pDesc = &_sfBoolDesc;
@@ -3388,11 +3402,13 @@ void VRMLTextureHelper::getFieldAndDesc(
     {
         if(_bProtoInterfaceDone == false)
         {
-            pField = _sfBoolDesc.createEditHandler(&_defaultRepeatT);
+            pField = _sfBoolDesc.createEditHandler(&_defaultRepeatT,
+                                                     NULL          );
         }
         else
         {
-            pField = _sfBoolDesc.createEditHandler(&_repeatT);
+            pField = _sfBoolDesc.createEditHandler(&_repeatT,
+                                                     NULL   );
         }
         
         pDesc = &_sfBoolDesc;
@@ -3616,11 +3632,13 @@ void VRMLImageTextureHelper::getFieldAndDesc(
     {
         if(_bProtoInterfaceDone == false)
         {
-            pField = _mfStringDesc.createEditHandler(&_defaultURL);
+            pField = _mfStringDesc.createEditHandler(&_defaultURL,
+                                                       NULL     );
         }
         else
         {
-            pField = _mfStringDesc.createEditHandler(&_url);
+            pField = _mfStringDesc.createEditHandler(&_url,
+                                                       NULL);
         }
 
         pDesc = &_mfStringDesc;

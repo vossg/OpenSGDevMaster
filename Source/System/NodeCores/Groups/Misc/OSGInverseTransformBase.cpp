@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void InverseTransformBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 InverseTransformBase::TypeObject InverseTransformBase::_type(
     InverseTransformBase::getClassname(),
@@ -87,7 +96,7 @@ InverseTransformBase::TypeObject InverseTransformBase::_type(
     reinterpret_cast<PrototypeCreateF>(&InverseTransformBase::createEmptyLocal),
     InverseTransform::initMethod,
     InverseTransform::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&InverseTransform::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

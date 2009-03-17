@@ -178,7 +178,7 @@ TransformationInterfaceSensorBase::TypeObject TransformationInterfaceSensorBase:
     reinterpret_cast<PrototypeCreateF>(&TransformationInterfaceSensorBase::createEmptyLocal),
     TransformationInterfaceSensor::initMethod,
     TransformationInterfaceSensor::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TransformationInterfaceSensorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TransformationInterfaceSensor::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -582,7 +582,8 @@ GetFieldHandlePtr TransformationInterfaceSensorBase::getHandleTransformation  (v
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
              &_sfTransformation,
-             this->getType().getFieldDesc(TransformationFieldId)));
+             this->getType().getFieldDesc(TransformationFieldId),
+             const_cast<TransformationInterfaceSensorBase *>(this)));
 
     return returnValue;
 }
@@ -592,7 +593,8 @@ EditFieldHandlePtr TransformationInterfaceSensorBase::editHandleTransformation (
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
              &_sfTransformation,
-             this->getType().getFieldDesc(TransformationFieldId)));
+             this->getType().getFieldDesc(TransformationFieldId),
+             this));
 
 
     editSField(TransformationFieldMask);
@@ -605,7 +607,8 @@ GetFieldHandlePtr TransformationInterfaceSensorBase::getHandleTranslation     (v
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
              &_sfTranslation,
-             this->getType().getFieldDesc(TranslationFieldId)));
+             this->getType().getFieldDesc(TranslationFieldId),
+             const_cast<TransformationInterfaceSensorBase *>(this)));
 
     return returnValue;
 }
@@ -615,7 +618,8 @@ EditFieldHandlePtr TransformationInterfaceSensorBase::editHandleTranslation    (
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
              &_sfTranslation,
-             this->getType().getFieldDesc(TranslationFieldId)));
+             this->getType().getFieldDesc(TranslationFieldId),
+             this));
 
 
     editSField(TranslationFieldMask);
@@ -628,7 +632,8 @@ GetFieldHandlePtr TransformationInterfaceSensorBase::getHandleRotation        (v
     SFQuaternion::GetHandlePtr returnValue(
         new  SFQuaternion::GetHandle(
              &_sfRotation,
-             this->getType().getFieldDesc(RotationFieldId)));
+             this->getType().getFieldDesc(RotationFieldId),
+             const_cast<TransformationInterfaceSensorBase *>(this)));
 
     return returnValue;
 }
@@ -638,7 +643,8 @@ EditFieldHandlePtr TransformationInterfaceSensorBase::editHandleRotation       (
     SFQuaternion::EditHandlePtr returnValue(
         new  SFQuaternion::EditHandle(
              &_sfRotation,
-             this->getType().getFieldDesc(RotationFieldId)));
+             this->getType().getFieldDesc(RotationFieldId),
+             this));
 
 
     editSField(RotationFieldMask);
@@ -651,7 +657,8 @@ GetFieldHandlePtr TransformationInterfaceSensorBase::getHandleRotationScale   (v
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfRotationScale,
-             this->getType().getFieldDesc(RotationScaleFieldId)));
+             this->getType().getFieldDesc(RotationScaleFieldId),
+             const_cast<TransformationInterfaceSensorBase *>(this)));
 
     return returnValue;
 }
@@ -661,7 +668,8 @@ EditFieldHandlePtr TransformationInterfaceSensorBase::editHandleRotationScale  (
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfRotationScale,
-             this->getType().getFieldDesc(RotationScaleFieldId)));
+             this->getType().getFieldDesc(RotationScaleFieldId),
+             this));
 
 
     editSField(RotationScaleFieldMask);
@@ -674,7 +682,8 @@ GetFieldHandlePtr TransformationInterfaceSensorBase::getHandleTranslationScale (
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfTranslationScale,
-             this->getType().getFieldDesc(TranslationScaleFieldId)));
+             this->getType().getFieldDesc(TranslationScaleFieldId),
+             const_cast<TransformationInterfaceSensorBase *>(this)));
 
     return returnValue;
 }
@@ -684,7 +693,8 @@ EditFieldHandlePtr TransformationInterfaceSensorBase::editHandleTranslationScale
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfTranslationScale,
-             this->getType().getFieldDesc(TranslationScaleFieldId)));
+             this->getType().getFieldDesc(TranslationScaleFieldId),
+             this));
 
 
     editSField(TranslationScaleFieldMask);

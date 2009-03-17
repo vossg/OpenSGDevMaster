@@ -48,10 +48,11 @@ GetSFieldHandle<SFChunkBlockPtrMap>::GetSFieldHandle(
 
 inline
 GetSFieldHandle<SFChunkBlockPtrMap>::GetSFieldHandle(
-    const SFChunkBlockPtrMap    *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const SFChunkBlockPtrMap   *pField, 
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
 
-    Inherited(pField, pDescription)
+    Inherited(pField, pDescription, pContainer)
 {
 }
 
@@ -142,10 +143,12 @@ EditSFieldHandle<SFChunkBlockPtrMap>::EditSFieldHandle(
 inline
 EditSFieldHandle<SFChunkBlockPtrMap>::EditSFieldHandle(      
           SFChunkBlockPtrMap   *pField, 
-    const FieldDescriptionBase *pDescription) :
+    const FieldDescriptionBase *pDescription,
+          FieldContainer       *pContainer  ) :
 
      Inherited (pField, 
-                pDescription),
+                pDescription,
+                pContainer  ),
     _pContainer(NULL        ),
     _fAddMethod(NULL        )
 {

@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void CSMGLUTWindowBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 CSMGLUTWindowBase::TypeObject CSMGLUTWindowBase::_type(
     CSMGLUTWindowBase::getClassname(),
@@ -87,7 +96,7 @@ CSMGLUTWindowBase::TypeObject CSMGLUTWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMGLUTWindowBase::createEmptyLocal),
     CSMGLUTWindow::initMethod,
     CSMGLUTWindow::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&CSMGLUTWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

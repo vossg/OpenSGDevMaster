@@ -80,6 +80,15 @@ OSG_BEGIN_NAMESPACE
     children list. So usually the group does nothing.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void GroupBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 GroupBase::TypeObject GroupBase::_type(
     GroupBase::getClassname(),
@@ -89,7 +98,7 @@ GroupBase::TypeObject GroupBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GroupBase::createEmptyLocal),
     Group::initMethod,
     Group::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&Group::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ParallelComposer;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ParallelComposerPtr
-
 OSG_GEN_CONTAINERPTR(ParallelComposer);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpClusterFieldTraits
+    \ingroup GrpLibOSGCluster
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ParallelComposer *> :
     public FieldTraitsFCPtrBase<ParallelComposer *>
@@ -93,19 +84,23 @@ struct FieldTraits<ParallelComposer *> :
     typedef FieldTraits<ParallelComposer *>  Self;
 
     enum                        { Convertible = NotConvertible };
+
+    static OSG_CLUSTER_DLLMAPPING DataType &getType(void);
+
 };
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ParallelComposerPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -163,7 +163,7 @@ AlgorithmStageBase::TypeObject AlgorithmStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&AlgorithmStageBase::createEmptyLocal),
     AlgorithmStage::initMethod,
     AlgorithmStage::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&AlgorithmStageBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&AlgorithmStage::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -531,7 +531,8 @@ GetFieldHandlePtr AlgorithmStageBase::getHandleAlgorithm       (void) const
     SFUnrecAlgorithmPtr::GetHandlePtr returnValue(
         new  SFUnrecAlgorithmPtr::GetHandle(
              &_sfAlgorithm,
-             this->getType().getFieldDesc(AlgorithmFieldId)));
+             this->getType().getFieldDesc(AlgorithmFieldId),
+             const_cast<AlgorithmStageBase *>(this)));
 
     return returnValue;
 }
@@ -541,7 +542,8 @@ EditFieldHandlePtr AlgorithmStageBase::editHandleAlgorithm      (void)
     SFUnrecAlgorithmPtr::EditHandlePtr returnValue(
         new  SFUnrecAlgorithmPtr::EditHandle(
              &_sfAlgorithm,
-             this->getType().getFieldDesc(AlgorithmFieldId)));
+             this->getType().getFieldDesc(AlgorithmFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&AlgorithmStage::setAlgorithm,
@@ -557,7 +559,8 @@ GetFieldHandlePtr AlgorithmStageBase::getHandleProjectionMode  (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfProjectionMode,
-             this->getType().getFieldDesc(ProjectionModeFieldId)));
+             this->getType().getFieldDesc(ProjectionModeFieldId),
+             const_cast<AlgorithmStageBase *>(this)));
 
     return returnValue;
 }
@@ -567,7 +570,8 @@ EditFieldHandlePtr AlgorithmStageBase::editHandleProjectionMode (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfProjectionMode,
-             this->getType().getFieldDesc(ProjectionModeFieldId)));
+             this->getType().getFieldDesc(ProjectionModeFieldId),
+             this));
 
 
     editSField(ProjectionModeFieldMask);
@@ -580,7 +584,8 @@ GetFieldHandlePtr AlgorithmStageBase::getHandleCopyViewing     (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfCopyViewing,
-             this->getType().getFieldDesc(CopyViewingFieldId)));
+             this->getType().getFieldDesc(CopyViewingFieldId),
+             const_cast<AlgorithmStageBase *>(this)));
 
     return returnValue;
 }
@@ -590,7 +595,8 @@ EditFieldHandlePtr AlgorithmStageBase::editHandleCopyViewing    (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfCopyViewing,
-             this->getType().getFieldDesc(CopyViewingFieldId)));
+             this->getType().getFieldDesc(CopyViewingFieldId),
+             this));
 
 
     editSField(CopyViewingFieldMask);
@@ -603,7 +609,8 @@ GetFieldHandlePtr AlgorithmStageBase::getHandleProjectionMatrix (void) const
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
              &_sfProjectionMatrix,
-             this->getType().getFieldDesc(ProjectionMatrixFieldId)));
+             this->getType().getFieldDesc(ProjectionMatrixFieldId),
+             const_cast<AlgorithmStageBase *>(this)));
 
     return returnValue;
 }
@@ -613,7 +620,8 @@ EditFieldHandlePtr AlgorithmStageBase::editHandleProjectionMatrix(void)
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
              &_sfProjectionMatrix,
-             this->getType().getFieldDesc(ProjectionMatrixFieldId)));
+             this->getType().getFieldDesc(ProjectionMatrixFieldId),
+             this));
 
 
     editSField(ProjectionMatrixFieldMask);
@@ -668,5 +676,6 @@ void AlgorithmStageBase::resolveLinks(void)
 DataType FieldTraits<AlgorithmStage *>::_type("AlgorithmStagePtr", "StagePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(AlgorithmStage *)
 
 OSG_END_NAMESPACE

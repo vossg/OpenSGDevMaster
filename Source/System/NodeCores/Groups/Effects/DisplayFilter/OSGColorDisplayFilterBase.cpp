@@ -228,7 +228,7 @@ ColorDisplayFilterBase::TypeObject ColorDisplayFilterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ColorDisplayFilterBase::createEmptyLocal),
     ColorDisplayFilter::initMethod,
     ColorDisplayFilter::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ColorDisplayFilterBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ColorDisplayFilter::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -745,7 +745,8 @@ GetFieldHandlePtr ColorDisplayFilterBase::getHandleGamma           (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfGamma,
-             this->getType().getFieldDesc(GammaFieldId)));
+             this->getType().getFieldDesc(GammaFieldId),
+             const_cast<ColorDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -755,7 +756,8 @@ EditFieldHandlePtr ColorDisplayFilterBase::editHandleGamma          (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfGamma,
-             this->getType().getFieldDesc(GammaFieldId)));
+             this->getType().getFieldDesc(GammaFieldId),
+             this));
 
 
     editSField(GammaFieldMask);
@@ -768,7 +770,8 @@ GetFieldHandlePtr ColorDisplayFilterBase::getHandleMatrix          (void) const
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
              &_sfMatrix,
-             this->getType().getFieldDesc(MatrixFieldId)));
+             this->getType().getFieldDesc(MatrixFieldId),
+             const_cast<ColorDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -778,7 +781,8 @@ EditFieldHandlePtr ColorDisplayFilterBase::editHandleMatrix         (void)
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
              &_sfMatrix,
-             this->getType().getFieldDesc(MatrixFieldId)));
+             this->getType().getFieldDesc(MatrixFieldId),
+             this));
 
 
     editSField(MatrixFieldMask);
@@ -791,7 +795,8 @@ GetFieldHandlePtr ColorDisplayFilterBase::getHandleColorTableWidth (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfColorTableWidth,
-             this->getType().getFieldDesc(ColorTableWidthFieldId)));
+             this->getType().getFieldDesc(ColorTableWidthFieldId),
+             const_cast<ColorDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -801,7 +806,8 @@ EditFieldHandlePtr ColorDisplayFilterBase::editHandleColorTableWidth(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfColorTableWidth,
-             this->getType().getFieldDesc(ColorTableWidthFieldId)));
+             this->getType().getFieldDesc(ColorTableWidthFieldId),
+             this));
 
 
     editSField(ColorTableWidthFieldMask);
@@ -814,7 +820,8 @@ GetFieldHandlePtr ColorDisplayFilterBase::getHandleColorTableHeight (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfColorTableHeight,
-             this->getType().getFieldDesc(ColorTableHeightFieldId)));
+             this->getType().getFieldDesc(ColorTableHeightFieldId),
+             const_cast<ColorDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -824,7 +831,8 @@ EditFieldHandlePtr ColorDisplayFilterBase::editHandleColorTableHeight(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfColorTableHeight,
-             this->getType().getFieldDesc(ColorTableHeightFieldId)));
+             this->getType().getFieldDesc(ColorTableHeightFieldId),
+             this));
 
 
     editSField(ColorTableHeightFieldMask);
@@ -837,7 +845,8 @@ GetFieldHandlePtr ColorDisplayFilterBase::getHandleColorTableDepth (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfColorTableDepth,
-             this->getType().getFieldDesc(ColorTableDepthFieldId)));
+             this->getType().getFieldDesc(ColorTableDepthFieldId),
+             const_cast<ColorDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -847,7 +856,8 @@ EditFieldHandlePtr ColorDisplayFilterBase::editHandleColorTableDepth(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfColorTableDepth,
-             this->getType().getFieldDesc(ColorTableDepthFieldId)));
+             this->getType().getFieldDesc(ColorTableDepthFieldId),
+             this));
 
 
     editSField(ColorTableDepthFieldMask);
@@ -860,7 +870,8 @@ GetFieldHandlePtr ColorDisplayFilterBase::getHandleColorTable      (void) const
     MFColor3f::GetHandlePtr returnValue(
         new  MFColor3f::GetHandle(
              &_mfColorTable,
-             this->getType().getFieldDesc(ColorTableFieldId)));
+             this->getType().getFieldDesc(ColorTableFieldId),
+             const_cast<ColorDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -870,7 +881,8 @@ EditFieldHandlePtr ColorDisplayFilterBase::editHandleColorTable     (void)
     MFColor3f::EditHandlePtr returnValue(
         new  MFColor3f::EditHandle(
              &_mfColorTable,
-             this->getType().getFieldDesc(ColorTableFieldId)));
+             this->getType().getFieldDesc(ColorTableFieldId),
+             this));
 
 
     editMField(ColorTableFieldMask, _mfColorTable);
@@ -883,7 +895,8 @@ GetFieldHandlePtr ColorDisplayFilterBase::getHandleTableImage      (void) const
     SFUnrecImagePtr::GetHandlePtr returnValue(
         new  SFUnrecImagePtr::GetHandle(
              &_sfTableImage,
-             this->getType().getFieldDesc(TableImageFieldId)));
+             this->getType().getFieldDesc(TableImageFieldId),
+             const_cast<ColorDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -893,7 +906,8 @@ EditFieldHandlePtr ColorDisplayFilterBase::editHandleTableImage     (void)
     SFUnrecImagePtr::EditHandlePtr returnValue(
         new  SFUnrecImagePtr::EditHandle(
              &_sfTableImage,
-             this->getType().getFieldDesc(TableImageFieldId)));
+             this->getType().getFieldDesc(TableImageFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ColorDisplayFilter::setTableImage,
@@ -909,7 +923,8 @@ GetFieldHandlePtr ColorDisplayFilterBase::getHandleFilterShader    (void) const
     SFUnrecSimpleSHLChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecSimpleSHLChunkPtr::GetHandle(
              &_sfFilterShader,
-             this->getType().getFieldDesc(FilterShaderFieldId)));
+             this->getType().getFieldDesc(FilterShaderFieldId),
+             const_cast<ColorDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -919,7 +934,8 @@ EditFieldHandlePtr ColorDisplayFilterBase::editHandleFilterShader   (void)
     SFUnrecSimpleSHLChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecSimpleSHLChunkPtr::EditHandle(
              &_sfFilterShader,
-             this->getType().getFieldDesc(FilterShaderFieldId)));
+             this->getType().getFieldDesc(FilterShaderFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ColorDisplayFilter::setFilterShader,

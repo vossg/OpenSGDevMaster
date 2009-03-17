@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ImageComposer;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ImageComposerPtr
-
 OSG_GEN_CONTAINERPTR(ImageComposer);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpClusterFieldTraits
+    \ingroup GrpLibOSGCluster
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ImageComposer *> :
     public FieldTraitsFCPtrBase<ImageComposer *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ImageComposer *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdImageComposerPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ImageComposerPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpClusterFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpClusterFieldSFields */
 typedef PointerSField<ImageComposer *,
                       RecordedRefCountPolicy  > SFRecImageComposerPtr;
+/*! \ingroup GrpClusterFieldSFields */
 typedef PointerSField<ImageComposer *,
                       UnrecordedRefCountPolicy> SFUnrecImageComposerPtr;
+/*! \ingroup GrpClusterFieldSFields */
 typedef PointerSField<ImageComposer *,
                       WeakRefCountPolicy      > SFWeakImageComposerPtr;
+/*! \ingroup GrpClusterFieldSFields */
 typedef PointerSField<ImageComposer *,
                       NoRefCountPolicy        > SFUncountedImageComposerPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpClusterFieldMulti */
-
+/*! \ingroup GrpClusterFieldMFields */
 typedef PointerMField<ImageComposer *,
                       RecordedRefCountPolicy  > MFRecImageComposerPtr;
+/*! \ingroup GrpClusterFieldMFields */
 typedef PointerMField<ImageComposer *,
                       UnrecordedRefCountPolicy> MFUnrecImageComposerPtr;
+/*! \ingroup GrpClusterFieldMFields */
 typedef PointerMField<ImageComposer *,
                       WeakRefCountPolicy      > MFWeakImageComposerPtr;
+/*! \ingroup GrpClusterFieldMFields */
 typedef PointerMField<ImageComposer *,
                       NoRefCountPolicy        > MFUncountedImageComposerPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+struct SFRecImageComposerPtr : 
+    public PointerSField<ImageComposer *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+struct SFUnrecImageComposerPtr : 
+    public PointerSField<ImageComposer *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+struct SFWeakImageComposerPtr :
+    public PointerSField<ImageComposer *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+struct SFUncountedImageComposerPtr :
+    public PointerSField<ImageComposer *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+struct MFRecImageComposerPtr :
+    public PointerMField<ImageComposer *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+struct MFUnrecImageComposerPtr :
+    public PointerMField<ImageComposer *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+struct MFWeakImageComposerPtr :
+    public PointerMField<ImageComposer *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+struct MFUncountedImageComposerPtr :
+    public PointerMField<ImageComposer *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

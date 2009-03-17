@@ -201,14 +201,14 @@ Real &LightBase::editConstantAttenuation(void)
 
 //! Get the value of the Light::_sfConstantAttenuation field.
 inline
-const Real &LightBase::getConstantAttenuation(void) const
+      Real  LightBase::getConstantAttenuation(void) const
 {
     return _sfConstantAttenuation.getValue();
 }
 
 //! Set the value of the Light::_sfConstantAttenuation field.
 inline
-void LightBase::setConstantAttenuation(const Real &value)
+void LightBase::setConstantAttenuation(const Real value)
 {
     editSField(ConstantAttenuationFieldMask);
 
@@ -226,14 +226,14 @@ Real &LightBase::editLinearAttenuation(void)
 
 //! Get the value of the Light::_sfLinearAttenuation field.
 inline
-const Real &LightBase::getLinearAttenuation(void) const
+      Real  LightBase::getLinearAttenuation(void) const
 {
     return _sfLinearAttenuation.getValue();
 }
 
 //! Set the value of the Light::_sfLinearAttenuation field.
 inline
-void LightBase::setLinearAttenuation(const Real &value)
+void LightBase::setLinearAttenuation(const Real value)
 {
     editSField(LinearAttenuationFieldMask);
 
@@ -251,14 +251,14 @@ Real &LightBase::editQuadraticAttenuation(void)
 
 //! Get the value of the Light::_sfQuadraticAttenuation field.
 inline
-const Real &LightBase::getQuadraticAttenuation(void) const
+      Real  LightBase::getQuadraticAttenuation(void) const
 {
     return _sfQuadraticAttenuation.getValue();
 }
 
 //! Set the value of the Light::_sfQuadraticAttenuation field.
 inline
-void LightBase::setQuadraticAttenuation(const Real &value)
+void LightBase::setQuadraticAttenuation(const Real value)
 {
     editSField(QuadraticAttenuationFieldMask);
 

@@ -152,7 +152,7 @@ MatrixCameraBase::TypeObject MatrixCameraBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MatrixCameraBase::createEmptyLocal),
     MatrixCamera::initMethod,
     MatrixCamera::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MatrixCameraBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&MatrixCamera::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -481,7 +481,8 @@ GetFieldHandlePtr MatrixCameraBase::getHandleProjectionMatrix (void) const
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
              &_sfProjectionMatrix,
-             this->getType().getFieldDesc(ProjectionMatrixFieldId)));
+             this->getType().getFieldDesc(ProjectionMatrixFieldId),
+             const_cast<MatrixCameraBase *>(this)));
 
     return returnValue;
 }
@@ -491,7 +492,8 @@ EditFieldHandlePtr MatrixCameraBase::editHandleProjectionMatrix(void)
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
              &_sfProjectionMatrix,
-             this->getType().getFieldDesc(ProjectionMatrixFieldId)));
+             this->getType().getFieldDesc(ProjectionMatrixFieldId),
+             this));
 
 
     editSField(ProjectionMatrixFieldMask);
@@ -504,7 +506,8 @@ GetFieldHandlePtr MatrixCameraBase::getHandleModelviewMatrix (void) const
     SFMatrix::GetHandlePtr returnValue(
         new  SFMatrix::GetHandle(
              &_sfModelviewMatrix,
-             this->getType().getFieldDesc(ModelviewMatrixFieldId)));
+             this->getType().getFieldDesc(ModelviewMatrixFieldId),
+             const_cast<MatrixCameraBase *>(this)));
 
     return returnValue;
 }
@@ -514,7 +517,8 @@ EditFieldHandlePtr MatrixCameraBase::editHandleModelviewMatrix(void)
     SFMatrix::EditHandlePtr returnValue(
         new  SFMatrix::EditHandle(
              &_sfModelviewMatrix,
-             this->getType().getFieldDesc(ModelviewMatrixFieldId)));
+             this->getType().getFieldDesc(ModelviewMatrixFieldId),
+             this));
 
 
     editSField(ModelviewMatrixFieldMask);
@@ -527,7 +531,8 @@ GetFieldHandlePtr MatrixCameraBase::getHandleUseBeacon       (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfUseBeacon,
-             this->getType().getFieldDesc(UseBeaconFieldId)));
+             this->getType().getFieldDesc(UseBeaconFieldId),
+             const_cast<MatrixCameraBase *>(this)));
 
     return returnValue;
 }
@@ -537,7 +542,8 @@ EditFieldHandlePtr MatrixCameraBase::editHandleUseBeacon      (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfUseBeacon,
-             this->getType().getFieldDesc(UseBeaconFieldId)));
+             this->getType().getFieldDesc(UseBeaconFieldId),
+             this));
 
 
     editSField(UseBeaconFieldMask);

@@ -114,7 +114,7 @@ TextureObjRefChunkBase::TypeObject TextureObjRefChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureObjRefChunkBase::createEmptyLocal),
     TextureObjRefChunk::initMethod,
     TextureObjRefChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TextureObjRefChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TextureObjRefChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -363,7 +363,8 @@ GetFieldHandlePtr TextureObjRefChunkBase::getHandleGLId            (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             const_cast<TextureObjRefChunkBase *>(this)));
 
     return returnValue;
 }
@@ -373,7 +374,8 @@ EditFieldHandlePtr TextureObjRefChunkBase::editHandleGLId           (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             this));
 
 
     editSField(GLIdFieldMask);

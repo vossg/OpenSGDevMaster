@@ -131,7 +131,7 @@ InterfaceOptionsBase::TypeObject InterfaceOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&InterfaceOptionsBase::createEmptyLocal),
     InterfaceOptions::initMethod,
     InterfaceOptions::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&InterfaceOptionsBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&InterfaceOptions::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -478,7 +478,8 @@ GetFieldHandlePtr InterfaceOptionsBase::getHandleNapTime         (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfNapTime,
-             this->getType().getFieldDesc(NapTimeFieldId)));
+             this->getType().getFieldDesc(NapTimeFieldId),
+             const_cast<InterfaceOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -488,7 +489,8 @@ EditFieldHandlePtr InterfaceOptionsBase::editHandleNapTime        (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfNapTime,
-             this->getType().getFieldDesc(NapTimeFieldId)));
+             this->getType().getFieldDesc(NapTimeFieldId),
+             this));
 
 
     editSField(NapTimeFieldMask);

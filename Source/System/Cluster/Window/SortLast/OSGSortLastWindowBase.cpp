@@ -147,7 +147,7 @@ SortLastWindowBase::TypeObject SortLastWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SortLastWindowBase::createEmptyLocal),
     SortLastWindow::initMethod,
     SortLastWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SortLastWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SortLastWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -539,7 +539,8 @@ GetFieldHandlePtr SortLastWindowBase::getHandleGroupNodes      (void) const
     MFUnrecNodePtr::GetHandlePtr returnValue(
         new  MFUnrecNodePtr::GetHandle(
              &_mfGroupNodes,
-             this->getType().getFieldDesc(GroupNodesFieldId)));
+             this->getType().getFieldDesc(GroupNodesFieldId),
+             const_cast<SortLastWindowBase *>(this)));
 
     return returnValue;
 }
@@ -549,7 +550,8 @@ EditFieldHandlePtr SortLastWindowBase::editHandleGroupNodes     (void)
     MFUnrecNodePtr::EditHandlePtr returnValue(
         new  MFUnrecNodePtr::EditHandle(
              &_mfGroupNodes,
-             this->getType().getFieldDesc(GroupNodesFieldId)));
+             this->getType().getFieldDesc(GroupNodesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&SortLastWindow::pushToGroupNodes,
@@ -574,7 +576,8 @@ GetFieldHandlePtr SortLastWindowBase::getHandleGroupLengths    (void) const
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
              &_mfGroupLengths,
-             this->getType().getFieldDesc(GroupLengthsFieldId)));
+             this->getType().getFieldDesc(GroupLengthsFieldId),
+             const_cast<SortLastWindowBase *>(this)));
 
     return returnValue;
 }
@@ -584,7 +587,8 @@ EditFieldHandlePtr SortLastWindowBase::editHandleGroupLengths   (void)
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
              &_mfGroupLengths,
-             this->getType().getFieldDesc(GroupLengthsFieldId)));
+             this->getType().getFieldDesc(GroupLengthsFieldId),
+             this));
 
 
     editMField(GroupLengthsFieldMask, _mfGroupLengths);
@@ -597,7 +601,8 @@ GetFieldHandlePtr SortLastWindowBase::getHandleGroupsChanged   (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfGroupsChanged,
-             this->getType().getFieldDesc(GroupsChangedFieldId)));
+             this->getType().getFieldDesc(GroupsChangedFieldId),
+             const_cast<SortLastWindowBase *>(this)));
 
     return returnValue;
 }
@@ -607,7 +612,8 @@ EditFieldHandlePtr SortLastWindowBase::editHandleGroupsChanged  (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfGroupsChanged,
-             this->getType().getFieldDesc(GroupsChangedFieldId)));
+             this->getType().getFieldDesc(GroupsChangedFieldId),
+             this));
 
 
     editSField(GroupsChangedFieldMask);
@@ -671,5 +677,6 @@ void SortLastWindowBase::resolveLinks(void)
 DataType FieldTraits<SortLastWindow *>::_type("SortLastWindowPtr", "ClusterWindowPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(SortLastWindow *)
 
 OSG_END_NAMESPACE

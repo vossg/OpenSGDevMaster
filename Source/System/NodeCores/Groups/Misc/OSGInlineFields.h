@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Inline;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! InlinePtr
-
 OSG_GEN_CONTAINERPTR(Inline);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Inline *> :
     public FieldTraitsFCPtrBase<Inline *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Inline *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdInlinePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<InlinePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Inline *,
                       RecordedRefCountPolicy  > SFRecInlinePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Inline *,
                       UnrecordedRefCountPolicy> SFUnrecInlinePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Inline *,
                       WeakRefCountPolicy      > SFWeakInlinePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Inline *,
                       NoRefCountPolicy        > SFUncountedInlinePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Inline *,
                       RecordedRefCountPolicy  > MFRecInlinePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Inline *,
                       UnrecordedRefCountPolicy> MFUnrecInlinePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Inline *,
                       WeakRefCountPolicy      > MFWeakInlinePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Inline *,
                       NoRefCountPolicy        > MFUncountedInlinePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecInlinePtr : 
+    public PointerSField<Inline *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecInlinePtr : 
+    public PointerSField<Inline *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakInlinePtr :
+    public PointerSField<Inline *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedInlinePtr :
+    public PointerSField<Inline *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecInlinePtr :
+    public PointerMField<Inline *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecInlinePtr :
+    public PointerMField<Inline *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakInlinePtr :
+    public PointerMField<Inline *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedInlinePtr :
+    public PointerMField<Inline *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

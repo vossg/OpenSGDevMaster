@@ -117,7 +117,7 @@ TileableBackgroundBase::TypeObject TileableBackgroundBase::_type(
     NULL,
     TileableBackground::initMethod,
     TileableBackground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TileableBackgroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TileableBackground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -255,7 +255,8 @@ GetFieldHandlePtr TileableBackgroundBase::getHandleTile            (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfTile,
-             this->getType().getFieldDesc(TileFieldId)));
+             this->getType().getFieldDesc(TileFieldId),
+             const_cast<TileableBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -265,7 +266,8 @@ EditFieldHandlePtr TileableBackgroundBase::editHandleTile           (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfTile,
-             this->getType().getFieldDesc(TileFieldId)));
+             this->getType().getFieldDesc(TileFieldId),
+             this));
 
 
     editSField(TileFieldMask);

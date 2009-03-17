@@ -132,7 +132,7 @@ CubeMapGeneratorStageDataBase::TypeObject CubeMapGeneratorStageDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CubeMapGeneratorStageDataBase::createEmptyLocal),
     CubeMapGeneratorStageData::initMethod,
     CubeMapGeneratorStageData::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CubeMapGeneratorStageDataBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CubeMapGeneratorStageData::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -405,7 +405,8 @@ GetFieldHandlePtr CubeMapGeneratorStageDataBase::getHandleCamera          (void)
     SFUnrecCameraPtr::GetHandlePtr returnValue(
         new  SFUnrecCameraPtr::GetHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             const_cast<CubeMapGeneratorStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -415,7 +416,8 @@ EditFieldHandlePtr CubeMapGeneratorStageDataBase::editHandleCamera         (void
     SFUnrecCameraPtr::EditHandlePtr returnValue(
         new  SFUnrecCameraPtr::EditHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&CubeMapGeneratorStageData::setCamera,
@@ -431,7 +433,8 @@ GetFieldHandlePtr CubeMapGeneratorStageDataBase::getHandleTexTransform    (void)
     SFUnrecTextureTransformChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureTransformChunkPtr::GetHandle(
              &_sfTexTransform,
-             this->getType().getFieldDesc(TexTransformFieldId)));
+             this->getType().getFieldDesc(TexTransformFieldId),
+             const_cast<CubeMapGeneratorStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -441,7 +444,8 @@ EditFieldHandlePtr CubeMapGeneratorStageDataBase::editHandleTexTransform   (void
     SFUnrecTextureTransformChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureTransformChunkPtr::EditHandle(
              &_sfTexTransform,
-             this->getType().getFieldDesc(TexTransformFieldId)));
+             this->getType().getFieldDesc(TexTransformFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&CubeMapGeneratorStageData::setTexTransform,
@@ -501,5 +505,6 @@ void CubeMapGeneratorStageDataBase::resolveLinks(void)
 DataType FieldTraits<CubeMapGeneratorStageData *>::_type("CubeMapGeneratorStageDataPtr", "DynamicStateGeneratorStageDataPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(CubeMapGeneratorStageData *)
 
 OSG_END_NAMESPACE

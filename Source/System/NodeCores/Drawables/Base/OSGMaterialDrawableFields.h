@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class MaterialDrawable;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MaterialDrawablePtr
-
 OSG_GEN_CONTAINERPTR(MaterialDrawable);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MaterialDrawable *> :
     public FieldTraitsFCPtrBase<MaterialDrawable *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<MaterialDrawable *, 0>::getMName<NoRefCountPolicy>(void
     return "MFUnrefdMaterialDrawablePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MaterialDrawablePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MaterialDrawable *,
                       RecordedRefCountPolicy  > SFRecMaterialDrawablePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MaterialDrawable *,
                       UnrecordedRefCountPolicy> SFUnrecMaterialDrawablePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MaterialDrawable *,
                       WeakRefCountPolicy      > SFWeakMaterialDrawablePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MaterialDrawable *,
                       NoRefCountPolicy        > SFUncountedMaterialDrawablePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MaterialDrawable *,
                       RecordedRefCountPolicy  > MFRecMaterialDrawablePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MaterialDrawable *,
                       UnrecordedRefCountPolicy> MFUnrecMaterialDrawablePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MaterialDrawable *,
                       WeakRefCountPolicy      > MFWeakMaterialDrawablePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MaterialDrawable *,
                       NoRefCountPolicy        > MFUncountedMaterialDrawablePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecMaterialDrawablePtr : 
+    public PointerSField<MaterialDrawable *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecMaterialDrawablePtr : 
+    public PointerSField<MaterialDrawable *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakMaterialDrawablePtr :
+    public PointerSField<MaterialDrawable *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedMaterialDrawablePtr :
+    public PointerSField<MaterialDrawable *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecMaterialDrawablePtr :
+    public PointerMField<MaterialDrawable *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecMaterialDrawablePtr :
+    public PointerMField<MaterialDrawable *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakMaterialDrawablePtr :
+    public PointerMField<MaterialDrawable *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedMaterialDrawablePtr :
+    public PointerMField<MaterialDrawable *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

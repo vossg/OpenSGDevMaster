@@ -198,7 +198,7 @@ DisplayFilterStageDataBase::TypeObject DisplayFilterStageDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DisplayFilterStageDataBase::createEmptyLocal),
     DisplayFilterStageData::initMethod,
     DisplayFilterStageData::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterStageDataBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterStageData::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -648,7 +648,8 @@ GetFieldHandlePtr DisplayFilterStageDataBase::getHandleWidth           (void) co
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfWidth,
-             this->getType().getFieldDesc(WidthFieldId)));
+             this->getType().getFieldDesc(WidthFieldId),
+             const_cast<DisplayFilterStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -658,7 +659,8 @@ EditFieldHandlePtr DisplayFilterStageDataBase::editHandleWidth          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfWidth,
-             this->getType().getFieldDesc(WidthFieldId)));
+             this->getType().getFieldDesc(WidthFieldId),
+             this));
 
 
     editSField(WidthFieldMask);
@@ -671,7 +673,8 @@ GetFieldHandlePtr DisplayFilterStageDataBase::getHandleHeight          (void) co
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfHeight,
-             this->getType().getFieldDesc(HeightFieldId)));
+             this->getType().getFieldDesc(HeightFieldId),
+             const_cast<DisplayFilterStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -681,7 +684,8 @@ EditFieldHandlePtr DisplayFilterStageDataBase::editHandleHeight         (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfHeight,
-             this->getType().getFieldDesc(HeightFieldId)));
+             this->getType().getFieldDesc(HeightFieldId),
+             this));
 
 
     editSField(HeightFieldMask);
@@ -694,7 +698,8 @@ GetFieldHandlePtr DisplayFilterStageDataBase::getHandleTarget          (void) co
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfTarget,
-             this->getType().getFieldDesc(TargetFieldId)));
+             this->getType().getFieldDesc(TargetFieldId),
+             const_cast<DisplayFilterStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -704,7 +709,8 @@ EditFieldHandlePtr DisplayFilterStageDataBase::editHandleTarget         (void)
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfTarget,
-             this->getType().getFieldDesc(TargetFieldId)));
+             this->getType().getFieldDesc(TargetFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterStageData::setTarget,
@@ -720,7 +726,8 @@ GetFieldHandlePtr DisplayFilterStageDataBase::getHandleBaseMaterial    (void) co
     SFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::GetHandle(
              &_sfBaseMaterial,
-             this->getType().getFieldDesc(BaseMaterialFieldId)));
+             this->getType().getFieldDesc(BaseMaterialFieldId),
+             const_cast<DisplayFilterStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -730,7 +737,8 @@ EditFieldHandlePtr DisplayFilterStageDataBase::editHandleBaseMaterial   (void)
     SFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::EditHandle(
              &_sfBaseMaterial,
-             this->getType().getFieldDesc(BaseMaterialFieldId)));
+             this->getType().getFieldDesc(BaseMaterialFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterStageData::setBaseMaterial,
@@ -746,7 +754,8 @@ GetFieldHandlePtr DisplayFilterStageDataBase::getHandleColorFilterShader (void) 
     SFUnrecSimpleSHLChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecSimpleSHLChunkPtr::GetHandle(
              &_sfColorFilterShader,
-             this->getType().getFieldDesc(ColorFilterShaderFieldId)));
+             this->getType().getFieldDesc(ColorFilterShaderFieldId),
+             const_cast<DisplayFilterStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -756,7 +765,8 @@ EditFieldHandlePtr DisplayFilterStageDataBase::editHandleColorFilterShader(void)
     SFUnrecSimpleSHLChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecSimpleSHLChunkPtr::EditHandle(
              &_sfColorFilterShader,
-             this->getType().getFieldDesc(ColorFilterShaderFieldId)));
+             this->getType().getFieldDesc(ColorFilterShaderFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterStageData::setColorFilterShader,
@@ -772,7 +782,8 @@ GetFieldHandlePtr DisplayFilterStageDataBase::getHandleColorFilterTexture (void)
     SFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::GetHandle(
              &_sfColorFilterTexture,
-             this->getType().getFieldDesc(ColorFilterTextureFieldId)));
+             this->getType().getFieldDesc(ColorFilterTextureFieldId),
+             const_cast<DisplayFilterStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -782,7 +793,8 @@ EditFieldHandlePtr DisplayFilterStageDataBase::editHandleColorFilterTexture(void
     SFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::EditHandle(
              &_sfColorFilterTexture,
-             this->getType().getFieldDesc(ColorFilterTextureFieldId)));
+             this->getType().getFieldDesc(ColorFilterTextureFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterStageData::setColorFilterTexture,
@@ -846,5 +858,6 @@ void DisplayFilterStageDataBase::resolveLinks(void)
 DataType FieldTraits<DisplayFilterStageData *>::_type("DisplayFilterStageDataPtr", "StageDataPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(DisplayFilterStageData *)
 
 OSG_END_NAMESPACE

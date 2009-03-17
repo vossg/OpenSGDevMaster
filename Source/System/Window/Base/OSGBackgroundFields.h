@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Background;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! BackgroundPtr
-
 OSG_GEN_CONTAINERPTR(Background);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Background *> :
     public FieldTraitsFCPtrBase<Background *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Background *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdBackgroundPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<BackgroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Background *,
                       RecordedRefCountPolicy  > SFRecBackgroundPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Background *,
                       UnrecordedRefCountPolicy> SFUnrecBackgroundPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Background *,
                       WeakRefCountPolicy      > SFWeakBackgroundPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Background *,
                       NoRefCountPolicy        > SFUncountedBackgroundPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Background *,
                       RecordedRefCountPolicy  > MFRecBackgroundPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Background *,
                       UnrecordedRefCountPolicy> MFUnrecBackgroundPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Background *,
                       WeakRefCountPolicy      > MFWeakBackgroundPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Background *,
                       NoRefCountPolicy        > MFUncountedBackgroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecBackgroundPtr : 
+    public PointerSField<Background *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecBackgroundPtr : 
+    public PointerSField<Background *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakBackgroundPtr :
+    public PointerSField<Background *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedBackgroundPtr :
+    public PointerSField<Background *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecBackgroundPtr :
+    public PointerMField<Background *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecBackgroundPtr :
+    public PointerMField<Background *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakBackgroundPtr :
+    public PointerMField<Background *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedBackgroundPtr :
+    public PointerMField<Background *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

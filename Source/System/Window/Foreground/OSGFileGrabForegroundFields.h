@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class FileGrabForeground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FileGrabForegroundPtr
-
 OSG_GEN_CONTAINERPTR(FileGrabForeground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<FileGrabForeground *> :
     public FieldTraitsFCPtrBase<FileGrabForeground *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<FileGrabForeground *, 0>::getMName<NoRefCountPolicy>(vo
     return "MFUnrefdFileGrabForegroundPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FileGrabForegroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<FileGrabForeground *,
                       RecordedRefCountPolicy  > SFRecFileGrabForegroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<FileGrabForeground *,
                       UnrecordedRefCountPolicy> SFUnrecFileGrabForegroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<FileGrabForeground *,
                       WeakRefCountPolicy      > SFWeakFileGrabForegroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<FileGrabForeground *,
                       NoRefCountPolicy        > SFUncountedFileGrabForegroundPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<FileGrabForeground *,
                       RecordedRefCountPolicy  > MFRecFileGrabForegroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<FileGrabForeground *,
                       UnrecordedRefCountPolicy> MFUnrecFileGrabForegroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<FileGrabForeground *,
                       WeakRefCountPolicy      > MFWeakFileGrabForegroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<FileGrabForeground *,
                       NoRefCountPolicy        > MFUncountedFileGrabForegroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecFileGrabForegroundPtr : 
+    public PointerSField<FileGrabForeground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecFileGrabForegroundPtr : 
+    public PointerSField<FileGrabForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakFileGrabForegroundPtr :
+    public PointerSField<FileGrabForeground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedFileGrabForegroundPtr :
+    public PointerSField<FileGrabForeground *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecFileGrabForegroundPtr :
+    public PointerMField<FileGrabForeground *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecFileGrabForegroundPtr :
+    public PointerMField<FileGrabForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakFileGrabForegroundPtr :
+    public PointerMField<FileGrabForeground *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedFileGrabForegroundPtr :
+    public PointerMField<FileGrabForeground *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

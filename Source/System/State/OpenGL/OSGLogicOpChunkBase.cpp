@@ -117,7 +117,7 @@ LogicOpChunkBase::TypeObject LogicOpChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LogicOpChunkBase::createEmptyLocal),
     LogicOpChunk::initMethod,
     LogicOpChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&LogicOpChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&LogicOpChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -371,7 +371,8 @@ GetFieldHandlePtr LogicOpChunkBase::getHandleLogicOp         (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfLogicOp,
-             this->getType().getFieldDesc(LogicOpFieldId)));
+             this->getType().getFieldDesc(LogicOpFieldId),
+             const_cast<LogicOpChunkBase *>(this)));
 
     return returnValue;
 }
@@ -381,7 +382,8 @@ EditFieldHandlePtr LogicOpChunkBase::editHandleLogicOp        (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfLogicOp,
-             this->getType().getFieldDesc(LogicOpFieldId)));
+             this->getType().getFieldDesc(LogicOpFieldId),
+             this));
 
 
     editSField(LogicOpFieldMask);

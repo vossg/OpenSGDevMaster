@@ -114,7 +114,7 @@ MouseDataInterfaceSensorBase::TypeObject MouseDataInterfaceSensorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MouseDataInterfaceSensorBase::createEmptyLocal),
     MouseDataInterfaceSensor::initMethod,
     MouseDataInterfaceSensor::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MouseDataInterfaceSensorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&MouseDataInterfaceSensor::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -364,7 +364,8 @@ GetFieldHandlePtr MouseDataInterfaceSensorBase::getHandleMouseData       (void) 
     SFMouseData::GetHandlePtr returnValue(
         new  SFMouseData::GetHandle(
              &_sfMouseData,
-             this->getType().getFieldDesc(MouseDataFieldId)));
+             this->getType().getFieldDesc(MouseDataFieldId),
+             const_cast<MouseDataInterfaceSensorBase *>(this)));
 
     return returnValue;
 }
@@ -374,7 +375,8 @@ EditFieldHandlePtr MouseDataInterfaceSensorBase::editHandleMouseData      (void)
     SFMouseData::EditHandlePtr returnValue(
         new  SFMouseData::EditHandle(
              &_sfMouseData,
-             this->getType().getFieldDesc(MouseDataFieldId)));
+             this->getType().getFieldDesc(MouseDataFieldId),
+             this));
 
 
     editSField(MouseDataFieldMask);

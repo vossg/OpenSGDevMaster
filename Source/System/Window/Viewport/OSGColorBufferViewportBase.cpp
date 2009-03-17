@@ -168,7 +168,7 @@ ColorBufferViewportBase::TypeObject ColorBufferViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ColorBufferViewportBase::createEmptyLocal),
     ColorBufferViewport::initMethod,
     ColorBufferViewport::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ColorBufferViewportBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ColorBufferViewport::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -540,7 +540,8 @@ GetFieldHandlePtr ColorBufferViewportBase::getHandleRed             (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfRed,
-             this->getType().getFieldDesc(RedFieldId)));
+             this->getType().getFieldDesc(RedFieldId),
+             const_cast<ColorBufferViewportBase *>(this)));
 
     return returnValue;
 }
@@ -550,7 +551,8 @@ EditFieldHandlePtr ColorBufferViewportBase::editHandleRed            (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfRed,
-             this->getType().getFieldDesc(RedFieldId)));
+             this->getType().getFieldDesc(RedFieldId),
+             this));
 
 
     editSField(RedFieldMask);
@@ -563,7 +565,8 @@ GetFieldHandlePtr ColorBufferViewportBase::getHandleBlue            (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfBlue,
-             this->getType().getFieldDesc(BlueFieldId)));
+             this->getType().getFieldDesc(BlueFieldId),
+             const_cast<ColorBufferViewportBase *>(this)));
 
     return returnValue;
 }
@@ -573,7 +576,8 @@ EditFieldHandlePtr ColorBufferViewportBase::editHandleBlue           (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfBlue,
-             this->getType().getFieldDesc(BlueFieldId)));
+             this->getType().getFieldDesc(BlueFieldId),
+             this));
 
 
     editSField(BlueFieldMask);
@@ -586,7 +590,8 @@ GetFieldHandlePtr ColorBufferViewportBase::getHandleGreen           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfGreen,
-             this->getType().getFieldDesc(GreenFieldId)));
+             this->getType().getFieldDesc(GreenFieldId),
+             const_cast<ColorBufferViewportBase *>(this)));
 
     return returnValue;
 }
@@ -596,7 +601,8 @@ EditFieldHandlePtr ColorBufferViewportBase::editHandleGreen          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfGreen,
-             this->getType().getFieldDesc(GreenFieldId)));
+             this->getType().getFieldDesc(GreenFieldId),
+             this));
 
 
     editSField(GreenFieldMask);
@@ -609,7 +615,8 @@ GetFieldHandlePtr ColorBufferViewportBase::getHandleAlpha           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             const_cast<ColorBufferViewportBase *>(this)));
 
     return returnValue;
 }
@@ -619,7 +626,8 @@ EditFieldHandlePtr ColorBufferViewportBase::editHandleAlpha          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             this));
 
 
     editSField(AlphaFieldMask);

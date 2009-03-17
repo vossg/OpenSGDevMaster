@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class InterfaceOptions;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! InterfaceOptionsPtr
-
 OSG_GEN_CONTAINERPTR(InterfaceOptions);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<InterfaceOptions *> :
     public FieldTraitsFCPtrBase<InterfaceOptions *>
@@ -127,14 +118,11 @@ const Char8 *FieldTraits<InterfaceOptions *, 0>::getSName<NoRefCountPolicy>(void
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<InterfaceOptionsPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
 class DeviceInterfaceSensor;
 
+/*! \ingroup GrpContribCSMFieldTraits
+ */
 template <>
 struct FieldTraits<InterfaceOptions *, 1> :
     public FieldTraitsFCPtrBase<InterfaceOptions *, 1>
@@ -183,28 +171,60 @@ const Char8 *FieldTraits<InterfaceOptions *, 1>::getSName<NoRefCountPolicy>(void
 
 
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<InterfaceOptions *,
                       RecordedRefCountPolicy  > SFRecInterfaceOptionsPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<InterfaceOptions *,
                       UnrecordedRefCountPolicy> SFUnrecInterfaceOptionsPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<InterfaceOptions *,
                       WeakRefCountPolicy      > SFWeakInterfaceOptionsPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<InterfaceOptions *,
                       NoRefCountPolicy        > SFUncountedInterfaceOptionsPtr;
-#endif
 
 
 
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef ChildPointerSField<
           InterfaceOptions *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildInterfaceOptionsPtr;
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecInterfaceOptionsPtr : 
+    public PointerSField<InterfaceOptions *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecInterfaceOptionsPtr : 
+    public PointerSField<InterfaceOptions *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakInterfaceOptionsPtr :
+    public PointerSField<InterfaceOptions *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedInterfaceOptionsPtr :
+    public PointerSField<InterfaceOptions *,
+                         NoRefCountPolicy> {};
+
+
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecChildInterfaceOptionsPtr :
+    public ChildPointerSField<
+        InterfaceOptions *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

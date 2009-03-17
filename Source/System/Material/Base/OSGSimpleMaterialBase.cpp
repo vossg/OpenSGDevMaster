@@ -238,7 +238,7 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleMaterialBase::createEmptyLocal),
     SimpleMaterial::initMethod,
     SimpleMaterial::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleMaterialBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleMaterial::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -765,7 +765,8 @@ GetFieldHandlePtr SimpleMaterialBase::getHandleAmbient         (void) const
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
              &_sfAmbient,
-             this->getType().getFieldDesc(AmbientFieldId)));
+             this->getType().getFieldDesc(AmbientFieldId),
+             const_cast<SimpleMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -775,7 +776,8 @@ EditFieldHandlePtr SimpleMaterialBase::editHandleAmbient        (void)
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
              &_sfAmbient,
-             this->getType().getFieldDesc(AmbientFieldId)));
+             this->getType().getFieldDesc(AmbientFieldId),
+             this));
 
 
     editSField(AmbientFieldMask);
@@ -788,7 +790,8 @@ GetFieldHandlePtr SimpleMaterialBase::getHandleDiffuse         (void) const
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
              &_sfDiffuse,
-             this->getType().getFieldDesc(DiffuseFieldId)));
+             this->getType().getFieldDesc(DiffuseFieldId),
+             const_cast<SimpleMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -798,7 +801,8 @@ EditFieldHandlePtr SimpleMaterialBase::editHandleDiffuse        (void)
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
              &_sfDiffuse,
-             this->getType().getFieldDesc(DiffuseFieldId)));
+             this->getType().getFieldDesc(DiffuseFieldId),
+             this));
 
 
     editSField(DiffuseFieldMask);
@@ -811,7 +815,8 @@ GetFieldHandlePtr SimpleMaterialBase::getHandleSpecular        (void) const
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
              &_sfSpecular,
-             this->getType().getFieldDesc(SpecularFieldId)));
+             this->getType().getFieldDesc(SpecularFieldId),
+             const_cast<SimpleMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -821,7 +826,8 @@ EditFieldHandlePtr SimpleMaterialBase::editHandleSpecular       (void)
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
              &_sfSpecular,
-             this->getType().getFieldDesc(SpecularFieldId)));
+             this->getType().getFieldDesc(SpecularFieldId),
+             this));
 
 
     editSField(SpecularFieldMask);
@@ -834,7 +840,8 @@ GetFieldHandlePtr SimpleMaterialBase::getHandleShininess       (void) const
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
              &_sfShininess,
-             this->getType().getFieldDesc(ShininessFieldId)));
+             this->getType().getFieldDesc(ShininessFieldId),
+             const_cast<SimpleMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -844,7 +851,8 @@ EditFieldHandlePtr SimpleMaterialBase::editHandleShininess      (void)
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
              &_sfShininess,
-             this->getType().getFieldDesc(ShininessFieldId)));
+             this->getType().getFieldDesc(ShininessFieldId),
+             this));
 
 
     editSField(ShininessFieldMask);
@@ -857,7 +865,8 @@ GetFieldHandlePtr SimpleMaterialBase::getHandleEmission        (void) const
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
              &_sfEmission,
-             this->getType().getFieldDesc(EmissionFieldId)));
+             this->getType().getFieldDesc(EmissionFieldId),
+             const_cast<SimpleMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -867,7 +876,8 @@ EditFieldHandlePtr SimpleMaterialBase::editHandleEmission       (void)
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
              &_sfEmission,
-             this->getType().getFieldDesc(EmissionFieldId)));
+             this->getType().getFieldDesc(EmissionFieldId),
+             this));
 
 
     editSField(EmissionFieldMask);
@@ -880,7 +890,8 @@ GetFieldHandlePtr SimpleMaterialBase::getHandleTransparency    (void) const
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
              &_sfTransparency,
-             this->getType().getFieldDesc(TransparencyFieldId)));
+             this->getType().getFieldDesc(TransparencyFieldId),
+             const_cast<SimpleMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -890,7 +901,8 @@ EditFieldHandlePtr SimpleMaterialBase::editHandleTransparency   (void)
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
              &_sfTransparency,
-             this->getType().getFieldDesc(TransparencyFieldId)));
+             this->getType().getFieldDesc(TransparencyFieldId),
+             this));
 
 
     editSField(TransparencyFieldMask);
@@ -903,7 +915,8 @@ GetFieldHandlePtr SimpleMaterialBase::getHandleLit             (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfLit,
-             this->getType().getFieldDesc(LitFieldId)));
+             this->getType().getFieldDesc(LitFieldId),
+             const_cast<SimpleMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -913,7 +926,8 @@ EditFieldHandlePtr SimpleMaterialBase::editHandleLit            (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfLit,
-             this->getType().getFieldDesc(LitFieldId)));
+             this->getType().getFieldDesc(LitFieldId),
+             this));
 
 
     editSField(LitFieldMask);
@@ -926,7 +940,8 @@ GetFieldHandlePtr SimpleMaterialBase::getHandleColorMaterial   (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfColorMaterial,
-             this->getType().getFieldDesc(ColorMaterialFieldId)));
+             this->getType().getFieldDesc(ColorMaterialFieldId),
+             const_cast<SimpleMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -936,7 +951,8 @@ EditFieldHandlePtr SimpleMaterialBase::editHandleColorMaterial  (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfColorMaterial,
-             this->getType().getFieldDesc(ColorMaterialFieldId)));
+             this->getType().getFieldDesc(ColorMaterialFieldId),
+             this));
 
 
     editSField(ColorMaterialFieldMask);
@@ -989,5 +1005,6 @@ void SimpleMaterialBase::resolveLinks(void)
 DataType FieldTraits<SimpleMaterial *>::_type("SimpleMaterialPtr", "ChunkMaterialPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(SimpleMaterial *)
 
 OSG_END_NAMESPACE

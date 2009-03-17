@@ -110,14 +110,14 @@ Real &SpotLightBase::editSpotExponent(void)
 
 //! Get the value of the SpotLight::_sfSpotExponent field.
 inline
-const Real &SpotLightBase::getSpotExponent(void) const
+      Real  SpotLightBase::getSpotExponent(void) const
 {
     return _sfSpotExponent.getValue();
 }
 
 //! Set the value of the SpotLight::_sfSpotExponent field.
 inline
-void SpotLightBase::setSpotExponent(const Real &value)
+void SpotLightBase::setSpotExponent(const Real value)
 {
     editSField(SpotExponentFieldMask);
 
@@ -135,14 +135,14 @@ Real &SpotLightBase::editSpotCutOff(void)
 
 //! Get the value of the SpotLight::_sfSpotCutOff field.
 inline
-const Real &SpotLightBase::getSpotCutOff(void) const
+      Real  SpotLightBase::getSpotCutOff(void) const
 {
     return _sfSpotCutOff.getValue();
 }
 
 //! Set the value of the SpotLight::_sfSpotCutOff field.
 inline
-void SpotLightBase::setSpotCutOff(const Real &value)
+void SpotLightBase::setSpotCutOff(const Real value)
 {
     editSField(SpotCutOffFieldMask);
 

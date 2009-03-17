@@ -324,7 +324,7 @@ ClusterWindowBase::TypeObject ClusterWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ClusterWindowBase::createEmptyLocal),
     ClusterWindow::initMethod,
     ClusterWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ClusterWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ClusterWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1082,7 +1082,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleServers         (void) const
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfServers,
-             this->getType().getFieldDesc(ServersFieldId)));
+             this->getType().getFieldDesc(ServersFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1092,7 +1093,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleServers        (void)
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfServers,
-             this->getType().getFieldDesc(ServersFieldId)));
+             this->getType().getFieldDesc(ServersFieldId),
+             this));
 
 
     editMField(ServersFieldMask, _mfServers);
@@ -1105,7 +1107,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleServerIds       (void) const
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
              &_mfServerIds,
-             this->getType().getFieldDesc(ServerIdsFieldId)));
+             this->getType().getFieldDesc(ServerIdsFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1115,7 +1118,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleServerIds      (void)
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
              &_mfServerIds,
-             this->getType().getFieldDesc(ServerIdsFieldId)));
+             this->getType().getFieldDesc(ServerIdsFieldId),
+             this));
 
 
     editMField(ServerIdsFieldMask, _mfServerIds);
@@ -1128,7 +1132,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleConnectionType  (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfConnectionType,
-             this->getType().getFieldDesc(ConnectionTypeFieldId)));
+             this->getType().getFieldDesc(ConnectionTypeFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1138,7 +1143,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleConnectionType (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfConnectionType,
-             this->getType().getFieldDesc(ConnectionTypeFieldId)));
+             this->getType().getFieldDesc(ConnectionTypeFieldId),
+             this));
 
 
     editSField(ConnectionTypeFieldMask);
@@ -1151,7 +1157,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleConnectionInterface (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfConnectionInterface,
-             this->getType().getFieldDesc(ConnectionInterfaceFieldId)));
+             this->getType().getFieldDesc(ConnectionInterfaceFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1161,7 +1168,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleConnectionInterface(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfConnectionInterface,
-             this->getType().getFieldDesc(ConnectionInterfaceFieldId)));
+             this->getType().getFieldDesc(ConnectionInterfaceFieldId),
+             this));
 
 
     editSField(ConnectionInterfaceFieldMask);
@@ -1174,7 +1182,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleConnectionDestination (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfConnectionDestination,
-             this->getType().getFieldDesc(ConnectionDestinationFieldId)));
+             this->getType().getFieldDesc(ConnectionDestinationFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1184,7 +1193,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleConnectionDestination(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfConnectionDestination,
-             this->getType().getFieldDesc(ConnectionDestinationFieldId)));
+             this->getType().getFieldDesc(ConnectionDestinationFieldId),
+             this));
 
 
     editSField(ConnectionDestinationFieldMask);
@@ -1197,7 +1207,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleConnectionParams (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfConnectionParams,
-             this->getType().getFieldDesc(ConnectionParamsFieldId)));
+             this->getType().getFieldDesc(ConnectionParamsFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1207,7 +1218,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleConnectionParams(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfConnectionParams,
-             this->getType().getFieldDesc(ConnectionParamsFieldId)));
+             this->getType().getFieldDesc(ConnectionParamsFieldId),
+             this));
 
 
     editSField(ConnectionParamsFieldMask);
@@ -1220,7 +1232,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleServicePort     (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfServicePort,
-             this->getType().getFieldDesc(ServicePortFieldId)));
+             this->getType().getFieldDesc(ServicePortFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1230,7 +1243,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleServicePort    (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfServicePort,
-             this->getType().getFieldDesc(ServicePortFieldId)));
+             this->getType().getFieldDesc(ServicePortFieldId),
+             this));
 
 
     editSField(ServicePortFieldMask);
@@ -1243,7 +1257,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleServiceAddress  (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfServiceAddress,
-             this->getType().getFieldDesc(ServiceAddressFieldId)));
+             this->getType().getFieldDesc(ServiceAddressFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1253,7 +1268,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleServiceAddress (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfServiceAddress,
-             this->getType().getFieldDesc(ServiceAddressFieldId)));
+             this->getType().getFieldDesc(ServiceAddressFieldId),
+             this));
 
 
     editSField(ServiceAddressFieldMask);
@@ -1266,7 +1282,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleServiceInterface (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfServiceInterface,
-             this->getType().getFieldDesc(ServiceInterfaceFieldId)));
+             this->getType().getFieldDesc(ServiceInterfaceFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1276,7 +1293,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleServiceInterface(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfServiceInterface,
-             this->getType().getFieldDesc(ServiceInterfaceFieldId)));
+             this->getType().getFieldDesc(ServiceInterfaceFieldId),
+             this));
 
 
     editSField(ServiceInterfaceFieldMask);
@@ -1289,7 +1307,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleClientWindow    (void) const
     SFUnrecWindowPtr::GetHandlePtr returnValue(
         new  SFUnrecWindowPtr::GetHandle(
              &_sfClientWindow,
-             this->getType().getFieldDesc(ClientWindowFieldId)));
+             this->getType().getFieldDesc(ClientWindowFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1299,7 +1318,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleClientWindow   (void)
     SFUnrecWindowPtr::EditHandlePtr returnValue(
         new  SFUnrecWindowPtr::EditHandle(
              &_sfClientWindow,
-             this->getType().getFieldDesc(ClientWindowFieldId)));
+             this->getType().getFieldDesc(ClientWindowFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ClusterWindow::setClientWindow,
@@ -1315,7 +1335,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleInterleave      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfInterleave,
-             this->getType().getFieldDesc(InterleaveFieldId)));
+             this->getType().getFieldDesc(InterleaveFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1325,7 +1346,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleInterleave     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfInterleave,
-             this->getType().getFieldDesc(InterleaveFieldId)));
+             this->getType().getFieldDesc(InterleaveFieldId),
+             this));
 
 
     editSField(InterleaveFieldMask);
@@ -1338,7 +1360,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleFrameCount      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfFrameCount,
-             this->getType().getFieldDesc(FrameCountFieldId)));
+             this->getType().getFieldDesc(FrameCountFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1348,7 +1371,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleFrameCount     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfFrameCount,
-             this->getType().getFieldDesc(FrameCountFieldId)));
+             this->getType().getFieldDesc(FrameCountFieldId),
+             this));
 
 
     editSField(FrameCountFieldMask);
@@ -1361,7 +1385,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleComposer        (void) const
     SFUnrecImageComposerPtr::GetHandlePtr returnValue(
         new  SFUnrecImageComposerPtr::GetHandle(
              &_sfComposer,
-             this->getType().getFieldDesc(ComposerFieldId)));
+             this->getType().getFieldDesc(ComposerFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1371,7 +1396,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleComposer       (void)
     SFUnrecImageComposerPtr::EditHandlePtr returnValue(
         new  SFUnrecImageComposerPtr::EditHandle(
              &_sfComposer,
-             this->getType().getFieldDesc(ComposerFieldId)));
+             this->getType().getFieldDesc(ComposerFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ClusterWindow::setComposer,
@@ -1387,7 +1413,8 @@ GetFieldHandlePtr ClusterWindowBase::getHandleAutostart       (void) const
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfAutostart,
-             this->getType().getFieldDesc(AutostartFieldId)));
+             this->getType().getFieldDesc(AutostartFieldId),
+             const_cast<ClusterWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1397,7 +1424,8 @@ EditFieldHandlePtr ClusterWindowBase::editHandleAutostart      (void)
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfAutostart,
-             this->getType().getFieldDesc(AutostartFieldId)));
+             this->getType().getFieldDesc(AutostartFieldId),
+             this));
 
 
     editMField(AutostartFieldMask, _mfAutostart);

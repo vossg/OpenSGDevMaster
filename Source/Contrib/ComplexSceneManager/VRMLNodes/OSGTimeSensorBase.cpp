@@ -242,7 +242,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TimeSensorBase::createEmptyLocal),
     TimeSensor::initMethod,
     TimeSensor::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TimeSensorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TimeSensor::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -790,7 +790,8 @@ GetFieldHandlePtr TimeSensorBase::getHandleEnabled         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<TimeSensorBase *>(this)));
 
     return returnValue;
 }
@@ -800,7 +801,8 @@ EditFieldHandlePtr TimeSensorBase::editHandleEnabled        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             this));
 
 
     editSField(EnabledFieldMask);
@@ -813,7 +815,8 @@ GetFieldHandlePtr TimeSensorBase::getHandleIsActive        (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfIsActive,
-             this->getType().getFieldDesc(IsActiveFieldId)));
+             this->getType().getFieldDesc(IsActiveFieldId),
+             const_cast<TimeSensorBase *>(this)));
 
     return returnValue;
 }
@@ -823,7 +826,8 @@ EditFieldHandlePtr TimeSensorBase::editHandleIsActive       (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfIsActive,
-             this->getType().getFieldDesc(IsActiveFieldId)));
+             this->getType().getFieldDesc(IsActiveFieldId),
+             this));
 
 
     editSField(IsActiveFieldMask);
@@ -836,7 +840,8 @@ GetFieldHandlePtr TimeSensorBase::getHandleLoop            (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfLoop,
-             this->getType().getFieldDesc(LoopFieldId)));
+             this->getType().getFieldDesc(LoopFieldId),
+             const_cast<TimeSensorBase *>(this)));
 
     return returnValue;
 }
@@ -846,7 +851,8 @@ EditFieldHandlePtr TimeSensorBase::editHandleLoop           (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfLoop,
-             this->getType().getFieldDesc(LoopFieldId)));
+             this->getType().getFieldDesc(LoopFieldId),
+             this));
 
 
     editSField(LoopFieldMask);
@@ -859,7 +865,8 @@ GetFieldHandlePtr TimeSensorBase::getHandleFraction        (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             const_cast<TimeSensorBase *>(this)));
 
     return returnValue;
 }
@@ -869,7 +876,8 @@ EditFieldHandlePtr TimeSensorBase::editHandleFraction       (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             this));
 
 
     editSField(FractionFieldMask);
@@ -882,7 +890,8 @@ GetFieldHandlePtr TimeSensorBase::getHandleStartTime       (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfStartTime,
-             this->getType().getFieldDesc(StartTimeFieldId)));
+             this->getType().getFieldDesc(StartTimeFieldId),
+             const_cast<TimeSensorBase *>(this)));
 
     return returnValue;
 }
@@ -892,7 +901,8 @@ EditFieldHandlePtr TimeSensorBase::editHandleStartTime      (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfStartTime,
-             this->getType().getFieldDesc(StartTimeFieldId)));
+             this->getType().getFieldDesc(StartTimeFieldId),
+             this));
 
 
     editSField(StartTimeFieldMask);
@@ -905,7 +915,8 @@ GetFieldHandlePtr TimeSensorBase::getHandleStopTime        (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfStopTime,
-             this->getType().getFieldDesc(StopTimeFieldId)));
+             this->getType().getFieldDesc(StopTimeFieldId),
+             const_cast<TimeSensorBase *>(this)));
 
     return returnValue;
 }
@@ -915,7 +926,8 @@ EditFieldHandlePtr TimeSensorBase::editHandleStopTime       (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfStopTime,
-             this->getType().getFieldDesc(StopTimeFieldId)));
+             this->getType().getFieldDesc(StopTimeFieldId),
+             this));
 
 
     editSField(StopTimeFieldMask);
@@ -928,7 +940,8 @@ GetFieldHandlePtr TimeSensorBase::getHandleCycleTime       (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfCycleTime,
-             this->getType().getFieldDesc(CycleTimeFieldId)));
+             this->getType().getFieldDesc(CycleTimeFieldId),
+             const_cast<TimeSensorBase *>(this)));
 
     return returnValue;
 }
@@ -938,7 +951,8 @@ EditFieldHandlePtr TimeSensorBase::editHandleCycleTime      (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfCycleTime,
-             this->getType().getFieldDesc(CycleTimeFieldId)));
+             this->getType().getFieldDesc(CycleTimeFieldId),
+             this));
 
 
     editSField(CycleTimeFieldMask);
@@ -951,7 +965,8 @@ GetFieldHandlePtr TimeSensorBase::getHandleTime            (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfTime,
-             this->getType().getFieldDesc(TimeFieldId)));
+             this->getType().getFieldDesc(TimeFieldId),
+             const_cast<TimeSensorBase *>(this)));
 
     return returnValue;
 }
@@ -961,7 +976,8 @@ EditFieldHandlePtr TimeSensorBase::editHandleTime           (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfTime,
-             this->getType().getFieldDesc(TimeFieldId)));
+             this->getType().getFieldDesc(TimeFieldId),
+             this));
 
 
     editSField(TimeFieldMask);
@@ -974,7 +990,8 @@ GetFieldHandlePtr TimeSensorBase::getHandleCycleInterval   (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfCycleInterval,
-             this->getType().getFieldDesc(CycleIntervalFieldId)));
+             this->getType().getFieldDesc(CycleIntervalFieldId),
+             const_cast<TimeSensorBase *>(this)));
 
     return returnValue;
 }
@@ -984,7 +1001,8 @@ EditFieldHandlePtr TimeSensorBase::editHandleCycleInterval  (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfCycleInterval,
-             this->getType().getFieldDesc(CycleIntervalFieldId)));
+             this->getType().getFieldDesc(CycleIntervalFieldId),
+             this));
 
 
     editSField(CycleIntervalFieldMask);
@@ -1037,5 +1055,6 @@ void TimeSensorBase::resolveLinks(void)
 DataType FieldTraits<TimeSensor *>::_type("TimeSensorPtr", "SensorPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(TimeSensor *)
 
 OSG_END_NAMESPACE

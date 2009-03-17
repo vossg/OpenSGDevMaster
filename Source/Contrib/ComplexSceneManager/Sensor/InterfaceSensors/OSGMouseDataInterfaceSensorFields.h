@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class MouseDataInterfaceSensor;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MouseDataInterfaceSensorPtr
-
 OSG_GEN_CONTAINERPTR(MouseDataInterfaceSensor);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MouseDataInterfaceSensor *> :
     public FieldTraitsFCPtrBase<MouseDataInterfaceSensor *>
@@ -100,15 +91,16 @@ struct FieldTraits<MouseDataInterfaceSensor *> :
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MouseDataInterfaceSensorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

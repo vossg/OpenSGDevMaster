@@ -115,7 +115,7 @@ MaterialDrawableBase::TypeObject MaterialDrawableBase::_type(
     NULL,
     MaterialDrawable::initMethod,
     MaterialDrawable::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MaterialDrawableBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&MaterialDrawable::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -257,7 +257,8 @@ GetFieldHandlePtr MaterialDrawableBase::getHandleMaterial        (void) const
     SFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecMaterialPtr::GetHandle(
              &_sfMaterial,
-             this->getType().getFieldDesc(MaterialFieldId)));
+             this->getType().getFieldDesc(MaterialFieldId),
+             const_cast<MaterialDrawableBase *>(this)));
 
     return returnValue;
 }
@@ -267,7 +268,8 @@ EditFieldHandlePtr MaterialDrawableBase::editHandleMaterial       (void)
     SFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecMaterialPtr::EditHandle(
              &_sfMaterial,
-             this->getType().getFieldDesc(MaterialFieldId)));
+             this->getType().getFieldDesc(MaterialFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&MaterialDrawable::setMaterial,

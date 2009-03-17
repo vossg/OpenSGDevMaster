@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CSMSceneParameter;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CSMSceneParameterPtr
-
 OSG_GEN_CONTAINERPTR(CSMSceneParameter);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CSMSceneParameter *> :
     public FieldTraitsFCPtrBase<CSMSceneParameter *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CSMSceneParameter *, 0>::getMName<NoRefCountPolicy>(voi
     return "MFUnrefdCSMSceneParameterPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CSMSceneParameterPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMSceneParameter *,
                       RecordedRefCountPolicy  > SFRecCSMSceneParameterPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMSceneParameter *,
                       UnrecordedRefCountPolicy> SFUnrecCSMSceneParameterPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMSceneParameter *,
                       WeakRefCountPolicy      > SFWeakCSMSceneParameterPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMSceneParameter *,
                       NoRefCountPolicy        > SFUncountedCSMSceneParameterPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldMulti */
-
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMSceneParameter *,
                       RecordedRefCountPolicy  > MFRecCSMSceneParameterPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMSceneParameter *,
                       UnrecordedRefCountPolicy> MFUnrecCSMSceneParameterPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMSceneParameter *,
                       WeakRefCountPolicy      > MFWeakCSMSceneParameterPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMSceneParameter *,
                       NoRefCountPolicy        > MFUncountedCSMSceneParameterPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecCSMSceneParameterPtr : 
+    public PointerSField<CSMSceneParameter *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecCSMSceneParameterPtr : 
+    public PointerSField<CSMSceneParameter *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakCSMSceneParameterPtr :
+    public PointerSField<CSMSceneParameter *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedCSMSceneParameterPtr :
+    public PointerSField<CSMSceneParameter *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFRecCSMSceneParameterPtr :
+    public PointerMField<CSMSceneParameter *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUnrecCSMSceneParameterPtr :
+    public PointerMField<CSMSceneParameter *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFWeakCSMSceneParameterPtr :
+    public PointerMField<CSMSceneParameter *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUncountedCSMSceneParameterPtr :
+    public PointerMField<CSMSceneParameter *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

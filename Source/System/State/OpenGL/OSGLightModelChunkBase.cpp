@@ -147,7 +147,7 @@ LightModelChunkBase::TypeObject LightModelChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LightModelChunkBase::createEmptyLocal),
     LightModelChunk::initMethod,
     LightModelChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&LightModelChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&LightModelChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -472,7 +472,8 @@ GetFieldHandlePtr LightModelChunkBase::getHandleAmbient         (void) const
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfAmbient,
-             this->getType().getFieldDesc(AmbientFieldId)));
+             this->getType().getFieldDesc(AmbientFieldId),
+             const_cast<LightModelChunkBase *>(this)));
 
     return returnValue;
 }
@@ -482,7 +483,8 @@ EditFieldHandlePtr LightModelChunkBase::editHandleAmbient        (void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfAmbient,
-             this->getType().getFieldDesc(AmbientFieldId)));
+             this->getType().getFieldDesc(AmbientFieldId),
+             this));
 
 
     editSField(AmbientFieldMask);
@@ -495,7 +497,8 @@ GetFieldHandlePtr LightModelChunkBase::getHandleColorControl    (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfColorControl,
-             this->getType().getFieldDesc(ColorControlFieldId)));
+             this->getType().getFieldDesc(ColorControlFieldId),
+             const_cast<LightModelChunkBase *>(this)));
 
     return returnValue;
 }
@@ -505,7 +508,8 @@ EditFieldHandlePtr LightModelChunkBase::editHandleColorControl   (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfColorControl,
-             this->getType().getFieldDesc(ColorControlFieldId)));
+             this->getType().getFieldDesc(ColorControlFieldId),
+             this));
 
 
     editSField(ColorControlFieldMask);
@@ -518,7 +522,8 @@ GetFieldHandlePtr LightModelChunkBase::getHandleLocalViewer     (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfLocalViewer,
-             this->getType().getFieldDesc(LocalViewerFieldId)));
+             this->getType().getFieldDesc(LocalViewerFieldId),
+             const_cast<LightModelChunkBase *>(this)));
 
     return returnValue;
 }
@@ -528,7 +533,8 @@ EditFieldHandlePtr LightModelChunkBase::editHandleLocalViewer    (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfLocalViewer,
-             this->getType().getFieldDesc(LocalViewerFieldId)));
+             this->getType().getFieldDesc(LocalViewerFieldId),
+             this));
 
 
     editSField(LocalViewerFieldMask);

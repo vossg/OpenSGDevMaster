@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SimpleStatisticsForeground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SimpleStatisticsForegroundPtr
-
 OSG_GEN_CONTAINERPTR(SimpleStatisticsForeground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpUtilFieldTraits
+    \ingroup GrpLibOSGUtil
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SimpleStatisticsForeground *> :
     public FieldTraitsFCPtrBase<SimpleStatisticsForeground *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<SimpleStatisticsForeground *, 0>::getMName<NoRefCountPo
     return "MFUnrefdSimpleStatisticsForegroundPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SimpleStatisticsForegroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpUtilFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpUtilFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
                       RecordedRefCountPolicy  > SFRecSimpleStatisticsForegroundPtr;
+/*! \ingroup GrpUtilFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
                       UnrecordedRefCountPolicy> SFUnrecSimpleStatisticsForegroundPtr;
+/*! \ingroup GrpUtilFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
                       WeakRefCountPolicy      > SFWeakSimpleStatisticsForegroundPtr;
+/*! \ingroup GrpUtilFieldSFields */
 typedef PointerSField<SimpleStatisticsForeground *,
                       NoRefCountPolicy        > SFUncountedSimpleStatisticsForegroundPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpUtilFieldMulti */
-
+/*! \ingroup GrpUtilFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
                       RecordedRefCountPolicy  > MFRecSimpleStatisticsForegroundPtr;
+/*! \ingroup GrpUtilFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
                       UnrecordedRefCountPolicy> MFUnrecSimpleStatisticsForegroundPtr;
+/*! \ingroup GrpUtilFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
                       WeakRefCountPolicy      > MFWeakSimpleStatisticsForegroundPtr;
+/*! \ingroup GrpUtilFieldMFields */
 typedef PointerMField<SimpleStatisticsForeground *,
                       NoRefCountPolicy        > MFUncountedSimpleStatisticsForegroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+struct SFRecSimpleStatisticsForegroundPtr : 
+    public PointerSField<SimpleStatisticsForeground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+struct SFUnrecSimpleStatisticsForegroundPtr : 
+    public PointerSField<SimpleStatisticsForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+struct SFWeakSimpleStatisticsForegroundPtr :
+    public PointerSField<SimpleStatisticsForeground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+struct SFUncountedSimpleStatisticsForegroundPtr :
+    public PointerSField<SimpleStatisticsForeground *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+struct MFRecSimpleStatisticsForegroundPtr :
+    public PointerMField<SimpleStatisticsForeground *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+struct MFUnrecSimpleStatisticsForegroundPtr :
+    public PointerMField<SimpleStatisticsForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+struct MFWeakSimpleStatisticsForegroundPtr :
+    public PointerMField<SimpleStatisticsForeground *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+struct MFUncountedSimpleStatisticsForegroundPtr :
+    public PointerMField<SimpleStatisticsForeground *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

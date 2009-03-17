@@ -178,7 +178,7 @@ BalancedMultiWindowBase::TypeObject BalancedMultiWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&BalancedMultiWindowBase::createEmptyLocal),
     BalancedMultiWindow::initMethod,
     BalancedMultiWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&BalancedMultiWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&BalancedMultiWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -574,7 +574,8 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleBalance         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfBalance,
-             this->getType().getFieldDesc(BalanceFieldId)));
+             this->getType().getFieldDesc(BalanceFieldId),
+             const_cast<BalancedMultiWindowBase *>(this)));
 
     return returnValue;
 }
@@ -584,7 +585,8 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleBalance        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfBalance,
-             this->getType().getFieldDesc(BalanceFieldId)));
+             this->getType().getFieldDesc(BalanceFieldId),
+             this));
 
 
     editSField(BalanceFieldMask);
@@ -597,7 +599,8 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleBestCut         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfBestCut,
-             this->getType().getFieldDesc(BestCutFieldId)));
+             this->getType().getFieldDesc(BestCutFieldId),
+             const_cast<BalancedMultiWindowBase *>(this)));
 
     return returnValue;
 }
@@ -607,7 +610,8 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleBestCut        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfBestCut,
-             this->getType().getFieldDesc(BestCutFieldId)));
+             this->getType().getFieldDesc(BestCutFieldId),
+             this));
 
 
     editSField(BestCutFieldMask);
@@ -620,7 +624,8 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleShowBalancing   (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfShowBalancing,
-             this->getType().getFieldDesc(ShowBalancingFieldId)));
+             this->getType().getFieldDesc(ShowBalancingFieldId),
+             const_cast<BalancedMultiWindowBase *>(this)));
 
     return returnValue;
 }
@@ -630,7 +635,8 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleShowBalancing  (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfShowBalancing,
-             this->getType().getFieldDesc(ShowBalancingFieldId)));
+             this->getType().getFieldDesc(ShowBalancingFieldId),
+             this));
 
 
     editSField(ShowBalancingFieldMask);
@@ -643,7 +649,8 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleTileSize        (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfTileSize,
-             this->getType().getFieldDesc(TileSizeFieldId)));
+             this->getType().getFieldDesc(TileSizeFieldId),
+             const_cast<BalancedMultiWindowBase *>(this)));
 
     return returnValue;
 }
@@ -653,7 +660,8 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleTileSize       (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfTileSize,
-             this->getType().getFieldDesc(TileSizeFieldId)));
+             this->getType().getFieldDesc(TileSizeFieldId),
+             this));
 
 
     editSField(TileSizeFieldMask);
@@ -666,7 +674,8 @@ GetFieldHandlePtr BalancedMultiWindowBase::getHandleShort           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfShort,
-             this->getType().getFieldDesc(ShortFieldId)));
+             this->getType().getFieldDesc(ShortFieldId),
+             const_cast<BalancedMultiWindowBase *>(this)));
 
     return returnValue;
 }
@@ -676,7 +685,8 @@ EditFieldHandlePtr BalancedMultiWindowBase::editHandleShort          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfShort,
-             this->getType().getFieldDesc(ShortFieldId)));
+             this->getType().getFieldDesc(ShortFieldId),
+             this));
 
 
     editSField(ShortFieldMask);
@@ -729,5 +739,6 @@ void BalancedMultiWindowBase::resolveLinks(void)
 DataType FieldTraits<BalancedMultiWindow *>::_type("BalancedMultiWindowPtr", "MultiDisplayWindowPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(BalancedMultiWindow *)
 
 OSG_END_NAMESPACE

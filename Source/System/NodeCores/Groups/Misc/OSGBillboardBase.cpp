@@ -178,7 +178,7 @@ BillboardBase::TypeObject BillboardBase::_type(
     reinterpret_cast<PrototypeCreateF>(&BillboardBase::createEmptyLocal),
     Billboard::initMethod,
     Billboard::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&BillboardBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Billboard::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -569,7 +569,8 @@ GetFieldHandlePtr BillboardBase::getHandleAxisOfRotation  (void) const
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
              &_sfAxisOfRotation,
-             this->getType().getFieldDesc(AxisOfRotationFieldId)));
+             this->getType().getFieldDesc(AxisOfRotationFieldId),
+             const_cast<BillboardBase *>(this)));
 
     return returnValue;
 }
@@ -579,7 +580,8 @@ EditFieldHandlePtr BillboardBase::editHandleAxisOfRotation (void)
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
              &_sfAxisOfRotation,
-             this->getType().getFieldDesc(AxisOfRotationFieldId)));
+             this->getType().getFieldDesc(AxisOfRotationFieldId),
+             this));
 
 
     editSField(AxisOfRotationFieldMask);
@@ -592,7 +594,8 @@ GetFieldHandlePtr BillboardBase::getHandleFocusOnCamera   (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfFocusOnCamera,
-             this->getType().getFieldDesc(FocusOnCameraFieldId)));
+             this->getType().getFieldDesc(FocusOnCameraFieldId),
+             const_cast<BillboardBase *>(this)));
 
     return returnValue;
 }
@@ -602,7 +605,8 @@ EditFieldHandlePtr BillboardBase::editHandleFocusOnCamera  (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfFocusOnCamera,
-             this->getType().getFieldDesc(FocusOnCameraFieldId)));
+             this->getType().getFieldDesc(FocusOnCameraFieldId),
+             this));
 
 
     editSField(FocusOnCameraFieldMask);
@@ -615,7 +619,8 @@ GetFieldHandlePtr BillboardBase::getHandleAlignToScreen   (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAlignToScreen,
-             this->getType().getFieldDesc(AlignToScreenFieldId)));
+             this->getType().getFieldDesc(AlignToScreenFieldId),
+             const_cast<BillboardBase *>(this)));
 
     return returnValue;
 }
@@ -625,7 +630,8 @@ EditFieldHandlePtr BillboardBase::editHandleAlignToScreen  (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAlignToScreen,
-             this->getType().getFieldDesc(AlignToScreenFieldId)));
+             this->getType().getFieldDesc(AlignToScreenFieldId),
+             this));
 
 
     editSField(AlignToScreenFieldMask);
@@ -638,7 +644,8 @@ GetFieldHandlePtr BillboardBase::getHandleMinAngle        (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfMinAngle,
-             this->getType().getFieldDesc(MinAngleFieldId)));
+             this->getType().getFieldDesc(MinAngleFieldId),
+             const_cast<BillboardBase *>(this)));
 
     return returnValue;
 }
@@ -648,7 +655,8 @@ EditFieldHandlePtr BillboardBase::editHandleMinAngle       (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfMinAngle,
-             this->getType().getFieldDesc(MinAngleFieldId)));
+             this->getType().getFieldDesc(MinAngleFieldId),
+             this));
 
 
     editSField(MinAngleFieldMask);
@@ -661,7 +669,8 @@ GetFieldHandlePtr BillboardBase::getHandleMaxAngle        (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfMaxAngle,
-             this->getType().getFieldDesc(MaxAngleFieldId)));
+             this->getType().getFieldDesc(MaxAngleFieldId),
+             const_cast<BillboardBase *>(this)));
 
     return returnValue;
 }
@@ -671,7 +680,8 @@ EditFieldHandlePtr BillboardBase::editHandleMaxAngle       (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfMaxAngle,
-             this->getType().getFieldDesc(MaxAngleFieldId)));
+             this->getType().getFieldDesc(MaxAngleFieldId),
+             this));
 
 
     editSField(MaxAngleFieldMask);

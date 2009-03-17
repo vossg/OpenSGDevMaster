@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class OffCenterPerspectiveCamera;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! OffCenterPerspectiveCameraPtr
-
 OSG_GEN_CONTAINERPTR(OffCenterPerspectiveCamera);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<OffCenterPerspectiveCamera *> :
     public FieldTraitsFCPtrBase<OffCenterPerspectiveCamera *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<OffCenterPerspectiveCamera *, 0>::getMName<NoRefCountPo
     return "MFUnrefdOffCenterPerspectiveCameraPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<OffCenterPerspectiveCameraPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<OffCenterPerspectiveCamera *,
                       RecordedRefCountPolicy  > SFRecOffCenterPerspectiveCameraPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<OffCenterPerspectiveCamera *,
                       UnrecordedRefCountPolicy> SFUnrecOffCenterPerspectiveCameraPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<OffCenterPerspectiveCamera *,
                       WeakRefCountPolicy      > SFWeakOffCenterPerspectiveCameraPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<OffCenterPerspectiveCamera *,
                       NoRefCountPolicy        > SFUncountedOffCenterPerspectiveCameraPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<OffCenterPerspectiveCamera *,
                       RecordedRefCountPolicy  > MFRecOffCenterPerspectiveCameraPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<OffCenterPerspectiveCamera *,
                       UnrecordedRefCountPolicy> MFUnrecOffCenterPerspectiveCameraPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<OffCenterPerspectiveCamera *,
                       WeakRefCountPolicy      > MFWeakOffCenterPerspectiveCameraPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<OffCenterPerspectiveCamera *,
                       NoRefCountPolicy        > MFUncountedOffCenterPerspectiveCameraPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecOffCenterPerspectiveCameraPtr : 
+    public PointerSField<OffCenterPerspectiveCamera *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecOffCenterPerspectiveCameraPtr : 
+    public PointerSField<OffCenterPerspectiveCamera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakOffCenterPerspectiveCameraPtr :
+    public PointerSField<OffCenterPerspectiveCamera *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedOffCenterPerspectiveCameraPtr :
+    public PointerSField<OffCenterPerspectiveCamera *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecOffCenterPerspectiveCameraPtr :
+    public PointerMField<OffCenterPerspectiveCamera *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecOffCenterPerspectiveCameraPtr :
+    public PointerMField<OffCenterPerspectiveCamera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakOffCenterPerspectiveCameraPtr :
+    public PointerMField<OffCenterPerspectiveCamera *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedOffCenterPerspectiveCameraPtr :
+    public PointerMField<OffCenterPerspectiveCamera *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

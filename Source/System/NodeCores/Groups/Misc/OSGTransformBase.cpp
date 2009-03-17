@@ -115,7 +115,7 @@ TransformBase::TypeObject TransformBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TransformBase::createEmptyLocal),
     Transform::initMethod,
     Transform::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TransformBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Transform::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -364,7 +364,8 @@ GetFieldHandlePtr TransformBase::getHandleMatrix          (void) const
     SFMatrixr::GetHandlePtr returnValue(
         new  SFMatrixr::GetHandle(
              &_sfMatrix,
-             this->getType().getFieldDesc(MatrixFieldId)));
+             this->getType().getFieldDesc(MatrixFieldId),
+             const_cast<TransformBase *>(this)));
 
     return returnValue;
 }
@@ -374,7 +375,8 @@ EditFieldHandlePtr TransformBase::editHandleMatrix         (void)
     SFMatrixr::EditHandlePtr returnValue(
         new  SFMatrixr::EditHandle(
              &_sfMatrix,
-             this->getType().getFieldDesc(MatrixFieldId)));
+             this->getType().getFieldDesc(MatrixFieldId),
+             this));
 
 
     editSField(MatrixFieldMask);

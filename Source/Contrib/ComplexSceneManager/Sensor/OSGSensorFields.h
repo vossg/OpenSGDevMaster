@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Sensor;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SensorPtr
-
 OSG_GEN_CONTAINERPTR(Sensor);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Sensor *> :
     public FieldTraitsFCPtrBase<Sensor *>
@@ -127,29 +118,48 @@ const Char8 *FieldTraits<Sensor *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdSensorPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SensorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldMulti */
-
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<Sensor *,
                       RecordedRefCountPolicy  > MFRecSensorPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<Sensor *,
                       UnrecordedRefCountPolicy> MFUnrecSensorPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<Sensor *,
                       WeakRefCountPolicy      > MFWeakSensorPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<Sensor *,
                       NoRefCountPolicy        > MFUncountedSensorPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFRecSensorPtr :
+    public PointerMField<Sensor *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUnrecSensorPtr :
+    public PointerMField<Sensor *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFWeakSensorPtr :
+    public PointerMField<Sensor *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUncountedSensorPtr :
+    public PointerMField<Sensor *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

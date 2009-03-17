@@ -80,6 +80,15 @@ OSG_BEGIN_NAMESPACE
     See \ref PageSystemFragmentProgramChunk for a description.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void FragmentProgramChunkBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(
     FragmentProgramChunkBase::getClassname(),
@@ -89,7 +98,7 @@ FragmentProgramChunkBase::TypeObject FragmentProgramChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FragmentProgramChunkBase::createEmptyLocal),
     FragmentProgramChunk::initMethod,
     FragmentProgramChunk::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&FragmentProgramChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

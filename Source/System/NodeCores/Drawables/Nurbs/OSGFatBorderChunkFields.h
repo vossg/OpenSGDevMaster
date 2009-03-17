@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class FatBorderChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FatBorderChunkPtr
-
 OSG_GEN_CONTAINERPTR(FatBorderChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpDrawableFieldTraits
+    \ingroup GrpLibOSGDrawable
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<FatBorderChunk *> :
     public FieldTraitsFCPtrBase<FatBorderChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<FatBorderChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdFatBorderChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FatBorderChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<FatBorderChunk *,
                       RecordedRefCountPolicy  > SFRecFatBorderChunkPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<FatBorderChunk *,
                       UnrecordedRefCountPolicy> SFUnrecFatBorderChunkPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<FatBorderChunk *,
                       WeakRefCountPolicy      > SFWeakFatBorderChunkPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<FatBorderChunk *,
                       NoRefCountPolicy        > SFUncountedFatBorderChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<FatBorderChunk *,
                       RecordedRefCountPolicy  > MFRecFatBorderChunkPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<FatBorderChunk *,
                       UnrecordedRefCountPolicy> MFUnrecFatBorderChunkPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<FatBorderChunk *,
                       WeakRefCountPolicy      > MFWeakFatBorderChunkPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<FatBorderChunk *,
                       NoRefCountPolicy        > MFUncountedFatBorderChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFRecFatBorderChunkPtr : 
+    public PointerSField<FatBorderChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUnrecFatBorderChunkPtr : 
+    public PointerSField<FatBorderChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFWeakFatBorderChunkPtr :
+    public PointerSField<FatBorderChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUncountedFatBorderChunkPtr :
+    public PointerSField<FatBorderChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFRecFatBorderChunkPtr :
+    public PointerMField<FatBorderChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUnrecFatBorderChunkPtr :
+    public PointerMField<FatBorderChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFWeakFatBorderChunkPtr :
+    public PointerMField<FatBorderChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUncountedFatBorderChunkPtr :
+    public PointerMField<FatBorderChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

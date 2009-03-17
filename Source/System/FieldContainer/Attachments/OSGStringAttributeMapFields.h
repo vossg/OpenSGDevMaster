@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class StringAttributeMap;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! StringAttributeMapPtr
-
 OSG_GEN_CONTAINERPTR(StringAttributeMap);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<StringAttributeMap *> :
     public FieldTraitsFCPtrBase<StringAttributeMap *>
@@ -127,28 +118,46 @@ const Char8 *FieldTraits<StringAttributeMap *, 0>::getSName<NoRefCountPolicy>(vo
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<StringAttributeMapPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StringAttributeMap *,
                       RecordedRefCountPolicy  > SFRecStringAttributeMapPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StringAttributeMap *,
                       UnrecordedRefCountPolicy> SFUnrecStringAttributeMapPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StringAttributeMap *,
                       WeakRefCountPolicy      > SFWeakStringAttributeMapPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<StringAttributeMap *,
                       NoRefCountPolicy        > SFUncountedStringAttributeMapPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecStringAttributeMapPtr : 
+    public PointerSField<StringAttributeMap *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecStringAttributeMapPtr : 
+    public PointerSField<StringAttributeMap *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakStringAttributeMapPtr :
+    public PointerSField<StringAttributeMap *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedStringAttributeMapPtr :
+    public PointerSField<StringAttributeMap *,
+                         NoRefCountPolicy> {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

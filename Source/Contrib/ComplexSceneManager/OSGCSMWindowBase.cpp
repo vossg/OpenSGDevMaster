@@ -341,7 +341,7 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     NULL,
     CSMWindow::initMethod,
     CSMWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CSMWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CSMWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1138,7 +1138,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleViewports       (void) const
     MFUnrecCSMViewportPtr::GetHandlePtr returnValue(
         new  MFUnrecCSMViewportPtr::GetHandle(
              &_mfViewports,
-             this->getType().getFieldDesc(ViewportsFieldId)));
+             this->getType().getFieldDesc(ViewportsFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1148,7 +1149,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleViewports      (void)
     MFUnrecCSMViewportPtr::EditHandlePtr returnValue(
         new  MFUnrecCSMViewportPtr::EditHandle(
              &_mfViewports,
-             this->getType().getFieldDesc(ViewportsFieldId)));
+             this->getType().getFieldDesc(ViewportsFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&CSMWindow::pushToViewports,
@@ -1173,7 +1175,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleMouseData       (void) const
     SFMouseData::GetHandlePtr returnValue(
         new  SFMouseData::GetHandle(
              &_sfMouseData,
-             this->getType().getFieldDesc(MouseDataFieldId)));
+             this->getType().getFieldDesc(MouseDataFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1183,7 +1186,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleMouseData      (void)
     SFMouseData::EditHandlePtr returnValue(
         new  SFMouseData::EditHandle(
              &_sfMouseData,
-             this->getType().getFieldDesc(MouseDataFieldId)));
+             this->getType().getFieldDesc(MouseDataFieldId),
+             this));
 
 
     editSField(MouseDataFieldMask);
@@ -1196,7 +1200,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleSize            (void) const
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfSize,
-             this->getType().getFieldDesc(SizeFieldId)));
+             this->getType().getFieldDesc(SizeFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1206,7 +1211,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleSize           (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfSize,
-             this->getType().getFieldDesc(SizeFieldId)));
+             this->getType().getFieldDesc(SizeFieldId),
+             this));
 
 
     editSField(SizeFieldMask);
@@ -1219,7 +1225,8 @@ GetFieldHandlePtr CSMWindowBase::getHandlePosition        (void) const
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfPosition,
-             this->getType().getFieldDesc(PositionFieldId)));
+             this->getType().getFieldDesc(PositionFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1229,7 +1236,8 @@ EditFieldHandlePtr CSMWindowBase::editHandlePosition       (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfPosition,
-             this->getType().getFieldDesc(PositionFieldId)));
+             this->getType().getFieldDesc(PositionFieldId),
+             this));
 
 
     editSField(PositionFieldMask);
@@ -1242,7 +1250,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleDecorEnabled    (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfDecorEnabled,
-             this->getType().getFieldDesc(DecorEnabledFieldId)));
+             this->getType().getFieldDesc(DecorEnabledFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1252,7 +1261,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleDecorEnabled   (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfDecorEnabled,
-             this->getType().getFieldDesc(DecorEnabledFieldId)));
+             this->getType().getFieldDesc(DecorEnabledFieldId),
+             this));
 
 
     editSField(DecorEnabledFieldMask);
@@ -1265,7 +1275,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleRequestMajor    (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfRequestMajor,
-             this->getType().getFieldDesc(RequestMajorFieldId)));
+             this->getType().getFieldDesc(RequestMajorFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1275,7 +1286,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleRequestMajor   (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfRequestMajor,
-             this->getType().getFieldDesc(RequestMajorFieldId)));
+             this->getType().getFieldDesc(RequestMajorFieldId),
+             this));
 
 
     editSField(RequestMajorFieldMask);
@@ -1288,7 +1300,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleRequestMinor    (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfRequestMinor,
-             this->getType().getFieldDesc(RequestMinorFieldId)));
+             this->getType().getFieldDesc(RequestMinorFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1298,7 +1311,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleRequestMinor   (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfRequestMinor,
-             this->getType().getFieldDesc(RequestMinorFieldId)));
+             this->getType().getFieldDesc(RequestMinorFieldId),
+             this));
 
 
     editSField(RequestMinorFieldMask);
@@ -1311,7 +1325,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleEnableForwardCompatContext (void) cons
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnableForwardCompatContext,
-             this->getType().getFieldDesc(EnableForwardCompatContextFieldId)));
+             this->getType().getFieldDesc(EnableForwardCompatContextFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1321,7 +1336,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleEnableForwardCompatContext(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnableForwardCompatContext,
-             this->getType().getFieldDesc(EnableForwardCompatContextFieldId)));
+             this->getType().getFieldDesc(EnableForwardCompatContextFieldId),
+             this));
 
 
     editSField(EnableForwardCompatContextFieldMask);
@@ -1334,7 +1350,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleEnableDebugContext (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnableDebugContext,
-             this->getType().getFieldDesc(EnableDebugContextFieldId)));
+             this->getType().getFieldDesc(EnableDebugContextFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1344,7 +1361,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleEnableDebugContext(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnableDebugContext,
-             this->getType().getFieldDesc(EnableDebugContextFieldId)));
+             this->getType().getFieldDesc(EnableDebugContextFieldId),
+             this));
 
 
     editSField(EnableDebugContextFieldMask);
@@ -1357,7 +1375,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleIgnoreExtensions (void) const
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfIgnoreExtensions,
-             this->getType().getFieldDesc(IgnoreExtensionsFieldId)));
+             this->getType().getFieldDesc(IgnoreExtensionsFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1367,7 +1386,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleIgnoreExtensions(void)
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfIgnoreExtensions,
-             this->getType().getFieldDesc(IgnoreExtensionsFieldId)));
+             this->getType().getFieldDesc(IgnoreExtensionsFieldId),
+             this));
 
 
     editMField(IgnoreExtensionsFieldMask, _mfIgnoreExtensions);
@@ -1380,7 +1400,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleRequestSamples  (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfRequestSamples,
-             this->getType().getFieldDesc(RequestSamplesFieldId)));
+             this->getType().getFieldDesc(RequestSamplesFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1390,7 +1411,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleRequestSamples (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfRequestSamples,
-             this->getType().getFieldDesc(RequestSamplesFieldId)));
+             this->getType().getFieldDesc(RequestSamplesFieldId),
+             this));
 
 
     editSField(RequestSamplesFieldMask);
@@ -1403,7 +1425,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleEnableFSAA      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnableFSAA,
-             this->getType().getFieldDesc(EnableFSAAFieldId)));
+             this->getType().getFieldDesc(EnableFSAAFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1413,7 +1436,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleEnableFSAA     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnableFSAA,
-             this->getType().getFieldDesc(EnableFSAAFieldId)));
+             this->getType().getFieldDesc(EnableFSAAFieldId),
+             this));
 
 
     editSField(EnableFSAAFieldMask);
@@ -1426,7 +1450,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleFsaaHint        (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfFsaaHint,
-             this->getType().getFieldDesc(FsaaHintFieldId)));
+             this->getType().getFieldDesc(FsaaHintFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1436,7 +1461,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleFsaaHint       (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfFsaaHint,
-             this->getType().getFieldDesc(FsaaHintFieldId)));
+             this->getType().getFieldDesc(FsaaHintFieldId),
+             this));
 
 
     editSField(FsaaHintFieldMask);
@@ -1449,7 +1475,8 @@ GetFieldHandlePtr CSMWindowBase::getHandleRenderOptions   (void) const
     SFUnrecRenderOptionsPtr::GetHandlePtr returnValue(
         new  SFUnrecRenderOptionsPtr::GetHandle(
              &_sfRenderOptions,
-             this->getType().getFieldDesc(RenderOptionsFieldId)));
+             this->getType().getFieldDesc(RenderOptionsFieldId),
+             const_cast<CSMWindowBase *>(this)));
 
     return returnValue;
 }
@@ -1459,7 +1486,8 @@ EditFieldHandlePtr CSMWindowBase::editHandleRenderOptions  (void)
     SFUnrecRenderOptionsPtr::EditHandlePtr returnValue(
         new  SFUnrecRenderOptionsPtr::EditHandle(
              &_sfRenderOptions,
-             this->getType().getFieldDesc(RenderOptionsFieldId)));
+             this->getType().getFieldDesc(RenderOptionsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&CSMWindow::setRenderOptions,

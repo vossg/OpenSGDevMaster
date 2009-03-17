@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void LightEnvBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 LightEnvBase::TypeObject LightEnvBase::_type(
     LightEnvBase::getClassname(),
@@ -87,7 +96,7 @@ LightEnvBase::TypeObject LightEnvBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LightEnvBase::createEmptyLocal),
     LightEnv::initMethod,
     LightEnv::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&LightEnv::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -340,5 +349,6 @@ void LightEnvBase::resolveLinks(void)
 DataType FieldTraits<LightEnv *>::_type("LightEnvPtr", "NodeCorePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(LightEnv *)
 
 OSG_END_NAMESPACE

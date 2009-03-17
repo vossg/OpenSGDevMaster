@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CSMDrawManager;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CSMDrawManagerPtr
-
 OSG_GEN_CONTAINERPTR(CSMDrawManager);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CSMDrawManager *> :
     public FieldTraitsFCPtrBase<CSMDrawManager *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CSMDrawManager *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdCSMDrawManagerPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CSMDrawManagerPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMDrawManager *,
                       RecordedRefCountPolicy  > SFRecCSMDrawManagerPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMDrawManager *,
                       UnrecordedRefCountPolicy> SFUnrecCSMDrawManagerPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMDrawManager *,
                       WeakRefCountPolicy      > SFWeakCSMDrawManagerPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMDrawManager *,
                       NoRefCountPolicy        > SFUncountedCSMDrawManagerPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldMulti */
-
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawManager *,
                       RecordedRefCountPolicy  > MFRecCSMDrawManagerPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawManager *,
                       UnrecordedRefCountPolicy> MFUnrecCSMDrawManagerPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawManager *,
                       WeakRefCountPolicy      > MFWeakCSMDrawManagerPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMDrawManager *,
                       NoRefCountPolicy        > MFUncountedCSMDrawManagerPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecCSMDrawManagerPtr : 
+    public PointerSField<CSMDrawManager *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecCSMDrawManagerPtr : 
+    public PointerSField<CSMDrawManager *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakCSMDrawManagerPtr :
+    public PointerSField<CSMDrawManager *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedCSMDrawManagerPtr :
+    public PointerSField<CSMDrawManager *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFRecCSMDrawManagerPtr :
+    public PointerMField<CSMDrawManager *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUnrecCSMDrawManagerPtr :
+    public PointerMField<CSMDrawManager *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFWeakCSMDrawManagerPtr :
+    public PointerMField<CSMDrawManager *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUncountedCSMDrawManagerPtr :
+    public PointerMField<CSMDrawManager *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

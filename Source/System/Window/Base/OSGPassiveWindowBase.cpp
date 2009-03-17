@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpSystemWindowPassive
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void PassiveWindowBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 PassiveWindowBase::TypeObject PassiveWindowBase::_type(
     PassiveWindowBase::getClassname(),
@@ -87,7 +96,7 @@ PassiveWindowBase::TypeObject PassiveWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PassiveWindowBase::createEmptyLocal),
     PassiveWindow::initMethod,
     PassiveWindow::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&PassiveWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TileCameraDecorator;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TileCameraDecoratorPtr
-
 OSG_GEN_CONTAINERPTR(TileCameraDecorator);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TileCameraDecorator *> :
     public FieldTraitsFCPtrBase<TileCameraDecorator *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<TileCameraDecorator *, 0>::getMName<NoRefCountPolicy>(v
     return "MFUnrefdTileCameraDecoratorPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TileCameraDecoratorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TileCameraDecorator *,
                       RecordedRefCountPolicy  > SFRecTileCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TileCameraDecorator *,
                       UnrecordedRefCountPolicy> SFUnrecTileCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TileCameraDecorator *,
                       WeakRefCountPolicy      > SFWeakTileCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TileCameraDecorator *,
                       NoRefCountPolicy        > SFUncountedTileCameraDecoratorPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<TileCameraDecorator *,
                       RecordedRefCountPolicy  > MFRecTileCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<TileCameraDecorator *,
                       UnrecordedRefCountPolicy> MFUnrecTileCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<TileCameraDecorator *,
                       WeakRefCountPolicy      > MFWeakTileCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<TileCameraDecorator *,
                       NoRefCountPolicy        > MFUncountedTileCameraDecoratorPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecTileCameraDecoratorPtr : 
+    public PointerSField<TileCameraDecorator *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecTileCameraDecoratorPtr : 
+    public PointerSField<TileCameraDecorator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakTileCameraDecoratorPtr :
+    public PointerSField<TileCameraDecorator *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedTileCameraDecoratorPtr :
+    public PointerSField<TileCameraDecorator *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecTileCameraDecoratorPtr :
+    public PointerMField<TileCameraDecorator *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecTileCameraDecoratorPtr :
+    public PointerMField<TileCameraDecorator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakTileCameraDecoratorPtr :
+    public PointerMField<TileCameraDecorator *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedTileCameraDecoratorPtr :
+    public PointerMField<TileCameraDecorator *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

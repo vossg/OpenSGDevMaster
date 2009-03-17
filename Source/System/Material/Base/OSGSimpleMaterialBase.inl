@@ -160,14 +160,14 @@ Real &SimpleMaterialBase::editShininess(void)
 
 //! Get the value of the SimpleMaterial::_sfShininess field.
 inline
-const Real &SimpleMaterialBase::getShininess(void) const
+      Real  SimpleMaterialBase::getShininess(void) const
 {
     return _sfShininess.getValue();
 }
 
 //! Set the value of the SimpleMaterial::_sfShininess field.
 inline
-void SimpleMaterialBase::setShininess(const Real &value)
+void SimpleMaterialBase::setShininess(const Real value)
 {
     editSField(ShininessFieldMask);
 
@@ -210,14 +210,14 @@ Real &SimpleMaterialBase::editTransparency(void)
 
 //! Get the value of the SimpleMaterial::_sfTransparency field.
 inline
-const Real &SimpleMaterialBase::getTransparency(void) const
+      Real  SimpleMaterialBase::getTransparency(void) const
 {
     return _sfTransparency.getValue();
 }
 
 //! Set the value of the SimpleMaterial::_sfTransparency field.
 inline
-void SimpleMaterialBase::setTransparency(const Real &value)
+void SimpleMaterialBase::setTransparency(const Real value)
 {
     editSField(TransparencyFieldMask);
 

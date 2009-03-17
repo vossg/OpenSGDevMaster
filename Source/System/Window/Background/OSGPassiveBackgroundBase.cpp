@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpSystemWindowBackgrounds
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void PassiveBackgroundBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(
     PassiveBackgroundBase::getClassname(),
@@ -87,7 +96,7 @@ PassiveBackgroundBase::TypeObject PassiveBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PassiveBackgroundBase::createEmptyLocal),
     PassiveBackground::initMethod,
     PassiveBackground::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&PassiveBackground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

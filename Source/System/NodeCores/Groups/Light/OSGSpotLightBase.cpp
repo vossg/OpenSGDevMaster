@@ -153,7 +153,7 @@ SpotLightBase::TypeObject SpotLightBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SpotLightBase::createEmptyLocal),
     SpotLight::initMethod,
     SpotLight::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SpotLightBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SpotLight::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -486,7 +486,8 @@ GetFieldHandlePtr SpotLightBase::getHandleDirection       (void) const
     SFVec3r::GetHandlePtr returnValue(
         new  SFVec3r::GetHandle(
              &_sfDirection,
-             this->getType().getFieldDesc(DirectionFieldId)));
+             this->getType().getFieldDesc(DirectionFieldId),
+             const_cast<SpotLightBase *>(this)));
 
     return returnValue;
 }
@@ -496,7 +497,8 @@ EditFieldHandlePtr SpotLightBase::editHandleDirection      (void)
     SFVec3r::EditHandlePtr returnValue(
         new  SFVec3r::EditHandle(
              &_sfDirection,
-             this->getType().getFieldDesc(DirectionFieldId)));
+             this->getType().getFieldDesc(DirectionFieldId),
+             this));
 
 
     editSField(DirectionFieldMask);
@@ -509,7 +511,8 @@ GetFieldHandlePtr SpotLightBase::getHandleSpotExponent    (void) const
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
              &_sfSpotExponent,
-             this->getType().getFieldDesc(SpotExponentFieldId)));
+             this->getType().getFieldDesc(SpotExponentFieldId),
+             const_cast<SpotLightBase *>(this)));
 
     return returnValue;
 }
@@ -519,7 +522,8 @@ EditFieldHandlePtr SpotLightBase::editHandleSpotExponent   (void)
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
              &_sfSpotExponent,
-             this->getType().getFieldDesc(SpotExponentFieldId)));
+             this->getType().getFieldDesc(SpotExponentFieldId),
+             this));
 
 
     editSField(SpotExponentFieldMask);
@@ -532,7 +536,8 @@ GetFieldHandlePtr SpotLightBase::getHandleSpotCutOff      (void) const
     SFReal::GetHandlePtr returnValue(
         new  SFReal::GetHandle(
              &_sfSpotCutOff,
-             this->getType().getFieldDesc(SpotCutOffFieldId)));
+             this->getType().getFieldDesc(SpotCutOffFieldId),
+             const_cast<SpotLightBase *>(this)));
 
     return returnValue;
 }
@@ -542,7 +547,8 @@ EditFieldHandlePtr SpotLightBase::editHandleSpotCutOff     (void)
     SFReal::EditHandlePtr returnValue(
         new  SFReal::EditHandle(
              &_sfSpotCutOff,
-             this->getType().getFieldDesc(SpotCutOffFieldId)));
+             this->getType().getFieldDesc(SpotCutOffFieldId),
+             this));
 
 
     editSField(SpotCutOffFieldMask);
@@ -595,5 +601,6 @@ void SpotLightBase::resolveLinks(void)
 DataType FieldTraits<SpotLight *>::_type("SpotLightPtr", "PointLightPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(SpotLight *)
 
 OSG_END_NAMESPACE

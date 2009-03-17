@@ -146,7 +146,7 @@ BinarySwapComposerBase::TypeObject BinarySwapComposerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&BinarySwapComposerBase::createEmptyLocal),
     BinarySwapComposer::initMethod,
     BinarySwapComposer::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&BinarySwapComposerBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&BinarySwapComposer::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -466,7 +466,8 @@ GetFieldHandlePtr BinarySwapComposerBase::getHandleShort           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfShort,
-             this->getType().getFieldDesc(ShortFieldId)));
+             this->getType().getFieldDesc(ShortFieldId),
+             const_cast<BinarySwapComposerBase *>(this)));
 
     return returnValue;
 }
@@ -476,7 +477,8 @@ EditFieldHandlePtr BinarySwapComposerBase::editHandleShort          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfShort,
-             this->getType().getFieldDesc(ShortFieldId)));
+             this->getType().getFieldDesc(ShortFieldId),
+             this));
 
 
     editSField(ShortFieldMask);
@@ -489,7 +491,8 @@ GetFieldHandlePtr BinarySwapComposerBase::getHandleAlpha           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             const_cast<BinarySwapComposerBase *>(this)));
 
     return returnValue;
 }
@@ -499,7 +502,8 @@ EditFieldHandlePtr BinarySwapComposerBase::editHandleAlpha          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             this));
 
 
     editSField(AlphaFieldMask);
@@ -512,7 +516,8 @@ GetFieldHandlePtr BinarySwapComposerBase::getHandleTileSize        (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfTileSize,
-             this->getType().getFieldDesc(TileSizeFieldId)));
+             this->getType().getFieldDesc(TileSizeFieldId),
+             const_cast<BinarySwapComposerBase *>(this)));
 
     return returnValue;
 }
@@ -522,7 +527,8 @@ EditFieldHandlePtr BinarySwapComposerBase::editHandleTileSize       (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfTileSize,
-             this->getType().getFieldDesc(TileSizeFieldId)));
+             this->getType().getFieldDesc(TileSizeFieldId),
+             this));
 
 
     editSField(TileSizeFieldMask);
@@ -575,5 +581,6 @@ void BinarySwapComposerBase::resolveLinks(void)
 DataType FieldTraits<BinarySwapComposer *>::_type("BinarySwapComposerPtr", "ImageComposerPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(BinarySwapComposer *)
 
 OSG_END_NAMESPACE

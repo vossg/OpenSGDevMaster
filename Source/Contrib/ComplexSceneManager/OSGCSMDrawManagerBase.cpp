@@ -163,7 +163,7 @@ CSMDrawManagerBase::TypeObject CSMDrawManagerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMDrawManagerBase::createEmptyLocal),
     CSMDrawManager::initMethod,
     CSMDrawManager::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CSMDrawManagerBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CSMDrawManager::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -567,7 +567,8 @@ GetFieldHandlePtr CSMDrawManagerBase::getHandleDrawer          (void) const
     MFUnrecCSMDrawerPtr::GetHandlePtr returnValue(
         new  MFUnrecCSMDrawerPtr::GetHandle(
              &_mfDrawer,
-             this->getType().getFieldDesc(DrawerFieldId)));
+             this->getType().getFieldDesc(DrawerFieldId),
+             const_cast<CSMDrawManagerBase *>(this)));
 
     return returnValue;
 }
@@ -577,7 +578,8 @@ EditFieldHandlePtr CSMDrawManagerBase::editHandleDrawer         (void)
     MFUnrecCSMDrawerPtr::EditHandlePtr returnValue(
         new  MFUnrecCSMDrawerPtr::EditHandle(
              &_mfDrawer,
-             this->getType().getFieldDesc(DrawerFieldId)));
+             this->getType().getFieldDesc(DrawerFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&CSMDrawManager::pushToDrawer,
@@ -602,7 +604,8 @@ GetFieldHandlePtr CSMDrawManagerBase::getHandleParallel        (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfParallel,
-             this->getType().getFieldDesc(ParallelFieldId)));
+             this->getType().getFieldDesc(ParallelFieldId),
+             const_cast<CSMDrawManagerBase *>(this)));
 
     return returnValue;
 }
@@ -612,7 +615,8 @@ EditFieldHandlePtr CSMDrawManagerBase::editHandleParallel       (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfParallel,
-             this->getType().getFieldDesc(ParallelFieldId)));
+             this->getType().getFieldDesc(ParallelFieldId),
+             this));
 
 
     editSField(ParallelFieldMask);
@@ -625,7 +629,8 @@ GetFieldHandlePtr CSMDrawManagerBase::getHandleSyncBarrierName (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfSyncBarrierName,
-             this->getType().getFieldDesc(SyncBarrierNameFieldId)));
+             this->getType().getFieldDesc(SyncBarrierNameFieldId),
+             const_cast<CSMDrawManagerBase *>(this)));
 
     return returnValue;
 }
@@ -635,7 +640,8 @@ EditFieldHandlePtr CSMDrawManagerBase::editHandleSyncBarrierName(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfSyncBarrierName,
-             this->getType().getFieldDesc(SyncBarrierNameFieldId)));
+             this->getType().getFieldDesc(SyncBarrierNameFieldId),
+             this));
 
 
     editSField(SyncBarrierNameFieldMask);
@@ -648,7 +654,8 @@ GetFieldHandlePtr CSMDrawManagerBase::getHandleSwapBarrierName (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfSwapBarrierName,
-             this->getType().getFieldDesc(SwapBarrierNameFieldId)));
+             this->getType().getFieldDesc(SwapBarrierNameFieldId),
+             const_cast<CSMDrawManagerBase *>(this)));
 
     return returnValue;
 }
@@ -658,7 +665,8 @@ EditFieldHandlePtr CSMDrawManagerBase::editHandleSwapBarrierName(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfSwapBarrierName,
-             this->getType().getFieldDesc(SwapBarrierNameFieldId)));
+             this->getType().getFieldDesc(SwapBarrierNameFieldId),
+             this));
 
 
     editSField(SwapBarrierNameFieldMask);

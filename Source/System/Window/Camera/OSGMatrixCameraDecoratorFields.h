@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class MatrixCameraDecorator;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MatrixCameraDecoratorPtr
-
 OSG_GEN_CONTAINERPTR(MatrixCameraDecorator);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MatrixCameraDecorator *> :
     public FieldTraitsFCPtrBase<MatrixCameraDecorator *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<MatrixCameraDecorator *, 0>::getMName<NoRefCountPolicy>
     return "MFUnrefdMatrixCameraDecoratorPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MatrixCameraDecoratorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<MatrixCameraDecorator *,
                       RecordedRefCountPolicy  > SFRecMatrixCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<MatrixCameraDecorator *,
                       UnrecordedRefCountPolicy> SFUnrecMatrixCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<MatrixCameraDecorator *,
                       WeakRefCountPolicy      > SFWeakMatrixCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<MatrixCameraDecorator *,
                       NoRefCountPolicy        > SFUncountedMatrixCameraDecoratorPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<MatrixCameraDecorator *,
                       RecordedRefCountPolicy  > MFRecMatrixCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<MatrixCameraDecorator *,
                       UnrecordedRefCountPolicy> MFUnrecMatrixCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<MatrixCameraDecorator *,
                       WeakRefCountPolicy      > MFWeakMatrixCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<MatrixCameraDecorator *,
                       NoRefCountPolicy        > MFUncountedMatrixCameraDecoratorPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecMatrixCameraDecoratorPtr : 
+    public PointerSField<MatrixCameraDecorator *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecMatrixCameraDecoratorPtr : 
+    public PointerSField<MatrixCameraDecorator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakMatrixCameraDecoratorPtr :
+    public PointerSField<MatrixCameraDecorator *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedMatrixCameraDecoratorPtr :
+    public PointerSField<MatrixCameraDecorator *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecMatrixCameraDecoratorPtr :
+    public PointerMField<MatrixCameraDecorator *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecMatrixCameraDecoratorPtr :
+    public PointerMField<MatrixCameraDecorator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakMatrixCameraDecoratorPtr :
+    public PointerMField<MatrixCameraDecorator *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedMatrixCameraDecoratorPtr :
+    public PointerMField<MatrixCameraDecorator *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

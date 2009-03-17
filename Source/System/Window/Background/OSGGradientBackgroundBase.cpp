@@ -167,7 +167,7 @@ GradientBackgroundBase::TypeObject GradientBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GradientBackgroundBase::createEmptyLocal),
     GradientBackground::initMethod,
     GradientBackground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&GradientBackgroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&GradientBackground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -532,7 +532,8 @@ GetFieldHandlePtr GradientBackgroundBase::getHandleColor           (void) const
     MFColor3f::GetHandlePtr returnValue(
         new  MFColor3f::GetHandle(
              &_mfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             const_cast<GradientBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -542,7 +543,8 @@ EditFieldHandlePtr GradientBackgroundBase::editHandleColor          (void)
     MFColor3f::EditHandlePtr returnValue(
         new  MFColor3f::EditHandle(
              &_mfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             this));
 
 
     editMField(ColorFieldMask, _mfColor);
@@ -555,7 +557,8 @@ GetFieldHandlePtr GradientBackgroundBase::getHandlePosition        (void) const
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfPosition,
-             this->getType().getFieldDesc(PositionFieldId)));
+             this->getType().getFieldDesc(PositionFieldId),
+             const_cast<GradientBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -565,7 +568,8 @@ EditFieldHandlePtr GradientBackgroundBase::editHandlePosition       (void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfPosition,
-             this->getType().getFieldDesc(PositionFieldId)));
+             this->getType().getFieldDesc(PositionFieldId),
+             this));
 
 
     editMField(PositionFieldMask, _mfPosition);
@@ -578,7 +582,8 @@ GetFieldHandlePtr GradientBackgroundBase::getHandleNormPosition    (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfNormPosition,
-             this->getType().getFieldDesc(NormPositionFieldId)));
+             this->getType().getFieldDesc(NormPositionFieldId),
+             const_cast<GradientBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -588,7 +593,8 @@ EditFieldHandlePtr GradientBackgroundBase::editHandleNormPosition   (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfNormPosition,
-             this->getType().getFieldDesc(NormPositionFieldId)));
+             this->getType().getFieldDesc(NormPositionFieldId),
+             this));
 
 
     editSField(NormPositionFieldMask);
@@ -601,7 +607,8 @@ GetFieldHandlePtr GradientBackgroundBase::getHandleStyle           (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfStyle,
-             this->getType().getFieldDesc(StyleFieldId)));
+             this->getType().getFieldDesc(StyleFieldId),
+             const_cast<GradientBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -611,7 +618,8 @@ EditFieldHandlePtr GradientBackgroundBase::editHandleStyle          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfStyle,
-             this->getType().getFieldDesc(StyleFieldId)));
+             this->getType().getFieldDesc(StyleFieldId),
+             this));
 
 
     editSField(StyleFieldMask);

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class GradientBackground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! GradientBackgroundPtr
-
 OSG_GEN_CONTAINERPTR(GradientBackground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<GradientBackground *> :
     public FieldTraitsFCPtrBase<GradientBackground *>
@@ -127,29 +118,48 @@ const Char8 *FieldTraits<GradientBackground *, 0>::getMName<NoRefCountPolicy>(vo
     return "MFUnrefdGradientBackgroundPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GradientBackgroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<GradientBackground *,
                       RecordedRefCountPolicy  > MFRecGradientBackgroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<GradientBackground *,
                       UnrecordedRefCountPolicy> MFUnrecGradientBackgroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<GradientBackground *,
                       WeakRefCountPolicy      > MFWeakGradientBackgroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<GradientBackground *,
                       NoRefCountPolicy        > MFUncountedGradientBackgroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecGradientBackgroundPtr :
+    public PointerMField<GradientBackground *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecGradientBackgroundPtr :
+    public PointerMField<GradientBackground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakGradientBackgroundPtr :
+    public PointerMField<GradientBackground *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedGradientBackgroundPtr :
+    public PointerMField<GradientBackground *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -137,7 +137,7 @@ ImageForegroundBase::TypeObject ImageForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ImageForegroundBase::createEmptyLocal),
     ImageForeground::initMethod,
     ImageForeground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ImageForegroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ImageForeground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -506,7 +506,8 @@ GetFieldHandlePtr ImageForegroundBase::getHandleImages          (void) const
     MFUnrecImagePtr::GetHandlePtr returnValue(
         new  MFUnrecImagePtr::GetHandle(
              &_mfImages,
-             this->getType().getFieldDesc(ImagesFieldId)));
+             this->getType().getFieldDesc(ImagesFieldId),
+             const_cast<ImageForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -516,7 +517,8 @@ EditFieldHandlePtr ImageForegroundBase::editHandleImages         (void)
     MFUnrecImagePtr::EditHandlePtr returnValue(
         new  MFUnrecImagePtr::EditHandle(
              &_mfImages,
-             this->getType().getFieldDesc(ImagesFieldId)));
+             this->getType().getFieldDesc(ImagesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ImageForeground::pushToImages,
@@ -541,7 +543,8 @@ GetFieldHandlePtr ImageForegroundBase::getHandlePositions       (void) const
     MFPnt2f::GetHandlePtr returnValue(
         new  MFPnt2f::GetHandle(
              &_mfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             const_cast<ImageForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -551,7 +554,8 @@ EditFieldHandlePtr ImageForegroundBase::editHandlePositions      (void)
     MFPnt2f::EditHandlePtr returnValue(
         new  MFPnt2f::EditHandle(
              &_mfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             this));
 
 
     editMField(PositionsFieldMask, _mfPositions);

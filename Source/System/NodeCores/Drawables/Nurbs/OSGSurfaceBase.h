@@ -233,15 +233,15 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
                   UInt32               getDimV            (void) const;
 
                   Real                &editKnotsU         (const UInt32 index);
-            const Real                &getKnotsU          (const UInt32 index) const;
+                  Real                 getKnotsU          (const UInt32 index) const;
 
                   Real                &editKnotsV         (const UInt32 index);
-            const Real                &getKnotsV          (const UInt32 index) const;
+                  Real                 getKnotsV          (const UInt32 index) const;
 
                   GeoVectorProperty * getControlPoints  (void) const;
 
                   Real                &editError          (void);
-            const Real                &getError           (void) const;
+                  Real                 getError           (void) const;
 
                   bool                &editIsDelaunay     (void);
                   bool                 getIsDelaunay      (void) const;
@@ -256,7 +256,7 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
             void setDimU           (const UInt32 value);
             void setDimV           (const UInt32 value);
             void setControlPoints  (GeoVectorProperty * const value);
-            void setError          (const Real &value);
+            void setError          (const Real value);
             void setIsDelaunay     (const bool value);
             void setTextureControlPoints(GeoVectorProperty * const value);
 
@@ -452,7 +452,7 @@ class OSG_DRAWABLE_DLLMAPPING SurfaceBase : public Geometry
             const Pnt3r               &getCurveControlPoints (const UInt32 index) const;
 
                   Real                &editKnots          (const UInt32 index);
-            const Real                &getKnots           (const UInt32 index) const;
+                  Real                 getKnots           (const UInt32 index) const;
 
                   UInt32              &editCurvesPerLoop  (const UInt32 index);
                   UInt32               getCurvesPerLoop   (const UInt32 index) const;

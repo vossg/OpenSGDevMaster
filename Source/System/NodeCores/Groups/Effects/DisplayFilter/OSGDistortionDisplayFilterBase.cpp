@@ -146,7 +146,7 @@ DistortionDisplayFilterBase::TypeObject DistortionDisplayFilterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DistortionDisplayFilterBase::createEmptyLocal),
     DistortionDisplayFilter::initMethod,
     DistortionDisplayFilter::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DistortionDisplayFilterBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DistortionDisplayFilter::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -463,7 +463,8 @@ GetFieldHandlePtr DistortionDisplayFilterBase::getHandleRows            (void) c
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfRows,
-             this->getType().getFieldDesc(RowsFieldId)));
+             this->getType().getFieldDesc(RowsFieldId),
+             const_cast<DistortionDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -473,7 +474,8 @@ EditFieldHandlePtr DistortionDisplayFilterBase::editHandleRows           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfRows,
-             this->getType().getFieldDesc(RowsFieldId)));
+             this->getType().getFieldDesc(RowsFieldId),
+             this));
 
 
     editSField(RowsFieldMask);
@@ -486,7 +488,8 @@ GetFieldHandlePtr DistortionDisplayFilterBase::getHandleColumns         (void) c
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfColumns,
-             this->getType().getFieldDesc(ColumnsFieldId)));
+             this->getType().getFieldDesc(ColumnsFieldId),
+             const_cast<DistortionDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -496,7 +499,8 @@ EditFieldHandlePtr DistortionDisplayFilterBase::editHandleColumns        (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfColumns,
-             this->getType().getFieldDesc(ColumnsFieldId)));
+             this->getType().getFieldDesc(ColumnsFieldId),
+             this));
 
 
     editSField(ColumnsFieldMask);
@@ -509,7 +513,8 @@ GetFieldHandlePtr DistortionDisplayFilterBase::getHandlePositions       (void) c
     MFVec2f::GetHandlePtr returnValue(
         new  MFVec2f::GetHandle(
              &_mfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             const_cast<DistortionDisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -519,7 +524,8 @@ EditFieldHandlePtr DistortionDisplayFilterBase::editHandlePositions      (void)
     MFVec2f::EditHandlePtr returnValue(
         new  MFVec2f::EditHandle(
              &_mfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             this));
 
 
     editMField(PositionsFieldMask, _mfPositions);

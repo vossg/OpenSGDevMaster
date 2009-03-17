@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class QuadTreeTerrain;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! QuadTreeTerrainPtr
-
 OSG_GEN_CONTAINERPTR(QuadTreeTerrain);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpDrawableFieldTraits
+    \ingroup GrpLibOSGDrawable
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<QuadTreeTerrain *> :
     public FieldTraitsFCPtrBase<QuadTreeTerrain *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<QuadTreeTerrain *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdQuadTreeTerrainPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<QuadTreeTerrainPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
                       RecordedRefCountPolicy  > SFRecQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
                       UnrecordedRefCountPolicy> SFUnrecQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
                       WeakRefCountPolicy      > SFWeakQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<QuadTreeTerrain *,
                       NoRefCountPolicy        > SFUncountedQuadTreeTerrainPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
                       RecordedRefCountPolicy  > MFRecQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
                       UnrecordedRefCountPolicy> MFUnrecQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
                       WeakRefCountPolicy      > MFWeakQuadTreeTerrainPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<QuadTreeTerrain *,
                       NoRefCountPolicy        > MFUncountedQuadTreeTerrainPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFRecQuadTreeTerrainPtr : 
+    public PointerSField<QuadTreeTerrain *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUnrecQuadTreeTerrainPtr : 
+    public PointerSField<QuadTreeTerrain *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFWeakQuadTreeTerrainPtr :
+    public PointerSField<QuadTreeTerrain *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUncountedQuadTreeTerrainPtr :
+    public PointerSField<QuadTreeTerrain *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFRecQuadTreeTerrainPtr :
+    public PointerMField<QuadTreeTerrain *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUnrecQuadTreeTerrainPtr :
+    public PointerMField<QuadTreeTerrain *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFWeakQuadTreeTerrainPtr :
+    public PointerMField<QuadTreeTerrain *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUncountedQuadTreeTerrainPtr :
+    public PointerMField<QuadTreeTerrain *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

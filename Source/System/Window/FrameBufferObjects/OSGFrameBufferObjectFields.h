@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class FrameBufferObject;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FrameBufferObjectPtr
-
 OSG_GEN_CONTAINERPTR(FrameBufferObject);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<FrameBufferObject *> :
     public FieldTraitsFCPtrBase<FrameBufferObject *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<FrameBufferObject *, 0>::getMName<NoRefCountPolicy>(voi
     return "MFUnrefdFrameBufferObjectPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FrameBufferObjectPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FrameBufferObject *,
                       RecordedRefCountPolicy  > SFRecFrameBufferObjectPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FrameBufferObject *,
                       UnrecordedRefCountPolicy> SFUnrecFrameBufferObjectPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FrameBufferObject *,
                       WeakRefCountPolicy      > SFWeakFrameBufferObjectPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FrameBufferObject *,
                       NoRefCountPolicy        > SFUncountedFrameBufferObjectPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FrameBufferObject *,
                       RecordedRefCountPolicy  > MFRecFrameBufferObjectPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FrameBufferObject *,
                       UnrecordedRefCountPolicy> MFUnrecFrameBufferObjectPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FrameBufferObject *,
                       WeakRefCountPolicy      > MFWeakFrameBufferObjectPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FrameBufferObject *,
                       NoRefCountPolicy        > MFUncountedFrameBufferObjectPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecFrameBufferObjectPtr : 
+    public PointerSField<FrameBufferObject *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecFrameBufferObjectPtr : 
+    public PointerSField<FrameBufferObject *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakFrameBufferObjectPtr :
+    public PointerSField<FrameBufferObject *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedFrameBufferObjectPtr :
+    public PointerSField<FrameBufferObject *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecFrameBufferObjectPtr :
+    public PointerMField<FrameBufferObject *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecFrameBufferObjectPtr :
+    public PointerMField<FrameBufferObject *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakFrameBufferObjectPtr :
+    public PointerMField<FrameBufferObject *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedFrameBufferObjectPtr :
+    public PointerMField<FrameBufferObject *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

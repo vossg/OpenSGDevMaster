@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     The PassiveViewport does nothing itself, but expects OpenGL to be properly configured when draw() or render() are called.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void PassiveViewportBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 PassiveViewportBase::TypeObject PassiveViewportBase::_type(
     PassiveViewportBase::getClassname(),
@@ -87,7 +96,7 @@ PassiveViewportBase::TypeObject PassiveViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PassiveViewportBase::createEmptyLocal),
     PassiveViewport::initMethod,
     PassiveViewport::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&PassiveViewport::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

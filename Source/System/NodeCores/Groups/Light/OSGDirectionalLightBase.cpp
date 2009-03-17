@@ -115,7 +115,7 @@ DirectionalLightBase::TypeObject DirectionalLightBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DirectionalLightBase::createEmptyLocal),
     DirectionalLight::initMethod,
     DirectionalLight::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DirectionalLightBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DirectionalLight::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -364,7 +364,8 @@ GetFieldHandlePtr DirectionalLightBase::getHandleDirection       (void) const
     SFVec3r::GetHandlePtr returnValue(
         new  SFVec3r::GetHandle(
              &_sfDirection,
-             this->getType().getFieldDesc(DirectionFieldId)));
+             this->getType().getFieldDesc(DirectionFieldId),
+             const_cast<DirectionalLightBase *>(this)));
 
     return returnValue;
 }
@@ -374,7 +375,8 @@ EditFieldHandlePtr DirectionalLightBase::editHandleDirection      (void)
     SFVec3r::EditHandlePtr returnValue(
         new  SFVec3r::EditHandle(
              &_sfDirection,
-             this->getType().getFieldDesc(DirectionFieldId)));
+             this->getType().getFieldDesc(DirectionFieldId),
+             this));
 
 
     editSField(DirectionFieldMask);
@@ -427,5 +429,6 @@ void DirectionalLightBase::resolveLinks(void)
 DataType FieldTraits<DirectionalLight *>::_type("DirectionalLightPtr", "LightPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(DirectionalLight *)
 
 OSG_END_NAMESPACE

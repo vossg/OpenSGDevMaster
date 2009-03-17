@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class PassiveViewport;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! PassiveViewportPtr
-
 OSG_GEN_CONTAINERPTR(PassiveViewport);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<PassiveViewport *> :
     public FieldTraitsFCPtrBase<PassiveViewport *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<PassiveViewport *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdPassiveViewportPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<PassiveViewportPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PassiveViewport *,
                       RecordedRefCountPolicy  > SFRecPassiveViewportPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PassiveViewport *,
                       UnrecordedRefCountPolicy> SFUnrecPassiveViewportPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PassiveViewport *,
                       WeakRefCountPolicy      > SFWeakPassiveViewportPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PassiveViewport *,
                       NoRefCountPolicy        > SFUncountedPassiveViewportPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<PassiveViewport *,
                       RecordedRefCountPolicy  > MFRecPassiveViewportPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<PassiveViewport *,
                       UnrecordedRefCountPolicy> MFUnrecPassiveViewportPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<PassiveViewport *,
                       WeakRefCountPolicy      > MFWeakPassiveViewportPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<PassiveViewport *,
                       NoRefCountPolicy        > MFUncountedPassiveViewportPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecPassiveViewportPtr : 
+    public PointerSField<PassiveViewport *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecPassiveViewportPtr : 
+    public PointerSField<PassiveViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakPassiveViewportPtr :
+    public PointerSField<PassiveViewport *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedPassiveViewportPtr :
+    public PointerSField<PassiveViewport *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecPassiveViewportPtr :
+    public PointerMField<PassiveViewport *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecPassiveViewportPtr :
+    public PointerMField<PassiveViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakPassiveViewportPtr :
+    public PointerMField<PassiveViewport *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedPassiveViewportPtr :
+    public PointerMField<PassiveViewport *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

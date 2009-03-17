@@ -860,7 +860,8 @@ EditFieldHandlePtr Node::editHandleVolume(void)
     SFBoxVolume::EditHandlePtr returnValue(
         new  SFBoxVolume::EditHandle(
              &_sfVolume, 
-             this->getType().getFieldDesc(VolumeFieldId)));
+             this->getType().getFieldDesc(VolumeFieldId),
+             this));
 
     editSField(VolumeFieldMask);
 
@@ -872,7 +873,8 @@ GetFieldHandlePtr  Node::getHandleVolume(void) const
     SFBoxVolume::GetHandlePtr returnValue(
         new  SFBoxVolume::GetHandle(
              &_sfVolume, 
-             this->getType().getFieldDesc(VolumeFieldId)));
+             this->getType().getFieldDesc(VolumeFieldId),
+             const_cast<Node *>(this)));
 
     return returnValue;
 }
@@ -882,7 +884,8 @@ EditFieldHandlePtr Node::editHandleTravMask(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfTravMask, 
-             this->getType().getFieldDesc(TravMaskFieldId)));
+             this->getType().getFieldDesc(TravMaskFieldId),
+             this));
 
     editSField(TravMaskFieldMask);
 
@@ -894,7 +897,8 @@ GetFieldHandlePtr Node::getHandleTravMask(void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfTravMask, 
-             this->getType().getFieldDesc(TravMaskFieldId)));
+             this->getType().getFieldDesc(TravMaskFieldId),
+             const_cast<Node *>(this)));
 
     return returnValue;
 }
@@ -904,7 +908,8 @@ GetFieldHandlePtr Node::getHandleParent(void) const
     SFParentNodePtr::GetHandlePtr returnValue(
         new SFParentNodePtr::GetHandle(
              &_sfParent, 
-             this->getType().getFieldDesc(ParentFieldId)));
+             this->getType().getFieldDesc(ParentFieldId),
+             const_cast<Node *>(this)));
 
     return returnValue;
 }
@@ -914,7 +919,8 @@ EditFieldHandlePtr Node::editHandleCore(void)
     SFUnrecChildNodeCorePtr::EditHandlePtr returnValue(
         new SFUnrecChildNodeCorePtr::EditHandle(
              &_sfCore, 
-             this->getType().getFieldDesc(CoreFieldId)));
+             this->getType().getFieldDesc(CoreFieldId),
+             this));
 
     typedef void (Node::*SetCoreF)(NodeCore * const);
     
@@ -932,7 +938,8 @@ GetFieldHandlePtr Node::getHandleCore(void) const
     SFUnrecChildNodeCorePtr::GetHandlePtr returnValue(
         new SFUnrecChildNodeCorePtr::GetHandle(
              &_sfCore, 
-             this->getType().getFieldDesc(CoreFieldId)));
+             this->getType().getFieldDesc(CoreFieldId),
+             const_cast<Node *>(this)));
 
     return returnValue;
 }
@@ -942,7 +949,8 @@ EditFieldHandlePtr Node::editHandleChildren(void)
     MFUnrecChildNodePtr::EditHandlePtr returnValue(
         new  MFUnrecChildNodePtr::EditHandle(
              &_mfChildren, 
-             this->getType().getFieldDesc(ChildrenFieldId)));
+             this->getType().getFieldDesc(ChildrenFieldId),
+             this));
 
     typedef void (Node::*AddChildF)(Node * const);
 
@@ -960,7 +968,8 @@ GetFieldHandlePtr  Node::getHandleChildren(void) const
     MFUnrecChildNodePtr::GetHandlePtr returnValue(
         new  MFUnrecChildNodePtr::GetHandle(
              &_mfChildren, 
-             this->getType().getFieldDesc(ChildrenFieldId)));
+             this->getType().getFieldDesc(ChildrenFieldId),
+             const_cast<Node *>(this)));
 
     return returnValue;
 }

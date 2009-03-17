@@ -139,7 +139,7 @@ ChunkMaterialBase::TypeObject ChunkMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ChunkMaterialBase::createEmptyLocal),
     ChunkMaterial::initMethod,
     ChunkMaterial::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ChunkMaterialBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ChunkMaterial::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -460,7 +460,8 @@ GetFieldHandlePtr ChunkMaterialBase::getHandleChunks          (void) const
     MFUnrecStateChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::GetHandle(
              &_mfChunks,
-             this->getType().getFieldDesc(ChunksFieldId)));
+             this->getType().getFieldDesc(ChunksFieldId),
+             const_cast<ChunkMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -470,7 +471,8 @@ EditFieldHandlePtr ChunkMaterialBase::editHandleChunks         (void)
     MFUnrecStateChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::EditHandle(
              &_mfChunks,
-             this->getType().getFieldDesc(ChunksFieldId)));
+             this->getType().getFieldDesc(ChunksFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ChunkMaterial::pushToChunks,
@@ -495,7 +497,8 @@ GetFieldHandlePtr ChunkMaterialBase::getHandleSlots           (void) const
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfSlots,
-             this->getType().getFieldDesc(SlotsFieldId)));
+             this->getType().getFieldDesc(SlotsFieldId),
+             const_cast<ChunkMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -505,7 +508,8 @@ EditFieldHandlePtr ChunkMaterialBase::editHandleSlots          (void)
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfSlots,
-             this->getType().getFieldDesc(SlotsFieldId)));
+             this->getType().getFieldDesc(SlotsFieldId),
+             this));
 
 
     editMField(SlotsFieldMask, _mfSlots);

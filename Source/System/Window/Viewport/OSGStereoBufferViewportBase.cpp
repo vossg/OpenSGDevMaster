@@ -136,7 +136,7 @@ StereoBufferViewportBase::TypeObject StereoBufferViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&StereoBufferViewportBase::createEmptyLocal),
     StereoBufferViewport::initMethod,
     StereoBufferViewport::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&StereoBufferViewportBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&StereoBufferViewport::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -434,7 +434,8 @@ GetFieldHandlePtr StereoBufferViewportBase::getHandleLeftBuffer      (void) cons
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfLeftBuffer,
-             this->getType().getFieldDesc(LeftBufferFieldId)));
+             this->getType().getFieldDesc(LeftBufferFieldId),
+             const_cast<StereoBufferViewportBase *>(this)));
 
     return returnValue;
 }
@@ -444,7 +445,8 @@ EditFieldHandlePtr StereoBufferViewportBase::editHandleLeftBuffer     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfLeftBuffer,
-             this->getType().getFieldDesc(LeftBufferFieldId)));
+             this->getType().getFieldDesc(LeftBufferFieldId),
+             this));
 
 
     editSField(LeftBufferFieldMask);
@@ -457,7 +459,8 @@ GetFieldHandlePtr StereoBufferViewportBase::getHandleRightBuffer     (void) cons
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfRightBuffer,
-             this->getType().getFieldDesc(RightBufferFieldId)));
+             this->getType().getFieldDesc(RightBufferFieldId),
+             const_cast<StereoBufferViewportBase *>(this)));
 
     return returnValue;
 }
@@ -467,7 +470,8 @@ EditFieldHandlePtr StereoBufferViewportBase::editHandleRightBuffer    (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfRightBuffer,
-             this->getType().getFieldDesc(RightBufferFieldId)));
+             this->getType().getFieldDesc(RightBufferFieldId),
+             this));
 
 
     editSField(RightBufferFieldMask);

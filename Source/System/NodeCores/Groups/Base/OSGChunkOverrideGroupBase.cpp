@@ -384,7 +384,8 @@ GetFieldHandlePtr ChunkOverrideGroupBase::getHandleFallbackChunkBlock (void) con
     SFUnrecChunkBlockPtr::GetHandlePtr returnValue(
         new  SFUnrecChunkBlockPtr::GetHandle(
              &_sfFallbackChunkBlock,
-             this->getType().getFieldDesc(FallbackChunkBlockFieldId)));
+             this->getType().getFieldDesc(FallbackChunkBlockFieldId),
+             const_cast<ChunkOverrideGroupBase *>(this)));
 
     return returnValue;
 }
@@ -394,7 +395,8 @@ EditFieldHandlePtr ChunkOverrideGroupBase::editHandleFallbackChunkBlock(void)
     SFUnrecChunkBlockPtr::EditHandlePtr returnValue(
         new  SFUnrecChunkBlockPtr::EditHandle(
              &_sfFallbackChunkBlock,
-             this->getType().getFieldDesc(FallbackChunkBlockFieldId)));
+             this->getType().getFieldDesc(FallbackChunkBlockFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ChunkOverrideGroup::setFallbackChunkBlock,

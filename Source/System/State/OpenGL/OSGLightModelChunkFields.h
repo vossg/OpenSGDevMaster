@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class LightModelChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! LightModelChunkPtr
-
 OSG_GEN_CONTAINERPTR(LightModelChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<LightModelChunk *> :
     public FieldTraitsFCPtrBase<LightModelChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<LightModelChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdLightModelChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<LightModelChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LightModelChunk *,
                       RecordedRefCountPolicy  > SFRecLightModelChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LightModelChunk *,
                       UnrecordedRefCountPolicy> SFUnrecLightModelChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LightModelChunk *,
                       WeakRefCountPolicy      > SFWeakLightModelChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LightModelChunk *,
                       NoRefCountPolicy        > SFUncountedLightModelChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LightModelChunk *,
                       RecordedRefCountPolicy  > MFRecLightModelChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LightModelChunk *,
                       UnrecordedRefCountPolicy> MFUnrecLightModelChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LightModelChunk *,
                       WeakRefCountPolicy      > MFWeakLightModelChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LightModelChunk *,
                       NoRefCountPolicy        > MFUncountedLightModelChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecLightModelChunkPtr : 
+    public PointerSField<LightModelChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecLightModelChunkPtr : 
+    public PointerSField<LightModelChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakLightModelChunkPtr :
+    public PointerSField<LightModelChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedLightModelChunkPtr :
+    public PointerSField<LightModelChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecLightModelChunkPtr :
+    public PointerMField<LightModelChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecLightModelChunkPtr :
+    public PointerMField<LightModelChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakLightModelChunkPtr :
+    public PointerMField<LightModelChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedLightModelChunkPtr :
+    public PointerMField<LightModelChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

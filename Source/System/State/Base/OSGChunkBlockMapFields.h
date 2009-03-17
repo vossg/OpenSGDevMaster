@@ -178,7 +178,8 @@ class OSG_SYSTEM_DLLMAPPING GetSFieldHandle<SFChunkBlockPtrMap> :
 
     GetSFieldHandle(const GetSFieldHandle       &source);
     GetSFieldHandle(const SFChunkBlockPtrMap    *pField, 
-                    const FieldDescriptionBase  *pDescription);
+                    const FieldDescriptionBase  *pDescription,
+                          FieldContainer        *pContainer  );
 
     /*---------------------------------------------------------------------*/
 
@@ -240,7 +241,8 @@ class OSG_SYSTEM_DLLMAPPING
 
     EditSFieldHandle(const EditSFieldHandle     &source      );
     EditSFieldHandle(      SFChunkBlockPtrMap   *pField, 
-                     const FieldDescriptionBase *pDescription);
+                     const FieldDescriptionBase *pDescription,
+                           FieldContainer       *pContainer  );
 
     /*---------------------------------------------------------------------*/
 

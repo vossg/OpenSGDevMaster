@@ -181,7 +181,7 @@ DisplayFilterGroupBase::TypeObject DisplayFilterGroupBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DisplayFilterGroupBase::createEmptyLocal),
     DisplayFilterGroup::initMethod,
     DisplayFilterGroup::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterGroupBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterGroup::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -591,7 +591,8 @@ GetFieldHandlePtr DisplayFilterGroupBase::getHandleResolutionFilter (void) const
     SFUnrecResolutionDisplayFilterPtr::GetHandlePtr returnValue(
         new  SFUnrecResolutionDisplayFilterPtr::GetHandle(
              &_sfResolutionFilter,
-             this->getType().getFieldDesc(ResolutionFilterFieldId)));
+             this->getType().getFieldDesc(ResolutionFilterFieldId),
+             const_cast<DisplayFilterGroupBase *>(this)));
 
     return returnValue;
 }
@@ -601,7 +602,8 @@ EditFieldHandlePtr DisplayFilterGroupBase::editHandleResolutionFilter(void)
     SFUnrecResolutionDisplayFilterPtr::EditHandlePtr returnValue(
         new  SFUnrecResolutionDisplayFilterPtr::EditHandle(
              &_sfResolutionFilter,
-             this->getType().getFieldDesc(ResolutionFilterFieldId)));
+             this->getType().getFieldDesc(ResolutionFilterFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterGroup::setResolutionFilter,
@@ -617,7 +619,8 @@ GetFieldHandlePtr DisplayFilterGroupBase::getHandleColorFilter     (void) const
     SFUnrecColorDisplayFilterPtr::GetHandlePtr returnValue(
         new  SFUnrecColorDisplayFilterPtr::GetHandle(
              &_sfColorFilter,
-             this->getType().getFieldDesc(ColorFilterFieldId)));
+             this->getType().getFieldDesc(ColorFilterFieldId),
+             const_cast<DisplayFilterGroupBase *>(this)));
 
     return returnValue;
 }
@@ -627,7 +630,8 @@ EditFieldHandlePtr DisplayFilterGroupBase::editHandleColorFilter    (void)
     SFUnrecColorDisplayFilterPtr::EditHandlePtr returnValue(
         new  SFUnrecColorDisplayFilterPtr::EditHandle(
              &_sfColorFilter,
-             this->getType().getFieldDesc(ColorFilterFieldId)));
+             this->getType().getFieldDesc(ColorFilterFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterGroup::setColorFilter,
@@ -643,7 +647,8 @@ GetFieldHandlePtr DisplayFilterGroupBase::getHandleDistortionFilter (void) const
     SFUnrecDistortionDisplayFilterPtr::GetHandlePtr returnValue(
         new  SFUnrecDistortionDisplayFilterPtr::GetHandle(
              &_sfDistortionFilter,
-             this->getType().getFieldDesc(DistortionFilterFieldId)));
+             this->getType().getFieldDesc(DistortionFilterFieldId),
+             const_cast<DisplayFilterGroupBase *>(this)));
 
     return returnValue;
 }
@@ -653,7 +658,8 @@ EditFieldHandlePtr DisplayFilterGroupBase::editHandleDistortionFilter(void)
     SFUnrecDistortionDisplayFilterPtr::EditHandlePtr returnValue(
         new  SFUnrecDistortionDisplayFilterPtr::EditHandle(
              &_sfDistortionFilter,
-             this->getType().getFieldDesc(DistortionFilterFieldId)));
+             this->getType().getFieldDesc(DistortionFilterFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterGroup::setDistortionFilter,
@@ -669,7 +675,8 @@ GetFieldHandlePtr DisplayFilterGroupBase::getHandleDrawerId        (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfDrawerId,
-             this->getType().getFieldDesc(DrawerIdFieldId)));
+             this->getType().getFieldDesc(DrawerIdFieldId),
+             const_cast<DisplayFilterGroupBase *>(this)));
 
     return returnValue;
 }
@@ -679,7 +686,8 @@ EditFieldHandlePtr DisplayFilterGroupBase::editHandleDrawerId       (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfDrawerId,
-             this->getType().getFieldDesc(DrawerIdFieldId)));
+             this->getType().getFieldDesc(DrawerIdFieldId),
+             this));
 
 
     editSField(DrawerIdFieldMask);
@@ -692,7 +700,8 @@ GetFieldHandlePtr DisplayFilterGroupBase::getHandleDrawableId      (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfDrawableId,
-             this->getType().getFieldDesc(DrawableIdFieldId)));
+             this->getType().getFieldDesc(DrawableIdFieldId),
+             const_cast<DisplayFilterGroupBase *>(this)));
 
     return returnValue;
 }
@@ -702,7 +711,8 @@ EditFieldHandlePtr DisplayFilterGroupBase::editHandleDrawableId     (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfDrawableId,
-             this->getType().getFieldDesc(DrawableIdFieldId)));
+             this->getType().getFieldDesc(DrawableIdFieldId),
+             this));
 
 
     editSField(DrawableIdFieldMask);

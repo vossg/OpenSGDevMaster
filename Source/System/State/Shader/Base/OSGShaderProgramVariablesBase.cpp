@@ -550,7 +550,8 @@ GetFieldHandlePtr ShaderProgramVariablesBase::getHandleVariables       (void) co
     MFUnrecShaderValueVariablePtr::GetHandlePtr returnValue(
         new  MFUnrecShaderValueVariablePtr::GetHandle(
              &_mfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             const_cast<ShaderProgramVariablesBase *>(this)));
 
     return returnValue;
 }
@@ -560,7 +561,8 @@ EditFieldHandlePtr ShaderProgramVariablesBase::editHandleVariables      (void)
     MFUnrecShaderValueVariablePtr::EditHandlePtr returnValue(
         new  MFUnrecShaderValueVariablePtr::EditHandle(
              &_mfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ShaderProgramVariables::addVariable,
@@ -582,7 +584,8 @@ GetFieldHandlePtr ShaderProgramVariablesBase::getHandleProceduralVariables (void
     MFUnrecChildShaderProcVariablePtr::GetHandlePtr returnValue(
         new  MFUnrecChildShaderProcVariablePtr::GetHandle(
              &_mfProceduralVariables,
-             this->getType().getFieldDesc(ProceduralVariablesFieldId)));
+             this->getType().getFieldDesc(ProceduralVariablesFieldId),
+             const_cast<ShaderProgramVariablesBase *>(this)));
 
     return returnValue;
 }
@@ -592,7 +595,8 @@ EditFieldHandlePtr ShaderProgramVariablesBase::editHandleProceduralVariables(voi
     MFUnrecChildShaderProcVariablePtr::EditHandlePtr returnValue(
         new  MFUnrecChildShaderProcVariablePtr::EditHandle(
              &_mfProceduralVariables,
-             this->getType().getFieldDesc(ProceduralVariablesFieldId)));
+             this->getType().getFieldDesc(ProceduralVariablesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ShaderProgramVariables::addProceduralVariable,
@@ -614,7 +618,8 @@ GetFieldHandlePtr ShaderProgramVariablesBase::getHandleVariableChanged (void) co
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
              &_mfVariableChanged,
-             this->getType().getFieldDesc(VariableChangedFieldId)));
+             this->getType().getFieldDesc(VariableChangedFieldId),
+             const_cast<ShaderProgramVariablesBase *>(this)));
 
     return returnValue;
 }
@@ -624,7 +629,8 @@ EditFieldHandlePtr ShaderProgramVariablesBase::editHandleVariableChanged(void)
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
              &_mfVariableChanged,
-             this->getType().getFieldDesc(VariableChangedFieldId)));
+             this->getType().getFieldDesc(VariableChangedFieldId),
+             this));
 
 
     editMField(VariableChangedFieldMask, _mfVariableChanged);

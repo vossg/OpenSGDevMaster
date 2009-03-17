@@ -114,7 +114,7 @@ SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleShadowMapEngineBase::createEmptyLocal),
     SimpleShadowMapEngine::initMethod,
     SimpleShadowMapEngine::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleShadowMapEngineBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleShadowMapEngine::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -361,7 +361,8 @@ GetFieldHandlePtr SimpleShadowMapEngineBase::getHandleForceTextureUnit (void) co
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfForceTextureUnit,
-             this->getType().getFieldDesc(ForceTextureUnitFieldId)));
+             this->getType().getFieldDesc(ForceTextureUnitFieldId),
+             const_cast<SimpleShadowMapEngineBase *>(this)));
 
     return returnValue;
 }
@@ -371,7 +372,8 @@ EditFieldHandlePtr SimpleShadowMapEngineBase::editHandleForceTextureUnit(void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfForceTextureUnit,
-             this->getType().getFieldDesc(ForceTextureUnitFieldId)));
+             this->getType().getFieldDesc(ForceTextureUnitFieldId),
+             this));
 
 
     editSField(ForceTextureUnitFieldMask);

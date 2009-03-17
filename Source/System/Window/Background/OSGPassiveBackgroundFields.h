@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class PassiveBackground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! PassiveBackgroundPtr
-
 OSG_GEN_CONTAINERPTR(PassiveBackground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<PassiveBackground *> :
     public FieldTraitsFCPtrBase<PassiveBackground *>
@@ -127,28 +118,46 @@ const Char8 *FieldTraits<PassiveBackground *, 0>::getSName<NoRefCountPolicy>(voi
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<PassiveBackgroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PassiveBackground *,
                       RecordedRefCountPolicy  > SFRecPassiveBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PassiveBackground *,
                       UnrecordedRefCountPolicy> SFUnrecPassiveBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PassiveBackground *,
                       WeakRefCountPolicy      > SFWeakPassiveBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<PassiveBackground *,
                       NoRefCountPolicy        > SFUncountedPassiveBackgroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecPassiveBackgroundPtr : 
+    public PointerSField<PassiveBackground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecPassiveBackgroundPtr : 
+    public PointerSField<PassiveBackground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakPassiveBackgroundPtr :
+    public PointerSField<PassiveBackground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedPassiveBackgroundPtr :
+    public PointerSField<PassiveBackground *,
+                         NoRefCountPolicy> {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Group;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! GroupPtr
-
 OSG_GEN_CONTAINERPTR(Group);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Group *> :
     public FieldTraitsFCPtrBase<Group *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Group *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdGroupPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GroupPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Group *,
                       RecordedRefCountPolicy  > SFRecGroupPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Group *,
                       UnrecordedRefCountPolicy> SFUnrecGroupPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Group *,
                       WeakRefCountPolicy      > SFWeakGroupPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<Group *,
                       NoRefCountPolicy        > SFUncountedGroupPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Group *,
                       RecordedRefCountPolicy  > MFRecGroupPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Group *,
                       UnrecordedRefCountPolicy> MFUnrecGroupPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Group *,
                       WeakRefCountPolicy      > MFWeakGroupPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<Group *,
                       NoRefCountPolicy        > MFUncountedGroupPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecGroupPtr : 
+    public PointerSField<Group *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecGroupPtr : 
+    public PointerSField<Group *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakGroupPtr :
+    public PointerSField<Group *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedGroupPtr :
+    public PointerSField<Group *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecGroupPtr :
+    public PointerMField<Group *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecGroupPtr :
+    public PointerMField<Group *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakGroupPtr :
+    public PointerMField<Group *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedGroupPtr :
+    public PointerMField<Group *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

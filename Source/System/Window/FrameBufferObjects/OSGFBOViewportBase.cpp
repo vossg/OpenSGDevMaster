@@ -117,7 +117,7 @@ FBOViewportBase::TypeObject FBOViewportBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FBOViewportBase::createEmptyLocal),
     FBOViewport::initMethod,
     FBOViewport::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&FBOViewportBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&FBOViewport::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -380,7 +380,8 @@ GetFieldHandlePtr FBOViewportBase::getHandleFrameBufferObject (void) const
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfFrameBufferObject,
-             this->getType().getFieldDesc(FrameBufferObjectFieldId)));
+             this->getType().getFieldDesc(FrameBufferObjectFieldId),
+             const_cast<FBOViewportBase *>(this)));
 
     return returnValue;
 }
@@ -390,7 +391,8 @@ EditFieldHandlePtr FBOViewportBase::editHandleFrameBufferObject(void)
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfFrameBufferObject,
-             this->getType().getFieldDesc(FrameBufferObjectFieldId)));
+             this->getType().getFieldDesc(FrameBufferObjectFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FBOViewport::setFrameBufferObject,

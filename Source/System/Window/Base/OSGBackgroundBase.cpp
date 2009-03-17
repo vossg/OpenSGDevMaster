@@ -175,7 +175,7 @@ BackgroundBase::TypeObject BackgroundBase::_type(
     NULL,
     Background::initMethod,
     Background::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&BackgroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Background::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -441,7 +441,8 @@ GetFieldHandlePtr BackgroundBase::getHandleClearStencilBit (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfClearStencilBit,
-             this->getType().getFieldDesc(ClearStencilBitFieldId)));
+             this->getType().getFieldDesc(ClearStencilBitFieldId),
+             const_cast<BackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -451,7 +452,8 @@ EditFieldHandlePtr BackgroundBase::editHandleClearStencilBit(void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfClearStencilBit,
-             this->getType().getFieldDesc(ClearStencilBitFieldId)));
+             this->getType().getFieldDesc(ClearStencilBitFieldId),
+             this));
 
 
     editSField(ClearStencilBitFieldMask);
@@ -464,7 +466,8 @@ GetFieldHandlePtr BackgroundBase::getHandleDepth           (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfDepth,
-             this->getType().getFieldDesc(DepthFieldId)));
+             this->getType().getFieldDesc(DepthFieldId),
+             const_cast<BackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -474,7 +477,8 @@ EditFieldHandlePtr BackgroundBase::editHandleDepth          (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfDepth,
-             this->getType().getFieldDesc(DepthFieldId)));
+             this->getType().getFieldDesc(DepthFieldId),
+             this));
 
 
     editSField(DepthFieldMask);
@@ -487,7 +491,8 @@ GetFieldHandlePtr BackgroundBase::getHandleClearDepth      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfClearDepth,
-             this->getType().getFieldDesc(ClearDepthFieldId)));
+             this->getType().getFieldDesc(ClearDepthFieldId),
+             const_cast<BackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -497,7 +502,8 @@ EditFieldHandlePtr BackgroundBase::editHandleClearDepth     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfClearDepth,
-             this->getType().getFieldDesc(ClearDepthFieldId)));
+             this->getType().getFieldDesc(ClearDepthFieldId),
+             this));
 
 
     editSField(ClearDepthFieldMask);
@@ -510,7 +516,8 @@ GetFieldHandlePtr BackgroundBase::getHandleClearColor      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfClearColor,
-             this->getType().getFieldDesc(ClearColorFieldId)));
+             this->getType().getFieldDesc(ClearColorFieldId),
+             const_cast<BackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -520,7 +527,8 @@ EditFieldHandlePtr BackgroundBase::editHandleClearColor     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfClearColor,
-             this->getType().getFieldDesc(ClearColorFieldId)));
+             this->getType().getFieldDesc(ClearColorFieldId),
+             this));
 
 
     editSField(ClearColorFieldMask);

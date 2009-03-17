@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ColladaGeoInputAttachment;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ColladaGeoInputAttachmentPtr
-
 OSG_GEN_CONTAINERPTR(ColladaGeoInputAttachment);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpFileIOFieldTraits
+    \ingroup GrpLibOSGFileIO
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ColladaGeoInputAttachment *> :
     public FieldTraitsFCPtrBase<ColladaGeoInputAttachment *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ColladaGeoInputAttachment *, 0>::getMName<NoRefCountPol
     return "MFUnrefdColladaGeoInputAttachmentPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ColladaGeoInputAttachmentPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpFileIOFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpFileIOFieldSFields */
 typedef PointerSField<ColladaGeoInputAttachment *,
                       RecordedRefCountPolicy  > SFRecColladaGeoInputAttachmentPtr;
+/*! \ingroup GrpFileIOFieldSFields */
 typedef PointerSField<ColladaGeoInputAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecColladaGeoInputAttachmentPtr;
+/*! \ingroup GrpFileIOFieldSFields */
 typedef PointerSField<ColladaGeoInputAttachment *,
                       WeakRefCountPolicy      > SFWeakColladaGeoInputAttachmentPtr;
+/*! \ingroup GrpFileIOFieldSFields */
 typedef PointerSField<ColladaGeoInputAttachment *,
                       NoRefCountPolicy        > SFUncountedColladaGeoInputAttachmentPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpFileIOFieldMulti */
-
+/*! \ingroup GrpFileIOFieldMFields */
 typedef PointerMField<ColladaGeoInputAttachment *,
                       RecordedRefCountPolicy  > MFRecColladaGeoInputAttachmentPtr;
+/*! \ingroup GrpFileIOFieldMFields */
 typedef PointerMField<ColladaGeoInputAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecColladaGeoInputAttachmentPtr;
+/*! \ingroup GrpFileIOFieldMFields */
 typedef PointerMField<ColladaGeoInputAttachment *,
                       WeakRefCountPolicy      > MFWeakColladaGeoInputAttachmentPtr;
+/*! \ingroup GrpFileIOFieldMFields */
 typedef PointerMField<ColladaGeoInputAttachment *,
                       NoRefCountPolicy        > MFUncountedColladaGeoInputAttachmentPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+struct SFRecColladaGeoInputAttachmentPtr : 
+    public PointerSField<ColladaGeoInputAttachment *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+struct SFUnrecColladaGeoInputAttachmentPtr : 
+    public PointerSField<ColladaGeoInputAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+struct SFWeakColladaGeoInputAttachmentPtr :
+    public PointerSField<ColladaGeoInputAttachment *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+struct SFUncountedColladaGeoInputAttachmentPtr :
+    public PointerSField<ColladaGeoInputAttachment *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+struct MFRecColladaGeoInputAttachmentPtr :
+    public PointerMField<ColladaGeoInputAttachment *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+struct MFUnrecColladaGeoInputAttachmentPtr :
+    public PointerMField<ColladaGeoInputAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+struct MFWeakColladaGeoInputAttachmentPtr :
+    public PointerMField<ColladaGeoInputAttachment *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+struct MFUncountedColladaGeoInputAttachmentPtr :
+    public PointerMField<ColladaGeoInputAttachment *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

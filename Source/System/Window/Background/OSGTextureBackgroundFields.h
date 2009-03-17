@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TextureBackground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TextureBackgroundPtr
-
 OSG_GEN_CONTAINERPTR(TextureBackground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TextureBackground *> :
     public FieldTraitsFCPtrBase<TextureBackground *>
@@ -127,28 +118,46 @@ const Char8 *FieldTraits<TextureBackground *, 0>::getSName<NoRefCountPolicy>(voi
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TextureBackgroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TextureBackground *,
                       RecordedRefCountPolicy  > SFRecTextureBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TextureBackground *,
                       UnrecordedRefCountPolicy> SFUnrecTextureBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TextureBackground *,
                       WeakRefCountPolicy      > SFWeakTextureBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<TextureBackground *,
                       NoRefCountPolicy        > SFUncountedTextureBackgroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecTextureBackgroundPtr : 
+    public PointerSField<TextureBackground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecTextureBackgroundPtr : 
+    public PointerSField<TextureBackground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakTextureBackgroundPtr :
+    public PointerSField<TextureBackground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedTextureBackgroundPtr :
+    public PointerSField<TextureBackground *,
+                         NoRefCountPolicy> {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShearedStereoCameraDecorator;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShearedStereoCameraDecoratorPtr
-
 OSG_GEN_CONTAINERPTR(ShearedStereoCameraDecorator);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShearedStereoCameraDecorator *> :
     public FieldTraitsFCPtrBase<ShearedStereoCameraDecorator *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ShearedStereoCameraDecorator *, 0>::getMName<NoRefCount
     return "MFUnrefdShearedStereoCameraDecoratorPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShearedStereoCameraDecoratorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ShearedStereoCameraDecorator *,
                       RecordedRefCountPolicy  > SFRecShearedStereoCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ShearedStereoCameraDecorator *,
                       UnrecordedRefCountPolicy> SFUnrecShearedStereoCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ShearedStereoCameraDecorator *,
                       WeakRefCountPolicy      > SFWeakShearedStereoCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ShearedStereoCameraDecorator *,
                       NoRefCountPolicy        > SFUncountedShearedStereoCameraDecoratorPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ShearedStereoCameraDecorator *,
                       RecordedRefCountPolicy  > MFRecShearedStereoCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ShearedStereoCameraDecorator *,
                       UnrecordedRefCountPolicy> MFUnrecShearedStereoCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ShearedStereoCameraDecorator *,
                       WeakRefCountPolicy      > MFWeakShearedStereoCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ShearedStereoCameraDecorator *,
                       NoRefCountPolicy        > MFUncountedShearedStereoCameraDecoratorPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecShearedStereoCameraDecoratorPtr : 
+    public PointerSField<ShearedStereoCameraDecorator *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecShearedStereoCameraDecoratorPtr : 
+    public PointerSField<ShearedStereoCameraDecorator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakShearedStereoCameraDecoratorPtr :
+    public PointerSField<ShearedStereoCameraDecorator *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedShearedStereoCameraDecoratorPtr :
+    public PointerSField<ShearedStereoCameraDecorator *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecShearedStereoCameraDecoratorPtr :
+    public PointerMField<ShearedStereoCameraDecorator *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecShearedStereoCameraDecoratorPtr :
+    public PointerMField<ShearedStereoCameraDecorator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakShearedStereoCameraDecoratorPtr :
+    public PointerMField<ShearedStereoCameraDecorator *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedShearedStereoCameraDecoratorPtr :
+    public PointerMField<ShearedStereoCameraDecorator *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -166,7 +166,7 @@ DisplayFilterStageBase::TypeObject DisplayFilterStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DisplayFilterStageBase::createEmptyLocal),
     DisplayFilterStage::initMethod,
     DisplayFilterStage::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterStageBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterStage::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -605,7 +605,8 @@ GetFieldHandlePtr DisplayFilterStageBase::getHandleResolutionFilter (void) const
     SFUnrecResolutionDisplayFilterPtr::GetHandlePtr returnValue(
         new  SFUnrecResolutionDisplayFilterPtr::GetHandle(
              &_sfResolutionFilter,
-             this->getType().getFieldDesc(ResolutionFilterFieldId)));
+             this->getType().getFieldDesc(ResolutionFilterFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
 
     return returnValue;
 }
@@ -615,7 +616,8 @@ EditFieldHandlePtr DisplayFilterStageBase::editHandleResolutionFilter(void)
     SFUnrecResolutionDisplayFilterPtr::EditHandlePtr returnValue(
         new  SFUnrecResolutionDisplayFilterPtr::EditHandle(
              &_sfResolutionFilter,
-             this->getType().getFieldDesc(ResolutionFilterFieldId)));
+             this->getType().getFieldDesc(ResolutionFilterFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterStage::setResolutionFilter,
@@ -631,7 +633,8 @@ GetFieldHandlePtr DisplayFilterStageBase::getHandleColorFilter     (void) const
     SFUnrecColorDisplayFilterPtr::GetHandlePtr returnValue(
         new  SFUnrecColorDisplayFilterPtr::GetHandle(
              &_sfColorFilter,
-             this->getType().getFieldDesc(ColorFilterFieldId)));
+             this->getType().getFieldDesc(ColorFilterFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
 
     return returnValue;
 }
@@ -641,7 +644,8 @@ EditFieldHandlePtr DisplayFilterStageBase::editHandleColorFilter    (void)
     SFUnrecColorDisplayFilterPtr::EditHandlePtr returnValue(
         new  SFUnrecColorDisplayFilterPtr::EditHandle(
              &_sfColorFilter,
-             this->getType().getFieldDesc(ColorFilterFieldId)));
+             this->getType().getFieldDesc(ColorFilterFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterStage::setColorFilter,
@@ -657,7 +661,8 @@ GetFieldHandlePtr DisplayFilterStageBase::getHandleDistortionFilter (void) const
     SFUnrecDistortionDisplayFilterPtr::GetHandlePtr returnValue(
         new  SFUnrecDistortionDisplayFilterPtr::GetHandle(
              &_sfDistortionFilter,
-             this->getType().getFieldDesc(DistortionFilterFieldId)));
+             this->getType().getFieldDesc(DistortionFilterFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
 
     return returnValue;
 }
@@ -667,7 +672,8 @@ EditFieldHandlePtr DisplayFilterStageBase::editHandleDistortionFilter(void)
     SFUnrecDistortionDisplayFilterPtr::EditHandlePtr returnValue(
         new  SFUnrecDistortionDisplayFilterPtr::EditHandle(
              &_sfDistortionFilter,
-             this->getType().getFieldDesc(DistortionFilterFieldId)));
+             this->getType().getFieldDesc(DistortionFilterFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DisplayFilterStage::setDistortionFilter,
@@ -683,7 +689,8 @@ GetFieldHandlePtr DisplayFilterStageBase::getHandleFilterGroups    (void) const
     MFUnrecDisplayFilterGroupPtr::GetHandlePtr returnValue(
         new  MFUnrecDisplayFilterGroupPtr::GetHandle(
              &_mfFilterGroups,
-             this->getType().getFieldDesc(FilterGroupsFieldId)));
+             this->getType().getFieldDesc(FilterGroupsFieldId),
+             const_cast<DisplayFilterStageBase *>(this)));
 
     return returnValue;
 }
@@ -693,7 +700,8 @@ EditFieldHandlePtr DisplayFilterStageBase::editHandleFilterGroups   (void)
     MFUnrecDisplayFilterGroupPtr::EditHandlePtr returnValue(
         new  MFUnrecDisplayFilterGroupPtr::EditHandle(
              &_mfFilterGroups,
-             this->getType().getFieldDesc(FilterGroupsFieldId)));
+             this->getType().getFieldDesc(FilterGroupsFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&DisplayFilterStage::pushToFilterGroups,

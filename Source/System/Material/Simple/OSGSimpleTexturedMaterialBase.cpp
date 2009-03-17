@@ -202,7 +202,7 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleTexturedMaterialBase::createEmptyLocal),
     SimpleTexturedMaterial::initMethod,
     SimpleTexturedMaterial::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleTexturedMaterialBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleTexturedMaterial::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -646,7 +646,8 @@ GetFieldHandlePtr SimpleTexturedMaterialBase::getHandleImage           (void) co
     SFUnrecImagePtr::GetHandlePtr returnValue(
         new  SFUnrecImagePtr::GetHandle(
              &_sfImage,
-             this->getType().getFieldDesc(ImageFieldId)));
+             this->getType().getFieldDesc(ImageFieldId),
+             const_cast<SimpleTexturedMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -656,7 +657,8 @@ EditFieldHandlePtr SimpleTexturedMaterialBase::editHandleImage          (void)
     SFUnrecImagePtr::EditHandlePtr returnValue(
         new  SFUnrecImagePtr::EditHandle(
              &_sfImage,
-             this->getType().getFieldDesc(ImageFieldId)));
+             this->getType().getFieldDesc(ImageFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&SimpleTexturedMaterial::setImage,
@@ -672,7 +674,8 @@ GetFieldHandlePtr SimpleTexturedMaterialBase::getHandleMinFilter       (void) co
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfMinFilter,
-             this->getType().getFieldDesc(MinFilterFieldId)));
+             this->getType().getFieldDesc(MinFilterFieldId),
+             const_cast<SimpleTexturedMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -682,7 +685,8 @@ EditFieldHandlePtr SimpleTexturedMaterialBase::editHandleMinFilter      (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfMinFilter,
-             this->getType().getFieldDesc(MinFilterFieldId)));
+             this->getType().getFieldDesc(MinFilterFieldId),
+             this));
 
 
     editSField(MinFilterFieldMask);
@@ -695,7 +699,8 @@ GetFieldHandlePtr SimpleTexturedMaterialBase::getHandleMagFilter       (void) co
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfMagFilter,
-             this->getType().getFieldDesc(MagFilterFieldId)));
+             this->getType().getFieldDesc(MagFilterFieldId),
+             const_cast<SimpleTexturedMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -705,7 +710,8 @@ EditFieldHandlePtr SimpleTexturedMaterialBase::editHandleMagFilter      (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfMagFilter,
-             this->getType().getFieldDesc(MagFilterFieldId)));
+             this->getType().getFieldDesc(MagFilterFieldId),
+             this));
 
 
     editSField(MagFilterFieldMask);
@@ -718,7 +724,8 @@ GetFieldHandlePtr SimpleTexturedMaterialBase::getHandleEnvMode         (void) co
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvMode,
-             this->getType().getFieldDesc(EnvModeFieldId)));
+             this->getType().getFieldDesc(EnvModeFieldId),
+             const_cast<SimpleTexturedMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -728,7 +735,8 @@ EditFieldHandlePtr SimpleTexturedMaterialBase::editHandleEnvMode        (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvMode,
-             this->getType().getFieldDesc(EnvModeFieldId)));
+             this->getType().getFieldDesc(EnvModeFieldId),
+             this));
 
 
     editSField(EnvModeFieldMask);
@@ -741,7 +749,8 @@ GetFieldHandlePtr SimpleTexturedMaterialBase::getHandleEnvMap          (void) co
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnvMap,
-             this->getType().getFieldDesc(EnvMapFieldId)));
+             this->getType().getFieldDesc(EnvMapFieldId),
+             const_cast<SimpleTexturedMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -751,7 +760,8 @@ EditFieldHandlePtr SimpleTexturedMaterialBase::editHandleEnvMap         (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnvMap,
-             this->getType().getFieldDesc(EnvMapFieldId)));
+             this->getType().getFieldDesc(EnvMapFieldId),
+             this));
 
 
     editSField(EnvMapFieldMask);

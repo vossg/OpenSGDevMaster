@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ClusterWindow;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ClusterWindowPtr
-
 OSG_GEN_CONTAINERPTR(ClusterWindow);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpClusterFieldTraits
+    \ingroup GrpLibOSGCluster
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ClusterWindow *> :
     public FieldTraitsFCPtrBase<ClusterWindow *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ClusterWindow *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdClusterWindowPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ClusterWindowPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpClusterFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpClusterFieldSFields */
 typedef PointerSField<ClusterWindow *,
                       RecordedRefCountPolicy  > SFRecClusterWindowPtr;
+/*! \ingroup GrpClusterFieldSFields */
 typedef PointerSField<ClusterWindow *,
                       UnrecordedRefCountPolicy> SFUnrecClusterWindowPtr;
+/*! \ingroup GrpClusterFieldSFields */
 typedef PointerSField<ClusterWindow *,
                       WeakRefCountPolicy      > SFWeakClusterWindowPtr;
+/*! \ingroup GrpClusterFieldSFields */
 typedef PointerSField<ClusterWindow *,
                       NoRefCountPolicy        > SFUncountedClusterWindowPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpClusterFieldMulti */
-
+/*! \ingroup GrpClusterFieldMFields */
 typedef PointerMField<ClusterWindow *,
                       RecordedRefCountPolicy  > MFRecClusterWindowPtr;
+/*! \ingroup GrpClusterFieldMFields */
 typedef PointerMField<ClusterWindow *,
                       UnrecordedRefCountPolicy> MFUnrecClusterWindowPtr;
+/*! \ingroup GrpClusterFieldMFields */
 typedef PointerMField<ClusterWindow *,
                       WeakRefCountPolicy      > MFWeakClusterWindowPtr;
+/*! \ingroup GrpClusterFieldMFields */
 typedef PointerMField<ClusterWindow *,
                       NoRefCountPolicy        > MFUncountedClusterWindowPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+struct SFRecClusterWindowPtr : 
+    public PointerSField<ClusterWindow *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+struct SFUnrecClusterWindowPtr : 
+    public PointerSField<ClusterWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+struct SFWeakClusterWindowPtr :
+    public PointerSField<ClusterWindow *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpClusterFieldSFields \ingroup GrpLibOSGCluster */
+struct SFUncountedClusterWindowPtr :
+    public PointerSField<ClusterWindow *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+struct MFRecClusterWindowPtr :
+    public PointerMField<ClusterWindow *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+struct MFUnrecClusterWindowPtr :
+    public PointerMField<ClusterWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+struct MFWeakClusterWindowPtr :
+    public PointerMField<ClusterWindow *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpClusterFieldMFields \ingroup GrpLibOSGCluster */
+struct MFUncountedClusterWindowPtr :
+    public PointerMField<ClusterWindow *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

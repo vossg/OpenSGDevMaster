@@ -886,7 +886,8 @@ GetFieldHandlePtr ShaderProgramBase::getHandleShaderType      (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfShaderType,
-             this->getType().getFieldDesc(ShaderTypeFieldId)));
+             this->getType().getFieldDesc(ShaderTypeFieldId),
+             const_cast<ShaderProgramBase *>(this)));
 
     return returnValue;
 }
@@ -896,7 +897,8 @@ EditFieldHandlePtr ShaderProgramBase::editHandleShaderType     (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfShaderType,
-             this->getType().getFieldDesc(ShaderTypeFieldId)));
+             this->getType().getFieldDesc(ShaderTypeFieldId),
+             this));
 
 
     editSField(ShaderTypeFieldMask);
@@ -909,7 +911,8 @@ GetFieldHandlePtr ShaderProgramBase::getHandleProgram         (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfProgram,
-             this->getType().getFieldDesc(ProgramFieldId)));
+             this->getType().getFieldDesc(ProgramFieldId),
+             const_cast<ShaderProgramBase *>(this)));
 
     return returnValue;
 }
@@ -919,7 +922,8 @@ EditFieldHandlePtr ShaderProgramBase::editHandleProgram        (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfProgram,
-             this->getType().getFieldDesc(ProgramFieldId)));
+             this->getType().getFieldDesc(ProgramFieldId),
+             this));
 
 
     editSField(ProgramFieldMask);
@@ -932,7 +936,8 @@ GetFieldHandlePtr ShaderProgramBase::getHandleGLId            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             const_cast<ShaderProgramBase *>(this)));
 
     return returnValue;
 }
@@ -942,7 +947,8 @@ EditFieldHandlePtr ShaderProgramBase::editHandleGLId           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             this));
 
 
     editSField(GLIdFieldMask);
@@ -955,7 +961,8 @@ GetFieldHandlePtr ShaderProgramBase::getHandleVariables       (void) const
     SFUnrecChildShaderProgramVariablesPtr::GetHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::GetHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             const_cast<ShaderProgramBase *>(this)));
 
     return returnValue;
 }
@@ -965,7 +972,8 @@ EditFieldHandlePtr ShaderProgramBase::editHandleVariables      (void)
     SFUnrecChildShaderProgramVariablesPtr::EditHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::EditHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShaderProgram::setVariables,
@@ -981,7 +989,8 @@ GetFieldHandlePtr ShaderProgramBase::getHandleParameter       (void) const
     MFShaderParameter::GetHandlePtr returnValue(
         new  MFShaderParameter::GetHandle(
              &_mfParameter,
-             this->getType().getFieldDesc(ParameterFieldId)));
+             this->getType().getFieldDesc(ParameterFieldId),
+             const_cast<ShaderProgramBase *>(this)));
 
     return returnValue;
 }
@@ -991,7 +1000,8 @@ EditFieldHandlePtr ShaderProgramBase::editHandleParameter      (void)
     MFShaderParameter::EditHandlePtr returnValue(
         new  MFShaderParameter::EditHandle(
              &_mfParameter,
-             this->getType().getFieldDesc(ParameterFieldId)));
+             this->getType().getFieldDesc(ParameterFieldId),
+             this));
 
 
     editMField(ParameterFieldMask, _mfParameter);
@@ -1004,7 +1014,8 @@ GetFieldHandlePtr ShaderProgramBase::getHandleCgFrontEnd      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfCgFrontEnd,
-             this->getType().getFieldDesc(CgFrontEndFieldId)));
+             this->getType().getFieldDesc(CgFrontEndFieldId),
+             const_cast<ShaderProgramBase *>(this)));
 
     return returnValue;
 }
@@ -1014,7 +1025,8 @@ EditFieldHandlePtr ShaderProgramBase::editHandleCgFrontEnd     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfCgFrontEnd,
-             this->getType().getFieldDesc(CgFrontEndFieldId)));
+             this->getType().getFieldDesc(CgFrontEndFieldId),
+             this));
 
 
     editSField(CgFrontEndFieldMask);
@@ -1027,7 +1039,8 @@ GetFieldHandlePtr ShaderProgramBase::getHandlePointSize       (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfPointSize,
-             this->getType().getFieldDesc(PointSizeFieldId)));
+             this->getType().getFieldDesc(PointSizeFieldId),
+             const_cast<ShaderProgramBase *>(this)));
 
     return returnValue;
 }
@@ -1037,7 +1050,8 @@ EditFieldHandlePtr ShaderProgramBase::editHandlePointSize      (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfPointSize,
-             this->getType().getFieldDesc(PointSizeFieldId)));
+             this->getType().getFieldDesc(PointSizeFieldId),
+             this));
 
 
     editSField(PointSizeFieldMask);

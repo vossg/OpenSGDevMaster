@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void SensorBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 SensorBase::TypeObject SensorBase::_type(
     SensorBase::getClassname(),
@@ -87,7 +96,7 @@ SensorBase::TypeObject SensorBase::_type(
     NULL,
     Sensor::initMethod,
     Sensor::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&Sensor::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

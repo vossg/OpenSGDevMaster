@@ -594,7 +594,8 @@ GetFieldHandlePtr DepthChunkBase::getHandleEnable          (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnable,
-             this->getType().getFieldDesc(EnableFieldId)));
+             this->getType().getFieldDesc(EnableFieldId),
+             const_cast<DepthChunkBase *>(this)));
 
     return returnValue;
 }
@@ -604,7 +605,8 @@ EditFieldHandlePtr DepthChunkBase::editHandleEnable         (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnable,
-             this->getType().getFieldDesc(EnableFieldId)));
+             this->getType().getFieldDesc(EnableFieldId),
+             this));
 
 
     editSField(EnableFieldMask);
@@ -617,7 +619,8 @@ GetFieldHandlePtr DepthChunkBase::getHandleFunc            (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfFunc,
-             this->getType().getFieldDesc(FuncFieldId)));
+             this->getType().getFieldDesc(FuncFieldId),
+             const_cast<DepthChunkBase *>(this)));
 
     return returnValue;
 }
@@ -627,7 +630,8 @@ EditFieldHandlePtr DepthChunkBase::editHandleFunc           (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfFunc,
-             this->getType().getFieldDesc(FuncFieldId)));
+             this->getType().getFieldDesc(FuncFieldId),
+             this));
 
 
     editSField(FuncFieldMask);
@@ -640,7 +644,8 @@ GetFieldHandlePtr DepthChunkBase::getHandleNear            (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfNear,
-             this->getType().getFieldDesc(NearFieldId)));
+             this->getType().getFieldDesc(NearFieldId),
+             const_cast<DepthChunkBase *>(this)));
 
     return returnValue;
 }
@@ -650,7 +655,8 @@ EditFieldHandlePtr DepthChunkBase::editHandleNear           (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfNear,
-             this->getType().getFieldDesc(NearFieldId)));
+             this->getType().getFieldDesc(NearFieldId),
+             this));
 
 
     editSField(NearFieldMask);
@@ -663,7 +669,8 @@ GetFieldHandlePtr DepthChunkBase::getHandleFar             (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfFar,
-             this->getType().getFieldDesc(FarFieldId)));
+             this->getType().getFieldDesc(FarFieldId),
+             const_cast<DepthChunkBase *>(this)));
 
     return returnValue;
 }
@@ -673,7 +680,8 @@ EditFieldHandlePtr DepthChunkBase::editHandleFar            (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfFar,
-             this->getType().getFieldDesc(FarFieldId)));
+             this->getType().getFieldDesc(FarFieldId),
+             this));
 
 
     editSField(FarFieldMask);
@@ -686,7 +694,8 @@ GetFieldHandlePtr DepthChunkBase::getHandleReadOnly        (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfReadOnly,
-             this->getType().getFieldDesc(ReadOnlyFieldId)));
+             this->getType().getFieldDesc(ReadOnlyFieldId),
+             const_cast<DepthChunkBase *>(this)));
 
     return returnValue;
 }
@@ -696,7 +705,8 @@ EditFieldHandlePtr DepthChunkBase::editHandleReadOnly       (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfReadOnly,
-             this->getType().getFieldDesc(ReadOnlyFieldId)));
+             this->getType().getFieldDesc(ReadOnlyFieldId),
+             this));
 
 
     editSField(ReadOnlyFieldMask);

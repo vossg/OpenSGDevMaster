@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class LightEngine;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! LightEnginePtr
-
 OSG_GEN_CONTAINERPTR(LightEngine);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<LightEngine *> :
     public FieldTraitsFCPtrBase<LightEngine *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<LightEngine *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdLightEnginePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<LightEnginePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<LightEngine *,
                       RecordedRefCountPolicy  > SFRecLightEnginePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<LightEngine *,
                       UnrecordedRefCountPolicy> SFUnrecLightEnginePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<LightEngine *,
                       WeakRefCountPolicy      > SFWeakLightEnginePtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<LightEngine *,
                       NoRefCountPolicy        > SFUncountedLightEnginePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<LightEngine *,
                       RecordedRefCountPolicy  > MFRecLightEnginePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<LightEngine *,
                       UnrecordedRefCountPolicy> MFUnrecLightEnginePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<LightEngine *,
                       WeakRefCountPolicy      > MFWeakLightEnginePtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<LightEngine *,
                       NoRefCountPolicy        > MFUncountedLightEnginePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecLightEnginePtr : 
+    public PointerSField<LightEngine *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecLightEnginePtr : 
+    public PointerSField<LightEngine *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakLightEnginePtr :
+    public PointerSField<LightEngine *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedLightEnginePtr :
+    public PointerSField<LightEngine *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecLightEnginePtr :
+    public PointerMField<LightEngine *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecLightEnginePtr :
+    public PointerMField<LightEngine *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakLightEnginePtr :
+    public PointerMField<LightEngine *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedLightEnginePtr :
+    public PointerMField<LightEngine *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

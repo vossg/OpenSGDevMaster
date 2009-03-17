@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class DoubleTransform;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DoubleTransformPtr
-
 OSG_GEN_CONTAINERPTR(DoubleTransform);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<DoubleTransform *> :
     public FieldTraitsFCPtrBase<DoubleTransform *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<DoubleTransform *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdDoubleTransformPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DoubleTransformPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<DoubleTransform *,
                       RecordedRefCountPolicy  > SFRecDoubleTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<DoubleTransform *,
                       UnrecordedRefCountPolicy> SFUnrecDoubleTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<DoubleTransform *,
                       WeakRefCountPolicy      > SFWeakDoubleTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<DoubleTransform *,
                       NoRefCountPolicy        > SFUncountedDoubleTransformPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<DoubleTransform *,
                       RecordedRefCountPolicy  > MFRecDoubleTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<DoubleTransform *,
                       UnrecordedRefCountPolicy> MFUnrecDoubleTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<DoubleTransform *,
                       WeakRefCountPolicy      > MFWeakDoubleTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<DoubleTransform *,
                       NoRefCountPolicy        > MFUncountedDoubleTransformPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecDoubleTransformPtr : 
+    public PointerSField<DoubleTransform *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecDoubleTransformPtr : 
+    public PointerSField<DoubleTransform *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakDoubleTransformPtr :
+    public PointerSField<DoubleTransform *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedDoubleTransformPtr :
+    public PointerSField<DoubleTransform *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecDoubleTransformPtr :
+    public PointerMField<DoubleTransform *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecDoubleTransformPtr :
+    public PointerMField<DoubleTransform *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakDoubleTransformPtr :
+    public PointerMField<DoubleTransform *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedDoubleTransformPtr :
+    public PointerMField<DoubleTransform *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class GeoVectorProperty;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! GeoVectorPropertyPtr
-
 OSG_GEN_CONTAINERPTR(GeoVectorProperty);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpDrawableFieldTraits
+    \ingroup GrpLibOSGDrawable
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<GeoVectorProperty *> :
     public FieldTraitsFCPtrBase<GeoVectorProperty *>
@@ -154,14 +145,11 @@ const Char8 *FieldTraits<GeoVectorProperty *, 0>::getMName<NoRefCountPolicy>(voi
     return "MFUnrefdGeoVectorPropertyPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GeoVectorPropertyPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
 class FieldContainer;
 
+/*! \ingroup GrpDrawableFieldTraits
+ */
 template <>
 struct FieldTraits<GeoVectorProperty *, 1> :
     public FieldTraitsFCPtrBase<GeoVectorProperty *, 1>
@@ -238,48 +226,107 @@ const Char8 *FieldTraits<GeoVectorProperty *, 1>::getMName<NoRefCountPolicy>(voi
 }
 
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<GeoVectorProperty *,
                       RecordedRefCountPolicy  > SFRecGeoVectorPropertyPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<GeoVectorProperty *,
                       UnrecordedRefCountPolicy> SFUnrecGeoVectorPropertyPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<GeoVectorProperty *,
                       WeakRefCountPolicy      > SFWeakGeoVectorPropertyPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<GeoVectorProperty *,
                       NoRefCountPolicy        > SFUncountedGeoVectorPropertyPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<GeoVectorProperty *,
                       RecordedRefCountPolicy  > MFRecGeoVectorPropertyPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<GeoVectorProperty *,
                       UnrecordedRefCountPolicy> MFUnrecGeoVectorPropertyPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<GeoVectorProperty *,
                       WeakRefCountPolicy      > MFWeakGeoVectorPropertyPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<GeoVectorProperty *,
                       NoRefCountPolicy        > MFUncountedGeoVectorPropertyPtr;
-#endif
 
 
 
+/*! \ingroup GrpDrawableFieldSFields */
 typedef ChildPointerSField<
           GeoVectorProperty *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildGeoVectorPropertyPtr;
 
 
+/*! \ingroup GrpDrawableFieldMFields */
 typedef ChildPointerMField<
           GeoVectorProperty *, 
           UnrecordedRefCountPolicy,
           1             > MFUnrecChildGeoVectorPropertyPtr;
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFRecGeoVectorPropertyPtr : 
+    public PointerSField<GeoVectorProperty *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUnrecGeoVectorPropertyPtr : 
+    public PointerSField<GeoVectorProperty *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFWeakGeoVectorPropertyPtr :
+    public PointerSField<GeoVectorProperty *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUncountedGeoVectorPropertyPtr :
+    public PointerSField<GeoVectorProperty *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFRecGeoVectorPropertyPtr :
+    public PointerMField<GeoVectorProperty *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUnrecGeoVectorPropertyPtr :
+    public PointerMField<GeoVectorProperty *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFWeakGeoVectorPropertyPtr :
+    public PointerMField<GeoVectorProperty *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUncountedGeoVectorPropertyPtr :
+    public PointerMField<GeoVectorProperty *,
+                         NoRefCountPolicy        > {};
+
+
+
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUnrecChildGeoVectorPropertyPtr :
+    public ChildPointerSField<
+        GeoVectorProperty *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUnrecChildGeoVectorPropertyPtr :
+    public ChildPointerMField<
+        GeoVectorProperty *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

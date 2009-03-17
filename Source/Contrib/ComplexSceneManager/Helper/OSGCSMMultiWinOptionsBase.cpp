@@ -194,7 +194,7 @@ CSMMultiWinOptionsBase::TypeObject CSMMultiWinOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMMultiWinOptionsBase::createEmptyLocal),
     CSMMultiWinOptions::initMethod,
     CSMMultiWinOptions::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CSMMultiWinOptionsBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CSMMultiWinOptions::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -596,7 +596,8 @@ GetFieldHandlePtr CSMMultiWinOptionsBase::getHandleXOverlap        (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfXOverlap,
-             this->getType().getFieldDesc(XOverlapFieldId)));
+             this->getType().getFieldDesc(XOverlapFieldId),
+             const_cast<CSMMultiWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -606,7 +607,8 @@ EditFieldHandlePtr CSMMultiWinOptionsBase::editHandleXOverlap       (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfXOverlap,
-             this->getType().getFieldDesc(XOverlapFieldId)));
+             this->getType().getFieldDesc(XOverlapFieldId),
+             this));
 
 
     editSField(XOverlapFieldMask);
@@ -619,7 +621,8 @@ GetFieldHandlePtr CSMMultiWinOptionsBase::getHandleYOverlap        (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfYOverlap,
-             this->getType().getFieldDesc(YOverlapFieldId)));
+             this->getType().getFieldDesc(YOverlapFieldId),
+             const_cast<CSMMultiWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -629,7 +632,8 @@ EditFieldHandlePtr CSMMultiWinOptionsBase::editHandleYOverlap       (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfYOverlap,
-             this->getType().getFieldDesc(YOverlapFieldId)));
+             this->getType().getFieldDesc(YOverlapFieldId),
+             this));
 
 
     editSField(YOverlapFieldMask);
@@ -642,7 +646,8 @@ GetFieldHandlePtr CSMMultiWinOptionsBase::getHandleManageClientViewports (void) 
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfManageClientViewports,
-             this->getType().getFieldDesc(ManageClientViewportsFieldId)));
+             this->getType().getFieldDesc(ManageClientViewportsFieldId),
+             const_cast<CSMMultiWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -652,7 +657,8 @@ EditFieldHandlePtr CSMMultiWinOptionsBase::editHandleManageClientViewports(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfManageClientViewports,
-             this->getType().getFieldDesc(ManageClientViewportsFieldId)));
+             this->getType().getFieldDesc(ManageClientViewportsFieldId),
+             this));
 
 
     editSField(ManageClientViewportsFieldMask);
@@ -665,7 +671,8 @@ GetFieldHandlePtr CSMMultiWinOptionsBase::getHandleBalance         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfBalance,
-             this->getType().getFieldDesc(BalanceFieldId)));
+             this->getType().getFieldDesc(BalanceFieldId),
+             const_cast<CSMMultiWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -675,7 +682,8 @@ EditFieldHandlePtr CSMMultiWinOptionsBase::editHandleBalance        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfBalance,
-             this->getType().getFieldDesc(BalanceFieldId)));
+             this->getType().getFieldDesc(BalanceFieldId),
+             this));
 
 
     editSField(BalanceFieldMask);
@@ -688,7 +696,8 @@ GetFieldHandlePtr CSMMultiWinOptionsBase::getHandleBestCut         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfBestCut,
-             this->getType().getFieldDesc(BestCutFieldId)));
+             this->getType().getFieldDesc(BestCutFieldId),
+             const_cast<CSMMultiWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -698,7 +707,8 @@ EditFieldHandlePtr CSMMultiWinOptionsBase::editHandleBestCut        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfBestCut,
-             this->getType().getFieldDesc(BestCutFieldId)));
+             this->getType().getFieldDesc(BestCutFieldId),
+             this));
 
 
     editSField(BestCutFieldMask);
@@ -711,7 +721,8 @@ GetFieldHandlePtr CSMMultiWinOptionsBase::getHandleShowBalancing   (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfShowBalancing,
-             this->getType().getFieldDesc(ShowBalancingFieldId)));
+             this->getType().getFieldDesc(ShowBalancingFieldId),
+             const_cast<CSMMultiWinOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -721,7 +732,8 @@ EditFieldHandlePtr CSMMultiWinOptionsBase::editHandleShowBalancing  (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfShowBalancing,
-             this->getType().getFieldDesc(ShowBalancingFieldId)));
+             this->getType().getFieldDesc(ShowBalancingFieldId),
+             this));
 
 
     editSField(ShowBalancingFieldMask);
@@ -774,5 +786,6 @@ void CSMMultiWinOptionsBase::resolveLinks(void)
 DataType FieldTraits<CSMMultiWinOptions *>::_type("CSMMultiWinOptionsPtr", "CSMClusterWinOptionsPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(CSMMultiWinOptions *)
 
 OSG_END_NAMESPACE

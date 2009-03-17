@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TextureSelectChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TextureSelectChunkPtr
-
 OSG_GEN_CONTAINERPTR(TextureSelectChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TextureSelectChunk *> :
     public FieldTraitsFCPtrBase<TextureSelectChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<TextureSelectChunk *, 0>::getMName<NoRefCountPolicy>(vo
     return "MFUnrefdTextureSelectChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TextureSelectChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TextureSelectChunk *,
                       RecordedRefCountPolicy  > SFRecTextureSelectChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TextureSelectChunk *,
                       UnrecordedRefCountPolicy> SFUnrecTextureSelectChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TextureSelectChunk *,
                       WeakRefCountPolicy      > SFWeakTextureSelectChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TextureSelectChunk *,
                       NoRefCountPolicy        > SFUncountedTextureSelectChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TextureSelectChunk *,
                       RecordedRefCountPolicy  > MFRecTextureSelectChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TextureSelectChunk *,
                       UnrecordedRefCountPolicy> MFUnrecTextureSelectChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TextureSelectChunk *,
                       WeakRefCountPolicy      > MFWeakTextureSelectChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TextureSelectChunk *,
                       NoRefCountPolicy        > MFUncountedTextureSelectChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecTextureSelectChunkPtr : 
+    public PointerSField<TextureSelectChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecTextureSelectChunkPtr : 
+    public PointerSField<TextureSelectChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakTextureSelectChunkPtr :
+    public PointerSField<TextureSelectChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedTextureSelectChunkPtr :
+    public PointerSField<TextureSelectChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecTextureSelectChunkPtr :
+    public PointerMField<TextureSelectChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecTextureSelectChunkPtr :
+    public PointerMField<TextureSelectChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakTextureSelectChunkPtr :
+    public PointerMField<TextureSelectChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedTextureSelectChunkPtr :
+    public PointerMField<TextureSelectChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

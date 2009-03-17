@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class OrthographicCamera;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! OrthographicCameraPtr
-
 OSG_GEN_CONTAINERPTR(OrthographicCamera);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<OrthographicCamera *> :
     public FieldTraitsFCPtrBase<OrthographicCamera *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<OrthographicCamera *, 0>::getMName<NoRefCountPolicy>(vo
     return "MFUnrefdOrthographicCameraPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<OrthographicCameraPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<OrthographicCamera *,
                       RecordedRefCountPolicy  > SFRecOrthographicCameraPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<OrthographicCamera *,
                       UnrecordedRefCountPolicy> SFUnrecOrthographicCameraPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<OrthographicCamera *,
                       WeakRefCountPolicy      > SFWeakOrthographicCameraPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<OrthographicCamera *,
                       NoRefCountPolicy        > SFUncountedOrthographicCameraPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<OrthographicCamera *,
                       RecordedRefCountPolicy  > MFRecOrthographicCameraPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<OrthographicCamera *,
                       UnrecordedRefCountPolicy> MFUnrecOrthographicCameraPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<OrthographicCamera *,
                       WeakRefCountPolicy      > MFWeakOrthographicCameraPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<OrthographicCamera *,
                       NoRefCountPolicy        > MFUncountedOrthographicCameraPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecOrthographicCameraPtr : 
+    public PointerSField<OrthographicCamera *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecOrthographicCameraPtr : 
+    public PointerSField<OrthographicCamera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakOrthographicCameraPtr :
+    public PointerSField<OrthographicCamera *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedOrthographicCameraPtr :
+    public PointerSField<OrthographicCamera *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecOrthographicCameraPtr :
+    public PointerMField<OrthographicCamera *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecOrthographicCameraPtr :
+    public PointerMField<OrthographicCamera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakOrthographicCameraPtr :
+    public PointerMField<OrthographicCamera *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedOrthographicCameraPtr :
+    public PointerMField<OrthographicCamera *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

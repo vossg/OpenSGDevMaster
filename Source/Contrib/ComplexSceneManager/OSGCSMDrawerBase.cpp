@@ -560,7 +560,8 @@ GetFieldHandlePtr CSMDrawerBase::getHandleWindows         (void) const
     MFUnrecChildCSMWindowPtr::GetHandlePtr returnValue(
         new  MFUnrecChildCSMWindowPtr::GetHandle(
              &_mfWindows,
-             this->getType().getFieldDesc(WindowsFieldId)));
+             this->getType().getFieldDesc(WindowsFieldId),
+             const_cast<CSMDrawerBase *>(this)));
 
     return returnValue;
 }
@@ -570,7 +571,8 @@ EditFieldHandlePtr CSMDrawerBase::editHandleWindows        (void)
     MFUnrecChildCSMWindowPtr::EditHandlePtr returnValue(
         new  MFUnrecChildCSMWindowPtr::EditHandle(
              &_mfWindows,
-             this->getType().getFieldDesc(WindowsFieldId)));
+             this->getType().getFieldDesc(WindowsFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&CSMDrawer::pushToWindows,
@@ -595,7 +597,8 @@ GetFieldHandlePtr CSMDrawerBase::getHandleDisplayString   (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfDisplayString,
-             this->getType().getFieldDesc(DisplayStringFieldId)));
+             this->getType().getFieldDesc(DisplayStringFieldId),
+             const_cast<CSMDrawerBase *>(this)));
 
     return returnValue;
 }
@@ -605,7 +608,8 @@ EditFieldHandlePtr CSMDrawerBase::editHandleDisplayString  (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfDisplayString,
-             this->getType().getFieldDesc(DisplayStringFieldId)));
+             this->getType().getFieldDesc(DisplayStringFieldId),
+             this));
 
 
     editSField(DisplayStringFieldMask);
@@ -618,7 +622,8 @@ GetFieldHandlePtr CSMDrawerBase::getHandleAspect          (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfAspect,
-             this->getType().getFieldDesc(AspectFieldId)));
+             this->getType().getFieldDesc(AspectFieldId),
+             const_cast<CSMDrawerBase *>(this)));
 
     return returnValue;
 }
@@ -628,7 +633,8 @@ EditFieldHandlePtr CSMDrawerBase::editHandleAspect         (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfAspect,
-             this->getType().getFieldDesc(AspectFieldId)));
+             this->getType().getFieldDesc(AspectFieldId),
+             this));
 
 
     editSField(AspectFieldMask);

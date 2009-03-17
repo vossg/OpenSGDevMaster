@@ -114,7 +114,7 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GLUTWindowBase::createEmptyLocal),
     GLUTWindow::initMethod,
     GLUTWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&GLUTWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&GLUTWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr GLUTWindowBase::getHandleGlutId          (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfGlutId,
-             this->getType().getFieldDesc(GlutIdFieldId)));
+             this->getType().getFieldDesc(GlutIdFieldId),
+             const_cast<GLUTWindowBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr GLUTWindowBase::editHandleGlutId         (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfGlutId,
-             this->getType().getFieldDesc(GlutIdFieldId)));
+             this->getType().getFieldDesc(GlutIdFieldId),
+             this));
 
 
     editSField(GlutIdFieldMask);

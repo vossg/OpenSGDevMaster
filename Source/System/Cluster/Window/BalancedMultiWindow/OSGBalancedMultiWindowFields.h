@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class BalancedMultiWindow;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! BalancedMultiWindowPtr
-
 OSG_GEN_CONTAINERPTR(BalancedMultiWindow);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpClusterFieldTraits
+    \ingroup GrpLibOSGCluster
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<BalancedMultiWindow *> :
     public FieldTraitsFCPtrBase<BalancedMultiWindow *>
@@ -93,19 +84,23 @@ struct FieldTraits<BalancedMultiWindow *> :
     typedef FieldTraits<BalancedMultiWindow *>  Self;
 
     enum                        { Convertible = NotConvertible };
+
+    static OSG_CLUSTER_DLLMAPPING DataType &getType(void);
+
 };
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<BalancedMultiWindowPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

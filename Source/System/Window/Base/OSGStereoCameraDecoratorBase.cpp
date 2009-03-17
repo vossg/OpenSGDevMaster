@@ -135,7 +135,7 @@ StereoCameraDecoratorBase::TypeObject StereoCameraDecoratorBase::_type(
     NULL,
     StereoCameraDecorator::initMethod,
     StereoCameraDecorator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&StereoCameraDecoratorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&StereoCameraDecorator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -313,7 +313,8 @@ GetFieldHandlePtr StereoCameraDecoratorBase::getHandleLeftEye         (void) con
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfLeftEye,
-             this->getType().getFieldDesc(LeftEyeFieldId)));
+             this->getType().getFieldDesc(LeftEyeFieldId),
+             const_cast<StereoCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -323,7 +324,8 @@ EditFieldHandlePtr StereoCameraDecoratorBase::editHandleLeftEye        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfLeftEye,
-             this->getType().getFieldDesc(LeftEyeFieldId)));
+             this->getType().getFieldDesc(LeftEyeFieldId),
+             this));
 
 
     editSField(LeftEyeFieldMask);
@@ -336,7 +338,8 @@ GetFieldHandlePtr StereoCameraDecoratorBase::getHandleEyeSeparation   (void) con
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfEyeSeparation,
-             this->getType().getFieldDesc(EyeSeparationFieldId)));
+             this->getType().getFieldDesc(EyeSeparationFieldId),
+             const_cast<StereoCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -346,7 +349,8 @@ EditFieldHandlePtr StereoCameraDecoratorBase::editHandleEyeSeparation  (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfEyeSeparation,
-             this->getType().getFieldDesc(EyeSeparationFieldId)));
+             this->getType().getFieldDesc(EyeSeparationFieldId),
+             this));
 
 
     editSField(EyeSeparationFieldMask);

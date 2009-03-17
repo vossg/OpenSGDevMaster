@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SolidBackground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SolidBackgroundPtr
-
 OSG_GEN_CONTAINERPTR(SolidBackground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SolidBackground *> :
     public FieldTraitsFCPtrBase<SolidBackground *>
@@ -127,28 +118,46 @@ const Char8 *FieldTraits<SolidBackground *, 0>::getSName<NoRefCountPolicy>(void)
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SolidBackgroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<SolidBackground *,
                       RecordedRefCountPolicy  > SFRecSolidBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<SolidBackground *,
                       UnrecordedRefCountPolicy> SFUnrecSolidBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<SolidBackground *,
                       WeakRefCountPolicy      > SFWeakSolidBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<SolidBackground *,
                       NoRefCountPolicy        > SFUncountedSolidBackgroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecSolidBackgroundPtr : 
+    public PointerSField<SolidBackground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecSolidBackgroundPtr : 
+    public PointerSField<SolidBackground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakSolidBackgroundPtr :
+    public PointerSField<SolidBackground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedSolidBackgroundPtr :
+    public PointerSField<SolidBackground *,
+                         NoRefCountPolicy> {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

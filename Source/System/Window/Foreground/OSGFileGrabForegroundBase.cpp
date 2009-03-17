@@ -155,7 +155,7 @@ FileGrabForegroundBase::TypeObject FileGrabForegroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FileGrabForegroundBase::createEmptyLocal),
     FileGrabForeground::initMethod,
     FileGrabForeground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&FileGrabForegroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&FileGrabForeground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -496,7 +496,8 @@ GetFieldHandlePtr FileGrabForegroundBase::getHandleName            (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfName,
-             this->getType().getFieldDesc(NameFieldId)));
+             this->getType().getFieldDesc(NameFieldId),
+             const_cast<FileGrabForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -506,7 +507,8 @@ EditFieldHandlePtr FileGrabForegroundBase::editHandleName           (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfName,
-             this->getType().getFieldDesc(NameFieldId)));
+             this->getType().getFieldDesc(NameFieldId),
+             this));
 
 
     editSField(NameFieldMask);
@@ -519,7 +521,8 @@ GetFieldHandlePtr FileGrabForegroundBase::getHandleFrame           (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfFrame,
-             this->getType().getFieldDesc(FrameFieldId)));
+             this->getType().getFieldDesc(FrameFieldId),
+             const_cast<FileGrabForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -529,7 +532,8 @@ EditFieldHandlePtr FileGrabForegroundBase::editHandleFrame          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfFrame,
-             this->getType().getFieldDesc(FrameFieldId)));
+             this->getType().getFieldDesc(FrameFieldId),
+             this));
 
 
     editSField(FrameFieldMask);
@@ -542,7 +546,8 @@ GetFieldHandlePtr FileGrabForegroundBase::getHandleIncrement       (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfIncrement,
-             this->getType().getFieldDesc(IncrementFieldId)));
+             this->getType().getFieldDesc(IncrementFieldId),
+             const_cast<FileGrabForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -552,7 +557,8 @@ EditFieldHandlePtr FileGrabForegroundBase::editHandleIncrement      (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfIncrement,
-             this->getType().getFieldDesc(IncrementFieldId)));
+             this->getType().getFieldDesc(IncrementFieldId),
+             this));
 
 
     editSField(IncrementFieldMask);

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ComponentTransform;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ComponentTransformPtr
-
 OSG_GEN_CONTAINERPTR(ComponentTransform);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ComponentTransform *> :
     public FieldTraitsFCPtrBase<ComponentTransform *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ComponentTransform *, 0>::getMName<NoRefCountPolicy>(vo
     return "MFUnrefdComponentTransformPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ComponentTransformPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<ComponentTransform *,
                       RecordedRefCountPolicy  > SFRecComponentTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<ComponentTransform *,
                       UnrecordedRefCountPolicy> SFUnrecComponentTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<ComponentTransform *,
                       WeakRefCountPolicy      > SFWeakComponentTransformPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<ComponentTransform *,
                       NoRefCountPolicy        > SFUncountedComponentTransformPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<ComponentTransform *,
                       RecordedRefCountPolicy  > MFRecComponentTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<ComponentTransform *,
                       UnrecordedRefCountPolicy> MFUnrecComponentTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<ComponentTransform *,
                       WeakRefCountPolicy      > MFWeakComponentTransformPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<ComponentTransform *,
                       NoRefCountPolicy        > MFUncountedComponentTransformPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecComponentTransformPtr : 
+    public PointerSField<ComponentTransform *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecComponentTransformPtr : 
+    public PointerSField<ComponentTransform *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakComponentTransformPtr :
+    public PointerSField<ComponentTransform *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedComponentTransformPtr :
+    public PointerSField<ComponentTransform *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecComponentTransformPtr :
+    public PointerMField<ComponentTransform *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecComponentTransformPtr :
+    public PointerMField<ComponentTransform *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakComponentTransformPtr :
+    public PointerMField<ComponentTransform *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedComponentTransformPtr :
+    public PointerMField<ComponentTransform *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

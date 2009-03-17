@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CSMGLUTWindow;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CSMGLUTWindowPtr
-
 OSG_GEN_CONTAINERPTR(CSMGLUTWindow);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CSMGLUTWindow *> :
     public FieldTraitsFCPtrBase<CSMGLUTWindow *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CSMGLUTWindow *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdCSMGLUTWindowPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CSMGLUTWindowPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMGLUTWindow *,
                       RecordedRefCountPolicy  > SFRecCSMGLUTWindowPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMGLUTWindow *,
                       UnrecordedRefCountPolicy> SFUnrecCSMGLUTWindowPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMGLUTWindow *,
                       WeakRefCountPolicy      > SFWeakCSMGLUTWindowPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<CSMGLUTWindow *,
                       NoRefCountPolicy        > SFUncountedCSMGLUTWindowPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldMulti */
-
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMGLUTWindow *,
                       RecordedRefCountPolicy  > MFRecCSMGLUTWindowPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMGLUTWindow *,
                       UnrecordedRefCountPolicy> MFUnrecCSMGLUTWindowPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMGLUTWindow *,
                       WeakRefCountPolicy      > MFWeakCSMGLUTWindowPtr;
+/*! \ingroup GrpContribCSMFieldMFields */
 typedef PointerMField<CSMGLUTWindow *,
                       NoRefCountPolicy        > MFUncountedCSMGLUTWindowPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecCSMGLUTWindowPtr : 
+    public PointerSField<CSMGLUTWindow *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecCSMGLUTWindowPtr : 
+    public PointerSField<CSMGLUTWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakCSMGLUTWindowPtr :
+    public PointerSField<CSMGLUTWindow *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedCSMGLUTWindowPtr :
+    public PointerSField<CSMGLUTWindow *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFRecCSMGLUTWindowPtr :
+    public PointerMField<CSMGLUTWindow *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUnrecCSMGLUTWindowPtr :
+    public PointerMField<CSMGLUTWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFWeakCSMGLUTWindowPtr :
+    public PointerMField<CSMGLUTWindow *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribCSMFieldMFields \ingroup GrpLibOSGContribCSM */
+struct MFUncountedCSMGLUTWindowPtr :
+    public PointerMField<CSMGLUTWindow *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

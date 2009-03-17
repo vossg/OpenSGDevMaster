@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class VRMLAttachment;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! VRMLAttachmentPtr
-
 OSG_GEN_CONTAINERPTR(VRMLAttachment);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpFileIOFieldTraits
+    \ingroup GrpLibOSGFileIO
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<VRMLAttachment *> :
     public FieldTraitsFCPtrBase<VRMLAttachment *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<VRMLAttachment *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdVRMLAttachmentPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<VRMLAttachmentPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpFileIOFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpFileIOFieldSFields */
 typedef PointerSField<VRMLAttachment *,
                       RecordedRefCountPolicy  > SFRecVRMLAttachmentPtr;
+/*! \ingroup GrpFileIOFieldSFields */
 typedef PointerSField<VRMLAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecVRMLAttachmentPtr;
+/*! \ingroup GrpFileIOFieldSFields */
 typedef PointerSField<VRMLAttachment *,
                       WeakRefCountPolicy      > SFWeakVRMLAttachmentPtr;
+/*! \ingroup GrpFileIOFieldSFields */
 typedef PointerSField<VRMLAttachment *,
                       NoRefCountPolicy        > SFUncountedVRMLAttachmentPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpFileIOFieldMulti */
-
+/*! \ingroup GrpFileIOFieldMFields */
 typedef PointerMField<VRMLAttachment *,
                       RecordedRefCountPolicy  > MFRecVRMLAttachmentPtr;
+/*! \ingroup GrpFileIOFieldMFields */
 typedef PointerMField<VRMLAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecVRMLAttachmentPtr;
+/*! \ingroup GrpFileIOFieldMFields */
 typedef PointerMField<VRMLAttachment *,
                       WeakRefCountPolicy      > MFWeakVRMLAttachmentPtr;
+/*! \ingroup GrpFileIOFieldMFields */
 typedef PointerMField<VRMLAttachment *,
                       NoRefCountPolicy        > MFUncountedVRMLAttachmentPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+struct SFRecVRMLAttachmentPtr : 
+    public PointerSField<VRMLAttachment *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+struct SFUnrecVRMLAttachmentPtr : 
+    public PointerSField<VRMLAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+struct SFWeakVRMLAttachmentPtr :
+    public PointerSField<VRMLAttachment *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpFileIOFieldSFields \ingroup GrpLibOSGFileIO */
+struct SFUncountedVRMLAttachmentPtr :
+    public PointerSField<VRMLAttachment *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+struct MFRecVRMLAttachmentPtr :
+    public PointerMField<VRMLAttachment *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+struct MFUnrecVRMLAttachmentPtr :
+    public PointerMField<VRMLAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+struct MFWeakVRMLAttachmentPtr :
+    public PointerMField<VRMLAttachment *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpFileIOFieldMFields \ingroup GrpLibOSGFileIO */
+struct MFUncountedVRMLAttachmentPtr :
+    public PointerMField<VRMLAttachment *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

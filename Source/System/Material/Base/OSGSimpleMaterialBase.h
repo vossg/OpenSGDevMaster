@@ -198,13 +198,13 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
             const Color3r             &getSpecular        (void) const;
 
                   Real                &editShininess      (void);
-            const Real                &getShininess       (void) const;
+                  Real                 getShininess       (void) const;
 
                   Color3r             &editEmission       (void);
             const Color3r             &getEmission        (void) const;
 
                   Real                &editTransparency   (void);
-            const Real                &getTransparency    (void) const;
+                  Real                 getTransparency    (void) const;
 
                   bool                &editLit            (void);
                   bool                 getLit             (void) const;
@@ -220,9 +220,9 @@ class OSG_SYSTEM_DLLMAPPING SimpleMaterialBase : public ChunkMaterial
             void setAmbient        (const Color3r &value);
             void setDiffuse        (const Color3r &value);
             void setSpecular       (const Color3r &value);
-            void setShininess      (const Real &value);
+            void setShininess      (const Real value);
             void setEmission       (const Color3r &value);
-            void setTransparency   (const Real &value);
+            void setTransparency   (const Real value);
             void setLit            (const bool value);
             void setColorMaterial  (const GLenum &value);
 

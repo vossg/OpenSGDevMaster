@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpSystemWindowBackgrounds
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void DepthClearBackgroundBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     DepthClearBackgroundBase::getClassname(),
@@ -87,7 +96,7 @@ DepthClearBackgroundBase::TypeObject DepthClearBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DepthClearBackgroundBase::createEmptyLocal),
     DepthClearBackground::initMethod,
     DepthClearBackground::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&DepthClearBackground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

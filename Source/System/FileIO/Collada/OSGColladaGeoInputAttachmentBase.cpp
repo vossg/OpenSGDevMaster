@@ -166,7 +166,7 @@ ColladaGeoInputAttachmentBase::TypeObject ColladaGeoInputAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ColladaGeoInputAttachmentBase::createEmptyLocal),
     ColladaGeoInputAttachment::initMethod,
     ColladaGeoInputAttachment::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ColladaGeoInputAttachmentBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ColladaGeoInputAttachment::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -745,7 +745,8 @@ GetFieldHandlePtr ColladaGeoInputAttachmentBase::getHandleSemantics       (void)
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfSemantics,
-             this->getType().getFieldDesc(SemanticsFieldId)));
+             this->getType().getFieldDesc(SemanticsFieldId),
+             const_cast<ColladaGeoInputAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -755,7 +756,8 @@ EditFieldHandlePtr ColladaGeoInputAttachmentBase::editHandleSemantics      (void
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfSemantics,
-             this->getType().getFieldDesc(SemanticsFieldId)));
+             this->getType().getFieldDesc(SemanticsFieldId),
+             this));
 
 
     editMField(SemanticsFieldMask, _mfSemantics);
@@ -768,7 +770,8 @@ GetFieldHandlePtr ColladaGeoInputAttachmentBase::getHandleSets            (void)
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfSets,
-             this->getType().getFieldDesc(SetsFieldId)));
+             this->getType().getFieldDesc(SetsFieldId),
+             const_cast<ColladaGeoInputAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -778,7 +781,8 @@ EditFieldHandlePtr ColladaGeoInputAttachmentBase::editHandleSets           (void
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfSets,
-             this->getType().getFieldDesc(SetsFieldId)));
+             this->getType().getFieldDesc(SetsFieldId),
+             this));
 
 
     editMField(SetsFieldMask, _mfSets);
@@ -791,7 +795,8 @@ GetFieldHandlePtr ColladaGeoInputAttachmentBase::getHandleProperties      (void)
     MFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_mfProperties,
-             this->getType().getFieldDesc(PropertiesFieldId)));
+             this->getType().getFieldDesc(PropertiesFieldId),
+             const_cast<ColladaGeoInputAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -801,7 +806,8 @@ EditFieldHandlePtr ColladaGeoInputAttachmentBase::editHandleProperties     (void
     MFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_mfProperties,
-             this->getType().getFieldDesc(PropertiesFieldId)));
+             this->getType().getFieldDesc(PropertiesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ColladaGeoInputAttachment::pushToProperties,
@@ -826,7 +832,8 @@ GetFieldHandlePtr ColladaGeoInputAttachmentBase::getHandlePropIndices     (void)
     MFUnrecChildGeoIntegralPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecChildGeoIntegralPropertyPtr::GetHandle(
              &_mfPropIndices,
-             this->getType().getFieldDesc(PropIndicesFieldId)));
+             this->getType().getFieldDesc(PropIndicesFieldId),
+             const_cast<ColladaGeoInputAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -836,7 +843,8 @@ EditFieldHandlePtr ColladaGeoInputAttachmentBase::editHandlePropIndices    (void
     MFUnrecChildGeoIntegralPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecChildGeoIntegralPropertyPtr::EditHandle(
              &_mfPropIndices,
-             this->getType().getFieldDesc(PropIndicesFieldId)));
+             this->getType().getFieldDesc(PropIndicesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ColladaGeoInputAttachment::pushToPropIndices,

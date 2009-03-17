@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     The ScaleHandle is used for scaleing objects. It consist of three axis which can be picked and scaled and one center box to scale freely in 3D.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void ScaleManipulatorBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 ScaleManipulatorBase::TypeObject ScaleManipulatorBase::_type(
     ScaleManipulatorBase::getClassname(),
@@ -87,7 +96,7 @@ ScaleManipulatorBase::TypeObject ScaleManipulatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ScaleManipulatorBase::createEmptyLocal),
     ScaleManipulator::initMethod,
     ScaleManipulator::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&ScaleManipulator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -340,5 +349,6 @@ void ScaleManipulatorBase::resolveLinks(void)
 DataType FieldTraits<ScaleManipulator *>::_type("ScaleManipulatorPtr", "ManipulatorPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ScaleManipulator *)
 
 OSG_END_NAMESPACE

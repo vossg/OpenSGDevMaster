@@ -227,19 +227,19 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
             const Vec3r               &getDirection       (void) const;
 
                   Real                &editExponent       (void);
-            const Real                &getExponent        (void) const;
+                  Real                 getExponent        (void) const;
 
                   Real                &editCutoff         (void);
-            const Real                &getCutoff          (void) const;
+                  Real                 getCutoff          (void) const;
 
                   Real                &editConstantAttenuation(void);
-            const Real                &getConstantAttenuation (void) const;
+                  Real                 getConstantAttenuation (void) const;
 
                   Real                &editLinearAttenuation(void);
-            const Real                &getLinearAttenuation (void) const;
+                  Real                 getLinearAttenuation (void) const;
 
                   Real                &editQuadraticAttenuation(void);
-            const Real                &getQuadraticAttenuation (void) const;
+                  Real                 getQuadraticAttenuation (void) const;
 
                   Node * getBeacon         (void) const;
 
@@ -253,11 +253,11 @@ class OSG_SYSTEM_DLLMAPPING LightChunkBase : public StateChunk
             void setSpecular       (const Color4r &value);
             void setPosition       (const Vec4r &value);
             void setDirection      (const Vec3r &value);
-            void setExponent       (const Real &value);
-            void setCutoff         (const Real &value);
-            void setConstantAttenuation(const Real &value);
-            void setLinearAttenuation(const Real &value);
-            void setQuadraticAttenuation(const Real &value);
+            void setExponent       (const Real value);
+            void setCutoff         (const Real value);
+            void setConstantAttenuation(const Real value);
+            void setLinearAttenuation(const Real value);
+            void setQuadraticAttenuation(const Real value);
             void setBeacon         (Node * const value);
 
     /*! \}                                                                 */

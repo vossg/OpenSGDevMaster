@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ImageFile;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ImageFilePtr
-
 OSG_GEN_CONTAINERPTR(ImageFile);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ImageFile *> :
     public FieldTraitsFCPtrBase<ImageFile *>
@@ -93,19 +84,23 @@ struct FieldTraits<ImageFile *> :
     typedef FieldTraits<ImageFile *>  Self;
 
     enum                        { Convertible = NotConvertible };
+
+    static OSG_CONTRIBCSM_DLLMAPPING DataType &getType(void);
+
 };
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ImageFilePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

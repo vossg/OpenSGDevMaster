@@ -309,7 +309,7 @@ SimpleStatisticsForegroundBase::TypeObject SimpleStatisticsForegroundBase::_type
     reinterpret_cast<PrototypeCreateF>(&SimpleStatisticsForegroundBase::createEmptyLocal),
     SimpleStatisticsForeground::initMethod,
     SimpleStatisticsForeground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleStatisticsForegroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleStatisticsForeground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1001,7 +1001,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleFormats         (void
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfFormats,
-             this->getType().getFieldDesc(FormatsFieldId)));
+             this->getType().getFieldDesc(FormatsFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1011,7 +1012,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleFormats        (voi
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfFormats,
-             this->getType().getFieldDesc(FormatsFieldId)));
+             this->getType().getFieldDesc(FormatsFieldId),
+             this));
 
 
     editMField(FormatsFieldMask, _mfFormats);
@@ -1024,7 +1026,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleSize            (void
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfSize,
-             this->getType().getFieldDesc(SizeFieldId)));
+             this->getType().getFieldDesc(SizeFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1034,7 +1037,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleSize           (voi
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfSize,
-             this->getType().getFieldDesc(SizeFieldId)));
+             this->getType().getFieldDesc(SizeFieldId),
+             this));
 
 
     editSField(SizeFieldMask);
@@ -1047,7 +1051,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleColor           (void
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1057,7 +1062,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleColor          (voi
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             this));
 
 
     editSField(ColorFieldMask);
@@ -1070,7 +1076,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleShadowColor     (void
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfShadowColor,
-             this->getType().getFieldDesc(ShadowColorFieldId)));
+             this->getType().getFieldDesc(ShadowColorFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1080,7 +1087,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleShadowColor    (voi
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfShadowColor,
-             this->getType().getFieldDesc(ShadowColorFieldId)));
+             this->getType().getFieldDesc(ShadowColorFieldId),
+             this));
 
 
     editSField(ShadowColorFieldMask);
@@ -1093,7 +1101,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleBgColor         (void
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfBgColor,
-             this->getType().getFieldDesc(BgColorFieldId)));
+             this->getType().getFieldDesc(BgColorFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1103,7 +1112,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleBgColor        (voi
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfBgColor,
-             this->getType().getFieldDesc(BgColorFieldId)));
+             this->getType().getFieldDesc(BgColorFieldId),
+             this));
 
 
     editSField(BgColorFieldMask);
@@ -1116,7 +1126,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleFamily          (void
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfFamily,
-             this->getType().getFieldDesc(FamilyFieldId)));
+             this->getType().getFieldDesc(FamilyFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1126,7 +1137,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleFamily         (voi
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfFamily,
-             this->getType().getFieldDesc(FamilyFieldId)));
+             this->getType().getFieldDesc(FamilyFieldId),
+             this));
 
 
     editSField(FamilyFieldMask);
@@ -1139,7 +1151,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleShadowOffset    (void
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfShadowOffset,
-             this->getType().getFieldDesc(ShadowOffsetFieldId)));
+             this->getType().getFieldDesc(ShadowOffsetFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1149,7 +1162,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleShadowOffset   (voi
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfShadowOffset,
-             this->getType().getFieldDesc(ShadowOffsetFieldId)));
+             this->getType().getFieldDesc(ShadowOffsetFieldId),
+             this));
 
 
     editSField(ShadowOffsetFieldMask);
@@ -1162,7 +1176,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleHorizontalAlign (void
     SFUInt8::GetHandlePtr returnValue(
         new  SFUInt8::GetHandle(
              &_sfHorizontalAlign,
-             this->getType().getFieldDesc(HorizontalAlignFieldId)));
+             this->getType().getFieldDesc(HorizontalAlignFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1172,7 +1187,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleHorizontalAlign(voi
     SFUInt8::EditHandlePtr returnValue(
         new  SFUInt8::EditHandle(
              &_sfHorizontalAlign,
-             this->getType().getFieldDesc(HorizontalAlignFieldId)));
+             this->getType().getFieldDesc(HorizontalAlignFieldId),
+             this));
 
 
     editSField(HorizontalAlignFieldMask);
@@ -1185,7 +1201,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleVerticalAlign   (void
     SFUInt8::GetHandlePtr returnValue(
         new  SFUInt8::GetHandle(
              &_sfVerticalAlign,
-             this->getType().getFieldDesc(VerticalAlignFieldId)));
+             this->getType().getFieldDesc(VerticalAlignFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1195,7 +1212,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleVerticalAlign  (voi
     SFUInt8::EditHandlePtr returnValue(
         new  SFUInt8::EditHandle(
              &_sfVerticalAlign,
-             this->getType().getFieldDesc(VerticalAlignFieldId)));
+             this->getType().getFieldDesc(VerticalAlignFieldId),
+             this));
 
 
     editSField(VerticalAlignFieldMask);
@@ -1208,7 +1226,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleBorderColor     (void
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfBorderColor,
-             this->getType().getFieldDesc(BorderColorFieldId)));
+             this->getType().getFieldDesc(BorderColorFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1218,7 +1237,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleBorderColor    (voi
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfBorderColor,
-             this->getType().getFieldDesc(BorderColorFieldId)));
+             this->getType().getFieldDesc(BorderColorFieldId),
+             this));
 
 
     editSField(BorderColorFieldMask);
@@ -1231,7 +1251,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleBorderOffset    (void
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfBorderOffset,
-             this->getType().getFieldDesc(BorderOffsetFieldId)));
+             this->getType().getFieldDesc(BorderOffsetFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1241,7 +1262,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleBorderOffset   (voi
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfBorderOffset,
-             this->getType().getFieldDesc(BorderOffsetFieldId)));
+             this->getType().getFieldDesc(BorderOffsetFieldId),
+             this));
 
 
     editSField(BorderOffsetFieldMask);
@@ -1254,7 +1276,8 @@ GetFieldHandlePtr SimpleStatisticsForegroundBase::getHandleTextMargin      (void
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfTextMargin,
-             this->getType().getFieldDesc(TextMarginFieldId)));
+             this->getType().getFieldDesc(TextMarginFieldId),
+             const_cast<SimpleStatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -1264,7 +1287,8 @@ EditFieldHandlePtr SimpleStatisticsForegroundBase::editHandleTextMargin     (voi
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfTextMargin,
-             this->getType().getFieldDesc(TextMarginFieldId)));
+             this->getType().getFieldDesc(TextMarginFieldId),
+             this));
 
 
     editSField(TextMarginFieldMask);

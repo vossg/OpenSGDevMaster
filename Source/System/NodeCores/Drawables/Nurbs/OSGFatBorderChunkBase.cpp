@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void FatBorderChunkBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 FatBorderChunkBase::TypeObject FatBorderChunkBase::_type(
     FatBorderChunkBase::getClassname(),
@@ -87,7 +96,7 @@ FatBorderChunkBase::TypeObject FatBorderChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FatBorderChunkBase::createEmptyLocal),
     FatBorderChunk::initMethod,
     FatBorderChunk::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&FatBorderChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

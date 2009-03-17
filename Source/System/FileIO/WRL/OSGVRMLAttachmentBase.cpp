@@ -114,7 +114,7 @@ VRMLAttachmentBase::TypeObject VRMLAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VRMLAttachmentBase::createEmptyLocal),
     VRMLAttachment::initMethod,
     VRMLAttachment::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&VRMLAttachmentBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&VRMLAttachment::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -360,7 +360,8 @@ GetFieldHandlePtr VRMLAttachmentBase::getHandleVrmlNodeTypename (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfVrmlNodeTypename,
-             this->getType().getFieldDesc(VrmlNodeTypenameFieldId)));
+             this->getType().getFieldDesc(VrmlNodeTypenameFieldId),
+             const_cast<VRMLAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -370,7 +371,8 @@ EditFieldHandlePtr VRMLAttachmentBase::editHandleVrmlNodeTypename(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfVrmlNodeTypename,
-             this->getType().getFieldDesc(VrmlNodeTypenameFieldId)));
+             this->getType().getFieldDesc(VrmlNodeTypenameFieldId),
+             this));
 
 
     editSField(VrmlNodeTypenameFieldMask);

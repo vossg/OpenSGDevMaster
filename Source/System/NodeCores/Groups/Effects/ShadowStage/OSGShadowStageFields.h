@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShadowStage;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShadowStagePtr
-
 OSG_GEN_CONTAINERPTR(ShadowStage);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpEffectGroupsFieldTraits
+    \ingroup GrpLibOSGEffectGroups
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShadowStage *> :
     public FieldTraitsFCPtrBase<ShadowStage *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ShadowStage *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdShadowStagePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShadowStagePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpEffectGroupsFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpEffectGroupsFieldSFields */
 typedef PointerSField<ShadowStage *,
                       RecordedRefCountPolicy  > SFRecShadowStagePtr;
+/*! \ingroup GrpEffectGroupsFieldSFields */
 typedef PointerSField<ShadowStage *,
                       UnrecordedRefCountPolicy> SFUnrecShadowStagePtr;
+/*! \ingroup GrpEffectGroupsFieldSFields */
 typedef PointerSField<ShadowStage *,
                       WeakRefCountPolicy      > SFWeakShadowStagePtr;
+/*! \ingroup GrpEffectGroupsFieldSFields */
 typedef PointerSField<ShadowStage *,
                       NoRefCountPolicy        > SFUncountedShadowStagePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpEffectGroupsFieldMulti */
-
+/*! \ingroup GrpEffectGroupsFieldMFields */
 typedef PointerMField<ShadowStage *,
                       RecordedRefCountPolicy  > MFRecShadowStagePtr;
+/*! \ingroup GrpEffectGroupsFieldMFields */
 typedef PointerMField<ShadowStage *,
                       UnrecordedRefCountPolicy> MFUnrecShadowStagePtr;
+/*! \ingroup GrpEffectGroupsFieldMFields */
 typedef PointerMField<ShadowStage *,
                       WeakRefCountPolicy      > MFWeakShadowStagePtr;
+/*! \ingroup GrpEffectGroupsFieldMFields */
 typedef PointerMField<ShadowStage *,
                       NoRefCountPolicy        > MFUncountedShadowStagePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+struct SFRecShadowStagePtr : 
+    public PointerSField<ShadowStage *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+struct SFUnrecShadowStagePtr : 
+    public PointerSField<ShadowStage *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+struct SFWeakShadowStagePtr :
+    public PointerSField<ShadowStage *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+struct SFUncountedShadowStagePtr :
+    public PointerSField<ShadowStage *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+struct MFRecShadowStagePtr :
+    public PointerMField<ShadowStage *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+struct MFUnrecShadowStagePtr :
+    public PointerMField<ShadowStage *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+struct MFWeakShadowStagePtr :
+    public PointerMField<ShadowStage *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+struct MFUncountedShadowStagePtr :
+    public PointerMField<ShadowStage *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

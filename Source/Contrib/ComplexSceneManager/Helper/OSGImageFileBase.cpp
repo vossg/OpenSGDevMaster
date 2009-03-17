@@ -114,7 +114,7 @@ ImageFileBase::TypeObject ImageFileBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ImageFileBase::createEmptyLocal),
     ImageFile::initMethod,
     ImageFile::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ImageFileBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ImageFile::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -364,7 +364,8 @@ GetFieldHandlePtr ImageFileBase::getHandleUrl             (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfUrl,
-             this->getType().getFieldDesc(UrlFieldId)));
+             this->getType().getFieldDesc(UrlFieldId),
+             const_cast<ImageFileBase *>(this)));
 
     return returnValue;
 }
@@ -374,7 +375,8 @@ EditFieldHandlePtr ImageFileBase::editHandleUrl            (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfUrl,
-             this->getType().getFieldDesc(UrlFieldId)));
+             this->getType().getFieldDesc(UrlFieldId),
+             this));
 
 
     editSField(UrlFieldMask);
@@ -427,5 +429,6 @@ void ImageFileBase::resolveLinks(void)
 DataType FieldTraits<ImageFile *>::_type("ImageFilePtr", "ImagePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ImageFile *)
 
 OSG_END_NAMESPACE

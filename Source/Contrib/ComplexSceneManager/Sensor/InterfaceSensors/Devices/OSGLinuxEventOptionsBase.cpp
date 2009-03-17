@@ -162,7 +162,7 @@ LinuxEventOptionsBase::TypeObject LinuxEventOptionsBase::_type(
     reinterpret_cast<PrototypeCreateF>(&LinuxEventOptionsBase::createEmptyLocal),
     LinuxEventOptions::initMethod,
     LinuxEventOptions::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&LinuxEventOptionsBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&LinuxEventOptions::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -500,7 +500,8 @@ GetFieldHandlePtr LinuxEventOptionsBase::getHandleDevice          (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfDevice,
-             this->getType().getFieldDesc(DeviceFieldId)));
+             this->getType().getFieldDesc(DeviceFieldId),
+             const_cast<LinuxEventOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -510,7 +511,8 @@ EditFieldHandlePtr LinuxEventOptionsBase::editHandleDevice         (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfDevice,
-             this->getType().getFieldDesc(DeviceFieldId)));
+             this->getType().getFieldDesc(DeviceFieldId),
+             this));
 
 
     editSField(DeviceFieldMask);
@@ -523,7 +525,8 @@ GetFieldHandlePtr LinuxEventOptionsBase::getHandleTRange          (void) const
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
              &_sfTRange,
-             this->getType().getFieldDesc(TRangeFieldId)));
+             this->getType().getFieldDesc(TRangeFieldId),
+             const_cast<LinuxEventOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -533,7 +536,8 @@ EditFieldHandlePtr LinuxEventOptionsBase::editHandleTRange         (void)
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
              &_sfTRange,
-             this->getType().getFieldDesc(TRangeFieldId)));
+             this->getType().getFieldDesc(TRangeFieldId),
+             this));
 
 
     editSField(TRangeFieldMask);
@@ -546,7 +550,8 @@ GetFieldHandlePtr LinuxEventOptionsBase::getHandleRRange          (void) const
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
              &_sfRRange,
-             this->getType().getFieldDesc(RRangeFieldId)));
+             this->getType().getFieldDesc(RRangeFieldId),
+             const_cast<LinuxEventOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -556,7 +561,8 @@ EditFieldHandlePtr LinuxEventOptionsBase::editHandleRRange         (void)
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
              &_sfRRange,
-             this->getType().getFieldDesc(RRangeFieldId)));
+             this->getType().getFieldDesc(RRangeFieldId),
+             this));
 
 
     editSField(RRangeFieldMask);
@@ -569,7 +575,8 @@ GetFieldHandlePtr LinuxEventOptionsBase::getHandleBufferSize      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfBufferSize,
-             this->getType().getFieldDesc(BufferSizeFieldId)));
+             this->getType().getFieldDesc(BufferSizeFieldId),
+             const_cast<LinuxEventOptionsBase *>(this)));
 
     return returnValue;
 }
@@ -579,7 +586,8 @@ EditFieldHandlePtr LinuxEventOptionsBase::editHandleBufferSize     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfBufferSize,
-             this->getType().getFieldDesc(BufferSizeFieldId)));
+             this->getType().getFieldDesc(BufferSizeFieldId),
+             this));
 
 
     editSField(BufferSizeFieldMask);

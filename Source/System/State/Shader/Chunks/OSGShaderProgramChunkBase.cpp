@@ -848,7 +848,8 @@ GetFieldHandlePtr ShaderProgramChunkBase::getHandleVertexShader    (void) const
     MFUnrecShaderProgramPtr::GetHandlePtr returnValue(
         new  MFUnrecShaderProgramPtr::GetHandle(
              &_mfVertexShader,
-             this->getType().getFieldDesc(VertexShaderFieldId)));
+             this->getType().getFieldDesc(VertexShaderFieldId),
+             const_cast<ShaderProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -858,7 +859,8 @@ EditFieldHandlePtr ShaderProgramChunkBase::editHandleVertexShader   (void)
     MFUnrecShaderProgramPtr::EditHandlePtr returnValue(
         new  MFUnrecShaderProgramPtr::EditHandle(
              &_mfVertexShader,
-             this->getType().getFieldDesc(VertexShaderFieldId)));
+             this->getType().getFieldDesc(VertexShaderFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ShaderProgramChunk::addVertexShader,
@@ -883,7 +885,8 @@ GetFieldHandlePtr ShaderProgramChunkBase::getHandleGeometryShader  (void) const
     MFUnrecShaderProgramPtr::GetHandlePtr returnValue(
         new  MFUnrecShaderProgramPtr::GetHandle(
              &_mfGeometryShader,
-             this->getType().getFieldDesc(GeometryShaderFieldId)));
+             this->getType().getFieldDesc(GeometryShaderFieldId),
+             const_cast<ShaderProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -893,7 +896,8 @@ EditFieldHandlePtr ShaderProgramChunkBase::editHandleGeometryShader (void)
     MFUnrecShaderProgramPtr::EditHandlePtr returnValue(
         new  MFUnrecShaderProgramPtr::EditHandle(
              &_mfGeometryShader,
-             this->getType().getFieldDesc(GeometryShaderFieldId)));
+             this->getType().getFieldDesc(GeometryShaderFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ShaderProgramChunk::addGeometryShader,
@@ -918,7 +922,8 @@ GetFieldHandlePtr ShaderProgramChunkBase::getHandleFragmentShader  (void) const
     MFUnrecShaderProgramPtr::GetHandlePtr returnValue(
         new  MFUnrecShaderProgramPtr::GetHandle(
              &_mfFragmentShader,
-             this->getType().getFieldDesc(FragmentShaderFieldId)));
+             this->getType().getFieldDesc(FragmentShaderFieldId),
+             const_cast<ShaderProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -928,7 +933,8 @@ EditFieldHandlePtr ShaderProgramChunkBase::editHandleFragmentShader (void)
     MFUnrecShaderProgramPtr::EditHandlePtr returnValue(
         new  MFUnrecShaderProgramPtr::EditHandle(
              &_mfFragmentShader,
-             this->getType().getFieldDesc(FragmentShaderFieldId)));
+             this->getType().getFieldDesc(FragmentShaderFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ShaderProgramChunk::addFragmentShader,
@@ -953,7 +959,8 @@ GetFieldHandlePtr ShaderProgramChunkBase::getHandleGeometryVerticesOut (void) co
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGeometryVerticesOut,
-             this->getType().getFieldDesc(GeometryVerticesOutFieldId)));
+             this->getType().getFieldDesc(GeometryVerticesOutFieldId),
+             const_cast<ShaderProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -963,7 +970,8 @@ EditFieldHandlePtr ShaderProgramChunkBase::editHandleGeometryVerticesOut(void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGeometryVerticesOut,
-             this->getType().getFieldDesc(GeometryVerticesOutFieldId)));
+             this->getType().getFieldDesc(GeometryVerticesOutFieldId),
+             this));
 
 
     editSField(GeometryVerticesOutFieldMask);
@@ -976,7 +984,8 @@ GetFieldHandlePtr ShaderProgramChunkBase::getHandleGeometryInputType (void) cons
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfGeometryInputType,
-             this->getType().getFieldDesc(GeometryInputTypeFieldId)));
+             this->getType().getFieldDesc(GeometryInputTypeFieldId),
+             const_cast<ShaderProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -986,7 +995,8 @@ EditFieldHandlePtr ShaderProgramChunkBase::editHandleGeometryInputType(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfGeometryInputType,
-             this->getType().getFieldDesc(GeometryInputTypeFieldId)));
+             this->getType().getFieldDesc(GeometryInputTypeFieldId),
+             this));
 
 
     editSField(GeometryInputTypeFieldMask);
@@ -999,7 +1009,8 @@ GetFieldHandlePtr ShaderProgramChunkBase::getHandleGeometryOutputType (void) con
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfGeometryOutputType,
-             this->getType().getFieldDesc(GeometryOutputTypeFieldId)));
+             this->getType().getFieldDesc(GeometryOutputTypeFieldId),
+             const_cast<ShaderProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1009,7 +1020,8 @@ EditFieldHandlePtr ShaderProgramChunkBase::editHandleGeometryOutputType(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfGeometryOutputType,
-             this->getType().getFieldDesc(GeometryOutputTypeFieldId)));
+             this->getType().getFieldDesc(GeometryOutputTypeFieldId),
+             this));
 
 
     editSField(GeometryOutputTypeFieldMask);

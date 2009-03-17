@@ -165,7 +165,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     NULL,
     GeoProperty::initMethod,
     GeoProperty::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&GeoPropertyBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&GeoProperty::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -411,7 +411,8 @@ GetFieldHandlePtr GeoPropertyBase::getHandleUseVBO          (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfUseVBO,
-             this->getType().getFieldDesc(UseVBOFieldId)));
+             this->getType().getFieldDesc(UseVBOFieldId),
+             const_cast<GeoPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -421,7 +422,8 @@ EditFieldHandlePtr GeoPropertyBase::editHandleUseVBO         (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfUseVBO,
-             this->getType().getFieldDesc(UseVBOFieldId)));
+             this->getType().getFieldDesc(UseVBOFieldId),
+             this));
 
 
     editSField(UseVBOFieldMask);
@@ -434,7 +436,8 @@ GetFieldHandlePtr GeoPropertyBase::getHandleUsage           (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfUsage,
-             this->getType().getFieldDesc(UsageFieldId)));
+             this->getType().getFieldDesc(UsageFieldId),
+             const_cast<GeoPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -444,7 +447,8 @@ EditFieldHandlePtr GeoPropertyBase::editHandleUsage          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfUsage,
-             this->getType().getFieldDesc(UsageFieldId)));
+             this->getType().getFieldDesc(UsageFieldId),
+             this));
 
 
     editSField(UsageFieldMask);
@@ -457,7 +461,8 @@ GetFieldHandlePtr GeoPropertyBase::getHandleGLId            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             const_cast<GeoPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -467,7 +472,8 @@ EditFieldHandlePtr GeoPropertyBase::editHandleGLId           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             this));
 
 
     editSField(GLIdFieldMask);
@@ -480,7 +486,8 @@ GetFieldHandlePtr GeoPropertyBase::getHandleVboUsage        (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfVboUsage,
-             this->getType().getFieldDesc(VboUsageFieldId)));
+             this->getType().getFieldDesc(VboUsageFieldId),
+             const_cast<GeoPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -490,7 +497,8 @@ EditFieldHandlePtr GeoPropertyBase::editHandleVboUsage       (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfVboUsage,
-             this->getType().getFieldDesc(VboUsageFieldId)));
+             this->getType().getFieldDesc(VboUsageFieldId),
+             this));
 
 
     editSField(VboUsageFieldMask);

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class GLUTWindow;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! GLUTWindowPtr
-
 OSG_GEN_CONTAINERPTR(GLUTWindow);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowGLUTFieldTraits
+    \ingroup GrpLibOSGWindowGLUT
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<GLUTWindow *> :
     public FieldTraitsFCPtrBase<GLUTWindow *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<GLUTWindow *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdGLUTWindowPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GLUTWindowPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowGLUTFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowGLUTFieldSFields */
 typedef PointerSField<GLUTWindow *,
                       RecordedRefCountPolicy  > SFRecGLUTWindowPtr;
+/*! \ingroup GrpWindowGLUTFieldSFields */
 typedef PointerSField<GLUTWindow *,
                       UnrecordedRefCountPolicy> SFUnrecGLUTWindowPtr;
+/*! \ingroup GrpWindowGLUTFieldSFields */
 typedef PointerSField<GLUTWindow *,
                       WeakRefCountPolicy      > SFWeakGLUTWindowPtr;
+/*! \ingroup GrpWindowGLUTFieldSFields */
 typedef PointerSField<GLUTWindow *,
                       NoRefCountPolicy        > SFUncountedGLUTWindowPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowGLUTFieldMulti */
-
+/*! \ingroup GrpWindowGLUTFieldMFields */
 typedef PointerMField<GLUTWindow *,
                       RecordedRefCountPolicy  > MFRecGLUTWindowPtr;
+/*! \ingroup GrpWindowGLUTFieldMFields */
 typedef PointerMField<GLUTWindow *,
                       UnrecordedRefCountPolicy> MFUnrecGLUTWindowPtr;
+/*! \ingroup GrpWindowGLUTFieldMFields */
 typedef PointerMField<GLUTWindow *,
                       WeakRefCountPolicy      > MFWeakGLUTWindowPtr;
+/*! \ingroup GrpWindowGLUTFieldMFields */
 typedef PointerMField<GLUTWindow *,
                       NoRefCountPolicy        > MFUncountedGLUTWindowPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowGLUTFieldSFields \ingroup GrpLibOSGWindowGLUT */
+struct SFRecGLUTWindowPtr : 
+    public PointerSField<GLUTWindow *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowGLUTFieldSFields \ingroup GrpLibOSGWindowGLUT */
+struct SFUnrecGLUTWindowPtr : 
+    public PointerSField<GLUTWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowGLUTFieldSFields \ingroup GrpLibOSGWindowGLUT */
+struct SFWeakGLUTWindowPtr :
+    public PointerSField<GLUTWindow *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowGLUTFieldSFields \ingroup GrpLibOSGWindowGLUT */
+struct SFUncountedGLUTWindowPtr :
+    public PointerSField<GLUTWindow *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowGLUTFieldMFields \ingroup GrpLibOSGWindowGLUT */
+struct MFRecGLUTWindowPtr :
+    public PointerMField<GLUTWindow *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowGLUTFieldMFields \ingroup GrpLibOSGWindowGLUT */
+struct MFUnrecGLUTWindowPtr :
+    public PointerMField<GLUTWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowGLUTFieldMFields \ingroup GrpLibOSGWindowGLUT */
+struct MFWeakGLUTWindowPtr :
+    public PointerMField<GLUTWindow *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowGLUTFieldMFields \ingroup GrpLibOSGWindowGLUT */
+struct MFUncountedGLUTWindowPtr :
+    public PointerMField<GLUTWindow *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

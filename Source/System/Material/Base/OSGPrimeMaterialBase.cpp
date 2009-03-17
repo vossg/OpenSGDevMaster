@@ -96,7 +96,7 @@ PrimeMaterialBase::TypeObject PrimeMaterialBase::_type(
     NULL,
     PrimeMaterial::initMethod,
     PrimeMaterial::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&PrimeMaterialBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&PrimeMaterial::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

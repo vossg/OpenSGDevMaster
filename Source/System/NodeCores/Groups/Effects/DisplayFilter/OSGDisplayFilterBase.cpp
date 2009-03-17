@@ -114,7 +114,7 @@ DisplayFilterBase::TypeObject DisplayFilterBase::_type(
     NULL,
     DisplayFilter::initMethod,
     DisplayFilter::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilterBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DisplayFilter::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -246,7 +246,8 @@ GetFieldHandlePtr DisplayFilterBase::getHandleEnabled         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<DisplayFilterBase *>(this)));
 
     return returnValue;
 }
@@ -256,7 +257,8 @@ EditFieldHandlePtr DisplayFilterBase::editHandleEnabled        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             this));
 
 
     editSField(EnabledFieldMask);

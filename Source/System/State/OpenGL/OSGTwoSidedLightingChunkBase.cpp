@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void TwoSidedLightingChunkBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(
     TwoSidedLightingChunkBase::getClassname(),
@@ -87,7 +96,7 @@ TwoSidedLightingChunkBase::TypeObject TwoSidedLightingChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TwoSidedLightingChunkBase::createEmptyLocal),
     TwoSidedLightingChunk::initMethod,
     TwoSidedLightingChunk::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&TwoSidedLightingChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -339,5 +348,6 @@ void TwoSidedLightingChunkBase::resolveLinks(void)
 DataType FieldTraits<TwoSidedLightingChunk *>::_type("TwoSidedLightingChunkPtr", "StateChunkPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(TwoSidedLightingChunk *)
 
 OSG_END_NAMESPACE

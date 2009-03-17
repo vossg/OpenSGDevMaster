@@ -225,13 +225,13 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
                   bool                 getOn              (void) const;
 
                   Real                &editConstantAttenuation(void);
-            const Real                &getConstantAttenuation (void) const;
+                  Real                 getConstantAttenuation (void) const;
 
                   Real                &editLinearAttenuation(void);
-            const Real                &getLinearAttenuation (void) const;
+                  Real                 getLinearAttenuation (void) const;
 
                   Real                &editQuadraticAttenuation(void);
-            const Real                &getQuadraticAttenuation (void) const;
+                  Real                 getQuadraticAttenuation (void) const;
 
                   LightEngine * getLightEngine    (void) const;
 
@@ -251,9 +251,9 @@ class OSG_SYSTEM_DLLMAPPING LightBase : public Group
             void setSpecular       (const Color4r &value);
             void setBeacon         (Node * const value);
             void setOn             (const bool value);
-            void setConstantAttenuation(const Real &value);
-            void setLinearAttenuation(const Real &value);
-            void setQuadraticAttenuation(const Real &value);
+            void setConstantAttenuation(const Real value);
+            void setLinearAttenuation(const Real value);
+            void setQuadraticAttenuation(const Real value);
             void setLightEngine    (LightEngine * const value);
             void setShadowIntensity(const Real32 value);
             void setShadowMode     (const UInt32 value);

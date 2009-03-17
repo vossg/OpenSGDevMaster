@@ -162,7 +162,7 @@ OrientationInterpolatorBase::TypeObject OrientationInterpolatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&OrientationInterpolatorBase::createEmptyLocal),
     OrientationInterpolator::initMethod,
     OrientationInterpolator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&OrientationInterpolatorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&OrientationInterpolator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -525,7 +525,8 @@ GetFieldHandlePtr OrientationInterpolatorBase::getHandleFraction        (void) c
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             const_cast<OrientationInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -535,7 +536,8 @@ EditFieldHandlePtr OrientationInterpolatorBase::editHandleFraction       (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             this));
 
 
     editSField(FractionFieldMask);
@@ -548,7 +550,8 @@ GetFieldHandlePtr OrientationInterpolatorBase::getHandleKey             (void) c
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             const_cast<OrientationInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -558,7 +561,8 @@ EditFieldHandlePtr OrientationInterpolatorBase::editHandleKey            (void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             this));
 
 
     editMField(KeyFieldMask, _mfKey);
@@ -571,7 +575,8 @@ GetFieldHandlePtr OrientationInterpolatorBase::getHandleKeyValue        (void) c
     MFQuaternion::GetHandlePtr returnValue(
         new  MFQuaternion::GetHandle(
              &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId)));
+             this->getType().getFieldDesc(KeyValueFieldId),
+             const_cast<OrientationInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -581,7 +586,8 @@ EditFieldHandlePtr OrientationInterpolatorBase::editHandleKeyValue       (void)
     MFQuaternion::EditHandlePtr returnValue(
         new  MFQuaternion::EditHandle(
              &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId)));
+             this->getType().getFieldDesc(KeyValueFieldId),
+             this));
 
 
     editMField(KeyValueFieldMask, _mfKeyValue);
@@ -594,7 +600,8 @@ GetFieldHandlePtr OrientationInterpolatorBase::getHandleValue           (void) c
     SFQuaternion::GetHandlePtr returnValue(
         new  SFQuaternion::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<OrientationInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -604,7 +611,8 @@ EditFieldHandlePtr OrientationInterpolatorBase::editHandleValue          (void)
     SFQuaternion::EditHandlePtr returnValue(
         new  SFQuaternion::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);
@@ -670,5 +678,6 @@ void OrientationInterpolatorBase::resolveLinks(void)
 DataType FieldTraits<OrientationInterpolator *>::_type("OrientationInterpolatorPtr", "NodeCorePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(OrientationInterpolator *)
 
 OSG_END_NAMESPACE

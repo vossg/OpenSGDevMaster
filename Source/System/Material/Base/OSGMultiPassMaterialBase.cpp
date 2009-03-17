@@ -115,7 +115,7 @@ MultiPassMaterialBase::TypeObject MultiPassMaterialBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MultiPassMaterialBase::createEmptyLocal),
     MultiPassMaterial::initMethod,
     MultiPassMaterial::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MultiPassMaterialBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&MultiPassMaterial::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -444,7 +444,8 @@ GetFieldHandlePtr MultiPassMaterialBase::getHandleMaterials       (void) const
     MFUnrecPrimeMaterialPtr::GetHandlePtr returnValue(
         new  MFUnrecPrimeMaterialPtr::GetHandle(
              &_mfMaterials,
-             this->getType().getFieldDesc(MaterialsFieldId)));
+             this->getType().getFieldDesc(MaterialsFieldId),
+             const_cast<MultiPassMaterialBase *>(this)));
 
     return returnValue;
 }
@@ -454,7 +455,8 @@ EditFieldHandlePtr MultiPassMaterialBase::editHandleMaterials      (void)
     MFUnrecPrimeMaterialPtr::EditHandlePtr returnValue(
         new  MFUnrecPrimeMaterialPtr::EditHandle(
              &_mfMaterials,
-             this->getType().getFieldDesc(MaterialsFieldId)));
+             this->getType().getFieldDesc(MaterialsFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&MultiPassMaterial::addMaterial,

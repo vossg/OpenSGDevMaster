@@ -90,9 +90,9 @@ OSG_BEGIN_NAMESPACE
 
 void DynamicStateGeneratorBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL;
-
     Inherited::classDescInserter(oType);
+
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFUnrecFrameBufferObjectPtr::Description(
@@ -117,7 +117,7 @@ DynamicStateGeneratorBase::TypeObject DynamicStateGeneratorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DynamicStateGeneratorBase::createEmptyLocal),
     DynamicStateGenerator::initMethod,
     DynamicStateGenerator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DynamicStateGeneratorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DynamicStateGenerator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -380,7 +380,8 @@ GetFieldHandlePtr DynamicStateGeneratorBase::getHandleRenderTarget    (void) con
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId)));
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             const_cast<DynamicStateGeneratorBase *>(this)));
 
     return returnValue;
 }
@@ -390,7 +391,8 @@ EditFieldHandlePtr DynamicStateGeneratorBase::editHandleRenderTarget   (void)
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId)));
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&DynamicStateGenerator::setRenderTarget,

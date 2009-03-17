@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class MatrixCamera;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! MatrixCameraPtr
-
 OSG_GEN_CONTAINERPTR(MatrixCamera);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<MatrixCamera *> :
     public FieldTraitsFCPtrBase<MatrixCamera *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<MatrixCamera *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdMatrixCameraPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<MatrixCameraPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MatrixCamera *,
                       RecordedRefCountPolicy  > SFRecMatrixCameraPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MatrixCamera *,
                       UnrecordedRefCountPolicy> SFUnrecMatrixCameraPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MatrixCamera *,
                       WeakRefCountPolicy      > SFWeakMatrixCameraPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<MatrixCamera *,
                       NoRefCountPolicy        > SFUncountedMatrixCameraPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MatrixCamera *,
                       RecordedRefCountPolicy  > MFRecMatrixCameraPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MatrixCamera *,
                       UnrecordedRefCountPolicy> MFUnrecMatrixCameraPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MatrixCamera *,
                       WeakRefCountPolicy      > MFWeakMatrixCameraPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<MatrixCamera *,
                       NoRefCountPolicy        > MFUncountedMatrixCameraPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecMatrixCameraPtr : 
+    public PointerSField<MatrixCamera *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecMatrixCameraPtr : 
+    public PointerSField<MatrixCamera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakMatrixCameraPtr :
+    public PointerSField<MatrixCamera *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedMatrixCameraPtr :
+    public PointerSField<MatrixCamera *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecMatrixCameraPtr :
+    public PointerMField<MatrixCamera *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecMatrixCameraPtr :
+    public PointerMField<MatrixCamera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakMatrixCameraPtr :
+    public PointerMField<MatrixCamera *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedMatrixCameraPtr :
+    public PointerMField<MatrixCamera *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

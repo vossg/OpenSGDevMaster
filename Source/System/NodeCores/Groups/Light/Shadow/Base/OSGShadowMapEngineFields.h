@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShadowMapEngine;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShadowMapEnginePtr
-
 OSG_GEN_CONTAINERPTR(ShadowMapEngine);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShadowMapEngine *> :
     public FieldTraitsFCPtrBase<ShadowMapEngine *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ShadowMapEngine *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdShadowMapEnginePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShadowMapEnginePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<ShadowMapEngine *,
                       RecordedRefCountPolicy  > SFRecShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<ShadowMapEngine *,
                       UnrecordedRefCountPolicy> SFUnrecShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<ShadowMapEngine *,
                       WeakRefCountPolicy      > SFWeakShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<ShadowMapEngine *,
                       NoRefCountPolicy        > SFUncountedShadowMapEnginePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<ShadowMapEngine *,
                       RecordedRefCountPolicy  > MFRecShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<ShadowMapEngine *,
                       UnrecordedRefCountPolicy> MFUnrecShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<ShadowMapEngine *,
                       WeakRefCountPolicy      > MFWeakShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<ShadowMapEngine *,
                       NoRefCountPolicy        > MFUncountedShadowMapEnginePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecShadowMapEnginePtr : 
+    public PointerSField<ShadowMapEngine *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecShadowMapEnginePtr : 
+    public PointerSField<ShadowMapEngine *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakShadowMapEnginePtr :
+    public PointerSField<ShadowMapEngine *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedShadowMapEnginePtr :
+    public PointerSField<ShadowMapEngine *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecShadowMapEnginePtr :
+    public PointerMField<ShadowMapEngine *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecShadowMapEnginePtr :
+    public PointerMField<ShadowMapEngine *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakShadowMapEnginePtr :
+    public PointerMField<ShadowMapEngine *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedShadowMapEnginePtr :
+    public PointerMField<ShadowMapEngine *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

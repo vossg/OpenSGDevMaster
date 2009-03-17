@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ContainerCollection;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ContainerCollectionPtr
-
 OSG_GEN_CONTAINERPTR(ContainerCollection);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ContainerCollection *> :
     public FieldTraitsFCPtrBase<ContainerCollection *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ContainerCollection *, 0>::getMName<NoRefCountPolicy>(v
     return "MFUnrefdContainerCollectionPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ContainerCollectionPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ContainerCollection *,
                       RecordedRefCountPolicy  > SFRecContainerCollectionPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ContainerCollection *,
                       UnrecordedRefCountPolicy> SFUnrecContainerCollectionPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ContainerCollection *,
                       WeakRefCountPolicy      > SFWeakContainerCollectionPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<ContainerCollection *,
                       NoRefCountPolicy        > SFUncountedContainerCollectionPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ContainerCollection *,
                       RecordedRefCountPolicy  > MFRecContainerCollectionPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ContainerCollection *,
                       UnrecordedRefCountPolicy> MFUnrecContainerCollectionPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ContainerCollection *,
                       WeakRefCountPolicy      > MFWeakContainerCollectionPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<ContainerCollection *,
                       NoRefCountPolicy        > MFUncountedContainerCollectionPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecContainerCollectionPtr : 
+    public PointerSField<ContainerCollection *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecContainerCollectionPtr : 
+    public PointerSField<ContainerCollection *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakContainerCollectionPtr :
+    public PointerSField<ContainerCollection *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedContainerCollectionPtr :
+    public PointerSField<ContainerCollection *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecContainerCollectionPtr :
+    public PointerMField<ContainerCollection *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecContainerCollectionPtr :
+    public PointerMField<ContainerCollection *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakContainerCollectionPtr :
+    public PointerMField<ContainerCollection *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedContainerCollectionPtr :
+    public PointerMField<ContainerCollection *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

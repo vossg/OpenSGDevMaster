@@ -146,7 +146,7 @@ SimpleSHLChunkFileBase::TypeObject SimpleSHLChunkFileBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SimpleSHLChunkFileBase::createEmptyLocal),
     SimpleSHLChunkFile::initMethod,
     SimpleSHLChunkFile::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SimpleSHLChunkFileBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SimpleSHLChunkFile::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -466,7 +466,8 @@ GetFieldHandlePtr SimpleSHLChunkFileBase::getHandleVertexProgramUrl (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfVertexProgramUrl,
-             this->getType().getFieldDesc(VertexProgramUrlFieldId)));
+             this->getType().getFieldDesc(VertexProgramUrlFieldId),
+             const_cast<SimpleSHLChunkFileBase *>(this)));
 
     return returnValue;
 }
@@ -476,7 +477,8 @@ EditFieldHandlePtr SimpleSHLChunkFileBase::editHandleVertexProgramUrl(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfVertexProgramUrl,
-             this->getType().getFieldDesc(VertexProgramUrlFieldId)));
+             this->getType().getFieldDesc(VertexProgramUrlFieldId),
+             this));
 
 
     editSField(VertexProgramUrlFieldMask);
@@ -489,7 +491,8 @@ GetFieldHandlePtr SimpleSHLChunkFileBase::getHandleGeometryProgramUrl (void) con
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfGeometryProgramUrl,
-             this->getType().getFieldDesc(GeometryProgramUrlFieldId)));
+             this->getType().getFieldDesc(GeometryProgramUrlFieldId),
+             const_cast<SimpleSHLChunkFileBase *>(this)));
 
     return returnValue;
 }
@@ -499,7 +502,8 @@ EditFieldHandlePtr SimpleSHLChunkFileBase::editHandleGeometryProgramUrl(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfGeometryProgramUrl,
-             this->getType().getFieldDesc(GeometryProgramUrlFieldId)));
+             this->getType().getFieldDesc(GeometryProgramUrlFieldId),
+             this));
 
 
     editSField(GeometryProgramUrlFieldMask);
@@ -512,7 +516,8 @@ GetFieldHandlePtr SimpleSHLChunkFileBase::getHandleFragmentProgramUrl (void) con
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfFragmentProgramUrl,
-             this->getType().getFieldDesc(FragmentProgramUrlFieldId)));
+             this->getType().getFieldDesc(FragmentProgramUrlFieldId),
+             const_cast<SimpleSHLChunkFileBase *>(this)));
 
     return returnValue;
 }
@@ -522,7 +527,8 @@ EditFieldHandlePtr SimpleSHLChunkFileBase::editHandleFragmentProgramUrl(void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfFragmentProgramUrl,
-             this->getType().getFieldDesc(FragmentProgramUrlFieldId)));
+             this->getType().getFieldDesc(FragmentProgramUrlFieldId),
+             this));
 
 
     editSField(FragmentProgramUrlFieldMask);
@@ -575,5 +581,6 @@ void SimpleSHLChunkFileBase::resolveLinks(void)
 DataType FieldTraits<SimpleSHLChunkFile *>::_type("SimpleSHLChunkFilePtr", "SimpleSHLChunkPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(SimpleSHLChunkFile *)
 
 OSG_END_NAMESPACE

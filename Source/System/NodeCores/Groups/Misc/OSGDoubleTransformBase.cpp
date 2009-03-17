@@ -115,7 +115,7 @@ DoubleTransformBase::TypeObject DoubleTransformBase::_type(
     reinterpret_cast<PrototypeCreateF>(&DoubleTransformBase::createEmptyLocal),
     DoubleTransform::initMethod,
     DoubleTransform::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&DoubleTransformBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&DoubleTransform::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -364,7 +364,8 @@ GetFieldHandlePtr DoubleTransformBase::getHandleMatrix          (void) const
     SFMatrix4d::GetHandlePtr returnValue(
         new  SFMatrix4d::GetHandle(
              &_sfMatrix,
-             this->getType().getFieldDesc(MatrixFieldId)));
+             this->getType().getFieldDesc(MatrixFieldId),
+             const_cast<DoubleTransformBase *>(this)));
 
     return returnValue;
 }
@@ -374,7 +375,8 @@ EditFieldHandlePtr DoubleTransformBase::editHandleMatrix         (void)
     SFMatrix4d::EditHandlePtr returnValue(
         new  SFMatrix4d::EditHandle(
              &_sfMatrix,
-             this->getType().getFieldDesc(MatrixFieldId)));
+             this->getType().getFieldDesc(MatrixFieldId),
+             this));
 
 
     editSField(MatrixFieldMask);

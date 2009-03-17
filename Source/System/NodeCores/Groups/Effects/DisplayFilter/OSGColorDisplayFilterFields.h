@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ColorDisplayFilter;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ColorDisplayFilterPtr
-
 OSG_GEN_CONTAINERPTR(ColorDisplayFilter);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpEffectGroupsFieldTraits
+    \ingroup GrpLibOSGEffectGroups
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ColorDisplayFilter *> :
     public FieldTraitsFCPtrBase<ColorDisplayFilter *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ColorDisplayFilter *, 0>::getMName<NoRefCountPolicy>(vo
     return "MFUnrefdColorDisplayFilterPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ColorDisplayFilterPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpEffectGroupsFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpEffectGroupsFieldSFields */
 typedef PointerSField<ColorDisplayFilter *,
                       RecordedRefCountPolicy  > SFRecColorDisplayFilterPtr;
+/*! \ingroup GrpEffectGroupsFieldSFields */
 typedef PointerSField<ColorDisplayFilter *,
                       UnrecordedRefCountPolicy> SFUnrecColorDisplayFilterPtr;
+/*! \ingroup GrpEffectGroupsFieldSFields */
 typedef PointerSField<ColorDisplayFilter *,
                       WeakRefCountPolicy      > SFWeakColorDisplayFilterPtr;
+/*! \ingroup GrpEffectGroupsFieldSFields */
 typedef PointerSField<ColorDisplayFilter *,
                       NoRefCountPolicy        > SFUncountedColorDisplayFilterPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpEffectGroupsFieldMulti */
-
+/*! \ingroup GrpEffectGroupsFieldMFields */
 typedef PointerMField<ColorDisplayFilter *,
                       RecordedRefCountPolicy  > MFRecColorDisplayFilterPtr;
+/*! \ingroup GrpEffectGroupsFieldMFields */
 typedef PointerMField<ColorDisplayFilter *,
                       UnrecordedRefCountPolicy> MFUnrecColorDisplayFilterPtr;
+/*! \ingroup GrpEffectGroupsFieldMFields */
 typedef PointerMField<ColorDisplayFilter *,
                       WeakRefCountPolicy      > MFWeakColorDisplayFilterPtr;
+/*! \ingroup GrpEffectGroupsFieldMFields */
 typedef PointerMField<ColorDisplayFilter *,
                       NoRefCountPolicy        > MFUncountedColorDisplayFilterPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+struct SFRecColorDisplayFilterPtr : 
+    public PointerSField<ColorDisplayFilter *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+struct SFUnrecColorDisplayFilterPtr : 
+    public PointerSField<ColorDisplayFilter *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+struct SFWeakColorDisplayFilterPtr :
+    public PointerSField<ColorDisplayFilter *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpEffectGroupsFieldSFields \ingroup GrpLibOSGEffectGroups */
+struct SFUncountedColorDisplayFilterPtr :
+    public PointerSField<ColorDisplayFilter *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+struct MFRecColorDisplayFilterPtr :
+    public PointerMField<ColorDisplayFilter *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+struct MFUnrecColorDisplayFilterPtr :
+    public PointerMField<ColorDisplayFilter *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+struct MFWeakColorDisplayFilterPtr :
+    public PointerMField<ColorDisplayFilter *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpEffectGroupsFieldMFields \ingroup GrpLibOSGEffectGroups */
+struct MFUncountedColorDisplayFilterPtr :
+    public PointerMField<ColorDisplayFilter *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

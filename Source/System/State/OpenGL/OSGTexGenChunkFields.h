@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TexGenChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TexGenChunkPtr
-
 OSG_GEN_CONTAINERPTR(TexGenChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TexGenChunk *> :
     public FieldTraitsFCPtrBase<TexGenChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<TexGenChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdTexGenChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TexGenChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TexGenChunk *,
                       RecordedRefCountPolicy  > SFRecTexGenChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TexGenChunk *,
                       UnrecordedRefCountPolicy> SFUnrecTexGenChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TexGenChunk *,
                       WeakRefCountPolicy      > SFWeakTexGenChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TexGenChunk *,
                       NoRefCountPolicy        > SFUncountedTexGenChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TexGenChunk *,
                       RecordedRefCountPolicy  > MFRecTexGenChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TexGenChunk *,
                       UnrecordedRefCountPolicy> MFUnrecTexGenChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TexGenChunk *,
                       WeakRefCountPolicy      > MFWeakTexGenChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TexGenChunk *,
                       NoRefCountPolicy        > MFUncountedTexGenChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecTexGenChunkPtr : 
+    public PointerSField<TexGenChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecTexGenChunkPtr : 
+    public PointerSField<TexGenChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakTexGenChunkPtr :
+    public PointerSField<TexGenChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedTexGenChunkPtr :
+    public PointerSField<TexGenChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecTexGenChunkPtr :
+    public PointerMField<TexGenChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecTexGenChunkPtr :
+    public PointerMField<TexGenChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakTexGenChunkPtr :
+    public PointerMField<TexGenChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedTexGenChunkPtr :
+    public PointerMField<TexGenChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

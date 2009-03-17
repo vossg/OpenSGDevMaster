@@ -158,7 +158,7 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ClipPlaneChunkBase::createEmptyLocal),
     ClipPlaneChunk::initMethod,
     ClipPlaneChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ClipPlaneChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ClipPlaneChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -508,7 +508,8 @@ GetFieldHandlePtr ClipPlaneChunkBase::getHandleEquation        (void) const
     SFVec4f::GetHandlePtr returnValue(
         new  SFVec4f::GetHandle(
              &_sfEquation,
-             this->getType().getFieldDesc(EquationFieldId)));
+             this->getType().getFieldDesc(EquationFieldId),
+             const_cast<ClipPlaneChunkBase *>(this)));
 
     return returnValue;
 }
@@ -518,7 +519,8 @@ EditFieldHandlePtr ClipPlaneChunkBase::editHandleEquation       (void)
     SFVec4f::EditHandlePtr returnValue(
         new  SFVec4f::EditHandle(
              &_sfEquation,
-             this->getType().getFieldDesc(EquationFieldId)));
+             this->getType().getFieldDesc(EquationFieldId),
+             this));
 
 
     editSField(EquationFieldMask);
@@ -531,7 +533,8 @@ GetFieldHandlePtr ClipPlaneChunkBase::getHandleEnable          (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnable,
-             this->getType().getFieldDesc(EnableFieldId)));
+             this->getType().getFieldDesc(EnableFieldId),
+             const_cast<ClipPlaneChunkBase *>(this)));
 
     return returnValue;
 }
@@ -541,7 +544,8 @@ EditFieldHandlePtr ClipPlaneChunkBase::editHandleEnable         (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnable,
-             this->getType().getFieldDesc(EnableFieldId)));
+             this->getType().getFieldDesc(EnableFieldId),
+             this));
 
 
     editSField(EnableFieldMask);
@@ -554,7 +558,8 @@ GetFieldHandlePtr ClipPlaneChunkBase::getHandleBeacon          (void) const
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
              &_sfBeacon,
-             this->getType().getFieldDesc(BeaconFieldId)));
+             this->getType().getFieldDesc(BeaconFieldId),
+             const_cast<ClipPlaneChunkBase *>(this)));
 
     return returnValue;
 }
@@ -564,7 +569,8 @@ EditFieldHandlePtr ClipPlaneChunkBase::editHandleBeacon         (void)
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
              &_sfBeacon,
-             this->getType().getFieldDesc(BeaconFieldId)));
+             this->getType().getFieldDesc(BeaconFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ClipPlaneChunk::setBeacon,

@@ -185,14 +185,14 @@ Real &MaterialChunkBase::editShininess(void)
 
 //! Get the value of the MaterialChunk::_sfShininess field.
 inline
-const Real &MaterialChunkBase::getShininess(void) const
+      Real  MaterialChunkBase::getShininess(void) const
 {
     return _sfShininess.getValue();
 }
 
 //! Set the value of the MaterialChunk::_sfShininess field.
 inline
-void MaterialChunkBase::setShininess(const Real &value)
+void MaterialChunkBase::setShininess(const Real value)
 {
     editSField(ShininessFieldMask);
 
@@ -385,14 +385,14 @@ Real &MaterialChunkBase::editBackShininess(void)
 
 //! Get the value of the MaterialChunk::_sfBackShininess field.
 inline
-const Real &MaterialChunkBase::getBackShininess(void) const
+      Real  MaterialChunkBase::getBackShininess(void) const
 {
     return _sfBackShininess.getValue();
 }
 
 //! Set the value of the MaterialChunk::_sfBackShininess field.
 inline
-void MaterialChunkBase::setBackShininess(const Real &value)
+void MaterialChunkBase::setBackShininess(const Real value)
 {
     editSField(BackShininessFieldMask);
 

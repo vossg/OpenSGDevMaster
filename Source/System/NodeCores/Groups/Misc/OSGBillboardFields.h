@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Billboard;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! BillboardPtr
-
 OSG_GEN_CONTAINERPTR(Billboard);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Billboard *> :
     public FieldTraitsFCPtrBase<Billboard *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Billboard *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdBillboardPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<BillboardPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Billboard *,
                       RecordedRefCountPolicy  > SFRecBillboardPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Billboard *,
                       UnrecordedRefCountPolicy> SFUnrecBillboardPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Billboard *,
                       WeakRefCountPolicy      > SFWeakBillboardPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Billboard *,
                       NoRefCountPolicy        > SFUncountedBillboardPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Billboard *,
                       RecordedRefCountPolicy  > MFRecBillboardPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Billboard *,
                       UnrecordedRefCountPolicy> MFUnrecBillboardPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Billboard *,
                       WeakRefCountPolicy      > MFWeakBillboardPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Billboard *,
                       NoRefCountPolicy        > MFUncountedBillboardPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecBillboardPtr : 
+    public PointerSField<Billboard *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecBillboardPtr : 
+    public PointerSField<Billboard *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakBillboardPtr :
+    public PointerSField<Billboard *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedBillboardPtr :
+    public PointerSField<Billboard *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecBillboardPtr :
+    public PointerMField<Billboard *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecBillboardPtr :
+    public PointerMField<Billboard *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakBillboardPtr :
+    public PointerMField<Billboard *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedBillboardPtr :
+    public PointerMField<Billboard *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

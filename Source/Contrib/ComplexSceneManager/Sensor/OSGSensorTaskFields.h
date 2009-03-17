@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SensorTask;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SensorTaskPtr
-
 OSG_GEN_CONTAINERPTR(SensorTask);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SensorTask *> :
     public FieldTraitsFCPtrBase<SensorTask *>
@@ -127,28 +118,46 @@ const Char8 *FieldTraits<SensorTask *, 0>::getSName<NoRefCountPolicy>(void)
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SensorTaskPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribCSMFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<SensorTask *,
                       RecordedRefCountPolicy  > SFRecSensorTaskPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<SensorTask *,
                       UnrecordedRefCountPolicy> SFUnrecSensorTaskPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<SensorTask *,
                       WeakRefCountPolicy      > SFWeakSensorTaskPtr;
+/*! \ingroup GrpContribCSMFieldSFields */
 typedef PointerSField<SensorTask *,
                       NoRefCountPolicy        > SFUncountedSensorTaskPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFRecSensorTaskPtr : 
+    public PointerSField<SensorTask *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUnrecSensorTaskPtr : 
+    public PointerSField<SensorTask *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFWeakSensorTaskPtr :
+    public PointerSField<SensorTask *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribCSMFieldSFields \ingroup GrpLibOSGContribCSM */
+struct SFUncountedSensorTaskPtr :
+    public PointerSField<SensorTask *,
+                         NoRefCountPolicy> {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

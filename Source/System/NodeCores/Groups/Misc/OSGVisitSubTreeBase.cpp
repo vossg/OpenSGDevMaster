@@ -122,7 +122,7 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     reinterpret_cast<PrototypeCreateF>(&VisitSubTreeBase::createEmptyLocal),
     VisitSubTree::initMethod,
     VisitSubTree::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&VisitSubTreeBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&VisitSubTree::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -387,7 +387,8 @@ GetFieldHandlePtr VisitSubTreeBase::getHandleSubTreeRoot     (void) const
     SFWeakNodePtr::GetHandlePtr returnValue(
         new  SFWeakNodePtr::GetHandle(
              &_sfSubTreeRoot,
-             this->getType().getFieldDesc(SubTreeRootFieldId)));
+             this->getType().getFieldDesc(SubTreeRootFieldId),
+             const_cast<VisitSubTreeBase *>(this)));
 
     return returnValue;
 }
@@ -397,7 +398,8 @@ EditFieldHandlePtr VisitSubTreeBase::editHandleSubTreeRoot    (void)
     SFWeakNodePtr::EditHandlePtr returnValue(
         new  SFWeakNodePtr::EditHandle(
              &_sfSubTreeRoot,
-             this->getType().getFieldDesc(SubTreeRootFieldId)));
+             this->getType().getFieldDesc(SubTreeRootFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&VisitSubTree::setSubTreeRoot,
@@ -455,5 +457,6 @@ void VisitSubTreeBase::resolveLinks(void)
 DataType FieldTraits<VisitSubTree *>::_type("VisitSubTreePtr", "GroupPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(VisitSubTree *)
 
 OSG_END_NAMESPACE

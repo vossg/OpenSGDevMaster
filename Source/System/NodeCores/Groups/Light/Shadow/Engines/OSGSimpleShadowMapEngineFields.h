@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SimpleShadowMapEngine;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SimpleShadowMapEnginePtr
-
 OSG_GEN_CONTAINERPTR(SimpleShadowMapEngine);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SimpleShadowMapEngine *> :
     public FieldTraitsFCPtrBase<SimpleShadowMapEngine *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<SimpleShadowMapEngine *, 0>::getMName<NoRefCountPolicy>
     return "MFUnrefdSimpleShadowMapEnginePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SimpleShadowMapEnginePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<SimpleShadowMapEngine *,
                       RecordedRefCountPolicy  > SFRecSimpleShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<SimpleShadowMapEngine *,
                       UnrecordedRefCountPolicy> SFUnrecSimpleShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<SimpleShadowMapEngine *,
                       WeakRefCountPolicy      > SFWeakSimpleShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<SimpleShadowMapEngine *,
                       NoRefCountPolicy        > SFUncountedSimpleShadowMapEnginePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<SimpleShadowMapEngine *,
                       RecordedRefCountPolicy  > MFRecSimpleShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<SimpleShadowMapEngine *,
                       UnrecordedRefCountPolicy> MFUnrecSimpleShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<SimpleShadowMapEngine *,
                       WeakRefCountPolicy      > MFWeakSimpleShadowMapEnginePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<SimpleShadowMapEngine *,
                       NoRefCountPolicy        > MFUncountedSimpleShadowMapEnginePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecSimpleShadowMapEnginePtr : 
+    public PointerSField<SimpleShadowMapEngine *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecSimpleShadowMapEnginePtr : 
+    public PointerSField<SimpleShadowMapEngine *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakSimpleShadowMapEnginePtr :
+    public PointerSField<SimpleShadowMapEngine *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedSimpleShadowMapEnginePtr :
+    public PointerSField<SimpleShadowMapEngine *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecSimpleShadowMapEnginePtr :
+    public PointerMField<SimpleShadowMapEngine *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecSimpleShadowMapEnginePtr :
+    public PointerMField<SimpleShadowMapEngine *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakSimpleShadowMapEnginePtr :
+    public PointerMField<SimpleShadowMapEngine *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedSimpleShadowMapEnginePtr :
+    public PointerMField<SimpleShadowMapEngine *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

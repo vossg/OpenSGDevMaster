@@ -202,7 +202,7 @@ TileCameraDecoratorBase::TypeObject TileCameraDecoratorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TileCameraDecoratorBase::createEmptyLocal),
     TileCameraDecorator::initMethod,
     TileCameraDecorator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TileCameraDecoratorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TileCameraDecorator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -651,7 +651,8 @@ GetFieldHandlePtr TileCameraDecoratorBase::getHandleLeft            (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId)));
+             this->getType().getFieldDesc(LeftFieldId),
+             const_cast<TileCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -661,7 +662,8 @@ EditFieldHandlePtr TileCameraDecoratorBase::editHandleLeft           (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId)));
+             this->getType().getFieldDesc(LeftFieldId),
+             this));
 
 
     editSField(LeftFieldMask);
@@ -674,7 +676,8 @@ GetFieldHandlePtr TileCameraDecoratorBase::getHandleRight           (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfRight,
-             this->getType().getFieldDesc(RightFieldId)));
+             this->getType().getFieldDesc(RightFieldId),
+             const_cast<TileCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -684,7 +687,8 @@ EditFieldHandlePtr TileCameraDecoratorBase::editHandleRight          (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfRight,
-             this->getType().getFieldDesc(RightFieldId)));
+             this->getType().getFieldDesc(RightFieldId),
+             this));
 
 
     editSField(RightFieldMask);
@@ -697,7 +701,8 @@ GetFieldHandlePtr TileCameraDecoratorBase::getHandleBottom          (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId)));
+             this->getType().getFieldDesc(BottomFieldId),
+             const_cast<TileCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -707,7 +712,8 @@ EditFieldHandlePtr TileCameraDecoratorBase::editHandleBottom         (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId)));
+             this->getType().getFieldDesc(BottomFieldId),
+             this));
 
 
     editSField(BottomFieldMask);
@@ -720,7 +726,8 @@ GetFieldHandlePtr TileCameraDecoratorBase::getHandleTop             (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfTop,
-             this->getType().getFieldDesc(TopFieldId)));
+             this->getType().getFieldDesc(TopFieldId),
+             const_cast<TileCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -730,7 +737,8 @@ EditFieldHandlePtr TileCameraDecoratorBase::editHandleTop            (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfTop,
-             this->getType().getFieldDesc(TopFieldId)));
+             this->getType().getFieldDesc(TopFieldId),
+             this));
 
 
     editSField(TopFieldMask);
@@ -743,7 +751,8 @@ GetFieldHandlePtr TileCameraDecoratorBase::getHandleFullWidth       (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfFullWidth,
-             this->getType().getFieldDesc(FullWidthFieldId)));
+             this->getType().getFieldDesc(FullWidthFieldId),
+             const_cast<TileCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -753,7 +762,8 @@ EditFieldHandlePtr TileCameraDecoratorBase::editHandleFullWidth      (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfFullWidth,
-             this->getType().getFieldDesc(FullWidthFieldId)));
+             this->getType().getFieldDesc(FullWidthFieldId),
+             this));
 
 
     editSField(FullWidthFieldMask);
@@ -766,7 +776,8 @@ GetFieldHandlePtr TileCameraDecoratorBase::getHandleFullHeight      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfFullHeight,
-             this->getType().getFieldDesc(FullHeightFieldId)));
+             this->getType().getFieldDesc(FullHeightFieldId),
+             const_cast<TileCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -776,7 +787,8 @@ EditFieldHandlePtr TileCameraDecoratorBase::editHandleFullHeight     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfFullHeight,
-             this->getType().getFieldDesc(FullHeightFieldId)));
+             this->getType().getFieldDesc(FullHeightFieldId),
+             this));
 
 
     editSField(FullHeightFieldMask);

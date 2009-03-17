@@ -790,7 +790,8 @@ GetFieldHandlePtr CSMViewportBase::getHandleRoot            (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfRoot,
-             this->getType().getFieldDesc(RootFieldId)));
+             this->getType().getFieldDesc(RootFieldId),
+             const_cast<CSMViewportBase *>(this)));
 
     return returnValue;
 }
@@ -800,7 +801,8 @@ EditFieldHandlePtr CSMViewportBase::editHandleRoot           (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfRoot,
-             this->getType().getFieldDesc(RootFieldId)));
+             this->getType().getFieldDesc(RootFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&CSMViewport::setRoot,
@@ -816,7 +818,8 @@ GetFieldHandlePtr CSMViewportBase::getHandleCamera          (void) const
     SFUnrecCameraPtr::GetHandlePtr returnValue(
         new  SFUnrecCameraPtr::GetHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             const_cast<CSMViewportBase *>(this)));
 
     return returnValue;
 }
@@ -826,7 +829,8 @@ EditFieldHandlePtr CSMViewportBase::editHandleCamera         (void)
     SFUnrecCameraPtr::EditHandlePtr returnValue(
         new  SFUnrecCameraPtr::EditHandle(
              &_sfCamera,
-             this->getType().getFieldDesc(CameraFieldId)));
+             this->getType().getFieldDesc(CameraFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&CSMViewport::setCamera,
@@ -842,7 +846,8 @@ GetFieldHandlePtr CSMViewportBase::getHandleBackground      (void) const
     SFUnrecBackgroundPtr::GetHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::GetHandle(
              &_sfBackground,
-             this->getType().getFieldDesc(BackgroundFieldId)));
+             this->getType().getFieldDesc(BackgroundFieldId),
+             const_cast<CSMViewportBase *>(this)));
 
     return returnValue;
 }
@@ -852,7 +857,8 @@ EditFieldHandlePtr CSMViewportBase::editHandleBackground     (void)
     SFUnrecBackgroundPtr::EditHandlePtr returnValue(
         new  SFUnrecBackgroundPtr::EditHandle(
              &_sfBackground,
-             this->getType().getFieldDesc(BackgroundFieldId)));
+             this->getType().getFieldDesc(BackgroundFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&CSMViewport::setBackground,
@@ -868,7 +874,8 @@ GetFieldHandlePtr CSMViewportBase::getHandleForegrounds     (void) const
     MFUnrecForegroundPtr::GetHandlePtr returnValue(
         new  MFUnrecForegroundPtr::GetHandle(
              &_mfForegrounds,
-             this->getType().getFieldDesc(ForegroundsFieldId)));
+             this->getType().getFieldDesc(ForegroundsFieldId),
+             const_cast<CSMViewportBase *>(this)));
 
     return returnValue;
 }
@@ -878,7 +885,8 @@ EditFieldHandlePtr CSMViewportBase::editHandleForegrounds    (void)
     MFUnrecForegroundPtr::EditHandlePtr returnValue(
         new  MFUnrecForegroundPtr::EditHandle(
              &_mfForegrounds,
-             this->getType().getFieldDesc(ForegroundsFieldId)));
+             this->getType().getFieldDesc(ForegroundsFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&CSMViewport::pushToForegrounds,
@@ -903,7 +911,8 @@ GetFieldHandlePtr CSMViewportBase::getHandleLeftBottom      (void) const
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfLeftBottom,
-             this->getType().getFieldDesc(LeftBottomFieldId)));
+             this->getType().getFieldDesc(LeftBottomFieldId),
+             const_cast<CSMViewportBase *>(this)));
 
     return returnValue;
 }
@@ -913,7 +922,8 @@ EditFieldHandlePtr CSMViewportBase::editHandleLeftBottom     (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfLeftBottom,
-             this->getType().getFieldDesc(LeftBottomFieldId)));
+             this->getType().getFieldDesc(LeftBottomFieldId),
+             this));
 
 
     editSField(LeftBottomFieldMask);
@@ -926,7 +936,8 @@ GetFieldHandlePtr CSMViewportBase::getHandleRightTop        (void) const
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfRightTop,
-             this->getType().getFieldDesc(RightTopFieldId)));
+             this->getType().getFieldDesc(RightTopFieldId),
+             const_cast<CSMViewportBase *>(this)));
 
     return returnValue;
 }
@@ -936,7 +947,8 @@ EditFieldHandlePtr CSMViewportBase::editHandleRightTop       (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfRightTop,
-             this->getType().getFieldDesc(RightTopFieldId)));
+             this->getType().getFieldDesc(RightTopFieldId),
+             this));
 
 
     editSField(RightTopFieldMask);
@@ -949,7 +961,8 @@ GetFieldHandlePtr CSMViewportBase::getHandleRenderOptions   (void) const
     SFUnrecRenderOptionsPtr::GetHandlePtr returnValue(
         new  SFUnrecRenderOptionsPtr::GetHandle(
              &_sfRenderOptions,
-             this->getType().getFieldDesc(RenderOptionsFieldId)));
+             this->getType().getFieldDesc(RenderOptionsFieldId),
+             const_cast<CSMViewportBase *>(this)));
 
     return returnValue;
 }
@@ -959,7 +972,8 @@ EditFieldHandlePtr CSMViewportBase::editHandleRenderOptions  (void)
     SFUnrecRenderOptionsPtr::EditHandlePtr returnValue(
         new  SFUnrecRenderOptionsPtr::EditHandle(
              &_sfRenderOptions,
-             this->getType().getFieldDesc(RenderOptionsFieldId)));
+             this->getType().getFieldDesc(RenderOptionsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&CSMViewport::setRenderOptions,
@@ -975,7 +989,8 @@ GetFieldHandlePtr CSMViewportBase::getHandleStereoMode      (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfStereoMode,
-             this->getType().getFieldDesc(StereoModeFieldId)));
+             this->getType().getFieldDesc(StereoModeFieldId),
+             const_cast<CSMViewportBase *>(this)));
 
     return returnValue;
 }
@@ -985,7 +1000,8 @@ EditFieldHandlePtr CSMViewportBase::editHandleStereoMode     (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfStereoMode,
-             this->getType().getFieldDesc(StereoModeFieldId)));
+             this->getType().getFieldDesc(StereoModeFieldId),
+             this));
 
 
     editSField(StereoModeFieldMask);

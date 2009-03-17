@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class DynamicStateGeneratorStageData;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DynamicStateGeneratorStageDataPtr
-
 OSG_GEN_CONTAINERPTR(DynamicStateGeneratorStageData);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<DynamicStateGeneratorStageData *> :
     public FieldTraitsFCPtrBase<DynamicStateGeneratorStageData *>
@@ -93,19 +84,23 @@ struct FieldTraits<DynamicStateGeneratorStageData *> :
     typedef FieldTraits<DynamicStateGeneratorStageData *>  Self;
 
     enum                        { Convertible = NotConvertible };
+
+    static OSG_GROUP_DLLMAPPING DataType &getType(void);
+
 };
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DynamicStateGeneratorStageDataPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

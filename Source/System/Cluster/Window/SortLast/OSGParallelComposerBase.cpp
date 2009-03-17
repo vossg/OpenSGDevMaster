@@ -146,7 +146,7 @@ ParallelComposerBase::TypeObject ParallelComposerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ParallelComposerBase::createEmptyLocal),
     ParallelComposer::initMethod,
     ParallelComposer::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ParallelComposerBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ParallelComposer::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -466,7 +466,8 @@ GetFieldHandlePtr ParallelComposerBase::getHandleShort           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfShort,
-             this->getType().getFieldDesc(ShortFieldId)));
+             this->getType().getFieldDesc(ShortFieldId),
+             const_cast<ParallelComposerBase *>(this)));
 
     return returnValue;
 }
@@ -476,7 +477,8 @@ EditFieldHandlePtr ParallelComposerBase::editHandleShort          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfShort,
-             this->getType().getFieldDesc(ShortFieldId)));
+             this->getType().getFieldDesc(ShortFieldId),
+             this));
 
 
     editSField(ShortFieldMask);
@@ -489,7 +491,8 @@ GetFieldHandlePtr ParallelComposerBase::getHandleAlpha           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             const_cast<ParallelComposerBase *>(this)));
 
     return returnValue;
 }
@@ -499,7 +502,8 @@ EditFieldHandlePtr ParallelComposerBase::editHandleAlpha          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             this));
 
 
     editSField(AlphaFieldMask);
@@ -512,7 +516,8 @@ GetFieldHandlePtr ParallelComposerBase::getHandlePcLibPath       (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfPcLibPath,
-             this->getType().getFieldDesc(PcLibPathFieldId)));
+             this->getType().getFieldDesc(PcLibPathFieldId),
+             const_cast<ParallelComposerBase *>(this)));
 
     return returnValue;
 }
@@ -522,7 +527,8 @@ EditFieldHandlePtr ParallelComposerBase::editHandlePcLibPath      (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfPcLibPath,
-             this->getType().getFieldDesc(PcLibPathFieldId)));
+             this->getType().getFieldDesc(PcLibPathFieldId),
+             this));
 
 
     editSField(PcLibPathFieldMask);
@@ -575,5 +581,6 @@ void ParallelComposerBase::resolveLinks(void)
 DataType FieldTraits<ParallelComposer *>::_type("ParallelComposerPtr", "ImageComposerPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ParallelComposer *)
 
 OSG_END_NAMESPACE

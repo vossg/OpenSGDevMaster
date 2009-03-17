@@ -460,7 +460,8 @@ GetFieldHandlePtr ShaderProgramVariableChunkBase::getHandleVariables       (void
     SFUnrecChildShaderProgramVariablesPtr::GetHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::GetHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             const_cast<ShaderProgramVariableChunkBase *>(this)));
 
     return returnValue;
 }
@@ -470,7 +471,8 @@ EditFieldHandlePtr ShaderProgramVariableChunkBase::editHandleVariables      (voi
     SFUnrecChildShaderProgramVariablesPtr::EditHandlePtr returnValue(
         new  SFUnrecChildShaderProgramVariablesPtr::EditHandle(
              &_sfVariables,
-             this->getType().getFieldDesc(VariablesFieldId)));
+             this->getType().getFieldDesc(VariablesFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShaderProgramVariableChunk::setVariables,

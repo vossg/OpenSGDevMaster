@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TransformationInterfaceSensor;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TransformationInterfaceSensorPtr
-
 OSG_GEN_CONTAINERPTR(TransformationInterfaceSensor);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TransformationInterfaceSensor *> :
     public FieldTraitsFCPtrBase<TransformationInterfaceSensor *>
@@ -100,15 +91,16 @@ struct FieldTraits<TransformationInterfaceSensor *> :
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TransformationInterfaceSensorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

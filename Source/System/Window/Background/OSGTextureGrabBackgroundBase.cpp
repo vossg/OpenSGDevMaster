@@ -171,7 +171,7 @@ TextureGrabBackgroundBase::TypeObject TextureGrabBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureGrabBackgroundBase::createEmptyLocal),
     TextureGrabBackground::initMethod,
     TextureGrabBackground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TextureGrabBackgroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TextureGrabBackground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -554,7 +554,8 @@ GetFieldHandlePtr TextureGrabBackgroundBase::getHandleTexture         (void) con
     SFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::GetHandle(
              &_sfTexture,
-             this->getType().getFieldDesc(TextureFieldId)));
+             this->getType().getFieldDesc(TextureFieldId),
+             const_cast<TextureGrabBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -564,7 +565,8 @@ EditFieldHandlePtr TextureGrabBackgroundBase::editHandleTexture        (void)
     SFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::EditHandle(
              &_sfTexture,
-             this->getType().getFieldDesc(TextureFieldId)));
+             this->getType().getFieldDesc(TextureFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&TextureGrabBackground::setTexture,
@@ -580,7 +582,8 @@ GetFieldHandlePtr TextureGrabBackgroundBase::getHandleAutoResize      (void) con
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAutoResize,
-             this->getType().getFieldDesc(AutoResizeFieldId)));
+             this->getType().getFieldDesc(AutoResizeFieldId),
+             const_cast<TextureGrabBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -590,7 +593,8 @@ EditFieldHandlePtr TextureGrabBackgroundBase::editHandleAutoResize     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAutoResize,
-             this->getType().getFieldDesc(AutoResizeFieldId)));
+             this->getType().getFieldDesc(AutoResizeFieldId),
+             this));
 
 
     editSField(AutoResizeFieldMask);
@@ -603,7 +607,8 @@ GetFieldHandlePtr TextureGrabBackgroundBase::getHandleBindTarget      (void) con
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfBindTarget,
-             this->getType().getFieldDesc(BindTargetFieldId)));
+             this->getType().getFieldDesc(BindTargetFieldId),
+             const_cast<TextureGrabBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -613,7 +618,8 @@ EditFieldHandlePtr TextureGrabBackgroundBase::editHandleBindTarget     (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfBindTarget,
-             this->getType().getFieldDesc(BindTargetFieldId)));
+             this->getType().getFieldDesc(BindTargetFieldId),
+             this));
 
 
     editSField(BindTargetFieldMask);
@@ -626,7 +632,8 @@ GetFieldHandlePtr TextureGrabBackgroundBase::getHandleCopyTarget      (void) con
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfCopyTarget,
-             this->getType().getFieldDesc(CopyTargetFieldId)));
+             this->getType().getFieldDesc(CopyTargetFieldId),
+             const_cast<TextureGrabBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -636,7 +643,8 @@ EditFieldHandlePtr TextureGrabBackgroundBase::editHandleCopyTarget     (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfCopyTarget,
-             this->getType().getFieldDesc(CopyTargetFieldId)));
+             this->getType().getFieldDesc(CopyTargetFieldId),
+             this));
 
 
     editSField(CopyTargetFieldMask);
@@ -691,5 +699,6 @@ void TextureGrabBackgroundBase::resolveLinks(void)
 DataType FieldTraits<TextureGrabBackground *>::_type("TextureGrabBackgroundPtr", "SolidBackgroundPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(TextureGrabBackground *)
 
 OSG_END_NAMESPACE

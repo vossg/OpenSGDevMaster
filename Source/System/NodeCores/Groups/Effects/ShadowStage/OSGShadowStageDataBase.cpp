@@ -249,7 +249,7 @@ ShadowStageDataBase::TypeObject ShadowStageDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShadowStageDataBase::createEmptyLocal),
     ShadowStageData::initMethod,
     ShadowStageData::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShadowStageDataBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShadowStageData::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -784,7 +784,8 @@ GetFieldHandlePtr ShadowStageDataBase::getHandleToneMappingMaterial (void) const
     SFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::GetHandle(
              &_sfToneMappingMaterial,
-             this->getType().getFieldDesc(ToneMappingMaterialFieldId)));
+             this->getType().getFieldDesc(ToneMappingMaterialFieldId),
+             const_cast<ShadowStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -794,7 +795,8 @@ EditFieldHandlePtr ShadowStageDataBase::editHandleToneMappingMaterial(void)
     SFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::EditHandle(
              &_sfToneMappingMaterial,
-             this->getType().getFieldDesc(ToneMappingMaterialFieldId)));
+             this->getType().getFieldDesc(ToneMappingMaterialFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShadowStageData::setToneMappingMaterial,
@@ -810,7 +812,8 @@ GetFieldHandlePtr ShadowStageDataBase::getHandleBlurRenderTarget (void) const
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfBlurRenderTarget,
-             this->getType().getFieldDesc(BlurRenderTargetFieldId)));
+             this->getType().getFieldDesc(BlurRenderTargetFieldId),
+             const_cast<ShadowStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -820,7 +823,8 @@ EditFieldHandlePtr ShadowStageDataBase::editHandleBlurRenderTarget(void)
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfBlurRenderTarget,
-             this->getType().getFieldDesc(BlurRenderTargetFieldId)));
+             this->getType().getFieldDesc(BlurRenderTargetFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShadowStageData::setBlurRenderTarget,
@@ -836,7 +840,8 @@ GetFieldHandlePtr ShadowStageDataBase::getHandleBlurMaterial    (void) const
     SFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::GetHandle(
              &_sfBlurMaterial,
-             this->getType().getFieldDesc(BlurMaterialFieldId)));
+             this->getType().getFieldDesc(BlurMaterialFieldId),
+             const_cast<ShadowStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -846,7 +851,8 @@ EditFieldHandlePtr ShadowStageDataBase::editHandleBlurMaterial   (void)
     SFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::EditHandle(
              &_sfBlurMaterial,
-             this->getType().getFieldDesc(BlurMaterialFieldId)));
+             this->getType().getFieldDesc(BlurMaterialFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShadowStageData::setBlurMaterial,
@@ -862,7 +868,8 @@ GetFieldHandlePtr ShadowStageDataBase::getHandleHBlurShader     (void) const
     SFUnrecSimpleSHLChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecSimpleSHLChunkPtr::GetHandle(
              &_sfHBlurShader,
-             this->getType().getFieldDesc(HBlurShaderFieldId)));
+             this->getType().getFieldDesc(HBlurShaderFieldId),
+             const_cast<ShadowStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -872,7 +879,8 @@ EditFieldHandlePtr ShadowStageDataBase::editHandleHBlurShader    (void)
     SFUnrecSimpleSHLChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecSimpleSHLChunkPtr::EditHandle(
              &_sfHBlurShader,
-             this->getType().getFieldDesc(HBlurShaderFieldId)));
+             this->getType().getFieldDesc(HBlurShaderFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShadowStageData::setHBlurShader,
@@ -888,7 +896,8 @@ GetFieldHandlePtr ShadowStageDataBase::getHandleVBlurShader     (void) const
     SFUnrecSimpleSHLChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecSimpleSHLChunkPtr::GetHandle(
              &_sfVBlurShader,
-             this->getType().getFieldDesc(VBlurShaderFieldId)));
+             this->getType().getFieldDesc(VBlurShaderFieldId),
+             const_cast<ShadowStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -898,7 +907,8 @@ EditFieldHandlePtr ShadowStageDataBase::editHandleVBlurShader    (void)
     SFUnrecSimpleSHLChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecSimpleSHLChunkPtr::EditHandle(
              &_sfVBlurShader,
-             this->getType().getFieldDesc(VBlurShaderFieldId)));
+             this->getType().getFieldDesc(VBlurShaderFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShadowStageData::setVBlurShader,
@@ -914,7 +924,8 @@ GetFieldHandlePtr ShadowStageDataBase::getHandleWidth           (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfWidth,
-             this->getType().getFieldDesc(WidthFieldId)));
+             this->getType().getFieldDesc(WidthFieldId),
+             const_cast<ShadowStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -924,7 +935,8 @@ EditFieldHandlePtr ShadowStageDataBase::editHandleWidth          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfWidth,
-             this->getType().getFieldDesc(WidthFieldId)));
+             this->getType().getFieldDesc(WidthFieldId),
+             this));
 
 
     editSField(WidthFieldMask);
@@ -937,7 +949,8 @@ GetFieldHandlePtr ShadowStageDataBase::getHandleHeight          (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfHeight,
-             this->getType().getFieldDesc(HeightFieldId)));
+             this->getType().getFieldDesc(HeightFieldId),
+             const_cast<ShadowStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -947,7 +960,8 @@ EditFieldHandlePtr ShadowStageDataBase::editHandleHeight         (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfHeight,
-             this->getType().getFieldDesc(HeightFieldId)));
+             this->getType().getFieldDesc(HeightFieldId),
+             this));
 
 
     editSField(HeightFieldMask);
@@ -960,7 +974,8 @@ GetFieldHandlePtr ShadowStageDataBase::getHandleShrinkRenderTarget (void) const
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfShrinkRenderTarget,
-             this->getType().getFieldDesc(ShrinkRenderTargetFieldId)));
+             this->getType().getFieldDesc(ShrinkRenderTargetFieldId),
+             const_cast<ShadowStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -970,7 +985,8 @@ EditFieldHandlePtr ShadowStageDataBase::editHandleShrinkRenderTarget(void)
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfShrinkRenderTarget,
-             this->getType().getFieldDesc(ShrinkRenderTargetFieldId)));
+             this->getType().getFieldDesc(ShrinkRenderTargetFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShadowStageData::setShrinkRenderTarget,
@@ -986,7 +1002,8 @@ GetFieldHandlePtr ShadowStageDataBase::getHandleShrinkMaterial  (void) const
     SFUnrecChunkMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::GetHandle(
              &_sfShrinkMaterial,
-             this->getType().getFieldDesc(ShrinkMaterialFieldId)));
+             this->getType().getFieldDesc(ShrinkMaterialFieldId),
+             const_cast<ShadowStageDataBase *>(this)));
 
     return returnValue;
 }
@@ -996,7 +1013,8 @@ EditFieldHandlePtr ShadowStageDataBase::editHandleShrinkMaterial (void)
     SFUnrecChunkMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecChunkMaterialPtr::EditHandle(
              &_sfShrinkMaterial,
-             this->getType().getFieldDesc(ShrinkMaterialFieldId)));
+             this->getType().getFieldDesc(ShrinkMaterialFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ShadowStageData::setShrinkMaterial,
@@ -1066,5 +1084,6 @@ void ShadowStageDataBase::resolveLinks(void)
 DataType FieldTraits<ShadowStageData *>::_type("ShadowStageDataPtr", "StageDataPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ShadowStageData *)
 
 OSG_END_NAMESPACE

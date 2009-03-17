@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class PerfMonitorForeground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! PerfMonitorForegroundPtr
-
 OSG_GEN_CONTAINERPTR(PerfMonitorForeground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpUtilFieldTraits
+    \ingroup GrpLibOSGUtil
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<PerfMonitorForeground *> :
     public FieldTraitsFCPtrBase<PerfMonitorForeground *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<PerfMonitorForeground *, 0>::getMName<NoRefCountPolicy>
     return "MFUnrefdPerfMonitorForegroundPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<PerfMonitorForegroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpUtilFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpUtilFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
                       RecordedRefCountPolicy  > SFRecPerfMonitorForegroundPtr;
+/*! \ingroup GrpUtilFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
                       UnrecordedRefCountPolicy> SFUnrecPerfMonitorForegroundPtr;
+/*! \ingroup GrpUtilFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
                       WeakRefCountPolicy      > SFWeakPerfMonitorForegroundPtr;
+/*! \ingroup GrpUtilFieldSFields */
 typedef PointerSField<PerfMonitorForeground *,
                       NoRefCountPolicy        > SFUncountedPerfMonitorForegroundPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpUtilFieldMulti */
-
+/*! \ingroup GrpUtilFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
                       RecordedRefCountPolicy  > MFRecPerfMonitorForegroundPtr;
+/*! \ingroup GrpUtilFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
                       UnrecordedRefCountPolicy> MFUnrecPerfMonitorForegroundPtr;
+/*! \ingroup GrpUtilFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
                       WeakRefCountPolicy      > MFWeakPerfMonitorForegroundPtr;
+/*! \ingroup GrpUtilFieldMFields */
 typedef PointerMField<PerfMonitorForeground *,
                       NoRefCountPolicy        > MFUncountedPerfMonitorForegroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+struct SFRecPerfMonitorForegroundPtr : 
+    public PointerSField<PerfMonitorForeground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+struct SFUnrecPerfMonitorForegroundPtr : 
+    public PointerSField<PerfMonitorForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+struct SFWeakPerfMonitorForegroundPtr :
+    public PointerSField<PerfMonitorForeground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpUtilFieldSFields \ingroup GrpLibOSGUtil */
+struct SFUncountedPerfMonitorForegroundPtr :
+    public PointerSField<PerfMonitorForeground *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+struct MFRecPerfMonitorForegroundPtr :
+    public PointerMField<PerfMonitorForeground *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+struct MFUnrecPerfMonitorForegroundPtr :
+    public PointerMField<PerfMonitorForeground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+struct MFWeakPerfMonitorForegroundPtr :
+    public PointerMField<PerfMonitorForeground *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpUtilFieldMFields \ingroup GrpLibOSGUtil */
+struct MFUncountedPerfMonitorForegroundPtr :
+    public PointerMField<PerfMonitorForeground *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

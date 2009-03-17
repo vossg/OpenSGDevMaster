@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ProjectionCameraDecorator;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ProjectionCameraDecoratorPtr
-
 OSG_GEN_CONTAINERPTR(ProjectionCameraDecorator);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ProjectionCameraDecorator *> :
     public FieldTraitsFCPtrBase<ProjectionCameraDecorator *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ProjectionCameraDecorator *, 0>::getMName<NoRefCountPol
     return "MFUnrefdProjectionCameraDecoratorPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ProjectionCameraDecoratorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ProjectionCameraDecorator *,
                       RecordedRefCountPolicy  > SFRecProjectionCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ProjectionCameraDecorator *,
                       UnrecordedRefCountPolicy> SFUnrecProjectionCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ProjectionCameraDecorator *,
                       WeakRefCountPolicy      > SFWeakProjectionCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<ProjectionCameraDecorator *,
                       NoRefCountPolicy        > SFUncountedProjectionCameraDecoratorPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ProjectionCameraDecorator *,
                       RecordedRefCountPolicy  > MFRecProjectionCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ProjectionCameraDecorator *,
                       UnrecordedRefCountPolicy> MFUnrecProjectionCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ProjectionCameraDecorator *,
                       WeakRefCountPolicy      > MFWeakProjectionCameraDecoratorPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<ProjectionCameraDecorator *,
                       NoRefCountPolicy        > MFUncountedProjectionCameraDecoratorPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecProjectionCameraDecoratorPtr : 
+    public PointerSField<ProjectionCameraDecorator *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecProjectionCameraDecoratorPtr : 
+    public PointerSField<ProjectionCameraDecorator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakProjectionCameraDecoratorPtr :
+    public PointerSField<ProjectionCameraDecorator *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedProjectionCameraDecoratorPtr :
+    public PointerSField<ProjectionCameraDecorator *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecProjectionCameraDecoratorPtr :
+    public PointerMField<ProjectionCameraDecorator *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecProjectionCameraDecoratorPtr :
+    public PointerMField<ProjectionCameraDecorator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakProjectionCameraDecoratorPtr :
+    public PointerMField<ProjectionCameraDecorator *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedProjectionCameraDecoratorPtr :
+    public PointerMField<ProjectionCameraDecorator *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

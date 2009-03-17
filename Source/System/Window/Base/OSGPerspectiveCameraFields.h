@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class PerspectiveCamera;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! PerspectiveCameraPtr
-
 OSG_GEN_CONTAINERPTR(PerspectiveCamera);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<PerspectiveCamera *> :
     public FieldTraitsFCPtrBase<PerspectiveCamera *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<PerspectiveCamera *, 0>::getMName<NoRefCountPolicy>(voi
     return "MFUnrefdPerspectiveCameraPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<PerspectiveCameraPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<PerspectiveCamera *,
                       RecordedRefCountPolicy  > SFRecPerspectiveCameraPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<PerspectiveCamera *,
                       UnrecordedRefCountPolicy> SFUnrecPerspectiveCameraPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<PerspectiveCamera *,
                       WeakRefCountPolicy      > SFWeakPerspectiveCameraPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<PerspectiveCamera *,
                       NoRefCountPolicy        > SFUncountedPerspectiveCameraPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<PerspectiveCamera *,
                       RecordedRefCountPolicy  > MFRecPerspectiveCameraPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<PerspectiveCamera *,
                       UnrecordedRefCountPolicy> MFUnrecPerspectiveCameraPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<PerspectiveCamera *,
                       WeakRefCountPolicy      > MFWeakPerspectiveCameraPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<PerspectiveCamera *,
                       NoRefCountPolicy        > MFUncountedPerspectiveCameraPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecPerspectiveCameraPtr : 
+    public PointerSField<PerspectiveCamera *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecPerspectiveCameraPtr : 
+    public PointerSField<PerspectiveCamera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakPerspectiveCameraPtr :
+    public PointerSField<PerspectiveCamera *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedPerspectiveCameraPtr :
+    public PointerSField<PerspectiveCamera *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecPerspectiveCameraPtr :
+    public PointerMField<PerspectiveCamera *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecPerspectiveCameraPtr :
+    public PointerMField<PerspectiveCamera *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakPerspectiveCameraPtr :
+    public PointerMField<PerspectiveCamera *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedPerspectiveCameraPtr :
+    public PointerMField<PerspectiveCamera *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

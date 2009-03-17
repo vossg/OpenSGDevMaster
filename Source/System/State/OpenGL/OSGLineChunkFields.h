@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class LineChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! LineChunkPtr
-
 OSG_GEN_CONTAINERPTR(LineChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<LineChunk *> :
     public FieldTraitsFCPtrBase<LineChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<LineChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdLineChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<LineChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LineChunk *,
                       RecordedRefCountPolicy  > SFRecLineChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LineChunk *,
                       UnrecordedRefCountPolicy> SFUnrecLineChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LineChunk *,
                       WeakRefCountPolicy      > SFWeakLineChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<LineChunk *,
                       NoRefCountPolicy        > SFUncountedLineChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LineChunk *,
                       RecordedRefCountPolicy  > MFRecLineChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LineChunk *,
                       UnrecordedRefCountPolicy> MFUnrecLineChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LineChunk *,
                       WeakRefCountPolicy      > MFWeakLineChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<LineChunk *,
                       NoRefCountPolicy        > MFUncountedLineChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecLineChunkPtr : 
+    public PointerSField<LineChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecLineChunkPtr : 
+    public PointerSField<LineChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakLineChunkPtr :
+    public PointerSField<LineChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedLineChunkPtr :
+    public PointerSField<LineChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecLineChunkPtr :
+    public PointerMField<LineChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecLineChunkPtr :
+    public PointerMField<LineChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakLineChunkPtr :
+    public PointerMField<LineChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedLineChunkPtr :
+    public PointerMField<LineChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

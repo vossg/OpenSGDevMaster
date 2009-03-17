@@ -79,6 +79,15 @@ OSG_BEGIN_NAMESPACE
     parameters from it parent.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void GroupingStageBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 GroupingStageBase::TypeObject GroupingStageBase::_type(
     GroupingStageBase::getClassname(),
@@ -88,7 +97,7 @@ GroupingStageBase::TypeObject GroupingStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GroupingStageBase::createEmptyLocal),
     GroupingStage::initMethod,
     GroupingStage::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&GroupingStage::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -344,5 +353,6 @@ void GroupingStageBase::resolveLinks(void)
 DataType FieldTraits<GroupingStage *>::_type("GroupingStagePtr", "RenderCallbackStagePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(GroupingStage *)
 
 OSG_END_NAMESPACE

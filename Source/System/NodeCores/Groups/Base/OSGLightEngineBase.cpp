@@ -114,7 +114,7 @@ LightEngineBase::TypeObject LightEngineBase::_type(
     NULL,
     LightEngine::initMethod,
     LightEngine::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&LightEngineBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&LightEngine::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -245,7 +245,8 @@ GetFieldHandlePtr LightEngineBase::getHandleEnabled         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<LightEngineBase *>(this)));
 
     return returnValue;
 }
@@ -255,7 +256,8 @@ EditFieldHandlePtr LightEngineBase::editHandleEnabled        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             this));
 
 
     editSField(EnabledFieldMask);

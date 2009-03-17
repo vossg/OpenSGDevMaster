@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class DepthClearBackground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DepthClearBackgroundPtr
-
 OSG_GEN_CONTAINERPTR(DepthClearBackground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<DepthClearBackground *> :
     public FieldTraitsFCPtrBase<DepthClearBackground *>
@@ -127,28 +118,46 @@ const Char8 *FieldTraits<DepthClearBackground *, 0>::getSName<NoRefCountPolicy>(
 }
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DepthClearBackgroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<DepthClearBackground *,
                       RecordedRefCountPolicy  > SFRecDepthClearBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<DepthClearBackground *,
                       UnrecordedRefCountPolicy> SFUnrecDepthClearBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<DepthClearBackground *,
                       WeakRefCountPolicy      > SFWeakDepthClearBackgroundPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<DepthClearBackground *,
                       NoRefCountPolicy        > SFUncountedDepthClearBackgroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecDepthClearBackgroundPtr : 
+    public PointerSField<DepthClearBackground *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecDepthClearBackgroundPtr : 
+    public PointerSField<DepthClearBackground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakDepthClearBackgroundPtr :
+    public PointerSField<DepthClearBackground *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedDepthClearBackgroundPtr :
+    public PointerSField<DepthClearBackground *,
+                         NoRefCountPolicy> {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

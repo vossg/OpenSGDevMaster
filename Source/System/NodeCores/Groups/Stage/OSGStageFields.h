@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Stage;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! StagePtr
-
 OSG_GEN_CONTAINERPTR(Stage);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Stage *> :
     public FieldTraitsFCPtrBase<Stage *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Stage *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdStagePtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<StagePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Stage *,
                       RecordedRefCountPolicy  > SFRecStagePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Stage *,
                       UnrecordedRefCountPolicy> SFUnrecStagePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Stage *,
                       WeakRefCountPolicy      > SFWeakStagePtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<Stage *,
                       NoRefCountPolicy        > SFUncountedStagePtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Stage *,
                       RecordedRefCountPolicy  > MFRecStagePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Stage *,
                       UnrecordedRefCountPolicy> MFUnrecStagePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Stage *,
                       WeakRefCountPolicy      > MFWeakStagePtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<Stage *,
                       NoRefCountPolicy        > MFUncountedStagePtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecStagePtr : 
+    public PointerSField<Stage *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecStagePtr : 
+    public PointerSField<Stage *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakStagePtr :
+    public PointerSField<Stage *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedStagePtr :
+    public PointerSField<Stage *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecStagePtr :
+    public PointerMField<Stage *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecStagePtr :
+    public PointerMField<Stage *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakStagePtr :
+    public PointerMField<Stage *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedStagePtr :
+    public PointerMField<Stage *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

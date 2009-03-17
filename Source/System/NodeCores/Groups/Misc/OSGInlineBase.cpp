@@ -147,7 +147,7 @@ InlineBase::TypeObject InlineBase::_type(
     reinterpret_cast<PrototypeCreateF>(&InlineBase::createEmptyLocal),
     Inline::initMethod,
     Inline::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&InlineBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Inline::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -476,7 +476,8 @@ GetFieldHandlePtr InlineBase::getHandleUrl             (void) const
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfUrl,
-             this->getType().getFieldDesc(UrlFieldId)));
+             this->getType().getFieldDesc(UrlFieldId),
+             const_cast<InlineBase *>(this)));
 
     return returnValue;
 }
@@ -486,7 +487,8 @@ EditFieldHandlePtr InlineBase::editHandleUrl            (void)
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfUrl,
-             this->getType().getFieldDesc(UrlFieldId)));
+             this->getType().getFieldDesc(UrlFieldId),
+             this));
 
 
     editMField(UrlFieldMask, _mfUrl);
@@ -499,7 +501,8 @@ GetFieldHandlePtr InlineBase::getHandleLoaded          (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfLoaded,
-             this->getType().getFieldDesc(LoadedFieldId)));
+             this->getType().getFieldDesc(LoadedFieldId),
+             const_cast<InlineBase *>(this)));
 
     return returnValue;
 }
@@ -509,7 +512,8 @@ EditFieldHandlePtr InlineBase::editHandleLoaded         (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfLoaded,
-             this->getType().getFieldDesc(LoadedFieldId)));
+             this->getType().getFieldDesc(LoadedFieldId),
+             this));
 
 
     editSField(LoadedFieldMask);
@@ -522,7 +526,8 @@ GetFieldHandlePtr InlineBase::getHandleRoot            (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfRoot,
-             this->getType().getFieldDesc(RootFieldId)));
+             this->getType().getFieldDesc(RootFieldId),
+             const_cast<InlineBase *>(this)));
 
     return returnValue;
 }
@@ -532,7 +537,8 @@ EditFieldHandlePtr InlineBase::editHandleRoot           (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfRoot,
-             this->getType().getFieldDesc(RootFieldId)));
+             this->getType().getFieldDesc(RootFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Inline::setRoot,

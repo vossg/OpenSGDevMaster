@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class RegisterCombinersChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! RegisterCombinersChunkPtr
-
 OSG_GEN_CONTAINERPTR(RegisterCombinersChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<RegisterCombinersChunk *> :
     public FieldTraitsFCPtrBase<RegisterCombinersChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<RegisterCombinersChunk *, 0>::getMName<NoRefCountPolicy
     return "MFUnrefdRegisterCombinersChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<RegisterCombinersChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
                       RecordedRefCountPolicy  > SFRecRegisterCombinersChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
                       UnrecordedRefCountPolicy> SFUnrecRegisterCombinersChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
                       WeakRefCountPolicy      > SFWeakRegisterCombinersChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<RegisterCombinersChunk *,
                       NoRefCountPolicy        > SFUncountedRegisterCombinersChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
                       RecordedRefCountPolicy  > MFRecRegisterCombinersChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
                       UnrecordedRefCountPolicy> MFUnrecRegisterCombinersChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
                       WeakRefCountPolicy      > MFWeakRegisterCombinersChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<RegisterCombinersChunk *,
                       NoRefCountPolicy        > MFUncountedRegisterCombinersChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecRegisterCombinersChunkPtr : 
+    public PointerSField<RegisterCombinersChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecRegisterCombinersChunkPtr : 
+    public PointerSField<RegisterCombinersChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakRegisterCombinersChunkPtr :
+    public PointerSField<RegisterCombinersChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedRegisterCombinersChunkPtr :
+    public PointerSField<RegisterCombinersChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecRegisterCombinersChunkPtr :
+    public PointerMField<RegisterCombinersChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecRegisterCombinersChunkPtr :
+    public PointerMField<RegisterCombinersChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakRegisterCombinersChunkPtr :
+    public PointerMField<RegisterCombinersChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedRegisterCombinersChunkPtr :
+    public PointerMField<RegisterCombinersChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

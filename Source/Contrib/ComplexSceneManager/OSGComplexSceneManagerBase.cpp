@@ -293,7 +293,7 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ComplexSceneManagerBase::createEmptyLocal),
     ComplexSceneManager::initMethod,
     ComplexSceneManager::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ComplexSceneManagerBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ComplexSceneManager::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -997,7 +997,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleGlobals         (void) const
     MFUnrecFieldContainerPtr::GetHandlePtr returnValue(
         new  MFUnrecFieldContainerPtr::GetHandle(
              &_mfGlobals,
-             this->getType().getFieldDesc(GlobalsFieldId)));
+             this->getType().getFieldDesc(GlobalsFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1007,7 +1008,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleGlobals        (void)
     MFUnrecFieldContainerPtr::EditHandlePtr returnValue(
         new  MFUnrecFieldContainerPtr::EditHandle(
              &_mfGlobals,
-             this->getType().getFieldDesc(GlobalsFieldId)));
+             this->getType().getFieldDesc(GlobalsFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ComplexSceneManager::pushToGlobals,
@@ -1032,7 +1034,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleDrawManager     (void) const
     SFUnrecCSMDrawManagerPtr::GetHandlePtr returnValue(
         new  SFUnrecCSMDrawManagerPtr::GetHandle(
              &_sfDrawManager,
-             this->getType().getFieldDesc(DrawManagerFieldId)));
+             this->getType().getFieldDesc(DrawManagerFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1042,7 +1045,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleDrawManager    (void)
     SFUnrecCSMDrawManagerPtr::EditHandlePtr returnValue(
         new  SFUnrecCSMDrawManagerPtr::EditHandle(
              &_sfDrawManager,
-             this->getType().getFieldDesc(DrawManagerFieldId)));
+             this->getType().getFieldDesc(DrawManagerFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ComplexSceneManager::setDrawManager,
@@ -1058,7 +1062,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleSensorTask      (void) const
     SFUnrecSensorTaskPtr::GetHandlePtr returnValue(
         new  SFUnrecSensorTaskPtr::GetHandle(
              &_sfSensorTask,
-             this->getType().getFieldDesc(SensorTaskFieldId)));
+             this->getType().getFieldDesc(SensorTaskFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1068,7 +1073,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleSensorTask     (void)
     SFUnrecSensorTaskPtr::EditHandlePtr returnValue(
         new  SFUnrecSensorTaskPtr::EditHandle(
              &_sfSensorTask,
-             this->getType().getFieldDesc(SensorTaskFieldId)));
+             this->getType().getFieldDesc(SensorTaskFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ComplexSceneManager::setSensorTask,
@@ -1084,7 +1090,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleFrameCount      (void) const
     SFUInt64::GetHandlePtr returnValue(
         new  SFUInt64::GetHandle(
              &_sfFrameCount,
-             this->getType().getFieldDesc(FrameCountFieldId)));
+             this->getType().getFieldDesc(FrameCountFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1094,7 +1101,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleFrameCount     (void)
     SFUInt64::EditHandlePtr returnValue(
         new  SFUInt64::EditHandle(
              &_sfFrameCount,
-             this->getType().getFieldDesc(FrameCountFieldId)));
+             this->getType().getFieldDesc(FrameCountFieldId),
+             this));
 
 
     editSField(FrameCountFieldMask);
@@ -1107,7 +1115,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleStartTime       (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfStartTime,
-             this->getType().getFieldDesc(StartTimeFieldId)));
+             this->getType().getFieldDesc(StartTimeFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1117,7 +1126,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleStartTime      (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfStartTime,
-             this->getType().getFieldDesc(StartTimeFieldId)));
+             this->getType().getFieldDesc(StartTimeFieldId),
+             this));
 
 
     editSField(StartTimeFieldMask);
@@ -1130,7 +1140,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleLastTime        (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfLastTime,
-             this->getType().getFieldDesc(LastTimeFieldId)));
+             this->getType().getFieldDesc(LastTimeFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1140,7 +1151,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleLastTime       (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfLastTime,
-             this->getType().getFieldDesc(LastTimeFieldId)));
+             this->getType().getFieldDesc(LastTimeFieldId),
+             this));
 
 
     editSField(LastTimeFieldMask);
@@ -1153,7 +1165,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleCurrTime        (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfCurrTime,
-             this->getType().getFieldDesc(CurrTimeFieldId)));
+             this->getType().getFieldDesc(CurrTimeFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1163,7 +1176,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleCurrTime       (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfCurrTime,
-             this->getType().getFieldDesc(CurrTimeFieldId)));
+             this->getType().getFieldDesc(CurrTimeFieldId),
+             this));
 
 
     editSField(CurrTimeFieldMask);
@@ -1176,7 +1190,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleTimeStamp       (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfTimeStamp,
-             this->getType().getFieldDesc(TimeStampFieldId)));
+             this->getType().getFieldDesc(TimeStampFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1186,7 +1201,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleTimeStamp      (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfTimeStamp,
-             this->getType().getFieldDesc(TimeStampFieldId)));
+             this->getType().getFieldDesc(TimeStampFieldId),
+             this));
 
 
     editSField(TimeStampFieldMask);
@@ -1199,7 +1215,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleTimeScale       (void) const
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfTimeScale,
-             this->getType().getFieldDesc(TimeScaleFieldId)));
+             this->getType().getFieldDesc(TimeScaleFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1209,7 +1226,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleTimeScale      (void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfTimeScale,
-             this->getType().getFieldDesc(TimeScaleFieldId)));
+             this->getType().getFieldDesc(TimeScaleFieldId),
+             this));
 
 
     editSField(TimeScaleFieldMask);
@@ -1222,7 +1240,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleConstantTimeStep (void) cons
     SFTime::GetHandlePtr returnValue(
         new  SFTime::GetHandle(
              &_sfConstantTimeStep,
-             this->getType().getFieldDesc(ConstantTimeStepFieldId)));
+             this->getType().getFieldDesc(ConstantTimeStepFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1232,7 +1251,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleConstantTimeStep(void)
     SFTime::EditHandlePtr returnValue(
         new  SFTime::EditHandle(
              &_sfConstantTimeStep,
-             this->getType().getFieldDesc(ConstantTimeStepFieldId)));
+             this->getType().getFieldDesc(ConstantTimeStepFieldId),
+             this));
 
 
     editSField(ConstantTimeStepFieldMask);
@@ -1245,7 +1265,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandleConstantTime    (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfConstantTime,
-             this->getType().getFieldDesc(ConstantTimeFieldId)));
+             this->getType().getFieldDesc(ConstantTimeFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1255,7 +1276,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleConstantTime   (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfConstantTime,
-             this->getType().getFieldDesc(ConstantTimeFieldId)));
+             this->getType().getFieldDesc(ConstantTimeFieldId),
+             this));
 
 
     editSField(ConstantTimeFieldMask);
@@ -1268,7 +1290,8 @@ GetFieldHandlePtr ComplexSceneManagerBase::getHandlePaused          (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfPaused,
-             this->getType().getFieldDesc(PausedFieldId)));
+             this->getType().getFieldDesc(PausedFieldId),
+             const_cast<ComplexSceneManagerBase *>(this)));
 
     return returnValue;
 }
@@ -1278,7 +1301,8 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandlePaused         (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfPaused,
-             this->getType().getFieldDesc(PausedFieldId)));
+             this->getType().getFieldDesc(PausedFieldId),
+             this));
 
 
     editSField(PausedFieldMask);
@@ -1337,5 +1361,6 @@ void ComplexSceneManagerBase::resolveLinks(void)
 DataType FieldTraits<ComplexSceneManager *>::_type("ComplexSceneManagerPtr", "FieldContainerPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ComplexSceneManager *)
 
 OSG_END_NAMESPACE

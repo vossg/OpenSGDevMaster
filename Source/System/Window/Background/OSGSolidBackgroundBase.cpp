@@ -135,7 +135,7 @@ SolidBackgroundBase::TypeObject SolidBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SolidBackgroundBase::createEmptyLocal),
     SolidBackground::initMethod,
     SolidBackground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SolidBackgroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SolidBackground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -429,7 +429,8 @@ GetFieldHandlePtr SolidBackgroundBase::getHandleColor           (void) const
     SFColor3r::GetHandlePtr returnValue(
         new  SFColor3r::GetHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             const_cast<SolidBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -439,7 +440,8 @@ EditFieldHandlePtr SolidBackgroundBase::editHandleColor          (void)
     SFColor3r::EditHandlePtr returnValue(
         new  SFColor3r::EditHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             this));
 
 
     editSField(ColorFieldMask);
@@ -452,7 +454,8 @@ GetFieldHandlePtr SolidBackgroundBase::getHandleAlpha           (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             const_cast<SolidBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -462,7 +465,8 @@ EditFieldHandlePtr SolidBackgroundBase::editHandleAlpha          (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             this));
 
 
     editSField(AlphaFieldMask);

@@ -162,7 +162,7 @@ CoordinateInterpolatorBase::TypeObject CoordinateInterpolatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CoordinateInterpolatorBase::createEmptyLocal),
     CoordinateInterpolator::initMethod,
     CoordinateInterpolator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CoordinateInterpolatorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CoordinateInterpolator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -525,7 +525,8 @@ GetFieldHandlePtr CoordinateInterpolatorBase::getHandleFraction        (void) co
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             const_cast<CoordinateInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -535,7 +536,8 @@ EditFieldHandlePtr CoordinateInterpolatorBase::editHandleFraction       (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId)));
+             this->getType().getFieldDesc(FractionFieldId),
+             this));
 
 
     editSField(FractionFieldMask);
@@ -548,7 +550,8 @@ GetFieldHandlePtr CoordinateInterpolatorBase::getHandleKey             (void) co
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             const_cast<CoordinateInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -558,7 +561,8 @@ EditFieldHandlePtr CoordinateInterpolatorBase::editHandleKey            (void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId)));
+             this->getType().getFieldDesc(KeyFieldId),
+             this));
 
 
     editMField(KeyFieldMask, _mfKey);
@@ -571,7 +575,8 @@ GetFieldHandlePtr CoordinateInterpolatorBase::getHandleKeyValue        (void) co
     MFPnt3f::GetHandlePtr returnValue(
         new  MFPnt3f::GetHandle(
              &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId)));
+             this->getType().getFieldDesc(KeyValueFieldId),
+             const_cast<CoordinateInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -581,7 +586,8 @@ EditFieldHandlePtr CoordinateInterpolatorBase::editHandleKeyValue       (void)
     MFPnt3f::EditHandlePtr returnValue(
         new  MFPnt3f::EditHandle(
              &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId)));
+             this->getType().getFieldDesc(KeyValueFieldId),
+             this));
 
 
     editMField(KeyValueFieldMask, _mfKeyValue);
@@ -594,7 +600,8 @@ GetFieldHandlePtr CoordinateInterpolatorBase::getHandleValue           (void) co
     MFPnt3f::GetHandlePtr returnValue(
         new  MFPnt3f::GetHandle(
              &_mfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<CoordinateInterpolatorBase *>(this)));
 
     return returnValue;
 }
@@ -604,7 +611,8 @@ EditFieldHandlePtr CoordinateInterpolatorBase::editHandleValue          (void)
     MFPnt3f::EditHandlePtr returnValue(
         new  MFPnt3f::EditHandle(
              &_mfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editMField(ValueFieldMask, _mfValue);
@@ -674,5 +682,6 @@ void CoordinateInterpolatorBase::resolveLinks(void)
 DataType FieldTraits<CoordinateInterpolator *>::_type("CoordinateInterpolatorPtr", "NodeCorePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(CoordinateInterpolator *)
 
 OSG_END_NAMESPACE

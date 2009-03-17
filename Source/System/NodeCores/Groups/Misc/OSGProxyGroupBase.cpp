@@ -296,7 +296,7 @@ ProxyGroupBase::TypeObject ProxyGroupBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ProxyGroupBase::createEmptyLocal),
     ProxyGroup::initMethod,
     ProxyGroup::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ProxyGroupBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ProxyGroup::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -957,7 +957,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleEnabled         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -967,7 +968,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleEnabled        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             this));
 
 
     editSField(EnabledFieldMask);
@@ -980,7 +982,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleUrl             (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfUrl,
-             this->getType().getFieldDesc(UrlFieldId)));
+             this->getType().getFieldDesc(UrlFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -990,7 +993,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleUrl            (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfUrl,
-             this->getType().getFieldDesc(UrlFieldId)));
+             this->getType().getFieldDesc(UrlFieldId),
+             this));
 
 
     editSField(UrlFieldMask);
@@ -1003,7 +1007,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleRoot            (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfRoot,
-             this->getType().getFieldDesc(RootFieldId)));
+             this->getType().getFieldDesc(RootFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1013,7 +1018,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleRoot           (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfRoot,
-             this->getType().getFieldDesc(RootFieldId)));
+             this->getType().getFieldDesc(RootFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ProxyGroup::setRoot,
@@ -1029,7 +1035,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleState           (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfState,
-             this->getType().getFieldDesc(StateFieldId)));
+             this->getType().getFieldDesc(StateFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1039,7 +1046,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleState          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfState,
-             this->getType().getFieldDesc(StateFieldId)));
+             this->getType().getFieldDesc(StateFieldId),
+             this));
 
 
     editSField(StateFieldMask);
@@ -1052,7 +1060,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleConcurrentLoad  (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfConcurrentLoad,
-             this->getType().getFieldDesc(ConcurrentLoadFieldId)));
+             this->getType().getFieldDesc(ConcurrentLoadFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1062,7 +1071,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleConcurrentLoad (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfConcurrentLoad,
-             this->getType().getFieldDesc(ConcurrentLoadFieldId)));
+             this->getType().getFieldDesc(ConcurrentLoadFieldId),
+             this));
 
 
     editSField(ConcurrentLoadFieldMask);
@@ -1075,7 +1085,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleVolume          (void) const
     SFBoxVolume::GetHandlePtr returnValue(
         new  SFBoxVolume::GetHandle(
              &_sfVolume,
-             this->getType().getFieldDesc(VolumeFieldId)));
+             this->getType().getFieldDesc(VolumeFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1085,7 +1096,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleVolume         (void)
     SFBoxVolume::EditHandlePtr returnValue(
         new  SFBoxVolume::EditHandle(
              &_sfVolume,
-             this->getType().getFieldDesc(VolumeFieldId)));
+             this->getType().getFieldDesc(VolumeFieldId),
+             this));
 
 
     editSField(VolumeFieldMask);
@@ -1098,7 +1110,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleIndices         (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfIndices,
-             this->getType().getFieldDesc(IndicesFieldId)));
+             this->getType().getFieldDesc(IndicesFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1108,7 +1121,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleIndices        (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfIndices,
-             this->getType().getFieldDesc(IndicesFieldId)));
+             this->getType().getFieldDesc(IndicesFieldId),
+             this));
 
 
     editSField(IndicesFieldMask);
@@ -1121,7 +1135,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleTriangles       (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfTriangles,
-             this->getType().getFieldDesc(TrianglesFieldId)));
+             this->getType().getFieldDesc(TrianglesFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1131,7 +1146,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleTriangles      (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfTriangles,
-             this->getType().getFieldDesc(TrianglesFieldId)));
+             this->getType().getFieldDesc(TrianglesFieldId),
+             this));
 
 
     editSField(TrianglesFieldMask);
@@ -1144,7 +1160,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandlePositions       (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1154,7 +1171,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandlePositions      (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             this));
 
 
     editSField(PositionsFieldMask);
@@ -1167,7 +1185,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleGeometries      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGeometries,
-             this->getType().getFieldDesc(GeometriesFieldId)));
+             this->getType().getFieldDesc(GeometriesFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1177,7 +1196,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleGeometries     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGeometries,
-             this->getType().getFieldDesc(GeometriesFieldId)));
+             this->getType().getFieldDesc(GeometriesFieldId),
+             this));
 
 
     editSField(GeometriesFieldMask);
@@ -1190,7 +1210,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleAbsoluteUrl     (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfAbsoluteUrl,
-             this->getType().getFieldDesc(AbsoluteUrlFieldId)));
+             this->getType().getFieldDesc(AbsoluteUrlFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1200,7 +1221,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleAbsoluteUrl    (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfAbsoluteUrl,
-             this->getType().getFieldDesc(AbsoluteUrlFieldId)));
+             this->getType().getFieldDesc(AbsoluteUrlFieldId),
+             this));
 
 
     editSField(AbsoluteUrlFieldMask);
@@ -1213,7 +1235,8 @@ GetFieldHandlePtr ProxyGroupBase::getHandleInline          (void) const
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
              &_mfInline,
-             this->getType().getFieldDesc(InlineFieldId)));
+             this->getType().getFieldDesc(InlineFieldId),
+             const_cast<ProxyGroupBase *>(this)));
 
     return returnValue;
 }
@@ -1223,7 +1246,8 @@ EditFieldHandlePtr ProxyGroupBase::editHandleInline         (void)
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
              &_mfInline,
-             this->getType().getFieldDesc(InlineFieldId)));
+             this->getType().getFieldDesc(InlineFieldId),
+             this));
 
 
     editMField(InlineFieldMask, _mfInline);
@@ -1287,5 +1311,6 @@ void ProxyGroupBase::resolveLinks(void)
 DataType FieldTraits<ProxyGroup *>::_type("ProxyGroupPtr", "GroupPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ProxyGroup *)
 
 OSG_END_NAMESPACE

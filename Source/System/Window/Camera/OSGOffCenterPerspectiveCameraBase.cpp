@@ -114,7 +114,7 @@ OffCenterPerspectiveCameraBase::TypeObject OffCenterPerspectiveCameraBase::_type
     reinterpret_cast<PrototypeCreateF>(&OffCenterPerspectiveCameraBase::createEmptyLocal),
     OffCenterPerspectiveCamera::initMethod,
     OffCenterPerspectiveCamera::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&OffCenterPerspectiveCameraBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&OffCenterPerspectiveCamera::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -361,7 +361,8 @@ GetFieldHandlePtr OffCenterPerspectiveCameraBase::getHandlePrincipalPoint  (void
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfPrincipalPoint,
-             this->getType().getFieldDesc(PrincipalPointFieldId)));
+             this->getType().getFieldDesc(PrincipalPointFieldId),
+             const_cast<OffCenterPerspectiveCameraBase *>(this)));
 
     return returnValue;
 }
@@ -371,7 +372,8 @@ EditFieldHandlePtr OffCenterPerspectiveCameraBase::editHandlePrincipalPoint (voi
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfPrincipalPoint,
-             this->getType().getFieldDesc(PrincipalPointFieldId)));
+             this->getType().getFieldDesc(PrincipalPointFieldId),
+             this));
 
 
     editSField(PrincipalPointFieldMask);

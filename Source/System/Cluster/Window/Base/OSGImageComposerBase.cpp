@@ -130,7 +130,7 @@ ImageComposerBase::TypeObject ImageComposerBase::_type(
     NULL,
     ImageComposer::initMethod,
     ImageComposer::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ImageComposerBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ImageComposer::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -300,7 +300,8 @@ GetFieldHandlePtr ImageComposerBase::getHandleEnabled         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<ImageComposerBase *>(this)));
 
     return returnValue;
 }
@@ -310,7 +311,8 @@ EditFieldHandlePtr ImageComposerBase::editHandleEnabled        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfEnabled,
-             this->getType().getFieldDesc(EnabledFieldId)));
+             this->getType().getFieldDesc(EnabledFieldId),
+             this));
 
 
     editSField(EnabledFieldMask);
@@ -323,7 +325,8 @@ GetFieldHandlePtr ImageComposerBase::getHandleStatistics      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfStatistics,
-             this->getType().getFieldDesc(StatisticsFieldId)));
+             this->getType().getFieldDesc(StatisticsFieldId),
+             const_cast<ImageComposerBase *>(this)));
 
     return returnValue;
 }
@@ -333,7 +336,8 @@ EditFieldHandlePtr ImageComposerBase::editHandleStatistics     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfStatistics,
-             this->getType().getFieldDesc(StatisticsFieldId)));
+             this->getType().getFieldDesc(StatisticsFieldId),
+             this));
 
 
     editSField(StatisticsFieldMask);

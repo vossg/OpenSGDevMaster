@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class FBOViewport;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FBOViewportPtr
-
 OSG_GEN_CONTAINERPTR(FBOViewport);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<FBOViewport *> :
     public FieldTraitsFCPtrBase<FBOViewport *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<FBOViewport *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdFBOViewportPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FBOViewportPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FBOViewport *,
                       RecordedRefCountPolicy  > SFRecFBOViewportPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FBOViewport *,
                       UnrecordedRefCountPolicy> SFUnrecFBOViewportPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FBOViewport *,
                       WeakRefCountPolicy      > SFWeakFBOViewportPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FBOViewport *,
                       NoRefCountPolicy        > SFUncountedFBOViewportPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FBOViewport *,
                       RecordedRefCountPolicy  > MFRecFBOViewportPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FBOViewport *,
                       UnrecordedRefCountPolicy> MFUnrecFBOViewportPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FBOViewport *,
                       WeakRefCountPolicy      > MFWeakFBOViewportPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FBOViewport *,
                       NoRefCountPolicy        > MFUncountedFBOViewportPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecFBOViewportPtr : 
+    public PointerSField<FBOViewport *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecFBOViewportPtr : 
+    public PointerSField<FBOViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakFBOViewportPtr :
+    public PointerSField<FBOViewport *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedFBOViewportPtr :
+    public PointerSField<FBOViewport *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecFBOViewportPtr :
+    public PointerMField<FBOViewport *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecFBOViewportPtr :
+    public PointerMField<FBOViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakFBOViewportPtr :
+    public PointerMField<FBOViewport *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedFBOViewportPtr :
+    public PointerMField<FBOViewport *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

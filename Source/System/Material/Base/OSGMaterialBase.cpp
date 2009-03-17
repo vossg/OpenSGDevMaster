@@ -143,7 +143,7 @@ MaterialBase::TypeObject MaterialBase::_type(
     NULL,
     Material::initMethod,
     Material::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&MaterialBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Material::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -339,7 +339,8 @@ GetFieldHandlePtr MaterialBase::getHandleSortKey         (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfSortKey,
-             this->getType().getFieldDesc(SortKeyFieldId)));
+             this->getType().getFieldDesc(SortKeyFieldId),
+             const_cast<MaterialBase *>(this)));
 
     return returnValue;
 }
@@ -349,7 +350,8 @@ EditFieldHandlePtr MaterialBase::editHandleSortKey        (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfSortKey,
-             this->getType().getFieldDesc(SortKeyFieldId)));
+             this->getType().getFieldDesc(SortKeyFieldId),
+             this));
 
 
     editSField(SortKeyFieldMask);
@@ -362,7 +364,8 @@ GetFieldHandlePtr MaterialBase::getHandleTransparencyMode (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfTransparencyMode,
-             this->getType().getFieldDesc(TransparencyModeFieldId)));
+             this->getType().getFieldDesc(TransparencyModeFieldId),
+             const_cast<MaterialBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +375,8 @@ EditFieldHandlePtr MaterialBase::editHandleTransparencyMode(void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfTransparencyMode,
-             this->getType().getFieldDesc(TransparencyModeFieldId)));
+             this->getType().getFieldDesc(TransparencyModeFieldId),
+             this));
 
 
     editSField(TransparencyModeFieldMask);

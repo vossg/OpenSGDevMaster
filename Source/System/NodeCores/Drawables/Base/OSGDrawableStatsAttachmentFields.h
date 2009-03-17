@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class DrawableStatsAttachment;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! DrawableStatsAttachmentPtr
-
 OSG_GEN_CONTAINERPTR(DrawableStatsAttachment);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<DrawableStatsAttachment *> :
     public FieldTraitsFCPtrBase<DrawableStatsAttachment *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<DrawableStatsAttachment *, 0>::getMName<NoRefCountPolic
     return "MFUnrefdDrawableStatsAttachmentPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<DrawableStatsAttachmentPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
                       RecordedRefCountPolicy  > SFRecDrawableStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
                       UnrecordedRefCountPolicy> SFUnrecDrawableStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
                       WeakRefCountPolicy      > SFWeakDrawableStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<DrawableStatsAttachment *,
                       NoRefCountPolicy        > SFUncountedDrawableStatsAttachmentPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
                       RecordedRefCountPolicy  > MFRecDrawableStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
                       UnrecordedRefCountPolicy> MFUnrecDrawableStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
                       WeakRefCountPolicy      > MFWeakDrawableStatsAttachmentPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<DrawableStatsAttachment *,
                       NoRefCountPolicy        > MFUncountedDrawableStatsAttachmentPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecDrawableStatsAttachmentPtr : 
+    public PointerSField<DrawableStatsAttachment *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecDrawableStatsAttachmentPtr : 
+    public PointerSField<DrawableStatsAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakDrawableStatsAttachmentPtr :
+    public PointerSField<DrawableStatsAttachment *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedDrawableStatsAttachmentPtr :
+    public PointerSField<DrawableStatsAttachment *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecDrawableStatsAttachmentPtr :
+    public PointerMField<DrawableStatsAttachment *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecDrawableStatsAttachmentPtr :
+    public PointerMField<DrawableStatsAttachment *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakDrawableStatsAttachmentPtr :
+    public PointerMField<DrawableStatsAttachment *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedDrawableStatsAttachmentPtr :
+    public PointerMField<DrawableStatsAttachment *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

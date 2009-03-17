@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Particles;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ParticlesPtr
-
 OSG_GEN_CONTAINERPTR(Particles);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpDrawableFieldTraits
+    \ingroup GrpLibOSGDrawable
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Particles *> :
     public FieldTraitsFCPtrBase<Particles *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Particles *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdParticlesPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ParticlesPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<Particles *,
                       RecordedRefCountPolicy  > SFRecParticlesPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<Particles *,
                       UnrecordedRefCountPolicy> SFUnrecParticlesPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<Particles *,
                       WeakRefCountPolicy      > SFWeakParticlesPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<Particles *,
                       NoRefCountPolicy        > SFUncountedParticlesPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<Particles *,
                       RecordedRefCountPolicy  > MFRecParticlesPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<Particles *,
                       UnrecordedRefCountPolicy> MFUnrecParticlesPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<Particles *,
                       WeakRefCountPolicy      > MFWeakParticlesPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<Particles *,
                       NoRefCountPolicy        > MFUncountedParticlesPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFRecParticlesPtr : 
+    public PointerSField<Particles *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUnrecParticlesPtr : 
+    public PointerSField<Particles *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFWeakParticlesPtr :
+    public PointerSField<Particles *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUncountedParticlesPtr :
+    public PointerSField<Particles *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFRecParticlesPtr :
+    public PointerMField<Particles *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUnrecParticlesPtr :
+    public PointerMField<Particles *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFWeakParticlesPtr :
+    public PointerMField<Particles *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUncountedParticlesPtr :
+    public PointerMField<Particles *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

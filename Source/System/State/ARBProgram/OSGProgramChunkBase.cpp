@@ -173,7 +173,7 @@ ProgramChunkBase::TypeObject ProgramChunkBase::_type(
     NULL,
     ProgramChunk::initMethod,
     ProgramChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ProgramChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ProgramChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -437,7 +437,8 @@ GetFieldHandlePtr ProgramChunkBase::getHandleProgram         (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfProgram,
-             this->getType().getFieldDesc(ProgramFieldId)));
+             this->getType().getFieldDesc(ProgramFieldId),
+             const_cast<ProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -447,7 +448,8 @@ EditFieldHandlePtr ProgramChunkBase::editHandleProgram        (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfProgram,
-             this->getType().getFieldDesc(ProgramFieldId)));
+             this->getType().getFieldDesc(ProgramFieldId),
+             this));
 
 
     editSField(ProgramFieldMask);
@@ -460,7 +462,8 @@ GetFieldHandlePtr ProgramChunkBase::getHandleParamValues     (void) const
     MFVec4f::GetHandlePtr returnValue(
         new  MFVec4f::GetHandle(
              &_mfParamValues,
-             this->getType().getFieldDesc(ParamValuesFieldId)));
+             this->getType().getFieldDesc(ParamValuesFieldId),
+             const_cast<ProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -470,7 +473,8 @@ EditFieldHandlePtr ProgramChunkBase::editHandleParamValues    (void)
     MFVec4f::EditHandlePtr returnValue(
         new  MFVec4f::EditHandle(
              &_mfParamValues,
-             this->getType().getFieldDesc(ParamValuesFieldId)));
+             this->getType().getFieldDesc(ParamValuesFieldId),
+             this));
 
 
     editMField(ParamValuesFieldMask, _mfParamValues);
@@ -483,7 +487,8 @@ GetFieldHandlePtr ProgramChunkBase::getHandleParamNames      (void) const
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfParamNames,
-             this->getType().getFieldDesc(ParamNamesFieldId)));
+             this->getType().getFieldDesc(ParamNamesFieldId),
+             const_cast<ProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -493,7 +498,8 @@ EditFieldHandlePtr ProgramChunkBase::editHandleParamNames     (void)
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfParamNames,
-             this->getType().getFieldDesc(ParamNamesFieldId)));
+             this->getType().getFieldDesc(ParamNamesFieldId),
+             this));
 
 
     editMField(ParamNamesFieldMask, _mfParamNames);
@@ -506,7 +512,8 @@ GetFieldHandlePtr ProgramChunkBase::getHandleGLId            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             const_cast<ProgramChunkBase *>(this)));
 
     return returnValue;
 }
@@ -516,7 +523,8 @@ EditFieldHandlePtr ProgramChunkBase::editHandleGLId           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             this));
 
 
     editSField(GLIdFieldMask);

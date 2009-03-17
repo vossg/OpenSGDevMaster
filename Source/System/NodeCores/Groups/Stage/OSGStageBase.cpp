@@ -94,9 +94,9 @@ OSG_BEGIN_NAMESPACE
 
 void StageBase::classDescInserter(TypeObject &oType)
 {
-    FieldDescriptionBase *pDesc = NULL;
-
     Inherited::classDescInserter(oType);
+
+    FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFUnrecFrameBufferObjectPtr::Description(
@@ -133,7 +133,7 @@ StageBase::TypeObject StageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&StageBase::createEmptyLocal),
     Stage::initMethod,
     Stage::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&StageBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Stage::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -433,7 +433,8 @@ GetFieldHandlePtr StageBase::getHandleRenderTarget    (void) const
     SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::GetHandle(
              &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId)));
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             const_cast<StageBase *>(this)));
 
     return returnValue;
 }
@@ -443,7 +444,8 @@ EditFieldHandlePtr StageBase::editHandleRenderTarget   (void)
     SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
         new  SFUnrecFrameBufferObjectPtr::EditHandle(
              &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId)));
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Stage::setRenderTarget,
@@ -459,7 +461,8 @@ GetFieldHandlePtr StageBase::getHandleInheritedTarget (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfInheritedTarget,
-             this->getType().getFieldDesc(InheritedTargetFieldId)));
+             this->getType().getFieldDesc(InheritedTargetFieldId),
+             const_cast<StageBase *>(this)));
 
     return returnValue;
 }
@@ -469,7 +472,8 @@ EditFieldHandlePtr StageBase::editHandleInheritedTarget(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfInheritedTarget,
-             this->getType().getFieldDesc(InheritedTargetFieldId)));
+             this->getType().getFieldDesc(InheritedTargetFieldId),
+             this));
 
 
     editSField(InheritedTargetFieldMask);

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class TransformChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! TransformChunkPtr
-
 OSG_GEN_CONTAINERPTR(TransformChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<TransformChunk *> :
     public FieldTraitsFCPtrBase<TransformChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<TransformChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdTransformChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<TransformChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TransformChunk *,
                       RecordedRefCountPolicy  > SFRecTransformChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TransformChunk *,
                       UnrecordedRefCountPolicy> SFUnrecTransformChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TransformChunk *,
                       WeakRefCountPolicy      > SFWeakTransformChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<TransformChunk *,
                       NoRefCountPolicy        > SFUncountedTransformChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TransformChunk *,
                       RecordedRefCountPolicy  > MFRecTransformChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TransformChunk *,
                       UnrecordedRefCountPolicy> MFUnrecTransformChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TransformChunk *,
                       WeakRefCountPolicy      > MFWeakTransformChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<TransformChunk *,
                       NoRefCountPolicy        > MFUncountedTransformChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecTransformChunkPtr : 
+    public PointerSField<TransformChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecTransformChunkPtr : 
+    public PointerSField<TransformChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakTransformChunkPtr :
+    public PointerSField<TransformChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedTransformChunkPtr :
+    public PointerSField<TransformChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecTransformChunkPtr :
+    public PointerMField<TransformChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecTransformChunkPtr :
+    public PointerMField<TransformChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakTransformChunkPtr :
+    public PointerMField<TransformChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedTransformChunkPtr :
+    public PointerMField<TransformChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

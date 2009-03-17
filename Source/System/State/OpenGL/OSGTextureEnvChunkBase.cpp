@@ -577,7 +577,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureEnvChunkBase::createEmptyLocal),
     TextureEnvChunk::initMethod,
     TextureEnvChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TextureEnvChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TextureEnvChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1853,7 +1853,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvMode         (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvMode,
-             this->getType().getFieldDesc(EnvModeFieldId)));
+             this->getType().getFieldDesc(EnvModeFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1863,7 +1864,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvMode        (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvMode,
-             this->getType().getFieldDesc(EnvModeFieldId)));
+             this->getType().getFieldDesc(EnvModeFieldId),
+             this));
 
 
     editSField(EnvModeFieldMask);
@@ -1876,7 +1878,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvColor        (void) const
     SFColor4r::GetHandlePtr returnValue(
         new  SFColor4r::GetHandle(
              &_sfEnvColor,
-             this->getType().getFieldDesc(EnvColorFieldId)));
+             this->getType().getFieldDesc(EnvColorFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1886,7 +1889,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvColor       (void)
     SFColor4r::EditHandlePtr returnValue(
         new  SFColor4r::EditHandle(
              &_sfEnvColor,
-             this->getType().getFieldDesc(EnvColorFieldId)));
+             this->getType().getFieldDesc(EnvColorFieldId),
+             this));
 
 
     editSField(EnvColorFieldMask);
@@ -1899,7 +1903,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvCombineRGB   (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvCombineRGB,
-             this->getType().getFieldDesc(EnvCombineRGBFieldId)));
+             this->getType().getFieldDesc(EnvCombineRGBFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1909,7 +1914,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvCombineRGB  (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvCombineRGB,
-             this->getType().getFieldDesc(EnvCombineRGBFieldId)));
+             this->getType().getFieldDesc(EnvCombineRGBFieldId),
+             this));
 
 
     editSField(EnvCombineRGBFieldMask);
@@ -1922,7 +1928,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvCombineAlpha (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvCombineAlpha,
-             this->getType().getFieldDesc(EnvCombineAlphaFieldId)));
+             this->getType().getFieldDesc(EnvCombineAlphaFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1932,7 +1939,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvCombineAlpha(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvCombineAlpha,
-             this->getType().getFieldDesc(EnvCombineAlphaFieldId)));
+             this->getType().getFieldDesc(EnvCombineAlphaFieldId),
+             this));
 
 
     editSField(EnvCombineAlphaFieldMask);
@@ -1945,7 +1953,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvScaleRGB     (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfEnvScaleRGB,
-             this->getType().getFieldDesc(EnvScaleRGBFieldId)));
+             this->getType().getFieldDesc(EnvScaleRGBFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1955,7 +1964,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvScaleRGB    (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfEnvScaleRGB,
-             this->getType().getFieldDesc(EnvScaleRGBFieldId)));
+             this->getType().getFieldDesc(EnvScaleRGBFieldId),
+             this));
 
 
     editSField(EnvScaleRGBFieldMask);
@@ -1968,7 +1978,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvScaleAlpha   (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfEnvScaleAlpha,
-             this->getType().getFieldDesc(EnvScaleAlphaFieldId)));
+             this->getType().getFieldDesc(EnvScaleAlphaFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -1978,7 +1989,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvScaleAlpha  (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfEnvScaleAlpha,
-             this->getType().getFieldDesc(EnvScaleAlphaFieldId)));
+             this->getType().getFieldDesc(EnvScaleAlphaFieldId),
+             this));
 
 
     editSField(EnvScaleAlphaFieldMask);
@@ -1991,7 +2003,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvSource0RGB   (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvSource0RGB,
-             this->getType().getFieldDesc(EnvSource0RGBFieldId)));
+             this->getType().getFieldDesc(EnvSource0RGBFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2001,7 +2014,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvSource0RGB  (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvSource0RGB,
-             this->getType().getFieldDesc(EnvSource0RGBFieldId)));
+             this->getType().getFieldDesc(EnvSource0RGBFieldId),
+             this));
 
 
     editSField(EnvSource0RGBFieldMask);
@@ -2014,7 +2028,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvSource1RGB   (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvSource1RGB,
-             this->getType().getFieldDesc(EnvSource1RGBFieldId)));
+             this->getType().getFieldDesc(EnvSource1RGBFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2024,7 +2039,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvSource1RGB  (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvSource1RGB,
-             this->getType().getFieldDesc(EnvSource1RGBFieldId)));
+             this->getType().getFieldDesc(EnvSource1RGBFieldId),
+             this));
 
 
     editSField(EnvSource1RGBFieldMask);
@@ -2037,7 +2053,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvSource2RGB   (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvSource2RGB,
-             this->getType().getFieldDesc(EnvSource2RGBFieldId)));
+             this->getType().getFieldDesc(EnvSource2RGBFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2047,7 +2064,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvSource2RGB  (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvSource2RGB,
-             this->getType().getFieldDesc(EnvSource2RGBFieldId)));
+             this->getType().getFieldDesc(EnvSource2RGBFieldId),
+             this));
 
 
     editSField(EnvSource2RGBFieldMask);
@@ -2060,7 +2078,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvSource0Alpha (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvSource0Alpha,
-             this->getType().getFieldDesc(EnvSource0AlphaFieldId)));
+             this->getType().getFieldDesc(EnvSource0AlphaFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2070,7 +2089,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvSource0Alpha(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvSource0Alpha,
-             this->getType().getFieldDesc(EnvSource0AlphaFieldId)));
+             this->getType().getFieldDesc(EnvSource0AlphaFieldId),
+             this));
 
 
     editSField(EnvSource0AlphaFieldMask);
@@ -2083,7 +2103,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvSource1Alpha (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvSource1Alpha,
-             this->getType().getFieldDesc(EnvSource1AlphaFieldId)));
+             this->getType().getFieldDesc(EnvSource1AlphaFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2093,7 +2114,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvSource1Alpha(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvSource1Alpha,
-             this->getType().getFieldDesc(EnvSource1AlphaFieldId)));
+             this->getType().getFieldDesc(EnvSource1AlphaFieldId),
+             this));
 
 
     editSField(EnvSource1AlphaFieldMask);
@@ -2106,7 +2128,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvSource2Alpha (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvSource2Alpha,
-             this->getType().getFieldDesc(EnvSource2AlphaFieldId)));
+             this->getType().getFieldDesc(EnvSource2AlphaFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2116,7 +2139,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvSource2Alpha(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvSource2Alpha,
-             this->getType().getFieldDesc(EnvSource2AlphaFieldId)));
+             this->getType().getFieldDesc(EnvSource2AlphaFieldId),
+             this));
 
 
     editSField(EnvSource2AlphaFieldMask);
@@ -2129,7 +2153,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvOperand0RGB  (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvOperand0RGB,
-             this->getType().getFieldDesc(EnvOperand0RGBFieldId)));
+             this->getType().getFieldDesc(EnvOperand0RGBFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2139,7 +2164,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvOperand0RGB (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvOperand0RGB,
-             this->getType().getFieldDesc(EnvOperand0RGBFieldId)));
+             this->getType().getFieldDesc(EnvOperand0RGBFieldId),
+             this));
 
 
     editSField(EnvOperand0RGBFieldMask);
@@ -2152,7 +2178,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvOperand1RGB  (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvOperand1RGB,
-             this->getType().getFieldDesc(EnvOperand1RGBFieldId)));
+             this->getType().getFieldDesc(EnvOperand1RGBFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2162,7 +2189,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvOperand1RGB (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvOperand1RGB,
-             this->getType().getFieldDesc(EnvOperand1RGBFieldId)));
+             this->getType().getFieldDesc(EnvOperand1RGBFieldId),
+             this));
 
 
     editSField(EnvOperand1RGBFieldMask);
@@ -2175,7 +2203,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvOperand2RGB  (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvOperand2RGB,
-             this->getType().getFieldDesc(EnvOperand2RGBFieldId)));
+             this->getType().getFieldDesc(EnvOperand2RGBFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2185,7 +2214,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvOperand2RGB (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvOperand2RGB,
-             this->getType().getFieldDesc(EnvOperand2RGBFieldId)));
+             this->getType().getFieldDesc(EnvOperand2RGBFieldId),
+             this));
 
 
     editSField(EnvOperand2RGBFieldMask);
@@ -2198,7 +2228,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvOperand0Alpha (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvOperand0Alpha,
-             this->getType().getFieldDesc(EnvOperand0AlphaFieldId)));
+             this->getType().getFieldDesc(EnvOperand0AlphaFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2208,7 +2239,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvOperand0Alpha(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvOperand0Alpha,
-             this->getType().getFieldDesc(EnvOperand0AlphaFieldId)));
+             this->getType().getFieldDesc(EnvOperand0AlphaFieldId),
+             this));
 
 
     editSField(EnvOperand0AlphaFieldMask);
@@ -2221,7 +2253,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvOperand1Alpha (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvOperand1Alpha,
-             this->getType().getFieldDesc(EnvOperand1AlphaFieldId)));
+             this->getType().getFieldDesc(EnvOperand1AlphaFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2231,7 +2264,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvOperand1Alpha(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvOperand1Alpha,
-             this->getType().getFieldDesc(EnvOperand1AlphaFieldId)));
+             this->getType().getFieldDesc(EnvOperand1AlphaFieldId),
+             this));
 
 
     editSField(EnvOperand1AlphaFieldMask);
@@ -2244,7 +2278,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleEnvOperand2Alpha (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfEnvOperand2Alpha,
-             this->getType().getFieldDesc(EnvOperand2AlphaFieldId)));
+             this->getType().getFieldDesc(EnvOperand2AlphaFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2254,7 +2289,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleEnvOperand2Alpha(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfEnvOperand2Alpha,
-             this->getType().getFieldDesc(EnvOperand2AlphaFieldId)));
+             this->getType().getFieldDesc(EnvOperand2AlphaFieldId),
+             this));
 
 
     editSField(EnvOperand2AlphaFieldMask);
@@ -2267,7 +2303,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandlePointSprite     (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfPointSprite,
-             this->getType().getFieldDesc(PointSpriteFieldId)));
+             this->getType().getFieldDesc(PointSpriteFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2277,7 +2314,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandlePointSprite    (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfPointSprite,
-             this->getType().getFieldDesc(PointSpriteFieldId)));
+             this->getType().getFieldDesc(PointSpriteFieldId),
+             this));
 
 
     editSField(PointSpriteFieldMask);
@@ -2290,7 +2328,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderOperation (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfShaderOperation,
-             this->getType().getFieldDesc(ShaderOperationFieldId)));
+             this->getType().getFieldDesc(ShaderOperationFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2300,7 +2339,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderOperation(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfShaderOperation,
-             this->getType().getFieldDesc(ShaderOperationFieldId)));
+             this->getType().getFieldDesc(ShaderOperationFieldId),
+             this));
 
 
     editSField(ShaderOperationFieldMask);
@@ -2313,7 +2353,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderInput     (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfShaderInput,
-             this->getType().getFieldDesc(ShaderInputFieldId)));
+             this->getType().getFieldDesc(ShaderInputFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2323,7 +2364,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderInput    (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfShaderInput,
-             this->getType().getFieldDesc(ShaderInputFieldId)));
+             this->getType().getFieldDesc(ShaderInputFieldId),
+             this));
 
 
     editSField(ShaderInputFieldMask);
@@ -2336,7 +2378,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderOffsetMatrix (void) const
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfShaderOffsetMatrix,
-             this->getType().getFieldDesc(ShaderOffsetMatrixFieldId)));
+             this->getType().getFieldDesc(ShaderOffsetMatrixFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2346,7 +2389,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderOffsetMatrix(void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfShaderOffsetMatrix,
-             this->getType().getFieldDesc(ShaderOffsetMatrixFieldId)));
+             this->getType().getFieldDesc(ShaderOffsetMatrixFieldId),
+             this));
 
 
     editMField(ShaderOffsetMatrixFieldMask, _mfShaderOffsetMatrix);
@@ -2359,7 +2403,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderOffsetScale (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfShaderOffsetScale,
-             this->getType().getFieldDesc(ShaderOffsetScaleFieldId)));
+             this->getType().getFieldDesc(ShaderOffsetScaleFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2369,7 +2414,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderOffsetScale(void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfShaderOffsetScale,
-             this->getType().getFieldDesc(ShaderOffsetScaleFieldId)));
+             this->getType().getFieldDesc(ShaderOffsetScaleFieldId),
+             this));
 
 
     editSField(ShaderOffsetScaleFieldMask);
@@ -2382,7 +2428,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderOffsetBias (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfShaderOffsetBias,
-             this->getType().getFieldDesc(ShaderOffsetBiasFieldId)));
+             this->getType().getFieldDesc(ShaderOffsetBiasFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2392,7 +2439,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderOffsetBias(void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfShaderOffsetBias,
-             this->getType().getFieldDesc(ShaderOffsetBiasFieldId)));
+             this->getType().getFieldDesc(ShaderOffsetBiasFieldId),
+             this));
 
 
     editSField(ShaderOffsetBiasFieldMask);
@@ -2405,7 +2453,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderRGBADotProduct (void) cons
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfShaderRGBADotProduct,
-             this->getType().getFieldDesc(ShaderRGBADotProductFieldId)));
+             this->getType().getFieldDesc(ShaderRGBADotProductFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2415,7 +2464,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderRGBADotProduct(void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfShaderRGBADotProduct,
-             this->getType().getFieldDesc(ShaderRGBADotProductFieldId)));
+             this->getType().getFieldDesc(ShaderRGBADotProductFieldId),
+             this));
 
 
     editSField(ShaderRGBADotProductFieldMask);
@@ -2428,7 +2478,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderCullModes (void) const
     SFUInt8::GetHandlePtr returnValue(
         new  SFUInt8::GetHandle(
              &_sfShaderCullModes,
-             this->getType().getFieldDesc(ShaderCullModesFieldId)));
+             this->getType().getFieldDesc(ShaderCullModesFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2438,7 +2489,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderCullModes(void)
     SFUInt8::EditHandlePtr returnValue(
         new  SFUInt8::EditHandle(
              &_sfShaderCullModes,
-             this->getType().getFieldDesc(ShaderCullModesFieldId)));
+             this->getType().getFieldDesc(ShaderCullModesFieldId),
+             this));
 
 
     editSField(ShaderCullModesFieldMask);
@@ -2451,7 +2503,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleShaderConstEye  (void) const
     SFVec3r::GetHandlePtr returnValue(
         new  SFVec3r::GetHandle(
              &_sfShaderConstEye,
-             this->getType().getFieldDesc(ShaderConstEyeFieldId)));
+             this->getType().getFieldDesc(ShaderConstEyeFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2461,7 +2514,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleShaderConstEye (void)
     SFVec3r::EditHandlePtr returnValue(
         new  SFVec3r::EditHandle(
              &_sfShaderConstEye,
-             this->getType().getFieldDesc(ShaderConstEyeFieldId)));
+             this->getType().getFieldDesc(ShaderConstEyeFieldId),
+             this));
 
 
     editSField(ShaderConstEyeFieldMask);
@@ -2474,7 +2528,8 @@ GetFieldHandlePtr TextureEnvChunkBase::getHandleLodBias         (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfLodBias,
-             this->getType().getFieldDesc(LodBiasFieldId)));
+             this->getType().getFieldDesc(LodBiasFieldId),
+             const_cast<TextureEnvChunkBase *>(this)));
 
     return returnValue;
 }
@@ -2484,7 +2539,8 @@ EditFieldHandlePtr TextureEnvChunkBase::editHandleLodBias        (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfLodBias,
-             this->getType().getFieldDesc(LodBiasFieldId)));
+             this->getType().getFieldDesc(LodBiasFieldId),
+             this));
 
 
     editSField(LodBiasFieldMask);

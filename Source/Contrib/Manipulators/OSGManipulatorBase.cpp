@@ -367,7 +367,7 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     NULL,
     Manipulator::initMethod,
     Manipulator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ManipulatorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Manipulator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1077,7 +1077,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleTarget          (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfTarget,
-             this->getType().getFieldDesc(TargetFieldId)));
+             this->getType().getFieldDesc(TargetFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1087,7 +1088,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleTarget         (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfTarget,
-             this->getType().getFieldDesc(TargetFieldId)));
+             this->getType().getFieldDesc(TargetFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setTarget,
@@ -1103,7 +1105,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleActiveSubHandle (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfActiveSubHandle,
-             this->getType().getFieldDesc(ActiveSubHandleFieldId)));
+             this->getType().getFieldDesc(ActiveSubHandleFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1113,7 +1116,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleActiveSubHandle(void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfActiveSubHandle,
-             this->getType().getFieldDesc(ActiveSubHandleFieldId)));
+             this->getType().getFieldDesc(ActiveSubHandleFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setActiveSubHandle,
@@ -1129,7 +1133,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleLastMousePos    (void) const
     SFPnt2f::GetHandlePtr returnValue(
         new  SFPnt2f::GetHandle(
              &_sfLastMousePos,
-             this->getType().getFieldDesc(LastMousePosFieldId)));
+             this->getType().getFieldDesc(LastMousePosFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1139,7 +1144,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleLastMousePos   (void)
     SFPnt2f::EditHandlePtr returnValue(
         new  SFPnt2f::EditHandle(
              &_sfLastMousePos,
-             this->getType().getFieldDesc(LastMousePosFieldId)));
+             this->getType().getFieldDesc(LastMousePosFieldId),
+             this));
 
 
     editSField(LastMousePosFieldMask);
@@ -1152,7 +1158,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleViewport        (void) const
     SFUnrecViewportPtr::GetHandlePtr returnValue(
         new  SFUnrecViewportPtr::GetHandle(
              &_sfViewport,
-             this->getType().getFieldDesc(ViewportFieldId)));
+             this->getType().getFieldDesc(ViewportFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1162,7 +1169,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleViewport       (void)
     SFUnrecViewportPtr::EditHandlePtr returnValue(
         new  SFUnrecViewportPtr::EditHandle(
              &_sfViewport,
-             this->getType().getFieldDesc(ViewportFieldId)));
+             this->getType().getFieldDesc(ViewportFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setViewport,
@@ -1178,7 +1186,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleActive          (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfActive,
-             this->getType().getFieldDesc(ActiveFieldId)));
+             this->getType().getFieldDesc(ActiveFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1188,7 +1197,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleActive         (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfActive,
-             this->getType().getFieldDesc(ActiveFieldId)));
+             this->getType().getFieldDesc(ActiveFieldId),
+             this));
 
 
     editSField(ActiveFieldMask);
@@ -1201,7 +1211,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleLength          (void) const
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
              &_sfLength,
-             this->getType().getFieldDesc(LengthFieldId)));
+             this->getType().getFieldDesc(LengthFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1211,7 +1222,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleLength         (void)
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
              &_sfLength,
-             this->getType().getFieldDesc(LengthFieldId)));
+             this->getType().getFieldDesc(LengthFieldId),
+             this));
 
 
     editSField(LengthFieldMask);
@@ -1224,7 +1236,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleHandleXNode     (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfHandleXNode,
-             this->getType().getFieldDesc(HandleXNodeFieldId)));
+             this->getType().getFieldDesc(HandleXNodeFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1234,7 +1247,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleHandleXNode    (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfHandleXNode,
-             this->getType().getFieldDesc(HandleXNodeFieldId)));
+             this->getType().getFieldDesc(HandleXNodeFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setHandleXNode,
@@ -1250,7 +1264,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleHandleYNode     (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfHandleYNode,
-             this->getType().getFieldDesc(HandleYNodeFieldId)));
+             this->getType().getFieldDesc(HandleYNodeFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1260,7 +1275,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleHandleYNode    (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfHandleYNode,
-             this->getType().getFieldDesc(HandleYNodeFieldId)));
+             this->getType().getFieldDesc(HandleYNodeFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setHandleYNode,
@@ -1276,7 +1292,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleHandleZNode     (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfHandleZNode,
-             this->getType().getFieldDesc(HandleZNodeFieldId)));
+             this->getType().getFieldDesc(HandleZNodeFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1286,7 +1303,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleHandleZNode    (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfHandleZNode,
-             this->getType().getFieldDesc(HandleZNodeFieldId)));
+             this->getType().getFieldDesc(HandleZNodeFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setHandleZNode,
@@ -1302,7 +1320,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleTransXNode      (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfTransXNode,
-             this->getType().getFieldDesc(TransXNodeFieldId)));
+             this->getType().getFieldDesc(TransXNodeFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1312,7 +1331,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleTransXNode     (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfTransXNode,
-             this->getType().getFieldDesc(TransXNodeFieldId)));
+             this->getType().getFieldDesc(TransXNodeFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setTransXNode,
@@ -1328,7 +1348,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleTransYNode      (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfTransYNode,
-             this->getType().getFieldDesc(TransYNodeFieldId)));
+             this->getType().getFieldDesc(TransYNodeFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1338,7 +1359,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleTransYNode     (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfTransYNode,
-             this->getType().getFieldDesc(TransYNodeFieldId)));
+             this->getType().getFieldDesc(TransYNodeFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setTransYNode,
@@ -1354,7 +1376,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleTransZNode      (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfTransZNode,
-             this->getType().getFieldDesc(TransZNodeFieldId)));
+             this->getType().getFieldDesc(TransZNodeFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1364,7 +1387,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleTransZNode     (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfTransZNode,
-             this->getType().getFieldDesc(TransZNodeFieldId)));
+             this->getType().getFieldDesc(TransZNodeFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setTransZNode,
@@ -1380,7 +1404,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleMaterialX       (void) const
     SFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecMaterialPtr::GetHandle(
              &_sfMaterialX,
-             this->getType().getFieldDesc(MaterialXFieldId)));
+             this->getType().getFieldDesc(MaterialXFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1390,7 +1415,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleMaterialX      (void)
     SFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecMaterialPtr::EditHandle(
              &_sfMaterialX,
-             this->getType().getFieldDesc(MaterialXFieldId)));
+             this->getType().getFieldDesc(MaterialXFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setMaterialX,
@@ -1406,7 +1432,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleMaterialY       (void) const
     SFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecMaterialPtr::GetHandle(
              &_sfMaterialY,
-             this->getType().getFieldDesc(MaterialYFieldId)));
+             this->getType().getFieldDesc(MaterialYFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1416,7 +1443,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleMaterialY      (void)
     SFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecMaterialPtr::EditHandle(
              &_sfMaterialY,
-             this->getType().getFieldDesc(MaterialYFieldId)));
+             this->getType().getFieldDesc(MaterialYFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setMaterialY,
@@ -1432,7 +1460,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleMaterialZ       (void) const
     SFUnrecMaterialPtr::GetHandlePtr returnValue(
         new  SFUnrecMaterialPtr::GetHandle(
              &_sfMaterialZ,
-             this->getType().getFieldDesc(MaterialZFieldId)));
+             this->getType().getFieldDesc(MaterialZFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1442,7 +1471,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleMaterialZ      (void)
     SFUnrecMaterialPtr::EditHandlePtr returnValue(
         new  SFUnrecMaterialPtr::EditHandle(
              &_sfMaterialZ,
-             this->getType().getFieldDesc(MaterialZFieldId)));
+             this->getType().getFieldDesc(MaterialZFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setMaterialZ,
@@ -1458,7 +1488,8 @@ GetFieldHandlePtr ManipulatorBase::getHandleAxisLinesN      (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfAxisLinesN,
-             this->getType().getFieldDesc(AxisLinesNFieldId)));
+             this->getType().getFieldDesc(AxisLinesNFieldId),
+             const_cast<ManipulatorBase *>(this)));
 
     return returnValue;
 }
@@ -1468,7 +1499,8 @@ EditFieldHandlePtr ManipulatorBase::editHandleAxisLinesN     (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfAxisLinesN,
-             this->getType().getFieldDesc(AxisLinesNFieldId)));
+             this->getType().getFieldDesc(AxisLinesNFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Manipulator::setAxisLinesN,

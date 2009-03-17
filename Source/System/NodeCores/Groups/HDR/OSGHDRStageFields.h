@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class HDRStage;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! HDRStagePtr
-
 OSG_GEN_CONTAINERPTR(HDRStage);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<HDRStage *> :
     public FieldTraitsFCPtrBase<HDRStage *>
@@ -93,19 +84,23 @@ struct FieldTraits<HDRStage *> :
     typedef FieldTraits<HDRStage *>  Self;
 
     enum                        { Convertible = NotConvertible };
+
+    static OSG_GROUP_DLLMAPPING DataType &getType(void);
+
 };
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<HDRStagePtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

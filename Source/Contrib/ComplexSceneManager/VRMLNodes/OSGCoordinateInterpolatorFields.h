@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CoordinateInterpolator;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CoordinateInterpolatorPtr
-
 OSG_GEN_CONTAINERPTR(CoordinateInterpolator);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribCSMFieldTraits
+    \ingroup GrpLibOSGContribCSM
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CoordinateInterpolator *> :
     public FieldTraitsFCPtrBase<CoordinateInterpolator *>
@@ -93,19 +84,23 @@ struct FieldTraits<CoordinateInterpolator *> :
     typedef FieldTraits<CoordinateInterpolator *>  Self;
 
     enum                        { Convertible = NotConvertible };
+
+    static OSG_CONTRIBCSM_DLLMAPPING DataType &getType(void);
+
 };
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CoordinateInterpolatorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

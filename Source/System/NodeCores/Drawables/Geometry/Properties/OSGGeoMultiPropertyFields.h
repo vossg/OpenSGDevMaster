@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class GeoMultiProperty;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! GeoMultiPropertyPtr
-
 OSG_GEN_CONTAINERPTR(GeoMultiProperty);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpDrawableFieldTraits
+    \ingroup GrpLibOSGDrawable
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<GeoMultiProperty *> :
     public FieldTraitsFCPtrBase<GeoMultiProperty *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<GeoMultiProperty *, 0>::getMName<NoRefCountPolicy>(void
     return "MFUnrefdGeoMultiPropertyPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GeoMultiPropertyPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<GeoMultiProperty *,
                       RecordedRefCountPolicy  > SFRecGeoMultiPropertyPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<GeoMultiProperty *,
                       UnrecordedRefCountPolicy> SFUnrecGeoMultiPropertyPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<GeoMultiProperty *,
                       WeakRefCountPolicy      > SFWeakGeoMultiPropertyPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<GeoMultiProperty *,
                       NoRefCountPolicy        > SFUncountedGeoMultiPropertyPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<GeoMultiProperty *,
                       RecordedRefCountPolicy  > MFRecGeoMultiPropertyPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<GeoMultiProperty *,
                       UnrecordedRefCountPolicy> MFUnrecGeoMultiPropertyPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<GeoMultiProperty *,
                       WeakRefCountPolicy      > MFWeakGeoMultiPropertyPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<GeoMultiProperty *,
                       NoRefCountPolicy        > MFUncountedGeoMultiPropertyPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFRecGeoMultiPropertyPtr : 
+    public PointerSField<GeoMultiProperty *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUnrecGeoMultiPropertyPtr : 
+    public PointerSField<GeoMultiProperty *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFWeakGeoMultiPropertyPtr :
+    public PointerSField<GeoMultiProperty *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUncountedGeoMultiPropertyPtr :
+    public PointerSField<GeoMultiProperty *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFRecGeoMultiPropertyPtr :
+    public PointerMField<GeoMultiProperty *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUnrecGeoMultiPropertyPtr :
+    public PointerMField<GeoMultiProperty *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFWeakGeoMultiPropertyPtr :
+    public PointerMField<GeoMultiProperty *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUncountedGeoMultiPropertyPtr :
+    public PointerMField<GeoMultiProperty *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -150,7 +150,7 @@ StatisticsForegroundBase::TypeObject StatisticsForegroundBase::_type(
     NULL,
     StatisticsForeground::initMethod,
     StatisticsForeground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&StatisticsForegroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&StatisticsForeground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -358,7 +358,8 @@ GetFieldHandlePtr StatisticsForegroundBase::getHandleElementIDs      (void) cons
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfElementIDs,
-             this->getType().getFieldDesc(ElementIDsFieldId)));
+             this->getType().getFieldDesc(ElementIDsFieldId),
+             const_cast<StatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -368,7 +369,8 @@ EditFieldHandlePtr StatisticsForegroundBase::editHandleElementIDs     (void)
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfElementIDs,
-             this->getType().getFieldDesc(ElementIDsFieldId)));
+             this->getType().getFieldDesc(ElementIDsFieldId),
+             this));
 
 
     editMField(ElementIDsFieldMask, _mfElementIDs);
@@ -381,7 +383,8 @@ GetFieldHandlePtr StatisticsForegroundBase::getHandleCollector       (void) cons
     SFStatCollectorP::GetHandlePtr returnValue(
         new  SFStatCollectorP::GetHandle(
              &_sfCollector,
-             this->getType().getFieldDesc(CollectorFieldId)));
+             this->getType().getFieldDesc(CollectorFieldId),
+             const_cast<StatisticsForegroundBase *>(this)));
 
     return returnValue;
 }
@@ -391,7 +394,8 @@ EditFieldHandlePtr StatisticsForegroundBase::editHandleCollector      (void)
     SFStatCollectorP::EditHandlePtr returnValue(
         new  SFStatCollectorP::EditHandle(
              &_sfCollector,
-             this->getType().getFieldDesc(CollectorFieldId)));
+             this->getType().getFieldDesc(CollectorFieldId),
+             this));
 
 
     editSField(CollectorFieldMask);

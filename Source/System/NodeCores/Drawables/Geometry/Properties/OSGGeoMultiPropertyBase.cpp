@@ -211,7 +211,7 @@ GeoMultiPropertyBase::TypeObject GeoMultiPropertyBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeoMultiPropertyBase::createEmptyLocal),
     GeoMultiProperty::initMethod,
     GeoMultiProperty::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&GeoMultiPropertyBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&GeoMultiProperty::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -705,7 +705,8 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleContainer       (void) const
     SFUnrecGeoMultiPropertyDataPtr::GetHandlePtr returnValue(
         new  SFUnrecGeoMultiPropertyDataPtr::GetHandle(
              &_sfContainer,
-             this->getType().getFieldDesc(ContainerFieldId)));
+             this->getType().getFieldDesc(ContainerFieldId),
+             const_cast<GeoMultiPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -715,7 +716,8 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleContainer      (void)
     SFUnrecGeoMultiPropertyDataPtr::EditHandlePtr returnValue(
         new  SFUnrecGeoMultiPropertyDataPtr::EditHandle(
              &_sfContainer,
-             this->getType().getFieldDesc(ContainerFieldId)));
+             this->getType().getFieldDesc(ContainerFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&GeoMultiProperty::setContainer,
@@ -731,7 +733,8 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleOffset          (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfOffset,
-             this->getType().getFieldDesc(OffsetFieldId)));
+             this->getType().getFieldDesc(OffsetFieldId),
+             const_cast<GeoMultiPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -741,7 +744,8 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleOffset         (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfOffset,
-             this->getType().getFieldDesc(OffsetFieldId)));
+             this->getType().getFieldDesc(OffsetFieldId),
+             this));
 
 
     editSField(OffsetFieldMask);
@@ -754,7 +758,8 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleIFormat         (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfIFormat,
-             this->getType().getFieldDesc(IFormatFieldId)));
+             this->getType().getFieldDesc(IFormatFieldId),
+             const_cast<GeoMultiPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -764,7 +769,8 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleIFormat        (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfIFormat,
-             this->getType().getFieldDesc(IFormatFieldId)));
+             this->getType().getFieldDesc(IFormatFieldId),
+             this));
 
 
     editSField(IFormatFieldMask);
@@ -777,7 +783,8 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleIDimension      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfIDimension,
-             this->getType().getFieldDesc(IDimensionFieldId)));
+             this->getType().getFieldDesc(IDimensionFieldId),
+             const_cast<GeoMultiPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -787,7 +794,8 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleIDimension     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfIDimension,
-             this->getType().getFieldDesc(IDimensionFieldId)));
+             this->getType().getFieldDesc(IDimensionFieldId),
+             this));
 
 
     editSField(IDimensionFieldMask);
@@ -800,7 +808,8 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleISize           (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfISize,
-             this->getType().getFieldDesc(ISizeFieldId)));
+             this->getType().getFieldDesc(ISizeFieldId),
+             const_cast<GeoMultiPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -810,7 +819,8 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleISize          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfISize,
-             this->getType().getFieldDesc(ISizeFieldId)));
+             this->getType().getFieldDesc(ISizeFieldId),
+             this));
 
 
     editSField(ISizeFieldMask);
@@ -823,7 +833,8 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleINormalize      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfINormalize,
-             this->getType().getFieldDesc(INormalizeFieldId)));
+             this->getType().getFieldDesc(INormalizeFieldId),
+             const_cast<GeoMultiPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -833,7 +844,8 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleINormalize     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfINormalize,
-             this->getType().getFieldDesc(INormalizeFieldId)));
+             this->getType().getFieldDesc(INormalizeFieldId),
+             this));
 
 
     editSField(INormalizeFieldMask);
@@ -846,7 +858,8 @@ GetFieldHandlePtr GeoMultiPropertyBase::getHandleIStride         (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfIStride,
-             this->getType().getFieldDesc(IStrideFieldId)));
+             this->getType().getFieldDesc(IStrideFieldId),
+             const_cast<GeoMultiPropertyBase *>(this)));
 
     return returnValue;
 }
@@ -856,7 +869,8 @@ EditFieldHandlePtr GeoMultiPropertyBase::editHandleIStride        (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfIStride,
-             this->getType().getFieldDesc(IStrideFieldId)));
+             this->getType().getFieldDesc(IStrideFieldId),
+             this));
 
 
     editSField(IStrideFieldMask);

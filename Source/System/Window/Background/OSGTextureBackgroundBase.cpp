@@ -214,7 +214,7 @@ TextureBackgroundBase::TypeObject TextureBackgroundBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureBackgroundBase::createEmptyLocal),
     TextureBackground::initMethod,
     TextureBackground::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TextureBackgroundBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TextureBackground::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -695,7 +695,8 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleColor           (void) const
     SFColor4f::GetHandlePtr returnValue(
         new  SFColor4f::GetHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             const_cast<TextureBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -705,7 +706,8 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleColor          (void)
     SFColor4f::EditHandlePtr returnValue(
         new  SFColor4f::EditHandle(
              &_sfColor,
-             this->getType().getFieldDesc(ColorFieldId)));
+             this->getType().getFieldDesc(ColorFieldId),
+             this));
 
 
     editSField(ColorFieldMask);
@@ -718,7 +720,8 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleTexture         (void) const
     SFUnrecTextureBaseChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::GetHandle(
              &_sfTexture,
-             this->getType().getFieldDesc(TextureFieldId)));
+             this->getType().getFieldDesc(TextureFieldId),
+             const_cast<TextureBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -728,7 +731,8 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleTexture        (void)
     SFUnrecTextureBaseChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureBaseChunkPtr::EditHandle(
              &_sfTexture,
-             this->getType().getFieldDesc(TextureFieldId)));
+             this->getType().getFieldDesc(TextureFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&TextureBackground::setTexture,
@@ -744,7 +748,8 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleTexCoords       (void) const
     MFPnt2f::GetHandlePtr returnValue(
         new  MFPnt2f::GetHandle(
              &_mfTexCoords,
-             this->getType().getFieldDesc(TexCoordsFieldId)));
+             this->getType().getFieldDesc(TexCoordsFieldId),
+             const_cast<TextureBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -754,7 +759,8 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleTexCoords      (void)
     MFPnt2f::EditHandlePtr returnValue(
         new  MFPnt2f::EditHandle(
              &_mfTexCoords,
-             this->getType().getFieldDesc(TexCoordsFieldId)));
+             this->getType().getFieldDesc(TexCoordsFieldId),
+             this));
 
 
     editMField(TexCoordsFieldMask, _mfTexCoords);
@@ -767,7 +773,8 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleRadialDistortion (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfRadialDistortion,
-             this->getType().getFieldDesc(RadialDistortionFieldId)));
+             this->getType().getFieldDesc(RadialDistortionFieldId),
+             const_cast<TextureBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -777,7 +784,8 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleRadialDistortion(void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfRadialDistortion,
-             this->getType().getFieldDesc(RadialDistortionFieldId)));
+             this->getType().getFieldDesc(RadialDistortionFieldId),
+             this));
 
 
     editSField(RadialDistortionFieldMask);
@@ -790,7 +798,8 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleCenterOfDistortion (void) cons
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfCenterOfDistortion,
-             this->getType().getFieldDesc(CenterOfDistortionFieldId)));
+             this->getType().getFieldDesc(CenterOfDistortionFieldId),
+             const_cast<TextureBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -800,7 +809,8 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleCenterOfDistortion(void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfCenterOfDistortion,
-             this->getType().getFieldDesc(CenterOfDistortionFieldId)));
+             this->getType().getFieldDesc(CenterOfDistortionFieldId),
+             this));
 
 
     editSField(CenterOfDistortionFieldMask);
@@ -813,7 +823,8 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleHor             (void) const
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
              &_sfHor,
-             this->getType().getFieldDesc(HorFieldId)));
+             this->getType().getFieldDesc(HorFieldId),
+             const_cast<TextureBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -823,7 +834,8 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleHor            (void)
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
              &_sfHor,
-             this->getType().getFieldDesc(HorFieldId)));
+             this->getType().getFieldDesc(HorFieldId),
+             this));
 
 
     editSField(HorFieldMask);
@@ -836,7 +848,8 @@ GetFieldHandlePtr TextureBackgroundBase::getHandleVert            (void) const
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
              &_sfVert,
-             this->getType().getFieldDesc(VertFieldId)));
+             this->getType().getFieldDesc(VertFieldId),
+             const_cast<TextureBackgroundBase *>(this)));
 
     return returnValue;
 }
@@ -846,7 +859,8 @@ EditFieldHandlePtr TextureBackgroundBase::editHandleVert           (void)
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
              &_sfVert,
-             this->getType().getFieldDesc(VertFieldId)));
+             this->getType().getFieldDesc(VertFieldId),
+             this));
 
 
     editSField(VertFieldMask);

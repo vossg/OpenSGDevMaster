@@ -251,7 +251,8 @@ GetFieldHandlePtr ShaderProcVariableBase::getHandleDependency      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfDependency,
-             this->getType().getFieldDesc(DependencyFieldId)));
+             this->getType().getFieldDesc(DependencyFieldId),
+             const_cast<ShaderProcVariableBase *>(this)));
 
     return returnValue;
 }
@@ -261,7 +262,8 @@ EditFieldHandlePtr ShaderProcVariableBase::editHandleDependency     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfDependency,
-             this->getType().getFieldDesc(DependencyFieldId)));
+             this->getType().getFieldDesc(DependencyFieldId),
+             this));
 
 
     editSField(DependencyFieldMask);

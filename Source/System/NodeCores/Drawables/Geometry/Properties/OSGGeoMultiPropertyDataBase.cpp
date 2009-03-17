@@ -130,7 +130,7 @@ GeoMultiPropertyDataBase::TypeObject GeoMultiPropertyDataBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeoMultiPropertyDataBase::createEmptyLocal),
     GeoMultiPropertyData::initMethod,
     GeoMultiPropertyData::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&GeoMultiPropertyDataBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&GeoMultiPropertyData::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -415,7 +415,8 @@ GetFieldHandlePtr GeoMultiPropertyDataBase::getHandleIData           (void) cons
     MFUInt8::GetHandlePtr returnValue(
         new  MFUInt8::GetHandle(
              &_mfIData,
-             this->getType().getFieldDesc(IDataFieldId)));
+             this->getType().getFieldDesc(IDataFieldId),
+             const_cast<GeoMultiPropertyDataBase *>(this)));
 
     return returnValue;
 }
@@ -425,7 +426,8 @@ EditFieldHandlePtr GeoMultiPropertyDataBase::editHandleIData          (void)
     MFUInt8::EditHandlePtr returnValue(
         new  MFUInt8::EditHandle(
              &_mfIData,
-             this->getType().getFieldDesc(IDataFieldId)));
+             this->getType().getFieldDesc(IDataFieldId),
+             this));
 
 
     editMField(IDataFieldMask, _mfIData);
@@ -438,7 +440,8 @@ GetFieldHandlePtr GeoMultiPropertyDataBase::getHandleGLId            (void) cons
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             const_cast<GeoMultiPropertyDataBase *>(this)));
 
     return returnValue;
 }
@@ -448,7 +451,8 @@ EditFieldHandlePtr GeoMultiPropertyDataBase::editHandleGLId           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             this));
 
 
     editSField(GLIdFieldMask);

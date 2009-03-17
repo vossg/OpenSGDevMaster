@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CallbackAlgorithm;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CallbackAlgorithmPtr
-
 OSG_GEN_CONTAINERPTR(CallbackAlgorithm);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpGroupFieldTraits
+    \ingroup GrpLibOSGGroup
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CallbackAlgorithm *> :
     public FieldTraitsFCPtrBase<CallbackAlgorithm *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CallbackAlgorithm *, 0>::getMName<NoRefCountPolicy>(voi
     return "MFUnrefdCallbackAlgorithmPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CallbackAlgorithmPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
                       RecordedRefCountPolicy  > SFRecCallbackAlgorithmPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
                       UnrecordedRefCountPolicy> SFUnrecCallbackAlgorithmPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
                       WeakRefCountPolicy      > SFWeakCallbackAlgorithmPtr;
+/*! \ingroup GrpGroupFieldSFields */
 typedef PointerSField<CallbackAlgorithm *,
                       NoRefCountPolicy        > SFUncountedCallbackAlgorithmPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpGroupFieldMulti */
-
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
                       RecordedRefCountPolicy  > MFRecCallbackAlgorithmPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
                       UnrecordedRefCountPolicy> MFUnrecCallbackAlgorithmPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
                       WeakRefCountPolicy      > MFWeakCallbackAlgorithmPtr;
+/*! \ingroup GrpGroupFieldMFields */
 typedef PointerMField<CallbackAlgorithm *,
                       NoRefCountPolicy        > MFUncountedCallbackAlgorithmPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFRecCallbackAlgorithmPtr : 
+    public PointerSField<CallbackAlgorithm *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUnrecCallbackAlgorithmPtr : 
+    public PointerSField<CallbackAlgorithm *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFWeakCallbackAlgorithmPtr :
+    public PointerSField<CallbackAlgorithm *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldSFields \ingroup GrpLibOSGGroup */
+struct SFUncountedCallbackAlgorithmPtr :
+    public PointerSField<CallbackAlgorithm *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFRecCallbackAlgorithmPtr :
+    public PointerMField<CallbackAlgorithm *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUnrecCallbackAlgorithmPtr :
+    public PointerMField<CallbackAlgorithm *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFWeakCallbackAlgorithmPtr :
+    public PointerMField<CallbackAlgorithm *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpGroupFieldMFields \ingroup GrpLibOSGGroup */
+struct MFUncountedCallbackAlgorithmPtr :
+    public PointerMField<CallbackAlgorithm *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

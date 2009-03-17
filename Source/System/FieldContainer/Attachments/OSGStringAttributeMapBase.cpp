@@ -132,7 +132,7 @@ StringAttributeMapBase::TypeObject StringAttributeMapBase::_type(
     reinterpret_cast<PrototypeCreateF>(&StringAttributeMapBase::createEmptyLocal),
     StringAttributeMap::initMethod,
     StringAttributeMap::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&StringAttributeMapBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&StringAttributeMap::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -419,7 +419,8 @@ GetFieldHandlePtr StringAttributeMapBase::getHandleKeys            (void) const
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfKeys,
-             this->getType().getFieldDesc(KeysFieldId)));
+             this->getType().getFieldDesc(KeysFieldId),
+             const_cast<StringAttributeMapBase *>(this)));
 
     return returnValue;
 }
@@ -429,7 +430,8 @@ EditFieldHandlePtr StringAttributeMapBase::editHandleKeys           (void)
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfKeys,
-             this->getType().getFieldDesc(KeysFieldId)));
+             this->getType().getFieldDesc(KeysFieldId),
+             this));
 
 
     editMField(KeysFieldMask, _mfKeys);
@@ -442,7 +444,8 @@ GetFieldHandlePtr StringAttributeMapBase::getHandleValues          (void) const
     MFString::GetHandlePtr returnValue(
         new  MFString::GetHandle(
              &_mfValues,
-             this->getType().getFieldDesc(ValuesFieldId)));
+             this->getType().getFieldDesc(ValuesFieldId),
+             const_cast<StringAttributeMapBase *>(this)));
 
     return returnValue;
 }
@@ -452,7 +455,8 @@ EditFieldHandlePtr StringAttributeMapBase::editHandleValues         (void)
     MFString::EditHandlePtr returnValue(
         new  MFString::EditHandle(
              &_mfValues,
-             this->getType().getFieldDesc(ValuesFieldId)));
+             this->getType().getFieldDesc(ValuesFieldId),
+             this));
 
 
     editMField(ValuesFieldMask, _mfValues);

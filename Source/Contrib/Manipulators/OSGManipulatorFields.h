@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Manipulator;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ManipulatorPtr
-
 OSG_GEN_CONTAINERPTR(Manipulator);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpContribGUIFieldTraits
+    \ingroup GrpLibOSGContribGUI
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Manipulator *> :
     public FieldTraitsFCPtrBase<Manipulator *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Manipulator *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdManipulatorPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ManipulatorPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribGUIFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpContribGUIFieldSFields */
 typedef PointerSField<Manipulator *,
                       RecordedRefCountPolicy  > SFRecManipulatorPtr;
+/*! \ingroup GrpContribGUIFieldSFields */
 typedef PointerSField<Manipulator *,
                       UnrecordedRefCountPolicy> SFUnrecManipulatorPtr;
+/*! \ingroup GrpContribGUIFieldSFields */
 typedef PointerSField<Manipulator *,
                       WeakRefCountPolicy      > SFWeakManipulatorPtr;
+/*! \ingroup GrpContribGUIFieldSFields */
 typedef PointerSField<Manipulator *,
                       NoRefCountPolicy        > SFUncountedManipulatorPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpContribGUIFieldMulti */
-
+/*! \ingroup GrpContribGUIFieldMFields */
 typedef PointerMField<Manipulator *,
                       RecordedRefCountPolicy  > MFRecManipulatorPtr;
+/*! \ingroup GrpContribGUIFieldMFields */
 typedef PointerMField<Manipulator *,
                       UnrecordedRefCountPolicy> MFUnrecManipulatorPtr;
+/*! \ingroup GrpContribGUIFieldMFields */
 typedef PointerMField<Manipulator *,
                       WeakRefCountPolicy      > MFWeakManipulatorPtr;
+/*! \ingroup GrpContribGUIFieldMFields */
 typedef PointerMField<Manipulator *,
                       NoRefCountPolicy        > MFUncountedManipulatorPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpContribGUIFieldSFields \ingroup GrpLibOSGContribGUI */
+struct SFRecManipulatorPtr : 
+    public PointerSField<Manipulator *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpContribGUIFieldSFields \ingroup GrpLibOSGContribGUI */
+struct SFUnrecManipulatorPtr : 
+    public PointerSField<Manipulator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribGUIFieldSFields \ingroup GrpLibOSGContribGUI */
+struct SFWeakManipulatorPtr :
+    public PointerSField<Manipulator *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpContribGUIFieldSFields \ingroup GrpLibOSGContribGUI */
+struct SFUncountedManipulatorPtr :
+    public PointerSField<Manipulator *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpContribGUIFieldMFields \ingroup GrpLibOSGContribGUI */
+struct MFRecManipulatorPtr :
+    public PointerMField<Manipulator *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpContribGUIFieldMFields \ingroup GrpLibOSGContribGUI */
+struct MFUnrecManipulatorPtr :
+    public PointerMField<Manipulator *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpContribGUIFieldMFields \ingroup GrpLibOSGContribGUI */
+struct MFWeakManipulatorPtr :
+    public PointerMField<Manipulator *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpContribGUIFieldMFields \ingroup GrpLibOSGContribGUI */
+struct MFUncountedManipulatorPtr :
+    public PointerMField<Manipulator *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -340,7 +340,7 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ParticlesBase::createEmptyLocal),
     Particles::initMethod,
     Particles::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ParticlesBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Particles::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1196,7 +1196,8 @@ GetFieldHandlePtr ParticlesBase::getHandleMode            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfMode,
-             this->getType().getFieldDesc(ModeFieldId)));
+             this->getType().getFieldDesc(ModeFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1206,7 +1207,8 @@ EditFieldHandlePtr ParticlesBase::editHandleMode           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfMode,
-             this->getType().getFieldDesc(ModeFieldId)));
+             this->getType().getFieldDesc(ModeFieldId),
+             this));
 
 
     editSField(ModeFieldMask);
@@ -1219,7 +1221,8 @@ GetFieldHandlePtr ParticlesBase::getHandlePositions       (void) const
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1229,7 +1232,8 @@ EditFieldHandlePtr ParticlesBase::editHandlePositions      (void)
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfPositions,
-             this->getType().getFieldDesc(PositionsFieldId)));
+             this->getType().getFieldDesc(PositionsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Particles::setPositions,
@@ -1245,7 +1249,8 @@ GetFieldHandlePtr ParticlesBase::getHandleSizes           (void) const
     MFVec3f::GetHandlePtr returnValue(
         new  MFVec3f::GetHandle(
              &_mfSizes,
-             this->getType().getFieldDesc(SizesFieldId)));
+             this->getType().getFieldDesc(SizesFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1255,7 +1260,8 @@ EditFieldHandlePtr ParticlesBase::editHandleSizes          (void)
     MFVec3f::EditHandlePtr returnValue(
         new  MFVec3f::EditHandle(
              &_mfSizes,
-             this->getType().getFieldDesc(SizesFieldId)));
+             this->getType().getFieldDesc(SizesFieldId),
+             this));
 
 
     editMField(SizesFieldMask, _mfSizes);
@@ -1268,7 +1274,8 @@ GetFieldHandlePtr ParticlesBase::getHandleSecPositions    (void) const
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfSecPositions,
-             this->getType().getFieldDesc(SecPositionsFieldId)));
+             this->getType().getFieldDesc(SecPositionsFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1278,7 +1285,8 @@ EditFieldHandlePtr ParticlesBase::editHandleSecPositions   (void)
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfSecPositions,
-             this->getType().getFieldDesc(SecPositionsFieldId)));
+             this->getType().getFieldDesc(SecPositionsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Particles::setSecPositions,
@@ -1294,7 +1302,8 @@ GetFieldHandlePtr ParticlesBase::getHandleColors          (void) const
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfColors,
-             this->getType().getFieldDesc(ColorsFieldId)));
+             this->getType().getFieldDesc(ColorsFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1304,7 +1313,8 @@ EditFieldHandlePtr ParticlesBase::editHandleColors         (void)
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfColors,
-             this->getType().getFieldDesc(ColorsFieldId)));
+             this->getType().getFieldDesc(ColorsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Particles::setColors,
@@ -1320,7 +1330,8 @@ GetFieldHandlePtr ParticlesBase::getHandleNormals         (void) const
     SFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_sfNormals,
-             this->getType().getFieldDesc(NormalsFieldId)));
+             this->getType().getFieldDesc(NormalsFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1330,7 +1341,8 @@ EditFieldHandlePtr ParticlesBase::editHandleNormals        (void)
     SFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_sfNormals,
-             this->getType().getFieldDesc(NormalsFieldId)));
+             this->getType().getFieldDesc(NormalsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Particles::setNormals,
@@ -1346,7 +1358,8 @@ GetFieldHandlePtr ParticlesBase::getHandleIndices         (void) const
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfIndices,
-             this->getType().getFieldDesc(IndicesFieldId)));
+             this->getType().getFieldDesc(IndicesFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1356,7 +1369,8 @@ EditFieldHandlePtr ParticlesBase::editHandleIndices        (void)
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfIndices,
-             this->getType().getFieldDesc(IndicesFieldId)));
+             this->getType().getFieldDesc(IndicesFieldId),
+             this));
 
 
     editMField(IndicesFieldMask, _mfIndices);
@@ -1369,7 +1383,8 @@ GetFieldHandlePtr ParticlesBase::getHandleTextureZs       (void) const
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfTextureZs,
-             this->getType().getFieldDesc(TextureZsFieldId)));
+             this->getType().getFieldDesc(TextureZsFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1379,7 +1394,8 @@ EditFieldHandlePtr ParticlesBase::editHandleTextureZs      (void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfTextureZs,
-             this->getType().getFieldDesc(TextureZsFieldId)));
+             this->getType().getFieldDesc(TextureZsFieldId),
+             this));
 
 
     editMField(TextureZsFieldMask, _mfTextureZs);
@@ -1392,7 +1408,8 @@ GetFieldHandlePtr ParticlesBase::getHandleDrawOrder       (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfDrawOrder,
-             this->getType().getFieldDesc(DrawOrderFieldId)));
+             this->getType().getFieldDesc(DrawOrderFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1402,7 +1419,8 @@ EditFieldHandlePtr ParticlesBase::editHandleDrawOrder      (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfDrawOrder,
-             this->getType().getFieldDesc(DrawOrderFieldId)));
+             this->getType().getFieldDesc(DrawOrderFieldId),
+             this));
 
 
     editSField(DrawOrderFieldMask);
@@ -1415,7 +1433,8 @@ GetFieldHandlePtr ParticlesBase::getHandleDynamic         (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfDynamic,
-             this->getType().getFieldDesc(DynamicFieldId)));
+             this->getType().getFieldDesc(DynamicFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1425,7 +1444,8 @@ EditFieldHandlePtr ParticlesBase::editHandleDynamic        (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfDynamic,
-             this->getType().getFieldDesc(DynamicFieldId)));
+             this->getType().getFieldDesc(DynamicFieldId),
+             this));
 
 
     editSField(DynamicFieldMask);
@@ -1438,7 +1458,8 @@ GetFieldHandlePtr ParticlesBase::getHandlePump            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfPump,
-             this->getType().getFieldDesc(PumpFieldId)));
+             this->getType().getFieldDesc(PumpFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1448,7 +1469,8 @@ EditFieldHandlePtr ParticlesBase::editHandlePump           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfPump,
-             this->getType().getFieldDesc(PumpFieldId)));
+             this->getType().getFieldDesc(PumpFieldId),
+             this));
 
 
     editSField(PumpFieldMask);
@@ -1461,7 +1483,8 @@ GetFieldHandlePtr ParticlesBase::getHandleBsp             (void) const
     SFParticleBSPTree::GetHandlePtr returnValue(
         new  SFParticleBSPTree::GetHandle(
              &_sfBsp,
-             this->getType().getFieldDesc(BspFieldId)));
+             this->getType().getFieldDesc(BspFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1471,7 +1494,8 @@ EditFieldHandlePtr ParticlesBase::editHandleBsp            (void)
     SFParticleBSPTree::EditHandlePtr returnValue(
         new  SFParticleBSPTree::EditHandle(
              &_sfBsp,
-             this->getType().getFieldDesc(BspFieldId)));
+             this->getType().getFieldDesc(BspFieldId),
+             this));
 
 
     editSField(BspFieldMask);
@@ -1484,7 +1508,8 @@ GetFieldHandlePtr ParticlesBase::getHandleNumParticles    (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfNumParticles,
-             this->getType().getFieldDesc(NumParticlesFieldId)));
+             this->getType().getFieldDesc(NumParticlesFieldId),
+             const_cast<ParticlesBase *>(this)));
 
     return returnValue;
 }
@@ -1494,7 +1519,8 @@ EditFieldHandlePtr ParticlesBase::editHandleNumParticles   (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfNumParticles,
-             this->getType().getFieldDesc(NumParticlesFieldId)));
+             this->getType().getFieldDesc(NumParticlesFieldId),
+             this));
 
 
     editSField(NumParticlesFieldMask);

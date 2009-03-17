@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void SepiaComposerBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 SepiaComposerBase::TypeObject SepiaComposerBase::_type(
     SepiaComposerBase::getClassname(),
@@ -87,7 +96,7 @@ SepiaComposerBase::TypeObject SepiaComposerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SepiaComposerBase::createEmptyLocal),
     SepiaComposer::initMethod,
     SepiaComposer::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&SepiaComposer::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -339,5 +348,6 @@ void SepiaComposerBase::resolveLinks(void)
 DataType FieldTraits<SepiaComposer *>::_type("SepiaComposerPtr", "ImageComposerPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(SepiaComposer *)
 
 OSG_END_NAMESPACE

@@ -114,7 +114,7 @@ ShaderProgramFileBase::TypeObject ShaderProgramFileBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderProgramFileBase::createEmptyLocal),
     ShaderProgramFile::initMethod,
     ShaderProgramFile::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramFileBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderProgramFile::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -364,7 +364,8 @@ GetFieldHandlePtr ShaderProgramFileBase::getHandleProgramUrl      (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfProgramUrl,
-             this->getType().getFieldDesc(ProgramUrlFieldId)));
+             this->getType().getFieldDesc(ProgramUrlFieldId),
+             const_cast<ShaderProgramFileBase *>(this)));
 
     return returnValue;
 }
@@ -374,7 +375,8 @@ EditFieldHandlePtr ShaderProgramFileBase::editHandleProgramUrl     (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfProgramUrl,
-             this->getType().getFieldDesc(ProgramUrlFieldId)));
+             this->getType().getFieldDesc(ProgramUrlFieldId),
+             this));
 
 
     editSField(ProgramUrlFieldMask);
@@ -427,5 +429,6 @@ void ShaderProgramFileBase::resolveLinks(void)
 DataType FieldTraits<ShaderProgramFile *>::_type("ShaderProgramFilePtr", "ShaderProgramPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ShaderProgramFile *)
 
 OSG_END_NAMESPACE

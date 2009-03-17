@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class StereoBufferViewport;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! StereoBufferViewportPtr
-
 OSG_GEN_CONTAINERPTR(StereoBufferViewport);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<StereoBufferViewport *> :
     public FieldTraitsFCPtrBase<StereoBufferViewport *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<StereoBufferViewport *, 0>::getMName<NoRefCountPolicy>(
     return "MFUnrefdStereoBufferViewportPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<StereoBufferViewportPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
                       RecordedRefCountPolicy  > SFRecStereoBufferViewportPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
                       UnrecordedRefCountPolicy> SFUnrecStereoBufferViewportPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
                       WeakRefCountPolicy      > SFWeakStereoBufferViewportPtr;
+/*! \ingroup GrpWindowFieldSFields */
 typedef PointerSField<StereoBufferViewport *,
                       NoRefCountPolicy        > SFUncountedStereoBufferViewportPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
                       RecordedRefCountPolicy  > MFRecStereoBufferViewportPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
                       UnrecordedRefCountPolicy> MFUnrecStereoBufferViewportPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
                       WeakRefCountPolicy      > MFWeakStereoBufferViewportPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<StereoBufferViewport *,
                       NoRefCountPolicy        > MFUncountedStereoBufferViewportPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFRecStereoBufferViewportPtr : 
+    public PointerSField<StereoBufferViewport *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUnrecStereoBufferViewportPtr : 
+    public PointerSField<StereoBufferViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFWeakStereoBufferViewportPtr :
+    public PointerSField<StereoBufferViewport *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldSFields \ingroup GrpLibOSGWindow */
+struct SFUncountedStereoBufferViewportPtr :
+    public PointerSField<StereoBufferViewport *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecStereoBufferViewportPtr :
+    public PointerMField<StereoBufferViewport *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecStereoBufferViewportPtr :
+    public PointerMField<StereoBufferViewport *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakStereoBufferViewportPtr :
+    public PointerMField<StereoBufferViewport *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedStereoBufferViewportPtr :
+    public PointerMField<StereoBufferViewport *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

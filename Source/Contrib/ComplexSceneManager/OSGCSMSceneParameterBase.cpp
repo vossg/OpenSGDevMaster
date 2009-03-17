@@ -179,7 +179,7 @@ CSMSceneParameterBase::TypeObject CSMSceneParameterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMSceneParameterBase::createEmptyLocal),
     CSMSceneParameter::initMethod,
     CSMSceneParameter::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CSMSceneParameterBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CSMSceneParameter::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -555,7 +555,8 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleSceneRef        (void) const
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfSceneRef,
-             this->getType().getFieldDesc(SceneRefFieldId)));
+             this->getType().getFieldDesc(SceneRefFieldId),
+             const_cast<CSMSceneParameterBase *>(this)));
 
     return returnValue;
 }
@@ -565,7 +566,8 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneRef       (void)
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfSceneRef,
-             this->getType().getFieldDesc(SceneRefFieldId)));
+             this->getType().getFieldDesc(SceneRefFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&CSMSceneParameter::setSceneRef,
@@ -581,7 +583,8 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleDistScale       (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfDistScale,
-             this->getType().getFieldDesc(DistScaleFieldId)));
+             this->getType().getFieldDesc(DistScaleFieldId),
+             const_cast<CSMSceneParameterBase *>(this)));
 
     return returnValue;
 }
@@ -591,7 +594,8 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleDistScale      (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfDistScale,
-             this->getType().getFieldDesc(DistScaleFieldId)));
+             this->getType().getFieldDesc(DistScaleFieldId),
+             this));
 
 
     editSField(DistScaleFieldMask);
@@ -604,7 +608,8 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleSceneDiag       (void) const
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
              &_sfSceneDiag,
-             this->getType().getFieldDesc(SceneDiagFieldId)));
+             this->getType().getFieldDesc(SceneDiagFieldId),
+             const_cast<CSMSceneParameterBase *>(this)));
 
     return returnValue;
 }
@@ -614,7 +619,8 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneDiag      (void)
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
              &_sfSceneDiag,
-             this->getType().getFieldDesc(SceneDiagFieldId)));
+             this->getType().getFieldDesc(SceneDiagFieldId),
+             this));
 
 
     editSField(SceneDiagFieldMask);
@@ -627,7 +633,8 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleInitViewPos     (void) const
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
              &_sfInitViewPos,
-             this->getType().getFieldDesc(InitViewPosFieldId)));
+             this->getType().getFieldDesc(InitViewPosFieldId),
+             const_cast<CSMSceneParameterBase *>(this)));
 
     return returnValue;
 }
@@ -637,7 +644,8 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleInitViewPos    (void)
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
              &_sfInitViewPos,
-             this->getType().getFieldDesc(InitViewPosFieldId)));
+             this->getType().getFieldDesc(InitViewPosFieldId),
+             this));
 
 
     editSField(InitViewPosFieldMask);
@@ -650,7 +658,8 @@ GetFieldHandlePtr CSMSceneParameterBase::getHandleSceneCenter     (void) const
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
              &_sfSceneCenter,
-             this->getType().getFieldDesc(SceneCenterFieldId)));
+             this->getType().getFieldDesc(SceneCenterFieldId),
+             const_cast<CSMSceneParameterBase *>(this)));
 
     return returnValue;
 }
@@ -660,7 +669,8 @@ EditFieldHandlePtr CSMSceneParameterBase::editHandleSceneCenter    (void)
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
              &_sfSceneCenter,
-             this->getType().getFieldDesc(SceneCenterFieldId)));
+             this->getType().getFieldDesc(SceneCenterFieldId),
+             this));
 
 
     editSField(SceneCenterFieldMask);

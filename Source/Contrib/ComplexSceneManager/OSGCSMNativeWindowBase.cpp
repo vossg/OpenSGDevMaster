@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void CSMNativeWindowBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 CSMNativeWindowBase::TypeObject CSMNativeWindowBase::_type(
     CSMNativeWindowBase::getClassname(),
@@ -87,7 +96,7 @@ CSMNativeWindowBase::TypeObject CSMNativeWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CSMNativeWindowBase::createEmptyLocal),
     CSMNativeWindow::initMethod,
     CSMNativeWindow::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&CSMNativeWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

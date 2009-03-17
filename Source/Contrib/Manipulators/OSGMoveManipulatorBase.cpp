@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     The MoveHandle is used for moving objects. It consist of three axis which can be picked and translated and one center box to translate freely in 3D.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void MoveManipulatorBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 MoveManipulatorBase::TypeObject MoveManipulatorBase::_type(
     MoveManipulatorBase::getClassname(),
@@ -87,7 +96,7 @@ MoveManipulatorBase::TypeObject MoveManipulatorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&MoveManipulatorBase::createEmptyLocal),
     MoveManipulator::initMethod,
     MoveManipulator::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&MoveManipulator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -340,5 +349,6 @@ void MoveManipulatorBase::resolveLinks(void)
 DataType FieldTraits<MoveManipulator *>::_type("MoveManipulatorPtr", "ManipulatorPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(MoveManipulator *)
 
 OSG_END_NAMESPACE

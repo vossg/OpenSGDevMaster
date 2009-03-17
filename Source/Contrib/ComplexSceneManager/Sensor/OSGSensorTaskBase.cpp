@@ -115,7 +115,7 @@ SensorTaskBase::TypeObject SensorTaskBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SensorTaskBase::createEmptyLocal),
     SensorTask::initMethod,
     SensorTask::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SensorTaskBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SensorTask::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -413,7 +413,8 @@ GetFieldHandlePtr SensorTaskBase::getHandleSensors         (void) const
     MFUncountedSensorPtr::GetHandlePtr returnValue(
         new  MFUncountedSensorPtr::GetHandle(
              &_mfSensors,
-             this->getType().getFieldDesc(SensorsFieldId)));
+             this->getType().getFieldDesc(SensorsFieldId),
+             const_cast<SensorTaskBase *>(this)));
 
     return returnValue;
 }
@@ -423,7 +424,8 @@ EditFieldHandlePtr SensorTaskBase::editHandleSensors        (void)
     MFUncountedSensorPtr::EditHandlePtr returnValue(
         new  MFUncountedSensorPtr::EditHandle(
              &_mfSensors,
-             this->getType().getFieldDesc(SensorsFieldId)));
+             this->getType().getFieldDesc(SensorsFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&SensorTask::pushToSensors,

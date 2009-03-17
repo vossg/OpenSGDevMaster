@@ -146,7 +146,7 @@ CounterBase::TypeObject CounterBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CounterBase::createEmptyLocal),
     Counter::initMethod,
     Counter::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CounterBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Counter::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -472,7 +472,8 @@ GetFieldHandlePtr CounterBase::getHandleIncTrigger      (void) const
     SFOSGAny::GetHandlePtr returnValue(
         new  SFOSGAny::GetHandle(
              &_sfIncTrigger,
-             this->getType().getFieldDesc(IncTriggerFieldId)));
+             this->getType().getFieldDesc(IncTriggerFieldId),
+             const_cast<CounterBase *>(this)));
 
     return returnValue;
 }
@@ -482,7 +483,8 @@ EditFieldHandlePtr CounterBase::editHandleIncTrigger     (void)
     SFOSGAny::EditHandlePtr returnValue(
         new  SFOSGAny::EditHandle(
              &_sfIncTrigger,
-             this->getType().getFieldDesc(IncTriggerFieldId)));
+             this->getType().getFieldDesc(IncTriggerFieldId),
+             this));
 
 
     editSField(IncTriggerFieldMask);
@@ -495,7 +497,8 @@ GetFieldHandlePtr CounterBase::getHandleDecTrigger      (void) const
     SFOSGAny::GetHandlePtr returnValue(
         new  SFOSGAny::GetHandle(
              &_sfDecTrigger,
-             this->getType().getFieldDesc(DecTriggerFieldId)));
+             this->getType().getFieldDesc(DecTriggerFieldId),
+             const_cast<CounterBase *>(this)));
 
     return returnValue;
 }
@@ -505,7 +508,8 @@ EditFieldHandlePtr CounterBase::editHandleDecTrigger     (void)
     SFOSGAny::EditHandlePtr returnValue(
         new  SFOSGAny::EditHandle(
              &_sfDecTrigger,
-             this->getType().getFieldDesc(DecTriggerFieldId)));
+             this->getType().getFieldDesc(DecTriggerFieldId),
+             this));
 
 
     editSField(DecTriggerFieldMask);
@@ -518,7 +522,8 @@ GetFieldHandlePtr CounterBase::getHandleResetTrigger    (void) const
     SFOSGAny::GetHandlePtr returnValue(
         new  SFOSGAny::GetHandle(
              &_sfResetTrigger,
-             this->getType().getFieldDesc(ResetTriggerFieldId)));
+             this->getType().getFieldDesc(ResetTriggerFieldId),
+             const_cast<CounterBase *>(this)));
 
     return returnValue;
 }
@@ -528,7 +533,8 @@ EditFieldHandlePtr CounterBase::editHandleResetTrigger   (void)
     SFOSGAny::EditHandlePtr returnValue(
         new  SFOSGAny::EditHandle(
              &_sfResetTrigger,
-             this->getType().getFieldDesc(ResetTriggerFieldId)));
+             this->getType().getFieldDesc(ResetTriggerFieldId),
+             this));
 
 
     editSField(ResetTriggerFieldMask);
@@ -581,5 +587,6 @@ void CounterBase::resolveLinks(void)
 DataType FieldTraits<Counter *>::_type("CounterPtr", "NodeCorePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(Counter *)
 
 OSG_END_NAMESPACE

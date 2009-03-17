@@ -115,7 +115,7 @@ ShadeModelChunkBase::TypeObject ShadeModelChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShadeModelChunkBase::createEmptyLocal),
     ShadeModelChunk::initMethod,
     ShadeModelChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShadeModelChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShadeModelChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -367,7 +367,8 @@ GetFieldHandlePtr ShadeModelChunkBase::getHandleShadeModel      (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfShadeModel,
-             this->getType().getFieldDesc(ShadeModelFieldId)));
+             this->getType().getFieldDesc(ShadeModelFieldId),
+             const_cast<ShadeModelChunkBase *>(this)));
 
     return returnValue;
 }
@@ -377,7 +378,8 @@ EditFieldHandlePtr ShadeModelChunkBase::editHandleShadeModel     (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfShadeModel,
-             this->getType().getFieldDesc(ShadeModelFieldId)));
+             this->getType().getFieldDesc(ShadeModelFieldId),
+             this));
 
 
     editSField(ShadeModelFieldMask);
@@ -430,5 +432,6 @@ void ShadeModelChunkBase::resolveLinks(void)
 DataType FieldTraits<ShadeModelChunk *>::_type("ShadeModelChunkPtr", "StateChunkPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(ShadeModelChunk *)
 
 OSG_END_NAMESPACE

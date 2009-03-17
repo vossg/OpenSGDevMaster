@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SkyBackground;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SkyBackgroundPtr
-
 OSG_GEN_CONTAINERPTR(SkyBackground);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowFieldTraits
+    \ingroup GrpLibOSGWindow
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SkyBackground *> :
     public FieldTraitsFCPtrBase<SkyBackground *>
@@ -127,29 +118,48 @@ const Char8 *FieldTraits<SkyBackground *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdSkyBackgroundPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SkyBackgroundPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowFieldMulti */
-
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<SkyBackground *,
                       RecordedRefCountPolicy  > MFRecSkyBackgroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<SkyBackground *,
                       UnrecordedRefCountPolicy> MFUnrecSkyBackgroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<SkyBackground *,
                       WeakRefCountPolicy      > MFWeakSkyBackgroundPtr;
+/*! \ingroup GrpWindowFieldMFields */
 typedef PointerMField<SkyBackground *,
                       NoRefCountPolicy        > MFUncountedSkyBackgroundPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFRecSkyBackgroundPtr :
+    public PointerMField<SkyBackground *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUnrecSkyBackgroundPtr :
+    public PointerMField<SkyBackground *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFWeakSkyBackgroundPtr :
+    public PointerMField<SkyBackground *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowFieldMFields \ingroup GrpLibOSGWindow */
+struct MFUncountedSkyBackgroundPtr :
+    public PointerMField<SkyBackground *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

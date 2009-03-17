@@ -392,7 +392,7 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShadowStageBase::createEmptyLocal),
     ShadowStage::initMethod,
     ShadowStage::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShadowStageBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShadowStage::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -1405,7 +1405,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleOffBias         (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfOffBias,
-             this->getType().getFieldDesc(OffBiasFieldId)));
+             this->getType().getFieldDesc(OffBiasFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1415,7 +1416,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleOffBias        (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfOffBias,
-             this->getType().getFieldDesc(OffBiasFieldId)));
+             this->getType().getFieldDesc(OffBiasFieldId),
+             this));
 
 
     editSField(OffBiasFieldMask);
@@ -1428,7 +1430,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleOffFactor       (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfOffFactor,
-             this->getType().getFieldDesc(OffFactorFieldId)));
+             this->getType().getFieldDesc(OffFactorFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1438,7 +1441,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleOffFactor      (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfOffFactor,
-             this->getType().getFieldDesc(OffFactorFieldId)));
+             this->getType().getFieldDesc(OffFactorFieldId),
+             this));
 
 
     editSField(OffFactorFieldMask);
@@ -1451,7 +1455,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleMapSize         (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfMapSize,
-             this->getType().getFieldDesc(MapSizeFieldId)));
+             this->getType().getFieldDesc(MapSizeFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1461,7 +1466,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleMapSize        (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfMapSize,
-             this->getType().getFieldDesc(MapSizeFieldId)));
+             this->getType().getFieldDesc(MapSizeFieldId),
+             this));
 
 
     editSField(MapSizeFieldMask);
@@ -1474,7 +1480,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleLightNodes      (void) const
     MFUnrecNodePtr::GetHandlePtr returnValue(
         new  MFUnrecNodePtr::GetHandle(
              &_mfLightNodes,
-             this->getType().getFieldDesc(LightNodesFieldId)));
+             this->getType().getFieldDesc(LightNodesFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1484,7 +1491,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleLightNodes     (void)
     MFUnrecNodePtr::EditHandlePtr returnValue(
         new  MFUnrecNodePtr::EditHandle(
              &_mfLightNodes,
-             this->getType().getFieldDesc(LightNodesFieldId)));
+             this->getType().getFieldDesc(LightNodesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ShadowStage::pushToLightNodes,
@@ -1509,7 +1517,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleExcludeNodes    (void) const
     MFUnrecNodePtr::GetHandlePtr returnValue(
         new  MFUnrecNodePtr::GetHandle(
              &_mfExcludeNodes,
-             this->getType().getFieldDesc(ExcludeNodesFieldId)));
+             this->getType().getFieldDesc(ExcludeNodesFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1519,7 +1528,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleExcludeNodes   (void)
     MFUnrecNodePtr::EditHandlePtr returnValue(
         new  MFUnrecNodePtr::EditHandle(
              &_mfExcludeNodes,
-             this->getType().getFieldDesc(ExcludeNodesFieldId)));
+             this->getType().getFieldDesc(ExcludeNodesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ShadowStage::pushToExcludeNodes,
@@ -1544,7 +1554,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleMapAutoUpdate   (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfMapAutoUpdate,
-             this->getType().getFieldDesc(MapAutoUpdateFieldId)));
+             this->getType().getFieldDesc(MapAutoUpdateFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1554,7 +1565,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleMapAutoUpdate  (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfMapAutoUpdate,
-             this->getType().getFieldDesc(MapAutoUpdateFieldId)));
+             this->getType().getFieldDesc(MapAutoUpdateFieldId),
+             this));
 
 
     editSField(MapAutoUpdateFieldMask);
@@ -1567,7 +1579,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleShadowMode      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfShadowMode,
-             this->getType().getFieldDesc(ShadowModeFieldId)));
+             this->getType().getFieldDesc(ShadowModeFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1577,7 +1590,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleShadowMode     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfShadowMode,
-             this->getType().getFieldDesc(ShadowModeFieldId)));
+             this->getType().getFieldDesc(ShadowModeFieldId),
+             this));
 
 
     editSField(ShadowModeFieldMask);
@@ -1590,7 +1604,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleShadowSmoothness (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfShadowSmoothness,
-             this->getType().getFieldDesc(ShadowSmoothnessFieldId)));
+             this->getType().getFieldDesc(ShadowSmoothnessFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1600,7 +1615,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleShadowSmoothness(void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfShadowSmoothness,
-             this->getType().getFieldDesc(ShadowSmoothnessFieldId)));
+             this->getType().getFieldDesc(ShadowSmoothnessFieldId),
+             this));
 
 
     editSField(ShadowSmoothnessFieldMask);
@@ -1613,7 +1629,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleShadowOn        (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfShadowOn,
-             this->getType().getFieldDesc(ShadowOnFieldId)));
+             this->getType().getFieldDesc(ShadowOnFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1623,7 +1640,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleShadowOn       (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfShadowOn,
-             this->getType().getFieldDesc(ShadowOnFieldId)));
+             this->getType().getFieldDesc(ShadowOnFieldId),
+             this));
 
 
     editSField(ShadowOnFieldMask);
@@ -1636,7 +1654,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleAutoSearchForLights (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAutoSearchForLights,
-             this->getType().getFieldDesc(AutoSearchForLightsFieldId)));
+             this->getType().getFieldDesc(AutoSearchForLightsFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1646,7 +1665,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleAutoSearchForLights(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAutoSearchForLights,
-             this->getType().getFieldDesc(AutoSearchForLightsFieldId)));
+             this->getType().getFieldDesc(AutoSearchForLightsFieldId),
+             this));
 
 
     editSField(AutoSearchForLightsFieldMask);
@@ -1659,7 +1679,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleGlobalShadowIntensity (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfGlobalShadowIntensity,
-             this->getType().getFieldDesc(GlobalShadowIntensityFieldId)));
+             this->getType().getFieldDesc(GlobalShadowIntensityFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1669,7 +1690,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleGlobalShadowIntensity(void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfGlobalShadowIntensity,
-             this->getType().getFieldDesc(GlobalShadowIntensityFieldId)));
+             this->getType().getFieldDesc(GlobalShadowIntensityFieldId),
+             this));
 
 
     editSField(GlobalShadowIntensityFieldMask);
@@ -1682,7 +1704,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleFboOn           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfFboOn,
-             this->getType().getFieldDesc(FboOnFieldId)));
+             this->getType().getFieldDesc(FboOnFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1692,7 +1715,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleFboOn          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfFboOn,
-             this->getType().getFieldDesc(FboOnFieldId)));
+             this->getType().getFieldDesc(FboOnFieldId),
+             this));
 
 
     editSField(FboOnFieldMask);
@@ -1705,7 +1729,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleAutoExcludeTransparentNodes (void) c
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAutoExcludeTransparentNodes,
-             this->getType().getFieldDesc(AutoExcludeTransparentNodesFieldId)));
+             this->getType().getFieldDesc(AutoExcludeTransparentNodesFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1715,7 +1740,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleAutoExcludeTransparentNodes(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAutoExcludeTransparentNodes,
-             this->getType().getFieldDesc(AutoExcludeTransparentNodesFieldId)));
+             this->getType().getFieldDesc(AutoExcludeTransparentNodesFieldId),
+             this));
 
 
     editSField(AutoExcludeTransparentNodesFieldMask);
@@ -1728,7 +1754,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleDisableOccludedLights (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfDisableOccludedLights,
-             this->getType().getFieldDesc(DisableOccludedLightsFieldId)));
+             this->getType().getFieldDesc(DisableOccludedLightsFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1738,7 +1765,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleDisableOccludedLights(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfDisableOccludedLights,
-             this->getType().getFieldDesc(DisableOccludedLightsFieldId)));
+             this->getType().getFieldDesc(DisableOccludedLightsFieldId),
+             this));
 
 
     editSField(DisableOccludedLightsFieldMask);
@@ -1751,7 +1779,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleRed             (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfRed,
-             this->getType().getFieldDesc(RedFieldId)));
+             this->getType().getFieldDesc(RedFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1761,7 +1790,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleRed            (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfRed,
-             this->getType().getFieldDesc(RedFieldId)));
+             this->getType().getFieldDesc(RedFieldId),
+             this));
 
 
     editSField(RedFieldMask);
@@ -1774,7 +1804,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleBlue            (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfBlue,
-             this->getType().getFieldDesc(BlueFieldId)));
+             this->getType().getFieldDesc(BlueFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1784,7 +1815,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleBlue           (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfBlue,
-             this->getType().getFieldDesc(BlueFieldId)));
+             this->getType().getFieldDesc(BlueFieldId),
+             this));
 
 
     editSField(BlueFieldMask);
@@ -1797,7 +1829,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleGreen           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfGreen,
-             this->getType().getFieldDesc(GreenFieldId)));
+             this->getType().getFieldDesc(GreenFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1807,7 +1840,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleGreen          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfGreen,
-             this->getType().getFieldDesc(GreenFieldId)));
+             this->getType().getFieldDesc(GreenFieldId),
+             this));
 
 
     editSField(GreenFieldMask);
@@ -1820,7 +1854,8 @@ GetFieldHandlePtr ShadowStageBase::getHandleAlpha           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             const_cast<ShadowStageBase *>(this)));
 
     return returnValue;
 }
@@ -1830,7 +1865,8 @@ EditFieldHandlePtr ShadowStageBase::editHandleAlpha          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             this));
 
 
     editSField(AlphaFieldMask);

@@ -115,7 +115,7 @@ ChunkBlockBase::TypeObject ChunkBlockBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ChunkBlockBase::createEmptyLocal),
     ChunkBlock::initMethod,
     ChunkBlock::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ChunkBlockBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ChunkBlock::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -378,7 +378,8 @@ GetFieldHandlePtr ChunkBlockBase::getHandleChunks          (void) const
     MFUnrecStateChunkPtr::GetHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::GetHandle(
              &_mfChunks,
-             this->getType().getFieldDesc(ChunksFieldId)));
+             this->getType().getFieldDesc(ChunksFieldId),
+             const_cast<ChunkBlockBase *>(this)));
 
     return returnValue;
 }
@@ -388,7 +389,8 @@ EditFieldHandlePtr ChunkBlockBase::editHandleChunks         (void)
     MFUnrecStateChunkPtr::EditHandlePtr returnValue(
         new  MFUnrecStateChunkPtr::EditHandle(
              &_mfChunks,
-             this->getType().getFieldDesc(ChunksFieldId)));
+             this->getType().getFieldDesc(ChunksFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ChunkBlock::pushToChunks,

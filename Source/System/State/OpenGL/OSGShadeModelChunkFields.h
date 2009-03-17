@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShadeModelChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShadeModelChunkPtr
-
 OSG_GEN_CONTAINERPTR(ShadeModelChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShadeModelChunk *> :
     public FieldTraitsFCPtrBase<ShadeModelChunk *>
@@ -93,19 +84,23 @@ struct FieldTraits<ShadeModelChunk *> :
     typedef FieldTraits<ShadeModelChunk *>  Self;
 
     enum                        { Convertible = NotConvertible };
+
+    static OSG_STATE_DLLMAPPING DataType &getType(void);
+
 };
 
 
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShadeModelChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 
 
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

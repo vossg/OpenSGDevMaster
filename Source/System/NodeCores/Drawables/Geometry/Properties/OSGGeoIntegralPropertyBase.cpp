@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     Parent class for integral (i.e. one dimensional unsigned integer typed) properties.
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void GeoIntegralPropertyBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(
     GeoIntegralPropertyBase::getClassname(),
@@ -87,7 +96,7 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(
     NULL,
     GeoIntegralProperty::initMethod,
     GeoIntegralProperty::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&GeoIntegralProperty::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"

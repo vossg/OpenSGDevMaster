@@ -225,7 +225,7 @@ ProjectionCameraDecoratorBase::TypeObject ProjectionCameraDecoratorBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ProjectionCameraDecoratorBase::createEmptyLocal),
     ProjectionCameraDecorator::initMethod,
     ProjectionCameraDecorator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ProjectionCameraDecoratorBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ProjectionCameraDecorator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -725,7 +725,8 @@ GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleUser            (void)
     SFUnrecNodePtr::GetHandlePtr returnValue(
         new  SFUnrecNodePtr::GetHandle(
              &_sfUser,
-             this->getType().getFieldDesc(UserFieldId)));
+             this->getType().getFieldDesc(UserFieldId),
+             const_cast<ProjectionCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -735,7 +736,8 @@ EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleUser           (void
     SFUnrecNodePtr::EditHandlePtr returnValue(
         new  SFUnrecNodePtr::EditHandle(
              &_sfUser,
-             this->getType().getFieldDesc(UserFieldId)));
+             this->getType().getFieldDesc(UserFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&ProjectionCameraDecorator::setUser,
@@ -751,7 +753,8 @@ GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleSurface         (void)
     MFPnt3f::GetHandlePtr returnValue(
         new  MFPnt3f::GetHandle(
              &_mfSurface,
-             this->getType().getFieldDesc(SurfaceFieldId)));
+             this->getType().getFieldDesc(SurfaceFieldId),
+             const_cast<ProjectionCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -761,7 +764,8 @@ EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleSurface        (void
     MFPnt3f::EditHandlePtr returnValue(
         new  MFPnt3f::EditHandle(
              &_mfSurface,
-             this->getType().getFieldDesc(SurfaceFieldId)));
+             this->getType().getFieldDesc(SurfaceFieldId),
+             this));
 
 
     editMField(SurfaceFieldMask, _mfSurface);
@@ -774,7 +778,8 @@ GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleLeft            (void)
     SFPlane::GetHandlePtr returnValue(
         new  SFPlane::GetHandle(
              &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId)));
+             this->getType().getFieldDesc(LeftFieldId),
+             const_cast<ProjectionCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -784,7 +789,8 @@ EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleLeft           (void
     SFPlane::EditHandlePtr returnValue(
         new  SFPlane::EditHandle(
              &_sfLeft,
-             this->getType().getFieldDesc(LeftFieldId)));
+             this->getType().getFieldDesc(LeftFieldId),
+             this));
 
 
     editSField(LeftFieldMask);
@@ -797,7 +803,8 @@ GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleBottom          (void)
     SFPlane::GetHandlePtr returnValue(
         new  SFPlane::GetHandle(
              &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId)));
+             this->getType().getFieldDesc(BottomFieldId),
+             const_cast<ProjectionCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -807,7 +814,8 @@ EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleBottom         (void
     SFPlane::EditHandlePtr returnValue(
         new  SFPlane::EditHandle(
              &_sfBottom,
-             this->getType().getFieldDesc(BottomFieldId)));
+             this->getType().getFieldDesc(BottomFieldId),
+             this));
 
 
     editSField(BottomFieldMask);
@@ -820,7 +828,8 @@ GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleNormal          (void)
     SFPlane::GetHandlePtr returnValue(
         new  SFPlane::GetHandle(
              &_sfNormal,
-             this->getType().getFieldDesc(NormalFieldId)));
+             this->getType().getFieldDesc(NormalFieldId),
+             const_cast<ProjectionCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -830,7 +839,8 @@ EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleNormal         (void
     SFPlane::EditHandlePtr returnValue(
         new  SFPlane::EditHandle(
              &_sfNormal,
-             this->getType().getFieldDesc(NormalFieldId)));
+             this->getType().getFieldDesc(NormalFieldId),
+             this));
 
 
     editSField(NormalFieldMask);
@@ -843,7 +853,8 @@ GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleWidth           (void)
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfWidth,
-             this->getType().getFieldDesc(WidthFieldId)));
+             this->getType().getFieldDesc(WidthFieldId),
+             const_cast<ProjectionCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -853,7 +864,8 @@ EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleWidth          (void
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfWidth,
-             this->getType().getFieldDesc(WidthFieldId)));
+             this->getType().getFieldDesc(WidthFieldId),
+             this));
 
 
     editSField(WidthFieldMask);
@@ -866,7 +878,8 @@ GetFieldHandlePtr ProjectionCameraDecoratorBase::getHandleHeight          (void)
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfHeight,
-             this->getType().getFieldDesc(HeightFieldId)));
+             this->getType().getFieldDesc(HeightFieldId),
+             const_cast<ProjectionCameraDecoratorBase *>(this)));
 
     return returnValue;
 }
@@ -876,7 +889,8 @@ EditFieldHandlePtr ProjectionCameraDecoratorBase::editHandleHeight         (void
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfHeight,
-             this->getType().getFieldDesc(HeightFieldId)));
+             this->getType().getFieldDesc(HeightFieldId),
+             this));
 
 
     editSField(HeightFieldMask);

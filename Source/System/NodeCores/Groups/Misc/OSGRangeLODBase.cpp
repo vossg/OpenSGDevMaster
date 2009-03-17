@@ -146,7 +146,7 @@ RangeLODBase::TypeObject RangeLODBase::_type(
     reinterpret_cast<PrototypeCreateF>(&RangeLODBase::createEmptyLocal),
     RangeLOD::initMethod,
     RangeLOD::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&RangeLODBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&RangeLOD::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -466,7 +466,8 @@ GetFieldHandlePtr RangeLODBase::getHandleCenter          (void) const
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
              &_sfCenter,
-             this->getType().getFieldDesc(CenterFieldId)));
+             this->getType().getFieldDesc(CenterFieldId),
+             const_cast<RangeLODBase *>(this)));
 
     return returnValue;
 }
@@ -476,7 +477,8 @@ EditFieldHandlePtr RangeLODBase::editHandleCenter         (void)
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
              &_sfCenter,
-             this->getType().getFieldDesc(CenterFieldId)));
+             this->getType().getFieldDesc(CenterFieldId),
+             this));
 
 
     editSField(CenterFieldMask);
@@ -489,7 +491,8 @@ GetFieldHandlePtr RangeLODBase::getHandleSwitchIn        (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfSwitchIn,
-             this->getType().getFieldDesc(SwitchInFieldId)));
+             this->getType().getFieldDesc(SwitchInFieldId),
+             const_cast<RangeLODBase *>(this)));
 
     return returnValue;
 }
@@ -499,7 +502,8 @@ EditFieldHandlePtr RangeLODBase::editHandleSwitchIn       (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfSwitchIn,
-             this->getType().getFieldDesc(SwitchInFieldId)));
+             this->getType().getFieldDesc(SwitchInFieldId),
+             this));
 
 
     editSField(SwitchInFieldMask);
@@ -512,7 +516,8 @@ GetFieldHandlePtr RangeLODBase::getHandleSwitchOut       (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfSwitchOut,
-             this->getType().getFieldDesc(SwitchOutFieldId)));
+             this->getType().getFieldDesc(SwitchOutFieldId),
+             const_cast<RangeLODBase *>(this)));
 
     return returnValue;
 }
@@ -522,7 +527,8 @@ EditFieldHandlePtr RangeLODBase::editHandleSwitchOut      (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfSwitchOut,
-             this->getType().getFieldDesc(SwitchOutFieldId)));
+             this->getType().getFieldDesc(SwitchOutFieldId),
+             this));
 
 
     editSField(SwitchOutFieldMask);
@@ -575,5 +581,6 @@ void RangeLODBase::resolveLinks(void)
 DataType FieldTraits<RangeLOD *>::_type("RangeLODPtr", "GroupPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(RangeLOD *)
 
 OSG_END_NAMESPACE

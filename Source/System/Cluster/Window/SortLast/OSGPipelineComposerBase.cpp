@@ -162,7 +162,7 @@ PipelineComposerBase::TypeObject PipelineComposerBase::_type(
     reinterpret_cast<PrototypeCreateF>(&PipelineComposerBase::createEmptyLocal),
     PipelineComposer::initMethod,
     PipelineComposer::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&PipelineComposerBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&PipelineComposer::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -518,7 +518,8 @@ GetFieldHandlePtr PipelineComposerBase::getHandleShort           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfShort,
-             this->getType().getFieldDesc(ShortFieldId)));
+             this->getType().getFieldDesc(ShortFieldId),
+             const_cast<PipelineComposerBase *>(this)));
 
     return returnValue;
 }
@@ -528,7 +529,8 @@ EditFieldHandlePtr PipelineComposerBase::editHandleShort          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfShort,
-             this->getType().getFieldDesc(ShortFieldId)));
+             this->getType().getFieldDesc(ShortFieldId),
+             this));
 
 
     editSField(ShortFieldMask);
@@ -541,7 +543,8 @@ GetFieldHandlePtr PipelineComposerBase::getHandleAlpha           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             const_cast<PipelineComposerBase *>(this)));
 
     return returnValue;
 }
@@ -551,7 +554,8 @@ EditFieldHandlePtr PipelineComposerBase::editHandleAlpha          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfAlpha,
-             this->getType().getFieldDesc(AlphaFieldId)));
+             this->getType().getFieldDesc(AlphaFieldId),
+             this));
 
 
     editSField(AlphaFieldMask);
@@ -564,7 +568,8 @@ GetFieldHandlePtr PipelineComposerBase::getHandleTileSize        (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfTileSize,
-             this->getType().getFieldDesc(TileSizeFieldId)));
+             this->getType().getFieldDesc(TileSizeFieldId),
+             const_cast<PipelineComposerBase *>(this)));
 
     return returnValue;
 }
@@ -574,7 +579,8 @@ EditFieldHandlePtr PipelineComposerBase::editHandleTileSize       (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfTileSize,
-             this->getType().getFieldDesc(TileSizeFieldId)));
+             this->getType().getFieldDesc(TileSizeFieldId),
+             this));
 
 
     editSField(TileSizeFieldMask);
@@ -587,7 +593,8 @@ GetFieldHandlePtr PipelineComposerBase::getHandlePipelined       (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfPipelined,
-             this->getType().getFieldDesc(PipelinedFieldId)));
+             this->getType().getFieldDesc(PipelinedFieldId),
+             const_cast<PipelineComposerBase *>(this)));
 
     return returnValue;
 }
@@ -597,7 +604,8 @@ EditFieldHandlePtr PipelineComposerBase::editHandlePipelined      (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfPipelined,
-             this->getType().getFieldDesc(PipelinedFieldId)));
+             this->getType().getFieldDesc(PipelinedFieldId),
+             this));
 
 
     editSField(PipelinedFieldMask);
@@ -650,5 +658,6 @@ void PipelineComposerBase::resolveLinks(void)
 DataType FieldTraits<PipelineComposer *>::_type("PipelineComposerPtr", "ImageComposerPtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(PipelineComposer *)
 
 OSG_END_NAMESPACE

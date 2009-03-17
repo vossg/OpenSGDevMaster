@@ -185,7 +185,7 @@ TextureBufferBase::TypeObject TextureBufferBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TextureBufferBase::createEmptyLocal),
     TextureBuffer::initMethod,
     TextureBuffer::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TextureBufferBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TextureBuffer::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -599,7 +599,8 @@ GetFieldHandlePtr TextureBufferBase::getHandleTexture         (void) const
     SFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::GetHandle(
              &_sfTexture,
-             this->getType().getFieldDesc(TextureFieldId)));
+             this->getType().getFieldDesc(TextureFieldId),
+             const_cast<TextureBufferBase *>(this)));
 
     return returnValue;
 }
@@ -609,7 +610,8 @@ EditFieldHandlePtr TextureBufferBase::editHandleTexture        (void)
     SFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecTextureObjChunkPtr::EditHandle(
              &_sfTexture,
-             this->getType().getFieldDesc(TextureFieldId)));
+             this->getType().getFieldDesc(TextureFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&TextureBuffer::setTexture,
@@ -625,7 +627,8 @@ GetFieldHandlePtr TextureBufferBase::getHandleTexTarget       (void) const
     SFGLenum::GetHandlePtr returnValue(
         new  SFGLenum::GetHandle(
              &_sfTexTarget,
-             this->getType().getFieldDesc(TexTargetFieldId)));
+             this->getType().getFieldDesc(TexTargetFieldId),
+             const_cast<TextureBufferBase *>(this)));
 
     return returnValue;
 }
@@ -635,7 +638,8 @@ EditFieldHandlePtr TextureBufferBase::editHandleTexTarget      (void)
     SFGLenum::EditHandlePtr returnValue(
         new  SFGLenum::EditHandle(
              &_sfTexTarget,
-             this->getType().getFieldDesc(TexTargetFieldId)));
+             this->getType().getFieldDesc(TexTargetFieldId),
+             this));
 
 
     editSField(TexTargetFieldMask);
@@ -648,7 +652,8 @@ GetFieldHandlePtr TextureBufferBase::getHandleLevel           (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfLevel,
-             this->getType().getFieldDesc(LevelFieldId)));
+             this->getType().getFieldDesc(LevelFieldId),
+             const_cast<TextureBufferBase *>(this)));
 
     return returnValue;
 }
@@ -658,7 +663,8 @@ EditFieldHandlePtr TextureBufferBase::editHandleLevel          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfLevel,
-             this->getType().getFieldDesc(LevelFieldId)));
+             this->getType().getFieldDesc(LevelFieldId),
+             this));
 
 
     editSField(LevelFieldMask);
@@ -671,7 +677,8 @@ GetFieldHandlePtr TextureBufferBase::getHandleZoffset         (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfZoffset,
-             this->getType().getFieldDesc(ZoffsetFieldId)));
+             this->getType().getFieldDesc(ZoffsetFieldId),
+             const_cast<TextureBufferBase *>(this)));
 
     return returnValue;
 }
@@ -681,7 +688,8 @@ EditFieldHandlePtr TextureBufferBase::editHandleZoffset        (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfZoffset,
-             this->getType().getFieldDesc(ZoffsetFieldId)));
+             this->getType().getFieldDesc(ZoffsetFieldId),
+             this));
 
 
     editSField(ZoffsetFieldMask);
@@ -694,7 +702,8 @@ GetFieldHandlePtr TextureBufferBase::getHandleReadBack        (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfReadBack,
-             this->getType().getFieldDesc(ReadBackFieldId)));
+             this->getType().getFieldDesc(ReadBackFieldId),
+             const_cast<TextureBufferBase *>(this)));
 
     return returnValue;
 }
@@ -704,7 +713,8 @@ EditFieldHandlePtr TextureBufferBase::editHandleReadBack       (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfReadBack,
-             this->getType().getFieldDesc(ReadBackFieldId)));
+             this->getType().getFieldDesc(ReadBackFieldId),
+             this));
 
 
     editSField(ReadBackFieldMask);

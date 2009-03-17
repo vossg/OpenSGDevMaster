@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ClipPlaneChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ClipPlaneChunkPtr
-
 OSG_GEN_CONTAINERPTR(ClipPlaneChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ClipPlaneChunk *> :
     public FieldTraitsFCPtrBase<ClipPlaneChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ClipPlaneChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdClipPlaneChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ClipPlaneChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
                       RecordedRefCountPolicy  > SFRecClipPlaneChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
                       UnrecordedRefCountPolicy> SFUnrecClipPlaneChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
                       WeakRefCountPolicy      > SFWeakClipPlaneChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ClipPlaneChunk *,
                       NoRefCountPolicy        > SFUncountedClipPlaneChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
                       RecordedRefCountPolicy  > MFRecClipPlaneChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
                       UnrecordedRefCountPolicy> MFUnrecClipPlaneChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
                       WeakRefCountPolicy      > MFWeakClipPlaneChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ClipPlaneChunk *,
                       NoRefCountPolicy        > MFUncountedClipPlaneChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecClipPlaneChunkPtr : 
+    public PointerSField<ClipPlaneChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecClipPlaneChunkPtr : 
+    public PointerSField<ClipPlaneChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakClipPlaneChunkPtr :
+    public PointerSField<ClipPlaneChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedClipPlaneChunkPtr :
+    public PointerSField<ClipPlaneChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecClipPlaneChunkPtr :
+    public PointerMField<ClipPlaneChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecClipPlaneChunkPtr :
+    public PointerMField<ClipPlaneChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakClipPlaneChunkPtr :
+    public PointerMField<ClipPlaneChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedClipPlaneChunkPtr :
+    public PointerMField<ClipPlaneChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

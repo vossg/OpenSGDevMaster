@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SimpleTexturedMaterial;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SimpleTexturedMaterialPtr
-
 OSG_GEN_CONTAINERPTR(SimpleTexturedMaterial);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpDrawableFieldTraits
+    \ingroup GrpLibOSGDrawable
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SimpleTexturedMaterial *> :
     public FieldTraitsFCPtrBase<SimpleTexturedMaterial *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<SimpleTexturedMaterial *, 0>::getMName<NoRefCountPolicy
     return "MFUnrefdSimpleTexturedMaterialPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SimpleTexturedMaterialPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<SimpleTexturedMaterial *,
                       RecordedRefCountPolicy  > SFRecSimpleTexturedMaterialPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<SimpleTexturedMaterial *,
                       UnrecordedRefCountPolicy> SFUnrecSimpleTexturedMaterialPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<SimpleTexturedMaterial *,
                       WeakRefCountPolicy      > SFWeakSimpleTexturedMaterialPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<SimpleTexturedMaterial *,
                       NoRefCountPolicy        > SFUncountedSimpleTexturedMaterialPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<SimpleTexturedMaterial *,
                       RecordedRefCountPolicy  > MFRecSimpleTexturedMaterialPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<SimpleTexturedMaterial *,
                       UnrecordedRefCountPolicy> MFUnrecSimpleTexturedMaterialPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<SimpleTexturedMaterial *,
                       WeakRefCountPolicy      > MFWeakSimpleTexturedMaterialPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<SimpleTexturedMaterial *,
                       NoRefCountPolicy        > MFUncountedSimpleTexturedMaterialPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFRecSimpleTexturedMaterialPtr : 
+    public PointerSField<SimpleTexturedMaterial *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUnrecSimpleTexturedMaterialPtr : 
+    public PointerSField<SimpleTexturedMaterial *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFWeakSimpleTexturedMaterialPtr :
+    public PointerSField<SimpleTexturedMaterial *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUncountedSimpleTexturedMaterialPtr :
+    public PointerSField<SimpleTexturedMaterial *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFRecSimpleTexturedMaterialPtr :
+    public PointerMField<SimpleTexturedMaterial *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUnrecSimpleTexturedMaterialPtr :
+    public PointerMField<SimpleTexturedMaterial *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFWeakSimpleTexturedMaterialPtr :
+    public PointerMField<SimpleTexturedMaterial *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUncountedSimpleTexturedMaterialPtr :
+    public PointerMField<SimpleTexturedMaterial *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

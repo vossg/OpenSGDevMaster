@@ -130,7 +130,7 @@ FrameBufferAttachmentBase::TypeObject FrameBufferAttachmentBase::_type(
     NULL,
     FrameBufferAttachment::initMethod,
     FrameBufferAttachment::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&FrameBufferAttachmentBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&FrameBufferAttachment::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -296,7 +296,8 @@ GetFieldHandlePtr FrameBufferAttachmentBase::getHandleWidth           (void) con
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
              &_sfWidth,
-             this->getType().getFieldDesc(WidthFieldId)));
+             this->getType().getFieldDesc(WidthFieldId),
+             const_cast<FrameBufferAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -306,7 +307,8 @@ EditFieldHandlePtr FrameBufferAttachmentBase::editHandleWidth          (void)
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
              &_sfWidth,
-             this->getType().getFieldDesc(WidthFieldId)));
+             this->getType().getFieldDesc(WidthFieldId),
+             this));
 
 
     editSField(WidthFieldMask);
@@ -319,7 +321,8 @@ GetFieldHandlePtr FrameBufferAttachmentBase::getHandleHeight          (void) con
     SFUInt16::GetHandlePtr returnValue(
         new  SFUInt16::GetHandle(
              &_sfHeight,
-             this->getType().getFieldDesc(HeightFieldId)));
+             this->getType().getFieldDesc(HeightFieldId),
+             const_cast<FrameBufferAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -329,7 +332,8 @@ EditFieldHandlePtr FrameBufferAttachmentBase::editHandleHeight         (void)
     SFUInt16::EditHandlePtr returnValue(
         new  SFUInt16::EditHandle(
              &_sfHeight,
-             this->getType().getFieldDesc(HeightFieldId)));
+             this->getType().getFieldDesc(HeightFieldId),
+             this));
 
 
     editSField(HeightFieldMask);
