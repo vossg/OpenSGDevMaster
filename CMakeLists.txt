@@ -162,6 +162,8 @@ ENDFOREACH(EXTERNAL)
 SET(OSG_EXTRA_EXTERNAL_MODULES "" CACHE STRING 
     "Extra modules that OpenSG will try to import.")
 
+OSG_OPTION(OSG_LINK_EXTERNAL_MODULES_TO_CSM "" FALSE)
+
 ##############
 # Compiler
 ##############
