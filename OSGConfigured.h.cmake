@@ -35,6 +35,8 @@
 
 #cmakedefine OSG_WITH_TIF 1
 
+#cmakedefine OSG_WITH_IMF 1
+
 #cmakedefine OSG_WITH_FONTCONFIG 1
 
 #cmakedefine OSG_NEW_SHADER 1
