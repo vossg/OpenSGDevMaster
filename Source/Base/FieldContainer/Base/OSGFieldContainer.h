@@ -133,6 +133,7 @@ class FieldContainer : public ReflexiveContainer
     /*! \name                    Helper                                    */
     /*! \{                                                                 */
 
+    OSG_BASE_DLLMAPPING
     virtual FieldContainer *findNamedComponent(const Char8 *szName);
 
     /*! \}                                                                 */
