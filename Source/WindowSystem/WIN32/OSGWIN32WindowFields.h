@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class WIN32Window;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! WIN32WindowPtr
-
 OSG_GEN_CONTAINERPTR(WIN32Window);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowWIN32FieldTraits
+    \ingroup GrpLibOSGWindowWIN32
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<WIN32Window *> :
     public FieldTraitsFCPtrBase<WIN32Window *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<WIN32Window *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdWIN32WindowPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<WIN32WindowPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowWIN32FieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowWIN32FieldSFields */
 typedef PointerSField<WIN32Window *,
                       RecordedRefCountPolicy  > SFRecWIN32WindowPtr;
+/*! \ingroup GrpWindowWIN32FieldSFields */
 typedef PointerSField<WIN32Window *,
                       UnrecordedRefCountPolicy> SFUnrecWIN32WindowPtr;
+/*! \ingroup GrpWindowWIN32FieldSFields */
 typedef PointerSField<WIN32Window *,
                       WeakRefCountPolicy      > SFWeakWIN32WindowPtr;
+/*! \ingroup GrpWindowWIN32FieldSFields */
 typedef PointerSField<WIN32Window *,
                       NoRefCountPolicy        > SFUncountedWIN32WindowPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowWIN32FieldMulti */
-
+/*! \ingroup GrpWindowWIN32FieldMFields */
 typedef PointerMField<WIN32Window *,
                       RecordedRefCountPolicy  > MFRecWIN32WindowPtr;
+/*! \ingroup GrpWindowWIN32FieldMFields */
 typedef PointerMField<WIN32Window *,
                       UnrecordedRefCountPolicy> MFUnrecWIN32WindowPtr;
+/*! \ingroup GrpWindowWIN32FieldMFields */
 typedef PointerMField<WIN32Window *,
                       WeakRefCountPolicy      > MFWeakWIN32WindowPtr;
+/*! \ingroup GrpWindowWIN32FieldMFields */
 typedef PointerMField<WIN32Window *,
                       NoRefCountPolicy        > MFUncountedWIN32WindowPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindowWIN32 */
+struct SFRecWIN32WindowPtr : 
+    public PointerSField<WIN32Window *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindowWIN32 */
+struct SFUnrecWIN32WindowPtr : 
+    public PointerSField<WIN32Window *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindowWIN32 */
+struct SFWeakWIN32WindowPtr :
+    public PointerSField<WIN32Window *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowWIN32FieldSFields \ingroup GrpLibOSGWindowWIN32 */
+struct SFUncountedWIN32WindowPtr :
+    public PointerSField<WIN32Window *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindowWIN32 */
+struct MFRecWIN32WindowPtr :
+    public PointerMField<WIN32Window *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindowWIN32 */
+struct MFUnrecWIN32WindowPtr :
+    public PointerMField<WIN32Window *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindowWIN32 */
+struct MFWeakWIN32WindowPtr :
+    public PointerMField<WIN32Window *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowWIN32FieldMFields \ingroup GrpLibOSGWindowWIN32 */
+struct MFUncountedWIN32WindowPtr :
+    public PointerMField<WIN32Window *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

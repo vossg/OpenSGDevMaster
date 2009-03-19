@@ -146,7 +146,7 @@ WIN32WindowBase::TypeObject WIN32WindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&WIN32WindowBase::createEmptyLocal),
     WIN32Window::initMethod,
     WIN32Window::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&WIN32WindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&WIN32Window::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -468,7 +468,8 @@ GetFieldHandlePtr WIN32WindowBase::getHandleHwnd            (void) const
     SFHWND::GetHandlePtr returnValue(
         new  SFHWND::GetHandle(
              &_sfHwnd,
-             this->getType().getFieldDesc(HwndFieldId)));
+             this->getType().getFieldDesc(HwndFieldId),
+             const_cast<WIN32WindowBase *>(this)));
 
     return returnValue;
 }
@@ -478,7 +479,8 @@ EditFieldHandlePtr WIN32WindowBase::editHandleHwnd           (void)
     SFHWND::EditHandlePtr returnValue(
         new  SFHWND::EditHandle(
              &_sfHwnd,
-             this->getType().getFieldDesc(HwndFieldId)));
+             this->getType().getFieldDesc(HwndFieldId),
+             this));
 
 
     editSField(HwndFieldMask);
@@ -491,7 +493,8 @@ GetFieldHandlePtr WIN32WindowBase::getHandleHdc             (void) const
     SFHDC::GetHandlePtr returnValue(
         new  SFHDC::GetHandle(
              &_sfHdc,
-             this->getType().getFieldDesc(HdcFieldId)));
+             this->getType().getFieldDesc(HdcFieldId),
+             const_cast<WIN32WindowBase *>(this)));
 
     return returnValue;
 }
@@ -501,7 +504,8 @@ EditFieldHandlePtr WIN32WindowBase::editHandleHdc            (void)
     SFHDC::EditHandlePtr returnValue(
         new  SFHDC::EditHandle(
              &_sfHdc,
-             this->getType().getFieldDesc(HdcFieldId)));
+             this->getType().getFieldDesc(HdcFieldId),
+             this));
 
 
     editSField(HdcFieldMask);
@@ -514,7 +518,8 @@ GetFieldHandlePtr WIN32WindowBase::getHandleHglrc           (void) const
     SFHGLRC::GetHandlePtr returnValue(
         new  SFHGLRC::GetHandle(
              &_sfHglrc,
-             this->getType().getFieldDesc(HglrcFieldId)));
+             this->getType().getFieldDesc(HglrcFieldId),
+             const_cast<WIN32WindowBase *>(this)));
 
     return returnValue;
 }
@@ -524,7 +529,8 @@ EditFieldHandlePtr WIN32WindowBase::editHandleHglrc          (void)
     SFHGLRC::EditHandlePtr returnValue(
         new  SFHGLRC::EditHandle(
              &_sfHglrc,
-             this->getType().getFieldDesc(HglrcFieldId)));
+             this->getType().getFieldDesc(HglrcFieldId),
+             this));
 
 
     editSField(HglrcFieldMask);
