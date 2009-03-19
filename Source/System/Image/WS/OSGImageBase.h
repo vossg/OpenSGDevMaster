@@ -89,6 +89,7 @@
 #include "OSGReal32Fields.h" // ResX type
 #include "OSGReal32Fields.h" // ResY type
 #include "OSGUInt16Fields.h" // ResUnit type
+#include "OSGBoolFields.h" // ClearOnLoad type
 
 #include "OSGImageFields.h"
 
@@ -140,7 +141,8 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
         ResXFieldId = ForceAlphaBinaryFieldId + 1,
         ResYFieldId = ResXFieldId + 1,
         ResUnitFieldId = ResYFieldId + 1,
-        NextFieldId = ResUnitFieldId + 1
+        ClearOnLoadFieldId = ResUnitFieldId + 1,
+        NextFieldId = ClearOnLoadFieldId + 1
     };
 
     static const OSG::BitVector ParentsFieldMask =
@@ -191,6 +193,8 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ResYFieldId);
     static const OSG::BitVector ResUnitFieldMask =
         (TypeTraits<BitVector>::One << ResUnitFieldId);
+    static const OSG::BitVector ClearOnLoadFieldMask =
+        (TypeTraits<BitVector>::One << ClearOnLoadFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -218,6 +222,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     typedef SFReal32          SFResXType;
     typedef SFReal32          SFResYType;
     typedef SFUInt16          SFResUnitType;
+    typedef SFBool            SFClearOnLoadType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -309,6 +314,9 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
                   SFUInt16            *editSFResUnit        (void);
             const SFUInt16            *getSFResUnit         (void) const;
 
+                  SFBool              *editSFClearOnLoad    (void);
+            const SFBool              *getSFClearOnLoad     (void) const;
+
 
                   Int32               &editDimension      (void);
                   Int32                getDimension       (void) const;
@@ -376,6 +384,9 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
                   UInt16              &editResUnit        (void);
                   UInt16               getResUnit         (void) const;
 
+                  bool                &editClearOnLoad    (void);
+                  bool                 getClearOnLoad     (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -402,6 +413,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
             void setResX           (const Real32 value);
             void setResY           (const Real32 value);
             void setResUnit        (const UInt16 value);
+            void setClearOnLoad    (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -490,6 +502,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     SFReal32          _sfResX;
     SFReal32          _sfResY;
     SFUInt16          _sfResUnit;
+    SFBool            _sfClearOnLoad;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -577,6 +590,8 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     EditFieldHandlePtr editHandleResY           (void);
     GetFieldHandlePtr  getHandleResUnit         (void) const;
     EditFieldHandlePtr editHandleResUnit        (void);
+    GetFieldHandlePtr  getHandleClearOnLoad     (void) const;
+    EditFieldHandlePtr editHandleClearOnLoad    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

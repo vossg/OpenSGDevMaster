@@ -623,6 +623,31 @@ void ImageBase::setResUnit(const UInt16 value)
 
     _sfResUnit.setValue(value);
 }
+//! Get the value of the Image::_sfClearOnLoad field.
+
+inline
+bool &ImageBase::editClearOnLoad(void)
+{
+    editSField(ClearOnLoadFieldMask);
+
+    return _sfClearOnLoad.getValue();
+}
+
+//! Get the value of the Image::_sfClearOnLoad field.
+inline
+      bool  ImageBase::getClearOnLoad(void) const
+{
+    return _sfClearOnLoad.getValue();
+}
+
+//! Set the value of the Image::_sfClearOnLoad field.
+inline
+void ImageBase::setClearOnLoad(const bool value)
+{
+    editSField(ClearOnLoadFieldMask);
+
+    _sfClearOnLoad.setValue(value);
+}
 
 //! Get the value of the \a index element the Image::_mfPixel field.
 inline
@@ -728,6 +753,9 @@ void ImageBase::execSync (      ImageBase *pFrom,
 
     if(FieldBits::NoField != (ResUnitFieldMask & whichField))
         _sfResUnit.syncWith(pFrom->_sfResUnit);
+
+    if(FieldBits::NoField != (ClearOnLoadFieldMask & whichField))
+        _sfClearOnLoad.syncWith(pFrom->_sfClearOnLoad);
 }
 #endif
 

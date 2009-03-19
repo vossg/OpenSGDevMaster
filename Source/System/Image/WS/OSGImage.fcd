@@ -249,5 +249,16 @@ mipMap and simple multi-frame data.
 		access="public"
 	>
 	resolution unit (invalid=0, none=1, inch=2)
+	</Field>	
+        <Field
+		name="clearOnLoad"
+		type="bool"
+		cardinality="single"
+		visibility="external"
+		defaultValue="false"
+		access="public"
+	>
+        Set to true if the image data should be cleared after it has been uploaded to the graphics
+        card and is no longer needed in main memory.
 	</Field>
 </FieldContainer>

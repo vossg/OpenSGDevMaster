@@ -456,6 +456,14 @@ void TextureObjChunk::handleTexture(Window                  *win,
     if( img==NULL || ! img->getDimension()) // no image ?
         return;
 
+    // Early out if we don't have any image data, probably because we cleared on upload.
+    // NOTE: We need to be absolutely sure that no changes happen to the texture object
+    //       after the first initialization.
+    if (img->getClearOnLoad() && img->getMFPixel()->empty())
+    {
+        return;
+    }
+
     if(mode == Window::initialize || mode == Window::reinitialize)
     {
         if( bindtarget                   == GL_TEXTURE_3D && 
@@ -1352,6 +1360,12 @@ void TextureObjChunk::handleTexture(Window                  *win,
         }
 
         glErr("TextureObjChunk::initialize image");
+
+        // Clear image data after upload to the graphics card.
+        if (img->getClearOnLoad())
+        {
+            img->clearData();
+        }
     }
     else if(mode == Window::needrefresh)
     {

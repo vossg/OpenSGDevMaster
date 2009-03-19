@@ -186,6 +186,11 @@ OSG_BEGIN_NAMESPACE
     resolution unit (invalid=0, none=1, inch=2)
 */
 
+/*! \var bool            ImageBase::_sfClearOnLoad
+    Set to true if the image data should be cleared after it has been uploaded to the graphics
+    card and is no longer needed in main memory.
+*/
+
 
 void ImageBase::classDescInserter(TypeObject &oType)
 {
@@ -484,6 +489,19 @@ void ImageBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&Image::getHandleResUnit));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "clearOnLoad",
+        "Set to true if the image data should be cleared after it has been uploaded to the graphics\n"
+        "card and is no longer needed in main memory.\n",
+        ClearOnLoadFieldId, ClearOnLoadFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Image::editHandleClearOnLoad),
+        static_cast<FieldGetMethodSig >(&Image::getHandleClearOnLoad));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -749,6 +767,17 @@ ImageBase::TypeObject ImageBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tresolution unit (invalid=0, none=1, inch=2)\n"
+    "\t</Field>\t\n"
+    "        <Field\n"
+    "\t\tname=\"clearOnLoad\"\n"
+    "\t\ttype=\"bool\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"false\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "        Set to true if the image data should be cleared after it has been uploaded to the graphics\n"
+    "        card and is no longer needed in main memory.\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
     "1D/2D/3D Image with various pixel types data, optionally also can hold\n"
@@ -1075,6 +1104,19 @@ const SFUInt16 *ImageBase::getSFResUnit(void) const
 }
 
 
+SFBool *ImageBase::editSFClearOnLoad(void)
+{
+    editSField(ClearOnLoadFieldMask);
+
+    return &_sfClearOnLoad;
+}
+
+const SFBool *ImageBase::getSFClearOnLoad(void) const
+{
+    return &_sfClearOnLoad;
+}
+
+
 
 
 
@@ -1181,6 +1223,10 @@ UInt32 ImageBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfResUnit.getBinSize();
     }
+    if(FieldBits::NoField != (ClearOnLoadFieldMask & whichField))
+    {
+        returnValue += _sfClearOnLoad.getBinSize();
+    }
 
     return returnValue;
 }
@@ -1286,6 +1332,10 @@ void ImageBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfResUnit.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ClearOnLoadFieldMask & whichField))
+    {
+        _sfClearOnLoad.copyToBin(pMem);
+    }
 }
 
 void ImageBase::copyFromBin(BinaryDataHandler &pMem,
@@ -1388,6 +1438,10 @@ void ImageBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ResUnitFieldMask & whichField))
     {
         _sfResUnit.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ClearOnLoadFieldMask & whichField))
+    {
+        _sfClearOnLoad.copyFromBin(pMem);
     }
 }
 
@@ -1537,7 +1591,8 @@ ImageBase::ImageBase(void) :
     _sfForceAlphaBinary       (bool(false)),
     _sfResX                   (Real32(72.0f)),
     _sfResY                   (Real32(72.0f)),
-    _sfResUnit                (UInt16(2))
+    _sfResUnit                (UInt16(2)),
+    _sfClearOnLoad            (bool(false))
 {
 }
 
@@ -1566,7 +1621,8 @@ ImageBase::ImageBase(const ImageBase &source) :
     _sfForceAlphaBinary       (source._sfForceAlphaBinary       ),
     _sfResX                   (source._sfResX                   ),
     _sfResY                   (source._sfResY                   ),
-    _sfResUnit                (source._sfResUnit                )
+    _sfResUnit                (source._sfResUnit                ),
+    _sfClearOnLoad            (source._sfClearOnLoad            )
 {
 }
 
@@ -2234,6 +2290,31 @@ EditFieldHandlePtr ImageBase::editHandleResUnit        (void)
 
 
     editSField(ResUnitFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr ImageBase::getHandleClearOnLoad     (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfClearOnLoad,
+             this->getType().getFieldDesc(ClearOnLoadFieldId),
+             const_cast<ImageBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ImageBase::editHandleClearOnLoad    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfClearOnLoad,
+             this->getType().getFieldDesc(ClearOnLoadFieldId),
+             this));
+
+
+    editSField(ClearOnLoadFieldMask);
 
     return returnValue;
 }
