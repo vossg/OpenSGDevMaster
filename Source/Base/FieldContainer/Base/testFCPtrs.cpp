@@ -23,5 +23,30 @@ int main (int argc, char **argv)
     node_cptr = get_pointer(node_rptr);
 #endif
 
+   // Test Weak ref count ptrs
+   {
+      OSG::NodeRecPtr node_ptr(OSG::Node::create());
+      OSG::NodeWeakPtr node_weak(node_ptr);
+      OSG_ASSERT(NULL != node_ptr);
+      OSG_ASSERT(NULL != node_weak);
+
+      node_ptr = NULL;
+
+      OSG_ASSERT(NULL == node_ptr);
+      OSG_ASSERT(NULL == node_weak);
+    }
+
+   {
+      OSG::NodeMTRecPtr node_ptr(OSG::Node::create());
+      OSG::NodeMTWeakPtr node_weak(node_ptr);
+      OSG_ASSERT(NULL != node_ptr);
+      OSG_ASSERT(NULL != node_weak);
+
+      node_ptr = NULL;
+
+      OSG_ASSERT(NULL == node_ptr);
+      OSG_ASSERT(NULL == node_weak);
+    }
+
     node_ptr = NULL;
 }
