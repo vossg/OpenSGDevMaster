@@ -83,17 +83,25 @@ inline
 RefCountStore osgAtomicExchangeAndAdd(RefCountStore *pValue, 
                                       RefCountStore  rcDelta)
 {
+#if 0
     RefCountStore ret = *pValue;
     
     *pValue += rcDelta;
     
     return ret;
+#endif
+
+    return BOOST_INTERLOCKED_EXCHANGE_ADD(pValue, rcDelta);
 }
 
 inline 
 void osgAtomicIncrement(RefCountStore *pValue)
 {
+#if 0
     ++(*pValue);
+#endif
+    
+    BOOST_INTERLOCKED_INCREMENT(pValue);
 }
 
 #endif

@@ -555,6 +555,7 @@ typedef UInt64 BitVector;
 #ifndef OSG_WIN_TYPES
 typedef Int32 RefCountStore;
 #else
+typedef long RefCountStore;
 #endif
 
 /*! \var UInt8 *MemoryHandle;
