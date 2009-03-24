@@ -72,11 +72,11 @@ OSBElementRegistrationHelper<ElementTypeT>::OSBElementRegistrationHelper(
 /*-------------------------------------------------------------------------*/
 
 /*! \class OSG::OSBDefaultElementRegistrationHelper<ElementTypeT>
-    Helper class to register an element for as the default element, if no
-    specific element is register for a type. The usual way to
+    Helper class to register an element as the default element, if no
+    specific element is registered for a type. The usual way to
     use this, is to put a static member of this type into the element.
 
-    \note This can sensibly be used only once in the system.
+    \note This can be used sensibly only once in the system.
 
     \param ElementTypeT Type of the element to register as default element.
  */

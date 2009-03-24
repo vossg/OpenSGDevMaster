@@ -196,7 +196,7 @@ influences the way system headers are included (with or without the OpenSG/
 prefix). </li>
 
 <li>Defines whether the FC can be decorated. Currentl only used for
-osg::CameraDecorator classes, but usable in general. The main effect is to turn
+OSG::CameraDecorator classes, but usable in general. The main effect is to turn
 all Field access emthods into virtual functions, to allow overriding them, and
 creating the necessary default Decorator classes.</li>
 
@@ -226,8 +226,8 @@ code has been generated will not make a difference.</li>
 types that can be selected from, but it is also possible to just write the type
 of the Field here.</li>
 
-<li>The cardinality of the Field, i.e. if it's a single (osg::SField) or multi
-element (osg::MField) field.</li>
+<li>The cardinality of the Field, i.e. if it's a single (OSG::SField) or multi
+element (OSG::MField) field.</li>
 
 <li>The access type of the field: private, protected or public. In general
 Fields should be public, if they are internal they should be protected.</li>

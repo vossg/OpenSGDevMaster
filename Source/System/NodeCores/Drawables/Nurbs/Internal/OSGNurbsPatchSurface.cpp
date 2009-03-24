@@ -66,10 +66,10 @@ static unsigned int g_uiColor = 0;
 #ifdef WRITE_STAT
 static double    g_dTrimmingConversionTime    = 0.0;
 static double    g_dTrimmingApproximationTime = 0.0;
-static osg::Time g_clTrimmingApproximationStart;
+static OSG::Time g_clTrimmingApproximationStart;
 static double    g_dTotalTime = 0.0;
-static osg::Time g_clTotalStart;
-static osg::Time g_clActTime;
+static OSG::Time g_clTotalStart;
+static OSG::Time g_clActTime;
 #endif
 
 #define OSG_3D_LOOPS
@@ -114,7 +114,7 @@ CNurbsPatchSurface::~CNurbsPatchSurface()
 void CNurbsPatchSurface::AddSurface(BSplineTrimmedSurface *clSurface)
 {
 #ifdef WRITE_STAT
-    g_clTotalStart = osg::getSystemTime();
+    g_clTotalStart = OSG::getSystemTime();
 #endif
 
     unsigned int ui_number = m_vclBSplineSurfaces.size();
@@ -145,7 +145,7 @@ void CNurbsPatchSurface::AddSurface(BSplineTrimmedSurface *clSurface)
     ConvertToBezier(ui_number);
 
 #ifdef WRITE_STAT
-    g_clActTime                = osg::getSystemTime();
+    g_clActTime                = OSG::getSystemTime();
     g_dTotalTime              += g_clActTime - g_clTotalStart;
     g_dTrimmingConversionTime += g_clActTime - g_clTotalStart;
 #endif
@@ -249,19 +249,19 @@ void CNurbsPatchSurface::getTessellation(std::vector<Pnt3f> &        gverts,
                                          bool                        usedelaunay)
 {
 #ifdef WRITE_STAT
-    g_clTotalStart = osg::getSystemTime();
+    g_clTotalStart = OSG::getSystemTime();
 #endif
 
     if( (m_vtSurfaces[0].ucStatus & BEZIER_SURFACES_VALID) &&
         ( (m_vtSurfaces[0].ucStatus & TRIM_SEGS_VALID) == 0) )
     {
 #ifdef WRITE_STAT
-        g_clTrimmingApproximationStart = osg::getSystemTime();
+        g_clTrimmingApproximationStart = OSG::getSystemTime();
 #endif
         CalculateQuadTree(0, true);
         CalculateTrimmingLoops(0);
 #ifdef WRITE_STAT
-        g_clActTime                   = osg::getSystemTime();
+        g_clActTime                   = OSG::getSystemTime();
         g_dTrimmingApproximationTime += g_clActTime - g_clTrimmingApproximationStart;
 #endif
         CalculateQuadTree(0, false);
@@ -289,7 +289,7 @@ void CNurbsPatchSurface::getTessellation(std::vector<Pnt3f> &        gverts,
     }
 //		std::cerr << std::endl;
 #ifdef WRITE_STAT
-    g_clActTime   = osg::getSystemTime();
+    g_clActTime   = OSG::getSystemTime();
     g_dTotalTime += g_clActTime - g_clTotalStart;
 //	std::cerr << "conversion " << g_dTrimmingConversionTime << " sec" << std::endl;
 //	std::cerr << "trimming   " << g_dTrimmingApproximationTime << " sec " << std::endl;

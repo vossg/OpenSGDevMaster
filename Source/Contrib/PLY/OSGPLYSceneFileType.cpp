@@ -63,7 +63,7 @@
 OSG_USING_NAMESPACE
 
 
-/*! \class osg::PLYSceneFileType
+/*! \class OSG::PLYSceneFileType
     \ingroup GrpSystemFileIO
  */
 

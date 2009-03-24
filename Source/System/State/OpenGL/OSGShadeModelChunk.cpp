@@ -53,7 +53,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class osg::ShadeModelChunk
+/*! \class OSG::ShadeModelChunk
 ShadeModelChunk controls the shading model used for rendering lines and filled polygons.
 */
 

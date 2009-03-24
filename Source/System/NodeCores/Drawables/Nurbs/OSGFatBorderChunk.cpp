@@ -200,7 +200,7 @@ const char* vertexProgFBasedLight =
 
 } // namespace
 
-/*! \class osg::FatBorderChunk
+/*! \class OSG::FatBorderChunk
 */
 
 /***************************************************************************\

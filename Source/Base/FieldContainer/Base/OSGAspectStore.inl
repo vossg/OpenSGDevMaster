@@ -38,7 +38,7 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \var Int32 AspectStore::_refCount
+/*! \var RefCountStore OSG::AspectStore::_refCount
  *  \brief reference count
  */
 
@@ -108,7 +108,7 @@ void AspectStore::addRef(void)
 inline
 void AspectStore::subRef(void)
 {
-     RefCountStore tmpRefCount = osgAtomicExchangeAndAdd(&_refCount, -1);
+    RefCountStore tmpRefCount = osgAtomicExchangeAndAdd(&_refCount, -1);
 
     if(tmpRefCount <= 1)
         delete this;

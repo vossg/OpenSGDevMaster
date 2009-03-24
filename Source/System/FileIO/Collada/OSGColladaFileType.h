@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-/*! \file OSGColladaFileType.hpp
+/*! \file OSGColladaFileType.h
     \ingroup GrpLoader
  */
 

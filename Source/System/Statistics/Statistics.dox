@@ -11,11 +11,11 @@ statistical data like counts and times. It is mainly used for collecting
 rendering statistics like the amount of time need for a frame or the number of 
 visible polygons, but it can be used for any kind of statistics.
 
-The statistics data is collected in the form of single osg::StatElem
-structures  which are bundled in a osg::StatCollector. Every StatElem element
+The statistics data is collected in the form of single OSG::StatElem
+structures  which are bundled in a OSG::StatCollector. Every StatElem element
 can have one of a  number of different types, the predefined ones are Int
-(osg::StatIntElem), Real32 (osg::StatRealElem), Time (osg::StatTimeElem) and
-String (osg::StatStringElem). Every StatElement also has a description in the
+(OSG::StatIntElem), Real32 (OSG::StatRealElem), Time (OSG::StatTimeElem) and
+String (OSG::StatStringElem). Every StatElement also has a description in the
 form of a StatElemDesc  that describes the actual use of the element. The
 StatCollector can hold an  arbitrary subset of all known elements. The
 StatElemDesc obj holding the element type and ID must exist as long as any
@@ -26,7 +26,7 @@ creates a unique ID which can be used to create/access an correspondent Elem
 The contents of the StatCollector can be accessed either for every StatElem 
 separately or can be output as a whole in the form of a string. For
 displaying  the contents of a StatCollector on screen the
-osg::SimpleStatisticsForground and  osg::GraphicStatisticsForeground can be
+OSG::SimpleStatisticsForground and  OSG::GraphicStatisticsForeground can be
 used.  The various StatElem objects provide methods to access or change the
 value (e.g get/set increase/decrease) In addition, every StatElem holds a
 on-flag to activate/deactivate the statistic element.
@@ -40,7 +40,7 @@ added by the application if necessary.
 
 \dev
 To extend the Statistics you just need to create an instance of the 
-osg::StatElemDesc class. It is templated and parametrized by the osg::StatElem
+OSG::StatElemDesc class. It is templated and parametrized by the OSG::StatElem
 that the new variable should have. 
 
 \enddev

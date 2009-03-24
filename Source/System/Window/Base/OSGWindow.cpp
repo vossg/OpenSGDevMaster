@@ -113,7 +113,7 @@ set of OpenGL objects should include only what's necessary to reduce the
 consumed ressources.
 
 To do that OpenGL objects are managed by the OpenSG Windows. Before they are
-used they have to be registered with the osg::Window class. This is a static
+used they have to be registered with the OSG::Window class. This is a static
 operation on the Window class, as it affects all exisiting Windows. Multiple
 objects can be registered in one call, and they will receive consecutive
 object ids. The ids are assigned by the object manager. It can not be queried
@@ -121,44 +121,44 @@ from OpenGL, as the thread which creates the objects usually doesn't have a
 valid OpenGL context. As a consequence you should not use OpenGL-assigned ids,
 as they might interfere with OpenSGs handling of ids.
 
-Part of the registration is to provide an update osg::Functor, which is called
+Part of the registration is to provide an update OSG::Functor, which is called
 whenever the object needs to be updated. This functor gets passed the id and
 status of the object and has to execute the correct function. There are a
 number of stati that the functor has to handle.
 
-The first time it is called the status be osg::Window::GLObjectE::initialize.
+The first time it is called the status be OSG::Window::GLObjectE::initialize.
 The functor has to create the necessary OpenGL ressources and initialize the
 OpenGL object. For a texture object this is the definition of the image via
 glTexImage(). 
 
 When the object changes there are two cases to distinguish. In the simple case
 the object has changed significantly, needing a
-osg::Window::GLObjectE::reinitialize. For textures this would be changing the
+OSG::Window::GLObjectE::reinitialize. For textures this would be changing the
 filter or changing the image size. Both of these actions necessitate a
 recreation of the actual texture object. If only the data of the image changes
 this can be handledmore efficiently via glTexSubImage() calls, which is an
-example for a osg::Window::GLObjectE::refresh. The osg::Window is responsible
+example for a OSG::Window::GLObjectE::refresh. The OSG::Window is responsible
 for keeping track of the current of the objects, and thus it has to be
 notified whenever the state of the OpenSG object underlying an OpenGL has
 changed, necessitating either a refresh or a reinitialize. This can be done by
-calling the static osg::Window::refreshGLObject or
-osg::Window::reinitializeGLObject methods. The object will be flagged as
+calling the static OSG::Window::refreshGLObject or
+OSG::Window::reinitializeGLObject methods. The object will be flagged as
 changed in all Windows and at the next validate time it will be
 refreshed/recreated.
 
 Before an object can be used it has to be validated. This has to be done when
 the OpenGL context is valid and should usually be done just before the object
 is used. If the object is still valid, nothing happens. The
-osg::Window::validateObject method is inline and thus the overhead of calling
+OSG::Window::validateObject method is inline and thus the overhead of calling
 it before every use is minimal.
 
 When an object is not needed any more is needs to be destroyed. The
-destruction can be started via osg::Window::destroyGLObject. It will actually
+destruction can be started via OSG::Window::destroyGLObject. It will actually
 be executed the next time a Window has finished rendering (i.e. its
-osg::Window::frameExit() function is called). The object's functor will be
-called for the osg::Window::GLObjectE::destroy state, and it should free
+OSG::Window::frameExit() function is called). The object's functor will be
+called for the OSG::Window::GLObjectE::destroy state, and it should free
 context-specific resources. After this has happened for all Windows it will be
-called one final time with osg::Window::GLObjectE::finaldestroy. Here
+called one final time with OSG::Window::GLObjectE::finaldestroy. Here
 context-independent resources can be freed.
 
 \section PageSystemOGLExt OpenGL Extensions
@@ -170,15 +170,15 @@ the fact that in systems with multiple graohics cards they may not all be of
 the same type, and thus might support different extensions.
 
 To handle these situations the extensions themselves and the extension
-functions need to be registered and accessed using the osg::Window. The
-registration (osg::Window::registerExtension, osg::Window::registerFunction)
+functions need to be registered and accessed using the OSG::Window. The
+registration (OSG::Window::registerExtension, OSG::Window::registerFunction)
 just needs the names and returns a handle that has to be be used to access the
 extensions/functions. This registration can be done from any thread.
 
 When using the extension/function it is necessary to check if it supported on
 the currently active OpenGL context. To speed this up the Window caches the
-test results and provides the osg::Window::hasExtension method to check it.
-To access the functions osg::Window::getFunction method can be used. It is not
+test results and provides the OSG::Window::hasExtension method to check it.
+To access the functions OSG::Window::getFunction method can be used. It is not
 advisable to store the received extension functions, as there is no guarantee
 that the pointer will be the same for different contexts.
 */

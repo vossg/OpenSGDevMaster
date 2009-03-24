@@ -25,18 +25,18 @@ into a sequence that minimizes the state changes necessary. Unfortuneately
 that problem is NP-complete (it's equivalent to the Traveling Salesman
 Problem). \anchor StateChunk To simplify it the rather large OpenGL state is
 divided into a small number of parts. Elements of the state that are usually
-changed together are grouped into a osg::StateChunk. 
+changed together are grouped into a OSG::StateChunk. 
 
-\anchor StateChunkClass Every type of osg::StateChunk has an associated
-osg::StateChunkClass. The osg::StateChunkClass is used to
-identify the osg::StateChunk and associate it with a name and a low integer
+\anchor StateChunkClass Every type of OSG::StateChunk has an associated
+OSG::StateChunkClass. The OSG::StateChunkClass is used to
+identify the OSG::StateChunk and associate it with a name and a low integer
 numeric Id. Some types of chunks can be used simulatenously in multiple
 instances in OpenGL, e.g. light sources or textures (in a multi-texture
 environment). The maximum number of concurrently active slots of the
-osg::StateChunk type is also stored in the osg::StateChunkClass.
+OSG::StateChunk type is also stored in the OSG::StateChunkClass.
 
-\anchor State The complete OpenGL state wrapper is the osg::State. It
-primarily contains a vector of osg::StateChunks. For every type of chunk there
+\anchor State The complete OpenGL state wrapper is the OSG::State. It
+primarily contains a vector of OSG::StateChunks. For every type of chunk there
 are as many slots as possibly concurrently active copies of the chunk. A chunk
 can be \link OSG::StateChunk::activate "activated" \endlink, which sets the
 OpenGL state it covers to its settings, if the settings differ from an
@@ -47,17 +47,17 @@ minimize the changes, to speed up switching. The cost of switching can be
 \link OSG::StateChunk::switchCost "estimated" \endlink, currently that 
 estimation will always be 0, though. Finally a chunk can be \link
 OSG::StateChunk::deactivate "deactivated" \endlink, which resets the OpenGL
-state it covers to the default value. All the chunks in a osg::State can be
-managed at the same time by using the equivalent methods of the osg::State.
+state it covers to the default value. All the chunks in a OSG::State can be
+managed at the same time by using the equivalent methods of the OSG::State.
 
-\ext To add new chunks you need to derive it from osg::StateChunk. It needs to
-keep  a static instance of osg::StateChunkClass and implement the public
-osg::StateChunk::getClass() method to allow access to it. The
-osg::StateChunkClass needs to define the name of the new chunk class and the
+\ext To add new chunks you need to derive it from OSG::StateChunk. It needs to
+keep  a static instance of OSG::StateChunkClass and implement the public
+OSG::StateChunk::getClass() method to allow access to it. The
+OSG::StateChunkClass needs to define the name of the new chunk class and the
 number of possible concurrently active chunks for the new class. To implement
-the actual behaviour the osg::StateChunk::activate(),
-osg::StateChunk::changeFrom() and osg::StateChunk::deactivate() methods are
-needed. The osg::StateChunk::switchCost() method is in there already, but the
+the actual behaviour the OSG::StateChunk::activate(),
+OSG::StateChunk::changeFrom() and OSG::StateChunk::deactivate() methods are
+needed. The OSG::StateChunk::switchCost() method is in there already, but the
 semantics are not defined yet, and it is not used. Implement it, but leave it
 empty and always return 0. 
 
@@ -71,9 +71,9 @@ glBlendColor).
 \endext
 
 \hint If you want to use state chunks in the scene graph, you can attach them to
-a osg::ChunkMaterial or one of its descendents. \endhint
+a OSG::ChunkMaterial or one of its descendents. \endhint
 
-\dev The main motivation for osg::StateChunk::changeFrom() is to allow optimizations in terms of
+\dev The main motivation for OSG::StateChunk::changeFrom() is to allow optimizations in terms of
 state changes. When switching between chunks that have similar settings, only
 the differences need to be passed to OpenGL. When and where it makes sense to
 pass it to OpenGL anyway instead of checking is still an open topic. \enddev
@@ -132,7 +132,7 @@ The different types of state chunks are:
 
 \section PageSystemBlendChunk BlendChunk
 
-The osg::BlendChunk handles OpenGL blending, i.e. the definition how incoming
+The OSG::BlendChunk handles OpenGL blending, i.e. the definition how incoming
 fragments are combined with the pixel already in the frame buffer, including
 alpha culling. 
 
@@ -144,20 +144,20 @@ supported by the hardware.
 
 \section PageSystemClipPlaneChunk ClipPlaneChunk
 
-The osg::ClipPlaneChunk controls user-defined clipping. It uses a beacon
-osg::Node reference to control the cordinate system where the clipping plane
+The OSG::ClipPlaneChunk controls user-defined clipping. It uses a beacon
+OSG::Node reference to control the cordinate system where the clipping plane
 is defined, this allows attaching the ClipPlane to another object to move it
 around. The clipping plane itself is defined in the standard (a,b,c,d) form
 used by OpenGL. 6 user defined clipping planes are possible.
 
 \section PageSystemCubeTextureChunk CubeTextureChunk
 
-The osg::CubeTextureChunk is similar to TextureChunk and uses the same
-osg::StateChunkClass
-(i.e. can be used instead of a osg::TextureChunk, but not both at the same
+The OSG::CubeTextureChunk is similar to TextureChunk and uses the same
+OSG::StateChunkClass
+(i.e. can be used instead of a OSG::TextureChunk, but not both at the same
 time), but has 5 more texture images. Note that all textures have to be square
 and have to have the same resolution. The textures are accessed using 3D
-texture coordinates, which are usually created using a osg::TexGenChunk. 
+texture coordinates, which are usually created using a OSG::TexGenChunk. 
 
 Cube textures are an extension that is only available in newer hardware. They
 can not be emulated, thus they are ignored when they are not supported by the
@@ -165,21 +165,21 @@ active window.
 
 \section PageSystemLightChunk LightChunk
 
-The osg::LightChunk contains the parameter set for a single light source. It's
+The OSG::LightChunk contains the parameter set for a single light source. It's
 parameters are taken straight from the glLight() manpage. The maximum number
 of concurrently active lights is currently set to 8.
 
-Note that these chunks are created by the system internally from the osg::Light
+Note that these chunks are created by the system internally from the OSG::Light
 sources and shouldn't be directly used by an application.
 
 \section PageSystemLineChunk LineChunk
 
-The osg::LineChunk contains the parameters that are specificly set for lines.
+The OSG::LineChunk contains the parameters that are specificly set for lines.
 This includes line width, stippling and antialiasing.
 
 \section PageSystemPointChunk PointChunk
 
-The osg::PointChunk contains the parameters that are specific set for points.
+The OSG::PointChunk contains the parameters that are specific set for points.
 This includes point size and point antialiasing. 
 
 It also wraps the ARB_point_parameters and NV_point_sprite extensions.
@@ -200,16 +200,16 @@ proportionally.
 
 \section PageSystemMaterialChunk MaterialChunk
 
-The osg::MaterialChunk controls the material parameters, i.e. the parameters
+The OSG::MaterialChunk controls the material parameters, i.e. the parameters
 for phong lighting as used by glMaterial(). It also covers the commonly used
 parameters to enable/disable lighting and switching the influence of geometry
 colors on lighting (glColorMaterial). When lighting is enabled external colors
-like osg::Geometry colors are only used for the diffuse lighting component. In
+like OSG::Geometry colors are only used for the diffuse lighting component. In
 the unlit case they are always used.
 
 \section PageSystemPolygonChunk PolygonChunk
 
-The osg::PolygonChunk contains the parameters that are specific set for filled
+The OSG::PolygonChunk contains the parameters that are specific set for filled
 surfaces, i.e. polygons. This includes face culling and front face definition
 as well as front and back face rendering modes, polygon antialiasing, offset
 and stippling. As there is only one set of offset parameters for all the
@@ -218,13 +218,13 @@ which admittedly is a bit awkward.
 
 \section PageSystemRegisterCombinersChunk RegisterCombinersChunk
 
-The osg::RegisterCombinersChunk chunk is a direct mapping of the nVidia
+The OSG::RegisterCombinersChunk chunk is a direct mapping of the nVidia
 RegisterCombiners extension. It is based on the GL_NV_register_combiners2
 extension, i.e. it also supports per-stage constants.
 
 \section PageSystemTexGenChunk TexGenChunk
 
-The osg::TexGenChunk wraps texture coordinate generation functions. The
+The OSG::TexGenChunk wraps texture coordinate generation functions. The
 texture coordinate generation for all 4 coordinates is wrapped in a single
 chunk, including the optional plane parameters. It supports the standard OpenGL
 texture generation functions like object linear, eye linear, sphere map etc. In
@@ -240,11 +240,11 @@ the camera.
 
 \section PageSystemTextureChunk TextureChunk
 
-The osg::TextureChunk contains a single texture image and it's related
+The OSG::TextureChunk contains a single texture image and it's related
 parameters, which include the filters and texture environment mode and color.
 1,2 and 3 dimensional textures are handled by this chunk uniformly and
 textures  can also automatically be scaled to the next power of two (for 2D
-textures). It can also handle a multi-frame osg::Image by selecting one of the
+textures). It can also handle a multi-frame OSG::Image by selecting one of the
 frames. If necessary (i.e. if mipmappibng filters are used) mipmaps will be
 calculated automatically. \hint Don't use mipmaps for fast changing textures
 (i.e. movies), as mipmap generation takes a lot of time. \endhint
@@ -253,7 +253,7 @@ Multiple texture chunks (right now 4) can be used simultaneously for
 multi-texturing.
 
 \hint To do multi-texturing in the absense of a specific multi-texture
-material you can just append additional texture chunks to a osg::ChunkMaterial
+material you can just append additional texture chunks to a OSG::ChunkMaterial
 or one of its descendents. \endhint
 
 Textures can also be prioritized, which aids the OpenGL texture manager in
@@ -294,7 +294,7 @@ multi-texturing.
 Chunk for transformations, uses a simple matrix to transform coordinates. 
 
 Note that these chunks are created by the system internally from the
-osg::Transform and osg::ComponentTransform cores and shouldn't be directly
+OSG::Transform and OSG::ComponentTransform cores and shouldn't be directly
 used by an application.
 
 
@@ -304,7 +304,7 @@ The OpenGL ARB has added two programmability extensions to the OpenGL core,
 which allows the users to replace the built-in vertex or fragment pipeline
 with their own programs. These extensions are extremely similar, and thus the
 common features have been implemented in an abstract base chunk, the
-osg::ProgramChunk.
+OSG::ProgramChunk.
 
 The program is just a string, which can be directly set by the application,
 as a convenience it can be read from a file. It will only be compiled (and
@@ -312,7 +312,7 @@ consequently checked for error) when it used for rendering the first time.
 
 Depending on the type of program it has a differing set of specific parameters
 to work on, but they all have the ability to pass specific parameters from the
-outside. These have osg::Vec4f values and are just identified by an index.
+outside. These have OSG::Vec4f values and are just identified by an index.
 Usually they will be assigned to a named variable in the program to signify
 their meaning. To make their use easier to understand they can also be named in
 OpenSG, and can be accessed by their name. OpenSG does not (yet) try to find
@@ -324,14 +324,14 @@ instance.
 
 \section PageSystemVertexProgramChunk VertexProgramChunk
 
-The osg::VertexProgramChunk wraps the GL_ARB_vertex_program extension. The
+The OSG::VertexProgramChunk wraps the GL_ARB_vertex_program extension. The
 extension is much too big to be reproduced here (~100 pages), see the 
 <a HREF="http://oss.sgi.com/projects/ogl-sample/registry/ARB/vertex_program.txt">
 specification</A> for details.
 
 \section PageSystemFragmentProgramChunk FragmentProgramChunk
 
-The osg::FragmentProgramChunk wraps the GL_ARB_fragment_program extension. This
+The OSG::FragmentProgramChunk wraps the GL_ARB_fragment_program extension. This
 extension is also much too big to be reproduced here (~100 pages), see the 
 <a HREF="http://oss.sgi.com/projects/ogl-sample/registry/ARB/fragment_program.txt">
 specification</A> for details.
