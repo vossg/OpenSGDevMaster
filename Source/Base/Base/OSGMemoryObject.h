@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
+#include "OSGAtomic.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -96,7 +96,7 @@ class OSG_BASE_DLLMAPPING MemoryObject
 
   private:
 
-    Int32 _refCount;
+    RefCountStore _refCount;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const MemoryObject &source);

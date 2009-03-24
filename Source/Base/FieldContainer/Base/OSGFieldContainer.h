@@ -51,6 +51,7 @@
 #include "OSGSystemProfile.h"
 #include "OSGChangedFunctorMFields.h"
 #include "OSGAspectStore.h"
+#include "OSGAtomic.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -205,10 +206,10 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_BASE_DLLMAPPING
-    Int32 getWeakRefCount        (void) const;
+    Int32 getWeakRefCount        (void);
 
     OSG_BASE_DLLMAPPING 
-    Int32 getRefCount            (void) const;
+    Int32 getRefCount            (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -244,8 +245,8 @@ class FieldContainer : public ReflexiveContainer
     FieldFlags               *_pFieldFlags;
     MFChangedFunctorCallback  _mfChangedFunctors;
 
-    Int32                     _iRefCount;
-    Int32                     _iWeakRefCount;
+    RefCountStore             _iRefCount;
+    RefCountStore             _iWeakRefCount;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -94,7 +94,7 @@ void FieldContainer::addReferenceRecorded(void)
            this->_iWeakRefCount));
 #endif
 
-    ++_iRefCount;
+    osgAtomicIncrement(&_iRefCount);
     
     Thread::getCurrentChangeList()->addAddRefd(Inherited::getId());
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
@@ -119,7 +119,7 @@ void FieldContainer::addReferenceUnrecorded(void)
            this->_iWeakRefCount));
 #endif
 
-    ++_iRefCount;
+    osgAtomicIncrement(&_iRefCount);
 
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
     FINFO(("FieldContainer::addReferenceUnrec [%p] [%d] [%s] STOP - [%d %d]\n",
@@ -144,7 +144,10 @@ void FieldContainer::subReferenceRecorded(void)
            this->_iWeakRefCount));
 #endif
 
-    if(_iRefCount <= 1)
+    RefCountStore tmpRefCnt     = osgAtomicExchangeAndAdd(&_iRefCount,     -1);
+    RefCountStore tmpWeakRefCnt = osgAtomicExchangeAndAdd(&_iWeakRefCount,  0);
+
+    if(tmpRefCnt <= 1)
     {
         Thread::getCurrentChangeList()->incSubRefLevel();
 
@@ -154,7 +157,7 @@ void FieldContainer::subReferenceRecorded(void)
 
         Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
-        if(_iWeakRefCount <= 0)
+        if(tmpWeakRefCnt <= 0)
         {
 #ifdef OSG_MT_CPTR_ASPECT
             this->onDestroyAspect(Inherited::getId(), 
@@ -180,7 +183,7 @@ void FieldContainer::subReferenceRecorded(void)
         }
         else
         {
-            --_iRefCount;
+            //--_iRefCount;
 
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
             FINFO(
@@ -195,7 +198,7 @@ void FieldContainer::subReferenceRecorded(void)
     }
     else
     {
-        --_iRefCount;
+        //--_iRefCount;
 
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
         FINFO(
@@ -224,7 +227,10 @@ void FieldContainer::subReferenceUnrecorded(void)
            this->_iWeakRefCount));
 #endif
 
-    if(_iRefCount <= 1)
+    RefCountStore tmpRefCnt     = osgAtomicExchangeAndAdd(&_iRefCount,     -1);
+    RefCountStore tmpWeakRefCnt = osgAtomicExchangeAndAdd(&_iWeakRefCount,  0);
+
+    if(tmpRefCnt <= 1)
     {
 //      Thread::getCurrentChangeList()->incSubRefLevel();
 
@@ -234,7 +240,7 @@ void FieldContainer::subReferenceUnrecorded(void)
 
 //        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
-        if(_iWeakRefCount <= 0)
+        if(tmpWeakRefCnt <= 0)
         {
 #ifdef OSG_MT_CPTR_ASPECT
             this->onDestroyAspect(Inherited::getId(), 
@@ -260,7 +266,7 @@ void FieldContainer::subReferenceUnrecorded(void)
         }
         else
         {
-            --_iRefCount;
+            //--_iRefCount;
 
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
             FINFO(
@@ -276,7 +282,7 @@ void FieldContainer::subReferenceUnrecorded(void)
     }
     else
     {
-        --_iRefCount;
+        //--_iRefCount;
 
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
         FINFO(("FieldContainer::subReferenceUnrec [%p] [%d] [%s] "
@@ -294,9 +300,9 @@ void FieldContainer::subReferenceUnrecorded(void)
 
 
 inline
-Int32 FieldContainer::getRefCount(void) const
+Int32 FieldContainer::getRefCount(void) 
 {
-    return _iRefCount;
+    return osgAtomicExchangeAndAdd(&_iRefCount, 0);
 }
 
 
@@ -312,7 +318,7 @@ void FieldContainer::addWeakReference(void)
            this->_iWeakRefCount));
 #endif
         
-    ++_iWeakRefCount;
+    osgAtomicIncrement(&_iWeakRefCount);
 
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
     FINFO(("FieldContainer::addWeakReference [%p] [%d] [%s] STOP - [%d %d]\n",
@@ -336,7 +342,10 @@ void FieldContainer::subWeakReference(void)
            this->_iWeakRefCount));
 #endif
 
-    --_iWeakRefCount;
+    RefCountStore tmpRefCnt     = osgAtomicExchangeAndAdd(&_iRefCount,      0);
+    RefCountStore tmpWeakRefCnt = osgAtomicExchangeAndAdd(&_iWeakRefCount, -1);
+
+    //--_iWeakRefCount;
 
 #ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
     FINFO(("FieldContainer::subWeakReference [%p] [%d] [%s] STOP - [%d %d]\n",
@@ -347,7 +356,7 @@ void FieldContainer::subWeakReference(void)
            this->_iWeakRefCount));
 #endif
 
-    if(_iRefCount <= 0 && _iWeakRefCount <= 0)
+    if(tmpRefCnt <= 0 && tmpWeakRefCnt <= 1)
     {
         this->resolveLinks();
 
@@ -375,9 +384,9 @@ void FieldContainer::subWeakReference(void)
 }
 
 inline
-Int32 FieldContainer::getWeakRefCount(void) const
+Int32 FieldContainer::getWeakRefCount(void) 
 {
-    return _iWeakRefCount;
+    return osgAtomicExchangeAndAdd(&_iWeakRefCount, 0);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -614,9 +623,10 @@ void FieldContainer::execSync(      FieldContainer    *pFrom,
 inline
 void FieldContainer::subReferenceUnresolved(void)
 {
-    --_iRefCount;
+    RefCountStore tmpRefCnt = osgAtomicExchangeAndAdd(&_iRefCount,     -1);
+//    --_iRefCount;
 
-    if(_iRefCount <= 0)
+    if(_iRefCount <= 1)
     {
         Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 

@@ -42,7 +42,7 @@
 #pragma once
 #endif
 
-#include "OSGBaseTypes.h"
+#include "OSGAtomic.h"
 
 #ifdef OSG_MT_CPTR_ASPECT
 
@@ -131,7 +131,7 @@ class OSG_BASE_DLLMAPPING AspectStore
 
   private:
 
-    Int32 _refCount;
+    RefCountStore _refCount;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const AspectStore &source);

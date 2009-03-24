@@ -36,152 +36,68 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGATOMIC_H_
+#define _OSGATOMIC_H_
+
+
+#include "OSGBaseTypes.h"
+
+#ifdef WIN32
+#include <boost/detail/interlocked.hpp>
+#else
+#include <boost/detail/sp_counted_base.hpp>
+#endif
+
 OSG_BEGIN_NAMESPACE
 
-/*! \var Int32 AspectStore::_refCount
- *  \brief reference count
- */
+#if !defined(WIN32)
 
-/*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
-
-inline
-AspectStore::~AspectStore(void)
+inline 
+RefCountStore osgAtomicExchangeAndAdd(RefCountStore *pValue, 
+                                      RefCountStore  rcDelta)
 {
-}
-
-inline
-FieldContainer *AspectStore::getPtr(const UInt32 uiAspect) const
-{
-    if(uiAspect < _vAspects.size())
-    {
-        return _vAspects[uiAspect];
-    }
-    else
-    { 
-        return NULL;
-   }
-}
-
-
-inline
-FieldContainer *AspectStore::getPtr(void) const
-{
-    return getPtr(Thread::getCurrentAspect());
-}
-
-inline
-void AspectStore::setPtrForAspect(      FieldContainer *pContainer, 
-                                  const UInt32          uiAspect  )
-{
-    _vAspects.resize(osgMax<UInt32>(_vAspects.size(), uiAspect + 1), NULL);
+#if 0
+    RefCountStore ret = *pValue;
     
-    _vAspects[uiAspect] = pContainer;
-}
-
-inline
-void AspectStore::removePtrForAspect(const UInt32 uiAspect)
-{
-    if(uiAspect >= _vAspects.size())
-    {
-        return;
-    }
-
-    _vAspects[uiAspect] = NULL;
-}
-
-inline
-UInt32 AspectStore::getNumAspects(void) const
-{
-    return _vAspects.size();
-}
-
-/*-------------------------------------------------------------------------*/
-/*                        Reference Counting                               */
-
-inline
-void AspectStore::addRef(void)
-{
-    osgAtomicIncrement(&_refCount);
-}
-
-inline
-void AspectStore::subRef(void)
-{
-     RefCountStore tmpRefCount = osgAtomicExchangeAndAdd(&_refCount, -1);
-
-    if(tmpRefCount <= 1)
-        delete this;
-}
-
-inline
-Int32 AspectStore::getRefCount(void)
-{
-    return osgAtomicExchangeAndAdd(&_refCount, 0);
-}
-
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-inline
-AspectStore::AspectStore(void) :
-    _vAspects( ),
-    _refCount(0)
-{
-}
-
-inline
-AspectStore::AspectStore(const AspectStore &) :
-    _vAspects( ),
-    _refCount(0)
-{
-}
-
-inline
-void AspectStore::fillOffsetArray(AspectOffsetStore &       oStore, 
-                                  FieldContainer    * const pRef  )
-{
-    Char8 *pRefMem = reinterpret_cast<Char8 *>(pRef);
-
-    oStore.resize(ThreadManager::getNumAspects());
+    *pValue += rcDelta;
     
-    std::fill(oStore.begin(), oStore.end(), -1);
+    return ret;
+#endif
 
-    for(UInt32 i = 0; i < _vAspects.size(); ++i)
-    {
-        Char8 *pCurrMem = reinterpret_cast<Char8 *>(_vAspects[i]);
-
-        if(pCurrMem != pRefMem && pCurrMem != NULL)
-        {
-            oStore[i] = pCurrMem - pRefMem;
-        }
-    }
-}
-
-inline
-void AspectStore::dump(void)
-{
-    fprintf(stderr, "RC : %d\n", _refCount);
-
-    for(UInt32 i = 0; i < _vAspects.size(); ++i)
-    {
-        fprintf(stderr, "AS %d : %p\n", i, _vAspects[i]);
-    }
+    return boost::detail::atomic_exchange_and_add(pValue, rcDelta);
 }
 
 inline 
-void addRef(const OSG::AspectStoreP pObject)
+void osgAtomicIncrement(RefCountStore *pValue)
 {
-    if(pObject != NULL)
-        pObject->addRef();
+#if 0
+    ++(*pValue);
+#endif
+
+    boost::detail::atomic_increment(pValue);
 }
 
-inline
-void subRef(const OSG::AspectStoreP pObject)
+#else
+
+inline 
+RefCountStore osgAtomicExchangeAndAdd(RefCountStore *pValue, 
+                                      RefCountStore  rcDelta)
 {
-    if(pObject != NULL)
-        pObject->subRef();
+    RefCountStore ret = *pValue;
+    
+    *pValue += rcDelta;
+    
+    return ret;
 }
 
+inline 
+void osgAtomicIncrement(RefCountStore *pValue)
+{
+    ++(*pValue);
+}
+
+#endif
 
 OSG_END_NAMESPACE
+
+#endif // _OSGATOMIC_H_

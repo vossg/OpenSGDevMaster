@@ -59,22 +59,22 @@ MemoryObject::~MemoryObject(void)
 inline
 void MemoryObject::addRef(void)
 {
-    _refCount++;
+    osgAtomicIncrement(&_refCount);
 }
 
 inline
 void MemoryObject::subRef(void)
 {
-    _refCount--;
+    RefCountStore tmpRefCnt = osgAtomicExchangeAndAdd(&_refCount, -1);
 
-    if(_refCount <= 0)
+    if(tmpRefCnt <= 1)
         delete this;
 }
 
 inline
 Int32 MemoryObject::getRefCount(void)
 {
-    return _refCount;
+    return osgAtomicExchangeAndAdd(&_refCount, 0);
 }
 
 inline

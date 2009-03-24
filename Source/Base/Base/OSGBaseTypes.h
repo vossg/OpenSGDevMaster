@@ -552,6 +552,11 @@ typedef long double Real128;
 
 typedef UInt64 BitVector;
 
+#ifndef OSG_WIN_TYPES
+typedef Int32 RefCountStore;
+#else
+#endif
+
 /*! \var UInt8 *MemoryHandle;
  *  Handle to raw memory
  *  \ingroup GrpBaseBaseBaseTypes
