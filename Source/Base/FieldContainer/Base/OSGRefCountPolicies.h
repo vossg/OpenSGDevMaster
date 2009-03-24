@@ -288,7 +288,8 @@ struct MTWeakRefCountPolicy : public WeakRefCountPolicy
     template <class T>
     static T *validate   (T *pObject)
     {
-        return convertToCurrentAspect(pObject);
+        T* retVal = convertToCurrentAspect(pObject);
+        return WeakRefCountPolicy::validate(retVal);
     }
 
     template <class T>
