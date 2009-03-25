@@ -44,6 +44,12 @@
 
 #ifdef WIN32
 #include <boost/detail/interlocked.hpp>
+
+// boost before 1.34.0 does not have BOOST_INTERLOCKED_EXCHANGE_ADD
+#ifndef BOOST_INTERLOCKED_EXCHANGE_ADD
+#define BOOST_INTERLOCKED_EXCHANGE_ADD InterlockedExchangeAdd
+#endif
+
 #else
 #include <boost/detail/sp_counted_base.hpp>
 #endif
