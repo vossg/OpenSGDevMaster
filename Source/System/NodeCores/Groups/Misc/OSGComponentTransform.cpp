@@ -71,11 +71,37 @@ void ComponentTransform::changed(ConstFieldMaskArg whichField,
        (whichField & ScaleOrientationFieldMask) ||
        (whichField & TranslationFieldMask     )  )
     {
-        editMatrix().setTransform(getTranslation     (),
-                                  getRotation        (),
-                                  getScale           (),
-                                  getScaleOrientation(),
-                                  getCenter          ());
+        // be careful not to mark the matrix as changed here to avoid
+        // bouncing changes back and forth
+        _sfMatrix.getValue().setTransform(getTranslation     (),
+                                          getRotation        (),
+                                          getScale           (),
+                                          getScaleOrientation(),
+                                          getCenter          ());
+
+        invalidateVolume();
+    }
+    else if(whichField & Inherited::MatrixFieldMask)
+    {
+        Vec3r      translation;
+        Quaternion rotation;
+        Vec3r      scale;
+        Quaternion scaleOrientation;
+        Vec3r      center;
+
+        _sfMatrix.getValue().getTransform(translation,
+                                          rotation,
+                                          scale,
+                                          scaleOrientation,
+                                          center           );
+
+        // be careful not to mark the components as changed here to avoid
+        // bouncing changes back and forth
+        _sfTranslation     .setValue(translation     );
+        _sfRotation        .setValue(rotation        );
+        _sfScale           .setValue(scale           );
+        _sfScaleOrientation.setValue(scaleOrientation);
+        _sfCenter          .setValue(center          );
     }
 
     Inherited::changed(whichField, origin, details);
