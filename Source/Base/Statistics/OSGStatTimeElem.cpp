@@ -115,8 +115,15 @@ void StatTimeElem::putToString(
             }
             else if((pos = formatCopy.find("%r")) != std::string::npos)
             {
-                formatCopy.replace(pos, 2, "%.2f");
-                val = 1.f / val;
+                formatCopy.replace(pos, 2, "%");
+                if(val <= TypeTraits<Time>::ZeroEps())
+                {
+                    val = 0.;
+                }
+                else
+                {
+                    val = 1. / val;
+                }
             }
         }
         
