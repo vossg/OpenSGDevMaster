@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGLockPolicies.h"
+#include "OSGRefCountPolicies.h"
 
 #include <vector>
 
@@ -57,8 +58,9 @@ class PoolDefaultTag;
 */
 
 template <class ValueT, 
-          class PoolTag    = PoolDefaultTag,
-          class LockPolicy = NoLockPolicy>
+          class PoolTag        = PoolDefaultTag,
+          class RefCountPolicy = NoRefCountPolicy,
+          class LockPolicy     = NoLockPolicy    >
 class SimplePool 
 {
     /*==========================  PUBLIC  =================================*/

@@ -184,6 +184,16 @@ struct UnrecordedRefCountPolicy
 
 struct NoRefCountPolicy
 {
+    template<class ObjT>
+    static void addRef(ObjT * const)
+    {
+    }
+
+    template<class ObjT>
+    static void subRef(ObjT * const)
+    {
+    }
+
     static void addRef(FieldContainer * const)
     {
     }

@@ -204,7 +204,10 @@ class OSG_SYSTEM_DLLMAPPING StateOverride
 
   private:
 
-    template <class T, class Tag, class LockPolicy> friend class SimplePool;
+    template <class T, 
+              class Tag, 
+              class RefCountPolicy, 
+              class LockPolicy    > friend class SimplePool;
 
     /*! \brief prohibit default function (move to 'public' if needed) */
     StateOverride(const StateOverride &source);

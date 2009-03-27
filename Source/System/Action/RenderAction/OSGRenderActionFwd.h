@@ -49,10 +49,12 @@
 OSG_BEGIN_NAMESPACE
 
 class RenderPartition;
+struct MemObjRefCountPolicy;
 
 typedef SimplePool<RenderPartition, 
                    PoolDefaultTag,
-                   NoLockPolicy   > RenderPartitionPool;
+                   MemObjRefCountPolicy,
+                   NoLockPolicy        > RenderPartitionPool;
 
 
 OSG_END_NAMESPACE

@@ -171,6 +171,20 @@ LockPool *ThreadManager::getLockPool(const Char8 *szName,
     return returnValue;
 }
 
+Semaphore *ThreadManager::getSemaphore(const Char8 *szName,
+                                       const Char8 *szTypeName)
+{
+    Semaphore *returnValue = NULL;
+
+    _storePLock->acquire();
+
+    returnValue = _sSemaphoreStore.getMPField(szName, szTypeName);
+
+    _storePLock->release();
+
+    return returnValue;
+}
+
 BaseThread  *ThreadManager::findThread(const Char8 *szName)
 {
     BaseThread *returnValue = NULL;
@@ -230,6 +244,19 @@ LockPool *ThreadManager::findLockPool(const Char8 *szName)
     _storePLock->acquire();
     
     returnValue = _sLockPoolStore.findMPField(szName);
+
+    _storePLock->release();
+
+    return returnValue;
+}
+
+Semaphore *ThreadManager::findSemaphore(const Char8 *szName)
+{
+    Semaphore *returnValue = NULL;
+
+    _storePLock->acquire();
+    
+    returnValue = _sSemaphoreStore.findMPField(szName);
 
     _storePLock->release();
 
@@ -323,6 +350,18 @@ void ThreadManager::removeLockPool(LockPool *pLockPool)
     _storePLock->release();
 }
 
+void ThreadManager::removeSemaphore(Semaphore *pSemaphore)
+{
+    if(_bShutdownInProgress == true)
+        return;
+
+    _storePLock->acquire();
+
+    _sSemaphoreStore.removeMPField(pSemaphore);
+    
+    _storePLock->release();
+}
+
 UInt32 ThreadManager::registerThreadType(MPThreadType *pType)
 {
     return _sThreadStore.registerMPType(pType);
@@ -348,6 +387,10 @@ UInt32 ThreadManager::registerLockPoolType(MPLockPoolType *pType)
     return _sLockPoolStore.registerMPType(pType);
 }
 
+UInt32 ThreadManager::registerSemaphoreType(MPSemaphoreType *pType)
+{
+    return _sSemaphoreStore.registerMPType(pType);
+}
 
 #ifdef __sgi
 #pragma set woff 1209
@@ -496,21 +539,34 @@ bool ThreadManager::shutdown(void)
 
     }
 
+    SemaphoreStore::MPFieldMapCIt sI = _sSemaphoreStore._mFieldMap.begin();
+    SemaphoreStore::MPFieldMapCIt sE = _sSemaphoreStore._mFieldMap.end  ();
+
+    for(; sI != sE; ++sI)
+    {
+        FWARNING(("ThreadManager::shutdown: "
+                  "semaphore [%s|%p] is still alive\n", 
+                  (*sI).first.c_str(),
+                  (*sI).second));
+    }
+
 #endif
 
     FDEBUG(("Sizes: ThreadStore: %d BarrierStore: %d CondVarStore: %d"
-            "LockStore: %d LockPoolStore: %d\n",
+            "LockStore: %d LockPoolStore: %d SemaphoreStore: %d\n",
             _sThreadStore._mFieldMap.size(),
             _sBarrierStore._mFieldMap.size(),
             _sCondVarStore._mFieldMap.size(),
             _sLockStore._mFieldMap.size(),
-            _sLockPoolStore._mFieldMap.size()));
+            _sLockPoolStore._mFieldMap.size(),
+            _sLockStore._mFieldMap.size()));
           
-    _sThreadStore  .clear();
-    _sBarrierStore .clear();
-    _sCondVarStore .clear();
-    _sLockStore    .clear();
-    _sLockPoolStore.clear();
+    _sThreadStore   .clear();
+    _sBarrierStore  .clear();
+    _sCondVarStore  .clear();
+    _sLockStore     .clear();
+    _sLockPoolStore .clear();
+    _sSemaphoreStore.clear();
 
 #if defined(OSG_USE_SPROC)
     if(_pArena != NULL)
@@ -523,13 +579,14 @@ bool ThreadManager::shutdown(void)
 /*--------------------------- Constructors --------------------------------*/
 
 ThreadManager::ThreadManager(void) :
-    _sThreadStore  (    ),
-    _sBarrierStore (    ),
-    _sCondVarStore    (    ),
-    _sLockStore    (    ),
-    _sLockPoolStore(    ),
+    _sThreadStore   (    ),
+    _sBarrierStore  (    ),
+    _sCondVarStore  (    ),
+    _sLockStore     (    ),
+    _sLockPoolStore (    ),
+    _sSemaphoreStore(    ),
 
-    _storePLock    (NULL)
+    _storePLock     (NULL)
 {
 #if defined(OSG_USE_SPROC)
     _pArena = NULL;

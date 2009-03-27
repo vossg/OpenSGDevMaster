@@ -170,7 +170,10 @@ class OSG_SYSTEM_DLLMAPPING RenderTreeNode
 
   private:
 
-    friend class SimplePool<RenderTreeNode, PoolDefaultTag, NoLockPolicy>;
+    friend class SimplePool<RenderTreeNode, 
+                            PoolDefaultTag, 
+                            NoRefCountPolicy,
+                            NoLockPolicy    >;
 
     /*! \brief prohibit default function (move to 'public' if needed) */
     RenderTreeNode(const RenderTreeNode &source);

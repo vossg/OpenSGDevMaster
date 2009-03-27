@@ -38,7 +38,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-
 template <class PoolTag, class LockPolicy> inline
 SimplePool<Int32, PoolTag, LockPolicy>::SimplePool(void) :
     _currentValue(0)
@@ -74,11 +73,11 @@ void SimplePool<Int32, PoolTag, LockPolicy>::printStat(void)
     fprintf(stderr, "\n%d\n", _currentValue());
 }
 
-
-
-
-template <class ValueT, class PoolTag, class LockPolicy> inline
-ValueT *SimplePool<ValueT, PoolTag, LockPolicy>::create(void)
+template <class ValueT, 
+          class PoolTag, 
+          class RefCountPolicy, 
+          class LockPolicy> inline
+ValueT *SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::create(void)
 {
     ValueT *returnValue = NULL;
 
@@ -96,6 +95,8 @@ ValueT *SimplePool<ValueT, PoolTag, LockPolicy>::create(void)
     {
         returnValue = new ValueT();
 
+        RefCountPolicy::addRef(returnValue);
+
         _elementStore.push_back(returnValue);
 
         _currentFreeElement = _elementStore.end();
@@ -106,9 +107,15 @@ ValueT *SimplePool<ValueT, PoolTag, LockPolicy>::create(void)
     return returnValue;
 }
 
-template <class ValueT, class PoolTag, class LockPolicy> 
+template <class ValueT, 
+          class PoolTag, 
+          class RefCountPolicy, 
+          class LockPolicy>
 template<class ParameterT> inline
-ValueT *SimplePool<ValueT, PoolTag, LockPolicy>::create(ParameterT oParam)
+ValueT *SimplePool<ValueT, 
+                   PoolTag, 
+                   RefCountPolicy, 
+                   LockPolicy    >::create(ParameterT oParam)
 {
     ValueT *returnValue = NULL;
 
@@ -126,6 +133,8 @@ ValueT *SimplePool<ValueT, PoolTag, LockPolicy>::create(ParameterT oParam)
     {
         returnValue = new ValueT(oParam);
 
+        RefCountPolicy::addRef(returnValue);
+
         _elementStore.push_back(returnValue);
 
         _currentFreeElement = _elementStore.end();
@@ -136,8 +145,11 @@ ValueT *SimplePool<ValueT, PoolTag, LockPolicy>::create(ParameterT oParam)
     return returnValue;
 }
 
-template <class ValueT, class PoolTag, class LockPolicy> inline
-void SimplePool<ValueT, PoolTag, LockPolicy>::freeAll(void)
+template <class ValueT, 
+          class PoolTag, 
+          class RefCountPolicy, 
+          class LockPolicy> inline
+void SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::freeAll(void)
 {
     _currentFreeElement = _elementStore.begin();
 
@@ -148,8 +160,11 @@ void SimplePool<ValueT, PoolTag, LockPolicy>::freeAll(void)
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-template <class ValueT, class PoolTag, class LockPolicy> inline
-SimplePool<ValueT, PoolTag, LockPolicy>::SimplePool(void) :
+template <class ValueT, 
+          class PoolTag, 
+          class RefCountPolicy, 
+          class LockPolicy> inline
+SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::SimplePool(void) :
     _elementStore      ( ),
     _currentFreeElement( ),
     _uiAllocated       (0),
@@ -161,17 +176,24 @@ SimplePool<ValueT, PoolTag, LockPolicy>::SimplePool(void) :
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
 
-template <class ValueT, class PoolTag, class LockPolicy> inline
-SimplePool<ValueT, PoolTag, LockPolicy>::~SimplePool(void)
+template <class ValueT, 
+          class PoolTag, 
+          class RefCountPolicy, 
+          class LockPolicy> inline
+SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::~SimplePool(void)
 {
     for(UInt32 i = 0; i < _elementStore.size(); ++i)
     {
-        delete _elementStore[i];
+        RefCountPolicy::subRef(_elementStore[i]);
+//        delete _elementStore[i];
     }
 }
 
-template <class ValueT, class PoolTag, class LockPolicy> inline
-void SimplePool<ValueT, PoolTag, LockPolicy>::printStat(void)
+template <class ValueT, 
+          class PoolTag, 
+          class RefCountPolicy, 
+          class LockPolicy> inline
+void SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::printStat(void)
 {
     fprintf(stderr, "\n%d | %d | %d\n", 
             _uiAllocated, 

@@ -47,7 +47,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-typedef SimplePool<RenderPartition> RenderPartitionPool;
+typedef SimplePool<RenderPartition, 
+                   PoolDefaultTag,
+                   MemObjRefCountPolicy,
+                   NoLockPolicy        > RenderPartitionPool;
 
 OSG_END_NAMESPACE
 

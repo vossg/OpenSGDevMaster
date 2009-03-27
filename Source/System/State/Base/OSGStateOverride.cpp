@@ -41,8 +41,9 @@
 
 #include "OSGConfig.h"
 
+#include "OSGBaseFunctions.h"
+#include "OSGFieldContainer.h"
 #include "OSGStateOverride.h"
-#include <OSGBaseFunctions.h>
 #ifdef OSG_NEW_SHADER
 #include "OSGShaderProgramChunk.h"
 #include "OSGShaderProgramVariableChunk.h"

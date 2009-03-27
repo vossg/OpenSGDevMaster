@@ -53,18 +53,21 @@ class Barrier;
 class CondVar;
 class Lock;
 class LockPool;
+class Semaphore;
 
-typedef BaseThread *(*CreateThreadF  )(const Char8  *szName,
-                                             UInt32  uiId);
-typedef Barrier    *(*CreateBarrierF )(const Char8  *szName,
-                                             UInt32  uiId);
-typedef CondVar    *(*CreateCondVarF )(const Char8  *szName,
-                                             UInt32  uiId);
-typedef Lock       *(*CreateLockF    )(const Char8  *szName,
-                                             UInt32  uiId);
-typedef LockPool   *(*CreateLockPoolF)(const Char8  *szName,
-                                             UInt32  uiId);
-typedef void        (*InitThreadingF) (void);
+typedef BaseThread *(*CreateThreadF   )(const Char8  *szName,
+                                              UInt32  uiId);
+typedef Barrier    *(*CreateBarrierF  )(const Char8  *szName,
+                                              UInt32  uiId);
+typedef CondVar    *(*CreateCondVarF  )(const Char8  *szName,
+                                              UInt32  uiId);
+typedef Lock       *(*CreateLockF     )(const Char8  *szName,
+                                              UInt32  uiId);
+typedef LockPool   *(*CreateLockPoolF )(const Char8  *szName,
+                                              UInt32  uiId);
+typedef Semaphore  *(*CreateSemaphoreF)(const Char8  *szName,
+                                              UInt32  uiId);
+typedef void        (*InitThreadingF  ) (void);
 
 //---------------------------------------------------------------------------
 //  Class
@@ -455,6 +458,72 @@ class OSG_BASE_DLLMAPPING MPLockPoolType : public MPType
     void operator =(const MPLockPoolType &source);
 };
 
+
+
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \ingroup GrpBaseMultiThreading
+    \ingroup GrpLibOSGBase
+ */
+
+class OSG_BASE_DLLMAPPING MPSemaphoreType : public MPType
+{
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*==========================  PUBLIC  =================================*/
+
+  public :
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructor                                */
+    /*! \{                                                                 */
+
+    MPSemaphoreType(const Char8            *szName, 
+                    const Char8            *szParentName,
+                          CreateSemaphoreF  fCreateSemaphore,
+                    const UInt32            uiNamespace = GlobalNamespace);
+                     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+                 
+    virtual ~MPSemaphoreType(void); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    Semaphore *create(const Char8 *szName);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+
+    typedef MPType Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Class Specific                              */
+    /*! \{                                                                 */
+
+    static UInt32            _uiSemaphoreCount;
+           CreateSemaphoreF  _fCreateSemaphore;
+    
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    MPSemaphoreType(const MPSemaphoreType &source);
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const MPSemaphoreType &source);
+};
 
 
 

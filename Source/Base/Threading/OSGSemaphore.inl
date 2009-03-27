@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2000 by the OpenSG Forum                    *
+ *           Copyright (C) 2003 by the OpenSG Forum                          *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,42 +36,113 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGRENDERINGBACKENDFWD_H_
-#define _OSGRENDERINGBACKENDFWD_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-#include "OSGConfig.h"
-
-#include "OSGMultiPool.h"
-
 OSG_BEGIN_NAMESPACE
 
-template <class ValueT, class PoolTag, class RefCountPolicy, class LockPolicy> 
-class SimplePool;
+#if defined (OSG_USE_PTHREADS)
 
-class  PoolDefaultTag;
-class  NoLockPolicy;
-class  RenderTreeNode;
-class  StateOverride;
-class  TreeBuilderBase;
-class  RenderAction;
-class  RenderPartitionBase;
-struct NoRefCountPolicy;
+/*------------------------------- Semaphore --------------------------------*/
 
-typedef SimplePool<RenderTreeNode, 
-                   PoolDefaultTag,
-                   NoRefCountPolicy,
-                   NoLockPolicy   > RenderTreeNodePool;
+inline
+void PThreadSemaphoreBase::wait(void)
+{
+    sem_wait(&(_pLowLevelSemaphore));
+}
 
-typedef SimplePool<StateOverride  , 
-                   PoolDefaultTag,
-                   NoRefCountPolicy,
-                   NoLockPolicy   > StateOverridePool;
+inline
+void PThreadSemaphoreBase::post(void)
+{
+    sem_post(&(_pLowLevelSemaphore));
+}
 
-typedef MultiPool <TreeBuilderBase                > TreeBuilderPool;
+#endif /* OSG_USE_PTHREADS */
+
+
+#if defined (OSG_USE_SPROC)
+
+/*----------------------------- Semaphore-----------------------------------*/
+
+inline
+void SprocSemaphoreBase::wait(void)
+{
+    if(_pLowLevelSema != NULL)
+        uspsema(_pLowLevelSema);
+}
+
+inline
+void SprocSemaphoreBase::post(void)
+{
+    if(_pLowLevelSema != NULL)
+        usvsema(_pLowLevelSema);
+}
+
+#endif /* OSG_USE_SPROC */
+
+
+#if defined (OSG_USE_WINTHREADS)
+
+/*------------------------------- Semaphore --------------------------------*/
+
+inline
+void WinThreadSemaphoreBase::wait(void)
+{
+#if defined(OSG_GV_BETA) && defined(OSG_DBG_LCK)
+    fprintf(stderr, "Semaphore::acquire %p\n", this);
+#endif
+
+#if 0
+#ifdef OSG_WINLOCK_USE_MUTEX
+    WaitForSingleObject(_pMutex, INFINITE);
+#else
+    EnterCriticalSection(&_pCriticalSection);
+#endif
+#endif
+}
+
+inline
+void WinThreadSemaphoreBase::post(void)
+{
+#if defined(OSG_GV_BETA) && defined(OSG_DBG_LCK)
+    fprintf(stderr, "Semaphore::release %p\n", this);
+#endif
+
+#if 0
+#ifdef OSG_WINLOCK_USE_MUTEX
+    ReleaseMutex(_pMutex);
+#else
+    LeaveCriticalSection(&_pCriticalSection);
+#endif
+#endif
+}
+
+#endif /* OSG_USE_WINTHREADS */
+
+
+
+
+inline
+Semaphore *Semaphore::create(void)
+{
+    return Semaphore::get(NULL);
+}
+
+inline
+const MPSemaphoreType &Semaphore::getClassType(void)
+{
+    return _type;
+}
+
+/*----------------------------- Semaphore ----------------------------------*/
+
+inline
+void Semaphore::wait(void)
+{
+    Inherited::wait();
+}
+
+inline
+void Semaphore::post(void)
+{
+    Inherited::post();
+}
 
 OSG_END_NAMESPACE
-
-#endif /* _OSGRENDERINGBACKENDFWDDEF_H_ */

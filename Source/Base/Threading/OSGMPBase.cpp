@@ -346,6 +346,57 @@ LockPool *MPLockPoolType::create(const Char8 *szName)
 
 
 
+//---------------------------------------------------------------------------
+//  Class
+//---------------------------------------------------------------------------
+
+/*! \class OSG::MPSemaphoreType
+ */
+
+UInt32 MPSemaphoreType::_uiSemaphoreCount = 0;
+
+
+MPSemaphoreType::MPSemaphoreType(const Char8            *szName, 
+                                 const Char8            *szParentName,
+                                       CreateSemaphoreF  fCreateSemaphore,
+                                 const UInt32            uiNamespace ) :
+     Inherited       (szName, szParentName, uiNamespace),
+    _fCreateSemaphore(fCreateSemaphore                 )
+{
+    ThreadManager::the()->registerSemaphoreType(this);
+}
+
+
+MPSemaphoreType::~MPSemaphoreType(void)
+{
+}
+
+
+Semaphore *MPSemaphoreType::create(const Char8 *szName)
+{
+    Char8      *szTmp;
+    UInt32      uiNewId     = _uiSemaphoreCount++;
+    Semaphore  *returnValue = NULL;
+
+    if(szName == NULL)
+    {
+        szTmp = new Char8[16];
+        sprintf(szTmp, "OSGSemaphore_%u", uiNewId);
+    }
+    else
+    {
+        szTmp = const_cast<Char8 *>(szName);
+    }
+
+    if(_fCreateSemaphore != NULL)
+        returnValue = _fCreateSemaphore(szTmp, uiNewId);
+
+    if(szTmp != szName)
+        delete [] szTmp;
+
+    return returnValue;
+}
+
 
 //---------------------------------------------------------------------------
 //  Class

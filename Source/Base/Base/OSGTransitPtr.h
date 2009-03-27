@@ -50,6 +50,10 @@ template <class ObjectT,
           class RefCountPolicyT>
 class RefCountPtr;
 
+template<class ObjT> 
+class TransitPtr;
+
+class FieldContainer;
 
 template <class TargetObjectT, class SourceObjectT> inline
 OSG::TransitPtr<TargetObjectT> dynamic_pointer_cast(

@@ -498,7 +498,11 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     //   friend classes                                                      
     //-----------------------------------------------------------------------
 
-    friend class SimplePool<RenderPartition, PoolDefaultTag, NoLockPolicy>;
+    friend class SimplePool<RenderPartition, 
+                            PoolDefaultTag, 
+                            MemObjRefCountPolicy,
+                            NoLockPolicy        >;
+
     friend class RenderAction;
 
     //-----------------------------------------------------------------------

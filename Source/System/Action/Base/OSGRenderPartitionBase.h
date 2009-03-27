@@ -48,6 +48,7 @@
 
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
+#include "OSGMemoryObject.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -70,7 +71,7 @@ class OcclusionCullingTreeBuilder;
             necessary to draw a scene. 
  */
 
-class OSG_SYSTEM_DLLMAPPING RenderPartitionBase
+class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public MemoryObject
 {
   public:
 
