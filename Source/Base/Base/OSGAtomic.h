@@ -83,6 +83,37 @@ void osgAtomicIncrement(RefCountStore *pValue)
     boost::detail::atomic_increment(pValue);
 }
 
+inline 
+void osgAtomicDecrement(RefCountStore *pValue)
+{
+#if 0
+    --(*pValue);
+#endif
+
+    __asm__
+    (
+        "lock\n\t"
+        "decl %0":
+        "=m"( *pValue ): // output (%0)
+        "m"( *pValue ): // input (%1)
+        "cc" // clobbers
+    );
+}
+
+inline
+void osgSpinLock(UInt32 *pLock, UInt32 uiMask)
+{
+    //while(__sync_xor_and_fetch(pLock, 0x80000000) != 0x80000000);
+
+    UInt32 uiRef = (*pLock | uiMask);
+    while(__sync_xor_and_fetch(pLock, uiMask) != uiRef);
+}
+
+inline
+void osgSpinLockRelease(UInt32 *pLock, UInt32 uiInvMask)
+{
+    __sync_fetch_and_and(pLock, uiInvMask);
+}
 #else
 
 inline 
@@ -108,6 +139,16 @@ void osgAtomicIncrement(RefCountStore *pValue)
 #endif
     
     BOOST_INTERLOCKED_INCREMENT(pValue);
+}
+
+inline 
+void osgAtomicDecrement(RefCountStore *pValue)
+{
+#if 0
+    ++(*pValue);
+#endif
+    
+    BOOST_INTERLOCKED_DECREMENT(pValue);
 }
 
 #endif

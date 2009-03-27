@@ -53,6 +53,8 @@
 
 #define SILENT
 
+#define OSG_AREAD(A) static_cast<RefCountStore const volatile &>(A);
+
 OSG_BEGIN_NAMESPACE
 
 void FieldContainer::classDescInserter(TypeObject &oType)
@@ -190,6 +192,8 @@ void FieldContainer::registerChangedContainer(void)
             _pContainerChanges, _bvChanged);
 #endif
 
+//    osgSpinLock(&_uiContainerId, SplinLockBit);
+
     if(_pContainerChanges == NULL)
     {
         _pContainerChanges = Thread::getCurrentChangeList()->getNewEntry();
@@ -201,6 +205,8 @@ void FieldContainer::registerChangedContainer(void)
     }
 
     Thread::getCurrentChangeList()->addUncommited(_pContainerChanges);
+
+//    osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
 }
 
 void FieldContainer::registerChangedContainerV(void)
@@ -222,6 +228,284 @@ void FieldContainer::resolveLinks(void)
 FieldContainer *FieldContainer::findNamedComponent(const Char8 *)
 {
     return NULL;
+}
+
+void FieldContainer::subReferenceRecorded(void)
+{
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+    FINFO(("FieldContainer::subReference [%p] [%d] [%s] START - [%d %d]\n",
+           this, this->getId(), 
+           this->getType().getCName(),
+           this->_iRefCount, 
+           this->_iWeakRefCount));
+#endif
+
+//    RefCountStore tmpRefCnt = OSG_AREAD(_iRefCount);
+
+    RefCountStore tmpRefCnt = osgAtomicExchangeAndAdd(&_iRefCount, -1);
+
+    if(tmpRefCnt <= 1)
+    {
+        Thread::getCurrentChangeList()->incSubRefLevel();
+
+        this->resolveLinks();
+
+        Thread::getCurrentChangeList()->decSubRefLevel();
+
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+
+        osgSpinLock(&_uiContainerId, SplinLockBit);
+
+        RefCountStore tmpWeakRefCnt = OSG_AREAD(_iWeakRefCount);
+
+        _uiContainerId |= DeadContainerBit;
+
+        osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+
+        if(tmpWeakRefCnt <= 0)
+        {
+#ifdef OSG_MT_CPTR_ASPECT
+            this->onDestroyAspect(Inherited::getId(), 
+                                  Thread::getCurrentAspect());
+
+            _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+
+            if(_pAspectStore->getRefCount() == 1)
+            {
+                this->deregister(Inherited::getId());
+                this->onDestroy (Inherited::getId());
+            }
+
+            OSG::subRef(_pAspectStore);
+            _pAspectStore = NULL;
+#else
+            this->deregister     (Inherited::getId()   );
+            this->onDestroyAspect(Inherited::getId(), 0);
+            this->onDestroy      (Inherited::getId()   );
+#endif
+            
+            delete this;
+        }
+        else
+        {
+//            osgAtomicDecrement(&_iRefCount);
+
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+            FINFO(
+                ("FieldContainer::subReference [%p] [%d] [%s] STOP A [%d %d]\n",
+                 this, 
+                 this->getId(), 
+                 this->getType().getCName(),
+                 this->_iRefCount, 
+                 this->_iWeakRefCount));
+#endif
+        }
+    }
+    else
+    {
+//        osgAtomicDecrement(&_iRefCount);
+
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+        FINFO(
+            ("FieldContainer::subReference [%p] [%d] [%s] STOP B [%d %d]\n",
+             this, 
+             this->getId(), 
+             this->getType().getCName(),
+             this->_iRefCount, 
+             this->_iWeakRefCount));
+#endif
+
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+    }
+
+}
+
+void FieldContainer::subReferenceUnrecorded(void)
+{
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+    FINFO(("FieldContainer::subReferenceUnrec [%p] [%d] [%s] START - [%d %d]\n",
+           this, 
+           this->getId(), 
+           this->getType().getCName(),
+           this->_iRefCount, 
+           this->_iWeakRefCount));
+#endif
+
+//    RefCountStore tmpRefCnt = OSG_AREAD(_iRefCount);
+
+    RefCountStore tmpRefCnt = osgAtomicExchangeAndAdd(&_iRefCount, -1);
+
+    if(tmpRefCnt <= 1)
+    {
+//      Thread::getCurrentChangeList()->incSubRefLevel();
+
+        this->resolveLinks();
+
+//        Thread::getCurrentChangeList()->decSubRefLevel();
+
+//        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+
+        osgSpinLock(&_uiContainerId, SplinLockBit);
+
+        RefCountStore tmpWeakRefCnt = OSG_AREAD(_iWeakRefCount);
+
+        _uiContainerId |= DeadContainerBit;
+
+        osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+
+        if(tmpWeakRefCnt <= 0)
+        {
+#ifdef OSG_MT_CPTR_ASPECT
+            this->onDestroyAspect(Inherited::getId(), 
+                                  Thread::getCurrentAspect());
+
+            _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+            
+            if(_pAspectStore->getRefCount() == 1)
+            {
+                this->deregister(Inherited::getId());
+                this->onDestroy (Inherited::getId());
+            }
+            
+            OSG::subRef(_pAspectStore);
+            _pAspectStore = NULL;
+#else
+            this->deregister     (Inherited::getId()   );
+            this->onDestroyAspect(Inherited::getId(), 0);
+            this->onDestroy      (Inherited::getId()   );
+#endif
+
+            delete this;
+        }
+        else
+        {
+//            osgAtomicDecrement(&_iRefCount);
+
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+            FINFO(
+                ("FieldContainer::subReferenceUnrec [%p] [%d] [%s] "
+                 "STOP A [%d %d]\n",
+                 this, 
+                 this->getId(), 
+                 this->getType().getCName(),
+                 this->_iRefCount, 
+                 this->_iWeakRefCount));
+#endif
+        }
+    }
+    else
+    {
+//        osgAtomicDecrement(&_iRefCount);
+
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+        FINFO(("FieldContainer::subReferenceUnrec [%p] [%d] [%s] "
+               "STOP - [%d %d]\n",
+               this, 
+               this->getId(), 
+               this->getType().getCName(),
+               this->_iRefCount, 
+               this->_iWeakRefCount));
+#endif
+//        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+    }
+
+}
+
+void FieldContainer::subWeakReference(void)
+{
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+    FINFO(("FieldContainer::subWeakReference [%p] [%d] [%s] START - [%d %d]\n",
+           this, 
+           this->getId(), 
+           this->getType().getCName(),
+           this->_iRefCount, 
+           this->_iWeakRefCount));
+#endif
+
+    osgSpinLock(&_uiContainerId, SplinLockBit);
+
+    RefCountStore tmpWeakRefCnt = osgAtomicExchangeAndAdd(&_iWeakRefCount, -1);
+
+    //--_iWeakRefCount;
+
+#ifndef OSG_FIELDCONTAINER_DEBUG_SILENT
+    FINFO(("FieldContainer::subWeakReference [%p] [%d] [%s] STOP - [%d %d]\n",
+           this, 
+           this->getId(), 
+           this->getType().getCName(),
+           this->_iRefCount, 
+           this->_iWeakRefCount));
+#endif
+    /*tmpRefCnt <= 0*/
+
+    if((0x0000 != (_uiContainerId & DeadContainerBit)) && tmpWeakRefCnt <= 1)
+    {
+        osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+        
+        this->resolveLinks();
+
+#ifdef OSG_MT_CPTR_ASPECT
+        this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
+
+        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+
+        if(_pAspectStore->getRefCount() == 1)
+        {
+            this->deregister(Inherited::getId());
+            this->onDestroy (Inherited::getId());
+        }
+
+        OSG::subRef(_pAspectStore);
+        _pAspectStore = NULL;
+#else
+        this->deregister     (Inherited::getId()   );
+        this->onDestroyAspect(Inherited::getId(), 0);
+        this->onDestroy      (Inherited::getId()   );
+#endif
+
+        delete this;
+    }
+    else
+    {
+        osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+    }
+}
+
+void FieldContainer::subReferenceUnresolved(void)
+{
+    RefCountStore tmpRefCnt = osgAtomicExchangeAndAdd(&_iRefCount, -1);
+//    --_iRefCount;
+
+    if(_iRefCount <= 1)
+    {
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+
+#ifdef OSG_MT_CPTR_ASPECT
+        this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
+
+        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
+
+        if(_pAspectStore->getRefCount() == 1)
+        {
+            this->deregister(Inherited::getId());
+            this->onDestroy (Inherited::getId());
+        }
+
+        OSG::subRef(_pAspectStore);
+        _pAspectStore = NULL;
+#else
+        this->deregister     (Inherited::getId()   );
+        this->onDestroyAspect(Inherited::getId(), 0);
+        this->onDestroy      (Inherited::getId()   );
+#endif
+
+        delete this;
+    }
+    else
+    {
+        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
+    }
+
 }
 
 /*---------------------------------------------------------------------*/

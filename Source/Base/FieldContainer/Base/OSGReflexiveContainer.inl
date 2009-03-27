@@ -147,11 +147,15 @@ ContainerChangeEntry *ReflexiveContainer::getChangeEntry(void)
 inline
 void ReflexiveContainer::clearChangeEntry(ContainerChangeEntry *pRef)
 {
+//    osgSpinLock(&_uiContainerId, SplinLockBit);
+
     if(_pContainerChanges == pRef)
     {
         _pContainerChanges = NULL;
         _bvChanged         = 0x0000;
     }
+
+//    osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
 }
 
 inline
@@ -296,7 +300,7 @@ void ReflexiveContainer::setId(UInt32 uiContainerId)
 inline
 UInt32 ReflexiveContainer::getId(void) const
 {
-    return _uiContainerId;
+    return (_uiContainerId & ContainerIdMask);
 }
 
 OSG_END_NAMESPACE

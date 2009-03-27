@@ -84,8 +84,17 @@ class ReflexiveContainer
     /*! \name                      Constants                               */
     /*! \{                                                                 */
 
-    static const UInt32    NextFieldId   =    1;
-    static const BitVector NextFieldMask = 0x01;
+    static const UInt32    NextFieldId        =    1;
+    static const BitVector NextFieldMask      = 0x01;
+
+    static const UInt32    SplinLockBit       =  0x80000000;
+    static const UInt32    SplinLockClearMask = ~0x80000000;
+
+    static const UInt32    DeadContainerBit   =  0x40000000;
+    static const UInt32    DeadContainerMask  = ~0x40000000;
+
+    static const UInt32    ContainerIdMask    = ~(SplinLockBit    | 
+                                                  DeadContainerBit);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

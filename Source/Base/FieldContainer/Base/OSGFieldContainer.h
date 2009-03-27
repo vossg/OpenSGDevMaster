@@ -206,10 +206,10 @@ class FieldContainer : public ReflexiveContainer
     /*! \{                                                                 */
 
     OSG_BASE_DLLMAPPING
-    Int32 getWeakRefCount        (void);
+    RefCountStore getWeakRefCount(void);
 
     OSG_BASE_DLLMAPPING 
-    Int32 getRefCount            (void);
+    RefCountStore getRefCount    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
