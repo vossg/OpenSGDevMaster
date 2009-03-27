@@ -105,16 +105,20 @@ void osgSpinLock(UInt32 *pLock, UInt32 uiMask)
 {
     //while(__sync_xor_and_fetch(pLock, 0x80000000) != 0x80000000);
 
+#if __GNUC__ >= 4 && __GNUC_MINOR__ >=2
     UInt32 uiRef = 
         (static_cast<UInt32 const volatile &>(*pLock) | uiMask);
 
     while(__sync_xor_and_fetch(pLock, uiMask) != uiRef);
+#endif
 }
 
 inline
 void osgSpinLockRelease(UInt32 *pLock, UInt32 uiInvMask)
 {
+#if __GNUC__ >= 4 && __GNUC_MINOR__ >=2
     __sync_fetch_and_and(pLock, uiInvMask);
+#endif
 }
 
 #else
