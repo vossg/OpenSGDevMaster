@@ -261,6 +261,8 @@ bool WinThreadSemaphoreBase::init(void)
 
     return true;
 #endif
+#else
+	return true;
 #endif
 }
 
