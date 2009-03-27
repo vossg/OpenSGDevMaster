@@ -105,7 +105,9 @@ void osgSpinLock(UInt32 *pLock, UInt32 uiMask)
 {
     //while(__sync_xor_and_fetch(pLock, 0x80000000) != 0x80000000);
 
-    UInt32 uiRef = (*pLock | uiMask);
+    UInt32 uiRef = 
+        (static_cast<UInt32 const volatile &>(*pLock) | uiMask);
+
     while(__sync_xor_and_fetch(pLock, uiMask) != uiRef);
 }
 
@@ -114,6 +116,7 @@ void osgSpinLockRelease(UInt32 *pLock, UInt32 uiInvMask)
 {
     __sync_fetch_and_and(pLock, uiInvMask);
 }
+
 #else
 
 inline 
@@ -149,6 +152,23 @@ void osgAtomicDecrement(RefCountStore *pValue)
 #endif
     
     BOOST_INTERLOCKED_DECREMENT(pValue);
+}
+
+inline
+void osgSpinLock(UInt32 *pLock, UInt32 uiMask)
+{
+/*
+    UInt32 uiRef = 
+        (static_cast<UInt32 const volatile &>(*pLock) | uiMask);
+
+    while(__sync_xor_and_fetch(pLock, uiMask) != uiRef);
+ */
+}
+
+inline
+void osgSpinLockRelease(UInt32 *pLock, UInt32 uiInvMask)
+{
+//    __sync_fetch_and_and(pLock, uiInvMask);
 }
 
 #endif
