@@ -114,7 +114,7 @@ CarbonWindowBase::TypeObject CarbonWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CarbonWindowBase::createEmptyLocal),
     CarbonWindow::initMethod,
     CarbonWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CarbonWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CarbonWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr CarbonWindowBase::getHandleContext         (void) const
     SFAGLContext::GetHandlePtr returnValue(
         new  SFAGLContext::GetHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             const_cast<CarbonWindowBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr CarbonWindowBase::editHandleContext        (void)
     SFAGLContext::EditHandlePtr returnValue(
         new  SFAGLContext::EditHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             this));
 
 
     editSField(ContextFieldMask);

@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CoreGLWindow;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CoreGLWindowPtr
-
 OSG_GEN_CONTAINERPTR(CoreGLWindow);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowCoreGLFieldTraits
+    \ingroup GrpLibOSGWindowCoreGL
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CoreGLWindow *> :
     public FieldTraitsFCPtrBase<CoreGLWindow *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CoreGLWindow *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdCoreGLWindowPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CoreGLWindowPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowCoreGLFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowCoreGLFieldSFields */
 typedef PointerSField<CoreGLWindow *,
                       RecordedRefCountPolicy  > SFRecCoreGLWindowPtr;
+/*! \ingroup GrpWindowCoreGLFieldSFields */
 typedef PointerSField<CoreGLWindow *,
                       UnrecordedRefCountPolicy> SFUnrecCoreGLWindowPtr;
+/*! \ingroup GrpWindowCoreGLFieldSFields */
 typedef PointerSField<CoreGLWindow *,
                       WeakRefCountPolicy      > SFWeakCoreGLWindowPtr;
+/*! \ingroup GrpWindowCoreGLFieldSFields */
 typedef PointerSField<CoreGLWindow *,
                       NoRefCountPolicy        > SFUncountedCoreGLWindowPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowCoreGLFieldMulti */
-
+/*! \ingroup GrpWindowCoreGLFieldMFields */
 typedef PointerMField<CoreGLWindow *,
                       RecordedRefCountPolicy  > MFRecCoreGLWindowPtr;
+/*! \ingroup GrpWindowCoreGLFieldMFields */
 typedef PointerMField<CoreGLWindow *,
                       UnrecordedRefCountPolicy> MFUnrecCoreGLWindowPtr;
+/*! \ingroup GrpWindowCoreGLFieldMFields */
 typedef PointerMField<CoreGLWindow *,
                       WeakRefCountPolicy      > MFWeakCoreGLWindowPtr;
+/*! \ingroup GrpWindowCoreGLFieldMFields */
 typedef PointerMField<CoreGLWindow *,
                       NoRefCountPolicy        > MFUncountedCoreGLWindowPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowCoreGLFieldSFields \ingroup GrpLibOSGWindowCoreGL */
+struct SFRecCoreGLWindowPtr : 
+    public PointerSField<CoreGLWindow *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowCoreGLFieldSFields \ingroup GrpLibOSGWindowCoreGL */
+struct SFUnrecCoreGLWindowPtr : 
+    public PointerSField<CoreGLWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowCoreGLFieldSFields \ingroup GrpLibOSGWindowCoreGL */
+struct SFWeakCoreGLWindowPtr :
+    public PointerSField<CoreGLWindow *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowCoreGLFieldSFields \ingroup GrpLibOSGWindowCoreGL */
+struct SFUncountedCoreGLWindowPtr :
+    public PointerSField<CoreGLWindow *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowCoreGLFieldMFields \ingroup GrpLibOSGWindowCoreGL */
+struct MFRecCoreGLWindowPtr :
+    public PointerMField<CoreGLWindow *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowCoreGLFieldMFields \ingroup GrpLibOSGWindowCoreGL */
+struct MFUnrecCoreGLWindowPtr :
+    public PointerMField<CoreGLWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowCoreGLFieldMFields \ingroup GrpLibOSGWindowCoreGL */
+struct MFWeakCoreGLWindowPtr :
+    public PointerMField<CoreGLWindow *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowCoreGLFieldMFields \ingroup GrpLibOSGWindowCoreGL */
+struct MFUncountedCoreGLWindowPtr :
+    public PointerMField<CoreGLWindow *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

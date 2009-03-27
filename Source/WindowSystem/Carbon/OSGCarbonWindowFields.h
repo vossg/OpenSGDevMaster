@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CarbonWindow;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CarbonWindowPtr
-
 OSG_GEN_CONTAINERPTR(CarbonWindow);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowCarbonFieldTraits
+    \ingroup GrpLibOSGWindowCarbon
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CarbonWindow *> :
     public FieldTraitsFCPtrBase<CarbonWindow *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CarbonWindow *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdCarbonWindowPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CarbonWindowPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowCarbonFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowCarbonFieldSFields */
 typedef PointerSField<CarbonWindow *,
                       RecordedRefCountPolicy  > SFRecCarbonWindowPtr;
+/*! \ingroup GrpWindowCarbonFieldSFields */
 typedef PointerSField<CarbonWindow *,
                       UnrecordedRefCountPolicy> SFUnrecCarbonWindowPtr;
+/*! \ingroup GrpWindowCarbonFieldSFields */
 typedef PointerSField<CarbonWindow *,
                       WeakRefCountPolicy      > SFWeakCarbonWindowPtr;
+/*! \ingroup GrpWindowCarbonFieldSFields */
 typedef PointerSField<CarbonWindow *,
                       NoRefCountPolicy        > SFUncountedCarbonWindowPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowCarbonFieldMulti */
-
+/*! \ingroup GrpWindowCarbonFieldMFields */
 typedef PointerMField<CarbonWindow *,
                       RecordedRefCountPolicy  > MFRecCarbonWindowPtr;
+/*! \ingroup GrpWindowCarbonFieldMFields */
 typedef PointerMField<CarbonWindow *,
                       UnrecordedRefCountPolicy> MFUnrecCarbonWindowPtr;
+/*! \ingroup GrpWindowCarbonFieldMFields */
 typedef PointerMField<CarbonWindow *,
                       WeakRefCountPolicy      > MFWeakCarbonWindowPtr;
+/*! \ingroup GrpWindowCarbonFieldMFields */
 typedef PointerMField<CarbonWindow *,
                       NoRefCountPolicy        > MFUncountedCarbonWindowPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowCarbonFieldSFields \ingroup GrpLibOSGWindowCarbon */
+struct SFRecCarbonWindowPtr : 
+    public PointerSField<CarbonWindow *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowCarbonFieldSFields \ingroup GrpLibOSGWindowCarbon */
+struct SFUnrecCarbonWindowPtr : 
+    public PointerSField<CarbonWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowCarbonFieldSFields \ingroup GrpLibOSGWindowCarbon */
+struct SFWeakCarbonWindowPtr :
+    public PointerSField<CarbonWindow *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowCarbonFieldSFields \ingroup GrpLibOSGWindowCarbon */
+struct SFUncountedCarbonWindowPtr :
+    public PointerSField<CarbonWindow *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowCarbonFieldMFields \ingroup GrpLibOSGWindowCarbon */
+struct MFRecCarbonWindowPtr :
+    public PointerMField<CarbonWindow *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowCarbonFieldMFields \ingroup GrpLibOSGWindowCarbon */
+struct MFUnrecCarbonWindowPtr :
+    public PointerMField<CarbonWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowCarbonFieldMFields \ingroup GrpLibOSGWindowCarbon */
+struct MFWeakCarbonWindowPtr :
+    public PointerMField<CarbonWindow *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowCarbonFieldMFields \ingroup GrpLibOSGWindowCarbon */
+struct MFUncountedCarbonWindowPtr :
+    public PointerMField<CarbonWindow *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -114,7 +114,7 @@ CocoaWindowBase::TypeObject CocoaWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CocoaWindowBase::createEmptyLocal),
     CocoaWindow::initMethod,
     CocoaWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CocoaWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CocoaWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr CocoaWindowBase::getHandleContext         (void) const
     SFNSOpenGLContextP::GetHandlePtr returnValue(
         new  SFNSOpenGLContextP::GetHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             const_cast<CocoaWindowBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr CocoaWindowBase::editHandleContext        (void)
     SFNSOpenGLContextP::EditHandlePtr returnValue(
         new  SFNSOpenGLContextP::EditHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             this));
 
 
     editSField(ContextFieldMask);

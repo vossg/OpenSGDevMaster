@@ -398,7 +398,7 @@ void osx_AllowForeground()
     SetFrontProcess(&psn);
 }
 
-int main(int argc, char *argv[])
+int doMain(int argc, char *argv[])
 {
     osx_AllowForeground();
 
@@ -521,7 +521,25 @@ int main(int argc, char *argv[])
     // Run the message loop
     [NSApp run];
 
+    delete ract;
+
+    win       = NULL;
+    root      = NULL;
+    file      = NULL;
+    vp        = NULL;
+    cam_trans = NULL;
+    cam       = NULL;
+
     [pool release];
+
+    return EXIT_SUCCESS;
+}
+
+int main(int argc, char *argv[])
+{
+    doMain(argc, argv);
+
+    osgExit();
 
     return EXIT_SUCCESS;
 }

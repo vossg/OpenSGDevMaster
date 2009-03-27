@@ -114,7 +114,7 @@ CoreGLWindowBase::TypeObject CoreGLWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&CoreGLWindowBase::createEmptyLocal),
     CoreGLWindow::initMethod,
     CoreGLWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&CoreGLWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&CoreGLWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr CoreGLWindowBase::getHandleContext         (void) const
     SFCGLContextObj::GetHandlePtr returnValue(
         new  SFCGLContextObj::GetHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             const_cast<CoreGLWindowBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr CoreGLWindowBase::editHandleContext        (void)
     SFCGLContextObj::EditHandlePtr returnValue(
         new  SFCGLContextObj::EditHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             this));
 
 
     editSField(ContextFieldMask);

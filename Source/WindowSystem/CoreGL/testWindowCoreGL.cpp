@@ -236,7 +236,7 @@ static pascal OSStatus eventHandler(EventHandlerCallRef nextHandler, EventRef ev
     }
 }
 
-int main (int argc, char **argv)
+int doMain (int argc, char **argv)
 {
     int dummy;
 
@@ -412,5 +412,23 @@ int main (int argc, char **argv)
     CGReleaseAllDisplays();
     DisposeEventHandlerUPP(eventHandlerUPP);
 
-    return (0);
+    delete ract;
+
+    win       = NULL;
+    root      = NULL;
+    file      = NULL;
+    vp        = NULL;
+    cam_trans = NULL;
+    cam       = NULL;
+
+    return 0;
+}
+
+int main (int argc, char **argv)
+{
+    doMain(argc, argv);
+
+    osgExit();
+
+    return 0;
 }

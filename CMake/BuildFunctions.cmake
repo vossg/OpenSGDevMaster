@@ -286,6 +286,7 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(GLOB LOCAL_UNITTEST_SRC "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Test.cpp")
         FILE(GLOB LOCAL_TEST_SRC     "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.cpp"
                                      "${CMAKE_SOURCE_DIR}/${DIRNAME}/test*.mm")
+        FILE(GLOB BASE_MM            "${CMAKE_SOURCE_DIR}/${DIRNAME}/OSG*Base.mm")
     ELSE()
         # Guess it's an absolute dir we got as the rel one is not there
         FILE(GLOB LOCAL_SRC          "${DIRNAME}/OSG*.cpp" "${DIRNAME}/OSG*.mm")
@@ -298,7 +299,20 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
         FILE(GLOB LOCAL_MOC          "${DIRNAME}/OSG*_qt.h")
         FILE(GLOB LOCAL_UNITTEST_SRC "${DIRNAME}/OSG*Test.cpp")
         FILE(GLOB LOCAL_TEST_SRC     "${DIRNAME}/test*.cpp" "${DIRNAME}/test*.mm")
+        FILE(GLOB BASE_MM            "${DIRNAME}/OSG*Base.mm")
     ENDIF()
+
+    IF(BASE_MM)
+        FOREACH(BaseMMFile ${BASE_MM})
+	    STRING(REGEX REPLACE mm$ cpp BaseMMFileCPP ${BaseMMFile})
+	    LIST(APPEND BASE_MM_CPP ${BaseMMFileCPP})
+	ENDFOREACH()
+    ENDIF(BASE_MM)
+
+    IF(BASE_MM_CPP)
+	LIST(REMOVE_ITEM LOCAL_SRC ${BASE_MM_CPP})
+    ENDIF(BASE_MM_CPP)
+    
 
     # filter unittest sources out of library sources
     IF(LOCAL_UNITTEST_SRC)

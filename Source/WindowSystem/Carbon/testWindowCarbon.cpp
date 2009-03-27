@@ -33,7 +33,7 @@ using namespace OSG;
 
 CarbonWindowUnrecPtr    win;
 
-RenderAction    *ract;
+RenderAction        *ract;
 NodeRecPtr           root;
 NodeRecPtr           file;
 ViewportRecPtr   vp;
@@ -322,7 +322,7 @@ void osx_AllowForeground()
     SetFrontProcess(&psn);
 }
 
-int main (int argc, char **argv)
+int doMain (int argc, char **argv)
 {
     osx_AllowForeground();
 
@@ -502,5 +502,23 @@ int main (int argc, char **argv)
     DisposeWindow(window);
     DisposeEventHandlerUPP(eventHandlerUPP);
 
-    return (0);
+    delete ract;
+
+    win       = NULL;
+    root      = NULL;
+    file      = NULL;
+    vp        = NULL;
+    cam_trans = NULL;
+    cam       = NULL;
+
+    return 0;
+}
+
+int main (int argc, char **argv)
+{
+    doMain(argc, argv);
+
+    osgExit();
+
+    return 0;
 }
