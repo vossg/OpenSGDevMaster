@@ -36,32 +36,33 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGOSBChunkMaterialElement.h>
+#include "OSGOSBMaterialPoolElement.h"
 
-#include <OSGOSBRootElement.h>
-#include <OSGChunkMaterial.h>
+#include "OSGOSBRootElement.h"
 
-#include <OSGOSBTextureChunkElement.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGTextureEnvChunk.h>
+#include "OSGGroup.h"
 
 OSG_USING_NAMESPACE
 
 /*-------------------------------------------------------------------------*/
-/* OSBChunkMaterialElement                                                 */
+/* OSBMaterialPoolElement                                                  */
 /*-------------------------------------------------------------------------*/
+
+/*! Reads the removed MaterialPool from an osb and converts it to a Group
+    with a ContainerCollection attachment.
+ */
 
 /*-------------------------------------------------------------------------*/
 /* Static members                                                          */
 
-OSBElementRegistrationHelper<OSBChunkMaterialElement>
-    OSBChunkMaterialElement::_regHelper =
-        OSBElementRegistrationHelper<OSBChunkMaterialElement>("ChunkMaterial");
+OSBElementRegistrationHelper<OSBMaterialPoolElement>
+    OSBMaterialPoolElement::_regHelper =
+        OSBElementRegistrationHelper<OSBMaterialPoolElement>("MaterialPool");
 
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 
-OSBChunkMaterialElement::OSBChunkMaterialElement(OSBRootElement *root)
+OSBMaterialPoolElement::OSBMaterialPoolElement(OSBRootElement *root)
     : Inherited(root, OSGOSBHeaderVersion200)
 {
 }
@@ -69,7 +70,7 @@ OSBChunkMaterialElement::OSBChunkMaterialElement(OSBRootElement *root)
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-OSBChunkMaterialElement::~OSBChunkMaterialElement(void)
+OSBMaterialPoolElement::~OSBMaterialPoolElement(void)
 {
 }
 
@@ -77,135 +78,77 @@ OSBChunkMaterialElement::~OSBChunkMaterialElement(void)
 /* Reading                                                                 */
 
 void
-OSBChunkMaterialElement::read(const std::string &typeName)
+OSBMaterialPoolElement::read(const std::string &typeName)
 {
-    OSG_OSB_LOG(("OSBChunkMaterialElement::read [%s]\n", typeName.c_str()));
+    OSG_OSB_LOG(("OSBMaterialPoolElement::read: [%s]\n", typeName.c_str()));
 
     BinaryReadHandler *rh = editRoot()->getReadHandler();
-
+    
     UInt8  ptrTypeId;
     UInt16 version;
 
     rh->getValue(ptrTypeId);
     rh->getValue(version  );
 
-    OSG_OSB_LOG(("OSBChunkMaterialElement::read: version: [%u]\n", version));
+    GroupUnrecPtr group = Group              ::create();
+    _pCollection        = ContainerCollection::create();
+
+    setContainer(group);
+
+    // set attachment on the Group
+    group       ->addAttachment(_pCollection  );
+    _pCollection->setName      ("MaterialPool");
 
     std::string    fieldName;
     std::string    fieldTypeName;
     UInt32         fieldSize;
     PtrFieldListIt ptrFieldIt;
-
-    setContainer(ChunkMaterialUnrecPtr(ChunkMaterial::create()));
-
+    
     while(readFieldHeader("", fieldName, fieldTypeName, fieldSize))
     {
-        if(fieldName == "slots")
+        if(fieldName == "materials")
         {
-            // read slots field into separate field - the real field gets
-            // filled in postRead
-            _mfSlots.copyFromBin(*rh);
-        }
-        else if(fieldName == "chunks")
-        {
-            // keep an interator to the _mfChunks field contents
-            readFieldContent(fieldName, fieldTypeName, fieldSize, "",
-                             _chunksPtrFieldIt);
+            // materials from MaterialPool need to be stored in the
+            // ContainerCollection
+            readMaterialsField();
         }
         else
         {
-            readFieldContent(fieldName, fieldTypeName, fieldSize, "",
-                             ptrFieldIt);
+            // all other fields can be read directly
+            readFieldContent(fieldName, fieldTypeName,
+                             fieldSize, "", ptrFieldIt);
         }
     }
 }
 
 void
-OSBChunkMaterialElement::postRead(void)
+OSBMaterialPoolElement::postRead(void)
 {
-    // _mfChunks and _mfSlots have to be kept consistent for ChunkMaterial.
-    // Also TextureChunk is split into TextureObjChunk and TextureObjChunk
-    // on load, so the slot info has to be duplicated.
-    // TODO:
-    // It would be better if that handling could be confined to
-    // TextureChunkElement, but I've not found a good way to do that and keep
-    // the information in _mfSlots correct. -- cneumann
-
-    const OSBRootElement *root   = getRoot();
-    ChunkMaterial        *chkMat = dynamic_cast<ChunkMaterial *>(getContainer());
-
-    PtrFieldInfo::PtrIdStoreConstIt idIt  = _chunksPtrFieldIt->getIdStore().begin();
-    PtrFieldInfo::PtrIdStoreConstIt idEnd = _chunksPtrFieldIt->getIdStore().end  ();
-
-    for(UInt32 i = 0; idIt != idEnd; ++idIt, ++i)
-    {
-        OSBRootElement::IdElemMapConstIt mapIt = 
-            root->getIdElemMap().find(*idIt);
-
-        if(mapIt == root->getIdElemMap().end())
-            continue;
-
-        OSBElementBase         *chunkElem    = mapIt->second;
-        OSBTextureChunkElement *texChunkElem =
-            dynamic_cast<OSBTextureChunkElement *>(chunkElem);
-
-        if(texChunkElem != NULL)
-        {
-            // TextureChunk
-            TextureObjChunk *texObj = texChunkElem->getTexObjChunk();
-            TextureEnvChunk *texEnv = texChunkElem->getTexEnvChunk();
-
-            if(i < _mfSlots.size())
-            {
-                chkMat->addChunk(texObj, _mfSlots[i]);
-                chkMat->addChunk(texEnv, _mfSlots[i]);
-            }
-            else
-            {
-                chkMat->addChunk(texObj);
-                chkMat->addChunk(texEnv);
-            }
-        }
-        else
-        {
-            // other chunk
-            StateChunk *chunk = dynamic_cast<StateChunk *>(chunkElem->getContainer());
-
-            if(i < _mfSlots.size())
-            {
-                chkMat->addChunk(chunk, _mfSlots[i]);
-            }
-            else
-            {
-                chkMat->addChunk(chunk);
-            }
-        }
-    }
-
-    // pointer mapping is already done here for _mfChunks, clear info
-    _chunksPtrFieldIt->editIdStore     ().clear();
-    _chunksPtrFieldIt->editBindingStore().clear();
+    Inherited::postRead();
 }
 
 /*-------------------------------------------------------------------------*/
 /* Writing                                                                 */
 
 void
-OSBChunkMaterialElement::preWrite(FieldContainer * const fc)
+OSBMaterialPoolElement::preWrite(FieldContainer * const fc)
 {
-    OSG_OSB_LOG(("OSBChunkMaterialElement::preWrite\n"));
+    OSG_OSB_LOG(("OSBMaterialPoolElement::preWrite\n"));
+
+    OSBRootElement *root       = editRoot();
+    UInt32          fieldCount = fc->getType().getNumFieldDescs();
 
     preWriteFieldContainer(fc, "");
 }
 
 void
-OSBChunkMaterialElement::write(void)
+OSBMaterialPoolElement::write(void)
 {
-    OSG_OSB_LOG(("OSBChunkMaterialElement::write\n"));
-
+    OSG_OSB_LOG(("OSBMaterialPoolElement::write\n"));
+    
     if(getContainer() == NULL)
     {
-        FWARNING(("OSBChunkMaterialElement::write: Attempt to write NULL.\n"));
+        FWARNING(("OSBMaterialPoolElement::write: Attempt to write NULL.\n"));
         return;
     }
 
@@ -215,4 +158,34 @@ OSBChunkMaterialElement::write(void)
     wh->putValue(getVersion()                );
 
     writeFields("", true);
+}
+
+/*! Reads MFMaterials from MaterialPool and stores the pointer ids so that
+    they get put into ContainerCollection MFContainers.
+ */
+void
+OSBMaterialPoolElement::readMaterialsField(void)
+{
+    OSG_OSB_LOG(("OSBMaterialPoolElement::readMaterialsField\n"));
+
+    UInt32             ptrId;
+    UInt32             numElements;
+    OSBRootElement    *root        = editRoot();
+    BinaryReadHandler *rh          = editRoot()->getReadHandler();
+
+    FieldDescriptionBase *contFieldDesc =
+        _pCollection->getFieldDescription("containers");
+    UInt32                contFieldId   = contFieldDesc->getFieldId();
+
+    root->editPtrFieldList().push_back(PtrFieldInfo(_pCollection,
+                                                    contFieldId  ));
+    PtrFieldInfo &pfi = root->editPtrFieldList().back();
+
+    rh->getValue(numElements);
+
+    for(UInt32 i = 0; i < numElements; ++i)
+    {
+        rh->getValue(ptrId);
+        pfi.editIdStore().push_back(ptrId);
+    }
 }

@@ -45,6 +45,7 @@
 #include "OSGConfig.h"
 #include "OSGFileIODef.h"
 #include "OSGFieldContainer.h"
+#include "OSGOSBLog.h"
 
 #include <iostream>
 #include <list>

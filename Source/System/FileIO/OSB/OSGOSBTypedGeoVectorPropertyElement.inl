@@ -78,7 +78,7 @@ void
 OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::read(
     const std::string &typeName)
 {
-    FDEBUG(("OSBTypedGeoVectorPropertyElement<>::read\n"));
+    OSG_OSB_LOG(("OSBTypedGeoVectorPropertyElement<>::read\n"));
 
     BinaryReadHandler *rh = editRoot()->getReadHandler();
 
@@ -119,7 +119,7 @@ OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::read(
 
         if(!readFieldHeader("", fieldName, fieldTypeName, fieldSize))
         {
-            FDEBUG(("OSBGeoIntegralPropertyElement<>::read: "
+            OSG_OSB_LOG(("OSBGeoIntegralPropertyElement<>::read: "
                     "Reading stopped at field: [%s].\n", fieldName.c_str()));
             break;
         }
@@ -160,7 +160,7 @@ template <class GeoPropertyTypeT>
 void
 OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::postRead(void)
 {
-    FDEBUG(("OSBTypedGeoVectorPropertyElement<>::postRead\n"));
+    OSG_OSB_LOG(("OSBTypedGeoVectorPropertyElement<>::postRead\n"));
 }
 
 /*-------------------------------------------------------------------------*/
@@ -171,7 +171,7 @@ void
 OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::preWrite(
     FieldContainer * const fc)
 {
-    FDEBUG(("OSBTypedGeoVectorPropertyElement<>::preWrite\n"));
+    OSG_OSB_LOG(("OSBTypedGeoVectorPropertyElement<>::preWrite\n"));
 
     preWriteFieldContainer(fc, "");
 }
@@ -180,7 +180,7 @@ template <class GeoPropertyTypeT>
 void
 OSBTypedGeoVectorPropertyElement<GeoPropertyTypeT>::write(void)
 {
-    FDEBUG(("OSBTypedGeoVectorPropertyElement<>::write\n"));
+    OSG_OSB_LOG(("OSBTypedGeoVectorPropertyElement<>::write\n"));
 
     BinaryWriteHandler   *wh      = editRoot()->getWriteHandler();
     const OSBRootElement *root    = getRoot();

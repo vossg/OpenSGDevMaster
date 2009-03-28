@@ -93,17 +93,18 @@ OSBGenericElement::~OSBGenericElement(void)
 void
 OSBGenericElement::read(const std::string &typeName)
 {
-    FDEBUG(("OSBGenericElement::read [%s]\n", typeName.c_str()));
+    OSG_OSB_LOG(("OSBGenericElement::read [%s]\n", typeName.c_str()));
 
     BinaryReadHandler *rh = editRoot()->getReadHandler();
 
-    UInt8  ptrTypeId;
+    UInt8  ptrTypeTag;
     UInt16 version;
 
-    rh->getValue(ptrTypeId);
-    rh->getValue(version  );
+    rh->getValue(ptrTypeTag);
+    rh->getValue(version   );
 
-    FDEBUG(("OSBGenericElement::read: version: [%u]\n", version));
+    OSG_OSB_LOG(("OSBGenericElement::read: version: [%u] ptrTypeTag [%u]\n",
+                 version, ptrTypeTag));
 
     setContainer(FieldContainerUnrecPtr(
         FieldContainerFactory::the()->createContainer(typeName.c_str())));
@@ -115,7 +116,7 @@ OSBGenericElement::read(const std::string &typeName)
 
         skipFields();
 
-        setContainer(FieldContainerUnrecPtr(createReplacementFC(ptrTypeId)));
+        setContainer(FieldContainerUnrecPtr(createReplacementFC(ptrTypeTag)));
         return;
     }
 
@@ -133,7 +134,7 @@ OSBGenericElement::postRead(void)
 void
 OSBGenericElement::preWrite(FieldContainer * const fc)
 {
-    FDEBUG(("OSBGenericElement::preWrite\n"));
+    OSG_OSB_LOG(("OSBGenericElement::preWrite\n"));
 
     preWriteFieldContainer(fc, "");
 }
@@ -141,7 +142,7 @@ OSBGenericElement::preWrite(FieldContainer * const fc)
 void
 OSBGenericElement::write(void)
 {
-    FDEBUG(("OSBGenericElement::write\n"));
+    OSG_OSB_LOG(("OSBGenericElement::write\n"));
 
     if(getContainer() == NULL)
     {

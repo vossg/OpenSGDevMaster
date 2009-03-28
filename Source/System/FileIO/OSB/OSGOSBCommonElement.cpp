@@ -134,7 +134,7 @@ OSBCommonElement::readFieldContainerHeader(
     std::string &typeName,
     UInt32      &fcId     )
 {
-    FDEBUG(("OSBCommonElement::readFieldContainerHeader\n"));
+    OSG_OSB_LOG(("OSBCommonElement::readFieldContainerHeader\n"));
 
     BinaryReadHandler *rh = editRoot()->getReadHandler();
 
@@ -144,6 +144,9 @@ OSBCommonElement::readFieldContainerHeader(
         return false;
 
     rh->getValue(fcId);
+
+    OSG_OSB_LOG(("OSBCommonElement::readFieldContainerHeader: [%s] [%u]\n",
+            typeName.c_str(), fcId));
 
     return true;
 }
@@ -176,7 +179,7 @@ OSBCommonElement::readFieldHeader(
           std::string &fieldTypeName,
           UInt32      &fieldSize     )
 {
-    FDEBUG(("OSBCommonElement::readFieldHeader\n"));
+    OSG_OSB_LOG(("OSBCommonElement::readFieldHeader\n"));
 
     BinaryReadHandler *rh = editRoot()->getReadHandler();
 
@@ -218,7 +221,7 @@ OSBCommonElement::readFieldHeaderContinue(
           std::string &fieldTypeName,
           UInt32      &fieldSize     )
 {
-    FDEBUG(("OSBCommonElement::readFieldHeaderContinue\n"));
+    OSG_OSB_LOG(("OSBCommonElement::readFieldHeaderContinue\n"));
 
     BinaryReadHandler *rh = editRoot()->getReadHandler();
 
@@ -226,7 +229,7 @@ OSBCommonElement::readFieldHeaderContinue(
        (!endMarkers.empty() &&
        (endMarkers.find("'" + fieldName + "'") != std::string::npos)))
     {
-        FDEBUG(("OSBCommonElement::readFieldHeaderContinue: "
+        OSG_OSB_LOG(("OSBCommonElement::readFieldHeaderContinue: "
                 "Found field end marker.\n"));
 
         return false;
@@ -236,7 +239,7 @@ OSBCommonElement::readFieldHeaderContinue(
         rh->getValue(fieldTypeName);
         rh->getValue(fieldSize    );
 
-        FDEBUG(("OSBCommonElement::readFieldHeaderContinue: "
+        OSG_OSB_LOG(("OSBCommonElement::readFieldHeaderContinue: "
                 "[%s] [%s] [%u]\n",
                 fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
@@ -271,7 +274,7 @@ OSBCommonElement::readFieldContent(
     const std::string    &excludeFields,
           PtrFieldListIt &ptrFieldIt    )
 {
-    FDEBUG(("OSBCommonElement::readFieldContent: [%s] [%s] [%u]\n",
+    OSG_OSB_LOG(("OSBCommonElement::readFieldContent: [%s] [%s] [%u]\n",
             fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
     BinaryReadHandler    *rh         = editRoot()->getReadHandler();
@@ -282,7 +285,7 @@ OSBCommonElement::readFieldContent(
     if((!excludeFields.empty()                                        ) &&
        (excludeFields.find("'" + fieldName + "'") != std::string::npos)   )
     {
-        FDEBUG(("OSBCommonElement::readFieldContent: "
+        OSG_OSB_LOG(("OSBCommonElement::readFieldContent: "
                 "Skipping excluded field [%s] [%s]\n",
                 fieldName.c_str(), fieldTypeName.c_str()));
 
@@ -370,7 +373,7 @@ OSBCommonElement::readFields(const std::string &excludeFields,
         if(!readFieldHeader(endMarkers, fieldName,
                             fieldTypeName, fieldSize))
         {
-            FDEBUG(("OSBCommonElement::readFields: "
+            OSG_OSB_LOG(("OSBCommonElement::readFields: "
                     "Reading stopped at field: [%s].\n", fieldName.c_str() ));
             break;
         }
@@ -414,7 +417,7 @@ OSBCommonElement::readFieldsContinue(const std::string &fieldName,
     if(!readFieldHeaderContinue(endMarkers, fieldName,
                                 fieldTypeName, fieldSize))
     {
-        FDEBUG(("OSBCommonElement::readFieldsContinue: "
+        OSG_OSB_LOG(("OSBCommonElement::readFieldsContinue: "
                 "Reading stopped at field: [%s].\n", fieldName.c_str() ));
         return fieldName;
     }
@@ -428,7 +431,7 @@ OSBCommonElement::readFieldsContinue(const std::string &fieldName,
         if(!readFieldHeader(endMarkers, fieldName2,
                             fieldTypeName, fieldSize))
         {
-            FDEBUG(("OSBCommonElement::readFieldsContinue: "
+            OSG_OSB_LOG(("OSBCommonElement::readFieldsContinue: "
                     "Reading stopped at field: [%s].\n", fieldName2.c_str() ));
             break;
         }
@@ -458,7 +461,7 @@ OSBCommonElement::skipFields(void)
 
         if(fieldName.empty())
         {
-            FDEBUG(("OSBCommonElement::skipFields: "
+            OSG_OSB_LOG(("OSBCommonElement::skipFields: "
                     "Found field end marker.\n"      ));
             break;
         }
@@ -466,6 +469,9 @@ OSBCommonElement::skipFields(void)
         rh->getValue(fieldTypeName);
         rh->getValue(fieldSize    );
         rh->skip    (fieldSize    );
+
+        OSG_OSB_LOG(("OSBCommonElement::skipFields: fieldTypeName [%s] fieldSize [%u]\n",
+                fieldTypeName.c_str(), fieldSize));
     }
 }
 
@@ -480,7 +486,7 @@ OSBCommonElement::skipFields(void)
 OSBCommonElement::PtrFieldListIt
 OSBCommonElement::readPtrSingleField(const UInt32 fieldId)
 {
-    FDEBUG(("OSBCommonElement::readPtrSingleField: "
+    OSG_OSB_LOG(("OSBCommonElement::readPtrSingleField: "
             "fieldId: [%u]\n", fieldId));
 
     OSBRootElement *root  = editRoot();
@@ -488,6 +494,8 @@ OSBCommonElement::readPtrSingleField(const UInt32 fieldId)
 
     root->getReadHandler()->getValue(ptrId);
     
+    OSG_OSB_LOG(("OSBCommonElement::readPtrSingleField: ptrId [%u]\n", ptrId));
+
     root->editPtrFieldList().push_back(PtrFieldInfo(getContainer(), fieldId));
     root->editPtrFieldList().back().editIdStore().push_back(ptrId);
 
@@ -506,7 +514,7 @@ OSBCommonElement::PtrFieldListIt
 OSBCommonElement::readPtrMultiField(
     const UInt32 fieldId, const UInt32 fieldSize)
 {
-    FDEBUG(("OSBCommonElement::readPtrMultiField: "
+    OSG_OSB_LOG(("OSBCommonElement::readPtrMultiField: "
             "fieldId: [%u]\n", fieldId));
 
     UInt32             ptrId;
@@ -519,11 +527,17 @@ OSBCommonElement::readPtrMultiField(
 
     rh->getValue(numElements);
 
+    OSG_OSB_LOG(("OSBCommonElement::readPtrMultiField: ptrIds ["));
+
     for(UInt32 i = 0; i < numElements; ++i)
     {
         rh->getValue(ptrId);
         pfi.editIdStore().push_back(ptrId);
+
+        OSG_OSB_PLOG(("%u ", ptrId));
     }
+
+    OSG_OSB_PLOG(("]\n"));
 
     return --(root->editPtrFieldList().end());
 }
@@ -541,7 +555,7 @@ OSBCommonElement::PtrFieldListIt
 OSBCommonElement::readAttachmentMapField(
     const UInt32 fieldId, const UInt32 fieldSize)
 {
-    FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+    OSG_OSB_LOG(("OSBCommonElement::readAttachmentMapField: "
             "fieldId: [%u]\n", fieldId));
 
     bool               hasBindingInfo = false;
@@ -583,7 +597,7 @@ OSBCommonElement::readAttachmentMapField(
 
     if(hasBindingInfo == true)
     {
-        FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+        OSG_OSB_LOG(("OSBCommonElement::readAttachmentMapField: "
                 "reading [%u] attachments with binding info.\n", numElements));
     
         EditMapFieldHandlePtr sfMapField =
@@ -604,7 +618,7 @@ OSBCommonElement::readAttachmentMapField(
             rh->getValue(binding);
             rh->getValue(ptrId  );
 
-            FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+            OSG_OSB_LOG(("OSBCommonElement::readAttachmentMapField: "
                     "attachment [%u], binding [%u], id [%u].\n",
                     i, binding, ptrId));
 
@@ -615,7 +629,7 @@ OSBCommonElement::readAttachmentMapField(
     }
     else
     {
-        FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+        OSG_OSB_LOG(("OSBCommonElement::readAttachmentMapField: "
                 "reading [%u] attachments without binding info.\n", 
                 numElements));
     
@@ -623,7 +637,7 @@ OSBCommonElement::readAttachmentMapField(
         {
             rh->getValue(ptrId);
             
-            FDEBUG(("OSBCommonElement::readAttachmentMapField: "
+            OSG_OSB_LOG(("OSBCommonElement::readAttachmentMapField: "
                     "attachment [%u], id [%u].\n", i, ptrId));
                     
             pfi.editBindingStore().push_back(0    );
@@ -647,7 +661,7 @@ OSBCommonElement::readAttachmentMapField(
 void
 OSBCommonElement::preWritePtrSingleField(const UInt32 fieldId)
 {
-    FDEBUG(("OSBCommonElement::preWritePtrSingleField: "
+    OSG_OSB_LOG(("OSBCommonElement::preWritePtrSingleField: "
             "fieldId: [%u]\n", fieldId));
 
     OSBRootElement     *root       = editRoot();
@@ -690,7 +704,7 @@ OSBCommonElement::preWritePtrSingleField(const UInt32 fieldId)
 void
 OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
 {
-    FDEBUG(("OSBCommonElement::preWritePtrMultiField: "
+    OSG_OSB_LOG(("OSBCommonElement::preWritePtrMultiField: "
             "fieldId: [%u]\n", fieldId));
 
     OSBRootElement           *root       = editRoot();
@@ -741,7 +755,7 @@ OSBCommonElement::preWritePtrMultiField(const UInt32 fieldId)
  */
 void OSBCommonElement::preWriteMapField(const UInt32 fieldId)
 {
-    FDEBUG(("OSBCommonElement::preWriteAttachmentMapField: "
+    OSG_OSB_LOG(("OSBCommonElement::preWriteAttachmentMapField: "
             "fieldId: [%u]\n", fieldId));
 
     GetMapFieldHandlePtr sfMapField =
@@ -832,7 +846,7 @@ void
 OSBCommonElement::preWriteFieldContainer(
     FieldContainer * const fc, const std::string &excludeFields)
 {
-    FDEBUG(("OSBCommonElement::preWriteFieldContainer: "
+    OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: "
             "excludeFields: [%s]\n", excludeFields.c_str()));
 
     UInt32 fieldCount = fc->getType().getNumFieldDescs();
@@ -845,13 +859,13 @@ OSBCommonElement::preWriteFieldContainer(
         BitVector                   fieldMask = fieldDesc->getFieldMask();
         std::string                 fieldName = fieldDesc->getCName    ();
 
-        FDEBUG(("OSBCommonElement::preWriteFieldContainer: "
+        OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: "
                 "fieldName: [%s] fieldId: [%u]\n", fieldName.c_str(), fieldId));
 
         // skip internal fields
         if(fieldDesc->isInternal())
         {
-            FDEBUG(("OSBCommonElement::preWriteFieldContainer: "
+            OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: "
                     "Skipping internal field: [%s]\n", fieldName.c_str()));
             continue;
         }
@@ -860,7 +874,7 @@ OSBCommonElement::preWriteFieldContainer(
         if((!excludeFields.empty()                                        ) &&
            (excludeFields.find("'" + fieldName + "'") != std::string::npos)   )
         {
-            FDEBUG(("OSBCommonElement::preWriteFieldContainer: "
+            OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: "
                     "Skipping excluded field: [%s]\n", fieldName.c_str()));
             continue;
         }
@@ -897,7 +911,7 @@ OSBCommonElement::preWriteFieldContainer(
 void
 OSBCommonElement::writeFieldContainerHeader(FieldContainer * const fc)
 {
-    FDEBUG(("OSBCommonElement::writeFieldContainerHeader\n"));
+    OSG_OSB_LOG(("OSBCommonElement::writeFieldContainerHeader\n"));
 
     BinaryWriteHandler *wh       = editRoot()->getWriteHandler();
     std::string         typeName = fc->getType().getCName();
@@ -918,7 +932,7 @@ OSBCommonElement::writeFieldHeader(
     const std::string &fieldName, const std::string &fieldTypeName,
     const UInt32       fieldSize                                   )
 {
-    FDEBUG(("OSBCommonElement::writeFieldHeader: "
+    OSG_OSB_LOG(("OSBCommonElement::writeFieldHeader: "
             "[%s] [%s] [%u]\n",
             fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
@@ -936,7 +950,7 @@ OSBCommonElement::writeFieldHeader(
 void
 OSBCommonElement::writeFieldContent(const UInt32 fieldId)
 {
-    FDEBUG(("OSBCommonElement::writeFieldContent\n"));
+    OSG_OSB_LOG(("OSBCommonElement::writeFieldContent\n"));
 
     BinaryWriteHandler *wh = editRoot()->getWriteHandler();
     FieldContainer     *fc = getContainer();
@@ -961,7 +975,7 @@ void
 OSBCommonElement::writeFields(
     const std::string &excludeFields, const bool endMarker)
 {
-    FDEBUG(("OSBCommonElement::writeFields: "
+    OSG_OSB_LOG(("OSBCommonElement::writeFields: "
             "excludeFields: [%s]\n", excludeFields.c_str()));
 
     FieldContainer *fc         = getContainer();
@@ -977,7 +991,7 @@ OSBCommonElement::writeFields(
         // skip internal fields
         if(fieldDesc->isInternal())
         {
-            FDEBUG(("OSBCommonElement::writeFields: "
+            OSG_OSB_LOG(("OSBCommonElement::writeFields: "
                     "Skipping internal field: [%s]\n", fieldName.c_str()));
             continue;
         }
@@ -986,7 +1000,7 @@ OSBCommonElement::writeFields(
         if((!excludeFields.empty()                                        ) &&
            (excludeFields.find("'" + fieldName + "'") != std::string::npos)   )
         {
-            FDEBUG(("OSBCommonElement::writeFields: "
+            OSG_OSB_LOG(("OSBCommonElement::writeFields: "
                     "Skipping excluded field: [%s]\n", fieldName.c_str()));
             continue;
         }
@@ -1011,7 +1025,7 @@ OSBCommonElement::writeFields(
 void
 OSBCommonElement::writeEndMarker(void)
 {
-    FDEBUG(("OSBCommonElement::writeEndMarker\n"));
+    OSG_OSB_LOG(("OSBCommonElement::writeEndMarker\n"));
 
     editRoot()->getWriteHandler()->putValue(std::string(""));
 }
@@ -1029,7 +1043,7 @@ OSBCommonElement::writeEndMarker(void)
     \return A container that can act as replacement for a missing type or
      NULL if no such container was found.
  */
-FieldContainerTransitPtr 
+FieldContainerTransitPtr
     OSBCommonElement::createReplacementFC(const UInt8 fcPtrType)
 {
     FieldContainerTransitPtr fc(NULL);

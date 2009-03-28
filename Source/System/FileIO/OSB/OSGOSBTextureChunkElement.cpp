@@ -88,7 +88,7 @@ OSBTextureChunkElement::~OSBTextureChunkElement(void)
 void
 OSBTextureChunkElement::read(const std::string &typeName)
 {
-    FDEBUG(("OSBTextureChunkElement::read: [%s]\n", typeName.c_str()));
+    OSG_OSB_LOG(("OSBTextureChunkElement::read: [%s]\n", typeName.c_str()));
 
     BinaryReadHandler *rh = editRoot()->getReadHandler();
     
@@ -98,7 +98,7 @@ OSBTextureChunkElement::read(const std::string &typeName)
     rh->getValue(ptrTypeId);
     rh->getValue(version  );
 
-    FDEBUG(("OSBTextureChunkElement::read: version: [%u]\n", version));
+    OSG_OSB_LOG(("OSBTextureChunkElement::read: version: [%u]\n", version));
     
     // create the two replacement chunks
     _pTexObj = TextureObjChunk::create();
@@ -164,7 +164,7 @@ OSBTextureChunkElement::read(const std::string &typeName)
 void
 OSBTextureChunkElement::postRead(void)
 {
-    FDEBUG(("OSBTextureChunkElement::postRead:\n"));
+    OSG_OSB_LOG(("OSBTextureChunkElement::postRead:\n"));
     OSBRootElement *pRoot = editRoot();
 
     // for the id remapping TexEnv needs an id that is not used in the file
@@ -243,7 +243,7 @@ OSBTextureChunkElement::postRead(void)
 void
 OSBTextureChunkElement::preWrite(FieldContainer * const fc)
 {
-    FDEBUG(("OSBTextureChunkElement::preWrite\n"));
+    OSG_OSB_LOG(("OSBTextureChunkElement::preWrite\n"));
 
     OSBRootElement *root       = editRoot();
     UInt32          fieldCount = fc->getType().getNumFieldDescs();
@@ -254,7 +254,7 @@ OSBTextureChunkElement::preWrite(FieldContainer * const fc)
 void
 OSBTextureChunkElement::write(void)
 {
-    FDEBUG(("OSBTextureChunkElement::write\n"));
+    OSG_OSB_LOG(("OSBTextureChunkElement::write\n"));
     
     if(getContainer() == NULL)
     {

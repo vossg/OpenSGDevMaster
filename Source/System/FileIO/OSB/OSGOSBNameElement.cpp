@@ -75,7 +75,7 @@ OSBNameElement::~OSBNameElement(void)
 void
 OSBNameElement::read(const std::string &typeName)
 {
-    FDEBUG(("OSBNameElement::read [%s]\n", typeName.c_str()));
+    OSG_OSB_LOG(("OSBNameElement::read [%s]\n", typeName.c_str()));
 
     BinaryReadHandler *rh        = editRoot()->getReadHandler();
     UInt8              fcPtrType;
@@ -99,7 +99,7 @@ OSBNameElement::postRead(void)
 void
 OSBNameElement::preWrite(FieldContainer * const fc)
 {
-    FDEBUG(("OSBNameElement::preWrite\n"));
+    OSG_OSB_LOG(("OSBNameElement::preWrite\n"));
 
     preWriteFieldContainer(fc, "");
 }
@@ -107,7 +107,7 @@ OSBNameElement::preWrite(FieldContainer * const fc)
 void
 OSBNameElement::write(void)
 {
-    FDEBUG(("OSBNameElement::write\n"));
+    OSG_OSB_LOG(("OSBNameElement::write\n"));
 
     if(getContainer() == NULL)
     {

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                   Copyright (C) 2007 by the OpenSG Forum                  *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,43 +36,41 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "OSGOSBGeometryHelper.h"
+#ifndef _OSGOSBLOG_H_
+#define _OSGOSBLOG_H_
+#ifdef __sgi
+#pragma once
+#endif
 
-OSG_USING_NAMESPACE
+/*! \file OSGOSBLog.h
+    \ingroup GrpLoader
+ */
 
-/*-------------------------------------------------------------------------*/
-/* OSBGeometryHelper                                                      */
-/*-------------------------------------------------------------------------*/
+#include <OSGConfig.h>
 
-/*-------------------------------------------------------------------------*/
-/* Reading Helper Functions                                                */
+#include <OSGFileIODef.h>
+#include <OSGLog.h>
 
-void
-OSBGeometryHelper::readPackedIntegralPropertyHeader(
-    BinaryReadHandler *rh,
-    UInt32            &maxValue,
-    UInt32            &propSize,
-    UInt32            &byteSize )
-{
-    OSG_OSB_LOG(("OSBGeometryHelper::readPackedIntegralPropertyHeader:\n"));
+OSG_BEGIN_NAMESPACE
 
-    rh->getValue(maxValue);
-    rh->getValue(propSize);
-    rh->getValue(byteSize);
-}
+#define OSG_OSB_SILENT 1
 
-void
-OSBGeometryHelper::readQuantizedVectorPropertyHeader(
-    BinaryReadHandler *rh,
-    UInt8             &resolution,
-    Real32            &minValue,
-    Real32            &maxValue,
-    UInt32            &propSize   )
-{
-    OSG_OSB_LOG(("OSBGeometryHelper::readQuantizedVectorPropertyHeader:\n"));
+#ifndef OSG_OSB_SILENT
 
-    rh->getValue(resolution);
-    rh->getValue(minValue  );
-    rh->getValue(maxValue  );
-    rh->getValue(propSize  );
-}
+#define OSG_OSB_LOG(OSG_MESSAGE)            \
+    FDEBUG(OSG_MESSAGE)
+
+#define OSG_OSB_PLOG(OSG_MESSAGE)           \
+    FPDEBUG(OSG_MESSAGE)
+
+#else
+
+#define OSG_OSB_LOG(OSG_MESSAGE)
+
+#define OSG_OSB_PLOG(OSG_MESSAGE)
+
+#endif // OSG_OSG_SILENT
+
+OSG_END_NAMESPACE
+
+#endif // _OSGOSBLOG_H_

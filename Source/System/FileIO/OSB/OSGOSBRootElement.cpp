@@ -136,7 +136,7 @@ OSBRootElement::terminateRead(void)
 void
 OSBRootElement::read(const std::string &/*typeName*/)
 {
-    FDEBUG(("OSBRootElement::read\n"));
+    OSG_OSB_LOG(("OSBRootElement::read\n"));
 
     BinaryReadHandler *rh           = getReadHandler();
     std::string        headerMarker;
@@ -145,19 +145,19 @@ OSBRootElement::read(const std::string &/*typeName*/)
 
     if(headerMarker == OSGOSB_HEADER_ID_1)
     {
-        FDEBUG(("OSBRootElement::read: Header version: [%u]\n",
+        OSG_OSB_LOG(("OSBRootElement::read: Header version: [%u]\n",
                 OSGOSBHeaderVersion100));
         setHeaderVersion(OSGOSBHeaderVersion100);
     }
     else if(headerMarker == OSGOSB_HEADER_ID_2)
     {
-        FDEBUG(("OSBRootElement::read: Header version: [%u]\n",
+        OSG_OSB_LOG(("OSBRootElement::read: Header version: [%u]\n",
                 OSGOSBHeaderVersion200));
         setHeaderVersion(OSGOSBHeaderVersion200);
     }
 //     else if(headerMarker == OSGOSB_HEADER_ID_201)
 //     {
-//         FDEBUG(("OSBRootElement::read: Header version: [%u]\n",
+//         OSG_OSB_LOG(("OSBRootElement::read: Header version: [%u]\n",
 //                 OSGOSBHeaderVersion201));
 //         setHeaderVersion(OSGOSBHeaderVersion201);
 //     }
@@ -175,11 +175,11 @@ OSBRootElement::read(const std::string &/*typeName*/)
     UInt64 fileSize;
     rh->getValue(fileSize);
 
-    FDEBUG(("OSBRootElement::read: headerName: [%s]\n",
+    OSG_OSB_LOG(("OSBRootElement::read: headerName: [%s]\n",
             headerName.c_str()));
-    FDEBUG(("OSBRootElement::read: headerOptions: [%s]\n",
+    OSG_OSB_LOG(("OSBRootElement::read: headerOptions: [%s]\n",
             headerOptions.c_str()));
-    FDEBUG(("OSBRootElement::read: fileSize: [%u]\n",
+    OSG_OSB_LOG(("OSBRootElement::read: fileSize: [%u]\n",
             fileSize));
 
     std::string     fcTypeName;
@@ -192,6 +192,9 @@ OSBRootElement::read(const std::string &/*typeName*/)
         if(!readFieldContainerHeader(fcTypeName, fcIdFile))
             break;
 
+        OSG_OSB_LOG(("OSBRootElement::read: fcTypeName [%s] fcIdFile: [%u]\n",
+                fcTypeName.c_str(), fcIdFile));
+
         elem = OSBElementFactory::the()->acquire(fcTypeName, this);
         elem->setFCIdFile(fcIdFile  );
         elem->read       (fcTypeName);
@@ -200,7 +203,7 @@ OSBRootElement::read(const std::string &/*typeName*/)
         {
             fcIdSystem = elem->getContainer()->getId();
 
-            FDEBUG(("OSBRootElement::read: fcIdFile: [%u] fcIdSystem: [%u]\n",
+            OSG_OSB_LOG(("OSBRootElement::read: fcIdFile: [%u] fcIdSystem: [%u]\n",
                     fcIdFile, fcIdSystem));
 
             editIdMap().insert(
@@ -226,7 +229,7 @@ OSBRootElement::read(const std::string &/*typeName*/)
 void
 OSBRootElement::postRead(void)
 {
-    FDEBUG(("OSBRootElement::postRead\n"));
+    OSG_OSB_LOG(("OSBRootElement::postRead\n"));
 
     ElementListConstIt elemIt  = getElementList().begin();
     ElementListConstIt elemEnd = getElementList().end  ();
@@ -299,7 +302,7 @@ OSBRootElement::terminateWrite(void)
 void
 OSBRootElement::preWrite(FieldContainer * const fc)
 {
-    FDEBUG(("OSBRootElement::preWrite\n"));
+    OSG_OSB_LOG(("OSBRootElement::preWrite\n"));
 
     if(fc == NULL)
         return;
@@ -322,7 +325,7 @@ OSBRootElement::preWrite(FieldContainer * const fc)
 void
 OSBRootElement::write(void)
 {
-    FDEBUG(("OSBRootElement::write\n"));
+    OSG_OSB_LOG(("OSBRootElement::write\n"));
 
     BinaryWriteHandler *wh = getWriteHandler();
 
@@ -352,7 +355,7 @@ OSBRootElement::write(void)
 void
 OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 {
-    FDEBUG(("OSBRootElement::mapPtrField\n"));
+    OSG_OSB_LOG(("OSBRootElement::mapPtrField\n"));
 
     PtrFieldInfo::PtrIdStoreConstIt   idIt       = ptrField.beginIdStore();
     PtrFieldInfo::PtrIdStoreConstIt   idEnd      = ptrField.endIdStore  ();
@@ -414,10 +417,13 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
                     att = NULL;
                 }
                 
-                FDEBUG(("OSBRootElement::mapPtrField: adding "
-                        "attchment [%u] [%u]\n",
-                        att->getType().getGroupId(), *bindingIt));
-                
+                if(att != NULL)
+                {
+                    OSG_OSB_LOG(("OSBRootElement::mapPtrField: adding "
+                            "attchment [%u] [%u]\n",
+                            att->getType().getGroupId(), *bindingIt));
+                }
+
                 attCon->addAttachment(att, *bindingIt);
             }
         }
@@ -452,7 +458,7 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
                 else
                 {
                     FWARNING(("OSBRootElement::mapPtrField: could not find "
-                              "FieldContainer with id [%u]\n", *idIt));
+                              "FieldContainer with (file) id [%u]\n", *idIt));
                     fc = NULL;
                 }
             }
@@ -469,6 +475,12 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
             {
                 pMFHandle->add(fc);
             }
+            else
+            {
+                FWARNING(("OSBRootElement::mapPtrField: FieldHandles invalid, "
+                          "can not set pointer - target fc [%u] fieldId [%u] file id [%u] system id [%u]\n",
+                          (fc != NULL ? fc->getId() : 0), fieldId, *idIt, (idMapIt != idMapEnd ? idMapIt->second : 0)));
+            }
         }
     }
 }
@@ -479,13 +491,13 @@ OSBRootElement::mapPtrField(const PtrFieldInfo &ptrField)
 void
 OSBRootElement::dumpIdMap(void) const
 {
-    FDEBUG(("OSBRootElement::dumpIdMap\n"));
+    OSG_OSB_LOG(("OSBRootElement::dumpIdMap\n"));
 
     FieldContainerIdMapConstIt mapIt  = getIdMap().begin();
     FieldContainerIdMapConstIt mapEnd = getIdMap().end  ();
 
     for(; mapIt != mapEnd; ++mapIt)
     {
-        FDEBUG(("  file id  %u  ->  %u  system id\n", mapIt->first, mapIt->second));
+        OSG_OSB_LOG(("  file id  %u  ->  %u  system id\n", mapIt->first, mapIt->second));
     }
 }

@@ -58,7 +58,7 @@ OSBGeometryHelper::readPackedIntegralProperty(
     const UInt32             propSize,
     const UInt32             byteSize )
 {
-    FDEBUG(("OSBGeometryHelper::readPackedIntegralProperty<>:\n"));
+    OSG_OSB_LOG(("OSBGeometryHelper::readPackedIntegralProperty<>:\n"));
 
     typedef          GeoPropPtrTypeT              GeoPropPtrType;
     typedef typename GeoPropPtrType::Object       GeoPropType;
@@ -80,7 +80,7 @@ OSBGeometryHelper::readPackedIntegralProperty(
         propField->push_back(static_cast<IntegralType>(unpacker.unpack()));
     }
 
-    FDEBUG(("OSBGeometryHelper::readPackedIntegralProperty<>: "
+    OSG_OSB_LOG(("OSBGeometryHelper::readPackedIntegralProperty<>: "
             "Inflated [%u] bytes to [%u] values. Size ratio [%f] %%\n",
             byteSize, propSize,
             100.0 * (propSize * sizeof(IntegralType)) / byteSize));
@@ -97,7 +97,7 @@ OSBGeometryHelper::readQuantizedVectorProperty(
     const Real32             maxValue,
     const UInt32             propSize   )
 {
-    FDEBUG(("OSBGeometryHelper::readQuantizedVectorProperty<>:\n"));
+    OSG_OSB_LOG(("OSBGeometryHelper::readQuantizedVectorProperty<>:\n"));
 
     typedef          GeoPropPtrTypeT                     GeoPropPtrType;
     typedef typename GeoPropPtrType::Object              GeoPropType;
@@ -177,7 +177,7 @@ OSBGeometryHelper::readQuantizedVectorProperty(
                            - sizeof(Real32) - sizeof(UInt32));
     }
 
-    FDEBUG(("OSBGeometryHelper::readQuantizedVectorProperty<>: "
+    OSG_OSB_LOG(("OSBGeometryHelper::readQuantizedVectorProperty<>: "
             "Inflated [%u] bytes to [%u] values. Size ratio [%f] %%\n",
             fieldSize, propSize,
             100.0 * (propSize * sizeof(VectorType)) / fieldSize));

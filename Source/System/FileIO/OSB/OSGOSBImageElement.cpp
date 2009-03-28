@@ -83,7 +83,7 @@ OSBImageElement::~OSBImageElement(void)
 void
 OSBImageElement::read(const std::string &typeName)
 {
-    FDEBUG(("OSBImageElement::read [%s]\n", typeName.c_str()));
+    OSG_OSB_LOG(("OSBImageElement::read [%s]\n", typeName.c_str()));
 
     const OSBRootElement *root      = getRoot();
     BinaryReadHandler     *rh        = editRoot()->getReadHandler();
@@ -171,7 +171,7 @@ OSBImageElement::postRead(void)
 void
 OSBImageElement::preWrite(FieldContainer * const fc)
 {
-    FDEBUG(("OSBImageElement::preWrite\n"));
+    OSG_OSB_LOG(("OSBImageElement::preWrite\n"));
 
     preWriteFieldContainer(fc, "");
 }
@@ -179,7 +179,7 @@ OSBImageElement::preWrite(FieldContainer * const fc)
 void
 OSBImageElement::write(void)
 {
-    FDEBUG(("OSBImageElement::write\n"));
+    OSG_OSB_LOG(("OSBImageElement::write\n"));
 
     if(getContainer() == NULL)
     {

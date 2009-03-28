@@ -74,7 +74,7 @@ void
 OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
     const std::string &typeName)
 {
-    FDEBUG(("OSBGeoPropertyConversionElement<>::read: typeName: [%s]\n",
+    OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::read: typeName: [%s]\n",
             typeName.c_str()));
 
     OSBRootElement          *root      = editRoot();
@@ -104,7 +104,7 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
 
         if(!readFieldHeader("", fieldName, fieldTypeName, fieldSize))
         {
-            FDEBUG(("OSBGeoPropertyConversionElement<>::read: "
+            OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::read: "
                     "Reading stopped at field: [%s].\n", fieldName.c_str()));
             break;
         }
@@ -115,7 +115,7 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
 
         if(fieldName == "positions")
         {
-            FDEBUG(("OSBGeoPropertyConversionElement<>::read: "
+            OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::read: "
                     "[%s] [%s] [%u]\n",
                     fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
@@ -123,7 +123,7 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
         }
         else if(fieldName == "normals")
         {
-            FDEBUG(("OSBGeoPropertyConversionElement<>::read: "
+            OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::read: "
                     "[%s] [%s] [%u]\n",
                     fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
@@ -131,7 +131,7 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
         }
         else if(fieldName == "TexCoords")
         {
-            FDEBUG(("OSBGeoPropertyConversionElement<>::read: "
+            OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::read: "
                     "[%s] [%s] [%u]\n",
                     fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
@@ -139,7 +139,7 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
         }
         else if(fieldName == "colors")
         {
-            FDEBUG(("OSBGeoPropertyConversionElement<>::read: "
+            OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::read: "
                     "[%s] [%s] [%u]\n",
                     fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
@@ -147,7 +147,7 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
         }
         else if(fieldName == "types")
         {
-            FDEBUG(("OSBGeoPropertyConversionElement<>::read: "
+            OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::read: "
                     "[%s] [%s] [%u]\n",
                     fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
@@ -155,7 +155,7 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
         }
         else if(fieldName == "lengths")
         {
-            FDEBUG(("OSBGeoPropertyConversionElement<>::read: "
+            OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::read: "
                     "[%s] [%s] [%u]\n",
                     fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
@@ -163,7 +163,7 @@ OSBGeoPropertyConversionElement<GeoPropertyTypeT>::read(
         }
         else if(fieldName == "indices")
         {
-            FDEBUG(("OSBGeoPropertyConversionElement<>::read: "
+            OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::read: "
                     "[%s] [%s] [%u]\n",
                     fieldName.c_str(), fieldTypeName.c_str(), fieldSize));
 
@@ -182,7 +182,7 @@ template <class GeoPropertyTypeT>
 void
 OSBGeoPropertyConversionElement<GeoPropertyTypeT>::postRead(void)
 {
-    FDEBUG(("OSBGeoPropertyConversionElement<>::postRead:\n"));
+    OSG_OSB_LOG(("OSBGeoPropertyConversionElement<>::postRead:\n"));
 }
 
 /*-------------------------------------------------------------------------*/

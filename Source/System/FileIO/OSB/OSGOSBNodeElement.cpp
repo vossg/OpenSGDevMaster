@@ -75,7 +75,7 @@ OSBNodeElement::~OSBNodeElement(void)
 void
 OSBNodeElement::read(const std::string &typeName)
 {
-    FDEBUG(("OSBNodeElement::read [%s]\n", typeName.c_str()));
+    OSG_OSB_LOG(("OSBNodeElement::read [%s]\n", typeName.c_str()));
 
     BinaryReadHandler *rh        = editRoot()->getReadHandler();
     UInt8              fcPtrType;
@@ -84,7 +84,7 @@ OSBNodeElement::read(const std::string &typeName)
     rh->getValue(fcPtrType);
     rh->getValue(version  );
 
-    FDEBUG(("OSBNodeElement::read: version: [%u]\n", version));
+    OSG_OSB_LOG(("OSBNodeElement::read: version: [%u]\n", version));
 
     if(fcPtrType != OSBCommonElement::FCPtrNode)
     {
@@ -94,7 +94,9 @@ OSBNodeElement::read(const std::string &typeName)
         return;
     }
 
-    setContainer(NodeUnrecPtr(Node::create()));
+    NodeUnrecPtr node = Node::create();
+
+    setContainer(node);
     readFields("'volume'", "");
 }
 
@@ -109,7 +111,7 @@ OSBNodeElement::postRead(void)
 void
 OSBNodeElement::preWrite(FieldContainer * const fc)
 {
-    FDEBUG(("OSBNodeElement::preWrite\n"));
+    OSG_OSB_LOG(("OSBNodeElement::preWrite\n"));
 
     preWriteFieldContainer(fc, "");
 }
@@ -117,7 +119,7 @@ OSBNodeElement::preWrite(FieldContainer * const fc)
 void
 OSBNodeElement::write(void)
 {
-    FDEBUG(("OSBNodeElement::write\n"));
+    OSG_OSB_LOG(("OSBNodeElement::write\n"));
 
     if(getContainer() == NULL)
     {

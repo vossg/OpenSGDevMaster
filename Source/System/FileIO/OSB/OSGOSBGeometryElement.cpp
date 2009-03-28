@@ -114,12 +114,12 @@ OSBGeometryElement::~OSBGeometryElement(void)
 void
 OSBGeometryElement::read(const std::string &typeName)
 {
-    FDEBUG(("OSBGeometryElement::read: [%s]\n", typeName.c_str()));
+    OSG_OSB_LOG(("OSBGeometryElement::read: [%s]\n", typeName.c_str()));
 
     BinaryReadHandler *rh = editRoot()->getReadHandler();
 
     rh->getValue(_version);
-    FDEBUG(("OSBGeometryElement::read: version: [%u]\n", _version));
+    OSG_OSB_LOG(("OSBGeometryElement::read: version: [%u]\n", _version));
 
     if(_version >= OSGOSBHeaderVersion200)
     {
@@ -141,7 +141,7 @@ OSBGeometryElement::read(const std::string &typeName)
 void
 OSBGeometryElement::postRead(void)
 {
-    FDEBUG(("OSBGeometryElement::postRead:\n"));
+    OSG_OSB_LOG(("OSBGeometryElement::postRead:\n"));
 
     if(_version >= OSGOSBHeaderVersion200)
     {
@@ -165,7 +165,7 @@ OSBGeometryElement::postRead(void)
 void
 OSBGeometryElement::preWrite(FieldContainer * const fc)
 {
-    FDEBUG(("OSBGeometryElement::preWrite\n"));
+    OSG_OSB_LOG(("OSBGeometryElement::preWrite\n"));
 
     OSBRootElement *root       = editRoot();
     UInt32          fieldCount = fc->getType().getNumFieldDescs();
@@ -186,7 +186,7 @@ OSBGeometryElement::preWrite(FieldContainer * const fc)
         // skip internal fields
         if(fieldDesc->isInternal())
         {
-            FDEBUG(("OSBGeometryElement::preWrite: "
+            OSG_OSB_LOG(("OSBGeometryElement::preWrite: "
                     "Skipping internal field: [%s]\n", fieldName.c_str()));
             continue;
         }
@@ -320,7 +320,7 @@ OSBGeometryElement::preWrite(FieldContainer * const fc)
 void
 OSBGeometryElement::write(void)
 {
-    FDEBUG(("OSBGeometryElement::write\n"));
+    OSG_OSB_LOG(("OSBGeometryElement::write\n"));
 
     BinaryWriteHandler *wh = editRoot()->getWriteHandler();
 
@@ -336,7 +336,7 @@ OSBGeometryElement::write(void)
 void
 OSBGeometryElement::readV100(void)
 {
-    FDEBUG(("OSBGeometryElement::readV100:\n"));
+    OSG_OSB_LOG(("OSBGeometryElement::readV100:\n"));
 
     OSBRootElement    *root = editRoot();
     BinaryReadHandler *rh   = editRoot()->getReadHandler();
@@ -369,7 +369,7 @@ OSBGeometryElement::readV100(void)
 
         if(!readFieldHeader("", fieldName, fieldTypeName, fieldSize))
         {
-            FDEBUG(("OSBGeometryElement::readV100: "
+            OSG_OSB_LOG(("OSBGeometryElement::readV100: "
                     "Reading stopped at field: [%s].\n", fieldName.c_str()));
             break;
         }
@@ -581,7 +581,7 @@ OSBGeometryElement::readV100(void)
 void
 OSBGeometryElement::postReadV100(void)
 {
-    FDEBUG(("OSBGeometryElement::postReadV100\n"));
+    OSG_OSB_LOG(("OSBGeometryElement::postReadV100\n"));
 
     OSBRootElement  *root             = editRoot();
     Geometry        *geo              =
@@ -590,18 +590,18 @@ OSBGeometryElement::postReadV100(void)
 
     if(indexMappingSize <= 1)
     {
-        FDEBUG(("OSBGeometryElement::postReadV100: "
+        OSG_OSB_LOG(("OSBGeometryElement::postReadV100: "
                 "Converting single index.\n"          ));
 
         if(_indicesPacked)
         {
-            FDEBUG(("OSBGeometryElement::postReadV100: "
+            OSG_OSB_LOG(("OSBGeometryElement::postReadV100: "
                     "Converting packed indices.\n"        ));
             geo->setIndices(_indices);
         }
         else
         {
-            FDEBUG(("OSBGeometryElement::postReadV100: "
+            OSG_OSB_LOG(("OSBGeometryElement::postReadV100: "
                     "Converting non-packed indices.\n"    ));
 
             // indices stored in container with id _indicesId
@@ -623,14 +623,14 @@ OSBGeometryElement::postReadV100(void)
     }
     else
     {
-        FDEBUG(("OSBGeometryElement::postReadV100: "
+        OSG_OSB_LOG(("OSBGeometryElement::postReadV100: "
                 "Converting multi index.\n"          ));
 
         OSBGeometryHelper gh;
 
         if(_indicesPacked)
         {
-            FDEBUG(("OSBGeometryElement::postReadV100: "
+            OSG_OSB_LOG(("OSBGeometryElement::postReadV100: "
                     "Converting packed indices.\n"        ));
 
             // create 16 bit or 32 bit indices
@@ -653,7 +653,7 @@ OSBGeometryElement::postReadV100(void)
         }
         else
         {
-            FDEBUG(("OSBGeometryElement::postReadV100: "
+            OSG_OSB_LOG(("OSBGeometryElement::postReadV100: "
                     "Converting non-packed indices.\n"    ));
 
             FieldContainerIdMapConstIt mapIt =
