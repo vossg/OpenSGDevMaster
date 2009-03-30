@@ -134,11 +134,11 @@ void TileableBackground::beginOrthoRender(
     UInt32  &fullWidth,
     UInt32  &fullHeight)
 {
-    glMatrixMode(GL_TEXTURE);
+    glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
     glLoadIdentity();
 
-    glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_TEXTURE);
     glPushMatrix();
     glLoadIdentity();
 
@@ -188,10 +188,10 @@ void TileableBackground::endOrthoRender(DrawEnv *pEnv)
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     
-    glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
-    
     glMatrixMode(GL_TEXTURE);
+    glPopMatrix();
+
+    glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
 }
 
