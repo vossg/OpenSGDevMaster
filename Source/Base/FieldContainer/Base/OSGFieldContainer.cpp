@@ -192,7 +192,7 @@ void FieldContainer::registerChangedContainer(void)
             _pContainerChanges, _bvChanged);
 #endif
 
-//    osgSpinLock(&_uiContainerId, SplinLockBit);
+//    osgSpinLock(&_uiContainerId, SpinLockBit);
 
     if(_pContainerChanges == NULL)
     {
@@ -206,7 +206,7 @@ void FieldContainer::registerChangedContainer(void)
 
     Thread::getCurrentChangeList()->addUncommited(_pContainerChanges);
 
-//    osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+//    osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
 }
 
 void FieldContainer::registerChangedContainerV(void)
@@ -254,13 +254,13 @@ void FieldContainer::subReferenceRecorded(void)
 
         Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
-        osgSpinLock(&_uiContainerId, SplinLockBit);
+        osgSpinLock(&_uiContainerId, SpinLockBit);
 
         RefCountStore tmpWeakRefCnt = OSG_AREAD(_iWeakRefCount);
 
         _uiContainerId |= DeadContainerBit;
 
-        osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+        osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
 
         if(tmpWeakRefCnt <= 0)
         {
@@ -345,13 +345,13 @@ void FieldContainer::subReferenceUnrecorded(void)
 
 //        Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
-        osgSpinLock(&_uiContainerId, SplinLockBit);
+        osgSpinLock(&_uiContainerId, SpinLockBit);
 
         RefCountStore tmpWeakRefCnt = OSG_AREAD(_iWeakRefCount);
 
         _uiContainerId |= DeadContainerBit;
 
-        osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+        osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
 
         if(tmpWeakRefCnt <= 0)
         {
@@ -422,7 +422,7 @@ void FieldContainer::subWeakReference(void)
            this->_iWeakRefCount));
 #endif
 
-    osgSpinLock(&_uiContainerId, SplinLockBit);
+    osgSpinLock(&_uiContainerId, SpinLockBit);
 
     RefCountStore tmpWeakRefCnt = osgAtomicExchangeAndAdd(&_iWeakRefCount, -1);
 
@@ -440,7 +440,7 @@ void FieldContainer::subWeakReference(void)
 
     if((0x0000 != (_uiContainerId & DeadContainerBit)) && tmpWeakRefCnt <= 1)
     {
-        osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+        osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
         
         this->resolveLinks();
 
@@ -467,7 +467,7 @@ void FieldContainer::subWeakReference(void)
     }
     else
     {
-        osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+        osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
     }
 }
 

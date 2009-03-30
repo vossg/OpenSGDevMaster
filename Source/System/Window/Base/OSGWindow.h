@@ -199,10 +199,10 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name               GL object handling                             */
     /*! \{                                                                 */
 
-           UInt32          validateGLObject    (UInt32           osgId,
-                                                DrawEnv         *pEnv,
-                                                UInt32           uiOptions = 0);
-           void            validateAllGLObjects(DrawEnv         *pEnv    );
+           UInt32          validateGLObject    (UInt32          osgId,
+                                                DrawEnv        *pEnv,
+                                                UInt32          uiOptions = 0);
+           void            validateAllGLObjects(void);
 
            //GLObjectStatusE getGLObjectStatus   (UInt32           osgId   );
            void            setGLObjectId       (UInt32           osgId,

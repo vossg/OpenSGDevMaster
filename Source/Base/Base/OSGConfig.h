@@ -873,6 +873,7 @@
 #ifdef OSG_WIN_TYPES
 #ifndef OSG_NO_WINDOWD_H_INCLUDE
 #include <windows.h>
+#include <intrin.h>
 #endif
 #endif
 

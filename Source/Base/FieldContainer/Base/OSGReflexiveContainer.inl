@@ -147,7 +147,7 @@ ContainerChangeEntry *ReflexiveContainer::getChangeEntry(void)
 inline
 void ReflexiveContainer::clearChangeEntry(ContainerChangeEntry *pRef)
 {
-//    osgSpinLock(&_uiContainerId, SplinLockBit);
+//    osgSpinLock(&_uiContainerId, SpinLockBit);
 
     if(_pContainerChanges == pRef)
     {
@@ -155,7 +155,7 @@ void ReflexiveContainer::clearChangeEntry(ContainerChangeEntry *pRef)
         _bvChanged         = 0x0000;
     }
 
-//    osgSpinLockRelease(&_uiContainerId, SplinLockClearMask);
+//    osgSpinLockRelease(&_uiContainerId, SpinLockClearMask);
 }
 
 inline

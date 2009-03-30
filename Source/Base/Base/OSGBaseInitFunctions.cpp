@@ -627,6 +627,12 @@ bool osgDoInit(OSG::Int32,
         exit(1);
     }
 
+#ifdef WIN32 
+    // Very crude way to safeguard on low level cast, have to find a better
+    // way later.
+    OSG_ASSERT(sizeof(UInt32) == sizeof(long));
+#endif
+
     bool returnValue = true;
     
     if(GlobalSystemState != Startup)

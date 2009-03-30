@@ -801,13 +801,17 @@ UInt32 OSG::Window::validateGLObject(UInt32   osgId,
     See \ref PageSystemOGLObjects for a description of the OpenGL object
     concept. 
 */
-void OSG::Window::validateAllGLObjects(DrawEnv *pEnv)
+void OSG::Window::validateAllGLObjects(void)
 {
     activate();
     frameInit();
 
+    DrawEnv oEnv;
+
+    oEnv.setWindow(this);
+
     for (UInt32 i = 1; i < _glObjects.size(); ++i)
-        validateGLObject(i, pEnv);
+        validateGLObject(i, &oEnv);
     
     frameExit();
 }   
