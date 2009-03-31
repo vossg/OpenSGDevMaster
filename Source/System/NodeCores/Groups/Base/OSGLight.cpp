@@ -242,7 +242,6 @@ void Light::resolveLinks(void)
 
     _pChunk = NULL;
 }
-     
 
 //! initialize the static features of the class, e.g. action callbacks
 

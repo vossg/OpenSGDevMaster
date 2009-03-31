@@ -38,20 +38,20 @@
 
 // Unit tests for OSB file io.
 
-#include <OpenSG/OSGNode.h>
-#include <OpenSG/OSGGroup.h>
-#include <OpenSG/OSGNameAttachment.h>
-#include <OpenSG/OSGSceneFileHandler.h>
+#include <OSGNode.h>
+#include <OSGGroup.h>
+#include <OSGNameAttachment.h>
+#include <OSGSceneFileHandler.h>
 
-#include <OpenSG/OSGGeometry.h>
-#include <OpenSG/OSGSimpleGeometry.h>
-#include <OpenSG/OSGImage.h>
-#include <OpenSG/OSGChunkMaterial.h>
-#include <OpenSG/OSGTextureObjChunk.h>
-#include <OpenSG/OSGTextureEnvChunk.h>
+#include <OSGGeometry.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGImage.h>
+#include <OSGChunkMaterial.h>
+#include <OSGTextureObjChunk.h>
+#include <OSGTextureEnvChunk.h>
 
 #ifndef OSG_DISABLE_DEPRECATED
-#include <OpenSG/OSGTextureChunk.h>
+#include <OSGTextureChunk.h>
 #endif
 
 #include <boost/filesystem/operations.hpp>

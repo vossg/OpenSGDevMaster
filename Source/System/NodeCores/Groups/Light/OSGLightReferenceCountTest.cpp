@@ -36,11 +36,11 @@
 
 #include <UnitTest++.h>
 
-#include <OpenSG/OSGFieldContainer.h>
-#include <OpenSG/OSGNode.h>
-#include <OpenSG/OSGNodeCore.h>
-#include <OpenSG/OSGGroup.h>
-#include <OpenSG/OSGDirectionalLight.h>
+#include <OSGFieldContainer.h>
+#include <OSGNode.h>
+#include <OSGNodeCore.h>
+#include <OSGGroup.h>
+#include <OSGDirectionalLight.h>
 
 #include <iostream>
 #include <string>
@@ -121,7 +121,7 @@ TEST(ChildLinkingCleanup)
     CHECK_EQUAL(2, lrcp0->getRefCount()    );
     CHECK_EQUAL(0, lrcp0->getWeakRefCount());
     
-    // remove all ref pointers (i.e. all external refs)
+    // remove all ref pointers (i.e. all application refs) except nrcp0
     
     nrcp1 = NULL;
     nrcp2 = NULL;

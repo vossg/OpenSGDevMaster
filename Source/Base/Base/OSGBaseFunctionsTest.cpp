@@ -38,10 +38,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "UnitTest++.h"
+#include <UnitTest++.h>
 
-#include "OpenSG/OSGConfig.h"
-#include "OpenSG/OSGBaseFunctions.h"
+#include <OSGConfig.h>
+#include <OSGBaseFunctions.h>
 
 // This test is incomplete, it only tests:
 //  * byte order swapping

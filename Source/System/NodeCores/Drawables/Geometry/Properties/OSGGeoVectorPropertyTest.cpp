@@ -36,9 +36,9 @@
 
 #include <UnitTest++.h>
 
-#include <OpenSG/OSGVector.h>
-#include <OpenSG/OSGGeoVectorProperty.h>
-#include <OpenSG/OSGTypedGeoVectorProperty.h>
+#include <OSGVector.h>
+#include <OSGGeoVectorProperty.h>
+#include <OSGTypedGeoVectorProperty.h>
 
 namespace {
 

@@ -36,10 +36,10 @@
 
 #include <UnitTest++.h>
 
-#include <OpenSG/OSGFieldContainer.h>
-#include <OpenSG/OSGNode.h>
-#include <OpenSG/OSGNodeCore.h>
-#include <OpenSG/OSGGroup.h>
+#include <OSGFieldContainer.h>
+#include <OSGNode.h>
+#include <OSGNodeCore.h>
+#include <OSGGroup.h>
 
 SUITE(ReferenceCountTests)
 {

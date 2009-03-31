@@ -976,6 +976,8 @@ GetFieldHandlePtr  Node::getHandleChildren(void) const
 
 void Node::resolveLinks(void)
 {
+    FINFO(("Node::resolveLinks [%p] [%u]\n", this, this->getId()));
+
     Inherited::resolveLinks();
 
     _sfCore.setValue(NULL);

@@ -68,6 +68,7 @@ MACRO(OSG_SELECT_PROJECT)
     # clear dependency variables
     SET(${PROJECT_NAME}_DEP_OSG_LIB)
     SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB)
+    SET(${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB)
 
     SET(${PROJECT_NAME}_DEP_LIB)
     SET(${PROJECT_NAME}_DEP_LIBDIR)
@@ -76,6 +77,10 @@ MACRO(OSG_SELECT_PROJECT)
     SET(${PROJECT_NAME}_DEP_TEST_LIB)
     SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
     SET(${PROJECT_NAME}_DEP_TEST_INCDIR)
+
+    SET(${PROJECT_NAME}_DEP_UNITTEST_LIB)
+    SET(${PROJECT_NAME}_DEP_UNITTEST_LIBDIR)
+    SET(${PROJECT_NAME}_DEP_UNITTEST_INCDIR)
 
     SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
     SET(${PROJECT_NAME}_DEP_CPP_DEF)
@@ -141,6 +146,8 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
         "SET(${PROJECT_NAME}_DEP_OSG_LIB ${${PROJECT_NAME}_DEP_OSG_LIB})\n")
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB ${${PROJECT_NAME}_DEP_TEST_OSG_LIB})\n\n")
+    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+        "SET(${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB ${${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB})\n\n")
 
     # dependencies - external
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
@@ -156,6 +163,13 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
         "SET(${PROJECT_NAME}_DEP_TEST_LIBDIR ${${PROJECT_NAME}_DEP_TEST_LIBDIR})\n")
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "SET(${PROJECT_NAME}_DEP_TEST_INCDIR ${${PROJECT_NAME}_DEP_TEST_INCDIR})\n\n")
+
+    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+        "SET(${PROJECT_NAME}_DEP_UNITTEST_LIB ${${PROJECT_NAME}_DEP_UNITTEST_LIB})\n")
+    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+        "SET(${PROJECT_NAME}_DEP_UNITTEST_LIBDIR ${${PROJECT_NAME}_DEP_UNITTEST_LIBDIR})\n")
+    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+        "SET(${PROJECT_NAME}_DEP_UNITTEST_INCDIR ${${PROJECT_NAME}_DEP_UNITTEST_INCDIR})\n\n")
 
     # dependencies - additional
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
@@ -261,6 +275,7 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
         "},\n")
 
 ENDFUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
+
 
 #############################################################################
 # add directory DIRNAME to current project
@@ -383,6 +398,7 @@ FUNCTION(OSG_ADD_DIRECTORY DIRNAME)
              "LIST(APPEND ${PROJECT_NAME}_INC \"${DIRNAME}\")\n\n")
     ENDIF()
 ENDFUNCTION(OSG_ADD_DIRECTORY)
+
 
 #############################################################################
 # perform default actions for pass OSGSETUP
@@ -645,6 +661,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
 ENDFUNCTION(OSG_SETUP_LIBRARY_BUILD)
 
+
 #############################################################################
 # perform default actions for pass OSGSETUPTEST
 
@@ -657,6 +674,7 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
     INCLUDE(${${PROJECT_NAME}_BUILD_FILE})
     INCLUDE_DIRECTORIES(${${PROJECT_NAME}_INC})
 
+    # dependencies - OpenSG
     FOREACH(OSGDEP ${${PROJECT_NAME}_DEP_OSG_LIB})
         IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
             MESSAGE(FATAL_ERROR "Dependency (${OSGDEP}) not found, "
@@ -679,6 +697,7 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
+    # dependencies - test OpenSG
     FOREACH(OSGTESTDEP ${${PROJECT_NAME}_DEP_TEST_OSG_LIB})
         IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake")
             MESSAGE(STATUS "Test dependency (${OSGTESTDEP}) not found, "
@@ -691,16 +710,18 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         INCLUDE_DIRECTORIES(${${OSGTESTDEP}_INC})
     ENDFOREACH(OSGTESTDEP)
 
+    # dependencies - test External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_TEST_INCDIR})
-        OSG_MSG("  test include dir ${INCDIR} = ${${INCDIR}}")
+        OSG_MSG("  test - include dir ${INCDIR} = ${${INCDIR}}")
         INCLUDE_DIRECTORIES(${${INCDIR}})
     ENDFOREACH(INCDIR)
 
     FOREACH(LIBDIR ${${PROJECT_NAME}_DEP_TEST_LIBDIR})
-        OSG_MSG("  test library dir ${LIBDIR} = ${${LIBDIR}}")
+        OSG_MSG("  test - library dir ${LIBDIR} = ${${LIBDIR}}")
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
+    # build test programs
     FOREACH(EXE_SRC ${${PROJECT_NAME}_TEST_SRC})
         GET_FILENAME_COMPONENT(EXE ${EXE_SRC} NAME_WE)
 
@@ -712,7 +733,7 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         ENDFOREACH(OSGTESTDEP)
 
         FOREACH(LIB ${${PROJECT_NAME}_DEP_TEST_LIB})
-            OSG_MSG("  library ${LIB} = ${${LIB}}")
+            OSG_MSG("  test - library ${LIB} = ${${LIB}}")
             TARGET_LINK_LIBRARIES(${EXE} ${${LIB}})
         ENDFOREACH(LIB)
 
@@ -720,6 +741,91 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
     ENDFOREACH(EXE_SRC)
 
 ENDFUNCTION(OSG_SETUP_TEST_BUILD)
+
+
+#############################################################################
+# perform default actions for pass OSGSETUPUNITTEST
+
+FUNCTION(OSG_SETUP_UNITTEST_BUILD)
+    IF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGSETUPUNITTEST")
+        RETURN()
+    ENDIF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGSETUPUNITTEST")
+
+    INCLUDE(${${PROJECT_NAME}_BUILD_FILE})
+
+    # are there unittests to build?
+    IF(NOT ${PROJECT_NAME}_UNITTEST_SRC)
+        RETURN()
+    ENDIF(NOT ${PROJECT_NAME}_UNITTEST_SRC)
+
+    # add the unittest runner source
+    LIST(APPEND ${PROJECT_NAME}_UNITTEST_SRC
+        "${CMAKE_SOURCE_DIR}/Tools/unittest-cpp/UnitTestRunner.cpp")
+
+    INCLUDE_DIRECTORIES(${${PROJECT_NAME}_INC})
+    INCLUDE_DIRECTORIES(${OSG_UNITTEST_INCLUDE_DIRS})
+
+    # dependencies - OpenSG
+    FOREACH(OSGDEP ${${PROJECT_NAME}_DEP_OSG_LIB})
+        IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+            MESSAGE(FATAL_ERROR "Dependency (${OSGDEP}) not found, "
+                                "can not build tests for ${PROJECT_NAME}\n")
+            RETURN()
+        ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+
+        INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+        INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
+    ENDFOREACH(OSGDEP)
+
+    # dependencies - unittest OpenSG
+    FOREACH(OSGDEP ${${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB})
+        IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+            MESSAGE(STATUS "UnitTest dependency (${OSGDEP}) not found, "
+                           "ignoring unit tests for ${PROJECT_NAME}\n")
+
+            RETURN()
+        ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+
+        INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+        INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
+    ENDFOREACH(OSGDEP)
+
+    # dependencies - unittest External
+    FOREACH(INCDIR ${${PROJECT_NAME}_DEP_UNITTEST_INCDIR})
+        OSG_MSG("  unittest - include dir ${INCDIR} = ${${INCDIR}}")
+        INCLUDE_DIRECTORIES(${${INCDIR}})
+    ENDFOREACH(INCDIR)
+
+    FOREACH(LIBDIR ${${PROJECT_NAME}_DEP_UNITTEST_LIBDIR})
+        OSG_MSG("  unittest - library dir ${LIBDIR} = ${${LIBDIR}}")
+        LINK_DIRECTORIES(${${LIBDIR}})
+    ENDFOREACH(LIBDIR)
+
+
+    LINK_DIRECTORIES(${OSG_UNITTEST_LIBRARY_DIRS})
+
+    # build unittest executable
+    ADD_EXECUTABLE("UnitTest${PROJECT_NAME}"
+                   ${${PROJECT_NAME}_UNITTEST_SRC})
+
+    TARGET_LINK_LIBRARIES("UnitTest${PROJECT_NAME}" "${OSG_UNITTEST_LIBRARY}")
+    TARGET_LINK_LIBRARIES("UnitTest${PROJECT_NAME}" ${PROJECT_NAME})
+
+    FOREACH(OSGDEP ${${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB})
+        ADD_DEPENDENCIES("UnitTest${PROJECT_NAME}" ${OSGDEP})
+        TARGET_LINK_LIBRARIES("UnitTest${PROJECT_NAME}" ${OSGDEP})
+    ENDFOREACH(OSGDEP)
+
+    FOREACH(LIB ${${PROJECT_NAME}_DEP_UNITTEST_LIB})
+        OSG_MSG("  unittest - library ${LIB} = ${${LIB}}")
+        TARGET_LINK_LIBRARIES("UnitTest${PROJECT_NAME}" ${${LIB}})
+    ENDFOREACH(LIB)
+
+    MESSAGE("--------- ADDING TEST --------- ${PROJECT_NAME}")
+    ADD_TEST("UnitTest${PROJECT_NAME}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/UnitTest${PROJECT_NAME}")
+
+ENDFUNCTION(OSG_SETUP_UNITTEST_BUILD)
+
 
 #############################################################################
 # perform default actions for pass OSGDOXYDOC
@@ -756,6 +862,9 @@ FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
 
     ELSEIF(OSG_CMAKE_PASS STREQUAL "OSGSETUPTEST")
         OSG_SETUP_TEST_BUILD()
+
+    ELSEIF(OSG_CMAKE_PASS STREQUAL "OSGSETUPUNITTEST")
+        OSG_SETUP_UNITTEST_BUILD()
 
     ELSEIF(OSG_CMAKE_PASS STREQUAL "OSGDOXYDOC")
         OSG_SETUP_DOXYDOC()

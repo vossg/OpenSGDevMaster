@@ -38,8 +38,9 @@
 
 // Unit tests for Performance monitoring code
 
-#include <OpenSG/OSGPerfMonitor.h>
-#include <OpenSG/OSGPerfMonitorGuard.h>
+#include <OSGConfig.h>
+#include <OSGPerfMonitor.h>
+#include <OSGPerfMonitorGuard.h>
 
 #include <boost/filesystem/operations.hpp>
 

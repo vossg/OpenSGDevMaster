@@ -38,10 +38,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "UnitTest++.h"
+#include <UnitTest++.h>
 
-#include "OpenSG/OSGConfig.h"
-#include "OpenSG/OSGTime.h"
+#include <OSGConfig.h>
+#include <OSGTime.h>
 #include <iostream>
 
 using namespace UnitTest;

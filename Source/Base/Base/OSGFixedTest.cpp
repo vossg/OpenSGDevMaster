@@ -36,7 +36,7 @@
 
 #include <UnitTest++.h>
 
-#include <OpenSG/OSGBaseTypes.h>
+#include <OSGBaseTypes.h>
 
 // NOTE:
 //

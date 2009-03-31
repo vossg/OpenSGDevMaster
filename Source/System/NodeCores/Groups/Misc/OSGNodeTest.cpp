@@ -36,17 +36,17 @@
 
 #include <UnitTest++.h>
 
-// Unit tests for vec classes
+// Unit tests for nodes, attachments various core types
 
-#include <OpenSG/OSGNode.h>
-#include <OpenSG/OSGNameAttachment.h>
-#include <OpenSG/OSGAttachment.h>
-#include <OpenSG/OSGDynamicAttachmentMixin.h>
+#include <OSGNode.h>
+#include <OSGNameAttachment.h>
+#include <OSGAttachment.h>
+#include <OSGDynamicAttachmentMixin.h>
 
-#include <OpenSG/OSGBillboard.h>
-#include <OpenSG/OSGGroup.h>
-#include <OpenSG/OSGSwitch.h>
-#include <OpenSG/OSGTransform.h>
+#include <OSGBillboard.h>
+#include <OSGGroup.h>
+#include <OSGSwitch.h>
+#include <OSGTransform.h>
 
 #include <string>
 #include <vector>
@@ -148,6 +148,35 @@ struct CloneFixture
         g02Node->addChild(s02Node);
         s02Node->addChild(g05Node);
         s02Node->addChild(g06Node);
+    }
+
+    ~CloneFixture(void)
+    {
+        g01Core = NULL;
+        s01Core = NULL;
+        t01Core = NULL;
+        g02Core = NULL;
+        b01Core = NULL;
+        g03Core = NULL;
+        g04Core = NULL;
+        b02Core = NULL;
+        s02Core = NULL;
+        g05Core = NULL;
+        g06Core = NULL;
+
+        g01Node = NULL;
+        s01Node = NULL;
+        t01Node = NULL;
+        g02Node = NULL;
+        b01Node = NULL;
+        g03Node = NULL;
+        g04Node = NULL;
+        b02Node = NULL;
+        s02Node = NULL;
+        g05Node = NULL;
+        g06Node = NULL;
+
+        OSG::commitChanges();
     }
 
     OSG::GroupRecPtr     g01Core;

@@ -4,7 +4,7 @@ PROJECT("OSGBase")
 OSG_ADD_PROJECT()
 OSG_SELECT_PROJECT()
 
-##############################################################################
+#############################################################################
 # dependencies
 ##############################################################################
 
@@ -20,6 +20,10 @@ SET(${PROJECT_NAME}_DEP_LIB OSG_DL_LIB OSG_THREAD_LIB)
 # SET(${PROJECT_NAME}_DEP_TEST_LIB)
 # SET(${PROJECT_NAME}_DEP_TEST_LIBDIR)
 # SET(${PROJECT_NAME}_DEP_TEST_INCDIR)
+
+SET(${PROJECT_NAME}_DEP_UNITTEST_LIB OSG_BOOST_LIBS)
+# SET(${PROJECT_NAME}_DEP_UNITTEST_LIBDIR)
+SET(${PROJECT_NAME}_DEP_UNITTEST_INCDIR OSG_BOOST_INCDIRS)
 
 # dependencies - Additional
 # SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
@@ -53,6 +57,7 @@ IF(OSGCOMPAT_ENABLE_DEPRECATED)
     OSG_ADD_DIRECTORY("Source/Base/Depreciated")
 ENDIF(OSGCOMPAT_ENABLE_DEPRECATED)
 
+# special handling for generated file OSGConfigured.h
 IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_BINARY_DIR}/Source/Base/Base\")\n\n")

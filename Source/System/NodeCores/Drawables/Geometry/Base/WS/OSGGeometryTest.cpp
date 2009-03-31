@@ -38,13 +38,13 @@
 
 // Unit tests for vec classes
 
-#include <OpenSG/OSGGeometry.h>
-#include <OpenSG/OSGGeoVectorProperty.h>
-#include <OpenSG/OSGGeoProperties.h>
-#include <OpenSG/OSGFieldContainerFactory.h>
-#include <OpenSG/OSGTypedGeoVectorProperty.h>
-#include <OpenSG/OSGSimpleGeometry.h>
-#include <OpenSG/OSGTransform.h>
+#include <OSGGeometry.h>
+#include <OSGGeoVectorProperty.h>
+#include <OSGGeoProperties.h>
+#include <OSGFieldContainerFactory.h>
+#include <OSGTypedGeoVectorProperty.h>
+#include <OSGSimpleGeometry.h>
+#include <OSGTransform.h>
 
 SUITE(GeometryTests)
 {
@@ -99,7 +99,7 @@ TEST(TestSettingVecAttribs)
     CHECK(g != NULL);
 
     // Copied-and-macroed from OSGTypedGeoVectorPropertyFields
-    char* allowed_vec_prop_types[] =
+    const char* allowed_vec_prop_types[] =
     {
         "GeoVec1ubProperty",
         "GeoVec2ubProperty",

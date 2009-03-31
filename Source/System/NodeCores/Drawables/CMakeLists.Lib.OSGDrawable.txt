@@ -16,6 +16,7 @@ SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGGroup
                                      OSGUtil
                                      OSGWindow
                                      OSGWindowGLUT)
+SET(${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB OSGGroup)
 
 # dependencies - External
 # SET(${PROJECT_NAME}_DEP_LIB)

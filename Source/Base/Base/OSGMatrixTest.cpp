@@ -38,8 +38,8 @@
 
 // Unit tests for matrix classes
 
-#include <OpenSG/OSGMatrix.h>
-#include <OpenSG/OSGQuaternion.h>
+#include <OSGMatrix.h>
+#include <OSGQuaternion.h>
 
 OSG_USING_NAMESPACE
 

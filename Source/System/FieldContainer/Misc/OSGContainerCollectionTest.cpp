@@ -36,14 +36,14 @@
 
 #include <UnitTest++.h>
 
-// Unit tests for vec classes
+// Unit tests for the ContainerCollection container
 
-#include <OpenSG/OSGContainerCollection.h>
-#include <OpenSG/OSGNode.h>
-#include <OpenSG/OSGGroup.h>
-#include <OpenSG/OSGBlendChunk.h>
+#include <OSGContainerCollection.h>
+#include <OSGNode.h>
+#include <OSGGroup.h>
+#include <OSGBlendChunk.h>
 
-#include <OpenSG/OSGNameAttachment.h>
+#include <OSGNameAttachment.h>
 
 SUITE(ContainerCollectionTests)
 {

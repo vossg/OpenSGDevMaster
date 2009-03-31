@@ -36,9 +36,9 @@
 
 #include <UnitTest++.h>
 
-#include <OpenSG/OSGVector.h>
-#include <OpenSG/OSGColor.h>
-#include <OpenSG/OSGGeoVectorProperty.h>
+#include <OSGVector.h>
+#include <OSGColor.h>
+#include <OSGGeoVectorProperty.h>
 
 // In the tests below there are quite a number of tests commented out, because
 // they fail to compile - all involving types with Fixed32 elements.
