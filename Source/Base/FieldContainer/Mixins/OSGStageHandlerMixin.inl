@@ -592,6 +592,33 @@ GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleRequestRun(
     return returnValue;
 }
 
+template <class ParentT> inline
+GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleDestroyedFunctors(
+    void) const
+{
+    MFChangedFunctorCallback::GetHandlePtr returnValue(
+        new MFChangedFunctorCallback::GetHandle(
+            &_mfDestroyedFunctors,
+            this->getType().getFieldDesc(DestroyedFunctorsFieldId),
+            const_cast<Self *>(this)));
+    
+    return returnValue;
+}
+
+template <class ParentT> inline
+EditFieldHandlePtr StageHandlerMixin<ParentT>::editHandleDestroyedFunctors(
+    void)
+{
+    MFChangedFunctorCallback::EditHandlePtr returnValue(
+        new MFChangedFunctorCallback::EditHandle(
+            &_mfDestroyedFunctors,
+            this->getType().getFieldDesc(DestroyedFunctorsFieldId),
+            this));
+    
+    editMField(DestroyedFunctorsFieldMask, _mfDestroyedFunctors);
+    
+    return returnValue;
+}
 
 /*-------------------------------------------------------------------------*/
 /*                             Destructor                                  */
