@@ -476,7 +476,7 @@ void FieldContainer::subReferenceUnresolved(void)
     RefCountStore tmpRefCnt = osgAtomicExchangeAndAdd(&_iRefCount, -1);
 //    --_iRefCount;
 
-    if(_iRefCount <= 1)
+    if(tmpRefCnt <= 1)
     {
         Thread::getCurrentChangeList()->addSubRefd(Inherited::getId());
 
