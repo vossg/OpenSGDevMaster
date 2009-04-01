@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                     Copyright 2000-2002 by OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class QTWindow!
+ **     class QT4Window!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -52,62 +52,57 @@ OSG_BEGIN_NAMESPACE
 
 
 //! access the type of the class
-inline OSG::FieldContainerType &QTWindowBase::getClassType(void)
+inline
+OSG::FieldContainerType &QT4WindowBase::getClassType(void)
 {
-    return _type; 
-} 
+    return _type;
+}
 
 //! access the numerical type of the class
-inline OSG::UInt32 QTWindowBase::getClassTypeId(void) 
+inline
+OSG::UInt32 QT4WindowBase::getClassTypeId(void)
 {
-    return _type.getId(); 
-} 
+    return _type.getId();
+}
 
 inline
-OSG::UInt16 QTWindowBase::getClassGroupId(void)
+OSG::UInt16 QT4WindowBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the QT4Window::_sfGlWidget field.
+
 inline
-const SFOSGQGLWidgetP QTWindowBase::getSFGlWidget(void)
+OSGQGLWidgetP &QT4WindowBase::editGlWidget(void)
 {
-	return _sfGlWidget;
+    editSField(GlWidgetFieldMask);
+
+    return _sfGlWidget.getValue();
 }
 
+//! Get the value of the QT4Window::_sfGlWidget field.
 inline
-SFOSGQGLWidgetP QTWindowBase::editSFGlWidget(void)
-{
-	editSField(GlWidgetFieldMask);
-    return _sfGlWidget;
-}
-
-
-inline
-const OSGQGLWidgetP QTWindowBase::getGlWidget(void) const
+const OSGQGLWidgetP &QT4WindowBase::getGlWidget(void) const
 {
     return _sfGlWidget.getValue();
 }
 
+//! Set the value of the QT4Window::_sfGlWidget field.
 inline
-OSGQGLWidget &QTWindowBase::editGlWidget(void)
+void QT4WindowBase::setGlWidget(const OSGQGLWidgetP &value)
 {
-	editSField(GlWidgetFieldMask);
-    return *_sfGlWidget.getValue();
-}
+    editSField(GlWidgetFieldMask);
 
-inline
-void QTWindowBase::setGlWidget(const OSGQGLWidgetP &value)
-{
-	editSField(GlWidgetFieldMask);
     _sfGlWidget.setValue(value);
 }
 
+
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void QTWindowBase::execSync (      QTWindowBase *pFrom,
+void QT4WindowBase::execSync (      QT4WindowBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -120,12 +115,13 @@ void QTWindowBase::execSync (      QTWindowBase *pFrom,
 }
 #endif
 
-inline
-const Char8 *QTWindowBase::getClassname(void)
-{
-    return "QTWindow";
-}
 
-OSG_GEN_CONTAINERPTR(QTWindow);
+inline
+const Char8 *QT4WindowBase::getClassname(void)
+{
+    return "QT4Window";
+}
+OSG_GEN_CONTAINERPTR(QT4Window);
 
 OSG_END_NAMESPACE
+

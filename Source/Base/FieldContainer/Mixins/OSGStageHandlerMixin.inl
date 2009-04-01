@@ -615,7 +615,7 @@ EditFieldHandlePtr StageHandlerMixin<ParentT>::editHandleDestroyedFunctors(
             this->getType().getFieldDesc(DestroyedFunctorsFieldId),
             this));
     
-    editMField(DestroyedFunctorsFieldMask, _mfDestroyedFunctors);
+    Self::editMField(DestroyedFunctorsFieldMask, _mfDestroyedFunctors);
     
     return returnValue;
 }

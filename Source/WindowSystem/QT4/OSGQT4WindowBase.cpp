@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -45,50 +45,56 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class QTWindow!
+ **     class QT4Window!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
-
-#define OSG_COMPILEQTWINDOWINST
-
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
+#include <boost/assign/list_of.hpp>
 
 #include <OSGConfig.h>
+
+
+
 
 #include "OSGQT4WindowBase.h"
 #include "OSGQT4Window.h"
 
+#include "boost/bind.hpp"
+
+#ifdef WIN32 // turn off 'this' : used in base member initializer list warning
+#pragma warning(disable:4355)
+#endif
 
 OSG_BEGIN_NAMESPACE
-
-#ifdef __sgi
-#pragma set woff 1174
-#endif
 
 /***************************************************************************\
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::QTWindow
-    The class for QT-based windows. See \ref PageWindowQT for a description.
+/*! \class OSG::QT4Window
+    The class for QT windows.
+
+    Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid
+    beast that derives from XWindow on Unix and WIN32Window on Windows, and as such can't
+    be recreated automatically.
  */
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-
-/*! \var OSGQGLWidgetP   QTWindowBase::_sfGlWidget
+/*! \var OSGQGLWidgetP   QT4WindowBase::_sfGlWidget
     
 */
-//! QTWindow description
 
-void QTWindowBase::classDescInserter(TypeObject &oType)
+
+void QT4WindowBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
+
 
     pDesc = new SFOSGQGLWidgetP::Description(
         SFOSGQGLWidgetP::getClassType(),
@@ -97,85 +103,99 @@ void QTWindowBase::classDescInserter(TypeObject &oType)
         GlWidgetFieldId, GlWidgetFieldMask,
         true,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&QTWindow::editHandleGlWidget),
-        static_cast<FieldGetMethodSig >(&QTWindow::getHandleGlWidget));
+        static_cast<FieldEditMethodSig>(&QT4Window::editHandleGlWidget),
+        static_cast<FieldGetMethodSig >(&QT4Window::getHandleGlWidget));
 
     oType.addInitialDesc(pDesc);
 }
 
-//! QTWindow type
-QTWindowBase::TypeObject QTWindowBase::_type(
-    QTWindowBase::getClassname(),
+
+QT4WindowBase::TypeObject QT4WindowBase::_type(
+    QT4WindowBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    reinterpret_cast<PrototypeCreateF>(&QTWindowBase::createEmptyLocal),
-    QTWindow::initMethod,
-    QTWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&QTWindowBase::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&QT4WindowBase::createEmptyLocal),
+    QT4Window::initMethod,
+    QT4Window::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&QT4Window::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"QTWindow\"\n"
-    "\tparent=\"Window\"\n"
+    "\tname=\"QT4Window\"\n"
+    "\tparent=\"NativeWindow\"\n"
     "\tlibrary=\"WindowQT4\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
     ">\n"
-    "The class for QT-based windows. See \\ref PageWindowQT for a description.\n"
+    "The class for QT windows.\n"
+    "\n"
+    "Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid\n"
+    "beast that derives from XWindow on Unix and WIN32Window on Windows, and as such can't\n"
+    "be recreated automatically.\n"
+    "\n"
     "\t<Field\n"
     "\t\tname=\"GlWidget\"\n"
-    "\t\ttype=\"OSGQGLWidget\"\n"
+    "\t\ttype=\"OSGQGLWidgetP\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"0\"\n"
-    "\t\theader=\"\"\n"
+    "\t\tdefaultValue=\"NULL\"\n"
+    "\t\theader=\"OSGQT4WindowDataFields.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",
-    "The class for QT-based windows. See \\ref PageWindowQT for a description.\n"
+    "The class for QT windows.\n"
+    "\n"
+    "Do *NOT* use this fcd to recreate the QTWindow code. The QT window is a hybrid\n"
+    "beast that derives from XWindow on Unix and WIN32Window on Windows, and as such can't\n"
+    "be recreated automatically.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &QTWindowBase::getType(void) 
-{
-    return _type; 
-} 
-
-const FieldContainerType &QTWindowBase::getType(void) const 
+FieldContainerType &QT4WindowBase::getType(void)
 {
     return _type;
-} 
+}
 
-UInt32 QTWindowBase::getContainerSize(void) const
+const FieldContainerType &QT4WindowBase::getType(void) const
 {
-    return sizeof(QTWindow);
+    return _type;
+}
+
+UInt32 QT4WindowBase::getContainerSize(void) const
+{
+    return sizeof(QT4Window);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-//SFOSGQGLWidgetP QTWindowBase::editSFGlWidget(void)
-//{
-//    editSField(GlWidgetFieldMask);
-//
-//    return &_sfGlWidget;
-//}
-//
-//const SFOSGQGLWidgetP QTWindowBase::getSFGlWidget(void) const
-//{
-//    return &_sfGlWidget;
-//}
+SFOSGQGLWidgetP *QT4WindowBase::editSFGlWidget(void)
+{
+    editSField(GlWidgetFieldMask);
+
+    return &_sfGlWidget;
+}
+
+const SFOSGQGLWidgetP *QT4WindowBase::getSFGlWidget(void) const
+{
+    return &_sfGlWidget;
+}
+
+
+
+
+
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 QTWindowBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 QT4WindowBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
@@ -184,12 +204,11 @@ UInt32 QTWindowBase::getBinSize(ConstFieldMaskArg whichField)
         returnValue += _sfGlWidget.getBinSize();
     }
 
-
     return returnValue;
 }
 
-void QTWindowBase::copyToBin(BinaryDataHandler &pMem,
-                             ConstFieldMaskArg whichField)
+void QT4WindowBase::copyToBin(BinaryDataHandler &pMem,
+                                  ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
@@ -197,12 +216,10 @@ void QTWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfGlWidget.copyToBin(pMem);
     }
-
-
 }
 
-void QTWindowBase::copyFromBin(BinaryDataHandler &pMem,
-                               ConstFieldMaskArg whichField)
+void QT4WindowBase::copyFromBin(BinaryDataHandler &pMem,
+                                    ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
@@ -210,63 +227,61 @@ void QTWindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfGlWidget.copyFromBin(pMem);
     }
-
-
 }
 
 //! create a new instance of the class
-QTWindowTransitPtr QTWindowBase::createLocal(BitVector bFlags)
+QT4WindowTransitPtr QT4WindowBase::createLocal(BitVector bFlags)
 {
-    QTWindowTransitPtr fc;
+    QT4WindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<QTWindow>(tmpPtr);
+        fc = dynamic_pointer_cast<QT4Window>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-QTWindowTransitPtr QTWindowBase::createDependent(BitVector bFlags)
+QT4WindowTransitPtr QT4WindowBase::createDependent(BitVector bFlags)
 {
-    QTWindowTransitPtr fc;
+    QT4WindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<QTWindow>(tmpPtr);
+        fc = dynamic_pointer_cast<QT4Window>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-QTWindowTransitPtr QTWindowBase::create(void)
+QT4WindowTransitPtr QT4WindowBase::create(void)
 {
-    QTWindowTransitPtr fc;
+    QT4WindowTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<QTWindow>(tmpPtr);
+        fc = dynamic_pointer_cast<QT4Window>(tmpPtr);
     }
 
     return fc;
 }
 
-QTWindow *QTWindowBase::createEmptyLocal(BitVector bFlags)
+QT4Window *QT4WindowBase::createEmptyLocal(BitVector bFlags)
 {
-    QTWindow *returnValue;
+    QT4Window *returnValue;
 
-    newPtr<QTWindow>(returnValue, bFlags);
+    newPtr<QT4Window>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -274,11 +289,11 @@ QTWindow *QTWindowBase::createEmptyLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-QTWindow *QTWindowBase::createEmpty(void)
+QT4Window *QT4WindowBase::createEmpty(void)
 {
-    QTWindow *returnValue;
+    QT4Window *returnValue;
 
-    newPtr<QTWindow>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<QT4Window>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -287,12 +302,12 @@ QTWindow *QTWindowBase::createEmpty(void)
 }
 
 
-FieldContainerTransitPtr QTWindowBase::shallowCopyLocal(
+FieldContainerTransitPtr QT4WindowBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    QTWindow *tmpPtr;
+    QT4Window *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const QTWindow *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const QT4Window *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -301,12 +316,12 @@ FieldContainerTransitPtr QTWindowBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr QTWindowBase::shallowCopyDependent(
+FieldContainerTransitPtr QT4WindowBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    QTWindow *tmpPtr;
+    QT4Window *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const QTWindow *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const QT4Window *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -315,12 +330,12 @@ FieldContainerTransitPtr QTWindowBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr QTWindowBase::shallowCopy(void) const
+FieldContainerTransitPtr QT4WindowBase::shallowCopy(void) const
 {
-    QTWindow *tmpPtr;
+    QT4Window *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const QTWindow *>(this),
+           dynamic_cast<const QT4Window *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -330,52 +345,43 @@ FieldContainerTransitPtr QTWindowBase::shallowCopy(void) const
     return returnValue;
 }
 
+
+
+
 /*------------------------- constructors ----------------------------------*/
 
-//! Constructor
-
-#ifdef OSG_WIN32_ICL
-#pragma warning (disable : 383)
-#endif
-
-QTWindowBase::QTWindowBase(void) :
-    _sfGlWidget               (OSGQGLWidgetP(NULL)), 
-    Inherited() 
+QT4WindowBase::QT4WindowBase(void) :
+    Inherited(),
+    _sfGlWidget               (OSGQGLWidgetP(NULL))
 {
 }
 
-#ifdef OSG_WIN32_ICL
-#pragma warning (default : 383)
-#endif
-
-//! Copy Constructor
-
-QTWindowBase::QTWindowBase(const QTWindowBase &source) :
-    _sfGlWidget               (source._sfGlWidget               ), 
-    Inherited                 (source)
+QT4WindowBase::QT4WindowBase(const QT4WindowBase &source) :
+    Inherited(source),
+    _sfGlWidget               (source._sfGlWidget               )
 {
 }
+
 
 /*-------------------------- destructors ----------------------------------*/
 
-//! Destructor
-
-QTWindowBase::~QTWindowBase(void)
+QT4WindowBase::~QT4WindowBase(void)
 {
 }
 
-GetFieldHandlePtr QTWindowBase::getHandleGlWidget          (void) const
+
+GetFieldHandlePtr QT4WindowBase::getHandleGlWidget        (void) const
 {
     SFOSGQGLWidgetP::GetHandlePtr returnValue(
         new  SFOSGQGLWidgetP::GetHandle(
              &_sfGlWidget,
              this->getType().getFieldDesc(GlWidgetFieldId),
-             const_cast<QTWindowBase *>(this)));
+             const_cast<QT4WindowBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr QTWindowBase::editHandleGlWidget         (void)
+EditFieldHandlePtr QT4WindowBase::editHandleGlWidget       (void)
 {
     SFOSGQGLWidgetP::EditHandlePtr returnValue(
         new  SFOSGQGLWidgetP::EditHandle(
@@ -391,15 +397,15 @@ EditFieldHandlePtr QTWindowBase::editHandleGlWidget         (void)
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void QTWindowBase::execSyncV(           FieldContainer    &oFrom,
+void QT4WindowBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    QTWindow *pThis = static_cast<QTWindow *>(this);
+    QT4Window *pThis = static_cast<QT4Window *>(this);
 
-    pThis->execSync(static_cast<QTWindow *>(&oFrom),
+    pThis->execSync(static_cast<QT4Window *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -409,38 +415,39 @@ void QTWindowBase::execSyncV(           FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *QTWindowBase::createAspectCopy(
+FieldContainer *QT4WindowBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-   QTWindow *returnValue;
+    QT4Window *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const QTWindow *>(pRefAspect),
-                  dynamic_cast<const QTWindow *>(this));
+                  dynamic_cast<const QT4Window *>(pRefAspect),
+                  dynamic_cast<const QT4Window *>(this));
 
     return returnValue;
 }
 #endif
 
-void QTWindowBase::resolveLinks(void)
+void QT4WindowBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
+
+
 }
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<QTWindow *>::_type("QTWindowPtr", "WindowPtr");
+DataType FieldTraits<QT4Window *>::_type("QT4WindowPtr", "NativeWindowPtr");
 #endif
 
-//OSG_FIELDTRAITS_GETTYPE(QTWindow *)
+OSG_FIELDTRAITS_GETTYPE(QT4Window *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           QTWindow *,
+                           QT4Window *,
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           QTWindow *,
+                           QT4Window *,
                            0);
 
 OSG_END_NAMESPACE
-

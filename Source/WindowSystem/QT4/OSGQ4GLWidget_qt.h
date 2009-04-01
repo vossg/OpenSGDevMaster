@@ -50,17 +50,15 @@
 
 #ifdef OSG_WITH_QT
 
-#include <QtCore/QObject>
-#include <QtOpenGL/QGLWidget>
-
 #include "OSGWindowQT4Def.h"
 #include <OSGBaseTypes.h>
 
-namespace OSG {
+namespace OSG 
+{
 
 /*! \brief OSGQGL widget class. See \ref PageWindowQT for a description. */
 
-class OSG_WINDOWQTLIB_DLLMAPPING OSGQGLWidget : public QGLWidget
+class OSG_WINDOWQT4_DLLMAPPING OSGQGLWidget : public QGLWidget
 {
   Q_OBJECT
 

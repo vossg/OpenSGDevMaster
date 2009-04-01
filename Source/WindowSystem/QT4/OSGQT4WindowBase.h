@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -45,89 +45,80 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class QTWindow
+ **     class QT4Window
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGQTWINDOWBASE_H_
-#define _OSGQTWINDOWBASE_H_
+#ifndef _OSGQT4WINDOWBASE_H_
+#define _OSGQT4WINDOWBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 #include "OSGWindowQT4Def.h"
 
-#include <OSGBaseTypes.h>
+#include "OSGBaseTypes.h"
+
+#include "OSGNativeWindow.h" // Parent
 
 #include "OSGQT4WindowDataFields.h" // GlWidget type
-
-// Parent
-#ifdef WIN32
-#include "OSGWIN32Window.h"
-#else
-#include "OSGXWindow.h"
-#endif
 
 #include "OSGQT4WindowFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class QTWindow;
+class QT4Window;
 
-//! \brief QTWindow Base Class.
+//! \brief QT4Window Base Class.
 
-#ifdef WIN32
-class OSG_WINDOWQTLIB_DLLMAPPING QTWindowBase : public WIN32Window
-#else
-class OSG_WINDOWQTLIB_DLLMAPPING QTWindowBase : public XWindow
-#endif
+class OSG_WINDOWQT4_DLLMAPPING QT4WindowBase : public NativeWindow
 {
   public:
 
-#ifdef WIN32
-    typedef WIN32Window Inherited;
-    typedef WIN32Window ParentContainer;
-#else
-    typedef XWindow     Inherited;
-    typedef XWindow ParentContainer;
-#endif
+    typedef NativeWindow Inherited;
+    typedef NativeWindow ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(QTWindow);
+    OSG_GEN_INTERNALPTR(QT4Window);
 
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     enum
     {
         GlWidgetFieldId = Inherited::NextFieldId,
-        NextFieldId     = GlWidgetFieldId + 1
+        NextFieldId = GlWidgetFieldId + 1
     };
 
     static const OSG::BitVector GlWidgetFieldMask =
         (TypeTraits<BitVector>::One << GlWidgetFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFOSGQGLWidgetP   SFGlWidgetType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
 
-    static        FieldContainerType &getClassType   (void); 
-    static        UInt32              getClassTypeId (void); 
-    static        UInt16              getClassGroupId(void);
+    static FieldContainerType &getClassType   (void);
+    static UInt32              getClassTypeId (void);
+    static UInt16              getClassGroupId(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Get                                    */
+    /*! \name                FieldContainer Get                            */
     /*! \{                                                                 */
 
-    virtual       FieldContainerType &getType  (void); 
-    virtual const FieldContainerType &getType  (void) const; 
+    virtual       FieldContainerType &getType         (void);
+    virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
 
@@ -136,26 +127,25 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindowBase : public XWindow
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-          SFOSGQGLWidgetP     editSFGlWidget      (void);
-    const SFOSGQGLWidgetP     getSFGlWidget       (void);
 
-          OSGQGLWidget        &editGlWidget       (void);
-    const OSGQGLWidgetP       getGlWidget         (void) const;
+                  SFOSGQGLWidgetP     *editSFGlWidget       (void);
+            const SFOSGQGLWidgetP     *getSFGlWidget        (void) const;
+
+
+                  OSGQGLWidgetP       &editGlWidget       (void);
+            const OSGQGLWidgetP       &getGlWidget        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-    inline void setGlWidget       ( const OSGQGLWidgetP &value );
+            void setGlWidget       (const OSGQGLWidgetP &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    //virtual void   executeSync(      FieldContainer    &other,
-    //                           const BitVector         &whichField);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -172,21 +162,20 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindowBase : public XWindow
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Construction                               */
-    /*! \{                                                                 */ 
-    
-    static  QTWindowTransitPtr  create          (void);
-    static  QTWindow           *createEmpty     (void);
+    /*! \{                                                                 */
 
-    static  QTWindowTransitPtr  createLocal     (
+    static  QT4WindowTransitPtr  create          (void);
+    static  QT4Window           *createEmpty     (void);
+
+    static  QT4WindowTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  QTWindow            *createEmptyLocal(
+    static  QT4Window            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  QTWindowTransitPtr  createDependent  (BitVector bFlags);
+    static  QT4WindowTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
-
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
@@ -199,8 +188,9 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindowBase : public XWindow
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
-  
+
     static TypeObject _type;
 
     static       void   classDescInserter(TypeObject &oType);
@@ -210,23 +200,23 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindowBase : public XWindow
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFOSGQGLWidgetP     _sfGlWidget;
+    SFOSGQGLWidgetP   _sfGlWidget;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    QTWindowBase(void);
-    QTWindowBase(const QTWindowBase &source);
+    QT4WindowBase(void);
+    QT4WindowBase(const QT4WindowBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~QTWindowBase(void); 
-    
+    virtual ~QT4WindowBase(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
@@ -238,8 +228,8 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindowBase : public XWindow
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGlWidget          (void) const;
-    EditFieldHandlePtr editHandleGlWidget        (void);
+    GetFieldHandlePtr  getHandleGlWidget        (void) const;
+    EditFieldHandlePtr editHandleGlWidget       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -253,13 +243,12 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindowBase : public XWindow
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      QTWindowBase *pFrom,
+            void execSync (      QT4WindowBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 #endif
-
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -287,16 +276,18 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindowBase : public XWindow
 
     virtual void resolveLinks(void);
 
-    /*! \}                                                                  */
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
-  
+    /*---------------------------------------------------------------------*/
+
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const QTWindowBase &source);
+    void operator =(const QT4WindowBase &source);
 };
 
-typedef QTWindowBase *QTWindowBaseP;
+typedef QT4WindowBase *QT4WindowBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGQTWINDOWBASE_H_ */
+#endif /* _OSGQT4WINDOWBASE_H_ */

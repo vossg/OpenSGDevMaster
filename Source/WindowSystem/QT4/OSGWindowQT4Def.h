@@ -42,21 +42,24 @@
 #pragma once
 #endif
 
+#include <QtCore/QObject>
+#include <QtOpenGL/QGLWidget>
+
 //---------------------------------------------------------------------------
 //  Defines
 //---------------------------------------------------------------------------
 
 #if defined(WIN32)
 #   ifdef OSG_COMPILEWINDOWQT4LIB
-#       define OSG_WINDOWQTLIB_DLLMAPPING     __declspec(dllexport)
-#       define OSG_WINDOWQTLIB_DLLTMPLMAPPING __declspec(dllexport)
+#       define OSG_WINDOWQT4_DLLMAPPING     __declspec(dllexport)
+#       define OSG_WINDOWQT4_DLLTMPLMAPPING __declspec(dllexport)
 #   else
-#       define OSG_WINDOWQTLIB_DLLMAPPING     __declspec(dllimport)
-#       define OSG_WINDOWQTLIB_DLLTMPLMAPPING __declspec(dllimport)
+#       define OSG_WINDOWQT4_DLLMAPPING     __declspec(dllimport)
+#       define OSG_WINDOWQT4_DLLTMPLMAPPING __declspec(dllimport)
 #   endif
 #else
-#define OSG_WINDOWQTLIB_DLLMAPPING
-#define OSG_WINDOWQTLIB_DLLTMPLMAPPING
+#define OSG_WINDOWQT4_DLLMAPPING
+#define OSG_WINDOWQT4_DLLTMPLMAPPING
 #endif
 
 #endif /* _OSGWINDOWQTDEF_H_ */

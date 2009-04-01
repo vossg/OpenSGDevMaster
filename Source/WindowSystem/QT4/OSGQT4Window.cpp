@@ -65,19 +65,19 @@ The class for QT-based windows. See \ref PageWindowQT for a description.
 /*----------------------- constructors & destructors ----------------------*/
 
 //! Constructor
-QTWindow::QTWindow(void) :
+QT4Window::QT4Window(void) :
     Inherited()
 {
 }
 
 //! Copy Constructor
-QTWindow::QTWindow(const QTWindow &source) :
+QT4Window::QT4Window(const QT4Window &source) :
     Inherited(source)
 {
 }
 
 //! Destructor
-QTWindow::~QTWindow(void)
+QT4Window::~QT4Window(void)
 {
 }
 
@@ -101,22 +101,22 @@ static StaticInitFuncWrapper qtVersionCheck(qtVersionCheckWrapper);
 
 //! initialize the static features of the class, e.g. action callbacks
 
-void QTWindow::initMethod (InitPhase ePhase)
+void QT4Window::initMethod (InitPhase ePhase)
 {
     //Inherited::initMethod(ePhase);
 }
 
 //! react to field changes
-void QTWindow::changed(ConstFieldMaskArg whichField, 
-                         UInt32            origin,
-                         BitVector         details)
+void QT4Window::changed(ConstFieldMaskArg whichField, 
+                        UInt32            origin,
+                        BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
 //! output the instance for debug purposes
 
-void QTWindow::dump(      UInt32    ,
+void QT4Window::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump QTWindow NI" << std::endl;
@@ -127,7 +127,7 @@ void QTWindow::dump(      UInt32    ,
 
 
 //! init the window: create the context
-void QTWindow::init( void )
+void QT4Window::init(void)
 {
 #ifdef WIN32
     if(getGlWidget() != NULL)

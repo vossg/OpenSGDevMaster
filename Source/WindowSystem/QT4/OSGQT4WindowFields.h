@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGQTWINDOWFIELDS_H_
-#define _OSGQTWINDOWFIELDS_H_
+#ifndef _OSGQT4WINDOWFIELDS_H_
+#define _OSGQT4WINDOWFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,132 +64,160 @@
 
 OSG_BEGIN_NAMESPACE
 
-class QTWindow;
+class QT4Window;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! QTWindowPtr
+OSG_GEN_CONTAINERPTR(QT4Window);
 
-OSG_GEN_CONTAINERPTR(QTWindow);
-
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-/*! \brief QTWindow field traits 
-    \ingroup GrpWindowQTField
-    \ingroup GrpWindowQTFieldTraits
+/*! \ingroup GrpWindowQT4FieldTraits
+    \ingroup GrpLibOSGWindowQT4
  */
- #if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
-struct FieldTraits<QTWindow *> :
-    public FieldTraitsFCPtrBase<QTWindow *>
+struct FieldTraits<QT4Window *> :
+    public FieldTraitsFCPtrBase<QT4Window *>
 {
-private:
+  private:
 
     static DataType             _type;
 
-public:
+  public:
 
-    typedef FieldTraits<QTWindow *>  Self;
+    typedef FieldTraits<QT4Window *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_WINDOWQTLIB_DLLMAPPING DataType &getType(void)
-	{return _type;}
+    static OSG_WINDOWQT4_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
-        static const Char8    *getSName     (void);
-    
-    template<typename RefCountPolicy> inline
-        static const Char8    *getMName     (void);
+    static const Char8    *getSName     (void);
 
+//    static const char *getSName(void) { return "SFQT4WindowPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFQT4WindowPtr"; }
 };
 
 template<> inline
-const Char8 *FieldTraits<QTWindow *, 0>::getSName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<QT4Window *, 0>::getSName<RecordedRefCountPolicy>(void)
 {
-    return "SFRecQTWindowPtr"; 
+    return "SFRecQT4WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QTWindow *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<QT4Window *, 0>::getSName<UnrecordedRefCountPolicy>(void)
 {
-    return "SFUnrecQTWindowPtr"; 
+    return "SFUnrecQT4WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QTWindow *, 0>::getSName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<QT4Window *, 0>::getSName<WeakRefCountPolicy>(void)
 {
-    return "SFWeakQTWindowPtr"; 
+    return "SFWeakQT4WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QTWindow *, 0>::getSName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<QT4Window *, 0>::getSName<NoRefCountPolicy>(void)
 {
-    return "SFUnrefdQTWindowPtr"; 
+    return "SFUnrefdQT4WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QTWindow *, 0>::getMName<RecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<QT4Window *, 0>::getMName<RecordedRefCountPolicy>(void)
 {
-    return "MFRecQTWindowPtr"; 
+    return "MFRecQT4WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QTWindow *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+const Char8 *FieldTraits<QT4Window *, 0>::getMName<UnrecordedRefCountPolicy>(void)
 {
-    return "MFUnrecQTWindowPtr"; 
+    return "MFUnrecQT4WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QTWindow *, 0>::getMName<WeakRefCountPolicy>(void)
+const Char8 *FieldTraits<QT4Window *, 0>::getMName<WeakRefCountPolicy>(void)
 {
-    return "MFWeakQTWindowPtr"; 
+    return "MFWeakQT4WindowPtr"; 
 }
 
 template<> inline
-const Char8 *FieldTraits<QTWindow *, 0>::getMName<NoRefCountPolicy>(void)
+const Char8 *FieldTraits<QT4Window *, 0>::getMName<NoRefCountPolicy>(void)
 {
-    return "MFUnrefdQTWindowPtr"; 
+    return "MFUnrefdQT4WindowPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class FieldTraitsRecurseMapper<QTWindowPtr, true> */
-/*! \hideinhierarchy                                   */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowQT4FieldSFields */
+typedef PointerSField<QT4Window *,
+                      RecordedRefCountPolicy  > SFRecQT4WindowPtr;
+/*! \ingroup GrpWindowQT4FieldSFields */
+typedef PointerSField<QT4Window *,
+                      UnrecordedRefCountPolicy> SFUnrecQT4WindowPtr;
+/*! \ingroup GrpWindowQT4FieldSFields */
+typedef PointerSField<QT4Window *,
+                      WeakRefCountPolicy      > SFWeakQT4WindowPtr;
+/*! \ingroup GrpWindowQT4FieldSFields */
+typedef PointerSField<QT4Window *,
+                      NoRefCountPolicy        > SFUncountedQT4WindowPtr;
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpWindowQTFieldSingle */
+/*! \ingroup GrpWindowQT4FieldMFields */
+typedef PointerMField<QT4Window *,
+                      RecordedRefCountPolicy  > MFRecQT4WindowPtr;
+/*! \ingroup GrpWindowQT4FieldMFields */
+typedef PointerMField<QT4Window *,
+                      UnrecordedRefCountPolicy> MFUnrecQT4WindowPtr;
+/*! \ingroup GrpWindowQT4FieldMFields */
+typedef PointerMField<QT4Window *,
+                      WeakRefCountPolicy      > MFWeakQT4WindowPtr;
+/*! \ingroup GrpWindowQT4FieldMFields */
+typedef PointerMField<QT4Window *,
+                      NoRefCountPolicy        > MFUncountedQT4WindowPtr;
 
-typedef PointerSField<QTWindow *,
-RecordedRefCountPolicy  > SFRecQTWindowPtr;
-typedef PointerSField<QTWindow *,
-UnrecordedRefCountPolicy> SFUnrecQTWindowPtr;
-typedef PointerSField<QTWindow *,
-WeakRefCountPolicy      > SFWeakQTWindowPtr;
-typedef PointerSField<QTWindow *,
-NoRefCountPolicy        > SFUncountedQTWindowPtr;
-#endif
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS) 
-/*! \ingroup GrpWindowQTFieldMulti */
 
-typedef PointerMField<QTWindow *,
-RecordedRefCountPolicy  > MFRecQTWindowPtr;
-typedef PointerMField<QTWindow *,
-UnrecordedRefCountPolicy> MFUnrecQTWindowPtr;
-typedef PointerMField<QTWindow *,
-WeakRefCountPolicy      > MFWeakQTWindowPtr;
-typedef PointerMField<QTWindow *,
-NoRefCountPolicy        > MFUncountedQTWindowPtr;
 
-#endif
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowQT4FieldSFields \ingroup GrpLibOSGWindowQT4 */
+struct SFRecQT4WindowPtr : 
+    public PointerSField<QT4Window *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowQT4FieldSFields \ingroup GrpLibOSGWindowQT4 */
+struct SFUnrecQT4WindowPtr : 
+    public PointerSField<QT4Window *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowQT4FieldSFields \ingroup GrpLibOSGWindowQT4 */
+struct SFWeakQT4WindowPtr :
+    public PointerSField<QT4Window *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowQT4FieldSFields \ingroup GrpLibOSGWindowQT4 */
+struct SFUncountedQT4WindowPtr :
+    public PointerSField<QT4Window *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowQT4FieldMFields \ingroup GrpLibOSGWindowQT4 */
+struct MFRecQT4WindowPtr :
+    public PointerMField<QT4Window *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowQT4FieldMFields \ingroup GrpLibOSGWindowQT4 */
+struct MFUnrecQT4WindowPtr :
+    public PointerMField<QT4Window *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowQT4FieldMFields \ingroup GrpLibOSGWindowQT4 */
+struct MFWeakQT4WindowPtr :
+    public PointerMField<QT4Window *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowQT4FieldMFields \ingroup GrpLibOSGWindowQT4 */
+struct MFUncountedQT4WindowPtr :
+    public PointerMField<QT4Window *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGQTWINDOWFIELDS_H_ */
+#endif /* _OSGQT4WINDOWFIELDS_H_ */

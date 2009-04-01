@@ -176,7 +176,7 @@ int main( int argc, char **argv )
     {
         glWidgets[i] = new MyOSGQGLWidget(new MyQGLContext(QGLFormat::defaultFormat()), 0, 0, 0);;
 
-        QTWindowRecPtr win = QTWindow::create();
+        QT4WindowRecPtr win = QT4Window::create();
         win->setGlWidget( glWidgets[i] );
 
         // note: you can't share the scene between the windows, as the SSM

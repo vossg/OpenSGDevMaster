@@ -39,7 +39,7 @@ MARK_AS_ADVANCED(OSG_VERBOSE_BUILD_MESSAGES)
 OSG_OPTION(BUILD_SHARED_LIBS "Set to OFF to build static libraries" ON)
 
 OSG_OPTION(OSGBUILD_TESTS           "Build test programs" ON)
-OSG_OPTION(OSGBUILD_UNITTESTS       "Build/run unit test programs" ON)
+OSG_OPTION(OSGBUILD_UNITTESTS       "Build/run unit test programs" OFF)
 OSG_OPTION(OSGBUILD_EXAMPLES_SIMPLE "Build example programs during system build" OFF)
 
 OSG_OPTION(OSG_ENABLE_NEW_SHADER "" ON)

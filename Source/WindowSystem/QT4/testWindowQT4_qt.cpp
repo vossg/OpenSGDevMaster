@@ -70,7 +70,7 @@ class MyOSGQGLWidget : public OSGQGLWidget
             Qt::WindowFlags f = 0);
 
         Trackball   tball;
-        QTWindowRecPtr osgWin;
+        QT4WindowRecPtr osgWin;
 
     protected:      
         virtual void initializeGL (void);
@@ -100,7 +100,7 @@ ViewportRecPtr     vp;
 TransformRecPtr    cam_trans;
 PerspectiveCameraRecPtr cam;
 
-QTWindowRecPtr osgTWin;
+QT4WindowRecPtr osgTWin;
 
 MyOSGQGLWidget::MyOSGQGLWidget ( QWidget *parent, const char *name ) :
     OSGQGLWidget( parent, name )
@@ -354,7 +354,7 @@ int main( int argc, char **argv )
     glWidget->tball.setSum( true );
     glWidget->tball.setTranslationMode( Trackball::OSGFree );
 
-    glWidget->osgWin = QTWindow::create();
+    glWidget->osgWin = QT4Window::create();
     glWidget->osgWin->setGlWidget( glWidget );
     glWidget->osgWin->addPort( vp );
 

@@ -50,11 +50,11 @@ OSG_BEGIN_NAMESPACE
 
 /*! \brief QT Window class. See \ref PageWindowQT for a description. */
 
-class OSG_WINDOWQTLIB_DLLMAPPING QTWindow : public QTWindowBase
+class OSG_WINDOWQT4_DLLMAPPING QT4Window : public QT4WindowBase
 {
   public:
 
-    typedef QTWindowBase Inherited;
+    typedef QT4WindowBase Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -78,7 +78,7 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindow : public QTWindowBase
     /*! \{                                                                 */
 
     // init the window: create the context
-    virtual void init( void );
+    virtual void init(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -90,15 +90,15 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindow : public QTWindowBase
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    QTWindow(void);
-    QTWindow(const QTWindow &source);
+    QT4Window(void);
+    QT4Window(const QT4Window &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~QTWindow(void); 
+    virtual ~QT4Window(void); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -107,16 +107,16 @@ class OSG_WINDOWQTLIB_DLLMAPPING QTWindow : public QTWindowBase
 
     static void initMethod(InitPhase ePhase);
 
-    /*! \}                                                                 */       
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
   
   private:
 
     friend class FieldContainer;
-    friend class QTWindowBase;    
+    friend class QT4WindowBase;    
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const QTWindow &source);
+    void operator =(const QT4Window &source);
 };
 
 OSG_END_NAMESPACE
