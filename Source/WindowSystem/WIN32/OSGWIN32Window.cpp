@@ -111,7 +111,7 @@ void WIN32Window::dump(      UInt32    ,
 
 /*! init the window: create the HDC and HGLRC
 */
-void WIN32Window::init( void )
+void WIN32Window::init(GLInitFunctor oFunc)
 {
     setHdc(GetDC(getHwnd()));
 
@@ -127,9 +127,28 @@ void WIN32Window::init( void )
         }
     }
 
-    ReleaseDC(getHwnd(),getHdc());
-    activate();
-    setupGL();
+    ReleaseDC(getHwnd(), getHdc());
+
+    this->activate();
+
+    Inherited::init(oFunc);
+
+    this->deactivate();
+}
+
+void WIN32Window::forceActivateDeprecated  (void)
+{
+    this->activate();
+}
+
+void WIN32Window::forceDeactivateDeprecated(void)
+{
+    this->deactivate();
+}
+
+bool WIN32Window::forceSwapDeprecated      (void)
+{
+    return this->swap();
 }
 
 /*! activate the window: set the HDC and bind the OGL context

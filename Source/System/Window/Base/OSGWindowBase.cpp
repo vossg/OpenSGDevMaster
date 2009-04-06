@@ -144,6 +144,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          WindowBase::_sfPartitionDrawMode
+    
+*/
+
 
 void WindowBase::classDescInserter(TypeObject &oType)
 {
@@ -295,6 +299,18 @@ void WindowBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&Window::getHandleRenderOptions));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "partitionDrawMode",
+        "",
+        PartitionDrawModeFieldId, PartitionDrawModeFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Window::editHandlePartitionDrawMode),
+        static_cast<FieldGetMethodSig >(&Window::getHandlePartitionDrawMode));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -381,7 +397,7 @@ WindowBase::TypeObject WindowBase::_type(
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"1\"\n"
     "\t\taccess=\"protected\"\n"
-    "                fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
+    "       fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
     "\t>\n"
     "\tCounter for GL object events. Needed for multi-aspect updates.\n"
     "        Is used in glObjectLastRefresh and glObjectLastReinitialize.\n"
@@ -392,7 +408,7 @@ WindowBase::TypeObject WindowBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"protected\"\n"
-    "                fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
+    "       fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
     "\t>\n"
     "\tIndicates the last refresh for the GL object.\n"
     "\t</Field>\n"
@@ -402,7 +418,7 @@ WindowBase::TypeObject WindowBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"protected\"\n"
-    "                fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
+    "       fieldFlags=\"FClusterLocal,FThreadLocal\"\n"
     "\t>\n"
     "\tIndicates the last reinit for the GL object.\n"
     "\t</Field>\n"
@@ -457,6 +473,15 @@ WindowBase::TypeObject WindowBase::_type(
     "       defaultValue=\"NULL\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "\t   name=\"partitionDrawMode\"\n"
+    "\t   type=\"UInt32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue=\"Window::SequentialPartitionDraw\"\n"
+    "       >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindow\n"
     "\n"
@@ -640,6 +665,19 @@ SFUnrecRenderOptionsPtr *WindowBase::editSFRenderOptions  (void)
     return &_sfRenderOptions;
 }
 
+SFUInt32 *WindowBase::editSFPartitionDrawMode(void)
+{
+    editSField(PartitionDrawModeFieldMask);
+
+    return &_sfPartitionDrawMode;
+}
+
+const SFUInt32 *WindowBase::getSFPartitionDrawMode(void) const
+{
+    return &_sfPartitionDrawMode;
+}
+
+
 
 
 void WindowBase::addPort(Viewport * const value)
@@ -799,6 +837,10 @@ UInt32 WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderOptions.getBinSize();
     }
+    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+    {
+        returnValue += _sfPartitionDrawMode.getBinSize();
+    }
 
     return returnValue;
 }
@@ -856,6 +898,10 @@ void WindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRenderOptions.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+    {
+        _sfPartitionDrawMode.copyToBin(pMem);
+    }
 }
 
 void WindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -911,6 +957,10 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfRenderOptions.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+    {
+        _sfPartitionDrawMode.copyFromBin(pMem);
+    }
 }
 
 
@@ -933,7 +983,8 @@ WindowBase::WindowBase(void) :
     _sfRequestMajor           (Int32(-1)),
     _sfRequestMinor           (Int32(0)),
     _sfContextFlags           (Int32(0)),
-    _sfRenderOptions          (NULL)
+    _sfRenderOptions          (NULL),
+    _sfPartitionDrawMode      (UInt32(Window::SequentialPartitionDraw))
 {
 }
 
@@ -952,7 +1003,8 @@ WindowBase::WindowBase(const WindowBase &source) :
     _sfRequestMajor           (source._sfRequestMajor           ),
     _sfRequestMinor           (source._sfRequestMinor           ),
     _sfContextFlags           (source._sfContextFlags           ),
-    _sfRenderOptions          (NULL)
+    _sfRenderOptions          (NULL),
+    _sfPartitionDrawMode      (source._sfPartitionDrawMode      )
 {
 }
 
@@ -1345,6 +1397,31 @@ EditFieldHandlePtr WindowBase::editHandleRenderOptions  (void)
                     static_cast<Window *>(this), _1));
 
     editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr WindowBase::getHandlePartitionDrawMode (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfPartitionDrawMode,
+             this->getType().getFieldDesc(PartitionDrawModeFieldId),
+             const_cast<WindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr WindowBase::editHandlePartitionDrawMode(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfPartitionDrawMode,
+             this->getType().getFieldDesc(PartitionDrawModeFieldId),
+             this));
+
+
+    editSField(PartitionDrawModeFieldMask);
 
     return returnValue;
 }

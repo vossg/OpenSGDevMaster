@@ -9,7 +9,7 @@ OSG_SELECT_PROJECT()
 ##############################################################################
 
 # dependencies - OpenSG
-SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase OSGSystem)
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase OSGSystem ${OSG_NATIVE_WINDOW})
 
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable 
                                      OSGGroup 
@@ -40,6 +40,7 @@ OSG_ADD_DIRECTORY("Source/System/Window/Background")
 OSG_ADD_DIRECTORY("Source/System/Window/Camera")
 OSG_ADD_DIRECTORY("Source/System/Window/Foreground")
 OSG_ADD_DIRECTORY("Source/System/Window/Viewport")
+OSG_ADD_DIRECTORY("Source/System/Window/Passive")
 
 ##############################################################################
 # setup build

@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGWindow.h" // Parent
+#include "OSGNativeWindow.h" // Parent
 
 #include "OSGInt32Fields.h" // GlutId type
 
@@ -75,12 +75,12 @@ class GLUTWindow;
 
 //! \brief GLUTWindow Base Class.
 
-class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public Window
+class OSG_WINDOWGLUT_DLLMAPPING GLUTWindowBase : public NativeWindow
 {
   public:
 
-    typedef Window Inherited;
-    typedef Window ParentContainer;
+    typedef NativeWindow Inherited;
+    typedef NativeWindow ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

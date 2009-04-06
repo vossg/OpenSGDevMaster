@@ -1327,7 +1327,7 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::
 @@endif // isDecoratable
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<@!Classname!@ *>::_type("@!Classname!@Ptr", "@!Parent!@Ptr");
+DataType FieldTraits<@!Classname!@ *>::_type("@!Classname!@Ptr", "@!RealParent!@Ptr");
 #endif
 
 @@if PointerField

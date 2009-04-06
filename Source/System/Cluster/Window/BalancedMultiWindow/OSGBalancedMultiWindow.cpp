@@ -1819,7 +1819,7 @@ void BalancedMultiWindow::drawSendAndRecv(Window           *window,
     if(window != NULL)
     {
         window->activate ();
-        window->frameInit ();
+        window->frameInit();
 
         // render viewport for others
         for(wI  = _cluster.workpackages.begin(), wpId=0; 

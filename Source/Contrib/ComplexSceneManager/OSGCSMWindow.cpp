@@ -250,7 +250,7 @@ void CSMWindow::render(RenderAction *pAction)
 #if 0
         if(_bSceneWireframe == true || _bSceneDoubleSided == true)
         {
-            pThreadLocalWin->activate();
+            pThreadLocalWin->forceActivateDeprecated();
 
             if(_bSceneWireframe == true)
                 glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -265,7 +265,7 @@ void CSMWindow::render(RenderAction *pAction)
 #if 0
         if(_bSceneWireframe == true || _bSceneDoubleSided == true)
         {
-            pThreadLocalWin->activate();
+            pThreadLocalWin->forceActivateDeprecated();
 
             if(_bSceneWireframe == true)
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -278,7 +278,7 @@ void CSMWindow::render(RenderAction *pAction)
 
 }
 
-void CSMWindow::frameRenderActivate(RenderAction *pAction)
+void CSMWindow::frameRenderNoFinish(RenderAction *pAction)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     Window *pThreadLocalWin = 
@@ -290,6 +290,7 @@ void CSMWindow::frameRenderActivate(RenderAction *pAction)
     if(pThreadLocalWin == NULL)
         return;
 
+#if 0
     pThreadLocalWin->activate          (       );
     pThreadLocalWin->frameInit         (       );
 
@@ -309,9 +310,26 @@ void CSMWindow::frameRenderActivate(RenderAction *pAction)
     }
 
     pThreadLocalWin->deactivate        (       );
+#endif
+
+    if(_bFirstFrame == true)
+    {
+        _bFirstFrame = false;
+
+        pAction->setFrustumCulling(false);
+
+        pThreadLocalWin->renderNoFinish(pAction);
+
+        pAction->setFrustumCulling(true);
+    }
+    else
+    {
+        pThreadLocalWin->renderNoFinish(pAction);
+    }
+
 }
 
-void CSMWindow::frameSwapActivate(void)
+void CSMWindow::frameFinish(void)
 {
 #ifdef OSG_MT_CPTR_ASPECT
     Window *pThreadLocalWin = 
@@ -323,10 +341,14 @@ void CSMWindow::frameSwapActivate(void)
     if(pThreadLocalWin == NULL)
         return;
 
+#if 0
     pThreadLocalWin->activate  ();
     pThreadLocalWin->swap      ();
     pThreadLocalWin->frameExit ();
     pThreadLocalWin->deactivate();
+#endif
+
+    pThreadLocalWin->frameFinish();
 }
 
 void CSMWindow::frameExit(void)
@@ -341,11 +363,16 @@ void CSMWindow::frameExit(void)
     if(pThreadLocalWin == NULL)
         return;
 
+#if 0
     pThreadLocalWin->activate  ();
     pThreadLocalWin->frameExit ();
     pThreadLocalWin->deactivate();
+#endif
+
+    pThreadLocalWin->runFrameExit();
 }
 
+#if 0
 void CSMWindow::activate(void)
 {
 #ifdef OSG_MT_CPTR_ASPECT
@@ -423,6 +450,7 @@ void CSMWindow::deactivate(void)
 
     pThreadLocalWin->deactivate();
 }
+#endif
 
 void CSMWindow::shutdown(void)
 {

@@ -77,11 +77,17 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindow : public GLUTWindowBase
     /*! \name                Window functions                              */
     /*! \{                                                                 */
     
-    virtual void init      (void);   
-    virtual void activate  (void);   
-    virtual void deactivate(void);    
-    virtual bool swap      (void);
+    virtual void init(GLInitFunctor oFunc = GLInitFunctor());   
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Redefined                               */
+    /*! \{                                                                 */
+
+    virtual void sequentialActivate  (void);
+    virtual void sequentialDeactivate(void);
+    virtual bool sequentialSwap      (void);
+   
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -109,6 +115,11 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindow : public GLUTWindowBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

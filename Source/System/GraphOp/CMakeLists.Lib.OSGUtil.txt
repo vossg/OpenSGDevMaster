@@ -17,7 +17,8 @@ SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
                                 OSGText
                                 OSGWindow)
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGGroup
-                                     OSGWindowGLUT)
+                                     OSGWindowGLUT
+                                     ${OSG_NATIVE_WINDOW})
 
 # dependencies - External
 # SET(${PROJECT_NAME}_DEP_LIB)

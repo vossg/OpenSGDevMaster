@@ -121,7 +121,7 @@ void (*ClusterWindow::getFunctionByName(const Char8 *))()
 /*! init cluster window. connect to all servers
  */
 
-void ClusterWindow::init(void)
+void ClusterWindow::init(GLInitFunctor)
 {
     GroupConnection    *connection;
     RemoteAspect       *remoteAspect;
@@ -537,7 +537,7 @@ void ClusterWindow::render(RenderActionBase *action)
     if(_statistics != NULL)
         _statistics->getElem(statActivateTime)->start();
 
-    activate();
+    doActivate();
 
     if(_statistics != NULL)
         _statistics->getElem(statActivateTime)->stop();
@@ -546,7 +546,7 @@ void ClusterWindow::render(RenderActionBase *action)
     if(_statistics != NULL)
         _statistics->getElem(statFrameInitTime)->start();  
 
-    frameInit();
+    doFrameInit();
 
     if(_statistics != NULL)
         _statistics->getElem(statFrameInitTime)->stop();  
@@ -555,7 +555,7 @@ void ClusterWindow::render(RenderActionBase *action)
     if(_statistics != NULL)
         _statistics->getElem(statRAVTime)->start();
 
-    renderAllViewports(action);
+    doRenderAllViewports(action);
 
     if(_statistics != NULL)
         _statistics->getElem(statRAVTime)->stop();
@@ -564,7 +564,7 @@ void ClusterWindow::render(RenderActionBase *action)
     if(_statistics != NULL)
         _statistics->getElem(statSwapTime)->start();
 
-    swap();
+    doSwap();
 
     if(_statistics != NULL)
         _statistics->getElem(statSwapTime)->stop();
@@ -573,7 +573,7 @@ void ClusterWindow::render(RenderActionBase *action)
     if(_statistics != NULL)
         _statistics->getElem(statFrameExitTime)->start();  
 
-    frameExit();
+    doFrameExit();
 
     if(_statistics != NULL)
         _statistics->getElem(statFrameExitTime)->stop();  
@@ -581,13 +581,28 @@ void ClusterWindow::render(RenderActionBase *action)
 
 void ClusterWindow::activate(void)
 {
+    this->doActivate();
 }
 
 void ClusterWindow::deactivate(void)
 {
+    this->doDeactivate();
 }
 
 bool ClusterWindow::swap(void)
+{
+    return this->doSwap();
+}
+
+void ClusterWindow::doActivate(void)
+{
+}
+
+void ClusterWindow::doDeactivate(void)
+{
+}
+
+bool ClusterWindow::doSwap(void)
 {
     if(getNetwork()->getMainConnection() && getNetwork()->getAspect())
     {
@@ -607,7 +622,7 @@ void ClusterWindow::renderAllViewports(DrawActionBase *action)
 }
 #endif
 
-void ClusterWindow::renderAllViewports(RenderActionBase *action)
+void ClusterWindow::doRenderAllViewports(RenderActionBase *action)
 {
     if(getNetwork()->getMainConnection() && getNetwork()->getAspect())
     {
@@ -615,7 +630,7 @@ void ClusterWindow::renderAllViewports(RenderActionBase *action)
     }
 }
 
-void ClusterWindow::frameInit(void)
+void ClusterWindow::doFrameInit(void)
 {
     Connection   *connection   = getNetwork()->getMainConnection();
     RemoteAspect *remoteAspect = getNetwork()->getAspect();
@@ -665,7 +680,7 @@ void ClusterWindow::frameInit(void)
     }
 }
 
-void ClusterWindow::frameExit(void)
+void ClusterWindow::doFrameExit(void)
 {
 }
 
@@ -722,16 +737,6 @@ void ClusterWindow::clientPreSync( void )
  * sync with all rendering servers. Default aciton is to render all
  * viewports of the client window.
  **/
-
-#ifdef OSG_OLD_RENDER_ACTION
-void ClusterWindow::clientRender(DrawActionBase *action)
-{
-    if(getClientWindow() != NULL)
-    {
-        getClientWindow()->renderAllViewports(action);
-    }
-}
-#endif
 
 void ClusterWindow::clientRender(RenderActionBase *action)
 {
@@ -797,9 +802,13 @@ void ClusterWindow::serverRender(Window         *window,
                                  UInt32          id,
                                  DrawActionBase *action )
 {
+#if 0
     window->activate();
     window->frameInit();
     window->renderAllViewports(action);
+#endif
+
+    window->renderNoFinish(action);
 
 #if 0
     RenderOptionsPtr ro;

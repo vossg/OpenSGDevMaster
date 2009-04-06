@@ -15,7 +15,8 @@ SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
                                      OSGState
                                      OSGUtil
                                      OSGWindow
-                                     OSGWindowGLUT)
+                                     OSGWindowGLUT
+                                     ${OSG_NATIVE_WINDOW})
 SET(${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB OSGGroup)
 
 # dependencies - External

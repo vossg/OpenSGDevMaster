@@ -85,7 +85,7 @@ bool                         _enablecc = true; // enable color correction.
 PolygonChunkRecPtr            polygonChunk;
 bool                          prepared=false;
 bool                          showInfo=false;
-Time                          frame_time=0;
+OSG::Time                     frame_time=0;
 UInt32                        sum_positions=0;
 UInt32                        sum_geometries=0;
 UInt32                        sum_triangles=0;
@@ -286,7 +286,7 @@ void loadAnim()
 
 void display(void)
 {
-    Time t;
+    OSG::Time t;
 
 //    std::cout << glutGet(GLUT_WINDOW_WIDTH) << std::endl;
 
@@ -323,9 +323,13 @@ void display(void)
     try
     {
         OSG::Thread::getCurrentChangeList()->commitChanges();
+#if 0
         clusterWindow->activate();	
         clusterWindow->frameInit();	
         clusterWindow->renderAllViewports(ract);	
+#endif
+        clusterWindow->renderNoFinish(ract);
+#if 0
         if(showInfo)
         {
             displayInfo(10,90);
@@ -341,8 +345,12 @@ void display(void)
             showText(10,10,text);
 */
         }
+#endif
+#if 0
         clusterWindow->swap();	
         clusterWindow->frameExit();	
+#endif
+        clusterWindow->frameFinish();
         // clear changelist from prototypes
         OSG::Thread::getCurrentChangeList()->clear();
 	}

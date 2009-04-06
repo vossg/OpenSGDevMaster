@@ -243,7 +243,7 @@ int doMain(int argc, char **argv)
     gback->addLine(Color3f(0.7, 0.7, 0.8), 0);
     gback->addLine(Color3f(0.0, 0.1, 0.3), 1);
 
-    Window *win = _mgr->getWindow();
+    OSG::Window *win = _mgr->getWindow();
 
     for(int i=0;i<win->getMFPort()->size();++i)
     {

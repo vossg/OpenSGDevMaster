@@ -78,7 +78,7 @@ class OSG_WINDOWQT4_DLLMAPPING QT4Window : public QT4WindowBase
     /*! \{                                                                 */
 
     // init the window: create the context
-    virtual void init(void);
+    virtual void init(GLInitFunctor oFunc = GLInitFunctor());
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

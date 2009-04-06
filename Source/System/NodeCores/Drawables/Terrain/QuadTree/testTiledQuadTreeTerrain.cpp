@@ -235,7 +235,7 @@ int main (int argc, char **argv)
     // OSG init
     osgInit(argc,argv);
     // VERY IMPORTANT: artifacts if not ignoring GL_EXT_compiled_vertex_array
-    Window::ignoreExtensions("GL_EXT_compiled_vertex_array");
+    OSG::Window::ignoreExtensions("GL_EXT_compiled_vertex_array");
 
     // GLUT init
     glutInit(&argc, argv);

@@ -82,7 +82,7 @@ MyOSGQGLWidget::~MyOSGQGLWidget(void)
 void MyOSGQGLWidget::initializeGL ( void )
 {
     m_manager->getWindow()->init();       // create the context
-    m_manager->getWindow()->activate();   // and activate it
+//    m_manager->getWindow()->activate();   // and activate it
 }
 
 void MyOSGQGLWidget::paintGL ( void )

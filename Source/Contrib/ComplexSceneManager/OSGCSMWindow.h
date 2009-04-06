@@ -45,7 +45,6 @@
 #include "OSGCSMWindowBase.h"
 #include "OSGWindow.h"
 #include "OSGCSMViewport.h"
-#include "OSGImageComposer.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -171,6 +170,11 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
 
     void render             (RenderAction *pAction);
 
+    void frameRenderNoFinish(RenderAction *pAction);
+    void frameFinish        (void                 );
+    void frameExit          (void                 );
+
+#if 0
     void frameRenderActivate(RenderAction *pAction);
     void frameSwapActivate  (void                 );
     void frameExit          (void                 );
@@ -179,6 +183,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     void frameRender        (RenderAction *pAction);
     void frameSwap          (void                 );
     void deactivate         (void                 );
+#endif
 
     void shutdown           (void                 );
 

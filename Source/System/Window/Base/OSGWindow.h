@@ -96,6 +96,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
         invalidFunctionID  = 0x7fffffff
     };
 
+    enum
+    {
+        SequentialPartitionDraw = 0x0001,
+        ParallelPartitionDraw   = 0x0002,
+        PartitionDrawMask       = 0x0003
+    };
+
     static const Real32 unknownConstant;
 
     /*! \}                                                                 */
@@ -113,6 +120,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     typedef void (*GLExtensionFunction)(void);
 
+    typedef boost::function<void (void)> GLInitFunctor;
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -125,20 +134,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*---------------------------------------------------------------------*/
     /*! \name                Viewport handling                             */
     /*! \{                                                                 */
-
-/*
-    void addPort      (const ViewportPtr &portP);
-    void insertPort   (      UInt32       portIndex,
-                       const ViewportPtr &portP);
-
-    void replacePort  (      UInt32       portIndex,
-                       const ViewportPtr &portP);
-    void replacePortBy(const ViewportPtr &portP,
-                       const ViewportPtr &newPortP);
-
-    void subPort      (const ViewportPtr &portP);
-    void subPort      (      UInt32       portIndex);
- */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -199,27 +194,26 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name               GL object handling                             */
     /*! \{                                                                 */
 
-           UInt32          validateGLObject    (UInt32          osgId,
-                                                DrawEnv        *pEnv,
-                                                UInt32          uiOptions = 0);
-           void            validateAllGLObjects(void);
+           UInt32 validateGLObject        (UInt32   osgId,
+                                           DrawEnv *pEnv,
+                                           UInt32   uiOptions = 0);
+           void   validateAllGLObjects    (void);
 
-           //GLObjectStatusE getGLObjectStatus   (UInt32           osgId   );
-           void            setGLObjectId       (UInt32           osgId,
-                                                UInt32           id2     );
-           UInt32          getGLObjectId       (UInt32           osgId   );
+           void   setGLObjectId           (UInt32   osgId,
+                                           UInt32   id2          );
+           UInt32 getGLObjectId           (UInt32   osgId        );
 
 
-    static UInt32          getGLObjectsSize    (void                     );
+    static UInt32 getGLObjectsSize        (void                  );
 
-    static void            refreshGLObject         (UInt32           osgId   );
-    static void            refreshAllGLObjects     (void                     );
+    static void   refreshGLObject         (UInt32   osgId        );
+    static void   refreshAllGLObjects     (void                  );
 
-    static void            reinitializeGLObject    (UInt32           osgId   );
-    static void            reinitializeAllGLObjects(void                     );
+    static void   reinitializeGLObject    (UInt32   osgId        );
+    static void   reinitializeAllGLObjects(void                  );
 
-    static void            destroyGLObject         (UInt32           osgId,
-                                                    UInt32           num = 1 );
+    static void   destroyGLObject         (UInt32   osgId,
+                                           UInt32   num = 1      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -230,7 +224,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     virtual void resize         (int width,
                                  int height   );
-    virtual void resizeGL       (void         );
 
             void setSize        (UInt16 width,
                                  UInt16 height);
@@ -240,26 +233,30 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                    Drawing                                   */
     /*! \{                                                                 */
 
-    virtual void    frameInit         (void);
-    virtual void    frameExit         (void);
-
-#ifdef OSG_OLD_RENDER_ACTION
-    virtual void    render            (DrawActionBase   *action = NULL);
-    virtual void    renderAllViewports(DrawActionBase   *action = NULL);
-#endif
-
-    virtual void    render            (RenderActionBase *action);
-    virtual void    renderAllViewports(RenderActionBase *action);
+    virtual void render        (RenderActionBase *action          );
+    virtual void renderNoFinish(RenderActionBase *action          );
+    virtual void frameFinish   (bool              bActivate = true);
+    virtual void runFrameExit  (void                              );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name      Window system implementation functions                  */
     /*! \{                                                                 */
 
-    virtual void init      (void) = 0;
-    virtual void activate  (void) = 0;
-    virtual void deactivate(void) = 0;
-    virtual bool swap      (void) = 0;
+    virtual void init(GLInitFunctor oFunc = GLInitFunctor());
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name             Sequential drawing                               */
+    /*! \{                                                                 */
+
+    virtual void activate          (void                    ) = 0;
+    virtual void deactivate        (void                    ) = 0;
+    virtual bool swap              (void                    ) = 0;
+
+    virtual void frameExit         (void                    );
+    virtual void frameInit         (void                    );
+    virtual void renderAllViewports(RenderActionBase *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -319,7 +316,31 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
-    static bool terminate (void            );
+    static bool cleanup   (void            );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+           void            validateAllGLObjects(DrawEnv         *pEnv    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+    virtual void doTerminate         (void                    );
+
+    virtual void doActivate          (void                    ) = 0;
+    virtual void doDeactivate        (void                    ) = 0;
+    virtual bool doSwap              (void                    ) = 0;
+
+    virtual void doFrameInit         (void                    );
+    virtual void doFrameExit         (void                    );
+
+    virtual void doResizeGL          (void                    );
+    virtual void doRenderAllViewports(RenderActionBase *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

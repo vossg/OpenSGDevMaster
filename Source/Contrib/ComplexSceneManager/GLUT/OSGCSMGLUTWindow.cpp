@@ -286,7 +286,7 @@ bool CSMGLUTWindow::init(void)
 
     Inherited::init();
 
-    pGLUTWindow->deactivate();
+//    pGLUTWindow->deactivate();
 
     return true;
 }

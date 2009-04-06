@@ -70,7 +70,7 @@ init(void), activate(void), deactivate(void) and swap(void).
 		visibility="internal"
 		defaultValue="1"
 		access="protected"
-                fieldFlags="FClusterLocal,FThreadLocal"
+       fieldFlags="FClusterLocal,FThreadLocal"
 	>
 	Counter for GL object events. Needed for multi-aspect updates.
         Is used in glObjectLastRefresh and glObjectLastReinitialize.
@@ -81,7 +81,7 @@ init(void), activate(void), deactivate(void) and swap(void).
 		cardinality="multi"
 		visibility="internal"
 		access="protected"
-                fieldFlags="FClusterLocal,FThreadLocal"
+       fieldFlags="FClusterLocal,FThreadLocal"
 	>
 	Indicates the last refresh for the GL object.
 	</Field>
@@ -91,7 +91,7 @@ init(void), activate(void), deactivate(void) and swap(void).
 		cardinality="multi"
 		visibility="internal"
 		access="protected"
-                fieldFlags="FClusterLocal,FThreadLocal"
+       fieldFlags="FClusterLocal,FThreadLocal"
 	>
 	Indicates the last reinit for the GL object.
 	</Field>
@@ -146,4 +146,13 @@ init(void), activate(void), deactivate(void) and swap(void).
        defaultValue="NULL"
 	>
 	</Field>
+    <Field
+	   name="partitionDrawMode"
+	   type="UInt32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       defaultValue="Window::SequentialPartitionDraw"
+       >
+    </Field>
 </FieldContainer>

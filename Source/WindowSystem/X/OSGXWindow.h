@@ -67,8 +67,13 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
     /*! \name      Window system implementation functions                  */
     /*! \{                                                                 */
 
-    virtual void init      (void);
-    virtual void terminate (void);
+    virtual void init     (GLInitFunctor oFunc = GLInitFunctor());
+    virtual void terminate(void               );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Redefined                               */
+    /*! \{                                                                 */
 
     virtual void activate  (void);
     virtual void deactivate(void);
@@ -123,6 +128,15 @@ class OSG_WINDOWX_DLLMAPPING XWindow : public XWindowBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+    virtual void doActivate  (void);
+    virtual void doDeactivate(void);
+    virtual bool doSwap      (void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

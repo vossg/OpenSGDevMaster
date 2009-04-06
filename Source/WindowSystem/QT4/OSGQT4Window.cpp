@@ -127,7 +127,7 @@ void QT4Window::dump(      UInt32    ,
 
 
 //! init the window: create the context
-void QT4Window::init(void)
+void QT4Window::init(GLInitFunctor oFunc)
 {
 #ifdef WIN32
     if(getGlWidget() != NULL)
@@ -166,8 +166,11 @@ void QT4Window::init(void)
     setContext(glXCreateContext(getDisplay(), vi, None, GL_TRUE));
 #endif
 
-    activate();
-    setupGL();
+    this->doActivate();
+
+    Window::init(oFunc);
+
+//    setupGL();
 }
 
 OSG_END_NAMESPACE

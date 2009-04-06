@@ -59,11 +59,11 @@
 
 
 #include "OSGConfig.h"
-#include "OSGSystemDef.h"
+#include "OSGWindowDef.h"
 
 #include "OSGBaseTypes.h"
 
-#include "OSGWindow.h" // Parent
+#include "OSGNativeWindow.h" // Parent
 
 
 #include "OSGPassiveWindowFields.h"
@@ -74,12 +74,12 @@ class PassiveWindow;
 
 //! \brief PassiveWindow Base Class.
 
-class OSG_SYSTEM_DLLMAPPING PassiveWindowBase : public Window
+class OSG_WINDOW_DLLMAPPING PassiveWindowBase : public NativeWindow
 {
   public:
 
-    typedef Window Inherited;
-    typedef Window ParentContainer;
+    typedef NativeWindow Inherited;
+    typedef NativeWindow ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

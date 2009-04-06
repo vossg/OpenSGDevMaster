@@ -93,7 +93,8 @@ RenderActionBase::RenderActionBase(void) :
     _uiFrameTravCount  (0     ),
     _iDrawerId         (-1    ),
     _iDrawableId       (-1    ),
-    _oCurrentRenderProp(0x0000)
+    _oCurrentRenderProp(0x0000),
+    _bDrawPartPar      (false )
 {
     _pStageValidator = new StageValidator();
 }
@@ -115,7 +116,8 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
     _uiFrameTravCount  (source._uiFrameTravCount),
     _iDrawerId         (source._iDrawerId       ),
     _iDrawableId       (source._iDrawableId     ),
-    _oCurrentRenderProp(0x0000                  )
+    _oCurrentRenderProp(0x0000                  ),
+    _bDrawPartPar      (false                   )
 {
     OSG::setRefd(_pStatistics, source._pStatistics);
 

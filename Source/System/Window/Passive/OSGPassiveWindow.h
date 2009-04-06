@@ -52,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageSystemPassiveWindow for a description.
 */
 
-class OSG_SYSTEM_DLLMAPPING PassiveWindow : public PassiveWindowBase
+class OSG_WINDOW_DLLMAPPING PassiveWindow : public PassiveWindowBase
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -75,21 +75,24 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindow : public PassiveWindowBase
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
-    
     /*---------------------------------------------------------------------*/
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
     
-    virtual void init( void );
-    
-    virtual void activate( void );
-    
-    virtual void deactivate ( void ) {}
-    
-    virtual bool swap( void );    
-    
+    virtual void init(GLInitFunctor oFunc = GLInitFunctor());
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Redefined                               */
+    /*! \{                                                                 */
+
+    virtual void sequentialActivate  (void);
+    virtual void sequentialDeactivate(void);
+    virtual bool sequentialSwap      (void);
+   
     /*! \}                                                                 */  
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     // Variables should all be in PassiveWindowBase.
@@ -109,8 +112,13 @@ class OSG_SYSTEM_DLLMAPPING PassiveWindow : public PassiveWindowBase
     virtual ~PassiveWindow(void); 
 
     /*! \}                                                                 */
-    
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     typedef PassiveWindowBase Inherited;

@@ -193,6 +193,18 @@ void RenderActionBase::resetRenderProperties(void)
     _oCurrentRenderProp = 0x0000;
 }
 
+inline
+void RenderActionBase::setDrawPartPar(bool bVal)
+{
+    _bDrawPartPar = bVal;
+}
+
+inline
+bool RenderActionBase::getDrawPartPar(void)
+{
+    return _bDrawPartPar;
+}
+
 /*-------------------------------------------------------------------------*\
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/

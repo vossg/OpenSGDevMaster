@@ -66,6 +66,7 @@ UInt16 numthreads;
 // Do the drawing for one frame
 // extra function to test in sequential
 
+#if 0
 void doDraw(void)
 {
     static int curBuf = 0;
@@ -543,3 +544,9 @@ int main (int argc, char **argv)
     }   
     return 0;
 }
+#else
+int main (int argc, char **argv)
+{
+    return 0;
+}
+#endif

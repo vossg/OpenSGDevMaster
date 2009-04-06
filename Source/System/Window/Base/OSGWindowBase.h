@@ -77,6 +77,7 @@
 #include "OSGInt32Fields.h" // RequestMinor type
 #include "OSGInt32Fields.h" // ContextFlags type
 #include "OSGRenderOptionsFields.h" // RenderOptions type
+#include "OSGUInt32Fields.h" // PartitionDrawMode type
 
 #include "OSGWindowFields.h"
 
@@ -116,7 +117,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         RequestMinorFieldId = RequestMajorFieldId + 1,
         ContextFlagsFieldId = RequestMinorFieldId + 1,
         RenderOptionsFieldId = ContextFlagsFieldId + 1,
-        NextFieldId = RenderOptionsFieldId + 1
+        PartitionDrawModeFieldId = RenderOptionsFieldId + 1,
+        NextFieldId = PartitionDrawModeFieldId + 1
     };
 
     static const OSG::BitVector WidthFieldMask =
@@ -143,6 +145,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ContextFlagsFieldId);
     static const OSG::BitVector RenderOptionsFieldMask =
         (TypeTraits<BitVector>::One << RenderOptionsFieldId);
+    static const OSG::BitVector PartitionDrawModeFieldMask =
+        (TypeTraits<BitVector>::One << PartitionDrawModeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -158,6 +162,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     typedef SFInt32           SFRequestMinorType;
     typedef SFInt32           SFContextFlagsType;
     typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
+    typedef SFUInt32          SFPartitionDrawModeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -207,6 +212,9 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
             const SFUnrecRenderOptionsPtr *getSFRenderOptions  (void) const;
                   SFUnrecRenderOptionsPtr *editSFRenderOptions  (void);
 
+                  SFUInt32            *editSFPartitionDrawMode(void);
+            const SFUInt32            *getSFPartitionDrawMode (void) const;
+
 
                   UInt16              &editWidth          (void);
                   UInt16               getWidth           (void) const;
@@ -233,6 +241,9 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
                   RenderOptions * getRenderOptions  (void) const;
 
+                  UInt32              &editPartitionDrawMode(void);
+                  UInt32               getPartitionDrawMode (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -246,6 +257,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
             void setRequestMinor   (const Int32 value);
             void setContextFlags   (const Int32 value);
             void setRenderOptions  (RenderOptions * const value);
+            void setPartitionDrawMode(const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -307,6 +319,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     SFInt32           _sfRequestMinor;
     SFInt32           _sfContextFlags;
     SFUnrecRenderOptionsPtr _sfRenderOptions;
+    SFUInt32          _sfPartitionDrawMode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -367,6 +380,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleContextFlags   (void);
     GetFieldHandlePtr  getHandleRenderOptions   (void) const;
     EditFieldHandlePtr editHandleRenderOptions  (void);
+    GetFieldHandlePtr  getHandlePartitionDrawMode (void) const;
+    EditFieldHandlePtr editHandlePartitionDrawMode(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

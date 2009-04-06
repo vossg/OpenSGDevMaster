@@ -34,10 +34,47 @@ ENDIF(X11_FOUND AND OSGBUILD_OSGWindowX AND NOT APPLE)
 SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
                                 OSGSystem
                                 OSGDrawable
-                                OSGCluster
                                 OSGWindow
                                 OSGFileIO
                                 OSGUtil)
+
+IF(OSGBUILD_OSGCluster)
+    LIST(APPEND ${PROJECT_NAME}_DEP_OSG_LIB OSGCluster)
+ELSE()
+    SET(${PROJECT_NAME}_EXCL_FILES 
+        ${CMAKE_CURRENT_SOURCE_DIR}/OSGCSMClusterWindowBase.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/OSGCSMClusterWindowBase.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/OSGCSMClusterWindowBase.inl
+        ${CMAKE_CURRENT_SOURCE_DIR}/OSGCSMClusterWindow.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/OSGCSMClusterWindow.fcd
+        ${CMAKE_CURRENT_SOURCE_DIR}/OSGCSMClusterWindowFields.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/OSGCSMClusterWindow.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/OSGCSMClusterWindow.inl
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMClusterWinOptionsBase.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMClusterWinOptionsBase.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMClusterWinOptionsBase.inl
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMClusterWinOptions.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMClusterWinOptions.fcd
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMClusterWinOptionsFields.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMClusterWinOptions.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMClusterWinOptions.inl
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMMultiWinOptionsBase.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMMultiWinOptionsBase.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMMultiWinOptionsBase.inl
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMMultiWinOptions.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMMultiWinOptions.fcd
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMMultiWinOptionsFields.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMMultiWinOptions.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMMultiWinOptions.inl
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptionsBase.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptionsBase.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptionsBase.inl
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptions.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptions.fcd
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptionsFields.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptions.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Helper/OSGCSMSortFirstWinOptions.inl)
+ENDIF()
 
 IF(_BUILD_CSM_WINDOWGLUT)
     LIST(APPEND ${PROJECT_NAME}_DEP_OSG_LIB OSGWindowGLUT)

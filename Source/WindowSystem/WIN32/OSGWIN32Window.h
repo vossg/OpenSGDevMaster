@@ -79,10 +79,16 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
     /*! \name                Window functions                              */
     /*! \{                                                                 */
     
-    virtual void init      (void);
-    virtual void activate  (void);
-    virtual void deactivate(void);
-    virtual bool swap      (void);
+    virtual void init(GLInitFunctor oFunc);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Redefined                               */
+    /*! \{                                                                 */
+
+    virtual void forceActivateDeprecated  (void);
+    virtual void forceDeactivateDeprecated(void);
+    virtual bool forceSwapDeprecated      (void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -111,6 +117,15 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+    virtual void activate  (void);
+    virtual void deactivate(void);
+    virtual bool swap      (void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

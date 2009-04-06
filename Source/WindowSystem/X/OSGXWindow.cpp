@@ -164,7 +164,7 @@ void XWindow::classicInit(void)
 
 /*! Init the window: create the context and setup the OpenGL.
 */
-void XWindow::init(void)
+void XWindow::init(GLInitFunctor oFunc)
 {  
     if(_sfFbConfigId.getValue() == -1)
     {
@@ -251,25 +251,59 @@ void XWindow::init(void)
         }
     }
 
-    glXMakeCurrent(getDisplay(), getWindow(), getContext());
+    this->doActivate();
     
-    setupGL();
+    Inherited::init(oFunc);
+
+    this->doDeactivate();
 }
     
 void XWindow::terminate(void)
 {
+    Inherited::doTerminate();
+
     if(getDisplay() != NULL && getContext() != NULL)
     {
-        deactivate();
+        this->doDeactivate();
         
         glXDestroyContext(getDisplay(), getContext());
     }
 }
 
-// activate the window: bind the OGL context    
 void XWindow::activate(void)
 {
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doActivate();
+    }
+}
+
+void XWindow::deactivate(void)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doDeactivate();
+    }
+}
+
+bool XWindow::swap(void)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        return this->doSwap();
+    }
+
+    return false;
+}
+
+// activate the window: bind the OGL context    
+void XWindow::doActivate(void)
+{
     Bool res;
+
     res = glXMakeCurrent(getDisplay(), getWindow(), getContext());
     
     if(res != True)
@@ -282,13 +316,13 @@ void XWindow::activate(void)
 }
     
 // activate the window: bind the OGL context    
-void XWindow::deactivate(void)
+void XWindow::doDeactivate(void)
 {
     glXMakeCurrent(getDisplay(), None, NULL);
 }
     
 // swap front and back buffers  
-bool XWindow::swap(void)
+bool XWindow::doSwap(void)
 {
     glXSwapBuffers(getDisplay(), getWindow());
     return true;

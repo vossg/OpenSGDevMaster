@@ -81,6 +81,8 @@ class MyOSGQGLWidget : public OSGQGLWidget
         virtual void mouseMoveEvent ( QMouseEvent* );
         virtual void keyPressEvent ( QKeyEvent* );
         
+    static void initOpenGL(void);
+
         UInt32      mouseb;
         Int32       lastx;
         Int32       lasty;
@@ -114,9 +116,29 @@ MyOSGQGLWidget::MyOSGQGLWidget( MyQGLContext * context,
 OSGQGLWidget(context, parent, shareWidget, f)
 {}
 
+void MyOSGQGLWidget::initOpenGL ( void )
+{
+    // some manual init
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glPixelStorei(GL_PACK_ALIGNMENT,   1);
+
+    glDepthFunc(GL_LEQUAL    );
+    glEnable   (GL_DEPTH_TEST);
+
+    glEnable   (GL_NORMALIZE );
+
+    // switch off default light
+    Real nul[4]={0.f,0.f,0.f,0.f};
+
+    GLP::glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
+    GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
+}
+
 void MyOSGQGLWidget::initializeGL ( void )
 {
-    osgWin->init();     // create the context
+    osgWin->init(&MyOSGQGLWidget::initOpenGL);     // create the context
+
+#if 0
     osgWin->activate(); // and activate it
 
     // some manual init
@@ -133,11 +155,14 @@ void MyOSGQGLWidget::initializeGL ( void )
 
     GLP::glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
     GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
+#endif
 
     commitChanges();
 
+#if 0
     osgWin->frameInit();    // call it to setup extensions
     osgWin->frameExit();    // for symmetry
+#endif
 }
 
 void MyOSGQGLWidget::paintGL ( void )
@@ -145,7 +170,9 @@ void MyOSGQGLWidget::paintGL ( void )
     Matrix m1, m2, m3;
     Quaternion q1;
 
+#if 0
     osgWin->frameInit();    // frame-init
+#endif
 
     tball.getRotation().getValue(m3);
     q1.setValue(m3);
@@ -155,10 +182,15 @@ void MyOSGQGLWidget::paintGL ( void )
     cam_trans->setMatrix( m1 );
 
     commitChanges();
+
+    osgWin->render(ract);   // draw the viewports     
+
+#if 0
     osgWin->renderAllViewports( ract );   // draw the viewports     
     osgWin->swap(); 
 
     osgWin->frameExit();    // frame-cleanup
+#endif
 }
 
 void MyOSGQGLWidget::resizeGL ( int w, int h )
@@ -166,7 +198,9 @@ void MyOSGQGLWidget::resizeGL ( int w, int h )
    if ( ! osgWin->isResizePending() )
    {
         osgWin->resize( w, h );
+#if 0
         osgWin->resizeGL(); // handle resize events
+#endif
    }
 }
 

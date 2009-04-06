@@ -169,16 +169,20 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawer : public CSMDrawerBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    void render             (void               );
+
     void runParallel        (void               );
 
-    void frameRenderActivate(void               );
-    void frameSwapActivate  (void               );
+    void frameRenderNoFinish(void               );
+    void frameFinish        (void               );
     void frameExit          (void               );
     
+#if 0
     void activate           (UInt32 uiWindow = 0);
     void frameRender        (UInt32 uiWindow = 0);
     void frameSwap          (UInt32 uiWindow = 0);
     void deactivate         (UInt32 uiWindow = 0);
+#endif
 
     void setRunning         (bool   bVal        );
 

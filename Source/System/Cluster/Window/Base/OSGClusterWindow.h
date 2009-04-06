@@ -93,15 +93,18 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \name      Window system implementation functions                  */
     /*! \{                                                                 */
 
-    virtual void  activate          (void                           );
-    virtual void  deactivate        (void                           );
-    virtual bool  swap              (void                           );
-    virtual void  init              (void                           );
+    virtual void  init(GLInitFunctor oFunc = GLInitFunctor());
 
     virtual void  render            (RenderActionBase *action);
-    virtual void  renderAllViewports(RenderActionBase *action);
-    virtual void  frameInit         (void                             );
-    virtual void  frameExit         (void                             );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+    virtual void activate  (void);
+    virtual void deactivate(void);
+    virtual bool swap      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -200,6 +203,18 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
 
     bool               _firstFrame;
     StatCollector     *_statistics;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+    virtual void  doRenderAllViewports(RenderActionBase *action);
+    virtual void  doFrameInit         (void                    );
+    virtual void  doFrameExit         (void                    );
+    virtual void  doActivate          (void                    );
+    virtual void  doDeactivate        (void                    );
+    virtual bool  doSwap              (void                    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

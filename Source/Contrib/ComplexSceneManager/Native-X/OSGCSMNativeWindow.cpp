@@ -672,9 +672,13 @@ bool CSMNativeWindow::init(void)
 
     std::string windowName("OpenSG - CSM - ");
 
+    _pXWindow->activate();
+
     windowName += reinterpret_cast<const char *>(glGetString(GL_VERSION));
     windowName += " - ";
     windowName += reinterpret_cast<const char *>(glGetString(GL_RENDERER));
+
+    _pXWindow->deactivate();
 
     XStoreName(_pDisplay, pHWin, windowName.c_str());
 
@@ -691,7 +695,7 @@ bool CSMNativeWindow::init(void)
 
     Inherited::init();
 
-    _pXWindow->deactivate(         );
+//    _pXWindow->deactivate(         );
 
     return true;
 }

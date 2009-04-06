@@ -107,21 +107,42 @@ void PassiveWindow::dump(      UInt32    ,
 }
 
 /*! Just call the standard OpenGL setup.
-*/
-void PassiveWindow::init( void )
+ */
+void PassiveWindow::init(GLInitFunctor oFunc)
 {
-    setupGL();
+#if defined(WIN32)
+#error "win32 need impl"
+#elif defined(__APPLE__)
+#error "apple needs impl"
+#else
+    Inherited::setDisplay(glXGetCurrentDisplay ());
+    Inherited::setContext(glXGetCurrentContext ());
+    Inherited::setWindow (glXGetCurrentDrawable());
+#endif
+
+    this->doActivate();
+
+    Window::init(oFunc);
 }
 
 /* Do nothing, has to be setup when we come here.
-*/
-void PassiveWindow::activate( void )
+ */
+void PassiveWindow::sequentialActivate(void)
+{
+}
+
+/* Do nothing, has to be setup when we come here.
+ */
+void PassiveWindow::sequentialDeactivate(void)
 {
 }
     
 /* Do nothing, has to be done manually for this class.
-*/
-bool PassiveWindow::swap( void )
+ */
+bool PassiveWindow::sequentialSwap(void)
 {
     return true;
 }
+
+
+

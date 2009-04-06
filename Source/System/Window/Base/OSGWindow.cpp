@@ -286,7 +286,7 @@ void OSG::Window::initMethod(InitPhase ePhase)
     Inherited::initMethod(ePhase);
 }
 
-bool OSG::Window::terminate(void)
+bool OSG::Window::cleanup(void)
 {
 #ifndef OSG_EMBEDDED
     if(_staticWindowLock != NULL)
@@ -471,7 +471,7 @@ void OSG::Window::staticAcquire(void)
             ThreadManager::the()->getLock("OSG::Window::_staticWindowLock");
         OSG::addRef(_staticWindowLock);
 
-        addPostFactoryExitFunction(&Window::terminate);
+        addPostFactoryExitFunction(&Window::cleanup);
     }
     _staticWindowLock->acquire();
 #endif
@@ -503,99 +503,6 @@ void OSG::Window::changed(ConstFieldMaskArg whichField,
 }
 
 /*------------------------------ access -----------------------------------*/
-
-#if 0
-void OSG::Window::addPort(const ViewportPtr &portP)
-{
-    if(portP != NullFC)
-    {
-        editMField(PortFieldMask, _mfPort);
-
-        _mfPort.push_back(portP);
-
-        _mfPort.back()->setParent(this);
-    }
-}
-
-void OSG::Window::insertPort(UInt32 portIndex, const ViewportPtr &portP)
-{    
-    if(portP != NullFC)
-    {
-        editMField(PortFieldMask, _mfPort);
-
-        MFViewportPtr::iterator portIt = _mfPort.begin();
-
-        portIt += portIndex;
-  
-        (*(_mfPort.insert(portIt, portP)))->setParent(
-            this);
-    }
-}
-
-
-void OSG::Window::replacePort(UInt32 portIndex, const ViewportPtr &portP)
-{
-    if(portP != NullFC)
-    {
-        editMField(PortFieldMask, _mfPort);
-        
-        _mfPort[portIndex]->setParent(NullFC);
-        _mfPort[portIndex] = portP;
-
-        _mfPort[portIndex]->setParent(
-            this);
-    }
-}
-
-void OSG::Window::replacePortBy(const ViewportPtr &portP, 
-                             const ViewportPtr &newportP)
-{
-    if(newportP != NullFC)
-    {
-        editMField(PortFieldMask, _mfPort);
-
-        MFViewportPtr::iterator portIt = _mfPort.find(portP);
-
-        if(portIt != _mfPort.end())
-        {
-            (*portIt)->setParent(NullFC);
-            (*portIt) = newportP;
-            (*portIt)->setParent(this);
-        }
-    }
-}
-
-void OSG::Window::subPort(const ViewportPtr &portP)
-{
-    editMField(PortFieldMask, _mfPort);
-    
-    MFViewportPtr::iterator portIt = _mfPort.find(portP);
-
-    if(portIt != _mfPort.end())
-    {
-        (*portIt)->setParent(NullFC);
-
-        _mfPort.erase(portIt);
-    }
-
-}
-
-void OSG::Window::subPort(UInt32  portIndex)
-{
-    editMField(PortFieldMask, _mfPort);
-
-    MFViewportPtr::iterator portIt = _mfPort.begin();
-
-    portIt += portIndex;
-
-    if(portIt != _mfPort.end())
-    {
-        (*portIt)->setParent(NullFC);
-
-        _mfPort.erase(portIt);
-    }
-}
-#endif
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_EXT)
 
@@ -803,19 +710,31 @@ UInt32 OSG::Window::validateGLObject(UInt32   osgId,
 */
 void OSG::Window::validateAllGLObjects(void)
 {
-    activate();
-    frameInit();
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        activate();
+        frameInit();
 
-    DrawEnv oEnv;
+        DrawEnv oEnv;
 
-    oEnv.setWindow(this);
+        oEnv.setWindow(this);
 
-    for (UInt32 i = 1; i < _glObjects.size(); ++i)
-        validateGLObject(i, &oEnv);
+        for (UInt32 i = 1; i < _glObjects.size(); ++i)
+            validateGLObject(i, &oEnv);
     
-    frameExit();
-}   
-
+        frameExit();
+    }   
+    else if((_sfPartitionDrawMode.getValue() & 
+              PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+    }
+    else
+    {
+        fprintf(stderr, "Unknow partition draw mode\n");
+    }
+}
+ 
 /*! Mark the given object for refresh. The next time it is validated the
     registered callback function will be called for a refresh action.
 
@@ -1279,7 +1198,20 @@ void OSG::Window::dumpExtensions(void)
     std::cout << std::endl;       
 }
 
+void OSG::Window::doTerminate(void)
+{
+#if 0
+    if(_pDrawThread != NULL)
+    {
+        _pDrawThread->queueTask(new WindowDrawTask(WindowDrawTask::EndThread));
 
+        Thread::join(_pDrawThread);
+    }
+
+    _pDrawThread = NULL;
+#endif
+}
+ 
 /*! Do everything that needs to be done before the Window is redrawn. This
     function has to be called for every frame the Window is drawn. 
     
@@ -1289,7 +1221,7 @@ void OSG::Window::dumpExtensions(void)
     The main task currently is checking and updating OpenGL extensions.
  */
 
-void OSG::Window::frameInit(void)
+void OSG::Window::doFrameInit(void)
 {
     static bool ignoreEnvDone = false;
     
@@ -1506,7 +1438,7 @@ void OSG::Window::frameInit(void)
     The main task currently is deleting OpenGL objects.
  */
 
-void OSG::Window::frameExit(void)
+void OSG::Window::doFrameExit(void)
 {   
     std::list<DestroyEntry>::iterator st,en;
 
@@ -1866,7 +1798,7 @@ void OSG::Window::setupGL( void )
     GLP::glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
     GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
     
-    frameInit();    // call it to setup extensions
+    doFrameInit();    // call it to setup extensions
 }
 
 /*-------------------------- your_category---------------------------------*/
@@ -1875,19 +1807,137 @@ void OSG::Window::setupGL( void )
 
     It takes care of all initialisation and cleanup functions and contains just
     5 lines of code. If you know that the correct context is active or you want
-    to delay swaps you can just copy and manipulate it.
+    to delay swaps (and you knwo what you are doing) you can just copy and 
+    manipulate it. 
  */   
 void OSG::Window::render(RenderActionBase *action)
 {
-    activate ();
-    frameInit();    // query recently registered GL extensions
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        activate ();
+        frameInit();    // query recently registered GL extensions
     
-    renderAllViewports(action);
-
-    swap     ();
-    frameExit();    // after frame cleanup: delete GL objects, if needed
+        renderAllViewports(action);
+        
+        swap     ();
+        frameExit(); // after frame cleanup: delete dead GL objects
+    }
+    else if((_sfPartitionDrawMode.getValue() & 
+              PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        doActivate ();
+        doFrameInit();    // query recently registered GL extensions
+    
+        doRenderAllViewports(action);
+        
+        doSwap     ();
+        doFrameExit();    // after frame cleanup: delete GL objects, if needed
+    }
+    else
+    {
+        fprintf(stderr, "Unknow partition draw mode\n");
+    }
 }
     
+void OSG::Window::renderNoFinish(RenderActionBase *action)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        activate ();
+        frameInit();    // query recently registered GL extensions
+        
+        renderAllViewports(action);
+    }
+    else if((_sfPartitionDrawMode.getValue() & 
+              PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        doActivate ();
+        doFrameInit();    // query recently registered GL extensions
+        
+        doRenderAllViewports(action);
+    }
+    else
+    {
+        fprintf(stderr, "Unknow partition draw mode\n");
+    }
+}
+
+void OSG::Window::frameFinish(bool bActivate)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        if(bActivate == true)
+            activate();
+        
+        swap     ();
+        frameExit(); // after frame cleanup: delete dead GL objects
+    }
+    else if((_sfPartitionDrawMode.getValue() & 
+              PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        if(bActivate == true)
+            doActivate();
+        
+        doSwap     ();
+        doFrameExit(); // after frame cleanup: delete dead GL objects
+    }
+    else
+    {
+        fprintf(stderr, "Unknow partition draw mode\n");
+    }
+}
+
+void OSG::Window::runFrameExit(void)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        activate  ();
+        frameExit (); // after frame cleanup: delete dead GL objects
+        deactivate();
+    }
+    else if((_sfPartitionDrawMode.getValue() & 
+              PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        doActivate ();
+        doFrameExit();    // after frame cleanup: delete GL objects, if needed
+        doDeactivate();
+    }
+    else
+    {
+        fprintf(stderr, "Unknow partition draw mode\n");
+    }
+}
+
+void OSG::Window::frameInit(void)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doFrameInit();
+    }
+}
+
+void OSG::Window::frameExit(void)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doFrameExit();
+    }
+}
+
+void OSG::Window::renderAllViewports(RenderActionBase *action)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doRenderAllViewports(action);
+    }
+}
 
 /*! Render all the Viewports of the Window using the given RenderAction. 
 
@@ -1895,7 +1945,7 @@ void OSG::Window::render(RenderActionBase *action)
     method.
  */   
 
-void OSG::Window::renderAllViewports(RenderActionBase *action)
+void OSG::Window::doRenderAllViewports(RenderActionBase *action)
 {
     MFUnrecChildViewportPtr::const_iterator portIt  = getMFPort()->begin();
     MFUnrecChildViewportPtr::const_iterator portEnd = getMFPort()->end();
@@ -1914,6 +1964,17 @@ void OSG::Window::renderAllViewports(RenderActionBase *action)
         else
         {
             action->setDrawerId(this->getDrawerId());
+        }
+
+        if((_sfPartitionDrawMode.getValue() & 
+             PartitionDrawMask               ) == SequentialPartitionDraw)
+        {
+            action->setDrawPartPar(true);
+        }
+        else if((_sfPartitionDrawMode.getValue() & 
+                 PartitionDrawMask               ) == SequentialPartitionDraw)
+        {
+            action->setDrawPartPar(false);
         }
 
         action->frameInit();
@@ -1952,13 +2013,30 @@ void OSG::Window::resize( int width, int height )
 }
     
 
+void OSG::Window::init(GLInitFunctor oFunc)
+{
+#if 0
+    if(_pInitTask == NULL)
+    {
+        _pInitTask = new WindowDrawTask(WindowDrawTask::Init);
+    }
+    
+    _pInitTask->setInitFunc(oFunc);
+#endif
+
+    setupGL();
+    
+    if(oFunc)
+        oFunc();
+}
+
 /*! Resize function. 
 
     This function needs to be called before a Window's Viewports are rendered,
     to ensure that eventual pending resizes are handled correctly. 
  */   
 
-void OSG::Window::resizeGL( void )
+void OSG::Window::doResizeGL( void )
 {
     if(isResizePending() == true)
     {

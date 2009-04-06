@@ -294,6 +294,18 @@ FieldContainer *CSMDrawer::findNamedComponent(const Char8 *szName) const
     return NULL;
 }
 
+void CSMDrawer::render(void)
+{
+    MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
+    MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
+
+    while(winIt != winEnd)
+    {
+        (*winIt)->render(_pAction);
+        
+        ++winIt;
+    }
+}
 
 void CSMDrawer::runParallel(void)
 {
@@ -325,6 +337,7 @@ void CSMDrawer::runParallel(void)
         fprintf(stderr, "Running without swap lock\n");
         fflush (stderr);
 
+#if 0
         if(_mfWindows.size() == 1)
         {
             fprintf(stderr, "Running with one windw\n");
@@ -390,12 +403,41 @@ void CSMDrawer::runParallel(void)
                 this->frameSwapActivate  (            );
             }
         }
+#else
+        fprintf(stderr, "Running with %d-windws\n", _mfWindows.size());
+        fflush (stderr);
+
+        while(_bRun == true)
+        {
+            _pSyncBarrier->enter               (_uiSyncCount);
+                
+#ifdef OSG_GLOBAL_SYNC_LOCK
+            _pSyncLock->acquire();
+#endif
+
+            _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+            _pSyncLock->release();
+#endif
+
+            _pSyncBarrier->enter               (_uiSyncCount);
+
+            Thread::getCurrentChangeList()->commitChangesAndClear();
+
+            if(_bRun == false)
+                break;
+
+            this->render();
+#endif
+        }
     }
     else
     {
         fprintf(stderr, "Running with swap lock\n");
         fflush (stderr);
 
+#if 0
         if(_mfWindows.size() == 1)
         {
             fprintf(stderr, "Running with one windw\n");
@@ -469,6 +511,37 @@ void CSMDrawer::runParallel(void)
                 this->frameSwapActivate  (            );
             }
         }
+#else
+        fprintf(stderr, "Running with %d-windws\n", _mfWindows.size());
+        fflush (stderr);
+
+        while(_bRun == true)
+        {
+            _pSyncBarrier->enter               (_uiSyncCount);
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+            _pSyncLock->acquire();
+#endif
+            _pSyncFromThread->getChangeList()->applyNoClear();
+
+#ifdef OSG_GLOBAL_SYNC_LOCK
+            _pSyncLock->release();
+#endif
+
+            _pSyncBarrier->enter               (_uiSyncCount);
+
+            OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
+                
+            if(_bRun == false)
+                break;
+
+            this->frameRenderNoFinish(            );
+
+            _pSwapBarrier->enter     (_uiSwapCount);
+
+            this->frameFinish        (            );
+        }
+#endif
     }
 
     fprintf(stderr, "Drawer run par stop\n");
@@ -512,27 +585,27 @@ void CSMDrawer::runParallel(void)
     Thread::getCurrentChangeList()->commitChangesAndClear();
 }
 
-void CSMDrawer::frameRenderActivate(void)
+void CSMDrawer::frameRenderNoFinish(void)
 {
     MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
     MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
 
     while(winIt != winEnd)
     {
-        (*winIt)->frameRenderActivate(_pAction);
+        (*winIt)->frameRenderNoFinish(_pAction);
         
         ++winIt;
     }
 }
 
-void CSMDrawer::frameSwapActivate(void)
+void CSMDrawer::frameFinish(void)
 {
     MFUnrecChildCSMWindowPtr::const_iterator winIt  = getMFWindows()->begin();
     MFUnrecChildCSMWindowPtr::const_iterator winEnd = getMFWindows()->end  ();
 
     while(winIt != winEnd)
     {
-        (*winIt)->frameSwapActivate();
+        (*winIt)->frameFinish();
         
         ++winIt;
     }
@@ -551,6 +624,7 @@ void CSMDrawer::frameExit(void)
     }
 }
 
+#if 0
 void CSMDrawer::activate(UInt32 uiWindow)
 {
     OSG_ASSERT(uiWindow < _mfWindows.size());
@@ -578,6 +652,7 @@ void CSMDrawer::deactivate (UInt32 uiWindow)
 
     _mfWindows[uiWindow]->deactivate();
 }
+#endif
 
 void CSMDrawer::setRunning(bool bVal)
 {

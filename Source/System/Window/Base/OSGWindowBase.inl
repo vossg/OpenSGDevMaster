@@ -289,6 +289,31 @@ void WindowBase::setRenderOptions(RenderOptions * const value)
 
     _sfRenderOptions.setValue(value);
 }
+//! Get the value of the Window::_sfPartitionDrawMode field.
+
+inline
+UInt32 &WindowBase::editPartitionDrawMode(void)
+{
+    editSField(PartitionDrawModeFieldMask);
+
+    return _sfPartitionDrawMode.getValue();
+}
+
+//! Get the value of the Window::_sfPartitionDrawMode field.
+inline
+      UInt32  WindowBase::getPartitionDrawMode(void) const
+{
+    return _sfPartitionDrawMode.getValue();
+}
+
+//! Set the value of the Window::_sfPartitionDrawMode field.
+inline
+void WindowBase::setPartitionDrawMode(const UInt32 value)
+{
+    editSField(PartitionDrawModeFieldMask);
+
+    _sfPartitionDrawMode.setValue(value);
+}
 
 //! Get the value of the \a index element the Window::_mfPort field.
 inline
@@ -384,6 +409,9 @@ void WindowBase::execSync (      WindowBase *pFrom,
 
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
         _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
+
+    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+        _sfPartitionDrawMode.syncWith(pFrom->_sfPartitionDrawMode);
 }
 #endif
 

@@ -178,14 +178,15 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \name                   Lights                                     */
     /*! \{                                                                 */
 
-    StageValidator *getStageValidator(void     );
-    UInt16          getFrameTravCount(void     );
+    StageValidator *getStageValidator(void      );
+    UInt16          getFrameTravCount(void      );
 
-    void            setDrawerId      (Int32 iId);
-    Int32           getDrawerId      (void     );
+    void            setDrawerId      (Int32 iId );
+    Int32           getDrawerId      (void      );
 
-    void            setDrawableId    (Int32 iId);
-    Int32           getDrawableId    (void     );
+    void            setDrawableId    (Int32 iId );
+    Int32           getDrawableId    (void      );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Lights                                     */
@@ -194,6 +195,9 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     RenderPropType getRenderProperties  (void                );
     void           setRenderProperties  (RenderPropType oProp);
     void           resetRenderProperties(void                );
+
+    void           setDrawPartPar       (bool           bVal );
+    bool           getDrawPartPar       (void                );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -262,6 +266,7 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     Int32           _iDrawerId;
     Int32           _iDrawableId;
     RenderPropType  _oCurrentRenderProp;
+    bool            _bDrawPartPar;
 
     /*==========================  PRIVATE  ================================*/
 

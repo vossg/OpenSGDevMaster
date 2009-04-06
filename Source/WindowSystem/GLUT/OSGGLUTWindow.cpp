@@ -112,30 +112,57 @@ void GLUTWindow::dump(      UInt32    ,
 /* ------------- Window functions -----------------------*/    
     
 // init the window: create the context  
-void GLUTWindow::init(void)
+void GLUTWindow::init(GLInitFunctor oFunc)
 {
-    activate();
-    setupGL ();
-}
-    
-// activate the window: bind the OGL context    
-void GLUTWindow::activate(void)
-{
-    if(glutGetWindow() != getGlutId())
-        glutSetWindow(getGlutId());
-}
-    
-// deactivate the window  
-void GLUTWindow::deactivate(void)
-{
-}
-    
-// swap front and back buffers  
-bool GLUTWindow::swap(void)
-{
-    glutSwapBuffers();
+#if defined(WIN32)
+#error "win32 need impl"
+#elif defined(__APPLE__)
+#error "apple needs impl"
+#else
+    glutSetWindow(getGlutId());
 
-    return true;
+    Inherited::setDisplay(glXGetCurrentDisplay ());
+    Inherited::setContext(glXGetCurrentContext ());
+    Inherited::setWindow (glXGetCurrentDrawable());
+#endif
+
+    this->doActivate();
+
+    Window::init(oFunc);
+
+    this->doDeactivate();
+}
+    
+void GLUTWindow::sequentialActivate(void)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        if(glutGetWindow() != getGlutId())
+            glutSetWindow(getGlutId());
+
+        Inherited::doActivate();
+    }
+}
+
+void GLUTWindow::sequentialDeactivate(void)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        Inherited::doDeactivate();
+    }
+}
+
+bool GLUTWindow::sequentialSwap(void)
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        return Inherited::doSwap();
+    }
+
+    return false;
 }
 
 #endif // OSG_WITH_GLUT

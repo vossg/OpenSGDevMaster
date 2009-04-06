@@ -45,6 +45,7 @@
 #include "OSGCSMClusterWindowBase.h"
 #include "OSGCSMDrawer.h"
 #include "OSGCSMClusterWinOptions.h"
+#include "OSGImageComposer.h"
 
 OSG_BEGIN_NAMESPACE
 

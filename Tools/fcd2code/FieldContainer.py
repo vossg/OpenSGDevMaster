@@ -43,6 +43,7 @@ class FieldContainer(FCDElement):
         self.setFCD("childFields",            "none",   True);
         self.setFCD("parentFields",           "none",   True);
         self.setFCD("docGroupBase",           "",       True);
+        self.setFCD("realparent",             "",       True);
     #
     # Access fields
     
@@ -71,6 +72,7 @@ class FieldContainer(FCDElement):
         self["Classname"]   = self.getFCD("name") + "Decorator";
         self["CLASSNAME"]   = self.getFCD("name").upper() + "DECORATOR";
         self["Parent"]      = self.getFCD("name");
+        self["RealParent"]  = self.getFCD("name");
         self["isDecorator"] = True;
     
     def finalize(self):
@@ -113,6 +115,11 @@ class FieldContainer(FCDElement):
         else:
             self.m_log.error("finalize: \"parent\" has no valid value.");
             self["Parent"] = "<UNDEF>";
+
+        if self.getFCD("realparent") != "":
+            self["RealParent"] = self.getFCD("realparent");
+        else:
+            self["RealParent"] = self["Parent"];
 
         if self.getFCD("mixinparent") != "":
             self["MixinParent"] = self.getFCD("mixinparent");            
