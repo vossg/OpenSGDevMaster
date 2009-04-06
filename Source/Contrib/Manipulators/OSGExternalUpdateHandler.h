@@ -43,13 +43,11 @@
 #include "OSGBaseFunctions.h"
 #include "OSGSimpleGeometry.h"
 
-using namespace OSG;
-
 class OSG_CONTRIBGUI_DLLMAPPING ExternalUpdateHandler
 {
 public:
     virtual ~ExternalUpdateHandler() {}
-    virtual void update(Node * const TransformNode) = 0;
+    virtual void update(OSG::Node * const TransformNode) = 0;
 };
 
 #endif // _OSGEXTERNALUPDATEHANDLER_H

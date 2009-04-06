@@ -14,48 +14,48 @@
 #include "OSGManipulatorManager.h"
 
 
-NodeRefPtr         scene   = NULL;
-TransformRefPtr    interTC = NULL;
-NodeRefPtr         interN  = NULL;
-NodeRefPtr         maniN   = NULL;
+OSG::NodeRefPtr         scene   = NULL;
+OSG::TransformRefPtr    interTC = NULL;
+OSG::NodeRefPtr         interN  = NULL;
+OSG::NodeRefPtr         maniN   = NULL;
 
-ManipulatorManager *mama;
-SimpleSceneManager *mgr;
+OSG::ManipulatorManager *mama;
+OSG::SimpleSceneManager *mgr;
 
 int setupGLUT( int *argc, char *argv[] );
-NodeTransitPtr makeCoordAxes(void);
+OSG::NodeTransitPtr makeCoordAxes(void);
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     int winid = setupGLUT(&argc, argv);
 
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+    OSG::GLUTWindowUnrecPtr gwin= OSG::GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->init();
 
-    mgr = new SimpleSceneManager;
-    mama = new ManipulatorManager;
+    mgr = new OSG::SimpleSceneManager;
+    mama = new OSG::ManipulatorManager;
 
-    GroupUnrecPtr g = Group::create();
-    scene = Node::create();
+    OSG::GroupUnrecPtr g = OSG::Group::create();
+    scene = OSG::Node::create();
 
-    interTC = Transform::create();
-    interN    = Node::create();
+    interTC = OSG::Transform::create();
+    interN    = OSG::Node::create();
 
-    Matrix m;
+    OSG::Matrix m;
     m.setIdentity();
-    m.setTransform( Vec3f(1.0f, 1.0f, 1.0f) );
+    m.setTransform( OSG::Vec3f(1.0f, 1.0f, 1.0f) );
     interTC->setMatrix(m);
 
     interN->setCore(interTC);
-    interN->addChild(makeBox(1, 0.2, 0.2, 1, 1, 1));
+    interN->addChild(OSG::makeBox(1, 0.2, 0.2, 1, 1, 1));
 
     scene->setCore(g);
     scene->addChild(makeCoordAxes());
     scene->addChild(interN);
 
-    maniN = mama->createManipulator(ManipulatorManager::TRANSLATE);
+    maniN = mama->createManipulator(OSG::ManipulatorManager::TRANSLATE);
 
     interN->addChild(maniN);
 
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
     mama->setTarget( interN );
     mama->setViewport( mgr->getWindow()->getPort(0) );
 
-    commitChanges();
+    OSG::commitChanges();
 
     glutReshapeWindow(600, 600);
     glutMainLoop();
@@ -102,11 +102,11 @@ void mouse(int button, int state, int x, int y)
     }
     else
     {
-        Line l;
+        OSG::Line l;
 
         l = mgr->calcViewRay(x, y);
 
-        IntersectAction *act = IntersectAction::create();
+        OSG::IntersectAction *act = OSG::IntersectAction::create();
 
         act->setLine( l );
         act->apply( scene );
@@ -149,11 +149,11 @@ void keyboard(unsigned char k, int x, int y)
         interTC = NULL;
         interN  = NULL;
         maniN   = NULL;
-        osgExit();
+        OSG::osgExit();
         exit(1);
     case ' ':
     {
-        maniN->setTravMask(TypeTraits<UInt32>::getZeroElement());
+        maniN->setTravMask(OSG::TypeTraits<OSG::UInt32>::getZeroElement());
         glutPostRedisplay();
         break;
     }
@@ -161,24 +161,24 @@ void keyboard(unsigned char k, int x, int y)
     case 't':
     case 's':
     {
-        maniN->setTravMask(TypeTraits<UInt32>::getMax());
+        maniN->setTravMask(OSG::TypeTraits<OSG::UInt32>::getMax());
         if (k == 't')
         {
-            mama->changeManipulator(ManipulatorManager::TRANSLATE);
+            mama->changeManipulator(OSG::ManipulatorManager::TRANSLATE);
         }
         else if (k == 'r')
         {
-            mama->changeManipulator(ManipulatorManager::ROTATE);
+            mama->changeManipulator(OSG::ManipulatorManager::ROTATE);
         }
         else if (k == 's')
         {
-            mama->changeManipulator(ManipulatorManager::SCALE);
+            mama->changeManipulator(OSG::ManipulatorManager::SCALE);
         }
         glutPostRedisplay();
         break;
     }
     case 'w':
-        SceneFileHandler::the()->write(scene, "scene.osb");
+        OSG::SceneFileHandler::the()->write(scene, "scene.osb");
     break;
     }
 }
@@ -200,76 +200,76 @@ int setupGLUT(int *argc, char *argv[])
     return winid;
 }
 
-GeometryTransitPtr makeCoordAxesGeo(void)
+OSG::GeometryTransitPtr makeCoordAxesGeo(void)
 {
-    GeometryTransitPtr axesG = Geometry::create();
+    OSG::GeometryTransitPtr axesG = OSG::Geometry::create();
 
-    GeoUInt8PropertyUnrecPtr type = GeoUInt8Property::create();
+    OSG::GeoUInt8PropertyUnrecPtr type = OSG::GeoUInt8Property::create();
     type->addValue(GL_LINES    );
     type->addValue(GL_TRIANGLES);
 
-    GeoUInt32PropertyUnrecPtr lens = GeoUInt32Property::create();
+    OSG::GeoUInt32PropertyUnrecPtr lens = OSG::GeoUInt32Property::create();
     lens->addValue(6);
     lens->addValue(9);
 
-    GeoPnt3fPropertyUnrecPtr pnts = GeoPnt3fProperty::create();
+    OSG::GeoPnt3fPropertyUnrecPtr pnts = OSG::GeoPnt3fProperty::create();
     // the 6 points of the three Lines
-    pnts->addValue(Pnt3f(0, 0, 0));
-    pnts->addValue(Pnt3f(1, 0, 0));
+    pnts->addValue(OSG::Pnt3f(0, 0, 0));
+    pnts->addValue(OSG::Pnt3f(1, 0, 0));
 
-    pnts->addValue(Pnt3f(0, 0, 0));
-    pnts->addValue(Pnt3f(0, 1, 0));
+    pnts->addValue(OSG::Pnt3f(0, 0, 0));
+    pnts->addValue(OSG::Pnt3f(0, 1, 0));
 
-    pnts->addValue(Pnt3f(0, 0, 0));
-    pnts->addValue(Pnt3f(0, 0, 1));
+    pnts->addValue(OSG::Pnt3f(0, 0, 0));
+    pnts->addValue(OSG::Pnt3f(0, 0, 1));
 
     // the 9 points of the three Triangles
-    pnts->addValue(Pnt3f(  1,    0,    0));
-    pnts->addValue(Pnt3f(0.8,  0.2,  0.2));
-    pnts->addValue(Pnt3f(0.8, -0.2, -0.2));
+    pnts->addValue(OSG::Pnt3f(  1,    0,    0));
+    pnts->addValue(OSG::Pnt3f(0.8,  0.2,  0.2));
+    pnts->addValue(OSG::Pnt3f(0.8, -0.2, -0.2));
 
-    pnts->addValue(Pnt3f(   0,   1,    0));
-    pnts->addValue(Pnt3f( 0.2, 0.8,  0.2));
-    pnts->addValue(Pnt3f(-0.2, 0.8, -0.2));
+    pnts->addValue(OSG::Pnt3f(   0,   1,    0));
+    pnts->addValue(OSG::Pnt3f( 0.2, 0.8,  0.2));
+    pnts->addValue(OSG::Pnt3f(-0.2, 0.8, -0.2));
 
-    pnts->addValue(Pnt3f(   0,    0,   1));
-    pnts->addValue(Pnt3f( 0.2,  0.2, 0.8));
-    pnts->addValue(Pnt3f(-0.2, -0.2, 0.8));
+    pnts->addValue(OSG::Pnt3f(   0,    0,   1));
+    pnts->addValue(OSG::Pnt3f( 0.2,  0.2, 0.8));
+    pnts->addValue(OSG::Pnt3f(-0.2, -0.2, 0.8));
 
-    GeoColor3fPropertyUnrecPtr colors = GeoColor3fProperty::create();
-    colors->addValue(Color3f(1, 0, 0));
-    colors->addValue(Color3f(1, 0, 0));
+    OSG::GeoColor3fPropertyUnrecPtr colors = OSG::GeoColor3fProperty::create();
+    colors->addValue(OSG::Color3f(1, 0, 0));
+    colors->addValue(OSG::Color3f(1, 0, 0));
 
-    colors->addValue(Color3f(0, 1, 0));
-    colors->addValue(Color3f(0, 1, 0));
+    colors->addValue(OSG::Color3f(0, 1, 0));
+    colors->addValue(OSG::Color3f(0, 1, 0));
 
-    colors->addValue(Color3f(0, 0, 1));
-    colors->addValue(Color3f(0, 0, 1));
+    colors->addValue(OSG::Color3f(0, 0, 1));
+    colors->addValue(OSG::Color3f(0, 0, 1));
 
-    colors->addValue(Color3f(1, 0, 0));
-    colors->addValue(Color3f(1, 0, 0));
-    colors->addValue(Color3f(1, 0, 0));
+    colors->addValue(OSG::Color3f(1, 0, 0));
+    colors->addValue(OSG::Color3f(1, 0, 0));
+    colors->addValue(OSG::Color3f(1, 0, 0));
 
-    colors->addValue(Color3f(0, 1, 0));
-    colors->addValue(Color3f(0, 1, 0));
-    colors->addValue(Color3f(0, 1, 0));
+    colors->addValue(OSG::Color3f(0, 1, 0));
+    colors->addValue(OSG::Color3f(0, 1, 0));
+    colors->addValue(OSG::Color3f(0, 1, 0));
 
-    colors->addValue(Color3f(0, 0, 1));
-    colors->addValue(Color3f(0, 0, 1));
-    colors->addValue(Color3f(0, 0, 1));
+    colors->addValue(OSG::Color3f(0, 0, 1));
+    colors->addValue(OSG::Color3f(0, 0, 1));
+    colors->addValue(OSG::Color3f(0, 0, 1));
 
     axesG->setTypes    (type);
     axesG->setLengths  (lens);
     axesG->setPositions(pnts);
     axesG->setColors   (colors);
-    axesG->setMaterial (getDefaultUnlitMaterial());
+    axesG->setMaterial (OSG::getDefaultUnlitMaterial());
 
     return axesG;
 }
 
-NodeTransitPtr makeCoordAxes(void)
+OSG::NodeTransitPtr makeCoordAxes(void)
 {
-    NodeTransitPtr axesN = Node::create();
+    OSG::NodeTransitPtr axesN = OSG::Node::create();
 
     axesN->setCore(makeCoordAxesGeo());
 
