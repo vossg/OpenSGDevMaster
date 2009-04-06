@@ -106,9 +106,6 @@ static std::string _fp_program =
 "}\n";
 
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 
 // ------------------- global vars ----------------------
 //

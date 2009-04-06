@@ -13,13 +13,12 @@
 #include <OSGSolidBackground.h>
 #include <OSGSurface.h>
 
-OSG_USING_NAMESPACE
 
-SimpleSceneManager   *mgr;
-SimpleMaterialRefPtr  gpcl_defaultmat;
-ImageRefPtr           gpcl_image;
-Real32                g_error;
-SurfaceRefPtr         gpcl_surface;
+OSG::SimpleSceneManager   *mgr;
+OSG::SimpleMaterialRefPtr  gpcl_defaultmat;
+OSG::ImageRefPtr           gpcl_image;
+OSG::Real32                g_error;
+OSG::SurfaceRefPtr         gpcl_surface;
 
 // redraw the window
 void display(void)
@@ -104,15 +103,15 @@ void setupDefaultTexture( void );
 
 void setupDefaultMaterial( void )
 {
-    gpcl_defaultmat = SimpleMaterial::create();
-    gpcl_defaultmat->setDiffuse( Color3f(1.0,0.0,0.0) ); // RED
-    gpcl_defaultmat->setAmbient( Color3f(0.2,0.2,0.2) );
-    gpcl_defaultmat->setEmission( Color3f(0.02,0.02,0.02) );
-    gpcl_defaultmat->setSpecular( Color3f(0.78,0.78,0.78) );
+    gpcl_defaultmat = OSG::SimpleMaterial::create();
+    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0,0.0,0.0) ); // RED
+    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2,0.2,0.2) );
+    gpcl_defaultmat->setEmission( OSG::Color3f(0.02,0.02,0.02) );
+    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78,0.78,0.78) );
     gpcl_defaultmat->setShininess( 128 );
 
-    TextureObjChunkRefPtr xchunk_obj = TextureObjChunk::create();
-    TextureEnvChunkRefPtr xchunk_env = TextureEnvChunk::create();
+    OSG::TextureObjChunkRefPtr xchunk_obj = OSG::TextureObjChunk::create();
+    OSG::TextureEnvChunkRefPtr xchunk_env = OSG::TextureEnvChunk::create();
     xchunk_obj->setImage( gpcl_image );
     xchunk_obj->setMinFilter( GL_LINEAR );
     xchunk_obj->setMagFilter( GL_LINEAR );
@@ -131,41 +130,50 @@ void setupDefaultMaterial( void )
 
 
 
-NodeTransitPtr makeScene( void )
+OSG::NodeTransitPtr makeScene( void )
 {
     setupDefaultTexture();
     setupDefaultMaterial();
 
-    NodeTransitPtr         root    = Node::create();
-    SurfaceRefPtr          surface = Surface::create();
-    GeoPnt3fPropertyRefPtr cps     = GeoPnt3fProperty::create();
+    OSG::NodeTransitPtr         root    = OSG::Node::create();
+    OSG::SurfaceRefPtr          surface = OSG::Surface::create();
+    OSG::GeoPnt3fPropertyRefPtr cps     = OSG::GeoPnt3fProperty::create();
 
     // control points should always be 3D for the time being,
     // rational support will be added later
     cps->clear();
-    cps->push_back( Pnt3f(  1,  1,  0 ));
-    cps->push_back( Pnt3f(  1,  0,  1 ));
-    cps->push_back( Pnt3f(  1, -1,  0 ));
-    cps->push_back( Pnt3f(  0,  1, -1 ));
-    cps->push_back( Pnt3f(  0,  0,  0 ));
-    cps->push_back( Pnt3f(  0, -1, -1 ));
-    cps->push_back( Pnt3f( -1,  1,  0 ));
-    cps->push_back( Pnt3f( -1,  0,  1 ));
-    cps->push_back( Pnt3f( -1, -1,  0 ));
+    cps->push_back( OSG::Pnt3f(  1,  1,  0 ));
+    cps->push_back( OSG::Pnt3f(  1,  0,  1 ));
+    cps->push_back( OSG::Pnt3f(  1, -1,  0 ));
+    cps->push_back( OSG::Pnt3f(  0,  1, -1 ));
+    cps->push_back( OSG::Pnt3f(  0,  0,  0 ));
+    cps->push_back( OSG::Pnt3f(  0, -1, -1 ));
+    cps->push_back( OSG::Pnt3f( -1,  1,  0 ));
+    cps->push_back( OSG::Pnt3f( -1,  0,  1 ));
+    cps->push_back( OSG::Pnt3f( -1, -1,  0 ));
 
-    GeoVec2fPropertyRefPtr texcps = GeoVec2fProperty::create();
+    OSG::GeoVec2fPropertyRefPtr texcps = OSG::GeoVec2fProperty::create();
 
     // texture coordinates for the control points, always 2D
     texcps->clear();
-    texcps->push_back( Vec2f( 0.0006078289457852043, 0.03890105253025306) );
-    texcps->push_back( Vec2f( 0.0003687335542147959, 0.2993150529249993) );
-    texcps->push_back( Vec2f( 0.000607828945785204,  0.5597290533197458) );
-    texcps->push_back( Vec2f( 0.004676797701953115,  0.02359894746974695) );
-    texcps->push_back( Vec2f( 0.004676797701953117,  0.2993150529249994) );
-    texcps->push_back( Vec2f( 0.004676797701953115,  0.575031158380252) );
-    texcps->push_back( Vec2f( 0.008745766458121028,  0.03890105253025303) );
-    texcps->push_back( Vec2f( 0.008984861849691437,  0.2993150529249993) );
-    texcps->push_back( Vec2f( 0.008745766458121028,  0.5597290533197458) );
+    texcps->push_back( OSG::Vec2f( 0.0006078289457852043, 
+                                   0.03890105253025306) );
+    texcps->push_back( OSG::Vec2f( 0.0003687335542147959, 
+                                   0.2993150529249993) );
+    texcps->push_back( OSG::Vec2f( 0.000607828945785204,  
+                                   0.5597290533197458) );
+    texcps->push_back( OSG::Vec2f( 0.004676797701953115,  
+                                   0.02359894746974695) );
+    texcps->push_back( OSG::Vec2f( 0.004676797701953117,  
+                                   0.2993150529249994) );
+    texcps->push_back( OSG::Vec2f( 0.004676797701953115, 
+                                   0.575031158380252) );
+    texcps->push_back( OSG::Vec2f( 0.008745766458121028,  
+                                   0.03890105253025303) );
+    texcps->push_back( OSG::Vec2f( 0.008984861849691437,  
+                                   0.2993150529249993) );
+    texcps->push_back( OSG::Vec2f( 0.008745766458121028,  
+                                   0.5597290533197458) );
 
     // we have no trimming, so just remove any curves that might be present
     // (Note that a dummy trimming will be added to the internal representation)
@@ -219,7 +227,7 @@ int main(int argc, char **argv)
         g_error = 0.001;
     }
     
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     // GLUT init
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
@@ -234,12 +242,12 @@ int main(int argc, char **argv)
     glutKeyboardFunc(keyboard);
 
     {
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // create the scene
-        NodeRefPtr scene;
+        OSG::NodeRefPtr scene;
         scene = makeScene( );
         
         if ( scene == NULL )
@@ -249,7 +257,7 @@ int main(int argc, char **argv)
         }
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // create the window and initial camera/viewport
         mgr->setWindow( gwin );
@@ -259,8 +267,8 @@ int main(int argc, char **argv)
         // show the whole scene
         mgr->showAll();
         mgr->redraw();
-        SolidBackgroundRefPtr bgr = SolidBackground::create();
-        bgr->setColor( Color3f( 0.7, 0.7, 0.7 ));
+        OSG::SolidBackgroundRefPtr bgr = OSG::SolidBackground::create();
+        bgr->setColor( OSG::Color3f( 0.7, 0.7, 0.7 ));
         mgr->getWindow()->getPort(0)->setBackground( bgr );
     }
     
@@ -6421,6 +6429,6 @@ static unsigned char texturedata[49152] = {
 
 void setupDefaultTexture( void )
 {
-    gpcl_image = Image::create();
-    gpcl_image->set(Image::OSG_RGB_PF, 1024, 16, 1, 1, 1, 0, texturedata);
+    gpcl_image = OSG::Image::create();
+    gpcl_image->set(OSG::Image::OSG_RGB_PF, 1024, 16, 1, 1, 1, 0, texturedata);
 }

@@ -28,22 +28,19 @@
 #include <OSGOSGSceneFileType.h>
 #include <OSGShaderCache.h>
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-static SimpleSceneManager *_mgr;
+static OSG::SimpleSceneManager *_mgr;
 // The scene
-static NodeRecPtr _scene;
+static OSG::NodeRecPtr _scene;
 
-static ShaderProgramChunkRecPtr _shl    = NULL;
-static ShaderProgramRecPtr      _shl_vp = NULL;
-static ShaderProgramRecPtr      _shl_fp = NULL;
+static OSG::ShaderProgramChunkRecPtr _shl    = NULL;
+static OSG::ShaderProgramRecPtr      _shl_vp = NULL;
+static OSG::ShaderProgramRecPtr      _shl_fp = NULL;
 
-static Int32 _animation = 1;
+static OSG::Int32 _animation = 1;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -52,29 +49,29 @@ int setupGLUT( int *argc, char *argv[] );
 int doMain(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+    OSG::GLUTWindowUnrecPtr gwin= OSG::GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->setSize( 800, 800 );
     gwin->init();
 
     // Create the shader material
-    ChunkMaterialUnrecPtr cmat = ChunkMaterial::create();
+    OSG::ChunkMaterialUnrecPtr cmat = OSG::ChunkMaterial::create();
 
     // Read the image for the normal texture
-    ImageUnrecPtr earth_map_img = Image::create();
+    OSG::ImageUnrecPtr earth_map_img = OSG::Image::create();
     if(!earth_map_img->read("Earth.jpg"))
     {
         fprintf(stderr, "Couldn't read texture 'Earth.jpg'\n");
         return 1;
     }
-    TextureObjChunkUnrecPtr tex_earth     = TextureObjChunk::create();
-    TextureEnvChunkUnrecPtr tex_earth_env = TextureEnvChunk::create();
+    OSG::TextureObjChunkUnrecPtr tex_earth     = OSG::TextureObjChunk::create();
+    OSG::TextureEnvChunkUnrecPtr tex_earth_env = OSG::TextureEnvChunk::create();
 
     tex_earth->setImage(earth_map_img);
     tex_earth->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -85,15 +82,17 @@ int doMain(int argc, char **argv)
     tex_earth_env->setEnvMode(GL_MODULATE);
 
     // Read the image for the normal texture
-    ImageUnrecPtr earth_night_map_img = Image::create();
+    OSG::ImageUnrecPtr earth_night_map_img = OSG::Image::create();
     if(!earth_night_map_img->read("EarthNight.jpg"))
     {
         fprintf(stderr, "Couldn't read texture 'EarthNight.jpg'\n");
         return 1;
     }
 
-    TextureObjChunkUnrecPtr tex_earth_night     = TextureObjChunk::create();
-    TextureEnvChunkUnrecPtr tex_earth_night_env = TextureEnvChunk::create();
+    OSG::TextureObjChunkUnrecPtr tex_earth_night     = 
+        OSG::TextureObjChunk::create();
+    OSG::TextureEnvChunkUnrecPtr tex_earth_night_env = 
+        OSG::TextureEnvChunk::create();
 
     tex_earth_night->setImage(earth_night_map_img);
     tex_earth_night->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -104,15 +103,17 @@ int doMain(int argc, char **argv)
     tex_earth_night_env->setEnvMode(GL_MODULATE);
     
     // Read the image for the normal texture
-    ImageUnrecPtr earth_clouds_map_img = Image::create();
+    OSG::ImageUnrecPtr earth_clouds_map_img = OSG::Image::create();
     if(!earth_clouds_map_img->read("EarthClouds.jpg"))
     {
         fprintf(stderr, "Couldn't read texture 'EarthClouds.jpg'\n");
         return 1;
     }
 
-    TextureObjChunkUnrecPtr tex_earth_clouds     = TextureObjChunk::create();
-    TextureEnvChunkUnrecPtr tex_earth_clouds_env = TextureEnvChunk::create();
+    OSG::TextureObjChunkUnrecPtr tex_earth_clouds     = 
+        OSG::TextureObjChunk::create();
+    OSG::TextureEnvChunkUnrecPtr tex_earth_clouds_env = 
+        OSG::TextureEnvChunk::create();
 
     tex_earth_clouds->setImage(earth_clouds_map_img);
     tex_earth_clouds->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -123,10 +124,10 @@ int doMain(int argc, char **argv)
     tex_earth_clouds_env->setEnvMode(GL_MODULATE);
 
 
-    _shl = ShaderProgramChunk::create();
+    _shl = OSG::ShaderProgramChunk::create();
 
-    _shl_vp = ShaderProgram::create();
-    _shl_fp = ShaderProgram::create();
+    _shl_vp = OSG::ShaderProgram::create();
+    _shl_fp = OSG::ShaderProgram::create();
     
     if(!_shl_vp->readProgram("Earth.vp"))
         fprintf(stderr, "Couldn't read vertex program 'Earth.vp'\n");
@@ -159,27 +160,27 @@ int doMain(int argc, char **argv)
 
 
     // create root node
-    _scene = Node::create();
+    _scene = OSG::Node::create();
 
-    GeometryUnrecPtr geo = makeLatLongSphereGeo (100, 100, 1.0);
+    OSG::GeometryUnrecPtr geo = OSG::makeLatLongSphereGeo (100, 100, 1.0);
 
     geo->setMaterial(cmat);
 
 
-    NodeUnrecPtr torus = Node::create();
+    OSG::NodeUnrecPtr torus = OSG::Node::create();
     
     torus->setCore(geo);
 
 
     // add torus to scene
-    GroupUnrecPtr group = Group::create();
+    OSG::GroupUnrecPtr group = OSG::Group::create();
 
     _scene->setCore(group);
     _scene->addChild(torus);
 
 
     // create the SimpleSceneManager helper
-    _mgr = new SimpleSceneManager;
+    _mgr = new OSG::SimpleSceneManager;
 
     // tell the manager what to manage
     _mgr->setWindow(gwin );
@@ -210,11 +211,11 @@ int main(int argc, char **argv)
 // redraw the window
 void display(void)
 {
-    static Real32 speed = 10000.0f;
-    static Real32 t = glutGet(GLUT_ELAPSED_TIME);
-    static Real32 t2 = 0.0;
+    static OSG::Real32 speed = 10000.0f;
+    static OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME);
+    static OSG::Real32 t2 = 0.0;
     
-    Real32 td = glutGet(GLUT_ELAPSED_TIME) - t;
+    OSG::Real32 td = glutGet(GLUT_ELAPSED_TIME) - t;
 
     if(td > speed)
         t = glutGet(GLUT_ELAPSED_TIME);
@@ -223,11 +224,11 @@ void display(void)
     {
         t2 = (2 * OSG::Pi / speed) * td;
 
-        _shl_vp->updateUniformVariable("cos_time_0_2PI", osgCos(t2));
-        _shl_vp->updateUniformVariable("sin_time_0_2PI", osgSin(t2));
+        _shl_vp->updateUniformVariable("cos_time_0_2PI", OSG::osgCos(t2));
+        _shl_vp->updateUniformVariable("sin_time_0_2PI", OSG::osgSin(t2));
     }
 
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
 
     // render scene
     _mgr->redraw();
@@ -261,7 +262,7 @@ void motion(int x, int y)
 // react to keys
 void keyboard(unsigned char k, int x, int y)
 {
-    static Real32 season = 0.0f; 
+    static OSG::Real32 season = 0.0f; 
     switch(k)
     {
         case 27:
@@ -273,7 +274,7 @@ void keyboard(unsigned char k, int x, int y)
             _shl_vp = NULL;
             _shl_fp = NULL;
 
-            osgExit();
+            OSG::osgExit();
             exit(1);
         break;
 
@@ -282,7 +283,7 @@ void keyboard(unsigned char k, int x, int y)
             break;
 
         case 'w':
-            SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
+            OSG::SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
             printf("wrote scene.osb.gz\n");
         break;
         case 's':
@@ -316,7 +317,7 @@ void keyboard(unsigned char k, int x, int y)
             break;
 
         case 'B':
-            _shl_fp = ShaderProgram::create();
+            _shl_fp = OSG::ShaderProgram::create();
 
             _shl_fp->setShaderType(GL_FRAGMENT_SHADER);
 
@@ -337,7 +338,7 @@ void keyboard(unsigned char k, int x, int y)
             break;
 
         case 'R':
-            _shl_fp = ShaderProgram::create();
+            _shl_fp = OSG::ShaderProgram::create();
 
             _shl_fp->setShaderType(GL_FRAGMENT_SHADER);
 

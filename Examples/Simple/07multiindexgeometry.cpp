@@ -30,14 +30,11 @@
 #include <OpenSG/OSGGeometry.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The pointer to the transformation
-TransformRefPtr trans;
+OSG::TransformRefPtr trans;
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -46,15 +43,15 @@ int setupGLUT( int *argc, char *argv[] );
 void display( void )
 {
     // create the matrix
-    Matrix m;
-    Real32 t = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Matrix m;
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
     
-    m.setTransform(Quaternion(Vec3f(0,1,0), t / 1000.f));
+    m.setTransform(OSG::Quaternion(OSG::Vec3f(0,1,0), t / 1000.f));
     
     // set the transform's matrix
     trans->setMatrix(m);
 
-    commitChanges();
+    OSG::commitChanges();
    
     mgr->redraw();
 }
@@ -63,7 +60,7 @@ void display( void )
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -75,7 +72,7 @@ int main(int argc, char **argv)
     */
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
@@ -93,42 +90,42 @@ int main(int argc, char **argv)
            The initial setup is the same as in 06indexgeometry
         */
 
-        GeoUInt8PropertyRefPtr type = GeoUInt8Property::create();
+        OSG::GeoUInt8PropertyRefPtr type = OSG::GeoUInt8Property::create();
         type->addValue(GL_POLYGON  );
         type->addValue(GL_TRIANGLES);
         type->addValue(GL_QUADS    );
     
-        GeoUInt32PropertyRefPtr lens = GeoUInt32Property::create();
+        OSG::GeoUInt32PropertyRefPtr lens = OSG::GeoUInt32Property::create();
         lens->addValue(4);
         lens->addValue(6);
         lens->addValue(8);
         
         // positions
-        GeoPnt3fPropertyRefPtr pnts = GeoPnt3fProperty::create();
+        OSG::GeoPnt3fPropertyRefPtr pnts = OSG::GeoPnt3fProperty::create();
         // the base
-        pnts->addValue(Pnt3f(-1, -1, -1));
-        pnts->addValue(Pnt3f(-1, -1,  1));
-        pnts->addValue(Pnt3f( 1, -1,  1));
-        pnts->addValue(Pnt3f( 1, -1, -1));
+        pnts->addValue(OSG::Pnt3f(-1, -1, -1));
+        pnts->addValue(OSG::Pnt3f(-1, -1,  1));
+        pnts->addValue(OSG::Pnt3f( 1, -1,  1));
+        pnts->addValue(OSG::Pnt3f( 1, -1, -1));
     
         // the roof base
-        pnts->addValue(Pnt3f(-1,  0, -1));
-        pnts->addValue(Pnt3f(-1,  0,  1));
-        pnts->addValue(Pnt3f( 1,  0,  1));
-        pnts->addValue(Pnt3f( 1,  0, -1));
+        pnts->addValue(OSG::Pnt3f(-1,  0, -1));
+        pnts->addValue(OSG::Pnt3f(-1,  0,  1));
+        pnts->addValue(OSG::Pnt3f( 1,  0,  1));
+        pnts->addValue(OSG::Pnt3f( 1,  0, -1));
     
         // the gable
-        pnts->addValue(Pnt3f( 0,  1, -1));
-        pnts->addValue(Pnt3f( 0,  1,  1));
+        pnts->addValue(OSG::Pnt3f( 0,  1, -1));
+        pnts->addValue(OSG::Pnt3f( 0,  1,  1));
     
         // colors
-        GeoVec3fPropertyRefPtr colors = GeoVec3fProperty::create();
-        colors->push_back(Color3f(1, 1, 0));
-        colors->push_back(Color3f(1, 0, 0));
-        colors->push_back(Color3f(1, 0, 0));
-        colors->push_back(Color3f(1, 1, 0));
-        colors->push_back(Color3f(0, 1, 1));
-        colors->push_back(Color3f(1, 0, 1));
+        OSG::GeoVec3fPropertyRefPtr colors = OSG::GeoVec3fProperty::create();
+        colors->push_back(OSG::Color3f(1, 1, 0));
+        colors->push_back(OSG::Color3f(1, 0, 0));
+        colors->push_back(OSG::Color3f(1, 0, 0));
+        colors->push_back(OSG::Color3f(1, 1, 0));
+        colors->push_back(OSG::Color3f(0, 1, 1));
+        colors->push_back(OSG::Color3f(1, 0, 1));
         
         /*
            A new property: normals.
@@ -137,13 +134,13 @@ int main(int argc, char **argv)
            surface. Normals are standard vectors.
         */
         
-        GeoVec3fPropertyRefPtr norms = GeoVec3fProperty::create();
-        norms->push_back(Vec3f(-1,  0,  0));
-        norms->push_back(Vec3f( 1,  0,  0));
-        norms->push_back(Vec3f( 0, -1,  0));
-        norms->push_back(Vec3f( 0,  1,  0));
-        norms->push_back(Vec3f( 0,  0, -1));
-        norms->push_back(Vec3f( 0,  0,  1));
+        OSG::GeoVec3fPropertyRefPtr norms = OSG::GeoVec3fProperty::create();
+        norms->push_back(OSG::Vec3f(-1,  0,  0));
+        norms->push_back(OSG::Vec3f( 1,  0,  0));
+        norms->push_back(OSG::Vec3f( 0, -1,  0));
+        norms->push_back(OSG::Vec3f( 0,  1,  0));
+        norms->push_back(OSG::Vec3f( 0,  0, -1));
+        norms->push_back(OSG::Vec3f( 0,  0,  1));
         
         /*
            To use more than one index for a geometry, create multiple
@@ -152,8 +149,8 @@ int main(int argc, char **argv)
            index.
         */
         
-        GeoUInt32PropertyRefPtr ind1 = GeoUInt32Property::create();
-        GeoUInt32PropertyRefPtr ind2 = GeoUInt32Property::create();
+        OSG::GeoUInt32PropertyRefPtr ind1 = OSG::GeoUInt32Property::create();
+        OSG::GeoUInt32PropertyRefPtr ind2 = OSG::GeoUInt32Property::create();
         
         // fill first index (will be used for positions)
         ind1->push_back(0);     // polygon
@@ -203,7 +200,7 @@ int main(int argc, char **argv)
         /*
             Put it all together into a Geometry NodeCore.
         */
-        GeometryRefPtr geo = Geometry::create();
+        OSG::GeometryRefPtr geo = OSG::Geometry::create();
         geo->setTypes    (type);
         geo->setLengths  (lens);
         
@@ -214,31 +211,31 @@ int main(int argc, char **argv)
            more obvious which properties and indices go together.
         */
         
-        geo->setProperty(pnts,   Geometry::PositionsIndex);
-        geo->setIndex   (ind1,   Geometry::PositionsIndex);
+        geo->setProperty(pnts,   OSG::Geometry::PositionsIndex);
+        geo->setIndex   (ind1,   OSG::Geometry::PositionsIndex);
         
-        geo->setProperty(norms,  Geometry::NormalsIndex  );
-        geo->setIndex   (ind2,   Geometry::NormalsIndex  );
+        geo->setProperty(norms,  OSG::Geometry::NormalsIndex  );
+        geo->setIndex   (ind2,   OSG::Geometry::NormalsIndex  );
         
-        geo->setProperty(colors, Geometry::ColorsIndex   );
-        geo->setIndex   (ind2,   Geometry::ColorsIndex   );
+        geo->setProperty(colors, OSG::Geometry::ColorsIndex   );
+        geo->setIndex   (ind2,   OSG::Geometry::ColorsIndex   );
         
-        geo->setMaterial (getDefaultMaterial());   
+        geo->setMaterial (OSG::getDefaultMaterial());   
         
         // put the geometry core into a node
-        NodeRefPtr n = Node::create();
+        OSG::NodeRefPtr n = OSG::Node::create();
         n->setCore(geo);
         
         // add a transformation to make it move     
-        NodeRefPtr scene = Node::create();
-        trans = Transform::create();
+        OSG::NodeRefPtr scene = OSG::Node::create();
+        trans = OSG::Transform::create();
         scene->setCore(trans);
         scene->addChild(n);
     
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

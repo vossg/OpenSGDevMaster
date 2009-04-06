@@ -137,9 +137,6 @@ static std::string _fp_program =
 "    gl_FragColor = color;\n"
 "}\n";
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 
 // ------------------- global vars ----------------------
 //

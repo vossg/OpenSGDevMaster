@@ -29,9 +29,6 @@
 
 #ifdef OSG_1_COMPAT
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 
 // ------------------- global vars ----------------------
 //

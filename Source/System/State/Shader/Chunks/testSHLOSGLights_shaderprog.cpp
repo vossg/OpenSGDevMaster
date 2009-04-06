@@ -135,23 +135,20 @@ static std::string _fp_program =
 "    gl_FragColor = color;\n"
 "}\n";
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-static SimpleSceneManager *_mgr;
+static OSG::SimpleSceneManager *_mgr;
 // The scene
-static NodeRecPtr       _scene;
-static PointLightRecPtr _point1_core;
-static PointLightRecPtr _point2_core;
-static PointLightRecPtr _point3_core;
+static OSG::NodeRecPtr       _scene;
+static OSG::PointLightRecPtr _point1_core;
+static OSG::PointLightRecPtr _point2_core;
+static OSG::PointLightRecPtr _point3_core;
 
-NodeUnrecPtr point1_beacon;
-NodeUnrecPtr point2_beacon;
-NodeUnrecPtr point3_beacon;
+OSG::NodeUnrecPtr point1_beacon;
+OSG::NodeUnrecPtr point2_beacon;
+OSG::NodeUnrecPtr point3_beacon;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -162,13 +159,13 @@ int doMain(int argc, char **argv)
 {
     printf("Press key '1', '2', or '3' to toggle the light sources.\n");
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+    OSG::GLUTWindowUnrecPtr gwin= OSG::GLUTWindow::create();
 
     gwin->setGlutId(winid);
     gwin->setSize( 800, 800 );
@@ -176,26 +173,28 @@ int doMain(int argc, char **argv)
 
     // Create the shader material
 
-    ChunkMaterialUnrecPtr cmat = ChunkMaterial::create();
+    OSG::ChunkMaterialUnrecPtr cmat = OSG::ChunkMaterial::create();
 
-    MaterialChunkUnrecPtr matc = MaterialChunk::create();
+    OSG::MaterialChunkUnrecPtr matc = OSG::MaterialChunk::create();
 
-    matc->setAmbient(Color4f(0.1, 0.1, 0.1, 1.0));
-    matc->setDiffuse(Color4f(0.3, 0.3, 0.3, 1.0));
-    matc->setSpecular(Color4f(0.8, 0.8, 0.8, 1.0));
+    matc->setAmbient(OSG::Color4f(0.1, 0.1, 0.1, 1.0));
+    matc->setDiffuse(OSG::Color4f(0.3, 0.3, 0.3, 1.0));
+    matc->setSpecular(OSG::Color4f(0.8, 0.8, 0.8, 1.0));
     matc->setShininess(100);
     matc->setLit(true);
 
-    ShaderProgramChunkUnrecPtr shl = ShaderProgramChunk::create();
+    OSG::ShaderProgramChunkUnrecPtr shl = OSG::ShaderProgramChunk::create();
 
-    ShaderProgramUnrecPtr shl_vp = ShaderProgram::createVertexShader();
+    OSG::ShaderProgramUnrecPtr shl_vp = 
+        OSG::ShaderProgram::createVertexShader();
 
     shl_vp->setProgram(_vp_program);
 
     shl->addShader(shl_vp);
 
 
-    ShaderProgramUnrecPtr shl_fp = ShaderProgram::createFragmentShader();
+    OSG::ShaderProgramUnrecPtr shl_fp = 
+        OSG::ShaderProgram::createFragmentShader();
 
     shl_fp->setProgram(_fp_program);
 
@@ -210,14 +209,15 @@ int doMain(int argc, char **argv)
     cmat->addChunk(shl);
 
     // create root node
-    _scene = Node::create();
+    _scene = OSG::Node::create();
 
     // create two light sources.
 
-    TransformUnrecPtr point1_trans;
+    OSG::TransformUnrecPtr point1_trans;
 
-    NodeUnrecPtr point1        = makeCoredNode<PointLight>(&_point1_core);
-    point1_beacon = makeCoredNode<Transform >(&point1_trans);
+    OSG::NodeUnrecPtr point1        = 
+        OSG::makeCoredNode<OSG::PointLight>(&_point1_core);
+    point1_beacon = OSG::makeCoredNode<OSG::Transform >(&point1_trans);
 
     point1_trans->editMatrix().setTranslate(-10.0, 5.0, 5.0);
 
@@ -228,10 +228,11 @@ int doMain(int argc, char **argv)
     _point1_core->setOn(true);
 
 
-    TransformUnrecPtr point2_trans;
+    OSG::TransformUnrecPtr point2_trans;
 
-    NodeUnrecPtr point2        = makeCoredNode<PointLight>(&_point2_core);
-    point2_beacon = makeCoredNode<Transform >(&point2_trans);
+    OSG::NodeUnrecPtr point2        = 
+        OSG::makeCoredNode<OSG::PointLight>(&_point2_core);
+    point2_beacon = OSG::makeCoredNode<OSG::Transform >(&point2_trans);
 
     point2_trans->editMatrix().setTranslate(10.0, 5.0, 5.0);
 
@@ -243,11 +244,12 @@ int doMain(int argc, char **argv)
 
     point1->addChild(point2);
     
-    TransformUnrecPtr point3_trans;
+    OSG::TransformUnrecPtr point3_trans;
 
-    NodeUnrecPtr point3        = makeCoredNode<PointLight>(&_point3_core);
+    OSG::NodeUnrecPtr point3        = 
+        OSG::makeCoredNode<OSG::PointLight>(&_point3_core);
     
-    point3_beacon = makeCoredNode<Transform >(&point3_trans);
+    point3_beacon = OSG::makeCoredNode<OSG::Transform >(&point3_trans);
 
     point3_trans->editMatrix().setTranslate(0.0, -12.0, 5.0);
 
@@ -261,21 +263,21 @@ int doMain(int argc, char **argv)
 
 
     // create a sphere.
-    GeometryUnrecPtr geo = makeLatLongSphereGeo (100, 100, 1.0);
+    OSG::GeometryUnrecPtr geo = OSG::makeLatLongSphereGeo (100, 100, 1.0);
 
     geo->setMaterial(cmat);
 
 
-    NodeUnrecPtr sphere = OSG::makeNodeFor(geo);
+    OSG::NodeUnrecPtr sphere = OSG::makeNodeFor(geo);
 
     point3->addChild(sphere);
 
 
-    _scene->setCore(Group::create());
+    _scene->setCore(OSG::Group::create());
     _scene->addChild(point1);
 
     // create the SimpleSceneManager helper
-    _mgr = new SimpleSceneManager;
+    _mgr = new OSG::SimpleSceneManager;
 
     // tell the manager what to manage
     _mgr->setWindow(gwin );
@@ -287,7 +289,8 @@ int doMain(int argc, char **argv)
     _mgr->showAll();
 
     // enable local lights.
-    RenderAction *ract = dynamic_cast<RenderAction *>(_mgr->getRenderAction());
+    OSG::RenderAction *ract = 
+        dynamic_cast<OSG::RenderAction *>(_mgr->getRenderAction());
 
 //    ract->setLocalLights(true);
 
@@ -360,10 +363,12 @@ void keyboard(unsigned char k, int x, int y)
 
             delete _mgr;
 
+            OSG::osgExit();
+
             exit(1);
         break;
         case 'w':
-            SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
+            OSG::SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
             printf("wrote scene.osb.gz\n");
         break;
         case '1':

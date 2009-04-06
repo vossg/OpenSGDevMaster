@@ -16,15 +16,13 @@
 #include "OSGSimpleSHLChunk.h"
 
 
-OSG_USING_NAMESPACE
+OSG::SimpleSceneManager    *mgr(NULL);
+OSG::RenderAction *tact = NULL;
 
-SimpleSceneManager    *mgr(NULL);
-RenderAction *tact = NULL;
+OSG::PassiveWindowRecPtr              pwin;
+OSG::SimpleStatisticsForegroundRecPtr statfg;
 
-PassiveWindowRecPtr              pwin;
-SimpleStatisticsForegroundRecPtr statfg;
-
-StatCollector         *collector(NULL);
+OSG::StatCollector         *collector(NULL);
 
 bool show = true;
 bool bGLFinish = false;
@@ -125,7 +123,7 @@ void keyboard(unsigned char k, int, int)
             pwin   = NULL;
             statfg = NULL;
 
-            osgExit();
+            OSG::osgExit();
             exit(0);
         }
 
@@ -163,8 +161,8 @@ void keyboard(unsigned char k, int, int)
 #ifdef OSG_OLD_RENDER_ACTION
         case 'z':
         {
-            RenderAction *ract =
-                dynamic_cast<RenderAction *>(mgr->getAction());
+            OSG::RenderAction *ract =
+                dynamic_cast<OSG::RenderAction *>(mgr->getAction());
 
             ract->setZWriteTrans(!ract->getZWriteTrans());
 
@@ -210,12 +208,15 @@ void keyboard(unsigned char k, int, int)
 
         case 's':
         {
-            UInt32 uiSId = SimpleSHLChunk  ::getStaticClassId() & 0x000003FF;
-            UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
-            UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
+            OSG::UInt32 uiSId = 
+                OSG::SimpleSHLChunk  ::getStaticClassId() & 0x000003FF;
+            OSG::UInt32 uiTId = 
+                OSG::TextureBaseChunk::getStaticClassId() & 0x000003FF;
+            OSG::UInt32 uiMId = 
+                OSG::MaterialChunk   ::getStaticClassId() & 0x000003FF;
 
 
-            UInt32 uiKeyGen = (uiSId) | (uiTId << 10) | (uiMId << 20);
+            OSG::UInt32 uiKeyGen = (uiSId) | (uiTId << 10) | (uiMId << 20);
 
             tact->setKeyGen(uiKeyGen);
         }
@@ -233,7 +234,7 @@ void keyboard(unsigned char k, int, int)
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     glutInit(&argc, argv);
@@ -250,12 +251,12 @@ int main(int argc, char **argv)
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);
 
-    pwin = PassiveWindow::create();
+    pwin = OSG::PassiveWindow::create();
     pwin->init();
 
     {
         // create the scene
-        NodeUnrecPtr scene;
+        OSG::NodeUnrecPtr scene;
 
         if(argc > 1 && !strcmp(argv[1],"-s"))
         {
@@ -264,46 +265,46 @@ int main(int argc, char **argv)
             argc--;
         }
 
-        NodeUnrecPtr file;
+        OSG::NodeUnrecPtr file;
 
         if(argc > 1)
         {
-            scene = Node::create();
-            GroupUnrecPtr g = Group::create();
+            scene = OSG::Node::create();
+            OSG::GroupUnrecPtr g = OSG::Group::create();
 
             scene->setCore(g);
 
 
-            for(UInt16 i = 1; i < argc; ++i)
+            for(OSG::UInt16 i = 1; i < argc; ++i)
             {
-                file = SceneFileHandler::the()->read(argv[i]);
+                file = OSG::SceneFileHandler::the()->read(argv[i]);
                 scene->addChild(file);
             }
         }
         else
         {
-            scene = makeTorus(.5, 3, 16, 16);
+            scene = OSG::makeTorus(.5, 3, 16, 16);
         }
 
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
 
         // create the window and initial camera/viewport
         mgr->setWindow(pwin );
         // tell the manager what to manage
         mgr->setRoot  (scene);
 
-        Thread::getCurrentChangeList()->commitChanges();
+        OSG::Thread::getCurrentChangeList()->commitChanges();
 
         // show the whole scene
         mgr->showAll();
 
         // add the statistics forground
 
-        statfg = SimpleStatisticsForeground::create();
+        statfg = OSG::SimpleStatisticsForeground::create();
 
         statfg->setSize(25);
-        statfg->setColor(Color4f(0,1,0,0.7));
+        statfg->setColor(OSG::Color4f(0,1,0,0.7));
 
     #if 0
         statfg->addElement(RenderAction::statDrawTime, "Draw FPS: %r.3f");
@@ -339,7 +340,7 @@ int main(int argc, char **argv)
 
         mgr->setUseTraversalAction(true);
 
-        tact = RenderAction::create();
+        tact = OSG::RenderAction::create();
     //    act  = RenderAction::create();
 
         tact->setStatCollector(collector);

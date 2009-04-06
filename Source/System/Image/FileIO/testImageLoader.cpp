@@ -21,81 +21,81 @@
 
 #include <sstream>
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
 using namespace std;
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
-NodeRecPtr scene;
+OSG::NodeRecPtr scene;
 
-SimpleStatisticsForegroundRecPtr statfg;
-StatElemDesc<OSG::StatStringElem> textureFormatDesc("textureFormat", "The format of the texture");
-StatElemDesc<OSG::StatStringElem> textureDataTypeDesc("textureDataType", "The data type of the texture");
-StatElemDesc<OSG::StatStringElem> textureSizeDesc("textureSize", "The size of the texture");
-StatElemDesc<OSG::StatIntElem> textureDimensionDesc("textureDimension", "The dimension of the texture");
-StatElemDesc<OSG::StatIntElem> textureBPPDesc("textureBPP", "The bytes per pixel of the texture");
-StatElemDesc<OSG::StatIntElem> textureMipMapCountDesc("textureMipMapCount", "The mipmap count of the texture");
-StatElemDesc<OSG::StatIntElem> textureFrameCountDesc("textureFrameCount", "The frame count of the texture");
+OSG::SimpleStatisticsForegroundRecPtr statfg;
+OSG::StatElemDesc<OSG::StatStringElem> textureFormatDesc("textureFormat", "The format of the texture");
+OSG::StatElemDesc<OSG::StatStringElem> textureDataTypeDesc("textureDataType", "The data type of the texture");
+OSG::StatElemDesc<OSG::StatStringElem> textureSizeDesc("textureSize", "The size of the texture");
+OSG::StatElemDesc<OSG::StatIntElem> textureDimensionDesc("textureDimension", "The dimension of the texture");
+OSG::StatElemDesc<OSG::StatIntElem> textureBPPDesc("textureBPP", "The bytes per pixel of the texture");
+OSG::StatElemDesc<OSG::StatIntElem> textureMipMapCountDesc("textureMipMapCount", "The mipmap count of the texture");
+OSG::StatElemDesc<OSG::StatIntElem> textureFrameCountDesc("textureFrameCount", "The frame count of the texture");
 
 std::string szFilename;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
 
-void updateScene(const std::string &filename, Image::PixelFormat compressTo = Image::OSG_INVALID_PF)
+void updateScene(const std::string &filename, OSG::Image::PixelFormat compressTo = OSG::Image::OSG_INVALID_PF)
 {
     // Try to create the new image
-    ImageRecPtr imagePtr = ImageFileHandler::the()->read(filename.c_str());
+    OSG::ImageRecPtr imagePtr = 
+        OSG::ImageFileHandler::the()->read(filename.c_str());
 
     if (imagePtr == NULL)
         return;
 
-    if(compressTo != Image::OSG_INVALID_PF)
+    if(compressTo != OSG::Image::OSG_INVALID_PF)
     {
         imagePtr->reformat(compressTo);
     }
 
     // Update information on the screen
-    StatStringElem *statElem = statfg->editCollector()->getElem(textureFormatDesc);
+    OSG::StatStringElem *statElem = 
+        statfg->editCollector()->getElem(textureFormatDesc);
 
     switch (imagePtr->getPixelFormat())
     {
-        case Image::OSG_A_PF:
+        case OSG::Image::OSG_A_PF:
             statElem->set("OSG_A_PF");
             break;
-        case Image::OSG_I_PF:
+        case OSG::Image::OSG_I_PF:
             statElem->set("OSG_I_PF");
             break;
-        case Image::OSG_L_PF:
+        case OSG::Image::OSG_L_PF:
             statElem->set("OSG_L_PF");
             break;
-        case Image::OSG_LA_PF:
+        case OSG::Image::OSG_LA_PF:
             statElem->set("OSG_LA_PF");
             break;
-        case Image::OSG_RGB_PF:
+        case OSG::Image::OSG_RGB_PF:
             statElem->set("OSG_RGB_PF");
             break;
-        case Image::OSG_RGBA_PF:
+        case OSG::Image::OSG_RGBA_PF:
             statElem->set("OSG_RGBA_PF");
             break;
-        case Image::OSG_BGR_PF:
+        case OSG::Image::OSG_BGR_PF:
             statElem->set("OSG_BGRA_PF");
             break;
-        case Image::OSG_BGRA_PF:
+        case OSG::Image::OSG_BGRA_PF:
             statElem->set("OSG_BGRA_PF");
             break;
-        case Image::OSG_RGB_DXT1:
+        case OSG::Image::OSG_RGB_DXT1:
             statElem->set("OSG_RGB_DXT1");
             break;
-        case Image::OSG_RGBA_DXT1:
+        case OSG::Image::OSG_RGBA_DXT1:
             statElem->set("OSG_RGBA_DXT1");
             break;
-        case Image::OSG_RGBA_DXT3:
+        case OSG::Image::OSG_RGBA_DXT3:
             statElem->set("OSG_RGBA_DXT3");
             break;
-        case Image::OSG_RGBA_DXT5:
+        case OSG::Image::OSG_RGBA_DXT5:
             statElem->set("OSG_RGBA_DXT5");
             break;
         default:
@@ -105,19 +105,19 @@ void updateScene(const std::string &filename, Image::PixelFormat compressTo = Im
     statElem = statfg->editCollector()->getElem(textureDataTypeDesc);
     switch (imagePtr->getDataType())
     {
-        case Image::OSG_UINT8_IMAGEDATA:
+        case OSG::Image::OSG_UINT8_IMAGEDATA:
             statElem->set("OSG_UINT8_IMAGEDATA");
             break;
-        case Image::OSG_UINT16_IMAGEDATA:
+        case OSG::Image::OSG_UINT16_IMAGEDATA:
             statElem->set("OSG_UINT16_IMAGEDATA");
             break;
-        case Image::OSG_UINT32_IMAGEDATA:
+        case OSG::Image::OSG_UINT32_IMAGEDATA:
             statElem->set("OSG_UINT32_IMAGEDATA");
             break;
-        case Image::OSG_FLOAT16_IMAGEDATA:
+        case OSG::Image::OSG_FLOAT16_IMAGEDATA:
             statElem->set("OSG_FLOAT16_IMAGEDATA");
             break;
-        case Image::OSG_FLOAT32_IMAGEDATA:
+        case OSG::Image::OSG_FLOAT32_IMAGEDATA:
             statElem->set("OSG_FLOAT32_IMAGEDATA");
             break;
         default:
@@ -133,34 +133,34 @@ void updateScene(const std::string &filename, Image::PixelFormat compressTo = Im
     statfg->editCollector()->getElem(textureFrameCountDesc)->set(imagePtr->getFrameCount());
 
     // Put it all together into a Geometry NodeCore.
-    GeometryRecPtr geo = makePlaneGeo(imagePtr->getWidth(), imagePtr->getHeight(), 1, 1);
-    NodeRecPtr imageNode = Node::create();
+    OSG::GeometryRecPtr geo = OSG::makePlaneGeo(imagePtr->getWidth(), imagePtr->getHeight(), 1, 1);
+    OSG::NodeRecPtr imageNode = OSG::Node::create();
     imageNode->setCore(geo);
-    NodeRecPtr transNodePtr = Node::create();
-    TransformRecPtr transPtr = Transform::create();
-    Matrix transMatrix;
+    OSG::NodeRecPtr transNodePtr = OSG::Node::create();
+    OSG::TransformRecPtr transPtr = OSG::Transform::create();
+    OSG::Matrix transMatrix;
     transMatrix.setTranslate(0.f, 0.f, -1.f);
     transPtr->setMatrix(transMatrix);
     transNodePtr->setCore(transPtr);
     transNodePtr->addChild(imageNode);
 
-    TextureObjChunkRecPtr texObjChunk = TextureObjChunk::create();
+    OSG::TextureObjChunkRecPtr texObjChunk = OSG::TextureObjChunk::create();
     texObjChunk->setImage(imagePtr);
     texObjChunk->setWrapS(GL_CLAMP);
     texObjChunk->setWrapT(GL_CLAMP);
     texObjChunk->setMagFilter(GL_NEAREST);
     texObjChunk->setMinFilter(GL_NEAREST);
-    TextureEnvChunkRecPtr texEnvChunk = TextureEnvChunk::create();
+    OSG::TextureEnvChunkRecPtr texEnvChunk = OSG::TextureEnvChunk::create();
     texEnvChunk->setEnvMode(GL_MODULATE);
 
-    MaterialChunkRecPtr matChunk = MaterialChunk::create();
-    matChunk->setAmbient(Color4f(1.f, 1.f, 1.f, 1.f));
-    matChunk->setDiffuse(Color4f(1.f, 1.f, 1.f, 1.f));
-    matChunk->setEmission(Color4f(0.f, 0.f, 0.f, 1.f));
-    matChunk->setSpecular(Color4f(0.f, 0.f, 0.f, 1.f));
+    OSG::MaterialChunkRecPtr matChunk = OSG::MaterialChunk::create();
+    matChunk->setAmbient(OSG::Color4f(1.f, 1.f, 1.f, 1.f));
+    matChunk->setDiffuse(OSG::Color4f(1.f, 1.f, 1.f, 1.f));
+    matChunk->setEmission(OSG::Color4f(0.f, 0.f, 0.f, 1.f));
+    matChunk->setSpecular(OSG::Color4f(0.f, 0.f, 0.f, 1.f));
     matChunk->setShininess(0);
 
-    ChunkMaterialRecPtr m = ChunkMaterial::create();
+    OSG::ChunkMaterialRecPtr m = OSG::ChunkMaterial::create();
     m->addChunk(texObjChunk);
     m->addChunk(texEnvChunk);
     m->addChunk(matChunk);
@@ -170,10 +170,12 @@ void updateScene(const std::string &filename, Image::PixelFormat compressTo = Im
     scene->clearChildren();
     scene->addChild(transNodePtr);
 
-    if(compressTo != Image::OSG_INVALID_PF)
+    if(compressTo != OSG::Image::OSG_INVALID_PF)
     {
-        SceneFileHandler::the()->write(scene->getChild(0), "/tmp/comp.osb");
-        SceneFileHandler::the()->write(scene->getChild(0), "/tmp/comp.osg");
+        OSG::SceneFileHandler::the()->write(scene->getChild(0), 
+                                            "/tmp/comp.osb");
+        OSG::SceneFileHandler::the()->write(scene->getChild(0), 
+                                            "/tmp/comp.osg");
     }
 
 }
@@ -182,24 +184,24 @@ void updateScene(const std::string &filename, Image::PixelFormat compressTo = Im
 int doMain(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowRecPtr gwin= GLUTWindow::create();
+    OSG::GLUTWindowRecPtr gwin= OSG::GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->init();
 
     // put the geometry core into a node
-    scene = Node::create();
-    GroupRecPtr groupPtr = Group::create();
+    scene = OSG::Node::create();
+    OSG::GroupRecPtr groupPtr = OSG::Group::create();
     scene->setCore(groupPtr);
 
-    statfg = SimpleStatisticsForeground::create();
+    statfg = OSG::SimpleStatisticsForeground::create();
     statfg->setSize(25);
-    statfg->setColor(Color4f(0,1,0,0.9));
+    statfg->setColor(OSG::Color4f(0,1,0,0.9));
     statfg->addElement(textureFormatDesc, "Pixel Format: %s");
     statfg->addElement(textureDataTypeDesc, "Data Type: %s");
     statfg->addElement(textureSizeDesc, "Texture Size: %s");
@@ -209,8 +211,8 @@ int doMain(int argc, char **argv)
     statfg->addElement(textureFrameCountDesc, "FrameCount: %i");
 
     // Create the background
-    SolidBackgroundRecPtr bg = SolidBackground::create();
-    bg->setColor(Color3f(0.1, 0.1, 0.5));
+    OSG::SolidBackgroundRecPtr bg = OSG::SolidBackground::create();
+    bg->setColor(OSG::Color3f(0.1, 0.1, 0.5));
 
     if (argc < 2)
     {
@@ -223,7 +225,7 @@ int doMain(int argc, char **argv)
     szFilename = argv[1];
 
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
 
     // tell the manager what to manage
     mgr->setWindow(gwin );
@@ -297,23 +299,23 @@ void keyboard(unsigned char k, int x, int y)
             delete mgr;
             scene  = NULL;
             statfg = NULL;
-            osgExit();
+            OSG::osgExit();
             exit(0);
         }
         case '0':
             updateScene(szFilename);
             break;
         case '1':
-            updateScene(szFilename, Image::OSG_RGB_DXT1);
+            updateScene(szFilename, OSG::Image::OSG_RGB_DXT1);
             break;
         case '2':
-            updateScene(szFilename, Image::OSG_RGBA_DXT1);
+            updateScene(szFilename, OSG::Image::OSG_RGBA_DXT1);
             break;
         case '3':
-            updateScene(szFilename, Image::OSG_RGBA_DXT3);
+            updateScene(szFilename, OSG::Image::OSG_RGBA_DXT3);
             break;
         case '5':
-            updateScene(szFilename, Image::OSG_RGBA_DXT5);
+            updateScene(szFilename, OSG::Image::OSG_RGBA_DXT5);
             break;
                 
         break;

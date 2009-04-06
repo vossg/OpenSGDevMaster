@@ -27,15 +27,12 @@
 #include <OSGPassiveWindow.h>
 #include <OSGSimpleSceneManager.h>
 
-OSG_USING_NAMESPACE
-
-
 class OpenSGWidget : public QGLWidget
 {
 public:
     OpenSGWidget(const QGLFormat &f, QWidget *parent=0);
 
-    SimpleSceneManager *getManager(void);
+    OSG::SimpleSceneManager *getManager(void);
 protected:
     void initializeGL();
     void resizeGL( int, int );
@@ -45,20 +42,20 @@ protected:
     void mouseReleaseEvent( QMouseEvent *ev );
     void wheelEvent( QWheelEvent *ev );
 
-    SimpleSceneManager *mgr;
-    PassiveWindowRecPtr    pwin;
+    OSG::SimpleSceneManager *mgr;
+    OSG::PassiveWindowRecPtr    pwin;
 };
 
 OpenSGWidget::OpenSGWidget(const QGLFormat &f, QWidget *parent)
      : QGLWidget(f, parent)
 {
     setAutoBufferSwap(false);
-    mgr = new SimpleSceneManager;
-    pwin = PassiveWindow::create();
+    mgr = new OSG::SimpleSceneManager;
+    pwin = OSG::PassiveWindow::create();
     mgr->setWindow(pwin);
 }
 
-SimpleSceneManager *OpenSGWidget::getManager(void)
+OSG::SimpleSceneManager *OpenSGWidget::getManager(void)
 {
     return mgr;
 }
@@ -82,13 +79,19 @@ void OpenSGWidget::paintGL()
 
 void OpenSGWidget::mousePressEvent( QMouseEvent *ev )
 {
-    UInt32 button;
+    OSG::UInt32 button;
     
     switch ( ev->button() ) 
     {
-        case Qt::LeftButton:  button = SimpleSceneManager::MouseLeft;   break;
-        case Qt::MidButton:   button = SimpleSceneManager::MouseMiddle; break;
-        case Qt::RightButton: button = SimpleSceneManager::MouseRight;  break;
+        case Qt::LeftButton:  
+            button = OSG::SimpleSceneManager::MouseLeft;   
+            break;
+        case Qt::MidButton:   
+            button = OSG::SimpleSceneManager::MouseMiddle; 
+            break;
+        case Qt::RightButton: 
+            button = OSG::SimpleSceneManager::MouseRight;  
+            break;
         default:          return;
     }
     mgr->mouseButtonPress(button, ev->x(), ev->y());
@@ -97,13 +100,19 @@ void OpenSGWidget::mousePressEvent( QMouseEvent *ev )
 
 void OpenSGWidget::mouseReleaseEvent( QMouseEvent *ev )
 {
-    UInt32 button;
+    OSG::UInt32 button;
     
     switch ( ev->button() ) 
     {
-        case Qt::LeftButton:  button = SimpleSceneManager::MouseLeft;   break;
-        case Qt::MidButton:   button = SimpleSceneManager::MouseMiddle; break;
-        case Qt::RightButton: button = SimpleSceneManager::MouseRight;  break;
+        case Qt::LeftButton:  
+            button = OSG::SimpleSceneManager::MouseLeft;   
+            break;
+        case Qt::MidButton:   
+            button = OSG::SimpleSceneManager::MouseMiddle; 
+            break;
+        case Qt::RightButton: 
+            button = OSG::SimpleSceneManager::MouseRight;  
+            break;
         default:          return;
     }
     mgr->mouseButtonRelease(button, ev->x(), ev->y());
@@ -118,8 +127,8 @@ void OpenSGWidget::mouseMoveEvent( QMouseEvent *ev )
 
 void OpenSGWidget::wheelEvent( QWheelEvent *ev )
 {
-    mgr->mouseButtonPress(ev->delta() > 0 ? SimpleSceneManager::MouseUp
-                                          : SimpleSceneManager::MouseDown, 
+    mgr->mouseButtonPress(ev->delta() > 0 ? OSG::SimpleSceneManager::MouseUp
+                                          : OSG::SimpleSceneManager::MouseDown, 
                           ev->x(), ev->y());
     
     ev->accept();
@@ -129,7 +138,7 @@ void OpenSGWidget::wheelEvent( QWheelEvent *ev )
 
 int main( int argc, char **argv )
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     QApplication::setColorSpec( QApplication::CustomColor );
     QApplication a( argc, argv );
@@ -143,21 +152,21 @@ int main( int argc, char **argv )
                              QGL::DirectRendering));
 
     // create the scene
-    NodeRecPtr scene;
+    OSG::NodeRecPtr scene;
     
     if(argc > 1)
     {
-        scene = Node::create();
-        GroupRecPtr g = Group::create();
+        scene = OSG::Node::create();
+        OSG::GroupRecPtr g = OSG::Group::create();
 
         scene->setCore(g);
         
-        for(UInt16 i = 1; i < argc; ++i)
-            scene->addChild(SceneFileHandler::the()->read(argv[i]));
+        for(OSG::UInt16 i = 1; i < argc; ++i)
+            scene->addChild(OSG::SceneFileHandler::the()->read(argv[i]));
     }
     else
     {
-        scene = makeTorus(.5, 3, 16, 16);
+        scene = OSG::makeTorus(.5, 3, 16, 16);
     }
 
     w.getManager()->setRoot(scene);

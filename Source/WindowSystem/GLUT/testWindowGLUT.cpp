@@ -41,42 +41,40 @@
 
 #include "OSGTrackball.h"
 
-using namespace OSG;
+OSG::RenderAction *rentravact;
 
-RenderAction *rentravact;
+OSG::NodeRecPtr  root;
 
-NodeRecPtr  root;
+OSG::NodeRecPtr  file;
 
-NodeRecPtr  file;
+OSG::PerspectiveCameraRecPtr cam;
+OSG::ViewportRecPtr vp;
+OSG::WindowRecPtr win;
 
-PerspectiveCameraRecPtr cam;
-ViewportRecPtr vp;
-WindowRecPtr win;
+OSG::TransformRecPtr cam_trans;
+OSG::TransformRecPtr scene_trans;
 
-TransformRecPtr cam_trans;
-TransformRecPtr scene_trans;
-
-PolygonChunkRecPtr       pPoly;
+OSG::PolygonChunkRecPtr       pPoly;
 bool                     bPolyActive = false;
-ChunkOverrideGroupRecPtr pCOver;
+OSG::ChunkOverrideGroupRecPtr pCOver;
 
-GLUTWindowUnrecPtr gwin;
+OSG::GLUTWindowUnrecPtr gwin;
 
-Trackball tball;
+OSG::Trackball tball;
 
 bool move_obj = false;
 
 int mouseb = 0;
 int lastx=0, lasty=0;
 
-Quaternion oldq;
-Vec3f      oldv;
+OSG::Quaternion oldq;
+OSG::Vec3f      oldv;
 
 void 
 display(void)
 {
-    Matrix m1, m2, m3;
-    Quaternion q1;
+    OSG::Matrix m1, m2, m3;
+    OSG::Quaternion q1;
 
     tball.getRotation().getValue(m3);
 
@@ -111,7 +109,7 @@ display(void)
         cam_trans->editSFMatrix()->setValue( m1 );
     }
 
-    commitChanges();
+    OSG::commitChanges();
 
     win->render(rentravact);
 
@@ -141,13 +139,13 @@ animate(void)
 void
 motion(int x, int y)
 {   
-    Real32 w = win->getWidth(), h = win->getHeight();
+    OSG::Real32 w = win->getWidth(), h = win->getHeight();
     
 
-    Real32  a = -2. * ( lastx / w - .5 ),
-                b = -2. * ( .5 - lasty / h ),
-                c = -2. * ( x / w - .5 ),
-                d = -2. * ( .5 - y / h );
+    OSG::Real32  a = -2. * ( lastx / w - .5 ),
+                 b = -2. * ( .5 - lasty / h ),
+                 c = -2. * ( x / w - .5 ),
+                 d = -2. * ( .5 - y / h );
 
     if ( mouseb & ( 1 << GLUT_LEFT_BUTTON ) )
     {
@@ -227,7 +225,7 @@ void key(unsigned char key, int x, int y)
 
             delete rentravact;
 
-            osgExit(); 
+            OSG::osgExit(); 
 
             exit(0);
         case 'v':
@@ -272,7 +270,7 @@ void key(unsigned char key, int x, int y)
         case 'r':   
         {
             std::cerr << "Sending ray through " << x << "," << y << std::endl;
-            Line l;
+            OSG::Line l;
             cam->calcViewRay( l, x, y, *vp );
             std::cerr << "From " << l.getPosition() << ", dir " 
                       << l.getDirection()
@@ -282,9 +280,9 @@ void key(unsigned char key, int x, int y)
 
         case ' ':
         {
-            Matrix     m;
-            Quaternion q;
-            Vec3f      v;
+            OSG::Matrix     m;
+            OSG::Quaternion q;
+            OSG::Vec3f      v;
 
             q = oldq;
             v = oldv;
@@ -324,7 +322,7 @@ void key(unsigned char key, int x, int y)
 
 int init(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     // GLUT init
 
@@ -350,19 +348,19 @@ int init(int argc, char **argv)
 
     // OSG
 
-    SceneFileHandler::the()->print();
+    OSG::SceneFileHandler::the()->print();
 
     // create the graph
 
     // beacon for camera and light  
-    NodeUnrecPtr b1n = Node::create();
-    GroupUnrecPtr b1 = Group::create();
+    OSG::NodeUnrecPtr b1n = OSG::Node::create();
+    OSG::GroupUnrecPtr b1 = OSG::Group::create();
 
     b1n->setCore( b1 );
 
     // transformation
-    NodeUnrecPtr t1n = Node::create();
-    TransformUnrecPtr t1 = Transform::create();
+    OSG::NodeUnrecPtr t1n = OSG::Node::create();
+    OSG::TransformUnrecPtr t1 = OSG::Transform::create();
 
     t1n->setCore( t1 );
     t1n->addChild( b1n );
@@ -371,8 +369,8 @@ int init(int argc, char **argv)
 
     // light
     
-    NodeUnrecPtr dlight = Node::create();
-    DirectionalLightUnrecPtr dl = DirectionalLight::create();
+    OSG::NodeUnrecPtr dlight = OSG::Node::create();
+    OSG::DirectionalLightUnrecPtr dl = OSG::DirectionalLight::create();
 
     dlight->setCore( dl );
 //    dlight->setCore( Group::create() );
@@ -383,8 +381,8 @@ int init(int argc, char **argv)
     dl->setBeacon( b1n);
 
     // root
-    root = Node::create();
-    GroupUnrecPtr gr1 = Group::create();
+    root = OSG::Node::create();
+    OSG::GroupUnrecPtr gr1 = OSG::Group::create();
 
     root->setCore( gr1 );
     root->addChild( t1n );
@@ -392,25 +390,25 @@ int init(int argc, char **argv)
 
     // Load the file
 
-    NodeUnrecPtr file = NULL;
+    OSG::NodeUnrecPtr file = NULL;
     
     if(argc > 1)
-        file = SceneFileHandler::the()->read(argv[1], NULL);
+        file = OSG::SceneFileHandler::the()->read(argv[1], NULL);
     
     if ( file == NULL )
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
 
-        file = makeSphere(4, 2.0);
+        file = OSG::makeSphere(4, 2.0);
 
     }
 
 #if 0
-    GeometryPtr pGeo = cast_dynamic<GeometryPtr>(file->getCore());
+    OSG::GeometryPtr pGeo = cast_dynamic<OSG::GeometryPtr>(file->getCore());
     
     if(pGeo == NULL && file->getNChildren() != 0)
     {
-        pGeo = cast_dynamic<GeometryPtr>(file->getChild(0)->getCore());
+        pGeo = cast_dynamic<OSG::GeometryPtr>(file->getChild(0)->getCore());
     }
 
     if(pGeo == NULL)
@@ -419,13 +417,13 @@ int init(int argc, char **argv)
     }
 #endif
 
-    GraphOpRefPtr op = GraphOpFactory::the()->create("Stripe");
+    OSG::GraphOpRefPtr op = OSG::GraphOpFactory::the()->create("Stripe");
 
     op->traverse(file);
 //   createOptimizedPrimitives(pGeo);
 //    createSharedIndex(pGeo);
     
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
 
 //    file->dump();
     file->updateVolume();
@@ -456,7 +454,7 @@ int init(int argc, char **argv)
 //    return 0;
 
 
-    Vec3f min,max;
+    OSG::Vec3f min,max;
     file->getVolume().getBounds( min, max );
     
 
@@ -469,15 +467,15 @@ int init(int argc, char **argv)
 //    pChunkOverNode->setCore(pCOver);
 //    pChunkOverNode->addChild(file);
 
-    MultiCoreUnrecPtr pMCore = MultiCore::create();
+    OSG::MultiCoreUnrecPtr pMCore = OSG::MultiCore::create();
 
-    pCOver      = ChunkOverrideGroup::create();
-    scene_trans = Transform::create();
+    pCOver      = OSG::ChunkOverrideGroup::create();
+    scene_trans = OSG::Transform::create();
 
     pMCore->addCore(scene_trans);
     pMCore->addCore(pCOver     );
 
-    NodeUnrecPtr sceneTrN = Node::create();
+    OSG::NodeUnrecPtr sceneTrN = OSG::Node::create();
 
     sceneTrN->setCore(pMCore);
     sceneTrN->addChild(file);
@@ -490,21 +488,21 @@ int init(int argc, char **argv)
 
     // Camera
     
-    cam = PerspectiveCamera::create();
+    cam = OSG::PerspectiveCamera::create();
 
     cam->setBeacon( b1n );
-    cam->setFov( osgDegree2Rad( 90 ) );
+    cam->setFov( OSG::osgDegree2Rad( 90 ) );
     cam->setNear( 0.1 );
     cam->setFar( 100000 );
 
     // Background
-    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
+    OSG::SolidBackgroundUnrecPtr bkgnd = OSG::SolidBackground::create();
 
-    bkgnd->setColor(Color3f(1,0,0));
+    bkgnd->setColor(OSG::Color3f(1,0,0));
     
     // Viewport
 
-    vp = Viewport::create();
+    vp = OSG::Viewport::create();
 
     vp->setCamera( cam );
     vp->setBackground( bkgnd );
@@ -521,7 +519,7 @@ int init(int argc, char **argv)
 
     glGetIntegerv( GL_VIEWPORT, glvp );
 
-    gwin = GLUTWindow::create();
+    gwin = OSG::GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->setSize( glvp[2], glvp[3] );
 
@@ -533,41 +531,43 @@ int init(int argc, char **argv)
 
     // Action
     
-    rentravact = RenderAction::create();
+    rentravact = OSG::RenderAction::create();
 //    renact->setFrustumCulling(false);
 
 
     // tball
 
-    Vec3f pos;
+    OSG::Vec3f pos;
     pos.setValues(min[0] + ((max[0] - min[0]) * 0.5), 
                   min[1] + ((max[1] - min[1]) * 0.5), 
                   max[2] + ( max[2] - min[2] ) * 1.5 );
     
     float scale = (max[2] - min[2] + max[1] - min[1] + max[0] - min[0]) / 6;
 
-    Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
-                  min[1] + (max[1] - min[1]) / 2,
-                  min[2] + (max[2] - min[2]) / 2);
+    OSG::Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
+                       min[1] + (max[1] - min[1]) / 2,
+                       min[2] + (max[2] - min[2]) / 2);
 
     fprintf(stderr, "Startpos : %f %f %f\n", pos[0], pos[1], pos[2]);
 
-    tball.setMode( Trackball::OSGObject );
+    tball.setMode( OSG::Trackball::OSGObject );
     tball.setStartPosition( pos, true );
     tball.setSum( true );
-    tball.setTranslationMode( Trackball::OSGFree );
+    tball.setTranslationMode( OSG::Trackball::OSGFree );
     tball.setTranslationScale(scale);
     tball.setRotationCenter(tCenter);
 
-    fprintf(stderr, "%d\n", MFUnrecNodePtr          ::getClassType().getId());
-    fprintf(stderr, "%d\n", MFUnrecFieldContainerPtr::getClassType().getId());
+    fprintf(stderr, "%d\n", 
+            OSG::MFUnrecNodePtr          ::getClassType().getId());
+    fprintf(stderr, "%d\n", 
+            OSG::MFUnrecFieldContainerPtr::getClassType().getId());
 
 //    MFNodePtr          ::getClassType().dump();
 //    MFFieldContainerPtr::getClassType().dump();
 
     // run...
     
-    pPoly = PolygonChunk::create();
+    pPoly = OSG::PolygonChunk::create();
 
     pCOver->subChunk(pPoly);
 

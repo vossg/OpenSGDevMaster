@@ -35,14 +35,12 @@
 #include <OpenSG/OSGRenderAction.h>
 #endif
 
-OSG_USING_NAMESPACE
-
 // local glut window
-GLUTWindowRefPtr  window;
+OSG::GLUTWindowRefPtr  window;
 // render action
-RenderAction     *ract;
+OSG::RenderAction     *ract;
 // pointer the the cluster server instance
-ClusterServer    *server;
+OSG::ClusterServer    *server;
 
 // forward declaration so we can have the interesting stuff upfront
 void display(void);
@@ -81,17 +79,17 @@ int main(int argc, char **argv)
                 case 'a': address = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(address.empty())
                           { 
-                              SLOG << "address missing" << endLog;
+                              SLOG << "address missing" << OSG::endLog;
                               return 0;
                           }
-                          std::cout << address << endLog;
+                          std::cout << address << OSG::endLog;
                           break;
                 default:  std::cout << argv[0] 
                                     << "-m "
                                     << "-p "
                                     << "-w "
                                     << "-a address "
-                                    << endLog;
+                                    << OSG::endLog;
                           return 0;
             }
         }
@@ -103,7 +101,7 @@ int main(int argc, char **argv)
     try
     {
         // init OpenSG
-        osgInit(argc, argv);
+        OSG::osgInit(argc, argv);
 
         winid = glutCreateWindow(name);
         if(fullscreen)
@@ -118,15 +116,15 @@ int main(int argc, char **argv)
         glutSetCursor(GLUT_CURSOR_NONE);
 
         // create the render action
-        ract = RenderAction::create();
+        ract = OSG::RenderAction::create();
 
         // setup the OpenSG Glut window
-        window     = GLUTWindow::create();
+        window     = OSG::GLUTWindow::create();
         window->setGlutId(winid);
         window->init();
 
         // create the cluster server
-        server     = new ClusterServer(window,name,connectionType,address);
+        server     = new OSG::ClusterServer(window,name,connectionType,address);
         // start the server
         server->start();
 
@@ -135,14 +133,14 @@ int main(int argc, char **argv)
     }
     catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
     {
-        SLOG << e.what() << endLog;
+        SLOG << e.what() << OSG::endLog;
         
         // clean up global variables
         delete server;
         delete ract;
         window = NULL;
         
-        osgExit(); 
+        OSG::osgExit(); 
     }
     return 0;
 }
@@ -159,7 +157,7 @@ void display()
     } 
     catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
     {
-        SLOG << e.what() << endLog;
+        SLOG << e.what() << OSG::endLog;
         
         window->clearPorts();
 

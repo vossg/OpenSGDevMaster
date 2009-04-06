@@ -38,21 +38,18 @@
 #endif
 
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // the Switch Core
-SwitchRefPtr sw;
+OSG::SwitchRefPtr sw;
 
 // number of copies to create
-const UInt16 ncopies = 10;
+const OSG::UInt16 ncopies = 10;
 
 // Transforms to move the nodes
-TransformRefPtr trans[ncopies];
+OSG::TransformRefPtr trans[ncopies];
 
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -61,22 +58,23 @@ int setupGLUT( int *argc, char *argv[] );
 void display( void )
 {
     // create the matrix
-    Matrix m;
-    Real32 t = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Matrix m;
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
     
     // set the transforms' matrices
-    for(UInt16 i=0; i<ncopies; ++i)
+    for(OSG::UInt16 i=0; i<ncopies; ++i)
     {
-        m.setTransform(Vec3f(      osgSin(t / 1000.f + i * 4 * ncopies / Pi), 
-                                   osgCos(t / 1000.f + i * 6 * ncopies / Pi), 
-                                   osgSin(t / 1000.f + i * 7 * ncopies / Pi)),
-                       Quaternion( Vec3f (1,1,0), 
-                                          t / 1000.f + i * 4 * ncopies / Pi));
+        m.setTransform(
+            OSG::Vec3f(OSG::osgSin(t / 1000.f + i * 4 * ncopies / OSG::Pi), 
+                       OSG::osgCos(t / 1000.f + i * 6 * ncopies / OSG::Pi), 
+                       OSG::osgSin(t / 1000.f + i * 7 * ncopies / OSG::Pi)),
+            OSG::Quaternion(OSG::Vec3f (1,1,0), 
+                            t / 1000.f + i * 4 * ncopies / OSG::Pi));
     
         trans[i]->setMatrix(m);
     }
     
-    commitChanges();
+    OSG::commitChanges();
     
     mgr->redraw();
 }
@@ -90,7 +88,7 @@ void update(void)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -101,14 +99,14 @@ int main(int argc, char **argv)
     {
     
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // create the scene
         
         // this time, create just the core of the geometry
-        GeometryRefPtr torus = makeTorusGeo( .5, 2, 8, 12 );
+        OSG::GeometryRefPtr torus = OSG::makeTorusGeo( .5, 2, 8, 12 );
     
         // create the scene
         // the scene has a single group with ncopies transformations below,
@@ -123,26 +121,26 @@ int main(int argc, char **argv)
         */
         
         // create the root Switch node
-        NodeRefPtr  scene = Node::create();
+        OSG::NodeRefPtr  scene = OSG::Node::create();
         
-        sw = Switch::create();
-        sw->setChoice(Switch::ALL);
+        sw = OSG::Switch::create();
+        sw->setChoice(OSG::Switch::ALL);
         
         scene->setCore(sw);
         
         // create the copied geometry nodes and their transformations
-        for(UInt16 i = 0; i<ncopies; ++i)
+        for(OSG::UInt16 i = 0; i<ncopies; ++i)
         {
             // create the nodes for the shared Geometry core
-            NodeRefPtr geonode = Node::create();
+            OSG::NodeRefPtr geonode = OSG::Node::create();
             
             // assign the Core to the Node
             geonode->setCore(torus);
     
             // add a transformation for every Geometry
-            NodeRefPtr transnode = Node::create();
+            OSG::NodeRefPtr transnode = OSG::Node::create();
             
-            trans[i] = Transform::create();
+            trans[i] = OSG::Transform::create();
             
             transnode->setCore (trans[i]);
             transnode->addChild(geonode );
@@ -150,10 +148,10 @@ int main(int argc, char **argv)
             scene->addChild(transnode);
         }
         
-        commitChanges();
+        OSG::commitChanges();
         
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -206,13 +204,13 @@ void keyboard(unsigned char k, int , int )
         case 27:
         {
             // clean up global variables
-            for(UInt32 i = 0; i < ncopies; ++i)
+            for(OSG::UInt32 i = 0; i < ncopies; ++i)
                 trans[i] = NULL;
             
             sw = NULL;
             delete mgr;
             
-            osgExit();
+            OSG::osgExit();
             exit(1);
         }
         break;
@@ -227,13 +225,13 @@ void keyboard(unsigned char k, int , int )
 
         case 'a':
         {
-            sw->setChoice(Switch::ALL); 
+            sw->setChoice(OSG::Switch::ALL); 
         }
         break;
 
         case 'n':
         {
-            sw->setChoice(Switch::NONE); 
+            sw->setChoice(OSG::Switch::NONE); 
         }
         break;
     }

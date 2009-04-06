@@ -27,16 +27,13 @@
 #include <string>
 #include <vector>
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager          *_mgr = NULL;
-GLUTWindowRecPtr            _client_win = NULL;
-MultiDisplayWindowRecPtr    _cluster_win = NULL;
-NodeRecPtr                  _root = NULL;
+OSG::SimpleSceneManager          *_mgr = NULL;
+OSG::GLUTWindowRecPtr            _client_win = NULL;
+OSG::MultiDisplayWindowRecPtr    _cluster_win = NULL;
+OSG::NodeRecPtr                  _root = NULL;
 std::vector<std::string>    _pipenames;
-UInt32                      _first_fc = 0;
+OSG::UInt32                      _first_fc = 0;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -54,14 +51,14 @@ int doMain(int argc, char **argv)
               << std::endl;
     
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
 
-    _client_win = GLUTWindow::create();
+    _client_win = OSG::GLUTWindow::create();
 
     // this is our first created fieldcontainer pointer we need this
     // to skip the prototypes in createCurrentStateChangeList().
@@ -69,13 +66,13 @@ int doMain(int argc, char **argv)
 
     fprintf(stderr, "%d -> %d\n", 
             _first_fc,
-            FieldContainerFactory::the()->getNumContainers());
+            OSG::FieldContainerFactory::the()->getNumContainers());
 
     _client_win->setGlutId(winid);
     _client_win->init();
     _client_win->setSize(300,300);
     
-    for(UInt32 i=0;i<argc-1;++i)
+    for(OSG::UInt32 i=0;i<argc-1;++i)
     {
         if(argv[i+1] != NULL)
             _pipenames.push_back(argv[i+1]);
@@ -84,17 +81,17 @@ int doMain(int argc, char **argv)
     if(_pipenames.empty())
         _pipenames.push_back("pipe0");
     
-    _root = Node::create();
+    _root = OSG::Node::create();
     
-    _root->setCore(Group::create());
+    _root->setCore(OSG::Group::create());
     
     // create default scene
-    NodeUnrecPtr scene = makeTorus(.5, 2, 16, 16);
+    OSG::NodeUnrecPtr scene = OSG::makeTorus(.5, 2, 16, 16);
 
     _root->addChild(scene);
 
     // create the SimpleSceneManager helper
-    _mgr = new SimpleSceneManager;
+    _mgr = new OSG::SimpleSceneManager;
 
     // tell the manager what to manage
     _mgr->setWindow(_client_win );
@@ -120,10 +117,10 @@ static void connectCluster(void)
     if(_cluster_win != NULL)
         return;
 
-    Viewport *clientvp = _client_win->getPort(0);
+    OSG::Viewport *clientvp = _client_win->getPort(0);
     
     // create the viewports for the cluster just a simple one ...
-    ViewportUnrecPtr vp = Viewport::create();
+    OSG::ViewportUnrecPtr vp = OSG::Viewport::create();
 
     vp->setCamera    (_mgr->getCamera());
     vp->setBackground(clientvp->getBackground());
@@ -131,24 +128,24 @@ static void connectCluster(void)
     vp->setSize      (0,0, 1,1);
 
     // the connection between this client and the servers
-    _cluster_win = MultiDisplayWindow::create();
+    _cluster_win = OSG::MultiDisplayWindow::create();
 
     // all changes must be enclosed in beginEditCP and endEditCP
     // otherwise the changes will not be transfered over the network.
 
-    for(UInt32 i=0;i<_pipenames.size();++i)
+    for(OSG::UInt32 i=0;i<_pipenames.size();++i)
         _cluster_win->editMFServers()->push_back(_pipenames[i]);
     // dummy size for navigator
     _cluster_win->setSize(300,300);
     _cluster_win->addPort(vp);
 
-    Thread::getCurrentChangeList()->commitChangesAndClear();
+    OSG::Thread::getCurrentChangeList()->commitChangesAndClear();
 
     fprintf(stderr, "%d -> %d\n", 
             _first_fc,
-            FieldContainerFactory::the()->getNumContainers());
+            OSG::FieldContainerFactory::the()->getNumContainers());
 
-    Thread::getCurrentChangeList()->fillFromCurrentState(_first_fc);
+    OSG::Thread::getCurrentChangeList()->fillFromCurrentState(_first_fc);
     //Thread::getCurrentChangeList()->dump();
     // create from the current state a changelist.
 
@@ -159,7 +156,7 @@ static void connectCluster(void)
     _cluster_win->render(_mgr->getRenderAction());
 
     // clear changelist
-    Thread::getCurrentChangeList()->clear();
+    OSG::Thread::getCurrentChangeList()->clear();
 
     glutPostRedisplay();
 }
@@ -183,7 +180,7 @@ void display(void)
     _mgr->redraw();
 
 
-    commitChanges();
+    OSG::commitChanges();
 
     try
     {
@@ -202,8 +199,8 @@ void display(void)
         _cluster_win = NULL;
     } 
     
-    commitChanges();
-    clearChangeList();
+    OSG::commitChanges();
+    OSG::clearChangeList();
 }
 
 // react to size changes
@@ -255,7 +252,8 @@ void keyboard(unsigned char k, int x, int y)
         break;
         case 'l':
         {
-            NodeUnrecPtr scene = SceneFileHandler::the()->read("tie.wrl", NULL);
+            OSG::NodeUnrecPtr scene = 
+                OSG::SceneFileHandler::the()->read("tie.wrl", NULL);
 
             if(scene != NULL)
             {
@@ -269,7 +267,7 @@ void keyboard(unsigned char k, int x, int y)
         break;
         case 't':
         {
-            NodeUnrecPtr scene = makeTorus(.5, 2, 16, 16);
+            OSG::NodeUnrecPtr scene = OSG::makeTorus(.5, 2, 16, 16);
 
             _root->addChild(scene);
 

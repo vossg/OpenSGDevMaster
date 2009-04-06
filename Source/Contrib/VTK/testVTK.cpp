@@ -58,38 +58,35 @@
 #include "vtkTubeFilter.h"
 #include "vtkPolyDataNormals.h"
 
-using namespace OSG;
 
+OSG::RenderAction *renact;
 
+OSG::NodeUnrecPtr  root;
 
-RenderAction *renact;
+OSG::NodeUnrecPtr  file;
 
-NodeUnrecPtr  root;
+OSG::PerspectiveCameraUnrecPtr cam;
+OSG::ViewportUnrecPtr vp;
+OSG::WindowUnrecPtr win;
 
-NodeUnrecPtr  file;
+OSG::TransformUnrecPtr cam_trans;
+OSG::TransformUnrecPtr scene_trans;
 
-PerspectiveCameraUnrecPtr cam;
-ViewportUnrecPtr vp;
-WindowUnrecPtr win;
-
-TransformUnrecPtr cam_trans;
-TransformUnrecPtr scene_trans;
-
-Trackball tball;
+OSG::Trackball tball;
 
 bool move_obj = false;
 
 int mouseb = 0;
 int lastx=0, lasty=0;
 
-Quaternion oldq;
-Vec3f      oldv;
+OSG::Quaternion oldq;
+OSG::Vec3f      oldv;
 
 void 
 display(void)
 {
-    Matrix m1, m2, m3;
-    Quaternion q1;
+    OSG::Matrix m1, m2, m3;
+    OSG::Quaternion q1;
 
     tball.getRotation().getValue(m3);
 
@@ -123,7 +120,7 @@ display(void)
         cam_trans->editSFMatrix()->setValue( m1 );
     }
 
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
 
 //    win->draw( ract );
     win->render(renact);
@@ -148,13 +145,13 @@ animate(void)
 void
 motion(int x, int y)
 {   
-    Real32 w = win->getWidth(), h = win->getHeight();
+    OSG::Real32 w = win->getWidth(), h = win->getHeight();
     
 
-    Real32  a = -2. * ( lastx / w - .5 ),
-                b = -2. * ( .5 - lasty / h ),
-                c = -2. * ( x / w - .5 ),
-                d = -2. * ( .5 - y / h );
+    OSG::Real32  a = -2. * ( lastx / w - .5 ),
+                 b = -2. * ( .5 - lasty / h ),
+                 c = -2. * ( x / w - .5 ),
+                 d = -2. * ( .5 - y / h );
 
     if ( mouseb & ( 1 << GLUT_LEFT_BUTTON ) )
     {
@@ -228,7 +225,7 @@ void key(unsigned char key, int x, int y)
             win         = NULL;
             cam_trans   = NULL;
             scene_trans = NULL;
-            osgExit(); 
+            OSG::osgExit(); 
             exit(0);
         case 'a':   glDisable( GL_LIGHTING );
             std::cerr << "Lighting disabled." << std::endl;
@@ -248,7 +245,7 @@ void key(unsigned char key, int x, int y)
         case 'r':   
         {
             std::cerr << "Sending ray through " << x << "," << y << std::endl;
-            Line l;
+            OSG::Line l;
             cam->calcViewRay( l, x, y, *vp );
             std::cerr << "From " << l.getPosition() << ", dir " 
                       << l.getDirection()
@@ -258,9 +255,9 @@ void key(unsigned char key, int x, int y)
 
         case ' ':
         {
-            Matrix     m;
-            Quaternion q;
-            Vec3f      v;
+            OSG::Matrix     m;
+            OSG::Quaternion q;
+            OSG::Vec3f      v;
 
             q = oldq;
             v = oldv;
@@ -315,7 +312,7 @@ OSG::NodeTransitPtr initVTK(void)
 {
     OSG::NodeUnrecPtr returnValue = NULL;
 
-    Char8 *szDataRoot = getenv("VTK_DATA_ROOT");
+    OSG::Char8 *szDataRoot = getenv("VTK_DATA_ROOT");
 
     if(szDataRoot == NULL)
     {
@@ -333,12 +330,12 @@ OSG::NodeTransitPtr initVTK(void)
     reader->SetFileName(szFilename.c_str());
     reader->Update();
 
-    Real64 length = reader->GetOutput()->GetLength();
+    OSG::Real64 length = reader->GetOutput()->GetLength();
 
-    Real64 maxVelocity = 
+    OSG::Real64 maxVelocity = 
         reader->GetOutput()->GetPointData()->GetVectors()->GetMaxNorm();
 
-    Real64 maxTime = 35.0 * length / maxVelocity;
+    OSG::Real64 maxTime = 35.0 * length / maxVelocity;
 
 
 
@@ -779,12 +776,12 @@ OSG::NodeTransitPtr initVTK(void)
     
     addActor(returnValue, outlineActor);
 
-    return NodeTransitPtr(returnValue);
+    return OSG::NodeTransitPtr(returnValue);
 }
 
 int doMain (int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
 
@@ -808,18 +805,18 @@ int doMain (int argc, char **argv)
 
     // OSG
 
-    SceneFileHandler::the()->print();
+    OSG::SceneFileHandler::the()->print();
 
     // create the graph
 
     // beacon for camera and light  
-    NodeUnrecPtr b1n = Node::create();
-    GroupUnrecPtr b1 = Group::create();
+    OSG::NodeUnrecPtr b1n = OSG::Node::create();
+    OSG::GroupUnrecPtr b1 = OSG::Group::create();
     b1n->setCore( b1 );
 
     // transformation
-    NodeUnrecPtr t1n = Node::create();
-    TransformUnrecPtr t1 = Transform::create();
+    OSG::NodeUnrecPtr t1n = OSG::Node::create();
+    OSG::TransformUnrecPtr t1 = OSG::Transform::create();
     t1n->setCore( t1 );
     t1n->addChild( b1n );
 
@@ -827,8 +824,8 @@ int doMain (int argc, char **argv)
 
     // light
     
-    NodeUnrecPtr dlight = Node::create();
-    DirectionalLightUnrecPtr dl = DirectionalLight::create();
+    OSG::NodeUnrecPtr dlight = OSG::Node::create();
+    OSG::DirectionalLightUnrecPtr dl = OSG::DirectionalLight::create();
 
     dlight->setCore( dl );
     
@@ -838,19 +835,19 @@ int doMain (int argc, char **argv)
     dl->setBeacon( b1n);
 
     // root
-    root = Node::create();
-    GroupUnrecPtr gr1 = Group::create();
+    root = OSG::Node::create();
+    OSG::GroupUnrecPtr gr1 = OSG::Group::create();
     root->setCore( gr1 );
     root->addChild( t1n );
     root->addChild( dlight );
 
     // Load the file
 
-    NodeUnrecPtr file  = NULL;
-    NodeUnrecPtr file1 = NULL;
+    OSG::NodeUnrecPtr file  = NULL;
+    OSG::NodeUnrecPtr file1 = NULL;
 
     if ( argc > 1 )
-        file1 = SceneFileHandler::the()->read(argv[1]);
+        file1 = OSG::SceneFileHandler::the()->read(argv[1]);
     
     if ( file1 == NULL )
     {
@@ -858,7 +855,7 @@ int doMain (int argc, char **argv)
         file1 = initVTK();
     }
     
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
     file1->updateVolume();
 
 #if 0
@@ -878,20 +875,20 @@ int doMain (int argc, char **argv)
 //    return 0;
 
 
-    Vec3f min,max;
+    OSG::Vec3f min,max;
     file1->getVolume().getBounds( min, max );
     
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
 
-    file = Node::create();
-    MaterialGroupUnrecPtr testMat = MaterialGroup::create();
+    file = OSG::Node::create();
+    OSG::MaterialGroupUnrecPtr testMat = OSG::MaterialGroup::create();
 
-    SimpleMaterialUnrecPtr defaultMaterial = SimpleMaterial::create();
+    OSG::SimpleMaterialUnrecPtr defaultMaterial = OSG::SimpleMaterial::create();
 
-    defaultMaterial->setDiffuse(Color3f(1,.0,.0));
-    defaultMaterial->setAmbient(Color3f(0.1,0.1,0.1));
-    defaultMaterial->setSpecular(Color3f(1,1,1));
+    defaultMaterial->setDiffuse(OSG::Color3f(1,.0,.0));
+    defaultMaterial->setAmbient(OSG::Color3f(0.1,0.1,0.1));
+    defaultMaterial->setSpecular(OSG::Color3f(1,1,1));
     defaultMaterial->setShininess(20);
 
 
@@ -900,8 +897,8 @@ int doMain (int argc, char **argv)
     file->setCore(OSG::Group::create());
     file->addChild(file1);
 
-    scene_trans      = Transform::create();
-    NodeUnrecPtr sceneTrN = Node::create();
+    scene_trans      = OSG::Transform::create();
+    OSG::NodeUnrecPtr sceneTrN = OSG::Node::create();
 
     sceneTrN->setCore(scene_trans);
     sceneTrN->addChild(file);
@@ -914,19 +911,19 @@ int doMain (int argc, char **argv)
 
     // Camera
     
-    cam = PerspectiveCamera::create();
+    cam = OSG::PerspectiveCamera::create();
     cam->setBeacon( b1n );
-    cam->setFov( osgDegree2Rad( 90 ) );
+    cam->setFov( OSG::osgDegree2Rad( 90 ) );
     cam->setNear( 0.1 );
     cam->setFar( 100000 );
 
     // Background
-    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
-    bkgnd->setColor(Color3f(1,1,1));
+    OSG::SolidBackgroundUnrecPtr bkgnd = OSG::SolidBackground::create();
+    bkgnd->setColor(OSG::Color3f(1,1,1));
     
     // Viewport
 
-    vp = Viewport::create();
+    vp = OSG::Viewport::create();
     vp->setCamera( cam );
     vp->setBackground( bkgnd );
     vp->setRoot( root );
@@ -935,12 +932,12 @@ int doMain (int argc, char **argv)
     // Window
     std::cout << "GLUT winid: " << winid << std::endl;
 
-    GLUTWindowUnrecPtr gwin;
+    OSG::GLUTWindowUnrecPtr gwin;
 
     GLint glvp[4];
     glGetIntegerv( GL_VIEWPORT, glvp );
 
-    gwin = GLUTWindow::create();
+    gwin = OSG::GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->setSize( glvp[2], glvp[3] );
 
@@ -952,25 +949,25 @@ int doMain (int argc, char **argv)
 
     // Action
     
-    renact = RenderAction::create();
+    renact = OSG::RenderAction::create();
 
     // tball
 
-    Vec3f pos;
+    OSG::Vec3f pos;
     pos.setValues(min[0] + ((max[0] - min[0]) * 0.5), 
                   min[1] + ((max[1] - min[1]) * 0.5), 
                   max[2] + ( max[2] - min[2] ) * 1.5 );
     
     float scale = (max[2] - min[2] + max[1] - min[1] + max[0] - min[0]) / 6;
 
-    Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
-                  min[1] + (max[1] - min[1]) / 2,
-                  min[2] + (max[2] - min[2]) / 2);
+    OSG::Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
+                       min[1] + (max[1] - min[1]) / 2,
+                       min[2] + (max[2] - min[2]) / 2);
 
-    tball.setMode( Trackball::OSGObject );
+    tball.setMode( OSG::Trackball::OSGObject );
     tball.setStartPosition( pos, true );
     tball.setSum( true );
-    tball.setTranslationMode( Trackball::OSGFree );
+    tball.setTranslationMode( OSG::Trackball::OSGFree );
     tball.setTranslationScale(scale);
     tball.setRotationCenter(tCenter);
     

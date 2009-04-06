@@ -25,16 +25,13 @@
 #include <OSGSimpleSHLChunk.h>
 
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-static SimpleSceneManager *_mgr;
+static OSG::SimpleSceneManager *_mgr;
 // The scene
-static NodeRecPtr _scene;
+static OSG::NodeRecPtr _scene;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -102,21 +99,21 @@ static std::string _geometry_shader =
 int doMain(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+    OSG::GLUTWindowUnrecPtr gwin= OSG::GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->setSize( 800, 800 );
     gwin->init();
 
     // Create the shader material
-    ChunkMaterialUnrecPtr cmat = ChunkMaterial::create();
+    OSG::ChunkMaterialUnrecPtr cmat = OSG::ChunkMaterial::create();
 
-    SimpleSHLChunkUnrecPtr shl = SimpleSHLChunk::create();
+    OSG::SimpleSHLChunkUnrecPtr shl = OSG::SimpleSHLChunk::create();
 
     shl->setProgramParameter(GL_GEOMETRY_INPUT_TYPE_EXT, 
                              GL_TRIANGLES);
@@ -131,25 +128,25 @@ int doMain(int argc, char **argv)
     cmat->addChunk(shl);
 
     // create root node
-    _scene = Node::create();
+    _scene = OSG::Node::create();
 
     // create torus
-    GeometryUnrecPtr geo = makeTorusGeo(.8, 1.8, 128, 128);
+    OSG::GeometryUnrecPtr geo = OSG::makeTorusGeo(.8, 1.8, 128, 128);
 
     geo->setMaterial(cmat);
 
-    NodeUnrecPtr torus = Node::create();
+    OSG::NodeUnrecPtr torus = OSG::Node::create();
 
     torus->setCore(geo);
 
     // add torus to scene
-    GroupUnrecPtr group = Group::create();
+    OSG::GroupUnrecPtr group = OSG::Group::create();
 
     _scene->setCore(group);
     _scene->addChild(torus);
 
     // create the SimpleSceneManager helper
-    _mgr = new SimpleSceneManager;
+    _mgr = new OSG::SimpleSceneManager;
 
     // tell the manager what to manage
     _mgr->setWindow(gwin );
@@ -222,7 +219,7 @@ void keyboard(unsigned char k, int x, int y)
             exit(1);
         break;
         case 'w':
-            SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
+            OSG::SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
             printf("wrote scene.osb.gz\n");
         break;
     }

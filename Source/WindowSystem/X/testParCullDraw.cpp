@@ -33,35 +33,32 @@
 #include <OSGRenderAction.h>
 
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
+OSG::SimpleSceneManager  *mgr;
+OSG::XWindowRecPtr        xwin;
+OSG::PassiveWindowRecPtr  pwin;
 
-SimpleSceneManager  *mgr;
-XWindowRecPtr        xwin;
-PassiveWindowRecPtr  pwin;
-
-NodeRecPtr scene = NULL;
+OSG::NodeRecPtr scene = NULL;
 
 // Threading stuff
 
 bool doThreading = true;
 bool doParDraw   = true;
 
-UInt16 numBuf = 2;
+OSG::UInt16 numBuf = 2;
 
 // The three threads
-Thread *appthread, *cullthread, *drawthread;
+OSG::Thread *appthread, *cullthread, *drawthread;
 
 // barriers to sync app, cull and draw
-Barrier *cullenter, *cullleave;
-Barrier *drawenter;
-Barrier *exitB;
+OSG::Barrier *cullenter, *cullleave;
+OSG::Barrier *drawenter;
+OSG::Barrier *exitB;
 
 // Action to use
-RenderAction *rentravact;
+OSG::RenderAction *rentravact;
 
 bool doExit = false;
-UInt16 numthreads;
+OSG::UInt16 numthreads;
 
 // Do the drawing for one frame
 // extra function to test in sequential

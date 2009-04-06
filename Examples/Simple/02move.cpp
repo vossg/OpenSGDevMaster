@@ -37,14 +37,11 @@
 #include <OpenSG/OSGTransform.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The pointer to the transformation
-TransformRefPtr trans;
+OSG::TransformRefPtr trans;
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -53,20 +50,20 @@ int setupGLUT( int *argc, char *argv[] );
 void display( void )
 {
     // create the matrix
-    Matrix m;
-    Real32 t = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Matrix m;
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
     
-    m.setTransform(Vec3f(      osgSin(t / 1000.f), 
-                               osgCos(t / 1000.f), 
-                               osgSin(t / 1000.f)),
-                   Quaternion( Vec3f(0,1,0), 
-                               t / 1000.f));
+    m.setTransform(OSG::Vec3f(      OSG::osgSin(t / 1000.f), 
+                                    OSG::osgCos(t / 1000.f), 
+                                    OSG::osgSin(t / 1000.f)),
+                   OSG::Quaternion( OSG::Vec3f(0,1,0), 
+                                    t / 1000.f));
     
     // set the transform's matrix
     
     trans->setMatrix(m);
 
-    commitChanges();
+    OSG::commitChanges();
 
     mgr->redraw();
 }
@@ -75,7 +72,7 @@ void display( void )
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -85,22 +82,22 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin= GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin= OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // create the scene
     
-        NodeRefPtr torus = makeTorus( .5, 2, 16, 32 );
+        OSG::NodeRefPtr torus = OSG::makeTorus( .5, 2, 16, 32 );
     
         // create the transformation node
         // scenegraph nodes are split into 2 parts: the node and its core
         
         // 1. create the Node
-        NodeRefPtr scene = Node::create();
+        OSG::NodeRefPtr scene = OSG::Node::create();
         
         // 2. create the core
-        trans = Transform::create();
+        trans = OSG::Transform::create();
         
         // 3. associate the core with the node
         scene->setCore(trans);
@@ -108,10 +105,10 @@ int main(int argc, char **argv)
         // add the torus as a child
         scene->addChild(torus);
         
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

@@ -30,8 +30,6 @@
 #include <Carbon/Carbon.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-using namespace OSG;
-
 CoreGLWindowUnrecPtr    win;
 
 RenderAction    *ract;

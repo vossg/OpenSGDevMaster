@@ -24,22 +24,20 @@
 #include "OSGHDRStage.h"
 #include "OSGVisitSubTree.h"
 
-using namespace OSG;
+OSG::RenderAction *rentravact = NULL;
 
-RenderAction *rentravact = NULL;
+OSG::NodeRecPtr  hdrroot = NULL;
+OSG::NodeRecPtr  root    = NULL;
+OSG::NodeRecPtr  file    = NULL;
 
-NodeRecPtr  hdrroot = NULL;
-NodeRecPtr  root    = NULL;
-NodeRecPtr  file    = NULL;
+OSG::PerspectiveCameraRecPtr cam = NULL;
+OSG::ViewportRecPtr          vp  = NULL;
+OSG::WindowRecPtr            win = NULL;
 
-PerspectiveCameraRecPtr cam = NULL;
-ViewportRecPtr          vp  = NULL;
-WindowRecPtr            win = NULL;
+OSG::TransformRecPtr cam_trans   = NULL;
+OSG::TransformRecPtr scene_trans = NULL;
 
-TransformRecPtr cam_trans   = NULL;
-TransformRecPtr scene_trans = NULL;
-
-ComponentTransformRecPtr pAnimTrs[6] = 
+OSG::ComponentTransformRecPtr pAnimTrs[6] = 
 {
     NULL,
     NULL,
@@ -49,7 +47,7 @@ ComponentTransformRecPtr pAnimTrs[6] =
     NULL
 };
 
-Trackball tball;
+OSG::Trackball tball;
 
 bool move_obj = false;
 
@@ -57,10 +55,10 @@ int mouseb = 0;
 int lastx  = 0;
 int lasty  = 0;
 
-Quaternion oldq;
-Vec3f      oldv;
+OSG::Quaternion oldq;
+OSG::Vec3f      oldv;
 
-void createHDRCore(Node *pNode);
+void createHDRCore(OSG::Node *pNode);
 
 void display(void)
 {
@@ -97,9 +95,9 @@ void display(void)
             cam_trans->getMatrix()[3][2]);
 #endif
 
-    Real32 t = glutGet(GLUT_ELAPSED_TIME);
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME);
 
-    for(UInt32 i = 0; i < 6; ++i)
+    for(OSG::UInt32 i = 0; i < 6; ++i)
     {
         if(pAnimTrs[i] != NULL)
         {
@@ -109,7 +107,7 @@ void display(void)
         }
     }
 
-    commitChanges();
+    OSG::commitChanges();
 
 //    fprintf(stderr, "Frame start\n");
 //    fprintf(stderr, "============================================\n");
@@ -135,10 +133,10 @@ void animate(void)
 
 void motion(int x, int y)
 {   
-    Real32 w = win->getWidth(), h = win->getHeight();
+    OSG::Real32 w = win->getWidth(), h = win->getHeight();
     
 
-    Real32  
+    OSG::Real32  
         a = -2. * ( lastx / w - .5 ),
         b = -2. * ( .5 - lasty / h ),
         c = -2. * ( x / w - .5 ),
@@ -243,7 +241,7 @@ void key(unsigned char key, int x, int y)
             pAnimTrs[5] = NULL;
             
 
-            osgExit(); 
+            OSG::osgExit(); 
             exit(0);
         case 'a':   
             glDisable( GL_LIGHTING );
@@ -256,7 +254,7 @@ void key(unsigned char key, int x, int y)
         case 'r':   
         {
             std::cerr << "Sending ray through " << x << "," << y << std::endl;
-            Line l;
+            OSG::Line l;
             cam->calcViewRay( l, x, y, *vp );
             std::cerr << "From " << l.getPosition() << ", dir " 
                       << l.getDirection()
@@ -265,21 +263,21 @@ void key(unsigned char key, int x, int y)
         break;
 
         case 'g':
-            hdrroot->setCore(Group::create());
+            hdrroot->setCore(OSG::Group::create());
             break;
         case 'h':
             createHDRCore(hdrroot);
             break;
         case 'd':
-            ActionDataSlotPool::the()->dumpState();
-            StageIdPool       ::the()->dumpState();
+            OSG::ActionDataSlotPool::the()->dumpState();
+            OSG::StageIdPool       ::the()->dumpState();
             rentravact->dumpStore();
             break;
         case ' ':
         {
-            Matrix     m;
-            Quaternion q;
-            Vec3f      v;
+            OSG::Matrix     m;
+            OSG::Quaternion q;
+            OSG::Vec3f      v;
 
             q = oldq;
             v = oldv;
@@ -308,13 +306,13 @@ void key(unsigned char key, int x, int y)
 }
 
 
-NodeTransitPtr setupAnim(void)
+OSG::NodeTransitPtr setupAnim(void)
 {
-    NodeTransitPtr returnValue = Node::create();
+    OSG::NodeTransitPtr returnValue = OSG::Node::create();
 
-    returnValue->setCore(Group::create());
+    returnValue->setCore(OSG::Group::create());
 
-    static const Real32 aOffsets[6][3] = 
+    static const OSG::Real32 aOffsets[6][3] = 
     {
         { -5.5,  0.0,  0.0 },
         {  5.5,  0.0,  0.0 },
@@ -324,7 +322,7 @@ NodeTransitPtr setupAnim(void)
         {  0.0,  0.0,  5.5 }
     };
 
-    static const Real32 aDiffuse[6][3] =
+    static const OSG::Real32 aDiffuse[6][3] =
     {
         { 1.f, 0.f, 0.f },
         { 0.f, 1.f, 0.f },
@@ -334,25 +332,26 @@ NodeTransitPtr setupAnim(void)
         { 0.f, 1.f, 1.f }
     };
 
-    for(UInt32 i = 0; i < 6; ++i)
+    for(OSG::UInt32 i = 0; i < 6; ++i)
     {
-        NodeUnrecPtr pTN                = Node::create();
+        OSG::NodeUnrecPtr pTN                = OSG::Node::create();
         
-        pAnimTrs[i] = ComponentTransform::create();
+        pAnimTrs[i] = OSG::ComponentTransform::create();
         
-        GeometryUnrecPtr pGeo     = makeBoxGeo(1.f, 1.f, 1.f, 2, 2, 2);
-        NodeUnrecPtr     pGeoNode = Node::create();
+        OSG::GeometryUnrecPtr pGeo     = OSG::makeBoxGeo(1.f, 1.f, 1.f, 
+                                                         2,   2,   2);
+        OSG::NodeUnrecPtr     pGeoNode = OSG::Node::create();
         
         pGeoNode->setCore(pGeo);
 
-        SimpleMaterialUnrecPtr pMat = SimpleMaterial::create();
+        OSG::SimpleMaterialUnrecPtr pMat = OSG::SimpleMaterial::create();
         
-        pMat->setDiffuse(Color3r(aDiffuse[i][0],
-                                 aDiffuse[i][1],
-                                 aDiffuse[i][2]));
-        pMat->setAmbient(Color3r(aDiffuse[i][0],
-                                 aDiffuse[i][1],
-                                 aDiffuse[i][2]));
+        pMat->setDiffuse(OSG::Color3r(aDiffuse[i][0],
+                                      aDiffuse[i][1],
+                                      aDiffuse[i][2]));
+        pMat->setAmbient(OSG::Color3r(aDiffuse[i][0],
+                                      aDiffuse[i][1],
+                                      aDiffuse[i][2]));
 
         pGeo->setMaterial(pMat);
 
@@ -370,9 +369,9 @@ NodeTransitPtr setupAnim(void)
     return returnValue;
 }
 
-void createHDRCore(Node *pNode)
+void createHDRCore(OSG::Node *pNode)
 {
-    HDRStageUnrecPtr pHDR = HDRStage::create();
+    OSG::HDRStageUnrecPtr pHDR = OSG::HDRStage::create();
 
 //    pHDR->setUpdateMode(HDRStage::PerVisit);
     pHDR->setEffectAmount(0.0);
@@ -387,7 +386,7 @@ void createHDRCore(Node *pNode)
 
 int doMain (int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     // GLUT init
 
@@ -408,13 +407,13 @@ int doMain (int argc, char **argv)
 
     // OSG
 
-    SceneFileHandler::the()->print();
+    OSG::SceneFileHandler::the()->print();
 
     // create the graph
 
     // beacon for camera and light  
-    NodeUnrecPtr  b1n = Node::create();
-    GroupUnrecPtr b1  = Group::create();
+    OSG::NodeUnrecPtr  b1n = OSG::Node::create();
+    OSG::GroupUnrecPtr b1  = OSG::Group::create();
 
     fprintf(stderr, "Create b1n %p %d %d \n",
             b1n.get(),
@@ -424,8 +423,8 @@ int doMain (int argc, char **argv)
     b1n->setCore( b1 );
 
     // transformation
-    NodeUnrecPtr      t1n = Node::create();
-    TransformUnrecPtr t1  = Transform::create();
+    OSG::NodeUnrecPtr      t1n = OSG::Node::create();
+    OSG::TransformUnrecPtr t1  = OSG::Transform::create();
 
     t1n->setCore (t1 );
     t1n->addChild(b1n);
@@ -439,8 +438,8 @@ int doMain (int argc, char **argv)
 
     // light
     
-    NodeUnrecPtr             dlight = Node::create();
-    DirectionalLightUnrecPtr dl     = DirectionalLight::create();
+    OSG::NodeUnrecPtr             dlight = OSG::Node::create();
+    OSG::DirectionalLightUnrecPtr dl     = OSG::DirectionalLight::create();
 
     {
         dlight->setCore(dl);
@@ -456,7 +455,7 @@ int doMain (int argc, char **argv)
             dlight->getRefCount(),
             dlight->getWeakRefCount());
 
-    hdrroot = Node::create();
+    hdrroot = OSG::Node::create();
 
     hdrroot->editVolume().setInfinite();
     hdrroot->editVolume().setStatic  ();
@@ -464,9 +463,9 @@ int doMain (int argc, char **argv)
     createHDRCore(hdrroot);
 
     // root
-    root         = Node:: create();
+    root         = OSG::Node:: create();
 
-    GroupUnrecPtr gr1 = Group::create();
+    OSG::GroupUnrecPtr gr1 = OSG::Group::create();
 
     root->setCore(gr1);
 
@@ -483,11 +482,11 @@ int doMain (int argc, char **argv)
 
     // Load the file
 
-    NodeUnrecPtr file = NULL;
+    OSG::NodeUnrecPtr file = NULL;
     
     if(argc > 1)
     {
-        file = SceneFileHandler::the()->read(argv[1], NULL);
+        file = OSG::SceneFileHandler::the()->read(argv[1], NULL);
     }
 
     if(file == NULL)
@@ -495,18 +494,18 @@ int doMain (int argc, char **argv)
         std::cerr << "Couldn't load file, ignoring" << std::endl;
 
 //        file = makeBox(2.f, 2.f, 2.f, 2, 2, 2);
-        file = makeSphere(4, 2.0);
+        file = OSG::makeSphere(4, 2.0);
     }
 
-    NodeUnrecPtr pCubeRoot            = Node::create();
-    CubeMapGeneratorUnrecPtr pCubeGen = CubeMapGenerator::create();
+    OSG::NodeUnrecPtr pCubeRoot            = OSG::Node::create();
+    OSG::CubeMapGeneratorUnrecPtr pCubeGen = OSG::CubeMapGenerator::create();
 
     pCubeRoot->addChild(file);
     pCubeRoot->setCore(pCubeGen);
 //    pCubeRoot->setCore(Group::create());
 
-    NodeUnrecPtr         pCubeSceneRoot = Node::create();
-    VisitSubTreeUnrecPtr pCubeVisit     = VisitSubTree::create();
+    OSG::NodeUnrecPtr         pCubeSceneRoot = OSG::Node::create();
+    OSG::VisitSubTreeUnrecPtr pCubeVisit     = OSG::VisitSubTree::create();
 
     pCubeSceneRoot->setCore(pCubeVisit);
     pCubeVisit->setSubTreeRoot(root);
@@ -517,10 +516,10 @@ int doMain (int argc, char **argv)
                                512           );
     pCubeGen->setTexUnit      (3);
 
-    NodeUnrecPtr pAnimRoot = setupAnim();
+    OSG::NodeUnrecPtr pAnimRoot = setupAnim();
 
-            scene_trans = Transform::create();
-    NodeUnrecPtr sceneTrN    = Node::create();
+            scene_trans = OSG::Transform::create();
+    OSG::NodeUnrecPtr sceneTrN    = OSG::Node::create();
 
     scene_trans->editMatrix()[3][2] = -50.f;
 
@@ -528,9 +527,9 @@ int doMain (int argc, char **argv)
     sceneTrN->addChild(pCubeRoot  );
     sceneTrN->addChild(pAnimRoot  );
 
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
 
-    Vec3f min,max;
+    OSG::Vec3f min,max;
     sceneTrN->updateVolume();
     sceneTrN->getVolume().getBounds(min, max);
     
@@ -541,21 +540,21 @@ int doMain (int argc, char **argv)
 
     // Camera
     
-    cam = PerspectiveCamera::create();
+    cam = OSG::PerspectiveCamera::create();
     {
         cam->setBeacon( b1n );
-        cam->setFov( osgDegree2Rad( 90 ) );
+        cam->setFov( OSG::osgDegree2Rad( 90 ) );
         cam->setNear( 0.1 );
         cam->setFar( 100000 );
     }
 
     // Background
-    SkyBackgroundUnrecPtr bkgnd = SkyBackground::create();
+    OSG::SkyBackgroundUnrecPtr bkgnd = OSG::SkyBackground::create();
     {
-        ImageUnrecPtr pBackImg = 
-            ImageFileHandler::the()->read("grace_cross.chdr");
+        OSG::ImageUnrecPtr pBackImg = 
+            OSG::ImageFileHandler::the()->read("grace_cross.chdr");
 
-        TextureObjChunkUnrecPtr pBackTex = TextureObjChunk::create();
+        OSG::TextureObjChunkUnrecPtr pBackTex = OSG::TextureObjChunk::create();
 
         pBackTex->setImage(pBackImg);
         pBackTex->setInternalFormat(GL_RGB32F_ARB);
@@ -569,7 +568,7 @@ int doMain (int argc, char **argv)
     }
 
     // Viewport
-    vp = Viewport::create();
+    vp = OSG::Viewport::create();
     {
         vp->setCamera( cam );
         vp->setBackground( bkgnd );
@@ -580,13 +579,13 @@ int doMain (int argc, char **argv)
 
 
     // Window
-    GLUTWindowUnrecPtr gwin;
+    OSG::GLUTWindowUnrecPtr gwin;
 
     GLint glvp[4];
 
     glGetIntegerv(GL_VIEWPORT, glvp);
 
-    gwin = GLUTWindow::create();
+    gwin = OSG::GLUTWindow::create();
     {
         gwin->setGlutId(winid);
         gwin->setSize( glvp[2], glvp[3] );
@@ -599,13 +598,13 @@ int doMain (int argc, char **argv)
     }
 
     // Action
-    rentravact = RenderAction::create();
+    rentravact = OSG::RenderAction::create();
 
     rentravact->setVolumeDrawing(true);
 //    rentravact->setFrustumCulling(false);
 
     // tball
-    Vec3f pos;
+    OSG::Vec3f pos;
 
     pos.setValues(min[0] + ((max[0] - min[0]) * 0.5), 
                   min[1] + ((max[1] - min[1]) * 0.5), 
@@ -613,18 +612,18 @@ int doMain (int argc, char **argv)
     
     float scale = (max[2] - min[2] + max[1] - min[1] + max[0] - min[0]) / 6;
 
-    Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
-                  min[1] + (max[1] - min[1]) / 2,
-                  min[2] + (max[2] - min[2]) / 2);
+    OSG::Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
+                       min[1] + (max[1] - min[1]) / 2,
+                       min[2] + (max[2] - min[2]) / 2);
 
     fprintf(stderr, "Startpos : %f %f %f\n", pos[0], pos[1], pos[2]);
 
-    tball.setMode            (Trackball::OSGObject);
-    tball.setStartPosition   (pos, true           );
-    tball.setSum             (true                );
-    tball.setTranslationMode (Trackball::OSGFree  );
-    tball.setTranslationScale(scale               );
-    tball.setRotationCenter  (tCenter             );
+    tball.setMode            (OSG::Trackball::OSGObject);
+    tball.setStartPosition   (pos, true                );
+    tball.setSum             (true                     );
+    tball.setTranslationMode (OSG::Trackball::OSGFree  );
+    tball.setTranslationScale(scale                    );
+    tball.setRotationCenter  (tCenter                  );
 
     fprintf(stderr, "Create b1n %p %d %d \n",
             b1n.get(),

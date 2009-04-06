@@ -13,7 +13,6 @@
 
 #include "OSGManipulatorManager.h"
 
-OSG_USING_NAMESPACE
 
 NodeRefPtr         scene   = NULL;
 TransformRefPtr    interTC = NULL;

@@ -26,18 +26,15 @@
 #endif
 
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // number of copies to create
-const UInt16 ncopies = 10;
+const OSG::UInt16 ncopies = 10;
 
 // just use a single transformation that is shared
-TransformRefPtr trans;
+OSG::TransformRefPtr trans;
 
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -45,16 +42,17 @@ int setupGLUT( int *argc, char *argv[] );
 // redraw the window
 void display( void )
 {
-    Matrix m;
-    Real32 t = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Matrix m;
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
     
-    m.setTransform(Vec3f(0, .9, 0),
-                   Quaternion( Vec3f(1,1,0), osgSin(t / 1000.f) / 2.f));
+    m.setTransform(OSG::Vec3f(0, .9, 0),
+                   OSG::Quaternion( OSG::Vec3f(1,1,0), 
+                                    OSG::osgSin(t / 1000.f) / 2.f));
     
     // set the transform's matrix
     trans->setMatrix(m);
 
-    commitChanges();
+    OSG::commitChanges();
      
     mgr->redraw();
 }
@@ -63,7 +61,7 @@ void display( void )
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -73,7 +71,7 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin= GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin= OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
@@ -99,28 +97,28 @@ int main(int argc, char **argv)
         */
         
         // use a cylinder this time
-        GeometryRefPtr cyl = makeCylinderGeo( 1, .3, 8, true, true, true );
+        OSG::GeometryRefPtr cyl = OSG::makeCylinderGeo( 1, .3, 8, true, true, true );
         
         // the single transformation Core used
-        trans = Transform::create();
+        trans = OSG::Transform::create();
         
         // setup an intial transformation
-        Matrix m;
-        m.setTransform(Vec3f(0, .9, 0));
+        OSG::Matrix m;
+        m.setTransform(OSG::Vec3f(0, .9, 0));
     
         trans->setMatrix(m);
         
-        NodeRefPtr last = NULL;
+        OSG::NodeRefPtr last = NULL;
         
         // create the copied transformations and their geometry nodes
-        for(UInt16 i = 1; i < ncopies; ++i)
+        for(OSG::UInt16 i = 1; i < ncopies; ++i)
         {
             // create the shared Geometry
-            NodeRefPtr geonode = Node::create();
+            OSG::NodeRefPtr geonode = OSG::Node::create();
             geonode->setCore(cyl);
     
             // add a transformation to the Geometry
-            NodeRefPtr transnode = Node::create();
+            OSG::NodeRefPtr transnode = OSG::Node::create();
     
             transnode->setCore (trans  );
             transnode->addChild(geonode);
@@ -133,12 +131,12 @@ int main(int argc, char **argv)
             last = transnode;
         }
     
-        NodeRefPtr scene = last;
+        OSG::NodeRefPtr scene = last;
     
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

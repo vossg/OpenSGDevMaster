@@ -23,42 +23,40 @@
 #include "OSGRenderTreeNode.h"
 #include "OSGOcclusionCullingTreeBuilder.h"
 
-OSG_USING_NAMESPACE
-
 #ifdef OSG_WITH_NVPERFSDK
 #include <NVPerfSDK.h>
 
 
-StatElemDesc<StatStringElem> GPUIdleStat("GPUIdle","GPUIdle",
-            StatElemDescBase::RESET_NEVER);
-StatElemDesc<StatStringElem> PSBusyStat("PSBusyStat","PSBusyStat",
-            StatElemDescBase::RESET_NEVER);
-StatElemDesc<StatStringElem> VSBusyStat("VSBusyStat","VSBusyStat",
-            StatElemDescBase::RESET_NEVER);
-StatElemDesc<StatStringElem> TextureWaitStat("TextureWait","TextureWait",
-            StatElemDescBase::RESET_NEVER);
-StatElemDesc<StatStringElem> OGLFPSStat("OGL FPS","OGL FPS",
-            StatElemDescBase::RESET_NEVER);
+OSG::StatElemDesc<OSG::StatStringElem> GPUIdleStat("GPUIdle","GPUIdle",
+            OSG::StatElemDescBase::RESET_NEVER);
+OSG::StatElemDesc<OSG::StatStringElem> PSBusyStat("PSBusyStat","PSBusyStat",
+            OSG::StatElemDescBase::RESET_NEVER);
+OSG::StatElemDesc<OSG::StatStringElem> VSBusyStat("VSBusyStat","VSBusyStat",
+            OSG::StatElemDescBase::RESET_NEVER);
+OSG::StatElemDesc<OSG::StatStringElem> TextureWaitStat("TextureWait","TextureWait",
+            OSG::StatElemDescBase::RESET_NEVER);
+OSG::StatElemDesc<OSG::StatStringElem> OGLFPSStat("OGL FPS","OGL FPS",
+            OSG::StatElemDescBase::RESET_NEVER);
 
-StatElemDesc<StatStringElem> *nvStatElems[] = 
+OSG::StatElemDesc<OSG::StatStringElem> *nvStatElems[] = 
     { &GPUIdleStat, &PSBusyStat, &VSBusyStat, &TextureWaitStat, &OGLFPSStat,
       NULL };
 
 #endif
 
-SimpleSceneManager    *mgr;
-RenderAction *tact = NULL;
-RenderAction *debugact = NULL;
+OSG::SimpleSceneManager    *mgr;
+OSG::RenderAction *tact = NULL;
+OSG::RenderAction *debugact = NULL;
 
 // create the scene
-NodeRecPtr scene;
+OSG::NodeRecPtr scene;
 
-GLUTWindowRecPtr mainwin;
-GLUTWindowRecPtr debugwin;
+OSG::GLUTWindowRecPtr mainwin;
+OSG::GLUTWindowRecPtr debugwin;
 int mainwinid = -1, debugwinid = -1;
 
-SimpleStatisticsForegroundRecPtr statfg;
-StatCollector         *collector;
+OSG::SimpleStatisticsForegroundRecPtr statfg;
+OSG::StatCollector         *collector;
 
 bool show = true;
 bool debug = false;
@@ -186,7 +184,7 @@ void display(void)
         {
             nvDataProvider->sample();
 
-            Char8 str[40];
+            OSG::Char8 str[40];
             
             for(int i = 0; nvStatElems[i] != NULL; ++i)
             {
@@ -195,7 +193,7 @@ void display(void)
                     sprintf(str, "%s: %f", nvStatElems[i]->getDescription().c_str(),
                             nvDataProvider->value(i)); 
 
-                    StatStringElem *e = dynamic_cast<StatStringElem*>(
+                    OSG::StatStringElem *e = dynamic_cast<OSG::StatStringElem*>(
                         collector->getElem(*nvStatElems[i]));  
 
                     e->set(str);
@@ -351,7 +349,7 @@ void keyboard(unsigned char k, int, int)
             debugwin = NULL;
             statfg   = NULL;
 
-            osgExit();
+            OSG::osgExit();
             exit(0);
         }
         
@@ -367,8 +365,8 @@ void keyboard(unsigned char k, int, int)
         
         case 'z':
         {
-            RenderAction *ract = 
-                dynamic_cast<RenderAction *>(mgr->getAction());
+            OSG::RenderAction *ract = 
+                dynamic_cast<OSG::RenderAction *>(mgr->getAction());
 
             ract->setZWriteTrans(!ract->getZWriteTrans());
 
@@ -403,12 +401,12 @@ void keyboard(unsigned char k, int, int)
 
         case 's':
         {
-            UInt32 uiSId = SimpleSHLChunk  ::getStaticClassId() & 0x000003FF;
-            UInt32 uiTId = TextureBaseChunk::getStaticClassId() & 0x000003FF;
-            UInt32 uiMId = MaterialChunk   ::getStaticClassId() & 0x000003FF;
+            OSG::UInt32 uiSId = OSG::SimpleSHLChunk  ::getStaticClassId() & 0x000003FF;
+            OSG::UInt32 uiTId = OSG::TextureBaseChunk::getStaticClassId() & 0x000003FF;
+            OSG::UInt32 uiMId = OSG::MaterialChunk   ::getStaticClassId() & 0x000003FF;
             
   
-            UInt32 uiKeyGen = (uiSId) | (uiTId << 10) | (uiMId << 20);
+            OSG::UInt32 uiKeyGen = (uiSId) | (uiTId << 10) | (uiMId << 20);
 
             tact->setKeyGen(uiKeyGen);
         }
@@ -425,7 +423,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'C':
         {
-            Real32 cov = tact->getOcclusionCullingCoveredThreshold();
+            OSG::Real32 cov = tact->getOcclusionCullingCoveredThreshold();
             cov+=0.1;
             tact->setOcclusionCullingCoveredThreshold(cov);
             std::cout << "Covered Threshold now: " << cov << std::endl;
@@ -434,7 +432,7 @@ void keyboard(unsigned char k, int, int)
             
         case 'c':
         {
-            Real32 cov1 = tact->getOcclusionCullingCoveredThreshold();
+            OSG::Real32 cov1 = tact->getOcclusionCullingCoveredThreshold();
             cov1-=0.1;
             tact->setOcclusionCullingCoveredThreshold(cov1);
             std::cout << "Covered Threshold now: " << cov1 << std::endl;
@@ -443,7 +441,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'M':
         {
-            UInt32 minFSize = tact->getOcclusionCullingMinimumFeatureSize();
+            OSG::UInt32 minFSize = tact->getOcclusionCullingMinimumFeatureSize();
             minFSize+=1;
             tact->setOcclusionCullingMinimumFeatureSize(minFSize);
             std::cout << "Minimum Feature Size now: " << minFSize << std::endl;
@@ -452,7 +450,7 @@ void keyboard(unsigned char k, int, int)
             
         case 'm':
         {
-            UInt32 small1 = tact->getOcclusionCullingMinimumFeatureSize();
+            OSG::UInt32 small1 = tact->getOcclusionCullingMinimumFeatureSize();
             small1-=1;
             tact->setOcclusionCullingMinimumFeatureSize(small1);
             std::cout << "Minimum Feature Size now: " << small1 << std::endl;
@@ -461,7 +459,7 @@ void keyboard(unsigned char k, int, int)
         
         case 'I':
         {
-            UInt32 visT = tact->getOcclusionCullingVisibilityThreshold();
+            OSG::UInt32 visT = tact->getOcclusionCullingVisibilityThreshold();
             visT+=1;
             tact->setOcclusionCullingVisibilityThreshold(visT);
             std::cout << "Visibility Threshold now: " << visT << std::endl;
@@ -470,7 +468,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'i':
         {
-            UInt32 visTa = tact->getOcclusionCullingVisibilityThreshold();
+            OSG::UInt32 visTa = tact->getOcclusionCullingVisibilityThreshold();
             visTa-=1;
             tact->setOcclusionCullingVisibilityThreshold(visTa);
             std::cout << "Visibility Threshold now: " << visTa << std::endl;
@@ -479,7 +477,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'l':
         {
-            UInt32 numLev = tact->getScreenLODNumLevels();
+            OSG::UInt32 numLev = tact->getScreenLODNumLevels();
             numLev-=1;
             tact->setScreenLODNumLevels(numLev);
             std::cout << "LOD's in use now: " << numLev << std::endl;
@@ -488,7 +486,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'L':
         {
-            UInt32 numLeva = tact->getScreenLODNumLevels();
+            OSG::UInt32 numLeva = tact->getScreenLODNumLevels();
             numLeva+=1;
             tact->setScreenLODNumLevels(numLeva);
             std::cout << "LOD's in use now: " << numLeva << std::endl;
@@ -497,7 +495,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'B':
         {
-            UInt32 bfsz = tact->getOcclusionCullingQueryBufferSize();
+            OSG::UInt32 bfsz = tact->getOcclusionCullingQueryBufferSize();
             bfsz+=200;
             tact->setOcclusionCullingQueryBufferSize(bfsz);
             std::cout << "Query Buffer Size now: " << bfsz << std::endl;
@@ -506,7 +504,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'b':
         {
-            UInt32 bfsza = tact->getOcclusionCullingQueryBufferSize();
+            OSG::UInt32 bfsza = tact->getOcclusionCullingQueryBufferSize();
             bfsza-=200;
             tact->setOcclusionCullingQueryBufferSize(bfsza);
             std::cout << "Query Buffer Size now: " << bfsza << std::endl;
@@ -515,7 +513,7 @@ void keyboard(unsigned char k, int, int)
 
         case 't':
         {
-            UInt32 tcount = tact->getOcclusionCullingMinimumTriangleCount();
+            OSG::UInt32 tcount = tact->getOcclusionCullingMinimumTriangleCount();
             tcount-=50;
             tact->setOcclusionCullingMinimumTriangleCount(tcount);
             std::cout << "Minimum Triangle Count now: " << tcount << std::endl;
@@ -524,7 +522,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'T':
         {
-            UInt32 tcounta = tact->getOcclusionCullingMinimumTriangleCount();
+            OSG::UInt32 tcounta = tact->getOcclusionCullingMinimumTriangleCount();
             tcounta+=50;
             tact->setOcclusionCullingMinimumTriangleCount(tcounta);
             std::cout << "Minimum Triangle Count now: " << tcounta << std::endl;
@@ -533,8 +531,8 @@ void keyboard(unsigned char k, int, int)
 
         case 'H':
         {
-            UInt32 mfsa = 0;
-            Real32 sfta = 0.0f;
+            OSG::UInt32 mfsa = 0;
+            OSG::Real32 sfta = 0.0f;
             tact->setOcclusionCullingMinimumFeatureSize(mfsa);
             tact->setOcclusionCullingVisibilityThreshold(mfsa);
             tact->setScreenLODCoverageThreshold(sfta);
@@ -544,8 +542,8 @@ void keyboard(unsigned char k, int, int)
 
         case 'h':
         {
-            UInt32 mfs = 1000;
-            Real32 sft = 0.15f;
+            OSG::UInt32 mfs = 1000;
+            OSG::Real32 sft = 0.15f;
             tact->setOcclusionCullingMinimumFeatureSize(mfs);
             tact->setOcclusionCullingVisibilityThreshold(mfs);
             tact->setScreenLODCoverageThreshold(sft);
@@ -555,7 +553,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'P':
         {
-            Real32 cover = tact->getScreenLODCoverageThreshold();
+            OSG::Real32 cover = tact->getScreenLODCoverageThreshold();
             cover+=0.001;
             tact->setScreenLODCoverageThreshold(cover);
             std::cout << "ScreenLOD Coverage Threshold now: " << cover << std::endl;
@@ -564,7 +562,7 @@ void keyboard(unsigned char k, int, int)
             
         case 'p':
         {
-            Real32 covera = tact->getScreenLODCoverageThreshold();
+            OSG::Real32 covera = tact->getScreenLODCoverageThreshold();
             covera-=0.001;
             tact->setScreenLODCoverageThreshold(covera);
             std::cout << "ScreenLOD Coverage Threshold now: " << covera << std::endl;
@@ -573,7 +571,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'D':
         {
-            Real32 user_dega = tact->getScreenLODDegradationFactor();
+            OSG::Real32 user_dega = tact->getScreenLODDegradationFactor();
             user_dega+=0.01;
             tact->setScreenLODDegradationFactor(user_dega);
             std::cout << "ScreenLOD User Degradation Factor now: " << user_dega << std::endl;
@@ -582,7 +580,7 @@ void keyboard(unsigned char k, int, int)
 
         case 'd':
         {
-            Real32 user_deg = tact->getScreenLODDegradationFactor();
+            OSG::Real32 user_deg = tact->getScreenLODDegradationFactor();
             user_deg-=0.01;
             tact->setScreenLODDegradationFactor(user_deg);
             std::cout << "ScreenLOD User Degradation Factor now: " << user_deg << std::endl;
@@ -591,7 +589,7 @@ void keyboard(unsigned char k, int, int)
         
         case 'N':
         {
-            Real32 coverb = tact->getScreenLODCoverageThreshold();
+            OSG::Real32 coverb = tact->getScreenLODCoverageThreshold();
             coverb=0.0;
             tact->setScreenLODCoverageThreshold(coverb);
             std::cout << "ScreenLOD Coverage Threshold now: " << coverb << std::endl;
@@ -652,18 +650,18 @@ void keyboard(unsigned char k, int, int)
     redisplay();
 }
 
-Action::ResultE initMask(Node *n)
+OSG::Action::ResultE initMask(OSG::Node *n)
 {
     // Make Geometries render in main window, but nowhere else.
-    if(n->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
+    if(n->getCore()->getType().isDerivedFrom(OSG::Geometry::getClassType()))
         n->setTravMask(0x800000); 
     
-    return Action::Continue;
+    return OSG::Action::Continue;
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     if(argc > 1 && !strcmp(argv[1],"-s"))
     {
@@ -682,17 +680,17 @@ int main(int argc, char **argv)
     
     if(argc > 1)
     {
-        scene = Node::create();
-        GroupUnrecPtr g = Group::create();
+        scene = OSG::Node::create();
+        OSG::GroupUnrecPtr g = OSG::Group::create();
         
         scene->setCore(g);
         
-        for(UInt16 i = 1; i < argc; ++i)
-            scene->addChild(SceneFileHandler::the()->read(argv[i]));
+        for(OSG::UInt16 i = 1; i < argc; ++i)
+            scene->addChild(OSG::SceneFileHandler::the()->read(argv[i]));
     }
     else
     {
-        scene = makeTorus(.5, 3, 16, 16);
+        scene = OSG::makeTorus(.5, 3, 16, 16);
     }
 
     // GLUT init
@@ -710,37 +708,37 @@ int main(int argc, char **argv)
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);
 
-    GLUTWindowUnrecPtr mainwin=GLUTWindow::create();
+    OSG::GLUTWindowUnrecPtr mainwin=OSG::GLUTWindow::create();
     mainwin->setGlutId(mainwinid);
     mainwin->init();
     
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
 
     // create the window and initial camera/viewport
     mgr->setWindow(mainwin);
     // tell the manager what to manage
     mgr->setRoot  (scene);
 
-    commitChanges();
+    OSG::commitChanges();
 
     // show the whole scene
     mgr->showAll();
 
     mgr->setUseTraversalAction(true);
 
-    tact      = RenderAction::create();
+    tact      = OSG::RenderAction::create();
 #ifdef OSG_OLD_RENDER_ACTION
-    act       = RenderAction::create();
+    act       = OSG::RenderAction::create();
 #endif
-    debugact  = RenderAction::create();
+    debugact  = OSG::RenderAction::create();
     tact->setOcclusionCulling(true);
 
 
     // Open the debug window
     if(debug)
     {
-        ::traverse(scene, initMask);
+        OSG::traverse(scene, initMask);
 
         glutInitWindowSize(800, 400);
         debugwinid = glutCreateWindow("OpenSG Occlusion Debugging");
@@ -750,13 +748,13 @@ int main(int argc, char **argv)
         glutIdleFunc(display);
         glutKeyboardFunc(keyboard);
 
-        debugwin=GLUTWindow::create();
+        debugwin=OSG::GLUTWindow::create();
         debugwin->setGlutId(debugwinid);
         debugwin->init();       
         
-        ViewportUnrecPtr vp = mainwin->getPort(0);
+        OSG::ViewportUnrecPtr vp = mainwin->getPort(0);
         
-        ViewportUnrecPtr newvp = Viewport::create();        
+        OSG::ViewportUnrecPtr newvp = OSG::Viewport::create();        
         newvp->setLeft(0);
         newvp->setRight(0.5);
         newvp->setBottom(0);
@@ -767,7 +765,7 @@ int main(int argc, char **argv)
         newvp->setTravMask(0x1);
         debugwin->addPort(newvp);
         
-        newvp = Viewport::create();        
+        newvp = OSG::Viewport::create();        
         newvp->setLeft(0.5);
         newvp->setRight(1);
         newvp->setBottom(0);
@@ -784,41 +782,41 @@ int main(int argc, char **argv)
 
     // add the statistics forground
     
-    statfg = SimpleStatisticsForeground::create();
+    statfg = OSG::SimpleStatisticsForeground::create();
     
     statfg->setSize(25);
-    statfg->setColor(Color4f(0,1,0,0.7));
+    statfg->setColor(OSG::Color4f(0,1,0,0.7));
 
-    statfg->addElement(RenderAction::statDrawTime, 
+    statfg->addElement(OSG::RenderAction::statDrawTime, 
                        "Draw FPS: %r.3f");
-    statfg->addElement(RenderAction::statNMatrices, 
+    statfg->addElement(OSG::RenderAction::statNMatrices, 
                        "Matrix Changes: %d");
     //statfg->addElement(RenderAction::statNGeometries, 
     //                   "Geometries drawn: %d");
-    statfg->addElement(RenderAction::statNStates, 
+    statfg->addElement(OSG::RenderAction::statNStates, 
                        "State Changes: %d");
     //statfg->addElement(RenderAction::statNShaders, 
     //                   "Shader Changes: %d");
     //statfg->addElement(RenderAction::statNShaderParams, 
     //                   "Shader Param Changes: %d");
                        
-    statfg->addElement(RenderPartition::statCullTestedNodes, 
+    statfg->addElement(OSG::RenderPartition::statCullTestedNodes, 
                        "Cull-tested Nodes: %d");
-    statfg->addElement(RenderPartition::statCulledNodes, 
+    statfg->addElement(OSG::RenderPartition::statCulledNodes, 
                        "Culled Nodes: %d");
 
-    statfg->addElement(OcclusionCullingTreeBuilder::statNOccNodes, 
+    statfg->addElement(OSG::OcclusionCullingTreeBuilder::statNOccNodes, 
                        "Nodes in DrawTree: %d");
-    statfg->addElement(OcclusionCullingTreeBuilder::statNOccTests, 
+    statfg->addElement(OSG::OcclusionCullingTreeBuilder::statNOccTests, 
                        "Occ Tests: %d");
-    statfg->addElement(OcclusionCullingTreeBuilder::statNOccInvisible, 
+    statfg->addElement(OSG::OcclusionCullingTreeBuilder::statNOccInvisible, 
                        "Invisible Nodes: %d");
-    statfg->addElement(OcclusionCullingTreeBuilder::statNOccSuccessTestPer, 
+    statfg->addElement(OSG::OcclusionCullingTreeBuilder::statNOccSuccessTestPer, 
                        "OCC Success rate: %per%%");
 
-    statfg->addElement(RenderAction::statNTriangles, 
+    statfg->addElement(OSG::RenderAction::statNTriangles, 
                        "Triangles:        %d");
-    statfg->addElement(OcclusionCullingTreeBuilder::statNOccTriangles, 
+    statfg->addElement(OSG::OcclusionCullingTreeBuilder::statNOccTriangles, 
                        "Triangles culled: %d");
    
     collector = statfg->getCollector();

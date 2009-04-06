@@ -29,8 +29,6 @@
 
 #include "OSGTrackball.h"
 
-using namespace OSG;
-
 CarbonWindowUnrecPtr    win;
 
 RenderAction        *ract;

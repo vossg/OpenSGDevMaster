@@ -78,12 +78,11 @@
 #include <map>
 #include <list>
 
-OSG_USING_NAMESPACE
 using namespace std;
 
 struct color_compare
 {
-    bool operator()(const Color4ub &s1, const Color4ub &s2) const
+    bool operator()(const OSG::Color4ub &s1, const OSG::Color4ub &s2) const
     {
         return s1.getRGBA() < s2.getRGBA();
     }
@@ -98,17 +97,17 @@ public:
         _ID_buffer = NULL;
         
         // We fix the Sky color to black
-        _solidBkg = SolidBackground::create();
-        _solidBkg->setColor(Color3f(0,0,0));
+        _solidBkg = OSG::SolidBackground::create();
+        _solidBkg->setColor(OSG::Color3f(0,0,0));
 
-        _ID_viewport = Viewport::create();
+        _ID_viewport = OSG::Viewport::create();
         _ID_viewport->setBackground(_solidBkg);
         _ID_viewport->setSize(0,0,1,1);
 
-        _window = PassiveWindow::create();
+        _window = OSG::PassiveWindow::create();
         _window->addPort(_ID_viewport);
 
-        _ID_renderAction = RenderAction::create();
+        _ID_renderAction = OSG::RenderAction::create();
 
         // These parameters depends of your implementation. Use the sames as in your project.
         _ID_renderAction->setAutoFrustum(true);
@@ -122,33 +121,33 @@ public:
         delete _ID_renderAction;
     }
 
-    void setRoot(Node * const value)
+    void setRoot(OSG::Node * const value)
     {
         _switches.clear();
         convertToColorIdentificationSwitchable(value);
         _ID_viewport->setRoot(value);
     }
 
-    void setCamera(Camera * const value)
+    void setCamera(OSG::Camera * const value)
     {
         _ID_viewport->setCamera(value);
     }
 
-    Node *getSky(void) 
+    OSG::Node *getSky(void) 
     {
         return _sky;
     }
 
-    Node *get_object(int x, int y)
+    OSG::Node *get_object(int x, int y)
     {
         if(x>=_w || y >=_h || _ID_buffer==NULL)
             return NULL;
         y = _h - y;
         // Once rendered, we check in the buffer to get the Object ID color.
-        Color4ub c = Color4ub(  _ID_buffer[4*(y*_w+x)],
-                                _ID_buffer[4*(y*_w+x)+1],
-                                _ID_buffer[4*(y*_w+x)+2],
-                                _ID_buffer[4*(y*_w+x)+3] );
+        OSG::Color4ub c = OSG::Color4ub(  _ID_buffer[4*(y*_w+x)],
+                                          _ID_buffer[4*(y*_w+x)+1],
+                                          _ID_buffer[4*(y*_w+x)+2],
+                                          _ID_buffer[4*(y*_w+x)+3] );
         
         // And we find the corresponding Node.
         NodeIndexMap::iterator i = _node_index.find(c);
@@ -172,9 +171,9 @@ public:
     void update_render_GrabForeGround(void)
     {
         // Setup the GrabForeground
-        _grabber = GrabForeground::create();
+        _grabber = OSG::GrabForeground::create();
 
-        ImageRefPtr img = Image::create();
+        OSG::ImageRefPtr img = OSG::Image::create();
         img->set(GL_RGBA,_w,_h);
         _grabber->setImage(img);
         _grabber->setAutoResize(false);
@@ -188,7 +187,7 @@ public:
 
         _grabber->setActive(true);
 
-        commitChanges();
+        OSG::commitChanges();
         
         // We render to the grabber
         _window->render(_ID_renderAction);
@@ -215,12 +214,12 @@ private:
         cj = 255;
         ck = 255;
 
-        _sky = Node::create();
-        Color4ub c = Color4ub(0,0,0,255);
+        _sky = OSG::Node::create();
+        OSG::Color4ub c = OSG::Color4ub(0,0,0,255);
         _node_index[c] = _sky;
     }
 
-    Color4ub create_new_color()
+    OSG::Color4ub create_new_color()
     {
         // With this, we are ready for 255^3 objects.
         if(ci > 1)
@@ -242,57 +241,57 @@ private:
             cerr << "Cdrawing::create_new_color()  NO MORE COLOR FREE !!!! TOO MANY OBJECTS ... Gloups " << endl;
             // Note that we can extend to 255^4 objects with the alpha channel
         }
-        return Color4ub(ci,cj,ck,255);
+        return OSG::Color4ub(ci,cj,ck,255);
         // Note that the color (0,0,0,255) is reserved so as to identify the sky
     }
 
-    void convertToColorIdentificationSwitchable(Node * const root)
+    void convertToColorIdentificationSwitchable(OSG::Node * const root)
     {
         // This is a recursive traversal of the Scene Graph, so as to replace
         // each material by a SwitchMaterial, in wich we put the normal one on one
         // side, and the color identification one in other side.
-        UInt32 children = root->getNChildren();
+        OSG::UInt32 children = root->getNChildren();
 
-        if(root->getCore()->getType().isDerivedFrom(MaterialGroup::getClassType()))
+        if(root->getCore()->getType().isDerivedFrom(OSG::MaterialGroup::getClassType()))
         {
             // Need to turn off material groups, as they would override our
             // geo-specific materials
             // Just record them here.
             
-            MaterialGroup *mg = dynamic_cast<MaterialGroup *>(root->getCore());
+            OSG::MaterialGroup *mg = dynamic_cast<OSG::MaterialGroup *>(root->getCore());
 
             _mgswitches.push_back(MaterialGroupList::value_type(mg, NULL));
         }
         
-        if(root->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
+        if(root->getCore()->getType().isDerivedFrom(OSG::Geometry::getClassType()))
         {
 
-            Geometry *geo = dynamic_cast<Geometry *>(root->getCore());
+            OSG::Geometry *geo = dynamic_cast<OSG::Geometry *>(root->getCore());
 
             // If we get a Geometry, we replace it by a switch, 
             // we add this geometry a SwitchMaterial, with its original material
             // in one case, and a chunkmaterial corresponding to the node ID in the other.
-            Color4ub c = create_new_color();
-            Color4f cf;
+            OSG::Color4ub c = create_new_color();
+            OSG::Color4f cf;
             cf.setRGBA(c.getRGBA());
             // We add the associated pair color/node to the map
             //_node_index[c] = root;
             _node_index [c] = root;
 
-            PolygonChunkRefPtr  pc = PolygonChunk::create();
+            OSG::PolygonChunkRefPtr  pc = OSG::PolygonChunk::create();
             pc->setSmooth(false);
 
-            MaterialChunkRefPtr mc = MaterialChunk::create();
+            OSG::MaterialChunkRefPtr mc = OSG::MaterialChunk::create();
             mc->setLit(false);
             mc->setEmission(cf);
             mc->setDiffuse(cf);
 
-            ChunkMaterialRefPtr cm = ChunkMaterial::create();
+            OSG::ChunkMaterialRefPtr cm = OSG::ChunkMaterial::create();
             cm->addChunk(pc);
             cm->addChunk(mc);
 
-            Material             *mat = geo->getMaterial();
-            SwitchMaterialRefPtr  sw  = SwitchMaterial::create();
+            OSG::Material             *mat = geo->getMaterial();
+            OSG::SwitchMaterialRefPtr  sw  = OSG::SwitchMaterial::create();
 
             sw->addMaterial(mat);        // Choice 0
             sw->addMaterial(cm);        // Choice 1
@@ -347,18 +346,18 @@ private:
     }
 
     // Types
-    typedef std::map<Color4ub, NodeRefPtr, color_compare> NodeIndexMap;
-    typedef std::list<SwitchMaterialRefPtr>               SwitchList;
-    typedef std::list<std::pair<MaterialGroupRefPtr,
-                                MaterialRefPtr      > >   MaterialGroupList;
+    typedef std::map<OSG::Color4ub, OSG::NodeRefPtr, color_compare> NodeIndexMap;
+    typedef std::list<OSG::SwitchMaterialRefPtr>               SwitchList;
+    typedef std::list<std::pair<OSG::MaterialGroupRefPtr,
+                                OSG::MaterialRefPtr      > >   MaterialGroupList;
     
     // Variables
-    GrabForegroundRefPtr        _grabber;
-    ViewportRefPtr              _ID_viewport;
-    RenderAction *              _ID_renderAction;
-    PassiveWindowRefPtr         _window;
-    SolidBackgroundRefPtr       _solidBkg;        // Sky color is black
-    NodeRefPtr                  _sky;
+    OSG::GrabForegroundRefPtr        _grabber;
+    OSG::ViewportRefPtr              _ID_viewport;
+    OSG::RenderAction *              _ID_renderAction;
+    OSG::PassiveWindowRefPtr         _window;
+    OSG::SolidBackgroundRefPtr       _solidBkg;        // Sky color is black
+    OSG::NodeRefPtr                  _sky;
 
     SwitchList                  _switches;        // Switchs to change from normal to ID material
     MaterialGroupList           _mgswitches;
@@ -366,7 +365,7 @@ private:
     // List of used colors for Identification
     NodeIndexMap                _node_index;
 
-    const UInt8 *               _ID_buffer;         // Ram version of the ID buffer
+    const OSG::UInt8 *               _ID_buffer;         // Ram version of the ID buffer
     int                         _w, _h;            // buffer size
 
     int ci,cj,ck;    // for colors generations
@@ -377,13 +376,13 @@ int setupGLUT( int *argc, char *argv[] );
 
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 // The file root node, needed for intersection
-NodeRefPtr fileroot;
+OSG::NodeRefPtr fileroot;
 // The points used for visualising the ray and hit object
-GeoPnt3fPropertyRefPtr isectPoints;
+OSG::GeoPnt3fPropertyRefPtr isectPoints;
 // The visualisation geometry, needed for update.
-GeometryRefPtr testgeocore;
+OSG::GeometryRefPtr testgeocore;
 
 IDbuffer*    _idbuff;
 
@@ -412,7 +411,7 @@ void keyboard(unsigned char k, int x, int y)
         case ' ':   // check the object under the clicked pixel
         {
             _idbuff->update_render_GrabForeGround();
-            Node *found = _idbuff->get_object(x,y);  
+            OSG::Node *found = _idbuff->get_object(x,y);  
 
             if( found == _idbuff->getSky() )
             {
@@ -420,7 +419,7 @@ void keyboard(unsigned char k, int x, int y)
             }
             else if( found != NULL )
             {
-                const Char8 *n = getName(found);
+                const OSG::Char8 *n = getName(found);
                 if(n == NULL)
                     n = "Unnamed";
                 
@@ -441,7 +440,7 @@ void keyboard(unsigned char k, int x, int y)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -451,14 +450,14 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // The scene group
         
-        NodeRefPtr  scene = Node::create();
-        GroupRefPtr g     = Group::create();
+        OSG::NodeRefPtr  scene = OSG::Node::create();
+        OSG::GroupRefPtr g     = OSG::Group::create();
         
         scene->setCore(g);
         
@@ -468,7 +467,7 @@ int main(int argc, char **argv)
             FWARNING(("Supported file formats:\n"));
             
             std::list<const char*> suffixes;
-            SceneFileHandler::the()->getSuffixList(suffixes);
+            OSG::SceneFileHandler::the()->getSuffixList(suffixes);
             
             for(std::list<const char*>::iterator it  = suffixes.begin();
                                                  it != suffixes.end();
@@ -477,11 +476,11 @@ int main(int argc, char **argv)
                 FWARNING(("%s\n", *it));
             }
     
-            fileroot = makeTorus(.5, 2, 16, 16);
+            fileroot = OSG::makeTorus(.5, 2, 16, 16);
         }
         else
         {
-            fileroot = SceneFileHandler::the()->read(argv[1]);
+            fileroot = OSG::SceneFileHandler::the()->read(argv[1]);
             /*
                 All scene file loading is handled via the SceneFileHandler.
             */
@@ -493,48 +492,48 @@ int main(int argc, char **argv)
         // Contains a line and a single triangle.
         // The line shows the ray, the triangle whatever was hit.
         
-        SimpleMaterialRefPtr red = SimpleMaterial::create();
+        OSG::SimpleMaterialRefPtr red = OSG::SimpleMaterial::create();
         
-        red->setDiffuse     (Color3f( 1,0,0 ));   
+        red->setDiffuse     (OSG::Color3f( 1,0,0 ));   
         red->setTransparency(0.5);   
         red->setLit         (false);   
     
-        isectPoints = GeoPnt3fProperty::create();
-        isectPoints->addValue(Pnt3f(0,0,0));
-        isectPoints->addValue(Pnt3f(0,0,0));
-        isectPoints->addValue(Pnt3f(0,0,0));
-        isectPoints->addValue(Pnt3f(0,0,0));
-        isectPoints->addValue(Pnt3f(0,0,0));
+        isectPoints = OSG::GeoPnt3fProperty::create();
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
     
-        GeoUInt32PropertyRefPtr index = GeoUInt32Property::create();
+        OSG::GeoUInt32PropertyRefPtr index = OSG::GeoUInt32Property::create();
         index->addValue(0);
         index->addValue(1);
         index->addValue(2);
         index->addValue(3);
         index->addValue(4);
     
-        GeoUInt32PropertyRefPtr lens = GeoUInt32Property::create();
+        OSG::GeoUInt32PropertyRefPtr lens = OSG::GeoUInt32Property::create();
         lens->addValue(2);
         lens->addValue(3);
         
-        GeoUInt8PropertyRefPtr type = GeoUInt8Property::create();
+        OSG::GeoUInt8PropertyRefPtr type = OSG::GeoUInt8Property::create();
         type->addValue(GL_LINES);
         type->addValue(GL_TRIANGLES);
     
-        testgeocore = Geometry::create();
+        testgeocore = OSG::Geometry::create();
         testgeocore->setPositions(isectPoints);
         testgeocore->setIndices(index);
         testgeocore->setLengths(lens);
         testgeocore->setTypes(type);
         testgeocore->setMaterial(red);
         
-        NodeRefPtr testgeo = Node::create();
+        OSG::NodeRefPtr testgeo = OSG::Node::create();
         testgeo->setCore(testgeocore);
         
         scene->addChild(testgeo);
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

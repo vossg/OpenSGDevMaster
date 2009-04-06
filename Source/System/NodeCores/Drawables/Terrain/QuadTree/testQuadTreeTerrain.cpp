@@ -65,13 +65,12 @@
 #include <OSGTextureEnvChunk.h>
 
 // Activate the OpenSG namespace
-OSG_USING_NAMESPACE
 
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
-NodeRecPtr scene;
+OSG::NodeRecPtr scene;
 
-Real32 speed = 1.;
+OSG::Real32 speed = 1.;
 
 // Standard GLUT callback functions
 void display( void )
@@ -114,7 +113,7 @@ key(unsigned char key, int x, int y)
         case 27:    
             delete mgr;
             scene = NULL;
-            osgExit();
+            OSG::osgExit();
             exit(1);
         case 'a':   mgr->setHighlight( scene );
             break;
@@ -133,17 +132,17 @@ key(unsigned char key, int x, int y)
         }
         case 'l':   mgr->useOpenSGLogo();
             break;
-        case 'f':   mgr->setNavigationMode(Navigator::FLY);
+        case 'f':   mgr->setNavigationMode(OSG::Navigator::FLY);
             break;
-        case 't':   mgr->setNavigationMode(Navigator::TRACKBALL);
+        case 't':   mgr->setNavigationMode(OSG::Navigator::TRACKBALL);
             break;
-        case 'w':   mgr->setNavigationMode(Navigator::WALK);
+        case 'w':   mgr->setNavigationMode(OSG::Navigator::WALK);
             break;                
         case 'x':   mgr->getNavigator()->set(
-            Pnt3f(0,0,2),Pnt3f(0,0,0),Vec3f(0,1,0));
+            OSG::Pnt3f(0,0,2),OSG::Pnt3f(0,0,0),OSG::Vec3f(0,1,0));
             break;
         case 'c':   mgr->getNavigator()->set(
-            Pnt3f(0,0,2),Pnt3f(2,2,1),Vec3f(0,1,0));
+            OSG::Pnt3f(0,0,2),OSG::Pnt3f(2,2,1),OSG::Vec3f(0,1,0));
             break;
         case 'v':   speed *= .9;
             FLOG(("Speed set to %f\n", speed ));
@@ -158,21 +157,21 @@ key(unsigned char key, int x, int y)
     glutPostRedisplay();
 }
 
-MaterialTransitPtr makeTexture (const char* texname)
+OSG::MaterialTransitPtr makeTexture (const char* texname)
 {
-    ImageUnrecPtr image = ImageFileHandler::the()->read(texname);
+    OSG::ImageUnrecPtr image = OSG::ImageFileHandler::the()->read(texname);
     
     SLOG << "Create ChunkMaterial" << std::endl;
     
-    ChunkMaterialUnrecPtr   texMatPtr      = ChunkMaterial  ::create();
-    TextureObjChunkUnrecPtr texChunkPtr    = TextureObjChunk::create();
-    TextureEnvChunkUnrecPtr texEnvChunkPtr = TextureEnvChunk::create();
-    BlendChunkUnrecPtr      blendChunkPtr  = BlendChunk     ::create();
-    MaterialChunkUnrecPtr   phongChunk     = MaterialChunk  ::create();
+    OSG::ChunkMaterialUnrecPtr   texMatPtr      = OSG::ChunkMaterial  ::create();
+    OSG::TextureObjChunkUnrecPtr texChunkPtr    = OSG::TextureObjChunk::create();
+    OSG::TextureEnvChunkUnrecPtr texEnvChunkPtr = OSG::TextureEnvChunk::create();
+    OSG::BlendChunkUnrecPtr      blendChunkPtr  = OSG::BlendChunk     ::create();
+    OSG::MaterialChunkUnrecPtr   phongChunk     = OSG::MaterialChunk  ::create();
     
-    phongChunk->setDiffuse (Color4f(1.0f, 1.0f, 1.0f, 1.0f));
-    phongChunk->setAmbient (Color4f(0.1f, 0.1f, 0.1f, 1.0f));
-    phongChunk->setSpecular(Color4f(0.2f, 0.2f, 0.2f, 1.0f));
+    phongChunk->setDiffuse (OSG::Color4f(1.0f, 1.0f, 1.0f, 1.0f));
+    phongChunk->setAmbient (OSG::Color4f(0.1f, 0.1f, 0.1f, 1.0f));
+    phongChunk->setSpecular(OSG::Color4f(0.2f, 0.2f, 0.2f, 1.0f));
     phongChunk->setShininess(6);
     
     
@@ -194,7 +193,7 @@ MaterialTransitPtr makeTexture (const char* texname)
     texMatPtr->addChunk(texEnvChunkPtr, 0);
     texMatPtr->addChunk(phongChunk);
     
-    return MaterialTransitPtr(texMatPtr);
+    return OSG::MaterialTransitPtr(texMatPtr);
 }
 
 
@@ -202,7 +201,7 @@ MaterialTransitPtr makeTexture (const char* texname)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     OSG::Window::ignoreExtensions("GL_EXT_compiled_vertex_array");
 
     // GLUT init
@@ -217,30 +216,30 @@ int main(int argc, char **argv)
     //glutIdleFunc(display);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+    OSG::GLUTWindowUnrecPtr gwin= OSG::GLUTWindow::create();
 
     gwin->setGlutId(winid);
     gwin->init();
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // create the scene
-    ImageUnrecPtr    height;
-    MaterialUnrecPtr mat;
+    OSG::ImageUnrecPtr    height;
+    OSG::MaterialUnrecPtr mat;
     if (argc < 2) 
     {
-        height = ImageFileHandler::the()->read("Default_HeightMap.png");
+        height = OSG::ImageFileHandler::the()->read("Default_HeightMap.png");
         mat    = makeTexture("Default_TexMap.png");
     } 
     else 
     {
         char buffer[200];
         sprintf(buffer, "%s_HeightMap.png", argv[1]);
-        height = ImageFileHandler::the()->read(buffer);
+        height = OSG::ImageFileHandler::the()->read(buffer);
         sprintf(buffer, "%s_TexMap.png", argv[1]);
         mat    = makeTexture(buffer);
     }
     
-    QuadTreeTerrainUnrecPtr terrain = QuadTreeTerrain::create();
+    OSG::QuadTreeTerrainUnrecPtr terrain = OSG::QuadTreeTerrain::create();
 
     terrain->setHeightData(height);
     terrain->setMaterial(mat);
@@ -251,17 +250,17 @@ int main(int argc, char **argv)
 //    terrain->setPerPixelLighting (true);
 //    terrain->setPerPixelLighting (true);
 
-    scene = Node::create();
+    scene = OSG::Node::create();
 
     scene->setCore(terrain);
        
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
 
     mgr->setWindow( gwin );
     mgr->setRoot( scene );
 
-    WalkNavigator *walker=mgr->getNavigator()->getWalkNavigator();
+    OSG::WalkNavigator *walker=mgr->getNavigator()->getWalkNavigator();
     walker->setGroundDistance(1);
     walker->setPersonDimensions(3,1,1);
 

@@ -71,55 +71,53 @@
 #include <OpenSG/OSGPerspectiveCamera.h>
 #endif
 
-OSG_USING_NAMESPACE
-
 // flag parameters
-const Real32 flagHeight   = 8.0f;
-const Real32 flagWidth    = 16.0f;
-const UInt32 flagGeoHor   = static_cast<UInt32>(flagWidth  * 3);
-const UInt32 flagGeoVert  = static_cast<UInt32>(flagHeight / 2);
-const Real32 flagWaveDamp = 0.06f;
+const OSG::Real32 flagHeight   = 8.0f;
+const OSG::Real32 flagWidth    = 16.0f;
+const OSG::UInt32 flagGeoHor   = static_cast<OSG::UInt32>(flagWidth  * 3);
+const OSG::UInt32 flagGeoVert  = static_cast<OSG::UInt32>(flagHeight / 2);
+const OSG::Real32 flagWaveDamp = 0.06f;
 
-const Real32 poleHeight   = 24.0f;
-const Real32 poleDia      = poleHeight * 0.01f;
+const OSG::Real32 poleHeight   = 24.0f;
+const OSG::Real32 poleDia      = poleHeight * 0.01f;
 
 // fbo size -- you can increase these values to get a higher resolution image
-const UInt32 fboWidth     = static_cast<UInt32>(flagWidth  * 32);
-const UInt32 fboHeight    = static_cast<UInt32>(flagHeight * 32);
+const OSG::UInt32 fboWidth     = static_cast<OSG::UInt32>(flagWidth  * 32);
+const OSG::UInt32 fboHeight    = static_cast<OSG::UInt32>(flagHeight * 32);
 
 // global variables
-SimpleSceneManager   *mgr;
-NodeRefPtr            stageCamBeaconN;
-TransformRefPtr       stageCamBeacon;
+OSG::SimpleSceneManager   *mgr;
+OSG::NodeRefPtr            stageCamBeaconN;
+OSG::TransformRefPtr       stageCamBeacon;
 
-NodeRefPtr            modelTransN;
-TransformRefPtr       modelTrans;
+OSG::NodeRefPtr            modelTransN;
+OSG::TransformRefPtr       modelTrans;
 
 // forward declaration so we can have the interesting stuff upfront
-int            setupGLUT    (int *argc, char *argv[]);
-NodeTransitPtr buildFBOScene(int  argc, char *argv[]);
-NodeTransitPtr buildScene   (TextureObjChunkRefPtr fboTex);
+int                 setupGLUT    (int *argc, char *argv[]);
+OSG::NodeTransitPtr buildFBOScene(int  argc, char *argv[]);
+OSG::NodeTransitPtr buildScene   (OSG::TextureObjChunkRefPtr fboTex);
 
 /*
     Construct a scene that uses a Stage to render a subtree to an FBO (making
     the result available as a texture) and use that in another subtree.
 */
-NodeTransitPtr buildStage(int argc, char *argv[])
+OSG::NodeTransitPtr buildStage(int argc, char *argv[])
 {
     /*
         Begin by setting up an FBO with a TextureBuffer, so we can capture
         and reuse what is being rendered to the FBO.
     */
     
-    ImageRefPtr             fboTexImg = Image            ::create();
-    TextureObjChunkRefPtr   fboTex    = TextureObjChunk  ::create();
+    OSG::ImageRefPtr             fboTexImg = OSG::Image            ::create();
+    OSG::TextureObjChunkRefPtr   fboTex    = OSG::TextureObjChunk  ::create();
     
-    FrameBufferObjectRefPtr fbo       = FrameBufferObject::create();
-    TextureBufferRefPtr     texBuf    = TextureBuffer    ::create();
-    RenderBufferRefPtr      depthBuf  = RenderBuffer     ::create();
+    OSG::FrameBufferObjectRefPtr fbo       = OSG::FrameBufferObject::create();
+    OSG::TextureBufferRefPtr     texBuf    = OSG::TextureBuffer    ::create();
+    OSG::RenderBufferRefPtr      depthBuf  = OSG::RenderBuffer     ::create();
     
     // set up the texture ...
-    fboTexImg->set(Image::OSG_RGB_PF, fboWidth, fboHeight);
+    fboTexImg->set(OSG::Image::OSG_RGB_PF, fboWidth, fboHeight);
     fboTex->setImage(fboTexImg);
     
     // ... and add it to the texture buffer
@@ -141,11 +139,11 @@ NodeTransitPtr buildStage(int argc, char *argv[])
         render target (the FBO from above).
     */
     
-    SimpleStageRefPtr stage  = SimpleStage::create();
-    NodeRefPtr        stageN = makeNodeFor(stage);
+    OSG::SimpleStageRefPtr stage  = OSG::SimpleStage::create();
+    OSG::NodeRefPtr        stageN = OSG::makeNodeFor(stage);
     
     // add the scene to be rendered to the fbo as child of the Stage
-    NodeRefPtr fboSceneN = buildFBOScene(argc, argv);
+    OSG::NodeRefPtr fboSceneN = buildFBOScene(argc, argv);
     stageN->addChild(fboSceneN);
     
     // make the stage render to the FBO instead of the normal framebuffer
@@ -156,13 +154,13 @@ NodeTransitPtr buildStage(int argc, char *argv[])
     stage->setSize(0.0f, 0.0f, 1.0f, 1.0f);
     
     // set a different background for things on the stage ...
-    GradientBackgroundRefPtr gb = GradientBackground::create();
-    gb->addLine(Color3f(0.3, 0.3, 0.8), 0.0);
-    gb->addLine(Color3f(0.5, 0.5, 0.5), 1.0);
+    OSG::GradientBackgroundRefPtr gb = OSG::GradientBackground::create();
+    gb->addLine(OSG::Color3f(0.3, 0.3, 0.8), 0.0);
+    gb->addLine(OSG::Color3f(0.5, 0.5, 0.5), 1.0);
     stage->setBackground(gb);
     
     // ... and add a camera
-    PerspectiveCameraRefPtr stageCam = PerspectiveCamera::create();
+    OSG::PerspectiveCameraRefPtr stageCam = OSG::PerspectiveCamera::create();
     stage->setCamera(stageCam);
     
     stageCam->setBeacon(stageCamBeaconN);
@@ -171,15 +169,15 @@ NodeTransitPtr buildStage(int argc, char *argv[])
     stageCam->setFov   (   1.5);
     
     // add the scene using the fbo
-    NodeRefPtr sceneN = buildScene(fboTex);
+    OSG::NodeRefPtr sceneN = buildScene(fboTex);
     
     // place the stage and the scene using the fbo under a common group
-    NodeRefPtr rootN = makeCoredNode<Group>();
+    OSG::NodeRefPtr rootN = OSG::makeCoredNode<OSG::Group>();
     
     rootN->addChild(stageN);
     rootN->addChild(sceneN);
     
-    return NodeTransitPtr(rootN);
+    return OSG::NodeTransitPtr(rootN);
 }
 
 
@@ -187,7 +185,7 @@ NodeTransitPtr buildStage(int argc, char *argv[])
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -197,16 +195,16 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
 
-        NodeRefPtr scene = buildStage(argc, argv);
+        OSG::NodeRefPtr scene = buildStage(argc, argv);
         
-        commitChanges();
+        OSG::commitChanges();
         
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -259,19 +257,19 @@ void update(void)
 // redraw the window
 void display( void )
 {
-    static Real64 t0 = OSG::getSystemTime();
+    static OSG::Real64 t0 = OSG::getSystemTime();
 
     // get the current time
-    Real64 t = OSG::getSystemTime() - t0;
+    OSG::Real64 t = OSG::getSystemTime() - t0;
     
-    Matrix m;
-    Quaternion q;
+    OSG::Matrix m;
+    OSG::Quaternion q;
     q.setValueAsAxisDeg(0, 1, 0, t * 10.f);
     m.setRotate(q);
     modelTrans->setMatrix(m);
     
     
-    commitChangesAndClear();
+    OSG::commitChangesAndClear();
     
     mgr->redraw();
 }
@@ -291,7 +289,7 @@ void keyboard(unsigned char k, int , int )
             modelTransN     = NULL;
             modelTrans      = NULL;
             
-            osgExit();
+            OSG::osgExit();
             exit(0);
         }
         break;
@@ -324,35 +322,35 @@ int setupGLUT(int *argc, char *argv[])
     another object, however none of this happens in here, only the scene is
     constructed.
 */
-NodeTransitPtr buildFBOScene(int argc, char *argv[])
+OSG::NodeTransitPtr buildFBOScene(int argc, char *argv[])
 {
-    NodeRefPtr modelN;
+    OSG::NodeRefPtr modelN;
 
     if(argc > 1)
-        modelN = SceneFileHandler::the()->read(argv[1]);
+        modelN = OSG::SceneFileHandler::the()->read(argv[1]);
 
     // no argument or loading failed -> use a torus
     if(modelN == NULL)
-        modelN = makeTorus(0.3, 4, 16, 64);
+        modelN = OSG::makeTorus(0.3, 4, 16, 64);
 
-    commitChanges();
-    Pnt3f bbMin, bbMax;
+    OSG::commitChanges();
+    OSG::Pnt3f bbMin, bbMax;
     modelN->updateVolume();
     modelN->getVolume().getBounds(bbMin, bbMax);
     
-    NodeRefPtr fboSceneN = makeCoredNode<Group>();
+    OSG::NodeRefPtr fboSceneN = OSG::makeCoredNode<OSG::Group>();
     
     stageCamBeacon;
-    stageCamBeaconN      = makeCoredNode<Transform>(&stageCamBeacon);
+    stageCamBeaconN      = OSG::makeCoredNode<OSG::Transform>(&stageCamBeacon);
 
-    modelTransN          = makeCoredNode<Transform>(&modelTrans);
+    modelTransN          = OSG::makeCoredNode<OSG::Transform>(&modelTrans);
     
     // move the camera back
-    Real32 bbDia = (bbMax - bbMin).length();
-    stageCamBeacon->editMatrix().setTranslate(Vec3f(0.0f, 0.0f, bbDia));
+    OSG::Real32 bbDia = (bbMax - bbMin).length();
+    stageCamBeacon->editMatrix().setTranslate(OSG::Vec3f(0.0f, 0.0f, bbDia));
     
-    PointLightRefPtr light;
-    NodeRefPtr       lightN    = makeCoredNode<PointLight>(&light);
+    OSG::PointLightRefPtr light;
+    OSG::NodeRefPtr       lightN = OSG::makeCoredNode<OSG::PointLight>(&light);
     light->setBeacon(stageCamBeaconN);
     
     fboSceneN->addChild(lightN );
@@ -362,29 +360,32 @@ NodeTransitPtr buildFBOScene(int argc, char *argv[])
 
     modelTransN->addChild(modelN);
     
-    return NodeTransitPtr(fboSceneN);
+    return OSG::NodeTransitPtr(fboSceneN);
 }
 
 // create a wood texture
-SimpleTexturedMaterialTransitPtr createWoodMaterial(void)
+OSG::SimpleTexturedMaterialTransitPtr createWoodMaterial(void)
 {
-    SimpleTexturedMaterialRefPtr mat = SimpleTexturedMaterial::create();
-    ImageRefPtr img = Image::create();
-    createNoise(img, Image::OSG_L_PF, 7, 64);
+    OSG::SimpleTexturedMaterialRefPtr mat = 
+        OSG::SimpleTexturedMaterial::create();
+
+    OSG::ImageRefPtr img = OSG::Image::create();
+    createNoise(img, OSG::Image::OSG_L_PF, 7, 64);
     
     mat->setImage(img);
     mat->setEnvMode(GL_MODULATE);
-    mat->setDiffuse(Color3f(0.9f, 0.57f, 0.1f));
-    mat->setSpecular(Color3f(0.2f, 0.2f, 0.1f));
+    mat->setDiffuse(OSG::Color3f(0.9f, 0.57f, 0.1f));
+    mat->setSpecular(OSG::Color3f(0.2f, 0.2f, 0.1f));
     
-    TextureTransformChunkRefPtr ttrans = TextureTransformChunk::create();
-    Matrix m;
+    OSG::TextureTransformChunkRefPtr ttrans = 
+        OSG::TextureTransformChunk::create();
+    OSG::Matrix m;
     m.setScale(2.0, 8.0, 2.0);
     ttrans->setMatrix(m);
     
     mat->addChunk(ttrans);
 
-    return SimpleTexturedMaterialTransitPtr(mat);
+    return OSG::SimpleTexturedMaterialTransitPtr(mat);
 }
 
 
@@ -392,17 +393,17 @@ SimpleTexturedMaterialTransitPtr createWoodMaterial(void)
     Builds a scene with a flag on a pole. The flag is textured with the
     image of the fbo scene (fboTexture).
 */
-NodeTransitPtr buildScene(TextureObjChunkRefPtr fboTex)
+OSG::NodeTransitPtr buildScene(OSG::TextureObjChunkRefPtr fboTex)
 {
-    NodeRefPtr     flagScene = makeCoredNode<Group>();
-    GeometryRefPtr flagGeo   = makePlaneGeo(flagWidth,  flagHeight,
-                                            flagGeoHor, flagGeoVert);
+    OSG::NodeRefPtr     flagScene = OSG::makeCoredNode<OSG::Group>();
+    OSG::GeometryRefPtr flagGeo   = OSG::makePlaneGeo(flagWidth,  flagHeight,
+                                                      flagGeoHor, flagGeoVert);
     
     // disable caching as we will change this geometry every frame
     flagGeo->setDlistCache(false);
 
-    SimpleMaterialRefPtr  flagMat   = SimpleMaterial ::create();
-    TextureEnvChunkRefPtr fboTexEnv = TextureEnvChunk::create();
+    OSG::SimpleMaterialRefPtr  flagMat   = OSG::SimpleMaterial ::create();
+    OSG::TextureEnvChunkRefPtr fboTexEnv = OSG::TextureEnvChunk::create();
     
     fboTexEnv->setEnvMode(GL_REPLACE);
     
@@ -412,20 +413,20 @@ NodeTransitPtr buildScene(TextureObjChunkRefPtr fboTex)
     // add a light glossy effect (environment noise-map)
     if (0)
     {
-        ImageRefPtr noise = Image::create();
-        createNoise(noise, Image::OSG_I_PF, 5, 256);
+        OSG::ImageRefPtr noise = OSG::Image::create();
+        createNoise(noise, OSG::Image::OSG_I_PF, 5, 256);
         
         // make noise image darker (as it will be GL_ADDed)
         for(int i = 0; i < noise->getSize(); ++i)
             noise->editData()[i] >>= 2; // *= 0.125
         
-        TextureObjChunkRefPtr glossObj = TextureObjChunk::create();
-        TextureEnvChunkRefPtr glossEnv = TextureEnvChunk::create();
+        OSG::TextureObjChunkRefPtr glossObj = OSG::TextureObjChunk::create();
+        OSG::TextureEnvChunkRefPtr glossEnv = OSG::TextureEnvChunk::create();
         
         glossObj->setImage(noise);
         glossEnv->setEnvMode(GL_ADD);
         
-        TexGenChunkRefPtr envMap = TexGenChunk::create();
+        OSG::TexGenChunkRefPtr envMap = OSG::TexGenChunk::create();
         envMap->setGenFuncS(GL_SPHERE_MAP);
         envMap->setGenFuncT(GL_SPHERE_MAP);
 
@@ -435,26 +436,28 @@ NodeTransitPtr buildScene(TextureObjChunkRefPtr fboTex)
         flagMat->addChunk(envMap,   1);
     }
 
-    flagMat->addChunk(StateChunkRefPtr(TwoSidedLightingChunk::create()));
-    flagMat->setSpecular(Color3f(0.4f, 0.4f, 0.4f));
-    flagMat->setDiffuse (Color3f(0.7f, 0.7f, 0.7f));
+    flagMat->addChunk(
+        OSG::StateChunkRefPtr(OSG::TwoSidedLightingChunk::create()));
+    flagMat->setSpecular(OSG::Color3f(0.4f, 0.4f, 0.4f));
+    flagMat->setDiffuse (OSG::Color3f(0.7f, 0.7f, 0.7f));
 
     flagGeo->setMaterial(flagMat);
 
     // create transform node to hook up the flag to the pole
-    ComponentTransformRefPtr flagTrans;
-    NodeRefPtr flagTransN = makeCoredNode<ComponentTransform>(&flagTrans);
+    OSG::ComponentTransformRefPtr flagTrans;
+    OSG::NodeRefPtr flagTransN = 
+        OSG::makeCoredNode<OSG::ComponentTransform>(&flagTrans);
     
-    Vec3f v(0.5f * flagWidth, 0.5f * (poleHeight - flagHeight) , 0.0f);
+    OSG::Vec3f v(0.5f * flagWidth, 0.5f * (poleHeight - flagHeight) , 0.0f);
     flagTrans->setTranslation(v);
 
     // attach flag-geometry to transform-node
-    flagTransN->addChild(NodeRefPtr(makeNodeFor(flagGeo)));
+    flagTransN->addChild(OSG::NodeRefPtr(OSG::makeNodeFor(flagGeo)));
 
     // build flag pole
-    GeometryRefPtr pole    = makeCylinderGeo(poleHeight, poleDia, 24, true, true, true);
-    NodeRefPtr     poleN   = makeNodeFor(pole);
-    MaterialRefPtr woodMat = createWoodMaterial();
+    OSG::GeometryRefPtr pole    = OSG::makeCylinderGeo(poleHeight, poleDia, 24, true, true, true);
+    OSG::NodeRefPtr     poleN   = OSG::makeNodeFor(pole);
+    OSG::MaterialRefPtr woodMat = createWoodMaterial();
     
     pole->setMaterial(woodMat);
 
@@ -462,5 +465,5 @@ NodeTransitPtr buildScene(TextureObjChunkRefPtr fboTex)
     flagScene->addChild(flagTransN);
     flagScene->addChild(poleN     );
 
-    return NodeTransitPtr(flagScene);
+    return OSG::NodeTransitPtr(flagScene);
 }

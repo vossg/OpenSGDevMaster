@@ -47,32 +47,30 @@
 
 #include "OSGTrackball.h"
 
-using namespace OSG;
+OSG::RenderAction *rentravact = NULL;
 
-RenderAction *rentravact = NULL;
+OSG::NodeRecPtr  root;
+OSG::NodeRecPtr  animRoot;
 
-NodeRecPtr  root;
-NodeRecPtr  animRoot;
+OSG::NodeRecPtr  file;
 
-NodeRecPtr  file;
+OSG::FBOViewportRecPtr vpScene;
+OSG::ViewportRecPtr    vpPlane;
 
-FBOViewportRecPtr vpScene;
-ViewportRecPtr    vpPlane;
+OSG::GLUTWindowRecPtr  win;
 
-GLUTWindowRecPtr  win;
+OSG::Vec3f           sceneTrans;
+OSG::TransformRecPtr cam_transScene;
+OSG::TransformRecPtr scene_trans;
 
-Vec3f           sceneTrans;
-TransformRecPtr cam_transScene;
-TransformRecPtr scene_trans;
+OSG::TransformRecPtr cam_transPlane;
 
-TransformRecPtr cam_transPlane;
+OSG::TextureObjChunkRecPtr tx1o;
+OSG::TextureEnvChunkRecPtr tx1e;
 
-TextureObjChunkRecPtr tx1o;
-TextureEnvChunkRecPtr tx1e;
+OSG::Trackball    tball;
 
-Trackball    tball;
-
-Vec3f min,max;
+OSG::Vec3f min,max;
 
 int mouseb = 0;
 int lastx  = 0;
@@ -80,8 +78,8 @@ int lasty  = 0;
 
 void display(void)
 {
-    Matrix m1, m2, m3;
-    Quaternion q1;
+    OSG::Matrix m1, m2, m3;
+    OSG::Quaternion q1;
 
     tball.getRotation().getValue(m3);
 
@@ -98,9 +96,9 @@ void display(void)
 
     // Anim
 
-    Real32 t = glutGet(GLUT_ELAPSED_TIME);
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME);
     
-    m1.setRotate(Quaternion(Vec3f(0,1,0), t / 1000.f));
+    m1.setRotate(OSG::Quaternion(OSG::Vec3f(0,1,0), t / 1000.f));
 
 
     m1[3][0] = -sceneTrans[0];
@@ -109,7 +107,7 @@ void display(void)
 
     scene_trans->editSFMatrix()->setValue(m1);
 
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
 
     win->render(rentravact);
 }
@@ -131,13 +129,13 @@ void animate(void)
 
 void motion(int x, int y)
 {   
-    Real32 w = win->getWidth(), h = win->getHeight();
+    OSG::Real32 w = win->getWidth(), h = win->getHeight();
     
 
-    Real32 a = -2. * ( lastx / w - .5 );
-    Real32 b = -2. * ( .5 - lasty / h );
-    Real32 c = -2. * ( x / w - .5 );
-    Real32 d = -2. * ( .5 - y / h );
+    OSG::Real32 a = -2. * ( lastx / w - .5 );
+    OSG::Real32 b = -2. * ( .5 - lasty / h );
+    OSG::Real32 c = -2. * ( x / w - .5 );
+    OSG::Real32 d = -2. * ( .5 - y / h );
 
     if(mouseb & (1 << GLUT_LEFT_BUTTON))
     {
@@ -230,9 +228,9 @@ void key(unsigned char key, int x, int y)
             tx1o           = NULL;
             tx1e           = NULL;
 
-            commitChangesAndClear();
+            OSG::commitChangesAndClear();
 
-            osgExit(); 
+            OSG::osgExit(); 
             exit(0);
 
         case 'a':   
@@ -261,15 +259,15 @@ void key(unsigned char key, int x, int y)
 void initAnimSetup(int argc, char **argv)
 {
     // beacon for camera and light  
-    NodeUnrecPtr  b1n = Node ::create();
-    GroupUnrecPtr b1  = Group::create();
+    OSG::NodeUnrecPtr  b1n = OSG::Node ::create();
+    OSG::GroupUnrecPtr b1  = OSG::Group::create();
 
     b1n->setCore(b1);
 
     // transformation
 
-    NodeUnrecPtr      t1n = Node     ::create();
-    TransformUnrecPtr t1  = Transform::create();
+    OSG::NodeUnrecPtr      t1n = OSG::Node     ::create();
+    OSG::TransformUnrecPtr t1  = OSG::Transform::create();
 
     t1n->setCore (t1 );
     t1n->addChild(b1n);
@@ -278,8 +276,8 @@ void initAnimSetup(int argc, char **argv)
 
     // light
     
-    NodeUnrecPtr             dlight = Node::create();
-    DirectionalLightUnrecPtr dl     = DirectionalLight::create();
+    OSG::NodeUnrecPtr             dlight = OSG::Node::create();
+    OSG::DirectionalLightUnrecPtr dl     = OSG::DirectionalLight::create();
 
     dlight->setCore(dl);
     
@@ -289,8 +287,8 @@ void initAnimSetup(int argc, char **argv)
     dl->setBeacon   (b1n          );
 
     // root
-    NodeUnrecPtr  root = Node::create();
-    GroupUnrecPtr gr1  = Group::create();
+    OSG::NodeUnrecPtr  root = OSG::Node::create();
+    OSG::GroupUnrecPtr gr1  = OSG::Group::create();
 
     root->setCore (gr1   );
 
@@ -299,21 +297,21 @@ void initAnimSetup(int argc, char **argv)
 
     // Load the file
 
-    NodeUnrecPtr file = NULL;
+    OSG::NodeUnrecPtr file = NULL;
     
     if(argc > 1)
     {
-        file = SceneFileHandler::the()->read(argv[1]);
+        file = OSG::SceneFileHandler::the()->read(argv[1]);
     }
         
     if(file == NULL)
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
 
-        file = makeTorus(.5, 2, 16, 16);
+        file = OSG::makeTorus(.5, 2, 16, 16);
     }
     
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
     file->updateVolume();
 
     file->dump();
@@ -343,8 +341,8 @@ void initAnimSetup(int argc, char **argv)
 
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
-                  scene_trans = Transform::create();
-    NodeUnrecPtr  sceneTrN    = Node     ::create();
+                       scene_trans = OSG::Transform::create();
+    OSG::NodeUnrecPtr  sceneTrN    = OSG::Node     ::create();
 
     sceneTrN->setCore (scene_trans);
     sceneTrN->addChild(file       );
@@ -354,33 +352,33 @@ void initAnimSetup(int argc, char **argv)
 
     // Camera
     
-    PerspectiveCameraUnrecPtr cam = PerspectiveCamera::create();
+    OSG::PerspectiveCameraUnrecPtr cam = OSG::PerspectiveCamera::create();
 
     cam->setBeacon(b1n);
-    cam->setFov   (osgDegree2Rad(90));
+    cam->setFov   (OSG::osgDegree2Rad(90));
     cam->setNear  (0.1);
     cam->setFar   (100000);
 
     // Background
-    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
+    OSG::SolidBackgroundUnrecPtr bkgnd = OSG::SolidBackground::create();
 
-    bkgnd->setColor(Color3f(0,1,0));
+    bkgnd->setColor(OSG::Color3f(0,1,0));
     
     // Viewport
 
-    vpScene = FBOViewport::create();
+    vpScene = OSG::FBOViewport::create();
 
     vpScene->setCamera    (cam           );
     vpScene->setBackground(bkgnd         );
     vpScene->setRoot      (root          );
     vpScene->setSize      (0, 0, 1, 1);
 
-    FrameBufferObjectUnrecPtr pFBO = FrameBufferObject::create();
+    OSG::FrameBufferObjectUnrecPtr pFBO = OSG::FrameBufferObject::create();
 
 //    vpScene->setFrameBufferObject(pFBO);
 
-    TextureBufferUnrecPtr pTexBuffer   = TextureBuffer::create();
-    RenderBufferUnrecPtr  pDepthBuffer = RenderBuffer ::create();
+    OSG::TextureBufferUnrecPtr pTexBuffer   = OSG::TextureBuffer::create();
+    OSG::RenderBufferUnrecPtr  pDepthBuffer = OSG::RenderBuffer ::create();
 
     pDepthBuffer->setInternalFormat(GL_DEPTH_COMPONENT24   );
 
@@ -401,17 +399,17 @@ void initAnimSetup(int argc, char **argv)
 
     animRoot = root;
 
-    NodeUnrecPtr pStageNode = Node::create();
+    OSG::NodeUnrecPtr pStageNode = OSG::Node::create();
 
-    StageUnrecPtr pStage = Stage::create();
+    OSG::StageUnrecPtr pStage = OSG::Stage::create();
 
     pStageNode->setCore(pStage);
 
     pStage->setRenderTarget(pFBO  );
 
   
-    VisitSubTreeUnrecPtr pVisit     = VisitSubTree::create();
-    NodeUnrecPtr         pVisitNode = Node::create();
+    OSG::VisitSubTreeUnrecPtr pVisit     = OSG::VisitSubTree::create();
+    OSG::NodeUnrecPtr         pVisitNode = OSG::Node::create();
 
     pVisit    ->setSubTreeRoot(dlight);
     pVisitNode->setCore       (pVisit);
@@ -427,15 +425,15 @@ void initAnimSetup(int argc, char **argv)
 void initPlaneSetup(void)
 {
     // beacon for camera and light  
-    NodeUnrecPtr  b1n = Node ::create();
-    GroupUnrecPtr b1  = Group::create();
+    OSG::NodeUnrecPtr  b1n = OSG::Node ::create();
+    OSG::GroupUnrecPtr b1  = OSG::Group::create();
 
     b1n->setCore(b1);
 
     // transformation
 
-    NodeUnrecPtr      t1n = Node     ::create();
-    TransformUnrecPtr t1  = Transform::create();
+    OSG::NodeUnrecPtr      t1n = OSG::Node     ::create();
+    OSG::TransformUnrecPtr t1  = OSG::Transform::create();
 
     t1n->setCore (t1 );
     t1n->addChild(b1n);
@@ -444,8 +442,8 @@ void initPlaneSetup(void)
 
     // light
     
-    NodeUnrecPtr             dlight = Node::create();
-    DirectionalLightUnrecPtr dl     = DirectionalLight::create();
+    OSG::NodeUnrecPtr             dlight = OSG::Node::create();
+    OSG::DirectionalLightUnrecPtr dl     = OSG::DirectionalLight::create();
 
     dlight->setCore(dl);
     
@@ -455,8 +453,8 @@ void initPlaneSetup(void)
     dl->setBeacon   (b1n          );
 
     // root
-    NodeUnrecPtr  root = Node::create();
-    GroupUnrecPtr gr1  = Group::create();
+    OSG::NodeUnrecPtr  root = OSG::Node::create();
+    OSG::GroupUnrecPtr gr1  = OSG::Group::create();
 
     root->setCore (gr1   );
 
@@ -466,25 +464,25 @@ void initPlaneSetup(void)
 
     // Load the file
 
-    NodeUnrecPtr file = NULL;
+    OSG::NodeUnrecPtr file = NULL;
     
-    file = makePlane(10, 10, 5, 5);
+    file = OSG::makePlane(10, 10, 5, 5);
     
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
     file->updateVolume();
 
     file->dump();
 
-    GeometryUnrecPtr pGeo = dynamic_cast<Geometry *>(file->getCore());
+    OSG::GeometryUnrecPtr pGeo = dynamic_cast<OSG::Geometry *>(file->getCore());
 
-    UChar8 imgdata[] =
+    OSG::UChar8 imgdata[] =
     {  
         64,64,64, 128,128,128, 192,192,192, 255,255,255 
     };
 
-    ImageUnrecPtr pImg = Image::create();
+    OSG::ImageUnrecPtr pImg = OSG::Image::create();
 
-    pImg->set(Image::OSG_RGB_PF, 512, 512);
+    pImg->set(OSG::Image::OSG_RGB_PF, 512, 512);
 
     tx1o->setImage    (pImg      ); 
     tx1o->setMinFilter(GL_LINEAR );
@@ -493,12 +491,12 @@ void initPlaneSetup(void)
     tx1o->setWrapT    (GL_REPEAT );
     tx1e->setEnvMode  (GL_REPLACE);
 
-    SimpleMaterialUnrecPtr mat = SimpleMaterial::create();
+    OSG::SimpleMaterialUnrecPtr mat = OSG::SimpleMaterial::create();
     
-    mat->setDiffuse(Color3f(1,1,1));
-    mat->setLit    (false         );
-    mat->addChunk  (tx1o          );
-    mat->addChunk  (tx1e          );
+    mat->setDiffuse(OSG::Color3f(1,1,1));
+    mat->setLit    (false              );
+    mat->addChunk  (tx1o               );
+    mat->addChunk  (tx1e               );
 
     pGeo->setMaterial(mat);
 
@@ -527,8 +525,8 @@ void initPlaneSetup(void)
 
     std::cout << "Volume: from " << min << " to " << max << std::endl;
 
-    TransformUnrecPtr scene_trans = Transform::create();
-    NodeUnrecPtr      sceneTrN    = Node     ::create();
+    OSG::TransformUnrecPtr scene_trans = OSG::Transform::create();
+    OSG::NodeUnrecPtr      sceneTrN    = OSG::Node     ::create();
 
     sceneTrN->setCore (scene_trans);
     sceneTrN->addChild(file       );
@@ -538,21 +536,21 @@ void initPlaneSetup(void)
 
     // Camera
     
-    PerspectiveCameraUnrecPtr cam = PerspectiveCamera::create();
+    OSG::PerspectiveCameraUnrecPtr cam = OSG::PerspectiveCamera::create();
 
     cam->setBeacon(b1n);
-    cam->setFov   (osgDegree2Rad(90));
+    cam->setFov   (OSG::osgDegree2Rad(90));
     cam->setNear  (0.1);
     cam->setFar   (100000);
 
     // Background
-    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
+    OSG::SolidBackgroundUnrecPtr bkgnd = OSG::SolidBackground::create();
 
-    bkgnd->setColor(Color3f(1, 0, 0));
+    bkgnd->setColor(OSG::Color3f(1, 0, 0));
     
     // Viewport
 
-    vpPlane = Viewport::create();
+    vpPlane = OSG::Viewport::create();
 
     vpPlane->setCamera    (cam       );
     vpPlane->setBackground(bkgnd     );
@@ -562,7 +560,7 @@ void initPlaneSetup(void)
 
 int main (int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     // GLUT init
 
@@ -586,12 +584,12 @@ int main (int argc, char **argv)
 
     // OSG
 
-    SceneFileHandler::the()->print();
+    OSG::SceneFileHandler::the()->print();
 
     // create shared texture
 
-    tx1o = TextureObjChunk::create();
-    tx1e = TextureEnvChunk::create();
+    tx1o = OSG::TextureObjChunk::create();
+    tx1e = OSG::TextureEnvChunk::create();
 
     // create the graph
 
@@ -607,7 +605,7 @@ int main (int argc, char **argv)
 
     glGetIntegerv(GL_VIEWPORT, glvp);
 
-    win = GLUTWindow::create();
+    win = OSG::GLUTWindow::create();
     
     win->setGlutId(winid           );
     win->setSize(glvp[2], glvp[3]);
@@ -619,25 +617,25 @@ int main (int argc, char **argv)
 
     // Action
     
-    rentravact = RenderAction::create();
+    rentravact = OSG::RenderAction::create();
 
     // tball
 
-    Vec3f pos;
+    OSG::Vec3f pos;
     pos.setValues(min[0] + ((max[0] - min[0]) * 0.5), 
                   min[1] + ((max[1] - min[1]) * 0.5), 
                   max[2] + ( max[2] - min[2] ) * 1.5 );
     
     float scale = (max[2] - min[2] + max[1] - min[1] + max[0] - min[0]) / 6;
 
-    Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
-                  min[1] + (max[1] - min[1]) / 2,
-                  min[2] + (max[2] - min[2]) / 2);
+    OSG::Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
+                       min[1] + (max[1] - min[1]) / 2,
+                       min[2] + (max[2] - min[2]) / 2);
 
-    tball.setMode( Trackball::OSGObject );
+    tball.setMode( OSG::Trackball::OSGObject );
     tball.setStartPosition( pos, true );
     tball.setSum( true );
-    tball.setTranslationMode( Trackball::OSGFree );
+    tball.setTranslationMode( OSG::Trackball::OSGFree );
     tball.setTranslationScale(scale);
     tball.setRotationCenter(tCenter);
 

@@ -21,11 +21,9 @@
 
 #include <OSGFieldContainerUtils.h>
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -34,35 +32,35 @@ int setupGLUT( int *argc, char *argv[] );
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+        OSG::GLUTWindowUnrecPtr gwin= OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // load the scene
     
-        NodeUnrecPtr scene;
+        OSG::NodeUnrecPtr scene;
         
         if(argc < 2)
         {
             FWARNING(("No file given!\n"));
             FWARNING(("Supported file formats:\n"));
             
-            SceneFileHandler::the()->print();
-            scene = makeTorus(.5, 2, 16, 16);
+            OSG::SceneFileHandler::the()->print();
+            scene = OSG::makeTorus(.5, 2, 16, 16);
         }
         else
         {
             /*
                 All scene file loading is handled via the SceneFileHandler.
             */
-            scene = SceneFileHandler::the()->read(argv[1]);
+            scene = OSG::SceneFileHandler::the()->read(argv[1]);
         }
     
         //scene->dump();
@@ -70,7 +68,7 @@ int main(int argc, char **argv)
         OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setUseTraversalAction(true);
     
         // tell the manager what to manage
@@ -96,7 +94,7 @@ void display(void)
 {
     mgr->idle();
     mgr->redraw();
-    Thread::getCurrentChangeList()->clear();
+    OSG::Thread::getCurrentChangeList()->clear();
 }
 
 // react to size changes
@@ -138,10 +136,10 @@ void keyboard(unsigned char k, int , int )
             exit(0);
         break;
         case 'f':
-            mgr->setNavigationMode(Navigator::FLY);
+            mgr->setNavigationMode(OSG::Navigator::FLY);
         break;
         case 't':
-            mgr->setNavigationMode(Navigator::TRACKBALL);
+            mgr->setNavigationMode(OSG::Navigator::TRACKBALL);
         break;
         case 'q':
             mgr->setStatistics(true);
@@ -160,7 +158,7 @@ void keyboard(unsigned char k, int , int )
         case 'p':
         {
             std::cout << "Scanning memory consumption." << std::endl;
-            MemoryConsumption mc;
+            OSG::MemoryConsumption mc;
             mc.scan();
             mc.print(std::cout);
         }

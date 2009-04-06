@@ -46,15 +46,12 @@
 // boost::bind - to allow member functions as traversal functors
 #include <boost/bind.hpp>
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // a separate transformation for every object
-TransformRefPtr cyltrans, tortrans;
+OSG::TransformRefPtr cyltrans, tortrans;
 
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -63,23 +60,23 @@ int setupGLUT( int *argc, char *argv[] );
 void display( void )
 {
     // create the matrix
-    Matrix m;
-    Real32 t = glutGet(GLUT_ELAPSED_TIME);
+    OSG::Matrix m;
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME);
     
     // set the transforms' matrices
-    m.setTransform(Vec3f(      0,
-                               0, 
-                               osgSin(t / 1000.f) * 1.5),
-                   Quaternion( Vec3f (1, 0, 0), 
-                                      t / 500.f));
+    m.setTransform(OSG::Vec3f(0,
+                              0, 
+                              OSG::osgSin(t / 1000.f) * 1.5),
+                   OSG::Quaternion(OSG::Vec3f (1, 0, 0), 
+                                   t / 500.f));
 
     cyltrans->setMatrix(m);
     
-    m.setTransform(Vec3f(      osgSin(t / 2000.f), 
-                               0, 
-                               0),
-                   Quaternion( Vec3f (0, 0, 1), 
-                                      t / 2000.f));
+    m.setTransform(OSG::Vec3f(OSG::osgSin(t / 2000.f), 
+                              0, 
+                              0),
+                   OSG::Quaternion(OSG::Vec3f (0, 0, 1), 
+                                   t / 2000.f));
 
     tortrans->setMatrix(m);
     
@@ -118,16 +115,16 @@ void update(void)
 */
 
 // these are the trivial traversal function, they just print and return
-Action::ResultE enter(Node *node)
+OSG::Action::ResultE enter(OSG::Node *node)
 {
-    SLOG << "entering " << node << endLog;
+    SLOG << "entering " << node << OSG::endLog;
 
-    return Action::Continue; 
+    return OSG::Action::Continue; 
 }
 
-Action::ResultE leave(Node *node, Action::ResultE res) 
+OSG::Action::ResultE leave(OSG::Node *node, OSG::Action::ResultE res) 
 {
-    SLOG << "leaving " << node << ", got code " << res << endLog;
+    SLOG << "leaving " << node << ", got code " << res << OSG::endLog;
 
     // you should return the result that you're passed, to propagate Quits
     return res; 
@@ -141,25 +138,25 @@ class travstate
   
     travstate( void ) : _indent(0) {}
     
-    Action::ResultE enter(Node *node)
+    OSG::Action::ResultE enter(OSG::Node *node)
     {
-        for(UInt16 i = 0; i < _indent; i++)
+        for(OSG::UInt16 i = 0; i < _indent; i++)
             SLOG << "    ";
 
-        SLOG << "entering " << node << endLog;
+        SLOG << "entering " << node << OSG::endLog;
 
         ++_indent;
-        return Action::Continue;        
+        return OSG::Action::Continue;        
     }
     
-    Action::ResultE leave(Node *node, Action::ResultE res)
+    OSG::Action::ResultE leave(OSG::Node *node, OSG::Action::ResultE res)
     {
         --_indent;
         
-        for(UInt16 i = 0; i < _indent; i++)
+        for(OSG::UInt16 i = 0; i < _indent; i++)
             SLOG << "    ";
 
-        SLOG << "leaving " << node << endLog;
+        SLOG << "leaving " << node << OSG::endLog;
 
         // you should return the result that you're passed, to propagate Quits
         return res;
@@ -167,7 +164,7 @@ class travstate
     
   private:
   
-    UInt16 _indent;
+    OSG::UInt16 _indent;
 };
 
 // a traversal functions that does not descend below transformations
@@ -180,19 +177,19 @@ class travstate
     containers and is not restricted to Nodes or NodeCores.
 */
 
-Action::ResultE dontEnterTrans(Node *node)
+OSG::Action::ResultE dontEnterTrans(OSG::Node *node)
 {   
-    SLOG << "entering " << node << endLog;
+    SLOG << "entering " << node << OSG::endLog;
 
-    if(node->getCore()->getType().isDerivedFrom(Transform::getClassType()))
+    if(node->getCore()->getType().isDerivedFrom(OSG::Transform::getClassType()))
     {
-        Transform *t = dynamic_cast<Transform *>(node->getCore());
+        OSG::Transform *t = dynamic_cast<OSG::Transform *>(node->getCore());
         
-        SLOG << "derived from transform, skipping children" << endLog;
-        SLOG << "Matrix: " << endLog << t->getMatrix();
-        return Action::Skip;
+        SLOG << "derived from transform, skipping children" << OSG::endLog;
+        SLOG << "Matrix: " << OSG::endLog << t->getMatrix();
+        return OSG::Action::Skip;
     }   
-    return Action::Continue; 
+    return OSG::Action::Continue; 
 }
 
 
@@ -204,18 +201,18 @@ Action::ResultE dontEnterTrans(Node *node)
     actually was derived from Geometry.
 */
 
-Action::ResultE quitGeo(Node *node)
+OSG::Action::ResultE quitGeo(OSG::Node *node)
 {   
-    SLOG << "entering " << node << endLog;
+    SLOG << "entering " << node << OSG::endLog;
 
-    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
+    OSG::Geometry *geo = dynamic_cast<OSG::Geometry *>(node->getCore());
     
     if(geo != NULL)
     {
-        SLOG << "derived from geometry, quitting" << endLog;
-        return Action::Quit;
+        SLOG << "derived from geometry, quitting" << OSG::endLog;
+        return OSG::Action::Quit;
     }   
-    return Action::Continue; 
+    return OSG::Action::Continue; 
 }
 
 
@@ -224,7 +221,7 @@ Action::ResultE quitGeo(Node *node)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -234,7 +231,7 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
@@ -245,17 +242,17 @@ int main(int argc, char **argv)
         
         // The scene group
         
-        NodeRefPtr  scene = Node::create();
-        GroupRefPtr g     = Group::create();
+        OSG::NodeRefPtr  scene = OSG::Node::create();
+        OSG::GroupRefPtr g     = OSG::Group::create();
         
         scene->setCore(g);
         
         // The cylinder and its transformation
-        NodeRefPtr cyl = makeCylinder( 1.4, .3, 8, true, true, true );
+        OSG::NodeRefPtr cyl = OSG::makeCylinder( 1.4, .3, 8, true, true, true );
             
-        cyltrans = Transform::create();
+        cyltrans = OSG::Transform::create();
     
-        NodeRefPtr cyltransnode = Node::create();
+        OSG::NodeRefPtr cyltransnode = OSG::Node::create();
 
         cyltransnode->setCore (cyltrans);
         cyltransnode->addChild(cyl     );
@@ -264,11 +261,11 @@ int main(int argc, char **argv)
         scene->addChild(cyltransnode);
         
         // The torus and its transformation
-        NodeRefPtr torus = makeTorus( .2, 1, 8, 12 );
+        OSG::NodeRefPtr torus = OSG::makeTorus( .2, 1, 8, 12 );
             
-        tortrans = Transform::create();
+        tortrans = OSG::Transform::create();
     
-        NodeRefPtr tortransnode = Node::create();
+        OSG::NodeRefPtr tortransnode = OSG::Node::create();
         
         tortransnode->setCore (tortrans);
         tortransnode->addChild(torus   );
@@ -305,44 +302,44 @@ int main(int argc, char **argv)
             below for examples).
         */
         
-        SLOG << "Variant 1: just print every encountered node" << endLog;
+        SLOG << "Variant 1: just print every encountered node" << OSG::endLog;
         traverse(scene, enter);
         
-        SLOG << endLog 
-                << "Variant 2: just print every encountered node, using a" 
-                << " vector of nodes" << endLog;
+        SLOG << OSG::endLog 
+             << "Variant 2: just print every encountered node, using a" 
+             << " vector of nodes" << OSG::endLog;
             
-        std::vector<Node *> nodevec;
+        std::vector<OSG::Node *> nodevec;
         nodevec.push_back(tortransnode);
         nodevec.push_back(cyltransnode);
         
         traverse(nodevec, enter);
         
-        SLOG << endLog 
-                << "Variant 3: just print every encountered node on entering"
-                << " and leaving" << endLog;
+        SLOG << OSG::endLog 
+             << "Variant 3: just print every encountered node on entering"
+             << " and leaving" << OSG::endLog;
     
         traverse(scene, enter, leave);
         
         // now use a travstate object to hold additional data   
         travstate t;
         
-        SLOG << endLog 
+        SLOG << OSG::endLog 
                 << "Variant 4: use an object to hold state for indentation" 
-                << endLog;
+                << OSG::endLog;
         traverse(scene, boost::bind(&travstate::enter, &t, _1    ),
                         boost::bind(&travstate::leave, &t, _1, _2) );
         
-        SLOG << endLog 
-                << "Variant 5: don't descend into transforms" << endLog;
+        SLOG << OSG::endLog 
+             << "Variant 5: don't descend into transforms" << OSG::endLog;
         traverse(scene, dontEnterTrans, leave);
         
-        SLOG << endLog 
-                << "Variant 6: quit when you find a geometry" << endLog;
+        SLOG << OSG::endLog 
+                << "Variant 6: quit when you find a geometry" << OSG::endLog;
         traverse(scene, quitGeo, leave);
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

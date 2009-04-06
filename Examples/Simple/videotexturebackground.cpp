@@ -31,18 +31,14 @@
 
 #endif // OSG_BUILD_ACTIVE
 
-// Activate the OpenSG namespace
-
-OSG_USING_NAMESPACE
-
 // The pointer to the transformation
 
-TransformRefPtr trans;
+OSG::TransformRefPtr trans;
 
 // The pointer to the dynamic image and the texture
 
-ImageRefPtr           image;
-TextureObjChunkRefPtr texObj;
+OSG::ImageRefPtr           image;
+OSG::TextureObjChunkRefPtr texObj;
 
 // Some helper flags for different code pathes
 // flag to indicate whether the images are power-of-two (POT) in size or not
@@ -63,7 +59,7 @@ bool changeOnlyPart = false;
 
 // The SimpleSceneManager to manage simple applications
 
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 
@@ -74,31 +70,31 @@ void cleanup  (void                   );
 // This just update the image's data and tells the texture that it changed.
 // For a video this would grab the next frame
 
-void grabImage(Image *img)
+void grabImage(OSG::Image *img)
 {
-    UInt8* data = img->editData();
+    OSG::UInt8* data = img->editData();
 
     // for this example, just fill it with random junk
     if(changeOnlyPart)
     {
         // Just change a small rectangular area
-        UInt32 x = rand() % (img->getWidth() - 100);
-        UInt32 y = rand() % (img->getHeight() - 100);
-        UInt32 w = rand() % 100;
-        UInt32 h = rand() % 100;
-        UInt32 bpp = img->getBpp();
-        UInt32 bpl = img->getWidth() * bpp;
-        UInt32 bytes = w * bpp;
+        OSG::UInt32 x = rand() % (img->getWidth() - 100);
+        OSG::UInt32 y = rand() % (img->getHeight() - 100);
+        OSG::UInt32 w = rand() % 100;
+        OSG::UInt32 h = rand() % 100;
+        OSG::UInt32 bpp = img->getBpp();
+        OSG::UInt32 bpl = img->getWidth() * bpp;
+        OSG::UInt32 bytes = w * bpp;
 
         data += y * bpl + x * bpp;
 
-        UInt8 val = (rand() & 0x7f + 0x80);
+        OSG::UInt8 val = (rand() & 0x7f + 0x80);
 
-        for(UInt32 i = h; i > 0; --i, data += bpl)
+        for(OSG::UInt32 i = h; i > 0; --i, data += bpl)
         {
-            UInt8 *d = data;
+            OSG::UInt8 *d = data;
 
-            for(UInt32 j = bytes; j > 0; --j)
+            for(OSG::UInt32 j = bytes; j > 0; --j)
                 *d++ = val;
         }
 
@@ -112,11 +108,11 @@ void grabImage(Image *img)
 
         // Fill the whole picture
 
-        for(UInt32 i = img->getHeight(); i > 0; --i)
+        for(OSG::UInt32 i = img->getHeight(); i > 0; --i)
         {
-            UInt8 val = (rand() & 0x3f + 0x80);
+            OSG::UInt8 val = (rand() & 0x3f + 0x80);
 
-            for(UInt32 j = img->getWidth() * img->getBpp(); j > 0; --j)
+            for(OSG::UInt32 j = img->getWidth() * img->getBpp(); j > 0; --j)
                 *data++ = val;
         }
 
@@ -131,15 +127,15 @@ void grabImage(Image *img)
 void display( void )
 {
     // update the geometry
-    Matrix m;
+    OSG::Matrix m;
 
-    Real32 t = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
 
-    m.setTransform(Vec3f(osgSin(t / 1000.f),
-                         osgCos(t / 1000.f),
-                         osgSin(t / 1000.f)),
+    m.setTransform(OSG::Vec3f(OSG::osgSin(t / 1000.f),
+                              OSG::osgCos(t / 1000.f),
+                              OSG::osgSin(t / 1000.f)),
 
-                   Quaternion( Vec3f(0,1,0), t / 1000.f));
+                   OSG::Quaternion( OSG::Vec3f(0,1,0), t / 1000.f));
 
     trans->setMatrix(m);
 
@@ -161,30 +157,30 @@ void update(void)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
 
         gwin->setGlutId(winid);
         gwin->init();
 
         // create the scene
-        NodeRefPtr torus = makeTorus( .5, 2, 16, 32 );
-        NodeRefPtr scene = Node::create();
+        OSG::NodeRefPtr torus = OSG::makeTorus( .5, 2, 16, 32 );
+        OSG::NodeRefPtr scene = OSG::Node::create();
 
-        trans = Transform::create();
+        trans = OSG::Transform::create();
 
         scene->setCore(trans);
         scene->addChild(torus);
 
         // Create the parts needed for the video background
-        UInt32 width  = 640;
-        UInt32 height = 480;
+        OSG::UInt32 width  = 640;
+        OSG::UInt32 height = 480;
 
         // get the desired size from the command line
         if(argc >= 3)
@@ -212,19 +208,19 @@ int main(int argc, char **argv)
 
         // Ok, now for the meat of the code...
         // first we need an Image to hold the picture(s) to show
-        image = Image::create();
+        image = OSG::Image::create();
 
         // set the image's size and type, and allocate memory
         // this example uses RGB. On some systems (e.g. Windows) BGR
         // or BGRA might be faster, it depends on how the images are
         // acquired
 
-        image->set(Image::OSG_RGB_PF, width, height);
+        image->set(OSG::Image::OSG_RGB_PF, width, height);
 
 
 
         // Now create the texture to be used for the background
-        texObj = TextureObjChunk::create();
+        texObj = OSG::TextureObjChunk::create();
 
         // Associate image and texture
         texObj->setImage(image);
@@ -255,7 +251,7 @@ int main(int argc, char **argv)
 
         // Create the background
 
-        TextureBackgroundRefPtr back = TextureBackground::create();
+        OSG::TextureBackgroundRefPtr back = OSG::TextureBackground::create();
 
         // Set the texture to use
         back->setTexture(texObj);
@@ -264,22 +260,22 @@ int main(int argc, char **argv)
         // adjust the texture coordinates.
         if(isPOT == false && hasNPOT == false)
         {
-            UInt32 potWidth  = osgNextPower2(width );
-            UInt32 potHeight = osgNextPower2(height);
+            OSG::UInt32 potWidth  = OSG::osgNextPower2(width );
+            OSG::UInt32 potHeight = OSG::osgNextPower2(height);
 
-            Real32 tcRight = Real32(width ) / Real32(potWidth );
-            Real32 tcTop   = Real32(height) / Real32(potHeight);
+            OSG::Real32 tcRight = OSG::Real32(width ) / OSG::Real32(potWidth );
+            OSG::Real32 tcTop   = OSG::Real32(height) / OSG::Real32(potHeight);
 
-            back->editMFTexCoords()->push_back(Vec2f(    0.f,   0.f));
-            back->editMFTexCoords()->push_back(Vec2f(tcRight,   0.f));
-            back->editMFTexCoords()->push_back(Vec2f(tcRight, tcTop));
-            back->editMFTexCoords()->push_back(Vec2f(    0.f, tcTop));
+            back->editMFTexCoords()->push_back(OSG::Vec2f(    0.f,   0.f));
+            back->editMFTexCoords()->push_back(OSG::Vec2f(tcRight,   0.f));
+            back->editMFTexCoords()->push_back(OSG::Vec2f(tcRight, tcTop));
+            back->editMFTexCoords()->push_back(OSG::Vec2f(    0.f, tcTop));
         }
 
-        commitChanges();
+        OSG::commitChanges();
 
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
 
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -290,7 +286,7 @@ int main(int argc, char **argv)
         // This has to be done after the viewport has been created, which the
         // SSM does in setRoot().
 
-        ViewportRefPtr vp = gwin->getPort(0);
+        OSG::ViewportRefPtr vp = gwin->getPort(0);
 
         vp->setBackground(back);
     }
@@ -381,5 +377,5 @@ void cleanup(void)
     image  = NULL;
     texObj = NULL;
 
-    commitChanges();
+    OSG::commitChanges();
 }

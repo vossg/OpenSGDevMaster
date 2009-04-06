@@ -39,18 +39,16 @@
 // the geometry node core
 #include <OpenSG/OSGGeometry.h>
 #endif
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
 
 // The pointer to the transformation
-TransformRefPtr trans;
+OSG::TransformRefPtr trans;
 
 // The pointer to the geometry core
-GeometryRefPtr geo;
+OSG::GeometryRefPtr geo;
 
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -59,7 +57,7 @@ int setupGLUT( int *argc, char *argv[] );
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -69,7 +67,7 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
@@ -91,7 +89,7 @@ int main(int argc, char **argv)
             These are taken from OpenGL, any values that can be passed to
             glBegin(); are legal. Different types can be freely mixed.
         */
-        GeoUInt8PropertyRefPtr type = GeoUInt8Property::create();
+        OSG::GeoUInt8PropertyRefPtr type = OSG::GeoUInt8Property::create();
         type->addValue(GL_POLYGON  );
         type->addValue(GL_TRIANGLES);
         type->addValue(GL_QUADS    );
@@ -102,7 +100,7 @@ int main(int argc, char **argv)
             primitive. Thus there have to be at least as many entries as in the
             types property.
         */
-        GeoUInt32PropertyRefPtr lens = GeoUInt32Property::create();
+        OSG::GeoUInt32PropertyRefPtr lens = OSG::GeoUInt32Property::create();
         lens->addValue(4);
         lens->addValue(6);
         lens->addValue(8);
@@ -116,59 +114,59 @@ int main(int argc, char **argv)
             set of operations they can handle. Vectors (e.g. Vec3f) are the more
             general kind.
         */
-        GeoPnt3fPropertyRefPtr  pnts = OSG::GeoPnt3fProperty::create();
+        OSG::GeoPnt3fPropertyRefPtr  pnts = OSG::GeoPnt3fProperty::create();
         // the 4 points of the polygon
-        pnts->addValue(Pnt3f(-1, -1, -1));
-        pnts->addValue(Pnt3f(-1, -1,  1));
-        pnts->addValue(Pnt3f( 1, -1,  1));
-        pnts->addValue(Pnt3f( 1, -1, -1));
+        pnts->addValue(OSG::Pnt3f(-1, -1, -1));
+        pnts->addValue(OSG::Pnt3f(-1, -1,  1));
+        pnts->addValue(OSG::Pnt3f( 1, -1,  1));
+        pnts->addValue(OSG::Pnt3f( 1, -1, -1));
     
         // the 6 points of the two triangles
-        pnts->addValue(Pnt3f( 1,  0, -1));
-        pnts->addValue(Pnt3f(-1,  0, -1));
-        pnts->addValue(Pnt3f( 0,  1, -1));
+        pnts->addValue(OSG::Pnt3f( 1,  0, -1));
+        pnts->addValue(OSG::Pnt3f(-1,  0, -1));
+        pnts->addValue(OSG::Pnt3f( 0,  1, -1));
     
-        pnts->addValue(Pnt3f(-1,  0,  1));
-        pnts->addValue(Pnt3f( 1,  0,  1));
-        pnts->addValue(Pnt3f( 0,  1,  1));
+        pnts->addValue(OSG::Pnt3f(-1,  0,  1));
+        pnts->addValue(OSG::Pnt3f( 1,  0,  1));
+        pnts->addValue(OSG::Pnt3f( 0,  1,  1));
     
         // the 8 points of the two quads
-        pnts->addValue(Pnt3f(-1,  -1,  1));    
-        pnts->addValue(Pnt3f( 1,  -1,  1));    
-        pnts->addValue(Pnt3f( 1,   0,  1));    
-        pnts->addValue(Pnt3f(-1,   0,  1));    
+        pnts->addValue(OSG::Pnt3f(-1,  -1,  1));    
+        pnts->addValue(OSG::Pnt3f( 1,  -1,  1));    
+        pnts->addValue(OSG::Pnt3f( 1,   0,  1));    
+        pnts->addValue(OSG::Pnt3f(-1,   0,  1));    
     
-        pnts->addValue(Pnt3f( 1,  -1, -1));    
-        pnts->addValue(Pnt3f(-1,  -1, -1));    
-        pnts->addValue(Pnt3f(-1,   0, -1));    
-        pnts->addValue(Pnt3f( 1,   0, -1));    
+        pnts->addValue(OSG::Pnt3f( 1,  -1, -1));    
+        pnts->addValue(OSG::Pnt3f(-1,  -1, -1));    
+        pnts->addValue(OSG::Pnt3f(-1,   0, -1));    
+        pnts->addValue(OSG::Pnt3f( 1,   0, -1));    
     
         /*
         Put it all together into a Geometry NodeCore.
         */
-        geo = Geometry::create();
+        geo = OSG::Geometry::create();
         geo->setTypes    (type);
         geo->setLengths  (lens);
         geo->setPositions(pnts);
     
         // assign a material to the geometry to make it visible. The details
         // of materials are defined later.
-        geo->setMaterial(getDefaultUnlitMaterial());   
+        geo->setMaterial(OSG::getDefaultUnlitMaterial());   
         
         // put the geometry core into a node
-        NodeRefPtr n = Node::create();
+        OSG::NodeRefPtr n = OSG::Node::create();
         n->setCore(geo);
         
         // add a transformation to make it move     
-        NodeRefPtr scene = Node::create();  
-        trans = Transform::create();
+        OSG::NodeRefPtr scene = OSG::Node::create();  
+        trans = OSG::Transform::create();
         scene->setCore(trans);
         scene->addChild(n);
     
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -192,11 +190,11 @@ int main(int argc, char **argv)
 void display( void )
 {
     // create the matrix
-    Matrix m;
-    Real32 t = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Matrix m;
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
     
-    m.setTransform(Quaternion( Vec3f(0,1,0), 
-                               t / 1000.f));
+    m.setTransform(OSG::Quaternion( OSG::Vec3f(0,1,0), 
+                                    t / 1000.f));
     
     // set the transform's matrix
     trans->setMatrix(m);
@@ -221,21 +219,21 @@ void display( void )
     
     // note that this is the abstract parent class, it doesn't have a specific
     // type
-    GeoVectorProperty *pos = geo->getPositions();
+    OSG::GeoVectorProperty *pos = geo->getPositions();
     
-    for(UInt32 i = 0; i < pos->getSize(); i++)
+    for(OSG::UInt32 i = 0; i < pos->getSize(); i++)
     {
-        Pnt3f p;      
+        OSG::Pnt3f p;      
         pos->getValue(p, i);
         
-        p[0] += osgSin(t / 3000) * p[0] / 100;
-        p[1] += osgSin(t / 3000) * p[1] / 100;
-        p[2] += osgSin(t / 3000) * p[2] / 100;
+        p[0] += OSG::osgSin(t / 3000) * p[0] / 100;
+        p[1] += OSG::osgSin(t / 3000) * p[1] / 100;
+        p[2] += OSG::osgSin(t / 3000) * p[2] / 100;
         
         pos->setValue(p, i);
     }
 
-    commitChanges();
+    OSG::commitChanges();
     
     mgr->redraw();
 }

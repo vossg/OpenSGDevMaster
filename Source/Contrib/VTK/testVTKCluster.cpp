@@ -62,57 +62,55 @@
 #include "vtkTubeFilter.h"
 #include "vtkPolyDataNormals.h"
 
-OSG_USING_NAMESPACE
-
-Trackball                tball;
+OSG::Trackball                tball;
 int                      mouseb = 0;
 int                      lastx=0, lasty=0;
 int                      winwidth=300, winheight=300;
-NodeRecPtr		             root;
-TransformRecPtr             cam_trans;
-PerspectiveCameraRecPtr     cam;
-ClusterWindowRecPtr         clusterWindow;
-RenderAction            *ract;
-GLUTWindowRecPtr            clientWindow;
+OSG::NodeRecPtr		             root;
+OSG::TransformRecPtr             cam_trans;
+OSG::PerspectiveCameraRecPtr     cam;
+OSG::ClusterWindowRecPtr         clusterWindow;
+OSG::RenderAction            *ract;
+OSG::GLUTWindowRecPtr            clientWindow;
 
 #ifdef HAVE_SORT
-SortFirstWindowRecPtr       sortfirst;
-SortLastWindowRecPtr        sortlast;
+OSG::SortFirstWindowRecPtr       sortfirst;
+OSG::SortLastWindowRecPtr        sortlast;
 #endif
 
 #ifdef FRAMEINTERLEAVE
-FrameInterleaveWindowRecPtr frameinterleave;
+OSG::FrameInterleaveWindowRecPtr frameinterleave;
 #endif
-MultiDisplayWindowRecPtr    multidisplay;
+OSG::MultiDisplayWindowRecPtr    multidisplay;
 bool                     animate=false;
 int                      animLoops=-1;
 int                      animLength=30;
 bool                     multiport=false;
 float                    ca=-1,cb=-1,cc=-1;
-Int32                    stereoMode=0;
+OSG::Int32                    stereoMode=0;
 float                    eyedistance=1,zeroparallax=10;
 int                      serverx=-1,servery=-1;
-std::vector<Quaternion>  animOri;
-std::vector<Vec3f     >  animPos;
+std::vector<OSG::Quaternion>  animOri;
+std::vector<OSG::Vec3f     >  animPos;
 std::string              animName="animation.txt";
-Real32                   animTime=0;
+OSG::Real32                   animTime=0;
 std::string              serviceAddress;
 bool                     serviceAddressValid = false;
-UInt32                   interleave=0;
-Real32                   _dsFactor = 1.0; // scale down factor.
+OSG::UInt32                   interleave=0;
+OSG::Real32                   _dsFactor = 1.0; // scale down factor.
 bool                     _enablecc = true; // enable color correction.
-PolygonChunkRecPtr       polygonChunk;
+OSG::PolygonChunkRecPtr       polygonChunk;
 bool                     prepared=false;
 bool                     showInfo=false;
 OSG::Time                frame_time=0;
-UInt32                   sum_positions=0;
-UInt32                   sum_geometries=0;
-UInt32                   sum_triangles=0;
+OSG::UInt32                   sum_positions=0;
+OSG::UInt32                   sum_geometries=0;
+OSG::UInt32                   sum_triangles=0;
 bool                     info = false;
 std::string              connectionDestination="";
 std::string              connectionInterface="";
 OSG::SolidBackgroundRecPtr  bkgnd;
-UInt32                   subtilesize=32;
+OSG::UInt32                   subtilesize=32;
 
 void cleanup(void)
 {
@@ -134,7 +132,7 @@ void cleanup(void)
     polygonChunk = NULL;
     bkgnd = NULL;
 
-    osgExit(); 
+    OSG::osgExit(); 
 }
 
 /*! Simple show text function
@@ -213,34 +211,35 @@ void displayInfo(int x, int y)
   glPopAttrib();
 }
 
-void prepareSceneGraph(Node * const node)
+void prepareSceneGraph(OSG::Node * const node)
 {
-    TriangleIterator f;
+    OSG::TriangleIterator f;
 
     if(!prepared)
     {
-        polygonChunk = PolygonChunk::create();
+        polygonChunk = OSG::PolygonChunk::create();
         prepared = true;
     }
 
-    NodeCore *core  =node->getCore();
+    OSG::NodeCore *core  =node->getCore();
     if(core != NULL)
     {
-        Geometry *geo   = dynamic_cast<Geometry *>(core);
+        OSG::Geometry *geo   = dynamic_cast<OSG::Geometry *>(core);
         if(geo != NULL)
         {
-            Material *mat = geo->getMaterial();
+            OSG::Material *mat = geo->getMaterial();
             if(mat != NULL)
             {
-                ChunkMaterial *cmat = dynamic_cast<ChunkMaterial *>(mat);
+                OSG::ChunkMaterial *cmat = 
+                    dynamic_cast<OSG::ChunkMaterial *>(mat);
 
-                if(cmat->find(PolygonChunk::getClassType()) == NULL)
+                if(cmat->find(OSG::PolygonChunk::getClassType()) == NULL)
                 {
                     cmat->addChunk(polygonChunk);
                 }
             }
             // get num positions
-            GeoVectorProperty *positionsPtr=geo->getPositions();
+            OSG::GeoVectorProperty *positionsPtr=geo->getPositions();
             if(positionsPtr != NULL)
                 sum_positions += positionsPtr->getSize();
             // get num triangles
@@ -251,16 +250,17 @@ void prepareSceneGraph(Node * const node)
         }
         else
         {
-            MaterialGroup *matGrp = dynamic_cast<MaterialGroup *>(core);
+            OSG::MaterialGroup *matGrp = 
+                dynamic_cast<OSG::MaterialGroup *>(core);
             if(matGrp != NULL)
             {
-                Material *mat = matGrp->getMaterial();
+                OSG::Material *mat = matGrp->getMaterial();
                 if(mat != NULL)
                 {
-                    ChunkMaterial *cmat = 
-                        dynamic_cast<ChunkMaterial *>(mat);
+                    OSG::ChunkMaterial *cmat = 
+                        dynamic_cast<OSG::ChunkMaterial *>(mat);
 
-                    if(cmat->find(PolygonChunk::getClassType()) == NULL)
+                    if(cmat->find(OSG::PolygonChunk::getClassType()) == NULL)
                     {
                         cmat->addChunk(polygonChunk);
                     }
@@ -268,7 +268,7 @@ void prepareSceneGraph(Node * const node)
             }
             else
             {
-                ProxyGroup *proxy = dynamic_cast<ProxyGroup *>(core);
+                OSG::ProxyGroup *proxy = dynamic_cast<OSG::ProxyGroup *>(core);
                 if(proxy != NULL)
                 {
                     sum_triangles += proxy->getTriangles();
@@ -278,7 +278,7 @@ void prepareSceneGraph(Node * const node)
             }
         }
     }
-    for(MFUnrecChildNodePtr::const_iterator nI=node->getMFChildren()->begin();
+    for(OSG::MFUnrecChildNodePtr::const_iterator nI=node->getMFChildren()->begin();
         nI != node->getMFChildren()->end();
         ++nI)
     {
@@ -288,7 +288,7 @@ void prepareSceneGraph(Node * const node)
 
 void loadAnim()
 {
-    Real32 ax,ay,az,r,x,y,z;
+    OSG::Real32 ax,ay,az,r,x,y,z;
     FILE *file=fopen(animName.c_str(),"r");
     
     animOri.clear();
@@ -297,8 +297,8 @@ void loadAnim()
         return;
     while(fscanf(file,"%f %f %f %f,%f %f %f",&ax,&ay,&az,&r,&x,&y,&z)==7)
     {
-        animOri.push_back(Quaternion(Vec3f(ax,ay,az),r));
-        animPos.push_back(Vec3f(x,y,z));
+        animOri.push_back(OSG::Quaternion(OSG::Vec3f(ax,ay,az),r));
+        animPos.push_back(OSG::Vec3f(x,y,z));
     }
     fclose(file);
 }
@@ -307,19 +307,19 @@ void display(void)
 {
     OSG::Time t;
 
-    t=-getSystemTime();
+    t=-OSG::getSystemTime();
 
     if(animate && animPos.size()>1)
     {
-        UInt32 i=(UInt32)animTime;
-        Real32 a=animTime-i;
+        OSG::UInt32 i=(OSG::UInt32)animTime;
+        OSG::Real32 a=animTime-i;
 
         printf("%d %d\n",i,animPos.size());
-        Vec3f v=animPos[i] + (animPos[i+1] - animPos[i]) * a; 
+        OSG::Vec3f v=animPos[i] + (animPos[i+1] - animPos[i]) * a; 
 
         cam_trans->editMatrix().setTranslate(v[0],v[1],v[2]);
         cam_trans->editMatrix().setRotate(
-            Quaternion::slerp(animOri[i],animOri[i+1],a));
+            OSG::Quaternion::slerp(animOri[i],animOri[i+1],a));
     }
     else
     {
@@ -368,13 +368,13 @@ void display(void)
         exit(0);
     }
     
-    t+=getSystemTime();
+    t+=OSG::getSystemTime();
     frame_time = t;
 
     if(animate)
     {
-        Real32 a;
-        Vec3f v;
+        OSG::Real32 a;
+        OSG::Vec3f v;
 
         printf("Frame %8.3f %8.5f %8.3f\n",
                animTime,
@@ -464,15 +464,15 @@ void mouse(int button, int state, int x, int y)
 	glutPostRedisplay();
 }
 
-void setHEyeWallParameter(Real32 dsFactor, bool enablecc)
+void setHEyeWallParameter(OSG::Real32 dsFactor, bool enablecc)
 {
     static char str[1024];
     
-    NameUnrecPtr parameters = dynamic_cast<Name *>(clusterWindow->findAttachment(Name::getClassType()));
+    OSG::NameUnrecPtr parameters = dynamic_cast<OSG::Name *>(clusterWindow->findAttachment(OSG::Name::getClassType()));
 
     if(parameters == NULL)
     {
-        parameters = Name::create();
+        parameters = OSG::Name::create();
         clusterWindow->addAttachment(parameters);
     }
     
@@ -500,12 +500,12 @@ void key(unsigned char key, int /*x*/, int /*y*/)
         case 's':
         {
             FILE *file=fopen(animName.c_str(),"a");
-            Matrix m=cam_trans->getMatrix();
-            Quaternion q(m);
-            Real32 ax,ay,az,r;
-            animPos.push_back(Vec3f(m[3][0],
-                                    m[3][1],
-                                    m[3][2]));
+            OSG::Matrix m=cam_trans->getMatrix();
+            OSG::Quaternion q(m);
+            OSG::Real32 ax,ay,az,r;
+            animPos.push_back(OSG::Vec3f(m[3][0],
+                                         m[3][1],
+                                         m[3][2]));
             animOri.push_back(q);
             q.getValueAsAxisRad(ax,ay,az,r);
             fprintf(file,"%f %f %f %f,%f %f %f\n",ax,ay,az,r,
@@ -518,19 +518,19 @@ void key(unsigned char key, int /*x*/, int /*y*/)
         case 'S':
         {
             FILE *file=fopen((animName+".wrl").c_str(),"w");
-            std::vector<Quaternion>::iterator qit;
+            std::vector<OSG::Quaternion>::iterator qit;
             
             fprintf(file,"DEF OriInter OrientationInterpolator {\n\tkey [");
             for(int i = 0; i < animOri.size(); ++i)
             {               
-                fprintf(file, "%f", i / (Real32)(animOri.size() - 1) );
+                fprintf(file, "%f", i / (OSG::Real32)(animOri.size() - 1) );
                 if(i < animOri.size() - 1)
                     fprintf(file,", ");
             }
             fprintf(file,"]\n\tkeyValue [");
             for(qit = animOri.begin(); qit != animOri.end(); ++qit)
             {
-                Real32 ax,ay,az,r;
+                OSG::Real32 ax,ay,az,r;
                 (*qit).getValueAsAxisRad(ax,ay,az,r);
                 
                 fprintf(file, "%f %f %f %f", ax, ay, az, r );
@@ -539,19 +539,19 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             }
             fprintf(file,"]\n}\n\n");
 
-            std::vector<Vec3f>::iterator vit;
+            std::vector<OSG::Vec3f>::iterator vit;
             
             fprintf(file,"DEF PosInter PositionInterpolator {\n\tkey [");
             for(int i = 0; i < animPos.size(); ++i)
             {               
-                fprintf(file, "%f", i / (Real32)(animPos.size() - 1) );
+                fprintf(file, "%f", i / (OSG::Real32)(animPos.size() - 1) );
                 if(i < animPos.size() - 1)
                     fprintf(file,", ");
             }
             fprintf(file,"]\n\tkeyValue [");
             for(vit = animPos.begin(); vit != animPos.end(); ++vit)
             {
-                Vec3f v = *vit;
+                OSG::Vec3f v = *vit;
                 
                 fprintf(file, "%f %f %f, ", v[0], v[1], v[2] );
             }
@@ -666,7 +666,7 @@ OSG::NodeTransitPtr initVTK(void)
 {
     OSG::NodeUnrecPtr returnValue = NULL;
 
-    Char8 *szDataRoot = getenv("VTK_DATA_ROOT");
+    OSG::Char8 *szDataRoot = getenv("VTK_DATA_ROOT");
 
     if(szDataRoot == NULL)
     {
@@ -685,12 +685,12 @@ OSG::NodeTransitPtr initVTK(void)
     reader->SetFileName(szFilename.c_str());
     reader->Update();
 
-    Real64 length = reader->GetOutput()->GetLength();
+    OSG::Real64 length = reader->GetOutput()->GetLength();
 
-    Real64 maxVelocity = 
+    OSG::Real64 maxVelocity = 
         reader->GetOutput()->GetPointData()->GetVectors()->GetMaxNorm();
 
-    Real64 maxTime = 35.0 * length / maxVelocity;
+    OSG::Real64 maxTime = 35.0 * length / maxVelocity;
 
 
 
@@ -1131,15 +1131,15 @@ OSG::NodeTransitPtr initVTK(void)
     
     addActor(returnValue, outlineActor);
 
-    return NodeTransitPtr(returnValue);
+    return OSG::NodeTransitPtr(returnValue);
 }
 
 void init(std::vector<std::string> &filenames)
 {
     int i;
     OSG::DirectionalLightUnrecPtr dl;
-    Real32 x,y,z;
-    BoxVolume volume;
+    OSG::Real32 x,y,z;
+    OSG::BoxVolume volume;
     OSG::Vec3f min,max;
     OSG::Vec3f size;
 
@@ -1192,11 +1192,11 @@ void init(std::vector<std::string> &filenames)
 
     scene->setCore(OSG::Group::create());
 
-    NodeUnrecPtr file;
+    OSG::NodeUnrecPtr file;
 
     for(i=0;i<filenames.size();i++)
     {
-        file = SceneFileHandler::the()->read(filenames[i].c_str(),0);
+        file = OSG::SceneFileHandler::the()->read(filenames[i].c_str(),0);
         if(file != NULL)
             scene->addChild(file);
         else
@@ -1227,15 +1227,15 @@ void init(std::vector<std::string> &filenames)
         if(cc==-1)
             cc=cb;
             
-        NodeUnrecPtr node;
-        NodeUnrecPtr geoNode;
-        TransformUnrecPtr trans;
+        OSG::NodeUnrecPtr node;
+        OSG::NodeUnrecPtr geoNode;
+        OSG::TransformUnrecPtr trans;
         for(x=-ca/2.0 ; x<ca/2.0 ; x++)
             for(y=-cb/2.0 ; y<cb/2.0 ; y++)
                 for(z=-cc/2.0 ; z<cc/2.0 ; z++)
                 {
-                    trans=Transform::create();
-                    node=Node::create();
+                    trans=OSG::Transform::create();
+                    node=OSG::Node::create();
                     
                     node->setCore(trans);
                     trans->editMatrix().setTranslate(
@@ -1253,9 +1253,9 @@ void init(std::vector<std::string> &filenames)
 
     if(ca>0)
     {
-        sum_geometries*=(UInt32)(ca*cb*cc);
-        sum_triangles *=(UInt32)(ca*cb*cc);
-        sum_positions *=(UInt32)(ca*cb*cc);
+        sum_geometries*=(OSG::UInt32)(ca*cb*cc);
+        sum_triangles *=(OSG::UInt32)(ca*cb*cc);
+        sum_positions *=(OSG::UInt32)(ca*cb*cc);
     }
 //    dlight->invalidateVolume();
 
@@ -1354,7 +1354,8 @@ void init(std::vector<std::string> &filenames)
             deco->setDecoratee(cam);
             deco->setZeroParallaxDistance(zeroparallax);
         
-        ColorBufferViewportUnrecPtr cvp1 = ColorBufferViewport::create();
+        OSG::ColorBufferViewportUnrecPtr cvp1 = 
+            OSG::ColorBufferViewport::create();
 
             cvp1->setCamera    ( deco );
             cvp1->setBackground( bkgnd );
@@ -1375,7 +1376,8 @@ void init(std::vector<std::string> &filenames)
             deco->setDecoratee(cam);
             deco->setZeroParallaxDistance(zeroparallax);
         
-        ColorBufferViewportUnrecPtr cvp2 = ColorBufferViewport::create();
+        OSG::ColorBufferViewportUnrecPtr cvp2 = 
+            OSG::ColorBufferViewport::create();
 
             cvp2->setCamera    ( deco );
             cvp2->setBackground( bkgnd );
@@ -1446,7 +1448,7 @@ int doMain(int argc,char **argv)
     bool                     compose=false;
 
     std::string              composerType="";
-    ImageComposer           *composer=NULL;
+    OSG::ImageComposer           *composer=NULL;
     std::string              autostart;
     
     for(i=1;i<argc;i++)
@@ -1633,7 +1635,7 @@ int doMain(int argc,char **argv)
         servers.push_back("foo");
     }
 
-    osgInit(argc, argv);
+    OSG::osgInit(argc, argv);
     glutInit(&argc, argv);
     glutInitDisplayMode( GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize(winwidth,winheight);
@@ -1643,7 +1645,7 @@ int doMain(int argc,char **argv)
     glutDisplayFunc(display);       
     glutMouseFunc(mouse);   
     glutMotionFunc(motion); 
-    ract = RenderAction::create();
+    ract = OSG::RenderAction::create();
     
     // clear changelist from prototypes
     OSG::Thread::getCurrentChangeList()->clear();
@@ -1652,12 +1654,12 @@ int doMain(int argc,char **argv)
     switch(type)
     {
         case 'M': 
-            multidisplay=MultiDisplayWindow::create();
+            multidisplay=OSG::MultiDisplayWindow::create();
             clusterWindow=multidisplay;
             break;
 #ifdef HAVE_SORT
         case 'F':
-            sortfirst=SortFirstWindow::create();
+            sortfirst=OSG::SortFirstWindow::create();
             
             if(compose)
                 sortfirst->setCompose(true);
@@ -1667,15 +1669,15 @@ int doMain(int argc,char **argv)
             clusterWindow=sortfirst;
             break;
         case 'L':
-            sortlast=SortLastWindow::create();
+            sortlast=OSG::SortLastWindow::create();
             
             if(!composerType.empty())
             {
-                FieldContainerPtr fcPtr = 
-                    FieldContainerFactory::the()->
+                OSG::FieldContainerPtr fcPtr = 
+                    OSG::FieldContainerFactory::the()->
                     createFieldContainer(composerType.c_str());
-                ImageComposerPtr icPtr = cast
-                    _dynamic<ImageComposerPtr>(fcPtr);
+                OSG::ImageComposerPtr icPtr = cast
+                    _dynamic<OSG::ImageComposerPtr>(fcPtr);
                 
                 if(icPtr != NULL)
                 {
@@ -1695,7 +1697,7 @@ int doMain(int argc,char **argv)
 #endif
 #ifdef FRAMEINTERLEAVE
         case 'I':
-            frameinterleave=FrameInterleaveWindow::create();
+            frameinterleaveOSG::=FrameInterleaveWindow::create();
             clusterWindow=frameinterleave;
             if(compose)
                 frameinterleave->setCompose(true);
@@ -1705,7 +1707,7 @@ int doMain(int argc,char **argv)
 #endif
 #ifdef HAVE_SORT
         case 'P':
-            sortfirst=SortFirstWindow::create();
+            sortfirst=OSG::SortFirstWindow::create();
             sortfirst->setCompose(false);
             clusterWindow=sortfirst;
             break;
@@ -1731,7 +1733,7 @@ int doMain(int argc,char **argv)
 #endif
     
     // create client window
-    clientWindow=GLUTWindow::create();
+    clientWindow=OSG::GLUTWindow::create();
 //        glutReshapeWindow(800,600);
     glutReshapeWindow(winwidth,winheight);
     clientWindow->setGlutId(winid);

@@ -48,8 +48,6 @@
 
 #include "OSGTrackball.h"
 
-OSG_BEGIN_NAMESPACE
-
 // We need our own context to prevent Qt to set its own context current
 class MyQGLContext : public QGLContext
 {
@@ -60,7 +58,7 @@ public:
     virtual void makeCurrent (){}; // on makeCurrent() just do pretty nothing
 };
 
-class MyOSGQGLWidget : public OSGQGLWidget
+class MyOSGQGLWidget : public OSG::OSGQGLWidget
 {
     public:
         MyOSGQGLWidget( QWidget *parent=0, const char *name=0 );
@@ -69,8 +67,8 @@ class MyOSGQGLWidget : public OSGQGLWidget
             const QGLWidget * shareWidget = 0,
             Qt::WindowFlags f = 0);
 
-        Trackball   tball;
-        QT4WindowRecPtr osgWin;
+        OSG::Trackball   tball;
+        OSG::QT4WindowRecPtr osgWin;
 
     protected:      
         virtual void initializeGL (void);
@@ -83,29 +81,25 @@ class MyOSGQGLWidget : public OSGQGLWidget
         
     static void initOpenGL(void);
 
-        UInt32      mouseb;
-        Int32       lastx;
-        Int32       lasty;
+        OSG::UInt32      mouseb;
+        OSG::Int32       lastx;
+        OSG::Int32       lasty;
 };
-
-OSG_END_NAMESPACE
-
-using namespace OSG;
 
 MyOSGQGLWidget  *glWidget;
 QApplication    *a;
 
-RenderAction      *ract;
-NodeRecPtr         root;
-NodeRecPtr         file;
-ViewportRecPtr     vp;
-TransformRecPtr    cam_trans;
-PerspectiveCameraRecPtr cam;
+OSG::RenderAction      *ract;
+OSG::NodeRecPtr         root;
+OSG::NodeRecPtr         file;
+OSG::ViewportRecPtr     vp;
+OSG::TransformRecPtr    cam_trans;
+OSG::PerspectiveCameraRecPtr cam;
 
-QT4WindowRecPtr osgTWin;
+OSG::QT4WindowRecPtr osgTWin;
 
 MyOSGQGLWidget::MyOSGQGLWidget ( QWidget *parent, const char *name ) :
-    OSGQGLWidget( parent, name )
+    OSG::OSGQGLWidget( parent, name )
 {
 }
 
@@ -113,7 +107,7 @@ MyOSGQGLWidget::MyOSGQGLWidget( MyQGLContext * context,
     QWidget * parent,
     const QGLWidget * shareWidget,
     Qt::WindowFlags f) :
-OSGQGLWidget(context, parent, shareWidget, f)
+OSG::OSGQGLWidget(context, parent, shareWidget, f)
 {}
 
 void MyOSGQGLWidget::initOpenGL ( void )
@@ -128,10 +122,10 @@ void MyOSGQGLWidget::initOpenGL ( void )
     glEnable   (GL_NORMALIZE );
 
     // switch off default light
-    Real nul[4]={0.f,0.f,0.f,0.f};
+    OSG::Real nul[4]={0.f,0.f,0.f,0.f};
 
-    GLP::glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
-    GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
+    OSG::GLP::glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
+    OSG::GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
 }
 
 void MyOSGQGLWidget::initializeGL ( void )
@@ -157,7 +151,7 @@ void MyOSGQGLWidget::initializeGL ( void )
     GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
 #endif
 
-    commitChanges();
+    OSG::commitChanges();
 
 #if 0
     osgWin->frameInit();    // call it to setup extensions
@@ -167,8 +161,8 @@ void MyOSGQGLWidget::initializeGL ( void )
 
 void MyOSGQGLWidget::paintGL ( void )
 {
-    Matrix m1, m2, m3;
-    Quaternion q1;
+    OSG::Matrix m1, m2, m3;
+    OSG::Quaternion q1;
 
 #if 0
     osgWin->frameInit();    // frame-init
@@ -181,7 +175,7 @@ void MyOSGQGLWidget::paintGL ( void )
     m1.mult( m2 );
     cam_trans->setMatrix( m1 );
 
-    commitChanges();
+    OSG::commitChanges();
 
     osgWin->render(ract);   // draw the viewports     
 
@@ -243,13 +237,13 @@ void MyOSGQGLWidget::mouseReleaseEvent ( QMouseEvent *me )
 
 void MyOSGQGLWidget::mouseMoveEvent ( QMouseEvent *me )
 {
-    Real32 w = osgWin->getWidth();  // force the calc to Real32
-    Real32 h = osgWin->getHeight();
+    OSG::Real32 w = osgWin->getWidth();  // force the calc to Real32
+    OSG::Real32 h = osgWin->getHeight();
 
-    Real32 a = -2. * ( lastx / w - .5 );
-    Real32 b = -2. * ( .5 - lasty / h );
-    Real32 c = -2. * ( me->pos().x() / w - .5 );
-    Real32 d = -2. * ( .5 - me->pos().y() / h );
+    OSG::Real32 a = -2. * ( lastx / w - .5 );
+    OSG::Real32 b = -2. * ( .5 - lasty / h );
+    OSG::Real32 c = -2. * ( me->pos().x() / w - .5 );
+    OSG::Real32 d = -2. * ( .5 - me->pos().y() / h );
 
     if ( mouseb & Qt::LeftButton )
     {
@@ -283,28 +277,28 @@ void MyOSGQGLWidget::keyPressEvent ( QKeyEvent *ke )
 int main( int argc, char **argv )
 {
     // OSG init
-    osgInit(argc, argv);
+    OSG::osgInit(argc, argv);
 
-    SceneFileHandler::the()->print();
+    OSG::SceneFileHandler::the()->print();
 
     // create the graph
 
     // beacon for camera and light  
-    NodeRecPtr b1n = Node::create();
-    GroupRecPtr b1 = Group::create();
+    OSG::NodeRecPtr b1n = OSG::Node::create();
+    OSG::GroupRecPtr b1 = OSG::Group::create();
     b1n->setCore( b1 );
 
     // transformation
-    NodeRecPtr t1n = Node::create();
-    TransformRecPtr t1 = Transform::create();
+    OSG::NodeRecPtr t1n = OSG::Node::create();
+    OSG::TransformRecPtr t1 = OSG::Transform::create();
     t1n->setCore( t1 );
     t1n->addChild( b1n );
 
     cam_trans = t1;
 
     // light
-    NodeRecPtr dlight = Node::create();
-    DirectionalLightRecPtr dl = DirectionalLight::create();
+    OSG::NodeRecPtr dlight = OSG::Node::create();
+    OSG::DirectionalLightRecPtr dl = OSG::DirectionalLight::create();
 
     dlight->setCore( dl );
     
@@ -314,29 +308,29 @@ int main( int argc, char **argv )
     dl->setBeacon( b1n);
 
     // root
-    root = Node::create();
-    GroupRecPtr gr1 = Group::create();
+    root = OSG::Node::create();
+    OSG::GroupRecPtr gr1 = OSG::Group::create();
     root->setCore( gr1 );
     root->addChild( t1n );
     root->addChild( dlight );
 
     // Load the file
-    NodeRecPtr file = NULL;
+    OSG::NodeRecPtr file = NULL;
     
     if ( argc > 1 )
-        file = SceneFileHandler::the()->read(argv[1]);
+        file = OSG::SceneFileHandler::the()->read(argv[1]);
     
     if ( file == NULL )
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
-        file = makeTorus( .5, 2, 16, 16 );
+        file = OSG::makeTorus( .5, 2, 16, 16 );
     }
 
-    commitChanges();
+    OSG::commitChanges();
     
     file->updateVolume();
 
-    Vec3f min,max;
+    OSG::Vec3f min,max;
     file->getVolume().getBounds( min, max );
     
     std::cout << "Volume: from " << min << " to " << max << std::endl;
@@ -347,26 +341,26 @@ int main( int argc, char **argv )
     root->dump();
 
     // Camera
-    PerspectiveCameraRecPtr cam = PerspectiveCamera::create();
+    OSG::PerspectiveCameraRecPtr cam = OSG::PerspectiveCamera::create();
 
     cam->setBeacon( b1n );
-    cam->setFov( osgDegree2Rad( 60 ) );
+    cam->setFov( OSG::osgDegree2Rad( 60 ) );
     cam->setNear( 1 );
     cam->setFar( 4000 );
 
     // Background
-    SolidBackgroundRecPtr bkgnd = SolidBackground::create();
-    bkgnd->setColor( Color3f( 0,0,1 ) );
+    OSG::SolidBackgroundRecPtr bkgnd = OSG::SolidBackground::create();
+    bkgnd->setColor( OSG::Color3f( 0,0,1 ) );
 
     // Viewport
-    vp = Viewport::create();
+    vp = OSG::Viewport::create();
     vp->setCamera( cam );
     vp->setBackground( bkgnd );
     vp->setRoot( root );
     vp->setSize( 0,0, 1,1 );
     
     // Action
-    ract = RenderAction::create();
+    ract = OSG::RenderAction::create();
 
     // QT init
     QApplication::setColorSpec( QApplication::CustomColor );
@@ -378,17 +372,17 @@ int main( int argc, char **argv )
         return -1;
     }
 
-    Vec3f pos( 0, 0, max[2] + ( max[2] - min[2] ) * 1.5 );
+    OSG::Vec3f pos( 0, 0, max[2] + ( max[2] - min[2] ) * 1.5 );
 
     // Create Window
     glWidget = new MyOSGQGLWidget(new MyQGLContext(QGLFormat::defaultFormat()), 0, 0, 0);
 
-    glWidget->tball.setMode( Trackball::OSGObject );
+    glWidget->tball.setMode( OSG::Trackball::OSGObject );
     glWidget->tball.setStartPosition( pos, true );
     glWidget->tball.setSum( true );
-    glWidget->tball.setTranslationMode( Trackball::OSGFree );
+    glWidget->tball.setTranslationMode( OSG::Trackball::OSGFree );
 
-    glWidget->osgWin = QT4Window::create();
+    glWidget->osgWin = OSG::QT4Window::create();
     glWidget->osgWin->setGlWidget( glWidget );
     glWidget->osgWin->addPort( vp );
 

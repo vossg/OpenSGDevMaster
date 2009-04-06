@@ -41,13 +41,8 @@
 #include <OpenSG/OSGSimpleSceneManager.h>
 #endif
 
-// Activate the OpenSG namespace
-// This is not strictly necessary, you can also prefix all OpenSG symbols
-// with OSG::, but that would be a bit tedious for this example
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -56,7 +51,7 @@ int setupGLUT( int *argc, char *argv[] );
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -66,17 +61,17 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // create the scene
-        NodeRefPtr scene = makeTorus(.5, 2, 16, 16);
+        OSG::NodeRefPtr scene = OSG::makeTorus(.5, 2, 16, 16);
     
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

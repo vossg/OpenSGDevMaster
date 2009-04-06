@@ -33,37 +33,34 @@
 #include <OpenSG/OSGSpotLight.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
+OSG::UInt32          nlights = 6;
 
-UInt32          nlights = 6;
-
-TransformRefPtr lightBeacons[8];
-LightRefPtr     lights      [8];
+OSG::TransformRefPtr lightBeacons[8];
+OSG::LightRefPtr     lights      [8];
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
 
 // create the motion matrix for a light source at time t
-void makeMatrix(Real32 t, Matrix &result)
+void makeMatrix(OSG::Real32 t, OSG::Matrix &result)
 {
-    Matrix m;
+    OSG::Matrix m;
     
-    result.setTransform(Quaternion(Vec3f(0,0,1), -Pi / 2));    
+    result.setTransform(OSG::Quaternion(OSG::Vec3f(0,0,1), -OSG::Pi / 2));    
     
-    m.setTransform(Vec3f(1, 0, 0));
+    m.setTransform(OSG::Vec3f(1, 0, 0));
     result.multLeft(m);
     
-    m.setTransform(Quaternion(Vec3f(0,1,0), t / 1000.f));    
+    m.setTransform(OSG::Quaternion(OSG::Vec3f(0,1,0), t / 1000.f));    
     result.multLeft(m);
 
-    m.setTransform(Vec3f(2, 0, 0));
+    m.setTransform(OSG::Vec3f(2, 0, 0));
     result.multLeft(m);
     
-    m.setTransform(Quaternion(Vec3f(0,0,1), t / 3000.f));
+    m.setTransform(OSG::Quaternion(OSG::Vec3f(0,0,1), t / 3000.f));
     result.multLeft(m); 
 }
 
@@ -71,18 +68,18 @@ void makeMatrix(Real32 t, Matrix &result)
 void display( void )
 {
     // create the matrix
-    Real32 t = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
     
     // stagger the lights in time, so that they follow each other
-    for(UInt16 i = 0; i < nlights; ++i)
+    for(OSG::UInt16 i = 0; i < nlights; ++i)
     {
-        Matrix m;
+        OSG::Matrix m;
         
         makeMatrix(t - 2000 * i, m);
 
         lightBeacons[i]->setMatrix(m);
     }
-    commitChanges();
+    OSG::commitChanges();
     
     mgr->redraw();
 }
@@ -91,7 +88,7 @@ void display( void )
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -112,7 +109,7 @@ int main(int argc, char **argv)
     {
     
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
@@ -165,24 +162,26 @@ int main(int argc, char **argv)
     
         // Create the scene 
         
-        NodeRefPtr  scene = Node::create();
-        GroupRefPtr group = Group::create();
+        OSG::NodeRefPtr  scene = OSG::Node::create();
+        OSG::GroupRefPtr group = OSG::Group::create();
         scene->setCore(group);
     
         // create the scene to be lit
     
         // a simple torus is fine for now.
         // You can add more Geometry here if you want to.
-        NodeRefPtr lit_scene = makeTorus(.5, 2, 32, 64);
+        OSG::NodeRefPtr lit_scene = OSG::makeTorus(.5, 2, 32, 64);
     
         // helper node to keep the lights on top of each other
-        NodeRefPtr lastnode = lit_scene;
+        OSG::NodeRefPtr lastnode = lit_scene;
     
         // create the light sources    
-        Color3f colors[] = { Color3f(1,0,0), Color3f(0,1,0), Color3f(0,0,1), 
-                             Color3f(1,1,0), Color3f(0,1,1), Color3f(1,0,1), 
-                             Color3f(1,1,1), Color3f(1,1,1)
-                           };
+        OSG::Color3f colors[] = 
+        {
+            OSG::Color3f(1,0,0), OSG::Color3f(0,1,0), OSG::Color3f(0,0,1), 
+            OSG::Color3f(1,1,0), OSG::Color3f(0,1,1), OSG::Color3f(1,0,1), 
+            OSG::Color3f(1,1,1), OSG::Color3f(1,1,1)
+        };
         if(nlights > 8)
         {
             FWARNING(("Currently only 8 lights supported\n"));
@@ -190,14 +189,14 @@ int main(int argc, char **argv)
         }
         
         // scale the lights to not overexpose everything. Just a little.
-        Real32 scale = osgMax(1., 1.5 / nlights);
+        OSG::Real32 scale = OSG::osgMax(1., 1.5 / nlights);
         
-        for(UInt16 i = 0; i < nlights; ++i)
+        for(OSG::UInt16 i = 0; i < nlights; ++i)
         {        
             // create the light source
-            NodeRefPtr     light = Node::create();
-            LightRefPtr    light_core;
-            NodeRefPtr     geo_node;
+            OSG::NodeRefPtr     light = OSG::Node::create();
+            OSG::LightRefPtr    light_core;
+            OSG::NodeRefPtr     geo_node;
             
             switch((i % 3) + 0)
             {
@@ -214,7 +213,7 @@ int main(int argc, char **argv)
                 */
                 case 0:
                 {
-                    PointLightRefPtr l = PointLight::create();
+                    OSG::PointLightRefPtr l = OSG::PointLight::create();
                     
                     l->setPosition             (0, 0, 0);
                     l->setConstantAttenuation  (1);
@@ -222,16 +221,17 @@ int main(int argc, char **argv)
                     l->setQuadraticAttenuation (3);
                     
                     // a little sphere to show where the light is
-                    geo_node = makeLatLongSphere(8, 8, 0.1);
+                    geo_node = OSG::makeLatLongSphere(8, 8, 0.1);
     
-                    GeometryRefPtr       geo =
-                        dynamic_cast<Geometry *>(geo_node->getCore());
-                    SimpleMaterialRefPtr sm  = SimpleMaterial::create();
+                    OSG::GeometryRefPtr       geo =
+                        dynamic_cast<OSG::Geometry *>(geo_node->getCore());
+                    OSG::SimpleMaterialRefPtr sm  = 
+                        OSG::SimpleMaterial::create();
     
                     sm->setLit(false);
-                    sm->setDiffuse(Color3f( colors[i][0], 
-                                            colors[i][1],
-                                            colors[i][2] ));
+                    sm->setDiffuse(OSG::Color3f( colors[i][0], 
+                                                 colors[i][1],
+                                                 colors[i][2] ));
     
                     geo->setMaterial(sm);
     
@@ -252,21 +252,23 @@ int main(int argc, char **argv)
                 */
                 case 1:
                 {
-                    DirectionalLightRefPtr l = DirectionalLight::create();
+                    OSG::DirectionalLightRefPtr l = 
+                        OSG::DirectionalLight::create();
                     
                     l->setDirection(0, 0, 1);
                     
                     // a little cylinder to show where the light is
-                    geo_node = makeCylinder(.1, .03, 8, true, true, true);
+                    geo_node = OSG::makeCylinder(.1, .03, 8, true, true, true);
     
-                    GeometryRefPtr       geo =
-                        dynamic_cast<Geometry *>(geo_node->getCore());
-                    SimpleMaterialRefPtr sm  = SimpleMaterial::create();
+                    OSG::GeometryRefPtr       geo =
+                        dynamic_cast<OSG::Geometry *>(geo_node->getCore());
+                    OSG::SimpleMaterialRefPtr sm  = 
+                        OSG::SimpleMaterial::create();
     
                     sm->setLit(false);
-                    sm->setDiffuse(Color3f( colors[i][0], 
-                                            colors[i][1],
-                                            colors[i][2] ));
+                    sm->setDiffuse(OSG::Color3f( colors[i][0], 
+                                                 colors[i][1],
+                                                 colors[i][2] ));
     
                     geo->setMaterial(sm);
     
@@ -284,27 +286,28 @@ int main(int argc, char **argv)
                 */
                 case 2:
                 {
-                    SpotLightRefPtr l = SpotLight::create();
+                    OSG::SpotLightRefPtr l = OSG::SpotLight::create();
                     
-                    l->setPosition             (Pnt3f(0,  0, 0));
-                    l->setDirection            (Vec3f(0, -1, 0));
+                    l->setPosition             (OSG::Pnt3f(0,  0, 0));
+                    l->setDirection            (OSG::Vec3f(0, -1, 0));
                     l->setSpotExponent         (2);
-                    l->setSpotCutOff           (osgDegree2Rad(45));
+                    l->setSpotCutOff           (OSG::osgDegree2Rad(45));
                     l->setConstantAttenuation  (1);
                     l->setLinearAttenuation    (0);
                     l->setQuadraticAttenuation (3);
                     
                     // a little cone to show where the light is
-                    geo_node = makeCone(.2, .2, 8, true, true);
+                    geo_node = OSG::makeCone(.2, .2, 8, true, true);
     
-                    GeometryRefPtr       geo =
-                        dynamic_cast<Geometry *>(geo_node->getCore());
-                    SimpleMaterialRefPtr sm  = SimpleMaterial::create();
+                    OSG::GeometryRefPtr       geo =
+                        dynamic_cast<OSG::Geometry *>(geo_node->getCore());
+                    OSG::SimpleMaterialRefPtr sm  = 
+                        OSG::SimpleMaterial::create();
     
                     sm->setLit(false);
-                    sm->setDiffuse(Color3f( colors[i][0], 
-                                            colors[i][1],
-                                            colors[i][2] ));
+                    sm->setDiffuse(OSG::Color3f( colors[i][0], 
+                                                 colors[i][1],
+                                                 colors[i][2] ));
     
                     geo->setMaterial(sm);
     
@@ -314,8 +317,8 @@ int main(int argc, char **argv)
             }
             
             // create the beacon and attach it to the scene
-            NodeRefPtr         beacon      = Node::create();
-            TransformRefPtr    beacon_core = Transform::create();
+            OSG::NodeRefPtr         beacon      = OSG::Node::create();
+            OSG::TransformRefPtr    beacon_core = OSG::Transform::create();
             
             lightBeacons[i] = beacon_core;
             
@@ -347,10 +350,10 @@ int main(int argc, char **argv)
     
         scene->addChild(lastnode);
     
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -408,14 +411,14 @@ void keyboard(unsigned char k, int x, int y)
             // clean up global variables
             delete mgr;
             
-            osgExit();
+            OSG::osgExit();
             exit(1);
         }
         break;
         
         case 'a':   // activate all lights
         {
-            for(UInt16 i = 0; i < nlights; ++i)
+            for(OSG::UInt16 i = 0; i < nlights; ++i)
             {
                 lights[i]->setOn(true);
             }
@@ -424,9 +427,9 @@ void keyboard(unsigned char k, int x, int y)
          
         case 's':   // deactivate all but the spot lights
         {
-            for(UInt16 i = 0; i < nlights; ++i)
+            for(OSG::UInt16 i = 0; i < nlights; ++i)
             {
-                if(lights[i]->getTypeId() != SpotLight::getClassTypeId())
+                if(lights[i]->getTypeId() != OSG::SpotLight::getClassTypeId())
                 {
                     lights[i]->setOn(false);
                 }
@@ -435,15 +438,16 @@ void keyboard(unsigned char k, int x, int y)
                     lights[i]->setOn(true);
                 }
             }
-            commitChanges();
+            OSG::commitChanges();
         }
         break;
          
         case 'd':   // deactivate all but the directional lights
         {
-            for(UInt16 i = 0; i < nlights; ++i)
+            for(OSG::UInt16 i = 0; i < nlights; ++i)
             {
-                if(lights[i]->getTypeId() != DirectionalLight::getClassTypeId())
+                if(lights[i]->getTypeId() != 
+                                      OSG::DirectionalLight::getClassTypeId())
                 {
                     lights[i]->setOn(false);
                 }
@@ -452,15 +456,15 @@ void keyboard(unsigned char k, int x, int y)
                     lights[i]->setOn(true);
                 }
             }
-            commitChanges();
+            OSG::commitChanges();
         }
         break;
          
         case 'p':   // deactivate all but the point lights
         {
-            for(UInt16 i = 0; i < nlights; ++i)
+            for(OSG::UInt16 i = 0; i < nlights; ++i)
             {
-                if(lights[i]->getTypeId() != PointLight::getClassTypeId())
+                if(lights[i]->getTypeId() != OSG::PointLight::getClassTypeId())
                 {
                     lights[i]->setOn(false);
                 }
@@ -469,7 +473,7 @@ void keyboard(unsigned char k, int x, int y)
                     lights[i]->setOn(true);
                 }
             }
-            commitChanges();
+            OSG::commitChanges();
         }
         break;
 

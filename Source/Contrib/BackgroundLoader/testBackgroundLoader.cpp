@@ -21,12 +21,9 @@ namespace fs = boost::filesystem;
 #include <OSGBackgroundLoader.h>
 #include <OSGModelRequest.h>
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
-GroupNodeRefPtr gScene;
+OSG::SimpleSceneManager *mgr;
+OSG::GroupNodeRefPtr gScene;
 
 unsigned gNextModelIdx = 0;
 
@@ -63,8 +60,8 @@ void findModels(std::string dirname)
    if (!fs::exists(dir_path))
    { 
       std::cerr << "ERROR: path does not exist: " << dirname << std::endl; 
-      gScene = static_cast<Node *>(NULL);
-      osgExit();
+      gScene = static_cast<OSG::Node *>(NULL);
+      OSG::osgExit();
       exit(-1);
    }
 
@@ -91,15 +88,15 @@ void findModels(std::string dirname)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
-    gScene = GroupNodeRefPtr::create();
+    gScene = OSG::GroupNodeRefPtr::create();
 
     if (argc < 2)
     {
        std::cout << "Specify a directory to load models from." << std::endl;
-       gScene = static_cast<Node *>(NULL);
-       osgExit();
+       gScene = static_cast<OSG::Node *>(NULL);
+       OSG::osgExit();
        exit(-1);
     }
 
@@ -112,12 +109,12 @@ int main(int argc, char **argv)
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+    OSG::GLUTWindowUnrecPtr gwin= OSG::GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->init();
     
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
 
     // tell the manager what to manage
     mgr->setWindow(gwin );
@@ -186,7 +183,7 @@ void keyboard(unsigned char k, int , int )
         case 27:
         {
             delete mgr;
-            gScene = static_cast<Node *>(NULL);
+            gScene = static_cast<OSG::Node *>(NULL);
             OSG::osgExit();
             exit(0);
         }
@@ -194,13 +191,13 @@ void keyboard(unsigned char k, int , int )
 
         case 'f':
         {
-            mgr->setNavigationMode(Navigator::FLY);
+            mgr->setNavigationMode(OSG::Navigator::FLY);
         }
         break;
 
         case 't':
         {
-            mgr->setNavigationMode(Navigator::TRACKBALL);
+            mgr->setNavigationMode(OSG::Navigator::TRACKBALL);
         }
         break;
 

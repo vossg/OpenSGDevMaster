@@ -25,28 +25,26 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 #endif
 
-OSG_USING_NAMESPACE
+OSG::SimpleSceneManager     *mgr;
 
-SimpleSceneManager     *mgr;
-
-GeometryRefPtr         _geo;
-GeoPnt3fPropertyRefPtr _pos;
+OSG::GeometryRefPtr         _geo;
+OSG::GeoPnt3fPropertyRefPtr _pos;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
 
-Action::ResultE changeGeo(Node *node)
+OSG::Action::ResultE changeGeo(OSG::Node *node)
 {   
-    Geometry *geo = dynamic_cast<Geometry *>(node->getCore());
+    OSG::Geometry *geo = dynamic_cast<OSG::Geometry *>(node->getCore());
     
     if(geo == NULL)
-        return Action::Continue;
+        return OSG::Action::Continue;
 
 
-    GeoColor3fPropertyRefPtr col = dynamic_cast<GeoColor3fProperty *>(geo->getColors());
+    OSG::GeoColor3fPropertyRefPtr col = dynamic_cast<OSG::GeoColor3fProperty *>(geo->getColors());
     if(col == NULL)
     {
-        col = GeoColor3fProperty::create();
+        col = OSG::GeoColor3fProperty::create();
 
         col->resize(geo->getPositions()->getSize());
         
@@ -54,31 +52,31 @@ Action::ResultE changeGeo(Node *node)
         geo->setColors(col);
         // If multi-indexed, make the colors use the same index as
         // the geometry
-        if(geo->getIndex(Geometry::PositionsIndex) != NULL)
+        if(geo->getIndex(OSG::Geometry::PositionsIndex) != NULL)
         {
-            geo->setIndex(geo->getIndex(Geometry::PositionsIndex),
-                          Geometry::ColorsIndex                   );
+            geo->setIndex(geo->getIndex(OSG::Geometry::PositionsIndex),
+                          OSG::Geometry::ColorsIndex                   );
         }
     }
     
-    Real32 size = col->getSize();
-    for(UInt32 i = 0; i < size; ++i)
+    OSG::Real32 size = col->getSize();
+    for(OSG::UInt32 i = 0; i < size; ++i)
     {
-        Color3f c;
+        OSG::Color3f c;
         c[0] = 0.0f;
-        c[1] = static_cast<Real32>(i) / size;
+        c[1] = static_cast<OSG::Real32>(i) / size;
         c[2] = 0.0f;
         col->setValue(c, i);
     }
     
-    return Action::Continue; 
+    return OSG::Action::Continue; 
 }
 
 // Initialize GLUT & OpenSG and set up the scene
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -88,12 +86,12 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // load the scene
-        NodeRefPtr scene;
+        OSG::NodeRefPtr scene;
         
         if(argc < 2)
         {
@@ -101,7 +99,7 @@ int main(int argc, char **argv)
             FWARNING(("Supported file formats:\n"));
             
             std::list<const char*> suffixes;
-            SceneFileHandler::the()->getSuffixList(suffixes, SceneFileType::OSG_READ_SUPPORTED);
+            OSG::SceneFileHandler::the()->getSuffixList(suffixes, OSG::SceneFileType::OSG_READ_SUPPORTED);
             
             for(std::list<const char*>::iterator it  = suffixes.begin();
                                                  it != suffixes.end();
@@ -110,29 +108,29 @@ int main(int argc, char **argv)
                 FWARNING(("%s\n", *it));
             }
     
-            scene = makeTorus(.5, 2, 16, 16);
+            scene = OSG::makeTorus(.5, 2, 16, 16);
         }
         else
         {
             /*
                 All scene file loading is handled via the SceneFileHandler.
             */
-            scene = SceneFileHandler::the()->read(argv[1]);
+            scene = OSG::SceneFileHandler::the()->read(argv[1]);
         }
         
-        commitChanges();
+        OSG::commitChanges();
         
         // calc size of the scene
-        Vec3f min, max;
-        BoxVolume vol;
+        OSG::Vec3f min, max;
+        OSG::BoxVolume vol;
         scene->getWorldVolume(vol);
         vol.getBounds(min, max);
     
-        Vec3f  d      = max - min;
-        Real32 offset = d.length() / 2.0f;
+        OSG::Vec3f  d      = max - min;
+        OSG::Real32 offset = d.length() / 2.0f;
         
         // now create a deep clone
-        NodeRefPtr sceneClone = deepCloneTree(scene);
+        OSG::NodeRefPtr sceneClone = OSG::deepCloneTree(scene);
         
         // this clones all nodes but the cores of type Material and Transform are shared.
         //NodePtr sceneClone = deepCloneTree(scene, "Material, Transform");
@@ -142,14 +140,16 @@ int main(int argc, char **argv)
         traverse(sceneClone, &changeGeo);
         
         // create a small scene graph with two transformation nodes.
-        NodeRefPtr               root = makeCoredNode<Group>();
-        ComponentTransformRefPtr t1;
-        NodeRefPtr               tn1 = makeCoredNode<ComponentTransform>(&t1);
-        ComponentTransformRefPtr t2;
-        NodeRefPtr               tn2 = makeCoredNode<ComponentTransform>(&t2);
+        OSG::NodeRefPtr               root = OSG::makeCoredNode<OSG::Group>();
+        OSG::ComponentTransformRefPtr t1;
+        OSG::NodeRefPtr               tn1 = 
+            OSG::makeCoredNode<OSG::ComponentTransform>(&t1);
+        OSG::ComponentTransformRefPtr t2;
+        OSG::NodeRefPtr               tn2 = 
+            OSG::makeCoredNode<OSG::ComponentTransform>(&t2);
         
-        t1->setTranslation(Vec3f(- offset, 0.0f, 0.0f));
-        t2->setTranslation(Vec3f(offset, 0.0f, 0.0f));
+        t1->setTranslation(OSG::Vec3f(- offset, 0.0f, 0.0f));
+        t2->setTranslation(OSG::Vec3f(offset, 0.0f, 0.0f));
         
         tn1->addChild(scene);
         tn2->addChild(sceneClone);
@@ -157,10 +157,10 @@ int main(int argc, char **argv)
         root->addChild(tn1);
         root->addChild(tn2);
         
-        commitChanges();
+        OSG::commitChanges();
         
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

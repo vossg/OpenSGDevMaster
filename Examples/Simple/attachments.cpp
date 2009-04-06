@@ -49,11 +49,8 @@
 #include <OpenSG/OSGSimpleAttachment.ins>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT(int *argc, char *argv[]);
@@ -66,7 +63,7 @@ class NamedNodeFinder
   public:
     NamedNodeFinder(void) : _name(), _found() {}
 
-    Node *operator() (Node *root, const std::string &name)
+    OSG::Node *operator() (OSG::Node *root, const std::string &name)
     {
         _name  = name;
         _found = NULL;
@@ -78,26 +75,26 @@ class NamedNodeFinder
     
   private:
      
-    Action::ResultE check(Node *node)
+    OSG::Action::ResultE check(OSG::Node *node)
     {
-        Attachment *a = node->findAttachment(Name::getClassType());
+        OSG::Attachment *a = node->findAttachment(OSG::Name::getClassType());
         
         if(a != NULL)
         {
-            Name *n = dynamic_cast<Name *>(a);
+            OSG::Name *n = dynamic_cast<OSG::Name *>(a);
             
             if(n->getField().getValue() == _name)
             {
                 _found = node;
-                return Action::Quit;
+                return OSG::Action::Quit;
             }
         }
         
-        return Action::Continue;
+        return OSG::Action::Continue;
     }
 
-    NodeRefPtr   _found;
-    std::string  _name;
+    OSG::NodeRefPtr _found;
+    std::string     _name;
 };
 
 /*
@@ -121,29 +118,29 @@ class NamedNodeFinder
 */
 struct MyAttachmentDesc
 {
-    typedef SFInt32            FieldTypeT;
+    typedef OSG::SFInt32            FieldTypeT;
 
-    static const Char8         *getTypeName  (void) 
+    static const OSG::Char8         *getTypeName  (void) 
     {
         return "My";
     }
 
-    static const Char8         *getFieldName (void) 
+    static const OSG::Char8         *getFieldName (void) 
     {
         return "myValue";
     }
 
-    static const Char8         *getGroupName (void) 
+    static const OSG::Char8         *getGroupName (void) 
     { 
         return "my";
     }
 
-    static const Char8         *getParentTypeName(void) 
+    static const OSG::Char8         *getParentTypeName(void) 
     {
         return "Attachment";
     }
 
-    static InitContainerF     getInitMethod(void) { return NULL;  }
+    static OSG::InitContainerF       getInitMethod(void) { return NULL;  }
 };
 
 /*
@@ -172,7 +169,6 @@ SimpleAttachment<MyAttachmentDesc>::TypeObject &
     return _type;
 }
 
-OSG_END_NAMESPACE
 
 
 /*
@@ -185,11 +181,13 @@ typedef SimpleAttachment<MyAttachmentDesc> MyAttachment;
 */
 OSG_GEN_CONTAINERPTR(MyAttachment)
 
+OSG_END_NAMESPACE
+
 // Initialize GLUT & OpenSG and set up the scene
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -199,23 +197,23 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // load the scene
     
-        NodeRefPtr scene;
+        OSG::NodeRefPtr scene;
         
         if(argc < 2)
         {
             FWARNING(("No file given!\n"));
     
-            scene = makeTorus(.5, 2, 16, 16);
+            scene = OSG::makeTorus(.5, 2, 16, 16);
         }
         else
         {
-            scene = SceneFileHandler::the()->read(argv[1]);
+            scene = OSG::SceneFileHandler::the()->read(argv[1]);
         }
     
         /*   
@@ -237,7 +235,7 @@ int main(int argc, char **argv)
             An Attachment is a FieldContainer and as such needs to be created using
             ::create().
         */
-        NameRefPtr name = Name::create();
+        OSG::NameRefPtr name = OSG::Name::create();
         
         /* 
             The NameAttachment only has a single field, there's no need to use the
@@ -257,19 +255,19 @@ int main(int argc, char **argv)
             AttachmentContainer generally keeps only one attachment of a specific
             kind. 
         */
-        AttachmentRefPtr a;
+        OSG::AttachmentRefPtr a;
         
-        a = scene->findAttachment(Name::getClassType());
+        a = scene->findAttachment(OSG::Name::getClassType());
         
         if(a != NULL)
         {
-            NameRefPtr n = dynamic_pointer_cast<Name>(a);
+            OSG::NameRefPtr n = OSG::dynamic_pointer_cast<OSG::Name>(a);
             
-            SLOG << "Node name: " << n->getField().getValue() << endLog;
+            SLOG << "Node name: " << n->getField().getValue() << OSG::endLog;
         }
         else
         {
-            SLOG << "Node has no name!" << endLog;
+            SLOG << "Node has no name!" << OSG::endLog;
         }
         
         /*
@@ -279,11 +277,11 @@ int main(int argc, char **argv)
         */
         if(getName(scene))
         {
-            SLOG << "Node is named: " << getName(scene) << endLog;
+            SLOG << "Node is named: " << getName(scene) << OSG::endLog;
         }
         else
         {
-            SLOG << "Node is unnamed." << endLog;
+            SLOG << "Node is unnamed." << OSG::endLog;
         }
         
         setName(scene, "Scene");
@@ -291,28 +289,29 @@ int main(int argc, char **argv)
         
         // use the NamedNodeFinder helper to find a named object
     
-        NamedNodeFinder f;
-        NodeRefPtr      found;
+             NamedNodeFinder f;
+        OSG::NodeRefPtr      found;
         
         found = f(scene, "Scene");
-        SLOG << "Found object " << found << " named Scene." << endLog;
+        SLOG << "Found object " << found << " named Scene." << OSG::endLog;
         
         found = f(scene, "TF_DETAIL");
         if(found == NULL)
         {
             SLOG << "Found no object named TF_DETAIL (did you load the tie?)." 
-                 << endLog;
+                 << OSG::endLog;
         }
         else
         {
-            SLOG << "Found object " << found << " named TF_DETAIL." << endLog;
+            SLOG << "Found object " << found << " named TF_DETAIL." 
+                 << OSG::endLog;
         }
         
         
         
         // Use the simple attachment defined above
         
-        MyAttachmentRefPtr mya = MyAttachment::create();
+        OSG::MyAttachmentRefPtr mya = OSG::MyAttachment::create();
         
         mya->editFieldPtr()->setValue(42);
         
@@ -320,17 +319,19 @@ int main(int argc, char **argv)
         scene->addAttachment(mya);
         
         // and check if it's still there       
-        a = scene->findAttachment(MyAttachment::getClassType());
+        a = scene->findAttachment(OSG::MyAttachment::getClassType());
         
         if(a != NULL)
         {
-            MyAttachmentRefPtr m = dynamic_pointer_cast<MyAttachment>(a);
+            OSG::MyAttachmentRefPtr m = 
+                OSG::dynamic_pointer_cast<OSG::MyAttachment>(a);
             
-            SLOG << "Node my value: " << m->getField().getValue() << endLog;
+            SLOG << "Node my value: " << m->getField().getValue() 
+                 << OSG::endLog;
         }
         else
         {
-            SLOG << "Node has no myAttachment!" << endLog;
+            SLOG << "Node has no myAttachment!" << OSG::endLog;
         }
         
         /*
@@ -347,8 +348,8 @@ int main(int argc, char **argv)
         threadsafe. Stay tuned.
         */
         
-        VoidPRefPtr myvoid = VoidP::create();
-        UInt32 dummy = 1234;
+        OSG::VoidPRefPtr myvoid = OSG::VoidP::create();
+        OSG::UInt32 dummy = 1234;
         
         myvoid->editFieldPtr()->setValue(&dummy);
         
@@ -356,24 +357,24 @@ int main(int argc, char **argv)
         scene->addAttachment(myvoid);
     
         // and check if it's still there       
-        a = scene->findAttachment(VoidP::getClassType());
+        a = scene->findAttachment(OSG::VoidP::getClassType());
         
         if(a != NULL)
         {
-            VoidPRefPtr m = dynamic_pointer_cast<VoidP>(a);
+            OSG::VoidPRefPtr m = OSG::dynamic_pointer_cast<OSG::VoidP>(a);
             
             SLOG << "Node voidp value: " 
-                << *(static_cast<UInt32 *>(m->getField().getValue()))
-                << endLog;
+                << *(static_cast<OSG::UInt32 *>(m->getField().getValue()))
+                << OSG::endLog;
         }
         else
         {
-            SLOG << "Node has no voidp attachment!" << endLog;
+            SLOG << "Node has no voidp attachment!" << OSG::endLog;
         }
         
         
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -434,7 +435,7 @@ void keyboard(unsigned char k, int x, int y)
             // clean up global variables
             delete mgr;
             
-            osgExit();
+            OSG::osgExit();
             exit(1);
         }
     }

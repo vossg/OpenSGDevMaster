@@ -79,11 +79,8 @@
 #include <OpenSG/OSGRenderAction.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRefPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRefPtr          scene;
 
 // Standard GLUT callback functions
 void display( void )
@@ -121,7 +118,7 @@ key(unsigned char key, int , int )
     {
     case 27:    delete mgr;
                 scene = NULL;
-                osgExit();
+                OSG::osgExit();
                 exit(1);
     case 'a':   mgr->turnHeadlightOn();
                 break;
@@ -129,19 +126,19 @@ key(unsigned char key, int , int )
                 break;
     case 'l':   mgr->useOpenSGLogo();
                 break;
-    case 'f':   mgr->setNavigationMode(Navigator::FLY);
+    case 'f':   mgr->setNavigationMode(OSG::Navigator::FLY);
                 break;
-    case 't':   mgr->setNavigationMode(Navigator::TRACKBALL);
+    case 't':   mgr->setNavigationMode(OSG::Navigator::TRACKBALL);
                 break;
     case 'q':   mgr->setStatistics(true);
                 break;
     case 'w':   mgr->setStatistics(false);
                 break;
-    case 'o':   SceneFileHandler::the()->write(scene, "out.osb");
+    case 'o':   OSG::SceneFileHandler::the()->write(scene, "out.osb");
                 break;
     case 'c':
     {
-        RenderAction *ract = mgr->getRenderAction();
+        OSG::RenderAction *ract = mgr->getRenderAction();
         ract->setOcclusionCulling(!ract->getOcclusionCulling());
         printf("Occlusion culling %s.\n", ract->getOcclusionCulling() ? "enabled" : "disabled");
     }
@@ -154,7 +151,7 @@ key(unsigned char key, int , int )
 int main (int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     glutInit(&argc, argv);
@@ -171,14 +168,14 @@ int main (int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         const char *fileName = (argc > 1) ? argv[1] : NULL;
     
         if(fileName != NULL)
-            scene = SceneFileHandler::the()->read(fileName, NULL);
+            scene = OSG::SceneFileHandler::the()->read(fileName, NULL);
     
         if(scene == NULL)
         {
@@ -186,22 +183,22 @@ int main (int argc, char **argv)
             // ok we create some spheres and one big torus around them
             // so we can see the occlusion culling.
             
-            scene = makeCoredNode<Group>();
+            scene = OSG::makeCoredNode<OSG::Group>();
     
-            NodeRefPtr spheres = makeCoredNode<Group>();
+            OSG::NodeRefPtr spheres = OSG::makeCoredNode<OSG::Group>();
     
             // create spheres
-            for(Real32 y=-0.5f;y<0.5f;y+=0.1f)
+            for(OSG::Real32 y=-0.5f;y<0.5f;y+=0.1f)
             {
-                for(Real32 x=-0.5f;x<0.5f;x+=0.1f)
+                for(OSG::Real32 x=-0.5f;x<0.5f;x+=0.1f)
                 {
-                    Matrix m;
+                    OSG::Matrix m;
                     m.setTranslate(x, y, 0.0f);
-                    TransformRefPtr sphere_trans;
-                    NodeRefPtr sphere_trans_node = makeCoredNode<Transform>(&sphere_trans);
+                    OSG::TransformRefPtr sphere_trans;
+                    OSG::NodeRefPtr sphere_trans_node = OSG::makeCoredNode<OSG::Transform>(&sphere_trans);
                     sphere_trans->setMatrix(m);
                     
-                    NodeRefPtr sphere = makeSphere(3, 0.1f);
+                    OSG::NodeRefPtr sphere = OSG::makeSphere(3, 0.1f);
                     sphere_trans_node->addChild(sphere);
             
                     spheres->addChild(sphere_trans_node);
@@ -209,14 +206,14 @@ int main (int argc, char **argv)
             }
     
             // create torus.
-            NodeRefPtr torus = makeTorus(0.5f, 2.0f, 32, 32);
+            OSG::NodeRefPtr torus = OSG::makeTorus(0.5f, 2.0f, 32, 32);
     
             scene->addChild(spheres);
             scene->addChild(torus);
         }
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         mgr->setWindow( gwin );
         mgr->setRoot( scene );
@@ -225,23 +222,23 @@ int main (int argc, char **argv)
         mgr->showAll();
     
         // create a gradient background.
-        GradientBackgroundRefPtr gback = GradientBackground::create();
+        OSG::GradientBackgroundRefPtr gback = OSG::GradientBackground::create();
         gback->clearLines();
-        gback->addLine(Color3f(0.7, 0.7, 0.8), 0);
-        gback->addLine(Color3f(0.0, 0.1, 0.3), 1);
+        gback->addLine(OSG::Color3f(0.7, 0.7, 0.8), 0);
+        gback->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
     
-        WindowRefPtr win = mgr->getWindow();
+        OSG::WindowRefPtr win = mgr->getWindow();
         for(int i = 0; i < win->getMFPort()->size(); ++i)
         {
-            ViewportRefPtr vp = win->getPort(i);
+            OSG::ViewportRefPtr vp = win->getPort(i);
             vp->setBackground(gback);
         }
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     // enable occlusion culling.
-    RenderAction *ract = mgr->getRenderAction();
+    OSG::RenderAction *ract = mgr->getRenderAction();
     ract->setOcclusionCulling(true);
     
     printf("Occlusion culling enabled.\n");

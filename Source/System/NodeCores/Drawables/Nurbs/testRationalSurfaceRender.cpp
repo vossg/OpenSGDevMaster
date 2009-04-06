@@ -35,14 +35,13 @@
 #include <OSGCoredNodePtr.h>
 #include <OSGSceneFileHandler.h>
 
-OSG_USING_NAMESPACE
 
-SimpleSceneManager     *g_mgr   = NULL;
-NodeRefPtr              g_scene = NULL;
-std::vector<Surface *>  g_teapotSurfaces;
-std::vector<Surface *>  g_torusSurfaces;
-std::vector<Surface *>  g_cylinderSurfaces;
-std::vector<Surface *> *g_currentSurfaces;
+OSG::SimpleSceneManager     *g_mgr   = NULL;
+OSG::NodeRefPtr              g_scene = NULL;
+std::vector<OSG::Surface *>  g_teapotSurfaces;
+std::vector<OSG::Surface *>  g_torusSurfaces;
+std::vector<OSG::Surface *>  g_cylinderSurfaces;
+std::vector<OSG::Surface *> *g_currentSurfaces;
 
 // redraw the window
 void display(void)
@@ -78,9 +77,9 @@ void motion(int x, int y)
 }
 
 
-void setModel(Int32 which)
+void setModel(OSG::Int32 which)
 {
-    Switch *s = dynamic_cast<Switch *>(g_scene->getCore());
+    OSG::Switch *s = dynamic_cast<OSG::Switch *>(g_scene->getCore());
     s->setChoice(which);
 
     switch(which)
@@ -131,17 +130,17 @@ void keyboard(unsigned char k, int, int)
     case '3':   std::cerr<<"Model: trimmed cylinder."<<std::endl;
                 setModel(2);
                 break;
-    case 'o':   SceneFileHandler::the()->write(g_scene, "out.osb");
+    case 'o':   OSG::SceneFileHandler::the()->write(g_scene, "out.osb");
                 break;
 
-    case 'f':   for(UInt32 i = 0; i < g_currentSurfaces->size(); ++i)
+    case 'f':   for(OSG::UInt32 i = 0; i < g_currentSurfaces->size(); ++i)
                 {
                     g_currentSurfaces->at(i)->setError(
                         2 * g_currentSurfaces->at(i)->getError());
                 }
                 break;
 
-    case 'g':   for(UInt32 i = 0; i < g_currentSurfaces->size(); ++i)
+    case 'g':   for(OSG::UInt32 i = 0; i < g_currentSurfaces->size(); ++i)
                 {
                     g_currentSurfaces->at(i)->setError(
                         g_currentSurfaces->at(i)->getError() / 2);
@@ -155,22 +154,23 @@ void keyboard(unsigned char k, int, int)
 // Helper function to create an untrimmed rational OSG::Surface Core+Node
 // from the controlpoints, dimensions in U & V,
 // knotvectors in U & V and the desired error and material.
-NodeTransitPtr makeSurface(const int numcps, const float xyzw[][4],
-                           const int dimU, const int dimV,
-                           const int numknotsU, const float *knotsU,
-                           const int numknotsV, const float *knotsV,
-                           const float error, Material *mat)
+OSG::NodeTransitPtr makeSurface(const int numcps, const float xyzw[][4],
+                                const int dimU, const int dimV,
+                                const int numknotsU, const float *knotsU,
+                                const int numknotsV, const float *knotsV,
+                                const float error, OSG::Material *mat)
 {
-    SurfaceRefPtr surface;
-    NodeTransitPtr         ret = makeCoredNode<Surface>(&surface); 
-    GeoPnt4fPropertyRefPtr cps = GeoPnt4fProperty::create();
+    OSG::SurfaceRefPtr surface;
+    OSG::NodeTransitPtr         ret = 
+        OSG::makeCoredNode<OSG::Surface>(&surface); 
+    OSG::GeoPnt4fPropertyRefPtr cps = OSG::GeoPnt4fProperty::create();
     int i;
 
     cps->clear();
     for (i = 0; i < numcps; ++i)
     {
-        cps->editField().push_back(Pnt4f(xyzw[i][0], xyzw[i][1], 
-                                         xyzw[i][2], xyzw[i][3]));
+        cps->editField().push_back(OSG::Pnt4f(xyzw[i][0], xyzw[i][1], 
+                                              xyzw[i][2], xyzw[i][3]));
     }
 
     // let's clear the trimming
@@ -200,16 +200,16 @@ NodeTransitPtr makeSurface(const int numcps, const float xyzw[][4],
 }
 
 // Helper function to add a polynomial trimcurve to an OSG::Surface NodeCore
-void addTrimCurve(Surface *surf, const int numcps, const float xy[][2],
+void addTrimCurve(OSG::Surface *surf, const int numcps, const float xy[][2],
                   const int dim, const int numknots, const float *knots,
                   bool startnewloop = false)
 {
-    std::vector<Real64> knotv;
-    std::vector<Pnt2f> cps;
+    std::vector<OSG::Real64> knotv;
+    std::vector<OSG::Pnt2f> cps;
     int i;
     for (i = 0; i < numcps; ++i)
     {
-        cps.push_back(Pnt2f(xy[i][0], xy[i][1]));
+        cps.push_back(OSG::Pnt2f(xy[i][0], xy[i][1]));
     }
     for (i = 0; i < numknots; ++i)
     {
@@ -220,16 +220,16 @@ void addTrimCurve(Surface *surf, const int numcps, const float xy[][2],
 }
 
 // Helper function to add a rational trimcurve to an OSG::Surface NodeCore
-void addTrimCurve(Surface *surf, const int numcps, const float xyw[][3],
+void addTrimCurve(OSG::Surface *surf, const int numcps, const float xyw[][3],
                   const int dim, const int numknots, const float *knots,
                   bool startnewloop = false)
 {
-    std::vector<Real64> knotv;
-    std::vector<Pnt3f> cps;
+    std::vector<OSG::Real64> knotv;
+    std::vector<OSG::Pnt3f> cps;
     int i;
     for (i = 0; i < numcps; ++i)
     {
-        cps.push_back(Pnt3f(xyw[i][0], xyw[i][1], xyw[i][2]));
+        cps.push_back(OSG::Pnt3f(xyw[i][0], xyw[i][1], xyw[i][2]));
     }
     for (i = 0; i < numknots; ++i)
     {
@@ -245,17 +245,17 @@ void addTrimCurve(Surface *surf, const int numcps, const float xyw[][3],
 // The "classic" representation is using 18 rational Bezier patches,
 // but in order to show the construction of more complex surfaces
 // these have been combined into as few NURBS surfaces as possible.
-NodeTransitPtr makeTeapot(void)
+OSG::NodeTransitPtr makeTeapot(void)
 {
-    SimpleMaterialRefPtr teapotmat =  SimpleMaterial::create();
+    OSG::SimpleMaterialRefPtr teapotmat =  OSG::SimpleMaterial::create();
 
-    teapotmat->setDiffuse(  Color3f(0.8, 0.8, 0.8));
-    teapotmat->setAmbient(  Color3f(0.2, 0.2, 0.2));
-    teapotmat->setEmission( Color3f(0.02, 0.02, 0.02) );
-    teapotmat->setSpecular( Color3f(0.78, 0.78, 0.78) );
+    teapotmat->setDiffuse(  OSG::Color3f(0.8, 0.8, 0.8));
+    teapotmat->setAmbient(  OSG::Color3f(0.2, 0.2, 0.2));
+    teapotmat->setEmission( OSG::Color3f(0.02, 0.02, 0.02) );
+    teapotmat->setSpecular( OSG::Color3f(0.78, 0.78, 0.78) );
     teapotmat->setShininess( 128 );
 
-    NodeTransitPtr teapotroot = makeCoredNode<Group>();
+    OSG::NodeTransitPtr teapotroot = OSG::makeCoredNode<OSG::Group>();
     float knots11[11] = {0, 0, 0, 0, 0.5, 0.5, 0.5, 1, 1, 1, 1};
     float knots14[14] = {0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3};
     float knots_circle[8] = {0, 0, 0, 0.5, 0.5, 1, 1, 1};
@@ -300,10 +300,10 @@ NodeTransitPtr makeTeapot(void)
         { 0.0000, 3.2000, 1.3000, 1.0000},
         { 0.0000, 3.0000, 1.3000, 1.0000},
     };
-    NodeRefPtr lid = makeSurface(35, lidcps, 2, 3, 8, knots_circle,
-                                 11, knots11, 0.005, teapotmat);
+    OSG::NodeRefPtr lid = makeSurface(35, lidcps, 2, 3, 8, knots_circle,
+                                      11, knots11, 0.005, teapotmat);
 
-    g_teapotSurfaces.push_back(dynamic_cast<Surface *>(lid->getCore()));
+    g_teapotSurfaces.push_back(dynamic_cast<OSG::Surface *>(lid->getCore()));
 
     float bodycps[50][4] = {
         { 0.0000, 3.0000, 1.4000, 1.0000},
@@ -362,10 +362,10 @@ NodeTransitPtr makeTeapot(void)
         { 0.0000, 0.0000, 1.5000, 1.0000},
 
     };
-    NodeRefPtr body = makeSurface(50, bodycps, 2, 3, 8, knots_circle,
-                                  14, knots14, 0.005, teapotmat);
+    OSG::NodeRefPtr body = makeSurface(50, bodycps, 2, 3, 8, knots_circle,
+                                       14, knots14, 0.005, teapotmat);
 
-    g_teapotSurfaces.push_back(dynamic_cast<Surface *>(body->getCore()));
+    g_teapotSurfaces.push_back(dynamic_cast<OSG::Surface *>(body->getCore()));
 
     float handlecps[35][4] = {
         { 1.5000, 2.8000, 0.0000, 1.0000},
@@ -409,10 +409,10 @@ NodeTransitPtr makeTeapot(void)
         { 1.9000, 0.6000, 0.0000, 1.0000},
     };
     
-    NodeRefPtr handle = makeSurface(35, handlecps, 2, 3, 8, knots_circle,
-                                    11, knots11, 0.005, teapotmat);
+    OSG::NodeRefPtr handle = makeSurface(35, handlecps, 2, 3, 8, knots_circle,
+                                         11, knots11, 0.005, teapotmat);
 
-    g_teapotSurfaces.push_back(dynamic_cast<Surface *>(handle->getCore()));
+    g_teapotSurfaces.push_back(dynamic_cast<OSG::Surface *>(handle->getCore()));
 
     float spoutcps[35][4] = {
         {-1.7000, 0.6000, 0.0000, 1.0000},
@@ -455,10 +455,10 @@ NodeTransitPtr makeTeapot(void)
         {-3.4500, 3.1500, 0.0000, 1.0000},
         {-3.2000, 3.0000, 0.0000, 1.0000},
     };
-    NodeRefPtr spout = makeSurface(35, spoutcps, 2, 3, 8, knots_circle,
-                                   11, knots11, 0.005, teapotmat);
+    OSG::NodeRefPtr spout = makeSurface(35, spoutcps, 2, 3, 8, knots_circle,
+                                        11, knots11, 0.005, teapotmat);
 
-    g_teapotSurfaces.push_back(dynamic_cast<Surface *>(spout->getCore()));
+    g_teapotSurfaces.push_back(dynamic_cast<OSG::Surface *>(spout->getCore()));
     
     teapotroot->addChild(lid);
     teapotroot->addChild(body);
@@ -475,14 +475,14 @@ NodeTransitPtr makeTeapot(void)
 // is infinite) which is then mirrored to form a full circle.
 // (See the NURBS book [Piegl and Tiller], pp. 296, Ex7.1 (Figure 7.15)
 // for details on the half-circle.)
-NodeTransitPtr makeTorus(void)
+OSG::NodeTransitPtr makeTorus(void)
 {
-    SimpleMaterialRefPtr torusmat =  SimpleMaterial::create();
+    OSG::SimpleMaterialRefPtr torusmat =  OSG::SimpleMaterial::create();
 
-    torusmat->setDiffuse(  Color3f(1.0, 0.0, 0.2));
-    torusmat->setAmbient(  Color3f(0.2, 0.2, 0.2));
-    torusmat->setEmission( Color3f(0.02, 0.02, 0.02) );
-    torusmat->setSpecular( Color3f(0.78, 0.78, 0.78) );
+    torusmat->setDiffuse(  OSG::Color3f(1.0, 0.0, 0.2));
+    torusmat->setAmbient(  OSG::Color3f(0.2, 0.2, 0.2));
+    torusmat->setEmission( OSG::Color3f(0.02, 0.02, 0.02) );
+    torusmat->setSpecular( OSG::Color3f(0.78, 0.78, 0.78) );
     torusmat->setShininess( 128 );
 
     float knots_circle[8] = {0, 0, 0, 0.5, 0.5, 1, 1, 1};
@@ -514,9 +514,9 @@ NodeTransitPtr makeTorus(void)
         { 1.00,     0,  .75, 1},
     };
 
-    NodeTransitPtr torus = makeSurface(25, toruscps, 2, 2, 8, knots_circle,
-                                       8, knots_circle, 0.005, torusmat);
-    g_torusSurfaces.push_back(dynamic_cast<Surface *>(torus->getCore()));
+    OSG::NodeTransitPtr torus = makeSurface(25, toruscps, 2, 2, 8, knots_circle,
+                                            8, knots_circle, 0.005, torusmat);
+    g_torusSurfaces.push_back(dynamic_cast<OSG::Surface *>(torus->getCore()));
 
     return torus;
 }
@@ -527,14 +527,14 @@ NodeTransitPtr makeTorus(void)
 // an example of defining a circle without using infinite control 
 // points (see [Piegl and Tiller], pp. 299, Ex7.2 (Figure 7.16)) as
 // well as to show how to define a rational trimming curve.
-NodeTransitPtr makeTrimmedCylinder(void)
+OSG::NodeTransitPtr makeTrimmedCylinder(void)
 {
-    SimpleMaterialRefPtr cylmat =  SimpleMaterial::create();
+    OSG::SimpleMaterialRefPtr cylmat =  OSG::SimpleMaterial::create();
 
-    cylmat->setDiffuse(  Color3f(0.0, 0.8, 0.7));
-    cylmat->setAmbient(  Color3f(0.2, 0.2, 0.2));
-    cylmat->setEmission( Color3f(0.02, 0.02, 0.02) );
-    cylmat->setSpecular( Color3f(0.78, 0.78, 0.78) );
+    cylmat->setDiffuse(  OSG::Color3f(0.0, 0.8, 0.7));
+    cylmat->setAmbient(  OSG::Color3f(0.2, 0.2, 0.2));
+    cylmat->setEmission( OSG::Color3f(0.02, 0.02, 0.02) );
+    cylmat->setSpecular( OSG::Color3f(0.78, 0.78, 0.78) );
     cylmat->setShininess( 128 );
 
     float knots4[4] = {0, 0, 1, 1};
@@ -572,22 +572,23 @@ NodeTransitPtr makeTrimmedCylinder(void)
         {0.383016, 0.471405, 0.707107},
         {0.541667, 0.5,      1},
     };
-    NodeTransitPtr cylnode = makeSurface(10, cylcps, 2, 1, 8, knots_circle,
-                                         4, knots4, 0.001, cylmat);
-    Surface *s = dynamic_cast<Surface *>(cylnode->getCore());
+    OSG::NodeTransitPtr cylnode = makeSurface(10, cylcps, 2, 1, 8, knots_circle,
+                                              4, knots4, 0.001, cylmat);
+    OSG::Surface *s = dynamic_cast<OSG::Surface *>(cylnode->getCore());
     // add outer trimming around the domain
     addTrimCurve(s, 5, outertrim_cps, 1, 7, knots_outertrim, true);
     // add inside circle trimming
     addTrimCurve(s, 9, trimcircle_cps, 2, 12, knots_trimcircle, true);
 
-    g_cylinderSurfaces.push_back(dynamic_cast<Surface *>(cylnode->getCore()));
+    g_cylinderSurfaces.push_back(
+        dynamic_cast<OSG::Surface *>(cylnode->getCore()));
 
     return cylnode;
 }
 
-NodeTransitPtr makeScene(void)
+OSG::NodeTransitPtr makeScene(void)
 {
-    NodeTransitPtr root = makeCoredNode<Switch>();
+    OSG::NodeTransitPtr root = OSG::makeCoredNode<OSG::Switch>();
 
     root->addChild(makeTeapot());
     root->addChild(makeTorus());
@@ -601,7 +602,7 @@ int main(int argc, char **argv)
     printf("Press the keys '1', '2' and '3' in order to switch between "
            "the different example objects.\n");
 
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     // GLUT init
     glutInit(&argc, argv);
     glutInitWindowSize(800,600);
@@ -617,7 +618,7 @@ int main(int argc, char **argv)
     glutKeyboardFunc(keyboard);
 
     {
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
@@ -632,7 +633,7 @@ int main(int argc, char **argv)
         }
     
         // create the SimpleSceneManager helper
-        g_mgr = new SimpleSceneManager;
+        g_mgr = new OSG::SimpleSceneManager;
     
         // create the window and initial camera/viewport
         g_mgr->setWindow( gwin );
@@ -642,8 +643,8 @@ int main(int argc, char **argv)
         // show the whole scene
         g_mgr->showAll();
         g_mgr->redraw();
-        SolidBackgroundRefPtr bgr = SolidBackground::create();
-        bgr->setColor(Color3f( 0.7, 0.7, 0.7 ));
+        OSG::SolidBackgroundRefPtr bgr = OSG::SolidBackground::create();
+        bgr->setColor(OSG::Color3f( 0.7, 0.7, 0.7 ));
         g_mgr->getWindow()->getPort(0)->setBackground(bgr);
     }
     

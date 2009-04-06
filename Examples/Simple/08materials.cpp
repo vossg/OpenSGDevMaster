@@ -43,15 +43,12 @@
 #include <OpenSG/OSGImage.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // a separate transformation for every object
-TransformRefPtr cyltrans, tortrans;
+OSG::TransformRefPtr cyltrans, tortrans;
 
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT(int *argc, char *argv[]);
@@ -60,21 +57,21 @@ int setupGLUT(int *argc, char *argv[]);
 void display(void)
 {
     // create the matrix
-    Matrix m;
-    Real32 t = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Matrix m;
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
     
     // set the transforms' matrices
-    m.setTransform(Vec3f(0, 0, osgSin(t / 1000.f) * 1.5),
-                   Quaternion( Vec3f (1, 0, 0), t / 500.f));
+    m.setTransform(OSG::Vec3f(0, 0, OSG::osgSin(t / 1000.f) * 1.5),
+                   OSG::Quaternion( OSG::Vec3f (1, 0, 0), t / 500.f));
 
     cyltrans->setMatrix(m);
     
-    m.setTransform(Vec3f(osgSin(t / 1000.f), 0, 0),
-                   Quaternion( Vec3f (0, 0, 1), t / 1000.f));
+    m.setTransform(OSG::Vec3f(OSG::osgSin(t / 1000.f), 0, 0),
+                   OSG::Quaternion( OSG::Vec3f (0, 0, 1), t / 1000.f));
 
     tortrans->setMatrix(m);
 
-    commitChanges();
+    OSG::commitChanges();
     
     mgr->redraw();
 }
@@ -84,7 +81,7 @@ void display(void)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -94,7 +91,7 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
@@ -105,20 +102,21 @@ int main(int argc, char **argv)
         
         // The scene group
         
-        NodeRefPtr  scene = Node::create();
-        GroupRefPtr g     = Group::create();
+        OSG::NodeRefPtr  scene = OSG::Node::create();
+        OSG::GroupRefPtr g     = OSG::Group::create();
         
         scene->setCore(g);
         
         // The cylinder and its transformation
-        NodeRefPtr     cyl    = Node::create();
-        GeometryRefPtr cylgeo = makeCylinderGeo( 1.4, .3, 8, true, true, true );
+        OSG::NodeRefPtr     cyl    = OSG::Node::create();
+        OSG::GeometryRefPtr cylgeo = OSG::makeCylinderGeo( 1.4, .3, 8, 
+                                                           true, true, true );
         
         cyl->setCore(cylgeo);
     
-        cyltrans = Transform::create();
+        cyltrans = OSG::Transform::create();
     
-        NodeRefPtr cyltransnode = Node::create();
+        OSG::NodeRefPtr cyltransnode = OSG::Node::create();
         cyltransnode->setCore (cyltrans);
         cyltransnode->addChild(cyl     );
         
@@ -126,14 +124,14 @@ int main(int argc, char **argv)
         scene->addChild(cyltransnode);
         
         // The torus and its transformation
-        NodeRefPtr     torus    = Node::create();
-        GeometryRefPtr torusgeo = makeTorusGeo( .2, 1, 8, 12 );
+        OSG::NodeRefPtr     torus    = OSG::Node::create();
+        OSG::GeometryRefPtr torusgeo = OSG::makeTorusGeo( .2, 1, 8, 12 );
         
         torus->setCore(torusgeo);
             
-        tortrans = Transform::create();
+        tortrans = OSG::Transform::create();
     
-        NodeRefPtr tortransnode = Node::create();
+        OSG::NodeRefPtr tortransnode = OSG::Node::create();
         tortransnode->setCore (tortrans);
         tortransnode->addChild(torus   );
         
@@ -160,13 +158,13 @@ int main(int argc, char **argv)
             GL_SPECULAR and  GL_AMBIENT_AND_DIFFUSE. 
         */
         
-        SimpleMaterialRefPtr m1 = SimpleMaterial::create();
+        OSG::SimpleMaterialRefPtr m1 = OSG::SimpleMaterial::create();
         
         // when everything is changed, not setting the mask is ok
-        m1->setAmbient      (Color3f(0.2,0.2,0.2));
-        m1->setDiffuse      (Color3f(0.8,0.5,0.2));
-        m1->setEmission     (Color3f(0.0,0.0,0.0));
-        m1->setSpecular     (Color3f(1.0,1.0,1.0));
+        m1->setAmbient      (OSG::Color3f(0.2,0.2,0.2));
+        m1->setDiffuse      (OSG::Color3f(0.8,0.5,0.2));
+        m1->setEmission     (OSG::Color3f(0.0,0.0,0.0));
+        m1->setSpecular     (OSG::Color3f(1.0,1.0,1.0));
         m1->setShininess    (10);
         
         /*
@@ -219,7 +217,7 @@ int main(int argc, char **argv)
             libraries.
         */
         
-        ImageRefPtr image = Image::create();
+        OSG::ImageRefPtr image = OSG::Image::create();
     
         if(argc > 1)
         {
@@ -227,18 +225,19 @@ int main(int argc, char **argv)
         }
         else
         {
-            UChar8 data[] = {  0xff, 0xff, 0xff,  0x80, 0x00, 0x00,
-                            0x80, 0x00, 0x00,  0xff, 0xff, 0xff };
+            OSG::UChar8 data[] = {  0xff, 0xff, 0xff,  0x80, 0x00, 0x00,
+                                    0x80, 0x00, 0x00,  0xff, 0xff, 0xff };
     
-            image->set( Image::OSG_RGB_PF, 2, 2, 1, 1, 1, 0, data );
+            image->set( OSG::Image::OSG_RGB_PF, 2, 2, 1, 1, 1, 0, data );
         }
         
-        SimpleTexturedMaterialRefPtr m2 = SimpleTexturedMaterial::create();
+        OSG::SimpleTexturedMaterialRefPtr m2 = 
+            OSG::SimpleTexturedMaterial::create();
         
-        m2->setAmbient      (Color3f(0.3,0.3,0.3));
-        m2->setDiffuse      (Color3f(0.2,0.8,0.8));
-        m2->setEmission     (Color3f(0.0,0.0,0.0));
-        m2->setSpecular     (Color3f(1.0,1.0,1.0));
+        m2->setAmbient      (OSG::Color3f(0.3,0.3,0.3));
+        m2->setDiffuse      (OSG::Color3f(0.2,0.8,0.8));
+        m2->setEmission     (OSG::Color3f(0.0,0.0,0.0));
+        m2->setSpecular     (OSG::Color3f(1.0,1.0,1.0));
         m2->setShininess    (20);
         m2->setTransparency (0);
         m2->setColorMaterial(GL_NONE);
@@ -252,10 +251,10 @@ int main(int argc, char **argv)
         // assign the material to the geometry
         torusgeo->setMaterial(m2);
     
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

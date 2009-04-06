@@ -66,11 +66,8 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -81,7 +78,7 @@ int main(int argc, char **argv)
     char *opt;
 
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -91,8 +88,8 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between this client and the servers
-        MultiDisplayWindowRefPtr mwin   = MultiDisplayWindow::create();
-        NodeRefPtr               scene;
+        OSG::MultiDisplayWindowRefPtr mwin  = OSG::MultiDisplayWindow::create();
+        OSG::NodeRefPtr               scene;
     
         // evaluate params
         for(int a=1 ; a<argc ; ++a)
@@ -119,7 +116,8 @@ int main(int argc, char **argv)
                           break;
                 case 'f': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
-                              scene = SceneFileHandler::the()->read(opt, 0);
+                              scene = OSG::SceneFileHandler::the()->read(opt, 
+                                                                         0);
                           break;
                 case 'x': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
@@ -152,12 +150,12 @@ int main(int argc, char **argv)
     
         // create default scene
         if(scene == NULL)
-        scene = makeTorus(.5, 2, 16, 16);
+        scene = OSG::makeTorus(.5, 2, 16, 16);
     
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(mwin );

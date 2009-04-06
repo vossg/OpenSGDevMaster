@@ -29,10 +29,6 @@
 #include <OpenSG/OSGGradientBackground.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
-
 // The SimpleSceneManager to manage simple applications
 SimpleSceneManager               *_mgr         = NULL;
 

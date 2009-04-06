@@ -80,9 +80,9 @@ namespace AccessFlags
     /*! \ingroup GrpBaseBaseFileSystem */
     /*! @{                             */
     
-    const UInt32 None        = 0x00;
-    const UInt32 IsReadable  = 0x01;
-    const UInt32 IsWriteable = 0x02;
+    const UInt32 NotAccessible = 0x00;
+    const UInt32 IsReadable    = 0x01;
+    const UInt32 IsWriteable   = 0x02;
 
     /*! @}                             */
 }

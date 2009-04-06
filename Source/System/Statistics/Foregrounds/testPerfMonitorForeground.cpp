@@ -16,13 +16,11 @@
 #include <boost/assign/list_of.hpp>
 
 
-OSG_USING_NAMESPACE
+OSG::SimpleSceneManager *mgr(NULL);
+OSG::RenderAction       *act(NULL);
 
-SimpleSceneManager *mgr(NULL);
-RenderAction       *act(NULL);
-
-PassiveWindowRecPtr         pwin;
-PerfMonitorForegroundRecPtr perfmon_fg;
+OSG::PassiveWindowRecPtr         pwin;
+OSG::PerfMonitorForegroundRecPtr perfmon_fg;
 
 bool show = true;
 
@@ -32,7 +30,7 @@ void doStuff();   // Function to just do some things to analyze
 void display(void)
 {
     doStuff();
-    PerfMonitor::the()->updateFrame();     // Have to update the stats each "frame"
+    OSG::PerfMonitor::the()->updateFrame();     // Have to update the stats each "frame"
     
     mgr->redraw();
 
@@ -73,7 +71,7 @@ void keyboard(unsigned char k, int, int)
     {
         case 27:
         {
-            osgExit();
+            OSG::osgExit();
             exit(0);
         }
         case 'm':
@@ -106,8 +104,8 @@ void keyboard(unsigned char k, int, int)
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
-    PerfMonitor::the()->enable(true);   // Enable performance monitoring
+    OSG::osgInit(argc,argv);
+    OSG::PerfMonitor::the()->enable(true);   // Enable performance monitoring
 
     // GLUT init
     glutInit(&argc, argv);
@@ -124,49 +122,49 @@ int main(int argc, char **argv)
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);
 
-    pwin=PassiveWindow::create();
+    pwin=OSG::PassiveWindow::create();
     pwin->init();
 
     // create the scene
-    NodeUnrecPtr scene;
+    OSG::NodeUnrecPtr scene;
 
     if(argc > 1)
     {
-        scene = Node::create();
-        GroupUnrecPtr g = Group::create();
+        scene = OSG::Node::create();
+        OSG::GroupUnrecPtr g = OSG::Group::create();
 
         scene->setCore(g);
 
-        for(UInt16 i = 1; i < argc; ++i)
-            scene->addChild(SceneFileHandler::the()->read(argv[i]));
+        for(OSG::UInt16 i = 1; i < argc; ++i)
+            scene->addChild(OSG::SceneFileHandler::the()->read(argv[i]));
     }
     else
     {
-        scene = makeTorus(.5, 3, 16, 16);
+        scene = OSG::makeTorus(.5, 3, 16, 16);
     }
 
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
 
     // create the window and initial camera/viewport
     mgr->setWindow(pwin );
     // tell the manager what to manage
     mgr->setRoot  (scene);
 
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
 
     // show the whole scene
     mgr->showAll();
 
     // add the statistics forground
 
-    perfmon_fg = PerfMonitorForeground::create();
+    perfmon_fg = OSG::PerfMonitorForeground::create();
     pwin->getPort(0)->addForeground(perfmon_fg);
 
     //statfg->setMaxSize(25);
     //statfg->setColor(Color4f(0,1,0,0.7));
 
-    act = RenderAction::create();
+    act = OSG::RenderAction::create();
     mgr->setAction(act);
 
     // GLUT main loop
@@ -178,14 +176,14 @@ int main(int argc, char **argv)
 
 void randWork(unsigned baseTime, unsigned randMax, std::string name)
 {
-PerfMonitorGuard g(name);
-   unsigned rand_time = unsigned(osgRand() * float(randMax));   
-   osgSleep(baseTime + rand_time);
+OSG::PerfMonitorGuard g(name);
+   unsigned rand_time = unsigned(OSG::osgRand() * float(randMax));   
+   OSG::osgSleep(baseTime + rand_time);
 }
 
 void recursiveFunc(unsigned depth=3)
 {
-   PerfMonitorGuard g("recursiveFunc");
+   OSG::PerfMonitorGuard g("recursiveFunc");
 
    //osgSleep(10);
    //std::cout << "depth: " << depth << std::endl;
@@ -207,46 +205,46 @@ void doStuff()
       x += x_inc;
    }   
    
-   PerfMonitorGuard g("doStuff");
+   OSG::PerfMonitorGuard g("doStuff");
 
    {
-      PerfMonitorGuard g("Work1");
+      OSG::PerfMonitorGuard g("Work1");
       recursiveFunc();
       randWork(unsigned(10.0*x),       1, "10*x");
       randWork(unsigned(10.0*(1.0-x)), 1, "10*(1-x)");
    }
 
    {
-      PerfMonitorGuard g("Work2");
+      OSG::PerfMonitorGuard g("Work2");
       recursiveFunc();
       randWork(unsigned(5.0*x),    1, "5x-1");
       randWork(2,                 10, "2-10");
    }
    
    {
-      PerfMonitorGuard g("Work3");
+      OSG::PerfMonitorGuard g("Work3");
       recursiveFunc();
       randWork( 1, unsigned(5.0*x), "1-5x");
       randWork(2,                0, "2-0");
    }   
 
    {
-      PerfMonitorGuard g("Work4");
+      OSG::PerfMonitorGuard g("Work4");
       recursiveFunc(3);      
    }
 
    {
-      PerfMonitorGuard g("Work5");
+      OSG::PerfMonitorGuard g("Work5");
       recursiveFunc(3);      
    }
 
    {
-      PerfMonitorGuard g("Work6");
+      OSG::PerfMonitorGuard g("Work6");
       recursiveFunc(3);      
    }
 
    {
-      PerfMonitorGuard g("Work7");
+      OSG::PerfMonitorGuard g("Work7");
       recursiveFunc(3);      
    }
 }

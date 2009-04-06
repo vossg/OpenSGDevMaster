@@ -76,11 +76,8 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -91,7 +88,7 @@ int main(int argc, char **argv)
     char *opt;
 
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -100,10 +97,10 @@ int main(int argc, char **argv)
     // before entering glutMainLoop.
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
-        NodeRefPtr scene;
+        OSG::NodeRefPtr scene;
         
         // the connection between this client and the servers
-        SortLastWindowRefPtr mwin = SortLastWindow::create();
+        OSG::SortLastWindowRefPtr mwin = OSG::SortLastWindow::create();
     
         // all changes must be enclosed in beginEditCP and endEditCP
         // otherwise the changes will not be transfered over the network.
@@ -133,23 +130,23 @@ int main(int argc, char **argv)
                           break;
                 case 'f': opt = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(opt != argv[argc])
-                              scene = SceneFileHandler::the()->read(opt, 0);
+                              scene = OSG::SceneFileHandler::the()->read(opt, 0);
                           break;
                 case 'L':
                 {
-                    ImageComposerRefPtr comp = PipelineComposer::create();
+                    OSG::ImageComposerRefPtr comp = OSG::PipelineComposer::create();
                     mwin->setComposer(comp);
                 }
                 break;
                 case 'B':
                 {
-                    ImageComposerRefPtr comp = BinarySwapComposer::create();
+                    OSG::ImageComposerRefPtr comp = OSG::BinarySwapComposer::create();
                     mwin->setComposer(comp);
                 }
                 break;
                 case 'P':
                 {
-                    ImageComposerRefPtr comp = ParallelComposer::create();
+                    OSG::ImageComposerRefPtr comp = OSG::ParallelComposer::create();
                     mwin->setComposer(comp);
                 }
                 break;
@@ -158,7 +155,7 @@ int main(int argc, char **argv)
                                     << " -p"
                                     << " -i interface"
                                     << " -f file"
-                                << endLog;
+                                << OSG::endLog;
                         return 0;
                 }
             }
@@ -173,7 +170,7 @@ int main(int argc, char **argv)
     
         if(mwin->getComposer() == NULL)
         {
-            ImageComposerRefPtr comp = PipelineComposer::create();
+            OSG::ImageComposerRefPtr comp = OSG::PipelineComposer::create();
             mwin->setComposer(comp);
         }
     
@@ -184,7 +181,7 @@ int main(int argc, char **argv)
     
         // Create/set the client window that will display the result
         
-        GLUTWindowRefPtr clientWindow = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr clientWindow = OSG::GLUTWindow::create();
         
         glutReshapeWindow(300,300);
         clientWindow->setGlutId(winid);
@@ -198,14 +195,14 @@ int main(int argc, char **argv)
         // create default scene
         if(scene == NULL)
         {
-            scene = makeNodeFor(Group::create());
+            scene = OSG::makeNodeFor(OSG::Group::create());
     
-            scene->addChild(makeTorus(.5, 2, 16, 16));
-            scene->addChild(makeCylinder(1, .3, 8, true, true, true));
+            scene->addChild(OSG::makeTorus(.5, 2, 16, 16));
+            scene->addChild(OSG::makeCylinder(1, .3, 8, true, true, true));
         }
         
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(mwin );

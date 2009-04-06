@@ -43,12 +43,9 @@
 #include <OpenSG/OSGImage.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *_mgr   = NULL;
-NodeRefPtr          _scene;
+OSG::SimpleSceneManager *_mgr   = NULL;
+OSG::NodeRefPtr          _scene;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT(int *argc, char *argv[]);
@@ -68,7 +65,7 @@ void update(void)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -78,70 +75,70 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // create the scene
-        _scene = makeCoredNode<Group>();
+        _scene = OSG::makeCoredNode<OSG::Group>();
     
         // create a polygon chunk for backface culling.
-        PolygonChunkRefPtr pchunk = PolygonChunk::create();
+        OSG::PolygonChunkRefPtr pchunk = OSG::PolygonChunk::create();
         pchunk->setCullFace(GL_BACK);
         
         // create three transparent boxes.
-        SimpleMaterialRefPtr mat1 = SimpleMaterial::create();
-        mat1->setAmbient      (Color3f(0.2,0.2,0.2));
-        mat1->setDiffuse      (Color3f(1.0,0.0,0.0));
-        mat1->setEmission     (Color3f(0.0,0.0,0.0));
-        mat1->setSpecular     (Color3f(0.4,0.4,0.4));
+        OSG::SimpleMaterialRefPtr mat1 = OSG::SimpleMaterial::create();
+        mat1->setAmbient      (OSG::Color3f(0.2,0.2,0.2));
+        mat1->setDiffuse      (OSG::Color3f(1.0,0.0,0.0));
+        mat1->setEmission     (OSG::Color3f(0.0,0.0,0.0));
+        mat1->setSpecular     (OSG::Color3f(0.4,0.4,0.4));
         mat1->setShininess    (80);
         mat1->setTransparency (0.5);
         // render this first (key 0)
         mat1->setSortKey      (0);
         mat1->addChunk        (pchunk);
 
-        NodeRefPtr     box1 = makeBox(2.5, 2.5, 2.5, 1, 1, 1);
-        GeometryRefPtr geo  = dynamic_cast<Geometry *>(box1->getCore());
+        OSG::NodeRefPtr     box1 = OSG::makeBox(2.5, 2.5, 2.5, 1, 1, 1);
+        OSG::GeometryRefPtr geo  = dynamic_cast<OSG::Geometry *>(box1->getCore());
         geo->setMaterial(mat1);
         
-        SimpleMaterialRefPtr mat2 = SimpleMaterial::create();
-        mat2->setAmbient      (Color3f(0.2,0.2,0.2));
-        mat2->setDiffuse      (Color3f(0.0,1.0,0.0));
-        mat2->setEmission     (Color3f(0.0,0.0,0.0));
-        mat2->setSpecular     (Color3f(0.4,0.4,0.4));
+        OSG::SimpleMaterialRefPtr mat2 = OSG::SimpleMaterial::create();
+        mat2->setAmbient      (OSG::Color3f(0.2,0.2,0.2));
+        mat2->setDiffuse      (OSG::Color3f(0.0,1.0,0.0));
+        mat2->setEmission     (OSG::Color3f(0.0,0.0,0.0));
+        mat2->setSpecular     (OSG::Color3f(0.4,0.4,0.4));
         mat2->setShininess    (80);
         mat2->setTransparency (0.5);
         // render this second (key 1)
         mat2->setSortKey      (1);
         mat2->addChunk        (pchunk);
 
-        NodeRefPtr box2 = makeBox(5.0, 5.0, 5.0, 1, 1, 1);
-        geo = dynamic_cast<Geometry *>(box2->getCore());
+        OSG::NodeRefPtr box2 = OSG::makeBox(5.0, 5.0, 5.0, 1, 1, 1);
+        geo = dynamic_cast<OSG::Geometry *>(box2->getCore());
         geo->setMaterial(mat2);
         
-        SimpleMaterialRefPtr mat3 = SimpleMaterial::create();
-        mat3->setAmbient      (Color3f(0.2,0.2,0.2));
-        mat3->setDiffuse      (Color3f(0.0,0.0,1.0));
-        mat3->setEmission     (Color3f(0.0,0.0,0.0));
-        mat3->setSpecular     (Color3f(0.4,0.4,0.4));
+        OSG::SimpleMaterialRefPtr mat3 = OSG::SimpleMaterial::create();
+        mat3->setAmbient      (OSG::Color3f(0.2,0.2,0.2));
+        mat3->setDiffuse      (OSG::Color3f(0.0,0.0,1.0));
+        mat3->setEmission     (OSG::Color3f(0.0,0.0,0.0));
+        mat3->setSpecular     (OSG::Color3f(0.4,0.4,0.4));
         mat3->setShininess    (80);
         mat3->setTransparency (0.5);
         // render this third (key 2)
         mat3->setSortKey      (2);
         mat3->addChunk        (pchunk);
-        NodeRefPtr box3 = makeBox(10.0, 10.0, 10.0, 1, 1, 1);
-        geo = dynamic_cast<Geometry *>(box3->getCore());
+        OSG::NodeRefPtr box3 = OSG::makeBox(10.0, 10.0, 10.0, 1, 1, 1);
+        geo = dynamic_cast<OSG::Geometry *>(box3->getCore());
         geo->setMaterial(mat3);
     
         _scene->addChild(box1);
         _scene->addChild(box2);
         _scene->addChild(box3);
         
-        commitChanges();
+        OSG::commitChanges();
         
         // create the SimpleSceneManager helper
-        _mgr = new SimpleSceneManager;
+        _mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         _mgr->setWindow(gwin );
@@ -200,7 +197,7 @@ void keyboard(unsigned char k, int x, int y)
             exit(0);
         break;
         case 'w':
-            SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
+            OSG::SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
             printf("wrote scene.\n");
         break;
     }

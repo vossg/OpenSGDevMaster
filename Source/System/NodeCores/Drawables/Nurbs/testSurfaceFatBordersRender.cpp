@@ -12,17 +12,16 @@
 #include <OSGSurface.h>
 #include <OSGFatBorderChunk.h>
 
-OSG_USING_NAMESPACE
 
-SimpleSceneManager   *mgr;
-SimpleMaterialRefPtr  gpcl_defaultmat;
-Real32                g_error1;
-Real32                g_error2;
-bool                  gb_nofatborders = false;
-bool                  gb_differenterrors = false;
-SurfaceRefPtr         gpcl_surface1;
-SurfaceRefPtr         gpcl_surface2;
-FatBorderChunkRefPtr  gpcl_fb_chunk;
+OSG::SimpleSceneManager   *mgr;
+OSG::SimpleMaterialRefPtr  gpcl_defaultmat;
+OSG::Real32                g_error1;
+OSG::Real32                g_error2;
+bool                       gb_nofatborders = false;
+bool                       gb_differenterrors = false;
+OSG::SurfaceRefPtr         gpcl_surface1;
+OSG::SurfaceRefPtr         gpcl_surface2;
+OSG::FatBorderChunkRefPtr  gpcl_fb_chunk;
 
 // redraw the window
 void display(void)
@@ -160,22 +159,22 @@ void keyboard(unsigned char k, int, int)
 
 void setupDefaultMaterial( void )
 {
-    gpcl_fb_chunk = FatBorderChunk::create();
+    gpcl_fb_chunk = OSG::FatBorderChunk::create();
     gpcl_fb_chunk->activateWithStandardLighting( );
 
-    gpcl_defaultmat = SimpleMaterial::create();
+    gpcl_defaultmat = OSG::SimpleMaterial::create();
 
-    gpcl_defaultmat->setDiffuse( Color3f(1.0,0.0,0.0) ); // RED
-    gpcl_defaultmat->setAmbient( Color3f(0.2,0.2,0.2) );
-    gpcl_defaultmat->setEmission( Color3f(0.02,0.02,0.02) );
-    gpcl_defaultmat->setSpecular( Color3f(0.78,0.78,0.78) );
+    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0,0.0,0.0) ); // RED
+    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2,0.2,0.2) );
+    gpcl_defaultmat->setEmission( OSG::Color3f(0.02,0.02,0.02) );
+    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78,0.78,0.78) );
     gpcl_defaultmat->setShininess( 128 );
     // add fat border chunk
     if ( !gb_nofatborders )
         gpcl_defaultmat->addChunk( gpcl_fb_chunk );
 }
 
-NodeTransitPtr makeScene( void )
+OSG::NodeTransitPtr makeScene( void )
 {
     setupDefaultMaterial();
     
@@ -205,64 +204,64 @@ NodeTransitPtr makeScene( void )
     // Fat Borders will appear.
     // We will hopefully come up with a better example later. :-)
     
-    NodeTransitPtr root  = Node::create();
-    NodeRefPtr     surf1 = Node::create();
-    NodeRefPtr     surf2 = Node::create();
+    OSG::NodeTransitPtr root  = OSG::Node::create();
+    OSG::NodeRefPtr     surf1 = OSG::Node::create();
+    OSG::NodeRefPtr     surf2 = OSG::Node::create();
 
-    root->setCore( Group::create() );
+    root->setCore( OSG::Group::create() );
     root->addChild( surf1 );
     root->addChild( surf2 );
     
-    SurfaceRefPtr          surface1 = Surface         ::create();
-    GeoPnt3fPropertyRefPtr cps1     = GeoPnt3fProperty::create();
+    OSG::SurfaceRefPtr          surface1 = OSG::Surface         ::create();
+    OSG::GeoPnt3fPropertyRefPtr cps1     = OSG::GeoPnt3fProperty::create();
 
     cps1->clear();
-    cps1->push_back( Pnt3f(  1, -1,  0 ));
-    cps1->push_back( Pnt3f(  1,  0,  0 ));
-    cps1->push_back( Pnt3f(  1,  0,  1 ));
-    cps1->push_back( Pnt3f(  1,  1,  1 ));
+    cps1->push_back( OSG::Pnt3f(  1, -1,  0 ));
+    cps1->push_back( OSG::Pnt3f(  1,  0,  0 ));
+    cps1->push_back( OSG::Pnt3f(  1,  0,  1 ));
+    cps1->push_back( OSG::Pnt3f(  1,  1,  1 ));
 
-    cps1->push_back( Pnt3f(  0, -1,  0 ));
-    cps1->push_back( Pnt3f(  0,  0,  0 ));
-    cps1->push_back( Pnt3f(  0,  0,  1 ));
-    cps1->push_back( Pnt3f(  0,  1,  1 ));
+    cps1->push_back( OSG::Pnt3f(  0, -1,  0 ));
+    cps1->push_back( OSG::Pnt3f(  0,  0,  0 ));
+    cps1->push_back( OSG::Pnt3f(  0,  0,  1 ));
+    cps1->push_back( OSG::Pnt3f(  0,  1,  1 ));
 
-    cps1->push_back( Pnt3f(  0, -1,  1 ));
-    cps1->push_back( Pnt3f(  0,  0,  1 ));
-    cps1->push_back( Pnt3f(  0,  0,  0 ));
-    cps1->push_back( Pnt3f(  0,  1,  0 ));
+    cps1->push_back( OSG::Pnt3f(  0, -1,  1 ));
+    cps1->push_back( OSG::Pnt3f(  0,  0,  1 ));
+    cps1->push_back( OSG::Pnt3f(  0,  0,  0 ));
+    cps1->push_back( OSG::Pnt3f(  0,  1,  0 ));
 
-    cps1->push_back( Pnt3f( -1, -1,  1 ));
-    cps1->push_back( Pnt3f( -1,  0,  1 ));
-    cps1->push_back( Pnt3f( -1,  0,  0 ));
-    cps1->push_back( Pnt3f( -1,  1,  0 ));
+    cps1->push_back( OSG::Pnt3f( -1, -1,  1 ));
+    cps1->push_back( OSG::Pnt3f( -1,  0,  1 ));
+    cps1->push_back( OSG::Pnt3f( -1,  0,  0 ));
+    cps1->push_back( OSG::Pnt3f( -1,  1,  0 ));
 
-    SurfaceRefPtr          surface2 = Surface         ::create();
-    GeoPnt3fPropertyRefPtr cps2     = GeoPnt3fProperty::create();
+    OSG::SurfaceRefPtr          surface2 = OSG::Surface         ::create();
+    OSG::GeoPnt3fPropertyRefPtr cps2     = OSG::GeoPnt3fProperty::create();
 
     cps2->clear();
-    cps2->push_back( Pnt3f(  5, -2,  2 ));
-    cps2->push_back( Pnt3f(  4, -1,  2 ));
-    cps2->push_back( Pnt3f(  3,  0,  0 ));
-    cps2->push_back( Pnt3f(  5,  1,  0 ));
+    cps2->push_back( OSG::Pnt3f(  5, -2,  2 ));
+    cps2->push_back( OSG::Pnt3f(  4, -1,  2 ));
+    cps2->push_back( OSG::Pnt3f(  3,  0,  0 ));
+    cps2->push_back( OSG::Pnt3f(  5,  1,  0 ));
 
-    cps2->push_back( Pnt3f(  2, -1,  1 ));
-    cps2->push_back( Pnt3f(  2,  0,  1 ));
-    cps2->push_back( Pnt3f(  2,  0,  0 ));
-    cps2->push_back( Pnt3f(  2,  1,  0 ));
+    cps2->push_back( OSG::Pnt3f(  2, -1,  1 ));
+    cps2->push_back( OSG::Pnt3f(  2,  0,  1 ));
+    cps2->push_back( OSG::Pnt3f(  2,  0,  0 ));
+    cps2->push_back( OSG::Pnt3f(  2,  1,  0 ));
 
-    cps2->push_back( Pnt3f(  2, -1,  0 ));
-    cps2->push_back( Pnt3f(  2,  0,  0 ));
-    cps2->push_back( Pnt3f(  2,  0,  1 ));
-    cps2->push_back( Pnt3f(  2,  1,  1 ));
+    cps2->push_back( OSG::Pnt3f(  2, -1,  0 ));
+    cps2->push_back( OSG::Pnt3f(  2,  0,  0 ));
+    cps2->push_back( OSG::Pnt3f(  2,  0,  1 ));
+    cps2->push_back( OSG::Pnt3f(  2,  1,  1 ));
 
-    cps2->push_back( Pnt3f(  1, -1,  0 ));
-    cps2->push_back( Pnt3f(  1,  0,  0 ));
-    cps2->push_back( Pnt3f(  1,  0,  1 ));
-    cps2->push_back( Pnt3f(  1,  1,  1 ));
+    cps2->push_back( OSG::Pnt3f(  1, -1,  0 ));
+    cps2->push_back( OSG::Pnt3f(  1,  0,  0 ));
+    cps2->push_back( OSG::Pnt3f(  1,  0,  1 ));
+    cps2->push_back( OSG::Pnt3f(  1,  1,  1 ));
 
-    std::vector<Real64> knots1;
-    std::vector<Pnt2f > points;
+    std::vector<OSG::Real64> knots1;
+    std::vector<OSG::Pnt2f > points;
     knots1.clear();
     knots1.push_back(0);
     knots1.push_back(0);
@@ -274,20 +273,20 @@ NodeTransitPtr makeScene( void )
 
     // add simple outer trimming around the domain
     points.clear();
-    points.push_back( Pnt2f(0,0) );
-    points.push_back( Pnt2f(1,0) );
+    points.push_back( OSG::Pnt2f(0,0) );
+    points.push_back( OSG::Pnt2f(1,0) );
     surface1->addCurve( 1, knots1, points, true );
     points.clear();
-    points.push_back( Pnt2f(1,0) );
-    points.push_back( Pnt2f(1,1) );
+    points.push_back( OSG::Pnt2f(1,0) );
+    points.push_back( OSG::Pnt2f(1,1) );
     surface1->addCurve( 1, knots1, points, false );
     points.clear();
-    points.push_back( Pnt2f(1,1) );
-    points.push_back( Pnt2f(0,1) );
+    points.push_back( OSG::Pnt2f(1,1) );
+    points.push_back( OSG::Pnt2f(0,1) );
     surface1->addCurve( 1, knots1, points, false );
     points.clear();
-    points.push_back( Pnt2f(0,1) );
-    points.push_back( Pnt2f(0,0) );
+    points.push_back( OSG::Pnt2f(0,1) );
+    points.push_back( OSG::Pnt2f(0,0) );
     surface1->addCurve( 1, knots1, points, false );
     
     // set up dimensions and knot vectors:
@@ -325,20 +324,20 @@ NodeTransitPtr makeScene( void )
     surface2->removeCurves();
     // add simple outer trimming around the domain
     points.clear();
-    points.push_back( Pnt2f(1,0) );
-    points.push_back( Pnt2f(2,0) );
+    points.push_back( OSG::Pnt2f(1,0) );
+    points.push_back( OSG::Pnt2f(2,0) );
     surface2->addCurve( 1, knots1, points, true );
     points.clear();
-    points.push_back( Pnt2f(2,0) );
-    points.push_back( Pnt2f(2,1) );
+    points.push_back( OSG::Pnt2f(2,0) );
+    points.push_back( OSG::Pnt2f(2,1) );
     surface2->addCurve( 1, knots1, points, false );
     points.clear();
-    points.push_back( Pnt2f(2,1) );
-    points.push_back( Pnt2f(1,1) );
+    points.push_back( OSG::Pnt2f(2,1) );
+    points.push_back( OSG::Pnt2f(1,1) );
     surface2->addCurve( 1, knots1, points, false );
     points.clear();
-    points.push_back( Pnt2f(1,1) );
-    points.push_back( Pnt2f(1,0) );
+    points.push_back( OSG::Pnt2f(1,1) );
+    points.push_back( OSG::Pnt2f(1,0) );
     surface2->addCurve( 1, knots1, points, false );
 
     // set up dimensions and knot vectors:
@@ -419,7 +418,7 @@ int main(int argc, char **argv)
 
     processArgs( argc, argv );
       
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     // GLUT init
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
@@ -434,13 +433,13 @@ int main(int argc, char **argv)
     glutKeyboardFunc(keyboard);
 
     {
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
 
         gwin->init();
     
         // create the scene
-        NodeRefPtr scene;
+        OSG::NodeRefPtr scene;
         scene = makeScene( );
         
         if ( scene == NULL )
@@ -450,7 +449,7 @@ int main(int argc, char **argv)
         }
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // create the window and initial camera/viewport
         mgr->setWindow( gwin );
@@ -460,8 +459,8 @@ int main(int argc, char **argv)
         // show the whole scene
         mgr->showAll();
         mgr->redraw();
-        SolidBackgroundRefPtr bgr = SolidBackground::create();
-        bgr->setColor( Color3f( 0.7, 0.7, 0.7 ));
+        OSG::SolidBackgroundRefPtr bgr = OSG::SolidBackground::create();
+        bgr->setColor( OSG::Color3f( 0.7, 0.7, 0.7 ));
         mgr->getWindow()->getPort(0)->setBackground( bgr );
     }
     

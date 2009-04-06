@@ -51,11 +51,8 @@
 #include <OpenSG/OSGFileSystem.h>
 #endif
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
-PassiveWindowRefPtr  pwin;
-SimpleSceneManager  *mgr;
+OSG::PassiveWindowRefPtr  pwin;
+OSG::SimpleSceneManager  *mgr;
 
 int     window;         // The number of our GLUT window
 GLuint  texture[3];     // Storage for 3 textures.
@@ -65,12 +62,12 @@ int Width = 640, Height = 480;
 GLUquadricObj *quadric; // Storage For Our Quadric Objects
 
 // The pointer to the transformation
-TransformRefPtr         trans;
-ViewportRefPtr          vp;
-PerspectiveCameraRefPtr cam;
-MatrixCameraRefPtr      newcam;
-NodeRefPtr              scene;
-NodeRefPtr              world;
+OSG::TransformRefPtr         trans;
+OSG::ViewportRefPtr          vp;
+OSG::PerspectiveCameraRefPtr cam;
+OSG::MatrixCameraRefPtr      newcam;
+OSG::NodeRefPtr              scene;
+OSG::NodeRefPtr              world;
 
 int m_mouseX;
 int m_mouseY;
@@ -87,7 +84,7 @@ bool m_bFullscreen, m_bCalibrate = false;
 // Load texture into memory
 void LoadGLTextures(void) 
 {
-    ImageRefPtr image = Image::create();
+    OSG::ImageRefPtr image = OSG::Image::create();
     if(!image->read("./Data/worldground.jpg"))
     {
         printf("Could not read ./Data/worldground.jpg!!\n");
@@ -306,7 +303,7 @@ void mouseFunc(int button, int state, int x, int y)
 void keyPressed(unsigned char key, int x, int y) 
 {
     /* avoid thrashing this procedure */
-    osgSleep(100);
+    OSG::osgSleep(100);
   
     switch (key) 
     { 
@@ -357,12 +354,12 @@ void DrawGLScene(void)
     
     glPushMatrix(); // OpenSG will overwrite
     
-    Real32 proj_matrix[16], model_matrix[16];
+    OSG::Real32 proj_matrix[16], model_matrix[16];
     glGetFloatv(GL_PROJECTION_MATRIX, proj_matrix);
     glGetFloatv(GL_MODELVIEW_MATRIX, model_matrix);
     
     // retrieve OpenGL's matrices
-    Matrix proj, model;
+    OSG::Matrix proj, model;
     proj.setValue(proj_matrix);
     model.setValue(model_matrix);
     
@@ -372,11 +369,11 @@ void DrawGLScene(void)
     // necessary since OpenSG's modelview transforms start from the unity matrix. 
     newcam->setModelviewMatrix(model);
     
-    Real32 t = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
     
     // setup an initial transformation
-    Matrix m1;
-    Quaternion q1;
+    OSG::Matrix m1;
+    OSG::Quaternion q1;
   
     // mind that the VRML base coordinate system has different meanings for X, Y, Z, hence the rotation for 90 degrees.
     // this, together with the MatrixCamera code above hooks OpenSG to OpenGL ! 
@@ -385,7 +382,7 @@ void DrawGLScene(void)
     m1.setRotate(q1);
     trans->setMatrix(m1);
 
-    commitChanges();
+    OSG::commitChanges();
     
     // redraw the OpenSG window content - the calls are a bit after one's own taste 
     pwin->render(mgr->getRenderAction());
@@ -480,10 +477,10 @@ int main(int argc, char **argv)
     if(i != std::string::npos)
         path = path.substr(0, i);
     // set the current dir to the application dir.
-    Directory::setCurrent(path.c_str());
+    OSG::Directory::setCurrent(path.c_str());
 
     // OSG init
-    osgInit(argc, argv);
+    OSG::osgInit(argc, argv);
     
     /* Initialize GLUT state - glut will take any command line arguments that pertain to it or 
      X Windows - look at its documentation at http://reality.sgi.com/mjk/spec3/spec3.html */  
@@ -531,27 +528,27 @@ int main(int argc, char **argv)
     /* Initialize our window. */
     InitGL(640, 480);
     
-    pwin = PassiveWindow::create();
+    pwin = OSG::PassiveWindow::create();
     pwin->init();
     
     /*
     All scene file loading is handled via the SceneFileHandler.
     */
-    world = SceneFileHandler::the()->read("Data/tie.wrl");
+    world = OSG::SceneFileHandler::the()->read("Data/tie.wrl");
     // create the main scene transformation node
     
     // 1. create the Node
-    scene = Node::create();
+    scene =OSG:: Node::create();
     
     // 2. create the core
-    trans = Transform::create();
+    trans = OSG::Transform::create();
     
     // 3. associate the core with the node
     scene->setCore(trans);
     scene->addChild(world); // add the world as a child
     
     // create the SimpleSceneManager helper - it will be only partially used
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
     
     // tell the manager what to manage
     mgr->setWindow(pwin );
@@ -559,11 +556,11 @@ int main(int argc, char **argv)
 
     if (pwin->getMFPort()->size() != 0) 
     {
-        PassiveBackgroundRefPtr bg = PassiveBackground::create();
+        OSG::PassiveBackgroundRefPtr bg = OSG::PassiveBackground::create();
         
         vp  = pwin->getPort(0);
-        cam = dynamic_cast<PerspectiveCamera *>(vp->getCamera());
-        newcam = MatrixCamera::create();  // the MatrixCamera will only be a slave to the OpenGL matrices
+        cam = dynamic_cast<OSG::PerspectiveCamera *>(vp->getCamera());
+        newcam = OSG::MatrixCamera::create();  // the MatrixCamera will only be a slave to the OpenGL matrices
         vp->setCamera(newcam); // replace the cam
         vp->setBackground(bg); // keep OpenSG from deleting the background, we will do that ourselves
         if(cam == NULL)
@@ -575,7 +572,7 @@ int main(int argc, char **argv)
         exit(1);
     }
     
-    commitChanges();
+    OSG::commitChanges();
     
     /* Start Event Processing Engine */  
     glutMainLoop();

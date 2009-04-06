@@ -13,8 +13,6 @@
 
 #include "OSGQT4Window.h"
 
-OSG_USING_NAMESPACE
-
 const int nwindows = 2;
 
 // We need our own context to prevent Qt to set its own context current
@@ -27,7 +25,7 @@ public:
     virtual void makeCurrent (){}; // on makeCurrent() just do pretty nothing
 };
 
-class MyOSGQGLWidget : public OSGQGLWidget
+class MyOSGQGLWidget : public OSG::OSGQGLWidget
 {
     //Q_OBJECT
 
@@ -41,7 +39,7 @@ class MyOSGQGLWidget : public OSGQGLWidget
 
         virtual ~MyOSGQGLWidget(void);
 
-        SimpleSceneManager *m_manager;
+        OSG::SimpleSceneManager *m_manager;
 
     protected:
         virtual void initializeGL (void);
@@ -59,7 +57,7 @@ QApplication      *a;
 MyOSGQGLWidget::MyOSGQGLWidget ( QWidget *parent, const char *name ) :
     OSGQGLWidget( parent, name )
 {
-    m_manager = new SimpleSceneManager;
+    m_manager = new OSG::SimpleSceneManager;
     m_manager->setUseTraversalAction(true);
 }
 
@@ -69,7 +67,7 @@ MyOSGQGLWidget::MyOSGQGLWidget( MyQGLContext * context,
     Qt::WindowFlags f) :
 OSGQGLWidget(context, parent, shareWidget, f)
 {
-    m_manager = new SimpleSceneManager;
+    m_manager = new OSG::SimpleSceneManager;
     m_manager->setUseTraversalAction(true);
 }
 
@@ -89,7 +87,7 @@ void MyOSGQGLWidget::paintGL ( void )
 {
     m_manager->idle();
     m_manager->redraw();
-    Thread::getCurrentChangeList()->clear();
+    OSG::Thread::getCurrentChangeList()->clear();
 }
 
 void MyOSGQGLWidget::resizeGL ( int w, int h )
@@ -100,12 +98,12 @@ void MyOSGQGLWidget::resizeGL ( int w, int h )
 
 void MyOSGQGLWidget::mousePressEvent ( QMouseEvent *me )
 {
-    UInt16 but;
+    OSG::UInt16 but;
     switch ( me->button() ) 
     {
-    case Qt::LeftButton:    but=SimpleSceneManager::MouseLeft;   break;
-    case Qt::MidButton:     but=SimpleSceneManager::MouseMiddle; break;
-    case Qt::RightButton:   but=SimpleSceneManager::MouseRight;  break;
+    case Qt::LeftButton:    but=OSG::SimpleSceneManager::MouseLeft;   break;
+    case Qt::MidButton:     but=OSG::SimpleSceneManager::MouseMiddle; break;
+    case Qt::RightButton:   but=OSG::SimpleSceneManager::MouseRight;  break;
     }
 
     m_manager->mouseButtonPress( but, me->pos().x(), me->pos().y() );
@@ -114,12 +112,12 @@ void MyOSGQGLWidget::mousePressEvent ( QMouseEvent *me )
 
 void MyOSGQGLWidget::mouseReleaseEvent ( QMouseEvent *me )
 {
-    UInt16 but = SimpleSceneManager::NoButton;
+    OSG::UInt16 but = OSG::SimpleSceneManager::NoButton;
     switch ( me->button() ) 
     {
-    case Qt::LeftButton:    but=SimpleSceneManager::MouseLeft;   break;
-    case Qt::MidButton:     but=SimpleSceneManager::MouseMiddle; break;
-    case Qt::RightButton:   but=SimpleSceneManager::MouseRight;  break;
+    case Qt::LeftButton:    but=OSG::SimpleSceneManager::MouseLeft;   break;
+    case Qt::MidButton:     but=OSG::SimpleSceneManager::MouseMiddle; break;
+    case Qt::RightButton:   but=OSG::SimpleSceneManager::MouseRight;  break;
     default:                                                 break;
     }
 
@@ -151,7 +149,7 @@ int main( int argc, char **argv )
 {
     // OSG init
 
-    osgInit(argc, argv);
+    OSG::osgInit(argc, argv);
     
     // QT init
 
@@ -176,7 +174,7 @@ int main( int argc, char **argv )
     {
         glWidgets[i] = new MyOSGQGLWidget(new MyQGLContext(QGLFormat::defaultFormat()), 0, 0, 0);;
 
-        QT4WindowRecPtr win = QT4Window::create();
+        OSG::QT4WindowRecPtr win = OSG::QT4Window::create();
         win->setGlWidget( glWidgets[i] );
 
         // note: you can't share the scene between the windows, as the SSM
@@ -184,7 +182,7 @@ int main( int argc, char **argv )
         // node (single parent paradigm).
         // If you want to do that, you have to manage the scene yourself
         // without the SSM.
-        NodeUnrecPtr scene = makeTorus( .5, 2, 16, 16 );
+        OSG::NodeUnrecPtr scene = OSG::makeTorus( .5, 2, 16, 16 );
 
         OSG::commitChanges();
  
@@ -207,7 +205,7 @@ int main( int argc, char **argv )
 
     delete a;
 
-    osgExit();
+    OSG::osgExit();
 
     return (0);
 }

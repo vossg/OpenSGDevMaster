@@ -78,17 +78,15 @@
 #endif // OSG_BUILD_ACTIVE
 
 
-OSG_USING_NAMESPACE
-
-typedef std::vector<NodeRefPtr> VecNodesT; // convenience type
+typedef std::vector<OSG::NodeRefPtr> VecNodesT; // convenience type
 
 //
 // transport container for the actual clip plane data
 //
 struct ClipPlaneData
 {
-    Vec4f _equation;
-    bool  _enabled;
+    OSG::Vec4f _equation;
+    bool       _enabled;
 };
 
 typedef std::vector<ClipPlaneData> VecClipPlaneData;
@@ -98,11 +96,11 @@ typedef std::vector<ClipPlaneData> VecClipPlaneData;
 //
 struct ClipPlaneDetails
 {
-    ClipPlaneChunkRefPtr  _clipPlaneChunk;
-    GeometryRefPtr        _planeGeometryCore;
-    TransformRefPtr       _planeTrafoCore;
-    NodeRefPtr            _planeBeaconNode;
-    Color3f               _planeColor;
+    OSG::ClipPlaneChunkRefPtr  _clipPlaneChunk;
+    OSG::GeometryRefPtr        _planeGeometryCore;
+    OSG::TransformRefPtr       _planeTrafoCore;
+    OSG::NodeRefPtr            _planeBeaconNode;
+    OSG::Color3f               _planeColor;
 };
 
 typedef std::vector<ClipPlaneDetails> VecClipPlaneDetailsT;
@@ -114,15 +112,16 @@ VecClipPlaneData      vecClipPlaneData;      // transport clip plane info
 VecClipPlaneDetailsT  vecClipPlaneDetails;   // opensg clip plane state
 VecNodesT             vecGeometries;         // box and torus
 
-SimpleSceneManager   *mgr;
-NodeRefPtr            scene;
+OSG::SimpleSceneManager   *mgr;
+OSG::NodeRefPtr            scene;
 
 //
 // the number of clipping planes supported by the demo. Define a plane color
 // for each.
 //
 const int iNumClipPlanes = 2;
-Color3f planeCol[iNumClipPlanes] = { Color3f(0,1,0), Color3f(0,0,1) };
+OSG::Color3f planeCol[iNumClipPlanes] = { OSG::Color3f(0,1,0), 
+                                          OSG::Color3f(0,0,1) };
 
 //
 // Build the global clip plane state
@@ -136,10 +135,10 @@ void createClipPlaneDetails(void)
         //
         // Create clip plane chunk
         //
-        details._planeBeaconNode = Node::create();
+        details._planeBeaconNode = OSG::Node::create();
 
-        details._clipPlaneChunk = ClipPlaneChunk::create();
-        details._clipPlaneChunk->setEquation(Vec4f(1,0,0,0));
+        details._clipPlaneChunk = OSG::ClipPlaneChunk::create();
+        details._clipPlaneChunk->setEquation(OSG::Vec4f(1,0,0,0));
         details._clipPlaneChunk->setEnable(false);
         details._clipPlaneChunk->setBeacon(details._planeBeaconNode);
 
@@ -147,15 +146,15 @@ void createClipPlaneDetails(void)
         //
         // Create plane geometry
         //
-        details._planeGeometryCore = makePlaneGeo(100.f, 100.f, 128, 128);
+        details._planeGeometryCore = OSG::makePlaneGeo(100.f, 100.f, 128, 128);
 
         //
         // Create plane transformation core
         //
-        Matrix mat;
+        OSG::Matrix mat;
         mat.setIdentity();
 
-        details._planeTrafoCore = Transform::create();
+        details._planeTrafoCore = OSG::Transform::create();
         details._planeTrafoCore->setMatrix(mat);
 
         //
@@ -190,7 +189,9 @@ void updateClipPlanes(const VecClipPlaneData& vec)
 
     for(int i = 0; i < iNumClipPlanes; ++i)
     {
-        ClipPlaneChunk *clipPlaneChunk = vecClipPlaneDetails[i]._clipPlaneChunk;
+        OSG::ClipPlaneChunk *clipPlaneChunk = 
+            vecClipPlaneDetails[i]._clipPlaneChunk;
+
         clipPlaneChunk->setEnable(false);
 
         if(i < sz)
@@ -206,13 +207,13 @@ void updateClipPlanes(const VecClipPlaneData& vec)
             //
             // and the plane transform core
             //
-            Matrix rotMat;
-            Vec4f v1(0.f, 0.f, -1.f, 0.f);
-            Quaternion q(Vec3f(v1), Vec3f(data._equation));
+            OSG::Matrix rotMat;
+            OSG::Vec4f v1(0.f, 0.f, -1.f, 0.f);
+            OSG::Quaternion q(OSG::Vec3f(v1), OSG::Vec3f(data._equation));
             rotMat.setTransform(q);
 
-            Matrix mat;
-            Vec3f v2(0.0f, 0.0f, data._equation[3]);
+            OSG::Matrix mat;
+            OSG::Vec3f v2(0.0f, 0.0f, data._equation[3]);
             mat.setTranslate(v2);
 
             mat.multLeft(rotMat);
@@ -251,7 +252,9 @@ void updateClipPlanes(const VecClipPlaneData& vec)
 //    For each active clip plane copies of the left two branches need to be
 //    added.
 //
-NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
+OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *scene, 
+                                       OSG::Geometry *geo1, 
+                                 const OSG::Matrix   &matrix)
 {
     // if using a sort key, for each geometry we must ensure that the sortkeys
     // are independent. However, using a StateSortingGroup parent node does
@@ -270,14 +273,14 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
         // Branch 1: Imprint the geometry clip plane intersection into the
         //           stencil buffer.
         //
-        NodeRefPtr geomNode = Node::create();
+        OSG::NodeRefPtr geomNode = OSG::Node::create();
         geomNode->setCore(geo1);
 
-        NodeRefPtr materialNode1 = Node::create();
+        OSG::NodeRefPtr materialNode1 = OSG::Node::create();
         //
         // Create stencil material core
         //
-        StencilChunkRefPtr stencilChunk1 = StencilChunk::create();
+        OSG::StencilChunkRefPtr stencilChunk1 = OSG::StencilChunk::create();
         stencilChunk1->setClearBuffer(1);
         stencilChunk1->setStencilFunc(GL_NEVER);
         stencilChunk1->setStencilValue(1);
@@ -286,13 +289,13 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
         stencilChunk1->setStencilOpZFail(GL_INVERT);
         stencilChunk1->setStencilOpZPass(GL_INVERT);
 
-        ChunkMaterialRefPtr mat1 = ChunkMaterial::create();
+        OSG::ChunkMaterialRefPtr mat1 = OSG::ChunkMaterial::create();
         mat1->addChunk(stencilChunk1);
         mat1->addChunk(vecClipPlaneDetails[i]._clipPlaneChunk);
         mat1->setSortKey(2 * i + 0);
         //mat1->setSortKey(k*(2*iNumClipPlanes + 1) + 2*i + 0);
 
-        MaterialGroupRefPtr mgrp1 = MaterialGroup::create();
+        OSG::MaterialGroupRefPtr mgrp1 = OSG::MaterialGroup::create();
         mgrp1->setMaterial(mat1);
 
         materialNode1->setCore(mgrp1);
@@ -303,8 +306,8 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
         //
         // Branch 2: Draw plane at places were the stencil buffer is set
         //
-        NodeRefPtr         materialNode2 = Node        ::create();
-        StencilChunkRefPtr stencilChunk2 = StencilChunk::create();
+        OSG::NodeRefPtr         materialNode2 = OSG::Node        ::create();
+        OSG::StencilChunkRefPtr stencilChunk2 = OSG::StencilChunk::create();
 
         stencilChunk2->setStencilFunc(GL_EQUAL);
         stencilChunk2->setStencilValue(1);
@@ -313,9 +316,9 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
         stencilChunk2->setStencilOpZFail(GL_ZERO);
         stencilChunk2->setStencilOpZPass(GL_ZERO);
 
-        SimpleMaterialRefPtr mat2 = SimpleMaterial::create();
+        OSG::SimpleMaterialRefPtr mat2 = OSG::SimpleMaterial::create();
         mat2->setDiffuse(vecClipPlaneDetails[i]._planeColor);
-        mat2->setSpecular(Color3f(1,1,1));
+        mat2->setSpecular(OSG::Color3f(1,1,1));
         mat2->setLit(true);
 
         //
@@ -333,10 +336,10 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
         mat2->setSortKey(2 * i + 1);
         //mat2->setSortKey(k*(2*iNumClipPlanes + 1) + 2*i + 1);
 
-        NodeRefPtr planeGeoNode = Node::create();
+        OSG::NodeRefPtr planeGeoNode = OSG::Node::create();
         planeGeoNode->setCore(vecClipPlaneDetails[i]._planeGeometryCore);
 
-        NodeRefPtr planeTrafoNode = Node::create();
+        OSG::NodeRefPtr planeTrafoNode = OSG::Node::create();
         planeTrafoNode->setCore(vecClipPlaneDetails[i]._planeTrafoCore);
         planeTrafoNode->addChild(planeGeoNode);
 
@@ -345,11 +348,11 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
         // scenegraph since we are describing the plane in the same frame
         // as the clip planes, i.e. world coordinates.
         //
-        NodeRefPtr planeRootNode = Node::create();
-        planeRootNode->setCore(InverseTransform::create());
+        OSG::NodeRefPtr planeRootNode = OSG::Node::create();
+        planeRootNode->setCore(OSG::InverseTransform::create());
         planeRootNode->addChild(planeTrafoNode);
 
-        MaterialGroupRefPtr mgrp2 = MaterialGroup::create();
+        OSG::MaterialGroupRefPtr mgrp2 = OSG::MaterialGroup::create();
         mgrp2->setMaterial(mat2);
 
         materialNode2->setCore(mgrp2);
@@ -361,11 +364,11 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
     //
     // Finally, set up a branch for drawing the primary geometry
     //
-    NodeRefPtr           materialNode3 = Node          ::create();
-    SimpleMaterialRefPtr mat3          = SimpleMaterial::create();
+    OSG::NodeRefPtr           materialNode3 = OSG::Node          ::create();
+    OSG::SimpleMaterialRefPtr mat3          = OSG::SimpleMaterial::create();
 
-    mat3->setDiffuse(Color3f(1,0,0));
-    mat3->setSpecular(Color3f(1,1,1));
+    mat3->setDiffuse(OSG::Color3f(1,0,0));
+    mat3->setSpecular(OSG::Color3f(1,1,1));
     mat3->setLit(true);
 
     //
@@ -378,10 +381,10 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
     mat3->setSortKey(2 * iNumClipPlanes);
     //mat3->setSortKey(k*(2*iNumClipPlanes + 1) + iNumClipPlanes * 2);
 
-    MaterialGroupRefPtr mgrp3 = MaterialGroup::create();
+    OSG::MaterialGroupRefPtr mgrp3 = OSG::MaterialGroup::create();
     mgrp3->setMaterial(mat3);
 
-    NodeRefPtr geometryNode = Node::create();
+    OSG::NodeRefPtr geometryNode = OSG::Node::create();
     geometryNode->setCore(geo1);
 
     materialNode3->setCore (mgrp3);
@@ -393,13 +396,13 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
     // render branches and selectively activate and deactivate
     // them in a given context.
     //
-    MultiSwitchRefPtr selectCore = MultiSwitch::create();
-    selectCore->setSwitchMode(MultiSwitch::ALL);
+    OSG::MultiSwitchRefPtr selectCore = OSG::MultiSwitch::create();
+    selectCore->setSwitchMode(OSG::MultiSwitch::ALL);
 
     //
     // Add the branches to some parent node.
     //
-    NodeRefPtr selectNode = Node::create();
+    OSG::NodeRefPtr selectNode = OSG::Node::create();
     selectNode->setCore(selectCore);
 
     for(int i = 0; i < iNumClipPlanes; ++i)
@@ -415,10 +418,11 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
     // geometry nodes, a node carrying a Stage core is inserted
     // into the tree.
     //
-    PassiveBackgroundRefPtr passBkg = PassiveBackground::create();
+    OSG::PassiveBackgroundRefPtr passBkg = OSG::PassiveBackground::create();
 
-    GroupingStageRefPtr stageCore;
-    NodeRefPtr          stageNode = makeCoredNode<GroupingStage>(&stageCore);
+    OSG::GroupingStageRefPtr stageCore;
+    OSG::NodeRefPtr          stageNode = 
+        OSG::makeCoredNode<OSG::GroupingStage>(&stageCore);
 //    stageCore->setInheritedTarget(true);
 //    stageCore->setCamera    (mgr->getCamera());
 //    stageCore->setBackground(passBkg         );
@@ -427,8 +431,9 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
     //
     // Finally, the geometry should be transformable
     //
-    TransformRefPtr transfCore;
-    NodeRefPtr      transfNode = makeCoredNode<Transform>(&transfCore);
+    OSG::TransformRefPtr transfCore;
+    OSG::NodeRefPtr      transfNode = 
+        OSG::makeCoredNode<OSG::Transform>(&transfCore);
 
     transfCore->setMatrix(matrix);
     transfNode->addChild(stageNode);
@@ -437,7 +442,7 @@ NodeTransitPtr buildGeoTree(Node *scene, Geometry *geo1, const Matrix& matrix)
 
     k++;
 
-    return NodeTransitPtr(transfNode);
+    return OSG::NodeTransitPtr(transfNode);
 }
 
 //
@@ -487,22 +492,22 @@ void motion(int x, int y)
 //
 void keyboard(unsigned char k, int, int)
 {
-    static Real32 val0 = 0.f;
-    static Real32 val1 = 0.f;
+    static OSG::Real32 val0 = 0.f;
+    static OSG::Real32 val1 = 0.f;
 
-    static Real32 x1 = 0.f;
-    static Real32 y1 = 0.f;
-    static Real32 z1 = 0.f;
+    static OSG::Real32 x1 = 0.f;
+    static OSG::Real32 y1 = 0.f;
+    static OSG::Real32 z1 = 0.f;
 
-    static Real32 x2 = 0.f;
-    static Real32 y2 = 0.f;
-    static Real32 z2 = 0.f;
+    static OSG::Real32 x2 = 0.f;
+    static OSG::Real32 y2 = 0.f;
+    static OSG::Real32 z2 = 0.f;
 
     switch(k)
     {
     case ' ':
         {
-            SceneGraphPrinter sgp(mgr->getRoot());
+            OSG::SceneGraphPrinter sgp(mgr->getRoot());
             sgp.printDownTree(std::cout);
         }
         break;
@@ -523,12 +528,16 @@ void keyboard(unsigned char k, int, int)
         {
             if(vecGeometries[0] == NULL)
             {
-                Matrix matrix;
-                Vec3f v(10.f,  0.f, 15.f);
+                OSG::Matrix matrix;
+                OSG::Vec3f v(10.f,  0.f, 15.f);
                 matrix.setTranslate(v);
 
-                GeometryRefPtr boxGeo  = makeBoxGeo(15, 15, 15, 1, 1, 1);
-                NodeRefPtr     boxTree = buildGeoTree(scene, boxGeo, matrix);
+                OSG::GeometryRefPtr boxGeo  = 
+                    OSG::makeBoxGeo(15, 15, 15, 1, 1, 1);
+
+                OSG::NodeRefPtr     boxTree = buildGeoTree(scene, 
+                                                           boxGeo, 
+                                                           matrix);
 
                 vecGeometries[0] = boxTree;
                 scene->addChild(boxTree);
@@ -547,12 +556,13 @@ void keyboard(unsigned char k, int, int)
         {
             if (vecGeometries[1] == NULL)
             {
-                Matrix matrix;
-                Vec3f v( 0.f, 10.f, 0.f);
+                OSG::Matrix matrix;
+                OSG::Vec3f v( 0.f, 10.f, 0.f);
                 matrix.setTranslate(v);
 
-                GeometryRefPtr torusGeo  = makeTorusGeo(2, 6, 8, 16);
-                NodeRefPtr     torusTree = buildGeoTree(scene, torusGeo, matrix);
+                OSG::GeometryRefPtr torusGeo  = OSG::makeTorusGeo(2, 6, 8, 16);
+                OSG::NodeRefPtr     torusTree = buildGeoTree(scene, 
+                                                             torusGeo, matrix);
 
                 vecGeometries[1] = torusTree;
                 scene->addChild(torusTree);
@@ -599,14 +609,14 @@ void keyboard(unsigned char k, int, int)
         {
             x1 -= 0.2f;
 
-            Matrix matrix;
-            Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
+            OSG::Matrix matrix;
+            OSG::Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
             matrix.setTranslate(v);
 
             if(vecGeometries[0] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[0]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[0]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -616,14 +626,14 @@ void keyboard(unsigned char k, int, int)
         {
             x1 += 0.2f;
 
-            Matrix matrix;
-            Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
+            OSG::Matrix matrix;
+            OSG::Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
             matrix.setTranslate(v);
 
             if(vecGeometries[0] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[0]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[0]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -633,14 +643,14 @@ void keyboard(unsigned char k, int, int)
         {
             y1 -= 0.2f;
 
-            Matrix matrix;
-            Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
+            OSG::Matrix matrix;
+            OSG::Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
             matrix.setTranslate(v);
 
             if(vecGeometries[0] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[0]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[0]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -650,14 +660,14 @@ void keyboard(unsigned char k, int, int)
         {
             y1 += 0.2f;
 
-            Matrix matrix;
-            Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
+            OSG::Matrix matrix;
+            OSG::Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
             matrix.setTranslate(v);
 
             if(vecGeometries[0] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[0]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[0]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -667,14 +677,14 @@ void keyboard(unsigned char k, int, int)
         {
             z1 -= 0.2f;
 
-            Matrix matrix;
-            Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
+            OSG::Matrix matrix;
+            OSG::Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
             matrix.setTranslate(v);
 
             if(vecGeometries[0] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[0]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[0]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -684,14 +694,14 @@ void keyboard(unsigned char k, int, int)
         {
             z1 += 0.2f;
 
-            Matrix matrix;
-            Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
+            OSG::Matrix matrix;
+            OSG::Vec3f v(10.f + x1,  0.f + y1, 15.f + z1);
             matrix.setTranslate(v);
 
             if(vecGeometries[0] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[0]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[0]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -701,14 +711,14 @@ void keyboard(unsigned char k, int, int)
         {
             x2 -= 0.2f;
 
-            Matrix matrix;
-            Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
+            OSG::Matrix matrix;
+            OSG::Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
             matrix.setTranslate(v);
 
             if(vecGeometries[1] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[1]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[1]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -718,14 +728,14 @@ void keyboard(unsigned char k, int, int)
         {
             x2 += 0.2f;
 
-            Matrix matrix;
-            Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
+            OSG::Matrix matrix;
+            OSG::Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
             matrix.setTranslate(v);
 
             if(vecGeometries[1] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[1]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[1]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -735,14 +745,14 @@ void keyboard(unsigned char k, int, int)
         {
             y2 -= 0.2f;
 
-            Matrix matrix;
-            Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
+            OSG::Matrix matrix;
+            OSG::Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
             matrix.setTranslate(v);
 
             if(vecGeometries[1] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[1]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[1]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -752,14 +762,14 @@ void keyboard(unsigned char k, int, int)
         {
             y2 += 0.2f;
 
-            Matrix matrix;
-            Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
+            OSG::Matrix matrix;
+            OSG::Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
             matrix.setTranslate(v);
 
             if(vecGeometries[1] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[1]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[1]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -769,14 +779,14 @@ void keyboard(unsigned char k, int, int)
         {
             z2 -= 0.2f;
 
-            Matrix matrix;
-            Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
+            OSG::Matrix matrix;
+            OSG::Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
             matrix.setTranslate(v);
 
             if(vecGeometries[1] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[1]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[1]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -786,14 +796,14 @@ void keyboard(unsigned char k, int, int)
         {
             z2 += 0.2f;
 
-            Matrix matrix;
-            Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
+            OSG::Matrix matrix;
+            OSG::Vec3f v( 0.f + x2, 10.f + y2, 0.f + z2);
             matrix.setTranslate(v);
 
             if(vecGeometries[1] != NULL)
             {
-                TransformRefPtr transformCore =
-                    dynamic_cast<Transform *>(vecGeometries[1]->getCore());
+                OSG::TransformRefPtr transformCore =
+                    dynamic_cast<OSG::Transform *>(vecGeometries[1]->getCore());
 
                 transformCore->setMatrix(matrix);
             }
@@ -803,7 +813,7 @@ void keyboard(unsigned char k, int, int)
         {
             cleanup();
 
-            osgExit();
+            OSG::osgExit();
             exit(0);
         }
         break;
@@ -814,7 +824,7 @@ void keyboard(unsigned char k, int, int)
 
 int doMain(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     glutInit(&argc, argv);
@@ -830,11 +840,11 @@ int doMain(int argc, char **argv)
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);
 
-    PassiveWindowRefPtr pwin=PassiveWindow::create();
+    OSG::PassiveWindowRefPtr pwin=OSG::PassiveWindow::create();
     pwin->init();
 
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
 
     // create the window and initial camera/viewport
     mgr->setWindow(pwin);
@@ -851,8 +861,8 @@ int doMain(int argc, char **argv)
     //
     // The scene
     //
-    scene = Node::create();
-    scene->setCore(Group::create());
+    scene = OSG::Node::create();
+    scene->setCore(OSG::Group::create());
 
     //
     // A place for accessing the box and torus.
@@ -866,10 +876,10 @@ int doMain(int argc, char **argv)
     ClipPlaneData data1;
     ClipPlaneData data2;
 
-    data1._equation = Vec4f(0,0,1,0);
+    data1._equation = OSG::Vec4f(0,0,1,0);
     data1._enabled  = true;
 
-    data2._equation = Vec4f(1,0,0,0);
+    data2._equation = OSG::Vec4f(1,0,0,0);
     data2._enabled  = false;
 
     vecClipPlaneData.push_back(data1);
@@ -904,7 +914,7 @@ int main(int argc, char *argv[])
     //
     cleanup();
 
-    osgExit();
+    OSG::osgExit();
 
     return 0;
 }

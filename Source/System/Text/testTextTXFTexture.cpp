@@ -22,7 +22,6 @@
 #include <sstream>
 
 // Activate the OpenSG namespace
-OSG_USING_NAMESPACE
 using namespace std;
 
 #define COMMAND_FAMILY_SANS 701
@@ -50,22 +49,22 @@ using namespace std;
 #define COMMAND_WRITE_TO_FILE 901
 
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
-NodeRecPtr scene;
+OSG::NodeRecPtr scene;
 
-SimpleStatisticsForegroundRecPtr statfg;
-StatElemDesc<OSG::StatStringElem> familyDesc("family", "The font family");
-StatElemDesc<OSG::StatStringElem> styleDesc("style", "The font style");
-StatElemDesc<OSG::StatIntElem> sizeDesc("size", "The height of the characters");
-StatElemDesc<OSG::StatIntElem> gapDesc("gap", "The gap between characters");
-StatElemDesc<OSG::StatStringElem> textureSizeDesc("textureSize", "The size of the texture");
+OSG::SimpleStatisticsForegroundRecPtr statfg;
+OSG::StatElemDesc<OSG::StatStringElem> familyDesc("family", "The font family");
+OSG::StatElemDesc<OSG::StatStringElem> styleDesc("style", "The font style");
+OSG::StatElemDesc<OSG::StatIntElem> sizeDesc("size", "The height of the characters");
+OSG::StatElemDesc<OSG::StatIntElem> gapDesc("gap", "The gap between characters");
+OSG::StatElemDesc<OSG::StatStringElem> textureSizeDesc("textureSize", "The size of the texture");
 
-TextTXFFaceRefPtr face = 0;
+OSG::TextTXFFaceRefPtr face = 0;
 string family;
 vector<string> families;
-TextFace::Style style = TextFace::STYLE_PLAIN;
-TextTXFParam param;
+OSG::TextFace::Style style = OSG::TextFace::STYLE_PLAIN;
+OSG::TextTXFParam param;
 string filename;
 
 int mainMenuID;
@@ -74,45 +73,45 @@ int mainMenuID;
 int setupGLUT( int *argc, char *argv[] );
 
 // Create the metrics
-NodeTransitPtr createMetrics(TextTXFFace *face, UInt32 width, UInt32 height)
+OSG::NodeTransitPtr createMetrics(OSG::TextTXFFace *face, OSG::UInt32 width, OSG::UInt32 height)
 {
-    GeometryUnrecPtr geoPtr = Geometry::create();
+    OSG::GeometryUnrecPtr geoPtr = OSG::Geometry::create();
 
-    GeoUInt8PropertyUnrecPtr typesPtr = GeoUInt8Property::create();
+    OSG::GeoUInt8PropertyUnrecPtr typesPtr = OSG::GeoUInt8Property::create();
     geoPtr->setTypes(typesPtr);
 
-    GeoUInt32PropertyUnrecPtr lensPtr = GeoUInt32Property::create();
+    OSG::GeoUInt32PropertyUnrecPtr lensPtr = OSG::GeoUInt32Property::create();
     geoPtr->setLengths(lensPtr);
 
-    GeoPnt3fPropertyUnrecPtr posPtr = GeoPnt3fProperty::create();
+    OSG::GeoPnt3fPropertyUnrecPtr posPtr = OSG::GeoPnt3fProperty::create();
     geoPtr->setPositions(posPtr);
 
-    GeoColor3fPropertyUnrecPtr colorsPtr = GeoColor3fProperty::create();
-    colorsPtr->push_back(Color3f(0.f, 0.f, 1.f));
-    colorsPtr->push_back(Color3f(1.f, 0.f, 0.f));
+    OSG::GeoColor3fPropertyUnrecPtr colorsPtr = OSG::GeoColor3fProperty::create();
+    colorsPtr->push_back(OSG::Color3f(0.f, 0.f, 1.f));
+    colorsPtr->push_back(OSG::Color3f(1.f, 0.f, 0.f));
     geoPtr->setColors(colorsPtr);
 
-    GeoUInt32PropertyUnrecPtr posIndicesPtr = GeoUInt32Property::create();
-    geoPtr->setIndex(posIndicesPtr, Geometry::PositionsIndex);
-    GeoUInt32PropertyUnrecPtr colIndicesPtr = GeoUInt32Property::create();
-    geoPtr->setIndex(colIndicesPtr, Geometry::ColorsIndex);
+    OSG::GeoUInt32PropertyUnrecPtr posIndicesPtr = OSG::GeoUInt32Property::create();
+    geoPtr->setIndex(posIndicesPtr, OSG::Geometry::PositionsIndex);
+    OSG::GeoUInt32PropertyUnrecPtr colIndicesPtr = OSG::GeoUInt32Property::create();
+    geoPtr->setIndex(colIndicesPtr, OSG::Geometry::ColorsIndex);
 
     wstring characters = face->getParam().getCharacters();
     wstring::const_iterator it;
     for (it = characters.begin(); it != characters.end(); ++it)
     {
-        const TextTXFGlyph &glyph = face->getTXFGlyph(*it);
+        const OSG::TextTXFGlyph &glyph = face->getTXFGlyph(*it);
         typesPtr->push_back(GL_LINE_LOOP);
         lensPtr->push_back(4);
-        Real32 left = static_cast<Real32>(width) * -0.5f + glyph.getX();
-        Real32 right = left + static_cast<Real32>(glyph.getPixmapWidth());
-        Real32 bottom = static_cast<Real32>(height) * -0.5f + glyph.getY();
-        Real32 top = bottom + static_cast<Real32>(glyph.getPixmapHeight());
-        UInt32 posOffset = posPtr->size();
-        posPtr->push_back(Vec3f(left, bottom, 0.f));
-        posPtr->push_back(Vec3f(right, bottom, 0.f));
-        posPtr->push_back(Vec3f(right, top, 0.f));
-        posPtr->push_back(Vec3f(left, top, 0.f));
+        OSG::Real32 left = static_cast<OSG::Real32>(width) * -0.5f + glyph.getX();
+        OSG::Real32 right = left + static_cast<OSG::Real32>(glyph.getPixmapWidth());
+        OSG::Real32 bottom = static_cast<OSG::Real32>(height) * -0.5f + glyph.getY();
+        OSG::Real32 top = bottom + static_cast<OSG::Real32>(glyph.getPixmapHeight());
+        OSG::UInt32 posOffset = posPtr->size();
+        posPtr->push_back(OSG::Vec3f(left, bottom, 0.f));
+        posPtr->push_back(OSG::Vec3f(right, bottom, 0.f));
+        posPtr->push_back(OSG::Vec3f(right, top, 0.f));
+        posPtr->push_back(OSG::Vec3f(left, top, 0.f));
         posIndicesPtr->push_back(posOffset);
         colIndicesPtr->push_back(0);
         posIndicesPtr->push_back(posOffset + 1);
@@ -126,15 +125,15 @@ NodeTransitPtr createMetrics(TextTXFFace *face, UInt32 width, UInt32 height)
     // Bounding box
     typesPtr->push_back(GL_LINE_LOOP);
     lensPtr->push_back(4);
-    Real32 left = static_cast<Real32>(width) * -0.5f;
-    Real32 right = static_cast<Real32>(width) * 0.5f;
-    Real32 top = static_cast<Real32>(height) * 0.5f;
-    Real32 bottom = static_cast<Real32>(height) * -0.5f;
-    UInt32 posOffset = posPtr->size();
-    posPtr->push_back(Vec3f(left, bottom, 0.f));
-    posPtr->push_back(Vec3f(right, bottom, 0.f));
-    posPtr->push_back(Vec3f(right, top, 0.f));
-    posPtr->push_back(Vec3f(left, top, 0.f));
+    OSG::Real32 left = static_cast<OSG::Real32>(width) * -0.5f;
+    OSG::Real32 right = static_cast<OSG::Real32>(width) * 0.5f;
+    OSG::Real32 top = static_cast<OSG::Real32>(height) * 0.5f;
+    OSG::Real32 bottom = static_cast<OSG::Real32>(height) * -0.5f;
+    OSG::UInt32 posOffset = posPtr->size();
+    posPtr->push_back(OSG::Vec3f(left, bottom, 0.f));
+    posPtr->push_back(OSG::Vec3f(right, bottom, 0.f));
+    posPtr->push_back(OSG::Vec3f(right, top, 0.f));
+    posPtr->push_back(OSG::Vec3f(left, top, 0.f));
     posIndicesPtr->push_back(posOffset);
     colIndicesPtr->push_back(1);
     posIndicesPtr->push_back(posOffset + 1);
@@ -144,10 +143,10 @@ NodeTransitPtr createMetrics(TextTXFFace *face, UInt32 width, UInt32 height)
     posIndicesPtr->push_back(posOffset + 3);
     colIndicesPtr->push_back(1);
 
-    SimpleMaterialUnrecPtr matPtr = SimpleMaterial::create();
+    OSG::SimpleMaterialUnrecPtr matPtr = OSG::SimpleMaterial::create();
     geoPtr->setMaterial(matPtr);
 
-    NodeTransitPtr nodePtr = Node::create();
+    OSG::NodeTransitPtr nodePtr = OSG::Node::create();
     nodePtr->setCore(geoPtr);
 
     return nodePtr;
@@ -158,7 +157,7 @@ void updateFace(void)
     // Try to create new face
     if (family.empty() == false)
     {
-        TextTXFFaceRefPtr newFace = TextTXFFace::create(family, style, param);
+        OSG::TextTXFFaceRefPtr newFace = OSG::TextTXFFace::create(family, style, param);
         if (newFace == 0)
             return;
         face = newFace;
@@ -180,29 +179,29 @@ void updateFace(void)
             else
                 ++i;
         style = face->getStyle();
-        StatStringElem *statElem = statfg->getCollector()->getElem(styleDesc);
+        OSG::StatStringElem *statElem = statfg->getCollector()->getElem(styleDesc);
         switch (style)
         {
-            case TextFace::STYLE_PLAIN:
+            case OSG::TextFace::STYLE_PLAIN:
                 statElem->set("Plain");
                 filename.append("-Plain.txf");
                 break;
-            case TextFace::STYLE_BOLD:
+            case OSG::TextFace::STYLE_BOLD:
                 statElem->set("Bold");
                 filename.append("-Bold.txf");
                 break;
-            case TextFace::STYLE_ITALIC:
+            case OSG::TextFace::STYLE_ITALIC:
                 statElem->set("Italic");
                 filename.append("-Italic.txf");
                 break;
-            case TextFace::STYLE_BOLDITALIC:
+            case OSG::TextFace::STYLE_BOLDITALIC:
                 statElem->set("Bold & Italic");
                 filename.append("-BoldItalic.txf");
                 break;
         }
         statfg->getCollector()->getElem(sizeDesc)->set(face->getParam().size);
         statfg->getCollector()->getElem(gapDesc)->set(face->getParam().gap);
-        ImageUnrecPtr imagePtr = face->getTexture();
+        OSG::ImageUnrecPtr imagePtr = face->getTexture();
         ostringstream os;
         os << imagePtr->getWidth() << 'x' << imagePtr->getHeight();
         statfg->getCollector()->getElem(textureSizeDesc)->set(os.str());
@@ -218,39 +217,39 @@ void updateScene(void)
         return;
 
     // Put it all together into a Geometry NodeCore.
-    ImageUnrecPtr imagePtr = face->getTexture();
-    GeometryUnrecPtr geo = makePlaneGeo(imagePtr->getWidth(), imagePtr->getHeight(), 1, 1);
-    NodeUnrecPtr textNode = Node::create();
+    OSG::ImageUnrecPtr imagePtr = face->getTexture();
+    OSG::GeometryUnrecPtr geo = OSG::makePlaneGeo(imagePtr->getWidth(), imagePtr->getHeight(), 1, 1);
+    OSG::NodeUnrecPtr textNode = OSG::Node::create();
     textNode->setCore(geo);
-    NodeUnrecPtr transNodePtr = Node::create();
-    TransformUnrecPtr transPtr = Transform::create();
-    Matrix transMatrix;
+    OSG::NodeUnrecPtr transNodePtr = OSG::Node::create();
+    OSG::TransformUnrecPtr transPtr = OSG::Transform::create();
+    OSG::Matrix transMatrix;
     transMatrix.setTranslate(0.f, 0.f, -1.f);
     transPtr->setMatrix(transMatrix);
     transNodePtr->setCore(transPtr);
     transNodePtr->addChild(textNode);
 
-    TextureObjChunkUnrecPtr texObjChunk = TextureObjChunk::create();
+    OSG::TextureObjChunkUnrecPtr texObjChunk = OSG::TextureObjChunk::create();
     texObjChunk->setImage(imagePtr);
     texObjChunk->setWrapS(GL_CLAMP);
     texObjChunk->setWrapT(GL_CLAMP);
     texObjChunk->setMagFilter(GL_NEAREST);
     texObjChunk->setMinFilter(GL_NEAREST);
-    TextureEnvChunkUnrecPtr texEnvChunk = TextureEnvChunk::create();
+    OSG::TextureEnvChunkUnrecPtr texEnvChunk = OSG::TextureEnvChunk::create();
     texEnvChunk->setEnvMode(GL_MODULATE);
 
-    MaterialChunkUnrecPtr matChunk = MaterialChunk::create();
-    matChunk->setAmbient(Color4f(1.f, 1.f, 1.f, 1.f));
-    matChunk->setDiffuse(Color4f(1.f, 1.f, 1.f, 1.f));
-    matChunk->setEmission(Color4f(0.f, 0.f, 0.f, 1.f));
-    matChunk->setSpecular(Color4f(0.f, 0.f, 0.f, 1.f));
+    OSG::MaterialChunkUnrecPtr matChunk = OSG::MaterialChunk::create();
+    matChunk->setAmbient(OSG::Color4f(1.f, 1.f, 1.f, 1.f));
+    matChunk->setDiffuse(OSG::Color4f(1.f, 1.f, 1.f, 1.f));
+    matChunk->setEmission(OSG::Color4f(0.f, 0.f, 0.f, 1.f));
+    matChunk->setSpecular(OSG::Color4f(0.f, 0.f, 0.f, 1.f));
     matChunk->setShininess(0);
 
-    BlendChunkUnrecPtr blendChunk = BlendChunk::create();
+    OSG::BlendChunkUnrecPtr blendChunk = OSG::BlendChunk::create();
     blendChunk->setSrcFactor(GL_SRC_ALPHA);
     blendChunk->setDestFactor(GL_ONE_MINUS_SRC_ALPHA);
 
-    ChunkMaterialUnrecPtr m = ChunkMaterial::create();
+    OSG::ChunkMaterialUnrecPtr m = OSG::ChunkMaterial::create();
     m->addChunk(texObjChunk);
     m->addChunk(texEnvChunk);
     m->addChunk(matChunk);
@@ -267,25 +266,25 @@ void updateScene(void)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     {
         // GLUT init
         int winid = setupGLUT(&argc, argv);
     
         // the connection between GLUT and OpenSG
-        GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+        OSG::GLUTWindowUnrecPtr gwin= OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // put the geometry core into a node
-        scene = Node::create();
-        GroupUnrecPtr groupPtr = Group::create();
+        scene = OSG::Node::create();
+        OSG::GroupUnrecPtr groupPtr = OSG::Group::create();
         scene->setCore(groupPtr);
     
-        statfg = SimpleStatisticsForeground::create();
+        statfg = OSG::SimpleStatisticsForeground::create();
         statfg->setSize(25);
-        statfg->setColor(Color4f(0,1,0,0.9));
+        statfg->setColor(OSG::Color4f(0,1,0,0.9));
         statfg->addElement(familyDesc, "Family: %s");
         statfg->addElement(styleDesc, "Style: %s");
         statfg->addElement(sizeDesc, "Size: %i");
@@ -293,12 +292,12 @@ int main(int argc, char **argv)
         statfg->addElement(textureSizeDesc, "Texture Size: %s");
     
         // Create the background
-        SolidBackgroundUnrecPtr bg = SolidBackground::create();
-        bg->setColor(Color3f(0.1, 0.1, 0.5));
+        OSG::SolidBackgroundUnrecPtr bg = OSG::SolidBackground::create();
+        bg->setColor(OSG::Color3f(0.1, 0.1, 0.5));
     
         if (argc > 1)
         {
-            face = TextTXFFace::createFromFile(argv[1]);
+            face = OSG::TextTXFFace::createFromFile(argv[1]);
             if (face == 0)
                 family = "SANS";
             else
@@ -312,7 +311,7 @@ int main(int argc, char **argv)
         updateScene();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -380,7 +379,7 @@ void keyboard(unsigned char k, int x, int y)
             scene  = NULL;
             statfg = NULL;
 
-            osgExit();
+            OSG::osgExit();
             exit(0);
         }
         break;
@@ -404,19 +403,19 @@ void menu(int command)
             updateFace();
             break;
         case COMMAND_STYLE_PLAIN:
-            style = TextFace::STYLE_PLAIN;
+            style = OSG::TextFace::STYLE_PLAIN;
             updateFace();
             break;
         case COMMAND_STYLE_BOLD:
-            style = TextFace::STYLE_BOLD;
+            style = OSG::TextFace::STYLE_BOLD;
             updateFace();
             break;
         case COMMAND_STYLE_ITALIC:
-            style = TextFace::STYLE_ITALIC;
+            style = OSG::TextFace::STYLE_ITALIC;
             updateFace();
             break;
         case COMMAND_STYLE_BOLDITALIC:
-            style = TextFace::STYLE_BOLDITALIC;
+            style = OSG::TextFace::STYLE_BOLDITALIC;
             updateFace();
             break;
         case COMMAND_SIZE_INC1:
@@ -517,8 +516,8 @@ int setupGLUT(int *argc, char *argv[])
     glutAddMenuEntry("SANS", COMMAND_FAMILY_SANS);
     glutAddMenuEntry("SERIF", COMMAND_FAMILY_SERIF);
     glutAddMenuEntry("TYPEWRITER", COMMAND_FAMILY_TYPEWRITER);
-    TextFaceFactory::the()->getFontFamilies(families);
-    UInt32 i;
+    OSG::TextFaceFactory::the()->getFontFamilies(families);
+    OSG::UInt32 i;
     for (i = 0; i < families.size(); ++i)
         glutAddMenuEntry(families[i].c_str(), COMMAND_FAMILY_BASE + i);
     int styleMenuID = glutCreateMenu(menu);

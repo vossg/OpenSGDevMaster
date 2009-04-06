@@ -46,20 +46,17 @@
 #endif
 
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // The file root node, needed for intersection
-NodeRefPtr fileroot;
+OSG::NodeRefPtr fileroot;
 
 // The points used for visualising the ray and hit object
-GeoPnt3fPropertyRefPtr isectPoints;
+OSG::GeoPnt3fPropertyRefPtr isectPoints;
 
 // The visualisation geometry, needed for update.
-GeometryRefPtr testgeocore;
+OSG::GeometryRefPtr testgeocore;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -107,14 +104,14 @@ void keyboard(unsigned char k, int x, int y)
                     the form of its index) and the actual hit position.             
                 */
                 {
-                Line l;
+                OSG::Line l;
                 
                 l = mgr->calcViewRay(x, y);
 
                 std::cerr << "From "  << l.getPosition () 
                           << ", dir " << l.getDirection() << std::endl;
     
-                IntersectAction *act = IntersectAction::create();
+                OSG::IntersectAction *act = OSG::IntersectAction::create();
                 
                 act->setLine(l);
                 act->apply(fileroot);
@@ -137,15 +134,15 @@ void keyboard(unsigned char k, int x, int y)
                             l.getDirection() * act->getHitT(), 1);
                     
                     // find the triangle that was hit
-                    TriangleIterator it(act->getHitObject());
+                    OSG::TriangleIterator it(act->getHitObject());
                     it.seek(act->getHitTriangle());
                     
                     // calculate its vertex positions in world space
-                    Matrix m;
+                    OSG::Matrix m;
                     act->getHitObject()->getToWorld(m);
             
                     // and turn them into a triangle
-                    Pnt3f p = it.getPosition(0);
+                    OSG::Pnt3f p = it.getPosition(0);
                     m.mult(p, p);
                     isectPoints->setValue(p, 2);
                     p = it.getPosition(1);
@@ -158,14 +155,14 @@ void keyboard(unsigned char k, int x, int y)
                 else
                 {
                     // no, get rid of the triangle and highlight.
-                    isectPoints->setValue(Pnt3f(0,0,0), 2);
-                    isectPoints->setValue(Pnt3f(0,0,0), 3);
-                    isectPoints->setValue(Pnt3f(0,0,0), 4);
+                    isectPoints->setValue(OSG::Pnt3f(0,0,0), 2);
+                    isectPoints->setValue(OSG::Pnt3f(0,0,0), 3);
+                    isectPoints->setValue(OSG::Pnt3f(0,0,0), 4);
                     
                     mgr->setHighlight(NULL);
                 }
 
-                commitChanges();
+                OSG::commitChanges();
             
                 // free the action
                 delete act;
@@ -188,7 +185,7 @@ void keyboard(unsigned char k, int x, int y)
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -198,14 +195,14 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // The scene group
         
-        NodeRefPtr  scene = Node::create();
-        GroupRefPtr g     = Group::create();
+        OSG::NodeRefPtr  scene = OSG::Node::create();
+        OSG::GroupRefPtr g     = OSG::Group::create();
         
         scene->setCore(g);
         
@@ -215,23 +212,23 @@ int main(int argc, char **argv)
             FWARNING(("Supported file formats:\n"));
             
             std::list<const char*> suffixes;
-            SceneFileHandler::the()->getSuffixList(suffixes);
+            OSG::SceneFileHandler::the()->getSuffixList(suffixes);
             
             for(std::list<const char*>::iterator it  = suffixes.begin();
-                                                it != suffixes.end();
-                                            ++it)
+                                                 it != suffixes.end();
+                                               ++it)
             {
                 FWARNING(("%s\n", *it));
             }
     
-            fileroot = makeTorus(.5, 2, 16, 16);
+            fileroot = OSG::makeTorus(.5, 2, 16, 16);
         }
         else
         {
             /*
                 All scene file loading is handled via the SceneFileHandler.
             */
-            fileroot = SceneFileHandler::the()->read(argv[1]);
+            fileroot = OSG::SceneFileHandler::the()->read(argv[1]);
         }
     
         scene->addChild(fileroot);
@@ -240,50 +237,50 @@ int main(int argc, char **argv)
         // Contains a line and a single triangle.
         // The line shows the ray, the triangle whatever was hit.
         
-        SimpleMaterialRefPtr red = SimpleMaterial::create();
+        OSG::SimpleMaterialRefPtr red = OSG::SimpleMaterial::create();
         
-        red->setDiffuse     (Color3f( 1,0,0 ));   
+        red->setDiffuse     (OSG::Color3f( 1,0,0 ));   
         red->setTransparency(0.5);   
         red->setLit         (false);   
     
-        isectPoints = GeoPnt3fProperty::create();
-        isectPoints->addValue(Pnt3f(0,0,0));
-        isectPoints->addValue(Pnt3f(0,0,0));
-        isectPoints->addValue(Pnt3f(0,0,0));
-        isectPoints->addValue(Pnt3f(0,0,0));
-        isectPoints->addValue(Pnt3f(0,0,0));
+        isectPoints = OSG::GeoPnt3fProperty::create();
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
+        isectPoints->addValue(OSG::Pnt3f(0,0,0));
     
-        GeoUInt32PropertyRefPtr index = GeoUInt32Property::create();
+        OSG::GeoUInt32PropertyRefPtr index = OSG::GeoUInt32Property::create();
         index->addValue(0);
         index->addValue(1);
         index->addValue(2);
         index->addValue(3);
         index->addValue(4);
     
-        GeoUInt32PropertyRefPtr lens = GeoUInt32Property::create();
+        OSG::GeoUInt32PropertyRefPtr lens = OSG::GeoUInt32Property::create();
         lens->addValue(2);
         lens->addValue(3);
         
-        GeoUInt8PropertyRefPtr type = GeoUInt8Property::create();
+        OSG::GeoUInt8PropertyRefPtr type = OSG::GeoUInt8Property::create();
         type->addValue(GL_LINES);
         type->addValue(GL_TRIANGLES);
     
-        testgeocore = Geometry::create();
+        testgeocore = OSG::Geometry::create();
         testgeocore->setPositions(isectPoints);
         testgeocore->setIndices(index);
         testgeocore->setLengths(lens);
         testgeocore->setTypes(type);
         testgeocore->setMaterial(red);
         
-        NodeRefPtr testgeo = Node::create();
+        OSG::NodeRefPtr testgeo = OSG::Node::create();
         testgeo->setCore(testgeocore);
         
         scene->addChild(testgeo);
     
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );

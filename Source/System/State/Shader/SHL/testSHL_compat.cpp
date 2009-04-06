@@ -30,9 +30,6 @@
 #include <OSGSHLChunk.h>
 
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 
 // ------------------- global vars ----------------------
 //

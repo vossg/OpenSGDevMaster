@@ -8,15 +8,13 @@
 #include <OSGSceneFileHandler.h>
 #include <OSGViewport.h>
 
-OSG_USING_NAMESPACE
-
 int                 winid;
-ClusterServer      *server;
-GLUTWindowRecPtr    window;
-RenderAction       *ract;
+OSG::ClusterServer      *server;
+OSG::GLUTWindowRecPtr    window;
+OSG::RenderAction       *ract;
 bool                running=false;
 bool                exitOnError=false;
-UInt32              servicePort=8437;
+OSG::UInt32         servicePort=8437;
 std::string         serviceGroup="224.245.211.234";
 int                 winWidth=0,winHeight=0;
 
@@ -24,7 +22,7 @@ void cleanup(void)
 {
     window = NULL;
 
-    osgExit();
+    OSG::osgExit();
 }
 
 void display()
@@ -40,7 +38,7 @@ void display()
         return;
     try
     {                                                       
-        commitChanges();
+        OSG::commitChanges();
         server->render(ract);
         // clear changelist from prototypes
         OSG::Thread::getCurrentChangeList()->clear();
@@ -94,7 +92,7 @@ void key(unsigned char key, int /*x*/, int /*y*/)
             window->getPort(0)->getRoot()->dump();
             break;
         case 's':
-            SceneFileHandler::the()->write(
+            OSG::SceneFileHandler::the()->write(
                 window->getPort(0)->getRoot(),"server.osg");
             cleanup();
             exit(0);
@@ -194,7 +192,7 @@ int main(int argc,char **argv)
 
     try
     {
-        osgInit(argc, argv);
+        OSG::osgInit(argc, argv);
         glutInit(&argc, argv);
         if(doStereo)
             glutInitDisplayMode( GLUT_STEREO | 
@@ -231,17 +229,17 @@ int main(int argc,char **argv)
         glEnable( GL_LIGHT0 );
         glEnable( GL_DEPTH_TEST );
         glEnable( GL_NORMALIZE );
-        ract=RenderAction::create();
+        ract=OSG::RenderAction::create();
 //        ract->setFrustumCulling(false);
-        window     = GLUTWindow::create();
+        window     = OSG::GLUTWindow::create();
         window->setGlutId(winid);
         window->init();
-        server     = new ClusterServer(window,
-                                       name,
-                                       connectionType,
-                                       address,
-                                       servicePort,
-                                       serviceGroup);
+        server     = new OSG::ClusterServer(window,
+                                            name,
+                                            connectionType,
+                                            address,
+                                            servicePort,
+                                            serviceGroup);
         server->start();
         running=true;
         glutMainLoop();
@@ -251,7 +249,7 @@ int main(int argc,char **argv)
         SLOG << e.what() << std::endl;
         delete server;
         cleanup();
-        osgExit(); 
+        OSG::osgExit(); 
     }
     return 0;
 }

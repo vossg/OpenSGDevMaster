@@ -28,42 +28,40 @@
 #include "OSGShadowStage.h"
 #include "OSGMatrixCamera.h"
 
-OSG_USING_NAMESPACE
+OSG::SimpleSceneManager *mgr;
 
-SimpleSceneManager *mgr;
-
-GLUTWindowUnrecPtr gwin;
-ShadowStageUnrecPtr svp;
+OSG::GLUTWindowUnrecPtr gwin;
+OSG::ShadowStageUnrecPtr svp;
 
 
-NodeUnrecPtr rootNode;
+OSG::NodeUnrecPtr rootNode;
 //DirectionalLightPtr _dir1_core;
-PointLightUnrecPtr _dir1_core;
+OSG::PointLightUnrecPtr _dir1_core;
 
 //SpotLightPtr _dir2_core;
-PointLightUnrecPtr _dir2_core;
-TransformUnrecPtr dir2_trans;
+OSG::PointLightUnrecPtr _dir2_core;
+OSG::TransformUnrecPtr dir2_trans;
 
-TransformUnrecPtr _obj1_trans;
-TransformUnrecPtr _dino1_trans, _dino2_trans, _dino3_trans, _dino4_trans;
-TransformUnrecPtr _tree1_trans, _tree2_trans, _tree3_trans, _tree4_trans,
+OSG::TransformUnrecPtr _obj1_trans;
+OSG::TransformUnrecPtr _dino1_trans, _dino2_trans, _dino3_trans, _dino4_trans;
+OSG::TransformUnrecPtr _tree1_trans, _tree2_trans, _tree3_trans, _tree4_trans,
     _tree5_trans, _tree6_trans, _tree7_trans, _tree8_trans, _tree9_trans;
 
-MatrixCameraUnrecPtr camera;
-PerspectiveCameraUnrecPtr Pcamera;
-NodeUnrecPtr cam_beacon;
-TransformUnrecPtr cam_trans;
-Vec3f camPos;
-Vec3f camDir;
+OSG::MatrixCameraUnrecPtr camera;
+OSG::PerspectiveCameraUnrecPtr Pcamera;
+OSG::NodeUnrecPtr cam_beacon;
+OSG::TransformUnrecPtr cam_trans;
+OSG::Vec3f camPos;
+OSG::Vec3f camDir;
 
-Navigator _navigator;
-Int16 _lastx;
-Int16 _lasty;
-UInt16 _mousebuttons;
+OSG::Navigator _navigator;
+OSG::Int16 _lastx;
+OSG::Int16 _lasty;
+OSG::UInt16 _mousebuttons;
 
-UInt32 frameCount;
-Real32 fps = 0.0;
-Real32 startTime2;
+OSG::UInt32 frameCount;
+OSG::Real32 fps = 0.0;
+OSG::Real32 startTime2;
 
 bool bAnim = false;
 
@@ -98,16 +96,16 @@ int doMain(int argc, char **argv)
     printf("Change MapSize with keys 'y' = 512, 'x' = 1024, 'c' = 2048\n");
     printf("NOTE: Real point lights only supported for ShadowMode 1...5!\n");
     // OSG init
-    osgInit(argc, argv);
+    OSG::osgInit(argc, argv);
 
     // GLUT init
     int                     winid = setupGLUT(&argc, argv);
-    gwin = GLUTWindow::create();
+    gwin = OSG::GLUTWindow::create();
 
     //Erstellen der ben�tigten Komponenten--------------------------------------
 
-    rootNode = makeCoredNode<Group>();
-    NodeUnrecPtr                 scene = makeCoredNode<Group>();
+    rootNode = OSG::makeCoredNode<OSG::Group>();
+    OSG::NodeUnrecPtr                 scene = OSG::makeCoredNode<OSG::Group>();
 
     // create lights
     /*//Directional Light 1
@@ -126,9 +124,9 @@ int doMain(int argc, char **argv)
        */
 
     //Point Light 1
-    TransformUnrecPtr            dir1_trans;
-    NodeUnrecPtr                 dir1 = makeCoredNode<PointLight>(&_dir1_core);
-    NodeUnrecPtr                 dir1_beacon = makeCoredNode<Transform>
+    OSG::TransformUnrecPtr            dir1_trans;
+    OSG::NodeUnrecPtr                 dir1 = OSG::makeCoredNode<OSG::PointLight>(&_dir1_core);
+    OSG::NodeUnrecPtr                 dir1_beacon = OSG::makeCoredNode<OSG::Transform>
         (&dir1_trans);
     dir1_trans->editMatrix().setTranslate(350.0, 300.0, 300.0);
 
@@ -157,8 +155,8 @@ int doMain(int argc, char **argv)
 
     //Point Light 2
     //TransformPtr dir2_trans;
-    NodeUnrecPtr                 dir2 = makeCoredNode<PointLight>(&_dir2_core);
-    NodeUnrecPtr                 dir2_beacon = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 dir2 = OSG::makeCoredNode<OSG::PointLight>(&_dir2_core);
+    OSG::NodeUnrecPtr                 dir2_beacon = OSG::makeCoredNode<OSG::Transform>
         (&dir2_trans);
     dir2_trans->editMatrix().setTranslate(40.0, 0.0, 40.0);
 
@@ -175,12 +173,12 @@ int doMain(int argc, char **argv)
     dir2->addChild(scene);
 
     //Eigene Kamera erstellen
-    Pcamera = PerspectiveCamera::create();
-    cam_beacon = makeCoredNode<Transform>(&cam_trans);
+    Pcamera = OSG::PerspectiveCamera::create();
+    cam_beacon = OSG::makeCoredNode<OSG::Transform>(&cam_trans);
     cam_trans->editMatrix().setTranslate(0.0, 0.0, 25.0);
 
     Pcamera->setBeacon(cam_beacon);
-    Pcamera->setFov(osgDegree2Rad(60));
+    Pcamera->setFov(OSG::osgDegree2Rad(60));
     Pcamera->setNear(1.0);
     Pcamera->setFar(1000);
 
@@ -188,13 +186,13 @@ int doMain(int argc, char **argv)
     // create scene
 
     // bottom
-    NodeUnrecPtr                 plane = makePlane(300.0, 300.0, 256, 256);
+    OSG::NodeUnrecPtr                 plane = OSG::makePlane(300.0, 300.0, 256, 256);
 
-    ImageUnrecPtr                plane_img = Image::create();
+    OSG::ImageUnrecPtr                plane_img = OSG::Image::create();
     plane_img->read("gras.jpg");
 
-    TextureObjChunkUnrecPtr         plane_tex_obj = TextureObjChunk::create();
-    TextureEnvChunkUnrecPtr         plane_tex_env = TextureEnvChunk::create();
+    OSG::TextureObjChunkUnrecPtr         plane_tex_obj = OSG::TextureObjChunk::create();
+    OSG::TextureEnvChunkUnrecPtr         plane_tex_env = OSG::TextureEnvChunk::create();
     plane_tex_obj->setImage(plane_img);
     plane_tex_obj->setMinFilter(GL_LINEAR);
     plane_tex_obj->setMagFilter(GL_LINEAR);
@@ -202,64 +200,64 @@ int doMain(int argc, char **argv)
     plane_tex_obj->setWrapT(GL_REPEAT);
     plane_tex_env->setEnvMode(GL_MODULATE);
 
-    SimpleMaterialUnrecPtr       plane_mat = SimpleMaterial::create();
-    plane_mat->setAmbient(Color3f(0.3, 0.3, 0.3));
-    plane_mat->setDiffuse(Color3f(1.0, 1.0, 1.0));
+    OSG::SimpleMaterialUnrecPtr       plane_mat = OSG::SimpleMaterial::create();
+    plane_mat->setAmbient(OSG::Color3f(0.3, 0.3, 0.3));
+    plane_mat->setDiffuse(OSG::Color3f(1.0, 1.0, 1.0));
     plane_mat->addChunk(plane_tex_obj);
     plane_mat->addChunk(plane_tex_env);
 
-    Geometry *plane_geo = dynamic_cast<Geometry *>(plane->getCore());
+    OSG::Geometry *plane_geo = dynamic_cast<OSG::Geometry *>(plane->getCore());
     plane_geo->setMaterial(plane_mat);
 
     //load Tree Objects
 
-    NodeUnrecPtr                 tree1_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 tree1_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_tree1_trans);
-    NodeUnrecPtr                 tree2_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 tree2_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_tree2_trans);
-    NodeUnrecPtr                 tree3_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 tree3_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_tree3_trans);
-    NodeUnrecPtr                 tree4_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 tree4_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_tree4_trans);
-    NodeUnrecPtr                 tree5_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 tree5_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_tree5_trans);
-    NodeUnrecPtr                 tree6_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 tree6_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_tree6_trans);
-    NodeUnrecPtr                 tree7_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 tree7_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_tree7_trans);
-    NodeUnrecPtr                 tree8_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 tree8_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_tree8_trans);
-    NodeUnrecPtr                 tree9_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 tree9_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_tree9_trans);
 
     _tree1_trans->editMatrix().setTranslate(-80.0, -80.0, 0.0);
-    _tree1_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+    _tree1_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
 
     _tree2_trans->editMatrix().setTranslate(0.0, -80.0, 0.0);
-    _tree2_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+    _tree2_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
 
     _tree3_trans->editMatrix().setTranslate(80.0, -80.0, 0.0);
-    _tree3_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+    _tree3_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
 
     _tree4_trans->editMatrix().setTranslate(-80.0, 0.0, 0.0);
-    _tree4_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+    _tree4_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
 
     _tree5_trans->editMatrix().setTranslate(0.0, 0.0, 0.0);
-    _tree5_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+    _tree5_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
 
     _tree6_trans->editMatrix().setTranslate(80.0, 0.0, 0.0);
-    _tree6_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+    _tree6_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
 
     _tree7_trans->editMatrix().setTranslate(-80.0, 80.0, 0.0);
-    _tree7_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+    _tree7_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
 
     _tree8_trans->editMatrix().setTranslate(0.0, 80.0, 0.0);
-    _tree8_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+    _tree8_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
 
     _tree9_trans->editMatrix().setTranslate(80.0, 80.0, 0.0);
-    _tree9_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+    _tree9_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
 
-    NodeUnrecPtr tree1 = SceneFileHandler::the()->read("tree1.3ds");
+    OSG::NodeUnrecPtr tree1 = OSG::SceneFileHandler::the()->read("tree1.3ds");
 
 //    NodeUnrecPtr tree1 = makeSphere(2, 2.0);
 
@@ -282,7 +280,7 @@ int doMain(int argc, char **argv)
 
     tree9_trans_node->addChild(cloneTree(tree1));
 
-    NodeUnrecPtr                 trees = makeCoredNode<Group>();
+    OSG::NodeUnrecPtr                 trees = OSG::makeCoredNode<OSG::Group>();
 
     trees->addChild(tree1_trans_node);
     trees->addChild(tree2_trans_node);
@@ -306,45 +304,45 @@ int doMain(int argc, char **argv)
        */
 
     //Load a Quad as Pointlight
-    GeometryUnrecPtr             boxGeo = makeBoxGeo(15, 15, 15, 1, 1, 1);
-    NodeUnrecPtr                 boxNode = Node::create();
+    OSG::GeometryUnrecPtr             boxGeo = OSG::makeBoxGeo(15, 15, 15, 1, 1, 1);
+    OSG::NodeUnrecPtr                 boxNode = OSG::Node::create();
     boxNode->setCore(boxGeo);
 
-    SimpleMaterialUnrecPtr       box_mat = SimpleMaterial::create();
-    box_mat->setAmbient(Color3f(0.95, 1.0, 0.2));
-    box_mat->setDiffuse(Color3f(0.95, 1.0, 0.2));
+    OSG::SimpleMaterialUnrecPtr       box_mat = OSG::SimpleMaterial::create();
+    box_mat->setAmbient(OSG::Color3f(0.95, 1.0, 0.2));
+    box_mat->setDiffuse(OSG::Color3f(0.95, 1.0, 0.2));
 
     boxGeo->setMaterial(box_mat);
 
-    NodeUnrecPtr                 obj1_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 obj1_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_obj1_trans);
 
     obj1_trans_node->addChild(boxNode);
 
     //load Dino Objects
 
-    NodeUnrecPtr                 dino1_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 dino1_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_dino1_trans);
-    NodeUnrecPtr                 dino2_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 dino2_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_dino2_trans);
-    NodeUnrecPtr                 dino3_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 dino3_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_dino3_trans);
-    NodeUnrecPtr                 dino4_trans_node = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 dino4_trans_node = OSG::makeCoredNode<OSG::Transform>
         (&_dino4_trans);
 
     _dino1_trans->editMatrix().setTranslate(-20.0, -20.0, 10.0);
-    _dino1_trans->editMatrix().setScale(Vec3f(5.0, 5.0, 5.0));
+    _dino1_trans->editMatrix().setScale(OSG::Vec3f(5.0, 5.0, 5.0));
 
     _dino2_trans->editMatrix().setTranslate(-20.0, -20.0, 6.0);
-    _dino2_trans->editMatrix().setScale(Vec3f(3.0, 3.0, 3.0));
+    _dino2_trans->editMatrix().setScale(OSG::Vec3f(3.0, 3.0, 3.0));
 
     _dino3_trans->editMatrix().setTranslate(-20.0, -20.0, 6.0);
-    _dino3_trans->editMatrix().setScale(Vec3f(3.0, 3.0, 3.0));
+    _dino3_trans->editMatrix().setScale(OSG::Vec3f(3.0, 3.0, 3.0));
 
     _dino4_trans->editMatrix().setTranslate(-20.0, -20.0, 6.0);
-    _dino4_trans->editMatrix().setScale(Vec3f(3.0, 3.0, 3.0));
+    _dino4_trans->editMatrix().setScale(OSG::Vec3f(3.0, 3.0, 3.0));
 
-    NodeUnrecPtr dino1 = SceneFileHandler::the()->read("dinopet.3ds");
+    OSG::NodeUnrecPtr dino1 = OSG::SceneFileHandler::the()->read("dinopet.3ds");
 
 //    NodeUnrecPtr dino1 = makeBox(2., 2., 2., 4, 4, 4);
 
@@ -356,7 +354,7 @@ int doMain(int argc, char **argv)
 
     dino4_trans_node->addChild(cloneTree(dino1));
 
-    NodeUnrecPtr                 dinos = makeCoredNode<Group>();
+    OSG::NodeUnrecPtr                 dinos = OSG::makeCoredNode<OSG::Group>();
 
     dinos->addChild(dino1_trans_node);
     dinos->addChild(dino2_trans_node);
@@ -365,27 +363,27 @@ int doMain(int argc, char **argv)
 
     //load Stone Objects
 
-    TransformUnrecPtr            _stone_trans1, _stone_trans2, _stone_trans3,
+    OSG::TransformUnrecPtr            _stone_trans1, _stone_trans2, _stone_trans3,
                             _stone_trans4, _stone_trans5, _stone_trans6,
                             _stone_trans7, _stone_trans8,
                             _stone_trans9;
-    NodeUnrecPtr                 stone_trans_node1 = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 stone_trans_node1 = OSG::makeCoredNode<OSG::Transform>
         (&_stone_trans1);
-    NodeUnrecPtr                 stone_trans_node2 = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 stone_trans_node2 = OSG::makeCoredNode<OSG::Transform>
         (&_stone_trans2);
-    NodeUnrecPtr                 stone_trans_node3 = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 stone_trans_node3 = OSG::makeCoredNode<OSG::Transform>
         (&_stone_trans3);
-    NodeUnrecPtr                 stone_trans_node4 = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 stone_trans_node4 = OSG::makeCoredNode<OSG::Transform>
         (&_stone_trans4);
-    NodeUnrecPtr                 stone_trans_node5 = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 stone_trans_node5 = OSG::makeCoredNode<OSG::Transform>
         (&_stone_trans5);
-    NodeUnrecPtr                 stone_trans_node6 = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 stone_trans_node6 = OSG::makeCoredNode<OSG::Transform>
         (&_stone_trans6);
-    NodeUnrecPtr                 stone_trans_node7 = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 stone_trans_node7 = OSG::makeCoredNode<OSG::Transform>
         (&_stone_trans7);
-    NodeUnrecPtr                 stone_trans_node8 = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 stone_trans_node8 = OSG::makeCoredNode<OSG::Transform>
         (&_stone_trans8);
-    NodeUnrecPtr                 stone_trans_node9 = makeCoredNode<Transform>
+    OSG::NodeUnrecPtr                 stone_trans_node9 = OSG::makeCoredNode<OSG::Transform>
         (&_stone_trans9);
 
     _stone_trans1->editMatrix().setTranslate(-70, -70, 0);
@@ -406,21 +404,21 @@ int doMain(int argc, char **argv)
 
     _stone_trans9->editMatrix().setTranslate(90, 90, 0);
 
-    NodeUnrecPtr                 stone1 = makeSphere(1, 7.0);
-    NodeUnrecPtr                 stone2 = makeSphere(1, 7.0);
-    NodeUnrecPtr                 stone3 = makeSphere(1, 7.0);
-    NodeUnrecPtr                 stone4 = makeSphere(1, 7.0);
-    NodeUnrecPtr                 stone5 = makeSphere(1, 7.0);
-    NodeUnrecPtr                 stone6 = makeSphere(1, 7.0);
-    NodeUnrecPtr                 stone7 = makeSphere(1, 7.0);
-    NodeUnrecPtr                 stone8 = makeSphere(1, 7.0);
-    NodeUnrecPtr                 stone9 = makeSphere(1, 7.0);
+    OSG::NodeUnrecPtr                 stone1 = OSG::makeSphere(1, 7.0);
+    OSG::NodeUnrecPtr                 stone2 = OSG::makeSphere(1, 7.0);
+    OSG::NodeUnrecPtr                 stone3 = OSG::makeSphere(1, 7.0);
+    OSG::NodeUnrecPtr                 stone4 = OSG::makeSphere(1, 7.0);
+    OSG::NodeUnrecPtr                 stone5 = OSG::makeSphere(1, 7.0);
+    OSG::NodeUnrecPtr                 stone6 = OSG::makeSphere(1, 7.0);
+    OSG::NodeUnrecPtr                 stone7 = OSG::makeSphere(1, 7.0);
+    OSG::NodeUnrecPtr                 stone8 = OSG::makeSphere(1, 7.0);
+    OSG::NodeUnrecPtr                 stone9 = OSG::makeSphere(1, 7.0);
 
-    ImageUnrecPtr                plane_img2 = Image::create();
+    OSG::ImageUnrecPtr                plane_img2 = OSG::Image::create();
     plane_img2->read("stone.jpg");
 
-    TextureObjChunkUnrecPtr         plane_tex2_obj = TextureObjChunk::create();
-    TextureEnvChunkUnrecPtr         plane_tex2_env = TextureEnvChunk::create();
+    OSG::TextureObjChunkUnrecPtr         plane_tex2_obj = OSG::TextureObjChunk::create();
+    OSG::TextureEnvChunkUnrecPtr         plane_tex2_env = OSG::TextureEnvChunk::create();
     plane_tex2_obj->setImage(plane_img2);
     plane_tex2_obj->setMinFilter(GL_LINEAR);
     plane_tex2_obj->setMagFilter(GL_LINEAR);
@@ -428,37 +426,37 @@ int doMain(int argc, char **argv)
     plane_tex2_obj->setWrapT(GL_REPEAT);
     plane_tex2_env->setEnvMode(GL_MODULATE);
 
-    SimpleMaterialUnrecPtr       plane_mat2 = SimpleMaterial::create();
-    plane_mat2->setAmbient(Color3f(0.3, 0.3, 0.3));
-    plane_mat2->setDiffuse(Color3f(1.0, 1.0, 1.0));
+    OSG::SimpleMaterialUnrecPtr       plane_mat2 = OSG::SimpleMaterial::create();
+    plane_mat2->setAmbient(OSG::Color3f(0.3, 0.3, 0.3));
+    plane_mat2->setDiffuse(OSG::Color3f(1.0, 1.0, 1.0));
     plane_mat2->addChunk(plane_tex2_obj);
     plane_mat2->addChunk(plane_tex2_env);
 
-    Geometry *plane_geo3 = dynamic_cast<Geometry *>(stone1->getCore());
+    OSG::Geometry *plane_geo3 = dynamic_cast<OSG::Geometry *>(stone1->getCore());
     plane_geo3->setMaterial(plane_mat2);
 
-    plane_geo3 = dynamic_cast<Geometry *>(stone2->getCore());
+    plane_geo3 = dynamic_cast<OSG::Geometry *>(stone2->getCore());
     plane_geo3->setMaterial(plane_mat2);
 
-    plane_geo3 = dynamic_cast<Geometry *>(stone3->getCore());
+    plane_geo3 = dynamic_cast<OSG::Geometry *>(stone3->getCore());
     plane_geo3->setMaterial(plane_mat2);
 
-    plane_geo3 = dynamic_cast<Geometry *>(stone4->getCore());
+    plane_geo3 = dynamic_cast<OSG::Geometry *>(stone4->getCore());
     plane_geo3->setMaterial(plane_mat2);
 
-    plane_geo3 = dynamic_cast<Geometry *>(stone5->getCore());
+    plane_geo3 = dynamic_cast<OSG::Geometry *>(stone5->getCore());
     plane_geo3->setMaterial(plane_mat2);
 
-    plane_geo3 = dynamic_cast<Geometry *>(stone6->getCore());
+    plane_geo3 = dynamic_cast<OSG::Geometry *>(stone6->getCore());
     plane_geo3->setMaterial(plane_mat2);
 
-    plane_geo3 = dynamic_cast<Geometry *>(stone7->getCore());
+    plane_geo3 = dynamic_cast<OSG::Geometry *>(stone7->getCore());
     plane_geo3->setMaterial(plane_mat2);
 
-    plane_geo3 = dynamic_cast<Geometry *>(stone8->getCore());
+    plane_geo3 = dynamic_cast<OSG::Geometry *>(stone8->getCore());
     plane_geo3->setMaterial(plane_mat2);
 
-    plane_geo3 = dynamic_cast<Geometry *>(stone9->getCore());
+    plane_geo3 = dynamic_cast<OSG::Geometry *>(stone9->getCore());
     plane_geo3->setMaterial(plane_mat2);
 
 
@@ -480,7 +478,7 @@ int doMain(int argc, char **argv)
 
     stone_trans_node9->addChild(stone9);
 
-    NodeUnrecPtr                 stones = makeCoredNode<Group>();
+    OSG::NodeUnrecPtr                 stones = OSG::makeCoredNode<OSG::Group>();
 
     stones->addChild(stone_trans_node1);
     stones->addChild(stone_trans_node2);
@@ -499,12 +497,12 @@ int doMain(int argc, char **argv)
     scene->addChild(stones);
     scene->addChild(dinos);
 
-    svp = ShadowStage::create();
-    GradientBackgroundUnrecPtr   gbg = GradientBackground::create();
-    SolidBackgroundUnrecPtr      sbg = SolidBackground::create();
+    svp = OSG::ShadowStage::create();
+    OSG::GradientBackgroundUnrecPtr   gbg = OSG::GradientBackground::create();
+    OSG::SolidBackgroundUnrecPtr      sbg = OSG::SolidBackground::create();
 
-    gbg->addLine(Color3f(0.7, 0.7, 0.8), 0);
-    gbg->addLine(Color3f(0.0, 0.1, 0.3), 1);
+    gbg->addLine(OSG::Color3f(0.7, 0.7, 0.8), 0);
+    gbg->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
 
     rootNode->setCore(svp);
 
@@ -550,18 +548,18 @@ int doMain(int argc, char **argv)
 
     gwin->init();
 
-    Vec3f                   min, max;
+    OSG::Vec3f                   min, max;
     rootNode->updateVolume();
     rootNode->getVolume().getBounds(min, max);
 
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
 
     mgr->setWindow(gwin);
     mgr->setCamera(Pcamera);
     mgr->setRoot(rootNode);
 
-    _navigator.setMode(Navigator::TRACKBALL);
+    _navigator.setMode(OSG::Navigator::TRACKBALL);
 
 #ifdef SHADOW_CHECK
     _navigator.setViewport(svp);
@@ -569,9 +567,9 @@ int doMain(int argc, char **argv)
     _navigator.setCameraTransformation(cam_beacon);
 
 
-    Vec3f                   up(0,1,0);
-    Pnt3f                   at(0,0,0);
-    Pnt3f                   from(0.0,-100.1,20.0);
+    OSG::Vec3f                   up(0,1,0);
+    OSG::Pnt3f                   at(0,0,0);
+    OSG::Pnt3f                   from(0.0,-100.1,20.0);
 
     _navigator.set(from, at, up);
 
@@ -612,94 +610,94 @@ void Animate()
 
     if(bAnim == true)
     {
-        static Real64   t0 = OSG::getSystemTime();
+        static OSG::Real64   t0 = OSG::getSystemTime();
         
-        Real64          t = OSG::getSystemTime() - t0;
+        OSG::Real64          t = OSG::getSystemTime() - t0;
         
-        Real32          rot0 = t * 0.25;
+        OSG::Real32          rot0 = t * 0.25;
         if(rot0 > 360.0)
             rot0 -= 360.0;
         
-        Real32          rota = t * 0.5;
+        OSG::Real32          rota = t * 0.5;
         if(rota > 360.0)
             rota -= 360.0;
         
-        Real32          rotb = t * 1.0;
+        OSG::Real32          rotb = t * 1.0;
         if(rotb > 360.0)
             rotb -= 360.0;
         
-        Real32          rotc = t * 1.5;
+        OSG::Real32          rotc = t * 1.5;
         if(rotc > 360.0)
             rotc -= 360.0;
         
-        Real32          rotd = t * 2.0;
+        OSG::Real32          rotd = t * 2.0;
         if(rotd > 360.0)
             rotd -= 360.0;
         
         //    dir2_trans->editMatrix().setTranslate(-100.0*sin(rota),-100.0*cos(rota), 250.0);
         
         //animate Trees
-        Quaternion      q;
+        OSG::Quaternion      q;
         
         q.setValueAsAxisRad(1, 1, 1, 0.5 * sin(rota));
         _tree1_trans->editMatrix().setRotate(q);
-        _tree1_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+        _tree1_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
         
         q.setIdentity();
         
         q.setValueAsAxisRad(1, 1, 1, 0.5 * sin(rotc));
         _tree2_trans->editMatrix().setRotate(q);
-        _tree2_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+        _tree2_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
         
         q.setIdentity();
         
         q.setValueAsAxisRad(1, 1, 1, 0.5 * sin(rotb));
         _tree3_trans->editMatrix().setRotate(q);
-        _tree3_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+        _tree3_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
         
         q.setIdentity();
         
         q.setValueAsAxisRad(1, 1, 1, 0.5 * sin(rotb));
         _tree4_trans->editMatrix().setRotate(q);
-        _tree4_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+        _tree4_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
         
         q.setIdentity();
         
         q.setValueAsAxisRad(1, 1, 1, 0.5 * sin(rotc));
         _tree5_trans->editMatrix().setRotate(q);
-        _tree5_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+        _tree5_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
         
         q.setIdentity();
         
         q.setValueAsAxisRad(1, 1, 1, 0.5 * sin(rotb));
         _tree6_trans->editMatrix().setRotate(q);
-        _tree6_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+        _tree6_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
         
         q.setIdentity();
         
         q.setValueAsAxisRad(1, 1, 1, 0.5 * sin(rotd));
         _tree7_trans->editMatrix().setRotate(q);
-        _tree7_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+        _tree7_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
         
         q.setIdentity();
         
         q.setValueAsAxisRad(1, 1, 1, 0.5 * sin(rotb));
         _tree8_trans->editMatrix().setRotate(q);
-        _tree8_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+        _tree8_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
         
         q.setIdentity();
         
         q.setValueAsAxisRad(1, 1, 1, 0.5 * sin(rotc));
         _tree9_trans->editMatrix().setRotate(q);
-        _tree9_trans->editMatrix().setScale(Vec3f(12.0, 12.0, 10.0));
+        _tree9_trans->editMatrix().setScale(OSG::Vec3f(12.0, 12.0, 10.0));
         
         q.setIdentity();
         
         {
-            Matrix  m;
+            OSG::Matrix  m;
             m.setIdentity();
-            Vec3f   scale(0.15,0.15,0.15);
-            Vec3f   trans(-40.0 * sin(rotb),-40.0 * cos(rotb),
+            OSG::Vec3f   scale(0.15,0.15,0.15);
+            OSG::Vec3f   trans(-40.0 * sin(rotb),-40.0 * cos(rotb),
                           50.0 + 25.0 * sin(rotd));
             q.setValueAsAxisRad(0, 0, 1, -rotb);
             m.setTransform(trans, q, scale);
@@ -716,60 +714,60 @@ void Animate()
         //animate Dinos
         
         {
-            Matrix  m;
+            OSG::Matrix  m;
             m.setIdentity();
-            Vec3f   scale(5.0,5.0,5.0);
-            Real32  ztrans1 = sin(2.0 * rotd);
+            OSG::Vec3f   scale(5.0,5.0,5.0);
+            OSG::Real32  ztrans1 = sin(2.0 * rotd);
             if(ztrans1 < 0)
                 ztrans1 *= -1.0;
-            Vec3f   trans(-96.0 * cos(rot0),-96.0 * sin(rot0),
+            OSG::Vec3f   trans(-96.0 * cos(rot0),-96.0 * sin(rot0),
                           10.0 + 8.0 * ztrans1);
-            m.setScale(Vec3f(5.0, 5.0, 5.0));
+            m.setScale(OSG::Vec3f(5.0, 5.0, 5.0));
             q.setValueAsAxisRad(0, 0, 1, rot0 - 170);
             m.setTransform(trans, q, scale);
             _dino1_trans->setMatrix(m);
         }
         
         {
-            Matrix  m;
+            OSG::Matrix  m;
             m.setIdentity();
-            Vec3f   scale(3.0,3.0,3.0);
-            Real32  ztrans1 = sin(2.5 * rotd);
+            OSG::Vec3f   scale(3.0,3.0,3.0);
+            OSG::Real32  ztrans1 = sin(2.5 * rotd);
             if(ztrans1 < 0)
                 ztrans1 *= -1.0;
-            Vec3f   trans(-96.0 * cos((rot0 - 0.5)),-96.0 * sin((rot0 - 0.5)),
+            OSG::Vec3f   trans(-96.0 * cos((rot0 - 0.5)),-96.0 * sin((rot0 - 0.5)),
                           6.0 + 8.0 * ztrans1);
-            m.setScale(Vec3f(5.0, 5.0, 5.0));
+            m.setScale(OSG::Vec3f(5.0, 5.0, 5.0));
             q.setValueAsAxisRad(0, 0, 1, rot0 - 169.9);
             m.setTransform(trans, q, scale);
             _dino2_trans->setMatrix(m);
         }
         
         {
-            Matrix  m;
+            OSG::Matrix  m;
             m.setIdentity();
-            Vec3f   scale(3.0,3.0,3.0);
-            Real32  ztrans1 = sin(3.0 * rotd);
+            OSG::Vec3f   scale(3.0,3.0,3.0);
+            OSG::Real32  ztrans1 = sin(3.0 * rotd);
             if(ztrans1 < 0)
                 ztrans1 *= -1.0;
-            Vec3f   trans(-96.0 * cos((rot0 - 0.8)),-96.0 * sin((rot0 - 0.8)),
+            OSG::Vec3f   trans(-96.0 * cos((rot0 - 0.8)),-96.0 * sin((rot0 - 0.8)),
                           6.0 + 8.0 * ztrans1);
-            m.setScale(Vec3f(5.0, 5.0, 5.0));
+            m.setScale(OSG::Vec3f(5.0, 5.0, 5.0));
             q.setValueAsAxisRad(0, 0, 1, rot0 - 170.1);
             m.setTransform(trans, q, scale);
             _dino3_trans->setMatrix(m);
         }
         
         {
-            Matrix  m;
+            OSG::Matrix  m;
             m.setIdentity();
-            Vec3f   scale(3.0,3.0,3.0);
-            Real32  ztrans1 = sin(2.75 * rotd);
+            OSG::Vec3f   scale(3.0,3.0,3.0);
+            OSG::Real32  ztrans1 = sin(2.75 * rotd);
             if(ztrans1 < 0)
                 ztrans1 *= -1.0;
-            Vec3f   trans(-96.0 * cos((rot0 - 1.2)),-96.0 * sin((rot0 - 1.2)),
+            OSG::Vec3f   trans(-96.0 * cos((rot0 - 1.2)),-96.0 * sin((rot0 - 1.2)),
                           6.0 + 8.0 * ztrans1);
-            m.setScale(Vec3f(5.0, 5.0, 5.0));
+            m.setScale(OSG::Vec3f(5.0, 5.0, 5.0));
             q.setValueAsAxisRad(0, 0, 1, rot0 - 170.1);
             m.setTransform(trans, q, scale);
             _dino4_trans->setMatrix(m);
@@ -803,19 +801,19 @@ void mouse(int button, int state, int x, int y)
         switch(button)
         {
             case 0:
-                _navigator.buttonRelease(Navigator::LEFT_MOUSE, x, y);
+                _navigator.buttonRelease(OSG::Navigator::LEFT_MOUSE, x, y);
                 break;
             case 1:
-                _navigator.buttonRelease(Navigator::MIDDLE_MOUSE, x, y);
+                _navigator.buttonRelease(OSG::Navigator::MIDDLE_MOUSE, x, y);
                 break;
             case 2:
-                _navigator.buttonRelease(Navigator::RIGHT_MOUSE, x, y);
+                _navigator.buttonRelease(OSG::Navigator::RIGHT_MOUSE, x, y);
                 break;
             case 3:
-                _navigator.buttonRelease(Navigator::UP_MOUSE, x, y);
+                _navigator.buttonRelease(OSG::Navigator::UP_MOUSE, x, y);
                 break;
             case 4:
-                _navigator.buttonRelease(Navigator::DOWN_MOUSE, x, y);
+                _navigator.buttonRelease(OSG::Navigator::DOWN_MOUSE, x, y);
                 break;
         }
         _mousebuttons &= ~(1 << button);
@@ -829,19 +827,19 @@ void mouse(int button, int state, int x, int y)
         switch(button)
         {
             case 0:
-                _navigator.buttonPress(Navigator::LEFT_MOUSE, x, y);
+                _navigator.buttonPress(OSG::Navigator::LEFT_MOUSE, x, y);
                 break;
             case 1:
-                _navigator.buttonPress(Navigator::MIDDLE_MOUSE, x, y);
+                _navigator.buttonPress(OSG::Navigator::MIDDLE_MOUSE, x, y);
                 break;
             case 2:
-                _navigator.buttonPress(Navigator::RIGHT_MOUSE, x, y);
+                _navigator.buttonPress(OSG::Navigator::RIGHT_MOUSE, x, y);
                 break;
             case 3:
-                _navigator.buttonPress(Navigator::UP_MOUSE, x, y);
+                _navigator.buttonPress(OSG::Navigator::UP_MOUSE, x, y);
                 break;
             case 4:
-                _navigator.buttonPress(Navigator::DOWN_MOUSE, x, y);
+                _navigator.buttonPress(OSG::Navigator::DOWN_MOUSE, x, y);
                 break;
         }
         _mousebuttons |= 1 << button;
@@ -946,37 +944,37 @@ void keyboard(unsigned char k, int x, int y)
 
         case 'w':
             {
-                Real32  t = svp->getOffBias();
+                OSG::Real32  t = svp->getOffBias();
 
                 svp->setOffBias((t + 0.2));
-                SLOG << "Polygon-OffsetBias is: " << (t + 0.2) << endLog;
+                SLOG << "Polygon-OffsetBias is: " << (t + 0.2) << OSG::endLog;
                 break;
             }
 
         case 's':
             {
-                Real32  t = svp->getOffBias();
+                OSG::Real32  t = svp->getOffBias();
 
                 svp->setOffBias((t - 0.2));
-                SLOG << "Polygon-OffsetBias is: " << (t - 0.2) << endLog;
+                SLOG << "Polygon-OffsetBias is: " << (t - 0.2) << OSG::endLog;
                 break;
             }
 
         case 'e':
             {
-                Real32  t = svp->getOffFactor();
+                OSG::Real32  t = svp->getOffFactor();
 
                 svp->setOffFactor(++t);
-                SLOG << "Polygon-OffsetFactor is: " << ++t << endLog;
+                SLOG << "Polygon-OffsetFactor is: " << ++t << OSG::endLog;
                 break;
             }
 
         case 'd':
             {
-                Real32  t = svp->getOffFactor();
+                OSG::Real32  t = svp->getOffFactor();
 
                 svp->setOffFactor(--t);
-                SLOG << "Polygon-OffsetFactor is: " << --t << endLog;
+                SLOG << "Polygon-OffsetFactor is: " << --t << OSG::endLog;
                 break;
             }
         case 'o':
@@ -993,53 +991,53 @@ void keyboard(unsigned char k, int x, int y)
 
         case '1':
             {
-                svp->setShadowMode(ShadowStage::NO_SHADOW);
-                SLOG << "ShadowMode is: NO_SHADOW" << endLog;
+                svp->setShadowMode(OSG::ShadowStage::NO_SHADOW);
+                SLOG << "ShadowMode is: NO_SHADOW" << OSG::endLog;
                 break;
             }
 
         case '2':
             {
-                svp->setShadowMode(ShadowStage::STD_SHADOW_MAP);
-                SLOG << "ShadowMode is: STD_SHADOW_MAP" << endLog;
+                svp->setShadowMode(OSG::ShadowStage::STD_SHADOW_MAP);
+                SLOG << "ShadowMode is: STD_SHADOW_MAP" << OSG::endLog;
                 break;
             }
 
         case '3':
             {
-                svp->setShadowMode(ShadowStage::PERSPECTIVE_SHADOW_MAP);
-                SLOG << "ShadowMode is: PERSPECTIVE_SHADOW_MAP" << endLog;
+                svp->setShadowMode(OSG::ShadowStage::PERSPECTIVE_SHADOW_MAP);
+                SLOG << "ShadowMode is: PERSPECTIVE_SHADOW_MAP" << OSG::endLog;
                 break;
             }
 
         case '4':
             {
-                svp->setShadowMode(ShadowStage::DITHER_SHADOW_MAP);
-                SLOG << "ShadowMode is: DITHER_SHADOW_MAP" << endLog;
+                svp->setShadowMode(OSG::ShadowStage::DITHER_SHADOW_MAP);
+                SLOG << "ShadowMode is: DITHER_SHADOW_MAP" << OSG::endLog;
                 break;
             }
 
         case '5':
             {
-                svp->setShadowMode(ShadowStage::PCF_SHADOW_MAP);
+                svp->setShadowMode(OSG::ShadowStage::PCF_SHADOW_MAP);
                 svp->setShadowSmoothness(0.5);
-                SLOG << "ShadowMode is: PCF_SHADOW_MAP" << endLog;
+                SLOG << "ShadowMode is: PCF_SHADOW_MAP" << OSG::endLog;
                 break;
             }
 
         case '6':
             {
-                svp->setShadowMode(ShadowStage::PCSS_SHADOW_MAP);
+                svp->setShadowMode(OSG::ShadowStage::PCSS_SHADOW_MAP);
                 svp->setShadowSmoothness(1.0);
-                SLOG << "ShadowMode is: PCSS_SHADOW_MAP" << endLog;
+                SLOG << "ShadowMode is: PCSS_SHADOW_MAP" << OSG::endLog;
                 break;
             }
 
         case '7':
             {
-                svp->setShadowMode(ShadowStage::VARIANCE_SHADOW_MAP);
+                svp->setShadowMode(OSG::ShadowStage::VARIANCE_SHADOW_MAP);
                 svp->setShadowSmoothness(0.5);
-                SLOG << "ShadowMode is: VARIANCE_SHADOW_MAP" << endLog;
+                SLOG << "ShadowMode is: VARIANCE_SHADOW_MAP" << OSG::endLog;
                 break;
             }
 
@@ -1052,20 +1050,20 @@ void keyboard(unsigned char k, int x, int y)
         case 'x':
             {
                 svp->setMapSize(1024);
-                SLOG << "ShadowMode is: NO_SHADOW" << endLog;
+                SLOG << "ShadowMode is: NO_SHADOW" << OSG::endLog;
                 break;
             }
 
         case 'c':
             {
                 svp->setMapSize(2048);
-                SLOG << "ShadowMode is: NO_SHADOW" << endLog;
+                SLOG << "ShadowMode is: NO_SHADOW" << OSG::endLog;
                 break;
             }
 
         case '+':
             {
-                Real32  t = svp->getShadowSmoothness();
+                OSG::Real32  t = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(t + 0.1);
                 //SLOG << "ShadowSmoothness is: " << t << endLog;
@@ -1074,7 +1072,7 @@ void keyboard(unsigned char k, int x, int y)
 
         case '-':
             {
-                Real32  t = svp->getShadowSmoothness();
+                OSG::Real32  t = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(t - 0.1);
                 //SLOG << "ShadowSmoothness is: " << t << endLog;

@@ -11,14 +11,13 @@
 #include <OSGSolidBackground.h>
 #include <OSGSurface.h>
 
-OSG_USING_NAMESPACE
 
 bool useForceTesselate = false;
 
-SimpleSceneManager   *mgr;
-SimpleMaterialRefPtr  gpcl_defaultmat;
-Real32                g_error;
-SurfaceRefPtr         gpcl_surface;
+OSG::SimpleSceneManager   *mgr;
+OSG::SimpleMaterialRefPtr  gpcl_defaultmat;
+OSG::Real32                g_error;
+OSG::SurfaceRefPtr         gpcl_surface;
 
 // redraw the window
 void display(void)
@@ -112,12 +111,12 @@ void keyboard(unsigned char k, int, int)
 
 void setupDefaultMaterial( void )
 {
-    gpcl_defaultmat = SimpleMaterial::create();
+    gpcl_defaultmat = OSG::SimpleMaterial::create();
 
-    gpcl_defaultmat->setDiffuse( Color3f(1.0,0.0,0.0) ); // RED
-    gpcl_defaultmat->setAmbient( Color3f(0.2,0.2,0.2) );
-    gpcl_defaultmat->setEmission( Color3f(0.02,0.02,0.02) );
-    gpcl_defaultmat->setSpecular( Color3f(0.78,0.78,0.78) );
+    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0,0.0,0.0) ); // RED
+    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2,0.2,0.2) );
+    gpcl_defaultmat->setEmission( OSG::Color3f(0.02,0.02,0.02) );
+    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78,0.78,0.78) );
     gpcl_defaultmat->setShininess( 128 );
 }
 
@@ -126,36 +125,36 @@ void setupDefaultMaterial( void )
 
 
 
-NodeTransitPtr makeScene( void )
+OSG::NodeTransitPtr makeScene( void )
 {
     setupDefaultMaterial();
 
-    NodeTransitPtr         root    = Node            ::create();
-    SurfaceRefPtr          surface = Surface         ::create();
-    GeoPnt3fPropertyRefPtr cps     = GeoPnt3fProperty::create();
+    OSG::NodeTransitPtr         root    = OSG::Node            ::create();
+    OSG::SurfaceRefPtr          surface = OSG::Surface         ::create();
+    OSG::GeoPnt3fPropertyRefPtr cps     = OSG::GeoPnt3fProperty::create();
 
     // control points should always be 3D for the time being,
     // rational support will be added later
     cps->clear();
-    cps->push_back( Pnt3f(  1,  1,  2 ));
-    cps->push_back( Pnt3f(  1,  0,  0 ));
-    cps->push_back( Pnt3f(  1,  0,  1 ));
-    cps->push_back( Pnt3f(  1, -1, -2 ));
+    cps->push_back( OSG::Pnt3f(  1,  1,  2 ));
+    cps->push_back( OSG::Pnt3f(  1,  0,  0 ));
+    cps->push_back( OSG::Pnt3f(  1,  0,  1 ));
+    cps->push_back( OSG::Pnt3f(  1, -1, -2 ));
 
-    cps->push_back( Pnt3f(  0,  1,  0 ));
-    cps->push_back( Pnt3f(  0,  0,  0 ));
-    cps->push_back( Pnt3f(  0,  0,  1 ));
-    cps->push_back( Pnt3f(  0, -1,  1 ));
+    cps->push_back( OSG::Pnt3f(  0,  1,  0 ));
+    cps->push_back( OSG::Pnt3f(  0,  0,  0 ));
+    cps->push_back( OSG::Pnt3f(  0,  0,  1 ));
+    cps->push_back( OSG::Pnt3f(  0, -1,  1 ));
 
-    cps->push_back( Pnt3f(  0,  1,  1 ));
-    cps->push_back( Pnt3f(  0,  0,  1 ));
-    cps->push_back( Pnt3f(  0,  0,  0 ));
-    cps->push_back( Pnt3f(  0, -1,  0 ));
+    cps->push_back( OSG::Pnt3f(  0,  1,  1 ));
+    cps->push_back( OSG::Pnt3f(  0,  0,  1 ));
+    cps->push_back( OSG::Pnt3f(  0,  0,  0 ));
+    cps->push_back( OSG::Pnt3f(  0, -1,  0 ));
 
-    cps->push_back( Pnt3f( -1,  1,  1 ));
-    cps->push_back( Pnt3f( -1,  0,  1 ));
-    cps->push_back( Pnt3f( -1,  0,  0 ));
-    cps->push_back( Pnt3f( -1, -1,  0 ));
+    cps->push_back( OSG::Pnt3f( -1,  1,  1 ));
+    cps->push_back( OSG::Pnt3f( -1,  0,  1 ));
+    cps->push_back( OSG::Pnt3f( -1,  0,  0 ));
+    cps->push_back( OSG::Pnt3f( -1, -1,  0 ));
 
     // let's clear the trimming
     surface->removeCurves();
@@ -243,7 +242,7 @@ int main(int argc, char **argv)
         g_error = 0.001;
     }
     
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     // GLUT init
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
@@ -258,12 +257,12 @@ int main(int argc, char **argv)
     glutKeyboardFunc(keyboard);
 
     {
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // create the scene
-        NodeRefPtr scene;
+        OSG::NodeRefPtr scene;
         scene = makeScene( );
         
         if ( scene == NULL )
@@ -273,7 +272,7 @@ int main(int argc, char **argv)
         }
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // create the window and initial camera/viewport
         mgr->setWindow( gwin );
@@ -283,8 +282,8 @@ int main(int argc, char **argv)
         // show the whole scene
         mgr->showAll();
         mgr->redraw();
-        SolidBackgroundRefPtr bgr = SolidBackground::create();
-        bgr->setColor( Color3f( 0.7, 0.7, 0.7 ));
+        OSG::SolidBackgroundRefPtr bgr = OSG::SolidBackground::create();
+        bgr->setColor( OSG::Color3f( 0.7, 0.7, 0.7 ));
         mgr->getWindow()->getPort(0)->setBackground( bgr );
     }
     

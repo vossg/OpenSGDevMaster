@@ -37,15 +37,13 @@
 #pragma GCC diagnostic warning "-Wold-style-cast"
 #endif
 
-OSG_USING_NAMESPACE
-
 // local glut window
-XWindowRefPtr   window;
+OSG::XWindowRefPtr   window;
 // render action
-RenderAction   *ract        = NULL;
+OSG::RenderAction   *ract        = NULL;
 // pointer the the cluster server instance
-ClusterServer  *server      = NULL;
-bool            exitOnError = false;
+OSG::ClusterServer  *server      = NULL;
+bool                 exitOnError = false;
 
 // forward declaration so we can have the interesting stuff upfront
 void display();
@@ -67,7 +65,7 @@ int main(int argc,char **argv)
     std::string     address        = "";
     char           *opt;
     bool            doStereo       = false;
-    UInt32          servicePort    = 8437;
+    OSG::UInt32     servicePort    = 8437;
     std::string     serviceGroup   = "224.245.211.234";
 
 
@@ -97,10 +95,10 @@ int main(int argc,char **argv)
                 case 'a': address = argv[a][2] ? argv[a]+2 : argv[++a];
                           if(address == argv[argc])
                           { 
-                              SLOG << "address missing" << endLog;
+                              SLOG << "address missing" << OSG::endLog;
                               return 0;
                           }
-                          std::cout << address << endLog;
+                          std::cout << address << OSG::endLog;
                           break;
 
 
@@ -151,7 +149,7 @@ int main(int argc,char **argv)
     try
     {
         // init OpenSG
-        osgInit(argc, argv);
+        OSG::osgInit(argc, argv);
 
         int snglBuf[] = {GLX_RGBA, 
                          GLX_DEPTH_SIZE, 16, 
@@ -169,7 +167,7 @@ int main(int argc,char **argv)
         GLboolean doubleBuffer = GL_FALSE;
 
         // X init
-        DisplayP dpy = XOpenDisplay(NULL);
+        OSG::DisplayP dpy = XOpenDisplay(NULL);
 
         if(dpy == NULL) 
         {
@@ -225,17 +223,17 @@ int main(int argc,char **argv)
         // Create Window
         
         // Create a Window and connect it to the main display dpy
-        X11Window hwin = XCreateWindow(dpy, 
-                                       RootWindow(dpy, vi->screen), 
-                                       0, 0, 300, 300, 
-                                       0, 
-                                       vi->depth,
-                                       InputOutput, 
-                                       vi->visual, 
-                                       CWBorderPixel | 
-                                       CWColormap    | 
-                                       CWEventMask, 
-                                       &swa );
+        OSG::X11Window hwin = XCreateWindow(dpy, 
+                                            RootWindow(dpy, vi->screen), 
+                                            0, 0, 300, 300, 
+                                            0, 
+                                            vi->depth,
+                                            InputOutput, 
+                                            vi->visual, 
+                                            CWBorderPixel | 
+                                            CWColormap    | 
+                                            CWEventMask, 
+                                            &swa );
         
         XSetStandardProperties(dpy, hwin, "testWindowX", "testWindowX", 
                                None, argv, argc, NULL);
@@ -277,10 +275,10 @@ int main(int argc,char **argv)
         
 
         // create the render action
-        ract = RenderAction::create();
+        ract = OSG::RenderAction::create();
 
         // setup the OpenSG Glut window
-        window     = XWindow::create();
+        window     = OSG::XWindow::create();
         window->setDisplay ( dpy );
         window->setWindow ( hwin );
         window->init();
@@ -327,11 +325,11 @@ int main(int argc,char **argv)
         glEnable( GL_NORMALIZE );
 
         // create the cluster server
-        server     = new ClusterServer(window,name,connectionType,address);
+        server     = new OSG::ClusterServer(window,name,connectionType,address);
         // start the server
         server->start();
 
-        Real32 w,h,a,b,c,d;
+        OSG::Real32 w,h,a,b,c,d;
         bool   stopIt = false;
         int ip;
 
@@ -363,12 +361,12 @@ int main(int argc,char **argv)
     }
     catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
     {
-        SLOG << e.what() << endLog;
+        SLOG << e.what() << OSG::endLog;
         delete server;
         delete ract;
         window = NULL;
         
-        osgExit(); 
+        OSG::osgExit(); 
     }
     return 0;
 }
@@ -398,14 +396,14 @@ void display()
             {
             }
             printf("Exit on error %s",e.what());
-            osgExit();
+            OSG::osgExit();
             exit(0);
         }
         else
         {
             window->clearPorts();
 
-            SLOG << e.what() << endLog;
+            SLOG << e.what() << OSG::endLog;
             // try to restart server
             server->stop();
             // start server, wait for client to connect

@@ -12,12 +12,10 @@
 #include <OSGSceneFileHandler.h>
 #include <OSGOSGSceneFileType.h>
 
-OSG_USING_NAMESPACE
+OSG::SimpleSceneManager *mgr;
 
-SimpleSceneManager *mgr;
-
-ShearedStereoCameraDecoratorUnrecPtr decoleft, decoright;
-Real32 zpp = 2, ed = 1;
+OSG::ShearedStereoCameraDecoratorUnrecPtr decoleft, decoright;
+OSG::Real32 zpp = 2, ed = 1;
 
 // redraw the window
 void display(void)
@@ -81,7 +79,7 @@ void keyboard(unsigned char k, int, int)
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     glutInit(&argc, argv);
@@ -113,23 +111,23 @@ int main(int argc, char **argv)
     glutMotionFunc  (motion  );
     glutKeyboardFunc(keyboard);
 
-    PassiveWindowUnrecPtr pwin = PassiveWindow::create();
+    OSG::PassiveWindowUnrecPtr pwin = OSG::PassiveWindow::create();
     pwin->init();
 
     // create the scene
-    NodeUnrecPtr scene;
+    OSG::NodeUnrecPtr scene;
     
     if(argc > 1)
     {
-        scene = SceneFileHandler::the()->read(argv[1]);
+        scene = OSG::SceneFileHandler::the()->read(argv[1]);
     }
     else
     {
-        scene = makeBox(2,2,2, 1,1,1);
+        scene = OSG::makeBox(2,2,2, 1,1,1);
     }
 
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
 
     // create the window and initial camera/viewport
     mgr->setWindow(pwin );
@@ -137,25 +135,26 @@ int main(int argc, char **argv)
     mgr->setRoot  (scene);
     
     // now create the second vp for stereo
-    Viewport *vp = pwin->getPort(0);
+    OSG::Viewport *vp = pwin->getPort(0);
     
-    PerspectiveCamera *cam = dynamic_cast<PerspectiveCamera *>(vp->getCamera());
+    OSG::PerspectiveCamera *cam = 
+        dynamic_cast<OSG::PerspectiveCamera *>(vp->getCamera());
 
-    cam->setFov   (osgDegree2Rad(60));
+    cam->setFov   (OSG::osgDegree2Rad(60));
     cam->setAspect(1);
 
-    Navigator *nav = mgr->getNavigator();
+    OSG::Navigator *nav = mgr->getNavigator();
 
-    nav->setAt(Pnt3f(0,0,0));
+    nav->setAt(OSG::Pnt3f(0,0,0));
     nav->setDistance(1.5);
     
     mgr->showAll();
     
     // create the decorators and the second viewport
-    ViewportUnrecPtr vpleft,vpright;
+    OSG::ViewportUnrecPtr vpleft,vpright;
        
-    decoleft  = ShearedStereoCameraDecorator::create();
-    decoright = ShearedStereoCameraDecorator::create();
+    decoleft  = OSG::ShearedStereoCameraDecorator::create();
+    decoright = OSG::ShearedStereoCameraDecorator::create();
     
     decoleft->setEyeSeparation(ed);
     decoleft->setZeroParallaxDistance(zpp);
@@ -169,8 +168,10 @@ int main(int argc, char **argv)
 
     if(amberblue)
     {
-        ColorBufferViewportUnrecPtr svpleft  = ColorBufferViewport::create();
-        ColorBufferViewportUnrecPtr svpright = ColorBufferViewport::create();
+        OSG::ColorBufferViewportUnrecPtr svpleft  = 
+            OSG::ColorBufferViewport::create();
+        OSG::ColorBufferViewportUnrecPtr svpright = 
+            OSG::ColorBufferViewport::create();
  
         svpleft->setLeft(0);
         svpleft->setRight(1);
@@ -201,8 +202,10 @@ int main(int argc, char **argv)
     }
     else if(stereobuffer)
     {
-        StereoBufferViewportUnrecPtr svpleft  = StereoBufferViewport::create();
-        StereoBufferViewportUnrecPtr svpright = StereoBufferViewport::create();
+        OSG::StereoBufferViewportUnrecPtr svpleft  = 
+            OSG::StereoBufferViewport::create();
+        OSG::StereoBufferViewportUnrecPtr svpright = 
+            OSG::StereoBufferViewport::create();
  
         svpleft->setLeft(0);
         svpleft->setRight(1);
@@ -230,7 +233,7 @@ int main(int argc, char **argv)
     else
     {
         vpleft  = vp;
-        vpright = Viewport::create();
+        vpright = OSG::Viewport::create();
 
         vpleft->setLeft(0);
         vpleft->setRight(1);
@@ -253,7 +256,7 @@ int main(int argc, char **argv)
     pwin->addPort     (vpleft );  
     pwin->addPort     (vpright);  
 
-    OSGSceneFileType::the().writeContainer(pwin, "/tmp/windowtest.osg");
+    OSG::OSGSceneFileType::the().writeContainer(pwin, "/tmp/windowtest.osg");
 
     // make it notice the changes
     mgr->setWindow(pwin );

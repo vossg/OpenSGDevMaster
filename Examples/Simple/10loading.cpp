@@ -36,11 +36,8 @@
 
 #include <boost/bind.hpp>
 
-// Activate the OpenSG namespace
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager to manage simple applications
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -66,19 +63,19 @@ class NamedNodeFinder
 
     NamedNodeFinder(void) : _name(), _found() {}
 
-    Node *operator() (Node *root, const std::string &name)
+    OSG::Node *operator() (OSG::Node *root, const std::string &name)
     {
         _name  = name;
         _found = NULL;
 
-        TraverseEnterFunctor enter =
+        OSG::TraverseEnterFunctor enter =
             boost::bind(&NamedNodeFinder::check, this, _1);
         traverse(root, enter);
 
         return _found;
     }
 
-    static Node *find(Node *root, const std::string &name)
+    static OSG::Node *find(OSG::Node *root, const std::string &name)
     {
         NamedNodeFinder f;
 
@@ -87,18 +84,18 @@ class NamedNodeFinder
 
   private:
 
-    Action::ResultE check(Node *node)
+    OSG::Action::ResultE check(OSG::Node *node)
     {
         if(getName(node) && _name == getName(node))
         {
             _found = node;
-            return Action::Quit;
+            return OSG::Action::Quit;
         }
 
-        return Action::Continue;
+        return OSG::Action::Continue;
     }
 
-    Node        *_found;
+    OSG::Node   *_found;
     std::string  _name;
 };
 
@@ -106,7 +103,7 @@ class NamedNodeFinder
 int main(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
@@ -116,13 +113,13 @@ int main(int argc, char **argv)
     // Otherwise OpenSG will complain about objects being alive after shutdown.
     {
         // the connection between GLUT and OpenSG
-        GLUTWindowRefPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRefPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         // load the scene
     
-        NodeRefPtr scene;
+        OSG::NodeRefPtr scene;
     
         if(argc < 2)
         {
@@ -130,7 +127,7 @@ int main(int argc, char **argv)
             FWARNING(("Supported file formats:\n"));
     
             std::list<const char*> suffixes;
-            SceneFileHandler::the()->getSuffixList(suffixes);
+            OSG::SceneFileHandler::the()->getSuffixList(suffixes);
             //SceneFileHandler::the()->print();
     
             for(std::list<const char*>::iterator it  = suffixes.begin();
@@ -140,18 +137,18 @@ int main(int argc, char **argv)
                 FWARNING(("%s\n", *it));
             }
     
-            scene = makeTorus(.5, 2, 16, 16);
+            scene = OSG::makeTorus(.5, 2, 16, 16);
         }
         else
         {
             /*
                 All scene file loading is handled via the SceneFileHandler.
             */
-            scene = SceneFileHandler::the()->read(argv[1]);
+            scene = OSG::SceneFileHandler::the()->read(argv[1]);
         }
     
     
-        NodeRefPtr found;
+        OSG::NodeRefPtr found;
     
         NamedNodeFinder f;
     
@@ -176,17 +173,18 @@ int main(int argc, char **argv)
         if(found == NULL)
         {
             SLOG << "Found no object named 'TF_DETAIL' (did you load the tie?)."
-                << endLog;
+                 << OSG::endLog;
         }
         else
         {
-            SLOG << "Found object " << found << " named 'TF_DETAIL'." << endLog;
+            SLOG << "Found object " << found << " named 'TF_DETAIL'."
+                 << OSG::endLog;
         }
     
-        commitChanges();
+        OSG::commitChanges();
     
         // create the SimpleSceneManager helper
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
     
         // tell the manager what to manage
         mgr->setWindow(gwin );
@@ -257,13 +255,13 @@ void keyboard(unsigned char k, int , int )
 
         case 'f':
         {
-            mgr->setNavigationMode(Navigator::FLY);
+            mgr->setNavigationMode(OSG::Navigator::FLY);
         }
         break;
 
         case 't':
         {
-            mgr->setNavigationMode(Navigator::TRACKBALL);
+            mgr->setNavigationMode(OSG::Navigator::TRACKBALL);
         }
         break;
 

@@ -34,47 +34,45 @@
 
 #include <OSGShadowStage.h>
 
-OSG_USING_NAMESPACE
+OSG::SimpleSceneManager *mgr;
 
-SimpleSceneManager *mgr;
+OSG::GLUTWindowUnrecPtr gwin;
+OSG::ShadowStageUnrecPtr svp;
 
-GLUTWindowUnrecPtr gwin;
-ShadowStageUnrecPtr svp;
-
-NodeUnrecPtr rootNode;
-NodeUnrecPtr point1;
-NodeUnrecPtr point2;
-NodeUnrecPtr point3;
-NodeUnrecPtr point4;
-NodeUnrecPtr point5;
-NodeUnrecPtr point6;
-NodeUnrecPtr point7;
-SpotLightUnrecPtr spot1_core;
-SpotLightUnrecPtr spot2_core;
-SpotLightUnrecPtr spot3_core;
-SpotLightUnrecPtr spot4_core;
-SpotLightUnrecPtr spot5_core;
-SpotLightUnrecPtr spot6_core;
-SpotLightUnrecPtr spot7_core;
-DirectionalLightUnrecPtr raumlicht_core;
+OSG::NodeUnrecPtr rootNode;
+OSG::NodeUnrecPtr point1;
+OSG::NodeUnrecPtr point2;
+OSG::NodeUnrecPtr point3;
+OSG::NodeUnrecPtr point4;
+OSG::NodeUnrecPtr point5;
+OSG::NodeUnrecPtr point6;
+OSG::NodeUnrecPtr point7;
+OSG::SpotLightUnrecPtr spot1_core;
+OSG::SpotLightUnrecPtr spot2_core;
+OSG::SpotLightUnrecPtr spot3_core;
+OSG::SpotLightUnrecPtr spot4_core;
+OSG::SpotLightUnrecPtr spot5_core;
+OSG::SpotLightUnrecPtr spot6_core;
+OSG::SpotLightUnrecPtr spot7_core;
+OSG::DirectionalLightUnrecPtr raumlicht_core;
 //PointLightPtr _point1_core;
-DirectionalLightUnrecPtr _point1_core;
-PointLightUnrecPtr _point2_core;
-PointLightUnrecPtr _point3_core;
-PointLightUnrecPtr _point4_core;
-PointLightUnrecPtr _point5_core;
-PointLightUnrecPtr _point6_core;
-PointLightUnrecPtr _point7_core;
-TransformUnrecPtr _box_trans;
-TransformUnrecPtr _cylinder1_trans;
-TransformUnrecPtr _cylinder2_trans;
+OSG::DirectionalLightUnrecPtr _point1_core;
+OSG::PointLightUnrecPtr _point2_core;
+OSG::PointLightUnrecPtr _point3_core;
+OSG::PointLightUnrecPtr _point4_core;
+OSG::PointLightUnrecPtr _point5_core;
+OSG::PointLightUnrecPtr _point6_core;
+OSG::PointLightUnrecPtr _point7_core;
+OSG::TransformUnrecPtr _box_trans;
+OSG::TransformUnrecPtr _cylinder1_trans;
+OSG::TransformUnrecPtr _cylinder2_trans;
 
 bool animateScene;
 bool useStandardScene;
 
-UInt32 frameCount;
-Real32 fps = 0.0;
-Real32 startTime2;
+OSG::UInt32 frameCount;
+OSG::Real32 fps = 0.0;
+OSG::Real32 startTime2;
 
 
 //FPS Counter
@@ -111,11 +109,11 @@ int doMain(int argc, char **argv)
     printf("NOTE: Real point lights only supported for ShadowMode 1...5!\n");
 
     // OSG init
-    osgInit(argc, argv);
+    OSG::osgInit(argc, argv);
 
     // GLUT init
     int                     winid = setupGLUT(&argc, argv);
-    gwin = GLUTWindow::create();
+    gwin = OSG::GLUTWindow::create();
 
     useStandardScene = false;
 
@@ -125,13 +123,13 @@ int doMain(int argc, char **argv)
         animateScene = true;
         //Erstellen der ben�tigten Komponenten--------------------------------------
 
-        rootNode = makeCoredNode<Group>();
-        NodeUnrecPtr             scene = makeCoredNode<Group>();
+        rootNode = OSG::makeCoredNode<OSG::Group>();
+        OSG::NodeUnrecPtr             scene = OSG::makeCoredNode<OSG::Group>();
 
         // create lights
-        TransformUnrecPtr        point1_trans;
-        point1 = makeCoredNode<DirectionalLight>(&_point1_core);
-        NodeUnrecPtr             point1_beacon = makeCoredNode<Transform>
+        OSG::TransformUnrecPtr        point1_trans;
+        point1 = OSG::makeCoredNode<OSG::DirectionalLight>(&_point1_core);
+        OSG::NodeUnrecPtr             point1_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point1_trans);
         point1_trans->editMatrix().setTranslate(0.0, 0.0, 100.0);
 
@@ -143,9 +141,9 @@ int doMain(int argc, char **argv)
         _point1_core->setShadowIntensity(0.7);
         _point1_core->setDirection(0.4, 0.2, 0.8);
 
-        TransformUnrecPtr        point2_trans;
-        point2 = makeCoredNode<PointLight>(&_point2_core);
-        NodeUnrecPtr             point2_beacon = makeCoredNode<Transform>
+        OSG::TransformUnrecPtr        point2_trans;
+        point2 = OSG::makeCoredNode<OSG::PointLight>(&_point2_core);
+        OSG::NodeUnrecPtr             point2_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point2_trans);
         point2_trans->editMatrix().setTranslate(20.0, -30.0, 100.0);
 
@@ -156,9 +154,9 @@ int doMain(int argc, char **argv)
         _point2_core->setOn(true);
         _point2_core->setShadowIntensity(0.7);
 
-        TransformUnrecPtr        point3_trans;
-        point3 = makeCoredNode<PointLight>(&_point3_core);
-        NodeUnrecPtr             point3_beacon = makeCoredNode<Transform>
+        OSG::TransformUnrecPtr        point3_trans;
+        point3 = OSG::makeCoredNode<OSG::PointLight>(&_point3_core);
+        OSG::NodeUnrecPtr             point3_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point3_trans);
         point3_trans->editMatrix().setTranslate(10.0, -15.0, 100.0);
 
@@ -169,9 +167,9 @@ int doMain(int argc, char **argv)
         _point3_core->setOn(true);
         _point3_core->setShadowIntensity(0.7);
 
-        TransformUnrecPtr        point4_trans;
-        point4 = makeCoredNode<PointLight>(&_point4_core);
-        NodeUnrecPtr             point4_beacon = makeCoredNode<Transform>
+        OSG::TransformUnrecPtr        point4_trans;
+        point4 = OSG::makeCoredNode<OSG::PointLight>(&_point4_core);
+        OSG::NodeUnrecPtr             point4_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point4_trans);
         point4_trans->editMatrix().setTranslate(35.0, -45.0, 100.0);
 
@@ -182,9 +180,9 @@ int doMain(int argc, char **argv)
         _point4_core->setOn(true);
         _point4_core->setShadowIntensity(0.7);
 
-        TransformUnrecPtr        point5_trans;
-        point5 = makeCoredNode<PointLight>(&_point5_core);
-        NodeUnrecPtr             point5_beacon = makeCoredNode<Transform>
+        OSG::TransformUnrecPtr        point5_trans;
+        point5 = OSG::makeCoredNode<OSG::PointLight>(&_point5_core);
+        OSG::NodeUnrecPtr             point5_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point5_trans);
         point5_trans->editMatrix().setTranslate(40.0, -60.0, 100.0);
 
@@ -195,9 +193,9 @@ int doMain(int argc, char **argv)
         _point5_core->setOn(true);
         _point5_core->setShadowIntensity(0.7);
 
-        TransformUnrecPtr        point6_trans;
-        point6 = makeCoredNode<PointLight>(&_point6_core);
-        NodeUnrecPtr             point6_beacon = makeCoredNode<Transform>
+        OSG::TransformUnrecPtr        point6_trans;
+        point6 = OSG::makeCoredNode<OSG::PointLight>(&_point6_core);
+        OSG::NodeUnrecPtr             point6_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point6_trans);
         point6_trans->editMatrix().setTranslate(17.0, -55.0, 100.0);
 
@@ -208,9 +206,9 @@ int doMain(int argc, char **argv)
         _point6_core->setOn(true);
         _point6_core->setShadowIntensity(0.7);
 
-        TransformUnrecPtr        point7_trans;
-        point7 = makeCoredNode<PointLight>(&_point7_core);
-        NodeUnrecPtr             point7_beacon = makeCoredNode<Transform>
+        OSG::TransformUnrecPtr        point7_trans;
+        point7 = OSG::makeCoredNode<OSG::PointLight>(&_point7_core);
+        OSG::NodeUnrecPtr             point7_beacon = OSG::makeCoredNode<OSG::Transform>
             (&point7_trans);
         point7_trans->editMatrix().setTranslate(5.0, -42.0, 100.0);
 
@@ -238,17 +236,17 @@ int doMain(int argc, char **argv)
         // create scene
 
         // bottom
-        NodeUnrecPtr             plane = makePlane(50.0, 50.0, 128, 128);
+        OSG::NodeUnrecPtr             plane = OSG::makePlane(50.0, 50.0, 128, 128);
 
-        UChar8              imgdata[] =
+        OSG::UChar8              imgdata[] =
         {
             255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 255, 0
         };
-        ImageUnrecPtr            plane_img = Image::create();
-        plane_img->set(Image::OSG_RGB_PF, 2, 2, 1, 1, 1, 0, imgdata);
+        OSG::ImageUnrecPtr            plane_img = OSG::Image::create();
+        plane_img->set(OSG::Image::OSG_RGB_PF, 2, 2, 1, 1, 1, 0, imgdata);
 
-        TextureObjChunkUnrecPtr     plane_tex_obj = TextureObjChunk::create();
-        TextureEnvChunkUnrecPtr     plane_tex_env = TextureEnvChunk::create();
+        OSG::TextureObjChunkUnrecPtr     plane_tex_obj = OSG::TextureObjChunk::create();
+        OSG::TextureEnvChunkUnrecPtr     plane_tex_env = OSG::TextureEnvChunk::create();
         plane_tex_obj->setImage(plane_img);
         plane_tex_obj->setMinFilter(GL_LINEAR);
         plane_tex_obj->setMagFilter(GL_LINEAR);
@@ -256,63 +254,63 @@ int doMain(int argc, char **argv)
         plane_tex_obj->setWrapT(GL_REPEAT);
         plane_tex_env->setEnvMode(GL_MODULATE);
 
-        SimpleMaterialUnrecPtr   plane_mat = SimpleMaterial::create();
-        plane_mat->setAmbient(Color3f(0.3, 0.3, 0.3));
-        plane_mat->setDiffuse(Color3f(1.0, 1.0, 1.0));
+        OSG::SimpleMaterialUnrecPtr   plane_mat = OSG::SimpleMaterial::create();
+        plane_mat->setAmbient(OSG::Color3f(0.3, 0.3, 0.3));
+        plane_mat->setDiffuse(OSG::Color3f(1.0, 1.0, 1.0));
         plane_mat->addChunk(plane_tex_obj);
         plane_mat->addChunk(plane_tex_env);
 
-        Geometry        *plane_geo = dynamic_cast<Geometry *>(plane->getCore());
+        OSG::Geometry        *plane_geo = dynamic_cast<OSG::Geometry *>(plane->getCore());
         plane_geo->setMaterial(plane_mat);
 
         // box
-        NodeUnrecPtr             box_trans_node = makeCoredNode<Transform>
+        OSG::NodeUnrecPtr             box_trans_node = OSG::makeCoredNode<OSG::Transform>
             (&_box_trans);
         _box_trans->editMatrix().setTranslate(0.0, 0.0, 2.0);
-        NodeUnrecPtr             box = makeBox(8.0, 8.0, 0.8, 10, 10, 10);
+        OSG::NodeUnrecPtr             box = OSG::makeBox(8.0, 8.0, 0.8, 10, 10, 10);
         box_trans_node->addChild(box);
 
-        SimpleMaterialUnrecPtr   box_mat = SimpleMaterial::create();
-        box_mat->setAmbient(Color3f(0.0, 0.0, 0.0));
-        box_mat->setDiffuse(Color3f(0.0, 0.0, 1.0));
+        OSG::SimpleMaterialUnrecPtr   box_mat = OSG::SimpleMaterial::create();
+        box_mat->setAmbient(OSG::Color3f(0.0, 0.0, 0.0));
+        box_mat->setDiffuse(OSG::Color3f(0.0, 0.0, 1.0));
 
-        Geometry     *box_geo = dynamic_cast<Geometry *>(box->getCore());
+        OSG::Geometry     *box_geo = dynamic_cast<OSG::Geometry *>(box->getCore());
         box_geo->setMaterial(box_mat);
 
         // cylinder1
-        NodeUnrecPtr             cylinder1_trans_node = makeCoredNode<Transform>
+        OSG::NodeUnrecPtr             cylinder1_trans_node = OSG::makeCoredNode<OSG::Transform>
             (&_cylinder1_trans);
 
-        Quaternion          q;
+        OSG::Quaternion          q;
 
         q.setValueAsAxisDeg(1, 1, 0, 145.0);
         _cylinder1_trans->editMatrix().setRotate(q);
         _cylinder1_trans->editMatrix().setTranslate(0.0, 0.0, 5.0);
 
-        NodeUnrecPtr             cylinder1 = OSG::makeCylinder(30.0, 0.9, 32, true,
+        OSG::NodeUnrecPtr             cylinder1 = OSG::makeCylinder(30.0, 0.9, 32, true,
                                                           true, true);
         cylinder1_trans_node->addChild(cylinder1);
 
-        SimpleMaterialUnrecPtr   cylinder1_mat = SimpleMaterial::create();
-        cylinder1_mat->setAmbient(Color3f(0.0, 0.0, 0.0));
-        cylinder1_mat->setDiffuse(Color3f(1.0, 0.0, 0.0));
+        OSG::SimpleMaterialUnrecPtr   cylinder1_mat = OSG::SimpleMaterial::create();
+        cylinder1_mat->setAmbient(OSG::Color3f(0.0, 0.0, 0.0));
+        cylinder1_mat->setDiffuse(OSG::Color3f(1.0, 0.0, 0.0));
 
-        Geometry     *cylinder1_geo = dynamic_cast<Geometry *>(
+        OSG::Geometry     *cylinder1_geo = dynamic_cast<OSG::Geometry *>(
             cylinder1->getCore());
         cylinder1_geo->setMaterial(cylinder1_mat);
 
         // cylinder2
-        NodeUnrecPtr             cylinder2_trans_node = makeCoredNode<Transform>
+        OSG::NodeUnrecPtr             cylinder2_trans_node = OSG::makeCoredNode<OSG::Transform>
             (&_cylinder2_trans);
         _cylinder2_trans->editMatrix().setTranslate(10.0, 0.0, 10.0);
-        NodeUnrecPtr             cylinder2 = OSG::makeBox(4.0, 4.0, 1.0, 4, 4, 4);
+        OSG::NodeUnrecPtr             cylinder2 = OSG::makeBox(4.0, 4.0, 1.0, 4, 4, 4);
         cylinder2_trans_node->addChild(cylinder2);
 
-        SimpleMaterialUnrecPtr   cylinder2_mat = SimpleMaterial::create();
-        cylinder2_mat->setAmbient(Color3f(0.0, 0.0, 0.0));
-        cylinder2_mat->setDiffuse(Color3f(0.0, 1.0, 0.0));
+        OSG::SimpleMaterialUnrecPtr   cylinder2_mat = OSG::SimpleMaterial::create();
+        cylinder2_mat->setAmbient(OSG::Color3f(0.0, 0.0, 0.0));
+        cylinder2_mat->setDiffuse(OSG::Color3f(0.0, 1.0, 0.0));
 
-        Geometry       *cylinder2_geo = dynamic_cast<Geometry *>(
+        OSG::Geometry       *cylinder2_geo = dynamic_cast<OSG::Geometry *>(
             cylinder2->getCore());
         cylinder2_geo->setMaterial(cylinder2_mat);
 
@@ -350,7 +348,7 @@ int doMain(int argc, char **argv)
     else
     {
         animateScene = false;
-        rootNode = SceneFileHandler::the()->read(argv[1]);
+        rootNode = OSG::SceneFileHandler::the()->read(argv[1]);
         if(rootNode == NULL)
         {
             fprintf(stderr, "Couldn't load '%s'!\n", argv[1]);
@@ -359,12 +357,12 @@ int doMain(int argc, char **argv)
     }
 
 
-    svp = ShadowStage::create();
-    GradientBackgroundUnrecPtr   gbg = GradientBackground::create();
-    SolidBackgroundUnrecPtr      sbg = SolidBackground::create();
+    svp = OSG::ShadowStage::create();
+    OSG::GradientBackgroundUnrecPtr   gbg = OSG::GradientBackground::create();
+    OSG::SolidBackgroundUnrecPtr      sbg = OSG::SolidBackground::create();
 
-    gbg->addLine(Color3f(0.7, 0.7, 0.8), 0);
-    gbg->addLine(Color3f(0.0, 0.1, 0.3), 1);
+    gbg->addLine(OSG::Color3f(0.7, 0.7, 0.8), 0);
+    gbg->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
 
     rootNode->setCore(svp);
 
@@ -413,12 +411,12 @@ int doMain(int argc, char **argv)
 #endif
     gwin->init();
 
-    Vec3f                   min, max;
+    OSG::Vec3f                   min, max;
     rootNode->updateVolume();
     rootNode->getVolume().getBounds(min, max);
 
     // create the SimpleSceneManager helper
-    mgr = new SimpleSceneManager;
+    mgr = new OSG::SimpleSceneManager;
 
     mgr->setWindow(gwin);
     mgr->setRoot(rootNode);
@@ -458,23 +456,23 @@ void Animate()
 
     if(animateScene)
     {
-        static Real64   t0 = OSG::getSystemTime();
+        static OSG::Real64   t0 = OSG::getSystemTime();
 
-        Real64          t = OSG::getSystemTime() - t0;
+        OSG::Real64          t = OSG::getSystemTime() - t0;
 
-        Real32          rotb = t * 10.0;
+        OSG::Real32          rotb = t * 10.0;
         if(rotb > 360.0)
             rotb -= 360.0;
 
-        Real32          rotc1 = t * 20.0;
+        OSG::Real32          rotc1 = t * 20.0;
         if(rotc1 > 360.0)
             rotc1 -= 360.0;
 
-        Real32          rotc2 = t * 40.0;
+        OSG::Real32          rotc2 = t * 40.0;
         if(rotc2 > 360.0)
             rotc2 -= 360.0;
 
-        Quaternion      q;
+        OSG::Quaternion      q;
         /*beginEditCP(_box_trans);
            q.setValueAsAxisDeg(0,0,1, rotb);
            _box_trans->getMatrix().setRotate(q);
@@ -826,88 +824,88 @@ void keyboard(unsigned char k, int x, int y)
 
         case '1':
             {
-                svp->setShadowMode(ShadowStage::NO_SHADOW);
+                svp->setShadowMode(OSG::ShadowStage::NO_SHADOW);
                 break;
             }
 
         case '2':
             {
-                svp->setShadowMode(ShadowStage::STD_SHADOW_MAP);
+                svp->setShadowMode(OSG::ShadowStage::STD_SHADOW_MAP);
                 break;
             }
 
         case '3':
             {
-                svp->setShadowMode(ShadowStage::PERSPECTIVE_SHADOW_MAP);
+                svp->setShadowMode(OSG::ShadowStage::PERSPECTIVE_SHADOW_MAP);
                 break;
             }
 
         case '4':
             {
-                svp->setShadowMode(ShadowStage::DITHER_SHADOW_MAP);
+                svp->setShadowMode(OSG::ShadowStage::DITHER_SHADOW_MAP);
                 break;
             }
 
         case '5':
             {
-                svp->setShadowMode(ShadowStage::PCF_SHADOW_MAP);
+                svp->setShadowMode(OSG::ShadowStage::PCF_SHADOW_MAP);
                 //svp->setShadowSmoothness(0.5);
                 break;
             }
 
         case '6':
             {
-                svp->setShadowMode(ShadowStage::PCSS_SHADOW_MAP);
+                svp->setShadowMode(OSG::ShadowStage::PCSS_SHADOW_MAP);
                 svp->setShadowSmoothness(0.2);
                 break;
             }
 
         case '7':
             {
-                svp->setShadowMode(ShadowStage::VARIANCE_SHADOW_MAP);
+                svp->setShadowMode(OSG::ShadowStage::VARIANCE_SHADOW_MAP);
                 svp->setShadowSmoothness(0.5);
                 break;
             }
 
         case 'w':
             {
-                Real32  t = svp->getOffBias();
+                OSG::Real32  t = svp->getOffBias();
 
                 svp->setOffBias(++t);
-                SLOG << "Polygon-OffsetBias is: " << ++t << endLog;
+                SLOG << "Polygon-OffsetBias is: " << ++t << OSG::endLog;
                 break;
             }
 
         case 's':
             {
-                Real32  t = svp->getOffBias();
+                OSG::Real32  t = svp->getOffBias();
 
                 svp->setOffBias(--t);
-                SLOG << "Polygon-OffsetBias is: " << --t << endLog;
+                SLOG << "Polygon-OffsetBias is: " << --t << OSG::endLog;
                 break;
             }
 
         case 'e':
             {
-                Real32  u = svp->getOffFactor();
+                OSG::Real32  u = svp->getOffFactor();
 
                 svp->setOffFactor(++u);
-                SLOG << "Polygon-OffsetFactor is: " << ++u << endLog;
+                SLOG << "Polygon-OffsetFactor is: " << ++u << OSG::endLog;
                 break;
             }
 
         case 'd':
             {
-                Real32  u = svp->getOffFactor();
+                OSG::Real32  u = svp->getOffFactor();
 
                 svp->setOffFactor(--u);
-                SLOG << "Polygon-OffsetFactor is: " << --u << endLog;
+                SLOG << "Polygon-OffsetFactor is: " << --u << OSG::endLog;
                 break;
             }
 
         case '+':
             {
-                Real32  r = svp->getShadowSmoothness();
+                OSG::Real32  r = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(r + 0.1);
                 //SLOG << "ShadowSmoothness is: " << r << endLog;
@@ -916,7 +914,7 @@ void keyboard(unsigned char k, int x, int y)
 
         case '-':
             {
-                Real32  r = svp->getShadowSmoothness();
+                OSG::Real32  r = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(r - 0.1);
                 //SLOG << "ShadowSmoothness is: " << r << endLog;
@@ -932,14 +930,14 @@ void keyboard(unsigned char k, int x, int y)
         case 'x':
             {
                 svp->setMapSize(1024);
-                SLOG << "ShadowMode is: NO_SHADOW" << endLog;
+                SLOG << "ShadowMode is: NO_SHADOW" << OSG::endLog;
                 break;
             }
 
         case 'c':
             {
                 svp->setMapSize(2048);
-                SLOG << "ShadowMode is: NO_SHADOW" << endLog;
+                SLOG << "ShadowMode is: NO_SHADOW" << OSG::endLog;
                 break;
             }
 
