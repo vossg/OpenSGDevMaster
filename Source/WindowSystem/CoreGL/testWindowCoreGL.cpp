@@ -30,23 +30,23 @@
 #include <Carbon/Carbon.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-CoreGLWindowUnrecPtr    win;
+OSG::CoreGLWindowUnrecPtr    win;
 
-RenderAction    *ract;
-NodeRecPtr           root;
-NodeRecPtr           file;
-ViewportRecPtr   vp;
-TransformRecPtr  cam_trans;
-Trackball     tball;
-PerspectiveCameraRecPtr cam;
+OSG::RenderAction    *ract;
+OSG::NodeRecPtr           root;
+OSG::NodeRecPtr           file;
+OSG::ViewportRecPtr   vp;
+OSG::TransformRecPtr  cam_trans;
+OSG::Trackball     tball;
+OSG::PerspectiveCameraRecPtr cam;
 
 bool          stopIt = false;
 int           lastx=0, lasty=0;
 
 void redraw ( void )
 {
-    Matrix m1, m2, m3;
-    Quaternion q1;
+    OSG::Matrix m1, m2, m3;
+    OSG::Quaternion q1;
 
     tball.getRotation().getValue(m3);
     q1.setValue(m3);
@@ -55,7 +55,7 @@ void redraw ( void )
     m1.mult( m2 );
     cam_trans->editSFMatrix()->setValue( m1 );
 
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
 
     win->render(ract);
 }
@@ -63,7 +63,7 @@ void redraw ( void )
 static OSStatus handleMouseEvent(EventHandlerCallRef nextHandler, EventRef event, void *userData)
 {
     OSStatus err;
-    Real32 w,h,a,b,c,d;
+    OSG::Real32 w,h,a,b,c,d;
 
     // Get the pressed mouse button
     EventMouseButton mouseButton;
@@ -240,18 +240,18 @@ int doMain (int argc, char **argv)
 
     // OSG init
 
-    osgInit(argc, argv);
+    OSG::osgInit(argc, argv);
 
     // create the graph
 
     // beacon for camera and light
-    NodeUnrecPtr b1n = Node::create();
-    GroupUnrecPtr b1 = Group::create();
+    OSG::NodeUnrecPtr b1n = OSG::Node::create();
+    OSG::GroupUnrecPtr b1 = OSG::Group::create();
     b1n->setCore( b1 );
 
     // transformation
-    NodeUnrecPtr t1n = Node::create();
-    TransformUnrecPtr t1 = Transform::create();
+    OSG::NodeUnrecPtr t1n = OSG::Node::create();
+    OSG::TransformUnrecPtr t1 = OSG::Transform::create();
     t1n->setCore( t1 );
     t1n->addChild( b1n );
 
@@ -259,8 +259,8 @@ int doMain (int argc, char **argv)
 
     // light
 
-    NodeUnrecPtr dlight = Node::create();
-    DirectionalLightUnrecPtr dl = DirectionalLight::create();
+    OSG::NodeUnrecPtr dlight = OSG::Node::create();
+    OSG::DirectionalLightUnrecPtr dl = OSG::DirectionalLight::create();
 
     dlight->setCore( dl );
 
@@ -270,8 +270,8 @@ int doMain (int argc, char **argv)
     dl->setBeacon( b1n);
 
     // root
-    root = Node::create();
-    GroupUnrecPtr gr1 = Group::create();
+    root = OSG::Node::create();
+    OSG::GroupUnrecPtr gr1 = OSG::Group::create();
 
     root->setCore( gr1 );
     root->addChild( t1n );
@@ -279,21 +279,21 @@ int doMain (int argc, char **argv)
 
     // Load the file
 
-    NodeUnrecPtr file = NULL;
+    OSG::NodeUnrecPtr file = NULL;
 
     if ( argc > 1 )
-        file = SceneFileHandler::the()->read(argv[1]);
+        file = OSG::SceneFileHandler::the()->read(argv[1]);
 
     if ( file == NULL )
     {
         std::cerr << "Couldn't load file, ignoring" << std::endl;
-        file = makeTorus( .5, 2, 16, 16 );
+        file = OSG::makeTorus( .5, 2, 16, 16 );
     }
 
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
     file->updateVolume();
 
-    Vec3f min,max;
+    OSG::Vec3f min,max;
     file->getVolume().getBounds( min, max );
 
     std::cout << "Volume: from " << min << " to " << max << std::endl;
@@ -304,21 +304,21 @@ int doMain (int argc, char **argv)
     //root->dump();
 
     // Camera
-    cam = PerspectiveCamera::create();
+    cam = OSG::PerspectiveCamera::create();
 
     cam->setBeacon( b1n );
-    cam->setFov( osgDegree2Rad( 90 ) );
+    cam->setFov( OSG::osgDegree2Rad( 90 ) );
     cam->setNear( 0.1 );
     cam->setFar( 100000 );
 
     // Background
-    SolidBackgroundUnrecPtr bkgnd = SolidBackground::create();
+    OSG::SolidBackgroundUnrecPtr bkgnd = OSG::SolidBackground::create();
 
-    bkgnd->setColor(Color3f(0,0,1));
+    bkgnd->setColor(OSG::Color3f(0,0,1));
 
     // Viewport
 
-    vp = Viewport::create();
+    vp = OSG::Viewport::create();
     vp->setCamera( cam );
     vp->setBackground( bkgnd );
     vp->setRoot( root );
@@ -326,25 +326,25 @@ int doMain (int argc, char **argv)
 
     // Action
 
-    ract = RenderAction::create();
+    ract = OSG::RenderAction::create();
 
     // tball
 
-    Vec3f pos;
+    OSG::Vec3f pos;
     pos.setValues(min[0] + ((max[0] - min[0]) * 0.5), 
                   min[1] + ((max[1] - min[1]) * 0.5), 
                   max[2] + ( max[2] - min[2] ) * 1.5 );
     
     float scale = (max[2] - min[2] + max[1] - min[1] + max[0] - min[0]) / 6;
 
-    Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
-                  min[1] + (max[1] - min[1]) / 2,
-                  min[2] + (max[2] - min[2]) / 2);
-
-    tball.setMode( Trackball::OSGObject );
+    OSG::Pnt3f tCenter(min[0] + (max[0] - min[0]) / 2,
+                       min[1] + (max[1] - min[1]) / 2,
+                       min[2] + (max[2] - min[2]) / 2);
+    
+    tball.setMode( OSG::Trackball::OSGObject );
     tball.setStartPosition( pos, true );
     tball.setSum( true );
-    tball.setTranslationMode( Trackball::OSGFree );
+    tball.setTranslationMode( OSG::Trackball::OSGFree );
     tball.setTranslationScale(scale);
     tball.setRotationCenter(tCenter);
 
@@ -385,7 +385,7 @@ int doMain (int argc, char **argv)
     CGLSetFullScreen(contextObj);
 
     // Create OpenSG window
-    win = CoreGLWindow::create();
+    win = OSG::CoreGLWindow::create();
     win->addPort( vp );             
     win->setContext ( contextObj );
     win->init();
@@ -426,7 +426,7 @@ int main (int argc, char **argv)
 {
     doMain(argc, argv);
 
-    osgExit();
+    OSG::osgExit();
 
     return 0;
 }
