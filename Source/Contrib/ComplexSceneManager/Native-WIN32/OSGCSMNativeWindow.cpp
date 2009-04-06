@@ -451,8 +451,6 @@ bool CSMNativeWindow::init(void)
 
     Inherited::init();
 
-    _pWin32Window->deactivate();
-
     return true;
 }
 
