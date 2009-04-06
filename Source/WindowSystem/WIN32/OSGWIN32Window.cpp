@@ -129,33 +129,48 @@ void WIN32Window::init(GLInitFunctor oFunc)
 
     ReleaseDC(getHwnd(), getHdc());
 
-    this->activate();
+    this->doActivate();
 
     Inherited::init(oFunc);
 
-    this->deactivate();
+    this->doDeactivate();
 }
 
-void WIN32Window::forceActivateDeprecated  (void)
+void WIN32Window::activate  (void)
 {
-    this->activate();
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doActivate();
+    }
 }
 
-void WIN32Window::forceDeactivateDeprecated(void)
+void WIN32Window::deactivate(void)
 {
-    this->deactivate();
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doDeactivate();
+    }
 }
 
-bool WIN32Window::forceSwapDeprecated      (void)
+bool WIN32Window::swap      (void)
 {
-    return this->swap();
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        return this->doSwap();
+    }
+
+    return false;
 }
 
 /*! activate the window: set the HDC and bind the OGL context
 */
-void WIN32Window::activate( void )
+void WIN32Window::doActivate( void )
 {    
-    setHdc(GetDC(getHwnd()));
+    if(getHdc() == NULL)
+        setHdc(GetDC(getHwnd()));
 
     if(!wglMakeCurrent(getHdc(), getHglrc() ) )
     {
@@ -165,7 +180,7 @@ void WIN32Window::activate( void )
     }
 }
 
-void WIN32Window::deactivate ( void )
+void WIN32Window::doDeactivate ( void )
 {
     // unbind the context
     wglMakeCurrent(NULL, NULL);
@@ -175,7 +190,7 @@ void WIN32Window::deactivate ( void )
 }
 
 // swap front and back buffers
-bool WIN32Window::swap( void )
+bool WIN32Window::doSwap( void )
 {
     return SwapBuffers(getHdc());
 }

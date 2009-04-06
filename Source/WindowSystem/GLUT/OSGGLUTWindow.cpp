@@ -115,7 +115,8 @@ void GLUTWindow::dump(      UInt32    ,
 void GLUTWindow::init(GLInitFunctor oFunc)
 {
 #if defined(WIN32)
-#error "win32 need impl"
+    Inherited::setHdc  (wglGetCurrentDC     ());
+    Inherited::setHglrc(wglGetCurrentContext());
 #elif defined(__APPLE__)
     glutSetWindow(getGlutId());
 

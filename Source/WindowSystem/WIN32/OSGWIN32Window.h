@@ -86,9 +86,9 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
 
-    virtual void forceActivateDeprecated  (void);
-    virtual void forceDeactivateDeprecated(void);
-    virtual bool forceSwapDeprecated      (void);
+    virtual void activate  (void);
+    virtual void deactivate(void);
+    virtual bool swap      (void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -123,9 +123,9 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
     /*! \name      Window system implementation functions                  */
     /*! \{                                                                 */
 
-    virtual void activate  (void);
-    virtual void deactivate(void);
-    virtual bool swap      (void);
+    virtual void doActivate  (void);
+    virtual void doDeactivate(void);
+    virtual bool doSwap      (void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

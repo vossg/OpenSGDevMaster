@@ -111,7 +111,8 @@ void PassiveWindow::dump(      UInt32    ,
 void PassiveWindow::init(GLInitFunctor oFunc)
 {
 #if defined(WIN32)
-#error "win32 need impl"
+    Inherited::setHdc  (wglGetCurrentDC     ());
+    Inherited::setHglrc(wglGetCurrentContext());
 #elif defined(__APPLE__)
     Inherited::setContext(aglGetCurrentContext());
 #else
