@@ -45,6 +45,7 @@
 
 #include "OSGManipulatorManager.h"
 
+OSG_BEGIN_NAMESPACE
 
 // TODO: der ManipulatorManager merkt sich den Core, nicht den Node des
 // Manipulators. Damit besteht ein Problem mit Multi-Parents, das nicht waere,
@@ -138,18 +139,18 @@ void ManipulatorManager::mouseMove(const Int16 x,
     _maniC->mouseMove(x, y);
 }
 
-void ManipulatorManager::mouseButtonPress(const UInt16 button,
+void ManipulatorManager::mouseButtonPress(const UInt16 uiButton,
                                           const Int16 x,
                                           const Int16 y      )
 {
-    _maniC->mouseButtonPress(button, x, y);
+    _maniC->mouseButtonPress(uiButton, x, y);
 }
 
-void ManipulatorManager::mouseButtonRelease(const UInt16 button,
+void ManipulatorManager::mouseButtonRelease(const UInt16 uiButton,
                                             const Int16 x,
                                             const Int16 y      )
 {
-    _maniC->mouseButtonRelease(button, x, y);
+    _maniC->mouseButtonRelease(uiButton, x, y);
 }
 
 bool ManipulatorManager::activate(Node *n)
@@ -164,3 +165,5 @@ bool ManipulatorManager::activate(Node *n)
         return false;
     }
 }
+
+OSG_END_NAMESPACE

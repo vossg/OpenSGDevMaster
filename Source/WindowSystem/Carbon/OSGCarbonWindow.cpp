@@ -118,30 +118,67 @@ void CarbonWindow::dump(      UInt32    ,
 
 /*! Init the window: create the context and setup the OpenGL.
 */
-void CarbonWindow::init(void)
+void CarbonWindow::init(GLInitFunctor oFunc)
 {
-    aglSetCurrentContext(getContext());
-    setupGL();
+    this->doActivate();
+    
+    Inherited::init(oFunc);
+
+    this->doDeactivate();
 }
 
 // activate the window: bind the OGL context
 void CarbonWindow::activate( void )
 {
-    aglSetCurrentContext(getContext());
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doActivate();
+    }
 }
 
 // activate the window: bind the OGL context
 void CarbonWindow::deactivate( void )
 {
-    aglSetCurrentContext(0);
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doDeactivate();
+    }
 }
 
 // swap front and back buffers
 bool CarbonWindow::swap( void )
 {
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doSwap();
+    }
+
+    return true;
+}
+
+
+// activate the window: bind the OGL context
+void CarbonWindow::doActivate( void )
+{
+    aglSetCurrentContext(getContext());
+}
+
+// activate the window: bind the OGL context
+void CarbonWindow::doDeactivate( void )
+{
+    aglSetCurrentContext(0);
+}
+
+// swap front and back buffers
+bool CarbonWindow::doSwap( void )
+{
     aglSwapBuffers(getContext());
     return true;
 }
+
 
 OSG_END_NAMESPACE
 

@@ -118,26 +118,59 @@ void CoreGLWindow::dump(      UInt32    ,
 
 /*! Init the window: create the context and setup the OpenGL.
 */
-void CoreGLWindow::init(void)
+void CoreGLWindow::init(GLInitFunctor oFunc)
 {
-    CGLSetCurrentContext(getContext());
-    setupGL();
+    this->doActivate();
+    
+    Inherited::init(oFunc);
+
+    this->doDeactivate();
 }
 
 // activate the window: bind the OGL context
 void CoreGLWindow::activate( void )
 {
-    CGLSetCurrentContext(getContext());
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doActivate();
+    }
 }
 
 // activate the window: bind the OGL context
 void CoreGLWindow::deactivate( void )
 {
-    CGLSetCurrentContext(0);
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doDeactivate();
+    }
 }
 
 // swap front and back buffers
 bool CoreGLWindow::swap( void )
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doSwap();
+    }
+}
+
+// activate the window: bind the OGL context
+void CoreGLWindow::doActivate( void )
+{
+    CGLSetCurrentContext(getContext());
+}
+
+// activate the window: bind the OGL context
+void CoreGLWindow::doDeactivate( void )
+{
+    CGLSetCurrentContext(0);
+}
+
+// swap front and back buffers
+bool CoreGLWindow::doSwap( void )
 {
     CGLFlushDrawable(getContext());
     return true;

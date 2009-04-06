@@ -117,7 +117,9 @@ void GLUTWindow::init(GLInitFunctor oFunc)
 #if defined(WIN32)
 #error "win32 need impl"
 #elif defined(__APPLE__)
-#error "apple needs impl"
+    glutSetWindow(getGlutId());
+
+    Inherited::setContext(aglGetCurrentContext());
 #else
     glutSetWindow(getGlutId());
 

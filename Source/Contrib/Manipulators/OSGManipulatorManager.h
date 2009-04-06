@@ -48,9 +48,11 @@
 #include "OSGRotateManipulator.h"
 #include "OSGScaleManipulator.h"
 
+OSG_BEGIN_NAMESPACE
+
 class OSG_CONTRIBGUI_DLLMAPPING ManipulatorManager
 {
-public:
+ public:
     enum    ManipulatorType { ROTATE, SCALE, TRANSLATE };
 
     NodeTransitPtr createManipulator(const ManipulatorType  type);
@@ -76,5 +78,7 @@ private:
     NodeUnrecPtr         _target;
     ViewportUnrecPtr     _viewport;
 };
+
+OSG_END_NAMESPACE
 
 #endif // _OSGMANIPULATORMANAGER_H_

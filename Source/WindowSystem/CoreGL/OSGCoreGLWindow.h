@@ -84,10 +84,10 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindow : public CoreGLWindowBase
     /*! \name                Window functions                              */
     /*! \{                                                                 */
     
-    virtual void init      (void);
-    virtual void activate  (void);
-    virtual void deactivate(void);
-    virtual bool swap      (void);
+    virtual void init      (GLInitFunctor oFunc = GLInitFunctor());
+    virtual void activate  (void                                 );
+    virtual void deactivate(void                                 );
+    virtual bool swap      (void                                 );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -118,18 +118,21 @@ class OSG_WINDOWCOREGL_DLLMAPPING CoreGLWindow : public CoreGLWindowBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+    virtual void doActivate  (void);
+    virtual void doDeactivate(void);
+    virtual bool doSwap      (void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
     friend class CoreGLWindowBase;
-
-    template<class ContainerFactoryT>
-    friend struct CPtrConstructionFunctions;
-
-    template<class ContainerFactoryT>
-    friend struct PtrConstructionFunctions;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const CoreGLWindow &source);

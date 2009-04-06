@@ -84,10 +84,10 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
     /*! \name                Window functions                              */
     /*! \{                                                                 */
     
-    virtual void init      (void);
-    virtual void activate  (void);
-    virtual void deactivate(void);
-    virtual bool swap      (void);
+    virtual void init      (GLInitFunctor oFunc = GLInitFunctor());
+    virtual void activate  (void                                 );
+    virtual void deactivate(void                                 );
+    virtual bool swap      (void                                 );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -116,6 +116,15 @@ class OSG_WINDOWCOCOA_DLLMAPPING CocoaWindow : public CocoaWindowBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name      Window system implementation functions                  */
+    /*! \{                                                                 */
+
+    virtual void doActivate  (void);
+    virtual void doDeactivate(void);
+    virtual bool doSwap      (void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

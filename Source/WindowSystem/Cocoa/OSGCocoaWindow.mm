@@ -118,26 +118,60 @@ void CocoaWindow::dump(      UInt32    ,
 
 /*! Init the window: create the context and setup the OpenGL.
 */
-void CocoaWindow::init(void)
+void CocoaWindow::init(GLInitFunctor oFunc)
 {
-    [getContext() makeCurrentContext];
-    setupGL();
+    this->doActivate();
+
+    Inherited::init(oFunc);
+
+    this->doDeactivate();
 }
 
 // activate the window: bind the OGL context
 void CocoaWindow::activate( void )
 {
-    [getContext() makeCurrentContext];
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doActivate();
+    }
 }
 
 // activate the window: bind the OGL context
 void CocoaWindow::deactivate( void )
 {
-    [NSOpenGLContext clearCurrentContext];
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doDeactivate();
+    }
 }
 
 // swap front and back buffers
 bool CocoaWindow::swap( void )
+{
+    if((_sfPartitionDrawMode.getValue() & 
+         PartitionDrawMask               ) == SequentialPartitionDraw)
+    {
+        this->doSwap();
+    }
+}
+
+
+// activate the window: bind the OGL context
+void CocoaWindow::doActivate( void )
+{
+    [getContext() makeCurrentContext];
+}
+
+// activate the window: bind the OGL context
+void CocoaWindow::doDeactivate( void )
+{
+    [NSOpenGLContext clearCurrentContext];
+}
+
+// swap front and back buffers
+bool CocoaWindow::doSwap( void )
 {
     [getContext() flushBuffer];
     return true;
