@@ -68,14 +68,15 @@ class NamedNodeFinder
         _name  = name;
         _found = NULL;
         
-        traverse(root, boost::bind(&NamedNodeFinder::check, this, _1));
+        traverse(root, boost::bind(&NamedNodeFinder::checkNode, this, _1));
         
         return _found;
     }
     
   private:
      
-    OSG::Action::ResultE check(OSG::Node *node)
+    // %$#%$#% OS X trashes check symbol so we need to use checkNode
+    OSG::Action::ResultE checkNode(OSG::Node *node)
     {
         OSG::Attachment *a = node->findAttachment(OSG::Name::getClassType());
         

@@ -59,6 +59,8 @@ int setupGLUT( int *argc, char *argv[] );
 
 class NamedNodeFinder
 {
+  private:
+
   public:
 
     NamedNodeFinder(void) : _name(), _found() {}
@@ -69,8 +71,8 @@ class NamedNodeFinder
         _found = NULL;
 
         OSG::TraverseEnterFunctor enter =
-            boost::bind(&NamedNodeFinder::check, this, _1);
-        traverse(root, enter);
+            boost::bind(&NamedNodeFinder::checkNode, this, _1);
+        OSG::traverse(root, enter);
 
         return _found;
     }
@@ -82,11 +84,10 @@ class NamedNodeFinder
         return f(root, name);
     }
 
-  private:
-
-    OSG::Action::ResultE check(OSG::Node *node)
+    // %$#%$#% OS X trashes check symbol so we need to use checkNode
+    OSG::Action::ResultE checkNode(OSG::Node *node)
     {
-        if(getName(node) && _name == getName(node))
+        if(OSG::getName(node) && _name == OSG::getName(node))
         {
             _found = node;
             return OSG::Action::Quit;
