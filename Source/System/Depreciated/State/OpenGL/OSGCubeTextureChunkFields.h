@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class CubeTextureChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! CubeTextureChunkPtr
-
 OSG_GEN_CONTAINERPTR(CubeTextureChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<CubeTextureChunk *> :
     public FieldTraitsFCPtrBase<CubeTextureChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<CubeTextureChunk *, 0>::getMName<NoRefCountPolicy>(void
     return "MFUnrefdCubeTextureChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<CubeTextureChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<CubeTextureChunk *,
                       RecordedRefCountPolicy  > SFRecCubeTextureChunkPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<CubeTextureChunk *,
                       UnrecordedRefCountPolicy> SFUnrecCubeTextureChunkPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<CubeTextureChunk *,
                       WeakRefCountPolicy      > SFWeakCubeTextureChunkPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<CubeTextureChunk *,
                       NoRefCountPolicy        > SFUncountedCubeTextureChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<CubeTextureChunk *,
                       RecordedRefCountPolicy  > MFRecCubeTextureChunkPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<CubeTextureChunk *,
                       UnrecordedRefCountPolicy> MFUnrecCubeTextureChunkPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<CubeTextureChunk *,
                       WeakRefCountPolicy      > MFWeakCubeTextureChunkPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<CubeTextureChunk *,
                       NoRefCountPolicy        > MFUncountedCubeTextureChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecCubeTextureChunkPtr : 
+    public PointerSField<CubeTextureChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecCubeTextureChunkPtr : 
+    public PointerSField<CubeTextureChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakCubeTextureChunkPtr :
+    public PointerSField<CubeTextureChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedCubeTextureChunkPtr :
+    public PointerSField<CubeTextureChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecCubeTextureChunkPtr :
+    public PointerMField<CubeTextureChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecCubeTextureChunkPtr :
+    public PointerMField<CubeTextureChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakCubeTextureChunkPtr :
+    public PointerMField<CubeTextureChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedCubeTextureChunkPtr :
+    public PointerMField<CubeTextureChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 
