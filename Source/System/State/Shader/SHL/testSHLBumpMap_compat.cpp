@@ -110,9 +110,9 @@ static std::string _fp_program =
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-static SimpleSceneManager *_mgr;
+static OSG::SimpleSceneManager *_mgr;
 // The scene
-static NodeRecPtr _scene;
+static OSG::NodeRecPtr _scene;
 
 // forward declaration so we can have the interesting stuff upfront
 int setupGLUT( int *argc, char *argv[] );
@@ -123,19 +123,19 @@ int main(int argc, char **argv)
     printf("Usage: testCGShader [normal map filename]\n");
     const char *normal_map_img_name = "opensg_logoDOT3.png";
 
-    Color4f tmp;
+    OSG::Color4f tmp;
 
     if( argc > 1 )
         normal_map_img_name = argv[1];
 
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin= GLUTWindow::create();
+    OSG::GLUTWindowUnrecPtr gwin= OSG::GLUTWindow::create();
     gwin->setGlutId(winid);
     gwin->setSize( 800, 800 );
     gwin->init();
@@ -143,30 +143,32 @@ int main(int argc, char **argv)
     // Create the shader material
 
     // Read the image for the normal texture
-    ImageUnrecPtr normal_map_img = Image::create();
+    OSG::ImageUnrecPtr normal_map_img = OSG::Image::create();
     if(!normal_map_img->read(normal_map_img_name))
     {
         fprintf(stderr, "Couldn't read normalmap texture '%s'!\n", normal_map_img_name);
         return 1;
     }
 
-    ChunkMaterialUnrecPtr cmat = ChunkMaterial::create();
+    OSG::ChunkMaterialUnrecPtr cmat = OSG::ChunkMaterial::create();
 
-    MaterialChunkUnrecPtr matc = MaterialChunk::create();
+    OSG::MaterialChunkUnrecPtr matc = OSG::MaterialChunk::create();
 
-    matc->setAmbient(Color4f(0.1, 0.1, 0.1, 1.0));
-    matc->setDiffuse(Color4f(0.3, 0.3, 0.3, 1.0));
-    matc->setSpecular(Color4f(0.8, 0.8, 0.8, 1.0));
+    matc->setAmbient(OSG::Color4f(0.1, 0.1, 0.1, 1.0));
+    matc->setDiffuse(OSG::Color4f(0.3, 0.3, 0.3, 1.0));
+    matc->setSpecular(OSG::Color4f(0.8, 0.8, 0.8, 1.0));
     matc->setShininess(100);
     matc->setLit(true);
 
-    SHLChunkUnrecPtr shl = SHLChunk::create();
+    OSG::SHLChunkUnrecPtr shl = OSG::SHLChunk::create();
 
     shl->setVertexProgram(_vp_program);
     shl->setFragmentProgram(_fp_program);
 
-    TextureObjChunkUnrecPtr tex_normal_map     = TextureObjChunk::create();
-    TextureEnvChunkUnrecPtr tex_normal_map_env = TextureEnvChunk::create();
+    OSG::TextureObjChunkUnrecPtr tex_normal_map     = 
+        OSG::TextureObjChunk::create();
+    OSG::TextureEnvChunkUnrecPtr tex_normal_map_env = 
+        OSG::TextureEnvChunk::create();
 
     tex_normal_map->setImage(normal_map_img);
     tex_normal_map->setMinFilter(GL_LINEAR_MIPMAP_LINEAR);
@@ -182,25 +184,25 @@ int main(int argc, char **argv)
 
 
     // create root node
-    _scene = Node::create();
+    _scene = OSG::Node::create();
 
     // create geometry
     //GeometryPtr geo = makeLatLongSphereGeo (100, 100, 1.0);
-    GeometryUnrecPtr geo = makePlaneGeo(1.0, 1.0, 100, 100);
+    OSG::GeometryUnrecPtr geo = OSG::makePlaneGeo(1.0, 1.0, 100, 100);
 
     geo->setMaterial(cmat);
 
-    NodeUnrecPtr torus = Node::create();
+    OSG::NodeUnrecPtr torus = OSG::Node::create();
     torus->setCore(geo);
 
     // add torus to scene
-    GroupUnrecPtr group = Group::create();
+    OSG::GroupUnrecPtr group = OSG::Group::create();
 
     _scene->setCore(group);
     _scene->addChild(torus);
 
     // create the SimpleSceneManager helper
-    _mgr = new SimpleSceneManager;
+    _mgr = new OSG::SimpleSceneManager;
 
     // tell the manager what to manage
     _mgr->setWindow(gwin );
@@ -278,11 +280,11 @@ void keyboard(unsigned char k, int x, int y)
 
             _scene = NULL;
 
-            osgExit();
+            OSG::osgExit();
             exit(1);
         break;
         case 'w':
-            SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
+            OSG::SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
             printf("wrote scene.osb.gz\n");
         break;
     }
