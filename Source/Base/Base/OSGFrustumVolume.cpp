@@ -149,14 +149,59 @@ Real FrustumVolume::getScalarVolume() const
 }
 
 
-/*! 
-  \warning NOT IMPLEMENTED 
-  \brief   NOT IMPLEMENTED 
+/*! Computes the \a minPnt and \a maxPnt of an axis aligned bounding box
+    containing this volume.
  */
-
-void FrustumVolume::getBounds(Pnt3r &OSG_CHECK_ARG(minPnt), 
-                              Pnt3r &OSG_CHECK_ARG(maxPnt)) const
+void FrustumVolume::getBounds(Pnt3r &minPnt,
+                              Pnt3r &maxPnt ) const
 {
+    Pnt3r corners[8];
+
+    this->getCorners(corners[0], corners[1], corners[2], corners[3],
+                     corners[4], corners[5], corners[6], corners[7] );
+
+    minPnt[0] = TypeTraits<Pnt3r::ValueType>::getMax();
+    minPnt[1] = TypeTraits<Pnt3r::ValueType>::getMax();
+    minPnt[2] = TypeTraits<Pnt3r::ValueType>::getMax();
+
+    maxPnt[0] = TypeTraits<Pnt3r::ValueType>::getMin();
+    maxPnt[1] = TypeTraits<Pnt3r::ValueType>::getMin();
+    maxPnt[2] = TypeTraits<Pnt3r::ValueType>::getMin();
+
+    for(UInt32 i = 0; i < 8; ++i)
+    {
+        minPnt[0] = osgMin(minPnt[0], corners[i][0]);
+        minPnt[1] = osgMin(minPnt[1], corners[i][1]);
+        minPnt[2] = osgMin(minPnt[2], corners[i][2]);
+
+        maxPnt[0] = osgMax(maxPnt[0], corners[i][0]);
+        maxPnt[1] = osgMax(maxPnt[1], corners[i][1]);
+        maxPnt[2] = osgMax(maxPnt[2], corners[i][2]);
+    }
+}
+
+/*! Computes the eight corner points of the frustum.
+ */
+void FrustumVolume::getCorners(Pnt3r &nlt, Pnt3r &nlb,
+                               Pnt3r &nrt, Pnt3r &nrb,
+                               Pnt3r &flt, Pnt3r &flb,
+                               Pnt3r &frt, Pnt3r &frb ) const
+{
+    Line edges[4];
+
+    _planeVec[PLANE_BOTTOM].intersect(_planeVec[PLANE_RIGHT ], edges[3]);
+    _planeVec[PLANE_RIGHT ].intersect(_planeVec[PLANE_TOP   ], edges[2]);
+    _planeVec[PLANE_TOP   ].intersect(_planeVec[PLANE_LEFT  ], edges[0]);
+    _planeVec[PLANE_LEFT  ].intersect(_planeVec[PLANE_BOTTOM], edges[1]);
+
+    _planeVec[PLANE_NEAR].intersectInfinite(edges[0], nlt);
+    _planeVec[PLANE_FAR ].intersectInfinite(edges[0], flt);
+    _planeVec[PLANE_NEAR].intersectInfinite(edges[1], nlb);
+    _planeVec[PLANE_FAR ].intersectInfinite(edges[1], flb);
+    _planeVec[PLANE_NEAR].intersectInfinite(edges[2], nrt);
+    _planeVec[PLANE_FAR ].intersectInfinite(edges[2], frt);
+    _planeVec[PLANE_NEAR].intersectInfinite(edges[3], nrb);
+    _planeVec[PLANE_FAR ].intersectInfinite(edges[3], frb);
 }
 
 /*------------------------------ feature ----------------------------------*/

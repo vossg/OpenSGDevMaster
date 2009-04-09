@@ -98,18 +98,23 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
     /*! \name                    Get                                       */
     /*! \{                                                                 */
     
-            const Plane  &getNear        (void         ) const;
-            const Plane  &getFar         (void         ) const;
-            const Plane  &getLeft        (void         ) const;
-            const Plane  &getRight       (void         ) const;
-            const Plane  &getTop         (void         ) const;
-            const Plane  &getBottom      (void         ) const;
-            const Plane  *getPlanes      (void         ) const; 
+            const Plane  &getNear        (void                      ) const;
+            const Plane  &getFar         (void                      ) const;
+            const Plane  &getLeft        (void                      ) const;
+            const Plane  &getRight       (void                      ) const;
+            const Plane  &getTop         (void                      ) const;
+            const Plane  &getBottom      (void                      ) const;
+            const Plane  *getPlanes      (void                      ) const; 
 
-    virtual       void    getCenter      (Pnt3r &center) const;
-    virtual       Real    getScalarVolume(void         ) const;
+    virtual       void    getCenter      (Pnt3r &center             ) const;
+    virtual       Real    getScalarVolume(void                      ) const;
     virtual       void    getBounds      (Pnt3r &minPnt,
-                                          Pnt3r &maxPnt) const;
+                                          Pnt3r &maxPnt             ) const;
+
+                  void    getCorners     (Pnt3r &nlt,    Pnt3r &nlb,
+                                          Pnt3r &nrt,    Pnt3r &nrb,
+                                          Pnt3r &flt,    Pnt3r &flb,
+                                          Pnt3r &frt,    Pnt3r &frb ) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -179,6 +184,16 @@ class OSG_BASE_DLLMAPPING FrustumVolume : public Volume
   protected:
 
     typedef Volume Inherited;
+
+    enum 
+    {
+        PLANE_NEAR   = 0,
+        PLANE_FAR    = 1,
+        PLANE_LEFT   = 2,
+        PLANE_RIGHT  = 3,
+        PLANE_TOP    = 4,
+        PLANE_BOTTOM = 5
+    };
     
     /*==========================  PRIVATE  ================================*/
 
