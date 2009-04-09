@@ -42,11 +42,14 @@ extension(s) are also available.
 
 \deprecated Use OSG::TextureObjChunk instead.
 	<Field
-		name="image"
-		type="ImagePtr"
-		cardinality="single"
-		visibility="external"
-		access="public"
+	    name="image"
+	    type="Image"
+            category="childpointer"
+	    cardinality="single"
+	    visibility="external"
+	    access="public"
+            childParentType="FieldContainer"
+            linkParentField="Parents"
 	>
 	The texture image.
 	</Field>

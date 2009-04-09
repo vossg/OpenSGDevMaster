@@ -395,8 +395,8 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecImagePtr::Description(
-        SFUnrecImagePtr::getClassType(),
+    pDesc = new SFUnrecChildImagePtr::Description(
+        SFUnrecChildImagePtr::getClassType(),
         "image",
         "The texture image.\n",
         ImageFieldId, ImageFieldMask,
@@ -1140,11 +1140,14 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\n"
     "\\deprecated Use OSG::TextureObjChunk instead.\n"
     "\t<Field\n"
-    "\t\tname=\"image\"\n"
-    "\t\ttype=\"ImagePtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
+    "\t    name=\"image\"\n"
+    "\t    type=\"Image\"\n"
+    "            category=\"childpointer\"\n"
+    "\t    cardinality=\"single\"\n"
+    "\t    visibility=\"external\"\n"
+    "\t    access=\"public\"\n"
+    "            childParentType=\"FieldContainer\"\n"
+    "            linkParentField=\"Parents\"\n"
     "\t>\n"
     "\tThe texture image.\n"
     "\t</Field>\n"
@@ -1796,12 +1799,12 @@ UInt32 TextureChunkBase::getContainerSize(void) const
 
 
 //! Get the TextureChunk::_sfImage field.
-const SFUnrecImagePtr *TextureChunkBase::getSFImage(void) const
+const SFUnrecChildImagePtr *TextureChunkBase::getSFImage(void) const
 {
     return &_sfImage;
 }
 
-SFUnrecImagePtr     *TextureChunkBase::editSFImage          (void)
+SFUnrecChildImagePtr *TextureChunkBase::editSFImage          (void)
 {
     editSField(ImageFieldMask);
 
@@ -3321,7 +3324,9 @@ FieldContainerTransitPtr TextureChunkBase::shallowCopy(void) const
 
 TextureChunkBase::TextureChunkBase(void) :
     Inherited(),
-    _sfImage                  (NULL),
+    _sfImage                  (this,
+                          ImageFieldId,
+                          Image::ParentsFieldId),
     _sfInternalFormat         (GLenum(GL_NONE)),
     _sfExternalFormat         (GLenum(GL_NONE)),
     _sfScale                  (bool(true)),
@@ -3381,7 +3386,9 @@ TextureChunkBase::TextureChunkBase(void) :
 
 TextureChunkBase::TextureChunkBase(const TextureChunkBase &source) :
     Inherited(source),
-    _sfImage                  (NULL),
+    _sfImage                  (this,
+                          ImageFieldId,
+                          Image::ParentsFieldId),
     _sfInternalFormat         (source._sfInternalFormat         ),
     _sfExternalFormat         (source._sfExternalFormat         ),
     _sfScale                  (source._sfScale                  ),
@@ -3446,6 +3453,42 @@ TextureChunkBase::~TextureChunkBase(void)
 {
 }
 
+/*-------------------------------------------------------------------------*/
+/* Child linking                                                           */
+
+bool TextureChunkBase::unlinkChild(
+    FieldContainer * const pChild,
+    UInt16           const childFieldId)
+{
+    if(childFieldId == ImageFieldId)
+    {
+        Image * pTypedChild =
+            dynamic_cast<Image *>(pChild);
+
+        if(pTypedChild != NULL)
+        {
+            if(pTypedChild == _sfImage.getValue())
+            {
+                editSField(ImageFieldMask);
+
+                _sfImage.setValue(NULL);
+
+                return true;
+            }
+
+            FWARNING(("TextureChunkBase::unlinkParent: Child <-> "
+                      "Parent link inconsistent.\n"));
+
+            return false;
+        }
+
+        return false;
+    }
+
+
+    return Inherited::unlinkChild(pChild, childFieldId);
+}
+
 void TextureChunkBase::onCreate(const TextureChunk *source)
 {
     Inherited::onCreate(source);
@@ -3460,8 +3503,8 @@ void TextureChunkBase::onCreate(const TextureChunk *source)
 
 GetFieldHandlePtr TextureChunkBase::getHandleImage           (void) const
 {
-    SFUnrecImagePtr::GetHandlePtr returnValue(
-        new  SFUnrecImagePtr::GetHandle(
+    SFUnrecChildImagePtr::GetHandlePtr returnValue(
+        new  SFUnrecChildImagePtr::GetHandle(
              &_sfImage,
              this->getType().getFieldDesc(ImageFieldId),
              const_cast<TextureChunkBase *>(this)));
@@ -3471,8 +3514,8 @@ GetFieldHandlePtr TextureChunkBase::getHandleImage           (void) const
 
 EditFieldHandlePtr TextureChunkBase::editHandleImage          (void)
 {
-    SFUnrecImagePtr::EditHandlePtr returnValue(
-        new  SFUnrecImagePtr::EditHandle(
+    SFUnrecChildImagePtr::EditHandlePtr returnValue(
+        new  SFUnrecChildImagePtr::EditHandle(
              &_sfImage,
              this->getType().getFieldDesc(ImageFieldId),
              this));

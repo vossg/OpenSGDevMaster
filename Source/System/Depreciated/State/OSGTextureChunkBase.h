@@ -318,7 +318,7 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecImagePtr   SFImageType;
+    typedef SFUnrecChildImagePtr SFImageType;
     typedef SFGLenum          SFInternalFormatType;
     typedef SFGLenum          SFExternalFormatType;
     typedef SFBool            SFScaleType;
@@ -397,8 +397,8 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecImagePtr     *getSFImage          (void) const;
-                  SFUnrecImagePtr     *editSFImage          (void);
+            const SFUnrecChildImagePtr *getSFImage          (void) const;
+                  SFUnrecChildImagePtr *editSFImage          (void);
 
                   SFGLenum            *editSFInternalFormat (void);
             const SFGLenum            *getSFInternalFormat  (void) const;
@@ -850,7 +850,7 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecImagePtr   _sfImage;
+    SFUnrecChildImagePtr _sfImage;
     SFGLenum          _sfInternalFormat;
     SFGLenum          _sfExternalFormat;
     SFBool            _sfScale;
@@ -927,6 +927,14 @@ class OSG_SYSTEM_DLLMAPPING TextureChunkBase : public TextureBaseChunk
     /*! \{                                                                 */
 
     void onCreate(const TextureChunk *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
