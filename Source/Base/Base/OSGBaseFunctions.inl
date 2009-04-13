@@ -2489,7 +2489,9 @@ size_t osgNextPower2<size_t>(size_t rValue)
     rValue |= rValue >> 4;
     rValue |= rValue >> 8;
     rValue |= rValue >> 16;
+#if defined(SIZE_T_64BIT)
     rValue |= rValue >> 32;
+#endif
     ++rValue;
 
     return rValue;

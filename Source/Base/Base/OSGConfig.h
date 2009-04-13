@@ -341,6 +341,7 @@
 # if defined(__GNUC__) && defined(__linux) && defined(__ia64)
 
 # define SIZE_T_NEQ_UINT32
+# define SIZE_T_64BIT
 
 # endif // defined(__GNUC__) && defined(__linux) && defined(__ia64)
 
@@ -641,6 +642,12 @@
 # define OSG_LINUX_TYPES
 # define OSG_NO_CONCEPT_CHECKS 
 # define SIZE_T_NEQ_UINT32
+
+#if defined(__x86_64)
+#define SIZE_T_64BIT
+#endif
+
+
 # include <AvailabilityMacros.h>
 # if !defined(MAC_OS_X_VERSION_10_5) || (MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_5)
 #  define OSG_GLENUM_NEQ_UINT32

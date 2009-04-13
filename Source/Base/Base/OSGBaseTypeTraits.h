@@ -1345,6 +1345,15 @@ struct TypeTraits<Real128> : public TypeTraitsTemplateBase<Real128>
     \ingroup GrpLibOSGBase
  */
 
+#ifdef SIZE_T_64BIT
+template <>
+struct TypeTraits<size_t> : public TypeTraits<UInt64> {};
+#else
+template <>
+struct TypeTraits<size_t> : public TypeTraits<UInt32> {};
+#endif
+
+#if 0
 template <>
 struct TypeTraits<size_t> : public TypeTraitsTemplateBase<size_t>
 {
@@ -1411,6 +1420,7 @@ struct TypeTraits<size_t> : public TypeTraitsTemplateBase<size_t>
         out.append(buffer);
     }
 };
+#endif
 
 #endif
 
