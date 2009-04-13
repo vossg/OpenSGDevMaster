@@ -266,10 +266,13 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     /*------------------------- assignment ----------------------------------*/
 
     template<class MatrixType>
-          void    pushMatrix(const MatrixType &matrix);
-          void    popMatrix (      void          );
+          void    pushMatrix        (const MatrixType &matrix);
+          void    popMatrix         (      void              );
 
-    const Matrix &topMatrix (      void          );
+    const Matrix &topMatrix         (      void              );
+
+    const Matrix &getModelMatrix    (      void              ) const;
+    const Matrix &getModelViewMatrix(      void              ) const;
 
     /*------------------------- comparison ----------------------------------*/
 
@@ -389,11 +392,12 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     // Transform
 
     UInt32              _uiMatrixId;
+    mutable bool        _modelMatrixValid;
 
-    MatrixStore         _currMatrix;
-    Matrix              _accMatrix;
+    MatrixStore         _modelViewMatrix;
+    mutable Matrix      _modelMatrix;
 
-    MatrixStack         _vMatrixStack;
+    MatrixStack         _modelViewMatrixStack;
 
     // Roots
 
@@ -472,7 +476,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     void reset(Mode eMode = StateSorting);
 
-    void updateTopMatrix(void);
+    void updateModelMatrix(void) const;
 
     void  setNode(Node *pNode);
     Node *getNode(void       );

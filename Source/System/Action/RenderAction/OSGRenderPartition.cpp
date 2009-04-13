@@ -153,9 +153,10 @@ RenderPartition::RenderPartition(Mode eMode) :
     _pBackground             (     NULL),
 
     _uiMatrixId              (        0),
-    _currMatrix              (         ),
-    _accMatrix               (         ),
-    _vMatrixStack            (         ),
+    _modelMatrixValid        (true     ),
+    _modelViewMatrix         (         ),
+    _modelMatrix             (         ),
+    _modelViewMatrixStack    (         ),
     
     _pNodePool               (     NULL),
     
@@ -192,8 +193,8 @@ RenderPartition::RenderPartition(Mode eMode) :
    ,_szDebugString           (         )
 #endif
 {
-    _currMatrix.first = 1;
-    _currMatrix.second.setIdentity();
+    _modelViewMatrix.first = 1;
+    _modelViewMatrix.second.setIdentity();
 }
 
 RenderPartition::~RenderPartition(void)
@@ -235,10 +236,13 @@ void RenderPartition::reset(Mode eMode)
         
         _uiMatrixId = 1;
         
-        _currMatrix.first = 1;
-        _currMatrix.second.setIdentity();
+        _modelViewMatrix.first = 1;
+        _modelViewMatrix.second.setIdentity();
         
-        _vMatrixStack.clear();
+        _modelMatrixValid      = true;
+        _modelMatrix           .setIdentity();
+
+        _modelViewMatrixStack.clear();
         
         
         std::for_each(_mMatRoots     .begin(), 
@@ -751,25 +755,25 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         actNode->getVolume().getCenter(objPos);
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
-        _currMatrix.second.mult(objPos, objPos);
+        _modelViewMatrix.second.mult(objPos, objPos);
 #else
         Pnt3d temp(objPos[0], objPos[1], objPos[2]);
-        _currMatrix.second.mult(temp);
+        _modelViewMatrix.second.mult(temp);
 #endif
         
-        pNewElem->setNode        (&*actNode  );
-        pNewElem->setFunctor     ( func      );
-        pNewElem->setState       ( pState    );
+        pNewElem->setNode        (&*actNode         );
+        pNewElem->setFunctor     (  func            );
+        pNewElem->setState       (  pState          );
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
-        pNewElem->setMatrixStore (_currMatrix);
-        pNewElem->setScalar      ( objPos[2] );
+        pNewElem->setMatrixStore (  _modelViewMatrix);
+        pNewElem->setScalar      (  objPos[2]       );
 #else
         // Now that we have accumulated all transformations we can convert back
         // to a floating point matrix.
         Matrix4f tempMat;
-        tempMat.convertFrom(_currMatrix.second);
-        std::pair<UInt32, Matrix> temp_ms(_currMatrix.first, tempMat);
+        tempMat.convertFrom(_modelViewMatrix.second);
+        std::pair<UInt32, Matrix> temp_ms(_modelViewMatrix.first, tempMat);
 
         pNewElem->setMatrixStore (temp_ms      );
         pNewElem->setScalar      ( temp[2]     );
@@ -818,12 +822,12 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
         Pnt3f            objPos;
 #else
-        Pnt3d           objPos;
+        Pnt3d            objPos;
 #endif
         
         //_oDrawEnv.getRTAction()->getActNode()->getVolume().getCenter(objPos);
         
-        //_currMatrix.second.mult(objPos, objPos);
+        //_modelViewMatrix.second.mult(objPos, objPos);
 
         const BoxVolume &objVol   = actNode->getVolume();
 
@@ -847,7 +851,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 
         for(UInt32 i = 0; i < 8; i++)
         {
-            _currMatrix.second.mult(p[i], p[i]);
+            _modelViewMatrix.second.mult(p[i], p[i]);
         }
 
         objPos = p[0];
@@ -860,21 +864,21 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         
         //std::cout << objPos[2] << std::endl;
 
-        pNewElem->setVol        ( objVol      );
-        pNewElem->setNode       (&*actNode    );
+        pNewElem->setVol        (  objVol          );
+        pNewElem->setNode       (&*actNode         );
 
-        pNewElem->setFunctor    ( func        );
-        pNewElem->setState      ( pState      );
-        pNewElem->setLightState (_uiLightState);
+        pNewElem->setFunctor    (  func            );
+        pNewElem->setState      (  pState          );
+        pNewElem->setLightState (  _uiLightState   );
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
-        pNewElem->setMatrixStore(_currMatrix  );
+        pNewElem->setMatrixStore(  _modelViewMatrix);
 #else
         // Now that we have accumulated all transformations we can convert back
         // to a floating point matrix.
         Matrix4f tempMat;
-        tempMat.convertFrom(_currMatrix.second);
-        std::pair<UInt32, Matrix> temp_ms(_currMatrix.first, tempMat);
+        tempMat.convertFrom(_modelViewMatrix.second);
+        std::pair<UInt32, Matrix> temp_ms(_modelViewMatrix.first, tempMat);
 
         pNewElem->setMatrixStore(temp_ms      );
 #endif
@@ -921,17 +925,17 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         RenderTreeNode *pNewElem  = _pNodePool->create();
         StateOverride  *pOverride = NULL;
 
-        pNewElem->setNode       (&* actNode   );
-        pNewElem->setFunctor    (   func      );
+        pNewElem->setNode       (&*actNode         );
+        pNewElem->setFunctor    (  func            );
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
-        pNewElem->setMatrixStore(  _currMatrix);
+        pNewElem->setMatrixStore(  _modelViewMatrix);
 #else
         // Now that we have accumulated all transformations we can convert back
         // to a floating point matrix.
         Matrix4f tempMat;
-        tempMat.convertFrom(_currMatrix.second);
-        std::pair<UInt32, Matrix> temp_ms(_currMatrix.first, tempMat);
+        tempMat.convertFrom(_modelViewMatrix.second);
+        std::pair<UInt32, Matrix> temp_ms(_modelViewMatrix.first, tempMat);
 
         pNewElem->setMatrixStore(  temp_ms    );
 #endif
@@ -1246,13 +1250,13 @@ void RenderPartition::initFrom(RenderPartition *pSource,
 
     if(0x0000 != (uiCopyOnPush & CopyMatrix))
     {
-        this->pushMatrix(pSource->_accMatrix);
+        this->pushMatrix(pSource->getModelMatrix());
     }
 
     if(0x0000 != (uiCopyOnPush & CopyProjection))
     {
-        this->setupProjection(pSource->getProjection(),
-                              pSource->getProjectionTrans());
+        this->setupProjection(pSource->getProjection     (),
+                              pSource->getProjectionTrans() );
     }
 
     if(0x0000 != (uiCopyOnPush & CopyTarget))
@@ -1317,25 +1321,28 @@ void RenderPartition::exit(void)
 }
 
 
-void RenderPartition::updateTopMatrix(void)
+void RenderPartition::updateModelMatrix(void) const
 {
-    _accMatrix = _oDrawEnv.getCameraToWorld();
-    _accMatrix.mult(_currMatrix.second);
+    if(_modelMatrixValid == false)
+    {
+        _modelMatrixValid = true;
+        _modelMatrix      = _oDrawEnv.getCameraToWorld();
+        _modelMatrix.mult(_modelViewMatrix.second);
+    }
 }
 
 void RenderPartition::popMatrix(void         )
 {
-    _currMatrix.first  = _vMatrixStack.back().first;
-    _currMatrix.second = _vMatrixStack.back().second;
- 
-    updateTopMatrix();
+    _modelViewMatrix.first  = _modelViewMatrixStack.back().first;
+    _modelViewMatrix.second = _modelViewMatrixStack.back().second;
+    _modelViewMatrixStack.pop_back();
 
-    _vMatrixStack.pop_back();
+    _modelMatrixValid       = false;
 }
 
 const Matrix &RenderPartition::topMatrix(void)
 {
-    return _accMatrix;
+    return getModelMatrix();
 }
 
 

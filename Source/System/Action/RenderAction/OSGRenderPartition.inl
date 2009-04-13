@@ -234,25 +234,40 @@ void RenderPartition::setupViewing(const Matrix4f &matrix)
     _oDrawEnv.setupViewing(matrix);
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
-    _currMatrix.second = matrix;
+    _modelViewMatrix.second = matrix;
 #else
     Matrix4d temp;
     temp.convertFrom(matrix);
-    _currMatrix.second = temp;
+    _modelViewMatrix.second = temp;
 #endif
 
-    updateTopMatrix();
+    _modelMatrix.setIdentity();
+    _modelMatrixValid = true;
 }
 
 template<class MatrixType> inline
 void RenderPartition::pushMatrix(const MatrixType &matrix)
 {
-    _vMatrixStack.push_back(_currMatrix);
+    _modelViewMatrixStack.push_back(_modelViewMatrix);
     
-    _currMatrix.first = ++_uiMatrixId;
-    _currMatrix.second.mult(matrix);
+    _modelViewMatrix.first = ++_uiMatrixId;
+    _modelViewMatrix.second.mult(matrix);
    
-    updateTopMatrix();
+    _modelMatrixValid = false;
+}
+
+inline
+const Matrix &RenderPartition::getModelMatrix(void) const
+{
+    updateModelMatrix();
+
+    return _modelMatrix;
+}
+
+inline
+const Matrix &RenderPartition::getModelViewMatrix(void) const
+{
+    return _modelViewMatrix.second;
 }
 
 inline 
