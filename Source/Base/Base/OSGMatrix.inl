@@ -2094,8 +2094,6 @@ bool TransformationMatrix<ValueTypeT>::inverse(
 template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::invert(void)
 {
-    TransformationMatrix result;
-
     ValueTypeT
         a1, a2, a3, a4,
         b1, b2, b3, b4,
@@ -2136,43 +2134,41 @@ bool TransformationMatrix<ValueTypeT>::invert(void)
 
     rDet = TypeTraits<Real>::getOneElement() / rDet;
 
-    result[0][0]  =   det3_calc(b2, b3, b4, c2, c3,
-                                c4, d2, d3, d4) * rDet;
-    result[0][1]  = - det3_calc(a2, a3, a4, c2, c3, c4,
-                                d2, d3, d4) * rDet;
-    result[0][2]  =   det3_calc(a2, a3, a4, b2, b3, b4,
-                                d2, d3, d4) * rDet;
-    result[0][3]  = - det3_calc(a2, a3, a4, b2, b3, b4,
-                                c2, c3, c4) * rDet;
+    (*this)[0][0]  =   det3_calc(b2, b3, b4, c2, c3,
+                                 c4, d2, d3, d4) * rDet;
+    (*this)[0][1]  = - det3_calc(a2, a3, a4, c2, c3, c4,
+                                 d2, d3, d4) * rDet;
+    (*this)[0][2]  =   det3_calc(a2, a3, a4, b2, b3, b4,
+                                 d2, d3, d4) * rDet;
+    (*this)[0][3]  = - det3_calc(a2, a3, a4, b2, b3, b4,
+                                 c2, c3, c4) * rDet;
 
-    result[1][0]  = - det3_calc(b1, b3, b4, c1, c3, c4,
-                                d1, d3, d4) * rDet;
-    result[1][1]  =   det3_calc(a1, a3, a4, c1, c3, c4,
-                                d1, d3, d4) * rDet;
-    result[1][2]  = - det3_calc(a1, a3, a4, b1, b3, b4,
-                                d1, d3, d4) * rDet;
-    result[1][3]  =   det3_calc(a1, a3, a4, b1, b3, b4,
-                                c1, c3, c4) * rDet;
+    (*this)[1][0]  = - det3_calc(b1, b3, b4, c1, c3, c4,
+                                 d1, d3, d4) * rDet;
+    (*this)[1][1]  =   det3_calc(a1, a3, a4, c1, c3, c4,
+                                 d1, d3, d4) * rDet;
+    (*this)[1][2]  = - det3_calc(a1, a3, a4, b1, b3, b4,
+                                 d1, d3, d4) * rDet;
+    (*this)[1][3]  =   det3_calc(a1, a3, a4, b1, b3, b4,
+                                 c1, c3, c4) * rDet;
 
-    result[2][0]  =   det3_calc(b1, b2, b4, c1, c2, c4,
-                                d1, d2, d4) * rDet;
-    result[2][1]  = - det3_calc(a1, a2, a4, c1, c2, c4,
-                                d1, d2, d4) * rDet;
-    result[2][2]  =   det3_calc(a1, a2, a4, b1, b2, b4,
-                                d1, d2, d4) * rDet;
-    result[2][3]  = - det3_calc(a1, a2, a4, b1, b2, b4,
-                                c1, c2, c4) * rDet;
+    (*this)[2][0]  =   det3_calc(b1, b2, b4, c1, c2, c4,
+                                 d1, d2, d4) * rDet;
+    (*this)[2][1]  = - det3_calc(a1, a2, a4, c1, c2, c4,
+                                 d1, d2, d4) * rDet;
+    (*this)[2][2]  =   det3_calc(a1, a2, a4, b1, b2, b4,
+                                 d1, d2, d4) * rDet;
+    (*this)[2][3]  = - det3_calc(a1, a2, a4, b1, b2, b4,
+                                 c1, c2, c4) * rDet;
 
-    result[3][0]  = - det3_calc(b1, b2, b3, c1, c2, c3,
-                                d1, d2, d3) * rDet;
-    result[3][1]  =   det3_calc(a1, a2, a3, c1, c2, c3,
-                                d1, d2, d3) * rDet;
-    result[3][2]  = - det3_calc(a1, a2, a3, b1, b2, b3,
-                                d1, d2, d3) * rDet;
-    result[3][3]  =   det3_calc(a1, a2, a3, b1, b2, b3,
-                                c1, c2, c3) * rDet;
-
-    *this = result;
+    (*this)[3][0]  = - det3_calc(b1, b2, b3, c1, c2, c3,
+                                 d1, d2, d3) * rDet;
+    (*this)[3][1]  =   det3_calc(a1, a2, a3, c1, c2, c3,
+                                 d1, d2, d3) * rDet;
+    (*this)[3][2]  = - det3_calc(a1, a2, a3, b1, b2, b3,
+                                 d1, d2, d3) * rDet;
+    (*this)[3][3]  =   det3_calc(a1, a2, a3, b1, b2, b3,
+                                 c1, c2, c3) * rDet;
 
     return true;
 }
