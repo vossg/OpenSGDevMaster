@@ -409,9 +409,9 @@ class TransformationMatrix
 
     template<class ValueTypeR, class ValueTypeS>
     ValueTypeT rowMulCol4(const TransformationMatrix<ValueTypeR> &gRowMat,
-                                 UInt32                iRow,
+                                UInt32                            iRow,
                           const TransformationMatrix<ValueTypeS> &gColMat,
-                                 UInt32                iColumn) const;
+                                UInt32                            iColumn) const;
 
     ValueTypeT det2_calc (const ValueTypeT            a1,
                           const ValueTypeT            a2,
@@ -426,6 +426,12 @@ class TransformationMatrix
                           const ValueTypeT            c1,
                           const ValueTypeT            c2,
                           const ValueTypeT            c3     ) const;
+
+
+    bool       calcInverse (      TransformationMatrix *destM,
+                            const TransformationMatrix *srcM  ) const;
+    bool       calcInverse3(      TransformationMatrix *destM,
+                            const TransformationMatrix *srcM  ) const;
 
     // helper functions for matrix decomposition
     ValueType norm1_3x3   (void) const;

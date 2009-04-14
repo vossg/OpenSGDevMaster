@@ -468,8 +468,9 @@ ValueTypeT TransformationMatrix<ValueTypeT>::det3_calc(
     const ValueTypeT c3) const
 {
     return
-        (a1 * b2 * c3) + (a2 * b3 * c1) + (a3 * b1 * c2) -
-        (a1 * b3 * c2) - (a2 * b1 * c3) - (a3 * b2 * c1);
+        a1 * det2_calc(b2, b3, c2, c3) -
+        a2 * det2_calc(b1, b3, c1, c3) +
+        a3 * det2_calc(b1, b2, c1, c2);
 }
 
 /*! Returns the 1-norm of the upper left 3x3 part of this matrix.
@@ -1757,9 +1758,10 @@ void TransformationMatrix<ValueTypeT>::multLeftFull(
                     src[2] * _matrix[3][2] +
                              _matrix[3][3];
 
-    if( w == 0.0f )
+    if(w == TypeTraits<ValueTypeT>::getZeroElement())
     {
-        SINFO << "multFullMatrixPnt: w == 0.0f!" << std::endl;
+        FWARNING(("TransformationMatrix<>::multLeftFull(Pnt3, Pnt3): "
+                  "w == 0.0!\n"));
 
         dst.setValues(0, 0, 0);
 
@@ -1800,7 +1802,8 @@ inline void
 
     if(w == TypeTraits<ValueType>::getZeroElement())
     {
-        FWARNING(("TransformationMatrix<>::multFull(Vec3, Vec3): w == 0.0\n"));
+        FWARNING(("TransformationMatrix<>::multLeftFull(Vec3, Vec3): "
+                  "w == 0.0\n"));
     
         vecOut.setValues(
             (_matrix[0][0] * vecIn[0] +
@@ -1997,9 +2000,6 @@ ValueTypeT TransformationMatrix<ValueTypeT>::det (void) const
 
 }
 
-// This inverse stuff should be grouped in a better way :-). It's just a
-// Cut&Paste section. I will have a look at it lateron (GV)
-
 /*! \brief Stores the inverse of the matrix into result, returns true if the
      matrix is not singular
 */
@@ -2008,83 +2008,7 @@ template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::inverse(
     TransformationMatrix &result) const
 {
-    ValueTypeT
-        a1, a2, a3, a4,
-        b1, b2, b3, b4,
-        c1, c2, c3, c4,
-        d1, d2, d3, d4;
-
-    a1 = _matrix[0][0];
-    b1 = _matrix[1][0];
-    c1 = _matrix[2][0];
-    d1 = _matrix[3][0];
-
-    a2 = _matrix[0][1];
-    b2 = _matrix[1][1];
-    c2 = _matrix[2][1];
-    d2 = _matrix[3][1];
-
-    a3 = _matrix[0][2];
-    b3 = _matrix[1][2];
-    c3 = _matrix[2][2];
-    d3 = _matrix[3][2];
-
-    a4 = _matrix[0][3];
-    b4 = _matrix[1][3];
-    c4 = _matrix[2][3];
-    d4 = _matrix[3][3];
-
-    ValueTypeT rDet( det() );
-
-    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
-    {
-#ifdef OSG_PRINT_MATHERR
-        fprintf(stderr, "invertMatrix: Singular matrix, no inverse!\n");
-#endif
-        result.setIdentity();
-
-        return false;
-    }
-
-    rDet = 1.f / rDet;
-
-    result[0][0]  =   det3_calc(b2, b3, b4, c2, c3,
-                                c4, d2, d3, d4) * rDet;
-    result[0][1]  = - det3_calc(a2, a3, a4, c2, c3, c4,
-                                d2, d3, d4) * rDet;
-    result[0][2]  =   det3_calc(a2, a3, a4, b2, b3, b4,
-                                d2, d3, d4) * rDet;
-    result[0][3]  = - det3_calc(a2, a3, a4, b2, b3, b4,
-                                c2, c3, c4) * rDet;
-
-    result[1][0]  = - det3_calc(b1, b3, b4, c1, c3, c4,
-                                d1, d3, d4) * rDet;
-    result[1][1]  =   det3_calc(a1, a3, a4, c1, c3, c4,
-                                d1, d3, d4) * rDet;
-    result[1][2]  = - det3_calc(a1, a3, a4, b1, b3, b4,
-                                d1, d3, d4) * rDet;
-    result[1][3]  =   det3_calc(a1, a3, a4, b1, b3, b4,
-                                c1, c3, c4) * rDet;
-
-    result[2][0]  =   det3_calc(b1, b2, b4, c1, c2, c4,
-                                d1, d2, d4) * rDet;
-    result[2][1]  = - det3_calc(a1, a2, a4, c1, c2, c4,
-                                d1, d2, d4) * rDet;
-    result[2][2]  =   det3_calc(a1, a2, a4, b1, b2, b4,
-                                d1, d2, d4) * rDet;
-    result[2][3]  = - det3_calc(a1, a2, a4, b1, b2, b4,
-                                c1, c2, c4) * rDet;
-
-    result[3][0]  = - det3_calc(b1, b2, b3, c1, c2, c3,
-                                d1, d2, d3) * rDet;
-    result[3][1]  =   det3_calc(a1, a2, a3, c1, c2, c3,
-                                d1, d2, d3) * rDet;
-    result[3][2]  = - det3_calc(a1, a2, a3, b1, b2, b3,
-                                d1, d2, d3) * rDet;
-    result[3][3]  =   det3_calc(a1, a2, a3, b1, b2, b3,
-                                c1, c2, c3) * rDet;
-
-    return true;
+    return calcInverse(&result, this);
 }
 
 /*! \brief Inverts the matrix, returns true if the
@@ -2094,83 +2018,9 @@ bool TransformationMatrix<ValueTypeT>::inverse(
 template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::invert(void)
 {
-    ValueTypeT
-        a1, a2, a3, a4,
-        b1, b2, b3, b4,
-        c1, c2, c3, c4,
-        d1, d2, d3, d4;
+    TransformationMatrix thisCopy = *this;
 
-    a1 = _matrix[0][0];
-    b1 = _matrix[1][0];
-    c1 = _matrix[2][0];
-    d1 = _matrix[3][0];
-
-    a2 = _matrix[0][1];
-    b2 = _matrix[1][1];
-    c2 = _matrix[2][1];
-    d2 = _matrix[3][1];
-
-    a3 = _matrix[0][2];
-    b3 = _matrix[1][2];
-    c3 = _matrix[2][2];
-    d3 = _matrix[3][2];
-
-    a4 = _matrix[0][3];
-    b4 = _matrix[1][3];
-    c4 = _matrix[2][3];
-    d4 = _matrix[3][3];
-
-    ValueTypeT rDet( det() );
-
-    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
-    {
-#ifdef OSG_PRINT_MATHERR
-        fprintf(stderr, "invertMatrix: Singular matrix, no inverse!\n");
-#endif
-        setIdentity();
-
-        return false;
-    }
-
-    rDet = TypeTraits<Real>::getOneElement() / rDet;
-
-    (*this)[0][0]  =   det3_calc(b2, b3, b4, c2, c3,
-                                 c4, d2, d3, d4) * rDet;
-    (*this)[0][1]  = - det3_calc(a2, a3, a4, c2, c3, c4,
-                                 d2, d3, d4) * rDet;
-    (*this)[0][2]  =   det3_calc(a2, a3, a4, b2, b3, b4,
-                                 d2, d3, d4) * rDet;
-    (*this)[0][3]  = - det3_calc(a2, a3, a4, b2, b3, b4,
-                                 c2, c3, c4) * rDet;
-
-    (*this)[1][0]  = - det3_calc(b1, b3, b4, c1, c3, c4,
-                                 d1, d3, d4) * rDet;
-    (*this)[1][1]  =   det3_calc(a1, a3, a4, c1, c3, c4,
-                                 d1, d3, d4) * rDet;
-    (*this)[1][2]  = - det3_calc(a1, a3, a4, b1, b3, b4,
-                                 d1, d3, d4) * rDet;
-    (*this)[1][3]  =   det3_calc(a1, a3, a4, b1, b3, b4,
-                                 c1, c3, c4) * rDet;
-
-    (*this)[2][0]  =   det3_calc(b1, b2, b4, c1, c2, c4,
-                                 d1, d2, d4) * rDet;
-    (*this)[2][1]  = - det3_calc(a1, a2, a4, c1, c2, c4,
-                                 d1, d2, d4) * rDet;
-    (*this)[2][2]  =   det3_calc(a1, a2, a4, b1, b2, b4,
-                                 d1, d2, d4) * rDet;
-    (*this)[2][3]  = - det3_calc(a1, a2, a4, b1, b2, b4,
-                                 c1, c2, c4) * rDet;
-
-    (*this)[3][0]  = - det3_calc(b1, b2, b3, c1, c2, c3,
-                                 d1, d2, d3) * rDet;
-    (*this)[3][1]  =   det3_calc(a1, a2, a3, c1, c2, c3,
-                                 d1, d2, d3) * rDet;
-    (*this)[3][2]  = - det3_calc(a1, a2, a3, b1, b2, b3,
-                                 d1, d2, d3) * rDet;
-    (*this)[3][3]  =   det3_calc(a1, a2, a3, b1, b2, b3,
-                                 c1, c2, c3) * rDet;
-
-    return true;
+    return calcInverse(this, &thisCopy);
 }
 
 /*! \brief Set the matrix to be the inverse of the given one, returns true if
@@ -2181,285 +2031,29 @@ template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::invertFrom(
     const TransformationMatrix &matrix)
 {
-    ValueTypeT
-        a1, a2, a3, a4,
-        b1, b2, b3, b4,
-        c1, c2, c3, c4,
-        d1, d2, d3, d4;
-
-    a1 = matrix._matrix[0][0];
-    b1 = matrix._matrix[1][0];
-    c1 = matrix._matrix[2][0];
-    d1 = matrix._matrix[3][0];
-
-    a2 = matrix._matrix[0][1];
-    b2 = matrix._matrix[1][1];
-    c2 = matrix._matrix[2][1];
-    d2 = matrix._matrix[3][1];
-
-    a3 = matrix._matrix[0][2];
-    b3 = matrix._matrix[1][2];
-    c3 = matrix._matrix[2][2];
-    d3 = matrix._matrix[3][2];
-
-    a4 = matrix._matrix[0][3];
-    b4 = matrix._matrix[1][3];
-    c4 = matrix._matrix[2][3];
-    d4 = matrix._matrix[3][3];
-
-    ValueTypeT rDet( matrix.det() );
-
-    if (osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
-    {
-#ifdef OSG_PRINT_MATHERR
-        fprintf(stderr, "invertMatrix: Singular matrix, no inverse!\n");
-#endif
-        setIdentity();
-
-        return false;
-    }
-
-    rDet = 1.f / rDet;
-
-    _matrix[0][0]  =   det3_calc(b2, b3, b4, c2, c3,
-                                 c4, d2, d3, d4) * rDet;
-    _matrix[0][1]  = - det3_calc(a2, a3, a4, c2, c3, c4,
-                                 d2, d3, d4) * rDet;
-    _matrix[0][2]  =   det3_calc(a2, a3, a4, b2, b3, b4,
-                                 d2, d3, d4) * rDet;
-    _matrix[0][3]  = - det3_calc(a2, a3, a4, b2, b3, b4,
-                                 c2, c3, c4) * rDet;
-
-    _matrix[1][0]  = - det3_calc(b1, b3, b4, c1, c3, c4,
-                                 d1, d3, d4) * rDet;
-    _matrix[1][1]  =   det3_calc(a1, a3, a4, c1, c3, c4,
-                                 d1, d3, d4) * rDet;
-    _matrix[1][2]  = - det3_calc(a1, a3, a4, b1, b3, b4,
-                                 d1, d3, d4) * rDet;
-    _matrix[1][3]  =   det3_calc(a1, a3, a4, b1, b3, b4,
-                                 c1, c3, c4) * rDet;
-
-    _matrix[2][0]  =   det3_calc(b1, b2, b4, c1, c2, c4,
-                                 d1, d2, d4) * rDet;
-    _matrix[2][1]  = - det3_calc(a1, a2, a4, c1, c2, c4,
-                                 d1, d2, d4) * rDet;
-    _matrix[2][2]  =   det3_calc(a1, a2, a4, b1, b2, b4,
-                                 d1, d2, d4) * rDet;
-    _matrix[2][3]  = - det3_calc(a1, a2, a4, b1, b2, b4,
-                                 c1, c2, c4) * rDet;
-
-    _matrix[3][0]  = - det3_calc(b1, b2, b3, c1, c2, c3,
-                                 d1, d2, d3) * rDet;
-    _matrix[3][1]  =   det3_calc(a1, a2, a3, c1, c2, c3,
-                                 d1, d2, d3) * rDet;
-    _matrix[3][2]  = - det3_calc(a1, a2, a3, b1, b2, b3,
-                                 d1, d2, d3) * rDet;
-    _matrix[3][3]  =   det3_calc(a1, a2, a3, b1, b2, b3,
-                                 c1, c2, c3) * rDet;
-
-    return true;
+    return calcInverse(this, &matrix);
 }
 
 template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::inverse3(
     TransformationMatrix &result) const
 {
-    ValueTypeT rDet = det3();
-
-    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
-    {
-#ifdef OSG_PRINT_MATHERR
-        fprintf(stderr, "inverse3: matrix singular, no inverse!\n");
-#endif
-
-        result.setIdentity();
-
-        return false;
-    }
-
-    rDet = 1.0f / rDet;
-
-    result[0][0]  =   det2_calc(_matrix[1][1],
-                                _matrix[1][2],
-                           _matrix[2][1],
-                           _matrix[2][2]) * rDet;
-    result[0][1]  = - det2_calc(_matrix[0][1],
-                                _matrix[0][2],
-                                _matrix[2][1],
-                                _matrix[2][2]) * rDet;
-    result[0][2]  =   det2_calc(_matrix[0][1],
-                                _matrix[0][2],
-                                _matrix[1][1],
-                                _matrix[1][2]) * rDet;
-
-    result[1][0]  = - det2_calc(_matrix[1][0],
-                                _matrix[1][2],
-                                _matrix[2][0],
-                                _matrix[2][2]) * rDet;
-    result[1][1]  =   det2_calc(_matrix[0][0],
-                                _matrix[0][2],
-                                _matrix[2][0],
-                                _matrix[2][2]) * rDet;
-    result[1][2]  = - det2_calc(_matrix[0][0],
-                                _matrix[0][2],
-                                _matrix[1][0],
-                                _matrix[1][2]) * rDet;
-
-    result[2][0]  =   det2_calc(_matrix[1][0],
-                                _matrix[1][1],
-                                _matrix[2][0],
-                                _matrix[2][1]) * rDet;
-    result[2][1]  = - det2_calc(_matrix[0][0],
-                                _matrix[0][1],
-                                _matrix[2][0],
-                                _matrix[2][1]) * rDet;
-    result[2][2]  =   det2_calc(_matrix[0][0],
-                                _matrix[0][1],
-                                _matrix[1][0],
-                                _matrix[1][1]) * rDet;
-
-    result[3][0] =
-        result[3][1] =
-        result[3][2] = TypeTraits<ValueType>::getZeroElement();
-
-    result[3][3] = TypeTraits<ValueType>::getOneElement();
-
-    return true;
+    return calcInverse3(&result, this);
 }
 
 template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::invert3(void)
 {
-    ValueTypeT           rDet    = det3();
-    TransformationMatrix result;
-
-    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
-    {
-#ifdef OSG_PRINT_MATHERR
-        fprintf(stderr, "invert3: matrix singular, no inverse!\n");
-#endif
-        result.setIdentity();
-
-        return false;
-    }
-
-    rDet = 1.0f / rDet;
-
-    result[0][0]  =   det2_calc(_matrix[1][1],
-                                _matrix[1][2],
-                                _matrix[2][1],
-                                _matrix[2][2]) * rDet;
-    result[0][1]  = - det2_calc(_matrix[0][1],
-                                _matrix[0][2],
-                                _matrix[2][1],
-                                _matrix[2][2]) * rDet;
-    result[0][2]  =   det2_calc(_matrix[0][1],
-                                _matrix[0][2],
-                                _matrix[1][1],
-                                _matrix[1][2]) * rDet;
-
-    result[1][0]  = - det2_calc(_matrix[1][0],
-                                _matrix[1][2],
-                                _matrix[2][0],
-                                _matrix[2][2]) * rDet;
-    result[1][1]  =   det2_calc(_matrix[0][0],
-                                _matrix[0][2],
-                                _matrix[2][0],
-                                _matrix[2][2]) * rDet;
-    result[1][2]  = - det2_calc(_matrix[0][0],
-                                _matrix[0][2],
-                                _matrix[1][0],
-                                _matrix[1][2]) * rDet;
-
-    result[2][0]  =   det2_calc(_matrix[1][0],
-                                _matrix[1][1],
-                                _matrix[2][0],
-                                _matrix[2][1]) * rDet;
-    result[2][1]  = - det2_calc(_matrix[0][0],
-                                _matrix[0][1],
-                                _matrix[2][0],
-                                _matrix[2][1]) * rDet;
-    result[2][2]  =   det2_calc(_matrix[0][0],
-                                _matrix[0][1],
-                                _matrix[1][0],
-                                _matrix[1][1]) * rDet;
-
-    result[3][0] =
-        result[3][1] =
-        result[3][2] = TypeTraits<ValueType>::getZeroElement();
-
-    result[3][3] = TypeTraits<ValueType>::getOneElement();
-
-    *this = result;
-
-    return true;
+    TransformationMatrix thisCopy = *this;
+    
+    return calcInverse3(this, &thisCopy);
 }
 
 template<class ValueTypeT> inline
 bool TransformationMatrix<ValueTypeT>::invertFrom3(
     const TransformationMatrix &matrix)
 {
-    ValueTypeT rDet = matrix.det3();
-
-    if(osgAbs(rDet) < TypeTraits<ValueTypeT>::ZeroEps())
-    {
-#ifdef OSG_PRINT_MATHERR
-        fprintf(stderr, "invertFrom3: matrix singular, no inverse!\n");
-#endif
-
-        setIdentity();
-
-        return false;
-    }
-
-    rDet = 1.0f / rDet;
-
-    _matrix[0][0]  =   det2_calc(matrix._matrix[1][1],
-                                 matrix._matrix[1][2],
-                                 matrix._matrix[2][1],
-                                 matrix._matrix[2][2]) * rDet;
-    _matrix[0][1]  = - det2_calc(matrix._matrix[0][1],
-                                 matrix._matrix[0][2],
-                                 matrix._matrix[2][1],
-                                 matrix._matrix[2][2]) * rDet;
-    _matrix[0][2]  =   det2_calc(matrix._matrix[0][1],
-                                 matrix._matrix[0][2],
-                                 matrix._matrix[1][1],
-                                 matrix._matrix[1][2]) * rDet;
-
-    _matrix[1][0]  = - det2_calc(matrix._matrix[1][0],
-                                 matrix._matrix[1][2],
-                                 matrix._matrix[2][0],
-                                 matrix._matrix[2][2]) * rDet;
-    _matrix[1][1]  =   det2_calc(matrix._matrix[0][0],
-                                 matrix._matrix[0][2],
-                                 matrix._matrix[2][0],
-                                 matrix._matrix[2][2]) * rDet;
-    _matrix[1][2]  = - det2_calc(matrix._matrix[0][0],
-                                 matrix._matrix[0][2],
-                                 matrix._matrix[1][0],
-                                 matrix._matrix[1][2]) * rDet;
-
-    _matrix[2][0]  =   det2_calc(matrix._matrix[1][0],
-                                 matrix._matrix[1][1],
-                                 matrix._matrix[2][0],
-                                 matrix._matrix[2][1]) * rDet;
-    _matrix[2][1]  = - det2_calc(matrix._matrix[0][0],
-                                 matrix._matrix[0][1],
-                                 matrix._matrix[2][0],
-                                 matrix._matrix[2][1]) * rDet;
-    _matrix[2][2]  =   det2_calc(matrix._matrix[0][0],
-                                 matrix._matrix[0][1],
-                                 matrix._matrix[1][0],
-                                 matrix._matrix[1][1]) * rDet;
-
-    _matrix[3][0] =
-        _matrix[3][1] =
-        _matrix[3][2] = TypeTraits<ValueType>::getZeroElement();
-
-    _matrix[3][3] = TypeTraits<ValueType>::getOneElement();
-
-    return true;
+    return calcInverse3(this, &matrix);
 }
 
 template<class ValueTypeT> inline
@@ -3227,6 +2821,149 @@ bool TransformationMatrix<ValueTypeT>::operator != (
     const TransformationMatrix &other) const
 {
     return ! (*this == other);
+}
+
+/*! Compute the inverse of \a srcM and store it in \a destM.
+    
+    \note The two matrices may NOT be aliased.
+ */
+template <class ValueTypeT> inline
+bool TransformationMatrix<ValueTypeT>::calcInverse(
+    TransformationMatrix *destM, const TransformationMatrix *srcM) const
+{
+          VectorType *dM = destM->_matrix;
+    const VectorType *sM = srcM ->_matrix;
+
+    ValueTypeT det3A0 = det3_calc(sM[1][1], sM[1][2], sM[1][3],
+                                  sM[2][1], sM[2][2], sM[2][3],
+                                  sM[3][1], sM[3][2], sM[3][3] );
+    ValueTypeT det3A1 = det3_calc(sM[1][0], sM[1][2], sM[1][3],
+                                  sM[2][0], sM[2][2], sM[2][3],
+                                  sM[3][0], sM[3][2], sM[3][3] );
+    ValueTypeT det3A2 = det3_calc(sM[1][0], sM[1][1], sM[1][3],
+                                  sM[2][0], sM[2][1], sM[2][3],
+                                  sM[3][0], sM[3][1], sM[3][3] );
+    ValueTypeT det3A3 = det3_calc(sM[1][0], sM[1][1], sM[1][2],
+                                  sM[2][0], sM[2][1], sM[2][2],
+                                  sM[3][0], sM[3][1], sM[3][2] );
+
+    ValueTypeT det4   = sM[0][0] * det3A0 - sM[0][1] * det3A1 +
+                        sM[0][2] * det3A2 - sM[0][3] * det3A3;
+
+    if(osgAbs(det4) < TypeTraits<ValueTypeT>::ZeroEps())
+    {
+        FWARNING(("TransformationMatrix<>::calcInverse: "
+                  "Singular matrix, no inverse!\n"));
+
+        destM->setIdentity();
+
+        return false;
+    }
+
+    ValueTypeT det4Inv = TypeTraits<ValueTypeT>::getOneElement() / det4;
+
+    dM[0][0] =   det3A0                                   * det4Inv;
+    dM[0][1] = - det3_calc(sM[0][1], sM[0][2], sM[0][3],
+                           sM[2][1], sM[2][2], sM[2][3],
+                           sM[3][1], sM[3][2], sM[3][3] ) * det4Inv;
+    dM[0][2] =   det3_calc(sM[0][1], sM[0][2], sM[0][3],
+                           sM[1][1], sM[1][2], sM[1][3],
+                           sM[3][1], sM[3][2], sM[3][3] ) * det4Inv;
+    dM[0][3] = - det3_calc(sM[0][1], sM[0][2], sM[0][3],
+                           sM[1][1], sM[1][2], sM[1][3],
+                           sM[2][1], sM[2][2], sM[2][3] ) * det4Inv;
+    
+    dM[1][0] = - det3A1                                   * det4Inv;
+    dM[1][1] =   det3_calc(sM[0][0], sM[0][2], sM[0][3],
+                           sM[2][0], sM[2][2], sM[2][3],
+                           sM[3][0], sM[3][2], sM[3][3] ) * det4Inv;
+    dM[1][2] = - det3_calc(sM[0][0], sM[0][2], sM[0][3],
+                           sM[1][0], sM[1][2], sM[1][3],
+                           sM[3][0], sM[3][2], sM[3][3] ) * det4Inv;
+    dM[1][3] =   det3_calc(sM[0][0], sM[0][2], sM[0][3],
+                           sM[1][0], sM[1][2], sM[1][3],
+                           sM[2][0], sM[2][2], sM[2][3] ) * det4Inv;
+
+    dM[2][0] =   det3A2                                   * det4Inv;
+    dM[2][1] = - det3_calc(sM[0][0], sM[0][1], sM[0][3],
+                           sM[2][0], sM[2][1], sM[2][3],
+                           sM[3][0], sM[3][1], sM[3][3] ) * det4Inv;
+    dM[2][2] =   det3_calc(sM[0][0], sM[0][1], sM[0][3],
+                           sM[1][0], sM[1][1], sM[1][3],
+                           sM[3][0], sM[3][1], sM[3][3] ) * det4Inv;
+    dM[2][3] = - det3_calc(sM[0][0], sM[0][1], sM[0][3],
+                           sM[1][0], sM[1][1], sM[1][3],
+                           sM[2][0], sM[2][1], sM[2][3] ) * det4Inv;
+
+
+    dM[3][0] = - det3A3                                   * det4Inv;
+    dM[3][1] =   det3_calc(sM[0][0], sM[0][1], sM[0][2],
+                           sM[2][0], sM[2][1], sM[2][2],
+                           sM[3][0], sM[3][1], sM[3][2] ) * det4Inv;
+    dM[3][2] = - det3_calc(sM[0][0], sM[0][1], sM[0][2],
+                           sM[1][0], sM[1][1], sM[1][2],
+                           sM[3][0], sM[3][1], sM[3][2] ) * det4Inv;
+    dM[3][3] =   det3_calc(sM[0][0], sM[0][1], sM[0][2],
+                           sM[1][0], sM[1][1], sM[1][2],
+                           sM[2][0], sM[2][1], sM[2][2] ) * det4Inv;
+    
+    return true;
+}
+
+/*! Compute the inverse of the upper 3x3 part of \a srcM and store it
+    in \a destM, overwriting all elements of \a destM.
+
+    \note The two matrices may NOT be aliased.
+ */
+template <class ValueTypeT> inline
+bool TransformationMatrix<ValueTypeT>::calcInverse3(
+    TransformationMatrix *destM, const TransformationMatrix *srcM) const
+{
+          VectorType *dM = destM->_matrix;
+    const VectorType *sM = srcM ->_matrix;
+
+    ValueTypeT det2A0 = det2_calc(sM[1][1], sM[1][2], sM[2][1], sM[2][2]);
+    ValueTypeT det2A1 = det2_calc(sM[1][0], sM[1][2], sM[2][0], sM[2][2]);
+    ValueTypeT det2A2 = det2_calc(sM[1][0], sM[1][1], sM[2][0], sM[2][1]);
+
+    ValueTypeT det3   = sM[0][0] * det2A0 -
+                        sM[0][1] * det2A1 +
+                        sM[0][2] * det2A2;
+
+    
+    if(osgAbs(det3) < TypeTraits<ValueTypeT>::ZeroEps())
+    {
+        FWARNING(("TransformationMatrix<>::calcInverse3: "
+                  "Singular matrix, no inverse!\n"));
+
+        destM->setIdentity();
+
+        return false;
+    }
+
+    ValueTypeT det3Inv = TypeTraits<ValueTypeT>::getOneElement() / det3;
+
+    dM[0][0] =   det2A0 * det3Inv;
+    dM[0][1] = - det2_calc(sM[0][1], sM[0][2], sM[2][1], sM[2][2]) * det3Inv;
+    dM[0][2] =   det2_calc(sM[0][1], sM[0][2], sM[1][1], sM[1][2]) * det3Inv;
+    dM[0][3] =   TypeTraits<ValueTypeT>::getZeroElement();
+
+    dM[1][0] = - det2A1 * det3Inv;
+    dM[1][1] =   det2_calc(sM[0][0], sM[0][2], sM[2][0], sM[2][2]) * det3Inv;
+    dM[1][2] = - det2_calc(sM[0][0], sM[0][2], sM[1][0], sM[1][2]) * det3Inv;
+    dM[1][3] =   TypeTraits<ValueTypeT>::getZeroElement();
+
+    dM[2][0] =   det2A2 * det3Inv;
+    dM[2][1] = - det2_calc(sM[0][0], sM[0][1], sM[2][0], sM[2][1]) * det3Inv;
+    dM[2][2] =   det2_calc(sM[0][0], sM[0][1], sM[1][0], sM[1][1]) * det3Inv;
+    dM[2][3] =   TypeTraits<ValueTypeT>::getZeroElement();
+
+    dM[3][0] =   TypeTraits<ValueTypeT>::getZeroElement();
+    dM[3][1] =   TypeTraits<ValueTypeT>::getZeroElement();
+    dM[3][2] =   TypeTraits<ValueTypeT>::getZeroElement();
+    dM[3][3] =   TypeTraits<ValueTypeT>::getOneElement ();
+
+    return true;
 }
 
 /*-------------------------------------------------------------------------*/

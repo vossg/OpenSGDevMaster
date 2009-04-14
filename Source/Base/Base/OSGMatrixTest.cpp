@@ -128,4 +128,68 @@ TEST(MatrixDecomposition)
     CHECK_CLOSE(0.0, m1.normInfinity(), 1.0e-6);
 }
 
+TEST(MatrixInverse)
+{
+    Matrix4f m1;
+
+    for(UInt32 i = 0; i < 10; ++i)
+    {
+        switch(i % 3)
+        {
+        case 0:
+        {
+            Matrix4f m;
+            m.setTranslate(Vec3f(osgRand(), osgRand(), osgRand()));
+
+            m1.mult(m);
+        }
+        break;
+
+        case 1:
+        {
+            Matrix4f m;
+            m.setRotate(Quaternion(Vec3f(osgRand(), osgRand(), osgRand()), osgRand() * Pi));
+
+            m1.mult(m);
+        }
+        break;
+
+        case 2:
+        {
+            Matrix4f m;
+            m.setScale(Vec3f(osgRand(), osgRand(), osgRand()));
+
+            m1.mult(m);
+        }
+        break;
+        }
+    }
+
+    // m2 is a 3x3 matrix
+    Matrix4f m2(m1);
+    m2.setTranslate(Vec3f(0.f, 0.f, 0.f));
+
+    // all invert function forward to the same code, so it is enough
+    // to test just one of them
+    Matrix4f m1Inv;
+    bool     m1InvValid = m1Inv.invertFrom(m1);
+
+    Matrix4f m2Inv;
+    bool     m2InvValid = m2Inv.invertFrom3(m2);
+
+    CHECK_EQUAL(true, m1InvValid);
+    CHECK_EQUAL(true, m2InvValid);
+
+    // verify ||m1 - I|| <= 1.0e-6
+    m1.mult     (m1Inv                   );
+    m1.addScaled(Matrix::identity(), -1.f);
+
+    m2.mult     (m2Inv                   );
+    m2.addScaled(Matrix::identity(), -1.f);
+
+    CHECK_CLOSE(0.0, m1.normInfinity(), 1.0e-6);
+    CHECK_CLOSE(0.0, m2.normInfinity(), 1.0e-6);
+}
+
+
 } // SUITE
