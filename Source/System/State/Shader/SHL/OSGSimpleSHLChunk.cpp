@@ -136,6 +136,8 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
             
             for(; fIt != fEnd; ++fIt)
             {
+                (*fIt)->validate(pEnv);
+
                 GLuint uiShader = 
                     GLuint(pWin->getGLObjectId((*fIt)->getGLId()));
 
@@ -148,6 +150,8 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
             
             for(; gIt != gEnd; ++gIt)
             {
+                (*gIt)->validate(pEnv);
+
                 GLuint uiShader = 
                     GLuint(pWin->getGLObjectId((*gIt)->getGLId()));
 
@@ -160,6 +164,8 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
             
             for(; vIt != vEnd; ++vIt)
             {
+                (*vIt)->validate(pEnv);
+
                 GLuint uiShader = 
                     GLuint(pWin->getGLObjectId((*vIt)->getGLId()));
 
@@ -534,6 +540,7 @@ void SimpleSHLChunk::changed(ConstFieldMaskArg whichField,
 void SimpleSHLChunk::activate(DrawEnv    *pEnv,              
                               UInt32      uiIdx)
 {
+#if 0
     FragmentShaderIt fIt  = _mfFragmentShader.begin();
     FragmentShaderIt fEnd = _mfFragmentShader.end  ();
 
@@ -557,6 +564,7 @@ void SimpleSHLChunk::activate(DrawEnv    *pEnv,
     {
         (*vIt)->validate(pEnv);
     }
+#endif
       
     Window *pWin    = pEnv->getWindow();
 

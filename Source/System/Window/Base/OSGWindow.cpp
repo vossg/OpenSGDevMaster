@@ -724,9 +724,10 @@ void OSG::Window::validateAllGLObjects(void)
             validateGLObject(i, &oEnv);
     
         frameExit();
+        deactivate();
     }   
     else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == SequentialPartitionDraw)
+              PartitionDrawMask               ) == ParallelPartitionDraw)
     {
     }
     else
@@ -1824,7 +1825,7 @@ void OSG::Window::render(RenderActionBase *action)
         frameExit(); // after frame cleanup: delete dead GL objects
     }
     else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == SequentialPartitionDraw)
+              PartitionDrawMask               ) == ParallelPartitionDraw)
     {
         doActivate ();
         doFrameInit();    // query recently registered GL extensions
@@ -1851,7 +1852,7 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
         renderAllViewports(action);
     }
     else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == SequentialPartitionDraw)
+              PartitionDrawMask               ) == ParallelPartitionDraw)
     {
         doActivate ();
         doFrameInit();    // query recently registered GL extensions
@@ -1876,7 +1877,7 @@ void OSG::Window::frameFinish(bool bActivate)
         frameExit(); // after frame cleanup: delete dead GL objects
     }
     else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == SequentialPartitionDraw)
+              PartitionDrawMask               ) == ParallelPartitionDraw)
     {
         if(bActivate == true)
             doActivate();
@@ -1900,7 +1901,7 @@ void OSG::Window::runFrameExit(void)
         deactivate();
     }
     else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == SequentialPartitionDraw)
+              PartitionDrawMask               ) == ParallelPartitionDraw)
     {
         doActivate ();
         doFrameExit();    // after frame cleanup: delete GL objects, if needed
@@ -1972,7 +1973,7 @@ void OSG::Window::doRenderAllViewports(RenderActionBase *action)
             action->setDrawPartPar(true);
         }
         else if((_sfPartitionDrawMode.getValue() & 
-                 PartitionDrawMask               ) == SequentialPartitionDraw)
+                 PartitionDrawMask               ) == ParallelPartitionDraw)
         {
             action->setDrawPartPar(false);
         }

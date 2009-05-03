@@ -175,6 +175,9 @@ int doMain(int argc, char **argv)
     // show the whole scene
     _mgr->showAll();
 
+    OSG::commitChanges();
+    gwin->validateAllGLObjects();
+
     return 0;
 }
 
