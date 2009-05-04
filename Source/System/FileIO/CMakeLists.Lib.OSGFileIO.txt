@@ -14,7 +14,11 @@ SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
                                 OSGGroup
                                 OSGState
                                 OSGSystem)
-SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB)
+SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGImageFileIO
+                                     OSGUtil
+                                     OSGWindow
+                                     OSGWindowGLUT
+                                     ${OSG_NATIVE_WINDOW})
 
 # dependencies - External
 # SET(${PROJECT_NAME}_DEP_LIB)
