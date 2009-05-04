@@ -55,23 +55,40 @@
 
 OSG_BEGIN_NAMESPACE
 
+/*! \brief Base class for <instance_*> elements.
+ */
+
 class OSG_FILEIO_DLLMAPPING ColladaInstanceElement : public ColladaElement
 {
-  public:
+    /*==========================  PUBLIC  =================================*/
+ public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
     typedef ColladaElement                          Inherited;
     typedef ColladaInstanceElement                  Self;
     
     typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
     typedef TransitPtr <Self                      > ObjTransitPtr;
     
+    /*---------------------------------------------------------------------*/
+    /*! \name Read                                                         */
+    /*! \{                                                                 */
+
     virtual void read(void) = 0;
     
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name  Instantiated element access                                 */
+    /*! \{                                                                 */
     
     inline void        setInstDOMElement  (daeElement *instElem);
     inline daeElement *getInstDOMElement  (void                ) const;
     template <class DomTypeT>
     inline DomTypeT   *getInstDOMElementAs(void                ) const;
     
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
   protected:
              ColladaInstanceElement(daeElement *elem, ColladaGlobal *global);
     virtual ~ColladaInstanceElement(void                                   );

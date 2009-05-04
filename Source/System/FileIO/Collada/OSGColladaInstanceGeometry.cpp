@@ -103,6 +103,9 @@ void ColladaInstanceGeometry::read(void)
         // process <technique> elements -- currently none are handled
         for(UInt32 i = 0; i < techniques.getCount(); ++i)
         {
+            FWARNING(("ColladaInstanceGeometry::read: "
+                      "<technique> element nothandled.\n"));
+
             daeElementRefArray &techniqueCont =
                 techniques[i]->getContents();
 
@@ -110,7 +113,8 @@ void ColladaInstanceGeometry::read(void)
             {
                 daeElement *elem = techniqueCont[j];
 
-                OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: techniqueCont [%u] [%s] [%s]\n",
+                OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: "
+                                 "techniqueCont [%u] [%s] [%s]\n",
                                  j, elem->getTypeName(), elem->getElementName()));
             }
         }

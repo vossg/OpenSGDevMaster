@@ -281,11 +281,15 @@ void ColladaNode::handleInstanceNode(domInstance_node *instNode)
     OSG_COLLADA_LOG(("ColladaNode::handleInstanceNode:\n"));
     
     ColladaInstanceNodeRefPtr colInstNode =
-        ColladaInstanceNode::create(instNode, getGlobal());
+        getUserDataAs<ColladaInstanceNode>(instNode);
+
+    if(colInstNode == NULL)
+    {
+        colInstNode = ColladaInstanceNode::create(instNode, getGlobal());
+        addElement(colInstNode);
     
-    addElement(colInstNode);
-    
-    colInstNode->read();
+        colInstNode->read();
+    }
     
     _transNode->addChild(colInstNode->createInstance());
 }
@@ -293,13 +297,17 @@ void ColladaNode::handleInstanceNode(domInstance_node *instNode)
 void ColladaNode::handleInstanceGeometry(domInstance_geometry *instGeo)
 {
     OSG_COLLADA_LOG(("ColladaNode::handleInstanceGeometry:\n"));
-    
+
     ColladaInstanceGeometryRefPtr colInstGeo =
-        ColladaInstanceGeometry::create(instGeo, getGlobal());
+        getUserDataAs<ColladaInstanceGeometry>(instGeo);
+
+    if(colInstGeo == NULL)
+    {
+        colInstGeo = ColladaInstanceGeometry::create(instGeo, getGlobal());
+        addElement(colInstGeo);
     
-    addElement(colInstGeo);
-    
-    colInstGeo->read();
+        colInstGeo->read();
+    }
     
     _transNode->addChild(colInstGeo->createInstance());
 }
@@ -309,11 +317,15 @@ void ColladaNode::handleInstanceLight(domInstance_light *instLight)
     OSG_COLLADA_LOG(("ColladaNode::handleInstanceLight:\n"));
 
     ColladaInstanceLightRefPtr colInstLight =
-        ColladaInstanceLight::create(instLight, getGlobal());
+        getUserDataAs<ColladaInstanceLight>(instLight);
 
-    addElement(colInstLight);
+    if(colInstLight == NULL)
+    {
+        colInstLight = ColladaInstanceLight::create(instLight, getGlobal());
+        addElement(colInstLight);
 
-    colInstLight->read();
+        colInstLight->read();
+    }
 
     LightUnrecPtr light  = colInstLight->createInstance();
 
@@ -324,11 +336,15 @@ void ColladaNode::handleNode(domNode *node)
 {
     OSG_COLLADA_LOG(("ColladaNode::handleNode:\n"));
     
-    ColladaNodeRefPtr colNode = ColladaNode::create(node, getGlobal());
+    ColladaNodeRefPtr colNode = getUserDataAs<ColladaNode>(node);
+
+    if(colNode == NULL)
+    {
+        colNode = ColladaNode::create(node, getGlobal());
+        addElement(colNode);
     
-    addElement(colNode);
-    
-    colNode->read();
+        colNode->read();
+    }
     
     _transNode->addChild(colNode->getNode());
 }
