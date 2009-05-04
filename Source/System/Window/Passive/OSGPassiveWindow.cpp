@@ -128,19 +128,19 @@ void PassiveWindow::init(GLInitFunctor oFunc)
 
 /* Do nothing, has to be setup when we come here.
  */
-void PassiveWindow::sequentialActivate(void)
+void PassiveWindow::activate(void)
 {
 }
 
 /* Do nothing, has to be setup when we come here.
  */
-void PassiveWindow::sequentialDeactivate(void)
+void PassiveWindow::deactivate(void)
 {
 }
     
 /* Do nothing, has to be done manually for this class.
  */
-bool PassiveWindow::sequentialSwap(void)
+bool PassiveWindow::swap(void)
 {
     return true;
 }

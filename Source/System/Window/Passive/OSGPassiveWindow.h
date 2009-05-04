@@ -86,9 +86,9 @@ class OSG_WINDOW_DLLMAPPING PassiveWindow : public PassiveWindowBase
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
 
-    virtual void sequentialActivate  (void);
-    virtual void sequentialDeactivate(void);
-    virtual bool sequentialSwap      (void);
+    virtual void activate  (void);
+    virtual void deactivate(void);
+    virtual bool swap      (void);
    
     /*! \}                                                                 */  
     /*=========================  PROTECTED  ===============================*/
