@@ -175,6 +175,35 @@ void TransitPtr<ObjectT>::static_cast_set(
     }
 }
 
+/*! \ingroup GrpBaseBaseRefCounting
+    \relatesalso TransitPtr
+ */
+
+template <class TargetObjectT, class SourceObjectT> inline
+TransitPtr<TargetObjectT> dynamic_pointer_cast(
+    const TransitPtr<SourceObjectT> &source)
+{
+    TransitPtr<TargetObjectT> returnValue;
+
+    returnValue.dynamic_cast_set(source);
+
+    return returnValue;
+}
+
+/*! \ingroup GrpBaseBaseRefCounting
+    \relatesalso TransitPtr
+ */
+
+template <class TargetObjectT, class SourceObjectT> inline
+TransitPtr<TargetObjectT> static_pointer_cast(
+    const TransitPtr<SourceObjectT> &source)
+{
+    TransitPtr<TargetObjectT> returnValue;
+
+    returnValue.static_cast_set(source);
+
+    return returnValue;
+}
 
 OSG_END_NAMESPACE
 

@@ -55,18 +55,6 @@ class TransitPtr;
 
 class FieldContainer;
 
-template <class TargetObjectT, class SourceObjectT> inline
-OSG::TransitPtr<TargetObjectT> dynamic_pointer_cast(
-    OSG::TransitPtr<SourceObjectT> const &source);
-
-/*! \ingroup GrpBaseBaseRefCounting
-    \relatesalso TransitPtr
- */
-
-template <class TargetObjectT, class SourceObjectT> inline
-OSG::TransitPtr<TargetObjectT> static_pointer_cast(
-    OSG::TransitPtr<SourceObjectT> const &source);
-
 /*! \ingroup GrpBaseBase
     \ingroup GrpBaseBaseMemory
     \ingroup GrpBaseBaseRefCounting
@@ -204,21 +192,13 @@ class TransitPtr
   
 };
 
-/*! \ingroup GrpBaseBaseRefCounting
-    \relatesalso TransitPtr
- */
+template <class TargetObjectT, class SourceObjectT> inline
+TransitPtr<TargetObjectT> dynamic_pointer_cast(
+    TransitPtr<SourceObjectT> const &source);
 
 template <class TargetObjectT, class SourceObjectT> inline
-OSG::TransitPtr<TargetObjectT> dynamic_pointer_cast(
-    OSG::TransitPtr<SourceObjectT> const &source)
-{
-    TransitPtr<TargetObjectT> returnValue;
-
-    returnValue.dynamic_cast_set(source);
-
-    return returnValue;
-}
-       
+TransitPtr<TargetObjectT> static_pointer_cast(
+    TransitPtr<SourceObjectT> const &source);
 
 OSG_END_NAMESPACE
 
