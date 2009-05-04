@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                   Copyright (C) 2009 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,54 +38,11 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline ColladaGlobalTransitPtr ColladaGlobal::create(void)
+inline ColladaInstanceLightTransitPtr ColladaInstanceLight::create(
+    domInstance_light *instLight, ColladaGlobal *global)
 {
-    return ColladaGlobalTransitPtr(new ColladaGlobal());
-}
-
-inline DAE &ColladaGlobal::getDAE(void)
-{
-    return _dae;
-}
-
-inline void ColladaGlobal::setDocPath(const std::string &docPath)
-{
-    _docPath = docPath;
-}
-
-inline const std::string &ColladaGlobal::getDocPath(void) const
-{
-    return _docPath;
-}
-
-inline Node *ColladaGlobal::getRootNode(void) const
-{
-    return _rootN;
-}
-
-inline Node *ColladaGlobal::getLightsNode(void) const
-{
-  return _lightsN;
-}
-
-inline void ColladaGlobal::addElement(ColladaElement *elem)
-{
-    _elements.push_back(elem);
-}
-
-inline void ColladaGlobal::subElement(ColladaElement *elem)
-{
-    ColladaElementStoreIt elemIt = std::find(
-        _elements.begin(), _elements.end(), elem);
-    
-    if(elemIt != _elements.end())
-        _elements.erase(elemIt);
-}
-
-inline
-bool ColladaGlobal::invertTransparency(void) const
-{
-    return _invertTransparency;
+    return ColladaInstanceLightTransitPtr(
+        new ColladaInstanceLight(instLight, global));
 }
 
 OSG_END_NAMESPACE

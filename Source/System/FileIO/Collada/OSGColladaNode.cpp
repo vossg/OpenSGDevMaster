@@ -40,14 +40,15 @@
 #pragma GCC diagnostic warning "-Wold-style-cast"
 #endif
 
-#include <OSGColladaNode.h>
-#include <OSGColladaLog.h>
+#include "OSGColladaNode.h"
+#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGColladaInstanceNode.h>
-#include <OSGColladaInstanceGeometry.h>
-#include <OSGNameAttachment.h>
+#include "OSGColladaInstanceNode.h"
+#include "OSGColladaInstanceGeometry.h"
+#include "OSGColladaInstanceLight.h"
+#include "OSGNameAttachment.h"
 
 #include <dom/domLookat.h>
 #include <dom/domMatrix.h>
@@ -57,6 +58,7 @@
 #include <dom/domTranslate.h>
 #include <dom/domInstance_node.h>
 #include <dom/domInstance_geometry.h>
+#include <dom/domInstance_light.h>
 #include <dom/domNode.h>
 
 
@@ -122,7 +124,15 @@ void ColladaNode::read(void)
     {
         handleInstanceGeometry(instGeos[i]);
     }
-    
+
+    const domInstance_light_Array &instLights =
+        node->getInstance_light_array();
+    for(UInt32 i = 0, instLightCount = instLights.getCount();
+        i < instLightCount; ++i)
+    {
+        handleInstanceLight(instLights[i]);
+    }
+        
     const domNode_Array &nodes = node->getNode_array();
     for(UInt32 i = 0, nodeCount = nodes.getCount(); i < nodeCount; ++i)
     {
@@ -292,6 +302,22 @@ void ColladaNode::handleInstanceGeometry(domInstance_geometry *instGeo)
     colInstGeo->read();
     
     _transNode->addChild(colInstGeo->createInstance());
+}
+
+void ColladaNode::handleInstanceLight(domInstance_light *instLight)
+{
+    OSG_COLLADA_LOG(("ColladaNode::handleInstanceLight:\n"));
+
+    ColladaInstanceLightRefPtr colInstLight =
+        ColladaInstanceLight::create(instLight, getGlobal());
+
+    addElement(colInstLight);
+
+    colInstLight->read();
+
+    LightUnrecPtr light  = colInstLight->createInstance();
+
+    light->setBeacon(_transNode);
 }
 
 void ColladaNode::handleNode(domNode *node)

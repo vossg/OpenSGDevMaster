@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,56 +36,84 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGCOLLADALIGHT_H_
+#define _OSGCOLLADALIGHT_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+/*! \file OSGColladaLight.h
+    \ingroup GrpLoader
+ */
+
+#include "OSGConfig.h"
+
+#ifdef OSG_WITH_COLLADA
+
+#include "OSGFileIODef.h"
+#include "OSGColladaInstantiableElement.h"
+#include "OSGLight.h"
+
+#include <dom/domLight.h>
+
 OSG_BEGIN_NAMESPACE
 
-inline ColladaGlobalTransitPtr ColladaGlobal::create(void)
-{
-    return ColladaGlobalTransitPtr(new ColladaGlobal());
-}
+// forward declarations
+class ColladaInstanceLight;
 
-inline DAE &ColladaGlobal::getDAE(void)
-{
-    return _dae;
-}
 
-inline void ColladaGlobal::setDocPath(const std::string &docPath)
+class OSG_FILEIO_DLLMAPPING ColladaLight : public ColladaInstantiableElement
 {
-    _docPath = docPath;
-}
-
-inline const std::string &ColladaGlobal::getDocPath(void) const
-{
-    return _docPath;
-}
-
-inline Node *ColladaGlobal::getRootNode(void) const
-{
-    return _rootN;
-}
-
-inline Node *ColladaGlobal::getLightsNode(void) const
-{
-  return _lightsN;
-}
-
-inline void ColladaGlobal::addElement(ColladaElement *elem)
-{
-    _elements.push_back(elem);
-}
-
-inline void ColladaGlobal::subElement(ColladaElement *elem)
-{
-    ColladaElementStoreIt elemIt = std::find(
-        _elements.begin(), _elements.end(), elem);
+  public:
+    typedef ColladaInstantiableElement              Inherited;
+    typedef ColladaLight                            Self;
     
-    if(elemIt != _elements.end())
-        _elements.erase(elemIt);
-}
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    
+    static inline ObjTransitPtr create(domLight      *light,
+                                       ColladaGlobal *global);
+    
+    virtual void   read    (void);
 
-inline
-bool ColladaGlobal::invertTransparency(void) const
-{
-    return _invertTransparency;
-}
+    inline  Light *getLight(void) const;
+    
+  protected:
+    friend class ColladaInstanceLight;
+
+    typedef domLight::domTechnique_common             domTechnique_common;
+    typedef domLight::domTechnique_commonRef          domTechnique_commonRef;
+
+    typedef domTechnique_common   ::domAmbient        domAmbient;
+    typedef domTechnique_common   ::domAmbientRef     domAmbientRef;
+
+    typedef domTechnique_common   ::domDirectional    domDirectional;
+    typedef domTechnique_common   ::domDirectionalRef domDirectionalRef;
+
+    typedef domTechnique_common   ::domPoint          domPoint;
+    typedef domTechnique_common   ::domPointRef       domPointRef;
+
+    typedef domTechnique_common   ::domSpot           domSpot;
+    typedef domTechnique_common   ::domSpotRef        domSpotRef;
+   
+    void handleAmbient    (domAmbient     *ambientL    );
+    void handleDirectional(domDirectional *directionalL);
+    void handlePoint      (domPoint       *pointL      );
+    void handleSpot       (domSpot        *spotL       );
+
+             ColladaLight(domLight *light, ColladaGlobal *global);
+    virtual ~ColladaLight(void                                  );
+
+    LightUnrecPtr _light;
+};
+
+typedef ColladaLight::ObjRefPtr     ColladaLightRefPtr;
+typedef ColladaLight::ObjTransitPtr ColladaLightTransitPtr;
 
 OSG_END_NAMESPACE
+
+#include <OSGColladaLight.inl>
+
+#endif // OSG_WITH_COLLADA
+
+#endif // _OSGCOLLADALIGHT_H_

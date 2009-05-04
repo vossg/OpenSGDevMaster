@@ -65,6 +65,7 @@ class domSkew;
 class domTranslate;
 class domInstance_node;
 class domInstance_geometry;
+class domInstance_light;
 class domNode;
 
 OSG_BEGIN_NAMESPACE
@@ -105,6 +106,7 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     void handleTranslate       (domTranslate         *translate);
     void handleInstanceNode    (domInstance_node     *instNode );
     void handleInstanceGeometry(domInstance_geometry *instGeo  );
+    void handleInstanceLight   (domInstance_light    *instLight);
     void handleNode            (domNode              *node     );
 };
 

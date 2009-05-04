@@ -74,7 +74,8 @@ void ColladaInstanceNode::read(void)
         colNode->read();
     }
     
-    OSG_COLLADA_LOG(("ColladaInstanceNode::read: [%s] instancing [%s] [%s]\n",
+    OSG_COLLADA_LOG(("ColladaInstanceNode::read: [%s] "
+                     "instantiating [%s] [%s]\n",
                      (instNode->getName() ? instNode->getName() : ""),
                      instNode->getUrl().str().c_str(),
                      (node->getName() ? node->getName() : "") ));

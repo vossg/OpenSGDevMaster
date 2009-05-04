@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,56 +36,88 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wold-style-cast"
+#endif
+
+#include "OSGColladaInstanceLight.h"
+#include "OSGColladaLog.h"
+
+#ifdef OSG_WITH_COLLADA
+
+#include "OSGColladaLight.h"
+#include "OSGColladaGlobal.h"
+#include "OSGMultiCore.h"
+#include "OSGNode.h"
+
+#include <dae/daeURI.h>
+#include <dom/domInstance_light.h>
+
 OSG_BEGIN_NAMESPACE
 
-inline ColladaGlobalTransitPtr ColladaGlobal::create(void)
+void ColladaInstanceLight::read(void)
 {
-    return ColladaGlobalTransitPtr(new ColladaGlobal());
+    OSG_COLLADA_LOG(("ColladaInstanceLight::read:\n"));
+
+    domInstance_lightRef instLight = getDOMElementAs<domInstance_light>();
+    daeURI               lightUri  = instLight->getUrl();
+    domLightRef          light     =
+        daeSafeCast<domLight>(lightUri.getElement());
+
+    OSG_COLLADA_LOG(("ColladaInstanceLight::read: lightURI [%s]\n",
+                     lightUri.str().c_str()));
+
+    setInstDOMElement(light);
+
+    ColladaLightRefPtr colLight = getUserDataAs<ColladaLight>(light);
+
+    if(colLight == NULL)
+    {
+        colLight = ColladaLight::create(light, getGlobal());
+        addElement(colLight);
+
+        colLight->read();
+    }
+
+    OSG_COLLADA_LOG(("ColladaInstanceLight::read: [%s] "
+                     "instantiating [%s] [%s]\n",
+                     (instLight->getName() ? instLight->getName() : ""),
+                     instLight->getUrl().str().c_str(),
+                     (light->getName() ? light->getName() : "") ));
 }
 
-inline DAE &ColladaGlobal::getDAE(void)
+LightTransitPtr ColladaInstanceLight::createInstance(void)
 {
-    return _dae;
+    OSG_COLLADA_LOG(("ColladaInstanceLight::createInstance:\n"));
+
+    LightUnrecPtr      retVal;
+    domLightRef        light    = getInstDOMElementAs<domLight>();
+    ColladaLightRefPtr colLight = getUserDataAs<ColladaLight>(light);
+
+    ++colLight->_instCount;
+
+    retVal = static_pointer_cast<Light>(colLight->getLight()->shallowCopy());
+
+    MultiCore *lights = dynamic_cast<MultiCore *>(
+        getGlobal()->getLightsNode()->getCore());
+
+    lights->addCore(retVal);
+
+    return LightTransitPtr(retVal);
 }
 
-inline void ColladaGlobal::setDocPath(const std::string &docPath)
+
+ColladaInstanceLight::ColladaInstanceLight(
+    domInstance_light *instLight, ColladaGlobal *global)
+
+    : Inherited(instLight, global)
 {
-    _docPath = docPath;
 }
 
-inline const std::string &ColladaGlobal::getDocPath(void) const
+ColladaInstanceLight::~ColladaInstanceLight(void)
 {
-    return _docPath;
-}
-
-inline Node *ColladaGlobal::getRootNode(void) const
-{
-    return _rootN;
-}
-
-inline Node *ColladaGlobal::getLightsNode(void) const
-{
-  return _lightsN;
-}
-
-inline void ColladaGlobal::addElement(ColladaElement *elem)
-{
-    _elements.push_back(elem);
-}
-
-inline void ColladaGlobal::subElement(ColladaElement *elem)
-{
-    ColladaElementStoreIt elemIt = std::find(
-        _elements.begin(), _elements.end(), elem);
-    
-    if(elemIt != _elements.end())
-        _elements.erase(elemIt);
-}
-
-inline
-bool ColladaGlobal::invertTransparency(void) const
-{
-    return _invertTransparency;
 }
 
 OSG_END_NAMESPACE
+
+#endif // OSG_WITH_COLLADA

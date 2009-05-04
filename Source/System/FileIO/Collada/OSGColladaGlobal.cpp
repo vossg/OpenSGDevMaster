@@ -45,7 +45,8 @@
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGColladaInstanceVisualScene.h>
+#include "OSGColladaInstanceVisualScene.h"
+#include "OSGMultiCore.h"
 
 #include <dom/domCOLLADA.h>
 #include <dom/domInstanceWithExtra.h>
@@ -109,6 +110,10 @@ void ColladaGlobal::read(void)
         }
     }
 
+    MultiCoreUnrecPtr lights = MultiCore::create();
+    _lightsN = makeNodeFor         (lights);
+    _rootN   = makeCoredNode<Group>(      );
+    
     domInstanceWithExtraRef          instVisScene    =
         scene->getInstance_visual_scene();
     ColladaInstanceVisualSceneRefPtr colInstVisScene =
@@ -117,11 +122,26 @@ void ColladaGlobal::read(void)
     
     colInstVisScene->read();
     
-    _rootNode = colInstVisScene->createInstance();
+    NodeUnrecPtr visSceneN = colInstVisScene->createInstance();
+
+    if(lights->getNCores() == 0)
+    {
+        _rootN->addChild(visSceneN);
+    }
+    else
+    {
+        _lightsN->addChild(visSceneN);
+        _rootN  ->addChild(_lightsN );
+    }
 }
 
 ColladaGlobal::ColladaGlobal(void)
     : Inherited(NULL, this),
+      _docPath (),
+      _rootN   (),
+      _lightsN (),
+      _dae     (),
+      _elements(),
       _invertTransparency(false)
 {
 }

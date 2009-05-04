@@ -79,7 +79,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public ColladaElement
     inline void               setDocPath (const std::string &docPath);
     inline const std::string &getDocPath (void                      ) const;
     
-    inline Node              *getRootNode(void                      ) const;
+    inline Node *getRootNode  (void) const;
+    inline Node *getLightsNode(void) const;
     
     bool invertTransparency(void) const;
 
@@ -95,7 +96,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public ColladaElement
       
     std::string         _docPath;
     
-    NodeUnrecPtr        _rootNode;
+    NodeUnrecPtr        _rootN;
+    NodeUnrecPtr        _lightsN;
     
     DAE                 _dae;
     ColladaElementStore _elements;

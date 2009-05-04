@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,56 +36,62 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGCOLLADAINSTANCELIGHT_H_
+#define _OSGCOLLADAINSTANCELIGHT_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+/*! \file OSGColladaInstanceLight.h
+    \ingroup GrpLoader
+ */
+
+#include "OSGConfig.h"
+
+#ifdef OSG_WITH_COLLADA
+
+#include "OSGFileIODef.h"
+#include "OSGColladaInstanceElement.h"
+#include "OSGColladaLight.h"
+
+
+// forward declarations
+class domInstance_light;
+
 OSG_BEGIN_NAMESPACE
 
-inline ColladaGlobalTransitPtr ColladaGlobal::create(void)
-{
-    return ColladaGlobalTransitPtr(new ColladaGlobal());
-}
 
-inline DAE &ColladaGlobal::getDAE(void)
+class OSG_FILEIO_DLLMAPPING ColladaInstanceLight
+    : public ColladaInstanceElement
 {
-    return _dae;
-}
-
-inline void ColladaGlobal::setDocPath(const std::string &docPath)
-{
-    _docPath = docPath;
-}
-
-inline const std::string &ColladaGlobal::getDocPath(void) const
-{
-    return _docPath;
-}
-
-inline Node *ColladaGlobal::getRootNode(void) const
-{
-    return _rootN;
-}
-
-inline Node *ColladaGlobal::getLightsNode(void) const
-{
-  return _lightsN;
-}
-
-inline void ColladaGlobal::addElement(ColladaElement *elem)
-{
-    _elements.push_back(elem);
-}
-
-inline void ColladaGlobal::subElement(ColladaElement *elem)
-{
-    ColladaElementStoreIt elemIt = std::find(
-        _elements.begin(), _elements.end(), elem);
+  public:
+    typedef ColladaInstanceElement                  Inherited;
+    typedef ColladaInstanceLight                    Self;
     
-    if(elemIt != _elements.end())
-        _elements.erase(elemIt);
-}
+    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    typedef TransitPtr <Self                      > ObjTransitPtr;
+    
+    static inline ObjTransitPtr create(domInstance_light *instLight,
+                                       ColladaGlobal     *global    );
+    
+    virtual void            read          (void);
+            LightTransitPtr createInstance(void);
 
-inline
-bool ColladaGlobal::invertTransparency(void) const
-{
-    return _invertTransparency;
-}
+  protected:
+             ColladaInstanceLight(domInstance_light *instLight,
+                                  ColladaGlobal     *global    );
+    virtual ~ColladaInstanceLight(void                         );
+
+    NodeUnrecPtr _node;
+};
+
+typedef ColladaInstanceLight::ObjRefPtr     ColladaInstanceLightRefPtr;
+typedef ColladaInstanceLight::ObjTransitPtr ColladaInstanceLightTransitPtr;
 
 OSG_END_NAMESPACE
+
+#include "OSGColladaInstanceLight.inl"
+
+#endif // OSG_WITH_COLLADA
+
+#endif // _OSGCOLLADAINSTANCELIGHT_H_

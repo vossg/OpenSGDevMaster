@@ -84,7 +84,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-             ColladaInstantiableElement(daeElement *elem,
+             ColladaInstantiableElement(daeElement    *elem,
                                         ColladaGlobal *global);
     virtual ~ColladaInstantiableElement(void                 ) = 0;
 
