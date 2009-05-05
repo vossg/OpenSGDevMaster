@@ -53,7 +53,7 @@ static fpu_control_t fpu_init;
 #    define OSG_FPU_ROUND_DOUBLE  (fpsetprec(FP_PD))
 #    define OSG_FPU_RESTORE       (fpsetprec(FP_PE))
 #  else /* not OSG_HAVE_FLOATINGPOINT_H */
-#    ifdef WIN32
+#    if defined(WIN32)
 #      ifdef _MSC_VER
 #        include <float.h>
 static unsigned int fpu_init;
@@ -64,7 +64,11 @@ static unsigned int fpu_init;
 #        error "You need the Microsoft C compiler for the Win32 version"
 #      endif /*  not _MSC_VER */
 #    else /* not WIN32 */
-#      error "Unknown CPU: assuming default double precision rounding"
+#      if defined(_WIN64)
+#        warning "Windows x64 environment does not support rounding mode control"
+#      else
+#        error "Unknown CPU: assuming default double precision rounding"
+#      endif
 #      define OSG_FPU_ROUND_DOUBLE
 #      define OSG_FPU_RESTORE
 #    endif /* not WIN32 */
