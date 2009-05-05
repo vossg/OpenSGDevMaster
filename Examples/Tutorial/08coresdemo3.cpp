@@ -43,7 +43,7 @@ const char *getNodeName(Node const *node)
     else
     {
         if(node->getCore() != NULL)
-            return node->getCore()->getType().getName().str();
+            return node->getCore()->getType().getName().c_str();
     }
 
     return NULL;
