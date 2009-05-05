@@ -176,14 +176,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
 
     inline reference       operator [](UInt32 index);
     inline const_reference operator [](UInt32 index) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Assigment                               */
-    /*! \{                                                                 */
-
-    TypedGeoIntegralProperty &operator =(const TypedGeoIntegralProperty &source);
-
+    
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Output                                  */
@@ -288,6 +281,8 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    Self &operator =(const Self &source);
 
     static void classDescInserter(TypeObject &oType);
 

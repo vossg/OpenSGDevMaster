@@ -268,13 +268,6 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Assigment                               */
-    /*! \{                                                                 */
-
-    TypedGeoVectorProperty &operator =(const TypedGeoVectorProperty &source);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
@@ -379,6 +372,8 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*!\brief prohibit default function (move to 'public' if needed) */  
+    Self &operator =(const Self &source);
 
     static void classDescInserter(TypeObject &oType);
 
