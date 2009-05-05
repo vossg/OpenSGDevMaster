@@ -39,19 +39,16 @@
 #ifndef _OSGATOMIC_H_
 #define _OSGATOMIC_H_
 
-
 #include "OSGBaseTypes.h"
 
-#ifdef WIN32
-#include <boost/detail/interlocked.hpp>
-
-// boost before 1.34.0 does not have BOOST_INTERLOCKED_EXCHANGE_ADD
-#ifndef BOOST_INTERLOCKED_EXCHANGE_ADD
-#define BOOST_INTERLOCKED_EXCHANGE_ADD InterlockedExchangeAdd
-#endif
-
-#else
+#if !defined(WIN32)
 #include <boost/detail/sp_counted_base.hpp>
+#else
+#pragma intrinsic( _InterlockedExchangeAdd )
+#pragma intrinsic( _InterlockedIncrement )
+#pragma intrinsic( _InterlockedDecrement )
+#pragma intrinsic( _InterlockedAnd )
+#pragma intrinsic( _InterlockedOr )
 #endif
 
 OSG_BEGIN_NAMESPACE
@@ -118,7 +115,7 @@ void osgSpinLockRelease(UInt32 *pLock, UInt32 uiInvMask)
 #endif
 }
 
-#else
+#else // !defined(WIN32)
 
 inline 
 RefCountStore osgAtomicExchangeAndAdd(RefCountStore *pValue, 
@@ -132,7 +129,7 @@ RefCountStore osgAtomicExchangeAndAdd(RefCountStore *pValue,
     return ret;
 #endif
 
-    return BOOST_INTERLOCKED_EXCHANGE_ADD(pValue, rcDelta);
+    return _InterlockedExchangeAdd(pValue, rcDelta);
 }
 
 inline 
@@ -142,7 +139,7 @@ void osgAtomicIncrement(RefCountStore *pValue)
     ++(*pValue);
 #endif
     
-    BOOST_INTERLOCKED_INCREMENT(pValue);
+    _InterlockedIncrement(pValue);
 }
 
 inline 
@@ -152,7 +149,7 @@ void osgAtomicDecrement(RefCountStore *pValue)
     ++(*pValue);
 #endif
     
-    BOOST_INTERLOCKED_DECREMENT(pValue);
+    _InterlockedDecrement(pValue);
 }
 
 inline
