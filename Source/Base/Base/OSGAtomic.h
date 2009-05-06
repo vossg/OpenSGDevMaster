@@ -42,7 +42,14 @@
 #include "OSGBaseTypes.h"
 
 #if !defined(WIN32)
+#include <boost/version.hpp>
+
+#if BOOST_VERSION < 103900
 #include <boost/detail/sp_counted_base.hpp>
+#else
+#include <boost/smart_ptr/detail/sp_counted_base.hpp>
+#endif
+
 #else
 #pragma intrinsic( _InterlockedExchangeAdd )
 #pragma intrinsic( _InterlockedIncrement )
