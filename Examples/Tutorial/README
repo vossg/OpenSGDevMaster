@@ -4,13 +4,21 @@ OpenSG Tutorial
 The files in this directory are part of the OpenSG tutorial you can find on
 the project's website (opensg.vrsource.org/trac/wiki/Tutorial).
 
-To build the programs you need scons which you can download (www.scons.org) or
-(if you have a complete OpenSG source tree) use the version
-Tools/scons-local/scons.py.  In order to find the OpenSG libraries the
-included SConstruct file looks for the osg2-config tool that is normally
-installed with OpenSG. If osg2-config can not be found on your PATH, please
-pass the OPENSG2CONFIGDIR=/dir/where/osg2-config/can/be/found command line
-argument when invoking scons.
+To build the programs you need CMake which you can download from the
+web (www.cmake.org, you need version 2.6 or later) - for linux there is
+probably a package for your distribution available.
+In order to find the OpenSG libraries and some dependencies you need to
+tell cmake where to find them. Call cmake with the following options:
+
+ cmake -DOPENSG_ROOT=<PATH_TO_OPENSG>  \
+       -DBOOST_ROOT=<PATH_TO_BOOST>    \
+       -DCOLLADA_ROOT_DIR=<PATH_TO_COLLADA>
+
+If you use your system's boost, you don't need the BOOST_ROOT option, it
+find it, just make sure that it is the same then that used to build
+OpenSG, or you are likely to run into nasty runtime problems.
+The COLLADA_ROOT_DIR option can be left out if your OpenSG was not built
+with collada supprot otherwise it is required.
 
 Although the tutorial programs are better commented than the OpenSG code base
 in general ( ;) ) we still recommend that you follow the online tutorial as it

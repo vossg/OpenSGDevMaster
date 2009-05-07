@@ -35,9 +35,7 @@ ENDIF(APPLE AND OSG_CARBON_FRAMEWORK)
 ##############################################################################
 # depdencies start here
 
-SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
-                                OSGSystem
-                                OSGDrawable
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
                                 OSGWindow
                                 OSGFileIO
                                 OSGUtil)

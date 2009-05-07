@@ -22,7 +22,17 @@ LIST(REMOVE_ITEM SRCFILES "${PROJECT_SOURCE_DIR}/shader.cpp")
 #############################################################################
 # get dependencies
 
-SET(OSG_COMPONENTS OSGBase OSGCluster OSGDrawable OSGFileIO OSGGroup OSGState OSGSystem OSGUtil OSGWindow OSGWindowGLUT)
+SET(OSG_COMPONENTS OSGBase 
+                   OSGCluster 
+                   OSGDrawable 
+                   OSGFileIO 
+                   OSGGroup 
+                   OSGImageFileIO
+                   OSGState 
+                   OSGSystem 
+                   OSGUtil 
+                   OSGWindow 
+                   OSGWindowGLUT)
 
 SET(DEP_INCLUDE_DIRS)
 SET(DEP_LIBRARY_DIRS)
@@ -55,7 +65,7 @@ FIND_PACKAGE(Collada)
 
 IF(COLLADA_FOUND)
     LIST(APPEND DEP_INCLUDE_DIRS ${COLLADA_INCLUDE_DIRS})
-    LIST(APPEND DEP_LIBRARIES ${COLLADA_LIBRARIES})
+    LIST(APPEND DEP_LIBRARY_DIRS ${COLLADA_LIBRARY_DIRS})
 ENDIF(COLLADA_FOUND)
 
 #############
@@ -81,7 +91,7 @@ ENDIF(Boost_FOUND AND Boost_MINOR_VERSION GREATER "34")
 
 IF(Boost_FOUND)
     LIST(APPEND DEP_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
-    LIST(APPEND DEP_LIBRARIES ${Boost_LIBRARIES})
+    LIST(APPEND DEP_LIBRARY_DIRS ${Boost_LIBRARY_DIRS})
 ENDIF(Boost_FOUND)
 
 #############

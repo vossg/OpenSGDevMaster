@@ -9,16 +9,11 @@ OSG_SELECT_PROJECT()
 ##############################################################################
 
 # dependencies - OpenSG
-SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
-                                OSGDrawable
-                                OSGSystem)
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable)
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGGroup
                                      OSGState
-                                     OSGSystem
                                      OSGUtil
-                                     OSGWindow
-                                     OSGWindowGLUT
-                                     ${OSG_NATIVE_WINDOW})
+                                     OSGWindowGLUT)
 
 # dependencies - External
 # SET(${PROJECT_NAME}_DEP_LIB)

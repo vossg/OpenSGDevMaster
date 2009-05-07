@@ -1,13 +1,81 @@
 
-
 #############################################################################
-#print message depending on the setting of OSG_VERBOSE_BUILD_MESSAGES
+# print message depending on the setting of OSG_VERBOSE_BUILD_MESSAGES
 
 FUNCTION(OSG_MSG MSG)
     IF(OSG_VERBOSE_BUILD_MESSAGES)
         MESSAGE(STATUS "${MSG}")
     ENDIF(OSG_VERBOSE_BUILD_MESSAGES)
 ENDFUNCTION(OSG_MSG)
+
+#############################################################################
+# includes _OSG_FILENAME if it exists, otherwise bails with an error.
+
+MACRO(OSG_CHECKED_INCLUDE _OSG_FILENAME)
+    IF(NOT EXISTS "${_OSG_FILENAME}")
+        MESSAGE(FATAL_ERROR "File \"${_OSG_FILENAME}\" not found, "
+            "required by ${PROJECT_NAME}\n")
+    ENDIF(NOT EXISTS "${_OSG_FILENAME}")
+
+    INCLUDE("${_OSG_FILENAME}")
+ENDMACRO(OSG_CHECKED_INCLUDE)
+
+#############################################################################
+# given a list of OpenSG libraries (BASELIST) it determines the full list of
+# OpenSG libs they depend upon.
+# Useful to get all the include dirs needed by a lib during the build.
+
+FUNCTION(OSG_GET_ALL_DEP_OSG_LIB BASELIST OUTDEPLIST)
+    
+    SET(_DEPLIST    ${BASELIST})
+    SET(_DEPLISTNEW            )
+    
+    # CMake has no do{ }while, duplicate the while loop body once
+    # outside the while loop:
+
+    FOREACH(DEP ${_DEPLIST})
+        OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${DEP}.cmake")
+
+        LIST(APPEND _DEPLISTNEW ${DEP})
+        LIST(APPEND _DEPLISTNEW ${${DEP}_DEP_OSG_LIB})
+
+        LIST(SORT              _DEPLISTNEW)
+        LIST(REMOVE_DUPLICATES _DEPLISTNEW)
+    ENDFOREACH(DEP)
+
+    LIST(LENGTH _DEPLIST    _DEPLISTLEN   )
+    LIST(LENGTH _DEPLISTNEW _DEPLISTNEWLEN)
+
+    #MESSAGE("_DEPLIST   : ${_DEPLIST}"   )
+    #MESSAGE("_DEPLISTNEW: ${_DEPLISTNEW}")
+
+    # keep iterating as long as new elements are added
+    WHILE(${_DEPLISTNEWLEN} GREATER ${_DEPLISTLEN})
+        
+        SET(_DEPLIST    ${_DEPLISTNEW})
+        SET(_DEPLISTNEW               )
+
+        FOREACH(DEP ${_DEPLIST})
+            OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${DEP}.cmake")
+        
+            LIST(APPEND _DEPLISTNEW ${DEP}               )
+            LIST(APPEND _DEPLISTNEW ${${DEP}_DEP_OSG_LIB})
+
+            LIST(SORT              _DEPLISTNEW)
+            LIST(REMOVE_DUPLICATES _DEPLISTNEW)
+        ENDFOREACH(DEP)
+
+        #MESSAGE("_DEPLIST   : ${_DEPLIST}"   )
+        #MESSAGE("_DEPLISTNEW: ${_DEPLISTNEW}")
+
+        LIST(LENGTH _DEPLIST    _DEPLISTLEN   )
+        LIST(LENGTH _DEPLISTNEW _DEPLISTNEWLEN)
+    ENDWHILE(${_DEPLISTNEWLEN} GREATER ${_DEPLISTLEN})
+
+    SET(${OUTDEPLIST} "${_DEPLISTNEW}" PARENT_SCOPE)
+
+ENDFUNCTION(OSG_GET_ALL_DEP_OSG_LIB)
+
 
 #############################################################################
 # register project with build
@@ -423,7 +491,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
     ENDIF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGPASS_BUILD")
 
     # read file lists
-    INCLUDE(${${PROJECT_NAME}_BUILD_FILE})
+    OSG_CHECKED_INCLUDE(${${PROJECT_NAME}_BUILD_FILE})
 
     #####
     # FCD
@@ -579,18 +647,17 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         DEBUGRT_POSTFIX "_d")
 
     # dependencies - OpenSG
-    FOREACH(OSGDEP ${${PROJECT_NAME}_DEP_OSG_LIB})
-        IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
-            MESSAGE(FATAL_ERROR "Dependency (${OSGDEP}) not found, "
-                                "can not build ${PROJECT_NAME}\n")
-            RETURN()
-        ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    OSG_GET_ALL_DEP_OSG_LIB(
+        "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIST)
 
-        INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    FOREACH(OSGDEP ${DEP_OSG_LIST})
+        OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
         INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
+    ENDFOREACH(OSGDEP)
 
-        ADD_DEPENDENCIES(${PROJECT_NAME} ${OSGDEP})
-
+    FOREACH(OSGDEP ${${PROJECT_NAME}_DEP_OSG_LIB})
+        OSG_CHECKED_INCLUDE  ("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+        ADD_DEPENDENCIES     (${PROJECT_NAME} ${OSGDEP})
         TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${OSGDEP})
     ENDFOREACH(OSGDEP)
 
@@ -678,20 +745,26 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         RETURN()
     ENDIF(NOT ${OSG_CMAKE_PASS} STREQUAL "OSGPASS_BUILD")
 
-    INCLUDE(${${PROJECT_NAME}_BUILD_FILE})
+    OSG_CHECKED_INCLUDE(${${PROJECT_NAME}_BUILD_FILE})
     INCLUDE_DIRECTORIES(${${PROJECT_NAME}_INC})
 
     # dependencies - OpenSG
-    FOREACH(OSGDEP ${${PROJECT_NAME}_DEP_OSG_LIB})
-        IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
-            MESSAGE(FATAL_ERROR "Dependency (${OSGDEP}) not found, "
-                                "can not build tests for ${PROJECT_NAME}\n")
-            RETURN()
-        ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    OSG_GET_ALL_DEP_OSG_LIB(
+        "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIB)
 
-        INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    FOREACH(OSGDEP ${DEP_OSG_LIB})
+        OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
         INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
     ENDFOREACH(OSGDEP)
+
+    # dependencies - test OpenSG
+    OSG_GET_ALL_DEP_OSG_LIB(
+        "${${PROJECT_NAME}_DEP_TEST_OSG_LIB}" DEP_TEST_OSG_LIB)
+
+    FOREACH(OSGTESTDEP ${DEP_TEST_OSG_LIB})
+        OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake")
+        INCLUDE_DIRECTORIES(${${OSGTESTDEP}_INC})
+    ENDFOREACH(OSGTESTDEP)
 
     # dependencies - External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_INCDIR})
@@ -703,19 +776,6 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
         OSG_MSG("  library dir ${LIBDIR} = ${${LIBDIR}}")
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
-
-    # dependencies - test OpenSG
-    FOREACH(OSGTESTDEP ${${PROJECT_NAME}_DEP_TEST_OSG_LIB})
-        IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake")
-            MESSAGE(STATUS "Test dependency (${OSGTESTDEP}) not found, "
-                           "ignoring tests for ${PROJECT_NAME}\n")
-
-            RETURN()
-        ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake")
-
-        INCLUDE("${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake")
-        INCLUDE_DIRECTORIES(${${OSGTESTDEP}_INC})
-    ENDFOREACH(OSGTESTDEP)
 
     # dependencies - test External
     FOREACH(INCDIR ${${PROJECT_NAME}_DEP_TEST_INCDIR})
@@ -765,35 +825,24 @@ FUNCTION(OSG_SETUP_UNITTEST_BUILD)
         RETURN()
     ENDIF(NOT ${PROJECT_NAME}_UNITTEST_SRC)
 
-    # add the unittest runner source
-    LIST(APPEND ${PROJECT_NAME}_UNITTEST_SRC
-        "${CMAKE_SOURCE_DIR}/Tools/unittest-cpp/UnitTestRunner.cpp")
-
     INCLUDE_DIRECTORIES(${${PROJECT_NAME}_INC})
     INCLUDE_DIRECTORIES(${OSG_UNITTEST_INCLUDE_DIRS})
 
     # dependencies - OpenSG
-    FOREACH(OSGDEP ${${PROJECT_NAME}_DEP_OSG_LIB})
-        IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
-            MESSAGE(FATAL_ERROR "Dependency (${OSGDEP}) not found, "
-                                "can not build tests for ${PROJECT_NAME}\n")
-            RETURN()
-        ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    OSG_GET_ALL_DEP_OSG_LIB(
+        "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIB)
 
-        INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    FOREACH(OSGDEP ${DEP_OSG_LIB})
+        OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
         INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
     ENDFOREACH(OSGDEP)
 
     # dependencies - unittest OpenSG
-    FOREACH(OSGDEP ${${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB})
-        IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
-            MESSAGE(STATUS "UnitTest dependency (${OSGDEP}) not found, "
-                           "ignoring unit tests for ${PROJECT_NAME}\n")
+    OSG_GET_ALL_DEP_OSG_LIB(
+        "${${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB}" DEP_UNITTEST_OSG_LIB)
 
-            RETURN()
-        ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
-
-        INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    FOREACH(OSGDEP ${DEP_UNITTEST_OSG_LIB})
+        OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
         INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
     ENDFOREACH(OSGDEP)
 
@@ -808,8 +857,11 @@ FUNCTION(OSG_SETUP_UNITTEST_BUILD)
         LINK_DIRECTORIES(${${LIBDIR}})
     ENDFOREACH(LIBDIR)
 
-
     LINK_DIRECTORIES(${OSG_UNITTEST_LIBRARY_DIRS})
+
+    # add the unittest runner source
+    LIST(APPEND ${PROJECT_NAME}_UNITTEST_SRC
+        "${CMAKE_SOURCE_DIR}/Tools/unittest-cpp/UnitTestRunner.cpp")
 
     # build unittest executable
     ADD_EXECUTABLE("UnitTest${PROJECT_NAME}"
@@ -1005,3 +1057,4 @@ FUNCTION(OSG_WRITE_SETTINGS FILENAME)
     ENDFOREACH(OSG_OPT ${OSG_OPTION_LIST})
 
 ENDFUNCTION(OSG_WRITE_SETTINGS FILENAME)
+
