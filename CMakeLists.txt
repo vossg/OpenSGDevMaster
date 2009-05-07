@@ -139,26 +139,26 @@ SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #####################
-# External extenstion
+# External extension
 #####################
 
 FOREACH(EXTERNAL ${OSG_EXTRA_EXTERNAL_MODULES})
     OPTION(OSGBUILD_${EXTERNAL} 
-           "Build using ${EXTERNAL} module" OFF)
+        "Build using ${EXTERNAL} module" OFF)
 
     IF(OSGBUILD_${EXTERNAL})
-      FIND_PATH(OSG_${EXTERNAL}_SOURCE_DIR 
-                CMakeLists.Lib.${EXTERNAL}.txt
-                ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL})
+        FIND_PATH(OSG_${EXTERNAL}_SOURCE_DIR 
+            CMakeLists.Lib.${EXTERNAL}.txt
+            ${CMAKE_CURRENT_SOURCE_DIR}/../${EXTERNAL})
 
-      IF(NOT EXISTS 
-             ${OSG_${EXTERNAL}_SOURCE_DIR}/CMakeLists.Lib.${EXTERNAL}.txt)
+        IF(NOT EXISTS 
+                ${OSG_${EXTERNAL}_SOURCE_DIR}/CMakeLists.Lib.${EXTERNAL}.txt)
 
-          MESSAGE(SEND_ERROR "Cannot find ${EXTERNAL} sources directory: "
-                             "${OSG_${EXTERNAL}_SOURCE_DIR}")
-      ELSE()
-          LIST(APPEND OSG_EXTERNAL_CONFIGS "${EXTERNAL}")
-      ENDIF()
+            MESSAGE(SEND_ERROR "Cannot find ${EXTERNAL} sources directory: "
+                               "${OSG_${EXTERNAL}_SOURCE_DIR}")
+        ELSE()
+            LIST(APPEND OSG_EXTERNAL_CONFIGS "${EXTERNAL}")
+        ENDIF()
     ENDIF()
 ENDFOREACH(EXTERNAL)
 
@@ -205,13 +205,10 @@ IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR
    CMAKE_BUILD_TYPE STREQUAL "DebugGV")
 
     SET(OSG_LIBDIR_SUFFIX "${OSG_LIBDIR_SUFFIX}/debug")
-
 ENDIF()
 
 IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
-
     SET(OSG_LIBDIR_SUFFIX "${OSG_LIBDIR_SUFFIX}/debugrt")
-
 ENDIF()
 
 ADD_DEFINITIONS(-D OSG_BUILD_ACTIVE)
@@ -248,6 +245,7 @@ IF(NOT OSG_BUILD_DEPENDEND)
         ENDIF()
 
         SET(OSG_BOOST_INCDIRS ${Boost_INCLUDE_DIR})
+        SET(OSG_BOOST_CPP_DEF -DBOOST_ALL_DYN_LINK)
 
         OSG_ADD_OPT(BOOST_ROOT)
 
@@ -292,10 +290,11 @@ IF(NOT OSG_BUILD_DEPENDEND)
         OSG_SET(OSG_WITH_ZLIB 1)
     ENDIF(ZLIB_FOUND)
 
+    #############
+    #### Freetype
+    #############
+
     IF(UNIX AND NOT APPLE)
-        #############
-        #### Freetype
-        #############
 
         FIND_PACKAGE(Freetype)
 
@@ -563,10 +562,9 @@ ENDIF(NOT WIN32)
 # MAIN BUILD STEPS
 ##############################################################################
 
-SET(OSG_CMAKE_PASSES "OSGCOLLECT" "OSGSETUP")
-
-SET(OSG_PASSDIR_OSGCOLLECT "")
-SET(OSG_PASSDIR_OSGSETUP   "")
+# you can add passes, but there can only be one pass (the last) that uses
+# ADD_SUBDIRECTORY() and issues build commands
+SET(OSG_CMAKE_PASSES "OSGPASS_COLLECT" "OSGPASS_BUILD")
 
 ###############
 # Clean
@@ -585,28 +583,13 @@ IF(OSG_OLD_CONFIG_FILES)
 ENDIF(OSG_OLD_CONFIG_FILES)
 
 ###############
-# Tests
-###############
-
-# optional pass for test programs
-IF(OSGBUILD_TESTS)
-    LIST(APPEND OSG_CMAKE_PASSES "OSGSETUPTEST")
-    SET(OSG_PASSDIR_OSGSETUPTEST "Test")
-ENDIF(OSGBUILD_TESTS)
-
-###############
 # UnitTests
 ###############
 
 IF(OSGBUILD_UNITTESTS)
     ENABLE_TESTING()
 
-    # optional pass for unittest programs
-    LIST(APPEND OSG_CMAKE_PASSES "OSGSETUPUNITTEST")
-    SET(OSG_PASSDIR_OSGSETUPUNITTEST "")
-
-    ADD_SUBDIRECTORY("${CMAKE_SOURCE_DIR}/Tools/unittest-cpp"
-                     "${OSG_PASSDIR_OSGSETUPUNITTEST}")
+    ADD_SUBDIRECTORY("${CMAKE_SOURCE_DIR}/Tools/unittest-cpp")
 
     SET(OSG_UNITTEST_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/Tools/unittest-cpp/UnitTest++/src")
     SET(OSG_UNITTEST_LIBRARY_DIRS "${CMAKE_BINARY_DIR}/bin")
@@ -617,13 +600,7 @@ ENDIF(OSGBUILD_UNITTESTS)
 # Documentation I
 #################
 
-IF(NOT OSG_DOXY_INPUTS)
-    # add a pass for doxygen to run
-    LIST(APPEND OSG_CMAKE_PASSES "OSGDOXYDOC")
-    SET(OSG_PASSDIR_OSGDOXYDOC "Doc")
-ENDIF(NOT OSG_DOXY_INPUTS)
-
-# set up variables for the config file
+# set up variables for the doxygen config file
 IF(DOXYGEN_DOT_EXECUTABLE)
     SET(OSG_DOXY_HAVE_DOT "YES")
 ENDIF(DOXYGEN_DOT_EXECUTABLE)
@@ -691,25 +668,44 @@ LIST(REMOVE_ITEM OSG_LIBRARY_CONFIG_FILES ${OSG_LIBRARY_CONFIG_FILE_SYSTEM})
 LIST(INSERT OSG_LIBRARY_CONFIG_FILES 0 ${OSG_LIBRARY_CONFIG_FILE_SYSTEM})
 LIST(INSERT OSG_LIBRARY_CONFIG_FILES 0 ${OSG_LIBRARY_CONFIG_FILE_BASE})
 
-# run build passes
+
 FOREACH(PASS ${OSG_CMAKE_PASSES})
-
     SET(OSG_CMAKE_PASS ${PASS})
-
-    MESSAGE(STATUS "\nPASS : ${OSG_CMAKE_PASS} in ${OSG_PASSDIR_${PASS}}\n")
+    MESSAGE("\nPASS : ${OSG_CMAKE_PASS}")
 
     FOREACH(LIBCONFIGFILE ${OSG_LIBRARY_CONFIG_FILES})
         GET_FILENAME_COMPONENT(LIBCONFIGDIR ${LIBCONFIGFILE} PATH)
-
-        ADD_SUBDIRECTORY(${LIBCONFIGDIR} ${OSG_PASSDIR_${PASS}})
+        
+        IF(OSG_CMAKE_PASS STREQUAL "OSGPASS_BUILD")
+            ADD_SUBDIRECTORY("${LIBCONFIGDIR}")
+        ELSE()
+            INCLUDE("${LIBCONFIGFILE}")
+        ENDIF()
     ENDFOREACH(LIBCONFIGFILE)
 
-    FOREACH(EXTERNAL_CONFIG ${OSG_EXTERNAL_CONFIGS})
-        ADD_SUBDIRECTORY(${OSG_${EXTERNAL_CONFIG}_SOURCE_DIR}
-                         External/${EXTERNAL_CONFIG}/${OSG_PASSDIR_${PASS}})
-    ENDFOREACH(EXTERNAL_CONFIG ${OSG_EXTERNAL_CONFIGS})
+ENDFOREACH(PASS)
+
+
+
+# run build passes
+# FOREACH(PASS ${OSG_CMAKE_PASSES})
+
+#     SET(OSG_CMAKE_PASS ${PASS})
+
+#     MESSAGE(STATUS "\nPASS : ${OSG_CMAKE_PASS} in ${OSG_PASSDIR_${PASS}}\n")
+
+#     FOREACH(LIBCONFIGFILE ${OSG_LIBRARY_CONFIG_FILES})
+#         GET_FILENAME_COMPONENT(LIBCONFIGDIR ${LIBCONFIGFILE} PATH)
+
+#         ADD_SUBDIRECTORY(${LIBCONFIGDIR} ${OSG_PASSDIR_${PASS}})
+#     ENDFOREACH(LIBCONFIGFILE)
+
+#     FOREACH(EXTERNAL_CONFIG ${OSG_EXTERNAL_CONFIGS})
+#         ADD_SUBDIRECTORY(${OSG_${EXTERNAL_CONFIG}_SOURCE_DIR}
+#                          External/${EXTERNAL_CONFIG}/${OSG_PASSDIR_${PASS}})
+#     ENDFOREACH(EXTERNAL_CONFIG ${OSG_EXTERNAL_CONFIGS})
     
-ENDFOREACH()
+# ENDFOREACH()
 
 
 ###############
@@ -751,7 +747,7 @@ ADD_CUSTOM_TARGET(Doc
 ##################
 
 # osg2-config is created from multiple parts (parts 1 and 3 static, part 2
-# is generated during the OSGCOLLECT pass.
+# is generated during the OSGPASS_COLLECT pass.
 
 # substitute variables in static parts
 CONFIGURE_FILE("${CMAKE_SOURCE_DIR}/CMake/osg2-config.part1.in"

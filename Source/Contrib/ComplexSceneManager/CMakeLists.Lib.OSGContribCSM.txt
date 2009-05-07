@@ -126,7 +126,6 @@ OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor/InterfaceSensors")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor/InterfaceSensors/Devices")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/VRMLNodes")
 
-
 IF(_BUILD_CSM_WINDOWGLUT)
     OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/GLUT")
 ENDIF(_BUILD_CSM_WINDOWGLUT)
@@ -146,6 +145,12 @@ ENDIF(_BUILD_CSM_WINDOWX)
 IF(NOT _CSM_HAS_NATIVE_WIN)
     OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Native-Dummy")
 ENDIF(NOT _CSM_HAS_NATIVE_WIN)
+
+
+IF(OSG_CMAKE_PASS STREQUAL "OSGPASS_COLLECT")
+    FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
+        "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_SOURCE_DIR}/Source/Contrib/ComplexSceneManager/External\")\n\n")
+ENDIF(OSG_CMAKE_PASS STREQUAL "OSGPASS_COLLECT")
 
 ##############################################################################
 # setup build
