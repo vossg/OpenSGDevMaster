@@ -1,7 +1,5 @@
 
-PROJECT("OSGDrawable")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGDrawable")
 OSG_SELECT_PROJECT()
 
 ##############################################################################

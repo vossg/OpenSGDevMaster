@@ -1,7 +1,5 @@
 
-PROJECT("OSGImageFileIO")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGImageFileIO")
 OSG_SELECT_PROJECT()
 
 ##############################################################################

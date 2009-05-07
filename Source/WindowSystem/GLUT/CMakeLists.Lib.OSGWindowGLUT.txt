@@ -1,7 +1,5 @@
 
-PROJECT("OSGWindowGLUT")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGWindowGLUT")
 
 IF(NOT GLUT_FOUND)
     MESSAGE(STATUS "Dependency (GLUT) not found, can not build (${PROJECT_NAME}).\n")

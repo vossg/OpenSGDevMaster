@@ -1,7 +1,5 @@
 
-PROJECT("OSGState")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGState")
 OSG_SELECT_PROJECT()
 
 ##############################################################################

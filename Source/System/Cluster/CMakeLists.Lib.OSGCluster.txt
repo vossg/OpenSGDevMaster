@@ -1,7 +1,5 @@
 
-PROJECT("OSGCluster")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGCluster")
 OSG_SELECT_PROJECT()
 
 ##############################################################################

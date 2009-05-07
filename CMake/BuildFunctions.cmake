@@ -80,10 +80,18 @@ ENDFUNCTION(OSG_GET_ALL_DEP_OSG_LIB)
 #############################################################################
 # register project with build
 
-MACRO(OSG_ADD_PROJECT)
+MACRO(OSG_ADD_PROJECT PNAME)
+    # PROJECT() may only be called from OSGPASS_BUILD otherwise the top level
+    # project is overwritten
+
     IF(${OSG_CMAKE_PASS} STREQUAL "OSGPASS_COLLECT")
-        OPTION(OSGBUILD_${PROJECT_NAME} "Build the ${PROJECT_NAME} library" ON)
-    ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGPASS_COLLECT")
+        OPTION(OSGBUILD_${PNAME} "Build the ${PNAME} library" ON)
+        SET(PROJECT_NAME ${PNAME})
+    ELSEIF(${OSG_CMAKE_PASS} STREQUAL "OSGPASS_BUILD")
+        PROJECT(${PNAME})
+    ELSE()
+        SET(PROJECT_NAME ${PNAME})
+    ENDIF()
 ENDMACRO(OSG_ADD_PROJECT)
 
 #############################################################################

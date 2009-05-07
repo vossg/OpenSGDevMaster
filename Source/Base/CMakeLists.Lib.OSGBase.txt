@@ -1,7 +1,5 @@
 
-PROJECT("OSGBase")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGBase")
 OSG_SELECT_PROJECT()
 
 #############################################################################

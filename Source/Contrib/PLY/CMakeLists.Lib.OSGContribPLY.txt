@@ -1,7 +1,5 @@
 
-PROJECT("OSGContribPLY")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGContribPLY")
 OSG_SELECT_PROJECT()
 
 ##############################################################################

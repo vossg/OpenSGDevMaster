@@ -1,7 +1,5 @@
 
-PROJECT("OSGGroup")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGGroup")
 OSG_SELECT_PROJECT()
 
 ##############################################################################

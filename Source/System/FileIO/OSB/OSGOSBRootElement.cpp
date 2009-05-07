@@ -71,7 +71,7 @@ OSBElementRegistrationHelper<OSBRootElement>
 
 /*! Constructor.
  */
-OSBRootElement::OSBRootElement(OSBRootElement */* root */)
+OSBRootElement::OSBRootElement(OSBRootElement * /* root */)
     : Inherited(this, Inherited::OSGOSBHeaderVersion200)
 {
     // nothing to do.

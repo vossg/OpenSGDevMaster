@@ -2,9 +2,7 @@
 #  - fill in dependencies and source directories
 #  - drop somewhere below Source/ and regen the build system
 
-PROJECT("OSGTemplate")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGTemplate")
 
 # check here for conditions that prevent building of this project
 # IF(FOO)

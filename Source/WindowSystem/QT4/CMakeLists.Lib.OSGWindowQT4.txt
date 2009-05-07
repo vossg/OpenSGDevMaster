@@ -1,7 +1,5 @@
 
-PROJECT("OSGWindowQT4")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGWindowQT4")
 
 IF(NOT QT4_FOUND)
     MESSAGE(STATUS "Dependency (QT4) not found, can not build (${PROJECT_NAME}).\n")

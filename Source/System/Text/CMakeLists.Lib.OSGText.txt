@@ -1,7 +1,5 @@
 
-PROJECT("OSGText")
-
-OSG_ADD_PROJECT()
+OSG_ADD_PROJECT("OSGText")
 OSG_SELECT_PROJECT()
 
 ##############################################################################

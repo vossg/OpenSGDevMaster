@@ -1,8 +1,5 @@
 
-PROJECT("OSGContribCSM")
-
-OSG_ADD_PROJECT()
-
+OSG_ADD_PROJECT("OSGContribCSM")
 OSG_SELECT_PROJECT()
 
 ##############################################################################
