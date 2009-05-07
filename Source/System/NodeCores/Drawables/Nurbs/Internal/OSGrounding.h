@@ -64,7 +64,7 @@ static unsigned int fpu_init;
 #        error "You need the Microsoft C compiler for the Win32 version"
 #      endif /*  not _MSC_VER */
 #    elif defined(_WIN64)
-#      warning "Windows x64 environment does not support rounding mode control"
+#      pragma message("Windows x64 environment does not support rounding mode control")
 #      define OSG_FPU_ROUND_DOUBLE
 #      define OSG_FPU_RESTORE
 #    else
