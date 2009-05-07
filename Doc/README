@@ -1,14 +1,39 @@
 Root directory for OpenSG documentation
 =======================================
 
-To generate the standalone docs, run doxygen standalone.doxy. For the docs
-that go on Trac use doxygen trac.doxy.
+To generate the doxygen docs, go to your build directory (or create a new one [1]),
+run cmake in it and then call make Doc (or build the Doc target from your IDE).
+The documentation will be generated in the Doc subdirector of your *build* directory.
+You can pass the following variables to cmake to control the
+generated documentation:
 
-They both use some extensions that haven't been accepted for the doxygen main
-branch yet. You need to download the sources and apply the aliasdiff patch in
-this directory in doxygen/src to make it work. Without this the aliases to link
-into the Wiki won't work, the rest will be fine.
+OSG_DOXY_DOC_TYPE=User (Developer, Trac)
+  Select the target audience for the documentation. The Developer setting
+  will add details that are generally only of interest for extending
+  OpenSG itself. The Trac setting is intended for integration of the
+  documentation on the OpenSG Trac website, you probably don't want this mode [2].
+
+OSG_DOXY_INPUTS=<FILE>
+  Choose a file that contains the list of sources that doxygen scans.
+  This is mainly useful when working on the documentation to reduce the
+  size and build time of the docs.
+
+OSG_DOXY_STDOUT_LOG=<FILE>
+  Choose a file that will contain a log of the doxygen run.
+  This is mainly useful when working on the documentation to be able to
+  check for warnings reported by doxygen.
+
 
 See http://opensg.vrsource.org/trac/wiki/Dev/CodingStandard for information
 about how to add documentation to your favorite white spot on the OpenSG
 documentation map.
+
+
+
+[1] Please the the OpenSG wiki for instructions on how to do this:
+    http://opensg.vrsource.org/trac/wiki/Building
+
+[2] It uses some extensions that haven't been accepted for the doxygen main
+    branch yet. You need to download the sources and apply the aliasdiff patch in
+    this directory in doxygen/src to make it work. Without this the aliases to link
+    into the Wiki won't work, the rest will be fine.
