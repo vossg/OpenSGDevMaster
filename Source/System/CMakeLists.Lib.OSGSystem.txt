@@ -89,7 +89,7 @@ IF(OSGCOMPAT_ENABLE_DEPRECATED)
 ENDIF(OSGCOMPAT_ENABLE_DEPRECATED)
 
 
-IF(${OSG_CMAKE_PASS} STREQUAL "OSGPASS_COLLECT")
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_SOURCE_DIR}/Source/External\")\n\n")
 
@@ -104,7 +104,7 @@ IF(${OSG_CMAKE_PASS} STREQUAL "OSGPASS_COLLECT")
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/densehashtable.h\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/hash_fun.h\"
             \"${CMAKE_SOURCE_DIR}/Source/External/google/sparsehash/sparsehashtable.h\")\n\n")
-ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGPASS_COLLECT")
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 
 
 ##############################################################################

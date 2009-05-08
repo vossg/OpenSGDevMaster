@@ -56,13 +56,13 @@ IF(OSGCOMPAT_ENABLE_DEPRECATED)
 ENDIF(OSGCOMPAT_ENABLE_DEPRECATED)
 
 # special handling for generated file OSGConfigured.h
-IF(${OSG_CMAKE_PASS} STREQUAL "OSGPASS_COLLECT")
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "LIST(APPEND ${PROJECT_NAME}_INC \"${CMAKE_BINARY_DIR}/Source/Base/Base\")\n\n")
 
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "LIST(APPEND ${PROJECT_NAME}_HDR \"${CMAKE_BINARY_DIR}/Source/Base/Base/OSGConfigured.h\")\n\n")
-ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGPASS_COLLECT")
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
 
 ##############################################################################
 # setup build
