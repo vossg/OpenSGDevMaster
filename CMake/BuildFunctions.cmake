@@ -80,7 +80,8 @@ ENDFUNCTION(OSG_GET_ALL_DEP_OSG_LIB)
 #############################################################################
 # register project with build
 
-MACRO(OSG_ADD_PROJECT)
+MACRO(OSG_ADD_PROJECT PNAME)
+    PROJECT(${PNAME})
     IF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
         OPTION(OSGBUILD_${PROJECT_NAME} "Build the ${PROJECT_NAME} library" ON)
     ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGCOLLECT")
