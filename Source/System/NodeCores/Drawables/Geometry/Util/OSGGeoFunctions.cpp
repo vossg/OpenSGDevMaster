@@ -561,7 +561,9 @@ void calcVertexTangentsProp(Geometry *geo,
         return;
     }
 
-    GeoIntegralProperty *posIdx = geo->getIndex(Geometry::PositionsIndex);
+    GeoIntegralProperty *posIdx  = geo->getIndex(Geometry::PositionsIndex);
+    GeoIntegralProperty *normIdx = geo->getIndex(srcNormalProp           );
+    GeoIntegralProperty *tcIdx   = geo->getIndex(srcTexProp              );
         
     // HACK but without indices it crashes
     if(posIdx == NULL || posIdx->size() == 0) 
@@ -596,16 +598,16 @@ void calcVertexTangentsProp(Geometry *geo,
         FFATAL(("Geo without srcNormals in calcVertexTangents()\n"));
         return;
     }
-
-
-    UInt32 nind = posIdx->size();
     
-    tangentP  = GeoVec4fProperty::create();
-    binormalP = GeoVec4fProperty::create();
+    UInt32 posIdxCount  = posIdx->size();
+    UInt32 normIdxCount = normIdx != NULL ? normIdx->size() : 0;
+    UInt32 tcIdxCount   = tcIdx   != NULL ? tcIdx  ->size() : 0;
+
+    tangentP     = GeoVec4fProperty::create();
+    binormalP    = GeoVec4fProperty::create();
     
     tanBinIndexP = GeoUInt32Property::create();
-
-    tanBinIndexP->resize(nind);
+    tanBinIndexP->resize(posIdxCount);
 
     geo->setProperty(tangentP,     dstPropTan);
     geo->setIndex   (tanBinIndexP, dstPropTan);
@@ -622,21 +624,27 @@ void calcVertexTangentsProp(Geometry *geo,
 
     indexVec.resize(3);    
     
-  
      // calc max index.
-    UInt32 maxindex = 0;
+    UInt32 maxCount = osgMax(osgMax(posIdxCount, normIdxCount), tcIdxCount);   
+    UInt32 maxIdx   = 0;
 
-    for(i = 0; i < posIdx->size(); ++i)
+    for(i = 0; i < maxCount; ++i)
     {
-        maxindex = 
-            posIdx->getValue(i) > maxindex ? posIdx->getValue(i) : maxindex;
+        if((i < posIdxCount)  && (posIdx->getValue(i)  > maxIdx))
+            maxIdx = posIdx->getValue(i);
+
+        if((i < normIdxCount) && (normIdx->getValue(i) > maxIdx))
+            maxIdx = normIdx->getValue(i);
+            
+        if((i < tcIdxCount)   && (tcIdx->getValue(i)   > maxIdx))
+            maxIdx = tcIdx->getValue(i);
     }
 
     // init property arrays
     // amz we can't use the indices size (nind) here!
-    tangent .resize(maxindex + 1, Vec3f::Null);
-    binormal.resize(maxindex + 1, Vec3f::Null);
-    normal  .resize(maxindex + 1, Vec3f::Null);
+    tangent .resize(maxIdx + 1, Vec3f::Null);
+    binormal.resize(maxIdx + 1, Vec3f::Null);
+    normal  .resize(maxIdx + 1, Vec3f::Null);
 
     for(  tI  = geo->beginTriangles(), i = 0; 
           tI != geo->endTriangles(); 
@@ -648,7 +656,17 @@ void calcVertexTangentsProp(Geometry *geo,
             indexVec[1] = tI.getPropertyIndex(srcNormalProp,            k);
             indexVec[2] = tI.getPropertyIndex(srcTexProp,               k);
 
-            v[k] = indexDic.entry(indexVec);
+            v[k]        = indexDic.entry(indexVec);
+
+            if(v[k] > maxIdx)
+                maxIdx = v[k];
+        }
+
+        if((maxIdx + 1) > tangent.size())
+        {
+            tangent .resize(maxIdx + 1, Vec3f::Null);
+            binormal.resize(maxIdx + 1, Vec3f::Null);
+            normal  .resize(maxIdx + 1, Vec3f::Null);
         }
 
         // second, calculate tangent and binormal for every tri
