@@ -657,6 +657,9 @@ UInt32 OSG::Window::validateGLObject(UInt32   osgId,
     
     if(osgId >= _mfGlObjectLastReinitialize.size())
     {
+        editMField( GlObjectLastReinitializeFieldId, 
+                   _mfGlObjectLastReinitialize     );
+
         _mfGlObjectLastReinitialize.resize(osgId + 1, 0);
     }
 
@@ -721,7 +724,10 @@ void OSG::Window::validateAllGLObjects(void)
         oEnv.setWindow(this);
 
         for (UInt32 i = 1; i < _glObjects.size(); ++i)
-            validateGLObject(i, &oEnv);
+        {
+            if(_glObjects[i] != NULL)
+                validateGLObject(i, &oEnv);
+        }
     
         frameExit();
         deactivate();
