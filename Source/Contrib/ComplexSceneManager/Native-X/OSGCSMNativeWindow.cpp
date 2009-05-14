@@ -581,7 +581,11 @@ bool CSMNativeWindow::init(void)
                           this->getYSize());
     }
 
-    //fprintf(stderr, "Win size %d %d\n", uiWidth, uiHeight);
+    
+
+
+//    fprintf(stderr, "Win size %d %d at %d %d\n", 
+//            uiWidth, uiHeight, iXPos, iYPos);
 
     ::Window pHWin = XCreateWindow(_pDisplay,
                                     RootWindow(_pDisplay,
@@ -616,8 +620,6 @@ bool CSMNativeWindow::init(void)
                             NULL);
         
     XMapWindow(_pDisplay, pHWin);
-
-    XMoveWindow(_pDisplay, pHWin, iXPos, iYPos);
 
     if(this->getDecorEnabled() == false)
     {
@@ -692,6 +694,10 @@ bool CSMNativeWindow::init(void)
     _vWindowList.push_back(this);
 
     _bRun = true;
+
+    XMoveResizeWindow(_pDisplay, pHWin, 
+                      iXPos, iYPos,
+                      uiWidth, uiHeight);
 
     Inherited::init();
 
