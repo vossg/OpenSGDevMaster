@@ -329,7 +329,8 @@ void ColladaNode::handleInstanceLight(domInstance_light *instLight)
 
     LightUnrecPtr light  = colInstLight->createInstance();
 
-    light->setBeacon(_transNode);
+    if(light != NULL)
+        light->setBeacon(_transNode);
 }
 
 void ColladaNode::handleNode(domNode *node)

@@ -252,11 +252,15 @@ void ColladaInstanceGeometry::read(void)
 
         ChunkMaterial *cm = NULL;
 
-        if(matIt != _matMap.end())
+        if(matIt == _matMap.end())
         {
-            cm = matIt->second;
-            setName(matGroupNode, matIt->first);
+            FWARNING(("ColladaInstanceGeometry::read: "
+                      "No material found for [%s].\n", geoIt->first.c_str()));
+            continue;
         }
+
+        cm = matIt->second;
+        setName(matGroupNode, matIt->first);
 
         matGroup    ->setMaterial(cm      );
         matGroupNode->setCore    (matGroup);

@@ -127,10 +127,13 @@ void printHelp(void)
               << "  f        fly mode\n"
               << "  t        trackball mode\n"
               << "  q        toggle statistics\n"
+              << "  h        toggle headlight\n"
               << "  b        toggle backface culling\n"
               << "  w        toggle wireframe\n"
               << "  n        toggle normals\n"
               << "  m/M      de/increase normals length\n"
+              << "  v        toggle bounding volumes\n"
+              << "  p        print scene graph\n"
               << std::flush;
 }
 
@@ -255,6 +258,14 @@ void keyboard(unsigned char k, int , int )
                   << std::endl;
     }
     break;
+    case 'h':
+    {
+        mgr->setHeadlight(!mgr->getHeadlightState());
+        std::cout << "Headlight "
+                  << (mgr->getHeadlightState() ? "enabled" : "disabled")
+                  << std::endl;
+    }
+    break;
     case 'b':
     {
         if(polyChunk == NULL)
@@ -348,6 +359,21 @@ void keyboard(unsigned char k, int , int )
         normalsLen *= 1.25f;
         constructNormalsGeo(sceneN);
         std::cout << "Normals length " << normalsLen << std::endl;
+    }
+    break;
+    case 'v':
+    {
+        mgr->getRenderAction()->setVolumeDrawing(
+            !mgr->getRenderAction()->getVolumeDrawing());
+        std::cout << "Volume drawing: "
+                  << (mgr->getRenderAction()->getVolumeDrawing() ? "enabled" : "disabled")
+                  << std::endl;
+    }
+    break;
+    case 'p':
+    {
+        OSG::SceneGraphPrinter sgp(mgr->getRoot());
+        sgp.printDownTree(std::cout);
     }
     break;
 

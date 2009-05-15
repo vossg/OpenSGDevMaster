@@ -90,20 +90,25 @@ LightTransitPtr ColladaInstanceLight::createInstance(void)
 {
     OSG_COLLADA_LOG(("ColladaInstanceLight::createInstance:\n"));
 
-    LightUnrecPtr      retVal;
+    LightTransitPtr    retVal;
     domLightRef        light    = getInstDOMElementAs<domLight>();
     ColladaLightRefPtr colLight = getUserDataAs<ColladaLight>(light);
 
     ++colLight->_instCount;
 
-    retVal = static_pointer_cast<Light>(colLight->getLight()->shallowCopy());
+    if(colLight->getLight() != NULL)
+    {
+        LightUnrecPtr light  =
+            static_pointer_cast<Light>(colLight->getLight()->shallowCopy());
+        MultiCore    *lights = 
+            dynamic_cast<MultiCore *>(getGlobal()->getLightsNode()->getCore());
 
-    MultiCore *lights = dynamic_cast<MultiCore *>(
-        getGlobal()->getLightsNode()->getCore());
+        lights->addCore(light);
 
-    lights->addCore(retVal);
+        retVal = light;
+    }
 
-    return LightTransitPtr(retVal);
+    return retVal;
 }
 
 
