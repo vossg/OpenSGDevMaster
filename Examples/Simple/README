@@ -2,16 +2,21 @@ OpenSG Simple Examples
 ======================
 
 This directory has some relatively simple examples of how to use OpenSG. Some
-even demonstrate the use of more advanced features like the cluster support.
+also demonstrate the use of more advanced features like the cluster support.
 
-To build the programs you need scons which you can download (www.scons.org) or
-(if you have a complete OpenSG source tree) use the version
-Tools/scons-local/scons.py.  In order to find the OpenSG libraries the
-included SConstruct file looks for the osg2-config tool that is normally
-installed with OpenSG. If osg2-config is not found by scons, you can pass the
-OpenSG2BaseDir=/path/to/OpenSG2/install/location command line argument when
-invoking scons. This path should point to a directory that has a
-bin/osg2-config below it.
+To build the programs you need CMake (www.cmake.org). If you are building
+OpenSG from source you can just pass -DOSGBUILD_EXAMPLES_SIMPLE=ON on the
+cmake command line and the examples will be built together with the libraries.
+If you want to build the examples standalone (that is against an installed
+version of OpenSG) do the following:
+
+- create a build directory
+- run cmake in the build directory passing the following:
+      -DOPENSG_ROOT=/path/to/installed/OpenSG
+      -DBOOST_ROOT=/path/to/boost             (optional, attempts to find the system boost)
+      -DCOLLARA_ROOT_DIR=/path/to/colladadom  (if OpenSG was built with collada support)
+      /path/to/Examples/Simple
+- run make or build using the generated project files
 
 The first few of the examples here are numbered and are moving from the very
 simple slowly to more advanced topics. If you are new to OpenSG you might want
