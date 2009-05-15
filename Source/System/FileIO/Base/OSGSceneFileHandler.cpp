@@ -237,7 +237,7 @@ NodeTransitPtr SceneFileHandlerBase::read(
         if(scene != NULL)
         {
             if(graphOpSeq != NULL)
-                graphOpSeq->run(scene);
+                graphOpSeq->traverse(scene);
 
             SINFO    << "read ok:"        << std::endl;
         }

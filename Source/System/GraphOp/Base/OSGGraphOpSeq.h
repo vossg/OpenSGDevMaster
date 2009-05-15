@@ -86,7 +86,10 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
 
-    bool run(Node *root);
+#ifndef OSG_DISABLE_DEPRECATED
+    bool run     (Node *root);
+#endif
+    bool traverse(Node *root);
 
     /*! \}                                                                 */
 

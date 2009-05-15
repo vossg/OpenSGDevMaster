@@ -98,7 +98,18 @@ GraphOpSeq::~GraphOpSeq()
 {
 }
 
+#ifndef OSG_DISABLE_DEPRECATED
+/*! \deprecated Use GraphOpSeq::traverse instead.
+ */
 bool GraphOpSeq::run(Node *root)
+{
+    traverse(root);
+}
+#endif
+
+/*! Apply the sequence to the tree starting at \a root.
+ */
+bool GraphOpSeq::traverse(Node *root)
 {
     bool res=true;
     std::vector<GraphOpRefPtr>::iterator it = _graphOperators.begin();
