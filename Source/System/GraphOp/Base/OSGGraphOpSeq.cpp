@@ -103,7 +103,7 @@ GraphOpSeq::~GraphOpSeq()
  */
 bool GraphOpSeq::run(Node *root)
 {
-    traverse(root);
+    return traverse(root);
 }
 #endif
 

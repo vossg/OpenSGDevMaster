@@ -37,8 +37,20 @@ void reshape(int width, int height);
 
 int wait_for_map_notify(Display *, XEvent *event, char *arg)
 {
-    return( event->type == MapNotify && event->xmap.window == (::Window)arg );
+    return( (event->type == MapNotify) && 
+            (event->xmap.window == reinterpret_cast< ::Window >(arg) ) );
 }
+
+#ifdef OSG_DEBUG_OLD_C_CASTS
+#ifdef ScreenOfDisplay
+#undef ScreenOfDisplay
+#endif
+#ifdef DefaultScreen
+#undef DefaultScreen
+#endif
+#define ScreenOfDisplay(dpy, scr)(&(_XPrivDisplay(dpy))->screens[scr])
+#define DefaultScreen(dpy) 	((_XPrivDisplay(dpy))->default_screen)
+#endif
 
 // Initialize GLUT & OpenSG and start the cluster server
 int main(int argc,char **argv)
@@ -271,7 +283,7 @@ int main(int argc,char **argv)
                             noDecorAtom, 
                             32,
                             PropModeReplace, 
-                            (unsigned char *) &oHints, 4);
+                            reinterpret_cast<unsigned char *>(&oHints), 4);
 
         }
         
@@ -290,7 +302,10 @@ int main(int argc,char **argv)
         XEvent        event;
 
         XMapWindow(dpy, hwin);
-        XIfEvent(dpy, &event, wait_for_map_notify, (char *)hwin);
+        XIfEvent( dpy, 
+                 &event, 
+                  wait_for_map_notify, 
+                  reinterpret_cast<char *>(hwin));
 
         if(fullscreen == true)
         {
