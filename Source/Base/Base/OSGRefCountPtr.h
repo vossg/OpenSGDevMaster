@@ -210,7 +210,16 @@ OSG::RefCountPtr<TargetObjectT, RP> dynamic_pointer_cast(
 template <class TargetObjectT, class SourceObjectT, class RP> inline
 OSG::RefCountPtr<TargetObjectT, RP> static_pointer_cast(
     OSG::RefCountPtr<SourceObjectT, RP> const &source);
-  
+
+/*! The same as refPtr.get(), for interoperability with boost::bind.
+
+    \ingroup GrpBaseBaseRefCounting
+    \relatesalso RefCountPtr
+ */
+
+template <class ObjectT, class RefCountPolicyT> inline
+ObjectT *get_pointer(const OSG::RefCountPtr<ObjectT, RefCountPolicyT> &refPtr);
+
 #if defined(OSG_1_COMPATX)
 template <class TargetT, class SourceT> inline
 RefCountPtr<typename TargetT::Object, 

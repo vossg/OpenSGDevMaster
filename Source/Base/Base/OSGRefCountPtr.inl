@@ -283,6 +283,12 @@ OSG::RefCountPtr<TargetObjectT, RP> static_pointer_cast(
     return RefCountPtr<TargetObjectT, RP>(pRet);
 }
 
+template <class ObjectT, class RefCountPolicyT> inline
+ObjectT *get_pointer(const OSG::RefCountPtr<ObjectT, RefCountPolicyT> &refPtr)
+{
+    return refPtr.get();
+}
+
 #if defined(OSG_1_COMPATX)
 template <class TargetT, class SourceT> inline
 RefCountPtr<typename TargetT::Object, 
