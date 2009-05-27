@@ -1394,7 +1394,7 @@ OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
 @@endif
 @@if ParentMFields
 
-OSG_SFIELDTYPE_INST(ParentPointerMField,
+OSG_MFIELDTYPE_INST(ParentPointerMField,
                     @!Classname!@ *,
                     NoRefCountPolicy,
                     @!ParentNS!@);

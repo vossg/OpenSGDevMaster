@@ -276,7 +276,7 @@ class FieldContainer(FCDElement):
             self["ChildField"]       = True
             self["ChildNS"]          = '%d' % TraitsNS            
             self["ChildFieldParent"] = self.getFCD("childfieldparent")
-            ++TraitsNS
+            TraitsNS += 1
 
         if self.getFCD("childFields") == "multi" or \
            self.getFCD("childFields") == "both":
