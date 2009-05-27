@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class FCDPtrTestFCCustomAccess;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FCDPtrTestFCCustomAccessPtr
-
 OSG_GEN_CONTAINERPTR(FCDPtrTestFCCustomAccess);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<FCDPtrTestFCCustomAccess *> :
     public FieldTraitsFCPtrBase<FCDPtrTestFCCustomAccess *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<FCDPtrTestFCCustomAccess *, 0>::getMName<NoRefCountPoli
     return "MFUnrefdFCDPtrTestFCCustomAccessPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FCDPtrTestFCCustomAccessPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFCCustomAccess *,
                       RecordedRefCountPolicy  > SFRecFCDPtrTestFCCustomAccessPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFCCustomAccess *,
                       UnrecordedRefCountPolicy> SFUnrecFCDPtrTestFCCustomAccessPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFCCustomAccess *,
                       WeakRefCountPolicy      > SFWeakFCDPtrTestFCCustomAccessPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFCCustomAccess *,
                       NoRefCountPolicy        > SFUncountedFCDPtrTestFCCustomAccessPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFCCustomAccess *,
                       RecordedRefCountPolicy  > MFRecFCDPtrTestFCCustomAccessPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFCCustomAccess *,
                       UnrecordedRefCountPolicy> MFUnrecFCDPtrTestFCCustomAccessPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFCCustomAccess *,
                       WeakRefCountPolicy      > MFWeakFCDPtrTestFCCustomAccessPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFCCustomAccess *,
                       NoRefCountPolicy        > MFUncountedFCDPtrTestFCCustomAccessPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecFCDPtrTestFCCustomAccessPtr : 
+    public PointerSField<FCDPtrTestFCCustomAccess *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecFCDPtrTestFCCustomAccessPtr : 
+    public PointerSField<FCDPtrTestFCCustomAccess *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakFCDPtrTestFCCustomAccessPtr :
+    public PointerSField<FCDPtrTestFCCustomAccess *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedFCDPtrTestFCCustomAccessPtr :
+    public PointerSField<FCDPtrTestFCCustomAccess *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecFCDPtrTestFCCustomAccessPtr :
+    public PointerMField<FCDPtrTestFCCustomAccess *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecFCDPtrTestFCCustomAccessPtr :
+    public PointerMField<FCDPtrTestFCCustomAccess *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakFCDPtrTestFCCustomAccessPtr :
+    public PointerMField<FCDPtrTestFCCustomAccess *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedFCDPtrTestFCCustomAccessPtr :
+    public PointerMField<FCDPtrTestFCCustomAccess *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

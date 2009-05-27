@@ -114,7 +114,7 @@ TestStageBase::TypeObject TestStageBase::_type(
     reinterpret_cast<PrototypeCreateF>(&TestStageBase::createEmptyLocal),
     TestStage::initMethod,
     TestStage::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&TestStageBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&TestStage::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -363,7 +363,8 @@ GetFieldHandlePtr TestStageBase::getHandleMessage         (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfMessage,
-             this->getType().getFieldDesc(MessageFieldId)));
+             this->getType().getFieldDesc(MessageFieldId),
+             const_cast<TestStageBase *>(this)));
 
     return returnValue;
 }
@@ -373,7 +374,8 @@ EditFieldHandlePtr TestStageBase::editHandleMessage        (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfMessage,
-             this->getType().getFieldDesc(MessageFieldId)));
+             this->getType().getFieldDesc(MessageFieldId),
+             this));
 
 
     editSField(MessageFieldMask);
@@ -426,5 +428,6 @@ void TestStageBase::resolveLinks(void)
 DataType FieldTraits<TestStage *>::_type("TestStagePtr", "StagePtr");
 #endif
 
+OSG_FIELDTRAITS_GETTYPE(TestStage *)
 
 OSG_END_NAMESPACE

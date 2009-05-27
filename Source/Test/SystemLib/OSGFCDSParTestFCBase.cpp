@@ -115,7 +115,7 @@ FCDSParTestFCBase::TypeObject FCDSParTestFCBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FCDSParTestFCBase::createEmptyLocal),
     FCDSParTestFC::initMethod,
     FCDSParTestFC::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&FCDSParTestFCBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&FCDSParTestFC::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"

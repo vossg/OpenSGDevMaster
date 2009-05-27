@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class FCDSParTestFC;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FCDSParTestFCPtr
-
 OSG_GEN_CONTAINERPTR(FCDSParTestFC);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<FCDSParTestFC *> :
     public FieldTraitsFCPtrBase<FCDSParTestFC *>
@@ -154,14 +145,11 @@ const Char8 *FieldTraits<FCDSParTestFC *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdFCDSParTestFCPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FCDSParTestFCPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
 class FieldContainer;
 
+/*! \ingroup GrpSystemFieldTraits
+ */
 template <>
 struct FieldTraits<FCDSParTestFC *, 1> :
     public FieldTraitsFCPtrBase<FCDSParTestFC *, 1>
@@ -238,48 +226,107 @@ const Char8 *FieldTraits<FCDSParTestFC *, 1>::getMName<NoRefCountPolicy>(void)
 }
 
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDSParTestFC *,
                       RecordedRefCountPolicy  > SFRecFCDSParTestFCPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDSParTestFC *,
                       UnrecordedRefCountPolicy> SFUnrecFCDSParTestFCPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDSParTestFC *,
                       WeakRefCountPolicy      > SFWeakFCDSParTestFCPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDSParTestFC *,
                       NoRefCountPolicy        > SFUncountedFCDSParTestFCPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDSParTestFC *,
                       RecordedRefCountPolicy  > MFRecFCDSParTestFCPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDSParTestFC *,
                       UnrecordedRefCountPolicy> MFUnrecFCDSParTestFCPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDSParTestFC *,
                       WeakRefCountPolicy      > MFWeakFCDSParTestFCPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDSParTestFC *,
                       NoRefCountPolicy        > MFUncountedFCDSParTestFCPtr;
-#endif
 
 
 
+/*! \ingroup GrpSystemFieldSFields */
 typedef ChildPointerSField<
           FCDSParTestFC *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildFCDSParTestFCPtr;
 
 
+/*! \ingroup GrpSystemFieldMFields */
 typedef ChildPointerMField<
           FCDSParTestFC *, 
           UnrecordedRefCountPolicy,
           1             > MFUnrecChildFCDSParTestFCPtr;
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecFCDSParTestFCPtr : 
+    public PointerSField<FCDSParTestFC *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecFCDSParTestFCPtr : 
+    public PointerSField<FCDSParTestFC *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakFCDSParTestFCPtr :
+    public PointerSField<FCDSParTestFC *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedFCDSParTestFCPtr :
+    public PointerSField<FCDSParTestFC *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecFCDSParTestFCPtr :
+    public PointerMField<FCDSParTestFC *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecFCDSParTestFCPtr :
+    public PointerMField<FCDSParTestFC *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakFCDSParTestFCPtr :
+    public PointerMField<FCDSParTestFC *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedFCDSParTestFCPtr :
+    public PointerMField<FCDSParTestFC *,
+                         NoRefCountPolicy        > {};
+
+
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecChildFCDSParTestFCPtr :
+    public ChildPointerSField<
+        FCDSParTestFC *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecChildFCDSParTestFCPtr :
+    public ChildPointerMField<
+        FCDSParTestFC *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

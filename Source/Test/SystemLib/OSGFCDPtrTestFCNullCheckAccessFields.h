@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class FCDPtrTestFCNullCheckAccess;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! FCDPtrTestFCNullCheckAccessPtr
-
 OSG_GEN_CONTAINERPTR(FCDPtrTestFCNullCheckAccess);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpSystemFieldTraits
+    \ingroup GrpLibOSGSystem
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<FCDPtrTestFCNullCheckAccess *> :
     public FieldTraitsFCPtrBase<FCDPtrTestFCNullCheckAccess *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<FCDPtrTestFCNullCheckAccess *, 0>::getMName<NoRefCountP
     return "MFUnrefdFCDPtrTestFCNullCheckAccessPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<FCDPtrTestFCNullCheckAccessPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFCNullCheckAccess *,
                       RecordedRefCountPolicy  > SFRecFCDPtrTestFCNullCheckAccessPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFCNullCheckAccess *,
                       UnrecordedRefCountPolicy> SFUnrecFCDPtrTestFCNullCheckAccessPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFCNullCheckAccess *,
                       WeakRefCountPolicy      > SFWeakFCDPtrTestFCNullCheckAccessPtr;
+/*! \ingroup GrpSystemFieldSFields */
 typedef PointerSField<FCDPtrTestFCNullCheckAccess *,
                       NoRefCountPolicy        > SFUncountedFCDPtrTestFCNullCheckAccessPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpSystemFieldMulti */
-
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFCNullCheckAccess *,
                       RecordedRefCountPolicy  > MFRecFCDPtrTestFCNullCheckAccessPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFCNullCheckAccess *,
                       UnrecordedRefCountPolicy> MFUnrecFCDPtrTestFCNullCheckAccessPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFCNullCheckAccess *,
                       WeakRefCountPolicy      > MFWeakFCDPtrTestFCNullCheckAccessPtr;
+/*! \ingroup GrpSystemFieldMFields */
 typedef PointerMField<FCDPtrTestFCNullCheckAccess *,
                       NoRefCountPolicy        > MFUncountedFCDPtrTestFCNullCheckAccessPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecFCDPtrTestFCNullCheckAccessPtr : 
+    public PointerSField<FCDPtrTestFCNullCheckAccess *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecFCDPtrTestFCNullCheckAccessPtr : 
+    public PointerSField<FCDPtrTestFCNullCheckAccess *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakFCDPtrTestFCNullCheckAccessPtr :
+    public PointerSField<FCDPtrTestFCNullCheckAccess *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedFCDPtrTestFCNullCheckAccessPtr :
+    public PointerSField<FCDPtrTestFCNullCheckAccess *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecFCDPtrTestFCNullCheckAccessPtr :
+    public PointerMField<FCDPtrTestFCNullCheckAccess *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecFCDPtrTestFCNullCheckAccessPtr :
+    public PointerMField<FCDPtrTestFCNullCheckAccess *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakFCDPtrTestFCNullCheckAccessPtr :
+    public PointerMField<FCDPtrTestFCNullCheckAccess *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedFCDPtrTestFCNullCheckAccessPtr :
+    public PointerMField<FCDPtrTestFCNullCheckAccess *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

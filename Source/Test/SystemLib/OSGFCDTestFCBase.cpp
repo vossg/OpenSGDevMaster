@@ -194,7 +194,7 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     reinterpret_cast<PrototypeCreateF>(&FCDTestFCBase::createEmptyLocal),
     FCDTestFC::initMethod,
     FCDTestFC::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&FCDTestFCBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&FCDTestFC::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -608,7 +608,8 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldSFPub      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfFieldSFPub,
-             this->getType().getFieldDesc(FieldSFPubFieldId)));
+             this->getType().getFieldDesc(FieldSFPubFieldId),
+             const_cast<FCDTestFCBase *>(this)));
 
     return returnValue;
 }
@@ -618,7 +619,8 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldSFPub     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfFieldSFPub,
-             this->getType().getFieldDesc(FieldSFPubFieldId)));
+             this->getType().getFieldDesc(FieldSFPubFieldId),
+             this));
 
 
     editSField(FieldSFPubFieldMask);
@@ -631,7 +633,8 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldSFPro      (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfFieldSFPro,
-             this->getType().getFieldDesc(FieldSFProFieldId)));
+             this->getType().getFieldDesc(FieldSFProFieldId),
+             const_cast<FCDTestFCBase *>(this)));
 
     return returnValue;
 }
@@ -641,7 +644,8 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldSFPro     (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfFieldSFPro,
-             this->getType().getFieldDesc(FieldSFProFieldId)));
+             this->getType().getFieldDesc(FieldSFProFieldId),
+             this));
 
 
     editSField(FieldSFProFieldMask);
@@ -668,7 +672,8 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldMFPub      (void) const
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
              &_mfFieldMFPub,
-             this->getType().getFieldDesc(FieldMFPubFieldId)));
+             this->getType().getFieldDesc(FieldMFPubFieldId),
+             const_cast<FCDTestFCBase *>(this)));
 
     return returnValue;
 }
@@ -678,7 +683,8 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldMFPub     (void)
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
              &_mfFieldMFPub,
-             this->getType().getFieldDesc(FieldMFPubFieldId)));
+             this->getType().getFieldDesc(FieldMFPubFieldId),
+             this));
 
 
     editMField(FieldMFPubFieldMask, _mfFieldMFPub);
@@ -691,7 +697,8 @@ GetFieldHandlePtr FCDTestFCBase::getHandleFieldMFPro      (void) const
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
              &_mfFieldMFPro,
-             this->getType().getFieldDesc(FieldMFProFieldId)));
+             this->getType().getFieldDesc(FieldMFProFieldId),
+             const_cast<FCDTestFCBase *>(this)));
 
     return returnValue;
 }
@@ -701,7 +708,8 @@ EditFieldHandlePtr FCDTestFCBase::editHandleFieldMFPro     (void)
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
              &_mfFieldMFPro,
-             this->getType().getFieldDesc(FieldMFProFieldId)));
+             this->getType().getFieldDesc(FieldMFProFieldId),
+             this));
 
 
     editMField(FieldMFProFieldMask, _mfFieldMFPro);

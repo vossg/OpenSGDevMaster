@@ -506,7 +506,7 @@ FCDPtrTestFCNullCheckAccessBase::TypeObject FCDPtrTestFCNullCheckAccessBase::_ty
     reinterpret_cast<PrototypeCreateF>(&FCDPtrTestFCNullCheckAccessBase::createEmptyLocal),
     FCDPtrTestFCNullCheckAccess::initMethod,
     FCDPtrTestFCNullCheckAccess::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&FCDPtrTestFCNullCheckAccessBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&FCDPtrTestFCNullCheckAccess::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\" ?>\n"
@@ -2855,7 +2855,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPub_ptr  (voi
     SFUnrecFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecFCDTestFCPtr::GetHandle(
              &_sfFieldSFPub_ptr,
-             this->getType().getFieldDesc(FieldSFPub_ptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPub_ptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -2865,7 +2866,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPub_ptr (vo
     SFUnrecFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecFCDTestFCPtr::EditHandle(
              &_sfFieldSFPub_ptr,
-             this->getType().getFieldDesc(FieldSFPub_ptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPub_ptrFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::setFieldSFPub_ptr,
@@ -2881,7 +2883,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPub_weakptr (
     SFWeakFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFWeakFCDTestFCPtr::GetHandle(
              &_sfFieldSFPub_weakptr,
-             this->getType().getFieldDesc(FieldSFPub_weakptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPub_weakptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -2891,7 +2894,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPub_weakptr
     SFWeakFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFWeakFCDTestFCPtr::EditHandle(
              &_sfFieldSFPub_weakptr,
-             this->getType().getFieldDesc(FieldSFPub_weakptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPub_weakptrFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::setFieldSFPub_weakptr,
@@ -2907,7 +2911,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPub_mpchildpt
     SFUnrecChildFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecChildFCDTestFCPtr::GetHandle(
              &_sfFieldSFPub_mpchildptr,
-             this->getType().getFieldDesc(FieldSFPub_mpchildptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPub_mpchildptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -2917,7 +2922,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPub_mpchild
     SFUnrecChildFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecChildFCDTestFCPtr::EditHandle(
              &_sfFieldSFPub_mpchildptr,
-             this->getType().getFieldDesc(FieldSFPub_mpchildptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPub_mpchildptrFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::setFieldSFPub_mpchildptr,
@@ -2933,7 +2939,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPro_ptr  (voi
     SFUnrecFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecFCDTestFCPtr::GetHandle(
              &_sfFieldSFPro_ptr,
-             this->getType().getFieldDesc(FieldSFPro_ptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPro_ptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -2943,7 +2950,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPro_ptr (vo
     SFUnrecFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecFCDTestFCPtr::EditHandle(
              &_sfFieldSFPro_ptr,
-             this->getType().getFieldDesc(FieldSFPro_ptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPro_ptrFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::setFieldSFPro_ptr,
@@ -2959,7 +2967,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPro_weakptr (
     SFWeakFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFWeakFCDTestFCPtr::GetHandle(
              &_sfFieldSFPro_weakptr,
-             this->getType().getFieldDesc(FieldSFPro_weakptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPro_weakptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -2969,7 +2978,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPro_weakptr
     SFWeakFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFWeakFCDTestFCPtr::EditHandle(
              &_sfFieldSFPro_weakptr,
-             this->getType().getFieldDesc(FieldSFPro_weakptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPro_weakptrFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::setFieldSFPro_weakptr,
@@ -2985,7 +2995,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPro_mpchildpt
     SFUnrecChildFCDTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecChildFCDTestFCPtr::GetHandle(
              &_sfFieldSFPro_mpchildptr,
-             this->getType().getFieldDesc(FieldSFPro_mpchildptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPro_mpchildptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -2995,7 +3006,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPro_mpchild
     SFUnrecChildFCDTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecChildFCDTestFCPtr::EditHandle(
              &_sfFieldSFPro_mpchildptr,
-             this->getType().getFieldDesc(FieldSFPro_mpchildptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPro_mpchildptrFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::setFieldSFPro_mpchildptr,
@@ -3053,7 +3065,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPub_ptr  (voi
     MFUnrecFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecFCDTestFCPtr::GetHandle(
              &_mfFieldMFPub_ptr,
-             this->getType().getFieldDesc(FieldMFPub_ptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPub_ptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3063,7 +3076,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPub_ptr (vo
     MFUnrecFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecFCDTestFCPtr::EditHandle(
              &_mfFieldMFPub_ptr,
-             this->getType().getFieldDesc(FieldMFPub_ptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPub_ptrFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::pushToFieldMFPub_ptr,
@@ -3097,7 +3111,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPub_weakptr (
     MFWeakFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFWeakFCDTestFCPtr::GetHandle(
              &_mfFieldMFPub_weakptr,
-             this->getType().getFieldDesc(FieldMFPub_weakptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPub_weakptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3107,7 +3122,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPub_weakptr
     MFWeakFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFWeakFCDTestFCPtr::EditHandle(
              &_mfFieldMFPub_weakptr,
-             this->getType().getFieldDesc(FieldMFPub_weakptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPub_weakptrFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::pushToFieldMFPub_weakptr,
@@ -3141,7 +3157,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPub_mpchildpt
     MFUnrecChildFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecChildFCDTestFCPtr::GetHandle(
              &_mfFieldMFPub_mpchildptr,
-             this->getType().getFieldDesc(FieldMFPub_mpchildptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPub_mpchildptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3151,7 +3168,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPub_mpchild
     MFUnrecChildFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecChildFCDTestFCPtr::EditHandle(
              &_mfFieldMFPub_mpchildptr,
-             this->getType().getFieldDesc(FieldMFPub_mpchildptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPub_mpchildptrFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::pushToFieldMFPub_mpchildptr,
@@ -3185,7 +3203,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPro_ptr  (voi
     MFUnrecFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecFCDTestFCPtr::GetHandle(
              &_mfFieldMFPro_ptr,
-             this->getType().getFieldDesc(FieldMFPro_ptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPro_ptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3195,7 +3214,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPro_ptr (vo
     MFUnrecFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecFCDTestFCPtr::EditHandle(
              &_mfFieldMFPro_ptr,
-             this->getType().getFieldDesc(FieldMFPro_ptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPro_ptrFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::pushToFieldMFPro_ptr,
@@ -3229,7 +3249,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPro_weakptr (
     MFWeakFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFWeakFCDTestFCPtr::GetHandle(
              &_mfFieldMFPro_weakptr,
-             this->getType().getFieldDesc(FieldMFPro_weakptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPro_weakptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3239,7 +3260,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPro_weakptr
     MFWeakFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFWeakFCDTestFCPtr::EditHandle(
              &_mfFieldMFPro_weakptr,
-             this->getType().getFieldDesc(FieldMFPro_weakptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPro_weakptrFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::pushToFieldMFPro_weakptr,
@@ -3273,7 +3295,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPro_mpchildpt
     MFUnrecChildFCDTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecChildFCDTestFCPtr::GetHandle(
              &_mfFieldMFPro_mpchildptr,
-             this->getType().getFieldDesc(FieldMFPro_mpchildptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPro_mpchildptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3283,7 +3306,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPro_mpchild
     MFUnrecChildFCDTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecChildFCDTestFCPtr::EditHandle(
              &_mfFieldMFPro_mpchildptr,
-             this->getType().getFieldDesc(FieldMFPro_mpchildptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPro_mpchildptrFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::pushToFieldMFPro_mpchildptr,
@@ -3359,7 +3383,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPub_spchildpt
     SFUnrecChildFCDSParTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecChildFCDSParTestFCPtr::GetHandle(
              &_sfFieldSFPub_spchildptr,
-             this->getType().getFieldDesc(FieldSFPub_spchildptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPub_spchildptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3369,7 +3394,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPub_spchild
     SFUnrecChildFCDSParTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecChildFCDSParTestFCPtr::EditHandle(
              &_sfFieldSFPub_spchildptr,
-             this->getType().getFieldDesc(FieldSFPub_spchildptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPub_spchildptrFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::setFieldSFPub_spchildptr,
@@ -3385,7 +3411,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldSFPro_spchildpt
     SFUnrecChildFCDSParTestFCPtr::GetHandlePtr returnValue(
         new  SFUnrecChildFCDSParTestFCPtr::GetHandle(
              &_sfFieldSFPro_spchildptr,
-             this->getType().getFieldDesc(FieldSFPro_spchildptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPro_spchildptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3395,7 +3422,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldSFPro_spchild
     SFUnrecChildFCDSParTestFCPtr::EditHandlePtr returnValue(
         new  SFUnrecChildFCDSParTestFCPtr::EditHandle(
              &_sfFieldSFPro_spchildptr,
-             this->getType().getFieldDesc(FieldSFPro_spchildptrFieldId)));
+             this->getType().getFieldDesc(FieldSFPro_spchildptrFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::setFieldSFPro_spchildptr,
@@ -3425,7 +3453,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPub_spchildpt
     MFUnrecChildFCDSParTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecChildFCDSParTestFCPtr::GetHandle(
              &_mfFieldMFPub_spchildptr,
-             this->getType().getFieldDesc(FieldMFPub_spchildptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPub_spchildptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3435,7 +3464,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPub_spchild
     MFUnrecChildFCDSParTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecChildFCDSParTestFCPtr::EditHandle(
              &_mfFieldMFPub_spchildptr,
-             this->getType().getFieldDesc(FieldMFPub_spchildptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPub_spchildptrFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::pushToFieldMFPub_spchildptr,
@@ -3469,7 +3499,8 @@ GetFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::getHandleFieldMFPro_spchildpt
     MFUnrecChildFCDSParTestFCPtr::GetHandlePtr returnValue(
         new  MFUnrecChildFCDSParTestFCPtr::GetHandle(
              &_mfFieldMFPro_spchildptr,
-             this->getType().getFieldDesc(FieldMFPro_spchildptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPro_spchildptrFieldId),
+             const_cast<FCDPtrTestFCNullCheckAccessBase *>(this)));
 
     return returnValue;
 }
@@ -3479,7 +3510,8 @@ EditFieldHandlePtr FCDPtrTestFCNullCheckAccessBase::editHandleFieldMFPro_spchild
     MFUnrecChildFCDSParTestFCPtr::EditHandlePtr returnValue(
         new  MFUnrecChildFCDSParTestFCPtr::EditHandle(
              &_mfFieldMFPro_spchildptr,
-             this->getType().getFieldDesc(FieldMFPro_spchildptrFieldId)));
+             this->getType().getFieldDesc(FieldMFPro_spchildptrFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&FCDPtrTestFCNullCheckAccess::pushToFieldMFPro_spchildptr,
