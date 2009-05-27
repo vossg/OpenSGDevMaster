@@ -1,10 +1,5 @@
 
-IF(OSG_VERBOSE_SCAN)
-    MESSAGE( STATUS "Looking at : ${CMAKE_CURRENT_SOURCE_DIR}")
-ENDIF(OSG_VERBOSE_SCAN)
+# CMake's ADD_SUBDIRECTORY only looks for CMakeLists.txt, so we include
+# the real file here
 
-MESSAGE( STATUS "Processing SystemLib")
-
-PROJECT(OSGSystem)
-
-PROCESS_DIR()
+INCLUDE("CMakeLists.Lib.OSGTestSystemLib.txt")

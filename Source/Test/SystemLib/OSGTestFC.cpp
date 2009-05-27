@@ -288,9 +288,10 @@ void TestFC::resolveLinks(void)
 MFUInt32::EditHandlePtr TestFC::editHandleField1(void)
 {
     MFUInt32::EditHandlePtr returnValue(
-        new  MFUInt32::EditHandle(
-             &_mfField1, 
-             this->getType().getFieldDesc(Field1FieldId)));
+        new MFUInt32::EditHandle(
+            &_mfField1, 
+            this->getType().getFieldDesc(Field1FieldId),
+            this));
 
     editMField(Field1FieldMask, _mfField1);
 
@@ -300,9 +301,10 @@ MFUInt32::EditHandlePtr TestFC::editHandleField1(void)
 MFUInt32::GetHandlePtr  TestFC::getHandleField1 (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
-        new  MFUInt32::GetHandle(
-             &_mfField1, 
-             this->getType().getFieldDesc(Field1FieldId)));
+        new MFUInt32::GetHandle(
+            &_mfField1, 
+            this->getType().getFieldDesc(Field1FieldId),
+            const_cast<TestFC *>(this)));
 
     return returnValue;
 }
@@ -310,9 +312,10 @@ MFUInt32::GetHandlePtr  TestFC::getHandleField1 (void) const
 SFUInt32::EditHandlePtr TestFC::editHandleField2(void)
 {
     SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
-             &_sfField2, 
-             this->getType().getFieldDesc(Field2FieldId)));
+        new SFUInt32::EditHandle(
+            &_sfField2, 
+            this->getType().getFieldDesc(Field2FieldId),
+            this));
 
     editSField(Field2FieldMask);
 
@@ -322,9 +325,10 @@ SFUInt32::EditHandlePtr TestFC::editHandleField2(void)
 SFUInt32::GetHandlePtr  TestFC::getHandleField2 (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
-             &_sfField2, 
-             this->getType().getFieldDesc(Field2FieldId)));
+        new SFUInt32::GetHandle(
+            &_sfField2, 
+            this->getType().getFieldDesc(Field2FieldId),
+            const_cast<TestFC *>(this)));
 
     return returnValue;
 }
@@ -333,9 +337,10 @@ SFUInt32::GetHandlePtr  TestFC::getHandleField2 (void) const
 MFUInt32::EditHandlePtr TestFC::editHandleField3(void)
 {
     MFUInt32::EditHandlePtr returnValue(
-        new  MFUInt32::EditHandle(
-             &_mfField3, 
-             this->getType().getFieldDesc(Field3FieldId)));
+        new MFUInt32::EditHandle(
+            &_mfField3, 
+            this->getType().getFieldDesc(Field3FieldId),
+            this));
 
     editMField(Field3FieldMask, _mfField3);
 
@@ -345,9 +350,10 @@ MFUInt32::EditHandlePtr TestFC::editHandleField3(void)
 MFUInt32::GetHandlePtr  TestFC::getHandleField3 (void) const
 {
     MFUInt32::GetHandlePtr returnValue(
-        new  MFUInt32::GetHandle(
-             &_mfField3, 
-             this->getType().getFieldDesc(Field3FieldId)));
+        new MFUInt32::GetHandle(
+            &_mfField3, 
+            this->getType().getFieldDesc(Field3FieldId),
+            const_cast<TestFC *>(this)));
 
     return returnValue;
 }
@@ -355,9 +361,10 @@ MFUInt32::GetHandlePtr  TestFC::getHandleField3 (void) const
 SFUInt32::EditHandlePtr TestFC::editHandleField4(void)
 {
     SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
-             &_sfField4, 
-             this->getType().getFieldDesc(Field4FieldId)));
+        new SFUInt32::EditHandle(
+            &_sfField4, 
+            this->getType().getFieldDesc(Field4FieldId),
+            this));
 
     editSField(Field4FieldMask);
 
@@ -367,9 +374,10 @@ SFUInt32::EditHandlePtr TestFC::editHandleField4(void)
 SFUInt32::GetHandlePtr  TestFC::getHandleField4 (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
-             &_sfField4, 
-             this->getType().getFieldDesc(Field4FieldId)));
+        new SFUInt32::GetHandle(
+            &_sfField4, 
+            this->getType().getFieldDesc(Field4FieldId),
+            const_cast<TestFC *>(this)));
 
     return returnValue;
 }

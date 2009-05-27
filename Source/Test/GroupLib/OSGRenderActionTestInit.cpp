@@ -198,10 +198,9 @@ ActionBase::ResultE TestMultiPartStageRenderEnter(NodeCore * const pCore,
                     pPart->setDebugString(szMessage);
                 }
 #endif
-                
-                Node *pActNode = a->getActNode();
-                
-                a->recurseNoNodeCallbacks(pActNode);
+
+#warning  "TestMultiPartStageRenderEnter recurse call DISABLED!!!"
+//                recurseFromThis(a);
             }
             pStage->popPartition(a);
         }
