@@ -370,7 +370,7 @@ int main(int argc,char **argv)
         bool        stopIt = false;
         int         ip;
 
-        OSG::FieldContainerFactory::the()->dump();
+//        OSG::FieldContainerFactory::the()->dump();
 
         while(!stopIt) 
         {
@@ -416,7 +416,7 @@ void display(void)
     {
         if(iCache < 5)
         {
-            fprintf(stderr, "cache %d\n", iCache);
+//            fprintf(stderr, "cache %d\n", iCache);
 
             ract->setFrustumCulling(false);
         }
