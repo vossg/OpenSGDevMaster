@@ -174,7 +174,6 @@ bool CSMClusterWindow::init(void)
 
     _pClusterWindow->setConnectionType(this->getConnectionType());
 
-
     if(this->getSFComposer()->getValue() != NULL)
     {
         _pClusterWindow->setComposer(this->getSFComposer()->getValue());
@@ -241,8 +240,11 @@ bool CSMClusterWindow::init(void)
     {
         _sfClientWindow.getValue()->init();
 
-        _pClusterWindow->setClientWindow(
-            _sfClientWindow.getValue()->getWindow());
+        if(this->getRenderClient() == true)
+        {
+            _pClusterWindow->setClientWindow(
+                _sfClientWindow.getValue()->getWindow());
+        }
     }
 
     _pClusterWindow->init();

@@ -181,7 +181,7 @@ bool CSMViewport::init(void)
         _vViewports.push_back(pPortLeft );
         _vViewports.push_back(pPortRight);
     }
-    if(bAmberBlue == true)
+    else if(bAmberBlue == true)
     {
         ColorBufferViewportUnrecPtr pPortLeft  = 
             ColorBufferViewport::create();
