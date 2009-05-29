@@ -286,6 +286,41 @@ class SimpleAttachment : public Attachment
     void addPointerValue(ArgumentType pVal);
 };
 
+#define OSG_SIMPLEATTACHMENT_INST(DESC)                                   \
+template <> inline                                                        \
+void SimpleAttachment< DESC >::classDescInserter(TypeObject &oType)       \
+{                                                                         \
+    FieldDescriptionBase *pDesc;                                          \
+                                                                          \
+    typedef StoredFieldType::Description SFDesc;                          \
+                                                                          \
+    pDesc = new SFDesc(                                                   \
+        StoredFieldType::getClassType(),                                  \
+        SimpleDesc::getFieldName(),                                       \
+        "",                                                               \
+        OSG_RC_FIELD_DESC(Self::Simple),                                  \
+        false,                                                            \
+        Field::MFDefaultFlags,                                            \
+        static_cast<FieldEditMethodSig>(&Self::editHandleField),          \
+        static_cast<FieldGetMethodSig >(&Self::getHandleField ));         \
+                                                                          \
+    oType.addInitialDesc(pDesc);                                          \
+}                                                                         \
+                                                                          \
+template <>                                                               \
+SimpleAttachment< DESC >::TypeObject                                      \
+    SimpleAttachment<DESC >::_type(                                       \
+        SimpleDesc::getTypeName      (),                                  \
+        SimpleDesc::getParentTypeName(),                                  \
+        SimpleDesc::getGroupName     (),                                  \
+        0,                                                                \
+        reinterpret_cast<PrototypeCreateF>(&Self::createEmptyLocal),      \
+        NULL,                                                             \
+        NULL,                                                             \
+        reinterpret_cast<InitalInsertDescFunc>(&Self::classDescInserter), \
+        false,                                                            \
+        0)
+
 OSG_END_NAMESPACE
 
 #include "OSGSimpleAttachment.inl"

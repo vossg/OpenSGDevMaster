@@ -155,12 +155,15 @@ void FieldTraits<AttachmentMap>::copyFromBin(BinaryDataHandler &pMem,
         
         attPtr = dynamic_cast<Attachment *>(
             FieldContainerFactory::the()->getMappedContainer(fcId));
-            
-        key = (static_cast<UInt32>(attPtr->getGroupId()) << 16) | binding;
 
-        UnrecordedRefCountPolicy::addRef(attPtr);
+        if(attPtr != NULL)
+        {
+            key = (static_cast<UInt32>(attPtr->getGroupId()) << 16) | binding;
 
-        aMap.insert(AttachmentMap::value_type(key, attPtr));
+            UnrecordedRefCountPolicy::addRef(attPtr);
+
+            aMap.insert(AttachmentMap::value_type(key, attPtr));
+        }
     }
 }
 

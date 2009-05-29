@@ -541,7 +541,7 @@ UInt32 ParentPointerMField<PtrTypeT,
     size_type returnValue = Inherited::getBinSize();
 
     returnValue +=
-        sizeof(UInt32) + // num elements
+//        sizeof(UInt32) + // num elements
         (_vParentPos.size() ? 
          PosMFieldTraits::getBinSize(&(_vParentPos[0]), 
                                        _vParentPos.size()) : 0);

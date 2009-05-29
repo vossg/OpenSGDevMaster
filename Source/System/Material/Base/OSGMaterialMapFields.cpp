@@ -177,10 +177,13 @@ void FieldTraits<MaterialMap>::copyFromBin(BinaryDataHandler &pMem,
         
         matPtr = dynamic_cast<PrimeMaterial *>(
             FieldContainerFactory::the()->getMappedContainer(fcId));
-            
-        UnrecordedRefCountPolicy::addRef(matPtr);
 
-        aMap.insert(MaterialMap::value_type(key, matPtr));
+        if(matPtr != NULL)
+        {
+            UnrecordedRefCountPolicy::addRef(matPtr);
+
+            aMap.insert(MaterialMap::value_type(key, matPtr));
+        }
     }
 }
 

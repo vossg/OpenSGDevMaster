@@ -50,8 +50,6 @@
 #include "OSGAttachmentContainer.h"
 #include "OSGVoidPAttachment.h"
 
-#include "OSGSimpleAttachment.ins"
-
 OSG_BEGIN_NAMESPACE
 
 template <>
@@ -75,6 +73,7 @@ SimpleAttachment<VoidPAttachmentDesc>::TypeObject &
     return _type;
 }
 
+OSG_SIMPLEATTACHMENT_INST(VoidPAttachmentDesc);
 
 
 /*-------------------------------------------------------------------------*/

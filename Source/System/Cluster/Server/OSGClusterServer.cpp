@@ -233,6 +233,8 @@ void ClusterServer::stop()
     _clusterWindow->subReferenceUnresolved();
     _clusterWindow = NULL;
 
+    _window->resolveLinks();
+
     // destroy connection
 
     try

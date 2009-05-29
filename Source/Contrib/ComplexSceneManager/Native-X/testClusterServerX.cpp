@@ -23,13 +23,28 @@
 #include <OSGRenderAction.h>
 
 // local glut window
-OSG::XWindowRefPtr    window;
+OSG::XWindowRefPtr    window      = NULL;
 // render action
-OSG::RenderAction    *ract;
+OSG::RenderAction    *ract        = NULL;
 // pointer the the cluster server instance
-OSG::ClusterServer   *server;
+OSG::ClusterServer   *server      = NULL;
 bool                  exitOnError = false;
 int                   iCache      = 0;
+
+void cleanup(void)
+{
+    window = NULL;
+
+    delete ract;
+    
+    server->stop();
+    delete server;
+
+    server = NULL;
+    ract   = NULL;
+
+    OSG::osgExit();
+}
 
 // forward declaration so we can have the interesting stuff upfront
 void display(void);
@@ -355,6 +370,8 @@ int main(int argc,char **argv)
         bool        stopIt = false;
         int         ip;
 
+        OSG::FieldContainerFactory::the()->dump();
+
         while(!stopIt) 
         {
             while(ip = XPending(dpy))
@@ -385,7 +402,7 @@ int main(int argc,char **argv)
     catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
     {
         SLOG << e.what() << OSG::endLog;
-        delete server;
+        cleanup();
         OSG::osgExit(); 
     }
 
@@ -424,17 +441,16 @@ void display(void)
         {
             SLOG << e.what() << std::endl;
 
+            printf("Exit on error %s",e.what());
+
             try
             {
-                delete server;
+                cleanup();
             }
             catch(...)
             {
             }
 
-            printf("Exit on error %s",e.what());
-
-            OSG::osgExit();
             exit(0);
         }
         else

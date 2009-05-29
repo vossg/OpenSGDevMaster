@@ -242,12 +242,9 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
                         _receivedFC.insert(fcPtr->getId());
 
 
-#if 0
-                        fprintf(stderr, "create :%d %s\n",
+                        FDEBUG(("create :%d %s\n",
                                 fcPtr->getId(),
-                                fcType->getCName()); 
-#endif
-
+                                fcType->getCName())); 
                         
                         // local <-> remote mapping
                         _localFC[fullRemoteId] = fcPtr->getId();
@@ -284,10 +281,21 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 //                    fprintf(stderr, "changed :%d \n", localId);
                     FieldContainer *fcPtr = factory->getContainer(localId);
                     
-                    fcPtr->copyFromBin(connection, mask);
+                    if(fcPtr == NULL)
+                    {
+                        clearFCMapping(localId, remoteId);
 
-                    callChanged(fcPtr);
+                        char dummy;
+                        
+                        while(len--)
+                            connection.get(&dummy, 1);
+                    }
+                    else
+                    {
+                        fcPtr->copyFromBin(connection, mask);
 
+                        callChanged(fcPtr);
+                    }
                 }
                 else
                 {
@@ -322,11 +330,18 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 
                     FieldContainer *fcPtr = factory->getContainer(localId);
 
-                    FDEBUG(("AddRef: %s ID:%d\n", 
-                            fcPtr->getType().getCName(),
-                            fcPtr->getId()));
-
-                    fcPtr->addReferenceRecorded();
+                    if(fcPtr == NULL)
+                    {
+                        clearFCMapping(localId, remoteId);
+                    }
+                    else
+                    {
+                        FDEBUG(("AddRef: %s ID:%d\n", 
+                                fcPtr->getType().getCName(),
+                                fcPtr->getId()));
+                        
+                        fcPtr->addReferenceRecorded();
+                    }
                 }
                 else
                 {
@@ -345,11 +360,18 @@ void RemoteAspect::receiveSync(Connection &connection, bool applyToChangelist)
 
                     FieldContainer *fcPtr = factory->getContainer(localId);
 
-                    FDEBUG(("SubRef: %s ID:%d\n", 
-                            fcPtr->getType().getCName(),
-                            fcPtr->getId()));
+                    if(fcPtr == NULL)
+                    {
+                        clearFCMapping(localId, remoteId);
+                    }
+                    else
+                    {
+                        FDEBUG(("SubRef: %s ID:%d\n", 
+                                fcPtr->getType().getCName(),
+                                fcPtr->getId()));
                     
-                    fcPtr->subReferenceRecorded();
+                        fcPtr->subReferenceRecorded();
+                    }
                 }
                 else
                 {
@@ -476,11 +498,9 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
             connection.putValue(typeId);
             connection.putValue((*changedI)->uiContainerId);
             
-#if 0
-            fprintf(stderr, "Send Create %d %d\n",
+            FDEBUG(("Send Create %d %d\n",
                     typeId,
-                    (*changedI)->uiContainerId);
-#endif
+                    (*changedI)->uiContainerId));
 
             // sent container to create
             _sentFC.insert((*changedI)->uiContainerId);
@@ -555,10 +575,11 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
 
                 fcPtr->copyToBin(connection, mask);
 
-                FDEBUG(("Changed: %s ID:%d Mask:%lld\n", 
+                FDEBUG(("Changed: %s ID:%d Mask:%llud Length: %d\n", 
                         fcPtr->getType().getCName(),
                         fcPtr->getId(), 
-                        mask));
+                        mask,
+                        len));
             }
         }
         else if((*changedI)->uiEntryDesc == ContainerChangeEntry::AddReference)

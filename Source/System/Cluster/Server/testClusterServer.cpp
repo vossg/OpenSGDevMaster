@@ -22,6 +22,14 @@ void cleanup(void)
 {
     window = NULL;
 
+    delete ract;
+    
+    server->stop();
+    delete server;
+
+    server = NULL;
+    ract   = NULL;
+
     OSG::osgExit();
 }
 
@@ -48,15 +56,16 @@ void display()
         if(exitOnError)
         {
             SLOG << e.what() << std::endl;
+            printf("Exit on error %s",e.what());
             try
             {
-                delete server;
+                cleanup();
             }
+
             catch(...)
             {
             }
-            printf("Exit on error %s",e.what());
-            cleanup();
+
             exit(0);
         }
         else

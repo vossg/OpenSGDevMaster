@@ -81,6 +81,7 @@ FieldContainerFactoryBase::FieldContainerFactoryBase(void) :
     _vContainerStore(                       ),
     _pMapper        (NULL                   )
 {
+    _vContainerStore.push_back(NULL);
 }
 
 FieldContainerFactoryBase::FieldContainerFactoryBase(
@@ -93,6 +94,7 @@ FieldContainerFactoryBase::FieldContainerFactoryBase(
 	_vContainerStore(             ),
     _pMapper        (NULL         )
 {
+    _vContainerStore.push_back(NULL);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -261,7 +263,39 @@ Int32 FieldContainerFactoryBase::findContainer(ContainerPtr ptr) const
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
 
-
+void FieldContainerFactoryBase::dump(void)
+{
+    ContainerStoreIt sI = _vContainerStore.begin();
+    ContainerStoreIt sE = _vContainerStore.end  ();
+    
+    for(UInt32 i = 0; sI != sE; ++sI, ++i)
+    {
+        if((*sI) != NULL)
+        {
+            FWARNING(("FieldContainerFactoryBase::dump: "
+                      "Entry [%d] is not NULL ([%p]). \n", i, *sI));
+                                              
+            for(UInt32 j = 0; j < (*sI)->getNumAspects(); ++j)
+            {
+                if((*sI)->getPtr(j) != NULL)
+                {
+                    FWARNING(("  [%d] [%p] [%s] [%d %d]\n",
+                              j, 
+                              (*sI)->getPtr(j), 
+                              (*sI)->getPtr(j)->getType().getCName(),
+                              (*sI)->getPtr(j)->getRefCount(),
+                              (*sI)->getPtr(j)->getWeakRefCount() ));
+                }
+                else
+                {
+                    FWARNING(("  [%d] [%p] [] [N/A N/A]\n",
+                              j, 
+                              (*sI)->getPtr(j)));
+                }
+            }
+        }
+    }
+}
 
 OSG_END_NAMESPACE
 

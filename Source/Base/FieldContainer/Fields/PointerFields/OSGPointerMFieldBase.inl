@@ -54,7 +54,7 @@ inline
 UInt32 PointerMFieldBase::getBinSize(void) const
 {
     return 
-        sizeof(size_type) + // num elements
+        sizeof(UInt32) + // num elements
         (_ptrStore.size() ? 
          MFieldTraits::getBinSize(&(_ptrStore[0]), _ptrStore.size()) : 0);
 }

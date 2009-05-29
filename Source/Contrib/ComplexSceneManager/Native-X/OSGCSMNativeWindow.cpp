@@ -140,7 +140,12 @@ void CSMNativeWindow::xMainLoop(void)
                         
                         XLookupString(&event.xkey, buffer, 30, &keysym, NULL);
                         
-                        //fprintf(stderr, "%x\n", keysym);
+#if 0
+                        fprintf(stderr, "%x %x %x\n", 
+                                keysym, 
+                                XK_F12,
+                                XK_Home);
+#endif
 
                         if(keysym == XK_Escape) 
                         {
@@ -155,7 +160,11 @@ void CSMNativeWindow::xMainLoop(void)
                             (*winIt)->getWindow()->getShaderCache()->dump();
 #endif
                         }
-                        if(keysym == XK_Home) 
+                        else if(keysym == XK_F12) 
+                        {
+                            FieldContainerFactory::the()->dump();
+                        }
+                        else if(keysym == XK_Home) 
                         {
                             ComplexSceneManager::the()->resetScene();
                         }

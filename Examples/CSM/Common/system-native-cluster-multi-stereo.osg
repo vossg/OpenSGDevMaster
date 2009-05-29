@@ -16,6 +16,11 @@ ComplexSceneManager
 
           children 
           [ 
+            DEF HeadBeacon Node
+            {
+              core MatrixTransform {}
+
+            }
           ]
         },
 
@@ -76,7 +81,11 @@ ComplexSceneManager
       far    20000.0
       fov    60.0
 
-      beacon USE CameraRoot
+      eyeSeparation  1.00
+      zeroParallax   2.00
+
+      beacon     USE CameraRoot
+      headBeacon USE HeadBeacon
     }
 
   ]
@@ -98,8 +107,10 @@ ComplexSceneManager
                decorEnabled TRUE
              }
 
+             renderClient FALSE
+
              servers    ["opensg-tile-0-0", "opensg-tile-1-0"]
-             serverIds  [1, 0]
+             serverIds  [0                , 1                ]
 
              serverRows 1
 
@@ -113,11 +124,48 @@ ComplexSceneManager
                CSMViewport
                {
                  root       USE RootNode
-                 camera     USE PerspCamGL
+                 camera     ProjectionCameraDecorator
+                 {
+                   surface 
+                   [
+                     -1195.0 -950.0 -2000.0,
+                         0.0 -950.0 -2000.0,
+                         0.0  950.0 -2000.0,
+                     -1195.0  950.0 -2000.0
+                   ]
+
+                   decoratee USE PerspCamGL
+                 }
 
                  background USE BGnd
 
+                 stereoMode "quadBuffer"
+
                  leftBottom 0.0 0.0
+                 rightTop   0.5 1.0
+               }
+
+               CSMViewport
+               {
+                 root       USE RootNode
+                 camera          ProjectionCameraDecorator
+                 {
+                   surface 
+                   [
+                         0.0 -950.0 -2000.0,
+                      1195.0 -950.0 -2000.0,
+                      1195.0  950.0 -2000.0,
+                         0.0  950.0 -2000.0
+                   ]
+
+                   decoratee USE PerspCamGL
+                 }
+
+                 background USE BGnd
+
+                 stereoMode "quadBuffer"
+
+                 leftBottom 0.5 0.0
                  rightTop   1.0 1.0
                }
              ]

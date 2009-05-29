@@ -1150,6 +1150,7 @@ int doMain(int argc,char **argv)
         }
     }
 
+    OSG::ChangeList::setReadWriteDefault(true);
     OSG::osgInit(argc, argv);
     glutInit(&argc, argv);
     glutInitDisplayMode( GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE );
@@ -1291,6 +1292,9 @@ int doMain(int argc,char **argv)
     else
         clusterWindow->resize(winwidth,winheight);
     clientWindow->resize(winwidth,winheight);
+
+//    OSG::FieldContainerFactory::the()->dump();
+
     glutMainLoop();
 
     return 0;

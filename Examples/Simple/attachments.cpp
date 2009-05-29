@@ -25,7 +25,6 @@
     These two headers are needed to define the new MyAttachment type below
 */
 #include <OSGSimpleAttachment.h>
-#include <OSGSimpleAttachment.ins>
 #else
 // Headers
 #include <OpenSG/OSGGLUT.h>
@@ -46,7 +45,6 @@
     These two headers are needed to define the new MyAttachment type below
 */
 #include <OpenSG/OSGSimpleAttachment.h>
-#include <OpenSG/OSGSimpleAttachment.ins>
 #endif
 
 // The SimpleSceneManager to manage simple applications
@@ -170,6 +168,7 @@ SimpleAttachment<MyAttachmentDesc>::TypeObject &
     return _type;
 }
 
+OSG_SIMPLEATTACHMENT_INST(MyAttachmentDesc);
 
 
 /*

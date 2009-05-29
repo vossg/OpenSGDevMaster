@@ -178,10 +178,13 @@ void FieldTraits<ChunkBlockMap>::copyFromBin(BinaryDataHandler &pMem,
         
         matPtr = dynamic_cast<ChunkBlock *>(
             FieldContainerFactory::the()->getMappedContainer(fcId));
-            
-        UnrecordedRefCountPolicy::addRef(matPtr);
+        
+        if(matPtr != NULL)
+        {
+            UnrecordedRefCountPolicy::addRef(matPtr);
 
-        aMap.insert(ChunkBlockMap::value_type(key, matPtr));
+            aMap.insert(ChunkBlockMap::value_type(key, matPtr));
+        }
     }
 }
 

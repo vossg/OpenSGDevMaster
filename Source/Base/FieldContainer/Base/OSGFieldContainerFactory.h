@@ -147,6 +147,8 @@ class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
     /*! \name                      Set                                     */
     /*! \{                                                                 */
 
+    void dump(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   your_category                              */
