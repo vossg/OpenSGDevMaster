@@ -177,6 +177,7 @@ ELSE(__OpenSG_IN_CACHE)
         FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE
             NAMES  ${COMPONENT}
             HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
+            PATH_SUFFIXES "release" "relwithdbg"
         )
     
         FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG
