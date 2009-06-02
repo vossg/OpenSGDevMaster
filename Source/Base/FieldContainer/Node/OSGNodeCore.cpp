@@ -143,10 +143,13 @@ void NodeCore::dump(      UInt32    uiIndent,
     indentLog(uiIndent + 4, PLOG);
     PLOG << "Parents : " << std::endl;
 
-    for(UInt32 i = 0; i < _mfParents.size(); i++)
+    MFParentsType::const_iterator pIt  = _mfParents.begin();
+    MFParentsType::const_iterator pEnd = _mfParents.end  ();
+
+    for(UInt32 i = 0; pIt != pEnd; ++pIt)
     {
         indentLog(uiIndent + 4, PLOG);
-        PLOG << "           " << i << ") " << &(*(_mfParents[i])) << std::endl;
+        PLOG << "           " << i << ") " << *pIt << std::endl;
     }
 
     Inherited::dump(uiIndent + 4, bvFlags);
