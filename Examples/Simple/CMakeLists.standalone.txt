@@ -36,7 +36,7 @@ SET(OSG_COMPONENTS OSGBase
 
 IF(UNIX)
     IF(APPLE)
-        MESSAGE(SEND_ERROR "No native window for MacOS defined yet.")
+        LIST(APPEND OSG_COMPONENTS OSGWindowCarbon)
     ELSE(APPLE)
         LIST(APPEND OSG_COMPONENTS OSGWindowX)
     ENDIF(APPLE)
