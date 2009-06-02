@@ -56,9 +56,6 @@
 #include "OSGNodeSFields.h"
 #include "OSGNodeMFields.h"
 
-#include "OSGNodeCoreSFields.h"
-#include "OSGNodeCoreMFields.h"
-
 OSG_BEGIN_NAMESPACE
 
 DataType FieldTraits<FieldContainer          *>::_type(
@@ -77,10 +74,6 @@ DataType FieldTraits<AttachmentContainer     *>::_type(
     "AttachmentContainerPtr",
     "FieldContainerPtr");
 
-DataType FieldTraits<NodeCore                *>::_type(
-    "NodeCorePtr",
-    "AttachmentContainerPtr");
-
 DataType FieldTraits<Node                   *>::_type(
     "NodePtr",
     "AttachmentContainerPtr");
@@ -93,7 +86,6 @@ OSG_FIELDTRAITS_GETTYPE   (FieldContainer         *)
 
 OSG_FIELDTRAITS_GETTYPE   (Attachment             *)
 OSG_FIELDTRAITS_GETTYPE   (AttachmentContainer    *)
-OSG_FIELDTRAITS_GETTYPE   (NodeCore               *)
 OSG_FIELDTRAITS_GETTYPE   (Node                   *)
 OSG_FIELDTRAITS_GETTYPE   (ChangedFunctorCallback  )
 
@@ -105,11 +97,6 @@ DataType &FieldTraits< FieldContainer *>::getMapType(void)
 DataType &FieldTraits< FieldContainer *, 1 >::getType(void)
 {                                                           
     return FieldTraits<FieldContainer *, 0>::getType();
-}
-
-DataType &FieldTraits< NodeCore *, 1 >::getType(void)
-{                                                           
-    return FieldTraits<NodeCore *, 0>::getType();
 }
 
 DataType &FieldTraits< Node *, 1 >::getType(void)
@@ -137,16 +124,6 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Node *, 
                            0);
 
-// NodeCore
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           NodeCore *, 
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           NodeCore *, 
-                           0);
-
 // AttachmentContainer
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
@@ -166,19 +143,6 @@ OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
                            Attachment *, 
                            0);
-
-// FieldContainerChildNodeCore
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      NodeCore *,
-                      UnrecordedRefCountPolicy, 
-                      1);
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      NodeCore *,
-                      UnrecordedRefCountPolicy, 
-                      1);
 
 // NodeChildNode
 OSG_EXPORT_PTR_MFIELD(ChildPointerMField,

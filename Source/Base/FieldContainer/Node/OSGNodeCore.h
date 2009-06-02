@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,129 +36,39 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGNODEOCRE_H_
-#define _OSGNODEOCRE_H_
+#ifndef _OSGNODECORE_H_
+#define _OSGNODECORE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGFieldContainer.h"
-#include "OSGAttachmentContainer.h"
-
-#include "OSGFieldContainerFields.h"
-#include "OSGMatrixFwd.h"
-#include "OSGFieldContainerFactory.h"
-
-#ifdef OSG_EMBEDDED
-#include "OSGActionBase.h"
-#endif
+#include "OSGNodeCoreBase.h"
+#include "OSGNode.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Volume;
-class Node;
+/*! \brief NodeCore class. See \ref
+           PageBaseNodeCore for a description.
+*/
 
-/*! \ingroup GrpBaseFieldContainerNodes
-    \ingroup GrpLibOSGBase
- */
-
-class OSG_BASE_DLLMAPPING NodeCore : public AttachmentContainer
+class OSG_BASE_DLLMAPPING NodeCore : public NodeCoreBase
 {
+  protected:
+
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef AttachmentContainer                              Inherited;
-    typedef AttachmentContainer                              ParentContainer;
+    typedef NodeCoreBase Inherited;
+    typedef NodeCore     Self;
 
-    typedef MFParentFieldContainerPtr                        ParentsField;
-
-    OSG_GEN_INTERNALPTR(NodeCore);
-
-    typedef Inherited::TypeObject                            TypeObject;
-
-    static const bool isNodeCore = true;
-
-    OSG_RC_FIRST_FIELD_DECL(Parents);
-    OSG_RC_LAST_FIELD_DECL (Parents);
-
-    typedef MFParentFieldContainerPtr   MFParentsType;
     
     /*---------------------------------------------------------------------*/
-    /*! \name                      dcast                                   */
+    /*! \name                      Access                                  */
     /*! \{                                                                 */
 
-    OSG_ABSTR_FIELD_CONTAINER_DECL;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name        General Fieldcontainer Declaration                    */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Helper                                    */
-    /*! \{                                                                 */
-
-    const MFParentFieldContainerPtr &getParents(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Get                                     */
-    /*! \{                                                                 */
-
+    const MFParentFieldContainerPtr &getParents  (void) const;
     const MFParentFieldContainerPtr *getMFParents(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Set                                     */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   your_category                              */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                 Container Access                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Binary Access                              */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   your_operators                             */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Binary Access                              */
-    /*! \{                                                                 */
-
-    virtual UInt32 getBinSize (ConstFieldMaskArg  whichField);
-    virtual void   copyToBin  (BinaryDataHandler &pMem,
-                               ConstFieldMaskArg  whichField);
-    virtual void   copyFromBin(BinaryDataHandler &pMem,
-                               ConstFieldMaskArg  whichField);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Assignment                                */
-    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -177,119 +87,66 @@ class OSG_BASE_DLLMAPPING NodeCore : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name                      Sync                                    */
     /*! \{                                                                 */
+
+    virtual void changed(ConstFieldMaskArg whichField,
+                         UInt32            origin,
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
+    /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32    uiIndent = 0, 
-                      const BitVector bvFlags  = 0) const;
-
-#ifdef OSG_EMBEDDED
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                        Dump                                  */
-    /*! \{                                                                 */
-
-    ActionBase::ResultE defaultEnter(Action *action);
-    ActionBase::ResultE defaultLeave(Action *action);
-
-#endif
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
+    // Variables should all be in NodeCoreBase.
+
     /*---------------------------------------------------------------------*/
-    /*! \name                  Type information                            */
-    /*! \{                                                                 */
-
-    static TypeObject _type;
-
-    static       void   classDescInserter(TypeObject &oType);
-    static const Char8 *getClassname     (void             );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Fields                                  */
-    /*! \{                                                                 */
-
-    MFParentFieldContainerPtr _mfParents;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
+    /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
     NodeCore(void);
     NodeCore(const NodeCore &source);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
     virtual ~NodeCore(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
+    /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    virtual bool linkParent  (FieldContainer * const pParent,
-                              UInt16           const childFieldId,
-                              UInt16           const parentFieldId);
-
-    virtual bool unlinkParent(FieldContainer * const pParent,
-                              UInt16           const parentFieldId);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
-
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual void execSyncV(      FieldContainer    &oFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 AspectOffsetStore &oOffsets,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo);
-
-            void execSync (      NodeCore          *pFrom,
-                                 ConstFieldMaskArg  whichField,
-                                 AspectOffsetStore &oOffsets,
-                                 ConstFieldMaskArg  syncMode  ,
-                           const UInt32             uiSyncInfo);
-#endif
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Edit                                   */
-    /*! \{                                                                 */
-
-    GetFieldHandlePtr getHandleParents(void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Sync                                   */
-    /*! \{                                                                 */
-
-    virtual void resolveLinks(void);
+    static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class Node;
-    
-    /*!\brief prohibit default function (move to 'public' if needed) */
+    friend class FieldContainer;
+    friend class NodeCoreBase;
+
+    // prohibit default functions (move to 'public' if you need one)
     void operator =(const NodeCore &source);
 };
 
-OSG_GEN_CONTAINERPTR(NodeCore);
+typedef NodeCore *NodeCoreP;
 
 OSG_END_NAMESPACE
 
+#include "OSGNodeCoreBase.inl"
 #include "OSGNodeCore.inl"
 
 #endif /* _OSGNODECORE_H_ */

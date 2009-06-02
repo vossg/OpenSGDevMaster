@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2003 by the OpenSG Forum                          *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,41 +34,23 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+//---------------------------------------------------------------------------
+//  Includes
+//---------------------------------------------------------------------------
+
 OSG_BEGIN_NAMESPACE
 
-#ifdef OSG_MT_CPTR_ASPECT
 inline
-void NodeCore::execSync (      NodeCore          *pFrom,
-                               ConstFieldMaskArg  whichField,
-                               AspectOffsetStore &oOffsets,
-                               ConstFieldMaskArg  syncMode  ,
-                         const UInt32             uiSyncInfo)
+const MFParentFieldContainerPtr &NodeCore::getParents(void) const
 {
-    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (ParentsFieldMask & whichField))
-    {
-        _mfParents.syncWith(pFrom->_mfParents, 
-                            syncMode, 
-                            uiSyncInfo, 
-                            oOffsets);
-    }
-}
-#endif
-
-
-inline
-void NodeCore::resolveLinks(void)
-{
-    Inherited::resolveLinks();
+    return _mfParents;
 }
 
 inline
-const Char8 *NodeCore::getClassname(void)
+const MFParentFieldContainerPtr *NodeCore::getMFParents(void) const
 {
-    return "NodeCore";
+    return &_mfParents;
 }
 
-OSG_ABSTR_FIELD_CONTAINER_INL_DEF(NodeCore)
 
 OSG_END_NAMESPACE
