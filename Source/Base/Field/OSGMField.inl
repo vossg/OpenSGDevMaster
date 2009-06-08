@@ -550,6 +550,20 @@ void MField<FieldTypeT, fieldNameSpace, AllocT>::swap(MField &right)
     _values.swap(right._values);
 }
 
+template <class FieldTypeT, Int32 fieldNameSpace, class AllocT> inline
+void MField<FieldTypeT, fieldNameSpace, AllocT>::replace(
+    size_type index, ArgumentType value)
+{
+    this->replace(this->begin() + index, value);
+}
+
+template <class FieldTypeT, Int32 fieldNameSpace, class AllocT> inline
+void MField<FieldTypeT, fieldNameSpace, AllocT>::replace(
+    iterator pos, ArgumentType value)
+{
+    *pos = value;
+}
+
 #ifdef OSG_1_COMPAT
 template <class FieldTypeT, Int32 fieldNameSpace, class AllocT> inline
 void MField<FieldTypeT, fieldNameSpace, AllocT>::addValue (ArgumentType value)

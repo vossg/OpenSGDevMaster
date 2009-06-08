@@ -242,6 +242,11 @@ class MField : public Field
     bool                   empty    (void                              ) const;
     void                   swap     (MField                      &right);
 
+    void                   replace  (size_type      index,
+                                     ArgumentType   value              );
+    void                   replace  (iterator       pos,
+                                     ArgumentType   value              );
+
 #ifdef OSG_1_COMPAT
     void                   addValue (ArgumentType value                );
 #endif
