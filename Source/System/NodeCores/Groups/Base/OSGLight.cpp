@@ -90,7 +90,7 @@ void Light::setSpecular(Real rRed,
 /*-------------------------------------------------------------------------*/
 /*                             Chunk                                       */
 
-LightChunk *Light::getChunk(void)
+LightChunk *Light::getChunk(void) const
 {
     return _pChunk;
 }

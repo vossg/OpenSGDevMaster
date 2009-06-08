@@ -94,7 +94,7 @@ class OSG_SYSTEM_DLLMAPPING Light : public LightBase
     /*! \name                      Chunk                                   */
     /*! \{                                                                 */
 
-            LightChunk *getChunk (void);
+            LightChunk *getChunk (void) const;
     virtual void        makeChunk(void);
 
     /*! \}                                                                 */
