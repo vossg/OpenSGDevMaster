@@ -249,6 +249,9 @@ typename TypeTraits<FloatTypeT>::RealReturnType
     osgceil(const FloatTypeT rValue);
 #endif
 
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+    osgMod(const FloatTypeT lValue, const FloatTypeT rValue);
 
 template <class FloatTypeT> inline
 OSG::UInt32 osgFinite(const FloatTypeT rValue);
@@ -272,6 +275,11 @@ TypeT osgMax(const TypeT lValue, const TypeT rValue);
 template <class TypeT> inline
 TypeT osgClamp(const TypeT minVal, const TypeT val, const TypeT maxVal);
 
+/*---------------------------------------------------------------------*/
+/*                           Equality Comparison                       */
+
+template <class TypeT> inline
+bool osgIsEqual(const TypeT lValue, const TypeT rValue, const TypeT tol);
 
 /*---------------------------------------------------------------------*/
 /*                               Swap Functions                        */

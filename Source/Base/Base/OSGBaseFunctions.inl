@@ -1930,6 +1930,34 @@ OSG::Real128 osgceil(const OSG::Real128 rValue)
 }
 #endif // OSG_1_COMPAT
 
+
+template <class FloatTypeT> inline
+typename TypeTraits<FloatTypeT>::RealReturnType
+osgMod(const FloatTypeT lValue, const FloatTypeT rValue)
+{
+    typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
+
+    return  OSG::osgMod(RealType(lValue), RealType(rValue));
+}
+
+inline Real32 osgMod(const Real32 lValue, const Real32 rValue)
+{
+#ifdef OSG_USE_STDMATH
+    return std::fmod(lValue, rValue);
+#else
+    return fmodf(lValue, rValue);
+#endif
+}
+
+inline Real64 osgMod(const Real64 lValue, const Real64 rValue)
+{
+#ifdef OSG_USE_STDMATH
+    return std::fmod(lValue, rValue);
+#else
+    return fmod(lValue, rValue);
+#endif
+}
+
 /*! \}                                                                 */
 /*---------------------------------------------------------------------*/
 /*! \name finite                                                       */
@@ -2031,6 +2059,17 @@ template <class TypeT> inline
 TypeT osgClamp(const TypeT minVal, const TypeT val, const TypeT maxVal)
 {
     return ((val > minVal) ? ((val < maxVal) ? val : maxVal) : minVal);
+}
+
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name Equality Comparison                                          */
+/*! \{                                                                 */
+
+template <class TypeT> inline
+bool osgIsEqual(const TypeT lValue, const TypeT rValue, const TypeT tol)
+{
+    return osgAbs(lValue - rValue) < tol;
 }
 
 /*! \}                                                                 */
