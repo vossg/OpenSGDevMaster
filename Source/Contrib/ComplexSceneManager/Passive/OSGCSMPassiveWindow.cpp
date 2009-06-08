@@ -117,6 +117,20 @@ void CSMPassiveWindow::csmGlutReshapeHandler(Int32 w,
                w * _pPassiveWindow->getViewportScale()[0], 
                h * _pPassiveWindow->getViewportScale()[1]);
 
+    if(_pPassiveWindow->getViewportScale()[0] < 1.0 ||
+       _pPassiveWindow->getViewportScale()[1] < 1.0  )
+    {
+        glScissor(0, 0, 
+                  w * _pPassiveWindow->getViewportScale()[0], 
+                  h * _pPassiveWindow->getViewportScale()[1]);
+        
+        glEnable(GL_SCISSOR_TEST);
+    }
+    else
+    {
+        glDisable(GL_SCISSOR_TEST);
+    }
+
     _pPassiveWindow->reshape(w, h);
 
     glutPostRedisplay();
