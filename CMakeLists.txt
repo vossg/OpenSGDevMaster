@@ -139,7 +139,7 @@ SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #####################
-# External extenstion
+# External extensions
 #####################
 
 FOREACH(EXTERNAL ${OSG_EXTRA_EXTERNAL_MODULES})

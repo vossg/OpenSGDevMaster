@@ -14,27 +14,45 @@ ENDFUNCTION(OSG_MSG)
 MACRO(OSG_CHECKED_INCLUDE _OSG_FILENAME)
     IF(NOT EXISTS "${_OSG_FILENAME}")
         MESSAGE(FATAL_ERROR "File \"${_OSG_FILENAME}\" not found, "
-            "required by ${PROJECT_NAME}\n")
+                "required by ${PROJECT_NAME}\n")
     ENDIF(NOT EXISTS "${_OSG_FILENAME}")
 
     INCLUDE("${_OSG_FILENAME}")
 ENDMACRO(OSG_CHECKED_INCLUDE)
 
 #############################################################################
+# includes _OSG_FILENAME if it exists, otherwise just ignores it.
+
+MACRO(OSG_SAFE_INCLUDE _OSG_FILENAME)
+    IF(EXISTS "${_OSG_FILENAME}")
+        INCLUDE("${_OSG_FILENAME}")
+    ENDIF(EXISTS "${_OSG_FILENAME}")
+ENDMACRO(OSG_SAFE_INCLUDE)
+
+
+#############################################################################
 # given a list of OpenSG libraries (BASELIST) it determines the full list of
-# OpenSG libs they depend upon.
+# OpenSG libs they depend upon (OUTDEPLIST) and any dependencies that could
+# not be found (OUTDEPMISSINGLIST).
 # Useful to get all the include dirs needed by a lib during the build.
 
-FUNCTION(OSG_GET_ALL_DEP_OSG_LIB BASELIST OUTDEPLIST)
+FUNCTION(OSG_GET_ALL_DEP_OSG_LIB BASELIST OUTDEPLIST OUTDEPMISSINGLIST)
     
-    SET(_DEPLIST    ${BASELIST})
-    SET(_DEPLISTNEW            )
+    SET(_DEPLIST        ${BASELIST})
+    SET(_DEPLISTNEW                )
+    SET(_DEPMISSINGLIST            )
     
     # CMake has no do{ }while, duplicate the while loop body once
     # outside the while loop:
 
     FOREACH(DEP ${_DEPLIST})
-        OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${DEP}.cmake")
+        SET(DEPFILE "${CMAKE_BINARY_DIR}/${DEP}.cmake")
+
+        IF(NOT EXISTS "${DEPFILE}")
+            LIST(APPEND _DEPMISSINGLIST ${DEP})
+        ENDIF(NOT EXISTS "${DEPFILE}")
+
+        OSG_SAFE_INCLUDE("${DEPFILE}")
 
         LIST(APPEND _DEPLISTNEW ${DEP})
         LIST(APPEND _DEPLISTNEW ${${DEP}_DEP_OSG_LIB})
@@ -56,8 +74,14 @@ FUNCTION(OSG_GET_ALL_DEP_OSG_LIB BASELIST OUTDEPLIST)
         SET(_DEPLISTNEW               )
 
         FOREACH(DEP ${_DEPLIST})
-            OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${DEP}.cmake")
-        
+            SET(DEPFILE "${CMAKE_BINARY_DIR}/${DEP}.cmake")
+
+            IF(NOT EXISTS "${DEPFILE}")
+                LIST(APPEND _DEPMISSINGLIST ${DEP})
+            ENDIF(NOT EXISTS "${DEPFILE}")
+
+            OSG_SAFE_INCLUDE("${DEPFILE}")
+
             LIST(APPEND _DEPLISTNEW ${DEP}               )
             LIST(APPEND _DEPLISTNEW ${${DEP}_DEP_OSG_LIB})
 
@@ -72,7 +96,12 @@ FUNCTION(OSG_GET_ALL_DEP_OSG_LIB BASELIST OUTDEPLIST)
         LIST(LENGTH _DEPLISTNEW _DEPLISTNEWLEN)
     ENDWHILE(${_DEPLISTNEWLEN} GREATER ${_DEPLISTLEN})
 
-    SET(${OUTDEPLIST} "${_DEPLISTNEW}" PARENT_SCOPE)
+    IF(_DEPMISSINGLIST)
+        LIST(REMOVE_DUPLICATES _DEPMISSINGLIST)
+    ENDIF(_DEPMISSINGLIST)
+
+    SET(${OUTDEPLIST}        "${_DEPLISTNEW}"     PARENT_SCOPE)
+    SET(${OUTDEPMISSINGLIST} "${_DEPMISSINGLIST}" PARENT_SCOPE)
 
 ENDFUNCTION(OSG_GET_ALL_DEP_OSG_LIB)
 
@@ -654,7 +683,12 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
     # dependencies - OpenSG
     OSG_GET_ALL_DEP_OSG_LIB(
-        "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIST)
+        "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIST DEP_MISSING_LIST)
+
+    # a lib with missing dependencies is fatal - it should not have made it here
+    IF(DEP_MISSING_LIST)
+        MESSAGE(FATAL_ERROR "Project ${PROJECT_NAME} has missing dependencies: ${DEP_MISSING_LIST}")
+    ENDIF(DEP_MISSING_LIST)
 
     FOREACH(OSGDEP ${DEP_OSG_LIST})
         OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
@@ -757,7 +791,13 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
 
     # dependencies - OpenSG
     OSG_GET_ALL_DEP_OSG_LIB(
-        "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIB)
+        "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIB DEP_MISSING_LIST)
+
+    # if depencies are missing we skip the tests
+    IF(DEP_MISSING_LIST)
+        MESSAGE(STATUS "Tests for project ${PROJECT_NAME} have missing dependencies: ${DEP_MISSING_LIST} - skipping")
+        RETURN()
+    ENDIF(DEP_MISSING_LIST)
 
     FOREACH(OSGDEP ${DEP_OSG_LIB})
         OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
@@ -766,7 +806,13 @@ FUNCTION(OSG_SETUP_TEST_BUILD)
 
     # dependencies - test OpenSG
     OSG_GET_ALL_DEP_OSG_LIB(
-        "${${PROJECT_NAME}_DEP_TEST_OSG_LIB}" DEP_TEST_OSG_LIB)
+        "${${PROJECT_NAME}_DEP_TEST_OSG_LIB}" DEP_TEST_OSG_LIB DEP_MISSING_LIST)
+
+    # if depencies are missing we skip the tests
+    IF(DEP_MISSING_LIST)
+        MESSAGE(STATUS "Tests for project ${PROJECT_NAME} have missing dependencies: ${DEP_MISSING_LIST} - skipping")
+        RETURN()
+    ENDIF(DEP_MISSING_LIST)
 
     FOREACH(OSGTESTDEP ${DEP_TEST_OSG_LIB})
         OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGTESTDEP}.cmake")
@@ -837,7 +883,13 @@ FUNCTION(OSG_SETUP_UNITTEST_BUILD)
 
     # dependencies - OpenSG
     OSG_GET_ALL_DEP_OSG_LIB(
-        "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIB)
+        "${${PROJECT_NAME}_DEP_OSG_LIB}" DEP_OSG_LIB DEP_MISSING_LIST)
+
+    # if depencies are missing we skip the unittests
+    IF(DEP_MISSING_LIST)
+        MESSAGE(STATUS "Unittests for project ${PROJECT_NAME} have missing dependencies: ${DEP_MISSING_LIST} - skipping")
+        RETURN()
+    ENDIF(DEP_MISSING_LIST)
 
     FOREACH(OSGDEP ${DEP_OSG_LIB})
         OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
@@ -846,7 +898,13 @@ FUNCTION(OSG_SETUP_UNITTEST_BUILD)
 
     # dependencies - unittest OpenSG
     OSG_GET_ALL_DEP_OSG_LIB(
-        "${${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB}" DEP_UNITTEST_OSG_LIB)
+        "${${PROJECT_NAME}_DEP_UNITTEST_OSG_LIB}" DEP_UNITTEST_OSG_LIB DEP_MISSING_LIST)
+
+    # if depencies are missing we skip the unittests
+    IF(DEP_MISSING_LIST)
+        MESSAGE(STATUS "Unittests for project ${PROJECT_NAME} have missing dependencies: ${DEP_MISSING_LIST} - skipping")
+        RETURN()
+    ENDIF(DEP_MISSING_LIST)
 
     FOREACH(OSGDEP ${DEP_UNITTEST_OSG_LIB})
         OSG_CHECKED_INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
