@@ -127,7 +127,13 @@ void PassiveViewport::render(RenderActionBase *action)
     setBottom    (Real32(vp[1])           );
     setRight     (Real32(vp[0] + vp[2] - 1));
     setTop       (Real32(vp[1] + vp[3] - 1)); 
+
 #endif
 
     Inherited::render(action);
+}
+
+bool PassiveViewport::isPassive(void)
+{
+    return true;
 }

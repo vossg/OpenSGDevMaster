@@ -118,9 +118,21 @@ Int32 RenderPartition::getViewportHeight(void)
 }
 
 inline
-void RenderPartition::setSetupMode(SetupMode eSetupMode)
+void RenderPartition::setSetupMode(UInt32 uiSetupMode)
 {
-    _eSetupMode = eSetupMode;
+    _uiSetupMode = uiSetupMode;
+}
+
+inline
+void RenderPartition::addSetupModeBit(UInt32 uiSetupModeBit)
+{
+    _uiSetupMode |= uiSetupModeBit;
+}
+
+inline
+void RenderPartition::subSetupMode(UInt32 uiSetupModeBit)
+{
+    _uiSetupMode &= ~uiSetupModeBit;
 }
 
 inline

@@ -371,6 +371,11 @@ void Viewport::render(RenderActionBase *action)
 #endif
 }
 
+bool Viewport::isPassive(void)
+{
+    return false;
+}
+
 /*------------------------------- dump ----------------------------------*/
 
 void Viewport::dump(     UInt32    OSG_CHECK_ARG(uiIndent), 

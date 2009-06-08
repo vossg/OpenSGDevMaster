@@ -60,6 +60,7 @@ class OSG_WINDOW_DLLMAPPING PassiveViewport : public PassiveViewportBase
     typedef PassiveViewportBase Inherited;
 
     /*==========================  PUBLIC  =================================*/
+
   public:
 
     /*---------------------------------------------------------------------*/
@@ -86,7 +87,15 @@ class OSG_WINDOW_DLLMAPPING PassiveViewport : public PassiveViewportBase
     virtual void render(RenderActionBase *action);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
+    virtual bool isPassive(void);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
     // Variables should all be in PassiveViewportBase.
@@ -110,6 +119,7 @@ class OSG_WINDOW_DLLMAPPING PassiveViewport : public PassiveViewportBase
     static void initMethod(InitPhase ePhase);
 
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     friend class FieldContainer;

@@ -250,8 +250,10 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*------------------------- your_operators ------------------------------*/
 
-    void setSetupMode            (SetupMode        eSetupMode  );
-
+    void setSetupMode            (UInt32           uiSetupMode   );
+    void addSetupModeBit         (UInt32           uiSetupModeBit);
+    void subSetupMode            (UInt32           uiSetupModeBit);
+    
     void initFrom                (RenderPartition *pSource,
                                   RenderPartition *pInitial,
                                   Int32            uiCopyOnPush);
@@ -378,7 +380,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     //-----------------------------------------------------------------------
 
     Mode                _eMode;
-    SetupMode           _eSetupMode;
+    UInt32              _uiSetupMode;
     bool                _bDone;
 
     GroupStore          _vGroupStore;

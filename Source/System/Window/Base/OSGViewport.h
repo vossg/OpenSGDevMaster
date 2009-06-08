@@ -113,6 +113,8 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
+    virtual bool isPassive(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */

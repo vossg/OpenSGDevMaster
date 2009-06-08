@@ -125,6 +125,11 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public MemoryObject
         FullSetup       = 0x0007
     };
 
+    enum SetupBit
+    {
+        PassiveBit = 0x00010000
+    };
+
     //-----------------------------------------------------------------------
     //   types                                                               
     //-----------------------------------------------------------------------

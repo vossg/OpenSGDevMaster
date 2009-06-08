@@ -144,7 +144,7 @@ void RenderPartition::setAction(RenderAction *pAction)
 RenderPartition::RenderPartition(Mode eMode) :
      Inherited               (         ),
     _eMode                   (eMode    ),
-    _eSetupMode              (FullSetup),
+    _uiSetupMode             (FullSetup),
     _bDone                   (false    ),
     _vGroupStore             (         ),
 
@@ -219,9 +219,9 @@ void RenderPartition::reset(Mode eMode)
 {
     _eMode = eMode;
 
-    _eSetupMode = FullSetup;
+    _uiSetupMode = FullSetup;
 
-    _bDone      = false;
+    _bDone       = false;
 
     _vGroupStore.clear();
 
@@ -379,25 +379,41 @@ void RenderPartition::setupExecution(void)
     if(_pRenderTarget != NULL)
         _pRenderTarget->activate(&_oDrawEnv, _eDrawBuffer);
 
-    if(0x0000 != (_eSetupMode & ViewportSetup))
+    // We always push so stages with callbacks can modify the values
+    // as needed
+
+    glPushAttrib(GL_VIEWPORT_BIT | GL_SCISSOR_BIT);
+
+    if(0x0000 != (_uiSetupMode & ViewportSetup))
     {
-        glViewport(_oDrawEnv.getPixelLeft  (), 
-                   _oDrawEnv.getPixelBottom(), 
-                   _oDrawEnv.getPixelWidth (), 
-                   _oDrawEnv.getPixelHeight());
-        
-        if(_oDrawEnv.getFull() == false)
+        if(0x0000 == (_uiSetupMode & PassiveBit))
         {
-            glScissor (_oDrawEnv.getPixelLeft  (), 
+            glViewport(_oDrawEnv.getPixelLeft  (), 
                        _oDrawEnv.getPixelBottom(), 
                        _oDrawEnv.getPixelWidth (), 
                        _oDrawEnv.getPixelHeight());
-
-            glEnable(GL_SCISSOR_TEST);
-        }
+            
+            if(_oDrawEnv.getFull() == false)
+            {
+                glScissor (_oDrawEnv.getPixelLeft  (), 
+                           _oDrawEnv.getPixelBottom(), 
+                           _oDrawEnv.getPixelWidth (), 
+                           _oDrawEnv.getPixelHeight());
+                
+                glEnable(GL_SCISSOR_TEST);
+            }
+            else
+            {
+                glDisable(GL_SCISSOR_TEST);
+            }
+        }        
+    }
+    else
+    {
+        glDisable(GL_SCISSOR_TEST);
     }
 
-    if(0x0000 != (_eSetupMode & ProjectionSetup))
+    if(0x0000 != (_uiSetupMode & ProjectionSetup))
     {
         glMatrixMode (GL_PROJECTION);
         glPushMatrix();
@@ -416,7 +432,7 @@ void RenderPartition::setupExecution(void)
         ++cbIt;
     }
     
-    if(0x0000 != (_eSetupMode & BackgroundSetup))
+    if(0x0000 != (_uiSetupMode & BackgroundSetup))
     {
         if(_pBackground != NULL)
         {
@@ -478,11 +494,6 @@ void RenderPartition::doExecution   (void)
         
         if(!_bZWriteTrans)
             glDepthMask(true);
-        
-        if(_oDrawEnv.getFull() == false)
-        {
-            glDisable(GL_SCISSOR_TEST);
-        }
     }
 
     RenderCallbackStore::const_iterator cbIt  = _vPostRenderCallbacks.begin();
@@ -494,12 +505,17 @@ void RenderPartition::doExecution   (void)
         ++cbIt;
     }
 
-    if(0x0000 != (_eSetupMode & ProjectionSetup))
+    if(0x0000 != (_uiSetupMode & ProjectionSetup))
     {
         glMatrixMode (GL_PROJECTION);
         glPopMatrix();
         glMatrixMode(GL_MODELVIEW);
     }
+
+    // We always push/pop so stages with callback can modify the values
+    // as needed
+
+    glPopAttrib();
 
     if(_pRenderTarget != NULL)
         _pRenderTarget->deactivate(&_oDrawEnv);

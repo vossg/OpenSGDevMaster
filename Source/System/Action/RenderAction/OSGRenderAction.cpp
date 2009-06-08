@@ -672,6 +672,11 @@ Action::ResultE RenderAction::start(void)
                                                 _pViewport->getPixelTop   (),
                                                 _pViewport->isFullWindow  ());
 
+        if(_pViewport->isPassive() == true)
+        {
+            _pActivePartition->addSetupModeBit(RenderPartition::PassiveBit);
+        }
+
         if(_pCamera != NULL)
         {
             Matrix m, t;
@@ -783,18 +788,11 @@ void RenderAction::drawBuffer(UInt32 buf)
 
     _vRenderPartitions[buf][0]->setupExecution();
 
-
-    // Quick fix, have to check GV
-    glPushAttrib(GL_VIEWPORT_BIT);
-
     for(Int32 i = _vRenderPartitions[buf].size() - 1; i > 0; --i)
     {
         _vRenderPartitions[buf][i]->execute();
 //        _vRenderPartitions[buf][i]->exit();
     }
-
-    // Quick fix, have to check GV
-     glPopAttrib();
 
     _vRenderPartitions[buf][0]->doExecution();
 //    _vRenderPartitions[buf][0]->exit();
