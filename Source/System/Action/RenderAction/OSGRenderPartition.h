@@ -130,7 +130,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
         StateSorter that keeps the tree for that sort key
      */
     typedef std::map<Int32, 
-                     TreeBuilderBase *> BuildKeyMap;
+	             TreeBuilderBase *>                 BuildKeyMap;
     typedef std::map<Int32, 
                      TreeBuilderBase *>::iterator       BuildKeyMapIt;
     typedef std::map<Int32, 
