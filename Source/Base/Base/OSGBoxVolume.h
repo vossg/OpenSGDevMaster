@@ -87,15 +87,15 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
     /*! \name                      Get                                     */
     /*! \{                                                                 */
     
-            const Pnt3r &getMin         (void          ) const;    
-            const Pnt3r &getMax         (void          ) const;
+            const Pnt3r &getMin         (void                      ) const;    
+            const Pnt3r &getMax         (void                      ) const;
 
-    virtual       void   getCenter      (Pnt3r &center ) const;
+    virtual       void   getCenter      (Pnt3r &center             ) const;
 
-    virtual       Real   getScalarVolume(void          ) const;
+    virtual       Real   getScalarVolume(void                      ) const;
 
     virtual       void   getBounds      (Pnt3r &min, 
-                                         Pnt3r &max    ) const;
+                                         Pnt3r &max                ) const;
 
 
                   void   getBounds      (Real  &xmin, 
@@ -103,16 +103,20 @@ class OSG_BASE_DLLMAPPING BoxVolume : public Volume
                                          Real  &zmin,
                                          Real  &xmax,
                                          Real  &ymax, 
-                                         Real  &zmax   ) const;
+                                         Real  &zmax               ) const;
+                  void   getCorners     (Pnt3r &nlt,    Pnt3r &nlb,
+                                         Pnt3r &nrt,    Pnt3r &nrb,
+                                         Pnt3r &flt,    Pnt3r &flb,
+                                         Pnt3r &frt,    Pnt3r &frb ) const;
     
 
                   void   getOrigin      (Real  &originX, 
                                          Real  &originY, 
-                                         Real  &originZ) const;
+                                         Real  &originZ            ) const;
                   void   getSize        (Real  &sizeX, 
                                          Real  &sizeY, 
-                                         Real  &sizeZ  ) const;
-                  void   getSize        (Vec3r &vec    ) const;    
+                                         Real  &sizeZ              ) const;
+                  void   getSize        (Vec3r &vec                ) const;    
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

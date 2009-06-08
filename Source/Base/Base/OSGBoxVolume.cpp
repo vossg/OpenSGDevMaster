@@ -90,6 +90,22 @@ void BoxVolume::getBounds(Pnt3r &min, Pnt3r &max) const
     max = _max;
 }
 
+void BoxVolume::getCorners(Pnt3r &nlt,    Pnt3r &nlb,
+                           Pnt3r &nrt,    Pnt3r &nrb,
+                           Pnt3r &flt,    Pnt3r &flb,
+                           Pnt3r &frt,    Pnt3r &frb ) const
+{
+    nlt.setValues(_min[0], _max[1], _min[2]);
+    nlb.setValues(_min[0], _min[1], _min[2]);
+    nrt.setValues(_max[0], _max[1], _min[2]);
+    nrb.setValues(_max[0], _min[1], _min[2]);
+
+    flt.setValues(_min[0], _max[1], _max[2]);
+    flb.setValues(_min[0], _min[1], _max[2]);
+    frt.setValues(_max[0], _max[1], _max[2]);
+    frb.setValues(_max[0], _min[1], _max[2]);
+}
+
 
 //! set method
 void BoxVolume::setBoundsByCenterAndSize(const Pnt3r &center,
