@@ -838,6 +838,10 @@ void ComplexSceneManager::run(void)
     {
         _fMainloop();
     }
+    else
+    {
+        FWARNING(("ComplexSceneManager: no mainloop exiting\n"));
+    }
 
     osgExit(); 
 }

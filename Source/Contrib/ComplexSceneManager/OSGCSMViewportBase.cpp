@@ -119,6 +119,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            CSMViewportBase::_sfPassive
+    
+*/
+
 
 void CSMViewportBase::classDescInserter(TypeObject &oType)
 {
@@ -218,6 +222,18 @@ void CSMViewportBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&CSMViewport::editHandleStereoMode),
         static_cast<FieldGetMethodSig >(&CSMViewport::getHandleStereoMode));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "passive",
+        "",
+        PassiveFieldId, PassiveFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMViewport::editHandlePassive),
+        static_cast<FieldGetMethodSig >(&CSMViewport::getHandlePassive));
 
     oType.addInitialDesc(pDesc);
 }
@@ -323,6 +339,15 @@ CSMViewportBase::TypeObject CSMViewportBase::_type(
     "       defaultValue='\"none\"'\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "       name=\"passive\"\n"
+    "       type=\"bool\"\n"
+    "       cardinality=\"single\"\n"
+    "       visibility=\"external\"\n"
+    "       access=\"public\"\n"
+    "       defaultValue=\"false\"\n"
+    "       >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -451,6 +476,19 @@ const SFString *CSMViewportBase::getSFStereoMode(void) const
 }
 
 
+SFBool *CSMViewportBase::editSFPassive(void)
+{
+    editSField(PassiveFieldMask);
+
+    return &_sfPassive;
+}
+
+const SFBool *CSMViewportBase::getSFPassive(void) const
+{
+    return &_sfPassive;
+}
+
+
 
 
 void CSMViewportBase::pushToForegrounds(Foreground * const value)
@@ -546,6 +584,10 @@ UInt32 CSMViewportBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfStereoMode.getBinSize();
     }
+    if(FieldBits::NoField != (PassiveFieldMask & whichField))
+    {
+        returnValue += _sfPassive.getBinSize();
+    }
 
     return returnValue;
 }
@@ -587,6 +629,10 @@ void CSMViewportBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfStereoMode.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (PassiveFieldMask & whichField))
+    {
+        _sfPassive.copyToBin(pMem);
+    }
 }
 
 void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
@@ -625,6 +671,10 @@ void CSMViewportBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (StereoModeFieldMask & whichField))
     {
         _sfStereoMode.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (PassiveFieldMask & whichField))
+    {
+        _sfPassive.copyFromBin(pMem);
     }
 }
 
@@ -731,7 +781,8 @@ CSMViewportBase::CSMViewportBase(void) :
     _sfLeftBottom             (Vec2f(0.f, 0.f)),
     _sfRightTop               (Vec2f(1.f, 1.f)),
     _sfRenderOptions          (NULL),
-    _sfStereoMode             (std::string("none"))
+    _sfStereoMode             (std::string("none")),
+    _sfPassive                (bool(false))
 {
 }
 
@@ -744,7 +795,8 @@ CSMViewportBase::CSMViewportBase(const CSMViewportBase &source) :
     _sfLeftBottom             (source._sfLeftBottom             ),
     _sfRightTop               (source._sfRightTop               ),
     _sfRenderOptions          (NULL),
-    _sfStereoMode             (source._sfStereoMode             )
+    _sfStereoMode             (source._sfStereoMode             ),
+    _sfPassive                (source._sfPassive                )
 {
 }
 
@@ -1005,6 +1057,31 @@ EditFieldHandlePtr CSMViewportBase::editHandleStereoMode     (void)
 
 
     editSField(StereoModeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMViewportBase::getHandlePassive         (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfPassive,
+             this->getType().getFieldDesc(PassiveFieldId),
+             const_cast<CSMViewportBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMViewportBase::editHandlePassive        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfPassive,
+             this->getType().getFieldDesc(PassiveFieldId),
+             this));
+
+
+    editSField(PassiveFieldMask);
 
     return returnValue;
 }

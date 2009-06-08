@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,94 +36,126 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGPASSIVEVIEWPORT_H_
-#define _OSGPASSIVEVIEWPORT_H_
+#ifndef _OSGCSMPASSIVEWINDOW_H_
+#define _OSGCSMPASSIVEWINDOW_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-
-#include "OSGPassiveViewportBase.h"
+#include "OSGCSMPassiveWindowBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-class RenderActionBase;
-
-/*! \brief Passive Viewport class. See \ref 
-    PageSystemWindowViewportsPassive for a description.
+/*! \brief CSMPassiveWindow class. See \ref
+           PageContribCSMCSMPassiveWindow for a description.
 */
 
-class OSG_WINDOW_DLLMAPPING PassiveViewport : public PassiveViewportBase
+class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindow : public CSMPassiveWindowBase
 {
-  private:
-
-    typedef PassiveViewportBase Inherited;
+  protected:
 
     /*==========================  PUBLIC  =================================*/
+
   public:
+
+    typedef CSMPassiveWindowBase Inherited;
+    typedef CSMPassiveWindow     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         detail);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0, 
-                      const BitVector  bvFlags  = 0) const;
+    virtual bool init(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    your_category                             */
+    /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void render(RenderActionBase *action);
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
-    // Variables should all be in PassiveViewportBase.
+    // Variables should all be in CSMPassiveWindowBase.
+
+    static bool              _bGLUTInitialized;
+    static CSMPassiveWindow *_pPassiveWindow;
+
+           Int32             _iGlutWinId;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    PassiveViewport(void);
-    PassiveViewport(const PassiveViewport &source);
+    CSMPassiveWindow(void);
+    CSMPassiveWindow(const CSMPassiveWindow &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PassiveViewport(void); 
+    virtual ~CSMPassiveWindow(void);
 
     /*! \}                                                                 */
-    
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    static void csmGlutKeyHandler        (UChar8 key, 
+                                          Int32, 
+                                          Int32       );
+
+    static void csmGlutReshapeHandler    (Int32 w, 
+                                          Int32 h     );
+
+    static void csmGlutFrameHandler      (void           );
+
+    static void csmGlutMouseHandler      (Int32 iButton, 
+                                          Int32 iState,
+                                          Int32 x,       
+                                          Int32 y      );
+
+    static void csmGlutMouseMotionHandler(Int32 x, 
+                                          Int32 y      );
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
+
   private:
 
     friend class FieldContainer;
-    friend class PassiveViewportBase;
+    friend class CSMPassiveWindowBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const PassiveViewport &source);
+    void operator =(const CSMPassiveWindow &source);
 };
 
-typedef PassiveViewport *PassiveViewportP;
+typedef CSMPassiveWindow *CSMPassiveWindowP;
 
 OSG_END_NAMESPACE
 
-#include "OSGPassiveViewportBase.inl"
-#include "OSGPassiveViewport.inl"
+#include "OSGCSMPassiveWindowBase.inl"
+#include "OSGCSMPassiveWindow.inl"
 
-#endif /* _OSGPASSIVEVIEWPORT_H_ */
+#endif /* _OSGCSMPASSIVEWINDOW_H_ */

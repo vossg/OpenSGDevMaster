@@ -212,6 +212,31 @@ void CSMViewportBase::setStereoMode(const std::string &value)
 
     _sfStereoMode.setValue(value);
 }
+//! Get the value of the CSMViewport::_sfPassive field.
+
+inline
+bool &CSMViewportBase::editPassive(void)
+{
+    editSField(PassiveFieldMask);
+
+    return _sfPassive.getValue();
+}
+
+//! Get the value of the CSMViewport::_sfPassive field.
+inline
+      bool  CSMViewportBase::getPassive(void) const
+{
+    return _sfPassive.getValue();
+}
+
+//! Set the value of the CSMViewport::_sfPassive field.
+inline
+void CSMViewportBase::setPassive(const bool value)
+{
+    editSField(PassiveFieldMask);
+
+    _sfPassive.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMViewport::_mfForegrounds field.
 inline
@@ -257,6 +282,9 @@ void CSMViewportBase::execSync (      CSMViewportBase *pFrom,
 
     if(FieldBits::NoField != (StereoModeFieldMask & whichField))
         _sfStereoMode.syncWith(pFrom->_sfStereoMode);
+
+    if(FieldBits::NoField != (PassiveFieldMask & whichField))
+        _sfPassive.syncWith(pFrom->_sfPassive);
 }
 #endif
 

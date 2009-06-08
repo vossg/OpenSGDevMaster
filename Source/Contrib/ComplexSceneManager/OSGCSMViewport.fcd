@@ -87,4 +87,13 @@
        defaultValue='"none"'
 	>
 	</Field>
+    <Field
+       name="passive"
+       type="bool"
+       cardinality="single"
+       visibility="external"
+       access="public"
+       defaultValue="false"
+       >
+    </Field>
 </FieldContainer>

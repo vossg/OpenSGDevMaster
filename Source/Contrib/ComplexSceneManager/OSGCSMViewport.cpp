@@ -51,6 +51,7 @@
 #include "OSGProjectionCameraDecorator.h"
 #include "OSGCSMPerspectiveCamera.h"
 #include "OSGColorBufferViewport.h"
+#include "OSGPassiveViewport.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -150,6 +151,11 @@ bool CSMViewport::init(void)
                       bSRight      );
 
     bool bFallback = false;
+
+    if(bStereo == true && _sfPassive.getValue() == true)
+    {
+        FWARNING(("CSMViewport: passive set with stereo config, ignoring\n"));
+    }
 
     if(bQuadBuff == true)
     {
@@ -267,16 +273,25 @@ bool CSMViewport::init(void)
     }
     else
     {
-        ViewportUnrecPtr pPortLeft  = Viewport::create();
+        if(_sfPassive.getValue() == true)
+        {
+            ViewportUnrecPtr pPort  = PassiveViewport::create();
 
-        // Left
-        pPortLeft->setLeft  (_sfLeftBottom.getValue()[0]);
-        pPortLeft->setBottom(_sfLeftBottom.getValue()[1]);
-        
-        pPortLeft->setRight (_sfRightTop  .getValue()[0]);
-        pPortLeft->setTop   (_sfRightTop  .getValue()[1]);
+            _vViewports.push_back(pPort);
+        }
+        else
+        {
+            ViewportUnrecPtr pPort  = Viewport::create();
 
-        _vViewports.push_back(pPortLeft );
+            // Left
+            pPort->setLeft  (_sfLeftBottom.getValue()[0]);
+            pPort->setBottom(_sfLeftBottom.getValue()[1]);
+            
+            pPort->setRight (_sfRightTop  .getValue()[0]);
+            pPort->setTop   (_sfRightTop  .getValue()[1]);
+
+            _vViewports.push_back(pPort );
+        }
     }
     
     CSMPerspectiveCamera *pCSMCam = 

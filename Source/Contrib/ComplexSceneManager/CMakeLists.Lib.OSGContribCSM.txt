@@ -121,6 +121,10 @@ OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor/InterfaceSensors")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Sensor/InterfaceSensors/Devices")
 OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/VRMLNodes")
 
+IF(GLUT_FOUND)
+    OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Passive")
+ENDIF(GLUT_FOUND)
+
 
 IF(_BUILD_CSM_WINDOWGLUT)
     OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/GLUT")

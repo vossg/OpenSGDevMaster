@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -40,94 +38,6 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <stdlib.h>
-#include <stdio.h>
+OSG_BEGIN_NAMESPACE
 
-#include <OSGConfig.h>
-
-#include <OSGGL.h>
-#include <OSGCamera.h>
-#include <OSGBackground.h>
-#include <OSGForeground.h>
-#include "OSGPassiveViewport.h"
-
-OSG_USING_NAMESPACE
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::PassiveViewport
-    \ingroup GrpSystemWindowViewports
-
-A PassiveViewport is a basic Viewport for integration into other OpenGL
-programs. See \ref PageSystemWindowViewports for a description.
-
-*/
-
-/*----------------------- constructors & destructors ----------------------*/
-
-PassiveViewport::PassiveViewport(void) :
-    Inherited()
-{
-}
-
-PassiveViewport::PassiveViewport(const PassiveViewport &source) :
-    Inherited(source)
-{
-}
-
-PassiveViewport::~PassiveViewport(void)
-{
-}
-
-/*----------------------------- class specific ----------------------------*/
-
-void PassiveViewport::initMethod (InitPhase ePhase)
-{
-}
-
-void PassiveViewport::changed(ConstFieldMaskArg whichField, 
-                              UInt32            origin,
-                              BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-void PassiveViewport::dump(      UInt32    , 
-                         const BitVector ) const
-{
-    SLOG << "Dump PassiveViewport NI" << std::endl;
-}
-
-void PassiveViewport::render(RenderActionBase *action)
-{
-#if 1 // Have to check GV
-    if ( getCamera() == NULL )
-    {
-        SWARNING << "Viewport::render: no camera!" << std::endl;
-        return;
-    }
-    if ( getBackground() == NULL )
-    {
-        SWARNING << "Viewport::render: no background!" << std::endl;
-        return;
-    }
-    if ( getRoot() == NULL )
-    {
-        SWARNING << "Viewport::render: no root!" << std::endl;
-        return;
-    }
-
-    GLint vp[4];
-
-    glGetIntegerv(GL_VIEWPORT, vp);
-
-    setLeft      (Real32(vp[0])           );
-    setBottom    (Real32(vp[1])           );
-    setRight     (Real32(vp[0] + vp[2] - 1));
-    setTop       (Real32(vp[1] + vp[3] - 1)); 
-#endif
-
-    Inherited::render(action);
-}
+OSG_END_NAMESPACE

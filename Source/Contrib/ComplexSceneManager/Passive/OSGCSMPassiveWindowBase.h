@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CSMViewport
+ **     class CSMPassiveWindow
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCSMVIEWPORTBASE_H_
-#define _OSGCSMVIEWPORTBASE_H_
+#ifndef _OSGCSMPASSIVEWINDOWBASE_H_
+#define _OSGCSMPASSIVEWINDOWBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,37 +63,29 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGFieldContainer.h" // Parent
+#include "OSGCSMWindow.h" // Parent
 
-#include "OSGNodeFields.h" // Root type
-#include "OSGCameraFields.h" // Camera type
-#include "OSGBackgroundFields.h" // Background type
-#include "OSGForegroundFields.h" // Foregrounds type
-#include "OSGVec2fFields.h" // LeftBottom type
-#include "OSGVec2fFields.h" // RightTop type
-#include "OSGRenderOptionsFields.h" // RenderOptions type
-#include "OSGStringFields.h" // StereoMode type
-#include "OSGBoolFields.h" // Passive type
+#include "OSGVec2fFields.h" // ViewportScale type
 
-#include "OSGCSMViewportFields.h"
+#include "OSGCSMPassiveWindowFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class CSMViewport;
+class CSMPassiveWindow;
 
-//! \brief CSMViewport Base Class.
+//! \brief CSMPassiveWindow Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
+class OSG_CONTRIBCSM_DLLMAPPING CSMPassiveWindowBase : public CSMWindow
 {
   public:
 
-    typedef FieldContainer Inherited;
-    typedef FieldContainer ParentContainer;
+    typedef CSMWindow Inherited;
+    typedef CSMWindow ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(CSMViewport);
+    OSG_GEN_INTERNALPTR(CSMPassiveWindow);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -101,48 +93,16 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
 
     enum
     {
-        RootFieldId = Inherited::NextFieldId,
-        CameraFieldId = RootFieldId + 1,
-        BackgroundFieldId = CameraFieldId + 1,
-        ForegroundsFieldId = BackgroundFieldId + 1,
-        LeftBottomFieldId = ForegroundsFieldId + 1,
-        RightTopFieldId = LeftBottomFieldId + 1,
-        RenderOptionsFieldId = RightTopFieldId + 1,
-        StereoModeFieldId = RenderOptionsFieldId + 1,
-        PassiveFieldId = StereoModeFieldId + 1,
-        NextFieldId = PassiveFieldId + 1
+        ViewportScaleFieldId = Inherited::NextFieldId,
+        NextFieldId = ViewportScaleFieldId + 1
     };
 
-    static const OSG::BitVector RootFieldMask =
-        (TypeTraits<BitVector>::One << RootFieldId);
-    static const OSG::BitVector CameraFieldMask =
-        (TypeTraits<BitVector>::One << CameraFieldId);
-    static const OSG::BitVector BackgroundFieldMask =
-        (TypeTraits<BitVector>::One << BackgroundFieldId);
-    static const OSG::BitVector ForegroundsFieldMask =
-        (TypeTraits<BitVector>::One << ForegroundsFieldId);
-    static const OSG::BitVector LeftBottomFieldMask =
-        (TypeTraits<BitVector>::One << LeftBottomFieldId);
-    static const OSG::BitVector RightTopFieldMask =
-        (TypeTraits<BitVector>::One << RightTopFieldId);
-    static const OSG::BitVector RenderOptionsFieldMask =
-        (TypeTraits<BitVector>::One << RenderOptionsFieldId);
-    static const OSG::BitVector StereoModeFieldMask =
-        (TypeTraits<BitVector>::One << StereoModeFieldId);
-    static const OSG::BitVector PassiveFieldMask =
-        (TypeTraits<BitVector>::One << PassiveFieldId);
+    static const OSG::BitVector ViewportScaleFieldMask =
+        (TypeTraits<BitVector>::One << ViewportScaleFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecNodePtr    SFRootType;
-    typedef SFUnrecCameraPtr  SFCameraType;
-    typedef SFUnrecBackgroundPtr SFBackgroundType;
-    typedef MFUnrecForegroundPtr MFForegroundsType;
-    typedef SFVec2f           SFLeftBottomType;
-    typedef SFVec2f           SFRightTopType;
-    typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
-    typedef SFString          SFStereoModeType;
-    typedef SFBool            SFPassiveType;
+    typedef SFVec2f           SFViewportScaleType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -167,81 +127,25 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecNodePtr      *getSFRoot           (void) const;
-                  SFUnrecNodePtr      *editSFRoot           (void);
-            const SFUnrecCameraPtr    *getSFCamera         (void) const;
-                  SFUnrecCameraPtr    *editSFCamera         (void);
-            const SFUnrecBackgroundPtr *getSFBackground     (void) const;
-                  SFUnrecBackgroundPtr *editSFBackground     (void);
-            const MFUnrecForegroundPtr *getMFForegrounds    (void) const;
-                  MFUnrecForegroundPtr *editMFForegrounds    (void);
 
-                  SFVec2f             *editSFLeftBottom     (void);
-            const SFVec2f             *getSFLeftBottom      (void) const;
-
-                  SFVec2f             *editSFRightTop       (void);
-            const SFVec2f             *getSFRightTop        (void) const;
-            const SFUnrecRenderOptionsPtr *getSFRenderOptions  (void) const;
-                  SFUnrecRenderOptionsPtr *editSFRenderOptions  (void);
-
-                  SFString            *editSFStereoMode     (void);
-            const SFString            *getSFStereoMode      (void) const;
-
-                  SFBool              *editSFPassive        (void);
-            const SFBool              *getSFPassive         (void) const;
+                  SFVec2f             *editSFViewportScale  (void);
+            const SFVec2f             *getSFViewportScale   (void) const;
 
 
-                  Node * getRoot           (void) const;
-
-                  Camera * getCamera         (void) const;
-
-                  Background * getBackground     (void) const;
-
-                  Foreground * getForegrounds    (const UInt32 index) const;
-
-                  Vec2f               &editLeftBottom     (void);
-            const Vec2f               &getLeftBottom      (void) const;
-
-                  Vec2f               &editRightTop       (void);
-            const Vec2f               &getRightTop        (void) const;
-
-                  RenderOptions * getRenderOptions  (void) const;
-
-                  std::string         &editStereoMode     (void);
-            const std::string         &getStereoMode      (void) const;
-
-                  bool                &editPassive        (void);
-                  bool                 getPassive         (void) const;
+                  Vec2f               &editViewportScale  (void);
+            const Vec2f               &getViewportScale   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRoot           (Node * const value);
-            void setCamera         (Camera * const value);
-            void setBackground     (Background * const value);
-            void setLeftBottom     (const Vec2f &value);
-            void setRightTop       (const Vec2f &value);
-            void setRenderOptions  (RenderOptions * const value);
-            void setStereoMode     (const std::string &value);
-            void setPassive        (const bool value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
+            void setViewportScale  (const Vec2f &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToForegrounds           (Foreground * const value   );
-    void assignForegrounds          (const MFUnrecForegroundPtr &value);
-    void removeFromForegrounds (UInt32               uiIndex );
-    void removeObjFromForegrounds(Foreground * const value   );
-    void clearForegrounds            (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -260,16 +164,16 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  CSMViewportTransitPtr  create          (void);
-    static  CSMViewport           *createEmpty     (void);
+    static  CSMPassiveWindowTransitPtr  create          (void);
+    static  CSMPassiveWindow           *createEmpty     (void);
 
-    static  CSMViewportTransitPtr  createLocal     (
+    static  CSMPassiveWindowTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  CSMViewport            *createEmptyLocal(
+    static  CSMPassiveWindow            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  CSMViewportTransitPtr  createDependent  (BitVector bFlags);
+    static  CSMPassiveWindowTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -296,61 +200,36 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecNodePtr    _sfRoot;
-    SFUnrecCameraPtr  _sfCamera;
-    SFUnrecBackgroundPtr _sfBackground;
-    MFUnrecForegroundPtr _mfForegrounds;
-    SFVec2f           _sfLeftBottom;
-    SFVec2f           _sfRightTop;
-    SFUnrecRenderOptionsPtr _sfRenderOptions;
-    SFString          _sfStereoMode;
-    SFBool            _sfPassive;
+    SFVec2f           _sfViewportScale;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    CSMViewportBase(void);
-    CSMViewportBase(const CSMViewportBase &source);
+    CSMPassiveWindowBase(void);
+    CSMPassiveWindowBase(const CSMPassiveWindowBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CSMViewportBase(void);
+    virtual ~CSMPassiveWindowBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const CSMViewport *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRoot            (void) const;
-    EditFieldHandlePtr editHandleRoot           (void);
-    GetFieldHandlePtr  getHandleCamera          (void) const;
-    EditFieldHandlePtr editHandleCamera         (void);
-    GetFieldHandlePtr  getHandleBackground      (void) const;
-    EditFieldHandlePtr editHandleBackground     (void);
-    GetFieldHandlePtr  getHandleForegrounds     (void) const;
-    EditFieldHandlePtr editHandleForegrounds    (void);
-    GetFieldHandlePtr  getHandleLeftBottom      (void) const;
-    EditFieldHandlePtr editHandleLeftBottom     (void);
-    GetFieldHandlePtr  getHandleRightTop        (void) const;
-    EditFieldHandlePtr editHandleRightTop       (void);
-    GetFieldHandlePtr  getHandleRenderOptions   (void) const;
-    EditFieldHandlePtr editHandleRenderOptions  (void);
-    GetFieldHandlePtr  getHandleStereoMode      (void) const;
-    EditFieldHandlePtr editHandleStereoMode     (void);
-    GetFieldHandlePtr  getHandlePassive         (void) const;
-    EditFieldHandlePtr editHandlePassive        (void);
+    GetFieldHandlePtr  getHandleViewportScale   (void) const;
+    EditFieldHandlePtr editHandleViewportScale  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -364,7 +243,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      CSMViewportBase *pFrom,
+            void execSync (      CSMPassiveWindowBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -404,11 +283,11 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMViewportBase : public FieldContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CSMViewportBase &source);
+    void operator =(const CSMPassiveWindowBase &source);
 };
 
-typedef CSMViewportBase *CSMViewportBaseP;
+typedef CSMPassiveWindowBase *CSMPassiveWindowBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCSMVIEWPORTBASE_H_ */
+#endif /* _OSGCSMPASSIVEWINDOWBASE_H_ */
