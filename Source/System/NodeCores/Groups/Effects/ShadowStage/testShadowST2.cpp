@@ -897,7 +897,7 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  u = svp->getOffFactor();
 
                 svp->setOffFactor(++u);
-                SLOG << "Polygon-OffsetFactor is: " << u << endLog;
+                SLOG << "Polygon-OffsetFactor is: " << u << OSG::endLog;
                 break;
             }
 
@@ -906,7 +906,7 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  u = svp->getOffFactor();
 
                 svp->setOffFactor(--u);
-                SLOG << "Polygon-OffsetFactor is: " << u << endLog;
+                SLOG << "Polygon-OffsetFactor is: " << u << OSG::endLog;
                 break;
             }
 
@@ -915,7 +915,7 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  r = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(r + 0.1);
-                SLOG << "ShadowSmoothness is: " << (r + 0.1) << endLog;
+                SLOG << "ShadowSmoothness is: " << (r + 0.1) << OSG::endLog;
                 break;
             }
 
@@ -924,28 +924,28 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  r = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(r - 0.1);
-                SLOG << "ShadowSmoothness is: " << (r + 0.1) << endLog;
+                SLOG << "ShadowSmoothness is: " << (r + 0.1) << OSG::endLog;
                 break;
             }
 
         case 'y':
             {
                 svp->setMapSize(512);
-                SLOG << "ShadowMapSize is: 512" << endLog;
+                SLOG << "ShadowMapSize is: 512" << OSG::endLog;
                 break;
             }
 
         case 'x':
             {
                 svp->setMapSize(1024);
-                SLOG << "ShadowMapSize is: 1024" << endLog;
+                SLOG << "ShadowMapSize is: 1024" << OSG::endLog;
                 break;
             }
 
         case 'c':
             {
                 svp->setMapSize(2048);
-                SLOG << "ShadowMapSize is: 2048" << endLog;
+                SLOG << "ShadowMapSize is: 2048" << OSG::endLog;
                 break;
             }
 
