@@ -825,24 +825,28 @@ void keyboard(unsigned char k, int x, int y)
         case '1':
             {
                 svp->setShadowMode(OSG::ShadowStage::NO_SHADOW);
+                SLOG << "NO_SHADOW" << std::endl;
                 break;
             }
 
         case '2':
             {
                 svp->setShadowMode(OSG::ShadowStage::STD_SHADOW_MAP);
+                SLOG << "STD_SHADOW_MAP" << std::endl;
                 break;
             }
 
         case '3':
             {
                 svp->setShadowMode(OSG::ShadowStage::PERSPECTIVE_SHADOW_MAP);
+                SLOG << "PERSPECTIVE_SHADOW_MAP" << std::endl;
                 break;
             }
 
         case '4':
             {
                 svp->setShadowMode(OSG::ShadowStage::DITHER_SHADOW_MAP);
+                SLOG << "DITHER_SHADOW_MAP" << std::endl;
                 break;
             }
 
@@ -850,6 +854,7 @@ void keyboard(unsigned char k, int x, int y)
             {
                 svp->setShadowMode(OSG::ShadowStage::PCF_SHADOW_MAP);
                 //svp->setShadowSmoothness(0.5);
+                SLOG << "PCF_SHADOW_MAP" << std::endl;
                 break;
             }
 
@@ -857,6 +862,7 @@ void keyboard(unsigned char k, int x, int y)
             {
                 svp->setShadowMode(OSG::ShadowStage::PCSS_SHADOW_MAP);
                 svp->setShadowSmoothness(0.2);
+                SLOG << "PCSS_SHADOW_MAP" << std::endl;
                 break;
             }
 
@@ -864,6 +870,7 @@ void keyboard(unsigned char k, int x, int y)
             {
                 svp->setShadowMode(OSG::ShadowStage::VARIANCE_SHADOW_MAP);
                 svp->setShadowSmoothness(0.5);
+                SLOG << "VARIANCE_SHADOW_MAP" << std::endl;
                 break;
             }
 
@@ -890,7 +897,7 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  u = svp->getOffFactor();
 
                 svp->setOffFactor(++u);
-                SLOG << "Polygon-OffsetFactor is: " << ++u << OSG::endLog;
+                SLOG << "Polygon-OffsetFactor is: " << u << endLog;
                 break;
             }
 
@@ -899,7 +906,7 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  u = svp->getOffFactor();
 
                 svp->setOffFactor(--u);
-                SLOG << "Polygon-OffsetFactor is: " << --u << OSG::endLog;
+                SLOG << "Polygon-OffsetFactor is: " << u << endLog;
                 break;
             }
 
@@ -908,7 +915,7 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  r = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(r + 0.1);
-                //SLOG << "ShadowSmoothness is: " << r << endLog;
+                SLOG << "ShadowSmoothness is: " << (r + 0.1) << endLog;
                 break;
             }
 
@@ -917,27 +924,28 @@ void keyboard(unsigned char k, int x, int y)
                 OSG::Real32  r = svp->getShadowSmoothness();
 
                 svp->setShadowSmoothness(r - 0.1);
-                //SLOG << "ShadowSmoothness is: " << r << endLog;
+                SLOG << "ShadowSmoothness is: " << (r + 0.1) << endLog;
                 break;
             }
 
         case 'y':
             {
                 svp->setMapSize(512);
+                SLOG << "ShadowMapSize is: 512" << endLog;
                 break;
             }
 
         case 'x':
             {
                 svp->setMapSize(1024);
-                SLOG << "ShadowMode is: NO_SHADOW" << OSG::endLog;
+                SLOG << "ShadowMapSize is: 1024" << endLog;
                 break;
             }
 
         case 'c':
             {
                 svp->setMapSize(2048);
-                SLOG << "ShadowMode is: NO_SHADOW" << OSG::endLog;
+                SLOG << "ShadowMapSize is: 2048" << endLog;
                 break;
             }
 
