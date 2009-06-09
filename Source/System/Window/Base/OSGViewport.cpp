@@ -329,8 +329,11 @@ void Viewport::deactivate(void)
 
 void Viewport::render(RenderActionBase *action)
 {
-     _pStageValidator->incEventCounter();
+    _pStageValidator->incEventCounter();
  
+    if(this->getTravMask() == 0x0000)
+        return;
+
     if(getCamera() == NULL)
     {
         SWARNING << "Viewport::render: no camera!" << std::endl;
@@ -374,6 +377,11 @@ void Viewport::render(RenderActionBase *action)
 bool Viewport::isPassive(void)
 {
     return false;
+}
+
+FrameBufferObject *Viewport::getTarget(void)
+{
+    return NULL;
 }
 
 /*------------------------------- dump ----------------------------------*/

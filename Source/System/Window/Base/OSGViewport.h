@@ -58,6 +58,7 @@ class DrawActionBase;
 
 class RenderActionBase;
 class StageValidator;
+class FrameBufferObject;
 
 /*! \brief Viewport base class. See \ref 
     PageSystemWindowViewports for a description.
@@ -113,7 +114,8 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual bool isPassive(void);
+    virtual bool               isPassive(void);
+    virtual FrameBufferObject *getTarget(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

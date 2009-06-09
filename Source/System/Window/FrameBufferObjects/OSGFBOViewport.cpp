@@ -159,6 +159,11 @@ void FBOViewport::dump(      UInt32    ,
 }
 
 
+FrameBufferObject *FBOViewport::getTarget(void)
+{
+    return this->getFrameBufferObject();
+}
+
 #ifdef OSG_OLD_RENDER_ACTION
 void FBOViewport::render(DrawActionBase *action)
 {

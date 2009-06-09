@@ -677,6 +677,8 @@ Action::ResultE RenderAction::start(void)
             _pActivePartition->addSetupModeBit(RenderPartition::PassiveBit);
         }
 
+        _pActivePartition->setRenderTarget(_pViewport->getTarget());
+
         if(_pCamera != NULL)
         {
             Matrix m, t;

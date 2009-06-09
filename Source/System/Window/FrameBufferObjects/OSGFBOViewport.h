@@ -100,6 +100,8 @@ class OSG_SYSTEM_DLLMAPPING FBOViewport : public FBOViewportBase
     virtual void render(DrawActionBase *action);
 #endif
 
+    virtual FrameBufferObject *getTarget(void);
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
