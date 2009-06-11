@@ -132,9 +132,11 @@ FUNCTION(SETUP_OSG_LIB_TARGETS COMPONENT UPPERCOMPONENT)
 
   ENDIF(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG)
 
-  SET_TARGET_PROPERTIES(${COMPONENT}Lib PROPERTIES
-                        ${OSG_IMP_RELEASE}
-                        ${OSG_IMP_DEBUG}        )
+  IF(OSG_IMP_RELEASE OR OSG_IMP_DEBUG)
+    SET_TARGET_PROPERTIES(${COMPONENT}Lib PROPERTIES
+                          ${OSG_IMP_RELEASE}
+                          ${OSG_IMP_DEBUG}        )
+  ENDIF(OSG_IMP_RELEASE OR OSG_IMP_DEBUG)
 ENDFUNCTION(SETUP_OSG_LIB_TARGETS)
 
 #-------------------------------------------------------------------------------
