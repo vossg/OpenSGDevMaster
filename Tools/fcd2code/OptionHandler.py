@@ -95,6 +95,14 @@ class OptionHandler:
             dest="rootPath",
             help="root of the OpenSG source tree.",
             metavar="PATH");
+
+        OptionHandler.m_parser.add_option(
+            "-t", "--template-path",
+            action="store",
+            type="string",
+            dest="templatePath",
+            help="path to where the fcd2code templates are stored.",
+            metavar="PATH");
         
         OptionHandler.m_parser.add_option(
             "-v", "--verbose",

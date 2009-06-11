@@ -48,6 +48,8 @@ OSG_OPTION(OSG_ENABLE_OGL2_SHADERFUNCTIONS "" ON)
 OSG_SET_CACHE(OSG_SHADER_CACHE_MODE 0 STRING "")
 
 OSG_OPTION(OSG_ENABLE_FCD2CODE "" OFF)
+OSG_OPTION(OSG_FCD2CODE_WRITE_CLASS "Write class file during cmake run if only
+the fcd file is found" OFF)
 OSG_OPTION(OSG_ENABLE_SCANPARSE_REGEN "" OFF)
 
 OSG_OPTION(OSG_ENABLE_GLDEFINE_MAPPER "" ON)
@@ -779,6 +781,19 @@ FILE(REMOVE  "${CMAKE_BINARY_DIR}/bin/osg2-config.part3.tmp")
 INSTALL(PROGRAMS "${CMAKE_BINARY_DIR}/bin/osg2-config"
         DESTINATION bin)
 
+INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/FindOpenSG.cmake"
+        DESTINATION share/cmake-osg)
+INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/FindCollada.cmake"
+        DESTINATION share/cmake-osg)
+INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/FindOpenEXR.cmake"
+        DESTINATION share/cmake-osg)
+INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/SetupCompiler.cmake"
+        DESTINATION share/cmake-osg)
+INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/UpdateCompiler.cmake"
+        DESTINATION share/cmake-osg)
+INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/BuildFunctions.cmake"
+        DESTINATION share/cmake-osg)
+
 ##################
 # Packaging
 ##################
@@ -806,3 +821,4 @@ IF(OSGBUILD_ENABLE_PACKAGING)
     INCLUDE(CPack)
 
 ENDIF(OSGBUILD_ENABLE_PACKAGING)
+

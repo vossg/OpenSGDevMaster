@@ -22,6 +22,11 @@
 #  OPENSG_INCLUDE_DIR   header directory
 #  OPENSG_LIBRARY_DIR   library directory
 
+# OpenSG_DIR is what is automaticall added by cmake
+IF(NOT OPENSG_ROOT AND OpenSG_DIR)
+  SET(OPENSG_ROOT ${OpenSG_DIR})
+ENDIF(NOT OPENSG_ROOT AND OpenSG_DIR)
+
 SET(__OpenSG_IN_CACHE TRUE)
 IF(OpenSG_INCLUDE_DIR)
     FOREACH(COMPONENT ${OpenSG_FIND_COMPONENTS})
@@ -67,14 +72,14 @@ MACRO(__OpenSG_ADJUST_LIB_VARS basename)
     
         # if only the release version was found, set the debug variable also to the release version
         IF(OpenSG_${basename}_LIBRARY_RELEASE AND NOT OpenSG_${basename}_LIBRARY_DEBUG)
-            SET(OpenSG_${basename}_LIBRARY_DEBUG ${OpenSG_${basename}_LIBRARY_RELEASE})
+#            SET(OpenSG_${basename}_LIBRARY_DEBUG ${OpenSG_${basename}_LIBRARY_RELEASE})
             SET(OpenSG_${basename}_LIBRARY       ${OpenSG_${basename}_LIBRARY_RELEASE})
             SET(OpenSG_${basename}_LIBRARIES     ${OpenSG_${basename}_LIBRARY_RELEASE})
         ENDIF(OpenSG_${basename}_LIBRARY_RELEASE AND NOT OpenSG_${basename}_LIBRARY_DEBUG)
     
         # if only the debug version was found, set the release variable also to the debug version
         IF(OpenSG_${basename}_LIBRARY_DEBUG AND NOT OpenSG_${basename}_LIBRARY_RELEASE)
-            SET(OpenSG_${basename}_LIBRARY_RELEASE ${OpenSG_${basename}_LIBRARY_DEBUG})
+#            SET(OpenSG_${basename}_LIBRARY_RELEASE ${OpenSG_${basename}_LIBRARY_DEBUG})
             SET(OpenSG_${basename}_LIBRARY         ${OpenSG_${basename}_LIBRARY_DEBUG})
             SET(OpenSG_${basename}_LIBRARIES       ${OpenSG_${basename}_LIBRARY_DEBUG})
         ENDIF(OpenSG_${basename}_LIBRARY_DEBUG AND NOT OpenSG_${basename}_LIBRARY_RELEASE)
@@ -96,6 +101,42 @@ MACRO(__OpenSG_ADJUST_LIB_VARS basename)
     )
 ENDMACRO(__OpenSG_ADJUST_LIB_VARS)
 
+FUNCTION(SETUP_OSG_LIB_TARGETS COMPONENT UPPERCOMPONENT)
+
+  ADD_LIBRARY(${COMPONENT}Lib SHARED IMPORTED)
+
+  IF(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE)
+
+  GET_FILENAME_COMPONENT(OSG_TMP_LIB_DIR_OPT ${OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE}
+                         PATH)
+      
+  IF(UNIX)
+    SET(OSG_IMP_RELEASE IMPORTED_LOCATION_RELEASE ${OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE})
+  ELSE(UNIX)
+    MESSAGE(STATUS "Not supported yet")
+  ENDIF(UNIX)
+
+  ENDIF(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE)
+
+  IF(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG)
+
+    GET_FILENAME_COMPONENT(OSG_TMP_LIB_DIR_DBG ${OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG}
+                           PATH)
+
+    IF(UNIX)
+      SET(OSG_IMP_DEBUG IMPORTED_LOCATION_DEBUG ${OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG})
+      SET(OSG_IMP_DEBUG ${OSG_IMP_DEBUG} IMPORTED_LOCATION_DEBUGGV ${OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG})
+    ELSE(UNIX)
+      MESSAGE(STATUS "Not supported yet")
+    ENDIF(UNIX)
+
+  ENDIF(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG)
+
+  SET_TARGET_PROPERTIES(${COMPONENT}Lib PROPERTIES
+                        ${OSG_IMP_RELEASE}
+                        ${OSG_IMP_DEBUG}        )
+ENDFUNCTION(SETUP_OSG_LIB_TARGETS)
+
 #-------------------------------------------------------------------------------
 
 
@@ -104,9 +145,11 @@ IF(__OpenSG_IN_CACHE)
 
     SET(OpenSG_FOUND TRUE)
     FOREACH(COMPONENT ${OpenSG_FIND_COMPONENTS})
-        STRING(TOUPPER ${COMPONENT} COMPONENT)
-        __OpenSG_ADJUST_LIB_VARS(${COMPONENT})
-        SET(OpenSG_LIBRARIES ${OpenSG_LIBRARIES} ${OpenSG_${COMPONENT}_LIBRARY})
+        STRING(TOUPPER ${COMPONENT} UPPERCOMPONENT)
+        __OpenSG_ADJUST_LIB_VARS(${UPPERCOMPONENT})
+        SET(OpenSG_LIBRARIES ${OpenSG_LIBRARIES} ${OpenSG_${UPPERCOMPONENT}_LIBRARY})
+
+        SETUP_OSG_LIB_TARGETS(${COMPONENT} ${UPPERCOMPONENT})
     ENDFOREACH(COMPONENT)
 
     SET(OpenSG_INCLUDE_DIRS "${OpenSG_INCLUDE_DIR}" "${OpenSG_INCLUDE_DIR}/OpenSG")
@@ -187,6 +230,7 @@ ELSE(__OpenSG_IN_CACHE)
         )
     
         __OpenSG_ADJUST_LIB_VARS(${UPPERCOMPONENT})
+
     ENDFOREACH(COMPONENT)
     # ------------------------------------------------------------------------
     #  End finding OpenSG libraries
@@ -252,6 +296,9 @@ ELSE(__OpenSG_IN_CACHE)
                 IF(NOT OpenSG_FIND_QUIETLY)
                     MESSAGE(STATUS "  ${COMPONENT}")
                 ENDIF(NOT OpenSG_FIND_QUIETLY)
+
+                SETUP_OSG_LIB_TARGETS(${COMPONENT} ${UPPERCOMPONENT})
+
                 SET(OpenSG_LIBRARIES ${OpenSG_LIBRARIES} ${OpenSG_${UPPERCOMPONENT}_LIBRARY})
             ENDIF(OpenSG_${UPPERCOMPONENT}_FOUND)
         ENDFOREACH(COMPONENT)

@@ -560,8 +560,31 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
             ENDIF(NOT EXISTS ${FCDDir}/${FCDBaseCpp})
 
             SET(FCDBaseDir ${CMAKE_SOURCE_DIR}/Tools/fcd2code)
-
             SET(FCDCommand ${CMAKE_SOURCE_DIR}/Tools/fcd2code/fcd2code)
+            SET(FCDRoot -r ${CMAKE_SOURCE_DIR})
+            SET(FCDTemp "")
+
+            SET(FCDPath ${CMAKE_SOURCE_DIR}/Tools/fcd2code)
+
+            IF(NOT EXISTS FCDPath AND OpenSG_DIR) #external setup
+              SET(FCDBaseDir ${OpenSG_DIR}/bin/fcd2code)
+
+              SET(FCDCommand ${OpenSG_DIR}/bin/fcd2code/fcd2code)
+
+              SET(FCDRoot "")
+              SET(FCDTemp -t ${FCDBaseDir})
+            ENDIF(NOT EXISTS FCDPath AND OpenSG_DIR)
+            
+            IF(NOT EXISTS ${FCDDir}/${FCDClassHdr} AND
+               NOT EXISTS ${FCDDir}/${FCDClassCpp} AND
+               NOT EXISTS ${FCDDir}/${FCDClassInl} AND
+               OSG_FCD2CODE_WRITE_CLASS              )
+
+               MESSAGE(STATUS "writing ${FCDDir}/${FCDClassHdr} ${FCDDir}/${FCDClassCpp} ${FCDDir}/${FCDClassInl}")
+
+               EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -f -d ${FCDFile} -p ${FCDDir} ${FCDRoot} ${FCDTemp}) 
+
+            ENDIF()
 
             ADD_CUSTOM_COMMAND(
                 OUTPUT ${FCDDir}/${FCDBaseHdr}
@@ -569,7 +592,7 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                        ${FCDDir}/${FCDBaseInl}
                        ${FCDDir}/${FCDBaseFld}
                        ${FCD_TMP_OUT}
-                COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -b -d ${FCDFile} -p ${FCDDir} -r ${CMAKE_SOURCE_DIR}
+                COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -b -d ${FCDFile} -p ${FCDDir} ${FCDRoot} ${FCDTemp}
                 MAIN_DEPENDENCY ${FCDFile}
                 DEPENDS ${FCDBaseDir}/TemplateFieldContainerBase_h.txt
                         ${FCDBaseDir}/TemplateFieldContainerBase_inl.txt
@@ -1000,7 +1023,7 @@ ENDFUNCTION(OSG_SETUP_PROJECT)
 #############################################################################
 # setup import targets so the debugrt build type works correctly
 
-FUNCTION(OSG_SETUP_IMPORT_LIB TARGET_NAME NEW_LIB)
+FUNCTION(OSG_SETUP_IMPORT_LIB NEW_LIB)
 
     GET_FILENAME_COMPONENT(OSG_TMP_LIB_DIR ${${NEW_LIB}_RELEASE}
                            PATH)
@@ -1017,7 +1040,7 @@ MACRO(OSG_ADD_LIB_TARGET TARGET_LIST NEW_LIB)
 
     ADD_LIBRARY(OSG_${NEW_LIB}_TARGET SHARED IMPORTED)
 
-    OSG_SETUP_IMPORT_LIB(${TARGET_LIST} ${NEW_LIB})
+    OSG_SETUP_IMPORT_LIB(${NEW_LIB})
 
     SET(${TARGET_LIST} ${${TARGET_LIST}} OSG_${NEW_LIB}_TARGET)
 
@@ -1119,3 +1142,10 @@ FUNCTION(OSG_WRITE_SETTINGS FILENAME)
 
 ENDFUNCTION(OSG_WRITE_SETTINGS FILENAME)
 
+FUNCTION(CHECK_BUILD_DIR)
+  IF("${${CMAKE_PROJECT_NAME}_SOURCE_DIR}"  STREQUAL "${${CMAKE_PROJECT_NAME}_BINARY_DIR}")
+    MESSAGE(FATAL_ERROR "${CMAKE_PROJECT_NAME} requires an out of source Build. \n"
+                        "Please create a separate binary directory and run "
+                        "CMake there.")
+  ENDIF("${${CMAKE_PROJECT_NAME}_SOURCE_DIR}"  STREQUAL "${${CMAKE_PROJECT_NAME}_BINARY_DIR}")
+ENDFUNCTION(CHECK_BUILD_DIR)

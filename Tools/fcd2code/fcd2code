@@ -107,6 +107,12 @@ class FCDProcess:
         if rootPath != "":
             tmplPath = os.path.join(rootPath, "Tools/fcd2code");
             self.m_log.info("Setting tmplPath \"%s\"", tmplPath);
+
+        if OptionHandler.getOptionActive("templatePath"):
+            tmplPath = OptionHandler.getOptionArg("templatePath");
+            self.m_log.info("Setting tmplPath \"%s\"", tmplPath);
+
+
         
         # setup compatibility mode
         if OptionHandler.getOptionActive("compatMode"):
