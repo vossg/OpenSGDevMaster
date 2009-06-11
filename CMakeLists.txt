@@ -781,18 +781,21 @@ FILE(REMOVE  "${CMAKE_BINARY_DIR}/bin/osg2-config.part3.tmp")
 INSTALL(PROGRAMS "${CMAKE_BINARY_DIR}/bin/osg2-config"
         DESTINATION bin)
 
-INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/FindOpenSG.cmake"
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenSG.cmake"
         DESTINATION share/cmake-osg)
-INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/FindCollada.cmake"
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindCollada.cmake"
         DESTINATION share/cmake-osg)
-INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/FindOpenEXR.cmake"
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenEXR.cmake"
         DESTINATION share/cmake-osg)
-INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/SetupCompiler.cmake"
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/SetupCompiler.cmake"
         DESTINATION share/cmake-osg)
-INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/UpdateCompiler.cmake"
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/UpdateCompiler.cmake"
         DESTINATION share/cmake-osg)
-INSTALL(PROGRAMS "${CMAKE_SOURCE_DIR}/CMake/BuildFunctions.cmake"
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/BuildFunctions.cmake"
         DESTINATION share/cmake-osg)
+INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
+        DESTINATION bin
+        PATTERN *.pyc EXCLUDE)
 
 ##################
 # Packaging
