@@ -506,7 +506,7 @@ void ColladaEffect::setupSimpleColorAndTex(
             std::string imageUriStr = effect->getDocumentURI()->getURI();
             
             imageUriStr += "#";
-            imageUriStr += ambientTex->getTexture();
+            imageUriStr += diffuseTex->getTexture();
             
             daeURI imageUri(getGlobal()->getDAE(), imageUriStr);
             
