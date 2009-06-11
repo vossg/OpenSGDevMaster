@@ -17,7 +17,7 @@ class TemplateWriter:
            constructor.
         """
         self.m_log.debug("write: Opening file \"%s\"." % self.m_fileName);
-        fileObj = open(self.m_fileName, "w");
+        fileObj = open(self.m_fileName, "wb");
         
         self.m_log.debug("write: writing template.");
         fileObj.writelines(self.m_filledTemplate);
