@@ -100,32 +100,23 @@
     OSG_GEN_COMPAT_CONTAINERPTR(CLASST)
 
 
-#if 0
-#define OSG_GEN_NAMED_PTR(CLASST, NAME)                    \
-    typedef CLASST       * NAME##CPtr;                     \
-    typedef CLASST const * Const##NAME##CPtr;              
-#endif
+#define OSG_FWDDECL_FC(CLASST)                          \
+    OSG_BEGIN_NAMESPACE                                 \
+    class CLASST;                                       \
+    OSG_GEN_CONTAINERPTR(CLASST);                       \
+    OSG_END_NAMESPACE
 
 
 OSG_BEGIN_NAMESPACE
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 class TypeBase;
-
 class ReflexiveContainerType;
 class FieldContainerType;
 
 class FieldDescriptionBase;
 
-
 class ReflexiveContainer;
-class FieldContainer;
-
-class AttachmentContainer;
-class Node;
-class NodeCore;
-
-class Attachment;
 
 class DrawEnv;
 
@@ -147,16 +138,15 @@ class RefCountPtr;
 template<class ObjT>
 class MTPtr;
 
-OSG_GEN_CONTAINERPTR(FieldContainer);
-OSG_GEN_CONTAINERPTR(Attachment);
-OSG_GEN_CONTAINERPTR(AttachmentContainer);
-OSG_GEN_CONTAINERPTR(Node);
-OSG_GEN_CONTAINERPTR(NodeCore);
+OSG_END_NAMESPACE
 
-#if 0
-template <class Core>
-class CoredNodePtr;
-#endif
+OSG_FWDDECL_FC(FieldContainer)
+OSG_FWDDECL_FC(Attachment)
+OSG_FWDDECL_FC(AttachmentContainer)
+OSG_FWDDECL_FC(Node)
+OSG_FWDDECL_FC(NodeCore)
+
+OSG_BEGIN_NAMESPACE
 
 template <class SingletonBaseT>
 class SingletonHolder;
