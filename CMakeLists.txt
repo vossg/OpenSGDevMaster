@@ -781,18 +781,22 @@ FILE(REMOVE  "${CMAKE_BINARY_DIR}/bin/osg2-config.part3.tmp")
 INSTALL(PROGRAMS "${CMAKE_BINARY_DIR}/bin/osg2-config"
         DESTINATION bin)
 
+##################
+# cmake modules
+##################
+
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenSG.cmake"
-        DESTINATION share/cmake-osg)
+        DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindCollada.cmake"
-        DESTINATION share/cmake-osg)
+        DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenEXR.cmake"
-        DESTINATION share/cmake-osg)
+        DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/SetupCompiler.cmake"
-        DESTINATION share/cmake-osg)
+        DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/UpdateCompiler.cmake"
-        DESTINATION share/cmake-osg)
+        DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/BuildFunctions.cmake"
-        DESTINATION share/cmake-osg)
+        DESTINATION share/OpenSG/cmake)
 INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
         DESTINATION bin
         PATTERN *.pyc EXCLUDE)
