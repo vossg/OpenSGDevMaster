@@ -86,12 +86,12 @@ static std::string _fp_program =
 // ------------------- global vars ----------------------
 //
 // The SimpleSceneManager to manage simple applications
-static SimpleSceneManager     *_mgr;
+static OSG::SimpleSceneManager     *_mgr;
 // The scene
-static NodeRecPtr              _scene;
+static OSG::NodeRecPtr              _scene;
 
-static Int32                   _animation    = 1;
-static SHLVariableChunkRecPtr  _shlparameter = NULL;
+static OSG::Int32                   _animation    = 1;
+static OSG::SHLVariableChunkRecPtr  _shlparameter = NULL;
 
 
 // forward declaration so we can have the interesting stuff upfront
@@ -101,61 +101,61 @@ int setupGLUT( int *argc, char *argv[] );
 int doMain(int argc, char **argv)
 {
     // OSG init
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     // GLUT init
     int winid = setupGLUT(&argc, argv);
 
     // the connection between GLUT and OpenSG
-    GLUTWindowUnrecPtr gwin = GLUTWindow::create();
+    OSG::GLUTWindowUnrecPtr gwin = OSG::GLUTWindow::create();
 
     gwin->setGlutId(winid);
     gwin->setSize( 800, 800 );
     gwin->init();
 
     // create root node
-    _scene = makeCoredNode<Group>();
+    _scene = OSG::makeCoredNode<OSG::Group>();
 
-    GeometryUnrecPtr geo = makeBoxGeo(0.5, 0.5, 0.5, 1, 1, 1);
+    OSG::GeometryUnrecPtr geo = OSG::makeBoxGeo(0.5, 0.5, 0.5, 1, 1, 1);
 
     // share the chunk
-    SHLChunkUnrecPtr shl = SHLChunk::create();
+    OSG::SHLChunkUnrecPtr shl = OSG::SHLChunk::create();
 
     shl->setVertexProgram(_vp_program);
     shl->setFragmentProgram(_fp_program);
     // These parameters are the same for all geometries so we
     // keep them in here.
-    shl->addUniformVariable("Scale", Vec2f(20.0f, 20.0f));
-    shl->addUniformVariable("Threshold", Vec2f(0.7f, 0.7f));
+    shl->addUniformVariable("Scale", OSG::Vec2f(20.0f, 20.0f));
+    shl->addUniformVariable("Threshold", OSG::Vec2f(0.7f, 0.7f));
 
-    Int32 size = 4;
+    OSG::Int32 size = 4;
     
     // start color
-    Vec3f sc(0.0, 0.0, 0.0);
+    OSG::Vec3f sc(0.0, 0.0, 0.0);
     
     // end color
-    Vec3f ec(1.0, 1.0, 1.0);
+    OSG::Vec3f ec(1.0, 1.0, 1.0);
 
-    Real32 sr = (ec[0] - sc[0]) / Real32((size*2));
-    Real32 sg = (ec[1] - sc[1]) / Real32((size*2));
-    Real32 sb = (ec[2] - sc[2]) / Real32((size*2));
+    OSG::Real32 sr = (ec[0] - sc[0]) / OSG::Real32((size*2));
+    OSG::Real32 sg = (ec[1] - sc[1]) / OSG::Real32((size*2));
+    OSG::Real32 sb = (ec[2] - sc[2]) / OSG::Real32((size*2));
     
-    Vec3f color(sc);
+    OSG::Vec3f color(sc);
 
-    Int32 x = - size;
-    Int32 y = - size;
-    Int32 z = - size;
+    OSG::Int32 x = - size;
+    OSG::Int32 y = - size;
+    OSG::Int32 z = - size;
 
-    UInt32 iterations = size*2 * size*2 * size*2;
+    OSG::UInt32 iterations = size*2 * size*2 * size*2;
 
     printf("Creating %u cubes ...\n", iterations);
-    for(UInt32 i=0;i<iterations;++i)
+    for(OSG::UInt32 i=0;i<iterations;++i)
     {
-        ChunkMaterialUnrecPtr cmat = ChunkMaterial::create();
+        OSG::ChunkMaterialUnrecPtr cmat = OSG::ChunkMaterial::create();
 
         // ok use one SHLChunk and n SHLParameterChunks
         // Assing a different "SurfaceColor" parameter to each geometry.
-        SHLVariableChunkUnrecPtr shlparameter = SHLVariableChunk::create();
+        OSG::SHLVariableChunkUnrecPtr shlparameter = OSG::SHLVariableChunk::create();
 
         shlparameter->setSHLChunk(shl);
         shlparameter->addUniformVariable("SurfaceColor", color);
@@ -165,18 +165,18 @@ int doMain(int argc, char **argv)
         cmat->addChunk(shl);
         cmat->addChunk(shlparameter);
     
-        TransformUnrecPtr trans;
-        NodeUnrecPtr trans_node = makeCoredNode<Transform>(&trans);
+        OSG::TransformUnrecPtr trans;
+        OSG::NodeUnrecPtr trans_node = OSG::makeCoredNode<OSG::Transform>(&trans);
 
-        trans->editMatrix().setTranslate(Real32(x), Real32(y), Real32(z));
+        trans->editMatrix().setTranslate(OSG::Real32(x), OSG::Real32(y), OSG::Real32(z));
 
-        MaterialGroupUnrecPtr mg;
+        OSG::MaterialGroupUnrecPtr mg;
 
-        NodeUnrecPtr mg_node = makeCoredNode<MaterialGroup>(&mg);
+        OSG::NodeUnrecPtr mg_node = OSG::makeCoredNode<OSG::MaterialGroup>(&mg);
 
         mg->setMaterial(cmat);
 
-        NodeUnrecPtr geonode = Node::create();
+        OSG::NodeUnrecPtr geonode = OSG::Node::create();
 
         geonode->setCore(geo);
         
@@ -209,7 +209,7 @@ int doMain(int argc, char **argv)
 
 
     // create the SimpleSceneManager helper
-    _mgr = new SimpleSceneManager;
+    _mgr = new OSG::SimpleSceneManager;
 
     // tell the manager what to manage
     _mgr->setWindow(gwin );
@@ -219,17 +219,17 @@ int doMain(int argc, char **argv)
     _mgr->showAll();
 
     // create a gradient background.
-    GradientBackgroundUnrecPtr gback = GradientBackground::create();
+    OSG::GradientBackgroundUnrecPtr gback = OSG::GradientBackground::create();
 
     gback->clearLines();
-    gback->addLine(Color3f(0.7, 0.7, 0.8), 0);
-    gback->addLine(Color3f(0.0, 0.1, 0.3), 1);
+    gback->addLine(OSG::Color3f(0.7, 0.7, 0.8), 0);
+    gback->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
 
-    Window *win = _mgr->getWindow();
+    OSG::Window *win = _mgr->getWindow();
 
     for(int i=0;i<win->getMFPort()->size();++i)
     {
-        Viewport *vp = win->getPort(i);
+        OSG::Viewport *vp = win->getPort(i);
         vp->setBackground(gback);
     }
         
@@ -255,12 +255,12 @@ int main(int argc, char **argv)
 // redraw the window
 void display(void)
 {
-    Real64 t = OSG::getSystemTime();
+    OSG::Real64 t = OSG::getSystemTime();
     // render scene
     _mgr->redraw();
     t = OSG::getSystemTime() - t;
     if(t > 0.0)
-        printf("fps: %f\r", 1.0f / Real32(t));
+        printf("fps: %f\r", 1.0f / OSG::Real32(t));
     else
         printf("fps: very fast ...\r");
 }
@@ -293,7 +293,7 @@ void motion(int x, int y)
 // react to keys
 void keyboard(unsigned char k, int x, int y)
 {
-    static Real32 season = 0.0f; 
+    static OSG::Real32 season = 0.0f; 
     switch(k)
     {
         case 27:
@@ -307,7 +307,7 @@ void keyboard(unsigned char k, int x, int y)
             exit(1);
         break;
         case 'w':
-            SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
+            OSG::SceneFileHandler::the()->write(_scene, "scene.osb.gz", true);
             printf("wrote scene.osb.gz\n");
         break;
         case 'a':
@@ -317,7 +317,7 @@ void keyboard(unsigned char k, int x, int y)
             if(_shlparameter != NULL)
             {
                 _shlparameter->updateUniformVariable("SurfaceColor", 
-                                                     Vec3f(1.0f, 1.0f, 1.0f));
+                                                     OSG::Vec3f(1.0f, 1.0f, 1.0f));
             }
         break;
     }
