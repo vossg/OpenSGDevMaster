@@ -114,7 +114,7 @@ ShaderParameterStringBase::TypeObject ShaderParameterStringBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderParameterStringBase::createEmptyLocal),
     ShaderParameterString::initMethod,
     ShaderParameterString::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterStringBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterString::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr ShaderParameterStringBase::getHandleValue           (void) con
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderParameterStringBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr ShaderParameterStringBase::editHandleValue          (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);

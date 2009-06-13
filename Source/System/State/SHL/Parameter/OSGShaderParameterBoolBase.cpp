@@ -114,7 +114,7 @@ ShaderParameterBoolBase::TypeObject ShaderParameterBoolBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderParameterBoolBase::createEmptyLocal),
     ShaderParameterBool::initMethod,
     ShaderParameterBool::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterBoolBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterBool::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr ShaderParameterBoolBase::getHandleValue           (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderParameterBoolBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr ShaderParameterBoolBase::editHandleValue          (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);

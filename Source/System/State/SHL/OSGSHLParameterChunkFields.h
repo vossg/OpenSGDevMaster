@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class SHLParameterChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! SHLParameterChunkPtr
-
 OSG_GEN_CONTAINERPTR(SHLParameterChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<SHLParameterChunk *> :
     public FieldTraitsFCPtrBase<SHLParameterChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<SHLParameterChunk *, 0>::getMName<NoRefCountPolicy>(voi
     return "MFUnrefdSHLParameterChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<SHLParameterChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<SHLParameterChunk *,
                       RecordedRefCountPolicy  > SFRecSHLParameterChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<SHLParameterChunk *,
                       UnrecordedRefCountPolicy> SFUnrecSHLParameterChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<SHLParameterChunk *,
                       WeakRefCountPolicy      > SFWeakSHLParameterChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<SHLParameterChunk *,
                       NoRefCountPolicy        > SFUncountedSHLParameterChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<SHLParameterChunk *,
                       RecordedRefCountPolicy  > MFRecSHLParameterChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<SHLParameterChunk *,
                       UnrecordedRefCountPolicy> MFUnrecSHLParameterChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<SHLParameterChunk *,
                       WeakRefCountPolicy      > MFWeakSHLParameterChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<SHLParameterChunk *,
                       NoRefCountPolicy        > MFUncountedSHLParameterChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecSHLParameterChunkPtr : 
+    public PointerSField<SHLParameterChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecSHLParameterChunkPtr : 
+    public PointerSField<SHLParameterChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakSHLParameterChunkPtr :
+    public PointerSField<SHLParameterChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedSHLParameterChunkPtr :
+    public PointerSField<SHLParameterChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecSHLParameterChunkPtr :
+    public PointerMField<SHLParameterChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecSHLParameterChunkPtr :
+    public PointerMField<SHLParameterChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakSHLParameterChunkPtr :
+    public PointerMField<SHLParameterChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedSHLParameterChunkPtr :
+    public PointerMField<SHLParameterChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -114,7 +114,7 @@ ShaderParameterRealBase::TypeObject ShaderParameterRealBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderParameterRealBase::createEmptyLocal),
     ShaderParameterReal::initMethod,
     ShaderParameterReal::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterRealBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterReal::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr ShaderParameterRealBase::getHandleValue           (void) const
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderParameterRealBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr ShaderParameterRealBase::editHandleValue          (void)
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);

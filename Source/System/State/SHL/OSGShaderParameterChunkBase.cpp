@@ -115,7 +115,7 @@ ShaderParameterChunkBase::TypeObject ShaderParameterChunkBase::_type(
     NULL,
     ShaderParameterChunk::initMethod,
     ShaderParameterChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -374,7 +374,8 @@ GetFieldHandlePtr ShaderParameterChunkBase::getHandleParameters      (void) cons
     MFUnrecChildShaderParameterPtr::GetHandlePtr returnValue(
         new  MFUnrecChildShaderParameterPtr::GetHandle(
              &_mfParameters,
-             this->getType().getFieldDesc(ParametersFieldId)));
+             this->getType().getFieldDesc(ParametersFieldId),
+             const_cast<ShaderParameterChunkBase *>(this)));
 
     return returnValue;
 }
@@ -384,7 +385,8 @@ EditFieldHandlePtr ShaderParameterChunkBase::editHandleParameters     (void)
     MFUnrecChildShaderParameterPtr::EditHandlePtr returnValue(
         new  MFUnrecChildShaderParameterPtr::EditHandle(
              &_mfParameters,
-             this->getType().getFieldDesc(ParametersFieldId)));
+             this->getType().getFieldDesc(ParametersFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&ShaderParameterChunk::addParameter,

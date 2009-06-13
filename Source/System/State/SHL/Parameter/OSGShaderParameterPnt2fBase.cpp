@@ -114,7 +114,7 @@ ShaderParameterPnt2fBase::TypeObject ShaderParameterPnt2fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderParameterPnt2fBase::createEmptyLocal),
     ShaderParameterPnt2f::initMethod,
     ShaderParameterPnt2f::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterPnt2fBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterPnt2f::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr ShaderParameterPnt2fBase::getHandleValue           (void) cons
     SFPnt2f::GetHandlePtr returnValue(
         new  SFPnt2f::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderParameterPnt2fBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr ShaderParameterPnt2fBase::editHandleValue          (void)
     SFPnt2f::EditHandlePtr returnValue(
         new  SFPnt2f::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);

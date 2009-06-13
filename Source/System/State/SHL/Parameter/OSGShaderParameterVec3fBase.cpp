@@ -114,7 +114,7 @@ ShaderParameterVec3fBase::TypeObject ShaderParameterVec3fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderParameterVec3fBase::createEmptyLocal),
     ShaderParameterVec3f::initMethod,
     ShaderParameterVec3f::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterVec3fBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterVec3f::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr ShaderParameterVec3fBase::getHandleValue           (void) cons
     SFVec3f::GetHandlePtr returnValue(
         new  SFVec3f::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderParameterVec3fBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr ShaderParameterVec3fBase::editHandleValue          (void)
     SFVec3f::EditHandlePtr returnValue(
         new  SFVec3f::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);

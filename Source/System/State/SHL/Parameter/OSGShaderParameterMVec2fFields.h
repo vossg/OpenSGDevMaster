@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShaderParameterMVec2f;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShaderParameterMVec2fPtr
-
 OSG_GEN_CONTAINERPTR(ShaderParameterMVec2f);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShaderParameterMVec2f *> :
     public FieldTraitsFCPtrBase<ShaderParameterMVec2f *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ShaderParameterMVec2f *, 0>::getMName<NoRefCountPolicy>
     return "MFUnrefdShaderParameterMVec2fPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShaderParameterMVec2fPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderParameterMVec2f *,
                       RecordedRefCountPolicy  > SFRecShaderParameterMVec2fPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderParameterMVec2f *,
                       UnrecordedRefCountPolicy> SFUnrecShaderParameterMVec2fPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderParameterMVec2f *,
                       WeakRefCountPolicy      > SFWeakShaderParameterMVec2fPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderParameterMVec2f *,
                       NoRefCountPolicy        > SFUncountedShaderParameterMVec2fPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderParameterMVec2f *,
                       RecordedRefCountPolicy  > MFRecShaderParameterMVec2fPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderParameterMVec2f *,
                       UnrecordedRefCountPolicy> MFUnrecShaderParameterMVec2fPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderParameterMVec2f *,
                       WeakRefCountPolicy      > MFWeakShaderParameterMVec2fPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderParameterMVec2f *,
                       NoRefCountPolicy        > MFUncountedShaderParameterMVec2fPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecShaderParameterMVec2fPtr : 
+    public PointerSField<ShaderParameterMVec2f *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecShaderParameterMVec2fPtr : 
+    public PointerSField<ShaderParameterMVec2f *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakShaderParameterMVec2fPtr :
+    public PointerSField<ShaderParameterMVec2f *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedShaderParameterMVec2fPtr :
+    public PointerSField<ShaderParameterMVec2f *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecShaderParameterMVec2fPtr :
+    public PointerMField<ShaderParameterMVec2f *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecShaderParameterMVec2fPtr :
+    public PointerMField<ShaderParameterMVec2f *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakShaderParameterMVec2fPtr :
+    public PointerMField<ShaderParameterMVec2f *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedShaderParameterMVec2fPtr :
+    public PointerMField<ShaderParameterMVec2f *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -114,7 +114,7 @@ ShaderParameterPnt3fBase::TypeObject ShaderParameterPnt3fBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderParameterPnt3fBase::createEmptyLocal),
     ShaderParameterPnt3f::initMethod,
     ShaderParameterPnt3f::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterPnt3fBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterPnt3f::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr ShaderParameterPnt3fBase::getHandleValue           (void) cons
     SFPnt3f::GetHandlePtr returnValue(
         new  SFPnt3f::GetHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderParameterPnt3fBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr ShaderParameterPnt3fBase::editHandleValue          (void)
     SFPnt3f::EditHandlePtr returnValue(
         new  SFPnt3f::EditHandle(
              &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editSField(ValueFieldMask);

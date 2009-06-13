@@ -114,7 +114,7 @@ ShaderParameterMMatrixBase::TypeObject ShaderParameterMMatrixBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderParameterMMatrixBase::createEmptyLocal),
     ShaderParameterMMatrix::initMethod,
     ShaderParameterMMatrix::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterMMatrixBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterMMatrix::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr ShaderParameterMMatrixBase::getHandleValue           (void) co
     MFMatrix::GetHandlePtr returnValue(
         new  MFMatrix::GetHandle(
              &_mfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderParameterMMatrixBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr ShaderParameterMMatrixBase::editHandleValue          (void)
     MFMatrix::EditHandlePtr returnValue(
         new  MFMatrix::EditHandle(
              &_mfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editMField(ValueFieldMask, _mfValue);

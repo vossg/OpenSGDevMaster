@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShaderParameterReal;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShaderParameterRealPtr
-
 OSG_GEN_CONTAINERPTR(ShaderParameterReal);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShaderParameterReal *> :
     public FieldTraitsFCPtrBase<ShaderParameterReal *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ShaderParameterReal *, 0>::getMName<NoRefCountPolicy>(v
     return "MFUnrefdShaderParameterRealPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShaderParameterRealPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderParameterReal *,
                       RecordedRefCountPolicy  > SFRecShaderParameterRealPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderParameterReal *,
                       UnrecordedRefCountPolicy> SFUnrecShaderParameterRealPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderParameterReal *,
                       WeakRefCountPolicy      > SFWeakShaderParameterRealPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderParameterReal *,
                       NoRefCountPolicy        > SFUncountedShaderParameterRealPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderParameterReal *,
                       RecordedRefCountPolicy  > MFRecShaderParameterRealPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderParameterReal *,
                       UnrecordedRefCountPolicy> MFUnrecShaderParameterRealPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderParameterReal *,
                       WeakRefCountPolicy      > MFWeakShaderParameterRealPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderParameterReal *,
                       NoRefCountPolicy        > MFUncountedShaderParameterRealPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecShaderParameterRealPtr : 
+    public PointerSField<ShaderParameterReal *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecShaderParameterRealPtr : 
+    public PointerSField<ShaderParameterReal *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakShaderParameterRealPtr :
+    public PointerSField<ShaderParameterReal *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedShaderParameterRealPtr :
+    public PointerSField<ShaderParameterReal *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecShaderParameterRealPtr :
+    public PointerMField<ShaderParameterReal *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecShaderParameterRealPtr :
+    public PointerMField<ShaderParameterReal *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakShaderParameterRealPtr :
+    public PointerMField<ShaderParameterReal *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedShaderParameterRealPtr :
+    public PointerMField<ShaderParameterReal *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

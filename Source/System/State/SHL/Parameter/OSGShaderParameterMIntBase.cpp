@@ -114,7 +114,7 @@ ShaderParameterMIntBase::TypeObject ShaderParameterMIntBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderParameterMIntBase::createEmptyLocal),
     ShaderParameterMInt::initMethod,
     ShaderParameterMInt::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterMIntBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterMInt::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr ShaderParameterMIntBase::getHandleValue           (void) const
     MFInt32::GetHandlePtr returnValue(
         new  MFInt32::GetHandle(
              &_mfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderParameterMIntBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr ShaderParameterMIntBase::editHandleValue          (void)
     MFInt32::EditHandlePtr returnValue(
         new  MFInt32::EditHandle(
              &_mfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editMField(ValueFieldMask, _mfValue);

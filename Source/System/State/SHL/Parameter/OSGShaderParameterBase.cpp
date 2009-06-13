@@ -131,7 +131,7 @@ ShaderParameterBase::TypeObject ShaderParameterBase::_type(
     NULL,
     ShaderParameter::initMethod,
     ShaderParameter::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameter::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -364,7 +364,8 @@ GetFieldHandlePtr ShaderParameterBase::getHandleName            (void) const
     SFString::GetHandlePtr returnValue(
         new  SFString::GetHandle(
              &_sfName,
-             this->getType().getFieldDesc(NameFieldId)));
+             this->getType().getFieldDesc(NameFieldId),
+             const_cast<ShaderParameterBase *>(this)));
 
     return returnValue;
 }
@@ -374,7 +375,8 @@ EditFieldHandlePtr ShaderParameterBase::editHandleName           (void)
     SFString::EditHandlePtr returnValue(
         new  SFString::EditHandle(
              &_sfName,
-             this->getType().getFieldDesc(NameFieldId)));
+             this->getType().getFieldDesc(NameFieldId),
+             this));
 
 
     editSField(NameFieldMask);

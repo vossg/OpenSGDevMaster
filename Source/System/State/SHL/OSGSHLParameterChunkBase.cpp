@@ -115,7 +115,7 @@ SHLParameterChunkBase::TypeObject SHLParameterChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SHLParameterChunkBase::createEmptyLocal),
     SHLParameterChunk::initMethod,
     SHLParameterChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SHLParameterChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SHLParameterChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -374,7 +374,8 @@ GetFieldHandlePtr SHLParameterChunkBase::getHandleSHLChunk        (void) const
     SFUnrecSHLChunkPtr::GetHandlePtr returnValue(
         new  SFUnrecSHLChunkPtr::GetHandle(
              &_sfSHLChunk,
-             this->getType().getFieldDesc(SHLChunkFieldId)));
+             this->getType().getFieldDesc(SHLChunkFieldId),
+             const_cast<SHLParameterChunkBase *>(this)));
 
     return returnValue;
 }
@@ -384,7 +385,8 @@ EditFieldHandlePtr SHLParameterChunkBase::editHandleSHLChunk       (void)
     SFUnrecSHLChunkPtr::EditHandlePtr returnValue(
         new  SFUnrecSHLChunkPtr::EditHandle(
              &_sfSHLChunk,
-             this->getType().getFieldDesc(SHLChunkFieldId)));
+             this->getType().getFieldDesc(SHLChunkFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&SHLParameterChunk::setSHLChunk,

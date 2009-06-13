@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class ShaderChunk;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! ShaderChunkPtr
-
 OSG_GEN_CONTAINERPTR(ShaderChunk);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpStateFieldTraits
+    \ingroup GrpLibOSGState
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<ShaderChunk *> :
     public FieldTraitsFCPtrBase<ShaderChunk *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<ShaderChunk *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdShaderChunkPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<ShaderChunkPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderChunk *,
                       RecordedRefCountPolicy  > SFRecShaderChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderChunk *,
                       UnrecordedRefCountPolicy> SFUnrecShaderChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderChunk *,
                       WeakRefCountPolicy      > SFWeakShaderChunkPtr;
+/*! \ingroup GrpStateFieldSFields */
 typedef PointerSField<ShaderChunk *,
                       NoRefCountPolicy        > SFUncountedShaderChunkPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpStateFieldMulti */
-
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderChunk *,
                       RecordedRefCountPolicy  > MFRecShaderChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderChunk *,
                       UnrecordedRefCountPolicy> MFUnrecShaderChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderChunk *,
                       WeakRefCountPolicy      > MFWeakShaderChunkPtr;
+/*! \ingroup GrpStateFieldMFields */
 typedef PointerMField<ShaderChunk *,
                       NoRefCountPolicy        > MFUncountedShaderChunkPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFRecShaderChunkPtr : 
+    public PointerSField<ShaderChunk *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUnrecShaderChunkPtr : 
+    public PointerSField<ShaderChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFWeakShaderChunkPtr :
+    public PointerSField<ShaderChunk *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpStateFieldSFields \ingroup GrpLibOSGState */
+struct SFUncountedShaderChunkPtr :
+    public PointerSField<ShaderChunk *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFRecShaderChunkPtr :
+    public PointerMField<ShaderChunk *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUnrecShaderChunkPtr :
+    public PointerMField<ShaderChunk *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFWeakShaderChunkPtr :
+    public PointerMField<ShaderChunk *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpStateFieldMFields \ingroup GrpLibOSGState */
+struct MFUncountedShaderChunkPtr :
+    public PointerMField<ShaderChunk *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

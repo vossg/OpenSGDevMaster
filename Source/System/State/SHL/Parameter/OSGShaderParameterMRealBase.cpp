@@ -114,7 +114,7 @@ ShaderParameterMRealBase::TypeObject ShaderParameterMRealBase::_type(
     reinterpret_cast<PrototypeCreateF>(&ShaderParameterMRealBase::createEmptyLocal),
     ShaderParameterMReal::initMethod,
     ShaderParameterMReal::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterMRealBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&ShaderParameterMReal::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -362,7 +362,8 @@ GetFieldHandlePtr ShaderParameterMRealBase::getHandleValue           (void) cons
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             const_cast<ShaderParameterMRealBase *>(this)));
 
     return returnValue;
 }
@@ -372,7 +373,8 @@ EditFieldHandlePtr ShaderParameterMRealBase::editHandleValue          (void)
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
              &_mfValue,
-             this->getType().getFieldDesc(ValueFieldId)));
+             this->getType().getFieldDesc(ValueFieldId),
+             this));
 
 
     editMField(ValueFieldMask, _mfValue);

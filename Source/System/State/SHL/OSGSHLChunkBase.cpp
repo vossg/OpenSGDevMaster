@@ -226,7 +226,7 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(
     reinterpret_cast<PrototypeCreateF>(&SHLChunkBase::createEmptyLocal),
     SHLChunk::initMethod,
     SHLChunk::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&SHLChunkBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&SHLChunk::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -719,7 +719,8 @@ GetFieldHandlePtr SHLChunkBase::getHandleCgFrontEnd      (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfCgFrontEnd,
-             this->getType().getFieldDesc(CgFrontEndFieldId)));
+             this->getType().getFieldDesc(CgFrontEndFieldId),
+             const_cast<SHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -729,7 +730,8 @@ EditFieldHandlePtr SHLChunkBase::editHandleCgFrontEnd     (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfCgFrontEnd,
-             this->getType().getFieldDesc(CgFrontEndFieldId)));
+             this->getType().getFieldDesc(CgFrontEndFieldId),
+             this));
 
 
     editSField(CgFrontEndFieldMask);
@@ -742,7 +744,8 @@ GetFieldHandlePtr SHLChunkBase::getHandlePointSize       (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfPointSize,
-             this->getType().getFieldDesc(PointSizeFieldId)));
+             this->getType().getFieldDesc(PointSizeFieldId),
+             const_cast<SHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -752,7 +755,8 @@ EditFieldHandlePtr SHLChunkBase::editHandlePointSize      (void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfPointSize,
-             this->getType().getFieldDesc(PointSizeFieldId)));
+             this->getType().getFieldDesc(PointSizeFieldId),
+             this));
 
 
     editSField(PointSizeFieldMask);
@@ -765,7 +769,8 @@ GetFieldHandlePtr SHLChunkBase::getHandleProgramParameterNames (void) const
     MFGLenum::GetHandlePtr returnValue(
         new  MFGLenum::GetHandle(
              &_mfProgramParameterNames,
-             this->getType().getFieldDesc(ProgramParameterNamesFieldId)));
+             this->getType().getFieldDesc(ProgramParameterNamesFieldId),
+             const_cast<SHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -775,7 +780,8 @@ EditFieldHandlePtr SHLChunkBase::editHandleProgramParameterNames(void)
     MFGLenum::EditHandlePtr returnValue(
         new  MFGLenum::EditHandle(
              &_mfProgramParameterNames,
-             this->getType().getFieldDesc(ProgramParameterNamesFieldId)));
+             this->getType().getFieldDesc(ProgramParameterNamesFieldId),
+             this));
 
 
     editMField(ProgramParameterNamesFieldMask, _mfProgramParameterNames);
@@ -788,7 +794,8 @@ GetFieldHandlePtr SHLChunkBase::getHandleProgramParameterValues (void) const
     MFUInt32::GetHandlePtr returnValue(
         new  MFUInt32::GetHandle(
              &_mfProgramParameterValues,
-             this->getType().getFieldDesc(ProgramParameterValuesFieldId)));
+             this->getType().getFieldDesc(ProgramParameterValuesFieldId),
+             const_cast<SHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -798,7 +805,8 @@ EditFieldHandlePtr SHLChunkBase::editHandleProgramParameterValues(void)
     MFUInt32::EditHandlePtr returnValue(
         new  MFUInt32::EditHandle(
              &_mfProgramParameterValues,
-             this->getType().getFieldDesc(ProgramParameterValuesFieldId)));
+             this->getType().getFieldDesc(ProgramParameterValuesFieldId),
+             this));
 
 
     editMField(ProgramParameterValuesFieldMask, _mfProgramParameterValues);
@@ -811,7 +819,8 @@ GetFieldHandlePtr SHLChunkBase::getHandleGLId            (void) const
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             const_cast<SHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -821,7 +830,8 @@ EditFieldHandlePtr SHLChunkBase::editHandleGLId           (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId)));
+             this->getType().getFieldDesc(GLIdFieldId),
+             this));
 
 
     editSField(GLIdFieldMask);
@@ -834,7 +844,8 @@ GetFieldHandlePtr SHLChunkBase::getHandleUnknownParameterWarning (void) const
     SFBool::GetHandlePtr returnValue(
         new  SFBool::GetHandle(
              &_sfUnknownParameterWarning,
-             this->getType().getFieldDesc(UnknownParameterWarningFieldId)));
+             this->getType().getFieldDesc(UnknownParameterWarningFieldId),
+             const_cast<SHLChunkBase *>(this)));
 
     return returnValue;
 }
@@ -844,7 +855,8 @@ EditFieldHandlePtr SHLChunkBase::editHandleUnknownParameterWarning(void)
     SFBool::EditHandlePtr returnValue(
         new  SFBool::EditHandle(
              &_sfUnknownParameterWarning,
-             this->getType().getFieldDesc(UnknownParameterWarningFieldId)));
+             this->getType().getFieldDesc(UnknownParameterWarningFieldId),
+             this));
 
 
     editSField(UnknownParameterWarningFieldMask);
