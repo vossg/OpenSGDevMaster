@@ -135,13 +135,10 @@ void Image::changed(ConstFieldMaskArg whichField,
 
     while(parentsIt != parentsEnd)
     {
-        if(*parentsIt != NULL)
-        {
-            (*parentsIt)->changed(
-                TypeTraits<BitVector>::One << parentsIt.getParentFieldPos(),
-                ChangedOrigin::Child,
-                whichField);
-        }
+        (*parentsIt)->changed(
+            TypeTraits<BitVector>::One << parentsIt.getParentFieldPos(),
+            ChangedOrigin::Child,
+            whichField);
 
         ++parentsIt;
     }

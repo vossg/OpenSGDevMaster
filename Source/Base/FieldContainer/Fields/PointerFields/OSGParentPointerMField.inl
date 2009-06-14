@@ -953,7 +953,10 @@ void ParentPointerMField<PtrTypeT,
                              UInt32              uiSyncInfo, 
                              AspectOffsetStore  &oOffsets  )
 {
-    Inherited::syncWith(source, syncMode, uiSyncInfo, oOffsets);
+    Inherited::syncWith(source, 
+                        (syncMode | Field::MFNullCheckSync), 
+                        uiSyncInfo, 
+                        oOffsets);
     
     _vParentPos = source._vParentPos;
 }

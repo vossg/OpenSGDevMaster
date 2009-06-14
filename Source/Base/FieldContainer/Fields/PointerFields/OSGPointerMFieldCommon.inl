@@ -480,20 +480,26 @@ void PointerMFieldCommon<AccessHandlerT,
             _ptrStore.resize(n, NULL);
         }
 
-        PtrStoreConstItType sIt  = source._ptrStore.begin();
+        PtrStoreConstItType sIt     = source._ptrStore.begin();
+        PtrStoreConstItType sEnd    = source._ptrStore.end  ();
 
-        PtrStoreItType      fIt  =        _ptrStore.begin();
+        PtrStoreItType      fIt     =        _ptrStore.begin();
         
-        for(size_type i = 0; i < n; ++i)
+        n = 0;
+        for(; sIt != sEnd; ++sIt)
         {
             FieldContainer *pNewObj = convertToCurrentAspect(*sIt);
             
-            AccessHandler::onSyncReplace(this, *fIt, pNewObj);
+            if(pNewObj != NULL                                ||
+               0x0000  == (syncMode & Field::MFNullCheckSync)  )
+            {
+                AccessHandler::onSyncReplace(this, *fIt, pNewObj);
             
-            *fIt = pNewObj;
+                *fIt = pNewObj;
 
-            ++fIt;
-            ++sIt;
+                ++fIt;
+                ++n;
+            }
         }
         
         if(n < _ptrStore.size())

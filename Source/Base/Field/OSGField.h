@@ -66,7 +66,8 @@ class OSG_BASE_DLLMAPPING Field
 
     static const UInt32 MFSharedSync     = 0x0000;
     static const UInt32 MFCopySync       = 0x0001; 
-    
+    static const UInt32 MFNullCheckSync  = 0x0002;
+
     static const UInt32 FGlobal          = 0x0000;
     static const UInt32 FThreadLocal     = 0x0010;
     static const UInt32 FClusterLocal    = 0x0020;

@@ -673,6 +673,14 @@ IF(OSG_DOXY_INPUTS)
                 "@INCLUDE = ${OSG_DOXY_INPUTS}\n")
 ENDIF(OSG_DOXY_INPUTS)
 
+ADD_CUSTOM_TARGET(DocSyncGV 
+                  COMMAND rsync html -av --delete html rsync://tombstone.camtech.ntu.edu.sg/opensgdoc
+                  WORKING_DIRECTORY Doc)
+
+ADD_CUSTOM_TARGET(DocCompleteGV)
+ADD_DEPENDENCIES(DocCompleteGV Doc DocSyncGV)
+
+
 ###############
 # Passes
 ###############

@@ -11,16 +11,16 @@
    decoratable="false"
    useLocalIncludes="false"
    docGroupBase="GrpSystemState"
->
-See \ref PageSystemState for the conceptual background.
-	<Field
-		name="ignore"
-		type="bool"
-		cardinality="single"
-		visibility="external"
-		defaultValue="false"
-		access="public"
-	>
+   >
+  See \ref PageSystemState for the conceptual background.
+  <Field
+	 name="ignore"
+	 type="bool"
+	 cardinality="single"
+	 visibility="external"
+	 defaultValue="false"
+	 access="public"
+	 >
 	Enables / disables a chunk
-	</Field>
+  </Field>
 </FieldContainer>

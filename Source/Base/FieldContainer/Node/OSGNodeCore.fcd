@@ -1,29 +1,30 @@
 <?xml version="1.0" ?>
 
 <FieldContainer
-	name="NodeCore"
-	parent="AttachmentContainer"
-	library="Base"
-	structure="abstract"
-	pointerfieldtypes="both"
-        parentFields="both"
-        childFields="both"
-        childfieldparent="AttachmentContainer"
-	systemcomponent="true"
-	parentsystemcomponent="true"
-        isNodeCore="true"
->
-Abstract base type for all cores, which define the behavior (semantics) of
-the node(s) they belong to.
-    <Field
-        name="Parents"
-        category="parentpointer"
-        type="FieldContainer"
-        cardinality="multi"
-        access="none"
-        visibility="internal"
-    >
+   name="NodeCore"
+   parent="AttachmentContainer"
+   library="Base"
+   structure="abstract"
+   pointerfieldtypes="both"
+   parentFields="both"
+   childFields="both"
+   childfieldparent="AttachmentContainer"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="true"
+   >
+  Abstract base type for all cores, which define the behavior (semantics) of
+  the node(s) they belong to.
+
+  <Field
+     name="Parents"
+     category="parentpointer"
+     type="FieldContainer"
+     cardinality="multi"
+     access="none"
+     visibility="internal"
+     >
     Parents of this core. Cores can have more than one parent, i.e. in general
     they may be used in more than one place in the scenegraph.
-    </Field>
+  </Field>
 </FieldContainer>

@@ -1931,16 +1931,34 @@ OSG::Real128 osgceil(const OSG::Real128 rValue)
 #endif // OSG_1_COMPAT
 
 
+/*! \}                                                                 */
+/*---------------------------------------------------------------------*/
+/*! \name mod                                                          */
+/*! \{                                                                 */
+
+/*! \param[in] lValue 
+    \param[in] rValue 
+    \return lValue % rValue
+
+    \note This function forwards to an appropriate C++ or C library function,
+    hence exhibits the respective error behavior.
+ */
+
+/*! \ingroup GrpBaseBaseMathFn
+ */
 template <class FloatTypeT> inline
 typename TypeTraits<FloatTypeT>::RealReturnType
-osgMod(const FloatTypeT lValue, const FloatTypeT rValue)
+    osgMod(const FloatTypeT lValue, const FloatTypeT rValue)
 {
     typedef typename TypeTraits<FloatTypeT>::RealReturnType RealType;
 
     return  OSG::osgMod(RealType(lValue), RealType(rValue));
 }
 
-inline Real32 osgMod(const Real32 lValue, const Real32 rValue)
+/*! \ingroup GrpBaseBaseMathFn
+ */
+inline 
+OSG::Real32 osgMod(const OSG::Real32 lValue, const OSG::Real32 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::fmod(lValue, rValue);
@@ -1949,7 +1967,10 @@ inline Real32 osgMod(const Real32 lValue, const Real32 rValue)
 #endif
 }
 
-inline Real64 osgMod(const Real64 lValue, const Real64 rValue)
+/*! \ingroup GrpBaseBaseMathFn
+ */
+inline 
+OSG::Real64 osgMod(const OSG::Real64 lValue, const OSG::Real64 rValue)
 {
 #ifdef OSG_USE_STDMATH
     return std::fmod(lValue, rValue);
