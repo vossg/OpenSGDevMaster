@@ -25,12 +25,22 @@ SET(OSG_COMPONENTS OSGBase
                    OSGState
                    OSGSystem
                    OSGUtil
+                   OSGText
                    OSGWindow
                    OSGWindowGLUT)
 
 SET(DEP_INCLUDE_DIRS)
 SET(DEP_LIBRARY_DIRS)
 SET(DEP_LIBRARIES)
+
+#############
+#### GL
+
+FIND_PACKAGE(OpenGL REQUIRED)
+FIND_PACKAGE(GLU REQUIRED)
+LIST(APPEND DEP_INCLUDE_DIRS ${OPENGL_INCLUDE_DIR})
+LIST(APPEND DEP_LIBRARIES ${OPENGL_gl_LIBRARY})
+LIST(APPEND DEP_LIBRARIES ${OPENGL_glu_LIBRARY})
 
 #############
 #### GLUT
