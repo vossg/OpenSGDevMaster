@@ -7,18 +7,16 @@
 
 #include <OpenSG/OSGThreadManager.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr         scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr         scene;
 
 int setupGLUT(int *argc, char *argv[]);
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     // the scene must be created here
-    NodeRecPtr n = makeSphere(2,2);
-    return NodeTransitPtr(n);
+    OSG::NodeRecPtr n = OSG::makeSphere(2,2);
+    return OSG::NodeTransitPtr(n);
 }
 
 void printA(void *args)
@@ -35,28 +33,33 @@ void printB(void *args)
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin= GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin= OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         scene = createScenegraph();
     
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        Thread* threadOne = dynamic_cast<Thread *>(ThreadManager::the()->getThread("One"));
-        Thread* threadTwo = dynamic_cast<Thread *>(ThreadManager::the()->getThread("Two"));
+        OSG::Thread* threadOne = 
+            dynamic_cast<OSG::Thread *>(
+                OSG::ThreadManager::the()->getThread("One"));
+
+        OSG::Thread* threadTwo = 
+            dynamic_cast<OSG::Thread *>(
+                OSG::ThreadManager::the()->getThread("Two"));
         
         threadOne->runFunction(printA, 1, NULL);
         threadTwo->runFunction(printB, 1, NULL);
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();

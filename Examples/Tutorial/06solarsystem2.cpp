@@ -5,38 +5,36 @@
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGSimpleSceneManager.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
-TransformRecPtr     planetTransform;
-TransformRecPtr     moonTransform;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
+OSG::TransformRecPtr     planetTransform;
+OSG::TransformRecPtr     moonTransform;
 
 int setupGLUT(int *argc, char *argv[]);
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     //create sun, planet & moon geometry
 
-    GeometryRecPtr sun    = makeSphereGeo(3, 6);
-    NodeRecPtr     planet = makeSphere   (3, 3);
-    NodeRecPtr     moon   = makeSphere   (2, 1);
+    OSG::GeometryRecPtr sun    = OSG::makeSphereGeo(3, 6);
+    OSG::NodeRecPtr     planet = OSG::makeSphere   (3, 3);
+    OSG::NodeRecPtr     moon   = OSG::makeSphere   (2, 1);
     
     //the root node will be the sun
-    NodeRecPtr root = Node::create();
+    OSG::NodeRecPtr root = OSG::Node::create();
     root->setCore(sun);
     
-    NodeRecPtr planetTransformNode = Node::create();
-    NodeRecPtr moonTransformNode   = Node::create();
+    OSG::NodeRecPtr planetTransformNode = OSG::Node::create();
+    OSG::NodeRecPtr moonTransformNode   = OSG::Node::create();
 
     // these were declared globally
-    planetTransform = Transform::create();
-    moonTransform   = Transform::create();
+    planetTransform = OSG::Transform::create();
+    moonTransform   = OSG::Transform::create();
     
     // Now we need to fill it with live
     // We want to have the planet some distance away from the sun, 
     // but initial with no rotation. The same aplies to the moon
-    Matrix m,n;
+    OSG::Matrix m,n;
     m.setIdentity();
     n.setIdentity();
     
@@ -60,28 +58,28 @@ NodeTransitPtr createScenegraph(void)
     planet->addChild(moonTransformNode);
     
     //now we are done
-    return NodeTransitPtr(root);
+    return OSG::NodeTransitPtr(root);
 }
 
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         scene = createScenegraph();
     
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();
@@ -97,26 +95,28 @@ void reshape(int w, int h)
 
 void display(void)
 {
-    Real32 time = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Real32 time = glutGet(GLUT_ELAPSED_TIME );
     
     //create the Quaternion the describes the rotation of
     //the planet around the sun
-    Quaternion planetRot = Quaternion(Vec3f(0,1,0), time/float(1000));
+    OSG::Quaternion planetRot = OSG::Quaternion(OSG::Vec3f(0,1,0), 
+                                                time/float(1000));
     
     //now the rotation of the moon around the planet
     //the division by 12 speeds up the rotation by 12 compared to the
     //planet rotation
-    Quaternion moonRot = Quaternion(Vec3f(0,1,0), time/float(1000/12));
+    OSG::Quaternion moonRot = OSG::Quaternion(OSG::Vec3f(0,1,0), 
+                                              time/float(1000/12));
     
     //generate the Matrices
-    Matrix p,m,t,r;
+    OSG::Matrix p,m,t,r;
     
-    t.setTransform(Vec3f(20,0,0));
+    t.setTransform(OSG::Vec3f(20,0,0));
     r.setTransform(planetRot);
     r.mult(t);
     p.setValue(r);
     
-    t.setTransform(Vec3f(8,0,0));
+    t.setTransform(OSG::Vec3f(8,0,0));
     r.setTransform(moonRot);
     r.mult(t);
     m.setValue(r);

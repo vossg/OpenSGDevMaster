@@ -7,9 +7,7 @@
 
 #include <OpenSG/OSGThreadManager.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
+OSG::SimpleSceneManager *mgr;
 
 // we will store the transformation globally - this
 // is not necessary, but comfortable
@@ -17,30 +15,30 @@ SimpleSceneManager *mgr;
 // therefore you need to use MTRecPtr here, so that you get a pointer to the
 // correct aspect copy of the object.
 
-TransformMTRecPtr  trans;
-NodeMTRecPtr       scene;
-Thread            *animationThread;
-Thread            *applicationThread;
-Barrier           *syncBarrier;
+OSG::TransformMTRecPtr  trans;
+OSG::NodeMTRecPtr       scene;
+OSG::Thread            *animationThread;
+OSG::Thread            *applicationThread;
+OSG::Barrier           *syncBarrier;
 
 int setupGLUT(int *argc, char *argv[]);
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     // the scene must be created here
-    NodeRecPtr n = makeTorus(.5,2,16,16);
+    OSG::NodeRecPtr n = OSG::makeTorus(.5,2,16,16);
     
     //add a simple Transformation
-    trans = Transform::create();
-    Matrix m;
+    trans = OSG::Transform::create();
+    OSG::Matrix m;
     m.setIdentity();
     trans->setMatrix(m);
     
-    NodeRecPtr transNode = Node::create();
+    OSG::NodeRecPtr transNode = OSG::Node::create();
     transNode->setCore(trans);
     transNode->addChild(n);
     
-    return NodeTransitPtr(transNode);
+    return OSG::NodeTransitPtr(transNode);
 }
 
 //this function will run in a thread and simply will
@@ -56,10 +54,10 @@ void rotate(void *args)
     // we won't stop calculating new matrices....
     while(true)
     {
-        Real32 time = glutGet(GLUT_ELAPSED_TIME);
-        Matrix m;
+        OSG::Real32 time = glutGet(GLUT_ELAPSED_TIME);
+        OSG::Matrix m;
         m.setIdentity();
-        m.setRotate(Quaternion(Vec3f(0,1,0), time/1000));
+        m.setRotate(OSG::Quaternion(OSG::Vec3f(0,1,0), time/1000));
         
         trans->setMatrix(m);
         // nothing unusual until here
@@ -67,7 +65,7 @@ void rotate(void *args)
         // we are done with changing this aspect copy (for this iteration),
         // committing the changes makes sure they are being picked up when
         // the render thread syncronizes the next time.
-        commitChanges();
+        OSG::commitChanges();
         
         //well that's new...
         
@@ -82,11 +80,11 @@ void rotate(void *args)
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
         
@@ -96,18 +94,21 @@ int main(int argc, char **argv)
         //synchronize threads
         
         //instead of NULL you could provide a name
-        syncBarrier = Barrier::get(NULL);
+        syncBarrier = OSG::Barrier::get(NULL);
         
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
         // store a pointer to the application thread
-        applicationThread = dynamic_cast<Thread *>(ThreadManager::getAppThread());
+        applicationThread = 
+            dynamic_cast<OSG::Thread *>(OSG::ThreadManager::getAppThread());
         
         //create the thread that will run generation of new matrices
-        animationThread = dynamic_cast<Thread *>(ThreadManager::the()->getThread("anim"));
+        animationThread = 
+            dynamic_cast<OSG::Thread *>(
+                OSG::ThreadManager::the()->getThread("anim"));
         
         //do it...
         animationThread->runFunction(rotate, 1, NULL);
@@ -116,7 +117,7 @@ int main(int argc, char **argv)
         syncBarrier->enter(2);
         syncBarrier->enter(2);
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();

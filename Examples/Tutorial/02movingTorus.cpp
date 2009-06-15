@@ -9,14 +9,10 @@
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGSimpleSceneManager.h>
 
-// In most cases it is useful to add this line, else every OpenSG command
-// must be proceeded by an extra OSG::
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager is a little usefull class which helps us to 
 // manage little scenes. It will be discussed in detail later on
-SimpleSceneManager *mgr;
-TransformRecPtr     transCore;
+OSG::SimpleSceneManager *mgr;
+OSG::TransformRecPtr     transCore;
 
 // we have a forward declarion here, just to sort the code 
 int setupGLUT( int *argc, char *argv[] );
@@ -24,27 +20,27 @@ int setupGLUT( int *argc, char *argv[] );
 int main(int argc, char **argv)
 {
     // Init the OpenSG subsystem
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         // We create a GLUT Window (that is almost the same for most applications)
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin= GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin= OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
         
         // That will be our whole scene for now : an incredible Torus
         
-        NodeRecPtr scene;
+        OSG::NodeRecPtr scene;
         
         // create all that stuff we will need:
         //one geometry and one transform node
         
-        NodeRecPtr torus = makeTorus(.5, 2, 16, 16);
-        NodeRecPtr transNode = Node::create();
+        OSG::NodeRecPtr torus = OSG::makeTorus(.5, 2, 16, 16);
+        OSG::NodeRecPtr transNode = OSG::Node::create();
         
-        transCore = Transform::create();
-        Matrix m;
+        transCore = OSG::Transform::create();
+        OSG::Matrix m;
         
         // now provide some data...
         
@@ -64,12 +60,12 @@ int main(int argc, char **argv)
         scene = transNode; 
         
         // Create and setup our little friend - the SSM
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
 
     // Give Control to the GLUT Main Loop
@@ -89,13 +85,13 @@ void reshape(int w, int h)
 void display(void)
 {
     //--------------------------BEGIN_ADD
-    Matrix m;
+    OSG::Matrix m;
     
     // get the time since the apllication startet
-    Real32 time = glutGet(GLUT_ELAPSED_TIME );
+    OSG::Real32 time = glutGet(GLUT_ELAPSED_TIME );
     
     // set the rotation
-    m.setRotate(Quaternion(Vec3f(0,1,0), time/1000.f));
+    m.setRotate(OSG::Quaternion(OSG::Vec3f(0,1,0), time/1000.f));
     
     //apply the new matrix to our transform core
     transCore->setMatrix(m);

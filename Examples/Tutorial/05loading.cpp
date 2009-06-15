@@ -8,48 +8,46 @@
 //additional include files
 #include <OpenSG/OSGSceneFileHandler.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 int setupGLUT( int *argc, char *argv[] );
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     // the scene must be created here
     
-    NodeRecPtr n = SceneFileHandler::the()->read("Data/terrain.wrl");
+    OSG::NodeRecPtr n = OSG::SceneFileHandler::the()->read("Data/terrain.wrl");
     
     //we check the result
     if (n != NULL)
-        return NodeTransitPtr(n);
+        return OSG::NodeTransitPtr(n);
     else
     {
         std::cout << "Loading the specified file was not possible!"
                   << std::endl;
-        return NodeTransitPtr();
+        return OSG::NodeTransitPtr();
     }
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin= GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin= OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
         
         scene = createScenegraph();
         
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();
@@ -83,7 +81,7 @@ void keyboard(unsigned char k, int , int )
     switch(k)
     {
     case 's':
-        SceneFileHandler::the()->write(scene, "output.osb");
+        OSG::SceneFileHandler::the()->write(scene, "output.osb");
         
         std::cout << "File written!" << std::endl;
         break;

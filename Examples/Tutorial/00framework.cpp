@@ -6,33 +6,31 @@
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGSimpleSceneManager.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 int setupGLUT( int *argc, char *argv[] );
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     // the scene must be created here
     
-    return NodeTransitPtr();
+    return OSG::NodeTransitPtr();
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
         
         scene = createScenegraph();
         
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();

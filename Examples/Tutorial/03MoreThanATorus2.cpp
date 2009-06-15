@@ -9,51 +9,47 @@
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGSimpleSceneManager.h>
 
-// In most cases it is useful to add this line, else every OpenSG command
-// must be proceeded by an extra OSG::
-OSG_USING_NAMESPACE
-
 // The SimpleSceneManager is a little usefull class which helps us to 
 // manage little scenes. It will be discussed in detail later on
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 // we have a forward declarion here, just to sort the code 
 int setupGLUT( int *argc, char *argv[] );
 
 // This function will create our scenegraph
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     // we will use the variable to set our trandform matrices
-    Matrix m;
+    OSG::Matrix m;
     
     // First we will create all needed geometry
     // the body of the house
-    NodeRecPtr houseMain = makeBox(20,20,20,1,1,1);
+    OSG::NodeRecPtr houseMain = OSG::makeBox(20,20,20,1,1,1);
     
     // now the roof
-    NodeRecPtr roof = makeBox(14.14, 14.14, 20, 1, 1, 1);
+    OSG::NodeRecPtr roof = OSG::makeBox(14.14, 14.14, 20, 1, 1, 1);
     
     // we translate the roof to the correct position
-    TransformRecPtr tRoof = Transform::create();
+    OSG::TransformRecPtr tRoof = OSG::Transform::create();
     m.setIdentity();
     m.setTranslate(0,10,0);
-    m.setRotate(Quaternion(Vec3f(0,0,1), 3.14159/4));
+    m.setRotate(OSG::Quaternion(OSG::Vec3f(0,0,1), 3.14159/4));
     
     tRoof->setMatrix(m);
     
-    NodeRecPtr roofTrans = Node::create();
+    OSG::NodeRecPtr roofTrans = OSG::Node::create();
     roofTrans->setCore(tRoof);
     roofTrans->addChild(roof);
     
     // and the chimney - we have the top and sides generated
     // but we have no need for the bottom (it is inside the house)
-    NodeRecPtr chimney = makeCylinder(10,1,8,true,true,false);
+    OSG::NodeRecPtr chimney = OSG::makeCylinder(10,1,8,true,true,false);
     
     //now we translate the chimney
     
     //create the transform core
-    TransformRecPtr tChimney = Transform::create();
+    OSG::TransformRecPtr tChimney = OSG::Transform::create();
     m.setIdentity();
     // -5 along the x-axis and 2.5 along the z axis
     // translates the chimney away from the center
@@ -64,29 +60,29 @@ NodeTransitPtr createScenegraph(void)
     tChimney->setMatrix(m);
     
     //insert the transform core into the node
-    NodeRecPtr chimneyTrans  = Node::create();
+    OSG::NodeRecPtr chimneyTrans  = OSG::Node::create();
     chimneyTrans->setCore(tChimney);
     chimneyTrans->addChild(chimney);
 
     // Now we create the root node and attach the geometry nodes to it
-    NodeRecPtr n = Node::create();
-    n->setCore(Group::create());
+    OSG::NodeRecPtr n = OSG::Node::create();
+    n->setCore(OSG::Group::create());
     n->addChild(houseMain);
     n->addChild(roofTrans);
     n->addChild(chimneyTrans);
     
-    return NodeTransitPtr(n);
+    return OSG::NodeTransitPtr(n);
 }
 
 int main(int argc, char **argv)
 {
     // Init the OpenSG subsystem
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         // We create a GLUT Window (that is almost the same for most applications)
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
         
@@ -94,12 +90,12 @@ int main(int argc, char **argv)
         scene = createScenegraph();
         
         // Create and setup our little friend - the SSM
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     // Give Control to the GLUT Main Loop

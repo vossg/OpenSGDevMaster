@@ -8,22 +8,21 @@
 #include <OpenSG/OSGMultiDisplayWindow.h>
 #include <OpenSG/OSGSceneFileHandler.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 int setupGLUT(int *argc, char *argv[]);
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
 
     {
         int winid = setupGLUT(&argc, argv);
         
         //this time we'll have not a GLUTWindow here, but this one
-        MultiDisplayWindowRecPtr multiWindow = MultiDisplayWindow::create();
+        OSG::MultiDisplayWindowRecPtr multiWindow = 
+            OSG::MultiDisplayWindow::create();
         
         //set some necessary values
         // we connect via multicast
@@ -34,10 +33,10 @@ int main(int argc, char **argv)
         multiWindow->editMFServers()->push_back("Server2");	
         
         //any scene here
-        scene = makeTorus(.5, 2, 16, 16);
+        scene = OSG::makeTorus(.5, 2, 16, 16);
         
         // and the ssm as always
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         
         mgr->setWindow(multiWindow);
         mgr->setRoot  (scene);
@@ -45,7 +44,7 @@ int main(int argc, char **argv)
         
         multiWindow->init();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();

@@ -11,18 +11,16 @@
 #include <OpenSG/OSGSwitch.h>
 #include <OpenSG/OSGNameAttachment.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 int setupGLUT( int *argc, char *argv[] );
 
 // this function will return the node named "FACESET_Woman"
 // if there is no such node NullFC will be returned
-Node *checkName(Node *n)
+OSG::Node *checkName(OSG::Node *n)
 {
-    UInt32 children = n->getNChildren();
+    OSG::UInt32 children = n->getNChildren();
     
     //make sure a name existes
     if (getName(n))
@@ -36,7 +34,7 @@ Node *checkName(Node *n)
     //check all children
     for(int i = 0; i < children; i++)
     {
-        Node *r = checkName(n->getChild(i));
+        OSG::Node *r = checkName(n->getChild(i));
         if(r != NULL)
             // if it is not NULL it is the node we are looking for
             // so just pass it through
@@ -48,57 +46,62 @@ Node *checkName(Node *n)
     return NULL;
 }
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     // At first we load all needed models from file
-    NodeRecPtr w_high   = SceneFileHandler::the()->read("Data/woman_high.wrl");
-    NodeRecPtr w_medium = SceneFileHandler::the()->read("Data/woman_medium.wrl");
-    NodeRecPtr w_low    = SceneFileHandler::the()->read("Data/woman_low.wrl");
+    OSG::NodeRecPtr w_high   = 
+        OSG::SceneFileHandler::the()->read("Data/woman_high.wrl");
+
+    OSG::NodeRecPtr w_medium = 
+        OSG::SceneFileHandler::the()->read("Data/woman_medium.wrl");
+
+    OSG::NodeRecPtr w_low    = 
+        OSG::SceneFileHandler::the()->read("Data/woman_low.wrl");
     
     // we check the result
     if((w_high == NULL) || (w_medium == NULL)|| (w_low == NULL))
     {
         std::cout << "It was not possible to load all needed models from file"
                 << std::endl;
-        return NodeTransitPtr();
+        return OSG::NodeTransitPtr();
     }
     
     // now the LOD core
-    DistanceLODRecPtr lod = DistanceLOD::create();
-    lod->editSFCenter()->setValue(Pnt3f(0,0,0));
+    OSG::DistanceLODRecPtr lod = OSG::DistanceLOD::create();
+    lod->editSFCenter()->setValue(OSG::Pnt3f(0,0,0));
     lod->editMFRange()->push_back(200);
     lod->editMFRange()->push_back(500);
     
     // the node containing the LOD core. The three models will be
     // added as its children
-    NodeRecPtr lodNode = Node::create();
+    OSG::NodeRecPtr lodNode = OSG::Node::create();
     lodNode->setCore(lod);
     lodNode->addChild(w_high);
     lodNode->addChild(w_medium);
     lodNode->addChild(w_low);
     
     // create the node with switch core ********************
-    SwitchRecPtr sw = Switch::create();
+    OSG::SwitchRecPtr sw = OSG::Switch::create();
     //Notice: the first choice is 0
     sw->setChoice(0);
     
-    NodeRecPtr switchNode = Node::create();
+    OSG::NodeRecPtr switchNode = OSG::Node::create();
     switchNode->setCore(sw);
     switchNode->addChild(lodNode);
     
     //end switch creation **********************************
     
-    NodeRecPtr root = Node::create();
-    root->setCore(Group::create());
+    OSG::NodeRecPtr root = OSG::Node::create();
+    root->setCore(OSG::Group::create());
     root->addChild(switchNode);
     
     // we know want to extract the mesh geometry out of the graph
     // it is sufficent to pass the model only as root for searching
-    NodeRecPtr     womanGeometry = checkName(w_high);
-    GeometryRecPtr geo;
+    OSG::NodeRecPtr     womanGeometry = checkName(w_high);
+    OSG::GeometryRecPtr geo;
     if(womanGeometry !=NULL)
     {
-        geo = dynamic_cast<Geometry *>(womanGeometry->getCore());
+        geo = dynamic_cast<OSG::Geometry *>(womanGeometry->getCore());
         if (geo == NULL)
             std::cout << "Casting failed!" << std::endl;
     }
@@ -106,15 +109,15 @@ NodeTransitPtr createScenegraph(void)
     {
         std::cout << "No correct geometry node found!" << std::endl;
         //create a dummy object
-        geo = makeBoxGeo(0.5,0.5,0.5,1,1,1);
+        geo = OSG::makeBoxGeo(0.5,0.5,0.5,1,1,1);
     }
     
     // generating a material *********************************
     
-    SimpleMaterialRecPtr mat = SimpleMaterial::create();
-    mat->setAmbient(Color3f(0.2,0.2,0.2));
-    mat->setDiffuse(Color3f(0.6,0.3,0.1));
-    mat->setSpecular(Color3f(1,1,1));
+    OSG::SimpleMaterialRecPtr mat = OSG::SimpleMaterial::create();
+    mat->setAmbient(OSG::Color3f(0.2,0.2,0.2));
+    mat->setDiffuse(OSG::Color3f(0.6,0.3,0.1));
+    mat->setSpecular(OSG::Color3f(1,1,1));
     mat->setShininess(0.8);
     
     geo->setMaterial(mat);
@@ -122,16 +125,16 @@ NodeTransitPtr createScenegraph(void)
     // end material generation *******************************
     
     //new node with "old" geometry core referenced
-    NodeRecPtr woman = Node::create();
+    OSG::NodeRecPtr woman = OSG::Node::create();
     woman->setCore(geo);
     
     //translate it a bit to see both women
-    NodeRecPtr      womanTrans = Node::create();
-    TransformRecPtr t          = Transform::create();
+    OSG::NodeRecPtr      womanTrans = OSG::Node::create();
+    OSG::TransformRecPtr t          = OSG::Transform::create();
     
-    Matrix m;
+    OSG::Matrix m;
     m.setIdentity();
-    m.setTranslate(Vec3f(0,0,200));
+    m.setTranslate(OSG::Vec3f(0,0,200));
     t->setMatrix(m);
 
     womanTrans->setCore(t);
@@ -140,27 +143,27 @@ NodeTransitPtr createScenegraph(void)
     //add it to the root
     root->addChild(womanTrans);
     
-    return NodeTransitPtr(root);
+    return OSG::NodeTransitPtr(root);
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
         
         scene = createScenegraph();
         
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();

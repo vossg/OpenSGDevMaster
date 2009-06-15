@@ -9,51 +9,47 @@
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGSimpleSceneManager.h>
 
-//In most cases it is useful to add this line, else every OpenSG command
-//must be proceeded by an extra OSG::
-OSG_USING_NAMESPACE
-
 //The SimpleSceneManager is a little usefull class which helps us to 
 //manage little scenes. It will be discussed in detail later on
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 //we have a forward declarion here, just to sort the code 
 int setupGLUT( int *argc, char *argv[] );
 
 //This function will create our scenegraph
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     // First we will create all needed geometry
     // the body of the house
-    NodeRecPtr houseMain = makeBox(20,20,20,1,1,1);
+    OSG::NodeRecPtr houseMain = OSG::makeBox(20,20,20,1,1,1);
     
     // now the roof
-    NodeRecPtr roof = makeBox(14.14, 14.14, 20, 1, 1, 1);
+    OSG::NodeRecPtr roof = OSG::makeBox(14.14, 14.14, 20, 1, 1, 1);
     
     // and the chimney - we have the top and sides generated
     // but we have no need for the bottom (it is inside the house)
-    NodeRecPtr chimney = makeCylinder(10,1,8,true,true,false);
+    OSG::NodeRecPtr chimney = OSG::makeCylinder(10,1,8,true,true,false);
     
     // Now we create the root node and attach the geometry nodes to it
-    NodeRecPtr n = Node::create();
-    n->setCore(Group::create());
+    OSG::NodeRecPtr n = OSG::Node::create();
+    n->setCore(OSG::Group::create());
     n->addChild(houseMain);
     n->addChild(roof);
     n->addChild(chimney);
 
-    return NodeTransitPtr(n);
+    return OSG::NodeTransitPtr(n);
 }
 
 int main(int argc, char **argv)
 {
     // Init the OpenSG subsystem
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         // We create a GLUT Window (that is almost the same for most applications)
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
         
@@ -61,12 +57,12 @@ int main(int argc, char **argv)
         scene = createScenegraph();
         
         // Create and setup our little friend - the SSM
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
 
     // Give Control to the GLUT Main Loop

@@ -16,33 +16,31 @@
 #include <OpenSG/OSGImageForeground.h>
 #include <OpenSG/OSGFileGrabForeground.h>
 
-OSG_USING_NAMESPACE
+OSG::NodeRecPtr scene;
 
-NodeRecPtr scene;
+OSG::PerspectiveCameraRecPtr leftCamera;
+OSG::PerspectiveCameraRecPtr rightCamera;
 
-PerspectiveCameraRecPtr leftCamera;
-PerspectiveCameraRecPtr rightCamera;
+OSG::ViewportRecPtr leftViewport;
+OSG::ViewportRecPtr rightViewport;
 
-ViewportRecPtr leftViewport;
-ViewportRecPtr rightViewport;
+OSG::WindowRecPtr window;
 
-WindowRecPtr window;
+OSG::NodeRecPtr leftCamBeacon, rightCamBeacon, lightBeacon, lightNode;
 
-NodeRecPtr leftCamBeacon, rightCamBeacon, lightBeacon, lightNode;
-
-RenderAction *renderAction;
+OSG::RenderAction *renderAction;
 
 int setupGLUT(int *argc, char *argv[]);
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     //create geometry - just a simple torus
-    NodeRecPtr torus = makeTorus(1,5,8,16);
+    OSG::NodeRecPtr torus = OSG::makeTorus(1,5,8,16);
     
     //create transformations & beacons for cameras & light
-    leftCamBeacon = Node::create();
-    rightCamBeacon = Node::create();
-    lightBeacon = Node::create();
+    leftCamBeacon = OSG::Node::create();
+    rightCamBeacon = OSG::Node::create();
+    lightBeacon = OSG::Node::create();
     
     // the following style is a bit different than from before
     // this is only to remind you that beginEditCP()'s can also
@@ -50,16 +48,16 @@ NodeTransitPtr createScenegraph(void)
     
     
     //create Transformations
-    TransformRecPtr leftCamTrans, rightCamTrans, lightTrans;
+    OSG::TransformRecPtr leftCamTrans, rightCamTrans, lightTrans;
     
-    leftCamTrans  = Transform::create();
-    rightCamTrans = Transform::create();
-    lightTrans    = Transform::create();
+    leftCamTrans  = OSG::Transform::create();
+    rightCamTrans = OSG::Transform::create();
+    lightTrans    = OSG::Transform::create();
     
-    Matrix leftM, rightM, lightM;
-    leftM .setTransform(Vec3f(-5,  6, 10));
-    rightM.setTransform(Vec3f( 5, -6, 10));
-    lightM.setTransform(Vec3f( 1, 10,  2));
+    OSG::Matrix leftM, rightM, lightM;
+    leftM .setTransform(OSG::Vec3f(-5,  6, 10));
+    rightM.setTransform(OSG::Vec3f( 5, -6, 10));
+    lightM.setTransform(OSG::Vec3f( 1, 10,  2));
     
     leftCamTrans ->setMatrix(leftM );
     rightCamTrans->setMatrix(rightM);
@@ -71,39 +69,39 @@ NodeTransitPtr createScenegraph(void)
     // -- end of camera beacon creation
     
     //create the light source
-    DirectionalLightRecPtr dLight = DirectionalLight::create();
+    OSG::DirectionalLightRecPtr dLight = OSG::DirectionalLight::create();
     
-    dLight->setDirection(Vec3f(0,1,2));
+    dLight->setDirection(OSG::Vec3f(0,1,2));
     
     //color information
-    dLight->setDiffuse(Color4f(1,1,1,1));
-    dLight->setAmbient(Color4f(0.2,0.2,0.2,1));
-    dLight->setSpecular(Color4f(1,1,1,1));
+    dLight->setDiffuse(OSG::Color4f(1,1,1,1));
+    dLight->setAmbient(OSG::Color4f(0.2,0.2,0.2,1));
+    dLight->setSpecular(OSG::Color4f(1,1,1,1));
     
     //set the beacon
     dLight->setBeacon(lightBeacon);
     
     // create the node that will contain the light source
     
-    lightNode = Node::create();
+    lightNode = OSG::Node::create();
     lightNode->setCore(dLight);
     lightNode->addChild(torus);
     
     // now create the root and add all children
     
-    NodeRecPtr root = Node::create();
-    root->setCore(Group::create());
+    OSG::NodeRecPtr root = OSG::Node::create();
+    root->setCore(OSG::Group::create());
     root->addChild(lightNode);
     root->addChild(leftCamBeacon);
     root->addChild(rightCamBeacon);
     root->addChild(lightBeacon);
     
-    return NodeTransitPtr(root);
+    return OSG::NodeTransitPtr(root);
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
@@ -112,41 +110,45 @@ int main(int argc, char **argv)
     
         //we beginn with creating our cameras
         
-        leftCamera  = PerspectiveCamera::create();
-        rightCamera = PerspectiveCamera::create();
+        leftCamera  = OSG::PerspectiveCamera::create();
+        rightCamera = OSG::PerspectiveCamera::create();
         
         leftCamera->setBeacon(leftCamBeacon);
-        leftCamera->setFov(osgDegree2Rad(90));
+        leftCamera->setFov(OSG::osgDegree2Rad(90));
         leftCamera->setNear(0.1);
         leftCamera->setFar(100);
         
         rightCamera->setBeacon(rightCamBeacon);
-        rightCamera->setFov(osgDegree2Rad(90));
+        rightCamera->setFov(OSG::osgDegree2Rad(90));
         rightCamera->setNear(0.1);
         rightCamera->setFar(100);
         
         //next we create the backgrounds
         
-        GradientBackgroundRecPtr leftBkg = GradientBackground::create();
-        leftBkg->addLine(Color3f(0,0,0),0);
-        leftBkg->addLine(Color3f(1,1,1),1);
+        OSG::GradientBackgroundRecPtr leftBkg = 
+            OSG::GradientBackground::create();
+
+        leftBkg->addLine(OSG::Color3f(0,0,0),0);
+        leftBkg->addLine(OSG::Color3f(1,1,1),1);
         
         // load the image file
-        ImageRecPtr bkgImage = Image::create();
+        OSG::ImageRecPtr bkgImage = OSG::Image::create();
         bkgImage->read("Data/front.jpg");
         
         // make a texture from the image
-        TextureObjChunkRecPtr bkgTex = TextureObjChunk::create();
+        OSG::TextureObjChunkRecPtr bkgTex = OSG::TextureObjChunk::create();
         bkgTex->setImage(bkgImage);
         
-        TextureBackgroundRecPtr rightBkg = TextureBackground::create();
+        OSG::TextureBackgroundRecPtr rightBkg = 
+            OSG::TextureBackground::create();
+
         rightBkg->setTexture(bkgTex);
-        rightBkg->setColor(Color4f(0.8, 0.8, 0.8, 1.0));
+        rightBkg->setColor(OSG::Color4f(0.8, 0.8, 0.8, 1.0));
         
         //now the viewports
         
-        leftViewport  = Viewport::create();
-        rightViewport = Viewport::create();
+        leftViewport  = OSG::Viewport::create();
+        rightViewport = OSG::Viewport::create();
         
         leftViewport->setCamera(leftCamera);
         leftViewport->setBackground(leftBkg);
@@ -163,20 +165,22 @@ int main(int argc, char **argv)
         // add an logo foreground to the right viwport
         
         //load the logo image file
-        ImageRecPtr frgImage = Image::create();
+        OSG::ImageRecPtr frgImage = OSG::Image::create();
         frgImage->read("Data/logo.png");
         
-        ImageForegroundRecPtr imgFrg = ImageForeground::create();
+        OSG::ImageForegroundRecPtr imgFrg = OSG::ImageForeground::create();
         //NOTE: the position values are between 0 and 1
         //and are relative to the viewport!
-        imgFrg->addImage(frgImage, Pnt2f(0.1,0));
+        imgFrg->addImage(frgImage, OSG::Pnt2f(0.1,0));
         
         //add the created foreground by appending it to
         //the vieports foreground multifield
         rightViewport->editMFForegrounds()->push_back(imgFrg);
         
         //create the foreground for screenshot functionality
-        FileGrabForegroundRecPtr fileGrab = FileGrabForeground::create();
+        OSG::FileGrabForegroundRecPtr fileGrab = 
+            OSG::FileGrabForeground::create();
+
         fileGrab->setActive(false);
         fileGrab->setName("Data/screenshot%04d.jpg");
         
@@ -188,11 +192,11 @@ int main(int argc, char **argv)
         //have a look at the keyboard callback function
         
         //and the render action - more on that later
-        renderAction = RenderAction::create();
+        renderAction = OSG::RenderAction::create();
         
         //create the window now
         
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->setSize(300,300);
         window = gwin;
@@ -202,7 +206,7 @@ int main(int argc, char **argv)
         
         window->init();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();
@@ -218,7 +222,7 @@ void reshape(int w, int h)
 
 void display(void)
 {
-    commitChanges();
+    OSG::commitChanges();
     
     window->render(renderAction);
 }
@@ -253,7 +257,7 @@ void keyboard(unsigned char k, int x, int y){
         
         delete renderAction;
         
-        osgExit();
+        OSG::osgExit();
         exit(1);
     }
     break;
@@ -262,8 +266,11 @@ void keyboard(unsigned char k, int x, int y){
     {
         // The return value is actually a pointer to on osgPtr class
         // I don't know if that makes much sense at all...
-        const Viewport::MFForegroundsType *fgField = window->getPort(1)->getMFForegrounds();
-              FileGrabForegroundRecPtr     fg      = dynamic_cast<FileGrabForeground *>((*fgField)[1]);
+        const OSG::Viewport::MFForegroundsType *fgField = 
+            window->getPort(1)->getMFForegrounds();
+
+        OSG::FileGrabForegroundRecPtr     fg      = 
+            dynamic_cast<OSG::FileGrabForeground *>((*fgField)[1]);
         
         if (!fg->getActive())
         {

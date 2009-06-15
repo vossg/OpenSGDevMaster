@@ -13,10 +13,8 @@
 #include <OpenSG/OSGVerifyGeoGraphOp.h>
 #include <OpenSG/OSGSharePtrGraphOp.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 // A simple class that counts the number of entered nodes
 class counter
@@ -30,13 +28,13 @@ class counter
         
         //method that will be called when entering
         //a new node
-        Action::ResultE enter(Node * const)
+        OSG::Action::ResultE enter(OSG::Node * const)
         {
             mCount++;
-            return Action::Continue;
+            return OSG::Action::Continue;
         }
         
-        UInt16 getCount(void)
+        OSG::UInt16 getCount(void)
         {
             return mCount;
         }
@@ -47,14 +45,14 @@ class counter
         }
     
     private:
-        UInt16 mCount;
+        OSG::UInt16 mCount;
 };
 
 int setupGLUT(int *argc, char *argv[]);
 
 //This is the function that will be called when a node
 //is entered during traversal.
-Action::ResultE enter(Node * const node)
+OSG::Action::ResultE enter(OSG::Node * const node)
 {
     if (getName(node))
     {
@@ -65,16 +63,16 @@ Action::ResultE enter(Node * const node)
         std::cout << "No name was set!" << std::endl;
     }
 
-    return Action::Continue; 
+    return OSG::Action::Continue; 
 }
 
 //This function will test if the core is of type
 //geometry and if it is, it will print the node's
 //name
-Action::ResultE isGeometry(Node * const node)
+OSG::Action::ResultE isGeometry(OSG::Node * const node)
 {
     // this tests if the core is derived from geometry
-    if (node->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
+    if (node->getCore()->getType().isDerivedFrom(OSG::Geometry::getClassType()))
     {
         if (getName(node))
         {
@@ -88,46 +86,47 @@ Action::ResultE isGeometry(Node * const node)
         }
     }
     
-    return Action::Continue;
+    return OSG::Action::Continue;
 }
 
 
-NodeTransitPtr createScenegraph(char* filename)
+OSG::NodeTransitPtr createScenegraph(const char* filename)
 {
     //glPolygonMode( GL_FRONT_AND_BACK, GL_LINE);
     
     // define the Graph Op Sequence here
-    GraphOpSeq *graphOperator = new GraphOpSeq;
+    OSG::GraphOpSeq *graphOperator = new OSG::GraphOpSeq;
     
     //first we verify the geometry
-    graphOperator->addGraphOp(new VerifyGeoGraphOp);
+    graphOperator->addGraphOp(new OSG::VerifyGeoGraphOp);
     //merge identical field containers
-    graphOperator->addGraphOp(new SharePtrGraphOp);
+    graphOperator->addGraphOp(new OSG::SharePtrGraphOp);
     //verify again
-    graphOperator->addGraphOp(new VerifyGeoGraphOp);
+    graphOperator->addGraphOp(new OSG::VerifyGeoGraphOp);
     
     std::cout << "Loading " << filename << " now" << std::endl;
     
-    NodeRecPtr n = SceneFileHandler::the()->read(filename, graphOperator);
+    OSG::NodeRecPtr n = 
+        OSG::SceneFileHandler::the()->read(filename, graphOperator);
     
     //we check the result
     if(n == NULL)
     {
         std::cout << "Loading the specified file was not possible!"
                   << std::endl;
-        return NodeTransitPtr();
+        return OSG::NodeTransitPtr();
     }
     
-    return NodeTransitPtr(n);
+    return OSG::NodeTransitPtr(n);
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
@@ -136,12 +135,12 @@ int main(int argc, char **argv)
         else
             scene = createScenegraph("Data/brick_quads.wrl");
     
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();
@@ -186,7 +185,7 @@ void keyboard(unsigned char k, int x, int y)
         scene = NULL;
         delete mgr;
         
-        osgExit();
+        OSG::osgExit();
         exit(1);
     }
     break;
@@ -230,7 +229,7 @@ void keyboard(unsigned char k, int x, int y)
         std::cout << "Number of nodes before splitting: " << c.getCount()
                   << std::endl;
         
-        SplitGraphOpRefPtr spo = new SplitGraphOp;
+        OSG::SplitGraphOpRefPtr spo = new OSG::SplitGraphOp;
         spo->setMaxPolygons(50);
         spo->traverse(scene);
         

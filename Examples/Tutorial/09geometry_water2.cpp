@@ -9,34 +9,32 @@
 #include <OpenSG/OSGTypedGeoIntegralProperty.h>
 #include <OpenSG/OSGTypedGeoVectorProperty.h>
 
-OSG_USING_NAMESPACE
-
 // this will specify the resolution of the mesh
 #define N   100
 
 //the two dimensional array that will store all height values
-Real32 wMesh[N][N];
+OSG::Real32 wMesh[N][N];
 
 //the origin of the water mesh
-Pnt3f wOrigin = Pnt3f(0,0,0);
+OSG::Pnt3f wOrigin = OSG::Pnt3f(0,0,0);
 
 //width and length of the mesh
-UInt16 width = 100;
-UInt16 length = 100;
+OSG::UInt16 width = 100;
+OSG::UInt16 length = 100;
 
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 int setupGLUT( int *argc, char *argv[] );
 
-void updateMesh(Real32 time)
+void updateMesh(OSG::Real32 time)
 {
     for (int x = 0; x < N; x++)
         for (int z = 0; z < N; z++)
             wMesh[x][z] = 10*cos(time/1000.f + (x+z)/10.f);
 }
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
    // the scene must be created here
     for (int i = 0; i < N; i++)
@@ -44,7 +42,7 @@ NodeTransitPtr createScenegraph(void)
             wMesh[i][j] = 0;
     
     // the types of primitives that are used - an integerer propery
-    GeoUInt8PropertyRecPtr types = GeoUInt8Property::create();
+    OSG::GeoUInt8PropertyRecPtr types = OSG::GeoUInt8Property::create();
     
     // we want to use quads ONLY 
     types->addValue(GL_QUADS);
@@ -52,37 +50,37 @@ NodeTransitPtr createScenegraph(void)
     // the number of vertices (or indices) we want to use with the primitive
     // type; types and lengths always have the same number of elements
     // (here both have just one)
-    GeoUInt32PropertyRecPtr lengths = GeoUInt32Property::create();
+    OSG::GeoUInt32PropertyRecPtr lengths = OSG::GeoUInt32Property::create();
     // the length of our quads is four ;-)
     lengths->addValue(4 * (N - 1) * (N - 1));
 
     // GeoPnt3fProperty stores the positions of all vertices used in
     // this specific geometry core
-    GeoPnt3fPropertyRecPtr pos = GeoPnt3fProperty::create();
+    OSG::GeoPnt3fPropertyRecPtr pos = OSG::GeoPnt3fProperty::create();
     // here they all come
     for (int x = 0; x < N; x++)
         for (int z = 0; z < N; z++)
-            pos->addValue(Pnt3f(x, wMesh[x][z], z));
+            pos->addValue(OSG::Pnt3f(x, wMesh[x][z], z));
 
     // GeoColor3fProperty stores all color values that will be used
-    GeoColor3fPropertyRecPtr colors = GeoColor3fProperty::create();
+    OSG::GeoColor3fPropertyRecPtr colors = OSG::GeoColor3fProperty::create();
     for (int x = 0; x < N; x++)
         for (int z = 0; z < N; z++)
-            colors->addValue(Color3f(0,0,1));
+            colors->addValue(OSG::Color3f(0,0,1));
     
     // and finally the normals are stored in a GeoVec3fProperty
-    GeoVec3fPropertyRecPtr norms = GeoVec3fProperty::create();
+    OSG::GeoVec3fPropertyRecPtr norms = OSG::GeoVec3fProperty::create();
     for (int x = 0; x < N; x++)
         for (int z = 0; z < N; z++)
             // As initially all heights are set to zero thus yielding a plane,
             // we set all normals to (0,1,0) parallel to the y-axis
-            norms->addValue(Vec3f(0,1,0));
+            norms->addValue(OSG::Vec3f(0,1,0));
     
-    SimpleMaterialRecPtr mat = SimpleMaterial::create();
+    OSG::SimpleMaterialRecPtr mat = OSG::SimpleMaterial::create();
     
     // Indices define the order in which the entries in the above properties
     // are used
-    GeoUInt32PropertyRecPtr indices = GeoUInt32Property::create();
+    OSG::GeoUInt32PropertyRecPtr indices = OSG::GeoUInt32Property::create();
     for (int x = 0; x < N-1; x++)
     {
         for (int z = 0; z < N-1; z++)
@@ -96,7 +94,7 @@ NodeTransitPtr createScenegraph(void)
         }
     }
 
-    GeometryRecPtr geo = Geometry::create();
+    OSG::GeometryRecPtr geo = OSG::Geometry::create();
 
     geo->setTypes    (types  );
     geo->setLengths  (lengths);
@@ -106,33 +104,33 @@ NodeTransitPtr createScenegraph(void)
     geo->setMaterial (mat    );
     geo->setColors   (colors );
     
-    NodeRecPtr root = Node::create();
+    OSG::NodeRecPtr root = OSG::Node::create();
     root->setCore(geo);
 
-    return NodeTransitPtr(root);
+    return OSG::NodeTransitPtr(root);
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         scene =createScenegraph();
     
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        Navigator * nav = mgr->getNavigator();
-        nav->setFrom(nav->getFrom()+Vec3f(0,50,0));
+        OSG::Navigator * nav = mgr->getNavigator();
+        nav->setFrom(nav->getFrom()+OSG::Vec3f(0,50,0));
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();
@@ -148,23 +146,24 @@ void reshape(int w, int h)
 
 void display(void)
 {
-    Real32 time = glutGet(GLUT_ELAPSED_TIME);
+    OSG::Real32 time = glutGet(GLUT_ELAPSED_TIME);
     updateMesh(time);
     
     // we extract the core out of the root node
     // as we now this is a geometry node
-    GeometryRecPtr geo = dynamic_cast<Geometry *>(scene->getCore());
+    OSG::GeometryRecPtr geo = dynamic_cast<OSG::Geometry *>(scene->getCore());
     
     //now modify it's content
     
     // first we need a pointer to the position data field
-    GeoPnt3fPropertyRecPtr pos = dynamic_cast<GeoPnt3fProperty *>(geo->getPositions());
+    OSG::GeoPnt3fPropertyRecPtr pos = 
+        dynamic_cast<OSG::GeoPnt3fProperty *>(geo->getPositions());
     
     //this loop is similar to when we generted the data during createScenegraph()
     // here they all come
     for (int x = 0; x < N; x++)
         for (int z = 0; z < N; z++)
-            pos->setValue(Pnt3f(x, wMesh[x][z], z), N * x + z);
+            pos->setValue(OSG::Pnt3f(x, wMesh[x][z], z), N * x + z);
     
     mgr->redraw();
 }

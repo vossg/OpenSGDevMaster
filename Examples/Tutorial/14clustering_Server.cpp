@@ -4,11 +4,9 @@
 #include <OpenSG/OSGGLUTWindow.h>
 #include <OpenSG/OSGRenderAction.h>
 
-OSG_USING_NAMESPACE
-
-GLUTWindowRecPtr   window;
-RenderAction      *ract;
-ClusterServer     *server;
+OSG::GLUTWindowRecPtr   window;
+OSG::RenderAction      *ract;
+OSG::ClusterServer     *server;
 
 void display(void);
 void reshape(int width, int height);
@@ -28,7 +26,7 @@ int main(int argc,char **argv)
     }
     
     // init OpenSG
-    osgInit(argc, argv);
+    OSG::osgInit(argc, argv);
 
     winid = glutCreateWindow(argv[1]);
     glutDisplayFunc(display);
@@ -36,15 +34,15 @@ int main(int argc,char **argv)
     glutReshapeFunc(reshape);
     glutSetCursor(GLUT_CURSOR_NONE);
 
-    ract = RenderAction::create();
+    ract = OSG::RenderAction::create();
 
-    window = GLUTWindow::create();
+    window = OSG::GLUTWindow::create();
     window->setGlutId(winid);
     window->init();
 
     //create a new server that will be connected via multicast
     //argv[1] is the name of the server (at least it should be...)
-    server = new ClusterServer(window, argv[1], "Multicast", "");
+    server = new OSG::ClusterServer(window, argv[1], "Multicast", "");
     server->start();
 
     glutMainLoop();

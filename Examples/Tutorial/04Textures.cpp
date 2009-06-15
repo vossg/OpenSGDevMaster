@@ -9,56 +9,56 @@
 #include <OpenSG/OSGSimpleTexturedMaterial.h>
 #include <OpenSG/OSGImage.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 int setupGLUT( int *argc, char *argv[] );
 
-NodeRecPtr createScenegraph(void)
+OSG::NodeRecPtr createScenegraph(void)
 {
     // the scene must be created here
     
     //create the geometry which we will assign a texture to
-    GeometryRecPtr boxGeo = makeBoxGeo(10,10,10,1,1,1);
+    OSG::GeometryRecPtr boxGeo = OSG::makeBoxGeo(10,10,10,1,1,1);
     
     //Load the image we want to use as a texture
-    ImageRecPtr image = Image::create();
+    OSG::ImageRecPtr image = OSG::Image::create();
     image->read("Data/bricks.jpg");
     
     //now we create the texture that will hold the image
-    SimpleTexturedMaterialRecPtr tex = SimpleTexturedMaterial::create();
+    OSG::SimpleTexturedMaterialRecPtr tex = 
+        OSG::SimpleTexturedMaterial::create();
+
     tex->setImage(image);
     
     //now assign the fresh texture to the geometry
     boxGeo->setMaterial(tex);
     
     // Create the node that will hold our geometry
-    NodeRecPtr n = Node::create();
+    OSG::NodeRecPtr n = OSG::Node::create();
     n->setCore(boxGeo);
     
-    return NodeTransitPtr(n);
+    return OSG::NodeTransitPtr(n);
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         scene = createScenegraph();
         
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();

@@ -9,67 +9,70 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 #include <OpenSG/OSGDistanceLOD.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 int setupGLUT(int *argc, char *argv[]);
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     //At first we load all needed models from file
-    NodeRecPtr w_high   = SceneFileHandler::the()->read("Data/woman_high.wrl");
-    NodeRecPtr w_medium = SceneFileHandler::the()->read("Data/woman_medium.wrl");
-    NodeRecPtr w_low    = SceneFileHandler::the()->read("Data/woman_low.wrl");
+    OSG::NodeRecPtr w_high   = 
+        OSG::SceneFileHandler::the()->read("Data/woman_high.wrl");
+
+    OSG::NodeRecPtr w_medium = 
+        OSG::SceneFileHandler::the()->read("Data/woman_medium.wrl");
+
+    OSG::NodeRecPtr w_low    = OSG::
+        SceneFileHandler::the()->read("Data/woman_low.wrl");
     
     //we check the result
     if((w_high == NULL) || (w_medium == NULL)|| (w_low == NULL))
     {
         std::cout << "It was not possible to load all needed models from file"
                   << std::endl;
-        return NodeTransitPtr();
+        return OSG::NodeTransitPtr();
     }
     
     //now the LOD core
-    DistanceLODRecPtr lod = DistanceLOD::create();
-    lod->editSFCenter()->setValue(Pnt3f(0,0,0));
+    OSG::DistanceLODRecPtr lod = OSG::DistanceLOD::create();
+    lod->editSFCenter()->setValue(OSG::Pnt3f(0,0,0));
     lod->editMFRange()->push_back(200);
     lod->editMFRange()->push_back(500);
     
     //the node containing the LOD core. The three models will be
     //added as its children
-    NodeRecPtr lodNode = Node::create();
+    OSG::NodeRecPtr lodNode = OSG::Node::create();
     lodNode->setCore(lod);
     lodNode->addChild(w_high);
     lodNode->addChild(w_medium);
     lodNode->addChild(w_low);
     
-    NodeRecPtr root = Node::create();
-    root->setCore (Group::create());
+    OSG::NodeRecPtr root = OSG::Node::create();
+    root->setCore (OSG::Group::create());
     root->addChild(lodNode);
     
-    return NodeTransitPtr(root);
+    return OSG::NodeTransitPtr(root);
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
         
         scene = createScenegraph();
         
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();

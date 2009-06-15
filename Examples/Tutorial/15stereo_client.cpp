@@ -16,50 +16,48 @@
 #include <OpenSG/OSGShearedStereoCameraDecorator.h>
 #include <OpenSG/OSGMultiDisplayWindow.h>
 
-OSG_USING_NAMESPACE
-
-NodeRecPtr scene;
+OSG::NodeRecPtr scene;
 
 // one camera will be used only  - the
 // decorators will distinguish of left and right
 // eye position
-PerspectiveCameraRecPtr camera;
+OSG::PerspectiveCameraRecPtr camera;
 
 // we need two viewports - one for the left
 // and one for the right eye
-ViewportRecPtr leftViewport;
-ViewportRecPtr rightViewport;
+OSG::ViewportRecPtr leftViewport;
+OSG::ViewportRecPtr rightViewport;
 
-MultiDisplayWindowRecPtr multiWindow;
+OSG::MultiDisplayWindowRecPtr multiWindow;
 
-NodeRecPtr camBeacon, lightBeacon, lightNode;
+OSG::NodeRecPtr camBeacon, lightBeacon, lightNode;
 
-RenderAction *renderAction;
+OSG::RenderAction *renderAction;
 
 int setupGLUT( int *argc, char *argv[] );
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     //create geometry - just a simple torus
-    NodeRecPtr torus = makeTorus(1,5,8,16);
+    OSG::NodeRecPtr torus = OSG::makeTorus(1,5,8,16);
     
     //create transformations & beacons for cameras & light
-    camBeacon   = Node::create();
-    lightBeacon = Node::create();
+    camBeacon   = OSG::Node::create();
+    lightBeacon = OSG::Node::create();
     
     // the following style is a bit different than from before
     // this is only to remind you that beginEditCP()'s can also
     // be interleaved
         
     //create Transformations
-    TransformRecPtr camTrans, lightTrans;
+    OSG::TransformRecPtr camTrans, lightTrans;
     
-    camTrans   = Transform::create();
-    lightTrans = Transform::create();
+    camTrans   = OSG::Transform::create();
+    lightTrans = OSG::Transform::create();
     
-    Matrix camM, lightM;
-    camM  .setTransform(Vec3f(0,  1, 10));
-    lightM.setTransform(Vec3f(1, 10,  2));
+    OSG::Matrix camM, lightM;
+    camM  .setTransform(OSG::Vec3f(0,  1, 10));
+    lightM.setTransform(OSG::Vec3f(1, 10,  2));
     
     camTrans  ->setMatrix(camM  );
     lightTrans->setMatrix(lightM);
@@ -69,44 +67,44 @@ NodeTransitPtr createScenegraph(void)
     // -- end of camera beacon creation
     
     //create the light source
-    DirectionalLightRecPtr dLight = DirectionalLight::create();
+    OSG::DirectionalLightRecPtr dLight = OSG::DirectionalLight::create();
     
-    dLight->setDirection(Vec3f(0,1,2));
+    dLight->setDirection(OSG::Vec3f(0,1,2));
     
     //color information
-    dLight->setDiffuse (Color4f(1,   1,   1,   1));
-    dLight->setAmbient (Color4f(0.2, 0.2, 0.2, 1));
-    dLight->setSpecular(Color4f(1,   1,   1,   1));
+    dLight->setDiffuse (OSG::Color4f(1,   1,   1,   1));
+    dLight->setAmbient (OSG::Color4f(0.2, 0.2, 0.2, 1));
+    dLight->setSpecular(OSG::Color4f(1,   1,   1,   1));
     
     //set the beacon
     dLight->setBeacon(lightBeacon);
     
     // create the node that will contain the light source
     
-    lightNode = Node::create();
+    lightNode = OSG::Node::create();
     lightNode->setCore(dLight);
     lightNode->addChild(torus);
     
     // now create the root and add all children
     
-    NodeRecPtr root = Node::create();
-    root->setCore (GroupRecPtr(Group::create()));
+    OSG::NodeRecPtr root = OSG::Node::create();
+    root->setCore (OSG::GroupRecPtr(OSG::Group::create()));
     root->addChild(lightNode);
     root->addChild(camBeacon);
     root->addChild(lightBeacon);
     
-    return NodeTransitPtr(root);
+    return OSG::NodeTransitPtr(root);
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     int winid = setupGLUT(&argc, argv);
     
     {
         //create the main window for navigation
-        GLUTWindowRecPtr navWindow = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr navWindow = OSG::GLUTWindow::create();
         navWindow->setGlutId(winid);
         navWindow->setSize(300,300);
         navWindow->init();
@@ -114,23 +112,24 @@ int main(int argc, char **argv)
         scene = createScenegraph();
         
         //we beginn with creating our cameras
-        camera = PerspectiveCamera::create();
+        camera = OSG::PerspectiveCamera::create();
         
         camera->setBeacon(camBeacon);
-        camera->setFov(osgDegree2Rad(90));
+        camera->setFov(OSG::osgDegree2Rad(90));
         camera->setNear(0.1);
         camera->setFar(100);
         
         //next we create the backgrounds
         
-        SolidBackgroundRecPtr bkg = SolidBackground::create();
-        bkg->setColor(Color3f(0,0,0));
+        OSG::SolidBackgroundRecPtr bkg = OSG::SolidBackground::create();
+        bkg->setColor(OSG::Color3f(0,0,0));
         
-        leftViewport  = Viewport::create();
-        rightViewport = Viewport::create();
+        leftViewport  = OSG::Viewport::create();
+        rightViewport = OSG::Viewport::create();
         
         //the decorator decarates the camera and will create the left eye
-        ShearedStereoCameraDecoratorRecPtr cameraDecorator = ShearedStereoCameraDecorator::create();
+        OSG::ShearedStereoCameraDecoratorRecPtr cameraDecorator = 
+            OSG::ShearedStereoCameraDecorator::create();
         cameraDecorator->setLeftEye(true);
         //unit length assume that one unit equals one meter
         cameraDecorator->setEyeSeparation(0.06);
@@ -155,7 +154,7 @@ int main(int argc, char **argv)
         rightViewport->setRoot      (scene);
         rightViewport->setSize      (.5,0,1,1);
         
-        multiWindow = MultiDisplayWindow::create();
+        multiWindow = OSG::MultiDisplayWindow::create();
         
         multiWindow->setClientWindow(navWindow);
         multiWindow->setConnectionType("Multicast");
@@ -170,7 +169,7 @@ int main(int argc, char **argv)
         // add an logo foreground to the right viwport
         
         //and the render action - more on that later
-        renderAction = RenderAction::create();
+        renderAction = OSG::RenderAction::create();
         
         std::cout << "create scenegraph..." << std::endl;
     }
@@ -226,7 +225,7 @@ void keyboard(unsigned char k, int x, int y){
         
         delete renderAction;
         
-        osgExit();
+        OSG::osgExit();
         exit(1);
     }
     break;

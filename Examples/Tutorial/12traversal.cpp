@@ -8,16 +8,14 @@
 #include <OpenSG/OSGSceneFileHandler.h>
 #include <OpenSG/OSGNameAttachment.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 int setupGLUT(int *argc, char *argv[]);
 
 //This is the function that will be called when a node
 //is entered during traversal.
-Action::ResultE enter(Node * const node)
+OSG::Action::ResultE enter(OSG::Node * const node)
 {
     if (getName(node))
     {
@@ -28,16 +26,16 @@ Action::ResultE enter(Node * const node)
         std::cout << "No name was set!" << std::endl;
     }
     
-    return Action::Continue; 
+    return OSG::Action::Continue; 
 }
 
 //This function will test if the core is of type
 //geometry and if it is, it will print the node's
 //name
-Action::ResultE isGeometry(Node * const node)
+OSG::Action::ResultE isGeometry(OSG::Node * const node)
 {
     // this tests if the core is derived from geometry
-    if (node->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
+    if (node->getCore()->getType().isDerivedFrom(OSG::Geometry::getClassType()))
     {
         if (getName(node))
         {
@@ -51,44 +49,45 @@ Action::ResultE isGeometry(Node * const node)
         }
     }
     
-    return Action::Continue;
+    return OSG::Action::Continue;
 }
 
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
     // the scene must be created here
-    NodeRecPtr n = SceneFileHandler::the()->read("Data/torus_sphere_cone.wrl");
+    OSG::NodeRecPtr n = 
+        OSG::SceneFileHandler::the()->read("Data/torus_sphere_cone.wrl");
     
     //we check the result
     if(n == NULL)
     {
         std::cout << "Loading the specified file was not possible!" 
                   << std::endl;
-        return NodeTransitPtr();
+        return OSG::NodeTransitPtr();
     }
     
-    return NodeTransitPtr(n);
+    return OSG::NodeTransitPtr(n);
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
     
         scene = createScenegraph();
     
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();
@@ -132,7 +131,7 @@ void keyboard(unsigned char k, int x, int y){
         scene = NULL;
         delete mgr;
         
-        osgExit();
+        OSG::osgExit();
         exit(1);
     }
     break;

@@ -6,55 +6,53 @@
 #include <OpenSG/OSGSimpleSceneManager.h>
 #include <OpenSG/OSGMaterialGroup.h>
 
-OSG_USING_NAMESPACE
-
-SimpleSceneManager *mgr;
-NodeRecPtr          scene;
+OSG::SimpleSceneManager *mgr;
+OSG::NodeRecPtr          scene;
 
 int setupGLUT(int *argc, char *argv[]);
 
-NodeTransitPtr createScenegraph(void)
+OSG::NodeTransitPtr createScenegraph(void)
 {
-    SimpleMaterialRecPtr simpleMaterial = SimpleMaterial::create();
-    simpleMaterial->setDiffuse(Color3f(1,0,0));
-    simpleMaterial->setAmbient(Color3f(0.2, 0.2, 0.2));
+    OSG::SimpleMaterialRecPtr simpleMaterial = OSG::SimpleMaterial::create();
+    simpleMaterial->setDiffuse(OSG::Color3f(1,0,0));
+    simpleMaterial->setAmbient(OSG::Color3f(0.2, 0.2, 0.2));
     simpleMaterial->setTransparency(0.5);
     
-    NodeRecPtr simpleMaterialNode = Node::create();
-    NodeRecPtr sphere = makeSphere(2,6);
+    OSG::NodeRecPtr simpleMaterialNode = OSG::Node::create();
+    OSG::NodeRecPtr sphere = OSG::makeSphere(2,6);
     
-    MaterialGroupRecPtr mg = MaterialGroup::create();
+    OSG::MaterialGroupRecPtr mg = OSG::MaterialGroup::create();
     mg->setMaterial(simpleMaterial);
     
     simpleMaterialNode->setCore(mg);
     simpleMaterialNode->addChild(sphere);
     
-    NodeRecPtr root = Node::create();
+    OSG::NodeRecPtr root = OSG::Node::create();
     
-    root->setCore(Group::create());
+    root->setCore(OSG::Group::create());
     root->addChild(simpleMaterialNode);
     
-    return NodeTransitPtr(root);
+    return OSG::NodeTransitPtr(root);
 }
 
 int main(int argc, char **argv)
 {
-    osgInit(argc,argv);
+    OSG::osgInit(argc,argv);
     
     {
         int winid = setupGLUT(&argc, argv);
-        GLUTWindowRecPtr gwin = GLUTWindow::create();
+        OSG::GLUTWindowRecPtr gwin = OSG::GLUTWindow::create();
         gwin->setGlutId(winid);
         gwin->init();
         
         scene = createScenegraph();
         
-        mgr = new SimpleSceneManager;
+        mgr = new OSG::SimpleSceneManager;
         mgr->setWindow(gwin );
         mgr->setRoot  (scene);
         mgr->showAll();
         
-        commitChanges();
+        OSG::commitChanges();
     }
     
     glutMainLoop();
