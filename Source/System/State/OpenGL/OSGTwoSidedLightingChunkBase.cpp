@@ -79,9 +79,23 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TwoSidedLightingChunk *>::_type("TwoSidedLightingChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TwoSidedLightingChunk *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TwoSidedLightingChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -343,11 +357,5 @@ void TwoSidedLightingChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TwoSidedLightingChunk *>::_type("TwoSidedLightingChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TwoSidedLightingChunk *)
 
 OSG_END_NAMESPACE

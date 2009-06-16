@@ -80,13 +80,44 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var CSMClusterWindow * CSMClusterWinOptionsBase::_sfParent
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CSMClusterWinOptions *>::_type("CSMClusterWinOptionsPtr", "FieldContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CSMClusterWinOptions *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMClusterWinOptions *,
+                           0);
+
+
+DataType &FieldTraits< CSMClusterWinOptions *, 1 >::getType(void)
+{
+    return FieldTraits<CSMClusterWinOptions *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      CSMClusterWinOptions *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CSMClusterWinOptionsBase::classDescInserter(TypeObject &oType)
 {
@@ -133,7 +164,6 @@ CSMClusterWinOptionsBase::TypeObject CSMClusterWinOptionsBase::_type(
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
-    "    childfieldparent=\"CSMClusterWindow\"\n"
     "    childFields=\"single\"\n"
     ">\n"
     "\t<Field\n"
@@ -457,29 +487,6 @@ void CSMClusterWinOptionsBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMClusterWinOptions *>::_type("CSMClusterWinOptionsPtr", "FieldContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CSMClusterWinOptions *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CSMClusterWinOptions *,
-                           0);
-
-
-DataType &FieldTraits< CSMClusterWinOptions *, 1 >::getType(void)
-{
-    return FieldTraits<CSMClusterWinOptions *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      CSMClusterWinOptions *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

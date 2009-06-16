@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FrameBufferObject * ShadowMapEngineBase::_sfRenderTarget
@@ -107,6 +107,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShadowMapEngine *>::_type("ShadowMapEnginePtr", "LightEnginePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShadowMapEngine *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShadowMapEngine *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShadowMapEngine *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 {
@@ -697,19 +719,5 @@ void ShadowMapEngineBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShadowMapEngine *>::_type("ShadowMapEnginePtr", "LightEnginePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShadowMapEngine *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShadowMapEngine *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShadowMapEngine *,
-                           0);
 
 OSG_END_NAMESPACE

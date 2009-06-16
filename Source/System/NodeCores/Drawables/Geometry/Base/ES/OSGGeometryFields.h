@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class Geometry;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! GeometryPtr
-
 OSG_GEN_CONTAINERPTR(Geometry);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpDrawableFieldTraits
+    \ingroup GrpLibOSGDrawable
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<Geometry *> :
     public FieldTraitsFCPtrBase<Geometry *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<Geometry *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdGeometryPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<GeometryPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<Geometry *,
                       RecordedRefCountPolicy  > SFRecGeometryPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<Geometry *,
                       UnrecordedRefCountPolicy> SFUnrecGeometryPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<Geometry *,
                       WeakRefCountPolicy      > SFWeakGeometryPtr;
+/*! \ingroup GrpDrawableFieldSFields */
 typedef PointerSField<Geometry *,
                       NoRefCountPolicy        > SFUncountedGeometryPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpDrawableFieldMulti */
-
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<Geometry *,
                       RecordedRefCountPolicy  > MFRecGeometryPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<Geometry *,
                       UnrecordedRefCountPolicy> MFUnrecGeometryPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<Geometry *,
                       WeakRefCountPolicy      > MFWeakGeometryPtr;
+/*! \ingroup GrpDrawableFieldMFields */
 typedef PointerMField<Geometry *,
                       NoRefCountPolicy        > MFUncountedGeometryPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFRecGeometryPtr : 
+    public PointerSField<Geometry *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUnrecGeometryPtr : 
+    public PointerSField<Geometry *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFWeakGeometryPtr :
+    public PointerSField<Geometry *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+struct SFUncountedGeometryPtr :
+    public PointerSField<Geometry *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFRecGeometryPtr :
+    public PointerMField<Geometry *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUnrecGeometryPtr :
+    public PointerMField<Geometry *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFWeakGeometryPtr :
+    public PointerMField<Geometry *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+struct MFUncountedGeometryPtr :
+    public PointerMField<Geometry *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

@@ -83,13 +83,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var ChunkBlock *    ChunkOverrideGroupBase::_sfFallbackChunkBlock
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ChunkOverrideGroup *>::_type("ChunkOverrideGroupPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroup *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ChunkOverrideGroup *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ChunkOverrideGroup *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ChunkOverrideGroupBase::classDescInserter(TypeObject &oType)
 {
@@ -449,19 +471,5 @@ void ChunkOverrideGroupBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkOverrideGroup *>::_type("ChunkOverrideGroupPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ChunkOverrideGroup *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ChunkOverrideGroup *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ChunkOverrideGroup *,
-                           0);
 
 OSG_END_NAMESPACE

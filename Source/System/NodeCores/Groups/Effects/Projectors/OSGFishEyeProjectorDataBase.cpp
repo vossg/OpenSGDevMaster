@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FrameBufferObject * FishEyeProjectorDataBase::_sfRenderTarget
@@ -106,6 +106,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<FishEyeProjectorData *>::_type("FishEyeProjectorDataPtr", "StageDataPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(FishEyeProjectorData *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void FishEyeProjectorDataBase::classDescInserter(TypeObject &oType)
 {
@@ -841,11 +855,5 @@ void FishEyeProjectorDataBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FishEyeProjectorData *>::_type("FishEyeProjectorDataPtr", "StageDataPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(FishEyeProjectorData *)
 
 OSG_END_NAMESPACE

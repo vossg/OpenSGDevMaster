@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color3f         GradientBackgroundBase::_mfColor
@@ -102,6 +102,25 @@ OSG_BEGIN_NAMESPACE
     Gradient style. Allowed values are VERTICAL and HORIZONTAL.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GradientBackground *>::_type("GradientBackgroundPtr", "TileableBackgroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GradientBackground *)
+
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GradientBackground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GradientBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -680,16 +699,5 @@ void GradientBackgroundBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GradientBackground *>::_type("GradientBackgroundPtr", "TileableBackgroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GradientBackground *)
-
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           GradientBackground *,
-                           0);
 
 OSG_END_NAMESPACE

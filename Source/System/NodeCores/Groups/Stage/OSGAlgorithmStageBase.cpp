@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Algorithm *     AlgorithmStageBase::_sfAlgorithm
@@ -99,6 +99,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<AlgorithmStage *>::_type("AlgorithmStagePtr", "StagePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(AlgorithmStage *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void AlgorithmStageBase::classDescInserter(TypeObject &oType)
 {
@@ -671,11 +685,5 @@ void AlgorithmStageBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AlgorithmStage *>::_type("AlgorithmStagePtr", "StagePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(AlgorithmStage *)
 
 OSG_END_NAMESPACE

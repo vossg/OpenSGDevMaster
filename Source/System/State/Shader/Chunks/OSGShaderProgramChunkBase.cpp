@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var ShaderProgram * ShaderProgramChunkBase::_mfVertexShader
@@ -111,6 +111,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderProgramChunk *>::_type("ShaderProgramChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderProgramChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderProgramChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderProgramChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderProgramChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1075,19 +1097,5 @@ void ShaderProgramChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderProgramChunk *>::_type("ShaderProgramChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderProgramChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderProgramChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderProgramChunk *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          ColorDisplayFilterBase::_sfGamma
@@ -116,6 +116,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ColorDisplayFilter *>::_type("ColorDisplayFilterPtr", "DisplayFilterPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ColorDisplayFilter *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ColorDisplayFilter *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ColorDisplayFilter *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ColorDisplayFilterBase::classDescInserter(TypeObject &oType)
 {
@@ -999,19 +1021,5 @@ void ColorDisplayFilterBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorDisplayFilter *>::_type("ColorDisplayFilterPtr", "DisplayFilterPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ColorDisplayFilter *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ColorDisplayFilter *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ColorDisplayFilter *,
-                           0);
 
 OSG_END_NAMESPACE

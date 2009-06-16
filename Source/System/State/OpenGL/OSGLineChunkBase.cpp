@@ -89,7 +89,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          LineChunkBase::_sfWidth
@@ -109,6 +109,28 @@ OSG_BEGIN_NAMESPACE
     Defines if line antialiasing is used.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<LineChunk *>::_type("LineChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(LineChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           LineChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           LineChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void LineChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -688,19 +710,5 @@ void LineChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LineChunk *>::_type("LineChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(LineChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           LineChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           LineChunk *,
-                           0);
 
 OSG_END_NAMESPACE

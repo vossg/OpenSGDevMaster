@@ -87,7 +87,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          TileCameraDecoratorBase::_sfLeft
@@ -114,6 +114,28 @@ OSG_BEGIN_NAMESPACE
     The height of the full image this is a tile of.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TileCameraDecorator *>::_type("TileCameraDecoratorPtr", "CameraDecoratorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TileCameraDecorator *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TileCameraDecorator *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TileCameraDecorator *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TileCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -836,19 +858,5 @@ void TileCameraDecoratorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TileCameraDecorator *>::_type("TileCameraDecoratorPtr", "CameraDecoratorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TileCameraDecorator *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TileCameraDecorator *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           TileCameraDecorator *,
-                           0);
 
 OSG_END_NAMESPACE

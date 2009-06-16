@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color4f         LightModelChunkBase::_sfAmbient
@@ -95,6 +95,28 @@ OSG_BEGIN_NAMESPACE
     GL_LIGHT_MODEL_LOCAL_VIEWER is activated by this bool.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<LightModelChunk *>::_type("LightModelChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(LightModelChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           LightModelChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           LightModelChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void LightModelChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -582,19 +604,5 @@ void LightModelChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightModelChunk *>::_type("LightModelChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(LightModelChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           LightModelChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           LightModelChunk *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var MaterialMapKey  RenderOptionsBase::_sfRenderProperties
@@ -203,6 +203,28 @@ OSG_BEGIN_NAMESPACE
     defindes the filter-method for multi-sample buffer, must be GL_FALSE/0 (off), GL_DONT_CARE, GL_FASTEST or GL_NICEST
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<RenderOptions *>::_type("RenderOptionsPtr", "AttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(RenderOptions *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           RenderOptions *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           RenderOptions *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void RenderOptionsBase::classDescInserter(TypeObject &oType)
 {
@@ -2659,19 +2681,5 @@ void RenderOptionsBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RenderOptions *>::_type("RenderOptionsPtr", "AttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(RenderOptions *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           RenderOptions *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           RenderOptions *,
-                           0);
 
 OSG_END_NAMESPACE

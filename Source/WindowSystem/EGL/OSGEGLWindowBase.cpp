@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var EGLDisplay      EGLWindowBase::_sfDisplay
@@ -94,6 +94,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<EGLWindow *>::_type("EGLWindowPtr", "WindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(EGLWindow *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           EGLWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           EGLWindow *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void EGLWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -146,7 +168,7 @@ EGLWindowBase::TypeObject EGLWindowBase::_type(
     reinterpret_cast<PrototypeCreateF>(&EGLWindowBase::createEmptyLocal),
     EGLWindow::initMethod,
     EGLWindow::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&EGLWindowBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&EGLWindow::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -468,7 +490,8 @@ GetFieldHandlePtr EGLWindowBase::getHandleDisplay         (void) const
     SFEGLDisplay::GetHandlePtr returnValue(
         new  SFEGLDisplay::GetHandle(
              &_sfDisplay,
-             this->getType().getFieldDesc(DisplayFieldId)));
+             this->getType().getFieldDesc(DisplayFieldId),
+             const_cast<EGLWindowBase *>(this)));
 
     return returnValue;
 }
@@ -478,7 +501,8 @@ EditFieldHandlePtr EGLWindowBase::editHandleDisplay        (void)
     SFEGLDisplay::EditHandlePtr returnValue(
         new  SFEGLDisplay::EditHandle(
              &_sfDisplay,
-             this->getType().getFieldDesc(DisplayFieldId)));
+             this->getType().getFieldDesc(DisplayFieldId),
+             this));
 
 
     editSField(DisplayFieldMask);
@@ -491,7 +515,8 @@ GetFieldHandlePtr EGLWindowBase::getHandleWindow          (void) const
     SFEGLSurface::GetHandlePtr returnValue(
         new  SFEGLSurface::GetHandle(
              &_sfWindow,
-             this->getType().getFieldDesc(WindowFieldId)));
+             this->getType().getFieldDesc(WindowFieldId),
+             const_cast<EGLWindowBase *>(this)));
 
     return returnValue;
 }
@@ -501,7 +526,8 @@ EditFieldHandlePtr EGLWindowBase::editHandleWindow         (void)
     SFEGLSurface::EditHandlePtr returnValue(
         new  SFEGLSurface::EditHandle(
              &_sfWindow,
-             this->getType().getFieldDesc(WindowFieldId)));
+             this->getType().getFieldDesc(WindowFieldId),
+             this));
 
 
     editSField(WindowFieldMask);
@@ -514,7 +540,8 @@ GetFieldHandlePtr EGLWindowBase::getHandleContext         (void) const
     SFEGLContext::GetHandlePtr returnValue(
         new  SFEGLContext::GetHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             const_cast<EGLWindowBase *>(this)));
 
     return returnValue;
 }
@@ -524,7 +551,8 @@ EditFieldHandlePtr EGLWindowBase::editHandleContext        (void)
     SFEGLContext::EditHandlePtr returnValue(
         new  SFEGLContext::EditHandle(
              &_sfContext,
-             this->getType().getFieldDesc(ContextFieldId)));
+             this->getType().getFieldDesc(ContextFieldId),
+             this));
 
 
     editSField(ContextFieldMask);
@@ -572,19 +600,5 @@ void EGLWindowBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<EGLWindow *>::_type("EGLWindowPtr", "WindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(EGLWindow *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           EGLWindow *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           EGLWindow *,
-                           0);
 
 OSG_END_NAMESPACE

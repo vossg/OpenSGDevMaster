@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Vec3f           ShaderParameterMVec3fBase::_mfValue
     parameter value
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderParameterMVec3f *>::_type("ShaderParameterMVec3fPtr", "ShaderParameterPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterMVec3f *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterMVec3f *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterMVec3f *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderParameterMVec3fBase::classDescInserter(TypeObject &oType)
 {
@@ -431,19 +453,5 @@ void ShaderParameterMVec3fBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterMVec3f *>::_type("ShaderParameterMVec3fPtr", "ShaderParameterPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterMVec3f *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderParameterMVec3f *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderParameterMVec3f *,
-                           0);
 
 OSG_END_NAMESPACE

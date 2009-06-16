@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     ContainerCollectionBase::_sfName
@@ -91,6 +91,28 @@ OSG_BEGIN_NAMESPACE
     A list of containers held in the collection.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ContainerCollection *>::_type("ContainerCollectionPtr", "AttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ContainerCollection *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ContainerCollection *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ContainerCollection *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ContainerCollectionBase::classDescInserter(TypeObject &oType)
 {
@@ -586,19 +608,5 @@ void ContainerCollectionBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ContainerCollection *>::_type("ContainerCollectionPtr", "AttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ContainerCollection *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ContainerCollection *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ContainerCollection *,
-                           0);
 
 OSG_END_NAMESPACE

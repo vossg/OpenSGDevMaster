@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Pnt3f           ShaderParameterPnt3fBase::_sfValue
     parameter value
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderParameterPnt3f *>::_type("ShaderParameterPnt3fPtr", "ShaderParameterPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterPnt3f *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterPnt3f *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterPnt3f *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderParameterPnt3fBase::classDescInserter(TypeObject &oType)
 {
@@ -422,19 +444,5 @@ void ShaderParameterPnt3fBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterPnt3f *>::_type("ShaderParameterPnt3fPtr", "ShaderParameterPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterPnt3f *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderParameterPnt3f *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderParameterPnt3f *,
-                           0);
 
 OSG_END_NAMESPACE

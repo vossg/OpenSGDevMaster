@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Node *          CameraBase::_sfBeacon
@@ -100,6 +100,28 @@ OSG_BEGIN_NAMESPACE
     The far distance of the camera.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Camera *>::_type("CameraPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Camera *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Camera *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Camera *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CameraBase::classDescInserter(TypeObject &oType)
 {
@@ -541,19 +563,5 @@ void CameraBase::setFar(const Real32 value)
     _sfFar.setValue(value);
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Camera *>::_type("CameraPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Camera *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Camera *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Camera *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          PerfMonitorForegroundBase::_sfMode
@@ -116,6 +116,28 @@ OSG_BEGIN_NAMESPACE
     Text margin in pixels.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PerfMonitorForeground *>::_type("PerfMonitorForegroundPtr", "ForegroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PerfMonitorForeground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PerfMonitorForeground *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PerfMonitorForeground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PerfMonitorForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -974,19 +996,5 @@ void PerfMonitorForegroundBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PerfMonitorForeground *>::_type("PerfMonitorForegroundPtr", "ForegroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PerfMonitorForeground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           PerfMonitorForeground *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           PerfMonitorForeground *,
-                           0);
 
 OSG_END_NAMESPACE

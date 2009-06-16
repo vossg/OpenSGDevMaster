@@ -90,7 +90,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Int32           BackgroundBase::_sfClearStencilBit
@@ -110,6 +110,28 @@ OSG_BEGIN_NAMESPACE
     Whether to clear the color buffer or not
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Background *>::_type("BackgroundPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Background *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Background *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Background *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void BackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -563,19 +585,5 @@ void BackgroundBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Background *>::_type("BackgroundPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Background *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Background *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Background *,
-                           0);
 
 OSG_END_NAMESPACE

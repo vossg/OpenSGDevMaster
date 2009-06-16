@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     ShaderParameterStringBase::_sfValue
     parameter value
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderParameterString *>::_type("ShaderParameterStringPtr", "ShaderParameterPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterString *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterString *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterString *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderParameterStringBase::classDescInserter(TypeObject &oType)
 {
@@ -422,19 +444,5 @@ void ShaderParameterStringBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterString *>::_type("ShaderParameterStringPtr", "ShaderParameterPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterString *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderParameterString *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderParameterString *,
-                           0);
 
 OSG_END_NAMESPACE

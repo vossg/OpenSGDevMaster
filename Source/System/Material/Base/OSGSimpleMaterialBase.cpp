@@ -91,7 +91,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color3r         SimpleMaterialBase::_sfAmbient
@@ -126,6 +126,20 @@ OSG_BEGIN_NAMESPACE
     Defines which color material mode this material affects.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SimpleMaterial *>::_type("SimpleMaterialPtr", "ChunkMaterialPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SimpleMaterial *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SimpleMaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -1000,11 +1014,5 @@ void SimpleMaterialBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleMaterial *>::_type("SimpleMaterialPtr", "ChunkMaterialPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SimpleMaterial *)
 
 OSG_END_NAMESPACE

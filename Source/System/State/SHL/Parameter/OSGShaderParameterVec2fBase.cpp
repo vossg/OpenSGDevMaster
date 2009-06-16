@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Vec2f           ShaderParameterVec2fBase::_sfValue
     parameter value
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderParameterVec2f *>::_type("ShaderParameterVec2fPtr", "ShaderParameterPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterVec2f *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterVec2f *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterVec2f *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderParameterVec2fBase::classDescInserter(TypeObject &oType)
 {
@@ -422,19 +444,5 @@ void ShaderParameterVec2fBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterVec2f *>::_type("ShaderParameterVec2fPtr", "ShaderParameterPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterVec2f *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderParameterVec2f *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderParameterVec2f *,
-                           0);
 
 OSG_END_NAMESPACE

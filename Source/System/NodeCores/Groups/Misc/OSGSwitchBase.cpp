@@ -80,13 +80,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Int32           SwitchBase::_sfChoice
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Switch *>::_type("SwitchPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Switch *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Switch *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Switch *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SwitchBase::classDescInserter(TypeObject &oType)
 {
@@ -426,19 +448,5 @@ void SwitchBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Switch *>::_type("SwitchPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Switch *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Switch *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Switch *,
-                           0);
 
 OSG_END_NAMESPACE

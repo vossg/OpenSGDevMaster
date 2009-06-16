@@ -90,7 +90,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     ProgramChunkBase::_sfProgram
@@ -109,6 +109,28 @@ OSG_BEGIN_NAMESPACE
     The OpenGL ID of the program.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ProgramChunk *>::_type("ProgramChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ProgramChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ProgramChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ProgramChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ProgramChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -572,19 +594,5 @@ void ProgramChunkBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ProgramChunk *>::_type("ProgramChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ProgramChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ProgramChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ProgramChunk *,
-                           0);
 
 OSG_END_NAMESPACE

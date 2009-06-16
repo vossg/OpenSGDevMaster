@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            DisplayFilterBase::_sfEnabled
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DisplayFilter *>::_type("DisplayFilterPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DisplayFilter *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DisplayFilter *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DisplayFilter *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DisplayFilterBase::classDescInserter(TypeObject &oType)
 {
@@ -293,19 +315,5 @@ void DisplayFilterBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DisplayFilter *>::_type("DisplayFilterPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DisplayFilter *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DisplayFilter *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DisplayFilter *,
-                           0);
 
 OSG_END_NAMESPACE

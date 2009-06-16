@@ -81,9 +81,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<FragmentProgramChunk *>::_type("FragmentProgramChunkPtr", "ProgramChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(FragmentProgramChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FragmentProgramChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FragmentProgramChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void FragmentProgramChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -357,19 +379,5 @@ void FragmentProgramChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FragmentProgramChunk *>::_type("FragmentProgramChunkPtr", "ProgramChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(FragmentProgramChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           FragmentProgramChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           FragmentProgramChunk *,
-                           0);
 
 OSG_END_NAMESPACE

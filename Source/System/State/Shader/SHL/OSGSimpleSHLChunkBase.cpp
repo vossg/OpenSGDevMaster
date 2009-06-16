@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     SimpleSHLChunkBase::_sfVertexProgram
@@ -119,6 +119,28 @@ OSG_BEGIN_NAMESPACE
     Flag to set whether the shader can change the point size.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SimpleSHLChunk *>::_type("SimpleSHLChunkPtr", "ShaderProgramChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SimpleSHLChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SimpleSHLChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SimpleSHLChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SimpleSHLChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1119,19 +1141,5 @@ void SimpleSHLChunkBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleSHLChunk *>::_type("SimpleSHLChunkPtr", "ShaderProgramChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SimpleSHLChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           SimpleSHLChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           SimpleSHLChunk *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -80,13 +80,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Matrix4d        DoubleTransformBase::_sfMatrix
     The transformation matrix.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DoubleTransform *>::_type("DoubleTransformPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DoubleTransform *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DoubleTransform *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DoubleTransform *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DoubleTransformBase::classDescInserter(TypeObject &oType)
 {
@@ -424,19 +446,5 @@ void DoubleTransformBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DoubleTransform *>::_type("DoubleTransformPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DoubleTransform *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DoubleTransform *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DoubleTransform *,
-                           0);
 
 OSG_END_NAMESPACE

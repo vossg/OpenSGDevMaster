@@ -82,13 +82,32 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            TileableBackgroundBase::_sfTile
     If true the background tiles in multi window settings.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TileableBackground *>::_type("TileableBackgroundPtr", "BackgroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TileableBackground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TileableBackground *,
+                           0);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TileableBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -301,17 +320,6 @@ void TileableBackgroundBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TileableBackground *>::_type("TileableBackgroundPtr", "BackgroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TileableBackground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TileableBackground *,
-                           0);
 
 
 OSG_END_NAMESPACE

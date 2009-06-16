@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          CSMTrackballBase::_sfModifierMask
@@ -118,6 +118,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CSMTrackball *>::_type("CSMTrackballPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CSMTrackball *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMTrackball *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMTrackball *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CSMTrackballBase::classDescInserter(TypeObject &oType)
 {
@@ -1005,19 +1027,5 @@ void CSMTrackballBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMTrackball *>::_type("CSMTrackballPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CSMTrackball *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CSMTrackball *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CSMTrackball *,
-                           0);
 
 OSG_END_NAMESPACE

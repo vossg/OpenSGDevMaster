@@ -87,7 +87,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color4r         MaterialChunkBase::_sfDiffuse
@@ -149,6 +149,28 @@ OSG_BEGIN_NAMESPACE
     The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<MaterialChunk *>::_type("MaterialChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(MaterialChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MaterialChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MaterialChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void MaterialChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1444,19 +1466,5 @@ void MaterialChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MaterialChunk *>::_type("MaterialChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(MaterialChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           MaterialChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           MaterialChunk *,
-                           0);
 
 OSG_END_NAMESPACE

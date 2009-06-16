@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     ClusterWindowBase::_mfServers
@@ -140,6 +140,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ClusterWindow *>::_type("ClusterWindowPtr", "WindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ClusterWindow *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ClusterWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ClusterWindow *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ClusterWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -1494,19 +1516,5 @@ void ClusterWindowBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ClusterWindow *>::_type("ClusterWindowPtr", "WindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ClusterWindow *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ClusterWindow *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ClusterWindow *,
-                           0);
 
 OSG_END_NAMESPACE

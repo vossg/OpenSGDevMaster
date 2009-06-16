@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Int32           ShaderParameterMIntBase::_mfValue
     parameter value
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderParameterMInt *>::_type("ShaderParameterMIntPtr", "ShaderParameterPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderParameterMInt *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameterMInt *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameterMInt *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderParameterMIntBase::classDescInserter(TypeObject &oType)
 {
@@ -431,19 +453,5 @@ void ShaderParameterMIntBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameterMInt *>::_type("ShaderParameterMIntPtr", "ShaderParameterPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderParameterMInt *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderParameterMInt *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderParameterMInt *,
-                           0);
 
 OSG_END_NAMESPACE

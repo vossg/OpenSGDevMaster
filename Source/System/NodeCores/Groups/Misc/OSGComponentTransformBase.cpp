@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Vec3r           ComponentTransformBase::_sfCenter
@@ -102,6 +102,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ComponentTransform *>::_type("ComponentTransformPtr", "TransformPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ComponentTransform *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ComponentTransform *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ComponentTransform *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ComponentTransformBase::classDescInserter(TypeObject &oType)
 {
@@ -719,19 +741,5 @@ void ComponentTransformBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ComponentTransform *>::_type("ComponentTransformPtr", "TransformPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ComponentTransform *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ComponentTransform *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ComponentTransform *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     SortFirstWindowBase::_sfCompression
@@ -102,6 +102,20 @@ OSG_BEGIN_NAMESPACE
     Enabe, disable analysation of face distribution
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SortFirstWindow *>::_type("SortFirstWindowPtr", "ClusterWindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SortFirstWindow *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SortFirstWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -740,11 +754,5 @@ void SortFirstWindowBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SortFirstWindow *>::_type("SortFirstWindowPtr", "ClusterWindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SortFirstWindow *)
 
 OSG_END_NAMESPACE

@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Material *      SwitchMaterialBase::_mfMaterials
@@ -92,6 +92,28 @@ OSG_BEGIN_NAMESPACE
     The material to actually use for drawing.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SwitchMaterial *>::_type("SwitchMaterialPtr", "CompositeMaterialPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SwitchMaterial *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SwitchMaterial *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SwitchMaterial *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SwitchMaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -592,19 +614,5 @@ void SwitchMaterialBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SwitchMaterial *>::_type("SwitchMaterialPtr", "CompositeMaterialPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SwitchMaterial *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           SwitchMaterial *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           SwitchMaterial *,
-                           0);
 
 OSG_END_NAMESPACE

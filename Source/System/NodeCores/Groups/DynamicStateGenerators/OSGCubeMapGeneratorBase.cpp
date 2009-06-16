@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Node *          CubeMapGeneratorBase::_sfRoot
@@ -136,6 +136,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CubeMapGenerator *>::_type("CubeMapGeneratorPtr", "DynamicStateGeneratorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CubeMapGenerator *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CubeMapGeneratorBase::classDescInserter(TypeObject &oType)
 {
@@ -1400,11 +1414,5 @@ void CubeMapGeneratorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeMapGenerator *>::_type("CubeMapGeneratorPtr", "DynamicStateGeneratorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CubeMapGenerator *)
 
 OSG_END_NAMESPACE

@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          ShadowStageBase::_sfOffBias
@@ -160,6 +160,28 @@ OSG_BEGIN_NAMESPACE
     Define whether the alpha color channel is written to.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShadowStage *>::_type("ShadowStagePtr", "StagePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShadowStage *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShadowStage *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShadowStage *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShadowStageBase::classDescInserter(TypeObject &oType)
 {
@@ -1918,19 +1940,5 @@ void ShadowStageBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShadowStage *>::_type("ShadowStagePtr", "StagePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShadowStage *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShadowStage *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShadowStage *,
-                           0);
 
 OSG_END_NAMESPACE

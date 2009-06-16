@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          MultiDisplayWindowBase::_sfHServers
@@ -102,6 +102,20 @@ OSG_BEGIN_NAMESPACE
     Vertical overlap
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<MultiDisplayWindow *>::_type("MultiDisplayWindowPtr", "ClusterWindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(MultiDisplayWindow *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void MultiDisplayWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -734,11 +748,5 @@ void MultiDisplayWindowBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiDisplayWindow *>::_type("MultiDisplayWindowPtr", "ClusterWindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(MultiDisplayWindow *)
 
 OSG_END_NAMESPACE

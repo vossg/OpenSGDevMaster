@@ -86,7 +86,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var TextureObjChunk * TextureGrabBackgroundBase::_sfTexture
@@ -106,6 +106,20 @@ OSG_BEGIN_NAMESPACE
     Mainly useful to grab into the different parts of a CubeTexture.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TextureGrabBackground *>::_type("TextureGrabBackgroundPtr", "SolidBackgroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TextureGrabBackground *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TextureGrabBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -694,11 +708,5 @@ void TextureGrabBackgroundBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureGrabBackground *>::_type("TextureGrabBackgroundPtr", "SolidBackgroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TextureGrabBackground *)
 
 OSG_END_NAMESPACE

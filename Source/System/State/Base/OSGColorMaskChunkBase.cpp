@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            ColorMaskChunkBase::_sfMaskR
@@ -98,6 +98,28 @@ OSG_BEGIN_NAMESPACE
     Used to mask the writing of the A value to the color buffer.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ColorMaskChunk *>::_type("ColorMaskChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ColorMaskChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ColorMaskChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ColorMaskChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ColorMaskChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -659,19 +681,5 @@ void ColorMaskChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColorMaskChunk *>::_type("ColorMaskChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ColorMaskChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ColorMaskChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ColorMaskChunk *,
-                           0);
 
 OSG_END_NAMESPACE

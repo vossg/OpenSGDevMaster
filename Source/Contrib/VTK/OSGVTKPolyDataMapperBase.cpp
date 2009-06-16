@@ -89,7 +89,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Node *          VTKPolyDataMapperBase::_sfRoot
@@ -132,6 +132,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<VTKPolyDataMapper *>::_type("VTKPolyDataMapperPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(VTKPolyDataMapper *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           VTKPolyDataMapper *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           VTKPolyDataMapper *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void VTKPolyDataMapperBase::classDescInserter(TypeObject &oType)
 {
@@ -1850,19 +1872,5 @@ void VTKPolyDataMapperBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VTKPolyDataMapper *>::_type("VTKPolyDataMapperPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(VTKPolyDataMapper *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           VTKPolyDataMapper *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           VTKPolyDataMapper *,
-                           0);
 
 OSG_END_NAMESPACE

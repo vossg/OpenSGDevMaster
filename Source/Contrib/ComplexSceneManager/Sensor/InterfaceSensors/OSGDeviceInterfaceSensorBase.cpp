@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     DeviceInterfaceSensorBase::_sfInterfaceName
@@ -91,6 +91,37 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DeviceInterfaceSensor *>::_type("DeviceInterfaceSensorPtr", "SensorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DeviceInterfaceSensor *)
+
+DataType &FieldTraits<DeviceInterfaceSensor *, 1 >::getType(void)
+{
+    return FieldTraits<DeviceInterfaceSensor *, 0>::getType();
+}
+
+
+OSG_SFIELDTYPE_INST(ParentPointerSField,
+                    DeviceInterfaceSensor *,
+                    NoRefCountPolicy,
+                    1);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
+                         DeviceInterfaceSensor *,
+                         NoRefCountPolicy,
+                         1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DeviceInterfaceSensorBase::classDescInserter(TypeObject &oType)
 {
@@ -432,29 +463,6 @@ void DeviceInterfaceSensorBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DeviceInterfaceSensor *>::_type("DeviceInterfaceSensorPtr", "SensorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DeviceInterfaceSensor *)
-
-DataType &FieldTraits<DeviceInterfaceSensor *, 1 >::getType(void)
-{
-    return FieldTraits<DeviceInterfaceSensor *, 0>::getType();
-}
-
-
-OSG_SFIELDTYPE_INST(ParentPointerSField,
-                    DeviceInterfaceSensor *,
-                    NoRefCountPolicy,
-                    1);
-
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
-                         DeviceInterfaceSensor *,
-                         NoRefCountPolicy,
-                         1);
 
 
 OSG_END_NAMESPACE

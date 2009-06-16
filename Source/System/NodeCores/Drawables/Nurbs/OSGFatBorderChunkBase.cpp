@@ -79,9 +79,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<FatBorderChunk *>::_type("FatBorderChunkPtr", "VertexProgramChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(FatBorderChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FatBorderChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FatBorderChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void FatBorderChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -342,19 +364,5 @@ void FatBorderChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FatBorderChunk *>::_type("FatBorderChunkPtr", "VertexProgramChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(FatBorderChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           FatBorderChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           FatBorderChunk *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -88,7 +88,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     FileGrabForegroundBase::_sfName
@@ -103,6 +103,28 @@ OSG_BEGIN_NAMESPACE
     Flag to start/stop automatic frame increments after each grab.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<FileGrabForeground *>::_type("FileGrabForegroundPtr", "GrabForegroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(FileGrabForeground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FileGrabForeground *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FileGrabForeground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void FileGrabForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -606,19 +628,5 @@ void FileGrabForegroundBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FileGrabForeground *>::_type("FileGrabForegroundPtr", "GrabForegroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(FileGrabForeground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           FileGrabForeground *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           FileGrabForeground *,
-                           0);
 
 OSG_END_NAMESPACE

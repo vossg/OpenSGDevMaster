@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Pnt3f           RangeLODBase::_sfCenter
@@ -94,6 +94,20 @@ OSG_BEGIN_NAMESPACE
     The range intervals.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<RangeLOD *>::_type("RangeLODPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(RangeLOD *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void RangeLODBase::classDescInserter(TypeObject &oType)
 {
@@ -576,11 +590,5 @@ void RangeLODBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RangeLOD *>::_type("RangeLODPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(RangeLOD *)
 
 OSG_END_NAMESPACE

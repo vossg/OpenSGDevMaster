@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          MultiSwitchBase::_mfChoices
@@ -93,6 +93,28 @@ OSG_BEGIN_NAMESPACE
     Mode of operation.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<MultiSwitch *>::_type("MultiSwitchPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(MultiSwitch *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MultiSwitch *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MultiSwitch *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void MultiSwitchBase::classDescInserter(TypeObject &oType)
 {
@@ -518,19 +540,5 @@ void MultiSwitchBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiSwitch *>::_type("MultiSwitchPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(MultiSwitch *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           MultiSwitch *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           MultiSwitch *,
-                           0);
 
 OSG_END_NAMESPACE

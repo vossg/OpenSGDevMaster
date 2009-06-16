@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var ResolutionDisplayFilter * DisplayFilterGroupBase::_sfResolutionFilter
@@ -105,6 +105,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DisplayFilterGroup *>::_type("DisplayFilterGroupPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DisplayFilterGroup *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DisplayFilterGroup *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DisplayFilterGroup *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DisplayFilterGroupBase::classDescInserter(TypeObject &oType)
 {
@@ -766,19 +788,5 @@ void DisplayFilterGroupBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DisplayFilterGroup *>::_type("DisplayFilterGroupPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DisplayFilterGroup *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DisplayFilterGroup *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DisplayFilterGroup *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          SimpleStageBase::_sfLeft
@@ -116,6 +116,20 @@ OSG_BEGIN_NAMESPACE
     The background used to clear this viewport.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SimpleStage *>::_type("SimpleStagePtr", "RenderCallbackStagePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SimpleStage *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SimpleStageBase::classDescInserter(TypeObject &oType)
 {
@@ -863,11 +877,5 @@ void SimpleStageBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleStage *>::_type("SimpleStagePtr", "RenderCallbackStagePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SimpleStage *)
 
 OSG_END_NAMESPACE

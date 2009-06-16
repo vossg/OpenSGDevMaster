@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     StringAttributeMapBase::_mfKeys
@@ -92,6 +92,25 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<StringAttributeMap *>::_type("StringAttributeMapPtr", "AttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(StringAttributeMap *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StringAttributeMap *,
+                           0);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void StringAttributeMapBase::classDescInserter(TypeObject &oType)
 {
@@ -516,17 +535,6 @@ void StringAttributeMapBase::resolveLinks(void)
                                       oOffsets);
 #endif
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StringAttributeMap *>::_type("StringAttributeMapPtr", "AttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(StringAttributeMap *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           StringAttributeMap *,
-                           0);
 
 
 OSG_END_NAMESPACE

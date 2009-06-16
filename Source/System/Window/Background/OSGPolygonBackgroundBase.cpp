@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var PrimeMaterial * PolygonBackgroundBase::_sfMaterial
@@ -119,6 +119,28 @@ OSG_BEGIN_NAMESPACE
     Clear depth/ stencil buffer after applying the material.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PolygonBackground *>::_type("PolygonBackgroundPtr", "TileableBackgroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PolygonBackground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PolygonBackground *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PolygonBackground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PolygonBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -1075,19 +1097,5 @@ void PolygonBackgroundBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PolygonBackground *>::_type("PolygonBackgroundPtr", "TileableBackgroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PolygonBackground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           PolygonBackground *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           PolygonBackground *,
-                           0);
 
 OSG_END_NAMESPACE

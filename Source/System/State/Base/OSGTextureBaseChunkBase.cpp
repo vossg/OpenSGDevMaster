@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          TextureBaseChunkBase::_sfTarget
@@ -90,6 +90,28 @@ OSG_BEGIN_NAMESPACE
     when using it!
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TextureBaseChunk *>::_type("TextureBaseChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TextureBaseChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureBaseChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TextureBaseChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TextureBaseChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -308,19 +330,5 @@ void TextureBaseChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureBaseChunk *>::_type("TextureBaseChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TextureBaseChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TextureBaseChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           TextureBaseChunk *,
-                           0);
 
 OSG_END_NAMESPACE

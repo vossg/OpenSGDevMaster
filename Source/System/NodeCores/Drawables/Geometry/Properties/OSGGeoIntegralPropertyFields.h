@@ -146,8 +146,6 @@ const Char8 *FieldTraits<GeoIntegralProperty *, 0>::getMName<NoRefCountPolicy>(v
 }
 
 
-class FieldContainer;
-
 /*! \ingroup GrpDrawableFieldTraits
  */
 template <>
@@ -157,11 +155,7 @@ struct FieldTraits<GeoIntegralProperty *, 1> :
   private:
 
   public:
-
-    typedef FieldContainer            *ParentType;
     typedef FieldTraits<GeoIntegralProperty *, 1>  Self;
-
-    static const FieldType::Cardinality eParentCard = FieldType::MultiField;
 
     enum                        { Convertible = NotConvertible };
 
@@ -170,11 +164,8 @@ struct FieldTraits<GeoIntegralProperty *, 1> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFGeoIntegralPropertyPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
-
-//    static const char *getMName(void) { return "MFGeoIntegralPropertyPtr"; }
 };
 
 template<> inline

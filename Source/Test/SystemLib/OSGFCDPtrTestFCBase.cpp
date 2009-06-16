@@ -103,7 +103,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FCDTestFC *     FCDPtrTestFCBase::_sfFieldSFPub_ptr
@@ -202,6 +202,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<FCDPtrTestFC *>::_type("FCDPtrTestFCPtr", "NodeCorePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFC *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FCDPtrTestFC *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FCDPtrTestFC *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void FCDPtrTestFCBase::classDescInserter(TypeObject &oType)
 {
@@ -3201,19 +3223,5 @@ void FCDPtrTestFCBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDPtrTestFC *>::_type("FCDPtrTestFCPtr", "NodeCorePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFC *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           FCDPtrTestFC *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           FCDPtrTestFC *,
-                           0);
 
 OSG_END_NAMESPACE

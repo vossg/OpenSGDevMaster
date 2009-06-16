@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Image *         QuadTreeTerrainBase::_sfHeightData
@@ -180,6 +180,28 @@ OSG_BEGIN_NAMESPACE
     Do per-pixel lighting with normalmap; otherwise generate per-vertex normals.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<QuadTreeTerrain *>::_type("QuadTreeTerrainPtr", "GeometryPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(QuadTreeTerrain *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           QuadTreeTerrain *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           QuadTreeTerrain *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void QuadTreeTerrainBase::classDescInserter(TypeObject &oType)
 {
@@ -2248,19 +2270,5 @@ void QuadTreeTerrainBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<QuadTreeTerrain *>::_type("QuadTreeTerrainPtr", "GeometryPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(QuadTreeTerrain *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           QuadTreeTerrain *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           QuadTreeTerrain *,
-                           0);
 
 OSG_END_NAMESPACE

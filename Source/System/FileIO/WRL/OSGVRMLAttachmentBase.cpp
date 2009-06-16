@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     VRMLAttachmentBase::_sfVrmlNodeTypename
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<VRMLAttachment *>::_type("VRMLAttachmentPtr", "AttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(VRMLAttachment *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           VRMLAttachment *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           VRMLAttachment *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void VRMLAttachmentBase::classDescInserter(TypeObject &oType)
 {
@@ -420,19 +442,5 @@ void VRMLAttachmentBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLAttachment *>::_type("VRMLAttachmentPtr", "AttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(VRMLAttachment *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           VRMLAttachment *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           VRMLAttachment *,
-                           0);
 
 OSG_END_NAMESPACE

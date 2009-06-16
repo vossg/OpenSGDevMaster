@@ -86,7 +86,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var ChunkMaterial * HDRStageDataBase::_sfToneMappingMaterial
@@ -125,6 +125,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<HDRStageData *>::_type("HDRStageDataPtr", "StageDataPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(HDRStageData *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void HDRStageDataBase::classDescInserter(TypeObject &oType)
 {
@@ -1106,11 +1120,5 @@ void HDRStageDataBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<HDRStageData *>::_type("HDRStageDataPtr", "StageDataPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(HDRStageData *)
 
 OSG_END_NAMESPACE

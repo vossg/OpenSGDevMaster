@@ -80,13 +80,32 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Sensor *        SensorTaskBase::_mfSensors
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SensorTask *>::_type("SensorTaskPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SensorTask *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SensorTask *,
+                           0);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SensorTaskBase::classDescInserter(TypeObject &oType)
 {
@@ -486,17 +505,6 @@ void SensorTaskBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SensorTask *>::_type("SensorTaskPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SensorTask *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           SensorTask *,
-                           0);
 
 
 OSG_END_NAMESPACE

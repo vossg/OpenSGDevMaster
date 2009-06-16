@@ -79,9 +79,23 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<LightEnv *>::_type("LightEnvPtr", "NodeCorePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(LightEnv *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void LightEnvBase::classDescInserter(TypeObject &oType)
 {
@@ -344,11 +358,5 @@ void LightEnvBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightEnv *>::_type("LightEnvPtr", "NodeCorePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(LightEnv *)
 
 OSG_END_NAMESPACE

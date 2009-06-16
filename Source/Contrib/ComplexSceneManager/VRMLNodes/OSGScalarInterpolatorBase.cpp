@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          ScalarInterpolatorBase::_sfFraction
@@ -98,6 +98,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ScalarInterpolator *>::_type("ScalarInterpolatorPtr", "NodeCorePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ScalarInterpolator *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ScalarInterpolatorBase::classDescInserter(TypeObject &oType)
 {
@@ -673,11 +687,5 @@ void ScalarInterpolatorBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScalarInterpolator *>::_type("ScalarInterpolatorPtr", "NodeCorePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ScalarInterpolator *)
 
 OSG_END_NAMESPACE

@@ -80,13 +80,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FrameBufferObject * DynamicStateGeneratorBase::_sfRenderTarget
     The FBO to target for rendering this subtree.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DynamicStateGenerator *>::_type("DynamicStateGeneratorPtr", "ChunkOverrideGroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DynamicStateGenerator *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DynamicStateGenerator *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DynamicStateGenerator *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DynamicStateGeneratorBase::classDescInserter(TypeObject &oType)
 {
@@ -445,19 +467,5 @@ void DynamicStateGeneratorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DynamicStateGenerator *>::_type("DynamicStateGeneratorPtr", "ChunkOverrideGroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DynamicStateGenerator *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DynamicStateGenerator *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DynamicStateGenerator *,
-                           0);
 
 OSG_END_NAMESPACE

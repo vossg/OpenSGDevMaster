@@ -119,7 +119,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Image *         TextureObjChunkBase::_sfImage
@@ -249,6 +249,28 @@ OSG_BEGIN_NAMESPACE
     Percentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TextureObjChunk *>::_type("TextureObjChunkPtr", "TextureBaseChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TextureObjChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureObjChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TextureObjChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TextureObjChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -2630,19 +2652,5 @@ void TextureObjChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureObjChunk *>::_type("TextureObjChunkPtr", "TextureBaseChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TextureObjChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TextureObjChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           TextureObjChunk *,
-                           0);
 
 OSG_END_NAMESPACE

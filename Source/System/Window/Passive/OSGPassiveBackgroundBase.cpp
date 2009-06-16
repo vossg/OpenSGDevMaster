@@ -79,9 +79,28 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PassiveBackground *>::_type("PassiveBackgroundPtr", "BackgroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PassiveBackground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PassiveBackground *,
+                           0);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PassiveBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -345,17 +364,6 @@ void PassiveBackgroundBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PassiveBackground *>::_type("PassiveBackgroundPtr", "BackgroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PassiveBackground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           PassiveBackground *,
-                           0);
 
 
 OSG_END_NAMESPACE

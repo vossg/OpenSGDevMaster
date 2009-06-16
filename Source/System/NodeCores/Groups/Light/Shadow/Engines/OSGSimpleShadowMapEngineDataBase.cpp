@@ -86,7 +86,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Camera *        SimpleShadowMapEngineDataBase::_sfCamera
@@ -117,6 +117,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SimpleShadowMapEngineData *>::_type("SimpleShadowMapEngineDataPtr", "StageDataPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SimpleShadowMapEngineData *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
 {
@@ -925,11 +939,5 @@ void SimpleShadowMapEngineDataBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleShadowMapEngineData *>::_type("SimpleShadowMapEngineDataPtr", "StageDataPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SimpleShadowMapEngineData *)
 
 OSG_END_NAMESPACE

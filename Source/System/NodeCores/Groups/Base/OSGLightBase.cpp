@@ -87,7 +87,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color4r         LightBase::_sfAmbient
@@ -134,6 +134,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Light *>::_type("LightPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Light *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void LightBase::classDescInserter(TypeObject &oType)
 {
@@ -1118,11 +1132,5 @@ void LightBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Light *>::_type("LightPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Light *)
 
 OSG_END_NAMESPACE

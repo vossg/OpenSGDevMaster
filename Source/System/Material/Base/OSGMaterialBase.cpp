@@ -92,7 +92,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Int32           MaterialBase::_sfSortKey
@@ -103,6 +103,28 @@ OSG_BEGIN_NAMESPACE
     Set the transparency mode, possible values are TransparencyAutoDetection, TransparencyForceTransparent and TransparencyForceOpaque
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Material *>::_type("MaterialPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Material *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Material *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Material *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void MaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -411,19 +433,5 @@ void MaterialBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Material *>::_type("MaterialPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Material *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Material *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Material *,
-                           0);
 
 OSG_END_NAMESPACE

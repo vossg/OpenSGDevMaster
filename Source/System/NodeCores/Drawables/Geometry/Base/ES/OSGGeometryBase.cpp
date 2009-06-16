@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GeoIntegralProperty * GeometryBase::_sfTypes
@@ -115,6 +115,28 @@ OSG_BEGIN_NAMESPACE
     The dlist id for the attribute-based rendering mode, if used.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Geometry *>::_type("GeometryPtr", "MaterialDrawablePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Geometry *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Geometry *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Geometry *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GeometryBase::classDescInserter(TypeObject &oType)
 {
@@ -208,7 +230,7 @@ GeometryBase::TypeObject GeometryBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeometryBase::createEmptyLocal),
     Geometry::initMethod,
     Geometry::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&GeometryBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&Geometry::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -928,7 +950,8 @@ GetFieldHandlePtr GeometryBase::getHandleTypes           (void) const
     SFUnrecChildGeoIntegralPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoIntegralPropertyPtr::GetHandle(
              &_sfTypes,
-             this->getType().getFieldDesc(TypesFieldId)));
+             this->getType().getFieldDesc(TypesFieldId),
+             const_cast<GeometryBase *>(this)));
 
     return returnValue;
 }
@@ -938,7 +961,8 @@ EditFieldHandlePtr GeometryBase::editHandleTypes          (void)
     SFUnrecChildGeoIntegralPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoIntegralPropertyPtr::EditHandle(
              &_sfTypes,
-             this->getType().getFieldDesc(TypesFieldId)));
+             this->getType().getFieldDesc(TypesFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Geometry::setTypes,
@@ -954,7 +978,8 @@ GetFieldHandlePtr GeometryBase::getHandleLengths         (void) const
     SFUnrecChildGeoIntegralPropertyPtr::GetHandlePtr returnValue(
         new  SFUnrecChildGeoIntegralPropertyPtr::GetHandle(
              &_sfLengths,
-             this->getType().getFieldDesc(LengthsFieldId)));
+             this->getType().getFieldDesc(LengthsFieldId),
+             const_cast<GeometryBase *>(this)));
 
     return returnValue;
 }
@@ -964,7 +989,8 @@ EditFieldHandlePtr GeometryBase::editHandleLengths        (void)
     SFUnrecChildGeoIntegralPropertyPtr::EditHandlePtr returnValue(
         new  SFUnrecChildGeoIntegralPropertyPtr::EditHandle(
              &_sfLengths,
-             this->getType().getFieldDesc(LengthsFieldId)));
+             this->getType().getFieldDesc(LengthsFieldId),
+             this));
 
     returnValue->setSetMethod(
         boost::bind(&Geometry::setLengths,
@@ -980,7 +1006,8 @@ GetFieldHandlePtr GeometryBase::getHandleProperties      (void) const
     MFUnrecChildGeoVectorPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecChildGeoVectorPropertyPtr::GetHandle(
              &_mfProperties,
-             this->getType().getFieldDesc(PropertiesFieldId)));
+             this->getType().getFieldDesc(PropertiesFieldId),
+             const_cast<GeometryBase *>(this)));
 
     return returnValue;
 }
@@ -990,7 +1017,8 @@ EditFieldHandlePtr GeometryBase::editHandleProperties     (void)
     MFUnrecChildGeoVectorPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecChildGeoVectorPropertyPtr::EditHandle(
              &_mfProperties,
-             this->getType().getFieldDesc(PropertiesFieldId)));
+             this->getType().getFieldDesc(PropertiesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&Geometry::pushToProperties,
@@ -1015,7 +1043,8 @@ GetFieldHandlePtr GeometryBase::getHandlePropIndices     (void) const
     MFUnrecChildGeoIntegralPropertyPtr::GetHandlePtr returnValue(
         new  MFUnrecChildGeoIntegralPropertyPtr::GetHandle(
              &_mfPropIndices,
-             this->getType().getFieldDesc(PropIndicesFieldId)));
+             this->getType().getFieldDesc(PropIndicesFieldId),
+             const_cast<GeometryBase *>(this)));
 
     return returnValue;
 }
@@ -1025,7 +1054,8 @@ EditFieldHandlePtr GeometryBase::editHandlePropIndices    (void)
     MFUnrecChildGeoIntegralPropertyPtr::EditHandlePtr returnValue(
         new  MFUnrecChildGeoIntegralPropertyPtr::EditHandle(
              &_mfPropIndices,
-             this->getType().getFieldDesc(PropIndicesFieldId)));
+             this->getType().getFieldDesc(PropIndicesFieldId),
+             this));
 
     returnValue->setAddMethod(
         boost::bind(&Geometry::pushToPropIndices,
@@ -1050,7 +1080,8 @@ GetFieldHandlePtr GeometryBase::getHandleClassicGLId     (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfClassicGLId,
-             this->getType().getFieldDesc(ClassicGLIdFieldId)));
+             this->getType().getFieldDesc(ClassicGLIdFieldId),
+             const_cast<GeometryBase *>(this)));
 
     return returnValue;
 }
@@ -1060,7 +1091,8 @@ EditFieldHandlePtr GeometryBase::editHandleClassicGLId    (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfClassicGLId,
-             this->getType().getFieldDesc(ClassicGLIdFieldId)));
+             this->getType().getFieldDesc(ClassicGLIdFieldId),
+             this));
 
 
     editSField(ClassicGLIdFieldMask);
@@ -1073,7 +1105,8 @@ GetFieldHandlePtr GeometryBase::getHandleAttGLId         (void) const
     SFInt32::GetHandlePtr returnValue(
         new  SFInt32::GetHandle(
              &_sfAttGLId,
-             this->getType().getFieldDesc(AttGLIdFieldId)));
+             this->getType().getFieldDesc(AttGLIdFieldId),
+             const_cast<GeometryBase *>(this)));
 
     return returnValue;
 }
@@ -1083,7 +1116,8 @@ EditFieldHandlePtr GeometryBase::editHandleAttGLId        (void)
     SFInt32::EditHandlePtr returnValue(
         new  SFInt32::EditHandle(
              &_sfAttGLId,
-             this->getType().getFieldDesc(AttGLIdFieldId)));
+             this->getType().getFieldDesc(AttGLIdFieldId),
+             this));
 
 
     editSField(AttGLIdFieldMask);
@@ -1139,19 +1173,5 @@ void GeometryBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Geometry *>::_type("GeometryPtr", "MaterialDrawablePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Geometry *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Geometry *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Geometry *,
-                           0);
 
 OSG_END_NAMESPACE

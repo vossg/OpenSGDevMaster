@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Camera *        CubeMapGeneratorStageDataBase::_sfCamera
@@ -92,6 +92,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CubeMapGeneratorStageData *>::_type("CubeMapGeneratorStageDataPtr", "DynamicStateGeneratorStageDataPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CubeMapGeneratorStageData *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CubeMapGeneratorStageDataBase::classDescInserter(TypeObject &oType)
 {
@@ -500,11 +514,5 @@ void CubeMapGeneratorStageDataBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeMapGeneratorStageData *>::_type("CubeMapGeneratorStageDataPtr", "DynamicStateGeneratorStageDataPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CubeMapGeneratorStageData *)
 
 OSG_END_NAMESPACE

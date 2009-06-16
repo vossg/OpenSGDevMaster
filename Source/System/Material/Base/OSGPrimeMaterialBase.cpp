@@ -79,9 +79,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PrimeMaterial *>::_type("PrimeMaterialPtr", "MaterialPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PrimeMaterial *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PrimeMaterial *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PrimeMaterial *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PrimeMaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -214,19 +236,5 @@ void PrimeMaterialBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PrimeMaterial *>::_type("PrimeMaterialPtr", "MaterialPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PrimeMaterial *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           PrimeMaterial *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           PrimeMaterial *,
-                           0);
 
 OSG_END_NAMESPACE

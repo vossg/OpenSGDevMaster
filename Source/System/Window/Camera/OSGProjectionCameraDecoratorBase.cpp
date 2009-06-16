@@ -92,7 +92,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Node *          ProjectionCameraDecoratorBase::_sfUser
@@ -124,6 +124,28 @@ OSG_BEGIN_NAMESPACE
     The height of the projection screen.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ProjectionCameraDecorator *>::_type("ProjectionCameraDecoratorPtr", "StereoCameraDecoratorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ProjectionCameraDecorator *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ProjectionCameraDecorator *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ProjectionCameraDecorator *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ProjectionCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -949,19 +971,5 @@ void ProjectionCameraDecoratorBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ProjectionCameraDecorator *>::_type("ProjectionCameraDecoratorPtr", "StereoCameraDecoratorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ProjectionCameraDecorator *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ProjectionCameraDecorator *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ProjectionCameraDecorator *,
-                           0);
 
 OSG_END_NAMESPACE

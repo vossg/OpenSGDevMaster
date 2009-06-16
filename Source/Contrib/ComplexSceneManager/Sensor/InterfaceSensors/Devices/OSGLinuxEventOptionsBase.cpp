@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     LinuxEventOptionsBase::_sfDevice
@@ -98,6 +98,37 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<LinuxEventOptions *>::_type("LinuxEventOptionsPtr", "InterfaceOptionsPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(LinuxEventOptions *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           LinuxEventOptions *,
+                           0);
+
+
+DataType &FieldTraits< LinuxEventOptions *, 1 >::getType(void)
+{
+    return FieldTraits<LinuxEventOptions *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      LinuxEventOptions *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void LinuxEventOptionsBase::classDescInserter(TypeObject &oType)
 {
@@ -180,7 +211,6 @@ LinuxEventOptionsBase::TypeObject LinuxEventOptionsBase::_type(
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
-    "    childfieldparent=\"DeviceInterface\"\n"
     "    childFields=\"single\"\n"
     ">\n"
     "  <Field\n"
@@ -634,29 +664,6 @@ void LinuxEventOptionsBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LinuxEventOptions *>::_type("LinuxEventOptionsPtr", "InterfaceOptionsPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(LinuxEventOptions *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           LinuxEventOptions *,
-                           0);
-
-
-DataType &FieldTraits< LinuxEventOptions *, 1 >::getType(void)
-{
-    return FieldTraits<LinuxEventOptions *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      LinuxEventOptions *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

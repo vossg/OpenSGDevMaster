@@ -109,7 +109,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color4f         RegisterCombinersChunkBase::_sfColor0
@@ -236,6 +236,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<RegisterCombinersChunk *>::_type("RegisterCombinersChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(RegisterCombinersChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           RegisterCombinersChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           RegisterCombinersChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void RegisterCombinersChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -2906,19 +2928,5 @@ void RegisterCombinersChunkBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RegisterCombinersChunk *>::_type("RegisterCombinersChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(RegisterCombinersChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           RegisterCombinersChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           RegisterCombinersChunk *,
-                           0);
 
 OSG_END_NAMESPACE

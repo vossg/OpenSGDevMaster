@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Matrix          MatrixCameraBase::_sfProjectionMatrix
@@ -100,6 +100,28 @@ OSG_BEGIN_NAMESPACE
     Use beacon if set to get the modelview matrix
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<MatrixCamera *>::_type("MatrixCameraPtr", "CameraPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(MatrixCamera *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MatrixCamera *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MatrixCamera *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void MatrixCameraBase::classDescInserter(TypeObject &oType)
 {
@@ -591,19 +613,5 @@ void MatrixCameraBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MatrixCamera *>::_type("MatrixCameraPtr", "CameraPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(MatrixCamera *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           MatrixCamera *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           MatrixCamera *,
-                           0);
 
 OSG_END_NAMESPACE

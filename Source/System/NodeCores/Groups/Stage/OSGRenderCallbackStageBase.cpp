@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var RenderFunctorCallback RenderCallbackStageBase::_mfPreRenderCallbacks
@@ -91,6 +91,20 @@ OSG_BEGIN_NAMESPACE
     The foreground additions to the rendered image.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<RenderCallbackStage *>::_type("RenderCallbackStagePtr", "StagePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(RenderCallbackStage *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void RenderCallbackStageBase::classDescInserter(TypeObject &oType)
 {
@@ -472,11 +486,5 @@ void RenderCallbackStageBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RenderCallbackStage *>::_type("RenderCallbackStagePtr", "StagePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(RenderCallbackStage *)
 
 OSG_END_NAMESPACE

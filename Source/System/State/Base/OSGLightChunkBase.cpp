@@ -91,7 +91,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color4r         LightChunkBase::_sfDiffuse
@@ -138,6 +138,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<LightChunk *>::_type("LightChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(LightChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           LightChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           LightChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void LightChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1244,19 +1266,5 @@ void LightChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightChunk *>::_type("LightChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(LightChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           LightChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           LightChunk *,
-                           0);
 
 OSG_END_NAMESPACE

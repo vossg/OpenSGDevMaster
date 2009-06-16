@@ -87,7 +87,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Vec4f           ClipPlaneChunkBase::_sfEquation
@@ -104,6 +104,28 @@ OSG_BEGIN_NAMESPACE
     plane is positioned relative to this system.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ClipPlaneChunk *>::_type("ClipPlaneChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ClipPlaneChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ClipPlaneChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ClipPlaneChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -623,19 +645,5 @@ void ClipPlaneChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ClipPlaneChunk *>::_type("ClipPlaneChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ClipPlaneChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ClipPlaneChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ClipPlaneChunk *,
-                           0);
 
 OSG_END_NAMESPACE

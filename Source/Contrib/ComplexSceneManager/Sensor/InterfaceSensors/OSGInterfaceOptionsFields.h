@@ -119,8 +119,6 @@ const Char8 *FieldTraits<InterfaceOptions *, 0>::getSName<NoRefCountPolicy>(void
 
 
 
-class DeviceInterfaceSensor;
-
 /*! \ingroup GrpContribCSMFieldTraits
  */
 template <>
@@ -130,10 +128,7 @@ struct FieldTraits<InterfaceOptions *, 1> :
   private:
 
   public:
-
-    typedef DeviceInterfaceSensor            *ParentType;
     typedef FieldTraits<InterfaceOptions *, 1>  Self;
-
 
     enum                        { Convertible = NotConvertible };
 
@@ -141,8 +136,6 @@ struct FieldTraits<InterfaceOptions *, 1> :
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
-
-//    static const char *getSName(void) { return "SFInterfaceOptionsPtr"; }
 };
 
 template<> inline

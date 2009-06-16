@@ -79,9 +79,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PassiveViewport *>::_type("PassiveViewportPtr", "ViewportPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PassiveViewport *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PassiveViewport *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PassiveViewport *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PassiveViewportBase::classDescInserter(TypeObject &oType)
 {
@@ -343,19 +365,5 @@ void PassiveViewportBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PassiveViewport *>::_type("PassiveViewportPtr", "ViewportPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PassiveViewport *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           PassiveViewport *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           PassiveViewport *,
-                           0);
 
 OSG_END_NAMESPACE

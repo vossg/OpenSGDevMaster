@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     ShaderVariableBase::_sfName
@@ -91,6 +91,40 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderVariable *>::_type("ShaderVariablePtr", "FieldContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderVariable *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderVariable *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderVariable *,
+                           0);
+
+DataType &FieldTraits< ShaderVariable *, 1 >::getType(void)
+{
+    return FieldTraits<ShaderVariable *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      ShaderVariable *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderVariableBase::classDescInserter(TypeObject &oType)
 {
@@ -146,8 +180,6 @@ ShaderVariableBase::TypeObject ShaderVariableBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
-    "   childfieldparent=\"FieldContainer\"\n"
-    "   parentfieldcard=\"multi\"\n"
     "   childFields=\"multi\"\n"
     "   docGroupBase=\"GrpSystemShader\"\n"
     "   >\n"
@@ -423,32 +455,6 @@ void ShaderVariableBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariable *>::_type("ShaderVariablePtr", "FieldContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderVariable *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderVariable *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderVariable *,
-                           0);
-
-DataType &FieldTraits< ShaderVariable *, 1 >::getType(void)
-{
-    return FieldTraits<ShaderVariable *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      ShaderVariable *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

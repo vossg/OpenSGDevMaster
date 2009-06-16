@@ -82,13 +82,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          LogicOpChunkBase::_sfLogicOp
     The logic operation applied to fragments.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<LogicOpChunk *>::_type("LogicOpChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(LogicOpChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           LogicOpChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           LogicOpChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void LogicOpChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -431,19 +453,5 @@ void LogicOpChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LogicOpChunk *>::_type("LogicOpChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(LogicOpChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           LogicOpChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           LogicOpChunk *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            GeoPropertyBase::_sfUseVBO
@@ -100,6 +100,28 @@ OSG_BEGIN_NAMESPACE
     The usage pattern, only valid for VBO use.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GeoProperty *>::_type("GeoPropertyPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GeoProperty *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoProperty *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoProperty *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GeoPropertyBase::classDescInserter(TypeObject &oType)
 {
@@ -533,19 +555,5 @@ void GeoPropertyBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoProperty *>::_type("GeoPropertyPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GeoProperty *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           GeoProperty *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           GeoProperty *,
-                           0);
 
 OSG_END_NAMESPACE

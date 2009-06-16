@@ -95,7 +95,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color4f         SkyBackgroundBase::_mfSkyColor
@@ -187,6 +187,25 @@ OSG_BEGIN_NAMESPACE
     Note: OpenSG 1.x always used VRML Semantics.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SkyBackground *>::_type("SkyBackgroundPtr", "BackgroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SkyBackground *)
+
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SkyBackground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SkyBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -2060,16 +2079,5 @@ void SkyBackgroundBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SkyBackground *>::_type("SkyBackgroundPtr", "BackgroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SkyBackground *)
-
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           SkyBackground *,
-                           0);
 
 OSG_END_NAMESPACE

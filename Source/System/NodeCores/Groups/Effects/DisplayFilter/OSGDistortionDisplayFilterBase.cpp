@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          DistortionDisplayFilterBase::_sfRows
@@ -94,6 +94,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DistortionDisplayFilter *>::_type("DistortionDisplayFilterPtr", "DisplayFilterPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DistortionDisplayFilter *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DistortionDisplayFilter *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DistortionDisplayFilter *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DistortionDisplayFilterBase::classDescInserter(TypeObject &oType)
 {
@@ -582,19 +604,5 @@ void DistortionDisplayFilterBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DistortionDisplayFilter *>::_type("DistortionDisplayFilterPtr", "DisplayFilterPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DistortionDisplayFilter *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DistortionDisplayFilter *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DistortionDisplayFilter *,
-                           0);
 
 OSG_END_NAMESPACE

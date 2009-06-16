@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Int32           CSMMultiWinOptionsBase::_sfXOverlap
@@ -106,6 +106,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CSMMultiWinOptions *>::_type("CSMMultiWinOptionsPtr", "CSMClusterWinOptionsPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CSMMultiWinOptions *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CSMMultiWinOptionsBase::classDescInserter(TypeObject &oType)
 {
@@ -781,11 +795,5 @@ void CSMMultiWinOptionsBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMMultiWinOptions *>::_type("CSMMultiWinOptionsPtr", "CSMClusterWinOptionsPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CSMMultiWinOptions *)
 
 OSG_END_NAMESPACE

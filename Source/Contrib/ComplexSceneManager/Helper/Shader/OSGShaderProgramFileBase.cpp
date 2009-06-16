@@ -79,13 +79,27 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     ShaderProgramFileBase::_sfProgramUrl
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderProgramFile *>::_type("ShaderProgramFilePtr", "ShaderProgramPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderProgramFile *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderProgramFileBase::classDescInserter(TypeObject &oType)
 {
@@ -424,11 +438,5 @@ void ShaderProgramFileBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderProgramFile *>::_type("ShaderProgramFilePtr", "ShaderProgramPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderProgramFile *)
 
 OSG_END_NAMESPACE

@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var OSGAny          CounterBase::_sfIncTrigger
@@ -94,6 +94,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Counter *>::_type("CounterPtr", "NodeCorePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Counter *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CounterBase::classDescInserter(TypeObject &oType)
 {
@@ -582,11 +596,5 @@ void CounterBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Counter *>::_type("CounterPtr", "NodeCorePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Counter *)
 
 OSG_END_NAMESPACE

@@ -114,7 +114,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Pnt3f           DistanceLODBase::_sfCenter
@@ -125,6 +125,20 @@ OSG_BEGIN_NAMESPACE
     The range intervals.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DistanceLOD *>::_type("DistanceLODPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DistanceLOD *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DistanceLODBase::classDescInserter(TypeObject &oType)
 {
@@ -613,11 +627,5 @@ void DistanceLODBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DistanceLOD *>::_type("DistanceLODPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DistanceLOD *)
 
 OSG_END_NAMESPACE

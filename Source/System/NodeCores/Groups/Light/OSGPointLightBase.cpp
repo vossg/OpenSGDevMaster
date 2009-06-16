@@ -83,13 +83,27 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Pnt3r           PointLightBase::_sfPosition
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PointLight *>::_type("PointLightPtr", "LightPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PointLight *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PointLightBase::classDescInserter(TypeObject &oType)
 {
@@ -433,11 +447,5 @@ void PointLightBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PointLight *>::_type("PointLightPtr", "LightPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PointLight *)
 
 OSG_END_NAMESPACE

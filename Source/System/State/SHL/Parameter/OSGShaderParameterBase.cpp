@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     ShaderParameterBase::_sfName
@@ -91,6 +91,40 @@ OSG_BEGIN_NAMESPACE
     parameter name
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderParameter *>::_type("ShaderParameterPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderParameter *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderParameter *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderParameter *,
+                           0);
+
+DataType &FieldTraits< ShaderParameter *, 1 >::getType(void)
+{
+    return FieldTraits<ShaderParameter *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      ShaderParameter *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderParameterBase::classDescInserter(TypeObject &oType)
 {
@@ -146,9 +180,7 @@ ShaderParameterBase::TypeObject ShaderParameterBase::_type(
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"false\"\n"
-    "    childfieldparent=\"FieldContainer\"\n"
-    "    parentfieldcard=\"multi\"\n"
-    "    childFields=\"multi\"\n"
+    "        childFields=\"multi\"\n"
     ">\n"
     "\t<Field\n"
     "\t\tname=\"name\"\n"
@@ -424,32 +456,6 @@ void ShaderParameterBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderParameter *>::_type("ShaderParameterPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderParameter *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderParameter *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderParameter *,
-                           0);
-
-DataType &FieldTraits< ShaderParameter *, 1 >::getType(void)
-{
-    return FieldTraits<ShaderParameter *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      ShaderParameter *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

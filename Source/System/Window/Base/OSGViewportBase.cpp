@@ -108,7 +108,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          ViewportBase::_sfLeft
@@ -171,6 +171,40 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Viewport *>::_type("ViewportPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Viewport *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Viewport *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Viewport *,
+                           0);
+
+DataType &FieldTraits< Viewport *, 1 >::getType(void)
+{
+    return FieldTraits<Viewport *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      Viewport *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ViewportBase::classDescInserter(TypeObject &oType)
 {
@@ -364,9 +398,7 @@ ViewportBase::TypeObject ViewportBase::_type(
     "\tstructure=\"concrete\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
-    "    childfieldparent=\"FieldContainer\"\n"
-    "    parentfieldcard=\"single\"\n"
-    "    childFields=\"multi\"\n"
+    "        childFields=\"multi\"\n"
     ">\n"
     "\\ingroup GrpSystemWindowsViewports\n"
     "\n"
@@ -1621,32 +1653,6 @@ void ViewportBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Viewport *>::_type("ViewportPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Viewport *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Viewport *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Viewport *,
-                           0);
-
-DataType &FieldTraits< Viewport *, 1 >::getType(void)
-{
-    return FieldTraits<Viewport *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      Viewport *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GeoIntegralProperty * GeometryBase::_sfTypes
@@ -119,6 +119,28 @@ OSG_BEGIN_NAMESPACE
     The dlist id for the attribute-based rendering mode, if used.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Geometry *>::_type("GeometryPtr", "MaterialDrawablePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Geometry *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Geometry *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Geometry *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GeometryBase::classDescInserter(TypeObject &oType)
 {
@@ -1232,19 +1254,5 @@ void GeometryBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Geometry *>::_type("GeometryPtr", "MaterialDrawablePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Geometry *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Geometry *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Geometry *,
-                           0);
 
 OSG_END_NAMESPACE

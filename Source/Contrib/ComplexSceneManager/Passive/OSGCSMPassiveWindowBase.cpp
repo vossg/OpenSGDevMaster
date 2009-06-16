@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Vec2f           CSMPassiveWindowBase::_sfViewportScale
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CSMPassiveWindow *>::_type("CSMPassiveWindowPtr", "CSMWindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CSMPassiveWindow *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMPassiveWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMPassiveWindow *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CSMPassiveWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -397,19 +419,5 @@ void CSMPassiveWindowBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMPassiveWindow *>::_type("CSMPassiveWindowPtr", "CSMWindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CSMPassiveWindow *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CSMPassiveWindow *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CSMPassiveWindow *,
-                           0);
 
 OSG_END_NAMESPACE

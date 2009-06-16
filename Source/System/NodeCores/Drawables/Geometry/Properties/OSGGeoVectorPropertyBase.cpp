@@ -81,9 +81,49 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GeoVectorProperty *>::_type("GeoVectorPropertyPtr", "GeoPropertyPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GeoVectorProperty *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoVectorProperty *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoVectorProperty *,
+                           0);
+
+DataType &FieldTraits< GeoVectorProperty *, 1 >::getType(void)
+{
+    return FieldTraits<GeoVectorProperty *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      GeoVectorProperty *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      GeoVectorProperty *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GeoVectorPropertyBase::classDescInserter(TypeObject &oType)
 {
@@ -112,9 +152,7 @@ GeoVectorPropertyBase::TypeObject GeoVectorPropertyBase::_type(
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
-    "    childfieldparent=\"FieldContainer\"\n"
-    "    parentfieldcard=\"multi\"\n"
-    "    childFields=\"both\"\n"
+    "        childFields=\"both\"\n"
     ">\n"
     "Abstract base class for all vector-valued GeoProperties.\n"
     "Provides a uniform interface for accessing all vector data in geometry using\n"
@@ -222,38 +260,6 @@ void GeoVectorPropertyBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoVectorProperty *>::_type("GeoVectorPropertyPtr", "GeoPropertyPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GeoVectorProperty *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           GeoVectorProperty *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           GeoVectorProperty *,
-                           0);
-
-DataType &FieldTraits< GeoVectorProperty *, 1 >::getType(void)
-{
-    return FieldTraits<GeoVectorProperty *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      GeoVectorProperty *,
-                      UnrecordedRefCountPolicy,
-                      1);
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      GeoVectorProperty *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Matrix          TransformationInterfaceSensorBase::_sfTransformation
@@ -102,6 +102,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TransformationInterfaceSensor *>::_type("TransformationInterfaceSensorPtr", "DeviceInterfaceSensorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TransformationInterfaceSensor *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TransformationInterfaceSensorBase::classDescInserter(TypeObject &oType)
 {
@@ -742,11 +756,5 @@ void TransformationInterfaceSensorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TransformationInterfaceSensor *>::_type("TransformationInterfaceSensorPtr", "DeviceInterfaceSensorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TransformationInterfaceSensor *)
 
 OSG_END_NAMESPACE

@@ -146,8 +146,6 @@ const Char8 *FieldTraits<NodeCore *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
-class AttachmentContainer;
-
 /*! \ingroup GrpBaseFieldTraits
  */
 template <>
@@ -157,10 +155,7 @@ struct FieldTraits<NodeCore *, 1> :
   private:
 
   public:
-
-    typedef AttachmentContainer            *ParentType;
     typedef FieldTraits<NodeCore *, 1>  Self;
-
 
     enum                        { Convertible = NotConvertible };
 
@@ -169,11 +164,8 @@ struct FieldTraits<NodeCore *, 1> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFNodeCorePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
-
-//    static const char *getMName(void) { return "MFNodeCorePtr"; }
 };
 
 template<> inline

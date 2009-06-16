@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Int32           GLUTWindowBase::_sfGlutId
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GLUTWindow *>::_type("GLUTWindowPtr", "WindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GLUTWindow *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GLUTWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GLUTWindow *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GLUTWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -423,19 +445,5 @@ void GLUTWindowBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GLUTWindow *>::_type("GLUTWindowPtr", "WindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GLUTWindow *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           GLUTWindow *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           GLUTWindow *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Vec3f           ShaderVariableMVec3fBase::_mfValue
     variable value
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderVariableMVec3f *>::_type("ShaderVariableMVec3fPtr", "ShaderValueVariablePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderVariableMVec3f *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderVariableMVec3f *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderVariableMVec3f *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderVariableMVec3fBase::classDescInserter(TypeObject &oType)
 {
@@ -432,19 +454,5 @@ void ShaderVariableMVec3fBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariableMVec3f *>::_type("ShaderVariableMVec3fPtr", "ShaderValueVariablePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderVariableMVec3f *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderVariableMVec3f *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderVariableMVec3f *,
-                           0);
 
 OSG_END_NAMESPACE

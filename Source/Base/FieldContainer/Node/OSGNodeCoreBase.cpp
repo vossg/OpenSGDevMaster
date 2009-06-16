@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FieldContainer * NodeCoreBase::_mfParents
@@ -89,6 +89,74 @@ OSG_BEGIN_NAMESPACE
     they may be used in more than one place in the scenegraph.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<NodeCore *>::_type("NodeCorePtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(NodeCore *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           NodeCore *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           NodeCore *,
+                           0);
+
+DataType &FieldTraits< NodeCore *, 1 >::getType(void)
+{
+    return FieldTraits<NodeCore *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      NodeCore *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      NodeCore *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+DataType &FieldTraits<NodeCore *, 2 >::getType(void)
+{
+    return FieldTraits<NodeCore *, 0>::getType();
+}
+
+
+OSG_SFIELDTYPE_INST(ParentPointerSField,
+                    NodeCore *,
+                    NoRefCountPolicy,
+                    2);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
+                         NodeCore *,
+                         NoRefCountPolicy,
+                         2);
+
+
+OSG_MFIELDTYPE_INST(ParentPointerMField,
+                    NodeCore *,
+                    NoRefCountPolicy,
+                    2);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
+                         NodeCore *,
+                         NoRefCountPolicy,
+                         2);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void NodeCoreBase::classDescInserter(TypeObject &oType)
 {
@@ -131,7 +199,6 @@ NodeCoreBase::TypeObject NodeCoreBase::_type(
     "   pointerfieldtypes=\"both\"\n"
     "   parentFields=\"both\"\n"
     "   childFields=\"both\"\n"
-    "   childfieldparent=\"AttachmentContainer\"\n"
     "   systemcomponent=\"true\"\n"
     "   parentsystemcomponent=\"true\"\n"
     "   isNodeCore=\"true\"\n"
@@ -352,66 +419,6 @@ void NodeCoreBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<NodeCore *>::_type("NodeCorePtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(NodeCore *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           NodeCore *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           NodeCore *,
-                           0);
-
-DataType &FieldTraits< NodeCore *, 1 >::getType(void)
-{
-    return FieldTraits<NodeCore *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      NodeCore *,
-                      UnrecordedRefCountPolicy,
-                      1);
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      NodeCore *,
-                      UnrecordedRefCountPolicy,
-                      1);
-
-
-DataType &FieldTraits<NodeCore *, 2 >::getType(void)
-{
-    return FieldTraits<NodeCore *, 0>::getType();
-}
-
-
-OSG_SFIELDTYPE_INST(ParentPointerSField,
-                    NodeCore *,
-                    NoRefCountPolicy,
-                    2);
-
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
-                         NodeCore *,
-                         NoRefCountPolicy,
-                         2);
-
-
-OSG_MFIELDTYPE_INST(ParentPointerMField,
-                    NodeCore *,
-                    NoRefCountPolicy,
-                    2);
-
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
-                         NodeCore *,
-                         NoRefCountPolicy,
-                         2);
 
 
 OSG_END_NAMESPACE

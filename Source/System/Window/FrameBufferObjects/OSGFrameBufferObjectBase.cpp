@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          FrameBufferObjectBase::_sfGLId
@@ -122,6 +122,28 @@ OSG_BEGIN_NAMESPACE
     result back to the image
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<FrameBufferObject *>::_type("FrameBufferObjectPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(FrameBufferObject *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FrameBufferObject *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FrameBufferObject *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void FrameBufferObjectBase::classDescInserter(TypeObject &oType)
 {
@@ -1095,19 +1117,5 @@ void FrameBufferObjectBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FrameBufferObject *>::_type("FrameBufferObjectPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(FrameBufferObject *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           FrameBufferObject *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           FrameBufferObject *,
-                           0);
 
 OSG_END_NAMESPACE

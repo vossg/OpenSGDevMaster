@@ -80,9 +80,23 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GroupingStage *>::_type("GroupingStagePtr", "RenderCallbackStagePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GroupingStage *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GroupingStageBase::classDescInserter(TypeObject &oType)
 {
@@ -348,11 +362,5 @@ void GroupingStageBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GroupingStage *>::_type("GroupingStagePtr", "RenderCallbackStagePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GroupingStage *)
 
 OSG_END_NAMESPACE

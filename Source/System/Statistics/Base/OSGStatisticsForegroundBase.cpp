@@ -99,7 +99,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Int32           StatisticsForegroundBase::_mfElementIDs
@@ -110,6 +110,28 @@ OSG_BEGIN_NAMESPACE
     The OSG::StatCollector that keeps the displayed statistics.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<StatisticsForeground *>::_type("StatisticsForegroundPtr", "ForegroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(StatisticsForeground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StatisticsForeground *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StatisticsForeground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void StatisticsForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -439,19 +461,5 @@ void StatisticsForegroundBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StatisticsForeground *>::_type("StatisticsForegroundPtr", "ForegroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(StatisticsForeground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           StatisticsForeground *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           StatisticsForeground *,
-                           0);
 
 OSG_END_NAMESPACE

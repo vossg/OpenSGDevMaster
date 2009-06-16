@@ -79,9 +79,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CSMNativeWindow *>::_type("CSMNativeWindowPtr", "CSMWindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CSMNativeWindow *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMNativeWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMNativeWindow *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CSMNativeWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -318,19 +340,5 @@ void CSMNativeWindowBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMNativeWindow *>::_type("CSMNativeWindowPtr", "CSMWindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CSMNativeWindow *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CSMNativeWindow *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CSMNativeWindow *,
-                           0);
 
 OSG_END_NAMESPACE

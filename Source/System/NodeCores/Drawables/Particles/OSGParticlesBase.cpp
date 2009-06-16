@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          ParticlesBase::_sfMode
@@ -154,6 +154,28 @@ OSG_BEGIN_NAMESPACE
     pos, or indices if set, will be used.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Particles *>::_type("ParticlesPtr", "MaterialDrawablePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Particles *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Particles *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Particles *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ParticlesBase::classDescInserter(TypeObject &oType)
 {
@@ -1593,19 +1615,5 @@ void ParticlesBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Particles *>::_type("ParticlesPtr", "MaterialDrawablePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Particles *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Particles *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Particles *,
-                           0);
 
 OSG_END_NAMESPACE

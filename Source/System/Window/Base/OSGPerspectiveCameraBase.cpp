@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          PerspectiveCameraBase::_sfFov
@@ -101,6 +101,28 @@ OSG_BEGIN_NAMESPACE
     The aspect ratio (i.e. width / height) of a pixel.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PerspectiveCamera *>::_type("PerspectiveCameraPtr", "CameraPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PerspectiveCamera *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PerspectiveCamera *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PerspectiveCamera *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PerspectiveCameraBase::classDescInserter(TypeObject &oType)
 {
@@ -596,19 +618,5 @@ void PerspectiveCameraBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PerspectiveCamera *>::_type("PerspectiveCameraPtr", "CameraPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PerspectiveCamera *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           PerspectiveCamera *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           PerspectiveCamera *,
-                           0);
 
 OSG_END_NAMESPACE

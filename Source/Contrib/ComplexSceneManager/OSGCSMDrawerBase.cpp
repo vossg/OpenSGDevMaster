@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var CSMWindow *     CSMDrawerBase::_mfWindows
@@ -95,6 +95,42 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CSMDrawer *>::_type("CSMDrawerPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CSMDrawer *)
+
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMDrawer *,
+                           0);
+
+DataType &FieldTraits<CSMDrawer *, 1 >::getType(void)
+{
+    return FieldTraits<CSMDrawer *, 0>::getType();
+}
+
+
+OSG_SFIELDTYPE_INST(ParentPointerSField,
+                    CSMDrawer *,
+                    NoRefCountPolicy,
+                    1);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
+                         CSMDrawer *,
+                         NoRefCountPolicy,
+                         1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CSMDrawerBase::classDescInserter(TypeObject &oType)
 {
@@ -683,34 +719,6 @@ void CSMDrawerBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMDrawer *>::_type("CSMDrawerPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CSMDrawer *)
-
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CSMDrawer *,
-                           0);
-
-DataType &FieldTraits<CSMDrawer *, 1 >::getType(void)
-{
-    return FieldTraits<CSMDrawer *, 0>::getType();
-}
-
-
-OSG_SFIELDTYPE_INST(ParentPointerSField,
-                    CSMDrawer *,
-                    NoRefCountPolicy,
-                    1);
-
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
-                         CSMDrawer *,
-                         NoRefCountPolicy,
-                         1);
 
 
 OSG_END_NAMESPACE

@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FrameBufferObject * DynamicStateGeneratorStageDataBase::_sfRenderTarget
@@ -92,6 +92,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DynamicStateGeneratorStageData *>::_type("DynamicStateGeneratorStageDataPtr", "StageDataPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DynamicStateGeneratorStageData *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DynamicStateGeneratorStageDataBase::classDescInserter(TypeObject &oType)
 {
@@ -502,11 +516,5 @@ void DynamicStateGeneratorStageDataBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DynamicStateGeneratorStageData *>::_type("DynamicStateGeneratorStageDataPtr", "StageDataPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DynamicStateGeneratorStageData *)
 
 OSG_END_NAMESPACE

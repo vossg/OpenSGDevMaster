@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Pnt2f           ShaderVariablePnt2fBase::_sfValue
     variable value
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderVariablePnt2f *>::_type("ShaderVariablePnt2fPtr", "ShaderValueVariablePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderVariablePnt2f *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderVariablePnt2f *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderVariablePnt2f *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderVariablePnt2fBase::classDescInserter(TypeObject &oType)
 {
@@ -423,19 +445,5 @@ void ShaderVariablePnt2fBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariablePnt2f *>::_type("ShaderVariablePnt2fPtr", "ShaderValueVariablePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderVariablePnt2f *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderVariablePnt2f *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderVariablePnt2f *,
-                           0);
 
 OSG_END_NAMESPACE

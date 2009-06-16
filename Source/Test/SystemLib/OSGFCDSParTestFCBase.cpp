@@ -80,13 +80,53 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FieldContainer * FCDSParTestFCBase::_sfParent
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<FCDSParTestFC *>::_type("FCDSParTestFCPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(FCDSParTestFC *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FCDSParTestFC *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FCDSParTestFC *,
+                           0);
+
+DataType &FieldTraits< FCDSParTestFC *, 1 >::getType(void)
+{
+    return FieldTraits<FCDSParTestFC *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      FCDSParTestFC *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      FCDSParTestFC *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void FCDSParTestFCBase::classDescInserter(TypeObject &oType)
 {
@@ -128,10 +168,8 @@ FCDSParTestFCBase::TypeObject FCDSParTestFCBase::_type(
     "\tpointerfieldtypes=\"both\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
-    "    isNodeCore=\"false\"\n"
-    "    childFields=\"both\"\n"
-    "    childfieldparent=\"FieldContainer\"\n"
-    "    parentfieldcard=\"single\"\n"
+    "        isNodeCore=\"false\"\n"
+    "        childFields=\"both\"\n"
     ">\n"
     "\t<Field\n"
     "\t\tname=\"parent\"\n"
@@ -481,38 +519,6 @@ void FCDSParTestFCBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDSParTestFC *>::_type("FCDSParTestFCPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(FCDSParTestFC *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           FCDSParTestFC *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           FCDSParTestFC *,
-                           0);
-
-DataType &FieldTraits< FCDSParTestFC *, 1 >::getType(void)
-{
-    return FieldTraits<FCDSParTestFC *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      FCDSParTestFC *,
-                      UnrecordedRefCountPolicy,
-                      1);
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      FCDSParTestFC *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

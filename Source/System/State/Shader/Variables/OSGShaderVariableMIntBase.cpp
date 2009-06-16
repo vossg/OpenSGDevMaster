@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Int32           ShaderVariableMIntBase::_mfValue
     variable value
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderVariableMInt *>::_type("ShaderVariableMIntPtr", "ShaderValueVariablePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderVariableMInt *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderVariableMInt *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderVariableMInt *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderVariableMIntBase::classDescInserter(TypeObject &oType)
 {
@@ -432,19 +454,5 @@ void ShaderVariableMIntBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderVariableMInt *>::_type("ShaderVariableMIntPtr", "ShaderValueVariablePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderVariableMInt *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderVariableMInt *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderVariableMInt *,
-                           0);
 
 OSG_END_NAMESPACE

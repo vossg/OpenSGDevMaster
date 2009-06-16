@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          ScreenLODBase::_mfCoverageOverride
@@ -93,6 +93,20 @@ OSG_BEGIN_NAMESPACE
     Ex: [0.05, 0.01, 0.001]
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ScreenLOD *>::_type("ScreenLODPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ScreenLOD *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ScreenLODBase::classDescInserter(TypeObject &oType)
 {
@@ -452,11 +466,5 @@ void ScreenLODBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScreenLOD *>::_type("ScreenLODPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ScreenLOD *)
 
 OSG_END_NAMESPACE

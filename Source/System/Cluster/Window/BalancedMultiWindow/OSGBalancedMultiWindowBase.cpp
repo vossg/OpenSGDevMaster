@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            BalancedMultiWindowBase::_sfBalance
@@ -102,6 +102,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<BalancedMultiWindow *>::_type("BalancedMultiWindowPtr", "MultiDisplayWindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(BalancedMultiWindow *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void BalancedMultiWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -734,11 +748,5 @@ void BalancedMultiWindowBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BalancedMultiWindow *>::_type("BalancedMultiWindowPtr", "MultiDisplayWindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(BalancedMultiWindow *)
 
 OSG_END_NAMESPACE

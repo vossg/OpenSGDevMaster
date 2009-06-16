@@ -103,7 +103,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FCDTestFC *     FCDPtrTestFCNullCheckAccessBase::_sfFieldSFPub_ptr
@@ -202,6 +202,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<FCDPtrTestFCNullCheckAccess *>::_type("FCDPtrTestFCNullCheckAccessPtr", "NodeCorePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFCNullCheckAccess *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FCDPtrTestFCNullCheckAccess *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FCDPtrTestFCNullCheckAccess *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void FCDPtrTestFCNullCheckAccessBase::classDescInserter(TypeObject &oType)
 {
@@ -3626,19 +3648,5 @@ void FCDPtrTestFCNullCheckAccessBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDPtrTestFCNullCheckAccess *>::_type("FCDPtrTestFCNullCheckAccessPtr", "NodeCorePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(FCDPtrTestFCNullCheckAccess *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           FCDPtrTestFCNullCheckAccess *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           FCDPtrTestFCNullCheckAccess *,
-                           0);
 
 OSG_END_NAMESPACE

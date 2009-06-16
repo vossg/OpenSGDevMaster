@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          FCDTestFCBase::_sfFieldSFPub
@@ -106,6 +106,46 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<FCDTestFC *>::_type("FCDTestFCPtr", "NodeCorePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(FCDTestFC *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           FCDTestFC *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           FCDTestFC *,
+                           0);
+
+DataType &FieldTraits< FCDTestFC *, 1 >::getType(void)
+{
+    return FieldTraits<FCDTestFC *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      FCDTestFC *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      FCDTestFC *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void FCDTestFCBase::classDescInserter(TypeObject &oType)
 {
@@ -209,8 +249,6 @@ FCDTestFCBase::TypeObject FCDTestFCBase::_type(
     "\tparentsystemcomponent=\"true\"\n"
     "    isNodeCore=\"true\"\n"
     "    childFields=\"both\"\n"
-    "    childfieldparent=\"FieldContainer\"\n"
-    "    parentfieldcard=\"multi\"\n"
     ">\n"
     "    <Field\n"
     "        name = \"fieldSFPub\"\n"
@@ -787,38 +825,6 @@ void FCDTestFCBase::resolveLinks(void)
                                       oOffsets);
 #endif
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<FCDTestFC *>::_type("FCDTestFCPtr", "NodeCorePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(FCDTestFC *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           FCDTestFC *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           FCDTestFC *,
-                           0);
-
-DataType &FieldTraits< FCDTestFC *, 1 >::getType(void)
-{
-    return FieldTraits<FCDTestFC *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      FCDTestFC *,
-                      UnrecordedRefCountPolicy,
-                      1);
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      FCDTestFC *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

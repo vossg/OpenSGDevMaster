@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var CSMWindow *     CSMClusterWindowBase::_sfClientWindow
@@ -121,6 +121,45 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CSMClusterWindow *>::_type("CSMClusterWindowPtr", "CSMWindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CSMClusterWindow *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMClusterWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMClusterWindow *,
+                           0);
+
+DataType &FieldTraits<CSMClusterWindow *, 1 >::getType(void)
+{
+    return FieldTraits<CSMClusterWindow *, 0>::getType();
+}
+
+
+OSG_SFIELDTYPE_INST(ParentPointerSField,
+                    CSMClusterWindow *,
+                    NoRefCountPolicy,
+                    1);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
+                         CSMClusterWindow *,
+                         NoRefCountPolicy,
+                         1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CSMClusterWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -1130,37 +1169,6 @@ void CSMClusterWindowBase::resolveLinks(void)
                                       oOffsets);
 #endif
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMClusterWindow *>::_type("CSMClusterWindowPtr", "CSMWindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CSMClusterWindow *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CSMClusterWindow *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CSMClusterWindow *,
-                           0);
-
-DataType &FieldTraits<CSMClusterWindow *, 1 >::getType(void)
-{
-    return FieldTraits<CSMClusterWindow *, 0>::getType();
-}
-
-
-OSG_SFIELDTYPE_INST(ParentPointerSField,
-                    CSMClusterWindow *,
-                    NoRefCountPolicy,
-                    1);
-
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
-                         CSMClusterWindow *,
-                         NoRefCountPolicy,
-                         1);
 
 
 OSG_END_NAMESPACE

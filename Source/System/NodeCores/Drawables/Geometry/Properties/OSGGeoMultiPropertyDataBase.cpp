@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt8           GeoMultiPropertyDataBase::_mfIData
@@ -90,6 +90,28 @@ OSG_BEGIN_NAMESPACE
     The internal GL object id for the VBO, if used.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GeoMultiPropertyData *>::_type("GeoMultiPropertyDataPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyData *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoMultiPropertyData *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoMultiPropertyData *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GeoMultiPropertyDataBase::classDescInserter(TypeObject &oType)
 {
@@ -509,19 +531,5 @@ void GeoMultiPropertyDataBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoMultiPropertyData *>::_type("GeoMultiPropertyDataPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GeoMultiPropertyData *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           GeoMultiPropertyData *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           GeoMultiPropertyData *,
-                           0);
 
 OSG_END_NAMESPACE

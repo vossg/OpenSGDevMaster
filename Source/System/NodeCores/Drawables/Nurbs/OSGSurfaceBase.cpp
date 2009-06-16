@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          SurfaceBase::_sfDimU
@@ -153,6 +153,28 @@ OSG_BEGIN_NAMESPACE
     Surface GL Id, internal use.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Surface *>::_type("SurfacePtr", "GeometryPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Surface *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Surface *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Surface *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SurfaceBase::classDescInserter(TypeObject &oType)
 {
@@ -1733,19 +1755,5 @@ void SurfaceBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Surface *>::_type("SurfacePtr", "GeometryPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Surface *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Surface *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Surface *,
-                           0);
 
 OSG_END_NAMESPACE

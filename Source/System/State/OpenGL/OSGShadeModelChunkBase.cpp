@@ -80,13 +80,27 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          ShadeModelChunkBase::_sfShadeModel
     The shading model to use (glShadeModel).
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShadeModelChunk *>::_type("ShadeModelChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShadeModelChunk *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShadeModelChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -427,11 +441,5 @@ void ShadeModelChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShadeModelChunk *>::_type("ShadeModelChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShadeModelChunk *)
 
 OSG_END_NAMESPACE

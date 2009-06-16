@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var ShaderProgramVariables * ShaderProgramVariableChunkBase::_sfVariables
@@ -92,6 +92,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderProgramVariableChunk *>::_type("ShaderProgramVariableChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderProgramVariableChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderProgramVariableChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderProgramVariableChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderProgramVariableChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -548,19 +570,5 @@ void ShaderProgramVariableChunkBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderProgramVariableChunk *>::_type("ShaderProgramVariableChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderProgramVariableChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderProgramVariableChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderProgramVariableChunk *,
-                           0);
 
 OSG_END_NAMESPACE

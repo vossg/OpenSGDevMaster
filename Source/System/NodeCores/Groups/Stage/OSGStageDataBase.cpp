@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Int32           StageDataBase::_sfPartitionRangeBegin
@@ -94,6 +94,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<StageData *>::_type("StageDataPtr", "FieldContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(StageData *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void StageDataBase::classDescInserter(TypeObject &oType)
 {
@@ -552,11 +566,5 @@ void StageDataBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StageData *>::_type("StageDataPtr", "FieldContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(StageData *)
 
 OSG_END_NAMESPACE

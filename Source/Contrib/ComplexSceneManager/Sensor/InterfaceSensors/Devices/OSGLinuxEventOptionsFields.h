@@ -119,8 +119,6 @@ const Char8 *FieldTraits<LinuxEventOptions *, 0>::getSName<NoRefCountPolicy>(voi
 
 
 
-class DeviceInterface;
-
 /*! \ingroup GrpContribCSMFieldTraits
  */
 template <>
@@ -130,10 +128,7 @@ struct FieldTraits<LinuxEventOptions *, 1> :
   private:
 
   public:
-
-    typedef DeviceInterface            *ParentType;
     typedef FieldTraits<LinuxEventOptions *, 1>  Self;
-
 
     enum                        { Convertible = NotConvertible };
 
@@ -141,8 +136,6 @@ struct FieldTraits<LinuxEventOptions *, 1> :
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
-
-//    static const char *getSName(void) { return "SFLinuxEventOptionsPtr"; }
 };
 
 template<> inline

@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     KeySensorBase::_sfKey
@@ -102,6 +102,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<KeySensor *>::_type("KeySensorPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(KeySensor *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void KeySensorBase::classDescInserter(TypeObject &oType)
 {
@@ -709,11 +723,5 @@ void KeySensorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<KeySensor *>::_type("KeySensorPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(KeySensor *)
 
 OSG_END_NAMESPACE

@@ -86,7 +86,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Vec3r           SpotLightBase::_sfDirection
@@ -101,6 +101,20 @@ OSG_BEGIN_NAMESPACE
     The cut-off angle of the spotlight (in radians, not degrees!).
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SpotLight *>::_type("SpotLightPtr", "PointLightPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SpotLight *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SpotLightBase::classDescInserter(TypeObject &oType)
 {
@@ -596,11 +610,5 @@ void SpotLightBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SpotLight *>::_type("SpotLightPtr", "PointLightPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SpotLight *)
 
 OSG_END_NAMESPACE

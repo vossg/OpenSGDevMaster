@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var DeviceInterfaceSensor * InterfaceOptionsBase::_sfParent
@@ -91,6 +91,37 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<InterfaceOptions *>::_type("InterfaceOptionsPtr", "FieldContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(InterfaceOptions *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           InterfaceOptions *,
+                           0);
+
+
+DataType &FieldTraits< InterfaceOptions *, 1 >::getType(void)
+{
+    return FieldTraits<InterfaceOptions *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      InterfaceOptions *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void InterfaceOptionsBase::classDescInserter(TypeObject &oType)
 {
@@ -149,7 +180,6 @@ InterfaceOptionsBase::TypeObject InterfaceOptionsBase::_type(
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
-    "    childfieldparent=\"DeviceInterfaceSensor\"\n"
     "    childFields=\"single\"\n"
     ">\n"
     "\t<Field\n"
@@ -537,29 +567,6 @@ void InterfaceOptionsBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<InterfaceOptions *>::_type("InterfaceOptionsPtr", "FieldContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(InterfaceOptions *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           InterfaceOptions *,
-                           0);
-
-
-DataType &FieldTraits< InterfaceOptions *, 1 >::getType(void)
-{
-    return FieldTraits<InterfaceOptions *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      InterfaceOptions *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

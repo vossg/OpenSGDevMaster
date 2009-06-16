@@ -98,7 +98,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          TextureEnvChunkBase::_sfEnvMode
@@ -219,6 +219,28 @@ OSG_BEGIN_NAMESPACE
     Bias of LOD calculation for texture access.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TextureEnvChunk *>::_type("TextureEnvChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TextureEnvChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureEnvChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TextureEnvChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TextureEnvChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -2597,19 +2619,5 @@ void TextureEnvChunkBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureEnvChunk *>::_type("TextureEnvChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TextureEnvChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TextureEnvChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           TextureEnvChunk *,
-                           0);
 
 OSG_END_NAMESPACE

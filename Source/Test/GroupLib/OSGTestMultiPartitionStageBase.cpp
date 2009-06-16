@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     TestMultiPartitionStageBase::_sfMessage
@@ -98,6 +98,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TestMultiPartitionStage *>::_type("TestMultiPartitionStagePtr", "StagePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TestMultiPartitionStage *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TestMultiPartitionStageBase::classDescInserter(TypeObject &oType)
 {
@@ -661,11 +675,5 @@ void TestMultiPartitionStageBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TestMultiPartitionStage *>::_type("TestMultiPartitionStagePtr", "StagePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TestMultiPartitionStage *)
 
 OSG_END_NAMESPACE

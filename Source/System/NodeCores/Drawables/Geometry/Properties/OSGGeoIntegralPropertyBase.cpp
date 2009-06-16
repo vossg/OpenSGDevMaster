@@ -79,9 +79,49 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GeoIntegralProperty *>::_type("GeoIntegralPropertyPtr", "GeoPropertyPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GeoIntegralProperty *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoIntegralProperty *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoIntegralProperty *,
+                           0);
+
+DataType &FieldTraits< GeoIntegralProperty *, 1 >::getType(void)
+{
+    return FieldTraits<GeoIntegralProperty *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      GeoIntegralProperty *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      GeoIntegralProperty *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GeoIntegralPropertyBase::classDescInserter(TypeObject &oType)
 {
@@ -110,9 +150,7 @@ GeoIntegralPropertyBase::TypeObject GeoIntegralPropertyBase::_type(
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
-    "    childfieldparent=\"FieldContainer\"\n"
-    "    parentfieldcard=\"multi\"\n"
-    "    childFields=\"both\"\n"
+    "        childFields=\"both\"\n"
     ">\n"
     "Parent class for integral (i.e. one dimensional unsigned integer typed) properties.\n"
     "\n"
@@ -222,38 +260,6 @@ void GeoIntegralPropertyBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoIntegralProperty *>::_type("GeoIntegralPropertyPtr", "GeoPropertyPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GeoIntegralProperty *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           GeoIntegralProperty *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           GeoIntegralProperty *,
-                           0);
-
-DataType &FieldTraits< GeoIntegralProperty *, 1 >::getType(void)
-{
-    return FieldTraits<GeoIntegralProperty *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      GeoIntegralProperty *,
-                      UnrecordedRefCountPolicy,
-                      1);
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      GeoIntegralProperty *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

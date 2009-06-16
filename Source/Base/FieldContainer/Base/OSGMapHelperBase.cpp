@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     MapHelperBase::_mfKeys
@@ -91,6 +91,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<MapHelper *>::_type("MapHelperPtr", "FieldContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(MapHelper *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MapHelper *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MapHelper *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void MapHelperBase::classDescInserter(TypeObject &oType)
 {
@@ -522,19 +544,5 @@ void MapHelperBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MapHelper *>::_type("MapHelperPtr", "FieldContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(MapHelper *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           MapHelper *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           MapHelper *,
-                           0);
 
 OSG_END_NAMESPACE

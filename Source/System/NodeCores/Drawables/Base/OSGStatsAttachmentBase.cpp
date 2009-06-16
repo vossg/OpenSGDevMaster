@@ -79,9 +79,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<StatsAttachment *>::_type("StatsAttachmentPtr", "AttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(StatsAttachment *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StatsAttachment *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StatsAttachment *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void StatsAttachmentBase::classDescInserter(TypeObject &oType)
 {
@@ -214,19 +236,5 @@ void StatsAttachmentBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StatsAttachment *>::_type("StatsAttachmentPtr", "AttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(StatsAttachment *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           StatsAttachment *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           StatsAttachment *,
-                           0);
 
 OSG_END_NAMESPACE

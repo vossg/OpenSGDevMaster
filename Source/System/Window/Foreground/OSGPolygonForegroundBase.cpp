@@ -89,7 +89,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var PrimeMaterial * PolygonForegroundBase::_sfMaterial
@@ -128,6 +128,28 @@ OSG_BEGIN_NAMESPACE
     If true the image tiles in multi window settings.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PolygonForeground *>::_type("PolygonForegroundPtr", "ForegroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PolygonForeground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PolygonForeground *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PolygonForeground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PolygonForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -1102,19 +1124,5 @@ void PolygonForegroundBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PolygonForeground *>::_type("PolygonForegroundPtr", "ForegroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PolygonForeground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           PolygonForeground *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           PolygonForeground *,
-                           0);
 
 OSG_END_NAMESPACE

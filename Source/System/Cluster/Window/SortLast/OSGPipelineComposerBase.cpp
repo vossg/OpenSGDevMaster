@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            PipelineComposerBase::_sfShort
@@ -98,6 +98,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PipelineComposer *>::_type("PipelineComposerPtr", "ImageComposerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PipelineComposer *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PipelineComposerBase::classDescInserter(TypeObject &oType)
 {
@@ -653,11 +667,5 @@ void PipelineComposerBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PipelineComposer *>::_type("PipelineComposerPtr", "ImageComposerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PipelineComposer *)
 
 OSG_END_NAMESPACE

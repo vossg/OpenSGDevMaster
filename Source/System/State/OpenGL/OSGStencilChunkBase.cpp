@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          StencilChunkBase::_sfStencilFunc
@@ -124,6 +124,20 @@ OSG_BEGIN_NAMESPACE
     Controls writing of individual bits in stencil planes, with 0 means write protected and 1 write enabled.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<StencilChunk *>::_type("StencilChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(StencilChunk *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void StencilChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -996,11 +1010,5 @@ void StencilChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StencilChunk *>::_type("StencilChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(StencilChunk *)
 
 OSG_END_NAMESPACE

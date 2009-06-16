@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            LightEngineBase::_sfEnabled
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<LightEngine *>::_type("LightEnginePtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(LightEngine *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           LightEngine *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           LightEngine *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void LightEngineBase::classDescInserter(TypeObject &oType)
 {
@@ -292,19 +314,5 @@ void LightEngineBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<LightEngine *>::_type("LightEnginePtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(LightEngine *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           LightEngine *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           LightEngine *,
-                           0);
 
 OSG_END_NAMESPACE

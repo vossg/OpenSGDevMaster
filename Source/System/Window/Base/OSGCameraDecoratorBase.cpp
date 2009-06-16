@@ -84,12 +84,34 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var CameraPtr CameraDecoratorBase::_sfDecoratee
     The object being decorated
 */
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CameraDecorator *>::_type("CameraDecoratorPtr", "CameraPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CameraDecorator *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CameraDecorator *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CameraDecorator *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -591,19 +613,5 @@ void CameraDecoratorBase::setFar(const Real32 value)
     }
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CameraDecorator *>::_type("CameraDecoratorPtr", "CameraPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CameraDecorator *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CameraDecorator *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CameraDecorator *,
-                           0);
 
 OSG_END_NAMESPACE

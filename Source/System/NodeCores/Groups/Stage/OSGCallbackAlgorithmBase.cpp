@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var RenderFunctorCallback CallbackAlgorithmBase::_sfCallback
     Inherited the parent target if none is set  
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CallbackAlgorithm *>::_type("CallbackAlgorithmPtr", "AlgorithmPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CallbackAlgorithm *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CallbackAlgorithm *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CallbackAlgorithm *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CallbackAlgorithmBase::classDescInserter(TypeObject &oType)
 {
@@ -400,19 +422,5 @@ void CallbackAlgorithmBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CallbackAlgorithm *>::_type("CallbackAlgorithmPtr", "AlgorithmPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CallbackAlgorithm *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CallbackAlgorithm *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CallbackAlgorithm *,
-                           0);
 
 OSG_END_NAMESPACE

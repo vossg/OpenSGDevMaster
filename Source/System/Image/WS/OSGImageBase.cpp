@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FieldContainer * ImageBase::_mfParents
@@ -191,6 +191,40 @@ OSG_BEGIN_NAMESPACE
     card and is no longer needed in main memory.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Image *>::_type("ImagePtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Image *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Image *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Image *,
+                           0);
+
+DataType &FieldTraits< Image *, 1 >::getType(void)
+{
+    return FieldTraits<Image *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      Image *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ImageBase::classDescInserter(TypeObject &oType)
 {
@@ -528,10 +562,8 @@ ImageBase::TypeObject ImageBase::_type(
     "\tparentsystemcomponent=\"true\"\n"
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"false\"\n"
-    "    fieldsUnmarkedOnCreate=\"(ComponentSizeFieldMask | SideSizeFieldMask | FrameSizeFieldMask)\"\n"
-    "    childfieldparent=\"FieldContainer\"\n"
-    "    parentfieldcard=\"multi\"\n"
-    "    childFields=\"single\"\n"
+    "        fieldsUnmarkedOnCreate=\"(ComponentSizeFieldMask | SideSizeFieldMask | FrameSizeFieldMask)\"\n"
+    "        childFields=\"single\"\n"
     ">\n"
     "1D/2D/3D Image with various pixel types data, optionally also can hold\n"
     "mipMap and simple multi-frame data.\n"
@@ -541,7 +573,7 @@ ImageBase::TypeObject ImageBase::_type(
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\taccess=\"none\"\n"
-    "        category=\"parentpointer\"\n"
+    "                category=\"parentpointer\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
@@ -2367,32 +2399,6 @@ void ImageBase::resolveLinks(void)
                                       oOffsets);
 #endif
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Image *>::_type("ImagePtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Image *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Image *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Image *,
-                           0);
-
-DataType &FieldTraits< Image *, 1 >::getType(void)
-{
-    return FieldTraits<Image *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      Image *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

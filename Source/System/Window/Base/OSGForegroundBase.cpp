@@ -90,13 +90,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            ForegroundBase::_sfActive
     Activate the grabber.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Foreground *>::_type("ForegroundPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Foreground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Foreground *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Foreground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -326,19 +348,5 @@ void ForegroundBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Foreground *>::_type("ForegroundPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Foreground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Foreground *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Foreground *,
-                           0);
 
 OSG_END_NAMESPACE

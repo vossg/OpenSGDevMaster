@@ -92,7 +92,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          BlendChunkBase::_sfSrcFactor
@@ -132,6 +132,28 @@ OSG_BEGIN_NAMESPACE
     The default is GL_NONE, which indicates using the standard BlendFunction.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<BlendChunk *>::_type("BlendChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(BlendChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           BlendChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           BlendChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void BlendChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1020,19 +1042,5 @@ void BlendChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BlendChunk *>::_type("BlendChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(BlendChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           BlendChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           BlendChunk *,
-                           0);
 
 OSG_END_NAMESPACE

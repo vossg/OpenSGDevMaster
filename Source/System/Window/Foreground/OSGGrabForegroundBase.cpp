@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Image *         GrabForegroundBase::_sfImage
@@ -94,6 +94,28 @@ OSG_BEGIN_NAMESPACE
     Automatically resize the image when the viewport size changes.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GrabForeground *>::_type("GrabForegroundPtr", "ForegroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GrabForeground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GrabForeground *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GrabForeground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GrabForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -527,19 +549,5 @@ void GrabForegroundBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GrabForeground *>::_type("GrabForegroundPtr", "ForegroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GrabForeground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           GrabForeground *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           GrabForeground *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var ShaderProgramVariables * SimpleSHLVariableChunkBase::_sfVariables
@@ -91,6 +91,28 @@ OSG_BEGIN_NAMESPACE
     fragment program object
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SimpleSHLVariableChunk *>::_type("SimpleSHLVariableChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SimpleSHLVariableChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SimpleSHLVariableChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SimpleSHLVariableChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SimpleSHLVariableChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -579,19 +601,5 @@ void SimpleSHLVariableChunkBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleSHLVariableChunk *>::_type("SimpleSHLVariableChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SimpleSHLVariableChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           SimpleSHLVariableChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           SimpleSHLVariableChunk *,
-                           0);
 
 OSG_END_NAMESPACE

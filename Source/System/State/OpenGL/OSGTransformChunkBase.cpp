@@ -83,13 +83,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Matrix          TransformChunkBase::_sfMatrix
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TransformChunk *>::_type("TransformChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TransformChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TransformChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TransformChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TransformChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -431,19 +453,5 @@ void TransformChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TransformChunk *>::_type("TransformChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TransformChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TransformChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           TransformChunk *,
-                           0);
 
 OSG_END_NAMESPACE

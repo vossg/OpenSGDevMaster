@@ -80,13 +80,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var NodeCore *      MultiCoreBase::_mfCores
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<MultiCore *>::_type("MultiCorePtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(MultiCore *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MultiCore *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MultiCore *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void MultiCoreBase::classDescInserter(TypeObject &oType)
 {
@@ -562,19 +584,5 @@ void MultiCoreBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MultiCore *>::_type("MultiCorePtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(MultiCore *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           MultiCore *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           MultiCore *,
-                           0);
 
 OSG_END_NAMESPACE

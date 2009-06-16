@@ -93,7 +93,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Image *         CubeTextureObjChunkBase::_sfPosZImage
@@ -116,6 +116,28 @@ OSG_BEGIN_NAMESPACE
     The image for the negative Y direction of the cube texture.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CubeTextureObjChunk *>::_type("CubeTextureObjChunkPtr", "TextureObjChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CubeTextureObjChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CubeTextureObjChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CubeTextureObjChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CubeTextureObjChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -806,19 +828,5 @@ void CubeTextureObjChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeTextureObjChunk *>::_type("CubeTextureObjChunkPtr", "TextureObjChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CubeTextureObjChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CubeTextureObjChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CubeTextureObjChunk *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -119,8 +119,6 @@ const Char8 *FieldTraits<CSMClusterWinOptions *, 0>::getSName<NoRefCountPolicy>(
 
 
 
-class CSMClusterWindow;
-
 /*! \ingroup GrpContribCSMFieldTraits
  */
 template <>
@@ -130,10 +128,7 @@ struct FieldTraits<CSMClusterWinOptions *, 1> :
   private:
 
   public:
-
-    typedef CSMClusterWindow            *ParentType;
     typedef FieldTraits<CSMClusterWinOptions *, 1>  Self;
-
 
     enum                        { Convertible = NotConvertible };
 
@@ -141,8 +136,6 @@ struct FieldTraits<CSMClusterWinOptions *, 1> :
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
-
-//    static const char *getSName(void) { return "SFCSMClusterWinOptionsPtr"; }
 };
 
 template<> inline

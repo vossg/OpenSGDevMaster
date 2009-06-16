@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color4f         TextureBackgroundBase::_sfColor
@@ -114,6 +114,25 @@ OSG_BEGIN_NAMESPACE
     Vertical subdivision.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TextureBackground *>::_type("TextureBackgroundPtr", "BackgroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TextureBackground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureBackground *,
+                           0);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TextureBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -918,17 +937,6 @@ void TextureBackgroundBase::resolveLinks(void)
                                       oOffsets);
 #endif
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureBackground *>::_type("TextureBackgroundPtr", "BackgroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TextureBackground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TextureBackground *,
-                           0);
 
 
 OSG_END_NAMESPACE

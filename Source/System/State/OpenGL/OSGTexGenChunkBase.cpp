@@ -100,7 +100,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          TexGenChunkBase::_sfGenFuncS
@@ -159,6 +159,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TexGenChunk *>::_type("TexGenChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TexGenChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TexGenChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TexGenChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TexGenChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1513,19 +1535,5 @@ void TexGenChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TexGenChunk *>::_type("TexGenChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TexGenChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TexGenChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           TexGenChunk *,
-                           0);
 
 OSG_END_NAMESPACE

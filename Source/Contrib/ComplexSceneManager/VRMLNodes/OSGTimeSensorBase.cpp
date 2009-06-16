@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            TimeSensorBase::_sfEnabled
@@ -118,6 +118,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TimeSensor *>::_type("TimeSensorPtr", "SensorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TimeSensor *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TimeSensorBase::classDescInserter(TypeObject &oType)
 {
@@ -1050,11 +1064,5 @@ void TimeSensorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TimeSensor *>::_type("TimeSensorPtr", "SensorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TimeSensor *)
 
 OSG_END_NAMESPACE

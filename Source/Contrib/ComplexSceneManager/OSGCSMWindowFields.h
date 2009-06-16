@@ -146,8 +146,6 @@ const Char8 *FieldTraits<CSMWindow *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
-class FieldContainer;
-
 /*! \ingroup GrpContribCSMFieldTraits
  */
 template <>
@@ -157,11 +155,7 @@ struct FieldTraits<CSMWindow *, 1> :
   private:
 
   public:
-
-    typedef FieldContainer            *ParentType;
     typedef FieldTraits<CSMWindow *, 1>  Self;
-
-    static const FieldType::Cardinality eParentCard = FieldType::SingleField;
 
     enum                        { Convertible = NotConvertible };
 
@@ -170,11 +164,8 @@ struct FieldTraits<CSMWindow *, 1> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFCSMWindowPtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
-
-//    static const char *getMName(void) { return "MFCSMWindowPtr"; }
 };
 
 template<> inline

@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Real32          CoordinateInterpolatorBase::_sfFraction
@@ -98,6 +98,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CoordinateInterpolator *>::_type("CoordinateInterpolatorPtr", "NodeCorePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CoordinateInterpolator *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CoordinateInterpolatorBase::classDescInserter(TypeObject &oType)
 {
@@ -677,11 +691,5 @@ void CoordinateInterpolatorBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CoordinateInterpolator *>::_type("CoordinateInterpolatorPtr", "NodeCorePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CoordinateInterpolator *)
 
 OSG_END_NAMESPACE

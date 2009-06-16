@@ -80,13 +80,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var StateChunk *    ChunkBlockBase::_mfChunks
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ChunkBlock *>::_type("ChunkBlockPtr", "FieldContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ChunkBlock *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ChunkBlock *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ChunkBlock *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ChunkBlockBase::classDescInserter(TypeObject &oType)
 {
@@ -443,19 +465,5 @@ void ChunkBlockBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkBlock *>::_type("ChunkBlockPtr", "FieldContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ChunkBlock *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ChunkBlock *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ChunkBlock *,
-                           0);
 
 OSG_END_NAMESPACE

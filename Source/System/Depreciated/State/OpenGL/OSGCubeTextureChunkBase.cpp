@@ -95,7 +95,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Image *         CubeTextureChunkBase::_sfPosZImage
@@ -118,6 +118,28 @@ OSG_BEGIN_NAMESPACE
     The image for the negative Y direction for the cube tetxure.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CubeTextureChunk *>::_type("CubeTextureChunkPtr", "TextureChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CubeTextureChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CubeTextureChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CubeTextureChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CubeTextureChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -812,19 +834,5 @@ void CubeTextureChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CubeTextureChunk *>::_type("CubeTextureChunkPtr", "TextureChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CubeTextureChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CubeTextureChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CubeTextureChunk *,
-                           0);
 
 OSG_END_NAMESPACE

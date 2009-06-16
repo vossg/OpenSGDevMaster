@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            DepthChunkBase::_sfEnable
@@ -108,6 +108,28 @@ OSG_BEGIN_NAMESPACE
     Whether the depth buffer is enabled for writing or not.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DepthChunk *>::_type("DepthChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DepthChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DepthChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DepthChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DepthChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -754,19 +776,5 @@ void DepthChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DepthChunk *>::_type("DepthChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DepthChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DepthChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DepthChunk *,
-                           0);
 
 OSG_END_NAMESPACE

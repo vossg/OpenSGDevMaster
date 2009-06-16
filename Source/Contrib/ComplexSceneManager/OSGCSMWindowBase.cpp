@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FieldContainer * CSMWindowBase::_sfParent
@@ -145,6 +145,46 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CSMWindow *>::_type("CSMWindowPtr", "AttachmentContainerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CSMWindow *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CSMWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CSMWindow *,
+                           0);
+
+DataType &FieldTraits< CSMWindow *, 1 >::getType(void)
+{
+    return FieldTraits<CSMWindow *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      CSMWindow *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      CSMWindow *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CSMWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -358,8 +398,6 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "    useLocalIncludes=\"false\"\n"
     "    isNodeCore=\"false\"\n"
     "    isBundle=\"true\"\n"
-    "    childfieldparent=\"FieldContainer\"\n"
-    "    parentfieldcard=\"single\"\n"
     "    childFields=\"both\"\n"
     ">\n"
     "\t<Field\n"
@@ -1537,38 +1575,6 @@ void CSMWindowBase::resolveLinks(void)
                                       oOffsets);
 #endif
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CSMWindow *>::_type("CSMWindowPtr", "AttachmentContainerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CSMWindow *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CSMWindow *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CSMWindow *,
-                           0);
-
-DataType &FieldTraits< CSMWindow *, 1 >::getType(void)
-{
-    return FieldTraits<CSMWindow *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      CSMWindow *,
-                      UnrecordedRefCountPolicy,
-                      1);
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      CSMWindow *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

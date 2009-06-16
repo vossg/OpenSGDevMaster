@@ -146,8 +146,6 @@ const Char8 *FieldTraits<ShaderProcVariable *, 0>::getMName<NoRefCountPolicy>(vo
 }
 
 
-class FieldContainer;
-
 /*! \ingroup GrpSystemShaderFieldTraits
  */
 template <>
@@ -157,11 +155,7 @@ struct FieldTraits<ShaderProcVariable *, 1> :
   private:
 
   public:
-
-    typedef FieldContainer            *ParentType;
     typedef FieldTraits<ShaderProcVariable *, 1>  Self;
-
-    static const FieldType::Cardinality eParentCard = FieldType::MultiField;
 
     enum                        { Convertible = NotConvertible };
 
@@ -170,11 +164,8 @@ struct FieldTraits<ShaderProcVariable *, 1> :
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
 
-//    static const char *getSName(void) { return "SFShaderProcVariablePtr"; }
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
-
-//    static const char *getMName(void) { return "MFShaderProcVariablePtr"; }
 };
 
 template<> inline

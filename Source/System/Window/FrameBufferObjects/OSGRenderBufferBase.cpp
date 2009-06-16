@@ -82,7 +82,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          RenderBufferBase::_sfGLId
@@ -93,6 +93,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<RenderBuffer *>::_type("RenderBufferPtr", "FrameBufferAttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(RenderBuffer *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           RenderBuffer *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           RenderBuffer *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void RenderBufferBase::classDescInserter(TypeObject &oType)
 {
@@ -510,19 +532,5 @@ void RenderBufferBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RenderBuffer *>::_type("RenderBufferPtr", "FrameBufferAttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(RenderBuffer *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           RenderBuffer *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           RenderBuffer *,
-                           0);
 
 OSG_END_NAMESPACE

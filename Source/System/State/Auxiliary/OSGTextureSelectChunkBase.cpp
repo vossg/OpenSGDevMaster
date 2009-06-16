@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          TextureSelectChunkBase::_sfChoice
@@ -96,6 +96,28 @@ OSG_BEGIN_NAMESPACE
     Texture chunks to choose from 
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<TextureSelectChunk *>::_type("TextureSelectChunkPtr", "TextureBaseChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(TextureSelectChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TextureSelectChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TextureSelectChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void TextureSelectChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -605,19 +627,5 @@ void TextureSelectChunkBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureSelectChunk *>::_type("TextureSelectChunkPtr", "TextureBaseChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(TextureSelectChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           TextureSelectChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           TextureSelectChunk *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -79,9 +79,23 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<RotateManipulator *>::_type("RotateManipulatorPtr", "ManipulatorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(RotateManipulator *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void RotateManipulatorBase::classDescInserter(TypeObject &oType)
 {
@@ -344,11 +358,5 @@ void RotateManipulatorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<RotateManipulator *>::_type("RotateManipulatorPtr", "ManipulatorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(RotateManipulator *)
 
 OSG_END_NAMESPACE

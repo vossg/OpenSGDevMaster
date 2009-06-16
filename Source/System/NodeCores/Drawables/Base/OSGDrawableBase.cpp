@@ -79,9 +79,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Drawable *>::_type("DrawablePtr", "NodeCorePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Drawable *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Drawable *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Drawable *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DrawableBase::classDescInserter(TypeObject &oType)
 {
@@ -213,19 +235,5 @@ void DrawableBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Drawable *>::_type("DrawablePtr", "NodeCorePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Drawable *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Drawable *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Drawable *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Color3r         SolidBackgroundBase::_sfColor
@@ -95,6 +95,25 @@ OSG_BEGIN_NAMESPACE
     Alpha value (to allow transparent clears).
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SolidBackground *>::_type("SolidBackgroundPtr", "BackgroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SolidBackground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SolidBackground *,
+                           0);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SolidBackgroundBase::classDescInserter(TypeObject &oType)
 {
@@ -513,17 +532,6 @@ void SolidBackgroundBase::resolveLinks(void)
 
 
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SolidBackground *>::_type("SolidBackgroundPtr", "BackgroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SolidBackground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           SolidBackground *,
-                           0);
 
 
 OSG_END_NAMESPACE

@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          DisplayFilterStageDataBase::_sfWidth
@@ -110,6 +110,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DisplayFilterStageData *>::_type("DisplayFilterStageDataPtr", "StageDataPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DisplayFilterStageData *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DisplayFilterStageDataBase::classDescInserter(TypeObject &oType)
 {
@@ -853,11 +867,5 @@ void DisplayFilterStageDataBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DisplayFilterStageData *>::_type("DisplayFilterStageDataPtr", "StageDataPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DisplayFilterStageData *)
 
 OSG_END_NAMESPACE

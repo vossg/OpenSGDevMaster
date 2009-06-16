@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Node *          VisitSubTreeBase::_sfSubTreeRoot
@@ -92,6 +92,20 @@ OSG_BEGIN_NAMESPACE
     at this location.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<VisitSubTree *>::_type("VisitSubTreePtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(VisitSubTree *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void VisitSubTreeBase::classDescInserter(TypeObject &oType)
 {
@@ -452,11 +466,5 @@ void VisitSubTreeBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VisitSubTree *>::_type("VisitSubTreePtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(VisitSubTree *)
 
 OSG_END_NAMESPACE

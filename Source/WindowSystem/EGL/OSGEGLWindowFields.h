@@ -66,20 +66,11 @@ OSG_BEGIN_NAMESPACE
 
 class EGLWindow;
 
-#if !defined(OSG_DO_DOC) // created as a dummy class, remove to prevent doubles
-//! EGLWindowPtr
-
 OSG_GEN_CONTAINERPTR(EGLWindow);
 
-#endif
-
-#if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 /*! \ingroup GrpWindowEGLFieldTraits
+    \ingroup GrpLibOSGWindowEGL
  */
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \hideinhierarchy */
-#endif
-
 template <>
 struct FieldTraits<EGLWindow *> :
     public FieldTraitsFCPtrBase<EGLWindow *>
@@ -154,42 +145,78 @@ const Char8 *FieldTraits<EGLWindow *, 0>::getMName<NoRefCountPolicy>(void)
     return "MFUnrefdEGLWindowPtr"; 
 }
 
-#if !defined(OSG_DOC_DEV_TRAITS)
-/*! \class  FieldTraitsTemplateBase<EGLWindowPtr, 0>
-    \hideinhierarchy
- */
-#endif
 
-#endif // !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowEGLFieldSingle */
-
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpWindowEGLFieldSFields */
 typedef PointerSField<EGLWindow *,
                       RecordedRefCountPolicy  > SFRecEGLWindowPtr;
+/*! \ingroup GrpWindowEGLFieldSFields */
 typedef PointerSField<EGLWindow *,
                       UnrecordedRefCountPolicy> SFUnrecEGLWindowPtr;
+/*! \ingroup GrpWindowEGLFieldSFields */
 typedef PointerSField<EGLWindow *,
                       WeakRefCountPolicy      > SFWeakEGLWindowPtr;
+/*! \ingroup GrpWindowEGLFieldSFields */
 typedef PointerSField<EGLWindow *,
                       NoRefCountPolicy        > SFUncountedEGLWindowPtr;
-#endif
 
 
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
-/*! \ingroup GrpWindowEGLFieldMulti */
-
+/*! \ingroup GrpWindowEGLFieldMFields */
 typedef PointerMField<EGLWindow *,
                       RecordedRefCountPolicy  > MFRecEGLWindowPtr;
+/*! \ingroup GrpWindowEGLFieldMFields */
 typedef PointerMField<EGLWindow *,
                       UnrecordedRefCountPolicy> MFUnrecEGLWindowPtr;
+/*! \ingroup GrpWindowEGLFieldMFields */
 typedef PointerMField<EGLWindow *,
                       WeakRefCountPolicy      > MFWeakEGLWindowPtr;
+/*! \ingroup GrpWindowEGLFieldMFields */
 typedef PointerMField<EGLWindow *,
                       NoRefCountPolicy        > MFUncountedEGLWindowPtr;
-#endif
 
+
+
+
+#else // these are the doxygen hacks
+
+/*! \ingroup GrpWindowEGLFieldSFields \ingroup GrpLibOSGWindowEGL */
+struct SFRecEGLWindowPtr : 
+    public PointerSField<EGLWindow *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowEGLFieldSFields \ingroup GrpLibOSGWindowEGL */
+struct SFUnrecEGLWindowPtr : 
+    public PointerSField<EGLWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowEGLFieldSFields \ingroup GrpLibOSGWindowEGL */
+struct SFWeakEGLWindowPtr :
+    public PointerSField<EGLWindow *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpWindowEGLFieldSFields \ingroup GrpLibOSGWindowEGL */
+struct SFUncountedEGLWindowPtr :
+    public PointerSField<EGLWindow *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpWindowEGLFieldMFields \ingroup GrpLibOSGWindowEGL */
+struct MFRecEGLWindowPtr :
+    public PointerMField<EGLWindow *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpWindowEGLFieldMFields \ingroup GrpLibOSGWindowEGL */
+struct MFUnrecEGLWindowPtr :
+    public PointerMField<EGLWindow *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpWindowEGLFieldMFields \ingroup GrpLibOSGWindowEGL */
+struct MFWeakEGLWindowPtr :
+    public PointerMField<EGLWindow *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpWindowEGLFieldMFields \ingroup GrpLibOSGWindowEGL */
+struct MFUncountedEGLWindowPtr :
+    public PointerMField<EGLWindow *,
+                         NoRefCountPolicy        > {};
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 

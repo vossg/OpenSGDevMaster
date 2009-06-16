@@ -111,7 +111,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            SHLChunkBase::_sfCgFrontEnd
@@ -138,6 +138,28 @@ OSG_BEGIN_NAMESPACE
     Whether to warn about unknown/unused paramters.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SHLChunk *>::_type("SHLChunkPtr", "ShaderChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SHLChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SHLChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SHLChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SHLChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -917,19 +939,5 @@ void SHLChunkBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SHLChunk *>::_type("SHLChunkPtr", "ShaderChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SHLChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           SHLChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           SHLChunk *,
-                           0);
 
 OSG_END_NAMESPACE

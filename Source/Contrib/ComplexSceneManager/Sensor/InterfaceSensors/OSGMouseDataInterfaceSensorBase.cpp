@@ -79,13 +79,27 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var MouseData       MouseDataInterfaceSensorBase::_sfMouseData
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<MouseDataInterfaceSensor *>::_type("MouseDataInterfaceSensorPtr", "DeviceInterfaceSensorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(MouseDataInterfaceSensor *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void MouseDataInterfaceSensorBase::classDescInserter(TypeObject &oType)
 {
@@ -424,11 +438,5 @@ void MouseDataInterfaceSensorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MouseDataInterfaceSensor *>::_type("MouseDataInterfaceSensorPtr", "DeviceInterfaceSensorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(MouseDataInterfaceSensor *)
 
 OSG_END_NAMESPACE

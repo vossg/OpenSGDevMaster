@@ -86,7 +86,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Image *         ImageForegroundBase::_mfImages
@@ -97,6 +97,28 @@ OSG_BEGIN_NAMESPACE
     The positions of the images.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ImageForeground *>::_type("ImageForegroundPtr", "ForegroundPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ImageForeground *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ImageForeground *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ImageForeground *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ImageForegroundBase::classDescInserter(TypeObject &oType)
 {
@@ -614,19 +636,5 @@ void ImageForegroundBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ImageForeground *>::_type("ImageForegroundPtr", "ForegroundPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ImageForeground *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ImageForeground *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ImageForeground *,
-                           0);
 
 OSG_END_NAMESPACE

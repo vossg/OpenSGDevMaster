@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var std::string     ColladaGeoInputAttachmentBase::_mfSemantics
@@ -102,6 +102,28 @@ OSG_BEGIN_NAMESPACE
     Indices corresponding to the inputs, in the order they are present in the Collada Geometry.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ColladaGeoInputAttachment *>::_type("ColladaGeoInputAttachmentPtr", "AttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ColladaGeoInputAttachment *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ColladaGeoInputAttachment *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ColladaGeoInputAttachment *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ColladaGeoInputAttachmentBase::classDescInserter(TypeObject &oType)
 {
@@ -921,19 +943,5 @@ void ColladaGeoInputAttachmentBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ColladaGeoInputAttachment *>::_type("ColladaGeoInputAttachmentPtr", "AttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ColladaGeoInputAttachment *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ColladaGeoInputAttachment *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ColladaGeoInputAttachment *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -79,9 +79,28 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Sensor *>::_type("SensorPtr", "NodeCorePtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Sensor *)
+
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Sensor *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SensorBase::classDescInserter(TypeObject &oType)
 {
@@ -217,16 +236,5 @@ void SensorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Sensor *>::_type("SensorPtr", "NodeCorePtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Sensor *)
-
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Sensor *,
-                           0);
 
 OSG_END_NAMESPACE

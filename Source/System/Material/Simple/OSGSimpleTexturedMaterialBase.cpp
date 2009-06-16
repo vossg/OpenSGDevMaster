@@ -97,7 +97,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Image *         SimpleTexturedMaterialBase::_sfImage
@@ -123,6 +123,28 @@ OSG_BEGIN_NAMESPACE
     Defines whether to use the texture as a spherical environment map.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<SimpleTexturedMaterial *>::_type("SimpleTexturedMaterialPtr", "SimpleMaterialPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(SimpleTexturedMaterial *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           SimpleTexturedMaterial *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           SimpleTexturedMaterial *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void SimpleTexturedMaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -811,19 +833,5 @@ void SimpleTexturedMaterialBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SimpleTexturedMaterial *>::_type("SimpleTexturedMaterialPtr", "SimpleMaterialPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(SimpleTexturedMaterial *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           SimpleTexturedMaterial *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           SimpleTexturedMaterial *,
-                           0);
 
 OSG_END_NAMESPACE

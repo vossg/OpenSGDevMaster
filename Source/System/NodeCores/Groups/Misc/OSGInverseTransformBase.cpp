@@ -79,9 +79,31 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<InverseTransform *>::_type("InverseTransformPtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(InverseTransform *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           InverseTransform *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           InverseTransform *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void InverseTransformBase::classDescInserter(TypeObject &oType)
 {
@@ -344,19 +366,5 @@ void InverseTransformBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<InverseTransform *>::_type("InverseTransformPtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(InverseTransform *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           InverseTransform *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           InverseTransform *,
-                           0);
 
 OSG_END_NAMESPACE

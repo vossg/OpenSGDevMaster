@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var ShaderValueVariable * ShaderProgramVariablesBase::_mfVariables
@@ -96,6 +96,40 @@ OSG_BEGIN_NAMESPACE
     fragment program object
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderProgramVariables *>::_type("ShaderProgramVariablesPtr", "AttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderProgramVariables *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderProgramVariables *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderProgramVariables *,
+                           0);
+
+DataType &FieldTraits< ShaderProgramVariables *, 1 >::getType(void)
+{
+    return FieldTraits<ShaderProgramVariables *, 0>::getType();
+}
+
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      ShaderProgramVariables *,
+                      UnrecordedRefCountPolicy,
+                      1);
+
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderProgramVariablesBase::classDescInserter(TypeObject &oType)
 {
@@ -163,8 +197,6 @@ ShaderProgramVariablesBase::TypeObject ShaderProgramVariablesBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
-    "   childfieldparent=\"FieldContainer\"\n"
-    "   parentfieldcard=\"multi\"\n"
     "   childFields=\"single\"\n"
     "   docGroupBase=\"GrpSystemShader\"\n"
     "   >\n"
@@ -690,32 +722,6 @@ void ShaderProgramVariablesBase::resolveLinks(void)
                                       oOffsets);
 #endif
 }
-
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderProgramVariables *>::_type("ShaderProgramVariablesPtr", "AttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderProgramVariables *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderProgramVariables *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderProgramVariables *,
-                           0);
-
-DataType &FieldTraits< ShaderProgramVariables *, 1 >::getType(void)
-{
-    return FieldTraits<ShaderProgramVariables *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      ShaderProgramVariables *,
-                      UnrecordedRefCountPolicy,
-                      1);
 
 
 OSG_END_NAMESPACE

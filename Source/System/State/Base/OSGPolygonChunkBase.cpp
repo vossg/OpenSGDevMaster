@@ -100,7 +100,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GLenum          PolygonChunkBase::_sfCullFace
@@ -149,6 +149,28 @@ OSG_BEGIN_NAMESPACE
     32 elements.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<PolygonChunk *>::_type("PolygonChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(PolygonChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           PolygonChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           PolygonChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void PolygonChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -1267,19 +1289,5 @@ void PolygonChunkBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<PolygonChunk *>::_type("PolygonChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(PolygonChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           PolygonChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           PolygonChunk *,
-                           0);
 
 OSG_END_NAMESPACE

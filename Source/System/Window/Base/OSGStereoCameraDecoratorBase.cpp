@@ -84,7 +84,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            StereoCameraDecoratorBase::_sfLeftEye
@@ -95,6 +95,28 @@ OSG_BEGIN_NAMESPACE
     The distance between the two eyes.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<StereoCameraDecorator *>::_type("StereoCameraDecoratorPtr", "CameraDecoratorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(StereoCameraDecorator *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StereoCameraDecorator *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StereoCameraDecorator *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void StereoCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -385,19 +407,5 @@ void StereoCameraDecoratorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<StereoCameraDecorator *>::_type("StereoCameraDecoratorPtr", "CameraDecoratorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(StereoCameraDecorator *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           StereoCameraDecorator *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           StereoCameraDecorator *,
-                           0);
 
 OSG_END_NAMESPACE

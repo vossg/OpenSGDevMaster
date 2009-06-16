@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var FrameBufferObject * StageBase::_sfRenderTarget
@@ -91,6 +91,28 @@ OSG_BEGIN_NAMESPACE
     Inherited the parent target if none is set  
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<Stage *>::_type("StagePtr", "GroupPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(Stage *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Stage *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Stage *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void StageBase::classDescInserter(TypeObject &oType)
 {
@@ -523,19 +545,5 @@ void StageBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Stage *>::_type("StagePtr", "GroupPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(Stage *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Stage *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Stage *,
-                           0);
 
 OSG_END_NAMESPACE

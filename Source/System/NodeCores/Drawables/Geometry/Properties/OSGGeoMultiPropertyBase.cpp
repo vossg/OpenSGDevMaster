@@ -80,7 +80,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var GeoMultiPropertyData * GeoMultiPropertyBase::_sfContainer
@@ -111,6 +111,28 @@ OSG_BEGIN_NAMESPACE
     The stride between elements (can be 0).
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GeoMultiProperty *>::_type("GeoMultiPropertyPtr", "GeoVectorPropertyPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GeoMultiProperty *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoMultiProperty *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoMultiProperty *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GeoMultiPropertyBase::classDescInserter(TypeObject &oType)
 {
@@ -920,19 +942,5 @@ void GeoMultiPropertyBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoMultiProperty *>::_type("GeoMultiPropertyPtr", "GeoVectorPropertyPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GeoMultiProperty *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           GeoMultiProperty *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           GeoMultiProperty *,
-                           0);
 
 OSG_END_NAMESPACE

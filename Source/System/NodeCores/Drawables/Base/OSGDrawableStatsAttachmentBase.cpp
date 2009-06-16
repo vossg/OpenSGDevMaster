@@ -91,7 +91,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          DrawableStatsAttachmentBase::_sfVertices
@@ -122,6 +122,28 @@ OSG_BEGIN_NAMESPACE
     Flags whether the data is valid or needs to be updated.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<DrawableStatsAttachment *>::_type("DrawableStatsAttachmentPtr", "StatsAttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(DrawableStatsAttachment *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           DrawableStatsAttachment *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           DrawableStatsAttachment *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void DrawableStatsAttachmentBase::classDescInserter(TypeObject &oType)
 {
@@ -921,19 +943,5 @@ void DrawableStatsAttachmentBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DrawableStatsAttachment *>::_type("DrawableStatsAttachmentPtr", "StatsAttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(DrawableStatsAttachment *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           DrawableStatsAttachment *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           DrawableStatsAttachment *,
-                           0);
 
 OSG_END_NAMESPACE

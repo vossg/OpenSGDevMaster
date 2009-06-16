@@ -81,7 +81,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var ShaderProgramVariableChunk * ShaderExecutableVarChunkBase::_mfProgramVarChunks
@@ -96,6 +96,28 @@ OSG_BEGIN_NAMESPACE
     fragment program object
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ShaderExecutableVarChunk *>::_type("ShaderExecutableVarChunkPtr", "StateChunkPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ShaderExecutableVarChunk *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ShaderExecutableVarChunk *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ShaderExecutableVarChunk *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ShaderExecutableVarChunkBase::classDescInserter(TypeObject &oType)
 {
@@ -634,19 +656,5 @@ void ShaderExecutableVarChunkBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ShaderExecutableVarChunk *>::_type("ShaderExecutableVarChunkPtr", "StateChunkPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ShaderExecutableVarChunk *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ShaderExecutableVarChunk *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ShaderExecutableVarChunk *,
-                           0);
 
 OSG_END_NAMESPACE

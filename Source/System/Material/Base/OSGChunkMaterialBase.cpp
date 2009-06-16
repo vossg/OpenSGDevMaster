@@ -88,7 +88,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var StateChunk *    ChunkMaterialBase::_mfChunks
@@ -99,6 +99,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<ChunkMaterial *>::_type("ChunkMaterialPtr", "PrimeMaterialPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(ChunkMaterial *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           ChunkMaterial *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           ChunkMaterial *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void ChunkMaterialBase::classDescInserter(TypeObject &oType)
 {
@@ -568,19 +590,5 @@ void ChunkMaterialBase::resolveLinks(void)
 #endif
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ChunkMaterial *>::_type("ChunkMaterialPtr", "PrimeMaterialPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(ChunkMaterial *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           ChunkMaterial *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           ChunkMaterial *,
-                           0);
 
 OSG_END_NAMESPACE

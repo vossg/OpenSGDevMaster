@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var bool            BinarySwapComposerBase::_sfShort
@@ -94,6 +94,20 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<BinarySwapComposer *>::_type("BinarySwapComposerPtr", "ImageComposerPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(BinarySwapComposer *)
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void BinarySwapComposerBase::classDescInserter(TypeObject &oType)
 {
@@ -576,11 +590,5 @@ void BinarySwapComposerBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<BinarySwapComposer *>::_type("BinarySwapComposerPtr", "ImageComposerPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(BinarySwapComposer *)
 
 OSG_END_NAMESPACE

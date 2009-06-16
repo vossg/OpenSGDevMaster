@@ -79,13 +79,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var AGLContext      CarbonWindowBase::_sfContext
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<CarbonWindow *>::_type("CarbonWindowPtr", "WindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(CarbonWindow *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           CarbonWindow *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           CarbonWindow *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void CarbonWindowBase::classDescInserter(TypeObject &oType)
 {
@@ -422,19 +444,5 @@ void CarbonWindowBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<CarbonWindow *>::_type("CarbonWindowPtr", "WindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(CarbonWindow *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           CarbonWindow *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           CarbonWindow *,
-                           0);
 
 OSG_END_NAMESPACE

@@ -87,7 +87,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var Matrix          MatrixCameraDecoratorBase::_sfPreViewing
@@ -120,6 +120,28 @@ OSG_BEGIN_NAMESPACE
     applied before the projection matrix.
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<MatrixCameraDecorator *>::_type("MatrixCameraDecoratorPtr", "CameraDecoratorPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecorator *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           MatrixCameraDecorator *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           MatrixCameraDecorator *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void MatrixCameraDecoratorBase::classDescInserter(TypeObject &oType)
 {
@@ -854,19 +876,5 @@ void MatrixCameraDecoratorBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<MatrixCameraDecorator *>::_type("MatrixCameraDecoratorPtr", "CameraDecoratorPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(MatrixCameraDecorator *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           MatrixCameraDecorator *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           MatrixCameraDecorator *,
-                           0);
 
 OSG_END_NAMESPACE
