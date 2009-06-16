@@ -38,8 +38,6 @@ class FieldContainer(FCDElement):
         self.setFCD("fcdFileLines",           [],       True);
         self.setFCD("fieldsUnmarkedOnCreate", "0",      True);
         self.setFCD("libnamespace",           "OSG",    True);
-        self.setFCD("childfieldparent",       "",       True);
-        self.setFCD("parentfieldcard",        "",       True);
         self.setFCD("childFields",            "none",   True);
         self.setFCD("parentFields",           "none",   True);
         self.setFCD("docGroupBase",           "",       True);

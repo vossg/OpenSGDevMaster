@@ -13,7 +13,6 @@
     isNodeCore="false"
     isBundle="true"
     parentFields="none"
-    childfieldparent="DeviceInterface"
     childFields="single"
 >
   <Field

@@ -10,8 +10,6 @@
 	parentsystemcomponent="true"
     isNodeCore="true"
     childFields="both"
-    childfieldparent="FieldContainer"
-    parentfieldcard="multi"
 >
     <Field
         name = "fieldSFPub"

@@ -8,10 +8,8 @@
 	pointerfieldtypes="both"
 	systemcomponent="true"
 	parentsystemcomponent="true"
-    isNodeCore="false"
-    childFields="both"
-    childfieldparent="FieldContainer"
-    parentfieldcard="single"
+        isNodeCore="false"
+        childFields="both"
 >
 	<Field
 		name="parent"

@@ -12,8 +12,6 @@
     useLocalIncludes="false"
     isNodeCore="false"
     isBundle="true"
-    childfieldparent="FieldContainer"
-    parentfieldcard="single"
     childFields="both"
 >
 	<Field
