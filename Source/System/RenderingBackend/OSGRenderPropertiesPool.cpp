@@ -57,7 +57,7 @@ OSG_TAGGEDSINGLETON_INST(RenderPropertiesPoolBase,
                          RenderPropertiesPoolTag )
 
 template class TaggedSingletonHolder<RenderPropertiesPoolBase, 
-                                     RenderPropertiesPoolBase>;
+                                     RenderPropertiesPoolTag>;
 
 template<>
 void NamedSplitFinitePool<RenderPropBitVector, 

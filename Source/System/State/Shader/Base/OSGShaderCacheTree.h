@@ -236,8 +236,6 @@ bool operator < (const ShaderVarVector::StoreElement    &rhs,
 
 
 
-#ifndef WIN32
-
 /*! \nohierarchy
  */
 
@@ -274,7 +272,11 @@ class ShaderCacheTreeV0
     typedef std::vector<IdType                              > IdStore;
 
     static const UInt32 LevelSize   = osgPow_s<2u, LevelBits>::result; 
+#if !defined(WIN32) && !defined(__APPLE__) 
     static const Real32 LevelFactor = 1.f / (LevelBits);
+#else
+    static const Real32 LevelFactor;
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistic                                  */
@@ -438,7 +440,11 @@ class ShaderCacheTreeV1
     typedef std::vector<IdType                              > IdStore;
 
     static const UInt32 LevelSize   = osgPow_s<2u, LevelBits>::result; 
+#if !defined(WIN32) && !defined(__APPLE__) 
     static const Real32 LevelFactor = 1.f / (LevelBits);
+#else
+    static const Real32 LevelFactor;
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistic                                  */
@@ -557,7 +563,11 @@ class ShaderCacheTreeV2
     typedef std::vector<IdType                              > IdStore;
 
     static const UInt32 LevelSize   = osgPow_s<2u, LevelBits>::result; 
+#if !defined(WIN32) && !defined(__APPLE__) 
     static const Real32 LevelFactor = 1.f / (LevelBits);
+#else
+    static const Real32 LevelFactor;
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistic                                  */
@@ -679,7 +689,11 @@ class ShaderCacheTreeV3
     typedef std::vector<IdType                              > IdStore;
 
     static const UInt32 LevelSize   = osgPow_s<2u, LevelBits>::result; 
+#if !defined(WIN32) && !defined(__APPLE__) 
     static const Real32 LevelFactor = 1.f / (LevelBits);
+#else
+    static const Real32 LevelFactor;
+#endif
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistic                                  */
@@ -779,8 +793,6 @@ typedef ShaderCacheTreeV3<ShaderExecutableChunk,
                           3                              > ActiveShaderExeTree;
 typedef ShaderCacheTreeV3<ShaderExecutableVarChunk,
                           6                              > ActiveShaderVarTree;
-#endif
-
 #endif
 
 OSG_END_NAMESPACE

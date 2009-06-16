@@ -251,12 +251,16 @@ ShaderMapCache<ObjectT>::~ShaderMapCache(void)
 }
 
 
-#ifndef WIN32
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 
 
+#if defined(WIN32) || defined(__APPLE__) 
+template<class ObjectT, UInt32 LevelBits> 
+const Real32 ShaderCacheTreeV0<ObjectT, LevelBits>::LevelFactor = 
+                                                           1.f / (LevelBits);
+#endif
 
 template<class ObjectT, UInt32 LevelBits> inline
 ShaderCacheTreeV0<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
@@ -1088,6 +1092,12 @@ Object2T *VariantPtr<Object1T, RefCountPol1,
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 
+#if defined(WIN32) || defined(__APPLE__) 
+template<class ObjectT, UInt32 LevelBits> 
+const Real32 ShaderCacheTreeV1<ObjectT, LevelBits>::LevelFactor = 
+                                                            1.f / (LevelBits);
+#endif
+
 template<class ObjectT, UInt32 LevelBits> inline
 ShaderCacheTreeV1<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
 #ifdef OSG_DEBUG
@@ -1769,6 +1779,12 @@ void ShaderCacheTreeV1<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
+
+#if defined(WIN32) || defined(__APPLE__) 
+template<class ObjectT, UInt32 LevelBits> 
+const Real32 ShaderCacheTreeV2<ObjectT, LevelBits>::LevelFactor = 
+                                                            1.f / (LevelBits);
+#endif
 
 template<class ObjectT, UInt32 LevelBits> inline
 ShaderCacheTreeV2<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
@@ -2692,6 +2708,12 @@ void ShaderCacheTreeV2<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 /*---------------------------------------------------------------------------*/
 /*---------------------------------------------------------------------------*/
 
+#if defined(WIN32) || defined(__APPLE__) 
+template<class ObjectT, UInt32 LevelBits> 
+const Real32 ShaderCacheTreeV3<ObjectT, LevelBits>::LevelFactor = 
+                                                            1.f / (LevelBits);
+#endif
+
 template<class ObjectT, UInt32 LevelBits> inline
 ShaderCacheTreeV3<ObjectT, LevelBits>::TreeNode::TreeNode(void) :
 #ifdef OSG_DEBUG
@@ -3612,7 +3634,5 @@ void ShaderCacheTreeV3<ObjectT, LevelBits>::destroy(ElemDestFunc destFunc)
 
     _pRoot = NULL;
 }
-
-#endif
 
 OSG_END_NAMESPACE
