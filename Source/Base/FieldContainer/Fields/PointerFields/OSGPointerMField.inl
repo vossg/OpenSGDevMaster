@@ -45,31 +45,31 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldIterator<PtrTypeT,
                       RefCountPolicy,
-                      NamespaceI    >::PointerMFieldIterator(void) : 
+                      NamespaceI    >::PointerMFieldIterator(void) :
      Inherited(    ),
     _pField   (NULL)
 {
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldIterator<PtrTypeT,
                       RefCountPolicy,
                       NamespaceI    >::PointerMFieldIterator(
-                          const Self &source) : 
+                          const Self &source) :
      Inherited(source        ),
     _pField   (source._pField)
 {
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldIterator<PtrTypeT,
                       RefCountPolicy,
                       NamespaceI    >::PointerMFieldIterator(
-                          const PtrStoreItType &storeIter,  
-                                MFieldType     *pField) : 
+                          const PtrStoreItType &storeIter,
+                                MFieldType     *pField) :
      Inherited(storeIter),
     _pField   (pField   )
 {
@@ -78,7 +78,7 @@ PointerMFieldIterator<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldIterator<PtrTypeT,
                       RefCountPolicy,
                       NamespaceI    >::~PointerMFieldIterator(void)
@@ -89,7 +89,7 @@ PointerMFieldIterator<PtrTypeT,
 /* Operators                                                               */
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::reference
@@ -101,7 +101,7 @@ typename PointerMFieldIterator<PtrTypeT,
 }
 
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::reference
@@ -113,7 +113,7 @@ typename PointerMFieldIterator<PtrTypeT,
     return reference(*this + offset, _pField);
 }
 #else
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::const_value
@@ -126,7 +126,7 @@ typename PointerMFieldIterator<PtrTypeT,
 }
 
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::const_value
@@ -138,7 +138,7 @@ typename PointerMFieldIterator<PtrTypeT,
     return *(*this + offset);
 }
 #endif
-    
+
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
@@ -148,11 +148,11 @@ typename PointerMFieldIterator<PtrTypeT,
                           NamespaceI>::operator ++(void)
 {
     this->Inherited::operator++();
-    
+
     return *this;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::Self
@@ -161,13 +161,13 @@ typename PointerMFieldIterator<PtrTypeT,
                           NamespaceI    >::operator ++(int)
 {
     Self retVal = *this;
-    
+
     this->Inherited::operator++();
-    
+
     return retVal;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::Self &
@@ -176,11 +176,11 @@ typename PointerMFieldIterator<PtrTypeT,
                           NamespaceI    >::operator --(void)
 {
     this->Inherited::operator--();
-    
+
     return *this;
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::Self
@@ -189,13 +189,13 @@ typename PointerMFieldIterator<PtrTypeT,
                           NamespaceI    >::operator --(int)
 {
     Self retVal = *this;
-    
+
     this->Inherited::operator--();
-    
+
     return retVal;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::Self &
@@ -205,11 +205,11 @@ typename PointerMFieldIterator<PtrTypeT,
                               const difference_type offset)
 {
     this->Inherited::operator+=(offset);
-    
+
     return *this;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::Self
@@ -219,11 +219,11 @@ typename PointerMFieldIterator<PtrTypeT,
                               const difference_type offset) const
 {
     Self retVal = *this;
-    
+
     return retVal += offset;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
                                NamespaceI    >::Self &
@@ -233,10 +233,10 @@ typename PointerMFieldIterator<PtrTypeT,
                               const difference_type offset)
 {
     this->Inherited::operator-=(offset);
-    
+
     return *this;
 }
-    
+
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldIterator<PtrTypeT,
                                RefCountPolicy,
@@ -247,7 +247,7 @@ typename PointerMFieldIterator<PtrTypeT,
                               const difference_type offset) const
 {
     Self retVal = *this;
-    
+
     return retVal -= offset;
 }
 
@@ -288,7 +288,7 @@ bool PointerMFieldIterator<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Base                                                                    */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 const typename PointerMFieldIterator<PtrTypeT,
                                      RefCountPolicy,
                                      NamespaceI    >::PtrStoreItType &
@@ -302,26 +302,35 @@ const typename PointerMFieldIterator<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Free Functions                                                          */
 
-#if 0
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
-typename WeakMFieldIterator<PtrTypeT>::difference_type
-    operator-(WeakMFieldIterator<PtrTypeT> const &lhs,
-              WeakMFieldIterator<PtrTypeT> const &rhs )
+template <class PtrTypeT, typename RefCountPolicyT, Int32 NamespaceI>
+typename PointerMFieldIterator<PtrTypeT,
+                               RefCountPolicyT,
+                               NamespaceI      >::difference_type
+    operator-(PointerMFieldIterator<PtrTypeT,
+                                    RefCountPolicyT,
+                                    NamespaceI      > const &lhs,
+              PointerMFieldIterator<PtrTypeT,
+                                    RefCountPolicyT,
+                                    NamespaceI      > const &rhs )
 {
-    return std::distance<
-        typename WeakMFieldIterator<PtrTypeT>::StoreItType
-                         >(lhs, rhs);
+    return (lhs.base() - rhs.base());
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
-WeakMFieldIterator<PtrTypeT>
-    operator+(typename WeakMFieldIterator<PtrTypeT>::differece_type const offset,
-              WeakMFieldIterator<PtrTypeT>                          const &rhs   )
+template <class PtrTypeT, typename RefCountPolicyT, Int32 NamespaceI>
+PointerMFieldIterator<PtrTypeT,
+                      RefCountPolicyT,
+                      NamespaceI      >
+    operator+(typename PointerMFieldIterator<PtrTypeT,
+                                             RefCountPolicyT,
+                                             NamespaceI      >::differece_type const offset,
+              PointerMFieldIterator<PtrTypeT,
+                                    RefCountPolicyT,
+                                    NamespaceI      >                          const &rhs   )
 {
-    return WeakMFieldIterator<PtrTypeT>(rhs) += offset;
+    return PointerMFieldIterator<PtrTypeT,
+                                 RefCountPolicyT,
+                                 NamespaceI      >(rhs) += offset;
 }
-#endif
-
 
 
 /*-------------------------------------------------------------------------*/
@@ -331,23 +340,23 @@ WeakMFieldIterator<PtrTypeT>
 /*-------------------------------------------------------------------------*/
 /* Constructors                                                            */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldConstIterator<PtrTypeT,
                            RefCountPolicy,
-                           NamespaceI    >::PointerMFieldConstIterator(void) : 
+                           NamespaceI    >::PointerMFieldConstIterator(void) :
     Inherited()
 {
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldConstIterator<PtrTypeT,
                            RefCountPolicy,
                            NamespaceI    >::PointerMFieldConstIterator(
-                            const Self &source) : 
+                            const Self &source) :
     Inherited(source)
 {
 }
-    
+
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldConstIterator<PtrTypeT,
                            RefCountPolicy,
@@ -357,7 +366,7 @@ PointerMFieldConstIterator<PtrTypeT,
 {
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldConstIterator<PtrTypeT,
                            RefCountPolicy,
                            NamespaceI    >::PointerMFieldConstIterator(
@@ -369,7 +378,7 @@ PointerMFieldConstIterator<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Destructor                                                              */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldConstIterator<PtrTypeT,
                            RefCountPolicy,
                            NamespaceI    >::~PointerMFieldConstIterator(void)
@@ -379,7 +388,7 @@ PointerMFieldConstIterator<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Operators                                                               */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::const_value
@@ -390,9 +399,9 @@ typename PointerMFieldConstIterator<PtrTypeT,
     return static_cast<const_value>(
         AccessHandler::validate(this->Inherited::operator*()));
 }
-    
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI   >::const_value
@@ -404,7 +413,7 @@ typename PointerMFieldConstIterator<PtrTypeT,
     return *(*this + offset);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::Self &
@@ -413,11 +422,11 @@ typename PointerMFieldConstIterator<PtrTypeT,
                                NamespaceI    >::operator ++(void)
 {
     this->Inherited::operator++();
-    
+
     return *this;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::Self
@@ -426,13 +435,13 @@ typename PointerMFieldConstIterator<PtrTypeT,
                                NamespaceI    >::operator ++(int)
 {
     Self retVal = *this;
-    
+
     this->Inherited::operator++();
-    
+
     return retVal;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::Self &
@@ -441,11 +450,11 @@ typename PointerMFieldConstIterator<PtrTypeT,
                                NamespaceI    >::operator --(void)
 {
     this->Inherited::operator--();
-    
+
     return *this;
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::Self
@@ -454,13 +463,13 @@ typename PointerMFieldConstIterator<PtrTypeT,
                                NamespaceI    >::operator --(int)
 {
     Self retVal = *this;
-    
+
     this->Inherited::oprator--();
-    
+
     return retVal;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::Self &
@@ -470,11 +479,11 @@ typename PointerMFieldConstIterator<PtrTypeT,
                                    const difference_type offset)
 {
     this->Inherited::operator+=(offset);
-    
+
     return *this;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::Self
@@ -484,11 +493,11 @@ typename PointerMFieldConstIterator<PtrTypeT,
                                    const difference_type offset) const
 {
     Self retVal = *this;
-    
+
     return retVal += offset;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::Self &
@@ -498,11 +507,11 @@ typename PointerMFieldConstIterator<PtrTypeT,
                                    const difference_type offset)
 {
     this->Inherited::operator-=(offset);
-    
+
     return *this;
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldConstIterator<PtrTypeT,
                                     RefCountPolicy,
                                     NamespaceI    >::Self
@@ -512,11 +521,11 @@ typename PointerMFieldConstIterator<PtrTypeT,
                                    const difference_type offset) const
 {
     Self retVal = *this;
-    
+
     return retVal -= offset;
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 bool PointerMFieldConstIterator<PtrTypeT,
                                 RefCountPolicy,
                                 NamespaceI    >::operator ==(
@@ -525,7 +534,7 @@ bool PointerMFieldConstIterator<PtrTypeT,
     return *(static_cast<const Inherited *>(this)) == rhs;
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 bool PointerMFieldConstIterator<PtrTypeT,
                                 RefCountPolicy,
                                 NamespaceI    >::operator !=(
@@ -534,7 +543,7 @@ bool PointerMFieldConstIterator<PtrTypeT,
     return ! (*this == rhs);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 bool PointerMFieldConstIterator<PtrTypeT,
                                 RefCountPolicy,
                                 NamespaceI    >::operator ==(
@@ -543,7 +552,7 @@ bool PointerMFieldConstIterator<PtrTypeT,
     return *(static_cast<const Inherited *>(this)) == rhs;
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 bool PointerMFieldConstIterator<PtrTypeT,
                                 RefCountPolicy,
                                 NamespaceI    >::operator !=(
@@ -555,7 +564,7 @@ bool PointerMFieldConstIterator<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Base                                                                    */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 const typename PointerMFieldConstIterator<PtrTypeT,
                                           RefCountPolicy,
                                           NamespaceI    >::PtrStoreConstItType &
@@ -566,51 +575,67 @@ const typename PointerMFieldConstIterator<PtrTypeT,
     return *this;
 }
 
-#if 0
+
 /*-------------------------------------------------------------------------*/
 /* Free Functions                                                          */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
-typename WeakMFieldConstIterator<PtrTypeT>::difference_type
-    operator-(WeakMFieldConstIterator<PtrTypeT> const &lhs,
-              WeakMFieldConstIterator<PtrTypeT> const &rhs )
+template <class PtrTypeT, typename RefCountPolicyT, Int32 NamespaceI>
+typename PointerMFieldConstIterator<PtrTypeT,
+                                    RefCountPolicyT,
+                                    NamespaceI      >::difference_type
+    operator-(PointerMFieldConstIterator<PtrTypeT,
+                                         RefCountPolicyT,
+                                         NamespaceI      > const &lhs,
+              PointerMFieldConstIterator<PtrTypeT,
+                                         RefCountPolicyT,
+                                         NamespaceI      > const &rhs )
 {
-    return typename WeakMFieldConstIterator<PtrTypeT>::
-               PtrStoreConstItType(lhs) -
-           typename WeakMFieldConstIterator<PtrTypeT>::
-               PtrStoreConstItType(rhs);
-}
-              
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
-typename WeakMFieldConstIterator<PtrTypeT>::difference_type
-    operator-(WeakMFieldIterator     <PtrTypeT> const &lhs,
-              WeakMFieldConstIterator<PtrTypeT> const &rhs )
-{
-    return typename WeakMFieldIterator<PtrTypeT>::
-               PtrStoreItType(lhs) -
-           typename WeakMFieldConstIterator<PtrTypeT>::
-               PtrStoreConstItType(rhs);
+    return (lhs.base() - rhs.base());
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
-typename WeakMFieldConstIterator<PtrTypeT>::difference_type
-    operator-(WeakMFieldConstIterator<PtrTypeT> const &lhs,
-              WeakMFieldIterator     <PtrTypeT> const &rhs )
+template <class PtrTypeT, typename RefCountPolicyT, Int32 NamespaceI>
+typename PointerMFieldConstIterator<PtrTypeT,
+                                    RefCountPolicyT,
+                                    NamespaceI      >::difference_type
+    operator-(PointerMFieldIterator     <PtrTypeT,
+                                         RefCountPolicyT,
+                                         NamespaceI      > const &lhs,
+              PointerMFieldConstIterator<PtrTypeT,
+                                         RefCountPolicyT,
+                                         NamespaceI      > const &rhs )
 {
-    return typename WeakMFieldConstIterator<PtrTypeT>::
-               PtrStoreConstItType(lhs) -
-           typename WeakMFieldIterator<PtrTypeT>::
-               PtrStoreItType(rhs);
-}             
-              
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
-WeakMFieldConstIterator<PtrTypeT>
-    operator+(typename WeakMFieldConstIterator<PtrTypeT>::difference_type const offset,
-              WeakMFieldConstIterator<PtrTypeT>                           const &rhs   )
-{
-    return WeakMFieldConstIterator<PtrTypeT>(rhs) += offset;
+    return (lhs.base() - rhs.base());
 }
-#endif
+
+template <class PtrTypeT, typename RefCountPolicyT, Int32 NamespaceI>
+typename PointerMFieldConstIterator<PtrTypeT,
+                                    RefCountPolicyT,
+                                    NamespaceI      >::difference_type
+    operator-(PointerMFieldConstIterator<PtrTypeT,
+                                         RefCountPolicyT,
+                                         NamespaceI      > const &lhs,
+              PointerMFieldIterator     <PtrTypeT,
+                                         RefCountPolicyT,
+                                         NamespaceI      > const &rhs )
+{
+    return (lhs.base() - rhs.base());
+}
+
+template <class PtrTypeT, typename RefCountPolicyT, Int32 NamespaceI>
+PointerMFieldConstIterator<PtrTypeT,
+                           RefCountPolicyT,
+                           NamespaceI      >
+    operator+(typename PointerMFieldConstIterator<PtrTypeT,
+                                                  RefCountPolicyT,
+                                                  NamespaceI       >::difference_type const offset,
+              PointerMFieldConstIterator         <PtrTypeT,
+                                                  RefCountPolicyT,
+                                                  NamespaceI       >                  const &rhs   )
+{
+    return PointerMFieldConstIterator<PtrTypeT,
+                                      RefCountPolicyT,
+                                      NamespaceI      >(rhs) += offset;
+}
 
 
 /*-------------------------------------------------------------------------*/
@@ -625,7 +650,7 @@ template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMFieldReferenceProxy<PtrTypeT,
                             RefCountPolicy,
                             NamespaceI    >::PointerMFieldReferenceProxy(
-                                const PtrStoreItType &storeIter, 
+                                const PtrStoreItType &storeIter,
                                       MFieldType     *pField   ) :
     _storeIter(storeIter),
     _pField   (pField   )
@@ -668,7 +693,7 @@ typename PointerMFieldReferenceProxy<PtrTypeT,
 {
     return static_cast<value_type>(AccessHandler::validate(*_storeIter));
 }
-            
+
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMFieldReferenceProxy<PtrTypeT,
                                      RefCountPolicy,
@@ -679,14 +704,14 @@ typename PointerMFieldReferenceProxy<PtrTypeT,
 {
     return static_cast<value_type>(AccessHandler::validate(*_storeIter));
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMFieldReferenceProxy<PtrTypeT,
                                  RefCountPolicy,
                                  NamespaceI    >::operator=(value_type newValue)
 {
     AccessHandler::onReplace(_pField, *_storeIter, newValue);
-    
+
     *_storeIter = newValue;
 }
 
@@ -706,7 +731,7 @@ void PointerMFieldReferenceProxy<PtrTypeT,
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMField<PtrTypeT,
               RefCountPolicy,
-              NamespaceI    >::PointerMField(void) : 
+              NamespaceI    >::PointerMField(void) :
     Inherited()
 {
 }
@@ -714,7 +739,7 @@ PointerMField<PtrTypeT,
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMField<PtrTypeT,
               RefCountPolicy,
-              NamespaceI    >::PointerMField(Self const &other) : 
+              NamespaceI    >::PointerMField(Self const &other) :
     Inherited(other)
 {
 }
@@ -722,7 +747,7 @@ PointerMField<PtrTypeT,
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 PointerMField<PtrTypeT,
               RefCountPolicy,
-              NamespaceI    >::PointerMField(UInt32 const size) : 
+              NamespaceI    >::PointerMField(UInt32 const size) :
     Inherited(size)
 {
 }
@@ -747,7 +772,7 @@ void PointerMField<PtrTypeT,
 
 
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::iterator
@@ -758,7 +783,7 @@ typename PointerMField<PtrTypeT,
     return iterator(this->_ptrStore.begin(), this);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::iterator
@@ -771,27 +796,27 @@ typename PointerMField<PtrTypeT,
 
 #ifndef OSG_CLEAN_FCFIELDS
 #if 0
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
-                       NamespaceI    >::reference 
+                       NamespaceI    >::reference
     PointerMField<PtrTypeT,
                   RefCountPolicy,
                   NamespaceI    >::front_nc(void)
 {
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::reference back_nc (void              );
 #endif
 #endif
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
-                       NamespaceI    >::iterator  
+                       NamespaceI    >::iterator
     PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::find_nc(const_value value)
@@ -804,7 +829,7 @@ typename PointerMField<PtrTypeT,
 /* Std Library Interface                                                   */
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::iterator
@@ -819,7 +844,7 @@ typename PointerMField<PtrTypeT,
     return iterator(this->_ptrStore.begin(), this);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::iterator
@@ -834,7 +859,7 @@ typename PointerMField<PtrTypeT,
     return iterator(this->_ptrStore.end(), this);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::reverse_iterator
@@ -849,7 +874,7 @@ typename PointerMField<PtrTypeT,
     return reverse_iterator(this->end());
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::reverse_iterator
@@ -865,7 +890,7 @@ typename PointerMField<PtrTypeT,
 }
 #endif
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::const_iterator
@@ -876,7 +901,7 @@ typename PointerMField<PtrTypeT,
     return const_iterator(this->_ptrStore.begin());
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::const_iterator
@@ -886,8 +911,8 @@ typename PointerMField<PtrTypeT,
 {
     return const_iterator(this->_ptrStore.end());
 }
-    
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::const_reverse_iterator
@@ -898,7 +923,7 @@ typename PointerMField<PtrTypeT,
     return const_reverse_iterator(this->end());
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::const_reverse_iterator
@@ -910,7 +935,7 @@ typename PointerMField<PtrTypeT,
 }
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::reference
@@ -926,7 +951,7 @@ typename PointerMField<PtrTypeT,
 }
 #endif
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::const_value
@@ -938,7 +963,7 @@ typename PointerMField<PtrTypeT,
 }
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::reference
@@ -954,7 +979,7 @@ typename PointerMField<PtrTypeT,
 }
 #endif
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::const_value
@@ -966,8 +991,8 @@ typename PointerMField<PtrTypeT,
         this->ptrStoreGet(this->_ptrStore.end() - 1));
 }
 
-   
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::iterator
@@ -989,17 +1014,17 @@ void PointerMField<PtrTypeT,
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
-template <class InputIteratorT                                        > inline 
+template <class InputIteratorT                                        > inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::insert(iterator       pos, 
-                                           InputIteratorT first, 
+                   NamespaceI    >::insert(iterator       pos,
+                                           InputIteratorT first,
                                            InputIteratorT last)
 {
     this->ptrStoreInsert(pos, first, last);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::erase(size_type index)
@@ -1008,7 +1033,7 @@ void PointerMField<PtrTypeT,
 }
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::iterator
@@ -1019,7 +1044,7 @@ typename PointerMField<PtrTypeT,
     return iterator(this->ptrStoreErase(pos.base()), this);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::iterator
@@ -1032,7 +1057,7 @@ typename PointerMField<PtrTypeT,
 #endif
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::iterator
@@ -1049,7 +1074,7 @@ typename PointerMField<PtrTypeT,
 }
 #endif
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::const_iterator
@@ -1061,15 +1086,15 @@ typename PointerMField<PtrTypeT,
                           this                     );
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::push_back(const_value value)
 {
     this->ptrStoreAppend(value);
 }
-   
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::resize(size_t newSize, const_value value)
@@ -1077,7 +1102,7 @@ void PointerMField<PtrTypeT,
     this->ptrStoreResize(newSize, value);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::reserve(size_type size)
@@ -1085,16 +1110,16 @@ void PointerMField<PtrTypeT,
     this->_ptrStore.reserve(size);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::clear(void)
 {
     this->ptrStoreClear();
 }
-                               
+
 #ifdef OSG_1_COMPAT
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
                    NamespaceI    >::addValue(const_value value)
@@ -1103,41 +1128,41 @@ void PointerMField<PtrTypeT,
 }
 #endif
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::assign(size_type newSize, 
+                   NamespaceI    >::assign(size_type newSize,
                                            const_value value)
 {
     this->ptrStoreClear();
-    
+
     for(size_type i = 0; i < newSize; ++i)
         this->ptrStoreAppend(value);
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI>
-template <class InputIteratorT                                        > inline 
+template <class InputIteratorT                                        > inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::assign(InputIteratorT first, 
+                   NamespaceI    >::assign(InputIteratorT first,
                                            InputIteratorT last)
 {
     this->ptrStoreAssign(first, last);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::replace(UInt32      uiIdx, 
+                   NamespaceI    >::replace(UInt32      uiIdx,
                                             const_value value)
 {
     this->ptrStoreReplace(uiIdx, value);
 }
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::replace(iterator    pos, 
+                   NamespaceI    >::replace(iterator    pos,
                                             const_value value)
 {
     this->ptrStoreReplace(pos.base(), value);
@@ -1147,7 +1172,7 @@ void PointerMField<PtrTypeT,
 /* Index Operator                                                          */
 
 #ifndef OSG_CLEAN_FCFIELDS
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::reference
@@ -1163,7 +1188,7 @@ typename PointerMField<PtrTypeT,
 }
 #endif
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::const_value
@@ -1177,7 +1202,7 @@ typename PointerMField<PtrTypeT,
 /*-------------------------------------------------------------------------*/
 /* Assignment                                                              */
 
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 typename PointerMField<PtrTypeT,
                        RefCountPolicy,
                        NamespaceI    >::Self &
@@ -1186,7 +1211,7 @@ typename PointerMField<PtrTypeT,
                   NamespaceI    >::operator=(const Self &source)
 {
 //    this->setValues(source);
-  
+
     OSG_ASSERT(false);
 
     return *this;
@@ -1194,10 +1219,10 @@ typename PointerMField<PtrTypeT,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
+template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline
 void PointerMField<PtrTypeT,
                    RefCountPolicy,
-                   NamespaceI    >::syncWith(Self               &source, 
+                   NamespaceI    >::syncWith(Self               &source,
                                              ConstFieldMaskArg   syncMode,
                                              UInt32              uiSyncInfo,
                                              AspectOffsetStore  &oOffsets    )
