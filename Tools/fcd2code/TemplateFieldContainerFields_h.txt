@@ -163,8 +163,6 @@ const Char8 *FieldTraits<@!Classname!@ *, 0>::getMName<NoRefCountPolicy>(void)
 
 @@if ChildField
 
-class @!ChildFieldParent!@;
-
 @@if isInLibrary
 /*! \ingroup @!DocGroupBase!@FieldTraits
  */
@@ -176,16 +174,7 @@ struct FieldTraits<@!Classname!@ *, @!ChildNS!@> :
   private:
 
   public:
-
-    typedef @!ChildFieldParent!@            *ParentType;
     typedef FieldTraits<@!Classname!@ *, @!ChildNS!@>  Self;
-
-@@if ChildSParent
-    static const FieldType::Cardinality eParentCard = FieldType::SingleField;
-@@endif
-@@if ChildMParent
-    static const FieldType::Cardinality eParentCard = FieldType::MultiField;
-@@endif
 
     enum                        { Convertible = NotConvertible };
 @@if PointerField
@@ -195,19 +184,16 @@ struct FieldTraits<@!Classname!@ *, @!ChildNS!@> :
     @@else // isInLibrary
     static DataType &getType(void);
     @@endif // isInLibrary
-
 @@endif // PointerField
 @@if SFPointerField
+
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
-
-//    static const char *getSName(void) { return "SF@!Classname!@Ptr"; }
 @@endif // SFPointerField
 @@if MFPointerField
+
     template<typename RefCountPolicy> inline
     static const Char8    *getMName     (void);
-
-//    static const char *getMName(void) { return "MF@!Classname!@Ptr"; }
 @@endif // MFPointerField
 };
 

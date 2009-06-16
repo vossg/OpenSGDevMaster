@@ -272,26 +272,22 @@ class FieldContainer(FCDElement):
             self["MFPointerField"] = True;
 
 
-        if self.getFCD("childfieldparent") != "":
-            self["ChildField"]       = True
-            self["ChildNS"]          = '%d' % TraitsNS            
-            self["ChildFieldParent"] = self.getFCD("childfieldparent")
-            TraitsNS += 1
-
         if self.getFCD("childFields") == "multi" or \
            self.getFCD("childFields") == "both":
             self["ChildMFields"] = True
+            self["ChildField"]   = True
+            self["ChildNS"]      = '%d' % TraitsNS
 
         if self.getFCD("childFields") == "single" or \
            self.getFCD("childFields") == "both":
             self["ChildSFields"] = True
+            self["ChildField"]   = True
+            self["ChildNS"]      = '%d' % TraitsNS
             
-        if self.getFCD("parentfieldcard") == "single":
-            self["ChildSParent"] = True;
-
-        if self.getFCD("parentfieldcard") == "multi":
-            self["ChildMParent"] = True;
-
+        if self.getFCD("childFields") == "single" or \
+           self.getFCD("childFields") == "multi"  or \
+           self.getFCD("childFields") == "both":
+            TraitsNS += 1
 
 
         if self.getFCD("parentFields") == "multi" or \

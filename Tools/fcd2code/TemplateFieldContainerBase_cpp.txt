@@ -92,7 +92,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
     @@if isDecorator
@@ -107,6 +107,94 @@ OSG_BEGIN_NAMESPACE
 
         @@EndFieldLoop@@
     @@endif // isDecorator
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<@!Classname!@ *>::_type("@!Classname!@Ptr", "@!RealParent!@Ptr");
+#endif
+
+@@if PointerField
+OSG_FIELDTRAITS_GETTYPE(@!Classname!@ *)
+
+    @@if SFPointerField
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           @!Classname!@ *,
+                           0);
+    @@endif // SFPointerField
+
+    @@if MFPointerField
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           @!Classname!@ *,
+                           0);
+    @@endif // MFPointerField
+@@else
+OSG_FIELDTRAITS_GETTYPE(@!Classname!@ *)
+@@endif // PointerField
+@@if ChildField
+
+DataType &FieldTraits< @!Classname!@ *, @!ChildNS!@ >::getType(void)
+{
+    return FieldTraits<@!Classname!@ *, 0>::getType();
+}
+
+@@endif
+@@if ChildSFields
+
+OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
+                      @!Classname!@ *,
+                      UnrecordedRefCountPolicy,
+                      @!ChildNS!@);
+
+@@endif
+@@if ChildMFields
+
+OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
+                      @!Classname!@ *,
+                      UnrecordedRefCountPolicy,
+                      @!ChildNS!@);
+
+@@endif
+@@if ParentField
+
+DataType &FieldTraits<@!Classname!@ *, @!ParentNS!@ >::getType(void)
+{
+    return FieldTraits<@!Classname!@ *, 0>::getType();
+}
+
+@@endif
+@@if ParentSFields
+
+OSG_SFIELDTYPE_INST(ParentPointerSField,
+                    @!Classname!@ *,
+                    NoRefCountPolicy,
+                    @!ParentNS!@);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
+                         @!Classname!@ *,
+                         NoRefCountPolicy,
+                         @!ParentNS!@);
+
+@@endif
+@@if ParentMFields
+
+OSG_MFIELDTYPE_INST(ParentPointerMField,
+                    @!Classname!@ *,
+                    NoRefCountPolicy,
+                    @!ParentNS!@);
+
+OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
+                         @!Classname!@ *,
+                         NoRefCountPolicy,
+                         @!ParentNS!@);
+
+@@endif
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void @!Classname!@Base::classDescInserter(TypeObject &oType)
 {
@@ -1325,85 +1413,5 @@ const @!field.FieldTypeNS!@@!field.CARD!@@!field.TypeCaps!@ &@!Classname!@Base::
         @@EndMFFieldLoop@@
     @@endif // !isDecorator
 @@endif // isDecoratable
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<@!Classname!@ *>::_type("@!Classname!@Ptr", "@!RealParent!@Ptr");
-#endif
-
-@@if PointerField
-OSG_FIELDTRAITS_GETTYPE(@!Classname!@ *)
-
-    @@if SFPointerField
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           @!Classname!@ *,
-                           0);
-    @@endif // SFPointerField
-
-    @@if MFPointerField
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           @!Classname!@ *,
-                           0);
-    @@endif // MFPointerField
-@@else
-OSG_FIELDTRAITS_GETTYPE(@!Classname!@ *)
-@@endif // PointerField
-@@if ChildField
-
-DataType &FieldTraits< @!Classname!@ *, @!ChildNS!@ >::getType(void)
-{
-    return FieldTraits<@!Classname!@ *, 0>::getType();
-}
-
-@@endif
-@@if ChildSFields
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      @!Classname!@ *,
-                      UnrecordedRefCountPolicy,
-                      @!ChildNS!@);
-
-@@endif
-@@if ChildMFields
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      @!Classname!@ *,
-                      UnrecordedRefCountPolicy,
-                      @!ChildNS!@);
-
-@@endif
-@@if ParentField
-
-DataType &FieldTraits<@!Classname!@ *, @!ParentNS!@ >::getType(void)
-{
-    return FieldTraits<@!Classname!@ *, 0>::getType();
-}
-
-@@endif
-@@if ParentSFields
-
-OSG_SFIELDTYPE_INST(ParentPointerSField,
-                    @!Classname!@ *,
-                    NoRefCountPolicy,
-                    @!ParentNS!@);
-
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
-                         @!Classname!@ *,
-                         NoRefCountPolicy,
-                         @!ParentNS!@);
-
-@@endif
-@@if ParentMFields
-
-OSG_MFIELDTYPE_INST(ParentPointerMField,
-                    @!Classname!@ *,
-                    NoRefCountPolicy,
-                    @!ParentNS!@);
-
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
-                         @!Classname!@ *,
-                         NoRefCountPolicy,
-                         @!ParentNS!@);
-
-@@endif
 
 OSG_END_NAMESPACE
