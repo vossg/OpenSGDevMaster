@@ -47,6 +47,10 @@
 
 #include "OSGPassiveWindow.h"
 
+#ifdef OSG_USE_GLX
+#include <GL/glx.h>
+#endif
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the

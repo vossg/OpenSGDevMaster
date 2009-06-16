@@ -42,9 +42,12 @@
 #pragma once
 #endif
 
-#include "OSGConfig.h"
+typedef struct __GLXcontextRec *GLXContext;
+typedef struct _XDisplay        Display;
 
-#include <GL/glx.h>
+#include <X11/X.h>
+
+#include "OSGConfig.h"
 
 #include "OSGWindowXDef.h"
 
@@ -53,9 +56,8 @@
 
 OSG_BEGIN_NAMESPACE
 
-
-typedef Display *DisplayP;
-typedef ::Window X11Window;
+typedef ::Display *DisplayP;
+typedef ::Window   X11Window;
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 

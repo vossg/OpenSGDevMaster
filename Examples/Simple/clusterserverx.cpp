@@ -12,6 +12,7 @@
 #ifndef WIN32
 
 #include <iostream>
+#include <GL/glx.h>
 
 #ifdef OSG_BUILD_ACTIVE
 // General OpenSG configuration, needed everywhere

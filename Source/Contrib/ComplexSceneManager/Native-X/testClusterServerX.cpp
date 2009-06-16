@@ -13,6 +13,8 @@
 
 #include <unistd.h>
 
+#include <GL/glx.h>
+
 // General OpenSG configuration, needed everywhere
 #include <OSGConfig.h>
 // The Cluster server definition
