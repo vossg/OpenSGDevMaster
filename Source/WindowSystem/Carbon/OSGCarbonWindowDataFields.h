@@ -43,6 +43,7 @@
 #pragma once
 #endif
 
+typedef struct __AGLContextRec *AGLContext;
 
 #include "OSGConfig.h"
 
@@ -52,8 +53,6 @@
 #include "OSGWindowCarbonDef.h"
 
 #include "OSGWindowFields.h"
-
-#include <AGL/agl.h>
 
 /*! The field types for the local types needed by the CarbonWindow class */
 

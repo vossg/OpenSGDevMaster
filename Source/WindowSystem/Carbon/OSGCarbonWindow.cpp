@@ -48,6 +48,8 @@
 // Forget everything if we're not doing a Mac OS X compile
 #ifdef __APPLE__
 
+#include <AGL/agl.h>
+
 #include "OSGCarbonWindow.h"
 
 OSG_BEGIN_NAMESPACE

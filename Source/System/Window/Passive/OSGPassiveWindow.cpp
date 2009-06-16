@@ -50,6 +50,9 @@
 #ifdef OSG_USE_GLX
 #include <GL/glx.h>
 #endif
+#ifdef __APPLE__
+#include <AGL/agl.h>
+#endif
 
 OSG_USING_NAMESPACE
 
