@@ -1,0 +1,13 @@
+#OSG V1.0 
+
+Node
+{
+  volume 5 -10.0 -10.0 -10.0 10.0 10.0 10.0
+
+  core AlgorithmStage
+  {
+    algorithm GPUVolRTV0
+    {
+    }
+  }
+}

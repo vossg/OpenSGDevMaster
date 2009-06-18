@@ -45,51 +45,69 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Algorithm
+ **     class GPUVolRTV2
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGALGORITHMBASE_H_
-#define _OSGALGORITHMBASE_H_
+#ifndef _OSGGPUVOLRTV2BASE_H_
+#define _OSGGPUVOLRTV2BASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGExGPUVolRTDef.h"
 
 #include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGAlgorithm.h" // Parent
 
+#include "OSGReal32Fields.h" // Stepsize type
+#include "OSGBoolFields.h" // ToggleVisuals type
 
-#include "OSGAlgorithmFields.h"
+#include "OSGGPUVolRTV2Fields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Algorithm;
+class GPUVolRTV2;
 
-//! \brief Algorithm Base Class.
+//! \brief GPUVolRTV2 Base Class.
 
-class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
+class OSG_EXGPUVOLRT_DLLMAPPING GPUVolRTV2Base : public Algorithm
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef Algorithm Inherited;
+    typedef Algorithm ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(Algorithm);
+    OSG_GEN_INTERNALPTR(GPUVolRTV2);
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
+    enum
+    {
+        StepsizeFieldId = Inherited::NextFieldId,
+        ToggleVisualsFieldId = StepsizeFieldId + 1,
+        NextFieldId = ToggleVisualsFieldId + 1
+    };
+
+    static const OSG::BitVector StepsizeFieldMask =
+        (TypeTraits<BitVector>::One << StepsizeFieldId);
+    static const OSG::BitVector ToggleVisualsFieldMask =
+        (TypeTraits<BitVector>::One << ToggleVisualsFieldId);
+    static const OSG::BitVector NextFieldMask =
+        (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFReal32          SFStepsizeType;
+    typedef SFBool            SFToggleVisualsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -111,6 +129,38 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFReal32            *editSFStepsize       (void);
+            const SFReal32            *getSFStepsize        (void) const;
+
+                  SFBool              *editSFToggleVisuals  (void);
+            const SFBool              *getSFToggleVisuals   (void) const;
+
+
+                  Real32              &editStepsize       (void);
+                  Real32               getStepsize        (void) const;
+
+                  bool                &editToggleVisuals  (void);
+                  bool                 getToggleVisuals   (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setStepsize       (const Real32 value);
+            void setToggleVisuals  (const bool value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
     /*! \{                                                                 */
 
@@ -120,6 +170,33 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    static  GPUVolRTV2TransitPtr  create          (void);
+    static  GPUVolRTV2           *createEmpty     (void);
+
+    static  GPUVolRTV2TransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
+
+    static  GPUVolRTV2            *createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
+
+    static  GPUVolRTV2TransitPtr  createDependent  (BitVector bFlags);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Copy                                   */
+    /*! \{                                                                 */
+
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -132,18 +209,26 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
     static const Char8 *getClassname     (void             );
 
     /*---------------------------------------------------------------------*/
+    /*! \name                      Fields                                  */
+    /*! \{                                                                 */
+
+    SFReal32          _sfStepsize;
+    SFBool            _sfToggleVisuals;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    AlgorithmBase(void);
-    AlgorithmBase(const AlgorithmBase &source);
+    GPUVolRTV2Base(void);
+    GPUVolRTV2Base(const GPUVolRTV2Base &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AlgorithmBase(void);
+    virtual ~GPUVolRTV2Base(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -156,6 +241,10 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleStepsize        (void) const;
+    EditFieldHandlePtr editHandleStepsize       (void);
+    GetFieldHandlePtr  getHandleToggleVisuals   (void) const;
+    EditFieldHandlePtr editHandleToggleVisuals  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,7 +258,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      AlgorithmBase *pFrom,
+            void execSync (      GPUVolRTV2Base *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -185,6 +274,11 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -204,11 +298,11 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AlgorithmBase &source);
+    void operator =(const GPUVolRTV2Base &source);
 };
 
-typedef AlgorithmBase *AlgorithmBaseP;
+typedef GPUVolRTV2Base *GPUVolRTV2BaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGALGORITHMBASE_H_ */
+#endif /* _OSGGPUVOLRTV2BASE_H_ */

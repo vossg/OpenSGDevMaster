@@ -45,46 +45,46 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Algorithm
+ **     class GPUVolRTV1
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGALGORITHMBASE_H_
-#define _OSGALGORITHMBASE_H_
+#ifndef _OSGGPUVOLRTV1BASE_H_
+#define _OSGGPUVOLRTV1BASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 
 #include "OSGConfig.h"
-#include "OSGGroupDef.h"
+#include "OSGExGPUVolRTDef.h"
 
 #include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGAlgorithm.h" // Parent
 
 
-#include "OSGAlgorithmFields.h"
+#include "OSGGPUVolRTV1Fields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Algorithm;
+class GPUVolRTV1;
 
-//! \brief Algorithm Base Class.
+//! \brief GPUVolRTV1 Base Class.
 
-class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
+class OSG_EXGPUVOLRT_DLLMAPPING GPUVolRTV1Base : public Algorithm
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef Algorithm Inherited;
+    typedef Algorithm ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(Algorithm);
+    OSG_GEN_INTERNALPTR(GPUVolRTV1);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -122,6 +122,33 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
 
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    static  GPUVolRTV1TransitPtr  create          (void);
+    static  GPUVolRTV1           *createEmpty     (void);
+
+    static  GPUVolRTV1TransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
+
+    static  GPUVolRTV1            *createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
+
+    static  GPUVolRTV1TransitPtr  createDependent  (BitVector bFlags);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Copy                                   */
+    /*! \{                                                                 */
+
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -135,15 +162,15 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    AlgorithmBase(void);
-    AlgorithmBase(const AlgorithmBase &source);
+    GPUVolRTV1Base(void);
+    GPUVolRTV1Base(const GPUVolRTV1Base &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AlgorithmBase(void);
+    virtual ~GPUVolRTV1Base(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,7 +196,7 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      AlgorithmBase *pFrom,
+            void execSync (      GPUVolRTV1Base *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -185,6 +212,11 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -204,11 +236,11 @@ class OSG_GROUP_DLLMAPPING AlgorithmBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AlgorithmBase &source);
+    void operator =(const GPUVolRTV1Base &source);
 };
 
-typedef AlgorithmBase *AlgorithmBaseP;
+typedef GPUVolRTV1Base *GPUVolRTV1BaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGALGORITHMBASE_H_ */
+#endif /* _OSGGPUVOLRTV1BASE_H_ */

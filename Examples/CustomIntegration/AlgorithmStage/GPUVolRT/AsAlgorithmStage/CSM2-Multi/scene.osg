@@ -1,0 +1,11 @@
+#OSG V1.0 
+
+Node
+{
+  volume 5 0.0 0.0 0.0  1.0 1.0 1.0
+
+  core AlgorithmStage
+  {
+    algorithm USE RTAlgo
+  }
+}

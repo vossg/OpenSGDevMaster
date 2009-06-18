@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Algorithm!
+ **     class GPUVolRTV1!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -59,8 +59,8 @@
 
 
 
-#include "OSGAlgorithmBase.h"
-#include "OSGAlgorithm.h"
+#include "OSGGPUVolRTV1Base.h"
+#include "OSGGPUVolRTV1.h"
 
 #include "boost/bind.hpp"
 
@@ -74,7 +74,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::Algorithm
+/*! \class OSG::GPUVolRTV1
     
  */
 
@@ -88,72 +88,72 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Algorithm *>::_type("AlgorithmPtr", "AttachmentContainerPtr");
+DataType FieldTraits<GPUVolRTV1 *>::_type("GPUVolRTV1Ptr", "AlgorithmPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(Algorithm *)
+OSG_FIELDTRAITS_GETTYPE(GPUVolRTV1 *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           Algorithm *,
+                           GPUVolRTV1 *,
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           Algorithm *,
+                           GPUVolRTV1 *,
                            0);
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void AlgorithmBase::classDescInserter(TypeObject &oType)
+void GPUVolRTV1Base::classDescInserter(TypeObject &oType)
 {
 }
 
 
-AlgorithmBase::TypeObject AlgorithmBase::_type(
-    AlgorithmBase::getClassname(),
+GPUVolRTV1Base::TypeObject GPUVolRTV1Base::_type(
+    GPUVolRTV1Base::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    NULL,
-    Algorithm::initMethod,
-    Algorithm::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&Algorithm::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&GPUVolRTV1Base::createEmptyLocal),
+    GPUVolRTV1::initMethod,
+    GPUVolRTV1::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&GPUVolRTV1::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"Algorithm\"\n"
-    "\tparent=\"AttachmentContainer\"\n"
-    "\tlibrary=\"Group\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"abstract\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    ">\n"
+    "   name=\"GPUVolRTV1\"\n"
+    "   parent=\"Algorithm\"\n"
+    "   library=\"ExGPUVolRT\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   isNodeCore=\"false\"\n"
+    "   >\n"
     "</FieldContainer>\n",
     ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &AlgorithmBase::getType(void)
+FieldContainerType &GPUVolRTV1Base::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &AlgorithmBase::getType(void) const
+const FieldContainerType &GPUVolRTV1Base::getType(void) const
 {
     return _type;
 }
 
-UInt32 AlgorithmBase::getContainerSize(void) const
+UInt32 GPUVolRTV1Base::getContainerSize(void) const
 {
-    return sizeof(Algorithm);
+    return sizeof(GPUVolRTV1);
 }
 
 /*------------------------- decorator get ------------------------------*/
@@ -165,7 +165,7 @@ UInt32 AlgorithmBase::getContainerSize(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 AlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 GPUVolRTV1Base::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
@@ -173,18 +173,134 @@ UInt32 AlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
     return returnValue;
 }
 
-void AlgorithmBase::copyToBin(BinaryDataHandler &pMem,
+void GPUVolRTV1Base::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
 }
 
-void AlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
+void GPUVolRTV1Base::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
+}
+
+//! create a new instance of the class
+GPUVolRTV1TransitPtr GPUVolRTV1Base::createLocal(BitVector bFlags)
+{
+    GPUVolRTV1TransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<GPUVolRTV1>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create a new instance of the class, copy the container flags
+GPUVolRTV1TransitPtr GPUVolRTV1Base::createDependent(BitVector bFlags)
+{
+    GPUVolRTV1TransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<GPUVolRTV1>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create a new instance of the class
+GPUVolRTV1TransitPtr GPUVolRTV1Base::create(void)
+{
+    GPUVolRTV1TransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<GPUVolRTV1>(tmpPtr);
+    }
+
+    return fc;
+}
+
+GPUVolRTV1 *GPUVolRTV1Base::createEmptyLocal(BitVector bFlags)
+{
+    GPUVolRTV1 *returnValue;
+
+    newPtr<GPUVolRTV1>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+//! create an empty new instance of the class, do not copy the prototype
+GPUVolRTV1 *GPUVolRTV1Base::createEmpty(void)
+{
+    GPUVolRTV1 *returnValue;
+
+    newPtr<GPUVolRTV1>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
+
+    return returnValue;
+}
+
+
+FieldContainerTransitPtr GPUVolRTV1Base::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    GPUVolRTV1 *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const GPUVolRTV1 *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GPUVolRTV1Base::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    GPUVolRTV1 *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const GPUVolRTV1 *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GPUVolRTV1Base::shallowCopy(void) const
+{
+    GPUVolRTV1 *tmpPtr;
+
+    newPtr(tmpPtr,
+           dynamic_cast<const GPUVolRTV1 *>(this),
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
 }
 
 
@@ -192,12 +308,12 @@ void AlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
 
 /*------------------------- constructors ----------------------------------*/
 
-AlgorithmBase::AlgorithmBase(void) :
+GPUVolRTV1Base::GPUVolRTV1Base(void) :
     Inherited()
 {
 }
 
-AlgorithmBase::AlgorithmBase(const AlgorithmBase &source) :
+GPUVolRTV1Base::GPUVolRTV1Base(const GPUVolRTV1Base &source) :
     Inherited(source)
 {
 }
@@ -205,22 +321,22 @@ AlgorithmBase::AlgorithmBase(const AlgorithmBase &source) :
 
 /*-------------------------- destructors ----------------------------------*/
 
-AlgorithmBase::~AlgorithmBase(void)
+GPUVolRTV1Base::~GPUVolRTV1Base(void)
 {
 }
 
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void AlgorithmBase::execSyncV(      FieldContainer    &oFrom,
+void GPUVolRTV1Base::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    Algorithm *pThis = static_cast<Algorithm *>(this);
+    GPUVolRTV1 *pThis = static_cast<GPUVolRTV1 *>(this);
 
-    pThis->execSync(static_cast<Algorithm *>(&oFrom),
+    pThis->execSync(static_cast<GPUVolRTV1 *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -229,8 +345,21 @@ void AlgorithmBase::execSyncV(      FieldContainer    &oFrom,
 #endif
 
 
+#ifdef OSG_MT_CPTR_ASPECT
+FieldContainer *GPUVolRTV1Base::createAspectCopy(
+    const FieldContainer *pRefAspect) const
+{
+    GPUVolRTV1 *returnValue;
 
-void AlgorithmBase::resolveLinks(void)
+    newAspectCopy(returnValue,
+                  dynamic_cast<const GPUVolRTV1 *>(pRefAspect),
+                  dynamic_cast<const GPUVolRTV1 *>(this));
+
+    return returnValue;
+}
+#endif
+
+void GPUVolRTV1Base::resolveLinks(void)
 {
     Inherited::resolveLinks();
 

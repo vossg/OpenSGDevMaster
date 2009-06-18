@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="GPUVolRTV2"
+   parent="Algorithm"
+   library="ExGPUVolRT"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="false"
+   >
+  <Field
+     name="stepsize"
+     type="Real32"
+     cardinality="single"
+     visibility="external"
+     defaultValue="1.f/50.f"
+     >
+  </Field>
+  <Field
+     name="toggleVisuals"
+     type="bool"
+     cardinality="single"
+     visibility="external"
+     defaultValue="true"
+     >
+  </Field>
+</FieldContainer>

@@ -1,0 +1,4 @@
+--global ../../../../../../Examples/CSM/Common/default-setup.osg
+--system ../../../../../../Examples/CSM/Common/system-native-cluster-multi.osg
+--data   ./scene.osg
+--global ../../../../../../Examples/CSM/Common/simple_mouse.osg

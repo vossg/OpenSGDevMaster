@@ -1,0 +1,55 @@
+// Define the interface between the vertex- and the fragment programs
+struct vertex_fragment
+{
+    float4 Position    : POSITION; // For the rasterizer
+    float4 TexCoord    : TEXCOORD0; 
+    float4 Color       : TEXCOORD1;
+    float4 Pos         : TEXCOORD2;
+};
+
+struct fragment_out 
+{
+    float4 Color      : COLOR0;
+};
+
+// Raycasting fragment program implementation
+fragment_out main(        vertex_fragment  IN,
+                           uniform sampler2D        tex, 
+                           uniform sampler3D        volume_tex, 
+                           uniform float            stepsize  )
+          
+{
+  fragment_out OUT;
+  float2 texc = ((IN.Pos.xy / IN.Pos.w) + 1) / 2; // find the right place to lookup in the backside buffer
+  float4 start = IN.TexCoord; // the start position of the ray is stored in the texturecoordinate
+  float4 back_position  = tex2D(tex, texc);
+  float3 dir = float3(0,0,0);
+  dir.x = back_position.x - start.x;
+  dir.y = back_position.y - start.y;
+  dir.z = back_position.z - start.z;
+  float len = length(dir.xyz); // the length from front to back is calculated and used to terminate the ray
+  float3 norm_dir = normalize(dir);
+  float delta = stepsize;
+  float3 delta_dir = norm_dir * delta;
+  float delta_dir_len = length(delta_dir);
+  float3 vec = start;
+  float4 col_acc = float4(0,0,0,0);
+  float alpha_acc = 0;
+  float length_acc = 0;
+  float4 color_sample;
+  float alpha_sample;
+
+  for(int i = 0; i < 450; i++)
+    {
+      color_sample = tex3D(volume_tex,vec);
+      alpha_sample = color_sample.a * stepsize;
+      col_acc   += (1.0 - alpha_acc) * color_sample * alpha_sample * 3;
+      alpha_acc += alpha_sample;
+      vec += delta_dir;
+      length_acc += delta_dir_len;
+      if(length_acc >= len || alpha_acc > 1.0) break; // terminate if opacity > 1 or the ray is outside the volume
+    }
+ 
+  OUT.Color =  col_acc;
+  return OUT;
+}

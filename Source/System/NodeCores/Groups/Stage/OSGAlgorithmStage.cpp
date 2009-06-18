@@ -123,11 +123,11 @@ ActionBase::ResultE AlgorithmStage::renderEnter(Action *action)
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
 
-    UInt32 uiCopyOnPush = RenderPartition::CopyNothing;
+    UInt32 uiCopyOnPush = RenderPartition::CopyVPCamera;
 
     if(this->getCopyViewing() == true)
     {
-        uiCopyOnPush = RenderPartition::CopyViewing;
+        uiCopyOnPush |= RenderPartition::CopyViewing;
     }
 
     a->pushPartition(uiCopyOnPush, 

@@ -1,0 +1,44 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF RTAlgo GPUVolRTV2
+    {
+      toggleVisuals FALSE
+    }
+
+    DEF StepSizeCounter LimitedReal32Counter
+    {
+      value 0.02
+      step  0.000488281
+
+      upperLimit  0.25
+      lowerLimit  0.005
+    }
+
+    DEF KeyW KeySensor
+    {
+      key "w"
+    }       
+
+    DEF KeyE KeySensor
+    {
+      key "e"
+    }       
+
+    DEF KeyD KeySensor
+    {
+      key "d"
+      stateFlipFlop TRUE
+    }
+  ]
+}
+
+ROUTE KeyD.stateFlipFlop     TO RTAlgo.toggleVisuals
+
+ROUTE KeyW.signalPressed     TO StepSizeCounter.incTrigger
+ROUTE KeyE.signalPressed     TO StepSizeCounter.decTrigger
+
+ROUTE StepSizeCounter.value  TO RTAlgo.stepsize

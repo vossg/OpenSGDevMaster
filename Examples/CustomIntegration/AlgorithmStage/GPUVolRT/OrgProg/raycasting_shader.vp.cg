@@ -1,0 +1,41 @@
+// Define interface between the application and the vertex program
+struct app_vertex
+{
+    float4 Position     : POSITION;
+    float4 TexCoord     : TEXCOORD1; 
+    float4 Color        : COLOR0;
+};
+
+// Define the interface between the vertex- and the fragment programs
+struct vertex_fragment
+{
+    float4 Position    : POSITION; // For the rasterizer
+    float4 TexCoord    : TEXCOORD0; 
+    float4 Color       : TEXCOORD1;
+    float4 Pos         : TEXCOORD2;
+};
+
+// Raycasting vertex program implementation
+vertex_fragment main(        app_vertex IN,
+                            uniform float4x4   ModelView,
+                            uniform float4x4   Proj)
+{    
+    vertex_fragment OUT;
+    
+    // Get OpenGL state matrices
+//    float4x4 ModelView     = glstate.matrix.modelview[0];
+    float4x4 ModelViewProj = glstate.matrix.mvp;
+    
+//    float4x4 ModelViewProj = mul(Proj, ModelView);
+//    float4x4 ModelViewProj = mul(glstate.matrix.projection,
+//                                 ModelView);
+//                                 glstate.matrix.modelview[0]);
+
+    // Transform vertex
+    OUT.Position = mul( ModelViewProj, IN.Position );
+    OUT.Pos      = mul( ModelViewProj, IN.Position ); 
+    OUT.TexCoord = IN.TexCoord;
+    OUT.Color    = IN.Color;
+
+    return OUT;
+}
