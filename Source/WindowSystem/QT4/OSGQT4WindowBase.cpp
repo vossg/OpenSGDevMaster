@@ -83,13 +83,35 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var OSGQGLWidgetP   QT4WindowBase::_sfGlWidget
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<QT4Window *>::_type("QT4WindowPtr", "NativeWindowPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(QT4Window *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           QT4Window *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           QT4Window *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void QT4WindowBase::classDescInserter(TypeObject &oType)
 {
@@ -435,19 +457,5 @@ void QT4WindowBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<QT4Window *>::_type("QT4WindowPtr", "NativeWindowPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(QT4Window *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           QT4Window *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           QT4Window *,
-                           0);
 
 OSG_END_NAMESPACE

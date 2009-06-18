@@ -1033,7 +1033,8 @@ sfplaneValue:
     };
 
 sfVolumeValue:
-    float { SKEL->beginValue(); }
+    int32 { SKEL->beginValue();  }
+    float { SKEL->appendValue(); }
     float { SKEL->appendValue(); }
     float { SKEL->appendValue(); }
     float { SKEL->appendValue(); }
@@ -1041,8 +1042,10 @@ sfVolumeValue:
     float
     {
         SKEL->appendValue();
-        BoxVolume bv($1, $3, $5, $7, $9, $11);
+        BoxVolume bv($3, $5, $7, $9, $11, $13);
         
+        bv.setState($1);
+
         SKEL->addVolumeValue(bv);
     }
 

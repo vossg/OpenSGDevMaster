@@ -123,6 +123,7 @@ void DrawEnv::activate(State *pState)
     ++_uiNumStateChanges;
 }
 
+
 void DrawEnv::activate(State         *pState,
                        StateOverride *pOverride)
 {
@@ -143,6 +144,32 @@ void DrawEnv::activate(State         *pState,
 
 
     OSG_SKIP_IT(cIt, cind);
+
+    if(overIt != pOverride->end() && overIt->first < cind)
+    {
+        for(Int32 i = 0; i < cind; ++i)
+        {
+            StateChunk *n = NULL;
+            
+            if(overIt != pOverride->end() && overIt->first == i)
+            {
+                n = overIt->second;
+                ++overIt;
+            }
+            
+            if(n != NULL && n->getIgnore() == false)
+            {
+                n->activate(this, UInt32(ind));
+            }
+            
+            if(++ind >= StateChunkClass::getNumSlots(i))
+            {
+                ind = 0;
+            }
+        }
+
+        ind = 0;
+    }
 
     for(; cIt != cEnd; ++cIt, ++cind)
     {
@@ -215,6 +242,32 @@ void DrawEnv::changeTo(State         *pState,
     StateChunk               *n    = NULL;
 
     OSG_SKIP_IT(cIt, cind);
+
+    if(overIt != pOldOverride->end() && overIt->first < cind)
+    {
+        for(i = 0; i < cind; ++i)
+        {
+            StateChunk *o = NULL;
+            
+            if(overIt != pOldOverride->end() && overIt->first == i)
+            {
+                o = overIt->second;
+                ++overIt;
+            }
+            
+            if(o != NULL && o->getIgnore() == false)
+            {
+                o->deactivate(this, UInt32(ind));
+            }
+            
+            if(++ind >= StateChunkClass::getNumSlots(i))
+            {
+                ind = 0;
+            }
+        }
+
+        ind = 0;
+    }
 
     for(; cIt != cEnd; ++cIt, ++cind)
     {
@@ -314,6 +367,32 @@ void DrawEnv::changeTo(State         *pState,
     StateChunk               *n    = NULL;
 
     OSG_SKIP_IT(cIt, cind);
+
+    if(overIt != pOverride->end() && overIt->first < cind)
+    {
+        for(Int32 i = 0; i < cind; ++i)
+        {
+            StateChunk *n = NULL;
+            
+            if(overIt != pOverride->end() && overIt->first == i)
+            {
+                n = overIt->second;
+                ++overIt;
+            }
+            
+            if(n != NULL && n->getIgnore() == false)
+            {
+                n->activate(this, UInt32(ind));
+            }
+            
+            if(++ind >= StateChunkClass::getNumSlots(i))
+            {
+                ind = 0;
+            }
+        }
+
+        ind = 0;
+    }
 
     for(; cIt != cEnd; ++cIt, ++cind)
     {
@@ -430,6 +509,47 @@ void DrawEnv::changeTo(State         *pState,
     StateChunk               *n    = NULL;
 
     OSG_SKIP_IT(cIt, cind);
+
+    for(i = 0; i < cind; ++i)
+    {
+        StateChunk *o = NULL;
+                    n = NULL;
+
+        if(oldOverIt != pOldOverride->end() && oldOverIt->first == i)
+        {
+            o = oldOverIt->second;
+            ++oldOverIt;
+        }
+
+        if(newOverIt != pOverride->end() && newOverIt->first == i)
+        {
+            n = newOverIt->second;
+            ++newOverIt;
+        }
+
+        if(n != NULL && n->getIgnore() == false)
+        {
+            if(o != NULL && o->getIgnore() == false)
+            {
+                n->changeFrom(this, o, UInt32(ind));
+            }
+            else
+            {
+                n->activate(this, UInt32(ind));
+            }
+        }
+        else if(o != NULL && o->getIgnore() == false)
+        {
+            o->deactivate(this, UInt32(ind));
+        }
+
+        if(++ind >= StateChunkClass::getNumSlots(i))
+        {
+            ind = 0;
+        }
+    }
+
+    ind = 0;
 
     for(; cIt != cEnd; ++cIt, ++cind)
     {
@@ -594,6 +714,30 @@ void DrawEnv::deactivate(State         *pState,
                                             pState->getMFChunks()->size());
 
     OSG_SKIP_IT(cIt, cind);
+
+    if(overIt != pOverride->end() && overIt->first < cind)
+    {
+        for(Int32 i = 0; i < cind; ++i)
+        {
+            if(overIt != pOverride->end() && overIt->first == i)
+            {
+                if(overIt->second              != NULL && 
+                   overIt->second->getIgnore() == false  )
+                {
+                    overIt->second->activate(this, UInt32(ind));
+                }
+
+                ++overIt;
+            }
+            
+            if(++ind >= StateChunkClass::getNumSlots(i))
+            {
+                ind = 0;
+            }
+        }
+
+        ind = 0;
+    }
 
     for(; cIt != cEnd; ++cIt, ++cind)
     {

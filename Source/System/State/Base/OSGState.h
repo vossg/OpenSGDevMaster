@@ -237,8 +237,7 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
 typedef State *StateP;
 
 #define OSG_SKIP_IT(ITERATOR, STEPS)                        \
-    for(UInt32 i = 0; i < (STEPS); ++i)                     \
-        ++(ITERATOR)
+    (ITERATOR) += (STEPS)
 
 OSG_END_NAMESPACE
 

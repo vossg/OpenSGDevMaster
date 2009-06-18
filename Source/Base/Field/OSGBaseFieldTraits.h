@@ -415,7 +415,10 @@ struct FieldTraits<BoxVolume> :
             c++;
         }
         
-        Int16 count = sscanf(str, "%f %f %f %f %f %f",
+        Int32 iState;
+
+        Int16 count = sscanf(str, "%d %f %f %f %f %f %f",
+                             &iState,
                              &valStore[0], 
                              &valStore[1], 
                              &valStore[2],
@@ -423,8 +426,10 @@ struct FieldTraits<BoxVolume> :
                              &valStore[4], 
                              &valStore[5]);
         
-        if(count == 6)
+        if(count == 7)
         {
+            outVal.setState(iState);
+
             outVal.setBounds(valStore[0],
                              valStore[1],
                              valStore[2],
@@ -450,6 +455,10 @@ struct FieldTraits<BoxVolume> :
         Pnt3r min, max;
 
         typedef TypeTraits<Pnt3r::ValueType> TypeTrait;
+        typedef TypeTraits<UInt16>           StateTypeTrait;
+
+        StateTypeTrait::putToStream(val.getState(), str);
+        str << " ";
 
         val.getBounds(min, max);
         
