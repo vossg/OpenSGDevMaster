@@ -1,0 +1,53 @@
+
+Creating a new container type.
+
+
+We will create a new type of NodeCore that can render cubes. The example will
+place the new container type in a separate shared library (CubesLib) and a short
+glut-based program will demonstrate the how to use the new type (CubesApp).
+
+
+Steps taken:
+
+* write OSGCubes.fcd
+  We name our new container type simply "Cubes" and derive it from
+  "MaterialDrawable". Since the type itself is not part of OpenSG (it will live
+  in a separate shared library) we set systemcomponent to "false", but
+  parentsystemcomponent to "true" (MaterialDrawable belongs to OpenSG).
+
+  Since we know that the container will render cubes, we only specify a position
+  and size (length, i.e. the length of an edge of the cube) as well as a color.
+  All three fields are "multi" fields, because we want our type to render many
+  cubes not just one.
+
+* generate the source files
+  Run fcd2code and generate the Base and User files (options -b and -f).
+
+* edit User files
+  Add drawPrimitives() member function. All (non-abstract) types derived from
+  MaterialDrawable must define this function. This is the function that gets
+  called to render the drawable. Here we just use immediate mode to draw some
+  cubes, a better implementation would use display lists or VBOs to speed things
+  up.
+
+  Add fill() member function. It is used to gather some statistics about the
+  Drawable, so we fill in the number of vertices and triangles that are rendered
+  for our cubes.
+
+  Add adjustVolume() member function. This is used to make sure the frustum
+  culling works correctly. The implementation is rather simple, it simply
+  extends the volume to contain each corner of every cube.
+  More efficient implemenations could cache that information an only update it
+  if the member fields are modified.
+
+
+* write a CMakeLists.txt file to compile the CubesLib library
+  This step is somewhat optional, of course you don't have to use cmake to
+  compile the library, but can use your preferred build system to get the job
+  done.
+
+ * TODO compiling CubesLib - (setting OPENSG_ROOT and BOOST_ROOT)
+
+ * TODO writing CubesApp
+
+ * TODO writing the CMakeLists.txt for CubesApp
