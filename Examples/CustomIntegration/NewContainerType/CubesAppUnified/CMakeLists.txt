@@ -1,12 +1,12 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-PROJECT(CubesLib)
+PROJECT(CubesAppUnified)
 
 # we need to find the cmake modules that come with OpenSG, the easiest way is to use
 # the ones in the source tree. If you only have an installed version of OpenSG,
 # the path below to <prefix>/share/OpenSG/cmake
-LIST(APPEND CMAKE_MODULE_PATH "${CubesLib_SOURCE_DIR}/../../../../CMake")
+LIST(APPEND CMAKE_MODULE_PATH "${CubesAppUnified_SOURCE_DIR}/../../../../CMake")
 
 #############################################################################
 # find sources
@@ -27,7 +27,22 @@ SET(OSG_COMPONENTS OSGBase
                    OSGGroup
                    OSGState
                    OSGSystem
-                   OSGUtil    )
+                   OSGUtil
+                   OSGWindow
+                   OSGWindowGLUT)
+
+# append the platform window library
+IF(UNIX)
+    IF(APPLE)
+        LIST(APPEND OSG_COMPONENTS OSGWindowCarbon)
+    ELSE(APPLE)
+        LIST(APPEND OSG_COMPONENTS OSGWindowX)
+    ENDIF(APPLE)
+ENDIF(UNIX)
+
+IF(WIN32)
+    LIST(APPEND OSG_COMPONENTS OSGWindowWIN32)
+ENDIF(WIN32)
 
 #############
 #### Boost
@@ -53,8 +68,14 @@ ENDIF(Boost_FOUND)
 
 FIND_PACKAGE(OpenSG REQUIRED COMPONENTS ${OSG_COMPONENTS})
 
+#############
+#### Cubes
+
+# make sure the source directory is searched for headers
+LIST(APPEND DEP_INCLUDE_DIRS "${CubesAppUnified_SOURCE_DIR}")
+
 #############################################################################
-# build library
+# build application
 
 INCLUDE_DIRECTORIES(${OpenSG_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES(${DEP_INCLUDE_DIRS}   )
@@ -62,7 +83,7 @@ INCLUDE_DIRECTORIES(${DEP_INCLUDE_DIRS}   )
 LINK_DIRECTORIES(${OpenSG_LIBRARY_DIRS})
 LINK_DIRECTORIES(${DEP_LIBRARY_DIRS}   )
 
-ADD_LIBRARY(CubesLib SHARED ${SRCFILES})
+ADD_EXECUTABLE(CubesAppUnified ${SRCFILES})
 
-TARGET_LINK_LIBRARIES(CubesLib ${OpenSG_LIBRARIES})
-TARGET_LINK_LIBRARIES(CubesLib ${DEP_LIBRARIES})
+TARGET_LINK_LIBRARIES(CubesAppUnified ${OpenSG_LIBRARIES})
+TARGET_LINK_LIBRARIES(CubesAppUnified ${DEP_LIBRARIES})

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="Cubes"
+   parent="MaterialDrawable"
+   library="CubesLib"
+   pointerfieldtypes="both"
+   systemcomponent="false"
+   parentsystemcomponent="true"
+   structure="concrete"
+   >
+  A simple type that can render cubes of a given size and color at a
+  given location.
+  <Field
+     name="position"
+     category="data"
+     type="Pnt3f"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    The cubes' positions.
+  </Field>
+  <Field
+     name="length"
+     category="data"
+     type="Real32"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    The cubes' sizes.
+  </Field>
+  <Field
+     name="color"
+     category="data"
+     type="Color3f"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    The cubes' colors.
+  </Field>
+</FieldContainer>
