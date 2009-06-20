@@ -208,8 +208,8 @@ void display(void)
     {
         t2 = (2 * OSG::Pi / speed) * td;
 
-        _shl->setUniformParameter("cos_time_0_2PI", osgCos(t2));
-        _shl->setUniformParameter("sin_time_0_2PI", osgSin(t2));
+        _shl->setUniformParameter("cos_time_0_2PI", OSG::osgCos(t2));
+        _shl->setUniformParameter("sin_time_0_2PI", OSG::osgSin(t2));
     }
 
     OSG::Thread::getCurrentChangeList()->commitChanges();

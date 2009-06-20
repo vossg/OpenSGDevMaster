@@ -127,8 +127,8 @@ int doMain(int argc, char **argv)
     shl->setFragmentProgram(_fp_program);
     // These parameters are the same for all geometries so we
     // keep them in here.
-    shl->setUniformParameter("Scale", Vec2f(20.0f, 20.0f));
-    shl->setUniformParameter("Threshold", Vec2f(0.7f, 0.7f));
+    shl->setUniformParameter("Scale", OSG::Vec2f(20.0f, 20.0f));
+    shl->setUniformParameter("Threshold", OSG::Vec2f(0.7f, 0.7f));
 
     OSG::Int32 size = 4;
     
@@ -174,7 +174,7 @@ int doMain(int argc, char **argv)
 
         OSG::MaterialGroupUnrecPtr mg;
 
-        OSG::NodeUnrecPtr mg_node = OSG: makeCoredNode<OSG::MaterialGroup>(&mg);
+        OSG::NodeUnrecPtr mg_node = OSG::makeCoredNode<OSG::MaterialGroup>(&mg);
 
         mg->setMaterial(cmat);
 
@@ -224,8 +224,8 @@ int doMain(int argc, char **argv)
     OSG::GradientBackgroundUnrecPtr gback = OSG::GradientBackground::create();
 
     gback->clearLines();
-    gback->addLine(Color3f(0.7, 0.7, 0.8), 0);
-    gback->addLine(Color3f(0.0, 0.1, 0.3), 1);
+    gback->addLine(OSG::Color3f(0.7, 0.7, 0.8), 0);
+    gback->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
 
     OSG::Window *win = _mgr->getWindow();
 
@@ -263,7 +263,7 @@ void display(void)
     _mgr->redraw();
     t = OSG::getSystemTime() - t;
     if(t > 0.0)
-        printf("fps: %f\r", 1.0f / Real32(t));
+        printf("fps: %f\r", 1.0f / OSG::Real32(t));
     else
         printf("fps: very fast ...\r");
 }
@@ -320,7 +320,7 @@ void keyboard(unsigned char k, int x, int y)
             if(_shlparameter != NULL)
             {
                 _shlparameter->setUniformParameter("SurfaceColor", 
-                                                   Vec3f(1.0f, 1.0f, 1.0f));
+                                                   OSG::Vec3f(1.0f, 1.0f, 1.0f));
             }
         break;
     }

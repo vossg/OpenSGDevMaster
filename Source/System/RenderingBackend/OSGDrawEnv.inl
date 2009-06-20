@@ -322,7 +322,14 @@ void DrawEnv::clearState(void)
 inline
 void DrawEnv::deactivateState(void)
 {
-    deactivate(_pActiveState, _pActiveStateOverride);
+    if(_pActiveStateOverride != NULL)
+    {
+        deactivate(_pActiveState, _pActiveStateOverride);
+    }
+    else
+    {
+        deactivate(_pActiveState);
+    }
 
     _pActiveState         = NULL;
     _pActiveStateOverride = NULL;
@@ -339,18 +346,54 @@ void DrawEnv::activateState(State         *pNewState,
             if(pNewState         != _pActiveState        ||
                pNewStateOverride != _pActiveStateOverride )
             {
-                changeTo( pNewState,
-                          pNewStateOverride,
-                         _pActiveState,
-                         _pActiveStateOverride);
+                if(pNewStateOverride != NULL)
+                {
+                    if(_pActiveStateOverride != NULL)
+                    {
+                        changeTo( pNewState,     pNewStateOverride,
+                                 _pActiveState, _pActiveStateOverride);
+                    }
+                    else
+                    {
+                        changeTo( pNewState,     pNewStateOverride,
+                                 _pActiveState                    );
+                    }
+                }
+                else if(_pActiveStateOverride != NULL)
+                {
+                    changeTo(pNewState, _pActiveState, _pActiveStateOverride);
+                }
+                else
+                {
+                    changeTo(pNewState, _pActiveState);
+                }
 
                 _pActiveState         = pNewState;
                 _pActiveStateOverride = pNewStateOverride;
             }
+            else
+            {
+                if(_pActiveStateOverride != NULL)
+                {
+                    updateChunk(_pActiveState, 
+                                _pActiveStateOverride);
+                }
+                else
+                {
+                    updateChunk(_pActiveState);
+                }
+            }
         }
         else
         {
-            activate(pNewState, pNewStateOverride);
+            if(pNewStateOverride != NULL)
+            {
+                activate(pNewState, pNewStateOverride);
+            }
+            else
+            {
+                activate(pNewState);
+            }
 
             _pActiveState         = pNewState;
             _pActiveStateOverride = pNewStateOverride;

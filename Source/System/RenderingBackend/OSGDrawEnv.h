@@ -296,11 +296,18 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     void changeTo  (State         *pState,
                     StateOverride *pOverride,
                     State         *old,
-                    StateOverride *oldOverride);
+                    StateOverride *oldOverride );
 
     void deactivate(State         *pState);
     void deactivate(State         *pState,
-                    StateOverride *pOverride  );
+                    StateOverride *pOverride   );
+
+    void update     (State         *pState);
+    void update     (State         *pState,
+                     StateOverride *pOverride  );
+    void updateChunk(State         *pState);
+    void updateChunk(State         *pState,
+                     StateOverride *pOverride);
 
 
     /*! \}                                                                 */

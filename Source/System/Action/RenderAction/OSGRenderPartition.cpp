@@ -681,7 +681,13 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         }
 
         _sStateOverrides.top()->setShader(pShader);
-        _sStateOverrides.top()->addOverride(0, pShader);
+        _sStateOverrides.top()->addOverride(
+            ShaderExecutableChunk::getStaticClassId(),
+            pShader                      );
+
+        OSG_ASSERT(ShaderExecutableChunk::getStaticClassId() == 
+                   pShader->getClassId()                       ); 
+
     }
 
 
@@ -733,7 +739,13 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         }
 
         _sStateOverrides.top()->setShaderVar(pShaderVar);
-        _sStateOverrides.top()->addOverride (1, pShaderVar);
+        _sStateOverrides.top()->addOverride (
+            ShaderExecutableVarChunk::getStaticClassId(),
+            pShaderVar);
+
+        OSG_ASSERT(ShaderExecutableVarChunk::getStaticClassId() == 
+                   pShaderVar->getClassId()                       );
+
     }
 #endif
 

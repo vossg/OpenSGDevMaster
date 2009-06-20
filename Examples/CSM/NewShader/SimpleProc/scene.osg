@@ -158,6 +158,8 @@ Node
         material USE Mat1
       }
 
+#       core Group {}
+
       children
       [
         Node

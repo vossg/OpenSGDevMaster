@@ -1,0 +1,146 @@
+#OSG V1.0 
+
+Node
+{
+  core ComponentTransform
+  {
+    translation -5 0 0 
+  }
+  children
+  [
+    Node
+    {
+      core MaterialGroup
+      {
+        material DEF Mat1 ChunkMaterial
+        {
+          chunks
+          [
+            MaterialChunk  
+            { 
+              diffuse      0.8 0.8 0.8 1.0
+              ambient      0.0 0.0 0.0 1.0
+              specular     0.0 0.0 0.0 1.0
+              shininess    0.4
+            }
+  
+            SHLChunk
+            {
+              vertexProgram "
+
+                varying float Diffuse; 
+                uniform mat4  OSGWorldMatrix;
+                uniform mat4  OSGViewMatrix;
+
+                void main(void)
+                {
+                  // calculate vertex position in eye coordinates
+                  vec4 ecPosition = -normalize(gl_ModelViewMatrix * 
+                                               gl_Vertex);
+
+                  // compute the transformed normal
+                  vec3 tnorm      = normalize(gl_NormalMatrix * 
+                                              gl_Normal);
+
+                  // Calculate a diffuse light intensity
+                  Diffuse             = dot(ecPosition.xyz, 
+                                            tnorm     );
+
+                  mat4 vp = 
+                    gl_ProjectionMatrix * OSGViewMatrix * OSGWorldMatrix;
+
+                  // output final vertex information
+                  //gl_Position     = 
+                  //  gl_ModelViewProjectionMatrix * gl_Vertex;
+                  gl_Position     = vp * gl_Vertex;
+                }
+              "
+              fragmentProgram "
+                varying float Diffuse; 
+                uniform float ColR;
+                uniform float ColG;
+                uniform float ColB;
+
+                void main (void)
+                {
+                  gl_FragColor = vec4(ColR * Diffuse, 
+                                      ColG * Diffuse, 
+                                      ColB * Diffuse, 
+                                      1.);
+                }
+              "
+
+              parameters
+              [
+                ShaderParameterInt
+                {
+                  name "OSGViewMatrix"
+                }
+                ShaderParameterInt
+                {
+                  name "OSGWorldMatrix"
+                }
+                ShaderParameterReal
+                {
+                  name "ColR"
+                  value 1.0
+                }
+                ShaderParameterReal
+                {
+                  name "ColG"
+                  value 0.6
+                }
+                ShaderParameterReal
+                {
+                  name "ColB"
+                  value 0.6
+                }
+              ]
+            }
+          ]
+        }
+      }
+
+      children
+      [
+        Node
+        {
+          core Inline
+          {
+            url "../../Models/teapot.wrl"
+          }
+        }
+      ]
+    }
+  ]
+}
+
+Node
+{
+  core ComponentTransform
+  {
+    translation 5 0 0 
+  }
+
+  children
+  [
+    Node
+    {
+      core MaterialGroup
+      {
+        material USE Mat1
+      }
+
+      children
+      [
+        Node
+        {
+          core Inline
+          {
+            url "../../Models/teapot.wrl"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -123,16 +123,9 @@ void DrawEnv::activate(State *pState)
     ++_uiNumStateChanges;
 }
 
-
 void DrawEnv::activate(State         *pState,
                        StateOverride *pOverride)
 {
-    if(pOverride == NULL)
-    {
-        activate(pState);
-        return;
-    }
-
     MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  (); 
 
@@ -143,33 +136,7 @@ void DrawEnv::activate(State         *pState,
                                             pState->getMFChunks()->size());
 
 
-    OSG_SKIP_IT(cIt, cind);
-
-    if(overIt != pOverride->end() && overIt->first < cind)
-    {
-        for(Int32 i = 0; i < cind; ++i)
-        {
-            StateChunk *n = NULL;
-            
-            if(overIt != pOverride->end() && overIt->first == i)
-            {
-                n = overIt->second;
-                ++overIt;
-            }
-            
-            if(n != NULL && n->getIgnore() == false)
-            {
-                n->activate(this, UInt32(ind));
-            }
-            
-            if(++ind >= StateChunkClass::getNumSlots(i))
-            {
-                ind = 0;
-            }
-        }
-
-        ind = 0;
-    }
+    OSG_SKIP_IT    (cIt, cind);
 
     for(; cIt != cEnd; ++cIt, ++cind)
     {
@@ -224,12 +191,6 @@ void DrawEnv::changeTo(State         *pState,
                        State         *pOld,
                        StateOverride *pOldOverride)
 {
-    if(pOldOverride == NULL)
-    {
-        changeTo(pState, pOld);
-        return;
-    }
-
     MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  (); 
 
@@ -242,33 +203,7 @@ void DrawEnv::changeTo(State         *pState,
     StateChunk               *n    = NULL;
 
     OSG_SKIP_IT(cIt, cind);
-
-    if(overIt != pOldOverride->end() && overIt->first < cind)
-    {
-        for(i = 0; i < cind; ++i)
-        {
-            StateChunk *o = NULL;
-            
-            if(overIt != pOldOverride->end() && overIt->first == i)
-            {
-                o = overIt->second;
-                ++overIt;
-            }
-            
-            if(o != NULL && o->getIgnore() == false)
-            {
-                o->deactivate(this, UInt32(ind));
-            }
-            
-            if(++ind >= StateChunkClass::getNumSlots(i))
-            {
-                ind = 0;
-            }
-        }
-
-        ind = 0;
-    }
-
+   
     for(; cIt != cEnd; ++cIt, ++cind)
     {
         StateChunk *o = pOld->getChunk(cind);
@@ -349,12 +284,6 @@ void DrawEnv::changeTo(State         *pState,
                        StateOverride *pOverride,
                        State         *pOld)
 {
-    if(pOverride == NULL)
-    {
-        changeTo(pState, pOld);
-        return;
-    }
-
     MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  (); 
 
@@ -367,32 +296,6 @@ void DrawEnv::changeTo(State         *pState,
     StateChunk               *n    = NULL;
 
     OSG_SKIP_IT(cIt, cind);
-
-    if(overIt != pOverride->end() && overIt->first < cind)
-    {
-        for(Int32 i = 0; i < cind; ++i)
-        {
-            StateChunk *n = NULL;
-            
-            if(overIt != pOverride->end() && overIt->first == i)
-            {
-                n = overIt->second;
-                ++overIt;
-            }
-            
-            if(n != NULL && n->getIgnore() == false)
-            {
-                n->activate(this, UInt32(ind));
-            }
-            
-            if(++ind >= StateChunkClass::getNumSlots(i))
-            {
-                ind = 0;
-            }
-        }
-
-        ind = 0;
-    }
 
     for(; cIt != cEnd; ++cIt, ++cind)
     {
@@ -484,18 +387,6 @@ void DrawEnv::changeTo(State         *pState,
                        State         *pOld,
                        StateOverride *pOldOverride)
 {
-    if(pOverride == NULL)
-    {
-        changeTo(pState, pOld, pOldOverride);
-        return;
-    }
-
-    if(pOldOverride == NULL)
-    {
-        changeTo(pState, pOverride, pOld);
-        return;
-    }
-
     MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  (); 
 
@@ -509,47 +400,6 @@ void DrawEnv::changeTo(State         *pState,
     StateChunk               *n    = NULL;
 
     OSG_SKIP_IT(cIt, cind);
-
-    for(i = 0; i < cind; ++i)
-    {
-        StateChunk *o = NULL;
-                    n = NULL;
-
-        if(oldOverIt != pOldOverride->end() && oldOverIt->first == i)
-        {
-            o = oldOverIt->second;
-            ++oldOverIt;
-        }
-
-        if(newOverIt != pOverride->end() && newOverIt->first == i)
-        {
-            n = newOverIt->second;
-            ++newOverIt;
-        }
-
-        if(n != NULL && n->getIgnore() == false)
-        {
-            if(o != NULL && o->getIgnore() == false)
-            {
-                n->changeFrom(this, o, UInt32(ind));
-            }
-            else
-            {
-                n->activate(this, UInt32(ind));
-            }
-        }
-        else if(o != NULL && o->getIgnore() == false)
-        {
-            o->deactivate(this, UInt32(ind));
-        }
-
-        if(++ind >= StateChunkClass::getNumSlots(i))
-        {
-            ind = 0;
-        }
-    }
-
-    ind = 0;
 
     for(; cIt != cEnd; ++cIt, ++cind)
     {
@@ -698,12 +548,6 @@ void DrawEnv::deactivate(State *pState)
 void DrawEnv::deactivate(State         *pState,
                          StateOverride *pOverride  )
 {
-    if(pOverride == NULL)
-    {
-        deactivate(pState);
-        return;
-    }
-
     MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
     MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  ();
 
@@ -714,30 +558,6 @@ void DrawEnv::deactivate(State         *pState,
                                             pState->getMFChunks()->size());
 
     OSG_SKIP_IT(cIt, cind);
-
-    if(overIt != pOverride->end() && overIt->first < cind)
-    {
-        for(Int32 i = 0; i < cind; ++i)
-        {
-            if(overIt != pOverride->end() && overIt->first == i)
-            {
-                if(overIt->second              != NULL && 
-                   overIt->second->getIgnore() == false  )
-                {
-                    overIt->second->activate(this, UInt32(ind));
-                }
-
-                ++overIt;
-            }
-            
-            if(++ind >= StateChunkClass::getNumSlots(i))
-            {
-                ind = 0;
-            }
-        }
-
-        ind = 0;
-    }
 
     for(; cIt != cEnd; ++cIt, ++cind)
     {
@@ -775,3 +595,93 @@ void DrawEnv::deactivate(State         *pState,
     }
 }
 
+void DrawEnv::update(State *pState)
+{
+#if 0
+    MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  ();
+
+    Int32                     ind  = 0;
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size());
+
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd && cind < State::UpdateBelow; ++cIt, ++cind)
+    {
+        if(*cIt != NULL && (*cIt)->getIgnore() == false)
+        {
+            (*cIt)->changeFrom(this, *cIt, UInt32(ind));
+        }
+
+        if(++ind >= StateChunkClass::getNumSlots(cind))
+            ind = 0;
+    }
+#endif
+}
+
+void DrawEnv::update(State         *pState,
+                     StateOverride *pOverride)
+{
+#if 0
+    MFUnrecStateChunkPtr::const_iterator cIt  = pState->getMFChunks()->begin();
+    MFUnrecStateChunkPtr::const_iterator cEnd = pState->getMFChunks()->end  ();
+
+    StateOverride::ChunkStoreIt          overIt = pOverride->begin();
+
+    Int32                     ind  = 0;
+    UInt32                    cind = osgMin(State::SkipNumChunks, 
+                                            pState->getMFChunks()->size());
+    StateChunk               *c    = NULL;
+
+    OSG_SKIP_IT(cIt, cind);
+
+    for(; cIt != cEnd && cind < State::UpdateBelow; ++cIt, ++cind)
+    {
+        if(overIt != pOverride->end() && overIt->first == cind)
+        {
+            c = overIt->second;
+            ++overIt;
+        }
+        else
+        {
+            c = *cIt;
+        }
+
+        if(c != NULL && c->getIgnore() == false)
+        {
+            c->changeFrom(this, c, UInt32(ind));
+        }
+
+        if(++ind >= StateChunkClass::getNumSlots(cind))
+            ind = 0;
+    }
+#endif
+}
+
+void DrawEnv::updateChunk(State *pState)
+{
+    StateChunk *c = pState->getChunk(State::UpdateChunk);
+    
+    if(c != NULL && (c)->getIgnore() == false)
+    {
+        (c)->changeFrom(this, c, UInt32(0));
+    }
+}
+
+void DrawEnv::updateChunk(State         *pState,
+                          StateOverride *pOverride)
+{
+    StateChunk *c = pState->getChunk(State::UpdateChunk);
+
+    if(pOverride->size()         >  0                  &&
+       pOverride->begin()->first == State::UpdateChunk  )
+    {
+        c = pOverride->begin()->second;
+    }
+
+    if(c != NULL && (c)->getIgnore() == false)
+    {
+        (c)->changeFrom(this, c, UInt32(0));
+    }
+}

@@ -88,7 +88,7 @@ OSG_USING_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass SHLChunk::_class("SHL", 1, 30);
+StateChunkClass SHLChunk::_class("SHL", 1, 7);
 
 UInt32 SHLChunk::_shl_extension            = Window::invalidExtensionID;
 UInt32 SHLChunk::_cg_extension             = Window::invalidExtensionID;
@@ -2170,53 +2170,63 @@ void SHLChunk::changeFrom(DrawEnv    *pEnv,
         return;
     }
 
-    // SHLChunk didn't change so do nothing.
+#if 0    // SHLChunk didn't change so do nothing.
     if(old == this)
         return;
-
-    pEnv->getWindow()->validateGLObject(getGLId(), pEnv);
-
-    // get "glUseProgramObjectARB" function pointer
-    OSGGLUSEPROGRAMOBJECTARBPROC useProgramObject =
-        reinterpret_cast<OSGGLUSEPROGRAMOBJECTARBPROC>(
-            pEnv->getWindow()->getFunction(_funcUseProgramObject));
-
-    GLuint program = GLuint(pEnv->getWindow()->getGLObjectId(getGLId()));
-
-    if(program != 0)
-    {
-        useProgramObject(program);
-        pEnv->setActiveShader(program);
-
-        updateOSGParameters(pEnv, program);
-#if 0
-        updateParameters(pEnv->getWindow(), getParameters(),
-                     false,  // don't use program
-                     false,  // don't force updates
-                     true);  // keep the program active
 #endif
 
-        if(getPointSize())
+    if(pEnv->getActiveShader() != this->getGLId())
+    {
+        pEnv->getWindow()->validateGLObject(getGLId(), pEnv);
+
+        // get "glUseProgramObjectARB" function pointer
+        OSGGLUSEPROGRAMOBJECTARBPROC useProgramObject =
+            reinterpret_cast<OSGGLUSEPROGRAMOBJECTARBPROC>(
+                pEnv->getWindow()->getFunction(_funcUseProgramObject));
+        
+        GLuint program = GLuint(pEnv->getWindow()->getGLObjectId(getGLId()));
+
+        if(program != 0)
         {
-            if(!old->getPointSize())
-                glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+            useProgramObject(program);
+            pEnv->setActiveShader(program);
+
+            updateOSGParameters(pEnv, program);
+#if 0
+            updateParameters(pEnv->getWindow(), getParameters(),
+                             false,  // don't use program
+                             false,  // don't force updates
+                             true);  // keep the program active
+#endif
+            
+            if(getPointSize())
+            {
+                if(!old->getPointSize())
+                    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+            }
+            else
+            {
+                if(old->getPointSize())
+                    glDisable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+            }
         }
         else
         {
-            if(old->getPointSize())
-                glDisable(GL_VERTEX_PROGRAM_POINT_SIZE_ARB);
+            if(pEnv->getWindow()->getGLObjectId(old->getGLId()) != 0)
+            {
+                useProgramObject(0);
+                pEnv->setActiveShader(0);
+            }
         }
+        
+        pEnv->incNumShaderChanges();
     }
     else
     {
-        if(pEnv->getWindow()->getGLObjectId(old->getGLId()) != 0)
-        {
-            useProgramObject(0);
-            pEnv->setActiveShader(0);
-        }
-    }
+        GLuint program = GLuint(pEnv->getWindow()->getGLObjectId(getGLId()));
 
-    pEnv->incNumShaderChanges();
+        updateOSGParameters(pEnv, program);
+    }
 }
 
 

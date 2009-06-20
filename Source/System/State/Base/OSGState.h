@@ -76,8 +76,10 @@ class OSG_SYSTEM_DLLMAPPING State : public StateBase
 
 #ifdef OSG_NEW_SHADER
     static const size_t SkipNumChunks  = 2;
+    static const size_t UpdateChunk    = 2;
 #else
     static const size_t SkipNumChunks  = 0;
+    static const size_t UpdateChunk    = 0;
 #endif
 
     /*---------------------------------------------------------------------*/
