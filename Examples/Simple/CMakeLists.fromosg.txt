@@ -53,8 +53,8 @@ ENDIF(X11_FOUND AND NOT APPLE)
 
 FOREACH(OSGDEP ${OSG_COMPONENTS})
     IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
-        MESSAGE(FATAL_ERROR "Dependency (${OSGDEP}) not found, "
-                            "can not build ${PROJECT_NAME}\n")
+        MESSAGE(STATUS "Dependency (${OSGDEP}) not found, "
+                       "can not build ${PROJECT_NAME}\n")
         RETURN()
     ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
 

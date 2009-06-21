@@ -27,6 +27,7 @@ ENDIF(X11_FOUND AND OSGBUILD_OSGWindowX AND NOT APPLE)
 
 IF(APPLE AND OSG_CARBON_FRAMEWORK)
     SET(_BUILD_CSM_WINDOWCARBON ON)
+    SET(_CSM_HAS_NATIVE_WIN TRUE)
 ENDIF(APPLE AND OSG_CARBON_FRAMEWORK)
 
 ##############################################################################
@@ -141,6 +142,10 @@ ENDIF(_BUILD_CSM_WINDOWWIN32)
 IF(_BUILD_CSM_WINDOWX)
     OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Native-X")
 ENDIF(_BUILD_CSM_WINDOWX)
+
+IF(_BUILD_CSM_WINDOWCARBON)
+    OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Native-Carbon")
+ENDIF(_BUILD_CSM_WINDOWCARBON)
 
 IF(NOT _CSM_HAS_NATIVE_WIN)
     OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Native-Dummy")
