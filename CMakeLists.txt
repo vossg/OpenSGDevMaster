@@ -409,17 +409,19 @@ IF(NOT OSG_BUILD_DEPENDEND)
     #### GLUT
     #############
 
-    OSG_FIND_PACKAGE(GLUT)
+    IF(NOT APPLE)
+      OSG_FIND_PACKAGE(GLUT)
 
-    IF(GLUT_FOUND)
-        OSG_SET(OSG_WITH_GLUT 1)
-        OSG_SET(OSG_GLUT_INC_DIR ${GLUT_INCLUDE_DIR})
-        OSG_SET(OSG_GLUT_LIBS ${GLUT_LIBRARIES})
-    ELSE(GLUT_FOUND)
-        OSG_SET(OSG_GLUT_INC_DIR "")
-        OSG_SET(OSG_GLUT_LIBS "")
-    ENDIF(GLUT_FOUND)
-
+      IF(GLUT_FOUND)
+          OSG_SET(OSG_WITH_GLUT 1)
+          OSG_SET(OSG_GLUT_INC_DIR ${GLUT_INCLUDE_DIR})
+          OSG_SET(OSG_GLUT_LIBS ${GLUT_LIBRARIES})
+      ELSE(GLUT_FOUND)
+          OSG_SET(OSG_GLUT_INC_DIR "")
+          OSG_SET(OSG_GLUT_LIBS "")
+      ENDIF(GLUT_FOUND)
+    ENDIF(NOT APPLE)
+    
     #############
     #### QT
     #############
