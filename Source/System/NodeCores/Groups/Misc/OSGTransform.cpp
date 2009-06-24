@@ -171,8 +171,13 @@ ActionBase::ResultE Transform::intersectEnter(Action *action)
     m.multFull(ia->getLine().getPosition (), pos);
     m.mult    (ia->getLine().getDirection(), dir);
     
+    Real32 length = dir.length();
+
+    if(length < Eps)
+        SWARNING << "Transform::intersectEnter: Near-zero scale!" << std::endl;
+
     ia->setLine(Line(pos, dir), ia->getMaxDist());
-    ia->scale(dir.length());
+    ia->scale  (length                          );
     
     return ActionBase::Continue; 
 }

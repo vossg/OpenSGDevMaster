@@ -708,11 +708,15 @@ bool Line::intersect(      Real   OSG_CHECK_ARG(angle),
 #endif
 
 /*! Intersect the line with a triangle.
-* \param [in] v0,v1,v2  Points definiting a triangle in CW orientation.
-* \param [out] t  If hit, this returns the distance the hit is down the line.
-* \param [in,out] norm If non-NULL, this is set to the normal at the point of
-*           intersection 
-* \returns True if there is an intersection.
+    \param [in] v0,v1,v2  Points definiting a triangle in CW orientation.
+    \param [out] t  If hit, this returns the distance the hit is down the line.
+    \param [in,out] norm If non-NULL, this is set to the normal at the point of
+            intersection
+    \returns True if there is an intersection.
+
+    This algorithm is based on "Fast, Minimum Storage Ray/Triangle Instersection" by
+    T. Moeller and B. Trumbore, with the addition of avoiding the computation of
+    inv_det when no intersection happens.
  */
 bool Line::intersect(const Pnt3r &v0, 
                      const Pnt3r &v1,
