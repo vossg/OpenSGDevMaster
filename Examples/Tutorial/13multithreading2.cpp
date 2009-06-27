@@ -50,7 +50,13 @@ void rotate(void *args)
     syncBarrier->enter(2);
     applicationThread->getChangeList()->applyAndClear();
     syncBarrier->enter(2);
-    
+
+    // clear the local changelist as we only want to sync the
+    // real changes we make back.
+    OSG::commitChanges();
+    animationThread->getChangeList()->clear();
+
+
     // we won't stop calculating new matrices....
     while(true)
     {
@@ -66,7 +72,7 @@ void rotate(void *args)
         // committing the changes makes sure they are being picked up when
         // the render thread syncronizes the next time.
         OSG::commitChanges();
-        
+
         //well that's new...
         
         //wait until two threads are cought in the
@@ -80,6 +86,7 @@ void rotate(void *args)
 
 int main(int argc, char **argv)
 {
+    OSG::ChangeList::setReadWriteDefault(true);
     OSG::osgInit(argc,argv);
     
     {
@@ -136,10 +143,13 @@ void display(void)
     // we wait here until the animation thread enters
     // barrier (1)
     syncBarrier->enter(2);
-    
+
     //now we sync data
     animationThread->getChangeList()->applyAndClear();
-    
+
+    // update dependend data
+    OSG::commitChanges();
+
     // now wait for animation thread to enter barrier (2)
     syncBarrier->enter(2);
     

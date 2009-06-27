@@ -351,6 +351,30 @@ ContainerChangeEntry *ChangeList::getNewCreatedEntry(void)
     return returnValue;
 }
 
+template<> OSG_DLL_EXPORT 
+void ChangeList::addDelayedSubRef<NoRefCountPolicy>(FieldContainer *)
+{
+}
+
+template<> OSG_DLL_EXPORT 
+void ChangeList::addDelayedSubRef<RecordedRefCountPolicy>(FieldContainer *pFC)
+{
+    _vDelayedRecSubRefs.push_back(pFC);
+}
+
+template<> OSG_DLL_EXPORT 
+void ChangeList::addDelayedSubRef<UnrecordedRefCountPolicy>(
+    FieldContainer *pFC)
+{
+    _vDelayedUnrecSubRefs.push_back(pFC);
+}
+
+template<> OSG_DLL_EXPORT 
+void ChangeList::addDelayedSubRef<WeakRefCountPolicy>(FieldContainer *pFC)
+{
+    _vDelayedWeakSubRefs.push_back(pFC);
+}
+
 template<ChangeList::CommitFunction func> inline
 void ChangeList::doCommitChanges(void)
 {
@@ -626,7 +650,10 @@ void ChangeList::doApply(bool bClear)
 #endif
             
             if(pDst != NULL)
-                pDst->subReferenceRecorded();
+            {
+                //pDst->subReferenceRecorded();
+                this->addDelayedSubRef<RecordedRefCountPolicy>(pDst);
+            }
         }
 
         ++cIt;
@@ -766,30 +793,6 @@ void ChangeList::setAspectTo(UInt32 uiNewAspect)
 }
 #endif
 
-
-template<> OSG_DLL_EXPORT 
-void ChangeList::addDelayedSubRef<NoRefCountPolicy>(FieldContainer *)
-{
-}
-
-template<> OSG_DLL_EXPORT 
-void ChangeList::addDelayedSubRef<RecordedRefCountPolicy>(FieldContainer *pFC)
-{
-    _vDelayedRecSubRefs.push_back(pFC);
-}
-
-template<> OSG_DLL_EXPORT 
-void ChangeList::addDelayedSubRef<UnrecordedRefCountPolicy>(
-    FieldContainer *pFC)
-{
-    _vDelayedUnrecSubRefs.push_back(pFC);
-}
-
-template<> OSG_DLL_EXPORT 
-void ChangeList::addDelayedSubRef<WeakRefCountPolicy>(FieldContainer *pFC)
-{
-    _vDelayedWeakSubRefs.push_back(pFC);
-}
 
 void ChangeList::commitDelayedSubRefs(void)
 {
