@@ -179,8 +179,8 @@ class OSG_TEXT_DLLMAPPING TextFaceFactoryBase
 
 #if defined(WIN32)
 #    if !defined(OSG_COMPILETEXTLIB)
-OSG_SYSTEM_EXPIMP_TMPL 
-template class OSG_SYSTEM_DLLMAPPING SingletonHolder<TextFaceFactoryBase>;
+// OSG_TEXT_EXPIMP_TMPL 
+// template class OSG_SYSTEM_DLLMAPPING SingletonHolder<TextFaceFactoryBase>;
 #    endif
 #endif
 
