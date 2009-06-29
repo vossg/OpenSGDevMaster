@@ -110,9 +110,9 @@ struct OSG_BASE_DLLMAPPING CompileConfig
 
     // Windows-specific ones
  
-    bool    _mt;
-    bool    _dll;
     bool    _debug;
+    bool    _dll;
+    bool    _mt;
     
     /*! \}                                                                 */
 };

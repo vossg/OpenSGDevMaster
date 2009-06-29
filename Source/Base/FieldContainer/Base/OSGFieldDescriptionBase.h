@@ -378,8 +378,8 @@ class OSG_BASE_DLLMAPPING FieldDescriptionBase
 
           FieldEditMethod       _fEditMethod;
           FieldGetMethod        _fGetMethod;
-          FieldIndexGetMethod   _fIndexedGetMethod;
           FieldIndexEditMethod  _fIndexedEditMethod;
+          FieldIndexGetMethod   _fIndexedGetMethod;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

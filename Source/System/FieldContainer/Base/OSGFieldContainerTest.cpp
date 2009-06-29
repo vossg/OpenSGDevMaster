@@ -176,6 +176,7 @@ TEST(testUncommittedChangesRegression)
 
 // ---- Memory Debugging Tests ---- //
 #ifdef OSG_ENABLE_MEMORY_DEBUGGING
+#if 0
 
 TEST(checkMemWithCoredNodes)
 {
@@ -244,5 +245,6 @@ TEST(checkDanglingFcPtrFreelist)
 }
 
 #endif
+#endif // OSG_ENABLE_MEMORY_DEBUGGING
 
 } // SUITE
