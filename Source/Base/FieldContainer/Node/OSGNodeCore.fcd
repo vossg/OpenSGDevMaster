@@ -5,6 +5,7 @@
    parent="AttachmentContainer"
    library="Base"
    structure="abstract"
+   group="NodeCore"
    pointerfieldtypes="both"
    parentFields="both"
    childFields="both"

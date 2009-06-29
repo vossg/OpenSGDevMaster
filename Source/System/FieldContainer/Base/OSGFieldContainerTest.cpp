@@ -99,7 +99,7 @@ TEST(appendGroupsVector)
     std::vector<OSG::UInt16> groups;
 
     groupNames.push_back("Node");
-    groupNames.push_back("NodeCores");
+    groupNames.push_back("NodeCore");
     groupNames.push_back("FieldContainer");
 
     OSG::appendGroupsVector(groupNames, groups);

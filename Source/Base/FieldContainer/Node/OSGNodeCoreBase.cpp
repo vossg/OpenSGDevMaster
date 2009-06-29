@@ -181,7 +181,7 @@ void NodeCoreBase::classDescInserter(TypeObject &oType)
 NodeCoreBase::TypeObject NodeCoreBase::_type(
     NodeCoreBase::getClassname(),
     Inherited::getClassname(),
-    "NULL",
+    "NodeCore",
     0,
     NULL,
     NodeCore::initMethod,
@@ -196,6 +196,7 @@ NodeCoreBase::TypeObject NodeCoreBase::_type(
     "   parent=\"AttachmentContainer\"\n"
     "   library=\"Base\"\n"
     "   structure=\"abstract\"\n"
+    "   group=\"NodeCore\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   parentFields=\"both\"\n"
     "   childFields=\"both\"\n"
