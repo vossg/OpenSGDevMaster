@@ -566,6 +566,8 @@ bool osgExit(void)
 
     delete osgLibraryVersions;
 
+    GlobalSystemState = PostShutdown;
+
     return returnValue;
 }
 

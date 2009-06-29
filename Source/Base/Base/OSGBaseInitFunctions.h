@@ -57,9 +57,10 @@ OSG_BEGIN_NAMESPACE
 
 enum SystemState
 {
-    Startup  = 0x01,
-    Running  = 0x02,
-    Shutdown = 0x03
+    Startup      = 0x01,
+    Running      = 0x02,
+    Shutdown     = 0x03,
+    PostShutdown = 0x04
 };
 
 extern OSG_BASE_DLLMAPPING SystemState GlobalSystemState;

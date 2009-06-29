@@ -121,7 +121,7 @@ SceneFileType::SceneFileType(const SceneFileType &obj) :
 SceneFileType::~SceneFileType(void)
 {
 #ifndef OSG_EMBEDDED
-	if(GlobalSystemState != Shutdown)
+    if(GlobalSystemState < OSG::Shutdown)
         SceneFileHandler::the()->subSceneFileType(*this);
 #endif
 }

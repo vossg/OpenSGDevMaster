@@ -120,7 +120,7 @@ void KeySensor::dump(      UInt32    ,
 
 void KeySensor::onDestroy(UInt32 uiContainerId)
 {
-    if(GlobalSystemState != Shutdown && ComplexSceneManager::the() != NULL)
+    if(GlobalSystemState < Shutdown && ComplexSceneManager::the() != NULL)
     {
         ComplexSceneManager::the()->removeKeySensor(this);
     }

@@ -1007,7 +1007,7 @@ OSG_END_NAMESPACE
 void OSG::doInitLog(void)
 {
     // Make sure no one reanimates the Log from the dead
-    if (GlobalSystemState == Shutdown)
+    if(GlobalSystemState >= Shutdown)
         abort();
 
 #ifdef OSG_HAS_NILBUF

@@ -347,7 +347,7 @@ be safe to access other classes. To allow a destinction between prototype
 creation and the standard running state of the system there's a global
 variable GlobalSystemState, which will be set to Startup during static init
 and Running after osgInit() is finished. During osgExit() it will be set to
-Shutdown.
+Shutdown and to PostShutdown at the end.
 
 */
 

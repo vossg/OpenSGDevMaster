@@ -100,10 +100,10 @@ ConnectionType::ConnectionType(const ConnectionType &source) :
  */
 ConnectionType::~ConnectionType(void)
 {
-    if(_createGroup != NULL && GlobalSystemState != Shutdown)
+    if(_createGroup != NULL && GlobalSystemState < OSG::Shutdown)
         ConnectionFactory::the()->subGroupType(this);
 
-    if(_createPoint != NULL && GlobalSystemState != Shutdown)
+    if(_createPoint != NULL && GlobalSystemState < OSG::Shutdown)
         ConnectionFactory::the()->subPointType(this);
 }
 
