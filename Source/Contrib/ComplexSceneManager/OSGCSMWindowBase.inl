@@ -364,6 +364,31 @@ void CSMWindowBase::setRenderOptions(RenderOptions * const value)
 
     _sfRenderOptions.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfDumpContainer field.
+
+inline
+bool &CSMWindowBase::editDumpContainer(void)
+{
+    editSField(DumpContainerFieldMask);
+
+    return _sfDumpContainer.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfDumpContainer field.
+inline
+      bool  CSMWindowBase::getDumpContainer(void) const
+{
+    return _sfDumpContainer.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfDumpContainer field.
+inline
+void CSMWindowBase::setDumpContainer(const bool value)
+{
+    editSField(DumpContainerFieldMask);
+
+    _sfDumpContainer.setValue(value);
+}
 
 //! Get the value of the \a index element the CSMWindow::_mfViewports field.
 inline
@@ -449,6 +474,9 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
         _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
+
+    if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
+        _sfDumpContainer.syncWith(pFrom->_sfDumpContainer);
 }
 #endif
 

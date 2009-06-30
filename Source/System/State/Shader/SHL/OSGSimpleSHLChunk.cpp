@@ -385,7 +385,8 @@ void SimpleSHLChunk::changed(ConstFieldMaskArg whichField,
     {
         if(_mfFragmentShader.size() == 0)
         {
-            ShaderProgramUnrecPtr pProg = ShaderProgram::create();
+            ShaderProgramUnrecPtr pProg = ShaderProgram::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
             pProg->setShaderType(GL_FRAGMENT_SHADER);
 
@@ -409,7 +410,8 @@ void SimpleSHLChunk::changed(ConstFieldMaskArg whichField,
     {
         if(_mfGeometryShader.size() == 0)
         {
-            ShaderProgramUnrecPtr pProg = ShaderProgram::create();
+            ShaderProgramUnrecPtr pProg = ShaderProgram::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
             pProg->setShaderType(GL_GEOMETRY_SHADER_EXT);
 
@@ -433,7 +435,8 @@ void SimpleSHLChunk::changed(ConstFieldMaskArg whichField,
     {
         if(_mfVertexShader.size() == 0)
         {
-            ShaderProgramUnrecPtr pProg = ShaderProgram::create();
+            ShaderProgramUnrecPtr pProg = ShaderProgram::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
             pProg->setShaderType(GL_VERTEX_SHADER);
 
@@ -912,7 +915,8 @@ bool SimpleSHLChunk::addOSGVariable(const Char8 *name)
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pVar = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pVar);
     }
@@ -929,7 +933,8 @@ bool SimpleSHLChunk::addProceduralVariable(const Char8          *name,
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
     }
@@ -948,7 +953,8 @@ bool SimpleSHLChunk::updateProceduralVariable(const Char8         *name,
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
     }
@@ -964,7 +970,8 @@ void SimpleSHLChunk::addParameterCallback(const Char8 *name, ParamFunctor fp)
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
     }
@@ -980,7 +987,8 @@ void SimpleSHLChunk::addParameterCallback(const Char8 *name, OSGParamFunctor fp)
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
     }

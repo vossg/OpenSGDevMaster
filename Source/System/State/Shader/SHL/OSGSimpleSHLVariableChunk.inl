@@ -60,7 +60,8 @@ bool SimpleSHLVariableChunk::setUniformParameter(const Char8  *name,
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
     }
@@ -80,7 +81,8 @@ bool SimpleSHLVariableChunk::addUniformVariable(const Char8  *name,
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
     }
@@ -99,7 +101,8 @@ bool SimpleSHLVariableChunk::updateUniformVariable(const Char8  *name,
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
+            ShaderProgramVariables::createDependent(
+                getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);
     }

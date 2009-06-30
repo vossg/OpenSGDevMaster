@@ -145,6 +145,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            CSMWindowBase::_sfDumpContainer
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -370,6 +374,18 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&CSMWindow::getHandleRenderOptions));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "dumpContainer",
+        "",
+        DumpContainerFieldId, DumpContainerFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandleDumpContainer),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandleDumpContainer));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -542,6 +558,18 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "       defaultValue=\"NULL\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "\t   name=\"dumpContainer\"\n"
+    "\t   type=\"bool\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"false\"\n"
+    "\t>\n"
+    "    </Field>\n"
+    "\n"
+    "\n"
     "</FieldContainer>\n",
     ""
     );
@@ -749,6 +777,19 @@ SFUnrecRenderOptionsPtr *CSMWindowBase::editSFRenderOptions  (void)
     return &_sfRenderOptions;
 }
 
+SFBool *CSMWindowBase::editSFDumpContainer(void)
+{
+    editSField(DumpContainerFieldMask);
+
+    return &_sfDumpContainer;
+}
+
+const SFBool *CSMWindowBase::getSFDumpContainer(void) const
+{
+    return &_sfDumpContainer;
+}
+
+
 
 
 void CSMWindowBase::pushToViewports(CSMViewport * const value)
@@ -872,6 +913,10 @@ UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderOptions.getBinSize();
     }
+    if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
+    {
+        returnValue += _sfDumpContainer.getBinSize();
+    }
 
     return returnValue;
 }
@@ -941,6 +986,10 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRenderOptions.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
+    {
+        _sfDumpContainer.copyToBin(pMem);
+    }
 }
 
 void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -1008,6 +1057,10 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfRenderOptions.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
+    {
+        _sfDumpContainer.copyFromBin(pMem);
+    }
 }
 
 
@@ -1031,7 +1084,8 @@ CSMWindowBase::CSMWindowBase(void) :
     _sfRequestSamples         (UInt32(0)),
     _sfEnableFSAA             (bool(false)),
     _sfFsaaHint               (UInt32(GL_FASTEST)),
-    _sfRenderOptions          (NULL)
+    _sfRenderOptions          (NULL),
+    _sfDumpContainer          (bool(false))
 {
 }
 
@@ -1051,7 +1105,8 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _sfRequestSamples         (source._sfRequestSamples         ),
     _sfEnableFSAA             (source._sfEnableFSAA             ),
     _sfFsaaHint               (source._sfFsaaHint               ),
-    _sfRenderOptions          (NULL)
+    _sfRenderOptions          (NULL),
+    _sfDumpContainer          (source._sfDumpContainer          )
 {
 }
 
@@ -1532,6 +1587,31 @@ EditFieldHandlePtr CSMWindowBase::editHandleRenderOptions  (void)
                     static_cast<CSMWindow *>(this), _1));
 
     editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandleDumpContainer   (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfDumpContainer,
+             this->getType().getFieldDesc(DumpContainerFieldId),
+             const_cast<CSMWindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandleDumpContainer  (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfDumpContainer,
+             this->getType().getFieldDesc(DumpContainerFieldId),
+             this));
+
+
+    editSField(DumpContainerFieldMask);
 
     return returnValue;
 }

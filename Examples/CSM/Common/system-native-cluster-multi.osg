@@ -91,6 +91,8 @@ ComplexSceneManager
         [
            CSMClusterWindow
            {
+#             dumpContainer TRUE
+
              clientWindow DEF MainWindow CSMNativeWindow
              {
                size 300 300
@@ -98,8 +100,16 @@ ComplexSceneManager
                decorEnabled TRUE
              }
 
-             servers    ["opensg-tile-0-0", "opensg-tile-1-0"]
-             serverIds  [1, 0]
+             servers    
+             [
+               "opensg-tile-0-0", 
+               "opensg-tile-1-0"
+             ]
+             serverIds  
+             [
+               1, 
+               0
+             ]
 
              serverRows 1
 

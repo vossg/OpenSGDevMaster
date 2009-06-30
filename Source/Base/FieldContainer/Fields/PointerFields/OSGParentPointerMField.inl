@@ -583,6 +583,40 @@ void ParentPointerMField<PtrTypeT,
         PosMFieldTraits::copyFromBin(   pMem, 
                                      &(_vParentPos[0]),
                                         ptrSize);        
+
+        OSG_ASSERT(Self::_ptrStore.size() == Self::_vParentPos.size());
+
+        PtrStoreConstItType pIt     = Self::_ptrStore  .begin();
+        PtrStoreConstItType pEnd    = Self::_ptrStore  .end  ();
+
+        IdStoreConstItType  posIt   = Self::_vParentPos.begin();
+
+        PtrStoreItType      pWrIt   = Self::_ptrStore  .begin();
+        IdStoreItType       posWrIt = Self::_vParentPos.begin();
+
+        UInt32 uiValid = 0;
+
+        for(; pIt != pEnd; ++pIt, ++posIt)
+        {
+            if(*pIt != NULL)
+            {
+                *pWrIt   = *pIt;
+                *posWrIt = *posIt;
+                
+                ++pWrIt;
+                ++posWrIt;
+                
+                ++uiValid;
+            }
+        }
+    
+        OSG_ASSERT(uiValid <= Self::_ptrStore.size());
+
+        if(uiValid != Self::_ptrStore.size())
+        {
+            Self::_ptrStore  .resize(uiValid);
+            Self::_vParentPos.resize(uiValid);
+        }
     }
     else
     {
@@ -602,6 +636,8 @@ typename ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::begin(void) const
 {
+    OSG_ASSERT(Self::_ptrStore.size() == Self::_vParentPos.size());
+
     return const_iterator(Self::_ptrStore  .begin(),
                           Self::_vParentPos.begin());
 }

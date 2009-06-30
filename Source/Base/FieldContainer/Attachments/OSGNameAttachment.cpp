@@ -126,7 +126,8 @@ void setName(AttachmentContainer * const  pContainer,
     
     if(att == NULL)
     {
-        name = Name::create();
+        name = Name::createDependent(
+            pContainer->getFieldFlags()->_bNamespaceMask);
 
         pContainer->addAttachment(name);
     }

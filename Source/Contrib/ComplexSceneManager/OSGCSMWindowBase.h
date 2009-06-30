@@ -80,6 +80,7 @@
 #include "OSGBoolFields.h" // EnableFSAA type
 #include "OSGUInt32Fields.h" // FsaaHint type
 #include "OSGRenderOptionsFields.h" // RenderOptions type
+#include "OSGBoolFields.h" // DumpContainer type
 
 #include "OSGCSMWindowFields.h"
 
@@ -122,7 +123,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         EnableFSAAFieldId = RequestSamplesFieldId + 1,
         FsaaHintFieldId = EnableFSAAFieldId + 1,
         RenderOptionsFieldId = FsaaHintFieldId + 1,
-        NextFieldId = RenderOptionsFieldId + 1
+        DumpContainerFieldId = RenderOptionsFieldId + 1,
+        NextFieldId = DumpContainerFieldId + 1
     };
 
     static const OSG::BitVector ParentFieldMask =
@@ -155,6 +157,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << FsaaHintFieldId);
     static const OSG::BitVector RenderOptionsFieldMask =
         (TypeTraits<BitVector>::One << RenderOptionsFieldId);
+    static const OSG::BitVector DumpContainerFieldMask =
+        (TypeTraits<BitVector>::One << DumpContainerFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -173,6 +177,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     typedef SFBool            SFEnableFSAAType;
     typedef SFUInt32          SFFsaaHintType;
     typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
+    typedef SFBool            SFDumpContainerType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -238,6 +243,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
             const SFUnrecRenderOptionsPtr *getSFRenderOptions  (void) const;
                   SFUnrecRenderOptionsPtr *editSFRenderOptions  (void);
 
+                  SFBool              *editSFDumpContainer  (void);
+            const SFBool              *getSFDumpContainer   (void) const;
+
 
                   CSMViewport * getViewports      (const UInt32 index) const;
 
@@ -279,6 +287,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
                   RenderOptions * getRenderOptions  (void) const;
 
+                  bool                &editDumpContainer  (void);
+                  bool                 getDumpContainer   (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -296,6 +307,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
             void setEnableFSAA     (const bool value);
             void setFsaaHint       (const UInt32 value);
             void setRenderOptions  (RenderOptions * const value);
+            void setDumpContainer  (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -354,6 +366,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     SFBool            _sfEnableFSAA;
     SFUInt32          _sfFsaaHint;
     SFUnrecRenderOptionsPtr _sfRenderOptions;
+    SFBool            _sfDumpContainer;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -423,6 +436,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleFsaaHint       (void);
     GetFieldHandlePtr  getHandleRenderOptions   (void) const;
     EditFieldHandlePtr editHandleRenderOptions  (void);
+    GetFieldHandlePtr  getHandleDumpContainer   (void) const;
+    EditFieldHandlePtr editHandleDumpContainer  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

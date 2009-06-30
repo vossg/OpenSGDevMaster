@@ -359,6 +359,11 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
     UInt32 uiTargetWidth  = oEnv.getPixelWidth ();
     UInt32 uiTargetHeight = oEnv.getPixelHeight();
 
+    Int32 iLeft   = oEnv.getPixelLeft  ();
+    Int32 iRight  = oEnv.getPixelRight ();
+    Int32 iBottom = oEnv.getPixelBottom();
+    Int32 iTop    = oEnv.getPixelTop   ();
+
     if(pResFilter               != NULL &&
        pResFilter->getEnabled() == true  )
     {
@@ -366,6 +371,12 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
         
         uiTargetWidth  = UInt32(uiTargetWidth  * pResFilter->getDownScale());
         uiTargetHeight = UInt32(uiTargetHeight * pResFilter->getDownScale());
+
+        iLeft   = Int32(iLeft   * pResFilter->getDownScale());
+        iRight  = Int32(iRight  * pResFilter->getDownScale());
+        iBottom = Int32(iBottom * pResFilter->getDownScale());
+        iTop    = Int32(iTop    * pResFilter->getDownScale());
+        
     }
 
     if(pData == NULL)
@@ -416,10 +427,10 @@ ActionBase::ResultE DisplayFilterStage::renderEnter(Action *action)
                 
                 if(pTarget != NULL)
                 {
-                    pPart->calcViewportDimension(pPort->getLeft  (),
-                                                 pPort->getBottom(),
-                                                 pPort->getRight (),
-                                                 pPort->getTop   (),
+                    pPart->calcViewportDimension(iLeft  ,
+                                                 iBottom,
+                                                 iRight ,
+                                                 iTop   ,
                                                  
                                                  pTarget->getWidth    (),
                                                  pTarget->getHeight   ());

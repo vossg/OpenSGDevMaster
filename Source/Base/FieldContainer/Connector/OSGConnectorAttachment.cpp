@@ -325,7 +325,8 @@ void addConnector(OSG::AttachmentContainer *pContainer,
 
     if(att == NULL)
     {
-        pCA = ConnectorAttachment::create();
+        pCA = ConnectorAttachment::createDependent(
+            pContainer->getFieldFlags()->_bNamespaceMask);
 
         pContainer->addChangedFunctor(
             boost::bind(&ConnectorAttachment::processChanged, 

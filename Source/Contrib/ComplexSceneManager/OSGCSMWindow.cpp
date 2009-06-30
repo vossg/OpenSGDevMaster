@@ -220,6 +220,11 @@ bool CSMWindow::init(void)
     
 //    OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");
 
+    if(this->getDumpContainer() == true)
+    {
+        FieldContainerFactory::the()->dump();
+    }
+
     return returnValue;
 }
 
