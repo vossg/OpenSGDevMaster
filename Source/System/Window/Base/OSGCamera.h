@@ -138,6 +138,13 @@ class OSG_SYSTEM_DLLMAPPING Camera : public CameraBase
     virtual FrustumVolume getFrustumVal        (const Viewport      &port  );
 
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Tile Information                             */
+    /*! \{                                                                 */
+
+    virtual Vec2u tileGetFullSize(void) const;
+    virtual Vec4f tileGetRegion  (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -509,13 +509,8 @@ ActionBase::ResultE DisplayFilterStage::renderLeave(Action *action)
 
 void DisplayFilterStage::postProcess(DrawEnv *pEnv)
 {
-    RenderActionBase *pAction = pEnv->getAction();
-
-    if(pAction == NULL)
-        return;
-
     DisplayFilterStageData *pData = 
-        pAction->getData<DisplayFilterStageData *>(_iDataSlotId);
+        pEnv->getData<DisplayFilterStageData *>(_iDataSlotId);
 
     if(pData == NULL)
         return;

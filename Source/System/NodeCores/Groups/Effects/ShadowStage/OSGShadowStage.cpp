@@ -477,7 +477,8 @@ ActionBase::ResultE ShadowStage::renderEnter(Action *action)
 
         ract->beginPartitionGroup();
         {
-            pTreeHandler->render(&(ract->getActivePartition()->getDrawEnv()));
+            pTreeHandler->render(ract,
+                                 &(ract->getActivePartition()->getDrawEnv()));
         }
         ract->endPartitionGroup();
 

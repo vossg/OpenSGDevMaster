@@ -97,6 +97,14 @@ class OSG_WINDOW_DLLMAPPING TileCameraDecorator :
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual Vec2u tileGetFullSize(void) const;
+    virtual Vec4f tileGetRegion  (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   dump                                       */
     /*! \{                                                                 */
 

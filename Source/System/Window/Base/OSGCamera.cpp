@@ -301,6 +301,16 @@ Matrixr Camera::getDecorationVal(UInt32 width, UInt32 height)
    return temp_mat;
 }
 
+Vec2u Camera::tileGetFullSize(void) const
+{
+    return Vec2u(0u, 0u);
+}
+
+Vec4f Camera::tileGetRegion(void) const
+{
+    return Vec4f(0.f, 1.f, 0.f, 1.f);
+}
+
 #ifndef OSG_EMBEDDED
 /*! Calculate a ray that starts at the camera position and goes through the
   pixel \a x, \a y in the viewport \a port. \a x and \a y are relative to the

@@ -815,7 +815,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
             pNewElem->setStateOverride(_sStateOverrides.top());
         }
 
-        mapIt->second->add(_oDrawEnv,
+        mapIt->second->add(_oDrawEnv.getAction(),
                             this,
                             pNewElem,
                             NULL,
@@ -920,7 +920,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         {
             pNewElem->setStateOverride(_sStateOverrides.top());
         }
-        mapIt->second->add(_oDrawEnv,
+        mapIt->second->add(_oDrawEnv.getAction(),
                             this,
                             pNewElem,
                             NULL,
@@ -976,7 +976,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
             pOverride = _sStateOverrides.top();
         }
 
-        mapIt->second->add(_oDrawEnv,
+        mapIt->second->add(_oDrawEnv.getAction(),
                             this,
                             pNewElem,
                             pState,

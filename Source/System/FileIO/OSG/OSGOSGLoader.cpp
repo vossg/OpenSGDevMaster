@@ -291,6 +291,12 @@ void OSGLoader::initFieldTypeMapper(void)
     setIntExtMapping(MFPnt3f::getClassType().getId(),
                      ScanParseSkel::OSGmfPnt3f);
 
+    setIntExtMapping(SFPnt2f::getClassType().getId(),
+                     ScanParseSkel::OSGsfPnt2f);
+
+    setIntExtMapping(MFPnt2f::getClassType().getId(),
+                     ScanParseSkel::OSGmfPnt2f);
+
     setIntExtMapping(SFPlane::getClassType().getId(),
                      ScanParseSkel::OSGsfPlane);
     setIntExtMapping(MFPlane::getClassType().getId(),

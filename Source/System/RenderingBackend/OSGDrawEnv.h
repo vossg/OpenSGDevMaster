@@ -52,12 +52,13 @@
 OSG_BEGIN_NAMESPACE
 
 class RenderActionBase;
+class RenderPartition;
 class Window;
 class State;
 class StateOverride;
 
 /*! \ingroup GrpSystemRenderingBackend
-*/
+ */
 
 class OSG_SYSTEM_DLLMAPPING DrawEnv
 {
@@ -71,7 +72,6 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    void   setAction         (      RAction  *pAction       );
     void   setWindow         (      Window   *pWindow       );
 
     void   setupProjection   (const Matrixr  &projection,
@@ -110,7 +110,6 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
           Real           getCameraNear           (void         ) const;
           Real           getCameraFar            (void         ) const;
 
-          RAction       *getAction               (void         ) const;
           Window        *getWindow               (void         ) const;
 
           GLenum         getActiveTexTarget      (UInt32 uiSlot) const;
@@ -203,8 +202,29 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+          void     setTileFullSize         (const Vec2u &uiTileFullSize);
+          void     setTileRegion           (const Vec4f &vTileRegion   );
+
+    const Vec2u   &getTileFullSize         (void                       ) const;
+    const Vec4f   &getTileRegion           (void                       ) const;
+
+          Matrixr  calcTileDecorationMatrix(void                       ) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
     void   setLightState(UInt32 uiState);
     UInt32 getLightState(void          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    template<class ValuePtr>
+    ValuePtr getData(Int32 iSlotId) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -255,6 +275,9 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
     Int32          _iPixelRight;
     Int32          _iPixelBottom;
     Int32          _iPixelTop;
+
+    Vec2u          _uiTileFullSize;
+    Vec4f          _vTileRegion;
 
     bool           _bFull;
 
@@ -311,12 +334,23 @@ class OSG_SYSTEM_DLLMAPPING DrawEnv
 
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    void     setAction(RAction *pAction);
+    RAction *getAction(void            ) const;
+
+    template<class Action, class Result> 
+    static Result doGetData(Action *pA, UInt32 iSlotId);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class DrawEnvFactory;
-
+    friend class RenderPartition;
+    
     /*! \brief prohibit default function (move to 'public' if needed) */
     DrawEnv(const DrawEnv &source);
     /*! \brief prohibit default function (move to 'public' if needed) */

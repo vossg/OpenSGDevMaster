@@ -44,7 +44,7 @@
 #include "OSGDrawEnv.h"
 #include "OSGState.h"
 #include "OSGStateOverride.h"
-#include <OSGBaseFunctions.h>
+#include "OSGBaseFunctions.h"
 
 OSG_USING_NAMESPACE
 
@@ -114,6 +114,37 @@ DrawEnv::DrawEnv(void) :
 
 DrawEnv::~DrawEnv(void)
 {
+}
+
+Matrixr DrawEnv::calcTileDecorationMatrix(void) const
+{
+    Vec4f vTileRegion = this->getTileRegion();
+
+    Vec2u vTileFullSize   = this->getTileFullSize();
+
+    if(vTileRegion[0] < 0)
+        vTileRegion[0] = -vTileRegion[0] / vTileFullSize[0];
+        
+    if(vTileRegion[1] < 0)
+        vTileRegion[1] = -vTileRegion[1] / vTileFullSize[0];
+        
+    if(vTileRegion[3] < 0)
+        vTileRegion[3] = -vTileRegion[3] / vTileFullSize[1];
+        
+    if(vTileRegion[2] < 0)
+        vTileRegion[2] = -vTileRegion[2] / vTileFullSize[1];
+
+    // scale the wanted part from the decoration matrix
+    Real32 xs = 1.f / (vTileRegion[1] - vTileRegion[0]);
+    Real32 ys = 1.f / (vTileRegion[3] - vTileRegion[2]);
+
+    Matrix result( xs,  0, 0, -(vTileRegion[0] * 2 - 1) * xs - 1,  
+                    0, ys, 0, -(vTileRegion[2] * 2 - 1) * ys - 1,  
+                    0,  0, 1, 0, 
+                    0,  0, 0, 1);
+
+
+    return result;
 }
 
 void DrawEnv::activate(State *pState)

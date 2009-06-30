@@ -703,6 +703,12 @@ Action::ResultE RenderAction::start(void)
 
             _pActivePartition->setNear(_pCamera->getNear());
             _pActivePartition->setFar (_pCamera->getFar ());
+
+            _pActivePartition->getDrawEnv().setTileFullSize(
+                _pCamera->tileGetFullSize());
+            _pActivePartition->getDrawEnv().setTileRegion  (
+                _pCamera->tileGetRegion  ());
+
         }
 
         _pActivePartition->initVPMatricesFromCamera();

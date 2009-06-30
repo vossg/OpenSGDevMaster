@@ -112,7 +112,7 @@ void ImageFileBase::classDescInserter(TypeObject &oType)
         "",
         UrlFieldId, UrlFieldMask,
         false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&ImageFile::editHandleUrl),
         static_cast<FieldGetMethodSig >(&ImageFile::getHandleUrl));
 
@@ -153,6 +153,7 @@ ImageFileBase::TypeObject ImageFileBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
+    "        fieldFlags=\"FClusterLocal\"\n"
     "\t>\n"
     "\t</Field>\n"
     "</FieldContainer>\n",

@@ -88,6 +88,14 @@ class OSG_SYSTEM_DLLMAPPING CameraDecorator : public CameraDecoratorBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    virtual Vec2u tileGetFullSize(void) const;
+    virtual Vec4f tileGetRegion  (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32     uiIndent = 0, 
                       const BitVector  bvFlags  = 0) const;
 

@@ -78,7 +78,7 @@ void TreeBuilderBase::reset(void)
 }
 
 
-void TreeBuilderBase::add(DrawEnv             &denv, 
+void TreeBuilderBase::add(RenderActionBase    *pAction,
                           RenderPartitionBase *part,
                           RenderTreeNode      *pNode,
                           State               *pState,

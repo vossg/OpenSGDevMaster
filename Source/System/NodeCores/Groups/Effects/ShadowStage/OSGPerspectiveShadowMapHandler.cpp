@@ -788,7 +788,8 @@ bool PerspectiveShadowMapHandler::bbInsideFrustum(Pnt3f  sceneMin,
 }
 
 
-void PerspectiveShadowMapHandler::createShadowMapsFBO(DrawEnv *pEnv)
+void PerspectiveShadowMapHandler::createShadowMapsFBO(RenderAction *a,
+                                                      DrawEnv      *pEnv)
 {
 #ifdef SHADOWCHECK
     glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
@@ -830,8 +831,6 @@ void PerspectiveShadowMapHandler::createShadowMapsFBO(DrawEnv *pEnv)
         if(exnode != NULL)
             exnode->setTravMask(0);
     }
-
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
 
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
 
@@ -1066,10 +1065,9 @@ void PerspectiveShadowMapHandler::createShadowMapsFBO(DrawEnv *pEnv)
 
 
 
-void PerspectiveShadowMapHandler::createColorMapFBO(DrawEnv *pEnv)
+void PerspectiveShadowMapHandler::createColorMapFBO(RenderAction *a,
+                                                    DrawEnv      *pEnv)
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
-
     a->pushPartition((RenderPartition::CopyWindow      |
                       RenderPartition::CopyViewing     |
                       RenderPartition::CopyProjection  |
@@ -1105,7 +1103,8 @@ void PerspectiveShadowMapHandler::createColorMapFBO(DrawEnv *pEnv)
 
 
 void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
-    DrawEnv *pEnv)
+    RenderAction *a,
+    DrawEnv      *pEnv)
 {
     _activeFactorMap = 0;
 
@@ -1148,8 +1147,6 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
 
     bool bCA1Cleared = false;
     bool bCA2Cleared = false;
-
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
 
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
 
@@ -1876,7 +1873,8 @@ void PerspectiveShadowMapHandler::createShadowFactorMapFBO(
 }
 
 
-void PerspectiveShadowMapHandler::render(DrawEnv *pEnv)
+void PerspectiveShadowMapHandler::render(RenderAction *a,
+                                         DrawEnv      *pEnv)
 {
     glPushAttrib(GL_ENABLE_BIT);
 
@@ -1963,7 +1961,7 @@ void PerspectiveShadowMapHandler::render(DrawEnv *pEnv)
         _pPoly->setOffsetFactor(_pStage->getOffFactor());
         _pPoly->setOffsetBias  (_pStage->getOffBias  ());
 
-        createColorMapFBO(pEnv);
+        createColorMapFBO(a, pEnv);
         
         
         //deactivate transparent Nodes
@@ -1973,7 +1971,7 @@ void PerspectiveShadowMapHandler::render(DrawEnv *pEnv)
         }
 
 
-        createShadowMapsFBO(pEnv);
+        createShadowMapsFBO(a, pEnv);
 
         
         // switch on all transparent geos
@@ -1983,12 +1981,12 @@ void PerspectiveShadowMapHandler::render(DrawEnv *pEnv)
         }
 
 
-        createShadowFactorMapFBO(pEnv);
+        createShadowFactorMapFBO(a, pEnv);
         
         _pStage->_trigger_update = false;
     }
     
-    setupDrawCombineMap2(pEnv->getAction());
+    setupDrawCombineMap2(a);
 
     
     glPopAttrib();

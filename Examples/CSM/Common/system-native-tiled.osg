@@ -27,6 +27,7 @@ ComplexSceneManager
             [
               Group {}
               USE GlobalEffect1
+              USE GlobalEffect2
             ]
           }
 
@@ -40,6 +41,12 @@ ComplexSceneManager
                 [
                   Group {}
                   USE SceneEffect1
+                  USE SceneEffect2
+                  USE SceneEffect3
+                  USE SceneEffect4
+                  USE SceneEffect5
+                  USE SceneEffect6
+                  USE SceneEffect7
                 ]
               }
 
@@ -65,9 +72,9 @@ ComplexSceneManager
                 }
               ]
             }
-          ] 
+          ]
         }
-      ]
+      ] 
     }
 
     DEF PerspCamGL CSMPerspectiveCamera
@@ -89,40 +96,82 @@ ComplexSceneManager
       {
         windows
         [
-           CSMClusterWindow
+           DEF MainWindow CSMNativeWindow
            {
-             clientWindow DEF MainWindow CSMNativeWindow
+#             ignoreExtensions [ "ALL" ]
+#             ignoreExtensions [ "GL_ARB_framebuffer_object",
+#                                "GL_ARB_geometry_shader4 GL_ARB_multitexture" ]
+#             requestMajor 3
+#             requestMinor 0
+
+#             enableForwardCompatContext TRUE
+#             enableDebugContext         TRUE
+
+             requestSamples 4
+             enableFSAA     TRUE
+
+             size 512 512
+             position 200, 200
+             decorEnabled TRUE
+
+             renderOptions DEF WinRenderOpts RenderOptions
              {
-               size 300 300
-               position 200, 200
-               decorEnabled TRUE
              }
-
-             servers    ["opensg-tile-0-0", "opensg-tile-1-0"]
-             serverIds  [1, 0]
-
-             serverRows 1
-
-             connectionType "Multicast"
-             clusterMode    "Multi"
-
-             size 600 300
 
              viewports
              [
                CSMViewport
                {
                  root       USE RootNode
-                 camera     USE PerspCamGL
+                 camera     TileCameraDecorator
+                 {
+                   decoratee USE PerspCamGL
+                   
+                   left   0.0
+                   right  0.3
+                   bottom 0.0
+                   top    1.0
+                   
 
-                 background USE BGnd
+                   fullWidth  512
+                   fullHeight 512
+                 }
+
+                 background USE BGnd1
 
                  leftBottom 0.0 0.0
-                 rightTop   1.0 1.0
+                 rightTop   0.4 1.0
 
                  foregrounds
                  [
                    USE FG0
+                 ]
+               }
+
+               CSMViewport
+               {
+                 root       USE RootNode
+                 camera     TileCameraDecorator
+                 {
+                   decoratee USE PerspCamGL
+                   
+                   left   0.6
+                   right  1.0
+                   bottom 0.0
+                   top    1.0
+                   
+
+                   fullWidth  512
+                   fullHeight 512
+                 }
+
+                 background USE BGnd1
+
+                 leftBottom 0.6 0.0
+                 rightTop   1.0 1.0
+
+                 foregrounds
+                 [
                  ]
                }
              ]

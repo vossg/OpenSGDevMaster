@@ -614,13 +614,7 @@ void HDRStage::postProcess(DrawEnv *pEnv)
 
     glLoadIdentity();
 
-    RenderActionBase *pAction = pEnv->getAction();
-
-    if(pAction == NULL)
-        return;
-
-
-    HDRStageData *pData = pAction->getData<HDRStageData *>(_iDataSlotId);
+    HDRStageData *pData = pEnv->getData<HDRStageData *>(_iDataSlotId);
 
     if(pData == NULL)
     {

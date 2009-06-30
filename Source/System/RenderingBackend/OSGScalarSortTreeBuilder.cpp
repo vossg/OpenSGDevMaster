@@ -75,7 +75,7 @@ void ScalarSortTreeBuilder::reset(void)
 }
 
 
-void ScalarSortTreeBuilder::add(DrawEnv             &denv, 
+void ScalarSortTreeBuilder::add(RenderActionBase    *pAction,
                                 RenderPartitionBase *part,
                                 RenderTreeNode      *pNode,
                                 State               *pState,

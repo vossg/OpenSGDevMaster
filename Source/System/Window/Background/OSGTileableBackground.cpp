@@ -149,31 +149,23 @@ void TileableBackground::beginOrthoRender(
     UInt32               width   = pEnv->getPixelWidth ();
     UInt32               height  = pEnv->getPixelHeight();
 
-    Camera              *cam     = pEnv->getAction()->getCamera();
-    TileCameraDecorator *camDeco = dynamic_cast<TileCameraDecorator *>(cam);
+    fullWidth  = pEnv->getTileFullSize()[0];
+    fullHeight = pEnv->getTileFullSize()[1];
 
-    while(camDeco != NULL)
+    if(fullWidth == 0)
     {
-        width  = camDeco->getFullWidth () ? camDeco->getFullWidth () : width;
-        height = camDeco->getFullHeight() ? camDeco->getFullHeight() : height;
-
-        cam     = camDeco->getDecoratee();
-        camDeco = dynamic_cast<TileCameraDecorator *>(cam);
+        fullWidth  = width;
+        fullHeight = height;
     }
-
-    cam     = pEnv->getAction()->getCamera();
-    camDeco = dynamic_cast<TileCameraDecorator *>(cam);
-
-    if(camDeco != NULL && !getTile())
+    else
     {
-        Matrix sm;
-        cam->getDecoration(sm, width, height);
+        if(getTile() == false)
+        {
+            Matrix sm = pEnv->calcTileDecorationMatrix();
 
-        glLoadMatrixf(sm.getValues());
+            glLoadMatrixf(sm.getValues());
+        }
     }
-
-    fullWidth  = width;
-    fullHeight = height;
 
     Real32 projWidth  = normX ? 1.0f : Real32(width );
     Real32 projHeight = normY ? 1.0f : Real32(height);

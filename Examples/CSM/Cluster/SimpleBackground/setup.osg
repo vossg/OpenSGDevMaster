@@ -1,0 +1,103 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF BGnd GradientBackground
+    {
+      color [ 0.5 0.1 0.1, 
+              0.3 0.3 0.3,
+              0.6 0.6 0.6,
+              0.8 0.8 0.8,
+              1.0 1.0 1.0 
+            ]
+
+      position [ 0.0 0.25 0.5 0.75 1.0 ]
+      normPosition TRUE
+      style        2
+      tile         FALSE
+    }
+
+    DEF BGnd0 PolygonBackground
+    {
+      material  ChunkMaterial
+      {
+        chunks
+        [
+          MaterialChunk  
+          { 
+            diffuse      1.0 1.0 1.0 1.0
+            lit FALSE
+          }
+
+          TextureObjChunk
+          {
+            image ImageFile
+            {
+              url "../../../Tutorial/Data/front.jpg"
+            }
+
+            minFilter GL_NEAREST_MIPMAP_NEAREST #GL_LINEAR_MIPMAP_LINEAR
+            magFilter GL_LINEAR
+            wrapS     GL_REPEAT
+            wrapT     GL_REPEAT
+          }
+
+          TextureEnvChunk
+          {
+            envMode GL_REPLACE
+          }
+        ]
+      }
+
+      texCoords [ 0.0 0.0 0.0  1.0 0.0 0.0   1.0 1.0 0.0   0.0 1.0 0.0 ]
+      positions [ 0.0 0.0 1.0 0.0 1.0 1.0 0.0 1.0 ]
+
+      normalizedX TRUE
+      normalizedY TRUE
+
+      tile FALSE
+    }
+
+    DEF FG0 PolygonForeground
+    {
+      material   ChunkMaterial
+      {
+        chunks
+        [
+          MaterialChunk  
+          { 
+            diffuse      1.0 1.0 1.0 1.0
+          }
+
+          TextureObjChunk
+          {
+            image ImageFile
+            {
+              url "../../../Tutorial/Data/front.jpg"
+            }
+
+            minFilter GL_LINEAR
+            magFilter GL_LINEAR
+            wrapS     GL_REPEAT
+            wrapT     GL_REPEAT
+          }
+
+          TextureEnvChunk
+          {
+            envMode GL_REPLACE
+          }
+        ]
+      }
+
+      normalizedX TRUE
+      normalizedY TRUE
+
+      tile FALSE
+      texCoords [ 0.0 0.0 0.0  1.0 0.0 0.0   1.0 1.0 0.0   0.0 1.0 0.0 ]
+      positions [ 0.1 0.05  0.9 0.05  0.9 0.6  0.1 0.6 ]
+    }
+  ]
+}
+

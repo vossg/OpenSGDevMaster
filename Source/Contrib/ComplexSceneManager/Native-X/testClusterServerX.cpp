@@ -304,6 +304,7 @@ int main(int argc,char **argv)
 
         }
         
+        XStoreName(dpy, hwin, name);
 
         // create the render action
         ract = OSG::RenderAction::create();

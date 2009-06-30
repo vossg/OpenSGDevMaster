@@ -154,7 +154,8 @@ StdShadowMapHandler::~StdShadowMapHandler(void)
 }
 
 
-void StdShadowMapHandler::createShadowMapsFBO(DrawEnv      *pEnv)
+void StdShadowMapHandler::createShadowMapsFBO(RenderAction *a,
+                                              DrawEnv      *pEnv)
 {
 
     //------Setting up Window to fit size of ShadowMap----------------
@@ -200,8 +201,6 @@ void StdShadowMapHandler::createShadowMapsFBO(DrawEnv      *pEnv)
         if(exnode != NULL)
             exnode->setTravMask(0);
     }
-
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
 
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
 
@@ -428,10 +427,9 @@ void StdShadowMapHandler::createShadowMapsFBO(DrawEnv      *pEnv)
 }
 
 
-void StdShadowMapHandler::createColorMapFBO(DrawEnv      *pEnv)
+void StdShadowMapHandler::createColorMapFBO(RenderAction *a,
+                                            DrawEnv      *pEnv)
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
-
     a->pushPartition((RenderPartition::CopyWindow      |
                       RenderPartition::CopyViewing     |
                       RenderPartition::CopyProjection  |
@@ -465,7 +463,8 @@ void StdShadowMapHandler::createColorMapFBO(DrawEnv      *pEnv)
 }
 
 
-void StdShadowMapHandler::createShadowFactorMapFBO(DrawEnv      *pEnv)
+void StdShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
+                                                   DrawEnv      *pEnv)
 {
     _activeFactorMap = 0;
 
@@ -506,8 +505,6 @@ void StdShadowMapHandler::createShadowFactorMapFBO(DrawEnv      *pEnv)
 
     bool bCA1Cleared = false;
     bool bCA2Cleared = false;
-
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
 
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
 
@@ -1305,7 +1302,8 @@ void StdShadowMapHandler::createShadowFactorMapFBO(DrawEnv      *pEnv)
 }
 
 
-void StdShadowMapHandler::render(DrawEnv *pEnv)
+void StdShadowMapHandler::render(RenderAction *a,
+                                 DrawEnv      *pEnv)
 {
     glPushAttrib(GL_ENABLE_BIT);
 
@@ -1367,7 +1365,7 @@ void StdShadowMapHandler::render(DrawEnv *pEnv)
         _pPoly->setOffsetFactor(_pStage->getOffFactor());
         _pPoly->setOffsetBias  (_pStage->getOffBias  ());
 
-        createColorMapFBO(pEnv);
+        createColorMapFBO(a, pEnv);
                 
 
         //deactivate transparent Nodes
@@ -1377,7 +1375,7 @@ void StdShadowMapHandler::render(DrawEnv *pEnv)
         }
 
 
-        createShadowMapsFBO(pEnv);
+        createShadowMapsFBO(a, pEnv);
 
         
         // switch on all transparent geos
@@ -1387,12 +1385,12 @@ void StdShadowMapHandler::render(DrawEnv *pEnv)
         }
 
 
-        createShadowFactorMapFBO(pEnv);
+        createShadowFactorMapFBO(a, pEnv);
         
         _pStage->_trigger_update = false;
     }
     
-    setupDrawCombineMap2(pEnv->getAction());
+    setupDrawCombineMap2(a);
 
     glPopAttrib();
 }

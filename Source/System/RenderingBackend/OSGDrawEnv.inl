@@ -176,7 +176,6 @@ DrawEnv::RAction *DrawEnv::getAction(void) const
     return _pRenderAction;
 }
 
-
 inline
 Window *DrawEnv::getWindow(void) const
 {
@@ -459,6 +458,30 @@ bool DrawEnv::getFull(void)
 }
 
 inline
+void DrawEnv::setTileFullSize(const Vec2u &uiTileFullSize)
+{
+    _uiTileFullSize = uiTileFullSize;
+}
+
+inline
+void DrawEnv::setTileRegion(const Vec4f &vTileRegion)
+{
+    _vTileRegion = vTileRegion;
+}
+
+inline
+const Vec2u &DrawEnv::getTileFullSize(void) const
+{
+    return _uiTileFullSize;
+}
+
+inline
+const Vec4f &DrawEnv::getTileRegion(void) const
+{
+    return _vTileRegion;
+}
+
+inline
 void DrawEnv::setLightState(UInt32 uiState)
 {
     _uiLightState = uiState;
@@ -470,5 +493,18 @@ UInt32 DrawEnv::getLightState(void)
     return _uiLightState;
 }
 
+template<class Action, class Result> inline
+Result DrawEnv::doGetData(Action *pAction, UInt32 iSlotId)
+{
+    return pAction->template getData<Result>(iSlotId);
+}
+
+template<class ValuePtr> inline
+ValuePtr DrawEnv::getData(Int32 iSlotId) const
+{
+    OSG_ASSERT(_pRenderAction != NULL);
+
+    return doGetData<RenderActionBase, ValuePtr>(_pRenderAction, iSlotId);
+}
 
 OSG_END_NAMESPACE

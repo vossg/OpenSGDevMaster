@@ -148,12 +148,18 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
        pPort->getPixelHeight() == 0   ) // nothing to render to
         return;
         
+    bool bUseTC = true;
+
     if(getMFPositions()->size() != getMFTexCoords()->size())
     {
+#if 0
         FWARNING(("PolygonForeground::draw: positions and texcoords have "
                   "different sizes (%d vs. %d)!\n", 
                   getMFPositions()->size(), getMFTexCoords()->size()));
         return;
+#endif
+
+        bUseTC = false;
     }
        
     glPushAttrib(GL_ALL_ATTRIB_BITS);
@@ -175,35 +181,21 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
     glPushMatrix();
     glLoadIdentity();
     
-
 	Real32 sFac = getScale() > 0 ? getScale() : 1.0f;
 	
 	UInt32 width  = pPort->getPixelWidth(),
 		   height = pPort->getPixelHeight();
     
-    Camera              *cP  = pEnv->getAction()->getCamera();
-    TileCameraDecorator *cdP = dynamic_cast<TileCameraDecorator*>(cP);
-	
-	while (cdP != NULL)
-	{
-		width  = cdP->getFullWidth()  ? cdP->getFullWidth()  : width;
-		height = cdP->getFullHeight() ? cdP->getFullHeight() : height;
-		
-		cP  = cdP->getDecoratee();
-		cdP = dynamic_cast<TileCameraDecorator*>(cP);
-	}
-	
-	cP  = pEnv->getAction()->getCamera();
-	cdP = dynamic_cast<TileCameraDecorator*>(cP);
-
-
-    if (cdP && !getTile())
+    if(pEnv->getTileFullSize()[0] != 0 && getTile() == false)
     {
-        Real32 t = 0,
-               left   = cdP->getLeft(),
-               right  = cdP->getRight(),
-               top    = cdP->getTop(),
-               bottom = cdP->getBottom();
+        width  = pEnv->getTileFullSize()[0];
+        height = pEnv->getTileFullSize()[1];
+
+        Real32 t = 0;
+        Real32 left   = pEnv->getTileRegion()[0]; //cdP->getLeft(),
+        Real32 right  = pEnv->getTileRegion()[1]; //cdP->getRight(),
+        Real32 top    = pEnv->getTileRegion()[3]; //cdP->getTop(),
+        Real32 bottom = pEnv->getTileRegion()[2]; //cdP->getBottom();
         
         if (getAspectHeight() && getAspectWidth() &&
             height != 0 && width != 0)
@@ -216,8 +208,7 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
             t *= Real32(pPort->getPixelWidth()) / width;
         }
 		
-		Matrix sm;
-		cP->getDecoration(sm, width, height);
+        Matrix sm = pEnv->calcTileDecorationMatrix();
         
         glLoadMatrixf(sm.getValues());
         glOrtho(0, pPort->getPixelWidth(), 0, pPort->getPixelHeight(), 0, 1);
@@ -241,14 +232,24 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
 
     getMaterial()->getState()->activate(pEnv);
    
-    const Vec3f *tc  = &((*getMFTexCoords())[0]);
+    const Vec3f *tc  = NULL;
+
+    if(bUseTC == true)
+    {
+        tc = &((*getMFTexCoords())[0]);
+    }
+
     const Pnt2f *pos = &((*getMFPositions())[0]);
     
     glBegin(GL_POLYGON);
     
     for(UInt16 i = 0; i < getMFPositions()->size(); i++)
     {
-        glTexCoord3fv( tc[i].getValues() );
+        if(bUseTC == true)
+        {
+            glTexCoord3fv( tc[i].getValues() );
+        }
+
         glVertex2f( mapCoordinate(pos[i][0], Real32(pPort->getPixelWidth()),
                                              getNormalizedX()),
                     mapCoordinate(pos[i][1], Real32(pPort->getPixelHeight()),

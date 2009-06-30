@@ -377,7 +377,6 @@ void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv,
 Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
 {
     bool          usesShader = false;
-    RenderAction *ra         = dynamic_cast<RenderAction *>(pEnv->getAction());
     
     usesShader = (pEnv->getActiveShader() != 0);
     

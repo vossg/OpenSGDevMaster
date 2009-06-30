@@ -67,22 +67,26 @@ class OSG_EFFECTGROUPS_DLLMAPPING VarianceShadowMapHandler :
 
     ~VarianceShadowMapHandler(void);
 
-    virtual void render(DrawEnv *pEnv);
+    virtual void render(RenderAction *a,
+                        DrawEnv      *pEnv);
 
   private:
 
-    void createColorMapFBO       (DrawEnv *pEnv              );
-    void createShadowFactorMapFBO(DrawEnv *pEnv,
-                                  UInt32   num,
-                                  UInt32   uiActiveLightCount);
-    void createShadowMapsFBO     (DrawEnv *pEnv              );
+    void createColorMapFBO       (RenderAction *a,
+                                  DrawEnv      *pEnv              );
+    void createShadowFactorMapFBO(RenderAction *a,
+                                  DrawEnv      *pEnv,
+                                  UInt32        num,
+                                  UInt32        uiActiveLightCount);
+    void createShadowMapsFBO     (RenderAction *a,
+                                  DrawEnv      *pEnv              );
 
     void genMipMapCB             (DrawEnv *pEnv,
-                                  UInt32   uiLightIdx        );
+                                  UInt32   uiLightIdx             );
 
-    void initShadowMaps          (void                       );
-    void updateShadowMapSize     (void                       );
-    void configureShadowMaps     (void                       );
+    void initShadowMaps          (void                            );
+    void updateShadowMapSize     (void                            );
+    void configureShadowMaps     (void                            );
 
 
     SolidBackgroundUnrecPtr               _pClearSMapBack;

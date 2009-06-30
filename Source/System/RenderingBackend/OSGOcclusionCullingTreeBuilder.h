@@ -138,7 +138,7 @@ class OSG_SYSTEM_DLLMAPPING OcclusionCullingTreeBuilder : public TreeBuilderBase
 
     /*------------------------- comparison ----------------------------------*/
 
-    virtual void add(DrawEnv             &denv, 
+    virtual void add(RenderActionBase    *pAction,
                      RenderPartitionBase *part,
                      RenderTreeNode      *pNode,
                      State               *pState,

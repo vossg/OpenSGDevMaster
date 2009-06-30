@@ -1151,14 +1151,8 @@ void FishEyeProjector::postProcess(DrawEnv *pEnv)
         return;        
     }
 
-    RenderActionBase *pAction = pEnv->getAction();
-
-    if(pAction == NULL)
-        return;
-
-
     FishEyeProjectorData *pData = 
-        pAction->getData<FishEyeProjectorData *>(_iDataSlotId);
+        pEnv->getData<FishEyeProjectorData *>(_iDataSlotId);
 
     
     if(pData == NULL)

@@ -65,13 +65,17 @@ class OSG_EFFECTGROUPS_DLLMAPPING DitherShadowMapHandler :
                             ShadowStageData *pData  );
     ~DitherShadowMapHandler(void);
 
-    virtual void render(DrawEnv *pEnv);
+    virtual void render(RenderAction *a,
+                        DrawEnv      *pEnv);
 
   private:
 
-    void createColorMapFBO       (DrawEnv *pEnv);
-    void createShadowFactorMapFBO(DrawEnv *pEnv);
-    void createShadowMapsFBO     (DrawEnv *pEnv);
+    void createColorMapFBO       (RenderAction *a,
+                                  DrawEnv      *pEnv);
+    void createShadowFactorMapFBO(RenderAction *a,
+                                  DrawEnv      *pEnv);
+    void createShadowMapsFBO     (RenderAction *a,
+                                  DrawEnv      *pEnv);
 
 
     BlendChunkUnrecPtr                    _blender;

@@ -154,3 +154,26 @@ void CameraDecorator::getViewing(Matrix &result,
     camera->getViewing(result, width, height);
 }
 
+Vec2u CameraDecorator::tileGetFullSize(void) const
+{
+    Camera *pCam = getDecoratee();
+
+    if(pCam != NULL)
+    {
+        return pCam->tileGetFullSize();
+    }
+
+    return Inherited::tileGetFullSize();
+}
+
+Vec4f CameraDecorator::tileGetRegion(void) const
+{
+    Camera *pCam = getDecoratee();
+
+    if(pCam != NULL)
+    {
+        return pCam->tileGetRegion();
+    }
+
+    return Inherited::tileGetRegion();
+}

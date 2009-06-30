@@ -94,7 +94,8 @@ VarianceShadowMapHandler::~VarianceShadowMapHandler(void)
 }
 
 
-void VarianceShadowMapHandler::createShadowMapsFBO(DrawEnv      *pEnv)
+void VarianceShadowMapHandler::createShadowMapsFBO(RenderAction *a,
+                                                   DrawEnv      *pEnv)
 {
     UInt32  mSize = _pStage->getMapSize();
 
@@ -139,8 +140,6 @@ void VarianceShadowMapHandler::createShadowMapsFBO(DrawEnv      *pEnv)
             }
         }
     }
-
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
 
     UInt32 uiActiveLightCount = 0;
 
@@ -384,10 +383,9 @@ void VarianceShadowMapHandler::genMipMapCB(DrawEnv *pEnv,
 }
 
 
-void VarianceShadowMapHandler::createColorMapFBO(DrawEnv *pEnv)
+void VarianceShadowMapHandler::createColorMapFBO(RenderAction *a,
+                                                 DrawEnv      *pEnv)
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
-
     a->pushPartition((RenderPartition::CopyWindow      |
                       RenderPartition::CopyViewing     |
                       RenderPartition::CopyProjection  |
@@ -423,6 +421,7 @@ void VarianceShadowMapHandler::createColorMapFBO(DrawEnv *pEnv)
 
 
 void VarianceShadowMapHandler::createShadowFactorMapFBO(
+    RenderAction *a,
     DrawEnv      *pEnv,
     UInt32        num,
     UInt32        uiActiveLightCount)
@@ -671,8 +670,6 @@ void VarianceShadowMapHandler::createShadowFactorMapFBO(
         _vShadowCmat[uiActiveLightCount]->addChunk(
             _shadowFactorMapO);
 
-        RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
-
         a->pushPartition((RenderPartition::CopyWindow      |
                           RenderPartition::CopyViewing     |
                           RenderPartition::CopyProjection  |
@@ -890,7 +887,8 @@ void VarianceShadowMapHandler::configureShadowMaps(void)
     _bShadowMapsConfigured = true;
 }
 
-void VarianceShadowMapHandler::render(DrawEnv *pEnv)
+void VarianceShadowMapHandler::render(RenderAction *a,
+                                      DrawEnv      *pEnv)
 {
     glPushAttrib(GL_ENABLE_BIT);
 
@@ -945,7 +943,7 @@ void VarianceShadowMapHandler::render(DrawEnv *pEnv)
     if(_pStage->getMapAutoUpdate() == true ||
        _pStage->_trigger_update    == true  )
     {
-        createColorMapFBO(pEnv);
+        createColorMapFBO(a, pEnv);
 
 
         //deactivate transparent Nodes
@@ -955,7 +953,7 @@ void VarianceShadowMapHandler::render(DrawEnv *pEnv)
         }
 
 
-        createShadowMapsFBO(pEnv);
+        createShadowMapsFBO(a, pEnv);
 
 
         // switch on all transparent geos
@@ -977,7 +975,8 @@ void VarianceShadowMapHandler::render(DrawEnv *pEnv)
                 if(_pStage->getGlobalShadowIntensity()      != 0.0 ||
                     vLights[i].second->getShadowIntensity() != 0.0)
                 {
-                    createShadowFactorMapFBO(pEnv, 
+                    createShadowFactorMapFBO(a,
+                                             pEnv, 
                                              i,
                                              uiActiveLightCount);
                     
@@ -990,7 +989,7 @@ void VarianceShadowMapHandler::render(DrawEnv *pEnv)
         _pStage->_trigger_update = false;
     }
 
-    setupDrawCombineMap1(pEnv->getAction());
+    setupDrawCombineMap1(a);
             
     glPopAttrib();
 }

@@ -931,6 +931,20 @@ typedef OSG::Vector< OSG::Int32, 2 > Vec2i;
 
 typedef OSG::Vec2i *Vec2iP;
 
+/*! \var typedef OSG::Vector< OSG::UInt32, 2 > Vec2u;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vector< OSG::UInt32, 2 > Vec2u;
+
+/*! \var typedef OSG::Vec2u *Vec2uP;
+    \ingroup GrpBaseBaseMathObj
+    \relatesalso OSG::Vector
+ */
+
+typedef OSG::Vec2u *Vec2uP;
+
 /*! \var typedef OSG::Vector< OSG::Real32, 2 > Vec2f;
     \ingroup GrpBaseBaseMathObj
     \relatesalso OSG::Vector

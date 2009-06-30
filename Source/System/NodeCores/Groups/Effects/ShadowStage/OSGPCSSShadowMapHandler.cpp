@@ -90,10 +90,9 @@ PCSSShadowMapHandler::~PCSSShadowMapHandler(void)
 }
 
 
-void PCSSShadowMapHandler::createShadowMapsFBO(DrawEnv *pEnv)
+void PCSSShadowMapHandler::createShadowMapsFBO(RenderAction *a,
+                                               DrawEnv      *pEnv)
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
-
 #ifdef SHADOWCHECK
     glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
     glShadeModel(GL_FLAT);
@@ -242,10 +241,9 @@ void PCSSShadowMapHandler::createShadowMapsFBO(DrawEnv *pEnv)
 }
 
 
-void PCSSShadowMapHandler::createColorMapFBO(DrawEnv *pEnv)
+void PCSSShadowMapHandler::createColorMapFBO(RenderAction *a,
+                                             DrawEnv      *pEnv)
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
-
     a->pushPartition((RenderPartition::CopyWindow      |
                       RenderPartition::CopyViewing     |
                       RenderPartition::CopyProjection  |
@@ -281,6 +279,7 @@ void PCSSShadowMapHandler::createColorMapFBO(DrawEnv *pEnv)
 }
 
 void PCSSShadowMapHandler::createShadowFactorMapFBO(
+    RenderAction *a,
     DrawEnv      *pEnv,
     UInt32        num,
     UInt32        uiActiveLightCount)
@@ -448,8 +447,6 @@ void PCSSShadowMapHandler::createShadowFactorMapFBO(
         _vShadowCmat[uiActiveLightCount]->addChunk(
             _shadowFactorMapO);
 
-        RenderAction *a = dynamic_cast<RenderAction *>(pEnv->getAction());
-
         a->pushPartition((RenderPartition::CopyWindow      |
                           RenderPartition::CopyViewing     |
                           RenderPartition::CopyProjection  |
@@ -553,7 +550,8 @@ void PCSSShadowMapHandler::configureShadowMaps(void)
     _bShadowMapsConfigured = true;
 }
 
-void PCSSShadowMapHandler::render(DrawEnv *pEnv)
+void PCSSShadowMapHandler::render(RenderAction *a,
+                                  DrawEnv      *pEnv)
 {
     glPushAttrib(GL_ENABLE_BIT);
 
@@ -613,7 +611,7 @@ void PCSSShadowMapHandler::render(DrawEnv *pEnv)
         _pPoly->setOffsetFactor(_pStage->getOffFactor());
         _pPoly->setOffsetBias  (_pStage->getOffBias  ());
 
-        createColorMapFBO(pEnv);
+        createColorMapFBO(a, pEnv);
 
 
         //deactivate transparent Nodes
@@ -623,7 +621,7 @@ void PCSSShadowMapHandler::render(DrawEnv *pEnv)
         }
 
 
-        createShadowMapsFBO(pEnv);
+        createShadowMapsFBO(a, pEnv);
 
 
         // switch on all transparent geos
@@ -642,7 +640,8 @@ void PCSSShadowMapHandler::render(DrawEnv *pEnv)
                 if(_pStage->getGlobalShadowIntensity()   != 0.0 ||
                    vLights[i].second->getShadowIntensity() != 0.0)
                 {
-                    createShadowFactorMapFBO(pEnv, 
+                    createShadowFactorMapFBO(a,
+                                             pEnv, 
                                              i,
                                              uiActiveLightCount);
                     
@@ -654,7 +653,7 @@ void PCSSShadowMapHandler::render(DrawEnv *pEnv)
         _pStage->_trigger_update = false;
     }
     
-    setupDrawCombineMap1(pEnv->getAction());
+    setupDrawCombineMap1(a);
     
     glPopAttrib();
 }

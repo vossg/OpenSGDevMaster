@@ -152,7 +152,8 @@ OcclusionCullingTreeBuilder::OcclusionCullingTreeBuilder(void)
     : uNumNodes      (0),
       _isOccSetup    (false),
       _currSample    (0),
-      _numTestSamples(0)
+      _numTestSamples(0),
+      _rt            (NULL)
 {
     _buckets.clear();
     _buckets.resize(_nBuckets);   
@@ -194,6 +195,8 @@ void OcclusionCullingTreeBuilder::reset(void)
     _bucketLow   = 0.f;
     _bucketHigh  = 0.f;
     _bucketScale = 0.f;
+
+    _rt == NULL;
 }
 
 
@@ -241,6 +244,7 @@ void OcclusionCullingTreeBuilder::leaveTesting(DrawEnv             &denv,
 void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv, 
                                        RenderPartitionBase *part)
 {
+#if 1 //CHECK_ENV_ACTION
     //std::cout << "Frame Start" << std::endl;
     Window* win = denv.getWindow();
 
@@ -265,7 +269,8 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
     }
 
 //SETUP
-    _rt = dynamic_cast<RenderAction*>(denv.getAction());
+// done in add, action should never change
+//    _rt = dynamic_cast<RenderAction*>(denv.getAction());
     
     if(!_rt)
     {
@@ -375,6 +380,7 @@ void OcclusionCullingTreeBuilder::draw(DrawEnv             &denv,
     uNumNodes=0;
     _currSample = 0;
     //std::cout << "Frame End" << std::endl;
+#endif
 }
 
 void OcclusionCullingTreeBuilder::testNode(RenderTreeNode      *pNode, 
@@ -749,16 +755,18 @@ void OcclusionCullingTreeBuilder::drawTestResults(DrawEnv             &denv,
     }
 }
 
-void OcclusionCullingTreeBuilder::add(DrawEnv             &denv, 
+void OcclusionCullingTreeBuilder::add(RenderActionBase    *pAction,
                                       RenderPartitionBase *part,
                                       RenderTreeNode      *pNode,
                                       State               *pState,
                                       StateOverride       *pStateOverride,
                                       UInt32               uiKeyGen      )
 {
-    RenderAction *rt = dynamic_cast<RenderAction *>(denv.getAction());
+    OSG_ASSERT((_rt == NULL) || (_rt == pAction));
+
+    _rt = dynamic_cast<RenderAction *>(pAction);
     
-    if(rt && rt->getOcclusionCullingDebug() && pNode->getNode())
+    if(_rt && _rt->getOcclusionCullingDebug() && pNode->getNode())
     {
         // Start with clean travmask
         pNode->getNode()->setTravMask(0x0); 

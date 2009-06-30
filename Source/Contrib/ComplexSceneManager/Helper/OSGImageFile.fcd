@@ -20,6 +20,7 @@
 		cardinality="single"
 		visibility="external"
 		access="public"
+        fieldFlags="FClusterLocal"
 	>
 	</Field>
 </FieldContainer>

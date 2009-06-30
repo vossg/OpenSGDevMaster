@@ -82,7 +82,7 @@ void StateSortTreeBuilder::reset(void)
 }
 
 
-void StateSortTreeBuilder::add(DrawEnv             &denv, 
+void StateSortTreeBuilder::add(RenderActionBase    *pAction,
                                RenderPartitionBase *part,
                                RenderTreeNode      *pNode,
                                State               *pState,

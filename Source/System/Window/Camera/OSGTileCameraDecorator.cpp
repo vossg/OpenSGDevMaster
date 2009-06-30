@@ -235,5 +235,16 @@ void TileCameraDecorator::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
     SLOG << "Dump TileCameraDecorator NI" << std::endl;
 }
 
-/*-------------------------------------------------------------------------*/
-/*                              cvs id's                                   */
+Vec2u TileCameraDecorator::tileGetFullSize(void) const
+{
+    return Vec2u(_sfFullWidth.getValue(), _sfFullHeight.getValue());
+}
+
+Vec4f TileCameraDecorator::tileGetRegion(void) const
+{
+    return Vec4f(_sfLeft  .getValue(),
+                 _sfRight .getValue(),
+                 _sfBottom.getValue(),
+                 _sfTop   .getValue());
+}
+

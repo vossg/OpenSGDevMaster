@@ -66,13 +66,17 @@ class OSG_EFFECTGROUPS_DLLMAPPING StdShadowMapHandler : public ShadowTreeHandler
                         ShadowStageData *pData  );
     ~StdShadowMapHandler(void);
 
-    virtual void render(DrawEnv *pEnv);
+    virtual void render(RenderAction *a,
+                        DrawEnv      *pEnv);
 
   private:
 
-    void createColorMapFBO       (DrawEnv *pEnv);
-    void createShadowMapsFBO     (DrawEnv *pEnv);
-    void createShadowFactorMapFBO(DrawEnv *pEnv);
+    void createColorMapFBO       (RenderAction *a,
+                                  DrawEnv      *pEnv);
+    void createShadowMapsFBO     (RenderAction *a,
+                                  DrawEnv      *pEnv);
+    void createShadowFactorMapFBO(RenderAction *a,
+                                  DrawEnv      *pEnv);
 
     TileCameraDecoratorUnrecPtr   _tiledeco;
     MatrixCameraDecoratorUnrecPtr _matrixDeco;

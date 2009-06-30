@@ -62,6 +62,7 @@ OSG_BEGIN_NAMESPACE
 class ShadowStage;
 class ShadowStageData;
 class DrawEnv;
+class RenderAction;
 
 class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
 {
@@ -91,7 +92,7 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    virtual void render(DrawEnv *pEnv) = 0;
+    virtual void render(RenderAction *a, DrawEnv *pEnv) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
