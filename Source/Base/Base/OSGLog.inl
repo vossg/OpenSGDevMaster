@@ -237,12 +237,15 @@ inline
 LogLock::LogLock(std::ostream &os) : 
     _os(os)
 {
+    if(osgLogP != NULL)
+        osgLogP->lock();
 }
 
 inline 
 LogLock::~LogLock(void)
 {
-    osgLogP->unlock();
+    if(osgLogP != NULL)
+        osgLogP->unlock();
 }
 
 inline 
@@ -273,19 +276,24 @@ std::ostream &osgStartLog(      bool      logHeader,
                           const Char8    *file, 
                                 UInt32    line)
 {
-    initLog();
-
-    osgLogP->lock();
-
-    if(osgLogP->checkModule(module)) 
+    if(GlobalSystemState <= Shutdown)
     {
-        if(logHeader)
-            osgLogP->doHeader(level,module,file,line);
+        initLog();
 
-        return osgLogP->stream(level);
+        if(osgLogP->checkModule(module)) 
+        {
+            if(logHeader)
+                osgLogP->doHeader(level,module,file,line);
+
+            return osgLogP->stream(level);
+        }
+        else
+            return osgLogP->nilstream();
     }
     else
-        return osgLogP->nilstream();
+    {
+        return std::cout;
+    }
 }
 
 // This function is deprecated, use the std::endl instead!

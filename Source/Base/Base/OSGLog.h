@@ -47,6 +47,7 @@
 #include "OSGTime.h"
 #include "OSGLock.h"
 
+#include <cstdio>
 #include <fstream>
 #include <list>
 
@@ -679,14 +680,22 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FLOG(par)                                               \
 {                                                               \
-   OSG::initLog();                                              \
-   OSG::osgStartLog(true,                                       \
-                    OSG::LOG_LOG,                               \
-                    OSG_LOG_MODULE,                             \
-                    __FILE__,                                   \
-                    __LINE__);                                  \
-   OSG::osgLogP->doLog par;                                     \
-   OSG::osgLogP->unlock();                                      \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
+    {                                                           \
+        OSG::initLog();                                         \
+        OSG::osgLogP->lock();                                   \
+        OSG::osgStartLog(true,                                  \
+                         OSG::LOG_LOG,                          \
+                         OSG_LOG_MODULE,                        \
+                         __FILE__,                              \
+                         __LINE__);                             \
+        OSG::osgLogP->doLog par;                                \
+        OSG::osgLogP->unlock();                                 \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
+    }                                                           \
 }
 
 /*! \ingroup GrpBaseBaseLog
@@ -694,16 +703,24 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FFATAL(par)                                             \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_FATAL))                \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(true,                                  \
-                         OSG::LOG_FATAL,                        \
-                         OSG_LOG_MODULE,                        \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_FATAL))            \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(true,                              \
+                             OSG::LOG_FATAL,                    \
+                             OSG_LOG_MODULE,                    \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 
@@ -712,35 +729,51 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FWARNING(par)                                           \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_WARNING))              \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(true,                                  \
-                         OSG::LOG_WARNING,                      \
-                         OSG_LOG_MODULE,                        \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_WARNING))          \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(true,                              \
+                             OSG::LOG_WARNING,                  \
+                             OSG_LOG_MODULE,                    \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 
 /*! \ingroup GrpBaseBaseLog
 */
 
-#define FNOTICE(par)                                            \
-{                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_NOTICE))               \
-    {                                                           \
-        OSG::osgStartLog(true,                                  \
-                         OSG::LOG_NOTICE,                       \
-                         OSG_LOG_MODULE,                        \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
-    }                                                           \
+#define FNOTICE(par)                                                \
+{                                                                   \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                     \
+    {                                                               \
+        OSG::initLog();                                             \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_NOTICE))               \
+        {                                                           \
+            OSG::osgLogP->lock();                                   \
+            OSG::osgStartLog(true,                                  \
+                             OSG::LOG_NOTICE,                       \
+                             OSG_LOG_MODULE,                        \
+                             __FILE__,                              \
+                             __LINE__);                             \
+            OSG::osgLogP->doLog par;                                \
+            OSG::osgLogP->unlock();                                 \
+        }                                                           \
+    }                                                               \
+    else                                                            \
+    {                                                               \
+        std::printf par;                                            \
+    }                                                               \
 }
 
 /*! \ingroup GrpBaseBaseLog
@@ -748,16 +781,24 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FINFO(par)                                              \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_INFO))                 \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(true,                                  \
-                         OSG::LOG_INFO,                         \
-                         OSG_LOG_MODULE,                        \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_INFO))             \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(true,                              \
+                             OSG::LOG_INFO,                     \
+                             OSG_LOG_MODULE,                    \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 
@@ -767,15 +808,23 @@ void          indentLog   (     OSG::UInt32    indent,
 #ifdef OSG_DEBUG
 #define FDEBUG(par)                                             \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG))                \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(true,                                  \
-                         OSG::LOG_DEBUG,OSG_LOG_MODULE,         \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG))            \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(true,                              \
+                             OSG::LOG_DEBUG,OSG_LOG_MODULE,     \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 #else
@@ -786,18 +835,26 @@ void          indentLog   (     OSG::UInt32    indent,
 */
 
 #ifdef OSG_DEBUG
-#define FDEBUG_GV(par)                                          \
-{                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG_GV))             \
-    {                                                           \
-        OSG::osgStartLog(true,                                  \
-                         OSG::LOG_DEBUG_GV,OSG_LOG_MODULE,      \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
-    }                                                           \
+#define FDEBUG_GV(par)                                              \
+{                                                                   \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                     \
+    {                                                               \
+        OSG::initLog();                                             \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG_GV))             \
+        {                                                           \
+            OSG::osgLogP->lock();                                   \
+            OSG::osgStartLog(true,                                  \
+                             OSG::LOG_DEBUG_GV,OSG_LOG_MODULE,      \
+                             __FILE__,                              \
+                             __LINE__);                             \
+            OSG::osgLogP->doLog par;                                \
+            OSG::osgLogP->unlock();                                 \
+        }                                                           \
+    }                                                               \
+    else                                                            \
+    {                                                               \
+        std::printf par;                                            \
+    }                                                               \
 }
 #else
 #define FDEBUG_GV(par)
@@ -863,14 +920,22 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FPLOG(par)                                              \
 {                                                               \
-   OSG::initLog();                                              \
-   OSG::osgStartLog(false,                                      \
-                    OSG::LOG_LOG,                               \
-                    OSG_LOG_MODULE,                             \
-                    __FILE__,                                   \
-                    __LINE__);                                  \
-   OSG::osgLogP->doLog par;                                     \
-   OSG::osgLogP->unlock();                                      \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
+    {                                                           \
+        OSG::initLog();                                         \
+        OSG::osgLogP->lock();                                   \
+        OSG::osgStartLog(false,                                 \
+                         OSG::LOG_LOG,                          \
+                         OSG_LOG_MODULE,                        \
+                         __FILE__,                              \
+                         __LINE__);                             \
+        OSG::osgLogP->doLog par;                                \
+        OSG::osgLogP->unlock();                                 \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
+    }                                                           \
 }
 
 /*! \ingroup GrpBaseBaseLog
@@ -878,16 +943,24 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FPFATAL(par)                                            \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_FATAL))                \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(false,                                 \
-                         OSG::LOG_FATAL,                        \
-                         OSG_LOG_MODULE,                        \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_FATAL))            \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(false,                             \
+                             OSG::LOG_FATAL,                    \
+                             OSG_LOG_MODULE,                    \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 
@@ -896,16 +969,24 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FPWARNING(par)                                          \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_WARNING))              \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(false,                                 \
-                         OSG::LOG_WARNING,                      \
-                         OSG_LOG_MODULE,                        \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_WARNING))          \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(false,                             \
+                             OSG::LOG_WARNING,                  \
+                             OSG_LOG_MODULE,                    \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 
@@ -914,16 +995,24 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FPNOTICE(par)                                           \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_NOTICE))               \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(false,                                 \
-                         OSG::LOG_NOTICE,                       \
-                         OSG_LOG_MODULE,                        \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_NOTICE))           \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(false,                             \
+                             OSG::LOG_NOTICE,                   \
+                             OSG_LOG_MODULE,                    \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 
@@ -932,16 +1021,24 @@ void          indentLog   (     OSG::UInt32    indent,
 
 #define FPINFO(par)                                             \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_INFO))                 \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(false,                                 \
-                         OSG::LOG_INFO,                         \
-                         OSG_LOG_MODULE,                        \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_INFO))             \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(false,                             \
+                             OSG::LOG_INFO,                     \
+                             OSG_LOG_MODULE,                    \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 
@@ -951,15 +1048,23 @@ void          indentLog   (     OSG::UInt32    indent,
 #ifdef OSG_DEBUG
 #define FPDEBUG(par)                                            \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG))                \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(false,                                 \
-                         OSG::LOG_DEBUG,OSG_LOG_MODULE,         \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG))            \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(false,                             \
+                             OSG::LOG_DEBUG,OSG_LOG_MODULE,     \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 #else
@@ -969,15 +1074,23 @@ void          indentLog   (     OSG::UInt32    indent,
 #ifdef OSG_DEBUG
 #define FPDEBUG_GV(par)                                         \
 {                                                               \
-    OSG::initLog();                                             \
-    if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG_GV))             \
+    if(OSG::GlobalSystemState <= OSG::Shutdown)                 \
     {                                                           \
-        OSG::osgStartLog(false,                                 \
-                         OSG::LOG_DEBUG_GV,OSG_LOG_MODULE,      \
-                         __FILE__,                              \
-                         __LINE__);                             \
-        OSG::osgLogP->doLog par;                                \
-        OSG::osgLogP->unlock();                                 \
+        OSG::initLog();                                         \
+        if(OSG::osgLogP->checkLevel(OSG::LOG_DEBUG_GV))         \
+        {                                                       \
+            OSG::osgLogP->lock();                               \
+            OSG::osgStartLog(false,                             \
+                             OSG::LOG_DEBUG_GV,OSG_LOG_MODULE,  \
+                             __FILE__,                          \
+                             __LINE__);                         \
+            OSG::osgLogP->doLog par;                            \
+            OSG::osgLogP->unlock();                             \
+        }                                                       \
+    }                                                           \
+    else                                                        \
+    {                                                           \
+        std::printf par;                                        \
     }                                                           \
 }
 #else
