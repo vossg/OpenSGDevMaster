@@ -702,7 +702,9 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
         DEFINE_SYMBOL ${PROJ_DEFINE}
         VERSION ${OSG_VERSION}
         SOVERSION ${OSG_VERSION}
-        DEBUGRT_POSTFIX "_d")
+        DEBUG_POSTFIX "D"
+        DEBUGOPT_POSTFIX "DO"
+        RELEASENOOPT_POSTFIX "RN")
 
     # dependencies - OpenSG
     OSG_GET_ALL_DEP_OSG_LIB(
@@ -743,23 +745,83 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
 
     # install rules
     IF(WIN32)
+
+        IF(OSG_USE_SEPARATE_LIBDIRS)
+          SET(_OSG_TARGET_LIBDIR_REL lib/rel)
+          SET(_OSG_TARGET_LIBDIR_DBG lib/debug)
+          SET(_OSG_TARGET_LIBDIR_RELNO lib/relnoopt)
+          SET(_OSG_TARGET_LIBDIR_DBGO lib/debugopt)
+        ELSE(OSG_USE_SEPARATE_LIBDIRS)
+          SET(_OSG_TARGET_LIBDIR_REL lib)
+          SET(_OSG_TARGET_LIBDIR_DBG lib)
+          SET(_OSG_TARGET_LIBDIR_RELNO lib)
+          SET(_OSG_TARGET_LIBDIR_DBGO lib)
+        ENDIF(OSG_USE_SEPARATE_LIBDIRS)
+
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Release
-                RUNTIME DESTINATION lib/opt
-                LIBRARY DESTINATION lib/opt
-                ARCHIVE DESTINATION lib/opt)
+                RUNTIME DESTINATION ${_OSG_TARGET_LIBDIR_REL}
+                LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_REL}
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_REL})
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS Debug 
-                RUNTIME DESTINATION lib/debug
-                LIBRARY DESTINATION lib/debug
-                ARCHIVE DESTINATION lib/debug)
+                RUNTIME DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
+                LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBG}
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBG})
 
         INSTALL(TARGETS ${PROJECT_NAME}
-                CONFIGURATIONS DebugRT
-                RUNTIME DESTINATION lib/debugrt
-                LIBRARY DESTINATION lib/debugrt
-                ARCHIVE DESTINATION lib/debugrt)
+                CONFIGURATIONS ReleaseNoOpt
+                RUNTIME DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
+                LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_RELNO}
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_RELNO})
+
+        INSTALL(TARGETS ${PROJECT_NAME}
+                CONFIGURATIONS DebugOpt
+                RUNTIME DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
+                LIBRARY DESTINATION ${_OSG_TARGET_LIBDIR_DBGO}
+                ARCHIVE DESTINATION ${_OSG_TARGET_LIBDIR_DBGO})
+
+        
+        IF(OSG_INSTALL_PDB_FILES)
+
+          GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} Release_LOCATION)
+
+          STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
+
+          INSTALL(FILES ${_TMPVAL1} 
+                  CONFIGURATIONS Release
+                  DESTINATION ${_OSG_TARGET_LIBDIR_REL})
+ 
+ 
+          GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} Debug_LOCATION)
+
+          STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
+
+          INSTALL(FILES ${_TMPVAL1} 
+                  CONFIGURATIONS Debug
+                  DESTINATION ${_OSG_TARGET_LIBDIR_DBG})
+
+
+          GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} ReleaseNoOpt_LOCATION)
+
+          STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
+
+          INSTALL(FILES ${_TMPVAL1} 
+                  CONFIGURATIONS ReleaseNoOpt
+                  DESTINATION ${_OSG_TARGET_LIBDIR_RELNO})
+
+
+          GET_TARGET_PROPERTY(_TMPVAL ${PROJECT_NAME} DebugOpt_LOCATION)
+
+          STRING(REPLACE "dll" "pdb" _TMPVAL1 ${_TMPVAL})
+
+          INSTALL(FILES ${_TMPVAL1} 
+                  CONFIGURATIONS DebugOpt
+                  DESTINATION ${_OSG_TARGET_LIBDIR_DBGO})
+
+        ENDIF(OSG_INSTALL_PDB_FILES)
+
 
         INSTALL(TARGETS ${PROJECT_NAME}
                 CONFIGURATIONS MinSizeRel
@@ -1021,7 +1083,7 @@ FUNCTION(OSG_SETUP_PROJECT PROJ_DEFINE)
 ENDFUNCTION(OSG_SETUP_PROJECT)
 
 #############################################################################
-# setup import targets so the debugrt build type works correctly
+# setup import targets so the debug/debugopt build type works correctly
 
 FUNCTION(OSG_SETUP_IMPORT_LIB NEW_LIB)
 
@@ -1031,8 +1093,10 @@ FUNCTION(OSG_SETUP_IMPORT_LIB NEW_LIB)
     SET_TARGET_PROPERTIES(OSG_${NEW_LIB}_TARGET PROPERTIES
                           IMPORTED_IMPLIB ${${NEW_LIB}_RELEASE}
                           IMPORTED_LOCATION ${OSG_TMP_LIB_DIR}
-                          IMPORTED_IMPLIB_DEBUGRT ${${NEW_LIB}_DEBUG}
-                          IMPORTED_LOCATION_DEBUGRT ${OSG_TMP_LIB_DIR})
+                          IMPORTED_IMPLIB_DEBUG ${${NEW_LIB}_DEBUG}
+                          IMPORTED_LOCATION_DEBUG ${OSG_TMP_LIB_DIR}
+                          IMPORTED_IMPLIB_DEBUGOPT ${${NEW_LIB}_DEBUG}
+                          IMPORTED_LOCATION_DEBUGOPT ${OSG_TMP_LIB_DIR})
 
 ENDFUNCTION(OSG_SETUP_IMPORT_LIB)
 
@@ -1118,10 +1182,15 @@ MACRO(OSG_BOOST_DEP_SETUP)
 
         ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
 
-        IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
+        IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR
+           CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
+
             SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG})
+
         ELSE()
+
             SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
+
         ENDIF()
 
         SET(OSG_BOOST_INCDIRS ${Boost_INCLUDE_DIR})

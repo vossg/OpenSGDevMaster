@@ -8,6 +8,15 @@ SET(OSG_VERSION_MINOR "0")
 SET(OSG_VERSION_PATCH "0")
 SET(OSG_VERSION       ${OSG_VERSION_MAJOR}.${OSG_VERSION_MINOR}.${OSG_VERSION_PATCH})
 
+##############################################
+# Initial cache to make life easier on Windows
+##############################################
+
+IF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+  INCLUDE(${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+ENDIF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+
+
 INCLUDE(BuildFunctions)
 
 ##########################
@@ -70,6 +79,11 @@ ELSEIF(APPLE)
 ELSEIF(UNIX)
     OPTION(OSG_ENABLE_ELF_LOCALSTORAGE "" ON)
 ENDIF()
+
+IF(WIN32)
+  OSG_OPTION(OSG_USE_SEPARATE_LIBDIRS "" ON)
+  OSG_OPTION(OSG_INSTALL_PDB_FILES "" OFF)
+ENDIF(WIN32)
 
 OSG_OPTION(OSGCOMPAT_ENABLE                  "" OFF)
 OSG_OPTION(OSGCOMPAT_ENABLE_DEPRECATED       "" OFF)
@@ -210,12 +224,6 @@ IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR
 
 ENDIF()
 
-IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
-
-    SET(OSG_LIBDIR_SUFFIX "${OSG_LIBDIR_SUFFIX}/debugrt")
-
-ENDIF()
-
 ADD_DEFINITIONS(-D OSG_BUILD_ACTIVE)
 
 ##############################################################################
@@ -228,8 +236,11 @@ IF(NOT OSG_BUILD_DEPENDEND)
     #### boost
     ##########
 
-    SET(Boost_USE_MULTITHREAD ON )
-    SET(Boost_USE_STATIC_LIBS OFF)
+    SET(Boost_USE_MULTITHREADED ON )
+
+    IF(NOT Boost_USE_STATIC_LIBS)
+      SET(Boost_USE_STATIC_LIBS OFF CACHE INTERNAL "")
+    ENDIF(NOT Boost_USE_STATIC_LIBS)
 
     FIND_PACKAGE(Boost COMPONENTS filesystem)
 
@@ -241,12 +252,19 @@ IF(NOT OSG_BUILD_DEPENDEND)
             LINK_DIRECTORIES   (${Boost_LIBRARY_DIRS})
         ENDIF(UNIX)
 
-        ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
+        IF(NOT Boost_USE_STATIC_LIBS)
+          ADD_DEFINITIONS(-DBOOST_ALL_DYN_LINK)
+        ENDIF(NOT Boost_USE_STATIC_LIBS)
 
-        IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
+        IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR 
+           CMAKE_BUILD_TYPE STREQUAL "DebugOpt")
+
             SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_DEBUG})
+
         ELSE()
+
             SET(OSG_BOOST_LIBS ${Boost_FILESYSTEM_LIBRARY_RELEASE})
+
         ENDIF()
 
         SET(OSG_BOOST_INCDIRS ${Boost_INCLUDE_DIR})
@@ -378,10 +396,15 @@ IF(NOT OSG_BUILD_DEPENDEND)
 
         OSG_SET(OSG_WITH_COLLADA 1)
 
-        IF(CMAKE_BUILD_TYPE STREQUAL "DebugRT")
+        IF(CMAKE_BUILD_TYPE STREQUAL "Debug" OR 
+           CMAKE_BUILD_TYPE STREUQAL "DebugOpt")
+
             OSG_SET(OSG_COLLADA_LIBS ${COLLADA_LIBRARY_DEBUG})
+
         ELSE()
+
             OSG_SET(OSG_COLLADA_LIBS ${COLLADA_LIBRARY_RELEASE})
+
         ENDIF()
 
         OSG_ADD_OPT(COLLADA_DAE_INCLUDE_DIR)
@@ -839,3 +862,5 @@ IF(OSGBUILD_ENABLE_PACKAGING)
 
 ENDIF(OSGBUILD_ENABLE_PACKAGING)
 
+SET(CMAKE_CONFIGURATION_TYPES "Debug;Release;DebugOpt;ReleaseNoOpt" 
+                              CACHE STRING "OpenSG Build Types" FORCE )

@@ -196,7 +196,7 @@ void OcclusionCullingTreeBuilder::reset(void)
     _bucketHigh  = 0.f;
     _bucketScale = 0.f;
 
-    _rt == NULL;
+    _rt = NULL;
 }
 
 
