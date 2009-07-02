@@ -155,6 +155,8 @@ SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+INCLUDE(ConfigurePackages)
+
 #####################
 # External extensions
 #####################
@@ -230,6 +232,15 @@ ADD_DEFINITIONS(-D OSG_BUILD_ACTIVE)
 ##############################################################################
 # DEPENDENCIES
 ##############################################################################
+
+IF(WIN32)
+  OPTION(OSG_USE_OSGSUPPORT_LIBS "" OFF)
+  OPTION(OSG_USE_STATIC_SUPPORT_LIBS "" OFF)
+
+  IF(OSG_USE_OSGSUPPORT_LIBS)
+    SET(OSG_SUPPORT_ROOT "" CACHE PATH "")
+  ENDIF(OSG_USE_OSGSUPPORT_LIBS)
+ENDIF(WIN32)
 
 IF(NOT OSG_BUILD_DEPENDEND)
 
@@ -307,11 +318,7 @@ IF(NOT OSG_BUILD_DEPENDEND)
     #### zlib
     #########
 
-    OSG_FIND_PACKAGE(ZLIB)
-
-    IF(ZLIB_FOUND)
-        OSG_SET(OSG_WITH_ZLIB 1)
-    ENDIF(ZLIB_FOUND)
+    OSG_CONFIGURE_ZLIB()
 
     IF(UNIX AND NOT APPLE)
         #############
@@ -341,9 +348,9 @@ IF(NOT OSG_BUILD_DEPENDEND)
     #### ImageLibs
     ##############
 
-    OSG_FIND_PACKAGE(TIFF)
-    OSG_FIND_PACKAGE(PNG)
-    OSG_FIND_PACKAGE(JPEG)
+    OSG_CONFIGURE_TIFF()
+    OSG_CONFIGURE_PNG()
+    OSG_CONFIGURE_JPEG()
     OSG_FIND_PACKAGE(GDAL)
     OSG_FIND_PACKAGE(OpenEXR)
 
@@ -434,16 +441,7 @@ IF(NOT OSG_BUILD_DEPENDEND)
     #############
 
     IF(NOT APPLE)
-      OSG_FIND_PACKAGE(GLUT)
-
-      IF(GLUT_FOUND)
-          OSG_SET(OSG_WITH_GLUT 1)
-          OSG_SET(OSG_GLUT_INC_DIR ${GLUT_INCLUDE_DIR})
-          OSG_SET(OSG_GLUT_LIBS ${GLUT_LIBRARIES})
-      ELSE(GLUT_FOUND)
-          OSG_SET(OSG_GLUT_INC_DIR "")
-          OSG_SET(OSG_GLUT_LIBS "")
-      ENDIF(GLUT_FOUND)
+      OSG_CONFIGURE_GLUT()
     ENDIF(NOT APPLE)
     
     #############
