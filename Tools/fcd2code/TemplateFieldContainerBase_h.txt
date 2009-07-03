@@ -63,13 +63,15 @@
 #include "OSG@!Libname!@Def.h"
 @@endif // isInLibrary
 
-#include "@!HeaderPrefix!@OSGBaseTypes.h"
+//#include "@!HeaderPrefix!@OSGBaseTypes.h"
 
 #include "@!ParentHeaderPrefix!@OSG@!Parent!@.h" // Parent
 
 @@if !isDecorator
     @@BeginFieldLoop@@
+      @@if field.needTypeInclude
 #include "@!field.TypeInclude!@" // @!field.Name!@ type
+      @@endif  //field.needTypeInclude
     @@EndFieldLoop@@
 @@else // !isDecorator
 #include "OSG@!Parent!@Fields.h" // Decoratee type

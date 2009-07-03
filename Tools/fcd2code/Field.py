@@ -31,15 +31,116 @@ podTable = {
     "Real"    : True
 }
 
+includeTable = {
+    "Bool"         : "Sys",
+    "Int8"         : "Sys",
+    "UInt8"        : "Sys",
+    "Int16"        : "Sys",
+    "UInt16"       : "Sys",
+    "Int32"        : "Sys",
+    "UInt32"       : "Sys",
+    "Int64"        : "Sys",
+    "UInt64"       : "Sys",
+    "Real16"       : "Sys",
+    "Real32"       : "Sys",
+    "Fixed32"      : "Sys",
+    "Real64"       : "Sys",
+    "Real"         : "Sys",
+
+    "Color3f"      : "Base",
+    "Color3r"      : "Base",
+    "Color3fx"     : "Base",
+    "Color4f"      : "Base",
+    "Color4r"      : "Base",
+    "Color4fx"     : "Base",
+    "Color3ub"     : "Base",
+    "Color4ub"     : "Base",
+    "String"       : "Base",
+    "Time"         : "Base",
+    "BoxVolume"    : "Base",
+    "BitVector"    : "Base",
+    "GLenum"       : "Base",
+    "Plane"        : "Base",
+
+    "Matrix"       : "Math",
+    "Matrixr"      : "Math",
+    "Matrix4d"     : "Math",
+    "Matrix4fx"    : "Math",
+    "Quaternion"   : "Math",
+    "Quaternionr"  : "Math",
+    "Quaternionfx" : "Math",
+
+    "Vec2ub"       : "Vec",
+    "Vec2b"        : "Vec",
+    "Vec2us"       : "Vec",
+    "Vec2s"        : "Vec",
+    "Vec2f"        : "Vec",
+    "Vec2r"        : "Vec",
+    "Vec2fx"       : "Vec",
+    "Vec2d"        : "Vec",
+    "Vec2ld"       : "Vec",
+
+    "Vec3ub"       : "Vec",
+    "Vec3b"        : "Vec",
+    "Vec3us"       : "Vec",
+    "Vec3s"        : "Vec",
+    "Vec3f"        : "Vec",
+    "Vec3r"        : "Vec",
+    "Vec3fx"       : "Vec",
+    "Vec3d"        : "Vec",
+    "Vec3ld"       : "Vec",
+
+    "Vec4ub"       : "Vec",
+    "Vec4b"        : "Vec",
+    "Vec4us"       : "Vec",
+    "Vec4s"        : "Vec",
+    "Vec4f"        : "Vec",
+    "Vec4r"        : "Vec",
+    "Vec4fx"       : "Vec",
+    "Vec4d"        : "Vec",
+    "Vec4ld"       : "Vec",
+
+    "Pnt2ub"       : "Vec",
+    "Pnt2b"        : "Vec",
+    "Pnt2us"       : "Vec",
+    "Pnt2s"        : "Vec",
+    "Pnt2f"        : "Vec",
+    "Pnt2r"        : "Vec",
+    "Pnt2fx"       : "Vec",
+    "Pnt2d"        : "Vec",
+    "Pnt2ld"       : "Vec",
+
+    "Pnt3ub"       : "Vec",
+    "Pnt3b"        : "Vec",
+    "Pnt3us"       : "Vec",
+    "Pnt3s"        : "Vec",
+    "Pnt3f"        : "Vec",
+    "Pnt3r"        : "Vec",
+    "Pnt3fx"       : "Vec",
+    "Pnt3d"        : "Vec",
+    "Pnt3ld"       : "Vec",
+
+
+    "Pnt4ub"       : "Vec",
+    "Pnt4b"        : "Vec",
+    "Pnt4us"       : "Vec",
+    "Pnt4s"        : "Vec",
+    "Pnt4f"        : "Vec",
+    "Pnt4r"        : "Vec",
+    "Pnt4fx"       : "Vec",
+    "Pnt4d"        : "Vec",
+    "Pnt4ld"       : "Vec"
+}
+
 class Field(FCDElement):
     """Represents a <Field/> element from a .fcd file.
     """
     
     def __init__(self):
         super(Field, self).__init__();
-        self.m_log            = logging.getLogger("Field");
-        self.m_fieldContainer = None;
-        
+        self.m_log              = logging.getLogger("Field");
+        self.m_fieldContainer   = None;
+        self["needTypeInclude"] = True;
         self.initFCDDict();
     
     def initFCDDict(self):
@@ -327,7 +428,11 @@ class Field(FCDElement):
             else:
                 typeInclude = "OpenSG/OSG";
             
-            typeInclude = typeInclude + TypeRawCaps + "Fields.h"                
+            if includeTable.has_key(TypeRawCaps):
+                typeInclude = typeInclude + includeTable[TypeRawCaps] + "Fields.h"
+            else:
+                typeInclude = typeInclude + TypeRawCaps + "Fields.h"
+
         else:
             typeInclude = self.getFCD("header");
         

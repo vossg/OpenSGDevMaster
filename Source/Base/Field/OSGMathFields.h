@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *           Copyright (C) 2008 by the OpenSG Forum                          *
+ *             Copyright (C) 2000-2003 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,47 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMOUSEDATA_H_
-#define _OSGMOUSEDATA_H_
+/*
+  This is a dummy header to allow automatic inference from the type to the 
+  field type header.
+*/
 
-#include "OSGBaseTypes.h"
-#include "OSGMathFields.h"
-#include "OSGVecFields.h"
-
-OSG_BEGIN_NAMESPACE
-
-template<class KeyFieldT, class KeyValueFieldT, class ValueFieldT>
-struct InterpolationHelper
-{
-  public:
-
-
-    static void copyFirstValue(const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
-
-    static void copyLastValue (const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
-
-    static void lerp          (const UInt32          uiStopIndex,
-                               const UInt32          uiStartIndex,
-                               const Real32          rFraction,
-                               const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
-
-    static void interpolate   (const Real32          rFraction,
-                               const KeyFieldT      &mfKeys,
-                               const KeyValueFieldT &mfKeyValues,
-                                     ValueFieldT    &fValue     );
-     
-
-};
-
-
-OSG_END_NAMESPACE
-
-#include "OSGInterpolationHelper.inl"
-
-#endif
+#include "OSGMathSFields.h"
+#include "OSGMathMFields.h"

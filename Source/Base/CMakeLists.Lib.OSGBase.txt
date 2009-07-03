@@ -34,7 +34,7 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 
 OSG_ADD_DIRECTORY("Source/Base/Base")
 OSG_ADD_DIRECTORY("Source/Base/Field")
-OSG_ADD_DIRECTORY("Source/Base/Field/Wrapper")
+#OSG_ADD_DIRECTORY("Source/Base/Field/Wrapper")
 OSG_ADD_DIRECTORY("Source/Base/FieldContainer/Base")
 OSG_ADD_DIRECTORY("Source/Base/FieldContainer/Connector")
 OSG_ADD_DIRECTORY("Source/Base/FieldContainer/Fields")

@@ -11,7 +11,7 @@ class FieldContainer(FCDElement):
         super(FieldContainer, self).__init__();
         self.m_log    = logging.getLogger("FieldContainer");
         self.m_fields = [];
-        
+        self.m_usedInclude = {};
         self.initFCDDict();
     
     def initFCDDict(self):
@@ -206,6 +206,11 @@ class FieldContainer(FCDElement):
                 field["nextField"]   = self.m_fields[i + 1];
                 field["isLastField"] = False;
             
+            if self.m_usedInclude.has_key(field["TypeInclude"]):
+                field["needTypeInclude"] = False;
+            else:
+                self.m_usedInclude[field["TypeInclude"]] = True;
+
             self["Fields"].append(field);
                            
             if field.isProtected():

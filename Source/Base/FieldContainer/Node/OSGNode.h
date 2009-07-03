@@ -47,8 +47,8 @@
 #include "OSGFieldContainer.h"
 #include "OSGAttachmentContainer.h"
 
-#include "OSGBoxVolumeFields.h"
-#include "OSGUInt32Fields.h"
+#include "OSGBaseFields.h"
+#include "OSGSysFields.h"
 
 #include "OSGNodeFields.h"
 #include "OSGNodeCoreFields.h"

@@ -46,11 +46,9 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
-
 #include "OSGCounters.h" // Parent
 
-#include "OSGBoolFields.h" // Loop type
+#include "OSGSysFields.h" // Loop type
 
 OSG_BEGIN_NAMESPACE
 

@@ -46,12 +46,10 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
-
 #include "OSGCounter.h" // Parent
 
-#include "OSGReal32Fields.h" // Step type
-#include "OSGStringFields.h"
+#include "OSGMathFields.h" // Step type
+#include "OSGSysFields.h"
 #include "OSGMaterialMapFields.h"
 
 OSG_BEGIN_NAMESPACE
