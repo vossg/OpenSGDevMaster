@@ -320,6 +320,11 @@ IF(NOT OSG_BUILD_DEPENDEND)
 
     OSG_CONFIGURE_ZLIB()
 
+    IF(ZLIB_FOUND)
+        OSG_SET(OSG_WITH_ZLIB 1)
+    ENDIF(ZLIB_FOUND)
+
+
     IF(UNIX AND NOT APPLE)
         #############
         #### Freetype
@@ -442,6 +447,13 @@ IF(NOT OSG_BUILD_DEPENDEND)
 
     IF(NOT APPLE)
       OSG_CONFIGURE_GLUT()
+
+      IF(GLUT_FOUND)
+        OSG_SET(OSG_WITH_GLUT 1)
+      ELSE(GLUT_FOUND)
+        OSG_SET(OSG_WITH_GLUT 0)
+      ENDIF(GLUT_FOUND)
+        
     ENDIF(NOT APPLE)
     
     #############
