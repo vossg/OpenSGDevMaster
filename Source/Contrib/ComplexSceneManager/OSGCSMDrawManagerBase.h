@@ -61,14 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGCSMDrawerFields.h" // Drawer type
-#include "OSGBoolFields.h" // Parallel type
-#include "OSGStringFields.h" // SyncBarrierName type
-#include "OSGStringFields.h" // SwapBarrierName type
+#include "OSGSysFields.h" // Parallel type
+#include "OSGBaseFields.h" // SyncBarrierName type
 
 #include "OSGCSMDrawManagerFields.h"
 

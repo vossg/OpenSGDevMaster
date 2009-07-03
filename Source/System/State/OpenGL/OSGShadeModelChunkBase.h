@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGGLenumFields.h" // ShadeModel type
+#include "OSGBaseFields.h" // ShadeModel type
 
 #include "OSGShadeModelChunkFields.h"
 

@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGFileIODef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGStringFields.h" // VrmlNodeTypename type
+#include "OSGBaseFields.h" // VrmlNodeTypename type
 
 #include "OSGVRMLAttachmentFields.h"
 

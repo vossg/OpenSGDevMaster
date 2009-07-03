@@ -61,16 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
 #include "OSGShaderProgramFields.h" // VertexShader type
-#include "OSGShaderProgramFields.h" // GeometryShader type
-#include "OSGShaderProgramFields.h" // FragmentShader type
-#include "OSGUInt32Fields.h" // GeometryVerticesOut type
-#include "OSGGLenumFields.h" // GeometryInputType type
-#include "OSGGLenumFields.h" // GeometryOutputType type
+#include "OSGSysFields.h" // GeometryVerticesOut type
+#include "OSGBaseFields.h" // GeometryInputType type
 
 #include "OSGShaderProgramChunkFields.h"
 

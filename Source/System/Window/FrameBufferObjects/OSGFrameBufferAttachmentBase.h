@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGUInt16Fields.h" // Width type
-#include "OSGUInt16Fields.h" // Height type
+#include "OSGSysFields.h" // Width type
 
 #include "OSGFrameBufferAttachmentFields.h"
 

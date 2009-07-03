@@ -61,34 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGeometry.h" // Parent
 
 #include "OSGImageFields.h" // HeightData type
-#include "OSGReal32Fields.h" // HeightScale type
-#include "OSGReal32Fields.h" // HeightError type
-#include "OSGReal32Fields.h" // HeightQuad type
-#include "OSGUInt32Fields.h" // Width type
-#include "OSGUInt32Fields.h" // Level type
-#include "OSGReal32Fields.h" // Detail type
-#include "OSGInt32Fields.h" // BorderDetail type
-#include "OSGReal32Fields.h" // VertexSpacing type
+#include "OSGSysFields.h" // HeightScale type
 #include "OSGGeoVectorPropertyFields.h" // HeightVertices type
-#include "OSGBoolFields.h" // GeoMorphing type
-#include "OSGPnt3fFields.h" // BoundMin type
-#include "OSGPnt3fFields.h" // BoundMax type
-#include "OSGPnt3fFields.h" // EyePoint type
-#include "OSGReal32Fields.h" // EyeHeight type
-#include "OSGBoolFields.h" // EyePointValid type
-#include "OSGReal32Fields.h" // OriginX type
-#include "OSGReal32Fields.h" // OriginY type
-#include "OSGReal32Fields.h" // OriginTexX type
-#include "OSGReal32Fields.h" // OriginTexY type
-#include "OSGReal32Fields.h" // TexSpacing type
-#include "OSGReal32Fields.h" // TexYSpacing type
-#include "OSGBoolFields.h" // UpdateTerrain type
-#include "OSGBoolFields.h" // PerPixelLighting type
+#include "OSGVecFields.h" // BoundMin type
 
 #include "OSGQuadTreeTerrainFields.h"
 

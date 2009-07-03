@@ -61,17 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGBackground.h" // Parent
 
-#include "OSGColor4fFields.h" // Color type
+#include "OSGBaseFields.h" // Color type
 #include "OSGTextureBaseChunkFields.h" // Texture type
-#include "OSGPnt2fFields.h" // TexCoords type
-#include "OSGReal32Fields.h" // RadialDistortion type
-#include "OSGVec2fFields.h" // CenterOfDistortion type
-#include "OSGUInt16Fields.h" // Hor type
-#include "OSGUInt16Fields.h" // Vert type
+#include "OSGVecFields.h" // TexCoords type
+#include "OSGSysFields.h" // RadialDistortion type
 
 #include "OSGTextureBackgroundFields.h"
 

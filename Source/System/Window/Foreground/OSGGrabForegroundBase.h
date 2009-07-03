@@ -61,12 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGForeground.h" // Parent
 
 #include "OSGImageFields.h" // Image type
-#include "OSGBoolFields.h" // AutoResize type
+#include "OSGSysFields.h" // AutoResize type
 
 #include "OSGGrabForegroundFields.h"
 

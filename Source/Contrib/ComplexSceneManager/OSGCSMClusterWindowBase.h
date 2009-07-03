@@ -61,17 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCSMWindow.h" // Parent
 
 #include "OSGCSMWindowFields.h" // ClientWindow type
-#include "OSGBoolFields.h" // RenderClient type
-#include "OSGStringFields.h" // Servers type
-#include "OSGUInt32Fields.h" // ServerIds type
-#include "OSGUInt32Fields.h" // ServerRows type
-#include "OSGStringFields.h" // ConnectionType type
-#include "OSGStringFields.h" // ClusterMode type
+#include "OSGSysFields.h" // RenderClient type
+#include "OSGBaseFields.h" // Servers type
 #include "OSGImageComposerFields.h" // Composer type
 #include "OSGCSMClusterWinOptionsFields.h" // Options type
 

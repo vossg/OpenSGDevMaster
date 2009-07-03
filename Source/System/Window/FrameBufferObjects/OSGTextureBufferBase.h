@@ -61,15 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGFrameBufferAttachment.h" // Parent
 
 #include "OSGTextureObjChunkFields.h" // Texture type
-#include "OSGGLenumFields.h" // TexTarget type
-#include "OSGUInt32Fields.h" // Level type
-#include "OSGUInt32Fields.h" // Zoffset type
-#include "OSGBoolFields.h" // ReadBack type
+#include "OSGBaseFields.h" // TexTarget type
+#include "OSGSysFields.h" // Level type
 
 #include "OSGTextureBufferFields.h"
 

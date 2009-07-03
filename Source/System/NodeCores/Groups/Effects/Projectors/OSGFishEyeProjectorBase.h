@@ -61,23 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGEffectGroupsDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStage.h" // Parent
 
-#include "OSGUInt32Fields.h" // Mode type
+#include "OSGSysFields.h" // Mode type
 #include "OSGGeometryFields.h" // Geometries type
-#include "OSGBoolFields.h" // ShowDomeIntensity type
-#include "OSGUInt32Fields.h" // Resolution type
-#include "OSGUInt32Fields.h" // MeshRefinementLevel type
-#include "OSGGLenumFields.h" // BufferFormat type
-#include "OSGReal64Fields.h" // DomeRadius type
-#include "OSGReal64Fields.h" // MirrorRadius type
-#include "OSGVec3dFields.h" // MirrorPos type
-#include "OSGVec3dFields.h" // ProjectorPos type
-#include "OSGReal64Fields.h" // AspectRatio type
-#include "OSGReal64Fields.h" // ThrowDist type
-#include "OSGBoolFields.h" // ShowMesh type
+#include "OSGBaseFields.h" // BufferFormat type
+#include "OSGVecFields.h" // MirrorPos type
 
 #include "OSGFishEyeProjectorFields.h"
 

@@ -61,16 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCSMClusterWinOptions.h" // Parent
 
-#include "OSGInt32Fields.h" // XOverlap type
-#include "OSGInt32Fields.h" // YOverlap type
-#include "OSGBoolFields.h" // ManageClientViewports type
-#include "OSGBoolFields.h" // Balance type
-#include "OSGBoolFields.h" // BestCut type
-#include "OSGBoolFields.h" // ShowBalancing type
+#include "OSGSysFields.h" // XOverlap type
 
 #include "OSGCSMMultiWinOptionsFields.h"
 

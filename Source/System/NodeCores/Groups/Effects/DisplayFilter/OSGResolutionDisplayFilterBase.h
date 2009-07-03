@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGEffectGroupsDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGDisplayFilter.h" // Parent
 
-#include "OSGReal32Fields.h" // DownScale type
+#include "OSGSysFields.h" // DownScale type
 
 #include "OSGResolutionDisplayFilterFields.h"
 

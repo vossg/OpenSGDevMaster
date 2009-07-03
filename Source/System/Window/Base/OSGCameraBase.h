@@ -61,13 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGNodeFields.h" // Beacon type
-#include "OSGReal32Fields.h" // Near type
-#include "OSGReal32Fields.h" // Far type
+#include "OSGSysFields.h" // Near type
 
 #include "OSGCameraFields.h"
 

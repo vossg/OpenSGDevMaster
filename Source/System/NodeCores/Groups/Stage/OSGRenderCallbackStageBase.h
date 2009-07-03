@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStage.h" // Parent
 
 #include "OSGRenderFunctorCallbackFields.h" // PreRenderCallbacks type
-#include "OSGRenderFunctorCallbackFields.h" // PostRenderCallbacks type
 
 #include "OSGRenderCallbackStageFields.h"
 

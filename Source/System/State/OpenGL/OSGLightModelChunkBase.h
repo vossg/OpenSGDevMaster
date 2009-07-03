@@ -61,13 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGColor4fFields.h" // Ambient type
-#include "OSGGLenumFields.h" // ColorControl type
-#include "OSGBoolFields.h" // LocalViewer type
+#include "OSGBaseFields.h" // Ambient type
+#include "OSGSysFields.h" // LocalViewer type
 
 #include "OSGLightModelChunkFields.h"
 

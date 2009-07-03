@@ -61,26 +61,17 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGFieldContainerFields.h" // Parent type
 #include "OSGCSMViewportFields.h" // Viewports type
 #include "OSGMouseDataFields.h" // MouseData type
-#include "OSGVec2fFields.h" // Size type
-#include "OSGVec2fFields.h" // Position type
-#include "OSGBoolFields.h" // DecorEnabled type
-#include "OSGInt32Fields.h" // RequestMajor type
-#include "OSGInt32Fields.h" // RequestMinor type
-#include "OSGBoolFields.h" // EnableForwardCompatContext type
-#include "OSGBoolFields.h" // EnableDebugContext type
-#include "OSGStringFields.h" // IgnoreExtensions type
-#include "OSGUInt32Fields.h" // RequestSamples type
-#include "OSGBoolFields.h" // EnableFSAA type
-#include "OSGUInt32Fields.h" // FsaaHint type
+#include "OSGVecFields.h" // Size type
+#include "OSGSysFields.h" // DecorEnabled type
+#include "OSGBaseFields.h" // IgnoreExtensions type
 #include "OSGRenderOptionsFields.h" // RenderOptions type
-#include "OSGBoolFields.h" // DumpContainer type
 
 #include "OSGCSMWindowFields.h"
 

@@ -61,35 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGFieldContainerFields.h" // Parents type
-#include "OSGInt32Fields.h" // Dimension type
-#include "OSGInt32Fields.h" // Width type
-#include "OSGInt32Fields.h" // Height type
-#include "OSGInt32Fields.h" // Depth type
-#include "OSGInt32Fields.h" // Bpp type
-#include "OSGInt32Fields.h" // MipMapCount type
-#include "OSGInt32Fields.h" // FrameCount type
-#include "OSGTimeFields.h" // FrameDelay type
-#include "OSGUInt32Fields.h" // PixelFormat type
-#include "OSGUInt8Fields.h" // Pixel type
-#include "OSGInt32Fields.h" // FrameSize type
-#include "OSGStringFields.h" // Name type
-#include "OSGInt32Fields.h" // DataType type
-#include "OSGInt32Fields.h" // ComponentSize type
-#include "OSGInt32Fields.h" // SideCount type
-#include "OSGInt32Fields.h" // SideSize type
-#include "OSGBoolFields.h" // ForceCompressedData type
-#include "OSGBoolFields.h" // ForceAlphaChannel type
-#include "OSGBoolFields.h" // ForceColorChannel type
-#include "OSGBoolFields.h" // ForceAlphaBinary type
-#include "OSGReal32Fields.h" // ResX type
-#include "OSGReal32Fields.h" // ResY type
-#include "OSGUInt16Fields.h" // ResUnit type
-#include "OSGBoolFields.h" // ClearOnLoad type
+#include "OSGSysFields.h" // Dimension type
+#include "OSGBaseFields.h" // FrameDelay type
 
 #include "OSGImageFields.h"
 

@@ -61,7 +61,7 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGFieldContainer.h" // Parent
 
@@ -69,11 +69,10 @@
 #include "OSGCameraFields.h" // Camera type
 #include "OSGBackgroundFields.h" // Background type
 #include "OSGForegroundFields.h" // Foregrounds type
-#include "OSGVec2fFields.h" // LeftBottom type
-#include "OSGVec2fFields.h" // RightTop type
+#include "OSGVecFields.h" // LeftBottom type
 #include "OSGRenderOptionsFields.h" // RenderOptions type
-#include "OSGStringFields.h" // StereoMode type
-#include "OSGBoolFields.h" // Passive type
+#include "OSGBaseFields.h" // StereoMode type
+#include "OSGSysFields.h" // Passive type
 
 #include "OSGCSMViewportFields.h"
 

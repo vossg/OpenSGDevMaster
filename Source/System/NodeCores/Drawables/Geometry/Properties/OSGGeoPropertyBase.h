@@ -61,14 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBoolFields.h" // UseVBO type
-#include "OSGUInt32Fields.h" // Usage type
-#include "OSGUInt32Fields.h" // GLId type
-#include "OSGInt32Fields.h" // VboUsage type
+#include "OSGSysFields.h" // UseVBO type
 
 #include "OSGGeoPropertyFields.h"
 

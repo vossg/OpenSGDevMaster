@@ -61,14 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGReal32Fields.h" // Width type
-#include "OSGInt32Fields.h" // StippleRepeat type
-#include "OSGUInt16Fields.h" // StipplePattern type
-#include "OSGBoolFields.h" // Smooth type
+#include "OSGSysFields.h" // Width type
 
 #include "OSGLineChunkFields.h"
 

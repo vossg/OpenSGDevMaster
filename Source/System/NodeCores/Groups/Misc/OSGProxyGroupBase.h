@@ -61,22 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGBoolFields.h" // Enabled type
-#include "OSGStringFields.h" // Url type
+#include "OSGSysFields.h" // Enabled type
+#include "OSGBaseFields.h" // Url type
 #include "OSGNodeFields.h" // Root type
-#include "OSGUInt32Fields.h" // State type
-#include "OSGBoolFields.h" // ConcurrentLoad type
-#include "OSGBoxVolumeFields.h" // Volume type
-#include "OSGUInt32Fields.h" // Indices type
-#include "OSGUInt32Fields.h" // Triangles type
-#include "OSGUInt32Fields.h" // Positions type
-#include "OSGUInt32Fields.h" // Geometries type
-#include "OSGStringFields.h" // AbsoluteUrl type
-#include "OSGUInt8Fields.h" // Inline type
 
 #include "OSGProxyGroupFields.h"
 

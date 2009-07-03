@@ -61,12 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGFileIODef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGStringFields.h" // Semantics type
-#include "OSGInt32Fields.h" // Sets type
+#include "OSGBaseFields.h" // Semantics type
+#include "OSGSysFields.h" // Sets type
 #include "OSGGeoVectorPropertyFields.h" // Properties type
 #include "OSGGeoIntegralPropertyFields.h" // PropIndices type
 

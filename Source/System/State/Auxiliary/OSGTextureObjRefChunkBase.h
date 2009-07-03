@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGTextureBaseChunk.h" // Parent
 
-#include "OSGGLenumFields.h" // GLId type
+#include "OSGBaseFields.h" // GLId type
 
 #include "OSGTextureObjRefChunkFields.h"
 

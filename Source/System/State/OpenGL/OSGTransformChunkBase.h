@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGMatrixFields.h" // Matrix type
+#include "OSGMathFields.h" // Matrix type
 
 #include "OSGTransformChunkFields.h"
 

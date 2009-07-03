@@ -61,14 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGNodeCore.h" // Parent
 
-#include "OSGReal32Fields.h" // Fraction type
-#include "OSGReal32Fields.h" // Key type
-#include "OSGPnt3fFields.h" // KeyValue type
-#include "OSGPnt3fFields.h" // Value type
+#include "OSGSysFields.h" // Fraction type
+#include "OSGVecFields.h" // KeyValue type
 
 #include "OSGCoordinateInterpolatorFields.h"
 

@@ -61,14 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStage.h" // Parent
 
 #include "OSGAlgorithmFields.h" // Algorithm type
-#include "OSGUInt32Fields.h" // ProjectionMode type
-#include "OSGBoolFields.h" // CopyViewing type
-#include "OSGMatrixFields.h" // ProjectionMatrix type
+#include "OSGSysFields.h" // ProjectionMode type
+#include "OSGMathFields.h" // ProjectionMatrix type
 
 #include "OSGAlgorithmStageFields.h"
 

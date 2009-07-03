@@ -61,19 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGEffectGroupsDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStageData.h" // Parent
 
 #include "OSGChunkMaterialFields.h" // ToneMappingMaterial type
 #include "OSGFrameBufferObjectFields.h" // BlurRenderTarget type
-#include "OSGChunkMaterialFields.h" // BlurMaterial type
 #include "OSGSimpleSHLChunkFields.h" // HBlurShader type
-#include "OSGSimpleSHLChunkFields.h" // VBlurShader type
-#include "OSGUInt32Fields.h" // Width type
-#include "OSGUInt32Fields.h" // Height type
-#include "OSGFrameBufferObjectFields.h" // ShrinkRenderTarget type
-#include "OSGChunkMaterialFields.h" // ShrinkMaterial type
+#include "OSGSysFields.h" // Width type
 
 #include "OSGShadowStageDataFields.h"
 

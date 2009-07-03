@@ -61,7 +61,7 @@
 #include "OSGConfig.h"
 #include "OSGExGPUVolRTDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAlgorithm.h" // Parent
 

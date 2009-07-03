@@ -61,13 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCamera.h" // Parent
 
-#include "OSGMatrixFields.h" // ProjectionMatrix type
-#include "OSGMatrixFields.h" // ModelviewMatrix type
-#include "OSGBoolFields.h" // UseBeacon type
+#include "OSGMathFields.h" // ProjectionMatrix type
+#include "OSGSysFields.h" // UseBeacon type
 
 #include "OSGMatrixCameraFields.h"
 

@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGShadowMapEngine.h" // Parent
 
-#include "OSGInt32Fields.h" // ForceTextureUnit type
+#include "OSGSysFields.h" // ForceTextureUnit type
 
 #include "OSGSimpleShadowMapEngineFields.h"
 

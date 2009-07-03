@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStereoCameraDecorator.h" // Parent
 
-#include "OSGReal32Fields.h" // ZeroParallaxDistance type
-#include "OSGReal32Fields.h" // Overlap type
+#include "OSGSysFields.h" // ZeroParallaxDistance type
 
 #include "OSGShearedStereoCameraDecoratorFields.h"
 

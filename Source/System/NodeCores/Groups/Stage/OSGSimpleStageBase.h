@@ -61,14 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGRenderCallbackStage.h" // Parent
 
-#include "OSGReal32Fields.h" // Left type
-#include "OSGReal32Fields.h" // Right type
-#include "OSGReal32Fields.h" // Bottom type
-#include "OSGReal32Fields.h" // Top type
+#include "OSGSysFields.h" // Left type
 #include "OSGCameraFields.h" // Camera type
 #include "OSGBackgroundFields.h" // Background type
 

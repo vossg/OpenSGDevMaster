@@ -61,18 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGGLenumFields.h" // StencilFunc type
-#include "OSGInt32Fields.h" // StencilValue type
-#include "OSGUInt32Fields.h" // StencilMask type
-#include "OSGGLenumFields.h" // StencilOpFail type
-#include "OSGGLenumFields.h" // StencilOpZFail type
-#include "OSGGLenumFields.h" // StencilOpZPass type
-#include "OSGInt32Fields.h" // ClearBuffer type
-#include "OSGUInt32Fields.h" // BitMask type
+#include "OSGBaseFields.h" // StencilFunc type
+#include "OSGSysFields.h" // StencilValue type
 
 #include "OSGStencilChunkFields.h"
 

@@ -61,22 +61,15 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGFieldContainer.h" // Parent
 
 #include "OSGFieldContainerFields.h" // Globals type
 #include "OSGCSMDrawManagerFields.h" // DrawManager type
 #include "OSGSensorTaskFields.h" // SensorTask type
-#include "OSGUInt64Fields.h" // FrameCount type
-#include "OSGTimeFields.h" // StartTime type
-#include "OSGTimeFields.h" // LastTime type
-#include "OSGTimeFields.h" // CurrTime type
-#include "OSGTimeFields.h" // TimeStamp type
-#include "OSGTimeFields.h" // TimeScale type
-#include "OSGTimeFields.h" // ConstantTimeStep type
-#include "OSGBoolFields.h" // ConstantTime type
-#include "OSGBoolFields.h" // Paused type
+#include "OSGSysFields.h" // FrameCount type
+#include "OSGBaseFields.h" // StartTime type
 
 #include "OSGComplexSceneManagerFields.h"
 

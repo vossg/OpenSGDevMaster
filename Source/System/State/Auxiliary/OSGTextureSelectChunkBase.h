@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGTextureBaseChunk.h" // Parent
 
-#include "OSGUInt32Fields.h" // Choice type
+#include "OSGSysFields.h" // Choice type
 #include "OSGTextureBaseChunkFields.h" // Textures type
 
 #include "OSGTextureSelectChunkFields.h"

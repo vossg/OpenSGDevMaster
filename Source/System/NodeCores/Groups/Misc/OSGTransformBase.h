@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGMatrixrFields.h" // Matrix type
+#include "OSGMathFields.h" // Matrix type
 
 #include "OSGTransformFields.h"
 

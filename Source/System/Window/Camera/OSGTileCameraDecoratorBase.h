@@ -61,16 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCameraDecorator.h" // Parent
 
-#include "OSGReal32Fields.h" // Left type
-#include "OSGReal32Fields.h" // Right type
-#include "OSGReal32Fields.h" // Bottom type
-#include "OSGReal32Fields.h" // Top type
-#include "OSGUInt32Fields.h" // FullWidth type
-#include "OSGUInt32Fields.h" // FullHeight type
+#include "OSGSysFields.h" // Left type
 
 #include "OSGTileCameraDecoratorFields.h"
 

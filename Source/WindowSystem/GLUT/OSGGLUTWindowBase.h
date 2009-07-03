@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowGLUTDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGNativeWindow.h" // Parent
 
-#include "OSGInt32Fields.h" // GlutId type
+#include "OSGSysFields.h" // GlutId type
 
 #include "OSGGLUTWindowFields.h"
 

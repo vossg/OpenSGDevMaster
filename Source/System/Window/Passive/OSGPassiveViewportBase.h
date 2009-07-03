@@ -61,7 +61,7 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGViewport.h" // Parent
 

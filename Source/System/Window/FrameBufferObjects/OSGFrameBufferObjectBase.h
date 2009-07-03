@@ -61,18 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGGLenumFields.h" // GLId type
+#include "OSGBaseFields.h" // GLId type
 #include "OSGFrameBufferAttachmentFields.h" // ColorAttachments type
-#include "OSGGLenumFields.h" // DrawBuffers type
-#include "OSGFrameBufferAttachmentFields.h" // DepthAttachment type
-#include "OSGFrameBufferAttachmentFields.h" // StencilAttachment type
-#include "OSGUInt16Fields.h" // Width type
-#include "OSGUInt16Fields.h" // Height type
-#include "OSGBoolFields.h" // PostProcessOnDeactivate type
+#include "OSGSysFields.h" // Width type
 
 #include "OSGFrameBufferObjectFields.h"
 

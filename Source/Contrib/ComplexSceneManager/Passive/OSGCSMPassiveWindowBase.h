@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCSMWindow.h" // Parent
 
-#include "OSGVec2fFields.h" // ViewportScale type
+#include "OSGVecFields.h" // ViewportScale type
 
 #include "OSGCSMPassiveWindowFields.h"
 

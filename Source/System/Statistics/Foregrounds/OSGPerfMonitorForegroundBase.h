@@ -61,18 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGUtilDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGForeground.h" // Parent
 
-#include "OSGUInt32Fields.h" // Mode type
-#include "OSGReal32Fields.h" // MaxSize type
-#include "OSGColor4fFields.h" // Color type
-#include "OSGColor4fFields.h" // BgColor type
-#include "OSGStringFields.h" // Family type
-#include "OSGColor4fFields.h" // BorderColor type
-#include "OSGVec2fFields.h" // BorderOffset type
-#include "OSGVec2fFields.h" // TextMargin type
+#include "OSGSysFields.h" // Mode type
+#include "OSGBaseFields.h" // Color type
+#include "OSGVecFields.h" // BorderOffset type
 
 #include "OSGPerfMonitorForegroundFields.h"
 

@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGPerspectiveCamera.h" // Parent
 
-#include "OSGVec2fFields.h" // PrincipalPoint type
+#include "OSGVecFields.h" // PrincipalPoint type
 
 #include "OSGOffCenterPerspectiveCameraFields.h"
 

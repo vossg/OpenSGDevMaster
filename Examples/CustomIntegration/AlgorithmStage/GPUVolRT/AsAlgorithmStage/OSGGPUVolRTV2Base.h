@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGExGPUVolRTDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAlgorithm.h" // Parent
 
-#include "OSGReal32Fields.h" // Stepsize type
-#include "OSGBoolFields.h" // ToggleVisuals type
+#include "OSGSysFields.h" // Stepsize type
 
 #include "OSGGPUVolRTV2Fields.h"
 

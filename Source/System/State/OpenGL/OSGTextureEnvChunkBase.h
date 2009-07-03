@@ -61,38 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGGLenumFields.h" // EnvMode type
-#include "OSGColor4rFields.h" // EnvColor type
-#include "OSGGLenumFields.h" // EnvCombineRGB type
-#include "OSGGLenumFields.h" // EnvCombineAlpha type
-#include "OSGReal32Fields.h" // EnvScaleRGB type
-#include "OSGReal32Fields.h" // EnvScaleAlpha type
-#include "OSGGLenumFields.h" // EnvSource0RGB type
-#include "OSGGLenumFields.h" // EnvSource1RGB type
-#include "OSGGLenumFields.h" // EnvSource2RGB type
-#include "OSGGLenumFields.h" // EnvSource0Alpha type
-#include "OSGGLenumFields.h" // EnvSource1Alpha type
-#include "OSGGLenumFields.h" // EnvSource2Alpha type
-#include "OSGGLenumFields.h" // EnvOperand0RGB type
-#include "OSGGLenumFields.h" // EnvOperand1RGB type
-#include "OSGGLenumFields.h" // EnvOperand2RGB type
-#include "OSGGLenumFields.h" // EnvOperand0Alpha type
-#include "OSGGLenumFields.h" // EnvOperand1Alpha type
-#include "OSGGLenumFields.h" // EnvOperand2Alpha type
-#include "OSGBoolFields.h" // PointSprite type
-#include "OSGGLenumFields.h" // ShaderOperation type
-#include "OSGGLenumFields.h" // ShaderInput type
-#include "OSGReal32Fields.h" // ShaderOffsetMatrix type
-#include "OSGReal32Fields.h" // ShaderOffsetScale type
-#include "OSGReal32Fields.h" // ShaderOffsetBias type
-#include "OSGGLenumFields.h" // ShaderRGBADotProduct type
-#include "OSGUInt8Fields.h" // ShaderCullModes type
-#include "OSGVec3rFields.h" // ShaderConstEye type
-#include "OSGReal32Fields.h" // LodBias type
+#include "OSGBaseFields.h" // EnvMode type
+#include "OSGSysFields.h" // EnvScaleRGB type
+#include "OSGVecFields.h" // ShaderConstEye type
 
 #include "OSGTextureEnvChunkFields.h"
 

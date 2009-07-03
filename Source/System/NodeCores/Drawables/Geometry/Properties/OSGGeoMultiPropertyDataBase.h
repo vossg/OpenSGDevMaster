@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGUInt8Fields.h" // IData type
-#include "OSGUInt32Fields.h" // GLId type
+#include "OSGSysFields.h" // IData type
 
 #include "OSGGeoMultiPropertyDataFields.h"
 

@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGImage.h" // Parent
 
-#include "OSGStringFields.h" // Url type
+#include "OSGBaseFields.h" // Url type
 
 #include "OSGImageFileFields.h"
 

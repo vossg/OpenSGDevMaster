@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCameraDecorator.h" // Parent
 
-#include "OSGBoolFields.h" // LeftEye type
-#include "OSGReal32Fields.h" // EyeSeparation type
+#include "OSGSysFields.h" // LeftEye type
 
 #include "OSGStereoCameraDecoratorFields.h"
 

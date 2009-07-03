@@ -61,13 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachment.h" // Parent
 
 #include "OSGShaderValueVariableFields.h" // Variables type
 #include "OSGShaderProcVariableFields.h" // ProceduralVariables type
-#include "OSGUInt8Fields.h" // VariableChanged type
+#include "OSGSysFields.h" // VariableChanged type
 
 #include "OSGShaderProgramVariablesFields.h"
 

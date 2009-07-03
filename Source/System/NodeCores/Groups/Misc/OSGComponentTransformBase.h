@@ -61,15 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGTransform.h" // Parent
 
-#include "OSGVec3rFields.h" // Center type
-#include "OSGQuaternionrFields.h" // Rotation type
-#include "OSGVec3rFields.h" // Scale type
-#include "OSGQuaternionrFields.h" // ScaleOrientation type
-#include "OSGVec3rFields.h" // Translation type
+#include "OSGVecFields.h" // Center type
+#include "OSGMathFields.h" // Rotation type
 
 #include "OSGComponentTransformFields.h"
 

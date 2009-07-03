@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGStringFields.h" // Keys type
-#include "OSGStringFields.h" // Values type
+#include "OSGBaseFields.h" // Keys type
 
 #include "OSGStringAttributeMapFields.h"
 

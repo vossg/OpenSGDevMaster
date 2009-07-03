@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGLight.h" // Parent
 
-#include "OSGVec3rFields.h" // Direction type
+#include "OSGVecFields.h" // Direction type
 
 #include "OSGDirectionalLightFields.h"
 

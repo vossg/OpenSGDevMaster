@@ -61,21 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGGLenumFields.h" // CullFace type
-#include "OSGGLenumFields.h" // FrontFace type
-#include "OSGGLenumFields.h" // FrontMode type
-#include "OSGGLenumFields.h" // BackMode type
-#include "OSGBoolFields.h" // Smooth type
-#include "OSGReal32Fields.h" // OffsetFactor type
-#include "OSGReal32Fields.h" // OffsetBias type
-#include "OSGBoolFields.h" // OffsetPoint type
-#include "OSGBoolFields.h" // OffsetLine type
-#include "OSGBoolFields.h" // OffsetFill type
-#include "OSGInt32Fields.h" // Stipple type
+#include "OSGBaseFields.h" // CullFace type
+#include "OSGSysFields.h" // Smooth type
 
 #include "OSGPolygonChunkFields.h"
 

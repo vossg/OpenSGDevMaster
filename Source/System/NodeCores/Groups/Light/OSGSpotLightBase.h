@@ -61,13 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGPointLight.h" // Parent
 
-#include "OSGVec3rFields.h" // Direction type
-#include "OSGRealFields.h" // SpotExponent type
-#include "OSGRealFields.h" // SpotCutOff type
+#include "OSGVecFields.h" // Direction type
+#include "OSGSysFields.h" // SpotExponent type
 
 #include "OSGSpotLightFields.h"
 

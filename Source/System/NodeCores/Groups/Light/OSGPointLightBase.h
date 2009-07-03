@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGLight.h" // Parent
 
-#include "OSGPnt3rFields.h" // Position type
+#include "OSGVecFields.h" // Position type
 
 #include "OSGPointLightFields.h"
 

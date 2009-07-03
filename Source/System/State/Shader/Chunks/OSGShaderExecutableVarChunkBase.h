@@ -61,13 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
 #include "OSGShaderProgramVariableChunkFields.h" // ProgramVarChunks type
 #include "OSGShaderProgramVariablesFields.h" // Variables type
-#include "OSGInt32Fields.h" // VariableLocations type
+#include "OSGSysFields.h" // VariableLocations type
 
 #include "OSGShaderExecutableVarChunkFields.h"
 

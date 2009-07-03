@@ -61,13 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCamera.h" // Parent
 
-#include "OSGReal32Fields.h" // Fov type
-#include "OSGUInt32Fields.h" // FovMode type
-#include "OSGReal32Fields.h" // Aspect type
+#include "OSGSysFields.h" // Fov type
 
 #include "OSGPerspectiveCameraFields.h"
 

@@ -61,12 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGPrimeMaterial.h" // Parent
 
 #include "OSGStateChunkFields.h" // Chunks type
-#include "OSGInt32Fields.h" // Slots type
+#include "OSGSysFields.h" // Slots type
 
 #include "OSGChunkMaterialFields.h"
 

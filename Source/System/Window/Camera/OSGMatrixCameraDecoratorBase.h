@@ -61,16 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCameraDecorator.h" // Parent
 
-#include "OSGMatrixFields.h" // PreViewing type
-#include "OSGMatrixFields.h" // PostViewing type
-#include "OSGMatrixFields.h" // PreProjectionTranslation type
-#include "OSGMatrixFields.h" // PostProjectionTranslation type
-#include "OSGMatrixFields.h" // PreProjection type
-#include "OSGMatrixFields.h" // PostProjection type
+#include "OSGMathFields.h" // PreViewing type
 
 #include "OSGMatrixCameraDecoratorFields.h"
 

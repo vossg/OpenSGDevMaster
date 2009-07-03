@@ -61,13 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGCSMWindowFields.h" // Windows type
-#include "OSGStringFields.h" // DisplayString type
-#include "OSGUInt32Fields.h" // Aspect type
+#include "OSGBaseFields.h" // DisplayString type
+#include "OSGSysFields.h" // Aspect type
 
 #include "OSGCSMDrawerFields.h"
 

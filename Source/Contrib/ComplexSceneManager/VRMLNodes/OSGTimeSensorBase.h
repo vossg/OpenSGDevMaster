@@ -61,19 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGSensor.h" // Parent
 
-#include "OSGBoolFields.h" // Enabled type
-#include "OSGBoolFields.h" // IsActive type
-#include "OSGBoolFields.h" // Loop type
-#include "OSGReal32Fields.h" // Fraction type
-#include "OSGTimeFields.h" // StartTime type
-#include "OSGTimeFields.h" // StopTime type
-#include "OSGTimeFields.h" // CycleTime type
-#include "OSGTimeFields.h" // Time type
-#include "OSGTimeFields.h" // CycleInterval type
+#include "OSGSysFields.h" // Enabled type
+#include "OSGBaseFields.h" // StartTime type
 
 #include "OSGTimeSensorFields.h"
 

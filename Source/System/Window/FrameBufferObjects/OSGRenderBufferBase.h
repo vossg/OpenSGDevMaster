@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGFrameBufferAttachment.h" // Parent
 
-#include "OSGGLenumFields.h" // GLId type
-#include "OSGGLenumFields.h" // InternalFormat type
+#include "OSGBaseFields.h" // GLId type
 
 #include "OSGRenderBufferFields.h"
 

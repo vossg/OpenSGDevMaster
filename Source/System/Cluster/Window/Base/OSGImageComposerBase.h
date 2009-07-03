@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGClusterDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGBoolFields.h" // Enabled type
-#include "OSGBoolFields.h" // Statistics type
+#include "OSGSysFields.h" // Enabled type
 
 #include "OSGImageComposerFields.h"
 

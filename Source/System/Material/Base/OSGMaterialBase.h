@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGInt32Fields.h" // SortKey type
-#include "OSGInt32Fields.h" // TransparencyMode type
+#include "OSGSysFields.h" // SortKey type
 
 #include "OSGMaterialFields.h"
 

@@ -61,15 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGSimpleMaterial.h" // Parent
 
 #include "OSGImageFields.h" // Image type
-#include "OSGGLenumFields.h" // MinFilter type
-#include "OSGGLenumFields.h" // MagFilter type
-#include "OSGGLenumFields.h" // EnvMode type
-#include "OSGBoolFields.h" // EnvMap type
+#include "OSGBaseFields.h" // MinFilter type
+#include "OSGSysFields.h" // EnvMap type
 
 #include "OSGSimpleTexturedMaterialFields.h"
 

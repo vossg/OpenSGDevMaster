@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGShaderProgram.h" // Parent
 
-#include "OSGStringFields.h" // ProgramUrl type
+#include "OSGBaseFields.h" // ProgramUrl type
 
 #include "OSGShaderProgramFileFields.h"
 

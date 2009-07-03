@@ -61,14 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGEffectGroupsDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStageData.h" // Parent
 
 #include "OSGFrameBufferObjectFields.h" // RenderTarget type
 #include "OSGTextureObjChunkFields.h" // Textures type
-#include "OSGUInt32Fields.h" // TextureRes type
-#include "OSGGLenumFields.h" // TextureFormat type
+#include "OSGSysFields.h" // TextureRes type
+#include "OSGBaseFields.h" // TextureFormat type
 #include "OSGCameraFields.h" // Camera type
 
 #include "OSGFishEyeProjectorDataFields.h"

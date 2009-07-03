@@ -61,14 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGWindowXDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGWindow.h" // Parent
 
 #include "OSGXWindowDataFields.h" // Display type
-#include "OSGXWindowDataFields.h" // Window type
-#include "OSGXWindowDataFields.h" // Context type
-#include "OSGInt32Fields.h" // FbConfigId type
+#include "OSGSysFields.h" // FbConfigId type
 
 #include "OSGXWindowFields.h"
 

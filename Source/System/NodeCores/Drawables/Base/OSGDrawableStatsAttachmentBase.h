@@ -61,17 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStatsAttachment.h" // Parent
 
-#include "OSGUInt32Fields.h" // Vertices type
-#include "OSGUInt32Fields.h" // Points type
-#include "OSGUInt32Fields.h" // Lines type
-#include "OSGUInt32Fields.h" // Triangles type
-#include "OSGUInt32Fields.h" // ProcessedAttributeBytes type
-#include "OSGUInt32Fields.h" // StoredAttributeBytes type
-#include "OSGBoolFields.h" // Valid type
+#include "OSGSysFields.h" // Vertices type
 
 #include "OSGDrawableStatsAttachmentFields.h"
 

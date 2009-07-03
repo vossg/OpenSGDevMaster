@@ -61,15 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGNodeFields.h" // SceneRef type
-#include "OSGReal32Fields.h" // DistScale type
-#include "OSGVec3fFields.h" // SceneDiag type
-#include "OSGPnt3fFields.h" // InitViewPos type
-#include "OSGPnt3fFields.h" // SceneCenter type
+#include "OSGSysFields.h" // DistScale type
+#include "OSGVecFields.h" // SceneDiag type
 
 #include "OSGCSMSceneParameterFields.h"
 

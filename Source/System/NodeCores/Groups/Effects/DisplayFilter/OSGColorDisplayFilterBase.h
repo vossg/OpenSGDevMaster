@@ -61,16 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGEffectGroupsDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGDisplayFilter.h" // Parent
 
-#include "OSGReal32Fields.h" // Gamma type
-#include "OSGMatrixFields.h" // Matrix type
-#include "OSGUInt32Fields.h" // ColorTableWidth type
-#include "OSGUInt32Fields.h" // ColorTableHeight type
-#include "OSGUInt32Fields.h" // ColorTableDepth type
-#include "OSGColor3fFields.h" // ColorTable type
+#include "OSGSysFields.h" // Gamma type
+#include "OSGMathFields.h" // Matrix type
+#include "OSGBaseFields.h" // ColorTable type
 #include "OSGImageFields.h" // TableImage type
 #include "OSGSimpleSHLChunkFields.h" // FilterShader type
 

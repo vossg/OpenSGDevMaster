@@ -61,23 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGUInt16Fields.h" // Width type
-#include "OSGUInt16Fields.h" // Height type
+#include "OSGSysFields.h" // Width type
 #include "OSGViewportFields.h" // Port type
-#include "OSGBoolFields.h" // ResizePending type
-#include "OSGUInt32Fields.h" // GlObjectEventCounter type
-#include "OSGUInt32Fields.h" // GlObjectLastRefresh type
-#include "OSGUInt32Fields.h" // GlObjectLastReinitialize type
-#include "OSGInt32Fields.h" // DrawerId type
-#include "OSGInt32Fields.h" // RequestMajor type
-#include "OSGInt32Fields.h" // RequestMinor type
-#include "OSGInt32Fields.h" // ContextFlags type
 #include "OSGRenderOptionsFields.h" // RenderOptions type
-#include "OSGUInt32Fields.h" // PartitionDrawMode type
 
 #include "OSGWindowFields.h"
 

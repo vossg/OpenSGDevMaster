@@ -61,12 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGroup.h" // Parent
 
 #include "OSGFrameBufferObjectFields.h" // RenderTarget type
-#include "OSGBoolFields.h" // InheritedTarget type
+#include "OSGSysFields.h" // InheritedTarget type
 
 #include "OSGStageFields.h"
 

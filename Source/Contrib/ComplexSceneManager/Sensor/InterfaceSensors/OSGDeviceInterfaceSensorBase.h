@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGSensor.h" // Parent
 
-#include "OSGStringFields.h" // InterfaceName type
+#include "OSGBaseFields.h" // InterfaceName type
 #include "OSGInterfaceOptionsFields.h" // Options type
 
 #include "OSGDeviceInterfaceSensorFields.h"

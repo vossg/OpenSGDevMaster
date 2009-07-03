@@ -61,7 +61,7 @@
 #include "OSGConfig.h"
 #include "OSGWindowQT4Def.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGNativeWindow.h" // Parent
 

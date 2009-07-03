@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGEffectGroupsDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStageData.h" // Parent
 
-#include "OSGUInt32Fields.h" // Width type
-#include "OSGUInt32Fields.h" // Height type
+#include "OSGSysFields.h" // Width type
 #include "OSGFrameBufferObjectFields.h" // Target type
 #include "OSGChunkMaterialFields.h" // BaseMaterial type
 #include "OSGSimpleSHLChunkFields.h" // ColorFilterShader type

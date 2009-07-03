@@ -61,7 +61,7 @@
 #include "OSGConfig.h"
 #include "OSGClusterDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGImageComposer.h" // Parent
 

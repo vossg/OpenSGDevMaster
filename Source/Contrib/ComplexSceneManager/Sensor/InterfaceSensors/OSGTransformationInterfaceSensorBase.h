@@ -61,15 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGDeviceInterfaceSensor.h" // Parent
 
-#include "OSGMatrixFields.h" // Transformation type
-#include "OSGVec3fFields.h" // Translation type
-#include "OSGQuaternionFields.h" // Rotation type
-#include "OSGReal32Fields.h" // RotationScale type
-#include "OSGReal32Fields.h" // TranslationScale type
+#include "OSGMathFields.h" // Transformation type
+#include "OSGVecFields.h" // Translation type
+#include "OSGSysFields.h" // RotationScale type
 
 #include "OSGTransformationInterfaceSensorFields.h"
 

@@ -61,14 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGInterfaceOptions.h" // Parent
 
-#include "OSGStringFields.h" // Device type
-#include "OSGVec3fFields.h" // TRange type
-#include "OSGVec3fFields.h" // RRange type
-#include "OSGUInt32Fields.h" // BufferSize type
+#include "OSGBaseFields.h" // Device type
+#include "OSGVecFields.h" // TRange type
+#include "OSGSysFields.h" // BufferSize type
 
 #include "OSGLinuxEventOptionsFields.h"
 

@@ -61,12 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGFieldContainer.h" // Parent
 
 #include "OSGDeviceInterfaceSensorFields.h" // Parent type
-#include "OSGUInt32Fields.h" // NapTime type
+#include "OSGSysFields.h" // NapTime type
 
 #include "OSGInterfaceOptionsFields.h"
 

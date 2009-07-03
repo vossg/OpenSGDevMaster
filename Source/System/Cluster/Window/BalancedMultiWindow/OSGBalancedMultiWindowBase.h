@@ -61,15 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGClusterDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGMultiDisplayWindow.h" // Parent
 
-#include "OSGBoolFields.h" // Balance type
-#include "OSGBoolFields.h" // BestCut type
-#include "OSGBoolFields.h" // ShowBalancing type
-#include "OSGUInt32Fields.h" // TileSize type
-#include "OSGBoolFields.h" // Short type
+#include "OSGSysFields.h" // Balance type
 
 #include "OSGBalancedMultiWindowFields.h"
 

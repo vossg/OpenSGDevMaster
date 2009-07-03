@@ -61,36 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGTextureBaseChunk.h" // Parent
 
 #include "OSGImageFields.h" // Image type
-#include "OSGGLenumFields.h" // InternalFormat type
-#include "OSGGLenumFields.h" // ExternalFormat type
-#include "OSGBoolFields.h" // Scale type
-#include "OSGUInt32Fields.h" // Frame type
-#include "OSGGLenumFields.h" // MinFilter type
-#include "OSGGLenumFields.h" // MagFilter type
-#include "OSGGLenumFields.h" // WrapS type
-#include "OSGGLenumFields.h" // WrapT type
-#include "OSGGLenumFields.h" // WrapR type
-#include "OSGGLenumFields.h" // GLId type
-#include "OSGReal32Fields.h" // Priority type
-#include "OSGInt32Fields.h" // DirtyLeft type
-#include "OSGInt32Fields.h" // DirtyMinX type
-#include "OSGInt32Fields.h" // DirtyMaxX type
-#include "OSGInt32Fields.h" // DirtyMinY type
-#include "OSGInt32Fields.h" // DirtyMaxY type
-#include "OSGInt32Fields.h" // DirtyMinZ type
-#include "OSGInt32Fields.h" // DirtyMaxZ type
-#include "OSGReal32Fields.h" // Anisotropy type
-#include "OSGColor4fFields.h" // BorderColor type
-#include "OSGGLenumFields.h" // CompareMode type
-#include "OSGGLenumFields.h" // CompareFunc type
-#include "OSGGLenumFields.h" // DepthMode type
-#include "OSGUInt32Fields.h" // BorderWidth type
-#include "OSGReal32Fields.h" // SkipMipMapLevels type
+#include "OSGBaseFields.h" // InternalFormat type
+#include "OSGSysFields.h" // Scale type
 
 #include "OSGTextureObjChunkFields.h"
 

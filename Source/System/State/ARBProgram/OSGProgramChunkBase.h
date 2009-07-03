@@ -61,14 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGStringFields.h" // Program type
-#include "OSGVec4fFields.h" // ParamValues type
-#include "OSGStringFields.h" // ParamNames type
-#include "OSGUInt32Fields.h" // GLId type
+#include "OSGBaseFields.h" // Program type
+#include "OSGVecFields.h" // ParamValues type
+#include "OSGSysFields.h" // GLId type
 
 #include "OSGProgramChunkFields.h"
 

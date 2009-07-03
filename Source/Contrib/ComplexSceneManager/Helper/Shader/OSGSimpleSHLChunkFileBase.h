@@ -61,13 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGSimpleSHLChunk.h" // Parent
 
-#include "OSGStringFields.h" // VertexProgramUrl type
-#include "OSGStringFields.h" // GeometryProgramUrl type
-#include "OSGStringFields.h" // FragmentProgramUrl type
+#include "OSGBaseFields.h" // VertexProgramUrl type
 
 #include "OSGSimpleSHLChunkFileFields.h"
 

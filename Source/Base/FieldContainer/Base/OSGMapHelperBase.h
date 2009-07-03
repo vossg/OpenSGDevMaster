@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGBaseDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGFieldContainer.h" // Parent
 
-#include "OSGStringFields.h" // Keys type
+#include "OSGBaseFields.h" // Keys type
 #include "OSGFieldContainerFields.h" // Container type
 
 #include "OSGMapHelperFields.h"

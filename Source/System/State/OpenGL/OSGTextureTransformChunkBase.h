@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGTransformChunk.h" // Parent
 
-#include "OSGBoolFields.h" // UseCameraBeacon type
+#include "OSGSysFields.h" // UseCameraBeacon type
 
 #include "OSGTextureTransformChunkFields.h"
 

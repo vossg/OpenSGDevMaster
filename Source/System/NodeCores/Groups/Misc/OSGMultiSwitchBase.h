@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGUInt32Fields.h" // Choices type
-#include "OSGInt32Fields.h" // SwitchMode type
+#include "OSGSysFields.h" // Choices type
 
 #include "OSGMultiSwitchFields.h"
 

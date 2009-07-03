@@ -61,24 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGMaterialGroup.h" // Parent
 
 #include "OSGImageFields.h" // HeightTiles type
 #include "OSGMaterialFields.h" // HeightTextures type
-#include "OSGUInt32Fields.h" // SizeX type
-#include "OSGUInt32Fields.h" // SizeY type
-#include "OSGReal32Fields.h" // HeightScale type
-#include "OSGReal32Fields.h" // VertexSpacing type
-#include "OSGBoolFields.h" // GeoMorphing type
-#include "OSGReal32Fields.h" // Detail type
-#include "OSGInt32Fields.h" // CurrentX type
-#include "OSGInt32Fields.h" // CurrentY type
-#include "OSGInt32Fields.h" // SizeROI type
-#include "OSGBoolFields.h" // Update type
-#include "OSGBoolFields.h" // UpdateTerrain type
-#include "OSGBoolFields.h" // PerPixelLighting type
+#include "OSGSysFields.h" // SizeX type
 
 #include "OSGTiledQuadTreeTerrainFields.h"
 

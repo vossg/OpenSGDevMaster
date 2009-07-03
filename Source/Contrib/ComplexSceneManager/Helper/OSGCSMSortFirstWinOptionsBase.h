@@ -61,14 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCSMClusterWinOptions.h" // Parent
 
-#include "OSGStringFields.h" // Compression type
-#include "OSGUInt32Fields.h" // SubtileSize type
-#include "OSGBoolFields.h" // Compose type
-#include "OSGBoolFields.h" // UseFaceDistribution type
+#include "OSGBaseFields.h" // Compression type
+#include "OSGSysFields.h" // SubtileSize type
 
 #include "OSGCSMSortFirstWinOptionsFields.h"
 

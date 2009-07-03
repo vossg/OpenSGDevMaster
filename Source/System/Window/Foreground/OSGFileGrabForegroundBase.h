@@ -61,13 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGrabForeground.h" // Parent
 
-#include "OSGStringFields.h" // Name type
-#include "OSGUInt32Fields.h" // Frame type
-#include "OSGBoolFields.h" // Increment type
+#include "OSGBaseFields.h" // Name type
+#include "OSGSysFields.h" // Frame type
 
 #include "OSGFileGrabForegroundFields.h"
 

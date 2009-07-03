@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGShaderValueVariable.h" // Parent
 
-#include "OSGBoolFields.h" // Value type
+#include "OSGSysFields.h" // Value type
 
 #include "OSGShaderVariableBoolFields.h"
 

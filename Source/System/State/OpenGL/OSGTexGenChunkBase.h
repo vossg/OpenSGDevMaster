@@ -61,24 +61,15 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGGLenumFields.h" // GenFuncS type
-#include "OSGGLenumFields.h" // GenFuncT type
-#include "OSGGLenumFields.h" // GenFuncR type
-#include "OSGGLenumFields.h" // GenFuncQ type
-#include "OSGVec4fFields.h" // GenFuncSPlane type
-#include "OSGVec4fFields.h" // GenFuncTPlane type
-#include "OSGVec4fFields.h" // GenFuncRPlane type
-#include "OSGVec4fFields.h" // GenFuncQPlane type
+#include "OSGBaseFields.h" // GenFuncS type
+#include "OSGVecFields.h" // GenFuncSPlane type
 #include "OSGNodeFields.h" // SBeacon type
-#include "OSGNodeFields.h" // TBeacon type
-#include "OSGNodeFields.h" // RBeacon type
-#include "OSGNodeFields.h" // QBeacon type
-#include "OSGMatrixFields.h" // EyeModelViewMatrix type
-#include "OSGUInt32Fields.h" // EyeModelViewMode type
+#include "OSGMathFields.h" // EyeModelViewMatrix type
+#include "OSGSysFields.h" // EyeModelViewMode type
 
 #include "OSGTexGenChunkFields.h"
 

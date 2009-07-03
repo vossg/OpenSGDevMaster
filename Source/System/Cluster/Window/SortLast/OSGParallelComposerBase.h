@@ -61,13 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGClusterDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGImageComposer.h" // Parent
 
-#include "OSGBoolFields.h" // Short type
-#include "OSGBoolFields.h" // Alpha type
-#include "OSGStringFields.h" // PcLibPath type
+#include "OSGSysFields.h" // Short type
+#include "OSGBaseFields.h" // PcLibPath type
 
 #include "OSGParallelComposerFields.h"
 

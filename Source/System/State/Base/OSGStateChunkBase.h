@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGBoolFields.h" // Ignore type
+#include "OSGSysFields.h" // Ignore type
 
 #include "OSGStateChunkFields.h"
 

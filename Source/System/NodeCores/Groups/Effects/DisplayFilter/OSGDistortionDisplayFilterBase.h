@@ -61,13 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGEffectGroupsDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGDisplayFilter.h" // Parent
 
-#include "OSGUInt32Fields.h" // Rows type
-#include "OSGUInt32Fields.h" // Columns type
-#include "OSGVec2fFields.h" // Positions type
+#include "OSGSysFields.h" // Rows type
+#include "OSGVecFields.h" // Positions type
 
 #include "OSGDistortionDisplayFilterFields.h"
 

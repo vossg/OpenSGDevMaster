@@ -61,30 +61,15 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGBackground.h" // Parent
 
-#include "OSGColor4fFields.h" // SkyColor type
-#include "OSGReal32Fields.h" // SkyAngle type
-#include "OSGColor4fFields.h" // GroundColor type
-#include "OSGReal32Fields.h" // GroundAngle type
-#include "OSGUInt32Fields.h" // SphereRes type
+#include "OSGBaseFields.h" // SkyColor type
+#include "OSGSysFields.h" // SkyAngle type
 #include "OSGTextureBaseChunkFields.h" // BackTexture type
-#include "OSGTextureBaseChunkFields.h" // BottomTexture type
-#include "OSGTextureBaseChunkFields.h" // FrontTexture type
-#include "OSGTextureBaseChunkFields.h" // LeftTexture type
-#include "OSGTextureBaseChunkFields.h" // RightTexture type
-#include "OSGTextureBaseChunkFields.h" // TopTexture type
-#include "OSGBoolFields.h" // BoxInside type
-#include "OSGVec3fFields.h" // TopTexCoord type
-#include "OSGVec3fFields.h" // BottomTexCoord type
-#include "OSGVec3fFields.h" // RightTexCoord type
-#include "OSGVec3fFields.h" // LeftTexCoord type
-#include "OSGVec3fFields.h" // FrontTexCoord type
-#include "OSGVec3fFields.h" // BackTexCoord type
+#include "OSGVecFields.h" // TopTexCoord type
 #include "OSGNodeFields.h" // Beacon type
-#include "OSGBoolFields.h" // UseVRMLCubeTextureSemantics type
 
 #include "OSGSkyBackgroundFields.h"
 

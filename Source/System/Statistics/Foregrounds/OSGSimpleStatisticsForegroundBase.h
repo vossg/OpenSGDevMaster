@@ -61,22 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGUtilDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStatisticsForeground.h" // Parent
 
-#include "OSGStringFields.h" // Formats type
-#include "OSGReal32Fields.h" // Size type
-#include "OSGColor4fFields.h" // Color type
-#include "OSGColor4fFields.h" // ShadowColor type
-#include "OSGColor4fFields.h" // BgColor type
-#include "OSGStringFields.h" // Family type
-#include "OSGVec2fFields.h" // ShadowOffset type
-#include "OSGUInt8Fields.h" // HorizontalAlign type
-#include "OSGUInt8Fields.h" // VerticalAlign type
-#include "OSGColor4fFields.h" // BorderColor type
-#include "OSGVec2fFields.h" // BorderOffset type
-#include "OSGVec2fFields.h" // TextMargin type
+#include "OSGBaseFields.h" // Formats type
+#include "OSGSysFields.h" // Size type
+#include "OSGVecFields.h" // ShadowOffset type
 
 #include "OSGSimpleStatisticsForegroundFields.h"
 

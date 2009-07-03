@@ -61,16 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStage.h" // Parent
 
-#include "OSGReal32Fields.h" // Exposure type
-#include "OSGReal32Fields.h" // BlurWidth type
-#include "OSGReal32Fields.h" // BlurAmount type
-#include "OSGReal32Fields.h" // EffectAmount type
-#include "OSGReal32Fields.h" // Gamma type
-#include "OSGGLenumFields.h" // BufferFormat type
+#include "OSGSysFields.h" // Exposure type
+#include "OSGBaseFields.h" // BufferFormat type
 
 #include "OSGHDRStageFields.h"
 

@@ -61,14 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBoolFields.h" // MaskR type
-#include "OSGBoolFields.h" // MaskG type
-#include "OSGBoolFields.h" // MaskB type
-#include "OSGBoolFields.h" // MaskA type
+#include "OSGSysFields.h" // MaskR type
 
 #include "OSGColorMaskChunkFields.h"
 

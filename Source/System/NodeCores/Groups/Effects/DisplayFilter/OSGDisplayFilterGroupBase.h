@@ -61,15 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGEffectGroupsDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGResolutionDisplayFilterFields.h" // ResolutionFilter type
 #include "OSGColorDisplayFilterFields.h" // ColorFilter type
 #include "OSGDistortionDisplayFilterFields.h" // DistortionFilter type
-#include "OSGInt32Fields.h" // DrawerId type
-#include "OSGInt32Fields.h" // DrawableId type
+#include "OSGSysFields.h" // DrawerId type
 
 #include "OSGDisplayFilterGroupFields.h"
 

@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGForeground.h" // Parent
 
-#include "OSGInt32Fields.h" // ElementIDs type
+#include "OSGSysFields.h" // ElementIDs type
 #include "OSGStatCollectorPFields.h" // Collector type
 
 #include "OSGStatisticsForegroundFields.h"

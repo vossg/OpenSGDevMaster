@@ -61,18 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGGLenumFields.h" // SrcFactor type
-#include "OSGGLenumFields.h" // DestFactor type
-#include "OSGGLenumFields.h" // Equation type
-#include "OSGColor4fFields.h" // Color type
-#include "OSGGLenumFields.h" // AlphaFunc type
-#include "OSGReal32Fields.h" // AlphaValue type
-#include "OSGGLenumFields.h" // AlphaSrcFactor type
-#include "OSGGLenumFields.h" // AlphaDestFactor type
+#include "OSGBaseFields.h" // SrcFactor type
+#include "OSGSysFields.h" // AlphaValue type
 
 #include "OSGBlendChunkFields.h"
 

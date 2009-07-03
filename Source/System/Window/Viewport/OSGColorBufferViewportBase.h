@@ -61,14 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGViewport.h" // Parent
 
-#include "OSGBoolFields.h" // Red type
-#include "OSGBoolFields.h" // Blue type
-#include "OSGBoolFields.h" // Green type
-#include "OSGBoolFields.h" // Alpha type
+#include "OSGSysFields.h" // Red type
 
 #include "OSGColorBufferViewportFields.h"
 

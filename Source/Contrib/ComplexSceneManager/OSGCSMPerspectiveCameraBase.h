@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGPerspectiveCamera.h" // Parent
 
-#include "OSGReal32Fields.h" // EyeSeparation type
-#include "OSGReal32Fields.h" // ZeroParallax type
+#include "OSGSysFields.h" // EyeSeparation type
 #include "OSGNodeFields.h" // HeadBeacon type
 
 #include "OSGCSMPerspectiveCameraFields.h"

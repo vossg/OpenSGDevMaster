@@ -61,12 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGBackground.h" // Parent
 
-#include "OSGColor3rFields.h" // Color type
-#include "OSGReal32Fields.h" // Alpha type
+#include "OSGBaseFields.h" // Color type
+#include "OSGSysFields.h" // Alpha type
 
 #include "OSGSolidBackgroundFields.h"
 

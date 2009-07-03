@@ -61,13 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGNodeCore.h" // Parent
 
 #include "OSGOSGAnyFields.h" // IncTrigger type
-#include "OSGOSGAnyFields.h" // DecTrigger type
-#include "OSGOSGAnyFields.h" // ResetTrigger type
 
 #include "OSGCounterFields.h"
 

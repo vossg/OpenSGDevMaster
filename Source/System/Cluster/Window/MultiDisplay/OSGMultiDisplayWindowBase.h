@@ -61,15 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGClusterDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGClusterWindow.h" // Parent
 
-#include "OSGUInt32Fields.h" // HServers type
-#include "OSGUInt32Fields.h" // VServers type
-#include "OSGBoolFields.h" // ManageClientViewports type
-#include "OSGInt32Fields.h" // XOverlap type
-#include "OSGInt32Fields.h" // YOverlap type
+#include "OSGSysFields.h" // HServers type
 
 #include "OSGMultiDisplayWindowFields.h"
 

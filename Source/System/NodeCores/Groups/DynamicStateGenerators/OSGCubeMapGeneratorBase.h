@@ -61,20 +61,15 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGDynamicStateGenerator.h" // Parent
 
 #include "OSGNodeFields.h" // Root type
-#include "OSGNodeFields.h" // Exclude type
 #include "OSGTextureObjChunkFields.h" // Texture type
-#include "OSGVec2sFields.h" // TextureSize type
-#include "OSGGLenumFields.h" // TextureFormat type
-#include "OSGNodeFields.h" // Beacon type
-#include "OSGPnt3fFields.h" // Origin type
-#include "OSGUInt32Fields.h" // OriginMode type
-#include "OSGUInt32Fields.h" // TexUnit type
-#include "OSGUInt32Fields.h" // SetupMode type
+#include "OSGVecFields.h" // TextureSize type
+#include "OSGBaseFields.h" // TextureFormat type
+#include "OSGSysFields.h" // OriginMode type
 #include "OSGBackgroundFields.h" // Background type
 #include "OSGCameraFields.h" // Camera type
 

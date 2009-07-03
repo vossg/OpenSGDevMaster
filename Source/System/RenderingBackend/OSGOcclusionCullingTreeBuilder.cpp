@@ -46,7 +46,7 @@
 #include "OSGGL.h"
 #include "OSGGLU.h"
 #include "OSGGLEXT.h"
-#include "OSGGLenumFields.h"
+#include "OSGBaseFields.h"
 #include "OSGRenderTreeNodePool.h"
 #include "OSGOcclusionCullingTreeBuilder.h"
 #include "OSGBaseFunctions.h"

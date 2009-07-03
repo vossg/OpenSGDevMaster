@@ -61,13 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGFieldContainer.h" // Parent
 
-#include "OSGInt32Fields.h" // PartitionRangeBegin type
-#include "OSGInt32Fields.h" // PartitionRangeEnd type
-#include "OSGInt32Fields.h" // GroupMode type
+#include "OSGSysFields.h" // PartitionRangeBegin type
 
 #include "OSGStageDataFields.h"
 

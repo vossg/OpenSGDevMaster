@@ -61,15 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBoolFields.h" // Enable type
-#include "OSGGLenumFields.h" // Func type
-#include "OSGReal32Fields.h" // Near type
-#include "OSGReal32Fields.h" // Far type
-#include "OSGBoolFields.h" // ReadOnly type
+#include "OSGSysFields.h" // Enable type
+#include "OSGBaseFields.h" // Func type
 
 #include "OSGDepthChunkFields.h"
 

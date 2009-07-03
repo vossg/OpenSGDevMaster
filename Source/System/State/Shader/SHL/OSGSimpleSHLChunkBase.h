@@ -61,19 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGShaderProgramChunk.h" // Parent
 
-#include "OSGStringFields.h" // VertexProgram type
-#include "OSGStringFields.h" // GeometryProgram type
-#include "OSGStringFields.h" // FragmentProgram type
-#include "OSGBoolFields.h" // CgFrontEnd type
+#include "OSGBaseFields.h" // VertexProgram type
+#include "OSGSysFields.h" // CgFrontEnd type
 #include "OSGShaderProgramVariablesFields.h" // Variables type
-#include "OSGInt32Fields.h" // VariableLocations type
-#include "OSGInt32Fields.h" // ProceduralVariableLocations type
-#include "OSGUInt32Fields.h" // GLId type
-#include "OSGBoolFields.h" // PointSize type
 
 #include "OSGSimpleSHLChunkFields.h"
 

@@ -61,15 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGStringFields.h" // Key type
-#include "OSGBoolFields.h" // StateRaw type
-#include "OSGBoolFields.h" // StateFlipFlop type
+#include "OSGBaseFields.h" // Key type
+#include "OSGSysFields.h" // StateRaw type
 #include "OSGOSGAnyFields.h" // SignalPressed type
-#include "OSGOSGAnyFields.h" // SignalReleased type
 
 #include "OSGKeySensorFields.h"
 

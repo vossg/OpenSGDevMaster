@@ -61,15 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGVec3fFields.h" // AxisOfRotation type
-#include "OSGBoolFields.h" // FocusOnCamera type
-#include "OSGBoolFields.h" // AlignToScreen type
-#include "OSGReal32Fields.h" // MinAngle type
-#include "OSGReal32Fields.h" // MaxAngle type
+#include "OSGVecFields.h" // AxisOfRotation type
+#include "OSGSysFields.h" // FocusOnCamera type
 
 #include "OSGBillboardFields.h"
 

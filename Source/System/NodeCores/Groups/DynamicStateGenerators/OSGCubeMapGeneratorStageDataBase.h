@@ -61,7 +61,7 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGDynamicStateGeneratorStageData.h" // Parent
 

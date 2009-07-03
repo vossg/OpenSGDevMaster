@@ -61,7 +61,7 @@
 #include "OSGConfig.h"
 #include "OSGContribGUIDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGManipulator.h" // Parent
 

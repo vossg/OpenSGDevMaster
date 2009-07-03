@@ -61,20 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGColor4rFields.h" // Diffuse type
-#include "OSGColor4rFields.h" // Ambient type
-#include "OSGColor4rFields.h" // Specular type
-#include "OSGVec4rFields.h" // Position type
-#include "OSGVec3rFields.h" // Direction type
-#include "OSGRealFields.h" // Exponent type
-#include "OSGRealFields.h" // Cutoff type
-#include "OSGRealFields.h" // ConstantAttenuation type
-#include "OSGRealFields.h" // LinearAttenuation type
-#include "OSGRealFields.h" // QuadraticAttenuation type
+#include "OSGBaseFields.h" // Diffuse type
+#include "OSGVecFields.h" // Position type
+#include "OSGSysFields.h" // Exponent type
 #include "OSGNodeFields.h" // Beacon type
 
 #include "OSGLightChunkFields.h"

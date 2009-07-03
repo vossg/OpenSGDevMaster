@@ -61,13 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGPnt3fFields.h" // Center type
-#include "OSGReal32Fields.h" // SwitchIn type
-#include "OSGReal32Fields.h" // SwitchOut type
+#include "OSGVecFields.h" // Center type
+#include "OSGSysFields.h" // SwitchIn type
 
 #include "OSGRangeLODFields.h"
 

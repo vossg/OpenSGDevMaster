@@ -61,19 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGForeground.h" // Parent
 
 #include "OSGPrimeMaterialFields.h" // Material type
-#include "OSGPnt2fFields.h" // Positions type
-#include "OSGVec3fFields.h" // TexCoords type
-#include "OSGBoolFields.h" // NormalizedX type
-#include "OSGBoolFields.h" // NormalizedY type
-#include "OSGUInt16Fields.h" // AspectHeight type
-#include "OSGUInt16Fields.h" // AspectWidth type
-#include "OSGReal32Fields.h" // Scale type
-#include "OSGBoolFields.h" // Tile type
+#include "OSGVecFields.h" // Positions type
+#include "OSGSysFields.h" // NormalizedX type
 
 #include "OSGPolygonForegroundFields.h"
 

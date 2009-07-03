@@ -61,17 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGFieldContainer.h" // Parent
 
-#include "OSGGLenumFields.h" // ShaderType type
-#include "OSGStringFields.h" // Program type
-#include "OSGUInt32Fields.h" // GLId type
+#include "OSGBaseFields.h" // ShaderType type
+#include "OSGSysFields.h" // GLId type
 #include "OSGShaderProgramVariablesFields.h" // Variables type
 #include "OSGShaderParameterFields.h" // Parameter type
-#include "OSGBoolFields.h" // CgFrontEnd type
-#include "OSGBoolFields.h" // PointSize type
 #include "OSGFieldContainerFields.h" // Parents type
 #include "OSGChangedFunctorCallbackFields.h" // DestroyedFunctors type
 

@@ -61,13 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCamera.h" // Parent
 
-#include "OSGReal32Fields.h" // VerticalSize type
-#include "OSGReal32Fields.h" // HorizontalSize type
-#include "OSGReal32Fields.h" // Aspect type
+#include "OSGSysFields.h" // VerticalSize type
 
 #include "OSGOrthographicCameraFields.h"
 

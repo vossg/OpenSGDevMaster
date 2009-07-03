@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGBackground.h" // Parent
 
-#include "OSGBoolFields.h" // Tile type
+#include "OSGSysFields.h" // Tile type
 
 #include "OSGTileableBackgroundFields.h"
 

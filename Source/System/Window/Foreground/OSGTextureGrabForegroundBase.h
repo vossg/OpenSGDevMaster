@@ -61,14 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGForeground.h" // Parent
 
 #include "OSGTextureObjChunkFields.h" // Texture type
-#include "OSGBoolFields.h" // AutoResize type
-#include "OSGGLenumFields.h" // BindTarget type
-#include "OSGGLenumFields.h" // CopyTarget type
+#include "OSGSysFields.h" // AutoResize type
+#include "OSGBaseFields.h" // BindTarget type
 
 #include "OSGTextureGrabForegroundFields.h"
 

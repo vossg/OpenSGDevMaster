@@ -61,14 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGInt32Fields.h" // ClearStencilBit type
-#include "OSGReal32Fields.h" // Depth type
-#include "OSGBoolFields.h" // ClearDepth type
-#include "OSGBoolFields.h" // ClearColor type
+#include "OSGSysFields.h" // ClearStencilBit type
 
 #include "OSGBackgroundFields.h"
 

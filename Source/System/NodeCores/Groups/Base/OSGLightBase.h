@@ -61,21 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGColor4rFields.h" // Ambient type
-#include "OSGColor4rFields.h" // Diffuse type
-#include "OSGColor4rFields.h" // Specular type
+#include "OSGBaseFields.h" // Ambient type
 #include "OSGNodeFields.h" // Beacon type
-#include "OSGBoolFields.h" // On type
-#include "OSGRealFields.h" // ConstantAttenuation type
-#include "OSGRealFields.h" // LinearAttenuation type
-#include "OSGRealFields.h" // QuadraticAttenuation type
+#include "OSGSysFields.h" // On type
 #include "OSGLightEngineFields.h" // LightEngine type
-#include "OSGReal32Fields.h" // ShadowIntensity type
-#include "OSGUInt32Fields.h" // ShadowMode type
 
 #include "OSGLightFields.h"
 

@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGContribVTKDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGroup.h" // Parent
 
 #include "OSGNodeFields.h" // Root type
-#include "OSGNodeFields.h" // GeoRoots type
 #include "OSGGeometryFields.h" // Geometries type
 #include "OSGChunkMaterialFields.h" // Materials type
 #include "OSGMaterialChunkFields.h" // MaterialChunks type

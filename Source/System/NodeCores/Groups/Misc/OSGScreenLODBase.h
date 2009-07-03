@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGReal32Fields.h" // CoverageOverride type
+#include "OSGSysFields.h" // CoverageOverride type
 
 #include "OSGScreenLODFields.h"
 

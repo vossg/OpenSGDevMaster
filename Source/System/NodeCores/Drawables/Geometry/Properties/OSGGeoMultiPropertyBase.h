@@ -61,17 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGeoVectorProperty.h" // Parent
 
 #include "OSGGeoMultiPropertyDataFields.h" // Container type
-#include "OSGUInt32Fields.h" // Offset type
-#include "OSGGLenumFields.h" // IFormat type
-#include "OSGUInt32Fields.h" // IDimension type
-#include "OSGUInt32Fields.h" // ISize type
-#include "OSGBoolFields.h" // INormalize type
-#include "OSGUInt32Fields.h" // IStride type
+#include "OSGSysFields.h" // Offset type
+#include "OSGBaseFields.h" // IFormat type
 
 #include "OSGGeoMultiPropertyFields.h"
 

@@ -61,17 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStereoCameraDecorator.h" // Parent
 
 #include "OSGNodeFields.h" // User type
-#include "OSGPnt3fFields.h" // Surface type
-#include "OSGPlaneFields.h" // Left type
-#include "OSGPlaneFields.h" // Bottom type
-#include "OSGPlaneFields.h" // Normal type
-#include "OSGReal32Fields.h" // Width type
-#include "OSGReal32Fields.h" // Height type
+#include "OSGVecFields.h" // Surface type
+#include "OSGBaseFields.h" // Left type
+#include "OSGSysFields.h" // Width type
 
 #include "OSGProjectionCameraDecoratorFields.h"
 

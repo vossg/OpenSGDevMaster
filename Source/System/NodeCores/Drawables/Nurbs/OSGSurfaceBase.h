@@ -61,26 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGGeometry.h" // Parent
 
-#include "OSGUInt32Fields.h" // DimU type
-#include "OSGUInt32Fields.h" // DimV type
-#include "OSGRealFields.h" // KnotsU type
-#include "OSGRealFields.h" // KnotsV type
+#include "OSGSysFields.h" // DimU type
 #include "OSGGeoVectorPropertyFields.h" // ControlPoints type
-#include "OSGRealFields.h" // Error type
-#include "OSGUInt32Fields.h" // NumCurves type
-#include "OSGUInt32Fields.h" // KnotLengths type
-#include "OSGUInt32Fields.h" // Dimensions type
-#include "OSGPnt3rFields.h" // CurveControlPoints type
-#include "OSGRealFields.h" // Knots type
-#include "OSGUInt32Fields.h" // CurvesPerLoop type
-#include "OSGBoolFields.h" // IsDelaunay type
-#include "OSGGeoVectorPropertyFields.h" // TextureControlPoints type
-#include "OSGUInt32Fields.h" // DirtyMask type
-#include "OSGInt32Fields.h" // SurfaceGLId type
+#include "OSGVecFields.h" // CurveControlPoints type
 
 #include "OSGSurfaceFields.h"
 

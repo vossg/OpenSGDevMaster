@@ -61,12 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGCompositeMaterial.h" // Parent
 
 #include "OSGMaterialFields.h" // Materials type
-#include "OSGUInt32Fields.h" // Choice type
+#include "OSGSysFields.h" // Choice type
 
 #include "OSGSwitchMaterialFields.h"
 

@@ -61,16 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGLightEngine.h" // Parent
 
 #include "OSGFrameBufferObjectFields.h" // RenderTarget type
-#include "OSGInt32Fields.h" // Width type
-#include "OSGInt32Fields.h" // Height type
-#include "OSGColor4fFields.h" // ShadowColor type
-#include "OSGReal32Fields.h" // OffsetBias type
-#include "OSGReal32Fields.h" // OffsetFactor type
+#include "OSGSysFields.h" // Width type
+#include "OSGBaseFields.h" // ShadowColor type
 
 #include "OSGShadowMapEngineFields.h"
 

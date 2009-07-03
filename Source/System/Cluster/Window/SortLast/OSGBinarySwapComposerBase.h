@@ -61,13 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGClusterDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGImageComposer.h" // Parent
 
-#include "OSGBoolFields.h" // Short type
-#include "OSGBoolFields.h" // Alpha type
-#include "OSGUInt32Fields.h" // TileSize type
+#include "OSGSysFields.h" // Short type
 
 #include "OSGBinarySwapComposerFields.h"
 

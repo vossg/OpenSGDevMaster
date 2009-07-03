@@ -61,23 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGMaterialDrawable.h" // Parent
 
-#include "OSGUInt32Fields.h" // Mode type
+#include "OSGSysFields.h" // Mode type
 #include "OSGGeoVectorPropertyFields.h" // Positions type
-#include "OSGVec3fFields.h" // Sizes type
-#include "OSGGeoVectorPropertyFields.h" // SecPositions type
-#include "OSGGeoVectorPropertyFields.h" // Colors type
-#include "OSGGeoVectorPropertyFields.h" // Normals type
-#include "OSGInt32Fields.h" // Indices type
-#include "OSGReal32Fields.h" // TextureZs type
-#include "OSGUInt32Fields.h" // DrawOrder type
-#include "OSGBoolFields.h" // Dynamic type
-#include "OSGUInt32Fields.h" // Pump type
+#include "OSGVecFields.h" // Sizes type
 #include "OSGParticleBSP.h" // Bsp type
-#include "OSGInt32Fields.h" // NumParticles type
 
 #include "OSGParticlesFields.h"
 

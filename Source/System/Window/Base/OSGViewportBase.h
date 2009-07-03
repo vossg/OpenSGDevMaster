@@ -61,22 +61,16 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGReal32Fields.h" // Left type
-#include "OSGReal32Fields.h" // Right type
-#include "OSGReal32Fields.h" // Bottom type
-#include "OSGReal32Fields.h" // Top type
+#include "OSGSysFields.h" // Left type
 #include "OSGFieldContainerFields.h" // Parent type
 #include "OSGCameraFields.h" // Camera type
 #include "OSGNodeFields.h" // Root type
 #include "OSGBackgroundFields.h" // Background type
 #include "OSGForegroundFields.h" // Foregrounds type
-#include "OSGUInt32Fields.h" // TravMask type
-#include "OSGReal32Fields.h" // DrawTime type
-#include "OSGInt32Fields.h" // DrawableId type
 #include "OSGRenderOptionsFields.h" // RenderOptions type
 
 #include "OSGViewportFields.h"

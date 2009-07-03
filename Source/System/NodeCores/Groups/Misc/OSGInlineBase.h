@@ -61,12 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGNodeCore.h" // Parent
 
-#include "OSGStringFields.h" // Url type
-#include "OSGBoolFields.h" // Loaded type
+#include "OSGBaseFields.h" // Url type
+#include "OSGSysFields.h" // Loaded type
 #include "OSGNodeFields.h" // Root type
 
 #include "OSGInlineFields.h"

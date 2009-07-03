@@ -61,12 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGViewport.h" // Parent
 
-#include "OSGBoolFields.h" // LeftBuffer type
-#include "OSGBoolFields.h" // RightBuffer type
+#include "OSGSysFields.h" // LeftBuffer type
 
 #include "OSGStereoBufferViewportFields.h"
 

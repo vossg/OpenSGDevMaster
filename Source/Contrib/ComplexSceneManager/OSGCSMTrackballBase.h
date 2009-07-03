@@ -61,18 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGContribCSMDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGUInt32Fields.h" // ModifierMask type
-#include "OSGUInt32Fields.h" // Processing type
-#include "OSGReal32Fields.h" // TranslationScaleFactor type
-#include "OSGMatrixFields.h" // MatrixResult type
-#include "OSGPnt3fFields.h" // ReferencePosition type
-#include "OSGMatrixFields.h" // ReferenceMatrix type
-#include "OSGPnt3fFields.h" // TransformCenter type
-#include "OSGVec3fFields.h" // WorldDiag type
+#include "OSGSysFields.h" // ModifierMask type
+#include "OSGMathFields.h" // MatrixResult type
+#include "OSGVecFields.h" // ReferencePosition type
 #include "OSGMouseDataFields.h" // MouseData type
 
 #include "OSGCSMTrackballFields.h"

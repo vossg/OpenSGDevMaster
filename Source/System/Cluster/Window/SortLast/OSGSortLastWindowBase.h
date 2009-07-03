@@ -61,13 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGClusterDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGClusterWindow.h" // Parent
 
 #include "OSGNodeFields.h" // GroupNodes type
-#include "OSGUInt32Fields.h" // GroupLengths type
-#include "OSGBoolFields.h" // GroupsChanged type
+#include "OSGSysFields.h" // GroupLengths type
 
 #include "OSGSortLastWindowFields.h"
 

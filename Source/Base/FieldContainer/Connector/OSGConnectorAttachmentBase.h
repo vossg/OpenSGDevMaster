@@ -61,7 +61,7 @@
 #include "OSGConfig.h"
 #include "OSGBaseDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachment.h" // Parent
 
