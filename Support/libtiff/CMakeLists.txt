@@ -79,7 +79,6 @@ IF(OSGTiffLibSrcDir AND OSGZLibSrcDir AND OSGJpegLibSrcDir)
 
     TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} osgzlib)
     TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} libosgjpg)
-    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} oldnames)
 
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                 CONFIGURATIONS Release Debug

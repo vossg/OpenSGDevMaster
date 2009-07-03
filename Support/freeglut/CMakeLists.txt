@@ -45,7 +45,6 @@ IF(OSGFreeGlutSrcDir)
                           DEBUG_POSTFIX "D")
 
     TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} ${OPENGL_gl_LIBRARY})
-    TARGET_LINK_LIBRARIES(${${PROJECT_NAME}SharedTarget} Advapi32.lib)
 
     INSTALL(TARGETS ${${PROJECT_NAME}SharedTarget}
                 CONFIGURATIONS Release Debug

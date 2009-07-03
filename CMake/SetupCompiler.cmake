@@ -115,7 +115,7 @@ IF(MSVC)
     SET(OSG_C_STANDARD_LIBRARIES "${CMAKE_C_STANDARD_LIBRARIES} winmm.lib wsock32.lib oldnames.lib")
 
     SET(OSG_CLEAR_STD_LIBS winspool.lib shell32.lib ole32.lib oleaut32.lib
-                           uuid.lib comdlg32.lib advapi32.lib msvcprt.lib msvcrt.lib)
+                           uuid.lib comdlg32.lib msvcprt.lib msvcrt.lib)
 
     FOREACH(STD_LIB ${OSG_CLEAR_STD_LIBS})
         STRING(REPLACE ${STD_LIB} "" OSG_CXX_STANDARD_LIBRARIES ${OSG_CXX_STANDARD_LIBRARIES})
