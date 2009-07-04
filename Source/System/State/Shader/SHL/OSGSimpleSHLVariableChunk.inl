@@ -114,7 +114,7 @@ template<class ValueT>
 bool SimpleSHLVariableChunk::getUniformVariable(const Char8  *name, 
                                                       ValueT &value)
 {
-    if(_sfVariables.getValue() == NULL)
+    if(_sfVariables.getValue() != NULL)
     {
         return _sfVariables.getValue()->getUniformVariable(name, value);
     }

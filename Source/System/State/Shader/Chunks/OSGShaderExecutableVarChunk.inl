@@ -52,53 +52,6 @@ UInt32 ShaderExecutableVarChunk::getStaticClassId(void)
     return getStaticClass()->getId();
 }
 
-#if 0
-template<class ValueT> inline
-bool SHLVariableChunk::addUniformVariable(const Char8  *name, 
-                                          const ValueT &value)
-{
-    if(_sfVariables.getValue() == NULL)
-    {
-        ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
-
-        setVariables(pParam);
-    }
-
-    return _sfVariables.getValue()->addUniformVariable(
-        name, 
-        value,
-        editMFVariableLocations(),
-        NULL                     );
-}
-
-template<class ValueT> inline
-bool SHLVariableChunk::updateUniformVariable(const Char8  *name, 
-                                             const ValueT &value)
-{
-    if(_sfVariables.getValue() == NULL)
-    {
-        ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::create();
-
-        setVariables(pParam);
-    }
-
-    return _sfVariables.getValue()->updateUniformVariable(name, value);
-}
-
-template<class ValueT>
-bool SHLVariableChunk::getUniformVariable(const Char8 *name, ValueT &value)
-{
-    if(_sfVariables.getValue() == NULL)
-    {
-        return _sfVariables.getValue()->getUniformVariable(name, value);
-    }
-
-    return false;
-}
-#endif
-
 inline
 const ShaderExecutableVarChunk::MFProgramVarChunksType *
     ShaderExecutableVarChunk::getMFProgramVarChunks(void)
