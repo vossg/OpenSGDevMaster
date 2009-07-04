@@ -36,8 +36,9 @@ IF(OSGFreeGlutSrcDir)
                        ${OSGFreeGlutSrcDir}/include/GL/freeglut_std.h
                        ${OSGFreeGlutSrcDir}/include/GL/freeglut_ext.h)
 
+  INCLUDE_DIRECTORIES(${OSGFreeGlutSrcDir}/include)
+
   IF(BUILD_SHARED_LIBS)
-    INCLUDE_DIRECTORIES(${OSGFreeGlutSrcDir}/include)
     ADD_LIBRARY(${${PROJECT_NAME}SharedTarget} SHARED ${OSG_FREEGLUT_SRCS})
 
     SET_TARGET_PROPERTIES(${${PROJECT_NAME}SharedTarget} PROPERTIES

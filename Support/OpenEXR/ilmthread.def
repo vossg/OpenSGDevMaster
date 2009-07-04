@@ -1,0 +1,17 @@
+EXPORTS ??0Mutex@IlmThread@@QAE@XZ
+        ?lock@Mutex@IlmThread@@ABEXXZ
+        ?unlock@Mutex@IlmThread@@ABEXXZ
+        ?setNumThreads@ThreadPool@IlmThread@@QAEXH@Z
+        ?globalThreadPool@ThreadPool@IlmThread@@SAAAV12@XZ
+        ?globalThreadPool@ThreadPool@IlmThread@@SAAAV12@XZ
+        ?numThreads@ThreadPool@IlmThread@@QBEHXZ
+        ??0TaskGroup@IlmThread@@QAE@XZ
+        ?addGlobalTask@ThreadPool@IlmThread@@SAXPAVTask@2@@Z
+        ??1TaskGroup@IlmThread@@QAE@XZ
+        ?post@Semaphore@IlmThread@@QAEXXZ
+        ?wait@Semaphore@IlmThread@@QAEXXZ
+        ??0Task@IlmThread@@QAE@PAVTaskGroup@1@@Z
+        ??1Task@IlmThread@@UAE@XZ
+        ??1Semaphore@IlmThread@@UAE@XZ
+        ??0Semaphore@IlmThread@@QAE@I@Z
+        ??1Mutex@IlmThread@@UAE@XZ

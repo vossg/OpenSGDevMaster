@@ -10,6 +10,14 @@ ENDIF(NOT WIN32)
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} 
                       "${OpenSGSupport_SOURCE_DIR}/../CMake")
 
+##############################################
+# Initial cache to make life easier on Windows
+##############################################
+
+IF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+  INCLUDE(${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+ENDIF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+
 ##########################
 # Disallow in-source build
 ##########################
@@ -57,16 +65,26 @@ IF(NOT OSG_COMPILER_DEFAULTS)
 ENDIF(NOT OSG_COMPILER_DEFAULTS)
 
 INCLUDE(../CMake/UpdateCompiler.cmake)
+INCLUDE(../CMake/BuildFunctions.cmake)
+INCLUDE(../CMake/ConfigurePackages.cmake)
 
 SET(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "" FORCE)
 
 FIND_PACKAGE(OpenGL)
+
+OSG_CONFIGURE_BOOST()
 
 ADD_SUBDIRECTORY(zlib)
 ADD_SUBDIRECTORY(libpng)
 ADD_SUBDIRECTORY(libjpeg)
 ADD_SUBDIRECTORY(freeglut)
 ADD_SUBDIRECTORY(libtiff)
+ADD_SUBDIRECTORY(pcre)
+ADD_SUBDIRECTORY(libiconv)
+ADD_SUBDIRECTORY(libxml2)
+ADD_SUBDIRECTORY(collada)
+ADD_SUBDIRECTORY(OpenEXR)
+
 SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" 
                               CACHE STRING "OpenSGSupport Build Types" FORCE )
 
