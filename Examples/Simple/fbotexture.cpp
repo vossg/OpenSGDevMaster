@@ -135,6 +135,15 @@ OSG::NodeTransitPtr buildStage(int argc, char *argv[])
     fbo->setHeight(fboHeight);
     
     /*
+        enable post processing for the FBO, this generates mip maps for the
+        texture if a mip map filter is active (the default for minFilter is
+        GL_LINEAR_MIPMAP_LINEAR).
+        Alternatively, one could set the texture filter to one that does not
+        require mip maps, e.g. call fboTex->setMinFilter(GL_LINEAR);
+    */
+    fbo->setPostProcessOnDeactivate(true);
+
+    /*
         Next we set up a Stage, which renders the subtree below it to its
         render target (the FBO from above).
     */
