@@ -16,17 +16,17 @@ http://nchc.dl.sourceforge.net/sourceforge/boost/boost-jam-3.1.17-1-ntx86.zip
 
 build 
 
-  a) dll + static lib + dll runtime + opt + dbg + 32 bit
+  a) dll + static lib + dll runtime + opt + dbg + 32 bit + vc9
 
-..\bjam.exe -d+2 --stagedir=./stage32 toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 stage
+..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 stage
 
-  b) dll + static lib + dll runtime + opt + dbg + 32 bit + no ms secure c****
+  b) dll + static lib + dll runtime + opt + dbg + 32 bit + vc9 + no ms secure c****
 
-..\bjam.exe -d+2 --stagedir=./stage32 toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
+..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=32 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
 
-  c) dll + static lib + dll runtime + opt + dbg + 64 bit
+  c) dll + static lib + dll runtime + opt + dbg + 64 bit + vc9
 
-  d) dll + static lib + dll runtime + opt + dbg + 64 bit + no ms secure c****
+  d) dll + static lib + dll runtime + opt + dbg + 64 bit + vc9 + no ms secure c****
 
 
  1b) Rest
