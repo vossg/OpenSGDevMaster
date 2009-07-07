@@ -3,7 +3,7 @@ MESSAGE(STATUS "Update Compiler Settings")
 
 IF(CMAKE_COMPILER_IS_GNUCC)
 
-    IF(LINUX)
+    IF(LINUX OR APPLE)
         IF(OSG_ENABLE_SSE2)
 
             MESSAGE(STATUS "Apply sse2 settings")
@@ -56,7 +56,7 @@ IF(CMAKE_COMPILER_IS_GNUCC)
             
 
         ENDIF(OSG_ENABLE_SSE2)
-    ENDIF(LINUX)
+    ENDIF(LINUX OR APPLE)
 
 ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
