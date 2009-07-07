@@ -15,13 +15,8 @@ OSG_SELECT_PROJECT()
 # dependencies - OpenSG
 SET(${PROJECT_NAME}_DEP_OSG_LIB OSGBase
                                 OSGSystem
-                                OSGWindow)
-
-IF(WIN32)
-    LIST(APPEND ${PROJECT_NAME}_DEP_OSG_LIB OSGWindowWIN32)
-ELSE(WIN32)
-    LIST(APPEND ${PROJECT_NAME}_DEP_OSG_LIB OSGWindowX)
-ENDIF(WIN32)
+                                OSGWindow
+                                ${OSG_NATIVE_WINDOW})
 
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
                                      OSGFileIO
