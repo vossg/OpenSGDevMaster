@@ -59,7 +59,7 @@ bool SimpleSHLChunk::setUniformParameter(const Char8 *name, const ValueT &value)
     if(_sfVariables.getValue() == NULL)
     {
         ShaderProgramVariablesUnrecPtr pParam = 
-            ShaderProgramVariables::createDepdent(
+            ShaderProgramVariables::createDependent(
                 this->getFieldFlags()->_bNamespaceMask);
 
         setVariables(pParam);

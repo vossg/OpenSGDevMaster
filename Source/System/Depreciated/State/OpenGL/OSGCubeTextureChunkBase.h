@@ -61,15 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGTextureChunk.h" // Parent
 
 #include "OSGImageFields.h" // PosZImage type
-#include "OSGImageFields.h" // PosXImage type
-#include "OSGImageFields.h" // NegXImage type
-#include "OSGImageFields.h" // PosYImage type
-#include "OSGImageFields.h" // NegYImage type
 
 #include "OSGCubeTextureChunkFields.h"
 
