@@ -95,18 +95,22 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     {
         WidthFieldId = Inherited::NextFieldId,
         HeightFieldId = WidthFieldId + 1,
-        NextFieldId = HeightFieldId + 1
+        ReadBackFieldId = HeightFieldId + 1,
+        NextFieldId = ReadBackFieldId + 1
     };
 
     static const OSG::BitVector WidthFieldMask =
         (TypeTraits<BitVector>::One << WidthFieldId);
     static const OSG::BitVector HeightFieldMask =
         (TypeTraits<BitVector>::One << HeightFieldId);
+    static const OSG::BitVector ReadBackFieldMask =
+        (TypeTraits<BitVector>::One << ReadBackFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFUInt16          SFWidthType;
     typedef SFUInt16          SFHeightType;
+    typedef SFBool            SFReadBackType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -125,6 +129,31 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFBool              *editSFReadBack       (void);
+            const SFBool              *getSFReadBack        (void) const;
+
+
+                  bool                &editReadBack       (void);
+                  bool                 getReadBack        (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setReadBack       (const bool value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -154,6 +183,7 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
 
     SFUInt16          _sfWidth;
     SFUInt16          _sfHeight;
+    SFBool            _sfReadBack;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -185,6 +215,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachmentBase : public AttachmentContain
     EditFieldHandlePtr editHandleWidth          (void);
     GetFieldHandlePtr  getHandleHeight          (void) const;
     EditFieldHandlePtr editHandleHeight         (void);
+    GetFieldHandlePtr  getHandleReadBack        (void) const;
+    EditFieldHandlePtr editHandleReadBack       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

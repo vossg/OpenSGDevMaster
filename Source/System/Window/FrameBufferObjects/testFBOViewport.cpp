@@ -72,7 +72,9 @@ OSG::GLUTWindowUnrecPtr gwin;
 OSG::TextureObjChunkUnrecPtr tx1o;
 OSG::TextureEnvChunkUnrecPtr tx1e;
 OSG::FBOViewportUnrecPtr     vpFBO;
+OSG::FBOViewportUnrecPtr     vpFBO_RB;
 OSG::TextureBufferUnrecPtr   pTexBuffer;
+OSG::RenderBufferUnrecPtr    pRenBuffer;
 OSG::ImageUnrecPtr           pImg;
 
 OSG::Trackball tball;
@@ -87,6 +89,9 @@ OSG::Vec3f      oldv;
 
 OSG::UInt32 oldTravMask;
 bool dumpImg = false;
+
+OSG::UInt32 oldTravMask_RB;
+bool dumpImg_RB = false;
 
 void display(void)
 {
@@ -140,6 +145,18 @@ void display(void)
         pImg->write("/tmp/test.png");
 
         dumpImg = false;
+    }
+
+    if(dumpImg_RB == true)
+    {
+        vpFBO_RB->setTravMask(oldTravMask_RB);
+
+        pRenBuffer                      ->setReadBack               (false);
+        vpFBO_RB->getFrameBufferObject()->setPostProcessOnDeactivate(false);
+
+        pRenBuffer->getImage()->write("/tmp/test1.png");
+
+        dumpImg_RB = false;
     }
 
 
@@ -253,7 +270,9 @@ void key(unsigned char key, int x, int y)
             tx1e        = NULL;
 
             vpFBO       = NULL;
+            vpFBO_RB    = NULL;
             pTexBuffer  = NULL;
+            pRenBuffer  = NULL;
             pImg        = NULL;
 
             delete rentravact;
@@ -276,6 +295,21 @@ void key(unsigned char key, int x, int y)
 
             pTexBuffer                   ->setReadBack               (true);
             vpFBO->getFrameBufferObject()->setPostProcessOnDeactivate(true);
+
+            break;
+
+        case 'r':
+            oldTravMask_RB = vpFBO_RB->getTravMask();
+
+            if(oldTravMask_RB == 0x0000)
+            {
+                vpFBO_RB->setTravMask(~vpFBO_RB->getTravMask());
+            }
+
+            dumpImg_RB = true;
+
+            pRenBuffer                      ->setReadBack               (true);
+            vpFBO_RB->getFrameBufferObject()->setPostProcessOnDeactivate(true);
 
             break;
         case 'v':
@@ -318,16 +352,6 @@ void key(unsigned char key, int x, int y)
             }
             break;
         }
-        case 'r':   
-        {
-            std::cerr << "Sending ray through " << x << "," << y << std::endl;
-            OSG::Line l;
-            cam->calcViewRay( l, x, y, *vp );
-            std::cerr << "From " << l.getPosition() << ", dir " 
-                      << l.getDirection()
-                      << std::endl;
-        }
-        break;
 
         case ' ':
         {
@@ -636,6 +660,48 @@ int init(int argc, char **argv)
 
     vpFBO->setFrameBufferObject(pFBO);
 
+
+    //RenderBuffer Readback
+    // Background
+    OSG::SolidBackgroundUnrecPtr bkgndFBO_RB = OSG::SolidBackground::create();
+
+    bkgndFBO_RB->setColor(OSG::Color3f(0.5,1.0,0.5));
+    
+    // Viewport
+
+    vpFBO_RB = OSG::FBOViewport::create();
+
+    vpFBO_RB->setCamera    (cam        );
+    vpFBO_RB->setBackground(bkgndFBO_RB);
+    vpFBO_RB->setRoot      (root       );
+    vpFBO_RB->setSize      (0, 0, 1, 1 );
+
+    OSG::FrameBufferObjectUnrecPtr pFBO_RB = OSG::FrameBufferObject::create();
+
+                               pRenBuffer      = OSG::RenderBuffer::create();
+    OSG::RenderBufferUnrecPtr  pDepthBuffer_RB = OSG::RenderBuffer::create();
+
+    pDepthBuffer_RB->setInternalFormat(GL_DEPTH_COMPONENT24   );
+    pRenBuffer->setInternalFormat(GL_RGBA);
+
+    OSG::ImageUnrecPtr pImg_RB = OSG::Image::create();
+
+    pImg_RB->set(OSG::Image::OSG_RGB_PF, 128, 128);
+
+    pRenBuffer->setImage(pImg_RB);
+
+    pFBO_RB->setSize(128, 128);
+    
+    pFBO_RB->setColorAttachment(pRenBuffer,     0);
+    pFBO_RB->setDepthAttachment(pDepthBuffer_RB  );
+
+    pFBO_RB->editMFDrawBuffers()->clear();
+    pFBO_RB->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
+
+
+    vpFBO_RB->setFrameBufferObject(pFBO_RB);
+    vpFBO_RB->setTravMask(~vpFBO_RB->getTravMask());
+
     // Window
     std::cout << "GLUT winid: " << winid << std::endl;
 
@@ -650,8 +716,9 @@ int init(int argc, char **argv)
 
     win = gwin;
 
-    win->addPort(vpFBO);
-    win->addPort(vp   );
+    win->addPort(vpFBO_RB);
+    win->addPort(vpFBO   );
+    win->addPort(vp      );
 
     win->init();
 

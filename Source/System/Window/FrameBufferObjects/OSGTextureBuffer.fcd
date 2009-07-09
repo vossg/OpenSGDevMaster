@@ -1,68 +1,56 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-        name="TextureBuffer"
-        parent="FrameBufferAttachment"
-        library="System"
-        pointerfieldtypes="both"
-        structure="concrete"
-        systemcomponent="true"
-        parentsystemcomponent="true"
-        decoratable="false"
->
-Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.
-
-See FramebufferTexture1/2/3DEXT.
-        <Field
-                name="texture"
-                type="TextureObjChunkPtr"
-                cardinality="single"
-                visibility="external"
-                access="public"
-        >
-        The texture object to target.
-        </Field>
-        <Field
-                name="texTarget"
-                type="GLenum"
-                cardinality="single"
-                visibility="external"
-                access="public"
-                defaultValue="GL_NONE"
-        >
-        If specified, this is the target value for FramebufferTextureXDEXT.
-        If GL_NONE, automatically determined.
-        </Field>
-        <Field
-                name="level"
-                type="UInt32"
-                cardinality="single"
-                visibility="external"
-                access="public"
-                defaultValue="0"
-        >
-        The mipmap level in the texture to target.
-        </Field>
-        <Field
-                name="zoffset"
-                type="UInt32"
-                cardinality="single"
-                visibility="external"
-                access="public"
-                defaultValue="0"
-        >
-        UNUSED.
-        </Field>
-
-        <Field
-                name="readBack"
-                type="bool"
-                cardinality="single"
-                visibility="external"
-                access="public"
-                defaultValue="false"
-        >
-        read back the render result into the texture image obj on 
-        framebuffer object deactivate
-        </Field>
+   name="TextureBuffer"
+   parent="FrameBufferAttachment"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   >
+  Texture buffer.  Wraps support to binding a framebuffer attachment to an OpenSG texture object.
+  
+  See FramebufferTexture1/2/3DEXT.
+  <Field
+     name="texture"
+     type="TextureObjChunkPtr"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     >
+    The texture object to target.
+  </Field>
+  <Field
+     name="texTarget"
+     type="GLenum"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="GL_NONE"
+     >
+    If specified, this is the target value for FramebufferTextureXDEXT.
+    If GL_NONE, automatically determined.
+  </Field>
+  <Field
+     name="level"
+     type="UInt32"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="0"
+     >
+    The mipmap level in the texture to target.
+  </Field>
+  <Field
+     name="zoffset"
+     type="UInt32"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="0"
+     >
+    UNUSED.
+  </Field>
 </FieldContainer>

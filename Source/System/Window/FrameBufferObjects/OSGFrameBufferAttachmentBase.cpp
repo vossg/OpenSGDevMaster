@@ -90,6 +90,11 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            FrameBufferAttachmentBase::_sfReadBack
+    read back the render result into the texture image obj on 
+    framebuffer object deactivate
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -141,6 +146,19 @@ void FrameBufferAttachmentBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&FrameBufferAttachment::getHandleHeight));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "readBack",
+        "read back the render result into the texture image obj on \n"
+        "framebuffer object deactivate\n",
+        ReadBackFieldId, ReadBackFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&FrameBufferAttachment::editHandleReadBack),
+        static_cast<FieldGetMethodSig >(&FrameBufferAttachment::getHandleReadBack));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -184,6 +202,17 @@ FrameBufferAttachmentBase::TypeObject FrameBufferAttachmentBase::_type(
     "\t\taccess=\"protected\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "       name=\"readBack\"\n"
+    "       type=\"bool\"\n"
+    "       cardinality=\"single\"\n"
+    "       visibility=\"external\"\n"
+    "       access=\"public\"\n"
+    "       defaultValue=\"false\"\n"
+    "       >\n"
+    "      read back the render result into the texture image obj on \n"
+    "      framebuffer object deactivate\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "FramebufferAttachment base class.\n"
     );
@@ -234,6 +263,19 @@ const SFUInt16 *FrameBufferAttachmentBase::getSFHeight(void) const
 }
 
 
+SFBool *FrameBufferAttachmentBase::editSFReadBack(void)
+{
+    editSField(ReadBackFieldMask);
+
+    return &_sfReadBack;
+}
+
+const SFBool *FrameBufferAttachmentBase::getSFReadBack(void) const
+{
+    return &_sfReadBack;
+}
+
+
 
 
 
@@ -252,6 +294,10 @@ UInt32 FrameBufferAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfHeight.getBinSize();
     }
+    if(FieldBits::NoField != (ReadBackFieldMask & whichField))
+    {
+        returnValue += _sfReadBack.getBinSize();
+    }
 
     return returnValue;
 }
@@ -269,6 +315,10 @@ void FrameBufferAttachmentBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfHeight.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ReadBackFieldMask & whichField))
+    {
+        _sfReadBack.copyToBin(pMem);
+    }
 }
 
 void FrameBufferAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
@@ -284,6 +334,10 @@ void FrameBufferAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfHeight.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (ReadBackFieldMask & whichField))
+    {
+        _sfReadBack.copyFromBin(pMem);
+    }
 }
 
 
@@ -294,14 +348,16 @@ void FrameBufferAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 FrameBufferAttachmentBase::FrameBufferAttachmentBase(void) :
     Inherited(),
     _sfWidth                  (),
-    _sfHeight                 ()
+    _sfHeight                 (),
+    _sfReadBack               (bool(false))
 {
 }
 
 FrameBufferAttachmentBase::FrameBufferAttachmentBase(const FrameBufferAttachmentBase &source) :
     Inherited(source),
     _sfWidth                  (source._sfWidth                  ),
-    _sfHeight                 (source._sfHeight                 )
+    _sfHeight                 (source._sfHeight                 ),
+    _sfReadBack               (source._sfReadBack               )
 {
 }
 
@@ -359,6 +415,31 @@ EditFieldHandlePtr FrameBufferAttachmentBase::editHandleHeight         (void)
 
 
     editSField(HeightFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr FrameBufferAttachmentBase::getHandleReadBack        (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfReadBack,
+             this->getType().getFieldDesc(ReadBackFieldId),
+             const_cast<FrameBufferAttachmentBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr FrameBufferAttachmentBase::editHandleReadBack       (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfReadBack,
+             this->getType().getFieldDesc(ReadBackFieldId),
+             this));
+
+
+    editSField(ReadBackFieldMask);
 
     return returnValue;
 }

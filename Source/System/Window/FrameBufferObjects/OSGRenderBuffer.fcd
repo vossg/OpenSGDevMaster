@@ -1,37 +1,46 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-        name="RenderBuffer"
-        parent="FrameBufferAttachment"
-        library="System"
-        pointerfieldtypes="both"
-        structure="concrete"
-        systemcomponent="true"
-        parentsystemcomponent="true"
-        decoratable="false"
->
-Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT
-A renderbuffer is a data storage object containing a single image of a renderable internal format.
-
-\see TextureBuffer
-        <Field
-                name="GLId"
-                type="GLenum"
-                cardinality="single"
-                visibility="internal"
-                access="public"
-                defaultValue="0"
-        fieldFlags="FClusterLocal"
-        >
-        The OpenGL texture id for this buffer object.
-        </Field>
-        <Field
-                name="internalFormat"
-                type="GLenum"
-                cardinality="single"
-                visibility="external"
-                access="public"
-                defaultValue="GL_NONE"
-        >
-        </Field>
+   name="RenderBuffer"
+   parent="FrameBufferAttachment"
+   library="System"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   >
+  Render buffer.  Wraps OpenGL render buffer objects.  RENDERBUFFER_EXT
+  A renderbuffer is a data storage object containing a single image of a renderable internal format.
+  
+  \see TextureBuffer
+  <Field
+     name="GLId"
+     type="GLenum"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     defaultValue="0"
+     fieldFlags="FClusterLocal"
+     >
+    The OpenGL texture id for this buffer object.
+  </Field>
+  <Field
+     name="internalFormat"
+     type="GLenum"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="GL_NONE"
+     >
+  </Field>
+  <Field
+     name="image"
+     type="ImagePtr"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     >
+    Image object used if readback is enabled.
+  </Field>
 </FieldContainer>

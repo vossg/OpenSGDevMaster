@@ -90,6 +90,14 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferAttachment :
     virtual void validate(DrawEnv *pEnv                  ) = 0;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
+    virtual void processPreDeactivate (DrawEnv *pEnv, UInt32 index) = 0;
+    virtual void processPostDeactivate(DrawEnv *pEnv              ) = 0;
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:

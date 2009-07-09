@@ -92,8 +92,8 @@ class OSG_SYSTEM_DLLMAPPING TextureBuffer :
     /*! \name                    your_category                             */
     /*! \{                                                                 */
 
-    void processPreDeactivate (DrawEnv *pEnv, UInt32 index);
-    void processPostDeactivate(DrawEnv *pEnv);
+    virtual void processPreDeactivate (DrawEnv *pEnv, UInt32 index);
+    virtual void processPostDeactivate(DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

@@ -66,6 +66,7 @@
 #include "OSGFrameBufferAttachment.h" // Parent
 
 #include "OSGBaseFields.h" // GLId type
+#include "OSGImageFields.h" // Image type
 
 #include "OSGRenderBufferFields.h"
 
@@ -95,18 +96,22 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     {
         GLIdFieldId = Inherited::NextFieldId,
         InternalFormatFieldId = GLIdFieldId + 1,
-        NextFieldId = InternalFormatFieldId + 1
+        ImageFieldId = InternalFormatFieldId + 1,
+        NextFieldId = ImageFieldId + 1
     };
 
     static const OSG::BitVector GLIdFieldMask =
         (TypeTraits<BitVector>::One << GLIdFieldId);
     static const OSG::BitVector InternalFormatFieldMask =
         (TypeTraits<BitVector>::One << InternalFormatFieldId);
+    static const OSG::BitVector ImageFieldMask =
+        (TypeTraits<BitVector>::One << ImageFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFGLenum          SFGLIdType;
     typedef SFGLenum          SFInternalFormatType;
+    typedef SFUnrecImagePtr   SFImageType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -137,6 +142,8 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
 
                   SFGLenum            *editSFInternalFormat (void);
             const SFGLenum            *getSFInternalFormat  (void) const;
+            const SFUnrecImagePtr     *getSFImage          (void) const;
+                  SFUnrecImagePtr     *editSFImage          (void);
 
 
                   GLenum              &editGLId           (void);
@@ -145,6 +152,8 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
                   GLenum              &editInternalFormat (void);
             const GLenum              &getInternalFormat  (void) const;
 
+                  Image * getImage          (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -152,6 +161,12 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
 
             void setGLId           (const GLenum &value);
             void setInternalFormat (const GLenum &value);
+            void setImage          (Image * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -213,6 +228,7 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
 
     SFGLenum          _sfGLId;
     SFGLenum          _sfInternalFormat;
+    SFUnrecImagePtr   _sfImage;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -234,6 +250,7 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const RenderBuffer *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -244,6 +261,8 @@ class OSG_SYSTEM_DLLMAPPING RenderBufferBase : public FrameBufferAttachment
     EditFieldHandlePtr editHandleGLId           (void);
     GetFieldHandlePtr  getHandleInternalFormat  (void) const;
     EditFieldHandlePtr editHandleInternalFormat (void);
+    GetFieldHandlePtr  getHandleImage           (void) const;
+    EditFieldHandlePtr editHandleImage          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

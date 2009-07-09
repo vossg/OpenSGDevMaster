@@ -44,6 +44,7 @@
 
 #include "OSGRenderBufferBase.h"
 #include "OSGWindow.h"
+#include "OSGImage.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -85,6 +86,14 @@ class OSG_SYSTEM_DLLMAPPING RenderBuffer :
 
     virtual void bind    (DrawEnv *pEnv, UInt32 index = 0);
     virtual void validate(DrawEnv *pEnv                  );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    your_category                             */
+    /*! \{                                                                 */
+
+    virtual void processPreDeactivate (DrawEnv *pEnv, UInt32 index);
+    virtual void processPostDeactivate(DrawEnv *pEnv              );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

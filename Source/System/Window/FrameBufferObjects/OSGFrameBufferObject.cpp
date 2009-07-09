@@ -255,10 +255,29 @@ void FrameBufferObject::changed(ConstFieldMaskArg whichField,
 
     if(0x0000 != (whichField & (WidthFieldMask | HeightFieldMask)))
     {
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  =
+            _mfColorAttachments.begin();
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
+            _mfColorAttachments.end  ();
+   
+        for(; attIt != attEnd; ++attIt)
+        {
+            if(*attIt == NULL)
+                continue;
+        
+            (*attIt)->resize(getWidth(), getHeight());
+        }
+
         if(_sfDepthAttachment.getValue() != NULL)
         {
             _sfDepthAttachment.getValue()->resize(getWidth (),
                                                   getHeight());
+        }
+
+        if(_sfStencilAttachment.getValue() != NULL)
+        {
+            _sfStencilAttachment.getValue()->resize(getWidth (),
+                                                    getHeight());
         }
 
         Window::refreshGLObject(getGLId());
@@ -275,8 +294,32 @@ void FrameBufferObject::changed(ConstFieldMaskArg whichField,
         Window::reinitializeGLObject(getGLId());
     }
 
+    if(0x0000 != (whichField & StencilAttachmentFieldMask))
+    {
+        if(_sfStencilAttachment.getValue() != NULL)
+        {
+            _sfStencilAttachment.getValue()->resize(getWidth (),
+                                                    getHeight());
+        }
+
+        Window::reinitializeGLObject(getGLId());
+    }
+
     if(0x0000 != (whichField & ColorAttachmentsFieldMask))
     {
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attIt  =
+            _mfColorAttachments.begin();
+        MFUnrecFrameBufferAttachmentPtr::const_iterator attEnd =
+            _mfColorAttachments.end  ();
+   
+        for(; attIt != attEnd; ++attIt)
+        {
+            if(*attIt == NULL)
+                continue;
+        
+            (*attIt)->resize(getWidth(), getHeight());
+        }
+
         Window::reinitializeGLObject(getGLId());
     }
 }
@@ -368,12 +411,10 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
     
         for(; attIt != attEnd; ++attIt, ++index)
         {
-            TextureBuffer *texBuf = dynamic_cast<TextureBuffer *>(*attIt);
-        
-            if(texBuf == NULL)
+            if(*attIt == NULL)
                 continue;
         
-            texBuf->processPreDeactivate(pEnv, index);
+            (*attIt)->processPreDeactivate(pEnv, index);
         }
     }
 
@@ -388,12 +429,10 @@ void FrameBufferObject::deactivate (DrawEnv *pEnv)
     
         for(; attIt != attEnd; ++attIt)
         {
-            TextureBuffer *texBuf = dynamic_cast<TextureBuffer *>(*attIt);
-        
-            if(texBuf == NULL)
+            if(*attIt == NULL)
                 continue;
         
-            texBuf->processPostDeactivate(pEnv);
+            (*attIt)->processPostDeactivate(pEnv);
         }
     }
 }

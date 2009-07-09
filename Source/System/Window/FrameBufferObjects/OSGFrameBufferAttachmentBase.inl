@@ -123,6 +123,31 @@ void FrameBufferAttachmentBase::setHeight(const UInt16 value)
 
     _sfHeight.setValue(value);
 }
+//! Get the value of the FrameBufferAttachment::_sfReadBack field.
+
+inline
+bool &FrameBufferAttachmentBase::editReadBack(void)
+{
+    editSField(ReadBackFieldMask);
+
+    return _sfReadBack.getValue();
+}
+
+//! Get the value of the FrameBufferAttachment::_sfReadBack field.
+inline
+      bool  FrameBufferAttachmentBase::getReadBack(void) const
+{
+    return _sfReadBack.getValue();
+}
+
+//! Set the value of the FrameBufferAttachment::_sfReadBack field.
+inline
+void FrameBufferAttachmentBase::setReadBack(const bool value)
+{
+    editSField(ReadBackFieldMask);
+
+    _sfReadBack.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -140,6 +165,9 @@ void FrameBufferAttachmentBase::execSync (      FrameBufferAttachmentBase *pFrom
 
     if(FieldBits::NoField != (HeightFieldMask & whichField))
         _sfHeight.syncWith(pFrom->_sfHeight);
+
+    if(FieldBits::NoField != (ReadBackFieldMask & whichField))
+        _sfReadBack.syncWith(pFrom->_sfReadBack);
 }
 #endif
 

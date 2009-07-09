@@ -99,8 +99,7 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
         TexTargetFieldId = TextureFieldId + 1,
         LevelFieldId = TexTargetFieldId + 1,
         ZoffsetFieldId = LevelFieldId + 1,
-        ReadBackFieldId = ZoffsetFieldId + 1,
-        NextFieldId = ReadBackFieldId + 1
+        NextFieldId = ZoffsetFieldId + 1
     };
 
     static const OSG::BitVector TextureFieldMask =
@@ -111,8 +110,6 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
         (TypeTraits<BitVector>::One << LevelFieldId);
     static const OSG::BitVector ZoffsetFieldMask =
         (TypeTraits<BitVector>::One << ZoffsetFieldId);
-    static const OSG::BitVector ReadBackFieldMask =
-        (TypeTraits<BitVector>::One << ReadBackFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -120,7 +117,6 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     typedef SFGLenum          SFTexTargetType;
     typedef SFUInt32          SFLevelType;
     typedef SFUInt32          SFZoffsetType;
-    typedef SFBool            SFReadBackType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -157,9 +153,6 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
                   SFUInt32            *editSFZoffset        (void);
             const SFUInt32            *getSFZoffset         (void) const;
 
-                  SFBool              *editSFReadBack       (void);
-            const SFBool              *getSFReadBack        (void) const;
-
 
                   TextureObjChunk * getTexture        (void) const;
 
@@ -172,9 +165,6 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
                   UInt32              &editZoffset        (void);
                   UInt32               getZoffset         (void) const;
 
-                  bool                &editReadBack       (void);
-                  bool                 getReadBack        (void) const;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -184,7 +174,6 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
             void setTexTarget      (const GLenum &value);
             void setLevel          (const UInt32 value);
             void setZoffset        (const UInt32 value);
-            void setReadBack       (const bool value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -253,7 +242,6 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     SFGLenum          _sfTexTarget;
     SFUInt32          _sfLevel;
     SFUInt32          _sfZoffset;
-    SFBool            _sfReadBack;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -290,8 +278,6 @@ class OSG_SYSTEM_DLLMAPPING TextureBufferBase : public FrameBufferAttachment
     EditFieldHandlePtr editHandleLevel          (void);
     GetFieldHandlePtr  getHandleZoffset         (void) const;
     EditFieldHandlePtr editHandleZoffset        (void);
-    GetFieldHandlePtr  getHandleReadBack        (void) const;
-    EditFieldHandlePtr editHandleReadBack       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

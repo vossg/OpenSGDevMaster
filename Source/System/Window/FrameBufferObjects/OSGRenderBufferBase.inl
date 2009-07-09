@@ -124,6 +124,22 @@ void RenderBufferBase::setInternalFormat(const GLenum &value)
     _sfInternalFormat.setValue(value);
 }
 
+//! Get the value of the RenderBuffer::_sfImage field.
+inline
+Image * RenderBufferBase::getImage(void) const
+{
+    return _sfImage.getValue();
+}
+
+//! Set the value of the RenderBuffer::_sfImage field.
+inline
+void RenderBufferBase::setImage(Image * const value)
+{
+    editSField(ImageFieldMask);
+
+    _sfImage.setValue(value);
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -140,6 +156,9 @@ void RenderBufferBase::execSync (      RenderBufferBase *pFrom,
 
     if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
         _sfInternalFormat.syncWith(pFrom->_sfInternalFormat);
+
+    if(FieldBits::NoField != (ImageFieldMask & whichField))
+        _sfImage.syncWith(pFrom->_sfImage);
 }
 #endif
 
