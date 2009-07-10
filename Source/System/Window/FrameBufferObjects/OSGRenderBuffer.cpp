@@ -141,6 +141,8 @@ RenderBuffer::RenderBuffer(const RenderBuffer &source) :
 
 RenderBuffer::~RenderBuffer(void)
 {
+    if(getGLId() > 0)
+        Window::destroyGLObject(getGLId(), 1);
 }
 
 /*----------------------------- class specific ----------------------------*/

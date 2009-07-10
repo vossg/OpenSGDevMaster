@@ -188,6 +188,8 @@ FrameBufferObject::FrameBufferObject(const FrameBufferObject &source) :
 
 FrameBufferObject::~FrameBufferObject(void)
 {
+    if(getGLId() > 0)
+        Window::destroyGLObject(getGLId(), 1);
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -596,7 +598,7 @@ void FrameBufferObject::handleDestroyGL(DrawEnv                 *pEnv,
     {
         GLuint uiFBOId = win->getGLObjectId(osgid);
 
-        if(win->hasExtension(_uiFramebuffer_object_extension) == false)
+        if(win->hasExtension(_uiFramebuffer_object_extension) != false)
         {
             GLDeleteFramebuffersEXTProcT glDeleteFramebuffersEXTProc =
                 reinterpret_cast<GLDeleteFramebuffersEXTProcT>(

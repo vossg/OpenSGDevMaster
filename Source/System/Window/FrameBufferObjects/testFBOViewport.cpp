@@ -131,7 +131,7 @@ void display(void)
         cam_trans->editSFMatrix()->setValue( m1 );
     }
 
-    OSG::commitChanges();
+    OSG::commitChangesAndClear();
 
     win->render(rentravact);
 
@@ -149,14 +149,18 @@ void display(void)
 
     if(dumpImg_RB == true)
     {
-        vpFBO_RB->setTravMask(oldTravMask_RB);
-
-        pRenBuffer                      ->setReadBack               (false);
-        vpFBO_RB->getFrameBufferObject()->setPostProcessOnDeactivate(false);
-
         pRenBuffer->getImage()->write("/tmp/test1.png");
 
         dumpImg_RB = false;
+
+        win->subPortByObj(vpFBO_RB);
+
+        vpFBO_RB   = NULL;
+        pRenBuffer = NULL;
+
+        win->runFrameExit();
+
+//        OSG::FieldContainerFactory::the()->dump();
     }
 
 
@@ -299,19 +303,64 @@ void key(unsigned char key, int x, int y)
             break;
 
         case 'r':
-            oldTravMask_RB = vpFBO_RB->getTravMask();
+        {
+//            OSG::FieldContainerFactory::the()->dump();
+            //RenderBuffer Readback
+            // Background
+            OSG::SolidBackgroundUnrecPtr bkgndFBO_RB = 
+                OSG::SolidBackground::create();
 
-            if(oldTravMask_RB == 0x0000)
-            {
-                vpFBO_RB->setTravMask(~vpFBO_RB->getTravMask());
-            }
+            bkgndFBO_RB->setColor(OSG::Color3f(0.5,1.0,0.5));
+    
+            // Viewport
 
-            dumpImg_RB = true;
+            vpFBO_RB = OSG::FBOViewport::create();
+
+            vpFBO_RB->setCamera    (cam        );
+            vpFBO_RB->setBackground(bkgndFBO_RB);
+            vpFBO_RB->setRoot      (root       );
+            vpFBO_RB->setSize      (0, 0, 1, 1 );
+            
+            OSG::FrameBufferObjectUnrecPtr pFBO_RB = 
+                OSG::FrameBufferObject::create();
+            
+            pRenBuffer = OSG::RenderBuffer::create();
+
+            OSG::RenderBufferUnrecPtr  pDepthBuffer_RB = 
+                OSG::RenderBuffer::create();
+
+            pDepthBuffer_RB->setInternalFormat(GL_DEPTH_COMPONENT24   );
+            pRenBuffer->setInternalFormat(GL_RGBA);
+            
+            OSG::ImageUnrecPtr pImg_RB = OSG::Image::create();
+    
+            OSG::UInt32 uiImgSize = 4096;
+
+            pImg_RB->set(OSG::Image::OSG_RGB_PF, uiImgSize, uiImgSize);
+
+            fprintf(stderr, "Image data : %p\n", pImg_RB->getData());
+
+            pRenBuffer->setImage(pImg_RB);
+
+            pFBO_RB->setSize(uiImgSize, uiImgSize);
+    
+            pFBO_RB->setColorAttachment(pRenBuffer,     0);
+            pFBO_RB->setDepthAttachment(pDepthBuffer_RB  );
+
+            pFBO_RB->editMFDrawBuffers()->clear();
+            pFBO_RB->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
+
+            vpFBO_RB->setFrameBufferObject(pFBO_RB);
 
             pRenBuffer                      ->setReadBack               (true);
             vpFBO_RB->getFrameBufferObject()->setPostProcessOnDeactivate(true);
 
-            break;
+            win->addPort(vpFBO_RB);
+
+            dumpImg_RB = true;
+        }
+        break;
+
         case 'v':
             rentravact->setVolumeDrawing(!rentravact->getVolumeDrawing());
             break;
@@ -661,46 +710,6 @@ int init(int argc, char **argv)
     vpFBO->setFrameBufferObject(pFBO);
 
 
-    //RenderBuffer Readback
-    // Background
-    OSG::SolidBackgroundUnrecPtr bkgndFBO_RB = OSG::SolidBackground::create();
-
-    bkgndFBO_RB->setColor(OSG::Color3f(0.5,1.0,0.5));
-    
-    // Viewport
-
-    vpFBO_RB = OSG::FBOViewport::create();
-
-    vpFBO_RB->setCamera    (cam        );
-    vpFBO_RB->setBackground(bkgndFBO_RB);
-    vpFBO_RB->setRoot      (root       );
-    vpFBO_RB->setSize      (0, 0, 1, 1 );
-
-    OSG::FrameBufferObjectUnrecPtr pFBO_RB = OSG::FrameBufferObject::create();
-
-                               pRenBuffer      = OSG::RenderBuffer::create();
-    OSG::RenderBufferUnrecPtr  pDepthBuffer_RB = OSG::RenderBuffer::create();
-
-    pDepthBuffer_RB->setInternalFormat(GL_DEPTH_COMPONENT24   );
-    pRenBuffer->setInternalFormat(GL_RGBA);
-
-    OSG::ImageUnrecPtr pImg_RB = OSG::Image::create();
-
-    pImg_RB->set(OSG::Image::OSG_RGB_PF, 128, 128);
-
-    pRenBuffer->setImage(pImg_RB);
-
-    pFBO_RB->setSize(128, 128);
-    
-    pFBO_RB->setColorAttachment(pRenBuffer,     0);
-    pFBO_RB->setDepthAttachment(pDepthBuffer_RB  );
-
-    pFBO_RB->editMFDrawBuffers()->clear();
-    pFBO_RB->editMFDrawBuffers()->push_back(GL_COLOR_ATTACHMENT0_EXT);
-
-
-    vpFBO_RB->setFrameBufferObject(pFBO_RB);
-    vpFBO_RB->setTravMask(~vpFBO_RB->getTravMask());
 
     // Window
     std::cout << "GLUT winid: " << winid << std::endl;
@@ -716,7 +725,6 @@ int init(int argc, char **argv)
 
     win = gwin;
 
-    win->addPort(vpFBO_RB);
     win->addPort(vpFBO   );
     win->addPort(vp      );
 
