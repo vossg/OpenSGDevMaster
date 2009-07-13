@@ -620,31 +620,17 @@ void calcVertexTangentsProp(Geometry *geo,
     Int32 i, k, index, v[3];
     Vec4f vect(0, 0, 0, 0);
     
-    std::vector<Int32>indexVec;
+    UInt32             propSize;
+    std::vector<Int32> indexVec;
 
     indexVec.resize(3);    
     
-     // calc max index.
-    UInt32 maxCount = osgMax(osgMax(posIdxCount, normIdxCount), tcIdxCount);   
-    UInt32 maxIdx   = 0;
-
-    for(i = 0; i < maxCount; ++i)
-    {
-        if((i < posIdxCount)  && (posIdx->getValue(i)  > maxIdx))
-            maxIdx = posIdx->getValue(i);
-
-        if((i < normIdxCount) && (normIdx->getValue(i) > maxIdx))
-            maxIdx = normIdx->getValue(i);
-            
-        if((i < tcIdxCount)   && (tcIdx->getValue(i)   > maxIdx))
-            maxIdx = tcIdx->getValue(i);
-    }
-
-    // init property arrays
-    // amz we can't use the indices size (nind) here!
-    tangent .resize(maxIdx + 1, Vec3f::Null);
-    binormal.resize(maxIdx + 1, Vec3f::Null);
-    normal  .resize(maxIdx + 1, Vec3f::Null);
+    // Size of properties is number of unique index tuples, which requires
+    // looking at all of them - we take a best effort guess here and resize
+    // in the loop below
+    tangent .resize(posIdxCount, Vec3f::Null);
+    binormal.resize(posIdxCount, Vec3f::Null);
+    normal  .resize(posIdxCount, Vec3f::Null);
 
     for(  tI  = geo->beginTriangles(), i = 0; 
           tI != geo->endTriangles(); 
@@ -658,15 +644,16 @@ void calcVertexTangentsProp(Geometry *geo,
 
             v[k]        = indexDic.entry(indexVec);
 
-            if(v[k] > maxIdx)
-                maxIdx = v[k];
+            if(v[k] > propSize)
+                propSize = v[k];
         }
 
-        if((maxIdx + 1) > tangent.size())
+        // resize properties if inital guess was too small
+        if(propSize >= tangent.size())
         {
-            tangent .resize(maxIdx + 1, Vec3f::Null);
-            binormal.resize(maxIdx + 1, Vec3f::Null);
-            normal  .resize(maxIdx + 1, Vec3f::Null);
+            tangent .resize(1.5f * tangent .size() + 1, Vec3f::Null);
+            binormal.resize(1.5f * binormal.size() + 1, Vec3f::Null);
+            normal  .resize(1.5f * normal  .size() + 1, Vec3f::Null);
         }
 
         // second, calculate tangent and binormal for every tri
@@ -709,6 +696,14 @@ void calcVertexTangentsProp(Geometry *geo,
 
             tanBinIndexP->setValue(v[k], tI.getIndex(k)); 
         }
+    }
+
+    // adjust size - resizing above may have been to big
+    if(tangent.size() > propSize)
+    {
+        tangent .resize(propSize);
+        binormal.resize(propSize);
+        normal  .resize(propSize);
     }
     
     // orthogonalize vectors (Gram-Schmidt) and calc handedness    
