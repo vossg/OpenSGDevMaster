@@ -247,10 +247,12 @@ RenderAction::RenderAction(void) :
     _pNodePools              (          ),
     _pStatePools             (          ),
     _pTreeBuilderPools       (          ),
+
     _vRenderPartitions       (          ),
 
     _iActivePartitionIdx     (-1        ),
     _bInPartitionGroup       (false     ),
+    _bDefaultPartHandled     (false     ),
     _pActivePartition        (NULL      ),
 
     _sRenderPartitionStack   (          ),
@@ -273,8 +275,8 @@ RenderAction::RenderAction(void) :
     _scrlodCoverageThreshold (      0.01),
     _scrlodNumLODsToUse      (         0),
     _scrlodDegradationFactor (       1.0),
-    _pGLFinishTask           (NULL      )
 
+    _pGLFinishTask           (NULL      )
 {
     if(_vDefaultEnterFunctors != NULL)
         _enterFunctors = *_vDefaultEnterFunctors;
@@ -325,25 +327,30 @@ RenderAction::RenderAction(void) :
 
 }
 
-RenderAction::RenderAction(
-    const RenderAction &source) :
+RenderAction::RenderAction(const RenderAction &source) :
 
      Inherited               (source                         ),
     _doCullOnly              (false                          ),
     _numBuffers              (0                              ),
     _currentBuffer           (0                              ),
+
     _uiKeyGen                (source._uiKeyGen               ),
+
     _pPartitionPools         (                               ),
     _pNodePools              (                               ),
     _pStatePools             (                               ),
     _pTreeBuilderPools       (                               ),
 
-    _pActivePartition        (NULL                           ),
-    _iActivePartitionIdx     (-1                             ),
-
     _vRenderPartitions       (                               ),
+
+    _iActivePartitionIdx     (-1                             ),
+    _bInPartitionGroup       (false                          ),
+    _bDefaultPartHandled     (false                          ),
+    _pActivePartition        (NULL                           ),
+
     _sRenderPartitionStack   (                               ),
     _sRenderPartitionIdxStack(                               ),
+    _sRenderPartitionGrpStack(                               ),
 
     _bvPassMask              (source._bvPassMask             ),
 
@@ -357,9 +364,11 @@ RenderAction::RenderAction(
     _occCoveredThreshold     (source._occCoveredThreshold    ),
     _occQueryBufferSize      (source._occQueryBufferSize     ),
     _occMinimumTriangleCount (source._occMinimumTriangleCount),
+
     _scrlodCoverageThreshold (source._scrlodCoverageThreshold),
     _scrlodNumLODsToUse      (source._scrlodNumLODsToUse     ),
     _scrlodDegradationFactor (source._scrlodDegradationFactor),
+
     _pGLFinishTask           (NULL                           )
 {
     setNumBuffers(source._numBuffers);
@@ -727,9 +736,8 @@ Action::ResultE RenderAction::start(void)
         fprintf(stderr, "start with %p\n", _pActivePartition);
         fflush(stderr);
 #endif
-        _pActivePartition->setTaskType(RenderPartition::Setup);
-
-        _pWindow->queueTask(_pActivePartition);
+        _bDefaultPartHandled = false;
+//        _pWindow->queueTask(_pActivePartition);
     }
 
     return Action::Continue;
@@ -831,6 +839,14 @@ void RenderAction::drawBuffer(UInt32 buf)
     }
     else
     {
+#if 0
+        if(_bDefaultPartHandled == false)
+        {
+            _vRenderPartitions[_currentBuffer][0]->setTaskType(
+                RenderPartition::Full);
+        }
+#endif
+
         _pWindow->queueTask(_vRenderPartitions[buf][0]);
 
         if(_bUseGLFinish == true)
@@ -1027,6 +1043,15 @@ void RenderAction::popPartition(void)
 
     if(_bDrawPartPar == true)
     {
+        if(pCurrPart->getRenderTarget() == NULL  && 
+           _bDefaultPartHandled         == false  )
+        {
+            _pActivePartition->setTaskType(RenderPartition::Setup);
+            _pWindow->queueTask(_vRenderPartitions[_currentBuffer][0]);
+
+            _bDefaultPartHandled = true;
+        }
+
         _pWindow->queueTask(pCurrPart);
 
 #ifdef OSG_RENPART_DUMP_PAR

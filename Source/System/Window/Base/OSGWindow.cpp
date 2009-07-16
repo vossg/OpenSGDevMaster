@@ -85,6 +85,8 @@
 #include "OSGShaderCache.h"
 #endif
 
+//#define OSG_WIN_QUEUE_ALL 1
+
 OSG_BEGIN_NAMESPACE
 
 #if defined(OSG_WIN32_ICL) && !defined(OSG_CHECK_FIELDSETARG)
@@ -1906,7 +1908,7 @@ void OSG::Window::render(RenderActionBase *action)
                 _pInitTask = new WindowDrawTask(WindowDrawTask::Init);
             }
 
-            _pDrawThread->queueTask(_pInitTask);
+            _pDrawThread->queueTaskFront(_pInitTask);
 
             _pInitTask = NULL;
         }
@@ -1926,7 +1928,7 @@ void OSG::Window::render(RenderActionBase *action)
         doRenderAllViewports(action);
 
 #ifdef OSG_WIN_QUEUE_ALL
-        _pDrawThread->dumpTasks();
+//        _pDrawThread->dumpTasks();
 
         _pWaitTask->waitForBarrier();
 #endif
@@ -1971,7 +1973,7 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
                 _pInitTask = new WindowDrawTask(WindowDrawTask::Init);
             }
 
-            _pDrawThread->queueTask(_pInitTask);
+            _pDrawThread->queueTaskFront(_pInitTask);
 
             _pInitTask = NULL;
         }

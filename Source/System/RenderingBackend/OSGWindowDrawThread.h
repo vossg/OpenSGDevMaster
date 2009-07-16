@@ -77,7 +77,8 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawThread : public Thread
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    void queueTask(DrawTask *pTask);
+    void queueTask     (DrawTask *pTask);
+    void queueTaskFront(DrawTask *pTask);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

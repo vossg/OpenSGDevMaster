@@ -43,8 +43,10 @@
 #endif
 
 #include "OSGConfig.h"
+#include "OSGBaseDef.h"
 
 #include "OSGGL.h"
+#include <boost/function.hpp>
 
 #ifndef OSG_EMBEDDED
 
@@ -79,19 +81,33 @@ typedef void (*OSGGLUfuncptr)();
 
 #endif
 
+OSG_BEGIN_NAMESPACE
+
+typedef boost::function<void (GLenum, const GLubyte*)> GLErrorFunctor;
+
+extern OSG_BASE_DLLMAPPING GLErrorFunctor GLErrorCallback;
+
+OSG_END_NAMESPACE
+
 #if defined(OSG_DEBUG) && !defined(OSG_EMBEDDED)
-#define glErr(text)                                 \
-{                                                   \
-    GLenum glerr;                                   \
-                                                    \
-    while((glerr = glGetError()) != GL_NO_ERROR)    \
-    {                                               \
-        FWARNING(("(%s,%d): %s failed: %s (%#x)\n", \
-                __FILE__, __LINE__,                 \
-                (text),                             \
-                gluErrorString(glerr),              \
-                glerr));                            \
-    }                                               \
+#define glErr(text)                                    \
+{                                                      \
+    GLenum glerr;                                      \
+                                                       \
+    while((glerr = glGetError()) != GL_NO_ERROR)       \
+    {                                                  \
+        FWARNING(("(%s,%d): %s failed: %s (%#x)\n",    \
+                  __FILE__, __LINE__,                  \
+                  (text),                              \
+                  gluErrorString(glerr),               \
+                  glerr));                             \
+                                                       \
+        if(GLErrorCallback)                            \
+        {                                              \
+            GLErrorCallback(glerr,                     \
+                            gluErrorString(glerr));    \
+        }                                              \
+    }                                                  \
 }
 #else
 #define glErr(text)

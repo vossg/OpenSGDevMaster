@@ -46,6 +46,7 @@
 #include <vector>
 
 #include "OSGBaseFunctions.h"
+#include "OSGGLU.h"
 
 // XXX: Hack for right now, just assume we have it
 #if defined(__linux) && defined(__GNUC__) 
@@ -131,6 +132,9 @@ std::string demangleTraceString(char* traceLine)
 
 
 OSG_BEGIN_NAMESPACE
+
+OSG_BASE_DLLMAPPING GLErrorFunctor GLErrorCallback;
+
 
 #ifndef OSG_EMBEDDED
 void osgGetHostname(char *szBuffer, UInt32 uiSize)

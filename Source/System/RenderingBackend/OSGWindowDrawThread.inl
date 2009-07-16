@@ -63,4 +63,10 @@ void WindowDrawThread::queueTask(DrawTask *pTask)
     _qTaskQueue.queueTask(pTask);
 }
 
+inline
+void WindowDrawThread::queueTaskFront(DrawTask *pTask)
+{
+    _qTaskQueue.queueTaskFront(pTask);
+}
+
 OSG_END_NAMESPACE

@@ -176,8 +176,9 @@ class OSG_SYSTEM_DLLMAPPING DrawTaskQueue
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    void               queueTask(DrawTask *pTask);
-    DrawTaskTransitPtr popTask  (void           );
+    void               queueTask     (DrawTask *pTask);
+    void               queueTaskFront(DrawTask *pTask);
+    DrawTaskTransitPtr popTask       (void           );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

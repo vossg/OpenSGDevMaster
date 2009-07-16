@@ -110,6 +110,22 @@ void DrawTaskQueue::queueTask(DrawTask *pTask)
     
 }
 
+void DrawTaskQueue::queueTaskFront(DrawTask *pTask)
+{
+    if(pTask != NULL)
+    {
+        _pStoreLock->acquire();
+        
+        _qTaskStore.push_front(pTask);
+
+        _pStoreLock->release();
+
+        _pStoreSema->post();
+    }
+
+    
+}
+
 DrawTaskTransitPtr DrawTaskQueue::popTask(void)
 {
     _pStoreSema->wait();

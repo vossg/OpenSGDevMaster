@@ -343,6 +343,7 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     Int32                               _iActivePartitionIdx;
     bool                                _bInPartitionGroup;
+    bool                                _bDefaultPartHandled;
     RenderPartition                    *_pActivePartition;
 
     RenderPartitionStack                _sRenderPartitionStack;

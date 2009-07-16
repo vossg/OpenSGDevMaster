@@ -11,7 +11,7 @@
 	decoratable="false"
 	useLocalIncludes="false"
     isNodeCore="true"
-    isBundle="true"
+    isBundle="false"
 >
     <Field
 		name="mode"

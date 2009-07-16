@@ -338,7 +338,7 @@ FishEyeProjectorBase::TypeObject FishEyeProjectorBase::_type(
     "\tdecoratable=\"false\"\n"
     "\tuseLocalIncludes=\"false\"\n"
     "    isNodeCore=\"true\"\n"
-    "    isBundle=\"true\"\n"
+    "    isBundle=\"false\"\n"
     ">\n"
     "    <Field\n"
     "\t\tname=\"mode\"\n"
@@ -924,7 +924,17 @@ FishEyeProjectorTransitPtr FishEyeProjectorBase::createDependent(BitVector bFlag
 //! create a new instance of the class
 FishEyeProjectorTransitPtr FishEyeProjectorBase::create(void)
 {
-    return createLocal();
+    FishEyeProjectorTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<FishEyeProjector>(tmpPtr);
+    }
+
+    return fc;
 }
 
 FishEyeProjector *FishEyeProjectorBase::createEmptyLocal(BitVector bFlags)
@@ -941,7 +951,14 @@ FishEyeProjector *FishEyeProjectorBase::createEmptyLocal(BitVector bFlags)
 //! create an empty new instance of the class, do not copy the prototype
 FishEyeProjector *FishEyeProjectorBase::createEmpty(void)
 {
-    return createEmptyLocal();
+    FishEyeProjector *returnValue;
+
+    newPtr<FishEyeProjector>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
+
+    return returnValue;
 }
 
 
@@ -975,7 +992,17 @@ FieldContainerTransitPtr FishEyeProjectorBase::shallowCopyDependent(
 
 FieldContainerTransitPtr FishEyeProjectorBase::shallowCopy(void) const
 {
-    return shallowCopyLocal();
+    FishEyeProjector *tmpPtr;
+
+    newPtr(tmpPtr,
+           dynamic_cast<const FishEyeProjector *>(this),
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
 }
 
 

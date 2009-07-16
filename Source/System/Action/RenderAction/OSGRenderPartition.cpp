@@ -372,6 +372,11 @@ void RenderPartition::setupExecution(void)
     if(_bDone == true)
         return;
 
+#ifdef OSG_RENPART_DUMP_PAR
+    fprintf(stderr, "setupexecute %p %d\n", this, UInt32(_ubState));
+    fflush(stderr);
+#endif
+
 #ifdef OSG_TRACE_PARTITION
     if(_szDebugString.size() != 0)
     {
