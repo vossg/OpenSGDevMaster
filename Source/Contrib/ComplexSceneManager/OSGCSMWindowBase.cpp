@@ -145,6 +145,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          CSMWindowBase::_sfPartitionDrawMode
+    
+*/
+
 /*! \var bool            CSMWindowBase::_sfDumpContainer
     
 */
@@ -375,6 +379,18 @@ void CSMWindowBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "partitionDrawMode",
+        "",
+        PartitionDrawModeFieldId, PartitionDrawModeFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&CSMWindow::editHandlePartitionDrawMode),
+        static_cast<FieldGetMethodSig >(&CSMWindow::getHandlePartitionDrawMode));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "dumpContainer",
@@ -558,6 +574,16 @@ CSMWindowBase::TypeObject CSMWindowBase::_type(
     "       defaultValue=\"NULL\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "    <Field\n"
+    "\t   name=\"partitionDrawMode\"\n"
+    "\t   type=\"UInt32\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       fieldFlags=\"\"\n"
+    "       defaultValue=\"Window::SequentialPartitionDraw\"\n"
+    "\t>\n"
+    "    </Field>\n"
     "    <Field\n"
     "\t   name=\"dumpContainer\"\n"
     "\t   type=\"bool\"\n"
@@ -777,6 +803,19 @@ SFUnrecRenderOptionsPtr *CSMWindowBase::editSFRenderOptions  (void)
     return &_sfRenderOptions;
 }
 
+SFUInt32 *CSMWindowBase::editSFPartitionDrawMode(void)
+{
+    editSField(PartitionDrawModeFieldMask);
+
+    return &_sfPartitionDrawMode;
+}
+
+const SFUInt32 *CSMWindowBase::getSFPartitionDrawMode(void) const
+{
+    return &_sfPartitionDrawMode;
+}
+
+
 SFBool *CSMWindowBase::editSFDumpContainer(void)
 {
     editSField(DumpContainerFieldMask);
@@ -913,6 +952,10 @@ UInt32 CSMWindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderOptions.getBinSize();
     }
+    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+    {
+        returnValue += _sfPartitionDrawMode.getBinSize();
+    }
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
     {
         returnValue += _sfDumpContainer.getBinSize();
@@ -986,6 +1029,10 @@ void CSMWindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRenderOptions.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+    {
+        _sfPartitionDrawMode.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
     {
         _sfDumpContainer.copyToBin(pMem);
@@ -1057,6 +1104,10 @@ void CSMWindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfRenderOptions.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+    {
+        _sfPartitionDrawMode.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
     {
         _sfDumpContainer.copyFromBin(pMem);
@@ -1085,6 +1136,7 @@ CSMWindowBase::CSMWindowBase(void) :
     _sfEnableFSAA             (bool(false)),
     _sfFsaaHint               (UInt32(GL_FASTEST)),
     _sfRenderOptions          (NULL),
+    _sfPartitionDrawMode      (UInt32(Window::SequentialPartitionDraw)),
     _sfDumpContainer          (bool(false))
 {
 }
@@ -1106,6 +1158,7 @@ CSMWindowBase::CSMWindowBase(const CSMWindowBase &source) :
     _sfEnableFSAA             (source._sfEnableFSAA             ),
     _sfFsaaHint               (source._sfFsaaHint               ),
     _sfRenderOptions          (NULL),
+    _sfPartitionDrawMode      (source._sfPartitionDrawMode      ),
     _sfDumpContainer          (source._sfDumpContainer          )
 {
 }
@@ -1587,6 +1640,31 @@ EditFieldHandlePtr CSMWindowBase::editHandleRenderOptions  (void)
                     static_cast<CSMWindow *>(this), _1));
 
     editSField(RenderOptionsFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CSMWindowBase::getHandlePartitionDrawMode (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfPartitionDrawMode,
+             this->getType().getFieldDesc(PartitionDrawModeFieldId),
+             const_cast<CSMWindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CSMWindowBase::editHandlePartitionDrawMode(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfPartitionDrawMode,
+             this->getType().getFieldDesc(PartitionDrawModeFieldId),
+             this));
+
+
+    editSField(PartitionDrawModeFieldMask);
 
     return returnValue;
 }

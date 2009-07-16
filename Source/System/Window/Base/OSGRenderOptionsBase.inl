@@ -98,6 +98,31 @@ void RenderOptionsBase::setRenderProperties(const MaterialMapKey &value)
 
     _sfRenderProperties.setValue(value);
 }
+//! Get the value of the RenderOptions::_sfUseGLFinish field.
+
+inline
+bool &RenderOptionsBase::editUseGLFinish(void)
+{
+    editSField(UseGLFinishFieldMask);
+
+    return _sfUseGLFinish.getValue();
+}
+
+//! Get the value of the RenderOptions::_sfUseGLFinish field.
+inline
+      bool  RenderOptionsBase::getUseGLFinish(void) const
+{
+    return _sfUseGLFinish.getValue();
+}
+
+//! Set the value of the RenderOptions::_sfUseGLFinish field.
+inline
+void RenderOptionsBase::setUseGLFinish(const bool value)
+{
+    editSField(UseGLFinishFieldMask);
+
+    _sfUseGLFinish.setValue(value);
+}
 //! Get the value of the RenderOptions::_sfStatistic field.
 
 inline
@@ -837,6 +862,9 @@ void RenderOptionsBase::execSync (      RenderOptionsBase *pFrom,
 
     if(FieldBits::NoField != (RenderPropertiesFieldMask & whichField))
         _sfRenderProperties.syncWith(pFrom->_sfRenderProperties);
+
+    if(FieldBits::NoField != (UseGLFinishFieldMask & whichField))
+        _sfUseGLFinish.syncWith(pFrom->_sfUseGLFinish);
 
     if(FieldBits::NoField != (StatisticFieldMask & whichField))
         _sfStatistic.syncWith(pFrom->_sfStatistic);

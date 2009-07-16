@@ -87,6 +87,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            RenderOptionsBase::_sfUseGLFinish
+    
+*/
+
 /*! \var bool            RenderOptionsBase::_sfStatistic
     
 */
@@ -240,6 +244,18 @@ void RenderOptionsBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&RenderOptions::editHandleRenderProperties),
         static_cast<FieldGetMethodSig >(&RenderOptions::getHandleRenderProperties));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "useGLFinish",
+        "",
+        UseGLFinishFieldId, UseGLFinishFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&RenderOptions::editHandleUseGLFinish),
+        static_cast<FieldGetMethodSig >(&RenderOptions::getHandleUseGLFinish));
 
     oType.addInitialDesc(pDesc);
 
@@ -628,6 +644,16 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"
+    "\t   name=\"useGLFinish\"\n"
+    "\t   type=\"bool\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"external\"\n"
+    "\t   defaultValue=\"false\"\n"
+    "\t   access=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
+    "\n"
+    "\t<Field\n"
     "\t\tname=\"statistic\"\n"
     "\t\ttype=\"bool\"\n"
     "\t\tcardinality=\"single\"\n"
@@ -924,6 +950,19 @@ SFMaterialMapKey *RenderOptionsBase::editSFRenderProperties(void)
 const SFMaterialMapKey *RenderOptionsBase::getSFRenderProperties(void) const
 {
     return &_sfRenderProperties;
+}
+
+
+SFBool *RenderOptionsBase::editSFUseGLFinish(void)
+{
+    editSField(UseGLFinishFieldMask);
+
+    return &_sfUseGLFinish;
+}
+
+const SFBool *RenderOptionsBase::getSFUseGLFinish(void) const
+{
+    return &_sfUseGLFinish;
 }
 
 
@@ -1318,6 +1357,10 @@ UInt32 RenderOptionsBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderProperties.getBinSize();
     }
+    if(FieldBits::NoField != (UseGLFinishFieldMask & whichField))
+    {
+        returnValue += _sfUseGLFinish.getBinSize();
+    }
     if(FieldBits::NoField != (StatisticFieldMask & whichField))
     {
         returnValue += _sfStatistic.getBinSize();
@@ -1447,6 +1490,10 @@ void RenderOptionsBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRenderProperties.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (UseGLFinishFieldMask & whichField))
+    {
+        _sfUseGLFinish.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (StatisticFieldMask & whichField))
     {
         _sfStatistic.copyToBin(pMem);
@@ -1573,6 +1620,10 @@ void RenderOptionsBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (RenderPropertiesFieldMask & whichField))
     {
         _sfRenderProperties.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (UseGLFinishFieldMask & whichField))
+    {
+        _sfUseGLFinish.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (StatisticFieldMask & whichField))
     {
@@ -1816,6 +1867,7 @@ FieldContainerTransitPtr RenderOptionsBase::shallowCopy(void) const
 RenderOptionsBase::RenderOptionsBase(void) :
     Inherited(),
     _sfRenderProperties       (MaterialMapKey(0x0000)),
+    _sfUseGLFinish            (bool(false)),
     _sfStatistic              (bool(false)),
     _sfPolygonMode            (GLenum(GL_FILL)),
     _sfTwoSidedLighting       (bool(false)),
@@ -1851,6 +1903,7 @@ RenderOptionsBase::RenderOptionsBase(void) :
 RenderOptionsBase::RenderOptionsBase(const RenderOptionsBase &source) :
     Inherited(source),
     _sfRenderProperties       (source._sfRenderProperties       ),
+    _sfUseGLFinish            (source._sfUseGLFinish            ),
     _sfStatistic              (source._sfStatistic              ),
     _sfPolygonMode            (source._sfPolygonMode            ),
     _sfTwoSidedLighting       (source._sfTwoSidedLighting       ),
@@ -1912,6 +1965,31 @@ EditFieldHandlePtr RenderOptionsBase::editHandleRenderProperties(void)
 
 
     editSField(RenderPropertiesFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr RenderOptionsBase::getHandleUseGLFinish     (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseGLFinish,
+             this->getType().getFieldDesc(UseGLFinishFieldId),
+             const_cast<RenderOptionsBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr RenderOptionsBase::editHandleUseGLFinish    (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseGLFinish,
+             this->getType().getFieldDesc(UseGLFinishFieldId),
+             this));
+
+
+    editSField(UseGLFinishFieldMask);
 
     return returnValue;
 }

@@ -86,6 +86,8 @@ RenderActionBase::RenderActionBase(void) :
     _pStatistics       (NULL  ),
     _pStageValidator   (NULL  ),
 
+    _bUseGLFinish      (false ),
+
     _bFrustumCulling   (true  ),
     _bVolumeDrawing    (false ),
     _bAutoFrustum      (true  ),
@@ -108,6 +110,8 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
     _pViewport         (source._pViewport       ),
     _pGlobalOverride   (source._pGlobalOverride ),
     _pStageValidator   (NULL                    ),
+    _bUseGLFinish      (source._bUseGLFinish    ),
+
     _pStatistics       (NULL                    ),
     _bFrustumCulling   (source._bFrustumCulling ),
     _bVolumeDrawing    (source._bVolumeDrawing  ),

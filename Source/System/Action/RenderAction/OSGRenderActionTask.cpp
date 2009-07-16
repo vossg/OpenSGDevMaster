@@ -36,80 +36,100 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
-
 #include <cstdlib>
 #include <cstdio>
 
 #include "OSGConfig.h"
 
-#include "OSGRenderPartitionBase.h"
+#include "OSGRenderActionTask.h"
+#include "OSGWindow.h"
+#include "OSGDrawEnv.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
+/*! \class OSG::WindowDrawTask
+    \ingroup GrpSystemRenderingBackend
+ */
 
-/*! \class RenderPartitionBase
-
-
-*/
-
-/***************************************************************************\
- *                               Types                                     *
-\***************************************************************************/
-
-/***************************************************************************\
- *                           Class variables                               *
-\***************************************************************************/
-
-/***************************************************************************\
- *                           Class methods                                 *
-\***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  public                                                                 -
-\*-------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------*\
- -  protected                                                              -
-\*-------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                -
-\*-------------------------------------------------------------------------*/
-
-
-
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  public                                                                 -
-\*-------------------------------------------------------------------------*/
-
-/*------------- constructors & destructors --------------------------------*/
-
-RenderPartitionBase::RenderPartitionBase(void) :
-     Inherited               (     ),
-    _bSortTrans              (true ),
-    _bZWriteTrans            (false),
-    _bCorrectTwoSidedLighting(false),
-    _ubState                 ( Full),
-
-    _uiNumMatrixChanges      (    0),
-    _uiNumTriangles          (    0)
+RenderActionTask::RenderActionTask(TaskType eType) :
+    _eTaskType            (eType),
+    _pBarrier             (NULL )
 {
+    switch(_eTaskType)
+    {
+        case HandleGLFinish:
+        {
+            _pBarrier = Barrier::get(NULL);
+            _pBarrier->setNumWaitFor(2);
+        }
+        break;
+
+        default:
+            break;
+    }
 }
 
-RenderPartitionBase::~RenderPartitionBase(void)
+RenderActionTask::~RenderActionTask(void)
 {
+    _pBarrier = NULL;
 }
 
-/*------------------------------ access -----------------------------------*/
+void RenderActionTask::execute(DrawEnv *pEnv)
+{
+    Window *pWindow = pEnv->getWindow();
 
+    OSG_ASSERT(pWindow != NULL);
 
+    switch(_eTaskType)
+    {
+
+        case HandleGLFinish:
+        {           
+#ifdef OSG_DUMP_RENDERTASK
+            fprintf(stderr, "HandleGLFinish\n");
+            fflush(stderr);
+#endif
+            glFinish();
+
+            OSG_ASSERT(_pBarrier != NULL);
+
+            _pBarrier->enter();
+        }
+        break;
+
+        default:
+            break;
+    }
+}
+
+void RenderActionTask::waitForBarrier(void)
+{
+    OSG_ASSERT(_eTaskType == HandleGLFinish);
+    OSG_ASSERT(_pBarrier  != NULL          );
+
+    _pBarrier->enter();
+}
+
+void RenderActionTask::dump(UInt32 uiIndent)
+{
+    for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
+    fprintf(stderr, "RenderActionTask : ");
+
+    switch(_eTaskType)
+    {
+        case HandleGLFinish:
+        {           
+            fprintf(stderr, "HandleGLFinish\n");
+        }
+        break;
+
+        default:
+        {
+            fprintf(stderr, "Unknown\n");
+        }
+        break;
+    }
+
+}
+
+OSG_END_NAMESPACE

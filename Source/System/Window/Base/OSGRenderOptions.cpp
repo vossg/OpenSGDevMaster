@@ -163,6 +163,7 @@ void RenderOptions::activate(RenderActionBase *pAction)
             this->getRenderProperties());
  */
     pAction->setRenderProperties(this->getRenderProperties());
+    pAction->setUseGLFinish     (this->getUseGLFinish     ());
 }
 
 void RenderOptions::deactivate(RenderActionBase *pAction)
@@ -170,7 +171,8 @@ void RenderOptions::deactivate(RenderActionBase *pAction)
     if(pAction == NULL)
         return;
 
-    pAction->resetRenderProperties();
+    pAction->resetRenderProperties(     );
+    pAction->setUseGLFinish       (false);
 }
 
 

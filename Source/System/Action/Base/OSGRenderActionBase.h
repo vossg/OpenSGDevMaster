@@ -163,6 +163,11 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     virtual bool    isVisible     (Node *node) = 0;
 #endif
 
+    /*----------- multi-frame buffering / split cull/draw -------------------*/
+
+    void setUseGLFinish(bool bVal);
+    bool getUseGLFinish(void     );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Lights                                     */
@@ -253,6 +258,8 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
 
     StatCollector  *_pStatistics;
     StageValidator *_pStageValidator;
+
+    bool            _bUseGLFinish;
 
     // frustum culling attributes
     

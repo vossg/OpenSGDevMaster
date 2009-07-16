@@ -490,6 +490,11 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     void setupExecution(void);
     void doExecution   (void);
 
+    /*-------------------------- comparison ---------------------------------*/
+
+    virtual void execute(DrawEnv *pEnv    );
+    virtual void dump   (UInt32   uiIndent);
+
   private:
 
     //-----------------------------------------------------------------------

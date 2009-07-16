@@ -114,7 +114,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         EnableFSAAFieldId = RequestSamplesFieldId + 1,
         FsaaHintFieldId = EnableFSAAFieldId + 1,
         RenderOptionsFieldId = FsaaHintFieldId + 1,
-        DumpContainerFieldId = RenderOptionsFieldId + 1,
+        PartitionDrawModeFieldId = RenderOptionsFieldId + 1,
+        DumpContainerFieldId = PartitionDrawModeFieldId + 1,
         NextFieldId = DumpContainerFieldId + 1
     };
 
@@ -148,6 +149,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << FsaaHintFieldId);
     static const OSG::BitVector RenderOptionsFieldMask =
         (TypeTraits<BitVector>::One << RenderOptionsFieldId);
+    static const OSG::BitVector PartitionDrawModeFieldMask =
+        (TypeTraits<BitVector>::One << PartitionDrawModeFieldId);
     static const OSG::BitVector DumpContainerFieldMask =
         (TypeTraits<BitVector>::One << DumpContainerFieldId);
     static const OSG::BitVector NextFieldMask =
@@ -168,6 +171,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     typedef SFBool            SFEnableFSAAType;
     typedef SFUInt32          SFFsaaHintType;
     typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
+    typedef SFUInt32          SFPartitionDrawModeType;
     typedef SFBool            SFDumpContainerType;
 
     /*---------------------------------------------------------------------*/
@@ -234,6 +238,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
             const SFUnrecRenderOptionsPtr *getSFRenderOptions  (void) const;
                   SFUnrecRenderOptionsPtr *editSFRenderOptions  (void);
 
+                  SFUInt32            *editSFPartitionDrawMode(void);
+            const SFUInt32            *getSFPartitionDrawMode (void) const;
+
                   SFBool              *editSFDumpContainer  (void);
             const SFBool              *getSFDumpContainer   (void) const;
 
@@ -278,6 +285,9 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
 
                   RenderOptions * getRenderOptions  (void) const;
 
+                  UInt32              &editPartitionDrawMode(void);
+                  UInt32               getPartitionDrawMode (void) const;
+
                   bool                &editDumpContainer  (void);
                   bool                 getDumpContainer   (void) const;
 
@@ -298,6 +308,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
             void setEnableFSAA     (const bool value);
             void setFsaaHint       (const UInt32 value);
             void setRenderOptions  (RenderOptions * const value);
+            void setPartitionDrawMode(const UInt32 value);
             void setDumpContainer  (const bool value);
 
     /*! \}                                                                 */
@@ -357,6 +368,7 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     SFBool            _sfEnableFSAA;
     SFUInt32          _sfFsaaHint;
     SFUnrecRenderOptionsPtr _sfRenderOptions;
+    SFUInt32          _sfPartitionDrawMode;
     SFBool            _sfDumpContainer;
 
     /*! \}                                                                 */
@@ -427,6 +439,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleFsaaHint       (void);
     GetFieldHandlePtr  getHandleRenderOptions   (void) const;
     EditFieldHandlePtr editHandleRenderOptions  (void);
+    GetFieldHandlePtr  getHandlePartitionDrawMode (void) const;
+    EditFieldHandlePtr editHandlePartitionDrawMode(void);
     GetFieldHandlePtr  getHandleDumpContainer   (void) const;
     EditFieldHandlePtr editHandleDumpContainer  (void);
 

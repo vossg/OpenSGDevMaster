@@ -48,7 +48,7 @@
 
 #include "OSGSystemDef.h"
 #include "OSGBaseTypes.h"
-#include "OSGMemoryObject.h"
+#include "OSGDrawTask.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -71,9 +71,11 @@ class OcclusionCullingTreeBuilder;
             necessary to draw a scene. 
  */
 
-class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public MemoryObject
+class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public DrawTask
 {
   public:
+
+    typedef DrawTask Inherited;
 
     //-----------------------------------------------------------------------
     //   constants                                                             
@@ -130,6 +132,13 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public MemoryObject
         PassiveBit = 0x00010000
     };
 
+    enum TaskType
+    {
+        Setup   = 0x01,
+        Execute = 0x02,
+        Full    = 0x03
+    };
+
     //-----------------------------------------------------------------------
     //   types                                                               
     //-----------------------------------------------------------------------
@@ -148,21 +157,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public MemoryObject
 
     /*------------------------- your_category -------------------------------*/
 
-    /*------------------------- your_operators ------------------------------*/
-
-    /*------------------------- your_operators ------------------------------*/
-
-    /*------------------------- your_operators ------------------------------*/
-
-    /*------------------------- your_operators ------------------------------*/
-
-    /*------------------------- your_operators ------------------------------*/
-
-    /*------------------------- your_operators ------------------------------*/
-
-    /*------------------------- your_operators ------------------------------*/
-
-    /*------------------------- your_operators ------------------------------*/
+    void setTaskType(TaskType eTaskType);
 
     /*------------------------- assignment ----------------------------------*/
     
@@ -193,15 +188,14 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public MemoryObject
     //-----------------------------------------------------------------------
 
     // What to do
-
-    bool   _bSortTrans;
-    bool   _bZWriteTrans;
-    bool   _bCorrectTwoSidedLighting;
+    bool     _bSortTrans;
+    bool     _bZWriteTrans;
+    bool     _bCorrectTwoSidedLighting;
+    UInt8    _ubState;
 
     // Stat
-
-    UInt32 _uiNumMatrixChanges;
-    UInt32 _uiNumTriangles;
+    UInt32   _uiNumMatrixChanges;
+    UInt32   _uiNumTriangles;
 
     //-----------------------------------------------------------------------
     //   instance functions                                                  

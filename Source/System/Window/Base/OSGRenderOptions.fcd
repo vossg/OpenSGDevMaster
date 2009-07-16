@@ -22,6 +22,16 @@
 	>
 	</Field>
 	<Field
+	   name="useGLFinish"
+	   type="bool"
+	   cardinality="single"
+	   visibility="external"
+	   defaultValue="false"
+	   access="public"
+	>
+	</Field>
+
+	<Field
 		name="statistic"
 		type="bool"
 		cardinality="single"

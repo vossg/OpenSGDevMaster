@@ -57,6 +57,8 @@
 #include "OSGViewport.h"
 
 #include "OSGWindowBase.h"
+#include "OSGWindowDrawTask.h"
+#include "OSGWindowDrawThread.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -120,7 +122,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     typedef void (*GLExtensionFunction)(void);
 
-    typedef boost::function<void (void)> GLInitFunctor;
+    typedef WindowDrawTask::GLInitFunctor             GLInitFunctor;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -280,6 +282,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
+    void queueTask(DrawTask *pTask);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Output                                  */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32    uiIndent = 0,
                       const BitVector bvFlags  = 0) const;
 
@@ -330,17 +339,25 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name      Window system implementation functions                  */
     /*! \{                                                                 */
 
-    virtual void doTerminate         (void                    );
+    virtual void doTerminate         (void                          );
 
-    virtual void doActivate          (void                    ) = 0;
-    virtual void doDeactivate        (void                    ) = 0;
-    virtual bool doSwap              (void                    ) = 0;
+    virtual void doActivate          (void                          ) = 0;
+    virtual void doDeactivate        (void                          ) = 0;
+    virtual bool doSwap              (void                          ) = 0;
 
-    virtual void doFrameInit         (void                    );
-    virtual void doFrameExit         (void                    );
+    virtual void doFrameInit         (bool reinitExtFuctions = false);
+    virtual void doFrameExit         (void                          );
 
-    virtual void doResizeGL          (void                    );
-    virtual void doRenderAllViewports(RenderActionBase *action);
+    virtual void doResizeGL          (void                          );
+    virtual void doRenderAllViewports(RenderActionBase *action      );
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                GL object handling                            */
+    /*! \{                                                                 */
+
+    void setupTasks(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -426,6 +443,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     friend class FieldContainer;
     friend class WindowBase;
+    friend class WindowDrawTask;
 
     static std::vector<Window *> _allWindows;
     static Int32                 _currentWindowId;
@@ -483,6 +501,15 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     Int32                             _windowId;
     StageValidator                   *_pStageValidator;
     ShaderCache                      *_pShaderCache;
+
+    WindowDrawThreadRefPtr            _pDrawThread;
+    WindowDrawTaskRefPtr              _pInitTask;
+    WindowDrawTaskRefPtr              _pWaitTask;
+    WindowDrawTaskRefPtr              _pSwapTask;
+    WindowDrawTaskRefPtr              _pFrameInitTask;
+    WindowDrawTaskRefPtr              _pFrameExitTask;
+    WindowDrawTaskRefPtr              _pForegroundTask;
+    WindowDrawTaskRefPtr              _pActivateTask;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

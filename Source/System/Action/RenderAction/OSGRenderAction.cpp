@@ -258,7 +258,6 @@ RenderAction::RenderAction(void) :
     _sRenderPartitionGrpStack(          ),
 
     _bvPassMask              (          ),
-    _bUseGLFinish            (false     ),
 
     _occlusionCulling        (false     ),
     _occlusionCullingDebug   (false     ),
@@ -273,7 +272,9 @@ RenderAction::RenderAction(void) :
 
     _scrlodCoverageThreshold (      0.01),
     _scrlodNumLODsToUse      (         0),
-    _scrlodDegradationFactor (       1.0)
+    _scrlodDegradationFactor (       1.0),
+    _pGLFinishTask           (NULL      )
+
 {
     if(_vDefaultEnterFunctors != NULL)
         _enterFunctors = *_vDefaultEnterFunctors;
@@ -345,7 +346,6 @@ RenderAction::RenderAction(
     _sRenderPartitionIdxStack(                               ),
 
     _bvPassMask              (source._bvPassMask             ),
-    _bUseGLFinish            (source._bUseGLFinish           ),
 
     _occlusionCulling        (source._occlusionCulling       ),
     _occlusionCullingDebug   (source._occlusionCullingDebug  ),
@@ -359,7 +359,8 @@ RenderAction::RenderAction(
     _occMinimumTriangleCount (source._occMinimumTriangleCount),
     _scrlodCoverageThreshold (source._scrlodCoverageThreshold),
     _scrlodNumLODsToUse      (source._scrlodNumLODsToUse     ),
-    _scrlodDegradationFactor (source._scrlodDegradationFactor)
+    _scrlodDegradationFactor (source._scrlodDegradationFactor),
+    _pGLFinishTask           (NULL                           )
 {
     setNumBuffers(source._numBuffers);
 }
@@ -390,6 +391,8 @@ RenderAction::~RenderAction(void)
         delete _pStatePools[i];
         delete _pTreeBuilderPools[i];
     }
+
+    _pGLFinishTask  = NULL;
 }
 
 /*------------------------------ access -----------------------------------*/
@@ -718,12 +721,26 @@ Action::ResultE RenderAction::start(void)
 
 //    fprintf(stderr, "Start\n");
 
+    if(_bDrawPartPar == true)
+    {
+#ifdef OSG_RENPART_DUMP_PAR
+        fprintf(stderr, "start with %p\n", _pActivePartition);
+        fflush(stderr);
+#endif
+        _pActivePartition->setTaskType(RenderPartition::Setup);
+
+        _pWindow->queueTask(_pActivePartition);
+    }
+
     return Action::Continue;
 }
 
 Action::ResultE RenderAction::stop(ResultE res)
 {
-//    fprintf(stderr, "Stop\n");
+#ifdef OSG_RENPART_DUMP_PAR
+    fprintf(stderr, "Stop\n");
+    fflush(stderr);
+#endif
 
     Inherited::stop(res);
 
@@ -794,20 +811,40 @@ void RenderAction::drawBuffer(UInt32 buf)
         _pStatistics->getElem(statDrawTime)->start();
     }
 
-    _vRenderPartitions[buf][0]->setupExecution();
-
-    for(Int32 i = _vRenderPartitions[buf].size() - 1; i > 0; --i)
+    if(_bDrawPartPar == false)
     {
-        _vRenderPartitions[buf][i]->execute();
-//        _vRenderPartitions[buf][i]->exit();
-    }
+        _vRenderPartitions[buf][0]->setupExecution();
 
-    _vRenderPartitions[buf][0]->doExecution();
+        for(Int32 i = _vRenderPartitions[buf].size() - 1; i > 0; --i)
+        {
+            _vRenderPartitions[buf][i]->execute();
+//        _vRenderPartitions[buf][i]->exit();
+        }
+
+        _vRenderPartitions[buf][0]->doExecution();
 //    _vRenderPartitions[buf][0]->exit();
 
-    if(_bUseGLFinish == true)
+        if(_bUseGLFinish == true)
+        {
+            glFinish();
+        }
+    }
+    else
     {
-        glFinish();
+        _pWindow->queueTask(_vRenderPartitions[buf][0]);
+
+        if(_bUseGLFinish == true)
+        {
+            if(_pGLFinishTask == NULL)
+            {
+                _pGLFinishTask = 
+                    new RenderActionTask(RenderActionTask::HandleGLFinish);
+            }
+
+            _pWindow->queueTask(_pGLFinishTask);
+            
+            _pGLFinishTask->waitForBarrier();
+        }
     }
 
     if(_pStatistics != NULL)
@@ -956,6 +993,11 @@ void RenderAction::pushPartition(UInt32                uiCopyOnPush,
         _bInPartitionGroup   = false;
     }
 
+#ifdef OSG_RENPART_DUMP_PAR
+    fprintf(stderr, "Process %p\n", _pActivePartition);
+    fflush(stderr);
+#endif
+
     _pActivePartition->setKeyGen         (_uiKeyGen                         );
     _pActivePartition->setAction         ( this                             );
     _pActivePartition->setNodePool       (_pNodePools       [_currentBuffer]);
@@ -971,6 +1013,8 @@ void RenderAction::pushPartition(UInt32                uiCopyOnPush,
 
 void RenderAction::popPartition(void)
 {
+    RenderPartition *pCurrPart = _pActivePartition;
+
     _pActivePartition    = _sRenderPartitionStack   .top();
     _iActivePartitionIdx = _sRenderPartitionIdxStack.top();
     _bInPartitionGroup   = _sRenderPartitionGrpStack.top();
@@ -980,6 +1024,16 @@ void RenderAction::popPartition(void)
     _sRenderPartitionStack   .pop();
     _sRenderPartitionIdxStack.pop();
     _sRenderPartitionGrpStack.pop();
+
+    if(_bDrawPartPar == true)
+    {
+        _pWindow->queueTask(pCurrPart);
+
+#ifdef OSG_RENPART_DUMP_PAR
+        fprintf(stderr, "queue %p\n", pCurrPart);
+        fflush(stderr);
+#endif
+    }
 }
 
 void RenderAction::readdPartitionByIndex(UInt32 uiPartIdx)
@@ -1121,7 +1175,9 @@ bool RenderAction::getOcclusionCullingDebug(void)
     return _occlusionCullingDebug;
 }
 
-void RenderAction::setOcclusionDebugMasks(const UInt32 tested, const UInt32 culled, const UInt32 visible)
+void RenderAction::setOcclusionDebugMasks(const UInt32 tested, 
+                                          const UInt32 culled, 
+                                          const UInt32 visible)
 {
     _occDMTested  = tested;
     _occDMCulled  = culled;

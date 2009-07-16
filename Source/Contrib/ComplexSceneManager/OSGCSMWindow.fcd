@@ -157,6 +157,16 @@
 	>
 	</Field>
     <Field
+	   name="partitionDrawMode"
+	   type="UInt32"
+	   cardinality="single"
+	   visibility="internal"
+	   access="public"
+       fieldFlags=""
+       defaultValue="Window::SequentialPartitionDraw"
+	>
+    </Field>
+    <Field
 	   name="dumpContainer"
 	   type="bool"
 	   cardinality="single"

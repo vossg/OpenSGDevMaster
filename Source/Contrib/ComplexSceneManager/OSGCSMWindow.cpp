@@ -215,7 +215,8 @@ bool CSMWindow::init(void)
             }
         }
 
-        _pWindow->setRenderOptions(this->getRenderOptions());
+        _pWindow->setRenderOptions    (this->getRenderOptions    ());
+        _pWindow->setPartitionDrawMode(this->getPartitionDrawMode());
     }
     
 //    OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -43,73 +43,92 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
+#include <OSGConfig.h>
 
-#include "OSGRenderPartitionBase.h"
+#include "OSGWindowDrawThread.h"
+#include "OSGThreadManager.h"
 
-OSG_USING_NAMESPACE
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class RenderPartitionBase
-
-
-*/
-
-/***************************************************************************\
- *                               Types                                     *
-\***************************************************************************/
+OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
 
+MPThreadType WindowDrawThread::_type(
+    "OSGWindowDrawThread",
+    "OSGThread",
+    static_cast<CreateThreadF>(WindowDrawThread::create),
+    NULL);
+
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  public                                                                 -
-\*-------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------*\
- -  protected                                                              -
-\*-------------------------------------------------------------------------*/
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                -
-\*-------------------------------------------------------------------------*/
-
-
 
 /***************************************************************************\
  *                           Instance methods                              *
 \***************************************************************************/
 
 /*-------------------------------------------------------------------------*\
- -  public                                                                 -
+ -  private                                                                 -
 \*-------------------------------------------------------------------------*/
 
-/*------------- constructors & destructors --------------------------------*/
+WindowDrawThread *WindowDrawThread::find(Char8 *szName)
+{
+    BaseThread *pThread = ThreadManager::the()->findThread(szName);
 
-RenderPartitionBase::RenderPartitionBase(void) :
-     Inherited               (     ),
-    _bSortTrans              (true ),
-    _bZWriteTrans            (false),
-    _bCorrectTwoSidedLighting(false),
-    _ubState                 ( Full),
+    return dynamic_cast<WindowDrawThread *>(pThread);
+}
 
-    _uiNumMatrixChanges      (    0),
-    _uiNumTriangles          (    0)
+WindowDrawThread *WindowDrawThread::get(Char8 *szName) 
+{
+    BaseThread *pThread = 
+        ThreadManager::the()->getThread(szName,
+                                        "OSGWindowDrawThread");
+
+    return dynamic_cast<WindowDrawThread *>(pThread);
+}
+
+
+
+BaseThread *WindowDrawThread::create(const Char8  *szName, 
+                                           UInt32  uiId)
+{
+    return new WindowDrawThread(szName, uiId);
+}
+
+WindowDrawThread::WindowDrawThread(const Char8 *szName, UInt32 uiId) :
+      Inherited (szName, 
+                 uiId  ),
+     _bRunning  (false ),
+     _oEnv      (      ),
+     _qTaskQueue(      )
 {
 }
 
-RenderPartitionBase::~RenderPartitionBase(void)
+WindowDrawThread::~WindowDrawThread(void)
 {
 }
 
-/*------------------------------ access -----------------------------------*/
+void WindowDrawThread::workProc(void)
+{
+    _bRunning = true;
 
+    while(_bRunning == true)
+    {
+        DrawTaskRefPtr pNextTask = _qTaskQueue.popTask();
 
+        pNextTask->execute(&_oEnv);
+    }
+}
+
+void WindowDrawThread::dumpTasks(void)
+{
+    _qTaskQueue.dumpQueue();
+}
+
+void WindowDrawThread::runTasks (void)
+{
+    _qTaskQueue.runAndClearQueue(&_oEnv);
+}
+
+OSG_END_NAMESPACE

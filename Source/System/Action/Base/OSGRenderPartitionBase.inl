@@ -81,6 +81,12 @@ OSG_BEGIN_NAMESPACE
 
 /*------------- constructors & destructors --------------------------------*/
 
+inline
+void RenderPartitionBase::setTaskType(TaskType eTaskType)
+{
+    _ubState = eTaskType;
+}
+
 /*------------------------------ access -----------------------------------*/
 
 /*---------------------------- properties ---------------------------------*/

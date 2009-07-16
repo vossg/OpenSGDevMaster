@@ -66,7 +66,7 @@
 #include "OSGAttachment.h" // Parent
 
 #include "OSGMaterialMapFields.h" // RenderProperties type
-#include "OSGSysFields.h" // Statistic type
+#include "OSGSysFields.h" // UseGLFinish type
 #include "OSGBaseFields.h" // PolygonMode type
 #include "OSGVecFields.h" // FogRange type
 
@@ -97,7 +97,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     enum
     {
         RenderPropertiesFieldId = Inherited::NextFieldId,
-        StatisticFieldId = RenderPropertiesFieldId + 1,
+        UseGLFinishFieldId = RenderPropertiesFieldId + 1,
+        StatisticFieldId = UseGLFinishFieldId + 1,
         PolygonModeFieldId = StatisticFieldId + 1,
         TwoSidedLightingFieldId = PolygonModeFieldId + 1,
         SpecTexLightingFieldId = TwoSidedLightingFieldId + 1,
@@ -131,6 +132,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
 
     static const OSG::BitVector RenderPropertiesFieldMask =
         (TypeTraits<BitVector>::One << RenderPropertiesFieldId);
+    static const OSG::BitVector UseGLFinishFieldMask =
+        (TypeTraits<BitVector>::One << UseGLFinishFieldId);
     static const OSG::BitVector StatisticFieldMask =
         (TypeTraits<BitVector>::One << StatisticFieldId);
     static const OSG::BitVector PolygonModeFieldMask =
@@ -193,6 +196,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFMaterialMapKey  SFRenderPropertiesType;
+    typedef SFBool            SFUseGLFinishType;
     typedef SFBool            SFStatisticType;
     typedef SFGLenum          SFPolygonModeType;
     typedef SFBool            SFTwoSidedLightingType;
@@ -249,6 +253,9 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
 
                   SFMaterialMapKey    *editSFRenderProperties(void);
             const SFMaterialMapKey    *getSFRenderProperties (void) const;
+
+                  SFBool              *editSFUseGLFinish    (void);
+            const SFBool              *getSFUseGLFinish     (void) const;
 
                   SFBool              *editSFStatistic      (void);
             const SFBool              *getSFStatistic       (void) const;
@@ -340,6 +347,9 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
 
                   MaterialMapKey      &editRenderProperties(void);
             const MaterialMapKey      &getRenderProperties (void) const;
+
+                  bool                &editUseGLFinish    (void);
+                  bool                 getUseGLFinish     (void) const;
 
                   bool                &editStatistic      (void);
                   bool                 getStatistic       (void) const;
@@ -434,6 +444,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*! \{                                                                 */
 
             void setRenderProperties(const MaterialMapKey &value);
+            void setUseGLFinish    (const bool value);
             void setStatistic      (const bool value);
             void setPolygonMode    (const GLenum &value);
             void setTwoSidedLighting(const bool value);
@@ -523,6 +534,7 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
     /*! \{                                                                 */
 
     SFMaterialMapKey  _sfRenderProperties;
+    SFBool            _sfUseGLFinish;
     SFBool            _sfStatistic;
     SFGLenum          _sfPolygonMode;
     SFBool            _sfTwoSidedLighting;
@@ -581,6 +593,8 @@ class OSG_SYSTEM_DLLMAPPING RenderOptionsBase : public Attachment
 
     GetFieldHandlePtr  getHandleRenderProperties (void) const;
     EditFieldHandlePtr editHandleRenderProperties(void);
+    GetFieldHandlePtr  getHandleUseGLFinish     (void) const;
+    EditFieldHandlePtr editHandleUseGLFinish    (void);
     GetFieldHandlePtr  getHandleStatistic       (void) const;
     EditFieldHandlePtr editHandleStatistic      (void);
     GetFieldHandlePtr  getHandlePolygonMode     (void) const;

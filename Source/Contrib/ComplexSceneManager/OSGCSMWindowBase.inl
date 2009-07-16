@@ -364,6 +364,31 @@ void CSMWindowBase::setRenderOptions(RenderOptions * const value)
 
     _sfRenderOptions.setValue(value);
 }
+//! Get the value of the CSMWindow::_sfPartitionDrawMode field.
+
+inline
+UInt32 &CSMWindowBase::editPartitionDrawMode(void)
+{
+    editSField(PartitionDrawModeFieldMask);
+
+    return _sfPartitionDrawMode.getValue();
+}
+
+//! Get the value of the CSMWindow::_sfPartitionDrawMode field.
+inline
+      UInt32  CSMWindowBase::getPartitionDrawMode(void) const
+{
+    return _sfPartitionDrawMode.getValue();
+}
+
+//! Set the value of the CSMWindow::_sfPartitionDrawMode field.
+inline
+void CSMWindowBase::setPartitionDrawMode(const UInt32 value)
+{
+    editSField(PartitionDrawModeFieldMask);
+
+    _sfPartitionDrawMode.setValue(value);
+}
 //! Get the value of the CSMWindow::_sfDumpContainer field.
 
 inline
@@ -474,6 +499,9 @@ void CSMWindowBase::execSync (      CSMWindowBase *pFrom,
 
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
         _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
+
+    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+        _sfPartitionDrawMode.syncWith(pFrom->_sfPartitionDrawMode);
 
     if(FieldBits::NoField != (DumpContainerFieldMask & whichField))
         _sfDumpContainer.syncWith(pFrom->_sfDumpContainer);

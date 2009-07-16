@@ -52,6 +52,7 @@
 #include "OSGRenderActionBase.h"
 #include "OSGRenderPartition.h"
 #include "OSGMaterial.h"
+#include "OSGRenderActionTask.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -250,11 +251,6 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     // use with care. Should probably be more protected
     void   drawBuffer      (UInt32 buf);
 
-    /*----------- multi-frame buffering / split cull/draw -------------------*/
-
-    void setUseGLFinish(bool bVal);
-    bool getUseGLFinish(void     );
-
     /*------------------ Occlusion Culling control --------------------------*/
 
     void   setOcclusionCulling                    (const bool bVal     );
@@ -354,7 +350,6 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     RenderPartitionGrpStack             _sRenderPartitionGrpStack;
 
     BitVector                           _bvPassMask;
-    bool                                _bUseGLFinish;
 
     // Occlusion Culling
     bool                                _occlusionCulling;
@@ -372,6 +367,8 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
     Real32                              _scrlodCoverageThreshold;
     UInt32                              _scrlodNumLODsToUse;
     Real32                              _scrlodDegradationFactor;
+
+    RenderActionTaskRefPtr              _pGLFinishTask;
 
     //-----------------------------------------------------------------------
     //   instance functions

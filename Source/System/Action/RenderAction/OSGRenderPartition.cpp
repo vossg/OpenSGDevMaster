@@ -230,6 +230,10 @@ void RenderPartition::reset(Mode eMode)
 
     _eDrawBuffer = GL_NONE;
 
+#ifdef OSG_RENPART_DUMP_PAR
+    fprintf(stderr, "reset %p\n", this);
+#endif
+
     if(_eMode == StateSorting || _eMode == TransformSorting)
     {
         _pBackground = NULL;
@@ -297,6 +301,7 @@ void RenderPartition::reset(Mode eMode)
     }
 
     _uiNumTriangles = 0;
+    _ubState        = RenderPartitionBase::Full;
 
     _pNode = NULL;
 /*
@@ -542,6 +547,68 @@ void RenderPartition::execute(void)
 
         ++gIt;
     }
+}
+
+void RenderPartition::execute(DrawEnv *pEnv) 
+{
+#ifdef OSG_RENPART_DUMP_PAR
+    fprintf(stderr, "execute %p %d\n", this, UInt32(_ubState));
+    fflush(stderr);
+#endif
+
+    switch(_ubState)
+    {
+        case Setup:
+        {
+            this->setupExecution();
+            ++_ubState;
+        }   
+        break;
+
+        case Execute:
+        {
+            this->doExecution();
+            ++_ubState;
+        }
+        break;
+
+        case Full:
+        {
+            if(_bDone == false)
+            {
+                setupExecution();
+                doExecution   ();  
+            }
+        }
+        break;
+    }              
+
+#ifdef OSG_RENPART_DUMP_PAR
+    fprintf(stderr, "execute done %p %d\n", this, UInt32(_ubState));
+    fflush(stderr);
+#endif
+}
+
+void RenderPartition::dump(UInt32 uiIndent)
+{
+    uiIndent += 4;
+
+    for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
+    fprintf(stderr, "RenderParition %p | %d\n", this, Int32(_ubState));
+
+    for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
+    fprintf(stderr, "with %d groups\n", _vGroupStore.size());
+
+    GroupStore::iterator gIt  = _vGroupStore.begin();
+    GroupStore::iterator gEnd = _vGroupStore.end  ();
+
+    while(gIt != gEnd)
+    {
+        (*gIt)->dump(uiIndent + 4);
+
+        ++gIt;
+    }
+
 }
 
 /*---------------------------- properties ---------------------------------*/
@@ -1249,6 +1316,15 @@ void RenderPartition::initFrom(RenderPartition *pSource,
         _sStateOverrides.top()->setKeyGen(_uiKeyGen);
 
         _visibilityStack.push_back(FrustumVolume::P_NONE);
+        
+#ifdef OSG_RENPART_DUMP_PAR
+        fprintf(stderr, "after init early %d %p (%p|%p)\n",
+                _sStateOverrides.size(),
+                this,
+                pSource,
+                pInitial);
+        fflush(stderr);
+#endif
 
         return;
     }
@@ -1329,6 +1405,15 @@ void RenderPartition::initFrom(RenderPartition *pSource,
             pInitial->_oDrawEnv.getVPWorldToScreen        ());
     }
 
+#ifdef OSG_RENPART_DUMP_PAR
+    fprintf(stderr, "after init %d %p (%p|%p)\n",
+            _sStateOverrides.size(),
+            this,
+            pSource,
+            pInitial);
+
+    fflush(stderr);
+#endif
 }
 
 void RenderPartition::initVPMatricesFromCamera(void)
@@ -1340,6 +1425,12 @@ void RenderPartition::exit(void)
 {
     if(_bDone == true)
         return;
+
+#ifdef OSG_RENPART_DUMP_PAR
+    fprintf(stderr, "exit %p %d %d\n", 
+            this, _sStateOverrides.size(), pthread_self());
+    fflush(stderr);
+#endif
 
     _sStateOverrides.pop();
 

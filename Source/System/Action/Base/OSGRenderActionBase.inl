@@ -205,6 +205,18 @@ bool RenderActionBase::getDrawPartPar(void)
     return _bDrawPartPar;
 }
 
+inline
+void RenderActionBase::setUseGLFinish(bool bVal)
+{
+    _bUseGLFinish = bVal;
+}
+
+inline
+bool RenderActionBase::getUseGLFinish(void)
+{
+    return _bUseGLFinish;
+}
+
 /*-------------------------------------------------------------------------*\
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/

@@ -117,18 +117,6 @@ BitVector RenderAction::getPassMask(void)
 }
 
 inline
-void RenderAction::setUseGLFinish(bool bVal)
-{
-    _bUseGLFinish = bVal;
-}
-
-inline
-bool RenderAction::getUseGLFinish(void)
-{
-    return _bUseGLFinish;
-}
-
-inline
 void RenderAction::beginPartitionGroup(void)
 {
     _sRenderPartitionIdxStack.push(_iActivePartitionIdx);
