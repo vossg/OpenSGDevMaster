@@ -168,6 +168,8 @@ OSG_BEGIN_NAMESPACE
 
 struct MemObjRefCountPolicy
 {
+    static const bool NotCounting = false;
+
     static void addRef(MemoryObject * const objectP)
     {
         if(objectP != NULL)

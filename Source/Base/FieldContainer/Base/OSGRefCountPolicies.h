@@ -52,6 +52,8 @@ OSG_BEGIN_NAMESPACE
 
 struct RecordedRefCountPolicy
 {
+    static const bool NotCounting = false;
+
     static void addRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
@@ -133,6 +135,8 @@ struct MTRecordedRefCountPolicy : public RecordedRefCountPolicy
 
 struct UnrecordedRefCountPolicy
 {
+    static const bool NotCounting = false;
+
     static void addRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
@@ -184,6 +188,8 @@ struct UnrecordedRefCountPolicy
 
 struct NoRefCountPolicy
 {
+    static const bool NotCounting = true;
+
     template<class ObjT>
     static void addRef(ObjT * const)
     {
@@ -229,6 +235,8 @@ struct NoRefCountPolicy
 
 struct WeakRefCountPolicy
 {
+    static const bool NotCounting = false;
+
     static void addRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)

@@ -182,10 +182,19 @@ template <class ValueT,
           class LockPolicy> inline
 SimplePool<ValueT, PoolTag, RefCountPolicy, LockPolicy>::~SimplePool(void)
 {
-    for(UInt32 i = 0; i < _elementStore.size(); ++i)
+    if(RefCountPolicy::NotCounting == true)
     {
-        RefCountPolicy::subRef(_elementStore[i]);
-//        delete _elementStore[i];
+        for(UInt32 i = 0; i < _elementStore.size(); ++i)
+        {
+            delete _elementStore[i];
+        }
+    }
+    else
+    {
+        for(UInt32 i = 0; i < _elementStore.size(); ++i)
+        {
+            RefCountPolicy::subRef(_elementStore[i]);
+        }
     }
 }
 
