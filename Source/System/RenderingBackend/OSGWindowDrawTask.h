@@ -48,6 +48,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class Viewport;
+
 class WindowDrawTask : public DrawTask
 {
     /*==========================  PUBLIC  =================================*/
@@ -62,7 +64,6 @@ class WindowDrawTask : public DrawTask
         FrameExit,
         Swap,
         WaitAtBarrier,
-        Foregrounds,
         EndThread
     };
 
@@ -141,6 +142,84 @@ class WindowDrawTask : public DrawTask
 
 typedef RefCountPtr<WindowDrawTask,
                     MemObjRefCountPolicy> WindowDrawTaskRefPtr;
+
+
+
+class ViewportDrawTask : public DrawTask
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    enum TaskType
+    {
+        Foregrounds = 0x0001
+    };
+
+    typedef DrawTask Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Statistic                                  */
+    /*! \{                                                                 */
+
+    ViewportDrawTask(Viewport *pPort, TaskType eType);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    virtual void execute(DrawEnv *pEnv);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    virtual void dump(UInt32 uiIndent);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    TaskType  _eTaskType;
+    Viewport *_pPort;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~ViewportDrawTask(void);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    ViewportDrawTask(const ViewportDrawTask &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =(const ViewportDrawTask &source);
+};
+
+typedef RefCountPtr<ViewportDrawTask,
+                    MemObjRefCountPolicy> ViewportDrawTaskRefPtr;
 
 
 OSG_END_NAMESPACE

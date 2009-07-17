@@ -111,6 +111,7 @@ void Viewport::onDestroyAspect(UInt32    uiContainerId,
     delete _pStageValidator;
 
     _pStageValidator = NULL;
+    _pForegroundTask = NULL;
 
     Inherited::onDestroyAspect(uiContainerId, uiAspect);
 }
@@ -123,13 +124,17 @@ void Viewport::onDestroyAspect(UInt32    uiContainerId,
 
 Viewport::Viewport(void) :
      Inherited      (    ),
-    _pStageValidator(NULL)
+    _pStageValidator(NULL),
+    _pForegroundTask(NULL)
+
 {
 }
 
 Viewport::Viewport(const Viewport &source) :
      Inherited      (source),
-    _pStageValidator(NULL  )
+    _pStageValidator(NULL  ),
+    _pForegroundTask(NULL  )
+
 {
 }
 
@@ -361,19 +366,47 @@ void Viewport::render(RenderActionBase *action)
 
     action->apply(getRoot());
 
-    DrawEnv oEnv;
+    Window  *pWin = action->getWindow();
 
-    oEnv.setWindow(action->getWindow());
+    if(pWin->getPartitionDrawMode() == Window::SequentialPartitionDraw)
+    {
+        DrawEnv  oEnv;
+
+        oEnv.setWindow(action->getWindow());
+
+        oEnv.setTileFullSize(getCamera()->tileGetFullSize());
+        oEnv.setTileRegion  (getCamera()->tileGetRegion  ());
+
+        for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
+            getForegrounds(i)->draw(&oEnv, this);
+    }
+    else
+    {
+        if(_pForegroundTask == NULL)
+        {
+            _pForegroundTask = 
+                new ViewportDrawTask(this, ViewportDrawTask::Foregrounds);
+        }
+
+        pWin->queueTask(_pForegroundTask);
+    }
+
+#if 0 // Have to check GV
+    deactivate();
+#endif
+}
+
+void Viewport::renderForegrounds(Window *pWin)
+{
+    DrawEnv  oEnv;
+
+    oEnv.setWindow(pWin);
 
     oEnv.setTileFullSize(getCamera()->tileGetFullSize());
     oEnv.setTileRegion  (getCamera()->tileGetRegion  ());
 
     for(UInt16 i=0; i < getMFForegrounds()->size(); i++)
         getForegrounds(i)->draw(&oEnv, this);
-
-#if 0 // Have to check GV
-    deactivate();
-#endif
 }
 
 bool Viewport::isPassive(void)

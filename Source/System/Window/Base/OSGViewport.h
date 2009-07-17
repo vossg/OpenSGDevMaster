@@ -49,12 +49,9 @@
 #include "OSGBackground.h"
 #include "OSGForeground.h"
 #include "OSGCamera.h"
+#include "OSGWindowDrawTask.h"
 
 OSG_BEGIN_NAMESPACE
-
-#ifdef OSG_OLD_RENDER_ACTION
-class DrawActionBase;
-#endif
 
 class RenderActionBase;
 class StageValidator;
@@ -146,7 +143,8 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
 
  protected:
 
-    StageValidator *_pStageValidator;
+    StageValidator         *_pStageValidator;
+    ViewportDrawTaskRefPtr  _pForegroundTask;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -174,6 +172,13 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
     /*! \name                MT Construction                               */
     /*! \{                                                                 */
 
+    void renderForegrounds(Window *pWin);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                MT Construction                               */
+    /*! \{                                                                 */
+
     void onCreate       (const Viewport *source = NULL);
 
     void onCreateAspect (const Viewport *createAspect,
@@ -191,7 +196,8 @@ class OSG_SYSTEM_DLLMAPPING Viewport : public ViewportBase
 
     friend class FieldContainer;
     friend class ViewportBase;
-   
+    friend class ViewportDrawTask;
+
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const Viewport &source);
 };

@@ -508,7 +508,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     WindowDrawTaskRefPtr              _pSwapTask;
     WindowDrawTaskRefPtr              _pFrameInitTask;
     WindowDrawTaskRefPtr              _pFrameExitTask;
-    WindowDrawTaskRefPtr              _pForegroundTask;
     WindowDrawTaskRefPtr              _pActivateTask;
 
     /*! \}                                                                 */

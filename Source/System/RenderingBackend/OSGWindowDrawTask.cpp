@@ -53,6 +53,7 @@ OSG_BEGIN_NAMESPACE
 
 
 WindowDrawTask::WindowDrawTask(TaskType eType) :
+     Inherited            (     ),
     _eTaskType            (eType),
     _pBarrier             (NULL ),
     _oInitFunc            (     ),
@@ -170,9 +171,6 @@ void WindowDrawTask::execute(DrawEnv *pEnv)
         }
         break;
 
-        case Foregrounds:
-            break;
-
         case EndThread:
         {
             pWindow->doDeactivate();
@@ -252,15 +250,70 @@ void WindowDrawTask::dump(UInt32 uiIndent)
         }
         break;
 
-        case Foregrounds:
-        {
-            fprintf(stderr, "Foregrounds\n");
-        }
-        break;
-
         case EndThread:
         {
             fprintf(stderr, "EndThread\n");
+        }
+        break;
+
+        default:
+        {
+            fprintf(stderr, "Unknown\n");
+        }
+        break;
+    }
+
+}
+
+
+
+
+ViewportDrawTask::ViewportDrawTask(Viewport *pPort, TaskType eType) :
+     Inherited(     ),
+    _eTaskType(eType),
+    _pPort    (pPort)
+{
+}
+
+ViewportDrawTask::~ViewportDrawTask(void)
+{
+    _pPort = NULL;
+}
+
+void ViewportDrawTask::execute(DrawEnv *pEnv)
+{
+    Window *pWindow = pEnv->getWindow();
+
+    OSG_ASSERT( pWindow != NULL);
+    OSG_ASSERT(_pPort   != NULL);
+
+    switch(_eTaskType)
+    {
+        case Foregrounds:
+        {
+#ifdef OSG_DUMP_WINTASK
+            fprintf(stderr, "Swap\n");
+            fflush(stderr);
+#endif
+            _pPort->renderForegrounds(pWindow);
+        }
+        break;
+
+        default:
+            break;
+    }
+}
+
+void ViewportDrawTask::dump(UInt32 uiIndent)
+{
+    for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
+    fprintf(stderr, "ViewportDrawTask : ");
+
+    switch(_eTaskType)
+    {
+        case Foregrounds:
+        {
+            fprintf(stderr, "Foregrounds\n");
         }
         break;
 

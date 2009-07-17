@@ -344,7 +344,6 @@ OSG::Window::Window(void) :
     _pSwapTask          (NULL),
     _pFrameInitTask     (NULL),
     _pFrameExitTask     (NULL),
-    _pForegroundTask    (NULL),
     _pActivateTask      (NULL)
 {
     // only called for prototypes, no need to init them
@@ -370,7 +369,6 @@ OSG::Window::Window(const Window &source) :
     _pSwapTask          (NULL                          ),
     _pFrameInitTask     (NULL                          ),
     _pFrameExitTask     (NULL                          ),
-    _pForegroundTask    (NULL                          ),
     _pActivateTask      (NULL                          )
 {       
 }
@@ -499,7 +497,6 @@ void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
     _pSwapTask       = NULL;
     _pFrameInitTask  = NULL;
     _pFrameExitTask  = NULL;
-    _pForegroundTask = NULL;
     _pActivateTask   = NULL;
 
     Inherited::onDestroyAspect(uiContainerId, uiAspect);
@@ -1865,7 +1862,6 @@ void Window::setupTasks(void)
     _pSwapTask       = new WindowDrawTask(WindowDrawTask::Swap         );
     _pFrameInitTask  = new WindowDrawTask(WindowDrawTask::FrameInit    );
     _pFrameExitTask  = new WindowDrawTask(WindowDrawTask::FrameExit    );
-    _pForegroundTask = new WindowDrawTask(WindowDrawTask::Foregrounds  );
     _pActivateTask   = new WindowDrawTask(WindowDrawTask::Activate     );
 }
 
@@ -2149,7 +2145,21 @@ void OSG::Window::doRenderAllViewports(RenderActionBase *action)
                 action->setDrawableId((*portIt)->getDrawableId());
             }
 
-            (*portIt)->render(action);
+            if((_sfPartitionDrawMode.getValue() & 
+                 PartitionDrawMask              ) == SequentialPartitionDraw)
+            {
+                (*portIt)->render(action);
+            }
+            else if((_sfPartitionDrawMode.getValue() & 
+                      PartitionDrawMask              ) == ParallelPartitionDraw)
+            {
+                (*portIt)->render(action);
+
+                OSG_ASSERT(_pWaitTask != NULL);
+
+                _pDrawThread->queueTask(_pWaitTask     );
+                _pWaitTask->waitForBarrier();
+            }
         }
     }
     else
