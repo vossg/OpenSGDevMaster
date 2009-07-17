@@ -280,10 +280,6 @@ typedef SprocSemaphoreBase SemaphoreBase;
 
 #if defined (OSG_USE_WINTHREADS)
 
-#if _WIN32_WINNT < 0x0400
-#define OSG_WINLOCK_USE_MUTEX
-#endif
-
 /*! \ingroup GrpBaseMultiThreading
     \ingroup GrpLibOSGBase
  */
@@ -340,14 +336,7 @@ class OSG_BASE_DLLMAPPING WinThreadSemaphoreBase : public SemaphoreCommonBase
     /*==========================  PRIVATE  ================================*/
   private:
 
-
-#if 0
-#ifdef OSG_WINLOCK_USE_MUTEX
-    Handle  _pMutex;
-#else
-    CRITICAL_SECTION _pCriticalSection;
-#endif
-#endif
+    Handle  _pSemaphore;
   
     /*!\brief prohibit default function (move to 'public' if needed) */
     WinThreadSemaphoreBase(const WinThreadSemaphoreBase &source);

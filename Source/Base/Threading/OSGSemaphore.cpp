@@ -214,23 +214,15 @@ void SprocSemaphoreBase::shutdown(void)
 /*--------------------------- Constructors --------------------------------*/
 
 WinThreadSemaphoreBase::WinThreadSemaphoreBase(void) :
-       Inherited(    )
-#if 0
-#ifdef OSG_WINLOCK_USE_MUTEX
-    , _pMutex   (NULL)
-#endif
-#endif
+     Inherited (    ),
+    _pSemaphore(NULL)
 {
 }
 
 WinThreadSemaphoreBase::WinThreadSemaphoreBase(const Char8  *szName,
                                                      UInt32  uiId  ) :
-       Inherited(szName, uiId)
-#if 0
-#ifdef OSG_WINLOCK_USE_MUTEX
-    , _pMutex   (NULL        )
-#endif
-#endif
+     Inherited (szName, uiId),
+    _pSemaphore(NULL        )
 {
 }
 
@@ -244,43 +236,28 @@ WinThreadSemaphoreBase::~WinThreadSemaphoreBase(void)
 
 bool WinThreadSemaphoreBase::init(void)
 {
-#if 0
-#ifdef OSG_WINLOCK_USE_MUTEX
-    _pMutex = CreateMutex( NULL,     // no security attributes
-                           FALSE,    // initially not owned
-                          _szName);  // name of mutex
+    _pSemaphore = CreateSemaphore( NULL,     // no security attributes
+                                   0,    // initially not owned
+                                   1024,
+                                  _szName);  // name of mutex
 
-    if(_pMutex == NULL)
+    if(_pSemaphore == NULL)
     {
         return false;
     }
 
     return true;
-#else
-    InitializeCriticalSection(&_pCriticalSection);
-
-    return true;
-#endif
-#else
-	return true;
-#endif
 }
 
 /*-------------------------- Destruction ----------------------------------*/
 
 void WinThreadSemaphoreBase::shutdown(void)
 {
-#if 0
-#ifdef OSG_WINLOCK_USE_MUTEX
-    if(_pMutex != NULL)
+    if(_pSemaphore != NULL)
     {
-        CloseHandle(_pMutex);
-        _pMutex = NULL;
+        CloseHandle(_pSemaphore);
+        _pSemaphore = NULL;
     }
-#else
-    DeleteCriticalSection(&_pCriticalSection);
-#endif
-#endif
 }
 
 #endif /* OSG_USE_WINTHREADS */

@@ -89,13 +89,7 @@ void WinThreadSemaphoreBase::wait(void)
     fprintf(stderr, "Semaphore::acquire %p\n", this);
 #endif
 
-#if 0
-#ifdef OSG_WINLOCK_USE_MUTEX
-    WaitForSingleObject(_pMutex, INFINITE);
-#else
-    EnterCriticalSection(&_pCriticalSection);
-#endif
-#endif
+    WaitForSingleObject(_pSemaphore, INFINITE);
 }
 
 inline
@@ -105,13 +99,7 @@ void WinThreadSemaphoreBase::post(void)
     fprintf(stderr, "Semaphore::release %p\n", this);
 #endif
 
-#if 0
-#ifdef OSG_WINLOCK_USE_MUTEX
-    ReleaseMutex(_pMutex);
-#else
-    LeaveCriticalSection(&_pCriticalSection);
-#endif
-#endif
+    ReleaseSemaphore(_pSemaphore, 1, NULL);
 }
 
 #endif /* OSG_USE_WINTHREADS */
