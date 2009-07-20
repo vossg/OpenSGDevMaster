@@ -40,10 +40,12 @@ SET(${PROJECT_NAME}_DEP_INCDIR OSG_QT4_INC_DIR)
 
 # dependencies - Additional
 # SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
-SET(${PROJECT_NAME}_DEP_CPP_DEF "QT_THREAD_SUPPORT"
-                                "QT_ACCESSIBILITY_SUPPORT"
-                                "QT_NO_DEBUG"
-                                "QT_CLEAN_NAMESPACE")
+SET(${PROJECT_NAME}_DEP_DEFS "QT_THREAD_SUPPORT"
+                             "QT_ACCESSIBILITY_SUPPORT"
+                             "QT_CLEAN_NAMESPACE"
+                             "QT_CORE_LIB"
+                             "QT_GUI_LIB"
+                             "QT_OPENGL_LIB")
 
 OSG_STORE_PROJECT_DEPENDENCIES()
 
