@@ -236,7 +236,9 @@ void VarianceShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                     _vDepthSHLVar.push_back(
                         SimpleSHLVariableChunk::createLocal());
                     
-//                    _vDepthSHLVar[uiActiveLightCount]->setSHLChunk(_depthSHL);
+#ifndef OSG_NEW_SHADER
+                    _vDepthSHLVar[uiActiveLightCount]->setSHLChunk(_depthSHL);
+#endif
                 }
 
                 OSG_ASSERT(uiActiveLightCount < _vDepthSHLVar.size());
@@ -259,6 +261,11 @@ void VarianceShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                 a->pushPartition();
                 {
                     RenderPartition   *pPart    = a->getActivePartition();
+
+                    pPart->addPreRenderCallback(
+                        &ShadowTreeHandler::setupAmbientModel);
+                    pPart->addPostRenderCallback(
+                        &ShadowTreeHandler::endAmbientModel);
                     
                     pPart->setRenderTarget(vShadowMaps[i].pFBO);
 
@@ -395,6 +402,9 @@ void VarianceShadowMapHandler::createColorMapFBO(RenderAction *a,
                      RenderPartition::StateSorting);
     {
         RenderPartition *pPart = a->getActivePartition();
+
+        pPart->addPreRenderCallback (&ShadowTreeHandler::setupAmbientModel);
+        pPart->addPostRenderCallback(&ShadowTreeHandler::endAmbientModel  );
 
         pPart->setRenderTarget(_pSceneFBO);
         pPart->setDrawBuffer  (GL_COLOR_ATTACHMENT0_EXT);
@@ -608,7 +618,9 @@ void VarianceShadowMapHandler::createShadowFactorMapFBO(
         {
             _vShadowSHLVar.push_back(SimpleSHLVariableChunk::createLocal());
 
-//            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
+#ifndef OSG_NEW_SHADER
+            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
+#endif
         }
         
         OSG_ASSERT(uiActiveLightCount < _vShadowSHLVar.size());
@@ -679,6 +691,9 @@ void VarianceShadowMapHandler::createShadowFactorMapFBO(
                          RenderPartition::StateSorting);
         {
             RenderPartition *pPart = a->getActivePartition();
+
+            pPart->addPreRenderCallback (&ShadowTreeHandler::setupAmbientModel);
+            pPart->addPostRenderCallback(&ShadowTreeHandler::endAmbientModel  );
 
             pPart->setRenderTarget(_pSceneFBO);
             pPart->setDrawBuffer  (GL_COLOR_ATTACHMENT1_EXT);
@@ -890,8 +905,6 @@ void VarianceShadowMapHandler::configureShadowMaps(void)
 void VarianceShadowMapHandler::render(RenderAction *a,
                                       DrawEnv      *pEnv)
 {
-    glPushAttrib(GL_ENABLE_BIT);
-
     const ShadowStageData::LightStore  &vLights      = 
         _pStageData->getLights();
 
@@ -926,15 +939,6 @@ void VarianceShadowMapHandler::render(RenderAction *a,
     }
 
     commitChanges();
-
-
-    GLfloat globalAmbient[] =
-    {
-        0.0, 0.0, 0.0, 1.0
-    };
-    
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
-
 
     //Used for ShadowFactorMap
     _firstRun = 1;
@@ -990,8 +994,6 @@ void VarianceShadowMapHandler::render(RenderAction *a,
     }
 
     setupDrawCombineMap1(a);
-            
-    glPopAttrib();
 }
 
 OSG_END_NAMESPACE

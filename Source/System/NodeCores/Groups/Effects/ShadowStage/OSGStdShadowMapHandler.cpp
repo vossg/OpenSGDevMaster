@@ -160,13 +160,6 @@ void StdShadowMapHandler::createShadowMapsFBO(RenderAction *a,
 
     //------Setting up Window to fit size of ShadowMap----------------
 
-#ifdef SHADOWCHECK
-    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-    glShadeModel(GL_FLAT);
-    glDisable(GL_LIGHTING);
-    glDepthMask(GL_TRUE);
-#endif
-
     // disable all lights more speed
     std::vector<bool> vLocalLightStates;
 
@@ -219,6 +212,11 @@ void StdShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                     a->pushPartition();
                     {
                         RenderPartition   *pPart    = a->getActivePartition();
+
+                        pPart->addPreRenderCallback(
+                            &ShadowTreeHandler::setupAmbientModelAndMasks);
+                        pPart->addPostRenderCallback(
+                            &ShadowTreeHandler::endAmbientModelAndMasks);
 
                         pPart->setRenderTarget(vShadowMaps[i].pFBO);
 
@@ -327,6 +325,11 @@ void StdShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                         {
                             RenderPartition *pPart = a->getActivePartition();
 
+                            pPart->addPreRenderCallback(
+                                &ShadowTreeHandler::setupAmbientModelAndMasks);
+                            pPart->addPostRenderCallback(
+                                &ShadowTreeHandler::endAmbientModelAndMasks);
+
                             pPart->setRenderTarget(vShadowMaps[i].pFBO);
 
                             pPart->setWindow  (a->getWindow());
@@ -418,12 +421,6 @@ void StdShadowMapHandler::createShadowMapsFBO(RenderAction *a,
             }
         }
     }
-
-#ifdef SHADOWCHECK
-    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-    glShadeModel(GL_SMOOTH);
-    glEnable(GL_LIGHTING);
-#endif
 }
 
 
@@ -439,6 +436,9 @@ void StdShadowMapHandler::createColorMapFBO(RenderAction *a,
                      RenderPartition::StateSorting);
     {
         RenderPartition *pPart = a->getActivePartition();
+
+        pPart->addPreRenderCallback (&ShadowTreeHandler::setupAmbientModel);
+        pPart->addPostRenderCallback(&ShadowTreeHandler::endAmbientModel  );
 
         pPart->setRenderTarget(_pSceneFBO);
         pPart->setDrawBuffer  ( GL_COLOR_ATTACHMENT0_EXT);
@@ -650,6 +650,11 @@ void StdShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
                                  RenderPartition::StateSorting);
                 {
                     RenderPartition *pPart = a->getActivePartition();
+
+                    pPart->addPreRenderCallback (
+                        &ShadowTreeHandler::setupAmbientModel);
+                    pPart->addPostRenderCallback(
+                        &ShadowTreeHandler::endAmbientModel  );
 
                     pPart->setRenderTarget(_pSceneFBO);
                     pPart->setDrawBuffer  ( dBuffers );
@@ -1254,6 +1259,11 @@ void StdShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
             {
                 RenderPartition *pPart = a->getActivePartition();
                 
+                pPart->addPreRenderCallback (
+                    &ShadowTreeHandler::setupAmbientModel);
+                pPart->addPostRenderCallback(
+                    &ShadowTreeHandler::endAmbientModel  );
+
                 pPart->setRenderTarget(_pSceneFBO);
                 pPart->setDrawBuffer  ( dBuffers );
                 
@@ -1305,8 +1315,6 @@ void StdShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
 void StdShadowMapHandler::render(RenderAction *a,
                                  DrawEnv      *pEnv)
 {
-    glPushAttrib(GL_ENABLE_BIT);
-
     const ShadowStageData::LightStore  &vLights      = 
         _pStageData->getLights();
 
@@ -1339,15 +1347,6 @@ void StdShadowMapHandler::render(RenderAction *a,
     }
 
     commitChanges();
-
-
-    GLfloat globalAmbient[] =
-    {
-        0.0, 0.0, 0.0, 1.0
-    };
-
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
-
 
     if((_pStage->getMapSize() / 4) > _maxPLMapSize)
         _PLMapSize = _maxPLMapSize;
@@ -1391,8 +1390,6 @@ void StdShadowMapHandler::render(RenderAction *a,
     }
     
     setupDrawCombineMap2(a);
-
-    glPopAttrib();
 }
 
 OSG_END_NAMESPACE

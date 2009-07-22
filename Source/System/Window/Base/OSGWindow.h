@@ -113,7 +113,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \{                                                                 */
 
     typedef boost::function<UInt32 (DrawEnv *, 
-                                    UInt32, 
+                                    UInt32,
                                     GLObjectStatusE,
                                     UInt32         )> GLObjectFunctor;
     typedef boost::function<void   (DrawEnv *, 
@@ -386,7 +386,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     {
       public:
 
-        GLObject(GLObjectFunctor funct, GLObjectDestroyFunctor destroy);
+        GLObject(GLObjectFunctor        funct, 
+                 GLObjectDestroyFunctor destroy);
 
         GLObjectFunctor& getFunctor(void                 );
         void             setFunctor(GLObjectFunctor funct);
@@ -400,7 +401,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
         UInt32 getRefCounter(void);
         UInt32 incRefCounter(void);
         UInt32 decRefCounter(void);
-
+        
       protected:
 
                  GLObjectFunctor        _functor;

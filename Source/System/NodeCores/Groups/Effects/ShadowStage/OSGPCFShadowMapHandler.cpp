@@ -213,13 +213,6 @@ void PCFShadowMapHandler::createShadowMapsFBO(RenderAction *a,
 
     //------Setting up Window to fit size of ShadowMap----------------
 
-#ifdef SHADOWCHECK
-    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-    glShadeModel(GL_FLAT);
-    glDisable(GL_LIGHTING);
-    glDepthMask(GL_TRUE);
-#endif
-
     // disable all lights more speed
     std::vector<bool> vLocalLightStates;
 
@@ -272,6 +265,11 @@ void PCFShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                     a->pushPartition();
                     {
                         RenderPartition   *pPart    = a->getActivePartition();
+
+                        pPart->addPreRenderCallback(
+                            &ShadowTreeHandler::setupAmbientModelAndMasks);
+                        pPart->addPostRenderCallback(
+                            &ShadowTreeHandler::endAmbientModelAndMasks);
 
                         pPart->setRenderTarget(vShadowMaps[i].pFBO);
 
@@ -381,6 +379,11 @@ void PCFShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                         {
                             RenderPartition   *pPart = a->getActivePartition();
 
+                            pPart->addPreRenderCallback(
+                                &ShadowTreeHandler::setupAmbientModelAndMasks);
+                            pPart->addPostRenderCallback(
+                                &ShadowTreeHandler::endAmbientModelAndMasks);
+
                             pPart->setRenderTarget(
                                 vShadowMaps[i].pFBO);
 
@@ -475,12 +478,6 @@ void PCFShadowMapHandler::createShadowMapsFBO(RenderAction *a,
         // restore old states.
         vLights[i].second->setOn(vLocalLightStates[i]);
     }
-
-#ifdef SHADOWCHECK
-    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-    glShadeModel(GL_SMOOTH);
-    glEnable(GL_LIGHTING);
-#endif
 }
 
 void PCFShadowMapHandler::createColorMapFBO(RenderAction *a,
@@ -495,6 +492,9 @@ void PCFShadowMapHandler::createColorMapFBO(RenderAction *a,
                      RenderPartition::StateSorting);
     {
         RenderPartition *pPart = a->getActivePartition();
+
+        pPart->addPreRenderCallback (&ShadowTreeHandler::setupAmbientModel);
+        pPart->addPostRenderCallback(&ShadowTreeHandler::endAmbientModel  );
 
         pPart->setRenderTarget(_pSceneFBO);
         pPart->setDrawBuffer  (GL_COLOR_ATTACHMENT0_EXT);
@@ -730,6 +730,11 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
                                  RenderPartition::StateSorting);
                 {
                     RenderPartition *pPart = a->getActivePartition();
+
+                    pPart->addPreRenderCallback (
+                        &ShadowTreeHandler::setupAmbientModel);
+                    pPart->addPostRenderCallback(
+                        &ShadowTreeHandler::endAmbientModel  );
 
                     pPart->setRenderTarget(_pSceneFBO);
                     pPart->setDrawBuffer  ( dBuffers );
@@ -1162,6 +1167,11 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
             {
                 RenderPartition *pPart = a->getActivePartition();
                 
+                pPart->addPreRenderCallback (
+                    &ShadowTreeHandler::setupAmbientModel);
+                pPart->addPostRenderCallback(
+                    &ShadowTreeHandler::endAmbientModel  );
+
                 pPart->setRenderTarget(_pSceneFBO);
                 pPart->setDrawBuffer  ( dBuffers);
                 
@@ -1217,8 +1227,6 @@ void PCFShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
 void PCFShadowMapHandler::render(RenderAction *a,
                                  DrawEnv      *pEnv)
 {
-    glPushAttrib(GL_ENABLE_BIT);
-
     const ShadowStageData::LightStore  &vLights      = 
         _pStageData->getLights();
 
@@ -1258,8 +1266,7 @@ void PCFShadowMapHandler::render(RenderAction *a,
     else
         _PLMapSize = _pStage->getMapSize() / 4;
 
-
-
+#ifdef SHADOWCHECK 
     GLfloat globalAmbient[4];
     glGetFloatv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
     GLfloat newGlobalAmbient[] =
@@ -1267,7 +1274,8 @@ void PCFShadowMapHandler::render(RenderAction *a,
         0.0, 0.0, 0.0, 1.0
     };
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, newGlobalAmbient);
-        
+#endif
+    
     //Used for ShadowFactorMap
     _firstRun = 1;
 
@@ -1395,11 +1403,7 @@ void PCFShadowMapHandler::render(RenderAction *a,
         _pStage->_trigger_update = false;
     }
 
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
-
     setupDrawCombineMap2(a);
-
-    glPopAttrib();
 }
 
 OSG_END_NAMESPACE

@@ -576,6 +576,12 @@ void ShadowTreeHandler::setupDrawCombineMap2(Action  *pAction)
                      RenderPartition::SimpleCallback);
     {
         RenderPartition *pPart  = a->getActivePartition();
+
+        pPart->addPreRenderCallback (
+            &ShadowTreeHandler::setupAmbientModel);
+        pPart->addPostRenderCallback(
+            &ShadowTreeHandler::endAmbientModel  );
+
         Matrix m, t;
         
         m.setIdentity();
@@ -667,6 +673,12 @@ void ShadowTreeHandler::setupDrawCombineMap1(Action  *pAction)
                      RenderPartition::SimpleCallback);
     {
         RenderPartition *pPart  = a->getActivePartition();
+
+        pPart->addPreRenderCallback (
+            &ShadowTreeHandler::setupAmbientModel);
+        pPart->addPostRenderCallback(
+            &ShadowTreeHandler::endAmbientModel  );
+
         Matrix m, t;
         
         m.setIdentity();
@@ -750,6 +762,48 @@ bool ShadowTreeHandler::hasFactorMap(void)
     }
 
     return false;
+}
+
+void ShadowTreeHandler::setupAmbientModel(DrawEnv *pEnv)
+{
+    glPushAttrib(GL_ENABLE_BIT);
+
+    GLfloat globalAmbient[] =
+    {
+        0.0, 0.0, 0.0, 1.0
+    };
+
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
+}
+
+void ShadowTreeHandler::setupAmbientModelAndMasks(DrawEnv *pEnv)
+{
+    glPushAttrib(GL_ENABLE_BIT);
+
+    GLfloat globalAmbient[] =
+    {
+        0.0, 0.0, 0.0, 1.0
+    };
+
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
+
+    glColorMask (GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+    glShadeModel(GL_FLAT                               );
+    glDisable   (GL_LIGHTING                           );
+    glDepthMask (GL_TRUE                               );
+}
+
+void ShadowTreeHandler::endAmbientModel(DrawEnv *pEnv)
+{
+    glPopAttrib();
+}
+
+void ShadowTreeHandler::endAmbientModelAndMasks(DrawEnv *pEnv)
+{
+    glColorMask (GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+    glShadeModel(GL_SMOOTH                         );
+
+    glPopAttrib();
 }
 
 OSG_END_NAMESPACE

@@ -528,8 +528,10 @@ void SHLChunk::handleDestroyGL(DrawEnv                 *pEnv,
         // This is called after the destructor so getGLId() doesn't work
         // anymore!
 
-        //printf("Window::destroy: %p %u %x\n", win, id,
-        //       win->getGLObjectId(id));
+#if 0
+        fprintf(stderr, "Window::destroy: %p %u %d\n", win, id,
+                win->getGLObjectId(id));
+#endif
 
         GLuint program = GLuint(win->getGLObjectId(id));
 
@@ -616,9 +618,17 @@ void SHLChunk::updateProgram(Window *win)
     GLuint program = GLuint(win->getGLObjectId(getGLId()));
     // delete old program.
     if(program != 0)
+    {
+#if 0
+        fprintf(stderr, "delete %d %d\n", getGLId(), program);
+#endif
         deleteObject(program);
+    }
     program = createProgramObject();
-    //printf("updateProgram create: %p %u %x\n", win, getGLId(), program);
+#if 0
+    fprintf(stderr, "updateProgram create: %p %u %x\n", 
+            win, getGLId(), program);
+#endif
     win->setGLObjectId(getGLId(), UInt32(program));
 
     UInt32 vShader = 0;

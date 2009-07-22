@@ -181,6 +181,17 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
     bool hasFactorMap(void);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Draw                                       */
+    /*! \{                                                                 */
+
+    static void setupAmbientModel        (DrawEnv *pEnv);
+    static void setupAmbientModelAndMasks(DrawEnv *pEnv);
+
+    static void endAmbientModel          (DrawEnv *pEnv);
+    static void endAmbientModelAndMasks  (DrawEnv *pEnv);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:

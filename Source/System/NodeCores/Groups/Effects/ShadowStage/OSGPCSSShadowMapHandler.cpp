@@ -93,13 +93,6 @@ PCSSShadowMapHandler::~PCSSShadowMapHandler(void)
 void PCSSShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                                                DrawEnv      *pEnv)
 {
-#ifdef SHADOWCHECK
-    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-    glShadeModel(GL_FLAT);
-    glDisable(GL_LIGHTING);
-    glDepthMask(GL_TRUE);
-#endif
-
     // disable all lights more speed
     std::vector<bool> vLocalLightStates;
 
@@ -144,6 +137,11 @@ void PCSSShadowMapHandler::createShadowMapsFBO(RenderAction *a,
                 a->pushPartition();
                 {
                     RenderPartition   *pPart    = a->getActivePartition();
+
+                    pPart->addPreRenderCallback(
+                        &ShadowTreeHandler::setupAmbientModelAndMasks);
+                    pPart->addPostRenderCallback(
+                        &ShadowTreeHandler::endAmbientModelAndMasks);
                     
                     pPart->setRenderTarget(vShadowMaps[i].pFBO);
                     
@@ -231,13 +229,6 @@ void PCSSShadowMapHandler::createShadowMapsFBO(RenderAction *a,
             }
         }
     }
-
-
-#ifdef SHADOWCHECK
-    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-    glShadeModel(GL_SMOOTH);
-    glEnable(GL_LIGHTING);
-#endif
 }
 
 
@@ -253,6 +244,9 @@ void PCSSShadowMapHandler::createColorMapFBO(RenderAction *a,
                      RenderPartition::StateSorting);
     {
         RenderPartition *pPart = a->getActivePartition();
+
+        pPart->addPreRenderCallback (&ShadowTreeHandler::setupAmbientModel);
+        pPart->addPostRenderCallback(&ShadowTreeHandler::endAmbientModel  );
 
         pPart->setRenderTarget(_pSceneFBO);
         pPart->setDrawBuffer  (GL_COLOR_ATTACHMENT0_EXT);
@@ -394,7 +388,9 @@ void PCSSShadowMapHandler::createShadowFactorMapFBO(
         {
             _vShadowSHLVar.push_back(SimpleSHLVariableChunk::createLocal());
 
-//            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
+#ifndef OSG_NEW_SHADER
+            _vShadowSHLVar[uiActiveLightCount]->setSHLChunk(_shadowSHL);
+#endif
         }
 
         _shadowSHL->addUniformVariable("shadowMap",    0);
@@ -456,6 +452,9 @@ void PCSSShadowMapHandler::createShadowFactorMapFBO(
                          RenderPartition::StateSorting);
         {
             RenderPartition *pPart = a->getActivePartition();
+
+            pPart->addPreRenderCallback (&ShadowTreeHandler::setupAmbientModel);
+            pPart->addPostRenderCallback(&ShadowTreeHandler::endAmbientModel  );
 
             pPart->setRenderTarget(_pSceneFBO);
             pPart->setDrawBuffer  (GL_COLOR_ATTACHMENT1_EXT);
@@ -553,8 +552,6 @@ void PCSSShadowMapHandler::configureShadowMaps(void)
 void PCSSShadowMapHandler::render(RenderAction *a,
                                   DrawEnv      *pEnv)
 {
-    glPushAttrib(GL_ENABLE_BIT);
-
     const ShadowStageData::LightStore  &vLights      = 
         _pStageData->getLights();
 
@@ -595,13 +592,6 @@ void PCSSShadowMapHandler::render(RenderAction *a,
 
     commitChanges();
 
-
-    GLfloat globalAmbient[] =
-    {
-        0.0, 0.0, 0.0, 1.0
-    };
-
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
     _firstRun = 1;
 
     if(_pStage->getMapAutoUpdate() == true ||
@@ -654,8 +644,6 @@ void PCSSShadowMapHandler::render(RenderAction *a,
     }
     
     setupDrawCombineMap1(a);
-    
-    glPopAttrib();
 }
 
 OSG_END_NAMESPACE

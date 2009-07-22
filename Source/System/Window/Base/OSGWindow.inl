@@ -240,10 +240,10 @@ UInt32 Window::getGLObjectsSize(void)
 inline 
 Window::GLObject::GLObject(GLObjectFunctor        funct, 
                            GLObjectDestroyFunctor destroy) :
-    _functor     (funct),
+    _functor     (funct  ),
     _destroy     (destroy),
-    _refCounter  (    0),
-    _lastValidate(    0)
+    _refCounter  (      0),
+    _lastValidate(      0)
 {
 }
 

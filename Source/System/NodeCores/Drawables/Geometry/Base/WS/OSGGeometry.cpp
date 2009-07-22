@@ -562,7 +562,8 @@ void Geometry::changed(ConstFieldMaskArg whichField,
             {
                 setAttGLId(               
                     Window::registerGLObject(
-                        boost::bind(&Geometry::handleAttGL, GeometryMTPtr(this), 
+                        boost::bind(&Geometry::handleAttGL, 
+                                    GeometryMTPtr(this), 
                                     _1, _2, _3, _4),
                         &Geometry::handleAttDestroyGL));
             }

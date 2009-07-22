@@ -1517,6 +1517,11 @@ void OSG::Window::doFrameExit(void)
             ++st;
             continue;
         }
+
+#if 0
+        fprintf(stderr, "Destroy gl %d %d %d\n", 
+                i, n, getGLObjectId(i));
+#endif
            
         UInt32 rc = obj->getRefCounter();
 
@@ -1540,6 +1545,7 @@ void OSG::Window::doFrameExit(void)
             for(UInt32 j = 0; j < n ; j++)
             {
                 _glObjects[i+j] = NULL;
+                this->setGLObjectId(i+j, 0);
             }   
         }
 
@@ -1894,7 +1900,7 @@ void OSG::Window::render(RenderActionBase *action)
 
         if(_pDrawThread->isRunning() == false)
         {
-//            fprintf(stderr, "Start drawthread\n");
+            fprintf(stderr, "running partition drawthread\n");
             
             _pDrawThread->setWindow(this);
             _pDrawThread->run(Thread::getCurrentAspect());
@@ -1959,7 +1965,7 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
 
         if(_pDrawThread->isRunning() == false)
         {
-            fprintf(stderr, "Start drawthread\n");
+            fprintf(stderr, "running partition drawthread\n");
             
             _pDrawThread->setWindow(this);
             _pDrawThread->run(Thread::getCurrentAspect());
@@ -1979,21 +1985,9 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
             setupTasks();
         }
 
-//        fprintf(stderr, "Window::renderNoFinish::ParallelPartitionDraw NI\n");
-
         _pDrawThread->queueTask(_pFrameInitTask);
 
         this->doRenderAllViewports(action);
-        
-#if 0
-        _pDrawThread->dumpTasks();
-        _pDrawThread->runTasks ();
-        _pDrawThread->dumpTasks();
-        doActivate ();
-        doFrameInit();    // query recently registered GL extensions
-        
-        doRenderAllViewports(action);
-#endif
     }
     else
     {
@@ -2155,10 +2149,12 @@ void OSG::Window::doRenderAllViewports(RenderActionBase *action)
             {
                 (*portIt)->render(action);
 
+#if 0
                 OSG_ASSERT(_pWaitTask != NULL);
 
                 _pDrawThread->queueTask(_pWaitTask     );
                 _pWaitTask->waitForBarrier();
+#endif
             }
         }
     }

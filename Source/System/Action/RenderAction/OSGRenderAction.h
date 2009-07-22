@@ -141,8 +141,10 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
 
     /*------------------------- your_operators ------------------------------*/
 
-    virtual Action::ResultE start(void       );
-    virtual Action::ResultE stop (ResultE res);
+    virtual Action::ResultE start    (void       );
+    virtual Action::ResultE stop     (ResultE res);
+
+    virtual void            frameInit(void       );
 
     /*------------------------- your_operators ------------------------------*/
 

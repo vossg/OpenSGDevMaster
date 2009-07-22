@@ -614,6 +614,19 @@ Action::ResultE RenderAction::recurseMultiCoreFrom(Node      * const pNode,
     return result;
 }
 
+void RenderAction::frameInit(void)
+{
+    Inherited::frameInit();
+
+    if(_bDrawPartPar == true)
+    {
+        _pPartitionPools  [_currentBuffer]->freeAll();
+        _pNodePools       [_currentBuffer]->freeAll();
+        _pStatePools      [_currentBuffer]->freeAll();
+        _pTreeBuilderPools[_currentBuffer]->freeAll();
+    }
+}
+
 Action::ResultE RenderAction::start(void)
 {
     Inherited::start();
@@ -636,10 +649,13 @@ Action::ResultE RenderAction::start(void)
 
     _vRenderPartitions[_currentBuffer].clear   ();
 
-    _pPartitionPools  [_currentBuffer]->freeAll();
-    _pNodePools       [_currentBuffer]->freeAll();
-    _pStatePools      [_currentBuffer]->freeAll();
-    _pTreeBuilderPools[_currentBuffer]->freeAll();
+    if(_bDrawPartPar == false)
+    {
+        _pPartitionPools  [_currentBuffer]->freeAll();
+        _pNodePools       [_currentBuffer]->freeAll();
+        _pStatePools      [_currentBuffer]->freeAll();
+        _pTreeBuilderPools[_currentBuffer]->freeAll();
+    }
 
     _pActivePartition = _pPartitionPools[_currentBuffer]->create();
 

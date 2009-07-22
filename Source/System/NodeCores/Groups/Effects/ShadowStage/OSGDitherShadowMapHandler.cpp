@@ -195,6 +195,11 @@ void DitherShadowMapHandler::createShadowMapsFBO(
                     {
                         RenderPartition   *pPart    = a->getActivePartition();
 
+                        pPart->addPreRenderCallback(
+                            &ShadowTreeHandler::setupAmbientModelAndMasks);
+                        pPart->addPostRenderCallback(
+                            &ShadowTreeHandler::endAmbientModelAndMasks);
+
                         pPart->setRenderTarget(vShadowMaps[i].pFBO);
 
                         pPart->setWindow  (a->getWindow());
@@ -301,6 +306,11 @@ void DitherShadowMapHandler::createShadowMapsFBO(
                         a->pushPartition();
                         {
                             RenderPartition   *pPart = a->getActivePartition();
+
+                            pPart->addPreRenderCallback(
+                                &ShadowTreeHandler::setupAmbientModelAndMasks);
+                            pPart->addPostRenderCallback(
+                                &ShadowTreeHandler::endAmbientModelAndMasks);
 
                             pPart->setRenderTarget(vShadowMaps[i].pFBO);
 
@@ -413,6 +423,9 @@ void DitherShadowMapHandler::createColorMapFBO(RenderAction *a,
                      RenderPartition::StateSorting);
     {
         RenderPartition *pPart = a->getActivePartition();
+
+        pPart->addPreRenderCallback (&ShadowTreeHandler::setupAmbientModel);
+        pPart->addPostRenderCallback(&ShadowTreeHandler::endAmbientModel  );
 
         pPart->setRenderTarget(_pSceneFBO);
         pPart->setDrawBuffer  (GL_COLOR_ATTACHMENT0_EXT);
@@ -645,6 +658,11 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
                                  RenderPartition::StateSorting);
                 {
                     RenderPartition *pPart = a->getActivePartition();
+
+                    pPart->addPreRenderCallback (
+                        &ShadowTreeHandler::setupAmbientModel);
+                    pPart->addPostRenderCallback(
+                        &ShadowTreeHandler::endAmbientModel  );
 
                     pPart->setRenderTarget(_pSceneFBO);
                     pPart->setDrawBuffer  ( dBuffers );
@@ -1077,6 +1095,11 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
             {
                 RenderPartition *pPart = a->getActivePartition();
                 
+                pPart->addPreRenderCallback (
+                    &ShadowTreeHandler::setupAmbientModel);
+                pPart->addPostRenderCallback(
+                    &ShadowTreeHandler::endAmbientModel  );
+
                 pPart->setRenderTarget(_pSceneFBO);
                 pPart->setDrawBuffer  ( dBuffers );
                 
@@ -1132,8 +1155,6 @@ void DitherShadowMapHandler::createShadowFactorMapFBO(RenderAction *a,
 void DitherShadowMapHandler::render(RenderAction *a,
                                     DrawEnv      *pEnv)
 {
-    glPushAttrib(GL_ENABLE_BIT);
-
     const ShadowStageData::LightStore  &vLights      = 
         _pStageData->getLights();
 
@@ -1174,12 +1195,6 @@ void DitherShadowMapHandler::render(RenderAction *a,
         _PLMapSize = _pStage->getMapSize() / 4;
 
 
-    GLfloat globalAmbient[] =
-    {
-        0.0, 0.0, 0.0, 1.0
-    };
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
-
     //Used for ShadowFactorMap
     _firstRun = 1;
     
@@ -1217,11 +1232,7 @@ void DitherShadowMapHandler::render(RenderAction *a,
         _pStage->_trigger_update = false;
     }
 
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmbient);
-    
     setupDrawCombineMap2(a);
-    
-    glPopAttrib();
 }
 
 OSG_END_NAMESPACE
