@@ -61,13 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGShaderParameterChunk.h" // Parent
 
-#include "OSGStringFields.h" // VertexProgram type
-#include "OSGStringFields.h" // FragmentProgram type
-#include "OSGStringFields.h" // GeometryProgram type
+#include "OSGBaseFields.h" // VertexProgram type
 
 #include "OSGShaderChunkFields.h"
 

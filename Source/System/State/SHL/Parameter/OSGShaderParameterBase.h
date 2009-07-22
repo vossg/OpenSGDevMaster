@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGStringFields.h" // Name type
+#include "OSGBaseFields.h" // Name type
 #include "OSGFieldContainerFields.h" // Parents type
 
 #include "OSGShaderParameterFields.h"

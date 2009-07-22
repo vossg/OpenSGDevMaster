@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGShaderParameter.h" // Parent
 
-#include "OSGVec4fFields.h" // Value type
+#include "OSGVecFields.h" // Value type
 
 #include "OSGShaderParameterVec4fFields.h"
 

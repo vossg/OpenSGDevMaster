@@ -61,16 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGStateDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGShaderChunk.h" // Parent
 
-#include "OSGBoolFields.h" // CgFrontEnd type
-#include "OSGBoolFields.h" // PointSize type
-#include "OSGGLenumFields.h" // ProgramParameterNames type
-#include "OSGUInt32Fields.h" // ProgramParameterValues type
-#include "OSGUInt32Fields.h" // GLId type
-#include "OSGBoolFields.h" // UnknownParameterWarning type
+#include "OSGSysFields.h" // CgFrontEnd type
+#include "OSGBaseFields.h" // ProgramParameterNames type
 
 #include "OSGSHLChunkFields.h"
 
