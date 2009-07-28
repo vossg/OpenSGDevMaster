@@ -134,8 +134,7 @@ void WIN32Window::init(GLInitFunctor oFunc)
 
 void WIN32Window::activate  (void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         this->doActivate();
     }
@@ -143,8 +142,7 @@ void WIN32Window::activate  (void)
 
 void WIN32Window::deactivate(void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         this->doDeactivate();
     }
@@ -152,8 +150,7 @@ void WIN32Window::deactivate(void)
 
 bool WIN32Window::swap      (void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         return this->doSwap();
     }
