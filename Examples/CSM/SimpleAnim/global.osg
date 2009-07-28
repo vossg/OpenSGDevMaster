@@ -1,0 +1,19 @@
+#OSG V1.0 
+
+ContainerCollection
+{
+  containers
+  [
+    DEF TaskInsert InsertTestTask
+    {
+      window USE MainWindow
+    }
+
+    DEF TriggerInsert KeySensor
+    {
+      key "i"
+    }        
+  ]
+}
+
+ROUTE TriggerInsert.signalPressed  TO TaskInsert.trigger

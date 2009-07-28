@@ -19,28 +19,56 @@ ComplexSceneManager
           ]
         },
 
-
-        Node 
+        DEF GlobalEffectRoot Node
         {
-          core Group {}
+          core MultiCore
+          {
+            cores
+            [
+              Group {}
+              USE GlobalEffect1
+              USE GlobalEffect2
+            ]
+          }
 
           children
           [
-            DEF ZLight Node
+            DEF SceneRoot Node 
             {
-              core DirectionalLight
+              core MultiCore
               {
-                ambient    0.24 0.24 0.24 1.0
-                diffuse    0.80 0.80 0.80 1.0
-                direction  0.0 0.0 1.0
-                on         TRUE
-                beacon     USE CameraRoot
+                cores
+                [
+                  Group {}
+                  USE SceneEffect1
+                  USE SceneEffect2
+                  USE SceneEffect3
+                  USE SceneEffect4
+                  USE SceneEffect5
+                  USE SceneEffect6
+                  USE SceneEffect7
+                ]
               }
+
               children
               [
-                DEF ModelRoot Node
+                DEF ZLight Node
                 {
-                  core Group {}
+                  core DirectionalLight
+                  {
+                    ambient    0.24 0.24 0.24 1.0
+                    diffuse    0.80 0.80 0.80 1.0
+                    direction  0.0 0.0 1.0
+                    on         TRUE
+                    beacon     USE CameraRoot
+                  }
+                  children
+                  [
+                    DEF ModelRoot Node
+                    {
+                      core Group {}
+                    }
+                  ]
                 }
               ]
             }
@@ -83,6 +111,8 @@ ComplexSceneManager
              size 300 300
              position 200, 200
              decorEnabled TRUE
+
+             partitionDrawMode 0x0002
 
              renderOptions DEF WinRenderOpts RenderOptions
              {

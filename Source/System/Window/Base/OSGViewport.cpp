@@ -368,7 +368,7 @@ void Viewport::render(RenderActionBase *action)
 
     Window  *pWin = action->getWindow();
 
-    if(pWin->getPartitionDrawMode() == Window::SequentialPartitionDraw)
+    if(pWin->getDrawMode() == Window::SequentialPartitionDraw)
     {
         DrawEnv  oEnv;
 
@@ -388,7 +388,7 @@ void Viewport::render(RenderActionBase *action)
                 new ViewportDrawTask(this, ViewportDrawTask::Foregrounds);
         }
 
-        pWin->queueTask(_pForegroundTask);
+        pWin->queueTaskFromDrawer(_pForegroundTask);
     }
 
 #if 0 // Have to check GV

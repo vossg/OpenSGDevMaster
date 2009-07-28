@@ -251,11 +251,7 @@ void XWindow::init(GLInitFunctor oFunc)
         }
     }
 
-    this->doActivate();
-    
     Inherited::init(oFunc);
-
-    this->doDeactivate();
 }
     
 void XWindow::terminate(void)
@@ -272,8 +268,7 @@ void XWindow::terminate(void)
 
 void XWindow::activate(void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         this->doActivate();
     }
@@ -281,8 +276,7 @@ void XWindow::activate(void)
 
 void XWindow::deactivate(void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         this->doDeactivate();
     }
@@ -290,8 +284,7 @@ void XWindow::deactivate(void)
 
 bool XWindow::swap(void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         return this->doSwap();
     }

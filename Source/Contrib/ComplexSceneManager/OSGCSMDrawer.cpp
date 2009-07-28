@@ -163,6 +163,17 @@ void CSMDrawer::setParallel(bool bParallel)
     _bParallel = bParallel;
 }
 
+void CSMDrawer::postSync(void)
+{
+    MFUnrecChildCSMWindowPtr::const_iterator wIt  = getMFWindows()->begin();
+    MFUnrecChildCSMWindowPtr::const_iterator wEnd = getMFWindows()->end  ();
+
+    for(; wIt != wEnd; ++wIt)
+    {
+        (*wIt)->postSync();
+    }
+}
+
 /*----------------------------- class specific ----------------------------*/
 
 void CSMDrawer::changed(ConstFieldMaskArg whichField, 
@@ -185,15 +196,13 @@ bool CSMDrawer::init(void)
     MFUnrecChildCSMWindowPtr::const_iterator wIt  = getMFWindows()->begin();
     MFUnrecChildCSMWindowPtr::const_iterator wEnd = getMFWindows()->end  ();
 
-    while(wIt != wEnd)
+    for(; wIt != wEnd; ++wIt)
     {
         returnValue = (*wIt)->init();
 
         if(returnValue == false)
             break;
-
-        ++wIt;
-    };
+    }
 
     _pAction = RenderAction::create();
 

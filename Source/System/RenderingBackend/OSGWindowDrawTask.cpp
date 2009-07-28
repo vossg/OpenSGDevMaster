@@ -108,7 +108,8 @@ void WindowDrawTask::execute(DrawEnv *pEnv)
                 _oInitFunc();
             }
 
-            pWindow->doDeactivate();
+            if(pWindow->getKeepContextActive() == false)
+                pWindow->doDeactivate();
         }
         break;
 
@@ -118,7 +119,8 @@ void WindowDrawTask::execute(DrawEnv *pEnv)
             fprintf(stderr, "Activate\n");
             fflush(stderr);
 #endif
-            pWindow->doActivate();
+            if(pWindow->getKeepContextActive() == false)
+                pWindow->doActivate();
         }
         break;
 
@@ -128,7 +130,10 @@ void WindowDrawTask::execute(DrawEnv *pEnv)
             fprintf(stderr, "FrameInit\n");
             fflush(stderr);
 #endif
-            pWindow->doActivate();
+
+            if(pWindow->getKeepContextActive() == false)
+                pWindow->doActivate();
+
             pWindow->doFrameInit();
         }
         break;
@@ -140,7 +145,9 @@ void WindowDrawTask::execute(DrawEnv *pEnv)
             fflush(stderr);
 #endif
             pWindow->doFrameExit();
-            pWindow->doDeactivate();
+
+            if(pWindow->getKeepContextActive() == false)
+                pWindow->doDeactivate();
         }
         break;
 

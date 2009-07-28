@@ -60,6 +60,7 @@
 
 #include <OSGViewport.h> // Port Class
 #include <OSGRenderOptions.h> // RenderOptions Class
+#include <OSGDrawTask.h> // DrawTasks Class
 
 #include "OSGWindowBase.h"
 #include "OSGWindow.h"
@@ -144,7 +145,15 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var UInt32          WindowBase::_sfPartitionDrawMode
+/*! \var UInt32          WindowBase::_sfDrawMode
+    
+*/
+
+/*! \var std::string     WindowBase::_sfRendererInfo
+    
+*/
+
+/*! \var DrawTask *      WindowBase::_mfDrawTasks
     
 */
 
@@ -324,13 +333,37 @@ void WindowBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
-        "partitionDrawMode",
+        "drawMode",
         "",
-        PartitionDrawModeFieldId, PartitionDrawModeFieldMask,
+        DrawModeFieldId, DrawModeFieldMask,
         true,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Window::editHandlePartitionDrawMode),
-        static_cast<FieldGetMethodSig >(&Window::getHandlePartitionDrawMode));
+        static_cast<FieldEditMethodSig>(&Window::editHandleDrawMode),
+        static_cast<FieldGetMethodSig >(&Window::getHandleDrawMode));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "rendererInfo",
+        "",
+        RendererInfoFieldId, RendererInfoFieldMask,
+        true,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Window::editHandleRendererInfo),
+        static_cast<FieldGetMethodSig >(&Window::getHandleRendererInfo));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFDrawTask::Description(
+        MFDrawTask::getClassType(),
+        "drawTasks",
+        "",
+        DrawTasksFieldId, DrawTasksFieldMask,
+        true,
+        (Field::FClusterLocal),
+        static_cast<FieldEditMethodSig>(&Window::editHandleDrawTasks),
+        static_cast<FieldGetMethodSig >(&Window::getHandleDrawTasks));
 
     oType.addInitialDesc(pDesc);
 }
@@ -496,14 +529,36 @@ WindowBase::TypeObject WindowBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "    <Field\n"
-    "\t   name=\"partitionDrawMode\"\n"
+    "\t   name=\"drawMode\"\n"
     "\t   type=\"UInt32\"\n"
     "\t   cardinality=\"single\"\n"
     "\t   visibility=\"internal\"\n"
     "\t   access=\"public\"\n"
-    "       defaultValue=\"Window::SequentialPartitionDraw\"\n"
+    "       defaultValue=\"(Window::SequentialPartitionDraw | Window::StdDrawer | Window::KeepContextActive)\"\n"
     "       >\n"
     "    </Field>\n"
+    "    <Field\n"
+    "\t   name=\"rendererInfo\"\n"
+    "\t   type=\"std::string\"\n"
+    "\t   cardinality=\"single\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"public\"\n"
+    "       defaultValue='\"unknown\"'\n"
+    "       >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "\t   name=\"drawTasks\"\n"
+    "\t   type=\"DrawTask\"\n"
+    "\t   cardinality=\"multi\"\n"
+    "\t   visibility=\"internal\"\n"
+    "\t   access=\"protected\"\n"
+    "       category=\"custompointer\"\n"
+    "       ptrFieldAccess=\"custom\"\n"
+    "       header=\"OSGDrawTask.h\"\n"
+    "       fieldFlags=\"FClusterLocal\"\n"
+    "       >\n"
+    "    </Field>\n"
+    "    \n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemWindow\n"
     "\n"
@@ -687,18 +742,37 @@ SFUnrecRenderOptionsPtr *WindowBase::editSFRenderOptions  (void)
     return &_sfRenderOptions;
 }
 
-SFUInt32 *WindowBase::editSFPartitionDrawMode(void)
+SFUInt32 *WindowBase::editSFDrawMode(void)
 {
-    editSField(PartitionDrawModeFieldMask);
+    editSField(DrawModeFieldMask);
 
-    return &_sfPartitionDrawMode;
+    return &_sfDrawMode;
 }
 
-const SFUInt32 *WindowBase::getSFPartitionDrawMode(void) const
+const SFUInt32 *WindowBase::getSFDrawMode(void) const
 {
-    return &_sfPartitionDrawMode;
+    return &_sfDrawMode;
 }
 
+
+SFString *WindowBase::editSFRendererInfo(void)
+{
+    editSField(RendererInfoFieldMask);
+
+    return &_sfRendererInfo;
+}
+
+const SFString *WindowBase::getSFRendererInfo(void) const
+{
+    return &_sfRendererInfo;
+}
+
+
+//! Get the Window::_mfDrawTasks field.
+const MFDrawTask *WindowBase::getMFDrawTasks(void) const
+{
+    return &_mfDrawTasks;
+}
 
 
 
@@ -805,6 +879,7 @@ void WindowBase::clearPorts(void)
 
 
 
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 WindowBase::getBinSize(ConstFieldMaskArg whichField)
@@ -859,9 +934,17 @@ UInt32 WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfRenderOptions.getBinSize();
     }
-    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+    if(FieldBits::NoField != (DrawModeFieldMask & whichField))
     {
-        returnValue += _sfPartitionDrawMode.getBinSize();
+        returnValue += _sfDrawMode.getBinSize();
+    }
+    if(FieldBits::NoField != (RendererInfoFieldMask & whichField))
+    {
+        returnValue += _sfRendererInfo.getBinSize();
+    }
+    if(FieldBits::NoField != (DrawTasksFieldMask & whichField))
+    {
+        returnValue += _mfDrawTasks.getBinSize();
     }
 
     return returnValue;
@@ -920,9 +1003,17 @@ void WindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfRenderOptions.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+    if(FieldBits::NoField != (DrawModeFieldMask & whichField))
     {
-        _sfPartitionDrawMode.copyToBin(pMem);
+        _sfDrawMode.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (RendererInfoFieldMask & whichField))
+    {
+        _sfRendererInfo.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (DrawTasksFieldMask & whichField))
+    {
+        _mfDrawTasks.copyToBin(pMem);
     }
 }
 
@@ -979,9 +1070,17 @@ void WindowBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfRenderOptions.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
+    if(FieldBits::NoField != (DrawModeFieldMask & whichField))
     {
-        _sfPartitionDrawMode.copyFromBin(pMem);
+        _sfDrawMode.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RendererInfoFieldMask & whichField))
+    {
+        _sfRendererInfo.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (DrawTasksFieldMask & whichField))
+    {
+        _mfDrawTasks.copyFromBin(pMem);
     }
 }
 
@@ -1006,7 +1105,9 @@ WindowBase::WindowBase(void) :
     _sfRequestMinor           (Int32(0)),
     _sfContextFlags           (Int32(0)),
     _sfRenderOptions          (NULL),
-    _sfPartitionDrawMode      (UInt32(Window::SequentialPartitionDraw))
+    _sfDrawMode               (UInt32((Window::SequentialPartitionDraw | Window::StdDrawer | Window::KeepContextActive))),
+    _sfRendererInfo           (std::string("unknown")),
+    _mfDrawTasks              ()
 {
 }
 
@@ -1026,7 +1127,9 @@ WindowBase::WindowBase(const WindowBase &source) :
     _sfRequestMinor           (source._sfRequestMinor           ),
     _sfContextFlags           (source._sfContextFlags           ),
     _sfRenderOptions          (NULL),
-    _sfPartitionDrawMode      (source._sfPartitionDrawMode      )
+    _sfDrawMode               (source._sfDrawMode               ),
+    _sfRendererInfo           (source._sfRendererInfo           ),
+    _mfDrawTasks              ()
 {
 }
 
@@ -1096,6 +1199,18 @@ void WindowBase::onCreate(const Window *source)
         }
 
         pThis->setRenderOptions(source->getRenderOptions());
+
+        MFDrawTask::const_iterator DrawTasksIt  =
+            source->_mfDrawTasks.begin();
+        MFDrawTask::const_iterator DrawTasksEnd =
+            source->_mfDrawTasks.end  ();
+
+        while(DrawTasksIt != DrawTasksEnd)
+        {
+            pThis->pushToDrawTasks(*DrawTasksIt);
+
+            ++DrawTasksIt;
+        }
     }
 }
 
@@ -1423,27 +1538,77 @@ EditFieldHandlePtr WindowBase::editHandleRenderOptions  (void)
     return returnValue;
 }
 
-GetFieldHandlePtr WindowBase::getHandlePartitionDrawMode (void) const
+GetFieldHandlePtr WindowBase::getHandleDrawMode        (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfPartitionDrawMode,
-             this->getType().getFieldDesc(PartitionDrawModeFieldId),
+             &_sfDrawMode,
+             this->getType().getFieldDesc(DrawModeFieldId),
              const_cast<WindowBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr WindowBase::editHandlePartitionDrawMode(void)
+EditFieldHandlePtr WindowBase::editHandleDrawMode       (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfPartitionDrawMode,
-             this->getType().getFieldDesc(PartitionDrawModeFieldId),
+             &_sfDrawMode,
+             this->getType().getFieldDesc(DrawModeFieldId),
              this));
 
 
-    editSField(PartitionDrawModeFieldMask);
+    editSField(DrawModeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr WindowBase::getHandleRendererInfo    (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfRendererInfo,
+             this->getType().getFieldDesc(RendererInfoFieldId),
+             const_cast<WindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr WindowBase::editHandleRendererInfo   (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfRendererInfo,
+             this->getType().getFieldDesc(RendererInfoFieldId),
+             this));
+
+
+    editSField(RendererInfoFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr WindowBase::getHandleDrawTasks       (void) const
+{
+    MFDrawTask::GetHandlePtr returnValue(
+        new  MFDrawTask::GetHandle(
+             &_mfDrawTasks,
+             this->getType().getFieldDesc(DrawTasksFieldId),
+             const_cast<WindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr WindowBase::editHandleDrawTasks      (void)
+{
+    MFDrawTask::EditHandlePtr returnValue(
+        new  MFDrawTask::EditHandle(
+             &_mfDrawTasks,
+             this->getType().getFieldDesc(DrawTasksFieldId),
+             this));
+
+
+    editMField(DrawTasksFieldMask, _mfDrawTasks);
 
     return returnValue;
 }
@@ -1475,6 +1640,8 @@ void WindowBase::resolveLinks(void)
     static_cast<Window *>(this)->clearPorts();
 
     static_cast<Window *>(this)->setRenderOptions(NULL);
+
+    static_cast<Window *>(this)->clearDrawTasks();
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;

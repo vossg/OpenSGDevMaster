@@ -355,8 +355,22 @@ bool CSMNativeWindow::init(void)
     XWindowUnrecPtr  pXWindow = OSG::XWindow::create();
     XVisualInfo     *vi       = NULL;
 
-    pXWindow->setRequestMajor(this->getRequestMajor());
-    pXWindow->setRequestMinor(this->getRequestMinor());
+    pXWindow->setRequestMajor     (this->getRequestMajor     ());
+    pXWindow->setRequestMinor     (this->getRequestMinor     ());
+
+    UInt32 uiDrawMode = this->getPartitionDrawMode();
+
+    if(ComplexSceneManager::the()->getDrawManager()->getParallel() == true)
+    {
+        uiDrawMode |= Window::ParallelDrawer;
+    }
+    else
+    {
+        uiDrawMode |= Window::StdDrawer;
+    }
+    
+    pXWindow->setPartitionDrawMode(uiDrawMode);
+    pXWindow->setDrawerType       (uiDrawMode);
 
     Int32 iFlags = 0;
 
@@ -683,6 +697,7 @@ bool CSMNativeWindow::init(void)
 
     std::string windowName("OpenSG - CSM - ");
 
+#if 0
     _pXWindow->activate();
 
     windowName += reinterpret_cast<const char *>(glGetString(GL_VERSION));
@@ -690,6 +705,9 @@ bool CSMNativeWindow::init(void)
     windowName += reinterpret_cast<const char *>(glGetString(GL_RENDERER));
 
     _pXWindow->deactivate();
+#endif
+
+    windowName += _pXWindow->getRendererInfo();
 
     XStoreName(_pDisplay, pHWin, windowName.c_str());
 

@@ -84,9 +84,7 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindow : public GLUTWindowBase
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
 
-    virtual void sequentialActivate  (void);
-    virtual void sequentialDeactivate(void);
-    virtual bool sequentialSwap      (void);
+    virtual void activate  (void);
    
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

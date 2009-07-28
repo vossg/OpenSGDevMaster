@@ -580,9 +580,17 @@ FUNCTION(OSG_SETUP_LIBRARY_BUILD PROJ_DEFINE)
                NOT EXISTS ${FCDDir}/${FCDClassInl} AND
                OSG_FCD2CODE_WRITE_CLASS              )
 
-               MESSAGE(STATUS "writing ${FCDDir}/${FCDClassHdr} ${FCDDir}/${FCDClassCpp} ${FCDDir}/${FCDClassInl}")
+               SET(_OSG_IGNORE_CLASSWRITE -1)
 
-               EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -f -d ${FCDFile} -p ${FCDDir} ${FCDRoot} ${FCDTemp}) 
+               IF(OSG_IGNORE_CLASSBUILD)
+                 LIST(FIND OSG_IGNORE_CLASSBUILD ${FCDBase} _OSG_IGNORE_CLASSWRITE)
+               ENDIF(OSG_IGNORE_CLASSBUILD)
+
+               IF(_OSG_IGNORE_CLASSWRITE EQUAL -1)
+                 MESSAGE(STATUS "writing ${FCDDir}/${FCDClassHdr} ${FCDDir}/${FCDClassCpp} ${FCDDir}/${FCDClassInl}")
+
+                 EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} ${FCDCommand} -c -f -d ${FCDFile} -p ${FCDDir} ${FCDRoot} ${FCDTemp}) 
+               ENDIF(_OSG_IGNORE_CLASSWRITE EQUAL -1)
 
             ENDIF()
 

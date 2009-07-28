@@ -100,9 +100,17 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     enum
     {
-        SequentialPartitionDraw = 0x0001,
-        ParallelPartitionDraw   = 0x0002,
-        PartitionDrawMask       = 0x0003
+        SequentialPartitionDraw = 0x000001,
+        ParallelPartitionDraw   = 0x000002,
+        PartitionDrawMask       = 0x0000FF,       
+
+        StdDrawer               = 0x000100,
+        ParallelDrawer          = 0x000200,        
+        DrawerMask              = 0x00FF00,
+
+        CycleContext            = 0x010000,
+        KeepContextActive       = 0x020000,
+        ContextMask             = 0xFF0000
     };
 
     static const Real32 unknownConstant;
@@ -260,6 +268,20 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     virtual void frameInit         (void                    );
     virtual void renderAllViewports(RenderActionBase *action);
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Sync                                    */
+    /*! \{                                                                 */
+
+    void setPartitionDrawMode(UInt32 uiMode      );
+    void setDrawerType       (UInt32 uiDrawerType);
+    void setKeepContextActive(bool   bVal        );
+
+    UInt32 getPartitionDrawMode(void) const;
+    UInt32 getDrawerType       (void) const;
+    bool   getKeepContextActive(void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -282,7 +304,10 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
-    void queueTask(DrawTask *pTask);
+    void queueTaskFromDrawer(DrawTask *pTask);
+    void queueTask          (DrawTask *pTask);
+
+    void clearDrawTasks     (void           );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -434,6 +459,13 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \{                                                                 */
 
     typedef OSG_HASH_MAP(GLenum, Vec2f) ConstHash;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name            Map for GL cvonstant handling                     */
+    /*! \{                                                                 */
+
+    void pushToDrawTasks(DrawTask * const value);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

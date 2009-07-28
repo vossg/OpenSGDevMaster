@@ -136,43 +136,18 @@ void GLUTWindow::init(GLInitFunctor oFunc)
     Inherited::setWindow (glXGetCurrentDrawable());
 #endif
 
-    this->doActivate();
-
     Window::init(oFunc);
-
-    this->doDeactivate();
 }
     
-void GLUTWindow::sequentialActivate(void)
+void GLUTWindow::activate(void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         if(glutGetWindow() != getGlutId())
             glutSetWindow(getGlutId());
 
         Inherited::doActivate();
     }
-}
-
-void GLUTWindow::sequentialDeactivate(void)
-{
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
-    {
-        Inherited::doDeactivate();
-    }
-}
-
-bool GLUTWindow::sequentialSwap(void)
-{
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
-    {
-        return Inherited::doSwap();
-    }
-
-    return false;
 }
 
 #endif // OSG_WITH_GLUT

@@ -98,6 +98,7 @@ struct FieldTraits<HDC> :
     enum                        { Convertible = (Self::ToStringConvertible  |
                                                  Self::FromStringConvertible)};
 
+    OSG_WINDOWWIN32_DLLMAPPING
     static DataType &getType (void);
 
     static char     *getSName(void) { return "SFHDC"; }
@@ -126,6 +127,7 @@ struct FieldTraits<HGLRC> :
     enum                        { Convertible = (Self::ToStringConvertible  |
                                                  Self::FromStringConvertible)};
 
+    OSG_WINDOWWIN32_DLLMAPPING
     static DataType &getType (void);
 
     static char     *getSName(void) { return "SFHGLRC"; }
@@ -154,6 +156,7 @@ struct FieldTraits<PAINTSTRUCT> :
     enum                        { Convertible = (Self::ToStringConvertible  |
                                                  Self::FromStringConvertible)};
 
+    OSG_WINDOWWIN32_DLLMAPPING
     static DataType &getType (void);
 
     static char     *getSName(void) { return "SFPAINTSTRUCT"; }

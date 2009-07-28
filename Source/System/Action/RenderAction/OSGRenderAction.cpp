@@ -863,7 +863,7 @@ void RenderAction::drawBuffer(UInt32 buf)
         }
 #endif
 
-        _pWindow->queueTask(_vRenderPartitions[buf][0]);
+        _pWindow->queueTaskFromDrawer(_vRenderPartitions[buf][0]);
 
         if(_bUseGLFinish == true)
         {
@@ -873,7 +873,7 @@ void RenderAction::drawBuffer(UInt32 buf)
                     new RenderActionTask(RenderActionTask::HandleGLFinish);
             }
 
-            _pWindow->queueTask(_pGLFinishTask);
+            _pWindow->queueTaskFromDrawer(_pGLFinishTask);
             
             _pGLFinishTask->waitForBarrier();
         }
@@ -1063,12 +1063,13 @@ void RenderAction::popPartition(void)
            _bDefaultPartHandled         == false  )
         {
             _pActivePartition->setTaskType(RenderPartition::Setup);
-            _pWindow->queueTask(_vRenderPartitions[_currentBuffer][0]);
+            _pWindow->queueTaskFromDrawer(
+                _vRenderPartitions[_currentBuffer][0]);
 
             _bDefaultPartHandled = true;
         }
 
-        _pWindow->queueTask(pCurrPart);
+        _pWindow->queueTaskFromDrawer(pCurrPart);
 
 #ifdef OSG_RENPART_DUMP_PAR
         fprintf(stderr, "queue %p\n", pCurrPart);

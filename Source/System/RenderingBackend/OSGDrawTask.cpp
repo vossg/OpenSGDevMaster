@@ -43,6 +43,8 @@
 
 #include "OSGDrawTask.h"
 
+#include <OSGMField.ins>
+
 OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::DrawTask
@@ -169,6 +171,13 @@ void DrawTaskQueue::runAndClearQueue(DrawEnv *pEnv)
 
     _qTaskStore.clear();
 }
+
+DataType FieldTraits<DrawTaskRefPtr>::_type("DrawTaskRefPtr", NULL);
+
+OSG_FIELDTRAITS_GETTYPE(DrawTaskRefPtr)
+
+OSG_FIELD_DLLEXPORT_DEF1(MField, DrawTaskRefPtr);
+
 
 OSG_END_NAMESPACE
 

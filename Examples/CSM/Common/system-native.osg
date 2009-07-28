@@ -107,6 +107,8 @@ ComplexSceneManager
 #             enableForwardCompatContext TRUE
 #             enableDebugContext         TRUE
 
+             partitionDrawMode 0x0002
+
              requestSamples 4
              enableFSAA     TRUE
 
@@ -116,6 +118,7 @@ ComplexSceneManager
 
              renderOptions DEF WinRenderOpts RenderOptions
              {
+               useGLFinish FALSE
              }
 
              viewports

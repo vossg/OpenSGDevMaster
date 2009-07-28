@@ -120,11 +120,7 @@ void CoreGLWindow::dump(      UInt32    ,
 */
 void CoreGLWindow::init(GLInitFunctor oFunc)
 {
-    this->doActivate();
-    
     Inherited::init(oFunc);
-
-    this->doDeactivate();
 }
 
 // activate the window: bind the OGL context

@@ -357,5 +357,58 @@ ShaderCache *Window::getShaderCache(void)
     return _pShaderCache;
 }
 
+inline
+void Window::setPartitionDrawMode(UInt32 uiMode)
+{
+    editSField(DrawModeFieldMask);
+
+    _sfDrawMode.setValue(
+        (_sfDrawMode.getValue() & ~PartitionDrawMask) | uiMode);
+}
+
+inline
+void Window::setDrawerType(UInt32 uiDrawerType)
+{
+    editSField(DrawModeFieldMask);
+
+    _sfDrawMode.setValue((_sfDrawMode.getValue() & ~DrawerMask) | uiDrawerType);
+}
+
+inline
+void Window::setKeepContextActive(bool bVal)
+{
+    editSField(DrawModeFieldMask);
+
+    if(bVal == true)
+    {
+        _sfDrawMode.setValue(
+            (_sfDrawMode.getValue() & ~ContextMask) | KeepContextActive);
+
+    }
+    else
+    {
+        _sfDrawMode.setValue(
+            (_sfDrawMode.getValue() & ~ContextMask) | CycleContext);
+
+    }
+}
+
+inline
+UInt32 Window::getPartitionDrawMode(void) const
+{
+    return _sfDrawMode.getValue() & PartitionDrawMask;
+}
+
+inline
+UInt32 Window::getDrawerType(void) const
+{
+    return _sfDrawMode.getValue() & DrawerMask;
+}
+
+inline
+bool Window::getKeepContextActive(void) const
+{
+    return (_sfDrawMode.getValue() & ContextMask) == KeepContextActive;
+}
 
 OSG_END_NAMESPACE

@@ -757,8 +757,7 @@ UInt32 OSG::Window::validateGLObject(UInt32   osgId,
 */
 void OSG::Window::validateAllGLObjects(void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         doActivate();
         doFrameInit();
@@ -776,8 +775,8 @@ void OSG::Window::validateAllGLObjects(void)
         doFrameExit();
         doDeactivate();
     }   
-    else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == ParallelPartitionDraw)
+    else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                         ParallelPartitionDraw)
     {
         fprintf(stderr, "Window::validateAllGLObjects::pardraw NI\n");
     }
@@ -1859,6 +1858,15 @@ void OSG::Window::setupGL( void )
     GLP::glLightfv(GL_LIGHT0, GL_DIFFUSE,  nul);
     GLP::glLightfv(GL_LIGHT0, GL_SPECULAR, nul);
     
+    _sfRendererInfo.getValue().assign(
+        reinterpret_cast<const char *>(glGetString(GL_VERSION)));
+
+    _sfRendererInfo.getValue() += " - ";
+
+    _sfRendererInfo.getValue() += 
+        reinterpret_cast<const char *>(glGetString(GL_RENDERER));
+
+
     doFrameInit();    // call it to setup extensions
 }
 
@@ -1882,8 +1890,7 @@ void Window::setupTasks(void)
  */   
 void OSG::Window::render(RenderActionBase *action)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         doActivate ();
         doFrameInit();    // query recently registered GL extensions
@@ -1893,24 +1900,24 @@ void OSG::Window::render(RenderActionBase *action)
         doSwap     ();
         doFrameExit(); // after frame cleanup: delete dead GL objects
     }
-    else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == ParallelPartitionDraw)
+    else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                         ParallelPartitionDraw)
     {
         OSG_ASSERT(_pDrawThread != NULL);
 
         if(_pDrawThread->isRunning() == false)
         {
-            fprintf(stderr, "running partition drawthread\n");
-            
-            _pDrawThread->setWindow(this);
-            _pDrawThread->run(Thread::getCurrentAspect());
-            
+            fprintf(stderr, "running partition drawthread r\n");
+                       
             if(_pInitTask == NULL)
             {
                 _pInitTask = new WindowDrawTask(WindowDrawTask::Init);
             }
 
             _pDrawThread->queueTaskFront(_pInitTask);
+
+            _pDrawThread->setWindow(this);
+            _pDrawThread->run(Thread::getCurrentAspect());
 
             _pInitTask = NULL;
         }
@@ -1926,6 +1933,21 @@ void OSG::Window::render(RenderActionBase *action)
 #endif
 
         _pDrawThread->queueTask(_pFrameInitTask);
+
+        if(_mfDrawTasks.empty() == false)
+        {
+            MFDrawTask::const_iterator tIt  = _mfDrawTasks.begin();
+            MFDrawTask::const_iterator tEnd = _mfDrawTasks.end  ();
+
+            for(; tIt != tEnd; ++tIt)
+            {
+                _pDrawThread->queueTask(*tIt);
+            }
+
+            editMField(DrawTasksFieldMask, _mfDrawTasks);
+
+            _mfDrawTasks.clear();
+        }
 
         doRenderAllViewports(action);
 
@@ -1950,32 +1972,31 @@ void OSG::Window::render(RenderActionBase *action)
     
 void OSG::Window::renderNoFinish(RenderActionBase *action)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         doActivate ();
         doFrameInit();    // query recently registered GL extensions
         
         doRenderAllViewports(action);
     }
-    else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == ParallelPartitionDraw)
+    else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                         ParallelPartitionDraw)
     {
         OSG_ASSERT(_pDrawThread != NULL);
 
         if(_pDrawThread->isRunning() == false)
         {
-            fprintf(stderr, "running partition drawthread\n");
-            
-            _pDrawThread->setWindow(this);
-            _pDrawThread->run(Thread::getCurrentAspect());
-            
+            fprintf(stderr, "running partition drawthread rnf\n");
+                       
             if(_pInitTask == NULL)
             {
                 _pInitTask = new WindowDrawTask(WindowDrawTask::Init);
             }
 
             _pDrawThread->queueTaskFront(_pInitTask);
+
+            _pDrawThread->setWindow(this);
+            _pDrawThread->run(Thread::getCurrentAspect());
 
             _pInitTask = NULL;
         }
@@ -1987,6 +2008,21 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
 
         _pDrawThread->queueTask(_pFrameInitTask);
 
+        if(_mfDrawTasks.empty() == false)
+        {
+            MFDrawTask::const_iterator tIt  = _mfDrawTasks.begin();
+            MFDrawTask::const_iterator tEnd = _mfDrawTasks.end  ();
+
+            for(; tIt != tEnd; ++tIt)
+            {
+                _pDrawThread->queueTask(*tIt);
+            }
+
+            editMField(DrawTasksFieldMask, _mfDrawTasks);
+
+            _mfDrawTasks.clear();
+        }
+
         this->doRenderAllViewports(action);
     }
     else
@@ -1997,8 +2033,7 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
 
 void OSG::Window::frameFinish(bool bActivate)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         if(bActivate == true)
             doActivate();
@@ -2006,8 +2041,8 @@ void OSG::Window::frameFinish(bool bActivate)
         doSwap     ();
         doFrameExit(); // after frame cleanup: delete dead GL objects
     }
-    else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == ParallelPartitionDraw)
+    else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                         ParallelPartitionDraw)
     {
         OSG_ASSERT(_pDrawThread != NULL);
 
@@ -2034,15 +2069,14 @@ void OSG::Window::frameFinish(bool bActivate)
 
 void OSG::Window::runFrameExit(void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         doActivate  ();
         doFrameExit (); // after frame cleanup: delete dead GL objects
         doDeactivate();
     }
-    else if((_sfPartitionDrawMode.getValue() & 
-              PartitionDrawMask               ) == ParallelPartitionDraw)
+    else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                         ParallelPartitionDraw)
     {
         if(_pWaitTask == NULL || _pDrawThread->isRunning() == false)
         {
@@ -2063,8 +2097,7 @@ void OSG::Window::runFrameExit(void)
 
 void OSG::Window::frameInit(void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         this->doFrameInit();
     }
@@ -2072,8 +2105,7 @@ void OSG::Window::frameInit(void)
 
 void OSG::Window::frameExit(void)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         this->doFrameExit();
     }
@@ -2081,8 +2113,7 @@ void OSG::Window::frameExit(void)
 
 void OSG::Window::renderAllViewports(RenderActionBase *action)
 {
-    if((_sfPartitionDrawMode.getValue() & 
-         PartitionDrawMask               ) == SequentialPartitionDraw)
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         this->doRenderAllViewports(action);
     }
@@ -2115,13 +2146,13 @@ void OSG::Window::doRenderAllViewports(RenderActionBase *action)
             action->setDrawerId(this->getDrawerId());
         }
 
-        if((_sfPartitionDrawMode.getValue() & 
-             PartitionDrawMask               ) == SequentialPartitionDraw)
+        if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                       SequentialPartitionDraw)
         {
             action->setDrawPartPar(false);
         }
-        else if((_sfPartitionDrawMode.getValue() & 
-                 PartitionDrawMask               ) == ParallelPartitionDraw)
+        else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                         ParallelPartitionDraw)
         {
             action->setDrawPartPar(true);
         }
@@ -2139,13 +2170,13 @@ void OSG::Window::doRenderAllViewports(RenderActionBase *action)
                 action->setDrawableId((*portIt)->getDrawableId());
             }
 
-            if((_sfPartitionDrawMode.getValue() & 
-                 PartitionDrawMask              ) == SequentialPartitionDraw)
+            if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                       SequentialPartitionDraw)
             {
                 (*portIt)->render(action);
             }
-            else if((_sfPartitionDrawMode.getValue() & 
-                      PartitionDrawMask              ) == ParallelPartitionDraw)
+            else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                         ParallelPartitionDraw)
             {
                 (*portIt)->render(action);
 
@@ -2180,18 +2211,54 @@ void OSG::Window::resize( int width, int height )
 
 void OSG::Window::init(GLInitFunctor oFunc)
 {
-    if(_pInitTask == NULL)
-    {
-        _pInitTask = new WindowDrawTask(WindowDrawTask::Init);
-    }
-    
-    _pInitTask->setInitFunc(oFunc);
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
+    {  
+        this->doActivate();
 
-    setupGL();
-    
-    if(oFunc)
-        oFunc();
+        setupGL();
+              
+        if(oFunc)
+            oFunc();
+
+        this->doDeactivate();
+    }
+    else if((_sfDrawMode.getValue() & DrawerMask) == StdDrawer)
+    {
+        if(_pInitTask == NULL)
+        {
+            _pInitTask = new WindowDrawTask(WindowDrawTask::Init);
+        }
+        
+        _pInitTask->setInitFunc(oFunc);
+
+        OSG_ASSERT(_pDrawThread != NULL);
+
+        if(_pDrawThread->isRunning() == false)
+        {
+            fprintf(stderr, "running partition drawthread init\n");
+                       
+            _pDrawThread->queueTaskFront(_pInitTask);
+
+            _pDrawThread->setWindow(this);
+            _pDrawThread->run(Thread::getCurrentAspect());
+
+            _pInitTask = NULL;
+        }
+
+        if(_pWaitTask == NULL)
+        {
+            setupTasks();
+        }
+        
+        _pDrawThread->queueTask(_pWaitTask);
+        _pWaitTask->waitForBarrier();
+    }
+    else
+    {
+        fprintf(stderr, "Unknown partition draw mode\n");
+    }
 }
+
 
 /*! Resize function. 
 
@@ -2277,7 +2344,7 @@ void Window::resolveLinks(void)
     Inherited::resolveLinks();
 }
 
-void Window::queueTask(DrawTask *pTask)
+void Window::queueTaskFromDrawer(DrawTask *pTask)
 {
     if(pTask == NULL)
         return;
@@ -2285,6 +2352,42 @@ void Window::queueTask(DrawTask *pTask)
     OSG_ASSERT(_pDrawThread != NULL);
 
     _pDrawThread->queueTask(pTask);
+}
+
+void Window::queueTask(DrawTask *pTask)
+{
+    if(pTask == NULL)
+        return;
+
+    if((_sfDrawMode.getValue() & DrawerMask) == StdDrawer)
+    {
+        OSG_ASSERT(_pDrawThread != NULL);
+
+        _pDrawThread->queueTask(pTask);
+    }
+    else if((_sfDrawMode.getValue() & DrawerMask) == ParallelDrawer)
+    {
+        editMField(DrawTasksFieldMask, _mfDrawTasks);
+
+        _mfDrawTasks.push_back(pTask);
+    }
+}
+
+void Window::pushToDrawTasks(DrawTask * const value)
+{
+    if(value == NULL)
+        return;
+
+    editMField(DrawTasksFieldMask, _mfDrawTasks);
+
+    _mfDrawTasks.push_back(value);
+}
+
+void Window::clearDrawTasks(void)
+{
+    editMField(DrawTasksFieldMask, _mfDrawTasks);
+
+    _mfDrawTasks.clear();
 }
 
 OSG_END_NAMESPACE

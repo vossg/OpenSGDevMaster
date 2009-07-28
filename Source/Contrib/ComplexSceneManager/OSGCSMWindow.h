@@ -108,6 +108,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    void queueTask(DrawTask *pTask);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 
@@ -184,6 +191,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMWindow : public CSMWindowBase
     void frameSwap          (void                 );
     void deactivate         (void                 );
 #endif
+
+    void postSync           (void                 );
 
     void shutdown           (void                 );
 

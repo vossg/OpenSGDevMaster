@@ -289,30 +289,55 @@ void WindowBase::setRenderOptions(RenderOptions * const value)
 
     _sfRenderOptions.setValue(value);
 }
-//! Get the value of the Window::_sfPartitionDrawMode field.
+//! Get the value of the Window::_sfDrawMode field.
 
 inline
-UInt32 &WindowBase::editPartitionDrawMode(void)
+UInt32 &WindowBase::editDrawMode(void)
 {
-    editSField(PartitionDrawModeFieldMask);
+    editSField(DrawModeFieldMask);
 
-    return _sfPartitionDrawMode.getValue();
+    return _sfDrawMode.getValue();
 }
 
-//! Get the value of the Window::_sfPartitionDrawMode field.
+//! Get the value of the Window::_sfDrawMode field.
 inline
-      UInt32  WindowBase::getPartitionDrawMode(void) const
+      UInt32  WindowBase::getDrawMode(void) const
 {
-    return _sfPartitionDrawMode.getValue();
+    return _sfDrawMode.getValue();
 }
 
-//! Set the value of the Window::_sfPartitionDrawMode field.
+//! Set the value of the Window::_sfDrawMode field.
 inline
-void WindowBase::setPartitionDrawMode(const UInt32 value)
+void WindowBase::setDrawMode(const UInt32 value)
 {
-    editSField(PartitionDrawModeFieldMask);
+    editSField(DrawModeFieldMask);
 
-    _sfPartitionDrawMode.setValue(value);
+    _sfDrawMode.setValue(value);
+}
+//! Get the value of the Window::_sfRendererInfo field.
+
+inline
+std::string &WindowBase::editRendererInfo(void)
+{
+    editSField(RendererInfoFieldMask);
+
+    return _sfRendererInfo.getValue();
+}
+
+//! Get the value of the Window::_sfRendererInfo field.
+inline
+const std::string &WindowBase::getRendererInfo(void) const
+{
+    return _sfRendererInfo.getValue();
+}
+
+//! Set the value of the Window::_sfRendererInfo field.
+inline
+void WindowBase::setRendererInfo(const std::string &value)
+{
+    editSField(RendererInfoFieldMask);
+
+    _sfRendererInfo.setValue(value);
 }
 
 //! Get the value of the \a index element the Window::_mfPort field.
@@ -353,6 +378,13 @@ UInt32 &WindowBase::editGlObjectLastReinitialize(const UInt32 index)
     return _mfGlObjectLastReinitialize[index];
 }
 
+
+//! Get the value of the \a index element the Window::_mfDrawTasks field.
+inline
+DrawTask * WindowBase::getDrawTasks(const UInt32 index) const
+{
+    return _mfDrawTasks[index];
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -410,8 +442,17 @@ void WindowBase::execSync (      WindowBase *pFrom,
     if(FieldBits::NoField != (RenderOptionsFieldMask & whichField))
         _sfRenderOptions.syncWith(pFrom->_sfRenderOptions);
 
-    if(FieldBits::NoField != (PartitionDrawModeFieldMask & whichField))
-        _sfPartitionDrawMode.syncWith(pFrom->_sfPartitionDrawMode);
+    if(FieldBits::NoField != (DrawModeFieldMask & whichField))
+        _sfDrawMode.syncWith(pFrom->_sfDrawMode);
+
+    if(FieldBits::NoField != (RendererInfoFieldMask & whichField))
+        _sfRendererInfo.syncWith(pFrom->_sfRendererInfo);
+
+    if(FieldBits::NoField != (DrawTasksFieldMask & whichField))
+        _mfDrawTasks.syncWith(pFrom->_mfDrawTasks,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 }
 #endif
 

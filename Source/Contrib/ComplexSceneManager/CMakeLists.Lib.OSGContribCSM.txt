@@ -155,6 +155,8 @@ IF(NOT _CSM_HAS_NATIVE_WIN)
     OSG_ADD_DIRECTORY("Source/Contrib/ComplexSceneManager/Native-Dummy")
 ENDIF(NOT _CSM_HAS_NATIVE_WIN)
 
+LIST(APPEND OSG_IGNORE_CLASSBUILD OSGCSMNativeWindow)
+
 ##############################################################################
 # setup build
 ##############################################################################

@@ -129,11 +129,7 @@ void WIN32Window::init(GLInitFunctor oFunc)
 
     ReleaseDC(getHwnd(), getHdc());
 
-    this->doActivate();
-
     Inherited::init(oFunc);
-
-    this->doDeactivate();
 }
 
 void WIN32Window::activate  (void)

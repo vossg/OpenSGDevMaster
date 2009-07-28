@@ -51,6 +51,7 @@
 
 #include "OSGOSGSceneFileType.h"
 #include "OSGNameAttachment.h"
+#include "OSGComplexSceneManager.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -149,6 +150,14 @@ CSMDrawer *CSMWindow::getParent(void) const
     return dynamic_cast<CSMDrawer *>(_sfParent.getValue());
 }
 
+void CSMWindow::queueTask(DrawTask *pTask)
+{
+    if(_pWindow != NULL)
+    {
+        _pWindow->queueTask(pTask);
+    }
+}
+
 FieldContainer *CSMWindow::findNamedComponent(const Char8 *szName) const
 {
     if(_sfRenderOptions.getValue() != NULL)
@@ -215,8 +224,25 @@ bool CSMWindow::init(void)
             }
         }
 
-        _pWindow->setRenderOptions    (this->getRenderOptions    ());
-        _pWindow->setPartitionDrawMode(this->getPartitionDrawMode());
+        fprintf(stderr, "foo %p %d\n",
+                ComplexSceneManager::the()->getDrawManager(),
+                UInt32(ComplexSceneManager::the()->
+                           getDrawManager()->getParallel()));
+
+        UInt32 uiDrawMode = this->getPartitionDrawMode();
+
+        if(ComplexSceneManager::the()->getDrawManager()->getParallel() == true)
+        {
+            uiDrawMode |= Window::ParallelDrawer;
+        }
+        else
+        {
+            uiDrawMode |= Window::StdDrawer;
+        }
+
+        _pWindow->setRenderOptions    (this->getRenderOptions());
+        _pWindow->setPartitionDrawMode(uiDrawMode              );
+        _pWindow->setDrawerType       (uiDrawMode              );
     }
     
 //    OSGSceneFileType::the().writeContainer(_pWindow, "/tmp/window.osg");
@@ -473,6 +499,14 @@ void CSMWindow::shutdown(void)
         return;
 
     pThreadLocalWin->resolveLinks();
+}
+
+void CSMWindow::postSync(void)
+{
+    if(_pWindow != NULL)
+    {
+        _pWindow->clearDrawTasks();
+    }
 }
 
 bool CSMWindow::requestStereoVisual(void)

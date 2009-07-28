@@ -328,6 +328,13 @@ class Field(FCDElement):
             FieldTypeNS   = TypeNS;
             FieldTypeCaps = "Uncounted" + TypeRawCaps + "Ptr"; #TypeRawCaps + "WeakPtr";
             
+        elif self.getFCD("category") == "custompointer":
+            self["category"]        = "pointer";
+            self["pointertype"]     = "internal";
+            Type          = Type + " *";
+            FieldType     = Type;
+            FieldTypeNS   = TypeNS;
+            FieldTypeCaps = TypeCaps;
             
         else:
             self.m_log.warning("finalize: \"category\" has invalid value: >%s<",

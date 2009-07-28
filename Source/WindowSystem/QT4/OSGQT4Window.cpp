@@ -167,11 +167,7 @@ void QT4Window::init(GLInitFunctor oFunc)
     setContext(glXCreateContext(getDisplay(), vi, None, GL_TRUE));
 #endif
 
-    this->doActivate();
-
     Window::init(oFunc);
-
-//    setupGL();
 }
 
 OSG_END_NAMESPACE

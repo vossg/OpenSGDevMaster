@@ -48,6 +48,7 @@
 #include "OSGSystemDef.h"
 #include "OSGLock.h"
 #include "OSGSemaphore.h"
+#include "OSGMField.h"
 
 #include <deque>
 
@@ -163,6 +164,41 @@ typedef RefCountPtr<DrawTask,
 
 typedef TransitPtr<DrawTask> DrawTaskTransitPtr;
 
+template <>
+struct FieldTraits<DrawTaskRefPtr, 0> : 
+    public FieldTraitsTemplateBase<DrawTaskRefPtr, 0>
+{
+    static  DataType                       _type;                       
+    typedef FieldTraits<DrawTaskRefPtr, 0>  Self;
+
+    enum { Convertible = Self::NotConvertible };
+
+    OSG_SYSTEM_DLLMAPPING
+    static DataType &getType (void);
+
+    static const char *getMName(void) { return "MFDrawTask"; }
+
+    static UInt32 getBinSize(const DrawTaskRefPtr *,
+                                   UInt32          )
+    {
+        return 0;
+    }
+
+    static void copyToBin(      BinaryDataHandler &,
+                          const DrawTaskRefPtr    *,
+                                UInt32             )
+    {
+    }
+
+    static void copyFromBin(BinaryDataHandler &,
+                            DrawTaskRefPtr    *,
+                            UInt32             )
+    {
+    }
+};
+
+typedef MField<DrawTaskRefPtr, 0> MFDrawTask;
+
 /*! \ingroup GrpSystemRenderingBackend
 */
 
@@ -242,6 +278,7 @@ class OSG_SYSTEM_DLLMAPPING DrawTaskQueue
     /*! \brief prohibit default function (move to 'public' if needed) */
     void operator =(const DrawTaskQueue &source);
 };
+
 
 OSG_END_NAMESPACE
 

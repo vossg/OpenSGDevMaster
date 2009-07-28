@@ -2,3 +2,4 @@
 --system ../Common/system-native.osg
 --data   ./anim.wrl
 --global ../Common/simple_mouse.osg
+--global ./global.osg

@@ -68,6 +68,8 @@
 #include "OSGSysFields.h" // Width type
 #include "OSGViewportFields.h" // Port type
 #include "OSGRenderOptionsFields.h" // RenderOptions type
+#include "OSGBaseFields.h" // RendererInfo type
+#include "OSGDrawTask.h" // DrawTasks type
 
 #include "OSGWindowFields.h"
 
@@ -107,8 +109,10 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         RequestMinorFieldId = RequestMajorFieldId + 1,
         ContextFlagsFieldId = RequestMinorFieldId + 1,
         RenderOptionsFieldId = ContextFlagsFieldId + 1,
-        PartitionDrawModeFieldId = RenderOptionsFieldId + 1,
-        NextFieldId = PartitionDrawModeFieldId + 1
+        DrawModeFieldId = RenderOptionsFieldId + 1,
+        RendererInfoFieldId = DrawModeFieldId + 1,
+        DrawTasksFieldId = RendererInfoFieldId + 1,
+        NextFieldId = DrawTasksFieldId + 1
     };
 
     static const OSG::BitVector WidthFieldMask =
@@ -135,8 +139,12 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << ContextFlagsFieldId);
     static const OSG::BitVector RenderOptionsFieldMask =
         (TypeTraits<BitVector>::One << RenderOptionsFieldId);
-    static const OSG::BitVector PartitionDrawModeFieldMask =
-        (TypeTraits<BitVector>::One << PartitionDrawModeFieldId);
+    static const OSG::BitVector DrawModeFieldMask =
+        (TypeTraits<BitVector>::One << DrawModeFieldId);
+    static const OSG::BitVector RendererInfoFieldMask =
+        (TypeTraits<BitVector>::One << RendererInfoFieldId);
+    static const OSG::BitVector DrawTasksFieldMask =
+        (TypeTraits<BitVector>::One << DrawTasksFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -152,7 +160,9 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     typedef SFInt32           SFRequestMinorType;
     typedef SFInt32           SFContextFlagsType;
     typedef SFUnrecRenderOptionsPtr SFRenderOptionsType;
-    typedef SFUInt32          SFPartitionDrawModeType;
+    typedef SFUInt32          SFDrawModeType;
+    typedef SFString          SFRendererInfoType;
+    typedef MFDrawTask        MFDrawTasksType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -202,8 +212,11 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
             const SFUnrecRenderOptionsPtr *getSFRenderOptions  (void) const;
                   SFUnrecRenderOptionsPtr *editSFRenderOptions  (void);
 
-                  SFUInt32            *editSFPartitionDrawMode(void);
-            const SFUInt32            *getSFPartitionDrawMode (void) const;
+                  SFUInt32            *editSFDrawMode       (void);
+            const SFUInt32            *getSFDrawMode        (void) const;
+
+                  SFString            *editSFRendererInfo   (void);
+            const SFString            *getSFRendererInfo    (void) const;
 
 
                   UInt16              &editWidth          (void);
@@ -231,8 +244,11 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
                   RenderOptions * getRenderOptions  (void) const;
 
-                  UInt32              &editPartitionDrawMode(void);
-                  UInt32               getPartitionDrawMode (void) const;
+                  UInt32              &editDrawMode       (void);
+                  UInt32               getDrawMode        (void) const;
+
+                  std::string         &editRendererInfo   (void);
+            const std::string         &getRendererInfo    (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -247,7 +263,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
             void setRequestMinor   (const Int32 value);
             void setContextFlags   (const Int32 value);
             void setRenderOptions  (RenderOptions * const value);
-            void setPartitionDrawMode(const UInt32 value);
+            void setDrawMode       (const UInt32 value);
+            void setRendererInfo   (const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -309,7 +326,9 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     SFInt32           _sfRequestMinor;
     SFInt32           _sfContextFlags;
     SFUnrecRenderOptionsPtr _sfRenderOptions;
-    SFUInt32          _sfPartitionDrawMode;
+    SFUInt32          _sfDrawMode;
+    SFString          _sfRendererInfo;
+    MFDrawTask        _mfDrawTasks;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -370,8 +389,12 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
     EditFieldHandlePtr editHandleContextFlags   (void);
     GetFieldHandlePtr  getHandleRenderOptions   (void) const;
     EditFieldHandlePtr editHandleRenderOptions  (void);
-    GetFieldHandlePtr  getHandlePartitionDrawMode (void) const;
-    EditFieldHandlePtr editHandlePartitionDrawMode(void);
+    GetFieldHandlePtr  getHandleDrawMode        (void) const;
+    EditFieldHandlePtr editHandleDrawMode       (void);
+    GetFieldHandlePtr  getHandleRendererInfo    (void) const;
+    EditFieldHandlePtr editHandleRendererInfo   (void);
+    GetFieldHandlePtr  getHandleDrawTasks       (void) const;
+    EditFieldHandlePtr editHandleDrawTasks      (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -387,6 +410,7 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
                   MFUInt32            *editMFGlObjectLastReinitialize(void);
             const MFUInt32            *getMFGlObjectLastReinitialize (void) const;
+            const MFDrawTask          *getMFDrawTasks       (void) const;
 
 
                   UInt32              &editGlObjectEventCounter(void);
@@ -397,6 +421,8 @@ class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
 
                   UInt32              &editGlObjectLastReinitialize(const UInt32 index);
                   UInt32               getGlObjectLastReinitialize (const UInt32 index) const;
+
+                  DrawTask * getDrawTasks      (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -98,6 +98,8 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawer : public CSMDrawerBase
     void setSwapCount     (UInt32   uiSwapCount );
     void setParallel      (bool     bParallel   );
 
+    void postSync         (void                 );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Output                                  */

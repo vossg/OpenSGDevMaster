@@ -128,7 +128,7 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
     pDstContainer = 
               dynamic_cast<AttachmentContainer *>(pDstHnd->getContainer());
           
-    if(pSrcDesc == NULL || pDstDesc == NULL)
+    if(pSrcContainer == NULL || pDstContainer == NULL)
     {
         FWARNING(("Failed handle container %p %p\n", 
                   pSrcContainer, 

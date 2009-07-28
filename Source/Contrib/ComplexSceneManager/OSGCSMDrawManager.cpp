@@ -322,6 +322,14 @@ void CSMDrawManager::frame(Time oTime, UInt32 uiFrame)
         _pSyncBarrier->enter(_uiSyncCount);
         _pSyncBarrier->enter(_uiSyncCount);
 
+        MFUnrecCSMDrawerPtr::const_iterator drawerIt  = getMFDrawer()->begin();
+        MFUnrecCSMDrawerPtr::const_iterator drawerEnd = getMFDrawer()->end  ();
+
+        for(; drawerIt != drawerEnd; ++drawerIt)
+        {
+            (*drawerIt)->postSync();
+        }
+
         _pThread->getChangeList()->clear();
     }
     else
@@ -329,11 +337,9 @@ void CSMDrawManager::frame(Time oTime, UInt32 uiFrame)
         MFUnrecCSMDrawerPtr::const_iterator drawerIt  = getMFDrawer()->begin();
         MFUnrecCSMDrawerPtr::const_iterator drawerEnd = getMFDrawer()->end  ();
 
-        while(drawerIt != drawerEnd)
+        for(; drawerIt != drawerEnd; ++drawerIt)
         {
             (*drawerIt)->frame(oTime, uiFrame);
-                        
-            ++drawerIt;
         }
     }
 }
