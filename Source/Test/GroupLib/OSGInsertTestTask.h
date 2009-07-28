@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTESTMULTIPARTITIONSTAGE_H_
-#define _OSGTESTMULTIPARTITIONSTAGE_H_
+#ifndef _OSGINSERTTESTTASK_H_
+#define _OSGINSERTTESTTASK_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGTestMultiPartitionStageBase.h"
+#include "OSGInsertTestTaskBase.h"
+#include "OSGCSMWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief TestMultiPartitionStage class. See \ref
-           PageGroupTestMultiPartitionStage for a description.
+/*! \brief InsertTestTask class. See \ref
+           PageGroupInsertTestTask for a description.
 */
 
-class OSG_GROUP_DLLMAPPING TestMultiPartitionStage : 
-    public TestMultiPartitionStageBase
+class OSG_GROUP_DLLMAPPING InsertTestTask : public InsertTestTaskBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStage :
 
   public:
 
-    typedef TestMultiPartitionStageBase Inherited;
-    typedef TestMultiPartitionStage     Self;
+    typedef InsertTestTaskBase Inherited;
+    typedef InsertTestTask     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -68,7 +68,7 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStage :
 
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         detail);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -83,21 +83,21 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStage :
 
   protected:
 
-    // Variables should all be in TestMultiPartitionStageBase.
+    // Variables should all be in InsertTestTaskBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    TestMultiPartitionStage(void);
-    TestMultiPartitionStage(const TestMultiPartitionStage &source);
+    InsertTestTask(void);
+    InsertTestTask(const InsertTestTask &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TestMultiPartitionStage(void);
+    virtual ~InsertTestTask(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -107,30 +107,99 @@ class OSG_GROUP_DLLMAPPING TestMultiPartitionStage :
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    friend class FieldContainer;
+    friend class InsertTestTaskBase;
+
+    // prohibit default functions (move to 'public' if you need one)
+    void operator =(const InsertTestTask &source);
+};
+
+typedef InsertTestTask *InsertTestTaskP;
+
+
+class TestDrawTask : public DrawTask
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    enum TestTaskType
+    {
+        TaskA = 0x0001,
+        TaskB = 0x0002
+    };
+
+    typedef DrawTask Inherited;
+
     /*---------------------------------------------------------------------*/
-    /*! \name                      Init                                    */
+    /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    ActionBase::ResultE renderEnter(Action *action);
-    ActionBase::ResultE renderLeave(Action *action);
+    TestDrawTask(TestTaskType eType);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    virtual void execute(DrawEnv *pEnv);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    virtual void dump(UInt32 uiIndent);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    TestTaskType  _eTaskType;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~TestDrawTask(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
-    friend class TestMultiPartitionStageBase;
-
-    // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TestMultiPartitionStage &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    TestDrawTask(const TestDrawTask &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =(const TestDrawTask &source);
 };
 
-typedef TestMultiPartitionStage *TestMultiPartitionStageP;
+typedef RefCountPtr<TestDrawTask,
+                    MemObjRefCountPolicy> TestDrawTaskRefPtr;
 
 OSG_END_NAMESPACE
 
-#include "OSGTestMultiPartitionStageBase.inl"
-#include "OSGTestMultiPartitionStage.inl"
+#include "OSGInsertTestTaskBase.inl"
+#include "OSGInsertTestTask.inl"
 
-#endif /* _OSGTESTMULTIPARTITIONSTAGE_H_ */
+#endif /* _OSGINSERTTESTTASK_H_ */

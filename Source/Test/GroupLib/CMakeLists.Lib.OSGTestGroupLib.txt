@@ -12,7 +12,7 @@ OSG_SELECT_PROJECT()
 ##############################################################################
 
 # dependencies - OpenSG
-SET(${PROJECT_NAME}_DEP_OSG_LIB OSGGroup)
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGContribCSM)
 # SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB)
 
 # dependencies - External

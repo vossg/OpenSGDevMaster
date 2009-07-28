@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGTestMultiPartitionStage.h"
+#include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -68,6 +69,15 @@ void TestMultiPartitionStage::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
+        RenderAction::registerEnterDefault(
+            TestMultiPartitionStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(
+                &TestMultiPartitionStage::renderEnter));
+        
+        RenderAction::registerLeaveDefault( 
+            TestMultiPartitionStage::getClassType(), 
+            reinterpret_cast<Action::Callback>(
+                &TestMultiPartitionStage::renderLeave));
     }
 }
 
@@ -87,7 +97,9 @@ TestMultiPartitionStage::TestMultiPartitionStage(void) :
 {
 }
 
-TestMultiPartitionStage::TestMultiPartitionStage(const TestMultiPartitionStage &source) :
+TestMultiPartitionStage::TestMultiPartitionStage(
+    const TestMultiPartitionStage &source) :
+
     Inherited(source)
 {
 }
@@ -111,6 +123,109 @@ void TestMultiPartitionStage::dump(      UInt32    ,
     SLOG << "Dump TestMultiPartitionStage NI" << std::endl;
 }
 
+
+ActionBase::ResultE TestMultiPartitionStage::renderEnter(Action *action)
+{
+#ifdef OSG_DUMP_TRAVERSAL
+    FDEBUG_GV(("Enter TestMultiPartStage %p\n", &(*pCore)));
+#endif
+
+    RenderAction *a = dynamic_cast<RenderAction *>(action);
+
+#ifdef OSG_DEBUGX
+    if(this != NULL && this->getMessage().size() != 0)
+    {
+        fprintf(stderr, "StartEnter MPTS %s\n",
+                this->getMessage().c_str());
+    }
+#endif
+
+    StageValidator::ValidationStatus eStatus = this->validateOnEnter(a);
+
+    if(eStatus == StageValidator::Run)
+    {
+        if(this->getUseGroup() == true)
+        {
+            this->beginPartitionGroup(a);
+        }
+        else
+        {
+            this->beginPartitions(a);
+        }
+
+        for(UInt32 i = 0; i < this->getNumPartitions(); ++i)
+        {
+            this->pushPartition(a);
+            {
+                RenderPartition *pPart  = a->getActivePartition();
+            
+#ifdef OSG_DEBUG
+                if(this != NULL && this->getMessage().size() != 0)
+                {
+                    char szNum[16];
+                    
+                    std::string szMessage = this->getMessage();
+                    
+                    sprintf(szNum, "%d", i);
+                    
+                    szMessage += " | Partition ";
+                    szMessage += szNum;
+                    
+                    pPart->setDebugString(szMessage);
+                }
+#endif
+
+                this->recurseFromThis(a);
+            }
+            this->popPartition(a);
+        }
+        
+        if(this->getUseGroup() == true)
+        {
+            this->endPartitionGroup(a);
+        }
+        else
+        {
+            this->endPartitions(a);
+        }
+    }
+
+#ifdef OSG_DEBUGX
+    if(this != NULL && this->getMessage().size() != 0)
+    {
+        fprintf(stderr, "FinishedEnter MPTS %s\n",
+                this->getMessage().c_str());
+    }
+#endif
+
+    return ActionBase::Continue;
+}
+
+ActionBase::ResultE TestMultiPartitionStage::renderLeave(Action *action)
+{
+#ifdef OSG_DUMP_TRAVERSAL
+    FDEBUG_GV(("Leave TestMultiPartStage %p\n", &(*pCore)));
+#endif
+
+    RenderAction      *a      = 
+        dynamic_cast<RenderAction *>(action);
+
+#ifdef OSG_DEBUGX
+    if(this != NULL && this->getMessage().size() != 0)
+    {
+        fprintf(stderr, "StartLeave MPTS %s\n",
+                this->getMessage().c_str());
+    }
+#endif
+
+    StageValidator::ValidationStatus eStatus = this->validateOnLeave(a);
+
+#ifdef OSG_DEBUGX
+    a->dumpPartitionList();
+#endif
+    
+    return ActionBase::Continue;
+}
 
 /*------------------------------------------------------------------------*/
 /*                              cvs id's                                  */

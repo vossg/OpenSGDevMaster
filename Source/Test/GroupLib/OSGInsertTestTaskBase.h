@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class TestStage
+ **     class InsertTestTask
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGTESTSTAGEBASE_H_
-#define _OSGTESTSTAGEBASE_H_
+#ifndef _OSGINSERTTESTTASKBASE_H_
+#define _OSGINSERTTESTTASKBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,29 +63,31 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGStage.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
 #include "OSGBaseFields.h" // Message type
+#include "OSGCSMWindowFields.h" // Window type
+#include "OSGOSGAnyFields.h" // Trigger type
 
-#include "OSGTestStageFields.h"
+#include "OSGInsertTestTaskFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class TestStage;
+class InsertTestTask;
 
-//! \brief TestStage Base Class.
+//! \brief InsertTestTask Base Class.
 
-class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
+class OSG_GROUP_DLLMAPPING InsertTestTaskBase : public AttachmentContainer
 {
   public:
 
-    typedef Stage Inherited;
-    typedef Stage ParentContainer;
+    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(TestStage);
+    OSG_GEN_INTERNALPTR(InsertTestTask);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -94,15 +96,23 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     enum
     {
         MessageFieldId = Inherited::NextFieldId,
-        NextFieldId = MessageFieldId + 1
+        WindowFieldId = MessageFieldId + 1,
+        TriggerFieldId = WindowFieldId + 1,
+        NextFieldId = TriggerFieldId + 1
     };
 
     static const OSG::BitVector MessageFieldMask =
         (TypeTraits<BitVector>::One << MessageFieldId);
+    static const OSG::BitVector WindowFieldMask =
+        (TypeTraits<BitVector>::One << WindowFieldId);
+    static const OSG::BitVector TriggerFieldMask =
+        (TypeTraits<BitVector>::One << TriggerFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFString          SFMessageType;
+    typedef SFWeakCSMWindowPtr SFWindowType;
+    typedef SFOSGAny          SFTriggerType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -130,10 +140,14 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
 
                   SFString            *editSFMessage        (void);
             const SFString            *getSFMessage         (void) const;
+            const SFWeakCSMWindowPtr  *getSFWindow         (void) const;
+                  SFWeakCSMWindowPtr  *editSFWindow         (void);
 
 
                   std::string         &editMessage        (void);
             const std::string         &getMessage         (void) const;
+
+                  CSMWindow * getWindow         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -141,6 +155,12 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*! \{                                                                 */
 
             void setMessage        (const std::string &value);
+            void setWindow         (CSMWindow * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -164,16 +184,16 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  TestStageTransitPtr  create          (void);
-    static  TestStage           *createEmpty     (void);
+    static  InsertTestTaskTransitPtr  create          (void);
+    static  InsertTestTask           *createEmpty     (void);
 
-    static  TestStageTransitPtr  createLocal     (
+    static  InsertTestTaskTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  TestStage            *createEmptyLocal(
+    static  InsertTestTask            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  TestStageTransitPtr  createDependent  (BitVector bFlags);
+    static  InsertTestTaskTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -201,27 +221,30 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*! \{                                                                 */
 
     SFString          _sfMessage;
+    SFWeakCSMWindowPtr _sfWindow;
+    SFOSGAny          _sfTrigger;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    TestStageBase(void);
-    TestStageBase(const TestStageBase &source);
+    InsertTestTaskBase(void);
+    InsertTestTaskBase(const InsertTestTaskBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~TestStageBase(void);
+    virtual ~InsertTestTaskBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
+    void onCreate(const InsertTestTask *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -230,6 +253,35 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
 
     GetFieldHandlePtr  getHandleMessage         (void) const;
     EditFieldHandlePtr editHandleMessage        (void);
+    GetFieldHandlePtr  getHandleWindow          (void) const;
+    EditFieldHandlePtr editHandleWindow         (void);
+    GetFieldHandlePtr  getHandleTrigger         (void) const;
+    EditFieldHandlePtr editHandleTrigger        (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFOSGAny            *editSFTrigger        (void);
+            const SFOSGAny            *getSFTrigger         (void) const;
+
+
+                  OSGAny              &editTrigger        (void);
+            const OSGAny              &getTrigger         (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setTrigger        (const OSGAny &value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -243,7 +295,7 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      TestStageBase *pFrom,
+            void execSync (      InsertTestTaskBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -283,14 +335,11 @@ class OSG_GROUP_DLLMAPPING TestStageBase : public Stage
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const TestStageBase &source);
+    void operator =(const InsertTestTaskBase &source);
 };
 
-typedef TestStageBase *TestStageBaseP;
-
-typedef CoredNodeRefPtr  <TestStage> TestStageNodeRefPtr;
-typedef CoredNodeMTRefPtr<TestStage> TestStageNodeMTRefPtr;
+typedef InsertTestTaskBase *InsertTestTaskBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGTESTSTAGEBASE_H_ */
+#endif /* _OSGINSERTTESTTASKBASE_H_ */

@@ -112,6 +112,14 @@ class OSG_GROUP_DLLMAPPING TestStage : public TestStageBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */

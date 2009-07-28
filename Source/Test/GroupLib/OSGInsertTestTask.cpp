@@ -45,14 +45,13 @@
 
 #include <OSGConfig.h>
 
-#include "OSGTestStage.h"
-#include "OSGRenderAction.h"
+#include "OSGInsertTestTask.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGTestStageBase.cpp file.
-// To modify it, please change the .fcd file (OSGTestStage.fcd) and
+// OSGInsertTestTaskBase.cpp file.
+// To modify it, please change the .fcd file (OSGInsertTestTask.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -63,19 +62,12 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void TestStage::initMethod(InitPhase ePhase)
+void InsertTestTask::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
     if(ePhase == TypeObject::SystemPost)
     {
-        RenderAction::registerEnterDefault(
-            TestStage::getClassType(), 
-            reinterpret_cast<Action::Callback>(&TestStage::renderEnter));
-        
-        RenderAction::registerLeaveDefault( 
-            TestStage::getClassType(), 
-            reinterpret_cast<Action::Callback>(&TestStage::renderLeave));
     }
 }
 
@@ -90,122 +82,112 @@ void TestStage::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-TestStage::TestStage(void) :
+InsertTestTask::InsertTestTask(void) :
     Inherited()
 {
 }
 
-TestStage::TestStage(const TestStage &source) :
+InsertTestTask::InsertTestTask(const InsertTestTask &source) :
     Inherited(source)
 {
 }
 
-TestStage::~TestStage(void)
+InsertTestTask::~InsertTestTask(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void TestStage::changed(ConstFieldMaskArg whichField, 
-                        UInt32            origin,
-                        BitVector         details)
+void InsertTestTask::changed(ConstFieldMaskArg whichField, 
+                             UInt32            origin,
+                             BitVector         details)
 {
-    Inherited::changed(whichField, origin, details);
-}
-
-void TestStage::enterCB(DrawEnv *pEnv)
-{
-    fprintf(stderr, "TestStage Part Enter\n");
-}
-
-void TestStage::dump(      UInt32    ,
-                         const BitVector ) const
-{
-    SLOG << "Dump TestStage NI" << std::endl;
-}
-
-
-ActionBase::ResultE TestStage::renderEnter(Action *action)
-{
-#ifdef OSG_DUMP_TRAVERSAL
-    FDEBUG_GV(("Enter TestStage %p\n", &(*pCore)));
-#endif
-
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-
-#ifdef OSG_DEBUGX
-    if(this != NULL && this->getMessage().size() != 0)
+    if(0x0000 != (whichField & TriggerFieldMask))
     {
-        fprintf(stderr, "StartEnter TS %s\n",
-                this->getMessage().c_str());
-    }
-#endif
-    
-    Stage::ValidationStatus eStatus = this->validateOnEnter(a);
+        fprintf(stderr, "got trigger %p\n", _sfWindow.getValue());
 
-    if(eStatus == StageValidator::Run)
-    {
-        this->pushPartition(a);
+        if(_sfWindow.getValue() != NULL)
         {
-            RenderPartition *pPart  = a->getActivePartition();
+            TestDrawTaskRefPtr pTask = new TestDrawTask(TestDrawTask::TaskA);
 
-#ifdef OSG_DEBUG
-            if(this != NULL && this->getMessage().size() != 0)
-            {
-                pPart->setDebugString(this->getMessage());
-            }
-#endif
+            _sfWindow.getValue()->queueTask(pTask);
         }
     }
 
-#ifdef OSG_DEBUGX
-    if(this != NULL && this->getMessage().size() != 0)
-    {
-        fprintf(stderr, "FinishedEnter TS %s\n",
-                this->getMessage().c_str());
-    }
-#endif
-
-    return ActionBase::Continue;
+    Inherited::changed(whichField, origin, details);
 }
 
-ActionBase::ResultE TestStage::renderLeave(Action *action)
+void InsertTestTask::dump(      UInt32    ,
+                         const BitVector ) const
 {
-#ifdef OSG_DUMP_TRAVERSAL
-    FDEBUG_GV(("Leave TestStage %p\n", &(*pCore)));
-#endif
-
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-
-#ifdef OSG_DEBUGX
-    if(this != NULL && this->getMessage().size() != 0)
-    {
-        fprintf(stderr, "StartLeave TS %s\n",
-                this->getMessage().c_str());
-    }
-#endif
-
-    StageValidator::ValidationStatus eStatus = this->validateOnLeave(a);
-
-    if(eStatus == StageValidator::Run)
-    {
-        this->popPartition(a);
-    }
-
-#ifdef OSG_DEBUGX
-    if(this != NULL && this->getMessage().size() != 0)
-    {
-        fprintf(stderr, "FinishedLeave TS %s\n",
-                this->getMessage().c_str());
-    }
-
-    a->dumpPartitionList();
-#endif
-
-    return ActionBase::Continue;
+    SLOG << "Dump InsertTestTask NI" << std::endl;
 }
 
-/*------------------------------------------------------------------------*/
-/*                              cvs id's                                  */
+
+
+
+TestDrawTask::TestDrawTask(TestTaskType eType) :
+     Inherited(     ),
+    _eTaskType(eType)
+{
+}
+
+TestDrawTask::~TestDrawTask(void)
+{
+}
+
+void TestDrawTask::execute(DrawEnv *pEnv)
+{
+    switch(_eTaskType)
+    {
+        case TaskA:
+        {
+            fprintf(stderr, "TaskA\n");
+            fflush(stderr);
+
+            int i;
+
+            glGetIntegerv(GL_ACCUM_ALPHA_BITS, &i);
+        }
+        break;
+
+        case TaskB:
+        {
+            fprintf(stderr, "TaskB\n");
+            fflush(stderr);
+        }
+        break;
+
+        default:
+            break;
+    }
+}
+
+void TestDrawTask::dump(UInt32 uiIndent)
+{
+    for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
+    fprintf(stderr, "TestDrawTask : ");
+
+    switch(_eTaskType)
+    {
+        case TaskA:
+        {
+            fprintf(stderr, "TaskA\n");
+        }
+        break;
+        case TaskB:
+        {
+            fprintf(stderr, "TaskB\n");
+        }
+        break;
+
+        default:
+        {
+            fprintf(stderr, "unknown test task\n");
+        }
+        break;
+    }
+
+}
 
 OSG_END_NAMESPACE

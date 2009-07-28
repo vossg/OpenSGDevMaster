@@ -61,14 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGGroupDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGStage.h" // Parent
 
-#include "OSGStringFields.h" // Message type
-#include "OSGInt32Fields.h" // NumPartitions type
-#include "OSGInt32Fields.h" // Order type
-#include "OSGBoolFields.h" // UseGroup type
+#include "OSGBaseFields.h" // Message type
+#include "OSGSysFields.h" // NumPartitions type
 
 #include "OSGTestMultiPartitionStageFields.h"
 
