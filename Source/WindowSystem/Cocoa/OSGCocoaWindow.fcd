@@ -16,7 +16,7 @@ The class for MacOS X Cocoa windows.
 		cardinality="single"
 		visibility="internal"
 		defaultValue="0"
-		header="OSGCocoaWindowDataFields.h"
+		fieldHeader="OSGCocoaWindowDataFields.h"
 		access="public"
 	>
 	</Field>

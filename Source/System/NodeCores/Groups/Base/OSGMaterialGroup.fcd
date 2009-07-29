@@ -19,7 +19,6 @@ nodes should have the same material applied.
 		type="MaterialPtr"
 		cardinality="single"
 		visibility="external"
-		header="OSGMaterial.h"
 		access="public"
 	>
 	</Field>

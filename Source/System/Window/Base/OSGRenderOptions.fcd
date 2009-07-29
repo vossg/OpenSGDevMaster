@@ -18,7 +18,8 @@
 	   visibility="external"
 	   defaultValue="0x0000"
 	   access="public"
-       header="OSGMaterialMapFields.h"
+           fieldHeader="OSGMaterialMapFields.h"
+           typeHeader="OSGMaterialMapFields.h"
 	>
 	</Field>
 	<Field

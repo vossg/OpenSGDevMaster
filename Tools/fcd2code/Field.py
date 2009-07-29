@@ -140,7 +140,6 @@ class Field(FCDElement):
         super(Field, self).__init__();
         self.m_log              = logging.getLogger("Field");
         self.m_fieldContainer   = None;
-        self["needTypeInclude"] = True;
         self.initFCDDict();
     
     def initFCDDict(self):
@@ -157,13 +156,14 @@ class Field(FCDElement):
         self.setFCD("defaultValue",                   "",         True);
         self.setFCD("access",                         "public",   True);
         self.setFCD("defaultHeader",                  "",         True);
-        self.setFCD("header",                         "(AUTO)",   True);
+        self.setFCD("fieldHeader",                    "(AUTO)",   True);
+        self.setFCD("typeHeader",                     "(AUTO)",   True);
         self.setFCD("description",                    "",         True);
         self.setFCD("linkSParent",                    "false",    True);
         self.setFCD("linkMParent",                    "false",    True);
         self.setFCD("removeTo",                       "",         True);
         self.setFCD("removeToSet",                    "false",    True);
-        self.setFCD("pod",                            "auto",     True);
+        self.setFCD("pod",                            "(AUTO)",   True);
 
         self.setFCD("clearMField",                    "true",     True);
       
@@ -190,7 +190,6 @@ class Field(FCDElement):
         self.setFCD("ptrFieldAccess",                 "std",      True);
 
         self.setFCD("disallowNULL",                   "false",    True);
-        self.setFCD("needClassInclude",               "true",     True);
         self.setFCD("childParentType",                "",         True);
         self.setFCD("linkParentField",                "XX",       True);
     
@@ -426,24 +425,24 @@ class Field(FCDElement):
             self["linkMParent"] = False;
         
        
-        typeInclude = "";
-        
-        if ((self.getFCD("header") == "")      or
-            (self.getFCD("header") == "(AUTO)")  ):
-            if self.getFieldContainer().isSystemComponent():
-                typeInclude = "OSG";
-            else:
-                typeInclude = "OpenSG/OSG";
-            
-            if includeTable.has_key(TypeRawCaps):
-                typeInclude = typeInclude + includeTable[TypeRawCaps] + "Fields.h"
-            else:
-                typeInclude = typeInclude + TypeRawCaps + "Fields.h"
 
-        else:
-            typeInclude = self.getFCD("header");
+#         if ((self.getFCD("header") == "")      or
+#             (self.getFCD("header") == "(AUTO)")  ):
+#             if self.getFieldContainer().isSystemComponent():
+#                 typeInclude = "OSG";
+#             else:
+#                 typeInclude = "OpenSG/OSG";
+            
+#             if includeTable.has_key(TypeRawCaps):
+#                 typeInclude = typeInclude + includeTable[TypeRawCaps] + "Fields.h"
+#             else:
+#                 typeInclude = typeInclude + TypeRawCaps + "Fields.h"
+
+#         else:
+#             typeInclude = self.getFCD("header");
         
-        self["TypeInclude"] = typeInclude;
+#         self["TypeInclude"] = typeInclude;
+
         
         if self.getFieldContainer().isDecoratable():
             self["MethodType"] = "virtual";
@@ -453,7 +452,7 @@ class Field(FCDElement):
 
         isPod = True
 
-        if self.getFCD("pod") == "auto":
+        if self.getFCD("pod") == "(AUTO)":
 
             if podTable.has_key(self.getFCD("type")) == True:
                 isPod = podTable[self.getFCD("type")]
@@ -471,18 +470,7 @@ class Field(FCDElement):
             self["RetConst"] = "const";
             self["RetRef"]   = "&";
             self["ArgRef"]   = "&";
-
-        if self.getFCD("defaultHeader") != "":
-            self["hasDefaultHeader"] = True;
-            
-            if ((self.getFCD("defaultHeader").find("\"") == -1) and
-                (self.getFCD("defaultHeader").find("<")  == -1)    ):
-                self["DefaultHeader"] = "\"" + self.getFCD("defaultHeader") + "\"";
-            else:
-                self["DefaultHeader"] = self.getFCD("defaultHeader");
-        else:
-            self["hasDefaultHeader"] = False;
-        
+       
         if self.getFCD("defaultValue") != "":
             if self["category"] == "pointer" and self["cardinality"] == "single": 
                 self["TypedDefault"] = self.getFCD("defaultValue");
@@ -710,28 +698,76 @@ class Field(FCDElement):
         
         self["Flags"] = flags;
         
+        # Headers
+
+        if self.getFCD("defaultHeader") != "":
+            self["needDefaultInclude"] = True;
+            
+            if ((self.getFCD("defaultHeader").find("\"") == -1) and
+                (self.getFCD("defaultHeader").find("<")  == -1)    ):
+                self["DefaultInclude"] = "\"" + self.getFCD("defaultHeader") + "\"";
+            else:
+                self["DefaultInclude"] = self.getFCD("defaultHeader");
+        else:
+            self["needDefaultInclude"] = False;
+
+
+        fieldInclude = "";
+        
+        if ((self.getFCD("fieldHeader") == ""      ) or 
+            (self.getFCD("fieldHeader") == "(AUTO)")   ):
+            
+            if self.getFieldContainer().isSystemComponent():
+                fieldInclude = "OSG"
+            else:
+                fieldInclude = "OpenSG/OSG"
+
+            if includeTable.has_key(TypeRawCaps):
+                fieldInclude = "\"" + fieldInclude + includeTable[TypeRawCaps] + "Fields.h" + "\""
+            else:
+                fieldInclude = "\"" + fieldInclude + TypeRawCaps               + "Fields.h" + "\""
+
+        else:
+            if ((self.getFCD("fieldHeader").find("\"") == -1) and
+                (self.getFCD("fieldHeader").find("<")  == -1)    ):
+                fieldInclude = "\"" + self.getFCD("fieldHeader") + "\"";
+            else:
+                fieldInclude = self.getFCD("fieldHeader");
+
+        self["FieldInclude"]     = fieldInclude
+        self["needFieldInclude"] = True;
+
                     
-        classInclude = "";
+        typeInclude = "";
         
         if self["category"] == "pointer":
-            if self.getFieldContainer().isSystemComponent():
-                classInclude = "OSG";
-            else:
-                classInclude = "OpenSG/OSG";
-            
-            classInclude = classInclude + self["TypeCaps"];
-            
-            if classInclude.endswith("Ptr"):
-                classInclude = classInclude[:-3];
+            if ((self.getFCD("typeHeader") == "")      or
+                (self.getFCD("typeHeader") == "(AUTO)")  ):
 
-#            if classInclude.endswith("P"):
-#                classInclude = classInclude[:-1];
+                if self.getFieldContainer().isSystemComponent():
+                    typeInclude = "OSG";
+                else:
+                    typeInclude = "OpenSG/OSG";
             
-            classInclude = classInclude.replace("Parent", "");
-            classInclude = classInclude + ".h";
+                typeInclude = typeInclude + TypeRawCaps;
+                     
+                typeInclude = typeInclude.replace("Parent", "");
+                typeInclude = "\"" + typeInclude + ".h" + "\""
+
+            else:
+                if ((self.getFCD("typeHeader").find("\"") == -1) and
+                    (self.getFCD("typeHeader").find("<")  == -1)    ):
+                    typeInclude = "\"" + self.getFCD("typeHeader") + "\"";
+                else:
+                    typeInclude = self.getFCD("typeHeader");
             
-            self["ClassInclude"]     = classInclude;
-            self["needClassInclude"] = True;
+            self["TypeInclude"]     = typeInclude;
+            self["needTypeInclude"] = True;
+
+        else:
+            self["TypeInclude"]     = None
+            self["needTypeInclude"] = False
+            
 
         # hack for now
         if self.isPtrField():

@@ -16,7 +16,7 @@ The class for MacOS X CoreGL windows.
 		cardinality="single"
 		visibility="internal"
 		defaultValue="0"
-		header="OSGCoreGLWindowDataFields.h"
+		fieldHeader="OSGCoreGLWindowDataFields.h"
 		access="public"
 	>
 	</Field>

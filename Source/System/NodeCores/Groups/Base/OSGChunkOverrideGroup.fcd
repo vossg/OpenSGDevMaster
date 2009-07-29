@@ -19,7 +19,6 @@ the material group). This might change in future
 	   type="ChunkBlockPtr"
 	   cardinality="single"
 	   visibility="external"
-	   header="OSGChunkBlock.h"
 	   access="public"
 	   >
 	</Field>

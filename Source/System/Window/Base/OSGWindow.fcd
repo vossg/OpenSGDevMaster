@@ -165,14 +165,15 @@ init(void), activate(void), deactivate(void) and swap(void).
        >
     </Field>
     <Field
-	   name="drawTasks"
-	   type="DrawTask"
-	   cardinality="multi"
-	   visibility="internal"
-	   access="protected"
+       name="drawTasks"
+       type="DrawTask"
+       cardinality="multi"
+       visibility="internal"
+       access="protected"
        category="custompointer"
        ptrFieldAccess="custom"
-       header="OSGDrawTask.h"
+       fieldHeader="OSGDrawTask.h"
+       typeHeader="OSGDrawTask.h"
        fieldFlags="FClusterLocal"
        >
     </Field>

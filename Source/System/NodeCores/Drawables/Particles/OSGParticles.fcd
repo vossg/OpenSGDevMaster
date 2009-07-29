@@ -143,7 +143,8 @@ See \ref PageSystemParticles for details.
 		type="ParticleBSPTree"
 		cardinality="single"
 		visibility="external"
-		header="OSGParticleBSP.h"
+		typeHeader="OSGParticleBSP.h"
+                fieldHeader="OSGParticleBSP.h"
 		access="public"
 	>
 	</Field>

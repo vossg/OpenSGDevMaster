@@ -17,7 +17,6 @@ The class for GLUT-based windows. See \ref PageWindowGlut for a description.
 		cardinality="single"
 		visibility="internal"
 		defaultValue="0"
-		header=""
 		access="public"
 	>
 	</Field>

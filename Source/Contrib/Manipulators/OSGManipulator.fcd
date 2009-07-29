@@ -44,7 +44,6 @@ Baseclass for all Manipulators
 		cardinality="single"
 		visibility="internal"
 		defaultValue="NULL"
-		header="OSGViewport.h"
 		access="public"
 	>
 	</Field>
@@ -125,7 +124,6 @@ Baseclass for all Manipulators
 		type="MaterialPtr"
 		cardinality="single"
 		visibility="internal"
-		header="OSGMaterial.h"
 		access="public"
 	>
 	material for the x-axis geometry
@@ -135,7 +133,6 @@ Baseclass for all Manipulators
 		type="MaterialPtr"
 		cardinality="single"
 		visibility="internal"
-		header="OSGMaterial.h"
 		access="public"
 	>
 	material for the y-axis geometry
@@ -145,7 +142,6 @@ Baseclass for all Manipulators
 		type="MaterialPtr"
 		cardinality="single"
 		visibility="internal"
-		header="OSGMaterial.h"
 		access="public"
 	>
 	material for the z-axis geometry

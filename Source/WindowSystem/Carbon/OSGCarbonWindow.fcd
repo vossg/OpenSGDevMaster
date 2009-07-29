@@ -16,7 +16,7 @@ The class for MacOS X Carbon windows.
 		cardinality="single"
 		visibility="internal"
 		defaultValue="0"
-		header="OSGCarbonWindowDataFields.h"
+		fieldHeader="OSGCarbonWindowDataFields.h"
 		access="public"
 	>
 	</Field>

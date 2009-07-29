@@ -59,17 +59,17 @@
 @@AdditionalIncludes@@
 
 @@BeginFieldLoop@@
-    @@if field.hasDefaultHeader
-#include @!field.DefaultHeader:30!@   // @!field.Name!@ default header
-    @@endif // field.hasDefaultHeader
+    @@if field.needDefaultInclude
+#include @!field.DefaultInclude:30!@   // @!field.Name!@ default header
+    @@endif // field.needDefaultInclude
 @@EndFieldLoop@@
 
 @@BeginFieldLoop@@
     @@if field.isPtrField
-        @@if field.needClassInclude
-#include <@!field.ClassInclude!@> // @!field.Name!@ Class
+        @@if field.needTypeInclude
+#include @!field.TypeInclude:30!@ // @!field.Name!@ Class
         @@endif // field.isPtrField
-    @@endif // field.needClassInclude
+    @@endif // field.needTypeInclude
 @@EndFieldLoop@@
 
 #include "OSG@!Classname!@Base.h"

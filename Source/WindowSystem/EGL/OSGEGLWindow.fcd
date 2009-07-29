@@ -16,7 +16,7 @@ The class for EGL windows.
 		cardinality="single"
 		visibility="internal"
 		defaultValue="0"
-		header="OSGEGLWindowDataFields.h"
+		fieldHeader="OSGEGLWindowDataFields.h"
 		access="public"
 	>
 	</Field>
@@ -26,7 +26,7 @@ The class for EGL windows.
 		cardinality="single"
 		visibility="internal"
 		defaultValue="0"
-		header="OSGEGLWindowDataFields.h"
+		fieldHeader="OSGEGLWindowDataFields.h"
 		access="public"
 	>
 	</Field>
@@ -36,7 +36,7 @@ The class for EGL windows.
 		cardinality="single"
 		visibility="internal"
 		defaultValue="0"
-		header="OSGEGLWindowDataFields.h"
+		fieldHeader="OSGEGLWindowDataFields.h"
 		access="public"
 	>
 	</Field>
