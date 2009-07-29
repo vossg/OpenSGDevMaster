@@ -1152,7 +1152,7 @@ MACRO(OSG_ADD_IMPORT_LIB LIB_LIST NEW_LIB)
 
     LIST(APPEND ${LIB_LIST} OSG_${NEW_LIB}_TARGET)
 
-ENDMACRO(OSG_APPEND_IMPORT_LIB)
+ENDMACRO(OSG_ADD_IMPORT_LIB)
 
 ##########################################################################
 # write settings so different variants can be build with the same settings
