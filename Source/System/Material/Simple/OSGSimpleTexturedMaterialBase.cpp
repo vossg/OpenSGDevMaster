@@ -61,7 +61,7 @@
 #include <OSGGL.h>                        // MagFilter default header
 #include <OSGGL.h>                        // EnvMode default header
 
-#include <OSGImage.h> // Image Class
+#include "OSGImage.h"                   // Image Class
 
 #include "OSGSimpleTexturedMaterialBase.h"
 #include "OSGSimpleTexturedMaterial.h"

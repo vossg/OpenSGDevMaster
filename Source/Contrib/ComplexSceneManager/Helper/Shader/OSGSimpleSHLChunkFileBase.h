@@ -65,7 +65,7 @@
 
 #include "OSGSimpleSHLChunk.h" // Parent
 
-#include "OSGBaseFields.h" // VertexProgramUrl type
+#include "OSGBaseFields.h"              // VertexProgramUrl type
 
 #include "OSGSimpleSHLChunkFileFields.h"
 

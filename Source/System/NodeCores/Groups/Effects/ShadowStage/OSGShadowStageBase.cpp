@@ -62,8 +62,7 @@
 #include <OSGGL.h>                        // Green default header
 #include <OSGGL.h>                        // Alpha default header
 
-#include <OSGNode.h> // LightNodes Class
-#include <OSGNode.h> // ExcludeNodes Class
+#include "OSGNode.h"                    // LightNodes Class
 
 #include "OSGShadowStageBase.h"
 #include "OSGShadowStage.h"

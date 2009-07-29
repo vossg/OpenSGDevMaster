@@ -65,7 +65,7 @@
 
 #include "OSGCamera.h" // Parent
 
-#include "OSGSysFields.h" // VerticalSize type
+#include "OSGSysFields.h"               // VerticalSize type
 
 #include "OSGOrthographicCameraFields.h"
 

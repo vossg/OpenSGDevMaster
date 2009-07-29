@@ -58,9 +58,9 @@
 
 
 
-#include <OSGCSMWindow.h> // ClientWindow Class
-#include <OSGImageComposer.h> // Composer Class
-#include <OSGCSMClusterWinOptions.h> // Options Class
+#include "OSGCSMWindow.h"               // ClientWindow Class
+#include "OSGImageComposer.h"           // Composer Class
+#include "OSGCSMClusterWinOptions.h"    // Options Class
 
 #include "OSGCSMClusterWindowBase.h"
 #include "OSGCSMClusterWindow.h"

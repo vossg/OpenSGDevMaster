@@ -65,7 +65,7 @@
 
 #include "OSGImageComposer.h" // Parent
 
-#include "OSGSysFields.h" // Short type
+#include "OSGSysFields.h"               // Short type
 
 #include "OSGPipelineComposerFields.h"
 

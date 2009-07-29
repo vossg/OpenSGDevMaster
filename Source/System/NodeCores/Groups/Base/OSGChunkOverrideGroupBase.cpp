@@ -58,7 +58,7 @@
 
 
 
-#include <OSGChunkBlock.h> // FallbackChunkBlock Class
+#include "OSGChunkBlock.h"              // FallbackChunkBlock Class
 
 #include "OSGChunkOverrideGroupBase.h"
 #include "OSGChunkOverrideGroup.h"
@@ -164,7 +164,6 @@ ChunkOverrideGroupBase::TypeObject ChunkOverrideGroupBase::_type(
     "\t   type=\"ChunkBlockPtr\"\n"
     "\t   cardinality=\"single\"\n"
     "\t   visibility=\"external\"\n"
-    "\t   header=\"OSGChunkBlock.h\"\n"
     "\t   access=\"public\"\n"
     "\t   >\n"
     "\t</Field>\n"

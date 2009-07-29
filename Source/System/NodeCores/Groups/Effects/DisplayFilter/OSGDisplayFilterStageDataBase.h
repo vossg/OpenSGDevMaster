@@ -65,11 +65,11 @@
 
 #include "OSGStageData.h" // Parent
 
-#include "OSGSysFields.h" // Width type
+#include "OSGSysFields.h"               // Width type
 #include "OSGFrameBufferObjectFields.h" // Target type
-#include "OSGChunkMaterialFields.h" // BaseMaterial type
-#include "OSGSimpleSHLChunkFields.h" // ColorFilterShader type
-#include "OSGTextureObjChunkFields.h" // ColorFilterTexture type
+#include "OSGChunkMaterialFields.h"     // BaseMaterial type
+#include "OSGSimpleSHLChunkFields.h"    // ColorFilterShader type
+#include "OSGTextureObjChunkFields.h"   // ColorFilterTexture type
 
 #include "OSGDisplayFilterStageDataFields.h"
 

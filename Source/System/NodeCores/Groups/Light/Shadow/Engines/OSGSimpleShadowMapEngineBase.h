@@ -65,7 +65,7 @@
 
 #include "OSGShadowMapEngine.h" // Parent
 
-#include "OSGSysFields.h" // ForceTextureUnit type
+#include "OSGSysFields.h"               // ForceTextureUnit type
 
 #include "OSGSimpleShadowMapEngineFields.h"
 

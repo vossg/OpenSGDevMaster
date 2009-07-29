@@ -58,9 +58,9 @@
 
 
 
-#include <OSGFieldContainer.h> // Globals Class
-#include <OSGCSMDrawManager.h> // DrawManager Class
-#include <OSGSensorTask.h> // SensorTask Class
+#include "OSGFieldContainer.h"          // Globals Class
+#include "OSGCSMDrawManager.h"          // DrawManager Class
+#include "OSGSensorTask.h"              // SensorTask Class
 
 #include "OSGComplexSceneManagerBase.h"
 #include "OSGComplexSceneManager.h"

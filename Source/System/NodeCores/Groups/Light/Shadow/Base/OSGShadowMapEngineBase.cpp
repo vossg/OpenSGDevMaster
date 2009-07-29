@@ -58,7 +58,7 @@
 
 
 
-#include <OSGFrameBufferObject.h> // RenderTarget Class
+#include "OSGFrameBufferObject.h"       // RenderTarget Class
 
 #include "OSGShadowMapEngineBase.h"
 #include "OSGShadowMapEngine.h"

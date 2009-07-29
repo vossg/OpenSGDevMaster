@@ -65,7 +65,7 @@
 
 #include "OSGPerspectiveCamera.h" // Parent
 
-#include "OSGVecFields.h" // PrincipalPoint type
+#include "OSGVecFields.h"               // PrincipalPoint type
 
 #include "OSGOffCenterPerspectiveCameraFields.h"
 

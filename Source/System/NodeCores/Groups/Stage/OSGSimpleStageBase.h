@@ -65,9 +65,9 @@
 
 #include "OSGRenderCallbackStage.h" // Parent
 
-#include "OSGSysFields.h" // Left type
-#include "OSGCameraFields.h" // Camera type
-#include "OSGBackgroundFields.h" // Background type
+#include "OSGSysFields.h"               // Left type
+#include "OSGCameraFields.h"            // Camera type
+#include "OSGBackgroundFields.h"        // Background type
 
 #include "OSGSimpleStageFields.h"
 

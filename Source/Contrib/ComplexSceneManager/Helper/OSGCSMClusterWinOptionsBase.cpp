@@ -58,7 +58,7 @@
 
 
 
-#include <OSGCSMClusterWindow.h> // Parent Class
+#include "OSGCSMClusterWindow.h"        // Parent Class
 
 #include "OSGCSMClusterWinOptionsBase.h"
 #include "OSGCSMClusterWinOptions.h"

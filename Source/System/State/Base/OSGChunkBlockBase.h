@@ -65,7 +65,7 @@
 
 #include "OSGFieldContainer.h" // Parent
 
-#include "OSGStateChunkFields.h" // Chunks type
+#include "OSGStateChunkFields.h"        // Chunks type
 
 #include "OSGChunkBlockFields.h"
 

@@ -65,7 +65,7 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // Target type
+#include "OSGBaseFields.h"              // Target type
 
 #include "OSGTextureBaseChunkFields.h"
 

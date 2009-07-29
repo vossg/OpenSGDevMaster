@@ -65,9 +65,9 @@
 
 #include "OSGMaterialGroup.h" // Parent
 
-#include "OSGImageFields.h" // HeightTiles type
-#include "OSGMaterialFields.h" // HeightTextures type
-#include "OSGSysFields.h" // SizeX type
+#include "OSGImageFields.h"             // HeightTiles type
+#include "OSGMaterialFields.h"          // HeightTextures type
+#include "OSGSysFields.h"               // SizeX type
 
 #include "OSGTiledQuadTreeTerrainFields.h"
 

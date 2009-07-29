@@ -65,8 +65,8 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // Ambient type
-#include "OSGSysFields.h" // LocalViewer type
+#include "OSGBaseFields.h"              // Ambient type
+#include "OSGSysFields.h"               // LocalViewer type
 
 #include "OSGLightModelChunkFields.h"
 

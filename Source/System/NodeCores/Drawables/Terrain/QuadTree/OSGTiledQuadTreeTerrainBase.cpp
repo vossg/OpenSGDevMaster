@@ -58,8 +58,8 @@
 
 
 
-#include <OSGImage.h> // HeightTiles Class
-#include <OSGMaterial.h> // HeightTextures Class
+#include "OSGImage.h"                   // HeightTiles Class
+#include "OSGMaterial.h"                // HeightTextures Class
 
 #include "OSGTiledQuadTreeTerrainBase.h"
 #include "OSGTiledQuadTreeTerrain.h"

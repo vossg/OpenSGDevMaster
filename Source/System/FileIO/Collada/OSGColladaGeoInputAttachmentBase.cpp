@@ -58,8 +58,8 @@
 
 
 
-#include <OSGGeoVectorProperty.h> // Properties Class
-#include <OSGGeoIntegralProperty.h> // PropIndices Class
+#include "OSGGeoVectorProperty.h"       // Properties Class
+#include "OSGGeoIntegralProperty.h"     // PropIndices Class
 
 #include "OSGColladaGeoInputAttachmentBase.h"
 #include "OSGColladaGeoInputAttachment.h"

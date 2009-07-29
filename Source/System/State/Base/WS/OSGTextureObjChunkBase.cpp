@@ -68,7 +68,7 @@
 #include <OSGGL.h>                        // CompareFunc default header
 #include <OSGGL.h>                        // DepthMode default header
 
-#include <OSGImage.h> // Image Class
+#include "OSGImage.h"                   // Image Class
 
 #include "OSGTextureObjChunkBase.h"
 #include "OSGTextureObjChunk.h"

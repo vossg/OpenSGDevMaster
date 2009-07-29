@@ -58,7 +58,7 @@
 
 
 
-#include <OSGImage.h> // Image Class
+#include "OSGImage.h"                   // Image Class
 
 #include "OSGRenderBufferBase.h"
 #include "OSGRenderBuffer.h"

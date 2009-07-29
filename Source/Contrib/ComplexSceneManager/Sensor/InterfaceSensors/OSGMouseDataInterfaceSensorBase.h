@@ -65,7 +65,7 @@
 
 #include "OSGDeviceInterfaceSensor.h" // Parent
 
-#include "OSGMouseDataFields.h" // MouseData type
+#include "OSGMouseDataFields.h"         // MouseData type
 
 #include "OSGMouseDataInterfaceSensorFields.h"
 

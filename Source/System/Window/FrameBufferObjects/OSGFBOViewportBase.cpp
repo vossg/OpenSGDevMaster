@@ -58,7 +58,7 @@
 
 
 
-#include <OSGFrameBufferObject.h> // FrameBufferObject Class
+#include "OSGFrameBufferObject.h"       // FrameBufferObject Class
 
 #include "OSGFBOViewportBase.h"
 #include "OSGFBOViewport.h"

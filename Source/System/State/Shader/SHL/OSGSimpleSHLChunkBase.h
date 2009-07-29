@@ -65,8 +65,8 @@
 
 #include "OSGShaderProgramChunk.h" // Parent
 
-#include "OSGBaseFields.h" // VertexProgram type
-#include "OSGSysFields.h" // CgFrontEnd type
+#include "OSGBaseFields.h"              // VertexProgram type
+#include "OSGSysFields.h"               // CgFrontEnd type
 #include "OSGShaderProgramVariablesFields.h" // Variables type
 
 #include "OSGSimpleSHLChunkFields.h"

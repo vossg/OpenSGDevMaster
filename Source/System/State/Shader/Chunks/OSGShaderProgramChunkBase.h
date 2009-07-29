@@ -65,9 +65,9 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGShaderProgramFields.h" // VertexShader type
-#include "OSGSysFields.h" // GeometryVerticesOut type
-#include "OSGBaseFields.h" // GeometryInputType type
+#include "OSGShaderProgramFields.h"     // VertexShader type
+#include "OSGSysFields.h"               // GeometryVerticesOut type
+#include "OSGBaseFields.h"              // GeometryInputType type
 
 #include "OSGShaderProgramChunkFields.h"
 

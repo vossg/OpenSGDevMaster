@@ -65,7 +65,7 @@
 
 #include "OSGTextureObjChunk.h" // Parent
 
-#include "OSGImageFields.h" // PosZImage type
+#include "OSGImageFields.h"             // PosZImage type
 
 #include "OSGCubeTextureObjChunkFields.h"
 

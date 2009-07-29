@@ -65,11 +65,11 @@
 
 #include "OSGBackground.h" // Parent
 
-#include "OSGBaseFields.h" // SkyColor type
-#include "OSGSysFields.h" // SkyAngle type
-#include "OSGTextureBaseChunkFields.h" // BackTexture type
-#include "OSGVecFields.h" // TopTexCoord type
-#include "OSGNodeFields.h" // Beacon type
+#include "OSGBaseFields.h"              // SkyColor type
+#include "OSGSysFields.h"               // SkyAngle type
+#include "OSGTextureBaseChunkFields.h"  // BackTexture type
+#include "OSGVecFields.h"               // TopTexCoord type
+#include "OSGNodeFields.h"              // Beacon type
 
 #include "OSGSkyBackgroundFields.h"
 

@@ -65,8 +65,8 @@
 
 #include "OSGForeground.h" // Parent
 
-#include "OSGSysFields.h" // ElementIDs type
-#include "OSGStatCollectorPFields.h" // Collector type
+#include "OSGSysFields.h"               // ElementIDs type
+#include "OSGStatCollectorPFields.h"    // Collector type
 
 #include "OSGStatisticsForegroundFields.h"
 

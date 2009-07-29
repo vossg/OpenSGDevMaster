@@ -58,13 +58,8 @@
 
 
 
-#include <OSGTextureBaseChunk.h> // BackTexture Class
-#include <OSGTextureBaseChunk.h> // BottomTexture Class
-#include <OSGTextureBaseChunk.h> // FrontTexture Class
-#include <OSGTextureBaseChunk.h> // LeftTexture Class
-#include <OSGTextureBaseChunk.h> // RightTexture Class
-#include <OSGTextureBaseChunk.h> // TopTexture Class
-#include <OSGNode.h> // Beacon Class
+#include "OSGTextureBaseChunk.h"        // BackTexture Class
+#include "OSGNode.h"                    // Beacon Class
 
 #include "OSGSkyBackgroundBase.h"
 #include "OSGSkyBackground.h"

@@ -61,13 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowWIN32Def.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGWindow.h" // Parent
 
-#include "OSGWIN32WindowDataFields.h" // Hwnd type
-#include "OSGWIN32WindowDataFields.h" // Hdc type
-#include "OSGWIN32WindowDataFields.h" // Hglrc type
+#include "OSGWIN32WindowDataFields.h"   // Hwnd type
 
 #include "OSGWIN32WindowFields.h"
 

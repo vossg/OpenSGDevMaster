@@ -65,9 +65,9 @@
 
 #include "OSGSimpleMaterial.h" // Parent
 
-#include "OSGImageFields.h" // Image type
-#include "OSGBaseFields.h" // MinFilter type
-#include "OSGSysFields.h" // EnvMap type
+#include "OSGImageFields.h"             // Image type
+#include "OSGBaseFields.h"              // MinFilter type
+#include "OSGSysFields.h"               // EnvMap type
 
 #include "OSGSimpleTexturedMaterialFields.h"
 

@@ -65,11 +65,11 @@
 
 #include "OSGFieldContainer.h" // Parent
 
-#include "OSGFieldContainerFields.h" // Globals type
-#include "OSGCSMDrawManagerFields.h" // DrawManager type
-#include "OSGSensorTaskFields.h" // SensorTask type
-#include "OSGSysFields.h" // FrameCount type
-#include "OSGBaseFields.h" // StartTime type
+#include "OSGFieldContainerFields.h"    // Globals type
+#include "OSGCSMDrawManagerFields.h"    // DrawManager type
+#include "OSGSensorTaskFields.h"        // SensorTask type
+#include "OSGSysFields.h"               // FrameCount type
+#include "OSGBaseFields.h"              // StartTime type
 
 #include "OSGComplexSceneManagerFields.h"
 

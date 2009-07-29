@@ -65,8 +65,8 @@
 
 #include "OSGForeground.h" // Parent
 
-#include "OSGImageFields.h" // Images type
-#include "OSGVecFields.h" // Positions type
+#include "OSGImageFields.h"             // Images type
+#include "OSGVecFields.h"               // Positions type
 
 #include "OSGImageForegroundFields.h"
 

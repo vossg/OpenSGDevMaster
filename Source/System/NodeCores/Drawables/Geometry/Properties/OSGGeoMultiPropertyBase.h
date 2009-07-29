@@ -66,8 +66,8 @@
 #include "OSGGeoVectorProperty.h" // Parent
 
 #include "OSGGeoMultiPropertyDataFields.h" // Container type
-#include "OSGSysFields.h" // Offset type
-#include "OSGBaseFields.h" // IFormat type
+#include "OSGSysFields.h"               // Offset type
+#include "OSGBaseFields.h"              // IFormat type
 
 #include "OSGGeoMultiPropertyFields.h"
 

@@ -65,8 +65,8 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGVecFields.h" // AxisOfRotation type
-#include "OSGSysFields.h" // FocusOnCamera type
+#include "OSGVecFields.h"               // AxisOfRotation type
+#include "OSGSysFields.h"               // FocusOnCamera type
 
 #include "OSGBillboardFields.h"
 

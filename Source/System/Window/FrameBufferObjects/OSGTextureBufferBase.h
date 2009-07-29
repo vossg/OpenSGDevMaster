@@ -65,9 +65,9 @@
 
 #include "OSGFrameBufferAttachment.h" // Parent
 
-#include "OSGTextureObjChunkFields.h" // Texture type
-#include "OSGBaseFields.h" // TexTarget type
-#include "OSGSysFields.h" // Level type
+#include "OSGTextureObjChunkFields.h"   // Texture type
+#include "OSGBaseFields.h"              // TexTarget type
+#include "OSGSysFields.h"               // Level type
 
 #include "OSGTextureBufferFields.h"
 

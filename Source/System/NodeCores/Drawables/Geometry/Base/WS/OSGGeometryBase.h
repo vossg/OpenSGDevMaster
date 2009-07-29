@@ -67,7 +67,7 @@
 
 #include "OSGGeoIntegralPropertyFields.h" // Types type
 #include "OSGGeoVectorPropertyFields.h" // Properties type
-#include "OSGSysFields.h" // DlistCache type
+#include "OSGSysFields.h"               // DlistCache type
 
 #include "OSGGeometryFields.h"
 

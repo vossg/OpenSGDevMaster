@@ -65,13 +65,13 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGSysFields.h" // Left type
-#include "OSGFieldContainerFields.h" // Parent type
-#include "OSGCameraFields.h" // Camera type
-#include "OSGNodeFields.h" // Root type
-#include "OSGBackgroundFields.h" // Background type
-#include "OSGForegroundFields.h" // Foregrounds type
-#include "OSGRenderOptionsFields.h" // RenderOptions type
+#include "OSGSysFields.h"               // Left type
+#include "OSGFieldContainerFields.h"    // Parent type
+#include "OSGCameraFields.h"            // Camera type
+#include "OSGNodeFields.h"              // Root type
+#include "OSGBackgroundFields.h"        // Background type
+#include "OSGForegroundFields.h"        // Foregrounds type
+#include "OSGRenderOptionsFields.h"     // RenderOptions type
 
 #include "OSGViewportFields.h"
 

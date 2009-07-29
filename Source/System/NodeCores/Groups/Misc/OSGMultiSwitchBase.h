@@ -65,7 +65,7 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGSysFields.h" // Choices type
+#include "OSGSysFields.h"               // Choices type
 
 #include "OSGMultiSwitchFields.h"
 

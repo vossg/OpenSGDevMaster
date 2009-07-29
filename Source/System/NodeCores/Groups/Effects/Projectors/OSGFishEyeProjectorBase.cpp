@@ -59,7 +59,7 @@
 
 #include <OSGGLEXT.h>                     // BufferFormat default header
 
-#include <OSGGeometry.h> // Geometries Class
+#include "OSGGeometry.h"                // Geometries Class
 
 #include "OSGFishEyeProjectorBase.h"
 #include "OSGFishEyeProjector.h"

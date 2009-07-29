@@ -65,8 +65,8 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGSysFields.h" // Size type
-#include "OSGBaseFields.h" // RMode type
+#include "OSGSysFields.h"               // Size type
+#include "OSGBaseFields.h"              // RMode type
 
 #include "OSGPointChunkFields.h"
 

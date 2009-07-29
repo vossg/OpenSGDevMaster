@@ -58,7 +58,7 @@
 
 
 
-#include <OSGInterfaceOptions.h> // Options Class
+#include "OSGInterfaceOptions.h"        // Options Class
 
 #include "OSGDeviceInterfaceSensorBase.h"
 #include "OSGDeviceInterfaceSensor.h"

@@ -65,8 +65,8 @@
 
 #include "OSGCamera.h" // Parent
 
-#include "OSGMathFields.h" // ProjectionMatrix type
-#include "OSGSysFields.h" // UseBeacon type
+#include "OSGMathFields.h"              // ProjectionMatrix type
+#include "OSGSysFields.h"               // UseBeacon type
 
 #include "OSGMatrixCameraFields.h"
 

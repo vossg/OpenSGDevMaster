@@ -65,7 +65,7 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGSensorFields.h" // Sensors type
+#include "OSGSensorFields.h"            // Sensors type
 
 #include "OSGSensorTaskFields.h"
 

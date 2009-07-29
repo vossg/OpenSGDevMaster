@@ -66,7 +66,7 @@
 #include "OSGFieldContainer.h" // Parent
 
 #include "OSGDeviceInterfaceSensorFields.h" // Parent type
-#include "OSGSysFields.h" // NapTime type
+#include "OSGSysFields.h"               // NapTime type
 
 #include "OSGInterfaceOptionsFields.h"
 

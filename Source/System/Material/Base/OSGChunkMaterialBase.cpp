@@ -58,7 +58,7 @@
 
 
 
-#include <OSGStateChunk.h> // Chunks Class
+#include "OSGStateChunk.h"              // Chunks Class
 
 #include "OSGChunkMaterialBase.h"
 #include "OSGChunkMaterial.h"

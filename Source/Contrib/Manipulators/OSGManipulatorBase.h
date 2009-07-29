@@ -65,11 +65,11 @@
 
 #include "OSGTransform.h" // Parent
 
-#include "OSGNodeFields.h" // Target type
-#include "OSGVecFields.h" // LastMousePos type
-#include "OSGViewport.h" // Viewport type
-#include "OSGSysFields.h" // Active type
-#include "OSGMaterial.h" // MaterialX type
+#include "OSGNodeFields.h"              // Target type
+#include "OSGVecFields.h"               // LastMousePos type
+#include "OSGViewportFields.h"          // Viewport type
+#include "OSGSysFields.h"               // Active type
+#include "OSGMaterialFields.h"          // MaterialX type
 
 #include "OSGManipulatorFields.h"
 

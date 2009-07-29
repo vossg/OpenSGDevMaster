@@ -65,8 +65,8 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGVecFields.h" // Center type
-#include "OSGSysFields.h" // Range type
+#include "OSGVecFields.h"               // Center type
+#include "OSGSysFields.h"               // Range type
 
 #include "OSGDistanceLODFields.h"
 

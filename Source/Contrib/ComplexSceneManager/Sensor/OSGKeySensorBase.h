@@ -65,9 +65,9 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGBaseFields.h" // Key type
-#include "OSGSysFields.h" // StateRaw type
-#include "OSGOSGAnyFields.h" // SignalPressed type
+#include "OSGBaseFields.h"              // Key type
+#include "OSGSysFields.h"               // StateRaw type
+#include "OSGOSGAnyFields.h"            // SignalPressed type
 
 #include "OSGKeySensorFields.h"
 

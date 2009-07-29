@@ -65,10 +65,10 @@
 
 #include "OSGStereoCameraDecorator.h" // Parent
 
-#include "OSGNodeFields.h" // User type
-#include "OSGVecFields.h" // Surface type
-#include "OSGBaseFields.h" // Left type
-#include "OSGSysFields.h" // Width type
+#include "OSGNodeFields.h"              // User type
+#include "OSGVecFields.h"               // Surface type
+#include "OSGBaseFields.h"              // Left type
+#include "OSGSysFields.h"               // Width type
 
 #include "OSGProjectionCameraDecoratorFields.h"
 

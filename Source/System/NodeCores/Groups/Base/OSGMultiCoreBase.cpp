@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNodeCore.h> // Cores Class
+#include "OSGNodeCore.h"                // Cores Class
 
 #include "OSGMultiCoreBase.h"
 #include "OSGMultiCore.h"

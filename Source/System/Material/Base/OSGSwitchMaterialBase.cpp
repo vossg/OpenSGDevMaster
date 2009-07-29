@@ -58,7 +58,7 @@
 
 
 
-#include <OSGMaterial.h> // Materials Class
+#include "OSGMaterial.h"                // Materials Class
 
 #include "OSGSwitchMaterialBase.h"
 #include "OSGSwitchMaterial.h"

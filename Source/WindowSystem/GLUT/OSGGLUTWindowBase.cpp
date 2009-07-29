@@ -158,7 +158,6 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"0\"\n"
-    "\t\theader=\"\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

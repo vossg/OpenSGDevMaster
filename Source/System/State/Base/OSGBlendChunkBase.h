@@ -65,8 +65,8 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // SrcFactor type
-#include "OSGSysFields.h" // AlphaValue type
+#include "OSGBaseFields.h"              // SrcFactor type
+#include "OSGSysFields.h"               // AlphaValue type
 
 #include "OSGBlendChunkFields.h"
 

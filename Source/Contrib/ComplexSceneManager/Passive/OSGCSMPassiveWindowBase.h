@@ -65,7 +65,7 @@
 
 #include "OSGCSMWindow.h" // Parent
 
-#include "OSGVecFields.h" // ViewportScale type
+#include "OSGVecFields.h"               // ViewportScale type
 
 #include "OSGCSMPassiveWindowFields.h"
 

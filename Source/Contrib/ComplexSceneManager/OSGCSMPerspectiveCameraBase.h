@@ -65,8 +65,8 @@
 
 #include "OSGPerspectiveCamera.h" // Parent
 
-#include "OSGSysFields.h" // EyeSeparation type
-#include "OSGNodeFields.h" // HeadBeacon type
+#include "OSGSysFields.h"               // EyeSeparation type
+#include "OSGNodeFields.h"              // HeadBeacon type
 
 #include "OSGCSMPerspectiveCameraFields.h"
 

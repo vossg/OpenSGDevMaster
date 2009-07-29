@@ -58,7 +58,7 @@
 
 
 
-#include <OSGSHLChunk.h> // SHLChunk Class
+#include "OSGSHLChunk.h"                // SHLChunk Class
 
 #include "OSGSHLParameterChunkBase.h"
 #include "OSGSHLParameterChunk.h"

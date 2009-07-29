@@ -65,8 +65,8 @@
 
 #include "OSGFrameBufferAttachment.h" // Parent
 
-#include "OSGBaseFields.h" // GLId type
-#include "OSGImageFields.h" // Image type
+#include "OSGBaseFields.h"              // GLId type
+#include "OSGImageFields.h"             // Image type
 
 #include "OSGRenderBufferFields.h"
 

@@ -65,10 +65,10 @@
 
 #include "OSGBackground.h" // Parent
 
-#include "OSGBaseFields.h" // Color type
-#include "OSGTextureBaseChunkFields.h" // Texture type
-#include "OSGVecFields.h" // TexCoords type
-#include "OSGSysFields.h" // RadialDistortion type
+#include "OSGBaseFields.h"              // Color type
+#include "OSGTextureBaseChunkFields.h"  // Texture type
+#include "OSGVecFields.h"               // TexCoords type
+#include "OSGSysFields.h"               // RadialDistortion type
 
 #include "OSGTextureBackgroundFields.h"
 

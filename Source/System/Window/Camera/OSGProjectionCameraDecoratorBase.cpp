@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNode.h> // User Class
+#include "OSGNode.h"                    // User Class
 
 #include "OSGProjectionCameraDecoratorBase.h"
 #include "OSGProjectionCameraDecorator.h"

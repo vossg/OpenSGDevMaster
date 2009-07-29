@@ -65,7 +65,7 @@
 
 #include "OSGShaderParameter.h" // Parent
 
-#include "OSGBaseFields.h" // Value type
+#include "OSGBaseFields.h"              // Value type
 
 #include "OSGShaderParameterStringFields.h"
 

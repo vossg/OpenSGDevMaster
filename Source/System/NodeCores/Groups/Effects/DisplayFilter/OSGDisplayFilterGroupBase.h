@@ -68,7 +68,7 @@
 #include "OSGResolutionDisplayFilterFields.h" // ResolutionFilter type
 #include "OSGColorDisplayFilterFields.h" // ColorFilter type
 #include "OSGDistortionDisplayFilterFields.h" // DistortionFilter type
-#include "OSGSysFields.h" // DrawerId type
+#include "OSGSysFields.h"               // DrawerId type
 
 #include "OSGDisplayFilterGroupFields.h"
 

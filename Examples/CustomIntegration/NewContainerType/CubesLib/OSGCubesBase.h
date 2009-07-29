@@ -61,13 +61,13 @@
 #include "OpenSG/OSGConfig.h"
 #include "OSGCubesLibDef.h"
 
-#include "OpenSG/OSGBaseTypes.h"
+//#include "OpenSG/OSGBaseTypes.h"
 
 #include "OpenSG/OSGMaterialDrawable.h" // Parent
 
-#include "OpenSG/OSGPnt3fFields.h" // Position type
-#include "OpenSG/OSGReal32Fields.h" // Length type
-#include "OpenSG/OSGColor3fFields.h" // Color type
+#include "OpenSG/OSGVecFields.h"        // Position type
+#include "OpenSG/OSGSysFields.h"        // Length type
+#include "OpenSG/OSGBaseFields.h"       // Color type
 
 #include "OSGCubesFields.h"
 

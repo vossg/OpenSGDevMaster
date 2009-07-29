@@ -60,10 +60,8 @@
 #include <OSGGL.h>                        // GeometryInputType default header
 #include <OSGGL.h>                        // GeometryOutputType default header
 
-#include <OSGShaderProgram.h> // VertexShader Class
-#include <OSGShaderProgram.h> // GeometryShader Class
-#include <OSGShaderProgram.h> // FragmentShader Class
-#include <OSGShaderProgramVariables.h> // Variables Class
+#include "OSGShaderProgram.h"           // VertexShader Class
+#include "OSGShaderProgramVariables.h"  // Variables Class
 
 #include "OSGShaderExecutableChunkBase.h"
 #include "OSGShaderExecutableChunk.h"

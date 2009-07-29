@@ -65,7 +65,7 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGNodeFields.h" // SubTreeRoot type
+#include "OSGNodeFields.h"              // SubTreeRoot type
 
 #include "OSGVisitSubTreeFields.h"
 

@@ -157,7 +157,7 @@ CarbonWindowBase::TypeObject CarbonWindowBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"0\"\n"
-    "\t\theader=\"OSGCarbonWindowDataFields.h\"\n"
+    "\t\tfieldHeader=\"OSGCarbonWindowDataFields.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

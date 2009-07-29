@@ -65,8 +65,8 @@
 
 #include "OSGCompositeMaterial.h" // Parent
 
-#include "OSGMaterialFields.h" // Materials type
-#include "OSGSysFields.h" // Choice type
+#include "OSGMaterialFields.h"          // Materials type
+#include "OSGSysFields.h"               // Choice type
 
 #include "OSGSwitchMaterialFields.h"
 

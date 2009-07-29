@@ -58,8 +58,8 @@
 
 
 
-#include <OSGFrameBufferObject.h> // RenderTarget Class
-#include <OSGStateChunk.h> // Chunks Class
+#include "OSGFrameBufferObject.h"       // RenderTarget Class
+#include "OSGStateChunk.h"              // Chunks Class
 
 #include "OSGDynamicStateGeneratorStageDataBase.h"
 #include "OSGDynamicStateGeneratorStageData.h"

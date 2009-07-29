@@ -58,7 +58,7 @@
 
 
 
-#include <OSGImage.h> // Images Class
+#include "OSGImage.h"                   // Images Class
 
 #include "OSGImageForegroundBase.h"
 #include "OSGImageForeground.h"

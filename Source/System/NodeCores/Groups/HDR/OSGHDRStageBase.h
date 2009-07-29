@@ -65,8 +65,8 @@
 
 #include "OSGStage.h" // Parent
 
-#include "OSGSysFields.h" // Exposure type
-#include "OSGBaseFields.h" // BufferFormat type
+#include "OSGSysFields.h"               // Exposure type
+#include "OSGBaseFields.h"              // BufferFormat type
 
 #include "OSGHDRStageFields.h"
 

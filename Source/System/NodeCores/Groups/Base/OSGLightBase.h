@@ -65,10 +65,10 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGBaseFields.h" // Ambient type
-#include "OSGNodeFields.h" // Beacon type
-#include "OSGSysFields.h" // On type
-#include "OSGLightEngineFields.h" // LightEngine type
+#include "OSGBaseFields.h"              // Ambient type
+#include "OSGNodeFields.h"              // Beacon type
+#include "OSGSysFields.h"               // On type
+#include "OSGLightEngineFields.h"       // LightEngine type
 
 #include "OSGLightFields.h"
 

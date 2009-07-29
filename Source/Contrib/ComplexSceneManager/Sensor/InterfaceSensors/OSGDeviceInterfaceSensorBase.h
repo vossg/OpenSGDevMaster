@@ -65,8 +65,8 @@
 
 #include "OSGSensor.h" // Parent
 
-#include "OSGBaseFields.h" // InterfaceName type
-#include "OSGInterfaceOptionsFields.h" // Options type
+#include "OSGBaseFields.h"              // InterfaceName type
+#include "OSGInterfaceOptionsFields.h"  // Options type
 
 #include "OSGDeviceInterfaceSensorFields.h"
 

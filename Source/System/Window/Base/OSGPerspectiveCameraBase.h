@@ -65,7 +65,7 @@
 
 #include "OSGCamera.h" // Parent
 
-#include "OSGSysFields.h" // Fov type
+#include "OSGSysFields.h"               // Fov type
 
 #include "OSGPerspectiveCameraFields.h"
 

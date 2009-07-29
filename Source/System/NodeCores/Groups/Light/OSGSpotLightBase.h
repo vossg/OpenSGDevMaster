@@ -65,8 +65,8 @@
 
 #include "OSGPointLight.h" // Parent
 
-#include "OSGVecFields.h" // Direction type
-#include "OSGSysFields.h" // SpotExponent type
+#include "OSGVecFields.h"               // Direction type
+#include "OSGSysFields.h"               // SpotExponent type
 
 #include "OSGSpotLightFields.h"
 

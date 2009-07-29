@@ -65,7 +65,7 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGSysFields.h" // UseVBO type
+#include "OSGSysFields.h"               // UseVBO type
 
 #include "OSGGeoPropertyFields.h"
 

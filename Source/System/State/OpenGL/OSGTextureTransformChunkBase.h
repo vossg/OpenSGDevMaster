@@ -65,7 +65,7 @@
 
 #include "OSGTransformChunk.h" // Parent
 
-#include "OSGSysFields.h" // UseCameraBeacon type
+#include "OSGSysFields.h"               // UseCameraBeacon type
 
 #include "OSGTextureTransformChunkFields.h"
 

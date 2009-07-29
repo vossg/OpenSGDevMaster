@@ -65,13 +65,13 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGFieldContainerFields.h" // Parent type
-#include "OSGCSMViewportFields.h" // Viewports type
-#include "OSGMouseDataFields.h" // MouseData type
-#include "OSGVecFields.h" // Size type
-#include "OSGSysFields.h" // DecorEnabled type
-#include "OSGBaseFields.h" // IgnoreExtensions type
-#include "OSGRenderOptionsFields.h" // RenderOptions type
+#include "OSGFieldContainerFields.h"    // Parent type
+#include "OSGCSMViewportFields.h"       // Viewports type
+#include "OSGMouseDataFields.h"         // MouseData type
+#include "OSGVecFields.h"               // Size type
+#include "OSGSysFields.h"               // DecorEnabled type
+#include "OSGBaseFields.h"              // IgnoreExtensions type
+#include "OSGRenderOptionsFields.h"     // RenderOptions type
 
 #include "OSGCSMWindowFields.h"
 

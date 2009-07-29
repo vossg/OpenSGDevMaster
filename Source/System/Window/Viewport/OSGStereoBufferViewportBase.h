@@ -65,7 +65,7 @@
 
 #include "OSGViewport.h" // Parent
 
-#include "OSGSysFields.h" // LeftBuffer type
+#include "OSGSysFields.h"               // LeftBuffer type
 
 #include "OSGStereoBufferViewportFields.h"
 

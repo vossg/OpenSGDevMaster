@@ -65,8 +65,8 @@
 
 #include "OSGImageComposer.h" // Parent
 
-#include "OSGSysFields.h" // Short type
-#include "OSGBaseFields.h" // PcLibPath type
+#include "OSGSysFields.h"               // Short type
+#include "OSGBaseFields.h"              // PcLibPath type
 
 #include "OSGParallelComposerFields.h"
 

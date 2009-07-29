@@ -65,7 +65,7 @@
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGSysFields.h" // Ignore type
+#include "OSGSysFields.h"               // Ignore type
 
 #include "OSGStateChunkFields.h"
 

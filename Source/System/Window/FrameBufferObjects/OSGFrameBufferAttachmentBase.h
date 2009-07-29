@@ -65,7 +65,7 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGSysFields.h" // Width type
+#include "OSGSysFields.h"               // Width type
 
 #include "OSGFrameBufferAttachmentFields.h"
 

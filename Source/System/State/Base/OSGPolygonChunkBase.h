@@ -65,8 +65,8 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // CullFace type
-#include "OSGSysFields.h" // Smooth type
+#include "OSGBaseFields.h"              // CullFace type
+#include "OSGSysFields.h"               // Smooth type
 
 #include "OSGPolygonChunkFields.h"
 

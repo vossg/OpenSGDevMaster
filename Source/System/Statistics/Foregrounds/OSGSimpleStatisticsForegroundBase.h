@@ -65,9 +65,9 @@
 
 #include "OSGStatisticsForeground.h" // Parent
 
-#include "OSGBaseFields.h" // Formats type
-#include "OSGSysFields.h" // Size type
-#include "OSGVecFields.h" // ShadowOffset type
+#include "OSGBaseFields.h"              // Formats type
+#include "OSGSysFields.h"               // Size type
+#include "OSGVecFields.h"               // ShadowOffset type
 
 #include "OSGSimpleStatisticsForegroundFields.h"
 

@@ -65,9 +65,9 @@
 
 #include "OSGForeground.h" // Parent
 
-#include "OSGPrimeMaterialFields.h" // Material type
-#include "OSGVecFields.h" // Positions type
-#include "OSGSysFields.h" // NormalizedX type
+#include "OSGPrimeMaterialFields.h"     // Material type
+#include "OSGVecFields.h"               // Positions type
+#include "OSGSysFields.h"               // NormalizedX type
 
 #include "OSGPolygonForegroundFields.h"
 

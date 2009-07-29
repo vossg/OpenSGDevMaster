@@ -65,10 +65,10 @@
 
 #include "OSGCSMWindow.h" // Parent
 
-#include "OSGCSMWindowFields.h" // ClientWindow type
-#include "OSGSysFields.h" // RenderClient type
-#include "OSGBaseFields.h" // Servers type
-#include "OSGImageComposerFields.h" // Composer type
+#include "OSGCSMWindowFields.h"         // ClientWindow type
+#include "OSGSysFields.h"               // RenderClient type
+#include "OSGBaseFields.h"              // Servers type
+#include "OSGImageComposerFields.h"     // Composer type
 #include "OSGCSMClusterWinOptionsFields.h" // Options type
 
 #include "OSGCSMClusterWindowFields.h"

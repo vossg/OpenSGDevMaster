@@ -58,8 +58,7 @@
 
 
 
-#include <OSGGeoVectorProperty.h> // ControlPoints Class
-#include <OSGGeoVectorProperty.h> // TextureControlPoints Class
+#include "OSGGeoVectorProperty.h"       // ControlPoints Class
 
 #include "OSGSurfaceBase.h"
 #include "OSGSurface.h"

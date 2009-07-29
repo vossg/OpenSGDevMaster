@@ -65,7 +65,7 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGSysFields.h" // IData type
+#include "OSGSysFields.h"               // IData type
 
 #include "OSGGeoMultiPropertyDataFields.h"
 

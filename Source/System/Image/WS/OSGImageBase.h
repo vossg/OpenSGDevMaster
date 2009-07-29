@@ -65,9 +65,9 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGFieldContainerFields.h" // Parents type
-#include "OSGSysFields.h" // Dimension type
-#include "OSGBaseFields.h" // FrameDelay type
+#include "OSGFieldContainerFields.h"    // Parents type
+#include "OSGSysFields.h"               // Dimension type
+#include "OSGBaseFields.h"              // FrameDelay type
 
 #include "OSGImageFields.h"
 

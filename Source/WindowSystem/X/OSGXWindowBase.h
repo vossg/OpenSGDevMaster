@@ -65,8 +65,8 @@
 
 #include "OSGWindow.h" // Parent
 
-#include "OSGXWindowDataFields.h" // Display type
-#include "OSGSysFields.h" // FbConfigId type
+#include "OSGXWindowDataFields.h"       // Display type
+#include "OSGSysFields.h"               // FbConfigId type
 
 #include "OSGXWindowFields.h"
 

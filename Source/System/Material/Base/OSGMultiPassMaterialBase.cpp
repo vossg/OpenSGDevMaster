@@ -58,7 +58,7 @@
 
 
 
-#include <OSGPrimeMaterial.h> // Materials Class
+#include "OSGPrimeMaterial.h"           // Materials Class
 
 #include "OSGMultiPassMaterialBase.h"
 #include "OSGMultiPassMaterial.h"

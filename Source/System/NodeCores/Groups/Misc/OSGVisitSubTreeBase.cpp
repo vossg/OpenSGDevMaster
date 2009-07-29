@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNode.h> // SubTreeRoot Class
+#include "OSGNode.h"                    // SubTreeRoot Class
 
 #include "OSGVisitSubTreeBase.h"
 #include "OSGVisitSubTree.h"

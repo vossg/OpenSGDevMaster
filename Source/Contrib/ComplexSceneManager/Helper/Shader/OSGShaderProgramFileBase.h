@@ -65,7 +65,7 @@
 
 #include "OSGShaderProgram.h" // Parent
 
-#include "OSGBaseFields.h" // ProgramUrl type
+#include "OSGBaseFields.h"              // ProgramUrl type
 
 #include "OSGShaderProgramFileFields.h"
 

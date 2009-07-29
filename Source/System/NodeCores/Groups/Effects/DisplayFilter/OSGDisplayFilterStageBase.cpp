@@ -58,10 +58,10 @@
 
 
 
-#include <OSGResolutionDisplayFilter.h> // ResolutionFilter Class
-#include <OSGColorDisplayFilter.h> // ColorFilter Class
-#include <OSGDistortionDisplayFilter.h> // DistortionFilter Class
-#include <OSGDisplayFilterGroup.h> // FilterGroups Class
+#include "OSGResolutionDisplayFilter.h" // ResolutionFilter Class
+#include "OSGColorDisplayFilter.h"      // ColorFilter Class
+#include "OSGDistortionDisplayFilter.h" // DistortionFilter Class
+#include "OSGDisplayFilterGroup.h"      // FilterGroups Class
 
 #include "OSGDisplayFilterStageBase.h"
 #include "OSGDisplayFilterStage.h"

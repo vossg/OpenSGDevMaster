@@ -58,12 +58,10 @@
 
 
 
-#include <OSGNode.h> // Root Class
-#include <OSGNode.h> // Exclude Class
-#include <OSGTextureObjChunk.h> // Texture Class
-#include <OSGNode.h> // Beacon Class
-#include <OSGBackground.h> // Background Class
-#include <OSGCamera.h> // Camera Class
+#include "OSGNode.h"                    // Root Class
+#include "OSGTextureObjChunk.h"         // Texture Class
+#include "OSGBackground.h"              // Background Class
+#include "OSGCamera.h"                  // Camera Class
 
 #include "OSGCubeMapGeneratorBase.h"
 #include "OSGCubeMapGenerator.h"

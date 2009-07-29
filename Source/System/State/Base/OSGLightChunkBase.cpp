@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNode.h> // Beacon Class
+#include "OSGNode.h"                    // Beacon Class
 
 #include "OSGLightChunkBase.h"
 #include "OSGLightChunk.h"

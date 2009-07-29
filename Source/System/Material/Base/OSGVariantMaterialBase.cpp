@@ -58,7 +58,7 @@
 
 
 
-#include <OSGPrimeMaterial.h> // FallbackMaterial Class
+#include "OSGPrimeMaterial.h"           // FallbackMaterial Class
 
 #include "OSGVariantMaterialBase.h"
 #include "OSGVariantMaterial.h"
@@ -156,7 +156,6 @@ VariantMaterialBase::TypeObject VariantMaterialBase::_type(
     "\t   type=\"PrimeMaterialPtr\"\n"
     "\t   cardinality=\"single\"\n"
     "\t   visibility=\"external\"\n"
-    "\t   header=\"OSGMaterial.h\"\n"
     "\t   access=\"public\"\n"
     "\t   >\n"
     "\t</Field>\n"

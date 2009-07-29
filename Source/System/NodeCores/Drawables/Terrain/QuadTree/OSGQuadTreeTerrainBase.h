@@ -65,10 +65,10 @@
 
 #include "OSGGeometry.h" // Parent
 
-#include "OSGImageFields.h" // HeightData type
-#include "OSGSysFields.h" // HeightScale type
+#include "OSGImageFields.h"             // HeightData type
+#include "OSGSysFields.h"               // HeightScale type
 #include "OSGGeoVectorPropertyFields.h" // HeightVertices type
-#include "OSGVecFields.h" // BoundMin type
+#include "OSGVecFields.h"               // BoundMin type
 
 #include "OSGQuadTreeTerrainFields.h"
 

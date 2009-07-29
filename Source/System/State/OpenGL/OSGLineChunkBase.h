@@ -65,7 +65,7 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGSysFields.h" // Width type
+#include "OSGSysFields.h"               // Width type
 
 #include "OSGLineChunkFields.h"
 

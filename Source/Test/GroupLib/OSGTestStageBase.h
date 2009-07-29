@@ -65,7 +65,7 @@
 
 #include "OSGStage.h" // Parent
 
-#include "OSGBaseFields.h" // Message type
+#include "OSGBaseFields.h"              // Message type
 
 #include "OSGTestStageFields.h"
 

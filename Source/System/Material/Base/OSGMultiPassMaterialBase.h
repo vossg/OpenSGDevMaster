@@ -65,7 +65,7 @@
 
 #include "OSGPrimeMaterial.h" // Parent
 
-#include "OSGPrimeMaterialFields.h" // Materials type
+#include "OSGPrimeMaterialFields.h"     // Materials type
 
 #include "OSGMultiPassMaterialFields.h"
 

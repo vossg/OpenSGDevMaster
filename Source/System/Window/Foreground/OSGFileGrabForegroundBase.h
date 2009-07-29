@@ -65,8 +65,8 @@
 
 #include "OSGGrabForeground.h" // Parent
 
-#include "OSGBaseFields.h" // Name type
-#include "OSGSysFields.h" // Frame type
+#include "OSGBaseFields.h"              // Name type
+#include "OSGSysFields.h"               // Frame type
 
 #include "OSGFileGrabForegroundFields.h"
 

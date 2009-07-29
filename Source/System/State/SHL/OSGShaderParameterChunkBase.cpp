@@ -58,7 +58,7 @@
 
 
 
-#include <OSGShaderParameter.h> // Parameters Class
+#include "OSGShaderParameter.h"         // Parameters Class
 
 #include "OSGShaderParameterChunkBase.h"
 #include "OSGShaderParameterChunk.h"

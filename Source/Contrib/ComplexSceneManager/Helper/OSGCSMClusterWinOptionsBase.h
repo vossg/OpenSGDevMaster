@@ -65,7 +65,7 @@
 
 #include "OSGFieldContainer.h" // Parent
 
-#include "OSGCSMClusterWindowFields.h" // Parent type
+#include "OSGCSMClusterWindowFields.h"  // Parent type
 
 #include "OSGCSMClusterWinOptionsFields.h"
 

@@ -65,7 +65,7 @@
 
 #include "OSGAlgorithm.h" // Parent
 
-#include "OSGSysFields.h" // Stepsize type
+#include "OSGSysFields.h"               // Stepsize type
 
 #include "OSGGPUVolRTV2Fields.h"
 

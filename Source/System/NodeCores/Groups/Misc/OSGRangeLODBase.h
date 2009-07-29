@@ -65,8 +65,8 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGVecFields.h" // Center type
-#include "OSGSysFields.h" // SwitchIn type
+#include "OSGVecFields.h"               // Center type
+#include "OSGSysFields.h"               // SwitchIn type
 
 #include "OSGRangeLODFields.h"
 

@@ -58,9 +58,9 @@
 
 
 
-#include <OSGViewport.h> // Port Class
-#include <OSGRenderOptions.h> // RenderOptions Class
-#include <OSGDrawTask.h> // DrawTasks Class
+#include "OSGViewport.h"                // Port Class
+#include "OSGRenderOptions.h"           // RenderOptions Class
+#include "OSGDrawTask.h"                // DrawTasks Class
 
 #include "OSGWindowBase.h"
 #include "OSGWindow.h"
@@ -547,14 +547,15 @@ WindowBase::TypeObject WindowBase::_type(
     "       >\n"
     "    </Field>\n"
     "    <Field\n"
-    "\t   name=\"drawTasks\"\n"
-    "\t   type=\"DrawTask\"\n"
-    "\t   cardinality=\"multi\"\n"
-    "\t   visibility=\"internal\"\n"
-    "\t   access=\"protected\"\n"
+    "       name=\"drawTasks\"\n"
+    "       type=\"DrawTask\"\n"
+    "       cardinality=\"multi\"\n"
+    "       visibility=\"internal\"\n"
+    "       access=\"protected\"\n"
     "       category=\"custompointer\"\n"
     "       ptrFieldAccess=\"custom\"\n"
-    "       header=\"OSGDrawTask.h\"\n"
+    "       fieldHeader=\"OSGDrawTask.h\"\n"
+    "       typeHeader=\"OSGDrawTask.h\"\n"
     "       fieldFlags=\"FClusterLocal\"\n"
     "       >\n"
     "    </Field>\n"

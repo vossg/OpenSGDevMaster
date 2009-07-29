@@ -65,7 +65,7 @@
 
 #include "OSGLight.h" // Parent
 
-#include "OSGVecFields.h" // Direction type
+#include "OSGVecFields.h"               // Direction type
 
 #include "OSGDirectionalLightFields.h"
 

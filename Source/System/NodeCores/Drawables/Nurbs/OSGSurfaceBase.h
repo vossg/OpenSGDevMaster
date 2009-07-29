@@ -65,9 +65,9 @@
 
 #include "OSGGeometry.h" // Parent
 
-#include "OSGSysFields.h" // DimU type
+#include "OSGSysFields.h"               // DimU type
 #include "OSGGeoVectorPropertyFields.h" // ControlPoints type
-#include "OSGVecFields.h" // CurveControlPoints type
+#include "OSGVecFields.h"               // CurveControlPoints type
 
 #include "OSGSurfaceFields.h"
 

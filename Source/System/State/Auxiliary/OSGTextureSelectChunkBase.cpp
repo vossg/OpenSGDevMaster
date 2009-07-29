@@ -58,7 +58,7 @@
 
 
 
-#include <OSGTextureBaseChunk.h> // Textures Class
+#include "OSGTextureBaseChunk.h"        // Textures Class
 
 #include "OSGTextureSelectChunkBase.h"
 #include "OSGTextureSelectChunk.h"

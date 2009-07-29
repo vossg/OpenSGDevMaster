@@ -65,8 +65,8 @@
 
 #include "OSGTextureBaseChunk.h" // Parent
 
-#include "OSGSysFields.h" // Choice type
-#include "OSGTextureBaseChunkFields.h" // Textures type
+#include "OSGSysFields.h"               // Choice type
+#include "OSGTextureBaseChunkFields.h"  // Textures type
 
 #include "OSGTextureSelectChunkFields.h"
 

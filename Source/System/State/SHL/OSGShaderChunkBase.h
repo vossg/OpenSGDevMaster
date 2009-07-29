@@ -65,7 +65,7 @@
 
 #include "OSGShaderParameterChunk.h" // Parent
 
-#include "OSGBaseFields.h" // VertexProgram type
+#include "OSGBaseFields.h"              // VertexProgram type
 
 #include "OSGShaderChunkFields.h"
 

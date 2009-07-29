@@ -61,34 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGNodeCore.h" // Parent
 
-#include "OSGFCDTestFCFields.h" // FieldSFPub_ptr type
-#include "OSGFCDTestFCFields.h" // FieldSFPub_weakptr type
-#include "OSGFCDTestFCFields.h" // FieldSFPub_mpchildptr type
-#include "OSGFCDTestFCFields.h" // FieldSFPro_ptr type
-#include "OSGFCDTestFCFields.h" // FieldSFPro_weakptr type
-#include "OSGFCDTestFCFields.h" // FieldSFPro_mpchildptr type
-#include "OSGFCDTestFCFields.h" // FieldSFNo_ptr type
-#include "OSGFCDTestFCFields.h" // FieldSFNo_weakptr type
-#include "OSGFCDTestFCFields.h" // FieldSFNo_mpchildptr type
-#include "OSGFCDTestFCFields.h" // FieldMFPub_ptr type
-#include "OSGFCDTestFCFields.h" // FieldMFPub_weakptr type
-#include "OSGFCDTestFCFields.h" // FieldMFPub_mpchildptr type
-#include "OSGFCDTestFCFields.h" // FieldMFPro_ptr type
-#include "OSGFCDTestFCFields.h" // FieldMFPro_weakptr type
-#include "OSGFCDTestFCFields.h" // FieldMFPro_mpchildptr type
-#include "OSGFCDTestFCFields.h" // FieldMFNo_ptr type
-#include "OSGFCDTestFCFields.h" // FieldMFNo_weakptr type
-#include "OSGFCDTestFCFields.h" // FieldMFNo_mpchildptr type
-#include "OSGFCDSParTestFCFields.h" // FieldSFPub_spchildptr type
-#include "OSGFCDSParTestFCFields.h" // FieldSFPro_spchildptr type
-#include "OSGFCDSParTestFCFields.h" // FieldSFNo_spchildptr type
-#include "OSGFCDSParTestFCFields.h" // FieldMFPub_spchildptr type
-#include "OSGFCDSParTestFCFields.h" // FieldMFPro_spchildptr type
-#include "OSGFCDSParTestFCFields.h" // FieldMFNo_spchildptr type
+#include "OSGFCDTestFCFields.h"         // FieldSFPub_ptr type
+#include "OSGFCDSParTestFCFields.h"     // FieldSFPub_spchildptr type
 
 #include "OSGFCDPtrTestFCFields.h"
 

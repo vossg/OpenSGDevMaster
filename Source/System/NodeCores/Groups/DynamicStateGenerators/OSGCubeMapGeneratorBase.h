@@ -65,13 +65,13 @@
 
 #include "OSGDynamicStateGenerator.h" // Parent
 
-#include "OSGNodeFields.h" // Root type
-#include "OSGTextureObjChunkFields.h" // Texture type
-#include "OSGVecFields.h" // TextureSize type
-#include "OSGBaseFields.h" // TextureFormat type
-#include "OSGSysFields.h" // OriginMode type
-#include "OSGBackgroundFields.h" // Background type
-#include "OSGCameraFields.h" // Camera type
+#include "OSGNodeFields.h"              // Root type
+#include "OSGTextureObjChunkFields.h"   // Texture type
+#include "OSGVecFields.h"               // TextureSize type
+#include "OSGBaseFields.h"              // TextureFormat type
+#include "OSGSysFields.h"               // OriginMode type
+#include "OSGBackgroundFields.h"        // Background type
+#include "OSGCameraFields.h"            // Camera type
 
 #include "OSGCubeMapGeneratorFields.h"
 

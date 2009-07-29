@@ -58,11 +58,7 @@
 
 
 
-#include <OSGImage.h> // PosZImage Class
-#include <OSGImage.h> // PosXImage Class
-#include <OSGImage.h> // NegXImage Class
-#include <OSGImage.h> // PosYImage Class
-#include <OSGImage.h> // NegYImage Class
+#include "OSGImage.h"                   // PosZImage Class
 
 #include "OSGCubeTextureObjChunkBase.h"
 #include "OSGCubeTextureObjChunk.h"

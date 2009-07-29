@@ -58,7 +58,7 @@
 
 
 
-#include <OSGMaterial.h> // Material Class
+#include "OSGMaterial.h"                // Material Class
 
 #include "OSGMaterialDrawableBase.h"
 #include "OSGMaterialDrawable.h"

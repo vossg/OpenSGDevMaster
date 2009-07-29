@@ -65,10 +65,10 @@
 
 #include "OSGMaterialDrawable.h" // Parent
 
-#include "OSGSysFields.h" // Mode type
+#include "OSGSysFields.h"               // Mode type
 #include "OSGGeoVectorPropertyFields.h" // Positions type
-#include "OSGVecFields.h" // Sizes type
-#include "OSGParticleBSP.h" // Bsp type
+#include "OSGVecFields.h"               // Sizes type
+#include "OSGParticleBSP.h"             // Bsp type
 
 #include "OSGParticlesFields.h"
 

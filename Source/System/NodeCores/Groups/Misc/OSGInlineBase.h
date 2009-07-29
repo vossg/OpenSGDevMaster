@@ -65,9 +65,9 @@
 
 #include "OSGNodeCore.h" // Parent
 
-#include "OSGBaseFields.h" // Url type
-#include "OSGSysFields.h" // Loaded type
-#include "OSGNodeFields.h" // Root type
+#include "OSGBaseFields.h"              // Url type
+#include "OSGSysFields.h"               // Loaded type
+#include "OSGNodeFields.h"              // Root type
 
 #include "OSGInlineFields.h"
 

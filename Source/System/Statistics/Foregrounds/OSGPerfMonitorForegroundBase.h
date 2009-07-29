@@ -65,9 +65,9 @@
 
 #include "OSGForeground.h" // Parent
 
-#include "OSGSysFields.h" // Mode type
-#include "OSGBaseFields.h" // Color type
-#include "OSGVecFields.h" // BorderOffset type
+#include "OSGSysFields.h"               // Mode type
+#include "OSGBaseFields.h"              // Color type
+#include "OSGVecFields.h"               // BorderOffset type
 
 #include "OSGPerfMonitorForegroundFields.h"
 

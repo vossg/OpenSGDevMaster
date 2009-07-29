@@ -65,7 +65,7 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGSysFields.h" // SortKey type
+#include "OSGSysFields.h"               // SortKey type
 
 #include "OSGMaterialFields.h"
 

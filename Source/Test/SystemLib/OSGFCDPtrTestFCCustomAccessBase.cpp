@@ -58,30 +58,8 @@
 
 
 
-#include <OSGFCDTestFC.h> // FieldSFPub_ptr Class
-#include <OSGFCDTestFC.h> // FieldSFPub_weakptr Class
-#include <OSGFCDTestFC.h> // FieldSFPub_mpchildptr Class
-#include <OSGFCDTestFC.h> // FieldSFPro_ptr Class
-#include <OSGFCDTestFC.h> // FieldSFPro_weakptr Class
-#include <OSGFCDTestFC.h> // FieldSFPro_mpchildptr Class
-#include <OSGFCDTestFC.h> // FieldSFNo_ptr Class
-#include <OSGFCDTestFC.h> // FieldSFNo_weakptr Class
-#include <OSGFCDTestFC.h> // FieldSFNo_mpchildptr Class
-#include <OSGFCDTestFC.h> // FieldMFPub_ptr Class
-#include <OSGFCDTestFC.h> // FieldMFPub_weakptr Class
-#include <OSGFCDTestFC.h> // FieldMFPub_mpchildptr Class
-#include <OSGFCDTestFC.h> // FieldMFPro_ptr Class
-#include <OSGFCDTestFC.h> // FieldMFPro_weakptr Class
-#include <OSGFCDTestFC.h> // FieldMFPro_mpchildptr Class
-#include <OSGFCDTestFC.h> // FieldMFNo_ptr Class
-#include <OSGFCDTestFC.h> // FieldMFNo_weakptr Class
-#include <OSGFCDTestFC.h> // FieldMFNo_mpchildptr Class
-#include <OSGFCDSParTestFC.h> // FieldSFPub_spchildptr Class
-#include <OSGFCDSParTestFC.h> // FieldSFPro_spchildptr Class
-#include <OSGFCDSParTestFC.h> // FieldSFNo_spchildptr Class
-#include <OSGFCDSParTestFC.h> // FieldMFPub_spchildptr Class
-#include <OSGFCDSParTestFC.h> // FieldMFPro_spchildptr Class
-#include <OSGFCDSParTestFC.h> // FieldMFNo_spchildptr Class
+#include "OSGFCDTestFC.h"               // FieldSFPub_ptr Class
+#include "OSGFCDSParTestFC.h"           // FieldSFPub_spchildptr Class
 
 #include "OSGFCDPtrTestFCCustomAccessBase.h"
 #include "OSGFCDPtrTestFCCustomAccess.h"

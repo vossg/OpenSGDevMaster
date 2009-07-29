@@ -65,7 +65,7 @@
 
 #include "OSGDisplayFilter.h" // Parent
 
-#include "OSGSysFields.h" // DownScale type
+#include "OSGSysFields.h"               // DownScale type
 
 #include "OSGResolutionDisplayFilterFields.h"
 

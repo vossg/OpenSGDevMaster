@@ -58,8 +58,8 @@
 
 
 
-#include <OSGShaderProgramVariableChunk.h> // ProgramVarChunks Class
-#include <OSGShaderProgramVariables.h> // Variables Class
+#include "OSGShaderProgramVariableChunk.h" // ProgramVarChunks Class
+#include "OSGShaderProgramVariables.h"  // Variables Class
 
 #include "OSGShaderExecutableVarChunkBase.h"
 #include "OSGShaderExecutableVarChunk.h"

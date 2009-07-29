@@ -65,7 +65,7 @@
 
 #include "OSGShaderValueVariable.h" // Parent
 
-#include "OSGBaseFields.h" // Value type
+#include "OSGBaseFields.h"              // Value type
 
 #include "OSGShaderVariableStringFields.h"
 

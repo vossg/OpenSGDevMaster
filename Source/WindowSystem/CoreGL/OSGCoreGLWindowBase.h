@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowCoreGLDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGWindow.h" // Parent
 
-#include "OSGCoreGLWindowDataFields.h" // Context type
+#include "OSGCoreGLWindowDataFields.h"  // Context type
 
 #include "OSGCoreGLWindowFields.h"
 

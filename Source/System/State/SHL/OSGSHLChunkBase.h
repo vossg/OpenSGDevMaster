@@ -65,8 +65,8 @@
 
 #include "OSGShaderChunk.h" // Parent
 
-#include "OSGSysFields.h" // CgFrontEnd type
-#include "OSGBaseFields.h" // ProgramParameterNames type
+#include "OSGSysFields.h"               // CgFrontEnd type
+#include "OSGBaseFields.h"              // ProgramParameterNames type
 
 #include "OSGSHLChunkFields.h"
 

@@ -65,7 +65,7 @@
 
 #include "OSGCompositeMaterial.h" // Parent
 
-#include "OSGMaterial.h" // FallbackMaterial type
+#include "OSGPrimeMaterialFields.h"     // FallbackMaterial type
 
 #include "OSGVariantMaterialFields.h"
 

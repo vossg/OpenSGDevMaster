@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNode.h> // Beacon Class
+#include "OSGNode.h"                    // Beacon Class
 
 #include "OSGCameraDecoratorBase.h"
 #include "OSGCameraDecorator.h"

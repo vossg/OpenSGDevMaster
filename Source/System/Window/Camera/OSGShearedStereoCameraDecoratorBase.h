@@ -65,7 +65,7 @@
 
 #include "OSGStereoCameraDecorator.h" // Parent
 
-#include "OSGSysFields.h" // ZeroParallaxDistance type
+#include "OSGSysFields.h"               // ZeroParallaxDistance type
 
 #include "OSGShearedStereoCameraDecoratorFields.h"
 

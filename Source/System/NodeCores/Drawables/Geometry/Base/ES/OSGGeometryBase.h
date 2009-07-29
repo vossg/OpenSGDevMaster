@@ -61,16 +61,13 @@
 #include "OSGConfig.h"
 #include "OSGDrawableDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGMaterialDrawable.h" // Parent
 
 #include "OSGGeoIntegralPropertyFields.h" // Types type
-#include "OSGGeoIntegralPropertyFields.h" // Lengths type
 #include "OSGGeoVectorPropertyFields.h" // Properties type
-#include "OSGGeoIntegralPropertyFields.h" // PropIndices type
-#include "OSGInt32Fields.h" // ClassicGLId type
-#include "OSGInt32Fields.h" // AttGLId type
+#include "OSGSysFields.h"               // ClassicGLId type
 
 #include "OSGGeometryFields.h"
 

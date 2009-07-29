@@ -188,12 +188,16 @@ struct FieldTraits<DrawTaskRefPtr, 0> :
                           const DrawTaskRefPtr    *,
                                 UInt32             )
     {
+        SWARNING << "FieldTraits<DrawTaskRefPtr>::copyToBin: Not supported."
+                 << std::endl;
     }
 
     static void copyFromBin(BinaryDataHandler &,
                             DrawTaskRefPtr    *,
                             UInt32             )
     {
+        SWARNING << "FieldTraits<DrawTaskRefPtr>::copyFromBin: Not supported."
+                 << std::endl;
     }
 };
 

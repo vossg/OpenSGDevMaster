@@ -65,8 +65,8 @@
 
 #include "OSGSensor.h" // Parent
 
-#include "OSGSysFields.h" // Enabled type
-#include "OSGBaseFields.h" // StartTime type
+#include "OSGSysFields.h"               // Enabled type
+#include "OSGBaseFields.h"              // StartTime type
 
 #include "OSGTimeSensorFields.h"
 

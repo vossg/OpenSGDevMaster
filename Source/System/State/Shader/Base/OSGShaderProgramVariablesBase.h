@@ -67,7 +67,7 @@
 
 #include "OSGShaderValueVariableFields.h" // Variables type
 #include "OSGShaderProcVariableFields.h" // ProceduralVariables type
-#include "OSGSysFields.h" // VariableChanged type
+#include "OSGSysFields.h"               // VariableChanged type
 
 #include "OSGShaderProgramVariablesFields.h"
 

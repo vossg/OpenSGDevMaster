@@ -58,7 +58,7 @@
 
 
 
-#include <OSGDeviceInterfaceSensor.h> // Parent Class
+#include "OSGDeviceInterfaceSensor.h"   // Parent Class
 
 #include "OSGInterfaceOptionsBase.h"
 #include "OSGInterfaceOptions.h"

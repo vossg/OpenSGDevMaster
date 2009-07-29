@@ -65,8 +65,8 @@
 
 #include "OSGDisplayFilter.h" // Parent
 
-#include "OSGSysFields.h" // Rows type
-#include "OSGVecFields.h" // Positions type
+#include "OSGSysFields.h"               // Rows type
+#include "OSGVecFields.h"               // Positions type
 
 #include "OSGDistortionDisplayFilterFields.h"
 

@@ -65,8 +65,8 @@
 
 #include "OSGBackground.h" // Parent
 
-#include "OSGBaseFields.h" // Color type
-#include "OSGSysFields.h" // Alpha type
+#include "OSGBaseFields.h"              // Color type
+#include "OSGSysFields.h"               // Alpha type
 
 #include "OSGSolidBackgroundFields.h"
 

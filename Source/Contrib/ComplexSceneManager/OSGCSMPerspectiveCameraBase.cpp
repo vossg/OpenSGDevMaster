@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNode.h> // HeadBeacon Class
+#include "OSGNode.h"                    // HeadBeacon Class
 
 #include "OSGCSMPerspectiveCameraBase.h"
 #include "OSGCSMPerspectiveCamera.h"

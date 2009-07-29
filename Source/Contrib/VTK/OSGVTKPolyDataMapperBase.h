@@ -65,15 +65,15 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGNodeFields.h" // Root type
-#include "OSGGeometryFields.h" // Geometries type
-#include "OSGChunkMaterialFields.h" // Materials type
-#include "OSGMaterialChunkFields.h" // MaterialChunks type
-#include "OSGGeoPnt3fPropertyFields.h" // Positions type
+#include "OSGNodeFields.h"              // Root type
+#include "OSGGeometryFields.h"          // Geometries type
+#include "OSGChunkMaterialFields.h"     // Materials type
+#include "OSGMaterialChunkFields.h"     // MaterialChunks type
+#include "OSGGeoPnt3fPropertyFields.h"  // Positions type
 #include "OSGGeoUInt32PropertyFields.h" // Length type
-#include "OSGGeoUInt8PropertyFields.h" // Types type
+#include "OSGGeoUInt8PropertyFields.h"  // Types type
 #include "OSGGeoColor4fPropertyFields.h" // Colors type
-#include "OSGGeoVec3fPropertyFields.h" // Normals type
+#include "OSGGeoVec3fPropertyFields.h"  // Normals type
 
 #include "OSGVTKPolyDataMapperFields.h"
 

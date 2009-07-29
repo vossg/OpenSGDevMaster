@@ -60,8 +60,8 @@
 #include <OSGGL.h>                        // ShaderType default header
 #include "OSGChangedFunctorMFields.h"     // DestroyedFunctors default header
 
-#include <OSGShaderProgramVariables.h> // Variables Class
-#include <OSGFieldContainer.h> // Parents Class
+#include "OSGShaderProgramVariables.h"  // Variables Class
+#include "OSGFieldContainer.h"          // Parents Class
 
 #include "OSGShaderProgramBase.h"
 #include "OSGShaderProgram.h"

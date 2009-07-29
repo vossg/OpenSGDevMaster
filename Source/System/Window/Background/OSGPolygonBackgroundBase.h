@@ -65,9 +65,9 @@
 
 #include "OSGTileableBackground.h" // Parent
 
-#include "OSGPrimeMaterialFields.h" // Material type
-#include "OSGVecFields.h" // TexCoords type
-#include "OSGSysFields.h" // NormalizedX type
+#include "OSGPrimeMaterialFields.h"     // Material type
+#include "OSGVecFields.h"               // TexCoords type
+#include "OSGSysFields.h"               // NormalizedX type
 
 #include "OSGPolygonBackgroundFields.h"
 

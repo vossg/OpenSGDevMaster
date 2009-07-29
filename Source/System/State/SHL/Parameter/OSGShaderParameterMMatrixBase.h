@@ -65,7 +65,7 @@
 
 #include "OSGShaderParameter.h" // Parent
 
-#include "OSGMathFields.h" // Value type
+#include "OSGMathFields.h"              // Value type
 
 #include "OSGShaderParameterMMatrixFields.h"
 

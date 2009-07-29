@@ -65,7 +65,7 @@
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGBaseFields.h" // VrmlNodeTypename type
+#include "OSGBaseFields.h"              // VrmlNodeTypename type
 
 #include "OSGVRMLAttachmentFields.h"
 

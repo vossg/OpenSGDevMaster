@@ -65,10 +65,10 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // Diffuse type
-#include "OSGVecFields.h" // Position type
-#include "OSGSysFields.h" // Exponent type
-#include "OSGNodeFields.h" // Beacon type
+#include "OSGBaseFields.h"              // Diffuse type
+#include "OSGVecFields.h"               // Position type
+#include "OSGSysFields.h"               // Exponent type
+#include "OSGNodeFields.h"              // Beacon type
 
 #include "OSGLightChunkFields.h"
 

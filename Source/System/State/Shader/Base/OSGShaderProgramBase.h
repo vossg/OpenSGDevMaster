@@ -65,11 +65,11 @@
 
 #include "OSGFieldContainer.h" // Parent
 
-#include "OSGBaseFields.h" // ShaderType type
-#include "OSGSysFields.h" // GLId type
+#include "OSGBaseFields.h"              // ShaderType type
+#include "OSGSysFields.h"               // GLId type
 #include "OSGShaderProgramVariablesFields.h" // Variables type
-#include "OSGShaderParameterFields.h" // Parameter type
-#include "OSGFieldContainerFields.h" // Parents type
+#include "OSGShaderParameterFields.h"   // Parameter type
+#include "OSGFieldContainerFields.h"    // Parents type
 #include "OSGChangedFunctorCallbackFields.h" // DestroyedFunctors type
 
 #include "OSGShaderProgramFields.h"

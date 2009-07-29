@@ -65,10 +65,10 @@
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGMaterialMapFields.h" // RenderProperties type
-#include "OSGSysFields.h" // UseGLFinish type
-#include "OSGBaseFields.h" // PolygonMode type
-#include "OSGVecFields.h" // FogRange type
+#include "OSGMaterialMapFields.h"       // RenderProperties type
+#include "OSGSysFields.h"               // UseGLFinish type
+#include "OSGBaseFields.h"              // PolygonMode type
+#include "OSGVecFields.h"               // FogRange type
 
 #include "OSGRenderOptionsFields.h"
 

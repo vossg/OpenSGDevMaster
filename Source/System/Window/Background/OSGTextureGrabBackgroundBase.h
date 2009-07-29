@@ -65,9 +65,9 @@
 
 #include "OSGSolidBackground.h" // Parent
 
-#include "OSGTextureObjChunkFields.h" // Texture type
-#include "OSGSysFields.h" // AutoResize type
-#include "OSGBaseFields.h" // BindTarget type
+#include "OSGTextureObjChunkFields.h"   // Texture type
+#include "OSGSysFields.h"               // AutoResize type
+#include "OSGBaseFields.h"              // BindTarget type
 
 #include "OSGTextureGrabBackgroundFields.h"
 

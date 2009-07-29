@@ -65,7 +65,7 @@
 
 #include "OSGCSMClusterWinOptions.h" // Parent
 
-#include "OSGSysFields.h" // XOverlap type
+#include "OSGSysFields.h"               // XOverlap type
 
 #include "OSGCSMMultiWinOptionsFields.h"
 

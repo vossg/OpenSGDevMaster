@@ -65,7 +65,7 @@
 
 #include "OSGImage.h" // Parent
 
-#include "OSGBaseFields.h" // Url type
+#include "OSGBaseFields.h"              // Url type
 
 #include "OSGImageFileFields.h"
 

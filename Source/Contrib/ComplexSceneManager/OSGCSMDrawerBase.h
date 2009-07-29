@@ -65,9 +65,9 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGCSMWindowFields.h" // Windows type
-#include "OSGBaseFields.h" // DisplayString type
-#include "OSGSysFields.h" // Aspect type
+#include "OSGCSMWindowFields.h"         // Windows type
+#include "OSGBaseFields.h"              // DisplayString type
+#include "OSGSysFields.h"               // Aspect type
 
 #include "OSGCSMDrawerFields.h"
 

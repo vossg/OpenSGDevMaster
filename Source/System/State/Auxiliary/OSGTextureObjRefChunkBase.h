@@ -65,7 +65,7 @@
 
 #include "OSGTextureBaseChunk.h" // Parent
 
-#include "OSGBaseFields.h" // GLId type
+#include "OSGBaseFields.h"              // GLId type
 
 #include "OSGTextureObjRefChunkFields.h"
 

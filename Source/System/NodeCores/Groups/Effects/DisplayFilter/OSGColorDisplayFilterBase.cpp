@@ -58,8 +58,8 @@
 
 
 
-#include <OSGImage.h> // TableImage Class
-#include <OSGSimpleSHLChunk.h> // FilterShader Class
+#include "OSGImage.h"                   // TableImage Class
+#include "OSGSimpleSHLChunk.h"          // FilterShader Class
 
 #include "OSGColorDisplayFilterBase.h"
 #include "OSGColorDisplayFilter.h"

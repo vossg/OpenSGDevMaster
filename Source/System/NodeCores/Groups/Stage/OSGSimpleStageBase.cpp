@@ -58,8 +58,8 @@
 
 
 
-#include <OSGCamera.h> // Camera Class
-#include <OSGBackground.h> // Background Class
+#include "OSGCamera.h"                  // Camera Class
+#include "OSGBackground.h"              // Background Class
 
 #include "OSGSimpleStageBase.h"
 #include "OSGSimpleStage.h"

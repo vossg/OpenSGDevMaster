@@ -43,12 +43,14 @@
 #endif
 
 #include "OSGChunkOverrideGroupBase.h"
-#include "OSGChunkBlockFields.h"
+#include "OSGChunkBlock.h"
 #include "OSGChunkBlockMapFields.h"
 #include "OSGMapCacheHandlerMixin.h"
+#include "OSGState.h"
 
 OSG_BEGIN_NAMESPACE
 
+class StateChunk;
 class ChunkOverrideGroup;
 
 struct ChunkOverrideMapCache

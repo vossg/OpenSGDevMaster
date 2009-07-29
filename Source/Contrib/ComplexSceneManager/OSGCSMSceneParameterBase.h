@@ -65,9 +65,9 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGNodeFields.h" // SceneRef type
-#include "OSGSysFields.h" // DistScale type
-#include "OSGVecFields.h" // SceneDiag type
+#include "OSGNodeFields.h"              // SceneRef type
+#include "OSGSysFields.h"               // DistScale type
+#include "OSGVecFields.h"               // SceneDiag type
 
 #include "OSGCSMSceneParameterFields.h"
 

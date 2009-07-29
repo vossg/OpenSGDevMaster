@@ -65,7 +65,7 @@
 
 #include "OSGShaderVariable.h" // Parent
 
-#include "OSGSysFields.h" // Dependency type
+#include "OSGSysFields.h"               // Dependency type
 
 #include "OSGShaderProcVariableFields.h"
 

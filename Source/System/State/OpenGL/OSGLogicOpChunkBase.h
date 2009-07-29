@@ -65,7 +65,7 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // LogicOp type
+#include "OSGBaseFields.h"              // LogicOp type
 
 #include "OSGLogicOpChunkFields.h"
 

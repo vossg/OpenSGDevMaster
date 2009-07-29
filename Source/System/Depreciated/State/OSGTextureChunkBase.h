@@ -65,10 +65,10 @@
 
 #include "OSGTextureBaseChunk.h" // Parent
 
-#include "OSGImageFields.h" // Image type
-#include "OSGBaseFields.h" // InternalFormat type
-#include "OSGSysFields.h" // Scale type
-#include "OSGVecFields.h" // ShaderConstEye type
+#include "OSGImageFields.h"             // Image type
+#include "OSGBaseFields.h"              // InternalFormat type
+#include "OSGSysFields.h"               // Scale type
+#include "OSGVecFields.h"               // ShaderConstEye type
 
 #include "OSGTextureChunkFields.h"
 

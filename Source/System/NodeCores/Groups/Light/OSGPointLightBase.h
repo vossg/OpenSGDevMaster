@@ -65,7 +65,7 @@
 
 #include "OSGLight.h" // Parent
 
-#include "OSGVecFields.h" // Position type
+#include "OSGVecFields.h"               // Position type
 
 #include "OSGPointLightFields.h"
 

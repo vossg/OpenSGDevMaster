@@ -58,8 +58,8 @@
 
 
 
-#include <OSGNode.h> // Beacon Class
-#include <OSGLightEngine.h> // LightEngine Class
+#include "OSGNode.h"                    // Beacon Class
+#include "OSGLightEngine.h"             // LightEngine Class
 
 #include "OSGLightBase.h"
 #include "OSGLight.h"

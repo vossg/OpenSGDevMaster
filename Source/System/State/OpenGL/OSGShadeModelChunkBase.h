@@ -65,7 +65,7 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // ShadeModel type
+#include "OSGBaseFields.h"              // ShadeModel type
 
 #include "OSGShadeModelChunkFields.h"
 

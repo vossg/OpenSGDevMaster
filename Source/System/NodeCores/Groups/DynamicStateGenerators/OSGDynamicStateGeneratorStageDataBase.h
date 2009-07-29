@@ -66,7 +66,7 @@
 #include "OSGStageData.h" // Parent
 
 #include "OSGFrameBufferObjectFields.h" // RenderTarget type
-#include "OSGStateChunkFields.h" // Chunks type
+#include "OSGStateChunkFields.h"        // Chunks type
 
 #include "OSGDynamicStateGeneratorStageDataFields.h"
 

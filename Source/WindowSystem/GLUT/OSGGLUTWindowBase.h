@@ -65,7 +65,7 @@
 
 #include "OSGNativeWindow.h" // Parent
 
-#include "OSGSysFields.h" // GlutId type
+#include "OSGSysFields.h"               // GlutId type
 
 #include "OSGGLUTWindowFields.h"
 

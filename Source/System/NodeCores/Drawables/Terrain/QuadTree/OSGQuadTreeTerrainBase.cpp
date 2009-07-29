@@ -58,8 +58,8 @@
 
 
 
-#include <OSGImage.h> // HeightData Class
-#include <OSGGeoVectorProperty.h> // HeightVertices Class
+#include "OSGImage.h"                   // HeightData Class
+#include "OSGGeoVectorProperty.h"       // HeightVertices Class
 
 #include "OSGQuadTreeTerrainBase.h"
 #include "OSGQuadTreeTerrain.h"

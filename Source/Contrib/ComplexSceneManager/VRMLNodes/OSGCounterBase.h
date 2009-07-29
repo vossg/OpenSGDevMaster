@@ -65,7 +65,7 @@
 
 #include "OSGNodeCore.h" // Parent
 
-#include "OSGOSGAnyFields.h" // IncTrigger type
+#include "OSGOSGAnyFields.h"            // IncTrigger type
 
 #include "OSGCounterFields.h"
 

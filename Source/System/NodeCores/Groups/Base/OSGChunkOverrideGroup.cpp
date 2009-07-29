@@ -48,6 +48,7 @@
 #include "OSGChunkOverrideGroup.h"
 #include "OSGRenderAction.h"
 #include "OSGChunkBlock.h"
+#include "OSGStateChunk.h"
 
 OSG_BEGIN_NAMESPACE
 

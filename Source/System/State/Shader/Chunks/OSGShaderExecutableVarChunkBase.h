@@ -67,7 +67,7 @@
 
 #include "OSGShaderProgramVariableChunkFields.h" // ProgramVarChunks type
 #include "OSGShaderProgramVariablesFields.h" // Variables type
-#include "OSGSysFields.h" // VariableLocations type
+#include "OSGSysFields.h"               // VariableLocations type
 
 #include "OSGShaderExecutableVarChunkFields.h"
 

@@ -61,16 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGNodeCore.h" // Parent
 
-#include "OSGUInt32Fields.h" // FieldSFPub type
-#include "OSGUInt32Fields.h" // FieldSFPro type
-#include "OSGUInt32Fields.h" // FieldSFNo type
-#include "OSGUInt32Fields.h" // FieldMFPub type
-#include "OSGUInt32Fields.h" // FieldMFPro type
-#include "OSGUInt32Fields.h" // FieldMFNo type
+#include "OSGSysFields.h"               // FieldSFPub type
 
 #include "OSGFCDTestFCFields.h"
 

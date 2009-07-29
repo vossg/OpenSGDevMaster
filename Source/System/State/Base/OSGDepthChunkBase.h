@@ -65,8 +65,8 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGSysFields.h" // Enable type
-#include "OSGBaseFields.h" // Func type
+#include "OSGSysFields.h"               // Enable type
+#include "OSGBaseFields.h"              // Func type
 
 #include "OSGDepthChunkFields.h"
 

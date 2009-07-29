@@ -58,8 +58,8 @@
 
 
 
-#include <OSGShaderValueVariable.h> // Variables Class
-#include <OSGShaderProcVariable.h> // ProceduralVariables Class
+#include "OSGShaderValueVariable.h"     // Variables Class
+#include "OSGShaderProcVariable.h"      // ProceduralVariables Class
 
 #include "OSGShaderProgramVariablesBase.h"
 #include "OSGShaderProgramVariables.h"

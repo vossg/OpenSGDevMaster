@@ -65,11 +65,11 @@
 
 #include "OSGDisplayFilter.h" // Parent
 
-#include "OSGSysFields.h" // Gamma type
-#include "OSGMathFields.h" // Matrix type
-#include "OSGBaseFields.h" // ColorTable type
-#include "OSGImageFields.h" // TableImage type
-#include "OSGSimpleSHLChunkFields.h" // FilterShader type
+#include "OSGSysFields.h"               // Gamma type
+#include "OSGMathFields.h"              // Matrix type
+#include "OSGBaseFields.h"              // ColorTable type
+#include "OSGImageFields.h"             // TableImage type
+#include "OSGSimpleSHLChunkFields.h"    // FilterShader type
 
 #include "OSGColorDisplayFilterFields.h"
 

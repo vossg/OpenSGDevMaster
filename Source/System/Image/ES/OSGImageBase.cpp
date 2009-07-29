@@ -59,7 +59,7 @@
 
 #include <OSGGL.h>                        // DataType default header
 
-#include <OSGFieldContainer.h> // Parents Class
+#include "OSGFieldContainer.h"          // Parents Class
 
 #include "OSGImageBase.h"
 #include "OSGImage.h"

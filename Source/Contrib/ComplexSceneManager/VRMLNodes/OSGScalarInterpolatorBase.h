@@ -65,7 +65,7 @@
 
 #include "OSGNodeCore.h" // Parent
 
-#include "OSGSysFields.h" // Fraction type
+#include "OSGSysFields.h"               // Fraction type
 
 #include "OSGScalarInterpolatorFields.h"
 

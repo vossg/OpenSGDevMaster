@@ -65,8 +65,8 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // StencilFunc type
-#include "OSGSysFields.h" // StencilValue type
+#include "OSGBaseFields.h"              // StencilFunc type
+#include "OSGSysFields.h"               // StencilValue type
 
 #include "OSGStencilChunkFields.h"
 

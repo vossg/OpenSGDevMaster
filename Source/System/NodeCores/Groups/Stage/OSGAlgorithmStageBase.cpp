@@ -58,7 +58,7 @@
 
 
 
-#include <OSGAlgorithm.h> // Algorithm Class
+#include "OSGAlgorithm.h"               // Algorithm Class
 
 #include "OSGAlgorithmStageBase.h"
 #include "OSGAlgorithmStage.h"

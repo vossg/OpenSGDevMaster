@@ -58,13 +58,9 @@
 
 
 
-#include <OSGChunkMaterial.h> // ToneMappingMaterial Class
-#include <OSGFrameBufferObject.h> // BlurRenderTarget Class
-#include <OSGChunkMaterial.h> // BlurMaterial Class
-#include <OSGSimpleSHLChunk.h> // HBlurShader Class
-#include <OSGSimpleSHLChunk.h> // VBlurShader Class
-#include <OSGFrameBufferObject.h> // ShrinkRenderTarget Class
-#include <OSGChunkMaterial.h> // ShrinkMaterial Class
+#include "OSGChunkMaterial.h"           // ToneMappingMaterial Class
+#include "OSGFrameBufferObject.h"       // BlurRenderTarget Class
+#include "OSGSimpleSHLChunk.h"          // HBlurShader Class
 
 #include "OSGShadowStageDataBase.h"
 #include "OSGShadowStageData.h"

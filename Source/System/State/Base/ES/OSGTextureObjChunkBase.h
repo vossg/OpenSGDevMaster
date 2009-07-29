@@ -61,62 +61,14 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGTextureBaseChunk.h" // Parent
 
-#include "OSGImageFields.h" // Image type
-#include "OSGGLenumFields.h" // InternalFormat type
-#include "OSGGLenumFields.h" // ExternalFormat type
-#include "OSGBoolFields.h" // Scale type
-#include "OSGUInt32Fields.h" // Frame type
-#include "OSGGLenumFields.h" // MinFilter type
-#include "OSGGLenumFields.h" // MagFilter type
-#include "OSGGLenumFields.h" // WrapS type
-#include "OSGGLenumFields.h" // WrapT type
-#include "OSGGLenumFields.h" // WrapR type
-#include "OSGGLenumFields.h" // EnvMode type
-#include "OSGColor4fFields.h" // EnvColor type
-#include "OSGGLenumFields.h" // EnvCombineRGB type
-#include "OSGGLenumFields.h" // EnvCombineAlpha type
-#include "OSGReal32Fields.h" // EnvScaleRGB type
-#include "OSGReal32Fields.h" // EnvScaleAlpha type
-#include "OSGGLenumFields.h" // EnvSource0RGB type
-#include "OSGGLenumFields.h" // EnvSource1RGB type
-#include "OSGGLenumFields.h" // EnvSource2RGB type
-#include "OSGGLenumFields.h" // EnvSource0Alpha type
-#include "OSGGLenumFields.h" // EnvSource1Alpha type
-#include "OSGGLenumFields.h" // EnvSource2Alpha type
-#include "OSGGLenumFields.h" // EnvOperand0RGB type
-#include "OSGGLenumFields.h" // EnvOperand1RGB type
-#include "OSGGLenumFields.h" // EnvOperand2RGB type
-#include "OSGGLenumFields.h" // EnvOperand0Alpha type
-#include "OSGGLenumFields.h" // EnvOperand1Alpha type
-#include "OSGGLenumFields.h" // EnvOperand2Alpha type
-#include "OSGGLenumFields.h" // GLId type
-#include "OSGBoolFields.h" // PointSprite type
-#include "OSGReal32Fields.h" // Priority type
-#include "OSGGLenumFields.h" // ShaderOperation type
-#include "OSGGLenumFields.h" // ShaderInput type
-#include "OSGReal32Fields.h" // ShaderOffsetMatrix type
-#include "OSGReal32Fields.h" // ShaderOffsetScale type
-#include "OSGReal32Fields.h" // ShaderOffsetBias type
-#include "OSGGLenumFields.h" // ShaderRGBADotProduct type
-#include "OSGUInt8Fields.h" // ShaderCullModes type
-#include "OSGVec3fFields.h" // ShaderConstEye type
-#include "OSGReal32Fields.h" // LodBias type
-#include "OSGInt32Fields.h" // DirtyLeft type
-#include "OSGInt32Fields.h" // DirtyMinX type
-#include "OSGInt32Fields.h" // DirtyMaxX type
-#include "OSGInt32Fields.h" // DirtyMinY type
-#include "OSGInt32Fields.h" // DirtyMaxY type
-#include "OSGInt32Fields.h" // DirtyMinZ type
-#include "OSGInt32Fields.h" // DirtyMaxZ type
-#include "OSGReal32Fields.h" // Anisotropy type
-#include "OSGColor4fFields.h" // BorderColor type
-#include "OSGGLenumFields.h" // CompareMode type
-#include "OSGGLenumFields.h" // CompareFunc type
-#include "OSGGLenumFields.h" // DepthMode type
+#include "OSGImageFields.h"             // Image type
+#include "OSGBaseFields.h"              // InternalFormat type
+#include "OSGSysFields.h"               // Scale type
+#include "OSGVecFields.h"               // ShaderConstEye type
 
 #include "OSGTextureObjChunkFields.h"
 

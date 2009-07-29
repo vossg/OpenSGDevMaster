@@ -65,7 +65,7 @@
 
 #include "OSGShaderParameterChunk.h" // Parent
 
-#include "OSGSHLChunkFields.h" // SHLChunk type
+#include "OSGSHLChunkFields.h"          // SHLChunk type
 
 #include "OSGSHLParameterChunkFields.h"
 

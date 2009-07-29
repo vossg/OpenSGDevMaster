@@ -65,9 +65,9 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // Program type
-#include "OSGVecFields.h" // ParamValues type
-#include "OSGSysFields.h" // GLId type
+#include "OSGBaseFields.h"              // Program type
+#include "OSGVecFields.h"               // ParamValues type
+#include "OSGSysFields.h"               // GLId type
 
 #include "OSGProgramChunkFields.h"
 

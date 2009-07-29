@@ -65,7 +65,7 @@
 
 #include "OSGCameraDecorator.h" // Parent
 
-#include "OSGSysFields.h" // LeftEye type
+#include "OSGSysFields.h"               // LeftEye type
 
 #include "OSGStereoCameraDecoratorFields.h"
 

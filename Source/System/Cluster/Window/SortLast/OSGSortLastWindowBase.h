@@ -65,8 +65,8 @@
 
 #include "OSGClusterWindow.h" // Parent
 
-#include "OSGNodeFields.h" // GroupNodes type
-#include "OSGSysFields.h" // GroupLengths type
+#include "OSGNodeFields.h"              // GroupNodes type
+#include "OSGSysFields.h"               // GroupLengths type
 
 #include "OSGSortLastWindowFields.h"
 

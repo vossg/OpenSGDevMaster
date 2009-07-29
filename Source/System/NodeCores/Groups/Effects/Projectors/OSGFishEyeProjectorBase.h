@@ -65,10 +65,10 @@
 
 #include "OSGStage.h" // Parent
 
-#include "OSGSysFields.h" // Mode type
-#include "OSGGeometryFields.h" // Geometries type
-#include "OSGBaseFields.h" // BufferFormat type
-#include "OSGVecFields.h" // MirrorPos type
+#include "OSGSysFields.h"               // Mode type
+#include "OSGGeometryFields.h"          // Geometries type
+#include "OSGBaseFields.h"              // BufferFormat type
+#include "OSGVecFields.h"               // MirrorPos type
 
 #include "OSGFishEyeProjectorFields.h"
 

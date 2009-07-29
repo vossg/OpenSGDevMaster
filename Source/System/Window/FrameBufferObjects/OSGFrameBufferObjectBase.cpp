@@ -58,9 +58,7 @@
 
 
 
-#include <OSGFrameBufferAttachment.h> // ColorAttachments Class
-#include <OSGFrameBufferAttachment.h> // DepthAttachment Class
-#include <OSGFrameBufferAttachment.h> // StencilAttachment Class
+#include "OSGFrameBufferAttachment.h"   // ColorAttachments Class
 
 #include "OSGFrameBufferObjectBase.h"
 #include "OSGFrameBufferObject.h"

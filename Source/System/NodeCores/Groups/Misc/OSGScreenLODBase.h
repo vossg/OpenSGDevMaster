@@ -65,7 +65,7 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGSysFields.h" // CoverageOverride type
+#include "OSGSysFields.h"               // CoverageOverride type
 
 #include "OSGScreenLODFields.h"
 

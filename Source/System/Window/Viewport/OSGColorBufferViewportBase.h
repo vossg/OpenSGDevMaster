@@ -65,7 +65,7 @@
 
 #include "OSGViewport.h" // Parent
 
-#include "OSGSysFields.h" // Red type
+#include "OSGSysFields.h"               // Red type
 
 #include "OSGColorBufferViewportFields.h"
 

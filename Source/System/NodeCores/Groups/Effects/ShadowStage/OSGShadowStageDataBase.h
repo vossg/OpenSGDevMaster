@@ -65,10 +65,10 @@
 
 #include "OSGStageData.h" // Parent
 
-#include "OSGChunkMaterialFields.h" // ToneMappingMaterial type
+#include "OSGChunkMaterialFields.h"     // ToneMappingMaterial type
 #include "OSGFrameBufferObjectFields.h" // BlurRenderTarget type
-#include "OSGSimpleSHLChunkFields.h" // HBlurShader type
-#include "OSGSysFields.h" // Width type
+#include "OSGSimpleSHLChunkFields.h"    // HBlurShader type
+#include "OSGSysFields.h"               // Width type
 
 #include "OSGShadowStageDataFields.h"
 

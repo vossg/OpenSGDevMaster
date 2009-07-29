@@ -58,8 +58,8 @@
 
 
 
-#include <OSGWindow.h> // ClientWindow Class
-#include <OSGImageComposer.h> // Composer Class
+#include "OSGWindow.h"                  // ClientWindow Class
+#include "OSGImageComposer.h"           // Composer Class
 
 #include "OSGClusterWindowBase.h"
 #include "OSGClusterWindow.h"

@@ -65,8 +65,8 @@
 
 #include "OSGChunkMaterial.h" // Parent
 
-#include "OSGBaseFields.h" // Ambient type
-#include "OSGSysFields.h" // Shininess type
+#include "OSGBaseFields.h"              // Ambient type
+#include "OSGSysFields.h"               // Shininess type
 
 #include "OSGSimpleMaterialFields.h"
 

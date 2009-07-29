@@ -59,9 +59,9 @@
 
 #include <OSGGLEXT.h>                     // TextureFormat default header
 
-#include <OSGFrameBufferObject.h> // RenderTarget Class
-#include <OSGTextureObjChunk.h> // Textures Class
-#include <OSGCamera.h> // Camera Class
+#include "OSGFrameBufferObject.h"       // RenderTarget Class
+#include "OSGTextureObjChunk.h"         // Textures Class
+#include "OSGCamera.h"                  // Camera Class
 
 #include "OSGFishEyeProjectorDataBase.h"
 #include "OSGFishEyeProjectorData.h"

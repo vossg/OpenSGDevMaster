@@ -65,9 +65,9 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGSysFields.h" // Enabled type
-#include "OSGBaseFields.h" // Url type
-#include "OSGNodeFields.h" // Root type
+#include "OSGSysFields.h"               // Enabled type
+#include "OSGBaseFields.h"              // Url type
+#include "OSGNodeFields.h"              // Root type
 
 #include "OSGProxyGroupFields.h"
 

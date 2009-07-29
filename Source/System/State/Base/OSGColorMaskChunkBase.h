@@ -65,7 +65,7 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGSysFields.h" // MaskR type
+#include "OSGSysFields.h"               // MaskR type
 
 #include "OSGColorMaskChunkFields.h"
 

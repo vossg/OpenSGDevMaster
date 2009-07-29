@@ -58,7 +58,7 @@
 
 
 
-#include <OSGPrimeMaterial.h> // Material Class
+#include "OSGPrimeMaterial.h"           // Material Class
 
 #include "OSGPolygonForegroundBase.h"
 #include "OSGPolygonForeground.h"

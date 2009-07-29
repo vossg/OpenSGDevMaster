@@ -65,9 +65,9 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGBaseFields.h" // Message type
-#include "OSGCSMWindowFields.h" // Window type
-#include "OSGOSGAnyFields.h" // Trigger type
+#include "OSGBaseFields.h"              // Message type
+#include "OSGCSMWindowFields.h"         // Window type
+#include "OSGOSGAnyFields.h"            // Trigger type
 
 #include "OSGInsertTestTaskFields.h"
 

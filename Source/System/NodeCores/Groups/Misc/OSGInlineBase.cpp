@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNode.h> // Root Class
+#include "OSGNode.h"                    // Root Class
 
 #include "OSGInlineBase.h"
 #include "OSGInline.h"

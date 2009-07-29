@@ -65,7 +65,7 @@
 
 #include "OSGMultiDisplayWindow.h" // Parent
 
-#include "OSGSysFields.h" // Balance type
+#include "OSGSysFields.h"               // Balance type
 
 #include "OSGBalancedMultiWindowFields.h"
 

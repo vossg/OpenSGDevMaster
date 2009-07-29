@@ -65,7 +65,7 @@
 
 #include "OSGStatsAttachment.h" // Parent
 
-#include "OSGSysFields.h" // Vertices type
+#include "OSGSysFields.h"               // Vertices type
 
 #include "OSGDrawableStatsAttachmentFields.h"
 

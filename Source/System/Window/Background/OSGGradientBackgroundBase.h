@@ -65,8 +65,8 @@
 
 #include "OSGTileableBackground.h" // Parent
 
-#include "OSGBaseFields.h" // Color type
-#include "OSGSysFields.h" // Position type
+#include "OSGBaseFields.h"              // Color type
+#include "OSGSysFields.h"               // Position type
 
 #include "OSGGradientBackgroundFields.h"
 

@@ -65,7 +65,7 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGMaterial.h" // Material type
+#include "OSGMaterialFields.h"          // Material type
 
 #include "OSGMaterialGroupFields.h"
 

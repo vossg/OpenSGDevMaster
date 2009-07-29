@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNode.h> // GroupNodes Class
+#include "OSGNode.h"                    // GroupNodes Class
 
 #include "OSGSortLastWindowBase.h"
 #include "OSGSortLastWindow.h"

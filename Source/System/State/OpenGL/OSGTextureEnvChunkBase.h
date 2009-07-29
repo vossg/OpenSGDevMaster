@@ -65,9 +65,9 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // EnvMode type
-#include "OSGSysFields.h" // EnvScaleRGB type
-#include "OSGVecFields.h" // ShaderConstEye type
+#include "OSGBaseFields.h"              // EnvMode type
+#include "OSGSysFields.h"               // EnvScaleRGB type
+#include "OSGVecFields.h"               // ShaderConstEye type
 
 #include "OSGTextureEnvChunkFields.h"
 

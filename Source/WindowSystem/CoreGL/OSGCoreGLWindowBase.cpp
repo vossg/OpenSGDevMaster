@@ -157,7 +157,7 @@ CoreGLWindowBase::TypeObject CoreGLWindowBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"0\"\n"
-    "\t\theader=\"OSGCoreGLWindowDataFields.h\"\n"
+    "\t\tfieldHeader=\"OSGCoreGLWindowDataFields.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

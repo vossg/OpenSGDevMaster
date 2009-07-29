@@ -66,7 +66,7 @@
 #include "OSGGroup.h" // Parent
 
 #include "OSGFrameBufferObjectFields.h" // RenderTarget type
-#include "OSGSysFields.h" // InheritedTarget type
+#include "OSGSysFields.h"               // InheritedTarget type
 
 #include "OSGStageFields.h"
 

@@ -58,10 +58,10 @@
 
 
 
-#include <OSGFrameBufferObject.h> // Target Class
-#include <OSGChunkMaterial.h> // BaseMaterial Class
-#include <OSGSimpleSHLChunk.h> // ColorFilterShader Class
-#include <OSGTextureObjChunk.h> // ColorFilterTexture Class
+#include "OSGFrameBufferObject.h"       // Target Class
+#include "OSGChunkMaterial.h"           // BaseMaterial Class
+#include "OSGSimpleSHLChunk.h"          // ColorFilterShader Class
+#include "OSGTextureObjChunk.h"         // ColorFilterTexture Class
 
 #include "OSGDisplayFilterStageDataBase.h"
 #include "OSGDisplayFilterStageData.h"

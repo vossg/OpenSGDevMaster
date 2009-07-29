@@ -65,7 +65,7 @@
 
 #include "OSGClusterWindow.h" // Parent
 
-#include "OSGSysFields.h" // HServers type
+#include "OSGSysFields.h"               // HServers type
 
 #include "OSGMultiDisplayWindowFields.h"
 

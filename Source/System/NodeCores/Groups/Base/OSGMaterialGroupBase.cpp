@@ -58,7 +58,7 @@
 
 
 
-#include <OSGMaterial.h> // Material Class
+#include "OSGMaterial.h"                // Material Class
 
 #include "OSGMaterialGroupBase.h"
 #include "OSGMaterialGroup.h"
@@ -164,7 +164,6 @@ MaterialGroupBase::TypeObject MaterialGroupBase::_type(
     "\t\ttype=\"MaterialPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\theader=\"OSGMaterial.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

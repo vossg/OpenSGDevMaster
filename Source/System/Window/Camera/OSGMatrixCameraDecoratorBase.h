@@ -65,7 +65,7 @@
 
 #include "OSGCameraDecorator.h" // Parent
 
-#include "OSGMathFields.h" // PreViewing type
+#include "OSGMathFields.h"              // PreViewing type
 
 #include "OSGMatrixCameraDecoratorFields.h"
 

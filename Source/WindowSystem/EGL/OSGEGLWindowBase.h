@@ -61,13 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowEGLDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGWindow.h" // Parent
 
-#include "OSGEGLWindowDataFields.h" // Display type
-#include "OSGEGLWindowDataFields.h" // Window type
-#include "OSGEGLWindowDataFields.h" // Context type
+#include "OSGEGLWindowDataFields.h"     // Display type
 
 #include "OSGEGLWindowFields.h"
 

@@ -65,8 +65,8 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGNodeFields.h" // Beacon type
-#include "OSGSysFields.h" // Near type
+#include "OSGNodeFields.h"              // Beacon type
+#include "OSGSysFields.h"               // Near type
 
 #include "OSGCameraFields.h"
 

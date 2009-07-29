@@ -65,8 +65,8 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // Color0 type
-#include "OSGSysFields.h" // ColorSumClamp type
+#include "OSGBaseFields.h"              // Color0 type
+#include "OSGSysFields.h"               // ColorSumClamp type
 
 #include "OSGRegisterCombinersChunkFields.h"
 

@@ -65,8 +65,8 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // Diffuse type
-#include "OSGSysFields.h" // Shininess type
+#include "OSGBaseFields.h"              // Diffuse type
+#include "OSGSysFields.h"               // Shininess type
 
 #include "OSGMaterialChunkFields.h"
 

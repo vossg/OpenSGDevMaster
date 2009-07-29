@@ -65,8 +65,8 @@
 
 #include "OSGStage.h" // Parent
 
-#include "OSGBaseFields.h" // Message type
-#include "OSGSysFields.h" // NumPartitions type
+#include "OSGBaseFields.h"              // Message type
+#include "OSGSysFields.h"               // NumPartitions type
 
 #include "OSGTestMultiPartitionStageFields.h"
 

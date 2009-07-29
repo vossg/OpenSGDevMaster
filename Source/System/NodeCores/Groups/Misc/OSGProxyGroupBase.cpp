@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNode.h> // Root Class
+#include "OSGNode.h"                    // Root Class
 
 #include "OSGProxyGroupBase.h"
 #include "OSGProxyGroup.h"

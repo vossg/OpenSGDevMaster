@@ -65,9 +65,9 @@
 
 #include "OSGDeviceInterfaceSensor.h" // Parent
 
-#include "OSGMathFields.h" // Transformation type
-#include "OSGVecFields.h" // Translation type
-#include "OSGSysFields.h" // RotationScale type
+#include "OSGMathFields.h"              // Transformation type
+#include "OSGVecFields.h"               // Translation type
+#include "OSGSysFields.h"               // RotationScale type
 
 #include "OSGTransformationInterfaceSensorFields.h"
 

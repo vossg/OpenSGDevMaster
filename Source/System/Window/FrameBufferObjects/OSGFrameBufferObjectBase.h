@@ -65,9 +65,9 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGBaseFields.h" // GLId type
+#include "OSGBaseFields.h"              // GLId type
 #include "OSGFrameBufferAttachmentFields.h" // ColorAttachments type
-#include "OSGSysFields.h" // Width type
+#include "OSGSysFields.h"               // Width type
 
 #include "OSGFrameBufferObjectFields.h"
 

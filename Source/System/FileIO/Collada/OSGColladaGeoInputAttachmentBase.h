@@ -65,8 +65,8 @@
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGBaseFields.h" // Semantics type
-#include "OSGSysFields.h" // Sets type
+#include "OSGBaseFields.h"              // Semantics type
+#include "OSGSysFields.h"               // Sets type
 #include "OSGGeoVectorPropertyFields.h" // Properties type
 #include "OSGGeoIntegralPropertyFields.h" // PropIndices type
 

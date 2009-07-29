@@ -65,8 +65,8 @@
 
 #include "OSGStage.h" // Parent
 
-#include "OSGSysFields.h" // OffBias type
-#include "OSGNodeFields.h" // LightNodes type
+#include "OSGSysFields.h"               // OffBias type
+#include "OSGNodeFields.h"              // LightNodes type
 
 #include "OSGShadowStageFields.h"
 

@@ -65,8 +65,8 @@
 
 #include "OSGPrimeMaterial.h" // Parent
 
-#include "OSGStateChunkFields.h" // Chunks type
-#include "OSGSysFields.h" // Slots type
+#include "OSGStateChunkFields.h"        // Chunks type
+#include "OSGSysFields.h"               // Slots type
 
 #include "OSGChunkMaterialFields.h"
 

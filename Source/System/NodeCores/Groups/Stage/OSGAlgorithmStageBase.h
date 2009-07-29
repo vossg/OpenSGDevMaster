@@ -65,9 +65,9 @@
 
 #include "OSGStage.h" // Parent
 
-#include "OSGAlgorithmFields.h" // Algorithm type
-#include "OSGSysFields.h" // ProjectionMode type
-#include "OSGMathFields.h" // ProjectionMatrix type
+#include "OSGAlgorithmFields.h"         // Algorithm type
+#include "OSGSysFields.h"               // ProjectionMode type
+#include "OSGMathFields.h"              // ProjectionMatrix type
 
 #include "OSGAlgorithmStageFields.h"
 

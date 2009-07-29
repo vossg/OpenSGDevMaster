@@ -58,7 +58,7 @@
 
 
 
-#include <OSGNode.h> // SceneRef Class
+#include "OSGNode.h"                    // SceneRef Class
 
 #include "OSGCSMSceneParameterBase.h"
 #include "OSGCSMSceneParameter.h"

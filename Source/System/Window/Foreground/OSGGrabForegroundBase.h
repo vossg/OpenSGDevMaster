@@ -65,8 +65,8 @@
 
 #include "OSGForeground.h" // Parent
 
-#include "OSGImageFields.h" // Image type
-#include "OSGSysFields.h" // AutoResize type
+#include "OSGImageFields.h"             // Image type
+#include "OSGSysFields.h"               // AutoResize type
 
 #include "OSGGrabForegroundFields.h"
 

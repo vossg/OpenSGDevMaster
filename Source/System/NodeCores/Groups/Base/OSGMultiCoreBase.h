@@ -65,7 +65,7 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGNodeCoreFields.h" // Cores type
+#include "OSGNodeCoreFields.h"          // Cores type
 
 #include "OSGMultiCoreFields.h"
 

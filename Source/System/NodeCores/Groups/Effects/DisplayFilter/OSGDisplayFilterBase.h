@@ -65,7 +65,7 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGSysFields.h" // Enabled type
+#include "OSGSysFields.h"               // Enabled type
 
 #include "OSGDisplayFilterFields.h"
 

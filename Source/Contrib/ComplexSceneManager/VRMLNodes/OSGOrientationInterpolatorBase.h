@@ -65,8 +65,8 @@
 
 #include "OSGNodeCore.h" // Parent
 
-#include "OSGSysFields.h" // Fraction type
-#include "OSGMathFields.h" // KeyValue type
+#include "OSGSysFields.h"               // Fraction type
+#include "OSGMathFields.h"              // KeyValue type
 
 #include "OSGOrientationInterpolatorFields.h"
 

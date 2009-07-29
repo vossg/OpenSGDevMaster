@@ -65,7 +65,7 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGSysFields.h" // ClearStencilBit type
+#include "OSGSysFields.h"               // ClearStencilBit type
 
 #include "OSGBackgroundFields.h"
 

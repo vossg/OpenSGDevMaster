@@ -66,7 +66,7 @@
 #include "OSGStateChunk.h" // Parent
 
 #include "OSGShaderProgramVariablesFields.h" // Variables type
-#include "OSGSysFields.h" // VariableLocations type
+#include "OSGSysFields.h"               // VariableLocations type
 
 #include "OSGSimpleSHLVariableChunkFields.h"
 

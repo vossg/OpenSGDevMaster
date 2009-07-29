@@ -75,7 +75,8 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Cubes
-    
+    A simple type that can render cubes of a given size and color at a
+    given location.
  */
 
 /***************************************************************************\
@@ -182,6 +183,8 @@ CubesBase::TypeObject CubesBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   structure=\"concrete\"\n"
     "   >\n"
+    "  A simple type that can render cubes of a given size and color at a\n"
+    "  given location.\n"
     "  <Field\n"
     "     name=\"position\"\n"
     "     category=\"data\"\n"
@@ -213,7 +216,8 @@ CubesBase::TypeObject CubesBase::_type(
     "    The cubes' colors.\n"
     "  </Field>\n"
     "</FieldContainer>\n",
-    ""
+    "A simple type that can render cubes of a given size and color at a\n"
+    "given location.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

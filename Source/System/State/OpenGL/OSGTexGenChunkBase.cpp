@@ -62,10 +62,7 @@
 #include <OSGGL.h>                        // GenFuncR default header
 #include <OSGGL.h>                        // GenFuncQ default header
 
-#include <OSGNode.h> // SBeacon Class
-#include <OSGNode.h> // TBeacon Class
-#include <OSGNode.h> // RBeacon Class
-#include <OSGNode.h> // QBeacon Class
+#include "OSGNode.h"                    // SBeacon Class
 
 #include "OSGTexGenChunkBase.h"
 #include "OSGTexGenChunk.h"

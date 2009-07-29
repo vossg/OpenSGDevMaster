@@ -65,10 +65,10 @@
 
 #include "OSGWindow.h" // Parent
 
-#include "OSGBaseFields.h" // Servers type
-#include "OSGSysFields.h" // ServerIds type
-#include "OSGWindowFields.h" // ClientWindow type
-#include "OSGImageComposerFields.h" // Composer type
+#include "OSGBaseFields.h"              // Servers type
+#include "OSGSysFields.h"               // ServerIds type
+#include "OSGWindowFields.h"            // ClientWindow type
+#include "OSGImageComposerFields.h"     // Composer type
 
 #include "OSGClusterWindowFields.h"
 

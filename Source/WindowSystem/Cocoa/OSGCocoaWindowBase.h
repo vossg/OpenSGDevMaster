@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowCocoaDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGWindow.h" // Parent
 
-#include "OSGCocoaWindowDataFields.h" // Context type
+#include "OSGCocoaWindowDataFields.h"   // Context type
 
 #include "OSGCocoaWindowFields.h"
 

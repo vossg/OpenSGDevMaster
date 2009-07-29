@@ -59,7 +59,7 @@
 
 #include "OSGChangedFunctorMFields.h"     // DestroyedFunctors default header
 
-#include <OSGShaderProgramVariables.h> // Variables Class
+#include "OSGShaderProgramVariables.h"  // Variables Class
 
 #include "OSGShaderProgramVariableChunkBase.h"
 #include "OSGShaderProgramVariableChunk.h"

@@ -65,7 +65,7 @@
 
 #include "OSGFieldContainer.h" // Parent
 
-#include "OSGSysFields.h" // PartitionRangeBegin type
+#include "OSGSysFields.h"               // PartitionRangeBegin type
 
 #include "OSGStageDataFields.h"
 

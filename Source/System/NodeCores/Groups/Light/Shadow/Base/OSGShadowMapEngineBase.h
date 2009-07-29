@@ -66,8 +66,8 @@
 #include "OSGLightEngine.h" // Parent
 
 #include "OSGFrameBufferObjectFields.h" // RenderTarget type
-#include "OSGSysFields.h" // Width type
-#include "OSGBaseFields.h" // ShadowColor type
+#include "OSGSysFields.h"               // Width type
+#include "OSGBaseFields.h"              // ShadowColor type
 
 #include "OSGShadowMapEngineFields.h"
 

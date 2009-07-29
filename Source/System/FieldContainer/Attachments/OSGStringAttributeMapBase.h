@@ -65,7 +65,7 @@
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGBaseFields.h" // Keys type
+#include "OSGBaseFields.h"              // Keys type
 
 #include "OSGStringAttributeMapFields.h"
 

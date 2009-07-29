@@ -58,8 +58,8 @@
 
 
 
-#include <OSGCamera.h> // Camera Class
-#include <OSGTextureTransformChunk.h> // TexTransform Class
+#include "OSGCamera.h"                  // Camera Class
+#include "OSGTextureTransformChunk.h"   // TexTransform Class
 
 #include "OSGCubeMapGeneratorStageDataBase.h"
 #include "OSGCubeMapGeneratorStageData.h"

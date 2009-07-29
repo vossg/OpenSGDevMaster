@@ -58,16 +58,15 @@
 
 
 
-#include <OSGNode.h> // Root Class
-#include <OSGNode.h> // GeoRoots Class
-#include <OSGGeometry.h> // Geometries Class
-#include <OSGChunkMaterial.h> // Materials Class
-#include <OSGMaterialChunk.h> // MaterialChunks Class
-#include <OSGGeoPnt3fProperty.h> // Positions Class
-#include <OSGGeoUInt32Property.h> // Length Class
-#include <OSGGeoUInt8Property.h> // Types Class
-#include <OSGGeoColor4fProperty.h> // Colors Class
-#include <OSGGeoVec3fProperty.h> // Normals Class
+#include "OSGNode.h"                    // Root Class
+#include "OSGGeometry.h"                // Geometries Class
+#include "OSGChunkMaterial.h"           // Materials Class
+#include "OSGMaterialChunk.h"           // MaterialChunks Class
+#include "OSGGeoPnt3fProperty.h"        // Positions Class
+#include "OSGGeoUInt32Property.h"       // Length Class
+#include "OSGGeoUInt8Property.h"        // Types Class
+#include "OSGGeoColor4fProperty.h"      // Colors Class
+#include "OSGGeoVec3fProperty.h"        // Normals Class
 
 #include "OSGVTKPolyDataMapperBase.h"
 #include "OSGVTKPolyDataMapper.h"

@@ -65,9 +65,9 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGCSMDrawerFields.h" // Drawer type
-#include "OSGSysFields.h" // Parallel type
-#include "OSGBaseFields.h" // SyncBarrierName type
+#include "OSGCSMDrawerFields.h"         // Drawer type
+#include "OSGSysFields.h"               // Parallel type
+#include "OSGBaseFields.h"              // SyncBarrierName type
 
 #include "OSGCSMDrawManagerFields.h"
 

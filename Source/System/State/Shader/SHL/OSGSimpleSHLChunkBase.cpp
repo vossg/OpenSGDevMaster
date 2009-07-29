@@ -58,7 +58,7 @@
 
 
 
-#include <OSGShaderProgramVariables.h> // Variables Class
+#include "OSGShaderProgramVariables.h"  // Variables Class
 
 #include "OSGSimpleSHLChunkBase.h"
 #include "OSGSimpleSHLChunk.h"

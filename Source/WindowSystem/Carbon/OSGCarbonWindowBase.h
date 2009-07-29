@@ -61,11 +61,11 @@
 #include "OSGConfig.h"
 #include "OSGWindowCarbonDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGWindow.h" // Parent
 
-#include "OSGCarbonWindowDataFields.h" // Context type
+#include "OSGCarbonWindowDataFields.h"  // Context type
 
 #include "OSGCarbonWindowFields.h"
 

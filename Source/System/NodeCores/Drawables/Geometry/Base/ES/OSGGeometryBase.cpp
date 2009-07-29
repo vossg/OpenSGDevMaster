@@ -58,10 +58,8 @@
 
 
 
-#include <OSGGeoIntegralProperty.h> // Types Class
-#include <OSGGeoIntegralProperty.h> // Lengths Class
-#include <OSGGeoVectorProperty.h> // Properties Class
-#include <OSGGeoIntegralProperty.h> // PropIndices Class
+#include "OSGGeoIntegralProperty.h"     // Types Class
+#include "OSGGeoVectorProperty.h"       // Properties Class
 
 #include "OSGGeometryBase.h"
 #include "OSGGeometry.h"

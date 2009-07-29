@@ -65,8 +65,8 @@
 
 #include "OSGTransform.h" // Parent
 
-#include "OSGVecFields.h" // Center type
-#include "OSGMathFields.h" // Rotation type
+#include "OSGVecFields.h"               // Center type
+#include "OSGMathFields.h"              // Rotation type
 
 #include "OSGComponentTransformFields.h"
 

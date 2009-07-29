@@ -58,7 +58,7 @@
 
 
 
-#include <OSGFieldContainer.h> // Parents Class
+#include "OSGFieldContainer.h"          // Parents Class
 
 #include "OSGShaderVariableBase.h"
 #include "OSGShaderVariable.h"

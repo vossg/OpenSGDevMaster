@@ -65,9 +65,9 @@
 
 #include "OSGInterfaceOptions.h" // Parent
 
-#include "OSGBaseFields.h" // Device type
-#include "OSGVecFields.h" // TRange type
-#include "OSGSysFields.h" // BufferSize type
+#include "OSGBaseFields.h"              // Device type
+#include "OSGVecFields.h"               // TRange type
+#include "OSGSysFields.h"               // BufferSize type
 
 #include "OSGLinuxEventOptionsFields.h"
 

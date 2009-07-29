@@ -58,7 +58,7 @@
 
 
 
-#include <OSGSensor.h> // Sensors Class
+#include "OSGSensor.h"                  // Sensors Class
 
 #include "OSGSensorTaskBase.h"
 #include "OSGSensorTask.h"

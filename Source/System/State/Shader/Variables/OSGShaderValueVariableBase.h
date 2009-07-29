@@ -65,7 +65,7 @@
 
 #include "OSGShaderVariable.h" // Parent
 
-#include "OSGSysFields.h" // VariableIdx type
+#include "OSGSysFields.h"               // VariableIdx type
 
 #include "OSGShaderValueVariableFields.h"
 

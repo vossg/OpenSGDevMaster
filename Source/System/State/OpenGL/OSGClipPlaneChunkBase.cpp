@@ -59,7 +59,7 @@
 
 #include <OSGGL.h>                        // Enable default header
 
-#include <OSGNode.h> // Beacon Class
+#include "OSGNode.h"                    // Beacon Class
 
 #include "OSGClipPlaneChunkBase.h"
 #include "OSGClipPlaneChunk.h"

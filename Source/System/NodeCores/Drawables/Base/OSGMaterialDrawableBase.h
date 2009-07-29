@@ -65,7 +65,7 @@
 
 #include "OSGDrawable.h" // Parent
 
-#include "OSGMaterialFields.h" // Material type
+#include "OSGMaterialFields.h"          // Material type
 
 #include "OSGMaterialDrawableFields.h"
 

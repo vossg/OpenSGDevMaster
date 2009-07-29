@@ -65,13 +65,13 @@
 
 #include "OSGStageData.h" // Parent
 
-#include "OSGCameraFields.h" // Camera type
-#include "OSGTextureObjChunkFields.h" // TexChunk type
-#include "OSGTextureBufferFields.h" // TexBuffer type
-#include "OSGLightChunkFields.h" // LightChunk type
-#include "OSGBlendChunkFields.h" // BlendChunk type
-#include "OSGTexGenChunkFields.h" // TexGenChunk type
-#include "OSGPolygonChunkFields.h" // PolyChunk type
+#include "OSGCameraFields.h"            // Camera type
+#include "OSGTextureObjChunkFields.h"   // TexChunk type
+#include "OSGTextureBufferFields.h"     // TexBuffer type
+#include "OSGLightChunkFields.h"        // LightChunk type
+#include "OSGBlendChunkFields.h"        // BlendChunk type
+#include "OSGTexGenChunkFields.h"       // TexGenChunk type
+#include "OSGPolygonChunkFields.h"      // PolyChunk type
 
 #include "OSGSimpleShadowMapEngineDataFields.h"
 

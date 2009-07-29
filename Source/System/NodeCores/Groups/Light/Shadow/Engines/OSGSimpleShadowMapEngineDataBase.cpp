@@ -58,13 +58,13 @@
 
 
 
-#include <OSGCamera.h> // Camera Class
-#include <OSGTextureObjChunk.h> // TexChunk Class
-#include <OSGTextureBuffer.h> // TexBuffer Class
-#include <OSGLightChunk.h> // LightChunk Class
-#include <OSGBlendChunk.h> // BlendChunk Class
-#include <OSGTexGenChunk.h> // TexGenChunk Class
-#include <OSGPolygonChunk.h> // PolyChunk Class
+#include "OSGCamera.h"                  // Camera Class
+#include "OSGTextureObjChunk.h"         // TexChunk Class
+#include "OSGTextureBuffer.h"           // TexBuffer Class
+#include "OSGLightChunk.h"              // LightChunk Class
+#include "OSGBlendChunk.h"              // BlendChunk Class
+#include "OSGTexGenChunk.h"             // TexGenChunk Class
+#include "OSGPolygonChunk.h"            // PolyChunk Class
 
 #include "OSGSimpleShadowMapEngineDataBase.h"
 #include "OSGSimpleShadowMapEngineData.h"

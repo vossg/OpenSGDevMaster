@@ -65,8 +65,8 @@
 
 #include "OSGCSMClusterWinOptions.h" // Parent
 
-#include "OSGBaseFields.h" // Compression type
-#include "OSGSysFields.h" // SubtileSize type
+#include "OSGBaseFields.h"              // Compression type
+#include "OSGSysFields.h"               // SubtileSize type
 
 #include "OSGCSMSortFirstWinOptionsFields.h"
 

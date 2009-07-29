@@ -65,7 +65,7 @@
 
 #include "OSGGroup.h" // Parent
 
-#include "OSGChunkBlock.h" // FallbackChunkBlock type
+#include "OSGChunkBlockFields.h"        // FallbackChunkBlock type
 
 #include "OSGChunkOverrideGroupFields.h"
 

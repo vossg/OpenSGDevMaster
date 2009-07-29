@@ -65,7 +65,7 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGMathFields.h" // Matrix type
+#include "OSGMathFields.h"              // Matrix type
 
 #include "OSGTransformChunkFields.h"
 

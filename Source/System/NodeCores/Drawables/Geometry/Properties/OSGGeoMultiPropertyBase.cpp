@@ -58,7 +58,7 @@
 
 
 
-#include <OSGGeoMultiPropertyData.h> // Container Class
+#include "OSGGeoMultiPropertyData.h"    // Container Class
 
 #include "OSGGeoMultiPropertyBase.h"
 #include "OSGGeoMultiProperty.h"

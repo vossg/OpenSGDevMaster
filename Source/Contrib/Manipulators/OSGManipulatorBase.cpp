@@ -58,19 +58,9 @@
 
 
 
-#include <OSGNode.h> // Target Class
-#include <OSGNode.h> // ActiveSubHandle Class
-#include <OSGViewport.h> // Viewport Class
-#include <OSGNode.h> // HandleXNode Class
-#include <OSGNode.h> // HandleYNode Class
-#include <OSGNode.h> // HandleZNode Class
-#include <OSGNode.h> // TransXNode Class
-#include <OSGNode.h> // TransYNode Class
-#include <OSGNode.h> // TransZNode Class
-#include <OSGMaterial.h> // MaterialX Class
-#include <OSGMaterial.h> // MaterialY Class
-#include <OSGMaterial.h> // MaterialZ Class
-#include <OSGNode.h> // AxisLinesN Class
+#include "OSGNode.h"                    // Target Class
+#include "OSGViewport.h"                // Viewport Class
+#include "OSGMaterial.h"                // MaterialX Class
 
 #include "OSGManipulatorBase.h"
 #include "OSGManipulator.h"
@@ -438,7 +428,6 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"NULL\"\n"
-    "\t\theader=\"OSGViewport.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -519,7 +508,6 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\t\ttype=\"MaterialPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
-    "\t\theader=\"OSGMaterial.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tmaterial for the x-axis geometry\n"
@@ -529,7 +517,6 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\t\ttype=\"MaterialPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
-    "\t\theader=\"OSGMaterial.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tmaterial for the y-axis geometry\n"
@@ -539,7 +526,6 @@ ManipulatorBase::TypeObject ManipulatorBase::_type(
     "\t\ttype=\"MaterialPtr\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
-    "\t\theader=\"OSGMaterial.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tmaterial for the z-axis geometry\n"

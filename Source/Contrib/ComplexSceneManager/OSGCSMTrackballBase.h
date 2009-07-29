@@ -65,10 +65,10 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGSysFields.h" // ModifierMask type
-#include "OSGMathFields.h" // MatrixResult type
-#include "OSGVecFields.h" // ReferencePosition type
-#include "OSGMouseDataFields.h" // MouseData type
+#include "OSGSysFields.h"               // ModifierMask type
+#include "OSGMathFields.h"              // MatrixResult type
+#include "OSGVecFields.h"               // ReferencePosition type
+#include "OSGMouseDataFields.h"         // MouseData type
 
 #include "OSGCSMTrackballFields.h"
 

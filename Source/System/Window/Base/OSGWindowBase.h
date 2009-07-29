@@ -65,11 +65,11 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGSysFields.h" // Width type
-#include "OSGViewportFields.h" // Port type
-#include "OSGRenderOptionsFields.h" // RenderOptions type
-#include "OSGBaseFields.h" // RendererInfo type
-#include "OSGDrawTask.h" // DrawTasks type
+#include "OSGSysFields.h"               // Width type
+#include "OSGViewportFields.h"          // Port type
+#include "OSGRenderOptionsFields.h"     // RenderOptions type
+#include "OSGBaseFields.h"              // RendererInfo type
+#include "OSGDrawTask.h"                // DrawTasks type
 
 #include "OSGWindowFields.h"
 

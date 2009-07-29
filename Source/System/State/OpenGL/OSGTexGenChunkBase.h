@@ -65,11 +65,11 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGBaseFields.h" // GenFuncS type
-#include "OSGVecFields.h" // GenFuncSPlane type
-#include "OSGNodeFields.h" // SBeacon type
-#include "OSGMathFields.h" // EyeModelViewMatrix type
-#include "OSGSysFields.h" // EyeModelViewMode type
+#include "OSGBaseFields.h"              // GenFuncS type
+#include "OSGVecFields.h"               // GenFuncSPlane type
+#include "OSGNodeFields.h"              // SBeacon type
+#include "OSGMathFields.h"              // EyeModelViewMatrix type
+#include "OSGSysFields.h"               // EyeModelViewMode type
 
 #include "OSGTexGenChunkFields.h"
 

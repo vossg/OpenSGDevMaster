@@ -65,9 +65,9 @@
 
 #include "OSGStateChunk.h" // Parent
 
-#include "OSGVecFields.h" // Equation type
-#include "OSGSysFields.h" // Enable type
-#include "OSGNodeFields.h" // Beacon type
+#include "OSGVecFields.h"               // Equation type
+#include "OSGSysFields.h"               // Enable type
+#include "OSGNodeFields.h"              // Beacon type
 
 #include "OSGClipPlaneChunkFields.h"
 

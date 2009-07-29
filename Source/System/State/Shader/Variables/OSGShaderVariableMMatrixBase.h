@@ -65,7 +65,7 @@
 
 #include "OSGShaderValueVariable.h" // Parent
 
-#include "OSGMathFields.h" // Value type
+#include "OSGMathFields.h"              // Value type
 
 #include "OSGShaderVariableMMatrixFields.h"
 

@@ -65,7 +65,7 @@
 
 #include "OSGDynamicStateGeneratorStageData.h" // Parent
 
-#include "OSGCameraFields.h" // Camera type
+#include "OSGCameraFields.h"            // Camera type
 #include "OSGTextureTransformChunkFields.h" // TexTransform type
 
 #include "OSGCubeMapGeneratorStageDataFields.h"

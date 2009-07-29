@@ -58,10 +58,7 @@
 
 
 
-#include <OSGGeoVectorProperty.h> // Positions Class
-#include <OSGGeoVectorProperty.h> // SecPositions Class
-#include <OSGGeoVectorProperty.h> // Colors Class
-#include <OSGGeoVectorProperty.h> // Normals Class
+#include "OSGGeoVectorProperty.h"       // Positions Class
 
 #include "OSGParticlesBase.h"
 #include "OSGParticles.h"
@@ -510,7 +507,8 @@ ParticlesBase::TypeObject ParticlesBase::_type(
     "\t\ttype=\"ParticleBSPTree\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\theader=\"OSGParticleBSP.h\"\n"
+    "\t\ttypeHeader=\"OSGParticleBSP.h\"\n"
+    "                fieldHeader=\"OSGParticleBSP.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

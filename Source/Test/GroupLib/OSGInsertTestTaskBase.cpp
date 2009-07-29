@@ -58,7 +58,7 @@
 
 
 
-#include <OSGCSMWindow.h> // Window Class
+#include "OSGCSMWindow.h"               // Window Class
 
 #include "OSGInsertTestTaskBase.h"
 #include "OSGInsertTestTask.h"
