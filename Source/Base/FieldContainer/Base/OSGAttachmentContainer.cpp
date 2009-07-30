@@ -97,8 +97,8 @@ AttachmentContainer::AttachmentContainer(void) :
 }
 
 AttachmentContainer::AttachmentContainer(const AttachmentContainer &source) :
-     Inherited    (source               ),
-    _sfAttachments(source._sfAttachments)
+     Inherited    (source),
+    _sfAttachments(      )
 {
 }
 /*-------------------------------------------------------------------------*/
