@@ -166,7 +166,7 @@ QT4WindowBase::TypeObject QT4WindowBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
     "\t\tdefaultValue=\"NULL\"\n"
-    "\t\theader=\"OSGQT4WindowDataFields.h\"\n"
+    "\t\tfieldHeader=\"OSGQT4WindowDataFields.h\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

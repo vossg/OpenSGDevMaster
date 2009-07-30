@@ -65,7 +65,7 @@
 
 #include "OSGNativeWindow.h" // Parent
 
-#include "OSGQT4WindowDataFields.h" // GlWidget type
+#include "OSGQT4WindowDataFields.h"     // GlWidget type
 
 #include "OSGQT4WindowFields.h"
 
