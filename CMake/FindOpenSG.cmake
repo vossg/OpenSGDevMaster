@@ -58,41 +58,49 @@ set(OpenSG_ERROR_REASON)
 
 MACRO(__OpenSG_ADJUST_LIB_VARS basename)
     IF(OpenSG_INCLUDE_DIR)
-        IF(OpenSG_${basename}_LIBRARY_DEBUG AND OpenSG_${basename}_LIBRARY_RELEASE)
-        # if the generator supports configuration types then set
-        # optimized and debug libraries, or if the CMAKE_BUILD_TYPE has a value
-            IF (CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
-                SET(OpenSG_${basename}_LIBRARY optimized ${OpenSG_${basename}_LIBRARY_RELEASE} debug ${OpenSG_${basename}_LIBRARY_DEBUG})
-            ELSE(CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
-                # if there are no configuration types and CMAKE_BUILD_TYPE has no value
-                # then just use the release libraries
-                SET(OpenSG_${basename}_LIBRARY ${OpenSG_${basename}_LIBRARY_RELEASE} )
-            ENDIF(CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
+        IF(NOT WIN32)
+          IF(OpenSG_${basename}_LIBRARY_DEBUG AND OpenSG_${basename}_LIBRARY_RELEASE)
+          # if the generator supports configuration types then set
+          # optimized and debug libraries, or if the CMAKE_BUILD_TYPE has a value
+              IF (CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
+                  SET(OpenSG_${basename}_LIBRARY optimized ${OpenSG_${basename}_LIBRARY_RELEASE} debug ${OpenSG_${basename}_LIBRARY_DEBUG})
+              ELSE(CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
+                  # if there are no configuration types and CMAKE_BUILD_TYPE has no value
+                  # then just use the release libraries
+                  SET(OpenSG_${basename}_LIBRARY ${OpenSG_${basename}_LIBRARY_RELEASE} )
+              ENDIF(CMAKE_CONFIGURATION_TYPES OR CMAKE_BUILD_TYPE)
 
-            SET(OpenSG_${basename}_LIBRARIES optimized ${OpenSG_${basename}_LIBRARY_RELEASE} debug ${OpenSG_${basename}_LIBRARY_DEBUG})
-        ENDIF(OpenSG_${basename}_LIBRARY_DEBUG AND OpenSG_${basename}_LIBRARY_RELEASE)
+              SET(OpenSG_${basename}_LIBRARIES optimized ${OpenSG_${basename}_LIBRARY_RELEASE} debug ${OpenSG_${basename}_LIBRARY_DEBUG})
+          ENDIF(OpenSG_${basename}_LIBRARY_DEBUG AND OpenSG_${basename}_LIBRARY_RELEASE)
     
-        # if only the release version was found, set the debug variable also to the release version
-        IF(OpenSG_${basename}_LIBRARY_RELEASE AND NOT OpenSG_${basename}_LIBRARY_DEBUG)
-#            SET(OpenSG_${basename}_LIBRARY_DEBUG ${OpenSG_${basename}_LIBRARY_RELEASE})
-            SET(OpenSG_${basename}_LIBRARY       ${OpenSG_${basename}_LIBRARY_RELEASE})
-            SET(OpenSG_${basename}_LIBRARIES     ${OpenSG_${basename}_LIBRARY_RELEASE})
-        ENDIF(OpenSG_${basename}_LIBRARY_RELEASE AND NOT OpenSG_${basename}_LIBRARY_DEBUG)
+          # if only the release version was found, set the debug variable also to the release version
+          IF(OpenSG_${basename}_LIBRARY_RELEASE AND NOT OpenSG_${basename}_LIBRARY_DEBUG)
+#              SET(OpenSG_${basename}_LIBRARY_DEBUG ${OpenSG_${basename}_LIBRARY_RELEASE})
+              SET(OpenSG_${basename}_LIBRARY       ${OpenSG_${basename}_LIBRARY_RELEASE})
+              SET(OpenSG_${basename}_LIBRARIES     ${OpenSG_${basename}_LIBRARY_RELEASE})
+          ENDIF(OpenSG_${basename}_LIBRARY_RELEASE AND NOT OpenSG_${basename}_LIBRARY_DEBUG)
     
-        # if only the debug version was found, set the release variable also to the debug version
-        IF(OpenSG_${basename}_LIBRARY_DEBUG AND NOT OpenSG_${basename}_LIBRARY_RELEASE)
-#            SET(OpenSG_${basename}_LIBRARY_RELEASE ${OpenSG_${basename}_LIBRARY_DEBUG})
-            SET(OpenSG_${basename}_LIBRARY         ${OpenSG_${basename}_LIBRARY_DEBUG})
-            SET(OpenSG_${basename}_LIBRARIES       ${OpenSG_${basename}_LIBRARY_DEBUG})
-        ENDIF(OpenSG_${basename}_LIBRARY_DEBUG AND NOT OpenSG_${basename}_LIBRARY_RELEASE)
+          # if only the debug version was found, set the release variable also to the debug version
+          IF(OpenSG_${basename}_LIBRARY_DEBUG AND NOT OpenSG_${basename}_LIBRARY_RELEASE)
+#              SET(OpenSG_${basename}_LIBRARY_RELEASE ${OpenSG_${basename}_LIBRARY_DEBUG})
+              SET(OpenSG_${basename}_LIBRARY         ${OpenSG_${basename}_LIBRARY_DEBUG})
+              SET(OpenSG_${basename}_LIBRARIES       ${OpenSG_${basename}_LIBRARY_DEBUG})
+          ENDIF(OpenSG_${basename}_LIBRARY_DEBUG AND NOT OpenSG_${basename}_LIBRARY_RELEASE)
         
-        IF(OpenSG_${basename}_LIBRARY)
-            SET(OpenSG_${basename}_LIBRARY ${OpenSG_${basename}_LIBRARY} CACHE FILEPATH "The OpenSG ${basename} library")
-            GET_FILENAME_COMPONENT(OpenSG_LIBRARY_DIRS "${OpenSG_${basename}_LIBRARY}" PATH)
-            SET(OpenSG_LIBRARY_DIRS ${OpenSG_LIBRARY_DIRS} CACHE FILEPATH "OpenSG library directory")
-            SET(OpenSG_${basename}_FOUND ON CACHE INTERNAL "Whether the OpenSG ${basename} library found")
-        ENDIF(OpenSG_${basename}_LIBRARY)
-    
+          IF(OpenSG_${basename}_LIBRARY)
+              SET(OpenSG_${basename}_LIBRARY ${OpenSG_${basename}_LIBRARY} CACHE FILEPATH "The OpenSG ${basename} library")
+              GET_FILENAME_COMPONENT(OpenSG_LIBRARY_DIRS "${OpenSG_${basename}_LIBRARY}" PATH)
+              SET(OpenSG_LIBRARY_DIRS ${OpenSG_LIBRARY_DIRS} CACHE FILEPATH "OpenSG library directory")
+              SET(OpenSG_${basename}_FOUND ON CACHE INTERNAL "Whether the OpenSG ${basename} library found")
+          ENDIF(OpenSG_${basename}_LIBRARY)
+        ELSE(NOT WIN32)
+          IF(OpenSG_${basename}_LIBRARY_DEBUG OR OpenSG_${basename}_LIBRARY_DEBUGOPT OR 
+             OpenSG_${basename}_LIBRARY_RELEASE OR OpenSG_${basename}_LIBRARY_RELEASENOOPT)
+
+              SET(OpenSG_${basename}_FOUND ON CACHE INTERNAL "Whether the OpenSG ${basename} library found")
+
+          ENDIF()
+        ENDIF(NOT WIN32)
     ENDIF(OpenSG_INCLUDE_DIR)
 
     # Make variables changeble to the advanced user
@@ -121,6 +129,22 @@ FUNCTION(SETUP_OSG_LIB_TARGETS COMPONENT UPPERCOMPONENT)
 
   ENDIF(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE)
 
+
+  IF(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT)
+
+    GET_FILENAME_COMPONENT(OSG_TMP_LIB_DIR_OPT ${OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT}
+                           PATH)
+      
+    IF(UNIX)
+      SET(OSG_IMP_RELEASENOOPT IMPORTED_LOCATION_RELEASENOOPT ${OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT})
+    ELSE(UNIX)
+      SET(OSG_IMP_RELEASENOOPT IMPORTED_IMPLIB_RELEASENOOPT ${OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT} 
+                               IMPORTED_LOCATION_RELEASENOOPT ${OSG_TMP_LIB_DIR_OPT})
+    ENDIF(UNIX)
+
+  ENDIF(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT)
+
+
   IF(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG)
 
     GET_FILENAME_COMPONENT(OSG_TMP_LIB_DIR_DBG ${OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG}
@@ -136,11 +160,29 @@ FUNCTION(SETUP_OSG_LIB_TARGETS COMPONENT UPPERCOMPONENT)
 
   ENDIF(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG)
 
-  IF(OSG_IMP_RELEASE OR OSG_IMP_DEBUG)
+
+  IF(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUGOPT)
+
+    GET_FILENAME_COMPONENT(OSG_TMP_LIB_DIR_DBG ${OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUGOPT}
+                           PATH)
+
+    IF(UNIX)
+      SET(OSG_IMP_DEBUGOPT IMPORTED_LOCATION_DEBUGOPT ${OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUGOPT})
+      SET(OSG_IMP_DEBUGOPT ${OSG_IMP_DEBUGOPT} IMPORTED_LOCATION_DEBUGOPTGV ${OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUGOPT})
+    ELSE(UNIX)
+      SET(OSG_IMP_DEBUGOPT IMPORTED_IMPLIB_DEBUGOPT ${OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUGOPT}
+                           IMPORTED_LOCATION_DEBUGOPT ${OSG_TMP_LIB_DIR_DBG})
+    ENDIF(UNIX)
+
+  ENDIF(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUGOPT)
+
+  IF(OSG_IMP_RELEASE OR OSG_IMP_RELEASENOOPT OR OSG_IMP_DEBUG OR OSG_IMP_DEBUGOPT)
     SET_TARGET_PROPERTIES(${COMPONENT}Lib PROPERTIES
                           ${OSG_IMP_RELEASE}
-                          ${OSG_IMP_DEBUG}        )
-  ENDIF(OSG_IMP_RELEASE OR OSG_IMP_DEBUG)
+                          ${OSG_IMP_RELEASENOOPT}
+                          ${OSG_IMP_DEBUG}
+                          ${OSG_IMP_DEBUGOPT}       )
+  ENDIF(OSG_IMP_RELEASE OR OSG_IMP_RELEASENOOPT OR OSG_IMP_DEBUG OR OSG_IMP_DEBUGOPT)
 
 ENDFUNCTION(SETUP_OSG_LIB_TARGETS)
 
@@ -223,18 +265,37 @@ ELSE(__OpenSG_IN_CACHE)
         SET(OpenSG_${UPPERCOMPONENT}_LIBRARY "OpenSG_${UPPERCOMPONENT}_LIBRARY-NOTFOUND" )
         SET(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE "OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE-NOTFOUND" )
         SET(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG "OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG-NOTFOUND")
-    
+
+        IF(WIN32)
+          SET(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT "OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT-NOTFOUND" )
+          SET(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUGOPT "OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUGOPT-NOTFOUND")
+        ENDIF(WIN32)
+
         FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE
             NAMES  ${COMPONENT}
             HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
             PATH_SUFFIXES "release" "relwithdbg" "opt"
         )
-    
+   
         FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG
             NAMES  ${COMPONENT}
             HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
-            PATH_SUFFIXES "debug"
+            PATH_SUFFIXES "debug" "dbg"
         )
+
+        IF(WIN32)
+          FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT
+              NAMES  "${COMPONENT}RN"
+              HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
+              PATH_SUFFIXES "relnoopt"
+          )
+
+          FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUGOPT
+              NAMES  "${COMPONENT}DO"
+              HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
+              PATH_SUFFIXES "debugopt"
+          )
+        ENDIF(WIN32)
     
         __OpenSG_ADJUST_LIB_VARS(${UPPERCOMPONENT})
 

@@ -786,6 +786,8 @@ INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/UpdateCompiler.cmake"
         DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/BuildFunctions.cmake"
         DESTINATION share/OpenSG/cmake)
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/ConfigurePackages.cmake"
+        DESTINATION share/OpenSG/cmake)
 INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
         DESTINATION bin
         PATTERN *.pyc EXCLUDE)
