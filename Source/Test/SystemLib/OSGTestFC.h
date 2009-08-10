@@ -46,7 +46,7 @@
 #include "OSGFieldContainer.h"
 #include "OSGAttachmentContainer.h"
 
-#include "OSGUInt32Fields.h"
+#include "OSGSysFields.h"
 
 #include "OSGFieldContainerFactory.h"
 
