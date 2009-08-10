@@ -112,9 +112,11 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
 
     if(pSrcDesc == NULL || pDstDesc == NULL)
     {
-        FWARNING(("Failed desc %p %p | %s %s\n", 
-                  pSrcDesc, pDstDesc,
-                  szSrcName, szDstName));
+        FWARNING(("addConnection: Failed to obtain field descriptions for "
+                  "source container [%p] field [%s] desc [%p] - "
+                  "destination container [%p] field [%s] desc [%p]\n",
+                  pSrcContainer, szSrcName, pSrcDesc,
+                  pDstContainer, szDstName, pDstDesc));
 
         return false;
     }
@@ -130,9 +132,9 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
           
     if(pSrcContainer == NULL || pDstContainer == NULL)
     {
-        FWARNING(("Failed handle container %p %p\n", 
-                  pSrcContainer, 
-                  pDstContainer));
+        FWARNING(("addConnection: Failed to obtain field handles for "
+                  "source container [%p] - destination container [%p]\n",
+                  pSrcContainer, pDstContainer));
 
         return false;
     }
@@ -227,17 +229,11 @@ bool subConnection(      OSG::AttachmentContainer *pSrcContainer,
         }
     }
 
-    pSrcContainer = 
-              dynamic_cast<AttachmentContainer *>(pSrcHnd->getContainer());
-
-    pDstContainer = 
-              dynamic_cast<AttachmentContainer *>(pDstHnd->getContainer());
-          
-    if(pSrcDesc == NULL || pDstDesc == NULL)
+    if(pSrcDesc == NULL)
     {
-        FWARNING(("Failed handle container %p %p\n", 
-                  pSrcContainer, 
-                  pDstContainer));
+        FWARNING(("subConnection: Failed to obtain field description for: "
+                  "source container [%p] field [%s]\n",
+                  pSrcContainer, szSrcName));
 
         return false;
     }
