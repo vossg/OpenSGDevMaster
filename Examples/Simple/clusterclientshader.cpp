@@ -341,7 +341,7 @@ void display(void)
         _shl->updateUniformVariable("sin_time_0_2PI", osgSin(t2));
     }
 
-    Thread::getCurrentChangeList()->commitChanges();
+    OSG::Thread::getCurrentChangeList()->commitChanges();
 
     // redraw the cluster window
     mgr->redraw();
