@@ -89,7 +89,8 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
 
             if(pSrcHnd != NULL && pSrcHnd->isValid() == true)
             {
-                pSrcDesc = pSrcHnd->getDescription();
+                pSrcContainer = pNode  ->getCore       ();
+                pSrcDesc      = pSrcHnd->getDescription();
             }
         }
     }
@@ -105,7 +106,8 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
 
             if(pDstHnd != NULL && pDstHnd->isValid() == true)
             {
-                pDstDesc = pDstHnd->getDescription();
+                pDstContainer = pNode  ->getCore       ();
+                pDstDesc      = pDstHnd->getDescription();
             }
         }
     }
@@ -124,12 +126,6 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
     const Field *pSrcField = pSrcHnd->getField();
           Field *pDstField = const_cast<Field *>(pDstHnd->getField());
 
-    pSrcContainer = 
-              dynamic_cast<AttachmentContainer *>(pSrcHnd->getContainer());
-
-    pDstContainer = 
-              dynamic_cast<AttachmentContainer *>(pDstHnd->getContainer());
-          
     if(pSrcContainer == NULL || pDstContainer == NULL)
     {
         FWARNING(("addConnection: Failed to obtain field handles for "
@@ -192,7 +188,8 @@ bool subConnection(      OSG::AttachmentContainer *pSrcContainer,
 
                 if(pSrcHnd != NULL && pSrcHnd->isValid() == true)
                 {
-                    pSrcDesc = pSrcHnd->getDescription();
+                    pSrcContainer = pNode  ->getCore       ();
+                    pSrcDesc      = pSrcHnd->getDescription();
                 }
             }
         }
@@ -223,7 +220,8 @@ bool subConnection(      OSG::AttachmentContainer *pSrcContainer,
 
                 if(pDstHnd != NULL && pDstHnd->isValid() == true)
                 {
-                    pDstDesc = pDstHnd->getDescription();
+                    pDstContainer = pNode  ->getCore       ();
+                    pDstDesc      = pDstHnd->getDescription();
                 }
             }
         }
