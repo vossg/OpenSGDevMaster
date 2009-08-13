@@ -211,6 +211,116 @@ typedef GLXContext (*OSGglxCreateContextAttribsARB)(
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name Clamp Color                                                        */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglClampColorARBProc)(GLenum, GLenum);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name Texture 3D                                                         */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglTexImage3D)(
+          GLenum  target,
+          GLint   level,
+          GLenum  internalformat,
+          GLsizei width,
+          GLsizei height,
+          GLsizei depth,
+          GLint   border,
+          GLenum  format,
+          GLenum  type,
+    const GLvoid *pixels);
+
+typedef void (OSG_APIENTRY*OSGglTexSubImage3D)(
+          GLenum    target,
+          GLint     level,
+          GLint     xoffset,
+          GLint     yoffset,
+          GLint     zoffset,
+          GLsizei   width,
+          GLsizei   height,
+          GLsizei   depth,
+          GLenum    format,
+          GLenum    type,
+    const GLvoid   *pixels);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
+/*! \name Texture Compressed                                                 */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglCompressedTexImage1D)(
+          GLenum    target,
+          GLint     level,
+          GLenum    internalformat,
+          GLsizei   width,
+          GLint     border,
+          GLsizei   imageSize,
+    const GLvoid   *pixels);
+
+typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage1D)(
+          GLenum   target,
+          GLint    level,
+          GLint    xoffset,
+          GLsizei  width,
+          GLenum   format,
+          GLsizei  imageSize,
+    const GLvoid  *pixels);
+
+
+typedef void (OSG_APIENTRY *OSGglCompressedTexImage2D)(
+          GLenum   target,
+          GLint    level,
+          GLenum   internalformat,
+          GLsizei  width,
+          GLsizei  height,
+          GLint    border,
+          GLsizei  imageSize,
+    const GLvoid  *pixels);
+
+typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage2D)(
+          GLenum   target,
+          GLint    level,
+          GLint    xoffset,
+          GLint    yoffset,
+          GLsizei  width,
+          GLsizei  height,
+          GLenum   format,
+          GLsizei  imageSize,
+    const GLvoid  *pixels);
+
+
+typedef void (OSG_APIENTRY *OSGglCompressedTexImage3D)(
+          GLenum   target,
+          GLint    level,
+          GLenum   internalformat,
+          GLsizei  width,
+          GLsizei  height,
+          GLsizei  depth,
+          GLint    border,
+          GLsizei  imageSize,
+    const GLvoid  *pixels);
+
+typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage3D)(
+          GLenum   target,
+          GLint    level,
+          GLint    xoffset,
+          GLint    yoffset,
+          GLint    zoffset,
+          GLsizei  width,
+          GLsizei  height,
+          GLsizei  depth,
+          GLenum   format,
+          GLsizei  imageSize,
+    const GLvoid  *pixels);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
 /*! \name GL Function Helper                                                 */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */
@@ -218,20 +328,28 @@ typedef GLXContext (*OSGglxCreateContextAttribsARB)(
 #ifdef OSG_DEBUG
 
 #define OSGGETGLFUNC(FUNCTYPE, FUNCVAR, FUNCID)                         \
- FUNCTYPE FUNCVAR =                                                     \
-    reinterpret_cast<FUNCTYPE>(                                         \
-        pEnv->getWindow()->getFunction(FUNCID));                        \
+    FUNCTYPE FUNCVAR =                                                  \
+        reinterpret_cast<FUNCTYPE>(                                     \
+            pEnv->getWindow()->getFunction(FUNCID));                    \
                                                                         \
- if(FUNCVAR == NULL)                                                    \
-    fprintf(stderr, "Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE)
-        
+    if(FUNCVAR == NULL)                                                 \
+        FFATAL(("Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE))
+
+#define OSGGETGLFUNCBYID(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)             \
+    FUNCTYPE FUNCVAR =                                                  \
+        reinterpret_cast< FUNCTYPE >(                                   \
+            (WINDOW)->getFunction(FUNCID));                             \
+                                                                        \
+    if(FUNCVAR == NULL)                                                 \
+        FFATAL(("Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE))
+
 #define OSGGETGLFUNCBYNAME(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)         \
- FUNCTYPE FUNCVAR =                                                     \
-    reinterpret_cast<FUNCTYPE>(                                         \
-        (WINDOW)->getFunctionByName(FUNCNAME));                         \
+    FUNCTYPE FUNCVAR =                                                  \
+        reinterpret_cast<FUNCTYPE>(                                     \
+            (WINDOW)->getFunctionByName(FUNCNAME));                     \
                                                                         \
- if(FUNCVAR == NULL)                                                    \
-    fprintf(stderr, "Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE)
+    if(FUNCVAR == NULL)                                                 \
+        FFATAL(("Func %s of type %s NULL\n", #FUNCVAR, #FUNCTYPE))
         
 #else
 
@@ -239,6 +357,11 @@ typedef GLXContext (*OSGglxCreateContextAttribsARB)(
     FUNCTYPE FUNCVAR =                                                  \
         reinterpret_cast<FUNCTYPE>(                                     \
             pEnv->getWindow()->getFunction(FUNCID))
+
+#define OSGGETGLFUNCBYID(FUNCTYPE, FUNCVAR, FUNCID, WINDOW)             \
+    FUNCTYPE FUNCVAR =                                                  \
+        reinterpret_cast< FUNCTYPE >(                                   \
+            (WINDOW)->getFunction(FUNCID));
 
 #define OSGGETGLFUNCBYNAME(FUNCTYPE, FUNCVAR, FUNCNAME, WINDOW)         \
  FUNCTYPE FUNCVAR =                                                     \
