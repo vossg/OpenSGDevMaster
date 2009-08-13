@@ -1,0 +1,9 @@
+
+DeferredShadingStage
+====================
+
+!! This is currently work in progress and interfaces in here are
+   subject to change. !!
+
+
+See Examples/Advanced/DeferredShading for example program and shader code.
