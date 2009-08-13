@@ -130,7 +130,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
         StateSorter that keeps the tree for that sort key
      */
     typedef std::map<Int32, 
-	             TreeBuilderBase *>                 BuildKeyMap;
+	                 TreeBuilderBase *>                 BuildKeyMap;
     typedef std::map<Int32, 
                      TreeBuilderBase *>::iterator       BuildKeyMapIt;
     typedef std::map<Int32, 
@@ -256,9 +256,16 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     
     void initFrom                (RenderPartition *pSource,
                                   RenderPartition *pInitial,
-                                  Int32            uiCopyOnPush);
+                                  Int32            uiCopyOnPush  );
 
-    void initVPMatricesFromCamera(void                         );
+    void initVPMatricesFromCamera(void                           );
+
+    void setVPCameraMatrices     (const Matrixr &mFullprojection,
+                                  const Matrixr &mProjection,
+                                  const Matrixr &mProjectionTrans,
+                                  const Matrixr &mViewing,
+                                  const Matrixr &mToWorld,
+                                  const Matrixr &mWorldToScreen  );
 
     /*------------------------- your_operators ------------------------------*/
 
@@ -484,6 +491,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
     Node *getNode(void       );
 
     /*-------------------------- comparison ---------------------------------*/
+
+    bool pushShaderState(State *pState);
 
     // Roots
 
