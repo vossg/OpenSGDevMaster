@@ -7,7 +7,8 @@ OSG_SELECT_PROJECT()
 ##############################################################################
 
 # dependencies - OpenSG
-SET(${PROJECT_NAME}_DEP_OSG_LIB OSGState)
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGState
+                                OSGWindow)
 SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
                                      OSGUtil
                                      OSGWindowGLUT)
