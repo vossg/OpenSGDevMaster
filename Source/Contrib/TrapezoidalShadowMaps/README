@@ -17,6 +17,9 @@ T.S. Tan (published in "Proceedings of Eurographics Symposium on Rendering",
 June 2004). See the authors website http://www.comp.nus.edu.sg/~tants/tsm.html
 
 
+!! Please note that this is work in progress, so changes to the
+   interface or details of the implementation are possible !!
+
 License:
 
 The code is under the same license as the rest of the OpenSG codebase (LGPL), BUT

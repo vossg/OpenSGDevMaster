@@ -76,9 +76,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \class OSG::TrapezoidalShadowMapEngine
     Implements Trapezoidal Shadow Maps.
-    The algorithm implemented is potentially coverd by one ore more patents held
-    by National Univeristy of Singapore or others.
-    Please contact the authors to determine terms of use.
+    See http://www.comp.nus.edu.sg/~tants/tsm.html for more information.
  */
 
 /***************************************************************************\
@@ -137,14 +135,10 @@ TrapezoidalShadowMapEngineBase::TypeObject TrapezoidalShadowMapEngineBase::_type
     "    isNodeCore=\"false\"\n"
     ">\n"
     "  Implements Trapezoidal Shadow Maps.\n"
-    "  The algorithm implemented is potentially coverd by one ore more patents held\n"
-    "  by National Univeristy of Singapore or others.\n"
-    "  Please contact the authors to determine terms of use.\n"
+    "  See http://www.comp.nus.edu.sg/~tants/tsm.html for more information.\n"
     "</FieldContainer>\n",
     "Implements Trapezoidal Shadow Maps.\n"
-    "The algorithm implemented is potentially coverd by one ore more patents held\n"
-    "by National Univeristy of Singapore or others.\n"
-    "Please contact the authors to determine terms of use.\n"
+    "See http://www.comp.nus.edu.sg/~tants/tsm.html for more information.\n"
     );
 
 /*------------------------------ get -----------------------------------*/

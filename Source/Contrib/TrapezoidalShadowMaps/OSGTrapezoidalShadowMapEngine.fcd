@@ -11,7 +11,5 @@
     isNodeCore="false"
 >
   Implements Trapezoidal Shadow Maps.
-  The algorithm implemented is potentially coverd by one ore more patents held
-  by National Univeristy of Singapore or others.
-  Please contact the authors to determine terms of use.
+  See http://www.comp.nus.edu.sg/~tants/tsm.html for more information.
 </FieldContainer>
