@@ -125,6 +125,12 @@ class OSG_GROUP_DLLMAPPING SimpleStage : public SimpleStageBase
     ActionBase::ResultE renderEnter(Action *action);
     ActionBase::ResultE renderLeave(Action *action);
 
+    void                setupPartition(RenderPartition   *pPart,
+                                       Window            *pWin,
+                                       FrameBufferObject *pTarget,
+                                       Camera            *pCam,
+                                       Background        *pBack   );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */

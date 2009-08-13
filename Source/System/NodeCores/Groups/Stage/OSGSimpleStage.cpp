@@ -119,80 +119,28 @@ ActionBase::ResultE SimpleStage::renderEnter(Action *action)
         return ActionBase::Continue;
 
     RenderPartition   *pParentPart = a   ->getActivePartition();
-    FrameBufferObject *pTarget     = this->getRenderTarget();
-
-    Background        *pBack   = this->getBackground();
-    Viewport          *pPort   = a->getViewport();
-    Window            *pWin    = a->getWindow  ();
+    Window            *pWin        = a   ->getWindow         ();
+    FrameBufferObject *pTarget     = this->getRenderTarget   ();
+    Camera            *pCam        = this->getCamera         ();
+    Background        *pBack       = this->getBackground     ();
 
     if(pTarget == NULL && this->getInheritedTarget() == true)
     {
         pTarget = pParentPart->getRenderTarget();
     }
 
+    if(pCam == NULL)
+    {
+        SWARNING << "SimpleStage::renderEnter: No camera!" << std::endl;
+    }
+
     a->pushPartition();
     
     RenderPartition   *pPart   = a->getActivePartition();
-    Camera            *pCam    = this->getCamera();
     
-    pPart->setRenderTarget(pTarget);
-    
-//    pPart->setViewport(pPort);
-    pPart->setWindow  (pWin );
-    
-    if(pTarget != NULL)
-    {
-        pPart->calcViewportDimension(this->getLeft  (),
-                                     this->getBottom(),
-                                     this->getRight (),
-                                     this->getTop   (),
-                                     
-                                     pTarget->getWidth    (),
-                                     pTarget->getHeight   ());
-    }
-    else if(pWin != NULL)
-    {
-        pPart->calcViewportDimension(this->getLeft  (),
-                                     this->getBottom(),
-                                     this->getRight (),
-                                     this->getTop   (),
-                                     
-                                     pWin->getWidth   (),
-                                     pWin->getHeight  ());
-    }
-    
-    if(pCam != NULL)
-    {
-        Matrix m, t;
-        
-        // set the projection
-        pCam->getProjection          (m, 
-                                      pPart->getViewportWidth (), 
-                                      pPart->getViewportHeight());
-        
-        pCam->getProjectionTranslation(t, 
-                                       pPart->getViewportWidth (), 
-                                       pPart->getViewportHeight());
-        
-        pPart->setupProjection(m, t);
-        
-        pCam->getViewing(m, 
-                         pPart->getViewportWidth (),
-                         pPart->getViewportHeight());
-        
-        
-        pPart->setupViewing(m              );
-        
-        pPart->setNear     (pCam->getNear());
-        pPart->setFar      (pCam->getFar ());
-        
-        pPart->calcFrustum (               );
-        
-    }
-    
-    Inherited::addCallbacks(pPart);
+    setupPartition(pPart, pWin, pTarget, pCam, pBack);
 
-    pPart->setBackground(pBack);
+    Inherited::addCallbacks(pPart);
 
     return ActionBase::Continue;
 }
@@ -231,3 +179,67 @@ void SimpleStage::initMethod(InitPhase ePhase)
             reinterpret_cast<Action::Callback>(&SimpleStage::renderLeave));
     }
 }
+
+void SimpleStage::setupPartition(
+    RenderPartition *pPart, Window     *pWin, FrameBufferObject *pTarget,
+    Camera          *pCam,  Background *pBack                            )
+{
+    pPart->setRenderTarget(pTarget);
+    pPart->setWindow      (pWin   );
+
+    if(pTarget != NULL)
+    {
+        pPart->calcViewportDimension(this->getLeft  (),
+                                     this->getBottom(),
+                                     this->getRight (),
+                                     this->getTop   (),
+
+                                     pTarget->getWidth    (),
+                                     pTarget->getHeight   ());
+    }
+    else if(pWin != NULL)
+    {
+        pPart->calcViewportDimension(this->getLeft  (),
+                                     this->getBottom(),
+                                     this->getRight (),
+                                     this->getTop   (),
+
+                                     pWin->getWidth   (),
+                                     pWin->getHeight  ());
+    }
+    else
+    {
+        SWARNING << "SimpleStage::setupPartition: No target or window."
+                 << std::endl;
+    }
+
+    if(pCam != NULL)
+    {
+        Matrix m, t;
+
+        // set the projection
+        pCam->getProjection          (m,
+                                      pPart->getViewportWidth (),
+                                      pPart->getViewportHeight());
+
+        pCam->getProjectionTranslation(t,
+                                       pPart->getViewportWidth (),
+                                       pPart->getViewportHeight());
+
+        pPart->setupProjection(m, t);
+
+        pCam->getViewing(m,
+                         pPart->getViewportWidth (),
+                         pPart->getViewportHeight());
+
+        pPart->setupViewing(m              );
+
+        pPart->setNear     (pCam->getNear());
+        pPart->setFar      (pCam->getFar ());
+
+        pPart->calcFrustum (               );
+    }
+
+    pPart->setBackground(pBack);
+}
+
