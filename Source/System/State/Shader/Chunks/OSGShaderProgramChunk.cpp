@@ -187,20 +187,20 @@ void ShaderProgramChunk::addShader(ShaderProgram * const value)
 void ShaderProgramChunk::activate  (DrawEnv    *pEnv,              
                                     UInt32      uiIdx)
 {
-    fprintf(stderr, "ShaderProgramChunk::activate\n");
+    SFATAL << "ShaderProgramChunk::activate" << std::endl;
 }
 
 void ShaderProgramChunk::changeFrom(DrawEnv    *pEnv, 
                                     StateChunk *pOld, 
                                     UInt32      uiIdx)
 {
-    fprintf(stderr, "ShaderProgramChunk::changeFrom\n");
+    SFATAL << "ShaderProgramChunk::changeFrom" << std::endl;
 }
 
 void ShaderProgramChunk::deactivate(DrawEnv    *pEnv,              
                                     UInt32      uiIdx)
 {
-    fprintf(stderr, "ShaderProgramChunk::deactivate\n");
+    SFATAL << "ShaderProgramChunk::deactivate" << std::endl;
 }
 
 OSG_END_NAMESPACE
