@@ -1,0 +1,25 @@
+
+README for library OSGContribTrapezoidalShadowMaps
+==================================================
+
+Name:           ContribTrapezoidalShadowMaps
+License:        special, see below
+Maintainer:     Carsten Neumann
+Initial Author: Carsten Neumann
+Added:          2009-08-13
+
+Description:
+
+This library implements a specialization of ShaderShadowMapEngine that
+uses and algorithm based on
+"Anti-aliasing and Continuity with Trapezoidal Shadow Maps" by T. Martin and
+T.S. Tan (published in "Proceedings of Eurographics Symposium on Rendering",
+June 2004). See the authors website http://www.comp.nus.edu.sg/~tants/tsm.html
+
+
+License:
+
+The code is under the same license as the rest of the OpenSG codebase (LGPL), BUT
+there is the potential that it is covered by one or more patents held by the
+National University of Singapore. If you wish to use this code, please contact
+the authors to determine the terms of use.

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+    name="TrapezoidalShadowMapEngine"
+    parent="ShaderShadowMapEngine"
+    library="ContribTrapezoidalShadowMaps"
+    structure="concrete"
+    pointerfieldtypes="both"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    isNodeCore="false"
+>
+  Implements Trapezoidal Shadow Maps.
+  The algorithm implemented is potentially coverd by one ore more patents held
+  by National Univeristy of Singapore or others.
+  Please contact the authors to determine terms of use.
+</FieldContainer>
