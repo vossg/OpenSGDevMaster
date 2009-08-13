@@ -65,9 +65,8 @@
 
 #include "OSGLightEngine.h" // Parent
 
-#include "OSGFrameBufferObjectFields.h" // RenderTarget type
+#include "OSGTextureObjChunkFields.h"   // ShadowTexChunk type
 #include "OSGSysFields.h"               // Width type
-#include "OSGBaseFields.h"              // ShadowColor type
 
 #include "OSGShadowMapEngineFields.h"
 
@@ -97,36 +96,36 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
 
     enum
     {
-        RenderTargetFieldId = Inherited::NextFieldId,
-        WidthFieldId = RenderTargetFieldId + 1,
+        ShadowTexChunkFieldId = Inherited::NextFieldId,
+        WidthFieldId = ShadowTexChunkFieldId + 1,
         HeightFieldId = WidthFieldId + 1,
-        ShadowColorFieldId = HeightFieldId + 1,
-        OffsetBiasFieldId = ShadowColorFieldId + 1,
+        OffsetBiasFieldId = HeightFieldId + 1,
         OffsetFactorFieldId = OffsetBiasFieldId + 1,
-        NextFieldId = OffsetFactorFieldId + 1
+        ShadowTravMaskFieldId = OffsetFactorFieldId + 1,
+        NextFieldId = ShadowTravMaskFieldId + 1
     };
 
-    static const OSG::BitVector RenderTargetFieldMask =
-        (TypeTraits<BitVector>::One << RenderTargetFieldId);
+    static const OSG::BitVector ShadowTexChunkFieldMask =
+        (TypeTraits<BitVector>::One << ShadowTexChunkFieldId);
     static const OSG::BitVector WidthFieldMask =
         (TypeTraits<BitVector>::One << WidthFieldId);
     static const OSG::BitVector HeightFieldMask =
         (TypeTraits<BitVector>::One << HeightFieldId);
-    static const OSG::BitVector ShadowColorFieldMask =
-        (TypeTraits<BitVector>::One << ShadowColorFieldId);
     static const OSG::BitVector OffsetBiasFieldMask =
         (TypeTraits<BitVector>::One << OffsetBiasFieldId);
     static const OSG::BitVector OffsetFactorFieldMask =
         (TypeTraits<BitVector>::One << OffsetFactorFieldId);
+    static const OSG::BitVector ShadowTravMaskFieldMask =
+        (TypeTraits<BitVector>::One << ShadowTravMaskFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecFrameBufferObjectPtr SFRenderTargetType;
+    typedef SFUnrecTextureObjChunkPtr SFShadowTexChunkType;
     typedef SFInt32           SFWidthType;
     typedef SFInt32           SFHeightType;
-    typedef SFColor4f         SFShadowColorType;
     typedef SFReal32          SFOffsetBiasType;
     typedef SFReal32          SFOffsetFactorType;
+    typedef SFUInt32          SFShadowTravMaskType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -151,8 +150,8 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecFrameBufferObjectPtr *getSFRenderTarget   (void) const;
-                  SFUnrecFrameBufferObjectPtr *editSFRenderTarget   (void);
+            const SFUnrecTextureObjChunkPtr *getSFShadowTexChunk (void) const;
+                  SFUnrecTextureObjChunkPtr *editSFShadowTexChunk (void);
 
                   SFInt32             *editSFWidth          (void);
             const SFInt32             *getSFWidth           (void) const;
@@ -160,17 +159,17 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
                   SFInt32             *editSFHeight         (void);
             const SFInt32             *getSFHeight          (void) const;
 
-                  SFColor4f           *editSFShadowColor    (void);
-            const SFColor4f           *getSFShadowColor     (void) const;
-
                   SFReal32            *editSFOffsetBias     (void);
             const SFReal32            *getSFOffsetBias      (void) const;
 
                   SFReal32            *editSFOffsetFactor   (void);
             const SFReal32            *getSFOffsetFactor    (void) const;
 
+                  SFUInt32            *editSFShadowTravMask (void);
+            const SFUInt32            *getSFShadowTravMask  (void) const;
 
-                  FrameBufferObject * getRenderTarget   (void) const;
+
+                  TextureObjChunk * getShadowTexChunk (void) const;
 
                   Int32               &editWidth          (void);
                   Int32                getWidth           (void) const;
@@ -178,26 +177,26 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
                   Int32               &editHeight         (void);
                   Int32                getHeight          (void) const;
 
-                  Color4f             &editShadowColor    (void);
-            const Color4f             &getShadowColor     (void) const;
-
                   Real32              &editOffsetBias     (void);
                   Real32               getOffsetBias      (void) const;
 
                   Real32              &editOffsetFactor   (void);
                   Real32               getOffsetFactor    (void) const;
 
+                  UInt32              &editShadowTravMask (void);
+                  UInt32               getShadowTravMask  (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setRenderTarget   (FrameBufferObject * const value);
+            void setShadowTexChunk (TextureObjChunk * const value);
             void setWidth          (const Int32 value);
             void setHeight         (const Int32 value);
-            void setShadowColor    (const Color4f &value);
             void setOffsetBias     (const Real32 value);
             void setOffsetFactor   (const Real32 value);
+            void setShadowTravMask (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,12 +234,12 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecFrameBufferObjectPtr _sfRenderTarget;
+    SFUnrecTextureObjChunkPtr _sfShadowTexChunk;
     SFInt32           _sfWidth;
     SFInt32           _sfHeight;
-    SFColor4f         _sfShadowColor;
     SFReal32          _sfOffsetBias;
     SFReal32          _sfOffsetFactor;
+    SFUInt32          _sfShadowTravMask;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -269,18 +268,18 @@ class OSG_GROUP_DLLMAPPING ShadowMapEngineBase : public ShadowMapEngineParent
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
-    EditFieldHandlePtr editHandleRenderTarget   (void);
+    GetFieldHandlePtr  getHandleShadowTexChunk  (void) const;
+    EditFieldHandlePtr editHandleShadowTexChunk (void);
     GetFieldHandlePtr  getHandleWidth           (void) const;
     EditFieldHandlePtr editHandleWidth          (void);
     GetFieldHandlePtr  getHandleHeight          (void) const;
     EditFieldHandlePtr editHandleHeight         (void);
-    GetFieldHandlePtr  getHandleShadowColor     (void) const;
-    EditFieldHandlePtr editHandleShadowColor    (void);
     GetFieldHandlePtr  getHandleOffsetBias      (void) const;
     EditFieldHandlePtr editHandleOffsetBias     (void);
     GetFieldHandlePtr  getHandleOffsetFactor    (void) const;
     EditFieldHandlePtr editHandleOffsetFactor   (void);
+    GetFieldHandlePtr  getHandleShadowTravMask  (void) const;
+    EditFieldHandlePtr editHandleShadowTravMask (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

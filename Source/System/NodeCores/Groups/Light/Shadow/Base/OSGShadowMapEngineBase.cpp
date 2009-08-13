@@ -58,7 +58,7 @@
 
 
 
-#include "OSGFrameBufferObject.h"       // RenderTarget Class
+#include "OSGTextureObjChunk.h"         // ShadowTexChunk Class
 
 #include "OSGShadowMapEngineBase.h"
 #include "OSGShadowMapEngine.h"
@@ -83,8 +83,9 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var FrameBufferObject * ShadowMapEngineBase::_sfRenderTarget
-    
+/*! \var TextureObjChunk * ShadowMapEngineBase::_sfShadowTexChunk
+    Holds the generated shadow texture. If you leave this field empty an
+    appropriate object will be created the first time the engine runs.
 */
 
 /*! \var Int32           ShadowMapEngineBase::_sfWidth
@@ -95,16 +96,16 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var Color4f         ShadowMapEngineBase::_sfShadowColor
-    
-*/
-
 /*! \var Real32          ShadowMapEngineBase::_sfOffsetBias
     
 */
 
 /*! \var Real32          ShadowMapEngineBase::_sfOffsetFactor
     
+*/
+
+/*! \var UInt32          ShadowMapEngineBase::_sfShadowTravMask
+    Traversal mask when generating the shadow map.  
 */
 
 
@@ -137,15 +138,16 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecFrameBufferObjectPtr::Description(
-        SFUnrecFrameBufferObjectPtr::getClassType(),
-        "renderTarget",
-        "",
-        RenderTargetFieldId, RenderTargetFieldMask,
+    pDesc = new SFUnrecTextureObjChunkPtr::Description(
+        SFUnrecTextureObjChunkPtr::getClassType(),
+        "shadowTexChunk",
+        "Holds the generated shadow texture. If you leave this field empty an\n"
+        "appropriate object will be created the first time the engine runs.\n",
+        ShadowTexChunkFieldId, ShadowTexChunkFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleRenderTarget),
-        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleRenderTarget));
+        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleShadowTexChunk),
+        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleShadowTexChunk));
 
     oType.addInitialDesc(pDesc);
 
@@ -173,18 +175,6 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(),
-        "shadowColor",
-        "",
-        ShadowColorFieldId, ShadowColorFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleShadowColor),
-        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleShadowColor));
-
-    oType.addInitialDesc(pDesc);
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "offsetBias",
@@ -206,6 +196,18 @@ void ShadowMapEngineBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleOffsetFactor),
         static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleOffsetFactor));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "shadowTravMask",
+        "Traversal mask when generating the shadow map.  \n",
+        ShadowTravMaskFieldId, ShadowTravMaskFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&ShadowMapEngine::editHandleShadowTravMask),
+        static_cast<FieldGetMethodSig >(&ShadowMapEngine::getHandleShadowTravMask));
 
     oType.addInitialDesc(pDesc);
 }
@@ -235,15 +237,18 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(
     "\tparentsystemcomponent=\"true\"\n"
     "    isNodeCore=\"false\"\n"
     ">\n"
-    "\t<Field\n"
-    "\t\tname=\"renderTarget\"\n"
-    "\t\ttype=\"FrameBufferObjectPtr\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"NULL\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "        <Field\n"
+    "                name=\"shadowTexChunk\"\n"
+    "                category=\"pointer\"\n"
+    "                type=\"TextureObjChunk\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                defaultValue=\"NULL\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        Holds the generated shadow texture. If you leave this field empty an\n"
+    "        appropriate object will be created the first time the engine runs.\n"
+    "        </Field>\n"
     "\t<Field\n"
     "\t\tname=\"width\"\n"
     "\t\ttype=\"Int32\"\n"
@@ -259,15 +264,6 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"512\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"shadowColor\"\n"
-    "\t\ttype=\"Color4f\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"Color4f(0.f, 0.f, 0.f, 1.f)\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -289,6 +285,16 @@ ShadowMapEngineBase::TypeObject ShadowMapEngineBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "        <Field\n"
+    "           name=\"shadowTravMask\"\n"
+    "           type=\"UInt32\"\n"
+    "           cardinality=\"single\"\n"
+    "           visibility=\"external\"\n"
+    "           defaultValue=\"TypeTraits&lt;UInt32&gt;::BitsSet\"\n"
+    "           access=\"public\"\n"
+    "        >\n"
+    "        Traversal mask when generating the shadow map.  \n"
+    "        </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -313,17 +319,17 @@ UInt32 ShadowMapEngineBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-//! Get the ShadowMapEngine::_sfRenderTarget field.
-const SFUnrecFrameBufferObjectPtr *ShadowMapEngineBase::getSFRenderTarget(void) const
+//! Get the ShadowMapEngine::_sfShadowTexChunk field.
+const SFUnrecTextureObjChunkPtr *ShadowMapEngineBase::getSFShadowTexChunk(void) const
 {
-    return &_sfRenderTarget;
+    return &_sfShadowTexChunk;
 }
 
-SFUnrecFrameBufferObjectPtr *ShadowMapEngineBase::editSFRenderTarget   (void)
+SFUnrecTextureObjChunkPtr *ShadowMapEngineBase::editSFShadowTexChunk (void)
 {
-    editSField(RenderTargetFieldMask);
+    editSField(ShadowTexChunkFieldMask);
 
-    return &_sfRenderTarget;
+    return &_sfShadowTexChunk;
 }
 
 SFInt32 *ShadowMapEngineBase::editSFWidth(void)
@@ -349,19 +355,6 @@ SFInt32 *ShadowMapEngineBase::editSFHeight(void)
 const SFInt32 *ShadowMapEngineBase::getSFHeight(void) const
 {
     return &_sfHeight;
-}
-
-
-SFColor4f *ShadowMapEngineBase::editSFShadowColor(void)
-{
-    editSField(ShadowColorFieldMask);
-
-    return &_sfShadowColor;
-}
-
-const SFColor4f *ShadowMapEngineBase::getSFShadowColor(void) const
-{
-    return &_sfShadowColor;
 }
 
 
@@ -391,6 +384,19 @@ const SFReal32 *ShadowMapEngineBase::getSFOffsetFactor(void) const
 }
 
 
+SFUInt32 *ShadowMapEngineBase::editSFShadowTravMask(void)
+{
+    editSField(ShadowTravMaskFieldMask);
+
+    return &_sfShadowTravMask;
+}
+
+const SFUInt32 *ShadowMapEngineBase::getSFShadowTravMask(void) const
+{
+    return &_sfShadowTravMask;
+}
+
+
 
 
 
@@ -401,9 +407,9 @@ UInt32 ShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+    if(FieldBits::NoField != (ShadowTexChunkFieldMask & whichField))
     {
-        returnValue += _sfRenderTarget.getBinSize();
+        returnValue += _sfShadowTexChunk.getBinSize();
     }
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
@@ -413,10 +419,6 @@ UInt32 ShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfHeight.getBinSize();
     }
-    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
-    {
-        returnValue += _sfShadowColor.getBinSize();
-    }
     if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
     {
         returnValue += _sfOffsetBias.getBinSize();
@@ -424,6 +426,10 @@ UInt32 ShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
     {
         returnValue += _sfOffsetFactor.getBinSize();
+    }
+    if(FieldBits::NoField != (ShadowTravMaskFieldMask & whichField))
+    {
+        returnValue += _sfShadowTravMask.getBinSize();
     }
 
     return returnValue;
@@ -434,9 +440,9 @@ void ShadowMapEngineBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+    if(FieldBits::NoField != (ShadowTexChunkFieldMask & whichField))
     {
-        _sfRenderTarget.copyToBin(pMem);
+        _sfShadowTexChunk.copyToBin(pMem);
     }
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
@@ -446,10 +452,6 @@ void ShadowMapEngineBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfHeight.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
-    {
-        _sfShadowColor.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
     {
         _sfOffsetBias.copyToBin(pMem);
@@ -458,6 +460,10 @@ void ShadowMapEngineBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfOffsetFactor.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ShadowTravMaskFieldMask & whichField))
+    {
+        _sfShadowTravMask.copyToBin(pMem);
+    }
 }
 
 void ShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
@@ -465,9 +471,9 @@ void ShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+    if(FieldBits::NoField != (ShadowTexChunkFieldMask & whichField))
     {
-        _sfRenderTarget.copyFromBin(pMem);
+        _sfShadowTexChunk.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WidthFieldMask & whichField))
     {
@@ -477,10 +483,6 @@ void ShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfHeight.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
-    {
-        _sfShadowColor.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
     {
         _sfOffsetBias.copyFromBin(pMem);
@@ -488,6 +490,10 @@ void ShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
     {
         _sfOffsetFactor.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ShadowTravMaskFieldMask & whichField))
+    {
+        _sfShadowTravMask.copyFromBin(pMem);
     }
 }
 
@@ -498,23 +504,23 @@ void ShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 
 ShadowMapEngineBase::ShadowMapEngineBase(void) :
     Inherited(),
-    _sfRenderTarget           (NULL),
+    _sfShadowTexChunk         (NULL),
     _sfWidth                  (Int32(512)),
     _sfHeight                 (Int32(512)),
-    _sfShadowColor            (Color4f(Color4f(0.f, 0.f, 0.f, 1.f))),
     _sfOffsetBias             (Real32(4.f)),
-    _sfOffsetFactor           (Real32(10.f))
+    _sfOffsetFactor           (Real32(10.f)),
+    _sfShadowTravMask         (UInt32(TypeTraits<UInt32>::BitsSet))
 {
 }
 
 ShadowMapEngineBase::ShadowMapEngineBase(const ShadowMapEngineBase &source) :
     Inherited(source),
-    _sfRenderTarget           (NULL),
+    _sfShadowTexChunk         (NULL),
     _sfWidth                  (source._sfWidth                  ),
     _sfHeight                 (source._sfHeight                 ),
-    _sfShadowColor            (source._sfShadowColor            ),
     _sfOffsetBias             (source._sfOffsetBias             ),
-    _sfOffsetFactor           (source._sfOffsetFactor           )
+    _sfOffsetFactor           (source._sfOffsetFactor           ),
+    _sfShadowTravMask         (source._sfShadowTravMask         )
 {
 }
 
@@ -533,34 +539,34 @@ void ShadowMapEngineBase::onCreate(const ShadowMapEngine *source)
     {
         ShadowMapEngine *pThis = static_cast<ShadowMapEngine *>(this);
 
-        pThis->setRenderTarget(source->getRenderTarget());
+        pThis->setShadowTexChunk(source->getShadowTexChunk());
     }
 }
 
-GetFieldHandlePtr ShadowMapEngineBase::getHandleRenderTarget    (void) const
+GetFieldHandlePtr ShadowMapEngineBase::getHandleShadowTexChunk  (void) const
 {
-    SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
-        new  SFUnrecFrameBufferObjectPtr::GetHandle(
-             &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId),
+    SFUnrecTextureObjChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecTextureObjChunkPtr::GetHandle(
+             &_sfShadowTexChunk,
+             this->getType().getFieldDesc(ShadowTexChunkFieldId),
              const_cast<ShadowMapEngineBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr ShadowMapEngineBase::editHandleRenderTarget   (void)
+EditFieldHandlePtr ShadowMapEngineBase::editHandleShadowTexChunk (void)
 {
-    SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
-        new  SFUnrecFrameBufferObjectPtr::EditHandle(
-             &_sfRenderTarget,
-             this->getType().getFieldDesc(RenderTargetFieldId),
+    SFUnrecTextureObjChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecTextureObjChunkPtr::EditHandle(
+             &_sfShadowTexChunk,
+             this->getType().getFieldDesc(ShadowTexChunkFieldId),
              this));
 
     returnValue->setSetMethod(
-        boost::bind(&ShadowMapEngine::setRenderTarget,
+        boost::bind(&ShadowMapEngine::setShadowTexChunk,
                     static_cast<ShadowMapEngine *>(this), _1));
 
-    editSField(RenderTargetFieldMask);
+    editSField(ShadowTexChunkFieldMask);
 
     return returnValue;
 }
@@ -615,31 +621,6 @@ EditFieldHandlePtr ShadowMapEngineBase::editHandleHeight         (void)
     return returnValue;
 }
 
-GetFieldHandlePtr ShadowMapEngineBase::getHandleShadowColor     (void) const
-{
-    SFColor4f::GetHandlePtr returnValue(
-        new  SFColor4f::GetHandle(
-             &_sfShadowColor,
-             this->getType().getFieldDesc(ShadowColorFieldId),
-             const_cast<ShadowMapEngineBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ShadowMapEngineBase::editHandleShadowColor    (void)
-{
-    SFColor4f::EditHandlePtr returnValue(
-        new  SFColor4f::EditHandle(
-             &_sfShadowColor,
-             this->getType().getFieldDesc(ShadowColorFieldId),
-             this));
-
-
-    editSField(ShadowColorFieldMask);
-
-    return returnValue;
-}
-
 GetFieldHandlePtr ShadowMapEngineBase::getHandleOffsetBias      (void) const
 {
     SFReal32::GetHandlePtr returnValue(
@@ -690,6 +671,31 @@ EditFieldHandlePtr ShadowMapEngineBase::editHandleOffsetFactor   (void)
     return returnValue;
 }
 
+GetFieldHandlePtr ShadowMapEngineBase::getHandleShadowTravMask  (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfShadowTravMask,
+             this->getType().getFieldDesc(ShadowTravMaskFieldId),
+             const_cast<ShadowMapEngineBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr ShadowMapEngineBase::editHandleShadowTravMask (void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfShadowTravMask,
+             this->getType().getFieldDesc(ShadowTravMaskFieldId),
+             this));
+
+
+    editSField(ShadowTravMaskFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void ShadowMapEngineBase::execSyncV(      FieldContainer    &oFrom,
@@ -714,7 +720,7 @@ void ShadowMapEngineBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
-    static_cast<ShadowMapEngine *>(this)->setRenderTarget(NULL);
+    static_cast<ShadowMapEngine *>(this)->setShadowTexChunk(NULL);
 
 
 }

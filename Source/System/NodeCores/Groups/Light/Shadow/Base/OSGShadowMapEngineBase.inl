@@ -74,20 +74,20 @@ OSG::UInt16 ShadowMapEngineBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the ShadowMapEngine::_sfRenderTarget field.
+//! Get the value of the ShadowMapEngine::_sfShadowTexChunk field.
 inline
-FrameBufferObject * ShadowMapEngineBase::getRenderTarget(void) const
+TextureObjChunk * ShadowMapEngineBase::getShadowTexChunk(void) const
 {
-    return _sfRenderTarget.getValue();
+    return _sfShadowTexChunk.getValue();
 }
 
-//! Set the value of the ShadowMapEngine::_sfRenderTarget field.
+//! Set the value of the ShadowMapEngine::_sfShadowTexChunk field.
 inline
-void ShadowMapEngineBase::setRenderTarget(FrameBufferObject * const value)
+void ShadowMapEngineBase::setShadowTexChunk(TextureObjChunk * const value)
 {
-    editSField(RenderTargetFieldMask);
+    editSField(ShadowTexChunkFieldMask);
 
-    _sfRenderTarget.setValue(value);
+    _sfShadowTexChunk.setValue(value);
 }
 //! Get the value of the ShadowMapEngine::_sfWidth field.
 
@@ -139,31 +139,6 @@ void ShadowMapEngineBase::setHeight(const Int32 value)
 
     _sfHeight.setValue(value);
 }
-//! Get the value of the ShadowMapEngine::_sfShadowColor field.
-
-inline
-Color4f &ShadowMapEngineBase::editShadowColor(void)
-{
-    editSField(ShadowColorFieldMask);
-
-    return _sfShadowColor.getValue();
-}
-
-//! Get the value of the ShadowMapEngine::_sfShadowColor field.
-inline
-const Color4f &ShadowMapEngineBase::getShadowColor(void) const
-{
-    return _sfShadowColor.getValue();
-}
-
-//! Set the value of the ShadowMapEngine::_sfShadowColor field.
-inline
-void ShadowMapEngineBase::setShadowColor(const Color4f &value)
-{
-    editSField(ShadowColorFieldMask);
-
-    _sfShadowColor.setValue(value);
-}
 //! Get the value of the ShadowMapEngine::_sfOffsetBias field.
 
 inline
@@ -214,6 +189,31 @@ void ShadowMapEngineBase::setOffsetFactor(const Real32 value)
 
     _sfOffsetFactor.setValue(value);
 }
+//! Get the value of the ShadowMapEngine::_sfShadowTravMask field.
+
+inline
+UInt32 &ShadowMapEngineBase::editShadowTravMask(void)
+{
+    editSField(ShadowTravMaskFieldMask);
+
+    return _sfShadowTravMask.getValue();
+}
+
+//! Get the value of the ShadowMapEngine::_sfShadowTravMask field.
+inline
+      UInt32  ShadowMapEngineBase::getShadowTravMask(void) const
+{
+    return _sfShadowTravMask.getValue();
+}
+
+//! Set the value of the ShadowMapEngine::_sfShadowTravMask field.
+inline
+void ShadowMapEngineBase::setShadowTravMask(const UInt32 value)
+{
+    editSField(ShadowTravMaskFieldMask);
+
+    _sfShadowTravMask.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -226,8 +226,8 @@ void ShadowMapEngineBase::execSync (      ShadowMapEngineBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
-        _sfRenderTarget.syncWith(pFrom->_sfRenderTarget);
+    if(FieldBits::NoField != (ShadowTexChunkFieldMask & whichField))
+        _sfShadowTexChunk.syncWith(pFrom->_sfShadowTexChunk);
 
     if(FieldBits::NoField != (WidthFieldMask & whichField))
         _sfWidth.syncWith(pFrom->_sfWidth);
@@ -235,14 +235,14 @@ void ShadowMapEngineBase::execSync (      ShadowMapEngineBase *pFrom,
     if(FieldBits::NoField != (HeightFieldMask & whichField))
         _sfHeight.syncWith(pFrom->_sfHeight);
 
-    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
-        _sfShadowColor.syncWith(pFrom->_sfShadowColor);
-
     if(FieldBits::NoField != (OffsetBiasFieldMask & whichField))
         _sfOffsetBias.syncWith(pFrom->_sfOffsetBias);
 
     if(FieldBits::NoField != (OffsetFactorFieldMask & whichField))
         _sfOffsetFactor.syncWith(pFrom->_sfOffsetFactor);
+
+    if(FieldBits::NoField != (ShadowTravMaskFieldMask & whichField))
+        _sfShadowTravMask.syncWith(pFrom->_sfShadowTravMask);
 }
 #endif
 

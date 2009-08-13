@@ -374,11 +374,11 @@ void SimpleShadowMapEngine::doLightPass(Light         *pLight,
 {
     pAction->pushPartition();
 
-    RenderPartition   *pPart   = pAction->getActivePartition();
-    Viewport          *pPort   = pAction->getViewport       ();
-    Background        *pBack   = pAction->getBackground     ();
+    RenderPartition   *pPart   = pAction    ->getActivePartition();
+    Viewport          *pPort   = pAction    ->getViewport       ();
+    Background        *pBack   = pAction    ->getBackground     ();
 
-    FrameBufferObject *pTarget = this->getRenderTarget();
+    FrameBufferObject *pTarget = pEngineData->getRenderTarget();
 
     if(pTarget == NULL)
     {
@@ -387,7 +387,7 @@ void SimpleShadowMapEngine::doLightPass(Light         *pLight,
         pFBO->setWidth (this->getWidth ());
         pFBO->setHeight(this->getHeight());
 
-        setRenderTarget(pFBO);
+        pEngineData->setRenderTarget(pFBO);
 
         pTarget = pFBO;
     }
@@ -541,7 +541,7 @@ void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
                             RenderPartition::CopyFrustum      |
                             RenderPartition::CopyNearFar      ));
     
-    FrameBufferObject *pTarget = this->getRenderTarget();
+    FrameBufferObject *pTarget = pEngineData->getRenderTarget();
 
     if(pTarget == NULL)
     {
@@ -550,7 +550,7 @@ void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
         pFBO->setWidth (this->getWidth ());
         pFBO->setHeight(this->getHeight());
 
-        setRenderTarget(pFBO);
+        pEngineData->setRenderTarget(pFBO);
 
         pTarget = pFBO;
     }
@@ -703,7 +703,6 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
         pEngineData = EngineData::createLocal();
 
         this->setData(pEngineData, _iDataSlotId, pAction);
-//        pAction->setData(pEngineData, _iDataSlotId);
     }
 
     BitVector bvMask = pAction->getPassMask() & (bvLightPassMask   |
@@ -749,21 +748,20 @@ ActionBase::ResultE SimpleShadowMapEngine::runOnEnter(
     else
     {
         setupCamera    (pLight, eType, pAction, pEngineData);
+
         setupLightChunk(pLight, eType, pAction, pEngineData);
 
         pAction->addPassMask(bvDiffusePassMask);
         doFinalPass    (pLight,        pAction, pEngineData);
         pAction->subPassMask(bvDiffusePassMask);
-        
+
         pAction->addPassMask(bvAmbientPassMask);
         doAmbientPass  (pLight,        pAction, pEngineData);
         pAction->subPassMask(bvAmbientPassMask);
 
-        
         pAction->addPassMask(bvLightPassMask);
         doLightPass    (pLight,        pAction, pEngineData);
         pAction->subPassMask(bvLightPassMask);
-                
     }
 
     return ActionBase::Skip;

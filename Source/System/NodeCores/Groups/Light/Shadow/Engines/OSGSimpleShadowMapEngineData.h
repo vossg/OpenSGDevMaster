@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGSimpleShadowMapEngineDataBase.h"
+#include "OSGFrameBufferObject.h"
 #include "OSGTextureObjChunk.h"
 #include "OSGTextureBuffer.h"
 #include "OSGBlendChunk.h"

@@ -90,6 +90,22 @@ void SimpleShadowMapEngineDataBase::setCamera(Camera * const value)
     _sfCamera.setValue(value);
 }
 
+//! Get the value of the SimpleShadowMapEngineData::_sfRenderTarget field.
+inline
+FrameBufferObject * SimpleShadowMapEngineDataBase::getRenderTarget(void) const
+{
+    return _sfRenderTarget.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngineData::_sfRenderTarget field.
+inline
+void SimpleShadowMapEngineDataBase::setRenderTarget(FrameBufferObject * const value)
+{
+    editSField(RenderTargetFieldMask);
+
+    _sfRenderTarget.setValue(value);
+}
+
 //! Get the value of the SimpleShadowMapEngineData::_sfTexChunk field.
 inline
 TextureObjChunk * SimpleShadowMapEngineDataBase::getTexChunk(void) const
@@ -199,6 +215,9 @@ void SimpleShadowMapEngineDataBase::execSync (      SimpleShadowMapEngineDataBas
 
     if(FieldBits::NoField != (CameraFieldMask & whichField))
         _sfCamera.syncWith(pFrom->_sfCamera);
+
+    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+        _sfRenderTarget.syncWith(pFrom->_sfRenderTarget);
 
     if(FieldBits::NoField != (TexChunkFieldMask & whichField))
         _sfTexChunk.syncWith(pFrom->_sfTexChunk);

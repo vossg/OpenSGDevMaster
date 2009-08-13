@@ -59,6 +59,7 @@
 
 
 #include "OSGCamera.h"                  // Camera Class
+#include "OSGFrameBufferObject.h"       // RenderTarget Class
 #include "OSGTextureObjChunk.h"         // TexChunk Class
 #include "OSGTextureBuffer.h"           // TexBuffer Class
 #include "OSGLightChunk.h"              // LightChunk Class
@@ -90,6 +91,10 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Camera *        SimpleShadowMapEngineDataBase::_sfCamera
+    
+*/
+
+/*! \var FrameBufferObject * SimpleShadowMapEngineDataBase::_sfRenderTarget
     
 */
 
@@ -146,6 +151,18 @@ void SimpleShadowMapEngineDataBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineData::editHandleCamera),
         static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineData::getHandleCamera));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecFrameBufferObjectPtr::Description(
+        SFUnrecFrameBufferObjectPtr::getClassType(),
+        "renderTarget",
+        "",
+        RenderTargetFieldId, RenderTargetFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngineData::editHandleRenderTarget),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngineData::getHandleRenderTarget));
 
     oType.addInitialDesc(pDesc);
 
@@ -259,6 +276,16 @@ SimpleShadowMapEngineDataBase::TypeObject SimpleShadowMapEngineDataBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
+    "        <Field\n"
+    "                name=\"renderTarget\"\n"
+    "                category=\"pointer\"\n"
+    "                type=\"FrameBufferObject\"\n"
+    "                cardinality=\"single\"\n"
+    "                visibility=\"external\"\n"
+    "                defaultValue=\"NULL\"\n"
+    "                access=\"public\"\n"
+    "        >\n"
+    "        </Field>\n"
     "\t<Field\n"
     "\t\tname=\"texChunk\"\n"
     "\t\ttype=\"TextureObjChunkPtr\"\n"
@@ -348,6 +375,19 @@ SFUnrecCameraPtr    *SimpleShadowMapEngineDataBase::editSFCamera         (void)
     editSField(CameraFieldMask);
 
     return &_sfCamera;
+}
+
+//! Get the SimpleShadowMapEngineData::_sfRenderTarget field.
+const SFUnrecFrameBufferObjectPtr *SimpleShadowMapEngineDataBase::getSFRenderTarget(void) const
+{
+    return &_sfRenderTarget;
+}
+
+SFUnrecFrameBufferObjectPtr *SimpleShadowMapEngineDataBase::editSFRenderTarget   (void)
+{
+    editSField(RenderTargetFieldMask);
+
+    return &_sfRenderTarget;
 }
 
 //! Get the SimpleShadowMapEngineData::_sfTexChunk field.
@@ -442,6 +482,10 @@ UInt32 SimpleShadowMapEngineDataBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfCamera.getBinSize();
     }
+    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+    {
+        returnValue += _sfRenderTarget.getBinSize();
+    }
     if(FieldBits::NoField != (TexChunkFieldMask & whichField))
     {
         returnValue += _sfTexChunk.getBinSize();
@@ -479,6 +523,10 @@ void SimpleShadowMapEngineDataBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfCamera.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+    {
+        _sfRenderTarget.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (TexChunkFieldMask & whichField))
     {
         _sfTexChunk.copyToBin(pMem);
@@ -513,6 +561,10 @@ void SimpleShadowMapEngineDataBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (CameraFieldMask & whichField))
     {
         _sfCamera.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RenderTargetFieldMask & whichField))
+    {
+        _sfRenderTarget.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TexChunkFieldMask & whichField))
     {
@@ -637,6 +689,7 @@ FieldContainerTransitPtr SimpleShadowMapEngineDataBase::shallowCopy(void) const
 SimpleShadowMapEngineDataBase::SimpleShadowMapEngineDataBase(void) :
     Inherited(),
     _sfCamera                 (NULL),
+    _sfRenderTarget           (NULL),
     _sfTexChunk               (NULL),
     _sfTexBuffer              (NULL),
     _sfLightChunk             (NULL),
@@ -649,6 +702,7 @@ SimpleShadowMapEngineDataBase::SimpleShadowMapEngineDataBase(void) :
 SimpleShadowMapEngineDataBase::SimpleShadowMapEngineDataBase(const SimpleShadowMapEngineDataBase &source) :
     Inherited(source),
     _sfCamera                 (NULL),
+    _sfRenderTarget           (NULL),
     _sfTexChunk               (NULL),
     _sfTexBuffer              (NULL),
     _sfLightChunk             (NULL),
@@ -674,6 +728,8 @@ void SimpleShadowMapEngineDataBase::onCreate(const SimpleShadowMapEngineData *so
         SimpleShadowMapEngineData *pThis = static_cast<SimpleShadowMapEngineData *>(this);
 
         pThis->setCamera(source->getCamera());
+
+        pThis->setRenderTarget(source->getRenderTarget());
 
         pThis->setTexChunk(source->getTexChunk());
 
@@ -713,6 +769,34 @@ EditFieldHandlePtr SimpleShadowMapEngineDataBase::editHandleCamera         (void
                     static_cast<SimpleShadowMapEngineData *>(this), _1));
 
     editSField(CameraFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SimpleShadowMapEngineDataBase::getHandleRenderTarget    (void) const
+{
+    SFUnrecFrameBufferObjectPtr::GetHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::GetHandle(
+             &_sfRenderTarget,
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             const_cast<SimpleShadowMapEngineDataBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SimpleShadowMapEngineDataBase::editHandleRenderTarget   (void)
+{
+    SFUnrecFrameBufferObjectPtr::EditHandlePtr returnValue(
+        new  SFUnrecFrameBufferObjectPtr::EditHandle(
+             &_sfRenderTarget,
+             this->getType().getFieldDesc(RenderTargetFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&SimpleShadowMapEngineData::setRenderTarget,
+                    static_cast<SimpleShadowMapEngineData *>(this), _1));
+
+    editSField(RenderTargetFieldMask);
 
     return returnValue;
 }
@@ -923,6 +1007,8 @@ void SimpleShadowMapEngineDataBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<SimpleShadowMapEngineData *>(this)->setCamera(NULL);
+
+    static_cast<SimpleShadowMapEngineData *>(this)->setRenderTarget(NULL);
 
     static_cast<SimpleShadowMapEngineData *>(this)->setTexChunk(NULL);
 

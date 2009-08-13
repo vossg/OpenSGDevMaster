@@ -66,6 +66,7 @@
 #include "OSGStageData.h" // Parent
 
 #include "OSGCameraFields.h"            // Camera type
+#include "OSGFrameBufferObjectFields.h" // RenderTarget type
 #include "OSGTextureObjChunkFields.h"   // TexChunk type
 #include "OSGTextureBufferFields.h"     // TexBuffer type
 #include "OSGLightChunkFields.h"        // LightChunk type
@@ -100,7 +101,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     enum
     {
         CameraFieldId = Inherited::NextFieldId,
-        TexChunkFieldId = CameraFieldId + 1,
+        RenderTargetFieldId = CameraFieldId + 1,
+        TexChunkFieldId = RenderTargetFieldId + 1,
         TexBufferFieldId = TexChunkFieldId + 1,
         LightChunkFieldId = TexBufferFieldId + 1,
         BlendChunkFieldId = LightChunkFieldId + 1,
@@ -111,6 +113,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
 
     static const OSG::BitVector CameraFieldMask =
         (TypeTraits<BitVector>::One << CameraFieldId);
+    static const OSG::BitVector RenderTargetFieldMask =
+        (TypeTraits<BitVector>::One << RenderTargetFieldId);
     static const OSG::BitVector TexChunkFieldMask =
         (TypeTraits<BitVector>::One << TexChunkFieldId);
     static const OSG::BitVector TexBufferFieldMask =
@@ -127,6 +131,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFUnrecCameraPtr  SFCameraType;
+    typedef SFUnrecFrameBufferObjectPtr SFRenderTargetType;
     typedef SFUnrecTextureObjChunkPtr SFTexChunkType;
     typedef SFUnrecTextureBufferPtr SFTexBufferType;
     typedef SFUnrecLightChunkPtr SFLightChunkType;
@@ -159,6 +164,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
 
             const SFUnrecCameraPtr    *getSFCamera         (void) const;
                   SFUnrecCameraPtr    *editSFCamera         (void);
+            const SFUnrecFrameBufferObjectPtr *getSFRenderTarget   (void) const;
+                  SFUnrecFrameBufferObjectPtr *editSFRenderTarget   (void);
             const SFUnrecTextureObjChunkPtr *getSFTexChunk       (void) const;
                   SFUnrecTextureObjChunkPtr *editSFTexChunk       (void);
             const SFUnrecTextureBufferPtr *getSFTexBuffer      (void) const;
@@ -174,6 +181,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
 
 
                   Camera * getCamera         (void) const;
+
+                  FrameBufferObject * getRenderTarget   (void) const;
 
                   TextureObjChunk * getTexChunk       (void) const;
 
@@ -193,6 +202,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \{                                                                 */
 
             void setCamera         (Camera * const value);
+            void setRenderTarget   (FrameBufferObject * const value);
             void setTexChunk       (TextureObjChunk * const value);
             void setTexBuffer      (TextureBuffer * const value);
             void setLightChunk     (LightChunk * const value);
@@ -264,6 +274,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
     /*! \{                                                                 */
 
     SFUnrecCameraPtr  _sfCamera;
+    SFUnrecFrameBufferObjectPtr _sfRenderTarget;
     SFUnrecTextureObjChunkPtr _sfTexChunk;
     SFUnrecTextureBufferPtr _sfTexBuffer;
     SFUnrecLightChunkPtr _sfLightChunk;
@@ -300,6 +311,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineDataBase : public StageData
 
     GetFieldHandlePtr  getHandleCamera          (void) const;
     EditFieldHandlePtr editHandleCamera         (void);
+    GetFieldHandlePtr  getHandleRenderTarget    (void) const;
+    EditFieldHandlePtr editHandleRenderTarget   (void);
     GetFieldHandlePtr  getHandleTexChunk        (void) const;
     EditFieldHandlePtr editHandleTexChunk       (void);
     GetFieldHandlePtr  getHandleTexBuffer       (void) const;

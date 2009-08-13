@@ -65,6 +65,7 @@
 
 #include "OSGShadowMapEngine.h" // Parent
 
+#include "OSGBaseFields.h"              // ShadowColor type
 #include "OSGSysFields.h"               // ForceTextureUnit type
 
 #include "OSGSimpleShadowMapEngineFields.h"
@@ -93,15 +94,19 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
 
     enum
     {
-        ForceTextureUnitFieldId = Inherited::NextFieldId,
+        ShadowColorFieldId = Inherited::NextFieldId,
+        ForceTextureUnitFieldId = ShadowColorFieldId + 1,
         NextFieldId = ForceTextureUnitFieldId + 1
     };
 
+    static const OSG::BitVector ShadowColorFieldMask =
+        (TypeTraits<BitVector>::One << ShadowColorFieldId);
     static const OSG::BitVector ForceTextureUnitFieldMask =
         (TypeTraits<BitVector>::One << ForceTextureUnitFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
+    typedef SFColor4f         SFShadowColorType;
     typedef SFInt32           SFForceTextureUnitType;
 
     /*---------------------------------------------------------------------*/
@@ -128,9 +133,15 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*! \{                                                                 */
 
 
+                  SFColor4f           *editSFShadowColor    (void);
+            const SFColor4f           *getSFShadowColor     (void) const;
+
                   SFInt32             *editSFForceTextureUnit(void);
             const SFInt32             *getSFForceTextureUnit (void) const;
 
+
+                  Color4f             &editShadowColor    (void);
+            const Color4f             &getShadowColor     (void) const;
 
                   Int32               &editForceTextureUnit(void);
                   Int32                getForceTextureUnit (void) const;
@@ -140,6 +151,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setShadowColor    (const Color4f &value);
             void setForceTextureUnit(const Int32 value);
 
     /*! \}                                                                 */
@@ -200,6 +212,7 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    SFColor4f         _sfShadowColor;
     SFInt32           _sfForceTextureUnit;
 
     /*! \}                                                                 */
@@ -228,6 +241,8 @@ class OSG_GROUP_DLLMAPPING SimpleShadowMapEngineBase : public ShadowMapEngine
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleShadowColor     (void) const;
+    EditFieldHandlePtr editHandleShadowColor    (void);
     GetFieldHandlePtr  getHandleForceTextureUnit (void) const;
     EditFieldHandlePtr editHandleForceTextureUnit(void);
 

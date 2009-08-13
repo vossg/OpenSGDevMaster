@@ -82,6 +82,10 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var Color4f         SimpleShadowMapEngineBase::_sfShadowColor
+    
+*/
+
 /*! \var Int32           SimpleShadowMapEngineBase::_sfForceTextureUnit
     
 */
@@ -114,6 +118,18 @@ void SimpleShadowMapEngineBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
+    pDesc = new SFColor4f::Description(
+        SFColor4f::getClassType(),
+        "shadowColor",
+        "",
+        ShadowColorFieldId, ShadowColorFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SimpleShadowMapEngine::editHandleShadowColor),
+        static_cast<FieldGetMethodSig >(&SimpleShadowMapEngine::getHandleShadowColor));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new SFInt32::Description(
         SFInt32::getClassType(),
         "forceTextureUnit",
@@ -142,24 +158,34 @@ SimpleShadowMapEngineBase::TypeObject SimpleShadowMapEngineBase::_type(
     "<?xml version=\"1.0\" ?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"SimpleShadowMapEngine\"\n"
-    "\tparent=\"ShadowMapEngine\"\n"
-    "\tlibrary=\"Group\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
+    "    name=\"SimpleShadowMapEngine\"\n"
+    "    parent=\"ShadowMapEngine\"\n"
+    "    library=\"Group\"\n"
+    "    structure=\"concrete\"\n"
+    "    pointerfieldtypes=\"both\"\n"
+    "    systemcomponent=\"true\"\n"
+    "    parentsystemcomponent=\"true\"\n"
     "    isNodeCore=\"false\"\n"
     ">\n"
-    "\t<Field\n"
-    "\t\tname=\"forceTextureUnit\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"-1\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "    <Field\n"
+    "        name=\"shadowColor\"\n"
+    "        category=\"data\"\n"
+    "        type=\"Color4f\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"0.f, 0.f, 0.f, 1.f\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "        name=\"forceTextureUnit\"\n"
+    "        type=\"Int32\"\n"
+    "        cardinality=\"single\"\n"
+    "        visibility=\"external\"\n"
+    "        defaultValue=\"-1\"\n"
+    "        access=\"public\"\n"
+    "    >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -182,6 +208,19 @@ UInt32 SimpleShadowMapEngineBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
+SFColor4f *SimpleShadowMapEngineBase::editSFShadowColor(void)
+{
+    editSField(ShadowColorFieldMask);
+
+    return &_sfShadowColor;
+}
+
+const SFColor4f *SimpleShadowMapEngineBase::getSFShadowColor(void) const
+{
+    return &_sfShadowColor;
+}
 
 
 SFInt32 *SimpleShadowMapEngineBase::editSFForceTextureUnit(void)
@@ -207,6 +246,10 @@ UInt32 SimpleShadowMapEngineBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+    {
+        returnValue += _sfShadowColor.getBinSize();
+    }
     if(FieldBits::NoField != (ForceTextureUnitFieldMask & whichField))
     {
         returnValue += _sfForceTextureUnit.getBinSize();
@@ -220,6 +263,10 @@ void SimpleShadowMapEngineBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+    {
+        _sfShadowColor.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ForceTextureUnitFieldMask & whichField))
     {
         _sfForceTextureUnit.copyToBin(pMem);
@@ -231,6 +278,10 @@ void SimpleShadowMapEngineBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+    {
+        _sfShadowColor.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (ForceTextureUnitFieldMask & whichField))
     {
         _sfForceTextureUnit.copyFromBin(pMem);
@@ -360,12 +411,14 @@ FieldContainerTransitPtr SimpleShadowMapEngineBase::shallowCopy(void) const
 
 SimpleShadowMapEngineBase::SimpleShadowMapEngineBase(void) :
     Inherited(),
+    _sfShadowColor            (Color4f(0.f, 0.f, 0.f, 1.f)),
     _sfForceTextureUnit       (Int32(-1))
 {
 }
 
 SimpleShadowMapEngineBase::SimpleShadowMapEngineBase(const SimpleShadowMapEngineBase &source) :
     Inherited(source),
+    _sfShadowColor            (source._sfShadowColor            ),
     _sfForceTextureUnit       (source._sfForceTextureUnit       )
 {
 }
@@ -377,6 +430,31 @@ SimpleShadowMapEngineBase::~SimpleShadowMapEngineBase(void)
 {
 }
 
+
+GetFieldHandlePtr SimpleShadowMapEngineBase::getHandleShadowColor     (void) const
+{
+    SFColor4f::GetHandlePtr returnValue(
+        new  SFColor4f::GetHandle(
+             &_sfShadowColor,
+             this->getType().getFieldDesc(ShadowColorFieldId),
+             const_cast<SimpleShadowMapEngineBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SimpleShadowMapEngineBase::editHandleShadowColor    (void)
+{
+    SFColor4f::EditHandlePtr returnValue(
+        new  SFColor4f::EditHandle(
+             &_sfShadowColor,
+             this->getType().getFieldDesc(ShadowColorFieldId),
+             this));
+
+
+    editSField(ShadowColorFieldMask);
+
+    return returnValue;
+}
 
 GetFieldHandlePtr SimpleShadowMapEngineBase::getHandleForceTextureUnit (void) const
 {

@@ -73,6 +73,31 @@ OSG::UInt16 SimpleShadowMapEngineBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the SimpleShadowMapEngine::_sfShadowColor field.
+
+inline
+Color4f &SimpleShadowMapEngineBase::editShadowColor(void)
+{
+    editSField(ShadowColorFieldMask);
+
+    return _sfShadowColor.getValue();
+}
+
+//! Get the value of the SimpleShadowMapEngine::_sfShadowColor field.
+inline
+const Color4f &SimpleShadowMapEngineBase::getShadowColor(void) const
+{
+    return _sfShadowColor.getValue();
+}
+
+//! Set the value of the SimpleShadowMapEngine::_sfShadowColor field.
+inline
+void SimpleShadowMapEngineBase::setShadowColor(const Color4f &value)
+{
+    editSField(ShadowColorFieldMask);
+
+    _sfShadowColor.setValue(value);
+}
 //! Get the value of the SimpleShadowMapEngine::_sfForceTextureUnit field.
 
 inline
@@ -109,6 +134,9 @@ void SimpleShadowMapEngineBase::execSync (      SimpleShadowMapEngineBase *pFrom
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (ShadowColorFieldMask & whichField))
+        _sfShadowColor.syncWith(pFrom->_sfShadowColor);
 
     if(FieldBits::NoField != (ForceTextureUnitFieldMask & whichField))
         _sfForceTextureUnit.syncWith(pFrom->_sfForceTextureUnit);
