@@ -11,7 +11,7 @@
 //
 // Work In Progress
 
-#ifdef OSG_BUILD_INTEGRATED
+#ifdef OSG_BUILD_ACTIVE
 
 #include <OSGGL.h>
 #include <OSGGLUT.h>
