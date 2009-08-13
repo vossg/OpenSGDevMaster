@@ -97,6 +97,14 @@ class OSG_GROUP_DLLMAPPING PointLight : public PointLightBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                  LightEngine                                 */
+    /*! \{                                                                 */
+
+    virtual void callLightEngineEnter(RenderAction *ract);
+    virtual void callLightEngineLeave(RenderAction *ract);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Dump                                    */
     /*! \{                                                                 */
 

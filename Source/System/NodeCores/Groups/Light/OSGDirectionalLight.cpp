@@ -97,6 +97,25 @@ void DirectionalLight::makeChunk(void)
 }
 
 /*-------------------------------------------------------------------------*/
+/*                           LightEngine                                   */
+
+void DirectionalLight::callLightEngineEnter(RenderAction *ract)
+{
+    if(getLightEngine() != NULL && getLightEngine()->getEnabled() == true)
+    {
+        getLightEngine()->runOnEnter(this, LightEngine::Directional, ract);
+    }
+}
+
+void DirectionalLight::callLightEngineLeave(RenderAction *ract)
+{
+    if(getLightEngine() != NULL && getLightEngine()->getEnabled() == true)
+    {
+        getLightEngine()->runOnLeave(this, LightEngine::Directional, ract);
+    }
+}
+
+/*-------------------------------------------------------------------------*/
 /*                                Dump                                     */
 
 void DirectionalLight::dump(      UInt32    uiIndent, 

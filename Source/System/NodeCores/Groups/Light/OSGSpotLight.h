@@ -94,6 +94,14 @@ class OSG_GROUP_DLLMAPPING SpotLight : public SpotLightBase
     /*! \{                                                                 */
 
     virtual void makeChunk(void);
+    
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  LightEngine                                 */
+    /*! \{                                                                 */
+
+    virtual void callLightEngineEnter(RenderAction *ract);
+    virtual void callLightEngineLeave(RenderAction *ract);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

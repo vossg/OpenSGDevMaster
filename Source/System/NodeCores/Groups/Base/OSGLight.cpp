@@ -115,9 +115,9 @@ void Light::changed(ConstFieldMaskArg whichField,
                     UInt32            origin,
                     BitVector         details)
 {
-    Inherited::changed(whichField, origin, details);
-
     makeChunk();
+
+    Inherited::changed(whichField, origin, details);
 }
 
 

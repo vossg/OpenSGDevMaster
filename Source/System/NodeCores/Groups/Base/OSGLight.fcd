@@ -4,7 +4,7 @@
 	name="Light"
 	parent="Group"
 	library="System"
-	pointerfieldtypes="none"
+	pointerfieldtypes="both"
 	structure="abstract"
 	systemcomponent="true"
 	parentsystemcomponent="true"
@@ -56,7 +56,6 @@ the position in the graph defines the objects that are lit.
 		cardinality="single"
 		visibility="external"
 		access="public"
-        doRefCount="false"
 	>
 	</Field>
 	<Field

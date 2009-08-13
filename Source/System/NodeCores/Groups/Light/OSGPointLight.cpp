@@ -121,6 +121,25 @@ void PointLight::dump(      UInt32    uiIndent,
 }
 
 /*-------------------------------------------------------------------------*/
+/*                           LightEngine                                   */
+
+void PointLight::callLightEngineEnter(RenderAction *ract)
+{
+    if(getLightEngine() != NULL && getLightEngine()->getEnabled() == true)
+    {
+        getLightEngine()->runOnEnter(this, LightEngine::Point, ract);
+    }
+}
+
+void PointLight::callLightEngineLeave(RenderAction *ract)
+{
+    if(getLightEngine() != NULL && getLightEngine()->getEnabled() == true)
+    {
+        getLightEngine()->runOnLeave(this, LightEngine::Point, ract);
+    }
+}
+
+/*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
 PointLight::PointLight(void) :

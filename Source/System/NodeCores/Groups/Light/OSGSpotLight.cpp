@@ -90,6 +90,25 @@ void SpotLight::makeChunk(void)
 }
 
 /*-------------------------------------------------------------------------*/
+/*                           LightEngine                                   */
+
+void SpotLight::callLightEngineEnter(RenderAction *ract)
+{
+    if(getLightEngine() != NULL && getLightEngine()->getEnabled() == true)
+    {
+        getLightEngine()->runOnEnter(this, LightEngine::Spot, ract);
+    }
+}
+
+void SpotLight::callLightEngineLeave(RenderAction *ract)
+{
+    if(getLightEngine() != NULL && getLightEngine()->getEnabled() == true)
+    {
+        getLightEngine()->runOnLeave(this, LightEngine::Spot, ract);
+    }
+}
+
+/*-------------------------------------------------------------------------*/
 /*                                Dump                                     */
 
 void SpotLight::dump(      UInt32    uiIndent, 

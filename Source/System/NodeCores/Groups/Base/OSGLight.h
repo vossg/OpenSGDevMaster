@@ -108,8 +108,11 @@ class OSG_SYSTEM_DLLMAPPING Light : public LightBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Sync                                    */
+    /*! \name                  LightEngine                                 */
     /*! \{                                                                 */
+
+    virtual void callLightEngineEnter(RenderAction *ract) = 0;
+    virtual void callLightEngineLeave(RenderAction *ract) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

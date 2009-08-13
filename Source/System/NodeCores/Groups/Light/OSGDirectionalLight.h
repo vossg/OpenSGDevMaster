@@ -92,6 +92,14 @@ class OSG_GROUP_DLLMAPPING DirectionalLight : public DirectionalLightBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                  LightEngine                                 */
+    /*! \{                                                                 */
+
+    virtual void callLightEngineEnter(RenderAction *ract);
+    virtual void callLightEngineLeave(RenderAction *ract);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Dump                                    */
     /*! \{                                                                 */
 

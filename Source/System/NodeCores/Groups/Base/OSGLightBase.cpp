@@ -145,6 +145,14 @@ DataType FieldTraits<Light *>::_type("LightPtr", "GroupPtr");
 
 OSG_FIELDTRAITS_GETTYPE(Light *)
 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           Light *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           Light *,
+                           0);
+
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
@@ -305,7 +313,7 @@ LightBase::TypeObject LightBase::_type(
     "\tname=\"Light\"\n"
     "\tparent=\"Group\"\n"
     "\tlibrary=\"System\"\n"
-    "\tpointerfieldtypes=\"none\"\n"
+    "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"abstract\"\n"
     "\tsystemcomponent=\"true\"\n"
     "\tparentsystemcomponent=\"true\"\n"
@@ -357,7 +365,6 @@ LightBase::TypeObject LightBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
-    "        doRefCount=\"false\"\n"
     "\t>\n"
     "\t</Field>\n"
     "\t<Field\n"

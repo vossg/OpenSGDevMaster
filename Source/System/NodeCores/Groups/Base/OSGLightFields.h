@@ -87,16 +87,132 @@ struct FieldTraits<Light *> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFLightPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFLightPtr"; }
 };
 
+template<> inline
+const Char8 *FieldTraits<Light *, 0>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecLightPtr"; 
+}
 
+template<> inline
+const Char8 *FieldTraits<Light *, 0>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecLightPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<Light *, 0>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakLightPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<Light *, 0>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdLightPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<Light *, 0>::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecLightPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<Light *, 0>::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecLightPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<Light *, 0>::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakLightPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<Light *, 0>::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdLightPtr"; 
+}
 
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
+/*! \ingroup GrpSystemFieldSFields */
+typedef PointerSField<Light *,
+                      RecordedRefCountPolicy  > SFRecLightPtr;
+/*! \ingroup GrpSystemFieldSFields */
+typedef PointerSField<Light *,
+                      UnrecordedRefCountPolicy> SFUnrecLightPtr;
+/*! \ingroup GrpSystemFieldSFields */
+typedef PointerSField<Light *,
+                      WeakRefCountPolicy      > SFWeakLightPtr;
+/*! \ingroup GrpSystemFieldSFields */
+typedef PointerSField<Light *,
+                      NoRefCountPolicy        > SFUncountedLightPtr;
+
+
+/*! \ingroup GrpSystemFieldMFields */
+typedef PointerMField<Light *,
+                      RecordedRefCountPolicy  > MFRecLightPtr;
+/*! \ingroup GrpSystemFieldMFields */
+typedef PointerMField<Light *,
+                      UnrecordedRefCountPolicy> MFUnrecLightPtr;
+/*! \ingroup GrpSystemFieldMFields */
+typedef PointerMField<Light *,
+                      WeakRefCountPolicy      > MFWeakLightPtr;
+/*! \ingroup GrpSystemFieldMFields */
+typedef PointerMField<Light *,
+                      NoRefCountPolicy        > MFUncountedLightPtr;
+
 
 
 
 #else // these are the doxygen hacks
+
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFRecLightPtr : 
+    public PointerSField<Light *,
+                         RecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUnrecLightPtr : 
+    public PointerSField<Light *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFWeakLightPtr :
+    public PointerSField<Light *,
+                         WeakRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldSFields \ingroup GrpLibOSGSystem */
+struct SFUncountedLightPtr :
+    public PointerSField<Light *,
+                         NoRefCountPolicy> {};
+
+
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFRecLightPtr :
+    public PointerMField<Light *,
+                         RecordedRefCountPolicy  > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUnrecLightPtr :
+    public PointerMField<Light *,
+                         UnrecordedRefCountPolicy> {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFWeakLightPtr :
+    public PointerMField<Light *,
+                         WeakRefCountPolicy      > {};
+/*! \ingroup GrpSystemFieldMFields \ingroup GrpLibOSGSystem */
+struct MFUncountedLightPtr :
+    public PointerMField<Light *,
+                         NoRefCountPolicy        > {};
 
 
 
