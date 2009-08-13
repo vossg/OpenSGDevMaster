@@ -50,6 +50,7 @@ OSG_OPTION(BUILD_SHARED_LIBS "Set to OFF to build static libraries" ON)
 OSG_OPTION(OSGBUILD_TESTS            "Build test programs" ON)
 OSG_OPTION(OSGBUILD_UNITTESTS        "Build/run unit test programs" OFF)
 OSG_OPTION(OSGBUILD_EXAMPLES_SIMPLE  "Build example programs during system build" OFF)
+OSG_OPTION(OSGBUILD_EXAMPLES_ADVANCED "Build advanced example programs during system build" OFF)
 OSG_OPTION(OSGBUILD_ENABLE_PACKAGING "Generate binary packages with CPack" OFF)
 
 OSG_OPTION(OSG_ENABLE_NEW_SHADER "" ON)
@@ -723,8 +724,16 @@ EXECUTE_PROCESS(
 #################
 
 IF(OSGBUILD_EXAMPLES_SIMPLE)
-    ADD_SUBDIRECTORY(Examples/Simple)
+    ADD_SUBDIRECTORY("Examples/Simple")
 ENDIF(OSGBUILD_EXAMPLES_SIMPLE)
+
+###################
+# Examples/Advanced
+###################
+
+IF(OSGBUILD_EXAMPLES_ADVANCED)
+    ADD_SUBDIRECTORY("Examples/Advanced/DeferredShading")
+ENDIF(OSGBUILD_EXAMPLES_ADVANCED)
 
 ##################
 # Documentation II

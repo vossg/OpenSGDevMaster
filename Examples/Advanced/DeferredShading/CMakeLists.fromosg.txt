@@ -1,0 +1,79 @@
+
+#CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+PROJECT(OpenSGExamplesAdvancedDeferredShading)
+
+MESSAGE(STATUS "Building ${PROJECT_NAME} integrated")
+
+#############################################################################
+# find sources
+
+FILE(GLOB SRCFILES "*.cpp")
+
+#############################################################################
+# get dependencies
+
+SET(OSG_COMPONENTS OSGBase
+                   OSGContribTrapezoidalShadowMaps
+                   OSGDrawable
+                   OSGEffectGroups
+                   OSGFileIO
+                   OSGGroup
+                   OSGImageFileIO
+                   OSGState
+                   OSGSystem
+                   OSGUtil
+                   OSGWindow
+                   OSGWindowX
+                   OSGWindowGLUT)
+
+SET(DEP_INCLUDE_DIRS)
+SET(DEP_LIBRARY_DIRS)
+SET(DEP_LIBRARIES)
+
+SET(OSG_EXTERNAL_COMPONENTS Boost GLUT)
+
+#############
+#### OpenSG
+
+FOREACH(OSGDEP ${OSG_COMPONENTS})
+    IF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+        MESSAGE(FATAL_ERROR "Dependency (${OSGDEP}) not found, "
+                            "can not build ${PROJECT_NAME}\n")
+        RETURN()
+    ENDIF(NOT EXISTS "${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+
+    INCLUDE("${CMAKE_BINARY_DIR}/${OSGDEP}.cmake")
+    INCLUDE_DIRECTORIES(${${OSGDEP}_INC})
+ENDFOREACH()
+
+FOREACH(OSGEXTDEP ${OSG_EXTERNAL_COMPONENTS})
+    IF(NOT ${OSGEXTDEP}_FOUND)
+        MESSAGE(FATAL_ERROR "Dependency (${OSGEXTDEP}) not found, "
+                            "can not build ${PROJECT_NAME}\n")
+        RETURN()
+    ENDIF()
+
+    INCLUDE_DIRECTORIES(${${OSGEXTDEP}_INCLUDE_DIR})
+ENDFOREACH()
+
+
+#############################################################################
+# build executables
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+ADD_DEFINITIONS(-D OSG_BUILD_INTEGRATED)
+
+FOREACH(SRC ${SRCFILES})
+
+    GET_FILENAME_COMPONENT(EXE ${SRC} NAME_WE)
+
+    ADD_EXECUTABLE(${EXE} ${SRC})
+
+    FOREACH(OSGDEP ${OSG_COMPONENTS})
+        ADD_DEPENDENCIES(${EXE} ${OSGDEP})
+
+        TARGET_LINK_LIBRARIES(${EXE} ${OSGDEP})
+    ENDFOREACH()
+
+ENDFOREACH(SRC)
