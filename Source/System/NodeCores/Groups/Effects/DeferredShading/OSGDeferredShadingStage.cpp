@@ -352,10 +352,10 @@ void DeferredShadingStage::updateStageData(
                         LightsFieldMask          )) != 0)
     {
         // copy ambient and light programs
-        DSStageData::MFShadingProgramChunksType::const_iterator spcIt  =
-            data->editMFShadingProgramChunks()->begin();
-        DSStageData::MFShadingProgramChunksType::const_iterator spcEnd =
-            data->editMFShadingProgramChunks()->end  ();
+        DSStageData::MFShadingProgramChunksType::iterator spcIt  =
+            data->editMFShadingProgramChunks()->begin_nc();
+        DSStageData::MFShadingProgramChunksType::const spcEnd =
+            data->editMFShadingProgramChunks()->end_nc  ();
 
         for(UInt32 progIdx = 0; spcIt != spcEnd; ++spcIt, ++progIdx)
         {
@@ -363,9 +363,7 @@ void DeferredShadingStage::updateStageData(
             {
                 ShaderProgramChunkUnrecPtr newSPC =
                     ShaderProgramChunk::createLocal();
-                //*spcIt = newSPC;
-
-                data->editMFShadingProgramChunks()->replace(progIdx, newSPC);
+                *spcIt = newSPC;
             }
 
             (*spcIt)->clearVertexShaders  ();
@@ -398,36 +396,34 @@ void DeferredShadingStage::updateStageData(
         }
 
         // create light chunks
-        DSStageData::MFLightChunksType::const_iterator lcIt  =
-            data->editMFLightChunks()->begin();
-        DSStageData::MFLightChunksType::const_iterator lcEnd =
-            data->editMFLightChunks()->end  ();
+        DSStageData::MFLightChunksType::iterator lcIt  =
+            data->editMFLightChunks()->begin_nc();
+        DSStageData::MFLightChunksType::iterator lcEnd =
+            data->editMFLightChunks()->end_nc  ();
 
         for(UInt32 lightIdx = 0; lcIt != lcEnd; ++lcIt, ++lightIdx)
         {
             if(*lcIt == NULL)
             {
                 DSLightChunkUnrecPtr newLC = DSLightChunk::createLocal();
-                //*lcIt = newLC;
-                data->editMFLightChunks()->replace(lightIdx, newLC);
+                *lcIt = newLC;
             }
 
             updateLightChunk(*lcIt, getLights(lightIdx));
         }
 
         // populate shading states
-        DSStageData::MFShadingStatesType::const_iterator stateIt  =
-            data->editMFShadingStates()->begin();
-        DSStageData::MFShadingStatesType::const_iterator stateEnd =
-            data->editMFShadingStates()->end  ();
+        DSStageData::MFShadingStatesType::iterator stateIt  =
+            data->editMFShadingStates()->begin_nc();
+        DSStageData::MFShadingStatesType::iterator stateEnd =
+            data->editMFShadingStates()->end_nc  ();
 
         for(UInt32 stateIdx = 0; stateIt != stateEnd; ++stateIt, ++stateIdx)
         {
             if(*stateIt == NULL)
             {
                 StateUnrecPtr newState = State::createLocal();
-                //*stateIt = newState;
-                data->editMFShadingStates()->replace(stateIdx, newState);
+                *stateIt = newState;
             }
 
             // remove all chunks
