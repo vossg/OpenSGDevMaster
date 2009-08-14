@@ -905,7 +905,7 @@ void TrapezoidalShadowMapEngine::updateLightPassMaterial(
         newLightPassMat->addChunk(newLightPassSHChunk);
 
         lightPassMat = newLightPassMat;
-        (*data->editMFLightPassMaterials())[faceIdx] = newLightPassMat;
+        data->editMFLightPassMaterials()->replace(faceIdx, newLightPassMat);
 
 #else
         
