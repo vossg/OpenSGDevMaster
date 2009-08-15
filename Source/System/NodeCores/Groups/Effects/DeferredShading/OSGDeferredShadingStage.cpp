@@ -273,16 +273,24 @@ void DeferredShadingStage::updateStageData(
 
     Int32 targetWidth;
     Int32 targetHeight;
+    Int32 targetLeft;
+    Int32 targetBottom;
 
     if(shadingTarget != NULL)
     {
         targetWidth  = shadingTarget->getWidth ();
         targetHeight = shadingTarget->getHeight();
+
+        targetLeft   = 0;
+        targetBottom = 0;
     }
     else
     {
         targetWidth  = parentPart->getDrawEnv().getPixelWidth ();
         targetHeight = parentPart->getDrawEnv().getPixelHeight();
+
+        targetLeft   = parentPart->getDrawEnv().getPixelLeft  ();
+        targetBottom = parentPart->getDrawEnv().getPixelBottom();
     }
 
     if(gBufferTarget->getWidth () != targetWidth ||
@@ -376,6 +384,11 @@ void DeferredShadingStage::updateStageData(
             {
                 // ambient program
                 copyProgramChunk(*spcIt, getAmbientProgram());
+
+                // TODO: there must be a better way to add this uniform
+                (*spcIt)->getFragmentShader(0)->addUniformVariable(
+                    "vpOffset", Vec2f(targetLeft,
+                                      targetBottom));
             }
             else
             {
@@ -383,10 +396,20 @@ void DeferredShadingStage::updateStageData(
                 if(_mfLightPrograms.size() == 1)
                 {
                     copyProgramChunk(*spcIt, getLightPrograms(0));
+
+                    // TODO: there must be a better way to add this uniform
+                    (*spcIt)->getFragmentShader(0)->addUniformVariable(
+                        "vpOffset", Vec2f(targetLeft,
+                                          targetBottom));
                 }
                 else if(_mfLightPrograms.size() == _mfLights.size())
                 {
                     copyProgramChunk(*spcIt, getLightPrograms(progIdx - 1));
+
+                    // TODO: there must be a better way to add this uniform
+                    (*spcIt)->getFragmentShader(0)->addUniformVariable(
+                        "vpOffset", Vec2f(targetLeft,
+                                          targetBottom));
                 }
                 else
                 {

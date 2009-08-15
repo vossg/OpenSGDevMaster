@@ -29,11 +29,13 @@ vec4 computeDirLight(int index, vec3 pos, vec3 norm, vec4 mDiff)
 uniform sampler2DRect     texBufPos;
 uniform sampler2DRect     texBufNorm;
 uniform sampler2DRect     texBufDiff;
+uniform vec2              vpOffset;
 
 // DS pass
 void main(void)
 {
-    vec3  norm  = texture2DRect(texBufNorm, gl_FragCoord.xy).xyz;
+    vec2 lookup = gl_FragCoord.xy - vpOffset;
+    vec3 norm   = texture2DRect(texBufNorm, lookup).xyz;
 
     if(dot(norm, norm) < 0.95)
     {
@@ -41,10 +43,10 @@ void main(void)
     }
     else
     {
-        vec4  posAmb = texture2DRect(texBufPos,  gl_FragCoord.xy);
+        vec4  posAmb = texture2DRect(texBufPos,  lookup);
         vec3  pos    = posAmb.xyz;
         float amb    = posAmb.w;
-        vec4  mDiff  = texture2DRect(texBufDiff, gl_FragCoord.xy);
+        vec4  mDiff  = texture2DRect(texBufDiff, lookup);
 
         gl_FragColor = computeDirLight(0, pos, norm, mDiff);
     }

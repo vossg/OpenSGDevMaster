@@ -3,10 +3,12 @@
 #extension GL_ARB_texture_rectangle : enable
 
 uniform sampler2DRect  texBufNorm;
+uniform vec2           vpOffset;
 
 void main(void)
 {
-    vec3  norm  = texture2DRect(texBufNorm, gl_FragCoord.xy).xyz;
+    vec2 lookup = gl_FragCoord.xy - vpOffset;
+    vec3 norm   = texture2DRect(texBufNorm, lookup).xyz;
 
     if(dot(norm, norm) < 0.95)
     {

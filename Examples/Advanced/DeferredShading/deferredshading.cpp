@@ -186,6 +186,8 @@ void initialize(int argc, char *argv[])
     // HACK: force creation of internal SSM objects (vp, cam, bg etc)
     gv->mgr->setRoot(NULL);
 
+    gv->mgr->getWindow()->getPort(0)->setSize(0.1f, 0.f, 0.8f, 1.f);
+
     // create a "scene" to show
     if(argc >= 2)
     {
