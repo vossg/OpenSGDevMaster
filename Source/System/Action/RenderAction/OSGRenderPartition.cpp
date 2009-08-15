@@ -99,12 +99,12 @@ that draws the scene and shadows etc.
  *                           Class variables                               *
 \***************************************************************************/
 
-StatElemDesc<StatIntElem>  
-    RenderPartition::statCullTestedNodes("Partition::cullTestedNodes", 
+StatElemDesc<StatIntElem>
+    RenderPartition::statCullTestedNodes("Partition::cullTestedNodes",
                                          "nodes tested"             );
 
-StatElemDesc<StatIntElem>   
-    RenderPartition::statCulledNodes    ("Partition::culledNodes", 
+StatElemDesc<StatIntElem>
+    RenderPartition::statCulledNodes    ("Partition::culledNodes",
                                         "nodes culled from frustum");
 
 /***************************************************************************\
@@ -157,19 +157,19 @@ RenderPartition::RenderPartition(Mode eMode) :
     _modelViewMatrix         (         ),
     _modelMatrix             (         ),
     _modelViewMatrixStack    (         ),
-    
+
     _pNodePool               (     NULL),
-    
+
     _mMatRoots               (         ),
     _mTransMatRoots          (         ),
-    
+
     _uiActiveMatrix          (        0),
 
-    _pStatePool              (     NULL),   
+    _pStatePool              (     NULL),
     _sStateOverrides         (         ),
 
     _pTreeBuilderPool        (     NULL),
- 
+
     _iNextLightIndex         (        0),
     _uiLightState            (        0),
     _uiKeyGen                (        0),
@@ -237,49 +237,49 @@ void RenderPartition::reset(Mode eMode)
     if(_eMode == StateSorting || _eMode == TransformSorting)
     {
         _pBackground = NULL;
-        
+
         _uiMatrixId = 1;
-        
+
         _modelViewMatrix.first = 1;
         _modelViewMatrix.second.setIdentity();
-        
+
         _modelMatrixValid      = true;
         _modelMatrix           .setIdentity();
 
         _modelViewMatrixStack.clear();
-        
-        
-        std::for_each(_mMatRoots     .begin(), 
+
+
+        std::for_each(_mMatRoots     .begin(),
                       _mMatRoots     .end(), ResetSecond());
-        std::for_each(_mTransMatRoots.begin(), 
+        std::for_each(_mTransMatRoots.begin(),
                       _mTransMatRoots.end(), ResetSecond());
-        
-        
+
+
         _bSortTrans               = true;
         _bZWriteTrans             = false;
         _bCorrectTwoSidedLighting = false;
-        
+
         _uiActiveMatrix           = 0;
-        
+
         _oDrawEnv.clearState();
-        
+
         while(_sStateOverrides.empty() == false)
         {
             _sStateOverrides.pop();
         }
-        
-        
+
+
         _iNextLightIndex = 0;
         _uiLightState    = 0;
-        
+
         _pMaterial          = NULL;
         _pMaterialNode      = NULL;
         _addedStateOverride = false;
-        
+
         _pRenderTarget    = NULL;
-        
+
         _visibilityStack.clear();
-        
+
         _bFrustumCulling = true;
         _bVolumeDrawing  = false;
         _bAutoFrustum    = true;
@@ -291,7 +291,7 @@ void RenderPartition::reset(Mode eMode)
         _pRenderTarget    = NULL;
 
         _oDrawEnv.clearState();
-        
+
         while(_sStateOverrides.empty() == false)
         {
             _sStateOverrides.pop();
@@ -316,7 +316,7 @@ void RenderPartition::calcFrustum(void)
     Matrix pr = _oDrawEnv.getCameraFullProjection();
 
     pr.mult(_oDrawEnv.getCameraViewing());
-    
+
     _oFrustum.setPlanes(pr);
 }
 
@@ -324,7 +324,7 @@ void RenderPartition::calcViewportDimension(Real32 rLeft,
                                             Real32 rBottom,
                                             Real32 rRight,
                                             Real32 rTop,
-                                            
+
                                             UInt16 iTargetWidth,
                                             UInt16 iTargetHeight)
 {
@@ -380,8 +380,8 @@ void RenderPartition::setupExecution(void)
 #ifdef OSG_TRACE_PARTITION
     if(_szDebugString.size() != 0)
     {
-        fprintf(stderr, 
-                "RenderPartition::setupExecution %s\n", 
+        fprintf(stderr,
+                "RenderPartition::setupExecution %s\n",
                 _szDebugString.c_str());
     }
 #endif
@@ -398,25 +398,25 @@ void RenderPartition::setupExecution(void)
     {
         if(0x0000 == (_uiSetupMode & PassiveBit))
         {
-            glViewport(_oDrawEnv.getPixelLeft  (), 
-                       _oDrawEnv.getPixelBottom(), 
-                       _oDrawEnv.getPixelWidth (), 
+            glViewport(_oDrawEnv.getPixelLeft  (),
+                       _oDrawEnv.getPixelBottom(),
+                       _oDrawEnv.getPixelWidth (),
                        _oDrawEnv.getPixelHeight());
-            
+
             if(_oDrawEnv.getFull() == false)
             {
-                glScissor (_oDrawEnv.getPixelLeft  (), 
-                           _oDrawEnv.getPixelBottom(), 
-                           _oDrawEnv.getPixelWidth (), 
+                glScissor (_oDrawEnv.getPixelLeft  (),
+                           _oDrawEnv.getPixelBottom(),
+                           _oDrawEnv.getPixelWidth (),
                            _oDrawEnv.getPixelHeight());
-                
+
                 glEnable(GL_SCISSOR_TEST);
             }
             else
             {
                 glDisable(GL_SCISSOR_TEST);
             }
-        }        
+        }
     }
     else
     {
@@ -441,7 +441,7 @@ void RenderPartition::setupExecution(void)
         (*cbIt)(&_oDrawEnv);
         ++cbIt;
     }
-    
+
     if(0x0000 != (_uiSetupMode & BackgroundSetup))
     {
         if(_pBackground != NULL)
@@ -459,8 +459,8 @@ void RenderPartition::doExecution   (void)
 #ifdef OSG_TRACE_PARTITION
     if(_szDebugString.size() != 0)
     {
-        fprintf(stderr, 
-                "RenderPartition::doExecution %s\n", 
+        fprintf(stderr,
+                "RenderPartition::doExecution %s\n",
                 _szDebugString.c_str());
     }
 #endif
@@ -473,35 +473,35 @@ void RenderPartition::doExecution   (void)
     {
         BuildKeyMapIt      mapIt  = _mMatRoots.begin();
         BuildKeyMapConstIt mapEnd = _mMatRoots.end  ();
-        
+
         _uiNumMatrixChanges = 0;
- 
+
         while(mapIt != mapEnd)
         {
             if(mapIt->second != NULL)
             {
                 mapIt->second->draw(_oDrawEnv, this);
             }
-            
+
             ++mapIt;
-        }    
-        
+        }
+
         mapIt  = _mTransMatRoots.begin();
         mapEnd = _mTransMatRoots.end  ();
-        
+
         if(!_bZWriteTrans)
             glDepthMask(false);
- 
+
         while(mapIt != mapEnd)
         {
             if(mapIt->second != NULL)
-            {               
-                mapIt->second->draw(_oDrawEnv, this);       
+            {
+                mapIt->second->draw(_oDrawEnv, this);
             }
-            
+
             ++mapIt;
         }
-        
+
         if(!_bZWriteTrans)
             glDepthMask(true);
     }
@@ -529,7 +529,7 @@ void RenderPartition::doExecution   (void)
 
     if(_pRenderTarget != NULL)
         _pRenderTarget->deactivate(&_oDrawEnv);
-    
+
     this->exit();
 }
 
@@ -539,7 +539,7 @@ void RenderPartition::execute(void)
     if(_bDone == false)
     {
         setupExecution();
-        doExecution   ();  
+        doExecution   ();
     }
 
     GroupStore::iterator gIt  = _vGroupStore.begin();
@@ -554,7 +554,7 @@ void RenderPartition::execute(void)
     }
 }
 
-void RenderPartition::execute(DrawEnv *pEnv) 
+void RenderPartition::execute(DrawEnv *pEnv)
 {
 #ifdef OSG_RENPART_DUMP_PAR
     fprintf(stderr, "execute %p %d\n", this, UInt32(_ubState));
@@ -567,7 +567,7 @@ void RenderPartition::execute(DrawEnv *pEnv)
         {
             this->setupExecution();
             ++_ubState;
-        }   
+        }
         break;
 
         case Execute:
@@ -582,11 +582,11 @@ void RenderPartition::execute(DrawEnv *pEnv)
             if(_bDone == false)
             {
                 setupExecution();
-                doExecution   ();  
+                doExecution   ();
             }
         }
         break;
-    }              
+    }
 
 #ifdef OSG_RENPART_DUMP_PAR
     fprintf(stderr, "execute done %p %d\n", this, UInt32(_ubState));
@@ -625,19 +625,19 @@ bool RenderPartition::pushShaderState(State *pState)
 #ifdef OSG_NEW_SHADER
     if(pState != NULL)
     {
-        ShaderProgramChunk *pSPChunk = 
+        ShaderProgramChunk *pSPChunk =
             static_cast<ShaderProgramChunk *>(
                 pState->getChunk(ShaderProgramChunk::getStaticClassId()));
-        ShaderProgramVariableChunk *pSPVChunk = 
+        ShaderProgramVariableChunk *pSPVChunk =
             static_cast<ShaderProgramVariableChunk *>(
                 pState->getChunk(ShaderProgramVariableChunk::getStaticClassId()));
 
         if(pSPChunk != NULL || pSPVChunk != NULL)
-            {
-                this->pushState();
+        {
+            this->pushState();
 
             statePushed = true;
-            }
+        }
 
         if(pSPChunk != NULL)
         {
@@ -655,7 +655,7 @@ bool RenderPartition::pushShaderState(State *pState)
     if(_sStateOverrides.top()->getShader ()         == NULL  &&
        _sStateOverrides.top()->getProgIds().empty() == false   )
     {
-        ShaderExecutableChunkUnrecPtr pShader = 
+        ShaderExecutableChunkUnrecPtr pShader =
             _oDrawEnv.getWindow()->getShaderCache()->findShader(
                 _sStateOverrides.top()->getProgIds());
 
@@ -665,9 +665,9 @@ bool RenderPartition::pushShaderState(State *pState)
 
             typedef StateOverride::ProgramChunkStore ProgChunkStore;
 
-            ProgChunkStore::const_iterator pIt = 
+            ProgChunkStore::const_iterator pIt =
                 _sStateOverrides.top()->getPrograms().begin();
-            ProgChunkStore::const_iterator pEnd = 
+            ProgChunkStore::const_iterator pEnd =
                 _sStateOverrides.top()->getPrograms().end  ();
 
             for(; pIt != pEnd; ++pIt)
@@ -684,15 +684,15 @@ bool RenderPartition::pushShaderState(State *pState)
             ShaderExecutableChunk::getStaticClassId(),
             pShader                      );
 
-        OSG_ASSERT(ShaderExecutableChunk::getStaticClassId() == 
-                   pShader->getClassId()                       ); 
+        OSG_ASSERT(ShaderExecutableChunk::getStaticClassId() ==
+                   pShader->getClassId()                       );
 
     }
 
     if(_sStateOverrides.top()->getShaderVar()         == NULL &&
        _sStateOverrides.top()->getVarIds   ().empty() == false   )
     {
-        ShaderExecutableVarChunkUnrecPtr pShaderVar = 
+        ShaderExecutableVarChunkUnrecPtr pShaderVar =
             _oDrawEnv.getWindow()->getShaderCache()->findShaderVar(
                 _sStateOverrides.top()->getVarIds());
 
@@ -702,9 +702,9 @@ bool RenderPartition::pushShaderState(State *pState)
 
             typedef StateOverride::ProgramVarChunkStore ProgVarChunkStore;
 
-            ProgVarChunkStore::const_iterator vIt = 
+            ProgVarChunkStore::const_iterator vIt =
                 _sStateOverrides.top()->getVariables().begin();
-            ProgVarChunkStore::const_iterator vEnd = 
+            ProgVarChunkStore::const_iterator vEnd =
                 _sStateOverrides.top()->getVariables().end();
 
             for(; vIt != vEnd; ++vIt)
@@ -721,7 +721,7 @@ bool RenderPartition::pushShaderState(State *pState)
             ShaderExecutableVarChunk::getStaticClassId(),
             pShaderVar);
 
-        OSG_ASSERT(ShaderExecutableVarChunk::getStaticClassId() == 
+        OSG_ASSERT(ShaderExecutableVarChunk::getStaticClassId() ==
                    pShaderVar->getClassId()                       );
 
     }
@@ -770,36 +770,36 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
     bOverrodeState = pushShaderState(pState);
 #endif // OSG_NEW_SHADER
 
-    bool bTransparent = ( pState               ->isTransparent() | 
+    bool bTransparent = ( pState               ->isTransparent() |
                          _sStateOverrides.top()->isTransparent() );
-    
+
     if(_bSortTrans == true && bTransparent == true)
     {
         BuildKeyMapIt mapIt = _mTransMatRoots.lower_bound(iSortKey);
-        
+
         if(mapIt == _mTransMatRoots.end() || mapIt->first != iSortKey)
         {
             TreeBuilderBase *pBuilder =
                 _pTreeBuilderPool->create(ScalarSortTreeBuilder::Proto);
-            
+
             pBuilder->setNodePool(_pNodePool);
-            
-            mapIt = _mTransMatRoots.insert(mapIt, 
+
+            mapIt = _mTransMatRoots.insert(mapIt,
                                            std::make_pair(iSortKey, pBuilder));
         }
-        
+
         if(mapIt->second == NULL)
         {
-            mapIt->second = 
+            mapIt->second =
                 _pTreeBuilderPool->create(ScalarSortTreeBuilder::Proto);
-            
+
             mapIt->second->setNodePool(_pNodePool);
         }
-        
+
         RenderTreeNode *pNewElem = _pNodePool->create();
-        
+
         Pnt3f         objPos;
-        
+
         actNode->getVolume().getCenter(objPos);
 
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
@@ -808,7 +808,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
         Pnt3d temp(objPos[0], objPos[1], objPos[2]);
         _modelViewMatrix.second.mult(temp);
 #endif
-        
+
         pNewElem->setNode        (&*actNode         );
         pNewElem->setFunctor     (  func            );
         pNewElem->setState       (  pState          );
@@ -829,7 +829,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 
         pNewElem->setLightState  (_uiLightState);
 
-        if(_sStateOverrides.top()->empty() == false && 
+        if(_sStateOverrides.top()->empty() == false &&
             bIgnoreOverrides               == false  )
         {
             pNewElem->setStateOverride(_sStateOverrides.top());
@@ -845,36 +845,36 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
     else if(rt != NULL && rt->getOcclusionCulling() == true)
     {
         BuildKeyMapIt mapIt = _mMatRoots.lower_bound(iSortKey);
-        
+
         if(mapIt == _mMatRoots.end() || mapIt->first != iSortKey)
         {
             TreeBuilderBase *pBuilder =
                 _pTreeBuilderPool->create(OcclusionCullingTreeBuilder::Proto);
-            
+
             pBuilder->setNodePool(_pNodePool);
-            
-            mapIt = _mMatRoots.insert(mapIt, 
+
+            mapIt = _mMatRoots.insert(mapIt,
                                       std::make_pair(iSortKey, pBuilder));
         }
-        
+
         if(mapIt->second == NULL)
         {
-            mapIt->second = 
+            mapIt->second =
                 _pTreeBuilderPool->create(OcclusionCullingTreeBuilder::Proto);
-            
+
             mapIt->second->setNodePool(_pNodePool);
         }
-        
+
         RenderTreeNode  *pNewElem = _pNodePool->create();
-      
+
 #ifndef OSG_ENABLE_DOUBLE_MATRIX_STACK
         Pnt3f            objPos;
 #else
         Pnt3d            objPos;
 #endif
-        
+
         //_oDrawEnv.getRTAction()->getActNode()->getVolume().getCenter(objPos);
-        
+
         //_modelViewMatrix.second.mult(objPos, objPos);
 
         const BoxVolume &objVol   = actNode->getVolume();
@@ -909,7 +909,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
             if(p[i][2] < objPos[2])
                 objPos[2] = p[i][2];
         }
-        
+
         //std::cout << objPos[2] << std::endl;
 
         pNewElem->setVol        (  objVol          );
@@ -932,9 +932,9 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 #endif
 
         // Normalize scalar to 0..1 for bucket sorting
-        pNewElem->setScalar     ( (-objPos[2] - getNear()) / 
-                                  (getFar()   - getNear()) ); 
-        
+        pNewElem->setScalar     ( (-objPos[2] - getNear()) /
+                                  (getFar()   - getNear()) );
+
         if(_sStateOverrides.top()->empty() == false &&
             bIgnoreOverrides               == false  )
         {
@@ -948,17 +948,17 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
                             0);
     }
     else
-    {    
+    {
         BuildKeyMapIt mapIt = _mMatRoots.lower_bound(iSortKey);
 
         if(mapIt == _mMatRoots.end() || mapIt->first != iSortKey)
         {
             TreeBuilderBase *pBuilder =
                 _pTreeBuilderPool->create(StateSortTreeBuilder::Proto);
-            
+
             pBuilder->setNodePool(_pNodePool);
-            
-            mapIt = _mMatRoots.insert(mapIt, 
+
+            mapIt = _mMatRoots.insert(mapIt,
                                       std::make_pair(iSortKey, pBuilder));
         }
 
@@ -989,7 +989,7 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 #endif
 
         pNewElem->setLightState (_uiLightState);
-               
+
         if(_sStateOverrides.top()->empty() == false &&
             bIgnoreOverrides               == false  )
         {
@@ -1015,9 +1015,9 @@ void RenderPartition::dropFunctor(DrawFunctor &func,
 void RenderPartition::pushState(void)
 {
     StateOverride *pNewState = _pStatePool->create();
-    
+
     pNewState->fillFrom(_sStateOverrides.top());
-    
+
     _sStateOverrides.push(pNewState);
 
 //    fprintf(stderr, "push so size %d\n", _sStateOverrides.size());
@@ -1048,7 +1048,7 @@ void RenderPartition::overrideMaterial(Material *       pMaterial,
 
         OSG_ASSERT(pState != NULL);
 
-        ShaderProgramChunk *pSPChunk = 
+        ShaderProgramChunk *pSPChunk =
             static_cast<ShaderProgramChunk *>(
                 pState->getChunk(ShaderProgramChunk::getStaticClassId()));
 
@@ -1063,7 +1063,7 @@ void RenderPartition::overrideMaterial(Material *       pMaterial,
             _addedStateOverride = true;
         }
 
-        ShaderProgramVariableChunk *pSPVChunk = 
+        ShaderProgramVariableChunk *pSPVChunk =
             static_cast<ShaderProgramVariableChunk *>(
                 pState->getChunk(
                     ShaderProgramVariableChunk::getStaticClassId()));
@@ -1080,7 +1080,7 @@ void RenderPartition::overrideMaterial(Material *       pMaterial,
             _sStateOverrides.top()->addOverride(0, pSPVChunk);
 
             _sStateOverrides.top()->setShaderVar(NULL);
-        }        
+        }
 #endif
     }
     else if(_pMaterialNode == pNode)
@@ -1134,14 +1134,14 @@ bool RenderPartition::isVisible(Node *pNode)
 {
     if(getFrustumCulling() == false)
         return true;
-    
+
     if(_oDrawEnv.getStatCollector() != NULL)
     {
-        _oDrawEnv.getStatCollector()->getElem(statCullTestedNodes)->inc(); 
+        _oDrawEnv.getStatCollector()->getElem(statCullTestedNodes)->inc();
     }
 
 //    _oDrawEnv.getRTAction()->getStatistics()->getElem(statCullTestedNodes)->inc();
-    
+
     BoxVolume vol;
 
     pNode->updateVolume();
@@ -1155,7 +1155,7 @@ bool RenderPartition::isVisible(Node *pNode)
 // fprintf(stderr,"%p: node 0x%p vis\n", Thread::getCurrent(), node);
         return true;
     }
-    
+
     if(_oDrawEnv.getStatCollector() != NULL)
     {
         _oDrawEnv.getStatCollector()->getElem(statCulledNodes)->inc();
@@ -1168,13 +1168,13 @@ bool RenderPartition::isVisible(Node *pNode)
 
     return false;
 }
-    
+
 // visibility levels
 bool RenderPartition::pushVisibility(Node * const pNode)
 {
     if(getFrustumCulling() == false)
         return true;
-    
+
     FrustumVolume::PlaneSet inplanes = _visibilityStack.back();
 
     if(inplanes == FrustumVolume::P_ALL)
@@ -1186,7 +1186,7 @@ bool RenderPartition::pushVisibility(Node * const pNode)
 
     Color3f col;
     bool result = true;
-   
+
     pNode->updateVolume();
 
     BoxVolume     vol     = pNode->getVolume();
@@ -1194,15 +1194,15 @@ bool RenderPartition::pushVisibility(Node * const pNode)
 
 #if 1
     vol.transform(topMatrix());
-#else   
-    // not quite working 
+#else
+    // not quite working
     Matrix m = topMatrix();
     m.invert();
-    
+
     frustum.transform(m);
 #endif
 
-  
+
     if(_oDrawEnv.getStatCollector() != NULL)
     {
         _oDrawEnv.getStatCollector()->getElem(statCullTestedNodes)->inc();
@@ -1223,11 +1223,11 @@ bool RenderPartition::pushVisibility(Node * const pNode)
     {
         if(inplanes == FrustumVolume::P_ALL)
         {
-            col.setValuesRGB(0,1,0);            
+            col.setValuesRGB(0,1,0);
         }
         else
         {
-            col.setValuesRGB(0,0,1);            
+            col.setValuesRGB(0,0,1);
         }
     }
 
@@ -1245,7 +1245,7 @@ void RenderPartition::popVisibility(void)
 {
     if(getFrustumCulling() == false)
         return;
-    
+
     _visibilityStack.pop_back();
 }
 
@@ -1269,7 +1269,7 @@ void RenderPartition::initFrom(RenderPartition *pSource,
         _sStateOverrides.top()->setKeyGen(_uiKeyGen);
 
         _visibilityStack.push_back(FrustumVolume::P_NONE);
-        
+
 #ifdef OSG_RENPART_DUMP_PAR
         fprintf(stderr, "after init early %d %p (%p|%p)\n",
                 _sStateOverrides.size(),
@@ -1395,7 +1395,7 @@ void RenderPartition::exit(void)
         return;
 
 #ifdef OSG_RENPART_DUMP_PAR
-    fprintf(stderr, "exit %p %d %d\n", 
+    fprintf(stderr, "exit %p %d %d\n",
             this, _sStateOverrides.size(), pthread_self());
     fflush(stderr);
 #endif
