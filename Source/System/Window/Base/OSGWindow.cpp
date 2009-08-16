@@ -1892,13 +1892,14 @@ void OSG::Window::render(RenderActionBase *action)
 {
     if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
-        doActivate ();
+        activate   ();
         doFrameInit();    // query recently registered GL extensions
     
         doRenderAllViewports(action);
         
-        doSwap     ();
+        swap       ();
         doFrameExit(); // after frame cleanup: delete dead GL objects
+        deactivate ();
     }
     else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                          ParallelPartitionDraw)
@@ -1974,7 +1975,7 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
 {
     if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
-        doActivate ();
+        activate   ();
         doFrameInit();    // query recently registered GL extensions
         
         doRenderAllViewports(action);
@@ -2036,10 +2037,11 @@ void OSG::Window::frameFinish(bool bActivate)
     if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
         if(bActivate == true)
-            doActivate();
+            activate();
         
-        doSwap     ();
+        swap       ();
         doFrameExit(); // after frame cleanup: delete dead GL objects
+
     }
     else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                          ParallelPartitionDraw)

@@ -306,7 +306,7 @@ bool CSMPassiveWindow::init(void)
 
     Inherited::init();
 
-    pPWindow->activate();
+//    pPWindow->activate();
 
     return true;
 }
