@@ -311,8 +311,8 @@ void CubeTextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
         return;        
     }
     
-
-    TextureBaseChunk::activateTexture(win, idx);
+    if(TextureBaseChunk::activateTexture(win, idx))
+        return; // trying to use too many textures
 
     glErr("CubeTextureObjChunk::activate precheck");
     
@@ -370,36 +370,31 @@ void CubeTextureObjChunk::changeFrom(DrawEnv    *pEnv,
 
     Window *win = pEnv->getWindow();   
 
-    if(TextureBaseChunk::activateTexture(win, idx))
-        return; // trying to use too many textures
+    Real32 nteximages, ntexcoords;
 
     glErr("CubeTextureObjChunk::changeFrom precheck");
 
-    UInt32 nteximages, ntexcoords, ntexunits;
-
-    Real32 dummy = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
-
-    if(dummy == Window::unknownConstant)
-    {
-        ntexunits = 1;
-    }
-    else
-    {
-        ntexunits = static_cast<UInt32>(dummy);
-    }
-   
-    
-    if((dummy = win->getConstantValue(GL_MAX_TEXTURE_COORDS_ARB)) ==
+    if((nteximages = win->getConstantValue(GL_MAX_TEXTURE_IMAGE_UNITS_ARB)) ==
        Window::unknownConstant)
     {
-        ntexcoords = ntexunits;
-    }
-    else
-    {
-        ntexcoords = static_cast<UInt32>(dummy);
+        nteximages = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
+
+        // sgi doesn't support GL_MAX_TEXTURE_UNITS_ARB!
+        if(nteximages == Window::unknownConstant)
+            nteximages = 1.0f;
     }
 
-    if(idx >= nteximages)
+    if((ntexcoords = win->getConstantValue(GL_MAX_TEXTURE_COORDS_ARB)) ==
+       Window::unknownConstant)
+    {
+        ntexcoords = win->getConstantValue(GL_MAX_TEXTURE_UNITS_ARB);
+
+        // sgi doesn't support GL_MAX_TEXTURE_UNITS_ARB!
+        if(ntexcoords == Window::unknownConstant)
+            ntexcoords = 1.0f;
+    }
+
+    if(idx >= static_cast<UInt32>(nteximages))
     {
 #ifdef OSG_DEBUG
         FWARNING(("TextureObjChunk::activate: Trying to bind image unit %d,"
@@ -408,6 +403,9 @@ void CubeTextureObjChunk::changeFrom(DrawEnv    *pEnv,
 #endif
         return;        
     }
+
+    if(TextureBaseChunk::activateTexture(win, idx))
+        return; // trying to use too many textures
 
     win->validateGLObject(getGLId(), pEnv);
     

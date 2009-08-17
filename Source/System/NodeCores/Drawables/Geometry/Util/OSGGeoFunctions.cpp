@@ -620,7 +620,7 @@ void calcVertexTangentsProp(Geometry *geo,
     Int32 i, k, index, v[3];
     Vec4f vect(0, 0, 0, 0);
     
-    UInt32             propSize;
+    UInt32             propSize = 0;
     std::vector<Int32> indexVec;
 
     indexVec.resize(3);    
