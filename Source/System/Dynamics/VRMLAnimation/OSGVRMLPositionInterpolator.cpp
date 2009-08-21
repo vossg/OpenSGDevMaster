@@ -157,4 +157,13 @@ void VRMLPositionInterpolator::dump(      UInt32    ,
     SLOG << "Dump VRMLPositionInterpolator NI" << std::endl;
 }
 
+void VRMLPositionInterpolator::evaluate(void)
+{
+    InterpolationHelper<MFReal32, MFVec3f, SFVec3f>::interpolate(
+        _sfInValue.getValue(),
+        _mfKey,
+        _mfKeyValue,
+        *(this->editSFOutValue()));
+}
+
 OSG_END_NAMESPACE

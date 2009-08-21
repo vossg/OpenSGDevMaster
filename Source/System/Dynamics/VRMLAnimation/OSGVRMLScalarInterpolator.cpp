@@ -157,4 +157,13 @@ void VRMLScalarInterpolator::dump(      UInt32    ,
     SLOG << "Dump VRMLScalarInterpolator NI" << std::endl;
 }
 
+void VRMLScalarInterpolator::evaluate(void)
+{
+    InterpolationHelper<MFReal32, MFReal32, SFReal32>::interpolate(
+        _sfInValue.getValue(),
+        _mfKey,
+        _mfKeyValue,
+        *(this->editSFOutValue()));
+}
+
 OSG_END_NAMESPACE

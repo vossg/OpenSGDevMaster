@@ -157,4 +157,13 @@ void VRMLOrientationInterpolator::dump(      UInt32    ,
     SLOG << "Dump VRMLOrientationInterpolator NI" << std::endl;
 }
 
+void VRMLOrientationInterpolator::evaluate(void)
+{
+    InterpolationHelper<MFReal32, MFQuaternion, SFQuaternion>::interpolate(
+        _sfInValue.getValue(),
+        _mfKey,
+        _mfKeyValue,
+        *(this->editSFOutValue()));
+}
+
 OSG_END_NAMESPACE

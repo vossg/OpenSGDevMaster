@@ -157,4 +157,13 @@ void VRMLCoordinateInterpolator::dump(      UInt32    ,
     SLOG << "Dump VRMLCoordinateInterpolator NI" << std::endl;
 }
 
+void VRMLCoordinateInterpolator::evaluate(void)
+{
+    InterpolationHelper<MFReal32, MFPnt3f, MFPnt3f>::interpolate(
+        _sfInValue.getValue(),
+        _mfKey,
+        _mfKeyValue,
+        *(this->editMFOutValue()));
+}
+
 OSG_END_NAMESPACE

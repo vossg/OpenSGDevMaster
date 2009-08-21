@@ -82,6 +82,13 @@ class OSG_DYNAMICS_DLLMAPPING VRMLPositionInterpolator :
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Evaluation                                 */
+    /*! \{                                                                 */
+
+    virtual void evaluate(void);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
