@@ -240,7 +240,7 @@ AnimationBase::TypeObject AnimationBase::_type(
     "     type=\"TimeSensor\"\n"
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
+    "     access=\"protected\"\n"
     "     fieldFlags=\"FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"

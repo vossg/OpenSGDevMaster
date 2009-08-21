@@ -20,7 +20,7 @@
      type="TimeSensor"
      cardinality="single"
      visibility="external"
-     access="public"
+     access="protected"
      fieldFlags="FThreadLocal"
      >
   </Field>

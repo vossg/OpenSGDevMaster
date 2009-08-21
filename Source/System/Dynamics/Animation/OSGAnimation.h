@@ -81,6 +81,14 @@ class OSG_DYNAMICS_DLLMAPPING Animation : public AnimationBase
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Time Sensor                                */
+    /*! \{                                                                 */
+
+    void        setTimeSensor(TimeSensor *value);
+    TimeSensor *getTimeSensor(void             ) const;
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -107,6 +115,14 @@ class OSG_DYNAMICS_DLLMAPPING Animation : public AnimationBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Time Sensor Change                            */
+    /*! \{                                                                 */
+
+    void timeSensorChanged(FieldContainer *fc,
+                           BitVector       whichField);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

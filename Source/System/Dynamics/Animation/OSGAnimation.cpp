@@ -47,6 +47,8 @@
 
 #include "OSGAnimation.h"
 
+#include <boost/bind.hpp>
+
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
@@ -99,9 +101,20 @@ Animation::~Animation(void)
 /*----------------------------- class specific ----------------------------*/
 
 void Animation::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                        UInt32            origin,
+                        BitVector         details)
 {
+    if(0 != ((WeightFieldMask | ChannelsFieldMask) & whichField))
+    {
+        MFChannelsType::const_iterator cIt  = _mfChannels.begin();
+        MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
+
+        for(; cIt != cEnd; ++cIt)
+        {
+            (*cIt)->setWeight(_sfWeight.getValue());
+        }
+    }
+
     Inherited::changed(whichField, origin, details);
 }
 
@@ -110,5 +123,59 @@ void Animation::dump(      UInt32    ,
 {
     SLOG << "Dump Animation NI" << std::endl;
 }
+
+void Animation::setTimeSensor(TimeSensor *value)
+{
+    if(_sfTimeSensor.getValue() == value)
+        return;
+
+    if(_sfTimeSensor.getValue() != NULL)
+    {
+        _sfTimeSensor.getValue()->subChangedFunctor(
+            boost::bind(&Animation::timeSensorChanged, this, _1, _2));
+    }
+
+    Inherited::setTimeSensor(value);
+
+    if(_sfTimeSensor.getValue() != NULL)
+    {
+        _sfTimeSensor.getValue()->addChangedFunctor(
+            boost::bind(&Animation::timeSensorChanged, this, _1, _2), "");
+    }
+}
+
+TimeSensor *Animation::getTimeSensor(void) const
+{
+    return Inherited::getTimeSensor();
+}
+
+
+void Animation::timeSensorChanged(FieldContainer *fc, BitVector whichField)
+{
+    TimeSensor *ts = _sfTimeSensor.getValue();
+
+    OSG_ASSERT(fc == ts);
+
+    if(0 != (TimeSensor::TimeFieldMask & whichField))
+    {
+        // sensor is active or just changed to inactive
+        if(true == ts->getIsActive()                           ||
+           0    != (TimeSensor::IsActiveFieldMask & whichField)   )
+        {
+            MFChannelsType::const_iterator cIt  = _mfChannels.begin();
+            MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
+            
+            for(; cIt != cEnd; ++cIt)
+            {
+                SLOG << "Animation::timeSensorChanged: "
+                     << (ts->getFraction() * ts->getCycleInterval())
+                     << std::endl;
+
+                (*cIt)->setInValue(ts->getFraction() * ts->getCycleInterval());
+            }
+        }
+    }
+}
+
 
 OSG_END_NAMESPACE

@@ -142,8 +142,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecTimeSensorPtr *getSFTimeSensor     (void) const;
-                  SFUnrecTimeSensorPtr *editSFTimeSensor     (void);
             const SFUnrecAnimTemplatePtr *getSFTemplate       (void) const;
                   SFUnrecAnimTemplatePtr *editSFTemplate       (void);
             const MFUnrecChildAnimChannelPtr *getMFChannels       (void) const;
@@ -152,8 +150,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
                   SFReal32            *editSFWeight         (void);
             const SFReal32            *getSFWeight          (void) const;
 
-
-                  TimeSensor * getTimeSensor     (void) const;
 
                   AnimTemplate * getTemplate       (void) const;
 
@@ -167,7 +163,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTimeSensor     (TimeSensor * const value);
             void setTemplate       (AnimTemplate * const value);
             void setWeight         (const Real32 value);
 
@@ -288,6 +283,29 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     EditFieldHandlePtr editHandleChannels       (void);
     GetFieldHandlePtr  getHandleWeight          (void) const;
     EditFieldHandlePtr editHandleWeight         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecTimeSensorPtr *getSFTimeSensor      (void) const;
+                  SFUnrecTimeSensorPtr *editSFTimeSensor     (void);
+
+
+                  TimeSensor * getTimeSensor     (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setTimeSensor     (TimeSensor * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
