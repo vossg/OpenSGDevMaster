@@ -86,6 +86,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var UInt32          AnimKeyFrameDataSourceBase::_mfInterpolationModes
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -125,6 +129,18 @@ void AnimKeyFrameDataSourceBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&AnimKeyFrameDataSource::getHandleInValues));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUInt32::Description(
+        MFUInt32::getClassType(),
+        "interpolationModes",
+        "",
+        InterpolationModesFieldId, InterpolationModesFieldMask,
+        true,
+        (Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&AnimKeyFrameDataSource::editHandleInterpolationModes),
+        static_cast<FieldGetMethodSig >(&AnimKeyFrameDataSource::getHandleInterpolationModes));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -133,7 +149,7 @@ AnimKeyFrameDataSourceBase::TypeObject AnimKeyFrameDataSourceBase::_type(
     Inherited::getClassname(),
     "NULL",
     0,
-    reinterpret_cast<PrototypeCreateF>(&AnimKeyFrameDataSourceBase::createEmptyLocal),
+    NULL,
     AnimKeyFrameDataSource::initMethod,
     AnimKeyFrameDataSource::exitMethod,
     reinterpret_cast<InitalInsertDescFunc>(&AnimKeyFrameDataSource::classDescInserter),
@@ -146,7 +162,7 @@ AnimKeyFrameDataSourceBase::TypeObject AnimKeyFrameDataSourceBase::_type(
     "    parent=\"AnimDataSource\"\n"
     "    library=\"Dynamics\"\n"
     "    pointerfieldtypes=\"both\"\n"
-    "    structure=\"concrete\"\n"
+    "    structure=\"abstract\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
@@ -159,6 +175,16 @@ AnimKeyFrameDataSourceBase::TypeObject AnimKeyFrameDataSourceBase::_type(
     "     name=\"inValues\"\n"
     "     category=\"data\"\n"
     "     type=\"Real32\"\n"
+    "     cardinality=\"multi\"\n"
+    "     visibility=\"internal\"\n"
+    "     access=\"public\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"interpolationModes\"\n"
+    "     category=\"data\"\n"
+    "     type=\"UInt32\"\n"
     "     cardinality=\"multi\"\n"
     "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
@@ -202,6 +228,19 @@ const MFReal32 *AnimKeyFrameDataSourceBase::getMFInValues(void) const
 }
 
 
+MFUInt32 *AnimKeyFrameDataSourceBase::editMFInterpolationModes(void)
+{
+    editMField(InterpolationModesFieldMask, _mfInterpolationModes);
+
+    return &_mfInterpolationModes;
+}
+
+const MFUInt32 *AnimKeyFrameDataSourceBase::getMFInterpolationModes(void) const
+{
+    return &_mfInterpolationModes;
+}
+
+
 
 
 
@@ -216,6 +255,10 @@ UInt32 AnimKeyFrameDataSourceBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfInValues.getBinSize();
     }
+    if(FieldBits::NoField != (InterpolationModesFieldMask & whichField))
+    {
+        returnValue += _mfInterpolationModes.getBinSize();
+    }
 
     return returnValue;
 }
@@ -229,6 +272,10 @@ void AnimKeyFrameDataSourceBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfInValues.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (InterpolationModesFieldMask & whichField))
+    {
+        _mfInterpolationModes.copyToBin(pMem);
+    }
 }
 
 void AnimKeyFrameDataSourceBase::copyFromBin(BinaryDataHandler &pMem,
@@ -240,122 +287,10 @@ void AnimKeyFrameDataSourceBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _mfInValues.copyFromBin(pMem);
     }
-}
-
-//! create a new instance of the class
-AnimKeyFrameDataSourceTransitPtr AnimKeyFrameDataSourceBase::createLocal(BitVector bFlags)
-{
-    AnimKeyFrameDataSourceTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
+    if(FieldBits::NoField != (InterpolationModesFieldMask & whichField))
     {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
-
-        fc = dynamic_pointer_cast<AnimKeyFrameDataSource>(tmpPtr);
+        _mfInterpolationModes.copyFromBin(pMem);
     }
-
-    return fc;
-}
-
-//! create a new instance of the class, copy the container flags
-AnimKeyFrameDataSourceTransitPtr AnimKeyFrameDataSourceBase::createDependent(BitVector bFlags)
-{
-    AnimKeyFrameDataSourceTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
-
-        fc = dynamic_pointer_cast<AnimKeyFrameDataSource>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
-AnimKeyFrameDataSourceTransitPtr AnimKeyFrameDataSourceBase::create(void)
-{
-    AnimKeyFrameDataSourceTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<AnimKeyFrameDataSource>(tmpPtr);
-    }
-
-    return fc;
-}
-
-AnimKeyFrameDataSource *AnimKeyFrameDataSourceBase::createEmptyLocal(BitVector bFlags)
-{
-    AnimKeyFrameDataSource *returnValue;
-
-    newPtr<AnimKeyFrameDataSource>(returnValue, bFlags);
-
-    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
-
-//! create an empty new instance of the class, do not copy the prototype
-AnimKeyFrameDataSource *AnimKeyFrameDataSourceBase::createEmpty(void)
-{
-    AnimKeyFrameDataSource *returnValue;
-
-    newPtr<AnimKeyFrameDataSource>(returnValue, Thread::getCurrentLocalFlags());
-
-    returnValue->_pFieldFlags->_bNamespaceMask &=
-        ~Thread::getCurrentLocalFlags();
-
-    return returnValue;
-}
-
-
-FieldContainerTransitPtr AnimKeyFrameDataSourceBase::shallowCopyLocal(
-    BitVector bFlags) const
-{
-    AnimKeyFrameDataSource *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const AnimKeyFrameDataSource *>(this), bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
-
-    return returnValue;
-}
-
-FieldContainerTransitPtr AnimKeyFrameDataSourceBase::shallowCopyDependent(
-    BitVector bFlags) const
-{
-    AnimKeyFrameDataSource *tmpPtr;
-
-    newPtr(tmpPtr, dynamic_cast<const AnimKeyFrameDataSource *>(this), ~bFlags);
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
-
-    return returnValue;
-}
-
-FieldContainerTransitPtr AnimKeyFrameDataSourceBase::shallowCopy(void) const
-{
-    AnimKeyFrameDataSource *tmpPtr;
-
-    newPtr(tmpPtr,
-           dynamic_cast<const AnimKeyFrameDataSource *>(this),
-           Thread::getCurrentLocalFlags());
-
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
-
-    return returnValue;
 }
 
 
@@ -365,13 +300,15 @@ FieldContainerTransitPtr AnimKeyFrameDataSourceBase::shallowCopy(void) const
 
 AnimKeyFrameDataSourceBase::AnimKeyFrameDataSourceBase(void) :
     Inherited(),
-    _mfInValues               ()
+    _mfInValues               (),
+    _mfInterpolationModes     ()
 {
 }
 
 AnimKeyFrameDataSourceBase::AnimKeyFrameDataSourceBase(const AnimKeyFrameDataSourceBase &source) :
     Inherited(source),
-    _mfInValues               (source._mfInValues               )
+    _mfInValues               (source._mfInValues               ),
+    _mfInterpolationModes     (source._mfInterpolationModes     )
 {
 }
 
@@ -408,6 +345,31 @@ EditFieldHandlePtr AnimKeyFrameDataSourceBase::editHandleInValues       (void)
     return returnValue;
 }
 
+GetFieldHandlePtr AnimKeyFrameDataSourceBase::getHandleInterpolationModes (void) const
+{
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfInterpolationModes,
+             this->getType().getFieldDesc(InterpolationModesFieldId),
+             const_cast<AnimKeyFrameDataSourceBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr AnimKeyFrameDataSourceBase::editHandleInterpolationModes(void)
+{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfInterpolationModes,
+             this->getType().getFieldDesc(InterpolationModesFieldId),
+             this));
+
+
+    editMField(InterpolationModesFieldMask, _mfInterpolationModes);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void AnimKeyFrameDataSourceBase::execSyncV(      FieldContainer    &oFrom,
@@ -427,19 +389,6 @@ void AnimKeyFrameDataSourceBase::execSyncV(      FieldContainer    &oFrom,
 #endif
 
 
-#ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *AnimKeyFrameDataSourceBase::createAspectCopy(
-    const FieldContainer *pRefAspect) const
-{
-    AnimKeyFrameDataSource *returnValue;
-
-    newAspectCopy(returnValue,
-                  dynamic_cast<const AnimKeyFrameDataSource *>(pRefAspect),
-                  dynamic_cast<const AnimKeyFrameDataSource *>(this));
-
-    return returnValue;
-}
-#endif
 
 void AnimKeyFrameDataSourceBase::resolveLinks(void)
 {
@@ -453,6 +402,10 @@ void AnimKeyFrameDataSourceBase::resolveLinks(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
     _mfInValues.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfInterpolationModes.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

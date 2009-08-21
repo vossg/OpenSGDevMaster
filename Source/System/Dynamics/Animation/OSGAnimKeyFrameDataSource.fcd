@@ -5,7 +5,7 @@
     parent="AnimDataSource"
     library="Dynamics"
     pointerfieldtypes="both"
-    structure="concrete"
+    structure="abstract"
     systemcomponent="true"
     parentsystemcomponent="true"
     decoratable="false"
@@ -18,6 +18,16 @@
      name="inValues"
      category="data"
      type="Real32"
+     cardinality="multi"
+     visibility="internal"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+  <Field
+     name="interpolationModes"
+     category="data"
+     type="UInt32"
      cardinality="multi"
      visibility="internal"
      access="public"

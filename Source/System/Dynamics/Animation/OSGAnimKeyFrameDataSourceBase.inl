@@ -90,6 +90,22 @@ Real32 &AnimKeyFrameDataSourceBase::editInValues(const UInt32 index)
 }
 
 
+//! Get the value of the \a index element the AnimKeyFrameDataSource::_mfInterpolationModes field.
+inline
+      UInt32  AnimKeyFrameDataSourceBase::getInterpolationModes(const UInt32 index) const
+{
+    return _mfInterpolationModes[index];
+}
+
+inline
+UInt32 &AnimKeyFrameDataSourceBase::editInterpolationModes(const UInt32 index)
+{
+    editMField(InterpolationModesFieldMask, _mfInterpolationModes);
+
+    return _mfInterpolationModes[index];
+}
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -103,6 +119,12 @@ void AnimKeyFrameDataSourceBase::execSync (      AnimKeyFrameDataSourceBase *pFr
 
     if(FieldBits::NoField != (InValuesFieldMask & whichField))
         _mfInValues.syncWith(pFrom->_mfInValues,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (InterpolationModesFieldMask & whichField))
+        _mfInterpolationModes.syncWith(pFrom->_mfInterpolationModes,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);

@@ -94,15 +94,19 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSourceBase : public AnimDataSource
     enum
     {
         InValuesFieldId = Inherited::NextFieldId,
-        NextFieldId = InValuesFieldId + 1
+        InterpolationModesFieldId = InValuesFieldId + 1,
+        NextFieldId = InterpolationModesFieldId + 1
     };
 
     static const OSG::BitVector InValuesFieldMask =
         (TypeTraits<BitVector>::One << InValuesFieldId);
+    static const OSG::BitVector InterpolationModesFieldMask =
+        (TypeTraits<BitVector>::One << InterpolationModesFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef MFReal32          MFInValuesType;
+    typedef MFUInt32          MFInterpolationModesType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -131,9 +135,15 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSourceBase : public AnimDataSource
                   MFReal32            *editMFInValues       (void);
             const MFReal32            *getMFInValues        (void) const;
 
+                  MFUInt32            *editMFInterpolationModes(void);
+            const MFUInt32            *getMFInterpolationModes (void) const;
+
 
                   Real32              &editInValues       (const UInt32 index);
                   Real32               getInValues        (const UInt32 index) const;
+
+                  UInt32              &editInterpolationModes(const UInt32 index);
+                  UInt32               getInterpolationModes (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -159,33 +169,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSourceBase : public AnimDataSource
 
 
     /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Construction                               */
-    /*! \{                                                                 */
-
-    static  AnimKeyFrameDataSourceTransitPtr  create          (void);
-    static  AnimKeyFrameDataSource           *createEmpty     (void);
-
-    static  AnimKeyFrameDataSourceTransitPtr  createLocal     (
-                                               BitVector bFlags = FCLocal::All);
-
-    static  AnimKeyFrameDataSource            *createEmptyLocal(
-                                              BitVector bFlags = FCLocal::All);
-
-    static  AnimKeyFrameDataSourceTransitPtr  createDependent  (BitVector bFlags);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                       Copy                                   */
-    /*! \{                                                                 */
-
-    virtual FieldContainerTransitPtr shallowCopy     (void) const;
-    virtual FieldContainerTransitPtr shallowCopyLocal(
-                                       BitVector bFlags = FCLocal::All) const;
-    virtual FieldContainerTransitPtr shallowCopyDependent(
-                                                      BitVector bFlags) const;
-
-    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -200,6 +183,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSourceBase : public AnimDataSource
     /*! \{                                                                 */
 
     MFReal32          _mfInValues;
+    MFUInt32          _mfInterpolationModes;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -229,6 +213,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSourceBase : public AnimDataSource
 
     GetFieldHandlePtr  getHandleInValues        (void) const;
     EditFieldHandlePtr editHandleInValues       (void);
+    GetFieldHandlePtr  getHandleInterpolationModes (void) const;
+    EditFieldHandlePtr editHandleInterpolationModes(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -258,11 +244,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSourceBase : public AnimDataSource
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
-
-#ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainer *createAspectCopy(
-                                    const FieldContainer *pRefAspect) const;
-#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

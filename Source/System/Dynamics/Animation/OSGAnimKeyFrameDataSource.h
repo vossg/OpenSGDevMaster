@@ -61,6 +61,14 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSource : public AnimKeyFrameDataSo
     typedef AnimKeyFrameDataSourceBase Inherited;
     typedef AnimKeyFrameDataSource     Self;
 
+    enum InterpolationModeE
+    {
+        IM_Step,
+        IM_Linear,
+        IM_Bezier,
+        IM_Hermite
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
