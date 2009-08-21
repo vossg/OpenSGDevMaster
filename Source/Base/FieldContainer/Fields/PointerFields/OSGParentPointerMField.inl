@@ -989,12 +989,68 @@ void ParentPointerMField<PtrTypeT,
                              UInt32              uiSyncInfo, 
                              AspectOffsetStore  &oOffsets  )
 {
-    Inherited::syncWith(source, 
-                        (syncMode | Field::MFNullCheckSync), 
-                        uiSyncInfo, 
-                        oOffsets);
-    
-    _vParentPos = source._vParentPos;
+    // can not use inherited implementation, because we need to keep
+    // _ptrStore and _vParentPos in sync (i.e. if skipping a NULL parent
+    // the corresponding parent pos must be skipped as well.
+
+    OSG_ASSERT(source._ptrStore.size() == source._vParentPos.size());
+
+    size_type n = source.size();
+
+    if(n != 0)
+    {
+        if(n > this->_ptrStore.size())
+        {
+            this->_ptrStore  .resize(n, NULL);
+            this->_vParentPos.resize(n, 0   );
+        }
+
+        // source
+        PtrStoreConstItType sIt   = source._ptrStore  .begin();
+        PtrStoreConstItType sEnd  = source._ptrStore  .end  ();
+        IdStoreConstItType  sIdIt = source._vParentPos.begin();
+
+        // destination
+        PtrStoreItType      dIt   = this ->_ptrStore  .begin();
+        IdStoreItType       dIdIt = this ->_vParentPos.begin();
+
+        n = 0;
+        for(; sIt != sEnd; ++sIt, ++sIdIt)
+        {
+            FieldContainer *pNewObj = convertToCurrentAspect(*sIt);
+
+            if(pNewObj != NULL                                ||
+               0x0000  != (syncMode & Field::MFNullCheckSync)   )
+            {
+                AccessHandler::onSyncReplace(this, *dIt, pNewObj);
+
+                *dIt   = pNewObj;
+                *dIdIt = *sIdIt;
+
+                ++dIt;
+                ++dIdIt;
+                ++n;
+            }
+        }
+
+        if(n < this->_ptrStore.size())
+        {
+            PtrStoreConstItType dEnd = this->_ptrStore.end();
+
+            for(; dIt != dEnd; ++dIt)
+                AccessHandler::onSyncSub(this, *dIt);
+
+            this->_ptrStore  .resize(n);
+            this->_vParentPos.resize(n);
+        }
+    }
+    else
+    {
+        this->ptrStoreClear();
+        this->_vParentPos.clear();
+    }
+
+    OSG_ASSERT(this->_ptrStore.size() == this->_vParentPos.size());
 }
      
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
