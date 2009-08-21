@@ -26,17 +26,6 @@
      >
   </Field>
   <Field
-     name="inValue"
-     category="data"
-     type="Real32"
-     cardinality="single"
-     visibility="external"
-     access="public"
-     defaultValue="0.0"
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
-  <Field
      name="outValue"
      category="data"
      type="Vec3f"

@@ -99,9 +99,16 @@ AnimVec3fDataSource::~AnimVec3fDataSource(void)
 /*----------------------------- class specific ----------------------------*/
 
 void AnimVec3fDataSource::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                                  UInt32            origin,
+                                  BitVector         details)
 {
+    if(0 != ((InValuesFieldMask           |
+              ValuesFieldMask             |
+              InterpolationModesFieldMask  ) & whichField))
+    {
+        checkDataConsistency();
+    }
+
     Inherited::changed(whichField, origin, details);
 }
 
@@ -109,6 +116,126 @@ void AnimVec3fDataSource::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump AnimVec3fDataSource NI" << std::endl;
+}
+
+void AnimVec3fDataSource::evaluate(Vec3f &outValue, Real32 inValue)
+{
+    MFInValuesType::const_iterator ivIt =
+        std::lower_bound(_mfInValues.begin(),
+                         _mfInValues.end  (),
+                         inValue             );
+    
+    UInt32 im = IM_Linear;
+
+    if(_mfInterpolationModes.size() == 1)
+    {
+        im = _mfInterpolationModes.front();
+    }
+    else if(_mfInterpolationModes.size() == _mfInValues.size())
+    {
+        MFInterpolationModesType::const_iterator imIt =
+            _mfInterpolationModes.begin();
+        std::advance(imIt, ivIt - _mfInValues.begin());
+
+        im = *imIt;
+    }
+
+    switch(im)
+    {
+    case IM_Step:
+        evalStep(outValue, inValue, ivIt);
+        break;
+
+    case IM_Linear:
+        evalLinear(outValue, inValue, ivIt);
+        break;
+
+    default:
+        SWARNING << "AnimVec3fDataSource: Unkown interpolation mode ["
+                 << im << "] - using LM_Linear [" << IM_Linear << "]"
+                 << std::endl;
+        evalLinear(outValue, inValue, ivIt);
+    }
+}
+
+void AnimVec3fDataSource::evalStep(
+    Vec3f &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
+{
+    if(ivRIt != _mfInValues.end())
+    {
+        if(ivRIt != _mfInValues.begin())
+        {
+            MFValuesType::const_iterator vIt = _mfValues.begin();
+            std::advance(vIt, ivRIt - _mfInValues.begin());
+        
+            outValue = *vIt;
+        }
+        else
+        {
+            extrapolateFront(outValue, inValue);
+        }
+    }
+    else
+    {
+        extrapolateBack(outValue, inValue);
+    }
+}
+
+void AnimVec3fDataSource::evalLinear(
+    Vec3f &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
+{
+    if(ivRIt != _mfInValues.end())
+    {
+        if(ivRIt != _mfInValues.begin())
+        {
+            MFInValuesType::const_iterator ivLIt = ivRIt - 1;
+
+            MFValuesType  ::const_iterator vRIt  = _mfValues.begin();
+            MFValuesType  ::const_iterator vLIt  = _mfValues.begin();
+            std::advance(vRIt, ivRIt - _mfInValues.begin());
+            std::advance(vLIt, ivLIt - _mfInValues.begin());
+
+            Real32 s = (inValue - *ivLIt) / (*ivRIt - *ivLIt);
+
+            outValue =  *vRIt - *vLIt;
+            outValue *= s;
+            outValue += *vLIt;
+        }
+        else
+        {
+            extrapolateFront(outValue, inValue);
+        }
+    }
+    else
+    {
+        extrapolateBack(outValue, inValue);
+    }
+}
+
+void AnimVec3fDataSource::extrapolateFront(Vec3f &outValue, Real32 inValue)
+{
+    outValue = _mfValues.front();
+}
+
+void AnimVec3fDataSource::extrapolateBack(Vec3f &outValue, Real32 inValue)
+{
+    outValue = _mfValues.back();
+}
+
+void AnimVec3fDataSource::checkDataConsistency(void)
+{
+    if(_mfInValues.size() != _mfValues.size())
+    {
+        SWARNING << "AnimVec3fDataSource: "
+                 << "MFInValues and MFValues sizes inconsistent." << std::endl;
+    }
+
+    if(_mfInterpolationModes.size() != 1 &&
+       _mfInterpolationModes.size() != _mfInValues.size())
+    {
+        SWARNING << "AnimVec3fDataSource: "
+                 << "MFInterpolationModes invalid." << std::endl;
+    }
 }
 
 OSG_END_NAMESPACE

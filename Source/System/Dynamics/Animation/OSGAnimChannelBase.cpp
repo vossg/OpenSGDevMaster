@@ -91,6 +91,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Real32          AnimChannelBase::_sfInValue
+    
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -160,6 +164,18 @@ void AnimChannelBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&AnimChannel::getHandleWeight));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "inValue",
+        "",
+        InValueFieldId, InValueFieldMask,
+        false,
+        (Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&AnimChannel::editHandleInValue),
+        static_cast<FieldGetMethodSig >(&AnimChannel::getHandleInValue));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -213,6 +229,17 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     "     fieldFlags=\"FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
+    "  <Field\n"
+    "     name=\"inValue\"\n"
+    "     category=\"data\"\n"
+    "     type=\"Real32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"0.0\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
+    "     >\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "Base for animation data sinks.\n"
     );
@@ -251,6 +278,19 @@ const SFReal32 *AnimChannelBase::getSFWeight(void) const
 }
 
 
+SFReal32 *AnimChannelBase::editSFInValue(void)
+{
+    editSField(InValueFieldMask);
+
+    return &_sfInValue;
+}
+
+const SFReal32 *AnimChannelBase::getSFInValue(void) const
+{
+    return &_sfInValue;
+}
+
+
 
 
 
@@ -269,6 +309,10 @@ UInt32 AnimChannelBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfWeight.getBinSize();
     }
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
+    {
+        returnValue += _sfInValue.getBinSize();
+    }
 
     return returnValue;
 }
@@ -286,6 +330,10 @@ void AnimChannelBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfWeight.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
+    {
+        _sfInValue.copyToBin(pMem);
+    }
 }
 
 void AnimChannelBase::copyFromBin(BinaryDataHandler &pMem,
@@ -301,6 +349,10 @@ void AnimChannelBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfWeight.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
+    {
+        _sfInValue.copyFromBin(pMem);
+    }
 }
 
 
@@ -311,14 +363,16 @@ void AnimChannelBase::copyFromBin(BinaryDataHandler &pMem,
 AnimChannelBase::AnimChannelBase(void) :
     Inherited(),
     _sfAnimation              (NULL),
-    _sfWeight                 ()
+    _sfWeight                 (),
+    _sfInValue                (Real32(0.0))
 {
 }
 
 AnimChannelBase::AnimChannelBase(const AnimChannelBase &source) :
     Inherited(source),
     _sfAnimation              (NULL),
-    _sfWeight                 (source._sfWeight                 )
+    _sfWeight                 (source._sfWeight                 ),
+    _sfInValue                (source._sfInValue                )
 {
 }
 
@@ -445,6 +499,31 @@ EditFieldHandlePtr AnimChannelBase::editHandleWeight         (void)
 
 
     editSField(WeightFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr AnimChannelBase::getHandleInValue         (void) const
+{
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfInValue,
+             this->getType().getFieldDesc(InValueFieldId),
+             const_cast<AnimChannelBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr AnimChannelBase::editHandleInValue        (void)
+{
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfInValue,
+             this->getType().getFieldDesc(InValueFieldId),
+             this));
+
+
+    editSField(InValueFieldMask);
 
     return returnValue;
 }

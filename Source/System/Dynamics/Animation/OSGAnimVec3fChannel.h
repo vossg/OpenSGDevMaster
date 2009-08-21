@@ -79,6 +79,13 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Evaluation                                 */
+    /*! \{                                                                 */
+
+    virtual void evaluate(void);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:

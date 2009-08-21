@@ -98,6 +98,31 @@ void AnimChannelBase::setWeight(const Real32 value)
 
     _sfWeight.setValue(value);
 }
+//! Get the value of the AnimChannel::_sfInValue field.
+
+inline
+Real32 &AnimChannelBase::editInValue(void)
+{
+    editSField(InValueFieldMask);
+
+    return _sfInValue.getValue();
+}
+
+//! Get the value of the AnimChannel::_sfInValue field.
+inline
+      Real32  AnimChannelBase::getInValue(void) const
+{
+    return _sfInValue.getValue();
+}
+
+//! Set the value of the AnimChannel::_sfInValue field.
+inline
+void AnimChannelBase::setInValue(const Real32 value)
+{
+    editSField(InValueFieldMask);
+
+    _sfInValue.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -115,6 +140,9 @@ void AnimChannelBase::execSync (      AnimChannelBase *pFrom,
 
     if(FieldBits::NoField != (WeightFieldMask & whichField))
         _sfWeight.syncWith(pFrom->_sfWeight);
+
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
+        _sfInValue.syncWith(pFrom->_sfInValue);
 }
 #endif
 

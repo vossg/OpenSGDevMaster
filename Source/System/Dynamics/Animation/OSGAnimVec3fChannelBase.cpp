@@ -87,10 +87,6 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var Real32          AnimVec3fChannelBase::_sfInValue
-    
-*/
-
 /*! \var Vec3f           AnimVec3fChannelBase::_sfOutValue
     
 */
@@ -132,18 +128,6 @@ void AnimVec3fChannelBase::classDescInserter(TypeObject &oType)
         (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimVec3fChannel::editHandleData),
         static_cast<FieldGetMethodSig >(&AnimVec3fChannel::getHandleData));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "inValue",
-        "",
-        InValueFieldId, InValueFieldMask,
-        false,
-        (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&AnimVec3fChannel::editHandleInValue),
-        static_cast<FieldGetMethodSig >(&AnimVec3fChannel::getHandleInValue));
 
     oType.addInitialDesc(pDesc);
 
@@ -200,17 +184,6 @@ AnimVec3fChannelBase::TypeObject AnimVec3fChannelBase::_type(
     "     >\n"
     "  </Field>\n"
     "  <Field\n"
-    "     name=\"inValue\"\n"
-    "     category=\"data\"\n"
-    "     type=\"Real32\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"0.0\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
-    "  <Field\n"
     "     name=\"outValue\"\n"
     "     category=\"data\"\n"
     "     type=\"Vec3f\"\n"
@@ -258,19 +231,6 @@ SFUnrecAnimVec3fDataSourcePtr *AnimVec3fChannelBase::editSFData           (void)
     return &_sfData;
 }
 
-SFReal32 *AnimVec3fChannelBase::editSFInValue(void)
-{
-    editSField(InValueFieldMask);
-
-    return &_sfInValue;
-}
-
-const SFReal32 *AnimVec3fChannelBase::getSFInValue(void) const
-{
-    return &_sfInValue;
-}
-
-
 SFVec3f *AnimVec3fChannelBase::editSFOutValue(void)
 {
     editSField(OutValueFieldMask);
@@ -298,10 +258,6 @@ UInt32 AnimVec3fChannelBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfData.getBinSize();
     }
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-    {
-        returnValue += _sfInValue.getBinSize();
-    }
     if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
         returnValue += _sfOutValue.getBinSize();
@@ -319,10 +275,6 @@ void AnimVec3fChannelBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfData.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-    {
-        _sfInValue.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
         _sfOutValue.copyToBin(pMem);
@@ -337,10 +289,6 @@ void AnimVec3fChannelBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (DataFieldMask & whichField))
     {
         _sfData.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-    {
-        _sfInValue.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
@@ -472,7 +420,6 @@ FieldContainerTransitPtr AnimVec3fChannelBase::shallowCopy(void) const
 AnimVec3fChannelBase::AnimVec3fChannelBase(void) :
     Inherited(),
     _sfData                   (NULL),
-    _sfInValue                (Real32(0.0)),
     _sfOutValue               (Vec3f(0.f, 0.f, 0.f))
 {
 }
@@ -480,7 +427,6 @@ AnimVec3fChannelBase::AnimVec3fChannelBase(void) :
 AnimVec3fChannelBase::AnimVec3fChannelBase(const AnimVec3fChannelBase &source) :
     Inherited(source),
     _sfData                   (NULL),
-    _sfInValue                (source._sfInValue                ),
     _sfOutValue               (source._sfOutValue               )
 {
 }
@@ -528,31 +474,6 @@ EditFieldHandlePtr AnimVec3fChannelBase::editHandleData           (void)
                     static_cast<AnimVec3fChannel *>(this), _1));
 
     editSField(DataFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr AnimVec3fChannelBase::getHandleInValue         (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfInValue,
-             this->getType().getFieldDesc(InValueFieldId),
-             const_cast<AnimVec3fChannelBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr AnimVec3fChannelBase::editHandleInValue        (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfInValue,
-             this->getType().getFieldDesc(InValueFieldId),
-             this));
-
-
-    editSField(InValueFieldMask);
 
     return returnValue;
 }

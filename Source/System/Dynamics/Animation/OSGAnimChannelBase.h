@@ -96,18 +96,22 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
     {
         AnimationFieldId = Inherited::NextFieldId,
         WeightFieldId = AnimationFieldId + 1,
-        NextFieldId = WeightFieldId + 1
+        InValueFieldId = WeightFieldId + 1,
+        NextFieldId = InValueFieldId + 1
     };
 
     static const OSG::BitVector AnimationFieldMask =
         (TypeTraits<BitVector>::One << AnimationFieldId);
     static const OSG::BitVector WeightFieldMask =
         (TypeTraits<BitVector>::One << WeightFieldId);
+    static const OSG::BitVector InValueFieldMask =
+        (TypeTraits<BitVector>::One << InValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFParentAnimationPtr SFAnimationType;
     typedef SFReal32          SFWeightType;
+    typedef SFReal32          SFInValueType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -136,9 +140,15 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
                   SFReal32            *editSFWeight         (void);
             const SFReal32            *getSFWeight          (void) const;
 
+                  SFReal32            *editSFInValue        (void);
+            const SFReal32            *getSFInValue         (void) const;
+
 
                   Real32              &editWeight         (void);
                   Real32               getWeight          (void) const;
+
+                  Real32              &editInValue        (void);
+                  Real32               getInValue         (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -146,6 +156,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
     /*! \{                                                                 */
 
             void setWeight         (const Real32 value);
+            void setInValue        (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -185,6 +196,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
 
     SFParentAnimationPtr _sfAnimation;
     SFReal32          _sfWeight;
+    SFReal32          _sfInValue;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -228,6 +240,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
     EditFieldHandlePtr editHandleAnimation      (void);
     GetFieldHandlePtr  getHandleWeight          (void) const;
     EditFieldHandlePtr editHandleWeight         (void);
+    GetFieldHandlePtr  getHandleInValue         (void) const;
+    EditFieldHandlePtr editHandleInValue        (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

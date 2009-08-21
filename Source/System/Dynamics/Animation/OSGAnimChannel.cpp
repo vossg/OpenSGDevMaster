@@ -99,9 +99,14 @@ AnimChannel::~AnimChannel(void)
 /*----------------------------- class specific ----------------------------*/
 
 void AnimChannel::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                          UInt32            origin,
+                          BitVector         details)
 {
+    if(0 != (InValueFieldMask & whichField))
+    {
+        this->evaluate();
+    }
+
     Inherited::changed(whichField, origin, details);
 }
 

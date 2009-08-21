@@ -89,31 +89,6 @@ void AnimVec3fChannelBase::setData(AnimVec3fDataSource * const value)
 
     _sfData.setValue(value);
 }
-//! Get the value of the AnimVec3fChannel::_sfInValue field.
-
-inline
-Real32 &AnimVec3fChannelBase::editInValue(void)
-{
-    editSField(InValueFieldMask);
-
-    return _sfInValue.getValue();
-}
-
-//! Get the value of the AnimVec3fChannel::_sfInValue field.
-inline
-      Real32  AnimVec3fChannelBase::getInValue(void) const
-{
-    return _sfInValue.getValue();
-}
-
-//! Set the value of the AnimVec3fChannel::_sfInValue field.
-inline
-void AnimVec3fChannelBase::setInValue(const Real32 value)
-{
-    editSField(InValueFieldMask);
-
-    _sfInValue.setValue(value);
-}
 //! Get the value of the AnimVec3fChannel::_sfOutValue field.
 
 inline
@@ -153,9 +128,6 @@ void AnimVec3fChannelBase::execSync (      AnimVec3fChannelBase *pFrom,
 
     if(FieldBits::NoField != (DataFieldMask & whichField))
         _sfData.syncWith(pFrom->_sfData);
-
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-        _sfInValue.syncWith(pFrom->_sfInValue);
 
     if(FieldBits::NoField != (OutValueFieldMask & whichField))
         _sfOutValue.syncWith(pFrom->_sfOutValue);

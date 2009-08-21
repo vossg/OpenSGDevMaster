@@ -66,7 +66,6 @@
 #include "OSGAnimChannel.h" // Parent
 
 #include "OSGAnimVec3fDataSourceFields.h" // Data type
-#include "OSGSysFields.h"               // InValue type
 #include "OSGVecFields.h"               // OutValue type
 
 #include "OSGAnimVec3fChannelFields.h"
@@ -96,22 +95,18 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannelBase : public AnimChannel
     enum
     {
         DataFieldId = Inherited::NextFieldId,
-        InValueFieldId = DataFieldId + 1,
-        OutValueFieldId = InValueFieldId + 1,
+        OutValueFieldId = DataFieldId + 1,
         NextFieldId = OutValueFieldId + 1
     };
 
     static const OSG::BitVector DataFieldMask =
         (TypeTraits<BitVector>::One << DataFieldId);
-    static const OSG::BitVector InValueFieldMask =
-        (TypeTraits<BitVector>::One << InValueFieldId);
     static const OSG::BitVector OutValueFieldMask =
         (TypeTraits<BitVector>::One << OutValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFUnrecAnimVec3fDataSourcePtr SFDataType;
-    typedef SFReal32          SFInValueType;
     typedef SFVec3f           SFOutValueType;
 
     /*---------------------------------------------------------------------*/
@@ -140,17 +135,11 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannelBase : public AnimChannel
             const SFUnrecAnimVec3fDataSourcePtr *getSFData           (void) const;
                   SFUnrecAnimVec3fDataSourcePtr *editSFData           (void);
 
-                  SFReal32            *editSFInValue        (void);
-            const SFReal32            *getSFInValue         (void) const;
-
                   SFVec3f             *editSFOutValue       (void);
             const SFVec3f             *getSFOutValue        (void) const;
 
 
                   AnimVec3fDataSource * getData           (void) const;
-
-                  Real32              &editInValue        (void);
-                  Real32               getInValue         (void) const;
 
                   Vec3f               &editOutValue       (void);
             const Vec3f               &getOutValue        (void) const;
@@ -161,7 +150,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannelBase : public AnimChannel
     /*! \{                                                                 */
 
             void setData           (AnimVec3fDataSource * const value);
-            void setInValue        (const Real32 value);
             void setOutValue       (const Vec3f &value);
 
     /*! \}                                                                 */
@@ -228,7 +216,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannelBase : public AnimChannel
     /*! \{                                                                 */
 
     SFUnrecAnimVec3fDataSourcePtr _sfData;
-    SFReal32          _sfInValue;
     SFVec3f           _sfOutValue;
 
     /*! \}                                                                 */
@@ -260,8 +247,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannelBase : public AnimChannel
 
     GetFieldHandlePtr  getHandleData            (void) const;
     EditFieldHandlePtr editHandleData           (void);
-    GetFieldHandlePtr  getHandleInValue         (void) const;
-    EditFieldHandlePtr editHandleInValue        (void);
     GetFieldHandlePtr  getHandleOutValue        (void) const;
     EditFieldHandlePtr editHandleOutValue       (void);
 

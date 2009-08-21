@@ -99,8 +99,8 @@ AnimVec3fChannel::~AnimVec3fChannel(void)
 /*----------------------------- class specific ----------------------------*/
 
 void AnimVec3fChannel::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                               UInt32            origin,
+                               BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
@@ -109,6 +109,22 @@ void AnimVec3fChannel::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump AnimVec3fChannel NI" << std::endl;
+}
+
+void AnimVec3fChannel::evaluate(void)
+{
+    if(_sfData.getValue() != NULL)
+    {
+        editSField(OutValueFieldMask);
+
+        _sfData.getValue()->evaluate(_sfOutValue.getValue(),
+                                     _sfInValue .getValue() );
+    }
+    else
+    {
+        SWARNING << "AnimVec3fChannel::evaluate: No AnimData."
+                 << std::endl;
+    }
 }
 
 OSG_END_NAMESPACE

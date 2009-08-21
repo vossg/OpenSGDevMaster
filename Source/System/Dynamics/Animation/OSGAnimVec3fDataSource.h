@@ -78,6 +78,13 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fDataSource : public AnimVec3fDataSourceBa
                       const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Evaluation                                 */
+    /*! \{                                                                 */
+
+    void evaluate(Vec3f &outValue, Real32 inValue);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
@@ -104,6 +111,23 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fDataSource : public AnimVec3fDataSourceBa
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Evaluation                                 */
+    /*! \{                                                                 */
+
+    void evalStep        (Vec3f                          &outValue,
+                          Real32                          inValue,
+                          MFInValuesType::const_iterator  ivRIt    );
+    void evalLinear      (Vec3f                          &outValue, 
+                          Real32                          inValue,
+                          MFInValuesType::const_iterator  ivRIt    );
+
+    void extrapolateFront(Vec3f &outValue, Real32 inValue);
+    void extrapolateBack (Vec3f &outValue, Real32 inValue);
+
+    void checkDataConsistency(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
