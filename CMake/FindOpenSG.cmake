@@ -277,13 +277,13 @@ ELSE(__OpenSG_IN_CACHE)
             PATH_SUFFIXES "release" "relwithdbg" "opt"
         )
    
-        FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG
-            NAMES  ${COMPONENT}
-            HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
-            PATH_SUFFIXES "debug" "dbg"
-        )
-
         IF(WIN32)
+          FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG
+              NAMES  "${COMPONENT}D"
+              HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
+              PATH_SUFFIXES "debug" "dbg"
+          )
+
           FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT
               NAMES  "${COMPONENT}RN"
               HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
@@ -294,6 +294,12 @@ ELSE(__OpenSG_IN_CACHE)
               NAMES  "${COMPONENT}DO"
               HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
               PATH_SUFFIXES "debugopt"
+          )
+        ELSE(WIN32)
+          FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG
+              NAMES  ${COMPONENT}
+              HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
+              PATH_SUFFIXES "debug" "dbg"
           )
         ENDIF(WIN32)
     
