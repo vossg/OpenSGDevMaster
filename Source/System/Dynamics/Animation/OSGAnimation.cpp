@@ -156,26 +156,20 @@ void Animation::timeSensorChanged(FieldContainer *fc, BitVector whichField)
 
     OSG_ASSERT(fc == ts);
 
-    if(0 != (TimeSensor::TimeFieldMask & whichField))
+    if(0 != (TimeSensor::FractionFieldMask & whichField))
     {
-        // sensor is active or just changed to inactive
-        if(true == ts->getIsActive()                           ||
-           0    != (TimeSensor::IsActiveFieldMask & whichField)   )
-        {
-            MFChannelsType::const_iterator cIt  = _mfChannels.begin();
-            MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
+        MFChannelsType::const_iterator cIt  = _mfChannels.begin();
+        MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
             
-            for(; cIt != cEnd; ++cIt)
-            {
-                SLOG << "Animation::timeSensorChanged: "
-                     << (ts->getFraction() * ts->getCycleInterval())
-                     << std::endl;
+        for(; cIt != cEnd; ++cIt)
+        {
+            SLOG << "Animation::timeSensorChanged: "
+                 << (ts->getFraction() * ts->getCycleInterval())
+                 << std::endl;
 
-                (*cIt)->setInValue(ts->getFraction() * ts->getCycleInterval());
-            }
+            (*cIt)->setInValue(ts->getFraction() * ts->getCycleInterval());
         }
     }
 }
-
 
 OSG_END_NAMESPACE
