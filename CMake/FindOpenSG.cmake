@@ -56,7 +56,7 @@ set(OpenSG_ERROR_REASON)
 # remove references to boost.
 #########################################################################
 
-MACRO(__OpenSG_ADJUST_LIB_VARS basename)
+MACRO(__OpenSG_ADJUST_LIB_VARS basename component)
     IF(OpenSG_INCLUDE_DIR)
         IF(NOT WIN32)
           IF(OpenSG_${basename}_LIBRARY_DEBUG AND OpenSG_${basename}_LIBRARY_RELEASE)
@@ -99,6 +99,7 @@ MACRO(__OpenSG_ADJUST_LIB_VARS basename)
 
               SET(OpenSG_${basename}_FOUND ON CACHE INTERNAL "Whether the OpenSG ${basename} library found")
 
+              SET(OpenSG_${basename}_LIBRARY ${component}Lib)
           ENDIF()
         ENDIF(NOT WIN32)
     ENDIF(OpenSG_INCLUDE_DIR)
@@ -195,7 +196,7 @@ IF(__OpenSG_IN_CACHE)
     SET(OpenSG_FOUND TRUE)
     FOREACH(COMPONENT ${OpenSG_FIND_COMPONENTS})
         STRING(TOUPPER ${COMPONENT} UPPERCOMPONENT)
-        __OpenSG_ADJUST_LIB_VARS(${UPPERCOMPONENT})
+        __OpenSG_ADJUST_LIB_VARS(${UPPERCOMPONENT} ${COMPONENT})
         SET(OpenSG_LIBRARIES ${OpenSG_LIBRARIES} ${OpenSG_${UPPERCOMPONENT}_LIBRARY})
 
         SETUP_OSG_LIB_TARGETS(${COMPONENT} ${UPPERCOMPONENT})
@@ -303,7 +304,7 @@ ELSE(__OpenSG_IN_CACHE)
           )
         ENDIF(WIN32)
     
-        __OpenSG_ADJUST_LIB_VARS(${UPPERCOMPONENT})
+        __OpenSG_ADJUST_LIB_VARS(${UPPERCOMPONENT} ${COMPONENT})
 
     ENDFOREACH(COMPONENT)
     # ------------------------------------------------------------------------
