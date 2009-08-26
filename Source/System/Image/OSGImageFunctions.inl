@@ -42,8 +42,9 @@ OSG_BEGIN_NAMESPACE
 
 template<class SrcImageStore> inline
 bool createComposedImage (const SrcImageStore &imageVec,
-                          Image              *image,
-                          SliceDataType       sliceDataType)
+                                Image         *image,
+                                SliceDataType  sliceDataType,
+                                bool           flipY        )
 {
     UInt32 dataSize, i, n = imageVec.size();
     Int32 w = 0;
@@ -136,8 +137,10 @@ bool createComposedImage (const SrcImageStore &imageVec,
         image->set( pf, w, h, depth, 1, frameCount, 0.0, 
                     0, dt, true, sideCount );
 
-        destData = image->editData();
-        dataSize = image->getSize() / n;
+        destData   = image->editData();
+        dataSize   = image->getSize() / n;
+        UInt32 bpl = dataSize / h;
+ 
 
         if (needCopy) 
         {
@@ -158,10 +161,25 @@ bool createComposedImage (const SrcImageStore &imageVec,
                 srcData = copy->getData();
             }
             else 
+            {
                 srcData = imageVec[i]->getData();
-      
-            memcpy ( destData, srcData, dataSize );
-            destData += dataSize;
+            }
+
+            if (flipY == true)
+            {
+                srcData += dataSize;
+                for (UInt32 y = 0; y < h; ++y)
+                {
+                    srcData -= bpl;
+                    memcpy ( destData, srcData, bpl );
+                    destData += bpl;
+                }
+            }
+            else
+            {
+                memcpy ( destData, srcData, dataSize );
+                destData += dataSize;
+            }
         }
     }
 

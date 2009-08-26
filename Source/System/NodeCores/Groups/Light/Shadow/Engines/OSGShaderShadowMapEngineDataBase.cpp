@@ -58,12 +58,12 @@
 
 
 
-#include <OSGFrameBufferObject.h> // RenderTargets Class
-#include <OSGTextureBuffer.h> // ShadowTexBuffers Class
-#include <OSGTextureObjChunk.h> // ShadowTexChunk Class
-#include <OSGImage.h> // ShadowTexImage Class
-#include <OSGChunkMaterial.h> // LightPassMaterials Class
-#include <OSGBackground.h> // Background Class
+#include "OSGFrameBufferObject.h"       // RenderTargets Class
+#include "OSGTextureBuffer.h"           // ShadowTexBuffers Class
+#include "OSGTextureObjChunk.h"         // ShadowTexChunk Class
+#include "OSGImage.h"                   // ShadowTexImage Class
+#include "OSGChunkMaterial.h"           // LightPassMaterials Class
+#include "OSGBackground.h"              // Background Class
 
 #include "OSGShaderShadowMapEngineDataBase.h"
 #include "OSGShaderShadowMapEngineData.h"

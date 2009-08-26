@@ -64,7 +64,8 @@ enum SliceDataType
 template<class SrcImageStore>
 bool createComposedImage (const SrcImageStore &srcImageVec,
                                 Image         *dstImage,
-                                SliceDataType  sliceDataType = DEPTH_SDT );
+                                SliceDataType  sliceDataType = DEPTH_SDT,
+                                bool           flipY = false            );
 
 OSG_SYSTEM_DLLMAPPING 
 bool createNormalMapFromBump ( Image *srcImage,

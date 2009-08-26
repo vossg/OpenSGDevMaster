@@ -66,7 +66,10 @@ class OSG_BASE_DLLMAPPING NodeCore : public NodeCoreBase
     typedef NodeCoreBase Inherited;
     typedef NodeCore     Self;
 
-    
+#ifdef OSG_1_COMPAT
+    typedef MFParentsType ParentsField;
+#endif
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Access                                  */
     /*! \{                                                                 */

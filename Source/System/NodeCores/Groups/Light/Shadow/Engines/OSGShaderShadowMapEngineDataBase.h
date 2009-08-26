@@ -66,11 +66,11 @@
 #include "OSGStageData.h" // Parent
 
 #include "OSGFrameBufferObjectFields.h" // RenderTargets type
-#include "OSGTextureBufferFields.h" // ShadowTexBuffers type
-#include "OSGTextureObjChunkFields.h" // ShadowTexChunk type
-#include "OSGImageFields.h" // ShadowTexImage type
-#include "OSGChunkMaterialFields.h" // LightPassMaterials type
-#include "OSGBackgroundFields.h" // Background type
+#include "OSGTextureBufferFields.h"     // ShadowTexBuffers type
+#include "OSGTextureObjChunkFields.h"   // ShadowTexChunk type
+#include "OSGImageFields.h"             // ShadowTexImage type
+#include "OSGChunkMaterialFields.h"     // LightPassMaterials type
+#include "OSGBackgroundFields.h"        // Background type
 
 #include "OSGShaderShadowMapEngineDataFields.h"
 
