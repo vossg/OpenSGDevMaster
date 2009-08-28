@@ -17,17 +17,18 @@ class TemplateFiller:
         self.m_inLines  = templateLines;
         self.m_outLines = [];
         
-        self.m_varRE              = re.compile(r"@!([^!@]*)!@");
-        self.m_ifRE               = re.compile(r"@@if[ \t]+(!|)([A-Za-z\.]*)");
-        self.m_elseRE             = re.compile(r"@@else");
-        self.m_endifRE            = re.compile(r"@@endif");
-        self.m_BeginFieldLoopRE   = re.compile(r"@@BeginFieldLoop");
-        self.m_EndFieldLoopRE     = re.compile(r"@@EndFieldLoop");
-        self.m_BeginSFFieldLoopRE = re.compile(r"@@BeginSFFieldLoop");
-        self.m_EndSFFieldLoopRE   = re.compile(r"@@EndSFFieldLoop");
-        self.m_BeginMFFieldLoopRE = re.compile(r"@@BeginMFFieldLoop");
-        self.m_EndMFFieldLoopRE   = re.compile(r"@@EndMFFieldLoop");
-        self.m_AdditionIncludesRE = re.compile(r"@@AdditionalIncludes");
+        self.m_varRE                  = re.compile(r"@!([^!@]*)!@");
+        self.m_ifRE                   = re.compile(r"@@if[ \t]+(!|)([A-Za-z\.]*)");
+        self.m_elseRE                 = re.compile(r"@@else");
+        self.m_endifRE                = re.compile(r"@@endif");
+        self.m_BeginFieldLoopRE       = re.compile(r"@@BeginFieldLoop");
+        self.m_EndFieldLoopRE         = re.compile(r"@@EndFieldLoop");
+        self.m_BeginSFFieldLoopRE     = re.compile(r"@@BeginSFFieldLoop");
+        self.m_EndSFFieldLoopRE       = re.compile(r"@@EndSFFieldLoop");
+        self.m_BeginMFFieldLoopRE     = re.compile(r"@@BeginMFFieldLoop");
+        self.m_EndMFFieldLoopRE       = re.compile(r"@@EndMFFieldLoop");
+        self.m_AdditionIncludesRE     = re.compile(r"@@AdditionalIncludes");
+        self.m_AdditionPrioIncludesRE = re.compile(r"@@AdditionalPriorityIncludes");
 
     def fill(self, dictList):
         """Fill in a template using the contents of the dictionaries in
@@ -105,6 +106,12 @@ class TemplateFiller:
             if matchAdditionalIncludes != None:
                 self._processAdditionalIncludes(dictList);
                 continue;
+
+            # handle @@AdditionalIncludes
+            matchAdditionalPrioIncludes = self.m_AdditionPrioIncludesRE.search(line);
+            if matchAdditionalPrioIncludes != None:
+                self._processAdditionalPrioIncludes(dictList);
+                continue;
             
             # conditionals outside of loops must be treated here
             
@@ -152,7 +159,13 @@ class TemplateFiller:
         includeList = self._lookup("AdditionalIncludes", context);
         
         for include in includeList:
-            self.m_outLines.append("#include <" + include + ">");
+            self.m_outLines.append("#include <" + include + ">\n");
+
+    def _processAdditionalPrioIncludes(self, context):
+        includeList = self._lookup("AdditionalPriorityIncludes", context);
+        
+        for include in includeList:
+            self.m_outLines.append("#include <" + include + ">\n");
     
     def _processLoop(self, loopType, loopLines, context):
         """For loopType == "Fields"  repeat lines in loopLines for all fields

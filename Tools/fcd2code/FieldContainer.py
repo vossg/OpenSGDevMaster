@@ -18,31 +18,32 @@ class FieldContainer(FCDElement):
     def initFCDDict(self):
         """Sets the fcd dictionary to default values.
         """
-        self.setFCD("name",                   "",       True);
-        self.setFCD("parent",                 "",       True);
-        self.setFCD("mixinparent",            "",       True);
-        self.setFCD("mixinheader",            "",       True);
-        self.setFCD("library",                "",       True);
-        self.setFCD("pointerfieldtypes",      "",       True);
-        self.setFCD("structure",              "",       True);
-        self.setFCD("systemcomponent",        "true",   True);
-        self.setFCD("parentsystemcomponent",  "true",   True);
-        self.setFCD("decoratable",            "false",  True);
-        self.setFCD("useLocalIncludes",       "false",  True);
-        self.setFCD("isNodeCore",             "false",  True);
-        self.setFCD("isBundle",               "false",  True);
-        self.setFCD("description",            "",       True);
-        self.setFCD("group",                  "",       True);
-        self.setFCD("namespace",              "",       True);
-        self.setFCD("decorateeFieldFlags",    "",       True);
-        self.setFCD("additionalIncludes",     "",       True);
-        self.setFCD("fcdFileLines",           [],       True);
-        self.setFCD("fieldsUnmarkedOnCreate", "0",      True);
-        self.setFCD("libnamespace",           "OSG",    True);
-        self.setFCD("childFields",            "none",   True);
-        self.setFCD("parentFields",           "none",   True);
-        self.setFCD("docGroupBase",           "",       True);
-        self.setFCD("realparent",             "",       True);
+        self.setFCD("name",                       "",       True);
+        self.setFCD("parent",                     "",       True);
+        self.setFCD("mixinparent",                "",       True);
+        self.setFCD("mixinheader",                "",       True);
+        self.setFCD("library",                    "",       True);
+        self.setFCD("pointerfieldtypes",          "",       True);
+        self.setFCD("structure",                  "",       True);
+        self.setFCD("systemcomponent",            "true",   True);
+        self.setFCD("parentsystemcomponent",      "true",   True);
+        self.setFCD("decoratable",                "false",  True);
+        self.setFCD("useLocalIncludes",           "false",  True);
+        self.setFCD("isNodeCore",                 "false",  True);
+        self.setFCD("isBundle",                   "false",  True);
+        self.setFCD("description",                "",       True);
+        self.setFCD("group",                      "",       True);
+        self.setFCD("namespace",                  "",       True);
+        self.setFCD("decorateeFieldFlags",        "",       True);
+        self.setFCD("additionalIncludes",         "",       True);
+        self.setFCD("additionalPriorityIncludes", "",       True);
+        self.setFCD("fcdFileLines",               [],       True);
+        self.setFCD("fieldsUnmarkedOnCreate",     "0",      True);
+        self.setFCD("libnamespace",               "OSG",    True);
+        self.setFCD("childFields",                "none",   True);
+        self.setFCD("parentFields",               "none",   True);
+        self.setFCD("docGroupBase",               "",       True);
+        self.setFCD("realparent",                 "",       True);
     #
     # Access fields
     
@@ -372,6 +373,13 @@ class FieldContainer(FCDElement):
             include = include.strip();
             if include != "":
                 self["AdditionalIncludes"].append(include);
+
+        includesList = self.getFCD("additionalPriorityIncludes").split(",");
+        self["AdditionalPriorityIncludes"] = [];
+        for include in includesList:
+            include = include.strip();
+            if include != "":
+                self["AdditionalPriorityIncludes"].append(include);
 
     def setFCDContents(self, fcdContents):
         self.setFCD("fcdFileLines", fcdContents, True);
