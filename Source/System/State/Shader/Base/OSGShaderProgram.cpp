@@ -443,7 +443,7 @@ void ShaderProgram::onCreate(const ShaderProgram *source)
     setGLId(               
         Window::registerGLObject(
             boost::bind(&ShaderProgram::handleGL, 
-                        ShaderProgramMTPtr(this), 
+                        ShaderProgramMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &ShaderProgram::handleDestroyGL));
 
@@ -460,8 +460,6 @@ void ShaderProgram::onCreateAspect(const ShaderProgram *createAspect,
 
 void ShaderProgram::onDestroy(UInt32 uiId)
 {
-    Inherited::onDestroy(uiId);
-
     if(GlobalSystemState == OSG::Running)
     {
         _pProgIdPool->release(_uiProgId);
@@ -475,6 +473,8 @@ void ShaderProgram::onDestroy(UInt32 uiId)
         
         _pProgIdPool = NULL;
     }
+
+    Inherited::onDestroy(uiId);
 }
 
 void ShaderProgram::onDestroyAspect(UInt32 uiContainerId,

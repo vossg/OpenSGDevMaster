@@ -152,7 +152,7 @@ void ShaderExecutableChunk::onCreate(const ShaderExecutableChunk *source)
     setGLId(               
         Window::registerGLObject(
             boost::bind(&ShaderExecutableChunk::handleGL, 
-                        ShaderExecutableChunkMTPtr(this), 
+                        ShaderExecutableChunkMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &ShaderExecutableChunk::handleDestroyGL));
 
@@ -170,10 +170,10 @@ void ShaderExecutableChunk::onCreateAspect(
 
 void ShaderExecutableChunk::onDestroy(UInt32 uiId)
 {
-    Inherited::onDestroy(uiId);
-
     if(getGLId() > 0)
         Window::destroyGLObject(getGLId(), 1);
+
+    Inherited::onDestroy(uiId);
 }
 
 const StateChunkClass *ShaderExecutableChunk::getClass(void) const

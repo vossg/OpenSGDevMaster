@@ -375,7 +375,7 @@ void SHLChunk::onCreate(const SHLChunk *source)
     setGLId(               
         Window::registerGLObject(
             boost::bind(&SHLChunk::handleGL, 
-                        SHLChunkMTPtr(this), 
+                        SHLChunkMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &SHLChunk::handleDestroyGL));
 
@@ -392,10 +392,10 @@ void SHLChunk::onCreateAspect(const SHLChunk *createAspect,
 
 void SHLChunk::onDestroy(UInt32 uiId)
 {
-    Inherited::onDestroy(uiId);
-
     if(getGLId() > 0)
         Window::destroyGLObject(getGLId(), 1);
+
+    Inherited::onDestroy(uiId);
 }
 
 const StateChunkClass *SHLChunk::getClass(void) const

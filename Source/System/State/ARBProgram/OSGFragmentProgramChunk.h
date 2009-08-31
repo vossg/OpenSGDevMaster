@@ -104,7 +104,8 @@ class OSG_STATE_DLLMAPPING FragmentProgramChunk :
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 
-    void onCreate(const FragmentProgramChunk *source = NULL);
+    void onCreate (const FragmentProgramChunk *source        = NULL);
+    void onDestroy(      UInt32                uiContainerId       );
 
     /*! \}                                                                 */
    /*---------------------------------------------------------------------*/

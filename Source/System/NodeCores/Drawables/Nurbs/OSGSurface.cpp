@@ -1836,7 +1836,7 @@ void Surface::onCreate(const Surface *source)
     setSurfaceGLId(
         Window::registerGLObject(
             boost::bind(&Surface::handleGL,
-                        SurfaceMTPtr(this), _1, _2, _3, _4),
+                        SurfaceMTUncountedPtr(this), _1, _2, _3, _4),
             &Surface::handleDestroyGL));
 
     Inherited::onCreate(source);
@@ -1844,10 +1844,10 @@ void Surface::onCreate(const Surface *source)
 
 void Surface::onDestroy(UInt32 id)
 {
-    Inherited::onDestroy(id);
-
     if(getSurfaceGLId() > 0)
         Window::destroyGLObject(getSurfaceGLId(), 1);
+
+    Inherited::onDestroy(id);
 }
 
 UInt32 Surface::handleGL(DrawEnv                *pEnv,

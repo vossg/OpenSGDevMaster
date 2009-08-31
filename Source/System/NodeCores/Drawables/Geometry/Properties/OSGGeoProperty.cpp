@@ -195,17 +195,19 @@ void GeoProperty::onCreate(const GeoProperty *source)
     setGLId(               
         Window::registerGLObject(
             boost::bind(&GeoProperty::handleGL, 
-                        GeoPropertyMTPtr(this), 
+                        GeoPropertyMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &GeoProperty::handleDestroyGL));
 }
 
-void GeoProperty::onDestroy(UInt32)
+void GeoProperty::onDestroy(UInt32 uiContainerId)
 {
     if(getGLId() > 0)
     {
         Window::destroyGLObject(getGLId(), 1);
     }
+
+    Inherited::onDestroy(uiContainerId);
 }
 
 /*------------------------- Chunk Class Access ---------------------------*/

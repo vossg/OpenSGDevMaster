@@ -122,11 +122,18 @@ void FragmentProgramChunk::onCreate(const FragmentProgramChunk *chunk)
 
     setGLId(Window::registerGLObject(
                     boost::bind(&FragmentProgramChunk::handleGL, 
-                                FragmentProgramChunkMTPtr(this), 
+                                FragmentProgramChunkMTUncountedPtr(this), 
                                 _1, _2, _3, _4),
                     &FragmentProgramChunk::handleDestroyGL));
 }
 
+void FragmentProgramChunk::onDestroy(UInt32 uiContainerId)
+{
+    if(getGLId() > 0)
+        Window::destroyGLObject(getGLId(), 1);
+
+    Inherited::onDestroy(uiContainerId);
+}
 
 /*------------------------- Chunk Class Access ---------------------------*/
 

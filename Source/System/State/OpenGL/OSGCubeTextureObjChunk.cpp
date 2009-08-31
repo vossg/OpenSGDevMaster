@@ -115,17 +115,29 @@ void CubeTextureObjChunk::changed(ConstFieldMaskArg whichField,
 
 /*----------------------------- onCreate --------------------------------*/
 
-void CubeTextureObjChunk::onCreate(const CubeTextureObjChunk *)
+void CubeTextureObjChunk::onCreate(const CubeTextureObjChunk *source)
 {
+    // skip TextureObjChunk::onCreate
+    TextureBaseChunk::onCreate(source);
+
     if(GlobalSystemState == Startup)
         return;
 
     setGLId(               
         Window::registerGLObject(
             boost::bind(&CubeTextureObjChunk::handleGL, 
-                        CubeTextureObjChunkMTPtr(this), 
+                        CubeTextureObjChunkMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &CubeTextureObjChunk::handleDestroyGL));
+}
+
+void CubeTextureObjChunk::onDestroy(UInt32 uiContainerId)
+{
+    if(getGLId() > 0)
+        Window::destroyGLObject(getGLId(), 1);
+
+    // skip TextureObjChunk::onDestroy
+    TextureBaseChunk::onDestroy(uiContainerId);
 }
 
 /*------------------------------ Output ----------------------------------*/

@@ -161,7 +161,8 @@ class OSG_SYSTEM_DLLMAPPING FrameBufferObject :
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 
-    void onCreate(const FrameBufferObject *source = NULL);
+    void onCreate (const FrameBufferObject *source        = NULL);
+    void onDestroy(      UInt32             uiContainerId       );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

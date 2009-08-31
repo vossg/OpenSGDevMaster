@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                       Copyright 2008 by OpenSG Forum                      *
+ *                       Copyright 2009 by OpenSG Forum                      *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -34,8 +34,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGMTPOINTER_H_
-#define _OSGMTPOINTER_H_
+#ifndef _OSGMTREFCOUNTPOINTER_H_
+#define _OSGMTREFCOUNTPOINTER_H_
 
 #ifdef __sgi
 #pragma once
@@ -43,18 +43,33 @@
 
 #include "OSGConfig.h"
 #include "OSGBaseFunctions.h"
+#include "OSGContainerForwards.h"
+#include "OSGRefCountPtr.h"
+
+#include <boost/mpl/if.hpp>
 
 OSG_BEGIN_NAMESPACE
 
-/*! \ingroup GrpBaseBaseMemory
+template <class ObjectT>
+class TransitPtr;
+
+template <class ObjectT, class RefCountPolicyT>
+class RefCountPtr;
+
+template <class ObjectT, class RefCountPolicyT>
+class MTRefCountPtr;
+
+/*! \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMemory
     \ingroup GrpBaseBaseRefCounting
     \ingroup GrpBaseFieldContainerBase
     \ingroup GrpLibOSGBase
     \nohierarchy
  */
 
-template <class ObjectT>
-class MTPtr
+template <class ObjectT, 
+          class RefCountPolicyT>
+class MTRefCountPtr
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -64,46 +79,103 @@ class MTPtr
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
   
+    typedef ObjectT                                          Object;
+    typedef RefCountPolicyT                                  RefCountPolicy;
+    typedef MTRefCountPtr<Object, 
+                          RefCountPolicy>                    Self;
+    typedef TransitPtr<ObjectT>                              ObjectTransitPtr;
+                                           
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
   
-    MTPtr(ObjectT * const pObj);
+    MTRefCountPtr(void                          );
+    MTRefCountPtr(Self              const &other);
+   
+    MTRefCountPtr(Object          * const  pObj );
+
+    MTRefCountPtr(ObjectTransitPtr  const &other);
+
+    template <class OtherObjectT>
+    MTRefCountPtr(TransitPtr<OtherObjectT> const &other);
+    
+    template <class OtherObjectT, class OtherRefCountPolicyT>
+    MTRefCountPtr(MTRefCountPtr<OtherObjectT,
+                                OtherRefCountPolicyT> const &other);
+
+    template <class OtherObjectT, class OtherRefCountPolicyT>
+    MTRefCountPtr(RefCountPtr<OtherObjectT,
+                              OtherRefCountPolicyT> const &other);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Desctructor                                                  */
     /*! \{                                                                 */
 
-    ~MTPtr(void);
+    ~MTRefCountPtr(void);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Assignment                                                   */
     /*! \{                                                                 */
     
+    Self &operator =(const Self             &       other    );
+    Self &operator =(      Object           * const pOtherObj);
+    Self &operator =(const ObjectTransitPtr &       other    );
+
+    template <class OtherObjectT, class OtherRefCountPolicyT>
+    Self &operator =(const MTRefCountPtr<OtherObjectT,
+                                         OtherRefCountPolicyT> &refPtr);
+
+    template <class OtherObjectT, class OtherRefCountPolicyT>
+    Self &operator =(const RefCountPtr<OtherObjectT,
+                                       OtherRefCountPolicyT>   &refPtr);
+   
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Conversion                                                   */
     /*! \{                                                                 */
     
-    operator ObjectT *(void) const;
+    operator Object *(void) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
     
-    ObjectT *operator->(void) const;
-    ObjectT &operator *(void) const;
+    Object *operator->(void) const;
+    Object &operator *(void) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    ObjectT *get(void) const;
+    Object *get (void                    ) const;
+#if 0
+    void    set (Object * const objectPtr);
+#endif
+    
+    void    swap(Self   &       other    );
+
+#if defined(OSG_1_COMPAT)
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+           MTRefCountPtr(const NullFCType);
+
+           bool    operator ==(const NullFCType                ) const;
+           bool    operator !=(const NullFCType                ) const;
+
+           Object *getCPtr    (      void                      ) const;
+
+    static Self    dcast      (      FieldContainer * const src);
+
+           Int32   getRefCount(void                            ) const;
+#endif
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -116,7 +188,7 @@ class MTPtr
     /*! \name Member                                                       */
     /*! \{                                                                 */
     
-    ObjectT *_pObj;
+    AspectStore *_pAspectStore;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -124,19 +196,51 @@ class MTPtr
   private:
 
     /*---------------------------------------------------------------------*/
-    /*! \name Internal Helpers                                             */
+    /*! \name Friends                                                      */
     /*! \{                                                                 */
+
+    template <class OtherObjectT, class OtherRefCountPolicyT>
+    friend class MTRefCountPtr;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
   
 };
 
-template<class ObjectT> inline
-ObjectT *get_pointer(const MTPtr<ObjectT> &pIn);
+/*! \ingroup GrpBaseBaseRefCounting
+    \relatesalso RefCountPtr
+ */
+       
+template <class TargetT, class SourceT, class RCPolicyT> inline
+OSG::MTRefCountPtr<TargetT, RCPolicyT> dynamic_pointer_cast(
+    OSG::MTRefCountPtr<SourceT, RCPolicyT> const &source);
+
+/*! \ingroup GrpBaseBaseRefCounting
+    \relatesalso RefCountPtr
+ */
+
+template <class TargetT, class SourceT, class RCPolicyT> inline
+OSG::MTRefCountPtr<TargetT, RCPolicyT> static_pointer_cast(
+    OSG::MTRefCountPtr<SourceT, RCPolicyT> const &source);
+
+/*! The same as refPtr.get(), for interoperability with boost::bind.
+
+    \ingroup GrpBaseBaseRefCounting
+    \relatesalso MTRefCountPtr
+ */
+
+template <class ObjectT, class RCPolicyT> inline
+ObjectT *get_pointer(const OSG::MTRefCountPtr<ObjectT, RCPolicyT> &refPtr);
+
+#if defined(OSG_1_COMPATX)
+template <class TargetT, class SourceT> inline
+MTRefCountPtr<typename TargetT::Object, 
+              typename TargetT::RefCountPolicy> 
+    dynamic_pointer_cast(SourceT * const pIn);
+#endif
 
 OSG_END_NAMESPACE
 
-#include "OSGMTPtr.inl"
+#include "OSGMTRefCountPtr.inl"
 
-#endif // _OSGMTPOINTER_H_
+#endif // _OSGMTREFCOUNTPOINTER_H_

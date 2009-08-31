@@ -57,11 +57,7 @@ struct RecordedRefCountPolicy
     static void addRef(FieldContainer * const objectP)
     {
         if(objectP != NULL)
-        {
             objectP->addReferenceRecorded();
-
-//            Thread::getCurrentChangeList()->addAddRefd(objectP->getId());
-        }
     }
     static void subRef(FieldContainer * const objectP)
     {
@@ -104,27 +100,6 @@ struct RecordedRefCountPolicy
             Thread::getCurrentChangeList()->addAddRefd(pOut->getId());
         }
     } 
-};
-
-/*! \ingroup GrpBaseFieldContainerBase
-    \ingroup GrpBaseBaseRefCounting
-    \ingroup GrpLibOSGBase
-    \nohierarchy
- */
-
-struct MTRecordedRefCountPolicy : public RecordedRefCountPolicy
-{
-    template <class T>
-    static T *validate   (T *pObject)
-    {
-        return convertToCurrentAspect(pObject);
-    }
-
-    template <class T>
-    static T &dereference(T *pObject)
-    {
-        return *(validate(pObject));
-    }
 };
 
 /*! \ingroup GrpBaseFieldContainerBase
@@ -295,28 +270,6 @@ struct WeakRefCountPolicy
         OSG_ASSERT(false);
     } 
 };
-
-/*! \ingroup GrpBaseFieldContainerBase
-    \ingroup GrpBaseBaseRefCounting
-    \ingroup GrpLibOSGBase
-    \nohierarchy
- */
-struct MTWeakRefCountPolicy : public WeakRefCountPolicy
-{
-    template <class T>
-    static T *validate   (T *pObject)
-    {
-        T* retVal = convertToCurrentAspect(pObject);
-        return WeakRefCountPolicy::validate(retVal);
-    }
-
-    template <class T>
-    static T &dereference(T *pObject)
-    {
-        return *(validate(pObject));
-    }
-};
-
 
 OSG_END_NAMESPACE
 

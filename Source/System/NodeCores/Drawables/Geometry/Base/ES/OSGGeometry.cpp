@@ -173,14 +173,14 @@ void Geometry::onCreate(const Geometry *)
     setClassicGLId(
         Window::registerGLObject(
             boost::bind(&Geometry::handleClassicGL, 
-                        GeometryMTPtr(this), 
+                        GeometryMTUncountedPtr(this), 
                         _1, _2, _3),
             &Geometry::handleClassicDestroyGL));
 
     setAttGLId(
         Window::registerGLObject(
             boost::bind(&Geometry::handleAttGL, 
-                        GeometryMTPtr(this), 
+                        GeometryMTUncountedPtr(this), 
                         _1, _2, _3),
             &Geometry::handleAttDestroyGL));
 }
@@ -573,7 +573,7 @@ void Geometry::changed(ConstFieldMaskArg whichField,
             setClassicGLId(
                 Window::registerGLObject(
                     boost::bind(&Geometry::handleClassicGL, 
-                                GeometryMTPtr(this), 
+                                GeometryMTUncountedPtr(this), 
                                 _1, _2),
                     1));
         }
@@ -582,7 +582,7 @@ void Geometry::changed(ConstFieldMaskArg whichField,
             setAttGLId(
                 Window::registerGLObject(
                     boost::bind(&Geometry::handleAttGL, 
-                                GeometryMTPtr(this),
+                                GeometryMTUncountedPtr(this),
                                 _1, 
                                 _2),
                     1));

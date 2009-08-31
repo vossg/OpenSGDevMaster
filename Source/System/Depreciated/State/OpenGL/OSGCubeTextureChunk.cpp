@@ -113,15 +113,18 @@ void CubeTextureChunk::changed(ConstFieldMaskArg whichField,
 
 /*----------------------------- onCreate --------------------------------*/
 
-void CubeTextureChunk::onCreate(const CubeTextureChunk *)
+void CubeTextureChunk::onCreate(const CubeTextureChunk *source)
 {
+    // skip TextureChunk::onCreate
+    TextureBaseChunk::onCreate(source);
+
     if(GlobalSystemState == Startup)
         return;
 
     setGLId(               
         Window::registerGLObject(
             boost::bind(&CubeTextureChunk::handleGL, 
-                        CubeTextureChunkMTPtr(this), 
+                        CubeTextureChunkMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &CubeTextureChunk::handleDestroyGL));
 }

@@ -175,6 +175,7 @@ class OSG_SYSTEM_DLLMAPPING TextureObjChunk : public TextureObjChunkBase
     void onCreate      (const TextureObjChunk *source      = NULL);
     void onCreateAspect(const TextureObjChunk *createAspect,
                         const TextureObjChunk *source      = NULL);
+    void onDestroy     (      UInt32           uiContainerId     );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

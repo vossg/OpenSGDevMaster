@@ -192,7 +192,7 @@ void RenderBuffer::onCreate(const RenderBuffer *source)
     setGLId(               
         Window::registerGLObject(
             boost::bind(&RenderBuffer::handleGL, 
-                        RenderBufferMTPtr(this), 
+                        RenderBufferMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &RenderBuffer::handleDestroyGL));
 }

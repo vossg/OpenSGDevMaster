@@ -136,7 +136,8 @@ class OSG_STATE_DLLMAPPING CubeTextureObjChunk : public CubeTextureObjChunkBase
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 
-    void onCreate(const CubeTextureObjChunk *source = NULL);
+    void onCreate (const CubeTextureObjChunk *source        = NULL);
+    void onDestroy(      UInt32               uiContainerId       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

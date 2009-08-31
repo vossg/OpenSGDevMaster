@@ -61,6 +61,9 @@ class RemoteAspect;
 template <class ObjectT>
 class TransitPtr;
 
+template <class ObjectT, class RefCountPolicyT>
+class MTRefCountPtr;
+
 template<typename RefCountPolicyT>
 class ChildAccessHandler;
 
@@ -472,6 +475,9 @@ class FieldContainer : public ReflexiveContainer
     template <class ObjectT>
     friend class TransitPtr;
 
+    template <class ObjectT, class RefCountPolicyT>
+    friend class MTRefCountPtr;
+
 #ifdef OSG_MT_CPTR_ASPECT
     friend struct HandledFieldContainerFactoryDesc;
 
@@ -570,7 +576,7 @@ OSG_END_NAMESPACE
 
 #include "OSGTransitPtr.h"
 #include "OSGRefCountPtr.h"
-#include "OSGMTPtr.h"
+#include "OSGMTRefCountPtr.h"
 
 #include "OSGFieldContainerFactory.h"
 #include "OSGFieldContainer.inl"

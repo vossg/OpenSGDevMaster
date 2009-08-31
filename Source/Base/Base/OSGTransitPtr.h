@@ -50,7 +50,11 @@ template <class ObjectT,
           class RefCountPolicyT>
 class RefCountPtr;
 
-template<class ObjT> 
+template <class ObjectT,
+          class RefCountPolicyT>
+class MTRefCountPtr;
+
+template<class ObjectT> 
 class TransitPtr;
 
 class FieldContainer;
@@ -66,13 +70,6 @@ template <class ObjectT>
 class TransitPtr
 {
     /*==========================  PUBLIC  =================================*/
-
-    template <class ObjT, class RefCountPolicyT>
-    friend class RefCountPtr;
-
-    template<class OtherT>
-    friend class TransitPtr;
-
   public:
 
     /*---------------------------------------------------------------------*/
@@ -176,6 +173,15 @@ class TransitPtr
     /*---------------------------------------------------------------------*/
     /*! \name Friends                                                      */
     /*! \{                                                                 */
+
+    template <class OtherT, class RefCountPolicyT>
+    friend class RefCountPtr;
+
+    template <class OtherT, class RefCountPolicyT>
+    friend class MTRefCountPtr;
+
+    template<class OtherT>
+    friend class TransitPtr;
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
     template <class TargetObjectT, class SourceObjectT> 

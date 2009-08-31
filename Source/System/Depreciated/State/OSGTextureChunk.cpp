@@ -214,8 +214,6 @@ TextureChunk::TextureChunk(const TextureChunk &source) :
 
 TextureChunk::~TextureChunk(void)
 {
-    if(getGLId() > 0)
-        Window::destroyGLObject(getGLId(), 1);
 }
 
 /*------------------------- Chunk Class Access ---------------------------*/
@@ -290,7 +288,7 @@ void TextureChunk::onCreate(const TextureChunk *source)
 
     setGLId(Window::registerGLObject(
                 boost::bind(&TextureChunk::handleGL, 
-                            TextureChunkMTPtr(this), 
+                            TextureChunkMTUncountedPtr(this), 
                             _1, _2, _3, _4),
                 &TextureChunk::handleDestroyGL));
 }
@@ -299,6 +297,14 @@ void TextureChunk::onCreateAspect(const TextureChunk *createAspect,
                                   const TextureChunk *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
+}
+
+void TextureChunk::onDestroy(UInt32 uiContainerId)
+{
+    if(getGLId() > 0)
+        Window::destroyGLObject(getGLId(), 1);
+
+    Inherited::onDestroy(uiContainerId);
 }
 
 /*------------------------------ Output ----------------------------------*/

@@ -103,7 +103,8 @@ class OSG_STATE_DLLMAPPING VertexProgramChunk : public VertexProgramChunkBase
     /*! \name                       Init                                   */
     /*! \{                                                                 */
 
-    void onCreate(const VertexProgramChunk *source = NULL);
+    void onCreate (const VertexProgramChunk *source        = NULL);
+    void onDestroy(      UInt32              uiContainerId       );
 
     /*! \}                                                                 */
    /*---------------------------------------------------------------------*/

@@ -117,9 +117,17 @@ void VertexProgramChunk::onCreate(const VertexProgramChunk *chunk)
 
     setGLId(Window::registerGLObject(
                     boost::bind(&VertexProgramChunk::handleGL, 
-                                VertexProgramChunkMTPtr(this), 
+                                VertexProgramChunkMTUncountedPtr(this), 
                                 _1, _2, _3, _4),
                     &VertexProgramChunk::handleDestroyGL));
+}
+
+void VertexProgramChunk::onDestroy(UInt32 uiContainerId)
+{
+    if(getGLId() > 0)
+        Window::destroyGLObject(getGLId(), 1);
+
+    Inherited::onDestroy(uiContainerId);
 }
 
 

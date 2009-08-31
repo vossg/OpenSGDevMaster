@@ -156,23 +156,28 @@ void Geometry::onCreate(const Geometry *)
 
     setClassicGLId(               
         Window::registerGLObject(
-            boost::bind(&Geometry::handleClassicGL, GeometryMTPtr(this), 
+            boost::bind(&Geometry::handleClassicGL,
+                        GeometryMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &Geometry::handleClassicDestroyGL));
 
     setAttGLId(               
         Window::registerGLObject(
-            boost::bind(&Geometry::handleAttGL, GeometryMTPtr(this), 
+            boost::bind(&Geometry::handleAttGL,
+                        GeometryMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &Geometry::handleAttDestroyGL));
 }
 
-void Geometry::onDestroy(UInt32)
+void Geometry::onDestroy(UInt32 uiContainerId)
 {
     if(getClassicGLId() > 0)
         Window::destroyGLObject(getClassicGLId(), 1);
+
     if(getAttGLId() > 0)
         Window::destroyGLObject(getAttGLId(), 1);
+
+    Inherited::onDestroy(uiContainerId);
 }
 
 /*------------------------------ access -----------------------------------*/
@@ -222,7 +227,6 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
     Window                  *pWin = pEnv->getWindow();
 
     Geometry *pAspectGeo = convertToCurrentAspect<Geometry *>(this);
-
     OSG_ASSERT(pAspectGeo == this);
 
     if(mode == Window::initialize || mode == Window::needrefresh ||
@@ -554,7 +558,7 @@ void Geometry::changed(ConstFieldMaskArg whichField,
                 setClassicGLId(               
                     Window::registerGLObject(
                         boost::bind(&Geometry::handleClassicGL, 
-                                    GeometryMTPtr(this), 
+                                    GeometryMTUncountedPtr(this), 
                                     _1, _2, _3, _4),
                         &Geometry::handleClassicDestroyGL));
             }
@@ -563,7 +567,7 @@ void Geometry::changed(ConstFieldMaskArg whichField,
                 setAttGLId(               
                     Window::registerGLObject(
                         boost::bind(&Geometry::handleAttGL, 
-                                    GeometryMTPtr(this), 
+                                    GeometryMTUncountedPtr(this), 
                                     _1, _2, _3, _4),
                         &Geometry::handleAttDestroyGL));
             }

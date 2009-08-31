@@ -188,8 +188,6 @@ FrameBufferObject::FrameBufferObject(const FrameBufferObject &source) :
 
 FrameBufferObject::~FrameBufferObject(void)
 {
-    if(getGLId() > 0)
-        Window::destroyGLObject(getGLId(), 1);
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -244,9 +242,17 @@ void FrameBufferObject::onCreate(const FrameBufferObject *source)
     setGLId(               
         Window::registerGLObject(
             boost::bind(&FrameBufferObject::handleGL, 
-                        FrameBufferObjectMTPtr(this), 
+                        FrameBufferObjectMTUncountedPtr(this), 
                         _1, _2, _3, _4),
             &FrameBufferObject::handleDestroyGL));
+}
+
+void FrameBufferObject::onDestroy(UInt32 uiContainerId)
+{
+    if(getGLId() > 0)
+        Window::destroyGLObject(getGLId(), 1);    
+
+    Inherited::onDestroy(uiContainerId);
 }
 
 void FrameBufferObject::changed(ConstFieldMaskArg whichField, 
