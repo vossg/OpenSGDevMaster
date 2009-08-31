@@ -133,12 +133,15 @@ void MPFieldStore<MPFieldT>::clear(void)
 {
     MPFieldMapIt gIt = _mFieldMap.begin();
 
-    while(gIt != _mFieldMap.end())
-    {
-        delete (*gIt).second;
+    // don't delete objects that are refcounted - rather leak them
+    // than destroying an object with active references to it.
 
-        ++gIt;
-    }
+//     while(gIt != _mFieldMap.end())
+//     {
+//         delete (*gIt).second;
+
+//         ++gIt;
+//     }
 
     _mFieldMap.clear();
 }

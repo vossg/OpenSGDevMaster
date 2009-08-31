@@ -334,7 +334,7 @@ void ThreadManager::removeLock(Lock *pLock)
     _storePLock->acquire();
 
     _sLockStore.removeMPField(pLock);
-    
+
     _storePLock->release();
 }
 
@@ -552,14 +552,14 @@ bool ThreadManager::shutdown(void)
 
 #endif
 
-    FDEBUG(("Sizes: ThreadStore: %d BarrierStore: %d CondVarStore: %d"
+    FDEBUG(("Sizes: ThreadStore: %d BarrierStore: %d CondVarStore: %d "
             "LockStore: %d LockPoolStore: %d SemaphoreStore: %d\n",
-            _sThreadStore._mFieldMap.size(),
-            _sBarrierStore._mFieldMap.size(),
-            _sCondVarStore._mFieldMap.size(),
-            _sLockStore._mFieldMap.size(),
+            _sThreadStore  ._mFieldMap.size(),
+            _sBarrierStore ._mFieldMap.size(),
+            _sCondVarStore ._mFieldMap.size(),
+            _sLockStore    ._mFieldMap.size(),
             _sLockPoolStore._mFieldMap.size(),
-            _sLockStore._mFieldMap.size()));
+            _sLockStore    ._mFieldMap.size()));
           
     _sThreadStore   .clear();
     _sBarrierStore  .clear();
