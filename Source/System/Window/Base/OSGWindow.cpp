@@ -458,16 +458,16 @@ void OSG::Window::onDestroy(UInt32 uiContainerId)
         }
     }
 
-    std::vector<Window *>::iterator it;
+    WindowStore::iterator winIt;
 
-    it = std::find(_allWindows.begin(), 
-                   _allWindows.end  (), 
-                   this);
+    winIt = std::find(_allWindows.begin(), 
+                      _allWindows.end  (), 
+                      this);
     
     // prototype window are not added to the list, so they might not be found.
 
-    if(it != _allWindows.end()) 
-        _allWindows.erase( it );
+    if(winIt != _allWindows.end()) 
+        _allWindows.erase(winIt);
 
     _pDrawThread = NULL;
 
@@ -801,7 +801,7 @@ void OSG::Window::refreshGLObject( UInt32 osgId )
         return;
     }
 
-    std::vector<Window *>::iterator winIt;
+    WindowStore::iterator winIt;
 
     for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
@@ -856,7 +856,7 @@ void OSG::Window::reinitializeGLObject(UInt32 osgId)
         return;
     }
 
-    std::vector<Window *>::iterator winIt;
+    WindowStore::const_iterator winIt;
 
     for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
@@ -911,7 +911,7 @@ void OSG::Window::initRegisterGLObject(UInt32 osgId, UInt32 num)
         return;
     }
 
-    std::vector<Window *>::iterator winIt;
+    WindowStore::const_iterator winIt;
 
     for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
@@ -985,7 +985,7 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
         return;
     }
 
-    std::vector<Window *>::iterator winIt;
+    WindowStore::const_iterator winIt;
 
     for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {
@@ -1127,22 +1127,22 @@ void OSG::Window::ignoreExtensions(const Char8 *s)
         // Walk all existing windows and remove the ignored extension 
         // from the _extensions vector. Disable it if it was a registered one.
         
-        std::vector<Window *>::iterator winit;
+        WindowStore::const_iterator winIt;
 
-        for(winit = _allWindows.begin(); winit != _allWindows.end(); ++winit)
+        for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
         {
-            FPDEBUG((" %p:", (*winit)));
+            FPDEBUG((" %p:", (*winIt)));
             
             std::vector<std::string>::iterator extit;
             
-            extit = std::find((*winit)->_extensions.begin(),
-                              (*winit)->_extensions.end(),
+            extit = std::find((*winIt)->_extensions.begin(),
+                              (*winIt)->_extensions.end(),
                               ignore.c_str()); 
                                                                      
-            if(extit != (*winit)->_extensions.end())
+            if(extit != (*winIt)->_extensions.end())
             {
                 FPDEBUG((" removed"));
-                (*winit)->_extensions.erase(extit);
+                (*winIt)->_extensions.erase(extit);
             }
             else
             {
@@ -1151,14 +1151,14 @@ void OSG::Window::ignoreExtensions(const Char8 *s)
                         
             if(ind >= 0)
             {
-                if((*winit)->_availExtensions.size() > UInt32(ind))
+                if((*winIt)->_availExtensions.size() > UInt32(ind))
                 {
-                    (*winit)->_availExtensions[ind] = false;
+                    (*winIt)->_availExtensions[ind] = false;
                     FPDEBUG((" disabled"));            
                 }
-                if((*winit)->_commonExtensions.size() > UInt32(ind))
+                if((*winIt)->_commonExtensions.size() > UInt32(ind))
                 {
-                    (*winit)->_commonExtensions[ind] = false;
+                    (*winIt)->_commonExtensions[ind] = false;
                     FPDEBUG((" uncommoned"));            
                 }
             }
@@ -2286,7 +2286,7 @@ void OSG::Window::requestStageRun(Int32 iStageId)
         return;
     }
 
-    std::vector<Window *>::iterator winIt;
+    WindowStore::const_iterator winIt;
 
     for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
     {

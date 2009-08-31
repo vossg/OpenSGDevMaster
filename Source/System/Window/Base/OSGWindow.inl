@@ -247,6 +247,31 @@ Window::GLObject::GLObject(GLObjectFunctor        funct,
 {
 }
 
+inline
+void Window::GLObject::acquireLock(void)
+{
+#ifndef OSG_EMBEDDED
+    if(! _GLObjectLock)
+    {
+        _GLObjectLock =
+            ThreadManager::the()->getLock("OSG::Window::_GLObjectLock");
+        OSG::addRef(_GLObjectLock);
+    }
+
+    _GLObjectLock->acquire();
+#endif
+}
+
+inline
+void Window::GLObject::releaseLock(void)
+{
+#ifndef OSG_EMBEDDED
+    OSG_ASSERT(_GLObjectLock != NULL);
+
+    _GLObjectLock->release();
+#endif
+}
+
 inline 
 Window::GLObjectFunctor &Window::GLObject::getFunctor(void)
 {
@@ -294,22 +319,11 @@ UInt32 Window::GLObject::incRefCounter(void)
 {
     UInt32 val;
 
-#ifndef OSG_EMBEDDED
-    if(! _GLObjectLock)
-    {
-        _GLObjectLock =
-            ThreadManager::the()->getLock("OSG::Window::_GLObjectLock");
-        OSG::addRef(_GLObjectLock);
-    }
-
-    _GLObjectLock->acquire();
-#endif
+    acquireLock();
 
     val = _refCounter = _refCounter + 1;
 
-#ifndef OSG_EMBEDDED
-    _GLObjectLock->release();
-#endif
+    releaseLock();
 
     return val;
 }
@@ -319,15 +333,7 @@ UInt32 Window::GLObject::decRefCounter(void)
 {
     UInt32 val;
 
-#ifndef OSG_EMBEDDED
-    if(! _GLObjectLock)
-    {
-        _GLObjectLock = ThreadManager::the()->getLock(NULL);
-    }
-
-    _GLObjectLock->acquire();
-
-#endif
+    acquireLock();
 
     if(_refCounter)
     {
@@ -338,9 +344,7 @@ UInt32 Window::GLObject::decRefCounter(void)
         val = 0;
     }
 
-#ifndef OSG_EMBEDDED
-    _GLObjectLock->release();
-#endif
+    releaseLock();
 
     return val;
 }    

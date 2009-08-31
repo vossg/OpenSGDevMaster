@@ -414,6 +414,9 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
         GLObject(GLObjectFunctor        funct, 
                  GLObjectDestroyFunctor destroy);
 
+        void             acquireLock(void);
+        void             releaseLock(void);
+
         GLObjectFunctor& getFunctor(void                 );
         void             setFunctor(GLObjectFunctor funct);
 
@@ -474,12 +477,14 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     typedef WindowBase Inherited;
 
+    typedef std::vector<Window *> WindowStore;
+
     friend class FieldContainer;
     friend class WindowBase;
     friend class WindowDrawTask;
 
-    static std::vector<Window *> _allWindows;
-    static Int32                 _currentWindowId;
+    static WindowStore                _allWindows;
+    static Int32                      _currentWindowId;
 
     /*---------------------------------------------------------------------*/
     /*! \name   Static GL Object / Extension variables                     */
