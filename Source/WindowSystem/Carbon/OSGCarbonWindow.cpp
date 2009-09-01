@@ -128,7 +128,7 @@ void CarbonWindow::init(GLInitFunctor oFunc)
 // activate the window: bind the OGL context
 void CarbonWindow::activate( void )
 {
-    if((_sfPartitionDrawMode.getValue() & 
+    if((_sfDrawMode.getValue() & 
          PartitionDrawMask               ) == SequentialPartitionDraw)
     {
         this->doActivate();
@@ -138,7 +138,7 @@ void CarbonWindow::activate( void )
 // activate the window: bind the OGL context
 void CarbonWindow::deactivate( void )
 {
-    if((_sfPartitionDrawMode.getValue() & 
+    if((_sfDrawMode.getValue() & 
          PartitionDrawMask               ) == SequentialPartitionDraw)
     {
         this->doDeactivate();
@@ -148,7 +148,7 @@ void CarbonWindow::deactivate( void )
 // swap front and back buffers
 bool CarbonWindow::swap( void )
 {
-    if((_sfPartitionDrawMode.getValue() & 
+    if((_sfDrawMode.getValue() &
          PartitionDrawMask               ) == SequentialPartitionDraw)
     {
         this->doSwap();
