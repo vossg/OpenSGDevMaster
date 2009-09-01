@@ -26,8 +26,15 @@ build
 
   c) dll + static lib + dll runtime + opt + dbg + 64 bit + vc9
 
+..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 stage
+
   d) dll + static lib + dll runtime + opt + dbg + 64 bit + vc9 + no ms secure c****
 
+..\bjam.exe -d+2 --stagedir=./stage toolset=msvc-9.0 variant=debug,release threading=multi link=shared,static runtime-link=shared address-model=64 define=_CRT_SECURE_NO_DEPRECATE define=_CRT_SECURE_NO_WARNINGS define=_CRT_NONSTDC_NO_DEPRECATE define=_SECURE_SCL=0 define=_SCL_SECURE_NO_WARNINGS define=_SCL_SECURE_NO_DEPRECATE define=_HAS_ITERATOR_DEBUGGING=0 stage
+
+Please note that you need different source/build directories for the 32 bit, 64 bit,
+scecurity and non security versions, as the standards cmake find boost module
+only seems to work with the single 'stage' dir.
 
  1b) Rest
 http://pecl2.php.net/downloads/php-windows-builds/source/zlib-1.2.3-source.zip
@@ -43,9 +50,7 @@ http://hebbut.net/Public.Offerings/lib_xxx/downloads/OpenEXR-CVS.20081031.7z
 
 2) Unpack to disk
 
-3) Prepare boost
-
-4) Point OSGFreeGlutSrcDir, OSGJpegLibSrcDir, OSGLibPNGSrcDir, 
+3) Point OSGFreeGlutSrcDir, OSGJpegLibSrcDir, OSGLibPNGSrcDir, 
    OSGTiffLibSrcDir, OSGZLibSrcDir, OSGColladaSrcDir, OSGPcreSrcDir,
    OSGLibXml2SrcDir, and OSGLibIconvSrcDir to the appropriate directories, e.g.
 
@@ -59,14 +64,14 @@ http://hebbut.net/Public.Offerings/lib_xxx/downloads/OpenEXR-CVS.20081031.7z
    OSGLibXml2SrcDir:PATH=X:/..../OpenSG-Unpack/libxml2-2.7.3
    OSGLibIconvSrcDir:PATH=X:/..../OpenSG-Support/Unpack/libiconv-1.12-source
 
-5) Select which variants to build
+4) Select which variants to build
 
   BUILD_SHARED_LIBS: build dlls where possible
   BUILD_STATIC_LIBS: build static libs where possible
 
-6) Install
+5) Build + Install
 
-7) Configure OpenSG.
+6) Configure OpenSG.
 
   7a) activate OSG_USE_OSGSUPPORT_LIBS
 
@@ -77,6 +82,10 @@ http://hebbut.net/Public.Offerings/lib_xxx/downloads/OpenEXR-CVS.20081031.7z
     choose to use dlls / static libs according to what you build or prefer
 
     OSG_USE_STATIC_SUPPORT_LIBS:BOOL=OFF
+
+    Please make sure to use the same boost libs and _SECURE settings as for
+    the support libs. This is currently neither checked/enforced nor
+    automatically transferred.
 
   7b) set by hand
 
