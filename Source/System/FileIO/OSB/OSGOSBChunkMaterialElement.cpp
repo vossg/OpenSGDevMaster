@@ -58,6 +58,10 @@ OSBElementRegistrationHelper<OSBChunkMaterialElement>
     OSBChunkMaterialElement::_regHelper =
         OSBElementRegistrationHelper<OSBChunkMaterialElement>("ChunkMaterial");
 
+OSBElementRegistrationHelper<OSBChunkMaterialElement>
+    OSBChunkMaterialElement::_regHelperSimple =
+        OSBElementRegistrationHelper<OSBChunkMaterialElement>("SimpleMaterial");
+
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 

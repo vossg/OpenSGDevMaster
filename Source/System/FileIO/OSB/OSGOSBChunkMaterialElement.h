@@ -103,7 +103,10 @@ class OSG_FILEIO_DLLMAPPING OSBChunkMaterialElement : public OSBCommonElement
     /*!\brief prohibit default function (move to 'public' if needed)       */
     void operator =(const OSBChunkMaterialElement &source);
 
-    static OSBElementRegistrationHelper<OSBChunkMaterialElement> _regHelper;
+    static 
+        OSBElementRegistrationHelper<OSBChunkMaterialElement> _regHelper;
+    static 
+        OSBElementRegistrationHelper<OSBChunkMaterialElement> _regHelperSimple;
 
     MFInt32         _mfSlots;
     PtrFieldListIt  _chunksPtrFieldIt;
