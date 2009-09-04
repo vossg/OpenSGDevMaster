@@ -100,7 +100,10 @@ OSBChunkMaterialElement::read(const std::string &typeName)
     UInt32         fieldSize;
     PtrFieldListIt ptrFieldIt;
 
-    setContainer(ChunkMaterialUnrecPtr(ChunkMaterial::create()));
+    ChunkMaterialUnrecPtr pMat = dynamic_pointer_cast<ChunkMaterial>(
+        FieldContainerFactory::the()->createContainer(typeName.c_str()));
+
+    setContainer(pMat);
 
     while(readFieldHeader("", fieldName, fieldTypeName, fieldSize))
     {

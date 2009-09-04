@@ -441,7 +441,7 @@ int init(int argc, char **argv)
     }
 
     std::cerr << "STARTING PRINTOUT:" << std::endl;
-    OSGWriter writer( outFileStream, 4 );
+    OSG::OSGWriter writer( outFileStream, 4 );
 
     writer.write( file );
 
