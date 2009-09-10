@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAnimChannel.h" // Parent
+#include "OSGNodeCore.h" // Parent
 
 #include "OSGSysFields.h"               // InValue type
 #include "OSGMathFields.h"              // KeyValue type
@@ -76,12 +76,12 @@ class VRMLOrientationInterpolator;
 
 //! \brief VRMLOrientationInterpolator Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public AnimChannel
+class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public NodeCore
 {
   public:
 
-    typedef AnimChannel Inherited;
-    typedef AnimChannel ParentContainer;
+    typedef NodeCore Inherited;
+    typedef NodeCore ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

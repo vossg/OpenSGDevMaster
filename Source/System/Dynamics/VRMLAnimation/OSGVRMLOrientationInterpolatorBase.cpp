@@ -104,7 +104,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLOrientationInterpolator *>::_type("VRMLOrientationInterpolatorPtr", "AnimChannelPtr");
+DataType FieldTraits<VRMLOrientationInterpolator *>::_type("VRMLOrientationInterpolatorPtr", "NodeCorePtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(VRMLOrientationInterpolator *)
@@ -183,7 +183,7 @@ VRMLOrientationInterpolatorBase::TypeObject VRMLOrientationInterpolatorBase::_ty
     "\n"
     "<FieldContainer\n"
     "     name=\"VRMLOrientationInterpolator\"\n"
-    "     parent=\"AnimChannel\"\n"
+    "     parent=\"NodeCore\"\n"
     "     library=\"Dynamics\"\n"
     "     pointerfieldtypes=\"none\"\n"
     "     structure=\"concrete\"\n"

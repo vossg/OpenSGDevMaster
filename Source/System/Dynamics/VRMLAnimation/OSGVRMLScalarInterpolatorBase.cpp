@@ -104,7 +104,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLScalarInterpolator *>::_type("VRMLScalarInterpolatorPtr", "AnimChannelPtr");
+DataType FieldTraits<VRMLScalarInterpolator *>::_type("VRMLScalarInterpolatorPtr", "NodeCorePtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(VRMLScalarInterpolator *)
@@ -183,7 +183,7 @@ VRMLScalarInterpolatorBase::TypeObject VRMLScalarInterpolatorBase::_type(
     "\n"
     "<FieldContainer\n"
     "     name=\"VRMLScalarInterpolator\"\n"
-    "     parent=\"AnimChannel\"\n"
+    "     parent=\"NodeCore\"\n"
     "     library=\"Dynamics\"\n"
     "     pointerfieldtypes=\"none\"\n"
     "     structure=\"concrete\"\n"

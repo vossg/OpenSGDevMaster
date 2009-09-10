@@ -2,7 +2,7 @@
 
 <FieldContainer
      name="VRMLScalarInterpolator"
-     parent="AnimChannel"
+     parent="NodeCore"
      library="Dynamics"
      pointerfieldtypes="none"
      structure="concrete"
