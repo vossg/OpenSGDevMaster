@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class OrientationInterpolator!
+ **     class VRMLOrientationInterpolator!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -59,8 +59,8 @@
 
 
 
-#include "OSGOrientationInterpolatorBase.h"
-#include "OSGOrientationInterpolator.h"
+#include "OSGVRMLOrientationInterpolatorBase.h"
+#include "OSGVRMLOrientationInterpolator.h"
 
 #include "boost/bind.hpp"
 
@@ -74,7 +74,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::OrientationInterpolator
+/*! \class OSG::VRMLOrientationInterpolator
     
  */
 
@@ -82,20 +82,20 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Real32          OrientationInterpolatorBase::_sfFraction
+/*! \var Real32          VRMLOrientationInterpolatorBase::_sfInValue
+    This is VRML's fraction field.
+*/
+
+/*! \var Real32          VRMLOrientationInterpolatorBase::_mfKey
     
 */
 
-/*! \var Real32          OrientationInterpolatorBase::_mfKey
+/*! \var Quaternion      VRMLOrientationInterpolatorBase::_mfKeyValue
     
 */
 
-/*! \var Quaternion      OrientationInterpolatorBase::_mfKeyValue
-    
-*/
-
-/*! \var Quaternion      OrientationInterpolatorBase::_sfValue
-    
+/*! \var Quaternion      VRMLOrientationInterpolatorBase::_sfOutValue
+    This is VRML's value field.
 */
 
 
@@ -104,29 +104,29 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<OrientationInterpolator *>::_type("OrientationInterpolatorPtr", "NodeCorePtr");
+DataType FieldTraits<VRMLOrientationInterpolator *>::_type("VRMLOrientationInterpolatorPtr", "AnimChannelPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(OrientationInterpolator *)
+OSG_FIELDTRAITS_GETTYPE(VRMLOrientationInterpolator *)
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void OrientationInterpolatorBase::classDescInserter(TypeObject &oType)
+void VRMLOrientationInterpolatorBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
-        "fraction",
-        "",
-        FractionFieldId, FractionFieldMask,
+        "inValue",
+        "This is VRML's fraction field.\n",
+        InValueFieldId, InValueFieldMask,
         true,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&OrientationInterpolator::editHandleFraction),
-        static_cast<FieldGetMethodSig >(&OrientationInterpolator::getHandleFraction));
+        static_cast<FieldEditMethodSig>(&VRMLOrientationInterpolator::editHandleInValue),
+        static_cast<FieldGetMethodSig >(&VRMLOrientationInterpolator::getHandleInValue));
 
     oType.addInitialDesc(pDesc);
 
@@ -137,8 +137,8 @@ void OrientationInterpolatorBase::classDescInserter(TypeObject &oType)
         KeyFieldId, KeyFieldMask,
         false,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&OrientationInterpolator::editHandleKey),
-        static_cast<FieldGetMethodSig >(&OrientationInterpolator::getHandleKey));
+        static_cast<FieldEditMethodSig>(&VRMLOrientationInterpolator::editHandleKey),
+        static_cast<FieldGetMethodSig >(&VRMLOrientationInterpolator::getHandleKey));
 
     oType.addInitialDesc(pDesc);
 
@@ -149,165 +149,167 @@ void OrientationInterpolatorBase::classDescInserter(TypeObject &oType)
         KeyValueFieldId, KeyValueFieldMask,
         false,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&OrientationInterpolator::editHandleKeyValue),
-        static_cast<FieldGetMethodSig >(&OrientationInterpolator::getHandleKeyValue));
+        static_cast<FieldEditMethodSig>(&VRMLOrientationInterpolator::editHandleKeyValue),
+        static_cast<FieldGetMethodSig >(&VRMLOrientationInterpolator::getHandleKeyValue));
 
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFQuaternion::Description(
         SFQuaternion::getClassType(),
-        "value",
-        "",
-        ValueFieldId, ValueFieldMask,
+        "outValue",
+        "This is VRML's value field.\n",
+        OutValueFieldId, OutValueFieldMask,
         true,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&OrientationInterpolator::editHandleValue),
-        static_cast<FieldGetMethodSig >(&OrientationInterpolator::getHandleValue));
+        static_cast<FieldEditMethodSig>(&VRMLOrientationInterpolator::editHandleOutValue),
+        static_cast<FieldGetMethodSig >(&VRMLOrientationInterpolator::getHandleOutValue));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-OrientationInterpolatorBase::TypeObject OrientationInterpolatorBase::_type(
-    OrientationInterpolatorBase::getClassname(),
+VRMLOrientationInterpolatorBase::TypeObject VRMLOrientationInterpolatorBase::_type(
+    VRMLOrientationInterpolatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    reinterpret_cast<PrototypeCreateF>(&OrientationInterpolatorBase::createEmptyLocal),
-    OrientationInterpolator::initMethod,
-    OrientationInterpolator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&OrientationInterpolator::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&VRMLOrientationInterpolatorBase::createEmptyLocal),
+    VRMLOrientationInterpolator::initMethod,
+    VRMLOrientationInterpolator::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&VRMLOrientationInterpolator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"OrientationInterpolator\"\n"
-    "    parent=\"NodeCore\"\n"
-    "    library=\"Dynamics\"\n"
-    "    pointerfieldtypes=\"none\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    "    isBundle=\"false\"\n"
-    "    parentFields=\"none\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"fraction\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"0.f\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"key\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"keyValue\"\n"
-    "\t\ttype=\"Quaternion\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"value\"\n"
-    "\t\ttype=\"Quaternion\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "     name=\"VRMLOrientationInterpolator\"\n"
+    "     parent=\"AnimChannel\"\n"
+    "     library=\"Dynamics\"\n"
+    "     pointerfieldtypes=\"none\"\n"
+    "     structure=\"concrete\"\n"
+    "     systemcomponent=\"true\"\n"
+    "     parentsystemcomponent=\"true\"\n"
+    "     decoratable=\"false\"\n"
+    "     useLocalIncludes=\"false\"\n"
+    "     isNodeCore=\"true\"\n"
+    "     isBundle=\"false\"\n"
+    "     parentFields=\"none\"\n"
+    "     >\n"
+    "    <Field\n"
+    "\t name=\"inValue\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"internal\"\n"
+    "\t access=\"public\"\n"
+    "         defaultValue=\"0.f\"\n"
+    "         fieldFlags=\"FThreadLocal\"\n"
+    "\t >\n"
+    "        This is VRML's fraction field.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "\t name=\"key\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "         defaultValue=\"\"\n"
+    "         fieldFlags=\"FThreadLocal\"\n"
+    "\t >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "\t name=\"keyValue\"\n"
+    "\t type=\"Quaternion\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "         defaultValue=\"\"\n"
+    "         fieldFlags=\"FThreadLocal\"\n"
+    "\t >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "\t name=\"outValue\"\n"
+    "\t type=\"Quaternion\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"internal\"\n"
+    "\t access=\"public\"\n"
+    "         defaultValue=\"\"\n"
+    "         fieldFlags=\"FThreadLocal\"\n"
+    "\t >\n"
+    "        This is VRML's value field.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &OrientationInterpolatorBase::getType(void)
+FieldContainerType &VRMLOrientationInterpolatorBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &OrientationInterpolatorBase::getType(void) const
+const FieldContainerType &VRMLOrientationInterpolatorBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 OrientationInterpolatorBase::getContainerSize(void) const
+UInt32 VRMLOrientationInterpolatorBase::getContainerSize(void) const
 {
-    return sizeof(OrientationInterpolator);
+    return sizeof(VRMLOrientationInterpolator);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-SFReal32 *OrientationInterpolatorBase::editSFFraction(void)
+SFReal32 *VRMLOrientationInterpolatorBase::editSFInValue(void)
 {
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
-    return &_sfFraction;
+    return &_sfInValue;
 }
 
-const SFReal32 *OrientationInterpolatorBase::getSFFraction(void) const
+const SFReal32 *VRMLOrientationInterpolatorBase::getSFInValue(void) const
 {
-    return &_sfFraction;
+    return &_sfInValue;
 }
 
 
-MFReal32 *OrientationInterpolatorBase::editMFKey(void)
+MFReal32 *VRMLOrientationInterpolatorBase::editMFKey(void)
 {
     editMField(KeyFieldMask, _mfKey);
 
     return &_mfKey;
 }
 
-const MFReal32 *OrientationInterpolatorBase::getMFKey(void) const
+const MFReal32 *VRMLOrientationInterpolatorBase::getMFKey(void) const
 {
     return &_mfKey;
 }
 
 
-MFQuaternion *OrientationInterpolatorBase::editMFKeyValue(void)
+MFQuaternion *VRMLOrientationInterpolatorBase::editMFKeyValue(void)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 
     return &_mfKeyValue;
 }
 
-const MFQuaternion *OrientationInterpolatorBase::getMFKeyValue(void) const
+const MFQuaternion *VRMLOrientationInterpolatorBase::getMFKeyValue(void) const
 {
     return &_mfKeyValue;
 }
 
 
-SFQuaternion *OrientationInterpolatorBase::editSFValue(void)
+SFQuaternion *VRMLOrientationInterpolatorBase::editSFOutValue(void)
 {
-    editSField(ValueFieldMask);
+    editSField(OutValueFieldMask);
 
-    return &_sfValue;
+    return &_sfOutValue;
 }
 
-const SFQuaternion *OrientationInterpolatorBase::getSFValue(void) const
+const SFQuaternion *VRMLOrientationInterpolatorBase::getSFOutValue(void) const
 {
-    return &_sfValue;
+    return &_sfOutValue;
 }
 
 
@@ -317,13 +319,13 @@ const SFQuaternion *OrientationInterpolatorBase::getSFValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 OrientationInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 VRMLOrientationInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (FractionFieldMask & whichField))
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
-        returnValue += _sfFraction.getBinSize();
+        returnValue += _sfInValue.getBinSize();
     }
     if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
@@ -333,22 +335,22 @@ UInt32 OrientationInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfKeyValue.getBinSize();
     }
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
-        returnValue += _sfValue.getBinSize();
+        returnValue += _sfOutValue.getBinSize();
     }
 
     return returnValue;
 }
 
-void OrientationInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
+void VRMLOrientationInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FractionFieldMask & whichField))
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
-        _sfFraction.copyToBin(pMem);
+        _sfInValue.copyToBin(pMem);
     }
     if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
@@ -358,20 +360,20 @@ void OrientationInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfKeyValue.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
-        _sfValue.copyToBin(pMem);
+        _sfOutValue.copyToBin(pMem);
     }
 }
 
-void OrientationInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
+void VRMLOrientationInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FractionFieldMask & whichField))
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
-        _sfFraction.copyFromBin(pMem);
+        _sfInValue.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
@@ -381,65 +383,65 @@ void OrientationInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _mfKeyValue.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
-        _sfValue.copyFromBin(pMem);
+        _sfOutValue.copyFromBin(pMem);
     }
 }
 
 //! create a new instance of the class
-OrientationInterpolatorTransitPtr OrientationInterpolatorBase::createLocal(BitVector bFlags)
+VRMLOrientationInterpolatorTransitPtr VRMLOrientationInterpolatorBase::createLocal(BitVector bFlags)
 {
-    OrientationInterpolatorTransitPtr fc;
+    VRMLOrientationInterpolatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<OrientationInterpolator>(tmpPtr);
+        fc = dynamic_pointer_cast<VRMLOrientationInterpolator>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-OrientationInterpolatorTransitPtr OrientationInterpolatorBase::createDependent(BitVector bFlags)
+VRMLOrientationInterpolatorTransitPtr VRMLOrientationInterpolatorBase::createDependent(BitVector bFlags)
 {
-    OrientationInterpolatorTransitPtr fc;
+    VRMLOrientationInterpolatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<OrientationInterpolator>(tmpPtr);
+        fc = dynamic_pointer_cast<VRMLOrientationInterpolator>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-OrientationInterpolatorTransitPtr OrientationInterpolatorBase::create(void)
+VRMLOrientationInterpolatorTransitPtr VRMLOrientationInterpolatorBase::create(void)
 {
-    OrientationInterpolatorTransitPtr fc;
+    VRMLOrientationInterpolatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<OrientationInterpolator>(tmpPtr);
+        fc = dynamic_pointer_cast<VRMLOrientationInterpolator>(tmpPtr);
     }
 
     return fc;
 }
 
-OrientationInterpolator *OrientationInterpolatorBase::createEmptyLocal(BitVector bFlags)
+VRMLOrientationInterpolator *VRMLOrientationInterpolatorBase::createEmptyLocal(BitVector bFlags)
 {
-    OrientationInterpolator *returnValue;
+    VRMLOrientationInterpolator *returnValue;
 
-    newPtr<OrientationInterpolator>(returnValue, bFlags);
+    newPtr<VRMLOrientationInterpolator>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -447,11 +449,11 @@ OrientationInterpolator *OrientationInterpolatorBase::createEmptyLocal(BitVector
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-OrientationInterpolator *OrientationInterpolatorBase::createEmpty(void)
+VRMLOrientationInterpolator *VRMLOrientationInterpolatorBase::createEmpty(void)
 {
-    OrientationInterpolator *returnValue;
+    VRMLOrientationInterpolator *returnValue;
 
-    newPtr<OrientationInterpolator>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<VRMLOrientationInterpolator>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -460,12 +462,12 @@ OrientationInterpolator *OrientationInterpolatorBase::createEmpty(void)
 }
 
 
-FieldContainerTransitPtr OrientationInterpolatorBase::shallowCopyLocal(
+FieldContainerTransitPtr VRMLOrientationInterpolatorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    OrientationInterpolator *tmpPtr;
+    VRMLOrientationInterpolator *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const OrientationInterpolator *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const VRMLOrientationInterpolator *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -474,12 +476,12 @@ FieldContainerTransitPtr OrientationInterpolatorBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr OrientationInterpolatorBase::shallowCopyDependent(
+FieldContainerTransitPtr VRMLOrientationInterpolatorBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    OrientationInterpolator *tmpPtr;
+    VRMLOrientationInterpolator *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const OrientationInterpolator *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const VRMLOrientationInterpolator *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -488,12 +490,12 @@ FieldContainerTransitPtr OrientationInterpolatorBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr OrientationInterpolatorBase::shallowCopy(void) const
+FieldContainerTransitPtr VRMLOrientationInterpolatorBase::shallowCopy(void) const
 {
-    OrientationInterpolator *tmpPtr;
+    VRMLOrientationInterpolator *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const OrientationInterpolator *>(this),
+           dynamic_cast<const VRMLOrientationInterpolator *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -508,69 +510,69 @@ FieldContainerTransitPtr OrientationInterpolatorBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-OrientationInterpolatorBase::OrientationInterpolatorBase(void) :
+VRMLOrientationInterpolatorBase::VRMLOrientationInterpolatorBase(void) :
     Inherited(),
-    _sfFraction               (Real32(0.f)),
+    _sfInValue                (Real32(0.f)),
     _mfKey                    (),
     _mfKeyValue               (),
-    _sfValue                  ()
+    _sfOutValue               ()
 {
 }
 
-OrientationInterpolatorBase::OrientationInterpolatorBase(const OrientationInterpolatorBase &source) :
+VRMLOrientationInterpolatorBase::VRMLOrientationInterpolatorBase(const VRMLOrientationInterpolatorBase &source) :
     Inherited(source),
-    _sfFraction               (source._sfFraction               ),
+    _sfInValue                (source._sfInValue                ),
     _mfKey                    (source._mfKey                    ),
     _mfKeyValue               (source._mfKeyValue               ),
-    _sfValue                  (source._sfValue                  )
+    _sfOutValue               (source._sfOutValue               )
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-OrientationInterpolatorBase::~OrientationInterpolatorBase(void)
+VRMLOrientationInterpolatorBase::~VRMLOrientationInterpolatorBase(void)
 {
 }
 
 
-GetFieldHandlePtr OrientationInterpolatorBase::getHandleFraction        (void) const
+GetFieldHandlePtr VRMLOrientationInterpolatorBase::getHandleInValue         (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId),
-             const_cast<OrientationInterpolatorBase *>(this)));
+             &_sfInValue,
+             this->getType().getFieldDesc(InValueFieldId),
+             const_cast<VRMLOrientationInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr OrientationInterpolatorBase::editHandleFraction       (void)
+EditFieldHandlePtr VRMLOrientationInterpolatorBase::editHandleInValue        (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId),
+             &_sfInValue,
+             this->getType().getFieldDesc(InValueFieldId),
              this));
 
 
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
     return returnValue;
 }
 
-GetFieldHandlePtr OrientationInterpolatorBase::getHandleKey             (void) const
+GetFieldHandlePtr VRMLOrientationInterpolatorBase::getHandleKey             (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfKey,
              this->getType().getFieldDesc(KeyFieldId),
-             const_cast<OrientationInterpolatorBase *>(this)));
+             const_cast<VRMLOrientationInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr OrientationInterpolatorBase::editHandleKey            (void)
+EditFieldHandlePtr VRMLOrientationInterpolatorBase::editHandleKey            (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
@@ -584,18 +586,18 @@ EditFieldHandlePtr OrientationInterpolatorBase::editHandleKey            (void)
     return returnValue;
 }
 
-GetFieldHandlePtr OrientationInterpolatorBase::getHandleKeyValue        (void) const
+GetFieldHandlePtr VRMLOrientationInterpolatorBase::getHandleKeyValue        (void) const
 {
     MFQuaternion::GetHandlePtr returnValue(
         new  MFQuaternion::GetHandle(
              &_mfKeyValue,
              this->getType().getFieldDesc(KeyValueFieldId),
-             const_cast<OrientationInterpolatorBase *>(this)));
+             const_cast<VRMLOrientationInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr OrientationInterpolatorBase::editHandleKeyValue       (void)
+EditFieldHandlePtr VRMLOrientationInterpolatorBase::editHandleKeyValue       (void)
 {
     MFQuaternion::EditHandlePtr returnValue(
         new  MFQuaternion::EditHandle(
@@ -609,42 +611,42 @@ EditFieldHandlePtr OrientationInterpolatorBase::editHandleKeyValue       (void)
     return returnValue;
 }
 
-GetFieldHandlePtr OrientationInterpolatorBase::getHandleValue           (void) const
+GetFieldHandlePtr VRMLOrientationInterpolatorBase::getHandleOutValue        (void) const
 {
     SFQuaternion::GetHandlePtr returnValue(
         new  SFQuaternion::GetHandle(
-             &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId),
-             const_cast<OrientationInterpolatorBase *>(this)));
+             &_sfOutValue,
+             this->getType().getFieldDesc(OutValueFieldId),
+             const_cast<VRMLOrientationInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr OrientationInterpolatorBase::editHandleValue          (void)
+EditFieldHandlePtr VRMLOrientationInterpolatorBase::editHandleOutValue       (void)
 {
     SFQuaternion::EditHandlePtr returnValue(
         new  SFQuaternion::EditHandle(
-             &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId),
+             &_sfOutValue,
+             this->getType().getFieldDesc(OutValueFieldId),
              this));
 
 
-    editSField(ValueFieldMask);
+    editSField(OutValueFieldMask);
 
     return returnValue;
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void OrientationInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
+void VRMLOrientationInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    OrientationInterpolator *pThis = static_cast<OrientationInterpolator *>(this);
+    VRMLOrientationInterpolator *pThis = static_cast<VRMLOrientationInterpolator *>(this);
 
-    pThis->execSync(static_cast<OrientationInterpolator *>(&oFrom),
+    pThis->execSync(static_cast<VRMLOrientationInterpolator *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -654,20 +656,20 @@ void OrientationInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *OrientationInterpolatorBase::createAspectCopy(
+FieldContainer *VRMLOrientationInterpolatorBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    OrientationInterpolator *returnValue;
+    VRMLOrientationInterpolator *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const OrientationInterpolator *>(pRefAspect),
-                  dynamic_cast<const OrientationInterpolator *>(this));
+                  dynamic_cast<const VRMLOrientationInterpolator *>(pRefAspect),
+                  dynamic_cast<const VRMLOrientationInterpolator *>(this));
 
     return returnValue;
 }
 #endif
 
-void OrientationInterpolatorBase::resolveLinks(void)
+void VRMLOrientationInterpolatorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 

@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class PositionInterpolator!
+ **     class VRMLScalarInterpolator!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,86 +53,86 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &PositionInterpolatorBase::getClassType(void)
+OSG::FieldContainerType &VRMLScalarInterpolatorBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 PositionInterpolatorBase::getClassTypeId(void)
+OSG::UInt32 VRMLScalarInterpolatorBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 PositionInterpolatorBase::getClassGroupId(void)
+OSG::UInt16 VRMLScalarInterpolatorBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the PositionInterpolator::_sfFraction field.
+//! Get the value of the VRMLScalarInterpolator::_sfInValue field.
 
 inline
-Real32 &PositionInterpolatorBase::editFraction(void)
+Real32 &VRMLScalarInterpolatorBase::editInValue(void)
 {
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
-    return _sfFraction.getValue();
+    return _sfInValue.getValue();
 }
 
-//! Get the value of the PositionInterpolator::_sfFraction field.
+//! Get the value of the VRMLScalarInterpolator::_sfInValue field.
 inline
-      Real32  PositionInterpolatorBase::getFraction(void) const
+      Real32  VRMLScalarInterpolatorBase::getInValue(void) const
 {
-    return _sfFraction.getValue();
+    return _sfInValue.getValue();
 }
 
-//! Set the value of the PositionInterpolator::_sfFraction field.
+//! Set the value of the VRMLScalarInterpolator::_sfInValue field.
 inline
-void PositionInterpolatorBase::setFraction(const Real32 value)
+void VRMLScalarInterpolatorBase::setInValue(const Real32 value)
 {
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
-    _sfFraction.setValue(value);
+    _sfInValue.setValue(value);
 }
-//! Get the value of the PositionInterpolator::_sfValue field.
+//! Get the value of the VRMLScalarInterpolator::_sfOutValue field.
 
 inline
-Vec3f &PositionInterpolatorBase::editValue(void)
+Real32 &VRMLScalarInterpolatorBase::editOutValue(void)
 {
-    editSField(ValueFieldMask);
+    editSField(OutValueFieldMask);
 
-    return _sfValue.getValue();
-}
-
-//! Get the value of the PositionInterpolator::_sfValue field.
-inline
-const Vec3f &PositionInterpolatorBase::getValue(void) const
-{
-    return _sfValue.getValue();
+    return _sfOutValue.getValue();
 }
 
-//! Set the value of the PositionInterpolator::_sfValue field.
+//! Get the value of the VRMLScalarInterpolator::_sfOutValue field.
 inline
-void PositionInterpolatorBase::setValue(const Vec3f &value)
+      Real32  VRMLScalarInterpolatorBase::getOutValue(void) const
 {
-    editSField(ValueFieldMask);
-
-    _sfValue.setValue(value);
+    return _sfOutValue.getValue();
 }
 
-//! Get the value of the \a index element the PositionInterpolator::_mfKey field.
+//! Set the value of the VRMLScalarInterpolator::_sfOutValue field.
 inline
-      Real32  PositionInterpolatorBase::getKey(const UInt32 index) const
+void VRMLScalarInterpolatorBase::setOutValue(const Real32 value)
+{
+    editSField(OutValueFieldMask);
+
+    _sfOutValue.setValue(value);
+}
+
+//! Get the value of the \a index element the VRMLScalarInterpolator::_mfKey field.
+inline
+      Real32  VRMLScalarInterpolatorBase::getKey(const UInt32 index) const
 {
     return _mfKey[index];
 }
 
 inline
-Real32 &PositionInterpolatorBase::editKey(const UInt32 index)
+Real32 &VRMLScalarInterpolatorBase::editKey(const UInt32 index)
 {
     editMField(KeyFieldMask, _mfKey);
 
@@ -140,15 +140,15 @@ Real32 &PositionInterpolatorBase::editKey(const UInt32 index)
 }
 
 
-//! Get the value of the \a index element the PositionInterpolator::_mfKeyValue field.
+//! Get the value of the \a index element the VRMLScalarInterpolator::_mfKeyValue field.
 inline
-const Vec3f &PositionInterpolatorBase::getKeyValue(const UInt32 index) const
+      Real32  VRMLScalarInterpolatorBase::getKeyValue(const UInt32 index) const
 {
     return _mfKeyValue[index];
 }
 
 inline
-Vec3f &PositionInterpolatorBase::editKeyValue(const UInt32 index)
+Real32 &VRMLScalarInterpolatorBase::editKeyValue(const UInt32 index)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 
@@ -159,7 +159,7 @@ Vec3f &PositionInterpolatorBase::editKeyValue(const UInt32 index)
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void PositionInterpolatorBase::execSync (      PositionInterpolatorBase *pFrom,
+void VRMLScalarInterpolatorBase::execSync (      VRMLScalarInterpolatorBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -167,8 +167,8 @@ void PositionInterpolatorBase::execSync (      PositionInterpolatorBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (FractionFieldMask & whichField))
-        _sfFraction.syncWith(pFrom->_sfFraction);
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
+        _sfInValue.syncWith(pFrom->_sfInValue);
 
     if(FieldBits::NoField != (KeyFieldMask & whichField))
         _mfKey.syncWith(pFrom->_mfKey,
@@ -182,18 +182,18 @@ void PositionInterpolatorBase::execSync (      PositionInterpolatorBase *pFrom,
                                 uiSyncInfo,
                                 oOffsets);
 
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
-        _sfValue.syncWith(pFrom->_sfValue);
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
+        _sfOutValue.syncWith(pFrom->_sfOutValue);
 }
 #endif
 
 
 inline
-const Char8 *PositionInterpolatorBase::getClassname(void)
+const Char8 *VRMLScalarInterpolatorBase::getClassname(void)
 {
-    return "PositionInterpolator";
+    return "VRMLScalarInterpolator";
 }
-OSG_GEN_CONTAINERPTR(PositionInterpolator);
+OSG_GEN_CONTAINERPTR(VRMLScalarInterpolator);
 
 OSG_END_NAMESPACE
 

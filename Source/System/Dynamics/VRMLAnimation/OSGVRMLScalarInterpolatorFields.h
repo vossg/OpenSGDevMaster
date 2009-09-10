@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGCOORDINATEINTERPOLATORFIELDS_H_
-#define _OSGCOORDINATEINTERPOLATORFIELDS_H_
+#ifndef _OSGVRMLSCALARINTERPOLATORFIELDS_H_
+#define _OSGVRMLSCALARINTERPOLATORFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-class CoordinateInterpolator;
+class VRMLScalarInterpolator;
 
-OSG_GEN_CONTAINERPTR(CoordinateInterpolator);
+OSG_GEN_CONTAINERPTR(VRMLScalarInterpolator);
 
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<CoordinateInterpolator *> :
-    public FieldTraitsFCPtrBase<CoordinateInterpolator *>
+struct FieldTraits<VRMLScalarInterpolator *> :
+    public FieldTraitsFCPtrBase<VRMLScalarInterpolator *>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<CoordinateInterpolator *> :
 
   public:
 
-    typedef FieldTraits<CoordinateInterpolator *>  Self;
+    typedef FieldTraits<VRMLScalarInterpolator *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -104,4 +104,4 @@ struct FieldTraits<CoordinateInterpolator *> :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCOORDINATEINTERPOLATORFIELDS_H_ */
+#endif /* _OSGVRMLSCALARINTERPOLATORFIELDS_H_ */

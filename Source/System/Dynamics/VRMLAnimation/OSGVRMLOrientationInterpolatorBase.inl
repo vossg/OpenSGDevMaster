@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class OrientationInterpolator!
+ **     class VRMLOrientationInterpolator!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,86 +53,86 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &OrientationInterpolatorBase::getClassType(void)
+OSG::FieldContainerType &VRMLOrientationInterpolatorBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 OrientationInterpolatorBase::getClassTypeId(void)
+OSG::UInt32 VRMLOrientationInterpolatorBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 OrientationInterpolatorBase::getClassGroupId(void)
+OSG::UInt16 VRMLOrientationInterpolatorBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the OrientationInterpolator::_sfFraction field.
+//! Get the value of the VRMLOrientationInterpolator::_sfInValue field.
 
 inline
-Real32 &OrientationInterpolatorBase::editFraction(void)
+Real32 &VRMLOrientationInterpolatorBase::editInValue(void)
 {
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
-    return _sfFraction.getValue();
+    return _sfInValue.getValue();
 }
 
-//! Get the value of the OrientationInterpolator::_sfFraction field.
+//! Get the value of the VRMLOrientationInterpolator::_sfInValue field.
 inline
-      Real32  OrientationInterpolatorBase::getFraction(void) const
+      Real32  VRMLOrientationInterpolatorBase::getInValue(void) const
 {
-    return _sfFraction.getValue();
+    return _sfInValue.getValue();
 }
 
-//! Set the value of the OrientationInterpolator::_sfFraction field.
+//! Set the value of the VRMLOrientationInterpolator::_sfInValue field.
 inline
-void OrientationInterpolatorBase::setFraction(const Real32 value)
+void VRMLOrientationInterpolatorBase::setInValue(const Real32 value)
 {
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
-    _sfFraction.setValue(value);
+    _sfInValue.setValue(value);
 }
-//! Get the value of the OrientationInterpolator::_sfValue field.
+//! Get the value of the VRMLOrientationInterpolator::_sfOutValue field.
 
 inline
-Quaternion &OrientationInterpolatorBase::editValue(void)
+Quaternion &VRMLOrientationInterpolatorBase::editOutValue(void)
 {
-    editSField(ValueFieldMask);
+    editSField(OutValueFieldMask);
 
-    return _sfValue.getValue();
-}
-
-//! Get the value of the OrientationInterpolator::_sfValue field.
-inline
-const Quaternion &OrientationInterpolatorBase::getValue(void) const
-{
-    return _sfValue.getValue();
+    return _sfOutValue.getValue();
 }
 
-//! Set the value of the OrientationInterpolator::_sfValue field.
+//! Get the value of the VRMLOrientationInterpolator::_sfOutValue field.
 inline
-void OrientationInterpolatorBase::setValue(const Quaternion &value)
+const Quaternion &VRMLOrientationInterpolatorBase::getOutValue(void) const
 {
-    editSField(ValueFieldMask);
-
-    _sfValue.setValue(value);
+    return _sfOutValue.getValue();
 }
 
-//! Get the value of the \a index element the OrientationInterpolator::_mfKey field.
+//! Set the value of the VRMLOrientationInterpolator::_sfOutValue field.
 inline
-      Real32  OrientationInterpolatorBase::getKey(const UInt32 index) const
+void VRMLOrientationInterpolatorBase::setOutValue(const Quaternion &value)
+{
+    editSField(OutValueFieldMask);
+
+    _sfOutValue.setValue(value);
+}
+
+//! Get the value of the \a index element the VRMLOrientationInterpolator::_mfKey field.
+inline
+      Real32  VRMLOrientationInterpolatorBase::getKey(const UInt32 index) const
 {
     return _mfKey[index];
 }
 
 inline
-Real32 &OrientationInterpolatorBase::editKey(const UInt32 index)
+Real32 &VRMLOrientationInterpolatorBase::editKey(const UInt32 index)
 {
     editMField(KeyFieldMask, _mfKey);
 
@@ -140,15 +140,15 @@ Real32 &OrientationInterpolatorBase::editKey(const UInt32 index)
 }
 
 
-//! Get the value of the \a index element the OrientationInterpolator::_mfKeyValue field.
+//! Get the value of the \a index element the VRMLOrientationInterpolator::_mfKeyValue field.
 inline
-const Quaternion &OrientationInterpolatorBase::getKeyValue(const UInt32 index) const
+const Quaternion &VRMLOrientationInterpolatorBase::getKeyValue(const UInt32 index) const
 {
     return _mfKeyValue[index];
 }
 
 inline
-Quaternion &OrientationInterpolatorBase::editKeyValue(const UInt32 index)
+Quaternion &VRMLOrientationInterpolatorBase::editKeyValue(const UInt32 index)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 
@@ -159,7 +159,7 @@ Quaternion &OrientationInterpolatorBase::editKeyValue(const UInt32 index)
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void OrientationInterpolatorBase::execSync (      OrientationInterpolatorBase *pFrom,
+void VRMLOrientationInterpolatorBase::execSync (      VRMLOrientationInterpolatorBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -167,8 +167,8 @@ void OrientationInterpolatorBase::execSync (      OrientationInterpolatorBase *p
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (FractionFieldMask & whichField))
-        _sfFraction.syncWith(pFrom->_sfFraction);
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
+        _sfInValue.syncWith(pFrom->_sfInValue);
 
     if(FieldBits::NoField != (KeyFieldMask & whichField))
         _mfKey.syncWith(pFrom->_mfKey,
@@ -182,18 +182,18 @@ void OrientationInterpolatorBase::execSync (      OrientationInterpolatorBase *p
                                 uiSyncInfo,
                                 oOffsets);
 
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
-        _sfValue.syncWith(pFrom->_sfValue);
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
+        _sfOutValue.syncWith(pFrom->_sfOutValue);
 }
 #endif
 
 
 inline
-const Char8 *OrientationInterpolatorBase::getClassname(void)
+const Char8 *VRMLOrientationInterpolatorBase::getClassname(void)
 {
-    return "OrientationInterpolator";
+    return "VRMLOrientationInterpolator";
 }
-OSG_GEN_CONTAINERPTR(OrientationInterpolator);
+OSG_GEN_CONTAINERPTR(VRMLOrientationInterpolator);
 
 OSG_END_NAMESPACE
 

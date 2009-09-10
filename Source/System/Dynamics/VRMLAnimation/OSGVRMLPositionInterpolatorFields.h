@@ -48,8 +48,8 @@
 \*****************************************************************************/
 
 
-#ifndef _OSGPOSITIONINTERPOLATORFIELDS_H_
-#define _OSGPOSITIONINTERPOLATORFIELDS_H_
+#ifndef _OSGVRMLPOSITIONINTERPOLATORFIELDS_H_
+#define _OSGVRMLPOSITIONINTERPOLATORFIELDS_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -64,16 +64,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-class PositionInterpolator;
+class VRMLPositionInterpolator;
 
-OSG_GEN_CONTAINERPTR(PositionInterpolator);
+OSG_GEN_CONTAINERPTR(VRMLPositionInterpolator);
 
 /*! \ingroup GrpDynamicsFieldTraits
     \ingroup GrpLibOSGDynamics
  */
 template <>
-struct FieldTraits<PositionInterpolator *> :
-    public FieldTraitsFCPtrBase<PositionInterpolator *>
+struct FieldTraits<VRMLPositionInterpolator *> :
+    public FieldTraitsFCPtrBase<VRMLPositionInterpolator *>
 {
   private:
 
@@ -81,7 +81,7 @@ struct FieldTraits<PositionInterpolator *> :
 
   public:
 
-    typedef FieldTraits<PositionInterpolator *>  Self;
+    typedef FieldTraits<VRMLPositionInterpolator *>  Self;
 
     enum                        { Convertible = NotConvertible };
 
@@ -104,4 +104,4 @@ struct FieldTraits<PositionInterpolator *> :
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGPOSITIONINTERPOLATORFIELDS_H_ */
+#endif /* _OSGVRMLPOSITIONINTERPOLATORFIELDS_H_ */

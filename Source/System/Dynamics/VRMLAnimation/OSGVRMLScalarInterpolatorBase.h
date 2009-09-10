@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class PositionInterpolator
+ **     class VRMLScalarInterpolator
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGPOSITIONINTERPOLATORBASE_H_
-#define _OSGPOSITIONINTERPOLATORBASE_H_
+#ifndef _OSGVRMLSCALARINTERPOLATORBASE_H_
+#define _OSGVRMLSCALARINTERPOLATORBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,30 +63,29 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGNodeCore.h" // Parent
+#include "OSGAnimChannel.h" // Parent
 
-#include "OSGSysFields.h"               // Fraction type
-#include "OSGVecFields.h"               // KeyValue type
+#include "OSGSysFields.h"               // InValue type
 
-#include "OSGPositionInterpolatorFields.h"
+#include "OSGVRMLScalarInterpolatorFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class PositionInterpolator;
+class VRMLScalarInterpolator;
 
-//! \brief PositionInterpolator Base Class.
+//! \brief VRMLScalarInterpolator Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING PositionInterpolatorBase : public NodeCore
+class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public AnimChannel
 {
   public:
 
-    typedef NodeCore Inherited;
-    typedef NodeCore ParentContainer;
+    typedef AnimChannel Inherited;
+    typedef AnimChannel ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(PositionInterpolator);
+    OSG_GEN_INTERNALPTR(VRMLScalarInterpolator);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -94,28 +93,28 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolatorBase : public NodeCore
 
     enum
     {
-        FractionFieldId = Inherited::NextFieldId,
-        KeyFieldId = FractionFieldId + 1,
+        InValueFieldId = Inherited::NextFieldId,
+        KeyFieldId = InValueFieldId + 1,
         KeyValueFieldId = KeyFieldId + 1,
-        ValueFieldId = KeyValueFieldId + 1,
-        NextFieldId = ValueFieldId + 1
+        OutValueFieldId = KeyValueFieldId + 1,
+        NextFieldId = OutValueFieldId + 1
     };
 
-    static const OSG::BitVector FractionFieldMask =
-        (TypeTraits<BitVector>::One << FractionFieldId);
+    static const OSG::BitVector InValueFieldMask =
+        (TypeTraits<BitVector>::One << InValueFieldId);
     static const OSG::BitVector KeyFieldMask =
         (TypeTraits<BitVector>::One << KeyFieldId);
     static const OSG::BitVector KeyValueFieldMask =
         (TypeTraits<BitVector>::One << KeyValueFieldId);
-    static const OSG::BitVector ValueFieldMask =
-        (TypeTraits<BitVector>::One << ValueFieldId);
+    static const OSG::BitVector OutValueFieldMask =
+        (TypeTraits<BitVector>::One << OutValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFReal32          SFFractionType;
+    typedef SFReal32          SFInValueType;
     typedef MFReal32          MFKeyType;
-    typedef MFVec3f           MFKeyValueType;
-    typedef SFVec3f           SFValueType;
+    typedef MFReal32          MFKeyValueType;
+    typedef SFReal32          SFOutValueType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -141,38 +140,38 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolatorBase : public NodeCore
     /*! \{                                                                 */
 
 
-                  SFReal32            *editSFFraction       (void);
-            const SFReal32            *getSFFraction        (void) const;
+                  SFReal32            *editSFInValue        (void);
+            const SFReal32            *getSFInValue         (void) const;
 
                   MFReal32            *editMFKey            (void);
             const MFReal32            *getMFKey             (void) const;
 
-                  MFVec3f             *editMFKeyValue       (void);
-            const MFVec3f             *getMFKeyValue        (void) const;
+                  MFReal32            *editMFKeyValue       (void);
+            const MFReal32            *getMFKeyValue        (void) const;
 
-                  SFVec3f             *editSFValue          (void);
-            const SFVec3f             *getSFValue           (void) const;
+                  SFReal32            *editSFOutValue       (void);
+            const SFReal32            *getSFOutValue        (void) const;
 
 
-                  Real32              &editFraction       (void);
-                  Real32               getFraction        (void) const;
+                  Real32              &editInValue        (void);
+                  Real32               getInValue         (void) const;
 
                   Real32              &editKey            (const UInt32 index);
                   Real32               getKey             (const UInt32 index) const;
 
-                  Vec3f               &editKeyValue       (const UInt32 index);
-            const Vec3f               &getKeyValue        (const UInt32 index) const;
+                  Real32              &editKeyValue       (const UInt32 index);
+                  Real32               getKeyValue        (const UInt32 index) const;
 
-                  Vec3f               &editValue          (void);
-            const Vec3f               &getValue           (void) const;
+                  Real32              &editOutValue       (void);
+                  Real32               getOutValue        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setFraction       (const Real32 value);
-            void setValue          (const Vec3f &value);
+            void setInValue        (const Real32 value);
+            void setOutValue       (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -196,16 +195,16 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolatorBase : public NodeCore
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  PositionInterpolatorTransitPtr  create          (void);
-    static  PositionInterpolator           *createEmpty     (void);
+    static  VRMLScalarInterpolatorTransitPtr  create          (void);
+    static  VRMLScalarInterpolator           *createEmpty     (void);
 
-    static  PositionInterpolatorTransitPtr  createLocal     (
+    static  VRMLScalarInterpolatorTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  PositionInterpolator            *createEmptyLocal(
+    static  VRMLScalarInterpolator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  PositionInterpolatorTransitPtr  createDependent  (BitVector bFlags);
+    static  VRMLScalarInterpolatorTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -232,25 +231,25 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolatorBase : public NodeCore
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32          _sfFraction;
+    SFReal32          _sfInValue;
     MFReal32          _mfKey;
-    MFVec3f           _mfKeyValue;
-    SFVec3f           _sfValue;
+    MFReal32          _mfKeyValue;
+    SFReal32          _sfOutValue;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    PositionInterpolatorBase(void);
-    PositionInterpolatorBase(const PositionInterpolatorBase &source);
+    VRMLScalarInterpolatorBase(void);
+    VRMLScalarInterpolatorBase(const VRMLScalarInterpolatorBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PositionInterpolatorBase(void);
+    virtual ~VRMLScalarInterpolatorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -263,14 +262,14 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolatorBase : public NodeCore
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleFraction        (void) const;
-    EditFieldHandlePtr editHandleFraction       (void);
+    GetFieldHandlePtr  getHandleInValue         (void) const;
+    EditFieldHandlePtr editHandleInValue        (void);
     GetFieldHandlePtr  getHandleKey             (void) const;
     EditFieldHandlePtr editHandleKey            (void);
     GetFieldHandlePtr  getHandleKeyValue        (void) const;
     EditFieldHandlePtr editHandleKeyValue       (void);
-    GetFieldHandlePtr  getHandleValue           (void) const;
-    EditFieldHandlePtr editHandleValue          (void);
+    GetFieldHandlePtr  getHandleOutValue        (void) const;
+    EditFieldHandlePtr editHandleOutValue       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -284,7 +283,7 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolatorBase : public NodeCore
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      PositionInterpolatorBase *pFrom,
+            void execSync (      VRMLScalarInterpolatorBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -324,11 +323,14 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolatorBase : public NodeCore
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const PositionInterpolatorBase &source);
+    void operator =(const VRMLScalarInterpolatorBase &source);
 };
 
-typedef PositionInterpolatorBase *PositionInterpolatorBaseP;
+typedef VRMLScalarInterpolatorBase *VRMLScalarInterpolatorBaseP;
+
+typedef CoredNodeRefPtr  <VRMLScalarInterpolator> VRMLScalarInterpolatorNodeRefPtr;
+typedef CoredNodeMTRefPtr<VRMLScalarInterpolator> VRMLScalarInterpolatorNodeMTRefPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGPOSITIONINTERPOLATORBASE_H_ */
+#endif /* _OSGVRMLSCALARINTERPOLATORBASE_H_ */

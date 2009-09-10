@@ -68,10 +68,10 @@
 #include "OSGInline.h"
 #include "OSGSwitch.h"
 #include <OSGTimeSensor.h>
-#include <OSGOrientationInterpolator.h>
-#include <OSGPositionInterpolator.h>
-#include <OSGCoordinateInterpolator.h>
-#include <OSGScalarInterpolator.h>
+#include <OSGVRMLOrientationInterpolator.h>
+#include <OSGVRMLPositionInterpolator.h>
+#include <OSGVRMLCoordinateInterpolator.h>
+#include <OSGVRMLScalarInterpolator.h>
 
 #ifndef OSG_LOG_MODULE
 #define OSG_LOG_MODULE "VRMLLoader"
@@ -4295,37 +4295,37 @@ template class VRMLGenericHelper<TimeSensor>;
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<OrientationInterpolator>::_regHelper(
-        &VRMLGenericHelper<OrientationInterpolator>::create,
+    VRMLGenericHelper<VRMLOrientationInterpolator>::_regHelper(
+        &VRMLGenericHelper<VRMLOrientationInterpolator>::create,
         "OrientationInterpolator");
 
-template class VRMLGenericHelper<OrientationInterpolator>;
+template class VRMLGenericHelper<VRMLOrientationInterpolator>;
 
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<PositionInterpolator>::_regHelper(
-        &VRMLGenericHelper<PositionInterpolator>::create,
+    VRMLGenericHelper<VRMLPositionInterpolator>::_regHelper(
+        &VRMLGenericHelper<VRMLPositionInterpolator>::create,
         "PositionInterpolator");
 
-template class VRMLGenericHelper<PositionInterpolator>;
+template class VRMLGenericHelper<VRMLPositionInterpolator>;
 
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<CoordinateInterpolator>::_regHelper(
-        &VRMLGenericHelper<CoordinateInterpolator>::create,
+    VRMLGenericHelper<VRMLCoordinateInterpolator>::_regHelper(
+        &VRMLGenericHelper<VRMLCoordinateInterpolator>::create,
         "CoordinateInterpolator");
 
-template class VRMLGenericHelper<CoordinateInterpolator>;
+template class VRMLGenericHelper<VRMLCoordinateInterpolator>;
 
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<ScalarInterpolator>::_regHelper(
-        &VRMLGenericHelper<ScalarInterpolator>::create,
+    VRMLGenericHelper<VRMLScalarInterpolator>::_regHelper(
+        &VRMLGenericHelper<VRMLScalarInterpolator>::create,
         "ScalarInterpolator");
 
-template class VRMLGenericHelper<ScalarInterpolator>;
+template class VRMLGenericHelper<VRMLScalarInterpolator>;
 
 OSG_END_NAMESPACE

@@ -45,14 +45,14 @@
 
 #include <OSGConfig.h>
 
-#include "OSGOrientationInterpolator.h"
+#include "OSGVRMLOrientationInterpolator.h"
 #include "OSGInterpolationHelper.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGOrientationInterpolatorBase.cpp file.
-// To modify it, please change the .fcd file (OSGOrientationInterpolator.fcd) 
+// OSGVRMLOrientationInterpolatorBase.cpp file.
+// To modify it, please change the .fcd file (OSGVRMLOrientationInterpolator.fcd) 
 // and regenerate the base file.
 
 /***************************************************************************\
@@ -63,7 +63,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void OrientationInterpolator::initMethod(InitPhase ePhase)
+void VRMLOrientationInterpolator::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -83,46 +83,46 @@ void OrientationInterpolator::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-OrientationInterpolator::OrientationInterpolator(void) :
+VRMLOrientationInterpolator::VRMLOrientationInterpolator(void) :
     Inherited()
 {
 }
 
-OrientationInterpolator::OrientationInterpolator(
-    const OrientationInterpolator &source) :
+VRMLOrientationInterpolator::VRMLOrientationInterpolator(
+    const VRMLOrientationInterpolator &source) :
 
     Inherited(source)
 {
 }
 
-OrientationInterpolator::~OrientationInterpolator(void)
+VRMLOrientationInterpolator::~VRMLOrientationInterpolator(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void OrientationInterpolator::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+void VRMLOrientationInterpolator::changed(ConstFieldMaskArg whichField, 
+                                          UInt32            origin,
+                                          BitVector         details)
 {
-    if(0x0000 != (whichField & FractionFieldMask))
+    if(0x0000 != (whichField & InValueFieldMask))
     {
         InterpolationHelper<MFReal32, 
                             MFQuaternion, 
                             SFQuaternion>::interpolate(  
-                                  _sfFraction.getValue(),
+                                  _sfInValue.getValue(),
                                   _mfKey,
                                   _mfKeyValue,
-                                *(this->editSFValue()));
+                                *(this->editSFOutValue()));
     }
 
     Inherited::changed(whichField, origin, details);
 }
 
-void OrientationInterpolator::dump(      UInt32    ,
+void VRMLOrientationInterpolator::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump OrientationInterpolator NI" << std::endl;
+    SLOG << "Dump VRMLOrientationInterpolator NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

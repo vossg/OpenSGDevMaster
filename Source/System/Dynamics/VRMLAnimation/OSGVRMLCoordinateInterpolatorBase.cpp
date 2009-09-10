@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ScalarInterpolator!
+ **     class VRMLCoordinateInterpolator!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -59,8 +59,8 @@
 
 
 
-#include "OSGScalarInterpolatorBase.h"
-#include "OSGScalarInterpolator.h"
+#include "OSGVRMLCoordinateInterpolatorBase.h"
+#include "OSGVRMLCoordinateInterpolator.h"
 
 #include "boost/bind.hpp"
 
@@ -74,7 +74,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::ScalarInterpolator
+/*! \class OSG::VRMLCoordinateInterpolator
     
  */
 
@@ -82,20 +82,20 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Real32          ScalarInterpolatorBase::_sfFraction
+/*! \var Real32          VRMLCoordinateInterpolatorBase::_sfInValue
+    This is VRML's fraction field.
+*/
+
+/*! \var Real32          VRMLCoordinateInterpolatorBase::_mfKey
     
 */
 
-/*! \var Real32          ScalarInterpolatorBase::_mfKey
+/*! \var Pnt3f           VRMLCoordinateInterpolatorBase::_mfKeyValue
     
 */
 
-/*! \var Real32          ScalarInterpolatorBase::_mfKeyValue
-    
-*/
-
-/*! \var Real32          ScalarInterpolatorBase::_sfValue
-    
+/*! \var Pnt3f           VRMLCoordinateInterpolatorBase::_mfOutValue
+    This is VRML's value field.
 */
 
 
@@ -104,29 +104,29 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<ScalarInterpolator *>::_type("ScalarInterpolatorPtr", "NodeCorePtr");
+DataType FieldTraits<VRMLCoordinateInterpolator *>::_type("VRMLCoordinateInterpolatorPtr", "AnimChannelPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(ScalarInterpolator *)
+OSG_FIELDTRAITS_GETTYPE(VRMLCoordinateInterpolator *)
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void ScalarInterpolatorBase::classDescInserter(TypeObject &oType)
+void VRMLCoordinateInterpolatorBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
-        "fraction",
-        "",
-        FractionFieldId, FractionFieldMask,
+        "inValue",
+        "This is VRML's fraction field.\n",
+        InValueFieldId, InValueFieldMask,
         true,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&ScalarInterpolator::editHandleFraction),
-        static_cast<FieldGetMethodSig >(&ScalarInterpolator::getHandleFraction));
+        static_cast<FieldEditMethodSig>(&VRMLCoordinateInterpolator::editHandleInValue),
+        static_cast<FieldGetMethodSig >(&VRMLCoordinateInterpolator::getHandleInValue));
 
     oType.addInitialDesc(pDesc);
 
@@ -137,177 +137,179 @@ void ScalarInterpolatorBase::classDescInserter(TypeObject &oType)
         KeyFieldId, KeyFieldMask,
         false,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&ScalarInterpolator::editHandleKey),
-        static_cast<FieldGetMethodSig >(&ScalarInterpolator::getHandleKey));
+        static_cast<FieldEditMethodSig>(&VRMLCoordinateInterpolator::editHandleKey),
+        static_cast<FieldGetMethodSig >(&VRMLCoordinateInterpolator::getHandleKey));
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFReal32::Description(
-        MFReal32::getClassType(),
+    pDesc = new MFPnt3f::Description(
+        MFPnt3f::getClassType(),
         "keyValue",
         "",
         KeyValueFieldId, KeyValueFieldMask,
         false,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&ScalarInterpolator::editHandleKeyValue),
-        static_cast<FieldGetMethodSig >(&ScalarInterpolator::getHandleKeyValue));
+        static_cast<FieldEditMethodSig>(&VRMLCoordinateInterpolator::editHandleKeyValue),
+        static_cast<FieldGetMethodSig >(&VRMLCoordinateInterpolator::getHandleKeyValue));
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "value",
-        "",
-        ValueFieldId, ValueFieldMask,
+    pDesc = new MFPnt3f::Description(
+        MFPnt3f::getClassType(),
+        "outValue",
+        "This is VRML's value field.\n",
+        OutValueFieldId, OutValueFieldMask,
         true,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&ScalarInterpolator::editHandleValue),
-        static_cast<FieldGetMethodSig >(&ScalarInterpolator::getHandleValue));
+        static_cast<FieldEditMethodSig>(&VRMLCoordinateInterpolator::editHandleOutValue),
+        static_cast<FieldGetMethodSig >(&VRMLCoordinateInterpolator::getHandleOutValue));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-ScalarInterpolatorBase::TypeObject ScalarInterpolatorBase::_type(
-    ScalarInterpolatorBase::getClassname(),
+VRMLCoordinateInterpolatorBase::TypeObject VRMLCoordinateInterpolatorBase::_type(
+    VRMLCoordinateInterpolatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    reinterpret_cast<PrototypeCreateF>(&ScalarInterpolatorBase::createEmptyLocal),
-    ScalarInterpolator::initMethod,
-    ScalarInterpolator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&ScalarInterpolator::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&VRMLCoordinateInterpolatorBase::createEmptyLocal),
+    VRMLCoordinateInterpolator::initMethod,
+    VRMLCoordinateInterpolator::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&VRMLCoordinateInterpolator::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "    name=\"ScalarInterpolator\"\n"
-    "    parent=\"NodeCore\"\n"
-    "    library=\"Dynamics\"\n"
-    "    pointerfieldtypes=\"none\"\n"
-    "    structure=\"concrete\"\n"
-    "    systemcomponent=\"true\"\n"
-    "    parentsystemcomponent=\"true\"\n"
-    "    decoratable=\"false\"\n"
-    "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    "    isBundle=\"false\"\n"
-    "    parentFields=\"none\"\n"
-    ">\n"
-    "\t<Field\n"
-    "\t\tname=\"fraction\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"0.f\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"key\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"keyValue\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"value\"\n"
-    "\t\ttype=\"Real32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"\"\n"
-    "        fieldFlags=\"FThreadLocal\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "     name=\"VRMLCoordinateInterpolator\"\n"
+    "     parent=\"AnimChannel\"\n"
+    "     library=\"Dynamics\"\n"
+    "     pointerfieldtypes=\"none\"\n"
+    "     structure=\"concrete\"\n"
+    "     systemcomponent=\"true\"\n"
+    "     parentsystemcomponent=\"true\"\n"
+    "     decoratable=\"false\"\n"
+    "     useLocalIncludes=\"false\"\n"
+    "     isNodeCore=\"true\"\n"
+    "     isBundle=\"false\"\n"
+    "     parentFields=\"none\"\n"
+    "     >\n"
+    "    <Field\n"
+    "         name=\"inValue\"\n"
+    "         type=\"Real32\"\n"
+    "         cardinality=\"single\"\n"
+    "         visibility=\"internal\"\n"
+    "         access=\"public\"\n"
+    "         defaultValue=\"0.f\"\n"
+    "         fieldFlags=\"FThreadLocal\"\n"
+    "         >\n"
+    "        This is VRML's fraction field.\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "         name=\"key\"\n"
+    "         type=\"Real32\"\n"
+    "         cardinality=\"multi\"\n"
+    "         visibility=\"external\"\n"
+    "         access=\"public\"\n"
+    "         defaultValue=\"\"\n"
+    "         fieldFlags=\"FThreadLocal\"\n"
+    "         >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "         name=\"keyValue\"\n"
+    "         type=\"Pnt3f\"\n"
+    "         cardinality=\"multi\"\n"
+    "         visibility=\"external\"\n"
+    "         access=\"public\"\n"
+    "         defaultValue=\"\"\n"
+    "         fieldFlags=\"FThreadLocal\"\n"
+    "         >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "         name=\"outValue\"\n"
+    "         type=\"Pnt3f\"\n"
+    "         cardinality=\"multi\"\n"
+    "         visibility=\"internal\"\n"
+    "         access=\"public\"\n"
+    "         defaultValue=\"\"\n"
+    "         fieldFlags=\"FThreadLocal\"\n"
+    "         >\n"
+    "        This is VRML's value field.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &ScalarInterpolatorBase::getType(void)
+FieldContainerType &VRMLCoordinateInterpolatorBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &ScalarInterpolatorBase::getType(void) const
+const FieldContainerType &VRMLCoordinateInterpolatorBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 ScalarInterpolatorBase::getContainerSize(void) const
+UInt32 VRMLCoordinateInterpolatorBase::getContainerSize(void) const
 {
-    return sizeof(ScalarInterpolator);
+    return sizeof(VRMLCoordinateInterpolator);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-SFReal32 *ScalarInterpolatorBase::editSFFraction(void)
+SFReal32 *VRMLCoordinateInterpolatorBase::editSFInValue(void)
 {
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
-    return &_sfFraction;
+    return &_sfInValue;
 }
 
-const SFReal32 *ScalarInterpolatorBase::getSFFraction(void) const
+const SFReal32 *VRMLCoordinateInterpolatorBase::getSFInValue(void) const
 {
-    return &_sfFraction;
+    return &_sfInValue;
 }
 
 
-MFReal32 *ScalarInterpolatorBase::editMFKey(void)
+MFReal32 *VRMLCoordinateInterpolatorBase::editMFKey(void)
 {
     editMField(KeyFieldMask, _mfKey);
 
     return &_mfKey;
 }
 
-const MFReal32 *ScalarInterpolatorBase::getMFKey(void) const
+const MFReal32 *VRMLCoordinateInterpolatorBase::getMFKey(void) const
 {
     return &_mfKey;
 }
 
 
-MFReal32 *ScalarInterpolatorBase::editMFKeyValue(void)
+MFPnt3f *VRMLCoordinateInterpolatorBase::editMFKeyValue(void)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 
     return &_mfKeyValue;
 }
 
-const MFReal32 *ScalarInterpolatorBase::getMFKeyValue(void) const
+const MFPnt3f *VRMLCoordinateInterpolatorBase::getMFKeyValue(void) const
 {
     return &_mfKeyValue;
 }
 
 
-SFReal32 *ScalarInterpolatorBase::editSFValue(void)
+MFPnt3f *VRMLCoordinateInterpolatorBase::editMFOutValue(void)
 {
-    editSField(ValueFieldMask);
+    editMField(OutValueFieldMask, _mfOutValue);
 
-    return &_sfValue;
+    return &_mfOutValue;
 }
 
-const SFReal32 *ScalarInterpolatorBase::getSFValue(void) const
+const MFPnt3f *VRMLCoordinateInterpolatorBase::getMFOutValue(void) const
 {
-    return &_sfValue;
+    return &_mfOutValue;
 }
 
 
@@ -317,13 +319,13 @@ const SFReal32 *ScalarInterpolatorBase::getSFValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 ScalarInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 VRMLCoordinateInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (FractionFieldMask & whichField))
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
-        returnValue += _sfFraction.getBinSize();
+        returnValue += _sfInValue.getBinSize();
     }
     if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
@@ -333,22 +335,22 @@ UInt32 ScalarInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfKeyValue.getBinSize();
     }
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
-        returnValue += _sfValue.getBinSize();
+        returnValue += _mfOutValue.getBinSize();
     }
 
     return returnValue;
 }
 
-void ScalarInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
+void VRMLCoordinateInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FractionFieldMask & whichField))
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
-        _sfFraction.copyToBin(pMem);
+        _sfInValue.copyToBin(pMem);
     }
     if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
@@ -358,20 +360,20 @@ void ScalarInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfKeyValue.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
-        _sfValue.copyToBin(pMem);
+        _mfOutValue.copyToBin(pMem);
     }
 }
 
-void ScalarInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
+void VRMLCoordinateInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FractionFieldMask & whichField))
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
-        _sfFraction.copyFromBin(pMem);
+        _sfInValue.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
@@ -381,65 +383,65 @@ void ScalarInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _mfKeyValue.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
     {
-        _sfValue.copyFromBin(pMem);
+        _mfOutValue.copyFromBin(pMem);
     }
 }
 
 //! create a new instance of the class
-ScalarInterpolatorTransitPtr ScalarInterpolatorBase::createLocal(BitVector bFlags)
+VRMLCoordinateInterpolatorTransitPtr VRMLCoordinateInterpolatorBase::createLocal(BitVector bFlags)
 {
-    ScalarInterpolatorTransitPtr fc;
+    VRMLCoordinateInterpolatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<ScalarInterpolator>(tmpPtr);
+        fc = dynamic_pointer_cast<VRMLCoordinateInterpolator>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-ScalarInterpolatorTransitPtr ScalarInterpolatorBase::createDependent(BitVector bFlags)
+VRMLCoordinateInterpolatorTransitPtr VRMLCoordinateInterpolatorBase::createDependent(BitVector bFlags)
 {
-    ScalarInterpolatorTransitPtr fc;
+    VRMLCoordinateInterpolatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<ScalarInterpolator>(tmpPtr);
+        fc = dynamic_pointer_cast<VRMLCoordinateInterpolator>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-ScalarInterpolatorTransitPtr ScalarInterpolatorBase::create(void)
+VRMLCoordinateInterpolatorTransitPtr VRMLCoordinateInterpolatorBase::create(void)
 {
-    ScalarInterpolatorTransitPtr fc;
+    VRMLCoordinateInterpolatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<ScalarInterpolator>(tmpPtr);
+        fc = dynamic_pointer_cast<VRMLCoordinateInterpolator>(tmpPtr);
     }
 
     return fc;
 }
 
-ScalarInterpolator *ScalarInterpolatorBase::createEmptyLocal(BitVector bFlags)
+VRMLCoordinateInterpolator *VRMLCoordinateInterpolatorBase::createEmptyLocal(BitVector bFlags)
 {
-    ScalarInterpolator *returnValue;
+    VRMLCoordinateInterpolator *returnValue;
 
-    newPtr<ScalarInterpolator>(returnValue, bFlags);
+    newPtr<VRMLCoordinateInterpolator>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -447,11 +449,11 @@ ScalarInterpolator *ScalarInterpolatorBase::createEmptyLocal(BitVector bFlags)
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-ScalarInterpolator *ScalarInterpolatorBase::createEmpty(void)
+VRMLCoordinateInterpolator *VRMLCoordinateInterpolatorBase::createEmpty(void)
 {
-    ScalarInterpolator *returnValue;
+    VRMLCoordinateInterpolator *returnValue;
 
-    newPtr<ScalarInterpolator>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<VRMLCoordinateInterpolator>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -460,12 +462,12 @@ ScalarInterpolator *ScalarInterpolatorBase::createEmpty(void)
 }
 
 
-FieldContainerTransitPtr ScalarInterpolatorBase::shallowCopyLocal(
+FieldContainerTransitPtr VRMLCoordinateInterpolatorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    ScalarInterpolator *tmpPtr;
+    VRMLCoordinateInterpolator *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ScalarInterpolator *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const VRMLCoordinateInterpolator *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -474,12 +476,12 @@ FieldContainerTransitPtr ScalarInterpolatorBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr ScalarInterpolatorBase::shallowCopyDependent(
+FieldContainerTransitPtr VRMLCoordinateInterpolatorBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    ScalarInterpolator *tmpPtr;
+    VRMLCoordinateInterpolator *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const ScalarInterpolator *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const VRMLCoordinateInterpolator *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -488,12 +490,12 @@ FieldContainerTransitPtr ScalarInterpolatorBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr ScalarInterpolatorBase::shallowCopy(void) const
+FieldContainerTransitPtr VRMLCoordinateInterpolatorBase::shallowCopy(void) const
 {
-    ScalarInterpolator *tmpPtr;
+    VRMLCoordinateInterpolator *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const ScalarInterpolator *>(this),
+           dynamic_cast<const VRMLCoordinateInterpolator *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -508,69 +510,69 @@ FieldContainerTransitPtr ScalarInterpolatorBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-ScalarInterpolatorBase::ScalarInterpolatorBase(void) :
+VRMLCoordinateInterpolatorBase::VRMLCoordinateInterpolatorBase(void) :
     Inherited(),
-    _sfFraction               (Real32(0.f)),
+    _sfInValue                (Real32(0.f)),
     _mfKey                    (),
     _mfKeyValue               (),
-    _sfValue                  ()
+    _mfOutValue               ()
 {
 }
 
-ScalarInterpolatorBase::ScalarInterpolatorBase(const ScalarInterpolatorBase &source) :
+VRMLCoordinateInterpolatorBase::VRMLCoordinateInterpolatorBase(const VRMLCoordinateInterpolatorBase &source) :
     Inherited(source),
-    _sfFraction               (source._sfFraction               ),
+    _sfInValue                (source._sfInValue                ),
     _mfKey                    (source._mfKey                    ),
     _mfKeyValue               (source._mfKeyValue               ),
-    _sfValue                  (source._sfValue                  )
+    _mfOutValue               (source._mfOutValue               )
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-ScalarInterpolatorBase::~ScalarInterpolatorBase(void)
+VRMLCoordinateInterpolatorBase::~VRMLCoordinateInterpolatorBase(void)
 {
 }
 
 
-GetFieldHandlePtr ScalarInterpolatorBase::getHandleFraction        (void) const
+GetFieldHandlePtr VRMLCoordinateInterpolatorBase::getHandleInValue         (void) const
 {
     SFReal32::GetHandlePtr returnValue(
         new  SFReal32::GetHandle(
-             &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId),
-             const_cast<ScalarInterpolatorBase *>(this)));
+             &_sfInValue,
+             this->getType().getFieldDesc(InValueFieldId),
+             const_cast<VRMLCoordinateInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr ScalarInterpolatorBase::editHandleFraction       (void)
+EditFieldHandlePtr VRMLCoordinateInterpolatorBase::editHandleInValue        (void)
 {
     SFReal32::EditHandlePtr returnValue(
         new  SFReal32::EditHandle(
-             &_sfFraction,
-             this->getType().getFieldDesc(FractionFieldId),
+             &_sfInValue,
+             this->getType().getFieldDesc(InValueFieldId),
              this));
 
 
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
     return returnValue;
 }
 
-GetFieldHandlePtr ScalarInterpolatorBase::getHandleKey             (void) const
+GetFieldHandlePtr VRMLCoordinateInterpolatorBase::getHandleKey             (void) const
 {
     MFReal32::GetHandlePtr returnValue(
         new  MFReal32::GetHandle(
              &_mfKey,
              this->getType().getFieldDesc(KeyFieldId),
-             const_cast<ScalarInterpolatorBase *>(this)));
+             const_cast<VRMLCoordinateInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr ScalarInterpolatorBase::editHandleKey            (void)
+EditFieldHandlePtr VRMLCoordinateInterpolatorBase::editHandleKey            (void)
 {
     MFReal32::EditHandlePtr returnValue(
         new  MFReal32::EditHandle(
@@ -584,21 +586,21 @@ EditFieldHandlePtr ScalarInterpolatorBase::editHandleKey            (void)
     return returnValue;
 }
 
-GetFieldHandlePtr ScalarInterpolatorBase::getHandleKeyValue        (void) const
+GetFieldHandlePtr VRMLCoordinateInterpolatorBase::getHandleKeyValue        (void) const
 {
-    MFReal32::GetHandlePtr returnValue(
-        new  MFReal32::GetHandle(
+    MFPnt3f::GetHandlePtr returnValue(
+        new  MFPnt3f::GetHandle(
              &_mfKeyValue,
              this->getType().getFieldDesc(KeyValueFieldId),
-             const_cast<ScalarInterpolatorBase *>(this)));
+             const_cast<VRMLCoordinateInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr ScalarInterpolatorBase::editHandleKeyValue       (void)
+EditFieldHandlePtr VRMLCoordinateInterpolatorBase::editHandleKeyValue       (void)
 {
-    MFReal32::EditHandlePtr returnValue(
-        new  MFReal32::EditHandle(
+    MFPnt3f::EditHandlePtr returnValue(
+        new  MFPnt3f::EditHandle(
              &_mfKeyValue,
              this->getType().getFieldDesc(KeyValueFieldId),
              this));
@@ -609,42 +611,42 @@ EditFieldHandlePtr ScalarInterpolatorBase::editHandleKeyValue       (void)
     return returnValue;
 }
 
-GetFieldHandlePtr ScalarInterpolatorBase::getHandleValue           (void) const
+GetFieldHandlePtr VRMLCoordinateInterpolatorBase::getHandleOutValue        (void) const
 {
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId),
-             const_cast<ScalarInterpolatorBase *>(this)));
+    MFPnt3f::GetHandlePtr returnValue(
+        new  MFPnt3f::GetHandle(
+             &_mfOutValue,
+             this->getType().getFieldDesc(OutValueFieldId),
+             const_cast<VRMLCoordinateInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr ScalarInterpolatorBase::editHandleValue          (void)
+EditFieldHandlePtr VRMLCoordinateInterpolatorBase::editHandleOutValue       (void)
 {
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfValue,
-             this->getType().getFieldDesc(ValueFieldId),
+    MFPnt3f::EditHandlePtr returnValue(
+        new  MFPnt3f::EditHandle(
+             &_mfOutValue,
+             this->getType().getFieldDesc(OutValueFieldId),
              this));
 
 
-    editSField(ValueFieldMask);
+    editMField(OutValueFieldMask, _mfOutValue);
 
     return returnValue;
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void ScalarInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
+void VRMLCoordinateInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    ScalarInterpolator *pThis = static_cast<ScalarInterpolator *>(this);
+    VRMLCoordinateInterpolator *pThis = static_cast<VRMLCoordinateInterpolator *>(this);
 
-    pThis->execSync(static_cast<ScalarInterpolator *>(&oFrom),
+    pThis->execSync(static_cast<VRMLCoordinateInterpolator *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -654,20 +656,20 @@ void ScalarInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *ScalarInterpolatorBase::createAspectCopy(
+FieldContainer *VRMLCoordinateInterpolatorBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    ScalarInterpolator *returnValue;
+    VRMLCoordinateInterpolator *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const ScalarInterpolator *>(pRefAspect),
-                  dynamic_cast<const ScalarInterpolator *>(this));
+                  dynamic_cast<const VRMLCoordinateInterpolator *>(pRefAspect),
+                  dynamic_cast<const VRMLCoordinateInterpolator *>(this));
 
     return returnValue;
 }
 #endif
 
-void ScalarInterpolatorBase::resolveLinks(void)
+void VRMLCoordinateInterpolatorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
@@ -683,6 +685,10 @@ void ScalarInterpolatorBase::resolveLinks(void)
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
     _mfKeyValue.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfOutValue.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

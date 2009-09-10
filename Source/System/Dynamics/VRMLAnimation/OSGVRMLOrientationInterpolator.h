@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSCALARINTERPOLATOR_H_
-#define _OSGSCALARINTERPOLATOR_H_
+#ifndef _OSGVRMLORIENTATIONINTERPOLATOR_H_
+#define _OSGVRMLORIENTATIONINTERPOLATOR_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGScalarInterpolatorBase.h"
+#include "OSGVRMLOrientationInterpolatorBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief ScalarInterpolator class. See \ref
-           PageContribCSMScalarInterpolator for a description.
+/*! \brief VRMLOrientationInterpolator class. See \ref
+           PageSystemDynamicsVRMLOrientationInterpolator for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING ScalarInterpolator : 
-    public ScalarInterpolatorBase
+class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolator : 
+    public VRMLOrientationInterpolatorBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_DYNAMICS_DLLMAPPING ScalarInterpolator :
 
   public:
 
-    typedef ScalarInterpolatorBase Inherited;
-    typedef ScalarInterpolator     Self;
+    typedef VRMLOrientationInterpolatorBase Inherited;
+    typedef VRMLOrientationInterpolator     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -83,21 +83,21 @@ class OSG_DYNAMICS_DLLMAPPING ScalarInterpolator :
 
   protected:
 
-    // Variables should all be in ScalarInterpolatorBase.
+    // Variables should all be in VRMLOrientationInterpolatorBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    ScalarInterpolator(void);
-    ScalarInterpolator(const ScalarInterpolator &source);
+    VRMLOrientationInterpolator(void);
+    VRMLOrientationInterpolator(const VRMLOrientationInterpolator &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ScalarInterpolator(void);
+    virtual ~VRMLOrientationInterpolator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -112,17 +112,17 @@ class OSG_DYNAMICS_DLLMAPPING ScalarInterpolator :
   private:
 
     friend class FieldContainer;
-    friend class ScalarInterpolatorBase;
+    friend class VRMLOrientationInterpolatorBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ScalarInterpolator &source);
+    void operator =(const VRMLOrientationInterpolator &source);
 };
 
-typedef ScalarInterpolator *ScalarInterpolatorP;
+typedef VRMLOrientationInterpolator *VRMLOrientationInterpolatorP;
 
 OSG_END_NAMESPACE
 
-#include "OSGScalarInterpolatorBase.inl"
-#include "OSGScalarInterpolator.inl"
+#include "OSGVRMLOrientationInterpolatorBase.inl"
+#include "OSGVRMLOrientationInterpolator.inl"
 
-#endif /* _OSGSCALARINTERPOLATOR_H_ */
+#endif /* _OSGVRMLORIENTATIONINTERPOLATOR_H_ */

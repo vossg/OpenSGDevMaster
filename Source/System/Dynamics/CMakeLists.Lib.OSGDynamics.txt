@@ -33,7 +33,8 @@ OSG_STORE_PROJECT_DEPENDENCIES()
 
 OSG_ADD_DIRECTORY("Source/System/Dynamics/Base")
 OSG_ADD_DIRECTORY("Source/System/Dynamics/Animation")
-OSG_ADD_DIRECTORY("Source/System/Dynamics/Animation/Helper")
+OSG_ADD_DIRECTORY("Source/System/Dynamics/VRMLAnimation")
+OSG_ADD_DIRECTORY("Source/System/Dynamics/VRMLAnimation/Helper")
 
 ##############################################################################
 # setup build

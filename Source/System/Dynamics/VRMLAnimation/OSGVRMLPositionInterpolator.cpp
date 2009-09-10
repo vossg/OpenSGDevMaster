@@ -45,14 +45,14 @@
 
 #include <OSGConfig.h>
 
-#include "OSGCoordinateInterpolator.h"
+#include "OSGVRMLPositionInterpolator.h"
 #include "OSGInterpolationHelper.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGCoordinateInterpolatorBase.cpp file.
-// To modify it, please change the .fcd file (OSGCoordinateInterpolator.fcd) and
+// OSGVRMLPositionInterpolatorBase.cpp file.
+// To modify it, please change the .fcd file (OSGVRMLPositionInterpolator.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -63,7 +63,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void CoordinateInterpolator::initMethod(InitPhase ePhase)
+void VRMLPositionInterpolator::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -83,46 +83,46 @@ void CoordinateInterpolator::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-CoordinateInterpolator::CoordinateInterpolator(void) :
-    Inherited()
+VRMLPositionInterpolator::VRMLPositionInterpolator(void)
+    : Inherited()
 {
 }
 
-CoordinateInterpolator::CoordinateInterpolator(
-    const CoordinateInterpolator &source) :
-
-    Inherited(source)
+VRMLPositionInterpolator::VRMLPositionInterpolator(
+    const VRMLPositionInterpolator &source)
+    
+    : Inherited(source)
 {
 }
 
-CoordinateInterpolator::~CoordinateInterpolator(void)
+VRMLPositionInterpolator::~VRMLPositionInterpolator(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void CoordinateInterpolator::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+void VRMLPositionInterpolator::changed(ConstFieldMaskArg whichField, 
+                                       UInt32            origin,
+                                       BitVector         details)
 {
-    if(0x0000 != (whichField & FractionFieldMask))
+    if(0x0000 != (whichField & InValueFieldMask))
     {
         InterpolationHelper<MFReal32, 
-                            MFPnt3f, 
-                            MFPnt3f>::interpolate(  
-                                  _sfFraction.getValue(),
+                            MFVec3f, 
+                            SFVec3f>::interpolate(  
+                                  _sfInValue.getValue(),
                                   _mfKey,
                                   _mfKeyValue,
-                                *(this->editMFValue()));
+                                *(this->editSFOutValue()));
     }
 
     Inherited::changed(whichField, origin, details);
 }
 
-void CoordinateInterpolator::dump(      UInt32    ,
+void VRMLPositionInterpolator::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump CoordinateInterpolator NI" << std::endl;
+    SLOG << "Dump VRMLPositionInterpolator NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

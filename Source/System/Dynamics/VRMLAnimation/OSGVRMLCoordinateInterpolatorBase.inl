@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class CoordinateInterpolator!
+ **     class VRMLCoordinateInterpolator!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,61 +53,61 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &CoordinateInterpolatorBase::getClassType(void)
+OSG::FieldContainerType &VRMLCoordinateInterpolatorBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 CoordinateInterpolatorBase::getClassTypeId(void)
+OSG::UInt32 VRMLCoordinateInterpolatorBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 CoordinateInterpolatorBase::getClassGroupId(void)
+OSG::UInt16 VRMLCoordinateInterpolatorBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the CoordinateInterpolator::_sfFraction field.
+//! Get the value of the VRMLCoordinateInterpolator::_sfInValue field.
 
 inline
-Real32 &CoordinateInterpolatorBase::editFraction(void)
+Real32 &VRMLCoordinateInterpolatorBase::editInValue(void)
 {
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
-    return _sfFraction.getValue();
+    return _sfInValue.getValue();
 }
 
-//! Get the value of the CoordinateInterpolator::_sfFraction field.
+//! Get the value of the VRMLCoordinateInterpolator::_sfInValue field.
 inline
-      Real32  CoordinateInterpolatorBase::getFraction(void) const
+      Real32  VRMLCoordinateInterpolatorBase::getInValue(void) const
 {
-    return _sfFraction.getValue();
+    return _sfInValue.getValue();
 }
 
-//! Set the value of the CoordinateInterpolator::_sfFraction field.
+//! Set the value of the VRMLCoordinateInterpolator::_sfInValue field.
 inline
-void CoordinateInterpolatorBase::setFraction(const Real32 value)
+void VRMLCoordinateInterpolatorBase::setInValue(const Real32 value)
 {
-    editSField(FractionFieldMask);
+    editSField(InValueFieldMask);
 
-    _sfFraction.setValue(value);
+    _sfInValue.setValue(value);
 }
 
-//! Get the value of the \a index element the CoordinateInterpolator::_mfKey field.
+//! Get the value of the \a index element the VRMLCoordinateInterpolator::_mfKey field.
 inline
-      Real32  CoordinateInterpolatorBase::getKey(const UInt32 index) const
+      Real32  VRMLCoordinateInterpolatorBase::getKey(const UInt32 index) const
 {
     return _mfKey[index];
 }
 
 inline
-Real32 &CoordinateInterpolatorBase::editKey(const UInt32 index)
+Real32 &VRMLCoordinateInterpolatorBase::editKey(const UInt32 index)
 {
     editMField(KeyFieldMask, _mfKey);
 
@@ -115,15 +115,15 @@ Real32 &CoordinateInterpolatorBase::editKey(const UInt32 index)
 }
 
 
-//! Get the value of the \a index element the CoordinateInterpolator::_mfKeyValue field.
+//! Get the value of the \a index element the VRMLCoordinateInterpolator::_mfKeyValue field.
 inline
-const Pnt3f &CoordinateInterpolatorBase::getKeyValue(const UInt32 index) const
+const Pnt3f &VRMLCoordinateInterpolatorBase::getKeyValue(const UInt32 index) const
 {
     return _mfKeyValue[index];
 }
 
 inline
-Pnt3f &CoordinateInterpolatorBase::editKeyValue(const UInt32 index)
+Pnt3f &VRMLCoordinateInterpolatorBase::editKeyValue(const UInt32 index)
 {
     editMField(KeyValueFieldMask, _mfKeyValue);
 
@@ -131,26 +131,26 @@ Pnt3f &CoordinateInterpolatorBase::editKeyValue(const UInt32 index)
 }
 
 
-//! Get the value of the \a index element the CoordinateInterpolator::_mfValue field.
+//! Get the value of the \a index element the VRMLCoordinateInterpolator::_mfOutValue field.
 inline
-const Pnt3f &CoordinateInterpolatorBase::getValue(const UInt32 index) const
+const Pnt3f &VRMLCoordinateInterpolatorBase::getOutValue(const UInt32 index) const
 {
-    return _mfValue[index];
+    return _mfOutValue[index];
 }
 
 inline
-Pnt3f &CoordinateInterpolatorBase::editValue(const UInt32 index)
+Pnt3f &VRMLCoordinateInterpolatorBase::editOutValue(const UInt32 index)
 {
-    editMField(ValueFieldMask, _mfValue);
+    editMField(OutValueFieldMask, _mfOutValue);
 
-    return _mfValue[index];
+    return _mfOutValue[index];
 }
 
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void CoordinateInterpolatorBase::execSync (      CoordinateInterpolatorBase *pFrom,
+void VRMLCoordinateInterpolatorBase::execSync (      VRMLCoordinateInterpolatorBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -158,8 +158,8 @@ void CoordinateInterpolatorBase::execSync (      CoordinateInterpolatorBase *pFr
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (FractionFieldMask & whichField))
-        _sfFraction.syncWith(pFrom->_sfFraction);
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
+        _sfInValue.syncWith(pFrom->_sfInValue);
 
     if(FieldBits::NoField != (KeyFieldMask & whichField))
         _mfKey.syncWith(pFrom->_mfKey,
@@ -173,8 +173,8 @@ void CoordinateInterpolatorBase::execSync (      CoordinateInterpolatorBase *pFr
                                 uiSyncInfo,
                                 oOffsets);
 
-    if(FieldBits::NoField != (ValueFieldMask & whichField))
-        _mfValue.syncWith(pFrom->_mfValue,
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
+        _mfOutValue.syncWith(pFrom->_mfOutValue,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -183,11 +183,11 @@ void CoordinateInterpolatorBase::execSync (      CoordinateInterpolatorBase *pFr
 
 
 inline
-const Char8 *CoordinateInterpolatorBase::getClassname(void)
+const Char8 *VRMLCoordinateInterpolatorBase::getClassname(void)
 {
-    return "CoordinateInterpolator";
+    return "VRMLCoordinateInterpolator";
 }
-OSG_GEN_CONTAINERPTR(CoordinateInterpolator);
+OSG_GEN_CONTAINERPTR(VRMLCoordinateInterpolator);
 
 OSG_END_NAMESPACE
 

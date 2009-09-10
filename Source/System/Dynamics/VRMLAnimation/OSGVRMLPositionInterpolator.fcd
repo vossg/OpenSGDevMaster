@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+     name="VRMLPositionInterpolator"
+     parent="AnimChannel"
+     library="Dynamics"
+     pointerfieldtypes="none"
+     structure="concrete"
+     systemcomponent="true"
+     parentsystemcomponent="true"
+     decoratable="false"
+     useLocalIncludes="false"
+     isNodeCore="true"
+     isBundle="false"
+     parentFields="none"
+     >
+    <Field
+	 name="inValue"
+	 type="Real32"
+	 cardinality="single"
+	 visibility="internal"
+	 access="public"
+         defaultValue="0.f"
+         fieldFlags="FThreadLocal"
+	 >
+        This is VRML's fraction field.
+    </Field>
+    <Field
+	 name="key"
+	 type="Real32"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+         defaultValue=""
+         fieldFlags="FThreadLocal"
+	 >
+    </Field>
+    <Field
+	 name="keyValue"
+	 type="Vec3f"
+	 cardinality="multi"
+	 visibility="external"
+	 access="public"
+         defaultValue=""
+         fieldFlags="FThreadLocal"
+	 >
+    </Field>
+    <Field
+	 name="outValue"
+	 type="Vec3f"
+	 cardinality="single"
+	 visibility="internal"
+	 access="public"
+         defaultValue=""
+         fieldFlags="FThreadLocal"
+	 >
+        This is VRML's value field.
+    </Field>
+</FieldContainer>

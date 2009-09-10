@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGPOSITIONINTERPOLATOR_H_
-#define _OSGPOSITIONINTERPOLATOR_H_
+#ifndef _OSGVRMLPOSITIONINTERPOLATOR_H_
+#define _OSGVRMLPOSITIONINTERPOLATOR_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGPositionInterpolatorBase.h"
+#include "OSGVRMLPositionInterpolatorBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief PositionInterpolator class. See \ref
-           PageContribCSMPositionInterpolator for a description.
+/*! \brief VRMLPositionInterpolator class. See \ref
+           PageSystemDynamicsVRMLPositionInterpolator for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING PositionInterpolator : 
-    public PositionInterpolatorBase
+class OSG_DYNAMICS_DLLMAPPING VRMLPositionInterpolator : 
+    public VRMLPositionInterpolatorBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolator :
 
   public:
 
-    typedef PositionInterpolatorBase Inherited;
-    typedef PositionInterpolator     Self;
+    typedef VRMLPositionInterpolatorBase Inherited;
+    typedef VRMLPositionInterpolator     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -83,21 +83,21 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolator :
 
   protected:
 
-    // Variables should all be in PositionInterpolatorBase.
+    // Variables should all be in VRMLPositionInterpolatorBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    PositionInterpolator(void);
-    PositionInterpolator(const PositionInterpolator &source);
+    VRMLPositionInterpolator(void);
+    VRMLPositionInterpolator(const VRMLPositionInterpolator &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~PositionInterpolator(void);
+    virtual ~VRMLPositionInterpolator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -112,17 +112,17 @@ class OSG_DYNAMICS_DLLMAPPING PositionInterpolator :
   private:
 
     friend class FieldContainer;
-    friend class PositionInterpolatorBase;
+    friend class VRMLPositionInterpolatorBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const PositionInterpolator &source);
+    void operator =(const VRMLPositionInterpolator &source);
 };
 
-typedef PositionInterpolator *PositionInterpolatorP;
+typedef VRMLPositionInterpolator *VRMLPositionInterpolatorP;
 
 OSG_END_NAMESPACE
 
-#include "OSGPositionInterpolatorBase.inl"
-#include "OSGPositionInterpolator.inl"
+#include "OSGVRMLPositionInterpolatorBase.inl"
+#include "OSGVRMLPositionInterpolator.inl"
 
-#endif /* _OSGPOSITIONINTERPOLATOR_H_ */
+#endif /* _OSGVRMLPOSITIONINTERPOLATOR_H_ */

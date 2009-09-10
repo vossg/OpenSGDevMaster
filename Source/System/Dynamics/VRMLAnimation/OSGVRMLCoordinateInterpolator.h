@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOORDINATEINTERPOLATOR_H_
-#define _OSGCOORDINATEINTERPOLATOR_H_
+#ifndef _OSGVRMLCOORDINATEINTERPOLATOR_H_
+#define _OSGVRMLCOORDINATEINTERPOLATOR_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGCoordinateInterpolatorBase.h"
+#include "OSGVRMLCoordinateInterpolatorBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief CoordinateInterpolator class. See \ref
-           PageContribCSMCoordinateInterpolator for a description.
+/*! \brief VRMLCoordinateInterpolator class. See \ref
+           PageSystemDynamicsVRMLCoordinateInterpolator for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING CoordinateInterpolator : 
-    public CoordinateInterpolatorBase
+class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolator : 
+    public VRMLCoordinateInterpolatorBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_DYNAMICS_DLLMAPPING CoordinateInterpolator :
 
   public:
 
-    typedef CoordinateInterpolatorBase Inherited;
-    typedef CoordinateInterpolator     Self;
+    typedef VRMLCoordinateInterpolatorBase Inherited;
+    typedef VRMLCoordinateInterpolator     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -89,15 +89,15 @@ class OSG_DYNAMICS_DLLMAPPING CoordinateInterpolator :
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    CoordinateInterpolator(void);
-    CoordinateInterpolator(const CoordinateInterpolator &source);
+    VRMLCoordinateInterpolator(void);
+    VRMLCoordinateInterpolator(const VRMLCoordinateInterpolator &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~CoordinateInterpolator(void);
+    virtual ~VRMLCoordinateInterpolator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -112,17 +112,17 @@ class OSG_DYNAMICS_DLLMAPPING CoordinateInterpolator :
   private:
 
     friend class FieldContainer;
-    friend class CoordinateInterpolatorBase;
+    friend class VRMLCoordinateInterpolatorBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const CoordinateInterpolator &source);
+    void operator =(const VRMLCoordinateInterpolator &source);
 };
 
-typedef CoordinateInterpolator *CoordinateInterpolatorP;
+typedef VRMLCoordinateInterpolator *VRMLCoordinateInterpolatorP;
 
 OSG_END_NAMESPACE
 
-#include "OSGCoordinateInterpolatorBase.inl"
-#include "OSGCoordinateInterpolator.inl"
+#include "OSGVRMLCoordinateInterpolatorBase.inl"
+#include "OSGVRMLCoordinateInterpolator.inl"
 
-#endif /* _OSGCOORDINATEINTERPOLATOR_H_ */
+#endif /* _OSGVRMLCOORDINATEINTERPOLATOR_H_ */
