@@ -58,7 +58,6 @@
 
 
 
-#include "OSGFrameTask.h"               // FrameTasks Class
 
 #include "OSGFrameHandlerBase.h"
 #include "OSGFrameHandler.h"
@@ -76,20 +75,12 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::FrameHandler
-    base class for task attached to the compute frame handler
+    
  */
 
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
-
-/*! \var FrameTask *     FrameHandlerBase::_mfFrameTasks
-    
-*/
-
-/*! \var FrameTask *     FrameHandlerBase::_mfUninitializedFrameTasks
-    
-*/
 
 /*! \var UInt64          FrameHandlerBase::_sfFrameCount
     
@@ -151,30 +142,6 @@ void FrameHandlerBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
-
-    pDesc = new MFUncountedFrameTaskPtr::Description(
-        MFUncountedFrameTaskPtr::getClassType(),
-        "frameTasks",
-        "",
-        FrameTasksFieldId, FrameTasksFieldMask,
-        false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&FrameHandler::editHandleFrameTasks),
-        static_cast<FieldGetMethodSig >(&FrameHandler::getHandleFrameTasks));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new MFUncountedFrameTaskPtr::Description(
-        MFUncountedFrameTaskPtr::getClassType(),
-        "uninitializedFrameTasks",
-        "",
-        UninitializedFrameTasksFieldId, UninitializedFrameTasksFieldMask,
-        false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&FrameHandler::editHandleUninitializedFrameTasks),
-        static_cast<FieldGetMethodSig >(&FrameHandler::getHandleUninitializedFrameTasks));
-
-    oType.addInitialDesc(pDesc);
 
     pDesc = new SFUInt64::Description(
         SFUInt64::getClassType(),
@@ -313,26 +280,6 @@ FrameHandlerBase::TypeObject FrameHandlerBase::_type(
     "    isBundle=\"true\"\n"
     "    parentFields=\"none\"\n"
     ">\n"
-    "  base class for task attached to the compute frame handler\n"
-    "\t<Field\n"
-    "\t\tname=\"frameTasks\"\n"
-    "\t\ttype=\"FrameTask\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"protected\"\n"
-    "        category=\"uncountedpointer\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"uninitializedFrameTasks\"\n"
-    "\t\ttype=\"FrameTask\"\n"
-    "\t\tcardinality=\"multi\"\n"
-    "\t\tvisibility=\"external\"\n"
-    "\t\taccess=\"protected\"\n"
-    "        category=\"uncountedpointer\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\n"
     "\t<Field\n"
     "\t\tname=\"frameCount\"\n"
     "\t\ttype=\"UInt64\"\n"
@@ -418,7 +365,7 @@ FrameHandlerBase::TypeObject FrameHandlerBase::_type(
     "\t</Field>\n"
     "\n"
     "</FieldContainer>\n",
-    "base class for task attached to the compute frame handler\n"
+    ""
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -440,32 +387,6 @@ UInt32 FrameHandlerBase::getContainerSize(void) const
 
 /*------------------------- decorator get ------------------------------*/
 
-
-//! Get the FrameHandler::_mfFrameTasks field.
-const MFUncountedFrameTaskPtr *FrameHandlerBase::getMFFrameTasks(void) const
-{
-    return &_mfFrameTasks;
-}
-
-MFUncountedFrameTaskPtr *FrameHandlerBase::editMFFrameTasks     (void)
-{
-    editMField(FrameTasksFieldMask, _mfFrameTasks);
-
-    return &_mfFrameTasks;
-}
-
-//! Get the FrameHandler::_mfUninitializedFrameTasks field.
-const MFUncountedFrameTaskPtr *FrameHandlerBase::getMFUninitializedFrameTasks(void) const
-{
-    return &_mfUninitializedFrameTasks;
-}
-
-MFUncountedFrameTaskPtr *FrameHandlerBase::editMFUninitializedFrameTasks(void)
-{
-    editMField(UninitializedFrameTasksFieldMask, _mfUninitializedFrameTasks);
-
-    return &_mfUninitializedFrameTasks;
-}
 
 SFUInt64 *FrameHandlerBase::editSFFrameCount(void)
 {
@@ -586,112 +507,6 @@ const SFBool *FrameHandlerBase::getSFPaused(void) const
 
 
 
-void FrameHandlerBase::pushToFrameTasks(FrameTask * const value)
-{
-    editMField(FrameTasksFieldMask, _mfFrameTasks);
-
-    _mfFrameTasks.push_back(value);
-}
-
-void FrameHandlerBase::assignFrameTasks(const MFUncountedFrameTaskPtr &value)
-{
-    MFUncountedFrameTaskPtr::const_iterator elemIt  =
-        value.begin();
-    MFUncountedFrameTaskPtr::const_iterator elemEnd =
-        value.end  ();
-
-    static_cast<FrameHandler *>(this)->clearFrameTasks();
-
-    while(elemIt != elemEnd)
-    {
-        this->pushToFrameTasks(*elemIt);
-
-        ++elemIt;
-    }
-}
-
-void FrameHandlerBase::removeFromFrameTasks(UInt32 uiIndex)
-{
-    if(uiIndex < _mfFrameTasks.size())
-    {
-        editMField(FrameTasksFieldMask, _mfFrameTasks);
-
-        _mfFrameTasks.erase(uiIndex);
-    }
-}
-
-void FrameHandlerBase::removeObjFromFrameTasks(FrameTask * const value)
-{
-    Int32 iElemIdx = _mfFrameTasks.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(FrameTasksFieldMask, _mfFrameTasks);
-
-        _mfFrameTasks.erase(iElemIdx);
-    }
-}
-void FrameHandlerBase::clearFrameTasks(void)
-{
-    editMField(FrameTasksFieldMask, _mfFrameTasks);
-
-
-    _mfFrameTasks.clear();
-}
-
-void FrameHandlerBase::pushToUninitializedFrameTasks(FrameTask * const value)
-{
-    editMField(UninitializedFrameTasksFieldMask, _mfUninitializedFrameTasks);
-
-    _mfUninitializedFrameTasks.push_back(value);
-}
-
-void FrameHandlerBase::assignUninitializedFrameTasks(const MFUncountedFrameTaskPtr &value)
-{
-    MFUncountedFrameTaskPtr::const_iterator elemIt  =
-        value.begin();
-    MFUncountedFrameTaskPtr::const_iterator elemEnd =
-        value.end  ();
-
-    static_cast<FrameHandler *>(this)->clearUninitializedFrameTasks();
-
-    while(elemIt != elemEnd)
-    {
-        this->pushToUninitializedFrameTasks(*elemIt);
-
-        ++elemIt;
-    }
-}
-
-void FrameHandlerBase::removeFromUninitializedFrameTasks(UInt32 uiIndex)
-{
-    if(uiIndex < _mfUninitializedFrameTasks.size())
-    {
-        editMField(UninitializedFrameTasksFieldMask, _mfUninitializedFrameTasks);
-
-        _mfUninitializedFrameTasks.erase(uiIndex);
-    }
-}
-
-void FrameHandlerBase::removeObjFromUninitializedFrameTasks(FrameTask * const value)
-{
-    Int32 iElemIdx = _mfUninitializedFrameTasks.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(UninitializedFrameTasksFieldMask, _mfUninitializedFrameTasks);
-
-        _mfUninitializedFrameTasks.erase(iElemIdx);
-    }
-}
-void FrameHandlerBase::clearUninitializedFrameTasks(void)
-{
-    editMField(UninitializedFrameTasksFieldMask, _mfUninitializedFrameTasks);
-
-
-    _mfUninitializedFrameTasks.clear();
-}
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -700,14 +515,6 @@ UInt32 FrameHandlerBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (FrameTasksFieldMask & whichField))
-    {
-        returnValue += _mfFrameTasks.getBinSize();
-    }
-    if(FieldBits::NoField != (UninitializedFrameTasksFieldMask & whichField))
-    {
-        returnValue += _mfUninitializedFrameTasks.getBinSize();
-    }
     if(FieldBits::NoField != (FrameCountFieldMask & whichField))
     {
         returnValue += _sfFrameCount.getBinSize();
@@ -753,14 +560,6 @@ void FrameHandlerBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FrameTasksFieldMask & whichField))
-    {
-        _mfFrameTasks.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (UninitializedFrameTasksFieldMask & whichField))
-    {
-        _mfUninitializedFrameTasks.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (FrameCountFieldMask & whichField))
     {
         _sfFrameCount.copyToBin(pMem);
@@ -804,14 +603,6 @@ void FrameHandlerBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (FrameTasksFieldMask & whichField))
-    {
-        _mfFrameTasks.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (UninitializedFrameTasksFieldMask & whichField))
-    {
-        _mfUninitializedFrameTasks.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (FrameCountFieldMask & whichField))
     {
         _sfFrameCount.copyFromBin(pMem);
@@ -946,8 +737,6 @@ FieldContainerTransitPtr FrameHandlerBase::shallowCopy(void) const
 
 FrameHandlerBase::FrameHandlerBase(void) :
     Inherited(),
-    _mfFrameTasks             (),
-    _mfUninitializedFrameTasks(),
     _sfFrameCount             (UInt64(0)),
     _sfStartTime              (Time(0.0)),
     _sfLastTime               (Time(0.0)),
@@ -962,8 +751,6 @@ FrameHandlerBase::FrameHandlerBase(void) :
 
 FrameHandlerBase::FrameHandlerBase(const FrameHandlerBase &source) :
     Inherited(source),
-    _mfFrameTasks             (),
-    _mfUninitializedFrameTasks(),
     _sfFrameCount             (source._sfFrameCount             ),
     _sfStartTime              (source._sfStartTime              ),
     _sfLastTime               (source._sfLastTime               ),
@@ -983,113 +770,6 @@ FrameHandlerBase::~FrameHandlerBase(void)
 {
 }
 
-void FrameHandlerBase::onCreate(const FrameHandler *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        FrameHandler *pThis = static_cast<FrameHandler *>(this);
-
-        MFUncountedFrameTaskPtr::const_iterator FrameTasksIt  =
-            source->_mfFrameTasks.begin();
-        MFUncountedFrameTaskPtr::const_iterator FrameTasksEnd =
-            source->_mfFrameTasks.end  ();
-
-        while(FrameTasksIt != FrameTasksEnd)
-        {
-            pThis->pushToFrameTasks(*FrameTasksIt);
-
-            ++FrameTasksIt;
-        }
-
-        MFUncountedFrameTaskPtr::const_iterator UninitializedFrameTasksIt  =
-            source->_mfUninitializedFrameTasks.begin();
-        MFUncountedFrameTaskPtr::const_iterator UninitializedFrameTasksEnd =
-            source->_mfUninitializedFrameTasks.end  ();
-
-        while(UninitializedFrameTasksIt != UninitializedFrameTasksEnd)
-        {
-            pThis->pushToUninitializedFrameTasks(*UninitializedFrameTasksIt);
-
-            ++UninitializedFrameTasksIt;
-        }
-    }
-}
-
-GetFieldHandlePtr FrameHandlerBase::getHandleFrameTasks      (void) const
-{
-    MFUncountedFrameTaskPtr::GetHandlePtr returnValue(
-        new  MFUncountedFrameTaskPtr::GetHandle(
-             &_mfFrameTasks,
-             this->getType().getFieldDesc(FrameTasksFieldId),
-             const_cast<FrameHandlerBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr FrameHandlerBase::editHandleFrameTasks     (void)
-{
-    MFUncountedFrameTaskPtr::EditHandlePtr returnValue(
-        new  MFUncountedFrameTaskPtr::EditHandle(
-             &_mfFrameTasks,
-             this->getType().getFieldDesc(FrameTasksFieldId),
-             this));
-
-    returnValue->setAddMethod(
-        boost::bind(&FrameHandler::pushToFrameTasks,
-                    static_cast<FrameHandler *>(this), _1));
-    returnValue->setRemoveMethod(
-        boost::bind(&FrameHandler::removeFromFrameTasks,
-                    static_cast<FrameHandler *>(this), _1));
-    returnValue->setRemoveObjMethod(
-        boost::bind(&FrameHandler::removeObjFromFrameTasks,
-                    static_cast<FrameHandler *>(this), _1));
-    returnValue->setClearMethod(
-        boost::bind(&FrameHandler::clearFrameTasks,
-                    static_cast<FrameHandler *>(this)));
-
-    editMField(FrameTasksFieldMask, _mfFrameTasks);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr FrameHandlerBase::getHandleUninitializedFrameTasks (void) const
-{
-    MFUncountedFrameTaskPtr::GetHandlePtr returnValue(
-        new  MFUncountedFrameTaskPtr::GetHandle(
-             &_mfUninitializedFrameTasks,
-             this->getType().getFieldDesc(UninitializedFrameTasksFieldId),
-             const_cast<FrameHandlerBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr FrameHandlerBase::editHandleUninitializedFrameTasks(void)
-{
-    MFUncountedFrameTaskPtr::EditHandlePtr returnValue(
-        new  MFUncountedFrameTaskPtr::EditHandle(
-             &_mfUninitializedFrameTasks,
-             this->getType().getFieldDesc(UninitializedFrameTasksFieldId),
-             this));
-
-    returnValue->setAddMethod(
-        boost::bind(&FrameHandler::pushToUninitializedFrameTasks,
-                    static_cast<FrameHandler *>(this), _1));
-    returnValue->setRemoveMethod(
-        boost::bind(&FrameHandler::removeFromUninitializedFrameTasks,
-                    static_cast<FrameHandler *>(this), _1));
-    returnValue->setRemoveObjMethod(
-        boost::bind(&FrameHandler::removeObjFromUninitializedFrameTasks,
-                    static_cast<FrameHandler *>(this), _1));
-    returnValue->setClearMethod(
-        boost::bind(&FrameHandler::clearUninitializedFrameTasks,
-                    static_cast<FrameHandler *>(this)));
-
-    editMField(UninitializedFrameTasksFieldMask, _mfUninitializedFrameTasks);
-
-    return returnValue;
-}
 
 GetFieldHandlePtr FrameHandlerBase::getHandleFrameCount      (void) const
 {
@@ -1352,10 +1032,6 @@ FieldContainer *FrameHandlerBase::createAspectCopy(
 void FrameHandlerBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    static_cast<FrameHandler *>(this)->clearFrameTasks();
-
-    static_cast<FrameHandler *>(this)->clearUninitializedFrameTasks();
 
 
 }

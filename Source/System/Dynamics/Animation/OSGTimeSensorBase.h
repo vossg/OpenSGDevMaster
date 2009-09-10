@@ -63,12 +63,14 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGFrameTask.h" // Parent
+#include "OSGNodeCore.h" // Parent
 
 #include "OSGSysFields.h"               // Enabled type
 #include "OSGBaseFields.h"              // StartTime type
 
 #include "OSGTimeSensorFields.h"
+
+#include "OSGNodeCoreSensorParent.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -76,12 +78,12 @@ class TimeSensor;
 
 //! \brief TimeSensor Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public FrameTask
+class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public NodeCoreSensorParent
 {
   public:
 
-    typedef FrameTask Inherited;
-    typedef FrameTask ParentContainer;
+    typedef NodeCoreSensorParent Inherited;
+    typedef NodeCore ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

@@ -45,8 +45,7 @@
 
 #include <OSGConfig.h>
 
-#include "OSGFrameTask.h"
-#include "OSGFrameHandler.h"
+#include "OSGFrameTaskInterface.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -63,15 +62,6 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void FrameTask::initMethod(InitPhase ePhase)
-{
-    Inherited::initMethod(ePhase);
-
-    if(ePhase == TypeObject::SystemPost)
-    {
-    }
-}
-
 
 /***************************************************************************\
  *                           Instance methods                              *
@@ -83,63 +73,26 @@ void FrameTask::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-FrameTask::FrameTask(void) :
-    Inherited()
+FrameTaskInterface::FrameTaskInterface(void) 
 {
 }
 
-FrameTask::FrameTask(const FrameTask &source) :
-    Inherited(source)
+FrameTaskInterface::FrameTaskInterface(const FrameTaskInterface &source) 
 {
 }
 
-FrameTask::~FrameTask(void)
+FrameTaskInterface::~FrameTaskInterface(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void FrameTask::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-void FrameTask::dump(      UInt32    ,
-                         const BitVector ) const
-{
-    SLOG << "Dump FrameTask NI" << std::endl;
-}
-
-void FrameTask::onCreate (const FrameTask *source)
-{
-    Inherited::onCreate(source);
-
-    // Don't add the prototype instances to the list
-    if(GlobalSystemState != Running || FrameHandler::the() == NULL)
-        return;
-
-    FrameHandler::the()->addTask(this);
-}
-
-void FrameTask::onDestroy(UInt32 uiContainerId)
-{
-    // Don't add the prototype instances to the list
-    if(GlobalSystemState < Shutdown && FrameHandler::the() != NULL)
-    {
-        FrameHandler::the()->removeTask(this);
-    }
-
-    Inherited::onDestroy(uiContainerId);
-}
-
-bool FrameTask::init(void)
+bool FrameTaskInterface::init(void)
 {
     return true;
 }
 
-void FrameTask::shutdown(void)
+void FrameTaskInterface::shutdown(void)
 {
 }
 

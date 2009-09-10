@@ -43,7 +43,7 @@
 #endif
 
 #include "OSGFrameHandlerBase.h"
-#include "OSGFrameTask.h"
+#include "OSGFrameTaskInterface.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -83,8 +83,8 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    void addTask   (FrameTask *pTask);
-    void removeTask(FrameTask *pTask);
+    void addTask   (FrameTaskInterface *pTask);
+    void removeTask(FrameTaskInterface *pTask);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -115,6 +115,13 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
 
     static bool releaseGlobalInstance(void);
 
+    typedef std::vector<FrameTaskInterface *> InterfaceStore;
+    typedef InterfaceStore::iterator          InterfaceStoreIt;
+    typedef InterfaceStore::const_iterator    InterfaceStoreConstIt;
+
+    InterfaceStore _mfFrameTasks;
+    InterfaceStore _mfUninitializedFrameTasks;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -135,6 +142,30 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandler : public FrameHandlerBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    const InterfaceStore *getMFFrameTasks      (void) const;
+    
+    const InterfaceStore *getMFUninitializedFrameTasks (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    void pushToFrameTasks                    (FrameTaskInterface * const value);
+    void removeObjFromFrameTasks             (FrameTaskInterface * const value);
+    void clearFrameTasks                     (void                            );
+
+    void pushToUninitializedFrameTasks       (FrameTaskInterface * const value);
+    void removeObjFromUninitializedFrameTasks(FrameTaskInterface * const value);
+    void clearUninitializedFrameTasks        (void                            );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    virtual void resolveLinks(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

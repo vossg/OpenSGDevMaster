@@ -63,12 +63,14 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGFrameTask.h" // Parent
+#include "OSGNodeCore.h" // Parent
 
 #include "OSGBaseFields.h"              // InterfaceName type
 #include "OSGInterfaceOptionsFields.h"  // Options type
 
 #include "OSGDeviceInterfaceSensorFields.h"
+
+#include "OSGNodeCoreSensorParent.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -76,12 +78,12 @@ class DeviceInterfaceSensor;
 
 //! \brief DeviceInterfaceSensor Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING DeviceInterfaceSensorBase : public FrameTask
+class OSG_CONTRIBCSM_DLLMAPPING DeviceInterfaceSensorBase : public NodeCoreSensorParent
 {
   public:
 
-    typedef FrameTask Inherited;
-    typedef FrameTask ParentContainer;
+    typedef NodeCoreSensorParent Inherited;
+    typedef NodeCore ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

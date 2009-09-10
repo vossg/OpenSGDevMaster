@@ -119,12 +119,16 @@ bool FrameHandler::releaseGlobalInstance(void)
 /*----------------------- constructors & destructors ----------------------*/
 
 FrameHandler::FrameHandler(void) :
-    Inherited()
+     Inherited                (),
+    _mfFrameTasks             (),
+    _mfUninitializedFrameTasks()
 {
 }
 
 FrameHandler::FrameHandler(const FrameHandler &source) :
-    Inherited(source)
+     Inherited                (source),
+    _mfFrameTasks             (      ),
+    _mfUninitializedFrameTasks(      )
 {
 }
 
@@ -147,23 +151,23 @@ void FrameHandler::dump(      UInt32    ,
     SLOG << "Dump FrameHandler NI" << std::endl;
 }
 
-void FrameHandler::addTask(FrameTask *pTask)
+void FrameHandler::addTask(FrameTaskInterface *pTask)
 {
     if(pTask == NULL)
         return;
 
-    Inherited::pushToFrameTasks             (pTask);
-    Inherited::pushToUninitializedFrameTasks(pTask);
+    this->pushToFrameTasks             (pTask);
+    this->pushToUninitializedFrameTasks(pTask);
 }
 
-void FrameHandler::removeTask(FrameTask *pTask)
+void FrameHandler::removeTask(FrameTaskInterface *pTask)
 {
     if(pTask != NULL)
     {
         pTask->shutdown();
-
-        Inherited::removeObjFromFrameTasks             (pTask);
-        Inherited::removeObjFromUninitializedFrameTasks(pTask);
+        
+        this->removeObjFromFrameTasks             (pTask);
+        this->removeObjFromUninitializedFrameTasks(pTask);
     }
 }
 
@@ -171,10 +175,8 @@ bool FrameHandler::init(void)
 {
     bool returnValue = true;
 
-    MFUncountedFrameTaskPtr::const_iterator tIt  = 
-        getMFUninitializedFrameTasks()->begin();
-    MFUncountedFrameTaskPtr::const_iterator tEnd = 
-        getMFUninitializedFrameTasks()->end  ();
+    InterfaceStoreConstIt tIt  = this->getMFUninitializedFrameTasks()->begin();
+    InterfaceStoreConstIt tEnd = this->getMFUninitializedFrameTasks()->end  ();
 
     while(tIt != tEnd)
     {
@@ -183,7 +185,7 @@ bool FrameHandler::init(void)
         ++tIt;
     }
 
-    Inherited::clearUninitializedFrameTasks();
+    this->clearUninitializedFrameTasks();
 
     return returnValue;
 }
@@ -232,16 +234,8 @@ void FrameHandler::frame(void)
 
     ++(editSFFrameCount()->getValue());
 
-#if 0
-    if(_sfSensorTask.getValue() != NULL)
-    {
-        _sfSensorTask.getValue()->frame(_sfTimeStamp.getValue (), 
-                                        _sfFrameCount.getValue());
-    }
-#endif
-
-    MFUncountedFrameTaskPtr::const_iterator tIt  = getMFFrameTasks()->begin();
-    MFUncountedFrameTaskPtr::const_iterator tEnd = getMFFrameTasks()->end  ();
+    InterfaceStoreConstIt tIt  = getMFFrameTasks()->begin();
+    InterfaceStoreConstIt tEnd = getMFFrameTasks()->end  ();
 
     while(tIt != tEnd)
     {
@@ -254,8 +248,8 @@ void FrameHandler::frame(void)
 
 void FrameHandler::shutdown(void)
 {
-    MFUncountedFrameTaskPtr::const_iterator tIt  = getMFFrameTasks()->begin();
-    MFUncountedFrameTaskPtr::const_iterator tEnd = getMFFrameTasks()->end  ();
+    InterfaceStoreConstIt tIt  = getMFFrameTasks()->begin();
+    InterfaceStoreConstIt tEnd = getMFFrameTasks()->end  ();
 
     while(tIt != tEnd)
     {
@@ -263,6 +257,72 @@ void FrameHandler::shutdown(void)
         
         ++tIt;
     }
+}
+
+//! Get the FrameHandler::_mfFrameTasks field.
+const FrameHandler::InterfaceStore *FrameHandler::getMFFrameTasks(void) const
+{
+    return &_mfFrameTasks;
+}
+
+//! Get the FrameHandler::_mfUninitializedFrameTasks field.
+const FrameHandler::InterfaceStore *
+    FrameHandler::getMFUninitializedFrameTasks(void) const
+{
+    return &_mfUninitializedFrameTasks;
+}
+
+void FrameHandler::pushToFrameTasks(FrameTaskInterface * const value)
+{
+    _mfFrameTasks.push_back(value);
+}
+
+void FrameHandler::pushToUninitializedFrameTasks(
+    FrameTaskInterface * const value)
+{
+    _mfUninitializedFrameTasks.push_back(value);
+}
+
+
+void FrameHandler::removeObjFromFrameTasks(FrameTaskInterface * const value)
+{
+    InterfaceStoreIt it = std::find(_mfFrameTasks.begin(), 
+                                    _mfFrameTasks.end  (), value);
+
+    if(it != _mfFrameTasks.end())
+    {
+        _mfFrameTasks.erase(it);
+    }
+}
+
+void FrameHandler::removeObjFromUninitializedFrameTasks(
+    FrameTaskInterface * const value)
+{
+    InterfaceStoreIt it = std::find(_mfUninitializedFrameTasks.begin(), 
+                                    _mfUninitializedFrameTasks.end  (), value);
+
+    if(it != _mfUninitializedFrameTasks.end())
+    {
+        _mfUninitializedFrameTasks.erase(it);
+    }
+}
+
+void FrameHandler::clearFrameTasks(void)
+{
+    _mfFrameTasks.clear();
+}
+
+void FrameHandler::clearUninitializedFrameTasks(void)
+{
+    _mfUninitializedFrameTasks.clear();
+}
+
+void FrameHandler::resolveLinks(void)
+{
+    Inherited::resolveLinks();
+
+    static_cast<FrameHandler *>(this)->clearFrameTasks();
+    static_cast<FrameHandler *>(this)->clearUninitializedFrameTasks();
 }
 
 OSG_END_NAMESPACE

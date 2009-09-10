@@ -2,7 +2,8 @@
 
 <FieldContainer
     name="TimeSensor"
-    parent="FrameTask"
+    parent="NodeCore"
+    mixinparent="NodeCoreSensorParent"
     library="Dynamics"
     pointerfieldtypes="none"
     structure="concrete"

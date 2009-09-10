@@ -65,7 +65,6 @@
 
 #include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGFrameTaskFields.h"         // FrameTasks type
 #include "OSGSysFields.h"               // FrameCount type
 #include "OSGBaseFields.h"              // StartTime type
 
@@ -95,9 +94,7 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandlerBase : public AttachmentContainer
 
     enum
     {
-        FrameTasksFieldId = Inherited::NextFieldId,
-        UninitializedFrameTasksFieldId = FrameTasksFieldId + 1,
-        FrameCountFieldId = UninitializedFrameTasksFieldId + 1,
+        FrameCountFieldId = Inherited::NextFieldId,
         StartTimeFieldId = FrameCountFieldId + 1,
         LastTimeFieldId = StartTimeFieldId + 1,
         CurrTimeFieldId = LastTimeFieldId + 1,
@@ -109,10 +106,6 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandlerBase : public AttachmentContainer
         NextFieldId = PausedFieldId + 1
     };
 
-    static const OSG::BitVector FrameTasksFieldMask =
-        (TypeTraits<BitVector>::One << FrameTasksFieldId);
-    static const OSG::BitVector UninitializedFrameTasksFieldMask =
-        (TypeTraits<BitVector>::One << UninitializedFrameTasksFieldId);
     static const OSG::BitVector FrameCountFieldMask =
         (TypeTraits<BitVector>::One << FrameCountFieldId);
     static const OSG::BitVector StartTimeFieldMask =
@@ -134,8 +127,6 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandlerBase : public AttachmentContainer
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUncountedFrameTaskPtr MFFrameTasksType;
-    typedef MFUncountedFrameTaskPtr MFUninitializedFrameTasksType;
     typedef SFUInt64          SFFrameCountType;
     typedef SFTime            SFStartTimeType;
     typedef SFTime            SFLastTimeType;
@@ -242,11 +233,6 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandlerBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
@@ -303,8 +289,6 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandlerBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUncountedFrameTaskPtr _mfFrameTasks;
-    MFUncountedFrameTaskPtr _mfUninitializedFrameTasks;
     SFUInt64          _sfFrameCount;
     SFTime            _sfStartTime;
     SFTime            _sfLastTime;
@@ -335,17 +319,12 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandlerBase : public AttachmentContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const FrameHandler *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleFrameTasks      (void) const;
-    EditFieldHandlePtr editHandleFrameTasks     (void);
-    GetFieldHandlePtr  getHandleUninitializedFrameTasks (void) const;
-    EditFieldHandlePtr editHandleUninitializedFrameTasks(void);
     GetFieldHandlePtr  getHandleFrameCount      (void) const;
     EditFieldHandlePtr editHandleFrameCount     (void);
     GetFieldHandlePtr  getHandleStartTime       (void) const;
@@ -364,44 +343,6 @@ class OSG_DYNAMICS_DLLMAPPING FrameHandlerBase : public AttachmentContainer
     EditFieldHandlePtr editHandleConstantTime   (void);
     GetFieldHandlePtr  getHandlePaused          (void) const;
     EditFieldHandlePtr editHandlePaused         (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const MFUncountedFrameTaskPtr *getMFFrameTasks      (void) const;
-                  MFUncountedFrameTaskPtr *editMFFrameTasks     (void);
-            const MFUncountedFrameTaskPtr *getMFUninitializedFrameTasks (void) const;
-                  MFUncountedFrameTaskPtr *editMFUninitializedFrameTasks(void);
-
-
-                  FrameTask * getFrameTasks     (const UInt32 index) const;
-
-                  FrameTask * getUninitializedFrameTasks(const UInt32 index) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    void pushToFrameTasks           (FrameTask * const value   );
-    void assignFrameTasks           (const MFUncountedFrameTaskPtr &value);
-    void removeFromFrameTasks (UInt32                uiIndex );
-    void removeObjFromFrameTasks(FrameTask * const value   );
-    void clearFrameTasks            (void                          );
-
-    void pushToUninitializedFrameTasks           (FrameTask * const value   );
-    void assignUninitializedFrameTasks           (const MFUncountedFrameTaskPtr &value);
-    void removeFromUninitializedFrameTasks (UInt32                uiIndex );
-    void removeObjFromUninitializedFrameTasks(FrameTask * const value   );
-    void clearUninitializedFrameTasks            (void                          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

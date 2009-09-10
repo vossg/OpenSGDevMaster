@@ -2,7 +2,8 @@
 
 <FieldContainer
     name="DeviceInterfaceSensor"
-    parent="FrameTask"
+    parent="NodeCore"
+    mixinparent="NodeCoreSensorParent"
     library="ContribCSM"
     pointerfieldtypes="none"
     structure="abstract"

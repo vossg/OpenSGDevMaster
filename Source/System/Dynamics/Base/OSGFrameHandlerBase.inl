@@ -299,20 +299,6 @@ void FrameHandlerBase::setPaused(const bool value)
     _sfPaused.setValue(value);
 }
 
-//! Get the value of the \a index element the FrameHandler::_mfFrameTasks field.
-inline
-FrameTask * FrameHandlerBase::getFrameTasks(const UInt32 index) const
-{
-    return _mfFrameTasks[index];
-}
-
-//! Get the value of the \a index element the FrameHandler::_mfUninitializedFrameTasks field.
-inline
-FrameTask * FrameHandlerBase::getUninitializedFrameTasks(const UInt32 index) const
-{
-    return _mfUninitializedFrameTasks[index];
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -323,18 +309,6 @@ void FrameHandlerBase::execSync (      FrameHandlerBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (FrameTasksFieldMask & whichField))
-        _mfFrameTasks.syncWith(pFrom->_mfFrameTasks,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (UninitializedFrameTasksFieldMask & whichField))
-        _mfUninitializedFrameTasks.syncWith(pFrom->_mfUninitializedFrameTasks,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
 
     if(FieldBits::NoField != (FrameCountFieldMask & whichField))
         _sfFrameCount.syncWith(pFrom->_sfFrameCount);

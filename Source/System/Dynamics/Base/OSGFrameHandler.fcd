@@ -14,26 +14,6 @@
     isBundle="true"
     parentFields="none"
 >
-  base class for task attached to the compute frame handler
-	<Field
-		name="frameTasks"
-		type="FrameTask"
-		cardinality="multi"
-		visibility="external"
-		access="protected"
-        category="uncountedpointer"
-	>
-	</Field>
-	<Field
-		name="uninitializedFrameTasks"
-		type="FrameTask"
-		cardinality="multi"
-		visibility="external"
-		access="protected"
-        category="uncountedpointer"
-	>
-	</Field>
-
 	<Field
 		name="frameCount"
 		type="UInt64"

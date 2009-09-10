@@ -124,7 +124,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TimeSensor *>::_type("TimeSensorPtr", "FrameTaskPtr");
+DataType FieldTraits<TimeSensor *>::_type("TimeSensorPtr", "NodeCorePtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(TimeSensor *)
@@ -135,6 +135,8 @@ OSG_FIELDTRAITS_GETTYPE(TimeSensor *)
 
 void TimeSensorBase::classDescInserter(TypeObject &oType)
 {
+    Inherited::classDescInserter(oType);
+
     FieldDescriptionBase *pDesc = NULL;
 
 
@@ -263,7 +265,8 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "\n"
     "<FieldContainer\n"
     "    name=\"TimeSensor\"\n"
-    "    parent=\"FrameTask\"\n"
+    "    parent=\"NodeCore\"\n"
+    "    mixinparent=\"NodeCoreSensorParent\"\n"
     "    library=\"Dynamics\"\n"
     "    pointerfieldtypes=\"none\"\n"
     "    structure=\"concrete\"\n"

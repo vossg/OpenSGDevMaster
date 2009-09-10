@@ -36,13 +36,15 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGFRAMETASK_H_
-#define _OSGFRAMETASK_H_
+#ifndef _OSGFRAMETASKINTERFACE_H_
+#define _OSGFRAMETASKINTERFACE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGFrameTaskBase.h"
+#include "OSGDynamicsDef.h"
+#include "OSGBaseTypes.h"
+#include "OSGTime.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -50,7 +52,7 @@ OSG_BEGIN_NAMESPACE
            PageDynamicsFrameTask for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING FrameTask : public FrameTaskBase
+class OSG_DYNAMICS_DLLMAPPING FrameTaskInterface
 {
   protected:
 
@@ -58,16 +60,11 @@ class OSG_DYNAMICS_DLLMAPPING FrameTask : public FrameTaskBase
 
   public:
 
-    typedef FrameTaskBase Inherited;
-    typedef FrameTask     Self;
+    typedef FrameTaskInterface Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
-
-    virtual void changed(ConstFieldMaskArg whichField,
-                         UInt32            origin,
-                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -83,9 +80,6 @@ class OSG_DYNAMICS_DLLMAPPING FrameTask : public FrameTaskBase
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -97,48 +91,37 @@ class OSG_DYNAMICS_DLLMAPPING FrameTask : public FrameTaskBase
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    FrameTask(void);
-    FrameTask(const FrameTask &source);
+    FrameTaskInterface(void);
+    FrameTaskInterface(const FrameTaskInterface &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~FrameTask(void);
+    virtual ~FrameTaskInterface(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-            void onCreate (const FrameTask *source        = NULL);
-    virtual void onDestroy(      UInt32     uiContainerId       );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Init                                    */
     /*! \{                                                                 */
-
-    static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class FieldContainer;
-    friend class FrameTaskBase;
-
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const FrameTask &source);
+    void operator =(const FrameTaskInterface &source);
 };
 
-typedef FrameTask *FrameTaskP;
+typedef FrameTaskInterface *FrameTaskInterfaceP;
 
 OSG_END_NAMESPACE
 
-#include "OSGFrameTaskBase.inl"
-#include "OSGFrameTask.inl"
-
-#endif /* _OSGFRAMETASK_H_ */
+#endif /* _OSGFRAMETASKINTERFACE_H_ */
