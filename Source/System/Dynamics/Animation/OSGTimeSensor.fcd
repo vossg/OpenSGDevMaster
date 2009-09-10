@@ -5,7 +5,7 @@
     parent="NodeCore"
     mixinparent="NodeCoreSensorParent"
     library="Dynamics"
-    pointerfieldtypes="both"
+    pointerfieldtypes="none"
     structure="concrete"
     systemcomponent="true"
     parentsystemcomponent="true"

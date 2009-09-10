@@ -110,9 +110,6 @@ void AnimChannelBase::execSync (      AnimChannelBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (AnimationFieldMask & whichField))
-        _sfAnimation.syncWith(pFrom->_sfAnimation);
-
     if(FieldBits::NoField != (WeightFieldMask & whichField))
         _sfWeight.syncWith(pFrom->_sfWeight);
 }

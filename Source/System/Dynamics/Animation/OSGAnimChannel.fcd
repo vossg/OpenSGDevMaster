@@ -2,7 +2,7 @@
 
 <FieldContainer
     name="AnimChannel"
-    parent="NodeCore"
+    parent="AttachmentContainer"
     library="Dynamics"
     pointerfieldtypes="both"
     structure="abstract"
@@ -10,29 +10,18 @@
     parentsystemcomponent="true"
     decoratable="false"
     useLocalIncludes="false"
-    isNodeCore="true"
+    isNodeCore="false"
     isBundle="false"
-    childFields="both"
     parentFields="none"
 >
   Base for animation data sinks.
  
   <Field
-     name="animation"
-     category="parentpointer"
-     type="Animation"
-     cardinality="single"
-     visibility="external"
-     access="none"
-     fieldFlags="FThreadLocal"
-     >
-  </Field>
-  <Field
      name="weight"
      category="data"
      type="Real32"
      cardinality="single"
-     visibility="external"
+     visibility="internal"
      access="public"
      fieldFlags="FThreadLocal"
      >

@@ -65,7 +65,7 @@
 
 #include "OSGAnimBlender.h" // Parent
 
-#include "OSGAnimVec3fChannelFields.h"  // Channels type
+#include "OSGVec3fChannelFields.h"      // Channels type
 #include "OSGVecFields.h"               // OutValue type
 
 #include "OSGAnimVec3fBlenderFields.h"
@@ -106,7 +106,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fBlenderBase : public AnimBlender
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUnrecAnimVec3fChannelPtr MFChannelsType;
+    typedef MFUnrecVec3fChannelPtr MFChannelsType;
     typedef SFVec3f           SFOutValueType;
 
     /*---------------------------------------------------------------------*/
@@ -132,14 +132,14 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fBlenderBase : public AnimBlender
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecAnimVec3fChannelPtr *getMFChannels       (void) const;
-                  MFUnrecAnimVec3fChannelPtr *editMFChannels       (void);
+            const MFUnrecVec3fChannelPtr *getMFChannels       (void) const;
+                  MFUnrecVec3fChannelPtr *editMFChannels       (void);
 
                   SFVec3f             *editSFOutValue       (void);
             const SFVec3f             *getSFOutValue        (void) const;
 
 
-                  AnimVec3fChannel * getChannels       (const UInt32 index) const;
+                  Vec3fChannel * getChannels       (const UInt32 index) const;
 
                   Vec3f               &editOutValue       (void);
             const Vec3f               &getOutValue        (void) const;
@@ -161,10 +161,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fBlenderBase : public AnimBlender
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToChannels            (AnimVec3fChannel * const value   );
-    void assignChannels           (const MFUnrecAnimVec3fChannelPtr &value);
+    void pushToChannels            (Vec3fChannel * const value   );
+    void assignChannels           (const MFUnrecVec3fChannelPtr &value);
     void removeFromChannels (UInt32               uiIndex );
-    void removeObjFromChannels(AnimVec3fChannel * const value   );
+    void removeObjFromChannels(Vec3fChannel * const value   );
     void clearChannels              (void                         );
 
     /*! \}                                                                 */
@@ -220,7 +220,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fBlenderBase : public AnimBlender
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecAnimVec3fChannelPtr _mfChannels;
+    MFUnrecVec3fChannelPtr _mfChannels;
     SFVec3f           _sfOutValue;
 
     /*! \}                                                                 */

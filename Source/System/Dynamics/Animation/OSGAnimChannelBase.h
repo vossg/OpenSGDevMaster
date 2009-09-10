@@ -63,9 +63,8 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGNodeCore.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGAnimationFields.h"         // Animation type
 #include "OSGSysFields.h"               // Weight type
 
 #include "OSGAnimChannelFields.h"
@@ -76,12 +75,12 @@ class AnimChannel;
 
 //! \brief AnimChannel Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
+class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public AttachmentContainer
 {
   public:
 
-    typedef NodeCore Inherited;
-    typedef NodeCore ParentContainer;
+    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -94,19 +93,15 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
 
     enum
     {
-        AnimationFieldId = Inherited::NextFieldId,
-        WeightFieldId = AnimationFieldId + 1,
+        WeightFieldId = Inherited::NextFieldId,
         NextFieldId = WeightFieldId + 1
     };
 
-    static const OSG::BitVector AnimationFieldMask =
-        (TypeTraits<BitVector>::One << AnimationFieldId);
     static const OSG::BitVector WeightFieldMask =
         (TypeTraits<BitVector>::One << WeightFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFParentAnimationPtr SFAnimationType;
     typedef SFReal32          SFWeightType;
 
     /*---------------------------------------------------------------------*/
@@ -149,11 +144,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
@@ -183,7 +173,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFParentAnimationPtr _sfAnimation;
     SFReal32          _sfWeight;
 
     /*! \}                                                                 */
@@ -206,26 +195,12 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const AnimChannel *source = NULL);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Parent linking                                               */
-    /*! \{                                                                 */
-
-    virtual bool linkParent  (FieldContainer * const pParent,
-                              UInt16           const childFieldId,
-                              UInt16           const parentFieldId);
-    virtual bool unlinkParent(FieldContainer * const pParent,
-                              UInt16           const parentFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleAnimation       (void) const;
-    EditFieldHandlePtr editHandleAnimation      (void);
     GetFieldHandlePtr  getHandleWeight          (void) const;
     EditFieldHandlePtr editHandleWeight         (void);
 
@@ -280,9 +255,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannelBase : public NodeCore
 };
 
 typedef AnimChannelBase *AnimChannelBaseP;
-
-typedef CoredNodeRefPtr  <AnimChannel> AnimChannelNodeRefPtr;
-typedef CoredNodeMTRefPtr<AnimChannel> AnimChannelNodeMTRefPtr;
 
 OSG_END_NAMESPACE
 

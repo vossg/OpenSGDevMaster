@@ -58,7 +58,6 @@
 
 
 
-#include "OSGAnimation.h"               // Animation Class
 
 #include "OSGAnimChannelBase.h"
 #include "OSGAnimChannel.h"
@@ -83,10 +82,6 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Animation *     AnimChannelBase::_sfAnimation
-    
-*/
-
 /*! \var Real32          AnimChannelBase::_sfWeight
     
 */
@@ -97,7 +92,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<AnimChannel *>::_type("AnimChannelPtr", "NodeCorePtr");
+DataType FieldTraits<AnimChannel *>::_type("AnimChannelPtr", "AttachmentContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(AnimChannel *)
@@ -110,24 +105,6 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            AnimChannel *,
                            0);
 
-DataType &FieldTraits< AnimChannel *, 1 >::getType(void)
-{
-    return FieldTraits<AnimChannel *, 0>::getType();
-}
-
-
-OSG_EXPORT_PTR_SFIELD(ChildPointerSField,
-                      AnimChannel *,
-                      UnrecordedRefCountPolicy,
-                      1);
-
-
-OSG_EXPORT_PTR_MFIELD(ChildPointerMField,
-                      AnimChannel *,
-                      UnrecordedRefCountPolicy,
-                      1);
-
-
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
@@ -137,24 +114,12 @@ void AnimChannelBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFParentAnimationPtr::Description(
-        SFParentAnimationPtr::getClassType(),
-        "animation",
-        "",
-        AnimationFieldId, AnimationFieldMask,
-        false,
-        (Field::FThreadLocal),
-        static_cast     <FieldEditMethodSig>(&AnimChannel::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&AnimChannel::invalidGetField));
-
-    oType.addInitialDesc(pDesc);
-
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "weight",
         "",
         WeightFieldId, WeightFieldMask,
-        false,
+        true,
         (Field::FThreadLocal),
         static_cast<FieldEditMethodSig>(&AnimChannel::editHandleWeight),
         static_cast<FieldGetMethodSig >(&AnimChannel::getHandleWeight));
@@ -178,7 +143,7 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     "\n"
     "<FieldContainer\n"
     "    name=\"AnimChannel\"\n"
-    "    parent=\"NodeCore\"\n"
+    "    parent=\"AttachmentContainer\"\n"
     "    library=\"Dynamics\"\n"
     "    pointerfieldtypes=\"both\"\n"
     "    structure=\"abstract\"\n"
@@ -186,29 +151,18 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     "    parentsystemcomponent=\"true\"\n"
     "    decoratable=\"false\"\n"
     "    useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"true\"\n"
+    "    isNodeCore=\"false\"\n"
     "    isBundle=\"false\"\n"
-    "    childFields=\"both\"\n"
     "    parentFields=\"none\"\n"
     ">\n"
     "  Base for animation data sinks.\n"
     " \n"
     "  <Field\n"
-    "     name=\"animation\"\n"
-    "     category=\"parentpointer\"\n"
-    "     type=\"Animation\"\n"
-    "     cardinality=\"single\"\n"
-    "     visibility=\"external\"\n"
-    "     access=\"none\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "  </Field>\n"
-    "  <Field\n"
     "     name=\"weight\"\n"
     "     category=\"data\"\n"
     "     type=\"Real32\"\n"
     "     cardinality=\"single\"\n"
-    "     visibility=\"external\"\n"
+    "     visibility=\"internal\"\n"
     "     access=\"public\"\n"
     "     fieldFlags=\"FThreadLocal\"\n"
     "     >\n"
@@ -237,7 +191,6 @@ UInt32 AnimChannelBase::getContainerSize(void) const
 /*------------------------- decorator get ------------------------------*/
 
 
-
 SFReal32 *AnimChannelBase::editSFWeight(void)
 {
     editSField(WeightFieldMask);
@@ -261,10 +214,6 @@ UInt32 AnimChannelBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (AnimationFieldMask & whichField))
-    {
-        returnValue += _sfAnimation.getBinSize();
-    }
     if(FieldBits::NoField != (WeightFieldMask & whichField))
     {
         returnValue += _sfWeight.getBinSize();
@@ -278,10 +227,6 @@ void AnimChannelBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (AnimationFieldMask & whichField))
-    {
-        _sfAnimation.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (WeightFieldMask & whichField))
     {
         _sfWeight.copyToBin(pMem);
@@ -293,10 +238,6 @@ void AnimChannelBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (AnimationFieldMask & whichField))
-    {
-        _sfAnimation.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (WeightFieldMask & whichField))
     {
         _sfWeight.copyFromBin(pMem);
@@ -310,14 +251,12 @@ void AnimChannelBase::copyFromBin(BinaryDataHandler &pMem,
 
 AnimChannelBase::AnimChannelBase(void) :
     Inherited(),
-    _sfAnimation              (NULL),
     _sfWeight                 ()
 {
 }
 
 AnimChannelBase::AnimChannelBase(const AnimChannelBase &source) :
     Inherited(source),
-    _sfAnimation              (NULL),
     _sfWeight                 (source._sfWeight                 )
 {
 }
@@ -328,101 +267,7 @@ AnimChannelBase::AnimChannelBase(const AnimChannelBase &source) :
 AnimChannelBase::~AnimChannelBase(void)
 {
 }
-/*-------------------------------------------------------------------------*/
-/* Parent linking                                                          */
 
-bool AnimChannelBase::linkParent(
-    FieldContainer * const pParent,
-    UInt16           const childFieldId,
-    UInt16           const parentFieldId )
-{
-    if(parentFieldId == AnimationFieldId)
-    {
-        Animation * pTypedParent =
-            dynamic_cast< Animation * >(pParent);
-
-        if(pTypedParent != NULL)
-        {
-            FieldContainer *pOldParent =
-                _sfAnimation.getValue         ();
-
-            UInt16 oldChildFieldId =
-                _sfAnimation.getParentFieldPos();
-
-            if(pOldParent != NULL)
-            {
-                pOldParent->unlinkChild(this, oldChildFieldId);
-            }
-
-            editSField(AnimationFieldMask);
-
-            _sfAnimation.setValue(static_cast<Animation *>(pParent), childFieldId);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    return Inherited::linkParent(pParent, childFieldId, parentFieldId);
-}
-
-bool AnimChannelBase::unlinkParent(
-    FieldContainer * const pParent,
-    UInt16           const parentFieldId)
-{
-    if(parentFieldId == AnimationFieldId)
-    {
-        Animation * pTypedParent =
-            dynamic_cast< Animation * >(pParent);
-
-        if(pTypedParent != NULL)
-        {
-            if(_sfAnimation.getValue() == pParent)
-            {
-                editSField(AnimationFieldMask);
-
-                _sfAnimation.setValue(NULL, 0xFFFF);
-
-                return true;
-            }
-
-            FWARNING(("AnimChannelBase::unlinkParent: "
-                      "Child <-> Parent link inconsistent.\n"));
-
-            return false;
-        }
-
-        return false;
-    }
-
-    return Inherited::unlinkParent(pParent, parentFieldId);
-}
-
-
-void AnimChannelBase::onCreate(const AnimChannel *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        AnimChannel *pThis = static_cast<AnimChannel *>(this);
-    }
-}
-
-GetFieldHandlePtr AnimChannelBase::getHandleAnimation       (void) const
-{
-    SFParentAnimationPtr::GetHandlePtr returnValue;
-
-    return returnValue;
-}
-
-EditFieldHandlePtr AnimChannelBase::editHandleAnimation      (void)
-{
-    EditFieldHandlePtr returnValue;
-
-    return returnValue;
-}
 
 GetFieldHandlePtr AnimChannelBase::getHandleWeight          (void) const
 {

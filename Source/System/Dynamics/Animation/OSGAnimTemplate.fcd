@@ -27,7 +27,7 @@
   <Field
      name="targetIds"
      category="data"
-     type="std::string"
+     type="string"
      cardinality="multi"
      visibility="external"
      access="public"

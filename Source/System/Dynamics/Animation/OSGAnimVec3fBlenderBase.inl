@@ -101,7 +101,7 @@ void AnimVec3fBlenderBase::setOutValue(const Vec3f &value)
 
 //! Get the value of the \a index element the AnimVec3fBlender::_mfChannels field.
 inline
-AnimVec3fChannel * AnimVec3fBlenderBase::getChannels(const UInt32 index) const
+Vec3fChannel * AnimVec3fBlenderBase::getChannels(const UInt32 index) const
 {
     return _mfChannels[index];
 }

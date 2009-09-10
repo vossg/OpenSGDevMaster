@@ -83,13 +83,13 @@ AnimDataSource * AnimTemplateBase::getSources(const UInt32 index) const
 
 //! Get the value of the \a index element the AnimTemplate::_mfTargetIds field.
 inline
-const std::string &AnimTemplateBase::getTargetIds(const UInt32 index) const
+const string &AnimTemplateBase::getTargetIds(const UInt32 index) const
 {
     return _mfTargetIds[index];
 }
 
 inline
-std::string &AnimTemplateBase::editTargetIds(const UInt32 index)
+string &AnimTemplateBase::editTargetIds(const UInt32 index)
 {
     editMField(TargetIdsFieldMask, _mfTargetIds);
 

@@ -17,7 +17,7 @@
   <Field
      name="channels"
      category="pointer"
-     type="AnimVec3fChannel"
+     type="Vec3fChannel"
      cardinality="multi"
      visibility="external"
      access="public"

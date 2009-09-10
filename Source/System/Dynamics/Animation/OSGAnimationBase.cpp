@@ -120,34 +120,6 @@ OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
                            Animation *,
                            0);
 
-DataType &FieldTraits<Animation *, 1 >::getType(void)
-{
-    return FieldTraits<Animation *, 0>::getType();
-}
-
-
-OSG_SFIELDTYPE_INST(ParentPointerSField,
-                    Animation *,
-                    NoRefCountPolicy,
-                    1);
-
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerSField,
-                         Animation *,
-                         NoRefCountPolicy,
-                         1);
-
-
-OSG_MFIELDTYPE_INST(ParentPointerMField,
-                    Animation *,
-                    NoRefCountPolicy,
-                    1);
-
-OSG_FIELD_DLLEXPORT_DEF3(ParentPointerMField,
-                         Animation *,
-                         NoRefCountPolicy,
-                         1);
-
-
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
@@ -181,8 +153,8 @@ void AnimationBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFUnrecChildAnimChannelPtr::Description(
-        MFUnrecChildAnimChannelPtr::getClassType(),
+    pDesc = new MFUnrecAnimChannelPtr::Description(
+        MFUnrecAnimChannelPtr::getClassType(),
         "channels",
         "",
         ChannelsFieldId, ChannelsFieldMask,
@@ -232,7 +204,7 @@ AnimationBase::TypeObject AnimationBase::_type(
     "   useLocalIncludes=\"false\"\n"
     "   isNodeCore=\"true\"\n"
     "   isBundle=\"false\"\n"
-    "   parentFields=\"both\"\n"
+    "   parentFields=\"none\"\n"
     "   >\n"
     "  <Field\n"
     "     name=\"timeSensor\"\n"
@@ -256,8 +228,7 @@ AnimationBase::TypeObject AnimationBase::_type(
     "  </Field>\n"
     "  <Field\n"
     "     name=\"channels\"\n"
-    "     category=\"childpointer\"\n"
-    "     linkParentField=\"Animation\"\n"
+    "     category=\"pointer\"\n"
     "     type=\"AnimChannel\"\n"
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
@@ -326,12 +297,12 @@ SFUnrecAnimTemplatePtr *AnimationBase::editSFTemplate       (void)
 }
 
 //! Get the Animation::_mfChannels field.
-const MFUnrecChildAnimChannelPtr *AnimationBase::getMFChannels(void) const
+const MFUnrecAnimChannelPtr *AnimationBase::getMFChannels(void) const
 {
     return &_mfChannels;
 }
 
-MFUnrecChildAnimChannelPtr *AnimationBase::editMFChannels       (void)
+MFUnrecAnimChannelPtr *AnimationBase::editMFChannels       (void)
 {
     editMField(ChannelsFieldMask, _mfChannels);
 
@@ -360,11 +331,11 @@ void AnimationBase::pushToChannels(AnimChannel * const value)
     _mfChannels.push_back(value);
 }
 
-void AnimationBase::assignChannels (const MFUnrecChildAnimChannelPtr &value)
+void AnimationBase::assignChannels (const MFUnrecAnimChannelPtr &value)
 {
-    MFUnrecChildAnimChannelPtr::const_iterator elemIt  =
+    MFUnrecAnimChannelPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecChildAnimChannelPtr::const_iterator elemEnd =
+    MFUnrecAnimChannelPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<Animation *>(this)->clearChannels();
@@ -605,9 +576,7 @@ AnimationBase::AnimationBase(void) :
     Inherited(),
     _sfTimeSensor             (NULL),
     _sfTemplate               (NULL),
-    _mfChannels               (this,
-                          ChannelsFieldId,
-                          AnimChannel::AnimationFieldId),
+    _mfChannels               (),
     _sfWeight                 ()
 {
 }
@@ -616,9 +585,7 @@ AnimationBase::AnimationBase(const AnimationBase &source) :
     Inherited(source),
     _sfTimeSensor             (NULL),
     _sfTemplate               (NULL),
-    _mfChannels               (this,
-                          ChannelsFieldId,
-                          AnimChannel::AnimationFieldId),
+    _mfChannels               (),
     _sfWeight                 (source._sfWeight                 )
 {
 }
@@ -628,44 +595,6 @@ AnimationBase::AnimationBase(const AnimationBase &source) :
 
 AnimationBase::~AnimationBase(void)
 {
-}
-
-/*-------------------------------------------------------------------------*/
-/* Child linking                                                           */
-
-bool AnimationBase::unlinkChild(
-    FieldContainer * const pChild,
-    UInt16           const childFieldId)
-{
-    if(childFieldId == ChannelsFieldId)
-    {
-        AnimChannel * pTypedChild =
-            dynamic_cast<AnimChannel *>(pChild);
-
-        if(pTypedChild != NULL)
-        {
-            Int32 iChildIdx = _mfChannels.findIndex(pTypedChild);
-
-            if(iChildIdx != -1)
-            {
-                editMField(ChannelsFieldMask, _mfChannels);
-
-                _mfChannels.erase(iChildIdx);
-
-                return true;
-            }
-
-            FWARNING(("AnimationBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
-
-            return false;
-        }
-
-        return false;
-    }
-
-
-    return Inherited::unlinkChild(pChild, childFieldId);
 }
 
 void AnimationBase::onCreate(const Animation *source)
@@ -680,9 +609,9 @@ void AnimationBase::onCreate(const Animation *source)
 
         pThis->setTemplate(source->getTemplate());
 
-        MFUnrecChildAnimChannelPtr::const_iterator ChannelsIt  =
+        MFUnrecAnimChannelPtr::const_iterator ChannelsIt  =
             source->_mfChannels.begin();
-        MFUnrecChildAnimChannelPtr::const_iterator ChannelsEnd =
+        MFUnrecAnimChannelPtr::const_iterator ChannelsEnd =
             source->_mfChannels.end  ();
 
         while(ChannelsIt != ChannelsEnd)
@@ -752,8 +681,8 @@ EditFieldHandlePtr AnimationBase::editHandleTemplate       (void)
 
 GetFieldHandlePtr AnimationBase::getHandleChannels        (void) const
 {
-    MFUnrecChildAnimChannelPtr::GetHandlePtr returnValue(
-        new  MFUnrecChildAnimChannelPtr::GetHandle(
+    MFUnrecAnimChannelPtr::GetHandlePtr returnValue(
+        new  MFUnrecAnimChannelPtr::GetHandle(
              &_mfChannels,
              this->getType().getFieldDesc(ChannelsFieldId),
              const_cast<AnimationBase *>(this)));
@@ -763,8 +692,8 @@ GetFieldHandlePtr AnimationBase::getHandleChannels        (void) const
 
 EditFieldHandlePtr AnimationBase::editHandleChannels       (void)
 {
-    MFUnrecChildAnimChannelPtr::EditHandlePtr returnValue(
-        new  MFUnrecChildAnimChannelPtr::EditHandle(
+    MFUnrecAnimChannelPtr::EditHandlePtr returnValue(
+        new  MFUnrecAnimChannelPtr::EditHandle(
              &_mfChannels,
              this->getType().getFieldDesc(ChannelsFieldId),
              this));

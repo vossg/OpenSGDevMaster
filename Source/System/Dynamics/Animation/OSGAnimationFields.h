@@ -146,39 +146,6 @@ const Char8 *FieldTraits<Animation *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
-/*! \ingroup GrpDynamicsFieldTraits
- */
-template <>
-struct FieldTraits<Animation *, 1> : 
-    public FieldTraitsFCPtrBase<Animation *, 1>
-{
-  private:
-
-    static  DataType                                _type;
-
-  public:
-
-    static const bool bIsPointerField = true;
-
-    typedef FieldTraits<Animation *, 1>        Self;
-
-
-    enum             { Convertible = Self::NotConvertible };
-    
-    static OSG_DYNAMICS_DLLMAPPING
-                 DataType &getType (void);
-
-    static const Char8    *getSName(void) 
-    {
-        return "SFParentAnimationPtr"; 
-    }
-
-    static const Char8    *getMName(void) 
-    { 
-        return "MFParentAnimationPtr"; 
-    }
-};
-
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<Animation *,
@@ -207,19 +174,6 @@ typedef PointerMField<Animation *,
 typedef PointerMField<Animation *,
                       NoRefCountPolicy        > MFUncountedAnimationPtr;
 
-
-
-/*! \ingroup GrpDynamicsFieldSFields */
-typedef ParentPointerSField<
-          Animation *, 
-          NoRefCountPolicy,
-          1    > SFParentAnimationPtr;
-
-/*! \ingroup GrpDynamicsFieldMFields */
-typedef ParentPointerMField<
-          Animation *, 
-          NoRefCountPolicy,
-          1    > MFParentAnimationPtr;
 
 
 
@@ -260,21 +214,6 @@ struct MFUncountedAnimationPtr :
     public PointerMField<Animation *,
                          NoRefCountPolicy        > {};
 
-
-
-/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
-struct SFParentAnimationPtr :
-    public ParentPointerSField<
-        Animation *, 
-        NoRefCountPolicy,
-        1    > {};
-
-/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
-struct MFParentAnimationPtr :
-    public  ParentPointerMField<
-        Animation *, 
-        NoRefCountPolicy,
-        1    > {};
 
 
 #endif // these are the doxygen hacks
