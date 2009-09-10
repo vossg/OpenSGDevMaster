@@ -60,7 +60,6 @@
 
 #include "OSGFieldContainer.h"          // Globals Class
 #include "OSGCSMDrawManager.h"          // DrawManager Class
-#include "OSGSensorTask.h"              // SensorTask Class
 
 #include "OSGComplexSceneManagerBase.h"
 #include "OSGComplexSceneManager.h"
@@ -93,27 +92,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var SensorTask *    ComplexSceneManagerBase::_sfSensorTask
-    
-*/
-
-/*! \var UInt64          ComplexSceneManagerBase::_sfFrameCount
-    
-*/
-
 /*! \var Time            ComplexSceneManagerBase::_sfStartTime
-    
-*/
-
-/*! \var Time            ComplexSceneManagerBase::_sfLastTime
-    
-*/
-
-/*! \var Time            ComplexSceneManagerBase::_sfCurrTime
-    
-*/
-
-/*! \var Time            ComplexSceneManagerBase::_sfTimeStamp
     
 */
 
@@ -177,30 +156,6 @@ void ComplexSceneManagerBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUnrecSensorTaskPtr::Description(
-        SFUnrecSensorTaskPtr::getClassType(),
-        "sensorTask",
-        "",
-        SensorTaskFieldId, SensorTaskFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleSensorTask),
-        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleSensorTask));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUInt64::Description(
-        SFUInt64::getClassType(),
-        "frameCount",
-        "",
-        FrameCountFieldId, FrameCountFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleFrameCount),
-        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleFrameCount));
-
-    oType.addInitialDesc(pDesc);
-
     pDesc = new SFTime::Description(
         SFTime::getClassType(),
         "startTime",
@@ -210,42 +165,6 @@ void ComplexSceneManagerBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleStartTime),
         static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleStartTime));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFTime::Description(
-        SFTime::getClassType(),
-        "lastTime",
-        "",
-        LastTimeFieldId, LastTimeFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleLastTime),
-        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleLastTime));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFTime::Description(
-        SFTime::getClassType(),
-        "currTime",
-        "",
-        CurrTimeFieldId, CurrTimeFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleCurrTime),
-        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleCurrTime));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFTime::Description(
-        SFTime::getClassType(),
-        "timeStamp",
-        "",
-        TimeStampFieldId, TimeStampFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&ComplexSceneManager::editHandleTimeStamp),
-        static_cast<FieldGetMethodSig >(&ComplexSceneManager::getHandleTimeStamp));
 
     oType.addInitialDesc(pDesc);
 
@@ -346,6 +265,7 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     "\t>\n"
     "\t</Field>\n"
     "\n"
+    "<!--\n"
     "\t<Field\n"
     "\t\tname=\"sensorTask\"\n"
     "\t\ttype=\"SensorTask\"\n"
@@ -356,45 +276,9 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     "        category=\"pointer\"\n"
     "\t>\n"
     "\t</Field>\n"
-    "\n"
-    "\t<Field\n"
-    "\t\tname=\"frameCount\"\n"
-    "\t\ttype=\"UInt64\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"0\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "-->\n"
     "\t<Field\n"
     "\t\tname=\"startTime\"\n"
-    "\t\ttype=\"Time\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"0.0\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"lastTime\"\n"
-    "\t\ttype=\"Time\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"0.0\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"currTime\"\n"
-    "\t\ttype=\"Time\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\taccess=\"public\"\n"
-    "        defaultValue=\"0.0\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"timeStamp\"\n"
     "\t\ttype=\"Time\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"internal\"\n"
@@ -438,7 +322,6 @@ ComplexSceneManagerBase::TypeObject ComplexSceneManagerBase::_type(
     "        defaultValue=\"false\"\n"
     "\t>\n"
     "\t</Field>\n"
-    "\n"
     "\n"
     "</FieldContainer>\n",
     ""
@@ -490,32 +373,6 @@ SFUnrecCSMDrawManagerPtr *ComplexSceneManagerBase::editSFDrawManager    (void)
     return &_sfDrawManager;
 }
 
-//! Get the ComplexSceneManager::_sfSensorTask field.
-const SFUnrecSensorTaskPtr *ComplexSceneManagerBase::getSFSensorTask(void) const
-{
-    return &_sfSensorTask;
-}
-
-SFUnrecSensorTaskPtr *ComplexSceneManagerBase::editSFSensorTask     (void)
-{
-    editSField(SensorTaskFieldMask);
-
-    return &_sfSensorTask;
-}
-
-SFUInt64 *ComplexSceneManagerBase::editSFFrameCount(void)
-{
-    editSField(FrameCountFieldMask);
-
-    return &_sfFrameCount;
-}
-
-const SFUInt64 *ComplexSceneManagerBase::getSFFrameCount(void) const
-{
-    return &_sfFrameCount;
-}
-
-
 SFTime *ComplexSceneManagerBase::editSFStartTime(void)
 {
     editSField(StartTimeFieldMask);
@@ -526,45 +383,6 @@ SFTime *ComplexSceneManagerBase::editSFStartTime(void)
 const SFTime *ComplexSceneManagerBase::getSFStartTime(void) const
 {
     return &_sfStartTime;
-}
-
-
-SFTime *ComplexSceneManagerBase::editSFLastTime(void)
-{
-    editSField(LastTimeFieldMask);
-
-    return &_sfLastTime;
-}
-
-const SFTime *ComplexSceneManagerBase::getSFLastTime(void) const
-{
-    return &_sfLastTime;
-}
-
-
-SFTime *ComplexSceneManagerBase::editSFCurrTime(void)
-{
-    editSField(CurrTimeFieldMask);
-
-    return &_sfCurrTime;
-}
-
-const SFTime *ComplexSceneManagerBase::getSFCurrTime(void) const
-{
-    return &_sfCurrTime;
-}
-
-
-SFTime *ComplexSceneManagerBase::editSFTimeStamp(void)
-{
-    editSField(TimeStampFieldMask);
-
-    return &_sfTimeStamp;
-}
-
-const SFTime *ComplexSceneManagerBase::getSFTimeStamp(void) const
-{
-    return &_sfTimeStamp;
 }
 
 
@@ -691,29 +509,9 @@ UInt32 ComplexSceneManagerBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfDrawManager.getBinSize();
     }
-    if(FieldBits::NoField != (SensorTaskFieldMask & whichField))
-    {
-        returnValue += _sfSensorTask.getBinSize();
-    }
-    if(FieldBits::NoField != (FrameCountFieldMask & whichField))
-    {
-        returnValue += _sfFrameCount.getBinSize();
-    }
     if(FieldBits::NoField != (StartTimeFieldMask & whichField))
     {
         returnValue += _sfStartTime.getBinSize();
-    }
-    if(FieldBits::NoField != (LastTimeFieldMask & whichField))
-    {
-        returnValue += _sfLastTime.getBinSize();
-    }
-    if(FieldBits::NoField != (CurrTimeFieldMask & whichField))
-    {
-        returnValue += _sfCurrTime.getBinSize();
-    }
-    if(FieldBits::NoField != (TimeStampFieldMask & whichField))
-    {
-        returnValue += _sfTimeStamp.getBinSize();
     }
     if(FieldBits::NoField != (TimeScaleFieldMask & whichField))
     {
@@ -748,29 +546,9 @@ void ComplexSceneManagerBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfDrawManager.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (SensorTaskFieldMask & whichField))
-    {
-        _sfSensorTask.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (FrameCountFieldMask & whichField))
-    {
-        _sfFrameCount.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (StartTimeFieldMask & whichField))
     {
         _sfStartTime.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (LastTimeFieldMask & whichField))
-    {
-        _sfLastTime.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (CurrTimeFieldMask & whichField))
-    {
-        _sfCurrTime.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (TimeStampFieldMask & whichField))
-    {
-        _sfTimeStamp.copyToBin(pMem);
     }
     if(FieldBits::NoField != (TimeScaleFieldMask & whichField))
     {
@@ -803,29 +581,9 @@ void ComplexSceneManagerBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfDrawManager.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (SensorTaskFieldMask & whichField))
-    {
-        _sfSensorTask.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (FrameCountFieldMask & whichField))
-    {
-        _sfFrameCount.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (StartTimeFieldMask & whichField))
     {
         _sfStartTime.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (LastTimeFieldMask & whichField))
-    {
-        _sfLastTime.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (CurrTimeFieldMask & whichField))
-    {
-        _sfCurrTime.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (TimeStampFieldMask & whichField))
-    {
-        _sfTimeStamp.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (TimeScaleFieldMask & whichField))
     {
@@ -943,12 +701,7 @@ ComplexSceneManagerBase::ComplexSceneManagerBase(void) :
     Inherited(),
     _mfGlobals                (),
     _sfDrawManager            (NULL),
-    _sfSensorTask             (NULL),
-    _sfFrameCount             (UInt64(0)),
     _sfStartTime              (Time(0.0)),
-    _sfLastTime               (Time(0.0)),
-    _sfCurrTime               (Time(0.0)),
-    _sfTimeStamp              (Time(0.0)),
     _sfTimeScale              (Time(1.0)),
     _sfConstantTimeStep       (Time(0.0)),
     _sfConstantTime           (bool(false)),
@@ -960,12 +713,7 @@ ComplexSceneManagerBase::ComplexSceneManagerBase(const ComplexSceneManagerBase &
     Inherited(source),
     _mfGlobals                (),
     _sfDrawManager            (NULL),
-    _sfSensorTask             (NULL),
-    _sfFrameCount             (source._sfFrameCount             ),
     _sfStartTime              (source._sfStartTime              ),
-    _sfLastTime               (source._sfLastTime               ),
-    _sfCurrTime               (source._sfCurrTime               ),
-    _sfTimeStamp              (source._sfTimeStamp              ),
     _sfTimeScale              (source._sfTimeScale              ),
     _sfConstantTimeStep       (source._sfConstantTimeStep       ),
     _sfConstantTime           (source._sfConstantTime           ),
@@ -1001,8 +749,6 @@ void ComplexSceneManagerBase::onCreate(const ComplexSceneManager *source)
         }
 
         pThis->setDrawManager(source->getDrawManager());
-
-        pThis->setSensorTask(source->getSensorTask());
     }
 }
 
@@ -1071,59 +817,6 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleDrawManager    (void)
     return returnValue;
 }
 
-GetFieldHandlePtr ComplexSceneManagerBase::getHandleSensorTask      (void) const
-{
-    SFUnrecSensorTaskPtr::GetHandlePtr returnValue(
-        new  SFUnrecSensorTaskPtr::GetHandle(
-             &_sfSensorTask,
-             this->getType().getFieldDesc(SensorTaskFieldId),
-             const_cast<ComplexSceneManagerBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ComplexSceneManagerBase::editHandleSensorTask     (void)
-{
-    SFUnrecSensorTaskPtr::EditHandlePtr returnValue(
-        new  SFUnrecSensorTaskPtr::EditHandle(
-             &_sfSensorTask,
-             this->getType().getFieldDesc(SensorTaskFieldId),
-             this));
-
-    returnValue->setSetMethod(
-        boost::bind(&ComplexSceneManager::setSensorTask,
-                    static_cast<ComplexSceneManager *>(this), _1));
-
-    editSField(SensorTaskFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ComplexSceneManagerBase::getHandleFrameCount      (void) const
-{
-    SFUInt64::GetHandlePtr returnValue(
-        new  SFUInt64::GetHandle(
-             &_sfFrameCount,
-             this->getType().getFieldDesc(FrameCountFieldId),
-             const_cast<ComplexSceneManagerBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ComplexSceneManagerBase::editHandleFrameCount     (void)
-{
-    SFUInt64::EditHandlePtr returnValue(
-        new  SFUInt64::EditHandle(
-             &_sfFrameCount,
-             this->getType().getFieldDesc(FrameCountFieldId),
-             this));
-
-
-    editSField(FrameCountFieldMask);
-
-    return returnValue;
-}
-
 GetFieldHandlePtr ComplexSceneManagerBase::getHandleStartTime       (void) const
 {
     SFTime::GetHandlePtr returnValue(
@@ -1145,81 +838,6 @@ EditFieldHandlePtr ComplexSceneManagerBase::editHandleStartTime      (void)
 
 
     editSField(StartTimeFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ComplexSceneManagerBase::getHandleLastTime        (void) const
-{
-    SFTime::GetHandlePtr returnValue(
-        new  SFTime::GetHandle(
-             &_sfLastTime,
-             this->getType().getFieldDesc(LastTimeFieldId),
-             const_cast<ComplexSceneManagerBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ComplexSceneManagerBase::editHandleLastTime       (void)
-{
-    SFTime::EditHandlePtr returnValue(
-        new  SFTime::EditHandle(
-             &_sfLastTime,
-             this->getType().getFieldDesc(LastTimeFieldId),
-             this));
-
-
-    editSField(LastTimeFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ComplexSceneManagerBase::getHandleCurrTime        (void) const
-{
-    SFTime::GetHandlePtr returnValue(
-        new  SFTime::GetHandle(
-             &_sfCurrTime,
-             this->getType().getFieldDesc(CurrTimeFieldId),
-             const_cast<ComplexSceneManagerBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ComplexSceneManagerBase::editHandleCurrTime       (void)
-{
-    SFTime::EditHandlePtr returnValue(
-        new  SFTime::EditHandle(
-             &_sfCurrTime,
-             this->getType().getFieldDesc(CurrTimeFieldId),
-             this));
-
-
-    editSField(CurrTimeFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr ComplexSceneManagerBase::getHandleTimeStamp       (void) const
-{
-    SFTime::GetHandlePtr returnValue(
-        new  SFTime::GetHandle(
-             &_sfTimeStamp,
-             this->getType().getFieldDesc(TimeStampFieldId),
-             const_cast<ComplexSceneManagerBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr ComplexSceneManagerBase::editHandleTimeStamp      (void)
-{
-    SFTime::EditHandlePtr returnValue(
-        new  SFTime::EditHandle(
-             &_sfTimeStamp,
-             this->getType().getFieldDesc(TimeStampFieldId),
-             this));
-
-
-    editSField(TimeStampFieldMask);
 
     return returnValue;
 }
@@ -1364,8 +982,6 @@ void ComplexSceneManagerBase::resolveLinks(void)
     static_cast<ComplexSceneManager *>(this)->clearGlobals();
 
     static_cast<ComplexSceneManager *>(this)->setDrawManager(NULL);
-
-    static_cast<ComplexSceneManager *>(this)->setSensorTask(NULL);
 
 
 }

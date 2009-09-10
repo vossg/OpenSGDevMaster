@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+   name="GlobalsAttachment"
+   parent="Attachment"
+   library="Base"
+   structure="concrete"
+   group="globals"
+   pointerfieldtypes="both"
+   parentFields="both"
+   childFields="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="false"
+   >
+  attached to the root node by the loader infrastructure if the file
+  contains elements outside the main graph.
+  <Field
+     name="elements"
+     category="pointer"
+     type="FieldContainer"
+     cardinality="multi"
+     visibility="internal"
+     >
+    global elements store inside the attachment
+  </Field>
+</FieldContainer>

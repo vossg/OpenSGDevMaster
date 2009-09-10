@@ -45,50 +45,48 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ComplexSceneManager
+ **     class PositionInterpolator
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCOMPLEXSCENEMANAGERBASE_H_
-#define _OSGCOMPLEXSCENEMANAGERBASE_H_
+#ifndef _OSGPOSITIONINTERPOLATORBASE_H_
+#define _OSGPOSITIONINTERPOLATORBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 
 #include "OSGConfig.h"
-#include "OSGContribCSMDef.h"
+#include "OSGDynamicsDef.h"
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGFieldContainer.h" // Parent
+#include "OSGNodeCore.h" // Parent
 
-#include "OSGFieldContainerFields.h"    // Globals type
-#include "OSGCSMDrawManagerFields.h"    // DrawManager type
-#include "OSGBaseFields.h"              // StartTime type
-#include "OSGSysFields.h"               // ConstantTime type
+#include "OSGSysFields.h"               // Fraction type
+#include "OSGVecFields.h"               // KeyValue type
 
-#include "OSGComplexSceneManagerFields.h"
+#include "OSGPositionInterpolatorFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ComplexSceneManager;
+class PositionInterpolator;
 
-//! \brief ComplexSceneManager Base Class.
+//! \brief PositionInterpolator Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
+class OSG_DYNAMICS_DLLMAPPING PositionInterpolatorBase : public NodeCore
 {
   public:
 
-    typedef FieldContainer Inherited;
-    typedef FieldContainer ParentContainer;
+    typedef NodeCore Inherited;
+    typedef NodeCore ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(ComplexSceneManager);
+    OSG_GEN_INTERNALPTR(PositionInterpolator);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -96,40 +94,28 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
 
     enum
     {
-        GlobalsFieldId = Inherited::NextFieldId,
-        DrawManagerFieldId = GlobalsFieldId + 1,
-        StartTimeFieldId = DrawManagerFieldId + 1,
-        TimeScaleFieldId = StartTimeFieldId + 1,
-        ConstantTimeStepFieldId = TimeScaleFieldId + 1,
-        ConstantTimeFieldId = ConstantTimeStepFieldId + 1,
-        PausedFieldId = ConstantTimeFieldId + 1,
-        NextFieldId = PausedFieldId + 1
+        FractionFieldId = Inherited::NextFieldId,
+        KeyFieldId = FractionFieldId + 1,
+        KeyValueFieldId = KeyFieldId + 1,
+        ValueFieldId = KeyValueFieldId + 1,
+        NextFieldId = ValueFieldId + 1
     };
 
-    static const OSG::BitVector GlobalsFieldMask =
-        (TypeTraits<BitVector>::One << GlobalsFieldId);
-    static const OSG::BitVector DrawManagerFieldMask =
-        (TypeTraits<BitVector>::One << DrawManagerFieldId);
-    static const OSG::BitVector StartTimeFieldMask =
-        (TypeTraits<BitVector>::One << StartTimeFieldId);
-    static const OSG::BitVector TimeScaleFieldMask =
-        (TypeTraits<BitVector>::One << TimeScaleFieldId);
-    static const OSG::BitVector ConstantTimeStepFieldMask =
-        (TypeTraits<BitVector>::One << ConstantTimeStepFieldId);
-    static const OSG::BitVector ConstantTimeFieldMask =
-        (TypeTraits<BitVector>::One << ConstantTimeFieldId);
-    static const OSG::BitVector PausedFieldMask =
-        (TypeTraits<BitVector>::One << PausedFieldId);
+    static const OSG::BitVector FractionFieldMask =
+        (TypeTraits<BitVector>::One << FractionFieldId);
+    static const OSG::BitVector KeyFieldMask =
+        (TypeTraits<BitVector>::One << KeyFieldId);
+    static const OSG::BitVector KeyValueFieldMask =
+        (TypeTraits<BitVector>::One << KeyValueFieldId);
+    static const OSG::BitVector ValueFieldMask =
+        (TypeTraits<BitVector>::One << ValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUnrecFieldContainerPtr MFGlobalsType;
-    typedef SFUnrecCSMDrawManagerPtr SFDrawManagerType;
-    typedef SFTime            SFStartTimeType;
-    typedef SFTime            SFTimeScaleType;
-    typedef SFTime            SFConstantTimeStepType;
-    typedef SFBool            SFConstantTimeType;
-    typedef SFBool            SFPausedType;
+    typedef SFReal32          SFFractionType;
+    typedef MFReal32          MFKeyType;
+    typedef MFVec3f           MFKeyValueType;
+    typedef SFVec3f           SFValueType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -154,73 +140,44 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecFieldContainerPtr *getMFGlobals        (void) const;
-                  MFUnrecFieldContainerPtr *editMFGlobals        (void);
-            const SFUnrecCSMDrawManagerPtr *getSFDrawManager    (void) const;
-                  SFUnrecCSMDrawManagerPtr *editSFDrawManager    (void);
 
-                  SFTime              *editSFStartTime      (void);
-            const SFTime              *getSFStartTime       (void) const;
+                  SFReal32            *editSFFraction       (void);
+            const SFReal32            *getSFFraction        (void) const;
 
-                  SFTime              *editSFTimeScale      (void);
-            const SFTime              *getSFTimeScale       (void) const;
+                  MFReal32            *editMFKey            (void);
+            const MFReal32            *getMFKey             (void) const;
 
-                  SFTime              *editSFConstantTimeStep(void);
-            const SFTime              *getSFConstantTimeStep (void) const;
+                  MFVec3f             *editMFKeyValue       (void);
+            const MFVec3f             *getMFKeyValue        (void) const;
 
-                  SFBool              *editSFConstantTime   (void);
-            const SFBool              *getSFConstantTime    (void) const;
-
-                  SFBool              *editSFPaused         (void);
-            const SFBool              *getSFPaused          (void) const;
+                  SFVec3f             *editSFValue          (void);
+            const SFVec3f             *getSFValue           (void) const;
 
 
-                  FieldContainer * getGlobals        (const UInt32 index) const;
+                  Real32              &editFraction       (void);
+                  Real32               getFraction        (void) const;
 
-                  CSMDrawManager * getDrawManager    (void) const;
+                  Real32              &editKey            (const UInt32 index);
+                  Real32               getKey             (const UInt32 index) const;
 
-                  Time                &editStartTime      (void);
-            const Time                &getStartTime       (void) const;
+                  Vec3f               &editKeyValue       (const UInt32 index);
+            const Vec3f               &getKeyValue        (const UInt32 index) const;
 
-                  Time                &editTimeScale      (void);
-            const Time                &getTimeScale       (void) const;
-
-                  Time                &editConstantTimeStep(void);
-            const Time                &getConstantTimeStep (void) const;
-
-                  bool                &editConstantTime   (void);
-                  bool                 getConstantTime    (void) const;
-
-                  bool                &editPaused         (void);
-                  bool                 getPaused          (void) const;
+                  Vec3f               &editValue          (void);
+            const Vec3f               &getValue           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setDrawManager    (CSMDrawManager * const value);
-            void setStartTime      (const Time &value);
-            void setTimeScale      (const Time &value);
-            void setConstantTimeStep(const Time &value);
-            void setConstantTime   (const bool value);
-            void setPaused         (const bool value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
+            void setFraction       (const Real32 value);
+            void setValue          (const Vec3f &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToGlobals             (FieldContainer * const value   );
-    void assignGlobals            (const MFUnrecFieldContainerPtr &value);
-    void removeFromGlobals (UInt32               uiIndex );
-    void removeObjFromGlobals(FieldContainer * const value   );
-    void clearGlobals               (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -239,16 +196,16 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ComplexSceneManagerTransitPtr  create          (void);
-    static  ComplexSceneManager           *createEmpty     (void);
+    static  PositionInterpolatorTransitPtr  create          (void);
+    static  PositionInterpolator           *createEmpty     (void);
 
-    static  ComplexSceneManagerTransitPtr  createLocal     (
+    static  PositionInterpolatorTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  ComplexSceneManager            *createEmptyLocal(
+    static  PositionInterpolator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  ComplexSceneManagerTransitPtr  createDependent  (BitVector bFlags);
+    static  PositionInterpolatorTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -275,55 +232,45 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecFieldContainerPtr _mfGlobals;
-    SFUnrecCSMDrawManagerPtr _sfDrawManager;
-    SFTime            _sfStartTime;
-    SFTime            _sfTimeScale;
-    SFTime            _sfConstantTimeStep;
-    SFBool            _sfConstantTime;
-    SFBool            _sfPaused;
+    SFReal32          _sfFraction;
+    MFReal32          _mfKey;
+    MFVec3f           _mfKeyValue;
+    SFVec3f           _sfValue;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ComplexSceneManagerBase(void);
-    ComplexSceneManagerBase(const ComplexSceneManagerBase &source);
+    PositionInterpolatorBase(void);
+    PositionInterpolatorBase(const PositionInterpolatorBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ComplexSceneManagerBase(void);
+    virtual ~PositionInterpolatorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const ComplexSceneManager *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGlobals         (void) const;
-    EditFieldHandlePtr editHandleGlobals        (void);
-    GetFieldHandlePtr  getHandleDrawManager     (void) const;
-    EditFieldHandlePtr editHandleDrawManager    (void);
-    GetFieldHandlePtr  getHandleStartTime       (void) const;
-    EditFieldHandlePtr editHandleStartTime      (void);
-    GetFieldHandlePtr  getHandleTimeScale       (void) const;
-    EditFieldHandlePtr editHandleTimeScale      (void);
-    GetFieldHandlePtr  getHandleConstantTimeStep (void) const;
-    EditFieldHandlePtr editHandleConstantTimeStep(void);
-    GetFieldHandlePtr  getHandleConstantTime    (void) const;
-    EditFieldHandlePtr editHandleConstantTime   (void);
-    GetFieldHandlePtr  getHandlePaused          (void) const;
-    EditFieldHandlePtr editHandlePaused         (void);
+    GetFieldHandlePtr  getHandleFraction        (void) const;
+    EditFieldHandlePtr editHandleFraction       (void);
+    GetFieldHandlePtr  getHandleKey             (void) const;
+    EditFieldHandlePtr editHandleKey            (void);
+    GetFieldHandlePtr  getHandleKeyValue        (void) const;
+    EditFieldHandlePtr editHandleKeyValue       (void);
+    GetFieldHandlePtr  getHandleValue           (void) const;
+    EditFieldHandlePtr editHandleValue          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -337,7 +284,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      ComplexSceneManagerBase *pFrom,
+            void execSync (      PositionInterpolatorBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -377,11 +324,11 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ComplexSceneManagerBase &source);
+    void operator =(const PositionInterpolatorBase &source);
 };
 
-typedef ComplexSceneManagerBase *ComplexSceneManagerBaseP;
+typedef PositionInterpolatorBase *PositionInterpolatorBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCOMPLEXSCENEMANAGERBASE_H_ */
+#endif /* _OSGPOSITIONINTERPOLATORBASE_H_ */

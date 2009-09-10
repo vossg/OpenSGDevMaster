@@ -36,6 +36,7 @@ ENDIF(APPLE AND OSG_CARBON_FRAMEWORK)
 SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
                                 OSGWindow
                                 OSGFileIO
+                                OSGDynamics
                                 OSGUtil)
 
 IF(OSGBUILD_OSGCluster)

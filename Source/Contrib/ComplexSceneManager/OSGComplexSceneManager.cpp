@@ -55,6 +55,7 @@
 #include "OSGNameAttachment.h"
 #include "OSGAction.h"
 #include "OSGCSMResetInterface.h"
+#include "OSGFrameHandler.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -714,9 +715,11 @@ void ComplexSceneManager::onCreate(const ComplexSceneManager *source)
         ++gIt;
     }   
 
+#if 0
     SensorTaskUnrecPtr pSensorTask = SensorTask::create();
 
     setSensorTask(pSensorTask);
+#endif
 }
 
 bool ComplexSceneManager::init(int argc, char **argv)
@@ -791,9 +794,9 @@ bool ComplexSceneManager::init(const std::vector<std::string> &vParams)
 
     returnValue = _sfDrawManager.getValue()->init();
 
-    if(returnValue == true && _sfSensorTask.getValue() != NULL)
+    if(returnValue == true && FrameHandler::the() != NULL)
     {
-        returnValue &= _sfSensorTask.getValue()->init();
+        returnValue &= FrameHandler::the()->init();
     }
 
     return returnValue;
@@ -810,9 +813,9 @@ void ComplexSceneManager::terminate(void)
 
 void ComplexSceneManager::shutdown(void)
 {
-    if(_sfSensorTask.getValue() != NULL)
+    if(FrameHandler::the() != NULL)
     {
-        _sfSensorTask.getValue()->shutdown();
+        FrameHandler::the()->shutdown();
     }
 
     this->clearGlobals();
@@ -824,7 +827,7 @@ void ComplexSceneManager::shutdown(void)
 
 
     this->setDrawManager(NULL);
-    this->setSensorTask (NULL);
+//    this->setSensorTask (NULL);
 }
 
 void ComplexSceneManager::setMainloop(MainLoopFuncF fMainloop)
@@ -848,6 +851,7 @@ void ComplexSceneManager::run(void)
 
 void ComplexSceneManager::frame(void)
 {
+#if 0
     setCurrTime(getSystemTime());
     
     if(osgAbs(_sfStartTime.getValue()) < 0.00001)
@@ -892,13 +896,18 @@ void ComplexSceneManager::frame(void)
         _sfSensorTask.getValue()->frame(_sfTimeStamp.getValue (), 
                                         _sfFrameCount.getValue());
     }
+#endif
+
+    FrameHandler::the()->frame();
+
+    SystemTime = FrameHandler::the()->getTimeStamp();
 
     commitChanges();
 
     if(_sfDrawManager.getValue() != NULL)
     {
-        _sfDrawManager.getValue()->frame(_sfTimeStamp.getValue (), 
-                                         _sfFrameCount.getValue());
+        _sfDrawManager.getValue()->frame(FrameHandler::the()->getTimeStamp(), 
+                                         FrameHandler::the()->getFrameCount());
     }
 }
 

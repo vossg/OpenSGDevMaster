@@ -67,6 +67,11 @@
 #include "OSGComponentTransform.h"
 #include "OSGInline.h"
 #include "OSGSwitch.h"
+#include <OSGTimeSensor.h>
+#include <OSGOrientationInterpolator.h>
+#include <OSGPositionInterpolator.h>
+#include <OSGCoordinateInterpolator.h>
+#include <OSGScalarInterpolator.h>
 
 #ifndef OSG_LOG_MODULE
 #define OSG_LOG_MODULE "VRMLLoader"
@@ -4274,5 +4279,53 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLSwitchHelper::_regHelper(
     &VRMLSwitchHelper::create,
     "Switch");
 
+
+//---------------------------------------------------------------------------
+//  Generic Helper with 1:1 mapping
+//---------------------------------------------------------------------------
+
+template<>
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGenericHelper<TimeSensor>::_regHelper(
+        &VRMLGenericHelper<TimeSensor>::create,
+        "TimeSensor");
+
+template class VRMLGenericHelper<TimeSensor>;
+
+
+template<>
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGenericHelper<OrientationInterpolator>::_regHelper(
+        &VRMLGenericHelper<OrientationInterpolator>::create,
+        "OrientationInterpolator");
+
+template class VRMLGenericHelper<OrientationInterpolator>;
+
+
+template<>
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGenericHelper<PositionInterpolator>::_regHelper(
+        &VRMLGenericHelper<PositionInterpolator>::create,
+        "PositionInterpolator");
+
+template class VRMLGenericHelper<PositionInterpolator>;
+
+
+template<>
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGenericHelper<CoordinateInterpolator>::_regHelper(
+        &VRMLGenericHelper<CoordinateInterpolator>::create,
+        "CoordinateInterpolator");
+
+template class VRMLGenericHelper<CoordinateInterpolator>;
+
+
+template<>
+VRMLNodeHelperFactoryBase::RegisterHelper 
+    VRMLGenericHelper<ScalarInterpolator>::_regHelper(
+        &VRMLGenericHelper<ScalarInterpolator>::create,
+        "ScalarInterpolator");
+
+template class VRMLGenericHelper<ScalarInterpolator>;
 
 OSG_END_NAMESPACE

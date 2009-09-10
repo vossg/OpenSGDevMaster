@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ComplexSceneManager!
+ **     class FrameHandler!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,179 +53,270 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &ComplexSceneManagerBase::getClassType(void)
+OSG::FieldContainerType &FrameHandlerBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 ComplexSceneManagerBase::getClassTypeId(void)
+OSG::UInt32 FrameHandlerBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 ComplexSceneManagerBase::getClassGroupId(void)
+OSG::UInt16 FrameHandlerBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the FrameHandler::_sfFrameCount field.
 
-//! Get the value of the ComplexSceneManager::_sfDrawManager field.
 inline
-CSMDrawManager * ComplexSceneManagerBase::getDrawManager(void) const
+UInt64 &FrameHandlerBase::editFrameCount(void)
 {
-    return _sfDrawManager.getValue();
+    editSField(FrameCountFieldMask);
+
+    return _sfFrameCount.getValue();
 }
 
-//! Set the value of the ComplexSceneManager::_sfDrawManager field.
+//! Get the value of the FrameHandler::_sfFrameCount field.
 inline
-void ComplexSceneManagerBase::setDrawManager(CSMDrawManager * const value)
+      UInt64  FrameHandlerBase::getFrameCount(void) const
 {
-    editSField(DrawManagerFieldMask);
-
-    _sfDrawManager.setValue(value);
+    return _sfFrameCount.getValue();
 }
-//! Get the value of the ComplexSceneManager::_sfStartTime field.
+
+//! Set the value of the FrameHandler::_sfFrameCount field.
+inline
+void FrameHandlerBase::setFrameCount(const UInt64 value)
+{
+    editSField(FrameCountFieldMask);
+
+    _sfFrameCount.setValue(value);
+}
+//! Get the value of the FrameHandler::_sfStartTime field.
 
 inline
-Time &ComplexSceneManagerBase::editStartTime(void)
+Time &FrameHandlerBase::editStartTime(void)
 {
     editSField(StartTimeFieldMask);
 
     return _sfStartTime.getValue();
 }
 
-//! Get the value of the ComplexSceneManager::_sfStartTime field.
+//! Get the value of the FrameHandler::_sfStartTime field.
 inline
-const Time &ComplexSceneManagerBase::getStartTime(void) const
+const Time &FrameHandlerBase::getStartTime(void) const
 {
     return _sfStartTime.getValue();
 }
 
-//! Set the value of the ComplexSceneManager::_sfStartTime field.
+//! Set the value of the FrameHandler::_sfStartTime field.
 inline
-void ComplexSceneManagerBase::setStartTime(const Time &value)
+void FrameHandlerBase::setStartTime(const Time &value)
 {
     editSField(StartTimeFieldMask);
 
     _sfStartTime.setValue(value);
 }
-//! Get the value of the ComplexSceneManager::_sfTimeScale field.
+//! Get the value of the FrameHandler::_sfLastTime field.
 
 inline
-Time &ComplexSceneManagerBase::editTimeScale(void)
+Time &FrameHandlerBase::editLastTime(void)
+{
+    editSField(LastTimeFieldMask);
+
+    return _sfLastTime.getValue();
+}
+
+//! Get the value of the FrameHandler::_sfLastTime field.
+inline
+const Time &FrameHandlerBase::getLastTime(void) const
+{
+    return _sfLastTime.getValue();
+}
+
+//! Set the value of the FrameHandler::_sfLastTime field.
+inline
+void FrameHandlerBase::setLastTime(const Time &value)
+{
+    editSField(LastTimeFieldMask);
+
+    _sfLastTime.setValue(value);
+}
+//! Get the value of the FrameHandler::_sfCurrTime field.
+
+inline
+Time &FrameHandlerBase::editCurrTime(void)
+{
+    editSField(CurrTimeFieldMask);
+
+    return _sfCurrTime.getValue();
+}
+
+//! Get the value of the FrameHandler::_sfCurrTime field.
+inline
+const Time &FrameHandlerBase::getCurrTime(void) const
+{
+    return _sfCurrTime.getValue();
+}
+
+//! Set the value of the FrameHandler::_sfCurrTime field.
+inline
+void FrameHandlerBase::setCurrTime(const Time &value)
+{
+    editSField(CurrTimeFieldMask);
+
+    _sfCurrTime.setValue(value);
+}
+//! Get the value of the FrameHandler::_sfTimeStamp field.
+
+inline
+Time &FrameHandlerBase::editTimeStamp(void)
+{
+    editSField(TimeStampFieldMask);
+
+    return _sfTimeStamp.getValue();
+}
+
+//! Get the value of the FrameHandler::_sfTimeStamp field.
+inline
+const Time &FrameHandlerBase::getTimeStamp(void) const
+{
+    return _sfTimeStamp.getValue();
+}
+
+//! Set the value of the FrameHandler::_sfTimeStamp field.
+inline
+void FrameHandlerBase::setTimeStamp(const Time &value)
+{
+    editSField(TimeStampFieldMask);
+
+    _sfTimeStamp.setValue(value);
+}
+//! Get the value of the FrameHandler::_sfTimeScale field.
+
+inline
+Time &FrameHandlerBase::editTimeScale(void)
 {
     editSField(TimeScaleFieldMask);
 
     return _sfTimeScale.getValue();
 }
 
-//! Get the value of the ComplexSceneManager::_sfTimeScale field.
+//! Get the value of the FrameHandler::_sfTimeScale field.
 inline
-const Time &ComplexSceneManagerBase::getTimeScale(void) const
+const Time &FrameHandlerBase::getTimeScale(void) const
 {
     return _sfTimeScale.getValue();
 }
 
-//! Set the value of the ComplexSceneManager::_sfTimeScale field.
+//! Set the value of the FrameHandler::_sfTimeScale field.
 inline
-void ComplexSceneManagerBase::setTimeScale(const Time &value)
+void FrameHandlerBase::setTimeScale(const Time &value)
 {
     editSField(TimeScaleFieldMask);
 
     _sfTimeScale.setValue(value);
 }
-//! Get the value of the ComplexSceneManager::_sfConstantTimeStep field.
+//! Get the value of the FrameHandler::_sfConstantTimeStep field.
 
 inline
-Time &ComplexSceneManagerBase::editConstantTimeStep(void)
+Time &FrameHandlerBase::editConstantTimeStep(void)
 {
     editSField(ConstantTimeStepFieldMask);
 
     return _sfConstantTimeStep.getValue();
 }
 
-//! Get the value of the ComplexSceneManager::_sfConstantTimeStep field.
+//! Get the value of the FrameHandler::_sfConstantTimeStep field.
 inline
-const Time &ComplexSceneManagerBase::getConstantTimeStep(void) const
+const Time &FrameHandlerBase::getConstantTimeStep(void) const
 {
     return _sfConstantTimeStep.getValue();
 }
 
-//! Set the value of the ComplexSceneManager::_sfConstantTimeStep field.
+//! Set the value of the FrameHandler::_sfConstantTimeStep field.
 inline
-void ComplexSceneManagerBase::setConstantTimeStep(const Time &value)
+void FrameHandlerBase::setConstantTimeStep(const Time &value)
 {
     editSField(ConstantTimeStepFieldMask);
 
     _sfConstantTimeStep.setValue(value);
 }
-//! Get the value of the ComplexSceneManager::_sfConstantTime field.
+//! Get the value of the FrameHandler::_sfConstantTime field.
 
 inline
-bool &ComplexSceneManagerBase::editConstantTime(void)
+bool &FrameHandlerBase::editConstantTime(void)
 {
     editSField(ConstantTimeFieldMask);
 
     return _sfConstantTime.getValue();
 }
 
-//! Get the value of the ComplexSceneManager::_sfConstantTime field.
+//! Get the value of the FrameHandler::_sfConstantTime field.
 inline
-      bool  ComplexSceneManagerBase::getConstantTime(void) const
+      bool  FrameHandlerBase::getConstantTime(void) const
 {
     return _sfConstantTime.getValue();
 }
 
-//! Set the value of the ComplexSceneManager::_sfConstantTime field.
+//! Set the value of the FrameHandler::_sfConstantTime field.
 inline
-void ComplexSceneManagerBase::setConstantTime(const bool value)
+void FrameHandlerBase::setConstantTime(const bool value)
 {
     editSField(ConstantTimeFieldMask);
 
     _sfConstantTime.setValue(value);
 }
-//! Get the value of the ComplexSceneManager::_sfPaused field.
+//! Get the value of the FrameHandler::_sfPaused field.
 
 inline
-bool &ComplexSceneManagerBase::editPaused(void)
+bool &FrameHandlerBase::editPaused(void)
 {
     editSField(PausedFieldMask);
 
     return _sfPaused.getValue();
 }
 
-//! Get the value of the ComplexSceneManager::_sfPaused field.
+//! Get the value of the FrameHandler::_sfPaused field.
 inline
-      bool  ComplexSceneManagerBase::getPaused(void) const
+      bool  FrameHandlerBase::getPaused(void) const
 {
     return _sfPaused.getValue();
 }
 
-//! Set the value of the ComplexSceneManager::_sfPaused field.
+//! Set the value of the FrameHandler::_sfPaused field.
 inline
-void ComplexSceneManagerBase::setPaused(const bool value)
+void FrameHandlerBase::setPaused(const bool value)
 {
     editSField(PausedFieldMask);
 
     _sfPaused.setValue(value);
 }
 
-//! Get the value of the \a index element the ComplexSceneManager::_mfGlobals field.
+//! Get the value of the \a index element the FrameHandler::_mfFrameTasks field.
 inline
-FieldContainer * ComplexSceneManagerBase::getGlobals(const UInt32 index) const
+FrameTask * FrameHandlerBase::getFrameTasks(const UInt32 index) const
 {
-    return _mfGlobals[index];
+    return _mfFrameTasks[index];
+}
+
+//! Get the value of the \a index element the FrameHandler::_mfUninitializedFrameTasks field.
+inline
+FrameTask * FrameHandlerBase::getUninitializedFrameTasks(const UInt32 index) const
+{
+    return _mfUninitializedFrameTasks[index];
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void ComplexSceneManagerBase::execSync (      ComplexSceneManagerBase *pFrom,
+void FrameHandlerBase::execSync (      FrameHandlerBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -233,17 +324,32 @@ void ComplexSceneManagerBase::execSync (      ComplexSceneManagerBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (GlobalsFieldMask & whichField))
-        _mfGlobals.syncWith(pFrom->_mfGlobals,
+    if(FieldBits::NoField != (FrameTasksFieldMask & whichField))
+        _mfFrameTasks.syncWith(pFrom->_mfFrameTasks,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
-    if(FieldBits::NoField != (DrawManagerFieldMask & whichField))
-        _sfDrawManager.syncWith(pFrom->_sfDrawManager);
+    if(FieldBits::NoField != (UninitializedFrameTasksFieldMask & whichField))
+        _mfUninitializedFrameTasks.syncWith(pFrom->_mfUninitializedFrameTasks,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (FrameCountFieldMask & whichField))
+        _sfFrameCount.syncWith(pFrom->_sfFrameCount);
 
     if(FieldBits::NoField != (StartTimeFieldMask & whichField))
         _sfStartTime.syncWith(pFrom->_sfStartTime);
+
+    if(FieldBits::NoField != (LastTimeFieldMask & whichField))
+        _sfLastTime.syncWith(pFrom->_sfLastTime);
+
+    if(FieldBits::NoField != (CurrTimeFieldMask & whichField))
+        _sfCurrTime.syncWith(pFrom->_sfCurrTime);
+
+    if(FieldBits::NoField != (TimeStampFieldMask & whichField))
+        _sfTimeStamp.syncWith(pFrom->_sfTimeStamp);
 
     if(FieldBits::NoField != (TimeScaleFieldMask & whichField))
         _sfTimeScale.syncWith(pFrom->_sfTimeScale);
@@ -261,11 +367,11 @@ void ComplexSceneManagerBase::execSync (      ComplexSceneManagerBase *pFrom,
 
 
 inline
-const Char8 *ComplexSceneManagerBase::getClassname(void)
+const Char8 *FrameHandlerBase::getClassname(void)
 {
-    return "ComplexSceneManager";
+    return "FrameHandler";
 }
-OSG_GEN_CONTAINERPTR(ComplexSceneManager);
+OSG_GEN_CONTAINERPTR(FrameHandler);
 
 OSG_END_NAMESPACE
 

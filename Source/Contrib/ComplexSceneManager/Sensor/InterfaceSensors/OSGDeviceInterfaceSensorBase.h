@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGSensor.h" // Parent
+#include "OSGFrameTask.h" // Parent
 
 #include "OSGBaseFields.h"              // InterfaceName type
 #include "OSGInterfaceOptionsFields.h"  // Options type
@@ -76,12 +76,12 @@ class DeviceInterfaceSensor;
 
 //! \brief DeviceInterfaceSensor Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING DeviceInterfaceSensorBase : public Sensor
+class OSG_CONTRIBCSM_DLLMAPPING DeviceInterfaceSensorBase : public FrameTask
 {
   public:
 
-    typedef Sensor Inherited;
-    typedef Sensor ParentContainer;
+    typedef FrameTask Inherited;
+    typedef FrameTask ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

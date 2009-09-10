@@ -2,7 +2,7 @@
 
 <FieldContainer
     name="DeviceInterfaceSensor"
-    parent="Sensor"
+    parent="FrameTask"
     library="ContribCSM"
     pointerfieldtypes="none"
     structure="abstract"

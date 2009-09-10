@@ -45,50 +45,48 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ComplexSceneManager
+ **     class TimeSensor
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCOMPLEXSCENEMANAGERBASE_H_
-#define _OSGCOMPLEXSCENEMANAGERBASE_H_
+#ifndef _OSGTIMESENSORBASE_H_
+#define _OSGTIMESENSORBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 
 #include "OSGConfig.h"
-#include "OSGContribCSMDef.h"
+#include "OSGDynamicsDef.h"
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGFieldContainer.h" // Parent
+#include "OSGFrameTask.h" // Parent
 
-#include "OSGFieldContainerFields.h"    // Globals type
-#include "OSGCSMDrawManagerFields.h"    // DrawManager type
+#include "OSGSysFields.h"               // Enabled type
 #include "OSGBaseFields.h"              // StartTime type
-#include "OSGSysFields.h"               // ConstantTime type
 
-#include "OSGComplexSceneManagerFields.h"
+#include "OSGTimeSensorFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ComplexSceneManager;
+class TimeSensor;
 
-//! \brief ComplexSceneManager Base Class.
+//! \brief TimeSensor Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
+class OSG_DYNAMICS_DLLMAPPING TimeSensorBase : public FrameTask
 {
   public:
 
-    typedef FieldContainer Inherited;
-    typedef FieldContainer ParentContainer;
+    typedef FrameTask Inherited;
+    typedef FrameTask ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(ComplexSceneManager);
+    OSG_GEN_INTERNALPTR(TimeSensor);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -96,40 +94,48 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
 
     enum
     {
-        GlobalsFieldId = Inherited::NextFieldId,
-        DrawManagerFieldId = GlobalsFieldId + 1,
-        StartTimeFieldId = DrawManagerFieldId + 1,
-        TimeScaleFieldId = StartTimeFieldId + 1,
-        ConstantTimeStepFieldId = TimeScaleFieldId + 1,
-        ConstantTimeFieldId = ConstantTimeStepFieldId + 1,
-        PausedFieldId = ConstantTimeFieldId + 1,
-        NextFieldId = PausedFieldId + 1
+        EnabledFieldId = Inherited::NextFieldId,
+        IsActiveFieldId = EnabledFieldId + 1,
+        LoopFieldId = IsActiveFieldId + 1,
+        FractionFieldId = LoopFieldId + 1,
+        StartTimeFieldId = FractionFieldId + 1,
+        StopTimeFieldId = StartTimeFieldId + 1,
+        CycleTimeFieldId = StopTimeFieldId + 1,
+        TimeFieldId = CycleTimeFieldId + 1,
+        CycleIntervalFieldId = TimeFieldId + 1,
+        NextFieldId = CycleIntervalFieldId + 1
     };
 
-    static const OSG::BitVector GlobalsFieldMask =
-        (TypeTraits<BitVector>::One << GlobalsFieldId);
-    static const OSG::BitVector DrawManagerFieldMask =
-        (TypeTraits<BitVector>::One << DrawManagerFieldId);
+    static const OSG::BitVector EnabledFieldMask =
+        (TypeTraits<BitVector>::One << EnabledFieldId);
+    static const OSG::BitVector IsActiveFieldMask =
+        (TypeTraits<BitVector>::One << IsActiveFieldId);
+    static const OSG::BitVector LoopFieldMask =
+        (TypeTraits<BitVector>::One << LoopFieldId);
+    static const OSG::BitVector FractionFieldMask =
+        (TypeTraits<BitVector>::One << FractionFieldId);
     static const OSG::BitVector StartTimeFieldMask =
         (TypeTraits<BitVector>::One << StartTimeFieldId);
-    static const OSG::BitVector TimeScaleFieldMask =
-        (TypeTraits<BitVector>::One << TimeScaleFieldId);
-    static const OSG::BitVector ConstantTimeStepFieldMask =
-        (TypeTraits<BitVector>::One << ConstantTimeStepFieldId);
-    static const OSG::BitVector ConstantTimeFieldMask =
-        (TypeTraits<BitVector>::One << ConstantTimeFieldId);
-    static const OSG::BitVector PausedFieldMask =
-        (TypeTraits<BitVector>::One << PausedFieldId);
+    static const OSG::BitVector StopTimeFieldMask =
+        (TypeTraits<BitVector>::One << StopTimeFieldId);
+    static const OSG::BitVector CycleTimeFieldMask =
+        (TypeTraits<BitVector>::One << CycleTimeFieldId);
+    static const OSG::BitVector TimeFieldMask =
+        (TypeTraits<BitVector>::One << TimeFieldId);
+    static const OSG::BitVector CycleIntervalFieldMask =
+        (TypeTraits<BitVector>::One << CycleIntervalFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUnrecFieldContainerPtr MFGlobalsType;
-    typedef SFUnrecCSMDrawManagerPtr SFDrawManagerType;
+    typedef SFBool            SFEnabledType;
+    typedef SFBool            SFIsActiveType;
+    typedef SFBool            SFLoopType;
+    typedef SFReal32          SFFractionType;
     typedef SFTime            SFStartTimeType;
-    typedef SFTime            SFTimeScaleType;
-    typedef SFTime            SFConstantTimeStepType;
-    typedef SFBool            SFConstantTimeType;
-    typedef SFBool            SFPausedType;
+    typedef SFTime            SFStopTimeType;
+    typedef SFTime            SFCycleTimeType;
+    typedef SFTime            SFTimeType;
+    typedef SFTime            SFCycleIntervalType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -154,73 +160,81 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecFieldContainerPtr *getMFGlobals        (void) const;
-                  MFUnrecFieldContainerPtr *editMFGlobals        (void);
-            const SFUnrecCSMDrawManagerPtr *getSFDrawManager    (void) const;
-                  SFUnrecCSMDrawManagerPtr *editSFDrawManager    (void);
+
+                  SFBool              *editSFEnabled        (void);
+            const SFBool              *getSFEnabled         (void) const;
+
+                  SFBool              *editSFIsActive       (void);
+            const SFBool              *getSFIsActive        (void) const;
+
+                  SFBool              *editSFLoop           (void);
+            const SFBool              *getSFLoop            (void) const;
+
+                  SFReal32            *editSFFraction       (void);
+            const SFReal32            *getSFFraction        (void) const;
 
                   SFTime              *editSFStartTime      (void);
             const SFTime              *getSFStartTime       (void) const;
 
-                  SFTime              *editSFTimeScale      (void);
-            const SFTime              *getSFTimeScale       (void) const;
+                  SFTime              *editSFStopTime       (void);
+            const SFTime              *getSFStopTime        (void) const;
 
-                  SFTime              *editSFConstantTimeStep(void);
-            const SFTime              *getSFConstantTimeStep (void) const;
+                  SFTime              *editSFCycleTime      (void);
+            const SFTime              *getSFCycleTime       (void) const;
 
-                  SFBool              *editSFConstantTime   (void);
-            const SFBool              *getSFConstantTime    (void) const;
+                  SFTime              *editSFTime           (void);
+            const SFTime              *getSFTime            (void) const;
 
-                  SFBool              *editSFPaused         (void);
-            const SFBool              *getSFPaused          (void) const;
+                  SFTime              *editSFCycleInterval  (void);
+            const SFTime              *getSFCycleInterval   (void) const;
 
 
-                  FieldContainer * getGlobals        (const UInt32 index) const;
+                  bool                &editEnabled        (void);
+                  bool                 getEnabled         (void) const;
 
-                  CSMDrawManager * getDrawManager    (void) const;
+                  bool                &editIsActive       (void);
+                  bool                 getIsActive        (void) const;
+
+                  bool                &editLoop           (void);
+                  bool                 getLoop            (void) const;
+
+                  Real32              &editFraction       (void);
+                  Real32               getFraction        (void) const;
 
                   Time                &editStartTime      (void);
             const Time                &getStartTime       (void) const;
 
-                  Time                &editTimeScale      (void);
-            const Time                &getTimeScale       (void) const;
+                  Time                &editStopTime       (void);
+            const Time                &getStopTime        (void) const;
 
-                  Time                &editConstantTimeStep(void);
-            const Time                &getConstantTimeStep (void) const;
+                  Time                &editCycleTime      (void);
+            const Time                &getCycleTime       (void) const;
 
-                  bool                &editConstantTime   (void);
-                  bool                 getConstantTime    (void) const;
+                  Time                &editTime           (void);
+            const Time                &getTime            (void) const;
 
-                  bool                &editPaused         (void);
-                  bool                 getPaused          (void) const;
+                  Time                &editCycleInterval  (void);
+            const Time                &getCycleInterval   (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setDrawManager    (CSMDrawManager * const value);
+            void setEnabled        (const bool value);
+            void setIsActive       (const bool value);
+            void setLoop           (const bool value);
+            void setFraction       (const Real32 value);
             void setStartTime      (const Time &value);
-            void setTimeScale      (const Time &value);
-            void setConstantTimeStep(const Time &value);
-            void setConstantTime   (const bool value);
-            void setPaused         (const bool value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
+            void setStopTime       (const Time &value);
+            void setCycleTime      (const Time &value);
+            void setTime           (const Time &value);
+            void setCycleInterval  (const Time &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToGlobals             (FieldContainer * const value   );
-    void assignGlobals            (const MFUnrecFieldContainerPtr &value);
-    void removeFromGlobals (UInt32               uiIndex );
-    void removeObjFromGlobals(FieldContainer * const value   );
-    void clearGlobals               (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -239,16 +253,16 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ComplexSceneManagerTransitPtr  create          (void);
-    static  ComplexSceneManager           *createEmpty     (void);
+    static  TimeSensorTransitPtr  create          (void);
+    static  TimeSensor           *createEmpty     (void);
 
-    static  ComplexSceneManagerTransitPtr  createLocal     (
+    static  TimeSensorTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  ComplexSceneManager            *createEmptyLocal(
+    static  TimeSensor            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  ComplexSceneManagerTransitPtr  createDependent  (BitVector bFlags);
+    static  TimeSensorTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -275,55 +289,60 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecFieldContainerPtr _mfGlobals;
-    SFUnrecCSMDrawManagerPtr _sfDrawManager;
+    SFBool            _sfEnabled;
+    SFBool            _sfIsActive;
+    SFBool            _sfLoop;
+    SFReal32          _sfFraction;
     SFTime            _sfStartTime;
-    SFTime            _sfTimeScale;
-    SFTime            _sfConstantTimeStep;
-    SFBool            _sfConstantTime;
-    SFBool            _sfPaused;
+    SFTime            _sfStopTime;
+    SFTime            _sfCycleTime;
+    SFTime            _sfTime;
+    SFTime            _sfCycleInterval;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ComplexSceneManagerBase(void);
-    ComplexSceneManagerBase(const ComplexSceneManagerBase &source);
+    TimeSensorBase(void);
+    TimeSensorBase(const TimeSensorBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ComplexSceneManagerBase(void);
+    virtual ~TimeSensorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const ComplexSceneManager *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGlobals         (void) const;
-    EditFieldHandlePtr editHandleGlobals        (void);
-    GetFieldHandlePtr  getHandleDrawManager     (void) const;
-    EditFieldHandlePtr editHandleDrawManager    (void);
+    GetFieldHandlePtr  getHandleEnabled         (void) const;
+    EditFieldHandlePtr editHandleEnabled        (void);
+    GetFieldHandlePtr  getHandleIsActive        (void) const;
+    EditFieldHandlePtr editHandleIsActive       (void);
+    GetFieldHandlePtr  getHandleLoop            (void) const;
+    EditFieldHandlePtr editHandleLoop           (void);
+    GetFieldHandlePtr  getHandleFraction        (void) const;
+    EditFieldHandlePtr editHandleFraction       (void);
     GetFieldHandlePtr  getHandleStartTime       (void) const;
     EditFieldHandlePtr editHandleStartTime      (void);
-    GetFieldHandlePtr  getHandleTimeScale       (void) const;
-    EditFieldHandlePtr editHandleTimeScale      (void);
-    GetFieldHandlePtr  getHandleConstantTimeStep (void) const;
-    EditFieldHandlePtr editHandleConstantTimeStep(void);
-    GetFieldHandlePtr  getHandleConstantTime    (void) const;
-    EditFieldHandlePtr editHandleConstantTime   (void);
-    GetFieldHandlePtr  getHandlePaused          (void) const;
-    EditFieldHandlePtr editHandlePaused         (void);
+    GetFieldHandlePtr  getHandleStopTime        (void) const;
+    EditFieldHandlePtr editHandleStopTime       (void);
+    GetFieldHandlePtr  getHandleCycleTime       (void) const;
+    EditFieldHandlePtr editHandleCycleTime      (void);
+    GetFieldHandlePtr  getHandleTime            (void) const;
+    EditFieldHandlePtr editHandleTime           (void);
+    GetFieldHandlePtr  getHandleCycleInterval   (void) const;
+    EditFieldHandlePtr editHandleCycleInterval  (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -337,7 +356,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      ComplexSceneManagerBase *pFrom,
+            void execSync (      TimeSensorBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -377,11 +396,14 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ComplexSceneManagerBase &source);
+    void operator =(const TimeSensorBase &source);
 };
 
-typedef ComplexSceneManagerBase *ComplexSceneManagerBaseP;
+typedef TimeSensorBase *TimeSensorBaseP;
+
+typedef CoredNodeRefPtr  <TimeSensor> TimeSensorNodeRefPtr;
+typedef CoredNodeMTRefPtr<TimeSensor> TimeSensorNodeMTRefPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCOMPLEXSCENEMANAGERBASE_H_ */
+#endif /* _OSGTIMESENSORBASE_H_ */

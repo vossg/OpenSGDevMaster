@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                 Copyright (C) 2008 by the OpenSG Forum                    *
+ *                 Copyright (C) 2009 by the OpenSG Forum                    *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,52 +36,27 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGCSMVRMLNodeHelper.h>
-
-#include <OSGCounters.h>
-#include <OSGLimitedCounters.h>
-
-#include <OSGGroup.h>
-
-OSG_BEGIN_NAMESPACE
+#ifndef _OSGDYNAMICSDEF_H_
+#define _OSGDYNAMICSDEF_H_
+#ifdef __sgi
+#pragma once
+#endif
 
 //---------------------------------------------------------------------------
-//  Generic Helper with 1:1 mapping
+//  Defines
 //---------------------------------------------------------------------------
 
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Real32Counter>::_regHelper(
-        &VRMLGenericHelper<Real32Counter>::create,
-        "Real32Counter");
+#if defined(WIN32)
+#   ifdef OSG_COMPILEDYNAMICSLIB
+#       define OSG_DYNAMICS_DLLMAPPING  __declspec(dllexport)
+#       define OSG_DYNAMICS_EXPIMP_TMPL 
+#   else
+#       define OSG_DYNAMICS_DLLMAPPING  __declspec(dllimport)
+#       define OSG_DYNAMICS_EXPIMP_TMPL   extern
+#   endif
+#else
+#define OSG_DYNAMICS_DLLMAPPING
+#define OSG_DYNAMICS_EXPIMP_TMPL
+#endif
 
-template class VRMLGenericHelper<Real32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<Int32Counter>::_regHelper(
-        &VRMLGenericHelper<Int32Counter>::create,
-        "Int32Counter");
-
-template class VRMLGenericHelper<Int32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedReal32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedReal32Counter>::create,
-        "LimitedReal32Counter");
-
-template class VRMLGenericHelper<LimitedReal32Counter>;
-
-
-template<>
-VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<LimitedInt32Counter>::_regHelper(
-        &VRMLGenericHelper<LimitedInt32Counter>::create,
-        "LimitedInt32Counter");
-
-template class VRMLGenericHelper<LimitedInt32Counter>;
-
-OSG_END_NAMESPACE
+#endif /* _OSGDYNAMICSDEF_H_ */

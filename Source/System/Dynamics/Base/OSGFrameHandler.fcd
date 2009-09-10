@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-    name="ComplexSceneManager"
-    parent="FieldContainer"
-    library="ContribCSM"
-    pointerfieldtypes="none"
+    name="FrameHandler"
+    parent="AttachmentContainer"
+    library="Dynamics"
+    pointerfieldtypes="single"
     structure="concrete"
     systemcomponent="true"
     parentsystemcomponent="true"
@@ -12,42 +12,68 @@
     useLocalIncludes="false"
     isNodeCore="false"
     isBundle="true"
+    parentFields="none"
 >
-  
+  base class for task attached to the compute frame handler
 	<Field
-		name="globals"
-		type="FieldContainer"
+		name="frameTasks"
+		type="FrameTask"
 		cardinality="multi"
 		visibility="external"
-		access="public"
-        category="pointer"
+		access="protected"
+        category="uncountedpointer"
 	>
 	</Field>
 	<Field
-		name="drawManager"
-		type="CSMDrawManager"
-		cardinality="single"
+		name="uninitializedFrameTasks"
+		type="FrameTask"
+		cardinality="multi"
 		visibility="external"
-		defaultValue="NULL"
-		access="public"
-        category="pointer"
+		access="protected"
+        category="uncountedpointer"
 	>
 	</Field>
 
-<!--
 	<Field
-		name="sensorTask"
-		type="SensorTask"
+		name="frameCount"
+		type="UInt64"
 		cardinality="single"
-		visibility="external"
-		defaultValue="NULL"
+		visibility="internal"
 		access="public"
-        category="pointer"
+        defaultValue="0"
 	>
 	</Field>
--->
+
 	<Field
 		name="startTime"
+		type="Time"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="0.0"
+	>
+	</Field>
+
+	<Field
+		name="lastTime"
+		type="Time"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="0.0"
+	>
+	</Field>
+	<Field
+		name="currTime"
+		type="Time"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="0.0"
+	>
+	</Field>
+	<Field
+		name="timeStamp"
 		type="Time"
 		cardinality="single"
 		visibility="internal"

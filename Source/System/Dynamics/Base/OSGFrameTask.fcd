@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="FrameTask"
+    parent="NodeCore"
+    library="Dynamics"
+    pointerfieldtypes="both"
+    structure="abstract"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="true"
+    parentFields="none"
+>
+  base class for task attached to the compute frame handler
+</FieldContainer>

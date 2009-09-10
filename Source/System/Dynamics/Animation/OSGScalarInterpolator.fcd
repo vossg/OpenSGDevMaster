@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="ScalarInterpolator"
+    parent="NodeCore"
+    library="Dynamics"
+    pointerfieldtypes="none"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="false"
+    parentFields="none"
+>
+	<Field
+		name="fraction"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue="0.f"
+        fieldFlags="FThreadLocal"
+	>
+	</Field>
+	<Field
+		name="key"
+		type="Real32"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+        defaultValue=""
+        fieldFlags="FThreadLocal"
+	>
+	</Field>
+	<Field
+		name="keyValue"
+		type="Real32"
+		cardinality="multi"
+		visibility="external"
+		access="public"
+        defaultValue=""
+        fieldFlags="FThreadLocal"
+	>
+	</Field>
+	<Field
+		name="value"
+		type="Real32"
+		cardinality="single"
+		visibility="internal"
+		access="public"
+        defaultValue=""
+        fieldFlags="FThreadLocal"
+	>
+	</Field>
+</FieldContainer>

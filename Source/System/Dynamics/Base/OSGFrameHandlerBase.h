@@ -45,50 +45,49 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class ComplexSceneManager
+ **     class FrameHandler
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGCOMPLEXSCENEMANAGERBASE_H_
-#define _OSGCOMPLEXSCENEMANAGERBASE_H_
+#ifndef _OSGFRAMEHANDLERBASE_H_
+#define _OSGFRAMEHANDLERBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
 
 #include "OSGConfig.h"
-#include "OSGContribCSMDef.h"
+#include "OSGDynamicsDef.h"
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGFieldContainer.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
-#include "OSGFieldContainerFields.h"    // Globals type
-#include "OSGCSMDrawManagerFields.h"    // DrawManager type
+#include "OSGFrameTaskFields.h"         // FrameTasks type
+#include "OSGSysFields.h"               // FrameCount type
 #include "OSGBaseFields.h"              // StartTime type
-#include "OSGSysFields.h"               // ConstantTime type
 
-#include "OSGComplexSceneManagerFields.h"
+#include "OSGFrameHandlerFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class ComplexSceneManager;
+class FrameHandler;
 
-//! \brief ComplexSceneManager Base Class.
+//! \brief FrameHandler Base Class.
 
-class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
+class OSG_DYNAMICS_DLLMAPPING FrameHandlerBase : public AttachmentContainer
 {
   public:
 
-    typedef FieldContainer Inherited;
-    typedef FieldContainer ParentContainer;
+    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(ComplexSceneManager);
+    OSG_GEN_INTERNALPTR(FrameHandler);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -96,22 +95,34 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
 
     enum
     {
-        GlobalsFieldId = Inherited::NextFieldId,
-        DrawManagerFieldId = GlobalsFieldId + 1,
-        StartTimeFieldId = DrawManagerFieldId + 1,
-        TimeScaleFieldId = StartTimeFieldId + 1,
+        FrameTasksFieldId = Inherited::NextFieldId,
+        UninitializedFrameTasksFieldId = FrameTasksFieldId + 1,
+        FrameCountFieldId = UninitializedFrameTasksFieldId + 1,
+        StartTimeFieldId = FrameCountFieldId + 1,
+        LastTimeFieldId = StartTimeFieldId + 1,
+        CurrTimeFieldId = LastTimeFieldId + 1,
+        TimeStampFieldId = CurrTimeFieldId + 1,
+        TimeScaleFieldId = TimeStampFieldId + 1,
         ConstantTimeStepFieldId = TimeScaleFieldId + 1,
         ConstantTimeFieldId = ConstantTimeStepFieldId + 1,
         PausedFieldId = ConstantTimeFieldId + 1,
         NextFieldId = PausedFieldId + 1
     };
 
-    static const OSG::BitVector GlobalsFieldMask =
-        (TypeTraits<BitVector>::One << GlobalsFieldId);
-    static const OSG::BitVector DrawManagerFieldMask =
-        (TypeTraits<BitVector>::One << DrawManagerFieldId);
+    static const OSG::BitVector FrameTasksFieldMask =
+        (TypeTraits<BitVector>::One << FrameTasksFieldId);
+    static const OSG::BitVector UninitializedFrameTasksFieldMask =
+        (TypeTraits<BitVector>::One << UninitializedFrameTasksFieldId);
+    static const OSG::BitVector FrameCountFieldMask =
+        (TypeTraits<BitVector>::One << FrameCountFieldId);
     static const OSG::BitVector StartTimeFieldMask =
         (TypeTraits<BitVector>::One << StartTimeFieldId);
+    static const OSG::BitVector LastTimeFieldMask =
+        (TypeTraits<BitVector>::One << LastTimeFieldId);
+    static const OSG::BitVector CurrTimeFieldMask =
+        (TypeTraits<BitVector>::One << CurrTimeFieldId);
+    static const OSG::BitVector TimeStampFieldMask =
+        (TypeTraits<BitVector>::One << TimeStampFieldId);
     static const OSG::BitVector TimeScaleFieldMask =
         (TypeTraits<BitVector>::One << TimeScaleFieldId);
     static const OSG::BitVector ConstantTimeStepFieldMask =
@@ -123,9 +134,13 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUnrecFieldContainerPtr MFGlobalsType;
-    typedef SFUnrecCSMDrawManagerPtr SFDrawManagerType;
+    typedef MFUncountedFrameTaskPtr MFFrameTasksType;
+    typedef MFUncountedFrameTaskPtr MFUninitializedFrameTasksType;
+    typedef SFUInt64          SFFrameCountType;
     typedef SFTime            SFStartTimeType;
+    typedef SFTime            SFLastTimeType;
+    typedef SFTime            SFCurrTimeType;
+    typedef SFTime            SFTimeStampType;
     typedef SFTime            SFTimeScaleType;
     typedef SFTime            SFConstantTimeStepType;
     typedef SFBool            SFConstantTimeType;
@@ -154,13 +169,21 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecFieldContainerPtr *getMFGlobals        (void) const;
-                  MFUnrecFieldContainerPtr *editMFGlobals        (void);
-            const SFUnrecCSMDrawManagerPtr *getSFDrawManager    (void) const;
-                  SFUnrecCSMDrawManagerPtr *editSFDrawManager    (void);
+
+                  SFUInt64            *editSFFrameCount     (void);
+            const SFUInt64            *getSFFrameCount      (void) const;
 
                   SFTime              *editSFStartTime      (void);
             const SFTime              *getSFStartTime       (void) const;
+
+                  SFTime              *editSFLastTime       (void);
+            const SFTime              *getSFLastTime        (void) const;
+
+                  SFTime              *editSFCurrTime       (void);
+            const SFTime              *getSFCurrTime        (void) const;
+
+                  SFTime              *editSFTimeStamp      (void);
+            const SFTime              *getSFTimeStamp       (void) const;
 
                   SFTime              *editSFTimeScale      (void);
             const SFTime              *getSFTimeScale       (void) const;
@@ -175,12 +198,20 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
             const SFBool              *getSFPaused          (void) const;
 
 
-                  FieldContainer * getGlobals        (const UInt32 index) const;
-
-                  CSMDrawManager * getDrawManager    (void) const;
+                  UInt64              &editFrameCount     (void);
+                  UInt64               getFrameCount      (void) const;
 
                   Time                &editStartTime      (void);
             const Time                &getStartTime       (void) const;
+
+                  Time                &editLastTime       (void);
+            const Time                &getLastTime        (void) const;
+
+                  Time                &editCurrTime       (void);
+            const Time                &getCurrTime        (void) const;
+
+                  Time                &editTimeStamp      (void);
+            const Time                &getTimeStamp       (void) const;
 
                   Time                &editTimeScale      (void);
             const Time                &getTimeScale       (void) const;
@@ -199,8 +230,11 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setDrawManager    (CSMDrawManager * const value);
+            void setFrameCount     (const UInt64 value);
             void setStartTime      (const Time &value);
+            void setLastTime       (const Time &value);
+            void setCurrTime       (const Time &value);
+            void setTimeStamp      (const Time &value);
             void setTimeScale      (const Time &value);
             void setConstantTimeStep(const Time &value);
             void setConstantTime   (const bool value);
@@ -215,12 +249,6 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToGlobals             (FieldContainer * const value   );
-    void assignGlobals            (const MFUnrecFieldContainerPtr &value);
-    void removeFromGlobals (UInt32               uiIndex );
-    void removeObjFromGlobals(FieldContainer * const value   );
-    void clearGlobals               (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -239,16 +267,16 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  ComplexSceneManagerTransitPtr  create          (void);
-    static  ComplexSceneManager           *createEmpty     (void);
+    static  FrameHandlerTransitPtr  create          (void);
+    static  FrameHandler           *createEmpty     (void);
 
-    static  ComplexSceneManagerTransitPtr  createLocal     (
+    static  FrameHandlerTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  ComplexSceneManager            *createEmptyLocal(
+    static  FrameHandler            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  ComplexSceneManagerTransitPtr  createDependent  (BitVector bFlags);
+    static  FrameHandlerTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -275,9 +303,13 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecFieldContainerPtr _mfGlobals;
-    SFUnrecCSMDrawManagerPtr _sfDrawManager;
+    MFUncountedFrameTaskPtr _mfFrameTasks;
+    MFUncountedFrameTaskPtr _mfUninitializedFrameTasks;
+    SFUInt64          _sfFrameCount;
     SFTime            _sfStartTime;
+    SFTime            _sfLastTime;
+    SFTime            _sfCurrTime;
+    SFTime            _sfTimeStamp;
     SFTime            _sfTimeScale;
     SFTime            _sfConstantTimeStep;
     SFBool            _sfConstantTime;
@@ -288,34 +320,42 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ComplexSceneManagerBase(void);
-    ComplexSceneManagerBase(const ComplexSceneManagerBase &source);
+    FrameHandlerBase(void);
+    FrameHandlerBase(const FrameHandlerBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~ComplexSceneManagerBase(void);
+    virtual ~FrameHandlerBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const ComplexSceneManager *source = NULL);
+    void onCreate(const FrameHandler *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleGlobals         (void) const;
-    EditFieldHandlePtr editHandleGlobals        (void);
-    GetFieldHandlePtr  getHandleDrawManager     (void) const;
-    EditFieldHandlePtr editHandleDrawManager    (void);
+    GetFieldHandlePtr  getHandleFrameTasks      (void) const;
+    EditFieldHandlePtr editHandleFrameTasks     (void);
+    GetFieldHandlePtr  getHandleUninitializedFrameTasks (void) const;
+    EditFieldHandlePtr editHandleUninitializedFrameTasks(void);
+    GetFieldHandlePtr  getHandleFrameCount      (void) const;
+    EditFieldHandlePtr editHandleFrameCount     (void);
     GetFieldHandlePtr  getHandleStartTime       (void) const;
     EditFieldHandlePtr editHandleStartTime      (void);
+    GetFieldHandlePtr  getHandleLastTime        (void) const;
+    EditFieldHandlePtr editHandleLastTime       (void);
+    GetFieldHandlePtr  getHandleCurrTime        (void) const;
+    EditFieldHandlePtr editHandleCurrTime       (void);
+    GetFieldHandlePtr  getHandleTimeStamp       (void) const;
+    EditFieldHandlePtr editHandleTimeStamp      (void);
     GetFieldHandlePtr  getHandleTimeScale       (void) const;
     EditFieldHandlePtr editHandleTimeScale      (void);
     GetFieldHandlePtr  getHandleConstantTimeStep (void) const;
@@ -324,6 +364,44 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     EditFieldHandlePtr editHandleConstantTime   (void);
     GetFieldHandlePtr  getHandlePaused          (void) const;
     EditFieldHandlePtr editHandlePaused         (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const MFUncountedFrameTaskPtr *getMFFrameTasks      (void) const;
+                  MFUncountedFrameTaskPtr *editMFFrameTasks     (void);
+            const MFUncountedFrameTaskPtr *getMFUninitializedFrameTasks (void) const;
+                  MFUncountedFrameTaskPtr *editMFUninitializedFrameTasks(void);
+
+
+                  FrameTask * getFrameTasks     (const UInt32 index) const;
+
+                  FrameTask * getUninitializedFrameTasks(const UInt32 index) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
+
+    void pushToFrameTasks           (FrameTask * const value   );
+    void assignFrameTasks           (const MFUncountedFrameTaskPtr &value);
+    void removeFromFrameTasks (UInt32                uiIndex );
+    void removeObjFromFrameTasks(FrameTask * const value   );
+    void clearFrameTasks            (void                          );
+
+    void pushToUninitializedFrameTasks           (FrameTask * const value   );
+    void assignUninitializedFrameTasks           (const MFUncountedFrameTaskPtr &value);
+    void removeFromUninitializedFrameTasks (UInt32                uiIndex );
+    void removeObjFromUninitializedFrameTasks(FrameTask * const value   );
+    void clearUninitializedFrameTasks            (void                          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -337,7 +415,7 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      ComplexSceneManagerBase *pFrom,
+            void execSync (      FrameHandlerBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -377,11 +455,11 @@ class OSG_CONTRIBCSM_DLLMAPPING ComplexSceneManagerBase : public FieldContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const ComplexSceneManagerBase &source);
+    void operator =(const FrameHandlerBase &source);
 };
 
-typedef ComplexSceneManagerBase *ComplexSceneManagerBaseP;
+typedef FrameHandlerBase *FrameHandlerBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGCOMPLEXSCENEMANAGERBASE_H_ */
+#endif /* _OSGFRAMEHANDLERBASE_H_ */

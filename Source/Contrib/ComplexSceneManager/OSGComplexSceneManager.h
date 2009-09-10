@@ -48,7 +48,7 @@
 #include "OSGCSMDrawManager.h"
 #include "OSGPathHandler.h"
 #include "OSGSceneFileType.h"
-#include "OSGSensorTask.h"
+//#include "OSGSensorTask.h"
 #include "OSGCSMKeySensorHelper.h"
 
 OSG_BEGIN_NAMESPACE

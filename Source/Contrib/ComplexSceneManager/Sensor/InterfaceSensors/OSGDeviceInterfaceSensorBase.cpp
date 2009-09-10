@@ -97,7 +97,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<DeviceInterfaceSensor *>::_type("DeviceInterfaceSensorPtr", "SensorPtr");
+DataType FieldTraits<DeviceInterfaceSensor *>::_type("DeviceInterfaceSensorPtr", "FrameTaskPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(DeviceInterfaceSensor *)
@@ -169,7 +169,7 @@ DeviceInterfaceSensorBase::TypeObject DeviceInterfaceSensorBase::_type(
     "\n"
     "<FieldContainer\n"
     "    name=\"DeviceInterfaceSensor\"\n"
-    "    parent=\"Sensor\"\n"
+    "    parent=\"FrameTask\"\n"
     "    library=\"ContribCSM\"\n"
     "    pointerfieldtypes=\"none\"\n"
     "    structure=\"abstract\"\n"
