@@ -139,10 +139,17 @@ OSBChunkMaterialElement::postRead(void)
     // the information in _mfSlots correct. -- cneumann
 
     const OSBRootElement *root   = getRoot();
-    ChunkMaterial        *chkMat = dynamic_cast<ChunkMaterial *>(getContainer());
+    ChunkMaterial        *chkMat = 
+        dynamic_cast<ChunkMaterial *>(getContainer());
+    
+    // No chunks loaded
+    if(_chunksPtrFieldIt == PtrFieldListIt())
+        return;
 
-    PtrFieldInfo::PtrIdStoreConstIt idIt  = _chunksPtrFieldIt->getIdStore().begin();
-    PtrFieldInfo::PtrIdStoreConstIt idEnd = _chunksPtrFieldIt->getIdStore().end  ();
+    PtrFieldInfo::PtrIdStoreConstIt idIt  = 
+        _chunksPtrFieldIt->getIdStore().begin();
+    PtrFieldInfo::PtrIdStoreConstIt idEnd = 
+        _chunksPtrFieldIt->getIdStore().end  ();
 
     for(UInt32 i = 0; idIt != idEnd; ++idIt, ++i)
     {
