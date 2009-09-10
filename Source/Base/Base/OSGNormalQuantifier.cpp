@@ -151,7 +151,7 @@ void NormalQuantifier::build (UInt32 numberSubdivisions)
         }
         else
         {
-            FLOG(("NormalQuantifier init: %d subdivision, %d normal\n",
+            FLOG(("NormalQuantifier init: %d subdivision, %zd normal\n",
                   _numberSubdivisions, _normalTable.size()));
         }
     }  

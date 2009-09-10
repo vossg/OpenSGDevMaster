@@ -749,7 +749,7 @@ void MField<ValueT,
 {
     if(_uiSharedWith != 0x0000)
     {
-        Self   *pOther = resolveShare(uiAspect, oOffsets);
+        /*Self *pOther = */ resolveShare(uiAspect, oOffsets);
 
         _values.resolveShare();
     }

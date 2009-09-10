@@ -53,6 +53,8 @@
 
 #include "boost/bind.hpp"
 
+#include "OSGPointerSField.h"
+
 OSG_BEGIN_NAMESPACE
 
 void AttachmentContainer::classDescInserter(TypeObject &oType)

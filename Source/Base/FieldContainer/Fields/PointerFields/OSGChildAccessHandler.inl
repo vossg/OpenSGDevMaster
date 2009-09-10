@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
 /* Internal Helper                                                         */
 
 template<typename RefCountPolicyT> inline 
-typename ChildAccessHandler<RefCountPolicyT>::SFieldType * const
+typename ChildAccessHandler<RefCountPolicyT>::SFieldType * 
     ChildAccessHandler<RefCountPolicyT>::dcastSField(
         SFieldBaseType * const pSField)
 {
@@ -58,7 +58,7 @@ typename ChildAccessHandler<RefCountPolicyT>::SFieldType * const
 }
 
 template<typename RefCountPolicyT> inline 
-typename ChildAccessHandler<RefCountPolicyT>::MFieldType * const
+typename ChildAccessHandler<RefCountPolicyT>::MFieldType * 
     ChildAccessHandler<RefCountPolicyT>::dcastMField(
         MFieldBaseType * const pMField)
 {

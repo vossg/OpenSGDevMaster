@@ -425,7 +425,7 @@ void            printBits   (char  c[35], float f);
 //--------------------
 
 inline
-Real16::Real16 ()
+Real16::Real16 () : _h(0)
 {
     // no initialization
 }
@@ -436,7 +436,7 @@ Real16::Real16 ()
 //----------------------------
 
 inline
-Real16::Real16 (float f)
+Real16::Real16 (float f) : _h(0)
 {
     if (f == 0)
     {

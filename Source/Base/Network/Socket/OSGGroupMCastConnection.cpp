@@ -306,7 +306,6 @@ bool GroupMCastConnection::checkChannels(void)
         selection.setRead(_sockets[index]);
     if(selection.select(0))
     {
-        UInt32 len;
         char   buffer;
         for(index = 0 ; index < _sockets.size() ; ++index)
         {
@@ -340,12 +339,10 @@ bool GroupMCastConnection::sendQueue(void)
     UInt32                  ack  = 0;
     UInt32                  end  = 0;
     UInt32                  send = 0;
-    UInt32                  channel;
     UInt32                  index;
     Dgram                   response;
     UInt32                  m;
     bool                    readable = false;
-    Time                    waitStart = getSystemTime();
     Time                    lastAckTime=0;
     UInt32                  len;
     SocketAddress           fromAddress;
@@ -439,7 +436,7 @@ bool GroupMCastConnection::sendQueue(void)
                 printf("send %d end %d\n",send,end);
                 printf("lastack %lf\n",getSystemTime() - lastAckTime);
 #endif
-                FDEBUG(("timeout count %d %d missing %d\n",count,sendId,missing[ack].size()))
+                FDEBUG(("timeout count %d %d missing %zd\n",count,sendId,missing[ack].size()))
 //                printf("%.10f timeout count %d %d missing %d\n",getSystemTime()-t1,count,sendId,missing[ack].size());
                     
                 ackRequest.setSize(0);
@@ -507,7 +504,7 @@ bool GroupMCastConnection::sendQueue(void)
                     // retransmit
                     for(m = ack ; 
                         m != send && dgram[m]->getId() != response.getId() ; 
-                        m = (m+1) % _windowSize);
+                        m = (m+1) % _windowSize) ;
                     send = m;
                 }
             }

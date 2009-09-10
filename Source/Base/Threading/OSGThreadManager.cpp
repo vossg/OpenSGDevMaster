@@ -552,8 +552,8 @@ bool ThreadManager::shutdown(void)
 
 #endif
 
-    FDEBUG(("Sizes: ThreadStore: %d BarrierStore: %d CondVarStore: %d "
-            "LockStore: %d LockPoolStore: %d SemaphoreStore: %d\n",
+    FDEBUG(("Sizes: ThreadStore: %zd BarrierStore: %zd CondVarStore: %zd "
+            "LockStore: %zd LockPoolStore: %zd SemaphoreStore: %zd\n",
             _sThreadStore  ._mFieldMap.size(),
             _sBarrierStore ._mFieldMap.size(),
             _sCondVarStore ._mFieldMap.size(),

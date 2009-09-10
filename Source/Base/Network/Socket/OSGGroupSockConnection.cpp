@@ -272,9 +272,9 @@ Connection::Channel GroupSockConnection::selectChannel(Time timeout)
     }
 
     // wait for first socket to deliver data
-    for(index = 0 ; 
-	index < static_cast<ChannelIndex>(_sockets.size()); 
-	++index)
+    for(  index = 0 ; 
+          index < static_cast<ChannelIndex>(_sockets.size()); 
+        ++index)
     {
         if(_selection[index])
             selection.setRead(_sockets[index]);
@@ -287,7 +287,9 @@ Connection::Channel GroupSockConnection::selectChannel(Time timeout)
             return -1;
 
         // use socket with most data
-        for(index = 0 ; index < _sockets.size() ; ++index)
+        for(  index = 0; 
+              index < static_cast<ChannelIndex>(_sockets.size()); 
+            ++index)
         {
             if(result.isSetRead(_sockets[index]))
             {
@@ -442,7 +444,7 @@ void GroupSockConnection::readBuffer() throw (ReadError)
 
 void GroupSockConnection::write(MemoryHandle mem,UInt32 size)
 {
-    Int32 index;
+    UInt32 index;
 
     try
     {
@@ -463,7 +465,7 @@ void GroupSockConnection::write(MemoryHandle mem,UInt32 size)
  **/
 void GroupSockConnection::writeBuffer(void)
 {
-    Int32 index;
+    UInt32 index;
     UInt32 size = writeBufBegin()->getDataSize();
     // write size to header
     (reinterpret_cast<SocketBufferHeader*>(&_socketWriteBuffer[0]))->size = 

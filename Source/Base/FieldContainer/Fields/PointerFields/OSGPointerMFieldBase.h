@@ -76,6 +76,7 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
     typedef StorageType::const_iterator                 StorageConstIt;
 
     typedef FieldContainer                      * const const_value;
+    typedef FieldContainer                      *       value_type;
 
     typedef StorageType::size_type                      size_type;
     typedef StorageType::difference_type                difference_type;
@@ -124,8 +125,8 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
     const_reverse_iterator rbegin   (void             ) const;
     const_reverse_iterator rend     (void             ) const;
     
-    const_value            front    (void             ) const;
-    const_value            back     (void             ) const;
+    value_type             front    (void             ) const;
+    value_type             back     (void             ) const;
 
     bool                   empty    (void             ) const;
     size_type              size     (void             ) const;
@@ -139,8 +140,8 @@ class OSG_BASE_DLLMAPPING PointerMFieldBase : public Field
     /*! \name                  Index Operator                              */
     /*! \{                                                                 */
 
-    const_value operator[](const UInt32 index) const;
-    const_value at        (const UInt32 index) const;
+    value_type operator[](const UInt32 index) const;
+    value_type at        (const UInt32 index) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

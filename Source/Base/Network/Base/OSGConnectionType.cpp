@@ -87,9 +87,9 @@ ConnectionType::ConnectionType(      CreatePointFunction  createPoint,
 }
 
 ConnectionType::ConnectionType(const ConnectionType &source) :
-    _name(source._name),
     _createGroup(source._createGroup),
-    _createPoint(source._createPoint)
+    _createPoint(source._createPoint),
+    _name       (source._name       )
 {
 }
 

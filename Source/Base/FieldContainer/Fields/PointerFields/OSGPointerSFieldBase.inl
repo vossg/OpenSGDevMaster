@@ -64,7 +64,7 @@ PointerSFieldBase::~PointerSFieldBase(void)
 
 
 inline 
-PointerSFieldBase::const_value PointerSFieldBase::getValue(void) const
+PointerSFieldBase::value_type PointerSFieldBase::getValue(void) const
 {
     return _fieldValue;
 }

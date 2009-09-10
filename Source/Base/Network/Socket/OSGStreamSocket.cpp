@@ -131,8 +131,8 @@ void StreamSocket::open()
     struct linger li;
     li.l_onoff = 1;
     li.l_linger = 1;
-    int rc = setsockopt(_sd, SOL_SOCKET, SO_LINGER, 
-                        reinterpret_cast<SocketOptT*>(&li), sizeof(li));
+    /* int rc = */ setsockopt(_sd, SOL_SOCKET, SO_LINGER, 
+                              reinterpret_cast<SocketOptT*>(&li), sizeof(li));
 }
 
 /*! close socket

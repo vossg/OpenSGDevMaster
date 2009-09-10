@@ -188,6 +188,9 @@ class OSG_BASE_DLLMAPPING OutStream
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    OutStream(const OutStream &source);
+    void operator =(const OutStream &source);
 };
 
 /*! \ingroup GrpBaseBase
@@ -334,6 +337,9 @@ class OSG_BASE_DLLMAPPING InStream
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    InStream(const InStream &source);
+    void operator =(const InStream &source);
 };
 
 /*! \name Streams

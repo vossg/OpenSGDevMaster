@@ -98,7 +98,7 @@ void StatTimeStampElem::putToString(
 
         Char8 temp[64];
 
-        sprintf(temp, "%f", _time);
+        sprintf(temp, "%f", Real32(_time));
 
         str.assign(temp);
     }

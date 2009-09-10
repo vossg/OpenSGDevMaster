@@ -259,7 +259,7 @@ UInt32 TypeFactoryBase::registerType(TypeBase *pType)
         [pType->getName()] = returnValue;
 
 
-    FDEBUG(("Registered type %s | %d (%d)\n", pType->getCName(), returnValue,
+    FDEBUG(("Registered type %s | %d (%p)\n", pType->getCName(), returnValue,
                                               pType)); 
 
     return returnValue;

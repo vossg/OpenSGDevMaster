@@ -639,6 +639,10 @@ static const Char8 *PluginPattern = "*.dll";
 
 static const Char8  DirSep    = '\\';
 
+#ifndef PRIx64
+#define PRIx64 "llx"
+#endif
+
 #elif defined(__APPLE__)
 
 /*! \ingroup GrpBaseBaseConstants

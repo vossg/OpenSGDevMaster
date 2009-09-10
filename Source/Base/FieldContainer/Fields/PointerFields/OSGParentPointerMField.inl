@@ -90,15 +90,15 @@ ParentMFieldConstIterator<StorageTypeT>::~ParentMFieldConstIterator(void)
 /* Operators                                                               */
 
 template <class StorageTypeT> inline 
-typename ParentMFieldConstIterator<StorageTypeT>::const_value
+typename ParentMFieldConstIterator<StorageTypeT>::value_type
     ParentMFieldConstIterator<StorageTypeT>::operator *(void) const
 {
-    return static_cast<const_value>(
+    return static_cast<value_type>(
         AccessHandler::validate(this->Inherited::operator*()));
 }
 
 template <class StorageTypeT> inline 
-typename ParentMFieldConstIterator<StorageTypeT>::const_value
+typename ParentMFieldConstIterator<StorageTypeT>::value_type
     ParentMFieldConstIterator<StorageTypeT>::operator[](
         const  difference_type offset) const
 {
@@ -229,10 +229,10 @@ bool ParentMFieldConstIterator<StorageTypeT>::operator != (
 
 
 template <class StorageTypeT> inline 
-typename ParentMFieldConstIterator<StorageTypeT>::const_value
+typename ParentMFieldConstIterator<StorageTypeT>::value_type
     ParentMFieldConstIterator<StorageTypeT>::getPtr(void) const
 {
-    return static_cast<const_value>(
+    return static_cast<value_type>(
         AccessHandler::validate(this->Inherited::operator *()));
 }
 
@@ -313,15 +313,15 @@ ParentMFieldIterator<StorageTypeT>::~ParentMFieldIterator(void)
 /* Operators                                                               */
 
 template <class StorageTypeT> inline 
-typename ParentMFieldIterator<StorageTypeT>::const_value
+typename ParentMFieldIterator<StorageTypeT>::value_type
     ParentMFieldIterator<StorageTypeT>::operator *(void) const
 {
-    return static_cast<const_value>(
+    return static_cast<value_type>(
         AccessHandler::validate(this->Inherited::operator*()));
 }
 
 template <class StorageTypeT> inline 
-typename ParentMFieldIterator<StorageTypeT>::const_value
+typename ParentMFieldIterator<StorageTypeT>::value_type
     ParentMFieldIterator<StorageTypeT>::operator[](
         const  difference_type offset) const
 {
@@ -450,10 +450,10 @@ bool ParentMFieldIterator<StorageTypeT>::operator != (
 
 
 template <class StorageTypeT> inline 
-typename ParentMFieldIterator<StorageTypeT>::const_value
+typename ParentMFieldIterator<StorageTypeT>::value_type
     ParentMFieldIterator<StorageTypeT>::getPtr(void) const
 {
-    return static_cast<const_value>(
+    return static_cast<value_type>(
         AccessHandler::validate(this->Inherited::operator *()));
 }
 
@@ -679,23 +679,23 @@ typename ParentPointerMField<PtrTypeT,
 template <class PtrTypeT,typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ParentPointerMField<PtrTypeT,
                              RefCountPolicy,
-                             NamespaceI    >::const_value
+                             NamespaceI    >::value_type
     ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::front(void) const
 {
-    return static_cast<const_value>(this->ptrStoreGet(this->_ptrStore.begin()));
+    return static_cast<value_type>(this->ptrStoreGet(this->_ptrStore.begin()));
 }
 
 template <class PtrTypeT, typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ParentPointerMField<PtrTypeT,
                              RefCountPolicy,
-                             NamespaceI    >::const_value
+                             NamespaceI    >::value_type
     ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::back(void) const
 {
-    return static_cast<const_value>(
+    return static_cast<value_type>(
         this->ptrStoreGet(this->_ptrStore.end() - 1));
 }
 
@@ -947,23 +947,23 @@ void ParentPointerMField<PtrTypeT,
 template <class PtrTypeT,typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ParentPointerMField<PtrTypeT,
                              RefCountPolicy,
-                             NamespaceI    >::const_value
+                             NamespaceI    >::value_type
     ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::operator [](const UInt32 index) const
 {
-    return static_cast<const_value>(this->ptrStoreGet(index));
+    return static_cast<value_type>(this->ptrStoreGet(index));
 }
 
 template <class PtrTypeT,typename RefCountPolicy, Int32 NamespaceI> inline 
 typename ParentPointerMField<PtrTypeT,
                              RefCountPolicy,
-                             NamespaceI    >::const_value
+                             NamespaceI    >::value_type
     ParentPointerMField<PtrTypeT,
                         RefCountPolicy,
                         NamespaceI    >::ptrAt(const UInt32 index) const
 {
-    return static_cast<const_value>(this->ptrStoreGet(index));
+    return static_cast<value_type>(this->ptrStoreGet(index));
 }
 
 

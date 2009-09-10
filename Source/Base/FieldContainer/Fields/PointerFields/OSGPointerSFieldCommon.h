@@ -75,6 +75,7 @@ class PointerSFieldCommon : public PointerSFieldBase
     typedef          PointerSFieldCommon                 Self;
 
     typedef typename Inherited::const_value              const_value;
+    typedef typename Inherited::value_type               value_type;
 
     typedef typename Inherited::StoredType               StoredType;
 
@@ -116,7 +117,7 @@ class PointerSFieldCommon : public PointerSFieldBase
     /*! \name Store Interface                                              */
     /*! \{                                                                 */
     
-    const_value ptrStoreGet  (void               ) const;
+    value_type  ptrStoreGet  (void               ) const;
     
     void        ptrStoreSet  (const_value pNewObj);
     void        ptrStoreClear(void               );

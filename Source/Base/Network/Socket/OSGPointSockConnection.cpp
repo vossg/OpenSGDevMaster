@@ -194,7 +194,6 @@ std::string PointSockConnection::bind(const std::string &address)
 {
     int         port=0;
     char        localhost[256];
-    char        host[256];
     char        portStr[256];
     std::string interf;
 
@@ -367,7 +366,6 @@ void PointSockConnection::write(MemoryHandle mem,UInt32 size)
  **/
 void PointSockConnection::writeBuffer(void)
 {
-    Int32 index;
     UInt32 size = writeBufBegin()->getDataSize();
 
     // write size to header

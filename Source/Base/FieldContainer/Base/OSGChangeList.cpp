@@ -772,7 +772,7 @@ void ChangeList::fillFromCurrentState(UInt32 uiFieldContainerId)
         {
             this->addCreated(i, TypeTraits<BitVector>::BitsClear);
 
-            for(UInt32 j = 0; j < pContainer->getRefCount(); ++j)
+            for(Int32 j = 0; j < pContainer->getRefCount(); ++j)
                 this->addAddRefd(i);
 
             ContainerChangeEntry *pEntry = this->getNewEntry();
@@ -894,7 +894,8 @@ void ChangeList::dump(      UInt32    uiIndent,
             tmpChanges = *((*cIt)->bvUncommittedChanges); 
         }
 
-        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx (%p|%p) | %s\n",
+        fprintf(stderr, 
+                "CE : %u %u 0x%016"PRIx64" 0x%016"PRIx64" (%p|%p) | %s\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
                 tmpChanges,
@@ -935,7 +936,8 @@ void ChangeList::dump(      UInt32    uiIndent,
             tmpChanges = *((*cIt)->bvUncommittedChanges); 
         }
 
-        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx (%p|%p) | %s\n",
+        fprintf(stderr, 
+                "CE : %u %u 0x%016"PRIx64" 0x%016"PRIx64" (%p|%p) | %s\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
                 tmpChanges,
@@ -969,7 +971,7 @@ void ChangeList::dump(      UInt32    uiIndent,
             tmpChanges = *((*cIt)->bvUncommittedChanges); 
         }
 
-        fprintf(stderr, "CE : %u %u 0x%016llx 0x%016llx\n",
+        fprintf(stderr, "CE : %u %u 0x%016"PRIx64" 0x%016"PRIx64"\n",
                 (*cIt)->uiEntryDesc,
                 (*cIt)->uiContainerId,
                 tmpChanges,
@@ -981,7 +983,7 @@ void ChangeList::dump(      UInt32    uiIndent,
 
 void ChangeList::dumpListSizes(void) const
 {
-    fprintf(stderr, "CL : CH_S : %d | CR_S : %d | UC_S : %d | P_S %d\n",
+    fprintf(stderr, "CL : CH_S : %zd | CR_S : %zd | UC_S : %zd | P_S %zd\n",
             _changedStore.size(),
             _createdStore.size(),
             _uncommitedChanges.size(),

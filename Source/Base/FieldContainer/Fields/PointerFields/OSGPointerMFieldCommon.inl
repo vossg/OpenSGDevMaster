@@ -119,7 +119,7 @@ PointerMFieldCommon<AccessHandlerT,
 
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 typename PointerMFieldCommon<AccessHandlerT,
-                             NamespaceI    >::const_value
+                             NamespaceI    >::value_type
     PointerMFieldCommon<AccessHandlerT,
                         NamespaceI    >::ptrStoreGet(const UInt32 index) const
 {
@@ -128,7 +128,7 @@ typename PointerMFieldCommon<AccessHandlerT,
 
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 typename PointerMFieldCommon<AccessHandlerT,
-                             NamespaceI    >::const_value
+                             NamespaceI    >::value_type
     PointerMFieldCommon<AccessHandlerT,
                         NamespaceI    >::ptrStoreGet(PtrStoreItType pos) const
 {
@@ -137,7 +137,7 @@ typename PointerMFieldCommon<AccessHandlerT,
 
 template <class AccessHandlerT, Int32 NamespaceI> inline
 typename PointerMFieldCommon<AccessHandlerT,
-                             NamespaceI    >::const_value
+                             NamespaceI    >::value_type
     PointerMFieldCommon<AccessHandlerT,
                         NamespaceI    >::ptrStoreGet(
                             PtrStoreConstItType pos) const

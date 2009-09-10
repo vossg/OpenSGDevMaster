@@ -60,8 +60,8 @@ OSG_USING_NAMESPACE
  */
 
 Dgram::Dgram():
-    _size     (    0),
-    _earlySend(false)
+    _earlySend(false),
+    _size     (    0)
 {
 }
 

@@ -103,8 +103,9 @@ MultiPool<ValueBaseT>::MultiPool(void) :
 template<class ValueBaseT>
 MultiPool<ValueBaseT>::~MultiPool(void)
 {
-    for(TypesStoreIt it = _typesStore.begin();
-        it != _typesStore.end(); ++it)
+    for(TypesStoreIt it  = _typesStore.begin();
+                     it != _typesStore.end(); 
+                   ++it)
     {
         delete it->second;
     }

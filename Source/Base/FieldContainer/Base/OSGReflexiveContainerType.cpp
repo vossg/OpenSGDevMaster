@@ -145,7 +145,7 @@ bool ReflexiveContainerType::initialize(void)
 
     if(_vDescVec.size() > sizeof(BitVector) * 8)
     {
-        FWARNING(("FCType %s has %d (>%d) fields!\n",
+        FWARNING(("FCType %s has %zd (>%lu) fields!\n",
                    getCName(),
                   _vDescVec.size(),
                    sizeof(BitVector) * 8));

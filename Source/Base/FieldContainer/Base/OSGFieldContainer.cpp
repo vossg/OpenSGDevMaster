@@ -755,10 +755,6 @@ FieldContainerTransitPtr deepClone(
         if(fDesc->isInternal())
             continue;
 
-        const UInt32  fieldId  = fDesc  ->getFieldId();
-//        const Field  *srcField = src    ->getField (i);
-//              Field  *dstField = fcClone->editField(i);
-
         GetFieldHandlePtr  srcField = src    ->getField (i);
         EditFieldHandlePtr dstField = fcClone->editField(i);
 
@@ -768,7 +764,6 @@ FieldContainerTransitPtr deepClone(
             continue;
         }
 
-//        if(dstField != NULL)
         if(srcField->isPointerField() == false)
         {
             dstField->copyValues(srcField);
@@ -776,8 +771,6 @@ FieldContainerTransitPtr deepClone(
         else
         {
             dstField->cloneValues(srcField, 
-//                                  fieldId, 
-//                                  fcClone,
                                   shareTypes,    
                                   ignoreTypes,
                                   shareGroupIds, 

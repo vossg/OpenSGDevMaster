@@ -372,7 +372,7 @@ class OSG_BASE_DLLMAPPING ChangeList : public MemoryObject
     friend class  WinThreadBase;
     friend class  FieldContainer;
     friend struct RecordedRefCountPolicy;
-    friend class  ContainerChangeEntry;
+    friend struct ContainerChangeEntry;
 
     typedef MemoryObject Inherited;
 

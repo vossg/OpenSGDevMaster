@@ -94,6 +94,7 @@ class ParentMFieldConstIterator : protected StorageTypeT::PtrStoreConstItType
     
 
     typedef typename StorageTypeT::const_value           const_value;
+    typedef typename StorageTypeT::value_type            value_type;
     typedef typename StorageTypeT::iterator              iterator;
    
     /*! \}                                                                 */
@@ -119,8 +120,8 @@ class ParentMFieldConstIterator : protected StorageTypeT::PtrStoreConstItType
     /*! \name Operators                                                    */
     /*! \{                                                                 */
     
-    const_value operator  *(      void                  ) const;
-    const_value operator [](const difference_type offset) const;
+    value_type operator  *(      void                  ) const;
+    value_type operator [](const difference_type offset) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -151,8 +152,8 @@ class ParentMFieldConstIterator : protected StorageTypeT::PtrStoreConstItType
     /*! \name Operators                                                    */
     /*! \{                                                                 */
    
-    const_value getPtr           (void) const;
-    UInt16      getParentFieldPos(void) const;
+    value_type getPtr           (void) const;
+    UInt16     getParentFieldPos(void) const;
     
     /*! \}                                                                 */
     /*========================  PROTECTED  ================================*/
@@ -230,6 +231,7 @@ class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
 
     
     typedef typename StorageTypeT::const_value     const_value;
+    typedef typename StorageTypeT::value_type      value_type;
     typedef typename StorageTypeT::const_iterator  const_iterator;
 
     
@@ -255,8 +257,8 @@ class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
     /*! \name Operators                                                    */
     /*! \{                                                                 */
     
-    const_value operator  *(      void                  ) const;
-    const_value operator [](const difference_type offset) const;
+    value_type operator  *(      void                  ) const;
+    value_type operator [](const difference_type offset) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -287,8 +289,8 @@ class ParentMFieldIterator : protected StorageTypeT::PtrStoreItType
     /*! \name Operators                                                    */
     /*! \{                                                                 */
 
-    const_value getPtr           (void) const;
-    UInt16      getParentFieldPos(void) const;
+    value_type getPtr           (void) const;
+    UInt16     getParentFieldPos(void) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -455,8 +457,8 @@ class ParentPointerMField :
     const_reverse_iterator rbegin(void) const;
     const_reverse_iterator rend  (void) const;
 
-    const_value            front (void) const;
-    const_value            back  (void) const;
+    value_type             front (void) const;
+    value_type             back  (void) const;
         
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -516,15 +518,15 @@ class ParentPointerMField :
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
-    const_value operator [](const UInt32 index) const;
+    value_type operator [](const UInt32 index) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Index Operator                                               */
     /*! \{                                                                 */
 
-    const_value ptrAt           (const UInt32 index) const;
-    UInt16      parentFieldPosAt(const UInt32 index) const;
+    value_type ptrAt           (const UInt32 index) const;
+    UInt16     parentFieldPosAt(const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -248,7 +248,7 @@ void PointSockPipeline::initialize(void)
     len = _socket.recv(message);
     if(len == 0)
         throw ReadError("Channel closed\n");
-    _last = message.getUInt32();
+    _last = message.getUInt32() != 0;
 
     if(!_last)
     {

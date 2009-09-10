@@ -98,7 +98,7 @@ class OSG_BASE_DLLMAPPING PointerSFieldBase : public Field
     /*! \name Raw Store Access                                             */
     /*! \{                                                                 */
     
-    const_value getValue(void) const;
+    value_type getValue(void) const;
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

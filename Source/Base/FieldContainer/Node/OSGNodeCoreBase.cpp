@@ -370,15 +370,6 @@ bool NodeCoreBase::unlinkParent(
 }
 
 
-void NodeCoreBase::onCreate(const NodeCore *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        NodeCore *pThis = static_cast<NodeCore *>(this);
-    }
-}
 
 GetFieldHandlePtr NodeCoreBase::getHandleParents         (void) const
 {

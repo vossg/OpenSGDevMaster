@@ -176,7 +176,7 @@ void SocketAddress::setHost(const std::string &host)
     // number or name ?
     for(c=host.c_str();
         *c!='\0' && (isdigit(*c) || *c == '.');
-        c++);
+        c++) ;
     if(! *c )
     {
         // inet_aton(const char *cp, struct in_addr *pin);
@@ -233,7 +233,7 @@ bool SocketAddress::isMulticast(void)
     UInt32 addr = 
         osgNetToHost<UInt32>(static_cast<UInt32>(_sockaddr->sin_addr.s_addr));
 
-    return addr & 0xC0000;
+    return (addr & 0xC0000) != 0x0000;
 }
 
 /*! Get a pointer to the sockaddr struct

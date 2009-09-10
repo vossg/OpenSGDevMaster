@@ -491,8 +491,6 @@ bool PointMCastConnection::recvQueue(void)
     SocketAddress  from;
     Dgram         *dgram;
     Dgram          response;
-    UInt32         readCount=0;
-    UInt32         length;
     bool           missing=false;
     Time           ignoreT=getSystemTime();
     UInt16         id;
@@ -535,7 +533,7 @@ bool PointMCastConnection::recvQueue(void)
                             }
                         }
                     }
-                    catch(SocketException &e)
+                    catch(SocketException &)
                     {
                         // put EOT to the queue
                         dgram->setSize(0);
@@ -649,7 +647,6 @@ void PointMCastConnection::recvQueueThread(void *arg)
 void PointMCastConnection::initialize()
 {
     std::string   group;
-    Channel       channel;
     BinaryMessage message;
     std::string   fromHost;
     UInt32        fromPort;

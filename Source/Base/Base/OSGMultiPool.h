@@ -106,7 +106,7 @@ class MultiPool
     {
       public:
       
-        static const int BLOCKSIZE = 16; //!< number of elements per block
+        static const UInt16 BLOCKSIZE = 16; //!< number of elements per block
         
         TypeStore(int size);
         

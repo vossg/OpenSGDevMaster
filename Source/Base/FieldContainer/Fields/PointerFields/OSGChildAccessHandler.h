@@ -145,8 +145,8 @@ class ChildAccessHandler
     /*! \name Internal Helper                                              */
     /*! \{                                                                 */
   
-    static SFieldType * const dcastSField(SFieldBaseType * const pSField);
-    static MFieldType * const dcastMField(MFieldBaseType * const pMField);
+    static SFieldType * dcastSField(SFieldBaseType * const pSField);
+    static MFieldType * dcastMField(MFieldBaseType * const pMField);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

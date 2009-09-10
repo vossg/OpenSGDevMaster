@@ -170,7 +170,6 @@ class OSG_BASE_DLLMAPPING NodeCoreBase : public AttachmentContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const NodeCore *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

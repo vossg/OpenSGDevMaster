@@ -79,6 +79,7 @@ class PointerMFieldCommon : public PointerMFieldBase
     typedef typename Inherited::StorageType              PtrStoreType;
 
     typedef typename Inherited::const_value              const_value;
+    typedef typename Inherited::value_type               value_type;
 
     typedef typename Inherited::size_type                size_type;
     typedef typename Inherited::difference_type          difference_type;
@@ -124,9 +125,9 @@ class PointerMFieldCommon : public PointerMFieldBase
     /*! \{                                                                 */
 
     // reading values
-    const_value ptrStoreGet(const UInt32             index) const;
-    const_value ptrStoreGet(      PtrStoreItType      pos  ) const;
-    const_value ptrStoreGet(      PtrStoreConstItType pos  ) const;
+    value_type ptrStoreGet(const UInt32             index) const;
+    value_type ptrStoreGet(      PtrStoreItType      pos  ) const;
+    value_type ptrStoreGet(      PtrStoreConstItType pos  ) const;
 
     /*---------------------------------------------------------------------*/
     // adding values

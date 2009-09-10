@@ -159,8 +159,6 @@ void GroupSockPipeline::write(MemoryHandle mem,UInt32 size)
  **/
 void GroupSockPipeline::writeBuffer(void)
 {
-    Int32 index;
-
     if(!_initialized)
         initialize();
 

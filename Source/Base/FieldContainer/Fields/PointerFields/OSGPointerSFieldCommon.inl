@@ -90,7 +90,7 @@ PointerSFieldCommon<AccessHandlerT,
 
 template <class AccessHandlerT, Int32 NamespaceI> inline 
 typename PointerSFieldCommon<AccessHandlerT,
-                             NamespaceI    >::const_value 
+                             NamespaceI    >::value_type 
     PointerSFieldCommon<AccessHandlerT,
                         NamespaceI    >::ptrStoreGet(void) const
 {

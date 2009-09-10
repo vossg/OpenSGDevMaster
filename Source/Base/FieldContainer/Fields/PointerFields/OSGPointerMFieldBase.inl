@@ -103,13 +103,13 @@ PointerMFieldBase::const_reverse_iterator PointerMFieldBase::rend(void) const
 }
 
 inline 
-PointerMFieldBase::const_value PointerMFieldBase::front(void) const
+PointerMFieldBase::value_type PointerMFieldBase::front(void) const
 {
     return _ptrStore.front();
 }
 
 inline 
-PointerMFieldBase::const_value PointerMFieldBase::back(void) const
+PointerMFieldBase::value_type PointerMFieldBase::back(void) const
 {
     return _ptrStore.back();
 }
@@ -161,14 +161,14 @@ void PointerMFieldBase::reserve(size_type size)
 }
 
 inline 
-PointerMFieldBase::const_value 
+PointerMFieldBase::value_type 
     PointerMFieldBase::operator[](UInt32 const index) const
 {
     return _ptrStore[index];
 }
 
 inline 
-PointerMFieldBase::const_value 
+PointerMFieldBase::value_type 
     PointerMFieldBase::at(UInt32 const index) const
 {
     return _ptrStore.at(index);
