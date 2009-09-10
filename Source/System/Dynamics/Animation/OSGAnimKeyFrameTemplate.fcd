@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="AnimKeyFrameTemplate"
+   parent="AnimTemplate"
+   library="Dynamics"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="false"
+   isBundle="false"
+   parentFields="none"
+   >
+</FieldContainer>
