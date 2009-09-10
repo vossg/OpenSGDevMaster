@@ -168,7 +168,7 @@ AnimTemplateBase::TypeObject AnimTemplateBase::_type(
     "   parentsystemcomponent=\"true\"\n"
     "   decoratable=\"false\"\n"
     "   useLocalIncludes=\"false\"\n"
-    "   isNodeCore=\"false\"\n"
+    "   isNodeCore=\"true\"\n"
     "   isBundle=\"false\"\n"
     "   parentFields=\"none\"\n"
     "   >\n"

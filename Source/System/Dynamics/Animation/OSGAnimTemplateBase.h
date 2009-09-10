@@ -279,6 +279,9 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
 
 typedef AnimTemplateBase *AnimTemplateBaseP;
 
+typedef CoredNodeRefPtr  <AnimTemplate> AnimTemplateNodeRefPtr;
+typedef CoredNodeMTRefPtr<AnimTemplate> AnimTemplateNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGANIMTEMPLATEBASE_H_ */
