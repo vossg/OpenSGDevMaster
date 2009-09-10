@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="Animation"
+   parent="AttachmentContainer"
+   library="Dynamics"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   isBundle="false"
+   parentFields="none"
+   >
+  <Field
+     name="timeSensor"
+     category="pointer"
+     type="TimeSensor"
+     cardinality="single"
+     visiblity="external"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+  <Field
+     name="template"
+     category="pointer"
+     type="AnimTemplate"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+  <Field
+     name="channels"
+     category="pointer"
+     type="AnimChannel"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+</FieldContainer>

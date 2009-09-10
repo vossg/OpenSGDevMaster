@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="AnimDataSource"
+    parent="AttachmentContainer"
+    library="Dynamics"
+    pointerfieldtypes="both"
+    structure="abstract"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="false"
+    isBundle="false"
+    parentFields="none"
+>
+  Base for animation data sources.
+</FieldContainer>
