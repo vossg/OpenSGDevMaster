@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGAnimTemplateBase.h"
+#include "OSGAnimDataSource.h"
 
 OSG_BEGIN_NAMESPACE
 

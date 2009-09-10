@@ -10,7 +10,7 @@
     parentsystemcomponent="true"
     decoratable="false"
     useLocalIncludes="false"
-    isNodeCore="false"
+    isNodeCore="true"
     isBundle="false"
     parentFields="none"
 >

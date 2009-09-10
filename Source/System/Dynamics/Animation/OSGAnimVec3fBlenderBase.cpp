@@ -58,7 +58,7 @@
 
 
 
-#include "OSGVec3fChannel.h"            // Channels Class
+#include "OSGAnimVec3fChannel.h"        // Channels Class
 
 #include "OSGAnimVec3fBlenderBase.h"
 #include "OSGAnimVec3fBlender.h"
@@ -83,7 +83,7 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Vec3fChannel *  AnimVec3fBlenderBase::_mfChannels
+/*! \var AnimVec3fChannel * AnimVec3fBlenderBase::_mfChannels
     
 */
 
@@ -119,8 +119,8 @@ void AnimVec3fBlenderBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFUnrecVec3fChannelPtr::Description(
-        MFUnrecVec3fChannelPtr::getClassType(),
+    pDesc = new MFUnrecAnimVec3fChannelPtr::Description(
+        MFUnrecAnimVec3fChannelPtr::getClassType(),
         "channels",
         "",
         ChannelsFieldId, ChannelsFieldMask,
@@ -175,7 +175,7 @@ AnimVec3fBlenderBase::TypeObject AnimVec3fBlenderBase::_type(
     "  <Field\n"
     "     name=\"channels\"\n"
     "     category=\"pointer\"\n"
-    "     type=\"Vec3fChannel\"\n"
+    "     type=\"AnimVec3fChannel\"\n"
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
@@ -217,12 +217,12 @@ UInt32 AnimVec3fBlenderBase::getContainerSize(void) const
 
 
 //! Get the AnimVec3fBlender::_mfChannels field.
-const MFUnrecVec3fChannelPtr *AnimVec3fBlenderBase::getMFChannels(void) const
+const MFUnrecAnimVec3fChannelPtr *AnimVec3fBlenderBase::getMFChannels(void) const
 {
     return &_mfChannels;
 }
 
-MFUnrecVec3fChannelPtr *AnimVec3fBlenderBase::editMFChannels       (void)
+MFUnrecAnimVec3fChannelPtr *AnimVec3fBlenderBase::editMFChannels       (void)
 {
     editMField(ChannelsFieldMask, _mfChannels);
 
@@ -244,18 +244,18 @@ const SFVec3f *AnimVec3fBlenderBase::getSFOutValue(void) const
 
 
 
-void AnimVec3fBlenderBase::pushToChannels(Vec3fChannel * const value)
+void AnimVec3fBlenderBase::pushToChannels(AnimVec3fChannel * const value)
 {
     editMField(ChannelsFieldMask, _mfChannels);
 
     _mfChannels.push_back(value);
 }
 
-void AnimVec3fBlenderBase::assignChannels (const MFUnrecVec3fChannelPtr &value)
+void AnimVec3fBlenderBase::assignChannels (const MFUnrecAnimVec3fChannelPtr &value)
 {
-    MFUnrecVec3fChannelPtr::const_iterator elemIt  =
+    MFUnrecAnimVec3fChannelPtr::const_iterator elemIt  =
         value.begin();
-    MFUnrecVec3fChannelPtr::const_iterator elemEnd =
+    MFUnrecAnimVec3fChannelPtr::const_iterator elemEnd =
         value.end  ();
 
     static_cast<AnimVec3fBlender *>(this)->clearChannels();
@@ -278,7 +278,7 @@ void AnimVec3fBlenderBase::removeFromChannels(UInt32 uiIndex)
     }
 }
 
-void AnimVec3fBlenderBase::removeObjFromChannels(Vec3fChannel * const value)
+void AnimVec3fBlenderBase::removeObjFromChannels(AnimVec3fChannel * const value)
 {
     Int32 iElemIdx = _mfChannels.findIndex(value);
 
@@ -497,9 +497,9 @@ void AnimVec3fBlenderBase::onCreate(const AnimVec3fBlender *source)
     {
         AnimVec3fBlender *pThis = static_cast<AnimVec3fBlender *>(this);
 
-        MFUnrecVec3fChannelPtr::const_iterator ChannelsIt  =
+        MFUnrecAnimVec3fChannelPtr::const_iterator ChannelsIt  =
             source->_mfChannels.begin();
-        MFUnrecVec3fChannelPtr::const_iterator ChannelsEnd =
+        MFUnrecAnimVec3fChannelPtr::const_iterator ChannelsEnd =
             source->_mfChannels.end  ();
 
         while(ChannelsIt != ChannelsEnd)
@@ -513,8 +513,8 @@ void AnimVec3fBlenderBase::onCreate(const AnimVec3fBlender *source)
 
 GetFieldHandlePtr AnimVec3fBlenderBase::getHandleChannels        (void) const
 {
-    MFUnrecVec3fChannelPtr::GetHandlePtr returnValue(
-        new  MFUnrecVec3fChannelPtr::GetHandle(
+    MFUnrecAnimVec3fChannelPtr::GetHandlePtr returnValue(
+        new  MFUnrecAnimVec3fChannelPtr::GetHandle(
              &_mfChannels,
              this->getType().getFieldDesc(ChannelsFieldId),
              const_cast<AnimVec3fBlenderBase *>(this)));
@@ -524,8 +524,8 @@ GetFieldHandlePtr AnimVec3fBlenderBase::getHandleChannels        (void) const
 
 EditFieldHandlePtr AnimVec3fBlenderBase::editHandleChannels       (void)
 {
-    MFUnrecVec3fChannelPtr::EditHandlePtr returnValue(
-        new  MFUnrecVec3fChannelPtr::EditHandle(
+    MFUnrecAnimVec3fChannelPtr::EditHandlePtr returnValue(
+        new  MFUnrecAnimVec3fChannelPtr::EditHandle(
              &_mfChannels,
              this->getType().getFieldDesc(ChannelsFieldId),
              this));

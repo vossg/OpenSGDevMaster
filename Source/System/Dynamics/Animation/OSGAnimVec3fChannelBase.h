@@ -322,6 +322,9 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannelBase : public AnimChannel
 
 typedef AnimVec3fChannelBase *AnimVec3fChannelBaseP;
 
+typedef CoredNodeRefPtr  <AnimVec3fChannel> AnimVec3fChannelNodeRefPtr;
+typedef CoredNodeMTRefPtr<AnimVec3fChannel> AnimVec3fChannelNodeMTRefPtr;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGANIMVEC3FCHANNELBASE_H_ */

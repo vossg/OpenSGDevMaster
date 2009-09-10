@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGAnimVec3fBlenderBase.h"
+#include "OSGAnimVec3fChannel.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -68,6 +69,15 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fBlender : public AnimVec3fBlenderBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                  Frame Task Interface                        */
+    /*! \{                                                                 */
+
+    virtual bool init    (void                      );
+    virtual void frame   (Time oTime, UInt32 uiFrame);
+    virtual void shutdown(void                      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

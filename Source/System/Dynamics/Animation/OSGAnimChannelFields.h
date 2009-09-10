@@ -146,6 +146,77 @@ const Char8 *FieldTraits<AnimChannel *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
+/*! \ingroup GrpDynamicsFieldTraits
+ */
+template <>
+struct FieldTraits<AnimChannel *, 1> :
+    public FieldTraitsFCPtrBase<AnimChannel *, 1>
+{
+  private:
+
+  public:
+    typedef FieldTraits<AnimChannel *, 1>  Self;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_DYNAMICS_DLLMAPPING DataType &getType(void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+};
+
+template<> inline
+const Char8 *FieldTraits<AnimChannel *, 1>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecChildAnimChannelPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AnimChannel *, 1>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecChildAnimChannelPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AnimChannel *, 1>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakChildAnimChannelPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AnimChannel *, 1>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdChildAnimChannelPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AnimChannel *, 1>::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecChildAnimChannelPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AnimChannel *, 1>::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecChildAnimChannelPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AnimChannel *, 1>::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakChildAnimChannelPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<AnimChannel *, 1>::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdChildAnimChannelPtr"; 
+}
+
+
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 /*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<AnimChannel *,
@@ -174,6 +245,20 @@ typedef PointerMField<AnimChannel *,
 typedef PointerMField<AnimChannel *,
                       NoRefCountPolicy        > MFUncountedAnimChannelPtr;
 
+
+
+/*! \ingroup GrpDynamicsFieldSFields */
+typedef ChildPointerSField<
+          AnimChannel *, 
+          UnrecordedRefCountPolicy,
+          1             > SFUnrecChildAnimChannelPtr;
+
+
+/*! \ingroup GrpDynamicsFieldMFields */
+typedef ChildPointerMField<
+          AnimChannel *, 
+          UnrecordedRefCountPolicy,
+          1             > MFUnrecChildAnimChannelPtr;
 
 
 
@@ -214,6 +299,22 @@ struct MFUncountedAnimChannelPtr :
     public PointerMField<AnimChannel *,
                          NoRefCountPolicy        > {};
 
+
+
+/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
+struct SFUnrecChildAnimChannelPtr :
+    public ChildPointerSField<
+        AnimChannel *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
+
+
+/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
+struct MFUnrecChildAnimChannelPtr :
+    public ChildPointerMField<
+        AnimChannel *, 
+        UnrecordedRefCountPolicy,
+        1             > {};
 
 
 #endif // these are the doxygen hacks

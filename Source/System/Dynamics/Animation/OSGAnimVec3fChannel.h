@@ -43,6 +43,7 @@
 #endif
 
 #include "OSGAnimVec3fChannelBase.h"
+#include "OSGAnimVec3fDataSource.h"
 
 OSG_BEGIN_NAMESPACE
 

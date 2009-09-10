@@ -105,6 +105,30 @@ void AnimVec3fBlender::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+bool AnimVec3fBlender::init(void)
+{
+    return Inherited::init();
+}
+
+void AnimVec3fBlender::frame(Time oTime, UInt32 uiFrame)
+{
+    Vec3f blendValue;
+    MFChannelsType::const_iterator cIt  = _mfChannels.begin();
+    MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
+
+    for(; cIt != cEnd; ++cIt)
+    {
+        blendValue += (*cIt)->getWeight() * (*cIt)->getOutValue();
+    }
+
+    setOutValue(blendValue);
+}
+
+void AnimVec3fBlender::shutdown(void)
+{
+    Inherited::shutdown();
+}
+
 void AnimVec3fBlender::dump(      UInt32    ,
                          const BitVector ) const
 {
