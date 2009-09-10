@@ -19,7 +19,7 @@
      category="pointer"
      type="TimeSensor"
      cardinality="single"
-     visiblity="external"
+     visibility="external"
      access="public"
      fieldFlags="FThreadLocal"
      >
