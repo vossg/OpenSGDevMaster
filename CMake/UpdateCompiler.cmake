@@ -9,12 +9,12 @@ IF(CMAKE_COMPILER_IS_GNUCC)
             MESSAGE(STATUS "Apply sse2 settings")
 
             IF(CMAKE_CXX_FLAGS)
-                string(REGEX MATCH "-msse2 -mfpmath=sse" 
+                STRING(REGEX MATCH "-msse2 -mfpmath=sse" 
                                    SSE2_CXX_RES ${CMAKE_CXX_FLAGS})
             ENDIF(CMAKE_CXX_FLAGS)
 
             IF(CMAKE_C_FLAGS)
-                string(REGEX MATCH "-msse2 -mfpmath=sse" 
+                STRING(REGEX MATCH "-msse2 -mfpmath=sse" 
                                    SSE2_C_RES ${CMAKE_C_FLAGS})
             ENDIF(CMAKE_C_FLAGS)
 
@@ -57,6 +57,26 @@ IF(CMAKE_COMPILER_IS_GNUCC)
 
         ENDIF(OSG_ENABLE_SSE2)
     ENDIF(LINUX OR APPLE)
+
+    IF(CMAKE_CXX_FLAGS)
+       STRING(REGEX MATCH "__STDC_FORMAT_MACROS" 
+       STDFORMAT_CXX_RES ${CMAKE_CXX_FLAGS})
+    ENDIF(CMAKE_CXX_FLAGS)
+
+    IF(CMAKE_C_FLAGS)
+        STRING(REGEX MATCH "__STDC_FORMAT_MACROS" 
+               STDFORMAT_C_RES ${CMAKE_C_FLAGS})
+    ENDIF(CMAKE_C_FLAGS)
+
+    IF(NOT STDFORMAT_CXX_RES)
+      SET(CMAKE_CXX_FLAGS   "${CMAKE_CXX_FLAGS} -D__STDC_FORMAT_MACROS"
+          CACHE STRING "OpenSG defaults" FORCE )
+    ENDIF(NOT STDFORMAT_CXX_RES)
+
+    IF(NOT STDFORMAT_C_RES)
+      SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -D__STDC_FORMAT_MACROS"
+          CACHE STRING "OpenSG defaults" FORCE )
+    ENDIF(NOT STDFORMAT_C_RES)
 
 ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
