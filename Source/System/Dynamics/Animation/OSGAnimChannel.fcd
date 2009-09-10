@@ -15,4 +15,15 @@
     parentFields="none"
 >
   Base for animation data sinks.
+ 
+  <Field
+     name="weight"
+     category="data"
+     type="Real32"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
 </FieldContainer>
