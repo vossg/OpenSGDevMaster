@@ -44,4 +44,14 @@
      fieldFlags="FThreadLocal"
      >
   </Field>
+  <Field
+     name="weight"
+     category="data"
+     type="Real32"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
 </FieldContainer>

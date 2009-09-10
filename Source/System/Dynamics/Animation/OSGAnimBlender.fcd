@@ -15,14 +15,4 @@
    isBundle="false"
    parentFields="none"
    >
-  <Field
-     name="weights"
-     category="data"
-     type="Real"
-     cardinality="multi"
-     visibility="external"
-     access="public"
-     fieldFlags="FThreadLocal"
-     >
-    </Field>
 </FieldContainer>
