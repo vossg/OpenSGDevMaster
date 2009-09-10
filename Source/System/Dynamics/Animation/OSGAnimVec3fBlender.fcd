@@ -29,7 +29,7 @@
      category="data"
      type="Vec3f"
      cardinality="single"
-     visiblity="external"
+     visibility="external"
      access="public"
      fieldFlags="FThreadLocal"
      >
