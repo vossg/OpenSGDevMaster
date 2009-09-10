@@ -129,6 +129,14 @@ DataType FieldTraits<TimeSensor *>::_type("TimeSensorPtr", "NodeCorePtr");
 
 OSG_FIELDTRAITS_GETTYPE(TimeSensor *)
 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           TimeSensor *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           TimeSensor *,
+                           0);
+
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
@@ -268,7 +276,7 @@ TimeSensorBase::TypeObject TimeSensorBase::_type(
     "    parent=\"NodeCore\"\n"
     "    mixinparent=\"NodeCoreSensorParent\"\n"
     "    library=\"Dynamics\"\n"
-    "    pointerfieldtypes=\"none\"\n"
+    "    pointerfieldtypes=\"both\"\n"
     "    structure=\"concrete\"\n"
     "    systemcomponent=\"true\"\n"
     "    parentsystemcomponent=\"true\"\n"

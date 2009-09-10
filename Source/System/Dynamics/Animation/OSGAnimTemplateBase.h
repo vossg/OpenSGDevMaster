@@ -141,8 +141,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
 
                   AnimDataSource * getSources        (const UInt32 index) const;
 
-                  string              &editTargetIds      (const UInt32 index);
-            const string              &getTargetIds       (const UInt32 index) const;
+                  std::string         &editTargetIds      (const UInt32 index);
+            const std::string         &getTargetIds       (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

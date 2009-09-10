@@ -12,7 +12,7 @@
    useLocalIncludes="false"
    isNodeCore="true"
    isBundle="false"
-   parentFields="none"
+   parentFields="both"
    >
   <Field
      name="timeSensor"
@@ -36,7 +36,8 @@
   </Field>
   <Field
      name="channels"
-     category="pointer"
+     category="childpointer"
+     linkParentField="Animation"
      type="AnimChannel"
      cardinality="multi"
      visibility="external"

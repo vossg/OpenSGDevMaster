@@ -87,7 +87,7 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var string          AnimTemplateBase::_mfTargetIds
+/*! \var std::string     AnimTemplateBase::_mfTargetIds
     
 */
 
@@ -185,7 +185,7 @@ AnimTemplateBase::TypeObject AnimTemplateBase::_type(
     "  <Field\n"
     "     name=\"targetIds\"\n"
     "     category=\"data\"\n"
-    "     type=\"string\"\n"
+    "     type=\"std::string\"\n"
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"

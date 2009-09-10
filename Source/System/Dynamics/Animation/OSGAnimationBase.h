@@ -116,7 +116,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
         
     typedef SFUnrecTimeSensorPtr SFTimeSensorType;
     typedef SFUnrecAnimTemplatePtr SFTemplateType;
-    typedef MFUnrecAnimChannelPtr MFChannelsType;
+    typedef MFUnrecChildAnimChannelPtr MFChannelsType;
     typedef SFReal32          SFWeightType;
 
     /*---------------------------------------------------------------------*/
@@ -146,8 +146,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
                   SFUnrecTimeSensorPtr *editSFTimeSensor     (void);
             const SFUnrecAnimTemplatePtr *getSFTemplate       (void) const;
                   SFUnrecAnimTemplatePtr *editSFTemplate       (void);
-            const MFUnrecAnimChannelPtr *getMFChannels       (void) const;
-                  MFUnrecAnimChannelPtr *editMFChannels       (void);
+            const MFUnrecChildAnimChannelPtr *getMFChannels       (void) const;
+                  MFUnrecChildAnimChannelPtr *editMFChannels       (void);
 
                   SFReal32            *editSFWeight         (void);
             const SFReal32            *getSFWeight          (void) const;
@@ -182,7 +182,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void pushToChannels            (AnimChannel * const value   );
-    void assignChannels           (const MFUnrecAnimChannelPtr &value);
+    void assignChannels           (const MFUnrecChildAnimChannelPtr &value);
     void removeFromChannels (UInt32               uiIndex );
     void removeObjFromChannels(AnimChannel * const value   );
     void clearChannels              (void                         );
@@ -242,7 +242,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
 
     SFUnrecTimeSensorPtr _sfTimeSensor;
     SFUnrecAnimTemplatePtr _sfTemplate;
-    MFUnrecAnimChannelPtr _mfChannels;
+    MFUnrecChildAnimChannelPtr _mfChannels;
     SFReal32          _sfWeight;
 
     /*! \}                                                                 */
@@ -266,6 +266,14 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \{                                                                 */
 
     void onCreate(const Animation *source = NULL);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Child linking                                                */
+    /*! \{                                                                 */
+
+    virtual bool unlinkChild(FieldContainer * const pChild,
+                             UInt16           const childFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
