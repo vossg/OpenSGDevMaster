@@ -65,8 +65,12 @@ OSBElementRegistrationHelper<OSBChunkMaterialElement>
 /*-------------------------------------------------------------------------*/
 /* Constructor                                                             */
 
-OSBChunkMaterialElement::OSBChunkMaterialElement(OSBRootElement *root)
-    : Inherited(root, OSGOSBHeaderVersion200)
+OSBChunkMaterialElement::OSBChunkMaterialElement(OSBRootElement *root) :
+     Inherited            (root, 
+                           OSGOSBHeaderVersion200),
+    _mfSlots              (                      ),
+    _chunksPtrFieldIt     (                      ),
+    _chunksPtrFieldItValid(false                 )
 {
 }
 
@@ -118,6 +122,8 @@ OSBChunkMaterialElement::read(const std::string &typeName)
             // keep an interator to the _mfChunks field contents
             readFieldContent(fieldName, fieldTypeName, fieldSize, "",
                              _chunksPtrFieldIt);
+
+            _chunksPtrFieldItValid = true;
         }
         else
         {
@@ -143,7 +149,7 @@ OSBChunkMaterialElement::postRead(void)
         dynamic_cast<ChunkMaterial *>(getContainer());
     
     // No chunks loaded
-    if(_chunksPtrFieldIt == PtrFieldListIt())
+    if(_chunksPtrFieldItValid == false)
         return;
 
     PtrFieldInfo::PtrIdStoreConstIt idIt  = 

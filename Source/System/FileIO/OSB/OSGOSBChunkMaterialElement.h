@@ -110,6 +110,7 @@ class OSG_FILEIO_DLLMAPPING OSBChunkMaterialElement : public OSBCommonElement
 
     MFInt32         _mfSlots;
     PtrFieldListIt  _chunksPtrFieldIt;
+    bool            _chunksPtrFieldItValid;
 };
 
 OSG_END_NAMESPACE
