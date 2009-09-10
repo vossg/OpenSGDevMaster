@@ -102,10 +102,15 @@ template class SingletonHolder<VRMLNodeHelperFactoryBase>;
 //---------------------------------------------------------------------------
 
 VRMLNodeHelperFactoryBase::RegisterHelper::RegisterHelper(
-          CreateHelper  fCreate, 
-    const Char8        *szNodeName)
+          CreateHelper       fCreate, 
+    const Char8             *szNodeName,
+          InitFuncF          fStaticInit)
 {
-    VRMLNodeHelperFactory::the()->registerNodeHelper(fCreate, szNodeName);
+    VRMLNodeHelperFactory::the()->registerNodeHelper(fCreate, 
+                                                     szNodeName);
+
+    if(fStaticInit)
+        addPostFactoryInitFunction(fStaticInit);
 }
 
 
@@ -119,8 +124,8 @@ VRMLNodeHelperFactoryBase::~VRMLNodeHelperFactoryBase(void)
 }
 
 void VRMLNodeHelperFactoryBase::registerNodeHelper(      
-          CreateHelper  fHelper,
-    const Char8        *szNodeName)
+          CreateHelper       fHelper,
+    const Char8             *szNodeName)
 {
     if(szNodeName == NULL || fHelper == NULL) 
         return;
@@ -1008,20 +1013,22 @@ void VRMLDefaultHelper::dump(const Char8 *)
 //---------------------------------------------------------------------------
 
 template<>
-VRMLNodeHelperFactoryBase::RegisterHelper VRMLGenericHelper<Group>::_regHelper(
+VRMLNodeHelperFactoryBase::RegisterHelper 
+  VRMLGenericHelper<Group>::_regHelper(
     &VRMLGenericHelper<Group>::create,
-    "Group");
+    "Group",
+    NULL);
 
-template class VRMLGenericHelper<Group>;
+OSG_INST_GENERICVRMLHELPER(Group);
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
-    VRMLGenericHelper<ComponentTransform>::_regHelper(
-        &VRMLGenericHelper<ComponentTransform>::create,
-        "Transform");
+  VRMLGenericHelper<ComponentTransform>::_regHelper(
+    &VRMLGenericHelper<ComponentTransform>::create,
+    "Transform",
+    NULL);
 
-template class VRMLGenericHelper<ComponentTransform>;
-
+OSG_INST_GENERICVRMLHELPER(ComponentTransform);
 
 
 
@@ -1390,7 +1397,8 @@ void VRMLMaterialHelper::dump(const Char8 *)
 
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLMaterialHelper::_regHelper(
     &VRMLMaterialHelper::create,
-    "Material");
+    "Material",
+    NULL);
 
 
 
@@ -1651,7 +1659,8 @@ void VRMLShapeHelper::dump(const Char8 *)
 
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLShapeHelper::_regHelper(
     &VRMLShapeHelper::create,
-    "Shape");
+    "Shape",
+    NULL);
 
 
 
@@ -1964,7 +1973,8 @@ void VRMLAppearanceHelper::dump(const Char8 *)
 
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLAppearanceHelper::_regHelper(
     &VRMLAppearanceHelper::create,
-    "Appearance");
+    "Appearance",
+    NULL);
 
 
 
@@ -2544,12 +2554,14 @@ void VRMLIndexedGeometryHelper::dump(const Char8 *)
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLIndexedGeometryHelper::_regHelperIFS(
         &VRMLIndexedGeometryHelper::create,
-        "IndexedFaceSet");
+        "IndexedFaceSet",
+        NULL);
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLIndexedGeometryHelper::_regHelperILS(
         &VRMLIndexedGeometryHelper::create,
-        "IndexedLineSet");
+        "IndexedLineSet",
+        NULL);
 
 
 
@@ -2764,22 +2776,26 @@ void VRMLGeometryPartHelper::dump(const Char8 *)
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryPartHelper::_regHelperCoordinate(
         &VRMLGeometryPartHelper::create,
-        "Coordinate");
+        "Coordinate",
+        NULL);
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryPartHelper::_regHelperNormal(
         &VRMLGeometryPartHelper::create,
-        "Normal");
+        "Normal",
+        NULL);
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryPartHelper::_regHelperColor(
         &VRMLGeometryPartHelper::create,
-        "Color");
+        "Color",
+        NULL);
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryPartHelper::_regHelperTexCoordinate(
         &VRMLGeometryPartHelper::create,
-        "TextureCoordinate");
+        "TextureCoordinate",
+        NULL);
 
 
 
@@ -3279,32 +3295,38 @@ void VRMLGeometryObjectHelper::dump(const Char8 *)
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryObjectHelper::_regHelperBox(
         &VRMLGeometryObjectHelper::create,
-        "Box");
+        "Box",
+        NULL);
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryObjectHelper::_regHelperSphere(
         &VRMLGeometryObjectHelper::create,
-        "Sphere");
+        "Sphere",
+        NULL);
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryObjectHelper::_regHelperCone(
         &VRMLGeometryObjectHelper::create,
-        "Cone");
+        "Cone",
+        NULL);
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryObjectHelper::_regHelperCylinder(
         &VRMLGeometryObjectHelper::create,
-        "Cylinder");
+        "Cylinder",
+        NULL);
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryObjectHelper::_regHelperTeapot(
         &VRMLGeometryObjectHelper::create,
-        "Teapot");
+        "Teapot",
+        NULL);
 
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGeometryObjectHelper::_regHelperPlane(
         &VRMLGeometryObjectHelper::create,
-        "Plane");
+        "Plane",
+        NULL);
 
 
 
@@ -3786,7 +3808,8 @@ void VRMLImageTextureHelper::dump(const Char8 *)
 
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLImageTextureHelper::_regHelper(
     &VRMLImageTextureHelper::create,
-    "ImageTexture");
+    "ImageTexture",
+    NULL);
 
 
 
@@ -3982,7 +4005,8 @@ void VRMLPixelTextureHelper::dump(const Char8 *)
 
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLPixelTextureHelper::_regHelper(
     &VRMLPixelTextureHelper::create,
-    "PixelTexture");
+    "PixelTexture",
+    NULL);
 
 
 
@@ -4064,7 +4088,8 @@ void VRMLInlineHelper::dump(const Char8 *)
 
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLInlineHelper::_regHelper(
     &VRMLInlineHelper::create,
-    "Inline");
+    "Inline",
+    NULL);
 
 
 
@@ -4122,8 +4147,8 @@ void VRMLSwitchHelper::init(const Char8 *szName)
 /*                                Get                                      */
 
 bool VRMLSwitchHelper::prototypeAddField(const Char8  *szFieldType,
-                                        const UInt32  uiFieldTypeId,
-                                        const Char8  *szFieldname)
+                                         const UInt32  uiFieldTypeId,
+                                         const Char8  *szFieldname)
 {
     bool returnValue = false;
 
@@ -4277,7 +4302,8 @@ void VRMLSwitchHelper::dump(const Char8 *)
 
 VRMLNodeHelperFactoryBase::RegisterHelper VRMLSwitchHelper::_regHelper(
     &VRMLSwitchHelper::create,
-    "Switch");
+    "Switch",
+    NULL);
 
 
 //---------------------------------------------------------------------------
@@ -4285,47 +4311,94 @@ VRMLNodeHelperFactoryBase::RegisterHelper VRMLSwitchHelper::_regHelper(
 //---------------------------------------------------------------------------
 
 template<>
+bool VRMLGenericHelper<TimeSensor>::initStatic(void)
+{
+    return true;
+}
+
+template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGenericHelper<TimeSensor>::_regHelper(
         &VRMLGenericHelper<TimeSensor>::create,
-        "TimeSensor");
+        "TimeSensor",
+        &VRMLGenericHelper<TimeSensor>::initStatic);
 
-template class VRMLGenericHelper<TimeSensor>;
+OSG_INST_GENERICVRMLHELPER(TimeSensor);
 
+
+template<>
+bool VRMLGenericHelper<VRMLOrientationInterpolator>::initStatic(void)
+{
+    _mFieldNameMap[std::string("fraction")] = std::string("inValue" ); 
+    _mFieldNameMap[std::string("value"   )] = std::string("outValue");
+
+    return true;
+}
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGenericHelper<VRMLOrientationInterpolator>::_regHelper(
         &VRMLGenericHelper<VRMLOrientationInterpolator>::create,
-        "OrientationInterpolator");
+        "OrientationInterpolator",
+        &VRMLGenericHelper<VRMLOrientationInterpolator>::initStatic);
 
-template class VRMLGenericHelper<VRMLOrientationInterpolator>;
+OSG_INST_GENERICVRMLHELPER(VRMLOrientationInterpolator);
 
+
+template<>
+bool VRMLGenericHelper<VRMLPositionInterpolator>::initStatic(void)
+{
+    _mFieldNameMap[std::string("fraction")] = std::string("inValue" ); 
+    _mFieldNameMap[std::string("value"   )] = std::string("outValue");
+
+    return true;
+}
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGenericHelper<VRMLPositionInterpolator>::_regHelper(
         &VRMLGenericHelper<VRMLPositionInterpolator>::create,
-        "PositionInterpolator");
+        "PositionInterpolator",
+        &VRMLGenericHelper<VRMLPositionInterpolator>::initStatic);
 
-template class VRMLGenericHelper<VRMLPositionInterpolator>;
+OSG_INST_GENERICVRMLHELPER(VRMLPositionInterpolator);
 
+
+template<>
+bool VRMLGenericHelper<VRMLCoordinateInterpolator>::initStatic(void)
+{
+    _mFieldNameMap[std::string("fraction")] = std::string("inValue" ); 
+    _mFieldNameMap[std::string("value"   )] = std::string("outValue");
+
+    return true;
+}
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGenericHelper<VRMLCoordinateInterpolator>::_regHelper(
         &VRMLGenericHelper<VRMLCoordinateInterpolator>::create,
-        "CoordinateInterpolator");
+        "CoordinateInterpolator",
+        &VRMLGenericHelper<VRMLCoordinateInterpolator>::initStatic);
 
-template class VRMLGenericHelper<VRMLCoordinateInterpolator>;
+OSG_INST_GENERICVRMLHELPER(VRMLCoordinateInterpolator);
 
+
+template<>
+bool VRMLGenericHelper<VRMLScalarInterpolator>::initStatic(void)
+{
+    _mFieldNameMap[std::string("fraction")] = std::string("inValue" ); 
+    _mFieldNameMap[std::string("value"   )] = std::string("outValue");
+
+    return true;
+}
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGenericHelper<VRMLScalarInterpolator>::_regHelper(
         &VRMLGenericHelper<VRMLScalarInterpolator>::create,
-        "ScalarInterpolator");
+        "ScalarInterpolator",
+        &VRMLGenericHelper<VRMLScalarInterpolator>::initStatic);
 
-template class VRMLGenericHelper<VRMLScalarInterpolator>;
+OSG_INST_GENERICVRMLHELPER(VRMLScalarInterpolator);
 
 OSG_END_NAMESPACE

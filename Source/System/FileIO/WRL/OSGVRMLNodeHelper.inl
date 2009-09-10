@@ -57,7 +57,7 @@ void VRMLGenericHelper<ContainerT>::init(const Char8 *szName)
 
 #ifdef OSG_DEBUG_VRML
     indentLog(getIndent(), PINFO);
-    PINFO << "GroupHelper::init : " << szName << std::endl;
+    PINFO << "GenericHelper::init : " << szName << std::endl;
 #endif
 
     _pNodeProto     = Node      ::create();
@@ -66,6 +66,65 @@ void VRMLGenericHelper<ContainerT>::init(const Char8 *szName)
     _pGenAttProto   = VRMLGenericAtt::create();
     _pGenAttProto->setInternal(true);
 }
+
+template<class ContainerT> inline
+void VRMLGenericHelper<ContainerT>::mapFieldname(
+    const std::string &szVRMLNodeName,
+          std::string &szFieldName   )
+{
+    if(_mFieldNameMap.empty() == false)
+    {
+        FieldNameMapConstIt nIt = _mFieldNameMap.find(szFieldName);
+
+        if(nIt != _mFieldNameMap.end())
+        {
+            szFieldName = nIt->second;
+        }
+    }
+}
+
+template<class ContainerT> inline
+bool VRMLGenericHelper<ContainerT>::prototypeAddField(
+    const Char8  *szFieldType,
+    const UInt32  uiFieldTypeId,
+    const Char8  *szFieldName)
+{
+    if(szFieldName == NULL)
+        return false;
+
+    std::string szDummyVRMLNodeName;
+    std::string szTmpFieldName(szFieldName);
+
+    this->mapFieldname(szDummyVRMLNodeName, szTmpFieldName);
+
+    return Inherited::prototypeAddField(szFieldType, 
+                                        uiFieldTypeId, 
+                                        szTmpFieldName.c_str());
+}
+
+template<class ContainerT> inline
+void VRMLGenericHelper<ContainerT>::getFieldAndDesc  (     
+          FieldContainer       * pFC,
+    const Char8                * szFieldname,
+          FieldContainer       *&pFieldFC,
+          EditFieldHandlePtr    &pField,
+    const FieldDescriptionBase *&pDesc)
+{
+    if(szFieldname == NULL)
+        return;
+
+    std::string szDummyVRMLNodeName;
+    std::string szTmpFieldName(szFieldname);
+
+    this->mapFieldname(szDummyVRMLNodeName, szTmpFieldName);
+
+    Inherited::getFieldAndDesc(pFC, 
+                               szTmpFieldName.c_str(),
+                               pFieldFC,
+                               pField,
+                               pDesc);
+}
+
 
 template<class ContainerT> inline
 void VRMLGenericHelper<ContainerT>::dump(const Char8 *szNodeName)

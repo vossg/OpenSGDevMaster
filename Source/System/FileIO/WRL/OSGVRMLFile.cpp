@@ -650,7 +650,7 @@ void VRMLFile::addRoute(const Char8  *szOutNodename,
 
     if(uiPos != std::string::npos)
     {
-        szOutFName[uiPos] = '\0';
+        szOutFName.erase(uiPos, std::string::npos);
     }
     
     uiPos = szInFName.find(std::string("set_"));

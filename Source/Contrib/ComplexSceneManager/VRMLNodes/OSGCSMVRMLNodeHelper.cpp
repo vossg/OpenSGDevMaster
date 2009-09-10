@@ -53,35 +53,39 @@ template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGenericHelper<Real32Counter>::_regHelper(
         &VRMLGenericHelper<Real32Counter>::create,
-        "Real32Counter");
+        "Real32Counter",
+        NULL);
 
-template class VRMLGenericHelper<Real32Counter>;
+OSG_INST_GENERICVRMLHELPER(Real32Counter);
 
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGenericHelper<Int32Counter>::_regHelper(
         &VRMLGenericHelper<Int32Counter>::create,
-        "Int32Counter");
+        "Int32Counter",
+        NULL);
 
-template class VRMLGenericHelper<Int32Counter>;
+OSG_INST_GENERICVRMLHELPER(Int32Counter);
 
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGenericHelper<LimitedReal32Counter>::_regHelper(
         &VRMLGenericHelper<LimitedReal32Counter>::create,
-        "LimitedReal32Counter");
+        "LimitedReal32Counter",
+        NULL);
 
-template class VRMLGenericHelper<LimitedReal32Counter>;
+OSG_INST_GENERICVRMLHELPER(LimitedReal32Counter);
 
 
 template<>
 VRMLNodeHelperFactoryBase::RegisterHelper 
     VRMLGenericHelper<LimitedInt32Counter>::_regHelper(
         &VRMLGenericHelper<LimitedInt32Counter>::create,
-        "LimitedInt32Counter");
+        "LimitedInt32Counter",
+        NULL);
 
-template class VRMLGenericHelper<LimitedInt32Counter>;
+OSG_INST_GENERICVRMLHELPER(LimitedInt32Counter);
 
 OSG_END_NAMESPACE

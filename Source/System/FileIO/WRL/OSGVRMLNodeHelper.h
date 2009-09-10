@@ -108,14 +108,15 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase
 
   public :
 
-    typedef boost::function<VRMLNodeHelper *(void)> CreateHelper;
+    typedef boost::function<VRMLNodeHelper *(void)>  CreateHelper;
 
     class OSG_FILEIO_DLLMAPPING RegisterHelper
     {
       public:
         
-        RegisterHelper(      CreateHelper  fCreate, 
-                       const Char8        *szNodeName);
+        RegisterHelper(      CreateHelper       fCreate, 
+                       const Char8             *szNodeName,
+                             InitFuncF          fStaticInit);
     };
 
     /*---------------------------------------------------------------------*/
@@ -133,8 +134,8 @@ class OSG_FILEIO_DLLMAPPING VRMLNodeHelperFactoryBase
     /*! \name                     Field                                    */
     /*! \{                                                                 */
 
-    void registerNodeHelper(      CreateHelper  fHelper,
-                            const Char8        *szNodeName);
+    void registerNodeHelper(      CreateHelper       fHelper,
+                            const Char8             *szNodeName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -512,12 +513,13 @@ class OSG_FILEIO_DLLMAPPING VRMLDefaultHelper : public VRMLNodeHelper
 //---------------------------------------------------------------------------
 
 /*! \brief VRML Group Helper
-*/
+ */
 
 template<class ContainerT>
 class VRMLGenericHelper : public VRMLNodeHelper
 {
     /*==========================  PUBLIC  =================================*/
+
   public :
 
     /*---------------------------------------------------------------------*/
@@ -545,11 +547,30 @@ class VRMLGenericHelper : public VRMLNodeHelper
     /*! \name                     Field                                    */
     /*! \{                                                                 */
 
+    static bool initStatic(void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Node                                     */
     /*! \{                                                                 */
 
+    virtual void mapFieldname(const std::string &szVRMLNodeName,
+                                    std::string &szFieldName   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Dump                                  */
+    /*! \{                                                                 */
+
+    virtual bool prototypeAddField(const Char8  *szFieldType,
+                                   const UInt32  uiFieldTypeId,
+                                   const Char8  *szFieldName);
+
+    virtual void getFieldAndDesc  (      FieldContainer       * pFC,
+                                   const Char8                * szFieldname,
+                                         FieldContainer       *&pFieldFC,
+                                         EditFieldHandlePtr    &pField,
+                                   const FieldDescriptionBase *&pDesc);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Dump                                  */
@@ -561,6 +582,14 @@ class VRMLGenericHelper : public VRMLNodeHelper
     /*=========================  PROTECTED  ===============================*/
 
   protected:
+
+
+    typedef std::map<std::string,  
+                     std::string>         FieldNameMap;
+
+    typedef FieldNameMap::const_iterator  FieldNameMapConstIt;
+
+    static  FieldNameMap                 _mFieldNameMap;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
@@ -593,7 +622,14 @@ class VRMLGenericHelper : public VRMLNodeHelper
     void operator =(const VRMLGenericHelper &source);
 };
 
-
+#define OSG_INST_GENERICVRMLHELPER(OSGNODE)                 \
+                                                            \
+    template<>                                              \
+    VRMLGenericHelper< OSGNODE >::FieldNameMap              \
+        VRMLGenericHelper< OSGNODE >::_mFieldNameMap =      \
+            VRMLGenericHelper< OSGNODE >::FieldNameMap();   \
+                                                            \
+    template class VRMLGenericHelper< OSGNODE >
 
 //---------------------------------------------------------------------------
 //  Class
