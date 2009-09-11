@@ -84,6 +84,7 @@ ADD_SUBDIRECTORY(libiconv)
 ADD_SUBDIRECTORY(libxml2)
 ADD_SUBDIRECTORY(collada)
 ADD_SUBDIRECTORY(OpenEXR)
+ADD_SUBDIRECTORY(glew)
 
 SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" 
                               CACHE STRING "OpenSGSupport Build Types" FORCE )
