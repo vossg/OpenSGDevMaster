@@ -40,6 +40,10 @@
 #pragma GCC diagnostic warning "-Wsign-compare"
 #endif
 
+#ifdef WIN32
+#pragma warning( disable : 4018 )
+#endif
+
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------

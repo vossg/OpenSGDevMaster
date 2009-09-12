@@ -41,6 +41,10 @@
 #pragma GCC diagnostic warning "-Wsign-compare"
 #endif
 
+#ifdef WIN32
+#pragma warning( disable : 4018 )
+#endif
+
 #include <cstdlib>
 #include <cstdio>
 
@@ -187,7 +191,7 @@ bool createNormalVolume (      Image       *inImage,
                                Image       *outImage,
                          const std::string &outputFormat)
 {
-  const Real32 gMax = 441.67295593, gF = 255.0/gMax;
+  const Real32 gMax = 441.67295593f, gF = 255.0f/gMax;
   const OSG::Real32 TwoPi = 2 * OSG::Pi;
 
   enum DataIndex { SCALAR_DI,

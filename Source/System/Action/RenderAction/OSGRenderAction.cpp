@@ -272,9 +272,9 @@ RenderAction::RenderAction(void) :
     _occQueryBufferSize      (      1000),
     _occMinimumTriangleCount (       500),
 
-    _scrlodCoverageThreshold (      0.01),
+    _scrlodCoverageThreshold (     0.01f),
     _scrlodNumLODsToUse      (         0),
-    _scrlodDegradationFactor (       1.0),
+    _scrlodDegradationFactor (      1.0f),
 
     _pGLFinishTask           (NULL      )
 {

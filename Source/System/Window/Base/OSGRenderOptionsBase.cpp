@@ -857,7 +857,7 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\t\ttype=\"Color4f\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultValue=\"0.2,0.2,0.2,1.0\"\n"
+    "\t\tdefaultValue=\"0.2f,0.2f,0.2f,1.0f\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -1891,7 +1891,7 @@ RenderOptionsBase::RenderOptionsBase(void) :
     _sfSmallFeatureThreshold  (),
     _sfFirstFrame             (bool(true)),
     _sfDepthOnlyPass          (bool(false)),
-    _sfLightModelAmbient      (Color4f(0.2,0.2,0.2,1.0)),
+    _sfLightModelAmbient      (Color4f(0.2f,0.2f,0.2f,1.0f)),
     _sfFogColor               (Color4f(0,0,0,0)),
     _sfFogRange               (Vec2f(0,1)),
     _sfFogDensity             (Real32(1)),

@@ -235,7 +235,7 @@
 		type="Color4f"
 		cardinality="single"
 		visibility="external"
-		defaultValue="0.2,0.2,0.2,1.0"
+		defaultValue="0.2f,0.2f,0.2f,1.0f"
 		access="public"
 	>
 	</Field>
