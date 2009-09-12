@@ -313,7 +313,7 @@ void SimpleShadowMapEngine::setupLightChunk(Light         *pLight,
         
         pChunk->setSpecular(tmpVal);
         
-        tmpVal.setValuesRGBA(0.2, 0.2, 0.2, 1.0);
+        tmpVal.setValuesRGBA(0.2f, 0.2f, 0.2f, 1.0f);
         
         pChunk->setDiffuse (tmpVal);
         
@@ -564,7 +564,7 @@ void SimpleShadowMapEngine::doFinalPass(Light         *pLight,
         pBlender->setSrcFactor(GL_ONE);
         pBlender->setDestFactor(GL_ONE);
         pBlender->setAlphaFunc(GL_GEQUAL);
-        pBlender->setAlphaValue(0.99);
+        pBlender->setAlphaValue(0.99f);
         
         pEngineData->setBlendChunk(pBlender);
     }

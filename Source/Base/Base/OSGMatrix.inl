@@ -583,7 +583,7 @@ inline void
         TransformationMatrix &S,
         ValueType            &det) const
 {
-    ValueType const TOL = 1.0e-6;
+    ValueType const TOL = ValueType(1.0e-6);
 
     TransformationMatrix const &M = *this;
     TransformationMatrix        Mk;

@@ -357,7 +357,7 @@ void ShaderShadowMapEngine::handlePointLightEnter(
     Real    lightNear;
     Real    lightFar;
 
-    calcPointLightRange(pointL, 0.001,
+    calcPointLightRange(pointL, 0.001f,
                         parentPart->getNear(), parentPart->getFar(),
                         lightNear,             lightFar             );
 
@@ -624,7 +624,7 @@ void ShaderShadowMapEngine::handleSpotLightEnter(
     Real    lightNear;
     Real    lightFar;
 
-    calcPointLightRange(spotL, 0.001,
+    calcPointLightRange(spotL, 0.001f,
                         parentPart->getNear(), parentPart->getFar(),
                         lightNear,             lightFar             );
 

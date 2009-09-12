@@ -226,7 +226,7 @@ NodeTransitPtr OFFSceneFileType::read(      std::istream &is,
     if (hasTexCoords)
         texcoords = GeoVec2fProperty::create();
 
-    mat->setDiffuse(Color3f(0.42, 0.42, 0.52));
+    mat->setDiffuse(Color3f(0.42f, 0.42f, 0.52f));
     mat->setSpecular(Color3f(1, 1, 1));
     mat->setShininess(20);
 

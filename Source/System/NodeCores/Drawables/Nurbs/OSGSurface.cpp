@@ -455,7 +455,7 @@ void Surface::reTessellate(void)
     {
 //        SLOG << " Surface::tessellate: correcting negative/zero error" <<
 //              endLog;
-        setError(0.2);
+        setError(0.2f);
     }
 
     _surfacePatch->setError(getError() );
@@ -762,7 +762,7 @@ Int32 Surface::tessellateSurface(std::vector<SimplePolygon> &triangles,
     {
 //        SLOG << " Surface::tessellate: correcting negative/zero error" <<
 //                endLog;
-        _sfError.setValue(0.2);
+        _sfError.setValue(0.2f);
     }
 
     _surfacePatch->setError(_sfError.getValue() );
@@ -811,7 +811,7 @@ Int32 Surface::tessellateSurface(std::vector<SimplePolygon> &triangles,
     {
 //        SLOG << " Surface::tessellate: correcting negative/zero error" <<
 //                endLog;
-        _sfError.setValue(0.2);
+        _sfError.setValue(0.2f);
     }
 
     _surfacePatch->setError(_sfError.getValue() );
@@ -864,7 +864,7 @@ Int32 Surface::tessellateSurface(std::vector<SimplePolygon> &triangles,
     {
 //        SLOG << " Surface::tessellate: correcting negative/zero error" <<
 //                endLog;
-        _sfError.setValue(0.2);
+        _sfError.setValue(0.2f);
     }
 
     _surfacePatch->setError(_sfError.getValue());
