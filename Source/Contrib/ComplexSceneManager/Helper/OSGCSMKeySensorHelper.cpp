@@ -83,7 +83,7 @@ void CSMKeySensorHelper::updateSensors(KeySensor *pSensor)
 
         if(kIt != _oKeyMap[i].end())
         {
-            if(pSensor->getKey() != i)
+            if(pSensor->getKey() != Int32(i))
             {
                 _oKeyMap[i].erase(kIt);
 

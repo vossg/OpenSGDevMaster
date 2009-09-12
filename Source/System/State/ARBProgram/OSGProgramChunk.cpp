@@ -304,7 +304,7 @@ void ProgramChunk::printCompileError(Window *win, UInt32 id)
     GLint pos;   
     glGetIntegerv(GL_PROGRAM_ERROR_POSITION_ARB, &pos);
     
-    FWARNING(("ProgramChunk(%p:%d,%d): error compiling program "
+    FWARNING(("ProgramChunk(%p:%d): error compiling program "
               "at position %d: %s\n",
               win, id, pos, glGetString(GL_PROGRAM_ERROR_STRING_ARB)));
     
@@ -327,7 +327,7 @@ void ProgramChunk::printCompileError(Window *win, UInt32 id)
     
     for(UInt32 i = start; i < end; ++i)
     {
-        if(i == pos)
+        if(i == UInt32(pos))
         {
             mesg += '>';
             mesg += '>';
@@ -335,7 +335,7 @@ void ProgramChunk::printCompileError(Window *win, UInt32 id)
         
         mesg += getProgram()[i];
 
-        if(i == pos)
+        if(i == UInt32(pos))
         {
             mesg += '<';
             mesg += '<';

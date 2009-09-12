@@ -71,10 +71,7 @@ Cluster rendering configuration for sort first image composition
 void SortLastWindow::buildGroups(void)
 {
     UInt32            v          = 0;
-    Viewport         *vp         = NULL;
-    Node             *root       = NULL;
     DrawableListT     drawables;
-    SortLastWindow   *ptr        = this;
     UInt32            groupCount = 0;
     bool              rebuild    = false;
 
@@ -280,7 +277,6 @@ void SortLastWindow::serverRender(Window           *serverWindow,
     Viewport         *clientPort  = NULL;
     UInt32            sv          = 0;
     UInt32            cv          = 0;
-    UInt32            regionStart = 0;
 
     // duplicate viewports
     for(cv = 0, sv = 0; cv < getMFPort()->size(); ++cv)
@@ -358,8 +354,7 @@ void SortLastWindow::serverRender(Window           *serverWindow,
 
     for(sv = 0; sv < serverWindow->getMFPort()->size(); ++sv)
     {
-        Viewport *vp         = serverWindow->getPort(sv);
-        Node     *root       = vp->getRoot();
+        Viewport *vp = serverWindow->getPort(sv);
 
         if(getComposer() != NULL)
             getComposer()->startViewport(vp);
@@ -537,15 +532,9 @@ void SortLastWindow::clientRender(RenderActionBase *action)
 {
     UInt32          p;
     UInt32          groupId = getMFServers()->size();
-    UInt32          l,b,r,t;
-    UInt32          front,back;
-    SortLastWindow *clusterWindow(this);
 
     if(getMFServers()->size())
     {
-        Connection *srcConnection=
-            getNetwork()->getConnection(groupId);
-        
         if(getClientWindow() != NULL)
         {
             setupNodes(groupId);
@@ -882,7 +871,6 @@ void SortLastWindow::setupNodes(UInt32 groupId)
 {
     UInt32  v             = 0;
     Node   *root          = NULL;
-    UInt32  p             = 0;
     UInt32  nI            = 0;
     UInt32  gnI           = 0;
     UInt32  gI            = 0;

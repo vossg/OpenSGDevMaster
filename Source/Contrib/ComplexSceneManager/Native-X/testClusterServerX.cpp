@@ -72,12 +72,10 @@ int wait_for_map_notify(Display *, XEvent *event, char *arg)
 // Initialize GLUT & OpenSG and start the cluster server
 int main(int argc,char **argv)
 {
-          int             winid          = 0;
     const char           *name           = "ClusterServer";
     const char           *connectionType = "StreamSock";
           bool            fullscreen     = true;
           std::string     address        = "";
-          char           *opt            = NULL;
           bool            doStereo       = false;
           OSG::UInt32     servicePort    = 8437;
           std::string     serviceGroup   = "224.245.211.234";
@@ -369,7 +367,6 @@ int main(int argc,char **argv)
         // start the server
         server->start();
 
-        OSG::Real32 w,h,a,b,c,d;
         bool        stopIt = false;
         int         ip;
 
@@ -377,7 +374,7 @@ int main(int argc,char **argv)
 
         while(!stopIt) 
         {
-            while(ip = XPending(dpy))
+            while((ip = XPending(dpy)) != 0)
             {
                 XNextEvent(dpy, &event);
 

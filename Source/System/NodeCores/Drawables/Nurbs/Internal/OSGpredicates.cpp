@@ -117,6 +117,10 @@
 /*                                                                           */
 /*****************************************************************************/
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wunused-function"
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

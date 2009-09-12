@@ -180,7 +180,6 @@ OSBGeometryElement::preWrite(FieldContainer * const fc)
     {
         const FieldDescriptionBase *fieldDesc = fc->getFieldDescription(fieldId);
         const FieldType            &fieldType = fieldDesc->getFieldType();
-        BitVector                   fieldMask = fieldDesc->getFieldMask();
         std::string                 fieldName = fieldDesc->getCName    ();
 
         // skip internal fields
@@ -654,7 +653,7 @@ OSBGeometryElement::postReadV100(void)
         else
         {
             OSG_OSB_LOG(("OSBGeometryElement::postReadV100: "
-                    "Converting non-packed indices.\n"    ));
+                         "Converting non-packed indices.\n"    ));
 
             FieldContainerIdMapConstIt mapIt =
                 root->getIdMap().find(_indicesId);
@@ -666,7 +665,7 @@ OSBGeometryElement::postReadV100(void)
             }
             else
             {
-                FWARNING(("OSBGeometryElement::postReadV100: ",
+                FWARNING(("OSBGeometryElement::postReadV100: "
                           "Could not find indices property.\n"));
                 return;
             }

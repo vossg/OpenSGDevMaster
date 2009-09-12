@@ -424,15 +424,6 @@ bool CSMClusterWinOptionsBase::unlinkParent(
 }
 
 
-void CSMClusterWinOptionsBase::onCreate(const CSMClusterWinOptions *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        CSMClusterWinOptions *pThis = static_cast<CSMClusterWinOptions *>(this);
-    }
-}
 
 GetFieldHandlePtr CSMClusterWinOptionsBase::getHandleParent          (void) const
 {

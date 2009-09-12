@@ -302,7 +302,7 @@ private:
         }
         
         // check all children
-        for (int i = 0; i < children; i++)
+        for (OSG::UInt32 i = 0; i < children; i++)
         {
             convertToColorIdentificationSwitchable(root->getChild(i));
         }

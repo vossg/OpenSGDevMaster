@@ -76,9 +76,11 @@ RenderActionTask::~RenderActionTask(void)
 
 void RenderActionTask::execute(DrawEnv *pEnv)
 {
+#ifdef OSG_DEBUG
     Window *pWindow = pEnv->getWindow();
 
     OSG_ASSERT(pWindow != NULL);
+#endif
 
     switch(_eTaskType)
     {

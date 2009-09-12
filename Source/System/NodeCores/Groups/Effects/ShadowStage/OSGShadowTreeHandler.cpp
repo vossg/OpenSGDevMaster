@@ -243,8 +243,6 @@ bool ShadowTreeHandler::initSceneFBO(DrawEnv *pEnv,
     if(width <= 0 || height <= 0)
         return false;
 
-    Window *win = pEnv->getWindow();
-
     _width  = pEnv->getPixelWidth();
     _height = pEnv->getPixelHeight();
 
@@ -489,7 +487,7 @@ void ShadowTreeHandler::updateShadowMapSize(void)
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
  
     UInt32 uiSHMSize    =  vShadowMaps.size();
-    UInt32 uiNewMapSize = _pStage->getMapSize();
+     Int32 uiNewMapSize = _pStage->getMapSize();
 
     for(UInt32 i = 0; i < uiSHMSize; ++i)
     {

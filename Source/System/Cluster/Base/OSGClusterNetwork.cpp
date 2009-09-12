@@ -246,7 +246,6 @@ void ClusterNetwork::connectAllPointToPoint(
 {
     bool                                   isClient;
     UInt32                                 servers;
-    Connection                            *addressSource;
     UInt32                                 id,c;
     std::map<UInt32,std::string>           address;
     std::vector<UInt32>                    fromId;

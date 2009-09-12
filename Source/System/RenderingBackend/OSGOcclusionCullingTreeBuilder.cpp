@@ -150,9 +150,9 @@ bool OcclusionCullingTreeBuilder::staticInit(void)
 
 OcclusionCullingTreeBuilder::OcclusionCullingTreeBuilder(void)
     : uNumNodes      (0),
+      _numTestSamples(0),
       _isOccSetup    (false),
       _currSample    (0),
-      _numTestSamples(0),
       _rt            (NULL)
 {
     _buckets.clear();
@@ -787,10 +787,10 @@ void OcclusionCullingTreeBuilder::add(RenderActionBase    *pAction,
     {
         case ModeAdaptiveBucket:
         { 
-            int index = osgClamp(0u, static_cast<UInt32>((val - _bucketLow) * _bucketScale), _nBuckets - 1);
+            UInt32 index = osgClamp(0u, static_cast<UInt32>((val - _bucketLow) * _bucketScale), _nBuckets - 1);
 
             // Do we need to rescale buckets?
-            if(index < 0 || index >= _nBuckets)
+            if(/*index < 0 || */ index >= _nBuckets)
             {
                 Real32 newLow  = osgMin(val, _bucketLow);
                 Real32 newHigh = osgMax(val, _bucketHigh);

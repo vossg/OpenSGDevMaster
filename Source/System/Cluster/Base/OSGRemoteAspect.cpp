@@ -575,7 +575,7 @@ void RemoteAspect::sendSync(Connection &connection, ChangeList *changeList)
 
                 fcPtr->copyToBin(connection, mask);
 
-                FDEBUG(("Changed: %s ID:%d Mask:%llud Length: %d\n", 
+                FDEBUG(("Changed: %s ID:%d Mask:0x%016"PRIx64" Length: %d\n", 
                         fcPtr->getType().getCName(),
                         fcPtr->getId(), 
                         mask,

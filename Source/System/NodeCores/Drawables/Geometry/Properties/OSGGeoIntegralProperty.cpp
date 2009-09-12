@@ -234,7 +234,7 @@ void GeoIntegralProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
 
 bool GeoIntegralProperty::isInVBO(DrawEnv *pEnv)
 {
-    Window *win = pEnv->getWindow();
+//    Window *win = pEnv->getWindow();
     
     if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
     {

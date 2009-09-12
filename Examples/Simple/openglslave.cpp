@@ -369,8 +369,6 @@ void DrawGLScene(void)
     // necessary since OpenSG's modelview transforms start from the unity matrix. 
     newcam->setModelviewMatrix(model);
     
-    OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
-    
     // setup an initial transformation
     OSG::Matrix m1;
     OSG::Quaternion q1;

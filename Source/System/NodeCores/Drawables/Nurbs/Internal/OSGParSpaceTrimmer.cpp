@@ -588,7 +588,7 @@ bool ParSpaceTrimmer::goingOutOnEdge(BezierCurve2D &bc,
                                      DCTPVertex* &v, bool &feu,
                                      std::vector<DCTPVertex*> &el)
 {
-    bool on_edge = false;
+//    bool on_edge = false;
 ///        std::cerr <<"goingout in..." << std::endl;
     std::vector<DCTPEdge *>::iterator eend = state.v->edges.end();
 
@@ -690,7 +690,7 @@ bool ParSpaceTrimmer::goingOutOnEdge2(Vec2d clAct, Vec2d clNext,
                                       DCTPVertex* &v, bool &feu,
                                       std::vector<DCTPVertex*> &el)
 {
-    bool on_edge = false;
+//    bool on_edge = false;
 //	std::cerr <<"goingout in..." << std::endl;
     std::vector<DCTPEdge *>::iterator eend = state.v->edges.end();
 
@@ -842,7 +842,7 @@ DCTPFace* ParSpaceTrimmer::getContinuingFace2(Vec2d clAct, Vec2d clNext)
 {
 //state.v shulda hold the vertex to investigate
 //	int err;
-    double high = 1.0, low = 0.0;
+//    double high = 1.0, low = 0.0;
 //	std::cerr <<" computing stuph.." << std::endl;
 
     if(clAct[0] < m_clMin[0])

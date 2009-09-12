@@ -37,6 +37,10 @@
 //  Includes
 //---------------------------------------------------------------------------
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wsign-compare"
+#endif
+
 #include <cstdlib>
 #include <cstdio>
 
@@ -196,11 +200,11 @@ bool createNormalVolume (      Image       *inImage,
   };
   
   const UInt8 *data = 0;
-  UInt8 *ds, dc;
+  UInt8 *ds;
   OSG::Real32 minU = OSG::Inf, maxU = -OSG::Inf;
   OSG::Real32 minV = OSG::Inf, maxV = -OSG::Inf;
   Int32 w, h, d, x, y, z, md, ld, hd, xs, ys, zs, ps, ls, ss, os;
-  Int32 i,voxelSize ,g,t,p;
+  Int32 i,voxelSize;
   std::vector<UInt32> dataIndex;
   Real32 u, v, length;
   Vec3f normal;
@@ -258,7 +262,7 @@ bool createNormalVolume (      Image       *inImage,
     pf = Image::OSG_RGBA_PF;
     break;
   default:
-    FFATAL (( "Invalid outputFormat length in createNormalVolume: %d\n",
+    FFATAL (( "Invalid outputFormat length in createNormalVolume: %zd\n",
               outputFormat.size() ));
     return false;
   }
@@ -291,7 +295,7 @@ bool createNormalVolume (      Image       *inImage,
       FDEBUG (( "dataIndex[%d]: %d\n", i, dataIndex[i] ));
     }        
     else {
-      FFATAL (( "Invalid outputFormat element %c, valid: \n",
+      FFATAL (( "Invalid outputFormat element %c, valid: %s\n",
                 char(outputFormat[i]), validFormat ));
       return false;
     }
@@ -704,25 +708,34 @@ bool blendImage ( Image   *canvas,
         alpha = int(talpha * alpha);
         switch ( cPF ) {
         case OSG::Image::OSG_I_PF:
-          *d++  = int(*d * (alpha - 255) + grey  * alpha) / 255;
+          *d  = int(*d * (alpha - 255) + grey  * alpha) / 255;
+          ++d;
           break;
         case OSG::Image::OSG_L_PF:
-          *d++  = int(*d * (alpha - 255) + grey  * alpha) / 255;
+          *d  = int(*d * (alpha - 255) + grey  * alpha) / 255;
+          ++d;
           break;
         case OSG::Image::OSG_LA_PF:
-          *d++  = int(*d * (alpha - 255) + grey  * alpha) / 255;
-          d++;
+          *d  = int(*d * (alpha - 255) + grey  * alpha) / 255;
+          ++d;
+          ++d;
           break;
         case OSG::Image::OSG_RGB_PF:
-          *d++  = int(*d * (255 - alpha) + red   * alpha) / 255;
-          *d++  = int(*d * (255 - alpha) + green * alpha) / 255;
-          *d++  = int(*d * (255 - alpha) + blue  * alpha) / 255;
+          *d  = int(*d * (255 - alpha) + red   * alpha) / 255;
+          ++d;
+          *d  = int(*d * (255 - alpha) + green * alpha) / 255;
+          ++d;
+          *d  = int(*d * (255 - alpha) + blue  * alpha) / 255;
+          ++d;
           break;
         case OSG::Image::OSG_RGBA_PF:
-          *d++  = int(*d * (255 - alpha) + red   * alpha) / 255;
-          *d++  = int(*d * (255 - alpha) + green * alpha) / 255;
-          *d++  = int(*d * (255 - alpha) + blue  * alpha) / 255;
-          d++;
+          *d  = int(*d * (255 - alpha) + red   * alpha) / 255;
+          ++d;
+          *d  = int(*d * (255 - alpha) + green * alpha) / 255;
+          ++d;
+          *d  = int(*d * (255 - alpha) + blue  * alpha) / 255;
+          ++d;
+          ++d;
           break;
         default:
           FFATAL (("Invalid Canvas PixelFormat\n"));
@@ -854,7 +867,7 @@ bool createNormalizationCubeMap(std::vector<Image *> imageVec,
     
     if (imageVec.size() < 6)
     {
-        FFATAL(("Only %d images given - need six\n", imageVec.size()));
+        FFATAL(("Only %zd images given - need six\n", imageVec.size()));
         return false;
     }
 
@@ -1287,7 +1300,7 @@ bool createNoise(Image *image,
                  UInt8 dim,
                  bool splitOctaves)
 {
-    Int32 f, i, j, k, c, w, h, mult = 1, frequency = 4;
+    Int32 f, i, j, k, c, w, h, frequency = 4;
     Real32 ni[3], amp = 0.5, inci, incj, inck;
     unsigned char  *data, *ptr = NULL;
     bool ok = true;
@@ -1496,7 +1509,7 @@ bool convertCrossToCubeMap(Image const *pIn,
           Real32 *pDst = reinterpret_cast<      Real32 *>(pOut->editData());
     const Real32 *pSrc = reinterpret_cast<const Real32 *>(pIn ->getData ());
 
-    OSG::UInt32 i, j;
+    OSG::UInt32 j;
 
     // - X
     for(j = 0; j < face_height; j++) 

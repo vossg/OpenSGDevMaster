@@ -155,8 +155,6 @@ void MultiCore::dump(      UInt32    ,
 
 ActionBase::ResultE MultiCore::renderEnter(Action *action)
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
         this->getMFCores()->begin();
 
@@ -187,8 +185,6 @@ ActionBase::ResultE MultiCore::renderEnter(Action *action)
 
 ActionBase::ResultE MultiCore::renderLeave(Action *action)
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
         this->getMFCores()->begin();
 
@@ -220,8 +216,6 @@ ActionBase::ResultE MultiCore::renderLeave(Action *action)
 ActionBase::ResultE MultiCore::renderEnterFrom(Action   *action,
                                                NodeCore *pFrom )
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
         this->getMFCores()->begin();
 
@@ -261,8 +255,6 @@ ActionBase::ResultE MultiCore::renderEnterFrom(Action   *action,
 ActionBase::ResultE MultiCore::renderLeaveFrom(Action   *action,
                                                NodeCore *pFrom )
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-
     MFUnrecChildNodeCorePtr::const_iterator coreIt  = 
         this->getMFCores()->begin();
 

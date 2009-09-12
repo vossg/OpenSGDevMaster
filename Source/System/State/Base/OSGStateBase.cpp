@@ -369,15 +369,6 @@ StateBase::~StateBase(void)
 {
 }
 
-void StateBase::onCreate(const State *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        State *pThis = static_cast<State *>(this);
-    }
-}
 
 GetFieldHandlePtr StateBase::getHandleChunks          (void) const
 {

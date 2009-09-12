@@ -55,7 +55,6 @@ int main(int argc, char **argv)
     const char     *connectionType = "StreamSock";
     bool            fullscreen     = true;
     std::string     address        = "";
-    char           *opt;
 
     // initialize Glut
     glutInit(&argc, argv);

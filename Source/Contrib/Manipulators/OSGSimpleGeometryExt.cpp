@@ -306,10 +306,6 @@ GeometryTransitPtr makeSelectionGeo(Node *geoN)
     Geometry *selGeoC = dynamic_cast<Geometry *>(geoN->getCore());
     if( selGeoC != NULL )
     {
-         GeoPnt3fProperty *pnts = dynamic_cast<GeoPnt3fProperty *>(selGeoC->getPositions());
-//        GeoPositions3f::StoredFieldType     *p = pnts->getFieldPtr();
-
-//        GeoPositions3f::StoredFieldType::iterator it;
         FaceIterator fi;
 
         for(fi=selGeoC->beginFaces(); fi!=selGeoC->endFaces(); ++fi)

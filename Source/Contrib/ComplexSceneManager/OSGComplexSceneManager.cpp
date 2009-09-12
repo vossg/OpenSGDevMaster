@@ -732,7 +732,7 @@ bool ComplexSceneManager::init(int argc, char **argv)
     std::vector<std::string> vParams;
     std::string              szTmp;
 
-    for(UInt32 i = 1; i < argc; ++i)
+    for(Int32 i = 1; i < argc; ++i)
     {
         szTmp = argv[i];
 

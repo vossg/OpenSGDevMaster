@@ -36,6 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wsign-compare"
+#endif
+
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
@@ -282,7 +286,7 @@ void Image::dump(      UInt32    ,
     };
 
     FLOG (("ImageDump: %s; %d/%d/%d; #mm: %d, side %d, #frame: %d, "
-           "frameDelay %g, dataType %s, size: %d\n",
+           "frameDelay %g, dataType %s, size: %zd\n",
            pfStr,
            getWidth(),
            getHeight(),
@@ -2311,8 +2315,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
     const UChar8 *sourceData = getData();
           UChar8 *destData   = dest->editData();
 
-    Int32 sourceSize =       getSize() /       getComponentSize();
-    Int32 destSize   = dest->getSize() / dest->getComponentSize();
+    Int32 sourceSize = getSize() / getComponentSize();
 
     const UInt16 *sourceDataUC16 = reinterpret_cast<const UInt16 *>(sourceData);
           UInt16 *destDataUC16   = reinterpret_cast<      UInt16 *>(destData  );
@@ -2320,7 +2323,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
           UInt32 *destDataUC32   = reinterpret_cast<      UInt32 *>(destData  );
     const Real32 *sourceDataF32  = reinterpret_cast<const Real32 *>(sourceData);
           Real32 *destDataF32    = reinterpret_cast<      Real32 *>(destData  );
-    const Real16 *sourceDataH16  = reinterpret_cast<const Real16 *>(sourceData);
+//    const Real16 *sourceDataH16  = reinterpret_cast<const Real16 *>(sourceData);
           Real16 *destDataH16    = reinterpret_cast<      Real16 *>(destData  );
 
     switch (getDataType())
@@ -2765,7 +2768,7 @@ bool Image::scale(Int32  width,
 {
     Image         *destImage;
     UInt32         sw, sh, sd, dw, dh, dd;
-    Int32          frame, scale, side, mipmap;
+    Int32          frame, side, mipmap;
     const UChar8  *src;
     UChar8        *dest;
     Int32          oldWidth =getWidth();
@@ -4033,7 +4036,7 @@ UInt32 Image::calcMipmapSumSize(UInt32 mipmapNum,
                                 UInt32 h,
                                 UInt32 d) const
 {
-    Int32 levelSum, sum = 0;
+    Int32 sum = 0;
 
     if (w && h && d)
     {

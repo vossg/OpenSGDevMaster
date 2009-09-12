@@ -78,6 +78,22 @@ IF(CMAKE_COMPILER_IS_GNUCC)
           CACHE STRING "OpenSG defaults" FORCE )
     ENDIF(NOT STDFORMAT_C_RES)
 
+    ###########
+    # GV stuff
+    ###########
+
+    IF(CMAKE_BUILD_TYPE STREQUAL "DebugGV" OR CMAKE_BUILD_TYPE STREQUAL "ReleaseGV")
+      SET(OSG_ADD_CXX_FLAGS " -Wall -Wextra -Wno-unused-parameter")
+      SET(OSG_ADD_C_FLAGS " -Wall -Wextra -Wno-unused-parameter")
+
+      IF(CMAKE_BUILD_TYPE STREQUAL "ReleaseGV")
+      SET(OSG_ADD_CXX_FLAGS " ${OSG_ADD_CXX_FLAGS} -Wno-strict-aliasing")
+      ENDIF(CMAKE_BUILD_TYPE STREQUAL "ReleaseGV")
+    ELSE()
+      SET(OSG_ADD_CXX_FLAGS )
+      SET(OSG_ADD_C_FLAGS )
+    ENDIF()
+
 ENDIF(CMAKE_COMPILER_IS_GNUCC)
 
 IF(MSVC)

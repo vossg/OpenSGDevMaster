@@ -891,7 +891,7 @@ int BezierCurve2D::approximate_sub(DCTPVec2dvector &vertices, double delta)
         mycps.push_back(mycps[s - 1]);
         t.push_back(t[s - 1]);
 
-        for(unsigned int j = s; j > i; --j)
+        for(int j = s; j > i; --j)
         {
             mycps[j] = (mycps[j] + mycps[j - 1]) * 0.5f;
             t[j]     = (t[j] + t[j - 1]) * 0.5f;

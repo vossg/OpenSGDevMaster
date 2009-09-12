@@ -144,9 +144,9 @@ void OSGWriter::write(std::vector<FieldContainer *> containers)
 
 void OSGWriter::FCInfoHelper::setName(FieldContainer * const pFC)
 {
+#ifdef FIXME
     const FieldContainerType& fcType = pFC->getType();
 
-#ifdef FIXME
     AttachmentContainer *pAttCon;
     Name                *pNameAtt;
 
@@ -233,7 +233,7 @@ void OSGWriter::visitField(GetFieldHandlePtr hF)
         return;
     }
 
-    const FieldType &fType       = hF->getType();
+//    const FieldType &fType       = hF->getType();
 
     GetMapFieldHandlePtr sfMap = 
         boost::dynamic_pointer_cast<
@@ -371,7 +371,7 @@ void OSGWriter::writeField(GetFieldHandlePtr hF)
         return;
     }
 
-    const FieldType& fType = hF->getType();
+//    const FieldType& fType = hF->getType();
 
     GetMapFieldHandlePtr sfMap = 
         boost::dynamic_pointer_cast<

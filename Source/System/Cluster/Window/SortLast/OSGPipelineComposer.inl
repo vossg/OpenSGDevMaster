@@ -48,9 +48,8 @@ UInt32 PipelineComposer::getMinMaxOcclude(DepthT    &depth,
                                           ColorT    &color,
                                           DepthInfo *result)
 {
-    UInt32             gx,gy,x,y;
+    UInt32             x,y;
     TileBuffer        *tile;
-    DepthT             dmin,dmax;
     UInt32             count=0;
     DepthInfo         *first = result;
     DepthInfo         *reuseEmpty=NULL;
@@ -94,10 +93,8 @@ void PipelineComposer::setTransInfo(DepthT &depth,ColorT &color)
     Connection                 *client,*readCon;
     std::vector<DepthInfo>      depthInfo;
     TileBuffer                 *tile;
-    TransInfo                   trans;
     std::vector<TransInfo>      transInfo;
     std::vector<TransInfo>      transInfoDummy;
-    UInt32                      s;
     UInt32                      count;
 
     transInfo.resize(_composeTilesX * _composeTilesY * serverCount());
@@ -199,7 +196,7 @@ void PipelineComposer::calculateTransInfo(DepthT &depth,ColorT &color)
     {
         for(x = 0; x < _composeTilesX ; ++x)
         {
-            for(id = 0 ; id < count ; ++id)
+            for(id = 0 ; id < Int32(count) ; ++id)
             {
                 _groupInfo[id]->id    = id;
                 _groupInfo[id]->depth = 
@@ -209,10 +206,10 @@ void PipelineComposer::calculateTransInfo(DepthT &depth,ColorT &color)
                     _statistics.noGeo++;
             }
             // remove occluders
-            for(int id1 = 0 ; id1 < count ; ++id1)
+            for(UInt32 id1 = 0 ; id1 < count ; ++id1)
             {
                 if(_groupInfo[id1]->depth.occlude) {
-                    for(int id2 = 0 ; id2 < count ; ++id2) {
+                    for(UInt32 id2 = 0 ; id2 < count ; ++id2) {
                         if(id1 != id2 &&
                            _groupInfo[id1]->depth.max < 
                            _groupInfo[id2]->depth.min &&
@@ -233,7 +230,7 @@ void PipelineComposer::calculateTransInfo(DepthT &depth,ColorT &color)
             
             // cummulate min through the pipeline
             dmin = _groupInfo[0]->depth.min;
-            for(id = 1 ; id < count ; ++id)
+            for(id = 1 ; id < Int32(count) ; ++id)
             {
                 if(_groupInfo[id]->depth.min != DepthT(-1))
                 {
@@ -281,7 +278,7 @@ void PipelineComposer::calculateTransInfo(DepthT &depth,ColorT &color)
                 }
             }
 
-            for(id = 0 ; id < count ; ++id)
+            for(id = 0 ; id < Int32(count) ; ++id)
             {
                 transInfo[_groupInfo[id]->id * _composeTilesX * _composeTilesY +
                           x + y * _composeTilesX] = _groupInfo[id]->trans;
@@ -347,7 +344,7 @@ void PipelineComposer::clientCompose(DepthT &depth,ColorT &color)
 
     while(recvCount--)
     {
-        int c=servers->selectChannel();
+//        int c=servers->selectChannel();
 #ifdef COMPRESS_IMAGES
         servers->get(&srcLen,sizeof(UInt32));
         servers->get(&src[0],srcLen);
@@ -385,7 +382,7 @@ void PipelineComposer::clientCompose(DepthT &depth,ColorT &color)
 template<class DepthT,class ColorT>
 void PipelineComposer::serverCompose(DepthT &depth,ColorT &color)
 {
-    UInt32             tx,ty,x,y,w,h;
+    UInt32             tx,ty;
     TileBuffer        *tile;
     UInt32             sendCount=0;
     UInt32             recvCount=0;
@@ -536,7 +533,6 @@ template<class DepthT,class ColorT>
 void PipelineComposer::writeResult(DepthT &depth,ColorT &color)
 {
     TileBuffer   *tile;
-    Connection   *dstConn;
 
 #ifdef COMPRESS_IMAGES
     std::vector<UInt32> dst;
@@ -601,8 +597,10 @@ void PipelineComposer::readBuffer(DepthT &depth,ColorT &color,
     UInt32      width,height;
     UInt32      tx,ty,x,y,w,h;
     TileBuffer *tile;
-    DepthT     *depthPtr,*depthEnd;
-    UInt8      *c,*cEnd;
+#if 0
+    DepthT     *depthEnd;
+#endif
+    DepthT     *depthPtr;
     DepthT      depthMin;
     DepthT      depthMax;
     bool        occlude;

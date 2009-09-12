@@ -114,7 +114,6 @@ void CSMNativeWindow::xMainLoop(void)
     XEvent event;
     char   buffer[31];
     KeySym keysym;
-    bool   bDoFrame = false;
 
     // Sleep 2 sec to open the window;
     //sleep(_uiCreateNapTime);

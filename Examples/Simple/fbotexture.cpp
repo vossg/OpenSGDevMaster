@@ -349,7 +349,6 @@ OSG::NodeTransitPtr buildFBOScene(int argc, char *argv[])
     
     OSG::NodeRefPtr fboSceneN = OSG::makeCoredNode<OSG::Group>();
     
-    stageCamBeacon;
     stageCamBeaconN      = OSG::makeCoredNode<OSG::Transform>(&stageCamBeacon);
 
     modelTransN          = OSG::makeCoredNode<OSG::Transform>(&modelTrans);
@@ -426,7 +425,7 @@ OSG::NodeTransitPtr buildScene(OSG::TextureObjChunkRefPtr fboTex)
         createNoise(noise, OSG::Image::OSG_I_PF, 5, 256);
         
         // make noise image darker (as it will be GL_ADDed)
-        for(int i = 0; i < noise->getSize(); ++i)
+        for(OSG::UInt32 i = 0; i < noise->getSize(); ++i)
             noise->editData()[i] >>= 2; // *= 0.125
         
         OSG::TextureObjChunkRefPtr glossObj = OSG::TextureObjChunk::create();

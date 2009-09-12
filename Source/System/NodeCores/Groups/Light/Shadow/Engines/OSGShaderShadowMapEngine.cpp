@@ -612,7 +612,7 @@ void ShaderShadowMapEngine::handleSpotLightEnter(
     SpotLight *spotL, RenderAction *ract, SSMEngineData *data)
 {
     RenderPartition *parentPart    = ract->getActivePartition();
-    Real             cosSpotCutOff = osgCos(spotL->getSpotCutOff());
+//    Real             cosSpotCutOff = osgCos(spotL->getSpotCutOff());
 
     Matrixr matEyeToWorld  (parentPart->getCameraToWorld());
     Matrixr matWorldToLight;

@@ -468,7 +468,7 @@ int doMain (int argc, char **argv)
     glutInit(&argc, argv);
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize(500,500);
-    int winid = glutCreateWindow("testSimpleStage");
+    /*int winid =*/ glutCreateWindow("testSimpleStage");
     glutKeyboardFunc(key);
     //glutVisibilityFunc(vis);
     glutReshapeFunc(reshape);

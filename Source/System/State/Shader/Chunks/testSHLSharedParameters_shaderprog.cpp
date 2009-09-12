@@ -91,8 +91,6 @@ static OSG::SimpleSceneManager     *_mgr;
 // The scene
 static OSG::NodeRecPtr              _scene;
 
-static OSG::Int32                   _animation    = 1;
-
 static OSG::ShaderProgramVariableChunkRecPtr  _shlparameter = NULL;
 
 
@@ -247,7 +245,7 @@ int doMain(int argc, char **argv)
 
     OSG::Window *win = _mgr->getWindow();
 
-    for(int i=0;i<win->getMFPort()->size();++i)
+    for(unsigned int i=0;i<win->getMFPort()->size();++i)
     {
         OSG::Viewport *vp = win->getPort(i);
         vp->setBackground(gback);
@@ -275,7 +273,9 @@ int main(int argc, char **argv)
 // redraw the window
 void display(void)
 {
+#if 0
     OSG::Real64 t = OSG::getSystemTime();
+#endif
     // render scene
     _mgr->redraw();
 
@@ -316,7 +316,6 @@ void motion(int x, int y)
 // react to keys
 void keyboard(unsigned char k, int x, int y)
 {
-    static OSG::Real32 season = 0.0f; 
     switch(k)
     {
         case 27:

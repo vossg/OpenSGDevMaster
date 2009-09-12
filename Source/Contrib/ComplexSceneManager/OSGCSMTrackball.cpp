@@ -134,7 +134,7 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
         {
             if(mData.getButton() != -1)
             {
-                if(mData.getState() == MouseData::ButtonDown)
+                if(mData.getState() == Int32(MouseData::ButtonDown))
                 {
                     switch(mData.getButton())
                     {

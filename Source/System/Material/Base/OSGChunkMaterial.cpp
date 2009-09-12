@@ -164,7 +164,7 @@ void ChunkMaterial::removeFromChunksByObj(StateChunk * const value)
 
         _mfChunks.erase(iElemIdx);
 
-        if(iElemIdx < _mfSlots.size())
+        if(iElemIdx < Int32(_mfSlots.size()))
         {
             editMField(SlotsFieldMask,  _mfSlots );
             

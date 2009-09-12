@@ -268,7 +268,7 @@ bool Surface::updateError(Pnt3f viewPos, Real64 halfPixelSize)
     {
         std::cerr << "retessellating due to too high error: " << d_max_error
                   << " " << current_error << std::endl;
-        Real32 new_error = osgMin(d_max_error, current_error / 2.0);
+//        Real32 new_error = osgMin(d_max_error, current_error / 2.0);
 
         setError(d_max_error / 2.0);
     }
@@ -459,7 +459,7 @@ void Surface::reTessellate(void)
     }
 
     _surfacePatch->setError(getError() );
-    SSurface *surfdata = _surfacePatch->getSurfaceData();
+//    SSurface *surfdata = _surfacePatch->getSurfaceData();
 
     if(_sfTextureControlPoints.getValue() == NULL)
     {
@@ -682,7 +682,7 @@ Int32 Surface::convertSurface(void)
 
     UInt32          actknotoffset = 0;
     UInt32          actcpoffset   = 0;
-    UInt32          actloopoffset = 0;
+//    UInt32          actloopoffset = 0;
     UInt32          actcurveno    = 0;
     UInt32          acttrimcpsize = 0;
     DCTPdvector     actknots;
@@ -932,7 +932,7 @@ Int32 Surface::buildSurface(std::vector<SimplePolygon> &triangles,
     const UInt32         cui_faces = triangles.size();
     UInt32               ui_face;
     BSplineTensorSurface cl_surf = _trimmedSurface->getSurface();
-    int                  i_err;
+//    int                  i_err;
     Vec3d                cl_norm;
     const UInt32         cui_verts = gverts.size();
     UInt32               ui_vert;
@@ -942,7 +942,7 @@ Int32 Surface::buildSurface(std::vector<SimplePolygon> &triangles,
     UInt32               ui_vertex_cnt;
     UInt32               ui_idx;
     UInt32               ui_used;
-    Vec3d               *pcl_actn;
+//    Vec3d               *pcl_actn;
     Vec3d               *pcl_actv;
     Vec3d               *pcl_nextv;
     Vec3d               *pcl_prevv;
@@ -1612,7 +1612,7 @@ void Surface::readFromTSO(std::istream &infile, bool useTextures)
 
     UInt32 cpusize = v4cps.size();
     UInt32 cpvsize = v4cps[0].size();
-    UInt32 k,u,v;
+    UInt32 /*k,*/u,v;
     Vec4d  vec4;
 
     GeoPnt4fPropertyUnrecPtr pPos;

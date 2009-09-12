@@ -383,12 +383,12 @@ bool OFRecord::addChild (OFRecord *pChild)
     if(pChild == NULL)
         return false;
 
+#if 0
           UInt16  uiCurrOpCode  = this  ->getOpCode(             );
     const Char8  *szCurrDesc    = this  ->findDesc (uiCurrOpCode );
           UInt16  uiChildOpCode = pChild->getOpCode(             );
     const Char8  *szChildDesc   = this  ->findDesc (uiChildOpCode);
 
-#if 0
     fprintf(stderr, "Add %hu (%p) (%s) to %hu (%p) (%s)\n",
             uiChildOpCode,
             pChild,
@@ -1016,7 +1016,7 @@ bool OFVertexPaletteRecord::read(std::istream &is, OFDatabase &oDB)
         tmpInfo.uiIdx[NormIdx    ] = -1;
         tmpInfo.uiIdx[TexCoordIdx] = -1;
 
-        UInt32 uiSize = 0;
+        Int32 uiSize = 0;
 
         uiSize += Inherited::readVal(is, tmpInfo.uiColNameIdx);
         uiSize += Inherited::readVal(is, tmpInfo.iFlags      );
@@ -2630,8 +2630,8 @@ NodeTransitPtr OFGeometryContainer::convertFaceGroup(
     GeoVec3fProperty::StoredFieldType *pNorm = NULL;
     GeoVec2fProperty::StoredFieldType *pTX   = NULL;
 
-    UInt16 uiVertexType;
-    bool   bSingleIdx  = true;
+    UInt16 uiVertexType = 0;
+    bool   bSingleIdx   = true;
 
     for(UInt32 i = 0; i < vFaceGroup.size(); ++i)
     {
@@ -3327,14 +3327,14 @@ bool OFSwitchRecord::read(std::istream &is, OFDatabase &oDB)
 
     vMask.resize(iNumMask);
 
-    for(UInt32 i = 0; i < iNumMask; ++i)
+    for(Int32 i = 0; i < iNumMask; ++i)
     {
         vMask[i].resize(iMaskWords);
     }
 
-    for(UInt32 i = 0; i < iNumMask; ++i)
+    for(Int32 i = 0; i < iNumMask; ++i)
     {
-        for(UInt32 j = 0; j < iMaskWords; ++j)
+        for(Int32 j = 0; j < iMaskWords; ++j)
         {
             Inherited::readVal(is, vMask[i][j]);
         }
@@ -3368,12 +3368,12 @@ void OFSwitchRecord::dump(UInt32 uiIndent)
 
     PLOG.setf (std::ios::hex, std::ios::basefield);
 
-    for(UInt32 i = 0; i < iNumMask; ++i)
+    for(Int32 i = 0; i < iNumMask; ++i)
     {
         indentLog(uiIndent, PLOG);
         PLOG << "Mask[" << i << "] : ";
 
-        for(UInt32 j = 0; j < iMaskWords; ++j)
+        for(Int32 j = 0; j < iMaskWords; ++j)
         {
             PLOG << vMask[i][j] << " ";
         }

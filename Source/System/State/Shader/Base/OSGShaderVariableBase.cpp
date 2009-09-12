@@ -380,15 +380,6 @@ bool ShaderVariableBase::unlinkParent(
 }
 
 
-void ShaderVariableBase::onCreate(const ShaderVariable *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        ShaderVariable *pThis = static_cast<ShaderVariable *>(this);
-    }
-}
 
 GetFieldHandlePtr ShaderVariableBase::getHandleName            (void) const
 {

@@ -60,6 +60,7 @@ OSG_USING_NAMESPACE
 // regenerate the base file.
 
 /*! \fn GeoProperty::
+ */
 
 /*! \fn UInt32  GeoProperty::getFormat    (void)
     Returns the OpenGL type constant identifying the data type of the

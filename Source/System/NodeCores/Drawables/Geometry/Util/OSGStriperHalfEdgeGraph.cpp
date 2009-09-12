@@ -107,7 +107,6 @@ bool StriperHalfEdgeGraph::Triangle::verify (void)
 {
     bool retCode = true;
     Triangle *neighbor[3];
-    Triangle *tP;
 
     neighbor[0] = halfEdgeVec[0].twin ? halfEdgeVec[0].twin->triangle : 0;
     neighbor[1] = halfEdgeVec[1].twin ? halfEdgeVec[1].twin->triangle : 0;
@@ -214,8 +213,9 @@ bool StriperHalfEdgeGraph::verify (bool verbose)
          triangle; 
          i++, triangle = triangle->next)
     {
-        if(triangle->verify() && 
-           (triangle->state >= 0) || (triangle->state <= 3))
+        // Looks strange (GV)
+        if((triangle->verify() && (triangle->state >= 0)) || 
+           (triangle->state <= 3))
         {
             triangleState[triangle->state]++;
             validTri = true;

@@ -627,10 +627,12 @@ int init(int argc, char **argv)
     vp->setRoot( root );
     vp->setSize( 0,0, 1,1 );
 
+#if 0
     OSG::UInt8 imgdata[] =
     {  
         64,64,64, 128,128,128, 192,192,192, 255,255,255 
     };
+#endif
 
     pImg = OSG::Image::create();
 

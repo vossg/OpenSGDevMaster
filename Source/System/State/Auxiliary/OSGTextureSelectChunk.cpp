@@ -161,7 +161,7 @@ void TextureSelectChunk::activate(DrawEnv *pEnv, UInt32 idx)
 {    
     if(_sfChoice.getValue() >= _mfTextures.size())
     {
-        FWARNING(("TextureSelect::activate choice beyond size %d %d!\n",
+        FWARNING(("TextureSelect::activate choice beyond size %d %zd!\n",
                   _sfChoice.getValue(), 
                   _mfTextures.size  ()));
         return;        
@@ -185,7 +185,7 @@ void TextureSelectChunk::changeFrom(DrawEnv    *pEnv,
 
     if(_sfChoice.getValue() >= _mfTextures.size())
     {
-        FWARNING(("TextureSelect::changeFrom choice beyond size %d %d!\n",
+        FWARNING(("TextureSelect::changeFrom choice beyond size %d %zd!\n",
                   _sfChoice.getValue(), 
                   _mfTextures.size  ()));
         return;        
@@ -200,7 +200,7 @@ void TextureSelectChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
 {
     if(_sfChoice.getValue() >= _mfTextures.size())
     {
-        FWARNING(("TextureSelect::deactivate choice beyond size %d %d!\n",
+        FWARNING(("TextureSelect::deactivate choice beyond size %d %zd!\n",
                   _sfChoice.getValue(), 
                   _mfTextures.size  ()));
         return;        

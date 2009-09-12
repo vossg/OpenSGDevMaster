@@ -701,6 +701,7 @@ void VRMLFile::scanStandardPrototypes(const Char8  *szFilename)
     postStandardProtos();
 }
 
+#if 0
 static Action::ResultE modifyMaterial(Node * const node)
 {   
     MaterialGroup *mg = dynamic_cast<MaterialGroup *>(node->getCore());
@@ -777,6 +778,7 @@ static Action::ResultE modifyMaterial(Node * const node)
 
     return Action::Continue;
 }
+#endif
 
 /*-------------------------------------------------------------------------*/
 /*                           Member                                        */
@@ -1021,11 +1023,11 @@ FieldContainer *VRMLFile::findFCByName(const Char8 *szName,
 {
     MFUnrecNodePtr::const_iterator i;
 
-    Name           *pNodename = NULL;
-    NodeCore       *pCore     = NULL;
     FieldContainer *pFC       = NULL;
 
 #if 0
+    Name           *pNodename = NULL;
+    NodeCore       *pCore     = NULL;
     // check if name matches nodename
 
     pNodename =

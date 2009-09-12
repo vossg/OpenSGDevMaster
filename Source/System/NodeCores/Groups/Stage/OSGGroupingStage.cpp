@@ -118,8 +118,10 @@ ActionBase::ResultE GroupingStage::renderEnter(Action *action)
     if(a == NULL)
         return ActionBase::Continue;
 
+#if 0
     RenderPartition   *pParentPart = a   ->getActivePartition();
     FrameBufferObject *pTarget     = pParentPart->getRenderTarget();
+#endif
 
     a->pushPartition(RenderPartition::CopyAll);
 

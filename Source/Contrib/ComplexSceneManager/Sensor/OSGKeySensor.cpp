@@ -130,14 +130,14 @@ void KeySensor::update(Int32 x,
                        Int32 y,
                        Int32 iState)
 {
-    if(iState == CSMKeyData::ButtonDown)
+    if(iState == Int32(CSMKeyData::ButtonDown))
     {
         editSField(SignalPressedFieldMask);
 
         setStateRaw     (true               );
         setStateFlipFlop(!getStateFlipFlop());
     }
-    else if(iState == CSMKeyData::ButtonUp)
+    else if(iState == Int32(CSMKeyData::ButtonUp))
     {
         editSField(SignalReleasedFieldMask);
 

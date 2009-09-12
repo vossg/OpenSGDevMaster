@@ -226,8 +226,10 @@ UInt32 Geometry::handleClassicGL(DrawEnv                 *pEnv,
     UInt32                   glid;
     Window                  *pWin = pEnv->getWindow();
 
+#ifdef OSG_DEBUG
     Geometry *pAspectGeo = convertToCurrentAspect<Geometry *>(this);
     OSG_ASSERT(pAspectGeo == this);
+#endif
 
     if(mode == Window::initialize || mode == Window::needrefresh ||
        mode == Window::reinitialize)
@@ -519,7 +521,6 @@ Action::ResultE Geometry::intersect(Action * action)
        range_sq         = range_sq * range_sq;
        LineIterator it  = this->beginLines();
        LineIterator end = this->endLines  ();
-       Real32 dist;
        Pnt3r  pt1, pt2;
        OSG::Vec3f  norm;       
 

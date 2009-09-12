@@ -97,7 +97,7 @@ static void isReadFunc(png_structp png_ptr, png_bytep data, png_size_t length)
 
     is->read(reinterpret_cast<char*>(data), length);
 
-    if(is->gcount() != length)
+    if(png_size_t(is->gcount()) != length)
         png_error(png_ptr, "Cannot read from input stream");
 }
 

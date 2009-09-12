@@ -34,6 +34,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic ignored "-Wunused-variable"
+#endif
+
 #include <OSGFieldContainer.h>
 #include <OSGNode.h>
 #include <OSGNodeCore.h>

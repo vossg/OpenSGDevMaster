@@ -687,7 +687,7 @@ Action::ResultE RenderAction::start(void)
 #endif
 
 
-    bool full = true;
+//    bool full = true;
 
     if(_pViewport != NULL)
     {
@@ -783,9 +783,9 @@ Action::ResultE RenderAction::stop(ResultE res)
             UInt32 uiNShaderParam = 0;
             UInt32 uiNTriangles   = 0;
             
-            for(Int32 i = 0; 
-                      i < _vRenderPartitions[_currentBuffer].size(); 
-                    ++i)
+            for(UInt32 i = 0; 
+                       i < _vRenderPartitions[_currentBuffer].size(); 
+                     ++i)
             {
                 uiNMatrix +=
                     _vRenderPartitions[
@@ -1011,7 +1011,8 @@ void RenderAction::pushPartition(UInt32                uiCopyOnPush,
         _pActivePartition    = 
             _pPartitionPools  [_currentBuffer]->create(eMode);
 
-        if(_iActivePartitionIdx == _vRenderPartitions[_currentBuffer].size())
+        if(static_cast<size_t>(_iActivePartitionIdx) == 
+                                     _vRenderPartitions[_currentBuffer].size())
         {
             _vRenderPartitions[_currentBuffer].push_back(_pActivePartition);
         }

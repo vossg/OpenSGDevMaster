@@ -118,10 +118,10 @@ void VariantMaterial::dump(      UInt32    OSG_CHECK_ARG(uiIndent),
 {
     SLOG << "VariantMaterial at " << this << std::endl;
     SLOG << "Chunks: " << std::endl;
-
-    UInt32 i;
-    
+   
 #if 0
+    UInt32 i;
+
     for(i = 0; i < _mfChunks.size(); ++i)
     {
         SLOG << _mfChunks[i] << " "

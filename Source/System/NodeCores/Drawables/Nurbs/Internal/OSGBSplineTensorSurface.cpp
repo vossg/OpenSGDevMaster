@@ -793,13 +793,13 @@ int BSplineTensorSurface::insertKnot_V(double k)
         newcps[i].resize(control_points[i].size() + 1);
 
     for(i = 0; i < control_points.size(); i++)
-        for(j = 0; j <= span - dimension_v; j++)
+        for(j = 0; int(j) <= span - dimension_v; j++)
             newcps[i][j] = control_points[i][j];
 
     // precalculate alpha values
     DCTPdvector alphavec(dimension_v);
 
-    for(j = span - dimension_v + 1; j <= span; j++)
+    for(j = span - dimension_v + 1; int(j) <= span; j++)
     {
         if(knots[j + dimension_v] != knots[j])
             alphavec[j - span + dimension_v - 1] = (k - knots[j]) / (knots[j + dimension_v] - knots[j]);
@@ -808,7 +808,7 @@ int BSplineTensorSurface::insertKnot_V(double k)
     }
 
     for(i = 0; i < control_points.size(); i++)
-        for(j = span - dimension_v + 1; j <= span; j++)
+        for(j = span - dimension_v + 1; int(j) <= span; j++)
         {
             double alpha = alphavec[j - span + dimension_v - 1];
             newcps[i][j] = control_points[i][j] * alpha + control_points[i][j - 1] * (1 - alpha);
@@ -854,10 +854,10 @@ int BSplineTensorSurface::makeBezier(beziersurfacematrix &beziers, DCTPdvector &
     double          prevknot   = firstknotu;
     int             mult       = 0;
     int             err;
-    unsigned int    i;
+    int             i;
 
     // first convert along u knots
-    for(i = 1; i < uknots.size(); i++)
+    for(i = 1; i < int(uknots.size()); i++)
     {
         double actk = uknots[i];
         if(actk == prevknot)
@@ -893,7 +893,7 @@ int BSplineTensorSurface::makeBezier(beziersurfacematrix &beziers, DCTPdvector &
     mult     = 0;
     prevknot = firstknotv;
 
-    for(i = 1; i < vknots.size(); i++)
+    for(i = 1; i < int(vknots.size()); i++)
     {
         double actk = vknots[i];
         if(actk == prevknot)
@@ -928,7 +928,7 @@ int BSplineTensorSurface::makeBezier(beziersurfacematrix &beziers, DCTPdvector &
     // now do the actual conversation into nxm bezier segments
     uknots = basis_function_u.getKnotVector(); // FIXME: it could be more efficient.
     int unum_of_beziers = (uknots.size() - 2) / dimension_u - 1;
-    if( (unum_of_beziers * dimension_u + 2) != uknots.size() - dimension_u)
+    if( (unum_of_beziers * dimension_u + 2) != int(uknots.size()) - dimension_u)
     {
         basis_function_u.setKnotVector(origuknots);
         basis_function_v.setKnotVector(origuknots);
@@ -937,7 +937,7 @@ int BSplineTensorSurface::makeBezier(beziersurfacematrix &beziers, DCTPdvector &
     }
     vknots = basis_function_v.getKnotVector(); // FIXME: it could be more efficient.
     int vnum_of_beziers = (vknots.size() - 2) / dimension_v - 1;
-    if( (vnum_of_beziers * dimension_v + 2) != vknots.size() - dimension_v)
+    if( (vnum_of_beziers * dimension_v + 2) != int(vknots.size()) - dimension_v)
     {
         basis_function_u.setKnotVector(origuknots);
         basis_function_v.setKnotVector(origuknots);
@@ -965,11 +965,11 @@ int BSplineTensorSurface::makeBezier(beziersurfacematrix &beziers, DCTPdvector &
 
     for(i = 0; i < unum_of_beziers; i++)
     {
-        for(beziersurfacevector::size_type j = 0; j < vnum_of_beziers; j++)
+        for(int j = 0; j < vnum_of_beziers; j++)
         {
-            for(DCTPVec4dvector::size_type u = 0; u < dimension_u + 1; u++)
+            for(int u = 0; u < dimension_u + 1; u++)
             {
-                for(DCTPVec4dvector::size_type v = 0; v < dimension_v + 1; v++)
+                for(int v = 0; v < dimension_v + 1; v++)
                 {
                     beziercps[u][v] = control_points[i * dimension_u + u][j * dimension_v + v];
                 } // v
@@ -1017,8 +1017,8 @@ int BSplineTensorSurface::midPointSubDivision(std::vector<std::vector<BSplineTen
 {
     double                           d_min;
     double                           d_max;
-    unsigned int                     ui_cnt;
-    unsigned int                     ui_idx;
+    int                              ui_cnt;
+    int                              ui_idx;
     int                              i_span = 0;
     std::vector<std::vector<Vec4d> > vvcl_cp;
     unsigned int                     ui_cpy;
@@ -1184,12 +1184,12 @@ int BSplineTensorSurface::midPointSubDivisionU(std::vector<BSplineTensorSurface>
 {
     double                           d_min;
     double                           d_max;
-    unsigned int                     ui_cnt;
-    unsigned int                     ui_idx;
+    int                              ui_cnt;
+    int                              ui_idx;
     int                              i_span = 0;
     std::vector<std::vector<Vec4d> > vvcl_cp;
-    unsigned int                     ui_cpy;
-    unsigned int                     ui_cpy_cnt;
+//    unsigned int                     ui_cpy;
+//    unsigned int                     ui_cpy_cnt;
 
     rvcl_newbspline.resize(2);
 
@@ -1249,8 +1249,8 @@ int BSplineTensorSurface::midPointSubDivisionV(std::vector<BSplineTensorSurface>
 {
     double                           d_min;
     double                           d_max;
-    unsigned int                     ui_cnt;
-    unsigned int                     ui_idx;
+    int                              ui_cnt;
+    int                              ui_idx;
     int                              i_span = 0;
     std::vector<std::vector<Vec4d> > vvcl_cp;
     unsigned int                     ui_cpy;
@@ -1333,12 +1333,12 @@ int BSplineTensorSurface::subDivisionU(std::vector<BSplineTensorSurface> &rvcl_n
 {
     double                           d_min;
     double                           d_max;
-    unsigned int                     ui_cnt;
-    unsigned int                     ui_idx;
+    int                              ui_cnt;
+    int                              ui_idx;
     int                              i_span = 0;
     std::vector<std::vector<Vec4d> > vvcl_cp;
-    unsigned int                     ui_cpy;
-    unsigned int                     ui_cpy_cnt;
+//    unsigned int                     ui_cpy;
+//    unsigned int                     ui_cpy_cnt;
 
     rvcl_newbspline.clear();
     rvcl_newbspline.resize(2);
@@ -1399,8 +1399,8 @@ int BSplineTensorSurface::subDivisionV(std::vector<BSplineTensorSurface> &rvcl_n
 {
     double                           d_min;
     double                           d_max;
-    unsigned int                     ui_cnt;
-    unsigned int                     ui_idx;
+    int                              ui_cnt;
+    int                              ui_idx;
     int                              i_span = 0;
     std::vector<std::vector<Vec4d> > vvcl_cp;
     unsigned int                     ui_cpy;

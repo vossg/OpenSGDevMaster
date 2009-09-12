@@ -249,7 +249,7 @@ void GeoMultiProperty::activate(DrawEnv *pEnv,
     
     if(!win->hasExtension(_extVertexBufferObject))
     {
-        FWARNING(("GeoMultiProperty::activate: Window %d doesn't "
+        FWARNING(("GeoMultiProperty::activate: Window %p doesn't "
                   "support VBOs!\n", win));
                   return;
     }

@@ -76,8 +76,9 @@ void GraphTraverser::Initialize(DirectedGraph<Vec2d, unsigned char>& gg, bool
 
 int GraphTraverser::triangulatePolygon(DCTPivector& nodes, bool bConvex)
 {
+#ifdef OSG_NURBS_DEBUG
     unsigned int i;
-
+#endif
 
     SimplePolygon actpoly;
     actpoly.vertices  = nodes;

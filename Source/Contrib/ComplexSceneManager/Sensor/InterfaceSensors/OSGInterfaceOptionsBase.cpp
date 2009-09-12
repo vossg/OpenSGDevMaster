@@ -479,15 +479,6 @@ bool InterfaceOptionsBase::unlinkParent(
 }
 
 
-void InterfaceOptionsBase::onCreate(const InterfaceOptions *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        InterfaceOptions *pThis = static_cast<InterfaceOptions *>(this);
-    }
-}
 
 GetFieldHandlePtr InterfaceOptionsBase::getHandleParent          (void) const
 {

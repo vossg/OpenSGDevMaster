@@ -395,11 +395,6 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
@@ -502,7 +497,6 @@ class OSG_SYSTEM_DLLMAPPING ImageBase : public AttachmentContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const Image *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -214,8 +214,11 @@ void FishEyeProjector::EstimateWarp(Real64  u, Real64 v,
                                     Real64 &x, Real64 &z, 
                                     Real64 &br)
 {
-    Int32  n,ix,iy;
+#if 0
+    Int32  ix,iy;
     Real64 tu,tv;
+#endif
+    Int32  n;
     Real64 mu,longitude,latitude;
     Vec3d  p1,p,p0;
   
@@ -445,13 +448,9 @@ ActionBase::ResultE FishEyeProjector::renderEnter(Action *action)
     a->disableDefaultPartition();
 
 
-    Action::ResultE  returnValue = Action::Continue;
-
     Background      *pBack      = a->getBackground();
 
     Viewport        *pPort      = a->getViewport();
-
-    Node            *pActNode   = a->getActNode();
 
 
     FishEyeProjectorData *pData = 

@@ -220,7 +220,8 @@ void BlendChunk::activate(DrawEnv *pEnv, UInt32)
             else
             {
                 FWARNING(("BlendChunk::activate: Window %p doesn't "
-                          "support EXT_blend_func_separate, ignored.\n"));
+                          "support EXT_blend_func_separate, ignored.\n",
+                          pEnv->getWindow()));
 
                 glBlendFunc(src, dest);
             }
@@ -343,7 +344,8 @@ void BlendChunk::changeFrom(DrawEnv    *pEnv,
             else
             {
                 FWARNING(("BlendChunk::changeFrom: Window %p doesn't "
-                          "support EXT_blend_func_separate, ignored.\n"));
+                          "support EXT_blend_func_separate, ignored.\n",
+                          pEnv->getWindow()));
 
                 glBlendFunc(src, dest);
             }

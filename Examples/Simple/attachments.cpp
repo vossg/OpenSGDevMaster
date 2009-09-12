@@ -59,7 +59,7 @@ int setupGLUT(int *argc, char *argv[]);
 class NamedNodeFinder
 {
   public:
-    NamedNodeFinder(void) : _name(), _found() {}
+    NamedNodeFinder(void) : _found(), _name() {}
 
     OSG::Node *operator() (OSG::Node *root, const std::string &name)
     {

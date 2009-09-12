@@ -228,7 +228,7 @@ int main (int argc, char **argv)
         gback->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
     
         OSG::WindowRefPtr win = mgr->getWindow();
-        for(int i = 0; i < win->getMFPort()->size(); ++i)
+        for(OSG::UInt32 i = 0; i < win->getMFPort()->size(); ++i)
         {
             OSG::ViewportRefPtr vp = win->getPort(i);
             vp->setBackground(gback);

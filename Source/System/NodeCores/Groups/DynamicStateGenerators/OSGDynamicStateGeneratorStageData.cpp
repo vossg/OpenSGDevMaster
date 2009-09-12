@@ -181,7 +181,6 @@ bool DynamicStateGeneratorStageData::addChunk(StateChunk *chunk,
     // add the chunk to the state at cindex
     if(cindex >= csize)
     {
-        UInt32 oldsize = csize;
         UInt32 newsize = cindex + 1;
 
         _mfChunks.resize(newsize, NULL);

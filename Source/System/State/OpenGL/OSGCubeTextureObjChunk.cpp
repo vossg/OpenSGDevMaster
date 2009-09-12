@@ -317,7 +317,7 @@ void CubeTextureObjChunk::activate(DrawEnv *pEnv, UInt32 idx)
     {
 #ifdef OSG_DEBUG
         FWARNING(("CubeTextureObjChunk::activate: Trying to bind image unit "
-                  "%d, but Window %p only supports %d!\n",
+                  "%d, but Window %p only supports %lf!\n",
                   idx, win, nteximages));
 #endif
         return;        
@@ -410,7 +410,7 @@ void CubeTextureObjChunk::changeFrom(DrawEnv    *pEnv,
     {
 #ifdef OSG_DEBUG
         FWARNING(("TextureObjChunk::activate: Trying to bind image unit %d,"
-                  " but Window %p only supports %d!\n",
+                  " but Window %p only supports %lf!\n",
                   idx, win, nteximages));
 #endif
         return;        
@@ -479,7 +479,7 @@ void CubeTextureObjChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     {
 #ifdef OSG_DEBUG
         FWARNING(("CubeTextureObjChunk::deactivate: Trying to bind image unit"
-                  " %d, but Window %p only supports %d!\n",
+                  " %d, but Window %p only supports %lf!\n",
                   idx, win, nteximages));
 #endif
         return;        

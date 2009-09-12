@@ -81,7 +81,7 @@ int main(int argc, char **argv)
     OSG::osgInit(argc,argv);
 
     // GLUT init
-    int winid = setupGLUT(&argc, argv);
+    /*int winid =*/ setupGLUT(&argc, argv);
 
     // open a new scope, because the pointers below should go out of scope
     // before entering glutMainLoop.

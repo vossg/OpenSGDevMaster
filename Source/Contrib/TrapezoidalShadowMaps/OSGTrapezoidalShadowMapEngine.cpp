@@ -713,7 +713,8 @@ void TrapezoidalShadowMapEngine::handleSpotLightEnter(
     if(matNTValid == false)
         return;
 
-    Real           cosSpotCutOff = osgCos(spotL->getSpotCutOff());
+//    Real           cosSpotCutOff = osgCos(spotL->getSpotCutOff());
+
     Int32          shadowTexUnit = (this->getForceTextureUnit() >= 0) ?
                                     this->getForceTextureUnit()       : 7;
     ShaderProgram *shadowFP      = this->getShadowFragmentProgram();
@@ -1055,7 +1056,7 @@ bool TrapezoidalShadowMapEngine::calcTrapezoidalTransform(
     ivCIt  = intVerts.begin();
     ivCEnd = intVerts.end  ();
 
-    Real  centerDist = (intCenter2D - eyePos2D).length();
+//    Real  centerDist = (intCenter2D - eyePos2D).length();
 
     Real  lambda     = baseDist   - topDist;
     Real  delta      = 0.5f * lambda;

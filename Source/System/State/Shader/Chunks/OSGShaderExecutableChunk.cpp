@@ -212,8 +212,6 @@ UInt32 ShaderExecutableChunk::handleGL(DrawEnv                 *pEnv,
 
         if(mode != Window::needrefresh)
         {
-            UInt32 uiNumShaders = 0;
-
             if(uiProgram != 0)
             {
                 OSGGETGLFUNC(OSGglDeleteProgramProc,
@@ -1020,8 +1018,6 @@ void ShaderExecutableChunk::updateProceduralVariables(
     ShaderProgramVariables::MFProceduralVariablesType::const_iterator mVarEnd =
         pMFVars->end  ();
 
-    bool warnUnknown = true;
-
 #ifdef OSG_1_COMPATX
     if(_fParameterCallback)
     {
@@ -1114,6 +1110,9 @@ void ShaderExecutableChunk::updateProceduralVariables(
 #endif
             }
             break;
+
+            default:
+                break;
         }
     }
 }

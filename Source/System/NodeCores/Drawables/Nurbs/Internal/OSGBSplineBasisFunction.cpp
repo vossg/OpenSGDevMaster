@@ -171,20 +171,20 @@ double BSplineBasisFunction::compute(double u, int i, int p)
 {
 //u - parameter value, knots[0] <= u <= knots[ m ]
 //i,p - the ith p-dimensional basis function should be computed
-    unsigned int j;
+    int j;
 
     if(knots.size() < 1)
         return -1.0;                   //the knots are not set up
     DCTPdvector::size_type m = knots.size() - 1; //m: number of knots
     if(u < knots[0] || u > knots[m])
         return -2.0;                                   //invalid u
-    if(p >= m)
+    if(p >= int(m))
         return -3.0;         //this high dimension is not defined
-    if(i < 0 || i >= m - p)
+    if(i < 0 || i >= int(m) - p)
         return -4.0;                      //i is invalid
 
     if( (i == 0 && u == knots[0]) ||
-        (i == m - p - 1 && u == knots[m]) )
+        (i == int(m) - p - 1 && u == knots[m]) )
         return 1.0;                                        //special cases
     if(u < knots[i] || u >= knots[i + p + 1])
         return 0.0;                                            //local support property
@@ -199,7 +199,7 @@ double BSplineBasisFunction::compute(double u, int i, int p)
 
     for(j = 1; j < p + 1; ++j)
     {
-        for(DCTPdvector::size_type k = 0; k < p + 1 - j; ++k)
+        for(DCTPdvector::size_type k = 0; int(k) < p + 1 - j; ++k)
         {
             double den = knots[k + i + j] - knots[k + i];
             double left;
@@ -424,7 +424,7 @@ int BSplineBasisFunction::computeAllNonzero(double u, int p, double *&rpd_n)
         pd_right[j] = knots[i + j] - u;
         double saved = 0.0;
 
-        for(DCTPdvector::size_type r = 0; r < j; ++r)
+        for(DCTPdvector::size_type r = 0; int(r) < j; ++r)
         {
             double temp = rpd_n[r] / (pd_left[j - r] + pd_right[r + 1]);
             rpd_n[r] = saved + temp * pd_right[r + 1];

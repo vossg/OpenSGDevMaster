@@ -15,7 +15,7 @@ int main (int argc, char **argv)
 #ifdef OSG_MT_FIELDCONTAINERPTRX
     OSG::Node* node_cptr = get_pointer(node_ptr);
 #else
-    OSG::Node* node_cptr = node_ptr;
+//    OSG::Node* node_cptr = node_ptr;
 #endif
     
 #ifdef OSG_MT_FIELDCONTAINERPTRX

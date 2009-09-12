@@ -109,10 +109,11 @@ RenderActionBase::RenderActionBase(const RenderActionBase &source) :
     _pWindow           (source._pWindow         ),
     _pViewport         (source._pViewport       ),
     _pGlobalOverride   (source._pGlobalOverride ),
+    _pStatistics       (NULL                    ),
     _pStageValidator   (NULL                    ),
+
     _bUseGLFinish      (source._bUseGLFinish    ),
 
-    _pStatistics       (NULL                    ),
     _bFrustumCulling   (source._bFrustumCulling ),
     _bVolumeDrawing    (source._bVolumeDrawing  ),
     _bAutoFrustum      (source._bAutoFrustum    ),

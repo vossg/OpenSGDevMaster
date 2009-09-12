@@ -498,9 +498,11 @@ static UInt32 NormAttribIDs[numFormats][4];
 
 // define and initialize the variables needed to access the data
 
+//    UInt32 name##Ind = 0;
+
+
 #define pumpInternalSetup( name, typename, getmethod, mandatory )           \
     GeoIntegralProperty *name##Ptr;                                         \
-    UInt32 name##Ind = 0;                                                   \
                                                                             \
     name##Ptr = geo->getmethod();                                           \
     if(mandatory && name##Ptr == NULL)                                      \
@@ -512,7 +514,6 @@ static UInt32 NormAttribIDs[numFormats][4];
 
 #define pumpGLSetup( name, propindex )                                      \
     attribData[propindex] = NULL;                                           \
-    attribStride[propindex];                                                \
     attribInd[propindex] = 0;                                               \
     attribPtr[propindex] = NULL;                                            \
     attribIndex[propindex] = NULL;                                          \
@@ -551,11 +552,8 @@ static UInt32 NormAttribIDs[numFormats][4];
     }
 
 #define pumpGLExtSetup( name, propindex )                                   \
-    attribData[propindex];                                                  \
-    attribStride[propindex];                                                \
     attribInd[propindex] = 0;                                               \
-    attribPtr[propindex];                                                   \
-    attribIndex[propindex];                                                 \
+    attribIndex[propindex] = NULL;                                          \
     pumpFunc name##Func;                                                    \
                                                                             \
     attribPtr[propindex] = geo->getProperty(propindex);                     \

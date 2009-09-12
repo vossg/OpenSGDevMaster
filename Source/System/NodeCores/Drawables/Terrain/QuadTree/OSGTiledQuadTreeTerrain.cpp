@@ -158,9 +158,6 @@ void TiledQuadTreeTerrain::changed(ConstFieldMaskArg whichField,
             Real32 step   = 
                 (getHeightTiles(0)->getWidth()-1)*getVertexSpacing();
 
-            Real32 tstepx = 1.0f/getSizeX();
-            Real32 tstepy = 1.0f/getSizeY();
-
             UInt32 i, j;
 
             const UInt32 roi = getSizeROI()+getSizeROI()+1;
@@ -352,7 +349,6 @@ inline void caseChilds_n1n1(Node * const parent, Node * order[], Int32 num)
 
 inline void caseChilds_n10 (Node * const parent, Node * order[], Int32 num)
 {
-    Int32 num2 = num*num-num;
     Int32 i, j, k;
 
     for(i=0, k=0; i<num; ++i) 
@@ -369,7 +365,6 @@ inline void caseChilds_n10 (Node * const parent, Node * order[], Int32 num)
 
 inline void caseChilds_n1p1 (Node * const parent, Node * order[], Int32 num)
 {
-    Int32 num2 = num*num-num;
     Int32 i, j, k;
 
     for(i=1, k=0; i<num; ++i) 
@@ -411,7 +406,6 @@ inline void caseChilds_0n1 (Node * const parent, Node * order[], Int32 num)
 
 inline void caseChilds_0p1 (Node * const parent, Node * order[], Int32 num)
 {
-    Int32 num2 = num*num-num;
     Int32 i, j, k;
 
     for(i=1, k=0; i<num; ++i) 
@@ -452,7 +446,6 @@ inline void caseChilds_p1n1 (Node * const parent, Node * order[], Int32 num)
 }
 inline void caseChilds_p10 (Node * const parent, Node * order[], Int32 num)
 {
-    Int32 num2 = num*num-num;
     Int32 i, j, k;
 
     for(i=0, k=0; i<num; ++i, ++k) 
@@ -467,7 +460,6 @@ inline void caseChilds_p10 (Node * const parent, Node * order[], Int32 num)
 }
 inline void caseChilds_p1p1 (Node * const parent, Node * order[], Int32 num)
 {
-    Int32 num2 = num*num-num;
     Int32 i, j, k;
 
     for(i=1, k=0; i<num; ++i, ++k) 
@@ -1273,8 +1265,8 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
       Pnt3f eyePoint(camera[3][0], camera[3][1], camera[3][2]);
       // set eye point for all terrain child nodes
 
-      const Int32 roi  = getSizeROI()+getSizeROI()+1;
-      const Int32 roi2 = roi*roi;
+      const UInt32 roi  = getSizeROI()+getSizeROI()+1;
+      const UInt32 roi2 = roi*roi;
       
       for(UInt32 i=0; i<roi2; ++i) 
       {
@@ -1347,7 +1339,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                               node = order[i+getSizeROI()];
                               if(y-getSizeROI() >= 0 && 
                                  x+i >= 0 && 
-                                 x+i < getSizeX()) 
+                                 x+i < Int32(getSizeX())) 
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
@@ -1387,7 +1379,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
 
                               if(x-getSizeROI() >= 0 && 
                                  y+i >= 0 && 
-                                 y+i < getSizeY()) 
+                                 y+i < Int32(getSizeY())) 
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
@@ -1439,7 +1431,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
 
                               if(x-getSizeROI() >= 0 && 
                                  y+i >= 0 && 
-                                 y+i < getSizeY()) 
+                                 y+i < Int32(getSizeY())) 
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
@@ -1491,7 +1483,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
 
                               if(x-getSizeROI() >= 0 && 
                                  y+i >= 0 && 
-                                 y+i < getSizeY()) 
+                                 y+i < Int32(getSizeY()))
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
@@ -1532,8 +1524,8 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                               node = order[roi2-roi+j+getSizeROI()];
 
                               if(x+j >= 0 && 
-                                 x+j < getSizeX() && 
-                                 y+getSizeROI() < getSizeY()) 
+                                 x+j < Int32(getSizeX()) && 
+                                 y+getSizeROI() < Int32(getSizeY())) 
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
@@ -1589,7 +1581,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                               node = order[i+getSizeROI()];
 
                               if (x+i >= 0 && 
-                                  x+i < getSizeX() && 
+                                  x+i < Int32(getSizeX()) && 
                                   y-getSizeROI() >= 0) 
                               {
                                   node->setTravMask(
@@ -1637,8 +1629,8 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                           {
                               node = order[roi2-roi+(i+getSizeROI())];
                               if(x+i >= 0 && 
-                                 x+i < getSizeX() && 
-                                 y+getSizeROI() < getSizeY()) 
+                                 x+i < Int32(getSizeX()) && 
+                                 y+getSizeROI() < Int32(getSizeY())) 
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
@@ -1690,7 +1682,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                               node = order[i+getSizeROI()];
 
                               if(x+i >= 0 && 
-                                 x+i < getSizeX() && 
+                                 x+i < Int32(getSizeX()) && 
                                  y-getSizeROI() >= 0) 
                               {
                                   node->setTravMask(
@@ -1729,9 +1721,9 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                           {
                               node = order[(i+getSizeROI())*roi+(roi-1)];
                               
-                              if(x+getSizeROI() < getSizeX() && 
+                              if(x+getSizeROI() < Int32(getSizeX()) && 
                                  y+i >= 0 && 
-                                 y+i < getSizeY()) 
+                                 y+i < Int32(getSizeY())) 
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
@@ -1779,9 +1771,9 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                           {
                               node = order[(i+getSizeROI())*roi+roi-1];
                               
-                              if(x+getSizeROI() < getSizeX() && 
+                              if(x+getSizeROI() < Int32(getSizeX()) && 
                                  y+i >= 0 && 
-                                 y+i < getSizeY()) 
+                                 y+i < Int32(getSizeY()))
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
@@ -1832,7 +1824,7 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                               
                               if(x-getSizeROI() >= 0 && 
                                  y+i >= 0 && 
-                                 y+i < getSizeY()) 
+                                 y+i < Int32(getSizeY())) 
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);
@@ -1872,9 +1864,9 @@ Action::ResultE TiledQuadTreeTerrain::doRenderEnter(
                           {
                               node = order[roi2-roi+(j+getSizeROI())];
                               
-                              if(y+getSizeROI() < getSizeY() && 
+                              if(y+getSizeROI() < Int32(getSizeY()) && 
                                  x+j >= 0 && 
-                                 x+j < getSizeX()) 
+                                 x+j < Int32(getSizeX())) 
                               {
                                   node->setTravMask(
                                       TypeTraits<UInt32>::BitsSet);

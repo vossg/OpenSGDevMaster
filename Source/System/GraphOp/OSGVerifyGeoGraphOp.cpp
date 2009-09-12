@@ -177,7 +177,6 @@ bool VerifyGeoGraphOp::travNodeEnter(Node *node)
     for(UInt32 i = 0; i < geo->getSFLengths()->getValue()->size(); ++i)
         sumLengths += geo->getSFLengths()->getValue()->getValue<UInt32>(i);
     
-    const Geometry::MFPropertiesType  *mfProp = geo->getMFProperties ();
     const Geometry::MFPropIndicesType *mfInd  = geo->getMFPropIndices();
     
     bool indexed = false;
@@ -299,7 +298,6 @@ bool VerifyGeoGraphOp::checkIndexedGeo(Geometry *geo, UInt32 sumLengths)
 bool VerifyGeoGraphOp::checkNonindexedGeo(Geometry *geo, UInt32 sumLengths)
 {
     const Geometry::MFPropertiesType  *mfProp = geo->getMFProperties ();
-    const Geometry::MFPropIndicesType *mfInd  = geo->getMFPropIndices();
     
     UInt32 numProp = mfProp->size();
     

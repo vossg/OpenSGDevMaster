@@ -197,7 +197,6 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMClusterWinOptionsBase : public FieldContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const CSMClusterWinOptions *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

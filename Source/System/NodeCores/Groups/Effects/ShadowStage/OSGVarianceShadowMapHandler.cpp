@@ -818,7 +818,7 @@ void VarianceShadowMapHandler::updateShadowMapSize(void)
     ShadowStageData::ShadowMapStore &vShadowMaps = _pStageData->getShadowMaps();
  
     UInt32 uiSHMSize    =  vShadowMaps.size();
-    UInt32 uiNewMapSize = _pStage->getMapSize();
+     Int32 uiNewMapSize = _pStage->getMapSize();
 
     for(UInt32 i = 0; i < uiSHMSize; ++i)
     {

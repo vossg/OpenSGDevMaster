@@ -37,7 +37,8 @@
 \*---------------------------------------------------------------------------*/
 
 #if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic warning "-Wold-style-cast"
+//#pragma GCC diagnostic warning "-Wold-style-cast"
+#pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
 #include <OSGColladaInstanceGeometry.h>
@@ -111,11 +112,11 @@ void ColladaInstanceGeometry::read(void)
 
             for(UInt32 j = 0; j < techniqueCont.getCount(); ++j)
             {
-                daeElement *elem = techniqueCont[j];
-
                 OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: "
                                  "techniqueCont [%u] [%s] [%s]\n",
-                                 j, elem->getTypeName(), elem->getElementName()));
+                                 j, 
+                                 techniqueCont[j]->getTypeName(), 
+                                 techniqueCont[j]->getElementName()));
             }
         }
         

@@ -1338,7 +1338,6 @@ Entry:
 
 void ascii_get_element(PlyFile *plyfile, char *elem_ptr)
 {
-  std::istream *fp = plyfile->ifp;
   char *elem_data,*item = 0;
   char *item_ptr;
   int item_size;

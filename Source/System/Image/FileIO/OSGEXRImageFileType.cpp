@@ -333,7 +333,7 @@ bool EXRImageFileType::read(      Image        *image,
             Imf::Array2D<Imf::Rgba> pixels;
     
             const Imf::Header &header = stream.header();
-            const Imf::LineOrder &order = header.lineOrder();
+//            const Imf::LineOrder &order = header.lineOrder();
     
             const Imf::EnvmapAttribute *envmap =
                 header.findTypedAttribute<Imf::EnvmapAttribute>("envmap");
@@ -491,7 +491,7 @@ bool EXRImageFileType::read(      Image        *image,
             {
                 FFATAL(( "Error while trying to read OpenEXR Image from "
                          "stream, expected channel names 'R' 'G' 'B' 'A', "
-                         "'R1' 'G1', 'B1', 'A1', ...\n", channel_count));
+                         "'R1' 'G1', 'B1', 'A1', ...\n"));
 
                 return false;
             }
@@ -583,12 +583,12 @@ bool EXRImageFileType::write(const Image        *image,
         StdOStream file(os, dummy);
         Imf::Header header(width, height);
 
+#if 0
         // now add custom attributes
         ImageGenericAtt *att = dynamic_cast<ImageGenericAtt *>(
             image->findAttachment(
                 ImageGenericAtt::getClassType().getGroupId()));
 
-#if 0
         if(att != NULL)
         {
             FieldContainerType  &fcType = att->getType();

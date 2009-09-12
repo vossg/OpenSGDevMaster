@@ -132,7 +132,7 @@ Char8 VRMLWriteAction::FCInfo::mapChar(Char8 c)
     
     if (c <= 0x20) return '_';
     
-    for(Int16 i = 0; i < sizeof(badchars); ++i)
+    for(UInt16 i = 0; i < sizeof(badchars); ++i)
         if(c == badchars[i])
             return '_';
     
@@ -1360,7 +1360,7 @@ void VRMLWriteAction::writeMaterial(Geometry        *pGeo,
                             fprintf(pFile, "0x");
                             for (UInt32 i=0;i<pixelsize;i++) 
                             {
-                                fprintf(pFile, "%02X", (pImage->getData())[pos+i] );
+                                fprintf(pFile, "%02X", data[pos+i] );
                             }
                             fprintf(pFile, " ");
                         }

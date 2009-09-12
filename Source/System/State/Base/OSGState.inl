@@ -41,7 +41,7 @@ OSG_BEGIN_NAMESPACE
 */
 
 inline
-StateChunk * const State::getChunk(UInt32 chunkId) const
+StateChunk * State::getChunk(UInt32 chunkId) const
 {
     if(chunkId < _mfChunks.size())
         return _mfChunks[chunkId];

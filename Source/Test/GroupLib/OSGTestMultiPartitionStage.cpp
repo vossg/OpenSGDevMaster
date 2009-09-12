@@ -153,13 +153,13 @@ ActionBase::ResultE TestMultiPartitionStage::renderEnter(Action *action)
             this->beginPartitions(a);
         }
 
-        for(UInt32 i = 0; i < this->getNumPartitions(); ++i)
+        for(Int32 i = 0; i < this->getNumPartitions(); ++i)
         {
             this->pushPartition(a);
             {
+#ifdef OSG_DEBUG
                 RenderPartition *pPart  = a->getActivePartition();
             
-#ifdef OSG_DEBUG
                 if(this != NULL && this->getMessage().size() != 0)
                 {
                     char szNum[16];
@@ -218,7 +218,7 @@ ActionBase::ResultE TestMultiPartitionStage::renderLeave(Action *action)
     }
 #endif
 
-    StageValidator::ValidationStatus eStatus = this->validateOnLeave(a);
+    /*StageValidator::ValidationStatus eStatus = */ this->validateOnLeave(a);
 
 #ifdef OSG_DEBUGX
     a->dumpPartitionList();

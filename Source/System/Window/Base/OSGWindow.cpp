@@ -1033,15 +1033,18 @@ UInt32 OSG::Window::registerExtension(const Char8 *s)
 
     // Check if it has already been registered and if it has then return the
     // index we already used.
-    UInt32 r = getExtensionId(s);
-    if (-1 != r)
+    Int32 r = getExtensionId(s);
+
+    if(-1 != r)
     {
         FPDEBUG(("reusing id %d\n", r));
     }
     else
     {
         r = _registeredExtensions.size();
+
         _registeredExtensions.push_back(s);
+
         FPDEBUG(("new id %d\n", r));
     }
     
@@ -1194,7 +1197,7 @@ UInt32 OSG::Window::registerFunction(const Char8 *s,
     if(i < _registeredFunctions.end())
     {
         staticRelease();
-        FDEBUG(("reusing id %d\n", i - _registeredFunctions.begin()));
+        FDEBUG(("reusing id %td\n", i - _registeredFunctions.begin()));
         return i - _registeredFunctions.begin();
     }
             
@@ -1758,7 +1761,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
                     {
                         FWARNING(("Neither glXGetProcAddress nor "
                                   "glXGetProcAddressARB found! Disabling all "
-                                  " extensions for Window %p!\n")); 
+                                  " extensions for Window %p!\n", this)); 
 
                         _availExtensions.clear();
                         _availExtensions.resize(_registeredExtensions.size(), 

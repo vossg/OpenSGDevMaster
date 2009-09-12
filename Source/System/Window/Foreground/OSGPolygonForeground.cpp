@@ -192,10 +192,12 @@ void PolygonForeground::draw(DrawEnv *pEnv, Viewport *pPort)
         height = pEnv->getTileFullSize()[1];
 
         Real32 t = 0;
+#if 0
         Real32 left   = pEnv->getTileRegion()[0]; //cdP->getLeft(),
         Real32 right  = pEnv->getTileRegion()[1]; //cdP->getRight(),
         Real32 top    = pEnv->getTileRegion()[3]; //cdP->getTop(),
         Real32 bottom = pEnv->getTileRegion()[2]; //cdP->getBottom();
+#endif
         
         if (getAspectHeight() && getAspectWidth() &&
             height != 0 && width != 0)

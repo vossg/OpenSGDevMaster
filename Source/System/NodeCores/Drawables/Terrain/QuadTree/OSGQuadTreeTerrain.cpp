@@ -43,6 +43,10 @@
    http://wwwvis.informatik.uni-stuttgart.de/javatevi/
  */
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic warning "-Wsign-compare"
+#endif
+
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
@@ -984,10 +988,13 @@ bool QuadTreeTerrain::renderMeshRec(const FrustumVolume &frustum,
     Int32 w  = c - rx;                // western
     Int32 s  = c + rz;                // southern
     Int32 e  = c + rx;                // eastern
+
+#if 0
     Int32 nw = n - rx;
     Int32 sw = s - rx;
     Int32 se = s + rx;
     Int32 ne = n + rx;
+#endif
     
     //--- get all 9 heights ---------------------------------------------------
 
@@ -1764,7 +1771,7 @@ Action::ResultE QuadTreeTerrain::doRenderEnter (const FrustumVolume &frustum,
 {  
     if(getWidth() > 0) 
     { // dynamic tesselation
-        Time startTime = getSystemTime();
+//        Time startTime = getSystemTime();
         //--- create Terrain Mesh ---------------------------------------------
 
         GeoUInt32Property *len = 
@@ -1826,7 +1833,7 @@ Action::ResultE QuadTreeTerrain::doRenderEnter (const FrustumVolume &frustum,
 #endif
             
         }
-        Time endTime = getSystemTime();
+//        Time endTime = getSystemTime();
         
 //        SNOTICE << "terrain time:     " 
 //                << endTime-startTime 

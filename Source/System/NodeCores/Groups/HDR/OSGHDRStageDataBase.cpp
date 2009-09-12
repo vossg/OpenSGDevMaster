@@ -105,11 +105,11 @@ OSG_BEGIN_NAMESPACE
     
 */
 
-/*! \var UInt32          HDRStageDataBase::_sfWidth
+/*! \var Int32           HDRStageDataBase::_sfWidth
     
 */
 
-/*! \var UInt32          HDRStageDataBase::_sfHeight
+/*! \var Int32           HDRStageDataBase::_sfHeight
     
 */
 
@@ -201,8 +201,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
         "width",
         "",
         WidthFieldId, WidthFieldMask,
@@ -213,8 +213,8 @@ void HDRStageDataBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
         "height",
         "",
         HeightFieldId, HeightFieldMask,
@@ -325,7 +325,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "\t</Field>\n"
     "    <Field\n"
     "\t\tname=\"width\"\n"
-    "\t\ttype=\"UInt32\"\n"
+    "\t\ttype=\"Int32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0\"\n"
@@ -334,7 +334,7 @@ HDRStageDataBase::TypeObject HDRStageDataBase::_type(
     "    </Field>\n"
     "    <Field\n"
     "\t\tname=\"height\"\n"
-    "\t\ttype=\"UInt32\"\n"
+    "\t\ttype=\"Int32\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"0\"\n"
@@ -448,27 +448,27 @@ SFUnrecSimpleSHLChunkPtr *HDRStageDataBase::editSFVBlurShader    (void)
     return &_sfVBlurShader;
 }
 
-SFUInt32 *HDRStageDataBase::editSFWidth(void)
+SFInt32 *HDRStageDataBase::editSFWidth(void)
 {
     editSField(WidthFieldMask);
 
     return &_sfWidth;
 }
 
-const SFUInt32 *HDRStageDataBase::getSFWidth(void) const
+const SFInt32 *HDRStageDataBase::getSFWidth(void) const
 {
     return &_sfWidth;
 }
 
 
-SFUInt32 *HDRStageDataBase::editSFHeight(void)
+SFInt32 *HDRStageDataBase::editSFHeight(void)
 {
     editSField(HeightFieldMask);
 
     return &_sfHeight;
 }
 
-const SFUInt32 *HDRStageDataBase::getSFHeight(void) const
+const SFInt32 *HDRStageDataBase::getSFHeight(void) const
 {
     return &_sfHeight;
 }
@@ -764,8 +764,8 @@ HDRStageDataBase::HDRStageDataBase(void) :
     _sfBlurMaterial           (NULL),
     _sfHBlurShader            (NULL),
     _sfVBlurShader            (NULL),
-    _sfWidth                  (UInt32(0)),
-    _sfHeight                 (UInt32(0)),
+    _sfWidth                  (Int32(0)),
+    _sfHeight                 (Int32(0)),
     _sfShrinkRenderTarget     (NULL),
     _sfShrinkMaterial         (NULL)
 {
@@ -958,8 +958,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleVBlurShader    (void)
 
 GetFieldHandlePtr HDRStageDataBase::getHandleWidth           (void) const
 {
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
              &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId),
              const_cast<HDRStageDataBase *>(this)));
@@ -969,8 +969,8 @@ GetFieldHandlePtr HDRStageDataBase::getHandleWidth           (void) const
 
 EditFieldHandlePtr HDRStageDataBase::editHandleWidth          (void)
 {
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
              &_sfWidth,
              this->getType().getFieldDesc(WidthFieldId),
              this));
@@ -983,8 +983,8 @@ EditFieldHandlePtr HDRStageDataBase::editHandleWidth          (void)
 
 GetFieldHandlePtr HDRStageDataBase::getHandleHeight          (void) const
 {
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
              &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId),
              const_cast<HDRStageDataBase *>(this)));
@@ -994,8 +994,8 @@ GetFieldHandlePtr HDRStageDataBase::getHandleHeight          (void) const
 
 EditFieldHandlePtr HDRStageDataBase::editHandleHeight         (void)
 {
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
              &_sfHeight,
              this->getType().getFieldDesc(HeightFieldId),
              this));

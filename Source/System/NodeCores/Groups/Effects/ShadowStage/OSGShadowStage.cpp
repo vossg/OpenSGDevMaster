@@ -734,7 +734,7 @@ void ShadowStage::updateLights(RenderActionBase *action,
 {
     SpotLight        *tmpSpot;
     DirectionalLight *tmpDir;
-    PointLight       *tmpPoint;
+    PointLight       *tmpPoint = NULL;
     Matrix            tmpMatrix;
     bool              isSpot, isDirect;
     Real32            sceneWidth = 0.0;
@@ -1104,7 +1104,6 @@ void ShadowStage::updateLights(RenderActionBase *action,
                 {
                     Vec3f   dist, diff;
                     Pnt3f   center;
-                    Real32  angle;
 
                     pData->getLightRoot(i)->getVolume().getCenter(center);
 

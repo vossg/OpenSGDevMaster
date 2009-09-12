@@ -495,7 +495,7 @@ UInt32 FrameBufferObject::handleGL(DrawEnv                 *pEnv,
 
         glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &iMaxColorAttachments);
 
-        UInt32 index = GL_COLOR_ATTACHMENT0_EXT;
+        Int32 index = GL_COLOR_ATTACHMENT0_EXT;
         
         iMaxColorAttachments += GL_COLOR_ATTACHMENT0_EXT;
 

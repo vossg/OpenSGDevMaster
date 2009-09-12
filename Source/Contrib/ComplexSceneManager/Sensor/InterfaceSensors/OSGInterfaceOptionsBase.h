@@ -149,11 +149,6 @@ class OSG_CONTRIBCSM_DLLMAPPING InterfaceOptionsBase : public FieldContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
@@ -233,7 +228,6 @@ class OSG_CONTRIBCSM_DLLMAPPING InterfaceOptionsBase : public FieldContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const InterfaceOptions *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

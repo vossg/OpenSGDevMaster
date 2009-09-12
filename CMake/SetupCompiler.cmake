@@ -102,6 +102,9 @@ IF(MSVC)
     STRING(REPLACE "W3"  "W1" OSG_CXX_FLAGS       ${OSG_CXX_FLAGS})
     STRING(REPLACE "W3"  "W1" OSG_C_FLAGS         ${OSG_C_FLAGS})
 
+#    STRING(REPLACE "W3"  "W3 /wd4290 /wd4251 /wd4275 /wd4244" OSG_CXX_FLAGS       ${OSG_CXX_FLAGS})
+#    STRING(REPLACE "W3"  "W3 /wd4290 /wd4251 /wd4275 /wd4244" OSG_C_FLAGS         ${OSG_C_FLAGS})
+
     SET(OSG_CXX_FLAGS "${OSG_CXX_FLAGS} /D_WIN32_WINNT=0x0400 /DWINVER=0x0400")
     SET(OSG_C_FLAGS   "${OSG_C_FLAGS} /D_WIN32_WINNT=0x0400 /DWINVER=0x0400")
 
@@ -263,9 +266,16 @@ SET(CMAKE_SHARED_LINKER_FLAGS ${OSG_SHARED_LINKER_FLAGS}
 ###########
 
 IF(CMAKE_COMPILER_IS_GNUCC)
-    SET(OSG_CXX_FLAGS_GV " -Wreturn-type -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror")
+#    SET(OSG_CXX_FLAGS_GV " -Wall -Wextra -Wreturn-type -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
 
-    SET(OSG_C_FLAGS_GV " -Wreturn-type -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror")
+    SET(OSG_CXX_FLAGS_GV " -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
+
+#    SET(OSG_C_FLAGS_GV " -Wall -Wextra -Wreturn-type -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
+    SET(OSG_C_FLAGS_GV " -Wold-style-cast -DOSG_DEBUG_OLD_C_CASTS -DOSG_CLEAN_FCFIELDS -DOSG_CHECK_CONST_CORRECT_FIELD_USAGE -Wwrite-strings -Werror -Wno-unused-parameter")
+
+
+    SET(OSG_ADD_CXX_FLAGS_GV " -Wall -Wextra")
+    SET(OSG_ADD_C_FLAGS_GV " -Wall -Wextra ")
 
     SET(OSG_SHARED_LINKER_FLAGS_GV " -Wl,--no-undefined")
 

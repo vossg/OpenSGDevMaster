@@ -176,7 +176,6 @@ class OSG_SYSTEM_DLLMAPPING ShaderVariableBase : public FieldContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const ShaderVariable *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -11,13 +11,13 @@ class Foo
 
     void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField)
     {
-        fprintf(stderr, "Foo::testCB %llx\n", whichField);
+        fprintf(stderr, "Foo::testCB %"PRIx64"\n", whichField);
     }
 };
 
 void testCB(OSG::FieldContainer *pObj, OSG::BitVector whichField)
 {
-    fprintf(stderr, "testCB %llx\n", whichField);
+    fprintf(stderr, "testCB %"PRIx64"\n", whichField);
 }
 
 int main (int argc, char **argv)

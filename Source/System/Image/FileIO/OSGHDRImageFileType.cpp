@@ -482,7 +482,7 @@ int HDRImageFileType::fwritecolrs(std:: ostream &os,
                                         int      height   )
 {
     // convert scanline
-    for (unsigned int i=0;i<width;i++)
+    for (int i=0;i<width;i++)
     {
         float2RGBE(scan, rgbe_scan[i]);
         scan += 3;
@@ -498,7 +498,7 @@ int HDRImageFileType::fwritecolrs(std:: ostream &os,
                                         int      height)
 {
     // convert scanline
-    for (unsigned int i=0;i<width;i++)
+    for(int i=0;i<width;i++)
     {
         half2RGBE(scan, rgbe_scan[i]);
         scan += 3;
@@ -539,7 +539,7 @@ int HDRImageFileType::fwriteRGBE(std::ostream &os,
                     (cnt<127)&&
                         ((beg+cnt)<width)&&
                         (rgbe_scan[beg+cnt][i]==rgbe_scan[beg][i]); 
-                    cnt++);
+                    cnt++) ;
 
                 if (cnt>=MINRUN)
                     break;

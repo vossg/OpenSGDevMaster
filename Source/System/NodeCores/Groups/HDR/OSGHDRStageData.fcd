@@ -61,7 +61,7 @@ Data use for rendering by the HDR stage
 	</Field>
     <Field
 		name="width"
-		type="UInt32"
+		type="Int32"
 		cardinality="single"
 		visibility="external"
 		defaultValue="0"
@@ -70,7 +70,7 @@ Data use for rendering by the HDR stage
     </Field>
     <Field
 		name="height"
-		type="UInt32"
+		type="Int32"
 		cardinality="single"
 		visibility="external"
 		defaultValue="0"

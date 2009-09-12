@@ -89,7 +89,7 @@ BitPacker::BitPacker(UInt32 size, UInt32 max)
 
 void BitPacker::pack(UInt32 value)
 {
-    UInt32 numBitsToPack = _numBitsToPack;
+    Int32 numBitsToPack = _numBitsToPack;
 
     // Scoot the value bits up to the top of the word; this makes
     // them easier to work with.

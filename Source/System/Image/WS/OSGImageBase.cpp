@@ -1727,15 +1727,6 @@ bool ImageBase::unlinkParent(
 }
 
 
-void ImageBase::onCreate(const Image *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        Image *pThis = static_cast<Image *>(this);
-    }
-}
 
 GetFieldHandlePtr ImageBase::getHandleParents         (void) const
 {

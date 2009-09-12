@@ -367,7 +367,6 @@ void display(void)
 
     if(animate && animPos.size()>1)
     {
-        OSG::Real32 a;
         OSG::Vec3f v;
 
         printf("Frame %8.3f %8.5f %8.3f\n",
@@ -662,7 +661,7 @@ void init(std::vector<std::string> &filenames)
     glEnable( GL_DEPTH_TEST );
     glEnable( GL_LIGHTING );
     glEnable( GL_LIGHT0 );
-    GLint twoSide = 1;
+//    GLint twoSide = 1;
 //    glLightModeliv(GL_LIGHT_MODEL_TWO_SIDE,&twoSide);
     glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
 
@@ -955,7 +954,6 @@ int doMain(int argc,char **argv)
     bool                     compose=false;
 
     std::string              composerType="";
-    OSG::ImageComposer      *composer=NULL;
     std::string              autostart;
     
     for(i=1;i<argc;i++)
@@ -1245,7 +1243,7 @@ int doMain(int argc,char **argv)
     if(!autostart.empty())
         clusterWindow->editMFAutostart()->push_back(autostart);
     
-    for(i=0 ; i<servers.size() ; ++i)
+    for(i=0 ; i<int(servers.size()) ; ++i)
         clusterWindow->editMFServers()->push_back(servers[i]);
     if(cols < 0)
         cols = clusterWindow->getMFServers()->size() / rows;

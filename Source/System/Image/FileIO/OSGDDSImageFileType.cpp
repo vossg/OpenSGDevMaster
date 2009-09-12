@@ -364,7 +364,7 @@ bool DDSImageFileType::read(      Image        *pImage,
 
             if(i) 
             {
-                if((w != width) || (h != height) || (d != depth) &&
+                if((w != width) || (h != height) || (d != depth) ||
                    (mm != numMipMaps) )
                 {
                     validImage = false;
@@ -866,7 +866,7 @@ bool CDDSImage::check_dxt1_alpha_data (char *image, Int32 size)
     {
         for (unsigned j = 0; j < 4; j++) {
           UInt8 byte = colBlock[i].row[j];
-          for (unsigned p = 0; p < 4; p++, byte >> 2) {
+          for (unsigned p = 0; p < 4; p++/*, byte >> 2*/) {
             if ((byte & 3) == 3) {
               hasAlpha = true;
               break;

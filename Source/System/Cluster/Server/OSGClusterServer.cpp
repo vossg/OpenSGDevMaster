@@ -305,7 +305,7 @@ void ClusterServer::doSync(bool applyToChangelist)
         for(_serverId = 0;
              (_clusterWindow->getServers(_serverId) != _serviceName) &&
              (_serverId < _clusterWindow->getMFServers()->size());
-            _serverId++);
+            _serverId++) ;
 
         // server connected and cluster window found
         SINFO << "Start server " << _serviceName 
@@ -429,7 +429,7 @@ bool ClusterServer::windowChanged(FieldContainer * const fcp,
 
             if(_window != NULL)
             {
-                fprintf(stderr, "%p %d %d\n",
+                fprintf(stderr, "%p %d %td\n",
                         &(*_window),
                         window->getMFServers()->size(),
                         sIt - window->getMFServers()->begin());

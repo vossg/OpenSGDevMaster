@@ -228,7 +228,7 @@ class FieldContainer(FCDElement):
             if field.isPublic():
                 self["hasPublicFields"] = True;
             
-            if field.isPtrField():
+            if field.isPtrField() and field.hasAccess():
                 self["hasPtrFields"] = True;
             
             if field.isChildField():

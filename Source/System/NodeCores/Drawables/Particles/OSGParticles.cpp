@@ -833,10 +833,11 @@ struct TexTraitGeneric : public ParticleTraits
             if(data.texzs->size() == 1)
             {
                 data.z = (*(data.texzs))[0];
-             }
+            }
             else if(data.texzs->size() == part->getPositions()->size())
             {
                 data.perParticle = true;
+                data.z = 0;
             }
             else
             {
@@ -1240,7 +1241,6 @@ struct drawViewDirQuads : public ParticlesDrawer
         d4 = -1.0f * camera[0] +  1.0f * camera[1];
 
         // some variables for faster access
-        GeoVectorProperty *pos = part->getPositions();
 
         // init traits
         typename colTrait::dataType colData;
@@ -1559,7 +1559,6 @@ struct drawLines : public ParticlesDrawer
     virtual void draw(Particles *part, DrawEnv *pEnv, UInt32 length)
     {
         // some variables for faster access
-        GeoVectorProperty *pos  = part->getPositions();
 
         // init traits
         typename colTrait::dataType colData;
@@ -1681,8 +1680,6 @@ struct drawPoints : public ParticlesDrawer
     virtual void draw(Particles *part, DrawEnv *pEnv, UInt32 length)
     {
         // some variables for faster access
-        GeoVectorProperty *pos  = part->getPositions();
-
         // init traits
         typename posTrait::dataType posData;
         posTrait::init(part, pEnv, posData, part->getPositions());
@@ -1899,7 +1896,6 @@ struct drawObjects : public ParticlesDrawer
     virtual void draw(Particles *part, DrawEnv *pEnv, UInt32 length)
     {
         // some variables for faster access
-        GeoVectorProperty *pos = part->getPositions();
 
         // init traits
         typename geoTrait::dataType geoData;
@@ -2094,7 +2090,6 @@ struct drawViewerObjects : public ParticlesDrawer
         Pnt3f  vpos(camera[3]);
 
         // some variables for faster access
-        GeoVectorProperty *pos = part->getPositions();
 
         // init traits
         typename geoTrait::dataType geoData;
@@ -2397,11 +2392,7 @@ struct drawShaderQuads : public ParticlesDrawer
         typename secPosTrait::dataType secPosData;
         secPosTrait::init(part, pEnv, secPosData, part->getSecPositions());
 
-        GeoVectorProperty *pos = part->getPositions();
-
         glBegin(GL_QUADS);
-
-        Int32 i;
 
         for(UInt32 i = 0; i < length; ++i)
         {
@@ -2551,7 +2542,7 @@ struct drawShaderStrips : public ParticlesDrawer
             UInt32 n = static_cast<UInt32>(s[2]);
             Real32 step = 1.f / (n-1);
             Real32 v = 0.f;
-            for(int y = 0; y < n; ++y, v += step)
+            for(UInt32 y = 0; y < n; ++y, v += step)
             {
                 texTrait::vertex(texData, 0, 0, v);
                 glVertex2f  (-.5f, v-.5f);
@@ -2592,10 +2583,6 @@ struct drawShaderStrips : public ParticlesDrawer
 
         typename secPosTrait::dataType secPosData;
         secPosTrait::init(part, pEnv, secPosData, part->getSecPositions());
-
-        GeoVectorProperty *pos = part->getPositions();
-
-        Int32 i;
 
         for(UInt32 i = 0; i < length; ++i)
         {
@@ -2643,7 +2630,7 @@ struct drawShaderStrips : public ParticlesDrawer
             UInt32 n = static_cast<UInt32>(s[2]);
             Real32 step = 1.f / (n-1);
             Real32 v = 0.f;
-            for(int y = 0; y < n; ++y, v += step)
+            for(UInt32 y = 0; y < n; ++y, v += step)
             {
                 texTrait::vertex(texData, 0, 0, v);
                 glVertex2f  (-.5f, v-.5f);
@@ -2884,7 +2871,7 @@ Action::ResultE Particles::drawPrimitives(DrawEnv *pEnv)
 
     if(drawer == NULL)
     {
-        FWARNING(("Particles 0x%lx: couldn't find drawer!\n", this));
+        FWARNING(("Particles 0x%p: couldn't find drawer!\n", this));
         return Action::Continue;;
     }
 

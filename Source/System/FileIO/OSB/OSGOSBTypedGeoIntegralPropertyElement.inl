@@ -180,7 +180,6 @@ OSBTypedGeoIntegralPropertyElement<GeoPropertyTypeT>::write(void)
     OSG_OSB_LOG(("OSBTypedGeoIntegralPropertyElement<>::write\n"));
 
     BinaryWriteHandler    *wh    = editRoot()->getWriteHandler();
-    const OSBRootElement  *root  = getRoot();
     UInt8                  flags = 0;
     GeoPropertyPtrType     prop  =
         dynamic_cast<GeoPropertyPtrType>(getContainer());

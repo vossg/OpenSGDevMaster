@@ -268,11 +268,11 @@ basic_unzip_streambuf<charT, traits>::basic_unzip_streambuf(istream_reference is
                                                             int window_size,
                                                             size_t read_buffer_size,
                                                             size_t input_buffer_size)
-    : _istream(istream),
-      _input_buffer(input_buffer_size),
+    : _input_buffer(input_buffer_size),
       _buffer(read_buffer_size),
-      _crc(0),
-      _streamType ( UNKNOWN_ST )
+      _streamType ( UNKNOWN_ST ),
+      _istream(istream),
+      _crc(0)
 {
     // setting zalloc, zfree and opaque
     _zip_stream.zalloc = NULL;
@@ -658,7 +658,7 @@ bool
 basic_zip_istream<charT, traits>::check_crc(void)
 {
     read_footer();
-    return this->get_crc() == _gzip_crc;
+    return this->get_crc() == static_cast<unsigned long>(_gzip_crc);
 }
 
 /** return data size check

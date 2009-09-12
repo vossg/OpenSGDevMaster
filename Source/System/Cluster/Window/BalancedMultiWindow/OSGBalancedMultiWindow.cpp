@@ -208,16 +208,11 @@ void BalancedMultiWindow::serverRender(Window           *pServerWindow,
         _preloadCache = true;
     }
 
-    UInt32 sendTo;
-    UInt32 sendCount;
-    GroupConnection *groupConn;
     UInt32 count,vp,vpcount,wpcount;
     Server &server = _cluster.servers[id];
     std::vector<WorkPackage>::iterator wI;
     std::vector<Area>::iterator aI;
     std::vector<Tile>::iterator tI;
-    Tile tile;
-    Connection::Channel channel=0;
 
     // set server window
     server.window = pServerWindow;
@@ -326,8 +321,6 @@ void BalancedMultiWindow::clientPreSync(void)
         if(getWidth () != getClientWindow()->getWidth () ||
            getHeight() != getClientWindow()->getHeight()) 
         {
-            ClusterWindow *ptr = this;
-
             setWidth (getClientWindow()->getWidth ());
             setHeight(getClientWindow()->getHeight());
         }
@@ -517,8 +510,6 @@ bool BalancedMultiWindow::calculateProjectedBBox(VPort &port,
                                                  BBox &bbox,
                                                  Matrix &proj)
 {
-    Viewport *viewport = getPort(port.id);
-
     Pnt3f vol[2];
     Pnt3f pnt3;
     Real32 minx=0,miny=0;
@@ -735,7 +726,6 @@ void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
     UInt32 lastSize;
 #endif    
 
-    UInt32 l;
     MFUnrecChildNodePtr::const_iterator child;
 
     // ignore null node
@@ -745,7 +735,6 @@ void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
     NodeCore *core = node->getCore();
     if(core != NULL)
     {
-        ChunkMaterial *mat   = NULL;
         Geometry      *geo   = NULL;
         ProxyGroup    *proxy = NULL;
 
@@ -865,7 +854,7 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
     Int32 cleft,cright,ctop,cbottom;
     Viewport *serverPort, *clientPort;
     TileCameraDecoratorUnrecPtr deco;
-    UInt32 cv,sv=0;
+//    UInt32 cv,sv=0;
 
     // calculate visible area;
     UInt32 row;
@@ -1241,9 +1230,9 @@ void BalancedMultiWindow::splitViewport(std::vector<Worker> &allWorker,
     Int32  resultRect[2][4];
     Real32 resultLoadTry[2][2];
     Int32  resultRectTry[2][2][4];
-    int axis;
+    UInt32 axis;
 //    Real32 threshold;
-    Real32 maxLoad1,maxLoad2;
+//    Real32 maxLoad1,maxLoad2;
     UInt32 fromAxis,toAxis;
     bool bestCut=getBestCut();
 
@@ -1456,11 +1445,11 @@ void BalancedMultiWindow::sortBBoxes(VPort &port,UInt32 axis,
     Real32 area;
 
     // list of opened groups
-    if(_groupOpen.size() < rect[axis+2] + 1)
+    if(Int32(_groupOpen.size()) < rect[axis+2] + 1)
         _groupOpen.resize(rect[axis+2] + 1);
 
     // list of closed groups
-    if(_groupClose.size() < rect[axis+2] + 1)
+    if(Int32(_groupClose.size()) < rect[axis+2] + 1)
         _groupClose.resize(rect[axis+2] + 1);
 
     // free bboxlist nodes
@@ -1556,12 +1545,12 @@ void BalancedMultiWindow::splitAxis(Real32 const (&load)[2],
         from <= rect[axis+2] &&
             _groupOpen[from] == NULL &&
             _groupClose[from] == NULL
-            ; ++from);
+            ; ++from) ;
     for(to  = rect[axis+2] ; 
         to >= from &&
             _groupOpen[to] == NULL &&
             _groupClose[to] == NULL
-            ; --to);
+            ; --to) ;
 
     // loop through all points
     //lastCut = from-1;
@@ -1738,7 +1727,7 @@ void BalancedMultiWindow::clearViewports(Window           *serverWindow,
 void BalancedMultiWindow::storeViewport(Area &area,Viewport *vp,
                                         Int32 const (&rect)[4])
 {
-    UInt32 x,y,w,h;
+    Int32 x,y,w,h;
     UInt32 tI=0; 
 /*
     printf("vport pos %d %d\n",vp->getPixelLeft(),vp->getPixelBottom());
@@ -1752,8 +1741,8 @@ void BalancedMultiWindow::storeViewport(Area &area,Viewport *vp,
     {
         for(x = rect[LEFT] ; x <= rect[RIGHT] ; x += MW_TILE_SIZE)
         {
-            w = osgMin(UInt32(MW_TILE_SIZE),rect[RIGHT] - x + 1);
-            h = osgMin(UInt32(MW_TILE_SIZE),rect[TOP]   - y + 1);
+            w = osgMin(Int32(MW_TILE_SIZE),rect[RIGHT] - x + 1);
+            h = osgMin(Int32(MW_TILE_SIZE),rect[TOP]   - y + 1);
 
             area.tiles[tI].header.x      = x;
             area.tiles[tI].header.y      = y;
@@ -1791,8 +1780,8 @@ void BalancedMultiWindow::drawSendAndRecv(Window           *window,
     UInt16 wpId;
     UInt32 sendCount;
     GroupConnection *groupConn;
-    UInt32 count,vp,vpcount,wpcount;
-    Server &server = _cluster.servers[id];
+//    UInt32 count,vp,vpcount,wpcount;
+//    Server &server = _cluster.servers[id];
     std::vector<WorkPackage>::iterator wI;
     std::vector<Area>::iterator aI;
     std::vector<Tile>::iterator tI;

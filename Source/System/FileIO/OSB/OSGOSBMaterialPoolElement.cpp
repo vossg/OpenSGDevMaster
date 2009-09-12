@@ -135,9 +135,6 @@ OSBMaterialPoolElement::preWrite(FieldContainer * const fc)
 {
     OSG_OSB_LOG(("OSBMaterialPoolElement::preWrite\n"));
 
-    OSBRootElement *root       = editRoot();
-    UInt32          fieldCount = fc->getType().getNumFieldDescs();
-
     preWriteFieldContainer(fc, "");
 }
 

@@ -113,8 +113,8 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
     if(i == NULL)       // No image, no grab.
         return;
 
-    UInt32 w = osgMax(2, port->getPixelWidth ());
-    UInt32 h = osgMax(2, port->getPixelHeight());
+    Int32 w = osgMax(2, port->getPixelWidth ());
+    Int32 h = osgMax(2, port->getPixelHeight());
 
     // If image is smaller than 2x2, resize it to vp size
     // the 2x2 is because you can't create 0x0 images
@@ -132,10 +132,10 @@ void GrabForeground::draw(DrawEnv *, Viewport *port)
 
     if ( !getAutoResize() )
     {
-        w = osgMin(i->getWidth(),  port->getPixelWidth());
-        h = osgMin(i->getHeight(), port->getPixelHeight());
+        w = osgMin(Int32(i->getWidth ()), port->getPixelWidth());
+        h = osgMin(Int32(i->getHeight()), port->getPixelHeight());
         
-        if (i->getWidth() != port->getPixelWidth())
+        if(Int32(i->getWidth()) != port->getPixelWidth())
         {
             glPixelStorei(GL_PACK_ROW_LENGTH, i->getWidth());
             storeChanged = true;

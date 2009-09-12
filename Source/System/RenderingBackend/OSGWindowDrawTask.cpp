@@ -57,8 +57,8 @@ WindowDrawTask::WindowDrawTask(TaskType eType) :
     _eTaskType            (eType),
     _pBarrier             (NULL ),
     _oInitFunc            (     ),
-    _bReinitExtFunctions  (false),
-    _bCreatePrivateContext(false)
+    _bCreatePrivateContext(false),
+    _bReinitExtFunctions  (false)
 {
     switch(_eTaskType)
     {

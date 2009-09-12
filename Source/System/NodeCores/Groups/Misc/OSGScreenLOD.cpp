@@ -89,10 +89,10 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
 {
     RenderAction  *ra        = dynamic_cast<RenderAction*>(action);
 
-    UInt32          numLevels = action->getNNodes();
+    Int32           numLevels = action->getNNodes();
     Int32           index     = 0;
     
-    UInt32          numCovOverrides = getMFCoverageOverride()->size();
+    Int32           numCovOverrides = getMFCoverageOverride()->size();
     bool            use_overrides(numCovOverrides > 0);
 
     if(numLevels > 1)
@@ -212,7 +212,7 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
                 }
                 else
                 {
-                    UInt32 i = 1;
+                    Int32 i = 1;
 
                     // While: more to check && ! (over[i-1] >= cbb > over[i])
                     while( (i < numCovOverrides) && 
@@ -235,7 +235,7 @@ ActionBase::ResultE ScreenLOD::renderEnter(Action *action)
     //if (!use_overrides)
     //{
        // See if we have a minimum LOD that we want to maintain
-       UInt32 lowestLOD = ra->getScreenLODNumLevels();
+       Int32 lowestLOD = ra->getScreenLODNumLevels();
        if(lowestLOD != 0) // if using a minLOD
        {
          lowestLOD--; // LODS is 0 based, NumLevels is 1 based

@@ -137,7 +137,6 @@ void FieldTraits<ChunkBlockMap>::copyFromBin(BinaryDataHandler &pMem,
     ChunkBlockMapKey  key  = KeyPool::the()->getDefault();
     UInt32            fcId;
     UInt32            uiNumObjects;
-    UInt32            keySize;
 
     pMem.getValue(uiNumObjects);
 
@@ -325,8 +324,7 @@ bool EditSFieldHandle<SFChunkBlockPtrMap>::loadFromBin(
     pMap->getValue().clear();
 
         
-    UInt32      fcId;
-    ChunkBlock *matPtr = NULL;
+    UInt32 fcId;
 
     union
     {

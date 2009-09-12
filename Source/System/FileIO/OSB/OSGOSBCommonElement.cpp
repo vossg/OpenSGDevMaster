@@ -361,7 +361,7 @@ std::string
 OSBCommonElement::readFields(const std::string &excludeFields,
                              const std::string &endMarkers    )
 {
-    BinaryReadHandler  *rh         = editRoot()->getReadHandler();
+//    BinaryReadHandler  *rh         = editRoot()->getReadHandler();
     std::string         fieldName  = "";
     PtrFieldListIt      ptrFieldIt;
 
@@ -407,7 +407,7 @@ OSBCommonElement::readFieldsContinue(const std::string &fieldName,
                                      const std::string &excludeFields,
                                      const std::string &endMarkers    )
 {
-    BinaryReadHandler  *rh         = editRoot()->getReadHandler();
+//    BinaryReadHandler  *rh         = editRoot()->getReadHandler();
     PtrFieldListIt      ptrFieldIt;
     std::string         fieldName2;
     std::string         fieldTypeName;
@@ -560,7 +560,6 @@ OSBCommonElement::readAttachmentMapField(
 
     bool               hasBindingInfo = false;
     UInt32             ptrId;
-    UInt16             binding;
     UInt32             numElements;
     OSBRootElement    *root           = editRoot();
     BinaryReadHandler *rh             = editRoot()->getReadHandler();
@@ -856,7 +855,6 @@ OSBCommonElement::preWriteFieldContainer(
     {
         const FieldDescriptionBase *fieldDesc = fc->getFieldDescription(fieldId);
         const FieldType            &fieldType = fieldDesc->getFieldType();
-        BitVector                   fieldMask = fieldDesc->getFieldMask();
         std::string                 fieldName = fieldDesc->getCName    ();
 
         OSG_OSB_LOG(("OSBCommonElement::preWriteFieldContainer: "

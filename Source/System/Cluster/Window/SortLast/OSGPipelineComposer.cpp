@@ -88,11 +88,11 @@ PipelineComposer::PipelineComposer(void) :
     Inherited(),
     _readTilePtr(&_tileA),
     _composeTilePtr(&_tileB),
+    _writer(NULL),
     _barrier(NULL),
     _composeBarrier(NULL),
     _frameEndBarrier(NULL),
     _lock(NULL),
-    _writer(NULL),
     _waiting(false),
     _firstFrame(true)
 {
@@ -102,11 +102,11 @@ PipelineComposer::PipelineComposer(const PipelineComposer &source) :
     Inherited(source),
     _readTilePtr(&_tileA),
     _composeTilePtr(&_tileB),
+    _writer(NULL),
     _barrier(NULL),
     _composeBarrier(NULL),
     _frameEndBarrier(NULL),
     _lock(NULL),
-    _writer(NULL),
     _waiting(false),
     _firstFrame(true)
 {
@@ -187,8 +187,6 @@ void PipelineComposer::startViewport(Viewport *)
 
 void PipelineComposer::composeViewport(Viewport *port)
 {
-    UInt32 s;
-
     // setup viewport
     GLint 
         pl=port->getPixelLeft(), 

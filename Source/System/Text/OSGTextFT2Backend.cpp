@@ -548,7 +548,7 @@ void TextFT2Backend::getFontFamilies(vector<string> &families)
         return;
 
     // We are only interested in the names of the font families
-    FcObjectSet *objectSet = FcObjectSetBuild(FC_FAMILY, 0);
+    FcObjectSet *objectSet = FcObjectSetBuild(FC_FAMILY, NULL);
     if (objectSet == 0)
     {
         FcPatternDestroy(pattern);

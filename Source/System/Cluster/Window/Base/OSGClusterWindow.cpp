@@ -125,7 +125,7 @@ void ClusterWindow::init(GLInitFunctor)
 {
     GroupConnection    *connection;
     RemoteAspect       *remoteAspect;
-    int                 c,i,id;
+    UInt32             c, id;
     MFString::const_iterator  s;
     Connection::Channel channel;
     bool                directConnect=false;

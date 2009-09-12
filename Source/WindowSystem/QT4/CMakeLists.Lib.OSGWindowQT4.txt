@@ -47,6 +47,8 @@ SET(${PROJECT_NAME}_DEP_DEFS "QT_THREAD_SUPPORT"
                              "QT_GUI_LIB"
                              "QT_OPENGL_LIB")
 
+SET(${PROJECT_NAME}_CXXFLAGS ${OSG_ADD_CXX_FLAGS})
+
 OSG_STORE_PROJECT_DEPENDENCIES()
 
 ##############################################################################

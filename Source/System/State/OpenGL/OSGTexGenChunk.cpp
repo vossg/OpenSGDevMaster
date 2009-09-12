@@ -222,7 +222,7 @@ void TexGenChunk::activate(DrawEnv *pEnv, UInt32 idx)
     {
 #ifdef OSG_DEBUG
         FWARNING(("TexGenChunk::activate: Trying to bind texcoord unit %d,"
-                  " but Window %p only supports %d!\n",
+                  " but Window %p only supports %lf!\n",
                   idx, win, ntexcoords));
 #endif
         return;        
@@ -388,7 +388,7 @@ void TexGenChunk::changeFrom(DrawEnv    *pEnv,
     {
 #ifdef OSG_DEBUG
         FWARNING(("TexGenChunk::changeFrom: Trying to bind texcoord unit "
-                  "%d, but Window %p only supports %d!\n",
+                  "%d, but Window %p only supports %lf!\n",
                   idx, win, ntexcoords));
 #endif
         return;        
@@ -463,7 +463,7 @@ void TexGenChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     {
 #ifdef OSG_DEBUG
         FWARNING(("TexGenChunk::deactivate: Trying to bind texcoord unit %d,"
-                  " but Window %p only supports %d!\n",
+                  " but Window %p only supports %lf!\n",
                   idx, win, ntexcoords));
 #endif
         return;        

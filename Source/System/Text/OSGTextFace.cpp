@@ -300,7 +300,7 @@ static wchar_t utf8Char2Unicode(const char *&str)
     {
         c = *str++;
         if ((c & 0xc0) != 0x80) // should never happen
-            ; // TODO
+        {} // TODO
         result <<= 6;
         result |= c & 0x3f;
     }

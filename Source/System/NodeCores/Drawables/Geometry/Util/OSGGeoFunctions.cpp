@@ -33,6 +33,7 @@
  *                                                                           *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
+
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
@@ -443,7 +444,7 @@ void calcVertexNormals(Geometry *geo,
 
     for(ti = geo->beginTriangles(); ti != geo->endTriangles(); ++ti)
     {
-        Int32 tind = ti.getIndex();
+        UInt32 tind = ti.getIndex();
         Vec3f faceNorm(faceNormals[tind]);
 
         if(faceNorm.squareLength() != 0.0)
@@ -562,8 +563,6 @@ void calcVertexTangentsProp(Geometry *geo,
     }
 
     GeoIntegralProperty *posIdx  = geo->getIndex(Geometry::PositionsIndex);
-    GeoIntegralProperty *normIdx = geo->getIndex(srcNormalProp           );
-    GeoIntegralProperty *tcIdx   = geo->getIndex(srcTexProp              );
         
     // HACK but without indices it crashes
     if(posIdx == NULL || posIdx->size() == 0) 
@@ -600,8 +599,6 @@ void calcVertexTangentsProp(Geometry *geo,
     }
     
     UInt32 posIdxCount  = posIdx->size();
-    UInt32 normIdxCount = normIdx != NULL ? normIdx->size() : 0;
-    UInt32 tcIdxCount   = tcIdx   != NULL ? tcIdx  ->size() : 0;
 
     tangentP     = GeoVec4fProperty::create();
     binormalP    = GeoVec4fProperty::create();
@@ -617,7 +614,7 @@ void calcVertexTangentsProp(Geometry *geo,
 
     TriangleIterator tI;
     IndexDic indexDic;
-    Int32 i, k, index, v[3];
+    Int32 k, v[3];
     Vec4f vect(0, 0, 0, 0);
     
     UInt32             propSize = 0;
@@ -632,6 +629,8 @@ void calcVertexTangentsProp(Geometry *geo,
     binormal.resize(posIdxCount, Vec3f::Null);
     normal  .resize(posIdxCount, Vec3f::Null);
 
+    Int32 i = 0;
+
     for(  tI  = geo->beginTriangles(), i = 0; 
           tI != geo->endTriangles(); 
         ++tI, ++i) 
@@ -644,7 +643,7 @@ void calcVertexTangentsProp(Geometry *geo,
 
             v[k]        = indexDic.entry(indexVec);
 
-            if(v[k] > propSize)
+            if(v[k] > Int32(propSize))
                 propSize = v[k];
         }
 
@@ -657,10 +656,6 @@ void calcVertexTangentsProp(Geometry *geo,
         }
 
         // second, calculate tangent and binormal for every tri
-        Int32 v0 = tI.getPositionIndex(0),
-              v1 = tI.getPositionIndex(1),
-              v2 = tI.getPositionIndex(2);
-
         Vec2f t0, t1, t2, tex1, tex2;
         Vec3f edge1, edge2, sdir, tdir;
         
@@ -709,12 +704,12 @@ void calcVertexTangentsProp(Geometry *geo,
     // orthogonalize vectors (Gram-Schmidt) and calc handedness    
     Vec3f T, B, N;
 
-    Real32 sign = 0, l1, l2;
+    Real32 sign = 0;
 
     tangentP ->clear();
     binormalP->clear();
 
-    for(i = 0; i < tangent.size(); i++) 
+    for(UInt32 i = 0; i < tangent.size(); i++) 
     {
         T = tangent [i];
         B = binormal[i];
@@ -936,7 +931,7 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
 
     GeoIntegralPropertyUnrecPtr posIndexPtr  = NULL;
 
-    Int32 index, i, pi, typei, mapi, primitiveN = 0, vN = 0;
+    Int32 index, i, pi, typei, primitiveN = 0, vN = 0;
     Int32 pType = 0, localPType;
     Int32 maxPType = (faceSet ? 5 : 3);
     Int32 minPType = (faceSet ? 3 : 2);
@@ -951,7 +946,7 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
     Int32 primitiveTypeCount[6];
     UInt32 triCount = 0;
 //    Int16 indexMap[4], indexMapID[4];
-    UInt32 uiNumTextures = 0;
+//    UInt32 uiNumTextures = 0;
 
     IndexBagP indexBag[4] =
     {
@@ -1092,8 +1087,8 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
                 normalIT = VERTEX_COORD_IT;
                 if(niN)
                 {
-                    FWARNING(("Not enough normal index (%d,%d)\n", normalIndex.
-                                                     size(), piN));
+                    FWARNING(("Not enough normal index (%zd,%d)\n", 
+                              normalIndex.size(), piN));
                     normalIndex.clear();
                 }
             }
@@ -1170,8 +1165,8 @@ else
                 colorIT = VERTEX_COORD_IT;
                 if(ciN)
                 {
-                    FWARNING(("Not enough color index (%d,%d)\n", colorIndex.
-                                                     size(), piN));
+                    FWARNING(("Not enough color index (%zd,%d)\n", 
+                              colorIndex.size(), piN));
                     colorIndex.clear();
                 }
             }
@@ -1235,8 +1230,8 @@ else
             textureIT = VERTEX_COORD_IT;
             if(ciN)
             {
-                FWARNING(("Not enough texCoord index (%d,%d)\n", texCoordIndex.
-                                             size(), piN));
+                FWARNING(("Not enough texCoord index (%zd,%d)\n", 
+                          texCoordIndex.size(), piN));
                 texCoordIndex.clear();
             }
         }
@@ -1552,10 +1547,10 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
     GeoIntegralPropertyUnrecPtr posIndexPtr  = NULL;
 
     //bool faceSet = (primitiveType == GL_POLYGON);
-    Int32 index, i, pi, typei, mapi, primitiveN = 0, vN = 0;
+    Int32 index, pi, typei, primitiveN = 0, vN = 0;
     Int32 pType = 0, localPType;
-    Int32 maxPType; //  = (faceSet ? 5 : 3);
-    Int32 minPType; //  = (faceSet ? 3 : 2);
+    Int32 maxPType = 0; //  = (faceSet ? 5 : 3);
+    Int32 minPType = 0; //  = (faceSet ? 3 : 2);
     Int32 beginIndex, endIndex, step, len, sysPType = 0;
     Int32 piN = 0, ciN = 0, niN = 0, tiN = 0;
     Int32 pN = 0, nN = 0, cN = 0, tN = 0;
@@ -1566,8 +1561,6 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
     IndexType &textureIT = indexType[3];
     Int32 primitiveTypeCount[6];
     UInt32 triCount = 0;
-    Int16 indexMap[4], indexMapID[4];
-    UInt32 uiNumTextures = 0;
 
     IndexBagP indexBag[4] =
     {
@@ -1729,7 +1722,7 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
 
         if(piN)
         {
-            for(i = 0; i <= piN; i++)
+            for(Int32 i = 0; i <= piN; i++)
             {
                 index = (i == piN) ? -1 : coordIndex[i];
 
@@ -1773,7 +1766,7 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
             if(niN >= piN)
             {
                 // valid normal index number
-                for(i = 0; i < piN; i++)
+                for(Int32 i = 0; i < piN; i++)
                 {   // check if normal index equals the coord index
                     if(normalIndex[i] != coordIndex[i])
                     {
@@ -1795,8 +1788,8 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
 
                 if(niN)
                 {
-                    FWARNING(("Not enough normal index (%d,%d)\n", normalIndex.
-                                                     size(), piN));
+                    FWARNING(("Not enough normal index (%zd,%d)\n", 
+                              normalIndex.size(), piN));
                     normalIndex.clear();
                 }
             }
@@ -1848,7 +1841,7 @@ else
             if(ciN >= piN)
             {
                 // valid color index number
-                for(i = 0; i < piN; i++)
+                for(Int32 i = 0; i < piN; i++)
                 {   // check if color index equals the coord index
                     if(colorIndex[i] != coordIndex[i])
                     {
@@ -1869,8 +1862,8 @@ else
                 colorIT = VERTEX_COORD_IT;
                 if(ciN)
                 {
-                    FWARNING(("Not enough color index (%d,%d)\n", colorIndex.
-                                                     size(), piN));
+                    FWARNING(("Not enough color index (%zd,%d)\n", 
+                              colorIndex.size(), piN));
                     colorIndex.clear();
                 }
             }
@@ -1911,7 +1904,7 @@ else
         if(tiN >= piN)
         {
             // valid texture index number
-            for(i = 0; i < piN; i++)
+            for(Int32 i = 0; i < piN; i++)
             {       // check if texture index equals the coord index
                 if(texCoordIndex[i] != coordIndex[i])
                 {
@@ -1932,8 +1925,8 @@ else
             textureIT = VERTEX_COORD_IT;
             if(tiN)
             {
-                FWARNING(("Not enough texCoord index (%d,%d)\n", texCoordIndex.
-                                             size(), piN));
+                FWARNING(("Not enough texCoord index (%zd,%d)\n", 
+                          texCoordIndex.size(), piN));
                 texCoordIndex.clear();
             }
         }
@@ -1968,7 +1961,7 @@ else
         posIndexPtr->clear();
     }
 
-    for(i = 1; i < 4; ++i)
+    for(Int32 i = 1; i < 4; ++i)
     { 
         indexOutBag[i] = geoPtr->getIndex(indexOutBagID[i]);
         
@@ -1978,7 +1971,7 @@ else
         }
     }
 
-    for(i = 0; i < uiNumTexCoords; ++i)
+    for(UInt32 i = 0; i < uiNumTexCoords; ++i)
     {
         geoPtr->setIndex(NULL, texCoordIdx[i]);
     }
@@ -2059,7 +2052,7 @@ else
             primitiveN = 0;
             beginIndex = endIndex = -1;
 
-            for(i = 0; i <= piN; i++)
+            for(Int32 i = 0; i <= piN; i++)
             {
                 if(((i == piN) && (coordIndex[i - 1] >= 0)) ||
                                    ((i < piN) && (coordIndex[i] < 0)))
@@ -2212,7 +2205,6 @@ Int32 createOptimizedPrimitives(Geometry *geo,
     UInt32 startCost       = 0;
     UInt32 bestCost        = 0;
     UInt32 worstCost       = 0;
-    UInt32 best            = 0;
     UInt32 triN            = 0;
     UInt32 lineN           = 0;
     UInt32 pointN          = 0;
@@ -2292,7 +2284,7 @@ Int32 createOptimizedPrimitives(Geometry *geo,
             {
                 Int32 index = tI.getIndex(i);
 
-                for(Int32 j = 0; j < indexMapSize; j++)
+                for(UInt32 j = 0; j < indexMapSize; j++)
                 {
                     indexVec[j] = oGeoIndexBag[j].first->getValue(index);
                 }
@@ -2454,16 +2446,16 @@ Int32 createOptimizedPrimitives(Geometry *geo,
                             // new one, but make sure winding is still correct.
                             if(remapIndex)
                             {
-                                for (int j = 0; j < 1 + windingCorrection; ++j)
+                                for(UInt32 j = 0; j < 1+windingCorrection; ++j)
                                 {
-                                    for (int k = 0; k < indexMapSize; ++k)
+                                    for(UInt32 k = 0; k < indexMapSize; ++k)
                                     {
                                         oGeoIndexBag[k].first->push_back(
                                             indexDic.entry(
                                                 lastTriStripIndex)[k]);
                                     }
                                 }
-                                for (int k = 0; k < indexMapSize; ++k)
+                                for(UInt32 k = 0; k < indexMapSize; ++k)
                                 {
                                     oGeoIndexBag[k].first->push_back(
                                         indexDic.entry(primIndex[i][0])[k]);
@@ -2471,7 +2463,7 @@ Int32 createOptimizedPrimitives(Geometry *geo,
                             }
                             else
                             {
-                                for (int j = 0; j < 1 + windingCorrection; ++j)
+                                for(UInt32 j = 0; j < 1+windingCorrection; ++j)
                                 {
                                     posIndexPtr->push_back(lastTriStripIndex);
                                 }
@@ -2502,7 +2494,7 @@ Int32 createOptimizedPrimitives(Geometry *geo,
                 {
                     for(Int32 j = 0; j < n; ++j)
                     {
-                        for(Int32 k = 0; k < indexMapSize; ++k)
+                        for(UInt32 k = 0; k < indexMapSize; ++k)
                         {
                             Int32 index = indexDic.entry(primIndex[i][j])[k];
                             oGeoIndexBag[k].first->push_back(index);
@@ -2574,8 +2566,8 @@ void createConvexPrimitives(Geometry *geo)
 Int32 createSharedIndex(Geometry *geoPtr)
 {
     UInt32 indexSharedCount = 0, dataRemapCount = 0, indexRemapCount = 0;
-    UInt32 i, iN, index, si, sN;
-    UInt32 indexMapSize, indexBlock = 0, masterDSize;
+    UInt32 iN, index, si, sN;
+    UInt32 indexBlock = 0, masterDSize;
 
     GeoVectorProperty *masterProp = NULL, *slaveProp = NULL;
 
@@ -2583,9 +2575,6 @@ Int32 createSharedIndex(Geometry *geoPtr)
 
     std::vector<UInt32       > slaveDSizeVec;
     std::vector<const UInt8 *> slaveDataVec;
-
-    UInt16 mapMask        = 0;
-    UInt16 masterPropMask = 0;
 
     // data pointer and size pair
     typedef std::pair<const UInt8 *, UInt32> Mem;
@@ -2595,7 +2584,7 @@ Int32 createSharedIndex(Geometry *geoPtr)
     std::map<Mem, UInt32, memless<Mem> >           memMap;
     std::map<Mem, UInt32, memless<Mem> >::iterator mmI;
 
-   GeoIntegralProperty *indexPtr;
+    GeoIntegralProperty *indexPtr;
 
     const UChar8 *dataElem;
 
@@ -2712,7 +2701,7 @@ Int32 createSharedIndex(Geometry *geoPtr)
 
                 if(indexRemap[index] >= 0)
                 {
-                    if(indexRemap[index] == index)
+                    if(indexRemap[index] == Int32(index))
                     {
                         indexSharedCount++;
                     }
@@ -3054,7 +3043,7 @@ namespace
  */
 UInt32 calcMergeFormat(UInt32 format1, UInt32 format2)
 {
-    UInt32 format;
+    UInt32 format = GL_BYTE ;
 
     switch(format1)
     {

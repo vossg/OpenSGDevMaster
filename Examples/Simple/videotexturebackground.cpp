@@ -88,7 +88,7 @@ void grabImage(OSG::Image *img)
 
         data += y * bpl + x * bpp;
 
-        OSG::UInt8 val = (rand() & 0x7f + 0x80);
+        OSG::UInt8 val = ((rand() & 0x7f) + 0x80);
 
         for(OSG::UInt32 i = h; i > 0; --i, data += bpl)
         {
@@ -110,7 +110,7 @@ void grabImage(OSG::Image *img)
 
         for(OSG::UInt32 i = img->getHeight(); i > 0; --i)
         {
-            OSG::UInt8 val = (rand() & 0x3f + 0x80);
+            OSG::UInt8 val = ((rand() & 0x3f) + 0x80);
 
             for(OSG::UInt32 j = img->getWidth() * img->getBpp(); j > 0; --j)
                 *data++ = val;

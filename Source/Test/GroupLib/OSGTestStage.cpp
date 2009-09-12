@@ -147,9 +147,9 @@ ActionBase::ResultE TestStage::renderEnter(Action *action)
     {
         this->pushPartition(a);
         {
+#ifdef OSG_DEBUG
             RenderPartition *pPart  = a->getActivePartition();
 
-#ifdef OSG_DEBUG
             if(this != NULL && this->getMessage().size() != 0)
             {
                 pPart->setDebugString(this->getMessage());

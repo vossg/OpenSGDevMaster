@@ -67,7 +67,7 @@ class OSG_GROUP_DLLMAPPING DynamicStateGenerator :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    FrameBufferObject * const getRenderTarget(void) const;
+    FrameBufferObject *getRenderTarget(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

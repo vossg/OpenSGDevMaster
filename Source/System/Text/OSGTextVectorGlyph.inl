@@ -60,9 +60,9 @@ inline TextVectorGlyph::TextVectorGlyph(void)
       _vertBearingX       (0.f),
       _vertBearingY       (0.f),
       _outline            (   ),
+      _contourOrientations(   ),
       _polygonOutlineMap  (   ),
-      _normalMap          (   ),
-      _contourOrientations(   )
+      _normalMap          (   )
 {
 }
 

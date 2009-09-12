@@ -529,9 +529,6 @@ void PerspectiveShadowMapHandler::calcHull2(
     for(UInt32 i = 0;i < 6;i++)
         vfSize[i] = 4;
 
-    UInt32  sum = 0;
-    Pnt3f   allPoints[100];
-
     // speichert die anzahl der durchgefhrten Clips
     UInt32  sumClip = 0;
 

@@ -330,8 +330,6 @@ ActionBase::ResultE CubeMapGenerator::renderEnter(Action *action)
 
 ActionBase::ResultE CubeMapGenerator::renderLeave(Action *action)
 {
-    RenderAction *a = dynamic_cast<RenderAction *>(action);
-
     Action::ResultE returnValue = Action::Continue;
 
     returnValue = Inherited::renderLeave(action);

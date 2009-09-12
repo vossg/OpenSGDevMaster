@@ -413,7 +413,7 @@ void CSMDrawer::runParallel(void)
             }
         }
 #else
-        fprintf(stderr, "Running with %d-windws\n", _mfWindows.size());
+        fprintf(stderr, "Running with %zd-windws\n", _mfWindows.size());
         fflush (stderr);
 
         while(_bRun == true)
@@ -521,7 +521,7 @@ void CSMDrawer::runParallel(void)
             }
         }
 #else
-        fprintf(stderr, "Running with %d-windws\n", _mfWindows.size());
+        fprintf(stderr, "Running with %zd-windws\n", _mfWindows.size());
         fflush (stderr);
 
         while(_bRun == true)

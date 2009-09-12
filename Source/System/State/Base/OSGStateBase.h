@@ -197,7 +197,6 @@ class OSG_SYSTEM_DLLMAPPING StateBase : public FieldContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const State *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

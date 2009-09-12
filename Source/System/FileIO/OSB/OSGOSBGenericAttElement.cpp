@@ -109,9 +109,6 @@ OSBGenericAttElement::preWrite(FieldContainer * const fc)
 {
     OSG_OSB_LOG(("OSBGenericAttElement::preWrite\n"));
 
-    OSBRootElement *root       = editRoot();
-    UInt32          fieldCount = fc->getType().getNumFieldDescs();
-
     preWriteFieldContainer(fc, "");
 }
 

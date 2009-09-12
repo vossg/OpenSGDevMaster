@@ -211,8 +211,8 @@ Action::ResultE GeometryMergeGraphOp::traverseLeave(
         if(mlIt->size() <= 1)
             continue;
         
-        FINFO(("GeometryMergeGraphOp::traverseLeave: Merging [%d] Geometries.\n",
-               mlIt->size()));
+        FINFO(("GeometryMergeGraphOp::traverseLeave: Merging [%zd] "
+               "Geometries.\n", mlIt->size()));
         
         GeometryUnrecPtr     geo1;
         GeometryUnrecPtr     geo2;

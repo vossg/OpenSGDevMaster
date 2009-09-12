@@ -207,6 +207,9 @@ class Field(FCDElement):
     
     def isPublic(self):
         return self["access"] == "public";
+
+    def hasAccess(self):
+        return self["access"] != "none";
     
     def isSField(self):
         return self["isSField"];

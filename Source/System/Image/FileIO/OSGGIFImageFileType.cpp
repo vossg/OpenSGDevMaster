@@ -322,7 +322,7 @@ bool GIFImageFileType::read(      Image        *OSG_GIF_ARG(pImage),
                                 case gif_color_restore:
                                 {
                                     unsigned char r,g,b,a;
-                                    UInt32 bgindex = gifStream->background;
+                                    Int32 bgindex = gifStream->background;
                                     unsigned char *d = destData;
                                     
                                     r = colorMap[bgindex * 3 + 0];
@@ -678,7 +678,7 @@ static GIFStream *GIFRead(std::istream &is)
     unsigned char   c;
     GIFStream       *gifStream = 0;
     GIFData         *cur, **end;
-    GIF89info       info = {0};
+    GIF89info       info = {0, 0, 0, gif_no_disposal};
     int             resetInfo = GIF_TRUE;
     int             n;
 
@@ -879,7 +879,8 @@ static GIFStream *GIFRead(std::istream &is)
         }
         else
         {
-            INFO_MSG(("bogus character 0x%02x, ignoring", int(c)));
+            FINFO(("Info loading gif: bogus character 0x%02x, ignoring", 
+                   int(c)));
         }
 
         if(cur != NULL)
@@ -1239,8 +1240,8 @@ static void readImage(std::istream &is, int interlace, int width, int height,
 
     if(verbose)
     {
-        INFO_MSG(("reading %d by %d%s GIF image", width, height, interlace ?
-                 " interlaced" : ""));
+        FINFO(("Info loading gif: reading %d by %d%s GIF image", 
+               width, height, interlace ? " interlaced" : ""));
     }
 
     if(interlace)

@@ -72,7 +72,7 @@ int doMain(int argc, char **argv)
     _client_win->init();
     _client_win->setSize(300,300);
     
-    for(OSG::UInt32 i=0;i<argc-1;++i)
+    for(OSG::Int32 i=0;i<argc-1;++i)
     {
         if(argv[i+1] != NULL)
             _pipenames.push_back(argv[i+1]);

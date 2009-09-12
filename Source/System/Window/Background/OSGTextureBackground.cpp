@@ -282,7 +282,7 @@ void TextureBackground::clear(DrawEnv  *pEnv)
 	    Int16 xxmax=getHor()+2,yymax=getVert()+2;
 
 	    UInt32 gridCoords=xxmax*yymax;
-	    int indexArraySize=xxmax*((getVert()+1)*2);
+	    UInt32 indexArraySize=xxmax*((getVert()+1)*2);
 
 	    if(_vertexCoordArray.size()==gridCoords &&
 	       _textureCoordArray.size()==gridCoords &&

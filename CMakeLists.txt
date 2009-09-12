@@ -12,9 +12,10 @@ SET(OSG_VERSION       ${OSG_VERSION_MAJOR}.${OSG_VERSION_MINOR}.${OSG_VERSION_PA
 # Initial cache to make life easier on Windows
 ##############################################
 
-IF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+IF(NOT _OSGINITCACHELOADED AND EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
   INCLUDE(${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
-ENDIF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+  SET(_OSGINITCACHELOADED TRUE CACHE INTERNAL "")
+ENDIF(NOT _OSGINITCACHELOADED AND EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
 
 
 INCLUDE(BuildFunctions)
@@ -259,11 +260,6 @@ IF(NOT OSG_BUILD_DEPENDEND)
     #########
 
     OSG_CONFIGURE_ZLIB()
-
-    IF(ZLIB_FOUND)
-        OSG_SET(OSG_WITH_ZLIB 1)
-    ENDIF(ZLIB_FOUND)
-
 
     IF(UNIX AND NOT APPLE)
         #############

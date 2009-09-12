@@ -27,6 +27,8 @@ SET(${PROJECT_NAME}_DEP_OSG_LIB OSGSystem)
 # dependencies - Additional
 # SET(${PROJECT_NAME}_DEP_ADD_INCDIR)
 
+SET(${PROJECT_NAME}_CXXFLAGS ${OSG_ADD_CXX_FLAGS})
+
 OSG_STORE_PROJECT_DEPENDENCIES()
 
 ##############################################################################

@@ -59,9 +59,9 @@ int BSplineTrimmedSurface::read(std::istream &infile)
 {
     //FIXME: maybe we need more checks!!!
     char         txtbuffer[256];
-    int          lc = 0;
+//    int          lc = 0;
     unsigned int numcurves;
-    unsigned int i,j,k;
+    unsigned int i,j; //,k;
 
 /*  infile.getline( txtbuffer, 255 ); //read line
   //FIXME: quick hack to allow us to step through

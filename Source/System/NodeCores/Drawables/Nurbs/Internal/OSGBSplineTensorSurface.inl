@@ -39,9 +39,9 @@
 OSG_BEGIN_NAMESPACE
 
 inline BSplineTensorSurface::BSplineTensorSurface(void) :
+    control_points(),
     dimension_u   (-1),     //sets invalid value
-    dimension_v   (-1),     //sets invalid value
-    control_points()
+    dimension_v   (-1)      //sets invalid value
 {
     // nothing to do
 }

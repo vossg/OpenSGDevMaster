@@ -86,7 +86,9 @@ parameters of a GraphOp.
 
 GraphOp::GraphOp(const char* name): 
     Inherited(),
-    _name(name), _excludeListNodes(), _excludeListNames()
+    _excludeListNodes(), 
+    _excludeListNames(),
+    _name(name)
 {
 }
 
@@ -310,7 +312,7 @@ GraphOp::ParamSet::ParamSet(const std::string &params) :
 
         // Skip to next param
 
-        while(it != end && (*it == ' '));
+        while(it != end && (*it == ' ')) ;
    }
 }
 

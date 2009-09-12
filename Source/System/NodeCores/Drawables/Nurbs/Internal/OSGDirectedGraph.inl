@@ -63,8 +63,8 @@ int DirectedGraph<T0, T1>::AddNode( T0 &n )
 template <typename T0, typename T1>
 int DirectedGraph<T0, T1>::AddEdge( T1 &t, int from, int to, bool direction)
 {
-  if ( from < 0 || from >= nodes.size() ||
-       to < 0 || to >= nodes.size() ) return -1;
+  if ( from < 0 || from >= int(nodes.size()) ||
+       to < 0 || to >= int(nodes.size()) ) return -1;
 
   DirectedEdge<T1> e;
   int eidx;
@@ -85,7 +85,7 @@ int DirectedGraph<T0, T1>::AddEdge( T1 &t, int from, int to, bool direction)
 template <typename T0, typename T1>
 int DirectedGraph<T0, T1>::DeleteEdge( int edgeidx )
 {
-  if ( edgeidx < 0 || edgeidx >= edges.size() )
+  if ( edgeidx < 0 || edgeidx >= int(edges.size()) )
     return -1;
 
   // note: we don't need to actually erase from here
@@ -163,7 +163,7 @@ bool DirectedGraph<T0, T1>::getEdgeDirection( int edgeindex, int &error )
 template <typename T0, typename T1>
 int DirectedGraph<T0, T1>::setEdgeDirection( int edgeindex, int to )
 {
-  if ( edgeindex < 0 || edgeindex >= edges.size() ) return -1;
+  if ( edgeindex < 0 || edgeindex >= int(edges.size()) ) return -1;
 
   if ( edges[ edgeindex ].from != to && edges[ edgeindex ].to != to )
     return -1;

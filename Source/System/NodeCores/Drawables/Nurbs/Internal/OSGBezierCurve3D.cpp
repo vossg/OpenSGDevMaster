@@ -403,7 +403,7 @@ int BezierCurve3D::approximate_sub(std::vector<double> &vertices, double delta, 
     Vec3d               n0_norm;
     DCTPVec3dvector     eucl;
     DCTPVec4dvector     mycps;
-    unsigned int        i;
+    int                 i;
     std::vector<double> t;
 
     int n = control_points.size() - 1;
@@ -425,7 +425,7 @@ int BezierCurve3D::approximate_sub(std::vector<double> &vertices, double delta, 
         mycps.push_back(mycps[s - 1]);
         t.push_back(t[s - 1]);
 
-        for(unsigned int j = s; j > i; --j)
+        for(int j = s; j > i; --j)
         {
             mycps[j] = (mycps[j] + mycps[j - 1]) * 0.5f;
             t[j]     = (t[j] + t[j - 1]) * 0.5f;
@@ -575,7 +575,7 @@ int BezierCurve3D::createCurve(DCTPVec4dvector &points)
     }*/
 
     int i;
-    int j;
+//    int j;
 //	std::vector< std::vector< double > >	&mat = m_svvvdCreateMatrix[ n - 2 ];
 
     for(i = 1; i < n; ++i)

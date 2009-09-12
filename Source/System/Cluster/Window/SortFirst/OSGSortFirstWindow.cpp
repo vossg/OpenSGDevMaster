@@ -490,7 +490,6 @@ void SortFirstWindow::clientInit( void )
 
 void SortFirstWindow::clientPreSync( void )
 {
-    SortFirstWindow *ptr=this;
     if(getCompose())
     {
         // get window size from client window

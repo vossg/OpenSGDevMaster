@@ -245,9 +245,6 @@ OSBTextureChunkElement::preWrite(FieldContainer * const fc)
 {
     OSG_OSB_LOG(("OSBTextureChunkElement::preWrite\n"));
 
-    OSBRootElement *root       = editRoot();
-    UInt32          fieldCount = fc->getType().getNumFieldDescs();
-
     preWriteFieldContainer(fc, "");
 }
 

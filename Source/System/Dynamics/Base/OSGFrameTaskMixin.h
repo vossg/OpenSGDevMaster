@@ -56,7 +56,8 @@ class FrameTaskMixin  : public ParentT, public FrameTaskInterface
 
   private:
 
-    typedef ParentT Inherited;
+    typedef ParentT            Inherited;
+    typedef FrameTaskInterface Interface;
 
     /*==========================  PUBLIC  =================================*/
 

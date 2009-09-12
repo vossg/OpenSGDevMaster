@@ -156,7 +156,7 @@ void HDRStageDataBase::setVBlurShader(SimpleSHLChunk * const value)
 //! Get the value of the HDRStageData::_sfWidth field.
 
 inline
-UInt32 &HDRStageDataBase::editWidth(void)
+Int32 &HDRStageDataBase::editWidth(void)
 {
     editSField(WidthFieldMask);
 
@@ -165,14 +165,14 @@ UInt32 &HDRStageDataBase::editWidth(void)
 
 //! Get the value of the HDRStageData::_sfWidth field.
 inline
-      UInt32  HDRStageDataBase::getWidth(void) const
+      Int32  HDRStageDataBase::getWidth(void) const
 {
     return _sfWidth.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfWidth field.
 inline
-void HDRStageDataBase::setWidth(const UInt32 value)
+void HDRStageDataBase::setWidth(const Int32 value)
 {
     editSField(WidthFieldMask);
 
@@ -181,7 +181,7 @@ void HDRStageDataBase::setWidth(const UInt32 value)
 //! Get the value of the HDRStageData::_sfHeight field.
 
 inline
-UInt32 &HDRStageDataBase::editHeight(void)
+Int32 &HDRStageDataBase::editHeight(void)
 {
     editSField(HeightFieldMask);
 
@@ -190,14 +190,14 @@ UInt32 &HDRStageDataBase::editHeight(void)
 
 //! Get the value of the HDRStageData::_sfHeight field.
 inline
-      UInt32  HDRStageDataBase::getHeight(void) const
+      Int32  HDRStageDataBase::getHeight(void) const
 {
     return _sfHeight.getValue();
 }
 
 //! Set the value of the HDRStageData::_sfHeight field.
 inline
-void HDRStageDataBase::setHeight(const UInt32 value)
+void HDRStageDataBase::setHeight(const Int32 value)
 {
     editSField(HeightFieldMask);
 

@@ -160,13 +160,13 @@ typedef void (OSG_APIENTRY *OSGGLUNIFORMMATRIXFVARBPROC)(GLint location,
                                                          GLboolean transpose, 
                                                          GLfloat *value);
 
+#if 0
 static 
 void updateSpecialParameter(
     OSG::SimpleSHLChunk::GetUniformLocProc  getUniformLocation,
     OSG::DrawEnv                           *action, 
     GLuint                                  program           )
 {
-#if 0
     if(action->getCamera() == NULL || action->getViewport() == NULL)
     {
         FWARNING(("updateSpecialParameter : Can't update OSGSpecialParameter"
@@ -194,8 +194,8 @@ void updateSpecialParameter(
 
     if(location != -1)
         uniformMatrix4fv(location, 1, GL_FALSE, m.getValues());
-#endif
 }
+#endif
 
 // Initialize GLUT & OpenSG and set up the scene
 int doMain(int argc, char **argv)
@@ -322,8 +322,8 @@ int doMain(int argc, char **argv)
     _mgr->showAll();
 
     // enable local lights.
-    OSG::RenderAction *ract = 
-        dynamic_cast<OSG::RenderAction *>(_mgr->getRenderAction());
+//    OSG::RenderAction *ract = 
+//        dynamic_cast<OSG::RenderAction *>(_mgr->getRenderAction());
 
 //    ract->setLocalLights(true);
 

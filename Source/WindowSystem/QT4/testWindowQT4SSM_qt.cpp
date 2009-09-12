@@ -104,6 +104,7 @@ void MyOSGQGLWidget::mousePressEvent ( QMouseEvent *me )
     case Qt::LeftButton:    but=OSG::SimpleSceneManager::MouseLeft;   break;
     case Qt::MidButton:     but=OSG::SimpleSceneManager::MouseMiddle; break;
     case Qt::RightButton:   but=OSG::SimpleSceneManager::MouseRight;  break;
+        default: break;
     }
 
     m_manager->mouseButtonPress( but, me->pos().x(), me->pos().y() );

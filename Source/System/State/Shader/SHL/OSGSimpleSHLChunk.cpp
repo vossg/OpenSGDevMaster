@@ -106,8 +106,6 @@ UInt32 SimpleSHLChunk::handleGL(DrawEnv                 *pEnv,
 
         if(mode != Window::needrefresh)
         {
-            UInt32 uiNumShaders = 0;
-
             if(uiProgram != 0)
             {
                 OSGGETGLFUNC(OSGglDeleteProgramProc,
@@ -1194,8 +1192,6 @@ void SimpleSHLChunk::updateProceduralVariables(
     ShaderProgramVariables::MFProceduralVariablesType::const_iterator mVarEnd =
         pMFVars->end  ();
 
-    bool warnUnknown = true;
-
 #ifdef OSG_1_COMPAT
     if(_fParameterCallback)
     {
@@ -1288,6 +1284,9 @@ void SimpleSHLChunk::updateProceduralVariables(
 #endif
             }
             break;
+
+            default:
+                break;
         }
     }
 }

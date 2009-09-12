@@ -280,7 +280,7 @@ UInt64 ImageFileType::restore(      Image  *pImage,
                               const UChar8 *buffer, 
                                     Int32   memSize)
 {
-    unsigned long   imageSize, headSize = sizeof(Head);
+    long            imageSize, headSize = sizeof(Head);
     unsigned long   size = 0, attachmentSize;
     Head            head;
     const UChar8   *data = buffer ? (buffer + headSize) : 0;

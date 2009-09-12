@@ -137,7 +137,6 @@ void FieldTraits<MaterialMap>::copyFromBin(BinaryDataHandler &pMem,
     MaterialMapKey  key  = KeyPool::the()->getDefault();
     UInt32          fcId;
     UInt32          uiNumObjects;
-    UInt32          keySize;
 
     pMem.getValue(uiNumObjects);
 
@@ -324,8 +323,7 @@ bool EditSFieldHandle<SFMaterialPtrMap>::loadFromBin(
     pMap->getValue().clear();
 
         
-    UInt32         fcId;
-    PrimeMaterial *matPtr = NULL;
+    UInt32 fcId;
 
     union
     {

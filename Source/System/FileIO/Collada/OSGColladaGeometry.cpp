@@ -37,7 +37,8 @@
 \*---------------------------------------------------------------------------*/
 
 #if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic warning "-Wold-style-cast"
+//#pragma GCC diagnostic warning "-Wold-style-cast"
+#pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
 #include <OSGColladaGeometry.h>
@@ -531,7 +532,6 @@ void ColladaGeometry::handlePolylist(
     const domListOfUInts &pList   = polylist->getP     ()->getValue();
     const domListOfUInts &vList   = polylist->getVcount()->getValue();
     UInt32                currIdx = 0;
-    UInt32                length  = 0;
 
     for(UInt32 i = 0; i < vList.getCount(); ++i)
     {

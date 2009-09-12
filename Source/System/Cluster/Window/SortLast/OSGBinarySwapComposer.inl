@@ -241,7 +241,6 @@ void BinarySwapComposer::readCombine(DepthT &depth,
     UInt32      w,h;
     UInt32      aRight,bLeft,aTop,bBottom;
     UInt32      readLeft,readRight,readTop,readBottom;
-    UInt32      tx,ty;
     TileBuffer *tile;
     TileBuffer *readTile=getTileReadBuffer();
     DepthT     *srcDepth,*dstDepth,*srcDepthEnd;
@@ -415,8 +414,9 @@ void BinarySwapComposer::startReader(DepthT &depthMax,
     UInt32      tx,ty,x,y,w,h;
     TileBuffer *tile;
     UInt32      left,bottom,top,right,front,back;
-    UInt32      level=1;
+#ifdef OPTIMIZED_BINARY_SWAP
     DepthT     *depthStart,*depthEnd;
+#endif
     UInt8      *c,*cEnd;
 
     if(!getScreenAlignedBBox(port->getRoot(),

@@ -136,7 +136,7 @@ void SimpleShadowMapEngine::lightRenderEnter(Light        *pLight,
     
     Int32         iLightIndex     = pAction->allocateLightIndex();
 
-    LightChunk   *pLightChunk     = dynamic_cast<LightChunk *>(pChunk);
+//    LightChunk   *pLightChunk     = dynamic_cast<LightChunk *>(pChunk);
 
 //    Color4f tmpVal(0.0, 0.0, 0.0, 1.0);
     

@@ -41,7 +41,7 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
 {
     action->useNodeList();
 
-    UInt32 numLevels = action->getNNodes();
+    Int32 numLevels = action->getNNodes();
 
     if(numLevels == 0)
         return Action::Continue;
@@ -51,7 +51,7 @@ ActionBase::ResultE DistanceLOD::render(Action *action)
 
     const MFReal32 *range = getMFRange();
 
-    UInt32 numRanges = range->size();
+    Int32 numRanges = range->size();
 
     if (numRanges == 0)
     {

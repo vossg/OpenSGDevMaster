@@ -115,8 +115,8 @@ class OSG_EFFECTGROUPS_DLLMAPPING ShadowTreeHandler : public MemoryObject
     bool                       _bShadowMapsConfigured;
     UInt32                     _activeFactorMap;
 
-    UInt32                     _width;
-    UInt32                     _height;
+    Int32                      _width;
+    Int32                      _height;
 
     UInt32                     _maxPLMapSize;
     UInt32                     _PLMapSize;

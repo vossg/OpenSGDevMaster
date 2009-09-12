@@ -61,7 +61,7 @@ OSG_USING_NAMESPACE
 //#define DRAW_LINES
 #define OSG_VEC_COMPUTE
 
-static unsigned int g_uiColor = 0;
+//static unsigned int g_uiColor = 0;
 
 #ifdef WRITE_STAT
 static double    g_dTrimmingConversionTime    = 0.0;
@@ -84,7 +84,7 @@ CNurbsPatchSurface::CNurbsPatchSurface()
 
 CNurbsPatchSurface::~CNurbsPatchSurface()
 {
-    unsigned int ui_idx;
+//    unsigned int ui_idx;
 
     if(m_pclGraph)
     {
@@ -459,10 +459,12 @@ void CNurbsPatchSurface::calculatePointsAndNormals(
     //copy the normals into the vvclEdgeLoopsNorm structure
     unsigned int numloops = m_vtSurfaces[0].vvclEdgeLoops.size();
     unsigned int actlooplength;
+#ifdef OSG_KEEP_2D_POINTS
     unsigned int ui_actvertidx = 0;
+#endif
 
     Vec3d cl_norm;
-    Int32 i_err;
+//    Int32 i_err;
     m_vtSurfaces[0].vvclEdgeLoopsNorm.resize(numloops);
 #ifndef OSG_FORCE_NO_T_VERTICES
     m_vtSurfaces[0].vvclEdgeLoops3D.resize(numloops);
@@ -551,7 +553,7 @@ void CNurbsPatchSurface::calculatePointsNormalsAndTextureCoords(
 #endif
 
     Vec3d cl_norm;
-    Int32 i_err;
+//    Int32 i_err;
     m_vtSurfaces[0].vvclEdgeLoopsNorm.resize(numloops);
 #ifndef OSG_FORCE_NO_T_VERTICES
     m_vtSurfaces[0].vvclEdgeLoops3D.resize(numloops);
@@ -651,10 +653,12 @@ void CNurbsPatchSurface::calculatePointsAndTextureCoords(
     //copy the normals into the vvclEdgeLoopsNorm structure
     unsigned int numloops = m_vtSurfaces[0].vvclEdgeLoops.size();
     unsigned int actlooplength;
+#ifdef OSG_KEEP_2D_POINTS
     unsigned int ui_actvertidx = 0;
+#endif
 
     Vec3d cl_norm;
-    Int32 i_err;
+//    Int32 i_err;
     m_vtSurfaces[0].vvclEdgeLoopsTex.resize(numloops);
 
     for(unsigned int ui_actloop = 0; ui_actloop < numloops; ++ui_actloop)
@@ -1024,7 +1028,7 @@ void CNurbsPatchSurface::CalculateTrimmingLoops(unsigned int uiSurface)
     }
 
 
-    int                i_err;
+//    int                i_err;
     const unsigned int cui_size =
         m_vtSurfaces[uiSurface].vvclEdgeLoops.size();
 
@@ -1474,7 +1478,7 @@ void CNurbsPatchSurface::CutCurve(const unsigned int cuiSurface, BezierCurve2D &
     std::multimap<double, unsigned int>::iterator
                  itmm_curve_it;
     int          i_err;
-    unsigned int ui_idx;
+//    unsigned int ui_idx;
     bool         b_cut;
 
     vcl_curves.push_back(rclCurve);

@@ -208,7 +208,7 @@ void BackgroundLoaderBase::sync(unsigned reqLimit)
    if (0 == reqLimit)
    { reqLimit = mFinishedRequests.size(); }
 
-   while((!mFinishedRequests.empty()) && (reqLimit-- >= 0))
+   while((!mFinishedRequests.empty()) && (reqLimit-- != 0))
    {
       RequestPtr req = mFinishedRequests.front();
       mFinishedRequests.pop_front();

@@ -605,11 +605,15 @@ void DeferredShadingStage::copyProgramChunk(
 
 void DeferredShadingStage::scheduleGBufferPass(RenderAction *ract)
 {
+#if 0
     RenderPartition    *parentPart  = ract->getActivePartition();
+#endif
     DSStageData        *data        = ract->getData<DSStageData *>(_iDataSlotId);
     ShaderProgramChunk *shader      = this->getGBufferProgram();
+#if 0
     UInt32              bufferCount = osgMin(getMFPixelFormats()->size(),
                                              getMFPixelTypes  ()->size() );
+#endif
 
     // create shadow maps
     MFLightsType::const_iterator lIt         = _mfLights.begin();
@@ -690,7 +694,9 @@ void DeferredShadingStage::scheduleGBufferPass(RenderAction *ract)
 
 void DeferredShadingStage::scheduleShadingPass(RenderAction *ract)
 {
+#if 0
     RenderPartition *parentPart = ract->getActivePartition    (            );
+#endif
     DSStageData     *data       = ract->getData<DSStageData *>(_iDataSlotId);
 
     ract->pushPartition((RenderPartition::CopyWindow      |

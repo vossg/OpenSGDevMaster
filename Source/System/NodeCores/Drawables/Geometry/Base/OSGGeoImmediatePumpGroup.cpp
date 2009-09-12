@@ -492,9 +492,10 @@ static UInt32 NormAttribIDs[numFormats][4];
 #define OSG_GV_ASSERT(X)
 #endif
 
+//    UInt32 name##Ind = 0;
+
 #define pumpInternalSetup( name, typename, getmethod, mandatory )           \
     GeoIntegralProperty *name##Ptr;                                         \
-    UInt32 name##Ind = 0;                                                   \
                                                                             \
     name##Ptr = geo->getmethod();                                           \
     if(mandatory && name##Ptr == NULL)                                      \
@@ -505,10 +506,11 @@ static UInt32 NormAttribIDs[numFormats][4];
         return;                                                             \
     }
 
+//    UInt32 name##Ind = 0;
+
 #define pumpGLSetup( name, propindex )                                      \
     const UInt8 * name##Data = NULL;                                        \
     UInt32 name##Stride;                                                    \
-    UInt32 name##Ind = 0;                                                   \
     GeoProperty *name##Ptr = NULL;                                          \
     GeoIntegralProperty *name##Index = NULL;                                \
     pumpFunc name##Func = NULL;                                             \
@@ -542,10 +544,11 @@ static UInt32 NormAttribIDs[numFormats][4];
         name##Stride = 0;                                                   \
     }
 
+//    UInt32 name##Ind = 0;
+
 #define pumpGLExtSetup( name, propindex )                                   \
     const UInt8 * name##Data;                                               \
     UInt32 name##Stride;                                                    \
-    UInt32 name##Ind = 0;                                                   \
     GeoProperty *name##Ptr;                                                 \
     GeoIntegralProperty *name##Index;                                       \
     pumpFunc name##Func;                                                    \
@@ -588,14 +591,15 @@ static UInt32 NormAttribIDs[numFormats][4];
     {                                                                       \
         name##Data = NULL;                                                  \
         name##Func = NULL;                                                  \
+        name##Index = NULL;                                                 \
         name##Stride = 0;                                                   \
     }
 
+//    UInt32 name##Ind = 0;
 
 #define pumpMultiGLExtSetup( name, propindex )                              \
     const UInt8 * name##Data;                                               \
     UInt32 name##Stride;                                                    \
-    UInt32 name##Ind = 0;                                                   \
     GeoProperty *name##Ptr;                                                 \
     GeoIntegralProperty *name##Index;                                       \
     multiPumpFunc name##Func;                                               \
@@ -638,6 +642,7 @@ static UInt32 NormAttribIDs[numFormats][4];
     {                                                                       \
         name##Data = NULL;                                                  \
         name##Func = NULL;                                                  \
+        name##Index = NULL;                                                 \
         name##Stride = 0;                                                   \
     }
 

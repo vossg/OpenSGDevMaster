@@ -475,11 +475,6 @@ void initPlaneSetup(void)
 
     OSG::GeometryUnrecPtr pGeo = dynamic_cast<OSG::Geometry *>(file->getCore());
 
-    OSG::UChar8 imgdata[] =
-    {  
-        64,64,64, 128,128,128, 192,192,192, 255,255,255 
-    };
-
     OSG::ImageUnrecPtr pImg = OSG::Image::create();
 
     pImg->set(OSG::Image::OSG_RGB_PF, 512, 512);

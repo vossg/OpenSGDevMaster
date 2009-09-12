@@ -221,7 +221,7 @@ void MergeGraphOp::makeExcludeList(Node * node)
 
 Action::ResultE MergeGraphOp::excludeListEnter(Node * const node)
 {
-    if (node==NULL) ; else ;    
+//    if (node==NULL) ; else ;    
     return Action::Continue;
 }
 
@@ -620,7 +620,9 @@ void MergeGraphOp::processGeometries(Node * const node)
         if ((*mfit)->getCore()->getType().isDerivedFrom(
                 Geometry::getClassType()))
         {
+#ifndef OSG2_MERGE_MISSING
             Geometry *geo = dynamic_cast<Geometry *>((*mfit)->getCore());
+#endif
             //if a geometry, try to merge it in another geometry
             //if successfull, delete it.
             //check also if it is added for exclusion
@@ -642,8 +644,8 @@ void MergeGraphOp::processGeometries(Node * const node)
                 {
                     if (!isInExcludeList(*it2) && (*it2)->getCore()->getType().isDerivedFrom(Geometry::getClassType()))
                     {
-                        Geometry *geo2 = dynamic_cast<Geometry *>((*it2)->getCore());
 #ifndef OSG2_MERGE_MISSING
+                        Geometry *geo2 = dynamic_cast<Geometry *>((*it2)->getCore());
                         if (geo->isMergeable(geo2))
                         {
                             // HACK merge crashes when indices == NULL!

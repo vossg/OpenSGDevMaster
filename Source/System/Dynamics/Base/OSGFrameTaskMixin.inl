@@ -46,14 +46,16 @@ OSG_BEGIN_NAMESPACE
 
 template <class ParentT> inline
 FrameTaskMixin<ParentT>::FrameTaskMixin(void) :
-    Inherited()
+    Inherited(),
+    Interface()
 {
 }
 
 template <class ParentT> inline
 FrameTaskMixin<ParentT>::FrameTaskMixin(const FrameTaskMixin &source) :
 
-    Inherited(source)
+    Inherited(source),
+    Interface()
 {
 }
 

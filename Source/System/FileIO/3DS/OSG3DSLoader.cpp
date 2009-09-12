@@ -112,7 +112,7 @@ LVector3 zero3 = {0, 0, 0};
 
 LVector4 zero4 = {0, 0, 0, 0};
 
-LMap emptyMap = {0, "", 1, 1, 0, 0, 0};
+LMap emptyMap = {0, "", 1, 1, 0, 0, 0, 0};
 
 LVector3 _4to3(const LVector4 &vec)
 {

@@ -532,8 +532,8 @@ StageHandlerMixin<ParentT>::StageHandlerMixin(
     const StageHandlerMixin &source) :
 
      Inherited          (source                     ),
-    _iStageId           (-1                         ),
     _iDataSlotId        (-1                         ),
+    _iStageId           (-1                         ),
     _sfUpdateMode       (source._sfUpdateMode       ),
     _sfRequestRun       (source._sfRequestRun       ),
     _mfDestroyedFunctors(source._mfDestroyedFunctors)

@@ -209,7 +209,7 @@ bool STLSceneFileType::isASCII(std::istream &is, const Char8* fileNameOrExtensio
     int separator  = theAbsName.rfind(".", nameLength);
     theExtension = theAbsName.substr(separator+1, nameLength-separator-1);
 
-    for (int i = 0; i < theExtension.length(); i++)
+    for (UInt32 i = 0; i < theExtension.length(); i++)
         theExtension[i] = tolower(theExtension[i]);
 
     if (theExtension.compare("stla") == 0)
@@ -221,7 +221,7 @@ bool STLSceneFileType::isASCII(std::istream &is, const Char8* fileNameOrExtensio
         // we have to check if our file start with "solid"
         std::string theCheck;
         is >> theCheck;
-        for (int i = 0; i< theCheck.length(); i++)
+        for (UInt32 i = 0; i< theCheck.length(); i++)
                 theCheck[i] = tolower(theCheck[i]);
 
         is.seekg( 0, std::ios_base::beg );
@@ -236,7 +236,6 @@ bool STLSceneFileType::readASCII(std::istream &is, STLFaceList& theFaces, std::s
     
     char token[9];
     int finished = 0;
-    int parseResult = 0;
     UInt32 i;
 
     if(!is)
@@ -287,7 +286,9 @@ bool STLSceneFileType::readBinary(std::istream &is, STLFaceList& theFaces, std::
 
     bool bigEndian = osgIsBigEndian();
 
+#if 0
     int HeaderSize = 84;    // 80bytes for name and 4 bytes for number of facets
+#endif
     char name[80] = "";
     is.read( &name[0], 80 );
     theName = name;
