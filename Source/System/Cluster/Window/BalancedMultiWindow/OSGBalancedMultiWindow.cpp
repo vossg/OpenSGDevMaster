@@ -776,9 +776,9 @@ void BalancedMultiWindow::collectLoadGroups(Node *node, Node *root)
                 }
             // pixel cost for shaders
             if (mat != NULL && mat->find (SimpleSHLChunk::getClassType ()) != NULL)
-                load.pixel =  1.0 / Real32(MW_SHADED_PIXEL_PER_SEC);
+                load.pixel =  1.0f / Real32(MW_SHADED_PIXEL_PER_SEC);
             else
-                load.pixel = 1.0 / Real32(MW_PIXEL_PER_SEC);
+                load.pixel = 1.0f / Real32(MW_PIXEL_PER_SEC);
 //                load.pixel = 0;
         }
         if(load.pixel > 0 || load.constant > 0)
@@ -953,13 +953,13 @@ bool BalancedMultiWindow::calculateServerPort(VPort &port,
                         Real32(rect[TOP]));
     // use pixel even if pixel = 1
     if(serverPort->getLeft() == 1.0)
-        serverPort->setLeft(1.0001);
+        serverPort->setLeft(1.0001f);
     if(serverPort->getRight() == 1.0)
-        serverPort->setRight(1.0001);
+        serverPort->setRight(1.0001f);
     if(serverPort->getTop() == 1.0)
-        serverPort->setTop(1.0001);
+        serverPort->setTop(1.0001f);
     if(serverPort->getBottom() == 1.0)
-        serverPort->setBottom(1.0001);
+        serverPort->setBottom(1.0001f);
     serverPort->setRoot      ( clientPort->getRoot()       );
     serverPort->setBackground( clientPort->getBackground() );
     serverPort->assignForegrounds(*(clientPort->getMFForegrounds()) );
@@ -1987,7 +1987,7 @@ void BalancedMultiWindow::drawSendAndRecv(Window           *window,
                     glColor4f(col[channel%16][0],
                               col[channel%16][1],
                               col[channel%16][2],
-                              .3);
+                              .3f);
                     glVertex2i(tile.header.x                  , tile.header.y);
                     glVertex2i(tile.header.x                  , tile.header.y+tile.header.height);
                     glVertex2i(tile.header.x+tile.header.width, tile.header.y+tile.header.height);

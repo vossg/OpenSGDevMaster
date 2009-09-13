@@ -500,7 +500,7 @@ Real32 TileLoadBalancer::findBestCut (const RenderNode &renderNodeA,
     Real32 newCost;
     Real32 bestCost;
     Int32 checkAxisFrom,checkAxisTo;
-    bestCost=1e22;
+    bestCost=1e22f;
 
     if(bestAxis>=0)
     {

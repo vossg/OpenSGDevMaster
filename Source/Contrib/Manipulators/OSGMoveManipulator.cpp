@@ -138,7 +138,7 @@ void MoveManipulator::dump(      UInt32    uiIndent,
 
 NodeTransitPtr MoveManipulator::makeHandleGeo()
 {
-    return makeCone(0.75, 0.1, 12, true, true);
+    return makeCone(0.75f, 0.1f, 12, true, true);
 }
 
 void MoveManipulator::doMovement(      Transform    *t,

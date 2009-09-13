@@ -138,7 +138,7 @@ void ScaleManipulator::dump(      UInt32    uiIndent,
 
 NodeTransitPtr ScaleManipulator::makeHandleGeo()
 {
-    return makeCylinder(0.75, 0.1, 12, true, true, true);
+    return makeCylinder(0.75f, 0.1f, 12, true, true, true);
 }
 
 void ScaleManipulator::doMovement(      Transform    *t,

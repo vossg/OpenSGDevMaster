@@ -648,7 +648,7 @@ void ClusterServer::acceptClient(void)
         serviceSock.close();
     }
 
-    catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
+    catch(OSG_STDEXCEPTION_NAMESPACE::exception &)
     {
         throw;
     }

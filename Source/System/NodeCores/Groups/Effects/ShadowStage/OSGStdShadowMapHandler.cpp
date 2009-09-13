@@ -73,7 +73,7 @@ StdShadowMapHandler::StdShadowMapHandler(ShadowStage     *pSource,
     _blender = BlendChunk::createLocal();
     {
         _blender->setAlphaFunc(GL_GEQUAL);
-        _blender->setAlphaValue(0.99);
+        _blender->setAlphaValue(0.99f);
     }
 
     _tiledeco = NULL;

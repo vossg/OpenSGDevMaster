@@ -130,7 +130,7 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
         const MouseData &mData = _sfMouseData.getValue();
 
         if((0x0000 != (mData.getModifier() & _sfModifierMask.getValue())) ||
-           (_sfProcessing.getValue() == true))
+           (_sfProcessing.getValue() == 0x01))
         {
             if(mData.getButton() != -1)
             {
@@ -177,7 +177,7 @@ void CSMTrackball::changed(ConstFieldMaskArg whichField,
             }
             else
             {
-                if(_sfProcessing.getValue() == true)
+                if(_sfProcessing.getValue() == 0x01)
                 {
                     Real32 a,b,c,d;
 

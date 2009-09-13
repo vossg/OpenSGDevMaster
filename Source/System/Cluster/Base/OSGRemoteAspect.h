@@ -214,7 +214,7 @@ class OSG_CLUSTER_DLLMAPPING RemoteAspect
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    friend class RemoteAspectFieldContainerMapper;
+    friend struct RemoteAspectFieldContainerMapper;
 
 	// prohibit default functions (move to 'public' if you need one)
 

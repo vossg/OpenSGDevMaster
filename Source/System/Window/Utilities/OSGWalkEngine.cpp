@@ -69,11 +69,11 @@ WalkEngine::WalkEngine(void) :
     Inherited(),
     _ground(NULL),
     _world(NULL),
-    _groundDistance(0.75),
-    _wallDistance(0.1),
-    _height(0.85),
-    _width(0.5),
-    _fatness(0.5),
+    _groundDistance(0.75f),
+    _wallDistance(0.1f),
+    _height(0.85f),
+    _width(0.5f),
+    _fatness(0.5f),
     _act(IntersectAction::create())
 {
 }

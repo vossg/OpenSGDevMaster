@@ -447,16 +447,16 @@ void MultiDisplayWindow::serverRender(Window           *window,
 
         // use pixel even if pixel = 1
         if(serverPort->getLeft() == 1.0)
-            serverPort->setLeft(1.0001);
+            serverPort->setLeft(1.0001f);
 
         if(serverPort->getRight() == 1.0)
-            serverPort->setRight(1.0001);
+            serverPort->setRight(1.0001f);
 
         if(serverPort->getTop() == 1.0)
-            serverPort->setTop(1.0001);
+            serverPort->setTop(1.0001f);
 
         if(serverPort->getBottom() == 1.0)
-            serverPort->setBottom(1.0001);
+            serverPort->setBottom(1.0001f);
 
         // calculate tile parameters
         deco->setFullWidth ( cright-cleft );

@@ -511,7 +511,7 @@ void TrapezoidalShadowMapEngine::handlePointLightEnter(
                           parentPart->getFar()   );
 
     Inherited::calcPointLightRange(
-        pointL, 0.01,
+        pointL, 0.01f,
         shadowNear, shadowFar, shadowNear, shadowFar);
 
     MatrixPerspective(matLightProj, Pi / 4.f, 1.f,
@@ -687,7 +687,7 @@ void TrapezoidalShadowMapEngine::handleSpotLightEnter(
                           parentPart->getFar()   );
 
     Inherited::calcPointLightRange(
-        spotL, 0.01,
+        spotL, 0.01f,
         shadowNear, shadowFar, shadowNear, shadowFar);
 
     MatrixPerspective(matLightProj,

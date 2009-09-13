@@ -45,7 +45,7 @@
 OSG_BEGIN_NAMESPACE
 
 template <class ElementTypeT>
-struct OSG_FILEIO_DLLMAPPING OSBElementRegistrationHelper
+struct OSBElementRegistrationHelper
 {
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
@@ -66,7 +66,7 @@ struct OSG_FILEIO_DLLMAPPING OSBElementRegistrationHelper
 };
 
 template <class ElementTypeT>
-struct OSG_FILEIO_DLLMAPPING OSBDefaultElementRegistrationHelper
+struct OSBDefaultElementRegistrationHelper
 {
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */

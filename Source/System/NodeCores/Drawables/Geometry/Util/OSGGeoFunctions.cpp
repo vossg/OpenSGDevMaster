@@ -3737,7 +3737,7 @@ void mergeGeoNINI(
                               dstFormat, dstDim, dstVecType, dstNorm);
         GeoVectorPropertyUnrecPtr dstProp =
             GeoPropertyFactory::the()->create(dstFormat,  dstDim,
-                                              dstVecType, dstNorm);
+                                              dstVecType, dstNorm != 0);
         
         dstProp->resize(src1Used + src2Used);
         
@@ -3822,7 +3822,7 @@ void mergeGeoNISI(
                               dstFormat, dstDim, dstVecType, dstNorm);
         GeoVectorPropertyUnrecPtr dstProp =
             GeoPropertyFactory::the()->create(dstFormat,  dstDim,
-                                              dstVecType, dstNorm);
+                                              dstVecType, dstNorm != 0);
         
         // allocate storage
         dstProp->resize(offset);
@@ -3913,7 +3913,7 @@ void mergeGeoNIMI(
                                   dstFormat, dstDim, dstVecType, dstNorm);
             GeoVectorPropertyUnrecPtr dstProp =
                 GeoPropertyFactory::the()->create(dstFormat,  dstDim,
-                                                  dstVecType, dstNorm);
+                                                  dstVecType, dstNorm != 0);
             
             // allocate storage
             dstProp->resize(offset);
@@ -4017,7 +4017,7 @@ void mergeGeoSISI(
                               dstFormat, dstDim, dstVecType, dstNorm);
         GeoVectorPropertyUnrecPtr dstProp = 
             GeoPropertyFactory::the()->create(dstFormat,  dstDim,
-                                              dstVecType, dstNorm);
+                                              dstVecType, dstNorm != 0);
         
         // allocate storage
         dstProp->resize(offset);
@@ -4106,7 +4106,7 @@ void mergeGeoSIMI(
                                   dstFormat, dstDim, dstVecType, dstNorm);
             GeoVectorPropertyUnrecPtr dstProp =
                 GeoPropertyFactory::the()->create(dstFormat,  dstDim,
-                                                  dstVecType, dstNorm);
+                                                  dstVecType, dstNorm != 0);
             
             // allocate storage
             dstProp->resize(offset);
@@ -4234,7 +4234,7 @@ void mergeGeoMIMI(
                                       dstFormat, dstDim, dstVecType, dstNorm);
                 GeoVectorPropertyUnrecPtr dstProp =
                     GeoPropertyFactory::the()->create(dstFormat,  dstDim,
-                                                      dstVecType, dstNorm);
+                                                      dstVecType, dstNorm != 0);
                 
                 // allocate storage
                 dstProp->resize(offset);

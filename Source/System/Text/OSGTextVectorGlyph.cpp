@@ -567,7 +567,7 @@ static bool isInteriorPoint(const Vec2f &point, const TextVectorGlyph::PolygonOu
         case GLU_TESS_WINDING_NONZERO:
             return totalWindingNumber != 0;
         case GLU_TESS_WINDING_ODD:
-            return totalWindingNumber % 2;
+            return (totalWindingNumber % 2) != 0;
         default:
             return false;
     }

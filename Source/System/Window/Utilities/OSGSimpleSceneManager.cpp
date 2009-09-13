@@ -573,7 +573,7 @@ void SimpleSceneManager::initialize(void)
     _internalRoot->addChild(cartN);
 
 
-    _headlight->setAmbient  (.3, .3, .3, 1);
+    _headlight->setAmbient  (.3f, .3f, .3f, 1);
     _headlight->setDiffuse  ( 1,  1,  1, 1);
     _headlight->setSpecular ( 1,  1,  1, 1);
     _headlight->setDirection( 0,  0,  1);
@@ -598,7 +598,7 @@ void SimpleSceneManager::initialize(void)
     {
         SolidBackgroundUnrecPtr bg = SolidBackground::create();
 
-        bg->setColor(Color3f(0.2, 0.2, 0.2));
+        bg->setColor(Color3f(0.2f, 0.2f, 0.2f));
 
         _foreground = ImageForeground::create();
 
@@ -606,7 +606,7 @@ void SimpleSceneManager::initialize(void)
             SimpleStatisticsForeground::create();
 
         sf->setSize(25);
-        sf->setColor(Color4f(0,1,0,0.7));
+        sf->setColor(Color4f(0,1,0,0.7f));
 
 
         // Render traversal stats action

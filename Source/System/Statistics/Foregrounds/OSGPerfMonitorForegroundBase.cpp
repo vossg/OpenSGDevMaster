@@ -727,9 +727,9 @@ PerfMonitorForegroundBase::PerfMonitorForegroundBase(void) :
     _sfMode                   (UInt32(0)),
     _sfMaxSize                (Real32(16)),
     _sfColor                  (Color4f(1,1,1,1)),
-    _sfBgColor                (Color4f(0.2,0.2,0.2,0.65)),
+    _sfBgColor                (Color4f(0.2f,0.2f,0.2f,0.65f)),
     _sfFamily                 (),
-    _sfBorderColor            (Color4f(0.8,0.8,0.0,0.7)),
+    _sfBorderColor            (Color4f(0.8f,0.8f,0.0f,0.7f)),
     _sfBorderOffset           (Vec2f(4,4)),
     _sfTextMargin             (Vec2f(5,5))
 {

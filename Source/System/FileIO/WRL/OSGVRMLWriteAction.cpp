@@ -2201,7 +2201,7 @@ Action::ResultE VRMLWriteAction::apply(std::vector<Node *>::iterator begin,
     return Inherited::apply(begin, end);
 }
 
-Action::ResultE VRMLWriteAction::apply(Node *node)
+Action::ResultE VRMLWriteAction::apply(Node * const node)
 {
     return Inherited::apply(node);
 }

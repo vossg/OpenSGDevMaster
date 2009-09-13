@@ -139,7 +139,7 @@ void RotateManipulator::dump(      UInt32    uiIndent,
 
 NodeTransitPtr RotateManipulator::makeHandleGeo()
 {
-    return makeSphere(2, 0.2);
+    return makeSphere(2, 0.2f);
 }
 
 void RotateManipulator::doMovement(      Transform    *t,

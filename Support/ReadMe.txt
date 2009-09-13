@@ -41,12 +41,13 @@ http://pecl2.php.net/downloads/php-windows-builds/source/zlib-1.2.3-source.zip
 http://pecl2.php.net/downloads/php-windows-builds/source/libpng-1.2.37-source.zip
 http://pecl2.php.net/downloads/php-windows-builds/source/libjpeg-6b-source.zip
 ftp://ftp.remotesensing.org/pub/libtiff/tiff-3.8.2.zip
-http://prdownloads.sourceforge.net/freeglut/freeglut-2.6.0-rc1.tar.gz?download
+http://prdownloads.sourceforge.net/freeglut/freeglut-2.6.0-rc1.tar.gz\?download
 http://nchc.dl.sourceforge.net/sourceforge/collada-dom/collada-dom-2.2.zip
 http://pecl2.php.net/downloads/php-windows-builds/source/libxml2-2.7.3-src.zip
 ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-7.9.zip
 http://pecl2.php.net/downloads/php-windows-builds/source/libiconv-1.12-source.zip
 http://hebbut.net/Public.Offerings/lib_xxx/downloads/OpenEXR-CVS.20081031.7z
+https://sourceforge.net/project/downloading.php\?group_id=67586\&filename=glew-1.5.1-src.zip
 
 2) Unpack to disk
 

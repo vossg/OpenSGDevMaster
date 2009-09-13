@@ -196,7 +196,7 @@ class OSG_FILEIO_DLLMAPPING VRMLWriteAction : public Action
     virtual Action::ResultE apply(std::vector<Node *>::iterator begin, 
                                   std::vector<Node *>::iterator end);
 
-    virtual Action::ResultE apply(Node *node);
+    virtual Action::ResultE apply(Node * const node);
 
   private:
 

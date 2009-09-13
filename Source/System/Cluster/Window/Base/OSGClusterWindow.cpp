@@ -507,7 +507,7 @@ bool ClusterWindow::initAsync(connectioncbfp fp)
         init();
         result = true;
     }
-    catch(AsyncCancel &e)
+    catch(AsyncCancel &)
     {
         result = false;
     }

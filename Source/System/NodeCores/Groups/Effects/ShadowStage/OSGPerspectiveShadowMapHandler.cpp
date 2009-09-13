@@ -80,7 +80,7 @@ PerspectiveShadowMapHandler::PerspectiveShadowMapHandler(
     _blender = BlendChunk::createLocal();
 
     _blender->setAlphaFunc(GL_GEQUAL);
-    _blender->setAlphaValue(0.99);
+    _blender->setAlphaValue(0.99f);
 
     _matrixCam2 = MatrixCamera::createLocal();
 
@@ -341,7 +341,7 @@ void PerspectiveShadowMapHandler::calcPerspectiveSpot(Matrix  &_LPM,
                (osgAbs(viewDir[1]) - osgAbs(lightDir[1])) < 0.01 &&
                (osgAbs(viewDir[2]) - osgAbs(lightDir[2])) < 0.01)
             {
-                viewDir[0] += 0.01;
+                viewDir[0] += 0.01f;
                 correctAngle = true;
             }
 
@@ -349,7 +349,7 @@ void PerspectiveShadowMapHandler::calcPerspectiveSpot(Matrix  &_LPM,
             double              sinGamma;
             sinGamma = sqrt(1.0 - dotProd * dotProd);
             if(correctAngle)
-                viewDir[0] -= 0.01;
+                viewDir[0] -= 0.01f;
 
             //up berechnen
             Vec3f               up99;
@@ -375,7 +375,7 @@ void PerspectiveShadowMapHandler::calcPerspectiveSpot(Matrix  &_LPM,
 
             Real32              nearDist = 1.0 - sinGamma;
             if(nearDist < 0.01)
-                nearDist = 0.01;
+                nearDist = 0.01f;
 
             Real32              z_n = factor * nearDist;
             Real32              d = osgAbs(max99[1] - min99[1]);
