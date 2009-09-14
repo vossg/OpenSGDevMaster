@@ -88,12 +88,12 @@ int main(int argc, char **argv)
         
         // create three transparent boxes.
         OSG::SimpleMaterialRefPtr mat1 = OSG::SimpleMaterial::create();
-        mat1->setAmbient      (OSG::Color3f(0.2,0.2,0.2));
-        mat1->setDiffuse      (OSG::Color3f(1.0,0.0,0.0));
-        mat1->setEmission     (OSG::Color3f(0.0,0.0,0.0));
-        mat1->setSpecular     (OSG::Color3f(0.4,0.4,0.4));
+        mat1->setAmbient      (OSG::Color3f(0.2f,0.2f,0.2f));
+        mat1->setDiffuse      (OSG::Color3f(1.0f,0.0f,0.0f));
+        mat1->setEmission     (OSG::Color3f(0.0f,0.0f,0.0f));
+        mat1->setSpecular     (OSG::Color3f(0.4f,0.4f,0.4f));
         mat1->setShininess    (80);
-        mat1->setTransparency (0.5);
+        mat1->setTransparency (0.5f);
         // render this first (key 0)
         mat1->setSortKey      (0);
         mat1->addChunk        (pchunk);
@@ -103,10 +103,10 @@ int main(int argc, char **argv)
         geo->setMaterial(mat1);
         
         OSG::SimpleMaterialRefPtr mat2 = OSG::SimpleMaterial::create();
-        mat2->setAmbient      (OSG::Color3f(0.2,0.2,0.2));
-        mat2->setDiffuse      (OSG::Color3f(0.0,1.0,0.0));
-        mat2->setEmission     (OSG::Color3f(0.0,0.0,0.0));
-        mat2->setSpecular     (OSG::Color3f(0.4,0.4,0.4));
+        mat2->setAmbient      (OSG::Color3f(0.2f,0.2f,0.2f));
+        mat2->setDiffuse      (OSG::Color3f(0.0f,1.0f,0.0f));
+        mat2->setEmission     (OSG::Color3f(0.0f,0.0f,0.0f));
+        mat2->setSpecular     (OSG::Color3f(0.4f,0.4f,0.4f));
         mat2->setShininess    (80);
         mat2->setTransparency (0.5);
         // render this second (key 1)
@@ -118,10 +118,10 @@ int main(int argc, char **argv)
         geo->setMaterial(mat2);
         
         OSG::SimpleMaterialRefPtr mat3 = OSG::SimpleMaterial::create();
-        mat3->setAmbient      (OSG::Color3f(0.2,0.2,0.2));
-        mat3->setDiffuse      (OSG::Color3f(0.0,0.0,1.0));
-        mat3->setEmission     (OSG::Color3f(0.0,0.0,0.0));
-        mat3->setSpecular     (OSG::Color3f(0.4,0.4,0.4));
+        mat3->setAmbient      (OSG::Color3f(0.2f,0.2f,0.2f));
+        mat3->setDiffuse      (OSG::Color3f(0.0f,0.0f,1.0f));
+        mat3->setEmission     (OSG::Color3f(0.0f,0.0f,0.0f));
+        mat3->setSpecular     (OSG::Color3f(0.4f,0.4f,0.4f));
         mat3->setShininess    (80);
         mat3->setTransparency (0.5);
         // render this third (key 2)

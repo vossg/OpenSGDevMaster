@@ -130,12 +130,12 @@ int doMain(int argc, char **argv)
         (&dir1_trans);
     dir1_trans->editMatrix().setTranslate(350.0, 300.0, 300.0);
 
-    _dir1_core->setAmbient(0.15, 0.15, 0.15, 1);
-    _dir1_core->setDiffuse(0.5, 0.5, 0.5, 1);
-    _dir1_core->setSpecular(0.0, 0.0, 0.0, 1);
+    _dir1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+    _dir1_core->setDiffuse(0.5f, 0.5f, 0.5f, 1);
+    _dir1_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
     _dir1_core->setBeacon(dir1_beacon);
     _dir1_core->setOn(true);
-    _dir1_core->setShadowIntensity(0.8);
+    _dir1_core->setShadowIntensity(0.8f);
 
     /*//Spot Light 2
        //TransformPtr dir2_trans;
@@ -160,12 +160,12 @@ int doMain(int argc, char **argv)
         (&dir2_trans);
     dir2_trans->editMatrix().setTranslate(40.0, 0.0, 40.0);
 
-    _dir2_core->setAmbient(0.15, 0.15, 0.15, 1);
-    _dir2_core->setDiffuse(0.5, 0.5, 0.5, 1);
-    _dir2_core->setSpecular(0.0, 0.0, 0.0, 1);
+    _dir2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+    _dir2_core->setDiffuse(0.5f, 0.5f, 0.5f, 1);
+    _dir2_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
     _dir2_core->setBeacon(dir2_beacon);
     _dir2_core->setOn(true);
-    _dir2_core->setShadowIntensity(0.7);
+    _dir2_core->setShadowIntensity(0.7f);
 
 
     dir1->addChild(dir2);
@@ -201,8 +201,8 @@ int doMain(int argc, char **argv)
     plane_tex_env->setEnvMode(GL_MODULATE);
 
     OSG::SimpleMaterialUnrecPtr       plane_mat = OSG::SimpleMaterial::create();
-    plane_mat->setAmbient(OSG::Color3f(0.3, 0.3, 0.3));
-    plane_mat->setDiffuse(OSG::Color3f(1.0, 1.0, 1.0));
+    plane_mat->setAmbient(OSG::Color3f(0.3f, 0.3f, 0.3f));
+    plane_mat->setDiffuse(OSG::Color3f(1.0f, 1.0f, 1.0f));
     plane_mat->addChunk(plane_tex_obj);
     plane_mat->addChunk(plane_tex_env);
 
@@ -309,8 +309,8 @@ int doMain(int argc, char **argv)
     boxNode->setCore(boxGeo);
 
     OSG::SimpleMaterialUnrecPtr       box_mat = OSG::SimpleMaterial::create();
-    box_mat->setAmbient(OSG::Color3f(0.95, 1.0, 0.2));
-    box_mat->setDiffuse(OSG::Color3f(0.95, 1.0, 0.2));
+    box_mat->setAmbient(OSG::Color3f(0.95f, 1.0f, 0.2f));
+    box_mat->setDiffuse(OSG::Color3f(0.95f, 1.0f, 0.2f));
 
     boxGeo->setMaterial(box_mat);
 
@@ -427,8 +427,8 @@ int doMain(int argc, char **argv)
     plane_tex2_env->setEnvMode(GL_MODULATE);
 
     OSG::SimpleMaterialUnrecPtr       plane_mat2 = OSG::SimpleMaterial::create();
-    plane_mat2->setAmbient(OSG::Color3f(0.3, 0.3, 0.3));
-    plane_mat2->setDiffuse(OSG::Color3f(1.0, 1.0, 1.0));
+    plane_mat2->setAmbient(OSG::Color3f(0.3f, 0.3f, 0.3f));
+    plane_mat2->setDiffuse(OSG::Color3f(1.0f, 1.0f, 1.0f));
     plane_mat2->addChunk(plane_tex2_obj);
     plane_mat2->addChunk(plane_tex2_env);
 
@@ -501,8 +501,8 @@ int doMain(int argc, char **argv)
     OSG::GradientBackgroundUnrecPtr   gbg = OSG::GradientBackground::create();
     OSG::SolidBackgroundUnrecPtr      sbg = OSG::SolidBackground::create();
 
-    gbg->addLine(OSG::Color3f(0.7, 0.7, 0.8), 0);
-    gbg->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
+    gbg->addLine(OSG::Color3f(0.7f, 0.7f, 0.8f), 0);
+    gbg->addLine(OSG::Color3f(0.0f, 0.1f, 0.3f), 1);
 
     rootNode->setCore(svp);
 
@@ -534,8 +534,8 @@ int doMain(int argc, char **argv)
 
     //one active light at startup
     _dir2_core->setOn(true);
-    _dir2_core->setAmbient(0.3, 0.3, 0.3, 1);
-    _dir2_core->setDiffuse(0.8, 0.8, 0.8, 1);
+    _dir2_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
+    _dir2_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
 
     _dir1_core->setOn(false);
     //_dir1_core->setAmbient(0.3,0.3,0.3,1);
@@ -569,7 +569,7 @@ int doMain(int argc, char **argv)
 
     OSG::Vec3f                   up(0,1,0);
     OSG::Pnt3f                   at(0,0,0);
-    OSG::Pnt3f                   from(0.0,-100.1,20.0);
+    OSG::Pnt3f                   from(0.0f,-100.1f,20.0f);
 
     _navigator.set(from, at, up);
 
@@ -696,7 +696,7 @@ void Animate()
         {
             OSG::Matrix  m;
             m.setIdentity();
-            OSG::Vec3f   scale(0.15,0.15,0.15);
+            OSG::Vec3f   scale(0.15f,0.15f,0.15f);
             OSG::Vec3f   trans(-40.0 * sin(rotb),-40.0 * cos(rotb),
                           50.0 + 25.0 * sin(rotd));
             q.setValueAsAxisRad(0, 0, 1, -rotb);
@@ -913,8 +913,8 @@ void keyboard(unsigned char k, int x, int y)
         case '9':
             {
                 _dir1_core->setOn(true);
-                _dir1_core->setAmbient(0.3, 0.3, 0.3, 1);
-                _dir1_core->setDiffuse(0.8, 0.8, 0.8, 1);
+                _dir1_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
+                _dir1_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
 
                 _dir2_core->setOn(false);
                 break;
@@ -924,20 +924,20 @@ void keyboard(unsigned char k, int x, int y)
             {
                 _dir1_core->setOn(false);
 
-                _dir2_core->setAmbient(0.3, 0.3, 0.3, 1);
-                _dir2_core->setDiffuse(0.8, 0.8, 0.8, 1);
+                _dir2_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
+                _dir2_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
                 _dir2_core->setOn(true);
                 break;
             }
 
         case '0':
             {
-                _dir1_core->setAmbient(0.15, 0.15, 0.15, 1);
-                _dir1_core->setDiffuse(0.4, 0.4, 0.4, 1);
+                _dir1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                _dir1_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
                 _dir1_core->setOn(true);
 
-                _dir2_core->setAmbient(0.15, 0.15, 0.15, 1);
-                _dir2_core->setDiffuse(0.4, 0.4, 0.4, 1);
+                _dir2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                _dir2_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
                 _dir2_core->setOn(true);
                 break;
             }

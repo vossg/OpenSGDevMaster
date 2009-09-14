@@ -270,14 +270,14 @@ void keyboard(unsigned char k, int x, int y)
         break;
         case 's':
             if(season < 0.435)
-                season += 0.01;
+                season += 0.01f;
 
             _shl->updateUniformVariable("season", season);
 
         break;
         case 'S':
             if(season > -0.435)
-                season -= 0.01;
+                season -= 0.01f;
 
             _shl->updateUniformVariable("season", season);
         break;

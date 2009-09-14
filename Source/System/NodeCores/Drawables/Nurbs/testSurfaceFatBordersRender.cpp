@@ -164,10 +164,10 @@ void setupDefaultMaterial( void )
 
     gpcl_defaultmat = OSG::SimpleMaterial::create();
 
-    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0,0.0,0.0) ); // RED
-    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2,0.2,0.2) );
-    gpcl_defaultmat->setEmission( OSG::Color3f(0.02,0.02,0.02) );
-    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78,0.78,0.78) );
+    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0f,0.0f,0.0f) ); // RED
+    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2f,0.2f,0.2f) );
+    gpcl_defaultmat->setEmission( OSG::Color3f(0.02f,0.02f,0.02f) );
+    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78f,0.78f,0.78f) );
     gpcl_defaultmat->setShininess( 128 );
     // add fat border chunk
     if ( !gb_nofatborders )
@@ -402,7 +402,7 @@ void processArgs( int argc, char **argv )
 			g_error1 = atof( argv[ ++i ] );
             if ( g_error1 < 0.001 )
             {
-                g_error1 = 0.001;
+                g_error1 = 0.001f;
             }            
 			g_error2  = g_error1;
 			std::cerr << "Setting initial error to " << g_error1  << std::endl;
@@ -413,7 +413,7 @@ void processArgs( int argc, char **argv )
 }
 int main(int argc, char **argv)
 {
-    g_error1 = 0.01;
+    g_error1 = 0.01f;
     g_error2 = g_error1;
 
     processArgs( argc, argv );
@@ -460,7 +460,7 @@ int main(int argc, char **argv)
         mgr->showAll();
         mgr->redraw();
         OSG::SolidBackgroundRefPtr bgr = OSG::SolidBackground::create();
-        bgr->setColor( OSG::Color3f( 0.7, 0.7, 0.7 ));
+        bgr->setColor( OSG::Color3f( 0.7f, 0.7f, 0.7f ));
         mgr->getWindow()->getPort(0)->setBackground( bgr );
     }
     

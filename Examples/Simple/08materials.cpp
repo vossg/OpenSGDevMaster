@@ -109,7 +109,7 @@ int main(int argc, char **argv)
         
         // The cylinder and its transformation
         OSG::NodeRefPtr     cyl    = OSG::Node::create();
-        OSG::GeometryRefPtr cylgeo = OSG::makeCylinderGeo( 1.4, .3, 8, 
+        OSG::GeometryRefPtr cylgeo = OSG::makeCylinderGeo( 1.4f, .3f, 8, 
                                                            true, true, true );
         
         cyl->setCore(cylgeo);
@@ -125,7 +125,7 @@ int main(int argc, char **argv)
         
         // The torus and its transformation
         OSG::NodeRefPtr     torus    = OSG::Node::create();
-        OSG::GeometryRefPtr torusgeo = OSG::makeTorusGeo( .2, 1, 8, 12 );
+        OSG::GeometryRefPtr torusgeo = OSG::makeTorusGeo( .2f, 1, 8, 12 );
         
         torus->setCore(torusgeo);
             
@@ -161,10 +161,10 @@ int main(int argc, char **argv)
         OSG::SimpleMaterialRefPtr m1 = OSG::SimpleMaterial::create();
         
         // when everything is changed, not setting the mask is ok
-        m1->setAmbient      (OSG::Color3f(0.2,0.2,0.2));
-        m1->setDiffuse      (OSG::Color3f(0.8,0.5,0.2));
-        m1->setEmission     (OSG::Color3f(0.0,0.0,0.0));
-        m1->setSpecular     (OSG::Color3f(1.0,1.0,1.0));
+        m1->setAmbient      (OSG::Color3f(0.2f,0.2f,0.2f));
+        m1->setDiffuse      (OSG::Color3f(0.8f,0.5f,0.2f));
+        m1->setEmission     (OSG::Color3f(0.0f,0.0f,0.0f));
+        m1->setSpecular     (OSG::Color3f(1.0f,1.0f,1.0f));
         m1->setShininess    (10);
         
         /*
@@ -234,10 +234,10 @@ int main(int argc, char **argv)
         OSG::SimpleTexturedMaterialRefPtr m2 = 
             OSG::SimpleTexturedMaterial::create();
         
-        m2->setAmbient      (OSG::Color3f(0.3,0.3,0.3));
-        m2->setDiffuse      (OSG::Color3f(0.2,0.8,0.8));
-        m2->setEmission     (OSG::Color3f(0.0,0.0,0.0));
-        m2->setSpecular     (OSG::Color3f(1.0,1.0,1.0));
+        m2->setAmbient      (OSG::Color3f(0.3f,0.3f,0.3f));
+        m2->setDiffuse      (OSG::Color3f(0.2f,0.8f,0.8f));
+        m2->setEmission     (OSG::Color3f(0.0f,0.0f,0.0f));
+        m2->setSpecular     (OSG::Color3f(1.0f,1.0f,1.0f));
         m2->setShininess    (20);
         m2->setTransparency (0);
         m2->setColorMaterial(GL_NONE);

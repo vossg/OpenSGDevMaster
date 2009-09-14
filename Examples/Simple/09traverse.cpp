@@ -248,7 +248,7 @@ int main(int argc, char **argv)
         scene->setCore(g);
         
         // The cylinder and its transformation
-        OSG::NodeRefPtr cyl = OSG::makeCylinder( 1.4, .3, 8, true, true, true );
+        OSG::NodeRefPtr cyl = OSG::makeCylinder( 1.4f, .3f, 8, true, true, true );
             
         cyltrans = OSG::Transform::create();
     
@@ -261,7 +261,7 @@ int main(int argc, char **argv)
         scene->addChild(cyltransnode);
         
         // The torus and its transformation
-        OSG::NodeRefPtr torus = OSG::makeTorus( .2, 1, 8, 12 );
+        OSG::NodeRefPtr torus = OSG::makeTorus( .2f, 1, 8, 12 );
             
         tortrans = OSG::Transform::create();
     

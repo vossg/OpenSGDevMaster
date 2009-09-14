@@ -164,8 +164,8 @@ OSG::NodeTransitPtr buildStage(int argc, char *argv[])
     
     // set a different background for things on the stage ...
     OSG::GradientBackgroundRefPtr gb = OSG::GradientBackground::create();
-    gb->addLine(OSG::Color3f(0.3, 0.3, 0.8), 0.0);
-    gb->addLine(OSG::Color3f(0.5, 0.5, 0.5), 1.0);
+    gb->addLine(OSG::Color3f(0.3f, 0.3f, 0.8f), 0.0f);
+    gb->addLine(OSG::Color3f(0.5f, 0.5f, 0.5f), 1.0f);
     stage->setBackground(gb);
     
     // ... and add a camera
@@ -173,7 +173,7 @@ OSG::NodeTransitPtr buildStage(int argc, char *argv[])
     stage->setCamera(stageCam);
     
     stageCam->setBeacon(stageCamBeaconN);
-    stageCam->setNear  (   0.1);
+    stageCam->setNear  (   0.1f);
     stageCam->setFar   (1000.0);
     stageCam->setFov   (   1.5);
     
@@ -340,7 +340,7 @@ OSG::NodeTransitPtr buildFBOScene(int argc, char *argv[])
 
     // no argument or loading failed -> use a torus
     if(modelN == NULL)
-        modelN = OSG::makeTorus(0.3, 4, 16, 64);
+        modelN = OSG::makeTorus(0.3f, 4, 16, 64);
 
     OSG::commitChanges();
     OSG::Pnt3f bbMin, bbMax;

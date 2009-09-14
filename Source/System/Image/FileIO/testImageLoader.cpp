@@ -201,7 +201,7 @@ int doMain(int argc, char **argv)
 
     statfg = OSG::SimpleStatisticsForeground::create();
     statfg->setSize(25);
-    statfg->setColor(OSG::Color4f(0,1,0,0.9));
+    statfg->setColor(OSG::Color4f(0,1,0,0.9f));
     statfg->addElement(textureFormatDesc, "Pixel Format: %s");
     statfg->addElement(textureDataTypeDesc, "Data Type: %s");
     statfg->addElement(textureSizeDesc, "Texture Size: %s");
@@ -212,7 +212,7 @@ int doMain(int argc, char **argv)
 
     // Create the background
     OSG::SolidBackgroundRecPtr bg = OSG::SolidBackground::create();
-    bg->setColor(OSG::Color3f(0.1, 0.1, 0.5));
+    bg->setColor(OSG::Color3f(0.1f, 0.1f, 0.5f));
 
     if (argc < 2)
     {

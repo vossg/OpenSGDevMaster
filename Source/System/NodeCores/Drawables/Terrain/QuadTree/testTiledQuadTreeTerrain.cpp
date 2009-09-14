@@ -175,11 +175,11 @@ key(unsigned char key, int x, int y)
             
             break;
         }
-        case 'v':   speed *= .9;
+        case 'v':   speed *= .9f;
             FLOG(("Speed set to %f\n", speed ));
             mgr->getNavigator()->setMotionFactor(speed);
             break;
-        case 'b':   speed *= 1.1;
+        case 'b':   speed *= 1.1f;
             FLOG(("Speed set to %f\n", speed ));
             mgr->getNavigator()->setMotionFactor(speed);
             break;

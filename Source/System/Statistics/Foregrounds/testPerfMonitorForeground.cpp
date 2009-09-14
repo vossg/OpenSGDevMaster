@@ -197,7 +197,7 @@ void recursiveFunc(unsigned depth=3)
 void doStuff()
 {
    static float x     =0;      // Value to influence the work
-   static float x_inc =0.01;
+   static float x_inc =0.01f;
    x += x_inc;
    if ((x<=0.0) || (x>=1.0))
    {

@@ -144,11 +144,11 @@ key(unsigned char key, int x, int y)
         case 'c':   mgr->getNavigator()->set(
             OSG::Pnt3f(0,0,2),OSG::Pnt3f(2,2,1),OSG::Vec3f(0,1,0));
             break;
-        case 'v':   speed *= .9;
+        case 'v':   speed *= .9f;
             FLOG(("Speed set to %f\n", speed ));
             mgr->getNavigator()->setMotionFactor(speed);
             break;
-        case 'b':   speed *= 1.1;
+        case 'b':   speed *= 1.1f;
             FLOG(("Speed set to %f\n", speed ));
             mgr->getNavigator()->setMotionFactor(speed);
             break;

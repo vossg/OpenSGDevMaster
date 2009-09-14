@@ -45,7 +45,7 @@ void display( void )
     OSG::Matrix m;
     OSG::Real32 t = glutGet(GLUT_ELAPSED_TIME );
     
-    m.setTransform(OSG::Vec3f(0, .9, 0),
+    m.setTransform(OSG::Vec3f(0, .9f, 0),
                    OSG::Quaternion( OSG::Vec3f(1,1,0), 
                                     OSG::osgSin(t / 1000.f) / 2.f));
     
@@ -97,14 +97,14 @@ int main(int argc, char **argv)
         */
         
         // use a cylinder this time
-        OSG::GeometryRefPtr cyl = OSG::makeCylinderGeo( 1, .3, 8, true, true, true );
+        OSG::GeometryRefPtr cyl = OSG::makeCylinderGeo( 1, .3f, 8, true, true, true );
         
         // the single transformation Core used
         trans = OSG::Transform::create();
         
         // setup an intial transformation
         OSG::Matrix m;
-        m.setTransform(OSG::Vec3f(0, .9, 0));
+        m.setTransform(OSG::Vec3f(0, .9f, 0));
     
         trans->setMatrix(m);
         

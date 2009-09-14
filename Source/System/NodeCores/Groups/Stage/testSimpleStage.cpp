@@ -279,7 +279,7 @@ void initAnimSetup(int argc, char **argv)
     OSG::DirectionalLightNodeRefPtr dlight = 
         OSG::DirectionalLightNodeRefPtr::create();
 
-    dlight->setAmbient  (.3, .3, .3, 1);
+    dlight->setAmbient  (.3f, .3f, .3f, 1);
     dlight->setDiffuse  ( 1,  1,  1, 1);
     dlight->setDirection( 0,  0,  1   );
     dlight->setBeacon   (beacon       );
@@ -325,7 +325,7 @@ void initAnimSetup(int argc, char **argv)
 
     stage_cam->setBeacon(beacon);
     stage_cam->setFov   (OSG::osgDegree2Rad(90));
-    stage_cam->setNear  (0.1);
+    stage_cam->setNear  (0.1f);
     stage_cam->setFar   (100000);
 
 
@@ -391,7 +391,7 @@ void initPlaneSetup(void)
     OSG::DirectionalLightNodeRefPtr dl = 
         OSG::DirectionalLightNodeRefPtr::create();
 
-    dl->setAmbient  (.3, .3, .3, 1);
+    dl->setAmbient  (.3f, .3f, .3f, 1);
     dl->setDiffuse  ( 1,  1,  1, 1);
     dl->setDirection( 0,  0,  1   );
     dl->setBeacon   (beacon          );

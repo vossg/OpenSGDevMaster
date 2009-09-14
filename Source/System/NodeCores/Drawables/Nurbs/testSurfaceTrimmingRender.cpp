@@ -93,10 +93,10 @@ void keyboard(unsigned char k, int, int)
 void setupDefaultMaterial( void )
 {
     gpcl_defaultmat = OSG::SimpleMaterial::create();
-    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0,0.0,0.0) ); // RED
-    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2,0.2,0.2) );
-    gpcl_defaultmat->setEmission( OSG::Color3f(0.02,0.02,0.02) );
-    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78,0.78,0.78) );
+    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0f,0.0f,0.0f) ); // RED
+    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2f,0.2f,0.2f) );
+    gpcl_defaultmat->setEmission( OSG::Color3f(0.02f,0.02f,0.02f) );
+    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78f,0.78f,0.78f) );
     gpcl_defaultmat->setShininess( 128 );
 }
 
@@ -175,46 +175,46 @@ OSG::NodeTransitPtr makeScene( void )
 
     // add inner trimming loop 1
     points.clear();
-    points.push_back( OSG::Pnt2f(0.3,0.5) );
-    points.push_back( OSG::Pnt2f(0.1,0.9) );
-    points.push_back( OSG::Pnt2f(0.5,0.7) );
+    points.push_back( OSG::Pnt2f(0.3f,0.5f) );
+    points.push_back( OSG::Pnt2f(0.1f,0.9f) );
+    points.push_back( OSG::Pnt2f(0.5f,0.7f) );
     surface->addCurve( 2, knots2, points, true );
     points.clear();
-    points.push_back( OSG::Pnt2f(0.5,0.7) );
-    points.push_back( OSG::Pnt2f(0.9,0.9) );
-    points.push_back( OSG::Pnt2f(0.7,0.5) );
+    points.push_back( OSG::Pnt2f(0.5f,0.7f) );
+    points.push_back( OSG::Pnt2f(0.9f,0.9f) );
+    points.push_back( OSG::Pnt2f(0.7f,0.5f) );
     surface->addCurve( 2, knots2, points, false );
     points.clear();
-    points.push_back( OSG::Pnt2f(0.7,0.5) );
-    points.push_back( OSG::Pnt2f(0.9,0.1) );
-    points.push_back( OSG::Pnt2f(0.5,0.3) );
+    points.push_back( OSG::Pnt2f(0.7f,0.5f) );
+    points.push_back( OSG::Pnt2f(0.9f,0.1f) );
+    points.push_back( OSG::Pnt2f(0.5f,0.3f) );
     surface->addCurve( 2, knots2, points, false );
     points.clear();
-    points.push_back( OSG::Pnt2f(0.5,0.3) );
-    points.push_back( OSG::Pnt2f(0.1,0.1) );
-    points.push_back( OSG::Pnt2f(0.3,0.5) );
+    points.push_back( OSG::Pnt2f(0.5f,0.3f) );
+    points.push_back( OSG::Pnt2f(0.1f,0.1f) );
+    points.push_back( OSG::Pnt2f(0.3f,0.5f) );
     surface->addCurve( 2, knots2, points, false );
     
     // add inner trimming loop 2
     points.clear();
-    points.push_back( OSG::Pnt2f(0.4,0.5) );
-    points.push_back( OSG::Pnt2f(0.4,0.4) );
-    points.push_back( OSG::Pnt2f(0.5,0.4) );
+    points.push_back( OSG::Pnt2f(0.4f,0.5f) );
+    points.push_back( OSG::Pnt2f(0.4f,0.4f) );
+    points.push_back( OSG::Pnt2f(0.5f,0.4f) );
     surface->addCurve( 2, knots2, points, true );
     points.clear();
-    points.push_back( OSG::Pnt2f(0.5,0.4) );
-    points.push_back( OSG::Pnt2f(0.6,0.4) );
-    points.push_back( OSG::Pnt2f(0.6,0.5) );
+    points.push_back( OSG::Pnt2f(0.5f,0.4f) );
+    points.push_back( OSG::Pnt2f(0.6f,0.4f) );
+    points.push_back( OSG::Pnt2f(0.6f,0.5f) );
     surface->addCurve( 2, knots2, points, false );
     points.clear();
-    points.push_back( OSG::Pnt2f(0.6,0.5) );
-    points.push_back( OSG::Pnt2f(0.6,0.6) );
-    points.push_back( OSG::Pnt2f(0.5,0.6) );
+    points.push_back( OSG::Pnt2f(0.6f,0.5f) );
+    points.push_back( OSG::Pnt2f(0.6f,0.6f) );
+    points.push_back( OSG::Pnt2f(0.5f,0.6f) );
     surface->addCurve( 2, knots2, points, false );
     points.clear();
-    points.push_back( OSG::Pnt2f(0.5,0.6) );
-    points.push_back( OSG::Pnt2f(0.4,0.6) );
-    points.push_back( OSG::Pnt2f(0.4,0.5) );
+    points.push_back( OSG::Pnt2f(0.5f,0.6f) );
+    points.push_back( OSG::Pnt2f(0.4f,0.6f) );
+    points.push_back( OSG::Pnt2f(0.4f,0.5f) );
     surface->addCurve( 2, knots2, points, false );
     
     // set up dimensions and knot vectors:
@@ -257,7 +257,7 @@ OSG::NodeTransitPtr makeScene( void )
 
 int main(int argc, char **argv)
 {
-    g_error = 0.01;
+    g_error = 0.01f;
 
     if ( argc == 2 )
     {
@@ -265,7 +265,7 @@ int main(int argc, char **argv)
     }
     if ( g_error < 0.001 )
     {
-        g_error = 0.001;
+        g_error = 0.001f;
     }
     
     OSG::osgInit(argc,argv);
@@ -309,7 +309,7 @@ int main(int argc, char **argv)
         mgr->showAll();
         mgr->redraw();
         OSG::SolidBackgroundRefPtr bgr = OSG::SolidBackground::create();
-        bgr->setColor( OSG::Color3f( 0.7, 0.7, 0.7 ));
+        bgr->setColor( OSG::Color3f( 0.7f, 0.7f, 0.7f ));
         mgr->getWindow()->getPort(0)->setBackground( bgr );
     }
     

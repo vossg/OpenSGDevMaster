@@ -131,7 +131,7 @@ int doMain(int argc, char **argv)
     _scene = OSG::Node::create();
 
     // create torus
-    OSG::GeometryUnrecPtr geo = OSG::makeTorusGeo(.8, 1.8, 128, 128);
+    OSG::GeometryUnrecPtr geo = OSG::makeTorusGeo(.8f, 1.8f, 128, 128);
 
     geo->setMaterial(cmat);
 

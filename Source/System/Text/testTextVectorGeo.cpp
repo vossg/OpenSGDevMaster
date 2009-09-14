@@ -596,10 +596,10 @@ int main(int argc, char **argv)
         delete [] texture;
         matPtr = OSG::SimpleTexturedMaterial::create();
     //    addRefX(matPtr);
-        matPtr->setAmbient      (OSG::Color3f(0.2, 0.2, 0.2));
-        matPtr->setDiffuse      (OSG::Color3f(1.0, 1.0, 1.0));
-        matPtr->setEmission     (OSG::Color3f(0.2, 0.2, 0.2));
-        matPtr->setSpecular     (OSG::Color3f(1.0, 1.0, 1.0));
+        matPtr->setAmbient      (OSG::Color3f(0.2f, 0.2f, 0.2f));
+        matPtr->setDiffuse      (OSG::Color3f(1.0f, 1.0f, 1.0f));
+        matPtr->setEmission     (OSG::Color3f(0.2f, 0.2f, 0.2f));
+        matPtr->setSpecular     (OSG::Color3f(1.0f, 1.0f, 1.0f));
         matPtr->setShininess    (30);
         matPtr->setTransparency (0);
         matPtr->setColorMaterial(GL_NONE);
@@ -616,7 +616,7 @@ int main(int argc, char **argv)
     
         statfg = OSG::SimpleStatisticsForeground::create();
         statfg->setSize(25);
-        statfg->setColor(OSG::Color4f(0,1,0,0.9));
+        statfg->setColor(OSG::Color4f(0,1,0,0.9f));
         statfg->addElement(familyDesc, "Family: %s");
         statfg->addElement(styleDesc, "Style: %s");
         statfg->addElement(majorAlignDesc, "Major Alignment: %s");
@@ -627,7 +627,7 @@ int main(int argc, char **argv)
     
         // Create the background
         OSG::SolidBackgroundUnrecPtr bg = OSG::SolidBackground::create();
-        bg->setColor(OSG::Color3f(0.1, 0.1, 0.5));
+        bg->setColor(OSG::Color3f(0.1f, 0.1f, 0.5f));
     
         updateFace();
         updateScene();

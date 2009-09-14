@@ -162,7 +162,7 @@ void displayInfo(int x, int y)
   int y1=y+14;
   int y2=y1-4*20;
   glBegin(GL_QUADS);
-  glColor4f(.1, .1, .7, .5);
+  glColor4f(.1f, .1f, .7f, .5f);
   glVertex2i(x1,y1);
   glVertex2i(x1,y2);
   glVertex2i(x2,y2);
@@ -687,7 +687,7 @@ void init(std::vector<std::string> &filenames)
 
     dlight->setCore( dl );
 
-    dl->setAmbient( .3, .3, .3, 1 );
+    dl->setAmbient( .3f, .3f, .3f, 1 );
     dl->setDiffuse( 1, 1, 1, 1 );
     dl->setDirection(0,0,1);
     dl->setBeacon( b1n);
@@ -820,7 +820,7 @@ void init(std::vector<std::string> &filenames)
             vp2->setCamera    ( cam );
             vp2->setBackground( bkgnd );
             vp2->setRoot      ( root );
-            vp2->setSize      ( .1, .55, .7,.95 );
+            vp2->setSize      ( .1f, .55f, .7f,.95f );
         }
     }
     else if(stereoMode == 1)

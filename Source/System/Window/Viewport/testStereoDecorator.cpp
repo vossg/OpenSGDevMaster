@@ -57,13 +57,13 @@ void keyboard(unsigned char k, int, int)
     switch(k)
     {
         case 27:    exit(1);
-        case 'a':   zpp /= 1.1;
+        case 'a':   zpp /= 1.1f;
             break;
-        case 's':   zpp *= 1.1;
+        case 's':   zpp *= 1.1f;
             break;
-        case 'z':   ed /= 1.1;
+        case 'z':   ed /= 1.1f;
             break;
-        case 'x':   ed *= 1.1;
+        case 'x':   ed *= 1.1f;
                 break;         
     }
     

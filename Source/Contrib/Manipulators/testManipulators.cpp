@@ -49,7 +49,7 @@ int main(int argc, char **argv)
     interTC->setMatrix(m);
 
     interN->setCore(interTC);
-    interN->addChild(OSG::makeBox(1, 0.2, 0.2, 1, 1, 1));
+    interN->addChild(OSG::makeBox(1, 0.2f, 0.2f, 1, 1, 1));
 
     scene->setCore(g);
     scene->addChild(makeCoordAxes());
@@ -225,16 +225,16 @@ OSG::GeometryTransitPtr makeCoordAxesGeo(void)
 
     // the 9 points of the three Triangles
     pnts->addValue(OSG::Pnt3f(  1,    0,    0));
-    pnts->addValue(OSG::Pnt3f(0.8,  0.2,  0.2));
-    pnts->addValue(OSG::Pnt3f(0.8, -0.2, -0.2));
+    pnts->addValue(OSG::Pnt3f(0.8f,  0.2f,  0.2f));
+    pnts->addValue(OSG::Pnt3f(0.8f, -0.2f, -0.2f));
 
     pnts->addValue(OSG::Pnt3f(   0,   1,    0));
-    pnts->addValue(OSG::Pnt3f( 0.2, 0.8,  0.2));
-    pnts->addValue(OSG::Pnt3f(-0.2, 0.8, -0.2));
+    pnts->addValue(OSG::Pnt3f( 0.2f, 0.8f,  0.2f));
+    pnts->addValue(OSG::Pnt3f(-0.2f, 0.8f, -0.2f));
 
     pnts->addValue(OSG::Pnt3f(   0,    0,   1));
-    pnts->addValue(OSG::Pnt3f( 0.2,  0.2, 0.8));
-    pnts->addValue(OSG::Pnt3f(-0.2, -0.2, 0.8));
+    pnts->addValue(OSG::Pnt3f( 0.2f,  0.2f, 0.8f));
+    pnts->addValue(OSG::Pnt3f(-0.2f, -0.2f, 0.8f));
 
     OSG::GeoColor3fPropertyUnrecPtr colors = OSG::GeoColor3fProperty::create();
     colors->addValue(OSG::Color3f(1, 0, 0));

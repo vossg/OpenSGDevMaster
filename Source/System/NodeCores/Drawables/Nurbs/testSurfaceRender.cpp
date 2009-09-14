@@ -113,10 +113,10 @@ void setupDefaultMaterial( void )
 {
     gpcl_defaultmat = OSG::SimpleMaterial::create();
 
-    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0,0.0,0.0) ); // RED
-    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2,0.2,0.2) );
-    gpcl_defaultmat->setEmission( OSG::Color3f(0.02,0.02,0.02) );
-    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78,0.78,0.78) );
+    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0f,0.0f,0.0f) ); // RED
+    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2f,0.2f,0.2f) );
+    gpcl_defaultmat->setEmission( OSG::Color3f(0.02f,0.02f,0.02f) );
+    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78f,0.78f,0.78f) );
     gpcl_defaultmat->setShininess( 128 );
 }
 
@@ -224,7 +224,7 @@ OSG::NodeTransitPtr makeScene( void )
 
 int main(int argc, char **argv)
 {
-    g_error = 0.01;
+    g_error = 0.01f;
 
     if ( argc > 1 && !strcmp(argv[1], "-f"))
     {
@@ -239,7 +239,7 @@ int main(int argc, char **argv)
     }
     if ( g_error < 0.001 )
     {
-        g_error = 0.001;
+        g_error = 0.001f;
     }
     
     OSG::osgInit(argc,argv);
@@ -283,7 +283,7 @@ int main(int argc, char **argv)
         mgr->showAll();
         mgr->redraw();
         OSG::SolidBackgroundRefPtr bgr = OSG::SolidBackground::create();
-        bgr->setColor( OSG::Color3f( 0.7, 0.7, 0.7 ));
+        bgr->setColor( OSG::Color3f( 0.7f, 0.7f, 0.7f ));
         mgr->getWindow()->getPort(0)->setBackground( bgr );
     }
     

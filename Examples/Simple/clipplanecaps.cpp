@@ -579,28 +579,28 @@ void keyboard(unsigned char k, int, int)
         break;
     case 'n':   // move clip plane 0 opposite to the normal direction of the plane
         {
-            val0 -= 0.2;
+            val0 -= 0.2f;
             vecClipPlaneData[0]._equation[3] = val0;
             updateClipPlanes(vecClipPlaneData);
         }
         break;
     case 'm':   // move clip plane 0 in the normal direction of the plane
         {
-            val0 += 0.2;
+            val0 += 0.2f;
             vecClipPlaneData[0]._equation[3] = val0;
             updateClipPlanes(vecClipPlaneData);
         }
         break;
     case ',':   // move clip plane 1 opposite to the normal direction of the plane
         {
-            val1 -= 0.2;
+            val1 -= 0.2f;
             vecClipPlaneData[1]._equation[3] = val1;
             updateClipPlanes(vecClipPlaneData);
         }
         break;
     case '.':   // move clip plane 1 in the normal direction of the plane
         {
-            val1 += 0.2;
+            val1 += 0.2f;
             vecClipPlaneData[1]._equation[3] = val1;
             updateClipPlanes(vecClipPlaneData);
         }

@@ -444,8 +444,8 @@ int doMain (int argc, char **argv)
     {
         dlight->setCore(dl);
         
-        dl->setAmbient( .3, .3, .3, 1 );
-        dl->setDiffuse( .8, .8, .8, .8 );
+        dl->setAmbient( .3f, .3f, .3f, 1 );
+        dl->setDiffuse( .8f, .8f, .8f, .8f );
         dl->setDirection(0,0,1);
         dl->setBeacon( b1n);
     }
@@ -544,7 +544,7 @@ int doMain (int argc, char **argv)
     {
         cam->setBeacon( b1n );
         cam->setFov( OSG::osgDegree2Rad( 90 ) );
-        cam->setNear( 0.1 );
+        cam->setNear( 0.1f );
         cam->setFar( 100000 );
     }
 

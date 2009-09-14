@@ -123,7 +123,7 @@ public:
 
       OSG::Vec2f local_offset(3,4);
       mFace->layout(lines, layout_param, layout_result);
-      mFace->addToGeom(geom_ptr, layout_result, mGeoScale, local_offset, OSG::Color3f(0, 0.5, 0.7));
+      mFace->addToGeom(geom_ptr, layout_result, mGeoScale, local_offset, OSG::Color3f(0, 0.5f, 0.7f));
 
 
       const float rand_range(10.0f);
@@ -491,7 +491,7 @@ void keyboard_special(int k, int , int )
 
 void initgl(void)
 {
-   glClearColor(0.1, 0.0, 0.1, 0.0);
+   glClearColor(0.1f, 0.0f, 0.1f, 0.0f);
    glShadeModel(GL_SMOOTH);
    glEnable(GL_DEPTH_TEST);
    glEnable(GL_NORMALIZE);

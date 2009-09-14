@@ -418,11 +418,11 @@ void DrawGLScene(void)
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture[0]);   // choose the texture to use.
     
-    GLfloat TableDiffuse[] = { 0.3, 0.0, 1.0, 0.5 };
-    GLfloat TableSpecular[] = { 0.6, 0.0, 0.8, 0.5 };
+    GLfloat TableDiffuse[] = { 0.3f, 0.0f, 1.0f, 0.5f };
+    GLfloat TableSpecular[] = { 0.6f, 0.0f, 0.8f, 0.5f };
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, TableDiffuse);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, TableSpecular);
-    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0.4);
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0.4f);
     glEnable(GL_BLEND);
     
     gluPartialDisk(quadric,0,12.0f,32,16, 0, 360);    // A Disk Like The One Before  
@@ -433,15 +433,15 @@ void DrawGLScene(void)
     // X axis on table    
     glColor3f(1,0,0);
     glBegin(GL_LINES);
-    glVertex3f(0,0,0.1);
-    glVertex3f(120,0,0.1);
+    glVertex3f(0,0,0.1f);
+    glVertex3f(120,0,0.1f);
     glEnd();
     
     // Y axis on table 
     glColor3f(0,1,0);
     glBegin(GL_LINES);
-    glVertex3f(0,0,0.1);
-    glVertex3f(0,120,0.1);
+    glVertex3f(0,0,0.1f);
+    glVertex3f(0,120,0.1f);
     glEnd();
     
     glEnable(GL_LIGHTING);

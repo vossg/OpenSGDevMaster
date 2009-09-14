@@ -281,7 +281,7 @@ void initAnimSetup(int argc, char **argv)
 
     dlight->setCore(dl);
     
-    dl->setAmbient  (.3, .3, .3, 1);
+    dl->setAmbient  (.3f, .3f, .3f, 1);
     dl->setDiffuse  ( 1,  1,  1, 1);
     dl->setDirection( 0,  0,  1   );
     dl->setBeacon   (b1n          );
@@ -356,7 +356,7 @@ void initAnimSetup(int argc, char **argv)
 
     cam->setBeacon(b1n);
     cam->setFov   (OSG::osgDegree2Rad(90));
-    cam->setNear  (0.1);
+    cam->setNear  (0.1f);
     cam->setFar   (100000);
 
     // Background
@@ -447,7 +447,7 @@ void initPlaneSetup(void)
 
     dlight->setCore(dl);
     
-    dl->setAmbient  (.3, .3, .3, 1);
+    dl->setAmbient  (.3f, .3f, .3f, 1);
     dl->setDiffuse  ( 1,  1,  1, 1);
     dl->setDirection( 0,  0,  1   );
     dl->setBeacon   (b1n          );
@@ -535,7 +535,7 @@ void initPlaneSetup(void)
 
     cam->setBeacon(b1n);
     cam->setFov   (OSG::osgDegree2Rad(90));
-    cam->setNear  (0.1);
+    cam->setNear  (0.1f);
     cam->setFar   (100000);
 
     // Background

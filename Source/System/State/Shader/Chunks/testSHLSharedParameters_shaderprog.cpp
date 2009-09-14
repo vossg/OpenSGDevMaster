@@ -240,8 +240,8 @@ int doMain(int argc, char **argv)
     OSG::GradientBackgroundUnrecPtr gback = OSG::GradientBackground::create();
 
     gback->clearLines();
-    gback->addLine(OSG::Color3f(0.7, 0.7, 0.8), 0);
-    gback->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
+    gback->addLine(OSG::Color3f(0.7f, 0.7f, 0.8f), 0);
+    gback->addLine(OSG::Color3f(0.0f, 0.1f, 0.3f), 1);
 
     OSG::Window *win = _mgr->getWindow();
 

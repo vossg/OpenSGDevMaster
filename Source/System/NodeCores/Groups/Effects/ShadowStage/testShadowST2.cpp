@@ -133,13 +133,13 @@ int doMain(int argc, char **argv)
             (&point1_trans);
         point1_trans->editMatrix().setTranslate(0.0, 0.0, 100.0);
 
-        _point1_core->setAmbient(0.15, 0.15, 0.15, 1);
-        _point1_core->setDiffuse(0.4, 0.4, 0.4, 1);
-        _point1_core->setSpecular(0.0, 0.0, 0.0, 1);
+        _point1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        _point1_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        _point1_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
         _point1_core->setBeacon(point1_beacon);
         _point1_core->setOn(true);
-        _point1_core->setShadowIntensity(0.7);
-        _point1_core->setDirection(0.4, 0.2, 0.8);
+        _point1_core->setShadowIntensity(0.7f);
+        _point1_core->setDirection(0.4f, 0.2f, 0.8f);
 
         OSG::TransformUnrecPtr        point2_trans;
         point2 = OSG::makeCoredNode<OSG::PointLight>(&_point2_core);
@@ -147,12 +147,12 @@ int doMain(int argc, char **argv)
             (&point2_trans);
         point2_trans->editMatrix().setTranslate(20.0, -30.0, 100.0);
 
-        _point2_core->setAmbient(0.15, 0.15, 0.15, 1);
-        _point2_core->setDiffuse(0.4, 0.4, 0.4, 1);
-        _point2_core->setSpecular(0.0, 0.0, 0.0, 1);
+        _point2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        _point2_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        _point2_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
         _point2_core->setBeacon(point2_beacon);
         _point2_core->setOn(true);
-        _point2_core->setShadowIntensity(0.7);
+        _point2_core->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point3_trans;
         point3 = OSG::makeCoredNode<OSG::PointLight>(&_point3_core);
@@ -160,12 +160,12 @@ int doMain(int argc, char **argv)
             (&point3_trans);
         point3_trans->editMatrix().setTranslate(10.0, -15.0, 100.0);
 
-        _point3_core->setAmbient(0.15, 0.15, 0.15, 1);
-        _point3_core->setDiffuse(0.4, 0.4, 0.4, 1);
-        _point3_core->setSpecular(0.0, 0.0, 0.0, 1);
+        _point3_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        _point3_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        _point3_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
         _point3_core->setBeacon(point3_beacon);
         _point3_core->setOn(true);
-        _point3_core->setShadowIntensity(0.7);
+        _point3_core->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point4_trans;
         point4 = OSG::makeCoredNode<OSG::PointLight>(&_point4_core);
@@ -173,12 +173,12 @@ int doMain(int argc, char **argv)
             (&point4_trans);
         point4_trans->editMatrix().setTranslate(35.0, -45.0, 100.0);
 
-        _point4_core->setAmbient(0.15, 0.15, 0.15, 1);
-        _point4_core->setDiffuse(0.4, 0.4, 0.4, 1);
-        _point4_core->setSpecular(0.0, 0.0, 0.0, 1);
+        _point4_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        _point4_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        _point4_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
         _point4_core->setBeacon(point4_beacon);
         _point4_core->setOn(true);
-        _point4_core->setShadowIntensity(0.7);
+        _point4_core->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point5_trans;
         point5 = OSG::makeCoredNode<OSG::PointLight>(&_point5_core);
@@ -186,12 +186,12 @@ int doMain(int argc, char **argv)
             (&point5_trans);
         point5_trans->editMatrix().setTranslate(40.0, -60.0, 100.0);
 
-        _point5_core->setAmbient(0.15, 0.15, 0.15, 1);
-        _point5_core->setDiffuse(0.4, 0.4, 0.4, 1);
-        _point5_core->setSpecular(0.0, 0.0, 0.0, 1);
+        _point5_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        _point5_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        _point5_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
         _point5_core->setBeacon(point5_beacon);
         _point5_core->setOn(true);
-        _point5_core->setShadowIntensity(0.7);
+        _point5_core->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point6_trans;
         point6 = OSG::makeCoredNode<OSG::PointLight>(&_point6_core);
@@ -199,12 +199,12 @@ int doMain(int argc, char **argv)
             (&point6_trans);
         point6_trans->editMatrix().setTranslate(17.0, -55.0, 100.0);
 
-        _point6_core->setAmbient(0.15, 0.15, 0.15, 1);
-        _point6_core->setDiffuse(0.4, 0.4, 0.4, 1);
-        _point6_core->setSpecular(0.0, 0.0, 0.0, 1);
+        _point6_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        _point6_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        _point6_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
         _point6_core->setBeacon(point6_beacon);
         _point6_core->setOn(true);
-        _point6_core->setShadowIntensity(0.7);
+        _point6_core->setShadowIntensity(0.7f);
 
         OSG::TransformUnrecPtr        point7_trans;
         point7 = OSG::makeCoredNode<OSG::PointLight>(&_point7_core);
@@ -212,12 +212,12 @@ int doMain(int argc, char **argv)
             (&point7_trans);
         point7_trans->editMatrix().setTranslate(5.0, -42.0, 100.0);
 
-        _point7_core->setAmbient(0.15, 0.15, 0.15, 1);
-        _point7_core->setDiffuse(0.4, 0.4, 0.4, 1);
-        _point7_core->setSpecular(0.0, 0.0, 0.0, 1);
+        _point7_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+        _point7_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
+        _point7_core->setSpecular(0.0f, 0.0f, 0.0f, 1);
         _point7_core->setBeacon(point7_beacon);
         _point7_core->setOn(true);
-        _point7_core->setShadowIntensity(0.7);
+        _point7_core->setShadowIntensity(0.7f);
 
         point1->addChild(point2);
 
@@ -255,8 +255,8 @@ int doMain(int argc, char **argv)
         plane_tex_env->setEnvMode(GL_MODULATE);
 
         OSG::SimpleMaterialUnrecPtr   plane_mat = OSG::SimpleMaterial::create();
-        plane_mat->setAmbient(OSG::Color3f(0.3, 0.3, 0.3));
-        plane_mat->setDiffuse(OSG::Color3f(1.0, 1.0, 1.0));
+        plane_mat->setAmbient(OSG::Color3f(0.3f, 0.3f, 0.3f));
+        plane_mat->setDiffuse(OSG::Color3f(1.0f, 1.0f, 1.0f));
         plane_mat->addChunk(plane_tex_obj);
         plane_mat->addChunk(plane_tex_env);
 
@@ -267,7 +267,7 @@ int doMain(int argc, char **argv)
         OSG::NodeUnrecPtr             box_trans_node = OSG::makeCoredNode<OSG::Transform>
             (&_box_trans);
         _box_trans->editMatrix().setTranslate(0.0, 0.0, 2.0);
-        OSG::NodeUnrecPtr             box = OSG::makeBox(8.0, 8.0, 0.8, 10, 10, 10);
+        OSG::NodeUnrecPtr             box = OSG::makeBox(8.0f, 8.0f, 0.8f, 10, 10, 10);
         box_trans_node->addChild(box);
 
         OSG::SimpleMaterialUnrecPtr   box_mat = OSG::SimpleMaterial::create();
@@ -287,7 +287,7 @@ int doMain(int argc, char **argv)
         _cylinder1_trans->editMatrix().setRotate(q);
         _cylinder1_trans->editMatrix().setTranslate(0.0, 0.0, 5.0);
 
-        OSG::NodeUnrecPtr             cylinder1 = OSG::makeCylinder(30.0, 0.9, 32, true,
+        OSG::NodeUnrecPtr             cylinder1 = OSG::makeCylinder(30.0f, 0.9f, 32, true,
                                                           true, true);
         cylinder1_trans_node->addChild(cylinder1);
 
@@ -341,8 +341,8 @@ int doMain(int argc, char **argv)
  #endif
 
         _point1_core->setOn(true);
-        _point1_core->setAmbient(0.3, 0.3, 0.3, 1);
-        _point1_core->setDiffuse(0.8, 0.8, 0.8, 1);
+        _point1_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
+        _point1_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
 
     }
     else
@@ -361,8 +361,8 @@ int doMain(int argc, char **argv)
     OSG::GradientBackgroundUnrecPtr   gbg = OSG::GradientBackground::create();
     OSG::SolidBackgroundUnrecPtr      sbg = OSG::SolidBackground::create();
 
-    gbg->addLine(OSG::Color3f(0.7, 0.7, 0.8), 0);
-    gbg->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
+    gbg->addLine(OSG::Color3f(0.7f, 0.7f, 0.8f), 0);
+    gbg->addLine(OSG::Color3f(0.0f, 0.1f, 0.3f), 1);
 
     rootNode->setCore(svp);
 
@@ -574,8 +574,8 @@ void keyboard(unsigned char k, int x, int y)
                 if(useStandardScene)
                 {
                     _point1_core->setOn(true);
-                    _point1_core->setAmbient(0.3, 0.3, 0.3, 1);
-                    _point1_core->setDiffuse(0.8, 0.8, 0.8, 1);
+                    _point1_core->setAmbient(0.3f, 0.3f, 0.3f, 1);
+                    _point1_core->setDiffuse(0.8f, 0.8f, 0.8f, 1);
 
                     _point2_core->setOn(false);
 
@@ -596,12 +596,12 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.15, 0.15, 0.15, 1);
-                    _point1_core->setDiffuse(0.4, 0.4, 0.4, 1);
+                    _point1_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                    _point1_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
                     _point1_core->setOn(true);
 
-                    _point2_core->setAmbient(0.15, 0.15, 0.15, 1);
-                    _point2_core->setDiffuse(0.4, 0.4, 0.4, 1);
+                    _point2_core->setAmbient(0.15f, 0.15f, 0.15f, 1);
+                    _point2_core->setDiffuse(0.4f, 0.4f, 0.4f, 1);
                     _point2_core->setOn(true);
 
                     _point3_core->setOn(false);
@@ -621,21 +621,21 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3 / 3.0, 0.3 / 3.0, 0.3 / 3.0,
+                    _point1_core->setAmbient(0.3f / 3.0f, 0.3f / 3.0f, 0.3f / 3.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8 / 3.0, 0.8 / 3.0, 0.8 / 3.0,
+                    _point1_core->setDiffuse(0.8f / 3.0f, 0.8f / 3.0f, 0.8f / 3.0f,
                                              1);
                     _point1_core->setOn(true);
 
-                    _point2_core->setAmbient(0.3 / 3.0, 0.3 / 3.0, 0.3 / 3.0,
+                    _point2_core->setAmbient(0.3f / 3.0f, 0.3f / 3.0f, 0.3f / 3.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8 / 3.0, 0.8 / 3.0, 0.8 / 3.0,
+                    _point2_core->setDiffuse(0.8f / 3.0f, 0.8f / 3.0f, 0.8f / 3.0f,
                                              1);
                     _point2_core->setOn(true);
 
-                    _point3_core->setAmbient(0.3 / 3.0, 0.3 / 3.0, 0.3 / 3.0,
+                    _point3_core->setAmbient(0.3f / 3.0f, 0.3f / 3.0f, 0.3f / 3.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8 / 3.0, 0.8 / 3.0, 0.8 / 3.0,
+                    _point3_core->setDiffuse(0.8f / 3.0f, 0.8f / 3.0f, 0.8f / 3.0f,
                                              1);
                     _point3_core->setOn(true);
 
@@ -654,28 +654,28 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3 / 4.0, 0.3 / 4.0, 0.3 / 4.0,
+                    _point1_core->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8 / 4.0, 0.8 / 4.0, 0.8 / 4.0,
+                    _point1_core->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
                                              1);
                     _point1_core->setOn(true);
 
-                    _point2_core->setAmbient(0.3 / 4.0, 0.3 / 4.0, 0.3 / 4.0,
+                    _point2_core->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8 / 4.0, 0.8 / 4.0, 0.8 / 4.0,
+                    _point2_core->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
                                              1);
                     _point2_core->setOn(true);
 
-                    _point3_core->setAmbient(0.3 / 4.0, 0.3 / 4.0, 0.3 / 4.0,
+                    _point3_core->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8 / 4.0, 0.8 / 4.0, 0.8 / 4.0,
+                    _point3_core->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
                                              1);
                     _point3_core->setOn(true);
 
                     _point4_core->setOn(true);
-                    _point4_core->setAmbient(0.3 / 4.0, 0.3 / 4.0, 0.3 / 4.0,
+                    _point4_core->setAmbient(0.3f / 4.0f, 0.3f / 4.0f, 0.3f / 4.0f,
                                              1);
-                    _point4_core->setDiffuse(0.8 / 4.0, 0.8 / 4.0, 0.8 / 4.0,
+                    _point4_core->setDiffuse(0.8f / 4.0f, 0.8f / 4.0f, 0.8f / 4.0f,
                                              1);
 
                     _point5_core->setOn(false);
@@ -691,34 +691,34 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3 / 5.0, 0.3 / 5.0, 0.3 / 5.0,
+                    _point1_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8 / 5.0, 0.8 / 5.0, 0.8 / 5.0,
+                    _point1_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
                                              1);
                     _point1_core->setOn(true);
 
-                    _point2_core->setAmbient(0.3 / 5.0, 0.3 / 5.0, 0.3 / 5.0,
+                    _point2_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8 / 5.0, 0.8 / 5.0, 0.8 / 5.0,
+                    _point2_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
                                              1);
                     _point2_core->setOn(true);
 
-                    _point3_core->setAmbient(0.3 / 5.0, 0.3 / 5.0, 0.3 / 5.0,
+                    _point3_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8 / 5.0, 0.8 / 5.0, 0.8 / 5.0,
+                    _point3_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
                                              1);
                     _point3_core->setOn(true);
 
                     _point4_core->setOn(true);
-                    _point4_core->setAmbient(0.3 / 5.0, 0.3 / 5.0, 0.3 / 5.0,
+                    _point4_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
                                              1);
-                    _point4_core->setDiffuse(0.8 / 5.0, 0.8 / 5.0, 0.8 / 5.0,
+                    _point4_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
                                              1);
 
                     _point5_core->setOn(true);
-                    _point5_core->setAmbient(0.3 / 5.0, 0.3 / 5.0, 0.3 / 5.0,
+                    _point5_core->setAmbient(0.3f / 5.0f, 0.3f / 5.0f, 0.3f / 5.0f,
                                              1);
-                    _point5_core->setDiffuse(0.8 / 5.0, 0.8 / 5.0, 0.8 / 5.0,
+                    _point5_core->setDiffuse(0.8f / 5.0f, 0.8f / 5.0f, 0.8f / 5.0f,
                                              1);
 
                     _point6_core->setOn(false);
@@ -732,40 +732,40 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3 / 6.0, 0.3 / 6.0, 0.3 / 6.0,
+                    _point1_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8 / 6.0, 0.8 / 6.0, 0.8 / 6.0,
+                    _point1_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
                     _point1_core->setOn(true);
 
-                    _point2_core->setAmbient(0.3 / 6.0, 0.3 / 6.0, 0.3 / 6.0,
+                    _point2_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8 / 6.0, 0.8 / 6.0, 0.8 / 6.0,
+                    _point2_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
                     _point2_core->setOn(true);
 
-                    _point3_core->setAmbient(0.3 / 6.0, 0.3 / 6.0, 0.3 / 6.0,
+                    _point3_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8 / 6.0, 0.8 / 6.0, 0.8 / 6.0,
+                    _point3_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
                     _point3_core->setOn(true);
 
                     _point4_core->setOn(true);
-                    _point4_core->setAmbient(0.3 / 6.0, 0.3 / 6.0, 0.3 / 6.0,
+                    _point4_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point4_core->setDiffuse(0.8 / 6.0, 0.8 / 6.0, 0.8 / 6.0,
+                    _point4_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
 
                     _point5_core->setOn(true);
-                    _point5_core->setAmbient(0.3 / 6.0, 0.3 / 6.0, 0.3 / 6.0,
+                    _point5_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point5_core->setDiffuse(0.8 / 6.0, 0.8 / 6.0, 0.8 / 6.0,
+                    _point5_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
 
                     _point6_core->setOn(true);
-                    _point6_core->setAmbient(0.3 / 6.0, 0.3 / 6.0, 0.3 / 6.0,
+                    _point6_core->setAmbient(0.3f / 6.0f, 0.3f / 6.0f, 0.3f / 6.0f,
                                              1);
-                    _point6_core->setDiffuse(0.8 / 6.0, 0.8 / 6.0, 0.8 / 6.0,
+                    _point6_core->setDiffuse(0.8f / 6.0f, 0.8f / 6.0f, 0.8f / 6.0f,
                                              1);
 
                     _point7_core->setOn(false);
@@ -777,46 +777,46 @@ void keyboard(unsigned char k, int x, int y)
             {
                 if(useStandardScene)
                 {
-                    _point1_core->setAmbient(0.3 / 7.0, 0.3 / 7.0, 0.3 / 7.0,
+                    _point1_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point1_core->setDiffuse(0.8 / 7.0, 0.8 / 7.0, 0.8 / 7.0,
+                    _point1_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
                     _point1_core->setOn(true);
 
-                    _point2_core->setAmbient(0.3 / 7.0, 0.3 / 7.0, 0.3 / 7.0,
+                    _point2_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point2_core->setDiffuse(0.8 / 7.0, 0.8 / 7.0, 0.8 / 7.0,
+                    _point2_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
                     _point2_core->setOn(true);
 
-                    _point3_core->setAmbient(0.3 / 7.0, 0.3 / 7.0, 0.3 / 7.0,
+                    _point3_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point3_core->setDiffuse(0.8 / 7.0, 0.8 / 7.0, 0.8 / 7.0,
+                    _point3_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
                     _point3_core->setOn(true);
 
                     _point4_core->setOn(true);
-                    _point4_core->setAmbient(0.3 / 7.0, 0.3 / 7.0, 0.3 / 7.0,
+                    _point4_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point4_core->setDiffuse(0.8 / 7.0, 0.8 / 7.0, 0.8 / 7.0,
+                    _point4_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
 
                     _point5_core->setOn(true);
-                    _point5_core->setAmbient(0.3 / 7.0, 0.3 / 7.0, 0.3 / 7.0,
+                    _point5_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point5_core->setDiffuse(0.8 / 7.0, 0.8 / 7.0, 0.8 / 7.0,
+                    _point5_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
 
                     _point6_core->setOn(true);
-                    _point6_core->setAmbient(0.3 / 7.0, 0.3 / 7.0, 0.3 / 7.0,
+                    _point6_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point6_core->setDiffuse(0.8 / 7.0, 0.8 / 7.0, 0.8 / 7.0,
+                    _point6_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
 
                     _point7_core->setOn(true);
-                    _point7_core->setAmbient(0.3 / 7.0, 0.3 / 7.0, 0.3 / 7.0,
+                    _point7_core->setAmbient(0.3f / 7.0f, 0.3f / 7.0f, 0.3f / 7.0f,
                                              1);
-                    _point7_core->setDiffuse(0.8 / 7.0, 0.8 / 7.0, 0.8 / 7.0,
+                    _point7_core->setDiffuse(0.8f / 7.0f, 0.8f / 7.0f, 0.8f / 7.0f,
                                              1);
                 }
                 break;
@@ -861,7 +861,7 @@ void keyboard(unsigned char k, int x, int y)
         case '6':
             {
                 svp->setShadowMode(OSG::ShadowStage::PCSS_SHADOW_MAP);
-                svp->setShadowSmoothness(0.2);
+                svp->setShadowSmoothness(0.2f);
                 SLOG << "PCSS_SHADOW_MAP" << std::endl;
                 break;
             }

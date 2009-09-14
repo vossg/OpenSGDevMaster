@@ -119,9 +119,9 @@ int main(int argc, char **argv)
         
         point1_trans->editMatrix().setTranslate(0.0, 0.0, 15.0);
         
-        globals->point1_core->setAmbient(0.15,0.15,0.15,1);
-        globals->point1_core->setDiffuse(0.4,0.4,0.4,1);
-        globals->point1_core->setSpecular(0.0,0.0,0.0,1);
+        globals->point1_core->setAmbient(0.15f,0.15f,0.15f,1);
+        globals->point1_core->setDiffuse(0.4f,0.4f,0.4f,1);
+        globals->point1_core->setSpecular(0.0f,0.0f,0.0f,1);
         globals->point1_core->setBeacon(point1_beacon);
         globals->point1_core->setOn(true);
         
@@ -131,9 +131,9 @@ int main(int argc, char **argv)
         
         point2_trans->editMatrix().setTranslate(2.5, 2.5, 15.0);
         
-        globals->point2_core->setAmbient(0.15,0.15,0.15,1);
-        globals->point2_core->setDiffuse(0.4,0.4,0.4,1);
-        globals->point2_core->setSpecular(0.0,0.0,0.0,1);
+        globals->point2_core->setAmbient(0.15f,0.15f,0.15f,1);
+        globals->point2_core->setDiffuse(0.4f,0.4f,0.4f,1);
+        globals->point2_core->setSpecular(0.0f,0.0f,0.0f,1);
         globals->point2_core->setBeacon(point2_beacon);
         globals->point2_core->setOn(true);
         
@@ -161,8 +161,8 @@ int main(int argc, char **argv)
         plane_tex_env->setEnvMode(GL_MODULATE);
     
         OSG::SimpleMaterialRefPtr plane_mat = OSG::SimpleMaterial::create();
-        plane_mat->setAmbient(OSG::Color3f(0.3,0.3,0.3));
-        plane_mat->setDiffuse(OSG::Color3f(1.0,1.0,1.0));
+        plane_mat->setAmbient(OSG::Color3f(0.3f,0.3f,0.3f));
+        plane_mat->setDiffuse(OSG::Color3f(1.0f,1.0f,1.0f));
         plane_mat->addChunk(plane_tex);
         plane_mat->addChunk(plane_tex_env);
     
@@ -173,12 +173,12 @@ int main(int argc, char **argv)
         OSG::NodeRefPtr box_trans_node = OSG::makeCoredNode<OSG::Transform>(&globals->box_trans);
         globals->box_trans->editMatrix().setTranslate(0.0, 0.0, 2.0);
         
-        OSG::NodeRefPtr box = OSG::makeBox(8.0, 8.0, 0.8, 10, 10 , 10);
+        OSG::NodeRefPtr box = OSG::makeBox(8.0f, 8.0f, 0.8f, 10, 10 , 10);
         box_trans_node->addChild(box);
     
         OSG::SimpleMaterialRefPtr box_mat = OSG::SimpleMaterial::create();
-        box_mat->setAmbient(OSG::Color3f(0.0,0.0,0.0));
-        box_mat->setDiffuse(OSG::Color3f(0.0,0.0,1.0));
+        box_mat->setAmbient(OSG::Color3f(0.0f,0.0f,0.0f));
+        box_mat->setDiffuse(OSG::Color3f(0.0f,0.0f,1.0f));
     
         OSG::GeometryRefPtr box_geo = dynamic_cast<OSG::Geometry *>(box->getCore());
         box_geo->setMaterial(box_mat);
@@ -187,7 +187,7 @@ int main(int argc, char **argv)
         OSG::NodeRefPtr cylinder1_trans_node = OSG::makeCoredNode<OSG::Transform>(&globals->cylinder1_trans);
         globals->cylinder1_trans->editMatrix().setTranslate(0.0, 0.0, 5.0);
         
-        OSG::NodeRefPtr cylinder1 = OSG::makeCylinder(10.0, 0.4, 32, true, true ,true);
+        OSG::NodeRefPtr cylinder1 = OSG::makeCylinder(10.0f, 0.4f, 32, true, true ,true);
         cylinder1_trans_node->addChild(cylinder1);
         
         OSG::SimpleMaterialRefPtr cylinder1_mat = OSG::SimpleMaterial::create();
@@ -201,7 +201,7 @@ int main(int argc, char **argv)
         OSG::NodeRefPtr cylinder2_trans_node = OSG::makeCoredNode<OSG::Transform>(&globals->cylinder2_trans);
         globals->cylinder2_trans->editMatrix().setTranslate(0.0, 0.0, 8.0);
         
-        OSG::NodeRefPtr cylinder2 = OSG::makeCylinder(10.0, 0.4, 32, true, true ,true);
+        OSG::NodeRefPtr cylinder2 = OSG::makeCylinder(10.0f, 0.4f, 32, true, true ,true);
         cylinder2_trans_node->addChild(cylinder2);
         
         OSG::SimpleMaterialRefPtr cylinder2_mat = OSG::SimpleMaterial::create();
@@ -240,7 +240,7 @@ int main(int argc, char **argv)
         
         ssme1->setWidth (SM_RESOLUTION);
         ssme1->setHeight(SM_RESOLUTION);
-        ssme1->setShadowColor(OSG::Color4f(0.1, 0.1, 0.1, 1.0));
+        ssme1->setShadowColor(OSG::Color4f(0.1f, 0.1f, 0.1f, 1.0f));
         
         ssme2->setWidth (SM_RESOLUTION);
         ssme2->setHeight(SM_RESOLUTION);
@@ -353,8 +353,8 @@ void keyboard(unsigned char k, int x, int y)
         case '1':
         {
             globals->point1_core->setOn(true);
-            globals->point1_core->setAmbient(0.3,0.3,0.3,1);
-            globals->point1_core->setDiffuse(0.8,0.8,0.8,1);
+            globals->point1_core->setAmbient(0.3f,0.3f,0.3f,1);
+            globals->point1_core->setDiffuse(0.8f,0.8f,0.8f,1);
 
             globals->point2_core->setOn(false);
             break;
@@ -362,12 +362,12 @@ void keyboard(unsigned char k, int x, int y)
 
         case '2':
         {
-            globals->point1_core->setAmbient(0.15,0.15,0.15,1);
-            globals->point1_core->setDiffuse(0.4,0.4,0.4,1);
+            globals->point1_core->setAmbient(0.15f,0.15f,0.15f,1);
+            globals->point1_core->setDiffuse(0.4f,0.4f,0.4f,1);
             globals->point1_core->setOn(true);
 
-            globals->point2_core->setAmbient(0.15,0.15,0.15,1);
-            globals->point2_core->setDiffuse(0.4,0.4,0.4,1);
+            globals->point2_core->setAmbient(0.15f,0.15f,0.15f,1);
+            globals->point2_core->setDiffuse(0.4f,0.4f,0.4f,1);
             globals->point2_core->setOn(true);
             break;
         }

@@ -198,7 +198,7 @@ int main(int argc, char **argv)
             scene = OSG::makeNodeFor(OSG::Group::create());
     
             scene->addChild(OSG::makeTorus(.5, 2, 16, 16));
-            scene->addChild(OSG::makeCylinder(1, .3, 8, true, true, true));
+            scene->addChild(OSG::makeCylinder(1, .3f, 8, true, true, true));
         }
         
         // create the SimpleSceneManager helper

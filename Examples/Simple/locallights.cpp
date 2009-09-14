@@ -88,7 +88,7 @@ int main(int argc, char **argv)
             OSG::makeCoredNode<OSG::PointLight>(&light1_core);
         light1_core->setAmbient(0.0,0.0,0.0,1);
         light1_core->setDiffuse(1.0,0.0,0.0,1);
-        light1_core->setSpecular(0.8,0.8,0.8,1);
+        light1_core->setSpecular(0.8f,0.8f,0.8f,1);
         light1_core->setBeacon(light_beacon);
         light1_core->setOn(true);
     
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
             OSG::makeCoredNode<OSG::PointLight>(&light2_core);
         light2_core->setAmbient(0.0,0.0,0.0,1);
         light2_core->setDiffuse(0.0,1.0,0.0,1);
-        light2_core->setSpecular(0.8,0.8,0.8,1);
+        light2_core->setSpecular(0.8f,0.8f,0.8f,1);
         light2_core->setBeacon(light_beacon);
         light2_core->setOn(true);
         
@@ -108,7 +108,7 @@ int main(int argc, char **argv)
             OSG::makeCoredNode<OSG::PointLight>(&light3_core);
         light3_core->setAmbient(0.0,0.0,0.0,1);
         light3_core->setDiffuse(0.0,0.0,1.0,1);
-        light3_core->setSpecular(0.8,0.8,0.8,1);
+        light3_core->setSpecular(0.8f,0.8f,0.8f,1);
         light3_core->setBeacon(light_beacon);
         light3_core->setOn(true);
     

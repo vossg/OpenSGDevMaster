@@ -218,9 +218,9 @@ int doMain(int argc, char **argv)
 
     OSG::MaterialChunkUnrecPtr matc = OSG::MaterialChunk::create();
 
-    matc->setAmbient(OSG::Color4f(0.1, 0.1, 0.1, 1.0));
-    matc->setDiffuse(OSG::Color4f(0.3, 0.3, 0.3, 1.0));
-    matc->setSpecular(OSG::Color4f(0.8, 0.8, 0.8, 1.0));
+    matc->setAmbient(OSG::Color4f(0.1f, 0.1f, 0.1f, 1.0f));
+    matc->setDiffuse(OSG::Color4f(0.3f, 0.3f, 0.3f, 1.0f));
+    matc->setSpecular(OSG::Color4f(0.8f, 0.8f, 0.8f, 1.0f));
     matc->setShininess(100);
     matc->setLit(true);
 

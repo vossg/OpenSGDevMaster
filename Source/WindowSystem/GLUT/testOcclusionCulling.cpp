@@ -424,7 +424,7 @@ void keyboard(unsigned char k, int, int)
         case 'C':
         {
             OSG::Real32 cov = tact->getOcclusionCullingCoveredThreshold();
-            cov+=0.1;
+            cov+=0.1f;
             tact->setOcclusionCullingCoveredThreshold(cov);
             std::cout << "Covered Threshold now: " << cov << std::endl;
         }
@@ -433,7 +433,7 @@ void keyboard(unsigned char k, int, int)
         case 'c':
         {
             OSG::Real32 cov1 = tact->getOcclusionCullingCoveredThreshold();
-            cov1-=0.1;
+            cov1-=0.1f;
             tact->setOcclusionCullingCoveredThreshold(cov1);
             std::cout << "Covered Threshold now: " << cov1 << std::endl;
         }
@@ -554,7 +554,7 @@ void keyboard(unsigned char k, int, int)
         case 'P':
         {
             OSG::Real32 cover = tact->getScreenLODCoverageThreshold();
-            cover+=0.001;
+            cover+=0.001f;
             tact->setScreenLODCoverageThreshold(cover);
             std::cout << "ScreenLOD Coverage Threshold now: " << cover << std::endl;
         }
@@ -563,7 +563,7 @@ void keyboard(unsigned char k, int, int)
         case 'p':
         {
             OSG::Real32 covera = tact->getScreenLODCoverageThreshold();
-            covera-=0.001;
+            covera-=0.001f;
             tact->setScreenLODCoverageThreshold(covera);
             std::cout << "ScreenLOD Coverage Threshold now: " << covera << std::endl;
         }
@@ -572,7 +572,7 @@ void keyboard(unsigned char k, int, int)
         case 'D':
         {
             OSG::Real32 user_dega = tact->getScreenLODDegradationFactor();
-            user_dega+=0.01;
+            user_dega+=0.01f;
             tact->setScreenLODDegradationFactor(user_dega);
             std::cout << "ScreenLOD User Degradation Factor now: " << user_dega << std::endl;
         }
@@ -581,7 +581,7 @@ void keyboard(unsigned char k, int, int)
         case 'd':
         {
             OSG::Real32 user_deg = tact->getScreenLODDegradationFactor();
-            user_deg-=0.01;
+            user_deg-=0.01f;
             tact->setScreenLODDegradationFactor(user_deg);
             std::cout << "ScreenLOD User Degradation Factor now: " << user_deg << std::endl;
         }
@@ -785,7 +785,7 @@ int main(int argc, char **argv)
     statfg = OSG::SimpleStatisticsForeground::create();
     
     statfg->setSize(25);
-    statfg->setColor(OSG::Color4f(0,1,0,0.7));
+    statfg->setColor(OSG::Color4f(0,1,0,0.7f));
 
     statfg->addElement(OSG::RenderAction::statDrawTime, 
                        "Draw FPS: %r.3f");

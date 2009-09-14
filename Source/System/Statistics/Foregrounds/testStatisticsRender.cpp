@@ -304,7 +304,7 @@ int main(int argc, char **argv)
         statfg = OSG::SimpleStatisticsForeground::create();
 
         statfg->setSize(25);
-        statfg->setColor(OSG::Color4f(0,1,0,0.7));
+        statfg->setColor(OSG::Color4f(0,1,0,0.7f));
 
     #if 0
         statfg->addElement(RenderAction::statDrawTime, "Draw FPS: %r.3f");

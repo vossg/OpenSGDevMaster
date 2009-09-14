@@ -221,7 +221,7 @@ int main(int argc, char **argv)
                     l->setQuadraticAttenuation (3);
                     
                     // a little sphere to show where the light is
-                    geo_node = OSG::makeLatLongSphere(8, 8, 0.1);
+                    geo_node = OSG::makeLatLongSphere(8, 8, 0.1f);
     
                     OSG::GeometryRefPtr       geo =
                         dynamic_cast<OSG::Geometry *>(geo_node->getCore());
@@ -258,7 +258,7 @@ int main(int argc, char **argv)
                     l->setDirection(0, 0, 1);
                     
                     // a little cylinder to show where the light is
-                    geo_node = OSG::makeCylinder(.1, .03, 8, true, true, true);
+                    geo_node = OSG::makeCylinder(.1f, .03f, 8, true, true, true);
     
                     OSG::GeometryRefPtr       geo =
                         dynamic_cast<OSG::Geometry *>(geo_node->getCore());
@@ -297,7 +297,7 @@ int main(int argc, char **argv)
                     l->setQuadraticAttenuation (3);
                     
                     // a little cone to show where the light is
-                    geo_node = OSG::makeCone(.2, .2, 8, true, true);
+                    geo_node = OSG::makeCone(.2f, .2f, 8, true, true);
     
                     OSG::GeometryRefPtr       geo =
                         dynamic_cast<OSG::Geometry *>(geo_node->getCore());

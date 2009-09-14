@@ -104,10 +104,10 @@ void setupDefaultTexture( void );
 void setupDefaultMaterial( void )
 {
     gpcl_defaultmat = OSG::SimpleMaterial::create();
-    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0,0.0,0.0) ); // RED
-    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2,0.2,0.2) );
-    gpcl_defaultmat->setEmission( OSG::Color3f(0.02,0.02,0.02) );
-    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78,0.78,0.78) );
+    gpcl_defaultmat->setDiffuse( OSG::Color3f(1.0f,0.0f,0.0f) ); // RED
+    gpcl_defaultmat->setAmbient( OSG::Color3f(0.2f,0.2f,0.2f) );
+    gpcl_defaultmat->setEmission( OSG::Color3f(0.02f,0.02f,0.02f) );
+    gpcl_defaultmat->setSpecular( OSG::Color3f(0.78f,0.78f,0.78f) );
     gpcl_defaultmat->setShininess( 128 );
 
     OSG::TextureObjChunkRefPtr xchunk_obj = OSG::TextureObjChunk::create();
@@ -156,24 +156,24 @@ OSG::NodeTransitPtr makeScene( void )
 
     // texture coordinates for the control points, always 2D
     texcps->clear();
-    texcps->push_back( OSG::Vec2f( 0.0006078289457852043, 
-                                   0.03890105253025306) );
-    texcps->push_back( OSG::Vec2f( 0.0003687335542147959, 
-                                   0.2993150529249993) );
-    texcps->push_back( OSG::Vec2f( 0.000607828945785204,  
-                                   0.5597290533197458) );
-    texcps->push_back( OSG::Vec2f( 0.004676797701953115,  
-                                   0.02359894746974695) );
-    texcps->push_back( OSG::Vec2f( 0.004676797701953117,  
-                                   0.2993150529249994) );
-    texcps->push_back( OSG::Vec2f( 0.004676797701953115, 
-                                   0.575031158380252) );
-    texcps->push_back( OSG::Vec2f( 0.008745766458121028,  
-                                   0.03890105253025303) );
-    texcps->push_back( OSG::Vec2f( 0.008984861849691437,  
-                                   0.2993150529249993) );
-    texcps->push_back( OSG::Vec2f( 0.008745766458121028,  
-                                   0.5597290533197458) );
+    texcps->push_back( OSG::Vec2f( 0.0006078289457852043f, 
+                                   0.03890105253025306f) );
+    texcps->push_back( OSG::Vec2f( 0.0003687335542147959f, 
+                                   0.2993150529249993f) );
+    texcps->push_back( OSG::Vec2f( 0.000607828945785204f,  
+                                   0.5597290533197458f) );
+    texcps->push_back( OSG::Vec2f( 0.004676797701953115f,  
+                                   0.02359894746974695f) );
+    texcps->push_back( OSG::Vec2f( 0.004676797701953117f,  
+                                   0.2993150529249994f) );
+    texcps->push_back( OSG::Vec2f( 0.004676797701953115f, 
+                                   0.575031158380252f) );
+    texcps->push_back( OSG::Vec2f( 0.008745766458121028f,  
+                                   0.03890105253025303f) );
+    texcps->push_back( OSG::Vec2f( 0.008984861849691437f,  
+                                   0.2993150529249993f) );
+    texcps->push_back( OSG::Vec2f( 0.008745766458121028f,  
+                                   0.5597290533197458f) );
 
     // we have no trimming, so just remove any curves that might be present
     // (Note that a dummy trimming will be added to the internal representation)
@@ -216,7 +216,7 @@ OSG::NodeTransitPtr makeScene( void )
 
 int main(int argc, char **argv)
 {
-    g_error = 0.001;
+    g_error = 0.001f;
 
     if ( argc == 2 )
     {
@@ -224,7 +224,7 @@ int main(int argc, char **argv)
     }
     if ( g_error < 0.001 )
     {
-        g_error = 0.001;
+        g_error = 0.001f;
     }
     
     OSG::osgInit(argc,argv);
@@ -268,7 +268,7 @@ int main(int argc, char **argv)
         mgr->showAll();
         mgr->redraw();
         OSG::SolidBackgroundRefPtr bgr = OSG::SolidBackground::create();
-        bgr->setColor( OSG::Color3f( 0.7, 0.7, 0.7 ));
+        bgr->setColor( OSG::Color3f( 0.7f, 0.7f, 0.7f ));
         mgr->getWindow()->getPort(0)->setBackground( bgr );
     }
     

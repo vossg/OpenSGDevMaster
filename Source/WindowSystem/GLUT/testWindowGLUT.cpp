@@ -376,7 +376,7 @@ int init(int argc, char **argv)
 //    dlight->setCore( Group::create() );
     
     dl->setAmbient( .0, .0, .0, 1 );
-    dl->setDiffuse( .8, .8, .8, 1. );
+    dl->setDiffuse( .8f, .8f, .8f, 1.f );
     dl->setDirection(0,0,1);
     dl->setBeacon( b1n);
 
@@ -492,7 +492,7 @@ int init(int argc, char **argv)
 
     cam->setBeacon( b1n );
     cam->setFov( OSG::osgDegree2Rad( 90 ) );
-    cam->setNear( 0.1 );
+    cam->setNear( 0.1f );
     cam->setFar( 100000 );
 
     // Background

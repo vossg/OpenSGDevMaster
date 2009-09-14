@@ -191,7 +191,7 @@ void display(void)
         }
     }
     
-    catch(OSG_STDEXCEPTION_NAMESPACE::exception &e)
+    catch(OSG_STDEXCEPTION_NAMESPACE::exception &)
     {
         //printf("error: '%s'\n", e.what());
         printf("ClusterServer was killed!\n");

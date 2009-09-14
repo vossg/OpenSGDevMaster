@@ -15,6 +15,8 @@ SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGDrawable
                                      OSGUtil
                                      OSGWindowGLUT)
 
+#MESSAGE(STATUS "IFO: tiff: ${TIFF_FOUND} - png ${PNG_FOUND} - jpg: ${JPEG_FOUND} - exr ${OPENEXR_FOUND}")
+
 # dependencies - External
 SET(${PROJECT_NAME}_DEP_LIB ${OSG_EXTERNAL_IMAGELIBS})
 # SET(${PROJECT_NAME}_DEP_LIBDIR)

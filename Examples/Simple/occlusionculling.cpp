@@ -224,8 +224,8 @@ int main (int argc, char **argv)
         // create a gradient background.
         OSG::GradientBackgroundRefPtr gback = OSG::GradientBackground::create();
         gback->clearLines();
-        gback->addLine(OSG::Color3f(0.7, 0.7, 0.8), 0);
-        gback->addLine(OSG::Color3f(0.0, 0.1, 0.3), 1);
+        gback->addLine(OSG::Color3f(0.7f, 0.7f, 0.8f), 0);
+        gback->addLine(OSG::Color3f(0.0f, 0.1f, 0.3f), 1);
     
         OSG::WindowRefPtr win = mgr->getWindow();
         for(OSG::UInt32 i = 0; i < win->getMFPort()->size(); ++i)
