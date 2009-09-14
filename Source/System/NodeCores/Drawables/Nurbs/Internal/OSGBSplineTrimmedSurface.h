@@ -41,8 +41,8 @@
 #pragma once
 #endif
 
-#include <OSGDrawableDef.h>
-#include <OSGConfig.h>
+#include "OSGDrawableDef.h"
+#include "OSGConfig.h"
 
 
 #include "OSGdctptypes.h"
@@ -92,6 +92,6 @@ class OSG_DRAWABLE_DLLMAPPING BSplineTrimmedSurface
 
 OSG_END_NAMESPACE
 
-#include <OSGBSplineTrimmedSurface.inl>
+#include "OSGBSplineTrimmedSurface.inl"
 
 #endif /* _OSG_BSPLINETRIMMEDSURFACE_H_ */

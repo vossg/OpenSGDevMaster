@@ -46,13 +46,13 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaInstanceElement.h>
-#include <OSGColladaGeometry.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaInstanceElement.h"
+#include "OSGColladaGeometry.h"
 
 #include <map>
 
@@ -108,7 +108,7 @@ typedef ColladaInstanceGeometry::ObjTransitPtr ColladaInstanceGeometryTransitPtr
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaInstanceGeometry.inl>
+#include "OSGColladaInstanceGeometry.inl"
 
 #endif // OSG_WITH_COLLADA
 

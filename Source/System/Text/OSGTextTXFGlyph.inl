@@ -37,13 +37,6 @@
 \*---------------------------------------------------------------------------*/
 
 
-#ifdef __sgi
-# include <cassert>
-#else
-# include <cassert>
-#endif
-
-
 OSG_BEGIN_NAMESPACE
 
 

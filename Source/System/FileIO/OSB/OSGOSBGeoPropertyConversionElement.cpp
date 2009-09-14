@@ -39,6 +39,9 @@
 #include "OSGOSBGeoPropertyConversionElement.h"
 #include "OSGOSBElementFactoryHelper.h"
 
+#include "OSGTypedGeoIntegralProperty.h"
+#include "OSGTypedGeoVectorProperty.h"
+
 OSG_USING_NAMESPACE
 
 /*-------------------------------------------------------------------------*/

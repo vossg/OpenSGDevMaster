@@ -46,15 +46,15 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaInstantiableElement.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaInstantiableElement.h"
 
-#include <OSGNode.h>
-#include <OSGTransform.h>
+#include "OSGNode.h"
+#include "OSGTransform.h"
 
 // forward declarations
 class domLookat;
@@ -115,7 +115,7 @@ typedef ColladaNode::ObjTransitPtr ColladaNodeTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaNode.inl>
+#include "OSGColladaNode.inl"
 
 #endif // OSG_WITH_COLLADA
 

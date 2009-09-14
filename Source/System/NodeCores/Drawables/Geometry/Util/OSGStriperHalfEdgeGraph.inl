@@ -38,11 +38,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "OSGConfig.h"
-
 OSG_BEGIN_NAMESPACE
 
 // HalfEdge

@@ -37,7 +37,7 @@
 #ifndef _OSGRECTANGLE_H_
 #define _OSGRECTANGLE_H_
 
-#include <OSGVector.h>
+#include "OSGVector.h"
 #include <ostream>
 
 //-----------------------------------------------------------------------------

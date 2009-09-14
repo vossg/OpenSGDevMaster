@@ -46,12 +46,12 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaElement.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaElement.h"
 
 
 OSG_BEGIN_NAMESPACE

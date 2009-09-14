@@ -112,7 +112,7 @@ typedef ColladaLight::ObjTransitPtr ColladaLightTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaLight.inl>
+#include "OSGColladaLight.inl"
 
 #endif // OSG_WITH_COLLADA
 

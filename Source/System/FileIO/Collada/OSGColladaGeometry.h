@@ -46,16 +46,16 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaInstantiableElement.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaInstantiableElement.h"
 
-#include <OSGGeometry.h>
-#include <OSGTypedGeoIntegralProperty.h>
-#include <OSGGeoVectorProperty.h>
+#include "OSGGeometry.h"
+#include "OSGTypedGeoIntegralProperty.h"
+#include "OSGGeoVectorProperty.h"
 
 #include <dae/daeDomTypes.h>
 #include <dom/domInputLocal.h>
@@ -172,7 +172,7 @@ typedef ColladaGeometry::ObjTransitPtr ColladaGeometryTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaGeometry.inl>
+#include "OSGColladaGeometry.inl"
 
 #endif // OSG_WITH_COLLADA
 

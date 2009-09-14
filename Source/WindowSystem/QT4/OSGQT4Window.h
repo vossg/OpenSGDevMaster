@@ -121,8 +121,8 @@ class OSG_WINDOWQT4_DLLMAPPING QT4Window : public QT4WindowBase
 
 OSG_END_NAMESPACE
 
-#include <OSGQT4Window.inl>
-#include <OSGQT4WindowBase.inl>
+#include "OSGQT4Window.inl"
+#include "OSGQT4WindowBase.inl"
 
 #endif /* OSG_WITH_QT */
 

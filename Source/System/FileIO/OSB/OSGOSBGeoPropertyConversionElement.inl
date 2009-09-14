@@ -36,11 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "OSGOSBRootElement.h"
-
-#include "OSGTypedGeoIntegralProperty.h"
-#include "OSGTypedGeoVectorProperty.h"
-
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/

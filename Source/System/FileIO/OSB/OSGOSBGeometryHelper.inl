@@ -36,10 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "OSGNFIOBitPacker.h"
-#include "OSGOSBGeometryElement.h"
-#include "OSGNFIOQuantizer.h"
-
 OSG_BEGIN_NAMESPACE
 
 /*-------------------------------------------------------------------------*/

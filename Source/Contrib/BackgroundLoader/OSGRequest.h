@@ -1,8 +1,8 @@
 #ifndef _OSG_REQUEST_H_
 #define _OSG_REQUEST_H_
 
-#include <OSGConfig.h>
-#include <OSGContribBackgroundLoaderDef.h>
+#include "OSGConfig.h"
+#include "OSGContribBackgroundLoaderDef.h"
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>

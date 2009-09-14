@@ -25,8 +25,8 @@
 #pragma once
 #endif
 
-#include <OSGDrawableDef.h>
-#include <OSGConfig.h>
+#include "OSGDrawableDef.h"
+#include "OSGConfig.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -41,9 +41,9 @@
 #pragma once
 #endif
 
-#include <OSGDrawableDef.h>
-#include <OSGConfig.h>
-#include <OSGVector.h>
+#include "OSGDrawableDef.h"
+#include "OSGConfig.h"
+#include "OSGVector.h"
 
 
 #include "OSGdctptypes.h"
@@ -152,6 +152,6 @@ class OSG_DRAWABLE_DLLMAPPING BSplineTensorSurface
 
 OSG_END_NAMESPACE
 
-#include <OSGBSplineTensorSurface.inl>
+#include "OSGBSplineTensorSurface.inl"
 
 #endif //BSplineTensorSurface.h

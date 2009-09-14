@@ -48,6 +48,10 @@
 #include "OSGOSBElementBase.h"
 #include "OSGGeometry.h"
 
+#include "OSGNFIOBitPacker.h"
+#include "OSGNFIOQuantizer.h"
+#include "OSGOSBGeometryElement.h"
+
 #include <vector>
 
 OSG_BEGIN_NAMESPACE

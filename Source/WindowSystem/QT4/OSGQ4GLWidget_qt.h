@@ -51,7 +51,7 @@
 #ifdef OSG_WITH_QT
 
 #include "OSGWindowQT4Def.h"
-#include <OSGBaseTypes.h>
+#include "OSGBaseTypes.h"
 
 namespace OSG 
 {
@@ -123,7 +123,7 @@ typedef OSGQGLWidget * OSGQGLWidgetP;
 
 } // OSG namespace
 
-#include <OSGQ4GLWidget_qt.inl>
+#include "OSGQ4GLWidget_qt.inl"
 
 #endif // OSG_WITH_QT
 

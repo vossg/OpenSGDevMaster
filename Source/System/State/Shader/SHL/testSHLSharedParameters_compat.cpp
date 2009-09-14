@@ -236,7 +236,7 @@ int doMain(int argc, char **argv)
 
     OSG::Window *win = _mgr->getWindow();
 
-    for(int i=0;i<win->getMFPort()->size();++i)
+    for(OSG::UInt32 i=0;i<win->getMFPort()->size();++i)
     {
         OSG::Viewport *vp = win->getPort(i);
 
@@ -303,7 +303,6 @@ void motion(int x, int y)
 // react to keys
 void keyboard(unsigned char k, int x, int y)
 {
-    static OSG::Real32 season = 0.0f; 
     switch(k)
     {
         case 27:

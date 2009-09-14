@@ -1,11 +1,11 @@
 #ifndef _OSG_BACKGROUND_LOADER_H_
 #define _OSG_BACKGROUND_LOADER_H_
 
-#include <OSGContribBackgroundLoaderDef.h>
+#include "OSGContribBackgroundLoaderDef.h"
 
-#include <OSGBaseTypes.h>
-#include <OSGSingletonHolder.h>
-#include <OSGRequest.h>
+#include "OSGBaseTypes.h"
+#include "OSGSingletonHolder.h"
+#include "OSGRequest.h"
 
 #include <deque>
 

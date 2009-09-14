@@ -46,15 +46,15 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGMemoryObject.h>
-#include <OSGFieldContainer.h>
-#include <OSGRefCountPtr.h>
-#include <OSGTransitPtr.h>
+#include "OSGFileIODef.h"
+#include "OSGMemoryObject.h"
+#include "OSGFieldContainer.h"
+#include "OSGRefCountPtr.h"
+#include "OSGTransitPtr.h"
 
 // collada dom includes
 #include <dae.h>
@@ -125,7 +125,7 @@ typedef ColladaElement::ObjTransitPtr ColladaElementTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaElement.inl>
+#include "OSGColladaElement.inl"
 
 #endif // OSG_WITH_COLLADA
 

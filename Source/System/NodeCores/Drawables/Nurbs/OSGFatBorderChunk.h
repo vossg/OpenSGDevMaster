@@ -42,8 +42,8 @@
 #pragma once
 #endif
 
-#include <OSGConfig.h>
-#include <OSGDrawableDef.h>
+#include "OSGConfig.h"
+#include "OSGDrawableDef.h"
 #include "OSGFatBorderChunkBase.h"
 
 OSG_BEGIN_NAMESPACE

@@ -47,6 +47,7 @@
 #include "OSGConfig.h"
 #include "OSGTextDef.h"
 #include "OSGBaseTypes.h"
+#include "OSGTextFace.h"
 
 #include <string>
 

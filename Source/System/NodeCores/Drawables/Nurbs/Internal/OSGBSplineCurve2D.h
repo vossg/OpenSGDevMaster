@@ -41,8 +41,8 @@
 #pragma once
 #endif
 
-#include <OSGDrawableDef.h>
-#include <OSGConfig.h>
+#include "OSGDrawableDef.h"
+#include "OSGConfig.h"
 
 
 #include "OSGdctptypes.h"
@@ -101,6 +101,6 @@ class OSG_DRAWABLE_DLLMAPPING BSplineCurve2D
 
 OSG_END_NAMESPACE
 
-#include <OSGBSplineCurve2D.inl>
+#include "OSGBSplineCurve2D.inl"
 
 #endif //BSplineCurve2D.h

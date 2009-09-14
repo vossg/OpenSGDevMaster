@@ -1,15 +1,15 @@
 #ifndef _OSG_MODEL_REQUEST_H_
 #define _OSG_MODEL_REQUEST_H_
 
-#include <OSGContribBackgroundLoaderDef.h>
+#include "OSGContribBackgroundLoaderDef.h"
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
 
-#include <OSGNode.h>
+#include "OSGNode.h"
 
-#include <OSGRequest.h>
+#include "OSGRequest.h"
 
 OSG_BEGIN_NAMESPACE
 

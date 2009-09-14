@@ -40,13 +40,6 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-#include "OSGAction.h"
-
 OSG_BEGIN_NAMESPACE
 
 /***************************************************************************\

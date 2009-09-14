@@ -36,20 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-
-#include <cstdlib>
-#include <cassert>
-
-#ifndef WIN32
-#include <unistd.h>
-#endif
-
-#include "OSGVector.h"
-
 OSG_BEGIN_NAMESPACE
 
 template <class ValueTypeT>

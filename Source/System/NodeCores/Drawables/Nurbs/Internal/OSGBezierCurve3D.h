@@ -41,9 +41,9 @@
 #pragma once
 #endif
 
-#include <OSGDrawableDef.h>
-#include <OSGConfig.h>
-#include <OSGBaseFunctions.h>
+#include "OSGDrawableDef.h"
+#include "OSGConfig.h"
+#include "OSGBaseFunctions.h"
 
 //#include <iostream>
 #include <fstream>
@@ -104,6 +104,6 @@ class OSG_DRAWABLE_DLLMAPPING BezierCurve3D
 
 OSG_END_NAMESPACE
 
-#include <OSGBezierCurve3D.inl>
+#include "OSGBezierCurve3D.inl"
 
 #endif //BezierCurve3D.h

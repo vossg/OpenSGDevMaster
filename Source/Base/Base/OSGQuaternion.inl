@@ -36,10 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifdef DOXYGEN_SHOULD_SKIP_THIS
-#include "OSGConfig.h"
-#endif
-
 OSG_BEGIN_NAMESPACE
 
 /*! \class QuaternionBase

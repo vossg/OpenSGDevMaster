@@ -797,7 +797,7 @@ void TextureChunk::handleTexture(Window *win,
         if(needMipmaps)
         {
             // do we have usable mipmaps ?
-            if(img->getMipMapCount() == img->calcMipmapLevelCount() &&
+            if(img->getMipMapCount() == Int32(img->calcMipmapLevelCount()) &&
                  osgIsPower2(width) && osgIsPower2(height) &&
                  osgIsPower2(depth)
               )
@@ -1464,7 +1464,7 @@ void TextureChunk::handleTexture(Window *win,
             h = ay - iy + 1;
             d = az - iz + 1;
 
-            if(w != img->getWidth())
+            if(w != UInt32(img->getWidth()))
                 glPixelStorei(GL_UNPACK_ROW_LENGTH,  img->getWidth());
             if(ix != 0)
                 glPixelStorei(GL_UNPACK_SKIP_PIXELS, ix);
@@ -1555,7 +1555,7 @@ void TextureChunk::handleTexture(Window *win,
             }
 
 
-            if(w != img->getWidth())
+            if(w != UInt32(img->getWidth()))
                 glPixelStorei(GL_UNPACK_ROW_LENGTH,  0);
             if(ix != 0)
                 glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
@@ -1759,7 +1759,7 @@ void TextureChunk::activate(DrawEnv *pEnv, UInt32 idx)
     {
 #ifdef OSG_DEBUG
         FWARNING(("TextureChunk::activate: Trying to bind image unit %d,"
-                  " but Window %p only supports %d!\n",
+                  " but Window %p only supports %f!\n",
                   idx, win, nteximages));
 #endif
         return;        
@@ -2336,7 +2336,7 @@ void TextureChunk::deactivate(DrawEnv *pEnv, UInt32 idx)
     {
 #ifdef OSG_DEBUG
         FWARNING(("TextureChunk::deactivate: Trying to bind image unit %d,"
-                  " but Window %p only supports %d!\n",
+                  " but Window %p only supports %f!\n",
                   idx, win, nteximages));
 #endif
         return;        

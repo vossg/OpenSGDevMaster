@@ -55,6 +55,10 @@
 #include "map"
 #include "vector"
 
+#ifdef OSG_ENABLE_VALGRIND_CHECKS
+#include <valgrind/memcheck.h>
+#endif
+
 OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseFieldContainerBase

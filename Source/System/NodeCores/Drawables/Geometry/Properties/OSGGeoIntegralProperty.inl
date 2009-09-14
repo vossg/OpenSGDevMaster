@@ -38,8 +38,6 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include "OSGConfig.h"
-
 OSG_BEGIN_NAMESPACE
 
 inline UInt32 GeoIntegralProperty::getVectorType(void) const

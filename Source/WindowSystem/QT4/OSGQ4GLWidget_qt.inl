@@ -37,16 +37,3 @@
 //---------------------------------------------------------------------------
 //  Includes
 //---------------------------------------------------------------------------
-
-
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "OSGConfig.h"
-
-OSG_BEGIN_NAMESPACE
-
-OSG_END_NAMESPACE
-
-#define OSGQGLWIDGET_INLINE_CVSID "@(#)$Id: OSGQ4GLWidget_qt.inl,v 1.1 2006/03/10 18:30:35 a-m-z Exp $"
-

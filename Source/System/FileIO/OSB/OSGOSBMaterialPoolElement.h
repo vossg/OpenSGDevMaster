@@ -118,6 +118,4 @@ class OSG_FILEIO_DLLMAPPING OSBMaterialPoolElement : public OSBCommonElement
 
 OSG_END_NAMESPACE
 
-// #include <OSGOSBMaterialPoolElement.inl>
-
 #endif /* _OSGOSBMATERIALPOOLELEMENT_H_ */

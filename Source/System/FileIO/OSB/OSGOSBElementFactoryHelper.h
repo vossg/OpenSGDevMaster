@@ -42,6 +42,8 @@
 #pragma once
 #endif
 
+#include "OSGOSBElementFactory.h"
+
 OSG_BEGIN_NAMESPACE
 
 template <class ElementTypeT>

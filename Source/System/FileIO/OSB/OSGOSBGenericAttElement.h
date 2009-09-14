@@ -107,6 +107,6 @@ class OSG_FILEIO_DLLMAPPING OSBGenericAttElement : public OSBCommonElement
 
 OSG_END_NAMESPACE
 
-// #include <OSGOSBGenericAttElement.inl>
+// #include "OSGOSBGenericAttElement.inl"
 
 #endif /* _OSGOSBGENERICATTELEMENT_H_ */

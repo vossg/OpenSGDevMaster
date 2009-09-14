@@ -36,11 +36,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifdef OSG_ENABLE_VALGRIND_CHECKS
-#include <valgrind/memcheck.h>
-#endif
-
-
 OSG_BEGIN_NAMESPACE
 
 /*! Attempt to find the id of the group with the given name.

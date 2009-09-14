@@ -41,8 +41,8 @@
 #pragma once
 #endif
 
-#include <OSGDrawableDef.h>
-#include <OSGConfig.h>
+#include "OSGDrawableDef.h"
+#include "OSGConfig.h"
 
 #include <stdlib.h>
 #include <iostream>
@@ -391,6 +391,6 @@ class OSG_DRAWABLE_DLLMAPPING ParSpaceTrimmer
 
 OSG_END_NAMESPACE
 
-#include <OSGParSpaceTrimmer.inl>
+#include "OSGParSpaceTrimmer.inl"
 
 #endif

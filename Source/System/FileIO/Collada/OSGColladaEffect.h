@@ -46,15 +46,15 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaElement.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaElement.h"
 
-#include <OSGChunkMaterial.h>
-#include <OSGMaterialChunk.h>
+#include "OSGChunkMaterial.h"
+#include "OSGMaterialChunk.h"
 
 #include <dom/domCommon_color_or_texture_type.h>
 #include <dom/domCommon_float_or_param_type.h>
@@ -146,7 +146,7 @@ typedef ColladaEffect::ObjTransitPtr ColladaEffectTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaEffect.inl>
+#include "OSGColladaEffect.inl"
 
 #endif // OSG_WITH_COLLADA
 

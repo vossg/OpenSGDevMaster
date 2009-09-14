@@ -39,7 +39,7 @@ WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
 
 #include <iostream>
 #include <vector>
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 OSG_BEGIN_NAMESPACE

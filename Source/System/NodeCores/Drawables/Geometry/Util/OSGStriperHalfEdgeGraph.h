@@ -45,9 +45,9 @@
 #include <vector>
 #include <iterator>
 
-#include <OSGDrawableDef.h>
-#include <OSGBaseTypes.h>
-#include <OSGLog.h>
+#include "OSGDrawableDef.h"
+#include "OSGBaseTypes.h"
+#include "OSGLog.h"
 
 OSG_BEGIN_NAMESPACE
 

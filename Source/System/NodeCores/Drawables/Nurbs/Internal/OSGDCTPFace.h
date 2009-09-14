@@ -41,8 +41,8 @@
 #pragma once
 #endif
 
-#include <OSGDrawableDef.h>
-#include <OSGConfig.h>
+#include "OSGDrawableDef.h"
+#include "OSGConfig.h"
 
 
 #include <iostream>
@@ -108,6 +108,6 @@ typedef std::vector<DCTPFace*> dctpfacevector;
 
 OSG_END_NAMESPACE
 
-#include <OSGDCTPFace.inl>
+#include "OSGDCTPFace.inl"
 
 #endif // DCTPFace.h

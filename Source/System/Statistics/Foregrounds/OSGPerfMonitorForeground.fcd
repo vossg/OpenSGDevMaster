@@ -48,7 +48,7 @@ It is meant to be used as a debugging tool for tracking down performance issues 
 		type="Color4f"
 		cardinality="single"
 		visibility="external"
-		defaultValue="0.2,0.2,0.2,0.65"
+		defaultValue="0.2f,0.2f,0.2f,0.65f"
 		access="public"
 	>
 	Color of the background.
@@ -67,7 +67,7 @@ It is meant to be used as a debugging tool for tracking down performance issues 
 		type="Color4f"
 		cardinality="single"
 		visibility="external"
-		defaultValue="0.8,0.8,0.0,0.7"
+		defaultValue="0.8f,0.8f,0.0f,0.7f"
 		access="public"
 	>
 	Color of the border.

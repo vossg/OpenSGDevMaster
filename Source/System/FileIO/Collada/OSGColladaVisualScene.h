@@ -46,15 +46,15 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaInstantiableElement.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaInstantiableElement.h"
 
-#include <OSGNode.h>
-#include <OSGGroup.h>
+#include "OSGNode.h"
+#include "OSGGroup.h"
 
 // forward declarations
 class domVisual_scene;
@@ -99,7 +99,7 @@ typedef ColladaVisualScene::ObjTransitPtr ColladaVisualSceneTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaVisualScene.inl>
+#include "OSGColladaVisualScene.inl"
 
 #endif // OSG_WITH_COLLADA
 

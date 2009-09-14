@@ -46,14 +46,14 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaElement.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaElement.h"
 
-#include <OSGTextureObjChunk.h>
+#include "OSGTextureObjChunk.h"
 
 // forward declarations
 class domFx_surface_common;
@@ -90,7 +90,7 @@ typedef ColladaSurface::ObjTransitPtr ColladaSurfaceTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaSurface.inl>
+#include "OSGColladaSurface.inl"
 
 #endif // OSG_WITH_COLLADA
 

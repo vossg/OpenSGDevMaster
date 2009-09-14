@@ -41,8 +41,8 @@
 #pragma once
 #endif
 
-#include <OSGSystemDef.h>
-#include <OSGConfig.h>
+#include "OSGSystemDef.h"
+#include "OSGConfig.h"
 
 #include <iostream>
 #include <set>
@@ -50,7 +50,7 @@
 #include <vector>
 #include <list>
 
-#include <OSGVector.h>
+#include "OSGVector.h"
 
 OSG_BEGIN_NAMESPACE
 

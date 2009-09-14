@@ -46,14 +46,14 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaElement.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaElement.h"
 
-#include <OSGImage.h>
+#include "OSGImage.h"
 
 // forward declarations
 class domImage;
@@ -88,7 +88,7 @@ typedef ColladaImage::ObjTransitPtr ColladaImageTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaImage.inl>
+#include "OSGColladaImage.inl"
 
 #endif // OSG_WITH_COLLADA
 

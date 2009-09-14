@@ -46,14 +46,14 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaElement.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaElement.h"
 
-#include <OSGNode.h>
+#include "OSGNode.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -110,7 +110,7 @@ typedef ColladaGlobal::ObjTransitPtr  ColladaGlobalTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaGlobal.inl>
+#include "OSGColladaGlobal.inl"
 
 #endif // OSG_WITH_COLLADA
 

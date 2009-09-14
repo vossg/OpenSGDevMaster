@@ -38,12 +38,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-#include "OSGGeometry.h"
-
 OSG_BEGIN_NAMESPACE
 
 /*! Return the index of the current face. The index runs from 0 to the

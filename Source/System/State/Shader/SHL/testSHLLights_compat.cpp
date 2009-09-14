@@ -334,8 +334,8 @@ int doMain(int argc, char **argv)
     _mgr->showAll();
 
     // enable local lights.
-    OSG::RenderAction *ract = 
-        dynamic_cast<OSG::RenderAction *>(_mgr->getRenderAction());
+//    OSG::RenderAction *ract = 
+//        dynamic_cast<OSG::RenderAction *>(_mgr->getRenderAction());
 
 //    ract->setLocalLights(true);
 

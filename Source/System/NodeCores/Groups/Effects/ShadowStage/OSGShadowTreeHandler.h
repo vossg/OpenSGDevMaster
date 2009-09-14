@@ -51,7 +51,7 @@
 #include "OSGFrameBufferObject.h"
 #include "OSGDepthChunk.h"
 #include "OSGSimpleSHLChunk.h"
-#include <OSGSimpleMaterial.h>
+#include "OSGSimpleMaterial.h"
 
 OSG_BEGIN_NAMESPACE
 

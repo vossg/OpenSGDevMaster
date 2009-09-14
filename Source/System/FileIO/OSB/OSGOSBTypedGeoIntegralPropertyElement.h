@@ -46,10 +46,10 @@
 #include "OSGFileIODef.h"
 
 #include "OSGOSBGeoIntegralPropertyElement.h"
+#include "OSGOSBGeometryHelper.h"
+#include "OSGOSBRootElement.h"
 
 OSG_BEGIN_NAMESPACE
-
-class OSBRootElement;
 
 template <class GeoPropertyTypeT>
 class OSG_FILEIO_DLLMAPPING OSBTypedGeoIntegralPropertyElement

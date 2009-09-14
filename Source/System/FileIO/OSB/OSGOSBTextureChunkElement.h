@@ -128,6 +128,6 @@ class OSG_FILEIO_DLLMAPPING OSBTextureChunkElement : public OSBCommonElement
 
 OSG_END_NAMESPACE
 
-#include <OSGOSBTextureChunkElement.inl>
+#include "OSGOSBTextureChunkElement.inl"
 
 #endif /* _OSGOSBTEXTURECHUNKELEMENT_H_ */

@@ -49,7 +49,7 @@
 
 #include "OSGGraphOp.h"
 #include "OSGUtilDef.h"
-#include <OSGTime.h>
+#include "OSGTime.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -46,14 +46,14 @@
     \ingroup GrpLoader
  */
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGFileIODef.h>
-#include <OSGColladaElement.h>
+#include "OSGFileIODef.h"
+#include "OSGColladaElement.h"
 
-#include <OSGTextureObjChunk.h>
+#include "OSGTextureObjChunk.h"
 
 // forward declarations
 class domFx_sampler2D_common;
@@ -96,7 +96,7 @@ typedef ColladaSampler2D::ObjTransitPtr ColladaSampler2DTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include <OSGColladaSampler2D.inl>
+#include "OSGColladaSampler2D.inl"
 
 #endif // OSG_WITH_COLLADA
 

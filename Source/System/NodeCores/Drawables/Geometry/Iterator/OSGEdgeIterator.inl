@@ -38,13 +38,6 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <cstdlib>
-#include <cstdio>
-
-#include "OSGConfig.h"
-
-#include "OSGGeometry.h"
-
 OSG_BEGIN_NAMESPACE
 
 inline       

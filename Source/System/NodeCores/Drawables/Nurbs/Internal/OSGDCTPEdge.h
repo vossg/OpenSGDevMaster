@@ -41,8 +41,8 @@
 #pragma once
 #endif
 
-#include <OSGDrawableDef.h>
-#include <OSGConfig.h>
+#include "OSGDrawableDef.h"
+#include "OSGConfig.h"
 
 
 #include <iostream>
@@ -123,6 +123,6 @@ typedef std::set   <DCTPEdge*, DCTPEdge::DCTPEdgeless> dctpedgeset;
 
 OSG_END_NAMESPACE
 
-#include <OSGDCTPEdge.inl>
+#include "OSGDCTPEdge.inl"
 
 #endif // DCTPEdge.h

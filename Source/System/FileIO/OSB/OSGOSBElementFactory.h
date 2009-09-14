@@ -45,6 +45,7 @@
 #include "OSGConfig.h"
 #include "OSGFileIODef.h"
 #include "OSGSingletonHolder.h"
+#include "OSGOSBElementBase.h"
 
 #include <map>
 #include <string>
@@ -54,7 +55,7 @@ OSG_BEGIN_NAMESPACE
 class OSBElementBase;
 class OSBRootElement;
 
-struct OSBElementCreatorBase
+struct OSG_FILEIO_DLLMAPPING OSBElementCreatorBase
 {
     /*---------------------------------------------------------------------*/
     /*! \name Destructor                                                   */

@@ -42,9 +42,9 @@
 #pragma once
 #endif
 
-#include <OSGConfig.h>
-#include <OSGDrawableDef.h>
-#include <OSGVertexProgramChunk.h>
+#include "OSGConfig.h"
+#include "OSGDrawableDef.h"
+#include "OSGVertexProgramChunk.h"
 
 #include "OSGSurfaceBase.h"
 
