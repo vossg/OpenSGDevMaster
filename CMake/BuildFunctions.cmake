@@ -277,6 +277,19 @@ FUNCTION(OSG_STORE_PROJECT_DEPENDENCIES)
     FILE(APPEND ${${PROJECT_NAME}_BUILD_FILE}
         "SET(${PROJECT_NAME}_DEP_DEFS ${${PROJECT_NAME}_DEP_DEFS})\n\n")
 
+    # for external projects
+
+    FILE(APPEND "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
+        "SET(${PROJECT_NAME}_DEP_OSG_LIB ${${PROJECT_NAME}_DEP_OSG_LIB})\n\n")
+
+    FILE(APPEND "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
+        "SET(${PROJECT_NAME}_DEP_LIB ${${PROJECT_NAME}_DEP_LIB})\n\n")
+
+    FILE(APPEND "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
+        "LIST(APPEND STORED_PROJECTS ${PROJECT_NAME})\n\n")
+
+    
+
     #########################################################################
     # Store dependencies for osg2-config.
     # This is a bit lengthy as it writes a python dictionary

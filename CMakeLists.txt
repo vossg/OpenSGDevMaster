@@ -3,10 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(OpenSG)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${OpenSG_SOURCE_DIR}/CMake")
-SET(OSG_VERSION_MAJOR "2")
-SET(OSG_VERSION_MINOR "0")
-SET(OSG_VERSION_PATCH "0")
-SET(OSG_VERSION       ${OSG_VERSION_MAJOR}.${OSG_VERSION_MINOR}.${OSG_VERSION_PATCH})
+INCLUDE(OpenSGVersion)
 
 ##############################################
 # Initial cache to make life easier on Windows
@@ -789,6 +786,16 @@ INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindCollada.cmake"
         DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindOpenEXR.cmake"
         DESTINATION share/OpenSG/cmake)
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindGLUT_OpenSG.cmake"
+        DESTINATION share/OpenSG/cmake)
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindJPEG_OpenSG.cmake"
+        DESTINATION share/OpenSG/cmake)
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindPNG_OpenSG.cmake"
+        DESTINATION share/OpenSG/cmake)
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindTIFF_OpenSG.cmake"
+        DESTINATION share/OpenSG/cmake)
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/FindZLIB_OpenSG.cmake"
+        DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/SetupCompiler.cmake"
         DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/UpdateCompiler.cmake"
@@ -798,6 +805,10 @@ INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/BuildFunctions.cmake"
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/ConfigurePackages.cmake"
         DESTINATION share/OpenSG/cmake)
 INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/ExternalProjectHelper.cmake"
+        DESTINATION share/OpenSG/cmake)
+INSTALL(FILES "${CMAKE_SOURCE_DIR}/CMake/OpenSGVersion.cmake"
+        DESTINATION share/OpenSG/cmake)
+INSTALL(FILES "${CMAKE_BINARY_DIR}/OpenSGExtDep.cmake"
         DESTINATION share/OpenSG/cmake)
 INSTALL(DIRECTORY "${CMAKE_SOURCE_DIR}/Tools/fcd2code"
         DESTINATION bin

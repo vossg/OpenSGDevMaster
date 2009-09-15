@@ -1,7 +1,7 @@
 
 To get it working:
 
-CMAKE:
+CMAKE: with OpenSG
 -----------------------------------------------------------------------------
 
 add OSGExGPUVolRT to OSG_EXTRA_EXTERNAL_MODULES
@@ -25,6 +25,25 @@ BUILD:
 -----------------------------------------------------------------------------
 
 build OpenSG as usual
+
+
+CMAKE: outside OpenSG
+-----------------------------------------------------------------------------
+
+configure with
+
+cmake -DOpenSG_DIR:PATH=<path to OpenSG install> <OpenSG source dir>/Examples/CustomIntegration/AlgorithmStage/GPUVolRT/AsAlgorithmStage
+
+on windows you might have to supply the support lib information and make
+sure the ms secure settings are identical to one main OpenSG uses
+
+generate
+
+
+BUILD:
+-----------------------------------------------------------------------------
+
+build as usual
 
 
 Variants:
