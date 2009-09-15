@@ -1618,7 +1618,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
 {
     GLExtensionFunction retval = NULL;
 
-    FINFO(("Window::getFunctionByName: %s", s));
+    FINFO(("Window::getFunctionByName: %s\n", s));
 
     FDEBUG(("Window %p: GL Vendor: %s\n", this, glGetString(GL_VENDOR)));
 
@@ -1692,7 +1692,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
         if(__GetProcAddress == NULL)
         {
             __GetProcAddress = glXGetProcAddress;
-            FINFO((" Using glxGetProcAddress directly.\n"));
+            FPINFO((" Using glxGetProcAddress directly.\n"));
         }
 #endif
 #endif
@@ -1734,7 +1734,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
                     } 
                     else
                     {
-                        FDEBUG((" Using libGL.so directly.\n"));
+                        FPINFO((" Using libGL.so directly.\n"));
                     }
                    
                     __GetProcAddress = 
@@ -1770,13 +1770,13 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
                 } 
                 else
                 {
-                    FDEBUG((" Using glXGetProcAddress (from %s).\n",
+                    FPINFO((" Using glXGetProcAddress (from %s).\n",
                             libHandleName.c_str()));
                 }
             } 
             else
             {
-                FDEBUG(("Using glXGetProcAddressARB (from %s).\n",
+                FPINFO(("Using glXGetProcAddressARB (from %s).\n",
                         libHandleName.c_str()));                    
             }
         }
