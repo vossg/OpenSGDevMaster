@@ -223,8 +223,8 @@ that the pointer will be the same for different contexts.
   added here at creation time and removed at deletion. 
  */
 
-std::vector<OSG::Window *> OSG::Window::_allWindows;
-Int32                      OSG::Window::_currentWindowId = 0;
+Window::WindowStore OSG::Window::_allWindows;
+Int32               OSG::Window::_currentWindowId = 0;
 
 // GLobject handling
 
@@ -400,7 +400,7 @@ void OSG::Window::onCreate(const Window *source)
     if(source != NULL)
     {
         // mark all GL objects as not yet initialized
-        doInitRegisterGLObject(1, _glObjects.size() - 1);
+        doResetGLObjectStatus(1, _glObjects.size() - 1);
     }
 
     _allWindows.push_back(this); 
@@ -582,7 +582,7 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor        functor,
     {
         _glObjects.insert(_glObjects.end(), num, pGLObject );
         
-        initRegisterGLObject(osgId, num);
+        resetGLObjectStatus(osgId, num);
 
         staticRelease();
 
@@ -615,7 +615,7 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor        functor,
                     i = i - 1;
                 } 
                 
-                initRegisterGLObject(osgId, num);
+                resetGLObjectStatus(osgId, num);
 
                 staticRelease();
 
@@ -655,7 +655,7 @@ UInt32 OSG::Window::registerGLObject(GLObjectFunctor        functor,
         _glObjects.push_back(pGLObject);
     }
                 
-    initRegisterGLObject(osgId, num);
+    resetGLObjectStatus(osgId, num);
     
     staticRelease();
     
@@ -793,7 +793,7 @@ void OSG::Window::validateAllGLObjects(void)
     concept. 
  */
 
-void OSG::Window::refreshGLObject( UInt32 osgId )
+void OSG::Window::refreshGLObject(UInt32 osgId)
 {
     if(osgId == 0)
     {
@@ -801,11 +801,40 @@ void OSG::Window::refreshGLObject( UInt32 osgId )
         return;
     }
 
-    WindowStore::iterator winIt;
+    staticAcquire();
 
-    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
+    doRefreshGLObject(osgId);
+
+    staticRelease();
+}
+
+/*! Refresh all existing GL objects.
+
+    See \ref PageSystemOGLObjects for a description of the OpenGL object
+    concept. 
+*/
+void OSG::Window::refreshAllGLObjects(void)
+{
+    staticAcquire();
+
+    for(UInt32 i = 1; i < _glObjects.size(); ++i)
+        doRefreshGLObject(i);
+
+    staticRelease();
+}
+
+/*! Do the actual refresh work, without checks.
+    \note This function must be called while holding _staticWindowLock
+          and \a osgId must not be 0.
+*/
+void Window::doRefreshGLObject(UInt32 osgId)
+{
+    WindowStore::const_iterator winIt  = _allWindows.begin();
+    WindowStore::const_iterator winEnd = _allWindows.end  ();
+
+    for(; winIt != winEnd; ++winIt)
     {
-        Window *pWin = convertToCurrentAspect(*winIt);
+        Window *pWin = *winIt;
 
         if(pWin == NULL)
             continue;
@@ -818,27 +847,14 @@ void OSG::Window::refreshGLObject( UInt32 osgId )
         MFUInt32 &field   = pWin->_mfGlObjectLastRefresh;
 
         if(field.size() <= osgId)
-        {
-            field.getValues().insert(field.end(), 
-                                     osgId - field.size() + 1, 0 );
-        }
+            field.resize(osgId + 1, 0);
 
         field[osgId] = lastinv;
 
-        pWin->setGlObjectEventCounter(lastinv);
+        pWin->setGlObjectEventCounter(lastinv); 
     }
 }
 
-/*! Refresh all existing GL objects.
-
-    See \ref PageSystemOGLObjects for a description of the OpenGL object
-    concept. 
-*/
-void OSG::Window::refreshAllGLObjects(void)
-{
-    for(UInt32 i = 1; i < _glObjects.size(); ++i)
-        refreshGLObject(i);
-}
 
 /*! Mark the given object for reinitialisation. The next time it is validated
   the
@@ -856,11 +872,41 @@ void OSG::Window::reinitializeGLObject(UInt32 osgId)
         return;
     }
 
-    WindowStore::const_iterator winIt;
+    staticAcquire();
 
-    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
+    doReinitializeGLObject(osgId);
+
+    staticRelease();
+}
+
+/*! Reinitialize all existing GL objects.
+
+    See \ref PageSystemOGLObjects for a description of the OpenGL object
+    concept. 
+*/
+void OSG::Window::reinitializeAllGLObjects(void)
+{
+    staticAcquire();
+
+    for(UInt32 i = 1; i < _glObjects.size(); ++i)
+        doReinitializeGLObject(i);
+
+    staticRelease();
+}
+
+/*! Do the actual reinitialization work, without checks.
+    \note This function must be called while holding _staticWindowLock
+          and \a osgId must not be 0.
+    
+ */
+void Window::doReinitializeGLObject(UInt32 osgId)
+{
+    WindowStore::const_iterator winIt  = _allWindows.begin();
+    WindowStore::const_iterator winEnd = _allWindows.end  ();
+
+    for(; winIt != winEnd; ++winIt)
     {
-        Window *pWin = convertToCurrentAspect(*winIt);
+        Window *pWin = *winIt;
 
         if(pWin == NULL)
             continue;
@@ -873,7 +919,7 @@ void OSG::Window::reinitializeGLObject(UInt32 osgId)
         MFUInt32 &field   = pWin->_mfGlObjectLastReinitialize;
 
         if(field.size() <= osgId)
-            field.getValues().insert(field.end(), osgId - field.size() + 1, 0 );
+            field.resize(osgId + 1, 0);
 
         // is it already validated?
         if(field[osgId] == 0)
@@ -885,73 +931,62 @@ void OSG::Window::reinitializeGLObject(UInt32 osgId)
     }
 }
 
-/*! Reinitialize all existing GL objects.
+
+/*! Reset the GL object status counters for the given GL objects
+    in all Windows.
+    This function must be called while holding _staticWindowLock.
 
     See \ref PageSystemOGLObjects for a description of the OpenGL object
-    concept. 
-*/
-void OSG::Window::reinitializeAllGLObjects(void)
-{
-    for(UInt32 i = 1; i < _glObjects.size(); ++i)
-        reinitializeGLObject(i);
-}
-
-/*! Initialize the GL object registration for the given objects in all
-    Windows.
-
-    See \ref PageSystemOGLObjects for a description of the OpenGL object
-    concept. 
+    concept.
  */
-
-void OSG::Window::initRegisterGLObject(UInt32 osgId, UInt32 num)
+void Window::resetGLObjectStatus(UInt32 osgId, UInt32 num)
 {
-    if ( osgId == 0 )
+    if(osgId == 0)
     {
-        SWARNING << "Window::initRegisterGLObject: id is 0!" << std::endl;
+        SWARNING << "Window::resetGLObject: osgId is 0." << std::endl;
         return;
     }
 
-    WindowStore::const_iterator winIt;
+    WindowStore::const_iterator winIt  = _allWindows.begin();
+    WindowStore::const_iterator winEnd = _allWindows.end  ();
 
-    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
+    for(; winIt != winEnd; ++winIt)
     {
-        Window *pWin = convertToCurrentAspect(*winIt);
+        Window *pWin = *winIt;
 
         if(pWin == NULL)
             continue;
 
-        pWin->doInitRegisterGLObject(osgId, num);
+        pWin->doResetGLObjectStatus(osgId, num);
     }
 }
 
-/*! Initialize the GL object registration for the given objects in the given
-    Window.
+/*! Reset the GL object status counters for the given GL objects
+    in this window.
 
     See \ref PageSystemOGLObjects for a description of the OpenGL object
-    concept. 
+    concept.
  */
-
-void OSG::Window::doInitRegisterGLObject(UInt32 osgId, UInt32 num)
+void Window::doResetGLObjectStatus(UInt32 osgId, UInt32 num)
 {
     editMField(GlObjectLastReinitializeFieldMask, _mfGlObjectLastReinitialize);
     editMField(GlObjectLastRefreshFieldMask,      _mfGlObjectLastRefresh     );
 
-
     if(_mfGlObjectLastReinitialize.size() < osgId + num)
-        _mfGlObjectLastReinitialize.resize(osgId + num);
+        _mfGlObjectLastReinitialize.resize(osgId + num, 0);
 
     if(_mfGlObjectLastRefresh.size() < osgId + num)
-        _mfGlObjectLastRefresh.resize(osgId + num);
+        _mfGlObjectLastRefresh.resize(osgId + num, 0);
 
     if(_lastValidate.size() < osgId + num)
-        _lastValidate.resize(osgId + num);
+        _lastValidate.resize(osgId + num, 0);
 
     for(UInt32 i = osgId; i < osgId + num; ++i)
     {
         _mfGlObjectLastReinitialize[i] = 0;
         _mfGlObjectLastRefresh     [i] = 0;
         _lastValidate              [i] = 0;
-   }
+    }
 }
 
 /*! Mark the given objects for destruction. The actual destruction will happen
@@ -985,11 +1020,12 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
         return;
     }
 
-    WindowStore::const_iterator winIt;
+    WindowStore::const_iterator winIt  = _allWindows.begin();
+    WindowStore::const_iterator winEnd = _allWindows.end  ();
 
-    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
+    for(; winIt != winEnd; ++winIt)
     {
-        Window *pWin = convertToCurrentAspect(*winIt);
+        Window *pWin = *winIt;
 
         if(pWin == NULL)
             continue;
@@ -1006,7 +1042,7 @@ void OSG::Window::destroyGLObject(UInt32 osgId, UInt32 num)
 
         // has the object been used in this context at all?
         if(pWin->getGlObjectLastReinitialize(osgId) != 0) 
-            pWin->_glObjectDestroyList.push_back(DestroyEntry(osgId,num));
+            pWin->_glObjectDestroyList.push_back(DestroyEntry(osgId, num));
     }
 }
 
@@ -1130,11 +1166,12 @@ void OSG::Window::ignoreExtensions(const Char8 *s)
         // Walk all existing windows and remove the ignored extension 
         // from the _extensions vector. Disable it if it was a registered one.
         
-        WindowStore::const_iterator winIt;
+        WindowStore::const_iterator winIt  = _allWindows.begin();
+        WindowStore::const_iterator winEnd = _allWindows.end  ();
 
-        for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
+        for(; winIt != winEnd; ++winIt)
         {
-            FPDEBUG((" %p:", (*winIt)));
+            FPDEBUG((" %p:", winIt->get()));
             
             std::vector<std::string>::iterator extit;
             
@@ -1514,16 +1551,14 @@ void OSG::Window::doFrameExit(void)
         
         if(obj == NULL)
         {
-            FDEBUG(("Window::frameExit: objects %d (%d) already destroyed ?\n",
+            FDEBUG(("Window::doFrameExit: objects %d (%d) already destroyed ?\n",
                     i, n));
             ++st;
             continue;
         }
 
-#if 0
-        fprintf(stderr, "Destroy gl %d %d %d\n", 
-                i, n, getGLObjectId(i));
-#endif
+        FDEBUG(("Window::doFrameExit: Destroying GLObject %d (%d) - GL id %d\n",
+                i, n, getGLObjectId(i)));
            
         UInt32 rc = obj->getRefCounter();
 
@@ -1531,6 +1566,7 @@ void OSG::Window::doFrameExit(void)
         if(getGlObjectLastReinitialize(i) != 0) 
         {                  
             _glObjects[i]->getDestroyFunctor()(&oEnv, i, destroy);
+            doResetGLObjectStatus(i, n);
 
             if((rc = _glObjects[ i ]->decRefCounter()) <= 0)
             {           
@@ -2289,11 +2325,12 @@ void OSG::Window::requestStageRun(Int32 iStageId)
         return;
     }
 
-    WindowStore::const_iterator winIt;
+    WindowStore::const_iterator winIt  = _allWindows.begin();
+    WindowStore::const_iterator winEnd = _allWindows.end  ();
 
-    for(winIt = _allWindows.begin(); winIt != _allWindows.end(); ++winIt)
+    for(; winIt != winEnd; ++winIt)
     {
-        Window *pWin = convertToCurrentAspect(*winIt);
+        Window *pWin = *winIt;
 
         if(pWin == NULL)
             continue;
@@ -2301,38 +2338,6 @@ void OSG::Window::requestStageRun(Int32 iStageId)
         pWin->_pStageValidator->requestRun(iStageId);
     }
 }
-
-/*-------------------------- assignment -----------------------------------*/
-
-#if 0 // This is wrong, the vp parents are not setup correctly
-/*! Assignment
-*/
-
-OSG::Window& OSG::Window::operator = (const OSG::Window &source)
-{
-    if(this == &source)
-        return *this;
-
-    // copy 
-
-    setWidth (source.getWidth());
-    setHeight(source.getHeight());
-
-    editMField(PortFieldMask, _mfPort);
-
-    _mfPort.resize(source._mfPort.size());
-
-    for(UInt32 i = 0; i < source._mfPort.size(); ++i)
-    {
-        setRefd(_mfPort[i], source._mfPort[i]);
-    }
-    
-    // mark all GL objects as not yet initialized
-    doInitRegisterGLObject(1, _glObjects.size() - 1);
-    
-    return *this;
-}
-#endif
 
 /*------------------------------- dump ----------------------------------*/
 

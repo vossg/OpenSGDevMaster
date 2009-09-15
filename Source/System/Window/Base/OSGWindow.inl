@@ -242,8 +242,7 @@ Window::GLObject::GLObject(GLObjectFunctor        funct,
                            GLObjectDestroyFunctor destroy) :
     _functor     (funct  ),
     _destroy     (destroy),
-    _refCounter  (      0),
-    _lastValidate(      0)
+    _refCounter  (      0)
 {
 }
 
@@ -294,18 +293,6 @@ inline
 void Window::GLObject::setDestroyFunctor(GLObjectDestroyFunctor funct)
 {
     _destroy = funct;
-}
-
-inline 
-UInt32 Window::GLObject::getLastValidate(void)
-{
-    return _lastValidate;
-}
-
-inline 
-void Window::GLObject::setLastValidate(UInt32 val)
-{
-    _lastValidate = val;
 }
 
 inline 

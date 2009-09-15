@@ -389,11 +389,11 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                GL object handling                            */
     /*! \{                                                                 */
 
-    static void   initRegisterGLObject  (UInt32          osgId,
-                                         UInt32          num   );
+    static void doRefreshGLObject     (UInt32 osgId            );
+    static void doReinitializeGLObject(UInt32 osgId            );
 
-           void   doInitRegisterGLObject(UInt32          osgId,
-                                         UInt32          num   );
+    static void resetGLObjectStatus   (UInt32 osgId, UInt32 num);
+           void doResetGLObjectStatus (UInt32 osgId, UInt32 num);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -423,9 +423,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
         GLObjectDestroyFunctor& getDestroyFunctor(void                        );
         void                    setDestroyFunctor(GLObjectDestroyFunctor funct);
 
-        UInt32 getLastValidate(void      );
-        void   setLastValidate(UInt32 val);
-
         UInt32 getRefCounter(void);
         UInt32 incRefCounter(void);
         UInt32 decRefCounter(void);
@@ -435,7 +432,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
                  GLObjectFunctor        _functor;
                  GLObjectDestroyFunctor _destroy;
         volatile UInt32                 _refCounter;
-                 UInt32                 _lastValidate;
     };
 
     /*! \}                                                                 */
@@ -453,8 +449,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
            void onDestroyAspect(      UInt32  uiContainerId,
                                       UInt32  uiAspect     );
 
-    static void staticAcquire (void                       );
-    static void staticRelease (void                       );
+    static void staticAcquire  (void                       );
+    static void staticRelease  (void                       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -477,7 +473,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     typedef WindowBase Inherited;
 
-    typedef std::vector<Window *> WindowStore;
+    typedef std::vector<WindowMTUncountedPtr> WindowStore;
 
     friend class FieldContainer;
     friend class WindowBase;
