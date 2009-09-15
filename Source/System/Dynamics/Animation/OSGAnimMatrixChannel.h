@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGANIMVEC3FCHANNEL_H_
-#define _OSGANIMVEC3FCHANNEL_H_
+#ifndef _OSGANIMMATRIXCHANNEL_H_
+#define _OSGANIMMATRIXCHANNEL_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGAnimVec3fChannelBase.h"
-#include "OSGAnimVec3fDataSource.h"
+#include "OSGAnimMatrixChannelBase.h"
+#include "OSGAnimMatrixDataSource.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief AnimVec3fChannel class. See \ref
-           PageDynamicsAnimVec3fChannel for a description.
+/*! \brief AnimMatrixChannel class. See \ref
+           PageDynamicsAnimMatrixChannel for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
+class OSG_DYNAMICS_DLLMAPPING AnimMatrixChannel : public AnimMatrixChannelBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
 
   public:
 
-    typedef AnimVec3fChannelBase Inherited;
-    typedef AnimVec3fChannel     Self;
+    typedef AnimMatrixChannelBase Inherited;
+    typedef AnimMatrixChannel     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -90,21 +90,21 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
 
   protected:
 
-    // Variables should all be in AnimVec3fChannelBase.
+    // Variables should all be in AnimMatrixChannelBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    AnimVec3fChannel(void);
-    AnimVec3fChannel(const AnimVec3fChannel &source);
+    AnimMatrixChannel(void);
+    AnimMatrixChannel(const AnimMatrixChannel &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AnimVec3fChannel(void);
+    virtual ~AnimMatrixChannel(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -119,17 +119,17 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
   private:
 
     friend class FieldContainer;
-    friend class AnimVec3fChannelBase;
+    friend class AnimMatrixChannelBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AnimVec3fChannel &source);
+    void operator =(const AnimMatrixChannel &source);
 };
 
-typedef AnimVec3fChannel *AnimVec3fChannelP;
+typedef AnimMatrixChannel *AnimMatrixChannelP;
 
 OSG_END_NAMESPACE
 
-#include "OSGAnimVec3fChannelBase.inl"
-#include "OSGAnimVec3fChannel.inl"
+#include "OSGAnimMatrixChannelBase.inl"
+#include "OSGAnimMatrixChannel.inl"
 
-#endif /* _OSGANIMVEC3FCHANNEL_H_ */
+#endif /* _OSGANIMMATRIXCHANNEL_H_ */

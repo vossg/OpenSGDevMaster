@@ -226,6 +226,7 @@ AnimChannelBase::TypeObject AnimChannelBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
+    "     defaultValue=\"1.f\"\n"
     "     fieldFlags=\"FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
@@ -363,7 +364,7 @@ void AnimChannelBase::copyFromBin(BinaryDataHandler &pMem,
 AnimChannelBase::AnimChannelBase(void) :
     Inherited(),
     _sfAnimation              (NULL),
-    _sfWeight                 (),
+    _sfWeight                 (Real32(1.f)),
     _sfInValue                (Real32(0.0))
 {
 }

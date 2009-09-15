@@ -34,6 +34,7 @@
      cardinality="single"
      visibility="external"
      access="public"
+     defaultValue="1.f"
      fieldFlags="FThreadLocal"
      >
   </Field>

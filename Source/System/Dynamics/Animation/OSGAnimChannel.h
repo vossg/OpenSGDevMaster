@@ -71,18 +71,18 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannel : public AnimChannelBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Evaluation                                 */
+    /*! \{                                                                 */
+
+    virtual void evaluate(void) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Evaluation                                 */
-    /*! \{                                                                 */
-
-    virtual void evaluate(void) = 0;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

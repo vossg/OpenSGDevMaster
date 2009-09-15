@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="AnimMatrixBlender"
+   parent="AnimBlender"
+   library="Dynamics"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   isBundle="false"
+   parentFields="none"
+   >
+  <Field
+     name="channels"
+     category="pointer"
+     type="AnimMatrixChannel"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+    </Field>
+  <Field
+     name="outValue"
+     category="data"
+     type="Matrix"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+</FieldContainer>

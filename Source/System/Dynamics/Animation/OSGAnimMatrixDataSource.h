@@ -117,8 +117,12 @@ class OSG_DYNAMICS_DLLMAPPING AnimMatrixDataSource : public AnimMatrixDataSource
     /*! \name                   Evaluation                                 */
     /*! \{                                                                 */
 
-    void evalStep        (Matrix &outValue, Real32 inValue);
-    void evalLinear      (Matrix &outValue, Real32 inValue);
+    void evalStep        (Matrix                         &outValue,
+                          Real32                          inValue,
+                          MFInValuesType::const_iterator  ivRIt    );
+    void evalLinear      (Matrix                         &outValue,
+                          Real32                          inValue,
+                          MFInValuesType::const_iterator  ivRIt    );
 
     void extrapolateFront(Matrix &outValue, Real32 inValue);
     void extrapolateBack (Matrix &outValue, Real32 inValue);

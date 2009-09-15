@@ -36,22 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGANIMVEC3FCHANNEL_H_
-#define _OSGANIMVEC3FCHANNEL_H_
+#ifndef _OSGANIMMATRIXBLENDER_H_
+#define _OSGANIMMATRIXBLENDER_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGAnimVec3fChannelBase.h"
-#include "OSGAnimVec3fDataSource.h"
+#include "OSGAnimMatrixBlenderBase.h"
+#include "OSGAnimMatrixChannel.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief AnimVec3fChannel class. See \ref
-           PageDynamicsAnimVec3fChannel for a description.
+/*! \brief AnimMatrixBlender class. See \ref
+           PageDynamicsAnimMatrixBlender for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
+class OSG_DYNAMICS_DLLMAPPING AnimMatrixBlender : public AnimMatrixBlenderBase
 {
   protected:
 
@@ -59,8 +59,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
 
   public:
 
-    typedef AnimVec3fChannelBase Inherited;
-    typedef AnimVec3fChannel     Self;
+    typedef AnimMatrixBlenderBase Inherited;
+    typedef AnimMatrixBlender     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -72,10 +72,12 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Evaluation                                 */
+    /*! \name                  Frame Task Interface                        */
     /*! \{                                                                 */
 
-    virtual void evaluate(void);
+    virtual bool init    (void                      );
+    virtual void frame   (Time oTime, UInt32 uiFrame);
+    virtual void shutdown(void                      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -90,21 +92,21 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
 
   protected:
 
-    // Variables should all be in AnimVec3fChannelBase.
+    // Variables should all be in AnimMatrixBlenderBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    AnimVec3fChannel(void);
-    AnimVec3fChannel(const AnimVec3fChannel &source);
+    AnimMatrixBlender(void);
+    AnimMatrixBlender(const AnimMatrixBlender &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AnimVec3fChannel(void);
+    virtual ~AnimMatrixBlender(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -119,17 +121,17 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fChannel : public AnimVec3fChannelBase
   private:
 
     friend class FieldContainer;
-    friend class AnimVec3fChannelBase;
+    friend class AnimMatrixBlenderBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AnimVec3fChannel &source);
+    void operator =(const AnimMatrixBlender &source);
 };
 
-typedef AnimVec3fChannel *AnimVec3fChannelP;
+typedef AnimMatrixBlender *AnimMatrixBlenderP;
 
 OSG_END_NAMESPACE
 
-#include "OSGAnimVec3fChannelBase.inl"
-#include "OSGAnimVec3fChannel.inl"
+#include "OSGAnimMatrixBlenderBase.inl"
+#include "OSGAnimMatrixBlender.inl"
 
-#endif /* _OSGANIMVEC3FCHANNEL_H_ */
+#endif /* _OSGANIMMATRIXBLENDER_H_ */

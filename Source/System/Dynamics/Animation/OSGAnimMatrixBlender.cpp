@@ -45,13 +45,13 @@
 
 #include <OSGConfig.h>
 
-#include "OSGAnimMatrixDataSource.h"
+#include "OSGAnimMatrixBlender.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGAnimMatrixDataSourceBase.cpp file.
-// To modify it, please change the .fcd file (OSGAnimMatrixDataSource.fcd) and
+// OSGAnimMatrixBlenderBase.cpp file.
+// To modify it, please change the .fcd file (OSGAnimMatrixBlender.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -62,7 +62,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void AnimMatrixDataSource::initMethod(InitPhase ePhase)
+void AnimMatrixBlender::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -82,138 +82,67 @@ void AnimMatrixDataSource::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-AnimMatrixDataSource::AnimMatrixDataSource(void) :
+AnimMatrixBlender::AnimMatrixBlender(void) :
     Inherited()
 {
 }
 
-AnimMatrixDataSource::AnimMatrixDataSource(const AnimMatrixDataSource &source) :
+AnimMatrixBlender::AnimMatrixBlender(const AnimMatrixBlender &source) :
     Inherited(source)
 {
 }
 
-AnimMatrixDataSource::~AnimMatrixDataSource(void)
+AnimMatrixBlender::~AnimMatrixBlender(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void AnimMatrixDataSource::changed(ConstFieldMaskArg whichField, 
+void AnimMatrixBlender::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-void AnimMatrixDataSource::dump(      UInt32    ,
+bool AnimMatrixBlender::init(void)
+{
+    return Inherited::init();
+}
+
+void AnimMatrixBlender::frame(Time oTime, UInt32 uiFrame)
+{
+    Matrix blendValue;
+    MFChannelsType::const_iterator cIt  = _mfChannels.begin();
+    MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
+
+    for(UInt32 i = 0; cIt != cEnd; ++cIt, ++i)
+    {
+        if(i == 0)
+        {
+            blendValue =     (*cIt)->getOutValue();
+            blendValue.scale((*cIt)->getWeight  ());
+        }
+        else
+        {
+            blendValue.addScaled((*cIt)->getOutValue(),
+                                 (*cIt)->getWeight  () );
+        }
+    }
+
+    setOutValue(blendValue);
+}
+
+void AnimMatrixBlender::shutdown(void)
+{
+    Inherited::shutdown();
+}
+
+
+void AnimMatrixBlender::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump AnimMatrixDataSource NI" << std::endl;
-}
-
-void AnimMatrixDataSource::evaluate(Matrix &outValue, Real32 inValue)
-{
-    MFInValuesType::const_iterator ivIt =
-        std::lower_bound(_mfInValues.begin(),
-                         _mfInValues.end  (),
-                         inValue             );
-
-    InterpolationModeE im = IM_Linear;
-
-    if(_mfInterpolationModes.size() == 1)
-    {
-        im = InterpolationModeE(_mfInterpolationModes.front());
-    }
-    else if(_mfInterpolationModes.size() == _mfInValues.size())
-    {
-        MFInterpolationModesType::const_iterator imIt =
-            _mfInterpolationModes.begin();
-        std::advance(imIt, ivIt - _mfInValues.begin());
-
-        im = InterpolationModeE(*imIt);
-    }
-
-    switch(im)
-    {
-    case IM_Step:
-        evalStep(outValue, inValue, ivIt);
-        break;
-
-    case IM_Linear:
-        evalLinear(outValue, inValue, ivIt);
-        break;
-
-    default:
-        SWARNING << "AnimMatrixDataSource: Unknown interpolation mode ["
-                 << im << "] - using IM_Linear [" << IM_Linear << "]"
-                 << std::endl;
-        evalLinear(outValue, inValue, ivIt);
-        break;
-    }
-}
-
-void AnimMatrixDataSource::evalStep(
-    Matrix &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
-{
-    if(ivRIt != _mfInValues.end())
-    {
-        if(ivRIt != _mfInValues.begin())
-        {
-            MFValuesType::const_iterator vIt = _mfValues.begin();
-            std::advance(vIt, ivRIt - _mfInValues.begin());
-
-            outValue = *vIt;
-        }
-        else
-        {
-            extrapolateFront(outValue, inValue);
-        }
-    }
-    else
-    {
-        extrapolateBack(outValue, inValue);
-    }
-}
-
-void AnimMatrixDataSource::evalLinear(
-    Matrix &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
-{
-    if(ivRIt != _mfInValues.end())
-    {
-        if(ivRIt != _mfInValues.begin())
-        {
-            MFInValuesType::const_iterator ivLIt = ivRIt - 1;
-            
-            MFValuesType  ::const_iterator vRIt  = _mfValues.begin();
-            MFValuesType  ::const_iterator vLIt  = _mfValues.begin();
-            std::advance(vRIt, ivRIt - _mfInValues.begin());
-            std::advance(vLIt, ivLIt - _mfInValues.begin());
-
-            Real32 s = (inValue - *ivLIt) / (*ivRIt - *ivLIt);
-
-            outValue = *vLIt;
-            outValue.scale    (1.f - s );
-            outValue.addScaled(*vRIt, s);
-        }
-        else
-        {
-            extrapolateFront(outValue, inValue);
-        }
-    }
-    else
-    {
-        extrapolateBack(outValue, inValue);
-    }
-}
-
-void AnimMatrixDataSource::extrapolateFront(Matrix &outValue, Real32 inValue)
-{
-    outValue = _mfValues.front();
-}
-
-void AnimMatrixDataSource::extrapolateBack(Matrix &outValue, Real32 inValue)
-{
-    outValue = _mfValues.back();
+    SLOG << "Dump AnimMatrixBlender NI" << std::endl;
 }
 
 OSG_END_NAMESPACE
