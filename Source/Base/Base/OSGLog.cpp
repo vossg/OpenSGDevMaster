@@ -53,6 +53,7 @@
 #include "OSGLog.h"
 #include "OSGBaseFunctions.h"
 #include "OSGBaseInitFunctions.h"
+#include "OSGThread.h"
 
 OSG_USING_NAMESPACE
 
@@ -414,7 +415,7 @@ Log::~Log(void)
 bool Log::initLock(void)
 {
     _pLogLock = Lock::get("OSG::Log::_pLogLock");
-    
+
     addPreMPExitFunction(&Log::finalizeLock);
 
     return true;
@@ -441,7 +442,7 @@ void Log::setHeaderElem(UInt32 elemMask, bool force)
         osgLog() << "Log::setHeaderElem: overriden by envvar OSG_LOG_HEADER '"
                  << env << "'." << endLog;
 
-        elemMask = LogHeaderElem(atoi(env));
+        elemMask = atoi(env);
     }
 
     _headerElem = elemMask;
@@ -823,6 +824,76 @@ void Log::setLogFile(const Char8 *fileName, bool force)
     }
 }
 
+/*! Write log header.
+ */
+std::ostream &Log::doHeader(      LogLevel  level,
+                            const Char8    *module,
+                            const Char8    *file,
+                                  UInt32    line)
+{
+    LogOStream &sout       = *(_streamVec[level]);
+    const char *sep        = ( (_headerElem & LOG_TAB_HEADER) ? "\t" : ":" );
+    const char *color      = ( (_headerElem & LOG_COLOR_HEADER) ?
+                               _levelColor[level] : 0 );
+    const char *resetColor = "\x1b[0m";
+
+    if(_headerElem)
+    {
+        if(_headerElem & LOG_BEGIN_NEWLINE_HEADER)
+            sout << std::endl;
+
+        if(_headerElem & LOG_TYPE_HEADER)
+        {
+#ifdef WIN32
+            if(!color || !colorHeader(level, sep))
+            {
+                sout << _levelName[level] << sep;
+            }
+#else
+            if (color)
+                sout << color;
+
+            sout << _levelName[level] << sep;
+
+            if (color)
+                sout << resetColor;
+#endif
+        }
+
+        if(_headerElem & LOG_ASPECT_HEADER)
+        {
+            sout << "A" << Thread::getCurrentAspect() << sep;
+        }
+
+        if(_headerElem & LOG_TIMESTAMP_HEADER)
+            sout << (getSystemTime() - _refTime) << sep;
+
+        if(module && *module && (_headerElem & LOG_MODULE_HEADER))
+            sout << module << sep;
+
+        if(file && *file && (_headerElem & LOG_FILE_HEADER))
+        {
+            sout << file;
+
+            if(_headerElem & LOG_LINE_HEADER)
+                sout << ':' << line;
+
+            sout << sep;
+        }
+        else
+        {
+            if(_headerElem & LOG_LINE_HEADER)
+                sout << " line:" << line;
+        }
+
+        if(_headerElem & LOG_END_NEWLINE_HEADER)
+            sout << std::endl;
+        else
+            sout << ' ';
+    }
+
+    return sout;
+}
 
 /*! \brief print for C-interface helper method
  */
@@ -853,7 +924,7 @@ void Log::doLog(const Char8 * format, ...)
     {
         _bufferSize = osgMax(_bufferSize * 2, count + 1);
 
-        if(_buffer != NULL) 
+        if(_buffer != NULL)
             delete [] _buffer;
 
         _buffer = new Char8[_bufferSize];
@@ -867,7 +938,7 @@ void Log::doLog(const Char8 * format, ...)
     {
         _bufferSize = 8192;
 
-        if(_buffer != NULL) 
+        if(_buffer != NULL)
             delete [] _buffer;
 
         _buffer = new Char8[_bufferSize];
@@ -1022,8 +1093,9 @@ void OSG::doInitLog(void)
     {
         osgLogP = new Log();
 
-        osgLogP->setLogLevel(OSG_DEFAULT_LOG_LEVEL);
-        osgLogP->setLogFile (NULL                 );
-        osgLogP->setLogType (OSG_DEFAULT_LOG_TYPE );
+        osgLogP->setLogLevel  (OSG_DEFAULT_LOG_LEVEL      );
+        osgLogP->setLogFile   (NULL                       );
+        osgLogP->setLogType   (OSG_DEFAULT_LOG_TYPE       );
+        osgLogP->setHeaderElem(OSG_DEFAULT_LOG_HEADER_ELEM);
     }
 }

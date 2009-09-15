@@ -97,6 +97,7 @@ enum LogHeaderElem
     LOG_FILE_HEADER          = 16,
     LOG_LINE_HEADER          = 32,
     LOG_END_NEWLINE_HEADER   = 64,
+    LOG_ASPECT_HEADER        = 128,
 
     LOG_COLOR_HEADER         = 8192,
     LOG_TAB_HEADER           = 16384,
@@ -129,6 +130,10 @@ enum LogModuleHandling
 
 #ifndef OSG_DEFAULT_LOG_TYPE
 #    define OSG_DEFAULT_LOG_TYPE LOG_STDERR
+#endif
+
+#ifndef OSG_DEFAULT_LOG_HEADER_ELEM
+#    define OSG_DEFAULT_LOG_HEADER_ELEM LOG_TYPE_HEADER
 #endif
 
 /*! \} */
