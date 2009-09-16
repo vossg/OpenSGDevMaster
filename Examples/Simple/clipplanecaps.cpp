@@ -54,6 +54,7 @@
 #include <OSGInverseTransform.h>
 #include <OSGPassiveBackground.h>
 #include <OSGFieldContainerUtils.h>
+#include <OSGContainerCollection.h>
 
 #else // OSG_BUILD_ACTIVE
 
@@ -74,6 +75,7 @@
 #include <OpenSG/OSGInverseTransform.h>
 #include <OpenSG/OSGPassiveBackground.h>
 #include <OpenSG/OSGFieldContainerUtils.h>
+#include <OpenSG/OSGContainerCollection.h>
 
 #endif // OSG_BUILD_ACTIVE
 
@@ -112,15 +114,16 @@ VecClipPlaneData      vecClipPlaneData;      // transport clip plane info
 VecClipPlaneDetailsT  vecClipPlaneDetails;   // opensg clip plane state
 VecNodesT             vecGeometries;         // box and torus
 
-OSG::SimpleSceneManager   *mgr;
-OSG::NodeRefPtr            scene;
+OSG::SimpleSceneManager*        mgr;
+OSG::NodeRefPtr                 scene;
+OSG::ContainerCollectionRefPtr  container;
 
 //
 // the number of clipping planes supported by the demo. Define a plane color
 // for each.
 //
 const int iNumClipPlanes = 2;
-OSG::Color3f planeCol[iNumClipPlanes] = { OSG::Color3f(0,1,0), 
+OSG::Color3f planeCol[iNumClipPlanes] = { OSG::Color3f(0,1,0),
                                           OSG::Color3f(0,0,1) };
 
 //
@@ -136,6 +139,9 @@ void createClipPlaneDetails(void)
         // Create clip plane chunk
         //
         details._planeBeaconNode = OSG::Node::create();
+        details._planeBeaconNode->setCore(OSG::Transform::create());
+
+        container->addContainer(details._planeBeaconNode);
 
         details._clipPlaneChunk = OSG::ClipPlaneChunk::create();
         details._clipPlaneChunk->setEquation(OSG::Vec4f(1,0,0,0));
@@ -177,7 +183,8 @@ void cleanup(void)
     delete mgr;
     mgr = NULL;
 
-    scene = NULL;
+    scene     = NULL;
+    container = NULL;
 }
 
 //
@@ -189,7 +196,7 @@ void updateClipPlanes(const VecClipPlaneData& vec)
 
     for(int i = 0; i < iNumClipPlanes; ++i)
     {
-        OSG::ClipPlaneChunk *clipPlaneChunk = 
+        OSG::ClipPlaneChunk *clipPlaneChunk =
             vecClipPlaneDetails[i]._clipPlaneChunk;
 
         clipPlaneChunk->setEnable(false);
@@ -242,25 +249,20 @@ void updateClipPlanes(const VecClipPlaneData& vec)
 //
 //    mat1 : has a stencil chunk that clears the stencil buffer first, than
 //           does the inversion, and has a clip plane chunk that enables one
-//           clip plane. Sortkey 0.
+//           clip plane. Sort key 2*i + 0 with i idx of a clip plane.
 //    mat2 : has a stencil chunk and settings for drawing the clip plane
 //           geometry. All clip planes but the one coincident with the plane
-//           are activated. Sortkey 1.
+//           are activated. Sort key 2*i + 0 with i idx of a clip plane.
 //    mat3 : the material used for the actual geometry. All clip planes are
-//           activated. Sortkey 3.
+//           activated. Sort key none.
 //
 //    For each active clip plane copies of the left two branches need to be
 //    added.
 //
-OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *scene, 
-                                       OSG::Geometry *geo1, 
+OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *scene,
+                                       OSG::Geometry *geo1,
                                  const OSG::Matrix   &matrix)
 {
-    // if using a sort key, for each geometry we must ensure that the sortkeys
-    // are independent. However, using a StateSortingGroup parent node does
-    // make the use of sortkeys not necessary.
-    static int k = 0;
-
     //
     // Parent nodes for the left two branches
     //
@@ -293,7 +295,6 @@ OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *scene,
         mat1->addChunk(stencilChunk1);
         mat1->addChunk(vecClipPlaneDetails[i]._clipPlaneChunk);
         mat1->setSortKey(2 * i + 0);
-        //mat1->setSortKey(k*(2*iNumClipPlanes + 1) + 2*i + 0);
 
         OSG::MaterialGroupRefPtr mgrp1 = OSG::MaterialGroup::create();
         mgrp1->setMaterial(mat1);
@@ -334,7 +335,6 @@ OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *scene,
         }
         mat2->addChunk(stencilChunk2);
         mat2->setSortKey(2 * i + 1);
-        //mat2->setSortKey(k*(2*iNumClipPlanes + 1) + 2*i + 1);
 
         OSG::NodeRefPtr planeGeoNode = OSG::Node::create();
         planeGeoNode->setCore(vecClipPlaneDetails[i]._planeGeometryCore);
@@ -378,8 +378,6 @@ OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *scene,
     {
         mat3->addChunk(vecClipPlaneDetails[i]._clipPlaneChunk);
     }
-    mat3->setSortKey(2 * iNumClipPlanes);
-    //mat3->setSortKey(k*(2*iNumClipPlanes + 1) + iNumClipPlanes * 2);
 
     OSG::MaterialGroupRefPtr mgrp3 = OSG::MaterialGroup::create();
     mgrp3->setMaterial(mat3);
@@ -389,6 +387,28 @@ OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *scene,
 
     materialNode3->setCore (mgrp3);
     materialNode3->addChild(geometryNode);
+
+    //
+    // The grouping stage core does suppress a reordering
+    // of the render states. This is necessary because the
+    // stencil states must be rendered in correct order.
+    // There is no state sorting across stages, so that
+    // would ensure that everything below a stage is rendered
+    // together and the sort key can enforce the right order
+    // among those things.
+    //
+    OSG::NodeRefPtr stageNode = OSG::Node::create();
+    stageNode->setCore(OSG::GroupingStage::create());
+
+    OSG::NodeRefPtr clipPlanePartNode = OSG::Node::create();
+    clipPlanePartNode->setCore(OSG::Group::create());
+    stageNode->addChild(clipPlanePartNode);
+
+    for(int i = 0; i < iNumClipPlanes; ++i)
+    {
+        clipPlanePartNode->addChild(vecMaterialNodes1[i]);
+        clipPlanePartNode->addChild(vecMaterialNodes2[i]);
+    }
 
     //
     // The multi switch core is not actually used in this
@@ -405,42 +425,19 @@ OSG::NodeTransitPtr buildGeoTree(      OSG::Node     *scene,
     OSG::NodeRefPtr selectNode = OSG::Node::create();
     selectNode->setCore(selectCore);
 
-    for(int i = 0; i < iNumClipPlanes; ++i)
-    {
-        selectNode->addChild(vecMaterialNodes1[i]);
-        selectNode->addChild(vecMaterialNodes2[i]);
-    }
-
+    selectNode->addChild(stageNode);
     selectNode->addChild(materialNode3);
-
-    //
-    // In order to avoid sort keys which grow with the number of primary
-    // geometry nodes, a node carrying a Stage core is inserted
-    // into the tree.
-    //
-    OSG::PassiveBackgroundRefPtr passBkg = OSG::PassiveBackground::create();
-
-    OSG::GroupingStageRefPtr stageCore;
-    OSG::NodeRefPtr          stageNode = 
-        OSG::makeCoredNode<OSG::GroupingStage>(&stageCore);
-//    stageCore->setInheritedTarget(true);
-//    stageCore->setCamera    (mgr->getCamera());
-//    stageCore->setBackground(passBkg         );
-    stageNode->addChild(selectNode);
 
     //
     // Finally, the geometry should be transformable
     //
     OSG::TransformRefPtr transfCore;
-    OSG::NodeRefPtr      transfNode = 
-        OSG::makeCoredNode<OSG::Transform>(&transfCore);
+    OSG::NodeRefPtr      transfNode =
+    OSG::makeCoredNode<OSG::Transform>(&transfCore);
 
     transfCore->setMatrix(matrix);
-    transfNode->addChild(stageNode);
-    //trafoNode->addChild(selectNode); // if using sort keys use this
+    transfNode->addChild(selectNode); // if using sort keys use this
                                        // instead of the former line.
-
-    k++;
 
     return OSG::NodeTransitPtr(transfNode);
 }
@@ -532,11 +529,11 @@ void keyboard(unsigned char k, int, int)
                 OSG::Vec3f v(10.f,  0.f, 15.f);
                 matrix.setTranslate(v);
 
-                OSG::GeometryRefPtr boxGeo  = 
+                OSG::GeometryRefPtr boxGeo  =
                     OSG::makeBoxGeo(15, 15, 15, 1, 1, 1);
 
-                OSG::NodeRefPtr     boxTree = buildGeoTree(scene, 
-                                                           boxGeo, 
+                OSG::NodeRefPtr     boxTree = buildGeoTree(scene,
+                                                           boxGeo,
                                                            matrix);
 
                 vecGeometries[0] = boxTree;
@@ -561,7 +558,7 @@ void keyboard(unsigned char k, int, int)
                 matrix.setTranslate(v);
 
                 OSG::GeometryRefPtr torusGeo  = OSG::makeTorusGeo(2, 6, 8, 16);
-                OSG::NodeRefPtr     torusTree = buildGeoTree(scene, 
+                OSG::NodeRefPtr     torusTree = buildGeoTree(scene,
                                                              torusGeo, matrix);
 
                 vecGeometries[1] = torusTree;
@@ -577,30 +574,36 @@ void keyboard(unsigned char k, int, int)
 //             mgr->redraw();
         }
         break;
+
+    case '5':
+        {
+            bool ret = OSG::SceneFileHandler::the()->write(mgr->getRoot(), "clipplane_model.osb", true);
+        }
+        break;
     case 'n':   // move clip plane 0 opposite to the normal direction of the plane
         {
-            val0 -= 0.2f;
+            val0 -= 0.2;
             vecClipPlaneData[0]._equation[3] = val0;
             updateClipPlanes(vecClipPlaneData);
         }
         break;
     case 'm':   // move clip plane 0 in the normal direction of the plane
         {
-            val0 += 0.2f;
+            val0 += 0.2;
             vecClipPlaneData[0]._equation[3] = val0;
             updateClipPlanes(vecClipPlaneData);
         }
         break;
     case ',':   // move clip plane 1 opposite to the normal direction of the plane
         {
-            val1 -= 0.2f;
+            val1 -= 0.2;
             vecClipPlaneData[1]._equation[3] = val1;
             updateClipPlanes(vecClipPlaneData);
         }
         break;
     case '.':   // move clip plane 1 in the normal direction of the plane
         {
-            val1 += 0.2f;
+            val1 += 0.2;
             vecClipPlaneData[1]._equation[3] = val1;
             updateClipPlanes(vecClipPlaneData);
         }
@@ -818,12 +821,21 @@ void keyboard(unsigned char k, int, int)
         }
         break;
     }
-    
+
     glutPostRedisplay();
 }
 
 int doMain(int argc, char **argv)
 {
+    //
+    // This might be necessary depending on the
+    // used platform to ensure that the corresponding
+    // libraries get loaded.
+    //
+    OSG::preloadSharedObject("OSGFileIO");
+    OSG::preloadSharedObject("OSGImageFileIO");
+    OSG::preloadSharedObject("OSGContribPLY");
+
     OSG::osgInit(argc,argv);
 
     // GLUT init
@@ -850,6 +862,14 @@ int doMain(int argc, char **argv)
     mgr->setWindow(pwin);
 
     //
+    // for storing clipplane beacon we use a container
+    // collection attachment which we attach to the scene
+    // node. Otherwise the scene could not be saved correctly,
+    // as the beacons would be lost.
+    //
+    container = OSG::ContainerCollection::create();
+
+    //
     // Implementation details:
     //      For each clip plane we provide a ClipPlaneChunk, the plane geometry,
     //      the plane transform core and at least a plane color conveniently in
@@ -863,6 +883,7 @@ int doMain(int argc, char **argv)
     //
     scene = OSG::Node::create();
     scene->setCore(OSG::Group::create());
+    scene->addAttachment(container);
 
     //
     // A place for accessing the box and torus.
