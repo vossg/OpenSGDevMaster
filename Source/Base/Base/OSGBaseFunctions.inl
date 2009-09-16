@@ -2631,7 +2631,7 @@ OSG::Int32 osgRound2Int(OSG::Real64 val)
 {
 #ifdef OSG_FAST_INT
 	val		= val + OSG_DOUBLEMAGIC;
-	return ((long*) &val)[0];
+	return (reinterpret_cast<long*>(&val))[0];
 #else
 	return int (val + OSG_DOUBLEMAGICROUNDEPS);
 #endif

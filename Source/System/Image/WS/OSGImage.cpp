@@ -290,7 +290,7 @@ void Image::dump(      UInt32    ,
     };
 
     FLOG (("ImageDump: %s; %d/%d/%d; #mm: %d, side %d, #frame: %d, "
-           "frameDelay %g, dataType %s, size: %zd\n",
+           "frameDelay %g, dataType %s, size: %ld\n",
            pfStr,
            getWidth(),
            getHeight(),

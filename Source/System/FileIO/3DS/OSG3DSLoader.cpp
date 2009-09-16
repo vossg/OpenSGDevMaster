@@ -1161,7 +1161,7 @@ bool L3DS::Load(std::istream &is)
         return false;
     }
     is.read(reinterpret_cast<char *>(m_buffer), m_bufferSize);
-    if(is.gcount() != m_bufferSize)
+    if(is.gcount() != std::streamsize(m_bufferSize))
     {
         free(m_buffer);
         m_bufferSize = 0;
