@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class AnimTemplate
+ **     class AnimTargetAttachment
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGANIMTEMPLATEBASE_H_
-#define _OSGANIMTEMPLATEBASE_H_
+#ifndef _OSGANIMTARGETATTACHMENTBASE_H_
+#define _OSGANIMTARGETATTACHMENTBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,30 +63,30 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGAttachment.h" // Parent
 
-#include "OSGBaseFields.h"              // Name type
-#include "OSGAnimDataSourceFields.h"    // Sources type
+#include "OSGBaseFields.h"              // TargetId type
+#include "OSGAnimBlenderFields.h"       // Blenders type
 
-#include "OSGAnimTemplateFields.h"
+#include "OSGAnimTargetAttachmentFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class AnimTemplate;
+class AnimTargetAttachment;
 
-//! \brief AnimTemplate Base Class.
+//! \brief AnimTargetAttachment Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
+class OSG_DYNAMICS_DLLMAPPING AnimTargetAttachmentBase : public Attachment
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef Attachment Inherited;
+    typedef Attachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(AnimTemplate);
+    OSG_GEN_INTERNALPTR(AnimTargetAttachment);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -94,24 +94,20 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
 
     enum
     {
-        NameFieldId = Inherited::NextFieldId,
-        SourcesFieldId = NameFieldId + 1,
-        TargetIdsFieldId = SourcesFieldId + 1,
-        NextFieldId = TargetIdsFieldId + 1
+        TargetIdFieldId = Inherited::NextFieldId,
+        BlendersFieldId = TargetIdFieldId + 1,
+        NextFieldId = BlendersFieldId + 1
     };
 
-    static const OSG::BitVector NameFieldMask =
-        (TypeTraits<BitVector>::One << NameFieldId);
-    static const OSG::BitVector SourcesFieldMask =
-        (TypeTraits<BitVector>::One << SourcesFieldId);
-    static const OSG::BitVector TargetIdsFieldMask =
-        (TypeTraits<BitVector>::One << TargetIdsFieldId);
+    static const OSG::BitVector TargetIdFieldMask =
+        (TypeTraits<BitVector>::One << TargetIdFieldId);
+    static const OSG::BitVector BlendersFieldMask =
+        (TypeTraits<BitVector>::One << BlendersFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFString          SFNameType;
-    typedef MFUnrecAnimDataSourcePtr MFSourcesType;
-    typedef MFString          MFTargetIdsType;
+    typedef SFString          SFTargetIdType;
+    typedef MFUnrecAnimBlenderPtr MFBlendersType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -137,29 +133,23 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
     /*! \{                                                                 */
 
 
-                  SFString            *editSFName           (void);
-            const SFString            *getSFName            (void) const;
-            const MFUnrecAnimDataSourcePtr *getMFSources        (void) const;
-                  MFUnrecAnimDataSourcePtr *editMFSources        (void);
-
-                  MFString            *editMFTargetIds      (void);
-            const MFString            *getMFTargetIds       (void) const;
+                  SFString            *editSFTargetId       (void);
+            const SFString            *getSFTargetId        (void) const;
+            const MFUnrecAnimBlenderPtr *getMFBlenders       (void) const;
+                  MFUnrecAnimBlenderPtr *editMFBlenders       (void);
 
 
-                  std::string         &editName           (void);
-            const std::string         &getName            (void) const;
+                  std::string         &editTargetId       (void);
+            const std::string         &getTargetId        (void) const;
 
-                  AnimDataSource * getSources        (const UInt32 index) const;
-
-                  std::string         &editTargetIds      (const UInt32 index);
-            const std::string         &getTargetIds       (const UInt32 index) const;
+                  AnimBlender * getBlenders       (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setName           (const std::string &value);
+            void setTargetId       (const std::string &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -171,11 +161,11 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToSources             (AnimDataSource * const value   );
-    void assignSources            (const MFUnrecAnimDataSourcePtr &value);
-    void removeFromSources (UInt32               uiIndex );
-    void removeObjFromSources(AnimDataSource * const value   );
-    void clearSources               (void                         );
+    void pushToBlenders            (AnimBlender * const value   );
+    void assignBlenders           (const MFUnrecAnimBlenderPtr &value);
+    void removeFromBlenders (UInt32               uiIndex );
+    void removeObjFromBlenders(AnimBlender * const value   );
+    void clearBlenders              (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -188,6 +178,33 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
     virtual void   copyFromBin(BinaryDataHandler &pMem,
                                ConstFieldMaskArg  whichField);
 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Construction                               */
+    /*! \{                                                                 */
+
+    static  AnimTargetAttachmentTransitPtr  create          (void);
+    static  AnimTargetAttachment           *createEmpty     (void);
+
+    static  AnimTargetAttachmentTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
+
+    static  AnimTargetAttachment            *createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
+
+    static  AnimTargetAttachmentTransitPtr  createDependent  (BitVector bFlags);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                       Copy                                   */
+    /*! \{                                                                 */
+
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -203,43 +220,40 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFString          _sfName;
-    MFUnrecAnimDataSourcePtr _mfSources;
-    MFString          _mfTargetIds;
+    SFString          _sfTargetId;
+    MFUnrecAnimBlenderPtr _mfBlenders;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    AnimTemplateBase(void);
-    AnimTemplateBase(const AnimTemplateBase &source);
+    AnimTargetAttachmentBase(void);
+    AnimTargetAttachmentBase(const AnimTargetAttachmentBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AnimTemplateBase(void);
+    virtual ~AnimTargetAttachmentBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const AnimTemplate *source = NULL);
+    void onCreate(const AnimTargetAttachment *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleName            (void) const;
-    EditFieldHandlePtr editHandleName           (void);
-    GetFieldHandlePtr  getHandleSources         (void) const;
-    EditFieldHandlePtr editHandleSources        (void);
-    GetFieldHandlePtr  getHandleTargetIds       (void) const;
-    EditFieldHandlePtr editHandleTargetIds      (void);
+    GetFieldHandlePtr  getHandleTargetId        (void) const;
+    EditFieldHandlePtr editHandleTargetId       (void);
+    GetFieldHandlePtr  getHandleBlenders        (void) const;
+    EditFieldHandlePtr editHandleBlenders       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -253,7 +267,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      AnimTemplateBase *pFrom,
+            void execSync (      AnimTargetAttachmentBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -269,6 +283,11 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                     Aspect Create                            */
     /*! \{                                                                 */
+
+#ifdef OSG_MT_CPTR_ASPECT
+    virtual FieldContainer *createAspectCopy(
+                                    const FieldContainer *pRefAspect) const;
+#endif
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -288,11 +307,11 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplateBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AnimTemplateBase &source);
+    void operator =(const AnimTargetAttachmentBase &source);
 };
 
-typedef AnimTemplateBase *AnimTemplateBaseP;
+typedef AnimTargetAttachmentBase *AnimTargetAttachmentBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGANIMTEMPLATEBASE_H_ */
+#endif /* _OSGANIMTARGETATTACHMENTBASE_H_ */

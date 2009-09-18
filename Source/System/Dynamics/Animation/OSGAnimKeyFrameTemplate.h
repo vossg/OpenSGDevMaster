@@ -71,6 +71,13 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameTemplate : public AnimKeyFrameTemplate
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Instantiate                                */
+    /*! \{                                                                 */
+
+    virtual AnimationTransitPtr instantiate(Node *rootNode);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 

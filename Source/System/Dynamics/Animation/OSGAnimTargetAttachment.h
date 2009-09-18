@@ -36,27 +36,22 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGANIMTEMPLATE_H_
-#define _OSGANIMTEMPLATE_H_
+#ifndef _OSGANIMTARGETATTACHMENT_H_
+#define _OSGANIMTARGETATTACHMENT_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGAnimTemplateBase.h"
-#include "OSGAnimDataSource.h"
+#include "OSGAnimTargetAttachmentBase.h"
+#include "OSGAnimBlender.h"
 
 OSG_BEGIN_NAMESPACE
 
-// forward decl
-class Animation;
-OSG_GEN_CONTAINERPTR(Animation);
-
-
-/*! \brief AnimTemplate class. See \ref
-           PageDynamicsAnimTemplate for a description.
+/*! \brief AnimTargetAttachment class. See \ref
+           PageDynamicsAnimTargetAttachment for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING AnimTemplate : public AnimTemplateBase
+class OSG_DYNAMICS_DLLMAPPING AnimTargetAttachment : public AnimTargetAttachmentBase
 {
   protected:
 
@@ -64,8 +59,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplate : public AnimTemplateBase
 
   public:
 
-    typedef AnimTemplateBase Inherited;
-    typedef AnimTemplate     Self;
+    typedef AnimTargetAttachmentBase Inherited;
+    typedef AnimTargetAttachment     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -74,17 +69,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplate : public AnimTemplateBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Instantiate                                */
-    /*! \{                                                                 */
-
-    virtual AnimationTransitPtr instantiate(Node *rootNode) = 0;
-
-    AnimDataSource *findSource(const std::string &targetId ) const;
-    AnimDataSource *findSource(const std::string &targetId,
-                                     UInt32      &srcIdx   ) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -99,21 +83,21 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplate : public AnimTemplateBase
 
   protected:
 
-    // Variables should all be in AnimTemplateBase.
+    // Variables should all be in AnimTargetAttachmentBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    AnimTemplate(void);
-    AnimTemplate(const AnimTemplate &source);
+    AnimTargetAttachment(void);
+    AnimTargetAttachment(const AnimTargetAttachment &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AnimTemplate(void);
+    virtual ~AnimTargetAttachment(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -128,17 +112,32 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplate : public AnimTemplateBase
   private:
 
     friend class FieldContainer;
-    friend class AnimTemplateBase;
+    friend class AnimTargetAttachmentBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AnimTemplate &source);
+    void operator =(const AnimTargetAttachment &source);
 };
 
-typedef AnimTemplate *AnimTemplateP;
+typedef AnimTargetAttachment *AnimTargetAttachmentP;
+
+/*---------------------------------------------------------------------------*\
+ * Free Functions                                                            *
+\*---------------------------------------------------------------------------*/
+
+OSG_DYNAMICS_DLLMAPPING
+AnimTargetAttachment *getTargetAtt(      AttachmentContainer *container );
+
+OSG_DYNAMICS_DLLMAPPING
+bool                  getTargetId (      AttachmentContainer *container,
+                                         std::string         &targetId  );
+
+OSG_DYNAMICS_DLLMAPPING
+bool                  setTargetId (      AttachmentContainer *container,
+                                   const std::string         &targetId  );
 
 OSG_END_NAMESPACE
 
-#include "OSGAnimTemplateBase.inl"
-#include "OSGAnimTemplate.inl"
+#include "OSGAnimTargetAttachmentBase.inl"
+#include "OSGAnimTargetAttachment.inl"
 
-#endif /* _OSGANIMTEMPLATE_H_ */
+#endif /* _OSGANIMTARGETATTACHMENT_H_ */

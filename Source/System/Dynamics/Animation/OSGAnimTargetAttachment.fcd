@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="AnimTargetAttachment"
+    parent="Attachment"
+    library="Dynamics"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+>
+  <Field
+     name="targetId"
+     type="std::string"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue=""
+     >
+  </Field>
+  <Field
+     name="blenders"
+     type="AnimBlender"
+     category="pointer"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+  </Field>
+</FieldContainer>

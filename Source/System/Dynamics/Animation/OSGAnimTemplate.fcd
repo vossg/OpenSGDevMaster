@@ -15,6 +15,16 @@
    parentFields="none"
    >
   <Field
+     name="name"
+     category="data"
+     type="std::string"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+  <Field
      name="sources"
      category="pointer"
      type="AnimDataSource"

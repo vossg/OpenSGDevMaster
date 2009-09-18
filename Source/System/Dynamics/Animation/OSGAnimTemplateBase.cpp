@@ -83,6 +83,10 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var std::string     AnimTemplateBase::_sfName
+    
+*/
+
 /*! \var AnimDataSource * AnimTemplateBase::_mfSources
     
 */
@@ -118,6 +122,18 @@ void AnimTemplateBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
+
+    pDesc = new SFString::Description(
+        SFString::getClassType(),
+        "name",
+        "",
+        NameFieldId, NameFieldMask,
+        false,
+        (Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&AnimTemplate::editHandleName),
+        static_cast<FieldGetMethodSig >(&AnimTemplate::getHandleName));
+
+    oType.addInitialDesc(pDesc);
 
     pDesc = new MFUnrecAnimDataSourcePtr::Description(
         MFUnrecAnimDataSourcePtr::getClassType(),
@@ -173,6 +189,16 @@ AnimTemplateBase::TypeObject AnimTemplateBase::_type(
     "   parentFields=\"none\"\n"
     "   >\n"
     "  <Field\n"
+    "     name=\"name\"\n"
+    "     category=\"data\"\n"
+    "     type=\"std::string\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
     "     name=\"sources\"\n"
     "     category=\"pointer\"\n"
     "     type=\"AnimDataSource\"\n"
@@ -214,6 +240,19 @@ UInt32 AnimTemplateBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
+
+
+SFString *AnimTemplateBase::editSFName(void)
+{
+    editSField(NameFieldMask);
+
+    return &_sfName;
+}
+
+const SFString *AnimTemplateBase::getSFName(void) const
+{
+    return &_sfName;
+}
 
 
 //! Get the AnimTemplate::_mfSources field.
@@ -305,6 +344,10 @@ UInt32 AnimTemplateBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+    {
+        returnValue += _sfName.getBinSize();
+    }
     if(FieldBits::NoField != (SourcesFieldMask & whichField))
     {
         returnValue += _mfSources.getBinSize();
@@ -322,6 +365,10 @@ void AnimTemplateBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+    {
+        _sfName.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (SourcesFieldMask & whichField))
     {
         _mfSources.copyToBin(pMem);
@@ -337,6 +384,10 @@ void AnimTemplateBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (NameFieldMask & whichField))
+    {
+        _sfName.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (SourcesFieldMask & whichField))
     {
         _mfSources.copyFromBin(pMem);
@@ -354,6 +405,7 @@ void AnimTemplateBase::copyFromBin(BinaryDataHandler &pMem,
 
 AnimTemplateBase::AnimTemplateBase(void) :
     Inherited(),
+    _sfName                   (),
     _mfSources                (),
     _mfTargetIds              ()
 {
@@ -361,6 +413,7 @@ AnimTemplateBase::AnimTemplateBase(void) :
 
 AnimTemplateBase::AnimTemplateBase(const AnimTemplateBase &source) :
     Inherited(source),
+    _sfName                   (source._sfName                   ),
     _mfSources                (),
     _mfTargetIds              (source._mfTargetIds              )
 {
@@ -393,6 +446,31 @@ void AnimTemplateBase::onCreate(const AnimTemplate *source)
             ++SourcesIt;
         }
     }
+}
+
+GetFieldHandlePtr AnimTemplateBase::getHandleName            (void) const
+{
+    SFString::GetHandlePtr returnValue(
+        new  SFString::GetHandle(
+             &_sfName,
+             this->getType().getFieldDesc(NameFieldId),
+             const_cast<AnimTemplateBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr AnimTemplateBase::editHandleName           (void)
+{
+    SFString::EditHandlePtr returnValue(
+        new  SFString::EditHandle(
+             &_sfName,
+             this->getType().getFieldDesc(NameFieldId),
+             this));
+
+
+    editSField(NameFieldMask);
+
+    return returnValue;
 }
 
 GetFieldHandlePtr AnimTemplateBase::getHandleSources         (void) const

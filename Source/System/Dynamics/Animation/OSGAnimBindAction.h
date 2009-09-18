@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                  Copyright (C) 2009 by the OpenSG Forum                   *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,89 +36,73 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#ifndef _OSGANIMBINDACTION_H_
+#define _OSGANIMBINDACTION_H_
 
-#include <cstdlib>
-#include <cstdio>
-
-#include <OSGConfig.h>
-
-#include "OSGAnimKeyFrameTemplate.h"
-#include "OSGAnimation.h"
+#include "OSGConfig.h"
+#include "OSGDynamicsDef.h"
+#include "OSGAction.h"
 
 OSG_BEGIN_NAMESPACE
 
-// Documentation for this class is emitted in the
-// OSGAnimKeyFrameTemplateBase.cpp file.
-// To modify it, please change the .fcd file (OSGAnimKeyFrameTemplate.fcd) and
-// regenerate the base file.
+// forward decl
+class AnimTemplate;
+class Animation;
 
-/***************************************************************************\
- *                           Class variables                               *
-\***************************************************************************/
+OSG_GEN_CONTAINERPTR(AnimTemplate);
+OSG_GEN_CONTAINERPTR(Animation   );
 
-/***************************************************************************\
- *                           Class methods                                 *
-\***************************************************************************/
+/*---------------------------------------------------------------------------*\
+ * AnimBindAction                                                            *
+\*---------------------------------------------------------------------------*/
 
-void AnimKeyFrameTemplate::initMethod(InitPhase ePhase)
+class OSG_DYNAMICS_DLLMAPPING AnimBindAction : public Action
 {
-    Inherited::initMethod(ePhase);
+  public:
+    typedef Action         Inherited;
+    typedef AnimBindAction Self;
 
-    if(ePhase == TypeObject::SystemPost)
-    {
-    }
-}
+    virtual ~AnimBindAction(void);
 
+    static AnimBindAction *create(void);
 
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
+    static void registerEnterDefault(const FieldContainerType &type,
+                                     const Action::Functor    &func );
+    static void registerLeaveDefault(const FieldContainerType &type,
+                                     const Action::Functor    &func );
 
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
+    AnimTemplate *getTemplate(void                  ) const;
+    void          setTemplate(AnimTemplate *animTmpl);
 
-/*----------------------- constructors & destructors ----------------------*/
+    Animation    *getAnim    (void                  ) const;
+    void          setAnim    (Animation    *anim    );
 
-AnimKeyFrameTemplate::AnimKeyFrameTemplate(void) :
-    Inherited()
-{
-}
+  protected:
+    AnimBindAction(void                        );
+    AnimBindAction(const AnimBindAction &source);
 
-AnimKeyFrameTemplate::AnimKeyFrameTemplate(const AnimKeyFrameTemplate &source) :
-    Inherited(source)
-{
-}
+    virtual FunctorStore *getDefaultEnterFunctors(void);
+    virtual FunctorStore *getDefaultLeaveFunctors(void);
 
-AnimKeyFrameTemplate::~AnimKeyFrameTemplate(void)
-{
-}
+    static  bool          terminateEnter         (void);
+    static  bool          terminateLeave         (void);
 
-/*----------------------------- class specific ----------------------------*/
-
-void AnimKeyFrameTemplate::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-AnimationTransitPtr
-AnimKeyFrameTemplate::instantiate(Node *rootNode)
-{
-    // XXX TODO
-
-    return AnimationTransitPtr(NULL);
-}
+    static FunctorStore *_defaultEnterFunctors;
+    static FunctorStore *_defaultLeaveFunctors;
 
 
-void AnimKeyFrameTemplate::dump(      UInt32    ,
-                         const BitVector ) const
-{
-    SLOG << "Dump AnimKeyFrameTemplate NI" << std::endl;
-}
+  private:
+    AnimTemplateUnrecPtr _animTmpl;
+    AnimationUnrecPtr    _anim;
+
+};
+
+Action::ResultE
+transformKFBindEnter(NodeCore *core, Action *action);
+
+Action::ResultE
+skeletonKFBindEnter(NodeCore *core, Action *action);
 
 OSG_END_NAMESPACE
+
+#endif // _OSGANIMBINDACTION_H_

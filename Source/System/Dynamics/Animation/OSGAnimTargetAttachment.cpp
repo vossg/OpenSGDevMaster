@@ -45,13 +45,13 @@
 
 #include <OSGConfig.h>
 
-#include "OSGAnimTemplate.h"
+#include "OSGAnimTargetAttachment.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGAnimTemplateBase.cpp file.
-// To modify it, please change the .fcd file (OSGAnimTemplate.fcd) and
+// OSGAnimTargetAttachmentBase.cpp file.
+// To modify it, please change the .fcd file (OSGAnimTargetAttachment.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -62,7 +62,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void AnimTemplate::initMethod(InitPhase ePhase)
+void AnimTargetAttachment::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -82,63 +82,123 @@ void AnimTemplate::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-AnimTemplate::AnimTemplate(void) :
+AnimTargetAttachment::AnimTargetAttachment(void) :
     Inherited()
 {
 }
 
-AnimTemplate::AnimTemplate(const AnimTemplate &source) :
+AnimTargetAttachment::AnimTargetAttachment(const AnimTargetAttachment &source) :
     Inherited(source)
 {
 }
 
-AnimTemplate::~AnimTemplate(void)
+AnimTargetAttachment::~AnimTargetAttachment(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void AnimTemplate::changed(ConstFieldMaskArg whichField, 
+void AnimTargetAttachment::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
 }
 
-AnimDataSource *
-AnimTemplate::findSource(const std::string &targetId) const
-{
-    UInt32 srcIdx = 0;
-
-    return findSource(targetId, srcIdx);
-}
-
-AnimDataSource *
-AnimTemplate::findSource(const std::string &targetId, UInt32 &srcIdx) const
-{
-    OSG_ASSERT(_mfTargetIds.size() == _mfSources.size());
-    OSG_ASSERT(srcIdx              <  _mfSources.size());
-
-    AnimDataSource                  *src    = NULL;
-    MFTargetIdsType::const_iterator  idIt  = _mfTargetIds.begin();
-    MFTargetIdsType::const_iterator  idEnd = _mfTargetIds.end  ();
-
-    idIt = std::find(idIt + srcIdx, idEnd, targetId);
-
-    if(idIt != idEnd)
-    {
-        srcIdx = std::distance(_mfTargetIds.begin(), idIt);
-        src    = _mfSources[srcIdx];
-    }
-
-    return src;
-}
-
-
-void AnimTemplate::dump(      UInt32    ,
+void AnimTargetAttachment::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump AnimTemplate NI" << std::endl;
+    SLOG << "Dump AnimTargetAttachment NI" << std::endl;
+}
+
+/*---------------------------------------------------------------------------*\
+ * Free Functions                                                            *
+\*---------------------------------------------------------------------------*/
+
+AnimTargetAttachment *getTargetAtt(AttachmentContainer *container)
+{
+    if(container == NULL)
+        return NULL;
+
+    Attachment *att = container->findAttachment(
+        AnimTargetAttachment::getClassType().getGroupId());
+
+    if(att == NULL)
+        return NULL;
+
+    return dynamic_cast<AnimTargetAttachment *>(att);
+}
+
+/*! Obtains the target id of \a container and stores it in \a targetId.
+    Returns true if succesful, false otherwise (including errors), in
+    that case targetId is not modified.
+ */
+bool getTargetId(AttachmentContainer *container, std::string &targetId)
+{
+    if(container == NULL)
+        return false;
+
+    Attachment *att = container->findAttachment(
+        AnimTargetAttachment::getClassType().getGroupId());
+
+    if(att == NULL)
+        return false;
+
+    AnimTargetAttachment *targetAtt = dynamic_cast<AnimTargetAttachment *>(att);
+
+    if(targetAtt == NULL)
+        return false;
+
+    targetId = targetAtt->getTargetId();
+
+    return true;
+}
+
+/*! Sets the target id of \a container to \a targetId. If necessary a
+    AnimTargetAttachment is created otherwise the value of an existing
+    attachment is modified.
+    Returns true if a new attachment was created, false otherwise (including
+    errors).
+ */
+bool setTargetId(AttachmentContainer *container, const std::string &targetId)
+{
+    bool retVal = false;
+
+    if(container == NULL)
+    {
+        SWARNING << "setTargetId: container is NULL." << std::endl;
+        return false;
+    }
+
+    AnimTargetAttachmentUnrecPtr  targetAtt = NULL;
+    Attachment                   *att       =
+        container->findAttachment(
+            AnimTargetAttachment::getClassType().getGroupId());
+
+    if(att == NULL)
+    {
+        targetAtt = AnimTargetAttachment::createDependent(
+            container->getFieldFlags()->_bNamespaceMask);
+
+        container->addAttachment(targetAtt);
+
+        retVal = true;
+    }
+    else
+    {
+        targetAtt = dynamic_cast<AnimTargetAttachment *>(att);
+
+        if(targetAtt == NULL)
+        {
+            SWARNING << "setTargetId: AnimTargetAttachment has wrong type."
+                     << std::endl;
+            return false;
+        }
+    }
+
+    targetAtt->setTargetId(targetId);
+
+    return retVal;
 }
 
 OSG_END_NAMESPACE

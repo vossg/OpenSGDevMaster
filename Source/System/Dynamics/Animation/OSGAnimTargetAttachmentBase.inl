@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class AnimTemplate!
+ **     class AnimTargetAttachment!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,79 +53,63 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &AnimTemplateBase::getClassType(void)
+OSG::FieldContainerType &AnimTargetAttachmentBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 AnimTemplateBase::getClassTypeId(void)
+OSG::UInt32 AnimTargetAttachmentBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 AnimTemplateBase::getClassGroupId(void)
+OSG::UInt16 AnimTargetAttachmentBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the AnimTemplate::_sfName field.
+//! Get the value of the AnimTargetAttachment::_sfTargetId field.
 
 inline
-std::string &AnimTemplateBase::editName(void)
+std::string &AnimTargetAttachmentBase::editTargetId(void)
 {
-    editSField(NameFieldMask);
+    editSField(TargetIdFieldMask);
 
-    return _sfName.getValue();
+    return _sfTargetId.getValue();
 }
 
-//! Get the value of the AnimTemplate::_sfName field.
+//! Get the value of the AnimTargetAttachment::_sfTargetId field.
 inline
-const std::string &AnimTemplateBase::getName(void) const
+const std::string &AnimTargetAttachmentBase::getTargetId(void) const
 {
-    return _sfName.getValue();
+    return _sfTargetId.getValue();
 }
 
-//! Set the value of the AnimTemplate::_sfName field.
+//! Set the value of the AnimTargetAttachment::_sfTargetId field.
 inline
-void AnimTemplateBase::setName(const std::string &value)
+void AnimTargetAttachmentBase::setTargetId(const std::string &value)
 {
-    editSField(NameFieldMask);
+    editSField(TargetIdFieldMask);
 
-    _sfName.setValue(value);
+    _sfTargetId.setValue(value);
 }
 
-//! Get the value of the \a index element the AnimTemplate::_mfSources field.
+//! Get the value of the \a index element the AnimTargetAttachment::_mfBlenders field.
 inline
-AnimDataSource * AnimTemplateBase::getSources(const UInt32 index) const
+AnimBlender * AnimTargetAttachmentBase::getBlenders(const UInt32 index) const
 {
-    return _mfSources[index];
+    return _mfBlenders[index];
 }
-
-//! Get the value of the \a index element the AnimTemplate::_mfTargetIds field.
-inline
-const std::string &AnimTemplateBase::getTargetIds(const UInt32 index) const
-{
-    return _mfTargetIds[index];
-}
-
-inline
-std::string &AnimTemplateBase::editTargetIds(const UInt32 index)
-{
-    editMField(TargetIdsFieldMask, _mfTargetIds);
-
-    return _mfTargetIds[index];
-}
-
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void AnimTemplateBase::execSync (      AnimTemplateBase *pFrom,
+void AnimTargetAttachmentBase::execSync (      AnimTargetAttachmentBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -133,17 +117,11 @@ void AnimTemplateBase::execSync (      AnimTemplateBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (NameFieldMask & whichField))
-        _sfName.syncWith(pFrom->_sfName);
+    if(FieldBits::NoField != (TargetIdFieldMask & whichField))
+        _sfTargetId.syncWith(pFrom->_sfTargetId);
 
-    if(FieldBits::NoField != (SourcesFieldMask & whichField))
-        _mfSources.syncWith(pFrom->_mfSources,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (TargetIdsFieldMask & whichField))
-        _mfTargetIds.syncWith(pFrom->_mfTargetIds,
+    if(FieldBits::NoField != (BlendersFieldMask & whichField))
+        _mfBlenders.syncWith(pFrom->_mfBlenders,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
@@ -152,11 +130,11 @@ void AnimTemplateBase::execSync (      AnimTemplateBase *pFrom,
 
 
 inline
-const Char8 *AnimTemplateBase::getClassname(void)
+const Char8 *AnimTargetAttachmentBase::getClassname(void)
 {
-    return "AnimTemplate";
+    return "AnimTargetAttachment";
 }
-OSG_GEN_CONTAINERPTR(AnimTemplate);
+OSG_GEN_CONTAINERPTR(AnimTargetAttachment);
 
 OSG_END_NAMESPACE
 
