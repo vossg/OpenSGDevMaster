@@ -759,7 +759,7 @@ void OSG::Window::validateAllGLObjects(void)
 {
     if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {
-        doActivate();
+        activate();
         doFrameInit();
 
         DrawEnv oEnv;
@@ -773,7 +773,7 @@ void OSG::Window::validateAllGLObjects(void)
         }
     
         doFrameExit();
-        doDeactivate();
+        deactivate();
     }   
     else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                          ParallelPartitionDraw)
@@ -2254,14 +2254,14 @@ void OSG::Window::init(GLInitFunctor oFunc)
 {
     if((_sfDrawMode.getValue() & PartitionDrawMask) == SequentialPartitionDraw)
     {  
-        this->doActivate();
+        this->activate();
 
         setupGL();
               
         if(oFunc)
             oFunc();
 
-        this->doDeactivate();
+        this->deactivate();
     }
     else if((_sfDrawMode.getValue() & DrawerMask) == StdDrawer)
     {
