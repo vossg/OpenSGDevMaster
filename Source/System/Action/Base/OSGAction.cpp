@@ -67,8 +67,8 @@ The action base class.
 
 Action *Action::_prototype = NULL;
 
-std::vector<Action::Functor> *Action::_defaultEnterFunctors = NULL;
-std::vector<Action::Functor> *Action::_defaultLeaveFunctors = NULL;
+Action::FunctorStore *Action::_defaultEnterFunctors = NULL;
+Action::FunctorStore *Action::_defaultLeaveFunctors = NULL;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -449,8 +449,40 @@ ActionBase::ResultE Action::callNewList(void)
 
 ActionBase::ResultE Action::callStart(void)
 {
-    ResultE res = Continue;
+    ResultE       res          = Continue;
+    FunctorStore *defaultEnter = getDefaultEnterFunctors();
+    FunctorStore *defaultLeave = getDefaultLeaveFunctors();
     
+    // new default enter functor registered since this action was created
+    if(defaultEnter          != NULL &&
+       _enterFunctors.size() <  defaultEnter->size())
+    {
+        _enterFunctors.reserve(defaultEnter->size());
+
+        FunctorStoreConstIt fIt  = defaultEnter->begin() + _enterFunctors.size();
+        FunctorStoreConstIt fEnd = defaultEnter->end  ();
+
+        for(; fIt != fEnd; ++fIt)
+        {
+            _enterFunctors.push_back(*fIt);
+        }
+    }
+
+    // new default leave functor registered since this action was created
+    if(defaultLeave          != NULL &&
+       _leaveFunctors.size() <  defaultLeave->size())
+    {
+        _leaveFunctors.reserve(defaultLeave->size());
+
+        FunctorStoreConstIt fIt  = defaultLeave->begin() + _leaveFunctors.size();
+        FunctorStoreConstIt fEnd = defaultLeave->end  ();
+
+        for(; fIt != fEnd; ++fIt)
+        {
+            _leaveFunctors.push_back(*fIt);
+        }
+    }
+
     // call the start and see if it returns some nodes
     
     _newList.clear();
@@ -541,12 +573,12 @@ bool Action::operator != (const Action &other)
  -  protected                                                              -
 \*-------------------------------------------------------------------------*/
 
-std::vector<Action::Functor>* Action::getDefaultEnterFunctors(void)
+Action::FunctorStore* Action::getDefaultEnterFunctors(void)
 {
     return _defaultEnterFunctors;
 }
 
-std::vector<Action::Functor>* Action::getDefaultLeaveFunctors(void)
+Action::FunctorStore* Action::getDefaultLeaveFunctors(void)
 {
     return _defaultLeaveFunctors;
 }

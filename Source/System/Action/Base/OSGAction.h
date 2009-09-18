@@ -94,6 +94,10 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     typedef boost::function<ResultE(Node     * const,   
                                     Action   *      )> NodeFunctor; 
 
+    typedef std::vector<Functor>                       FunctorStore;
+    typedef FunctorStore::iterator                     FunctorStoreIt;
+    typedef FunctorStore::const_iterator               FunctorStoreConstIt;
+
     typedef ActionBase::ResultE (NodeCore::*Callback)(Action *);
 
 
@@ -251,8 +255,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
 
     // access default functors
 
-    virtual std::vector<Functor>* getDefaultEnterFunctors(void);
-    virtual std::vector<Functor>* getDefaultLeaveFunctors(void);
+    virtual FunctorStore* getDefaultEnterFunctors(void);
+    virtual FunctorStore* getDefaultLeaveFunctors(void);
 
     // default function
     
@@ -264,8 +268,8 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     // functors
     // just protected, so that derived actions can access them
     
-    std::vector<Functor> _enterFunctors;
-    std::vector<Functor> _leaveFunctors;
+    FunctorStore _enterFunctors;
+    FunctorStore _leaveFunctors;
    
     
     //-----------------------------------------------------------------------
