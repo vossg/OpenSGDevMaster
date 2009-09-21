@@ -302,5 +302,13 @@ RefCountPtr<typename TargetT::Object,
                        typename TargetT::RefCountPolicy>(pRet);
 }
 #endif
+
+#ifdef OSG_1_COMPAT
+template <class ObjectT, class RefCountPolicyT> inline
+ObjectT *getCPtr(const OSG::RefCountPtr<ObjectT, RefCountPolicyT> &refPtr)
+{
+    return refPtr.getCPtr();
+}
+#endif
   
 OSG_END_NAMESPACE

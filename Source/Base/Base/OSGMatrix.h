@@ -82,15 +82,17 @@ class TransformationMatrix
     /*! \name                    Types                                     */
     /*! \{                                                                 */
 
-    typedef                 ValueTypeT     ValueType;
-    typedef Vector         <ValueTypeT, 4> VectorType;
+    typedef TransformationMatrix<ValueTypeT>    Self;
 
-    typedef QuaternionBase <ValueType>     QuaternionType;
+    typedef                      ValueTypeT     ValueType;
+    typedef Vector              <ValueTypeT, 4> VectorType;
 
-    typedef Vector         <ValueTypeT, 3> VectorType3f;
+    typedef QuaternionBase      <ValueType>     QuaternionType;
 
-    typedef Point          <ValueTypeT, 4> PointType;
-    typedef Point          <ValueTypeT, 3> PointType3f;
+    typedef Vector              <ValueTypeT, 3> VectorType3f;
+
+    typedef Point               <ValueTypeT, 4> PointType;
+    typedef Point               <ValueTypeT, 3> PointType3f;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -390,6 +392,26 @@ class TransformationMatrix
 
     bool operator == (const TransformationMatrix &other) const;
     bool operator != (const TransformationMatrix &other) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Comparison                                 */
+    /*! \{                                                                 */
+
+#ifdef OSG_1_COMPAT
+    void mult             (      PointType3f  &pnt) const;
+    void multMatrixPnt    (      PointType3f  &pnt) const;
+    void multMatrixPnt    (const PointType3f  &src, 
+                                 PointType3f  &dst) const;
+    void multMatrixVec    (      VectorType3f &vec) const;
+    void multMatrixVec    (const VectorType3f &src, 
+                                 VectorType3f &dst) const;
+    void multFullMatrixPnt(      PointType3f  &pnt) const;
+    void multFullMatrixPnt(const PointType3f  &src, 
+                                 PointType3f  &dst) const;
+    void multPntFullMatrix(const PointType3f  &src, 
+                                 PointType3f  &dst) const;
+#endif
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

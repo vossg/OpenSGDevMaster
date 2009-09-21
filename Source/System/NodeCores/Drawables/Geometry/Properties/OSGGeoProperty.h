@@ -97,7 +97,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     virtual       UInt32                 size         (void) const = 0;
     virtual const UInt8                 *getData      (void) const
     { return NULL;  }
-
+#ifdef OSG_1_COMPAT
+    virtual       UInt8                 *editData     (void) 
+    { return NULL;  }
+#endif
     virtual       GeoPropertyTransitPtr  clone        (void)       = 0;
     
     /*! \}                                                                 */

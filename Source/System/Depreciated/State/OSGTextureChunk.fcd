@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="TextureChunk"
-	parent="TextureBaseChunk"
+	parent="TextureObjChunk"
 	library="System"
 	pointerfieldtypes="both"
 	structure="concrete"
@@ -41,6 +41,7 @@ On hardware that supports it (i.e. NVidia boards) the texture shader
 extension(s) are also available.
 
 \deprecated Use OSG::TextureObjChunk instead.
+<!--
 	<Field
 	    name="image"
 	    type="Image"
@@ -158,6 +159,7 @@ extension(s) are also available.
 	>
         Texture coordinate R wrapping, default GL_REPEAT.
 	</Field>
+-->
 	<Field
 		name="envMode"
 		type="GLenum"
@@ -353,6 +355,7 @@ extension(s) are also available.
 	>
         Texture environment combine operand 2 alpha, default GL_SRC_ALPHA
 	</Field>
+<!--
 	<Field
 		name="GLId"
 		type="GLenum"
@@ -364,6 +367,7 @@ extension(s) are also available.
 	>
         The OpenGL texture id for this texture.
 	</Field>
+-->
 	<Field
 		name="pointSprite"
 		type="bool"
@@ -375,6 +379,7 @@ extension(s) are also available.
 	>
         Flag to use this texture for Point Sprites.
 	</Field>
+<!--
 	<Field
 		name="priority"
 		type="Real32"
@@ -385,6 +390,7 @@ extension(s) are also available.
 	>
         Priority of this texture, between 0 and 1, the default is 0.
 	</Field>
+-->
 	<Field
 		name="shaderOperation"
 		type="GLenum"
@@ -483,6 +489,7 @@ extension(s) are also available.
 	>
         Bias of LOD calculation for texture access.
 	</Field>
+<!--
     <Field
         name="dirtyLeft"
         type="Int32"
@@ -627,6 +634,7 @@ extension(s) are also available.
 	>
 	Texture border width in pixels.
 	</Field>
+-->
 	<Field
 		name="NPOTMatrixScale"
 		type="UInt32"
@@ -637,6 +645,7 @@ extension(s) are also available.
 	>
 	Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
 	</Field>
+<!--
 	<Field
 		name="skipMipMapLevels"
 		type="Real32"
@@ -647,4 +656,5 @@ extension(s) are also available.
 	>
 	Percentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.
 	</Field>
+-->
 </FieldContainer>

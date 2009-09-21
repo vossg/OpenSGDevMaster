@@ -57,13 +57,6 @@
 #include <OSGConfig.h>
 
 
-#include <OSGGL.h>                        // InternalFormat default header
-#include <OSGGL.h>                        // ExternalFormat default header
-#include <OSGGL.h>                        // MinFilter default header
-#include <OSGGL.h>                        // MagFilter default header
-#include <OSGGL.h>                        // WrapS default header
-#include <OSGGL.h>                        // WrapT default header
-#include <OSGGL.h>                        // WrapR default header
 #include <OSGGL.h>                        // EnvMode default header
 #include <OSGGL.h>                        // EnvCombineRGB default header
 #include <OSGGL.h>                        // EnvCombineAlpha default header
@@ -83,11 +76,7 @@
 #include <OSGGL.h>                        // ShaderOperation default header
 #include <OSGGL.h>                        // ShaderInput default header
 #include <OSGGL.h>                        // ShaderRGBADotProduct default header
-#include <OSGGL.h>                        // CompareMode default header
-#include <OSGGL.h>                        // CompareFunc default header
-#include <OSGGL.h>                        // DepthMode default header
 
-#include "OSGImage.h"                   // Image Class
 
 #include "OSGTextureChunkBase.h"
 #include "OSGTextureChunk.h"
@@ -140,54 +129,6 @@ OSG_BEGIN_NAMESPACE
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
-
-/*! \var Image *         TextureChunkBase::_sfImage
-    The texture image.
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfInternalFormat
-    The internal texture format.
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfExternalFormat
-    The external texture format - overwrites 
-    external format of image when set to a value not equal to 
-    GL_NONE (which is the default).
-*/
-
-/*! \var bool            TextureChunkBase::_sfScale
-    Specifies whether the image should be scaled to the next power of two,
-    thus filling the whole texture coordinate range, or if it should be put
-    in the lower left corner, leaving the rest of the texture undefined.
-    This is mainly used for rapidly changing non power of two textures, to
-    get around the scaling overhead.
-*/
-
-/*! \var UInt32          TextureChunkBase::_sfFrame
-    Select the frame of the image to be used. See OSG::Image about details
-    concerning multi-frame images.
-    @hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfMinFilter
-    The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfMagFilter
-    The magnification filter, default GL_LINEAR.
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfWrapS
-    Texture coordinate S wrapping, default GL_REPEAT.
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfWrapT
-    Texture coordinate T wrapping, default GL_REPEAT.
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfWrapR
-    Texture coordinate R wrapping, default GL_REPEAT.
-*/
 
 /*! \var GLenum          TextureChunkBase::_sfEnvMode
     Texture environment mode, default GL_REPLACE
@@ -261,16 +202,8 @@ OSG_BEGIN_NAMESPACE
     Texture environment combine operand 2 alpha, default GL_SRC_ALPHA
 */
 
-/*! \var GLenum          TextureChunkBase::_sfGLId
-    The OpenGL texture id for this texture.
-*/
-
 /*! \var bool            TextureChunkBase::_sfPointSprite
     Flag to use this texture for Point Sprites.
-*/
-
-/*! \var Real32          TextureChunkBase::_sfPriority
-    Priority of this texture, between 0 and 1, the default is 0.
 */
 
 /*! \var GLenum          TextureChunkBase::_sfShaderOperation
@@ -315,78 +248,8 @@ OSG_BEGIN_NAMESPACE
     Bias of LOD calculation for texture access.
 */
 
-/*! \var Int32           TextureChunkBase::_sfDirtyLeft
-    Left coordinate of the dirty rectangle to use for 
-    imageContentChanged(). This doesn't make sense to be stored in files, 
-    it does make sense on a cluster, though, that's why it's external.
-*/
-
-/*! \var Int32           TextureChunkBase::_sfDirtyMinX
-    Minimum X coordinate of the dirty rectangle to use for 
-    imageContentChanged(). This doesn't make sense to be stored in files, 
-    it does make sense on a cluster, though, that's why it's external.
-*/
-
-/*! \var Int32           TextureChunkBase::_sfDirtyMaxX
-    Maximum X coordinate of the dirty rectangle to use for 
-    imageContentChanged(). This doesn't make sense to be stored in files, 
-    it does make sense on a cluster, though, that's why it's external.
-*/
-
-/*! \var Int32           TextureChunkBase::_sfDirtyMinY
-    Minimum Y coordinate of the dirty rectangle to use for 
-    imageContentChanged(). This doesn't make sense to be stored in files, 
-    it does make sense on a cluster, though, that's why it's external.
-*/
-
-/*! \var Int32           TextureChunkBase::_sfDirtyMaxY
-    Maximum Y coordinate of the dirty rectangle to use for 
-    imageContentChanged(). This doesn't make sense to be stored in files, 
-    it does make sense on a cluster, though, that's why it's external.
-*/
-
-/*! \var Int32           TextureChunkBase::_sfDirtyMinZ
-    Minimum Z coordinate of the dirty rectangle to use for 
-    imageContentChanged(). This doesn't make sense to be stored in files, 
-    it does make sense on a cluster, though, that's why it's external.
-*/
-
-/*! \var Int32           TextureChunkBase::_sfDirtyMaxZ
-    Maximum Z coordinate of the dirty rectangle to use for 
-    imageContentChanged(). This doesn't make sense to be stored in files, 
-    it does make sense on a cluster, though, that's why it's external.
-*/
-
-/*! \var Real32          TextureChunkBase::_sfAnisotropy
-    Anisotropic filtering the default 1.0f means isotropic filtering.
-*/
-
-/*! \var Color4f         TextureChunkBase::_sfBorderColor
-    Texture border color
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfCompareMode
-    
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfCompareFunc
-    
-*/
-
-/*! \var GLenum          TextureChunkBase::_sfDepthMode
-    
-*/
-
-/*! \var UInt32          TextureChunkBase::_sfBorderWidth
-    Texture border width in pixels.
-*/
-
 /*! \var UInt32          TextureChunkBase::_sfNPOTMatrixScale
     Use the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!
-*/
-
-/*! \var Real32          TextureChunkBase::_sfSkipMipMapLevels
-    Percentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.
 */
 
 
@@ -395,7 +258,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<TextureChunk *>::_type("TextureChunkPtr", "TextureBaseChunkPtr");
+DataType FieldTraits<TextureChunk *>::_type("TextureChunkPtr", "TextureObjChunkPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(TextureChunk *)
@@ -416,134 +279,6 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
-
-    pDesc = new SFUnrecChildImagePtr::Description(
-        SFUnrecChildImagePtr::getClassType(),
-        "image",
-        "The texture image.\n",
-        ImageFieldId, ImageFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleImage),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleImage));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "internalFormat",
-        "The internal texture format.\n",
-        InternalFormatFieldId, InternalFormatFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleInternalFormat),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleInternalFormat));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "externalFormat",
-        "The external texture format - overwrites \n"
-        "external format of image when set to a value not equal to \n"
-        "GL_NONE (which is the default).\n",
-        ExternalFormatFieldId, ExternalFormatFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleExternalFormat),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleExternalFormat));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFBool::Description(
-        SFBool::getClassType(),
-        "scale",
-        "Specifies whether the image should be scaled to the next power of two,\n"
-        "thus filling the whole texture coordinate range, or if it should be put\n"
-        "in the lower left corner, leaving the rest of the texture undefined.\n"
-        "This is mainly used for rapidly changing non power of two textures, to\n"
-        "get around the scaling overhead.\n",
-        ScaleFieldId, ScaleFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleScale),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleScale));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
-        "frame",
-        "Select the frame of the image to be used. See OSG::Image about details\n"
-        "concerning multi-frame images.\n"
-        "@hint For fast update use GL_LINEAR or GL_NEAREST filters, as mipmap creation is slow right now.\n",
-        FrameFieldId, FrameFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleFrame),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleFrame));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "minFilter",
-        "The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.\n",
-        MinFilterFieldId, MinFilterFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleMinFilter),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleMinFilter));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "magFilter",
-        "The magnification filter, default GL_LINEAR.\n",
-        MagFilterFieldId, MagFilterFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleMagFilter),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleMagFilter));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "wrapS",
-        "Texture coordinate S wrapping, default GL_REPEAT.\n",
-        WrapSFieldId, WrapSFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleWrapS),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleWrapS));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "wrapT",
-        "Texture coordinate T wrapping, default GL_REPEAT.\n",
-        WrapTFieldId, WrapTFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleWrapT),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleWrapT));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "wrapR",
-        "Texture coordinate R wrapping, default GL_REPEAT.\n",
-        WrapRFieldId, WrapRFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleWrapR),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleWrapR));
-
-    oType.addInitialDesc(pDesc);
 
     pDesc = new SFGLenum::Description(
         SFGLenum::getClassType(),
@@ -761,18 +496,6 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "GLId",
-        "The OpenGL texture id for this texture.\n",
-        GLIdFieldId, GLIdFieldMask,
-        true,
-        (Field::FClusterLocal),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleGLId),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleGLId));
-
-    oType.addInitialDesc(pDesc);
-
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
         "pointSprite",
@@ -782,18 +505,6 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureChunk::editHandlePointSprite),
         static_cast<FieldGetMethodSig >(&TextureChunk::getHandlePointSprite));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "priority",
-        "Priority of this texture, between 0 and 1, the default is 0.\n",
-        PriorityFieldId, PriorityFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandlePriority),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandlePriority));
 
     oType.addInitialDesc(pDesc);
 
@@ -911,176 +622,6 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFInt32::Description(
-        SFInt32::getClassType(),
-        "dirtyLeft",
-        "Left coordinate of the dirty rectangle to use for \n"
-        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
-        "it does make sense on a cluster, though, that's why it's external.\n",
-        DirtyLeftFieldId, DirtyLeftFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleDirtyLeft),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleDirtyLeft));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFInt32::Description(
-        SFInt32::getClassType(),
-        "dirtyMinX",
-        "Minimum X coordinate of the dirty rectangle to use for \n"
-        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
-        "it does make sense on a cluster, though, that's why it's external.\n",
-        DirtyMinXFieldId, DirtyMinXFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleDirtyMinX),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleDirtyMinX));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFInt32::Description(
-        SFInt32::getClassType(),
-        "dirtyMaxX",
-        "Maximum X coordinate of the dirty rectangle to use for \n"
-        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
-        "it does make sense on a cluster, though, that's why it's external.\n",
-        DirtyMaxXFieldId, DirtyMaxXFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleDirtyMaxX),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleDirtyMaxX));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFInt32::Description(
-        SFInt32::getClassType(),
-        "dirtyMinY",
-        "Minimum Y coordinate of the dirty rectangle to use for \n"
-        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
-        "it does make sense on a cluster, though, that's why it's external.\n",
-        DirtyMinYFieldId, DirtyMinYFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleDirtyMinY),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleDirtyMinY));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFInt32::Description(
-        SFInt32::getClassType(),
-        "dirtyMaxY",
-        "Maximum Y coordinate of the dirty rectangle to use for \n"
-        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
-        "it does make sense on a cluster, though, that's why it's external.\n",
-        DirtyMaxYFieldId, DirtyMaxYFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleDirtyMaxY),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleDirtyMaxY));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFInt32::Description(
-        SFInt32::getClassType(),
-        "dirtyMinZ",
-        "Minimum Z coordinate of the dirty rectangle to use for \n"
-        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
-        "it does make sense on a cluster, though, that's why it's external.\n",
-        DirtyMinZFieldId, DirtyMinZFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleDirtyMinZ),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleDirtyMinZ));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFInt32::Description(
-        SFInt32::getClassType(),
-        "dirtyMaxZ",
-        "Maximum Z coordinate of the dirty rectangle to use for \n"
-        "imageContentChanged(). This doesn't make sense to be stored in files, \n"
-        "it does make sense on a cluster, though, that's why it's external.\n",
-        DirtyMaxZFieldId, DirtyMaxZFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleDirtyMaxZ),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleDirtyMaxZ));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "anisotropy",
-        "Anisotropic filtering the default 1.0f means isotropic filtering.\n",
-        AnisotropyFieldId, AnisotropyFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleAnisotropy),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleAnisotropy));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFColor4f::Description(
-        SFColor4f::getClassType(),
-        "borderColor",
-        "Texture border color\n",
-        BorderColorFieldId, BorderColorFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleBorderColor),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleBorderColor));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "compareMode",
-        "",
-        CompareModeFieldId, CompareModeFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleCompareMode),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleCompareMode));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "compareFunc",
-        "",
-        CompareFuncFieldId, CompareFuncFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleCompareFunc),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleCompareFunc));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFGLenum::Description(
-        SFGLenum::getClassType(),
-        "depthMode",
-        "",
-        DepthModeFieldId, DepthModeFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleDepthMode),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleDepthMode));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUInt32::Description(
-        SFUInt32::getClassType(),
-        "borderWidth",
-        "Texture border width in pixels.\n",
-        BorderWidthFieldId, BorderWidthFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleBorderWidth),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleBorderWidth));
-
-    oType.addInitialDesc(pDesc);
-
     pDesc = new SFUInt32::Description(
         SFUInt32::getClassType(),
         "NPOTMatrixScale",
@@ -1090,18 +631,6 @@ void TextureChunkBase::classDescInserter(TypeObject &oType)
         (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&TextureChunk::editHandleNPOTMatrixScale),
         static_cast<FieldGetMethodSig >(&TextureChunk::getHandleNPOTMatrixScale));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "skipMipMapLevels",
-        "Percentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.\n",
-        SkipMipMapLevelsFieldId, SkipMipMapLevelsFieldMask,
-        false,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&TextureChunk::editHandleSkipMipMapLevels),
-        static_cast<FieldGetMethodSig >(&TextureChunk::getHandleSkipMipMapLevels));
 
     oType.addInitialDesc(pDesc);
 }
@@ -1122,7 +651,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"TextureChunk\"\n"
-    "\tparent=\"TextureBaseChunk\"\n"
+    "\tparent=\"TextureObjChunk\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
@@ -1161,6 +690,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "extension(s) are also available.\n"
     "\n"
     "\\deprecated Use OSG::TextureObjChunk instead.\n"
+    "<!--\n"
     "\t<Field\n"
     "\t    name=\"image\"\n"
     "\t    type=\"Image\"\n"
@@ -1278,6 +808,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\t>\n"
     "        Texture coordinate R wrapping, default GL_REPEAT.\n"
     "\t</Field>\n"
+    "-->\n"
     "\t<Field\n"
     "\t\tname=\"envMode\"\n"
     "\t\ttype=\"GLenum\"\n"
@@ -1473,6 +1004,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\t>\n"
     "        Texture environment combine operand 2 alpha, default GL_SRC_ALPHA\n"
     "\t</Field>\n"
+    "<!--\n"
     "\t<Field\n"
     "\t\tname=\"GLId\"\n"
     "\t\ttype=\"GLenum\"\n"
@@ -1484,6 +1016,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\t>\n"
     "        The OpenGL texture id for this texture.\n"
     "\t</Field>\n"
+    "-->\n"
     "\t<Field\n"
     "\t\tname=\"pointSprite\"\n"
     "\t\ttype=\"bool\"\n"
@@ -1495,6 +1028,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\t>\n"
     "        Flag to use this texture for Point Sprites.\n"
     "\t</Field>\n"
+    "<!--\n"
     "\t<Field\n"
     "\t\tname=\"priority\"\n"
     "\t\ttype=\"Real32\"\n"
@@ -1505,6 +1039,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\t>\n"
     "        Priority of this texture, between 0 and 1, the default is 0.\n"
     "\t</Field>\n"
+    "-->\n"
     "\t<Field\n"
     "\t\tname=\"shaderOperation\"\n"
     "\t\ttype=\"GLenum\"\n"
@@ -1603,6 +1138,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\t>\n"
     "        Bias of LOD calculation for texture access.\n"
     "\t</Field>\n"
+    "<!--\n"
     "    <Field\n"
     "        name=\"dirtyLeft\"\n"
     "        type=\"Int32\"\n"
@@ -1747,6 +1283,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\t>\n"
     "\tTexture border width in pixels.\n"
     "\t</Field>\n"
+    "-->\n"
     "\t<Field\n"
     "\t\tname=\"NPOTMatrixScale\"\n"
     "\t\ttype=\"UInt32\"\n"
@@ -1757,6 +1294,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\t>\n"
     "\tUse the texture matrix to scale the texture coordinates for NPOT images. Only used if neither rectangular nor NPOT textures are supported. If set to false, the image is scaled to the next power of two before being used as a texture. For convenience xFlip/ yFlip can also be set. Note that this will interfere with other TextureTransform and TexGen chunks. Do not use it if you need to use those chunks!\n"
     "\t</Field>\n"
+    "<!--\n"
     "\t<Field\n"
     "\t\tname=\"skipMipMapLevels\"\n"
     "\t\ttype=\"Real32\"\n"
@@ -1767,6 +1305,7 @@ TextureChunkBase::TypeObject TextureChunkBase::_type(
     "\t>\n"
     "\tPercentage of mipmap levels to be skipped. Especially useful in combination with image formats that already hold all levels and GPUs with only low mem.\n"
     "\t</Field>\n"
+    "-->\n"
     "</FieldContainer>\n",
     "\\ingroup GrpSystemState\n"
     "\n"
@@ -1818,136 +1357,6 @@ UInt32 TextureChunkBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
-
-
-//! Get the TextureChunk::_sfImage field.
-const SFUnrecChildImagePtr *TextureChunkBase::getSFImage(void) const
-{
-    return &_sfImage;
-}
-
-SFUnrecChildImagePtr *TextureChunkBase::editSFImage          (void)
-{
-    editSField(ImageFieldMask);
-
-    return &_sfImage;
-}
-
-SFGLenum *TextureChunkBase::editSFInternalFormat(void)
-{
-    editSField(InternalFormatFieldMask);
-
-    return &_sfInternalFormat;
-}
-
-const SFGLenum *TextureChunkBase::getSFInternalFormat(void) const
-{
-    return &_sfInternalFormat;
-}
-
-
-SFGLenum *TextureChunkBase::editSFExternalFormat(void)
-{
-    editSField(ExternalFormatFieldMask);
-
-    return &_sfExternalFormat;
-}
-
-const SFGLenum *TextureChunkBase::getSFExternalFormat(void) const
-{
-    return &_sfExternalFormat;
-}
-
-
-SFBool *TextureChunkBase::editSFScale(void)
-{
-    editSField(ScaleFieldMask);
-
-    return &_sfScale;
-}
-
-const SFBool *TextureChunkBase::getSFScale(void) const
-{
-    return &_sfScale;
-}
-
-
-SFUInt32 *TextureChunkBase::editSFFrame(void)
-{
-    editSField(FrameFieldMask);
-
-    return &_sfFrame;
-}
-
-const SFUInt32 *TextureChunkBase::getSFFrame(void) const
-{
-    return &_sfFrame;
-}
-
-
-SFGLenum *TextureChunkBase::editSFMinFilter(void)
-{
-    editSField(MinFilterFieldMask);
-
-    return &_sfMinFilter;
-}
-
-const SFGLenum *TextureChunkBase::getSFMinFilter(void) const
-{
-    return &_sfMinFilter;
-}
-
-
-SFGLenum *TextureChunkBase::editSFMagFilter(void)
-{
-    editSField(MagFilterFieldMask);
-
-    return &_sfMagFilter;
-}
-
-const SFGLenum *TextureChunkBase::getSFMagFilter(void) const
-{
-    return &_sfMagFilter;
-}
-
-
-SFGLenum *TextureChunkBase::editSFWrapS(void)
-{
-    editSField(WrapSFieldMask);
-
-    return &_sfWrapS;
-}
-
-const SFGLenum *TextureChunkBase::getSFWrapS(void) const
-{
-    return &_sfWrapS;
-}
-
-
-SFGLenum *TextureChunkBase::editSFWrapT(void)
-{
-    editSField(WrapTFieldMask);
-
-    return &_sfWrapT;
-}
-
-const SFGLenum *TextureChunkBase::getSFWrapT(void) const
-{
-    return &_sfWrapT;
-}
-
-
-SFGLenum *TextureChunkBase::editSFWrapR(void)
-{
-    editSField(WrapRFieldMask);
-
-    return &_sfWrapR;
-}
-
-const SFGLenum *TextureChunkBase::getSFWrapR(void) const
-{
-    return &_sfWrapR;
-}
 
 
 SFGLenum *TextureChunkBase::editSFEnvMode(void)
@@ -2184,19 +1593,6 @@ const SFGLenum *TextureChunkBase::getSFEnvOperand2Alpha(void) const
 }
 
 
-SFGLenum *TextureChunkBase::editSFGLId(void)
-{
-    editSField(GLIdFieldMask);
-
-    return &_sfGLId;
-}
-
-const SFGLenum *TextureChunkBase::getSFGLId(void) const
-{
-    return &_sfGLId;
-}
-
-
 SFBool *TextureChunkBase::editSFPointSprite(void)
 {
     editSField(PointSpriteFieldMask);
@@ -2207,19 +1603,6 @@ SFBool *TextureChunkBase::editSFPointSprite(void)
 const SFBool *TextureChunkBase::getSFPointSprite(void) const
 {
     return &_sfPointSprite;
-}
-
-
-SFReal32 *TextureChunkBase::editSFPriority(void)
-{
-    editSField(PriorityFieldMask);
-
-    return &_sfPriority;
-}
-
-const SFReal32 *TextureChunkBase::getSFPriority(void) const
-{
-    return &_sfPriority;
 }
 
 
@@ -2340,175 +1723,6 @@ const SFReal32 *TextureChunkBase::getSFLodBias(void) const
 }
 
 
-SFInt32 *TextureChunkBase::editSFDirtyLeft(void)
-{
-    editSField(DirtyLeftFieldMask);
-
-    return &_sfDirtyLeft;
-}
-
-const SFInt32 *TextureChunkBase::getSFDirtyLeft(void) const
-{
-    return &_sfDirtyLeft;
-}
-
-
-SFInt32 *TextureChunkBase::editSFDirtyMinX(void)
-{
-    editSField(DirtyMinXFieldMask);
-
-    return &_sfDirtyMinX;
-}
-
-const SFInt32 *TextureChunkBase::getSFDirtyMinX(void) const
-{
-    return &_sfDirtyMinX;
-}
-
-
-SFInt32 *TextureChunkBase::editSFDirtyMaxX(void)
-{
-    editSField(DirtyMaxXFieldMask);
-
-    return &_sfDirtyMaxX;
-}
-
-const SFInt32 *TextureChunkBase::getSFDirtyMaxX(void) const
-{
-    return &_sfDirtyMaxX;
-}
-
-
-SFInt32 *TextureChunkBase::editSFDirtyMinY(void)
-{
-    editSField(DirtyMinYFieldMask);
-
-    return &_sfDirtyMinY;
-}
-
-const SFInt32 *TextureChunkBase::getSFDirtyMinY(void) const
-{
-    return &_sfDirtyMinY;
-}
-
-
-SFInt32 *TextureChunkBase::editSFDirtyMaxY(void)
-{
-    editSField(DirtyMaxYFieldMask);
-
-    return &_sfDirtyMaxY;
-}
-
-const SFInt32 *TextureChunkBase::getSFDirtyMaxY(void) const
-{
-    return &_sfDirtyMaxY;
-}
-
-
-SFInt32 *TextureChunkBase::editSFDirtyMinZ(void)
-{
-    editSField(DirtyMinZFieldMask);
-
-    return &_sfDirtyMinZ;
-}
-
-const SFInt32 *TextureChunkBase::getSFDirtyMinZ(void) const
-{
-    return &_sfDirtyMinZ;
-}
-
-
-SFInt32 *TextureChunkBase::editSFDirtyMaxZ(void)
-{
-    editSField(DirtyMaxZFieldMask);
-
-    return &_sfDirtyMaxZ;
-}
-
-const SFInt32 *TextureChunkBase::getSFDirtyMaxZ(void) const
-{
-    return &_sfDirtyMaxZ;
-}
-
-
-SFReal32 *TextureChunkBase::editSFAnisotropy(void)
-{
-    editSField(AnisotropyFieldMask);
-
-    return &_sfAnisotropy;
-}
-
-const SFReal32 *TextureChunkBase::getSFAnisotropy(void) const
-{
-    return &_sfAnisotropy;
-}
-
-
-SFColor4f *TextureChunkBase::editSFBorderColor(void)
-{
-    editSField(BorderColorFieldMask);
-
-    return &_sfBorderColor;
-}
-
-const SFColor4f *TextureChunkBase::getSFBorderColor(void) const
-{
-    return &_sfBorderColor;
-}
-
-
-SFGLenum *TextureChunkBase::editSFCompareMode(void)
-{
-    editSField(CompareModeFieldMask);
-
-    return &_sfCompareMode;
-}
-
-const SFGLenum *TextureChunkBase::getSFCompareMode(void) const
-{
-    return &_sfCompareMode;
-}
-
-
-SFGLenum *TextureChunkBase::editSFCompareFunc(void)
-{
-    editSField(CompareFuncFieldMask);
-
-    return &_sfCompareFunc;
-}
-
-const SFGLenum *TextureChunkBase::getSFCompareFunc(void) const
-{
-    return &_sfCompareFunc;
-}
-
-
-SFGLenum *TextureChunkBase::editSFDepthMode(void)
-{
-    editSField(DepthModeFieldMask);
-
-    return &_sfDepthMode;
-}
-
-const SFGLenum *TextureChunkBase::getSFDepthMode(void) const
-{
-    return &_sfDepthMode;
-}
-
-
-SFUInt32 *TextureChunkBase::editSFBorderWidth(void)
-{
-    editSField(BorderWidthFieldMask);
-
-    return &_sfBorderWidth;
-}
-
-const SFUInt32 *TextureChunkBase::getSFBorderWidth(void) const
-{
-    return &_sfBorderWidth;
-}
-
-
 SFUInt32 *TextureChunkBase::editSFNPOTMatrixScale(void)
 {
     editSField(NPOTMatrixScaleFieldMask);
@@ -2522,19 +1736,6 @@ const SFUInt32 *TextureChunkBase::getSFNPOTMatrixScale(void) const
 }
 
 
-SFReal32 *TextureChunkBase::editSFSkipMipMapLevels(void)
-{
-    editSField(SkipMipMapLevelsFieldMask);
-
-    return &_sfSkipMipMapLevels;
-}
-
-const SFReal32 *TextureChunkBase::getSFSkipMipMapLevels(void) const
-{
-    return &_sfSkipMipMapLevels;
-}
-
-
 
 
 
@@ -2545,46 +1746,6 @@ UInt32 TextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (ImageFieldMask & whichField))
-    {
-        returnValue += _sfImage.getBinSize();
-    }
-    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
-    {
-        returnValue += _sfInternalFormat.getBinSize();
-    }
-    if(FieldBits::NoField != (ExternalFormatFieldMask & whichField))
-    {
-        returnValue += _sfExternalFormat.getBinSize();
-    }
-    if(FieldBits::NoField != (ScaleFieldMask & whichField))
-    {
-        returnValue += _sfScale.getBinSize();
-    }
-    if(FieldBits::NoField != (FrameFieldMask & whichField))
-    {
-        returnValue += _sfFrame.getBinSize();
-    }
-    if(FieldBits::NoField != (MinFilterFieldMask & whichField))
-    {
-        returnValue += _sfMinFilter.getBinSize();
-    }
-    if(FieldBits::NoField != (MagFilterFieldMask & whichField))
-    {
-        returnValue += _sfMagFilter.getBinSize();
-    }
-    if(FieldBits::NoField != (WrapSFieldMask & whichField))
-    {
-        returnValue += _sfWrapS.getBinSize();
-    }
-    if(FieldBits::NoField != (WrapTFieldMask & whichField))
-    {
-        returnValue += _sfWrapT.getBinSize();
-    }
-    if(FieldBits::NoField != (WrapRFieldMask & whichField))
-    {
-        returnValue += _sfWrapR.getBinSize();
-    }
     if(FieldBits::NoField != (EnvModeFieldMask & whichField))
     {
         returnValue += _sfEnvMode.getBinSize();
@@ -2657,17 +1818,9 @@ UInt32 TextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfEnvOperand2Alpha.getBinSize();
     }
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-    {
-        returnValue += _sfGLId.getBinSize();
-    }
     if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
     {
         returnValue += _sfPointSprite.getBinSize();
-    }
-    if(FieldBits::NoField != (PriorityFieldMask & whichField))
-    {
-        returnValue += _sfPriority.getBinSize();
     }
     if(FieldBits::NoField != (ShaderOperationFieldMask & whichField))
     {
@@ -2705,65 +1858,9 @@ UInt32 TextureChunkBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfLodBias.getBinSize();
     }
-    if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
-    {
-        returnValue += _sfDirtyLeft.getBinSize();
-    }
-    if(FieldBits::NoField != (DirtyMinXFieldMask & whichField))
-    {
-        returnValue += _sfDirtyMinX.getBinSize();
-    }
-    if(FieldBits::NoField != (DirtyMaxXFieldMask & whichField))
-    {
-        returnValue += _sfDirtyMaxX.getBinSize();
-    }
-    if(FieldBits::NoField != (DirtyMinYFieldMask & whichField))
-    {
-        returnValue += _sfDirtyMinY.getBinSize();
-    }
-    if(FieldBits::NoField != (DirtyMaxYFieldMask & whichField))
-    {
-        returnValue += _sfDirtyMaxY.getBinSize();
-    }
-    if(FieldBits::NoField != (DirtyMinZFieldMask & whichField))
-    {
-        returnValue += _sfDirtyMinZ.getBinSize();
-    }
-    if(FieldBits::NoField != (DirtyMaxZFieldMask & whichField))
-    {
-        returnValue += _sfDirtyMaxZ.getBinSize();
-    }
-    if(FieldBits::NoField != (AnisotropyFieldMask & whichField))
-    {
-        returnValue += _sfAnisotropy.getBinSize();
-    }
-    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
-    {
-        returnValue += _sfBorderColor.getBinSize();
-    }
-    if(FieldBits::NoField != (CompareModeFieldMask & whichField))
-    {
-        returnValue += _sfCompareMode.getBinSize();
-    }
-    if(FieldBits::NoField != (CompareFuncFieldMask & whichField))
-    {
-        returnValue += _sfCompareFunc.getBinSize();
-    }
-    if(FieldBits::NoField != (DepthModeFieldMask & whichField))
-    {
-        returnValue += _sfDepthMode.getBinSize();
-    }
-    if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
-    {
-        returnValue += _sfBorderWidth.getBinSize();
-    }
     if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
     {
         returnValue += _sfNPOTMatrixScale.getBinSize();
-    }
-    if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
-    {
-        returnValue += _sfSkipMipMapLevels.getBinSize();
     }
 
     return returnValue;
@@ -2774,46 +1871,6 @@ void TextureChunkBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ImageFieldMask & whichField))
-    {
-        _sfImage.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
-    {
-        _sfInternalFormat.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (ExternalFormatFieldMask & whichField))
-    {
-        _sfExternalFormat.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (ScaleFieldMask & whichField))
-    {
-        _sfScale.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (FrameFieldMask & whichField))
-    {
-        _sfFrame.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (MinFilterFieldMask & whichField))
-    {
-        _sfMinFilter.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (MagFilterFieldMask & whichField))
-    {
-        _sfMagFilter.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (WrapSFieldMask & whichField))
-    {
-        _sfWrapS.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (WrapTFieldMask & whichField))
-    {
-        _sfWrapT.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (WrapRFieldMask & whichField))
-    {
-        _sfWrapR.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (EnvModeFieldMask & whichField))
     {
         _sfEnvMode.copyToBin(pMem);
@@ -2886,17 +1943,9 @@ void TextureChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfEnvOperand2Alpha.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-    {
-        _sfGLId.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
     {
         _sfPointSprite.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (PriorityFieldMask & whichField))
-    {
-        _sfPriority.copyToBin(pMem);
     }
     if(FieldBits::NoField != (ShaderOperationFieldMask & whichField))
     {
@@ -2934,65 +1983,9 @@ void TextureChunkBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfLodBias.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
-    {
-        _sfDirtyLeft.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMinXFieldMask & whichField))
-    {
-        _sfDirtyMinX.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMaxXFieldMask & whichField))
-    {
-        _sfDirtyMaxX.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMinYFieldMask & whichField))
-    {
-        _sfDirtyMinY.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMaxYFieldMask & whichField))
-    {
-        _sfDirtyMaxY.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMinZFieldMask & whichField))
-    {
-        _sfDirtyMinZ.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMaxZFieldMask & whichField))
-    {
-        _sfDirtyMaxZ.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (AnisotropyFieldMask & whichField))
-    {
-        _sfAnisotropy.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
-    {
-        _sfBorderColor.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (CompareModeFieldMask & whichField))
-    {
-        _sfCompareMode.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (CompareFuncFieldMask & whichField))
-    {
-        _sfCompareFunc.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (DepthModeFieldMask & whichField))
-    {
-        _sfDepthMode.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
-    {
-        _sfBorderWidth.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
     {
         _sfNPOTMatrixScale.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
-    {
-        _sfSkipMipMapLevels.copyToBin(pMem);
     }
 }
 
@@ -3001,46 +1994,6 @@ void TextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ImageFieldMask & whichField))
-    {
-        _sfImage.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (InternalFormatFieldMask & whichField))
-    {
-        _sfInternalFormat.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (ExternalFormatFieldMask & whichField))
-    {
-        _sfExternalFormat.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (ScaleFieldMask & whichField))
-    {
-        _sfScale.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (FrameFieldMask & whichField))
-    {
-        _sfFrame.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (MinFilterFieldMask & whichField))
-    {
-        _sfMinFilter.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (MagFilterFieldMask & whichField))
-    {
-        _sfMagFilter.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (WrapSFieldMask & whichField))
-    {
-        _sfWrapS.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (WrapTFieldMask & whichField))
-    {
-        _sfWrapT.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (WrapRFieldMask & whichField))
-    {
-        _sfWrapR.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (EnvModeFieldMask & whichField))
     {
         _sfEnvMode.copyFromBin(pMem);
@@ -3113,17 +2066,9 @@ void TextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfEnvOperand2Alpha.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (GLIdFieldMask & whichField))
-    {
-        _sfGLId.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (PointSpriteFieldMask & whichField))
     {
         _sfPointSprite.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (PriorityFieldMask & whichField))
-    {
-        _sfPriority.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (ShaderOperationFieldMask & whichField))
     {
@@ -3161,65 +2106,9 @@ void TextureChunkBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfLodBias.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (DirtyLeftFieldMask & whichField))
-    {
-        _sfDirtyLeft.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMinXFieldMask & whichField))
-    {
-        _sfDirtyMinX.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMaxXFieldMask & whichField))
-    {
-        _sfDirtyMaxX.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMinYFieldMask & whichField))
-    {
-        _sfDirtyMinY.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMaxYFieldMask & whichField))
-    {
-        _sfDirtyMaxY.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMinZFieldMask & whichField))
-    {
-        _sfDirtyMinZ.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (DirtyMaxZFieldMask & whichField))
-    {
-        _sfDirtyMaxZ.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (AnisotropyFieldMask & whichField))
-    {
-        _sfAnisotropy.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (BorderColorFieldMask & whichField))
-    {
-        _sfBorderColor.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (CompareModeFieldMask & whichField))
-    {
-        _sfCompareMode.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (CompareFuncFieldMask & whichField))
-    {
-        _sfCompareFunc.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (DepthModeFieldMask & whichField))
-    {
-        _sfDepthMode.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (BorderWidthFieldMask & whichField))
-    {
-        _sfBorderWidth.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (NPOTMatrixScaleFieldMask & whichField))
     {
         _sfNPOTMatrixScale.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (SkipMipMapLevelsFieldMask & whichField))
-    {
-        _sfSkipMipMapLevels.copyFromBin(pMem);
     }
 }
 
@@ -3346,18 +2235,6 @@ FieldContainerTransitPtr TextureChunkBase::shallowCopy(void) const
 
 TextureChunkBase::TextureChunkBase(void) :
     Inherited(),
-    _sfImage                  (this,
-                          ImageFieldId,
-                          Image::ParentsFieldId),
-    _sfInternalFormat         (GLenum(GL_NONE)),
-    _sfExternalFormat         (GLenum(GL_NONE)),
-    _sfScale                  (bool(true)),
-    _sfFrame                  (UInt32(0)),
-    _sfMinFilter              (GLenum(GL_LINEAR_MIPMAP_LINEAR)),
-    _sfMagFilter              (GLenum(GL_LINEAR)),
-    _sfWrapS                  (GLenum(GL_REPEAT)),
-    _sfWrapT                  (GLenum(GL_REPEAT)),
-    _sfWrapR                  (GLenum(GL_REPEAT)),
     _sfEnvMode                (GLenum(GL_REPLACE)),
     _sfEnvColor               (Color4f(0,0,0,0)),
     _sfEnvCombineRGB          (GLenum(GL_MODULATE)),
@@ -3376,9 +2253,7 @@ TextureChunkBase::TextureChunkBase(void) :
     _sfEnvOperand0Alpha       (GLenum(GL_SRC_ALPHA)),
     _sfEnvOperand1Alpha       (GLenum(GL_SRC_ALPHA)),
     _sfEnvOperand2Alpha       (GLenum(GL_SRC_ALPHA)),
-    _sfGLId                   (GLenum(0)),
     _sfPointSprite            (bool(GL_FALSE)),
-    _sfPriority               (Real32(1.f)),
     _sfShaderOperation        (GLenum(GL_NONE)),
     _sfShaderInput            (GLenum(GL_NONE)),
     _mfShaderOffsetMatrix     (),
@@ -3388,38 +2263,12 @@ TextureChunkBase::TextureChunkBase(void) :
     _sfShaderCullModes        (UInt8(0)),
     _sfShaderConstEye         (),
     _sfLodBias                (Real32(0.f)),
-    _sfDirtyLeft              (Int32(-1)),
-    _sfDirtyMinX              (Int32(-1)),
-    _sfDirtyMaxX              (Int32(-1)),
-    _sfDirtyMinY              (Int32(-1)),
-    _sfDirtyMaxY              (Int32(-1)),
-    _sfDirtyMinZ              (Int32(-1)),
-    _sfDirtyMaxZ              (Int32(-1)),
-    _sfAnisotropy             (Real32(1.0f)),
-    _sfBorderColor            (Color4f(0,0,0,0)),
-    _sfCompareMode            (GLenum(GL_NONE)),
-    _sfCompareFunc            (GLenum(GL_LEQUAL)),
-    _sfDepthMode              (GLenum(GL_LUMINANCE)),
-    _sfBorderWidth            (UInt32(0)),
-    _sfNPOTMatrixScale        (UInt32(0)),
-    _sfSkipMipMapLevels       (Real32(0))
+    _sfNPOTMatrixScale        (UInt32(0))
 {
 }
 
 TextureChunkBase::TextureChunkBase(const TextureChunkBase &source) :
     Inherited(source),
-    _sfImage                  (this,
-                          ImageFieldId,
-                          Image::ParentsFieldId),
-    _sfInternalFormat         (source._sfInternalFormat         ),
-    _sfExternalFormat         (source._sfExternalFormat         ),
-    _sfScale                  (source._sfScale                  ),
-    _sfFrame                  (source._sfFrame                  ),
-    _sfMinFilter              (source._sfMinFilter              ),
-    _sfMagFilter              (source._sfMagFilter              ),
-    _sfWrapS                  (source._sfWrapS                  ),
-    _sfWrapT                  (source._sfWrapT                  ),
-    _sfWrapR                  (source._sfWrapR                  ),
     _sfEnvMode                (source._sfEnvMode                ),
     _sfEnvColor               (source._sfEnvColor               ),
     _sfEnvCombineRGB          (source._sfEnvCombineRGB          ),
@@ -3438,9 +2287,7 @@ TextureChunkBase::TextureChunkBase(const TextureChunkBase &source) :
     _sfEnvOperand0Alpha       (source._sfEnvOperand0Alpha       ),
     _sfEnvOperand1Alpha       (source._sfEnvOperand1Alpha       ),
     _sfEnvOperand2Alpha       (source._sfEnvOperand2Alpha       ),
-    _sfGLId                   (source._sfGLId                   ),
     _sfPointSprite            (source._sfPointSprite            ),
-    _sfPriority               (source._sfPriority               ),
     _sfShaderOperation        (source._sfShaderOperation        ),
     _sfShaderInput            (source._sfShaderInput            ),
     _mfShaderOffsetMatrix     (source._mfShaderOffsetMatrix     ),
@@ -3450,21 +2297,7 @@ TextureChunkBase::TextureChunkBase(const TextureChunkBase &source) :
     _sfShaderCullModes        (source._sfShaderCullModes        ),
     _sfShaderConstEye         (source._sfShaderConstEye         ),
     _sfLodBias                (source._sfLodBias                ),
-    _sfDirtyLeft              (source._sfDirtyLeft              ),
-    _sfDirtyMinX              (source._sfDirtyMinX              ),
-    _sfDirtyMaxX              (source._sfDirtyMaxX              ),
-    _sfDirtyMinY              (source._sfDirtyMinY              ),
-    _sfDirtyMaxY              (source._sfDirtyMaxY              ),
-    _sfDirtyMinZ              (source._sfDirtyMinZ              ),
-    _sfDirtyMaxZ              (source._sfDirtyMaxZ              ),
-    _sfAnisotropy             (source._sfAnisotropy             ),
-    _sfBorderColor            (source._sfBorderColor            ),
-    _sfCompareMode            (source._sfCompareMode            ),
-    _sfCompareFunc            (source._sfCompareFunc            ),
-    _sfDepthMode              (source._sfDepthMode              ),
-    _sfBorderWidth            (source._sfBorderWidth            ),
-    _sfNPOTMatrixScale        (source._sfNPOTMatrixScale        ),
-    _sfSkipMipMapLevels       (source._sfSkipMipMapLevels       )
+    _sfNPOTMatrixScale        (source._sfNPOTMatrixScale        )
 {
 }
 
@@ -3475,306 +2308,6 @@ TextureChunkBase::~TextureChunkBase(void)
 {
 }
 
-/*-------------------------------------------------------------------------*/
-/* Child linking                                                           */
-
-bool TextureChunkBase::unlinkChild(
-    FieldContainer * const pChild,
-    UInt16           const childFieldId)
-{
-    if(childFieldId == ImageFieldId)
-    {
-        Image * pTypedChild =
-            dynamic_cast<Image *>(pChild);
-
-        if(pTypedChild != NULL)
-        {
-            if(pTypedChild == _sfImage.getValue())
-            {
-                editSField(ImageFieldMask);
-
-                _sfImage.setValue(NULL);
-
-                return true;
-            }
-
-            FWARNING(("TextureChunkBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
-
-            return false;
-        }
-
-        return false;
-    }
-
-
-    return Inherited::unlinkChild(pChild, childFieldId);
-}
-
-void TextureChunkBase::onCreate(const TextureChunk *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        TextureChunk *pThis = static_cast<TextureChunk *>(this);
-
-        pThis->setImage(source->getImage());
-    }
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleImage           (void) const
-{
-    SFUnrecChildImagePtr::GetHandlePtr returnValue(
-        new  SFUnrecChildImagePtr::GetHandle(
-             &_sfImage,
-             this->getType().getFieldDesc(ImageFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleImage          (void)
-{
-    SFUnrecChildImagePtr::EditHandlePtr returnValue(
-        new  SFUnrecChildImagePtr::EditHandle(
-             &_sfImage,
-             this->getType().getFieldDesc(ImageFieldId),
-             this));
-
-    returnValue->setSetMethod(
-        boost::bind(&TextureChunk::setImage,
-                    static_cast<TextureChunk *>(this), _1));
-
-    editSField(ImageFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleInternalFormat  (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfInternalFormat,
-             this->getType().getFieldDesc(InternalFormatFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleInternalFormat (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfInternalFormat,
-             this->getType().getFieldDesc(InternalFormatFieldId),
-             this));
-
-
-    editSField(InternalFormatFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleExternalFormat  (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfExternalFormat,
-             this->getType().getFieldDesc(ExternalFormatFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleExternalFormat (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfExternalFormat,
-             this->getType().getFieldDesc(ExternalFormatFieldId),
-             this));
-
-
-    editSField(ExternalFormatFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleScale           (void) const
-{
-    SFBool::GetHandlePtr returnValue(
-        new  SFBool::GetHandle(
-             &_sfScale,
-             this->getType().getFieldDesc(ScaleFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleScale          (void)
-{
-    SFBool::EditHandlePtr returnValue(
-        new  SFBool::EditHandle(
-             &_sfScale,
-             this->getType().getFieldDesc(ScaleFieldId),
-             this));
-
-
-    editSField(ScaleFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleFrame           (void) const
-{
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
-             &_sfFrame,
-             this->getType().getFieldDesc(FrameFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleFrame          (void)
-{
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
-             &_sfFrame,
-             this->getType().getFieldDesc(FrameFieldId),
-             this));
-
-
-    editSField(FrameFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleMinFilter       (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfMinFilter,
-             this->getType().getFieldDesc(MinFilterFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleMinFilter      (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfMinFilter,
-             this->getType().getFieldDesc(MinFilterFieldId),
-             this));
-
-
-    editSField(MinFilterFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleMagFilter       (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfMagFilter,
-             this->getType().getFieldDesc(MagFilterFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleMagFilter      (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfMagFilter,
-             this->getType().getFieldDesc(MagFilterFieldId),
-             this));
-
-
-    editSField(MagFilterFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleWrapS           (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfWrapS,
-             this->getType().getFieldDesc(WrapSFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleWrapS          (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfWrapS,
-             this->getType().getFieldDesc(WrapSFieldId),
-             this));
-
-
-    editSField(WrapSFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleWrapT           (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfWrapT,
-             this->getType().getFieldDesc(WrapTFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleWrapT          (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfWrapT,
-             this->getType().getFieldDesc(WrapTFieldId),
-             this));
-
-
-    editSField(WrapTFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleWrapR           (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfWrapR,
-             this->getType().getFieldDesc(WrapRFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleWrapR          (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfWrapR,
-             this->getType().getFieldDesc(WrapRFieldId),
-             this));
-
-
-    editSField(WrapRFieldMask);
-
-    return returnValue;
-}
 
 GetFieldHandlePtr TextureChunkBase::getHandleEnvMode         (void) const
 {
@@ -4226,31 +2759,6 @@ EditFieldHandlePtr TextureChunkBase::editHandleEnvOperand2Alpha(void)
     return returnValue;
 }
 
-GetFieldHandlePtr TextureChunkBase::getHandleGLId            (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleGLId           (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfGLId,
-             this->getType().getFieldDesc(GLIdFieldId),
-             this));
-
-
-    editSField(GLIdFieldMask);
-
-    return returnValue;
-}
-
 GetFieldHandlePtr TextureChunkBase::getHandlePointSprite     (void) const
 {
     SFBool::GetHandlePtr returnValue(
@@ -4272,31 +2780,6 @@ EditFieldHandlePtr TextureChunkBase::editHandlePointSprite    (void)
 
 
     editSField(PointSpriteFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandlePriority        (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfPriority,
-             this->getType().getFieldDesc(PriorityFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandlePriority       (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfPriority,
-             this->getType().getFieldDesc(PriorityFieldId),
-             this));
-
-
-    editSField(PriorityFieldMask);
 
     return returnValue;
 }
@@ -4526,331 +3009,6 @@ EditFieldHandlePtr TextureChunkBase::editHandleLodBias        (void)
     return returnValue;
 }
 
-GetFieldHandlePtr TextureChunkBase::getHandleDirtyLeft       (void) const
-{
-    SFInt32::GetHandlePtr returnValue(
-        new  SFInt32::GetHandle(
-             &_sfDirtyLeft,
-             this->getType().getFieldDesc(DirtyLeftFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleDirtyLeft      (void)
-{
-    SFInt32::EditHandlePtr returnValue(
-        new  SFInt32::EditHandle(
-             &_sfDirtyLeft,
-             this->getType().getFieldDesc(DirtyLeftFieldId),
-             this));
-
-
-    editSField(DirtyLeftFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleDirtyMinX       (void) const
-{
-    SFInt32::GetHandlePtr returnValue(
-        new  SFInt32::GetHandle(
-             &_sfDirtyMinX,
-             this->getType().getFieldDesc(DirtyMinXFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleDirtyMinX      (void)
-{
-    SFInt32::EditHandlePtr returnValue(
-        new  SFInt32::EditHandle(
-             &_sfDirtyMinX,
-             this->getType().getFieldDesc(DirtyMinXFieldId),
-             this));
-
-
-    editSField(DirtyMinXFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleDirtyMaxX       (void) const
-{
-    SFInt32::GetHandlePtr returnValue(
-        new  SFInt32::GetHandle(
-             &_sfDirtyMaxX,
-             this->getType().getFieldDesc(DirtyMaxXFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleDirtyMaxX      (void)
-{
-    SFInt32::EditHandlePtr returnValue(
-        new  SFInt32::EditHandle(
-             &_sfDirtyMaxX,
-             this->getType().getFieldDesc(DirtyMaxXFieldId),
-             this));
-
-
-    editSField(DirtyMaxXFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleDirtyMinY       (void) const
-{
-    SFInt32::GetHandlePtr returnValue(
-        new  SFInt32::GetHandle(
-             &_sfDirtyMinY,
-             this->getType().getFieldDesc(DirtyMinYFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleDirtyMinY      (void)
-{
-    SFInt32::EditHandlePtr returnValue(
-        new  SFInt32::EditHandle(
-             &_sfDirtyMinY,
-             this->getType().getFieldDesc(DirtyMinYFieldId),
-             this));
-
-
-    editSField(DirtyMinYFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleDirtyMaxY       (void) const
-{
-    SFInt32::GetHandlePtr returnValue(
-        new  SFInt32::GetHandle(
-             &_sfDirtyMaxY,
-             this->getType().getFieldDesc(DirtyMaxYFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleDirtyMaxY      (void)
-{
-    SFInt32::EditHandlePtr returnValue(
-        new  SFInt32::EditHandle(
-             &_sfDirtyMaxY,
-             this->getType().getFieldDesc(DirtyMaxYFieldId),
-             this));
-
-
-    editSField(DirtyMaxYFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleDirtyMinZ       (void) const
-{
-    SFInt32::GetHandlePtr returnValue(
-        new  SFInt32::GetHandle(
-             &_sfDirtyMinZ,
-             this->getType().getFieldDesc(DirtyMinZFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleDirtyMinZ      (void)
-{
-    SFInt32::EditHandlePtr returnValue(
-        new  SFInt32::EditHandle(
-             &_sfDirtyMinZ,
-             this->getType().getFieldDesc(DirtyMinZFieldId),
-             this));
-
-
-    editSField(DirtyMinZFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleDirtyMaxZ       (void) const
-{
-    SFInt32::GetHandlePtr returnValue(
-        new  SFInt32::GetHandle(
-             &_sfDirtyMaxZ,
-             this->getType().getFieldDesc(DirtyMaxZFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleDirtyMaxZ      (void)
-{
-    SFInt32::EditHandlePtr returnValue(
-        new  SFInt32::EditHandle(
-             &_sfDirtyMaxZ,
-             this->getType().getFieldDesc(DirtyMaxZFieldId),
-             this));
-
-
-    editSField(DirtyMaxZFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleAnisotropy      (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfAnisotropy,
-             this->getType().getFieldDesc(AnisotropyFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleAnisotropy     (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfAnisotropy,
-             this->getType().getFieldDesc(AnisotropyFieldId),
-             this));
-
-
-    editSField(AnisotropyFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleBorderColor     (void) const
-{
-    SFColor4f::GetHandlePtr returnValue(
-        new  SFColor4f::GetHandle(
-             &_sfBorderColor,
-             this->getType().getFieldDesc(BorderColorFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleBorderColor    (void)
-{
-    SFColor4f::EditHandlePtr returnValue(
-        new  SFColor4f::EditHandle(
-             &_sfBorderColor,
-             this->getType().getFieldDesc(BorderColorFieldId),
-             this));
-
-
-    editSField(BorderColorFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleCompareMode     (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfCompareMode,
-             this->getType().getFieldDesc(CompareModeFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleCompareMode    (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfCompareMode,
-             this->getType().getFieldDesc(CompareModeFieldId),
-             this));
-
-
-    editSField(CompareModeFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleCompareFunc     (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfCompareFunc,
-             this->getType().getFieldDesc(CompareFuncFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleCompareFunc    (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfCompareFunc,
-             this->getType().getFieldDesc(CompareFuncFieldId),
-             this));
-
-
-    editSField(CompareFuncFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleDepthMode       (void) const
-{
-    SFGLenum::GetHandlePtr returnValue(
-        new  SFGLenum::GetHandle(
-             &_sfDepthMode,
-             this->getType().getFieldDesc(DepthModeFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleDepthMode      (void)
-{
-    SFGLenum::EditHandlePtr returnValue(
-        new  SFGLenum::EditHandle(
-             &_sfDepthMode,
-             this->getType().getFieldDesc(DepthModeFieldId),
-             this));
-
-
-    editSField(DepthModeFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleBorderWidth     (void) const
-{
-    SFUInt32::GetHandlePtr returnValue(
-        new  SFUInt32::GetHandle(
-             &_sfBorderWidth,
-             this->getType().getFieldDesc(BorderWidthFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleBorderWidth    (void)
-{
-    SFUInt32::EditHandlePtr returnValue(
-        new  SFUInt32::EditHandle(
-             &_sfBorderWidth,
-             this->getType().getFieldDesc(BorderWidthFieldId),
-             this));
-
-
-    editSField(BorderWidthFieldMask);
-
-    return returnValue;
-}
-
 GetFieldHandlePtr TextureChunkBase::getHandleNPOTMatrixScale (void) const
 {
     SFUInt32::GetHandlePtr returnValue(
@@ -4872,31 +3030,6 @@ EditFieldHandlePtr TextureChunkBase::editHandleNPOTMatrixScale(void)
 
 
     editSField(NPOTMatrixScaleFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr TextureChunkBase::getHandleSkipMipMapLevels (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfSkipMipMapLevels,
-             this->getType().getFieldDesc(SkipMipMapLevelsFieldId),
-             const_cast<TextureChunkBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr TextureChunkBase::editHandleSkipMipMapLevels(void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfSkipMipMapLevels,
-             this->getType().getFieldDesc(SkipMipMapLevelsFieldId),
-             this));
-
-
-    editSField(SkipMipMapLevelsFieldMask);
 
     return returnValue;
 }
@@ -4937,8 +3070,6 @@ FieldContainer *TextureChunkBase::createAspectCopy(
 void TextureChunkBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    static_cast<TextureChunk *>(this)->setImage(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;

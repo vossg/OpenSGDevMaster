@@ -82,6 +82,8 @@ class OSG_SYSTEM_DLLMAPPING SimpleSHLChunk : public SimpleSHLChunkBase
 #ifdef OSG_1_COMPAT
     typedef ShaderVariableFunctor::ParamFunctor      ParamFunctor;
     typedef ShaderVariableFunctor::OSGParamFunctor   OSGParamFunctor;
+
+    static const OSG::BitVector ParametersFieldMask = VariablesFieldMask;
 #endif
 
     /*---------------------------------------------------------------------*/

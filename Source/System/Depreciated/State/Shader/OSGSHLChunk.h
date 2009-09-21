@@ -51,6 +51,9 @@ typedef SimpleSHLChunkRecPtr     SHLChunkRecPtr;
 typedef SimpleSHLChunkUnrecPtr   SHLChunkUnrecPtr;
 typedef SimpleSHLChunkTransitPtr SHLChunkTransitPtr;
 
+typedef SimpleSHLChunk           ShaderChunk;
+
+typedef SimpleSHLChunkRecPtr     ShaderChunkPtr;
 typedef SimpleSHLChunkRecPtr     SHLChunkPtr;
 
 OSG_END_NAMESPACE

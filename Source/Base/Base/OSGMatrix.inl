@@ -2969,6 +2969,68 @@ bool TransformationMatrix<ValueTypeT>::calcInverse3(
 /*-------------------------------------------------------------------------*/
 /*                               Functions                                 */
 
+#ifdef OSG_1_COMPAT
+template <class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::mult(PointType3f  &pnt) const
+{
+    Self::mult(pnt, pnt);
+}
+
+template <class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multMatrixPnt(PointType3f &pnt) const
+{
+    Self::mult(pnt, pnt);
+}
+
+template <class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multMatrixPnt(
+    const PointType3f  &src, 
+          PointType3f  &dst) const
+{
+    Self::mult(src, dst);
+}
+
+template <class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multMatrixVec(VectorType3f &vec) const
+{
+    Self::mult(vec, vec);
+}
+
+template <class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multMatrixVec(
+    const VectorType3f &src, 
+          VectorType3f &dst) const
+{
+    Self::mult(src, dst);
+}
+
+template <class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multFullMatrixPnt(
+    PointType3f &pnt) const
+{
+    Self::multFull(pnt, pnt);
+}
+
+template <class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multFullMatrixPnt(
+    const PointType3f  &src, 
+          PointType3f  &dst) const
+{
+    Self::multFull(src, dst);
+}
+
+template <class ValueTypeT> inline
+void TransformationMatrix<ValueTypeT>::multPntFullMatrix(
+    const PointType3f  &src, 
+          PointType3f  &dst) const
+{
+    Self::multLeftFull(src, dst);
+}
+#endif
+
+/*-------------------------------------------------------------------------*/
+/*                               Functions                                 */
+
 //! write matrix to stream
 
 template<class ValueTypeT> inline

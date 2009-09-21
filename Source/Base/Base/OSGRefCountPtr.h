@@ -227,6 +227,11 @@ RefCountPtr<typename TargetT::Object,
     dynamic_pointer_cast(SourceT * const pIn);
 #endif
 
+#ifdef OSG_1_COMPAT
+template <class ObjectT, class RefCountPolicyT> inline
+ObjectT *getCPtr(const OSG::RefCountPtr<ObjectT, RefCountPolicyT> &refPtr);
+#endif
+
 OSG_END_NAMESPACE
 
 #include "OSGRefCountPtr.inl"
