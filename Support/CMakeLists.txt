@@ -2,11 +2,6 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(OpenSGSupport)
 
-IF(NOT WIN32)
-  MESSAGE(ERROR " Windows only, on unix or unix imposters use your package"
-                " system to install the required packages")
-ENDIF(NOT WIN32)
-
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} 
                       "${OpenSGSupport_SOURCE_DIR}/../CMake")
 
@@ -14,9 +9,10 @@ SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
 # Initial cache to make life easier on Windows
 ##############################################
 
-IF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+IF(NOT _OSGINITCACHELOADED AND EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
   INCLUDE(${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
-ENDIF(EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
+  SET(_OSGINITCACHELOADED TRUE CACHE INTERNAL "")
+ENDIF(NOT _OSGINITCACHELOADED AND EXISTS ${CMAKE_SOURCE_DIR}/CMakeCacheInitial.txt)
 
 ##########################
 # Disallow in-source build
@@ -78,17 +74,37 @@ FIND_PACKAGE(OpenGL)
 
 OSG_CONFIGURE_BOOST()
 
-ADD_SUBDIRECTORY(zlib)
-ADD_SUBDIRECTORY(libpng)
-ADD_SUBDIRECTORY(libjpeg)
-ADD_SUBDIRECTORY(freeglut)
-ADD_SUBDIRECTORY(libtiff)
-ADD_SUBDIRECTORY(pcre)
-ADD_SUBDIRECTORY(libiconv)
-ADD_SUBDIRECTORY(libxml2)
-ADD_SUBDIRECTORY(collada)
-ADD_SUBDIRECTORY(OpenEXR)
-ADD_SUBDIRECTORY(glew)
+IF(WIN32)
+  ADD_SUBDIRECTORY(zlib)
+  ADD_SUBDIRECTORY(libpng)
+  ADD_SUBDIRECTORY(libjpeg)
+  ADD_SUBDIRECTORY(freeglut)
+  ADD_SUBDIRECTORY(libtiff)
+  ADD_SUBDIRECTORY(pcre)
+  ADD_SUBDIRECTORY(libiconv)
+  ADD_SUBDIRECTORY(libxml2)
+  ADD_SUBDIRECTORY(collada)
+  ADD_SUBDIRECTORY(OpenEXR)
+  ADD_SUBDIRECTORY(glew)
+ENDIF(WIN32)
+
+
+SET(OSG_EXTRA_EXTERNAL_SUPPORT "" CACHE STRING 
+    "Extra modules that OpenSG will try to compile.")
+
+FOREACH(EXTERNAL ${OSG_EXTRA_EXTERNAL_SUPPORT})
+
+  IF(NOT DEFINED OSG_${EXTERNAL}_SUPP_SOURCE_DIR)
+    SET(OSG_${EXTERNAL}_SUPP_SOURCE_DIR "OSG_${EXTERNAL}_SUPP_SOURCE_DIR-NOTFOUND" CACHE PATH "")
+  ENDIF()
+    
+  IF(OSG_${EXTERNAL}_SUPP_SOURCE_DIR AND
+     EXISTS ${OSG_${EXTERNAL}_SUPP_SOURCE_DIR}/CMakeLists.txt)
+     ADD_SUBDIRECTORY(${OSG_${EXTERNAL}_SUPP_SOURCE_DIR} External)
+  ENDIF()
+
+
+ENDFOREACH(EXTERNAL)
 
 SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" 
                               CACHE STRING "OpenSGSupport Build Types" FORCE )
