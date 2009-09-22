@@ -77,52 +77,54 @@ StatElemDesc<StatIntElem>
 /*                            Constructors                                 */
 
 RenderActionBase::RenderActionBase(void) :
-     Inherited         (      ),
-    _pCamera           (NULL  ),
-    _pBackground       (NULL  ),
-    _pWindow           (NULL  ),
-    _pViewport         (NULL  ),
-    _pGlobalOverride   (NULL  ),
-    _pStatistics       (NULL  ),
-    _pStageValidator   (NULL  ),
+     Inherited                (      ),
+    _pCamera                  (NULL  ),
+    _pBackground              (NULL  ),
+    _pWindow                  (NULL  ),
+    _pViewport                (NULL  ),
+    _pGlobalOverride          (NULL  ),
+    _pStatistics              (NULL  ),
+    _pStageValidator          (NULL  ),
 
-    _bUseGLFinish      (false ),
+    _bUseGLFinish             (false ),
 
-    _bFrustumCulling   (true  ),
-    _bVolumeDrawing    (false ),
-    _bAutoFrustum      (true  ),
-    _oFrustum          (      ),
-    _uiFrameTravCount  (0     ),
-    _iDrawerId         (-1    ),
-    _iDrawableId       (-1    ),
-    _oCurrentRenderProp(0x0000),
-    _bDrawPartPar      (false )
+    _bFrustumCulling          (true  ),
+    _bVolumeDrawing           (false ),
+    _bAutoFrustum             (true  ),
+     _bCorrectTwoSidedLighting(false ),
+    _oFrustum                 (      ),
+    _uiFrameTravCount         (0     ),
+    _iDrawerId                (-1    ),
+    _iDrawableId              (-1    ),
+    _oCurrentRenderProp       (0x0000),
+    _bDrawPartPar             (false )
 {
     _pStageValidator = new StageValidator();
 }
 
 RenderActionBase::RenderActionBase(const RenderActionBase &source) :
 
-     Inherited         (source                  ),
-    _pCamera           (source._pCamera         ),
-    _pBackground       (source._pBackground     ),
-    _pWindow           (source._pWindow         ),
-    _pViewport         (source._pViewport       ),
-    _pGlobalOverride   (source._pGlobalOverride ),
-    _pStatistics       (NULL                    ),
-    _pStageValidator   (NULL                    ),
+     Inherited               (source                          ),
+    _pCamera                 (source._pCamera                 ),
+    _pBackground             (source._pBackground             ),
+    _pWindow                 (source._pWindow                 ),
+    _pViewport               (source._pViewport               ),
+    _pGlobalOverride         (source._pGlobalOverride         ),
+    _pStatistics             (NULL                            ),
+    _pStageValidator         (NULL                            ),
 
-    _bUseGLFinish      (source._bUseGLFinish    ),
+    _bUseGLFinish            (source._bUseGLFinish            ),
 
-    _bFrustumCulling   (source._bFrustumCulling ),
-    _bVolumeDrawing    (source._bVolumeDrawing  ),
-    _bAutoFrustum      (source._bAutoFrustum    ),
-    _oFrustum          (source._oFrustum        ),
-    _uiFrameTravCount  (source._uiFrameTravCount),
-    _iDrawerId         (source._iDrawerId       ),
-    _iDrawableId       (source._iDrawableId     ),
-    _oCurrentRenderProp(0x0000                  ),
-    _bDrawPartPar      (false                   )
+    _bFrustumCulling         (source._bFrustumCulling         ),
+    _bVolumeDrawing          (source._bVolumeDrawing          ),
+    _bAutoFrustum            (source._bAutoFrustum            ),
+    _bCorrectTwoSidedLighting(source._bCorrectTwoSidedLighting),
+    _oFrustum                (source._oFrustum                ),
+    _uiFrameTravCount        (source._uiFrameTravCount        ),
+    _iDrawerId               (source._iDrawerId               ),
+    _iDrawableId             (source._iDrawableId             ),
+    _oCurrentRenderProp      (0x0000                          ),
+    _bDrawPartPar            (false                           )
 {
     OSG::setRefd(_pStatistics, source._pStatistics);
 
@@ -233,6 +235,11 @@ void RenderActionBase::setGlobalOverride(Material *pMat)
 void RenderActionBase::setFrustumCulling(bool val)
 {
     _bFrustumCulling = val;
+}
+
+void RenderActionBase::setCorrectTwoSidedLighting(bool val)
+{
+    _bCorrectTwoSidedLighting = val;
 }
 
 // automatically calc the frustum at the beginning of the traversal

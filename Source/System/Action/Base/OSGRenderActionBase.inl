@@ -128,6 +128,12 @@ const FrustumVolume& RenderActionBase::getFrustum(void) const
 }
     
 inline
+bool RenderActionBase::getCorrectTwoSidedLighting(void) const
+{
+    return _bCorrectTwoSidedLighting;
+}
+
+inline
 StatCollector* RenderActionBase::getStatCollector(void) const
 {
     return _pStatistics;

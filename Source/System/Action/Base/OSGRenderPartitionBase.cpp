@@ -95,14 +95,14 @@ OSG_USING_NAMESPACE
 /*------------- constructors & destructors --------------------------------*/
 
 RenderPartitionBase::RenderPartitionBase(void) :
-     Inherited               (     ),
-    _bSortTrans              (true ),
-    _bZWriteTrans            (false),
-    _bCorrectTwoSidedLighting(false),
-    _ubState                 ( Full),
+     Inherited         (     ),
+    _bSortTrans        (true ),
+    _bZWriteTrans      (false),
+    _bCorrectNegScale  (false),
+    _ubState           ( Full),
 
-    _uiNumMatrixChanges      (    0),
-    _uiNumTriangles          (    0)
+    _uiNumMatrixChanges(    0),
+    _uiNumTriangles    (    0)
 {
 }
 

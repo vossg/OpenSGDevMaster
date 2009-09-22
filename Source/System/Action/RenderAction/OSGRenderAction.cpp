@@ -670,10 +670,11 @@ Action::ResultE RenderAction::start(void)
     _pActivePartition->setTreeBuilderPool(_pTreeBuilderPools[_currentBuffer]);
     _pActivePartition->setStatCollector  (_pStatistics                      );
 
-    _pActivePartition->setFrustum        (_oFrustum        );
+    _pActivePartition->setFrustum        (_oFrustum                );
 
-    _pActivePartition->setFrustumCulling (_bFrustumCulling );
-    _pActivePartition->setVolumeDrawing  (_bVolumeDrawing  );
+    _pActivePartition->setFrustumCulling (_bFrustumCulling         );
+    _pActivePartition->setVolumeDrawing  (_bVolumeDrawing          );
+    _pActivePartition->setCorrectNegScale(_bCorrectTwoSidedLighting);
 
     _pActivePartition->init();
 
@@ -1038,6 +1039,8 @@ void RenderAction::pushPartition(UInt32                uiCopyOnPush,
     _pActivePartition->setTreeBuilderPool(_pTreeBuilderPools[_currentBuffer]);
     _pActivePartition->setStatCollector  (_pStatistics                      );
     _pActivePartition->setVolumeDrawing  (_bVolumeDrawing                   );
+
+    _pActivePartition->setCorrectNegScale(_bCorrectTwoSidedLighting         );
 
     _pActivePartition->initFrom(_sRenderPartitionStack.top(),
                                 _vRenderPartitions[_currentBuffer][0],

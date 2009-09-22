@@ -675,7 +675,7 @@ void OcclusionCullingTreeBuilder::drawNode(RenderTreeNode      *pNode,
 
     if(pNode->hasFunctor() == true)
     {
-        if(part->_bCorrectTwoSidedLighting)
+        if(part->_bCorrectNegScale)
         {
             const Matrix &m = _currMatrix.second;
 

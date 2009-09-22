@@ -161,6 +161,9 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public DrawTask
 
     /*------------------------- assignment ----------------------------------*/
     
+    bool getCorrectNegScale(void     );
+    void setCorrectNegScale(bool bVal);
+
     /*------------------------- comparison ----------------------------------*/
 
     /*------------------------- comparison ----------------------------------*/
@@ -190,7 +193,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public DrawTask
     // What to do
     bool     _bSortTrans;
     bool     _bZWriteTrans;
-    bool     _bCorrectTwoSidedLighting;
+    bool     _bCorrectNegScale;
     UInt8    _ubState;
 
     // Stat

@@ -255,9 +255,9 @@ void RenderPartition::reset(Mode eMode)
                       _mTransMatRoots.end(), ResetSecond());
 
 
-        _bSortTrans               = true;
-        _bZWriteTrans             = false;
-        _bCorrectTwoSidedLighting = false;
+        _bSortTrans       = true;
+        _bZWriteTrans     = false;
+        _bCorrectNegScale = false;
 
         _uiActiveMatrix           = 0;
 

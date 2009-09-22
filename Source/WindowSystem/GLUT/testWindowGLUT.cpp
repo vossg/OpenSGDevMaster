@@ -493,7 +493,7 @@ int init(int argc, char **argv)
     cam->setBeacon( b1n );
     cam->setFov( OSG::osgDegree2Rad( 90 ) );
     cam->setNear( 0.1f );
-    cam->setFar( 100000 );
+    cam->setFar( 10000 );
 
     // Background
     OSG::SolidBackgroundUnrecPtr bkgnd = OSG::SolidBackground::create();
@@ -534,6 +534,7 @@ int init(int argc, char **argv)
     rentravact = OSG::RenderAction::create();
 //    renact->setFrustumCulling(false);
 
+    rentravact->setCorrectTwoSidedLighting(true);
 
     // tball
 

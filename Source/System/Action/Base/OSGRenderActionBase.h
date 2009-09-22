@@ -136,12 +136,15 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     /*! \{                                                                 */
 
     // control activation of frustum culling
-    virtual bool                 getFrustumCulling(void                ) const;
-    virtual void                 setFrustumCulling(bool val = true     );
-    
+    virtual bool getFrustumCulling         (void            ) const;
+    virtual void setFrustumCulling         (bool val = true );
+
+    virtual bool getCorrectTwoSidedLighting(void            ) const;    
+    virtual void setCorrectTwoSidedLighting(bool val = true );    
+
     // control drawing of checked volumes
-    virtual bool                 getVolumeDrawing (void                ) const;
-    virtual void                 setVolumeDrawing (bool val = false    );
+    virtual bool getVolumeDrawing          (void            ) const;
+    virtual void setVolumeDrawing          (bool val = false);
     
     // control automatic frustum calculation
             bool                 getAutoFrustum   (void                ) const;
@@ -266,6 +269,8 @@ class OSG_SYSTEM_DLLMAPPING RenderActionBase : public RenderActionBaseParent
     bool            _bFrustumCulling;
     bool            _bVolumeDrawing;
     bool            _bAutoFrustum;
+    bool            _bCorrectTwoSidedLighting;
+
     FrustumVolume   _oFrustum;
 
     UInt16          _uiFrameTravCount;

@@ -128,7 +128,7 @@ void TreeBuilderBase::drawNode(RenderTreeNode      *pNode,
             // gives wrong render results cause the lighting itselfs gets 
             // inverted. This corrects this behavior.
 
-            if(part->_bCorrectTwoSidedLighting)
+            if(part->_bCorrectNegScale)
             {
                 const Matrix &m = _currMatrix.second;
 

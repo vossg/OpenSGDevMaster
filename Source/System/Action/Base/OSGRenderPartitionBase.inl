@@ -89,6 +89,18 @@ void RenderPartitionBase::setTaskType(TaskType eTaskType)
 
 /*------------------------------ access -----------------------------------*/
 
+inline
+bool RenderPartitionBase::getCorrectNegScale(void)
+{
+    return _bCorrectNegScale;
+}
+
+inline
+void RenderPartitionBase::setCorrectNegScale(bool bVal)
+{
+    _bCorrectNegScale = bVal;
+}
+
 /*---------------------------- properties ---------------------------------*/
 
 /*-------------------------- assignment -----------------------------------*/
