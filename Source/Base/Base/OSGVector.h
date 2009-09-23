@@ -555,17 +555,18 @@ Point<ValueTypeT, SizeI>
 /*! \relates Point
  */
 template <class  ValueTypeT,
-          UInt32 SizeI      >
-OSG_BASE_DLLMAPPING std::ostream &operator <<(
+          UInt32 SizeI      > OSG_BASE_DLLMAPPING
+std::ostream &operator <<(
           std::ostream             &os,
     const Point<ValueTypeT, SizeI> &pnt);
 
 /*! \relates Point
  */
 template <class  ValueTypeT,
-          UInt32 SizeI      >
-OSG_BASE_DLLMAPPING std::istream &operator >>(std::istream             &is,
-                                              Point<ValueTypeT, SizeI> &pnt);
+          UInt32 SizeI      > OSG_BASE_DLLMAPPING
+std::istream &operator >>(
+    std::istream             &is,
+    Point<ValueTypeT, SizeI> &pnt);
 
 //---------------------------------------------------------------------------
 //  Class
@@ -724,16 +725,16 @@ Vector<ValueTypeT, SizeI>
 /*! \relates Vector
  */
 template <class ValueTypeT,
-          UInt32 SizeI     >
-OSG_BASE_DLLMAPPING std::ostream &operator <<(
+          UInt32 SizeI     > OSG_BASE_DLLMAPPING
+std::ostream &operator <<(
           std::ostream              &os,
     const Vector<ValueTypeT, SizeI> &vec);
 
 /*! \relates Vector
  */
 template <class  ValueTypeT,
-          UInt32 SizeI      >
-OSG_BASE_DLLMAPPING std::istream &operator >>(
+          UInt32 SizeI      > OSG_BASE_DLLMAPPING
+std::istream &operator >>(
     std::istream              &is,
     Vector<ValueTypeT, SizeI> &vec);
 
