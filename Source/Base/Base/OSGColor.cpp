@@ -36,12 +36,13 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-
-
 // Class declarations
 #include "OSGColor.h"
 
-OSG_USING_NAMESPACE
+#include "OSGMathIO.h"
+#include "OSGColor.ins"
+
+OSG_BEGIN_NAMESPACE
 
 // Null values
 
@@ -50,3 +51,17 @@ OSG_USING_NAMESPACE
 //OSG_BASE_DLLMAPPING Color3ub    OSG::NullColor3ub( 0,0,0 );
 //OSG_BASE_DLLMAPPING Color4ub    OSG::NullColor4ub( 0,0,0,0 );
 
+OSG_COLOR3_OUTPUT_OP_INST(Real32);
+OSG_COLOR3_OUTPUT_OP_INST(UInt8);
+
+OSG_COLOR3_INPUT_OP_INST(Real32);
+OSG_COLOR3_INPUT_OP_INST(UInt8);
+
+
+OSG_COLOR4_OUTPUT_OP_INST(Real32);
+OSG_COLOR4_OUTPUT_OP_INST(UInt8);
+
+OSG_COLOR4_INPUT_OP_INST(Real32);
+OSG_COLOR4_INPUT_OP_INST(UInt8);
+
+OSG_END_NAMESPACE

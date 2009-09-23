@@ -584,27 +584,4 @@ const typename Color4<ValueTypeT>::ValueType *
     return this->getValues();
 }
 
-
-/*
-template <class ValueTypeT> inline
-std::ostream &operator <<(      std::ostream       &outStream,
-                          const Color3<ValueTypeT> &color)
-{
-    return outStream << color.red()   << ' '
-                     << color.green() << ' '
-                     << color.blue();
-}
-
-
-template <class ValueTypeT> inline
-std::ostream &operator <<(      std::ostream       &outStream,
-                          const Color4<ValueTypeT> &color)
-{
-    return outStream << color.red()   << ' '
-                     << color.green() << ' '
-                     << color.blue()  << ' '
-                     << color.alpha();
-}
-*/
-
 OSG_END_NAMESPACE

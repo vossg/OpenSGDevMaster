@@ -126,4 +126,42 @@ TEST(InstantiateAllPointTypes)
     CHECK(true);
 }
 
+TEST(VectorPointIO)
+{
+    std::stringstream iostream;
+
+    Vec3f v3f(1.f, 2.f, 3.f     );
+    Vec4f v4f(1.f, 2.f, 3.f, 4.f);
+
+    Pnt3f p3f(1.f, 2.f, 3.f     );
+    Pnt4f p4f(1.f, 2.f, 3.f, 4.f);
+
+
+    iostream << v3f;
+    Vec3f v3f_2;
+    iostream >> v3f_2;
+    CHECK_EQUAL(v3f, v3f_2);
+
+    iostream.clear();
+
+    iostream << v4f;
+    Vec4f v4f_2;
+    iostream >> v4f_2;
+    CHECK_EQUAL(v4f, v4f_2);
+
+    iostream.clear();
+
+    iostream << p3f;
+    Pnt3f p3f_2;
+    iostream >> p3f_2;
+    CHECK_EQUAL(p3f, p3f_2);
+
+    iostream.clear();
+
+    iostream << p4f;
+    Pnt4f p4f_2;
+    iostream >> p4f_2;
+    CHECK_EQUAL(p4f, p4f_2);
+}
+
 } // SUITE

@@ -36,15 +36,11 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-// System declarations
-
-#include "OSGConfig.h"
-
 // Class declarations
 #include "OSGVector.h"
-#include "OSGVector.ins"
 
 #include "OSGMathIO.h"
+#include "OSGVector.ins"
 
 OSG_BEGIN_NAMESPACE
 
@@ -239,31 +235,31 @@ const Point<> Point<>::Null;
     */
 #endif
 
-#define OSG_VECPNT_IO_OP_INST(OSG_VALUE_TYPE)                               \
-OSG_POINT_OUTPUT_OP_INST(OSG_VALUE_TYPE, 2)                                 \
-OSG_POINT_OUTPUT_OP_INST(OSG_VALUE_TYPE, 3)                                 \
-OSG_POINT_OUTPUT_OP_INST(OSG_VALUE_TYPE, 4)                                 \
-OSG_POINT_INPUT_OP_INST(OSG_VALUE_TYPE, 2)                                  \
-OSG_POINT_INPUT_OP_INST(OSG_VALUE_TYPE, 3)                                  \
-OSG_POINT_INPUT_OP_INST(OSG_VALUE_TYPE, 4)                                  \
-                                                                            \
-OSG_VECTOR_OUTPUT_OP_INST(OSG_VALUE_TYPE, 2)                                \
-OSG_VECTOR_OUTPUT_OP_INST(OSG_VALUE_TYPE, 3)                                \
-OSG_VECTOR_OUTPUT_OP_INST(OSG_VALUE_TYPE, 4)                                \
-OSG_VECTOR_INPUT_OP_INST(OSG_VALUE_TYPE, 2)                                 \
-OSG_VECTOR_INPUT_OP_INST(OSG_VALUE_TYPE, 3)                                 \
-OSG_VECTOR_INPUT_OP_INST(OSG_VALUE_TYPE, 4)
+#define OSG_VECPNT_IO_OP_INST(OSG_VALUE_TYPE)                           \
+  OSG_POINT_OUTPUT_OP_INST(OSG_VALUE_TYPE, 2);                          \
+  OSG_POINT_OUTPUT_OP_INST(OSG_VALUE_TYPE, 3);                          \
+  OSG_POINT_OUTPUT_OP_INST(OSG_VALUE_TYPE, 4);                          \
+  OSG_POINT_INPUT_OP_INST(OSG_VALUE_TYPE, 2);                           \
+  OSG_POINT_INPUT_OP_INST(OSG_VALUE_TYPE, 3);                           \
+  OSG_POINT_INPUT_OP_INST(OSG_VALUE_TYPE, 4);                           \
+                                                                        \
+  OSG_VECTOR_OUTPUT_OP_INST(OSG_VALUE_TYPE, 2);                         \
+  OSG_VECTOR_OUTPUT_OP_INST(OSG_VALUE_TYPE, 3);                         \
+  OSG_VECTOR_OUTPUT_OP_INST(OSG_VALUE_TYPE, 4);                         \
+  OSG_VECTOR_INPUT_OP_INST(OSG_VALUE_TYPE, 2);                          \
+  OSG_VECTOR_INPUT_OP_INST(OSG_VALUE_TYPE, 3);                          \
+  OSG_VECTOR_INPUT_OP_INST(OSG_VALUE_TYPE, 4)
 
-OSG_VECPNT_IO_OP_INST(Real32)
-OSG_VECPNT_IO_OP_INST(Real64)
-OSG_VECPNT_IO_OP_INST(Fixed32)
+OSG_VECPNT_IO_OP_INST(Real32);
+OSG_VECPNT_IO_OP_INST(Real64);
+OSG_VECPNT_IO_OP_INST(Real128);
 
-OSG_VECPNT_IO_OP_INST(Int8)
-OSG_VECPNT_IO_OP_INST(UInt8)
-OSG_VECPNT_IO_OP_INST(Int16)
-OSG_VECPNT_IO_OP_INST(UInt16)
-OSG_VECPNT_IO_OP_INST(Int32)
-OSG_VECPNT_IO_OP_INST(UInt32)
+OSG_VECPNT_IO_OP_INST(Int8);
+OSG_VECPNT_IO_OP_INST(UInt8);
+OSG_VECPNT_IO_OP_INST(Int16);
+OSG_VECPNT_IO_OP_INST(UInt16);
+OSG_VECPNT_IO_OP_INST(Int32);
+OSG_VECPNT_IO_OP_INST(UInt32);
 
 #undef OSG_VECPNT_IO_OP_INST
 

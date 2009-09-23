@@ -40,42 +40,77 @@ OSG_BEGIN_NAMESPACE
 
 // To support IO for additional value types include this file into
 // a .cpp and use the macros below to generate explicit instantiations
-// of the operators - cf. OSGQuaternion.cpp
+// of the operators - cf. OSGColor.cpp
 
-// Quaternion input/ouput operator implementations
+// Color input/ouput operator implementations
 
 template <class ValueTypeT> OSG_DLL_EXPORT
 std::ostream &operator <<(
-    std::ostream &os, const QuaternionBase<ValueTypeT> &obj)
+    std::ostream &os, const Color3<ValueTypeT> &obj)
 {
-    VecToStreamWriter< QuaternionBase<ValueTypeT>,
+    VecToStreamWriter< Color3<ValueTypeT>,
                        ValueTypeT,
-                       4                           >::apply(os, obj);
+                       3                   >::apply(os, obj);
 
     return os;
 }
 
 template <class ValueTypeT> OSG_DLL_EXPORT
 std::istream &operator >>(
-    std::istream &is, QuaternionBase<ValueTypeT> &obj)
+    std::istream &is, Color3<ValueTypeT> &obj)
 {
-    VecFromStreamReader< QuaternionBase<ValueTypeT>,
+    VecFromStreamReader< Color3<ValueTypeT>,
                          ValueTypeT,
-                         4                           >::apply(is, obj);
+                         3                   >::apply(is, obj);
 
     return is;
 }
 
+
+template <class ValueTypeT> OSG_DLL_EXPORT
+std::ostream &operator <<(
+    std::ostream &os, const Color4<ValueTypeT> &obj)
+{
+    VecToStreamWriter< Color4<ValueTypeT>,
+                       ValueTypeT,
+                       4                   >::apply(os, obj);
+
+    return os;
+}
+
+template <class ValueTypeT> OSG_DLL_EXPORT
+std::istream &operator >>(
+    std::istream &is, Color4<ValueTypeT> &obj)
+{
+    VecFromStreamReader< Color4<ValueTypeT>,
+                         ValueTypeT,
+                         4                   >::apply(is, obj);
+
+    return is;
+}
+
+
 // Macros to generate explicit instantiations
 
-#define OSG_QUATERNION_OUTPUT_OP_INST(OSG_VALUE_TYPE)                          \
-template OSG_DLL_EXPORT                                                        \
-std::ostream &operator << (                                                    \
-    std::ostream &os, const QuaternionBase< OSG_VALUE_TYPE > &obj)
+#define OSG_COLOR3_OUTPUT_OP_INST(OSG_VALUE_TYPE)                       \
+template OSG_DLL_EXPORT                                                 \
+std::ostream &operator <<(                                              \
+    std::ostream &os, const Color3< OSG_VALUE_TYPE > &obj)
 
-#define OSG_QUATERNION_INPUT_OP_INST(OSG_VALUE_TYPE)                           \
-template OSG_DLL_EXPORT                                                        \
-std::istream &operator >> (                                                    \
-    std::istream &is, QuaternionBase< OSG_VALUE_TYPE > &obj)
+#define OSG_COLOR3_INPUT_OP_INST(OSG_VALUE_TYPE)                        \
+template OSG_DLL_EXPORT                                                 \
+std::istream &operator >>(                                              \
+    std::istream &is, Color3< OSG_VALUE_TYPE > &obj);
+
+
+#define OSG_COLOR4_OUTPUT_OP_INST(OSG_VALUE_TYPE)                       \
+template OSG_DLL_EXPORT                                                 \
+std::ostream &operator <<(                                              \
+    std::ostream &os, const Color4< OSG_VALUE_TYPE > &obj)
+
+#define OSG_COLOR4_INPUT_OP_INST(OSG_VALUE_TYPE)                        \
+template OSG_DLL_EXPORT                                                 \
+std::istream &operator >>(                                              \
+    std::istream &is, Color4< OSG_VALUE_TYPE > &obj)
 
 OSG_END_NAMESPACE

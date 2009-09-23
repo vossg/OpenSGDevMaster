@@ -243,15 +243,25 @@ class Color4 : public Vector< ValueTypeT, 4 >
   protected:
 };
 
-/*
 template <class ValueTypeT> inline
-std::ostream &operator <<(      std::ostream       &outStream,
-                          const Color3<ValueTypeT> &color);
+OSG_BASE_DLLMAPPING std::ostream &operator <<(
+          std::ostream       &outStream,
+    const Color3<ValueTypeT> &color     );
 
 template <class ValueTypeT> inline
-std::ostream &operator <<(      std::ostream       &outStream,
-                          const Color4<ValueTypeT> &color);
-*/
+OSG_BASE_DLLMAPPING std::istream &operator >>(
+    std::istream       &inStream,
+    Color3<ValueTypeT> &color    );
+
+template <class ValueTypeT> inline
+OSG_BASE_DLLMAPPING std::ostream &operator <<(
+          std::ostream       &outStream,
+    const Color4<ValueTypeT> &color     );
+
+template <class ValueTypeT> inline
+OSG_BASE_DLLMAPPING std::istream &operator >>(
+    std::istream       &inStream,
+    Color4<ValueTypeT> &color    );
 
 /*---------------------------------------------------------------------*/
 /*! \name Color Types                                                  */

@@ -38,45 +38,71 @@
 
 OSG_BEGIN_NAMESPACE
 
-#define OSG_POINT_OUTPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                     \
-template <> OSG_DLL_EXPORT                                                     \
-std::ostream &operator << < OSG_VALUE_TYPE, OSG_SIZE >(                        \
-    std::ostream &os, const Point< OSG_VALUE_TYPE, OSG_SIZE > &obj)            \
-{                                                                              \
-    VecToStreamWriter< Point< OSG_VALUE_TYPE, OSG_SIZE > >::apply(os, obj);    \
-                                                                               \
-    return os;                                                                 \
+// To support IO for additional value types include this file into
+// a .cpp and use the macros below to generate explicit instantiations
+// of the operators - cf. OSGVector.cpp
+
+// Point input/ouput operator implementations
+
+template <class ValueTypeT, UInt32 SizeI> OSG_DLL_EXPORT
+std::ostream &operator <<(
+    std::ostream &os, const Point<ValueTypeT, SizeI> &obj)
+{
+    VecToStreamWriter< Point<ValueTypeT, SizeI> >::apply(os, obj);
+
+    return os;
 }
 
-#define OSG_POINT_INPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                      \
-template <> OSG_DLL_EXPORT                                                     \
-std::istream &operator >> < OSG_VALUE_TYPE, OSG_SIZE >(                        \
-    std::istream &is, Point< OSG_VALUE_TYPE, OSG_SIZE > &obj)                  \
-{                                                                              \
-    VecFromStreamReader< Point< OSG_VALUE_TYPE, OSG_SIZE > >::apply(is, obj);  \
-                                                                               \
-    return is;                                                                 \
+template <class ValueTypeT, UInt32 SizeI> OSG_DLL_EXPORT
+std::istream &operator >>(
+    std::istream &is, Point<ValueTypeT, SizeI> &obj)
+{
+    VecFromStreamReader< Point<ValueTypeT, SizeI> >::apply(is, obj);
+
+    return is;
 }
 
+// Vector input/ouput operator implementations
 
-#define OSG_VECTOR_OUTPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                    \
-template <> OSG_DLL_EXPORT                                                     \
-std::ostream &operator << < OSG_VALUE_TYPE, OSG_SIZE >(                        \
-    std::ostream &os, const Vector< OSG_VALUE_TYPE, OSG_SIZE > &obj)           \
-{                                                                              \
-    VecToStreamWriter< Vector< OSG_VALUE_TYPE, OSG_SIZE > >::apply(os, obj);   \
-                                                                               \
-    return os;                                                                 \
+template <class ValueTypeT, UInt32 SizeI> OSG_DLL_EXPORT
+std::ostream &operator <<(
+    std::ostream &os, const Vector<ValueTypeT, SizeI> &obj)
+{
+    VecToStreamWriter< Vector<ValueTypeT, SizeI> >::apply(os, obj);
+
+    return os;
 }
 
-#define OSG_VECTOR_INPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                     \
-template <> OSG_DLL_EXPORT                                                     \
-std::istream &operator >> < OSG_VALUE_TYPE, OSG_SIZE >(                        \
-    std::istream &is, Vector< OSG_VALUE_TYPE, OSG_SIZE > &obj)                 \
-{                                                                              \
-    VecFromStreamReader< Vector< OSG_VALUE_TYPE, OSG_SIZE > >::apply(is, obj); \
-                                                                               \
-    return is;                                                                 \
+template <class ValueTypeT, UInt32 SizeI> OSG_DLL_EXPORT
+std::istream &operator >>(
+    std::istream &is, Vector<ValueTypeT, SizeI> &obj)
+{
+    VecFromStreamReader< Vector<ValueTypeT, SizeI> >::apply(is, obj);
+
+    return is;
 }
+
+// Macros to generate explicit instantiations
+
+#define OSG_POINT_OUTPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                      \
+template OSG_DLL_EXPORT                                                         \
+std::ostream &operator << < OSG_VALUE_TYPE, OSG_SIZE >(                         \
+    std::ostream &os, const Point< OSG_VALUE_TYPE, OSG_SIZE > &obj)
+
+#define OSG_POINT_INPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                       \
+template OSG_DLL_EXPORT                                                         \
+std::istream &operator >> < OSG_VALUE_TYPE, OSG_SIZE >(                         \
+    std::istream &is, Point< OSG_VALUE_TYPE, OSG_SIZE > &obj)
+
+
+#define OSG_VECTOR_OUTPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                     \
+template OSG_DLL_EXPORT                                                         \
+std::ostream &operator << < OSG_VALUE_TYPE, OSG_SIZE >(                         \
+    std::ostream &os, const Vector< OSG_VALUE_TYPE, OSG_SIZE > &obj)
+
+#define OSG_VECTOR_INPUT_OP_INST(OSG_VALUE_TYPE, OSG_SIZE)                      \
+template OSG_DLL_EXPORT                                                         \
+std::istream &operator >> < OSG_VALUE_TYPE, OSG_SIZE >(                         \
+    std::istream &is, Vector< OSG_VALUE_TYPE, OSG_SIZE > &obj)
 
 OSG_END_NAMESPACE
