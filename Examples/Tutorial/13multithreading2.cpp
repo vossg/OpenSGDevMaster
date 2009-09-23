@@ -68,6 +68,10 @@ void rotate(void *args)
         trans->setMatrix(m);
         // nothing unusual until here
         
+        // sleep to simulate a more complex update and show that
+        // the render thread is not affected
+        OSG::osgSleep(1000);
+
         // we are done with changing this aspect copy (for this iteration),
         // committing the changes makes sure they are being picked up when
         // the render thread syncronizes the next time.
@@ -140,18 +144,25 @@ void reshape(int w, int h)
 
 void display(void)
 {
-    // we wait here until the animation thread enters
-    // barrier (1)
-    syncBarrier->enter(2);
+    // if the animation thread has computed an update to the scene
+    // it waits at the barrier and we copy over the changes
+    // otherwise we just keep rendering
 
-    //now we sync data
-    animationThread->getChangeList()->applyAndClear();
+    if(syncBarrier->getNumWaiting() > 0)
+    {
+        // we wait here until the animation thread enters
+        // barrier (1)
+        syncBarrier->enter(2);
 
-    // update dependend data
-    OSG::commitChanges();
+        //now we sync data
+        animationThread->getChangeList()->applyAndClear();
 
-    // now wait for animation thread to enter barrier (2)
-    syncBarrier->enter(2);
+        // update dependend data
+        OSG::commitChanges();
+
+        // now wait for animation thread to enter barrier (2)
+        syncBarrier->enter(2);
+    }
     
     // !!!! Attention
     // you will find a more detailed description
