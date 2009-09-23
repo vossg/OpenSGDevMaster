@@ -57,19 +57,25 @@ void PThreadBarrierBase::enter(void)
 
     pthread_mutex_lock(&(_pLockOne));
 
+    UInt32 localCurrentCond = _uiCurrentCond;
+
     _uiCount++;
 
     if(_uiCount < _uiNumWaitFor)
     {
-        /* not enough threads are waiting => wait */
-
-        pthread_cond_wait(&(_pWakeupCondition[_uiCurrentCond]), &(_pLockOne));
+        // not enough threads are waiting => wait
+        // use a loop to handle spurious wakeups -- loop condition
+        // can not use _uiCount as it is reset in the else branch
+        while(localCurrentCond == _uiCurrentCond)
+        {
+            pthread_cond_wait(&(_pWakeupCondition[_uiCurrentCond]),
+                              &(_pLockOne)                         );
+        }
     }
     else
     {
-        /* ok, enough threads are waiting
-           => wake up all waiting threads
-        */
+        // ok, enough threads are waiting
+        //  => wake up all waiting threads
 
         pthread_cond_broadcast(&(_pWakeupCondition[_uiCurrentCond]));
 
@@ -86,6 +92,18 @@ void PThreadBarrierBase::enter(UInt32 uiNumWaitFor)
     _uiNumWaitFor = uiNumWaitFor;
 
     enter();
+}
+
+inline
+UInt32 PThreadBarrierBase::getNumWaiting(void)
+{
+    UInt32 numWaiting = 0;
+
+    pthread_mutex_lock  (&(_pLockOne));
+    numWaiting = _uiCount;
+    pthread_mutex_unlock(&(_pLockOne));
+
+    return _uiCount;
 }
 
 #endif /* OSG_USE_PTHREADS */
@@ -111,6 +129,15 @@ void SprocBarrierBase::enter(UInt32 uiNumWaitFor)
     enter();
 }
 
+inline
+UInt32 SprocBarrierBase::getNumWaiting(void)
+{
+    SFATAL << "SprocBarrierBase::getNumWaiting: Operation not supported."
+           << std::endl;
+
+    return 0;
+}
+
 #endif /* OSG_USE_SPROC */
 
 
@@ -125,7 +152,7 @@ void WinThreadBarrierBase::enter(void)
     if(_uiNumWaitFor <= 1)
         return;
 
-	WaitForSingleObject(_pMutex1, INFINITE);
+    WaitForSingleObject(_pMutex1, INFINITE);
 
     _uiCount++;
 
@@ -133,9 +160,9 @@ void WinThreadBarrierBase::enter(void)
     {
         /* not enough threads are waiting => wait */
 
-        SignalObjectAndWait(_pMutex1, 
-                            _pBarrierSema[_uiCurrentCond], 
-                             INFINITE, 
+        SignalObjectAndWait(_pMutex1,
+                            _pBarrierSema[_uiCurrentCond],
+                             INFINITE,
                              FALSE);
     }
     else
@@ -144,14 +171,14 @@ void WinThreadBarrierBase::enter(void)
            => wake up all waiting threads
         */
 
-		ReleaseSemaphore(_pBarrierSema[_uiCurrentCond], 
-                         _uiNumWaitFor - 1, 
-                          NULL);
+        ReleaseSemaphore(_pBarrierSema[_uiCurrentCond],
+                         _uiNumWaitFor - 1,
+                         NULL);
 
         _uiCount       = 0;
         _uiCurrentCond = 1 - _uiCurrentCond;
 
-		ReleaseMutex(_pMutex1);
+        ReleaseMutex(_pMutex1);
     }
 }
 
@@ -161,6 +188,18 @@ void WinThreadBarrierBase::enter(UInt32 uiNumWaitFor)
     _uiNumWaitFor = uiNumWaitFor;
 
     enter();
+}
+
+inline
+UInt32 WinThreadBarrierBase::getNumWaiting(void)
+{
+    UInt32 numWaiting = 0;
+
+    WaitForSingleObject(_pMutex1, INFINITE);
+    numWaiting = _uiCount;
+    ReleaseMutex       (_pMutex1          );
+
+    return numWaiting;
 }
 
 #endif /* OSG_USE_WINTHREADS */
@@ -186,6 +225,11 @@ void Barrier::setNumWaitFor(UInt32 uiNumWaitFor)
     Inherited::setNumWaitFor(uiNumWaitFor);
 }
 
+inline
+UInt32 Barrier::getNumWaiting(void)
+{
+    return Inherited::getNumWaiting();
+}
 
 inline
 void Barrier::enter(void)
@@ -198,6 +242,5 @@ void Barrier::enter(UInt32 uiNumWaitFor)
 {
     Inherited::enter(uiNumWaitFor);
 }
-
 
 OSG_END_NAMESPACE

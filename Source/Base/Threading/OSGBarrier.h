@@ -176,8 +176,10 @@ class PThreadBarrierBase : public BarrierCommonBase
     /*! \name                     Enter                                    */
     /*! \{                                                                 */
 
-    void enter   (void               );
-    void enter   (UInt32 uiNumWaitFor);
+    void   enter        (void               );
+    void   enter        (UInt32 uiNumWaitFor);
+
+    UInt32 getNumWaiting(void               );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -256,8 +258,10 @@ class SprocBarrierBase : public BarrierCommonBase
     /*! \name                      Enter                                   */
     /*! \{                                                                 */
 
-    void enter   (void               );
-    void enter   (UInt32 uiNumWaitFor);
+    void   enter        (void               );
+    void   enter        (UInt32 uiNumWaitFor);
+
+    UInt32 getNumWaiting(void               );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -331,8 +335,10 @@ class OSG_BASE_DLLMAPPING WinThreadBarrierBase : public BarrierCommonBase
     /*! \name                      Enter                                   */
     /*! \{                                                                 */
 
-    void enter   (void               );
-    void enter   (UInt32 uiNumWaitFor);
+    void enter          (void               );
+    void enter          (UInt32 uiNumWaitFor);
+
+    UInt32 getNumWaiting(void               );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -391,7 +397,8 @@ class OSG_BASE_DLLMAPPING Barrier : public BarrierBase
     /*! \name                      Enter                                   */
     /*! \{                                                                 */
     
-    void setNumWaitFor(UInt32 uiNumWaitFor);
+    void   setNumWaitFor(UInt32 uiNumWaitFor);
+    UInt32 getNumWaiting(void               );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
