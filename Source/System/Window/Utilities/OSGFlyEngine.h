@@ -55,24 +55,22 @@ OSG_BEGIN_NAMESPACE
 class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
 {
     typedef NavigatorEngine Inherited;
+    typedef FlyEngine       Self;
 
     /*==========================  PUBLIC  =================================*/
   public:
-
-
-
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name                       Types                                  */
     /*! \{                                                                 */
 
-    FlyEngine(void);
+    OSG_GEN_INTERNAL_MEMOBJPTR(FlyEngine);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    ~FlyEngine(void);
+    static ObjTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -127,7 +125,14 @@ class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
   protected:
-    
+    /*---------------------------------------------------------------------*/
+    /*! \name             Constructors/Destructor                          */
+    /*! \{                                                                 */
+
+             FlyEngine(void);
+    virtual ~FlyEngine(void);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Members                                  */
     /*! \{                                                                 */
@@ -144,6 +149,8 @@ class OSG_UTIL_DLLMAPPING FlyEngine : public NavigatorEngine
     FlyEngine(const FlyEngine &other);
     FlyEngine &operator =(const FlyEngine &other);
 };
+
+OSG_GEN_MEMOBJPTR(FlyEngine);
 
 OSG_END_NAMESPACE
 

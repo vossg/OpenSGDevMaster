@@ -66,7 +66,9 @@ namespace
 {
     static bool registerOp(void)
     {
-        GraphOpFactory::the()->registerOp(new TransformPushGraphOp);
+        GraphOpRefPtr newOp = TransformPushGraphOp::create();
+
+        GraphOpFactory::the()->registerOp(newOp);
         return true;
     }
     
@@ -84,9 +86,15 @@ TransformPushGraphOp::TransformPushGraphOp(const char* name)
     // nothing to do
 }
 
-GraphOpTransitPtr TransformPushGraphOp::create(void)
+TransformPushGraphOpTransitPtr
+TransformPushGraphOp::create(void)
 {
-    return GraphOpTransitPtr(new TransformPushGraphOp());
+    return TransformPushGraphOpTransitPtr(new TransformPushGraphOp);
+}
+
+GraphOpTransitPtr TransformPushGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new TransformPushGraphOp);
 }
 
 void TransformPushGraphOp::setParams(const std::string params)

@@ -48,24 +48,22 @@ OSG_BEGIN_NAMESPACE
 class OSG_UTIL_DLLMAPPING TrackballEngine : public NavigatorEngine
 {
     typedef NavigatorEngine Inherited;
+    typedef TrackballEngine Self;
 
     /*==========================  PUBLIC  =================================*/
   public:
-
-
-
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name                      Types                                   */
     /*! \{                                                                 */
 
-    TrackballEngine(Real32 rSize=0.8);
+    OSG_GEN_INTERNAL_MEMOBJPTR(TrackballEngine);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name                    Construction                              */
     /*! \{                                                                 */
 
-    ~TrackballEngine();
+    static ObjTransitPtr create(Real32 rSize = 0.8f);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -121,7 +119,14 @@ class OSG_UTIL_DLLMAPPING TrackballEngine : public NavigatorEngine
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
   protected:
-    
+    /*---------------------------------------------------------------------*/
+    /*! \name            Constructors/Destructor                           */
+    /*! \{                                                                 */
+
+             TrackballEngine(Real32 rSize = 0.8f);
+    virtual ~TrackballEngine(void               );
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Members                                  */
     /*! \{                                                                 */
@@ -153,6 +158,8 @@ class OSG_UTIL_DLLMAPPING TrackballEngine : public NavigatorEngine
     TrackballEngine(const TrackballEngine &other);
     TrackballEngine &operator =(const TrackballEngine &other);
 };
+
+OSG_GEN_MEMOBJPTR(TrackballEngine);
 
 OSG_END_NAMESPACE
 

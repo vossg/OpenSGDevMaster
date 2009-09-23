@@ -56,7 +56,16 @@ class SingleTypeGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
 public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
+    typedef GraphOp           Inherited;
+    typedef SingleTypeGraphOp Self;
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(SingleTypeGraphOp);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -65,19 +74,11 @@ public:
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-    
-    SingleTypeGraphOp(const char* name="");
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                   Main methods                               */
     /*! \{                                                                 */
     
 
     /*! \}                                                                 */
-
     /*=========================  PROTECTED  ===============================*/
 protected:    
 
@@ -85,7 +86,8 @@ protected:
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SingleTypeGraphOp(void);
+             SingleTypeGraphOp(const char* name="");
+    virtual ~SingleTypeGraphOp(void               );
 
     virtual bool travNodeEnter(Node *node) = 0; // only called for Type type objects 
     virtual bool travNodeLeave(Node *node) = 0; // only called for Type type objects 

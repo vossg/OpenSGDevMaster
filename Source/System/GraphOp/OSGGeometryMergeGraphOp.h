@@ -59,8 +59,7 @@ class OSG_UTIL_DLLMAPPING GeometryMergeGraphOp : public GraphOp
     typedef GraphOp                                 Inherited;
     typedef GeometryMergeGraphOp                    Self;
     
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(GeometryMergeGraphOp);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -74,9 +73,9 @@ class OSG_UTIL_DLLMAPPING GeometryMergeGraphOp : public GraphOp
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    GeometryMergeGraphOp(const char* name = "GeometryMerge");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -91,10 +90,11 @@ class OSG_UTIL_DLLMAPPING GeometryMergeGraphOp : public GraphOp
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-    virtual ~GeometryMergeGraphOp(void);
+             GeometryMergeGraphOp(const char* name = "GeometryMerge");
+    virtual ~GeometryMergeGraphOp(void                              );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -106,8 +106,7 @@ class OSG_UTIL_DLLMAPPING GeometryMergeGraphOp : public GraphOp
     Action::ResultE traverseLeave(Node * const node, Action::ResultE res);
 };
 
-typedef GeometryMergeGraphOp::ObjTransitPtr GeometryMergeGraphOpTransitPtr;
-typedef GeometryMergeGraphOp::ObjRefPtr     GeometryMergeGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(GeometryMergeGraphOp);
 
 OSG_END_NAMESPACE
 

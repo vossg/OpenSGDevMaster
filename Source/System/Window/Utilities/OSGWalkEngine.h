@@ -53,25 +53,23 @@ OSG_BEGIN_NAMESPACE
 */
 class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
 {
-    typedef FlyEngine Inherited;
+    typedef FlyEngine  Inherited;
+    typedef WalkEngine Self;
 
     /*==========================  PUBLIC  =================================*/
   public:
-
-
-
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name                      Types                                   */
     /*! \{                                                                 */
 
-    WalkEngine(void);
+    OSG_GEN_INTERNAL_MEMOBJPTR(WalkEngine);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name                  Construction                                */
     /*! \{                                                                 */
-
-    ~WalkEngine(void);
+ 
+    static ObjTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -121,6 +119,13 @@ class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
   protected:
     
     /*---------------------------------------------------------------------*/
+    /*! \name             Constructors/Destructor                          */
+    /*! \{                                                                 */
+
+             WalkEngine(void);
+    virtual ~WalkEngine(void);
+
+    /*---------------------------------------------------------------------*/
     /*! \name                     Members                                  */
     /*! \{                                                                 */
 
@@ -142,6 +147,8 @@ class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine
     WalkEngine(const WalkEngine &other);
     WalkEngine &operator =(const WalkEngine &other);
 };
+
+OSG_GEN_MEMOBJPTR(WalkEngine);
 
 OSG_END_NAMESPACE
 

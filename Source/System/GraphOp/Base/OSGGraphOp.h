@@ -64,8 +64,7 @@ public:
     typedef MemoryObject Inherited;
     typedef GraphOp      Self;
     
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(GraphOp);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -80,7 +79,7 @@ public:
     
     GraphOp(const char* name = "");
 
-    virtual ObjTransitPtr create(void) = 0;
+    virtual ObjTransitPtr clone(void) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -189,9 +188,7 @@ private:
 
 typedef GraphOp *GraphOpP;
 
-typedef GraphOp::ObjTransitPtr GraphOpTransitPtr;
-typedef GraphOp::ObjRefPtr     GraphOpRefPtr;
-
+OSG_GEN_MEMOBJPTR(GraphOp);
 
 OSG_END_NAMESPACE
 

@@ -65,7 +65,9 @@ namespace
     //! Register the GraphOp with the factory
     static bool registerOp(void)
     {
-        GraphOpFactory::the()->registerOp(new VerifyGeoGraphOp);
+        GraphOpRefPtr newOp = VerifyGeoGraphOp::create();
+
+        GraphOpFactory::the()->registerOp(newOp);
         return true;
     }
     
@@ -84,7 +86,7 @@ namespace
 
 /*------------- constructors & destructors --------------------------------*/
 
-VerifyGeoGraphOp::VerifyGeoGraphOp(const char* name, bool repair) :
+VerifyGeoGraphOp::VerifyGeoGraphOp(bool repair, const char *name) :
     Inherited  (name  ),
     _errorCount(0),
     _repair    (repair)
@@ -95,9 +97,15 @@ VerifyGeoGraphOp::~VerifyGeoGraphOp(void)
 {
 }
 
-GraphOpTransitPtr VerifyGeoGraphOp::create(void)
+VerifyGeoGraphOpTransitPtr
+VerifyGeoGraphOp::create(bool repair)
 {
-    return GraphOpTransitPtr(new VerifyGeoGraphOp());
+    return VerifyGeoGraphOpTransitPtr(new VerifyGeoGraphOp(repair));
+}
+
+GraphOpTransitPtr VerifyGeoGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new VerifyGeoGraphOp);
 }
 
 bool VerifyGeoGraphOp::traverse(Node *node)

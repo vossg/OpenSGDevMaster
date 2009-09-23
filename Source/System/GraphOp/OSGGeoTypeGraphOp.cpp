@@ -51,13 +51,26 @@ namespace
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the()->registerOp(new GeoTypeGraphOp);
+    GraphOpRefPtr newOp = GeoTypeGraphOp::create();
+
+    GraphOpFactory::the()->registerOp(newOp);
     return true;
 }
 
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 } // namespace
+
+
+GeoTypeGraphOpTransitPtr GeoTypeGraphOp::create(void)
+{
+    return GeoTypeGraphOpTransitPtr(new GeoTypeGraphOp);
+}
+
+GraphOpTransitPtr GeoTypeGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new GeoTypeGraphOp);
+}
 
 GeoTypeGraphOp::GeoTypeGraphOp(const char* name)
     : Inherited(name),
@@ -67,11 +80,6 @@ GeoTypeGraphOp::GeoTypeGraphOp(const char* name)
 
 GeoTypeGraphOp::~GeoTypeGraphOp(void)
 {
-}
-
-GraphOpTransitPtr GeoTypeGraphOp::create(void)
-{
-    return GraphOpTransitPtr(new GeoTypeGraphOp());
 }
 
 bool GeoTypeGraphOp::travNodeEnter(Node *node)

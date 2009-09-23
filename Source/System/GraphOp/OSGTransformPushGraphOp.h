@@ -61,8 +61,7 @@ class OSG_UTIL_DLLMAPPING TransformPushGraphOp : public GraphOp
     typedef GraphOp              Inherited;
     typedef TransformPushGraphOp Self;
     
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(TransformPushGraphOp);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -76,9 +75,9 @@ class OSG_UTIL_DLLMAPPING TransformPushGraphOp : public GraphOp
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    TransformPushGraphOp(const char* name = "TransformPush");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -93,10 +92,11 @@ class OSG_UTIL_DLLMAPPING TransformPushGraphOp : public GraphOp
     /*=========================  PROTECTED  ===============================*/
   protected:    
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-    virtual ~TransformPushGraphOp(void);
+             TransformPushGraphOp(const char* name = "TransformPush");
+    virtual ~TransformPushGraphOp(void                              );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -118,8 +118,7 @@ class OSG_UTIL_DLLMAPPING TransformPushGraphOp : public GraphOp
     PushTargetStore _pushTargets;
 };
 
-typedef TransformPushGraphOp::ObjTransitPtr TransformPushGraphOpTransitPtr;
-typedef TransformPushGraphOp::ObjRefPtr     TransformPushGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(TransformPushGraphOp);
 
 OSG_END_NAMESPACE
 

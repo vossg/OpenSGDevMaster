@@ -83,18 +83,10 @@ PageSystemWindowNavigatorsFly for a description.
 
 /*------------------------- constructors ----------------------------------*/
 
-FlyEngine::FlyEngine(void) : Inherited()
+FlyEngineTransitPtr
+FlyEngine::create(void)
 {
-    _rFrom  .setValues(0,0,0);
-    _rAt    .setValues(0,0,1);
-    _vUp    .setValues(0,1,0);
-    _tMatrix.setIdentity();
-}
-
-/*-------------------------- destructors ----------------------------------*/
-
-FlyEngine::~FlyEngine()
-{
+    return FlyEngineTransitPtr(new FlyEngine);
 }
 
 /*------------------------------ get --------------------------------------*/
@@ -356,4 +348,20 @@ Real32 FlyEngine::right(Real32 step)
     transl.mult(_rAt,   _rAt  );
     transl.mult(_rFrom, _rFrom);
     return 0.0;
+}
+
+/*-------------------------- constructors ---------------------------------*/
+
+FlyEngine::FlyEngine(void) : Inherited()
+{
+    _rFrom  .setValues(0,0,0);
+    _rAt    .setValues(0,0,1);
+    _vUp    .setValues(0,1,0);
+    _tMatrix.setIdentity();
+}
+
+/*-------------------------- destructors ----------------------------------*/
+
+FlyEngine::~FlyEngine()
+{
 }

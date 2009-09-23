@@ -78,7 +78,9 @@ A class used to optimize geometries a bit.
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the()->registerOp(new MergeGraphOp);
+    GraphOpRefPtr newOp = MergeGraphOp::create();
+
+    GraphOpFactory::the()->registerOp(newOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
@@ -107,9 +109,15 @@ MergeGraphOp::~MergeGraphOp(void)
 {
 }
 
-GraphOpTransitPtr MergeGraphOp::create()
+MergeGraphOpTransitPtr
+MergeGraphOp::create(void)
 {
-    return GraphOpTransitPtr(new MergeGraphOp());
+    return MergeGraphOpTransitPtr(new MergeGraphOp);
+}
+
+GraphOpTransitPtr MergeGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new MergeGraphOp);
 }
 
 UInt32 countNodes(Node * const node)

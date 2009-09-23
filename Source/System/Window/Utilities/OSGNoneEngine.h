@@ -54,24 +54,22 @@ OSG_BEGIN_NAMESPACE
 class OSG_UTIL_DLLMAPPING NoneEngine : public NavigatorEngine
 {
     typedef NavigatorEngine Inherited;
+    typedef NoneEngine      Self;
 
     /*==========================  PUBLIC  =================================*/
   public:
-
-
-
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name                      Types                                   */
     /*! \{                                                                 */
 
-    NoneEngine(void);
+    OSG_GEN_INTERNAL_MEMOBJPTR(NoneEngine);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name                    Construction                              */
     /*! \{                                                                 */
 
-    ~NoneEngine();
+    static ObjTransitPtr create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -119,6 +117,14 @@ class OSG_UTIL_DLLMAPPING NoneEngine : public NavigatorEngine
   protected:
 
     /*---------------------------------------------------------------------*/
+    /*! \name              Constructors/Destructor                         */
+    /*! \{                                                                 */
+
+             NoneEngine(void);
+    virtual ~NoneEngine(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Members                                  */
     /*! \{                                                                 */
 
@@ -131,6 +137,8 @@ class OSG_UTIL_DLLMAPPING NoneEngine : public NavigatorEngine
     NoneEngine(const NoneEngine &other);
     NoneEngine &operator =(const NoneEngine &other);
 };
+
+OSG_GEN_MEMOBJPTR(NoneEngine);
 
 OSG_END_NAMESPACE
 

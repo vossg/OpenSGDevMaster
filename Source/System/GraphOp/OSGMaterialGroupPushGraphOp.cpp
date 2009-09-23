@@ -56,7 +56,9 @@ namespace
 {
     static bool registerOp(void)
     {
-        GraphOpFactory::the()->registerOp(new MaterialGroupPushGraphOp);
+        GraphOpRefPtr newOp = MaterialGroupPushGraphOp::create();
+
+        GraphOpFactory::the()->registerOp(newOp);
         return true;
     }
     
@@ -74,9 +76,16 @@ MaterialGroupPushGraphOp::MaterialGroupPushGraphOp(const char* name)
     // nothing to do
 }
 
-GraphOpTransitPtr MaterialGroupPushGraphOp::create(void)
+MaterialGroupPushGraphOpTransitPtr
+MaterialGroupPushGraphOp::create(void)
 {
-    return GraphOpTransitPtr(new MaterialGroupPushGraphOp());
+    return MaterialGroupPushGraphOpTransitPtr(
+        new MaterialGroupPushGraphOp);
+}
+
+GraphOpTransitPtr MaterialGroupPushGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new MaterialGroupPushGraphOp);
 }
 
 void MaterialGroupPushGraphOp::setParams(const std::string params)

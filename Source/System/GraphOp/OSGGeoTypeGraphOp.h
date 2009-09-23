@@ -60,8 +60,7 @@ class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     typedef SingleTypeGraphOp<Geometry>             Inherited;
     typedef GeoTypeGraphOp                          Self;
 
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(GeoTypeGraphOp);
 
     static const BitVector FilterNormals = OSGLL(1) << 1;
     static const BitVector FilterIndices = OSGLL(1) << 2;
@@ -79,9 +78,9 @@ class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    GeoTypeGraphOp(const char* name = "GeoType");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -104,10 +103,11 @@ class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name            Constructors/Destructor                           */
     /*! \{                                                                 */
     
-    virtual ~GeoTypeGraphOp(void);
+             GeoTypeGraphOp(const char* name = "GeoType");
+    virtual ~GeoTypeGraphOp(void                        );
     
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -121,6 +121,8 @@ class OSG_UTIL_DLLMAPPING GeoTypeGraphOp
     
     OSG::BitVector _filter;
 };
+
+OSG_GEN_MEMOBJPTR(GeoTypeGraphOp);
 
 OSG_END_NAMESPACE
 

@@ -65,7 +65,9 @@ namespace
 {
     static bool registerOp(void)
     {
-        GraphOpFactory::the()->registerOp(new GroupMergeGraphOp);
+        GraphOpRefPtr newOp = GroupMergeGraphOp::create();
+
+        GraphOpFactory::the()->registerOp(newOp);
         return true;
     }
     
@@ -84,9 +86,15 @@ GroupMergeGraphOp::GroupMergeGraphOp(const char* name)
     // nothing to do
 }
 
-GraphOpTransitPtr GroupMergeGraphOp::create(void)
+GroupMergeGraphOpTransitPtr
+GroupMergeGraphOp::create(void)
 {
-    return GraphOpTransitPtr(new GroupMergeGraphOp());
+    return GroupMergeGraphOpTransitPtr(new GroupMergeGraphOp);
+}
+
+GraphOpTransitPtr GroupMergeGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new GroupMergeGraphOp);
 }
 
 void GroupMergeGraphOp::setParams(const std::string params)

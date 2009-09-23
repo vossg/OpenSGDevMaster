@@ -62,8 +62,7 @@ class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
     typedef SingleTypeGraphOp<Geometry>             Inherited;
     typedef VerifyGeoGraphOp                        Self;
 
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(VerifyGeoGraphOp);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -77,9 +76,9 @@ class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    VerifyGeoGraphOp(const char* name = "VerifyGeo", bool repair = true);
+    static  ObjTransitPtr     create(bool repair = true);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void              );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -101,14 +100,16 @@ class OSG_UTIL_DLLMAPPING VerifyGeoGraphOp : public SingleTypeGraphOp<Geometry>
     bool travNodeLeave(Node *node);
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-    virtual ~VerifyGeoGraphOp(void);
+             VerifyGeoGraphOp(      bool  repair = true,
+                              const char *name   = "VerifyGeo");
+    virtual ~VerifyGeoGraphOp(void                            );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-private:
+ private:
 
     bool checkIndexedGeo   (Geometry *geo, UInt32 sumLengths);
     bool checkNonindexedGeo(Geometry *geo, UInt32 sumLengths);
@@ -117,8 +118,7 @@ private:
     bool   _repair;
 };
 
-typedef VerifyGeoGraphOp::ObjTransitPtr VerifyGeoGraphOpTransitPtr;
-typedef VerifyGeoGraphOp::ObjRefPtr     VerifyGeoGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(VerifyGeoGraphOp);
 
 OSG_END_NAMESPACE
 

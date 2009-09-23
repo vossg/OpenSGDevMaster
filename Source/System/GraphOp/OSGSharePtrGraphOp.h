@@ -59,8 +59,17 @@ OSG_BEGIN_NAMESPACE
 class OSG_UTIL_DLLMAPPING SharePtrGraphOp : public GraphOp
 {
     /*==========================  PUBLIC  =================================*/
-public:
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
+    typedef GraphOp          Inherited;
+    typedef SharePtrGraphOp  Self;
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(SharePtrGraphOp);
+
+    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
     /*! \{                                                                 */
@@ -72,9 +81,9 @@ public:
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    SharePtrGraphOp(const char* name = "SharePtr");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -98,17 +107,18 @@ public:
     /*! \}                                                                 */
     
     /*=========================  PROTECTED  ===============================*/
-protected:    
+  protected:    
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SharePtrGraphOp(void);
+             SharePtrGraphOp(const char* name = "SharePtr");
+    virtual ~SharePtrGraphOp(void                         );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
-private:
+  private:
 
     virtual Action::ResultE traverseEnter(Node            * const node );
     virtual Action::ResultE traverseLeave(Node            * const node,
@@ -144,6 +154,8 @@ private:
     Time       _totalTime;
     Time       _compareTime;
 };
+
+OSG_GEN_MEMOBJPTR(SharePtrGraphOp);
 
 OSG_END_NAMESPACE
 

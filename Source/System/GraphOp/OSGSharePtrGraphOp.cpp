@@ -70,7 +70,9 @@ A class used to create indexed geometries.
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the()->registerOp(new SharePtrGraphOp);
+    GraphOpRefPtr newOp = SharePtrGraphOp::create();
+
+    GraphOpFactory::the()->registerOp(newOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
@@ -103,9 +105,15 @@ SharePtrGraphOp::~SharePtrGraphOp(void)
 {
 }
 
-GraphOpTransitPtr SharePtrGraphOp::create()
+SharePtrGraphOpTransitPtr
+SharePtrGraphOp::create(void)
 {
-    return GraphOpTransitPtr(new SharePtrGraphOp());
+    return SharePtrGraphOpTransitPtr(new SharePtrGraphOp);
+}
+
+GraphOpTransitPtr SharePtrGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new SharePtrGraphOp);
 }
 
 bool SharePtrGraphOp::traverse(Node *root)

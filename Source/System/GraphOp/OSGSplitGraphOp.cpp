@@ -73,7 +73,9 @@ namespace
     //! Register the GraphOp with the factory
     static bool registerOp(void)
     {
-        GraphOpFactory::the()->registerOp(new SplitGraphOp);
+        GraphOpRefPtr newOp = SplitGraphOp::create();
+
+        GraphOpFactory::the()->registerOp(newOp);
         return true;
     }
     
@@ -92,7 +94,7 @@ namespace
 
 /*------------- constructors & destructors --------------------------------*/
 
-SplitGraphOp::SplitGraphOp(const char* name, UInt16 max_polygons) :
+SplitGraphOp::SplitGraphOp(UInt16 max_polygons, const char* name) :
     Inherited    (name        ),
     _max_polygons(max_polygons)
 {
@@ -102,7 +104,13 @@ SplitGraphOp::~SplitGraphOp(void)
 {
 }
 
-GraphOpTransitPtr SplitGraphOp::create(void)
+SplitGraphOpTransitPtr
+SplitGraphOp::create(UInt16 maxPolygons)
+{
+    return SplitGraphOpTransitPtr(new SplitGraphOp(maxPolygons));
+}
+
+GraphOpTransitPtr SplitGraphOp::clone(void)
 {
     return GraphOpTransitPtr(new SplitGraphOp());
 }

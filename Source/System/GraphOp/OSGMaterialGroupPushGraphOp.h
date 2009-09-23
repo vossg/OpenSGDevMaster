@@ -60,8 +60,7 @@ class OSG_UTIL_DLLMAPPING MaterialGroupPushGraphOp : public GraphOp
     typedef GraphOp              Inherited;
     typedef MaterialGroupPushGraphOp Self;
     
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(MaterialGroupPushGraphOp);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -75,9 +74,9 @@ class OSG_UTIL_DLLMAPPING MaterialGroupPushGraphOp : public GraphOp
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    MaterialGroupPushGraphOp(const char* name = "MaterialGroupPush");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -92,10 +91,11 @@ class OSG_UTIL_DLLMAPPING MaterialGroupPushGraphOp : public GraphOp
     /*=========================  PROTECTED  ===============================*/
   protected:    
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-    virtual ~MaterialGroupPushGraphOp(void);
+             MaterialGroupPushGraphOp(const char* name = "MaterialGroupPush");
+    virtual ~MaterialGroupPushGraphOp(void                                  );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -113,10 +113,7 @@ class OSG_UTIL_DLLMAPPING MaterialGroupPushGraphOp : public GraphOp
     PushTargetStore _pushTargets;
 };
 
-typedef MaterialGroupPushGraphOp::ObjTransitPtr
-    MaterialGroupPushGraphOpTransitPtr;
-typedef MaterialGroupPushGraphOp::ObjRefPtr
-    MaterialGroupPushGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(MaterialGroupPushGraphOp);
 
 OSG_END_NAMESPACE
 

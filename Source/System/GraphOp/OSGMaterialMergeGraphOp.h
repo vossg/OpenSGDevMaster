@@ -65,8 +65,7 @@ class OSG_UTIL_DLLMAPPING MaterialMergeGraphOp : public GraphOp
     typedef GraphOp                                 Inherited;
     typedef MaterialMergeGraphOp                    Self;
 
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(MaterialMergeGraphOp);
     
     class MaterialObject
     {
@@ -120,9 +119,9 @@ class OSG_UTIL_DLLMAPPING MaterialMergeGraphOp : public GraphOp
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    MaterialMergeGraphOp(const char* name = "MaterialMerge");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -143,10 +142,11 @@ class OSG_UTIL_DLLMAPPING MaterialMergeGraphOp : public GraphOp
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
-    /*! \name Destructors                                                  */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-    virtual ~MaterialMergeGraphOp(void);
+             MaterialMergeGraphOp(const char* name = "MaterialMerge");
+    virtual ~MaterialMergeGraphOp(void                              );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -162,8 +162,7 @@ class OSG_UTIL_DLLMAPPING MaterialMergeGraphOp : public GraphOp
     MaterialObjectMap _materialMap;
 };
 
-typedef MaterialMergeGraphOp::ObjTransitPtr MaterialMergeGraphOpTransitPtr;
-typedef MaterialMergeGraphOp::ObjRefPtr     MaterialMergeGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(MaterialMergeGraphOp);
 
 OSG_END_NAMESPACE
 

@@ -64,7 +64,9 @@ namespace
     //! Register the GraphOp with the factory
     static bool registerOp(void)
     {
-        GraphOpFactory::the()->registerOp(new StripeGraphOp);
+        GraphOpRefPtr newOp = StripeGraphOp::create();
+
+        GraphOpFactory::the()->registerOp(newOp);
         return true;
     }
     
@@ -95,9 +97,15 @@ StripeGraphOp::~StripeGraphOp(void)
 {
 }
 
-GraphOpTransitPtr StripeGraphOp::create(void)
+StripeGraphOpTransitPtr
+StripeGraphOp::create(void)
 {
-    return GraphOpTransitPtr(new StripeGraphOp());
+    return StripeGraphOpTransitPtr(new StripeGraphOp);
+}
+
+GraphOpTransitPtr StripeGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new StripeGraphOp);
 }
 
 void StripeGraphOp::setParams(const std::string params)

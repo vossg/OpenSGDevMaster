@@ -63,8 +63,7 @@ class OSG_UTIL_DLLMAPPING VerifyGraphOp : public GraphOp
     typedef GraphOp                                 Inherited;
     typedef VerifyGraphOp                           Self;
 
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(VerifyGraphOp);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -78,10 +77,10 @@ class OSG_UTIL_DLLMAPPING VerifyGraphOp : public GraphOp
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    VerifyGraphOp(const char* name = "Verify", bool repair = true, 
-                  bool verbose = false);
+    static  ObjTransitPtr     create(bool repair  = true,
+                                     bool verbose = true );
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void                );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -107,7 +106,10 @@ protected:
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~VerifyGraphOp(void);
+             VerifyGraphOp(      bool  repair  = true, 
+                                 bool  verbose = false,
+                           const char *name    = "Verify");
+    virtual ~VerifyGraphOp(void                          );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -133,8 +135,8 @@ private:
     
 };
 
-typedef VerifyGraphOp::ObjTransitPtr VerifyGraphOpTransitPtr;
-typedef VerifyGraphOp::ObjRefPtr     VerifyGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(VerifyGraphOp);
+
 
 OSG_END_NAMESPACE
 

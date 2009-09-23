@@ -805,7 +805,7 @@ bool SceneFileHandlerBase::subSceneFileType(SceneFileType &fileType)
     
 static bool initializeDefaultGraphOps(void)
 {
-    GraphOpSeq *ops = new GraphOpSeq;
+    GraphOpSeqRefPtr ops = GraphOpSeq::create();
 
     ops->setGraphOps(
             "Stripe() SharePtr(includes=Material,StateChunk)");

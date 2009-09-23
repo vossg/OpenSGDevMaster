@@ -63,16 +63,9 @@ OSG_USING_NAMESPACE
 */
 
 
-/*------------------------- constructors ----------------------------------*/
-
-NoneEngine::NoneEngine(void) : Inherited(), _noneMatrix()
+NoneEngineTransitPtr NoneEngine::create(void)
 {
-}
-
-/*-------------------------- destructors ----------------------------------*/
-
-NoneEngine::~NoneEngine()
-{
+    return NoneEngineTransitPtr(new NoneEngine);
 }
 
 /*------------------------------ get --------------------------------------*/
@@ -178,3 +171,16 @@ void NoneEngine::idle(Int16 buttons, Int16 x, Int16 y, Navigator* nav)
     // nothing to do
 }
 
+/*------------------------- constructors ----------------------------------*/
+
+NoneEngine::NoneEngine(void)
+    : Inherited  ()
+    , _noneMatrix()
+{
+}
+
+/*-------------------------- destructors ----------------------------------*/
+
+NoneEngine::~NoneEngine()
+{
+}

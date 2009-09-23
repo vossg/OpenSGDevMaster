@@ -60,8 +60,7 @@ class OSG_UTIL_DLLMAPPING PruneGraphOp : public GraphOp
     typedef GraphOp                                 Inherited;
     typedef PruneGraphOp                            Self;
 
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(PruneGraphOp);
     
     enum Method
     {
@@ -81,12 +80,10 @@ class OSG_UTIL_DLLMAPPING PruneGraphOp : public GraphOp
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    PruneGraphOp(
-              float  size   = 1.0f,
-              Method method = SUM_OF_DIMENSIONS,
-        const char*  name   = "Prune"           );
+    static ObjTransitPtr      create(float  size   = 1.0f,
+                                     Method method = SUM_OF_DIMENSIONS);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void                             );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -100,10 +97,13 @@ class OSG_UTIL_DLLMAPPING PruneGraphOp : public GraphOp
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
-    /*! \name Destructors                                                  */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-    virtual ~PruneGraphOp(void);
+             PruneGraphOp(      float  size   = 1.0f,
+                                Method method = SUM_OF_DIMENSIONS,
+                          const char*  name   = "Prune"           );
+    virtual ~PruneGraphOp(void                                    );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -118,8 +118,7 @@ class OSG_UTIL_DLLMAPPING PruneGraphOp : public GraphOp
     Method _method;
 };
 
-typedef PruneGraphOp::ObjTransitPtr PruneGraphOpTransitPtr;
-typedef PruneGraphOp::ObjRefPtr     PruneGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(PruneGraphOp);
 
 OSG_END_NAMESPACE
 

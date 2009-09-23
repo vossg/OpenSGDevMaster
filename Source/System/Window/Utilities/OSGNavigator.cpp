@@ -149,11 +149,11 @@ OSG_USING_NAMESPACE
 Navigator::Navigator() :
     _engine(NULL), // pointer to current engine
 
-    _trackballEngine(new TrackballEngine),
-    _flyEngine(new FlyEngine),
-    _walkEngine(new WalkEngine),
-    _noneEngine(new NoneEngine),
-    _userEngine(new TrackballEngine),
+    _trackballEngine(TrackballEngine::create()),
+    _flyEngine      (FlyEngine      ::create()),
+    _walkEngine     (WalkEngine     ::create()),
+    _noneEngine     (NoneEngine     ::create()),
+    _userEngine     (TrackballEngine::create()),
 
     _rRotationAngle(0.04908739f),
     _rMotionFactor(1.f),
@@ -166,12 +166,6 @@ Navigator::Navigator() :
     _lastX(0),
     _lastY(0)
 {
-    addRef(_trackballEngine);
-    addRef(_flyEngine);
-    addRef(_walkEngine);
-    addRef(_noneEngine);
-    addRef(_userEngine);
-
     setMode(TRACKBALL); // use trackball as default
 }
 
@@ -182,12 +176,12 @@ Navigator::~Navigator()
     _cartN = NULL;
     _vp    = NULL;
 
-    subRef(_engine);
-    subRef(_trackballEngine);
-    subRef(_flyEngine);
-    subRef(_walkEngine);
-    subRef(_noneEngine);
-    subRef(_userEngine);
+    _engine          = NULL;
+    _trackballEngine = NULL;
+    _flyEngine       = NULL;
+    _walkEngine      = NULL;
+    _noneEngine      = NULL;
+    _userEngine      = NULL;
 }
 
 /*-------------------------- Notificators ---------------------------------*/
@@ -293,14 +287,12 @@ void Navigator::setMode(Navigator::Mode new_mode, bool copyViewParams)
 
     assert(engine);
 
-    if (engine != _engine) {
+    if (engine != _engine)
+    {
         if (copyViewParams && _engine)
             engine->set(_engine->getFrom(),_engine->getAt(),_engine->getUp());
 
-        subRef(_engine);
         _engine = engine;
-        addRef(_engine);
-
         _engine->onActivation(this);
     }
 }
@@ -525,10 +517,9 @@ void Navigator::setUserEngine(NavigatorEngine* userEngine)
 {
     if (userEngine == NULL) return;
 
-    if (userEngine != _userEngine) {
-        subRef(_userEngine);
+    if (userEngine != _userEngine)
+    {
         _userEngine = userEngine;
-        addRef(_userEngine);
     }
 
     if (getMode() == USER) setMode(USER); // assign userEngine to _engine

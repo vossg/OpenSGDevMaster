@@ -63,8 +63,7 @@ class OSG_UTIL_DLLMAPPING MergeGraphOp : public GraphOp
     typedef GraphOp                                 Inherited;
     typedef MergeGraphOp                            Self;
 
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(MergeGraphOp);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -78,9 +77,9 @@ class OSG_UTIL_DLLMAPPING MergeGraphOp : public GraphOp
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    MergeGraphOp(const char* name = "Merge");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -101,10 +100,11 @@ class OSG_UTIL_DLLMAPPING MergeGraphOp : public GraphOp
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-    virtual ~MergeGraphOp(void);
+             MergeGraphOp(const char* name = "Merge");
+    virtual ~MergeGraphOp(void                      );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -136,8 +136,7 @@ class OSG_UTIL_DLLMAPPING MergeGraphOp : public GraphOp
 
 typedef MergeGraphOp *MergeGraphOpP;
 
-typedef MergeGraphOp::ObjTransitPtr MergeGraphOpTransitPtr;
-typedef MergeGraphOp::ObjRefPtr     MergeGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(MergeGraphOp);
 
 OSG_END_NAMESPACE
 

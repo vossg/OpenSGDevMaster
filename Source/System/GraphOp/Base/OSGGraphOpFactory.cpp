@@ -107,7 +107,7 @@ GraphOpTransitPtr GraphOpFactoryBase::create(const char* name)
     if(iIt != _typeMap.end())
     {
         if(iIt->second != NULL)
-            return iIt->second->create();
+            return iIt->second->clone();
         else
             return GraphOpTransitPtr();
     }
@@ -131,7 +131,7 @@ GraphOpFactoryBase::TypeMapConstIt GraphOpFactoryBase::end(void) const
  -  private                                                                -
 \*-------------------------------------------------------------------------*/
 
-GraphOpFactoryBase::GraphOpFactoryBase()
+GraphOpFactoryBase::GraphOpFactoryBase(void)
 {
     // nothing to do
 }

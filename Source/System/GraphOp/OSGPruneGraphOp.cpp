@@ -61,7 +61,9 @@ namespace
     //! Register the GraphOp with the factory
     static bool registerOp(void)
     {
-        GraphOpFactory::the()->registerOp(new PruneGraphOp);
+        GraphOpRefPtr newOp = PruneGraphOp::create();
+
+        GraphOpFactory::the()->registerOp(newOp);
         return true;
     }
     
@@ -81,7 +83,13 @@ PruneGraphOp::~PruneGraphOp(void)
 {
 }
 
-GraphOpTransitPtr PruneGraphOp::create(void)
+PruneGraphOpTransitPtr
+PruneGraphOp::create(float size, Method method)
+{
+    return PruneGraphOpTransitPtr(new PruneGraphOp(size, method));
+}
+
+GraphOpTransitPtr PruneGraphOp::clone(void)
 {
     return GraphOpTransitPtr(new PruneGraphOp(_size, _method));
 }

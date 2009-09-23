@@ -63,7 +63,9 @@ A base class used to traverse geometries.
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the()->registerOp(new VerifyGraphOp);
+    GraphOpRefPtr newOp = VerifyGraphOp::create();
+
+    GraphOpFactory::the()->registerOp(newOp);
     return true;
 }
 static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
@@ -79,7 +81,7 @@ static OSG::StaticInitFuncWrapper registerOpWrapper(registerOp);
 
 /*------------- constructors & destructors --------------------------------*/
 
-VerifyGraphOp::VerifyGraphOp(const char* name, bool repair, bool verbose): 
+VerifyGraphOp::VerifyGraphOp(bool repair, bool verbose, const char* name): 
     GraphOp(name), _repair(repair), _verbose(verbose)
 {
 }
@@ -88,9 +90,15 @@ VerifyGraphOp::~VerifyGraphOp(void)
 {
 }
 
-GraphOpTransitPtr VerifyGraphOp::create(void)
+VerifyGraphOpTransitPtr
+VerifyGraphOp::create(bool repair, bool verbose)
 {
-    return GraphOpTransitPtr(new VerifyGraphOp());
+    return VerifyGraphOpTransitPtr(new VerifyGraphOp(repair, verbose));
+}
+
+GraphOpTransitPtr VerifyGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new VerifyGraphOp);
 }
 
 void VerifyGraphOp::setParams(const std::string params)

@@ -59,6 +59,12 @@ class FlyEngine;
 class WalkEngine;
 class NoneEngine;
 
+OSG_GEN_MEMOBJPTR(NavigatorEngine);
+OSG_GEN_MEMOBJPTR(TrackballEngine);
+OSG_GEN_MEMOBJPTR(FlyEngine);
+OSG_GEN_MEMOBJPTR(WalkEngine);
+OSG_GEN_MEMOBJPTR(NoneEngine);
+
 typedef TrackballEngine TrackballNavigator;
 typedef FlyEngine       FlyNavigator;
 typedef WalkEngine      WalkNavigator;
@@ -198,13 +204,13 @@ class OSG_UTIL_DLLMAPPING Navigator
     /*! \name                    Class Fields                              */
     /*! \{                                                                 */
 
-    NavigatorEngine*   _engine; // pointer to current engine
+    NavigatorEngineRefPtr _engine;  // current engine
 
-    TrackballEngine*   _trackballEngine;
-    FlyEngine*         _flyEngine;
-    WalkEngine*        _walkEngine;
-    NoneEngine*        _noneEngine;
-    NavigatorEngine*   _userEngine;
+    TrackballEngineRefPtr _trackballEngine;
+    FlyEngineRefPtr       _flyEngine;
+    WalkEngineRefPtr      _walkEngine;
+    NoneEngineRefPtr      _noneEngine;
+    NavigatorEngineRefPtr _userEngine;
 
     Real32             _rRotationAngle;
     Real32             _rMotionFactor;

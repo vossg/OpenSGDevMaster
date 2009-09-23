@@ -52,7 +52,9 @@ namespace
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the()->registerOp(new MakeTransparentGraphOp);
+    GraphOpRefPtr newOp = MakeTransparentGraphOp::create();
+
+    GraphOpFactory::the()->registerOp(newOp);
     return true;
 }
 
@@ -71,9 +73,15 @@ MakeTransparentGraphOp::~MakeTransparentGraphOp(void)
 {
 }
 
-GraphOpTransitPtr MakeTransparentGraphOp::create(void)
+MakeTransparentGraphOpTransitPtr
+MakeTransparentGraphOp::create(void)
 {
-    return GraphOpTransitPtr(new MakeTransparentGraphOp());
+    return MakeTransparentGraphOpTransitPtr(new MakeTransparentGraphOp);
+}
+
+GraphOpTransitPtr MakeTransparentGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new MakeTransparentGraphOp);
 }
 
 bool MakeTransparentGraphOp::traverse(Node *node)

@@ -62,8 +62,7 @@ class OSG_UTIL_DLLMAPPING StripeGraphOp : public SingleTypeGraphOp<Geometry>
     typedef SingleTypeGraphOp<Geometry>             Inherited;
     typedef StripeGraphOp                           Self;
 
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(StripeGraphOp);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -77,9 +76,9 @@ class OSG_UTIL_DLLMAPPING StripeGraphOp : public SingleTypeGraphOp<Geometry>
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    StripeGraphOp(const char* name = "Stripe");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -97,10 +96,11 @@ class OSG_UTIL_DLLMAPPING StripeGraphOp : public SingleTypeGraphOp<Geometry>
     bool travNodeLeave(Node *node);
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-    virtual ~StripeGraphOp(void);
+             StripeGraphOp(const char* name = "Stripe");
+    virtual ~StripeGraphOp(void                       );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -110,8 +110,7 @@ class OSG_UTIL_DLLMAPPING StripeGraphOp : public SingleTypeGraphOp<Geometry>
     bool _stitch; // Stitch strips together
 };
 
-typedef StripeGraphOp::ObjTransitPtr StripeGraphOpTransitPtr;
-typedef StripeGraphOp::ObjRefPtr     StripeGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(StripeGraphOp);
 
 OSG_END_NAMESPACE
 

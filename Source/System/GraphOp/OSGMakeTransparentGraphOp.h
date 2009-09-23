@@ -64,8 +64,7 @@ class OSG_UTIL_DLLMAPPING MakeTransparentGraphOp : public GraphOp
     typedef GraphOp                Inherited;
     typedef MakeTransparentGraphOp Self;
     
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(MakeTransparentGraphOp);
     
     class MaterialObject
     {
@@ -116,9 +115,9 @@ class OSG_UTIL_DLLMAPPING MakeTransparentGraphOp : public GraphOp
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    MakeTransparentGraphOp(const char* name = "MakeTransparent");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -140,10 +139,11 @@ class OSG_UTIL_DLLMAPPING MakeTransparentGraphOp : public GraphOp
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
-    /*! \name Destructors                                                  */
+    /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
-    
-    virtual ~MakeTransparentGraphOp(void);
+
+             MakeTransparentGraphOp(const char* name = "MakeTransparent");    
+    virtual ~MakeTransparentGraphOp(void                                );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -161,8 +161,7 @@ class OSG_UTIL_DLLMAPPING MakeTransparentGraphOp : public GraphOp
     Real32            _transparency;
 };
 
-typedef MakeTransparentGraphOp::ObjTransitPtr MakeTransparentGraphOpTransitPtr;
-typedef MakeTransparentGraphOp::ObjRefPtr     MakeTransparentGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(MakeTransparentGraphOp);
 
 OSG_END_NAMESPACE
 

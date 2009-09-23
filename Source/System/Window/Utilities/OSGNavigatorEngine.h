@@ -54,25 +54,16 @@ OSG_BEGIN_NAMESPACE
 */
 class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
 {
-    typedef MemoryObject Inherited;
+    typedef MemoryObject    Inherited;
+    typedef NavigatorEngine Self;
 
     /*==========================  PUBLIC  =================================*/
   public:
-
-
-
     /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
+    /*! \name                      Types                                   */
     /*! \{                                                                 */
 
-    NavigatorEngine(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
-    /*! \{                                                                 */
-
-    ~NavigatorEngine();
+    OSG_GEN_INTERNAL_MEMOBJPTR(NavigatorEngine);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -123,7 +114,13 @@ class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
     /*! \}                                                                 */
     /*==========================  PROTECTED  ==============================*/
   protected:
-    
+    /*---------------------------------------------------------------------*/
+    /*! \name              Constructors/Destructor                         */
+    /*! \{                                                                 */
+
+             NavigatorEngine(void);
+    virtual ~NavigatorEngine(void) = 0;
+
     /*---------------------------------------------------------------------*/
     /*! \name                     Members                                  */
     /*! \{                                                                 */
@@ -137,6 +134,8 @@ class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
     NavigatorEngine(const NavigatorEngine &other);
     NavigatorEngine &operator =(const NavigatorEngine &other);
 };
+
+OSG_GEN_MEMOBJPTR(NavigatorEngine);
 
 OSG_END_NAMESPACE
 

@@ -58,11 +58,10 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
     
   public:
 
-    typedef MemoryObject                            Inherited;
-    typedef GraphOpSeq                              Self;
+    typedef MemoryObject  Inherited;
+    typedef GraphOpSeq    Self;
     
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
-    typedef TransitPtr <Self                      > ObjTransitPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(GraphOpSeq);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -75,9 +74,6 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    GraphOpSeq(      void               );
-    GraphOpSeq(const std::string &params);
-
     static ObjTransitPtr create(      void               );
     static ObjTransitPtr create(const std::string &params);
     
@@ -109,11 +105,13 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
   protected:    
 
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name              Constructors/Destructors                        */
     /*! \{                                                                 */
 
-    ~GraphOpSeq(void);
+    GraphOpSeq(      void               );
+    GraphOpSeq(const std::string &params);
 
+    ~GraphOpSeq(void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -129,8 +127,7 @@ class OSG_SYSTEM_DLLMAPPING GraphOpSeq : public MemoryObject
 
 typedef GraphOpSeq *GraphOpSeqP;
 
-typedef GraphOpSeq::ObjRefPtr       GraphOpSeqRefPtr;
-typedef GraphOpSeq::ObjTransitPtr   GraphOpSeqTransitPtr;
+OSG_GEN_MEMOBJPTR(GraphOpSeq);
 
 OSG_END_NAMESPACE
 

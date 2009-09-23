@@ -59,8 +59,7 @@ class OSG_UTIL_DLLMAPPING GroupMergeGraphOp : public GraphOp
     typedef GraphOp           Inherited;
     typedef GroupMergeGraphOp Self;
     
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(GroupMergeGraphOp);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -74,9 +73,9 @@ class OSG_UTIL_DLLMAPPING GroupMergeGraphOp : public GraphOp
     /*! \name Constructors                                                 */
     /*! \{                                                                 */
     
-    GroupMergeGraphOp(const char* name = "GroupMerge");
+    static  ObjTransitPtr     create(void);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -91,10 +90,11 @@ class OSG_UTIL_DLLMAPPING GroupMergeGraphOp : public GraphOp
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
-    /*! \name                   Destructors                                */
+    /*! \name Constructors/Destructors                                     */
     /*! \{                                                                 */
 
-    virtual ~GroupMergeGraphOp(void);
+             GroupMergeGraphOp(const char* name = "GroupMerge");
+    virtual ~GroupMergeGraphOp(void                           );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -108,8 +108,7 @@ class OSG_UTIL_DLLMAPPING GroupMergeGraphOp : public GraphOp
     void handleMultipleChildren(Node * const node, NodeCore * const core);
 };
 
-typedef GroupMergeGraphOp::ObjTransitPtr GroupMergeGraphOpTransitPtr;
-typedef GroupMergeGraphOp::ObjRefPtr     GroupMergeGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(GroupMergeGraphOp);
 
 OSG_END_NAMESPACE
 

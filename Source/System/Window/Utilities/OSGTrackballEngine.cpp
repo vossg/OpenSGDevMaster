@@ -117,26 +117,10 @@ see \ref PageSystemWindowNavigatorsTrackball for a description.
     Temporary ray direction for intersection testing.
 */
 
-/*------------------------- constructors ----------------------------------*/
-
-TrackballEngine::TrackballEngine(Real32 rSize) : 
-    Inherited(), 
-    _rRadius(rSize),
-    _ip(0,0,0),
-    _dir(0,0,0)
+TrackballEngineTransitPtr
+TrackballEngine::create(Real32 rSize)
 {
-    _finalMatrix.setIdentity();
-    _tMatrix.setIdentity();
-    _pFrom.setValues(0,0,0);
-    _pAt  .setValues(0,0,1);
-    _vUp  .setValues(0,1,0);
-    _rDistance=(_pAt-_pFrom).length();
-}
-
-/*-------------------------- destructors ----------------------------------*/
-
-TrackballEngine::~TrackballEngine()
-{
+    return TrackballEngineTransitPtr(new TrackballEngine(rSize));
 }
 
 /*------------------------------ get --------------------------------------*/
@@ -440,6 +424,41 @@ void TrackballEngine::translateZ(Real32 distance)
     //    _rDistance = 0.0f;
 }
 
+/*------------------------- constructors ----------------------------------*/
+
+TrackballEngine::TrackballEngine(Real32 rSize) : 
+    Inherited(), 
+    _rRadius(rSize),
+    _ip(0,0,0),
+    _dir(0,0,0)
+{
+    _finalMatrix.setIdentity();
+    _tMatrix.setIdentity();
+    _pFrom.setValues(0,0,0);
+    _pAt  .setValues(0,0,1);
+    _vUp  .setValues(0,1,0);
+    _rDistance=(_pAt-_pFrom).length();
+}
+
+/*-------------------------- destructors ----------------------------------*/
+
+TrackballEngine::~TrackballEngine()
+{
+}
+
+/*! Calculate the final matrix, the matrix that reflects the actual state of the 
+    TrackballEngine.
+*/
+void TrackballEngine::updateFinalMatrix()
+{
+    Matrix temp;
+    _finalMatrix=_tMatrix;
+    temp.setIdentity();
+    temp.setTranslate(0,0,_rDistance);
+
+    _finalMatrix.mult(temp);
+}
+
 /*! Project a point on the virtual trackball. 
 	If it is inside the sphere, map it to the sphere, if it outside map it to a 
 	hyperbola.
@@ -461,19 +480,6 @@ Real32 TrackballEngine::projectToSphere(Real32 rRadius, Real32 rX, Real32 rY)
     }
 
     return z;
-}
-
-/*! Calculate the final matrix, the matrix that reflects the actual state of the 
-    TrackballEngine.
-*/
-void TrackballEngine::updateFinalMatrix()
-{
-    Matrix temp;
-    _finalMatrix=_tMatrix;
-    temp.setIdentity();
-    temp.setTranslate(0,0,_rDistance);
-
-    _finalMatrix.mult(temp);
 }
 
 static void myCalcCCtoWCMatrix(Matrix &cctowc, const Matrix &view,

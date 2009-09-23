@@ -67,7 +67,9 @@ namespace
 //! Register the GraphOp with the factory
 static bool registerOp(void)
 {
-    GraphOpFactory::the()->registerOp(new MaterialMergeGraphOp);
+    GraphOpRefPtr newOp = MaterialMergeGraphOp::create();
+
+    GraphOpFactory::the()->registerOp(newOp);
     return true;
 }
 
@@ -84,9 +86,15 @@ MaterialMergeGraphOp::~MaterialMergeGraphOp(void)
 {
 }
 
-GraphOpTransitPtr MaterialMergeGraphOp::create(void)
+MaterialMergeGraphOpTransitPtr
+MaterialMergeGraphOp::create(void)
 {
-    return GraphOpTransitPtr(new MaterialMergeGraphOp());
+    return MaterialMergeGraphOpTransitPtr(new MaterialMergeGraphOp);
+}
+
+GraphOpTransitPtr MaterialMergeGraphOp::clone(void)
+{
+    return GraphOpTransitPtr(new MaterialMergeGraphOp);
 }
 
 bool MaterialMergeGraphOp::traverse(Node *node)

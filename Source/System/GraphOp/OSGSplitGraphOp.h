@@ -63,8 +63,7 @@ class OSG_UTIL_DLLMAPPING SplitGraphOp : public GraphOp
     typedef GraphOp                                 Inherited;
     typedef SplitGraphOp                            Self;
 
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(SplitGraphOp);
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -77,9 +76,9 @@ class OSG_UTIL_DLLMAPPING SplitGraphOp : public GraphOp
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
     
-    SplitGraphOp(const char* name = "Split", UInt16 max_polygons = 1000);
+    static  ObjTransitPtr     create(UInt16 maxPolygons = 1000);
 
-    virtual GraphOpTransitPtr create(void);
+    virtual GraphOpTransitPtr clone (void                     );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -106,7 +105,9 @@ protected:
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SplitGraphOp(void);
+             SplitGraphOp(      UInt16  max_polygons = 1000,
+                          const char   *name         = "Split");
+    virtual ~SplitGraphOp(void                                );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -123,8 +124,7 @@ private:
 
 typedef SplitGraphOp *SplitGraphOpP;
 
-typedef SplitGraphOp::ObjTransitPtr SplitGraphOpTransitPtr;
-typedef SplitGraphOp::ObjRefPtr     SplitGraphOpRefPtr;
+OSG_GEN_MEMOBJPTR(SplitGraphOp);
 
 class OSG_UTIL_DLLMAPPING Pnt3fComparator : public std::binary_function<int,int,bool> 
 {

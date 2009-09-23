@@ -62,27 +62,10 @@ OSG_USING_NAMESPACE
 
 */
 
-
-/*------------------------- constructors ----------------------------------*/
-
-WalkEngine::WalkEngine(void) : 
-    Inherited(),
-    _ground(NULL),
-    _world(NULL),
-    _groundDistance(0.75f),
-    _wallDistance(0.1f),
-    _height(0.85f),
-    _width(0.5f),
-    _fatness(0.5f),
-    _act(IntersectAction::create())
+WalkEngineTransitPtr
+WalkEngine::create(void)
 {
-}
-
-/*-------------------------- destructors ----------------------------------*/
-
-WalkEngine::~WalkEngine()
-{
-    delete _act;
+    return WalkEngineTransitPtr(new WalkEngine);
 }
 
 /*------------------------------ get --------------------------------------*/
@@ -266,3 +249,24 @@ Real32 WalkEngine::right(Real32 step)
     return step;
 }
 
+/*------------------------- constructors ----------------------------------*/
+
+WalkEngine::WalkEngine(void) : 
+    Inherited(),
+    _ground(NULL),
+    _world(NULL),
+    _groundDistance(0.75f),
+    _wallDistance(0.1f),
+    _height(0.85f),
+    _width(0.5f),
+    _fatness(0.5f),
+    _act(IntersectAction::create())
+{
+}
+
+/*-------------------------- destructors ----------------------------------*/
+
+WalkEngine::~WalkEngine()
+{
+    delete _act;
+}

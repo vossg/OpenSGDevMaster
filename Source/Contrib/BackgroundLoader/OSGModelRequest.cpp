@@ -27,7 +27,7 @@ void ModelRequest::execute()
    mModel = OSG::NodeRefPtr(OSG::SceneFileHandler::the()->read(mFilename.c_str()));
 
 #if 1
-   VerifyGraphOpRefPtr vop = new VerifyGraphOp;
+   VerifyGraphOpRefPtr vop = VerifyGraphOp::create();
    vop->setRepair(true);
    vop->setVerbose(true);
    Node *node(mModel);
