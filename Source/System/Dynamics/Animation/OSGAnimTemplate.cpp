@@ -82,13 +82,15 @@ void AnimTemplate::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-AnimTemplate::AnimTemplate(void) :
-    Inherited()
+AnimTemplate::AnimTemplate(void)
+    : Inherited  (    )
+    , _animLength(-1.f)
 {
 }
 
-AnimTemplate::AnimTemplate(const AnimTemplate &source) :
-    Inherited(source)
+AnimTemplate::AnimTemplate(const AnimTemplate &source)
+    : Inherited  (source)
+    , _animLength(-1.f  )
 {
 }
 
@@ -102,43 +104,66 @@ void AnimTemplate::changed(ConstFieldMaskArg whichField,
                             UInt32            origin,
                             BitVector         details)
 {
+    if(0 != (SourcesFieldMask & whichField))
+    {
+        updateLength();
+    }
+
     Inherited::changed(whichField, origin, details);
 }
 
-AnimDataSource *
-AnimTemplate::findSource(const std::string &targetId) const
-{
-    UInt32 srcIdx = 0;
-
-    return findSource(targetId, srcIdx);
-}
-
-AnimDataSource *
-AnimTemplate::findSource(const std::string &targetId, UInt32 &srcIdx) const
+Int32
+AnimTemplate::findTargetId(const std::string &targetId, Int32 offset) const
 {
     OSG_ASSERT(_mfTargetIds.size() == _mfSources.size());
-    OSG_ASSERT(srcIdx              <  _mfSources.size());
 
-    AnimDataSource                  *src    = NULL;
-    MFTargetIdsType::const_iterator  idIt  = _mfTargetIds.begin();
-    MFTargetIdsType::const_iterator  idEnd = _mfTargetIds.end  ();
+    Int32 index = -1;
 
-    idIt = std::find(idIt + srcIdx, idEnd, targetId);
-
-    if(idIt != idEnd)
+    if(offset >= 0 && offset < _mfSources.size())
     {
-        srcIdx = std::distance(_mfTargetIds.begin(), idIt);
-        src    = _mfSources[srcIdx];
+        MFTargetIdsType::const_iterator idIt  = _mfTargetIds.begin();
+        MFTargetIdsType::const_iterator idEnd = _mfTargetIds.end  ();
+
+        idIt += offset;
+
+        for(; idIt != idEnd; ++idIt, ++offset)
+        {
+            if(idIt->find(targetId) == 0)
+            {
+                index = offset;
+                break;
+            }
+        }
     }
 
-    return src;
+    return index;
 }
-
 
 void AnimTemplate::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump AnimTemplate NI" << std::endl;
 }
+
+void AnimTemplate::updateLength(void) const
+{
+    MFSourcesType::const_iterator sIt  = getMFSources()->begin();
+    MFSourcesType::const_iterator sEnd = getMFSources()->end  ();
+
+    if(sIt != sEnd)
+    {
+        _animLength = 0.f;
+
+        for(; sIt != sEnd; ++sIt)
+        {
+            _animLength = osgMax(_animLength, (*sIt)->getLength());
+        }
+    }
+    else
+    {
+        _animLength = -1.f;
+    }
+}
+
 
 OSG_END_NAMESPACE

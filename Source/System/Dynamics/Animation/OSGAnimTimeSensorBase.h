@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Animation
+ **     class AnimTimeSensor
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGANIMATIONBASE_H_
-#define _OSGANIMATIONBASE_H_
+#ifndef _OSGANIMTIMESENSORBASE_H_
+#define _OSGANIMTIMESENSORBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,32 +63,32 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGNodeCore.h" // Parent
 
-#include "OSGAnimTimeSensorFields.h"    // TimeSensor type
-#include "OSGAnimTemplateFields.h"      // Template type
-#include "OSGAnimChannelFields.h"       // Channels type
-#include "OSGSysFields.h"               // Weight type
+#include "OSGSysFields.h"               // Enabled type
+#include "OSGBaseFields.h"              // StartTime type
 
-#include "OSGAnimationFields.h"
+#include "OSGAnimTimeSensorFields.h"
+
+#include "OSGNodeCoreSensorParent.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Animation;
+class AnimTimeSensor;
 
-//! \brief Animation Base Class.
+//! \brief AnimTimeSensor Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
+class OSG_DYNAMICS_DLLMAPPING AnimTimeSensorBase : public NodeCoreSensorParent
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef NodeCoreSensorParent Inherited;
+    typedef NodeCore ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(Animation);
+    OSG_GEN_INTERNALPTR(AnimTimeSensor);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -96,28 +96,56 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
 
     enum
     {
-        TimeSensorFieldId = Inherited::NextFieldId,
-        TemplateFieldId = TimeSensorFieldId + 1,
-        ChannelsFieldId = TemplateFieldId + 1,
-        WeightFieldId = ChannelsFieldId + 1,
-        NextFieldId = WeightFieldId + 1
+        EnabledFieldId = Inherited::NextFieldId,
+        IsActiveFieldId = EnabledFieldId + 1,
+        LoopFieldId = IsActiveFieldId + 1,
+        ForwardFieldId = LoopFieldId + 1,
+        StartTimeFieldId = ForwardFieldId + 1,
+        StopTimeFieldId = StartTimeFieldId + 1,
+        TimeFieldId = StopTimeFieldId + 1,
+        CycleLengthFieldId = TimeFieldId + 1,
+        TimeScaleFieldId = CycleLengthFieldId + 1,
+        FractionFieldId = TimeScaleFieldId + 1,
+        AnimTimeFieldId = FractionFieldId + 1,
+        NextFieldId = AnimTimeFieldId + 1
     };
 
-    static const OSG::BitVector TimeSensorFieldMask =
-        (TypeTraits<BitVector>::One << TimeSensorFieldId);
-    static const OSG::BitVector TemplateFieldMask =
-        (TypeTraits<BitVector>::One << TemplateFieldId);
-    static const OSG::BitVector ChannelsFieldMask =
-        (TypeTraits<BitVector>::One << ChannelsFieldId);
-    static const OSG::BitVector WeightFieldMask =
-        (TypeTraits<BitVector>::One << WeightFieldId);
+    static const OSG::BitVector EnabledFieldMask =
+        (TypeTraits<BitVector>::One << EnabledFieldId);
+    static const OSG::BitVector IsActiveFieldMask =
+        (TypeTraits<BitVector>::One << IsActiveFieldId);
+    static const OSG::BitVector LoopFieldMask =
+        (TypeTraits<BitVector>::One << LoopFieldId);
+    static const OSG::BitVector ForwardFieldMask =
+        (TypeTraits<BitVector>::One << ForwardFieldId);
+    static const OSG::BitVector StartTimeFieldMask =
+        (TypeTraits<BitVector>::One << StartTimeFieldId);
+    static const OSG::BitVector StopTimeFieldMask =
+        (TypeTraits<BitVector>::One << StopTimeFieldId);
+    static const OSG::BitVector TimeFieldMask =
+        (TypeTraits<BitVector>::One << TimeFieldId);
+    static const OSG::BitVector CycleLengthFieldMask =
+        (TypeTraits<BitVector>::One << CycleLengthFieldId);
+    static const OSG::BitVector TimeScaleFieldMask =
+        (TypeTraits<BitVector>::One << TimeScaleFieldId);
+    static const OSG::BitVector FractionFieldMask =
+        (TypeTraits<BitVector>::One << FractionFieldId);
+    static const OSG::BitVector AnimTimeFieldMask =
+        (TypeTraits<BitVector>::One << AnimTimeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecAnimTimeSensorPtr SFTimeSensorType;
-    typedef SFUnrecAnimTemplatePtr SFTemplateType;
-    typedef MFUnrecChildAnimChannelPtr MFChannelsType;
-    typedef SFReal32          SFWeightType;
+    typedef SFBool            SFEnabledType;
+    typedef SFBool            SFIsActiveType;
+    typedef SFBool            SFLoopType;
+    typedef SFBool            SFForwardType;
+    typedef SFTime            SFStartTimeType;
+    typedef SFTime            SFStopTimeType;
+    typedef SFTime            SFTimeType;
+    typedef SFTime            SFCycleLengthType;
+    typedef SFReal32          SFTimeScaleType;
+    typedef SFReal            SFFractionType;
+    typedef SFReal32          SFAnimTimeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -142,45 +170,95 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecAnimTemplatePtr *getSFTemplate       (void) const;
-                  SFUnrecAnimTemplatePtr *editSFTemplate       (void);
-            const MFUnrecChildAnimChannelPtr *getMFChannels       (void) const;
-                  MFUnrecChildAnimChannelPtr *editMFChannels       (void);
 
-                  SFReal32            *editSFWeight         (void);
-            const SFReal32            *getSFWeight          (void) const;
+                  SFBool              *editSFEnabled        (void);
+            const SFBool              *getSFEnabled         (void) const;
+
+                  SFBool              *editSFIsActive       (void);
+            const SFBool              *getSFIsActive        (void) const;
+
+                  SFBool              *editSFLoop           (void);
+            const SFBool              *getSFLoop            (void) const;
+
+                  SFBool              *editSFForward        (void);
+            const SFBool              *getSFForward         (void) const;
+
+                  SFTime              *editSFStartTime      (void);
+            const SFTime              *getSFStartTime       (void) const;
+
+                  SFTime              *editSFStopTime       (void);
+            const SFTime              *getSFStopTime        (void) const;
+
+                  SFTime              *editSFTime           (void);
+            const SFTime              *getSFTime            (void) const;
+
+                  SFTime              *editSFCycleLength    (void);
+            const SFTime              *getSFCycleLength     (void) const;
+
+                  SFReal32            *editSFTimeScale      (void);
+            const SFReal32            *getSFTimeScale       (void) const;
+
+                  SFReal              *editSFFraction       (void);
+            const SFReal              *getSFFraction        (void) const;
+
+                  SFReal32            *editSFAnimTime       (void);
+            const SFReal32            *getSFAnimTime        (void) const;
 
 
-                  AnimTemplate * getTemplate       (void) const;
+                  bool                &editEnabled        (void);
+                  bool                 getEnabled         (void) const;
 
-                  AnimChannel * getChannels       (const UInt32 index) const;
+                  bool                &editIsActive       (void);
+                  bool                 getIsActive        (void) const;
 
-                  Real32              &editWeight         (void);
-                  Real32               getWeight          (void) const;
+                  bool                &editLoop           (void);
+                  bool                 getLoop            (void) const;
+
+                  bool                &editForward        (void);
+                  bool                 getForward         (void) const;
+
+                  Time                &editStartTime      (void);
+            const Time                &getStartTime       (void) const;
+
+                  Time                &editStopTime       (void);
+            const Time                &getStopTime        (void) const;
+
+                  Time                &editTime           (void);
+            const Time                &getTime            (void) const;
+
+                  Time                &editCycleLength    (void);
+            const Time                &getCycleLength     (void) const;
+
+                  Real32              &editTimeScale      (void);
+                  Real32               getTimeScale       (void) const;
+
+                  Real                &editFraction       (void);
+                  Real                 getFraction        (void) const;
+
+                  Real32              &editAnimTime       (void);
+                  Real32               getAnimTime        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTemplate       (AnimTemplate * const value);
-            void setWeight         (const Real32 value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
+            void setEnabled        (const bool value);
+            void setIsActive       (const bool value);
+            void setLoop           (const bool value);
+            void setForward        (const bool value);
+            void setStartTime      (const Time &value);
+            void setStopTime       (const Time &value);
+            void setTime           (const Time &value);
+            void setCycleLength    (const Time &value);
+            void setTimeScale      (const Real32 value);
+            void setFraction       (const Real value);
+            void setAnimTime       (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToChannels            (AnimChannel * const value   );
-    void assignChannels           (const MFUnrecChildAnimChannelPtr &value);
-    void removeFromChannels (UInt32               uiIndex );
-    void removeObjFromChannels(AnimChannel * const value   );
-    void clearChannels              (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -199,16 +277,16 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  AnimationTransitPtr  create          (void);
-    static  Animation           *createEmpty     (void);
+    static  AnimTimeSensorTransitPtr  create          (void);
+    static  AnimTimeSensor           *createEmpty     (void);
 
-    static  AnimationTransitPtr  createLocal     (
+    static  AnimTimeSensorTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  Animation            *createEmptyLocal(
+    static  AnimTimeSensor            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  AnimationTransitPtr  createDependent  (BitVector bFlags);
+    static  AnimTimeSensorTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,77 +313,66 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecAnimTimeSensorPtr _sfTimeSensor;
-    SFUnrecAnimTemplatePtr _sfTemplate;
-    MFUnrecChildAnimChannelPtr _mfChannels;
-    SFReal32          _sfWeight;
+    SFBool            _sfEnabled;
+    SFBool            _sfIsActive;
+    SFBool            _sfLoop;
+    SFBool            _sfForward;
+    SFTime            _sfStartTime;
+    SFTime            _sfStopTime;
+    SFTime            _sfTime;
+    SFTime            _sfCycleLength;
+    SFReal32          _sfTimeScale;
+    SFReal            _sfFraction;
+    SFReal32          _sfAnimTime;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    AnimationBase(void);
-    AnimationBase(const AnimationBase &source);
+    AnimTimeSensorBase(void);
+    AnimTimeSensorBase(const AnimTimeSensorBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AnimationBase(void);
+    virtual ~AnimTimeSensorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const Animation *source = NULL);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Child linking                                                */
-    /*! \{                                                                 */
-
-    virtual bool unlinkChild(FieldContainer * const pChild,
-                             UInt16           const childFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTimeSensor      (void) const;
-    EditFieldHandlePtr editHandleTimeSensor     (void);
-    GetFieldHandlePtr  getHandleTemplate        (void) const;
-    EditFieldHandlePtr editHandleTemplate       (void);
-    GetFieldHandlePtr  getHandleChannels        (void) const;
-    EditFieldHandlePtr editHandleChannels       (void);
-    GetFieldHandlePtr  getHandleWeight          (void) const;
-    EditFieldHandlePtr editHandleWeight         (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const SFUnrecAnimTimeSensorPtr *getSFTimeSensor      (void) const;
-                  SFUnrecAnimTimeSensorPtr *editSFTimeSensor     (void);
-
-
-                  AnimTimeSensor * getTimeSensor     (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setTimeSensor     (AnimTimeSensor * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
+    GetFieldHandlePtr  getHandleEnabled         (void) const;
+    EditFieldHandlePtr editHandleEnabled        (void);
+    GetFieldHandlePtr  getHandleIsActive        (void) const;
+    EditFieldHandlePtr editHandleIsActive       (void);
+    GetFieldHandlePtr  getHandleLoop            (void) const;
+    EditFieldHandlePtr editHandleLoop           (void);
+    GetFieldHandlePtr  getHandleForward         (void) const;
+    EditFieldHandlePtr editHandleForward        (void);
+    GetFieldHandlePtr  getHandleStartTime       (void) const;
+    EditFieldHandlePtr editHandleStartTime      (void);
+    GetFieldHandlePtr  getHandleStopTime        (void) const;
+    EditFieldHandlePtr editHandleStopTime       (void);
+    GetFieldHandlePtr  getHandleTime            (void) const;
+    EditFieldHandlePtr editHandleTime           (void);
+    GetFieldHandlePtr  getHandleCycleLength     (void) const;
+    EditFieldHandlePtr editHandleCycleLength    (void);
+    GetFieldHandlePtr  getHandleTimeScale       (void) const;
+    EditFieldHandlePtr editHandleTimeScale      (void);
+    GetFieldHandlePtr  getHandleFraction        (void) const;
+    EditFieldHandlePtr editHandleFraction       (void);
+    GetFieldHandlePtr  getHandleAnimTime        (void) const;
+    EditFieldHandlePtr editHandleAnimTime       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -319,7 +386,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      AnimationBase *pFrom,
+            void execSync (      AnimTimeSensorBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -359,14 +426,14 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AnimationBase &source);
+    void operator =(const AnimTimeSensorBase &source);
 };
 
-typedef AnimationBase *AnimationBaseP;
+typedef AnimTimeSensorBase *AnimTimeSensorBaseP;
 
-typedef CoredNodeRefPtr  <Animation> AnimationNodeRefPtr;
-typedef CoredNodeMTRefPtr<Animation> AnimationNodeMTRefPtr;
+typedef CoredNodeRefPtr  <AnimTimeSensor> AnimTimeSensorNodeRefPtr;
+typedef CoredNodeMTRefPtr<AnimTimeSensor> AnimTimeSensorNodeMTRefPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGANIMATIONBASE_H_ */
+#endif /* _OSGANIMTIMESENSORBASE_H_ */

@@ -105,10 +105,31 @@ void TimeSensor::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-void TimeSensor::dump(      UInt32    ,
-                         const BitVector ) const
+void TimeSensor::dump(      UInt32    uiIndent,
+                      const BitVector bvFlags  ) const
 {
-    SLOG << "Dump TimeSensor NI" << std::endl;
+    SLOG;
+    indentLog(uiIndent, PLOG);
+    PLOG << "TimeSensor (" << this->getId()
+         << " - "          << this
+         << ")\n";
+
+    SLOG;
+    indentLog(uiIndent + 4, PLOG);
+    PLOG <<   "enabled [" << _sfEnabled.getValue()
+         << "] active [" << _sfIsActive.getValue()
+         << "] loop [" << _sfLoop.getValue()
+         << "]\n";
+    
+    SLOG;
+    indentLog(uiIndent + 4, PLOG);
+    PLOG <<   "fraction [" << _sfFraction.getValue()
+         << "] startTime [" << _sfStartTime.getValue()
+         << "] stopTime [" << _sfStopTime.getValue()
+         << "] cycleInterval [" << _sfCycleInterval.getValue()
+         << "] cycleTime [" << _sfCycleTime.getValue()
+         << "] time [" << _sfTime.getValue()
+         << "]" << std::endl;
 }
 
 void TimeSensor::frame(Time tTime, UInt32 uiFrame)

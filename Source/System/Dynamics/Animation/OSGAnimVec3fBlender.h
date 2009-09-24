@@ -81,6 +81,17 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fBlender : public AnimVec3fBlenderBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                       Setup                                  */
+    /*! \{                                                                 */
+
+    virtual void addChannel(      AnimChannel         *channel   );
+    virtual void subChannel(      AnimChannel         *channel   );
+
+    virtual void connectTo (      AttachmentContainer *container,
+                            const std::string         &fieldName );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 

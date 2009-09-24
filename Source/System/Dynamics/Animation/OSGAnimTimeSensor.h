@@ -36,24 +36,21 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGANIMBLENDER_H_
-#define _OSGANIMBLENDER_H_
+#ifndef _OSGANIMTIMESENSOR_H_
+#define _OSGANIMTIMESENSOR_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGAnimBlenderBase.h"
+#include "OSGAnimTimeSensorBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-// forward decl
-class AnimChannel;
-
-/*! \brief AnimBlender class. See \ref
-           PageDynamicsAnimBlender for a description.
+/*! \brief AnimTimeSensor class. See \ref
+           PageDynamicsAnimTimeSensor for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
+class OSG_DYNAMICS_DLLMAPPING AnimTimeSensor : public AnimTimeSensorBase
 {
   protected:
 
@@ -61,8 +58,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
 
   public:
 
-    typedef AnimBlenderBase Inherited;
-    typedef AnimBlender     Self;
+    typedef AnimTimeSensorBase Inherited;
+    typedef AnimTimeSensor     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -74,21 +71,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Setup                                  */
+    /*! \name                 Frame Task Interface                         */
     /*! \{                                                                 */
 
-    virtual void addChannel(      AnimChannel         *channel   ) = 0;
-    virtual void subChannel(      AnimChannel         *channel   ) = 0;
-
-    virtual void connectTo (      AttachmentContainer *container,
-                            const std::string         &fieldName ) = 0;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                  Frame Task Interface                        */
-    /*! \{                                                                 */
-
-    virtual Int32 getPriority(void) const;
+    virtual void frame(Time oTime, UInt32 uiFrame);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -103,23 +89,21 @@ class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
 
   protected:
 
-    // Variables should all be in AnimBlenderBase.
-
-    static Int32 _blendTaskPriority;
+    // Variables should all be in AnimTimeSensorBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    AnimBlender(void);
-    AnimBlender(const AnimBlender &source);
+    AnimTimeSensor(void);
+    AnimTimeSensor(const AnimTimeSensor &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AnimBlender(void);
+    virtual ~AnimTimeSensor(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -134,17 +118,17 @@ class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
   private:
 
     friend class FieldContainer;
-    friend class AnimBlenderBase;
+    friend class AnimTimeSensorBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AnimBlender &source);
+    void operator =(const AnimTimeSensor &source);
 };
 
-typedef AnimBlender *AnimBlenderP;
+typedef AnimTimeSensor *AnimTimeSensorP;
 
 OSG_END_NAMESPACE
 
-#include "OSGAnimBlenderBase.inl"
-#include "OSGAnimBlender.inl"
+#include "OSGAnimTimeSensorBase.inl"
+#include "OSGAnimTimeSensor.inl"
 
-#endif /* _OSGANIMBLENDER_H_ */
+#endif /* _OSGANIMTIMESENSOR_H_ */

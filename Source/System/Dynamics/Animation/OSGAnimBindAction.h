@@ -47,9 +47,9 @@ OSG_BEGIN_NAMESPACE
 
 // forward decl
 class AnimTemplate;
-class Animation;
-
 OSG_GEN_CONTAINERPTR(AnimTemplate);
+
+class Animation;
 OSG_GEN_CONTAINERPTR(Animation   );
 
 /*---------------------------------------------------------------------------*\
@@ -77,6 +77,11 @@ class OSG_DYNAMICS_DLLMAPPING AnimBindAction : public Action
     Animation    *getAnim    (void                  ) const;
     void          setAnim    (Animation    *anim    );
 
+
+    void splitTargetId(const std::string &targetIdFull,
+                             std::string &targetId,
+                             std::string &subTargetId  );
+
   protected:
     AnimBindAction(void                        );
     AnimBindAction(const AnimBindAction &source);
@@ -98,10 +103,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimBindAction : public Action
 };
 
 Action::ResultE
-transformKFBindEnter(NodeCore *core, Action *action);
+bindEnterDefault(NodeCore *core, Action *action);
 
 Action::ResultE
-skeletonKFBindEnter(NodeCore *core, Action *action);
+bindSkeletonEnter(NodeCore *core, Action *action);
 
 OSG_END_NAMESPACE
 

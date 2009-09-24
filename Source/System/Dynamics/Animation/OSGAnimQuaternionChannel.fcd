@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+    name="AnimQuaternionChannel"
+    parent="AnimChannel"
+    library="Dynamics"
+    pointerfieldtypes="both"
+    structure="concrete"
+    systemcomponent="true"
+    parentsystemcomponent="true"
+    decoratable="false"
+    useLocalIncludes="false"
+    isNodeCore="true"
+    isBundle="false"
+    parentFields="none"
+>
+  <Field
+     name="data"
+     category="pointer"
+     type="AnimQuaternionDataSource"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     defaultValue="NULL"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+  <Field
+     name="outValue"
+     category="data"
+     type="Quaternion"
+     cardinality="single"
+     visibility="internal"
+     access="public"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+</FieldContainer>

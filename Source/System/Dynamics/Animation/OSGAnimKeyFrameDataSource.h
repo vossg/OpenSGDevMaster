@@ -77,6 +77,9 @@ class OSG_DYNAMICS_DLLMAPPING AnimKeyFrameDataSource : public AnimKeyFrameDataSo
                          UInt32            origin,
                          BitVector         details    );
 
+
+    virtual Real32 getLength(void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */

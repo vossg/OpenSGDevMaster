@@ -58,7 +58,7 @@
 
 
 
-#include "OSGTimeSensor.h"              // TimeSensor Class
+#include "OSGAnimTimeSensor.h"          // TimeSensor Class
 #include "OSGAnimTemplate.h"            // Template Class
 #include "OSGAnimChannel.h"             // Channels Class
 
@@ -85,7 +85,7 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var TimeSensor *    AnimationBase::_sfTimeSensor
+/*! \var AnimTimeSensor * AnimationBase::_sfTimeSensor
     
 */
 
@@ -157,8 +157,8 @@ void AnimationBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFUnrecTimeSensorPtr::Description(
-        SFUnrecTimeSensorPtr::getClassType(),
+    pDesc = new SFUnrecAnimTimeSensorPtr::Description(
+        SFUnrecAnimTimeSensorPtr::getClassType(),
         "timeSensor",
         "",
         TimeSensorFieldId, TimeSensorFieldMask,
@@ -237,7 +237,7 @@ AnimationBase::TypeObject AnimationBase::_type(
     "  <Field\n"
     "     name=\"timeSensor\"\n"
     "     category=\"pointer\"\n"
-    "     type=\"TimeSensor\"\n"
+    "     type=\"AnimTimeSensor\"\n"
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"protected\"\n"
@@ -272,6 +272,7 @@ AnimationBase::TypeObject AnimationBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
+    "     defaultValue=\"1.f\"\n"
     "     fieldFlags=\"FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
@@ -300,12 +301,12 @@ UInt32 AnimationBase::getContainerSize(void) const
 
 
 //! Get the Animation::_sfTimeSensor field.
-const SFUnrecTimeSensorPtr *AnimationBase::getSFTimeSensor(void) const
+const SFUnrecAnimTimeSensorPtr *AnimationBase::getSFTimeSensor(void) const
 {
     return &_sfTimeSensor;
 }
 
-SFUnrecTimeSensorPtr *AnimationBase::editSFTimeSensor     (void)
+SFUnrecAnimTimeSensorPtr *AnimationBase::editSFTimeSensor     (void)
 {
     editSField(TimeSensorFieldMask);
 
@@ -608,7 +609,7 @@ AnimationBase::AnimationBase(void) :
     _mfChannels               (this,
                           ChannelsFieldId,
                           AnimChannel::AnimationFieldId),
-    _sfWeight                 ()
+    _sfWeight                 (Real32(1.f))
 {
 }
 
@@ -696,8 +697,8 @@ void AnimationBase::onCreate(const Animation *source)
 
 GetFieldHandlePtr AnimationBase::getHandleTimeSensor      (void) const
 {
-    SFUnrecTimeSensorPtr::GetHandlePtr returnValue(
-        new  SFUnrecTimeSensorPtr::GetHandle(
+    SFUnrecAnimTimeSensorPtr::GetHandlePtr returnValue(
+        new  SFUnrecAnimTimeSensorPtr::GetHandle(
              &_sfTimeSensor,
              this->getType().getFieldDesc(TimeSensorFieldId),
              const_cast<AnimationBase *>(this)));
@@ -707,8 +708,8 @@ GetFieldHandlePtr AnimationBase::getHandleTimeSensor      (void) const
 
 EditFieldHandlePtr AnimationBase::editHandleTimeSensor     (void)
 {
-    SFUnrecTimeSensorPtr::EditHandlePtr returnValue(
-        new  SFUnrecTimeSensorPtr::EditHandle(
+    SFUnrecAnimTimeSensorPtr::EditHandlePtr returnValue(
+        new  SFUnrecAnimTimeSensorPtr::EditHandle(
              &_sfTimeSensor,
              this->getType().getFieldDesc(TimeSensorFieldId),
              this));

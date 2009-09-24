@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGAnimVec3fBlender.h"
+#include "OSGAnimVec3fChannel.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -112,13 +113,21 @@ bool AnimVec3fBlender::init(void)
 
 void AnimVec3fBlender::frame(Time oTime, UInt32 uiFrame)
 {
+    FDEBUG(("AnimVec3fBlender::frame: time [%f] frame [%d]\n",
+            oTime, uiFrame));
+
     Vec3f blendValue;
     MFChannelsType::const_iterator cIt  = _mfChannels.begin();
     MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
 
-    for(; cIt != cEnd; ++cIt)
+    for(UInt32 i = 0; cIt != cEnd; ++cIt, ++i)
     {
         blendValue += (*cIt)->getWeight() * (*cIt)->getOutValue();
+
+        FDEBUG((" channel [%d] - w [%f] v [%f %f %f] - b [%f %f %f]\n",
+                i, (*cIt)->getWeight(),
+                (*cIt)->getOutValue()[0], (*cIt)->getOutValue()[1], (*cIt)->getOutValue()[2],
+                blendValue[0], blendValue[1], blendValue[2]));
     }
 
     setOutValue(blendValue);
@@ -127,6 +136,43 @@ void AnimVec3fBlender::frame(Time oTime, UInt32 uiFrame)
 void AnimVec3fBlender::shutdown(void)
 {
     Inherited::shutdown();
+}
+
+void AnimVec3fBlender::addChannel(AnimChannel *channel)
+{
+    AnimVec3fChannel *matChannel = dynamic_cast<AnimVec3fChannel *>(channel);
+
+    if(matChannel == NULL)
+    {
+        SWARNING << "AnimVec3fBlender::addChannel: Channel type mismatch"
+                 << std::endl;
+        return;
+    }
+
+    pushToChannels(matChannel);
+}
+
+void AnimVec3fBlender::subChannel(AnimChannel *channel)
+{
+    AnimVec3fChannel *matChannel = dynamic_cast<AnimVec3fChannel *>(channel);
+
+    if(matChannel == NULL)
+    {
+        SWARNING << "AnimVec3fBlender::subChannel: Channel type mismatch"
+                 << std::endl;
+        return;
+    }
+
+    removeObjFromChannels(matChannel);
+}
+
+void AnimVec3fBlender::connectTo(
+    AttachmentContainer *container, const std::string &fieldName)
+{
+    FDEBUG(("AnimVec3fBlender::connectTo: this [%p] target [%p] [%s]\n",
+            this, container, fieldName.c_str()));
+
+    addConnection(this, "outValue", container, fieldName.c_str());
 }
 
 void AnimVec3fBlender::dump(      UInt32    ,

@@ -68,6 +68,20 @@ class OSG_DYNAMICS_DLLMAPPING AnimMatrixDataSource : public AnimMatrixDataSource
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Factory                                  */
+    /*! \{                                                                 */
+
+    virtual AnimChannelTransitPtr createChannel(void) const;
+    virtual AnimBlenderTransitPtr createBlender(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Evaluation                                 */
+    /*! \{                                                                 */
+
+    void evaluate(Matrix &outValue, Real32 inValue);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -76,13 +90,6 @@ class OSG_DYNAMICS_DLLMAPPING AnimMatrixDataSource : public AnimMatrixDataSource
 
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Evaluation                                 */
-    /*! \{                                                                 */
-
-    void evaluate(Matrix &outValue, Real32 inValue);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

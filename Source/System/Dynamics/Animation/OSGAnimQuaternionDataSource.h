@@ -36,24 +36,21 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGANIMBLENDER_H_
-#define _OSGANIMBLENDER_H_
+#ifndef _OSGANIMQUATERNIONDATASOURCE_H_
+#define _OSGANIMQUATERNIONDATASOURCE_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGAnimBlenderBase.h"
+#include "OSGAnimQuaternionDataSourceBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-// forward decl
-class AnimChannel;
-
-/*! \brief AnimBlender class. See \ref
-           PageDynamicsAnimBlender for a description.
+/*! \brief AnimQuaternionDataSource class. See \ref
+           PageDynamicsAnimQuaternionDataSource for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
+class OSG_DYNAMICS_DLLMAPPING AnimQuaternionDataSource : public AnimQuaternionDataSourceBase
 {
   protected:
 
@@ -61,8 +58,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
 
   public:
 
-    typedef AnimBlenderBase Inherited;
-    typedef AnimBlender     Self;
+    typedef AnimQuaternionDataSourceBase Inherited;
+    typedef AnimQuaternionDataSource     Self;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -74,21 +71,18 @@ class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                       Setup                                  */
+    /*! \name                     Factory                                  */
     /*! \{                                                                 */
 
-    virtual void addChannel(      AnimChannel         *channel   ) = 0;
-    virtual void subChannel(      AnimChannel         *channel   ) = 0;
-
-    virtual void connectTo (      AttachmentContainer *container,
-                            const std::string         &fieldName ) = 0;
+    virtual AnimChannelTransitPtr createChannel(void) const;
+    virtual AnimBlenderTransitPtr createBlender(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                  Frame Task Interface                        */
+    /*! \name                   Evaluation                                 */
     /*! \{                                                                 */
 
-    virtual Int32 getPriority(void) const;
+    void evaluate(Quaternion &outValue, Real32 inValue);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -103,23 +97,21 @@ class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
 
   protected:
 
-    // Variables should all be in AnimBlenderBase.
-
-    static Int32 _blendTaskPriority;
+    // Variables should all be in AnimQuaternionDataSourceBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    AnimBlender(void);
-    AnimBlender(const AnimBlender &source);
+    AnimQuaternionDataSource(void);
+    AnimQuaternionDataSource(const AnimQuaternionDataSource &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AnimBlender(void);
+    virtual ~AnimQuaternionDataSource(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -129,22 +121,39 @@ class OSG_DYNAMICS_DLLMAPPING AnimBlender : public AnimBlenderBase
     static void initMethod(InitPhase ePhase);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Evaluation                                 */
+    /*! \{                                                                 */
+
+    void evalStep        (Quaternion                     &outValue,
+                          Real32                          inValue,
+                          MFInValuesType::const_iterator  ivRIt    );
+    void evalLinear      (Quaternion                     &outValue, 
+                          Real32                          inValue,
+                          MFInValuesType::const_iterator  ivRIt    );
+
+    void extrapolateFront(Quaternion &outValue, Real32 inValue);
+    void extrapolateBack (Quaternion &outValue, Real32 inValue);
+
+    void checkDataConsistency(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class AnimBlenderBase;
+    friend class AnimQuaternionDataSourceBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AnimBlender &source);
+    void operator =(const AnimQuaternionDataSource &source);
 };
 
-typedef AnimBlender *AnimBlenderP;
+typedef AnimQuaternionDataSource *AnimQuaternionDataSourceP;
 
 OSG_END_NAMESPACE
 
-#include "OSGAnimBlenderBase.inl"
-#include "OSGAnimBlender.inl"
+#include "OSGAnimQuaternionDataSourceBase.inl"
+#include "OSGAnimQuaternionDataSource.inl"
 
-#endif /* _OSGANIMBLENDER_H_ */
+#endif /* _OSGANIMQUATERNIONDATASOURCE_H_ */

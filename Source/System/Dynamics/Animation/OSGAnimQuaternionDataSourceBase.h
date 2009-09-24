@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Animation
+ **     class AnimQuaternionDataSource
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGANIMATIONBASE_H_
-#define _OSGANIMATIONBASE_H_
+#ifndef _OSGANIMQUATERNIONDATASOURCEBASE_H_
+#define _OSGANIMQUATERNIONDATASOURCEBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,32 +63,30 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGAnimKeyFrameDataSource.h" // Parent
 
-#include "OSGAnimTimeSensorFields.h"    // TimeSensor type
-#include "OSGAnimTemplateFields.h"      // Template type
-#include "OSGAnimChannelFields.h"       // Channels type
-#include "OSGSysFields.h"               // Weight type
+#include "OSGMathFields.h"              // Values type
+#include "OSGVecFields.h"               // InTangentsX type
 
-#include "OSGAnimationFields.h"
+#include "OSGAnimQuaternionDataSourceFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Animation;
+class AnimQuaternionDataSource;
 
-//! \brief Animation Base Class.
+//! \brief AnimQuaternionDataSource Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
+class OSG_DYNAMICS_DLLMAPPING AnimQuaternionDataSourceBase : public AnimKeyFrameDataSource
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef AnimKeyFrameDataSource Inherited;
+    typedef AnimKeyFrameDataSource ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(Animation);
+    OSG_GEN_INTERNALPTR(AnimQuaternionDataSource);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -96,28 +94,48 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
 
     enum
     {
-        TimeSensorFieldId = Inherited::NextFieldId,
-        TemplateFieldId = TimeSensorFieldId + 1,
-        ChannelsFieldId = TemplateFieldId + 1,
-        WeightFieldId = ChannelsFieldId + 1,
-        NextFieldId = WeightFieldId + 1
+        ValuesFieldId = Inherited::NextFieldId,
+        InTangentsXFieldId = ValuesFieldId + 1,
+        InTangentsYFieldId = InTangentsXFieldId + 1,
+        InTangentsZFieldId = InTangentsYFieldId + 1,
+        InTangentsWFieldId = InTangentsZFieldId + 1,
+        OutTangentsXFieldId = InTangentsWFieldId + 1,
+        OutTangentsYFieldId = OutTangentsXFieldId + 1,
+        OutTangentsZFieldId = OutTangentsYFieldId + 1,
+        OutTangentsWFieldId = OutTangentsZFieldId + 1,
+        NextFieldId = OutTangentsWFieldId + 1
     };
 
-    static const OSG::BitVector TimeSensorFieldMask =
-        (TypeTraits<BitVector>::One << TimeSensorFieldId);
-    static const OSG::BitVector TemplateFieldMask =
-        (TypeTraits<BitVector>::One << TemplateFieldId);
-    static const OSG::BitVector ChannelsFieldMask =
-        (TypeTraits<BitVector>::One << ChannelsFieldId);
-    static const OSG::BitVector WeightFieldMask =
-        (TypeTraits<BitVector>::One << WeightFieldId);
+    static const OSG::BitVector ValuesFieldMask =
+        (TypeTraits<BitVector>::One << ValuesFieldId);
+    static const OSG::BitVector InTangentsXFieldMask =
+        (TypeTraits<BitVector>::One << InTangentsXFieldId);
+    static const OSG::BitVector InTangentsYFieldMask =
+        (TypeTraits<BitVector>::One << InTangentsYFieldId);
+    static const OSG::BitVector InTangentsZFieldMask =
+        (TypeTraits<BitVector>::One << InTangentsZFieldId);
+    static const OSG::BitVector InTangentsWFieldMask =
+        (TypeTraits<BitVector>::One << InTangentsWFieldId);
+    static const OSG::BitVector OutTangentsXFieldMask =
+        (TypeTraits<BitVector>::One << OutTangentsXFieldId);
+    static const OSG::BitVector OutTangentsYFieldMask =
+        (TypeTraits<BitVector>::One << OutTangentsYFieldId);
+    static const OSG::BitVector OutTangentsZFieldMask =
+        (TypeTraits<BitVector>::One << OutTangentsZFieldId);
+    static const OSG::BitVector OutTangentsWFieldMask =
+        (TypeTraits<BitVector>::One << OutTangentsWFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecAnimTimeSensorPtr SFTimeSensorType;
-    typedef SFUnrecAnimTemplatePtr SFTemplateType;
-    typedef MFUnrecChildAnimChannelPtr MFChannelsType;
-    typedef SFReal32          SFWeightType;
+    typedef MFQuaternion      MFValuesType;
+    typedef MFVec2f           MFInTangentsXType;
+    typedef MFVec2f           MFInTangentsYType;
+    typedef MFVec2f           MFInTangentsZType;
+    typedef MFVec2f           MFInTangentsWType;
+    typedef MFVec2f           MFOutTangentsXType;
+    typedef MFVec2f           MFOutTangentsYType;
+    typedef MFVec2f           MFOutTangentsZType;
+    typedef MFVec2f           MFOutTangentsWType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -142,45 +160,72 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecAnimTemplatePtr *getSFTemplate       (void) const;
-                  SFUnrecAnimTemplatePtr *editSFTemplate       (void);
-            const MFUnrecChildAnimChannelPtr *getMFChannels       (void) const;
-                  MFUnrecChildAnimChannelPtr *editMFChannels       (void);
 
-                  SFReal32            *editSFWeight         (void);
-            const SFReal32            *getSFWeight          (void) const;
+                  MFQuaternion        *editMFValues         (void);
+            const MFQuaternion        *getMFValues          (void) const;
+
+                  MFVec2f             *editMFInTangentsX    (void);
+            const MFVec2f             *getMFInTangentsX     (void) const;
+
+                  MFVec2f             *editMFInTangentsY    (void);
+            const MFVec2f             *getMFInTangentsY     (void) const;
+
+                  MFVec2f             *editMFInTangentsZ    (void);
+            const MFVec2f             *getMFInTangentsZ     (void) const;
+
+                  MFVec2f             *editMFInTangentsW    (void);
+            const MFVec2f             *getMFInTangentsW     (void) const;
+
+                  MFVec2f             *editMFOutTangentsX   (void);
+            const MFVec2f             *getMFOutTangentsX    (void) const;
+
+                  MFVec2f             *editMFOutTangentsY   (void);
+            const MFVec2f             *getMFOutTangentsY    (void) const;
+
+                  MFVec2f             *editMFOutTangentsZ   (void);
+            const MFVec2f             *getMFOutTangentsZ    (void) const;
+
+                  MFVec2f             *editMFOutTangentsW   (void);
+            const MFVec2f             *getMFOutTangentsW    (void) const;
 
 
-                  AnimTemplate * getTemplate       (void) const;
+                  Quaternion          &editValues         (const UInt32 index);
+            const Quaternion          &getValues          (const UInt32 index) const;
 
-                  AnimChannel * getChannels       (const UInt32 index) const;
+                  Vec2f               &editInTangentsX    (const UInt32 index);
+            const Vec2f               &getInTangentsX     (const UInt32 index) const;
 
-                  Real32              &editWeight         (void);
-                  Real32               getWeight          (void) const;
+                  Vec2f               &editInTangentsY    (const UInt32 index);
+            const Vec2f               &getInTangentsY     (const UInt32 index) const;
+
+                  Vec2f               &editInTangentsZ    (const UInt32 index);
+            const Vec2f               &getInTangentsZ     (const UInt32 index) const;
+
+                  Vec2f               &editInTangentsW    (const UInt32 index);
+            const Vec2f               &getInTangentsW     (const UInt32 index) const;
+
+                  Vec2f               &editOutTangentsX   (const UInt32 index);
+            const Vec2f               &getOutTangentsX    (const UInt32 index) const;
+
+                  Vec2f               &editOutTangentsY   (const UInt32 index);
+            const Vec2f               &getOutTangentsY    (const UInt32 index) const;
+
+                  Vec2f               &editOutTangentsZ   (const UInt32 index);
+            const Vec2f               &getOutTangentsZ    (const UInt32 index) const;
+
+                  Vec2f               &editOutTangentsW   (const UInt32 index);
+            const Vec2f               &getOutTangentsW    (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTemplate       (AnimTemplate * const value);
-            void setWeight         (const Real32 value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToChannels            (AnimChannel * const value   );
-    void assignChannels           (const MFUnrecChildAnimChannelPtr &value);
-    void removeFromChannels (UInt32               uiIndex );
-    void removeObjFromChannels(AnimChannel * const value   );
-    void clearChannels              (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -199,16 +244,16 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  AnimationTransitPtr  create          (void);
-    static  Animation           *createEmpty     (void);
+    static  AnimQuaternionDataSourceTransitPtr  create          (void);
+    static  AnimQuaternionDataSource           *createEmpty     (void);
 
-    static  AnimationTransitPtr  createLocal     (
+    static  AnimQuaternionDataSourceTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  Animation            *createEmptyLocal(
+    static  AnimQuaternionDataSource            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  AnimationTransitPtr  createDependent  (BitVector bFlags);
+    static  AnimQuaternionDataSourceTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,77 +280,60 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecAnimTimeSensorPtr _sfTimeSensor;
-    SFUnrecAnimTemplatePtr _sfTemplate;
-    MFUnrecChildAnimChannelPtr _mfChannels;
-    SFReal32          _sfWeight;
+    MFQuaternion      _mfValues;
+    MFVec2f           _mfInTangentsX;
+    MFVec2f           _mfInTangentsY;
+    MFVec2f           _mfInTangentsZ;
+    MFVec2f           _mfInTangentsW;
+    MFVec2f           _mfOutTangentsX;
+    MFVec2f           _mfOutTangentsY;
+    MFVec2f           _mfOutTangentsZ;
+    MFVec2f           _mfOutTangentsW;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    AnimationBase(void);
-    AnimationBase(const AnimationBase &source);
+    AnimQuaternionDataSourceBase(void);
+    AnimQuaternionDataSourceBase(const AnimQuaternionDataSourceBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AnimationBase(void);
+    virtual ~AnimQuaternionDataSourceBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const Animation *source = NULL);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Child linking                                                */
-    /*! \{                                                                 */
-
-    virtual bool unlinkChild(FieldContainer * const pChild,
-                             UInt16           const childFieldId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTimeSensor      (void) const;
-    EditFieldHandlePtr editHandleTimeSensor     (void);
-    GetFieldHandlePtr  getHandleTemplate        (void) const;
-    EditFieldHandlePtr editHandleTemplate       (void);
-    GetFieldHandlePtr  getHandleChannels        (void) const;
-    EditFieldHandlePtr editHandleChannels       (void);
-    GetFieldHandlePtr  getHandleWeight          (void) const;
-    EditFieldHandlePtr editHandleWeight         (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const SFUnrecAnimTimeSensorPtr *getSFTimeSensor      (void) const;
-                  SFUnrecAnimTimeSensorPtr *editSFTimeSensor     (void);
-
-
-                  AnimTimeSensor * getTimeSensor     (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setTimeSensor     (AnimTimeSensor * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
+    GetFieldHandlePtr  getHandleValues          (void) const;
+    EditFieldHandlePtr editHandleValues         (void);
+    GetFieldHandlePtr  getHandleInTangentsX     (void) const;
+    EditFieldHandlePtr editHandleInTangentsX    (void);
+    GetFieldHandlePtr  getHandleInTangentsY     (void) const;
+    EditFieldHandlePtr editHandleInTangentsY    (void);
+    GetFieldHandlePtr  getHandleInTangentsZ     (void) const;
+    EditFieldHandlePtr editHandleInTangentsZ    (void);
+    GetFieldHandlePtr  getHandleInTangentsW     (void) const;
+    EditFieldHandlePtr editHandleInTangentsW    (void);
+    GetFieldHandlePtr  getHandleOutTangentsX    (void) const;
+    EditFieldHandlePtr editHandleOutTangentsX   (void);
+    GetFieldHandlePtr  getHandleOutTangentsY    (void) const;
+    EditFieldHandlePtr editHandleOutTangentsY   (void);
+    GetFieldHandlePtr  getHandleOutTangentsZ    (void) const;
+    EditFieldHandlePtr editHandleOutTangentsZ   (void);
+    GetFieldHandlePtr  getHandleOutTangentsW    (void) const;
+    EditFieldHandlePtr editHandleOutTangentsW   (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -319,7 +347,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      AnimationBase *pFrom,
+            void execSync (      AnimQuaternionDataSourceBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -359,14 +387,11 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AnimationBase &source);
+    void operator =(const AnimQuaternionDataSourceBase &source);
 };
 
-typedef AnimationBase *AnimationBaseP;
-
-typedef CoredNodeRefPtr  <Animation> AnimationNodeRefPtr;
-typedef CoredNodeMTRefPtr<Animation> AnimationNodeMTRefPtr;
+typedef AnimQuaternionDataSourceBase *AnimQuaternionDataSourceBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGANIMATIONBASE_H_ */
+#endif /* _OSGANIMQUATERNIONDATASOURCEBASE_H_ */

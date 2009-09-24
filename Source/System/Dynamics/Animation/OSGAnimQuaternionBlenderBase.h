@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Animation
+ **     class AnimQuaternionBlender
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGANIMATIONBASE_H_
-#define _OSGANIMATIONBASE_H_
+#ifndef _OSGANIMQUATERNIONBLENDERBASE_H_
+#define _OSGANIMQUATERNIONBLENDERBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,32 +63,30 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGAnimBlender.h" // Parent
 
-#include "OSGAnimTimeSensorFields.h"    // TimeSensor type
-#include "OSGAnimTemplateFields.h"      // Template type
-#include "OSGAnimChannelFields.h"       // Channels type
-#include "OSGSysFields.h"               // Weight type
+#include "OSGAnimQuaternionChannelFields.h" // Channels type
+#include "OSGMathFields.h"              // OutValue type
 
-#include "OSGAnimationFields.h"
+#include "OSGAnimQuaternionBlenderFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Animation;
+class AnimQuaternionBlender;
 
-//! \brief Animation Base Class.
+//! \brief AnimQuaternionBlender Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
+class OSG_DYNAMICS_DLLMAPPING AnimQuaternionBlenderBase : public AnimBlender
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef AnimBlender Inherited;
+    typedef AnimBlender ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(Animation);
+    OSG_GEN_INTERNALPTR(AnimQuaternionBlender);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -96,28 +94,20 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
 
     enum
     {
-        TimeSensorFieldId = Inherited::NextFieldId,
-        TemplateFieldId = TimeSensorFieldId + 1,
-        ChannelsFieldId = TemplateFieldId + 1,
-        WeightFieldId = ChannelsFieldId + 1,
-        NextFieldId = WeightFieldId + 1
+        ChannelsFieldId = Inherited::NextFieldId,
+        OutValueFieldId = ChannelsFieldId + 1,
+        NextFieldId = OutValueFieldId + 1
     };
 
-    static const OSG::BitVector TimeSensorFieldMask =
-        (TypeTraits<BitVector>::One << TimeSensorFieldId);
-    static const OSG::BitVector TemplateFieldMask =
-        (TypeTraits<BitVector>::One << TemplateFieldId);
     static const OSG::BitVector ChannelsFieldMask =
         (TypeTraits<BitVector>::One << ChannelsFieldId);
-    static const OSG::BitVector WeightFieldMask =
-        (TypeTraits<BitVector>::One << WeightFieldId);
+    static const OSG::BitVector OutValueFieldMask =
+        (TypeTraits<BitVector>::One << OutValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFUnrecAnimTimeSensorPtr SFTimeSensorType;
-    typedef SFUnrecAnimTemplatePtr SFTemplateType;
-    typedef MFUnrecChildAnimChannelPtr MFChannelsType;
-    typedef SFReal32          SFWeightType;
+    typedef MFUnrecAnimQuaternionChannelPtr MFChannelsType;
+    typedef SFQuaternion      SFOutValueType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -142,29 +132,24 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const SFUnrecAnimTemplatePtr *getSFTemplate       (void) const;
-                  SFUnrecAnimTemplatePtr *editSFTemplate       (void);
-            const MFUnrecChildAnimChannelPtr *getMFChannels       (void) const;
-                  MFUnrecChildAnimChannelPtr *editMFChannels       (void);
+            const MFUnrecAnimQuaternionChannelPtr *getMFChannels       (void) const;
+                  MFUnrecAnimQuaternionChannelPtr *editMFChannels       (void);
 
-                  SFReal32            *editSFWeight         (void);
-            const SFReal32            *getSFWeight          (void) const;
+                  SFQuaternion        *editSFOutValue       (void);
+            const SFQuaternion        *getSFOutValue        (void) const;
 
 
-                  AnimTemplate * getTemplate       (void) const;
+                  AnimQuaternionChannel * getChannels       (const UInt32 index) const;
 
-                  AnimChannel * getChannels       (const UInt32 index) const;
-
-                  Real32              &editWeight         (void);
-                  Real32               getWeight          (void) const;
+                  Quaternion          &editOutValue       (void);
+            const Quaternion          &getOutValue        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setTemplate       (AnimTemplate * const value);
-            void setWeight         (const Real32 value);
+            void setOutValue       (const Quaternion &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -176,10 +161,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToChannels            (AnimChannel * const value   );
-    void assignChannels           (const MFUnrecChildAnimChannelPtr &value);
+    void pushToChannels            (AnimQuaternionChannel * const value   );
+    void assignChannels           (const MFUnrecAnimQuaternionChannelPtr &value);
     void removeFromChannels (UInt32               uiIndex );
-    void removeObjFromChannels(AnimChannel * const value   );
+    void removeObjFromChannels(AnimQuaternionChannel * const value   );
     void clearChannels              (void                         );
 
     /*! \}                                                                 */
@@ -199,16 +184,16 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  AnimationTransitPtr  create          (void);
-    static  Animation           *createEmpty     (void);
+    static  AnimQuaternionBlenderTransitPtr  create          (void);
+    static  AnimQuaternionBlender           *createEmpty     (void);
 
-    static  AnimationTransitPtr  createLocal     (
+    static  AnimQuaternionBlenderTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  Animation            *createEmptyLocal(
+    static  AnimQuaternionBlender            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  AnimationTransitPtr  createDependent  (BitVector bFlags);
+    static  AnimQuaternionBlenderTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -235,77 +220,40 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFUnrecAnimTimeSensorPtr _sfTimeSensor;
-    SFUnrecAnimTemplatePtr _sfTemplate;
-    MFUnrecChildAnimChannelPtr _mfChannels;
-    SFReal32          _sfWeight;
+    MFUnrecAnimQuaternionChannelPtr _mfChannels;
+    SFQuaternion      _sfOutValue;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    AnimationBase(void);
-    AnimationBase(const AnimationBase &source);
+    AnimQuaternionBlenderBase(void);
+    AnimQuaternionBlenderBase(const AnimQuaternionBlenderBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~AnimationBase(void);
+    virtual ~AnimQuaternionBlenderBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const Animation *source = NULL);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Child linking                                                */
-    /*! \{                                                                 */
-
-    virtual bool unlinkChild(FieldContainer * const pChild,
-                             UInt16           const childFieldId);
+    void onCreate(const AnimQuaternionBlender *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleTimeSensor      (void) const;
-    EditFieldHandlePtr editHandleTimeSensor     (void);
-    GetFieldHandlePtr  getHandleTemplate        (void) const;
-    EditFieldHandlePtr editHandleTemplate       (void);
     GetFieldHandlePtr  getHandleChannels        (void) const;
     EditFieldHandlePtr editHandleChannels       (void);
-    GetFieldHandlePtr  getHandleWeight          (void) const;
-    EditFieldHandlePtr editHandleWeight         (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const SFUnrecAnimTimeSensorPtr *getSFTimeSensor      (void) const;
-                  SFUnrecAnimTimeSensorPtr *editSFTimeSensor     (void);
-
-
-                  AnimTimeSensor * getTimeSensor     (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setTimeSensor     (AnimTimeSensor * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
+    GetFieldHandlePtr  getHandleOutValue        (void) const;
+    EditFieldHandlePtr editHandleOutValue       (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -319,7 +267,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      AnimationBase *pFrom,
+            void execSync (      AnimQuaternionBlenderBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -359,14 +307,14 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const AnimationBase &source);
+    void operator =(const AnimQuaternionBlenderBase &source);
 };
 
-typedef AnimationBase *AnimationBaseP;
+typedef AnimQuaternionBlenderBase *AnimQuaternionBlenderBaseP;
 
-typedef CoredNodeRefPtr  <Animation> AnimationNodeRefPtr;
-typedef CoredNodeMTRefPtr<Animation> AnimationNodeMTRefPtr;
+typedef CoredNodeRefPtr  <AnimQuaternionBlender> AnimQuaternionBlenderNodeRefPtr;
+typedef CoredNodeMTRefPtr<AnimQuaternionBlender> AnimQuaternionBlenderNodeMTRefPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGANIMATIONBASE_H_ */
+#endif /* _OSGANIMQUATERNIONBLENDERBASE_H_ */

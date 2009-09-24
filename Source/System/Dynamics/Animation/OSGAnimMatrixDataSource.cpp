@@ -46,6 +46,8 @@
 #include <OSGConfig.h>
 
 #include "OSGAnimMatrixDataSource.h"
+#include "OSGAnimMatrixChannel.h"
+#include "OSGAnimMatrixBlender.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -105,10 +107,21 @@ void AnimMatrixDataSource::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-void AnimMatrixDataSource::dump(      UInt32    ,
-                         const BitVector ) const
+AnimChannelTransitPtr
+AnimMatrixDataSource::createChannel(void) const
 {
-    SLOG << "Dump AnimMatrixDataSource NI" << std::endl;
+    AnimMatrixChannelUnrecPtr channel = AnimMatrixChannel::create();
+    channel->setData(const_cast<AnimMatrixDataSource *>(this));
+
+    return AnimChannelTransitPtr(channel);
+}
+
+AnimBlenderTransitPtr
+AnimMatrixDataSource::createBlender(void) const
+{
+    AnimMatrixBlenderUnrecPtr blender = AnimMatrixBlender::create();
+
+    return AnimBlenderTransitPtr(blender);
 }
 
 void AnimMatrixDataSource::evaluate(Matrix &outValue, Real32 inValue)
@@ -150,6 +163,12 @@ void AnimMatrixDataSource::evaluate(Matrix &outValue, Real32 inValue)
         evalLinear(outValue, inValue, ivIt);
         break;
     }
+}
+
+void AnimMatrixDataSource::dump(      UInt32    ,
+                         const BitVector ) const
+{
+    SLOG << "Dump AnimMatrixDataSource NI" << std::endl;
 }
 
 void AnimMatrixDataSource::evalStep(

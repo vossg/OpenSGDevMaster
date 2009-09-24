@@ -45,15 +45,15 @@
 
 #include <OSGConfig.h>
 
-#include "OSGAnimVec3fDataSource.h"
-#include "OSGAnimVec3fChannel.h"
-#include "OSGAnimVec3fBlender.h"
+#include "OSGAnimQuaternionDataSource.h"
+#include "OSGAnimQuaternionChannel.h"
+#include "OSGAnimQuaternionBlender.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGAnimVec3fDataSourceBase.cpp file.
-// To modify it, please change the .fcd file (OSGAnimVec3fDataSource.fcd) and
+// OSGAnimQuaternionDataSourceBase.cpp file.
+// To modify it, please change the .fcd file (OSGAnimQuaternionDataSource.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -64,7 +64,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void AnimVec3fDataSource::initMethod(InitPhase ePhase)
+void AnimQuaternionDataSource::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -84,25 +84,25 @@ void AnimVec3fDataSource::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-AnimVec3fDataSource::AnimVec3fDataSource(void) :
+AnimQuaternionDataSource::AnimQuaternionDataSource(void) :
     Inherited()
 {
 }
 
-AnimVec3fDataSource::AnimVec3fDataSource(const AnimVec3fDataSource &source) :
+AnimQuaternionDataSource::AnimQuaternionDataSource(const AnimQuaternionDataSource &source) :
     Inherited(source)
 {
 }
 
-AnimVec3fDataSource::~AnimVec3fDataSource(void)
+AnimQuaternionDataSource::~AnimQuaternionDataSource(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void AnimVec3fDataSource::changed(ConstFieldMaskArg whichField, 
-                                  UInt32            origin,
-                                  BitVector         details)
+void AnimQuaternionDataSource::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
     if(0 != ((InValuesFieldMask           |
               ValuesFieldMask             |
@@ -115,29 +115,30 @@ void AnimVec3fDataSource::changed(ConstFieldMaskArg whichField,
 }
 
 AnimChannelTransitPtr
-AnimVec3fDataSource::createChannel(void) const
+AnimQuaternionDataSource::createChannel(void) const
 {
-    AnimVec3fChannelUnrecPtr channel = AnimVec3fChannel::create();
-    channel->setData(const_cast<AnimVec3fDataSource *>(this));
+    AnimQuaternionChannelUnrecPtr channel = AnimQuaternionChannel::create();
+    channel->setData(const_cast<AnimQuaternionDataSource *>(this));
 
     return AnimChannelTransitPtr(channel);
 }
 
 AnimBlenderTransitPtr
-AnimVec3fDataSource::createBlender(void) const
+AnimQuaternionDataSource::createBlender(void) const
 {
-    AnimVec3fBlenderUnrecPtr blender = AnimVec3fBlender::create();
-    
+    AnimQuaternionBlenderUnrecPtr blender = AnimQuaternionBlender::create();
+
     return AnimBlenderTransitPtr(blender);
 }
 
-void AnimVec3fDataSource::evaluate(Vec3f &outValue, Real32 inValue)
+void
+AnimQuaternionDataSource::evaluate(Quaternion &outValue, Real32 inValue)
 {
     MFInValuesType::const_iterator ivIt =
         std::lower_bound(_mfInValues.begin(),
                          _mfInValues.end  (),
                          inValue             );
-    
+
     InterpolationModeE im = IM_Linear;
 
     if(_mfInterpolationModes.size() == 1)
@@ -164,7 +165,7 @@ void AnimVec3fDataSource::evaluate(Vec3f &outValue, Real32 inValue)
         break;
 
     default:
-        SWARNING << "AnimVec3fDataSource: Unkown interpolation mode ["
+        SWARNING << "AnimQuaternionDataSource: Unknown interpolation mode ["
                  << im << "] - using IM_Linear [" << IM_Linear << "]"
                  << std::endl;
         evalLinear(outValue, inValue, ivIt);
@@ -172,14 +173,15 @@ void AnimVec3fDataSource::evaluate(Vec3f &outValue, Real32 inValue)
     }
 }
 
-void AnimVec3fDataSource::dump(      UInt32    ,
+void AnimQuaternionDataSource::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump AnimVec3fDataSource NI" << std::endl;
+    SLOG << "Dump AnimQuaternionDataSource NI" << std::endl;
 }
 
-void AnimVec3fDataSource::evalStep(
-    Vec3f &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
+void
+AnimQuaternionDataSource::evalStep(
+    Quaternion &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
 {
     if(ivRIt != _mfInValues.end())
     {
@@ -187,7 +189,7 @@ void AnimVec3fDataSource::evalStep(
         {
             MFValuesType::const_iterator vIt = _mfValues.begin();
             std::advance(vIt, ivRIt - _mfInValues.begin());
-        
+
             outValue = *vIt;
         }
         else
@@ -201,8 +203,8 @@ void AnimVec3fDataSource::evalStep(
     }
 }
 
-void AnimVec3fDataSource::evalLinear(
-    Vec3f &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
+void AnimQuaternionDataSource::evalLinear(
+    Quaternion &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
 {
     if(ivRIt != _mfInValues.end())
     {
@@ -217,9 +219,7 @@ void AnimVec3fDataSource::evalLinear(
 
             Real32 s = (inValue - *ivLIt) / (*ivRIt - *ivLIt);
 
-            outValue =  *vRIt - *vLIt;
-            outValue *= s;
-            outValue += *vLIt;
+            outValue.slerpThis(*vLIt, *vRIt, s);
         }
         else
         {
@@ -232,28 +232,30 @@ void AnimVec3fDataSource::evalLinear(
     }
 }
 
-void AnimVec3fDataSource::extrapolateFront(Vec3f &outValue, Real32 inValue)
+void AnimQuaternionDataSource::extrapolateFront(
+    Quaternion &outValue, Real32 inValue)
 {
     outValue = _mfValues.front();
 }
 
-void AnimVec3fDataSource::extrapolateBack(Vec3f &outValue, Real32 inValue)
+void AnimQuaternionDataSource::extrapolateBack(
+    Quaternion &outValue, Real32 inValue)
 {
     outValue = _mfValues.back();
 }
 
-void AnimVec3fDataSource::checkDataConsistency(void)
+void AnimQuaternionDataSource::checkDataConsistency(void)
 {
     if(_mfInValues.size() != _mfValues.size())
     {
-        SWARNING << "AnimVec3fDataSource: "
+        SWARNING << "AnimQuaternionDataSource: "
                  << "MFInValues and MFValues sizes inconsistent." << std::endl;
     }
 
     if(_mfInterpolationModes.size() != 1 &&
        _mfInterpolationModes.size() != _mfInValues.size())
     {
-        SWARNING << "AnimVec3fDataSource: "
+        SWARNING << "AnimQuaternionDataSource: "
                  << "MFInterpolationModes invalid." << std::endl;
     }
 }

@@ -45,7 +45,7 @@
 #include "OSGAnimationBase.h"
 #include "OSGAnimChannel.h"
 #include "OSGAnimTemplate.h"
-#include "OSGTimeSensor.h"
+#include "OSGAnimTimeSensor.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -85,8 +85,23 @@ class OSG_DYNAMICS_DLLMAPPING Animation : public AnimationBase
     /*! \name                   Time Sensor                                */
     /*! \{                                                                 */
 
-    void        setTimeSensor(TimeSensor *value);
-    TimeSensor *getTimeSensor(void             ) const;
+    void            setTimeSensor(AnimTimeSensor *value);
+    AnimTimeSensor *getTimeSensor(void                 ) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Playback                                 */
+    /*! \{                                                                 */
+
+    Real32 getLength(void) const;
+
+
+    void start    (Time startTime);
+    void startLoop(Time startTime);
+
+    void reset    (void          );
+
+    void stop     (void          );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -94,6 +109,8 @@ class OSG_DYNAMICS_DLLMAPPING Animation : public AnimationBase
   protected:
 
     // Variables should all be in AnimationBase.
+    
+    mutable Real32 _animLength;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -123,6 +140,8 @@ class OSG_DYNAMICS_DLLMAPPING Animation : public AnimationBase
 
     void timeSensorChanged(FieldContainer *fc,
                            BitVector       whichField);
+
+    void calcLength(void) const;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

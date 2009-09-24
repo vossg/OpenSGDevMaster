@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGAnimMatrixBlender.h"
+#include "OSGAnimMatrixChannel.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -138,6 +139,42 @@ void AnimMatrixBlender::shutdown(void)
     Inherited::shutdown();
 }
 
+void AnimMatrixBlender::addChannel(AnimChannel *channel)
+{
+    AnimMatrixChannel *matChannel = dynamic_cast<AnimMatrixChannel *>(channel);
+
+    if(matChannel == NULL)
+    {
+        SWARNING << "AnimMatrixBlender::addChannel: Channel type mismatch"
+                 << std::endl;
+        return;
+    }
+
+    pushToChannels(matChannel);
+}
+
+void AnimMatrixBlender::subChannel(AnimChannel *channel)
+{
+    AnimMatrixChannel *matChannel = dynamic_cast<AnimMatrixChannel *>(channel);
+
+    if(matChannel == NULL)
+    {
+        SWARNING << "AnimMatrixBlender::subChannel: Channel type mismatch"
+                 << std::endl;
+        return;
+    }
+
+    removeObjFromChannels(matChannel);
+}
+
+void AnimMatrixBlender::connectTo(
+    AttachmentContainer *container, const std::string &fieldName)
+{
+    FDEBUG(("AnimMatrixBlender::connectTo: this [%p] target [%p] [%s]\n",
+            this, container, fieldName.c_str()));
+
+    addConnection(this, "outValue", container, fieldName.c_str());
+}
 
 void AnimMatrixBlender::dump(      UInt32    ,
                          const BitVector ) const

@@ -105,6 +105,18 @@ void AnimKeyFrameDataSource::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+Real32 AnimKeyFrameDataSource::getLength(void) const
+{
+    if(_mfInValues.empty() == false)
+    {
+        return _mfInValues.back();
+    }
+    else
+    {
+        return 0.f;
+    }
+}
+
 void AnimKeyFrameDataSource::dump(      UInt32    ,
                          const BitVector ) const
 {

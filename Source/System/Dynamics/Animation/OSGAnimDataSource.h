@@ -46,6 +46,13 @@
 
 OSG_BEGIN_NAMESPACE
 
+// forward decl
+class AnimChannel;
+OSG_GEN_CONTAINERPTR(AnimChannel);
+
+class AnimBlender;
+OSG_GEN_CONTAINERPTR(AnimBlender);
+
 /*! \brief AnimDataSource class. See \ref
            PageDynamicsAnimDataSource for a description.
 */
@@ -68,6 +75,17 @@ class OSG_DYNAMICS_DLLMAPPING AnimDataSource : public AnimDataSourceBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Factory                                  */
+    /*! \{                                                                 */
+
+    virtual AnimChannelTransitPtr createChannel(void) const = 0;
+    virtual AnimBlenderTransitPtr createBlender(void) const = 0;
+
+
+    virtual Real32 getLength(void) const = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -84,13 +84,13 @@ void Animation::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-Animation::Animation(void) :
-    Inherited()
+Animation::Animation(void)
+     : Inherited()
 {
 }
 
-Animation::Animation(const Animation &source) :
-    Inherited(source)
+Animation::Animation(const Animation &source)
+     : Inherited(source)
 {
 }
 
@@ -124,7 +124,7 @@ void Animation::dump(      UInt32    ,
     SLOG << "Dump Animation NI" << std::endl;
 }
 
-void Animation::setTimeSensor(TimeSensor *value)
+void Animation::setTimeSensor(AnimTimeSensor *value)
 {
     if(_sfTimeSensor.getValue() == value)
         return;
@@ -139,35 +139,100 @@ void Animation::setTimeSensor(TimeSensor *value)
 
     if(_sfTimeSensor.getValue() != NULL)
     {
+        _sfTimeSensor.getValue()->setEnabled       (false               );
         _sfTimeSensor.getValue()->addChangedFunctor(
             boost::bind(&Animation::timeSensorChanged, this, _1, _2), "");
     }
 }
 
-TimeSensor *Animation::getTimeSensor(void) const
+AnimTimeSensor *Animation::getTimeSensor(void) const
 {
     return Inherited::getTimeSensor();
 }
 
+Real32 Animation::getLength(void) const
+{
+    Real32 length = 0.f;
+
+    if(_sfTemplate.getValue() != NULL)
+    {
+        length = _sfTemplate.getValue()->getLength();
+    }
+
+    return length;
+}
+
+void Animation::start(Time startTime)
+{
+    OSG_ASSERT(_sfTimeSensor.getValue() != NULL);
+
+    AnimTimeSensor *ts = _sfTimeSensor.getValue();
+
+    ts->setEnabled    (true       );
+    ts->setStartTime  (startTime  );
+    ts->setStopTime   (startTime  );
+    ts->setCycleLength(getLength());
+    ts->setLoop       (false      );
+}
+
+void Animation::startLoop(Time startTime)
+{
+    OSG_ASSERT(_sfTimeSensor.getValue() != NULL);
+
+    AnimTimeSensor *ts = _sfTimeSensor.getValue();
+
+    ts->setEnabled    (true       );
+    ts->setStartTime  (startTime  );
+    ts->setStopTime   (startTime  );
+    ts->setCycleLength(getLength());
+    ts->setLoop       (true       );
+}
+
+void Animation::reset(void)
+{
+    OSG_ASSERT(_sfTimeSensor.getValue() != NULL);
+
+    AnimTimeSensor *ts = _sfTimeSensor.getValue();
+
+    ts->setStartTime(ts->getTime());
+    ts->setAnimTime (0.f          );
+    ts->setFraction (0.f          );
+}
+
+void Animation::stop(void)
+{
+    OSG_ASSERT(_sfTimeSensor.getValue() != NULL);
+
+    AnimTimeSensor *ts = _sfTimeSensor.getValue();
+
+    ts->setEnabled(false);
+}
 
 void Animation::timeSensorChanged(FieldContainer *fc, BitVector whichField)
 {
-    TimeSensor *ts = _sfTimeSensor.getValue();
+    AnimTimeSensor *ts = _sfTimeSensor.getValue();
 
     OSG_ASSERT(fc == ts);
 
-    if(0 != (TimeSensor::FractionFieldMask & whichField))
+    if(0 != (AnimTimeSensor::FractionFieldMask & whichField))
     {
         MFChannelsType::const_iterator cIt  = _mfChannels.begin();
         MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
             
         for(; cIt != cEnd; ++cIt)
         {
-            SLOG << "Animation::timeSensorChanged: "
-                 << (ts->getFraction() * ts->getCycleInterval())
-                 << std::endl;
+            // TS is active or just went inactive (end of cycle)
+            if( ts->getIsActive()                               == true ||
+               (AnimTimeSensor::IsActiveFieldMask & whichField) != 0      )
+            {
 
-            (*cIt)->setInValue(ts->getFraction() * ts->getCycleInterval());
+                SLOG << "Animation::timeSensorChanged: "
+                     << (ts->getFraction() * ts->getCycleLength())
+                     << " " << ts->getAnimTime()
+                     << std::endl;
+
+                (*cIt)->setInValue(ts->getAnimTime());
+            }
         }
     }
 }

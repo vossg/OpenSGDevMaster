@@ -47,6 +47,7 @@
 
 #include "OSGAnimKeyFrameTemplate.h"
 #include "OSGAnimation.h"
+#include "OSGAnimBindAction.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -109,9 +110,22 @@ void AnimKeyFrameTemplate::changed(ConstFieldMaskArg whichField,
 AnimationTransitPtr
 AnimKeyFrameTemplate::instantiate(Node *rootNode)
 {
-    // XXX TODO
+    AnimTimeSensorUnrecPtr ts   = AnimTimeSensor::create();
+    AnimationUnrecPtr      anim = Animation     ::create();
 
-    return AnimationTransitPtr(NULL);
+    anim->setTimeSensor(ts  );
+    anim->setTemplate  (this);
+    
+    AnimBindAction *bindAct = AnimBindAction::create();
+
+    bindAct->setTemplate(this);
+    bindAct->setAnim    (anim);
+
+    bindAct->apply(rootNode);
+
+    delete bindAct;
+
+    return AnimationTransitPtr(anim);
 }
 
 

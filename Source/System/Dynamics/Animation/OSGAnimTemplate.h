@@ -82,9 +82,10 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplate : public AnimTemplateBase
 
     virtual AnimationTransitPtr instantiate(Node *rootNode) = 0;
 
-    AnimDataSource *findSource(const std::string &targetId ) const;
-    AnimDataSource *findSource(const std::string &targetId,
-                                     UInt32      &srcIdx   ) const;
+    Int32 findTargetId(const std::string &targetId,
+                             Int32        offset   = 0) const;
+
+    Real32 getLength(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -100,6 +101,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplate : public AnimTemplateBase
   protected:
 
     // Variables should all be in AnimTemplateBase.
+    
+    mutable Real32 _animLength;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -121,6 +124,13 @@ class OSG_DYNAMICS_DLLMAPPING AnimTemplate : public AnimTemplateBase
     /*! \{                                                                 */
 
     static void initMethod(InitPhase ePhase);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Helpers                                   */
+    /*! \{                                                                 */
+
+    virtual void updateLength(void) const;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

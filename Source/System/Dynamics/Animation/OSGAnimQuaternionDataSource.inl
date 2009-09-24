@@ -40,13 +40,4 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline Real32
-AnimTemplate::getLength(void) const
-{
-    if(_animLength < 0.f)
-        updateLength();
-
-    return _animLength;
-}
-
 OSG_END_NAMESPACE

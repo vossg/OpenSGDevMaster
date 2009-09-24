@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Animation!
+ **     class AnimQuaternionBlender!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,87 +53,55 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &AnimationBase::getClassType(void)
+OSG::FieldContainerType &AnimQuaternionBlenderBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 AnimationBase::getClassTypeId(void)
+OSG::UInt32 AnimQuaternionBlenderBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 AnimationBase::getClassGroupId(void)
+OSG::UInt16 AnimQuaternionBlenderBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the AnimQuaternionBlender::_sfOutValue field.
 
-//! Get the value of the Animation::_sfTimeSensor field.
 inline
-AnimTimeSensor * AnimationBase::getTimeSensor(void) const
+Quaternion &AnimQuaternionBlenderBase::editOutValue(void)
 {
-    return _sfTimeSensor.getValue();
+    editSField(OutValueFieldMask);
+
+    return _sfOutValue.getValue();
 }
 
-//! Set the value of the Animation::_sfTimeSensor field.
+//! Get the value of the AnimQuaternionBlender::_sfOutValue field.
 inline
-void AnimationBase::setTimeSensor(AnimTimeSensor * const value)
+const Quaternion &AnimQuaternionBlenderBase::getOutValue(void) const
 {
-    editSField(TimeSensorFieldMask);
-
-    _sfTimeSensor.setValue(value);
+    return _sfOutValue.getValue();
 }
 
-//! Get the value of the Animation::_sfTemplate field.
+//! Set the value of the AnimQuaternionBlender::_sfOutValue field.
 inline
-AnimTemplate * AnimationBase::getTemplate(void) const
+void AnimQuaternionBlenderBase::setOutValue(const Quaternion &value)
 {
-    return _sfTemplate.getValue();
+    editSField(OutValueFieldMask);
+
+    _sfOutValue.setValue(value);
 }
 
-//! Set the value of the Animation::_sfTemplate field.
+//! Get the value of the \a index element the AnimQuaternionBlender::_mfChannels field.
 inline
-void AnimationBase::setTemplate(AnimTemplate * const value)
-{
-    editSField(TemplateFieldMask);
-
-    _sfTemplate.setValue(value);
-}
-//! Get the value of the Animation::_sfWeight field.
-
-inline
-Real32 &AnimationBase::editWeight(void)
-{
-    editSField(WeightFieldMask);
-
-    return _sfWeight.getValue();
-}
-
-//! Get the value of the Animation::_sfWeight field.
-inline
-      Real32  AnimationBase::getWeight(void) const
-{
-    return _sfWeight.getValue();
-}
-
-//! Set the value of the Animation::_sfWeight field.
-inline
-void AnimationBase::setWeight(const Real32 value)
-{
-    editSField(WeightFieldMask);
-
-    _sfWeight.setValue(value);
-}
-
-//! Get the value of the \a index element the Animation::_mfChannels field.
-inline
-AnimChannel * AnimationBase::getChannels(const UInt32 index) const
+AnimQuaternionChannel * AnimQuaternionBlenderBase::getChannels(const UInt32 index) const
 {
     return _mfChannels[index];
 }
@@ -141,7 +109,7 @@ AnimChannel * AnimationBase::getChannels(const UInt32 index) const
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void AnimationBase::execSync (      AnimationBase *pFrom,
+void AnimQuaternionBlenderBase::execSync (      AnimQuaternionBlenderBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -149,30 +117,24 @@ void AnimationBase::execSync (      AnimationBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (TimeSensorFieldMask & whichField))
-        _sfTimeSensor.syncWith(pFrom->_sfTimeSensor);
-
-    if(FieldBits::NoField != (TemplateFieldMask & whichField))
-        _sfTemplate.syncWith(pFrom->_sfTemplate);
-
     if(FieldBits::NoField != (ChannelsFieldMask & whichField))
         _mfChannels.syncWith(pFrom->_mfChannels,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
 
-    if(FieldBits::NoField != (WeightFieldMask & whichField))
-        _sfWeight.syncWith(pFrom->_sfWeight);
+    if(FieldBits::NoField != (OutValueFieldMask & whichField))
+        _sfOutValue.syncWith(pFrom->_sfOutValue);
 }
 #endif
 
 
 inline
-const Char8 *AnimationBase::getClassname(void)
+const Char8 *AnimQuaternionBlenderBase::getClassname(void)
 {
-    return "Animation";
+    return "AnimQuaternionBlender";
 }
-OSG_GEN_CONTAINERPTR(Animation);
+OSG_GEN_CONTAINERPTR(AnimQuaternionBlender);
 
 OSG_END_NAMESPACE
 

@@ -71,11 +71,11 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fDataSource : public AnimVec3fDataSourceBa
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
+    /*! \name                     Factory                                  */
     /*! \{                                                                 */
 
-    virtual void dump(      UInt32     uiIndent = 0,
-                      const BitVector  bvFlags  = 0) const;
+    virtual AnimChannelTransitPtr createChannel(void) const;
+    virtual AnimBlenderTransitPtr createBlender(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -83,6 +83,14 @@ class OSG_DYNAMICS_DLLMAPPING AnimVec3fDataSource : public AnimVec3fDataSourceBa
     /*! \{                                                                 */
 
     void evaluate(Vec3f &outValue, Real32 inValue);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

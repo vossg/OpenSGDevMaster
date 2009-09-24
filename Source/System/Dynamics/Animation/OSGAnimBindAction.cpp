@@ -53,6 +53,10 @@ AnimBindAction::FunctorStore *
     AnimBindAction::_defaultLeaveFunctors = NULL;
 
 
+AnimBindAction::~AnimBindAction(void)
+{
+}
+
 AnimBindAction *
 AnimBindAction::create(void)
 {
@@ -124,12 +128,30 @@ AnimBindAction::setAnim(Animation *anim)
 }
 
 
-AnimBindAction::AnimBindAction(void)
-    : Inherited()
+void
+AnimBindAction::splitTargetId(
+    const std::string &targetIdFull,
+          std::string &targetId,
+          std::string &subTargetId  )
 {
+    std::string::size_type splitPos = targetIdFull.find('.');
+
+    if(splitPos != std::string::npos)
+    {
+        subTargetId = targetIdFull.substr(splitPos + 1);
+        targetId    = targetIdFull.substr(0, splitPos);
+    }
+    else
+    {
+        subTargetId.clear ();
+        targetId   .assign(targetIdFull);
+    }
 }
 
-AnimBindAction::~AnimBindAction(void)
+AnimBindAction::AnimBindAction(void)
+    : Inherited(    )
+    , _animTmpl(NULL)
+    , _anim    (NULL)
 {
 }
 
@@ -170,30 +192,72 @@ AnimBindAction::terminateLeave(void)
 /*------------------------------- callbacks -------------------------------*/
 
 Action::ResultE
-bindTransformEnter(NodeCore *core, Action *action)
+bindEnterDefault(NodeCore *core, Action *action)
 {
-    Transform      *xform   = dynamic_cast<Transform      *>(core  );
-    AnimBindAction *bindAct = dynamic_cast<AnimBindAction *>(action);
-
+    AnimBindAction     *bindAct  = dynamic_cast<AnimBindAction *>(action);
     Animation          *anim     = bindAct->getAnim    ();
     const AnimTemplate *animTmpl = bindAct->getTemplate();
 
-    std::string targetId;
+    AnimTargetAttachment *targetAtt = getTargetAtt(core);
 
-    if(getTargetId(xform, targetId) == false)
+    if(targetAtt == NULL)
         return Action::Continue;
 
-    UInt32          srcIdx = 0;
-    AnimDataSource *src    = NULL;
+    Int32 srcIdx = 0;
 
-    while((src = animTmpl->findSource(targetId, srcIdx)) != NULL)
+    while((srcIdx = animTmpl->findTargetId(targetAtt->getTargetId(),
+                                           srcIdx                   )) != -1)
     {
+        std::string targetId;
+        std::string subTargetId;
+
+        bindAct->splitTargetId(
+            animTmpl->getTargetIds(srcIdx), targetId, subTargetId);
+
+        FDEBUG(("bindEnterDefault: targetId [%s] subTargetId [%s]\n",
+                targetId.c_str(), subTargetId.c_str()));
+
+        // create the channel
+
+        AnimDataSource      *src     = animTmpl->getSources   (srcIdx);
+        AnimChannelUnrecPtr  channel = src     ->createChannel(      );
+        anim->editMFChannels()->push_back(channel);
+
+        FieldDescriptionBase *fDesc =
+            core->getType().getFieldDesc(subTargetId.c_str());
+
+        if(fDesc == NULL)
+        {
+            SWARNING << "bindEnterDefault: no field for subTargetId ["
+                     << subTargetId << "] found." << std::endl;
+            continue;
+        }
+
+        // create the blender
+
+        UInt32              fId     = fDesc->getFieldId();
         
+        if(targetAtt->getMFBlenders()->size() <= fId)
+            targetAtt->editMFBlenders()->resize(fId + 1, NULL);
+
+        AnimBlenderUnrecPtr blender = targetAtt->getBlenders(fId);
+
+        if(blender == NULL)
+        {
+            blender = src->createBlender();
+            (*targetAtt->editMFBlenders())[fId] = blender;
+        }
+
+        // connect
+
+        blender->addChannel(channel               );
+        blender->connectTo (core, fDesc->getName());
+
+        ++srcIdx;
     }
 
     return Action::Continue;
 }
-
 
 Action::ResultE
 bindSkeletonEnter(NodeCore *core, Action *action)

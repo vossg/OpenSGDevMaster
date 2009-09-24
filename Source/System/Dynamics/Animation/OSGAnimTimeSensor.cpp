@@ -45,15 +45,13 @@
 
 #include <OSGConfig.h>
 
-#include "OSGAnimVec3fDataSource.h"
-#include "OSGAnimVec3fChannel.h"
-#include "OSGAnimVec3fBlender.h"
+#include "OSGAnimTimeSensor.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGAnimVec3fDataSourceBase.cpp file.
-// To modify it, please change the .fcd file (OSGAnimVec3fDataSource.fcd) and
+// OSGAnimTimeSensorBase.cpp file.
+// To modify it, please change the .fcd file (OSGAnimTimeSensor.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -64,7 +62,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void AnimVec3fDataSource::initMethod(InitPhase ePhase)
+void AnimTimeSensor::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -84,177 +82,167 @@ void AnimVec3fDataSource::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-AnimVec3fDataSource::AnimVec3fDataSource(void) :
+AnimTimeSensor::AnimTimeSensor(void) :
     Inherited()
 {
 }
 
-AnimVec3fDataSource::AnimVec3fDataSource(const AnimVec3fDataSource &source) :
+AnimTimeSensor::AnimTimeSensor(const AnimTimeSensor &source) :
     Inherited(source)
 {
 }
 
-AnimVec3fDataSource::~AnimVec3fDataSource(void)
+AnimTimeSensor::~AnimTimeSensor(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void AnimVec3fDataSource::changed(ConstFieldMaskArg whichField, 
-                                  UInt32            origin,
-                                  BitVector         details)
+void AnimTimeSensor::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    if(0 != ((InValuesFieldMask           |
-              ValuesFieldMask             |
-              InterpolationModesFieldMask  ) & whichField))
-    {
-        checkDataConsistency();
-    }
-
     Inherited::changed(whichField, origin, details);
 }
 
-AnimChannelTransitPtr
-AnimVec3fDataSource::createChannel(void) const
-{
-    AnimVec3fChannelUnrecPtr channel = AnimVec3fChannel::create();
-    channel->setData(const_cast<AnimVec3fDataSource *>(this));
-
-    return AnimChannelTransitPtr(channel);
-}
-
-AnimBlenderTransitPtr
-AnimVec3fDataSource::createBlender(void) const
-{
-    AnimVec3fBlenderUnrecPtr blender = AnimVec3fBlender::create();
-    
-    return AnimBlenderTransitPtr(blender);
-}
-
-void AnimVec3fDataSource::evaluate(Vec3f &outValue, Real32 inValue)
-{
-    MFInValuesType::const_iterator ivIt =
-        std::lower_bound(_mfInValues.begin(),
-                         _mfInValues.end  (),
-                         inValue             );
-    
-    InterpolationModeE im = IM_Linear;
-
-    if(_mfInterpolationModes.size() == 1)
-    {
-        im = InterpolationModeE(_mfInterpolationModes.front());
-    }
-    else if(_mfInterpolationModes.size() == _mfInValues.size())
-    {
-        MFInterpolationModesType::const_iterator imIt =
-            _mfInterpolationModes.begin();
-        std::advance(imIt, ivIt - _mfInValues.begin());
-
-        im = InterpolationModeE(*imIt);
-    }
-
-    switch(im)
-    {
-    case IM_Step:
-        evalStep(outValue, inValue, ivIt);
-        break;
-
-    case IM_Linear:
-        evalLinear(outValue, inValue, ivIt);
-        break;
-
-    default:
-        SWARNING << "AnimVec3fDataSource: Unkown interpolation mode ["
-                 << im << "] - using IM_Linear [" << IM_Linear << "]"
-                 << std::endl;
-        evalLinear(outValue, inValue, ivIt);
-        break;
-    }
-}
-
-void AnimVec3fDataSource::dump(      UInt32    ,
+void AnimTimeSensor::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump AnimVec3fDataSource NI" << std::endl;
+    SLOG << "Dump AnimTimeSensor NI" << std::endl;
 }
 
-void AnimVec3fDataSource::evalStep(
-    Vec3f &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
+void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
 {
-    if(ivRIt != _mfInValues.end())
+    Time startT = _sfStartTime  .getValue();
+    Time stopT  = _sfStopTime   .getValue();
+    Time currT  = _sfTime       .getValue();
+
+    Time length = _sfCycleLength.getValue();
+    Time deltaT = 0.0;
+
+    setTime(oTime);
+
+    if(getEnabled() == false)
     {
-        if(ivRIt != _mfInValues.begin())
+        if(getIsActive() == true)
         {
-            MFValuesType::const_iterator vIt = _mfValues.begin();
-            std::advance(vIt, ivRIt - _mfInValues.begin());
+            setIsActive(false);
+        }
+
+        return;
+    }
+
+    if(startT < stopT)
+    {
+        if(oTime < startT)
+        {
+            setFraction(0.f);
+            setAnimTime(0.f);
+
+            if(getIsActive() == true)
+                setIsActive(false);
+
+            return;
+        }
+        else if(oTime > stopT)
+        {
+            setFraction(1.f   );
+            setAnimTime(length);
+
+            if(getIsActive() == true)
+                setIsActive(false);
+
+            return;
+        }
+        else
+        {
+            if(currT <= 0.0)
+            {
+                deltaT = oTime - startT;
+            }
+            else
+            {
+                deltaT = oTime - currT;
+            }
+        }
+    }
+    else
+    {
+        if(oTime < startT)
+        {
+            setFraction(0.f);
+            setAnimTime(0.f);
+
+            if(getIsActive() == true)
+                setIsActive(false);
+
+            return;
+        }
+        else
+        {
+            if(currT <= 0.0)
+            {
+                deltaT = oTime - startT;
+            }
+            else
+            {
+                deltaT = oTime - currT;
+            }
+        }
+    }
+
+    // use deltaT to update
+
+    Real32 animT = getAnimTime();
+
+    if(getForward() == true)
+    {
+        animT += getTimeScale() * deltaT;
+    }
+    else
+    {
+        animT -= getTimeScale() * deltaT;
+    }
+
+    if(getLoop() == true)
+    {
+        animT = osgMod<Real64>(animT, length);
         
-            outValue = *vIt;
-        }
-        else
-        {
-            extrapolateFront(outValue, inValue);
-        }
+        while(animT < 0.f)
+            animT += length;
+
+        setAnimTime(animT         );
+        setFraction(animT / length);
+
+        if(getIsActive() == false)
+            setIsActive(true);
     }
     else
     {
-        extrapolateBack(outValue, inValue);
-    }
-}
-
-void AnimVec3fDataSource::evalLinear(
-    Vec3f &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
-{
-    if(ivRIt != _mfInValues.end())
-    {
-        if(ivRIt != _mfInValues.begin())
+        if(animT < 0.f)
         {
-            MFInValuesType::const_iterator ivLIt = ivRIt - 1;
+            setAnimTime(0.f);
+            setFraction(0.f);
 
-            MFValuesType  ::const_iterator vRIt  = _mfValues.begin();
-            MFValuesType  ::const_iterator vLIt  = _mfValues.begin();
-            std::advance(vRIt, ivRIt - _mfInValues.begin());
-            std::advance(vLIt, ivLIt - _mfInValues.begin());
+            if(getIsActive() == true)
+                setIsActive(false);
+        }
+        else if(animT > length)
+        {
+            setAnimTime(length);
+            setFraction(1.f   );
 
-            Real32 s = (inValue - *ivLIt) / (*ivRIt - *ivLIt);
-
-            outValue =  *vRIt - *vLIt;
-            outValue *= s;
-            outValue += *vLIt;
+            if(getIsActive() == true)
+                setIsActive(false);
         }
         else
         {
-            extrapolateFront(outValue, inValue);
+            setAnimTime(animT         );
+            setFraction(animT / length);
+
+            if(getIsActive() == false)
+                setIsActive(true);
         }
-    }
-    else
-    {
-        extrapolateBack(outValue, inValue);
-    }
-}
-
-void AnimVec3fDataSource::extrapolateFront(Vec3f &outValue, Real32 inValue)
-{
-    outValue = _mfValues.front();
-}
-
-void AnimVec3fDataSource::extrapolateBack(Vec3f &outValue, Real32 inValue)
-{
-    outValue = _mfValues.back();
-}
-
-void AnimVec3fDataSource::checkDataConsistency(void)
-{
-    if(_mfInValues.size() != _mfValues.size())
-    {
-        SWARNING << "AnimVec3fDataSource: "
-                 << "MFInValues and MFValues sizes inconsistent." << std::endl;
-    }
-
-    if(_mfInterpolationModes.size() != 1 &&
-       _mfInterpolationModes.size() != _mfInValues.size())
-    {
-        SWARNING << "AnimVec3fDataSource: "
-                 << "MFInterpolationModes invalid." << std::endl;
     }
 }
 

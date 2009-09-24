@@ -45,15 +45,14 @@
 
 #include <OSGConfig.h>
 
-#include "OSGAnimVec3fDataSource.h"
-#include "OSGAnimVec3fChannel.h"
-#include "OSGAnimVec3fBlender.h"
+#include "OSGAnimQuaternionBlender.h"
+#include "OSGAnimQuaternionChannel.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGAnimVec3fDataSourceBase.cpp file.
-// To modify it, please change the .fcd file (OSGAnimVec3fDataSource.fcd) and
+// OSGAnimQuaternionBlenderBase.cpp file.
+// To modify it, please change the .fcd file (OSGAnimQuaternionBlender.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
@@ -64,7 +63,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void AnimVec3fDataSource::initMethod(InitPhase ePhase)
+void AnimQuaternionBlender::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -84,178 +83,99 @@ void AnimVec3fDataSource::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-AnimVec3fDataSource::AnimVec3fDataSource(void) :
+AnimQuaternionBlender::AnimQuaternionBlender(void) :
     Inherited()
 {
 }
 
-AnimVec3fDataSource::AnimVec3fDataSource(const AnimVec3fDataSource &source) :
+AnimQuaternionBlender::AnimQuaternionBlender(const AnimQuaternionBlender &source) :
     Inherited(source)
 {
 }
 
-AnimVec3fDataSource::~AnimVec3fDataSource(void)
+AnimQuaternionBlender::~AnimQuaternionBlender(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void AnimVec3fDataSource::changed(ConstFieldMaskArg whichField, 
-                                  UInt32            origin,
-                                  BitVector         details)
+void AnimQuaternionBlender::changed(ConstFieldMaskArg whichField, 
+                            UInt32            origin,
+                            BitVector         details)
 {
-    if(0 != ((InValuesFieldMask           |
-              ValuesFieldMask             |
-              InterpolationModesFieldMask  ) & whichField))
-    {
-        checkDataConsistency();
-    }
-
     Inherited::changed(whichField, origin, details);
 }
 
-AnimChannelTransitPtr
-AnimVec3fDataSource::createChannel(void) const
+bool AnimQuaternionBlender::init(void)
 {
-    AnimVec3fChannelUnrecPtr channel = AnimVec3fChannel::create();
-    channel->setData(const_cast<AnimVec3fDataSource *>(this));
-
-    return AnimChannelTransitPtr(channel);
+    return Inherited::init();
 }
 
-AnimBlenderTransitPtr
-AnimVec3fDataSource::createBlender(void) const
+void AnimQuaternionBlender::frame(Time oTime, UInt32 uiFrame)
 {
-    AnimVec3fBlenderUnrecPtr blender = AnimVec3fBlender::create();
-    
-    return AnimBlenderTransitPtr(blender);
+    Quaternion blendValue;
+    MFChannelsType::const_iterator cIt  = _mfChannels.begin();
+    MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
+
+    for(; cIt != cEnd; ++cIt)
+    {
+        Quaternion temp((*cIt)->getOutValue());
+        temp.scaleAngle((*cIt)->getWeight  ());
+
+        blendValue.mult(temp);
+    }
+
+    setOutValue(blendValue);
 }
 
-void AnimVec3fDataSource::evaluate(Vec3f &outValue, Real32 inValue)
+void AnimQuaternionBlender::shutdown(void)
 {
-    MFInValuesType::const_iterator ivIt =
-        std::lower_bound(_mfInValues.begin(),
-                         _mfInValues.end  (),
-                         inValue             );
-    
-    InterpolationModeE im = IM_Linear;
+    Inherited::shutdown();
+}
 
-    if(_mfInterpolationModes.size() == 1)
+void AnimQuaternionBlender::addChannel(AnimChannel *channel)
+{
+    AnimQuaternionChannel *quatChannel =
+        dynamic_cast<AnimQuaternionChannel *>(channel);
+
+    if(quatChannel == NULL)
     {
-        im = InterpolationModeE(_mfInterpolationModes.front());
-    }
-    else if(_mfInterpolationModes.size() == _mfInValues.size())
-    {
-        MFInterpolationModesType::const_iterator imIt =
-            _mfInterpolationModes.begin();
-        std::advance(imIt, ivIt - _mfInValues.begin());
-
-        im = InterpolationModeE(*imIt);
-    }
-
-    switch(im)
-    {
-    case IM_Step:
-        evalStep(outValue, inValue, ivIt);
-        break;
-
-    case IM_Linear:
-        evalLinear(outValue, inValue, ivIt);
-        break;
-
-    default:
-        SWARNING << "AnimVec3fDataSource: Unkown interpolation mode ["
-                 << im << "] - using IM_Linear [" << IM_Linear << "]"
+        SWARNING << "AnimQuaternionBlender::addChannel: Channel type mismatch"
                  << std::endl;
-        evalLinear(outValue, inValue, ivIt);
-        break;
+        return;
     }
+
+    pushToChannels(quatChannel);
 }
 
-void AnimVec3fDataSource::dump(      UInt32    ,
+void AnimQuaternionBlender::subChannel(AnimChannel *channel)
+{
+    AnimQuaternionChannel *quatChannel =
+        dynamic_cast<AnimQuaternionChannel *>(channel);
+
+    if(quatChannel == NULL)
+    {
+        SWARNING << "AnimQuaternionBlender::subChannel: Channel type mismatch"
+                 << std::endl;
+        return;
+    }
+
+    removeObjFromChannels(quatChannel);
+}
+
+void AnimQuaternionBlender::connectTo(
+    AttachmentContainer *container, const std::string &fieldName)
+{
+    FDEBUG(("AnimQuaternionBlender::connectTo: this [%p] target [%p] [%s]\n",
+            this, container, fieldName.c_str()));
+
+    addConnection(this, "outValue", container, fieldName.c_str());
+}
+
+void AnimQuaternionBlender::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump AnimVec3fDataSource NI" << std::endl;
-}
-
-void AnimVec3fDataSource::evalStep(
-    Vec3f &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
-{
-    if(ivRIt != _mfInValues.end())
-    {
-        if(ivRIt != _mfInValues.begin())
-        {
-            MFValuesType::const_iterator vIt = _mfValues.begin();
-            std::advance(vIt, ivRIt - _mfInValues.begin());
-        
-            outValue = *vIt;
-        }
-        else
-        {
-            extrapolateFront(outValue, inValue);
-        }
-    }
-    else
-    {
-        extrapolateBack(outValue, inValue);
-    }
-}
-
-void AnimVec3fDataSource::evalLinear(
-    Vec3f &outValue, Real32 inValue, MFInValuesType::const_iterator ivRIt)
-{
-    if(ivRIt != _mfInValues.end())
-    {
-        if(ivRIt != _mfInValues.begin())
-        {
-            MFInValuesType::const_iterator ivLIt = ivRIt - 1;
-
-            MFValuesType  ::const_iterator vRIt  = _mfValues.begin();
-            MFValuesType  ::const_iterator vLIt  = _mfValues.begin();
-            std::advance(vRIt, ivRIt - _mfInValues.begin());
-            std::advance(vLIt, ivLIt - _mfInValues.begin());
-
-            Real32 s = (inValue - *ivLIt) / (*ivRIt - *ivLIt);
-
-            outValue =  *vRIt - *vLIt;
-            outValue *= s;
-            outValue += *vLIt;
-        }
-        else
-        {
-            extrapolateFront(outValue, inValue);
-        }
-    }
-    else
-    {
-        extrapolateBack(outValue, inValue);
-    }
-}
-
-void AnimVec3fDataSource::extrapolateFront(Vec3f &outValue, Real32 inValue)
-{
-    outValue = _mfValues.front();
-}
-
-void AnimVec3fDataSource::extrapolateBack(Vec3f &outValue, Real32 inValue)
-{
-    outValue = _mfValues.back();
-}
-
-void AnimVec3fDataSource::checkDataConsistency(void)
-{
-    if(_mfInValues.size() != _mfValues.size())
-    {
-        SWARNING << "AnimVec3fDataSource: "
-                 << "MFInValues and MFValues sizes inconsistent." << std::endl;
-    }
-
-    if(_mfInterpolationModes.size() != 1 &&
-       _mfInterpolationModes.size() != _mfInValues.size())
-    {
-        SWARNING << "AnimVec3fDataSource: "
-                 << "MFInterpolationModes invalid." << std::endl;
-    }
+    SLOG << "Dump AnimQuaternionBlender NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

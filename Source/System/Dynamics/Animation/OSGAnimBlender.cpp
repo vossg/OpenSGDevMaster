@@ -58,6 +58,10 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
+// priority for blend tasks - must run after all TimeSensors
+
+Int32 AnimBlender::_blendTaskPriority = 50;
+
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -103,6 +107,11 @@ void AnimBlender::changed(ConstFieldMaskArg whichField,
                             BitVector         details)
 {
     Inherited::changed(whichField, origin, details);
+}
+
+Int32 AnimBlender::getPriority(void) const
+{
+    return _blendTaskPriority;
 }
 
 void AnimBlender::dump(      UInt32    ,
