@@ -9,7 +9,8 @@ OSG_SELECT_PROJECT()
 # dependencies - OpenSG
 SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
                                 OSGGroup)
-SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB)
+SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGUtil
+                                     OSGWindowGLUT)
 
 # dependencies - External
 # SET(${PROJECT_NAME}_DEP_LIB)
