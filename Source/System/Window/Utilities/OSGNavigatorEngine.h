@@ -46,9 +46,11 @@
 #include "OSGQuaternion.h"
 #include "OSGViewport.h"
 #include "OSGMemoryObject.h"
-#include "OSGNavigator.h"
+#include "OSGNavigatorBase.h"
 
 OSG_BEGIN_NAMESPACE
+
+class Navigator;
 
 /*! \brief Base class for all navigator engines.
 */
@@ -77,7 +79,7 @@ class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
     /*! \name                        Get                                   */
     /*! \{                                                                 */
 
-    Navigator::State getState() const;
+    NavigatorBase::State getState() const;
 
     virtual const Pnt3f  &getFrom(void)      = 0;
     virtual const Pnt3f  &getAt(void)        = 0;
@@ -125,7 +127,7 @@ class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
     /*! \name                     Members                                  */
     /*! \{                                                                 */
 
-    Navigator::State _currentState;
+    NavigatorBase::State _currentState;
 
     /*! \}                                                                 */
 

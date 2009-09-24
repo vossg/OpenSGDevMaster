@@ -42,10 +42,11 @@
 #include "OSGMatrixUtility.h"
 
 #include "OSGWalkEngine.h"
-
+#include "OSGNavigator.h"
 #include "OSGNode.h"
 #include "OSGCamera.h"
 #include "OSGBackground.h"
+#include "OSGIntersectAction.h"
 
 OSG_USING_NAMESPACE
 

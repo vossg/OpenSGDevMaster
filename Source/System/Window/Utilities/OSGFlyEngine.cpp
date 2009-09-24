@@ -42,7 +42,7 @@
 #include "OSGMatrixUtility.h"
 
 #include "OSGFlyEngine.h"
-
+#include "OSGNavigator.h"
 #include "OSGNode.h"
 #include "OSGCamera.h"
 #include "OSGBackground.h"

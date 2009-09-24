@@ -49,6 +49,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class IntersectAction;
+
 /*! \brief Base class for all navigator engines.
 */
 class OSG_UTIL_DLLMAPPING WalkEngine : public FlyEngine

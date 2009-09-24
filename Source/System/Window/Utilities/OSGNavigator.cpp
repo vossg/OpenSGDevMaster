@@ -45,12 +45,6 @@
 
 #include "OSGNavigator.h"
 
-#include "OSGNavigatorEngine.h"
-#include "OSGTrackballEngine.h"
-#include "OSGFlyEngine.h"
-#include "OSGWalkEngine.h"
-#include "OSGNoneEngine.h"
-
 OSG_USING_NAMESPACE
 
 /***************************************************************************\

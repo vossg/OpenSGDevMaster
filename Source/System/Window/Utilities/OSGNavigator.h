@@ -42,6 +42,7 @@
 #include "OSGConfig.h"
 #include "OSGUtilDef.h"
 
+#include "OSGNavigatorBase.h"
 #include "OSGWindow.h"
 #include "OSGViewport.h"
 #include "OSGBaseTypes.h"
@@ -51,19 +52,13 @@
 #include "OSGQuaternion.h"
 #include "OSGIntersectAction.h"
 
+#include "OSGNavigatorEngine.h"
+#include "OSGFlyEngine.h"
+#include "OSGNoneEngine.h"
+#include "OSGTrackballEngine.h"
+#include "OSGWalkEngine.h"
+
 OSG_BEGIN_NAMESPACE
-
-class NavigatorEngine;
-class TrackballEngine;
-class FlyEngine;
-class WalkEngine;
-class NoneEngine;
-
-OSG_GEN_MEMOBJPTR(NavigatorEngine);
-OSG_GEN_MEMOBJPTR(TrackballEngine);
-OSG_GEN_MEMOBJPTR(FlyEngine);
-OSG_GEN_MEMOBJPTR(WalkEngine);
-OSG_GEN_MEMOBJPTR(NoneEngine);
 
 typedef TrackballEngine TrackballNavigator;
 typedef FlyEngine       FlyNavigator;
@@ -72,63 +67,22 @@ typedef WalkEngine      WalkNavigator;
 /*! \brief General Navigator for wrapping simple navigators. See \ref 
     PageSystemWindowNavigatorsNavigator for a description.
 */
-class OSG_UTIL_DLLMAPPING Navigator
+class OSG_UTIL_DLLMAPPING Navigator : public NavigatorBase
 {
     /*==========================  PUBLIC  =================================*/
   public:
-  
-    enum Mode
-    {
-        TRACKBALL=0,
-        FLY,
-        WALK,
-        NONE,
-        USER
-    };
-
-    enum State
-    {
-        IDLE=0,
-        ROTATING,
-        TRANSLATING_XY,
-        TRANSLATING_Z,
-
-        TRANSLATING_ZPLUS=10,
-        TRANSLATING_ZMINUS
-    };
-
-    enum MouseButton
-    {
-        LEFT_MOUSE=0,
-        MIDDLE_MOUSE,
-        RIGHT_MOUSE,
-        UP_MOUSE,
-        DOWN_MOUSE
-    };
-
-    enum Key
-    {
-        LEFT=0,
-        RIGHT,
-        FORWARDS,
-        BACKWARDS,
-        LEFTROT,
-        RIGHTROT
-    };
-
-
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    Navigator();
+    Navigator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~Navigator();
+    virtual ~Navigator(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

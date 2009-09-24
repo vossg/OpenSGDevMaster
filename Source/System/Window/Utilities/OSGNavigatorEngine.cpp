@@ -43,6 +43,7 @@
 
 #include "OSGNavigatorEngine.h"
 
+#include "OSGNavigator.h"
 #include "OSGNode.h"
 #include "OSGCamera.h"
 #include "OSGBackground.h"
@@ -77,7 +78,7 @@ NavigatorEngine::~NavigatorEngine()
 
 /*------------------------------ get --------------------------------------*/
 
-Navigator::State NavigatorEngine::getState(void) const
+NavigatorBase::State NavigatorEngine::getState(void) const
 {
     return _currentState;
 }

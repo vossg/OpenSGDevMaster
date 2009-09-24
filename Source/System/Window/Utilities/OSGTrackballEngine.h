@@ -43,6 +43,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class Navigator;
+
 /*! \brief TrackballEngine provides the trackball navigator functionality.
 */
 class OSG_UTIL_DLLMAPPING TrackballEngine : public NavigatorEngine
