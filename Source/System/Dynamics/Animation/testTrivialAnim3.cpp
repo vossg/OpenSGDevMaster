@@ -156,11 +156,11 @@ void buildAnimTemplate(void)
     data2->editMFInValues()->push_back(5.f);
     data2->editMFInValues()->push_back(6.f);
 
-    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 0.25f * Pi));
-    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 0.75f * Pi));
-    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 1.25f * Pi));
-    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 1.75f * Pi));
-    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 0.25f * Pi));
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 0.f, 0.f), 0.25f * Pi));
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 0.f, 0.f), 0.75f * Pi));
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 0.f, 0.f), 1.25f * Pi));
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 0.f, 0.f), 1.75f * Pi));
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 0.f, 0.f), 0.25f * Pi));
 
     at1->editMFSources  ()->push_back(data2);
     at1->editMFTargetIds()->push_back("xform0.rotation");
