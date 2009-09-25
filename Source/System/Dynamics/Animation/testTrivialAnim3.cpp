@@ -127,9 +127,9 @@ void buildAnimTemplate(void)
     g_at0 = at0;
 
     
-    // anim "RotateY"
+    // anim "Rotate"
     AnimKeyFrameTemplateUnrecPtr     at1   = AnimKeyFrameTemplate::create();
-    at1->setName("RotateY");
+    at1->setName("Rotate");
 
     AnimQuaternionDataSourceUnrecPtr data1 = AnimQuaternionDataSource::create();
     data1->editMFInterpolationModes()->push_back(AnimKeyFrameDataSource::IM_Linear);
@@ -147,6 +147,24 @@ void buildAnimTemplate(void)
     at1->editMFSources  ()->push_back(data1);
     at1->editMFTargetIds()->push_back("xform0.rotation");
 
+    AnimQuaternionDataSourceUnrecPtr data2 = AnimQuaternionDataSource::create();
+    data2->editMFInterpolationModes()->push_back(AnimKeyFrameDataSource::IM_Linear);
+
+    data2->editMFInValues()->push_back(2.f);
+    data2->editMFInValues()->push_back(3.f);
+    data2->editMFInValues()->push_back(4.f);
+    data2->editMFInValues()->push_back(5.f);
+    data2->editMFInValues()->push_back(6.f);
+
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 0.25f * Pi));
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 0.75f * Pi));
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 1.25f * Pi));
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 1.75f * Pi));
+    data2->editMFValues()->push_back(Quaternion(Vec3f(1.f, 1.f, 0.f), 0.25f * Pi));
+
+    at1->editMFSources  ()->push_back(data2);
+    at1->editMFTargetIds()->push_back("xform0.rotation");
+
     g_at1 = at1;
 
     std::cout << "\n == buildAnimTemplate == STOP ==" << std::endl;
@@ -161,10 +179,12 @@ void buildAnim(void)
     g_anim.push_back(AnimInfo());
     g_anim.back().on   = false;
     g_anim.back().anim = g_at0->instantiate(root);
+    //g_anim.back().anim->setEnabled(true);
 
     g_anim.push_back(AnimInfo());
     g_anim.back().on   = false;
     g_anim.back().anim = g_at1->instantiate(root);
+    //g_anim.back().anim->setEnabled(true);
 
     std::cout << "\n == buildAnim == STOP ==" << std::endl;
 }
@@ -209,7 +229,7 @@ void display(void)
 
     mgr->redraw();
 
-    osgSleep(200);
+    osgSleep(100);
 }
 
 void reshape(int w, int h)
@@ -272,6 +292,43 @@ void resetAnim(UInt32 index)
     g_anim[index].anim->reset();
 }
 
+void toggleAnimEnable(UInt32 index)
+{
+    std::cout << (!g_anim[index].anim->getEnabled() ? "ENABLE anim " : "DISABLE anim ")
+              << index << std::endl;
+
+    g_anim[index].anim->setEnabled(!g_anim[index].anim->getEnabled());
+}
+
+void increaseTimeScale(UInt32 index)
+{
+    g_anim[index].anim->getTimeSensor()->setTimeScale(
+        1.5 * g_anim[index].anim->getTimeSensor()->getTimeScale());
+
+    std::cout << "TIMESCALE anim " << index 
+              << " - " <<  g_anim[index].anim->getTimeSensor()->getTimeScale()
+              << std::endl;
+}
+
+void decreaseTimeScale(UInt32 index)
+{
+    g_anim[index].anim->getTimeSensor()->setTimeScale(
+        (1/1.5) * g_anim[index].anim->getTimeSensor()->getTimeScale());
+
+    std::cout << "TIMESCALE anim " << index 
+              << " - " <<  g_anim[index].anim->getTimeSensor()->getTimeScale()
+              << std::endl;
+}
+
+void toggleAnimDirection(UInt32 index)
+{
+    std::cout << (!g_anim[index].anim->getTimeSensor()->getForward() ? "FORWARD anim " : "BACKWARD anim ")
+              << index << std::endl;
+
+    g_anim[index].anim->getTimeSensor()->setForward(
+        !g_anim[index].anim->getTimeSensor()->getForward());
+}
+
 
 void keyboard(unsigned char k, int, int)
 {
@@ -284,28 +341,48 @@ void keyboard(unsigned char k, int, int)
         exit(0);
         break;
 
-    case '1':
+    case 'q':
         toggleAnim(0, false);
         break;
-
-    case '2':
-        toggleAnim(1, false);
-        break;
-
-    case 'q':
+    case 'w':
         toggleAnim(0, true);
         break;
-
-    case 'w':
-        toggleAnim(1, true);
+    case 'e':
+        resetAnim(0);
+        break;
+    case 'r':
+        toggleAnimEnable(0);
+        break;
+    case 't':
+        increaseTimeScale(0);
+        break;
+    case 'y':
+        decreaseTimeScale(0);
+        break;
+    case 'u':
+        toggleAnimDirection(0);
         break;
 
     case 'a':
-        resetAnim(0);
+        toggleAnim(1, false);
         break;
-
     case 's':
+        toggleAnim(1, true);
+        break;
+    case 'd':
         resetAnim(1);
+        break;
+    case 'f':
+        toggleAnimEnable(1);
+        break;
+    case 'g':
+        increaseTimeScale(1);
+        break;
+    case 'h':
+        decreaseTimeScale(1);
+        break;
+    case 'j':
+        toggleAnimDirection(1);
         break;
     }
 }

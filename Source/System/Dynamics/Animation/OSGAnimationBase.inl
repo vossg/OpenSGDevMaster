@@ -105,6 +105,31 @@ void AnimationBase::setTemplate(AnimTemplate * const value)
 
     _sfTemplate.setValue(value);
 }
+//! Get the value of the Animation::_sfEnabled field.
+
+inline
+bool &AnimationBase::editEnabled(void)
+{
+    editSField(EnabledFieldMask);
+
+    return _sfEnabled.getValue();
+}
+
+//! Get the value of the Animation::_sfEnabled field.
+inline
+      bool  AnimationBase::getEnabled(void) const
+{
+    return _sfEnabled.getValue();
+}
+
+//! Set the value of the Animation::_sfEnabled field.
+inline
+void AnimationBase::setEnabled(const bool value)
+{
+    editSField(EnabledFieldMask);
+
+    _sfEnabled.setValue(value);
+}
 //! Get the value of the Animation::_sfWeight field.
 
 inline
@@ -160,6 +185,9 @@ void AnimationBase::execSync (      AnimationBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+        _sfEnabled.syncWith(pFrom->_sfEnabled);
 
     if(FieldBits::NoField != (WeightFieldMask & whichField))
         _sfWeight.syncWith(pFrom->_sfWeight);

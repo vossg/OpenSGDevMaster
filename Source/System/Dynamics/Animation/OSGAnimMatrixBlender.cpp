@@ -117,17 +117,22 @@ void AnimMatrixBlender::frame(Time oTime, UInt32 uiFrame)
     MFChannelsType::const_iterator cIt  = _mfChannels.begin();
     MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
 
-    for(UInt32 i = 0; cIt != cEnd; ++cIt, ++i)
+    for(UInt32 i = 0; cIt != cEnd; ++cIt)
     {
-        if(i == 0)
+        if((*cIt)->getEnabled() == true)
         {
-            blendValue =     (*cIt)->getOutValue();
-            blendValue.scale((*cIt)->getWeight  ());
-        }
-        else
-        {
-            blendValue.addScaled((*cIt)->getOutValue(),
-                                 (*cIt)->getWeight  () );
+            if(i == 0)
+            {
+                blendValue =     (*cIt)->getOutValue();
+                blendValue.scale((*cIt)->getWeight  ());
+            }
+            else
+            {
+                blendValue.addScaled((*cIt)->getOutValue(),
+                                     (*cIt)->getWeight  () );
+            }
+
+            ++i;
         }
     }
 

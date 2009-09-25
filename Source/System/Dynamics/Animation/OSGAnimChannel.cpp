@@ -46,6 +46,7 @@
 #include <OSGConfig.h>
 
 #include "OSGAnimChannel.h"
+#include "OSGAnimation.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -108,6 +109,18 @@ void AnimChannel::changed(ConstFieldMaskArg whichField,
     }
 
     Inherited::changed(whichField, origin, details);
+}
+
+/*! Returns if this channel is enabled. Only enabled channels are
+    considered when blending animation data.
+
+    This is a convenience function that returns the parent animation status.
+ */
+bool AnimChannel::getEnabled(void) const
+{
+    OSG_ASSERT(_sfAnimation.getValue() != NULL);
+
+    return _sfAnimation.getValue()->getEnabled();
 }
 
 void AnimChannel::dump(      UInt32    ,

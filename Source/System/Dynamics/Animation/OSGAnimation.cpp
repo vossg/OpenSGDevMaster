@@ -104,14 +104,14 @@ void Animation::changed(ConstFieldMaskArg whichField,
                         UInt32            origin,
                         BitVector         details)
 {
-    if(0 != ((WeightFieldMask | ChannelsFieldMask) & whichField))
+    if(0 != ((ChannelsFieldMask | WeightFieldMask)& whichField))
     {
         MFChannelsType::const_iterator cIt  = _mfChannels.begin();
         MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
 
         for(; cIt != cEnd; ++cIt)
         {
-            (*cIt)->setWeight(_sfWeight.getValue());
+            (*cIt)->setWeight (_sfWeight .getValue());
         }
     }
 
@@ -162,6 +162,9 @@ Real32 Animation::getLength(void) const
     return length;
 }
 
+/*! Start playing this animation once at the given point in time.
+    Does not reset the animation.
+ */
 void Animation::start(Time startTime)
 {
     OSG_ASSERT(_sfTimeSensor.getValue() != NULL);
@@ -175,6 +178,9 @@ void Animation::start(Time startTime)
     ts->setLoop       (false      );
 }
 
+/*! Start playing this animation in a loop at the given point in time.
+    Does not reset the animation.
+ */
 void Animation::startLoop(Time startTime)
 {
     OSG_ASSERT(_sfTimeSensor.getValue() != NULL);
@@ -188,6 +194,9 @@ void Animation::startLoop(Time startTime)
     ts->setLoop       (true       );
 }
 
+/*! Reset the animation to its initial position.
+    Does not stop the animation.
+ */
 void Animation::reset(void)
 {
     OSG_ASSERT(_sfTimeSensor.getValue() != NULL);
@@ -199,6 +208,8 @@ void Animation::reset(void)
     ts->setFraction (0.f          );
 }
 
+/*! Stop playing the animation.
+ */
 void Animation::stop(void)
 {
     OSG_ASSERT(_sfTimeSensor.getValue() != NULL);
@@ -214,25 +225,17 @@ void Animation::timeSensorChanged(FieldContainer *fc, BitVector whichField)
 
     OSG_ASSERT(fc == ts);
 
-    if(0 != (AnimTimeSensor::FractionFieldMask & whichField))
+    if(0 != (AnimTimeSensor::AnimTimeFieldMask & whichField))
     {
         MFChannelsType::const_iterator cIt  = _mfChannels.begin();
         MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
             
+        SLOG << "Animation::timeSensorChanged: " << ts->getAnimTime()
+             << std::endl;
+
         for(; cIt != cEnd; ++cIt)
         {
-            // TS is active or just went inactive (end of cycle)
-            if( ts->getIsActive()                               == true ||
-               (AnimTimeSensor::IsActiveFieldMask & whichField) != 0      )
-            {
-
-                SLOG << "Animation::timeSensorChanged: "
-                     << (ts->getFraction() * ts->getCycleLength())
-                     << " " << ts->getAnimTime()
-                     << std::endl;
-
-                (*cIt)->setInValue(ts->getAnimTime());
-            }
+            (*cIt)->setInValue(ts->getAnimTime());
         }
     }
 }

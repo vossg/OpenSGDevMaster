@@ -122,12 +122,15 @@ void AnimVec3fBlender::frame(Time oTime, UInt32 uiFrame)
 
     for(UInt32 i = 0; cIt != cEnd; ++cIt, ++i)
     {
-        blendValue += (*cIt)->getWeight() * (*cIt)->getOutValue();
+        if((*cIt)->getEnabled() == true)
+        {
+            blendValue += (*cIt)->getWeight() * (*cIt)->getOutValue();
 
-        FDEBUG((" channel [%d] - w [%f] v [%f %f %f] - b [%f %f %f]\n",
-                i, (*cIt)->getWeight(),
-                (*cIt)->getOutValue()[0], (*cIt)->getOutValue()[1], (*cIt)->getOutValue()[2],
-                blendValue[0], blendValue[1], blendValue[2]));
+            FDEBUG((" channel [%d] - w [%f] v [%f %f %f] - b [%f %f %f]\n",
+                    i, (*cIt)->getWeight(),
+                    (*cIt)->getOutValue()[0], (*cIt)->getOutValue()[1], (*cIt)->getOutValue()[2],
+                    blendValue[0], blendValue[1], blendValue[2]));
+        }
     }
 
     setOutValue(blendValue);

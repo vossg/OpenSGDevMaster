@@ -68,7 +68,7 @@
 #include "OSGAnimTimeSensorFields.h"    // TimeSensor type
 #include "OSGAnimTemplateFields.h"      // Template type
 #include "OSGAnimChannelFields.h"       // Channels type
-#include "OSGSysFields.h"               // Weight type
+#include "OSGSysFields.h"               // Enabled type
 
 #include "OSGAnimationFields.h"
 
@@ -99,7 +99,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
         TimeSensorFieldId = Inherited::NextFieldId,
         TemplateFieldId = TimeSensorFieldId + 1,
         ChannelsFieldId = TemplateFieldId + 1,
-        WeightFieldId = ChannelsFieldId + 1,
+        EnabledFieldId = ChannelsFieldId + 1,
+        WeightFieldId = EnabledFieldId + 1,
         NextFieldId = WeightFieldId + 1
     };
 
@@ -109,6 +110,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << TemplateFieldId);
     static const OSG::BitVector ChannelsFieldMask =
         (TypeTraits<BitVector>::One << ChannelsFieldId);
+    static const OSG::BitVector EnabledFieldMask =
+        (TypeTraits<BitVector>::One << EnabledFieldId);
     static const OSG::BitVector WeightFieldMask =
         (TypeTraits<BitVector>::One << WeightFieldId);
     static const OSG::BitVector NextFieldMask =
@@ -117,6 +120,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     typedef SFUnrecAnimTimeSensorPtr SFTimeSensorType;
     typedef SFUnrecAnimTemplatePtr SFTemplateType;
     typedef MFUnrecChildAnimChannelPtr MFChannelsType;
+    typedef SFBool            SFEnabledType;
     typedef SFReal32          SFWeightType;
 
     /*---------------------------------------------------------------------*/
@@ -147,6 +151,9 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
             const MFUnrecChildAnimChannelPtr *getMFChannels       (void) const;
                   MFUnrecChildAnimChannelPtr *editMFChannels       (void);
 
+                  SFBool              *editSFEnabled        (void);
+            const SFBool              *getSFEnabled         (void) const;
+
                   SFReal32            *editSFWeight         (void);
             const SFReal32            *getSFWeight          (void) const;
 
@@ -154,6 +161,9 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
                   AnimTemplate * getTemplate       (void) const;
 
                   AnimChannel * getChannels       (const UInt32 index) const;
+
+                  bool                &editEnabled        (void);
+                  bool                 getEnabled         (void) const;
 
                   Real32              &editWeight         (void);
                   Real32               getWeight          (void) const;
@@ -164,6 +174,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     /*! \{                                                                 */
 
             void setTemplate       (AnimTemplate * const value);
+            void setEnabled        (const bool value);
             void setWeight         (const Real32 value);
 
     /*! \}                                                                 */
@@ -238,6 +249,7 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     SFUnrecAnimTimeSensorPtr _sfTimeSensor;
     SFUnrecAnimTemplatePtr _sfTemplate;
     MFUnrecChildAnimChannelPtr _mfChannels;
+    SFBool            _sfEnabled;
     SFReal32          _sfWeight;
 
     /*! \}                                                                 */
@@ -281,6 +293,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimationBase : public AttachmentContainer
     EditFieldHandlePtr editHandleTemplate       (void);
     GetFieldHandlePtr  getHandleChannels        (void) const;
     EditFieldHandlePtr editHandleChannels       (void);
+    GetFieldHandlePtr  getHandleEnabled         (void) const;
+    EditFieldHandlePtr editHandleEnabled        (void);
     GetFieldHandlePtr  getHandleWeight          (void) const;
     EditFieldHandlePtr editHandleWeight         (void);
 

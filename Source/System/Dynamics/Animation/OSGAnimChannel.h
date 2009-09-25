@@ -74,7 +74,8 @@ class OSG_DYNAMICS_DLLMAPPING AnimChannel : public AnimChannelBase
     /*! \name                   Evaluation                                 */
     /*! \{                                                                 */
 
-    virtual void evaluate(void) = 0;
+    virtual void evaluate  (void)       = 0;
+            bool getEnabled(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

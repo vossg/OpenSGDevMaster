@@ -136,21 +136,37 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
     {
         if(oTime < startT)
         {
-            setFraction(0.f);
-            setAnimTime(0.f);
-
             if(getIsActive() == true)
+            {
+                SLOG << "ATS: start < stop, BEFORE startT, deactivating" << std::endl;
+
+                setFraction(0.f  );
+                setAnimTime(0.f  );
                 setIsActive(false);
+            }
 
             return;
         }
         else if(oTime > stopT)
         {
-            setFraction(1.f   );
-            setAnimTime(length);
-
             if(getIsActive() == true)
-                setIsActive(false);
+            {
+                SLOG << "ATS: start < stop, AFTER stopT";
+
+                setFraction(1.f   );
+                setAnimTime(length);
+
+                // only deactivate the second time oTime > stopT
+                // to propagate the final state
+                if(currT > stopT)
+                {
+                    PLOG << ", deactivating";
+
+                    setIsActive(false);
+                }
+
+                PLOG << std::endl;
+            }
 
             return;
         }
@@ -170,11 +186,14 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
     {
         if(oTime < startT)
         {
-            setFraction(0.f);
-            setAnimTime(0.f);
-
             if(getIsActive() == true)
+            {
+                SLOG << "ATS: start >= stop, BEFORE startT, deactivating" << std::endl;
+
+                setFraction(0.f  );
+                setAnimTime(0.f  );
                 setIsActive(false);
+            }
 
             return;
         }
@@ -193,52 +212,79 @@ void AnimTimeSensor::frame(Time oTime, UInt32 uiFrame)
 
     // use deltaT to update
 
-    Real32 animT = getAnimTime();
+    Real32 oldAnimT = getAnimTime();
+    Real32 newAnimT = getAnimTime();
 
     if(getForward() == true)
     {
-        animT += getTimeScale() * deltaT;
+        newAnimT += getTimeScale() * deltaT;
     }
     else
     {
-        animT -= getTimeScale() * deltaT;
+        newAnimT -= getTimeScale() * deltaT;
     }
 
     if(getLoop() == true)
     {
-        animT = osgMod<Real64>(animT, length);
+        newAnimT = osgMod<Real64>(newAnimT, length);
         
-        while(animT < 0.f)
-            animT += length;
+        while(newAnimT < 0.f)
+            newAnimT += length;
 
-        setAnimTime(animT         );
-        setFraction(animT / length);
+        setAnimTime(newAnimT         );
+        setFraction(newAnimT / length);
 
         if(getIsActive() == false)
             setIsActive(true);
     }
     else
     {
-        if(animT < 0.f)
+        if(newAnimT < 0.f)
         {
-            setAnimTime(0.f);
-            setFraction(0.f);
-
             if(getIsActive() == true)
-                setIsActive(false);
+            {
+                SLOG << "ATS: start >= stop, newAnimT < 0";
+
+                setAnimTime(0.f);
+                setFraction(0.f);
+
+                // only deactivate the second time newAnimT < 0.f
+                // to propagate the final state
+                if(oldAnimT <= 0.f)
+                {
+                    PLOG << ", deactivating";
+
+                    setIsActive(false);
+                }
+
+                PLOG << std::endl;
+            }
         }
-        else if(animT > length)
+        else if(newAnimT > length)
         {
-            setAnimTime(length);
-            setFraction(1.f   );
-
             if(getIsActive() == true)
-                setIsActive(false);
+            {
+                SLOG << "ATS: start >= stop, newAnimT > length";
+
+                setAnimTime(length);
+                setFraction(1.f   );
+
+                // only deactivate the second time newAnimT > length
+                // to propagate the final state
+                if(oldAnimT >= length)
+                {
+                    PLOG << ", deactivating";
+
+                    setIsActive(false);
+                }
+
+                PLOG << std::endl;
+            }
         }
         else
         {
-            setAnimTime(animT         );
-            setFraction(animT / length);
+            setAnimTime(newAnimT         );
+            setFraction(newAnimT / length);
 
             if(getIsActive() == false)
                 setIsActive(true);

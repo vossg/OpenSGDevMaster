@@ -46,6 +46,17 @@
      >
   </Field>
   <Field
+     name="enabled"
+     type="bool"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="false"
+     fieldFlags="FThreadLocal"
+     >
+  </Field>
+  <Field
      name="weight"
      category="data"
      type="Real32"

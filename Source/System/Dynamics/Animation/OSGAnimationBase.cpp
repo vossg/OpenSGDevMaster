@@ -97,6 +97,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var bool            AnimationBase::_sfEnabled
+    
+*/
+
 /*! \var Real32          AnimationBase::_sfWeight
     
 */
@@ -193,6 +197,18 @@ void AnimationBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "enabled",
+        "",
+        EnabledFieldId, EnabledFieldMask,
+        false,
+        (Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&Animation::editHandleEnabled),
+        static_cast<FieldGetMethodSig >(&Animation::getHandleEnabled));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new SFReal32::Description(
         SFReal32::getClassType(),
         "weight",
@@ -262,6 +278,17 @@ AnimationBase::TypeObject AnimationBase::_type(
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"enabled\"\n"
+    "     type=\"bool\"\n"
+    "     category=\"data\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"false\"\n"
     "     fieldFlags=\"FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
@@ -338,6 +365,19 @@ MFUnrecChildAnimChannelPtr *AnimationBase::editMFChannels       (void)
 
     return &_mfChannels;
 }
+
+SFBool *AnimationBase::editSFEnabled(void)
+{
+    editSField(EnabledFieldMask);
+
+    return &_sfEnabled;
+}
+
+const SFBool *AnimationBase::getSFEnabled(void) const
+{
+    return &_sfEnabled;
+}
+
 
 SFReal32 *AnimationBase::editSFWeight(void)
 {
@@ -427,6 +467,10 @@ UInt32 AnimationBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfChannels.getBinSize();
     }
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+    {
+        returnValue += _sfEnabled.getBinSize();
+    }
     if(FieldBits::NoField != (WeightFieldMask & whichField))
     {
         returnValue += _sfWeight.getBinSize();
@@ -452,6 +496,10 @@ void AnimationBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfChannels.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+    {
+        _sfEnabled.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (WeightFieldMask & whichField))
     {
         _sfWeight.copyToBin(pMem);
@@ -474,6 +522,10 @@ void AnimationBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ChannelsFieldMask & whichField))
     {
         _mfChannels.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (EnabledFieldMask & whichField))
+    {
+        _sfEnabled.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (WeightFieldMask & whichField))
     {
@@ -609,6 +661,7 @@ AnimationBase::AnimationBase(void) :
     _mfChannels               (this,
                           ChannelsFieldId,
                           AnimChannel::AnimationFieldId),
+    _sfEnabled                (bool(false)),
     _sfWeight                 (Real32(1.f))
 {
 }
@@ -620,6 +673,7 @@ AnimationBase::AnimationBase(const AnimationBase &source) :
     _mfChannels               (this,
                           ChannelsFieldId,
                           AnimChannel::AnimationFieldId),
+    _sfEnabled                (source._sfEnabled                ),
     _sfWeight                 (source._sfWeight                 )
 {
 }
@@ -784,6 +838,31 @@ EditFieldHandlePtr AnimationBase::editHandleChannels       (void)
                     static_cast<Animation *>(this)));
 
     editMField(ChannelsFieldMask, _mfChannels);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr AnimationBase::getHandleEnabled         (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
+             const_cast<AnimationBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr AnimationBase::editHandleEnabled        (void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfEnabled,
+             this->getType().getFieldDesc(EnabledFieldId),
+             this));
+
+
+    editSField(EnabledFieldMask);
 
     return returnValue;
 }

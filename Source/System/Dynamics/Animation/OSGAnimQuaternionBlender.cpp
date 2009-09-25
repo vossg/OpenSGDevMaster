@@ -119,10 +119,13 @@ void AnimQuaternionBlender::frame(Time oTime, UInt32 uiFrame)
 
     for(; cIt != cEnd; ++cIt)
     {
-        Quaternion temp((*cIt)->getOutValue());
-        temp.scaleAngle((*cIt)->getWeight  ());
+        if((*cIt)->getEnabled() == true)
+        {
+            Quaternion temp((*cIt)->getOutValue());
+            temp.scaleAngle((*cIt)->getWeight  ());
 
-        blendValue.mult(temp);
+            blendValue.mult(temp);
+        }
     }
 
     setOutValue(blendValue);
