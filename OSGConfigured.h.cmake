@@ -79,6 +79,8 @@ OSG_END_NAMESPACE
 /* Use elf tls with pthreads. */
 #cmakedefine OSG_PTHREAD_ELF_TLS 1
 #cmakedefine OSG_WIN32_ASPECT_USE_LOCALSTORAGE 1
+#cmakedefine OSG_ENABLE_AUTOINIT_THREADS 1
+#cmakedefine OSG_ENABLE_MTDESTRUCT_ONEXIT 1
 
 #cmakedefine OSG_DEPRECATED_PROPS 1
 

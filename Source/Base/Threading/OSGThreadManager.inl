@@ -136,12 +136,14 @@ void MPFieldStore<MPFieldT>::clear(void)
     // don't delete objects that are refcounted - rather leak them
     // than destroying an object with active references to it.
 
-//     while(gIt != _mFieldMap.end())
-//     {
-//         delete (*gIt).second;
+#ifdef OSG_ENABLE_MTDESTRUCT_ONEXIT
+     while(gIt != _mFieldMap.end())
+     {
+         delete (*gIt).second;
 
-//         ++gIt;
-//     }
+         ++gIt;
+     }
+#endif
 
     _mFieldMap.clear();
 }

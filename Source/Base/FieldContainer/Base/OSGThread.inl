@@ -66,6 +66,12 @@ BitVector ThreadCommonBase::getLocalFlags(void)
 }
 
 inline
+void ThreadCommonBase::setFallbackAspectId(UInt32 uiId)
+{
+    _uiFallbackAspectId = uiId;
+}
+
+inline
 void ThreadCommonBase::setAspect(UInt32 uiAspectId)
 {
     _uiAspectId = uiAspectId;
@@ -167,6 +173,7 @@ void SprocBase::setAspectTo(UInt32 uiNewAspect)
 /*-------------------------------------------------------------------------*/
 /*                                Get                                      */
 
+#if 0
 inline
 UInt32 WinThreadBase::getCurrentAspect(void)
 {
@@ -222,6 +229,7 @@ BitVector WinThreadBase::getCurrentLocalFlags(void)
     return _bLocalFlagsLocal;
 #endif
 }
+#endif
 
 inline
 void WinThreadBase::setAspectTo(UInt32 uiNewAspect)

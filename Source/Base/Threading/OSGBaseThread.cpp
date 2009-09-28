@@ -107,11 +107,32 @@ pthread_key_t BasePThreadBase::_threadKey;
 BaseThread *BasePThreadBase::getCurrent(void)
 {
 #ifdef OSG_PTHREAD_ELF_TLS
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(_pLocalThread == NULL)
+    {
+        BasePThreadBase *pThread = dynamic_cast<BaseThread *>(
+            ThreadManager::the()->getThread(NULL, "OSGThread"));
+
+        pThread->doAutoInit();
+    }
+# endif
     return _pLocalThread;
 #else
     BaseThread **pThread;
 
-    pThread = (BaseThread **) pthread_getspecific(_threadKey);
+    pThread = static_cast<BaseThread **>(pthread_getspecific(_threadKey));
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pThread == NULL)
+    {
+        BasePThreadBase *pT = dynamic_cast<BaseThread *>(
+            ThreadManager::the()->getThread(NULL, "OSGThread"));
+
+        pT->doAutoInit();
+
+        pThread = static_cast<BaseThread **>(pthread_getspecific(_threadKey));
+    }
+#endif
 
     return *pThread;
 #endif
@@ -149,7 +170,15 @@ void BasePThreadBase::freeThread(void *pThread)
 {
     BaseThread **pT = static_cast<BaseThread **>(pThread);
 
-    delete pT;
+    if(pT != NULL)
+    {
+        if(*pT != NULL)
+            OSG::subRef(*pT);
+
+        delete pT;
+    }
+
+    pthread_setspecific(_threadKey, NULL);
 }
 #endif
 
@@ -188,9 +217,9 @@ void BasePThreadBase::setupThread(void)
 #else
     BaseThread **pThread = new BaseThread *;
 
-    *pThread = (BaseThread *) this;
+    *pThread = static_cast<BaseThread *>(this);
 
-    pthread_setspecific(_threadKey, (void *) pThread);
+    pthread_setspecific(_threadKey, static_cast<void *>(pThread));
 #endif
 }
 
@@ -201,6 +230,10 @@ void BasePThreadBase::setupBlockCond(void)
 
     pthread_cond_init (_pBlockCond, NULL);
     pthread_mutex_init(_pBlockMutex, NULL);
+}
+
+void BasePThreadBase::doAutoInit(void)
+{
 }
 
 void BasePThreadBase::init(void)
@@ -228,9 +261,13 @@ void BasePThreadBase::shutdown(void)
 #if !defined(OSG_PTHREAD_ELF_TLS)
     BaseThread **pThread;
 
-    pThread = (BaseThread **) pthread_getspecific(_threadKey);
+    pThread = static_cast<BaseThread **>(pthread_getspecific(_threadKey));
 
     delete pThread;
+
+    pthread_setspecific(_threadKey, NULL);
+#else
+    _pLocalThread = NULL;
 #endif
 
     // TODO release key value, block cond
@@ -483,6 +520,8 @@ void BaseWinThreadBase::threadFunc(void *pThreadArg)
                 
                 threadFuncF(pArgs[1]);
             }
+
+            static_cast<BaseThread *>(pArgs[2])->shutdown();
         }
     }
 }
@@ -508,6 +547,55 @@ BaseWinThreadBase::~BaseWinThreadBase(void)
 {
 }
 
+BaseThread *BaseWinThreadBase::getCurrent(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BaseThread **pThread;
+
+    pThread = static_cast<BaseThread **>(TlsGetValue(_threadKey));
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pThread == NULL)
+    {
+        BaseWinThreadBase *pT = dynamic_cast<BaseThread *>(
+            ThreadManager::the()->getThread(NULL, "OSGThread"));
+
+        pT->doAutoInit();
+
+        pThread = (BaseThread **) TlsGetValue(_threadKey);
+    }
+#endif
+
+    return *pThread;
+#else
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(_pThreadLocal == NULL)
+    {
+        BaseWinThreadBase *pThread = dynamic_cast<BaseThread *>(
+            ThreadManager::the()->getThread(NULL, "OSGThread"));
+
+        pThread->doAutoInit();
+    }
+# endif
+
+    return _pThreadLocal;
+#endif
+}
+
+
+BaseThread *BaseWinThreadBase::getCurrentInternal(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BaseThread **pThread;
+
+    pThread = static_cast<BaseThread **>(TlsGetValue(_threadKey));
+
+    return (pThread != NULL) ? *pThread : NULL;
+#else
+    return _pThreadLocal;
+#endif
+}
+
 /*--------------------------- Construction --------------------------------*/
 
 void BaseWinThreadBase::init(void)
@@ -526,6 +614,16 @@ void BaseWinThreadBase::shutdown(void)
         return;
 
     // TODO delet key value
+
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BaseThread **pThread = static_cast<BaseThread **>(TlsGetValue(_threadKey));
+
+    delete pThread;
+
+    TlsSetValue(_threadKey, NULL);
+#else
+    _pThreadLocal = NULL;
+#endif
     
     _bInitialized = false;
 }
@@ -553,6 +651,10 @@ void BaseWinThreadBase::setupThread(void)
 #else
     _pThreadLocal = (BaseThread *) this;
 #endif
+}
+
+void BaseWinThreadBase::doAutoInit(void)
+{
 }
 
 /*------------------------------ Join -------------------------------------*/
@@ -662,8 +764,8 @@ void BaseThread::initThreading(void)
 #if defined(OSG_USE_PTHREADS) && !defined(OSG_PTHREAD_ELF_TLS)
     int rc;
 
-    rc = pthread_key_create(&(BaseThread::_threadKey), NULL);
-//                              BaseThread::freeThread);
+    rc = pthread_key_create(&(BaseThread::_threadKey), 
+                              BaseThread::freeThread);
 
     FFASSERT((rc == 0), 1, ("Failed to create pthread thread key\n");)
 #endif

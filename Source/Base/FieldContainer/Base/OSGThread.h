@@ -112,6 +112,13 @@ class OSG_BASE_DLLMAPPING ThreadCommonBase : public BaseThread
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
+    static void setFallbackAspectId(UInt32 uiId);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
 #ifdef OSG_THREAD_DEBUG_SETASPECTTO
     void replaceChangelist(ChangeList *pNewList);
 #endif
@@ -122,6 +129,8 @@ class OSG_BASE_DLLMAPPING ThreadCommonBase : public BaseThread
   protected:
 
     typedef BaseThread Inherited;
+
+    static UInt32 _uiFallbackAspectId;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
@@ -195,6 +204,10 @@ class PThreadBase : public ThreadCommonBase
 
     typedef ThreadCommonBase Inherited;
 
+#ifdef OSG_ENABLE_AUTOINIT_THREADS
+    static void autoCleanup(void *);
+#endif
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
@@ -208,8 +221,8 @@ class PThreadBase : public ThreadCommonBase
     static pthread_key_t  _aspectKey;
     static pthread_key_t  _changeListKey;
     static pthread_key_t  _namespaceMaskKey;
-    static pthread_key_t  _localFlagsKey;
 #endif
+    static pthread_key_t  _localFlagsKey;
 
 #if !defined(OSG_PTHREAD_ELF_TLS)
     /*! \}                                                                 */
@@ -259,6 +272,8 @@ class PThreadBase : public ThreadCommonBase
             void setupChangeList(void);
             void setupMasks     (void);
             void setupLocalFlags(void);
+
+    virtual void doAutoInit     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -384,6 +399,10 @@ typedef SprocBase ThreadBase;
 
 #ifdef OSG_USE_WINTHREADS
 
+#ifdef OSG_ENABLE_AUTOINIT_THREADS
+static void doThreadInit(void);
+#endif
+
 /*! \ingroup GrpBaseMultiThreading
     \ingroup GrpLibOSGBase
  */
@@ -476,6 +495,9 @@ class WinThreadBase : public ThreadCommonBase
     OSG_BASE_DLLMAPPING 
     virtual void init            (void);
 
+    OSG_BASE_DLLMAPPING
+    virtual void shutdown       (void);
+
             OSG_BASE_DLLMAPPING 
             void setupAspect     (void);
 
@@ -487,6 +509,9 @@ class WinThreadBase : public ThreadCommonBase
 
             OSG_BASE_DLLMAPPING 
             void setupLocalFlags(void);
+
+    OSG_BASE_DLLMAPPING 
+    virtual void doAutoInit     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -513,6 +538,9 @@ class WinThreadBase : public ThreadCommonBase
   private:
 
     friend class ThreadManager;
+#ifdef OSG_ENABLE_AUTOINIT_THREADS
+    friend void doThreadInit(void);
+#endif
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     WinThreadBase(const WinThreadBase &source);

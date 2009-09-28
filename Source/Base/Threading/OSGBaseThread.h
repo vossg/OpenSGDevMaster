@@ -202,6 +202,8 @@ class BasePThreadBase : public BaseThreadCommonBase
             void setupThread   (void);
             void setupBlockCond(void);
 
+    virtual void doAutoInit    (void);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Get                                    */
@@ -411,6 +413,10 @@ typedef BaseSprocBase BaseThreadBase;
 
 #ifdef OSG_USE_WINTHREADS
 
+#ifdef OSG_ENABLE_AUTOINIT_THREADS
+static void doThreadCleanup(void);
+#endif
+
 /*! \ingroup GrpBaseMultiThreading
     \ingroup GrpLibOSGBase
  */
@@ -490,6 +496,9 @@ class BaseWinThreadBase : public BaseThreadCommonBase
             OSG_BASE_DLLMAPPING 
             void setupThread      (void                  );
 
+    OSG_BASE_DLLMAPPING 
+    virtual void doAutoInit       (void                  );
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Get                                    */
@@ -497,6 +506,9 @@ class BaseWinThreadBase : public BaseThreadCommonBase
 
     OSG_BASE_DLLMAPPING 
     static BaseThread *getCurrent(void);
+
+    OSG_BASE_DLLMAPPING 
+    static BaseThread *getCurrentInternal(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -551,6 +563,9 @@ class BaseWinThreadBase : public BaseThreadCommonBase
    private:
 
     friend class ThreadManager;
+#ifdef OSG_ENABLE_AUTOINIT_THREADS
+    friend void doThreadCleanup(void);
+#endif
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     BaseWinThreadBase(const BaseWinThreadBase &source);

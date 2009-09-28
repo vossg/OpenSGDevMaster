@@ -63,12 +63,14 @@
 #include <signal.h>
 #endif
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 #ifndef OSG_EMBEDDED
 
 const UInt32 ThreadCommonBase::InvalidAspect = 
     TypeTraits<UInt32>::BitsSet;
+
+UInt32 ThreadCommonBase::_uiFallbackAspectId = 0;
 
 /*-------------------------------------------------------------------------*/
 /*                                 Set                                     */
@@ -114,6 +116,30 @@ ThreadCommonBase::~ThreadCommonBase(void)
 
 #if defined (OSG_USE_PTHREADS)
 
+#ifdef OSG_ENABLE_AUTOINIT_THREADS
+void PThreadBase::autoCleanup(void *pData)
+{
+    UInt32 *pUInt = static_cast<UInt32 *>(pData);
+
+    commitChanges();
+
+    delete pUInt;
+
+    Thread *pThread = Thread::getCurrent();
+
+    if(pThread != NULL)
+    {
+        pThread->shutdown();
+    
+        pThread->subRef();
+    }
+
+#if defined(OSG_PTHREAD_ELF_TLS)
+    _pLocalThread = NULL;
+#endif
+}
+#endif
+
 #if defined(OSG_PTHREAD_ELF_TLS)
 
 __thread UInt32      PThreadBase::_uiTLSAspectId     = 0;
@@ -123,11 +149,14 @@ __thread BitVector   PThreadBase::_bTLSLocalFlags    =
     TypeTraits<BitVector>::BitsClear;
 
 #else
+
 pthread_key_t PThreadBase::_aspectKey;
 pthread_key_t PThreadBase::_changeListKey;
 pthread_key_t PThreadBase::_namespaceMaskKey;
-pthread_key_t PThreadBase::_localFlagsKey;
+
 #endif
+
+pthread_key_t PThreadBase::_localFlagsKey;
 
 /*-------------------------------------------------------------------------*/
 /*                               Free                                      */
@@ -135,34 +164,42 @@ pthread_key_t PThreadBase::_localFlagsKey;
 #if !defined(OSG_PTHREAD_ELF_TLS)
 void PThreadBase::freeAspect(void *pAspect)
 {
-    UInt32 *pUint = (UInt32 *) pAspect;
+    UInt32 *pUint = static_cast<UInt32 *>(pAspect);
 
     if(pUint != NULL)
         delete pUint;
+
+    pthread_setspecific(_aspectKey, NULL);  
 }
 
 void PThreadBase::freeChangeList(void *pChangeList)
 {
-    ChangeList **pCl = (ChangeList **) pChangeList;
+    ChangeList **pCl = static_cast<ChangeList **>(pChangeList);
 
     if(pCl != NULL)
         delete pCl;
+
+    pthread_setspecific(_changeListKey, NULL);  
 }
 
 void PThreadBase::freeNamespaceMask(void *pNamespaceMask)
 {
-    BitVector *pNM = (BitVector *) pNamespaceMask;
+    BitVector *pNM = static_cast<BitVector *>(pNamespaceMask);
 
     if(pNM != NULL)
         delete pNM;
+
+    pthread_setspecific(_namespaceMaskKey, NULL);  
 }
 
 void PThreadBase::freeLocalFlags(void *pLocalFlags)
 {
-    BitVector *pLF = (BitVector *) pLocalFlags;
+    BitVector *pLF = static_cast<BitVector *>(pLocalFlags);
 
     if(pLF != NULL)
         delete pLF;
+
+    pthread_setspecific(_localFlagsKey, NULL);  
 }
 #endif
 
@@ -188,11 +225,31 @@ PThreadBase::~PThreadBase(void)
 UInt32 PThreadBase::getCurrentAspect(void)
 {
 #if defined(OSG_PTHREAD_ELF_TLS)
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(_pTLSChangeList == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+    }
+# endif
+
     return _uiTLSAspectId;
 #else
     UInt32 *pUint;
 
-    pUint = (UInt32 *) pthread_getspecific(_aspectKey);
+    pUint = static_cast<UInt32 *>(pthread_getspecific(_aspectKey));
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pUint == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+
+        pUint = static_cast<UInt32 *>(pthread_getspecific(_aspectKey));
+    }
+# endif
 
     return *pUint;
 #endif
@@ -202,11 +259,33 @@ UInt32 PThreadBase::getCurrentAspect(void)
 ChangeList *PThreadBase::getCurrentChangeList(void)
 {
 #if defined(OSG_PTHREAD_ELF_TLS)
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(_pTLSChangeList == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+    }
+# endif
+
     return _pTLSChangeList;
+
 #else
     ChangeList **pCList;
 
-    pCList = (ChangeList **) pthread_getspecific(_changeListKey);
+    pCList = static_cast<ChangeList **>(pthread_getspecific(_changeListKey));
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pCList == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+
+        pCList = 
+            static_cast<ChangeList **>(pthread_getspecific(_changeListKey));
+    }
+# endif
 
     return *pCList;
 #endif
@@ -219,7 +298,19 @@ BitVector PThreadBase::getCurrentNamespaceMask(void)
 #else
     BitVector *pBitVec;
 
-    pBitVec = (BitVector *) pthread_getspecific(_namespaceMaskKey);
+    pBitVec = static_cast<BitVector *>(pthread_getspecific(_namespaceMaskKey));
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pBitVec == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+
+        pBitVec = 
+            static_cast<BitVector *>(pthread_getspecific(_namespaceMaskKey));
+    }
+# endif
 
     return *pBitVec;
 #endif
@@ -232,7 +323,18 @@ BitVector PThreadBase::getCurrentLocalFlags(void)
 #else
     BitVector *pBitVec;
 
-    pBitVec = (BitVector *) pthread_getspecific(_localFlagsKey);
+    pBitVec = static_cast<BitVector *>(pthread_getspecific(_localFlagsKey));
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pBitVec == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+
+        pBitVec = static_cast<BitVector *>(pthread_getspecific(_localFlagsKey));
+    }
+# endif
 
     return *pBitVec;
 #endif
@@ -245,7 +347,7 @@ void PThreadBase::setAspectTo(UInt32 uiNewAspect)
 #else
     UInt32 *pUint;
 
-    pUint = (UInt32 *) pthread_getspecific(_aspectKey);
+    pUint = static_cast<UInt32 *>(pthread_getspecific(_aspectKey));
 
     *pUint = uiNewAspect;
 #endif
@@ -258,7 +360,7 @@ void PThreadBase::setNamespaceMaskTo(BitVector bNamespaceMask)
 #else
     BitVector *pBitVec;
 
-    pBitVec = (BitVector *) pthread_getspecific(_namespaceMaskKey);
+    pBitVec = static_cast<BitVector *>(pthread_getspecific(_namespaceMaskKey));
 
     *pBitVec = bNamespaceMask;
 #endif
@@ -271,7 +373,7 @@ void PThreadBase::setLocalFlagsTo(BitVector bFlags)
 #else
     BitVector *pBitVec;
 
-    pBitVec = (BitVector *) pthread_getspecific(_localFlagsKey);
+    pBitVec = static_cast<BitVector *>(pthread_getspecific(_localFlagsKey));
 
     *pBitVec = bFlags;
 #endif
@@ -285,7 +387,8 @@ void PThreadBase::setChangelistTo(ChangeList *pNewList)
 #else
     ChangeList **pChangeList = NULL;
 
-    pChangeList = (ChangeList **) pthread_getspecific(_changeListKey);
+    pChangeList = 
+        static_cast<ChangeList **>(pthread_getspecific(_changeListKey));
 
     *pChangeList = pNewList;
 #endif
@@ -316,9 +419,10 @@ void PThreadBase::shutdown(void)
     Inherited::shutdown();
 
 #if !defined(OSG_PTHREAD_ELF_TLS)
+
     UInt32 *pUint;
 
-    pUint = (UInt32 *) pthread_getspecific(_aspectKey);
+    pUint = static_cast<UInt32 *>(pthread_getspecific(_aspectKey));
 
     delete pUint;
 
@@ -327,7 +431,7 @@ void PThreadBase::shutdown(void)
 
     ChangeList **pCList;
 
-    pCList = (ChangeList **) pthread_getspecific(_changeListKey);
+    pCList = static_cast<ChangeList **>(pthread_getspecific(_changeListKey));
 
     delete pCList;
 
@@ -336,17 +440,18 @@ void PThreadBase::shutdown(void)
 
     BitVector *pBitVec;
 
-    pBitVec = (BitVector *) pthread_getspecific(_namespaceMaskKey);
+    pBitVec = static_cast<BitVector *>(pthread_getspecific(_namespaceMaskKey));
 
     delete pBitVec;
 
     pthread_setspecific(_namespaceMaskKey, NULL);  
 
-    pBitVec = (BitVector *) pthread_getspecific(_localFlagsKey);
+    pBitVec = static_cast<BitVector *>(pthread_getspecific(_localFlagsKey));
 
     delete pBitVec;
 
     pthread_setspecific(_localFlagsKey, NULL);  
+
 #endif
 }
 
@@ -360,7 +465,7 @@ void PThreadBase::setupAspect(void)
 
     *pUint = Inherited::_uiAspectId;
 
-    pthread_setspecific(_aspectKey, (void *) pUint);  
+    pthread_setspecific(_aspectKey, static_cast<void *>(pUint));  
 #endif
 }
 
@@ -398,7 +503,7 @@ void PThreadBase::setupChangeList(void)
     }
 
     (*pChangeList)->setAspect(Inherited::_uiAspectId);
-    pthread_setspecific(_changeListKey, (void *) pChangeList);  
+    pthread_setspecific(_changeListKey, static_cast<void *>(pChangeList));  
 #endif
 }
 
@@ -411,7 +516,7 @@ void PThreadBase::setupMasks(void)
 
     *pBitVec = Inherited::_bNamespaceMask;
 
-    pthread_setspecific(_namespaceMaskKey, (void *) pBitVec);  
+    pthread_setspecific(_namespaceMaskKey, static_cast<void *>(pBitVec));  
 #endif
 }
 
@@ -424,7 +529,24 @@ void PThreadBase::setupLocalFlags(void)
 
     *pBitVec = Inherited::_bLocalFlags;
 
-    pthread_setspecific(_localFlagsKey, (void *) pBitVec);  
+    pthread_setspecific(_localFlagsKey, static_cast<void *>(pBitVec));  
+#endif
+}
+
+void PThreadBase::doAutoInit(void)
+{
+    this->init();
+
+    this->setAspect         (_uiFallbackAspectId);
+
+    PThreadBase::setAspectTo(_uiFallbackAspectId);
+
+#if defined(OSG_PTHREAD_ELF_TLS)
+    UInt32 *pUint = new UInt32;
+
+    *pUint = 0;
+
+    pthread_setspecific(_localFlagsKey, static_cast<void *>(pUint));  
 #endif
 }
 
@@ -578,6 +700,111 @@ WinThreadBase::~WinThreadBase(void)
 /*-------------------------------------------------------------------------*/
 /*                                Run                                      */
 
+UInt32 WinThreadBase::getCurrentAspect(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    UInt32 *pUint;
+
+    pUint = (UInt32 *) TlsGetValue(_aspectKey);
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pUint == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+
+        pUint = (UInt32 *) TlsGetValue(_aspectKey);
+    }
+# endif
+
+    return *pUint;
+#else
+    return _uiAspectLocal;
+#endif
+}
+
+ChangeList *WinThreadBase::getCurrentChangeList(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    ChangeList **pCList;
+
+    pCList = (ChangeList **) TlsGetValue(_changeListKey);
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pCList == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+
+        pCList = (ChangeList **) TlsGetValue(_changeListKey);
+    }
+# endif
+
+    return *pCList;
+#else
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(_pChangeListLocal == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+    }
+# endif
+
+    return _pChangeListLocal;
+#endif
+}
+
+BitVector WinThreadBase::getCurrentNamespaceMask(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) TlsGetValue(_namespaceMaskKey);
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pBitVec == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+
+        pBitVec = (BitVector *) TlsGetValue(_namespaceMaskKey);
+    }
+# endif
+
+    return *pBitVec;
+#else
+    return _bNamespaceMaskLocal;
+#endif
+}
+
+BitVector WinThreadBase::getCurrentLocalFlags(void)
+{
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) TlsGetValue(_localFlagsKey);
+
+# ifdef OSG_ENABLE_AUTOINIT_THREADS
+    if(pBitVec == NULL)
+    {
+        Thread *pThread = Thread::get(NULL);
+
+        pThread->doAutoInit();
+
+        pBitVec = (BitVector *) TlsGetValue(_localFlagsKey);
+    }
+# endif
+
+    return *pBitVec;
+#else
+    return _bLocalFlagsLocal;
+#endif
+}
+
 /*-------------------------------------------------------------------------*/
 /*                               Setup                                     */
 
@@ -595,6 +822,46 @@ void WinThreadBase::init(void)
         setupMasks     ();
         setupLocalFlags();
     }
+}
+
+void WinThreadBase::shutdown(void)
+{
+    Inherited::shutdown();
+
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    UInt32 *pUint;
+
+    pUint = static_cast<UInt32 *>(TlsGetValue(_aspectKey));
+
+    delete pUint;
+
+    TlsSetValue(_aspectKey, NULL);
+
+
+    ChangeList **pCList;
+
+    pCList = (ChangeList **) TlsGetValue(_changeListKey);
+
+    delete pCList;
+
+    TlsSetValue(_changeListKey, NULL);
+
+
+    BitVector *pBitVec;
+
+    pBitVec = (BitVector *) TlsGetValue(_namespaceMaskKey);
+
+    delete pBitVec;
+
+    TlsSetValue(_namespaceMaskKey, NULL);
+
+
+    pBitVec = (BitVector *) TlsGetValue(_localFlagsKey);
+
+    delete pBitVec;
+
+    TlsSetValue(_localFlagsKey, NULL);
+#endif
 }
 
 void WinThreadBase::setupAspect(void)
@@ -673,6 +940,15 @@ void WinThreadBase::setupLocalFlags(void)
 #endif
 }
 
+void WinThreadBase::doAutoInit(void)
+{
+    this->init();
+
+    this->setAspect           (_uiFallbackAspectId);
+
+    WinThreadBase::setAspectTo(_uiFallbackAspectId);
+}
+
 #endif /* OSG_USE_WINTHREADS */
 
 
@@ -742,28 +1018,37 @@ void Thread::initThreading(void)
 {
     FINFO(("Thread::initThreading\n"))
 
-#if defined(OSG_USE_PTHREADS) && !defined(OSG_PTHREAD_ELF_TLS)
+#if defined(OSG_USE_PTHREADS)
+# if !defined(OSG_PTHREAD_ELF_TLS)
     int rc; 
 
-    rc = pthread_key_create(&(Thread::_aspectKey), NULL); 
-//                              Thread::freeAspect);
+    rc = pthread_key_create(&(Thread::_aspectKey), //NULL); 
+                              Thread::freeAspect);
 
     FFASSERT((rc == 0), 1, ("Failed to create pthread aspect key\n");)
 
-    rc = pthread_key_create(&(Thread::_changeListKey), NULL); 
-//                              Thread::freeChangeList);
+    rc = pthread_key_create(&(Thread::_changeListKey), //NULL); 
+                              Thread::freeChangeList);
 
     FFASSERT((rc == 0), 1, ("Failed to create pthread changelist key\n");)
 
-    rc = pthread_key_create(&(Thread::_namespaceMaskKey), NULL); 
-//                              Thread::freeChangeList);
+    rc = pthread_key_create(&(Thread::_namespaceMaskKey), // NULL); 
+                              Thread::freeNamespaceMask);
 
     FFASSERT((rc == 0), 1, ("Failed to create pthread namespaceMask key\n");)
 
-    rc = pthread_key_create(&(Thread::_localFlagsKey), NULL); 
-//                              Thread::freeChangeList);
+    rc = pthread_key_create(&(Thread::_localFlagsKey), //NULL); 
+                              Thread::freeLocalFlags);
 
     FFASSERT((rc == 0), 1, ("Failed to create pthread localFlags key\n");)
+# else
+#  ifdef OSG_ENABLE_AUTOINIT_THREADS
+    int rcd = pthread_key_create(&(Thread::_localFlagsKey), 
+                                 Thread::autoCleanup);
+
+    FFASSERT((rcd == 0), 1, ("Failed to create pthread dummy aspect key\n");)
+#  endif
+# endif
 #endif
 
 #if defined(OSG_USE_WINTHREADS) && defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)       
@@ -886,4 +1171,92 @@ ChangeList *Thread::getCurrentChangeList(void)
 
     return theList;
 }
+#endif
+
+#if defined(OSG_ENABLE_AUTOINIT_THREADS) && defined(WIN32)
+static void doThreadCleanup(void)
+{
+    BaseThread *pThread = NULL;
+
+#ifdef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    BaseThread **pT =  
+		static_cast<BaseThread **>(
+            TlsGetValue(BaseWinThreadBase::_threadKey));
+
+    if(pT != NULL)
+    {
+        pThread = *pT;
+    }
+#else
+    pThread =  BaseThread::_pThreadLocal;
+#endif
+
+    if(pThread != NULL)
+    {
+        pThread->shutdown();
+
+        OSG::subRef(pThread);
+    }
+}
+
+void doThreadInit(void)
+{
+#ifndef OSG_WIN32_ASPECT_USE_LOCALSTORAGE
+    WinThreadBase::_uiAspectLocal = WinThreadBase::_uiFallbackAspectId;
+#endif
+}
+#endif
+
+OSG_END_NAMESPACE
+
+#if defined(OSG_ENABLE_AUTOINIT_THREADS) && defined(WIN32)
+#ifdef __cplusplus    // If used by C++ code, 
+extern "C" {          // we need to export the C interface
+#endif
+
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, // DLL module handle
+                    DWORD fdwReason,    // reason called
+                    LPVOID lpvReserved) // reserved
+{ 
+//    LPVOID lpvData; 
+//    BOOL fIgnore; 
+    
+    switch (fdwReason) 
+    { 
+        // The DLL is loading due to process 
+        // initialization or a call to LoadLibrary. 
+ 
+        case DLL_PROCESS_ATTACH: 
+             break;
+
+        // The attached process creates a new thread. 
+ 
+        case DLL_THREAD_ATTACH: 
+            OSG::doThreadInit();
+            break; 
+ 
+        // The thread of the attached process terminates.
+ 
+        case DLL_THREAD_DETACH: 
+            OSG::doThreadCleanup();
+        break; 
+ 
+        // DLL unload due to process termination or FreeLibrary. 
+ 
+        case DLL_PROCESS_DETACH: 
+            break; 
+ 
+        default: 
+            break; 
+    } 
+ 
+    return TRUE; 
+
+    UNREFERENCED_PARAMETER(hinstDLL); 
+    UNREFERENCED_PARAMETER(lpvReserved); 
+}
+
+#ifdef __cplusplus    // If used by C++ code, 
+}          // we need to export the C interface
+#endif
 #endif

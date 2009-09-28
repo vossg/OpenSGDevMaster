@@ -167,6 +167,7 @@ void BaseSprocBase::kill(void)
 
 /*------------------------------- Get -------------------------------------*/
 
+#if 0
 inline
 BaseThread *BaseWinThreadBase::getCurrent(void)
 {
@@ -180,6 +181,7 @@ BaseThread *BaseWinThreadBase::getCurrent(void)
     return _pThreadLocal;
 #endif
 }
+#endif
 
 /*----------------------------- Blocking ----------------------------------*/
 
@@ -203,7 +205,7 @@ bool BaseWinThreadBase::exists(void)
     bool  returnValue = false;
     DWORD rc          = 0;
 
-    if(BaseWinThreadBase::getCurrent() == this)
+    if(BaseWinThreadBase::getCurrentInternal() == this)
     {
         GetExitCodeThread( _pThreadHandle,
                           &rc            );
@@ -223,7 +225,7 @@ bool BaseWinThreadBase::exists(void)
 inline
 void BaseWinThreadBase::terminate(void)
 {
-    if(BaseWinThreadBase::getCurrent() == this)
+    if(BaseWinThreadBase::getCurrentInternal() == this)
     {
         TerminateThread(_pThreadHandle,   0);
     }
@@ -236,7 +238,7 @@ void BaseWinThreadBase::terminate(void)
 inline
 void BaseWinThreadBase::kill(void)
 {
-    if(BaseWinThreadBase::getCurrent() == this)
+    if(BaseWinThreadBase::getCurrentInternal() == this)
     {
         TerminateThread(_pThreadHandle,   0);
     }
