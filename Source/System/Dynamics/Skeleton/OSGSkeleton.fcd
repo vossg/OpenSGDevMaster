@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="Skeleton"
+   parent="Drawable"
+   library="Dynamics"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   childFields="both"
+   parentFields="both"
+>
+  A Skeleton is one or more meshes (geometries) that are deformed by a set
+  of matrices called joints. All meshes must provide two vertex attributes:
+  One that is used to determine which joints influence the vertex (i.e. the
+  components of the attribute Vec4f are interpreted as integer indices into
+  the boneMatrices array) and one that gives the weight of the used joint.
+  <Field
+     name="joints"
+     type="SkeletonJoint"
+     category="childpointer"
+     linkParentField="Skeleton"
+     cardinality="multi"
+     visibility="external"
+     access="protected"
+     >
+    The joints (or bones) of the skeleton. Sorted by jointId.
+  </Field>
+
+  <Field
+     name="jointMatrices"
+     type="Matrix"
+     category="data"
+     cardinality="multi"
+     visibility="external"
+     access="protected"
+     >
+    Matrices for all joints of the skeleton. Elements correspond to
+    joints at the same index in _mfJoints.
+    These matrices are absolute, not relative to the parent joint.
+  </Field>
+
+  <Field
+     name="meshes"
+     type="Geometry"
+     category="pointer"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    The meshes controlled by this skeleton.
+  </Field>
+
+
+  <Field
+     name="shaderData"
+     type="ShaderProgramVariableChunk"
+     category="pointer"
+     cardinality="single"
+     defaultValue="NULL"
+     visibility="internal"
+     access="protected"
+     >
+    Internal object to pass data to the vertex skinning shader.
+  </Field>
+
+  <Field
+     name="shaderCode"
+     type="ShaderProgramChunk"
+     category="pointer"
+     cardinality="single"
+     defaultValue="NULL"
+     visibility="internal"
+     access="protected"
+     >
+    Internal object to store the vertex skinning shader code.
+  </Field>
+</FieldContainer>

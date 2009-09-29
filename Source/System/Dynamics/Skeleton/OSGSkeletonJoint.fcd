@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="SkeletonJoint"
+   parent="AttachmentContainer"
+   library="Drawable"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   isNodeCore="false"
+   childFields="both"
+   parentFields="both"
+>
+  <Field
+     name="parent"
+     type="SkeletonJoint"
+     category="parentpointer"
+     cardinality="single"
+     defaultValue="NULL"
+     visibility="internal"
+     access="none"
+     >
+    Parent joint.
+  </Field>
+
+  <Field
+     name="children"
+     type="SkeletonJoint"
+     category="childpointer"
+     linkParentField="Parent"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    Children joints.
+  </Field>
+
+  <Field
+     name="skeleton"
+     type="Skeleton"
+     category="parentpointer"
+     cardinality="single"
+     defaultValue="NULL"
+     visibility="internal"
+     access="none"
+     >
+    Parent skeleton.
+  </Field>
+
+  <Field
+     name="jointId"
+     type="Int16"
+     category="data"
+     cardinality="single"
+     defaultValue="SkeletonJoint::AUTO_ID_END"
+     visibility="external"
+     access="public"
+     >
+    Id of the joint in the skeleton, used to assign vertices to joints.
+    The joints in a skeleton must have a unique jointId and they should
+    form an interval (no holes) [0, N].
+    The default SkeletonJoint::AUTO_ID_END gets replaced when adding the joint
+    to a skeleton.
+  </Field>
+
+  <Field
+     name="invBindMatrix"
+     type="Matrix"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     >
+    Inverse of the bind matrix for this joint.
+  </Field>
+
+  <Field
+     name="matrix"
+     type="Matrix"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     >
+    Transformation matrix of this joint.
+  </Field>
+</FieldContainer>
