@@ -74,6 +74,10 @@ IF(OSGFreeGlutSrcDir)
                       GROUP_READ
                       WORLD_READ)
 
+  SET(OSG_GLUT_INCLUDE_DIR ${OSGFreeGlutSrcDir}/include CACHE PATH "")
+  SET(OSG_GLUT_STATIC_LIBRARY ${${PROJECT_NAME}StaticTarget} CACHE STRING "")
+  SET(OSG_GLUT_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
+
 ELSE(OSGFreeGlutSrcDir)
   SET(OSGFreeGlutSrcDir "" CACHE PATH "")
 ENDIF(OSGFreeGlutSrcDir)

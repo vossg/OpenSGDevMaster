@@ -109,3 +109,11 @@ ENDFOREACH(EXTERNAL)
 SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" 
                               CACHE STRING "OpenSGSupport Build Types" FORCE )
 
+FILE(WRITE  "${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake" 
+            "SET(OSG_SUPPORT_DISABLE_MICROSOFT_SECURE_CXXX ${OSG_DISABLE_MICROSOFT_SECURE_CXXX} CACHE INTERNAL \"\")")
+
+  INSTALL(FILES ${CMAKE_BINARY_DIR}/OSGSupportConfig.cmake
+          DESTINATION include
+          PERMISSIONS OWNER_WRITE OWNER_READ
+                      GROUP_READ
+                      WORLD_READ)
