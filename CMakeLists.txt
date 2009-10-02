@@ -476,6 +476,14 @@ IF(NOT OSG_BUILD_DEPENDEND)
 
     OSG_ADD_OPT(VTK_FOUND)
 
+    ##############
+    #### GLEW
+    ##############
+
+    IF(WIN32)
+      OSG_CONFIGURE_GLEW()
+    ENDIF(WIN32)
+
     #############
     #### Python
     #############

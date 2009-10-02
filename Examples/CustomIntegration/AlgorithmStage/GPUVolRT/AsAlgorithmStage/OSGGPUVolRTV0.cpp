@@ -47,10 +47,16 @@
 
 #include <OSGConfig.h>
 
+#if defined (WIN32)
+#include <GL/glew.h>
+#include <GL/wglew.h>
+#endif
+
 #include "OSGGLU.h"
 #include "OSGGPUVolRTV0.h"
 #include "OSGDrawEnv.h"
 #include "Vector3.h"
+
 
 #define VOLUME_TEX_SIZE 128
 
@@ -152,6 +158,10 @@ void GPUVolRTV0::execute(DrawEnv *pEnv)
 
     if(bInitialized == false)
     {
+#if _WIN32
+        glewInit();
+#endif
+
         init(pEnv);
     }
 

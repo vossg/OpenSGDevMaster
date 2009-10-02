@@ -47,6 +47,11 @@
 
 #include <OSGConfig.h>
 
+#if defined (WIN32)
+#include <GL/glew.h>
+#include <GL/wglew.h>
+#endif
+
 #include "OSGGLU.h"
 #include "OSGGPUVolRTV2.h"
 #include "OSGDrawEnv.h"
@@ -130,6 +135,9 @@ void GPUVolRTV2::execute(DrawEnv *pEnv)
 
     if(bInitialized == false)
     {
+#if _WIN32
+        glewInit();
+#endif
         init(pEnv);
     }
 
