@@ -55,7 +55,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <@!HeaderPrefix!@OSGConfig.h>
+#include "@!HeaderPrefix!@OSGConfig.h"
 
 @@AdditionalIncludes@@
 
@@ -76,7 +76,7 @@
 #include "OSG@!Classname!@Base.h"
 #include "OSG@!Classname!@.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
