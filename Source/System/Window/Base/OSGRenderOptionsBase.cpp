@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // PolygonMode default header
+#include "OSGGL.h"                        // PolygonMode default header
 
 
 #include "OSGRenderOptionsBase.h"
@@ -669,7 +669,7 @@ RenderOptionsBase::TypeObject RenderOptionsBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FILL\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

@@ -47,7 +47,7 @@
 #ifdef OSG_WITH_COLLADA
 
 /*! \class OSG::ColladaInstanceElement
-    The base class for all objects representing Collada &lt;instance_*&gt;
+    The base class for all objects representing Collada &quot;instance_*&quot;
     elements in the DOM. It can store a pointer to the instantiated object
     (\c _instElem ) to avoid doing multiple lookups of it through the
     DOM interfaces.

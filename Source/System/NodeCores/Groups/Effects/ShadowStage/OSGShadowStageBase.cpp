@@ -57,10 +57,10 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // Red default header
-#include <OSGGL.h>                        // Blue default header
-#include <OSGGL.h>                        // Green default header
-#include <OSGGL.h>                        // Alpha default header
+#include "OSGGL.h"                        // Red default header
+#include "OSGGL.h"                        // Blue default header
+#include "OSGGL.h"                        // Green default header
+#include "OSGGL.h"                        // Alpha default header
 
 #include "OSGNode.h"                    // LightNodes Class
 
@@ -567,7 +567,7 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_TRUE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDefine whether the red color channel is written to.\n"
@@ -578,7 +578,7 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_TRUE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDefine whether the green color channel is written to.\n"
@@ -589,7 +589,7 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_TRUE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDefine whether the blue color channel is written to.\n"
@@ -600,7 +600,7 @@ ShadowStageBase::TypeObject ShadowStageBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_TRUE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDefine whether the alpha color channel is written to.\n"

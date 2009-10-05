@@ -57,10 +57,10 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // GenFuncS default header
-#include <OSGGL.h>                        // GenFuncT default header
-#include <OSGGL.h>                        // GenFuncR default header
-#include <OSGGL.h>                        // GenFuncQ default header
+#include "OSGGL.h"                        // GenFuncS default header
+#include "OSGGL.h"                        // GenFuncT default header
+#include "OSGGL.h"                        // GenFuncR default header
+#include "OSGGL.h"                        // GenFuncQ default header
 
 #include "OSGNode.h"                    // SBeacon Class
 
@@ -398,7 +398,7 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -408,7 +408,7 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -418,7 +418,7 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
@@ -428,7 +428,7 @@ TexGenChunkBase::TypeObject TexGenChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

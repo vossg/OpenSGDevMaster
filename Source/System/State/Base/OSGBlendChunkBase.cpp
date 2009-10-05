@@ -57,10 +57,10 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // SrcFactor default header
-#include <OSGGL.h>                        // DestFactor default header
-#include <OSGGL.h>                        // Equation default header
-#include <OSGGL.h>                        // AlphaFunc default header
+#include "OSGGL.h"                        // SrcFactor default header
+#include "OSGGL.h"                        // DestFactor default header
+#include "OSGGL.h"                        // Equation default header
+#include "OSGGL.h"                        // AlphaFunc default header
 
 
 #include "OSGBlendChunkBase.h"
@@ -302,7 +302,7 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     "\t\ttype=\"GLenum\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\tdefaultValue=\"GL_ONE\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -313,7 +313,7 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     "\t\ttype=\"GLenum\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\tdefaultValue=\"GL_ZERO\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -324,7 +324,7 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     "\t\ttype=\"GLenum\"\n"
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
@@ -346,7 +346,7 @@ BlendChunkBase::TypeObject BlendChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tThe alphaFunc defines how fragments which do not fulfill a certain condition are handled. \n"

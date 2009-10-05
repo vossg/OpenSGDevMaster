@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // ShaderType default header
+#include "OSGGL.h"                        // ShaderType default header
 #include "OSGChangedFunctorMFields.h"     // DestroyedFunctors default header
 
 #include "OSGShaderProgramVariables.h"  // Variables Class
@@ -292,7 +292,7 @@ ShaderProgramBase::TypeObject ShaderProgramBase::_type(
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     defaultValue=\"GL_NONE\"\n"
-    "     defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "     defaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "     access=\"public\"\n"
     "     >\n"
     "  </Field>\n"

@@ -57,9 +57,9 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // MinFilter default header
-#include <OSGGL.h>                        // MagFilter default header
-#include <OSGGL.h>                        // EnvMode default header
+#include "OSGGL.h"                        // MinFilter default header
+#include "OSGGL.h"                        // MagFilter default header
+#include "OSGGL.h"                        // EnvMode default header
 
 #include "OSGImage.h"                   // Image Class
 
@@ -269,7 +269,7 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_LINEAR_MIPMAP_LINEAR\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR\"\n"
     "\t>\n"
@@ -282,7 +282,7 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_LINEAR\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_NEAREST, GL_LINEAR\"\n"
     "\t>\n"
@@ -295,7 +295,7 @@ SimpleTexturedMaterialBase::TypeObject SimpleTexturedMaterialBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_REPLACE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE\"\n"
     "\t>\n"

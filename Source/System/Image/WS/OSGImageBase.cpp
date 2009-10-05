@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // DataType default header
+#include "OSGGL.h"                        // DataType default header
 
 #include "OSGFieldContainer.h"          // Parents Class
 
@@ -694,7 +694,7 @@ ImageBase::TypeObject ImageBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_UNSIGNED_BYTE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tType of image data.\n"

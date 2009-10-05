@@ -57,8 +57,8 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // GeometryInputType default header
-#include <OSGGL.h>                        // GeometryOutputType default header
+#include "OSGGL.h"                        // GeometryInputType default header
+#include "OSGGL.h"                        // GeometryOutputType default header
 
 #include "OSGShaderProgram.h"           // VertexShader Class
 #include "OSGShaderProgramVariables.h"  // Variables Class
@@ -408,7 +408,7 @@ ShaderExecutableChunkBase::TypeObject ShaderExecutableChunkBase::_type(
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t defaultValue=\"GL_TRIANGLES\"\n"
-    "\t defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t defaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t >\n"
     "  </Field>\n"
     "  <Field\n"
@@ -417,7 +417,7 @@ ShaderExecutableChunkBase::TypeObject ShaderExecutableChunkBase::_type(
     "\t cardinality=\"single\"\n"
     "\t visibility=\"external\"\n"
     "\t defaultValue=\"GL_TRIANGLE_STRIP\"\n"
-    "\t defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t defaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t >\n"
     "  </Field>\n"
     "\n"

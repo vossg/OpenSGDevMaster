@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // Func default header
+#include "OSGGL.h"                        // Func default header
 
 
 #include "OSGDepthChunkBase.h"
@@ -245,7 +245,7 @@ DepthChunkBase::TypeObject DepthChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_LEQUAL\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tThe depth function to use. If GL_NONE, it's not changed. The default is GL_LEQUAL.\n"

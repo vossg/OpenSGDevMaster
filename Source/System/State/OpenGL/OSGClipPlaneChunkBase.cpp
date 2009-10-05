@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // Enable default header
+#include "OSGGL.h"                        // Enable default header
 
 #include "OSGNode.h"                    // Beacon Class
 
@@ -92,7 +92,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Vec4f           ClipPlaneChunkBase::_sfEquation
     Defines the equation of the clip plane. Standard format, if (a,b,c,d) is
-    the plane a point (x,y,z) is visible if a*x+b*y+c*z+d >= 0.
+    the plane a point (x,y,z) is visible if a*x+b*y+c*z+d "= 0.
 */
 
 /*! \var bool            ClipPlaneChunkBase::_sfEnable
@@ -136,7 +136,7 @@ void ClipPlaneChunkBase::classDescInserter(TypeObject &oType)
         SFVec4f::getClassType(),
         "equation",
         "Defines the equation of the clip plane. Standard format, if (a,b,c,d) is\n"
-        "the plane a point (x,y,z) is visible if a*x+b*y+c*z+d >= 0.\n",
+        "the plane a point (x,y,z) is visible if a*x+b*y+c*z+d \"= 0.\n",
         EquationFieldId, EquationFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -211,7 +211,7 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDefines the equation of the clip plane. Standard format, if (a,b,c,d) is\n"
-    "        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d &gt;= 0.\n"
+    "        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d &quot;= 0.\n"
     "\t</Field>\n"
     "\t<Field\n"
     "\t\tname=\"enable\"\n"
@@ -219,7 +219,7 @@ ClipPlaneChunkBase::TypeObject ClipPlaneChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_TRUE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDefines activation state of the clip plane.\n"

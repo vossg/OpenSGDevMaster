@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGLEXT.h>                     // VboUsage default header
+#include "OSGGLEXT.h"                     // VboUsage default header
 
 
 #include "OSGGeoPropertyBase.h"
@@ -240,7 +240,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     "        cardinality=\"single\"\n"
     "        visibility=\"internal\"\n"
     "        defaultValue=\"GL_STATIC_DRAW_ARB\"\n"
-    "                defaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "                defaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "        access=\"protected\"\n"
     "    >\n"
     "    The usage pattern, only valid for VBO use.\n"

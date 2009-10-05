@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // Smooth default header
+#include "OSGGL.h"                        // Smooth default header
 
 
 #include "OSGLineChunkBase.h"
@@ -257,7 +257,7 @@ LineChunkBase::TypeObject LineChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FALSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDefines if line antialiasing is used.\n"

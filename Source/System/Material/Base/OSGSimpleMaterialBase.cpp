@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // ColorMaterial default header
+#include "OSGGL.h"                        // ColorMaterial default header
 
 
 #include "OSGSimpleMaterialBase.h"
@@ -349,7 +349,7 @@ SimpleMaterialBase::TypeObject SimpleMaterialBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_DIFFUSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "                potential_values=\"GL_AMBIENT,GL_DIFFUSE,GL_SPECULAR,GL_AMBIENT_AND_DIFFUSE,GL_EMISSION\"\n"
     "\t>\n"
     "        Defines which color material mode this material affects.\n"

@@ -56,7 +56,7 @@
     A special \c ColladaElement that is the loader's entry point for loading a
     collada document into OpenSG. It is the starting point from which all
     other instances of \c ColladaElements are created.
-    You can think of it as representing the &lt;COLLADA&gt; DOM element or
+    You can think of it as representing the &quot;COLLADA&quot; DOM element or
     simply the whole document.
  */
 

@@ -57,25 +57,25 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // EnvMode default header
-#include <OSGGL.h>                        // EnvCombineRGB default header
-#include <OSGGL.h>                        // EnvCombineAlpha default header
-#include <OSGGL.h>                        // EnvSource0RGB default header
-#include <OSGGLEXT.h>                     // EnvSource1RGB default header
-#include <OSGGLEXT.h>                     // EnvSource2RGB default header
-#include <OSGGL.h>                        // EnvSource0Alpha default header
-#include <OSGGLEXT.h>                     // EnvSource1Alpha default header
-#include <OSGGLEXT.h>                     // EnvSource2Alpha default header
-#include <OSGGL.h>                        // EnvOperand0RGB default header
-#include <OSGGL.h>                        // EnvOperand1RGB default header
-#include <OSGGL.h>                        // EnvOperand2RGB default header
-#include <OSGGL.h>                        // EnvOperand0Alpha default header
-#include <OSGGL.h>                        // EnvOperand1Alpha default header
-#include <OSGGL.h>                        // EnvOperand2Alpha default header
-#include <OSGGL.h>                        // PointSprite default header
-#include <OSGGL.h>                        // ShaderOperation default header
-#include <OSGGL.h>                        // ShaderInput default header
-#include <OSGGL.h>                        // ShaderRGBADotProduct default header
+#include "OSGGL.h"                        // EnvMode default header
+#include "OSGGL.h"                        // EnvCombineRGB default header
+#include "OSGGL.h"                        // EnvCombineAlpha default header
+#include "OSGGL.h"                        // EnvSource0RGB default header
+#include "OSGGLEXT.h"                     // EnvSource1RGB default header
+#include "OSGGLEXT.h"                     // EnvSource2RGB default header
+#include "OSGGL.h"                        // EnvSource0Alpha default header
+#include "OSGGLEXT.h"                     // EnvSource1Alpha default header
+#include "OSGGLEXT.h"                     // EnvSource2Alpha default header
+#include "OSGGL.h"                        // EnvOperand0RGB default header
+#include "OSGGL.h"                        // EnvOperand1RGB default header
+#include "OSGGL.h"                        // EnvOperand2RGB default header
+#include "OSGGL.h"                        // EnvOperand0Alpha default header
+#include "OSGGL.h"                        // EnvOperand1Alpha default header
+#include "OSGGL.h"                        // EnvOperand2Alpha default header
+#include "OSGGL.h"                        // PointSprite default header
+#include "OSGGL.h"                        // ShaderOperation default header
+#include "OSGGL.h"                        // ShaderInput default header
+#include "OSGGL.h"                        // ShaderRGBADotProduct default header
 
 
 #include "OSGTextureEnvChunkBase.h"
@@ -622,7 +622,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_REPLACE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE\"\n"
     "\t>\n"
@@ -644,7 +644,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_MODULATE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT, GL_DOT3_RGB, GL_DOT3_RGBA\"\n"
     "\t>\n"
@@ -656,7 +656,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_MODULATE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT\"\n"
     "\t>\n"
@@ -688,7 +688,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_TEXTURE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine source 0 rgb, default GL_TEXTURE.\n"
@@ -699,7 +699,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_PREVIOUS_EXT\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT.\n"
@@ -710,7 +710,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_CONSTANT_EXT\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine source 2 rgb, default GL_CONSTANT_EXT.\n"
@@ -721,7 +721,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_TEXTURE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine source 0 alpha, default GL_TEXTURE.\n"
@@ -732,7 +732,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_PREVIOUS_EXT\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT.\n"
@@ -743,7 +743,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_CONSTANT_EXT\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine source 2 alpha, default GL_CONSTANT_EXT.\n"
@@ -754,7 +754,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_SRC_COLOR\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine operand 0 rgb, default GL_SRC_COLOR.\n"
@@ -765,7 +765,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_SRC_COLOR\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine operand 1 rgb, default GL_SRC_COLOR.\n"
@@ -776,7 +776,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_SRC_ALPHA\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine operand 2 rgb, default GL_SRC_ALPHA.\n"
@@ -787,7 +787,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_SRC_ALPHA\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine operand 0 alpha, default GL_SRC_ALPHA.\n"
@@ -798,7 +798,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_SRC_ALPHA\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine operand 1 alpha, default GL_SRC_ALPHA.\n"
@@ -809,7 +809,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_SRC_ALPHA\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "        Texture environment combine operand 2 alpha, default GL_SRC_ALPHA.\n"
@@ -821,7 +821,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "\t\tdefaultValue=\"GL_FALSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "        Flag to use this texture for Point Sprites.\n"
     "\t</Field>\n"
@@ -832,7 +832,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "        Shader operation of this texture unit, default GL_NONE. If unit 0 uses\n"
     "        GL_NONE, shading is switched off. (GL_SHADER_OPERATION_NV).\n"
@@ -844,7 +844,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "        Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)\n"
     "\t</Field>\n"
@@ -884,7 +884,7 @@ TextureEnvChunkBase::TypeObject TextureEnvChunkBase::_type(
     "\t\tvisibility=\"external\"\n"
     "\t\taccess=\"public\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "        The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.\n"
     "\t</Field>\n"

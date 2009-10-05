@@ -86,25 +86,25 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var Real32          SimpleStageBase::_sfLeft
     The left edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values >1 are absolute pixel coordinates, value == -1 means the
+    the Window, values "1 are absolute pixel coordinates, value == -1 means the
     left border. All other values are illegal.
 */
 
 /*! \var Real32          SimpleStageBase::_sfRight
     The right edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values >1 are absolute pixel coordinates, value == -1 means the
+    the Window, values "1 are absolute pixel coordinates, value == -1 means the
     right border. All other values are illegal.
 */
 
 /*! \var Real32          SimpleStageBase::_sfBottom
     The bottom edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values >1 are absolute pixel coordinates, value == -1 means the
+    the Window, values "1 are absolute pixel coordinates, value == -1 means the
     bottom border. All other values are illegal.
 */
 
 /*! \var Real32          SimpleStageBase::_sfTop
     The top edge of the viewport. Values between 0 and 1 are relative to the size of
-    the Window, values >1 are absolute pixel coordinates, value == -1 means the
+    the Window, values "1 are absolute pixel coordinates, value == -1 means the
     top border. All other values are illegal.
 */
 
@@ -140,7 +140,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         SFReal32::getClassType(),
         "left",
         "The left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "the Window, values \"1 are absolute pixel coordinates, value == -1 means the\n"
         "left border. All other values are illegal.\n",
         LeftFieldId, LeftFieldMask,
         false,
@@ -154,7 +154,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         SFReal32::getClassType(),
         "right",
         "The right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "the Window, values \"1 are absolute pixel coordinates, value == -1 means the\n"
         "right border. All other values are illegal.\n",
         RightFieldId, RightFieldMask,
         false,
@@ -168,7 +168,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         SFReal32::getClassType(),
         "bottom",
         "The bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "the Window, values \"1 are absolute pixel coordinates, value == -1 means the\n"
         "bottom border. All other values are illegal.\n",
         BottomFieldId, BottomFieldMask,
         false,
@@ -182,7 +182,7 @@ void SimpleStageBase::classDescInserter(TypeObject &oType)
         SFReal32::getClassType(),
         "top",
         "The top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-        "the Window, values >1 are absolute pixel coordinates, value == -1 means the\n"
+        "the Window, values \"1 are absolute pixel coordinates, value == -1 means the\n"
         "top border. All other values are illegal.\n",
         TopFieldId, TopFieldMask,
         false,
@@ -254,7 +254,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     "        defaultValue=\"0.f\"\n"
     "        >\n"
     "        The left edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "        the Window, values &quot; 1 are absolute pixel coordinates, value == -1 means the\n"
     "        left border. All other values are illegal.\n"
     "        </Field>\n"
     "        <Field\n"
@@ -266,7 +266,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     "        defaultValue=\"1.f\"\n"
     "        >\n"
     "        The right edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "        the Window, values &quot; 1 are absolute pixel coordinates, value == -1 means the\n"
     "        right border. All other values are illegal.\n"
     "        </Field>\n"
     "        <Field\n"
@@ -278,7 +278,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     "        defaultValue=\"0.f\"\n"
     "        >\n"
     "        The bottom edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "        the Window, values &quot; 1 are absolute pixel coordinates, value == -1 means the\n"
     "        bottom border. All other values are illegal.\n"
     "        </Field>\n"
     "        <Field\n"
@@ -290,7 +290,7 @@ SimpleStageBase::TypeObject SimpleStageBase::_type(
     "        defaultValue=\"1.f\"\n"
     "        >\n"
     "        The top edge of the viewport. Values between 0 and 1 are relative to the size of\n"
-    "        the Window, values &gt; 1 are absolute pixel coordinates, value == -1 means the\n"
+    "        the Window, values &quot; 1 are absolute pixel coordinates, value == -1 means the\n"
     "        top border. All other values are illegal.\n"
     "        </Field>\n"
     "        <Field\n"

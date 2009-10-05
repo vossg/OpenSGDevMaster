@@ -57,9 +57,9 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // Smooth default header
-#include <OSGGL.h>                        // Sprite default header
-#include <OSGGL.h>                        // RMode default header
+#include "OSGGL.h"                        // Smooth default header
+#include "OSGGL.h"                        // Sprite default header
+#include "OSGGL.h"                        // RMode default header
 
 
 #include "OSGPointChunkBase.h"
@@ -337,7 +337,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FALSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tDefines if line antialiasing is used.\n"
@@ -408,7 +408,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FALSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tFlag to enable point sprites, see NV_point_sprite for details.\n"
@@ -419,7 +419,7 @@ PointChunkBase::TypeObject PointChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_ZERO\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGLEXT.h>                     // BufferFormat default header
+#include "OSGGLEXT.h"                     // BufferFormat default header
 
 #include "OSGGeometry.h"                // Geometries Class
 
@@ -391,7 +391,7 @@ FishEyeProjectorBase::TypeObject FishEyeProjectorBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_RGB\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "    >\n"
     "    </Field>\n"

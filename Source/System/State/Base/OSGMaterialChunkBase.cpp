@@ -57,8 +57,8 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // ColorMaterial default header
-#include <OSGGL.h>                        // BackColorMaterial default header
+#include "OSGGL.h"                        // ColorMaterial default header
+#include "OSGGL.h"                        // BackColorMaterial default header
 
 
 #include "OSGMaterialChunkBase.h"
@@ -436,7 +436,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_DIFFUSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n"
     "\t</Field>\n"
@@ -497,7 +497,7 @@ MaterialChunkBase::TypeObject MaterialChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_DIFFUSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "        The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.\n"
     "\t</Field>       \n"

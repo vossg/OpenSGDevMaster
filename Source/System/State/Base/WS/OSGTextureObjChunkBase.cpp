@@ -57,16 +57,16 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // InternalFormat default header
-#include <OSGGL.h>                        // ExternalFormat default header
-#include <OSGGL.h>                        // MinFilter default header
-#include <OSGGL.h>                        // MagFilter default header
-#include <OSGGL.h>                        // WrapS default header
-#include <OSGGL.h>                        // WrapT default header
-#include <OSGGL.h>                        // WrapR default header
-#include <OSGGL.h>                        // CompareMode default header
-#include <OSGGL.h>                        // CompareFunc default header
-#include <OSGGL.h>                        // DepthMode default header
+#include "OSGGL.h"                        // InternalFormat default header
+#include "OSGGL.h"                        // ExternalFormat default header
+#include "OSGGL.h"                        // MinFilter default header
+#include "OSGGL.h"                        // MagFilter default header
+#include "OSGGL.h"                        // WrapS default header
+#include "OSGGL.h"                        // WrapT default header
+#include "OSGGL.h"                        // WrapR default header
+#include "OSGGL.h"                        // CompareMode default header
+#include "OSGGL.h"                        // CompareFunc default header
+#include "OSGGL.h"                        // DepthMode default header
 
 #include "OSGImage.h"                   // Image Class
 
@@ -687,7 +687,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA\"\n"
     "\t>\n"
@@ -699,7 +699,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_NONE,GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_RGB, GL_RGBA, GL_BGR, GL_BGRA, GL_LUMINANCE, GL_LUMINANCE_ALPHA\"\n"
     "\t>\n"
@@ -740,7 +740,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_LINEAR_MIPMAP_LINEAR\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR\"\n"
     "\t>\n"
@@ -752,7 +752,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_LINEAR\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_NEAREST, GL_LINEAR\"\n"
     "\t>\n"
@@ -764,7 +764,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_REPEAT\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"\n"
     "\t>\n"
@@ -776,7 +776,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_REPEAT\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"                \n"
     "\t>\n"
@@ -788,7 +788,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_REPEAT\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT\"                \n"
     "\t>\n"
@@ -925,7 +925,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_NONE, GL_COMPARE_R_TO_TEXTURE\"\n"
     "\t>\n"
@@ -936,7 +936,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_LEQUAL\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_LEQUAL, GL_GEQUAL, GL_LESS, GL_GREATER, GL_EQUAL, GL_NOTEQUAL, GL_ALWAYS, GL_NEVER\"\n"
     "\t>\n"
@@ -947,7 +947,7 @@ TextureObjChunkBase::TypeObject TextureObjChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_LUMINANCE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "                potential_values=\"GL_LUMINANCE, GL_INTENSITY, GL_ALPHA\"\n"
     "\t>\n"

@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // ProgramParameterNames default header
+#include "OSGGL.h"                        // ProgramParameterNames default header
 
 
 #include "OSGSHLChunkBase.h"
@@ -320,7 +320,7 @@ SHLChunkBase::TypeObject SHLChunkBase::_type(
     "\t\ttype=\"GLenum\"\n"
     "\t\tcardinality=\"multi\"\n"
     "\t\tvisibility=\"external\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"

@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // Target default header
+#include "OSGGL.h"                        // Target default header
 
 
 #include "OSGTextureBaseChunkBase.h"
@@ -168,7 +168,7 @@ TextureBaseChunkBase::TypeObject TextureBaseChunkBase::_type(
     "        cardinality=\"single\"\n"
     "        visibility=\"external\"\n"
     "        defaultValue=\"GL_NONE\"\n"
-    "        defaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "        defaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "        access=\"public\"\n"
     "    >\n"
     "        Texture target. Overwrite automatically determined texture target\n"

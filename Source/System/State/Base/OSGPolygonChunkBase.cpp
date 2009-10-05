@@ -57,14 +57,14 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGL.h>                        // CullFace default header
-#include <OSGGL.h>                        // FrontFace default header
-#include <OSGGL.h>                        // FrontMode default header
-#include <OSGGL.h>                        // BackMode default header
-#include <OSGGL.h>                        // Smooth default header
-#include <OSGGL.h>                        // OffsetPoint default header
-#include <OSGGL.h>                        // OffsetLine default header
-#include <OSGGL.h>                        // OffsetFill default header
+#include "OSGGL.h"                        // CullFace default header
+#include "OSGGL.h"                        // FrontFace default header
+#include "OSGGL.h"                        // FrontMode default header
+#include "OSGGL.h"                        // BackMode default header
+#include "OSGGL.h"                        // Smooth default header
+#include "OSGGL.h"                        // OffsetPoint default header
+#include "OSGGL.h"                        // OffsetLine default header
+#include "OSGGL.h"                        // OffsetFill default header
 
 
 #include "OSGPolygonChunkBase.h"
@@ -357,7 +357,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_NONE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "                potential_values=\"GL_NONE,GL_FRONT,GL_BACK,GL_FRONT_AND_BACK\"\n"
     "\t>\n"
     "\tDefines which side of the polygon is invisible. Set to GL_NONE to not cull anything. See glCullFace.\n"
@@ -368,7 +368,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_CCW\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "                potential_values=\"GL_CCW,GL_CW\"\n"
     "\t>\n"
     "\tDefines which side of the polygon is considered the front side base on vertex ordering\n"
@@ -380,7 +380,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FILL\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "                potential_values=\"GL_FILL,GL_LINE,GL_POINT\"\n"
     "\t>\n"
     "\tDefines if polygon front sides are rendered filled (default), outlined or as points.  See glPolygonMode.\n"
@@ -391,7 +391,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FILL\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "                potential_values=\"GL_FILL,GL_LINE,GL_POINT\"                \n"
     "\t>\n"
     "\tDefines if polygon front sides are rendered filled (default), outlined or as points. See glPolygonMode.\n"
@@ -402,7 +402,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FALSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "\tDefines if polygon antialiasing is used.  See GL_POLYGON_SMOOTH.\n"
     "\t</Field>\n"
@@ -430,7 +430,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FALSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "\tEnables offsetting for points.\n"
     "\t</Field>\n"
@@ -440,7 +440,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FALSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "\tEnables offsetting for lines.\n"
     "\t</Field>\n"
@@ -450,7 +450,7 @@ PolygonChunkBase::TypeObject PolygonChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_FALSE\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGL.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGL.h&quot;\"\n"
     "\t>\n"
     "\tEnables offsetting for polygons.\n"
     "\t</Field>\n"

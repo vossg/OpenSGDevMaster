@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGLEXT.h>                     // TextureFormat default header
+#include "OSGGLEXT.h"                     // TextureFormat default header
 
 #include "OSGFrameBufferObject.h"       // RenderTarget Class
 #include "OSGTextureObjChunk.h"         // Textures Class
@@ -249,7 +249,7 @@ FishEyeProjectorDataBase::TypeObject FishEyeProjectorDataBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_RGB\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "    >\n"
     "    </Field>\n"

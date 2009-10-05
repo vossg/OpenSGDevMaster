@@ -57,7 +57,7 @@
 #include "OSGConfig.h"
 
 
-#include <OSGGLEXT.h>                     // ColorControl default header
+#include "OSGGLEXT.h"                     // ColorControl default header
 
 
 #include "OSGLightModelChunkBase.h"
@@ -202,7 +202,7 @@ LightModelChunkBase::TypeObject LightModelChunkBase::_type(
     "\t\tcardinality=\"single\"\n"
     "\t\tvisibility=\"external\"\n"
     "\t\tdefaultValue=\"GL_SINGLE_COLOR\"\n"
-    "\t\tdefaultHeader=\"&lt;OSGGLEXT.h&gt;\"\n"
+    "\t\tdefaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\tGL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are directly taken from the glLightModel() manpage.\n"
