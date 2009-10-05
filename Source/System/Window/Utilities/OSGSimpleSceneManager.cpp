@@ -43,24 +43,24 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGBaseFunctions.h>
-#include <OSGImageFileType.h>
-#include <OSGSolidBackground.h>
-#include <OSGViewport.h>
-#include <OSGLogoData.h>
-#include <OSGSimpleStatisticsForeground.h>
-//#include <OSGStatElemTypes.h>
-//#include <OSGStatCollector.h>
-#include <OSGTypedGeoIntegralProperty.h>
-#include <OSGTypedGeoVectorProperty.h>
-#include <OSGDrawable.h>
-#include <OSGPointLight.h>
-#include <OSGSpotLight.h>
-#include <OSGDirectionalLight.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGPerspectiveCamera.h>
-#include <OSGOrthographicCamera.h>
+#include "OSGConfig.h"
+#include "OSGBaseFunctions.h"
+#include "OSGImageFileType.h"
+#include "OSGSolidBackground.h"
+#include "OSGViewport.h"
+#include "OSGLogoData.h"
+#include "OSGSimpleStatisticsForeground.h"
+//#include "OSGStatElemTypes.h"
+//#include "OSGStatCollector.h"
+#include "OSGTypedGeoIntegralProperty.h"
+#include "OSGTypedGeoVectorProperty.h"
+#include "OSGDrawable.h"
+#include "OSGPointLight.h"
+#include "OSGSpotLight.h"
+#include "OSGDirectionalLight.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGPerspectiveCamera.h"
+#include "OSGOrthographicCamera.h"
 
 #include "OSGSimpleSceneManager.h"
 

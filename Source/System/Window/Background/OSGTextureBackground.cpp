@@ -43,9 +43,9 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGViewport.h>
-#include <OSGTextureObjChunk.h>
+#include "OSGConfig.h"
+#include "OSGViewport.h"
+#include "OSGTextureObjChunk.h"
 
 #include "OSGTextureBackground.h"
 

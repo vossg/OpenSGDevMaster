@@ -40,8 +40,8 @@
 
 // Unit tests for FieldContainerType
 
-#include <OSGNode.h>
-#include <OSGGroup.h>
+#include "OSGNode.h"
+#include "OSGGroup.h"
 #include <string>
 
 SUITE(FieldContainerTypeTests)

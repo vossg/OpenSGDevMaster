@@ -43,10 +43,10 @@
 #include <sstream>
 #include <fstream>
 
-#include <OSGConfig.h>
-#include <OSGLog.h>
-#include <OSGImage.h>
-#include <OSGBaseFunctions.h>
+#include "OSGConfig.h"
+#include "OSGLog.h"
+#include "OSGImage.h"
+#include "OSGBaseFunctions.h"
 
 #include "OSGSimpleSHLFunctions.h"
 

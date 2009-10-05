@@ -42,12 +42,12 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <OSGConfig.h>
-#include <OSGGL.h>
-#include <OSGTileCameraDecorator.h>
-#include <OSGViewport.h>
-#include <OSGGeometry.h>
-#include <OSGStereoBufferViewport.h>
+#include "OSGConfig.h"
+#include "OSGGL.h"
+#include "OSGTileCameraDecorator.h"
+#include "OSGViewport.h"
+#include "OSGGeometry.h"
+#include "OSGStereoBufferViewport.h"
 #include "OSGSortFirstWindow.h"
 #include "OSGClusterViewBuffer.h"
 #include "OSGConnection.h"

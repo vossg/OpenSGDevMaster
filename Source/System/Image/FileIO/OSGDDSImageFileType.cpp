@@ -51,9 +51,9 @@
 #include <iostream>
 #include <fstream>
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
-#include <OSGImage.h>
+#include "OSGImage.h"
 
 #include "OSGDDSImageFileType.h"
 

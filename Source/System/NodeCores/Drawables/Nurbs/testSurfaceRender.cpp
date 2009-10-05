@@ -3,13 +3,13 @@
 // Shows how to render a simple untrimmed NURBS surface
 // and how (and why) to use the OSGSurface::forceTessellate() call.
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSolidBackground.h>
-#include <OSGSurface.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSolidBackground.h"
+#include "OSGSurface.h"
 
 
 bool useForceTesselate = false;

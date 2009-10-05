@@ -41,9 +41,9 @@
 
 #include "OSGConfig.h"
 
-#include <OSGRenderAction.h>
+#include "OSGRenderAction.h"
 #ifndef OSG_EMBEDDED
-#include <OSGIntersectAction.h>
+#include "OSGIntersectAction.h"
 #endif
 
 #include "OSGGroup.h"

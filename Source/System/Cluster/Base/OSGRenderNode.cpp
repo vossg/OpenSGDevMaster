@@ -41,14 +41,14 @@
 
 #include <vector>
 
-#include <OSGConfig.h>
-#include <OSGGL.h>
-#include <OSGGLU.h>
-#include <OSGBaseFunctions.h>
-#include <OSGTime.h>
-#include <OSGLog.h>
-#include <OSGMatrix.h>
-#include <OSGWindow.h>
+#include "OSGConfig.h"
+#include "OSGGL.h"
+#include "OSGGLU.h"
+#include "OSGBaseFunctions.h"
+#include "OSGTime.h"
+#include "OSGLog.h"
+#include "OSGMatrix.h"
+#include "OSGWindow.h"
 
 #include "OSGRenderNode.h"
 

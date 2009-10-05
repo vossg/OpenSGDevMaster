@@ -38,7 +38,7 @@
 
 // Unit tests for FrustumVolume
 
-#include <OSGFrustumVolume.h>
+#include "OSGFrustumVolume.h"
 
 OSG_USING_NAMESPACE
 

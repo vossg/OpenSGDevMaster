@@ -41,15 +41,15 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include <OSGColladaGeometry.h>
-#include <OSGColladaLog.h>
+#include "OSGColladaGeometry.h"
+#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGColladaGlobal.h>
-#include <OSGColladaSource.h>
+#include "OSGColladaGlobal.h"
+#include "OSGColladaSource.h"
 
-#include <OSGColladaGeoInputAttachment.h>
+#include "OSGColladaGeoInputAttachment.h"
 
 
 #include <dom/domGeometry.h>

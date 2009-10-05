@@ -43,9 +43,9 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGMaterial.h>
-#include <OSGViewport.h>
+#include "OSGConfig.h"
+#include "OSGMaterial.h"
+#include "OSGViewport.h"
 
 #include "OSGPolygonBackground.h"
 #include "OSGTileCameraDecorator.h"

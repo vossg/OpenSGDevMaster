@@ -43,9 +43,9 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGGL.h>
-#include <OSGGLEXT.h>
+#include "OSGConfig.h"
+#include "OSGGL.h"
+#include "OSGGLEXT.h"
 
 #include "OSGTextureBuffer.h"
 #include "OSGWindow.h"

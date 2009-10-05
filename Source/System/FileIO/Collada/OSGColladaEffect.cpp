@@ -41,20 +41,20 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include <OSGColladaEffect.h>
-#include <OSGColladaLog.h>
+#include "OSGColladaEffect.h"
+#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGColladaGlobal.h>
-#include <OSGColladaImage.h>
-#include <OSGColladaSampler2D.h>
+#include "OSGColladaGlobal.h"
+#include "OSGColladaImage.h"
+#include "OSGColladaSampler2D.h"
 
-#include <OSGImage.h>
-#include <OSGBlendChunk.h>
-#include <OSGMaterialChunk.h>
-#include <OSGTextureEnvChunk.h>
-#include <OSGTextureObjChunk.h>
+#include "OSGImage.h"
+#include "OSGBlendChunk.h"
+#include "OSGMaterialChunk.h"
+#include "OSGTextureEnvChunk.h"
+#include "OSGTextureObjChunk.h"
 
 #include <dom/domEffect.h>
 #include <dom/domProfile_COMMON.h>

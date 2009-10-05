@@ -41,7 +41,7 @@
 #endif
 
 #include "OSGTextFT2Backend.h"
-#include <OSGBaseTypes.h>
+#include "OSGBaseTypes.h"
 
 
 #ifdef OSG_WITH_FT2

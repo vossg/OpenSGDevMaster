@@ -43,8 +43,8 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGMouseDataDeviceInterface.h>
+#include "OSGConfig.h"
+#include "OSGMouseDataDeviceInterface.h"
 
 OSG_BEGIN_NAMESPACE
 

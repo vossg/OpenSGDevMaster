@@ -1,8 +1,8 @@
 
-#include <OSGBaseInitFunctions.h>
-#include <OSGNode.h>
-#include <OSGNameAttachment.h>
-#include <OSGDynamicAttachmentMixin.h>
+#include "OSGBaseInitFunctions.h"
+#include "OSGNode.h"
+#include "OSGNameAttachment.h"
+#include "OSGDynamicAttachmentMixin.h"
 
 OSG_BEGIN_NAMESPACE
 

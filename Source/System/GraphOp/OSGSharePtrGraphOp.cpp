@@ -44,15 +44,15 @@
 #include <algorithm>
 #include <sstream>
 
-#include <OSGSharePtrGraphOp.h>
+#include "OSGSharePtrGraphOp.h"
 
-#include <OSGGraphOpFactory.h>
-#include <OSGLog.h>
-#include <OSGGeometry.h>
-#include <OSGGeoFunctions.h>
-#include <OSGVector.h>
-#include <OSGFieldContainerUtils.h>
-#include <OSGTypeFactory.h>
+#include "OSGGraphOpFactory.h"
+#include "OSGLog.h"
+#include "OSGGeometry.h"
+#include "OSGGeoFunctions.h"
+#include "OSGVector.h"
+#include "OSGFieldContainerUtils.h"
+#include "OSGTypeFactory.h"
 
 OSG_USING_NAMESPACE
 

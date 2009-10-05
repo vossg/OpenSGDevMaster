@@ -43,12 +43,12 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #define OSG_COMPILEWINDOWXINST
 
-#include <OSGGLU.h>
-#include <OSGGLEXT.h>
+#include "OSGGLU.h"
+#include "OSGGLEXT.h"
 
 #include "OSGXWindow.h"
 
@@ -327,8 +327,8 @@ void XWindow::onDestroy(UInt32 uiContainerId)
 }
 
 
-#include <OSGSField.ins>
-#include <OSGMField.ins>
+#include "OSGSField.ins"
+#include "OSGMField.ins"
 
 #if defined(OSG_TMPL_STATIC_MEMBER_NEEDS_FUNCTION_INSTANTIATION) || \
     defined(OSG_TMPL_STATIC_MEMBER_NEEDS_CLASS_INSTANTIATION   )

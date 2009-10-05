@@ -42,14 +42,14 @@
 #include <sstream>
 #include <fstream>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGAction.h>
-#include <OSGCamera.h>
-#include <OSGRenderAction.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGVolumeDraw.h>
-#include <OSGAlgorithm.h>
+#include "OSGAction.h"
+#include "OSGCamera.h"
+#include "OSGRenderAction.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGVolumeDraw.h"
+#include "OSGAlgorithm.h"
 
 #include "OSGAlgorithmStage.h"
 

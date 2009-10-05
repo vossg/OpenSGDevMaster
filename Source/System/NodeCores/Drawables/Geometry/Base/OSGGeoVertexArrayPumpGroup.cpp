@@ -48,8 +48,8 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLEXT.h>
+#include "OSGGL.h"
+#include "OSGGLEXT.h"
 
 #include "OSGLog.h"
 

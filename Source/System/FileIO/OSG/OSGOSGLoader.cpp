@@ -48,42 +48,42 @@
 #include <iostream>
 
 #include "OSGOSGLoader.h"
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 
-#include <OSGSysSFields.h>
-#include <OSGSysMFields.h>
+#include "OSGSysSFields.h"
+#include "OSGSysMFields.h"
 
-#include <OSGBaseSFields.h>
-#include <OSGBaseMFields.h>
+#include "OSGBaseSFields.h"
+#include "OSGBaseMFields.h"
 
-#include <OSGMathSFields.h>
-#include <OSGMathMFields.h>
+#include "OSGMathSFields.h"
+#include "OSGMathMFields.h"
 
-#include <OSGVecSFields.h>
-#include <OSGVecMFields.h>
+#include "OSGVecSFields.h"
+#include "OSGVecMFields.h"
 
-#include <OSGFieldContainerSFields.h>
-#include <OSGFieldContainerMFields.h>
+#include "OSGFieldContainerSFields.h"
+#include "OSGFieldContainerMFields.h"
 
-#include <OSGFieldContainerFactory.h>
-#include <OSGFieldContainer.h>
+#include "OSGFieldContainerFactory.h"
+#include "OSGFieldContainer.h"
 
-#include <OSGNode.h>
-#include <OSGGroup.h>
+#include "OSGNode.h"
+#include "OSGGroup.h"
 
-#include <OSGAttachmentMapSFields.h>
-#include <OSGNameAttachment.h>
+#include "OSGAttachmentMapSFields.h"
+#include "OSGNameAttachment.h"
 
 #ifdef OSG_NEW_SHADER
-#include <OSGShaderParameterFields.h>
+#include "OSGShaderParameterFields.h"
 #endif
 
 #include "OSGFieldConnector.h"
 #include "OSGMaterialMapFields.h"
 #include "OSGChunkBlockMapFields.h"
 
-//#include <OSGSimpleAttachments.h>
+//#include "OSGSimpleAttachments.h"
 
 
 

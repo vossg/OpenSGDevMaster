@@ -58,9 +58,9 @@
 #include <cstdio>
 #include <cmath>
 #include <map>
-#include <OSGSocketAddress.h>
-#include <OSGStreamSocket.h>
-#include <OSGTime.h>
+#include "OSGSocketAddress.h"
+#include "OSGStreamSocket.h"
+#include "OSGTime.h"
 
 OSG_USING_NAMESPACE
 

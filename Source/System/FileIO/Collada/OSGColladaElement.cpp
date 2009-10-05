@@ -41,12 +41,12 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include <OSGColladaElement.h>
-#include <OSGColladaLog.h>
+#include "OSGColladaElement.h"
+#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGColladaGlobal.h>
+#include "OSGColladaGlobal.h"
 
 /*! \class OSG::ColladaElement
     The base class for all objects responsible for converting a part of the

@@ -39,7 +39,7 @@
 #include "OSGShaderParameter.h"
 #include "OSGShaderParameterFields.h"
 
-#include <OSGMField.ins>
+#include "OSGMField.ins"
 
 OSG_BEGIN_NAMESPACE
 

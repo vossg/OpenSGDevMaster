@@ -43,12 +43,12 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGViewport.h>
-#include <OSGImage.h>
+#include "OSGViewport.h"
+#include "OSGImage.h"
 
 #include "OSGGrabForeground.h"
 #include "OSGNode.h"

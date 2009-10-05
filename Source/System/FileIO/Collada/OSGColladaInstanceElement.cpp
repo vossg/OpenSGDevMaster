@@ -41,8 +41,8 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include <OSGColladaInstanceElement.h>
-#include <OSGColladaLog.h>
+#include "OSGColladaInstanceElement.h"
+#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 

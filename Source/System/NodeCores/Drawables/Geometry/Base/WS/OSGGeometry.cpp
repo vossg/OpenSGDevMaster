@@ -49,12 +49,12 @@
 #include "OSGGeometry.h"
 #include "OSGGeoImmediatePumpGroup.h"
 
-#include <OSGAction.h>
-#include <OSGRenderAction.h>
-#include <OSGIntersectAction.h>
-#include <OSGDrawEnv.h>
+#include "OSGAction.h"
+#include "OSGRenderAction.h"
+#include "OSGIntersectAction.h"
+#include "OSGDrawEnv.h"
 
-//#include <OSGIntersectActor.h>
+//#include "OSGIntersectActor.h"
 
 #include "OSGTriangleIterator.h"
 #include "OSGPrimitiveIterator.h"

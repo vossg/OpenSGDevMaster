@@ -41,9 +41,9 @@
 // Unit tests for MultiPool class
 
 #include <vector>
-#include <OSGLog.h>
+#include "OSGLog.h"
 
-#include <OSGMultiPool.h>
+#include "OSGMultiPool.h"
 
 OSG_USING_NAMESPACE
 

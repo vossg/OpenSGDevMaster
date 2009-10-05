@@ -44,11 +44,11 @@
 #include <iostream>
 #include <fstream>
 
-#include <OSGLog.h>
-#include <OSGNode.h>
-#include <OSGGeometry.h>
-#include <OSGGeoProperty.h>
-#include <OSGSimpleMaterial.h>
+#include "OSGLog.h"
+#include "OSGNode.h"
+#include "OSGGeometry.h"
+#include "OSGGeoProperty.h"
+#include "OSGSimpleMaterial.h"
 
 #include "OSGNFIOSceneFileType.h"
 

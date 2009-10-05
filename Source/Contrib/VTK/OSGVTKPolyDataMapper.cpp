@@ -45,13 +45,13 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGIntersectAction.h>
-#include <OSGRenderAction.h>
+#include "OSGIntersectAction.h"
+#include "OSGRenderAction.h"
 
 #ifdef OSG_HAVE_ACTION //CHECK
-#include <OSGIntersectActor.h>
+#include "OSGIntersectActor.h"
 #endif
 
 #include "OSGVTKPolyDataMapper.h"

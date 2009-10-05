@@ -45,14 +45,14 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGLog.h>
-#include <OSGBoxVolume.h>
-#include <OSGSphereVolume.h>
-#include <OSGFrustumVolume.h>
-#include <OSGCylinderVolume.h>
-#include <OSGRenderAction.h>
+#include "OSGLog.h"
+#include "OSGBoxVolume.h"
+#include "OSGSphereVolume.h"
+#include "OSGFrustumVolume.h"
+#include "OSGCylinderVolume.h"
+#include "OSGRenderAction.h"
 #include "OSGPrimeMaterial.h"
 
 #include "OSGVolumeDraw.h"

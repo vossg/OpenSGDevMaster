@@ -41,12 +41,12 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGRenderAction.h>
+#include "OSGRenderAction.h"
 #include "OSGPointLight.h"
 
-#include <OSGStatCollector.h>
+#include "OSGStatCollector.h"
 
 OSG_USING_NAMESPACE
 

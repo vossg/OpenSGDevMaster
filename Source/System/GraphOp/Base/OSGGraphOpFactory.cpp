@@ -41,7 +41,7 @@
 *                             Includes                                    *
 \***************************************************************************/
 
-#include <OSGGraphOpFactory.h>
+#include "OSGGraphOpFactory.h"
 
 #include "OSGSingletonHolder.ins"
 

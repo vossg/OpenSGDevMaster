@@ -45,15 +45,15 @@
 
 #define OSG_COMPILEMANIPULATORSLIB
 
-#include <OSGConfig.h>
-#include <OSGBaseFunctions.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGTransform.h>
-#include <OSGGeometry.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGWindow.h>
-#include <OSGNameAttachment.h>
-#include <OSGCamera.h>
+#include "OSGConfig.h"
+#include "OSGBaseFunctions.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGTransform.h"
+#include "OSGGeometry.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGWindow.h"
+#include "OSGNameAttachment.h"
+#include "OSGCamera.h"
 
 #include "OSGManipulator.h"
 #include "OSGSimpleGeometryExt.h"

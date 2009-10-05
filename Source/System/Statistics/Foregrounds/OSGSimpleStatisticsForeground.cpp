@@ -41,11 +41,11 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGImage.h>
+#include "OSGImage.h"
 
-#include <OSGViewport.h>
+#include "OSGViewport.h"
 
 #include "OSGSimpleStatisticsForeground.h"
 #include "OSGStatisticsDefaultFont.h"

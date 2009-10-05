@@ -44,7 +44,7 @@
 #include <cstdio>
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGMaterialDrawable.h"
 

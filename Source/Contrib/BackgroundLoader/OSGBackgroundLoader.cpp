@@ -1,15 +1,15 @@
-#include <OSGBackgroundLoader.h>
+#include "OSGBackgroundLoader.h"
 
-#include <OSGThread.h>
-#include <OSGThreadManager.h>
-#include <OSGLock.h>
-#include <OSGCondVar.h>
-#include <OSGBaseInitFunctions.h>
+#include "OSGThread.h"
+#include "OSGThreadManager.h"
+#include "OSGLock.h"
+#include "OSGCondVar.h"
+#include "OSGBaseInitFunctions.h"
 #include <boost/lexical_cast.hpp>
-#include <OSGChangeList.h>
+#include "OSGChangeList.h"
 #include <boost/format.hpp>
 
-#include <OSGSingletonHolder.ins>
+#include "OSGSingletonHolder.ins"
 
 OSG_USING_NAMESPACE
 OSG_BEGIN_NAMESPACE

@@ -7,30 +7,30 @@
 #include <fstream>
 
 // GLUT is used for window handling
-#include <OSGGLUT.h>
+#include "OSGGLUT.h"
 
 // General OpenSG configuration, needed everywhere
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGXWindow.h>
-#include <OSGPassiveWindow.h>
+#include "OSGXWindow.h"
+#include "OSGPassiveWindow.h"
 
 // A little helper to simplify scene management and interaction
-#include <OSGSimpleSceneManager.h>
+#include "OSGSimpleSceneManager.h"
 
 // Methods to create simple geometry: boxes, spheres, tori etc.
-#include <OSGSimpleGeometry.h>
+#include "OSGSimpleGeometry.h"
 
-#include <OSGGradientBackground.h>
+#include "OSGGradientBackground.h"
 
-#include <OSGImageFileHandler.h>
-#include <OSGPathHandler.h>
+#include "OSGImageFileHandler.h"
+#include "OSGPathHandler.h"
 
-#include <OSGSceneFileHandler.h>
-#include <OSGThread.h>
-#include <OSGBarrier.h>
+#include "OSGSceneFileHandler.h"
+#include "OSGThread.h"
+#include "OSGBarrier.h"
 
-#include <OSGRenderAction.h>
+#include "OSGRenderAction.h"
 
 
 OSG::SimpleSceneManager  *mgr;

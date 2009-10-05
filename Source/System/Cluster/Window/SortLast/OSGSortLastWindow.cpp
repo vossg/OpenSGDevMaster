@@ -43,20 +43,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <OSGViewport.h>
-#include <OSGStereoBufferViewport.h>
-#include <OSGGeometry.h>
-#include <OSGGeoPositionsFields.h>
-#include <OSGGroup.h>
-#include <OSGCamera.h>
-#include <OSGProxyGroup.h>
-#include <OSGMaterialGroup.h>
-#include <OSGRemoteAspect.h>
-#include <OSGImageComposer.h>
-#include <OSGStatisticsForeground.h>
-#include <OSGClusterNetwork.h>
-#include <OSGDrawEnv.h>
-#include <OSGRenderActionBase.h>
+#include "OSGViewport.h"
+#include "OSGStereoBufferViewport.h"
+#include "OSGGeometry.h"
+#include "OSGGeoPositionsFields.h"
+#include "OSGGroup.h"
+#include "OSGCamera.h"
+#include "OSGProxyGroup.h"
+#include "OSGMaterialGroup.h"
+#include "OSGRemoteAspect.h"
+#include "OSGImageComposer.h"
+#include "OSGStatisticsForeground.h"
+#include "OSGClusterNetwork.h"
+#include "OSGDrawEnv.h"
+#include "OSGRenderActionBase.h"
 
 #include "OSGSortLastWindow.h"
 

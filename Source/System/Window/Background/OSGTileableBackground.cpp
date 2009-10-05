@@ -43,12 +43,12 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGTileableBackground.h"
-#include <OSGDrawEnv.h>
-#include <OSGRenderActionBase.h>
-#include <OSGTileCameraDecorator.h>
+#include "OSGDrawEnv.h"
+#include "OSGRenderActionBase.h"
+#include "OSGTileCameraDecorator.h"
 
 OSG_BEGIN_NAMESPACE
 

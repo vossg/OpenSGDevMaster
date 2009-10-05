@@ -59,16 +59,16 @@
 #include <cstdio>
 #include <sstream>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGQuadTreeTerrain.h"
 #include "OSGImage.h"
 #include "OSGRenderAction.h"
 #include "OSGMaterial.h"
-#include <OSGChunkMaterial.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGTextureEnvChunk.h>
-#include <OSGSimpleSHLVariableChunk.h>
+#include "OSGChunkMaterial.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
+#include "OSGSimpleSHLVariableChunk.h"
 #include "OSGTypedGeoIntegralProperty.h"
 
 OSG_USING_NAMESPACE

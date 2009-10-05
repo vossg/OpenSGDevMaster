@@ -36,12 +36,12 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGCSMVRMLNodeHelper.h>
+#include "OSGCSMVRMLNodeHelper.h"
 
-#include <OSGCounters.h>
-#include <OSGLimitedCounters.h>
+#include "OSGCounters.h"
+#include "OSGLimitedCounters.h"
 
-#include <OSGGroup.h>
+#include "OSGGroup.h"
 
 OSG_BEGIN_NAMESPACE
 

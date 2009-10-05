@@ -45,8 +45,8 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLU.h>
+#include "OSGGL.h"
+#include "OSGGLU.h"
 
 #include "OSGMatrix.h"
 #include "OSGNode.h"

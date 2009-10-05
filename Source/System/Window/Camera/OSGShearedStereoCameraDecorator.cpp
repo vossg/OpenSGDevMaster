@@ -43,9 +43,9 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGMatrixUtility.h>
+#include "OSGMatrixUtility.h"
 
 #include "OSGPerspectiveCamera.h"
 #include "OSGShearedStereoCameraDecorator.h"

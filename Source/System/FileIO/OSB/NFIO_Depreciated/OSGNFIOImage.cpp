@@ -36,15 +36,15 @@
  *                                                                           * 
 \*---------------------------------------------------------------------------*/
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 #include "OSGNFIOImage.h"
 #include "OSGNFIOFactory.h"
 
 #include <vector>
 
-#include <OSGLog.h>
-#include <OSGImageFileHandler.h>
-//#include <OSGJPGImageFileType.h>
+#include "OSGLog.h"
+#include "OSGImageFileHandler.h"
+//#include "OSGJPGImageFileType.h"
 
 OSG_USING_NAMESPACE
 

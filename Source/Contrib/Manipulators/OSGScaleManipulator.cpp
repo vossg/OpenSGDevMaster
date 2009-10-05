@@ -45,9 +45,9 @@
 
 #define OSG_COMPILEMANIPULATORSLIB
 
-#include <OSGConfig.h>
-#include <OSGRenderAction.h>
-#include <OSGIntersectAction.h>
+#include "OSGConfig.h"
+#include "OSGRenderAction.h"
+#include "OSGIntersectAction.h"
 
 #include "OSGScaleManipulator.h"
 

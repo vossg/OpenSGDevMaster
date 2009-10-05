@@ -1,16 +1,16 @@
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGPassiveWindow.h>
-#include <OSGSimpleSceneManager.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGPassiveWindow.h"
+#include "OSGSimpleSceneManager.h"
 
-#include <OSGPerspectiveCamera.h>
-#include <OSGStereoBufferViewport.h>
-#include <OSGColorBufferViewport.h>
-#include <OSGShearedStereoCameraDecorator.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGOSGSceneFileType.h>
+#include "OSGPerspectiveCamera.h"
+#include "OSGStereoBufferViewport.h"
+#include "OSGColorBufferViewport.h"
+#include "OSGShearedStereoCameraDecorator.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGOSGSceneFileType.h"
 
 OSG::SimpleSceneManager *mgr;
 

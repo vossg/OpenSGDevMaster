@@ -49,21 +49,21 @@
 
 #include "OSGConfig.h"
 
-#include <OSGLog.h>
-#include <OSGBaseTypes.h>
-#include <OSGPathHandler.h>
+#include "OSGLog.h"
+#include "OSGBaseTypes.h"
+#include "OSGPathHandler.h"
 
-#include <OSGGraphOpSeq.h>
+#include "OSGGraphOpSeq.h"
 
-#include <OSGImageFileHandler.h>
+#include "OSGImageFileHandler.h"
 
 #include "OSGSceneFileHandler.h"
 #include "OSGZStream.h"
 
-#include <OSGNode.h>
-#include <OSGThread.h>
-#include <OSGThreadManager.h>
-#include <OSGBaseFunctions.h>
+#include "OSGNode.h"
+#include "OSGThread.h"
+#include "OSGThreadManager.h"
+#include "OSGBaseFunctions.h"
 
 #include "OSGSingletonHolder.ins"
 

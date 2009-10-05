@@ -4,28 +4,28 @@
 // Ok this creates 1 CGChunk with different parameter sets for each geometry.
 
 // Headers
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUT.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGAction.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGBaseFunctions.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUT.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGAction.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGBaseFunctions.h"
 
-#include <OSGGradientBackground.h>
-#include <OSGNode.h>
-#include <OSGGroup.h>
-#include <OSGTransform.h>
-#include <OSGPointLight.h>
-#include <OSGMaterialGroup.h>
+#include "OSGGradientBackground.h"
+#include "OSGNode.h"
+#include "OSGGroup.h"
+#include "OSGTransform.h"
+#include "OSGPointLight.h"
+#include "OSGMaterialGroup.h"
 
-#include <OSGImage.h>
-#include <OSGChunkMaterial.h>
-#include <OSGMaterialChunk.h>
-#include <OSGShaderProgramChunk.h>
-#include <OSGShaderProgramVariableChunk.h>
+#include "OSGImage.h"
+#include "OSGChunkMaterial.h"
+#include "OSGMaterialChunk.h"
+#include "OSGShaderProgramChunk.h"
+#include "OSGShaderProgramVariableChunk.h"
 
 // vertex shader program for 
 static std::string _vp_program =

@@ -4,27 +4,27 @@
 // Earth Shader Demo
 
 // Headers
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUT.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGAction.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGBaseFunctions.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUT.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGAction.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGBaseFunctions.h"
 
-#include <OSGNode.h>
-#include <OSGGroup.h>
-#include <OSGTransform.h>
-#include <OSGPointLight.h>
+#include "OSGNode.h"
+#include "OSGGroup.h"
+#include "OSGTransform.h"
+#include "OSGPointLight.h"
 
-#include <OSGImage.h>
-#include <OSGChunkMaterial.h>
-#include <OSGMaterialChunk.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGTextureEnvChunk.h>
-#include <OSGSHLChunk.h>
+#include "OSGImage.h"
+#include "OSGChunkMaterial.h"
+#include "OSGMaterialChunk.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
+#include "OSGSHLChunk.h"
 
 
 

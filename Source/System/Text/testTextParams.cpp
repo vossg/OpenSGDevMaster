@@ -6,25 +6,25 @@
 //
 // Thanks to Allen Bierbaum for the code
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGSceneFileHandler.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGSceneFileHandler.h"
 
-#include <OSGTextTXFFace.h>
-#include <OSGTextTXFGlyph.h>
-#include <OSGTextFaceFactory.h>
-#include <OSGTextLayoutParam.h>
-#include <OSGTextLayoutResult.h>
+#include "OSGTextTXFFace.h"
+#include "OSGTextTXFGlyph.h"
+#include "OSGTextFaceFactory.h"
+#include "OSGTextLayoutParam.h"
+#include "OSGTextLayoutResult.h"
 
-#include <OSGChunkMaterial.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGTextureEnvChunk.h>
-#include <OSGBlendChunk.h>
-#include <OSGImage.h>
-#include <OSGBaseFunctions.h>
+#include "OSGChunkMaterial.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
+#include "OSGBlendChunk.h"
+#include "OSGImage.h"
+#include "OSGBaseFunctions.h"
 
 #include <sstream>
 

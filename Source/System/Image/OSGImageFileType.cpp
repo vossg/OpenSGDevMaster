@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 // System declarations
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 #include <iostream>
 
 // Application declarations

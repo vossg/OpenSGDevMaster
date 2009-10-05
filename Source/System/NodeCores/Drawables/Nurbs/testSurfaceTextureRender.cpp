@@ -2,16 +2,16 @@
 //
 // Shows how to texture a NURBS surface
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGTextureEnvChunk.h>
-#include <OSGImage.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSolidBackground.h>
-#include <OSGSurface.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
+#include "OSGImage.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSolidBackground.h"
+#include "OSGSurface.h"
 
 
 OSG::SimpleSceneManager   *mgr;

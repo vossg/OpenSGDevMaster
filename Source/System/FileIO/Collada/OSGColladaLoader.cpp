@@ -59,8 +59,8 @@
 #include "OSGColladaLoader.h"
 #include "OSGPathHandler.h"
 
-#include <OSGColladaLog.h>
-#include <OSGColladaGlobal.h>
+#include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
 
 OSG_USING_NAMESPACE
 

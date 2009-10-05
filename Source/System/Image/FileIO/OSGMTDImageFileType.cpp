@@ -48,7 +48,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 #include "OSGMTDImageFileType.h"
 

@@ -36,7 +36,7 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGPointerSFieldBase.h>
+#include "OSGPointerSFieldBase.h"
 
 OSG_BEGIN_NAMESPACE
 

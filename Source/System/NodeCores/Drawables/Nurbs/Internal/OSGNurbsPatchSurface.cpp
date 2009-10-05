@@ -35,7 +35,7 @@
  *                                                                           *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 #include "OSGQuadTreeCreator.h"
 #include "OSGParSpaceTrimmer.h"

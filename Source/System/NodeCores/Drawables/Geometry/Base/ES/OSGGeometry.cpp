@@ -54,12 +54,12 @@
 #include "OSGGeoImmediatePumpGroup.h"
 #endif
 
-#include <OSGAction.h>
-#include <OSGRenderAction.h>
-//#include <OSGIntersectAction.h>
-#include <OSGDrawEnv.h>
+#include "OSGAction.h"
+#include "OSGRenderAction.h"
+//#include "OSGIntersectAction.h"
+#include "OSGDrawEnv.h"
 #if 0
-//#include <OSGIntersectActor.h>
+//#include "OSGIntersectActor.h"
 
 #include "OSGFaceIterator.h"
 #include "OSGLineIterator.h"

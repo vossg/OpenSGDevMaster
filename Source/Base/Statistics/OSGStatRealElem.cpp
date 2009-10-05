@@ -43,10 +43,10 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGStatRealElem.h"
-#include <OSGSysFieldTraits.h>
+#include "OSGSysFieldTraits.h"
 
 #include <boost/format.hpp>
 

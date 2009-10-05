@@ -46,17 +46,17 @@
 #include <cstdio>
 
 #include "OSGConfig.h"
-#include <OSGLog.h>
-#include <OSGQuaternion.h>
-#include <OSGMaterial.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGLineChunk.h>
-#include <OSGGeoProperties.h>
+#include "OSGLog.h"
+#include "OSGQuaternion.h"
+#include "OSGMaterial.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGLineChunk.h"
+#include "OSGGeoProperties.h"
 #include "OSGSimpleGeometry.h"  // for DefaultMaterials
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGTypedGeoVectorProperty.h"
 
-//#include <OSGTriangleIterator.h>
+//#include "OSGTriangleIterator.h"
 
 OSG_BEGIN_NAMESPACE
 

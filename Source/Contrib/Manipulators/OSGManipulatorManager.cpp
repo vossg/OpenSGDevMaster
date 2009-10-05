@@ -40,8 +40,8 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <OSGConfig.h>
-#include <OSGBaseTypes.h>
+#include "OSGConfig.h"
+#include "OSGBaseTypes.h"
 
 #include "OSGManipulatorManager.h"
 

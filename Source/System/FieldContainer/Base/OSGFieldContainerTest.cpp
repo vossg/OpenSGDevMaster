@@ -36,10 +36,10 @@
 
 #include <UnitTest++.h>
 
-#include <OSGFieldContainer.h>
-#include <OSGNode.h>
-#include <OSGNodeCore.h>
-#include <OSGTransform.h>
+#include "OSGFieldContainer.h"
+#include "OSGNode.h"
+#include "OSGNodeCore.h"
+#include "OSGTransform.h"
 
 #include <iostream>
 #include <string>

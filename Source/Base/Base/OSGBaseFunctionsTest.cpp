@@ -40,8 +40,8 @@
 
 #include <UnitTest++.h>
 
-#include <OSGConfig.h>
-#include <OSGBaseFunctions.h>
+#include "OSGConfig.h"
+#include "OSGBaseFunctions.h"
 
 // This test is incomplete, it only tests:
 //  * byte order swapping

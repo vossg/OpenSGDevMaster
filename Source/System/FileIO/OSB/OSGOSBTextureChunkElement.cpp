@@ -40,9 +40,9 @@
 
 #include "OSGOSBRootElement.h"
 
-#include <OSGChunkMaterial.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGTextureEnvChunk.h>
+#include "OSGChunkMaterial.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
 
 OSG_USING_NAMESPACE
 

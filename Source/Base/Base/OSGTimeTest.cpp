@@ -40,8 +40,8 @@
 
 #include <UnitTest++.h>
 
-#include <OSGConfig.h>
-#include <OSGTime.h>
+#include "OSGConfig.h"
+#include "OSGTime.h"
 #include <iostream>
 
 using namespace UnitTest;

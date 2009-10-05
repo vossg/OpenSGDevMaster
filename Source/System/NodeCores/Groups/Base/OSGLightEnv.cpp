@@ -41,10 +41,10 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
 #ifdef OSG_OLD_RENDER_ACTION
-#include <OSGRenderAction.h>
+#include "OSGRenderAction.h"
 #endif
 
 #include "OSGLightEnv.h"

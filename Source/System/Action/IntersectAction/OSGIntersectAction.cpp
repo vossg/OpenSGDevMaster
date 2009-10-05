@@ -45,11 +45,11 @@
 
 #include "OSGConfig.h"
 
-#include <OSGLog.h>
-#include <OSGFieldContainer.h>
-#include <OSGNode.h>
-#include <OSGNodeCore.h>
-#include <OSGAction.h>
+#include "OSGLog.h"
+#include "OSGFieldContainer.h"
+#include "OSGNode.h"
+#include "OSGNodeCore.h"
+#include "OSGAction.h"
 #include "OSGIntersectAction.h"
 
 OSG_USING_NAMESPACE

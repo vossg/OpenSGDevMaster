@@ -44,7 +44,7 @@
 #include <stdio.h>
 #include <iostream>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGParallelComposer.h"
 

@@ -38,13 +38,13 @@
 
 #define OSG_COMPILEFIELDINST
 
-#include <OSGField.h>
+#include "OSGField.h"
 
-#include <OSGSField.h>
-#include <OSGSField.ins>
+#include "OSGSField.h"
+#include "OSGSField.ins"
 
-#include <OSGMField.h>
-#include <OSGMField.ins>
+#include "OSGMField.h"
+#include "OSGMField.ins"
 
 #include "OSGBaseSFields.h"
 #include "OSGBaseMFields.h"

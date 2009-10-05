@@ -43,11 +43,11 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLEXT.h>
-#include <OSGGLU.h>
+#include "OSGGL.h"
+#include "OSGGLEXT.h"
+#include "OSGGLU.h"
 
 #include "OSGDrawEnv.h"
 

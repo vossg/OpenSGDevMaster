@@ -43,7 +43,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_GLUT
 
@@ -51,7 +51,7 @@
 
 #include "OSGGLUTWindow.h"
 
-#include <OSGGLUT.h>
+#include "OSGGLUT.h"
 
 #include "OSGViewport.h"
 #include "OSGCamera.h"

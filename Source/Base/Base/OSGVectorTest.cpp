@@ -38,7 +38,7 @@
 
 // Unit tests for vec classes
 
-#include <OSGVector.h>
+#include "OSGVector.h"
 
 OSG_USING_NAMESPACE
 

@@ -42,7 +42,7 @@
 #endif
 
 #include "OSGTextMacBackend.h"
-#include <OSGBaseTypes.h>
+#include "OSGBaseTypes.h"
 
 
 #ifdef __APPLE__

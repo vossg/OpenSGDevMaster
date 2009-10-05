@@ -1,25 +1,25 @@
 // Headers
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGAction.h>
-#include <OSGSimpleGeometry.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGAction.h"
+#include "OSGSimpleGeometry.h"
 
 // New Headers
 
 // the general scene file loading handler
-#include <OSGSceneFileHandler.h>
-#include <OSGFieldContainerFactory.h>
+#include "OSGSceneFileHandler.h"
+#include "OSGFieldContainerFactory.h"
 #include <boost/bind.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/convenience.hpp>
 namespace fs = boost::filesystem;
 
-#include <OSGBackgroundLoader.h>
-#include <OSGModelRequest.h>
+#include "OSGBackgroundLoader.h"
+#include "OSGModelRequest.h"
 
 // The SimpleSceneManager to manage simple applications
 OSG::SimpleSceneManager *mgr;

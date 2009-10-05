@@ -1,6 +1,6 @@
 // Single-threaded QT example
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include <iostream>
 
@@ -17,21 +17,21 @@
 #pragma set woff 1375
 #endif
 
-#include <OSGFieldContainerFactory.h>
-#include <OSGVector.h>
-#include <OSGQuaternion.h>
-#include <OSGMatrix.h>
-#include <OSGMatrixUtility.h>
-#include <OSGBoxVolume.h>
-#include <OSGNode.h>
-#include <OSGGroup.h>
-#include <OSGTransform.h>
-#include <OSGAttachment.h>
-#include <OSGAction.h>
-#include <OSGRenderAction.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGDirectionalLight.h>
-#include <OSGSimpleGeometry.h>
+#include "OSGFieldContainerFactory.h"
+#include "OSGVector.h"
+#include "OSGQuaternion.h"
+#include "OSGMatrix.h"
+#include "OSGMatrixUtility.h"
+#include "OSGBoxVolume.h"
+#include "OSGNode.h"
+#include "OSGGroup.h"
+#include "OSGTransform.h"
+#include "OSGAttachment.h"
+#include "OSGAction.h"
+#include "OSGRenderAction.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGDirectionalLight.h"
+#include "OSGSimpleGeometry.h"
 
 #include "OSGViewport.h"
 #include "OSGCamera.h"

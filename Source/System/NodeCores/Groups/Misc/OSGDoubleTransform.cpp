@@ -43,18 +43,18 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
 #ifndef OSG_EMBEDDED
-#include <OSGIntersectAction.h>
+#include "OSGIntersectAction.h"
 #endif
 
-#include <OSGRenderAction.h>
+#include "OSGRenderAction.h"
 
 #ifdef OSG_HAVE_ACTION //CHECK
-#include <OSGIntersectActor.h>
+#include "OSGIntersectActor.h"
 #endif
 
 #include "OSGDoubleTransform.h"

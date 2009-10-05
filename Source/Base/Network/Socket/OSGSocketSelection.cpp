@@ -57,10 +57,10 @@
 #include <cerrno>
 #include <cstdio>
 
-#include <OSGSocketException.h>
-#include <OSGSocket.h>
-#include <OSGSocketSelection.h>
-#include <OSGTime.h>
+#include "OSGSocketException.h"
+#include "OSGSocket.h"
+#include "OSGSocketSelection.h"
+#include "OSGTime.h"
 
 OSG_USING_NAMESPACE
 

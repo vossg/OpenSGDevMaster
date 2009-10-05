@@ -43,9 +43,9 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGImage.h>
-#include <OSGImageFileHandler.h>
+#include "OSGConfig.h"
+#include "OSGImage.h"
+#include "OSGImageFileHandler.h"
 
 #include "OSGFileGrabForeground.h"
 

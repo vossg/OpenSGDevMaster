@@ -3,14 +3,14 @@
 // Shows how to render a neighbouring trimmed NURBS surfaces without gaps
 // using the Fat Borders.
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSolidBackground.h>
-#include <OSGSurface.h>
-#include <OSGFatBorderChunk.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSolidBackground.h"
+#include "OSGSurface.h"
+#include "OSGFatBorderChunk.h"
 
 
 OSG::SimpleSceneManager   *mgr;

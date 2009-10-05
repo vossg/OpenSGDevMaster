@@ -1,8 +1,8 @@
 
-#include <OSGBaseInitFunctions.h>
-#include <OSGNode.h>
-#include <OSGNodeCore.h>
-//#include <OSGRefPtr.h>
+#include "OSGBaseInitFunctions.h"
+#include "OSGNode.h"
+#include "OSGNodeCore.h"
+//#include "OSGRefPtr.h"
 
 
 int main (int argc, char **argv)

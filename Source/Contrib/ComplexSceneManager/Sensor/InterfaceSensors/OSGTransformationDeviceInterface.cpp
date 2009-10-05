@@ -43,8 +43,8 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGTransformationDeviceInterface.h>
+#include "OSGConfig.h"
+#include "OSGTransformationDeviceInterface.h"
 
 OSG_BEGIN_NAMESPACE
 

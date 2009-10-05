@@ -7,22 +7,22 @@
 //
 
 // Headers
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGAction.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGAction.h"
 
 // New Headers
 
 // the general scene file loading handler
-#include <OSGSceneFileHandler.h>
+#include "OSGSceneFileHandler.h"
 
-#include <OSGFieldContainerUtils.h>
-#include <OSGChunkOverrideGroup.h>
-#include <OSGPolygonChunk.h>
-#include <OSGGeoFunctions.h>
+#include "OSGFieldContainerUtils.h"
+#include "OSGChunkOverrideGroup.h"
+#include "OSGPolygonChunk.h"
+#include "OSGGeoFunctions.h"
 
 
 // The SimpleSceneManager to manage simple applications

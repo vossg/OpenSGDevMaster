@@ -39,7 +39,7 @@
 #include "OSGMouseData.h"
 #include "OSGMouseDataFields.h"
 
-#include <OSGSField.ins>
+#include "OSGSField.ins"
 
 OSG_BEGIN_NAMESPACE
 

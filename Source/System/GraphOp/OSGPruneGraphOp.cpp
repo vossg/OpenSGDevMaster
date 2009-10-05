@@ -41,7 +41,7 @@
 *                             Includes                                    *
 \***************************************************************************/
 
-#include <OSGPruneGraphOp.h>
+#include "OSGPruneGraphOp.h"
 #include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE

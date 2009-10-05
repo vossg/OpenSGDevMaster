@@ -42,7 +42,7 @@
 
 #include "OSGTextVectorGlyph.h"
 
-#include <OSGGLU.h>
+#include "OSGGLU.h"
 
 #ifdef __sgi
 # include <cassert>

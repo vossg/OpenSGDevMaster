@@ -87,10 +87,10 @@
 #include <cstdio>
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
-#include <OSGGL.h>
-#include <OSGGLEXT.h>
-#include <OSGGLU.h>
+#include "OSGConfig.h"
+#include "OSGGL.h"
+#include "OSGGLEXT.h"
+#include "OSGGLU.h"
 
 #include "OSGWindow.h"
 

@@ -45,16 +45,16 @@
 #include <cmath>
 #include <memory.h>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include <iostream>
 #include <fstream>
 
-#include <OSGLog.h>
-#include <OSGImageFileHandler.h>
-#include <OSGPathHandler.h>
-#include <OSGFileSystem.h>
-#include <OSGImageFunctions.h>
+#include "OSGLog.h"
+#include "OSGImageFileHandler.h"
+#include "OSGPathHandler.h"
+#include "OSGFileSystem.h"
+#include "OSGImageFunctions.h"
 
 #include "OSGCHDRImageFileType.h"
 

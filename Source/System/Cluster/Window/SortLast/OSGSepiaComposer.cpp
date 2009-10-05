@@ -43,8 +43,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <OSGConfig.h>
-#include <OSGSepiaComposer.h>
+#include "OSGConfig.h"
+#include "OSGSepiaComposer.h"
 
 OSG_USING_NAMESPACE
 

@@ -41,8 +41,8 @@
 *                             Includes                                    *
 \***************************************************************************/
 
-#include <OSGGraphOpSeq.h>
-#include <OSGGraphOpFactory.h>
+#include "OSGGraphOpSeq.h"
+#include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE
 

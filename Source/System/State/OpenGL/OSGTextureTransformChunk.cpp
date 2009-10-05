@@ -43,16 +43,16 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
 #include "OSGTextureTransformChunk.h"
-#include <OSGWindow.h>
-#include <OSGCamera.h>
-#include <OSGViewport.h>
-#include <OSGTextureBaseChunk.h>
-#include <OSGDrawEnv.h>
+#include "OSGWindow.h"
+#include "OSGCamera.h"
+#include "OSGViewport.h"
+#include "OSGTextureBaseChunk.h"
+#include "OSGDrawEnv.h"
 
 OSG_USING_NAMESPACE
 

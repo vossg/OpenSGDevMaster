@@ -38,15 +38,15 @@
 
 // Unit tests for nodes, attachments various core types
 
-#include <OSGNode.h>
-#include <OSGNameAttachment.h>
-#include <OSGAttachment.h>
-#include <OSGDynamicAttachmentMixin.h>
+#include "OSGNode.h"
+#include "OSGNameAttachment.h"
+#include "OSGAttachment.h"
+#include "OSGDynamicAttachmentMixin.h"
 
-#include <OSGBillboard.h>
-#include <OSGGroup.h>
-#include <OSGSwitch.h>
-#include <OSGTransform.h>
+#include "OSGBillboard.h"
+#include "OSGGroup.h"
+#include "OSGSwitch.h"
+#include "OSGTransform.h"
 
 #include <string>
 #include <vector>

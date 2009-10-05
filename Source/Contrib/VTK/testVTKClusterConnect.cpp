@@ -19,18 +19,18 @@
 // press 'c' to connect to the servers and 'd' to disconnect. 
 
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_VTK
 
-#include <OSGGLUT.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGMultiDisplayWindow.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGRemoteAspect.h>
-#include <OSGFieldContainerFactory.h>
+#include "OSGGLUT.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGMultiDisplayWindow.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGRemoteAspect.h"
+#include "OSGFieldContainerFactory.h"
 
 #include "OSGVTKPolyDataMapper.h"
 

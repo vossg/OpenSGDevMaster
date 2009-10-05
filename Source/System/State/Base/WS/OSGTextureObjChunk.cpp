@@ -47,15 +47,15 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLU.h>
-#include <OSGGLEXT.h>
-#include <OSGGLFuncProtos.h>
-#include <OSGImage.h>
+#include "OSGGL.h"
+#include "OSGGLU.h"
+#include "OSGGLEXT.h"
+#include "OSGGLFuncProtos.h"
+#include "OSGImage.h"
 
-#include <OSGDrawEnv.h>
+#include "OSGDrawEnv.h"
 
-#include <OSGTextureObjChunk.h>
+#include "OSGTextureObjChunk.h"
 
 //#define OSG_DUMP_TEX
 

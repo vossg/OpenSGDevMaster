@@ -42,13 +42,13 @@
 
 #include <UnitTest++.h>
 
-#include <OSGTypeBasePredicates.h>
-#include <OSGReflexiveContainerTypePredicates.h>
+#include "OSGTypeBasePredicates.h"
+#include "OSGReflexiveContainerTypePredicates.h"
 
-#include <OSGAttachmentContainer.h>
-#include <OSGAttachment.h>
-#include <OSGNode.h>
-#include <OSGNodeCore.h>
+#include "OSGAttachmentContainer.h"
+#include "OSGAttachment.h"
+#include "OSGNode.h"
+#include "OSGNodeCore.h"
 
 #include <vector>
 

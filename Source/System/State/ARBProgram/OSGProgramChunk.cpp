@@ -44,13 +44,13 @@
 #include <cstdio>
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLU.h>
-#include <OSGGLEXT.h>
+#include "OSGGL.h"
+#include "OSGGLU.h"
+#include "OSGGLEXT.h"
 
-#include <OSGBaseFunctions.h>
+#include "OSGBaseFunctions.h"
 
 #include "OSGDrawEnv.h"
 #include "OSGWindow.h"

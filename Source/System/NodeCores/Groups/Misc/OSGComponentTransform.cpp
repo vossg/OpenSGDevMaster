@@ -48,7 +48,7 @@
 #endif
 
 #ifdef OSG_HAVE_ACTION //CHECK
-#include <OSGIntersectActor.h>
+#include "OSGIntersectActor.h"
 #endif
 
 OSG_USING_NAMESPACE

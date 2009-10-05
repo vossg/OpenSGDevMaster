@@ -45,8 +45,8 @@
 
 #include <sstream>
 
-#include <OSGConfig.h>
-#include <OSGSystemDef.h>
+#include "OSGConfig.h"
+#include "OSGSystemDef.h"
 #include "OSGClusterWindow.h"
 #include "OSGDgramSocket.h"
 #include "OSGStreamSocket.h"

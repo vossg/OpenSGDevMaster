@@ -36,14 +36,14 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGOSBChunkMaterialElement.h>
+#include "OSGOSBChunkMaterialElement.h"
 
-#include <OSGOSBRootElement.h>
-#include <OSGChunkMaterial.h>
+#include "OSGOSBRootElement.h"
+#include "OSGChunkMaterial.h"
 
-#include <OSGOSBTextureChunkElement.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGTextureEnvChunk.h>
+#include "OSGOSBTextureChunkElement.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
 
 OSG_USING_NAMESPACE
 

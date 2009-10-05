@@ -58,7 +58,7 @@ extern "C"
 #include <limits>
 #endif
 #include "OSGJPGImageFileType.h"
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 #ifndef OSG_DO_DOC
 #    ifdef OSG_WITH_JPG

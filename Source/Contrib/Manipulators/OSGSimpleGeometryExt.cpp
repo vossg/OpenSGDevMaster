@@ -42,14 +42,14 @@
 
 #include "OSGSimpleGeometryExt.h"
 
-#include <OSGSimpleMaterial.h>
-#include <OSGLineChunk.h>
-#include <OSGGroup.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGFaceIterator.h>
-#include <OSGComponentTransform.h>
-#include <OSGTypedGeoVectorProperty.h>
-#include <OSGTypedGeoIntegralProperty.h>
+#include "OSGSimpleMaterial.h"
+#include "OSGLineChunk.h"
+#include "OSGGroup.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGFaceIterator.h"
+#include "OSGComponentTransform.h"
+#include "OSGTypedGeoVectorProperty.h"
+#include "OSGTypedGeoIntegralProperty.h"
 
 using namespace std;
 

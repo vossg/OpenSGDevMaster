@@ -39,12 +39,12 @@
 //---------------------------------------------------------------------------
 
 #include "OSGOSGWriter.h"
-//#include <OSGAttachment.h>
-//#include <OSGSimpleAttachments.h>
+//#include "OSGAttachment.h"
+//#include "OSGSimpleAttachments.h"
 //#include "OSGVRMLNodeDescs.h"
 
-#include <OSGAttachmentMapSFields.h>
-#include <OSGAttachment.h>
+#include "OSGAttachmentMapSFields.h"
+#include "OSGAttachment.h"
 
 #include <boost/bind.hpp>
 

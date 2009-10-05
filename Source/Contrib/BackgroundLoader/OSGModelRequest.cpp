@@ -1,8 +1,8 @@
 // the general scene file loading handler
-#include <OSGSceneFileHandler.h>
-#include <OSGVerifyGraphOp.h>
+#include "OSGSceneFileHandler.h"
+#include "OSGVerifyGraphOp.h"
 
-#include <OSGModelRequest.h>
+#include "OSGModelRequest.h"
 #include <iostream>
 
 OSG_USING_NAMESPACE

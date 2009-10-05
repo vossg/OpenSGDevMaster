@@ -36,7 +36,7 @@
  *                                                                           * 
 \*---------------------------------------------------------------------------*/
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include <cctype>
 #include <string>

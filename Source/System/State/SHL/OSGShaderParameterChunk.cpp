@@ -43,29 +43,29 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGShaderParameterChunk.h"
 
-#include <OSGShaderParameterAccess.h>
+#include "OSGShaderParameterAccess.h"
 
-#include <OSGShaderParameter.h>
-#include <OSGShaderParameterBool.h>
-#include <OSGShaderParameterInt.h>
-#include <OSGShaderParameterReal.h>
-#include <OSGShaderParameterVec2f.h>
-#include <OSGShaderParameterVec3f.h>
-#include <OSGShaderParameterVec4f.h>
-#include <OSGShaderParameterMatrix.h>
-#include <OSGShaderParameterPnt2f.h>
-#include <OSGShaderParameterPnt3f.h>
+#include "OSGShaderParameter.h"
+#include "OSGShaderParameterBool.h"
+#include "OSGShaderParameterInt.h"
+#include "OSGShaderParameterReal.h"
+#include "OSGShaderParameterVec2f.h"
+#include "OSGShaderParameterVec3f.h"
+#include "OSGShaderParameterVec4f.h"
+#include "OSGShaderParameterMatrix.h"
+#include "OSGShaderParameterPnt2f.h"
+#include "OSGShaderParameterPnt3f.h"
 
-#include <OSGShaderParameterMInt.h>
-#include <OSGShaderParameterMReal.h>
-#include <OSGShaderParameterMVec2f.h>
-#include <OSGShaderParameterMVec3f.h>
-#include <OSGShaderParameterMVec4f.h>
-#include <OSGShaderParameterMMatrix.h>
+#include "OSGShaderParameterMInt.h"
+#include "OSGShaderParameterMReal.h"
+#include "OSGShaderParameterMVec2f.h"
+#include "OSGShaderParameterMVec3f.h"
+#include "OSGShaderParameterMVec4f.h"
+#include "OSGShaderParameterMMatrix.h"
 
 OSG_USING_NAMESPACE
 

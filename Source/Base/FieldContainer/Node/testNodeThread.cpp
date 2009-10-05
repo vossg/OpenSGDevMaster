@@ -1,6 +1,6 @@
 
-#include <OSGBaseInitFunctions.h>
-#include <OSGNode.h>
+#include "OSGBaseInitFunctions.h"
+#include "OSGNode.h"
 
 #ifdef OSG_USE_PTHREADS
 #include <pthread.h>

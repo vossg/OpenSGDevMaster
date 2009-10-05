@@ -48,7 +48,7 @@
 
 #include "OSGConfig.h"
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 #include "OSGSceneFileType.h"
 #ifndef OSG_EMBEDDED

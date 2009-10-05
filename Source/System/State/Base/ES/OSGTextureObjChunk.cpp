@@ -47,10 +47,10 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLU.h>
-#include <OSGGLEXT.h>
-#include <OSGImage.h>
+#include "OSGGL.h"
+#include "OSGGLU.h"
+#include "OSGGLEXT.h"
+#include "OSGImage.h"
 
 #include "OSGDrawActionBase.h"
 #include "OSGDrawEnv.h"

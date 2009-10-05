@@ -43,8 +43,8 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGRenderAction.h>
+#include "OSGConfig.h"
+#include "OSGRenderAction.h"
 
 #include "OSGScreenLOD.h"
 #include "OSGDrawableStatsAttachment.h"

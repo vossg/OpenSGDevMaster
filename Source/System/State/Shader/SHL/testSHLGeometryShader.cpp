@@ -4,25 +4,25 @@
 // Implements a simple bumpmapping via vertex and fragment shader.
 
 // Headers
-#include <OSGConfig.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUT.h>
-#include <OSGGLEXT.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGAction.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGBaseFunctions.h>
+#include "OSGConfig.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUT.h"
+#include "OSGGLEXT.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGAction.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGBaseFunctions.h"
 
-#include <OSGNode.h>
-#include <OSGGroup.h>
-#include <OSGTransform.h>
-#include <OSGPointLight.h>
+#include "OSGNode.h"
+#include "OSGGroup.h"
+#include "OSGTransform.h"
+#include "OSGPointLight.h"
 
-#include <OSGImage.h>
-#include <OSGChunkMaterial.h>
-#include <OSGMaterialChunk.h>
-#include <OSGSimpleSHLChunk.h>
+#include "OSGImage.h"
+#include "OSGChunkMaterial.h"
+#include "OSGMaterialChunk.h"
+#include "OSGSimpleSHLChunk.h"
 
 
 

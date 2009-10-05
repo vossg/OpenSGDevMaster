@@ -1,15 +1,15 @@
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGLog.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGGroup.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGTransform.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGBaseFunctions.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGTypedGeoIntegralProperty.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGLog.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGGroup.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGTransform.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGBaseFunctions.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGTypedGeoIntegralProperty.h"
 
 #include "OSGManipulatorManager.h"
 

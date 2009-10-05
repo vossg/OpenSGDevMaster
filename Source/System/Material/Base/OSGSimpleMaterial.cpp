@@ -45,13 +45,13 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGAction.h>
+#include "OSGAction.h"
 
-#include <OSGStateChunk.h>
-#include <OSGState.h>
-#include <OSGMaterialChunk.h>
+#include "OSGStateChunk.h"
+#include "OSGState.h"
+#include "OSGMaterialChunk.h"
 
 #include "OSGSimpleMaterial.h"
 

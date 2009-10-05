@@ -36,10 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 #include "OSGNFIOFactory.h"
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 OSG_USING_NAMESPACE
 

@@ -16,13 +16,13 @@
 #include <GL/glx.h>
 
 // General OpenSG configuration, needed everywhere
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 // The Cluster server definition
-#include <OSGClusterServer.h>
+#include "OSGClusterServer.h"
 // The GLUT-OpenSG connection class
-#include <OSGXWindow.h>
+#include "OSGXWindow.h"
 // Render action definition. 
-#include <OSGRenderAction.h>
+#include "OSGRenderAction.h"
 
 // local glut window
 OSG::XWindowRefPtr    window      = NULL;

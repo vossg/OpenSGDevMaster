@@ -45,11 +45,11 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGFieldContainer.h>
-#include <OSGNode.h>
-#include <OSGAction.h>
+#include "OSGFieldContainer.h"
+#include "OSGNode.h"
+#include "OSGAction.h"
 #include "OSGViewport.h"
 #include "OSGCamera.h"
 #include "OSGWindow.h"

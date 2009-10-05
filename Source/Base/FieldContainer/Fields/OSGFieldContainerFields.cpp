@@ -40,11 +40,11 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <OSGFieldContainerSFields.h>
-#include <OSGFieldContainerMFields.h>
+#include "OSGFieldContainerSFields.h"
+#include "OSGFieldContainerMFields.h"
 
-#include <OSGTypeBasePredicates.h>
-#include <OSGReflexiveContainerTypePredicates.h>
+#include "OSGTypeBasePredicates.h"
+#include "OSGReflexiveContainerTypePredicates.h"
 
 OSG_BEGIN_NAMESPACE
 #if 0

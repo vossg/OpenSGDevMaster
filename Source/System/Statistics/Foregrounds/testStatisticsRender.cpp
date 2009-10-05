@@ -1,23 +1,23 @@
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGPassiveWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGSceneFileHandler.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGPassiveWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGSceneFileHandler.h"
 
-#include <OSGDrawable.h>
-#include <OSGSimpleStatisticsForeground.h>
-#include <OSGStatElemTypes.h>
-#include <OSGStatCollector.h>
-
-#include "OSGTextureBaseChunk.h"
+#include "OSGDrawable.h"
+#include "OSGSimpleStatisticsForeground.h"
+#include "OSGStatElemTypes.h"
+#include "OSGStatCollector.h"
+#include "OSGRenderAction.h"
+#include "OSGTextureObjChunk.h"
 #include "OSGMaterialChunk.h"
 #include "OSGSimpleSHLChunk.h"
 
 
-OSG::SimpleSceneManager    *mgr(NULL);
-OSG::RenderAction *tact = NULL;
+OSG::SimpleSceneManager    *mgr  = NULL;
+OSG::RenderAction          *ract = NULL;
 
 OSG::PassiveWindowRecPtr              pwin;
 OSG::SimpleStatisticsForegroundRecPtr statfg;

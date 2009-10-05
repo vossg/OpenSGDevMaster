@@ -41,22 +41,22 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
 #include <iostream>
 #include <fstream>
 
 #include <vector>
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
-#include <OSGNode.h>
-#include <OSGGeometry.h>
+#include "OSGNode.h"
+#include "OSGGeometry.h"
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
-#include <OSGGeoFunctions.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGSceneFileHandler.h>
+#include "OSGGeoFunctions.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGSceneFileHandler.h"
 
 #include "OSGOFFSceneFileType.h"
 

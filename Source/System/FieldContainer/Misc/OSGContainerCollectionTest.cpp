@@ -38,12 +38,12 @@
 
 // Unit tests for the ContainerCollection container
 
-#include <OSGContainerCollection.h>
-#include <OSGNode.h>
-#include <OSGGroup.h>
-#include <OSGBlendChunk.h>
+#include "OSGContainerCollection.h"
+#include "OSGNode.h"
+#include "OSGGroup.h"
+#include "OSGBlendChunk.h"
 
-#include <OSGNameAttachment.h>
+#include "OSGNameAttachment.h"
 
 SUITE(ContainerCollectionTests)
 {

@@ -45,7 +45,7 @@
 #include <math.h>
 #include <memory.h>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include <iostream>
 #include <fstream>
@@ -77,11 +77,11 @@
  #include <OpenEXR/ImfCompression.h>
 #endif
 
-#include <OSGLog.h>
-#include <OSGImageFileHandler.h>
-#include <OSGPathHandler.h>
-#include <OSGFileSystem.h>
-#include <OSGImageGenericAtt.h>
+#include "OSGLog.h"
+#include "OSGImageFileHandler.h"
+#include "OSGPathHandler.h"
+#include "OSGFileSystem.h"
+#include "OSGImageGenericAtt.h"
 
 #include "OSGEXRImageFileType.h"
 

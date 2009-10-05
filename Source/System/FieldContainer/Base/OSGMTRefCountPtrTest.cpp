@@ -36,10 +36,10 @@
 
 #include <UnitTest++.h>
 
-#include <OSGFieldContainer.h>
-#include <OSGNode.h>
-#include <OSGNodeCore.h>
-#include <OSGGroup.h>
+#include "OSGFieldContainer.h"
+#include "OSGNode.h"
+#include "OSGNodeCore.h"
+#include "OSGGroup.h"
 
 OSG_BEGIN_NAMESPACE
 OSG_GEN_CONTAINERPTR(FieldContainer);

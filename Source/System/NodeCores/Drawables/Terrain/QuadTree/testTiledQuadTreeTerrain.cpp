@@ -39,30 +39,30 @@
 // Minimalistic OpenSG program
 
 // GLUT is used for window handling
-#include <OSGGLUT.h>
+#include "OSGGLUT.h"
 
 // General OpenSG configuration, needed everywhere
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 // The GLUT-OpenSG connection class
-#include <OSGGLUTWindow.h>
+#include "OSGGLUTWindow.h"
 
 // A little helper to simplify scene management and interaction
-#include <OSGSimpleSceneManager.h>
-#include <OSGWalkEngine.h>
+#include "OSGSimpleSceneManager.h"
+#include "OSGWalkEngine.h"
 
 // Methods to create simple geometry: boxes, spheres, tori etc.
-#include <OSGSimpleGeometry.h>
+#include "OSGSimpleGeometry.h"
 
 
-#include <OSGSceneFileHandler.h>
-#include <OSGGeoFunctions.h>
-#include <OSGPointLight.h>
-#include <OSGTransform.h>
-#include <OSGTiledQuadTreeTerrain.h>
-#include <OSGImageFileHandler.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGTextureEnvChunk.h>
+#include "OSGSceneFileHandler.h"
+#include "OSGGeoFunctions.h"
+#include "OSGPointLight.h"
+#include "OSGTransform.h"
+#include "OSGTiledQuadTreeTerrain.h"
+#include "OSGImageFileHandler.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
 
 // Activate the OpenSG namespace
 

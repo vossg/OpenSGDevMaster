@@ -43,15 +43,15 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLU.h>
-#include <OSGGLEXT.h>
+#include "OSGGL.h"
+#include "OSGGLU.h"
+#include "OSGGLEXT.h"
 
-#include <OSGSHLChunk.h>
-#include <OSGDrawEnv.h>
-#include <OSGWindow.h>
+#include "OSGSHLChunk.h"
+#include "OSGDrawEnv.h"
+#include "OSGWindow.h"
 
 #include "OSGSHLParameterChunk.h"
 

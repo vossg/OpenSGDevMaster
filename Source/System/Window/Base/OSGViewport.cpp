@@ -45,15 +45,15 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGField.h>
-#include <OSGFieldContainer.h>
-#include <OSGAction.h>
+#include "OSGField.h"
+#include "OSGFieldContainer.h"
+#include "OSGAction.h"
 
-#include <OSGRenderActionBase.h>
+#include "OSGRenderActionBase.h"
 
-#include <OSGDrawEnv.h>
+#include "OSGDrawEnv.h"
 
 #include "OSGBackground.h"
 #include "OSGViewport.h"

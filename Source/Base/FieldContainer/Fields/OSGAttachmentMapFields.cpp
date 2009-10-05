@@ -40,17 +40,17 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <OSGFieldContainer.h>
-#include <OSGAttachmentMapSFields.h>
-#include <OSGAttachment.h>
-#include <OSGAttachmentContainer.h>
-#include <OSGContainerPtrFuncs.h>
+#include "OSGFieldContainer.h"
+#include "OSGAttachmentMapSFields.h"
+#include "OSGAttachment.h"
+#include "OSGAttachmentContainer.h"
+#include "OSGContainerPtrFuncs.h"
 
-#include <OSGTypeBasePredicates.h>
-#include <OSGReflexiveContainerTypePredicates.h>
-#include <OSGMapHelper.h>
+#include "OSGTypeBasePredicates.h"
+#include "OSGReflexiveContainerTypePredicates.h"
+#include "OSGMapHelper.h"
 
-#include <OSGSField.ins>
+#include "OSGSField.ins"
 
 
 OSG_BEGIN_NAMESPACE

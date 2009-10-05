@@ -43,7 +43,7 @@
 
 #include <map>
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
 // Application declarations
 

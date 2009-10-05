@@ -41,12 +41,12 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include <OSGColladaInstanceNode.h>
-#include <OSGColladaLog.h>
+#include "OSGColladaInstanceNode.h"
+#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGColladaNode.h>
+#include "OSGColladaNode.h"
 
 #include <dom/domNode.h>
 #include <dom/domInstance_node.h>

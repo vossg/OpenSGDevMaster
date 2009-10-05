@@ -43,9 +43,9 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGBaseFunctions.h>
+#include "OSGBaseFunctions.h"
 
 // exclude the whole class from user docs
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
@@ -505,8 +505,8 @@ void ParticleBSPTree::destroy()
 }
 
 
-#include <OSGSField.ins>
-#include <OSGMField.ins>
+#include "OSGSField.ins"
+#include "OSGMField.ins"
 
 OSG_BEGIN_NAMESPACE
 

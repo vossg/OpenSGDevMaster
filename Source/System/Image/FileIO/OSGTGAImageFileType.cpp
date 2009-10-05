@@ -55,7 +55,7 @@
 #ifdef OSG_WITH_TGA
 #include <tiffio.h>
 #endif
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 
 OSG_USING_NAMESPACE

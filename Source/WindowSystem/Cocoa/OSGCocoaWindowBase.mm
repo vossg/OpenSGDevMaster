@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 

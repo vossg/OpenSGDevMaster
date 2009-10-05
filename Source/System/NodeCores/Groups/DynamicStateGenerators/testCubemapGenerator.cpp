@@ -1,9 +1,9 @@
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include <iostream>
 
-#include <OSGGLUT.h>
-#include <OSGNode.h>
+#include "OSGGLUT.h"
+#include "OSGNode.h"
 
 #include "OSGTrackball.h"
 #include "OSGLine.h"

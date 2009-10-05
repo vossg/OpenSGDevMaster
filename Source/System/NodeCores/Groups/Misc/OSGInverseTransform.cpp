@@ -43,8 +43,8 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGGL.h>
+#include "OSGConfig.h"
+#include "OSGGL.h"
 
 #include "OSGInverseTransform.h"
 #ifndef OSG_EMBEDDED

@@ -1,38 +1,38 @@
 #include <stdlib.h>
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
 
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUTWindow.h>
-#include <OSGBaseFunctions.h>
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUTWindow.h"
+#include "OSGBaseFunctions.h"
 
-#include <OSGSpotLight.h>
-#include <OSGDirectionalLight.h>
-#include <OSGPointLight.h>
+#include "OSGSpotLight.h"
+#include "OSGDirectionalLight.h"
+#include "OSGPointLight.h"
 
-#include <OSGPerspectiveCamera.h>
-#include <OSGGradientBackground.h>
-#include <OSGSolidBackground.h>
-#include <OSGRenderAction.h>
-#include <OSGImage.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGTextureObjChunk.h>
-#include <OSGTextureEnvChunk.h>
+#include "OSGPerspectiveCamera.h"
+#include "OSGGradientBackground.h"
+#include "OSGSolidBackground.h"
+#include "OSGRenderAction.h"
+#include "OSGImage.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGTextureObjChunk.h"
+#include "OSGTextureEnvChunk.h"
 
-#include <OSGTransform.h>
-#include <OSGGroup.h>
-#include <OSGTrackball.h>
+#include "OSGTransform.h"
+#include "OSGGroup.h"
+#include "OSGTrackball.h"
 
-#include <OSGMatrix.h>
-#include <OSGQuaternion.h>
-#include <OSGVector.h>
+#include "OSGMatrix.h"
+#include "OSGQuaternion.h"
+#include "OSGVector.h"
 
-#include <OSGSimpleSceneManager.h>
+#include "OSGSimpleSceneManager.h"
 
-#include <OSGSceneFileHandler.h>
+#include "OSGSceneFileHandler.h"
 
-#include <OSGShadowStage.h>
+#include "OSGShadowStage.h"
 
 OSG::SimpleSceneManager *mgr;
 

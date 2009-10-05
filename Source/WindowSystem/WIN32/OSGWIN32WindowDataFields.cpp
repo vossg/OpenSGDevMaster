@@ -46,8 +46,8 @@
 
 #include "OSGWIN32WindowDataFields.h"
 
-#include <OSGSField.ins>
-#include <OSGMField.ins>
+#include "OSGSField.ins"
+#include "OSGMField.ins"
 
 OSG_BEGIN_NAMESPACE
 

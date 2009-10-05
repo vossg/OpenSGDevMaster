@@ -45,9 +45,9 @@
 
 #define GL_GLEXT_PROTOTYPES 1
 
-#include <OSGConfig.h>
-#include <OSGConnection.h>
-#include <OSGGLEXT.h>
+#include "OSGConfig.h"
+#include "OSGConnection.h"
+#include "OSGGLEXT.h"
 
 #include "OSGPipelineComposer.h"
 

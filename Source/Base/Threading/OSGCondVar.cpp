@@ -54,7 +54,7 @@
 
 #include "OSGThreadManager.h"
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 OSG_USING_NAMESPACE
 

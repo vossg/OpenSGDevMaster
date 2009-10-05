@@ -41,7 +41,7 @@
 
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGInline.h"
 #include "OSGSceneFileHandler.h"

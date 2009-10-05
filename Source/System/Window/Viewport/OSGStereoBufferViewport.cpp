@@ -43,8 +43,8 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGGL.h>
+#include "OSGConfig.h"
+#include "OSGGL.h"
 
 #include "OSGStereoBufferViewport.h"
 

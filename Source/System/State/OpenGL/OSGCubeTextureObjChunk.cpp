@@ -44,12 +44,12 @@
 #include <cstdio>
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLU.h>
-#include <OSGGLEXT.h>
-#include <OSGDrawEnv.h>
+#include "OSGGL.h"
+#include "OSGGLU.h"
+#include "OSGGLEXT.h"
+#include "OSGDrawEnv.h"
 
 #include "OSGCubeTextureObjChunk.h"
 

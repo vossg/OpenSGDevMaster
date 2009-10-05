@@ -43,7 +43,7 @@
 
 #include "OSGDrawTask.h"
 
-#include <OSGMField.ins>
+#include "OSGMField.ins"
 
 OSG_BEGIN_NAMESPACE
 

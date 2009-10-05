@@ -39,13 +39,13 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
 #include "OSGTwoSidedLightingChunk.h"
-#include <OSGWindow.h>
-#include <OSGCamera.h>
+#include "OSGWindow.h"
+#include "OSGCamera.h"
 
 OSG_USING_NAMESPACE
 

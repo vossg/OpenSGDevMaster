@@ -59,8 +59,8 @@ OSG_END_NAMESPACE
 #pragma warning (disable : 383)
 #endif
 
-#include <OSGSField.ins>
-#include <OSGMField.ins>
+#include "OSGSField.ins"
+#include "OSGMField.ins"
 
 OSG_BEGIN_NAMESPACE
 

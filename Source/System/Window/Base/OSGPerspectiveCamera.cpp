@@ -46,11 +46,11 @@
 
 #include "OSGConfig.h"
 
-#include <OSGBaseTypes.h>
-#include <OSGLog.h>
-#include <OSGVector.h>
-#include <OSGMatrix.h>
-#include <OSGMatrixUtility.h>
+#include "OSGBaseTypes.h"
+#include "OSGLog.h"
+#include "OSGVector.h"
+#include "OSGMatrix.h"
+#include "OSGMatrixUtility.h"
 
 #include "OSGViewport.h"
 #include "OSGCamera.h"

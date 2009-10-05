@@ -45,12 +45,12 @@
 
 #include <functional>
 
-#include <OSGGLU.h>
+#include "OSGGLU.h"
 
 #include <algorithm>
-#include <OSGConfig.h>
-#include <OSGGeometry.h>
-#include <OSGSimpleGeometry.h>
+#include "OSGConfig.h"
+#include "OSGGeometry.h"
+#include "OSGSimpleGeometry.h"
 
 #include "OSGTileLoadBalancer.h"
 

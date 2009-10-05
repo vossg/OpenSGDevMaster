@@ -45,7 +45,7 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGLU.h>
+#include "OSGGLU.h"
 
 #if !defined(WIN32) && !defined(__APPLE__)
 #include <GL/glx.h>
@@ -68,8 +68,8 @@
 #include <link.h>
 #endif
 
-#include <OSGBaseFunctions.h>
-#include <OSGDrawEnv.h>
+#include "OSGBaseFunctions.h"
+#include "OSGDrawEnv.h"
 
 #include "OSGViewport.h"
 

@@ -40,8 +40,8 @@
 #include <cstring>
 #include <cstdio>
 #include <cerrno>
-#include <OSGSocket.h>
-#include <OSGSocketException.h>
+#include "OSGSocket.h"
+#include "OSGSocketException.h"
 
 OSG_USING_NAMESPACE
 

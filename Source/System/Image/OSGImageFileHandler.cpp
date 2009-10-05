@@ -43,11 +43,11 @@
 
 #include "OSGConfig.h"
 
-#include <OSGLog.h>
-#include <OSGBaseTypes.h>
-#include <OSGPathHandler.h>
-#include <OSGBaseFunctions.h>
-#include <OSGFileSystem.h>
+#include "OSGLog.h"
+#include "OSGBaseTypes.h"
+#include "OSGPathHandler.h"
+#include "OSGBaseFunctions.h"
+#include "OSGFileSystem.h"
 
 #include "OSGImageFileHandler.h"
 

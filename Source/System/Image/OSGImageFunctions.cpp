@@ -48,10 +48,10 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGLog.h>
-#include <OSGImage.h>
-#include <OSGBaseFunctions.h>
+#include "OSGConfig.h"
+#include "OSGLog.h"
+#include "OSGImage.h"
+#include "OSGBaseFunctions.h"
 
 #include "OSGImageFunctions.h"
 

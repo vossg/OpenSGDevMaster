@@ -55,12 +55,12 @@
 
 #include <algorithm>
 
-#include <OSGConfig.h>
-#include <OSGLog.h>
-#include <OSGImageGenericAtt.h>
-#include <OSGFieldContainerFields.h>
-#include <OSGFileSystem.h>
-#include <OSGImageFileHandler.h>
+#include "OSGConfig.h"
+#include "OSGLog.h"
+#include "OSGImageGenericAtt.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFileSystem.h"
+#include "OSGImageFileHandler.h"
 #include "OSGSquish.h"
 
 /*

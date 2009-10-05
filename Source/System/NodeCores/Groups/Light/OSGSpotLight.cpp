@@ -41,10 +41,10 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGRenderAction.h>
-#include <OSGStatCollector.h>
+#include "OSGRenderAction.h"
+#include "OSGStatCollector.h"
 
 #include "OSGSpotLight.h"
 

@@ -45,7 +45,7 @@
 
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGShaderExecutableChunk.h"
 #include "OSGShaderProgramChunk.h"

@@ -60,10 +60,10 @@
 #include <cstdio>
 #include <cmath>
 #include <map>
-#include <OSGSocketAddress.h>
-#include <OSGDgramSocket.h>
-#include <OSGNetworkMessage.h>
-#include <OSGTime.h>
+#include "OSGSocketAddress.h"
+#include "OSGDgramSocket.h"
+#include "OSGNetworkMessage.h"
+#include "OSGTime.h"
 
 #include "OSGBaseFunctions.h"
 

@@ -48,11 +48,11 @@
 #include <iostream>
 #include <fstream>
 
-#include <OSGLog.h>
-#include <OSGImageFileHandler.h>
-#include <OSGPathHandler.h>
-#include <OSGFileSystem.h>
-#include <OSGZStream.h>
+#include "OSGLog.h"
+#include "OSGImageFileHandler.h"
+#include "OSGPathHandler.h"
+#include "OSGFileSystem.h"
+#include "OSGZStream.h"
 
 #include "OSGDATImageFileType.h"
 

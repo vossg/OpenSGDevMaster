@@ -1,16 +1,16 @@
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGConfigured.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGSceneFileHandler.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGConfigured.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGSceneFileHandler.h"
 
-#include <OSGDrawable.h>
-#include <OSGSimpleStatisticsForeground.h>
-#include <OSGStatElemTypes.h>
-#include <OSGStatCollector.h>
+#include "OSGDrawable.h"
+#include "OSGSimpleStatisticsForeground.h"
+#include "OSGStatElemTypes.h"
+#include "OSGStatCollector.h"
 
 #include <boost/bind.hpp>
 

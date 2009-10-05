@@ -43,8 +43,8 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGSysFieldTraits.h>
+#include "OSGConfig.h"
+#include "OSGSysFieldTraits.h"
 
 #include "OSGStatIntElem.h"
 

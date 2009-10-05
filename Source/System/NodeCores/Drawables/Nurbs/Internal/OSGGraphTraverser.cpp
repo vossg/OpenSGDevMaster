@@ -36,7 +36,7 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 #include "OSGGraphTraverser.h"
 #include "OSGpredicates.h"

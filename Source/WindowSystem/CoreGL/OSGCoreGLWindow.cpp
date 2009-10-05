@@ -43,7 +43,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 // Forget everything if we're not doing a Mac OS X compile
 #ifdef __APPLE__

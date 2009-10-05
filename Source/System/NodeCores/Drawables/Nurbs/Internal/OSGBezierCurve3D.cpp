@@ -39,7 +39,7 @@
 #   pragma warning (disable : 985)
 #endif
 #include "OSGBezierCurve3D.h"
-#include <OSGBaseTypes.h>
+#include "OSGBaseTypes.h"
 
 OSG_USING_NAMESPACE
 

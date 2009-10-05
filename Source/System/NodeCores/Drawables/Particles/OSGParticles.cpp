@@ -43,15 +43,15 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGGLEXT.h>
-#include <OSGAction.h>
-#include <OSGRenderAction.h>
-#include <OSGMaterial.h>
-//#include <OSGGeoPropPtrs.h>
-#include <OSGCamera.h>
-#include <OSGWindow.h>
-#include <OSGDrawEnv.h>
+#include "OSGConfig.h"
+#include "OSGGLEXT.h"
+#include "OSGAction.h"
+#include "OSGRenderAction.h"
+#include "OSGMaterial.h"
+//#include "OSGGeoPropPtrs.h"
+#include "OSGCamera.h"
+#include "OSGWindow.h"
+#include "OSGDrawEnv.h"
 
 #include "OSGParticles.h"
 #include "OSGDrawableStatsAttachment.h"

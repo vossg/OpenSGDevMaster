@@ -21,11 +21,11 @@
 #pragma warning(disable:4305) // init: truncation from const double to float
 #endif
 
-#include <OSGConfig.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGPassiveWindow.h>
-#include <OSGSimpleSceneManager.h>
+#include "OSGConfig.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGPassiveWindow.h"
+#include "OSGSimpleSceneManager.h"
 
 class OpenSGWidget : public QGLWidget
 {

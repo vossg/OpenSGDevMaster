@@ -34,9 +34,9 @@
 
 #include "OSGConfig.h"
 
-#include <OSGLog.h>
-#include <OSGFieldContainer.h>
-#include <OSGNodeCore.h>
+#include "OSGLog.h"
+#include "OSGFieldContainer.h"
+#include "OSGNodeCore.h"
 #include "OSGAction.h"
 
 //#define BOOST_MEM_FN_ENABLE_CDECL

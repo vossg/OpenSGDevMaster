@@ -42,13 +42,13 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <OSGConfig.h>
-#include <OSGGL.h>
-#include <OSGViewport.h>
-#include <OSGTileCameraDecorator.h>
-#include <OSGBaseFunctions.h>
-#include <OSGStereoBufferViewport.h>
-#include <OSGFieldContainerFields.h>
+#include "OSGConfig.h"
+#include "OSGGL.h"
+#include "OSGViewport.h"
+#include "OSGTileCameraDecorator.h"
+#include "OSGBaseFunctions.h"
+#include "OSGStereoBufferViewport.h"
+#include "OSGFieldContainerFields.h"
 #include "OSGMultiDisplayWindow.h"
 #include "OSGConnection.h"
 #include "OSGNode.h"

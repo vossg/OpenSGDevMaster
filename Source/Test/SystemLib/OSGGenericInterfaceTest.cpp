@@ -38,13 +38,13 @@
 
 #include <UnitTest++.h>
 
-#include <OSGFieldContainer.h>
-#include <OSGNode.h>
-#include <OSGNodeCore.h>
-#include <OSGGroup.h>
+#include "OSGFieldContainer.h"
+#include "OSGNode.h"
+#include "OSGNodeCore.h"
+#include "OSGGroup.h"
 
-#include <OSGFCDPtrTestFC.h>
-#include <OSGFCDPtrTestFCNullCheckAccess.h>
+#include "OSGFCDPtrTestFC.h"
+#include "OSGFCDPtrTestFCNullCheckAccess.h"
 
 #include <iostream>
 #include <string>

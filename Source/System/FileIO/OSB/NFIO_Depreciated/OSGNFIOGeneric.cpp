@@ -36,17 +36,17 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include <string>
 
 #include "OSGNFIOGeneric.h"
 #include "OSGNFIOFactory.h"
 
-#include <OSGLog.h>
-#include <OSGGroup.h>
-//#include <OSGSimpleAttachments.h>
-#include <OSGChunkMaterial.h>
+#include "OSGLog.h"
+#include "OSGGroup.h"
+//#include "OSGSimpleAttachments.h"
+#include "OSGChunkMaterial.h"
 
 OSG_USING_NAMESPACE
 

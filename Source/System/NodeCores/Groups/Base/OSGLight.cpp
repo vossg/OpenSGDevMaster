@@ -41,7 +41,7 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
 #include "OSGRenderAction.h"
 #include "OSGLightEngine.h"

@@ -45,10 +45,10 @@
 
 #include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGState.h>
-#include <OSGMaterialDrawable.h>
+#include "OSGState.h"
+#include "OSGMaterialDrawable.h"
 
 #include "OSGVariantMaterial.h"
 

@@ -39,13 +39,13 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGSwitch.h"
 
-#include <OSGRenderAction.h>
+#include "OSGRenderAction.h"
 #ifndef OSG_EMBEDDED
-#include <OSGIntersectAction.h>
+#include "OSGIntersectAction.h"
 #endif
 
 OSG_USING_NAMESPACE

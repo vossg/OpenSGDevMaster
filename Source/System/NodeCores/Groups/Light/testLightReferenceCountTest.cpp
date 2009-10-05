@@ -38,11 +38,11 @@
 #pragma GCC diagnostic ignored "-Wunused-variable"
 #endif
 
-#include <OSGFieldContainer.h>
-#include <OSGNode.h>
-#include <OSGNodeCore.h>
-#include <OSGGroup.h>
-#include <OSGDirectionalLight.h>
+#include "OSGFieldContainer.h"
+#include "OSGNode.h"
+#include "OSGNodeCore.h"
+#include "OSGGroup.h"
+#include "OSGDirectionalLight.h"
 
 #include <iostream>
 #include <string>

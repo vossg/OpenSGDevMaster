@@ -37,7 +37,7 @@
 \*---------------------------------------------------------------------------*/
 
 #include "OSGTextWIN32Backend.h"
-#include <OSGBaseTypes.h>
+#include "OSGBaseTypes.h"
 
 
 #ifdef _WIN32

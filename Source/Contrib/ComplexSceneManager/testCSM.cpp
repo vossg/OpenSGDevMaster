@@ -1,8 +1,8 @@
 
-#include <OSGComplexSceneManager.h>
-#include <OSGOSGSceneFileType.h>
-#include <OSGBaseInitFunctions.h>
-#include <OSGGLU.h>
+#include "OSGComplexSceneManager.h"
+#include "OSGOSGSceneFileType.h"
+#include "OSGBaseInitFunctions.h"
+#include "OSGGLU.h"
 
 void dumpGLError(GLenum glError, const GLubyte *glErrorString)
 {

@@ -36,11 +36,11 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include <OSGBaseTypes.h>
-#include <OSGGeoTypeGraphOp.h>
-#include <OSGLog.h>
-#include <OSGTypedGeoIntegralProperty.h>
-#include <OSGTypedGeoVectorProperty.h>
+#include "OSGBaseTypes.h"
+#include "OSGGeoTypeGraphOp.h"
+#include "OSGLog.h"
+#include "OSGTypedGeoIntegralProperty.h"
+#include "OSGTypedGeoVectorProperty.h"
 #include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE

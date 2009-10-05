@@ -4,7 +4,7 @@
 //#################################################
 
 
-#include <OSGGLDefineMapper.h>
+#include "OSGGLDefineMapper.h"
 
 
 OSG_BEGIN_NAMESPACE

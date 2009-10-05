@@ -41,19 +41,19 @@
 *                             Includes                                    *
 \***************************************************************************/
 
-#include <OSGSplitGraphOp.h>
-#include <OSGDirectionalLight.h>
-#include <OSGSpotLight.h>
-#include <OSGLight.h>
-#include <OSGPointLight.h>
-#include <OSGSwitch.h>
-#include <OSGDistanceLOD.h>
-#include <OSGBillboard.h>
-#include <OSGMaterialGroup.h>
-#include <OSGComponentTransform.h>
-#include <OSGPrimitiveIterator.h>
-#include <OSGGeometry.h>
-#include <OSGGraphOpFactory.h>
+#include "OSGSplitGraphOp.h"
+#include "OSGDirectionalLight.h"
+#include "OSGSpotLight.h"
+#include "OSGLight.h"
+#include "OSGPointLight.h"
+#include "OSGSwitch.h"
+#include "OSGDistanceLOD.h"
+#include "OSGBillboard.h"
+#include "OSGMaterialGroup.h"
+#include "OSGComponentTransform.h"
+#include "OSGPrimitiveIterator.h"
+#include "OSGGeometry.h"
+#include "OSGGraphOpFactory.h"
 
 OSG_USING_NAMESPACE
 

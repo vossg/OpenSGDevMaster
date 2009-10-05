@@ -46,7 +46,7 @@
 #include "OSGConfig.h"
 #include "OSGLog.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
 #include "OSGNode.h"
 #include "OSGViewport.h"

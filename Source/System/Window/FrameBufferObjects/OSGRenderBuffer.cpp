@@ -44,9 +44,9 @@
 #include <cstdio>
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
-#include <OSGGL.h>
-#include <OSGGLEXT.h>
+#include "OSGConfig.h"
+#include "OSGGL.h"
+#include "OSGGLEXT.h"
 
 #include "OSGRenderBuffer.h"
 #include "OSGWindow.h"

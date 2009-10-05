@@ -44,11 +44,11 @@
 #include<OSGFieldDescriptionBase.h>
 #include<OSGRenderActionFunctorCallbackFields.h>
 
-#include <OSGSField.h>
-#include <OSGSField.ins>
+#include "OSGSField.h"
+#include "OSGSField.ins"
 
-#include <OSGMField.h>
-#include <OSGMField.ins>
+#include "OSGMField.h"
+#include "OSGMField.ins"
 
 
 

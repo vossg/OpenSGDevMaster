@@ -45,10 +45,10 @@
 
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLEXT.h>
+#include "OSGGL.h"
+#include "OSGGLEXT.h"
 
 #include "OSGWindow.h"
 

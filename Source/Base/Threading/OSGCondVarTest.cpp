@@ -38,13 +38,13 @@
 
 // Unit tests for vec classes
 
-#include <OSGConfig.h>
-#include <OSGBaseFunctions.h>
-#include <OSGBaseInitFunctions.h>
-#include <OSGCondVar.h>
-#include <OSGLock.h>
-#include <OSGLog.h>
-#include <OSGBaseThread.h>
+#include "OSGConfig.h"
+#include "OSGBaseFunctions.h"
+#include "OSGBaseInitFunctions.h"
+#include "OSGCondVar.h"
+#include "OSGLock.h"
+#include "OSGLog.h"
+#include "OSGBaseThread.h"
 
 OSG_USING_NAMESPACE
 

@@ -38,13 +38,13 @@
 
 // Unit tests for vec classes
 
-#include <OSGGeometry.h>
-#include <OSGGeoVectorProperty.h>
-#include <OSGGeoProperties.h>
-#include <OSGFieldContainerFactory.h>
-#include <OSGTypedGeoVectorProperty.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGTransform.h>
+#include "OSGGeometry.h"
+#include "OSGGeoVectorProperty.h"
+#include "OSGGeoProperties.h"
+#include "OSGFieldContainerFactory.h"
+#include "OSGTypedGeoVectorProperty.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGTransform.h"
 
 SUITE(GeometryTests)
 {

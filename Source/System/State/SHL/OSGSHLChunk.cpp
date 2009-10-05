@@ -44,36 +44,36 @@
 #include <cstdio>
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGGLU.h>
-#include <OSGGLEXT.h>
-//#include <OSGRemoteAspect.h>
-#include <OSGWindow.h>
-#include <OSGCamera.h>
-#include <OSGViewport.h>
-#include <OSGStereoCameraDecorator.h>
+#include "OSGGL.h"
+#include "OSGGLU.h"
+#include "OSGGLEXT.h"
+//#include "OSGRemoteAspect.h"
+#include "OSGWindow.h"
+#include "OSGCamera.h"
+#include "OSGViewport.h"
+#include "OSGStereoCameraDecorator.h"
 
-#include <OSGDrawEnv.h>
+#include "OSGDrawEnv.h"
 
-#include <OSGShaderParameter.h>
-#include <OSGShaderParameterBool.h>
-#include <OSGShaderParameterInt.h>
-#include <OSGShaderParameterReal.h>
-#include <OSGShaderParameterVec2f.h>
-#include <OSGShaderParameterVec3f.h>
-#include <OSGShaderParameterVec4f.h>
-#include <OSGShaderParameterMatrix.h>
-#include <OSGShaderParameterPnt2f.h>
-#include <OSGShaderParameterPnt3f.h>
+#include "OSGShaderParameter.h"
+#include "OSGShaderParameterBool.h"
+#include "OSGShaderParameterInt.h"
+#include "OSGShaderParameterReal.h"
+#include "OSGShaderParameterVec2f.h"
+#include "OSGShaderParameterVec3f.h"
+#include "OSGShaderParameterVec4f.h"
+#include "OSGShaderParameterMatrix.h"
+#include "OSGShaderParameterPnt2f.h"
+#include "OSGShaderParameterPnt3f.h"
 
-#include <OSGShaderParameterMInt.h>
-#include <OSGShaderParameterMReal.h>
-#include <OSGShaderParameterMVec2f.h>
-#include <OSGShaderParameterMVec3f.h>
-#include <OSGShaderParameterMVec4f.h>
-#include <OSGShaderParameterMMatrix.h>
+#include "OSGShaderParameterMInt.h"
+#include "OSGShaderParameterMReal.h"
+#include "OSGShaderParameterMVec2f.h"
+#include "OSGShaderParameterMVec3f.h"
+#include "OSGShaderParameterMVec4f.h"
+#include "OSGShaderParameterMMatrix.h"
 
 #include "OSGSHLChunk.h"
 

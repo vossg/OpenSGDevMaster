@@ -41,13 +41,13 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include <OSGColladaSurface.h>
-#include <OSGColladaLog.h>
+#include "OSGColladaSurface.h"
+#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGColladaImage.h>
-#include <OSGImage.h>
+#include "OSGColladaImage.h"
+#include "OSGImage.h"
 
 #include <dom/domImage.h>
 #include <dom/domFx_surface_common.h>

@@ -1,4 +1,4 @@
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 using namespace OSG;
 

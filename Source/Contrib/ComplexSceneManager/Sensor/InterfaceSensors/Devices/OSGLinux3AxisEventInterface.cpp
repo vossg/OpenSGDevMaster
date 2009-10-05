@@ -43,10 +43,10 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGLinux3AxisEventInterface.h>
-#include <OSGThreadManager.h>
-#include <OSGLinuxEventOptions.h>
+#include "OSGConfig.h"
+#include "OSGLinux3AxisEventInterface.h"
+#include "OSGThreadManager.h"
+#include "OSGLinuxEventOptions.h"
 
 #if defined(__linux)
 #include <fcntl.h>

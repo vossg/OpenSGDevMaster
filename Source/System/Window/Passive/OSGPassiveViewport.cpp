@@ -43,12 +43,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
-#include <OSGCamera.h>
-#include <OSGBackground.h>
-#include <OSGForeground.h>
+#include "OSGGL.h"
+#include "OSGCamera.h"
+#include "OSGBackground.h"
+#include "OSGForeground.h"
 #include "OSGPassiveViewport.h"
 
 OSG_USING_NAMESPACE

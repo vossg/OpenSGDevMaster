@@ -48,12 +48,12 @@
 #include <iostream>
 #include <fstream>
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
-#include <OSGNode.h>
-#include <OSGGeometry.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGTypedGeoIntegralProperty.h>
+#include "OSGNode.h"
+#include "OSGGeometry.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGTypedGeoIntegralProperty.h"
 
 #include "OSGSTLSceneFileType.h"
 

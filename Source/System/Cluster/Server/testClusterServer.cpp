@@ -1,12 +1,12 @@
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
 #include <iostream>
-#include <OSGLog.h>
-#include <OSGClusterServer.h>
-#include <OSGGLUTWindow.h>
-#include <OSGRenderAction.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGViewport.h>
+#include "OSGLog.h"
+#include "OSGClusterServer.h"
+#include "OSGGLUTWindow.h"
+#include "OSGRenderAction.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGViewport.h"
 
 int                 winid;
 OSG::ClusterServer      *server;

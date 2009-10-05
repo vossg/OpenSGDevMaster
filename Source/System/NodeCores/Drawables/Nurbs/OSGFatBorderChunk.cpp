@@ -45,7 +45,7 @@
 
 #define OSG_COMPILEMYEXTENSIONLIB
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGFatBorderChunk.h"
 

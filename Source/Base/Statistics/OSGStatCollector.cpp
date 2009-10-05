@@ -319,11 +319,11 @@ StatCollector &StatCollector::operator += (const StatCollector &other)
 }
 
 
-#include <OSGSField.h>
-#include <OSGSField.ins>
+#include "OSGSField.h"
+#include "OSGSField.ins"
 
-#include <OSGMField.h>
-#include <OSGMField.ins>
+#include "OSGMField.h"
+#include "OSGMField.ins"
 
 OSG_BEGIN_NAMESPACE
 

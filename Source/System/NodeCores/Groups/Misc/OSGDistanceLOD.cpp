@@ -39,11 +39,11 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGAction.h>
-#include <OSGCamera.h>
-#include <OSGRenderAction.h>
+#include "OSGAction.h"
+#include "OSGCamera.h"
+#include "OSGRenderAction.h"
 
 //just for debug
 #include <iostream>

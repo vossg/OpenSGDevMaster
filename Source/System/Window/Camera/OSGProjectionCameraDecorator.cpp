@@ -43,11 +43,11 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGMatrixUtility.h>
-#include <OSGQuaternion.h>
-#include <OSGNode.h>
+#include "OSGMatrixUtility.h"
+#include "OSGQuaternion.h"
+#include "OSGNode.h"
 
 #include "OSGProjectionCameraDecorator.h"
 

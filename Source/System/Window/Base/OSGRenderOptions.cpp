@@ -39,8 +39,8 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGGLEXT.h>
+#include "OSGConfig.h"
+#include "OSGGLEXT.h"
 
 #include "OSGRenderOptions.h"
 #include "OSGRenderActionBase.h"

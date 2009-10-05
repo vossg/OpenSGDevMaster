@@ -53,7 +53,7 @@
 #ifdef OSG_WITH_TIF
 #include <tiffio.h>
 #endif
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 #ifndef OSG_DO_DOC
 #    ifdef OSG_WITH_TIF

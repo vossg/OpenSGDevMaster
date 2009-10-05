@@ -43,9 +43,9 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGLEXT.h>
+#include "OSGGLEXT.h"
 
 #include "OSGWindow.h"
 #include "OSGDrawEnv.h"

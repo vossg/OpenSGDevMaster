@@ -24,16 +24,16 @@
 // time so expect some delay when switching to the objects for
 // the first time.
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSolidBackground.h>
-#include <OSGSurface.h>
-#include <OSGSwitch.h>
-#include <OSGCoredNodePtr.h>
-#include <OSGSceneFileHandler.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSolidBackground.h"
+#include "OSGSurface.h"
+#include "OSGSwitch.h"
+#include "OSGCoredNodePtr.h"
+#include "OSGSceneFileHandler.h"
 
 
 OSG::SimpleSceneManager     *g_mgr   = NULL;

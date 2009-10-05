@@ -2,13 +2,13 @@
 //
 // Shows how to render a trimmed NURBS surface.
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGSimpleMaterial.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSolidBackground.h>
-#include <OSGSurface.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGSimpleMaterial.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSolidBackground.h"
+#include "OSGSurface.h"
 
 
 OSG::SimpleSceneManager   *mgr;

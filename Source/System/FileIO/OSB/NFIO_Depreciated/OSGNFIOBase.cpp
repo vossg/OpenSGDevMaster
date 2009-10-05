@@ -42,17 +42,17 @@
 // <FieldContainerType>(std::string)<FieldContainerId>(UInt32)
 // "" empty FieldContainerType string as file endmarker.
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 #include "OSGNFIOBase.h"
 
-#include <OSGSField.h>
-#include <OSGMField.h>
+#include "OSGSField.h"
+#include "OSGMField.h"
 #include "OSGFieldContainerAttachment.h"
-#include <OSGNode.h>
-#include <OSGNodeCore.h>
-#include <OSGSceneFileHandler.h>
+#include "OSGNode.h"
+#include "OSGNodeCore.h"
+#include "OSGSceneFileHandler.h"
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 #include "OSGNFIOFactory.h"
 

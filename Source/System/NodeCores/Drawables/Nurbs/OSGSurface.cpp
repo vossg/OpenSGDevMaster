@@ -45,23 +45,23 @@
 #include <stdio.h>
 
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGAction.h>
-#include <OSGIntersectAction.h>
-#include <OSGRenderAction.h>
-#include <OSGSimpleMaterial.h>
+#include "OSGAction.h"
+#include "OSGIntersectAction.h"
+#include "OSGRenderAction.h"
+#include "OSGSimpleMaterial.h"
 #include "OSGFatBorderChunk.h"
 
-#include <OSGGeometry.h>
-#include <OSGTypedGeoIntegralProperty.h>
-#include <OSGTypedGeoVectorProperty.h>
+#include "OSGGeometry.h"
+#include "OSGTypedGeoIntegralProperty.h"
+#include "OSGTypedGeoVectorProperty.h"
 
-#include <OSGGeoFunctions.h>
+#include "OSGGeoFunctions.h"
 
-#include <OSGGL.h>
-#include <OSGGLU.h>
-#include <OSGGLEXT.h>
+#include "OSGGL.h"
+#include "OSGGLU.h"
+#include "OSGGLEXT.h"
 
 #include "OSGSurface.h"
 
@@ -75,11 +75,11 @@
 
 #include <boost/bind.hpp>
 
-#include <OSGBSplineTrimmedSurface.h>
-#include <OSGNurbsPatchSurface.h>
-#include <OSGSimplePolygon.h>
+#include "OSGBSplineTrimmedSurface.h"
+#include "OSGNurbsPatchSurface.h"
+#include "OSGSimplePolygon.h"
 
-#include <OSGpredicates.h> //for exactinit()
+#include "OSGpredicates.h" //for exactinit()
 
 OSG_USING_NAMESPACE
 

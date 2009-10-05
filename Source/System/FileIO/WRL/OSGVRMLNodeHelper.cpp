@@ -67,11 +67,11 @@
 #include "OSGComponentTransform.h"
 #include "OSGInline.h"
 #include "OSGSwitch.h"
-#include <OSGTimeSensor.h>
-#include <OSGVRMLOrientationInterpolator.h>
-#include <OSGVRMLPositionInterpolator.h>
-#include <OSGVRMLCoordinateInterpolator.h>
-#include <OSGVRMLScalarInterpolator.h>
+#include "OSGTimeSensor.h"
+#include "OSGVRMLOrientationInterpolator.h"
+#include "OSGVRMLPositionInterpolator.h"
+#include "OSGVRMLCoordinateInterpolator.h"
+#include "OSGVRMLScalarInterpolator.h"
 
 #ifndef OSG_LOG_MODULE
 #define OSG_LOG_MODULE "VRMLLoader"

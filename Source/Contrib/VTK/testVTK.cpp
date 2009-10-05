@@ -3,33 +3,33 @@
 #pragma GCC diagnostic warning "-Wold-style-cast"
 #endif
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_VTK
 
 #include <iostream>
 
-#include <OSGGLUT.h>
+#include "OSGGLUT.h"
 
-#include <OSGFieldContainerFactory.h>
-#include <OSGVector.h>
-#include <OSGQuaternion.h>
-#include <OSGMatrix.h>
-#include <OSGMatrixUtility.h>
-#include <OSGBoxVolume.h>
-#include <OSGNode.h>
-#include <OSGGroup.h>
-#include <OSGThread.h>
-#include <OSGTransform.h>
-#include <OSGAction.h>
-#include <OSGRenderAction.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGMaterialGroup.h>
-#include <OSGSimpleMaterial.h>
+#include "OSGFieldContainerFactory.h"
+#include "OSGVector.h"
+#include "OSGQuaternion.h"
+#include "OSGMatrix.h"
+#include "OSGMatrixUtility.h"
+#include "OSGBoxVolume.h"
+#include "OSGNode.h"
+#include "OSGGroup.h"
+#include "OSGThread.h"
+#include "OSGTransform.h"
+#include "OSGAction.h"
+#include "OSGRenderAction.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGMaterialGroup.h"
+#include "OSGSimpleMaterial.h"
 
-#include <OSGDirectionalLight.h>
-#include <OSGLine.h>
+#include "OSGDirectionalLight.h"
+#include "OSGLine.h"
 
 #include "OSGViewport.h"
 #include "OSGCamera.h"

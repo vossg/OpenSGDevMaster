@@ -40,16 +40,16 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <OSGFieldContainer.h>
-#include <OSGMaterialMapFields.h>
-#include <OSGPrimeMaterial.h>
-#include <OSGContainerPtrFuncs.h>
+#include "OSGFieldContainer.h"
+#include "OSGMaterialMapFields.h"
+#include "OSGPrimeMaterial.h"
+#include "OSGContainerPtrFuncs.h"
 
-#include <OSGTypeBasePredicates.h>
-#include <OSGReflexiveContainerTypePredicates.h>
-#include <OSGMapHelper.h>
+#include "OSGTypeBasePredicates.h"
+#include "OSGReflexiveContainerTypePredicates.h"
+#include "OSGMapHelper.h"
 
-#include <OSGSField.ins>
+#include "OSGSField.ins"
 
 
 OSG_BEGIN_NAMESPACE

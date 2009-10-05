@@ -44,15 +44,15 @@
 
 #include <boost/bind.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGAction.h>
-#include <OSGCamera.h>
-#include <OSGRenderAction.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGVolumeDraw.h>
+#include "OSGAction.h"
+#include "OSGCamera.h"
+#include "OSGRenderAction.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGVolumeDraw.h"
 #ifndef OSG_EMBEDDED
-#include <OSGIntersectAction.h>
+#include "OSGIntersectAction.h"
 #endif
 
 #include "OSGVisitSubTree.h"

@@ -41,12 +41,12 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include <OSGColladaInstanceVisualScene.h>
-#include <OSGColladaLog.h>
+#include "OSGColladaInstanceVisualScene.h"
+#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <OSGColladaVisualScene.h>
+#include "OSGColladaVisualScene.h"
 
 #include <dom/domVisual_scene.h>
 #include <dom/domInstanceWithExtra.h>

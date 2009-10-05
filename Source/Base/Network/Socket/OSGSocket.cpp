@@ -63,11 +63,11 @@
 #include <cstdio>
 #include <cmath>
 #include <map>
-#include <OSGSocketAddress.h>
-#include <OSGSocket.h>
-#include <OSGSocketSelection.h>
-#include <OSGNetworkMessage.h>
-#include <OSGTime.h>
+#include "OSGSocketAddress.h"
+#include "OSGSocket.h"
+#include "OSGSocketSelection.h"
+#include "OSGNetworkMessage.h"
+#include "OSGTime.h"
 #include "OSGBaseFunctions.h"
 
 OSG_USING_NAMESPACE

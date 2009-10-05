@@ -40,23 +40,23 @@
 //  Includes
 //---------------------------------------------------------------------------
 
-#include <OSGConfig.h>
-#include <OSGBalancedMultiWindow.h>
+#include "OSGConfig.h"
+#include "OSGBalancedMultiWindow.h"
 
-#include <OSGClusterNetwork.h>
-#include <OSGTransform.h>
-#include <OSGPerspectiveCamera.h>
-#include <OSGSolidBackground.h>
-#include <OSGMatrixUtility.h>
-#include <OSGRenderAction.h>
+#include "OSGClusterNetwork.h"
+#include "OSGTransform.h"
+#include "OSGPerspectiveCamera.h"
+#include "OSGSolidBackground.h"
+#include "OSGMatrixUtility.h"
+#include "OSGRenderAction.h"
 
-#include <OSGChunkMaterial.h>
-#include <OSGProxyGroup.h>
-#include <OSGGeometry.h>
-#include <OSGSimpleSHLChunk.h>
-#include <OSGTileCameraDecorator.h>
+#include "OSGChunkMaterial.h"
+#include "OSGProxyGroup.h"
+#include "OSGGeometry.h"
+#include "OSGSimpleSHLChunk.h"
+#include "OSGTileCameraDecorator.h"
 
-#include <OSGGLU.h>
+#include "OSGGLU.h"
 
 OSG_BEGIN_NAMESPACE
 

@@ -43,9 +43,9 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
-#include <OSGDeviceInterface.h>
-#include <OSGInterfaceOptions.h>
+#include "OSGConfig.h"
+#include "OSGDeviceInterface.h"
+#include "OSGInterfaceOptions.h"
 
 OSG_BEGIN_NAMESPACE
 

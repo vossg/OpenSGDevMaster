@@ -43,16 +43,16 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGGL.h>
+#include "OSGGL.h"
 
-#include <OSGAction.h>
+#include "OSGAction.h"
 
-#include <OSGStateChunk.h>
-#include <OSGState.h>
-#include <OSGMaterialChunk.h>
-#include <OSGImage.h>
+#include "OSGStateChunk.h"
+#include "OSGState.h"
+#include "OSGMaterialChunk.h"
+#include "OSGImage.h"
 
 #include "OSGSimpleTexturedMaterial.h"
 

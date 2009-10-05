@@ -41,8 +41,8 @@
 //---------------------------------------------------------------------------
 
 
-#include <OSGConfig.h>
-#include <OSGBaseInitFunctions.h>
+#include "OSGConfig.h"
+#include "OSGBaseInitFunctions.h"
 
 #define SVN_REVISION "384"
 

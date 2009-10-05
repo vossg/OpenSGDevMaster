@@ -14,15 +14,15 @@
 // press 'c' to connect to the servers and 'd' to disconnect. 
 
 
-#include <OSGGLUT.h>
-#include <OSGConfig.h>
-#include <OSGSimpleGeometry.h>
-#include <OSGGLUTWindow.h>
-#include <OSGSimpleSceneManager.h>
-#include <OSGMultiDisplayWindow.h>
-#include <OSGSceneFileHandler.h>
-#include <OSGRemoteAspect.h>
-#include <OSGFieldContainerFactory.h>
+#include "OSGGLUT.h"
+#include "OSGConfig.h"
+#include "OSGSimpleGeometry.h"
+#include "OSGGLUTWindow.h"
+#include "OSGSimpleSceneManager.h"
+#include "OSGMultiDisplayWindow.h"
+#include "OSGSceneFileHandler.h"
+#include "OSGRemoteAspect.h"
+#include "OSGFieldContainerFactory.h"
 
 #include <string>
 #include <vector>

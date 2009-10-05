@@ -43,10 +43,10 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGViewport.h>
-#include <OSGMaterial.h>
+#include "OSGViewport.h"
+#include "OSGMaterial.h"
 
 #include "OSGPolygonForeground.h"
 

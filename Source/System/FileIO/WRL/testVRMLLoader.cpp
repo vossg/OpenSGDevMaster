@@ -1,6 +1,6 @@
 
-#include <OSGSceneFileHandler.h>
-#include <OSGFieldContainerFactory.h>
+#include "OSGSceneFileHandler.h"
+#include "OSGFieldContainerFactory.h"
 
 
 int main (int argc, char **argv)

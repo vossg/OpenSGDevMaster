@@ -38,9 +38,9 @@
 \*---------------------------------------------------------------------------*/
 
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
-#include <OSGBaseTypes.h>
+#include "OSGBaseTypes.h"
 
 #include "OSGLogoData.h"
 

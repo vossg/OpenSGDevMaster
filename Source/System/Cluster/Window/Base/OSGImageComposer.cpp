@@ -43,8 +43,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include <OSGConfig.h>
-#include <OSGCamera.h>
+#include "OSGConfig.h"
+#include "OSGCamera.h"
 
 #include "OSGImageComposer.h"
 

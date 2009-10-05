@@ -41,7 +41,7 @@
 
 #include <stdio.h>
 
-#include <OSGLog.h>
+#include "OSGLog.h"
 
 #include "OSGSimplePolygon.h"
 #include "OSGpredicates.h"

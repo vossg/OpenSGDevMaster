@@ -43,14 +43,14 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 #include "OSGDSLightChunk.h"
 
-#include <OSGGL.h>
-#include <OSGGLU.h>
+#include "OSGGL.h"
+#include "OSGGLU.h"
 
-#include <OSGDrawEnv.h>
+#include "OSGDrawEnv.h"
 
 OSG_BEGIN_NAMESPACE
 
