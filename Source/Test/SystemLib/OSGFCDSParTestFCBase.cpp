@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -63,7 +63,7 @@
 #include "OSGFCDSParTestFCBase.h"
 #include "OSGFCDSParTestFC.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -456,15 +456,6 @@ bool FCDSParTestFCBase::unlinkParent(
 }
 
 
-void FCDSParTestFCBase::onCreate(const FCDSParTestFC *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        FCDSParTestFC *pThis = static_cast<FCDSParTestFC *>(this);
-    }
-}
 
 GetFieldHandlePtr FCDSParTestFCBase::getHandleParent          (void) const
 {

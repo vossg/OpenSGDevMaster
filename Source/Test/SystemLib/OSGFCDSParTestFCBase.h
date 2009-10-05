@@ -197,7 +197,6 @@ class OSG_SYSTEM_DLLMAPPING FCDSParTestFCBase : public AttachmentContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const FCDSParTestFC *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

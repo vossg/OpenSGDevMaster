@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -63,7 +63,7 @@
 #include "OSGShaderParameterBase.h"
 #include "OSGShaderParameter.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -381,15 +381,6 @@ bool ShaderParameterBase::unlinkParent(
 }
 
 
-void ShaderParameterBase::onCreate(const ShaderParameter *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        ShaderParameter *pThis = static_cast<ShaderParameter *>(this);
-    }
-}
 
 GetFieldHandlePtr ShaderParameterBase::getHandleName            (void) const
 {

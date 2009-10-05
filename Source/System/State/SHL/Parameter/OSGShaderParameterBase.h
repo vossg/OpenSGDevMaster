@@ -149,11 +149,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
@@ -206,7 +201,6 @@ class OSG_STATE_DLLMAPPING ShaderParameterBase : public AttachmentContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const ShaderParameter *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
