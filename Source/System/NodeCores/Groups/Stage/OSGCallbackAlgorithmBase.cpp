@@ -86,6 +86,14 @@ OSG_BEGIN_NAMESPACE
     Inherited the parent target if none is set  
 */
 
+/*! \var RenderActionFunctorCallback CallbackAlgorithmBase::_sfRenderEnter
+    Inherited the parent target if none is set  
+*/
+
+/*! \var RenderActionFunctorCallback CallbackAlgorithmBase::_sfRenderLeave
+    Inherited the parent target if none is set  
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -125,6 +133,30 @@ void CallbackAlgorithmBase::classDescInserter(TypeObject &oType)
         static_cast     <FieldGetMethodSig >(&CallbackAlgorithm::invalidGetField));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFRenderActionFunctorCallback::Description(
+        SFRenderActionFunctorCallback::getClassType(),
+        "renderEnter",
+        "Inherited the parent target if none is set  \n",
+        RenderEnterFieldId, RenderEnterFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast     <FieldEditMethodSig>(&CallbackAlgorithm::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&CallbackAlgorithm::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFRenderActionFunctorCallback::Description(
+        SFRenderActionFunctorCallback::getClassType(),
+        "renderLeave",
+        "Inherited the parent target if none is set  \n",
+        RenderLeaveFieldId, RenderLeaveFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast     <FieldEditMethodSig>(&CallbackAlgorithm::invalidEditField),
+        static_cast     <FieldGetMethodSig >(&CallbackAlgorithm::invalidGetField));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -142,26 +174,46 @@ CallbackAlgorithmBase::TypeObject CallbackAlgorithmBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"CallbackAlgorithm\"\n"
-    "\tparent=\"Algorithm\"\n"
-    "\tlibrary=\"Group\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "\tdecoratable=\"false\"\n"
-    "\tuseLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"false\"\n"
-    ">\n"
-    "        <Field\n"
-    "                name=\"callback\"\n"
-    "                type=\"RenderFunctorCallback\"\n"
-    "                cardinality=\"single\"\n"
-    "                visibility=\"external\"\n"
-    "                access=\"none\"\n"
-    "        >\n"
-    "        Inherited the parent target if none is set  \n"
-    "        </Field>\n"
+    "   name=\"CallbackAlgorithm\"\n"
+    "   parent=\"Algorithm\"\n"
+    "   library=\"Group\"\n"
+    "   pointerfieldtypes=\"both\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   isNodeCore=\"false\"\n"
+    "   >\n"
+    "  <Field\n"
+    "     name=\"callback\"\n"
+    "     type=\"RenderFunctorCallback\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"none\"\n"
+    "     >\n"
+    "    Inherited the parent target if none is set  \n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"renderEnter\"\n"
+    "     type=\"RenderActionFunctorCallback\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"none\"\n"
+    "     >\n"
+    "    Inherited the parent target if none is set  \n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"renderLeave\"\n"
+    "     type=\"RenderActionFunctorCallback\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"none\"\n"
+    "     >\n"
+    "    Inherited the parent target if none is set  \n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -191,6 +243,8 @@ UInt32 CallbackAlgorithmBase::getContainerSize(void) const
 
 
 
+
+
 /*------------------------------ access -----------------------------------*/
 
 UInt32 CallbackAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
@@ -200,6 +254,14 @@ UInt32 CallbackAlgorithmBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (CallbackFieldMask & whichField))
     {
         returnValue += _sfCallback.getBinSize();
+    }
+    if(FieldBits::NoField != (RenderEnterFieldMask & whichField))
+    {
+        returnValue += _sfRenderEnter.getBinSize();
+    }
+    if(FieldBits::NoField != (RenderLeaveFieldMask & whichField))
+    {
+        returnValue += _sfRenderLeave.getBinSize();
     }
 
     return returnValue;
@@ -214,6 +276,14 @@ void CallbackAlgorithmBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfCallback.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (RenderEnterFieldMask & whichField))
+    {
+        _sfRenderEnter.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (RenderLeaveFieldMask & whichField))
+    {
+        _sfRenderLeave.copyToBin(pMem);
+    }
 }
 
 void CallbackAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
@@ -224,6 +294,14 @@ void CallbackAlgorithmBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (CallbackFieldMask & whichField))
     {
         _sfCallback.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RenderEnterFieldMask & whichField))
+    {
+        _sfRenderEnter.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (RenderLeaveFieldMask & whichField))
+    {
+        _sfRenderLeave.copyFromBin(pMem);
     }
 }
 
@@ -350,13 +428,17 @@ FieldContainerTransitPtr CallbackAlgorithmBase::shallowCopy(void) const
 
 CallbackAlgorithmBase::CallbackAlgorithmBase(void) :
     Inherited(),
-    _sfCallback               ()
+    _sfCallback               (),
+    _sfRenderEnter            (),
+    _sfRenderLeave            ()
 {
 }
 
 CallbackAlgorithmBase::CallbackAlgorithmBase(const CallbackAlgorithmBase &source) :
     Inherited(source),
-    _sfCallback               (source._sfCallback               )
+    _sfCallback               (source._sfCallback               ),
+    _sfRenderEnter            (source._sfRenderEnter            ),
+    _sfRenderLeave            (source._sfRenderLeave            )
 {
 }
 
@@ -376,6 +458,34 @@ GetFieldHandlePtr CallbackAlgorithmBase::getHandleCallback        (void) const
 }
 
 EditFieldHandlePtr CallbackAlgorithmBase::editHandleCallback       (void)
+{
+    EditFieldHandlePtr returnValue;
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CallbackAlgorithmBase::getHandleRenderEnter     (void) const
+{
+    SFRenderActionFunctorCallback::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CallbackAlgorithmBase::editHandleRenderEnter    (void)
+{
+    EditFieldHandlePtr returnValue;
+
+    return returnValue;
+}
+
+GetFieldHandlePtr CallbackAlgorithmBase::getHandleRenderLeave     (void) const
+{
+    SFRenderActionFunctorCallback::GetHandlePtr returnValue;
+
+    return returnValue;
+}
+
+EditFieldHandlePtr CallbackAlgorithmBase::editHandleRenderLeave    (void)
 {
     EditFieldHandlePtr returnValue;
 

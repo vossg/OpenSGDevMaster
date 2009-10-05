@@ -45,10 +45,12 @@
 #include <queue>
 
 #include "OSGAlgorithmBase.h"
+#include "OSGActionBase.h"
 
 OSG_BEGIN_NAMESPACE
 
 class DrawEnv;
+class Action;
 
 //! Stage
 //! \ingroup GrpSystemNodeCoresMisc
@@ -71,7 +73,9 @@ class OSG_GROUP_DLLMAPPING Algorithm : public AlgorithmBase
     /*! \name                      Execute                                 */
     /*! \{                                                                 */
 
-    virtual void execute(DrawEnv *) = 0;
+    virtual ActionBase::ResultE renderEnter(Action  *pAction) = 0;
+    virtual ActionBase::ResultE renderLeave(Action  *pAction) = 0;
+    virtual void                execute    (DrawEnv *pEnv   ) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

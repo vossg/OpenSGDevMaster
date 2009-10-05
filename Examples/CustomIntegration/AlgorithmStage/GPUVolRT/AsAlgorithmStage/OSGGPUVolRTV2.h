@@ -74,7 +74,9 @@ class OSG_EXGPUVOLRT_DLLMAPPING GPUVolRTV2 : public GPUVolRTV2Base
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-    virtual void execute(DrawEnv *pEnv);
+    virtual ActionBase::ResultE renderEnter(Action  *pAction);
+    virtual ActionBase::ResultE renderLeave(Action  *pAction);
+    virtual void                execute    (DrawEnv *pEnv   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

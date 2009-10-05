@@ -123,6 +123,17 @@ void GPUVolRTV2::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+
+ActionBase::ResultE GPUVolRTV2::renderEnter(Action *pAction)
+{
+    return ActionBase::Continue;
+}
+
+ActionBase::ResultE GPUVolRTV2::renderLeave(Action *pAction)
+{
+    return ActionBase::Continue;
+}
+
 void GPUVolRTV2::execute(DrawEnv *pEnv)
 {
     // Make sure we don't trash the state

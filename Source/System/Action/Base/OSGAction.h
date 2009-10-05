@@ -359,6 +359,7 @@ typedef boost::function<
           Action::ResultE (Node * const, 
                            Action::ResultE)> TraverseLeaveFunctor;
 
+typedef boost::function<ActionBase::ResultE (Action *)> RenderActionFunctor;
 
 /*
 typedef ArgsCollector<ActionBase::ResultE> ArgsT;

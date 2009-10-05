@@ -124,6 +124,26 @@ void CallbackAlgorithm::execute(DrawEnv *pEnv)
     }
 }
 
+ActionBase::ResultE CallbackAlgorithm::renderEnter(Action  *pAction)
+{
+    if(_sfRenderEnter.getValue()._func)
+    {
+        return _sfRenderEnter.getValue()._func(pAction);
+    }
+
+    return ActionBase::Continue;
+}
+
+ActionBase::ResultE CallbackAlgorithm::renderLeave(Action  *pAction)
+{
+    if(_sfRenderLeave.getValue()._func)
+    {
+        return _sfRenderLeave.getValue()._func(pAction);
+    }
+
+    return ActionBase::Continue;
+}
+
 void CallbackAlgorithm::dump(      UInt32    ,
                          const BitVector ) const
 {

@@ -223,14 +223,28 @@ ActionBase::ResultE AlgorithmStage::renderEnter(Action *action)
         f = boost::bind(&AlgorithmStage::execute, this, _1);
         
         pPart->dropFunctor(f);
+
+        Algorithm *pAlgorithm = getAlgorithm();
+        
+        if(pAlgorithm != NULL)
+        {
+            pAlgorithm->renderEnter(a);
+        }
     }
     a->popPartition();
 
     return Action::Skip;
 }
 
-ActionBase::ResultE AlgorithmStage::renderLeave(Action *action)
+ActionBase::ResultE AlgorithmStage::renderLeave(Action *a)
 {
+    Algorithm *pAlgorithm = getAlgorithm();
+    
+    if(pAlgorithm != NULL)
+    {
+        pAlgorithm->renderLeave(a);
+    }
+    
     return Action::Skip;
 }
 

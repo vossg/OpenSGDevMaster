@@ -66,6 +66,7 @@
 #include "OSGAlgorithm.h" // Parent
 
 #include "OSGRenderFunctorCallbackFields.h" // Callback type
+#include "OSGRenderActionFunctorCallbackFields.h" // RenderEnter type
 
 #include "OSGCallbackAlgorithmFields.h"
 
@@ -94,15 +95,23 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     enum
     {
         CallbackFieldId = Inherited::NextFieldId,
-        NextFieldId = CallbackFieldId + 1
+        RenderEnterFieldId = CallbackFieldId + 1,
+        RenderLeaveFieldId = RenderEnterFieldId + 1,
+        NextFieldId = RenderLeaveFieldId + 1
     };
 
     static const OSG::BitVector CallbackFieldMask =
         (TypeTraits<BitVector>::One << CallbackFieldId);
+    static const OSG::BitVector RenderEnterFieldMask =
+        (TypeTraits<BitVector>::One << RenderEnterFieldId);
+    static const OSG::BitVector RenderLeaveFieldMask =
+        (TypeTraits<BitVector>::One << RenderLeaveFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFRenderFunctorCallback SFCallbackType;
+    typedef SFRenderActionFunctorCallback SFRenderEnterType;
+    typedef SFRenderActionFunctorCallback SFRenderLeaveType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -176,6 +185,8 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
     /*! \{                                                                 */
 
     SFRenderFunctorCallback _sfCallback;
+    SFRenderActionFunctorCallback _sfRenderEnter;
+    SFRenderActionFunctorCallback _sfRenderLeave;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -205,6 +216,10 @@ class OSG_GROUP_DLLMAPPING CallbackAlgorithmBase : public Algorithm
 
     GetFieldHandlePtr  getHandleCallback        (void) const;
     EditFieldHandlePtr editHandleCallback       (void);
+    GetFieldHandlePtr  getHandleRenderEnter     (void) const;
+    EditFieldHandlePtr editHandleRenderEnter    (void);
+    GetFieldHandlePtr  getHandleRenderLeave     (void) const;
+    EditFieldHandlePtr editHandleRenderLeave    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
