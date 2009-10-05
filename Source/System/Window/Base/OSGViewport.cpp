@@ -368,7 +368,8 @@ void Viewport::render(RenderActionBase *action)
 
     Window  *pWin = action->getWindow();
 
-    if(pWin->getDrawMode() == Window::SequentialPartitionDraw)
+    if((pWin->getDrawMode() & Window::PartitionDrawMask) ==
+                                              Window::SequentialPartitionDraw)
     {
         DrawEnv  oEnv;
 

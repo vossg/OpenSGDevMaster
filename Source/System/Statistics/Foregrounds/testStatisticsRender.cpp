@@ -45,6 +45,8 @@ void display(void)
 // react to size changes
 void reshape(int w, int h)
 {
+    glViewport(0, 0, w, h);
+
     mgr->resize(w,h);
     glutPostRedisplay();
 }
@@ -95,8 +97,7 @@ void setStatMethod(StatMethod method)
     {
         std::cerr << "Setting to custom stats.\n";
         pwin->getPort(0)->addForeground(statfg);
-//        act ->setStatCollector(collector);
-        tact->setStatCollector(collector);
+        ract->setStatCollector(collector);
     }
     else if(method == USE_SIMPLE)
     {
@@ -158,22 +159,6 @@ void keyboard(unsigned char k, int, int)
         }
         break;
 
-#ifdef OSG_OLD_RENDER_ACTION
-        case 'z':
-        {
-            OSG::RenderAction *ract =
-                dynamic_cast<OSG::RenderAction *>(mgr->getAction());
-
-            ract->setZWriteTrans(!ract->getZWriteTrans());
-
-            std::cerr << "Switch TransZWrite to "
-                      << (ract->getZWriteTrans()?"on":"off")
-                      << std::endl;
-
-        }
-        break;
-#endif
-
         case 'x':
         {
             if(USE_CUSTOM == gStatMethod)
@@ -194,16 +179,8 @@ void keyboard(unsigned char k, int, int)
             mgr->setUseTraversalAction(true);
             break;
 
-#ifdef OSG_OLD_RENDER_ACTION
-        case 'n':
-            fprintf(stderr, "1) set s sorting to %d\n", act->getStateSorting());
-            act->setStateSorting(!act->getStateSorting());
-            fprintf(stderr, "2) set s sorting to %d\n", act->getStateSorting());
-            break;
-#endif
-
         case 'm':
-            tact->setKeyGen(0);
+            ract->setKeyGen(0);
             break;
 
         case 's':
@@ -218,13 +195,13 @@ void keyboard(unsigned char k, int, int)
 
             OSG::UInt32 uiKeyGen = (uiSId) | (uiTId << 10) | (uiMId << 20);
 
-            tact->setKeyGen(uiKeyGen);
+            ract->setKeyGen(uiKeyGen);
         }
         break;
 
         case 'g':
             bGLFinish = !bGLFinish;
-            tact->setUseGLFinish(bGLFinish);
+            ract->setUseGLFinish(bGLFinish);
             //act->setUseGLFinish(bGLFinish);
             std::cerr << "Set use gl finish to: " << bGLFinish << std::endl;
             break;
@@ -306,48 +283,31 @@ int main(int argc, char **argv)
         statfg->setSize(25);
         statfg->setColor(OSG::Color4f(0,1,0,0.7f));
 
-    #if 0
-        statfg->addElement(RenderAction::statDrawTime, "Draw FPS: %r.3f");
-        statfg->addElement(DrawActionBase::statTravTime, "TravTime: %.3f s");
-        statfg->addElement(RenderAction::statDrawTime, "DrawTime: %.3f s");
-        statfg->addElement(DrawActionBase::statCullTestedNodes,
-                        "%d Nodes culltested");
-        statfg->addElement(DrawActionBase::statCulledNodes,
-                        "%d Nodes culled");
-        statfg->addElement(RenderAction::statNMaterials,
-                        "%d material changes");
-        statfg->addElement(RenderAction::statNMatrices,
-                        "%d matrix changes");
-        statfg->addElement(RenderAction::statNGeometries,
-                        "%d Nodes drawn");
-        statfg->addElement(RenderAction::statNTransGeometries,
-                        "%d transparent Nodes drawn");
-        statfg->addElement(Drawable::statNTriangles,
-                        "%d triangles drawn");
-        statfg->addElement(Drawable::statNLines,
-                        "%d lines drawn");
-        statfg->addElement(Drawable::statNPoints,
-                        "%d points drawn");
-        statfg->addElement(Drawable::statNPrimitives,
-                            "%d primitive groups drawn");
-        statfg->addElement(Drawable::statNVertices,
-                        "%d vertices transformed");
-        statfg->addElement(RenderAction::statNTextures, "%d textures used");
-        statfg->addElement(RenderAction::statNTexBytes, "%d bytes of texture used");
-    #endif
+        statfg->addElement(OSG::RenderAction::statDrawTime, "Draw FPS: %r.3f");
+        statfg->addElement(OSG::RenderAction::statDrawTime, "DrawTime: %.3f s");
+        statfg->addElement(OSG::RenderAction::statTravTime, "TravTime: %.3f s");
+        
+        statfg->addElement(OSG::RenderAction::statNStates,   "%d state changes");
+        statfg->addElement(OSG::RenderAction::statNMatrices, "%d matrix changes");
+        statfg->addElement(OSG::RenderAction::statNGeometries, "%d Geometries drawn");
+        statfg->addElement(OSG::RenderAction::statNShaders, "%d shaders");
+        statfg->addElement(OSG::RenderAction::statNShaders, "%d shader parameters");
+
+        statfg->addElement(OSG::Drawable::statNVertices, "%d vertices drawn");
+        statfg->addElement(OSG::Drawable::statNPrimitives, "%d primitives drawn");
+        statfg->addElement(OSG::Drawable::statNTriangles, "%d triangles drawn");
+        statfg->addElement(OSG::Drawable::statNLines, "%d lines drawn");
+        statfg->addElement(OSG::Drawable::statNPoints, "%d points drawn");
+        
+        statfg->addElement(OSG::TextureObjChunk::statNTextures, "%d textures");
+        statfg->addElement(OSG::TextureObjChunk::statNTexBytes, "%d bytes of textures");
 
         collector = statfg->getCollector();
 
-        mgr->setUseTraversalAction(true);
+        ract = OSG::RenderAction::create();
+        ract->setStatCollector(collector);
 
-        tact = OSG::RenderAction::create();
-    //    act  = RenderAction::create();
-
-        tact->setStatCollector(collector);
-    //    act ->setStatCollector(collector);
-
-        mgr->setAction(tact);
-    //    mgr->setAction( act);
+        mgr->setAction(ract);
 
         setStatMethod(gStatMethod);
     }
