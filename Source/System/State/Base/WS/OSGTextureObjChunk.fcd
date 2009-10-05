@@ -60,7 +60,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_NONE,GL_ALPHA, GL_DEPTH_COMPONENT, GL_LUMINANCE, GL_LUMINANCE_ALPH, GL_INTENSITY, GL_RGB, GL_RGBA, COMPRESSED_ALPHA, COMPRESSED_LUMINANCE, COMPRESSED_LUMINANCE_ALPHA, COMPRESSED_RGB, COMPRESSED_RGBA"
 	>
@@ -72,7 +72,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_NONE,GL_DEPTH_COMPONENT, GL_RED, GL_GREEN, GL_BLUE, GL_ALPHA, GL_RGB, GL_RGBA, GL_BGR, GL_BGRA, GL_LUMINANCE, GL_LUMINANCE_ALPHA"
 	>
@@ -113,7 +113,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LINEAR_MIPMAP_LINEAR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR"
 	>
@@ -125,7 +125,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LINEAR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_NEAREST, GL_LINEAR"
 	>
@@ -137,7 +137,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_REPEAT"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"
 	>
@@ -149,7 +149,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_REPEAT"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"                
 	>
@@ -161,7 +161,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_REPEAT"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_CLAMP, GL_CLAMP_TO_EDGE, GL_REPEAT, GL_CLAMP_TO_BORDER, GL_MIRRORED_REPEAT"                
 	>
@@ -298,7 +298,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_NONE, GL_COMPARE_R_TO_TEXTURE"
 	>
@@ -309,7 +309,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LEQUAL"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_LEQUAL, GL_GEQUAL, GL_LESS, GL_GREATER, GL_EQUAL, GL_NOTEQUAL, GL_ALWAYS, GL_NEVER"
 	>
@@ -320,7 +320,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LUMINANCE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_LUMINANCE, GL_INTENSITY, GL_ALPHA"
 	>

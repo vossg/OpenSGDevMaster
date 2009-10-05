@@ -28,7 +28,7 @@ The LightModelChunk wraps most of glLightModel. It does not wrap GL_LIGHT_MODEL_
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SINGLE_COLOR"
-		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		defaultHeader="&quot;OSGGLEXT.h&quot;"
 		access="public"
 	>
 	GL_LIGHT_MODEL_COLOR_CONTROL is set to this value.  Legal values are directly taken from the glLightModel() manpage.

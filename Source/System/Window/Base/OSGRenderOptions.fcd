@@ -47,7 +47,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_FILL"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>

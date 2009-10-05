@@ -67,7 +67,7 @@ The derived parameters supported by default are:
 		type="GLenum"
 		cardinality="multi"
 		visibility="external"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>

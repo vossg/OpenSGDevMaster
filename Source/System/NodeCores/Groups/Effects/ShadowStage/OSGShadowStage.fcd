@@ -149,7 +149,7 @@ First Release of ShadowMap-Viewport. Viewport is capable to handle multiple Ligh
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_TRUE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	Define whether the red color channel is written to.
@@ -160,7 +160,7 @@ First Release of ShadowMap-Viewport. Viewport is capable to handle multiple Ligh
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_TRUE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	Define whether the green color channel is written to.
@@ -171,7 +171,7 @@ First Release of ShadowMap-Viewport. Viewport is capable to handle multiple Ligh
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_TRUE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	Define whether the blue color channel is written to.
@@ -182,7 +182,7 @@ First Release of ShadowMap-Viewport. Viewport is capable to handle multiple Ligh
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_TRUE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	Define whether the alpha color channel is written to.

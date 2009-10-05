@@ -34,7 +34,7 @@ OSG::DepthChunk::_sfFar), glEnable(GL_DEPTH_TEST)
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LEQUAL"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	The depth function to use. If GL_NONE, it's not changed. The default is GL_LEQUAL.

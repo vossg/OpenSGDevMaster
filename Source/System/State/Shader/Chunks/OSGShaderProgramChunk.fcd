@@ -69,7 +69,7 @@
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="GL_TRIANGLES"
-	 defaultHeader="&lt;OSGGL.h&gt;"
+	 defaultHeader="&quot;OSGGL.h&quot;"
 	 >
   </Field>
   <Field
@@ -78,7 +78,7 @@
 	 cardinality="single"
 	 visibility="external"
 	 defaultValue="GL_TRIANGLE_STRIP"
-	 defaultHeader="&lt;OSGGL.h&gt;"
+	 defaultHeader="&quot;OSGGL.h&quot;"
 	 >
   </Field>
 

@@ -92,7 +92,7 @@ OSG::SimpleMaterial::_sfShininess. In addition it supports transparency
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_DIFFUSE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
                 potential_values="GL_AMBIENT,GL_DIFFUSE,GL_SPECULAR,GL_AMBIENT_AND_DIFFUSE,GL_EMISSION"
 	>
         Defines which color material mode this material affects.

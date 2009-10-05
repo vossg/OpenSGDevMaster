@@ -38,7 +38,7 @@ OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_FALSE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	Defines if line antialiasing is used.
@@ -109,7 +109,7 @@ OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_FALSE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	Flag to enable point sprites, see NV_point_sprite for details.
@@ -120,7 +120,7 @@ OSG::PointChunk::_sfQuadraticAttenuation) and NV_point_sprite
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_ZERO"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>

@@ -40,7 +40,7 @@ spherical environment map.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LINEAR_MIPMAP_LINEAR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_NEAREST, GL_LINEAR, GL_NEAREST_MIPMAP_NEAREST, GL_NEAREST_MIPMAP_LINEAR, GL_LINEAR_MIPMAP_NEAREST, GL_LINEAR_MIPMAP_LINEAR"
 	>
@@ -53,7 +53,7 @@ spherical environment map.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LINEAR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_NEAREST, GL_LINEAR"
 	>
@@ -66,7 +66,7 @@ spherical environment map.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_REPLACE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE"
 	>

@@ -73,7 +73,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_DIFFUSE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.
 	</Field>
@@ -134,7 +134,7 @@ glEnable(GL_LIGHTING)(OSG::MaterialChunk::_sfLit) and glColorMaterial()
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_DIFFUSE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         The mode for using Geometry colors in lighting. Defaults to GL_DIFFUSE.
 	</Field>       

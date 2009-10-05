@@ -56,7 +56,7 @@ OSG::LineChunk::_sfStipplePattern), glEnable(GL_LINE_SMOOTH)
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_FALSE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	Defines if line antialiasing is used.

@@ -18,7 +18,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_REPLACE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_MODULATE, GL_DECAL, GL_BLEND, GL_REPLACE, GL_ADD, GL_COMBINE"
 	>
@@ -40,7 +40,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_MODULATE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT, GL_DOT3_RGB, GL_DOT3_RGBA"
 	>
@@ -52,7 +52,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_MODULATE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
                 potential_values="GL_REPLACE, GL_MODULATE, GL_ADD, GL_ADD_SIGNED, GL_INTERPOLATE, GL_SUBTRACT"
 	>
@@ -84,7 +84,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_TEXTURE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine source 0 rgb, default GL_TEXTURE.
@@ -95,7 +95,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_PREVIOUS_EXT"
-		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		defaultHeader="&quot;OSGGLEXT.h&quot;"
 		access="public"
 	>
         Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT.
@@ -106,7 +106,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_CONSTANT_EXT"
-		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		defaultHeader="&quot;OSGGLEXT.h&quot;"
 		access="public"
 	>
         Texture environment combine source 2 rgb, default GL_CONSTANT_EXT.
@@ -117,7 +117,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_TEXTURE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine source 0 alpha, default GL_TEXTURE.
@@ -128,7 +128,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_PREVIOUS_EXT"
-		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		defaultHeader="&quot;OSGGLEXT.h&quot;"
 		access="public"
 	>
         Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT.
@@ -139,7 +139,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_CONSTANT_EXT"
-		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		defaultHeader="&quot;OSGGLEXT.h&quot;"
 		access="public"
 	>
         Texture environment combine source 2 alpha, default GL_CONSTANT_EXT.
@@ -150,7 +150,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_COLOR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 0 rgb, default GL_SRC_COLOR.
@@ -161,7 +161,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_COLOR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 1 rgb, default GL_SRC_COLOR.
@@ -172,7 +172,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_ALPHA"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 2 rgb, default GL_SRC_ALPHA.
@@ -183,7 +183,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_ALPHA"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 0 alpha, default GL_SRC_ALPHA.
@@ -194,7 +194,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_ALPHA"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 1 alpha, default GL_SRC_ALPHA.
@@ -205,7 +205,7 @@
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_ALPHA"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 2 alpha, default GL_SRC_ALPHA.
@@ -217,7 +217,7 @@
 		visibility="external"
 		access="public"
 		defaultValue="GL_FALSE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         Flag to use this texture for Point Sprites.
 	</Field>
@@ -228,7 +228,7 @@
 		visibility="external"
 		access="public"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         Shader operation of this texture unit, default GL_NONE. If unit 0 uses
         GL_NONE, shading is switched off. (GL_SHADER_OPERATION_NV).
@@ -240,7 +240,7 @@
 		visibility="external"
 		access="public"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         Input texture unit for this shader's operation. (GL_TEXTURE_SHADER_NV)
 	</Field>
@@ -280,7 +280,7 @@
 		visibility="external"
 		access="public"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.
 	</Field>

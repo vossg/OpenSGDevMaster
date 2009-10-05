@@ -26,7 +26,7 @@ OSG::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).
 		type="GLenum"
 		cardinality="single"
 		visibility="external"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		defaultValue="GL_ONE"
 		access="public"
 	>
@@ -37,7 +37,7 @@ OSG::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).
 		type="GLenum"
 		cardinality="single"
 		visibility="external"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		defaultValue="GL_ZERO"
 		access="public"
 	>
@@ -48,7 +48,7 @@ OSG::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).
 		type="GLenum"
 		cardinality="single"
 		visibility="external"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		defaultValue="GL_NONE"
 		access="public"
 	>
@@ -70,7 +70,7 @@ OSG::BlendChunk::_sfAlphaValue) including glEnable(GL_ALPHA_TEST).
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	The alphaFunc defines how fragments which do not fulfill a certain condition are handled. 

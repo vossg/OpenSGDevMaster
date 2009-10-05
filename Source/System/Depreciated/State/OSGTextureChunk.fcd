@@ -60,7 +60,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	The internal texture format.
@@ -71,7 +71,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	    The external texture format - overwrites 
@@ -110,7 +110,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LINEAR_MIPMAP_LINEAR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         The minimisation filter, default GL_LINEAR_MIPMAP_LINEAR.
@@ -121,7 +121,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LINEAR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         The magnification filter, default GL_LINEAR.
@@ -132,7 +132,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_REPEAT"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture coordinate S wrapping, default GL_REPEAT.
@@ -143,7 +143,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_REPEAT"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture coordinate T wrapping, default GL_REPEAT.
@@ -154,7 +154,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_REPEAT"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture coordinate R wrapping, default GL_REPEAT.
@@ -166,7 +166,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_REPLACE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment mode, default GL_REPLACE
@@ -187,7 +187,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_MODULATE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment rgb combine mode, default GL_MODULATE
@@ -198,7 +198,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_MODULATE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment alpha combine mode, default GL_MODULATE
@@ -229,7 +229,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_TEXTURE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine source 0 rgb, default GL_TEXTURE
@@ -240,7 +240,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_PREVIOUS_EXT"
-		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		defaultHeader="&quot;OSGGLEXT.h&quot;"
 		access="public"
 	>
         Texture environment combine source 1 rgb, default GL_PREVIOUS_EXT
@@ -251,7 +251,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_CONSTANT_EXT"
-		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		defaultHeader="&quot;OSGGLEXT.h&quot;"
 		access="public"
 	>
         Texture environment combine source 2 rgb, default GL_CONSTANT_EXT
@@ -262,7 +262,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_TEXTURE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine source 0 alpha, default GL_TEXTURE
@@ -273,7 +273,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_PREVIOUS_EXT"
-		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		defaultHeader="&quot;OSGGLEXT.h&quot;"
 		access="public"
 	>
         Texture environment combine source 1 alpha, default GL_PREVIOUS_EXT
@@ -284,7 +284,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_CONSTANT_EXT"
-		defaultHeader="&lt;OSGGLEXT.h&gt;"
+		defaultHeader="&quot;OSGGLEXT.h&quot;"
 		access="public"
 	>
         Texture environment combine source 2 alpha, default GL_CONSTANT_EXT
@@ -295,7 +295,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_COLOR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 0 rgb, default GL_SRC_COLOR
@@ -306,7 +306,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_COLOR"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 1 rgb, default GL_SRC_COLOR
@@ -317,7 +317,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_ALPHA"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 2 rgb, default GL_SRC_ALPHA
@@ -328,7 +328,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_ALPHA"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 0 alpha, default GL_SRC_ALPHA
@@ -339,7 +339,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_ALPHA"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 1 alpha, default GL_SRC_ALPHA
@@ -350,7 +350,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_SRC_ALPHA"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
         Texture environment combine operand 2 alpha, default GL_SRC_ALPHA
@@ -375,7 +375,7 @@ extension(s) are also available.
 		visibility="external"
 		access="public"
 		defaultValue="GL_FALSE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         Flag to use this texture for Point Sprites.
 	</Field>
@@ -398,7 +398,7 @@ extension(s) are also available.
 		visibility="external"
 		access="public"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         Shader operation of this texture unit, default GL_NONE. If unit 0 uses
         GL_NONE, shading is switched off.
@@ -410,7 +410,7 @@ extension(s) are also available.
 		visibility="external"
 		access="public"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         Input texture unit for this shader's operation.
 	</Field>
@@ -450,7 +450,7 @@ extension(s) are also available.
 		visibility="external"
 		access="public"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 	>
         The RGBA_UNSIGNED_DOT_PRODUCT_MAPPING_NV value.
 	</Field>
@@ -600,7 +600,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>
@@ -610,7 +610,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LEQUAL"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>
@@ -620,7 +620,7 @@ extension(s) are also available.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_LUMINANCE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>

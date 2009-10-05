@@ -142,7 +142,7 @@ mipMap and simple multi-frame data.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_UNSIGNED_BYTE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	Type of image data.

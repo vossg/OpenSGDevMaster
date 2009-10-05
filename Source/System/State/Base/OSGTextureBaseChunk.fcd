@@ -20,7 +20,7 @@ See \ref PageSystemTextureChunk for a description.
         cardinality="single"
         visibility="external"
         defaultValue="GL_NONE"
-        defaultHeader="&lt;OSGGL.h&gt;"
+        defaultHeader="&quot;OSGGL.h&quot;"
         access="public"
     >
         Texture target. Overwrite automatically determined texture target

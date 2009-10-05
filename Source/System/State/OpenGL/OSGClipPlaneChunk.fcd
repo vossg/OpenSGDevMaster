@@ -26,7 +26,7 @@ system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.
 		access="public"
 	>
 	Defines the equation of the clip plane. Standard format, if (a,b,c,d) is
-        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d &gt;= 0.
+        the plane a point (x,y,z) is visible if a*x+b*y+c*z+d &quot;= 0.
 	</Field>
 	<Field
 		name="enable"
@@ -34,7 +34,7 @@ system the plane is in is defined by OSG::ClipPlaneChunk::_sfBeacon.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_TRUE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	Defines activation state of the clip plane.

@@ -48,7 +48,7 @@
         cardinality="single"
         visibility="internal"
         defaultValue="GL_STATIC_DRAW_ARB"
-                defaultHeader="&lt;OSGGLEXT.h&gt;"
+                defaultHeader="&quot;OSGGLEXT.h&quot;"
         access="protected"
     >
     The usage pattern, only valid for VBO use.

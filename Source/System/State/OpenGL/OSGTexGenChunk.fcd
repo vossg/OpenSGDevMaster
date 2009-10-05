@@ -31,7 +31,7 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>
@@ -41,7 +41,7 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>
@@ -51,7 +51,7 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>
@@ -61,7 +61,7 @@ OSG::TexGenChunk::_sfGenFuncQPlane.
 		cardinality="single"
 		visibility="external"
 		defaultValue="GL_NONE"
-		defaultHeader="&lt;OSGGL.h&gt;"
+		defaultHeader="&quot;OSGGL.h&quot;"
 		access="public"
 	>
 	</Field>
