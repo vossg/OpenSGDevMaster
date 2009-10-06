@@ -1,0 +1,43 @@
+
+IF(${OSG_CMAKE_PASS} STREQUAL "OSGSETUP")
+
+  PROJECT(SimplePluginApp)
+
+  ADD_EXECUTABLE(simplePluginApp simplePluginApp.cpp)
+
+  IF(UNIX)
+    TARGET_LINK_LIBRARIES(simplePluginApp ${OSG_DL_LIB} ${OPENGL_gl_LIBRARY})
+  ENDIF(UNIX)
+
+ENDIF(${OSG_CMAKE_PASS} STREQUAL "OSGSETUP")
+
+OSG_ADD_PROJECT("OSGContribCSMSimplePlugin")
+OSG_SELECT_PROJECT()
+
+##############################################################################
+# dependencies
+##############################################################################
+
+
+##############################################################################
+# depdencies start here
+
+SET(${PROJECT_NAME}_DEP_OSG_LIB OSGContribCSM)
+
+#SET(${PROJECT_NAME}_DEP_TEST_OSG_LIB OSGEffectGroups OSGImageFileIO)
+
+SET(${PROJECT_NAME}_CXXFLAGS ${OSG_ADD_CXX_FLAGS})
+
+OSG_STORE_PROJECT_DEPENDENCIES()
+
+##############################################################################
+# collect sources
+##############################################################################
+
+OSG_ADD_DIRECTORY("Source/Contrib/CSMPlugin/SimpleTest")
+
+##############################################################################
+# setup build
+##############################################################################
+
+OSG_SETUP_PROJECT("OSG_COMPILECONTRIBCSMSIMPLEPLUGLIB")
