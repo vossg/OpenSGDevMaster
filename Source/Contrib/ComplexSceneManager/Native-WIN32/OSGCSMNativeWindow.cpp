@@ -373,8 +373,23 @@ void OSG_APIENTRY CSMNativeWindow::win32MainLoop(void)
     }
 
     ComplexSceneManager::the()->terminate();
+    
+    if(!UnregisterClass("OSG-CSM",
+                        GetModuleHandle(NULL)))
+    {
+        fprintf(stderr, "unregister window class failed %ld\n", 
+                GetLastError());
+    }
 }
 
+void CSMNativeWindow::resolveLinks(void)
+{
+    Inherited::resolveLinks();
+
+    DestroyWindow(_pHWND);
+
+    _pHWND = NULL;
+}
 
 bool CSMNativeWindow::init(void)
 {
@@ -398,6 +413,8 @@ bool CSMNativeWindow::init(void)
 
     if (!RegisterClass(&wndClass)) 
     {
+        fprintf(stderr, "register window class failed %ld\n", GetLastError());
+
         return false;
     }
 
