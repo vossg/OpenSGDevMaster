@@ -107,7 +107,7 @@ ComplexSceneManager
 #             enableForwardCompatContext TRUE
 #             enableDebugContext         TRUE
 
-             partitionDrawMode 0x0002
+#             partitionDrawMode 0x0002
 
              requestSamples 4
              enableFSAA     TRUE
