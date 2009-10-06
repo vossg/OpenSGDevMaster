@@ -301,6 +301,13 @@ void CSMNativeWindow::resolveLinks(void)
 
     if(_pDisplay != NULL)
     {
+        ::Window oHWin = _pXWindow->getWindow();
+        
+        if(oHWin != 0)
+        {
+            XDestroyWindow(_pDisplay, oHWin);
+        }
+
         XCloseDisplay(_pDisplay);
     }
 

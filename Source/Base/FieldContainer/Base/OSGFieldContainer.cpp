@@ -282,13 +282,13 @@ void FieldContainer::subReferenceRecorded(void)
             this->onDestroyAspect(Inherited::getId(), 
                                   Thread::getCurrentAspect());
 
-            _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
-
             if(_pAspectStore->getRefCount() == 1)
             {
                 this->deregister(Inherited::getId());
                 this->onDestroy (Inherited::getId());
             }
+
+            _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
 
             OSG::subRef(_pAspectStore);
             _pAspectStore = NULL;
@@ -372,14 +372,14 @@ void FieldContainer::subReferenceUnrecorded(void)
 #ifdef OSG_MT_CPTR_ASPECT
             this->onDestroyAspect(Inherited::getId(), 
                                   Thread::getCurrentAspect());
-
-            _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
-            
+           
             if(_pAspectStore->getRefCount() == 1)
             {
                 this->deregister(Inherited::getId());
                 this->onDestroy (Inherited::getId());
             }
+
+            _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
             
             OSG::subRef(_pAspectStore);
             _pAspectStore = NULL;
@@ -461,13 +461,13 @@ void FieldContainer::subWeakReference(void)
 #ifdef OSG_MT_CPTR_ASPECT
         this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
 
-        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
-
         if(_pAspectStore->getRefCount() == 1)
         {
             this->deregister(Inherited::getId());
             this->onDestroy (Inherited::getId());
         }
+
+        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
 
         OSG::subRef(_pAspectStore);
         _pAspectStore = NULL;
@@ -497,13 +497,13 @@ void FieldContainer::subReferenceUnresolved(void)
 #ifdef OSG_MT_CPTR_ASPECT
         this->onDestroyAspect(Inherited::getId(), Thread::getCurrentAspect());
 
-        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
-
         if(_pAspectStore->getRefCount() == 1)
         {
             this->deregister(Inherited::getId());
             this->onDestroy (Inherited::getId());
         }
+
+        _pAspectStore->removePtrForAspect(Thread::getCurrentAspect());
 
         OSG::subRef(_pAspectStore);
         _pAspectStore = NULL;
