@@ -55,7 +55,7 @@
 * marcus.geelnard at home.se
 *************************************************************************/
 
-#include "OSGConfig.h"
+#include "OSGHuffman.h"
 
 OSG_BEGIN_NAMESPACE
 

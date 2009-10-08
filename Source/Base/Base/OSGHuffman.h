@@ -33,6 +33,7 @@
 #define _OSGHUFFMAN_H_
 
 #include "OSGConfig.h"
+#include "OSGBaseDef.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -46,6 +47,7 @@ OSG_BEGIN_NAMESPACE
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
+OSG_BASE_DLLMAPPING
 int  Huffman_Compress  (unsigned char *in, 
                         unsigned char *out,
                         unsigned int   insize );
@@ -53,6 +55,7 @@ int  Huffman_Compress  (unsigned char *in,
 
 /*! \ingroup GrpBaseBaseMiscFn
  */
+OSG_BASE_DLLMAPPING
 void Huffman_Uncompress(unsigned char *in, 
                         unsigned char *out,
                         unsigned int   insize, 
