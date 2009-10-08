@@ -284,16 +284,16 @@ bool STLSceneFileType::readBinary(std::istream &is, STLFaceList& theFaces, std::
     if(!is)
         return false;
 
-    bool bigEndian = osgIsBigEndian();
+    bool   bigEndian  = osgIsBigEndian();
+    char   name[80]   = "";
+    UInt32 facetCount = 0;
+    UInt32 facet      = 0;
 
-#if 0
-    int HeaderSize = 84;    // 80bytes for name and 4 bytes for number of facets
-#endif
-    char name[80] = "";
-    is.read( &name[0], 80 );
+    is.read(&name[0], 80);  // read the header
     theName = name;
-    is.read(&name[0], 4); // skip the number of facets
-    while (!is.eof())
+    facetCount = readUInt32(is, bigEndian);
+
+    for(; facet < facetCount && !is.eof(); ++facet)
     {
         //SceneFileHandler::the().updateReadProgress();
         // a binary facet block has 50 bytes
@@ -319,19 +319,43 @@ bool STLSceneFileType::readBinary(std::istream &is, STLFaceList& theFaces, std::
         char buffer[2]; // offset filler
         is.read (&buffer[0], 2);
     }
+
+    if(facet < facetCount)
+    {
+        SWARNING << "STLSceneFileType::readBinary: Encountered EOF after "
+                 << "reading [" << facet << "] facets, was expecting ["
+                 << facetCount << "]."
+                 << std::endl;
+    }
+
     return true;
 }
 
 Real32 STLSceneFileType::readFloat(std::istream& is, bool bigEndian) const
 {
-    Real32 result = 0;
+    Real32 result   = 0.f;
+    char   buffer[4];
 
-    unsigned char buffer[4];
-    is.read (reinterpret_cast<char*>(&buffer[0]), 4);
-    Real32* tmp = reinterpret_cast<Real32*>(&buffer);
-    result = *tmp;
-    if (bigEndian)
+    is.read(&buffer[0], 4);
+    std::memcpy(reinterpret_cast<char *>(&result), buffer, 4);
+
+    if(bigEndian)
         result = osgNetToHost(result);
+
+    return result;
+}
+
+UInt32 STLSceneFileType::readUInt32(std::istream &is, bool bigEndian) const
+{
+    UInt32 result = 0;
+    char   buffer[4];
+
+    is.read(&buffer[0], 4);
+    std::memcpy(reinterpret_cast<char *>(&result), buffer, 4);
+
+    if(bigEndian)
+        result = osgNetToHost(result);
+
     return result;
 }
 

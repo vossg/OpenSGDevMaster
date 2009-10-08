@@ -107,7 +107,8 @@ class OSG_FILEIO_DLLMAPPING STLSceneFileType : public SceneFileType
     typedef std::vector<STLFace> STLFaceList;
     typedef std::vector<STLFace>::iterator STLFaceListIterator;
 
-    Real32 readFloat(std::istream& is, bool bigEndian=false) const;
+    Real32 readFloat (std::istream &is, bool bigEndian = false) const;
+    UInt32 readUInt32(std::istream &is, bool bigEndian = false) const;
 
     bool isASCII(std::istream &is, const Char8* fileNameOrExtension) const;
 
