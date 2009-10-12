@@ -266,8 +266,8 @@ bool createNormalVolume (      Image       *inImage,
     pf = Image::OSG_RGBA_PF;
     break;
   default:
-    FFATAL (( "Invalid outputFormat length in createNormalVolume: %zd\n",
-              outputFormat.size() ));
+    FFATAL(( "Invalid outputFormat length in createNormalVolume: %"PRISize"\n",
+             outputFormat.size() ));
     return false;
   }
     
@@ -871,7 +871,7 @@ bool createNormalizationCubeMap(std::vector<Image *> imageVec,
     
     if (imageVec.size() < 6)
     {
-        FFATAL(("Only %zd images given - need six\n", imageVec.size()));
+        FFATAL(("Only %"PRISize" images given - need six\n", imageVec.size()));
         return false;
     }
 

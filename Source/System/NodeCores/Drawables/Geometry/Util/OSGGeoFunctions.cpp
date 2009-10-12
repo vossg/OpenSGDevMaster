@@ -1087,7 +1087,7 @@ Int32 setIndexFromVRMLData(     Geometry       *geoPtr,
                 normalIT = VERTEX_COORD_IT;
                 if(niN)
                 {
-                    FWARNING(("Not enough normal index (%zd,%d)\n", 
+                    FWARNING(("Not enough normal index (%"PRISize",%d)\n", 
                               normalIndex.size(), piN));
                     normalIndex.clear();
                 }
@@ -1165,7 +1165,7 @@ else
                 colorIT = VERTEX_COORD_IT;
                 if(ciN)
                 {
-                    FWARNING(("Not enough color index (%zd,%d)\n", 
+                    FWARNING(("Not enough color index (%"PRISize",%d)\n", 
                               colorIndex.size(), piN));
                     colorIndex.clear();
                 }
@@ -1230,7 +1230,7 @@ else
             textureIT = VERTEX_COORD_IT;
             if(ciN)
             {
-                FWARNING(("Not enough texCoord index (%zd,%d)\n", 
+                FWARNING(("Not enough texCoord index (%"PRISize",%d)\n", 
                           texCoordIndex.size(), piN));
                 texCoordIndex.clear();
             }
@@ -1788,7 +1788,7 @@ Int32 setIndexFromIndexedX3DData ( Geometry           *geoPtr,
 
                 if(niN)
                 {
-                    FWARNING(("Not enough normal index (%zd,%d)\n", 
+                    FWARNING(("Not enough normal index (%"PRISize",%d)\n", 
                               normalIndex.size(), piN));
                     normalIndex.clear();
                 }
@@ -1862,7 +1862,7 @@ else
                 colorIT = VERTEX_COORD_IT;
                 if(ciN)
                 {
-                    FWARNING(("Not enough color index (%zd,%d)\n", 
+                    FWARNING(("Not enough color index (%"PRISize",%d)\n", 
                               colorIndex.size(), piN));
                     colorIndex.clear();
                 }
@@ -1925,7 +1925,7 @@ else
             textureIT = VERTEX_COORD_IT;
             if(tiN)
             {
-                FWARNING(("Not enough texCoord index (%zd,%d)\n", 
+                FWARNING(("Not enough texCoord index (%"PRISize",%d)\n", 
                           texCoordIndex.size(), piN));
                 texCoordIndex.clear();
             }

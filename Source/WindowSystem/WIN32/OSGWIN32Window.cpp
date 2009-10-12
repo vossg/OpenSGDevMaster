@@ -43,7 +43,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
+#include <OSGConfig.h>
 
 // Forget everything if we're not doing a windows compile
 #ifdef WIN32
@@ -115,7 +115,7 @@ void WIN32Window::init(GLInitFunctor oFunc)
 {
     setHdc(GetDC(getHwnd()));
 
-    if(getHglrc() == NULL )
+    if(getHglrc() == NULL)
     {
         setHglrc(wglCreateContext(getHdc()));
         
@@ -127,9 +127,14 @@ void WIN32Window::init(GLInitFunctor oFunc)
         }
     }
 
-    ReleaseDC(getHwnd(), getHdc());
-
     Inherited::init(oFunc);
+
+    if(getHdc() != NULL) 
+    {
+        ReleaseDC(getHwnd(), getHdc());
+
+        setHdc(NULL);
+    }
 }
 
 void WIN32Window::activate  (void)
@@ -165,7 +170,7 @@ void WIN32Window::doActivate( void )
     if(getHdc() == NULL)
         setHdc(GetDC(getHwnd()));
 
-    if(!wglMakeCurrent(getHdc(), getHglrc() ) )
+    if(!wglMakeCurrent(getHdc(), getHglrc()))
     {
         std::cerr << "WIN32Window::activate: failed: "
                   << GetLastError() 
@@ -179,12 +184,19 @@ void WIN32Window::doDeactivate ( void )
     wglMakeCurrent(NULL, NULL);
 
     // release the hardware device context
-    ReleaseDC(getHwnd(),getHdc());
+    if(getHdc() != NULL) 
+    {
+        ReleaseDC(getHwnd(), getHdc());
+        setHdc(NULL);
+    }
 }
 
 // swap front and back buffers
-bool WIN32Window::doSwap( void )
+bool WIN32Window::doSwap(void)
 {
+    if(getHdc() == NULL)
+        setHdc(GetDC(getHwnd()));
+
     return SwapBuffers(getHdc());
 }
 

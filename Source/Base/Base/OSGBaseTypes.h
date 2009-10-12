@@ -717,6 +717,14 @@ namespace PointerSize
 typedef PointerSize::UIPtrSize UIntPointer;
 typedef PointerSize::IPtrSize  IntPointer;
 
+#ifndef PRISize
+# ifdef WIN32
+#  define PRISize "Id"
+# else
+#  define PRISize "zd"
+# endif
+#endif
+
 /*! MathTypeProperties
  *  \ingroup GrpBaseBaseConstants
  */

@@ -983,7 +983,8 @@ void ChangeList::dump(      UInt32    uiIndent,
 
 void ChangeList::dumpListSizes(void) const
 {
-    fprintf(stderr, "CL : CH_S : %zd | CR_S : %zd | UC_S : %zd | P_S %zd\n",
+    fprintf(stderr, "CL : CH_S : %"PRISize" | CR_S : %"PRISize" | UC_S : %"
+            PRISize" | P_S %"PRISize"\n",
             _changedStore.size(),
             _createdStore.size(),
             _uncommitedChanges.size(),

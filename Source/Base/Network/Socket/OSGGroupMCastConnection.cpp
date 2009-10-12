@@ -436,7 +436,8 @@ bool GroupMCastConnection::sendQueue(void)
                 printf("send %d end %d\n",send,end);
                 printf("lastack %lf\n",getSystemTime() - lastAckTime);
 #endif
-                FDEBUG(("timeout count %d %d missing %zd\n",count,sendId,missing[ack].size()))
+                FDEBUG(("timeout count %d %d missing %"PRISize"\n",
+                        count,sendId,missing[ack].size()))
 //                printf("%.10f timeout count %d %d missing %d\n",getSystemTime()-t1,count,sendId,missing[ack].size());
                     
                 ackRequest.setSize(0);

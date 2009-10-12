@@ -153,7 +153,7 @@ bool FieldContainerFactoryBase::deregisterContainer(const UInt32 uiContainerId)
     else
     {
         FWARNING(("FieldContainerFactory::unregisterFieldContainer:"
-                  "id %d inconsistent with store size %zd!\n",
+                  "id %d inconsistent with store size %"PRISize"!\n",
                 uiContainerId,
                 _vContainerStore.size()));
         returnValue = true;

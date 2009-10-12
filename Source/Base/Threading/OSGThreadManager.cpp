@@ -552,14 +552,16 @@ bool ThreadManager::shutdown(void)
 
 #endif
 
-    FDEBUG(("Sizes: ThreadStore: %zd BarrierStore: %zd CondVarStore: %zd "
-            "LockStore: %zd LockPoolStore: %zd SemaphoreStore: %zd\n",
-            _sThreadStore  ._mFieldMap.size(),
-            _sBarrierStore ._mFieldMap.size(),
-            _sCondVarStore ._mFieldMap.size(),
-            _sLockStore    ._mFieldMap.size(),
-            _sLockPoolStore._mFieldMap.size(),
-            _sLockStore    ._mFieldMap.size()));
+    FDEBUG(
+        ("Sizes: ThreadStore: %"PRISize" BarrierStore: %"PRISize
+         " CondVarStore: %"PRISize" LockStore: %"PRISize" LockPoolStore: %"
+         PRISize" SemaphoreStore: %"PRISize"\n",
+         _sThreadStore  ._mFieldMap.size(),
+         _sBarrierStore ._mFieldMap.size(),
+         _sCondVarStore ._mFieldMap.size(),
+         _sLockStore    ._mFieldMap.size(),
+         _sLockPoolStore._mFieldMap.size(),
+         _sLockStore    ._mFieldMap.size()));
           
     _sThreadStore   .clear();
     _sBarrierStore  .clear();
