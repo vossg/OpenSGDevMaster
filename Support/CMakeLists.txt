@@ -29,8 +29,8 @@ ENDIF("${OpenSGSupport_SOURCE_DIR}"  STREQUAL "${OpenSGSupport_BINARY_DIR}")
 # Compiler
 ##############
 
-OPTION(BUILD_SHARED_LIBS "Set to ON to build dynamic libraries" ON)
-OPTION(BUILD_STATIC_LIBS "Set to ON to build static libraries" ON)
+SET(BUILD_SHARED_LIBS ON CACHE INTERNAL "Set to ON to build dynamic libraries" FORCE)
+SET(BUILD_STATIC_LIBS ON CACHE INTERNAL "Set to ON to build static libraries"  FORCE)
 
 IF(WIN32)
     OPTION(OSG_DISABLE_MICROSOFT_SECURE_CXXX "" OFF)
