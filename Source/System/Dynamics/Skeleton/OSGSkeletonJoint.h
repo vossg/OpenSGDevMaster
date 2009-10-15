@@ -51,7 +51,7 @@ OSG_BEGIN_NAMESPACE
            PageDrawableSkeletonJoint for a description.
 */
 
-class OSG_DRAWABLE_DLLMAPPING SkeletonJoint : public SkeletonJointBase
+class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
 {
   protected:
 
@@ -62,16 +62,10 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJoint : public SkeletonJointBase
     typedef SkeletonJointBase Inherited;
     typedef SkeletonJoint     Self;
 
-    static const Int16 AUTO_ID_END = -1;
-    
-    const SFParentSkeletonJointPtr *getSFParent  (void) const;
-    SkeletonJoint                  *getParent    (void) const;
+    static const Int16 INVALID_JOINT_ID = -1;
 
-    const SFParentSkeletonPtr      *getSFSkeleton(void) const;
-    Skeleton                       *getSkeleton  (void) const;
-
-    void addChild(SkeletonJoint *joint);
-    void subChild(SkeletonJoint *joint);
+    const SFParentSkeletonPtr *getSFSkeleton(void) const;
+    Skeleton                  *getSkeleton  (void) const;
 
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
@@ -96,8 +90,6 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJoint : public SkeletonJointBase
 
     // Variables should all be in SkeletonJointBase.
 
-    bool _needRecalc;
-
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -119,14 +111,6 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJoint : public SkeletonJointBase
 
     static void initMethod(InitPhase ePhase);
 
-
-    void addChildInternal(SkeletonJoint *joint);
-    void subChildInternal(SkeletonJoint *joint);
-
-    bool getNeedRecalc (void      ) const;
-    void setNeedRecalc (bool value);
-    void markNeedRecalc(void      );
-
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
@@ -134,8 +118,6 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJoint : public SkeletonJointBase
 
     friend class FieldContainer;
     friend class SkeletonJointBase;
-
-    friend class Skeleton;
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const SkeletonJoint &source);

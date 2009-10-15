@@ -40,18 +40,6 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline const SFParentSkeletonJointPtr *
-SkeletonJoint::getSFParent(void) const
-{
-    return &_sfParent;
-}
-
-inline SkeletonJoint *
-SkeletonJoint::getParent(void) const
-{
-    return _sfParent.getValue();
-}
-
 inline const SFParentSkeletonPtr *
 SkeletonJoint::getSFSkeleton(void) const
 {
@@ -62,18 +50,6 @@ inline Skeleton *
 SkeletonJoint::getSkeleton(void) const
 {
     return _sfSkeleton.getValue();
-}
-
-inline bool
-SkeletonJoint::getNeedRecalc(void) const
-{
-    return _needRecalc;
-}
-
-inline void
-SkeletonJoint::setNeedRecalc(bool value)
-{
-    _needRecalc = value;
 }
 
 OSG_END_NAMESPACE

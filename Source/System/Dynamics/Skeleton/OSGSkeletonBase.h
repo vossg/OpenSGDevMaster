@@ -63,13 +63,11 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGDrawable.h" // Parent
+#include "OSGAttachmentContainer.h" // Parent
 
+#include "OSGNodeFields.h"              // Roots type
 #include "OSGSkeletonJointFields.h"     // Joints type
 #include "OSGMathFields.h"              // JointMatrices type
-#include "OSGGeometryFields.h"          // Meshes type
-#include "OSGShaderProgramVariableChunkFields.h" // ShaderData type
-#include "OSGShaderProgramChunkFields.h" // ShaderCode type
 
 #include "OSGSkeletonFields.h"
 
@@ -79,12 +77,12 @@ class Skeleton;
 
 //! \brief Skeleton Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public Drawable
+class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
 {
   public:
 
-    typedef Drawable Inherited;
-    typedef Drawable ParentContainer;
+    typedef AttachmentContainer Inherited;
+    typedef AttachmentContainer ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -97,32 +95,24 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public Drawable
 
     enum
     {
-        JointsFieldId = Inherited::NextFieldId,
+        RootsFieldId = Inherited::NextFieldId,
+        JointsFieldId = RootsFieldId + 1,
         JointMatricesFieldId = JointsFieldId + 1,
-        MeshesFieldId = JointMatricesFieldId + 1,
-        ShaderDataFieldId = MeshesFieldId + 1,
-        ShaderCodeFieldId = ShaderDataFieldId + 1,
-        NextFieldId = ShaderCodeFieldId + 1
+        NextFieldId = JointMatricesFieldId + 1
     };
 
+    static const OSG::BitVector RootsFieldMask =
+        (TypeTraits<BitVector>::One << RootsFieldId);
     static const OSG::BitVector JointsFieldMask =
         (TypeTraits<BitVector>::One << JointsFieldId);
     static const OSG::BitVector JointMatricesFieldMask =
         (TypeTraits<BitVector>::One << JointMatricesFieldId);
-    static const OSG::BitVector MeshesFieldMask =
-        (TypeTraits<BitVector>::One << MeshesFieldId);
-    static const OSG::BitVector ShaderDataFieldMask =
-        (TypeTraits<BitVector>::One << ShaderDataFieldId);
-    static const OSG::BitVector ShaderCodeFieldMask =
-        (TypeTraits<BitVector>::One << ShaderCodeFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
+    typedef MFUnrecNodePtr    MFRootsType;
     typedef MFUnrecChildSkeletonJointPtr MFJointsType;
     typedef MFMatrix          MFJointMatricesType;
-    typedef MFUnrecGeometryPtr MFMeshesType;
-    typedef SFUnrecShaderProgramVariableChunkPtr SFShaderDataType;
-    typedef SFUnrecShaderProgramChunkPtr SFShaderCodeType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -147,11 +137,21 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public Drawable
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecGeometryPtr  *getMFMeshes         (void) const;
-                  MFUnrecGeometryPtr  *editMFMeshes         (void);
+            const MFUnrecNodePtr      *getMFRoots          (void) const;
+                  MFUnrecNodePtr      *editMFRoots          (void);
+            const MFUnrecChildSkeletonJointPtr *getMFJoints         (void) const;
+                  MFUnrecChildSkeletonJointPtr *editMFJoints         (void);
+
+                  MFMatrix            *editMFJointMatrices  (void);
+            const MFMatrix            *getMFJointMatrices   (void) const;
 
 
-                  Geometry * getMeshes         (const UInt32 index) const;
+                  Node * getRoots          (const UInt32 index) const;
+
+                  SkeletonJoint * getJoints         (const UInt32 index) const;
+
+                  Matrix              &editJointMatrices  (const UInt32 index);
+            const Matrix              &getJointMatrices   (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -169,11 +169,17 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public Drawable
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
 
-    void pushToMeshes              (Geometry * const value   );
-    void assignMeshes             (const MFUnrecGeometryPtr &value);
-    void removeFromMeshes (UInt32               uiIndex );
-    void removeObjFromMeshes(Geometry * const value   );
-    void clearMeshes                (void                         );
+    void pushToRoots               (Node * const value   );
+    void assignRoots              (const MFUnrecNodePtr    &value);
+    void removeFromRoots (UInt32               uiIndex );
+    void removeObjFromRoots(Node * const value   );
+    void clearRoots                 (void                         );
+
+    void pushToJoints              (SkeletonJoint * const value   );
+    void assignJoints             (const MFUnrecChildSkeletonJointPtr &value);
+    void removeFromJoints (UInt32               uiIndex );
+    void removeObjFromJoints(SkeletonJoint * const value   );
+    void clearJoints                (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -228,11 +234,9 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public Drawable
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
+    MFUnrecNodePtr    _mfRoots;
     MFUnrecChildSkeletonJointPtr _mfJoints;
     MFMatrix          _mfJointMatrices;
-    MFUnrecGeometryPtr _mfMeshes;
-    SFUnrecShaderProgramVariableChunkPtr _sfShaderData;
-    SFUnrecShaderProgramChunkPtr _sfShaderCode;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -269,60 +273,12 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public Drawable
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
+    GetFieldHandlePtr  getHandleRoots           (void) const;
+    EditFieldHandlePtr editHandleRoots          (void);
     GetFieldHandlePtr  getHandleJoints          (void) const;
     EditFieldHandlePtr editHandleJoints         (void);
     GetFieldHandlePtr  getHandleJointMatrices   (void) const;
     EditFieldHandlePtr editHandleJointMatrices  (void);
-    GetFieldHandlePtr  getHandleMeshes          (void) const;
-    EditFieldHandlePtr editHandleMeshes         (void);
-    GetFieldHandlePtr  getHandleShaderData      (void) const;
-    EditFieldHandlePtr editHandleShaderData     (void);
-    GetFieldHandlePtr  getHandleShaderCode      (void) const;
-    EditFieldHandlePtr editHandleShaderCode     (void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Get                                 */
-    /*! \{                                                                 */
-
-            const MFUnrecChildSkeletonJointPtr *getMFJoints          (void) const;
-                  MFUnrecChildSkeletonJointPtr *editMFJoints         (void);
-
-                  MFMatrix            *editMFJointMatrices  (void);
-            const MFMatrix            *getMFJointMatrices   (void) const;
-            const SFUnrecShaderProgramVariableChunkPtr *getSFShaderData      (void) const;
-                  SFUnrecShaderProgramVariableChunkPtr *editSFShaderData     (void);
-            const SFUnrecShaderProgramChunkPtr *getSFShaderCode      (void) const;
-                  SFUnrecShaderProgramChunkPtr *editSFShaderCode     (void);
-
-
-                  SkeletonJoint * getJoints         (const UInt32 index) const;
-
-                  Matrix              &editJointMatrices  (const UInt32 index);
-            const Matrix              &getJointMatrices   (const UInt32 index) const;
-
-                  ShaderProgramVariableChunk * getShaderData     (void) const;
-
-                  ShaderProgramChunk * getShaderCode     (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                    Field Set                                 */
-    /*! \{                                                                 */
-
-            void setShaderData     (ShaderProgramVariableChunk * const value);
-            void setShaderCode     (ShaderProgramChunk * const value);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                Ptr MField Set                                */
-    /*! \{                                                                 */
-
-    void pushToJoints              (SkeletonJoint * const value   );
-    void assignJoints              (const MFUnrecChildSkeletonJointPtr &value);
-    void removeFromJoints (UInt32                uiIndex );
-    void removeObjFromJoints(SkeletonJoint * const value   );
-    void clearJoints                (void                          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

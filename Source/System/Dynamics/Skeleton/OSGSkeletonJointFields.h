@@ -55,7 +55,7 @@
 #endif
 
 #include "OSGConfig.h"
-#include "OSGDrawableDef.h"
+#include "OSGDynamicsDef.h"
 
 #include "OSGFieldContainerFields.h"
 #include "OSGPointerSField.h"
@@ -68,8 +68,8 @@ class SkeletonJoint;
 
 OSG_GEN_CONTAINERPTR(SkeletonJoint);
 
-/*! \ingroup GrpDrawableFieldTraits
-    \ingroup GrpLibOSGDrawable
+/*! \ingroup GrpDynamicsFieldTraits
+    \ingroup GrpLibOSGDynamics
  */
 template <>
 struct FieldTraits<SkeletonJoint *> :
@@ -85,7 +85,7 @@ struct FieldTraits<SkeletonJoint *> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
+    static OSG_DYNAMICS_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -146,7 +146,7 @@ const Char8 *FieldTraits<SkeletonJoint *, 0>::getMName<NoRefCountPolicy>(void)
 }
 
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDynamicsFieldTraits
  */
 template <>
 struct FieldTraits<SkeletonJoint *, 1> :
@@ -159,7 +159,7 @@ struct FieldTraits<SkeletonJoint *, 1> :
 
     enum                        { Convertible = NotConvertible };
 
-    static OSG_DRAWABLE_DLLMAPPING DataType &getType(void);
+    static OSG_DYNAMICS_DLLMAPPING DataType &getType(void);
 
     template<typename RefCountPolicy> inline
     static const Char8    *getSName     (void);
@@ -217,7 +217,7 @@ const Char8 *FieldTraits<SkeletonJoint *, 1>::getMName<NoRefCountPolicy>(void)
 }
 
 
-/*! \ingroup GrpDrawableFieldTraits
+/*! \ingroup GrpDynamicsFieldTraits
  */
 template <>
 struct FieldTraits<SkeletonJoint *, 2> : 
@@ -236,7 +236,7 @@ struct FieldTraits<SkeletonJoint *, 2> :
 
     enum             { Convertible = Self::NotConvertible };
     
-    static OSG_DRAWABLE_DLLMAPPING
+    static OSG_DYNAMICS_DLLMAPPING
                  DataType &getType (void);
 
     static const Char8    *getSName(void) 
@@ -251,56 +251,56 @@ struct FieldTraits<SkeletonJoint *, 2> :
 };
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<SkeletonJoint *,
                       RecordedRefCountPolicy  > SFRecSkeletonJointPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<SkeletonJoint *,
                       UnrecordedRefCountPolicy> SFUnrecSkeletonJointPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<SkeletonJoint *,
                       WeakRefCountPolicy      > SFWeakSkeletonJointPtr;
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDynamicsFieldSFields */
 typedef PointerSField<SkeletonJoint *,
                       NoRefCountPolicy        > SFUncountedSkeletonJointPtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<SkeletonJoint *,
                       RecordedRefCountPolicy  > MFRecSkeletonJointPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<SkeletonJoint *,
                       UnrecordedRefCountPolicy> MFUnrecSkeletonJointPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<SkeletonJoint *,
                       WeakRefCountPolicy      > MFWeakSkeletonJointPtr;
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDynamicsFieldMFields */
 typedef PointerMField<SkeletonJoint *,
                       NoRefCountPolicy        > MFUncountedSkeletonJointPtr;
 
 
 
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDynamicsFieldSFields */
 typedef ChildPointerSField<
           SkeletonJoint *, 
           UnrecordedRefCountPolicy,
           1             > SFUnrecChildSkeletonJointPtr;
 
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDynamicsFieldMFields */
 typedef ChildPointerMField<
           SkeletonJoint *, 
           UnrecordedRefCountPolicy,
           1             > MFUnrecChildSkeletonJointPtr;
 
 
-/*! \ingroup GrpDrawableFieldSFields */
+/*! \ingroup GrpDynamicsFieldSFields */
 typedef ParentPointerSField<
           SkeletonJoint *, 
           NoRefCountPolicy,
           2    > SFParentSkeletonJointPtr;
 
-/*! \ingroup GrpDrawableFieldMFields */
+/*! \ingroup GrpDynamicsFieldMFields */
 typedef ParentPointerMField<
           SkeletonJoint *, 
           NoRefCountPolicy,
@@ -310,44 +310,44 @@ typedef ParentPointerMField<
 
 #else // these are the doxygen hacks
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFRecSkeletonJointPtr : 
     public PointerSField<SkeletonJoint *,
                          RecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFUnrecSkeletonJointPtr : 
     public PointerSField<SkeletonJoint *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFWeakSkeletonJointPtr :
     public PointerSField<SkeletonJoint *,
                          WeakRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFUncountedSkeletonJointPtr :
     public PointerSField<SkeletonJoint *,
                          NoRefCountPolicy> {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFRecSkeletonJointPtr :
     public PointerMField<SkeletonJoint *,
                          RecordedRefCountPolicy  > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFUnrecSkeletonJointPtr :
     public PointerMField<SkeletonJoint *,
                          UnrecordedRefCountPolicy> {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFWeakSkeletonJointPtr :
     public PointerMField<SkeletonJoint *,
                          WeakRefCountPolicy      > {};
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFUncountedSkeletonJointPtr :
     public PointerMField<SkeletonJoint *,
                          NoRefCountPolicy        > {};
 
 
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFUnrecChildSkeletonJointPtr :
     public ChildPointerSField<
         SkeletonJoint *, 
@@ -355,7 +355,7 @@ struct SFUnrecChildSkeletonJointPtr :
         1             > {};
 
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFUnrecChildSkeletonJointPtr :
     public ChildPointerMField<
         SkeletonJoint *, 
@@ -363,14 +363,14 @@ struct MFUnrecChildSkeletonJointPtr :
         1             > {};
 
 
-/*! \ingroup GrpDrawableFieldSFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldSFields \ingroup GrpLibOSGDynamics */
 struct SFParentSkeletonJointPtr :
     public ParentPointerSField<
         SkeletonJoint *, 
         NoRefCountPolicy,
         2    > {};
 
-/*! \ingroup GrpDrawableFieldMFields \ingroup GrpLibOSGDrawable */
+/*! \ingroup GrpDynamicsFieldMFields \ingroup GrpLibOSGDynamics */
 struct MFParentSkeletonJointPtr :
     public  ParentPointerMField<
         SkeletonJoint *, 

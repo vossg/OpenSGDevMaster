@@ -59,13 +59,12 @@
 
 
 #include "OSGConfig.h"
-#include "OSGDrawableDef.h"
+#include "OSGDynamicsDef.h"
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGGroup.h" // Parent
 
-#include "OSGSkeletonJointFields.h"     // Parent type
 #include "OSGSkeletonFields.h"          // Skeleton type
 #include "OSGSysFields.h"               // JointId type
 #include "OSGMathFields.h"              // InvBindMatrix type
@@ -78,12 +77,12 @@ class SkeletonJoint;
 
 //! \brief SkeletonJoint Base Class.
 
-class OSG_DRAWABLE_DLLMAPPING SkeletonJointBase : public AttachmentContainer
+class OSG_DYNAMICS_DLLMAPPING SkeletonJointBase : public Group
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef Group Inherited;
+    typedef Group ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -96,19 +95,13 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJointBase : public AttachmentContainer
 
     enum
     {
-        ParentFieldId = Inherited::NextFieldId,
-        ChildrenFieldId = ParentFieldId + 1,
-        SkeletonFieldId = ChildrenFieldId + 1,
+        SkeletonFieldId = Inherited::NextFieldId,
         JointIdFieldId = SkeletonFieldId + 1,
         InvBindMatrixFieldId = JointIdFieldId + 1,
         MatrixFieldId = InvBindMatrixFieldId + 1,
         NextFieldId = MatrixFieldId + 1
     };
 
-    static const OSG::BitVector ParentFieldMask =
-        (TypeTraits<BitVector>::One << ParentFieldId);
-    static const OSG::BitVector ChildrenFieldMask =
-        (TypeTraits<BitVector>::One << ChildrenFieldId);
     static const OSG::BitVector SkeletonFieldMask =
         (TypeTraits<BitVector>::One << SkeletonFieldId);
     static const OSG::BitVector JointIdFieldMask =
@@ -120,8 +113,6 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJointBase : public AttachmentContainer
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFParentSkeletonJointPtr SFParentType;
-    typedef MFUnrecChildSkeletonJointPtr MFChildrenType;
     typedef SFParentSkeletonPtr SFSkeletonType;
     typedef SFInt16           SFJointIdType;
     typedef SFMatrix          SFInvBindMatrixType;
@@ -150,8 +141,6 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJointBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecChildSkeletonJointPtr *getMFChildren       (void) const;
-                  MFUnrecChildSkeletonJointPtr *editMFChildren       (void);
 
                   SFInt16             *editSFJointId        (void);
             const SFInt16             *getSFJointId         (void) const;
@@ -162,8 +151,6 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJointBase : public AttachmentContainer
                   SFMatrix            *editSFMatrix         (void);
             const SFMatrix            *getSFMatrix          (void) const;
 
-
-                  SkeletonJoint * getChildren       (const UInt32 index) const;
 
                   Int16               &editJointId        (void);
                   Int16                getJointId         (void) const;
@@ -185,19 +172,8 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJointBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                Ptr Field Set                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToChildren            (SkeletonJoint * const value   );
-    void assignChildren           (const MFUnrecChildSkeletonJointPtr &value);
-    void removeFromChildren (UInt32               uiIndex );
-    void removeObjFromChildren(SkeletonJoint * const value   );
-    void clearChildren              (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -252,8 +228,6 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJointBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFParentSkeletonJointPtr _sfParent;
-    MFUnrecChildSkeletonJointPtr _mfChildren;
     SFParentSkeletonPtr _sfSkeleton;
     SFInt16           _sfJointId;
     SFMatrix          _sfInvBindMatrix;
@@ -279,7 +253,6 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJointBase : public AttachmentContainer
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const SkeletonJoint *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -294,21 +267,9 @@ class OSG_DRAWABLE_DLLMAPPING SkeletonJointBase : public AttachmentContainer
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Child linking                                                */
-    /*! \{                                                                 */
-
-    virtual bool unlinkChild(FieldContainer * const pChild,
-                             UInt16           const childFieldId);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleParent          (void) const;
-    EditFieldHandlePtr editHandleParent         (void);
-    GetFieldHandlePtr  getHandleChildren        (void) const;
-    EditFieldHandlePtr editHandleChildren       (void);
     GetFieldHandlePtr  getHandleSkeleton        (void) const;
     EditFieldHandlePtr editHandleSkeleton       (void);
     GetFieldHandlePtr  getHandleJointId         (void) const;

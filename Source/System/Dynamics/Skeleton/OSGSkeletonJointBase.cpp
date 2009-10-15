@@ -58,7 +58,6 @@
 
 
 
-#include "OSGSkeletonJoint.h"           // Parent Class
 #include "OSGSkeleton.h"                // Skeleton Class
 
 #include "OSGSkeletonJointBase.h"
@@ -84,14 +83,6 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var SkeletonJoint * SkeletonJointBase::_sfParent
-    Parent joint.
-*/
-
-/*! \var SkeletonJoint * SkeletonJointBase::_mfChildren
-    Children joints.
-*/
-
 /*! \var Skeleton *      SkeletonJointBase::_sfSkeleton
     Parent skeleton.
 */
@@ -100,8 +91,6 @@ OSG_BEGIN_NAMESPACE
     Id of the joint in the skeleton, used to assign vertices to joints.
     The joints in a skeleton must have a unique jointId and they should
     form an interval (no holes) [0, N].
-    The default SkeletonJoint::AUTO_ID_END gets replaced when adding the joint
-    to a skeleton.
 */
 
 /*! \var Matrix          SkeletonJointBase::_sfInvBindMatrix
@@ -118,7 +107,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<SkeletonJoint *>::_type("SkeletonJointPtr", "AttachmentContainerPtr");
+DataType FieldTraits<SkeletonJoint *>::_type("SkeletonJointPtr", "GroupPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(SkeletonJoint *)
@@ -186,30 +175,6 @@ void SkeletonJointBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new SFParentSkeletonJointPtr::Description(
-        SFParentSkeletonJointPtr::getClassType(),
-        "parent",
-        "Parent joint.\n",
-        ParentFieldId, ParentFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast     <FieldEditMethodSig>(&SkeletonJoint::invalidEditField),
-        static_cast     <FieldGetMethodSig >(&SkeletonJoint::invalidGetField));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new MFUnrecChildSkeletonJointPtr::Description(
-        MFUnrecChildSkeletonJointPtr::getClassType(),
-        "children",
-        "Children joints.\n",
-        ChildrenFieldId, ChildrenFieldMask,
-        false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&SkeletonJoint::editHandleChildren),
-        static_cast<FieldGetMethodSig >(&SkeletonJoint::getHandleChildren));
-
-    oType.addInitialDesc(pDesc);
-
     pDesc = new SFParentSkeletonPtr::Description(
         SFParentSkeletonPtr::getClassType(),
         "skeleton",
@@ -227,9 +192,7 @@ void SkeletonJointBase::classDescInserter(TypeObject &oType)
         "jointId",
         "Id of the joint in the skeleton, used to assign vertices to joints.\n"
         "The joints in a skeleton must have a unique jointId and they should\n"
-        "form an interval (no holes) [0, N].\n"
-        "The default SkeletonJoint::AUTO_ID_END gets replaced when adding the joint\n"
-        "to a skeleton.\n",
+        "form an interval (no holes) [0, N].\n",
         JointIdFieldId, JointIdFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -279,8 +242,8 @@ SkeletonJointBase::TypeObject SkeletonJointBase::_type(
     "\n"
     "<FieldContainer\n"
     "   name=\"SkeletonJoint\"\n"
-    "   parent=\"AttachmentContainer\"\n"
-    "   library=\"Drawable\"\n"
+    "   parent=\"Group\"\n"
+    "   library=\"Dynamics\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"
     "   systemcomponent=\"true\"\n"
@@ -290,30 +253,6 @@ SkeletonJointBase::TypeObject SkeletonJointBase::_type(
     "   childFields=\"both\"\n"
     "   parentFields=\"both\"\n"
     ">\n"
-    "  <Field\n"
-    "     name=\"parent\"\n"
-    "     type=\"SkeletonJoint\"\n"
-    "     category=\"parentpointer\"\n"
-    "     cardinality=\"single\"\n"
-    "     defaultValue=\"NULL\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"none\"\n"
-    "     >\n"
-    "    Parent joint.\n"
-    "  </Field>\n"
-    "\n"
-    "  <Field\n"
-    "     name=\"children\"\n"
-    "     type=\"SkeletonJoint\"\n"
-    "     category=\"childpointer\"\n"
-    "     linkParentField=\"Parent\"\n"
-    "     cardinality=\"multi\"\n"
-    "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
-    "     >\n"
-    "    Children joints.\n"
-    "  </Field>\n"
-    "\n"
     "  <Field\n"
     "     name=\"skeleton\"\n"
     "     type=\"Skeleton\"\n"
@@ -331,15 +270,13 @@ SkeletonJointBase::TypeObject SkeletonJointBase::_type(
     "     type=\"Int16\"\n"
     "     category=\"data\"\n"
     "     cardinality=\"single\"\n"
-    "     defaultValue=\"SkeletonJoint::AUTO_ID_END\"\n"
+    "     defaultValue=\"SkeletonJoint::INVALID_JOINT_ID\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
     "     >\n"
     "    Id of the joint in the skeleton, used to assign vertices to joints.\n"
     "    The joints in a skeleton must have a unique jointId and they should\n"
     "    form an interval (no holes) [0, N].\n"
-    "    The default SkeletonJoint::AUTO_ID_END gets replaced when adding the joint\n"
-    "    to a skeleton.\n"
     "  </Field>\n"
     "\n"
     "  <Field\n"
@@ -388,20 +325,6 @@ UInt32 SkeletonJointBase::getContainerSize(void) const
 
 
 
-//! Get the SkeletonJoint::_mfChildren field.
-const MFUnrecChildSkeletonJointPtr *SkeletonJointBase::getMFChildren(void) const
-{
-    return &_mfChildren;
-}
-
-MFUnrecChildSkeletonJointPtr *SkeletonJointBase::editMFChildren       (void)
-{
-    editMField(ChildrenFieldMask, _mfChildren);
-
-    return &_mfChildren;
-}
-
-
 SFInt16 *SkeletonJointBase::editSFJointId(void)
 {
     editSField(JointIdFieldMask);
@@ -443,59 +366,6 @@ const SFMatrix *SkeletonJointBase::getSFMatrix(void) const
 
 
 
-void SkeletonJointBase::pushToChildren(SkeletonJoint * const value)
-{
-    editMField(ChildrenFieldMask, _mfChildren);
-
-    _mfChildren.push_back(value);
-}
-
-void SkeletonJointBase::assignChildren (const MFUnrecChildSkeletonJointPtr &value)
-{
-    MFUnrecChildSkeletonJointPtr::const_iterator elemIt  =
-        value.begin();
-    MFUnrecChildSkeletonJointPtr::const_iterator elemEnd =
-        value.end  ();
-
-    static_cast<SkeletonJoint *>(this)->clearChildren();
-
-    while(elemIt != elemEnd)
-    {
-        this->pushToChildren(*elemIt);
-
-        ++elemIt;
-    }
-}
-
-void SkeletonJointBase::removeFromChildren(UInt32 uiIndex)
-{
-    if(uiIndex < _mfChildren.size())
-    {
-        editMField(ChildrenFieldMask, _mfChildren);
-
-        _mfChildren.erase(uiIndex);
-    }
-}
-
-void SkeletonJointBase::removeObjFromChildren(SkeletonJoint * const value)
-{
-    Int32 iElemIdx = _mfChildren.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(ChildrenFieldMask, _mfChildren);
-
-        _mfChildren.erase(iElemIdx);
-    }
-}
-void SkeletonJointBase::clearChildren(void)
-{
-    editMField(ChildrenFieldMask, _mfChildren);
-
-
-    _mfChildren.clear();
-}
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -504,14 +374,6 @@ UInt32 SkeletonJointBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
-    {
-        returnValue += _sfParent.getBinSize();
-    }
-    if(FieldBits::NoField != (ChildrenFieldMask & whichField))
-    {
-        returnValue += _mfChildren.getBinSize();
-    }
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {
         returnValue += _sfSkeleton.getBinSize();
@@ -537,14 +399,6 @@ void SkeletonJointBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
-    {
-        _sfParent.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (ChildrenFieldMask & whichField))
-    {
-        _mfChildren.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {
         _sfSkeleton.copyToBin(pMem);
@@ -568,14 +422,6 @@ void SkeletonJointBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
-    {
-        _sfParent.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (ChildrenFieldMask & whichField))
-    {
-        _mfChildren.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
     {
         _sfSkeleton.copyFromBin(pMem);
@@ -717,12 +563,8 @@ FieldContainerTransitPtr SkeletonJointBase::shallowCopy(void) const
 
 SkeletonJointBase::SkeletonJointBase(void) :
     Inherited(),
-    _sfParent                 (NULL),
-    _mfChildren               (this,
-                          ChildrenFieldId,
-                          SkeletonJoint::ParentFieldId),
     _sfSkeleton               (NULL),
-    _sfJointId                (Int16(SkeletonJoint::AUTO_ID_END)),
+    _sfJointId                (Int16(SkeletonJoint::INVALID_JOINT_ID)),
     _sfInvBindMatrix          (),
     _sfMatrix                 ()
 {
@@ -730,10 +572,6 @@ SkeletonJointBase::SkeletonJointBase(void) :
 
 SkeletonJointBase::SkeletonJointBase(const SkeletonJointBase &source) :
     Inherited(source),
-    _sfParent                 (NULL),
-    _mfChildren               (this,
-                          ChildrenFieldId,
-                          SkeletonJoint::ParentFieldId),
     _sfSkeleton               (NULL),
     _sfJointId                (source._sfJointId                ),
     _sfInvBindMatrix          (source._sfInvBindMatrix          ),
@@ -755,34 +593,6 @@ bool SkeletonJointBase::linkParent(
     UInt16           const childFieldId,
     UInt16           const parentFieldId )
 {
-    if(parentFieldId == ParentFieldId)
-    {
-        SkeletonJoint * pTypedParent =
-            dynamic_cast< SkeletonJoint * >(pParent);
-
-        if(pTypedParent != NULL)
-        {
-            FieldContainer *pOldParent =
-                _sfParent.getValue         ();
-
-            UInt16 oldChildFieldId =
-                _sfParent.getParentFieldPos();
-
-            if(pOldParent != NULL)
-            {
-                pOldParent->unlinkChild(this, oldChildFieldId);
-            }
-
-            editSField(ParentFieldMask);
-
-            _sfParent.setValue(static_cast<SkeletonJoint *>(pParent), childFieldId);
-
-            return true;
-        }
-
-        return false;
-    }
-
     if(parentFieldId == SkeletonFieldId)
     {
         Skeleton * pTypedParent =
@@ -818,31 +628,6 @@ bool SkeletonJointBase::unlinkParent(
     FieldContainer * const pParent,
     UInt16           const parentFieldId)
 {
-    if(parentFieldId == ParentFieldId)
-    {
-        SkeletonJoint * pTypedParent =
-            dynamic_cast< SkeletonJoint * >(pParent);
-
-        if(pTypedParent != NULL)
-        {
-            if(_sfParent.getValue() == pParent)
-            {
-                editSField(ParentFieldMask);
-
-                _sfParent.setValue(NULL, 0xFFFF);
-
-                return true;
-            }
-
-            FWARNING(("SkeletonJointBase::unlinkParent: "
-                      "Child <-> Parent link inconsistent.\n"));
-
-            return false;
-        }
-
-        return false;
-    }
-
     if(parentFieldId == SkeletonFieldId)
     {
         Skeleton * pTypedParent =
@@ -872,116 +657,6 @@ bool SkeletonJointBase::unlinkParent(
 }
 
 
-/*-------------------------------------------------------------------------*/
-/* Child linking                                                           */
-
-bool SkeletonJointBase::unlinkChild(
-    FieldContainer * const pChild,
-    UInt16           const childFieldId)
-{
-    if(childFieldId == ChildrenFieldId)
-    {
-        SkeletonJoint * pTypedChild =
-            dynamic_cast<SkeletonJoint *>(pChild);
-
-        if(pTypedChild != NULL)
-        {
-            Int32 iChildIdx = _mfChildren.findIndex(pTypedChild);
-
-            if(iChildIdx != -1)
-            {
-                editMField(ChildrenFieldMask, _mfChildren);
-
-                _mfChildren.erase(iChildIdx);
-
-                return true;
-            }
-
-            FWARNING(("SkeletonJointBase::unlinkParent: Child <-> "
-                      "Parent link inconsistent.\n"));
-
-            return false;
-        }
-
-        return false;
-    }
-
-
-    return Inherited::unlinkChild(pChild, childFieldId);
-}
-
-void SkeletonJointBase::onCreate(const SkeletonJoint *source)
-{
-    Inherited::onCreate(source);
-
-    if(source != NULL)
-    {
-        SkeletonJoint *pThis = static_cast<SkeletonJoint *>(this);
-
-        MFUnrecChildSkeletonJointPtr::const_iterator ChildrenIt  =
-            source->_mfChildren.begin();
-        MFUnrecChildSkeletonJointPtr::const_iterator ChildrenEnd =
-            source->_mfChildren.end  ();
-
-        while(ChildrenIt != ChildrenEnd)
-        {
-            pThis->pushToChildren(*ChildrenIt);
-
-            ++ChildrenIt;
-        }
-    }
-}
-
-GetFieldHandlePtr SkeletonJointBase::getHandleParent          (void) const
-{
-    SFParentSkeletonJointPtr::GetHandlePtr returnValue;
-
-    return returnValue;
-}
-
-EditFieldHandlePtr SkeletonJointBase::editHandleParent         (void)
-{
-    EditFieldHandlePtr returnValue;
-
-    return returnValue;
-}
-
-GetFieldHandlePtr SkeletonJointBase::getHandleChildren        (void) const
-{
-    MFUnrecChildSkeletonJointPtr::GetHandlePtr returnValue(
-        new  MFUnrecChildSkeletonJointPtr::GetHandle(
-             &_mfChildren,
-             this->getType().getFieldDesc(ChildrenFieldId),
-             const_cast<SkeletonJointBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr SkeletonJointBase::editHandleChildren       (void)
-{
-    MFUnrecChildSkeletonJointPtr::EditHandlePtr returnValue(
-        new  MFUnrecChildSkeletonJointPtr::EditHandle(
-             &_mfChildren,
-             this->getType().getFieldDesc(ChildrenFieldId),
-             this));
-
-    returnValue->setAddMethod(
-        boost::bind(&SkeletonJoint::pushToChildren,
-                    static_cast<SkeletonJoint *>(this), _1));
-    returnValue->setRemoveMethod(
-        boost::bind(&SkeletonJoint::removeFromChildren,
-                    static_cast<SkeletonJoint *>(this), _1));
-    returnValue->setRemoveObjMethod(
-        boost::bind(&SkeletonJoint::removeObjFromChildren,
-                    static_cast<SkeletonJoint *>(this), _1));
-    returnValue->setClearMethod(
-        boost::bind(&SkeletonJoint::clearChildren,
-                    static_cast<SkeletonJoint *>(this)));
-
-    editMField(ChildrenFieldMask, _mfChildren);
-
-    return returnValue;
-}
 
 GetFieldHandlePtr SkeletonJointBase::getHandleSkeleton        (void) const
 {
@@ -1108,8 +783,6 @@ FieldContainer *SkeletonJointBase::createAspectCopy(
 void SkeletonJointBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
-
-    static_cast<SkeletonJoint *>(this)->clearChildren();
 
 
 }

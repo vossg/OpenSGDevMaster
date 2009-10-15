@@ -55,27 +55,14 @@ OSG_BEGIN_NAMESPACE
 
 class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 {
-  protected:
-
     /*==========================  PUBLIC  =================================*/
-
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Types                                    */
+    /*! \{                                                                 */
 
     typedef SkeletonBase Inherited;
     typedef Skeleton     Self;
-
-    void           addJoint   (SkeletonJoint *joint,
-                               SkeletonJoint *jointParent               );
-    SkeletonJoint *addNewJoint(SkeletonJoint *jointParent, Int16 jointId);
-    
-    void           subJoint   (SkeletonJoint *joint                     );
-    void           subJoint   (Int16          jointId                   );
-    
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Statistic                                */
-    /*! \{                                                                 */
-
-    virtual void fill(DrawableStatsAttachment *pStat);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -85,6 +72,14 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Render                                  */
+    /*! \{                                                                 */
+
+    Action::ResultE renderEnter(Action *action);
+    Action::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -124,18 +119,11 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Volume                                  */
-    /*! \{                                                                 */
-
-    virtual void adjustVolume(Volume &volume);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                      Update                                  */
     /*! \{                                                                 */
 
-    bool updateJointMatrices(void                );
-    void updateJointMatrix  (SkeletonJoint *joint);
+    void            updateJoints      (void      );
+    Action::ResultE findJointsCallback(Node *node);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

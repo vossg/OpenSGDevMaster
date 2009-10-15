@@ -74,36 +74,11 @@ OSG::UInt16 SkeletonBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the Skeleton::_sfShaderData field.
+//! Get the value of the \a index element the Skeleton::_mfRoots field.
 inline
-ShaderProgramVariableChunk * SkeletonBase::getShaderData(void) const
+Node * SkeletonBase::getRoots(const UInt32 index) const
 {
-    return _sfShaderData.getValue();
-}
-
-//! Set the value of the Skeleton::_sfShaderData field.
-inline
-void SkeletonBase::setShaderData(ShaderProgramVariableChunk * const value)
-{
-    editSField(ShaderDataFieldMask);
-
-    _sfShaderData.setValue(value);
-}
-
-//! Get the value of the Skeleton::_sfShaderCode field.
-inline
-ShaderProgramChunk * SkeletonBase::getShaderCode(void) const
-{
-    return _sfShaderCode.getValue();
-}
-
-//! Set the value of the Skeleton::_sfShaderCode field.
-inline
-void SkeletonBase::setShaderCode(ShaderProgramChunk * const value)
-{
-    editSField(ShaderCodeFieldMask);
-
-    _sfShaderCode.setValue(value);
+    return _mfRoots[index];
 }
 
 //! Get the value of the \a index element the Skeleton::_mfJoints field.
@@ -129,13 +104,6 @@ Matrix &SkeletonBase::editJointMatrices(const UInt32 index)
 }
 
 
-//! Get the value of the \a index element the Skeleton::_mfMeshes field.
-inline
-Geometry * SkeletonBase::getMeshes(const UInt32 index) const
-{
-    return _mfMeshes[index];
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -146,6 +114,12 @@ void SkeletonBase::execSync (      SkeletonBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
+
+    if(FieldBits::NoField != (RootsFieldMask & whichField))
+        _mfRoots.syncWith(pFrom->_mfRoots,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
 
     if(FieldBits::NoField != (JointsFieldMask & whichField))
         _mfJoints.syncWith(pFrom->_mfJoints,
@@ -158,18 +132,6 @@ void SkeletonBase::execSync (      SkeletonBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
-
-    if(FieldBits::NoField != (MeshesFieldMask & whichField))
-        _mfMeshes.syncWith(pFrom->_mfMeshes,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
-        _sfShaderData.syncWith(pFrom->_sfShaderData);
-
-    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
-        _sfShaderCode.syncWith(pFrom->_sfShaderCode);
 }
 #endif
 

@@ -58,10 +58,8 @@
 
 
 
+#include "OSGNode.h"                    // Roots Class
 #include "OSGSkeletonJoint.h"           // Joints Class
-#include "OSGGeometry.h"                // Meshes Class
-#include "OSGShaderProgramVariableChunk.h" // ShaderData Class
-#include "OSGShaderProgramChunk.h"      // ShaderCode Class
 
 #include "OSGSkeletonBase.h"
 #include "OSGSkeleton.h"
@@ -79,37 +77,36 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \class OSG::Skeleton
-    A Skeleton is one or more meshes (geometries) that are deformed by a set
-    of matrices called joints. All meshes must provide two vertex attributes:
-    One that is used to determine which joints influence the vertex (i.e. the
-    components of the attribute Vec4f are interpreted as integer indices into
-    the boneMatrices array) and one that gives the weight of the used joint.
+    A Skeleton is simply one (or multiple) node hierarchies that contain some
+    SkeletonJoint cores.
+    Traversal will jump to the roots (MFRoots) of these hierarchies and traverse
+    them, updating the matrix for each joint (MFJointMatrices) in the process.
+    A Skeleton assumes exclusive ownership of its joints, but the Skeleton itself
+    may be shared.
  */
 
 /***************************************************************************\
  *                        Field Documentation                              *
 \***************************************************************************/
 
+/*! \var Node *          SkeletonBase::_mfRoots
+    The roots of the joint (or bone) hierarchies for the skeleton.
+    There should be Nodes with SkeletonJoint cores in the pointed-to
+    hierarchies.
+*/
+
 /*! \var SkeletonJoint * SkeletonBase::_mfJoints
-    The joints (or bones) of the skeleton. Sorted by jointId.
+    The joints (or bones) of the skeleton. Sorted by their jointId.
+    You should never write to this field, Skeleton scans for joints
+    whenever the set of roots is modified.
 */
 
 /*! \var Matrix          SkeletonBase::_mfJointMatrices
     Matrices for all joints of the skeleton. Elements correspond to
     joints at the same index in _mfJoints.
     These matrices are absolute, not relative to the parent joint.
-*/
-
-/*! \var Geometry *      SkeletonBase::_mfMeshes
-    The meshes controlled by this skeleton.
-*/
-
-/*! \var ShaderProgramVariableChunk * SkeletonBase::_sfShaderData
-    Internal object to pass data to the vertex skinning shader.
-*/
-
-/*! \var ShaderProgramChunk * SkeletonBase::_sfShaderCode
-    Internal object to store the vertex skinning shader code.
+    You should never write to this field, Skeleton updates it during
+    the RenderActions traversal.
 */
 
 
@@ -118,7 +115,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Skeleton *>::_type("SkeletonPtr", "DrawablePtr");
+DataType FieldTraits<Skeleton *>::_type("SkeletonPtr", "AttachmentContainerPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(Skeleton *)
@@ -186,10 +183,26 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
     FieldDescriptionBase *pDesc = NULL;
 
 
+    pDesc = new MFUnrecNodePtr::Description(
+        MFUnrecNodePtr::getClassType(),
+        "roots",
+        "The roots of the joint (or bone) hierarchies for the skeleton.\n"
+        "There should be Nodes with SkeletonJoint cores in the pointed-to\n"
+        "hierarchies.\n",
+        RootsFieldId, RootsFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Skeleton::editHandleRoots),
+        static_cast<FieldGetMethodSig >(&Skeleton::getHandleRoots));
+
+    oType.addInitialDesc(pDesc);
+
     pDesc = new MFUnrecChildSkeletonJointPtr::Description(
         MFUnrecChildSkeletonJointPtr::getClassType(),
         "joints",
-        "The joints (or bones) of the skeleton. Sorted by jointId.\n",
+        "The joints (or bones) of the skeleton. Sorted by their jointId.\n"
+        "You should never write to this field, Skeleton scans for joints\n"
+        "whenever the set of roots is modified.\n",
         JointsFieldId, JointsFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
@@ -203,48 +216,14 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
         "jointMatrices",
         "Matrices for all joints of the skeleton. Elements correspond to\n"
         "joints at the same index in _mfJoints.\n"
-        "These matrices are absolute, not relative to the parent joint.\n",
+        "These matrices are absolute, not relative to the parent joint.\n"
+        "You should never write to this field, Skeleton updates it during\n"
+        "the RenderActions traversal.\n",
         JointMatricesFieldId, JointMatricesFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Skeleton::editHandleJointMatrices),
         static_cast<FieldGetMethodSig >(&Skeleton::getHandleJointMatrices));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new MFUnrecGeometryPtr::Description(
-        MFUnrecGeometryPtr::getClassType(),
-        "meshes",
-        "The meshes controlled by this skeleton.\n",
-        MeshesFieldId, MeshesFieldMask,
-        false,
-        (Field::MFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Skeleton::editHandleMeshes),
-        static_cast<FieldGetMethodSig >(&Skeleton::getHandleMeshes));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUnrecShaderProgramVariableChunkPtr::Description(
-        SFUnrecShaderProgramVariableChunkPtr::getClassType(),
-        "shaderData",
-        "Internal object to pass data to the vertex skinning shader.\n",
-        ShaderDataFieldId, ShaderDataFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Skeleton::editHandleShaderData),
-        static_cast<FieldGetMethodSig >(&Skeleton::getHandleShaderData));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new SFUnrecShaderProgramChunkPtr::Description(
-        SFUnrecShaderProgramChunkPtr::getClassType(),
-        "shaderCode",
-        "Internal object to store the vertex skinning shader code.\n",
-        ShaderCodeFieldId, ShaderCodeFieldMask,
-        true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&Skeleton::editHandleShaderCode),
-        static_cast<FieldGetMethodSig >(&Skeleton::getHandleShaderCode));
 
     oType.addInitialDesc(pDesc);
 }
@@ -265,7 +244,7 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "\n"
     "<FieldContainer\n"
     "   name=\"Skeleton\"\n"
-    "   parent=\"Drawable\"\n"
+    "   parent=\"AttachmentContainer\"\n"
     "   library=\"Dynamics\"\n"
     "   pointerfieldtypes=\"both\"\n"
     "   structure=\"concrete\"\n"
@@ -275,11 +254,26 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "   childFields=\"both\"\n"
     "   parentFields=\"both\"\n"
     ">\n"
-    "  A Skeleton is one or more meshes (geometries) that are deformed by a set\n"
-    "  of matrices called joints. All meshes must provide two vertex attributes:\n"
-    "  One that is used to determine which joints influence the vertex (i.e. the\n"
-    "  components of the attribute Vec4f are interpreted as integer indices into\n"
-    "  the boneMatrices array) and one that gives the weight of the used joint.\n"
+    "  A Skeleton is simply one (or multiple) node hierarchies that contain some\n"
+    "  SkeletonJoint cores.\n"
+    "  Traversal will jump to the roots (MFRoots) of these hierarchies and traverse\n"
+    "  them, updating the matrix for each joint (MFJointMatrices) in the process.\n"
+    "  A Skeleton assumes exclusive ownership of its joints, but the Skeleton itself\n"
+    "  may be shared.\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"roots\"\n"
+    "     type=\"Node\"\n"
+    "     category=\"pointer\"\n"
+    "     cardinality=\"multi\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    The roots of the joint (or bone) hierarchies for the skeleton.\n"
+    "    There should be Nodes with SkeletonJoint cores in the pointed-to\n"
+    "    hierarchies.\n"
+    "  </Field>\n"
+    "\n"
     "  <Field\n"
     "     name=\"joints\"\n"
     "     type=\"SkeletonJoint\"\n"
@@ -287,9 +281,11 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "     linkParentField=\"Skeleton\"\n"
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
-    "     access=\"protected\"\n"
+    "     access=\"public\"\n"
     "     >\n"
-    "    The joints (or bones) of the skeleton. Sorted by jointId.\n"
+    "    The joints (or bones) of the skeleton. Sorted by their jointId.\n"
+    "    You should never write to this field, Skeleton scans for joints\n"
+    "    whenever the set of roots is modified.\n"
     "  </Field>\n"
     "\n"
     "  <Field\n"
@@ -298,54 +294,22 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "     category=\"data\"\n"
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
-    "     access=\"protected\"\n"
+    "     access=\"public\"\n"
     "     >\n"
     "    Matrices for all joints of the skeleton. Elements correspond to\n"
     "    joints at the same index in _mfJoints.\n"
     "    These matrices are absolute, not relative to the parent joint.\n"
+    "    You should never write to this field, Skeleton updates it during\n"
+    "    the RenderActions traversal.\n"
     "  </Field>\n"
     "\n"
-    "  <Field\n"
-    "     name=\"meshes\"\n"
-    "     type=\"Geometry\"\n"
-    "     category=\"pointer\"\n"
-    "     cardinality=\"multi\"\n"
-    "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
-    "     >\n"
-    "    The meshes controlled by this skeleton.\n"
-    "  </Field>\n"
-    "\n"
-    "\n"
-    "  <Field\n"
-    "     name=\"shaderData\"\n"
-    "     type=\"ShaderProgramVariableChunk\"\n"
-    "     category=\"pointer\"\n"
-    "     cardinality=\"single\"\n"
-    "     defaultValue=\"NULL\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"protected\"\n"
-    "     >\n"
-    "    Internal object to pass data to the vertex skinning shader.\n"
-    "  </Field>\n"
-    "\n"
-    "  <Field\n"
-    "     name=\"shaderCode\"\n"
-    "     type=\"ShaderProgramChunk\"\n"
-    "     category=\"pointer\"\n"
-    "     cardinality=\"single\"\n"
-    "     defaultValue=\"NULL\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"protected\"\n"
-    "     >\n"
-    "    Internal object to store the vertex skinning shader code.\n"
-    "  </Field>\n"
     "</FieldContainer>\n",
-    "A Skeleton is one or more meshes (geometries) that are deformed by a set\n"
-    "of matrices called joints. All meshes must provide two vertex attributes:\n"
-    "One that is used to determine which joints influence the vertex (i.e. the\n"
-    "components of the attribute Vec4f are interpreted as integer indices into\n"
-    "the boneMatrices array) and one that gives the weight of the used joint.\n"
+    "A Skeleton is simply one (or multiple) node hierarchies that contain some\n"
+    "SkeletonJoint cores.\n"
+    "Traversal will jump to the roots (MFRoots) of these hierarchies and traverse\n"
+    "them, updating the matrix for each joint (MFJointMatrices) in the process.\n"
+    "A Skeleton assumes exclusive ownership of its joints, but the Skeleton itself\n"
+    "may be shared.\n"
     );
 
 /*------------------------------ get -----------------------------------*/
@@ -367,6 +331,19 @@ UInt32 SkeletonBase::getContainerSize(void) const
 
 /*------------------------- decorator get ------------------------------*/
 
+
+//! Get the Skeleton::_mfRoots field.
+const MFUnrecNodePtr *SkeletonBase::getMFRoots(void) const
+{
+    return &_mfRoots;
+}
+
+MFUnrecNodePtr      *SkeletonBase::editMFRoots          (void)
+{
+    editMField(RootsFieldMask, _mfRoots);
+
+    return &_mfRoots;
+}
 
 //! Get the Skeleton::_mfJoints field.
 const MFUnrecChildSkeletonJointPtr *SkeletonBase::getMFJoints(void) const
@@ -394,46 +371,60 @@ const MFMatrix *SkeletonBase::getMFJointMatrices(void) const
 }
 
 
-//! Get the Skeleton::_mfMeshes field.
-const MFUnrecGeometryPtr *SkeletonBase::getMFMeshes(void) const
+
+
+void SkeletonBase::pushToRoots(Node * const value)
 {
-    return &_mfMeshes;
+    editMField(RootsFieldMask, _mfRoots);
+
+    _mfRoots.push_back(value);
 }
 
-MFUnrecGeometryPtr  *SkeletonBase::editMFMeshes         (void)
+void SkeletonBase::assignRoots    (const MFUnrecNodePtr    &value)
 {
-    editMField(MeshesFieldMask, _mfMeshes);
+    MFUnrecNodePtr   ::const_iterator elemIt  =
+        value.begin();
+    MFUnrecNodePtr   ::const_iterator elemEnd =
+        value.end  ();
 
-    return &_mfMeshes;
+    static_cast<Skeleton *>(this)->clearRoots();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToRoots(*elemIt);
+
+        ++elemIt;
+    }
 }
 
-//! Get the Skeleton::_sfShaderData field.
-const SFUnrecShaderProgramVariableChunkPtr *SkeletonBase::getSFShaderData(void) const
+void SkeletonBase::removeFromRoots(UInt32 uiIndex)
 {
-    return &_sfShaderData;
+    if(uiIndex < _mfRoots.size())
+    {
+        editMField(RootsFieldMask, _mfRoots);
+
+        _mfRoots.erase(uiIndex);
+    }
 }
 
-SFUnrecShaderProgramVariableChunkPtr *SkeletonBase::editSFShaderData     (void)
+void SkeletonBase::removeObjFromRoots(Node * const value)
 {
-    editSField(ShaderDataFieldMask);
+    Int32 iElemIdx = _mfRoots.findIndex(value);
 
-    return &_sfShaderData;
+    if(iElemIdx != -1)
+    {
+        editMField(RootsFieldMask, _mfRoots);
+
+        _mfRoots.erase(iElemIdx);
+    }
 }
-
-//! Get the Skeleton::_sfShaderCode field.
-const SFUnrecShaderProgramChunkPtr *SkeletonBase::getSFShaderCode(void) const
+void SkeletonBase::clearRoots(void)
 {
-    return &_sfShaderCode;
+    editMField(RootsFieldMask, _mfRoots);
+
+
+    _mfRoots.clear();
 }
-
-SFUnrecShaderProgramChunkPtr *SkeletonBase::editSFShaderCode     (void)
-{
-    editSField(ShaderCodeFieldMask);
-
-    return &_sfShaderCode;
-}
-
-
 
 void SkeletonBase::pushToJoints(SkeletonJoint * const value)
 {
@@ -488,59 +479,6 @@ void SkeletonBase::clearJoints(void)
     _mfJoints.clear();
 }
 
-void SkeletonBase::pushToMeshes(Geometry * const value)
-{
-    editMField(MeshesFieldMask, _mfMeshes);
-
-    _mfMeshes.push_back(value);
-}
-
-void SkeletonBase::assignMeshes   (const MFUnrecGeometryPtr &value)
-{
-    MFUnrecGeometryPtr::const_iterator elemIt  =
-        value.begin();
-    MFUnrecGeometryPtr::const_iterator elemEnd =
-        value.end  ();
-
-    static_cast<Skeleton *>(this)->clearMeshes();
-
-    while(elemIt != elemEnd)
-    {
-        this->pushToMeshes(*elemIt);
-
-        ++elemIt;
-    }
-}
-
-void SkeletonBase::removeFromMeshes(UInt32 uiIndex)
-{
-    if(uiIndex < _mfMeshes.size())
-    {
-        editMField(MeshesFieldMask, _mfMeshes);
-
-        _mfMeshes.erase(uiIndex);
-    }
-}
-
-void SkeletonBase::removeObjFromMeshes(Geometry * const value)
-{
-    Int32 iElemIdx = _mfMeshes.findIndex(value);
-
-    if(iElemIdx != -1)
-    {
-        editMField(MeshesFieldMask, _mfMeshes);
-
-        _mfMeshes.erase(iElemIdx);
-    }
-}
-void SkeletonBase::clearMeshes(void)
-{
-    editMField(MeshesFieldMask, _mfMeshes);
-
-
-    _mfMeshes.clear();
-}
-
 
 
 /*------------------------------ access -----------------------------------*/
@@ -549,6 +487,10 @@ UInt32 SkeletonBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
+    if(FieldBits::NoField != (RootsFieldMask & whichField))
+    {
+        returnValue += _mfRoots.getBinSize();
+    }
     if(FieldBits::NoField != (JointsFieldMask & whichField))
     {
         returnValue += _mfJoints.getBinSize();
@@ -556,18 +498,6 @@ UInt32 SkeletonBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
     {
         returnValue += _mfJointMatrices.getBinSize();
-    }
-    if(FieldBits::NoField != (MeshesFieldMask & whichField))
-    {
-        returnValue += _mfMeshes.getBinSize();
-    }
-    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
-    {
-        returnValue += _sfShaderData.getBinSize();
-    }
-    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
-    {
-        returnValue += _sfShaderCode.getBinSize();
     }
 
     return returnValue;
@@ -578,6 +508,10 @@ void SkeletonBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
+    if(FieldBits::NoField != (RootsFieldMask & whichField))
+    {
+        _mfRoots.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (JointsFieldMask & whichField))
     {
         _mfJoints.copyToBin(pMem);
@@ -586,18 +520,6 @@ void SkeletonBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfJointMatrices.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (MeshesFieldMask & whichField))
-    {
-        _mfMeshes.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
-    {
-        _sfShaderData.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
-    {
-        _sfShaderCode.copyToBin(pMem);
-    }
 }
 
 void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
@@ -605,6 +527,10 @@ void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
+    if(FieldBits::NoField != (RootsFieldMask & whichField))
+    {
+        _mfRoots.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (JointsFieldMask & whichField))
     {
         _mfJoints.copyFromBin(pMem);
@@ -612,18 +538,6 @@ void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
     {
         _mfJointMatrices.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (MeshesFieldMask & whichField))
-    {
-        _mfMeshes.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
-    {
-        _sfShaderData.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
-    {
-        _sfShaderCode.copyFromBin(pMem);
     }
 }
 
@@ -750,25 +664,21 @@ FieldContainerTransitPtr SkeletonBase::shallowCopy(void) const
 
 SkeletonBase::SkeletonBase(void) :
     Inherited(),
+    _mfRoots                  (),
     _mfJoints                 (this,
                           JointsFieldId,
                           SkeletonJoint::SkeletonFieldId),
-    _mfJointMatrices          (),
-    _mfMeshes                 (),
-    _sfShaderData             (NULL),
-    _sfShaderCode             (NULL)
+    _mfJointMatrices          ()
 {
 }
 
 SkeletonBase::SkeletonBase(const SkeletonBase &source) :
     Inherited(source),
+    _mfRoots                  (),
     _mfJoints                 (this,
                           JointsFieldId,
                           SkeletonJoint::SkeletonFieldId),
-    _mfJointMatrices          (source._mfJointMatrices          ),
-    _mfMeshes                 (),
-    _sfShaderData             (NULL),
-    _sfShaderCode             (NULL)
+    _mfJointMatrices          (source._mfJointMatrices          )
 {
 }
 
@@ -825,6 +735,18 @@ void SkeletonBase::onCreate(const Skeleton *source)
     {
         Skeleton *pThis = static_cast<Skeleton *>(this);
 
+        MFUnrecNodePtr::const_iterator RootsIt  =
+            source->_mfRoots.begin();
+        MFUnrecNodePtr::const_iterator RootsEnd =
+            source->_mfRoots.end  ();
+
+        while(RootsIt != RootsEnd)
+        {
+            pThis->pushToRoots(*RootsIt);
+
+            ++RootsIt;
+        }
+
         MFUnrecChildSkeletonJointPtr::const_iterator JointsIt  =
             source->_mfJoints.begin();
         MFUnrecChildSkeletonJointPtr::const_iterator JointsEnd =
@@ -836,23 +758,44 @@ void SkeletonBase::onCreate(const Skeleton *source)
 
             ++JointsIt;
         }
-
-        MFUnrecGeometryPtr::const_iterator MeshesIt  =
-            source->_mfMeshes.begin();
-        MFUnrecGeometryPtr::const_iterator MeshesEnd =
-            source->_mfMeshes.end  ();
-
-        while(MeshesIt != MeshesEnd)
-        {
-            pThis->pushToMeshes(*MeshesIt);
-
-            ++MeshesIt;
-        }
-
-        pThis->setShaderData(source->getShaderData());
-
-        pThis->setShaderCode(source->getShaderCode());
     }
+}
+
+GetFieldHandlePtr SkeletonBase::getHandleRoots           (void) const
+{
+    MFUnrecNodePtr::GetHandlePtr returnValue(
+        new  MFUnrecNodePtr::GetHandle(
+             &_mfRoots,
+             this->getType().getFieldDesc(RootsFieldId),
+             const_cast<SkeletonBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkeletonBase::editHandleRoots          (void)
+{
+    MFUnrecNodePtr::EditHandlePtr returnValue(
+        new  MFUnrecNodePtr::EditHandle(
+             &_mfRoots,
+             this->getType().getFieldDesc(RootsFieldId),
+             this));
+
+    returnValue->setAddMethod(
+        boost::bind(&Skeleton::pushToRoots,
+                    static_cast<Skeleton *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&Skeleton::removeFromRoots,
+                    static_cast<Skeleton *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&Skeleton::removeObjFromRoots,
+                    static_cast<Skeleton *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&Skeleton::clearRoots,
+                    static_cast<Skeleton *>(this)));
+
+    editMField(RootsFieldMask, _mfRoots);
+
+    return returnValue;
 }
 
 GetFieldHandlePtr SkeletonBase::getHandleJoints          (void) const
@@ -917,99 +860,6 @@ EditFieldHandlePtr SkeletonBase::editHandleJointMatrices  (void)
     return returnValue;
 }
 
-GetFieldHandlePtr SkeletonBase::getHandleMeshes          (void) const
-{
-    MFUnrecGeometryPtr::GetHandlePtr returnValue(
-        new  MFUnrecGeometryPtr::GetHandle(
-             &_mfMeshes,
-             this->getType().getFieldDesc(MeshesFieldId),
-             const_cast<SkeletonBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr SkeletonBase::editHandleMeshes         (void)
-{
-    MFUnrecGeometryPtr::EditHandlePtr returnValue(
-        new  MFUnrecGeometryPtr::EditHandle(
-             &_mfMeshes,
-             this->getType().getFieldDesc(MeshesFieldId),
-             this));
-
-    returnValue->setAddMethod(
-        boost::bind(&Skeleton::pushToMeshes,
-                    static_cast<Skeleton *>(this), _1));
-    returnValue->setRemoveMethod(
-        boost::bind(&Skeleton::removeFromMeshes,
-                    static_cast<Skeleton *>(this), _1));
-    returnValue->setRemoveObjMethod(
-        boost::bind(&Skeleton::removeObjFromMeshes,
-                    static_cast<Skeleton *>(this), _1));
-    returnValue->setClearMethod(
-        boost::bind(&Skeleton::clearMeshes,
-                    static_cast<Skeleton *>(this)));
-
-    editMField(MeshesFieldMask, _mfMeshes);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr SkeletonBase::getHandleShaderData      (void) const
-{
-    SFUnrecShaderProgramVariableChunkPtr::GetHandlePtr returnValue(
-        new  SFUnrecShaderProgramVariableChunkPtr::GetHandle(
-             &_sfShaderData,
-             this->getType().getFieldDesc(ShaderDataFieldId),
-             const_cast<SkeletonBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr SkeletonBase::editHandleShaderData     (void)
-{
-    SFUnrecShaderProgramVariableChunkPtr::EditHandlePtr returnValue(
-        new  SFUnrecShaderProgramVariableChunkPtr::EditHandle(
-             &_sfShaderData,
-             this->getType().getFieldDesc(ShaderDataFieldId),
-             this));
-
-    returnValue->setSetMethod(
-        boost::bind(&Skeleton::setShaderData,
-                    static_cast<Skeleton *>(this), _1));
-
-    editSField(ShaderDataFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr SkeletonBase::getHandleShaderCode      (void) const
-{
-    SFUnrecShaderProgramChunkPtr::GetHandlePtr returnValue(
-        new  SFUnrecShaderProgramChunkPtr::GetHandle(
-             &_sfShaderCode,
-             this->getType().getFieldDesc(ShaderCodeFieldId),
-             const_cast<SkeletonBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr SkeletonBase::editHandleShaderCode     (void)
-{
-    SFUnrecShaderProgramChunkPtr::EditHandlePtr returnValue(
-        new  SFUnrecShaderProgramChunkPtr::EditHandle(
-             &_sfShaderCode,
-             this->getType().getFieldDesc(ShaderCodeFieldId),
-             this));
-
-    returnValue->setSetMethod(
-        boost::bind(&Skeleton::setShaderCode,
-                    static_cast<Skeleton *>(this), _1));
-
-    editSField(ShaderCodeFieldMask);
-
-    return returnValue;
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SkeletonBase::execSyncV(      FieldContainer    &oFrom,
@@ -1047,13 +897,9 @@ void SkeletonBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
+    static_cast<Skeleton *>(this)->clearRoots();
+
     static_cast<Skeleton *>(this)->clearJoints();
-
-    static_cast<Skeleton *>(this)->clearMeshes();
-
-    static_cast<Skeleton *>(this)->setShaderData(NULL);
-
-    static_cast<Skeleton *>(this)->setShaderCode(NULL);
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;

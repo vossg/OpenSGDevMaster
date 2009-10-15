@@ -2,7 +2,7 @@
 
 <FieldContainer
    name="Skeleton"
-   parent="Drawable"
+   parent="AttachmentContainer"
    library="Dynamics"
    pointerfieldtypes="both"
    structure="concrete"
@@ -12,11 +12,26 @@
    childFields="both"
    parentFields="both"
 >
-  A Skeleton is one or more meshes (geometries) that are deformed by a set
-  of matrices called joints. All meshes must provide two vertex attributes:
-  One that is used to determine which joints influence the vertex (i.e. the
-  components of the attribute Vec4f are interpreted as integer indices into
-  the boneMatrices array) and one that gives the weight of the used joint.
+  A Skeleton is simply one (or multiple) node hierarchies that contain some
+  SkeletonJoint cores.
+  Traversal will jump to the roots (MFRoots) of these hierarchies and traverse
+  them, updating the matrix for each joint (MFJointMatrices) in the process.
+  A Skeleton assumes exclusive ownership of its joints, but the Skeleton itself
+  may be shared.
+
+  <Field
+     name="roots"
+     type="Node"
+     category="pointer"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    The roots of the joint (or bone) hierarchies for the skeleton.
+    There should be Nodes with SkeletonJoint cores in the pointed-to
+    hierarchies.
+  </Field>
+
   <Field
      name="joints"
      type="SkeletonJoint"
@@ -24,9 +39,11 @@
      linkParentField="Skeleton"
      cardinality="multi"
      visibility="external"
-     access="protected"
+     access="public"
      >
-    The joints (or bones) of the skeleton. Sorted by jointId.
+    The joints (or bones) of the skeleton. Sorted by their jointId.
+    You should never write to this field, Skeleton scans for joints
+    whenever the set of roots is modified.
   </Field>
 
   <Field
@@ -35,46 +52,13 @@
      category="data"
      cardinality="multi"
      visibility="external"
-     access="protected"
+     access="public"
      >
     Matrices for all joints of the skeleton. Elements correspond to
     joints at the same index in _mfJoints.
     These matrices are absolute, not relative to the parent joint.
+    You should never write to this field, Skeleton updates it during
+    the RenderActions traversal.
   </Field>
 
-  <Field
-     name="meshes"
-     type="Geometry"
-     category="pointer"
-     cardinality="multi"
-     visibility="external"
-     access="public"
-     >
-    The meshes controlled by this skeleton.
-  </Field>
-
-
-  <Field
-     name="shaderData"
-     type="ShaderProgramVariableChunk"
-     category="pointer"
-     cardinality="single"
-     defaultValue="NULL"
-     visibility="internal"
-     access="protected"
-     >
-    Internal object to pass data to the vertex skinning shader.
-  </Field>
-
-  <Field
-     name="shaderCode"
-     type="ShaderProgramChunk"
-     category="pointer"
-     cardinality="single"
-     defaultValue="NULL"
-     visibility="internal"
-     access="protected"
-     >
-    Internal object to store the vertex skinning shader code.
-  </Field>
 </FieldContainer>

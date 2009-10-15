@@ -149,13 +149,6 @@ void SkeletonJointBase::setMatrix(const Matrix &value)
     _sfMatrix.setValue(value);
 }
 
-//! Get the value of the \a index element the SkeletonJoint::_mfChildren field.
-inline
-SkeletonJoint * SkeletonJointBase::getChildren(const UInt32 index) const
-{
-    return _mfChildren[index];
-}
-
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -166,15 +159,6 @@ void SkeletonJointBase::execSync (      SkeletonJointBase *pFrom,
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (ParentFieldMask & whichField))
-        _sfParent.syncWith(pFrom->_sfParent);
-
-    if(FieldBits::NoField != (ChildrenFieldMask & whichField))
-        _mfChildren.syncWith(pFrom->_mfChildren,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
 
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
         _sfSkeleton.syncWith(pFrom->_sfSkeleton);

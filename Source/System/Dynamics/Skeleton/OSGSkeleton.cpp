@@ -47,6 +47,10 @@
 
 #include "OSGSkeleton.h"
 #include "OSGSkeletonJoint.h"
+#include "OSGRenderAction.h"
+
+#include <boost/bind.hpp>
+#include <boost/cast.hpp>
 
 OSG_BEGIN_NAMESPACE
 
@@ -99,97 +103,67 @@ Skeleton::~Skeleton(void)
 
 /*----------------------------- class specific ----------------------------*/
 
-void Skeleton::addJoint(SkeletonJoint *joint, SkeletonJoint *jointParent)
+void Skeleton::changed(ConstFieldMaskArg whichField,
+                       UInt32            origin,
+                       BitVector         details)
 {
-    if(joint->getJointId() == SkeletonJoint::AUTO_ID_END)
-        joint->setJointId(_mfJoints.size());
-
-    editMField(JointsFieldMask,        _mfJoints       );
-    editMField(JointMatricesFieldMask, _mfJointMatrices);
-
-    _mfJoints       .resize(osgMax<UInt32>(joint          ->getJointId() + 1,
-                                           _mfJoints       .size      () + 1),
-                            NULL                                             );
-    _mfJointMatrices.resize(osgMax<UInt32>(joint          ->getJointId() + 1,
-                                          _mfJointMatrices .size      () + 1),
-                            Matrix::identity()                               );
-
-    OSG_ASSERT(_mfJoints[joint->getJointId()] == NULL);
-
-    _mfJoints       [joint->getJointId()] = joint;
-    _mfJointMatrices[joint->getJointId()].setIdentity();
-
-    if(jointParent != NULL)
-        jointParent->addChildInternal(joint);
-}
-
-SkeletonJoint *Skeleton::addNewJoint(SkeletonJoint *jointParent, Int16 jointId)
-{
-    SkeletonJointUnrecPtr newJoint = SkeletonJoint::create();
-    newJoint->setJointId(jointId);
-
-    addJoint(newJoint, jointParent);
-
-    return newJoint;
-}
-
-void Skeleton::subJoint(SkeletonJoint *joint)
-{
-    OSG_ASSERT(joint                != NULL);
-    OSG_ASSERT(joint->getSkeleton() == this);
-
-    SkeletonJoint *jointParent = joint->getParent();
-    
-    if(jointParent != NULL)
-        jointParent->subChildInternal(joint);
-
-    editMField(JointsFieldMask,        _mfJoints       );
-    editMField(JointMatricesFieldMask, _mfJointMatrices);
-
-    _mfJointMatrices[joint->getJointId()].setIdentity();
-    _mfJoints       [joint->getJointId()] = NULL;
-}
-
-void Skeleton::subJoint(Int16 jointId)
-{
-    OSG_ASSERT(jointId < _mfJoints.size());
-
-    SkeletonJoint *joint       = _mfJoints[jointId];
-    SkeletonJoint *jointParent = joint->getParent();
-
-    if(jointParent != NULL)
-        jointParent->subChildInternal(joint);
-  
-    editMField(JointsFieldMask,        _mfJoints       );
-    editMField(JointMatricesFieldMask, _mfJointMatrices);
-  
-    _mfJointMatrices[jointId].setIdentity();
-    _mfJoints       [jointId] = NULL;
-}
-
-void Skeleton::fill(DrawableStatsAttachment *pStat)
-{
-    MFMeshesType::const_iterator meshIt  = _mfMeshes.begin();
-    MFMeshesType::const_iterator meshEnd = _mfMeshes.end  ();
-
-    for(; meshIt != meshEnd; ++meshIt)
+    if((RootsFieldMask & whichField) != 0)
     {
-        (*meshIt)->fill(pStat);
-    }
-}
-
-
-void Skeleton::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
-{
-    if((whichField & MeshesFieldMask) != 0x0000)
-    {
-        invalidateVolume();
+        updateJoints();
     }
 
     Inherited::changed(whichField, origin, details);
 }
+
+/*! RenderAction enter callback.
+
+  \note This callback is not registered with the RenderAction, but instead
+   must be called by an object that uses this Skeleton (e.g. SkinnedGeometry).
+ */
+Action::ResultE
+Skeleton::renderEnter(Action *action)
+{
+    RenderAction *ract =
+        boost::polymorphic_downcast<RenderAction *>(action);
+
+    // joints are relative to the skeletons coordinate system
+    // which is applied as part of OpenGL's model matrix.
+    // Therefore we need to cancel the current model matrix
+    // before visiting the joint hierarchies
+
+    Matrixr matModelInv;
+    matModelInv.invertFrom(ract->topMatrix());
+
+    ract->pushMatrix (matModelInv);
+    ract->useNodeList(           );
+
+    MFRootsType::const_iterator rIt  = _mfRoots.begin();
+    MFRootsType::const_iterator rEnd = _mfRoots.end  ();
+
+    for(; rIt != rEnd; ++rIt)
+    {
+        ract->addNode(*rIt);
+    }
+
+    return Action::Continue;
+}
+
+/*! RenderAction leave callback.
+
+  \note This callback is not registered with the RenderAction, but instead
+   must be called by an object that uses this Skeleton (e.g. SkinnedGeometry).
+ */
+Action::ResultE
+Skeleton::renderLeave(Action *action)
+{
+    RenderAction *ract =
+        boost::polymorphic_downcast<RenderAction *>(action);
+
+    ract->popMatrix();
+
+    return Action::Continue;
+}
+
 
 void Skeleton::dump(      UInt32    ,
                          const BitVector ) const
@@ -197,68 +171,68 @@ void Skeleton::dump(      UInt32    ,
     SLOG << "Dump Skeleton NI" << std::endl;
 }
 
-void Skeleton::adjustVolume(Volume &volume)
+void
+Skeleton::updateJoints(void)
 {
-    MFMeshesType::const_iterator meshIt  = _mfMeshes.begin();
-    MFMeshesType::const_iterator meshEnd = _mfMeshes.end  ();
+    editMFJoints       ()->clear();
+    editMFJointMatrices()->clear();
 
-    for(; meshIt != meshEnd; ++meshIt)
-    {
-        (*meshIt)->adjustVolume(volume);
-    }
+    TraverseEnterFunctor enterFunc =
+        boost::bind(&Skeleton::findJointsCallback, this, _1);
+
+    MFRootsType::const_iterator rIt  = _mfRoots.begin();
+    MFRootsType::const_iterator rEnd = _mfRoots.end  ();
+
+    for(; rIt != rEnd; ++rIt)
+        traverse(*rIt, enterFunc);
 }
 
-/*! Updates the joint matrices for all joints attached to the skeleton.
-    Returns true if any joint matrix was recomputed, false otherwise.
- */
-bool Skeleton::updateJointMatrices(void)
+Action::ResultE
+Skeleton::findJointsCallback(Node *node)
 {
-    bool                  retVal  = false;
+    if(node == NULL || node->getCore() == NULL)
+        return Action::Continue;
 
-    MFJointsType::iterator jointIt  = _mfJoints.begin();
-    MFJointsType::iterator jointEnd = _mfJoints.end  ();
+    SkeletonJoint *joint = dynamic_cast<SkeletonJoint *>(node->getCore());
 
-    for(; jointIt != jointEnd; ++jointIt)
+    if(joint == NULL)
+        return Action::Continue;
+
+    if(joint->getSkeleton() != NULL)
     {
-        if((*jointIt)->getNeedRecalc() == true)
-        {
-            retVal = true;
-            updateJointMatrix(*jointIt);
-        }
+        SWARNING << "Skeleton::findJointsCallback: Found SkeletonJoint "
+                 << "already owned by a Skeleton. Ignoring joint."
+                 << std::endl;
+        return Action::Continue;
     }
 
-    return retVal;
-}
+    Int16 jointId = joint->getJointId();
 
-/*! Updates a single joint matrix for the given joint. If necessary
-    this will also update the matrix of the parent joint (recursively).
- */
-void Skeleton::updateJointMatrix(SkeletonJoint *joint)
-{
-    editMField(JointMatricesFieldMask, _mfJointMatrices);
-
-    SkeletonJoint *jointParent = joint->getParent();
-    Int16          jointId     = joint->getJointId();
-
-    if(jointParent != NULL)
-    { 
-        if(jointParent->getNeedRecalc() == true)
-            updateJointMatrix(jointParent);
-
-        Int16  jointParentId = jointParent->getJointId();
-
-        _mfJointMatrices[jointId] = _mfJointMatrices[jointParentId];
-        _mfJointMatrices[jointId].mult(joint->getMatrix       ());
-        _mfJointMatrices[jointId].mult(joint->getInvBindMatrix());
-    }
-    else
+    if(jointId == SkeletonJoint::INVALID_JOINT_ID)
     {
-        _mfJointMatrices[jointId] =    joint->getMatrix       ();
-        _mfJointMatrices[jointId].mult(joint->getInvBindMatrix());
+        SWARNING << "Skeleton::findJointsCallback: SkeletonJoint has "
+                 << "invalid joint id. Ignoring joint." << std::endl;
+        return Action::Continue;
     }
 
-    joint->setNeedRecalc(false);
-}
+    MFJointsType        *mfJoints   = editMFJoints       ();
+    MFJointMatricesType *mfJointMat = editMFJointMatrices();
 
+    mfJoints  ->resize(
+        osgMax<UInt32>(mfJoints  ->size(), jointId), NULL              );
+    mfJointMat->resize(
+        osgMax<UInt32>(mfJointMat->size(), jointId), Matrix::identity());
+
+    if((*mfJoints)[jointId] != NULL)
+    {
+        SWARNING << "Skeleton::findJointsCallback: JointId [" << jointId
+                 << "] is already used. Ignoring joint." << std::endl;
+        return Action::Continue;
+    }
+
+    (*mfJoints)[jointId] = joint;
+
+    return Action::Continue;
+}
 
 OSG_END_NAMESPACE
