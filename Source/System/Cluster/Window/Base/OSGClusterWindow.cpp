@@ -630,7 +630,7 @@ void ClusterWindow::doRenderAllViewports(RenderActionBase *action)
     }
 }
 
-void ClusterWindow::doFrameInit(void)
+void ClusterWindow::doFrameInit(bool reinitExtFuctions)
 {
     Connection   *connection   = getNetwork()->getMainConnection();
     RemoteAspect *remoteAspect = getNetwork()->getAspect();

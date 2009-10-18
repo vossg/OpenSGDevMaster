@@ -77,7 +77,7 @@ ComplexSceneManager
                decorEnabled TRUE
              }
 
-             servers    ["tile-0-0", "tile-1-0"]
+             servers    ["opensg-tile-0-0", "opensg-tile-1-0"]
              serverRows 1
 
              connectionType "Multicast"

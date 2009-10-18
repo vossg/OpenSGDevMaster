@@ -209,12 +209,13 @@ class OSG_CLUSTER_DLLMAPPING ClusterWindow : public ClusterWindowBase
     /*! \name      Window system implementation functions                  */
     /*! \{                                                                 */
 
+    virtual void  doFrameInit         (bool reinitExtFuctions = false);
+    virtual void  doFrameExit         (void                          );
+    virtual void  doActivate          (void                          );
+    virtual void  doDeactivate        (void                          );
+    virtual bool  doSwap              (void                          );
+
     virtual void  doRenderAllViewports(RenderActionBase *action);
-    virtual void  doFrameInit         (void                    );
-    virtual void  doFrameExit         (void                    );
-    virtual void  doActivate          (void                    );
-    virtual void  doDeactivate        (void                    );
-    virtual bool  doSwap              (void                    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
