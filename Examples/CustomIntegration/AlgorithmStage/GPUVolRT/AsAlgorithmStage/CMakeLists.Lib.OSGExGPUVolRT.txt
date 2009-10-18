@@ -33,8 +33,6 @@ IF(WIN32)
   OSG_ADD_GLEWPACKAGE(FALSE)
 ENDIF(WIN32)
 
-MESSAGE(STATUS "LIB: ${${PROJECT_NAME}_DEP_LIB} | DEF : ${${PROJECT_NAME}_DEP_DEFS} | INC: ${${PROJECT_NAME}_DEP_INCDIR} ")
-
 OSG_STORE_PROJECT_DEPENDENCIES()
 
 ##############################################################################
