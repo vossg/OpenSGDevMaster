@@ -36,8 +36,8 @@ std::vector<AnimInfo> g_anim;
 
 int setupGLUT( int *argc, char *argv[] );
 
-void init(void);
-void cleanup(void);
+void init   (int argc, char *argv[]);
+void cleanup(void                  );
 
 NodeTransitPtr buildScene       (void);
 void           buildAnimTemplate(void);

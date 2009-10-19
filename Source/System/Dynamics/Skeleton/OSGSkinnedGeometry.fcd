@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="SkinnedGeometry"
+   parent="Geometry"
+   library="Dynamics"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   childFields="none"
+   parentFields="none"
+>
+
+  <Field
+     name="skeleton"
+     type="Skeleton"
+     category="pointer"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     >
+  </Field>
+
+  <Field
+     name="influencePropertyIndex"
+     type="UInt16"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="Geometry::TexCoordsIndex"
+     >
+    Index of the property that stores the per vertex indices into
+    the joint matrices.
+  </Field>
+
+  <Field
+     name="weightPropertyIndex"
+     type="UInt16"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="Geometry::TexCoords1Index"
+     >
+    Index of the property that stores the per vertex weights for
+    the influence matrices.
+  </Field>
+
+  <Field
+     name="flags"
+     type="UInt32"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="0"
+     >
+  </Field>
+</FieldContainer>

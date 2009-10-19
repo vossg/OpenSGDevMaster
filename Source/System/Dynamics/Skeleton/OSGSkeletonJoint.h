@@ -64,9 +64,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
 
     static const Int16 INVALID_JOINT_ID = -1;
 
-    const SFParentSkeletonPtr *getSFSkeleton(void) const;
-    Skeleton                  *getSkeleton  (void) const;
-
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -74,6 +71,22 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
     virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
                          BitVector         details    );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Skeleton                                */
+    /*! \{                                                                 */
+
+    const SFParentSkeletonPtr *getSFSkeleton(void) const;
+    Skeleton                  *getSkeleton  (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Render                                  */
+    /*! \{                                                                 */
+
+    Action::ResultE renderEnter(Action *action);
+    Action::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -89,6 +102,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
   protected:
 
     // Variables should all be in SkeletonJointBase.
+    bool _identityInvBindMatrix;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */

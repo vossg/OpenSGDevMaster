@@ -47,7 +47,6 @@
 
 #include "OSGSkeleton.h"
 #include "OSGSkeletonJoint.h"
-#include "OSGRenderAction.h"
 
 #include <boost/bind.hpp>
 #include <boost/cast.hpp>
@@ -121,11 +120,8 @@ void Skeleton::changed(ConstFieldMaskArg whichField,
    must be called by an object that uses this Skeleton (e.g. SkinnedGeometry).
  */
 Action::ResultE
-Skeleton::renderEnter(Action *action)
+Skeleton::renderEnter(RenderAction *ract)
 {
-    RenderAction *ract =
-        boost::polymorphic_downcast<RenderAction *>(action);
-
     // joints are relative to the skeletons coordinate system
     // which is applied as part of OpenGL's model matrix.
     // Therefore we need to cancel the current model matrix
@@ -142,6 +138,8 @@ Skeleton::renderEnter(Action *action)
 
     for(; rIt != rEnd; ++rIt)
     {
+        SLOG << "Skeleton::renderEnter: Adding root [" << *rIt << "]" << std::endl;
+
         ract->addNode(*rIt);
     }
 
@@ -154,11 +152,8 @@ Skeleton::renderEnter(Action *action)
    must be called by an object that uses this Skeleton (e.g. SkinnedGeometry).
  */
 Action::ResultE
-Skeleton::renderLeave(Action *action)
+Skeleton::renderLeave(RenderAction *ract)
 {
-    RenderAction *ract =
-        boost::polymorphic_downcast<RenderAction *>(action);
-
     ract->popMatrix();
 
     return Action::Continue;
@@ -175,20 +170,84 @@ void
 Skeleton::updateJoints(void)
 {
     editMFJoints       ()->clear();
+    editMFParentJoints ()->clear();
     editMFJointMatrices()->clear();
 
+    JointStack jointStack;
+
     TraverseEnterFunctor enterFunc =
-        boost::bind(&Skeleton::findJointsCallback, this, _1);
+        boost::bind(&Skeleton::findJointsEnter, this, &jointStack, _1);
+    TraverseLeaveFunctor leaveFunc =
+        boost::bind(&Skeleton::findJointsLeave, this, &jointStack, _1);
 
     MFRootsType::const_iterator rIt  = _mfRoots.begin();
     MFRootsType::const_iterator rEnd = _mfRoots.end  ();
 
     for(; rIt != rEnd; ++rIt)
-        traverse(*rIt, enterFunc);
+        traverse(*rIt, enterFunc, leaveFunc);
 }
 
 Action::ResultE
-Skeleton::findJointsCallback(Node *node)
+Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
+{
+    if(node == NULL || node->getCore() == NULL)
+        return Action::Continue;
+
+    SkeletonJoint *joint       = dynamic_cast<SkeletonJoint *>(node->getCore());
+    SkeletonJoint *parentJoint = jointStack->empty() ? NULL : jointStack->back();
+
+    if(joint == NULL)
+        return Action::Continue;
+
+    Int16 jointId = joint->getJointId();
+
+    SLOG << "Skeleton::findJointsEnter: [" << joint << "][" << jointId
+         << "] parent [" << parentJoint << "][" << (parentJoint != NULL ? parentJoint->getJointId() : -1)
+         << "]" << std::endl;
+
+    if(joint->getSkeleton() != NULL)
+    {
+        SWARNING << "Skeleton::findJointsEnter: Found SkeletonJoint ["
+                 << joint << "][" << jointId << "] already owned by a "
+                 << "Skeleton. Ignoring joint." << std::endl;
+        return Action::Continue;
+    }
+
+    if(jointId == SkeletonJoint::INVALID_JOINT_ID)
+    {
+        SWARNING << "Skeleton::findJointsEnter: SkeletonJoint has "
+                 << "invalid joint id. Ignoring joint." << std::endl;
+        return Action::Continue;
+    }
+
+    MFJointsType        *mfJoints       = editMFJoints       ();
+    MFParentJointsType  *mfParentJoints = editMFParentJoints ();
+    MFJointMatricesType *mfJointMat     = editMFJointMatrices();
+
+    mfJoints  ->resize(
+        osgMax<UInt32>(mfJoints      ->size(), jointId + 1), NULL              );
+    mfParentJoints->resize(
+        osgMax<UInt32>(mfParentJoints->size(), jointId + 1), NULL              );
+    mfJointMat->resize(
+        osgMax<UInt32>(mfJointMat    ->size(), jointId + 1), Matrix::identity());
+
+    if((*mfJoints)[jointId] != NULL)
+    {
+        SWARNING << "Skeleton::findJointsEnter: JointId [" << jointId
+                 << "] is already used. Ignoring joint." << std::endl;
+        return Action::Continue;
+    }
+
+    (*mfJoints      )[jointId] = joint;
+    (*mfParentJoints)[jointId] = parentJoint;
+
+    jointStack->push_back(joint);
+
+    return Action::Continue;
+}
+
+Action::ResultE
+Skeleton::findJointsLeave(JointStack *jointStack, Node *node)
 {
     if(node == NULL || node->getCore() == NULL)
         return Action::Continue;
@@ -198,39 +257,7 @@ Skeleton::findJointsCallback(Node *node)
     if(joint == NULL)
         return Action::Continue;
 
-    if(joint->getSkeleton() != NULL)
-    {
-        SWARNING << "Skeleton::findJointsCallback: Found SkeletonJoint "
-                 << "already owned by a Skeleton. Ignoring joint."
-                 << std::endl;
-        return Action::Continue;
-    }
-
-    Int16 jointId = joint->getJointId();
-
-    if(jointId == SkeletonJoint::INVALID_JOINT_ID)
-    {
-        SWARNING << "Skeleton::findJointsCallback: SkeletonJoint has "
-                 << "invalid joint id. Ignoring joint." << std::endl;
-        return Action::Continue;
-    }
-
-    MFJointsType        *mfJoints   = editMFJoints       ();
-    MFJointMatricesType *mfJointMat = editMFJointMatrices();
-
-    mfJoints  ->resize(
-        osgMax<UInt32>(mfJoints  ->size(), jointId), NULL              );
-    mfJointMat->resize(
-        osgMax<UInt32>(mfJointMat->size(), jointId), Matrix::identity());
-
-    if((*mfJoints)[jointId] != NULL)
-    {
-        SWARNING << "Skeleton::findJointsCallback: JointId [" << jointId
-                 << "] is already used. Ignoring joint." << std::endl;
-        return Action::Continue;
-    }
-
-    (*mfJoints)[jointId] = joint;
+    jointStack->pop_back();
 
     return Action::Continue;
 }

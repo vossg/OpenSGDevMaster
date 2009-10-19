@@ -109,6 +109,13 @@ OSG_BEGIN_NAMESPACE
     the RenderActions traversal.
 */
 
+/*! \var SkeletonJoint * SkeletonBase::_mfParentJoints
+    Stores the parent of each joint at the position of the childs jointId.
+    In other words parentJoints[i] is the parent of the joint with
+    jointId i (which is stored in joints[i]). If the joint has no parent
+    NULL is stored instead.
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -226,6 +233,21 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&Skeleton::getHandleJointMatrices));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUnrecSkeletonJointPtr::Description(
+        MFUnrecSkeletonJointPtr::getClassType(),
+        "parentJoints",
+        "Stores the parent of each joint at the position of the childs jointId.\n"
+        "In other words parentJoints[i] is the parent of the joint with\n"
+        "jointId i (which is stored in joints[i]). If the joint has no parent\n"
+        "NULL is stored instead.\n",
+        ParentJointsFieldId, ParentJointsFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Skeleton::editHandleParentJoints),
+        static_cast<FieldGetMethodSig >(&Skeleton::getHandleParentJoints));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -303,6 +325,20 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "    the RenderActions traversal.\n"
     "  </Field>\n"
     "\n"
+    "  <Field\n"
+    "     name=\"parentJoints\"\n"
+    "     type=\"SkeletonJoint\"\n"
+    "     category=\"pointer\"\n"
+    "     cardinality=\"multi\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Stores the parent of each joint at the position of the childs jointId.\n"
+    "    In other words parentJoints[i] is the parent of the joint with\n"
+    "    jointId i (which is stored in joints[i]). If the joint has no parent\n"
+    "    NULL is stored instead.\n"
+    "  </Field>\n"
+    "\n"
     "</FieldContainer>\n",
     "A Skeleton is simply one (or multiple) node hierarchies that contain some\n"
     "SkeletonJoint cores.\n"
@@ -370,6 +406,19 @@ const MFMatrix *SkeletonBase::getMFJointMatrices(void) const
     return &_mfJointMatrices;
 }
 
+
+//! Get the Skeleton::_mfParentJoints field.
+const MFUnrecSkeletonJointPtr *SkeletonBase::getMFParentJoints(void) const
+{
+    return &_mfParentJoints;
+}
+
+MFUnrecSkeletonJointPtr *SkeletonBase::editMFParentJoints   (void)
+{
+    editMField(ParentJointsFieldMask, _mfParentJoints);
+
+    return &_mfParentJoints;
+}
 
 
 
@@ -479,6 +528,59 @@ void SkeletonBase::clearJoints(void)
     _mfJoints.clear();
 }
 
+void SkeletonBase::pushToParentJoints(SkeletonJoint * const value)
+{
+    editMField(ParentJointsFieldMask, _mfParentJoints);
+
+    _mfParentJoints.push_back(value);
+}
+
+void SkeletonBase::assignParentJoints(const MFUnrecSkeletonJointPtr &value)
+{
+    MFUnrecSkeletonJointPtr::const_iterator elemIt  =
+        value.begin();
+    MFUnrecSkeletonJointPtr::const_iterator elemEnd =
+        value.end  ();
+
+    static_cast<Skeleton *>(this)->clearParentJoints();
+
+    while(elemIt != elemEnd)
+    {
+        this->pushToParentJoints(*elemIt);
+
+        ++elemIt;
+    }
+}
+
+void SkeletonBase::removeFromParentJoints(UInt32 uiIndex)
+{
+    if(uiIndex < _mfParentJoints.size())
+    {
+        editMField(ParentJointsFieldMask, _mfParentJoints);
+
+        _mfParentJoints.erase(uiIndex);
+    }
+}
+
+void SkeletonBase::removeObjFromParentJoints(SkeletonJoint * const value)
+{
+    Int32 iElemIdx = _mfParentJoints.findIndex(value);
+
+    if(iElemIdx != -1)
+    {
+        editMField(ParentJointsFieldMask, _mfParentJoints);
+
+        _mfParentJoints.erase(iElemIdx);
+    }
+}
+void SkeletonBase::clearParentJoints(void)
+{
+    editMField(ParentJointsFieldMask, _mfParentJoints);
+
+
+    _mfParentJoints.clear();
+}
+
 
 
 /*------------------------------ access -----------------------------------*/
@@ -498,6 +600,10 @@ UInt32 SkeletonBase::getBinSize(ConstFieldMaskArg whichField)
     if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
     {
         returnValue += _mfJointMatrices.getBinSize();
+    }
+    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
+    {
+        returnValue += _mfParentJoints.getBinSize();
     }
 
     return returnValue;
@@ -520,6 +626,10 @@ void SkeletonBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfJointMatrices.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
+    {
+        _mfParentJoints.copyToBin(pMem);
+    }
 }
 
 void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
@@ -538,6 +648,10 @@ void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
     {
         _mfJointMatrices.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
+    {
+        _mfParentJoints.copyFromBin(pMem);
     }
 }
 
@@ -668,7 +782,8 @@ SkeletonBase::SkeletonBase(void) :
     _mfJoints                 (this,
                           JointsFieldId,
                           SkeletonJoint::SkeletonFieldId),
-    _mfJointMatrices          ()
+    _mfJointMatrices          (),
+    _mfParentJoints           ()
 {
 }
 
@@ -678,7 +793,8 @@ SkeletonBase::SkeletonBase(const SkeletonBase &source) :
     _mfJoints                 (this,
                           JointsFieldId,
                           SkeletonJoint::SkeletonFieldId),
-    _mfJointMatrices          (source._mfJointMatrices          )
+    _mfJointMatrices          (source._mfJointMatrices          ),
+    _mfParentJoints           ()
 {
 }
 
@@ -757,6 +873,18 @@ void SkeletonBase::onCreate(const Skeleton *source)
             pThis->pushToJoints(*JointsIt);
 
             ++JointsIt;
+        }
+
+        MFUnrecSkeletonJointPtr::const_iterator ParentJointsIt  =
+            source->_mfParentJoints.begin();
+        MFUnrecSkeletonJointPtr::const_iterator ParentJointsEnd =
+            source->_mfParentJoints.end  ();
+
+        while(ParentJointsIt != ParentJointsEnd)
+        {
+            pThis->pushToParentJoints(*ParentJointsIt);
+
+            ++ParentJointsIt;
         }
     }
 }
@@ -860,6 +988,43 @@ EditFieldHandlePtr SkeletonBase::editHandleJointMatrices  (void)
     return returnValue;
 }
 
+GetFieldHandlePtr SkeletonBase::getHandleParentJoints    (void) const
+{
+    MFUnrecSkeletonJointPtr::GetHandlePtr returnValue(
+        new  MFUnrecSkeletonJointPtr::GetHandle(
+             &_mfParentJoints,
+             this->getType().getFieldDesc(ParentJointsFieldId),
+             const_cast<SkeletonBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkeletonBase::editHandleParentJoints   (void)
+{
+    MFUnrecSkeletonJointPtr::EditHandlePtr returnValue(
+        new  MFUnrecSkeletonJointPtr::EditHandle(
+             &_mfParentJoints,
+             this->getType().getFieldDesc(ParentJointsFieldId),
+             this));
+
+    returnValue->setAddMethod(
+        boost::bind(&Skeleton::pushToParentJoints,
+                    static_cast<Skeleton *>(this), _1));
+    returnValue->setRemoveMethod(
+        boost::bind(&Skeleton::removeFromParentJoints,
+                    static_cast<Skeleton *>(this), _1));
+    returnValue->setRemoveObjMethod(
+        boost::bind(&Skeleton::removeObjFromParentJoints,
+                    static_cast<Skeleton *>(this), _1));
+    returnValue->setClearMethod(
+        boost::bind(&Skeleton::clearParentJoints,
+                    static_cast<Skeleton *>(this)));
+
+    editMField(ParentJointsFieldMask, _mfParentJoints);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SkeletonBase::execSyncV(      FieldContainer    &oFrom,
@@ -900,6 +1065,8 @@ void SkeletonBase::resolveLinks(void)
     static_cast<Skeleton *>(this)->clearRoots();
 
     static_cast<Skeleton *>(this)->clearJoints();
+
+    static_cast<Skeleton *>(this)->clearParentJoints();
 
 #ifdef OSG_MT_CPTR_ASPECT
     AspectOffsetStore oOffsets;

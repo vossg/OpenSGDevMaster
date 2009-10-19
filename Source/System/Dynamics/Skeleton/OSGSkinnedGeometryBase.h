@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Skeleton
+ **     class SkinnedGeometry
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGSKELETONBASE_H_
-#define _OSGSKELETONBASE_H_
+#ifndef _OSGSKINNEDGEOMETRYBASE_H_
+#define _OSGSKINNEDGEOMETRYBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,31 +63,30 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGGeometry.h" // Parent
 
-#include "OSGNodeFields.h"              // Roots type
-#include "OSGSkeletonJointFields.h"     // Joints type
-#include "OSGMathFields.h"              // JointMatrices type
+#include "OSGSkeletonFields.h"          // Skeleton type
+#include "OSGSysFields.h"               // InfluencePropertyIndex type
 
-#include "OSGSkeletonFields.h"
+#include "OSGSkinnedGeometryFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Skeleton;
+class SkinnedGeometry;
 
-//! \brief Skeleton Base Class.
+//! \brief SkinnedGeometry Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
+class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef Geometry Inherited;
+    typedef Geometry ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(Skeleton);
+    OSG_GEN_INTERNALPTR(SkinnedGeometry);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -95,28 +94,28 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
 
     enum
     {
-        RootsFieldId = Inherited::NextFieldId,
-        JointsFieldId = RootsFieldId + 1,
-        JointMatricesFieldId = JointsFieldId + 1,
-        ParentJointsFieldId = JointMatricesFieldId + 1,
-        NextFieldId = ParentJointsFieldId + 1
+        SkeletonFieldId = Inherited::NextFieldId,
+        InfluencePropertyIndexFieldId = SkeletonFieldId + 1,
+        WeightPropertyIndexFieldId = InfluencePropertyIndexFieldId + 1,
+        FlagsFieldId = WeightPropertyIndexFieldId + 1,
+        NextFieldId = FlagsFieldId + 1
     };
 
-    static const OSG::BitVector RootsFieldMask =
-        (TypeTraits<BitVector>::One << RootsFieldId);
-    static const OSG::BitVector JointsFieldMask =
-        (TypeTraits<BitVector>::One << JointsFieldId);
-    static const OSG::BitVector JointMatricesFieldMask =
-        (TypeTraits<BitVector>::One << JointMatricesFieldId);
-    static const OSG::BitVector ParentJointsFieldMask =
-        (TypeTraits<BitVector>::One << ParentJointsFieldId);
+    static const OSG::BitVector SkeletonFieldMask =
+        (TypeTraits<BitVector>::One << SkeletonFieldId);
+    static const OSG::BitVector InfluencePropertyIndexFieldMask =
+        (TypeTraits<BitVector>::One << InfluencePropertyIndexFieldId);
+    static const OSG::BitVector WeightPropertyIndexFieldMask =
+        (TypeTraits<BitVector>::One << WeightPropertyIndexFieldId);
+    static const OSG::BitVector FlagsFieldMask =
+        (TypeTraits<BitVector>::One << FlagsFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFUnrecNodePtr    MFRootsType;
-    typedef MFUnrecChildSkeletonJointPtr MFJointsType;
-    typedef MFMatrix          MFJointMatricesType;
-    typedef MFUnrecSkeletonJointPtr MFParentJointsType;
+    typedef SFUnrecSkeletonPtr SFSkeletonType;
+    typedef SFUInt16          SFInfluencePropertyIndexType;
+    typedef SFUInt16          SFWeightPropertyIndexType;
+    typedef SFUInt32          SFFlagsType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -141,31 +140,39 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     /*! \name                    Field Get                                 */
     /*! \{                                                                 */
 
-            const MFUnrecNodePtr      *getMFRoots          (void) const;
-                  MFUnrecNodePtr      *editMFRoots          (void);
-            const MFUnrecChildSkeletonJointPtr *getMFJoints         (void) const;
-                  MFUnrecChildSkeletonJointPtr *editMFJoints         (void);
+            const SFUnrecSkeletonPtr  *getSFSkeleton       (void) const;
+                  SFUnrecSkeletonPtr  *editSFSkeleton       (void);
 
-                  MFMatrix            *editMFJointMatrices  (void);
-            const MFMatrix            *getMFJointMatrices   (void) const;
-            const MFUnrecSkeletonJointPtr *getMFParentJoints   (void) const;
-                  MFUnrecSkeletonJointPtr *editMFParentJoints   (void);
+                  SFUInt16            *editSFInfluencePropertyIndex(void);
+            const SFUInt16            *getSFInfluencePropertyIndex (void) const;
+
+                  SFUInt16            *editSFWeightPropertyIndex(void);
+            const SFUInt16            *getSFWeightPropertyIndex (void) const;
+
+                  SFUInt32            *editSFFlags          (void);
+            const SFUInt32            *getSFFlags           (void) const;
 
 
-                  Node * getRoots          (const UInt32 index) const;
+                  Skeleton * getSkeleton       (void) const;
 
-                  SkeletonJoint * getJoints         (const UInt32 index) const;
+                  UInt16              &editInfluencePropertyIndex(void);
+                  UInt16               getInfluencePropertyIndex (void) const;
 
-                  Matrix              &editJointMatrices  (const UInt32 index);
-            const Matrix              &getJointMatrices   (const UInt32 index) const;
+                  UInt16              &editWeightPropertyIndex(void);
+                  UInt16               getWeightPropertyIndex (void) const;
 
-                  SkeletonJoint * getParentJoints   (const UInt32 index) const;
+                  UInt32              &editFlags          (void);
+                  UInt32               getFlags           (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setSkeleton       (Skeleton * const value);
+            void setInfluencePropertyIndex(const UInt16 value);
+            void setWeightPropertyIndex(const UInt16 value);
+            void setFlags          (const UInt32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -176,24 +183,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
-    void pushToRoots               (Node * const value   );
-    void assignRoots              (const MFUnrecNodePtr    &value);
-    void removeFromRoots (UInt32               uiIndex );
-    void removeObjFromRoots(Node * const value   );
-    void clearRoots                 (void                         );
-
-    void pushToJoints              (SkeletonJoint * const value   );
-    void assignJoints             (const MFUnrecChildSkeletonJointPtr &value);
-    void removeFromJoints (UInt32               uiIndex );
-    void removeObjFromJoints(SkeletonJoint * const value   );
-    void clearJoints                (void                         );
-
-    void pushToParentJoints           (SkeletonJoint * const value   );
-    void assignParentJoints          (const MFUnrecSkeletonJointPtr &value);
-    void removeFromParentJoints (UInt32               uiIndex );
-    void removeObjFromParentJoints(SkeletonJoint * const value   );
-    void clearParentJoints            (void                         );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -212,16 +201,16 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  SkeletonTransitPtr  create          (void);
-    static  Skeleton           *createEmpty     (void);
+    static  SkinnedGeometryTransitPtr  create          (void);
+    static  SkinnedGeometry           *createEmpty     (void);
 
-    static  SkeletonTransitPtr  createLocal     (
+    static  SkinnedGeometryTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  Skeleton            *createEmptyLocal(
+    static  SkinnedGeometry            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  SkeletonTransitPtr  createDependent  (BitVector bFlags);
+    static  SkinnedGeometryTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -248,54 +237,46 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFUnrecNodePtr    _mfRoots;
-    MFUnrecChildSkeletonJointPtr _mfJoints;
-    MFMatrix          _mfJointMatrices;
-    MFUnrecSkeletonJointPtr _mfParentJoints;
+    SFUnrecSkeletonPtr _sfSkeleton;
+    SFUInt16          _sfInfluencePropertyIndex;
+    SFUInt16          _sfWeightPropertyIndex;
+    SFUInt32          _sfFlags;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SkeletonBase(void);
-    SkeletonBase(const SkeletonBase &source);
+    SkinnedGeometryBase(void);
+    SkinnedGeometryBase(const SkinnedGeometryBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~SkeletonBase(void);
+    virtual ~SkinnedGeometryBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                     onCreate                                */
     /*! \{                                                                 */
 
-    void onCreate(const Skeleton *source = NULL);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Child linking                                                */
-    /*! \{                                                                 */
-
-    virtual bool unlinkChild(FieldContainer * const pChild,
-                             UInt16           const childFieldId);
+    void onCreate(const SkinnedGeometry *source = NULL);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleRoots           (void) const;
-    EditFieldHandlePtr editHandleRoots          (void);
-    GetFieldHandlePtr  getHandleJoints          (void) const;
-    EditFieldHandlePtr editHandleJoints         (void);
-    GetFieldHandlePtr  getHandleJointMatrices   (void) const;
-    EditFieldHandlePtr editHandleJointMatrices  (void);
-    GetFieldHandlePtr  getHandleParentJoints    (void) const;
-    EditFieldHandlePtr editHandleParentJoints   (void);
+    GetFieldHandlePtr  getHandleSkeleton        (void) const;
+    EditFieldHandlePtr editHandleSkeleton       (void);
+    GetFieldHandlePtr  getHandleInfluencePropertyIndex (void) const;
+    EditFieldHandlePtr editHandleInfluencePropertyIndex(void);
+    GetFieldHandlePtr  getHandleWeightPropertyIndex (void) const;
+    EditFieldHandlePtr editHandleWeightPropertyIndex(void);
+    GetFieldHandlePtr  getHandleFlags           (void) const;
+    EditFieldHandlePtr editHandleFlags          (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -309,7 +290,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      SkeletonBase *pFrom,
+            void execSync (      SkinnedGeometryBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -349,11 +330,11 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const SkeletonBase &source);
+    void operator =(const SkinnedGeometryBase &source);
 };
 
-typedef SkeletonBase *SkeletonBaseP;
+typedef SkinnedGeometryBase *SkinnedGeometryBaseP;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGSKELETONBASE_H_ */
+#endif /* _OSGSKINNEDGEOMETRYBASE_H_ */

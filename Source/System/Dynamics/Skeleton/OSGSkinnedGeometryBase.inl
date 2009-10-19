@@ -43,7 +43,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class Skeleton!
+ **     class SkinnedGeometry!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -53,20 +53,20 @@ OSG_BEGIN_NAMESPACE
 
 //! access the type of the class
 inline
-OSG::FieldContainerType &SkeletonBase::getClassType(void)
+OSG::FieldContainerType &SkinnedGeometryBase::getClassType(void)
 {
     return _type;
 }
 
 //! access the numerical type of the class
 inline
-OSG::UInt32 SkeletonBase::getClassTypeId(void)
+OSG::UInt32 SkinnedGeometryBase::getClassTypeId(void)
 {
     return _type.getId();
 }
 
 inline
-OSG::UInt16 SkeletonBase::getClassGroupId(void)
+OSG::UInt16 SkinnedGeometryBase::getClassGroupId(void)
 {
     return _type.getGroupId();
 }
@@ -74,47 +74,101 @@ OSG::UInt16 SkeletonBase::getClassGroupId(void)
 /*------------------------------ get -----------------------------------*/
 
 
-//! Get the value of the \a index element the Skeleton::_mfRoots field.
+//! Get the value of the SkinnedGeometry::_sfSkeleton field.
 inline
-Node * SkeletonBase::getRoots(const UInt32 index) const
+Skeleton * SkinnedGeometryBase::getSkeleton(void) const
 {
-    return _mfRoots[index];
+    return _sfSkeleton.getValue();
 }
 
-//! Get the value of the \a index element the Skeleton::_mfJoints field.
+//! Set the value of the SkinnedGeometry::_sfSkeleton field.
 inline
-SkeletonJoint * SkeletonBase::getJoints(const UInt32 index) const
+void SkinnedGeometryBase::setSkeleton(Skeleton * const value)
 {
-    return _mfJoints[index];
+    editSField(SkeletonFieldMask);
+
+    _sfSkeleton.setValue(value);
+}
+//! Get the value of the SkinnedGeometry::_sfInfluencePropertyIndex field.
+
+inline
+UInt16 &SkinnedGeometryBase::editInfluencePropertyIndex(void)
+{
+    editSField(InfluencePropertyIndexFieldMask);
+
+    return _sfInfluencePropertyIndex.getValue();
 }
 
-//! Get the value of the \a index element the Skeleton::_mfJointMatrices field.
+//! Get the value of the SkinnedGeometry::_sfInfluencePropertyIndex field.
 inline
-const Matrix &SkeletonBase::getJointMatrices(const UInt32 index) const
+      UInt16  SkinnedGeometryBase::getInfluencePropertyIndex(void) const
 {
-    return _mfJointMatrices[index];
+    return _sfInfluencePropertyIndex.getValue();
 }
 
+//! Set the value of the SkinnedGeometry::_sfInfluencePropertyIndex field.
 inline
-Matrix &SkeletonBase::editJointMatrices(const UInt32 index)
+void SkinnedGeometryBase::setInfluencePropertyIndex(const UInt16 value)
 {
-    editMField(JointMatricesFieldMask, _mfJointMatrices);
+    editSField(InfluencePropertyIndexFieldMask);
 
-    return _mfJointMatrices[index];
+    _sfInfluencePropertyIndex.setValue(value);
+}
+//! Get the value of the SkinnedGeometry::_sfWeightPropertyIndex field.
+
+inline
+UInt16 &SkinnedGeometryBase::editWeightPropertyIndex(void)
+{
+    editSField(WeightPropertyIndexFieldMask);
+
+    return _sfWeightPropertyIndex.getValue();
 }
 
-
-//! Get the value of the \a index element the Skeleton::_mfParentJoints field.
+//! Get the value of the SkinnedGeometry::_sfWeightPropertyIndex field.
 inline
-SkeletonJoint * SkeletonBase::getParentJoints(const UInt32 index) const
+      UInt16  SkinnedGeometryBase::getWeightPropertyIndex(void) const
 {
-    return _mfParentJoints[index];
+    return _sfWeightPropertyIndex.getValue();
+}
+
+//! Set the value of the SkinnedGeometry::_sfWeightPropertyIndex field.
+inline
+void SkinnedGeometryBase::setWeightPropertyIndex(const UInt16 value)
+{
+    editSField(WeightPropertyIndexFieldMask);
+
+    _sfWeightPropertyIndex.setValue(value);
+}
+//! Get the value of the SkinnedGeometry::_sfFlags field.
+
+inline
+UInt32 &SkinnedGeometryBase::editFlags(void)
+{
+    editSField(FlagsFieldMask);
+
+    return _sfFlags.getValue();
+}
+
+//! Get the value of the SkinnedGeometry::_sfFlags field.
+inline
+      UInt32  SkinnedGeometryBase::getFlags(void) const
+{
+    return _sfFlags.getValue();
+}
+
+//! Set the value of the SkinnedGeometry::_sfFlags field.
+inline
+void SkinnedGeometryBase::setFlags(const UInt32 value)
+{
+    editSField(FlagsFieldMask);
+
+    _sfFlags.setValue(value);
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
-void SkeletonBase::execSync (      SkeletonBase *pFrom,
+void SkinnedGeometryBase::execSync (      SkinnedGeometryBase *pFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
@@ -122,39 +176,27 @@ void SkeletonBase::execSync (      SkeletonBase *pFrom,
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
 
-    if(FieldBits::NoField != (RootsFieldMask & whichField))
-        _mfRoots.syncWith(pFrom->_mfRoots,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
+    if(FieldBits::NoField != (SkeletonFieldMask & whichField))
+        _sfSkeleton.syncWith(pFrom->_sfSkeleton);
 
-    if(FieldBits::NoField != (JointsFieldMask & whichField))
-        _mfJoints.syncWith(pFrom->_mfJoints,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
+    if(FieldBits::NoField != (InfluencePropertyIndexFieldMask & whichField))
+        _sfInfluencePropertyIndex.syncWith(pFrom->_sfInfluencePropertyIndex);
 
-    if(FieldBits::NoField != (JointMatricesFieldMask & whichField))
-        _mfJointMatrices.syncWith(pFrom->_mfJointMatrices,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
+    if(FieldBits::NoField != (WeightPropertyIndexFieldMask & whichField))
+        _sfWeightPropertyIndex.syncWith(pFrom->_sfWeightPropertyIndex);
 
-    if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
-        _mfParentJoints.syncWith(pFrom->_mfParentJoints,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
+    if(FieldBits::NoField != (FlagsFieldMask & whichField))
+        _sfFlags.syncWith(pFrom->_sfFlags);
 }
 #endif
 
 
 inline
-const Char8 *SkeletonBase::getClassname(void)
+const Char8 *SkinnedGeometryBase::getClassname(void)
 {
-    return "Skeleton";
+    return "SkinnedGeometry";
 }
-OSG_GEN_CONTAINERPTR(Skeleton);
+OSG_GEN_CONTAINERPTR(SkinnedGeometry);
 
 OSG_END_NAMESPACE
 

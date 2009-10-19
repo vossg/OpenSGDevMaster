@@ -36,33 +36,40 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGSKELETON_H_
-#define _OSGSKELETON_H_
+#ifndef _OSGSKINNEDGEOMETRY_H_
+#define _OSGSKINNEDGEOMETRY_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGSkeletonBase.h"
+#include "OSGSkinnedGeometryBase.h"
+#include "OSGSkeleton.h"
+#include "OSGSkeletonJoint.h"
 #include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Skeleton class. See \ref
-           PageDynamicsSkeleton for a description.
+/*! \brief SkinnedGeometry class. See \ref
+           PageDynamicsSkinnedGeometry for a description.
 */
 
-class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
+class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
 {
+  protected:
+
     /*==========================  PUBLIC  =================================*/
+
   public:
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Types                                    */
-    /*! \{                                                                 */
 
-    typedef SkeletonBase Inherited;
-    typedef Skeleton     Self;
+    typedef SkinnedGeometryBase Inherited;
+    typedef SkinnedGeometry     Self;
 
-    /*! \}                                                                 */
+    enum SkinnedGeoFlagsE
+    {
+        SG_FLAG_HARDWARE = 0x0001,
+        SG_FLAG_DEBUG    = 0x0002
+    };
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
@@ -73,11 +80,28 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Render                                  */
+    /*! \name                      Flags                                   */
     /*! \{                                                                 */
 
-    Action::ResultE renderEnter(RenderAction *ract);
-    Action::ResultE renderLeave(RenderAction *ract);
+    void addFlag (SkinnedGeoFlagsE flag);
+    void subFlag (SkinnedGeoFlagsE flag);
+    bool testFlag(SkinnedGeoFlagsE flag);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Render                                   */
+    /*! \{                                                                 */
+
+    Action::ResultE renderEnter(Action *action);
+    Action::ResultE renderLeave(Action *action);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Drawable Specifics                           */
+    /*! \{                                                                 */
+
+    virtual void fill        (DrawableStatsAttachment *drawStats);
+    virtual void adjustVolume(Volume                  &volume   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -92,25 +116,24 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 
   protected:
 
-    // Variables should all be in SkeletonBase.
-    
-    typedef std::vector<SkeletonJoint *> JointStack;
-    typedef JointStack::iterator         JointStackIt;
-    typedef JointStack::const_iterator   JointStackConstIt;
+    // Variables should all be in SkinnedGeometryBase.
+
+    typedef std::vector<Pnt3f > PositionStore;
+    typedef std::vector<UInt32> IndexStore;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    Skeleton(void);
-    Skeleton(const Skeleton &source);
+    SkinnedGeometry(void);
+    SkinnedGeometry(const SkinnedGeometry &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~Skeleton(void);
+    virtual ~SkinnedGeometry(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -121,12 +144,16 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Update                                  */
+    /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    void            updateJoints   (void                              );
-    Action::ResultE findJointsEnter(JointStack *jointStack, Node *node);
-    Action::ResultE findJointsLeave(JointStack *jointStack, Node *node);
+    Action::ResultE renderDebug   (RenderAction *ract);
+    Action::ResultE renderHardware(RenderAction *ract);
+    Action::ResultE renderSoftware(RenderAction *ract);
+
+    Action::ResultE drawDebug   (const PositionStore &positions,
+                                 const IndexStore    &indices,
+                                       DrawEnv       *drawEnv   );
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -134,17 +161,17 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
   private:
 
     friend class FieldContainer;
-    friend class SkeletonBase;
+    friend class SkinnedGeometryBase;
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const Skeleton &source);
+    void operator =(const SkinnedGeometry &source);
 };
 
-typedef Skeleton *SkeletonP;
+typedef SkinnedGeometry *SkinnedGeometryP;
 
 OSG_END_NAMESPACE
 
-#include "OSGSkeletonBase.inl"
-#include "OSGSkeleton.inl"
+#include "OSGSkinnedGeometryBase.inl"
+#include "OSGSkinnedGeometry.inl"
 
-#endif /* _OSGSKELETON_H_ */
+#endif /* _OSGSKINNEDGEOMETRY_H_ */

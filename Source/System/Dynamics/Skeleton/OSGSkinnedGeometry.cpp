@@ -44,41 +44,38 @@
 #include <cstdio>
 
 #include "OSGConfig.h"
-
-#include "OSGSkeletonJoint.h"
-#include "OSGRenderAction.h"
+#include "OSGSkinnedGeometry.h"
+#include "OSGPrimeMaterial.h"
 
 #include <boost/cast.hpp>
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGSkeletonJointBase.cpp file.
-// To modify it, please change the .fcd file (OSGSkeletonJoint.fcd) and
+// OSGSkinnedGeometryBase.cpp file.
+// To modify it, please change the .fcd file (OSGSkinnedGeometry.fcd) and
 // regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
 
-const Int16 SkeletonJoint::INVALID_JOINT_ID;
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
 
-void SkeletonJoint::initMethod(InitPhase ePhase)
+void SkinnedGeometry::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
     if(ePhase == TypeObject::SystemPost)
     {
         RenderAction::registerEnterDefault(
-            SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderEnter));
+            SkinnedGeometry::getClassType(),
+            reinterpret_cast<Action::Callback>(&SkinnedGeometry::renderEnter));
         RenderAction::registerLeaveDefault(
-            SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderLeave));
+            SkinnedGeometry::getClassType(),
+            reinterpret_cast<Action::Callback>(&SkinnedGeometry::renderLeave));
     }
 }
 
@@ -93,88 +90,180 @@ void SkeletonJoint::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-SkeletonJoint::SkeletonJoint(void)
-    : Inherited             ()
-    , _identityInvBindMatrix(false)
+SkinnedGeometry::SkinnedGeometry(void) :
+    Inherited()
 {
 }
 
-SkeletonJoint::SkeletonJoint(const SkeletonJoint &source)
-    : Inherited             (source)
-    , _identityInvBindMatrix(false)
+SkinnedGeometry::SkinnedGeometry(const SkinnedGeometry &source) :
+    Inherited(source)
 {
 }
 
-SkeletonJoint::~SkeletonJoint(void)
+SkinnedGeometry::~SkinnedGeometry(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void SkeletonJoint::changed(ConstFieldMaskArg whichField, 
+void SkinnedGeometry::changed(ConstFieldMaskArg whichField, 
                             UInt32            origin,
                             BitVector         details)
 {
-    if((InvBindMatrixFieldMask & whichField) != 0)
-    {
-        if(getInvBindMatrix() == Matrix::identity())
-        {
-            _identityInvBindMatrix = true;
-        }
-        else
-        {
-            _identityInvBindMatrix = false;
-        }
-    }
-
     Inherited::changed(whichField, origin, details);
 }
 
 Action::ResultE
-SkeletonJoint::renderEnter(Action *action)
+SkinnedGeometry::renderEnter(Action *action)
 {
+    if(_sfSkeleton.getValue() == NULL)
+    {
+        SWARNING << "SkinnedGeometry::renderEnter: No skeleton." << std::endl;
+
+        return Action::Continue;
+    }
+
     Action::ResultE  res  = Action::Continue;
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
 
-    OSG_ASSERT(_sfJointId.getValue() != INVALID_JOINT_ID);
-    OSG_ASSERT(getSkeleton()         != NULL            );
-
-    Int16                          jointId   = _sfJointId.getValue();
-    Skeleton::MFJointMatricesType *jointMats =
-        getSkeleton()->editMFJointMatrices();
-
-    if(_identityInvBindMatrix == false)
-        ract->pushMatrix(_sfInvBindMatrix.getValue());
-
-    ract->pushMatrix(_sfMatrix       .getValue());
-
-    (*jointMats)[jointId] = ract->topMatrix();
+    _sfSkeleton.getValue()->renderEnter(ract);
+    _sfSkeleton.getValue()->renderLeave(ract);
 
     return res;
 }
 
 Action::ResultE
-SkeletonJoint::renderLeave(Action *action)
+SkinnedGeometry::renderLeave(Action *action)
 {
+    if(_sfSkeleton.getValue() == NULL)
+    {
+        SWARNING << "SkinnedGeometry::renderLeave: No skeleton." << std::endl;
+
+        return Action::Continue;
+    }
+
     Action::ResultE  res  = Action::Continue;
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
 
-    Int16 jointId   = _sfJointId.getValue();
+    if(res != Action::Continue)
+        return res;
 
-    if(_identityInvBindMatrix == false)
-        ract->popMatrix();
-
-    ract->popMatrix();
+    if(testFlag(SG_FLAG_DEBUG) == true)
+    {
+        res = renderDebug(ract);
+    }
+    else if(testFlag(SG_FLAG_HARDWARE) == true)
+    {
+        res = renderHardware(ract);
+    }
+    else
+    {
+        res = renderSoftware(ract);
+    }
 
     return res;
 }
 
-void SkeletonJoint::dump(      UInt32    ,
+void
+SkinnedGeometry::fill(DrawableStatsAttachment *drawStats)
+{
+    Inherited::fill(drawStats);
+}
+
+void SkinnedGeometry::adjustVolume(Volume & volume)
+{
+    // XXX TODO correct volume calculation
+
+    volume.setValid   ();
+    volume.setInfinite();
+}
+
+void SkinnedGeometry::dump(      UInt32    ,
                          const BitVector ) const
 {
-    SLOG << "Dump SkeletonJoint NI" << std::endl;
+    SLOG << "Dump SkinnedGeometry NI" << std::endl;
+}
+
+Action::ResultE
+SkinnedGeometry::renderDebug(RenderAction *ract)
+{
+    SLOG << "SkinnedGeometry::renderDebug" << std::endl;
+
+    const Skeleton::MFJointsType        *joints       =
+        _sfSkeleton.getValue()->getMFJoints();
+    const Skeleton::MFJointMatricesType *jointMats    =
+        _sfSkeleton.getValue()->getMFJointMatrices();
+    const Skeleton::MFParentJointsType  *parentJoints =
+        _sfSkeleton.getValue()->getMFParentJoints();
+
+    UInt32        numJoints(joints->size());
+    PositionStore positions(4 * numJoints );
+    IndexStore    indices;
+
+    for(UInt32 i = 0; i < numJoints; ++i)
+    {
+        (*jointMats)[i].mult(Pnt3f(0.f,  0.f,  0.f ), positions[4 * i + 0]);
+        (*jointMats)[i].mult(Pnt3f(0.5f, 0.f,  0.f ), positions[4 * i + 1]);
+        (*jointMats)[i].mult(Pnt3f(0.f,  0.5f, 0.f ), positions[4 * i + 2]);
+        (*jointMats)[i].mult(Pnt3f(0.f,  0.f,  0.5f), positions[4 * i + 3]);
+
+        SLOG << "positions[" << i << "] " << positions[4 * i + 0] << std::endl;
+
+        if((*parentJoints)[i] != NULL)
+        {
+            indices.push_back(4 * i                                + 0);
+            indices.push_back(4 * (*parentJoints)[i]->getJointId() + 0);
+
+            SLOG << "indices[" << (indices.size() - 2) << "] " << indices[indices.size() - 2] << "\n";
+            SLOG << "indices[" << (indices.size() - 1) << "] " << indices[indices.size() - 1]
+                 << std::endl;
+        }
+
+        indices.push_back(4 * i + 0);
+        indices.push_back(4 * i + 1);
+        indices.push_back(4 * i + 0);
+        indices.push_back(4 * i + 2);
+        indices.push_back(4 * i + 0);
+        indices.push_back(4 * i + 3);
+    }
+
+    Material::DrawFunctor  drawFunc = 
+        boost::bind(&SkinnedGeometry::drawDebug,
+                    this, positions, indices, _1);
+    PrimeMaterial         *primeMat = getDefaultUnlitMaterial();
+    State                 *state    = primeMat->getState();
+    
+    ract->dropFunctor(drawFunc, state, primeMat->getSortKey());
+}
+
+Action::ResultE
+SkinnedGeometry::drawDebug(
+    const PositionStore &positions,
+    const IndexStore    &indices,   DrawEnv *drawEnv)
+{
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, &(positions.front())); 
+
+    glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT,
+                   &(indices.front())                        );
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+}
+
+Action::ResultE
+SkinnedGeometry::renderHardware(RenderAction *ract)
+{
+    SWARNING << "SkinnedGeometry::renderHardware: NIY"
+             << std::endl;
+}
+
+Action::ResultE
+SkinnedGeometry::renderSoftware(RenderAction *ract)
+{
+    SWARNING << "SkinnedGeometry::renderSoftware: NIY"
+             << std::endl;
 }
 
 OSG_END_NAMESPACE

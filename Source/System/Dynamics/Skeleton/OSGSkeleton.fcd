@@ -42,8 +42,8 @@
      access="public"
      >
     The joints (or bones) of the skeleton. Sorted by their jointId.
-    You should never write to this field, Skeleton scans for joints
-    whenever the set of roots is modified.
+    READ ONLY: You should never write to this field, Skeleton scans
+    for joints whenever the set of roots is modified.
   </Field>
 
   <Field
@@ -57,8 +57,24 @@
     Matrices for all joints of the skeleton. Elements correspond to
     joints at the same index in _mfJoints.
     These matrices are absolute, not relative to the parent joint.
-    You should never write to this field, Skeleton updates it during
-    the RenderActions traversal.
+    READ ONLY: You should never write to this field, Skeleton updates
+    it during the RenderActions traversal.
+  </Field>
+
+  <Field
+     name="parentJoints"
+     type="SkeletonJoint"
+     category="pointer"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    Stores the parent of each joint at the position of the childs jointId.
+    In other words parentJoints[i] is the parent of the joint with
+    jointId i (which is stored in joints[i]). If the joint has no parent
+    NULL is stored instead.
+    READ ONLY: You should never write to this field, Skeleton updates
+    it during the RenderActions traversal.
   </Field>
 
 </FieldContainer>
