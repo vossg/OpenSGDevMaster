@@ -137,19 +137,45 @@ SkeletonJoint::renderEnter(Action *action)
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
 
-    OSG_ASSERT(_sfJointId.getValue() != INVALID_JOINT_ID);
-    OSG_ASSERT(getSkeleton()         != NULL            );
+#ifdef OSG_DEBUG
+    if(_sfJointId.getValue() == INVALID_JOINT_ID)
+    {
+        SWARNING << "SkeletonJoint::renderEnter: Joint has invalid jointId. "
+                 << "Ignoring." << std::endl;
+        return res;
+    }
+    
+    if(getSkeleton() == NULL)
+    {
+        SWARNING << "SkeletonJoint::renderEnter: Joint has no skeleton. "
+                 << "Ignoring." << std::endl;
+        return res;
+    }
+#endif
 
-    Int16                          jointId   = _sfJointId.getValue();
-    Skeleton::MFJointMatricesType *jointMats =
-        getSkeleton()->editMFJointMatrices();
+    Int16                                jointId    = _sfJointId.getValue();
+    Skeleton                            *skel       = getSkeleton();
+    Skeleton::MFJointMatricesType       *jointMats  =
+        skel->editMFJointMatrices();
+    Skeleton::MFJointNormalMatricesType *jointNMats =
+        skel->editMFJointNormalMatrices();
 
     if(_identityInvBindMatrix == false)
         ract->pushMatrix(_sfInvBindMatrix.getValue());
 
-    ract->pushMatrix(_sfMatrix       .getValue());
+    ract->pushMatrix(_sfMatrix.getValue());
 
     (*jointMats)[jointId] = ract->topMatrix();
+
+    if(skel->getCalcNormalMatrices() == true)
+    {
+        Matrix jointNMat = ract->topMatrix();
+  
+        jointNMat.invert   ();
+        jointNMat.transpose();
+
+        (*jointNMats)[jointId] = jointNMat;
+    }
 
     return res;
 }
@@ -160,6 +186,24 @@ SkeletonJoint::renderLeave(Action *action)
     Action::ResultE  res  = Action::Continue;
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
+
+    // need to make symmetric checks to renderEnter, otherwise the
+    // matrix stack gets corrupted
+#ifdef OSG_DEBUG
+    if(_sfJointId.getValue() == INVALID_JOINT_ID)
+    {
+        SWARNING << "SkeletonJoint::renderEnter: Joint has invalid jointId. "
+                 << "Ignoring." << std::endl;
+        return res;
+    }
+    
+    if(getSkeleton() == NULL)
+    {
+        SWARNING << "SkeletonJoint::renderEnter: Joint has no skeleton. "
+                 << "Ignoring." << std::endl;
+        return res;
+    }
+#endif
 
     Int16 jointId   = _sfJointId.getValue();
 

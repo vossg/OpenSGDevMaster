@@ -169,9 +169,10 @@ void Skeleton::dump(      UInt32    ,
 void
 Skeleton::updateJoints(void)
 {
-    editMFJoints       ()->clear();
-    editMFParentJoints ()->clear();
-    editMFJointMatrices()->clear();
+    editMFJoints             ()->clear();
+    editMFParentJoints       ()->clear();
+    editMFJointMatrices      ()->clear();
+    editMFJointNormalMatrices()->clear();
 
     JointStack jointStack;
 
@@ -220,16 +221,19 @@ Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
         return Action::Continue;
     }
 
-    MFJointsType        *mfJoints       = editMFJoints       ();
-    MFParentJointsType  *mfParentJoints = editMFParentJoints ();
-    MFJointMatricesType *mfJointMat     = editMFJointMatrices();
+    MFJointsType              *mfJoints       = editMFJoints             ();
+    MFParentJointsType        *mfParentJoints = editMFParentJoints       ();
+    MFJointMatricesType       *mfJointMat     = editMFJointMatrices      ();
+    MFJointNormalMatricesType *mfJointNMats   = editMFJointNormalMatrices();
+    UInt32                     newSize        =
+        osgMax<UInt32>(mfJoints->size(), jointId + 1);
 
-    mfJoints  ->resize(
-        osgMax<UInt32>(mfJoints      ->size(), jointId + 1), NULL              );
-    mfParentJoints->resize(
-        osgMax<UInt32>(mfParentJoints->size(), jointId + 1), NULL              );
-    mfJointMat->resize(
-        osgMax<UInt32>(mfJointMat    ->size(), jointId + 1), Matrix::identity());
+    mfJoints      ->resize(newSize, NULL              );
+    mfParentJoints->resize(newSize, NULL              );
+    mfJointMat    ->resize(newSize, Matrix::identity());
+
+    if(_sfCalcNormalMatrices.getValue() == true)
+        mfJointNMats->resize(newSize, Matrix::identity());
 
     if((*mfJoints)[jointId] != NULL)
     {

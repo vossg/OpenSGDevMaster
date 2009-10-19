@@ -62,6 +62,22 @@
   </Field>
 
   <Field
+     name="jointNormalMatrices"
+     type="Matrix"
+     category="data"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    Normal matrices for all joints of the skeleton (these are the inverse
+    transpose of the jointMatrices). Elements correspond to
+    joints at the same index in _mfJoints.
+    These matrices are absolute, not relative to the parent joint.
+    READ ONLY: You should never write to this field, Skeleton updates
+    it during the RenderActions traversal.
+  </Field>
+
+  <Field
      name="parentJoints"
      type="SkeletonJoint"
      category="pointer"
@@ -75,6 +91,19 @@
     NULL is stored instead.
     READ ONLY: You should never write to this field, Skeleton updates
     it during the RenderActions traversal.
+  </Field>
+
+  <Field
+     name="calcNormalMatrices"
+     type="bool"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="true"
+     >
+    Whether jointNormalMatrices should be calculated when computing the
+    jointMatrices.
   </Field>
 
 </FieldContainer>

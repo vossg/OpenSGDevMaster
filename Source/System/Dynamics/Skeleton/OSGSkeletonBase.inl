@@ -73,6 +73,31 @@ OSG::UInt16 SkeletonBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the Skeleton::_sfCalcNormalMatrices field.
+
+inline
+bool &SkeletonBase::editCalcNormalMatrices(void)
+{
+    editSField(CalcNormalMatricesFieldMask);
+
+    return _sfCalcNormalMatrices.getValue();
+}
+
+//! Get the value of the Skeleton::_sfCalcNormalMatrices field.
+inline
+      bool  SkeletonBase::getCalcNormalMatrices(void) const
+{
+    return _sfCalcNormalMatrices.getValue();
+}
+
+//! Set the value of the Skeleton::_sfCalcNormalMatrices field.
+inline
+void SkeletonBase::setCalcNormalMatrices(const bool value)
+{
+    editSField(CalcNormalMatricesFieldMask);
+
+    _sfCalcNormalMatrices.setValue(value);
+}
 
 //! Get the value of the \a index element the Skeleton::_mfRoots field.
 inline
@@ -101,6 +126,22 @@ Matrix &SkeletonBase::editJointMatrices(const UInt32 index)
     editMField(JointMatricesFieldMask, _mfJointMatrices);
 
     return _mfJointMatrices[index];
+}
+
+
+//! Get the value of the \a index element the Skeleton::_mfJointNormalMatrices field.
+inline
+const Matrix &SkeletonBase::getJointNormalMatrices(const UInt32 index) const
+{
+    return _mfJointNormalMatrices[index];
+}
+
+inline
+Matrix &SkeletonBase::editJointNormalMatrices(const UInt32 index)
+{
+    editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
+
+    return _mfJointNormalMatrices[index];
 }
 
 
@@ -140,11 +181,20 @@ void SkeletonBase::execSync (      SkeletonBase *pFrom,
                                 uiSyncInfo,
                                 oOffsets);
 
+    if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
+        _mfJointNormalMatrices.syncWith(pFrom->_mfJointNormalMatrices,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
     if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
         _mfParentJoints.syncWith(pFrom->_mfParentJoints,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
+        _sfCalcNormalMatrices.syncWith(pFrom->_sfCalcNormalMatrices);
 }
 #endif
 

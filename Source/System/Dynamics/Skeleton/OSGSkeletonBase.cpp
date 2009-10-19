@@ -97,16 +97,25 @@ OSG_BEGIN_NAMESPACE
 
 /*! \var SkeletonJoint * SkeletonBase::_mfJoints
     The joints (or bones) of the skeleton. Sorted by their jointId.
-    You should never write to this field, Skeleton scans for joints
-    whenever the set of roots is modified.
+    READ ONLY: You should never write to this field, Skeleton scans
+    for joints whenever the set of roots is modified.
 */
 
 /*! \var Matrix          SkeletonBase::_mfJointMatrices
     Matrices for all joints of the skeleton. Elements correspond to
     joints at the same index in _mfJoints.
     These matrices are absolute, not relative to the parent joint.
-    You should never write to this field, Skeleton updates it during
-    the RenderActions traversal.
+    READ ONLY: You should never write to this field, Skeleton updates
+    it during the RenderActions traversal.
+*/
+
+/*! \var Matrix          SkeletonBase::_mfJointNormalMatrices
+    Normal matrices for all joints of the skeleton (these are the inverse
+    transpose of the jointMatrices). Elements correspond to
+    joints at the same index in _mfJoints.
+    These matrices are absolute, not relative to the parent joint.
+    READ ONLY: You should never write to this field, Skeleton updates
+    it during the RenderActions traversal.
 */
 
 /*! \var SkeletonJoint * SkeletonBase::_mfParentJoints
@@ -114,6 +123,13 @@ OSG_BEGIN_NAMESPACE
     In other words parentJoints[i] is the parent of the joint with
     jointId i (which is stored in joints[i]). If the joint has no parent
     NULL is stored instead.
+    READ ONLY: You should never write to this field, Skeleton updates
+    it during the RenderActions traversal.
+*/
+
+/*! \var bool            SkeletonBase::_sfCalcNormalMatrices
+    Whether jointNormalMatrices should be calculated when computing the
+    jointMatrices.
 */
 
 
@@ -208,8 +224,8 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
         MFUnrecChildSkeletonJointPtr::getClassType(),
         "joints",
         "The joints (or bones) of the skeleton. Sorted by their jointId.\n"
-        "You should never write to this field, Skeleton scans for joints\n"
-        "whenever the set of roots is modified.\n",
+        "READ ONLY: You should never write to this field, Skeleton scans\n"
+        "for joints whenever the set of roots is modified.\n",
         JointsFieldId, JointsFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
@@ -224,13 +240,30 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
         "Matrices for all joints of the skeleton. Elements correspond to\n"
         "joints at the same index in _mfJoints.\n"
         "These matrices are absolute, not relative to the parent joint.\n"
-        "You should never write to this field, Skeleton updates it during\n"
-        "the RenderActions traversal.\n",
+        "READ ONLY: You should never write to this field, Skeleton updates\n"
+        "it during the RenderActions traversal.\n",
         JointMatricesFieldId, JointMatricesFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Skeleton::editHandleJointMatrices),
         static_cast<FieldGetMethodSig >(&Skeleton::getHandleJointMatrices));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFMatrix::Description(
+        MFMatrix::getClassType(),
+        "jointNormalMatrices",
+        "Normal matrices for all joints of the skeleton (these are the inverse\n"
+        "transpose of the jointMatrices). Elements correspond to\n"
+        "joints at the same index in _mfJoints.\n"
+        "These matrices are absolute, not relative to the parent joint.\n"
+        "READ ONLY: You should never write to this field, Skeleton updates\n"
+        "it during the RenderActions traversal.\n",
+        JointNormalMatricesFieldId, JointNormalMatricesFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Skeleton::editHandleJointNormalMatrices),
+        static_cast<FieldGetMethodSig >(&Skeleton::getHandleJointNormalMatrices));
 
     oType.addInitialDesc(pDesc);
 
@@ -240,12 +273,27 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
         "Stores the parent of each joint at the position of the childs jointId.\n"
         "In other words parentJoints[i] is the parent of the joint with\n"
         "jointId i (which is stored in joints[i]). If the joint has no parent\n"
-        "NULL is stored instead.\n",
+        "NULL is stored instead.\n"
+        "READ ONLY: You should never write to this field, Skeleton updates\n"
+        "it during the RenderActions traversal.\n",
         ParentJointsFieldId, ParentJointsFieldMask,
         false,
         (Field::MFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&Skeleton::editHandleParentJoints),
         static_cast<FieldGetMethodSig >(&Skeleton::getHandleParentJoints));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
+        "calcNormalMatrices",
+        "Whether jointNormalMatrices should be calculated when computing the\n"
+        "jointMatrices.\n",
+        CalcNormalMatricesFieldId, CalcNormalMatricesFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Skeleton::editHandleCalcNormalMatrices),
+        static_cast<FieldGetMethodSig >(&Skeleton::getHandleCalcNormalMatrices));
 
     oType.addInitialDesc(pDesc);
 }
@@ -306,8 +354,8 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "     access=\"public\"\n"
     "     >\n"
     "    The joints (or bones) of the skeleton. Sorted by their jointId.\n"
-    "    You should never write to this field, Skeleton scans for joints\n"
-    "    whenever the set of roots is modified.\n"
+    "    READ ONLY: You should never write to this field, Skeleton scans\n"
+    "    for joints whenever the set of roots is modified.\n"
     "  </Field>\n"
     "\n"
     "  <Field\n"
@@ -321,8 +369,24 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "    Matrices for all joints of the skeleton. Elements correspond to\n"
     "    joints at the same index in _mfJoints.\n"
     "    These matrices are absolute, not relative to the parent joint.\n"
-    "    You should never write to this field, Skeleton updates it during\n"
-    "    the RenderActions traversal.\n"
+    "    READ ONLY: You should never write to this field, Skeleton updates\n"
+    "    it during the RenderActions traversal.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"jointNormalMatrices\"\n"
+    "     type=\"Matrix\"\n"
+    "     category=\"data\"\n"
+    "     cardinality=\"multi\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Normal matrices for all joints of the skeleton (these are the inverse\n"
+    "    transpose of the jointMatrices). Elements correspond to\n"
+    "    joints at the same index in _mfJoints.\n"
+    "    These matrices are absolute, not relative to the parent joint.\n"
+    "    READ ONLY: You should never write to this field, Skeleton updates\n"
+    "    it during the RenderActions traversal.\n"
     "  </Field>\n"
     "\n"
     "  <Field\n"
@@ -337,6 +401,21 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "    In other words parentJoints[i] is the parent of the joint with\n"
     "    jointId i (which is stored in joints[i]). If the joint has no parent\n"
     "    NULL is stored instead.\n"
+    "    READ ONLY: You should never write to this field, Skeleton updates\n"
+    "    it during the RenderActions traversal.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"calcNormalMatrices\"\n"
+    "     type=\"bool\"\n"
+    "     category=\"data\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"true\"\n"
+    "     >\n"
+    "    Whether jointNormalMatrices should be calculated when computing the\n"
+    "    jointMatrices.\n"
     "  </Field>\n"
     "\n"
     "</FieldContainer>\n",
@@ -407,6 +486,19 @@ const MFMatrix *SkeletonBase::getMFJointMatrices(void) const
 }
 
 
+MFMatrix *SkeletonBase::editMFJointNormalMatrices(void)
+{
+    editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
+
+    return &_mfJointNormalMatrices;
+}
+
+const MFMatrix *SkeletonBase::getMFJointNormalMatrices(void) const
+{
+    return &_mfJointNormalMatrices;
+}
+
+
 //! Get the Skeleton::_mfParentJoints field.
 const MFUnrecSkeletonJointPtr *SkeletonBase::getMFParentJoints(void) const
 {
@@ -419,6 +511,19 @@ MFUnrecSkeletonJointPtr *SkeletonBase::editMFParentJoints   (void)
 
     return &_mfParentJoints;
 }
+
+SFBool *SkeletonBase::editSFCalcNormalMatrices(void)
+{
+    editSField(CalcNormalMatricesFieldMask);
+
+    return &_sfCalcNormalMatrices;
+}
+
+const SFBool *SkeletonBase::getSFCalcNormalMatrices(void) const
+{
+    return &_sfCalcNormalMatrices;
+}
+
 
 
 
@@ -601,9 +706,17 @@ UInt32 SkeletonBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfJointMatrices.getBinSize();
     }
+    if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
+    {
+        returnValue += _mfJointNormalMatrices.getBinSize();
+    }
     if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
     {
         returnValue += _mfParentJoints.getBinSize();
+    }
+    if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
+    {
+        returnValue += _sfCalcNormalMatrices.getBinSize();
     }
 
     return returnValue;
@@ -626,9 +739,17 @@ void SkeletonBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfJointMatrices.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
+    {
+        _mfJointNormalMatrices.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
     {
         _mfParentJoints.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
+    {
+        _sfCalcNormalMatrices.copyToBin(pMem);
     }
 }
 
@@ -649,9 +770,17 @@ void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _mfJointMatrices.copyFromBin(pMem);
     }
+    if(FieldBits::NoField != (JointNormalMatricesFieldMask & whichField))
+    {
+        _mfJointNormalMatrices.copyFromBin(pMem);
+    }
     if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
     {
         _mfParentJoints.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
+    {
+        _sfCalcNormalMatrices.copyFromBin(pMem);
     }
 }
 
@@ -783,7 +912,9 @@ SkeletonBase::SkeletonBase(void) :
                           JointsFieldId,
                           SkeletonJoint::SkeletonFieldId),
     _mfJointMatrices          (),
-    _mfParentJoints           ()
+    _mfJointNormalMatrices    (),
+    _mfParentJoints           (),
+    _sfCalcNormalMatrices     (bool(true))
 {
 }
 
@@ -794,7 +925,9 @@ SkeletonBase::SkeletonBase(const SkeletonBase &source) :
                           JointsFieldId,
                           SkeletonJoint::SkeletonFieldId),
     _mfJointMatrices          (source._mfJointMatrices          ),
-    _mfParentJoints           ()
+    _mfJointNormalMatrices    (source._mfJointNormalMatrices    ),
+    _mfParentJoints           (),
+    _sfCalcNormalMatrices     (source._sfCalcNormalMatrices     )
 {
 }
 
@@ -988,6 +1121,31 @@ EditFieldHandlePtr SkeletonBase::editHandleJointMatrices  (void)
     return returnValue;
 }
 
+GetFieldHandlePtr SkeletonBase::getHandleJointNormalMatrices (void) const
+{
+    MFMatrix::GetHandlePtr returnValue(
+        new  MFMatrix::GetHandle(
+             &_mfJointNormalMatrices,
+             this->getType().getFieldDesc(JointNormalMatricesFieldId),
+             const_cast<SkeletonBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkeletonBase::editHandleJointNormalMatrices(void)
+{
+    MFMatrix::EditHandlePtr returnValue(
+        new  MFMatrix::EditHandle(
+             &_mfJointNormalMatrices,
+             this->getType().getFieldDesc(JointNormalMatricesFieldId),
+             this));
+
+
+    editMField(JointNormalMatricesFieldMask, _mfJointNormalMatrices);
+
+    return returnValue;
+}
+
 GetFieldHandlePtr SkeletonBase::getHandleParentJoints    (void) const
 {
     MFUnrecSkeletonJointPtr::GetHandlePtr returnValue(
@@ -1021,6 +1179,31 @@ EditFieldHandlePtr SkeletonBase::editHandleParentJoints   (void)
                     static_cast<Skeleton *>(this)));
 
     editMField(ParentJointsFieldMask, _mfParentJoints);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SkeletonBase::getHandleCalcNormalMatrices (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfCalcNormalMatrices,
+             this->getType().getFieldDesc(CalcNormalMatricesFieldId),
+             const_cast<SkeletonBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkeletonBase::editHandleCalcNormalMatrices(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfCalcNormalMatrices,
+             this->getType().getFieldDesc(CalcNormalMatricesFieldId),
+             this));
+
+
+    editSField(CalcNormalMatricesFieldMask);
 
     return returnValue;
 }
@@ -1076,6 +1259,10 @@ void SkeletonBase::resolveLinks(void)
 
 #ifdef OSG_MT_CPTR_ASPECT
     _mfJointMatrices.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfJointNormalMatrices.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }
