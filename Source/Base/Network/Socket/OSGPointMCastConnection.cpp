@@ -72,7 +72,7 @@ PointMCastConnection::PointMCastConnection():
     sprintf(lockName,"PointMCastConnection%p",this);
 
     // create locks
-    _lock     = Lock::get(lockName);
+    _lock     = Lock::get(lockName, false);
 
     // fill dgramqueue
     for(UInt32 dI = 0 ; dI < OSG_DGRAM_QUEUE_LEN ; ++dI)
@@ -97,6 +97,9 @@ PointMCastConnection::~PointMCastConnection(void)
     _recvQueueThreadStop = true;
     // wait for stop
     BaseThread::join(_recvQueueThread);    
+
+    _recvQueueThread = NULL;
+
     // close socket
     _mcastSocket.close();
     // free queues
@@ -108,6 +111,8 @@ PointMCastConnection::~PointMCastConnection(void)
     _lock->release();
     // close socket
     _acceptSocket.close();
+
+    _lock = NULL;
 }
 
 /*! get connection type
@@ -715,7 +720,7 @@ void PointMCastConnection::initialize()
     _ackDestination = SocketAddress(host.c_str(),port);
 
     // start reader thread
-    _recvQueueThread=BaseThread::get(threadName);
+    _recvQueueThread=BaseThread::get(threadName, false);
     _recvQueueThreadRunning = true;
     _recvQueueThreadStop    = false;
     _recvQueueThread->runFunction( recvQueueThread, static_cast<void *>(this));

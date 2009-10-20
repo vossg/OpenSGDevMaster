@@ -208,7 +208,7 @@ bool CSMDrawer::init(void)
 
     if(_bParallel == true)
     {
-        _pDrawThread  = CSMDrawThread ::get(NULL);
+        _pDrawThread  = CSMDrawThread ::get(NULL, false);
 
         OSG_ASSERT(_pDrawThread     != NULL);
         OSG_ASSERT(_pSyncBarrier    != NULL);
@@ -216,8 +216,6 @@ bool CSMDrawer::init(void)
 #ifdef OSG_GLOBAL_SYNC_LOCK
         OSG_ASSERT(_pSyncLock       != NULL);
 #endif
-
-        addRef(_pDrawThread );
 
         _pDrawThread->setDrawer(this);
         _pDrawThread->run(_sfAspect.getValue());
@@ -254,8 +252,6 @@ void CSMDrawer::joinDrawThread(void)
     if(_bParallel == true)
     {
         Thread::join(_pDrawThread);
-
-        subRef(_pDrawThread);
 
         _pDrawThread = NULL;
     }
@@ -704,12 +700,14 @@ CSMDrawThread *CSMDrawThread::find(Char8 *szName)
     return dynamic_cast<CSMDrawThread *>(pThread);
 }
 
-CSMDrawThread *CSMDrawThread::get(Char8 *szName) 
+CSMDrawThread::ObjTransitPtr CSMDrawThread::get(Char8 *szName, bool bGlobal) 
 {
-    BaseThread *pThread = ThreadManager::the()->getThread(szName,
-                                                          "OSGCSMDrawThread");
+    BaseThreadTransitPtr pThread = 
+        ThreadManager::the()->getThread(szName,
+                                        bGlobal,
+                                        "OSGCSMDrawThread");
 
-    return dynamic_cast<CSMDrawThread *>(pThread);
+    return dynamic_pointer_cast<CSMDrawThread>(pThread);
 }
 
 void CSMDrawThread::setDrawer(CSMDrawer *pDrawer)
@@ -724,15 +722,17 @@ void CSMDrawThread::setRunning(bool bVal)
 
 
 BaseThread *CSMDrawThread::create(const Char8  *szName, 
-                                        UInt32  uiId)
+                                        UInt32  uiId, 
+                                        bool    bGlobal)
 {
-    return new CSMDrawThread(szName, uiId);
+    return new CSMDrawThread(szName, uiId, bGlobal);
 }
 
-CSMDrawThread::CSMDrawThread(const Char8 *szName, UInt32 uiId) :
+CSMDrawThread::CSMDrawThread(const Char8 *szName, UInt32 uiId, bool bGlobal) :
      Inherited(szName, 
-               uiId  ),
-    _pDrawer  (NULL  )
+               uiId,
+               bGlobal),
+    _pDrawer  (NULL   )
 {
 }
 

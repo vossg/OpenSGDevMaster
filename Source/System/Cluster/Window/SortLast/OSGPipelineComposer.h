@@ -208,12 +208,12 @@ class OSG_CLUSTER_DLLMAPPING PipelineComposer : public PipelineComposerBase
 
     Statistics                  _statistics;
 
-    BaseThread                 *_writer;
-    Thread                     *_composer;
-    Barrier                    *_barrier;
-    Barrier                    *_composeBarrier;
-    Barrier                    *_frameEndBarrier;
-    Lock                       *_lock;
+    BaseThreadRefPtr            _writer;
+    ThreadRefPtr                _composer;
+    BarrierRefPtr               _barrier;
+    BarrierRefPtr               _composeBarrier;
+    BarrierRefPtr               _frameEndBarrier;
+    LockRefPtr                  _lock;
     QueueT                      _queue;
     bool                        _waiting;
     GLuint                      _occlusionQuery;

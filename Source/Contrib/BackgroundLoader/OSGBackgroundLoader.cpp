@@ -1,9 +1,6 @@
 #include "OSGBackgroundLoader.h"
 
-#include "OSGThread.h"
 #include "OSGThreadManager.h"
-#include "OSGLock.h"
-#include "OSGCondVar.h"
 #include "OSGBaseInitFunctions.h"
 #include <boost/lexical_cast.hpp>
 #include "OSGChangeList.h"
@@ -21,14 +18,17 @@ BackgroundLoaderBase::BackgroundLoaderBase(void)
    , mLoadCondVar(NULL)
    , mStopRunning(false)
 {
-   mStopRunning = false;
-   mFinishedLock = Lock::get("BackgroundLoader-FinishedLock");
-   mLoadCondVar = CondVar::get("BackgroundLoader-CondVar");
+   mStopRunning  = false;
+   mFinishedLock = Lock::get("BackgroundLoader-FinishedLock", false);
+   mLoadCondVar  = CondVar::get("BackgroundLoader-CondVar", false);
 }
 
 BackgroundLoaderBase::~BackgroundLoaderBase(void)
 {
    stop();
+
+   mFinishedLock = NULL;
+   mLoadCondVar  = NULL;
 }
 
 void BackgroundLoaderBase::stop(void)
@@ -39,7 +39,7 @@ void BackgroundLoaderBase::stop(void)
       mStopRunning = true;
       mLoadCondVar->broadcast();
 
-      for (std::vector<OSG::Thread*>::iterator itr = mLoadThreads.begin();
+      for (std::vector<OSG::ThreadRefPtr>::iterator itr = mLoadThreads.begin();
            itr != mLoadThreads.end(); itr++)
       {
          OSG::Thread::join(*itr);
@@ -75,7 +75,7 @@ void BackgroundLoaderBase::start(const OSG::UInt16 numThreads)
    OSG_ASSERT(0 == mLoadThreads.size() && "Can't have threads before starting.");
    for (OSG::UInt16 i = 0; i < numThreads; i++)
    {
-      OSG::Thread* new_thread = dynamic_cast<Thread *>(ThreadManager::the()->getThread(NULL));
+       OSG::ThreadRefPtr new_thread = dynamic_pointer_cast<Thread>(ThreadManager::the()->getThread(NULL, false));
       new_thread->runFunction(static_cast<Thread::ThreadFuncF>(loadProc), 
                               Thread::getCurrentAspect(), this);
       mLoadThreads.push_back(new_thread);

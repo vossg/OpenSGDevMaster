@@ -107,12 +107,12 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawManager : public CSMDrawManagerBase
 
     // Variables should all be in DrawManagerBase.
 
-    Thread  *_pThread;
-    Barrier *_pSyncBarrier;
-    Barrier *_pSwapBarrier;
+    ThreadRefPtr  _pThread;
+    BarrierRefPtr _pSyncBarrier;
+    BarrierRefPtr _pSwapBarrier;
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-    Lock    *_pSyncLock;
+    LockRefPtr    _pSyncLock;
 #endif
 
 

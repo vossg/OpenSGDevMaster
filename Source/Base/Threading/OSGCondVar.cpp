@@ -65,15 +65,17 @@ OSG_USING_NAMESPACE
 /*--------------------------- Constructors --------------------------------*/
 
 CondVarCommonBase::CondVarCommonBase(void) :
-     Inherited(NULL),
-    _uiCondVarId (0   )
+     Inherited  (NULL, true),
+    _uiCondVarId(0         )
 {
 }
 
 CondVarCommonBase::CondVarCommonBase(const Char8  *szName,
-                                           UInt32  uiId  ):
-     Inherited(szName),
-    _uiCondVarId (uiId  )
+                                           UInt32  uiId, 
+                                           bool    bGlobal):
+     Inherited  (szName, 
+                 bGlobal),
+    _uiCondVarId(uiId   )
 {
 }
 
@@ -100,10 +102,13 @@ PThreadCondVarBase::PThreadCondVarBase(void):
 }
 
 PThreadCondVarBase::PThreadCondVarBase(const Char8  *szName,
-                                             UInt32  uiId  ) :
-     Inherited    (szName, uiId),
-    _pLowLevelLock(),
-    _pLowLevelCondVar()
+                                             UInt32  uiId, 
+                                             bool    bGlobal) :
+     Inherited       (szName, 
+                      uiId, 
+                      bGlobal),
+    _pLowLevelLock   (       ),
+    _pLowLevelCondVar(       )
 {
 }
 
@@ -439,9 +444,10 @@ WinThreadCondVarBase::WinThreadCondVarBase(void) :
 }
 
 WinThreadCondVarBase::WinThreadCondVarBase(const Char8  *szName,
-                                           UInt32  uiId  ) :
-       Inherited(szName, uiId)
-    , _pMutex   (NULL        )
+                                                 UInt32  uiId, 
+                                                 bool    bGlobal) :
+     Inherited(szName, uiId, bGlobal),
+    _pMutex   (NULL                 )
 {
 }
 
@@ -621,9 +627,9 @@ MPCondVarType CondVar::_type("OSGCondVar", "OSGMPBase", &CondVar::create);
 
 /*------------------------------- Get -------------------------------------*/
 
-CondVar *CondVar::get(const Char8 *szName)
+CondVar::ObjTransitPtr CondVar::get(const Char8 *szName, bool bGlobal)
 {
-    return ThreadManager::the()->getCondVar(szName, "OSGCondVar");
+    return ThreadManager::the()->getCondVar(szName, bGlobal, "OSGCondVar");
 }
 
 CondVar *CondVar::find(const Char8 *szName)
@@ -634,11 +640,11 @@ CondVar *CondVar::find(const Char8 *szName)
 
 /*------------------------------ Create -----------------------------------*/
 
-CondVar *CondVar::create(const Char8 *szName, UInt32 uiId)
+CondVar *CondVar::create(const Char8 *szName, UInt32 uiId, bool bGlobal)
 {
     CondVar *returnValue = NULL;
 
-    returnValue = new CondVar(szName, uiId);
+    returnValue = new CondVar(szName, uiId, bGlobal);
 
     if(returnValue->init() == false)
     {
@@ -656,8 +662,8 @@ CondVar::CondVar(void) :
 {
 }
 
-CondVar::CondVar(const Char8 *szName, UInt32 uiId) :
-    Inherited(szName, uiId)
+CondVar::CondVar(const Char8 *szName, UInt32 uiId, bool bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -665,7 +671,9 @@ CondVar::CondVar(const Char8 *szName, UInt32 uiId) :
 
 CondVar::~CondVar(void)
 {
-    ThreadManager::the()->removeCondVar(this);
+    _bGlobal = false;
+
+    ThreadManager::the()->remove(this);
 
     shutdown();
 }

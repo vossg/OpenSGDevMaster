@@ -60,14 +60,15 @@ OSG_USING_NAMESPACE
 /*--------------------------- Constructors --------------------------------*/
 
 LockCommonBase::LockCommonBase(void) :
-     Inherited(NULL),
+     Inherited(NULL, true),
     _uiLockId (0   )
 {
 }
 
 LockCommonBase::LockCommonBase(const Char8  *szName,
-                                     UInt32  uiId  ):
-     Inherited(szName),
+                                     UInt32  uiId, 
+                                     bool    bGlobal):
+     Inherited(szName, bGlobal),
     _uiLockId (uiId  )
 {
 }
@@ -95,8 +96,9 @@ PThreadLockBase::PThreadLockBase(void):
 }
 
 PThreadLockBase::PThreadLockBase(const Char8  *szName,
-                                       UInt32  uiId  ) :
-     Inherited    (szName, uiId),
+                                       UInt32  uiId, 
+                                       bool    bGlobal) :
+    Inherited    (szName, uiId, bGlobal),
     _pLowLevelLock()
 {
 }
@@ -256,8 +258,9 @@ WinThreadLockBase::WinThreadLockBase(void) :
 }
 
 WinThreadLockBase::WinThreadLockBase(const Char8  *szName,
-                                           UInt32  uiId  ) :
-       Inherited(szName, uiId)
+                                           UInt32  uiId, 
+                                           bool    bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 #ifdef OSG_WINLOCK_USE_MUTEX
     , _pMutex   (NULL        )
 #endif
@@ -319,9 +322,9 @@ MPLockType Lock::_type("OSGLock", "OSGMPBase", &Lock::create);
 
 /*------------------------------- Get -------------------------------------*/
 
-Lock *Lock::get(const Char8 *szName)
+Lock::ObjTransitPtr Lock::get(const Char8 *szName, bool bGlobal)
 {
-    return ThreadManager::the()->getLock(szName, "OSGLock");
+    return ThreadManager::the()->getLock(szName, bGlobal, "OSGLock");
 }
 
 Lock *Lock::find(const Char8 *szName)
@@ -332,11 +335,11 @@ Lock *Lock::find(const Char8 *szName)
 
 /*------------------------------ Create -----------------------------------*/
 
-Lock *Lock::create(const Char8 *szName, UInt32 uiId)
+Lock *Lock::create(const Char8 *szName, UInt32 uiId, bool bGlobal)
 {
     Lock *returnValue = NULL;
 
-    returnValue = new Lock(szName, uiId);
+    returnValue = new Lock(szName, uiId, bGlobal);
 
     if(returnValue->init() == false)
     {
@@ -354,8 +357,8 @@ Lock::Lock(void) :
 {
 }
 
-Lock::Lock(const Char8 *szName, UInt32 uiId) :
-    Inherited(szName, uiId)
+Lock::Lock(const Char8 *szName, UInt32 uiId, bool bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -363,7 +366,9 @@ Lock::Lock(const Char8 *szName, UInt32 uiId) :
 
 Lock::~Lock(void)
 {
-    ThreadManager::the()->removeLock(this);
+    _bGlobal = false;
+
+    ThreadManager::the()->remove(this);
 
     shutdown();
 }
@@ -379,9 +384,11 @@ MPLockPoolType LockPool::_type("OSGLockPool", "OSGMPBase", &LockPool::create);
 /*-------------------------------------------------------------------------*/
 /*                                Get                                      */
 
-LockPool *LockPool::get(const Char8 *szName)
+LockPool::ObjTransitPtr LockPool::get(const Char8 *szName, bool bGlobal)
 {
-    return ThreadManager::the()->getLockPool(szName, "OSGLockPool");
+    return ThreadManager::the()->getLockPool(szName, 
+                                             bGlobal,
+                                             "OSGLockPool");
 }
 
 LockPool *LockPool::find(const Char8 *szName)
@@ -391,15 +398,16 @@ LockPool *LockPool::find(const Char8 *szName)
 
 /*------------------------------ Create -----------------------------------*/
 
-LockPool *LockPool::create(const Char8 *szName, UInt32 uiId)
+LockPool *LockPool::create(const Char8 *szName, 
+                                 UInt32 uiId, 
+                                 bool   bGlobal)
 {
     LockPool *returnValue = NULL;
 
-    returnValue = new LockPool(szName, uiId);
+    returnValue = new LockPool(szName, uiId, bGlobal);
 
     if(returnValue->init() == false)
     {
-        delete returnValue;
         returnValue = NULL;
     }
 
@@ -409,8 +417,9 @@ LockPool *LockPool::create(const Char8 *szName, UInt32 uiId)
 /*--------------------------- Constructors --------------------------------*/
 
 LockPool::LockPool(const Char8  *szName,
-                         UInt32  uiId  ) :
-    Inherited(szName, uiId)
+                         UInt32  uiId, 
+                         bool    bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -418,7 +427,9 @@ LockPool::LockPool(const Char8  *szName,
 
 LockPool::~LockPool(void)
 {
-    ThreadManager::the()->removeLockPool(this);
+    _bGlobal = false;
+
+    ThreadManager::the()->remove(this);
 
     shutdown();
 }

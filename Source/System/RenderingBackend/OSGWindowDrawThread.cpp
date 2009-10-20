@@ -79,29 +79,35 @@ WindowDrawThread *WindowDrawThread::find(Char8 *szName)
     return dynamic_cast<WindowDrawThread *>(pThread);
 }
 
-WindowDrawThread *WindowDrawThread::get(Char8 *szName) 
+WindowDrawThread::ObjTransitPtr WindowDrawThread::get(Char8 *szName,
+                                                      bool   bGlobal) 
 {
-    BaseThread *pThread = 
+    BaseThreadTransitPtr pThread = 
         ThreadManager::the()->getThread(szName,
+                                        bGlobal,
                                         "OSGWindowDrawThread");
 
-    return dynamic_cast<WindowDrawThread *>(pThread);
+    return dynamic_pointer_cast<WindowDrawThread>(pThread);
 }
 
 
 
 BaseThread *WindowDrawThread::create(const Char8  *szName, 
-                                           UInt32  uiId)
+                                           UInt32  uiId,
+                                           bool    bGlobal)
 {
-    return new WindowDrawThread(szName, uiId);
+    return new WindowDrawThread(szName, uiId, bGlobal);
 }
 
-WindowDrawThread::WindowDrawThread(const Char8 *szName, UInt32 uiId) :
+WindowDrawThread::WindowDrawThread(const Char8 *szName, 
+                                         UInt32 uiId,
+                                         bool   bGlobal) :
       Inherited (szName, 
-                 uiId  ),
-     _bRunning  (false ),
-     _oEnv      (      ),
-     _qTaskQueue(      )
+                 uiId  ,
+                 bGlobal),
+     _bRunning  (false  ),
+     _oEnv      (       ),
+     _qTaskQueue(       )
 {
 }
 

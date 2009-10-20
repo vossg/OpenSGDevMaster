@@ -44,6 +44,8 @@
 
 #include "OSGTypeBase.h"
 #include "OSGMemoryObject.h"
+#include "OSGRefCountPtr.h"
+#include "OSGTransitPtr.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -56,17 +58,23 @@ class LockPool;
 class Semaphore;
 
 typedef BaseThread *(*CreateThreadF   )(const Char8  *szName,
-                                              UInt32  uiId);
+                                              UInt32  uiId,
+                                              bool    bGlobal);
 typedef Barrier    *(*CreateBarrierF  )(const Char8  *szName,
-                                              UInt32  uiId);
+                                              UInt32  uiId,
+                                              bool    bGlobal);
 typedef CondVar    *(*CreateCondVarF  )(const Char8  *szName,
-                                              UInt32  uiId);
+                                              UInt32  uiId,
+                                              bool    bGlobal);
 typedef Lock       *(*CreateLockF     )(const Char8  *szName,
-                                              UInt32  uiId);
+                                              UInt32  uiId,
+                                              bool    bGlobal);
 typedef LockPool   *(*CreateLockPoolF )(const Char8  *szName,
-                                              UInt32  uiId);
+                                              UInt32  uiId,
+                                              bool    bGlobal);
 typedef Semaphore  *(*CreateSemaphoreF)(const Char8  *szName,
-                                              UInt32  uiId);
+                                              UInt32  uiId,
+                                              bool    bGlobal);
 typedef void        (*InitThreadingF  ) (void);
 
 //---------------------------------------------------------------------------
@@ -162,7 +170,7 @@ class OSG_BASE_DLLMAPPING MPThreadType : public MPType
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    BaseThread *create(const Char8 *szName);
+    BaseThread *create(const Char8 *szName, bool bGlobal);
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -231,7 +239,7 @@ class OSG_BASE_DLLMAPPING MPBarrierType : public MPType
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    Barrier *create(const Char8 *szName);
+    Barrier *create(const Char8 *szName, bool bGlobal);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -297,7 +305,7 @@ class OSG_BASE_DLLMAPPING MPCondVarType : public MPType
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    CondVar *create(const Char8 *szName);
+    CondVar *create(const Char8 *szName, bool bGlobal);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -364,7 +372,7 @@ class OSG_BASE_DLLMAPPING MPLockType : public MPType
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    Lock *create(const Char8 *szName);
+    Lock *create(const Char8 *szName, bool bGlobal);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -431,7 +439,7 @@ class OSG_BASE_DLLMAPPING MPLockPoolType : public MPType
     /*! \name                    Construction                              */
     /*! \{                                                                 */
 
-    LockPool *create(const Char8 *szName);
+    LockPool *create(const Char8 *szName, bool bGlobal);
     
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -499,7 +507,7 @@ class OSG_BASE_DLLMAPPING MPSemaphoreType : public MPType
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    Semaphore *create(const Char8 *szName);
+    Semaphore *create(const Char8 *szName, bool bGlobal);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -556,6 +564,8 @@ class OSG_BASE_DLLMAPPING MPBase : public MemoryObject
                   UInt32  getTypeId(void);
             const Char8  *getCName (void) const;
 
+                  bool    isGlobal (void) const;
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
@@ -569,13 +579,14 @@ class OSG_BASE_DLLMAPPING MPBase : public MemoryObject
 
     static  MPType  _type;
             Char8  *_szName;
+            bool    _bGlobal;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructor                                */
     /*! \{                                                                 */
 
-    MPBase(const Char8 *szName);
+    MPBase(const Char8 *szName, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

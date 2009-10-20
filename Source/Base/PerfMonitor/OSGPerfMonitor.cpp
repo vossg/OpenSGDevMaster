@@ -233,8 +233,13 @@ PerfMonitorBase::PerfMonitorBase()
     , mFlushingRate(600)
     , mOutFile(NULL)
 {      
-    mDataLock = OSG::Lock::get("PerfMonitor::mDataLock");
+    mDataLock = OSG::Lock::get("PerfMonitor::mDataLock", false);
     mStartTimeMs = OSG::getTimeStampMsecs(OSG::getTimeStamp());
+}
+
+PerfMonitorBase::~PerfMonitorBase(void)
+{
+    mDataLock = NULL;
 }
 
 void PerfMonitorBase::reset()

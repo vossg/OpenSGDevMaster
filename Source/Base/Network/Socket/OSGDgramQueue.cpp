@@ -71,13 +71,14 @@ DgramQueue::DgramQueue():
     sprintf(barrierName,"DgramQueue%p",this);
 
     // create barrier
-    _barrier = Barrier::get(barrierName);
+    _barrier = Barrier::get(barrierName, false);
 }
 
 /*! Destructor
  */
 DgramQueue::~DgramQueue()
 {
+    _barrier = NULL;
 }
 
 /*-------------------------------------------------------------------------*/

@@ -74,18 +74,22 @@ void DeviceInterface::setOptions(InterfaceOptions *pOptions)
     _uiNapTime = pOptions->getNapTime();
 }
 
-DeviceInterface::DeviceInterface(const Char8 *szName, UInt32 uiId) :
+DeviceInterface::DeviceInterface(const Char8 *szName, 
+                                       UInt32 uiId, 
+                                       bool   bGlobal) :
      Inherited  (szName, 
-                 uiId  ),
-    _pDataLock  (NULL  ),
-    _bRunning   (false ),
-    _bHasNewData(false ),
-    _uiNapTime  (10    )
+                 uiId,
+                 bGlobal),
+    _pDataLock  (NULL   ),
+    _bRunning   (false  ),
+    _bHasNewData(false  ),
+    _uiNapTime  (10     )
 {
 }
 
 DeviceInterface::~DeviceInterface(void)
 {
+    _pDataLock = NULL;
 }
 
 bool DeviceInterface::start(void)

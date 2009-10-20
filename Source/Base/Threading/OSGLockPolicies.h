@@ -143,7 +143,7 @@ class SingleLockPolicy
 
   protected:
 
-    Lock *_pLock;
+    LockRefPtr _pLock;
 
    /*==========================  PRIVATE  ================================*/
 
@@ -199,7 +199,7 @@ class SingleStaticInitLockPolicy
 
   protected:
 
-    Lock *_pLock;
+    LockRefPtr _pLock;
 
     bool init    (void);
     bool shutdown(void);

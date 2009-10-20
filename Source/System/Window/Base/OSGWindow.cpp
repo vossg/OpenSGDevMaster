@@ -234,13 +234,13 @@ Int32               OSG::Window::_currentWindowId = 0;
   when they are used for the first time.
  */
 
-Lock                                 *OSG::Window::_GLObjectLock = NULL;
+LockRefPtr                            OSG::Window::_GLObjectLock = NULL;
 
 /*! The lock used to mutex access of the Window's static elements to manage
   OpenGL extensions/functions/constants/objects.
  */
 
-Lock                                 *OSG::Window::_staticWindowLock = NULL;
+LockRefPtr                            OSG::Window::_staticWindowLock = NULL;
 #endif
 
 /*! Global list of all GL Objects used in the system. See \ref
@@ -291,15 +291,8 @@ void OSG::Window::initMethod(InitPhase ePhase)
 bool OSG::Window::cleanup(void)
 {
 #ifndef OSG_EMBEDDED
-    if(_staticWindowLock != NULL)
-    {
-        OSG::subRef(_staticWindowLock);
-    }
-
-    if(_GLObjectLock != NULL)
-    {
-        OSG::subRef(_GLObjectLock);
-    }
+    _staticWindowLock = NULL;
+    _GLObjectLock     = NULL;
 #endif
 
     for(UInt32 i = 0; i < _glObjects.size(); ++i)
@@ -407,7 +400,7 @@ void OSG::Window::onCreate(const Window *source)
 
     _windowId = _currentWindowId++;
 
-    _pDrawThread = WindowDrawThread::get(NULL);
+    _pDrawThread = WindowDrawThread::get(NULL, false);
 }
 
 void OSG::Window::onCreateAspect(const Window *createAspect, 
@@ -512,8 +505,8 @@ void OSG::Window::staticAcquire(void)
     if(_staticWindowLock == NULL)
     {
         _staticWindowLock =
-            ThreadManager::the()->getLock("OSG::Window::_staticWindowLock");
-        OSG::addRef(_staticWindowLock);
+            ThreadManager::the()->getLock("OSG::Window::_staticWindowLock", 
+                                          false);
 
         addPostFactoryExitFunction(&Window::cleanup);
     }

@@ -59,10 +59,12 @@ OSG_USING_NAMESPACE
 /*--------------------------- Constructors --------------------------------*/
 
 BarrierCommonBase::BarrierCommonBase(const Char8  *szName,
-                                           UInt32  uiId  ) :
-     Inherited   (szName),
-    _uiBarrierId (uiId  ),
-    _uiNumWaitFor(     1)
+                                           UInt32  uiId, 
+                                           bool    bGlobal) :
+     Inherited   (szName,
+                  bGlobal),
+    _uiBarrierId (uiId   ),
+    _uiNumWaitFor(      1)
 {
 }
 
@@ -84,13 +86,15 @@ BarrierCommonBase::~BarrierCommonBase(void)
 /*--------------------------- Constructors --------------------------------*/
 
 PThreadBarrierBase::PThreadBarrierBase(const Char8  *szName,
-                                             UInt32  uiId  ) :
+                                             UInt32  uiId, 
+                                             bool    bGlobal) :
      Inherited        (szName, 
-                       uiId  ),
+                       uiId,
+                       bGlobal),
 
-    _pLockOne         (      ),
-    _uiCount          (0     ),
-    _uiCurrentCond    (0     )
+    _pLockOne         (       ),
+    _uiCount          (0      ),
+    _uiCurrentCond    (0      )
 {
 }
 
@@ -194,8 +198,9 @@ void SprocBarrierBase::shutdown(void)
 /*--------------------------- Constructors --------------------------------*/
 
 WinThreadBarrierBase::WinThreadBarrierBase(const Char8  *szName,
-                                                 UInt32  uiId  ) :
-     Inherited    (szName, uiId),
+                                                 UInt32  uiId, 
+                                                 bool    bGlobal) :
+     Inherited    (szName, uiId, bGlobal),
 
     _pMutex1      (NULL),
     _uiCount      (0   ),
@@ -305,8 +310,9 @@ MPBarrierType Barrier::_type("OSGBarrier", "OSGMPBase", &Barrier::create);
 /*--------------------------- Constructors --------------------------------*/
 
 Barrier::Barrier(const Char8  *szName,
-                       UInt32  uiId  ) :
-    Inherited(szName, uiId)
+                       UInt32  uiId, 
+                       bool    bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -314,16 +320,18 @@ Barrier::Barrier(const Char8  *szName,
 
 Barrier::~Barrier(void)
 {
-    ThreadManager::the()->removeBarrier(this);
+    _bGlobal = false;
+
+    ThreadManager::the()->remove(this);
 
     shutdown();
 }
 
 /*-------------------------------- Get ------------------------------------*/
 
-Barrier *Barrier::get(const Char8 *szName)
+Barrier::ObjTransitPtr Barrier::get(const Char8 *szName, bool bGlobal)
 {
-    return ThreadManager::the()->getBarrier(szName, "OSGBarrier");
+    return ThreadManager::the()->getBarrier(szName, bGlobal, "OSGBarrier");
 }
 
 Barrier *Barrier::find(const Char8 *szName)
@@ -335,11 +343,12 @@ Barrier *Barrier::find(const Char8 *szName)
 /*------------------------------ Create -----------------------------------*/
 
 Barrier *Barrier::create (const Char8  *szName,
-                                UInt32  uiId  )
+                                UInt32  uiId,
+                                bool    bGlobal)
 {
     Barrier *returnValue = NULL;
 
-    returnValue = new Barrier(szName, uiId);
+    returnValue = new Barrier(szName, uiId, bGlobal);
 
     if(returnValue->init() == false)
     {

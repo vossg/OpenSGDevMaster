@@ -104,7 +104,7 @@ MPThreadType::~MPThreadType(void)
 }
 
 
-BaseThread *MPThreadType::create(const Char8 *szName)
+BaseThread *MPThreadType::create(const Char8 *szName, bool bGlobal)
 {
     Char8      *szTmp;
     UInt32      uiNewId     = _uiThreadCount++;
@@ -121,7 +121,7 @@ BaseThread *MPThreadType::create(const Char8 *szName)
     }
 
     if(_fCreateThread != NULL)
-        returnValue =  _fCreateThread(szTmp, uiNewId);
+        returnValue =  _fCreateThread(szTmp, uiNewId, bGlobal);
 
     if(szTmp != szName)
         delete [] szTmp;
@@ -156,7 +156,7 @@ MPCondVarType::~MPCondVarType(void)
 }
 
 
-CondVar *MPCondVarType::create(const Char8 *szName)
+CondVar *MPCondVarType::create(const Char8 *szName, bool bGlobal)
 {
     Char8   *szTmp;
     UInt32   uiNewId     = _uiCondVarCount++;
@@ -173,7 +173,7 @@ CondVar *MPCondVarType::create(const Char8 *szName)
     }
 
     if(_fCreateCondVar != NULL)
-        returnValue = _fCreateCondVar(szTmp, uiNewId);
+        returnValue = _fCreateCondVar(szTmp, uiNewId, bGlobal);
 
     if(szTmp != szName)
         delete [] szTmp;
@@ -209,7 +209,7 @@ MPBarrierType::~MPBarrierType(void)
 }
 
 
-Barrier *MPBarrierType::create(const Char8 *szName)
+Barrier *MPBarrierType::create(const Char8 *szName, bool bGlobal)
 {
     Char8   *szTmp;
     UInt32   uiNewId     = _uiBarrierCount++;
@@ -226,7 +226,7 @@ Barrier *MPBarrierType::create(const Char8 *szName)
     }
 
     if(_fCreateBarrier != NULL)
-        returnValue =  _fCreateBarrier(szTmp, uiNewId);
+        returnValue =  _fCreateBarrier(szTmp, uiNewId, bGlobal);
 
     if(szTmp != szName)
         delete [] szTmp;
@@ -263,7 +263,7 @@ MPLockType::~MPLockType(void)
 }
 
 
-Lock *MPLockType::create(const Char8 *szName)
+Lock *MPLockType::create(const Char8 *szName, bool bGlobal)
 {
     Char8   *szTmp;
     UInt32  uiNewId     = _uiLockCount++;
@@ -280,7 +280,7 @@ Lock *MPLockType::create(const Char8 *szName)
     }
 
     if(_fCreateLock != NULL)
-        returnValue = _fCreateLock(szTmp, uiNewId);
+        returnValue = _fCreateLock(szTmp, uiNewId, bGlobal);
 
     if(szTmp != szName)
         delete [] szTmp;
@@ -319,7 +319,7 @@ MPLockPoolType::~MPLockPoolType(void)
 }
 
 
-LockPool *MPLockPoolType::create(const Char8 *szName)
+LockPool *MPLockPoolType::create(const Char8 *szName, bool bGlobal)
 {
     Char8    *szTmp;
     UInt32    uiNewId     = _uiLockPoolCount++;
@@ -336,7 +336,7 @@ LockPool *MPLockPoolType::create(const Char8 *szName)
     }
 
     if(_fCreateLockPool != NULL)
-        returnValue =  _fCreateLockPool(szTmp, uiNewId);
+        returnValue =  _fCreateLockPool(szTmp, uiNewId, bGlobal);
 
     if(szTmp != szName)
         delete [] szTmp;
@@ -372,7 +372,7 @@ MPSemaphoreType::~MPSemaphoreType(void)
 }
 
 
-Semaphore *MPSemaphoreType::create(const Char8 *szName)
+Semaphore *MPSemaphoreType::create(const Char8 *szName, bool bGlobal)
 {
     Char8      *szTmp;
     UInt32      uiNewId     = _uiSemaphoreCount++;
@@ -389,7 +389,7 @@ Semaphore *MPSemaphoreType::create(const Char8 *szName)
     }
 
     if(_fCreateSemaphore != NULL)
-        returnValue = _fCreateSemaphore(szTmp, uiNewId);
+        returnValue = _fCreateSemaphore(szTmp, uiNewId, bGlobal);
 
     if(szTmp != szName)
         delete [] szTmp;
@@ -444,10 +444,11 @@ const Char8 *MPBase::getCName(void) const
 }
 
 
-MPBase::MPBase(const Char8 *szName) :
-     Inherited(    ),
+MPBase::MPBase(const Char8 *szName, bool bGlobal) :
+     Inherited(       ),
     
-    _szName   (NULL)
+    _szName   (NULL   ),
+    _bGlobal  (bGlobal)
 {
     osgStringDup(szName, _szName);
 }

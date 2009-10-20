@@ -91,10 +91,12 @@ void ThreadCommonBase::replaceChangelist(ChangeList *pNewList)
 /*                            Constructors                                 */
 
 ThreadCommonBase::ThreadCommonBase(const Char8  *szName,
-                                         UInt32  uiId) :
+                                         UInt32  uiId, 
+                                         bool    bGlobal) :
     
      Inherited     (szName, 
-                    uiId                                  ),
+                    uiId,
+                    bGlobal                               ),
 
     _uiAspectId    (0                                     ),
     _pChangeList   (NULL                                  ),
@@ -207,8 +209,9 @@ void PThreadBase::freeLocalFlags(void *pLocalFlags)
 /*                            Constructors                                 */
 
 PThreadBase::PThreadBase(const Char8   *szName, 
-                               UInt32   uiId) :
-    Inherited(szName, uiId)
+                               UInt32   uiId, 
+                               bool     bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -535,11 +538,9 @@ void PThreadBase::setupLocalFlags(void)
 
 void PThreadBase::doAutoInit(void)
 {
-    this->init();
-
     this->setAspect         (_uiFallbackAspectId);
 
-    PThreadBase::setAspectTo(_uiFallbackAspectId);
+    this->init();
 
 #if defined(OSG_PTHREAD_ELF_TLS)
     UInt32 *pUint = new UInt32;
@@ -561,8 +562,9 @@ void PThreadBase::doAutoInit(void)
 /*                            Constructors                                 */
 
 SprocBase::SprocBase(const Char8  *szName,
-                           UInt32  uiId) :    
-    Inherited(szName, uiId)
+                           UInt32  uiId, 
+                           bool    bGlobal) :    
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -685,8 +687,9 @@ void WinThreadBase::freeLocalFlags(void)
 /*                            Constructors                                 */
 
 WinThreadBase::WinThreadBase(const Char8  *szName,
-                                   UInt32  uiId) :
-    Inherited(szName, uiId)
+                                   UInt32  uiId, 
+                                   bool    bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -962,11 +965,14 @@ MPThreadType Thread::_type("OSGThread",
 /*-------------------------------------------------------------------------*/
 /*                                Get                                      */
 
-Thread *Thread::get(const Char8 *szName)
+Thread::ObjTransitPtr Thread::get(const Char8 *szName, bool bGlobal)
 {
-    BaseThread *pThread = ThreadManager::the()->getThread(szName, "OSGThread");
+    BaseThreadTransitPtr pThread = 
+        ThreadManager::the()->getThread(szName,
+                                        bGlobal,
+                                        "OSGThread");
 
-    return dynamic_cast<Thread *>(pThread);
+    return dynamic_pointer_cast<Thread>(pThread);
 }
 
 Thread *Thread::find(const Char8 *szName)
@@ -1000,9 +1006,9 @@ void Thread::run(UInt32 uiAspectId)
 /*-------------------------------------------------------------------------*/
 /*                               Setup                                     */
 
-Thread *Thread::create(const Char8 *szName, UInt32 uiId)
+Thread *Thread::create(const Char8 *szName, UInt32 uiId, bool bGlobal)
 {
-    return new Thread(szName, uiId);
+    return new Thread(szName, uiId, bGlobal);
 }
 
 static bool clearInitChanges(void)
@@ -1051,7 +1057,7 @@ void Thread::initThreading(void)
 # endif
 #endif
 
-#if defined(OSG_USE_WINTHREADS) && defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)       
+#if defined(OSG_USE_WINTHREADS) && defined(OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
     Thread::_aspectKey     = TlsAlloc();
 
     FFASSERT((Thread::_aspectKey != 0xFFFFFFFF), 1, 
@@ -1078,11 +1084,46 @@ void Thread::initThreading(void)
     addPostFactoryInitFunction(clearInitChanges);
 }
 
+void Thread::terminateThreading(void)
+{
+    Inherited::terminateThreading();
+
+    FINFO(("Thread::terminateThreading\n"));
+
+#if defined(OSG_USE_PTHREADS)
+# if !defined(OSG_PTHREAD_ELF_TLS)
+    int rc; 
+
+    rc = pthread_key_delete(Thread::_aspectKey);
+
+    FFASSERT((rc == 0), 1, ("Failed to destroy pthread aspect key\n");)
+
+    rc = pthread_key_delete(Thread::_changeListKey);
+
+    FFASSERT((rc == 0), 1, ("Failed to destroy pthread changelist key\n");)
+
+    rc = pthread_key_delete(Thread::_namespaceMaskKey);
+
+    FFASSERT((rc == 0), 1, ("Failed to destroy pthread namespaceMask key\n");)
+
+    rc = pthread_key_delete(Thread::_localFlagsKey);
+
+    FFASSERT((rc == 0), 1, ("Failed to destroy pthread localFlags key\n");)
+# else
+#  ifdef OSG_ENABLE_AUTOINIT_THREADS
+    int rcd = pthread_key_delete(Thread::_localFlagsKey);
+
+    FFASSERT((rcd == 0), 1, ("Failed to destroy pthread dummy aspect key\n");)
+#  endif
+# endif
+#endif
+}
+
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-Thread::Thread(const Char8 *szName, UInt32 uiId) :
-    Inherited(szName, uiId)
+Thread::Thread(const Char8 *szName, UInt32 uiId, bool bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -1105,12 +1146,15 @@ MPThreadType ExternalThread::_type(
 /*-------------------------------------------------------------------------*/
 /*                                Get                                      */
 
-ExternalThread *ExternalThread::get(const Char8 *szName)
+ExternalThread::ObjTransitPtr ExternalThread::get(const Char8 *szName, 
+                                                        bool   bGlobal)
 {
-    BaseThread *pThread = ThreadManager::the()->getThread(szName, 
-                                                          "OSGExternalThread");
+    BaseThreadTransitPtr pThread = 
+        ThreadManager::the()->getThread(szName, 
+                                        bGlobal,
+                                        "OSGExternalThread");
 
-    return dynamic_cast<ExternalThread *>(pThread);
+    return dynamic_pointer_cast<ExternalThread>(pThread);
 }
 
 ExternalThread *ExternalThread::find(const Char8 *szName)
@@ -1139,16 +1183,19 @@ void ExternalThread::shutdown(void)
 /*                               Setup                                     */
 
 ExternalThread *ExternalThread::create(const Char8 *szName, 
-                                             UInt32 uiId)
+                                             UInt32 uiId, 
+                                             bool   bGlobal)
 {
-    return new ExternalThread(szName, uiId);
+    return new ExternalThread(szName, uiId, bGlobal);
 }
 
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-ExternalThread::ExternalThread(const Char8 *szName, UInt32 uiId) :
-    Inherited(szName, uiId)
+ExternalThread::ExternalThread(const Char8 *szName, 
+                                     UInt32 uiId, 
+                                     bool   bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 

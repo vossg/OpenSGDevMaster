@@ -60,15 +60,17 @@ OSG_BEGIN_NAMESPACE
 /*--------------------------- Constructors --------------------------------*/
 
 SemaphoreCommonBase::SemaphoreCommonBase(void) :
-     Inherited    (NULL),
-    _uiSemaphoreId(0   )
+     Inherited    (NULL, true),
+    _uiSemaphoreId(0         )
 {
 }
 
 SemaphoreCommonBase::SemaphoreCommonBase(const Char8  *szName,
-                                               UInt32  uiId  ):
-     Inherited    (szName),
-    _uiSemaphoreId(uiId  )
+                                               UInt32  uiId, 
+                                               bool    bGlobal) :
+     Inherited    (szName, 
+                   bGlobal),
+    _uiSemaphoreId(uiId   )
 {
 }
 
@@ -95,9 +97,10 @@ PThreadSemaphoreBase::PThreadSemaphoreBase(void):
 }
 
 PThreadSemaphoreBase::PThreadSemaphoreBase(const Char8  *szName,
-                                                 UInt32  uiId  ) :
-     Inherited    (szName, uiId),
-    _pLowLevelSemaphore()
+                                                 UInt32  uiId, 
+                                                 bool    bGlobal) :
+     Inherited         (szName, uiId, bGlobal),
+    _pLowLevelSemaphore(                     )
 {
 }
 
@@ -144,9 +147,10 @@ SprocSemaphoreBase::SprocSemaphoreBase(void):
 }
 
 SprocSemaphoreBase::SprocSemaphoreBase(const Char8  *szName,
-                                             UInt32  uiId  ):
-     Inherited    (szName, uiId),
-    _pLowLevelSema(NULL        )
+                                             UInt32  uiId, 
+                                             bool    bGlobal) :
+     Inherited    (szName, uiId, bGlobal),
+    _pLowLevelSema(NULL                 )
 {
 }
 
@@ -220,9 +224,10 @@ WinThreadSemaphoreBase::WinThreadSemaphoreBase(void) :
 }
 
 WinThreadSemaphoreBase::WinThreadSemaphoreBase(const Char8  *szName,
-                                                     UInt32  uiId  ) :
-     Inherited (szName, uiId),
-    _pSemaphore(NULL        )
+                                                     UInt32  uiId, 
+                                                     bool    bGlobal) :
+     Inherited (szName, uiId, bGlobal),
+    _pSemaphore(NULL                 )
 {
 }
 
@@ -274,9 +279,9 @@ MPSemaphoreType Semaphore::_type( "OSGSemaphore",
 
 /*------------------------------- Get -------------------------------------*/
 
-Semaphore *Semaphore::get(const Char8 *szName)
+Semaphore::ObjTransitPtr Semaphore::get(const Char8 *szName, bool bGlobal)
 {
-    return ThreadManager::the()->getSemaphore(szName, "OSGSemaphore");
+    return ThreadManager::the()->getSemaphore(szName, bGlobal, "OSGSemaphore");
 }
 
 Semaphore *Semaphore::find(const Char8 *szName)
@@ -287,11 +292,11 @@ Semaphore *Semaphore::find(const Char8 *szName)
 
 /*------------------------------ Create -----------------------------------*/
 
-Semaphore *Semaphore::create(const Char8 *szName, UInt32 uiId)
+Semaphore *Semaphore::create(const Char8 *szName, UInt32 uiId, bool bGlobal)
 {
     Semaphore *returnValue = NULL;
 
-    returnValue = new Semaphore(szName, uiId);
+    returnValue = new Semaphore(szName, uiId, bGlobal);
 
     if(returnValue->init() == false)
     {
@@ -309,8 +314,8 @@ Semaphore::Semaphore(void) :
 {
 }
 
-Semaphore::Semaphore(const Char8 *szName, UInt32 uiId) :
-    Inherited(szName, uiId)
+Semaphore::Semaphore(const Char8 *szName, UInt32 uiId, bool bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -318,7 +323,9 @@ Semaphore::Semaphore(const Char8 *szName, UInt32 uiId) :
 
 Semaphore::~Semaphore(void)
 {
-    ThreadManager::the()->removeSemaphore(this);
+    _bGlobal = false;
+
+    ThreadManager::the()->remove(this);
 
     shutdown();
 }

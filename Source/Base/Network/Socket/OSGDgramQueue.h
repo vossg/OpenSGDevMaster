@@ -52,6 +52,7 @@
 #include "OSGSocketAddress.h"
 #include "OSGConnectionType.h"
 #include "OSGDgram.h"
+#include "OSGBarrier.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -104,9 +105,9 @@ class OSG_BASE_DLLMAPPING DgramQueue
     /*! \name               member                                         */
     /*! \{                                                                 */
 
-    Barrier   *_barrier;
-    QueueT     _queue;
-    bool       _waiting;
+    BarrierRefPtr _barrier;
+    QueueT        _queue;
+    bool          _waiting;
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

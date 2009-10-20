@@ -141,9 +141,9 @@ void BinarySwapComposer::open()
     if(!_isClient && clusterId() < _usableServers)
     {
         // create barrier
-        _barrier = Barrier::get(NULL);
+        _barrier = Barrier::get(NULL, false);
         // create writer thread
-        _writer = BaseThread::get(NULL);
+        _writer = BaseThread::get(NULL, false);
         // start writer thread
         _writer->runFunction( writeProc, this );
     }
@@ -342,7 +342,8 @@ void BinarySwapComposer::close(void)
         _stopWriter = true;
         _barrier->enter(2);
         BaseThread::join(_writer);
-        _writer = NULL;
+        _writer  = NULL;
+        _barrier = NULL;
     }
 }
 

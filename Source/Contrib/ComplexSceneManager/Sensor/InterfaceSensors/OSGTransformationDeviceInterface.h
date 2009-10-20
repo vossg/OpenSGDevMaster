@@ -91,7 +91,9 @@ class OSG_CONTRIBCSM_DLLMAPPING TransformationDeviceInterface :
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
  
-    TransformationDeviceInterface(const Char8 *szName, UInt32 uiId);
+    TransformationDeviceInterface(const Char8 *szName, 
+                                        UInt32 uiId, 
+                                        bool   bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

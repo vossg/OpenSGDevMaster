@@ -86,33 +86,38 @@ Linux2AxisEventInterface *Linux2AxisEventInterface::find(Char8 *szName)
     return dynamic_cast<Linux2AxisEventInterface *>(pThread);
 }
 
-Linux2AxisEventInterface *Linux2AxisEventInterface::get(Char8 *szName) 
+Linux2AxisEventInterface::ObjTransitPtr 
+    Linux2AxisEventInterface::get(Char8 *szName, bool bGlobal) 
 {
-    BaseThread *pThread = ThreadManager::the()->getThread(
+    BaseThreadTransitPtr pThread = ThreadManager::the()->getThread(
         szName,
+        bGlobal,
         "Linux2AxisEventInterface");
 
-    return dynamic_cast<Linux2AxisEventInterface *>(pThread);
+    return dynamic_pointer_cast<Linux2AxisEventInterface>(pThread);
 }
 
 
 BaseThread *Linux2AxisEventInterface::create(const Char8  *szName, 
-                                                    UInt32  uiId)
+                                                   UInt32  uiId,
+                                                   bool    bGlobal)
 {
-    return new Linux2AxisEventInterface(szName, uiId);
+    return new Linux2AxisEventInterface(szName, uiId, bGlobal);
 }
 
 Linux2AxisEventInterface::Linux2AxisEventInterface(const Char8  *szName, 
-                                                           UInt32  uiId) :
+                                                         UInt32  uiId,
+                                                         bool    bGlobal) :
      Inherited (szName, 
-                uiId  ),
-    _rTxRange  (1.f   ),
-    _rTyRange  (1.f   ),
-    _iFileDesc (-1    ),
+                uiId,
+                bGlobal),
+    _rTxRange  (1.f    ),
+    _rTyRange  (1.f    ),
+    _iFileDesc (-1     ),
 #ifdef __linux
-    _rFds      (      ),
+    _rFds      (       ),
 #endif
-    _szPort    (      )
+    _szPort    (       )
 {
 }
 

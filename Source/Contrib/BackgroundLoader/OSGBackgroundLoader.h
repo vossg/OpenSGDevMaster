@@ -6,14 +6,13 @@
 #include "OSGBaseTypes.h"
 #include "OSGSingletonHolder.h"
 #include "OSGRequest.h"
+#include "OSGThread.h"
+#include "OSGLock.h"
+#include "OSGCondVar.h"
 
 #include <deque>
 
 OSG_BEGIN_NAMESPACE
-
-class CondVar;
-class Lock;
-class Thread;
 
 /** Helper class that supports processing requests
  * such as loading files in a background thread.
@@ -76,12 +75,12 @@ private:
    void operator =(const BackgroundLoaderBase &source);
 
    typedef std::list<RequestPtr> request_queue_t;
-   request_queue_t      mPendingRequests;
-   request_queue_t      mFinishedRequests;
-   std::vector<Thread*> mLoadThreads;
-   Lock*                mFinishedLock;
-   CondVar*             mLoadCondVar;           // Cond var to protect the request queue
-   bool                 mStopRunning;
+   request_queue_t           mPendingRequests;
+   request_queue_t           mFinishedRequests;
+   std::vector<ThreadRefPtr> mLoadThreads;
+   LockRefPtr                mFinishedLock;
+   CondVarRefPtr             mLoadCondVar;           // Cond var to protect the request queue
+   bool                      mStopRunning;
 };
 
 typedef SingletonHolder<BackgroundLoaderBase> BackgroundLoader;

@@ -94,7 +94,7 @@ class OSG_CONTRIBCSM_DLLMAPPING MouseDataDeviceInterface :
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
  
-    MouseDataDeviceInterface(const Char8 *szName, UInt32 uiId);
+    MouseDataDeviceInterface(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -113,11 +113,10 @@ bool FieldContainerFactoryBase::initialize(void)
         return true;
 
 #ifndef OSG_EMBEDDED
-    _pStoreLock = ThreadManager::the()->getLock("ContainerFactory::slock");
+    _pStoreLock = ThreadManager::the()->getLock("ContainerFactory::slock",
+                                                false);
 
-    addRef(_pStoreLock);
-
-    PINFO << "Got store lock " << _pStoreLock << std::endl;
+    PINFO << "Got store lock " << _pStoreLock.get() << std::endl;
 
     if(_pStoreLock == NULL)
     {
@@ -137,7 +136,7 @@ bool FieldContainerFactoryBase::terminate(void)
     bool returnValue = Inherited::terminate();
 
 #ifndef OSG_EMBEDDED
-    subRef(_pStoreLock);
+    _pStoreLock = NULL;
 #endif
 
     this->_bInitialized = false;

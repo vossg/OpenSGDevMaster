@@ -96,7 +96,8 @@ class MPFieldStore
     /*! \{                                                                 */
 
     MPFieldT *getMPField   (const Char8    *szName,
-                            const Char8    *szTypeName);
+                            const Char8    *szTypeName,
+                                  bool      bGlobal   );
 
     MPFieldT *findMPField  (const Char8    *szName);
 
@@ -203,25 +204,57 @@ class OSG_BASE_DLLMAPPING ThreadManager
     /*! \name               Create Threading Element                       */
     /*! \{                                                                 */
 
-    BaseThread   *getThread    (const Char8 *szName,
-                                const Char8 *szTypeName = "OSGThread");
-    Barrier      *getBarrier   (const Char8 *szName,
-                                const Char8 *szTypeName = "OSGBarrier");
-    CondVar      *getCondVar   (const Char8 *szName,
-                                const Char8 *szTypeName = "OSGCondVar");
-    Lock         *getLock      (const Char8 *szName,
-                                const Char8 *szTypeName = "OSGLock");
-    LockPool     *getLockPool  (const Char8 *szName,
-                                const Char8 *szTypeName = "OSGLockPool");
-    Semaphore    *getSemaphore (const Char8 *szName,
-                                const Char8 *szTypeName = "OSGSemaphore");
+    // Int32 below as Char8 * cast to bool (gv)
 
-    BaseThread   *findThread   (const Char8 *szName);
-    Barrier      *findBarrier  (const Char8 *szName);
-    CondVar      *findCondVar  (const Char8 *szName);
-    Lock         *findLock     (const Char8 *szName);
-    LockPool     *findLockPool (const Char8 *szName);
-    Semaphore    *findSemaphore(const Char8 *szName);
+    BaseThreadTransitPtr getThread    (const Char8 *szName,
+                                             UInt32 bGlobal,
+                                       const Char8 *szTypeName = "OSGThread");
+    BarrierTransitPtr    getBarrier   (const Char8 *szName,
+                                             UInt32 bGlobal,
+                                       const Char8 *szTypeName = "OSGBarrier");
+    CondVarTransitPtr    getCondVar   (const Char8 *szName,
+                                             UInt32 bGlobal,
+                                       const Char8 *szTypeName = "OSGCondVar");
+    LockTransitPtr       getLock      (const Char8 *szName,
+                                             UInt32 bGlobal,
+                                       const Char8 *szTypeName = "OSGLock");
+    LockPoolTransitPtr   getLockPool  (const Char8 *szName,
+                                             UInt32 bGlobal,
+                                       const Char8 *szTypeName = "OSGLockPool");
+    SemaphoreTransitPtr  getSemaphore (const Char8 *szName,
+                                             UInt32 bGlobal,
+                                       const Char8 *szTypeName ="OSGSemaphore");
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Debug                                 */
+    /*! \{                                                                 */
+
+    BaseThread *findThread   (const Char8 *szName);
+    Barrier    *findBarrier  (const Char8 *szName);
+    CondVar    *findCondVar  (const Char8 *szName);
+    Lock       *findLock     (const Char8 *szName);
+    LockPool   *findLockPool (const Char8 *szName);
+    Semaphore  *findSemaphore(const Char8 *szName);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Debug                                 */
+    /*! \{                                                                 */
+
+    void remove(BaseThread *pThread   );
+    void remove(Barrier    *pBarrier  );
+    void remove(CondVar    *pCondVar  );
+    void remove(Lock       *pLock     );
+    void remove(LockPool   *pLockPool );
+    void remove(Semaphore  *pSemaphore);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                        Debug                                 */
+    /*! \{                                                                 */
+
+    void dump(void);
 
 #if defined(OSG_USE_SPROC)
     /*! \}                                                                 */
@@ -239,13 +272,6 @@ class OSG_BASE_DLLMAPPING ThreadManager
 
     static bool   initialize           (void                      ) ;
     static bool   terminate            (void                      );
-
-           void   removeThread         (BaseThread     *pThread   );
-           void   removeBarrier        (Barrier        *pBarrier  );
-           void   removeCondVar        (CondVar        *pCondVar  );
-           void   removeLock           (Lock           *pLock     );
-           void   removeLockPool       (LockPool       *pLockPool );
-           void   removeSemaphore      (Semaphore      *pSemaphore);
 
            UInt32 registerThreadType   (MPThreadType    *pType    );
            UInt32 registerBarrierType  (MPBarrierType   *pType    );
@@ -269,6 +295,11 @@ class OSG_BASE_DLLMAPPING ThreadManager
     /*! \{                                                                 */
 
     virtual ~ThreadManager(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -308,12 +339,12 @@ class OSG_BASE_DLLMAPPING ThreadManager
     /*! \name                   Class Variable                             */
     /*! \{                                                                 */
 
-    static ThreadManager   *_pThreadManager;
-    static BaseThread      *_pAppThread;
+    static ThreadManager    *_pThreadManager;
+    static BaseThreadRefPtr  _pAppThread;
 
-    static bool             _bShutdownInProgress;
+    static bool              _bShutdownInProgress;
 
-    static UInt32          _uiNumAspects;
+    static UInt32            _uiNumAspects;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

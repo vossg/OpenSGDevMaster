@@ -90,7 +90,7 @@ SingleLockPolicy::SingleLockPolicy(void) :
 inline
 SingleLockPolicy::~SingleLockPolicy(void)
 {
-    OSG::subRef(_pLock);
+    _pLock = NULL;
 }
 
 inline
@@ -138,13 +138,15 @@ inline
 bool SingleStaticInitLockPolicy::init(void)
 {
     _pLock = Lock::create();
+
     return true;
 }
 
 inline
 bool SingleStaticInitLockPolicy::shutdown(void)
 {
-    OSG::clearRef(_pLock);
+    _pLock = NULL;
+
     return true;
 }
 

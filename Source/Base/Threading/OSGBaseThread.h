@@ -103,7 +103,7 @@ class OSG_BASE_DLLMAPPING BaseThreadCommonBase : public MPBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    BaseThreadCommonBase(const Char8 *szName, UInt32 uiId);
+    BaseThreadCommonBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -182,7 +182,7 @@ class BasePThreadBase : public BaseThreadCommonBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    BasePThreadBase(const Char8 *szName, UInt32 uiId);
+    BasePThreadBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -320,7 +320,7 @@ class BaseSprocBase : public BaseThreadCommonBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    BaseSprocBase(const Char8 *szName, UInt32 uiId);
+    BaseSprocBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -468,7 +468,7 @@ class BaseWinThreadBase : public BaseThreadCommonBase
     /*! \{                                                                 */
 
     OSG_BASE_DLLMAPPING 
-    BaseWinThreadBase(const Char8 *szName, UInt32 uiId);
+    BaseWinThreadBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -602,15 +602,18 @@ class OSG_BASE_DLLMAPPING BaseThread : public BaseThreadBase
 
     typedef MPThreadType Type;
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(BaseThread);
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
     
-    static       BaseThread   *get         (const Char8 *szName);
-    static       BaseThread   *find        (const Char8 *szName);
-    static       BaseThread   *create      (      void         );
+    static       ObjTransitPtr  get         (const Char8 *szName,
+                                                   bool   bGlobal);
+    static       BaseThread    *find        (const Char8 *szName );
+    static       ObjTransitPtr  create      (      void          );
 
-    static const MPThreadType &getClassType(      void         );
+    static const MPThreadType  &getClassType(      void          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -672,19 +675,21 @@ class OSG_BASE_DLLMAPPING BaseThread : public BaseThreadBase
     /*! \name                   Class Specific                             */
     /*! \{                                                                 */
 
-    static BaseThread *create            (const Char8 *szName, UInt32 uiId);
+    static BaseThread *create            (const Char8 *szName, 
+                                                UInt32 uiId, 
+                                                bool   bGlobal);
 
-    static void        initThreading     (      void                      );
-    static void        terminateThreading(      void                      );
+    static void        initThreading     (      void          );
+    static void        terminateThreading(      void          );
 
-    static void        runWorkProc       (      void  *pThread            );
+    static void        runWorkProc       (      void  *pThread);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    BaseThread(const Char8 *szName, UInt32 uiId);
+    BaseThread(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -713,6 +718,8 @@ class OSG_BASE_DLLMAPPING BaseThread : public BaseThreadBase
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const BaseThread &source);
 };
+
+OSG_GEN_MEMOBJPTR(BaseThread);
 
 OSG_END_NAMESPACE
 

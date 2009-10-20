@@ -189,9 +189,9 @@ bool WinThreadCondVarBase::request(void)
 
 
 inline
-CondVar *CondVar::create(void)
+CondVar::ObjTransitPtr CondVar::create(void)
 {
-    return CondVar::get(NULL);
+    return CondVar::get(NULL, false);
 }
 
 inline

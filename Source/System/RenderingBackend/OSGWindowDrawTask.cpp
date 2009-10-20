@@ -67,7 +67,7 @@ WindowDrawTask::WindowDrawTask(TaskType eType) :
         case Swap:
 #endif
         {
-            _pBarrier = Barrier::get(NULL);
+            _pBarrier = Barrier::get(NULL, false);
             _pBarrier->setNumWaitFor(2);
         }
         break;

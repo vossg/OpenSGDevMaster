@@ -56,12 +56,14 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawThread : public Thread
 
   public:
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(WindowDrawThread);
+
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
-    static WindowDrawThread *get (Char8 *szName);
-    static WindowDrawThread *find(Char8 *szName);
+    static ObjTransitPtr     get (Char8 *szName, bool bGlobal);
+    static WindowDrawThread *find(Char8 *szName              );
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
@@ -106,14 +108,15 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawThread : public Thread
     /*! \{                                                                 */
 
     static BaseThread *create(const Char8  *szName, 
-                                    UInt32  uiId);
+                                    UInt32  uiId,
+                                    bool    bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
  
-    WindowDrawThread(const Char8 *szName, UInt32 uiId);
+    WindowDrawThread(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -144,8 +147,7 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawThread : public Thread
     void operator =(const WindowDrawThread &source);
 };
 
-typedef RefCountPtr<WindowDrawThread, 
-                    MemObjRefCountPolicy> WindowDrawThreadRefPtr;
+OSG_GEN_MEMOBJPTR(WindowDrawThread);
 
 OSG_END_NAMESPACE
 

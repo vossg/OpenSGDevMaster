@@ -49,6 +49,8 @@ OSG_BEGIN_NAMESPACE
 
 class CSMDrawThread;
 
+OSG_GEN_MEMOBJPTR(CSMDrawThread);
+
 /*! \brief CSMDrawer class. See \ref
            PageContribCSMDrawer for a description.
 */
@@ -136,21 +138,21 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawer : public CSMDrawerBase
 
     // Variables should all be in CSMDrawerBase.
 
-    RenderAction  *_pAction;
+    RenderAction        *_pAction;
 
-    CSMDrawThread *_pDrawThread;
+    CSMDrawThreadRefPtr  _pDrawThread;
 
-    Thread        *_pSyncFromThread;
-    Barrier       *_pSyncBarrier;
-    Barrier       *_pSwapBarrier;
+    Thread              *_pSyncFromThread;
+    Barrier             *_pSyncBarrier;
+    Barrier             *_pSwapBarrier;
 #ifdef OSG_GLOBAL_SYNC_LOCK
-    Lock          *_pSyncLock;
+    Lock                *_pSyncLock;
 #endif
 
-    UInt32         _uiSyncCount;
-    UInt32         _uiSwapCount;
-    bool           _bParallel;
-    bool           _bRun;
+    UInt32               _uiSyncCount;
+    UInt32               _uiSwapCount;
+    bool                 _bParallel;
+    bool                 _bRun;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
@@ -218,11 +220,13 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawThread : public Thread
 
   public:
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(CSMDrawThread);
+
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
-    static CSMDrawThread *get (Char8 *szName);
+    static ObjTransitPtr  get (Char8 *szName, bool bGlobal);
     static CSMDrawThread *find(Char8 *szName);
 
     /*---------------------------------------------------------------------*/
@@ -253,14 +257,15 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawThread : public Thread
     /*! \{                                                                 */
 
     static BaseThread *create(const Char8  *szName, 
-                                    UInt32  uiId);
+                                    UInt32  uiId,
+                                    bool    bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
  
-    CSMDrawThread(const Char8 *szName, UInt32 uiId);
+    CSMDrawThread(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -290,7 +295,6 @@ class OSG_CONTRIBCSM_DLLMAPPING CSMDrawThread : public Thread
     CSMDrawThread(const CSMDrawThread &source);
     void operator =(const CSMDrawThread &source);
 };
-
 
 OSG_END_NAMESPACE
 

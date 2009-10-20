@@ -75,11 +75,12 @@ OSG_USING_NAMESPACE
 /*--------------------------- Constructors --------------------------------*/
 
 BaseThreadCommonBase::BaseThreadCommonBase(const Char8  *szName,
-                                                 UInt32  uiId  ) :
+                                                 UInt32  uiId, 
+                                                 bool    bGlobal) :
 
-     Inherited   (szName),
-    _uiThreadId  (uiId  ),
-    _bInitialized(false )
+     Inherited   (szName, bGlobal),
+    _uiThreadId  (uiId           ),
+    _bInitialized(false          )
 {
 }
 
@@ -185,8 +186,9 @@ void BasePThreadBase::freeThread(void *pThread)
 /*--------------------------- Constructors --------------------------------*/
 
 BasePThreadBase::BasePThreadBase(const Char8  *szName,
-                                       UInt32  uiId  ) :
-     Inherited  (szName, uiId),
+                                       UInt32  uiId, 
+                                       bool    bGlobal) :
+    Inherited  (szName, uiId, bGlobal),
 
     _pThreadDesc(NULL),
     _pBlockCond (NULL),
@@ -529,8 +531,9 @@ void BaseWinThreadBase::threadFunc(void *pThreadArg)
 /*--------------------------- Constructors --------------------------------*/
 
 BaseWinThreadBase::BaseWinThreadBase(const Char8  *szName,
-                                           UInt32  uiId) :
-     Inherited       (szName, uiId),
+                                           UInt32  uiId, 
+                                           bool    bGlobal) :
+     Inherited       (szName, uiId, bGlobal),
 
     _pThreadHandle   (NULL),
     _pExternalHandle (NULL),
@@ -740,9 +743,9 @@ void BaseThread::print(void)
 
 /*------------------------------- Get -------------------------------------*/
 
-BaseThread *BaseThread::get(const Char8 *szName)
+BaseThread::ObjTransitPtr BaseThread::get(const Char8 *szName, bool   bGlobal)
 {
-    return ThreadManager::the()->getThread(szName, "OSGBaseThread");
+    return ThreadManager::the()->getThread(szName, bGlobal, "OSGBaseThread");
 }
 
 BaseThread *BaseThread::find(const Char8 *szName)
@@ -752,9 +755,9 @@ BaseThread *BaseThread::find(const Char8 *szName)
 
 /*------------------------------ Helper -----------------------------------*/
 
-BaseThread *BaseThread::create(const Char8 *szName, UInt32 uiId)
+BaseThread *BaseThread::create(const Char8 *szName, UInt32 uiId, bool bGlobal)
 {
-    return new BaseThread(szName, uiId);
+    return new BaseThread(szName, uiId, bGlobal);
 }
 
 void BaseThread::initThreading(void)
@@ -780,18 +783,18 @@ void BaseThread::initThreading(void)
 
 void BaseThread::terminateThreading(void)
 {
-// free threading resources
-#if 0
+    FINFO(("BaseThread::terminateThreading\n"));
+
 #if defined(OSG_USE_PTHREADS) && !defined(OSG_PTHREAD_ELF_TLS)
     int rc;
 
-    rc = pthread_key_create(&(BaseThread::_threadKey),
-                              BaseThread::freeThread);
+    rc = pthread_key_delete(BaseThread::_threadKey);
 
-    FFASSERT((rc == 0), 1, ("Failed to create pthread thread key\n");)
+    FFASSERT((rc == 0), 1, ("Failed to destroy pthread thread key\n");)
 #endif
 
 #if defined(OSG_USE_WINTHREADS) && defined (OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
+#if 0
     BaseThread::_threadKey     = TlsAlloc();
 
     FFASSERT((BaseThread::_threadKey != 0xFFFFFFFF), 1,
@@ -810,8 +813,8 @@ void BaseThread::runWorkProc(void  *pThread)
 
 /*--------------------------- Constructors --------------------------------*/
 
-BaseThread::BaseThread(const Char8 *szName, UInt32 uiId) :
-    Inherited(szName, uiId)
+BaseThread::BaseThread(const Char8 *szName, UInt32 uiId, bool bGlobal) :
+    Inherited(szName, uiId, bGlobal)
 {
 }
 
@@ -821,7 +824,9 @@ BaseThread::~BaseThread(void)
 {
     shutdown();
 
-    ThreadManager::the()->removeThread(this);
+    _bGlobal = false;
+
+    ThreadManager::the()->remove(this);
 
     if(this != ThreadManager::getAppThread())
         terminate();

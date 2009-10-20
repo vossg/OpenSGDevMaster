@@ -108,9 +108,9 @@ void WinThreadSemaphoreBase::post(void)
 
 
 inline
-Semaphore *Semaphore::create(void)
+Semaphore::ObjTransitPtr Semaphore::create(void)
 {
-    return Semaphore::get(NULL);
+    return Semaphore::get(NULL, false);
 }
 
 inline

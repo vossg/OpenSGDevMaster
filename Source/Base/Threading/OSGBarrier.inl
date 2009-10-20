@@ -205,9 +205,9 @@ UInt32 WinThreadBarrierBase::getNumWaiting(void)
 #endif /* OSG_USE_WINTHREADS */
 
 inline
-Barrier *Barrier::create(void)
+Barrier::ObjTransitPtr Barrier::create(void)
 {
-    return Barrier::get(NULL);
+    return Barrier::get(NULL, false);
 }
 
 inline

@@ -54,11 +54,13 @@ class OSG_CONTRIBCSM_DLLMAPPING Linux3AxisEventInterface :
 
   public:
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(Linux3AxisEventInterface);
+
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
 
-    static Linux3AxisEventInterface *get (Char8 *szName);
+    static ObjTransitPtr             get (Char8 *szName, bool bGlobal);
     static Linux3AxisEventInterface *find(Char8 *szName);
 
     /*---------------------------------------------------------------------*/
@@ -103,14 +105,15 @@ class OSG_CONTRIBCSM_DLLMAPPING Linux3AxisEventInterface :
     /*! \{                                                                 */
 
     static BaseThread *create(const Char8  *szName, 
-                                    UInt32  uiId);
+                                    UInt32  uiId,
+                                    bool    bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
  
-    Linux3AxisEventInterface(const Char8 *szName, UInt32 uiId);
+    Linux3AxisEventInterface(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -142,6 +145,8 @@ class OSG_CONTRIBCSM_DLLMAPPING Linux3AxisEventInterface :
     Linux3AxisEventInterface(const Linux3AxisEventInterface &source);
     void operator =(const Linux3AxisEventInterface &source);
 };
+
+OSG_GEN_MEMOBJPTR(Linux3AxisEventInterface);
 
 OSG_END_NAMESPACE
 

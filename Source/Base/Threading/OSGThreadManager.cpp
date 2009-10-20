@@ -50,15 +50,17 @@
 #include "OSGThreadManager.h"
 #include "OSGBaseInitFunctions.h"
 
+#include "OSGThread.h"
+
 OSG_USING_NAMESPACE
 
-ThreadManager *ThreadManager::_pThreadManager      = NULL;
-BaseThread    *ThreadManager::_pAppThread          = NULL;
+ThreadManager    *ThreadManager::_pThreadManager      = NULL;
+BaseThreadRefPtr  ThreadManager::_pAppThread          = NULL;
 
-bool           ThreadManager::_bShutdownInProgress = false;
-UInt32         ThreadManager::_uiNumAspects        = OSG_DEFAULT_NUM_ASPECTS;
+bool              ThreadManager::_bShutdownInProgress = false;
+UInt32            ThreadManager::_uiNumAspects        = OSG_DEFAULT_NUM_ASPECTS;
 
-Char8         *ThreadManager::_szAppThreadType     = NULL;
+Char8            *ThreadManager::_szAppThreadType     = NULL;
 
 
 /*-------------------------- Get / Set ------------------------------------*/
@@ -101,84 +103,90 @@ void ThreadManager::setNumAspects(UInt32 uiNumAspects)
 
 /*-------------------- Create Threading Elements --------------------------*/
 
-BaseThread *ThreadManager::getThread(const Char8 *szName,
-                                     const Char8 *szTypeName)
+BaseThreadTransitPtr ThreadManager::getThread(const Char8 *szName,
+                                                    UInt32 bGlobal,
+                                              const Char8 *szTypeName)
 {
-    BaseThread *returnValue = NULL;
+    BaseThreadTransitPtr returnValue(NULL);
 
     _storePLock->acquire();
 
-    returnValue = _sThreadStore.getMPField(szName, szTypeName);
+    returnValue = _sThreadStore.getMPField(szName, szTypeName, bGlobal);
 
     _storePLock->release();
 
     return returnValue;
 }
 
-Barrier *ThreadManager::getBarrier(const Char8 *szName,
-                                   const Char8 *szTypeName)
+BarrierTransitPtr ThreadManager::getBarrier(const Char8 *szName,
+                                                  UInt32 bGlobal,
+                                            const Char8 *szTypeName)
 {
-    Barrier *returnValue = NULL;
+    BarrierTransitPtr returnValue(NULL);
 
     _storePLock->acquire();
 
-    returnValue = _sBarrierStore.getMPField(szName, szTypeName);
+    returnValue = _sBarrierStore.getMPField(szName, szTypeName, bGlobal);
 
     _storePLock->release();
 
     return returnValue;
 }
 
-CondVar *ThreadManager::getCondVar(const Char8 *szName,
-                                   const Char8 *szTypeName)
+CondVarTransitPtr ThreadManager::getCondVar(const Char8 *szName,
+                                                  UInt32 bGlobal,
+                                            const Char8 *szTypeName)
 {
-    CondVar *returnValue = NULL;
+    CondVarTransitPtr returnValue(NULL);
 
     _storePLock->acquire();
 
-    returnValue = _sCondVarStore.getMPField(szName, szTypeName);
+    returnValue = _sCondVarStore.getMPField(szName, szTypeName, bGlobal);
 
     _storePLock->release();
 
     return returnValue;
 }
 
-Lock *ThreadManager::getLock(const Char8 *szName,
-                             const Char8 *szTypeName)
+LockTransitPtr ThreadManager::getLock(const Char8 *szName,
+                                            UInt32 bGlobal,
+                                      const Char8 *szTypeName)
 {
-    Lock *returnValue = NULL;
+    LockTransitPtr returnValue(NULL);
 
     _storePLock->acquire();
 
-    returnValue = _sLockStore.getMPField(szName, szTypeName);
+    returnValue = _sLockStore.getMPField(szName, szTypeName, bGlobal);
 
     _storePLock->release();
 
     return returnValue;
 }
 
-LockPool *ThreadManager::getLockPool(const Char8 *szName,
-                                     const Char8 *szTypeName)
+LockPoolTransitPtr ThreadManager::getLockPool(const Char8 *szName,
+                                                    UInt32 bGlobal,
+                                              const Char8 *szTypeName)
 {
-    LockPool *returnValue = NULL;
+    LockPoolTransitPtr returnValue(NULL);
 
     _storePLock->acquire();
 
-    returnValue = _sLockPoolStore.getMPField(szName, szTypeName);
+    returnValue = _sLockPoolStore.getMPField(szName, szTypeName, bGlobal);
 
     _storePLock->release();
 
     return returnValue;
 }
 
-Semaphore *ThreadManager::getSemaphore(const Char8 *szName,
-                                       const Char8 *szTypeName)
+SemaphoreTransitPtr ThreadManager::getSemaphore(const Char8 *szName,
+                                                      UInt32 bGlobal,
+                                                const Char8 *szTypeName)
 {
-    Semaphore *returnValue = NULL;
+    SemaphoreTransitPtr returnValue(NULL);
 
     _storePLock->acquire();
 
-    returnValue = _sSemaphoreStore.getMPField(szName, szTypeName);
+    returnValue = _sSemaphoreStore.getMPField(szName, szTypeName, bGlobal);
 
     _storePLock->release();
 
@@ -263,6 +271,90 @@ Semaphore *ThreadManager::findSemaphore(const Char8 *szName)
     return returnValue;
 }
 
+void ThreadManager::dump(void)
+{
+    ThreadStore::MPFieldMapCIt tI = _sThreadStore._mFieldMap.begin();
+    ThreadStore::MPFieldMapCIt tE = _sThreadStore._mFieldMap.end  ();
+
+    for(; tI != tE; ++tI)
+    {
+        FLOG(("ThreadManager::dump: "
+               "thread [%s|%p] is still alive ([%d]). \n", 
+               (*tI).first.c_str(),
+               (*tI).second,
+               (*tI).second->exists()));
+    }
+
+    BarrierStore::MPFieldMapCIt bI = _sBarrierStore._mFieldMap.begin();
+    BarrierStore::MPFieldMapCIt bE = _sBarrierStore._mFieldMap.end  ();
+
+    for(; bI != bE; ++bI)
+    {
+        FINFO(("ThreadManager::dump: "
+               "barrier [%s|%p] is still alive\n", 
+               (*bI).first.c_str(),
+               (*bI).second));
+
+    }
+
+    CondVarStore::MPFieldMapCIt cI = _sCondVarStore._mFieldMap.begin();
+    CondVarStore::MPFieldMapCIt cE = _sCondVarStore._mFieldMap.end  ();
+
+    for(; cI != cE; ++cI)
+    {
+        FLOG(("ThreadManager::dump: "
+              "condvar [%s|%p] is still alive\n", 
+              (*cI).first.c_str(),
+              (*cI).second));
+
+    }
+
+    LockStore::MPFieldMapCIt lI = _sLockStore._mFieldMap.begin();
+    LockStore::MPFieldMapCIt lE = _sLockStore._mFieldMap.end  ();
+
+    for(; lI != lE; ++lI)
+    {
+        FLOG(("ThreadManager::dump: "
+              "lock [%s|%p] is still alive\n", 
+              (*lI).first.c_str(),
+              (*lI).second));
+    }
+
+    LockPoolStore::MPFieldMapCIt lpI = _sLockPoolStore._mFieldMap.begin();
+    LockPoolStore::MPFieldMapCIt lpE = _sLockPoolStore._mFieldMap.end  ();
+
+    for(; lpI != lpE; ++lpI)
+    {
+        FLOG(("ThreadManager::dump: "
+              "lockpool [%s|%p] is still alive\n", 
+              (*lpI).first.c_str(),
+              (*lpI).second));
+
+    }
+
+    SemaphoreStore::MPFieldMapCIt sI = _sSemaphoreStore._mFieldMap.begin();
+    SemaphoreStore::MPFieldMapCIt sE = _sSemaphoreStore._mFieldMap.end  ();
+
+    for(; sI != sE; ++sI)
+    {
+        FLOG(("ThreadManager::dump: "
+              "semaphore [%s|%p] is still alive\n", 
+              (*sI).first.c_str(),
+              (*sI).second));
+    }
+
+    FLOG(
+        ("Sizes: ThreadStore: %"PRISize" BarrierStore: %"PRISize
+         " CondVarStore: %"PRISize" LockStore: %"PRISize" LockPoolStore: %"
+         PRISize" SemaphoreStore: %"PRISize"\n",
+         _sThreadStore   ._mFieldMap.size(),
+         _sBarrierStore  ._mFieldMap.size(),
+         _sCondVarStore  ._mFieldMap.size(),
+         _sLockStore     ._mFieldMap.size(),
+         _sLockPoolStore ._mFieldMap.size(),
+         _sSemaphoreStore._mFieldMap.size()));
+}
+
 /*------------------------------- Get -------------------------------------*/
 
 #if defined(OSG_USE_SPROC)
@@ -290,7 +382,7 @@ bool ThreadManager::terminate (void)
     return returnValue;
 }
 
-void ThreadManager::removeThread(BaseThread *pThread)
+void ThreadManager::remove(BaseThread *pThread)
 {
     if(_bShutdownInProgress == true)
         return;
@@ -302,7 +394,7 @@ void ThreadManager::removeThread(BaseThread *pThread)
     _storePLock->release();
 }
 
-void ThreadManager::removeBarrier(Barrier *pBarrier)
+void ThreadManager::remove(Barrier *pBarrier)
 {
     if(_bShutdownInProgress == true)
         return;
@@ -314,7 +406,7 @@ void ThreadManager::removeBarrier(Barrier *pBarrier)
     _storePLock->release();
 }
 
-void ThreadManager::removeCondVar(CondVar *pCondVar)
+void ThreadManager::remove(CondVar *pCondVar)
 {
     if(_bShutdownInProgress == true)
         return;
@@ -326,7 +418,7 @@ void ThreadManager::removeCondVar(CondVar *pCondVar)
     _storePLock->release();
 }
 
-void ThreadManager::removeLock(Lock *pLock)
+void ThreadManager::remove(Lock *pLock)
 {
     if(_bShutdownInProgress == true)
         return;
@@ -338,7 +430,7 @@ void ThreadManager::removeLock(Lock *pLock)
     _storePLock->release();
 }
 
-void ThreadManager::removeLockPool(LockPool *pLockPool)
+void ThreadManager::remove(LockPool *pLockPool)
 {
     if(_bShutdownInProgress == true)
         return;
@@ -350,7 +442,7 @@ void ThreadManager::removeLockPool(LockPool *pLockPool)
     _storePLock->release();
 }
 
-void ThreadManager::removeSemaphore(Semaphore *pSemaphore)
+void ThreadManager::remove(Semaphore *pSemaphore)
 {
     if(_bShutdownInProgress == true)
         return;
@@ -421,7 +513,7 @@ bool ThreadManager::init(void)
     }
 #endif
 
-    _storePLock = _sLockStore.getMPField("OSGTMStoreLock", "OSGLock");
+    _storePLock = _sLockStore.getMPField("OSGTMStoreLock", "OSGLock", true);
     
     if(_storePLock == NULL)
     {
@@ -436,25 +528,24 @@ bool ThreadManager::init(void)
 
     if(_szAppThreadType == NULL)
     {
-        FINFO(("OSGTM : create -OSGBaseThread- app thread\n"))
+        FINFO(("OSGTM : create -OSGBaseThread- app thread\n"));
 
-        _pAppThread = getThread("OSGAppThread", "OSGBaseThread");
+        _pAppThread = getThread("OSGAppThread", true, "OSGBaseThread");
     }
     else
     {
-        FINFO(("OSGTM : create -%s- app thread\n", _szAppThreadType))
-        _pAppThread = getThread("OSGAppThread", _szAppThreadType);
+        FINFO(("OSGTM : create -%s- app thread\n", _szAppThreadType));
+
+        _pAppThread = getThread("OSGAppThread", true, _szAppThreadType);
     }
 
     FFASSERT((_pAppThread != NULL), 1, 
-             ("OSGTM : could not get application thread \n");)
+             ("OSGTM : could not get application thread \n"););
              
 
-    FINFO(("OSGTM : got application thread %p\n", _pAppThread))
+    FINFO(("OSGTM : got application thread %p\n", _pAppThread.get()));
 
     _pAppThread->init();
-
-    OSG::addRef(_pAppThread);
 
     return returnValue;
 }
@@ -470,6 +561,8 @@ bool ThreadManager::shutdown(void)
     _bShutdownInProgress = true;
 
     _pAppThread->shutdown();
+
+    _pAppThread = NULL;
 
 #ifdef OSG_DEBUG
 
@@ -556,12 +649,12 @@ bool ThreadManager::shutdown(void)
         ("Sizes: ThreadStore: %"PRISize" BarrierStore: %"PRISize
          " CondVarStore: %"PRISize" LockStore: %"PRISize" LockPoolStore: %"
          PRISize" SemaphoreStore: %"PRISize"\n",
-         _sThreadStore  ._mFieldMap.size(),
-         _sBarrierStore ._mFieldMap.size(),
-         _sCondVarStore ._mFieldMap.size(),
-         _sLockStore    ._mFieldMap.size(),
-         _sLockPoolStore._mFieldMap.size(),
-         _sLockStore    ._mFieldMap.size()));
+         _sThreadStore   ._mFieldMap.size(),
+         _sBarrierStore  ._mFieldMap.size(),
+         _sCondVarStore  ._mFieldMap.size(),
+         _sLockStore     ._mFieldMap.size(),
+         _sLockPoolStore ._mFieldMap.size(),
+         _sSemaphoreStore._mFieldMap.size()));
           
     _sThreadStore   .clear();
     _sBarrierStore  .clear();
@@ -569,6 +662,8 @@ bool ThreadManager::shutdown(void)
     _sLockStore     .clear();
     _sLockPoolStore .clear();
     _sSemaphoreStore.clear();
+
+    Thread::terminateThreading();
 
 #if defined(OSG_USE_SPROC)
     if(_pArena != NULL)

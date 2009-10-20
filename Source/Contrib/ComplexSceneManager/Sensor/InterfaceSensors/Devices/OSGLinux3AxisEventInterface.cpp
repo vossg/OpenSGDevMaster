@@ -87,37 +87,42 @@ Linux3AxisEventInterface *Linux3AxisEventInterface::find(Char8 *szName)
     return dynamic_cast<Linux3AxisEventInterface *>(pThread);
 }
 
-Linux3AxisEventInterface *Linux3AxisEventInterface::get(Char8 *szName) 
+Linux3AxisEventInterface::ObjTransitPtr 
+    Linux3AxisEventInterface::get(Char8 *szName, bool bGlobal) 
 {
-    BaseThread *pThread = ThreadManager::the()->getThread(
+    BaseThreadTransitPtr pThread = ThreadManager::the()->getThread(
         szName,
+        bGlobal,
         "Linux3AxisEventInterface");
 
-    return dynamic_cast<Linux3AxisEventInterface *>(pThread);
+    return dynamic_pointer_cast<Linux3AxisEventInterface>(pThread);
 }
 
 
 BaseThread *Linux3AxisEventInterface::create(const Char8  *szName, 
-                                                    UInt32  uiId)
+                                                   UInt32  uiId,
+                                                   bool    bGlobal)
 {
-    return new Linux3AxisEventInterface(szName, uiId);
+    return new Linux3AxisEventInterface(szName, uiId, bGlobal);
 }
 
 Linux3AxisEventInterface::Linux3AxisEventInterface(const Char8  *szName, 
-                                                         UInt32  uiId) :
+                                                         UInt32  uiId,
+                                                         bool    bGlobal) :
      Inherited(szName, 
-               uiId  ),
-    _rTxRange (450.f ),
-    _rTyRange (450.f ),
-    _rTzRange (450.f ),
-    _rRxRange (450.f ),
-    _rRyRange (450.f ),
-    _rRzRange (450.f ),
-    _iFileDesc(-1    ),
+               uiId,
+               bGlobal),
+    _rTxRange (450.f  ),
+    _rTyRange (450.f  ),
+    _rTzRange (450.f  ),
+    _rRxRange (450.f  ),
+    _rRyRange (450.f  ),
+    _rRzRange (450.f  ),
+    _iFileDesc(-1     ),
 #ifdef __linux
-    _rFds     (      ),
+    _rFds     (       ),
 #endif
-    _szPort   (      )
+    _szPort   (       )
 {
 }
 

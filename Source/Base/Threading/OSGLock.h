@@ -44,7 +44,6 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGMPBase.h"
-#include "OSGRefCountPtr.h"
 
 #if ! defined (OSG_USE_PTHREADS)   && \
     ! defined (OSG_USE_SPROC)      && \
@@ -97,7 +96,7 @@ class OSG_BASE_DLLMAPPING LockCommonBase : public MPBase
     /*! \{                                                                 */
 
     LockCommonBase(void);
-    LockCommonBase(const Char8 *szName, UInt32 uiId);
+    LockCommonBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -147,7 +146,7 @@ class PThreadLockBase : public LockCommonBase
     /*! \{                                                                 */
 
     PThreadLockBase(void);
-    PThreadLockBase(const Char8 *szName, UInt32 uiId  );
+    PThreadLockBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -228,7 +227,7 @@ class SprocLockBase : public LockCommonBase
     /*! \{                                                                 */
 
     SprocLockBase(void);
-    SprocLockBase(const Char8 *szName, UInt32 uiId  );
+    SprocLockBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -318,7 +317,7 @@ class OSG_BASE_DLLMAPPING WinThreadLockBase : public LockCommonBase
     /*! \{                                                                 */
 
     WinThreadLockBase(void);
-    WinThreadLockBase(const Char8 *szName, UInt32 uiId  );
+    WinThreadLockBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -391,16 +390,19 @@ class OSG_BASE_DLLMAPPING Lock : public LockBase
 
     typedef MPLockType Type;
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(Lock);
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
     
-    static       Lock       *get         (const Char8 *szName);
-    static       Lock       *find        (const Char8 *szName);
+    static       ObjTransitPtr  get         (const Char8 *szName,
+                                                   bool   bGlobal);
+    static       Lock          *find        (const Char8 *szName );
 
-    static       Lock       *create      (      void         );
+    static       ObjTransitPtr  create      (      void          );
 
-    static const MPLockType &getClassType(      void         ); 
+    static const MPLockType    &getClassType(      void          ); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -424,7 +426,7 @@ class OSG_BASE_DLLMAPPING Lock : public LockBase
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static Lock *create(const Char8 *szName, UInt32 uiId);
+    static Lock *create(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -432,7 +434,7 @@ class OSG_BASE_DLLMAPPING Lock : public LockBase
     /*! \{                                                                 */
 
     Lock(void);
-    Lock(const Char8 *szName, UInt32 uiId);
+    Lock(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -455,8 +457,7 @@ class OSG_BASE_DLLMAPPING Lock : public LockBase
     void operator =(const Lock &source);
 };
 
-typedef RefCountPtr<Lock,
-                    MemObjRefCountPolicy> LockRefPtr;
+OSG_GEN_MEMOBJPTR(Lock);
 
 
 
@@ -476,14 +477,17 @@ class OSG_BASE_DLLMAPPING LockPool : public LockCommonBase
 
     typedef MPLockPoolType Type;
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(LockPool);
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
     
-    static       LockPool       *get         (const Char8 *szName);
-    static       LockPool       *find        (const Char8 *szName);
-    static       LockPool       *create      (      void         );
-    static const MPLockPoolType &getClassType(      void         );
+    static       ObjTransitPtr   get         (const Char8 *szName,
+                                                    bool   bGlobal);
+    static       LockPool       *find        (const Char8 *szName );
+    static       ObjTransitPtr   create      (      void          );
+    static const MPLockPoolType &getClassType(      void          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -535,14 +539,14 @@ class OSG_BASE_DLLMAPPING LockPool : public LockCommonBase
 
     static const NumericalKeyType uiLockPoolMask = 0x0f80;
 
-    static LockPool *create(const Char8 *szName, UInt32 uiId);
+    static LockPool *create(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructor                                */
     /*! \{                                                                 */
 
-    LockPool(const Char8 *szName, UInt32 uiId);
+    LockPool(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -578,8 +582,7 @@ class OSG_BASE_DLLMAPPING LockPool : public LockCommonBase
     void operator =(const LockPool &source);
 };
 
-typedef RefCountPtr<LockPool, 
-                    MemObjRefCountPolicy> LockPoolRefPtr;
+OSG_GEN_MEMOBJPTR(LockPool);
 
 OSG_END_NAMESPACE
 

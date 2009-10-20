@@ -68,12 +68,14 @@ OSG_BEGIN_NAMESPACE
 
 TransformationDeviceInterface::TransformationDeviceInterface(
     const Char8  *szName, 
-          UInt32  uiId) :
+          UInt32  uiId, 
+          bool    bGlobal) :
 
       Inherited (szName, 
-                 uiId  ),
-     _vTranslate(      ),
-     _qRotate   (      )
+                 uiId,
+                 bGlobal),
+     _vTranslate(       ),
+     _qRotate   (       )
 
 {
 }

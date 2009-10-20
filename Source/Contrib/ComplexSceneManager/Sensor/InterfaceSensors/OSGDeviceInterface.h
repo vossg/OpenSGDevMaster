@@ -57,6 +57,8 @@ class OSG_CONTRIBCSM_DLLMAPPING DeviceInterface : public Thread
 
   public:
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(DeviceInterface);
+
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
     /*! \{                                                                 */
@@ -105,7 +107,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DeviceInterface : public Thread
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
  
-    DeviceInterface(const Char8 *szName, UInt32 uiId);
+    DeviceInterface(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -134,8 +136,7 @@ class OSG_CONTRIBCSM_DLLMAPPING DeviceInterface : public Thread
     void operator =(const DeviceInterface &source);
 };
 
-typedef RefCountPtr<DeviceInterface, 
-                    MemObjRefCountPolicy> DeviceInterfaceRefPtr;
+OSG_GEN_MEMOBJPTR(DeviceInterface);
 
 OSG_END_NAMESPACE
 

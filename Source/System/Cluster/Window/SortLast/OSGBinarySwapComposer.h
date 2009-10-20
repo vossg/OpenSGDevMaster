@@ -141,8 +141,8 @@ class OSG_CLUSTER_DLLMAPPING BinarySwapComposer :
     /*=========================  PROTECTED  ===============================*/
   protected:
 
-    BaseThread              *_writer;
-    Barrier                 *_barrier;
+    BaseThreadRefPtr          _writer;
+    BarrierRefPtr             _barrier;
     bool                     _stopWriter;
     UInt32                   _swapWith;
     Connection              *_swapConnection;

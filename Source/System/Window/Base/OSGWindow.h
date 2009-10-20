@@ -487,8 +487,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \{                                                                 */
 
 #ifndef OSG_EMBEDDED
-    static  Lock                     *_GLObjectLock;
-    static  Lock                     *_staticWindowLock;
+    static  LockRefPtr                _GLObjectLock;
+    static  LockRefPtr                _staticWindowLock;
 #endif
 
     static std::vector<GLObject  *>   _glObjects;

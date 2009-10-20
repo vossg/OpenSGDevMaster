@@ -253,8 +253,7 @@ void Window::GLObject::acquireLock(void)
     if(! _GLObjectLock)
     {
         _GLObjectLock =
-            ThreadManager::the()->getLock("OSG::Window::_GLObjectLock");
-        OSG::addRef(_GLObjectLock);
+            ThreadManager::the()->getLock("OSG::Window::_GLObjectLock", false);
     }
 
     _GLObjectLock->acquire();

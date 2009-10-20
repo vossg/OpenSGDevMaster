@@ -59,7 +59,7 @@ RenderActionTask::RenderActionTask(TaskType eType) :
     {
         case HandleGLFinish:
         {
-            _pBarrier = Barrier::get(NULL);
+            _pBarrier = Barrier::get(NULL, false);
             _pBarrier->setNumWaitFor(2);
         }
         break;

@@ -44,7 +44,6 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGMPBase.h"
-#include "OSGRefCountPtr.h"
 
 #if ! defined (OSG_USE_PTHREADS)   && \
     ! defined (OSG_USE_SPROC)      && \
@@ -95,7 +94,7 @@ class OSG_BASE_DLLMAPPING CondVarCommonBase : public MPBase
     /*! \{                                                                 */
 
     CondVarCommonBase(void);
-    CondVarCommonBase(const Char8 *szName, UInt32 uiId);
+    CondVarCommonBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -145,7 +144,7 @@ class PThreadCondVarBase : public CondVarCommonBase
     /*! \{                                                                 */
 
     PThreadCondVarBase(void);
-    PThreadCondVarBase(const Char8 *szName, UInt32 uiId  );
+    PThreadCondVarBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -363,7 +362,7 @@ class OSG_BASE_DLLMAPPING WinThreadCondVarBase : public CondVarCommonBase
     /*! \{                                                                 */
 
     WinThreadCondVarBase(void);
-    WinThreadCondVarBase(const Char8 *szName, UInt32 uiId  );
+    WinThreadCondVarBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -453,16 +452,19 @@ class OSG_BASE_DLLMAPPING CondVar : public CondVarBase
 
     typedef MPCondVarType Type;
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(CondVar);
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
     
-    static       CondVar       *get         (const Char8 *szName);
-    static       CondVar       *find        (const Char8 *szName);
+    static       ObjTransitPtr  get         (const Char8 *szName,
+                                                   bool   bGlobal);
+    static       CondVar       *find        (const Char8 *szName );
 
-    static       CondVar       *create      (      void         );
+    static       ObjTransitPtr  create      (      void          );
 
-    static const MPCondVarType &getClassType(      void         ); 
+    static const MPCondVarType &getClassType(      void          ); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -489,7 +491,7 @@ class OSG_BASE_DLLMAPPING CondVar : public CondVarBase
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static CondVar *create(const Char8 *szName, UInt32 uiId);
+    static CondVar *create(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -497,7 +499,7 @@ class OSG_BASE_DLLMAPPING CondVar : public CondVarBase
     /*! \{                                                                 */
 
     CondVar(void);
-    CondVar(const Char8 *szName, UInt32 uiId);
+    CondVar(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -519,8 +521,7 @@ class OSG_BASE_DLLMAPPING CondVar : public CondVarBase
     void operator =(const CondVar &source);
 };
 
-typedef RefCountPtr<CondVar,
-                    MemObjRefCountPolicy> CondVarRefPtr;
+OSG_GEN_MEMOBJPTR(CondVar);
 
 OSG_END_NAMESPACE
 

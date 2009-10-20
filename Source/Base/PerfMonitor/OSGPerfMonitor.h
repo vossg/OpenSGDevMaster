@@ -406,6 +406,7 @@ protected:
     friend class OSG::SingletonHolder;
 
     PerfMonitorBase();
+    ~PerfMonitorBase(void);
 
 public:
     /** Reset the performance collection. */
@@ -459,7 +460,7 @@ public:
     sample_data_list_t  mSamples;  /**< Samples collected for all known threads. */
 
     /** Must be acquired if updating the data structure of any shared resource. */
-    OSG::Lock*  mDataLock;    
+    OSG::LockRefPtr mDataLock;    
 
     /** Data flushing. */
     OSG::UInt64    mCurrentFrameNum; /**< The current frame number. */

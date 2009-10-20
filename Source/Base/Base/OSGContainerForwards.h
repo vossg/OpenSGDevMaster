@@ -92,15 +92,6 @@
     OSG_GEN_COMPAT_CONTAINERPTR(CLASST)
 
 
-#define OSG_GEN_INTERNAL_MEMOBJPTR(CLASST)                              \
-    typedef TransitPtr < CLASST                      > ObjTransitPtr;   \
-    typedef RefCountPtr< CLASST, MemObjRefCountPolicy> ObjRefPtr
-
-#define OSG_GEN_MEMOBJPTR(CLASST)                                       \
-    typedef TransitPtr < CLASST > CLASST##TransitPtr;                   \
-    typedef RefCountPtr< CLASST, MemObjRefCountPolicy > CLASST##RefPtr
-
-
 #define OSG_FWDDECL_FC(CLASST)                          \
     OSG_BEGIN_NAMESPACE                                 \
     class CLASST;                                       \

@@ -77,7 +77,7 @@ GroupMCastConnection::GroupMCastConnection():
     sprintf(lockName,"GroupMCastConnection%p",this);
 
     // create locks
-    _lock     = Lock::get(lockName);
+    _lock     = Lock::get(lockName, false);
     // fill dgramqueue
     for(UInt32 dI = 0 ; dI < OSG_DGRAM_QUEUE_LEN ; ++dI)
         _free.put(new Dgram());
@@ -108,7 +108,6 @@ GroupMCastConnection::~GroupMCastConnection(void)
     {
         BaseThread::join(_sendQueueThread);    
 
-        OSG::subRef(_sendQueueThread);
         _sendQueueThread = NULL;
     }
     // close socket
@@ -120,6 +119,8 @@ GroupMCastConnection::~GroupMCastConnection(void)
     while(!_queue.empty())
         delete _queue.get(_lock);
     _lock->release();
+
+    _lock = NULL;
 }
 
 /*! get connection type
@@ -647,7 +648,7 @@ void GroupMCastConnection::initialize()
     }
 
     // start write thread
-    _sendQueueThread=BaseThread::get(threadName);
+    _sendQueueThread=BaseThread::get(threadName, false);
     _sendQueueThreadRunning = true;
     _sendQueueThreadStop    = false;
     _sendQueueThread->runFunction( sendQueueThread, static_cast<void *>(this) );

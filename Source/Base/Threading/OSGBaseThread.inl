@@ -252,9 +252,9 @@ void BaseWinThreadBase::kill(void)
 
 
 inline
-BaseThread *BaseThread::create(void)
+BaseThread::ObjTransitPtr BaseThread::create(void)
 {
-    return BaseThread::get(NULL);
+    return BaseThread::get(NULL, false);
 }
 
 inline

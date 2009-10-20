@@ -146,20 +146,22 @@ void PipelineComposer::open()
     if(!_isClient)
     {
         // create barrier
-        _lock = Lock::get("PipelineComposer");
+        _lock = Lock::get("PipelineComposer", false);
         // create barrier
-        _barrier = Barrier::get("PipelineComposer");
-        _frameEndBarrier = Barrier::get("PipelineComposerFrameEnd");
+        _barrier = Barrier::get("PipelineComposer", false);
+        _frameEndBarrier = Barrier::get("PipelineComposerFrameEnd", false);
         // create writer thread
-        _writer = BaseThread::get("PipelineComposer");
+        _writer = BaseThread::get("PipelineComposer", false);
         // start writer thread
         _writer->runFunction( writeProc, this );
     }
     if(!_isClient && getPipelined())
     {
-        _composeBarrier = Barrier::get("PipelineComposerCompose");
+        _composeBarrier = Barrier::get("PipelineComposerCompose", false);
 //        _composer = BaseThread::get("PipelineComposerCompose");
-        _composer = dynamic_cast<Thread *>(ThreadManager::the()->getThread(NULL));
+        _composer = dynamic_pointer_cast<Thread>(
+            ThreadManager::the()->getThread(NULL, false));
+
         _composer->runFunction( composeProc,0, this );
     }    
 
@@ -375,6 +377,13 @@ void PipelineComposer::close(void)
         }
         _lock->release();
         BaseThread::join(_writer);
+
+        _writer          = NULL;
+        _composer        = NULL;
+        _barrier         = NULL;
+        _composeBarrier  = NULL;
+        _frameEndBarrier = NULL;
+        _lock            = NULL;        
     }
 }
 

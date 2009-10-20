@@ -44,7 +44,6 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGMPBase.h"
-#include "OSGRefCountPtr.h"
 
 #if ! defined (OSG_USE_PTHREADS)   && \
     ! defined (OSG_USE_SPROC)      && \
@@ -95,7 +94,7 @@ class OSG_BASE_DLLMAPPING SemaphoreCommonBase : public MPBase
     /*! \{                                                                 */
 
     SemaphoreCommonBase(void);
-    SemaphoreCommonBase(const Char8 *szName, UInt32 uiId);
+    SemaphoreCommonBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -145,7 +144,7 @@ class PThreadSemaphoreBase : public SemaphoreCommonBase
     /*! \{                                                                 */
 
     PThreadSemaphoreBase(void);
-    PThreadSemaphoreBase(const Char8 *szName, UInt32 uiId  );
+    PThreadSemaphoreBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -223,7 +222,7 @@ class SprocSemaphoreBase : public SemaphoreCommonBase
     /*! \{                                                                 */
 
     SprocSemaphoreBase(void);
-    SprocSemaphoreBase(const Char8 *szName, UInt32 uiId  );
+    SprocSemaphoreBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -301,7 +300,7 @@ class OSG_BASE_DLLMAPPING WinThreadSemaphoreBase : public SemaphoreCommonBase
     /*! \{                                                                 */
 
     WinThreadSemaphoreBase(void);
-    WinThreadSemaphoreBase(const Char8 *szName, UInt32 uiId  );
+    WinThreadSemaphoreBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -367,16 +366,19 @@ class OSG_BASE_DLLMAPPING Semaphore : public SemaphoreBase
 
     typedef MPSemaphoreType Type;
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(Semaphore);
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
     
-    static       Semaphore       *get         (const Char8 *szName);
-    static       Semaphore       *find        (const Char8 *szName);
+    static       ObjTransitPtr    get         (const Char8 *szName,
+                                                     bool   bGlobal);
+    static       Semaphore       *find        (const Char8 *szName );
 
-    static       Semaphore       *create      (      void         );
+    static       ObjTransitPtr    create      (      void          );
 
-    static const MPSemaphoreType &getClassType(      void         ); 
+    static const MPSemaphoreType &getClassType(      void          ); 
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -399,7 +401,7 @@ class OSG_BASE_DLLMAPPING Semaphore : public SemaphoreBase
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static Semaphore *create(const Char8 *szName, UInt32 uiId);
+    static Semaphore *create(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -407,7 +409,7 @@ class OSG_BASE_DLLMAPPING Semaphore : public SemaphoreBase
     /*! \{                                                                 */
 
     Semaphore(void);
-    Semaphore(const Char8 *szName, UInt32 uiId);
+    Semaphore(const Char8 *szName, UInt32 uiId, bool bGlobal);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -429,11 +431,7 @@ class OSG_BASE_DLLMAPPING Semaphore : public SemaphoreBase
     void operator =(const Semaphore &source);
 };
 
-typedef RefCountPtr<Semaphore,
-                    MemObjRefCountPolicy> SemaphoreRefPtr;
-
-
-
+OSG_GEN_MEMOBJPTR(Semaphore);
 
 OSG_END_NAMESPACE
 

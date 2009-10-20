@@ -57,7 +57,8 @@ MPFieldStore<MPFieldT>::~MPFieldStore(void)
 
 template <class MPFieldT> inline
 MPFieldT *MPFieldStore<MPFieldT>::getMPField(const Char8 *szName,
-                                             const Char8 *szTypeName)
+                                             const Char8 *szTypeName,
+                                                   bool   bGlobal   )
 {
     MPFieldT    *returnValue = NULL;
     MPFieldType *pElemType;
@@ -70,10 +71,15 @@ MPFieldT *MPFieldStore<MPFieldT>::getMPField(const Char8 *szName,
 
         if(pElemType != NULL)
         {
-            returnValue = pElemType->create(szName);
+            returnValue = pElemType->create(szName, bGlobal);
 
             if(returnValue != NULL)
             {
+                if(returnValue->isGlobal() == true)
+                {
+                    OSG::addRef(returnValue);
+                }
+
                 _mFieldMap[std::string(returnValue->getCName())]= returnValue;
             }
         }
@@ -121,6 +127,11 @@ void MPFieldStore<MPFieldT>::removeMPField(MPFieldT *pField)
 
     if(gIt != _mFieldMap.end())
     {
+        if((*gIt).second->isGlobal() == true)
+        {
+            subRef((*gIt).second);
+        }
+
         _mFieldMap.erase(gIt);
     }
 }
@@ -136,14 +147,17 @@ void MPFieldStore<MPFieldT>::clear(void)
     // don't delete objects that are refcounted - rather leak them
     // than destroying an object with active references to it.
 
-#ifdef OSG_ENABLE_MTDESTRUCT_ONEXIT
      while(gIt != _mFieldMap.end())
      {
-         delete (*gIt).second;
+         if((*gIt).second                != NULL && 
+            (*gIt).second->isGlobal()    == true && 
+            (*gIt).second->getRefCount() == 1     )
+         {
+             delete (*gIt).second;
+         }
 
          ++gIt;
      }
-#endif
 
     _mFieldMap.clear();
 }

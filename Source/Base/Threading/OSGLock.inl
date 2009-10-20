@@ -171,9 +171,9 @@ bool WinThreadLockBase::request(void)
 
 
 inline
-Lock *Lock::create(void)
+Lock::ObjTransitPtr Lock::create(void)
 {
-    return Lock::get(NULL);
+    return Lock::get(NULL, false);
 }
 
 inline
@@ -203,9 +203,9 @@ bool Lock::request(void)
 }
 
 inline
-LockPool *LockPool::create(void)
+LockPool::ObjTransitPtr LockPool::create(void)
 {
-    return LockPool::get(NULL);
+    return LockPool::get(NULL, false);
 }
 
 inline

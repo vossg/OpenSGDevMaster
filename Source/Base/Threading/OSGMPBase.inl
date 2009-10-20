@@ -38,6 +38,12 @@
 
 OSG_BEGIN_NAMESPACE
 
+inline
+bool MPBase::isGlobal(void) const
+{
+    return _bGlobal;
+}
+
 OSG_END_NAMESPACE
 
 

@@ -68,11 +68,13 @@ OSG_BEGIN_NAMESPACE
 
 MouseDataDeviceInterface::MouseDataDeviceInterface(
     const Char8  *szName, 
-          UInt32  uiId) :
+          UInt32  uiId, 
+          bool    bGlobal) :
 
       Inherited  (szName, 
-                  uiId  ),
-     _cbMouseData(128   )
+                  uiId,
+                  bGlobal),
+     _cbMouseData(128    )
 
 {
 }

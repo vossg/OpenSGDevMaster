@@ -138,25 +138,19 @@ bool CSMDrawManager::init(void)
 
     if(_sfParallel.getValue() == true)
     {
-        _pThread      = Thread::getCurrent();
-
-        addRef(_pThread);
+        _pThread   = Thread::getCurrent();
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        _pSyncLock    = Lock::get("DM::synclock");
-
-        addRef(_pSyncLock);
+        _pSyncLock = Lock::get("DM::synclock", false);
 #endif
 
-        _pSyncBarrier = Barrier::get(_sfSyncBarrierName.getValue().c_str());
-
-        addRef(_pSyncBarrier);
+        _pSyncBarrier = Barrier::get(_sfSyncBarrierName.getValue().c_str(),
+                                     false);
 
         if(_sfSwapBarrierName.getValue().empty() == false)
         {
-            _pSwapBarrier = Barrier::get(_sfSwapBarrierName.getValue().c_str());
-
-            addRef(_pSwapBarrier);
+            _pSwapBarrier = Barrier::get(_sfSwapBarrierName.getValue().c_str(),
+                                         false);
         }
 
         OSG_ASSERT(_pSyncBarrier != NULL);
@@ -297,18 +291,12 @@ void CSMDrawManager::shutdown(void)
             ++dIt;
         }
 
-        subRef(_pThread);
-        _pThread = NULL;
-
-        subRef(_pSyncBarrier);
+        _pThread      = NULL;
         _pSyncBarrier = NULL;
-
-        subRef(_pSwapBarrier);
         _pSwapBarrier = NULL;
 
 #ifdef OSG_GLOBAL_SYNC_LOCK
-        subRef(_pSyncLock);
-        _pSyncLock = NULL;
+        _pSyncLock    = NULL;
 #endif
     }
 }

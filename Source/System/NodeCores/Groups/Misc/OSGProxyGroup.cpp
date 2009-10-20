@@ -244,6 +244,7 @@ ActionBase::ResultE ProxyGroup::render(Action *action)
 
 void ProxyGroup::startLoading(void)
 {
+#ifdef OSG_OLD_RENDER_ACTION
     if(getConcurrentLoad() == false)
     {
         if(getMFInline()->size() == 0)
@@ -296,6 +297,7 @@ void ProxyGroup::startLoading(void)
                                      NULL                     );
         }
     }
+#endif
 }
 
 /*-------------------------------------------------------------------------*/
@@ -316,6 +318,7 @@ void ProxyGroup::initMethod(InitPhase ePhase)
 
 void ProxyGroup::loadProc(void *)
 {
+#ifdef OSG_OLD_RENDER_ACTION
     bool stopThread = false;
 
     ProxyGroup *g;
@@ -363,6 +366,7 @@ void ProxyGroup::loadProc(void *)
 
         _loadLock->release();
     }
+#endif
 }
 
 Thread                         *ProxyGroup::_loadThread = NULL;

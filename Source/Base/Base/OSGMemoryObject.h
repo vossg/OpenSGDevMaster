@@ -46,61 +46,9 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! \class MemoryObject 
-    Memory, simple reference counted memory object. Parent of
-    everything that should be shared, but must not be thread safe.
-    \ingroup GrpBaseBase
-    \ingroup GrpBaseBaseMemory
-    \ingroup GrpLibOSGBase
- */
+struct MemObjRefCountPolicy;
+class MemoryObject;
 
-class OSG_BASE_DLLMAPPING MemoryObject
-{
-
-    /*==========================  PUBLIC  =================================*/
-
-  public:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~MemoryObject(void); 
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                 Reference Counting                           */
-    /*! \{                                                                 */
-
-    void  addRef     (void);
-    void  subRef     (void);    
-    Int32 getRefCount(void);
-
-    void addReferenceUnrecorded(void);
-    void subReferenceUnrecorded(void);
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-
-  protected:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
- 
-    MemoryObject(void);
-    MemoryObject(const  MemoryObject &source);
-
-    /*! \}                                                                 */
-   /*==========================  PRIVATE  ================================*/
-
-  private:
-
-    RefCountStore _refCount;
-
-    /*!\brief prohibit default function (move to 'public' if needed) */
-    void operator =(const MemoryObject &source);
-};
 
 /*! \ingroup GrpBaseBaseMemory
  */
@@ -133,6 +81,72 @@ void setRefd(T *&pObject, T * const pNewObject);
  */
 template <class T> inline
 void clearRef(T *&pObject);
+
+/*! \class MemoryObject 
+    Memory, simple reference counted memory object. Parent of
+    everything that should be shared, but must not be thread safe.
+    \ingroup GrpBaseBase
+    \ingroup GrpBaseBaseMemory
+    \ingroup GrpLibOSGBase
+ */
+
+class OSG_BASE_DLLMAPPING MemoryObject
+{
+
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~MemoryObject(void); 
+
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+ 
+    MemoryObject(void);
+    MemoryObject(const  MemoryObject &source);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                 Reference Counting                           */
+    /*! \{                                                                 */
+
+    void  addRef     (void);
+    void  subRef     (void);    
+    Int32 getRefCount(void);
+
+    void addReferenceUnrecorded(void);
+    void subReferenceUnrecorded(void);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    friend struct MemObjRefCountPolicy;
+
+    template <class ObjectT>
+    friend class TransitPtr;
+
+    friend void addRef(OSG::MemoryObjectPConst pObject);
+    friend void subRef(OSG::MemoryObjectPConst pObject);
+
+
+    RefCountStore _refCount;
+
+    /*!\brief prohibit default function (move to 'public' if needed) */
+    void operator =(const MemoryObject &source);
+};
  
 #ifdef OSG_1_COMPAT
 /*! \relatesalso MemoryObject
@@ -212,6 +226,14 @@ struct MemObjRefCountPolicy
         pIn  = NULL;
     } 
 };
+
+#define OSG_GEN_INTERNAL_MEMOBJPTR(CLASST)                              \
+    typedef TransitPtr < CLASST                      > ObjTransitPtr;   \
+    typedef RefCountPtr< CLASST, MemObjRefCountPolicy> ObjRefPtr
+
+#define OSG_GEN_MEMOBJPTR(CLASST)                                       \
+    typedef TransitPtr < CLASST > CLASST##TransitPtr;                   \
+    typedef RefCountPtr< CLASST, MemObjRefCountPolicy > CLASST##RefPtr
 
 OSG_END_NAMESPACE
 

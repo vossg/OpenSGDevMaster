@@ -421,7 +421,7 @@ class OSG_BASE_DLLMAPPING Log : public std::ostream
     static       Char8           *_buffer;
     static       int              _bufferSize;
 
-    static       Lock            *_pLogLock;
+    static       LockRefPtr       _pLogLock;
     static       InitFuncWrapper  _lockInit;
     
     /*! \{                                                                 */

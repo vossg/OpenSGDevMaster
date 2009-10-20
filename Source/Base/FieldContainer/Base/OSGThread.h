@@ -48,7 +48,6 @@
 #ifndef OSG_EMBEDDED
 
 #include "OSGBaseThread.h"
-#include "OSGRefCountPtr.h"
 
 #include <utility>
 
@@ -146,8 +145,8 @@ class OSG_BASE_DLLMAPPING ThreadCommonBase : public BaseThread
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ThreadCommonBase(      void                      );
-    ThreadCommonBase(const Char8 *szName, UInt32 uiId);
+    ThreadCommonBase(      void                                    );
+    ThreadCommonBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -251,7 +250,7 @@ class PThreadBase : public ThreadCommonBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    PThreadBase(const Char8 *szName, UInt32 uiId);
+    PThreadBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -347,7 +346,7 @@ class SprocBase : public ThreadCommonBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SprocBase(const Char8 *szName, UInt32 uiId);
+    SprocBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -477,7 +476,7 @@ class WinThreadBase : public ThreadCommonBase
     /*! \{                                                                 */
 
     OSG_BASE_DLLMAPPING 
-    WinThreadBase(const Char8 *szName, UInt32 uiId);
+    WinThreadBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -578,6 +577,8 @@ class OSG_BASE_DLLMAPPING Thread : public ThreadBase
 
     typedef      MPThreadType Type;
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(Thread);
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
@@ -602,11 +603,12 @@ class OSG_BASE_DLLMAPPING Thread : public ThreadBase
     /*! \name                      Run                                     */
     /*! \{                                                                 */
 
-    static Thread     *getCurrent                 (      void             );
+    static Thread        *getCurrent(      void              );
 
 
-    static Thread     *get                        (const Char8     *szName);
-    static Thread     *find                       (const Char8     *szName);
+    static ObjTransitPtr  get       (const Char8     *szName,
+                                           bool       bGlobal);
+    static Thread        *find      (const Char8     *szName );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -646,16 +648,19 @@ class OSG_BASE_DLLMAPPING Thread : public ThreadBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    static Thread *create       (const Char8 *szName, UInt32 uiId);
+    static Thread *create            (const Char8 *szName, 
+                                            UInt32 uiId,
+                                            bool   bGlobal = false);
 
-    static void    initThreading(void);
+    static void    initThreading     (      void                      );
+    static void    terminateThreading(      void                      );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    Thread(const Char8 *szName, UInt32 uiId);
+    Thread(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -678,8 +683,7 @@ class OSG_BASE_DLLMAPPING Thread : public ThreadBase
     void operator =(const Thread &source);
 };
 
-typedef RefCountPtr<Thread, 
-                    MemObjRefCountPolicy> ThreadRefPtr;
+OSG_GEN_MEMOBJPTR(Thread);
 
 //---------------------------------------------------------------------------
 //  Class
@@ -697,12 +701,15 @@ class OSG_BASE_DLLMAPPING ExternalThread : public ThreadBase
 
     typedef MPThreadType Type;
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(ExternalThread);
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
     
-    static ExternalThread *get       (const Char8 *szName);
-    static ExternalThread *find      (const Char8 *szName);
+    static ObjTransitPtr   get (const Char8 *szName,
+                                      bool   bGlobal);
+    static ExternalThread *find(const Char8 *szName );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -730,14 +737,16 @@ class OSG_BASE_DLLMAPPING ExternalThread : public ThreadBase
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-    static ExternalThread *create       (const Char8 *szName, UInt32 uiId);
+    static ExternalThread *create(const Char8 *szName, 
+                                        UInt32 uiId,
+                                        bool   bGlobal = false);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    ExternalThread(const Char8 *szName, UInt32 uiId);
+    ExternalThread(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -760,8 +769,7 @@ class OSG_BASE_DLLMAPPING ExternalThread : public ThreadBase
     void operator =(const ExternalThread &source);
 };
 
-typedef RefCountPtr<ExternalThread, 
-                    MemObjRefCountPolicy> ExternalThreadRefPtr;
+OSG_GEN_MEMOBJPTR(ExternalThread);
 
 #else /* OSG_WIN_CE */
 

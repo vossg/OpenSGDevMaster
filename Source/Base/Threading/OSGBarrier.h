@@ -44,7 +44,6 @@
 
 #include "OSGBaseTypes.h"
 #include "OSGMPBase.h"
-#include "OSGRefCountPtr.h"
 
 #if ! defined (OSG_USE_PTHREADS)   && \
     ! defined (OSG_USE_SPROC)      && \
@@ -92,7 +91,7 @@ class OSG_BASE_DLLMAPPING BarrierCommonBase : public MPBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    BarrierCommonBase(const Char8 *szName, UInt32 uiId);
+    BarrierCommonBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -148,7 +147,7 @@ class PThreadBarrierBase : public BarrierCommonBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    PThreadBarrierBase(const Char8 *szName, UInt32 uiId);
+    PThreadBarrierBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -230,7 +229,7 @@ class SprocBarrierBase : public BarrierCommonBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    SprocBarrierBase(const Char8 *szName, UInt32 uiId);
+    SprocBarrierBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -307,7 +306,7 @@ class OSG_BASE_DLLMAPPING WinThreadBarrierBase : public BarrierCommonBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    WinThreadBarrierBase(const Char8 *szName, UInt32 uiId);
+    WinThreadBarrierBase(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -381,16 +380,19 @@ class OSG_BASE_DLLMAPPING Barrier : public BarrierBase
 
     typedef MPBarrierType Type;
 
+    OSG_GEN_INTERNAL_MEMOBJPTR(Barrier);
+
     /*---------------------------------------------------------------------*/
     /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    static       Barrier       *get         (const Char8 *szName);
-    static       Barrier       *find        (const Char8 *szName);
+    static       ObjTransitPtr  get         (const Char8 *szName,
+                                                   bool   bGlobal);
+    static       Barrier       *find        (const Char8 *szName );
 
-    static       Barrier       *create      (      void         );
+    static       ObjTransitPtr  create      (      void          );
 
-    static const MPBarrierType &getClassType(      void         );
+    static const MPBarrierType &getClassType(      void          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -421,7 +423,7 @@ class OSG_BASE_DLLMAPPING Barrier : public BarrierBase
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    Barrier(const Char8 *szName, UInt32 uiId);
+    Barrier(const Char8 *szName, UInt32 uiId, bool bGlobal);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -436,7 +438,8 @@ class OSG_BASE_DLLMAPPING Barrier : public BarrierBase
     /*! \{                                                                 */
 
     static Barrier *create(const Char8  *szName,
-                                 UInt32  uiId);
+                                 UInt32  uiId, 
+                                 bool    bGlobal);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -451,8 +454,7 @@ class OSG_BASE_DLLMAPPING Barrier : public BarrierBase
     void operator =(const Barrier &source);
 };
 
-typedef RefCountPtr<Barrier,
-                    MemObjRefCountPolicy> BarrierRefPtr;
+OSG_GEN_MEMOBJPTR(Barrier);
 
 OSG_END_NAMESPACE
 

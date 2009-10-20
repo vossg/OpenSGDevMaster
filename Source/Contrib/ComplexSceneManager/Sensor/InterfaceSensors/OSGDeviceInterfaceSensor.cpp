@@ -124,8 +124,9 @@ bool DeviceInterfaceSensor::init(void)
 
     OSG_ASSERT(_pDevice == NULL);
 
-    _pDevice = dynamic_cast<DeviceInterface *>(
+    _pDevice = dynamic_pointer_cast<DeviceInterface>(
         ThreadManager::the()->getThread(NULL, 
+                                        false,
                                         _sfInterfaceName.getValue().c_str()));
     
     if(_pDevice != NULL)
@@ -162,6 +163,8 @@ void DeviceInterfaceSensor::shutdown(void)
 
         _pDevice->shutdown();
     }
+
+    _pDevice = NULL;
 }
 
 OSG_END_NAMESPACE

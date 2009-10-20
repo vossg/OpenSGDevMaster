@@ -209,7 +209,7 @@ class ContainerFactory : public FactoryBase
     UninitTypeStore  _vPostUnitTypes;
 
 #ifndef OSG_EMBEDDED
-    Lock            *_pLock;
+    LockRefPtr       _pLock;
 #endif
 
     /*! \}                                                                 */

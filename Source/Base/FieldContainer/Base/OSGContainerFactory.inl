@@ -344,11 +344,10 @@ bool ContainerFactory<DescT>::initialize(void)
 
 #ifndef OSG_EMBEDDED
     _pLock   =
-        ThreadManager::the()->getLock(Desc::getContainerFactoryLockName());
+        ThreadManager::the()->getLock(Desc::getContainerFactoryLockName(),
+                                      false);
 
-    addRef(_pLock);
-
-    PINFO << "Got map   lock " << _pLock   << std::endl;
+    PINFO << "Got map   lock " << _pLock.get()   << std::endl;
 
     this->_bInitialized = (_pLock != NULL);
 #endif
@@ -401,7 +400,7 @@ bool ContainerFactory<DescT>::terminate(void)
     }
 
 #ifndef OSG_EMBEDDED
-    subRef(_pLock);
+    _pLock = NULL;
 #endif
 
     _bInitialized = false;

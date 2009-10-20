@@ -260,7 +260,7 @@ const Char8        *Log::_levelColor[] =
 Char8              *Log::_buffer       = NULL;
 int                 Log::_bufferSize   =  0;
 
-Lock               *Log::_pLogLock     = NULL;
+LockRefPtr          Log::_pLogLock     = NULL;
 InitFuncWrapper     Log::_lockInit(&Log::initLock);
 
 /*! \brief colorHeader which takes the log level for level color
@@ -414,7 +414,7 @@ Log::~Log(void)
 
 bool Log::initLock(void)
 {
-    _pLogLock = Lock::get("OSG::Log::_pLogLock");
+    _pLogLock = Lock::get("OSG::Log::_pLogLock", true);
 
     addPreMPExitFunction(&Log::finalizeLock);
 

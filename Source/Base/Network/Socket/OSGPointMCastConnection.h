@@ -146,14 +146,14 @@ class OSG_BASE_DLLMAPPING PointMCastConnection : public PointSockConnection
 
     DgramSocket                    _mcastSocket;
     DgramSocket                    _responseSocket;
-    BaseThread                    *_recvQueueThread;
+    BaseThreadRefPtr               _recvQueueThread;
     bool                           _recvQueueThreadRunning;
     bool                           _recvQueueThreadStop;
     UInt16                         _seqNumber;
     SocketAddress                  _mcastAddress;
     DgramQueue                     _queue;
     DgramQueue                     _free;
-    Lock                          *_lock;
+    LockRefPtr                     _lock;
     SocketAddress                  _sender;
     SocketAddress                  _ackDestination;
     Dgram                         *_lastDgram;

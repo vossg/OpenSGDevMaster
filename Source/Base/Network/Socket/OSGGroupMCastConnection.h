@@ -135,12 +135,12 @@ class OSG_BASE_DLLMAPPING GroupMCastConnection :
 
     DgramSocket                _mcastSocket;
     SocketAddress              _mcastAddress;
-    BaseThread                *_sendQueueThread;
+    BaseThreadRefPtr           _sendQueueThread;
     bool                       _sendQueueThreadRunning;
     bool                       _sendQueueThreadStop;
     DgramQueue                 _queue;
     DgramQueue                 _free;
-    Lock                      *_lock;
+    LockRefPtr                 _lock;
     UInt16                     _seqNumber;
     UInt32                     _receivers;
     UInt32                     _windowSize;

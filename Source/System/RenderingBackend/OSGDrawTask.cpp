@@ -81,8 +81,8 @@ DrawTaskQueue::DrawTaskQueue(void) :
     _pStoreLock(NULL),
     _pStoreSema(NULL)
 {
-    _pStoreLock = Lock     ::get(NULL);
-    _pStoreSema = Semaphore::get(NULL);
+    _pStoreLock = Lock     ::get(NULL, false);
+    _pStoreSema = Semaphore::get(NULL, false);
 }
 
 /*-------------------------------------------------------------------------*/

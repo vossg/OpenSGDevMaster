@@ -4,16 +4,16 @@ ContainerCollection
 {
   containers
   [
-    DEF TaskInsert InsertTestTask
-    {
-      window USE MainWindow
-    }
+#    DEF TaskInsert InsertTestTask
+#    {
+#      window USE MainWindow
+#    }
 
-    DEF TriggerInsert KeySensor
-    {
-      key "i"
-    }        
+#    DEF TriggerInsert KeySensor
+#    {
+#      key "i"
+#    }        
   ]
 }
 
-ROUTE TriggerInsert.signalPressed  TO TaskInsert.trigger
+#ROUTE TriggerInsert.signalPressed  TO TaskInsert.trigger
