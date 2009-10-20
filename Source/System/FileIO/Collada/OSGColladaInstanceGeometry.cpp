@@ -175,9 +175,13 @@ void ColladaInstanceGeometry::read(void)
                     colEffect->read();
                 }
 
-                std::string effectKey = instMats[i]->getSymbol();
+                std::string    effectKey = instMats[i]->getSymbol();
+                ChunkMaterial *chunkMat  = colEffect->getMaterial();
+                
+                if(mat->getName() != NULL)
+                    setName(chunkMat, mat->getName());
 
-                _matMap[effectKey] = colEffect->getMaterial();
+                _matMap[effectKey] = chunkMat;
 
                 const domInstance_material::domBind_Array &binds =
                     instMats[i]->getBind_array();
