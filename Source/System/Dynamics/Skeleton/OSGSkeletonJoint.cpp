@@ -160,10 +160,10 @@ SkeletonJoint::renderEnter(Action *action)
     Skeleton::MFJointNormalMatricesType *jointNMats =
         skel->editMFJointNormalMatrices();
 
+    ract->pushMatrix(_sfMatrix.getValue());
+
     if(_identityInvBindMatrix == false)
         ract->pushMatrix(_sfInvBindMatrix.getValue());
-
-    ract->pushMatrix(_sfMatrix.getValue());
 
     (*jointMats)[jointId] = ract->topMatrix();
 
@@ -192,25 +192,25 @@ SkeletonJoint::renderLeave(Action *action)
 #ifdef OSG_DEBUG
     if(_sfJointId.getValue() == INVALID_JOINT_ID)
     {
-        SWARNING << "SkeletonJoint::renderEnter: Joint has invalid jointId. "
+        SWARNING << "SkeletonJoint::renderLeave: Joint has invalid jointId. "
                  << "Ignoring." << std::endl;
         return res;
     }
     
     if(getSkeleton() == NULL)
     {
-        SWARNING << "SkeletonJoint::renderEnter: Joint has no skeleton. "
+        SWARNING << "SkeletonJoint::renderLeave: Joint has no skeleton. "
                  << "Ignoring." << std::endl;
         return res;
     }
 #endif
 
-    Int16 jointId   = _sfJointId.getValue();
+    Int16 jointId = _sfJointId.getValue();
+
+    ract->popMatrix();
 
     if(_identityInvBindMatrix == false)
         ract->popMatrix();
-
-    ract->popMatrix();
 
     return res;
 }
