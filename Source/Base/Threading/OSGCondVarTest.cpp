@@ -50,168 +50,170 @@ OSG_USING_NAMESPACE
 
 struct condition_test_data
 {
-   condition_test_data()
-      : notified(0)
-      , awoken(0)
-   {
-      mCondVar = OSG::CondVar::get(NULL);
-      mOutputLock = OSG::Lock::get(NULL);
-   }
+    condition_test_data()
+        : notified(0)
+        , awoken(0)
+        {
+            mCondVar    = OSG::CondVar::get(NULL, false);
+            mOutputLock = OSG::Lock   ::get(NULL, false);
+        }
 
-   OSG::CondVar* mCondVar;
-   OSG::Lock* mOutputLock;
-   int notified;
-   int awoken;
+    OSG::CondVarRefPtr mCondVar;
+    OSG::LockRefPtr    mOutputLock;
+    int                notified;
+    int                awoken;
 };
 
 //#define OSG_CONDVAR_DEBUG
 
 #ifdef OSG_CONDVAR_DEBUG
-#  define OUTPUT_BEGIN(data)                    \
-      (data)->mOutputLock->acquire();           \
-      PWARNING << OSG::BaseThread::getCurrent()->getCName()
+#  define OUTPUT_BEGIN(data)                                \
+    (data)->mOutputLock->acquire();                         \
+    PWARNING << OSG::BaseThread::getCurrent()->getCName()
+
 #  define OUTPUT_END(data)                      \
-      std::endl;                                \
-      (data)->mOutputLock->release();
+    std::endl;                                  \
+    (data)->mOutputLock->release();
 #endif
 
 void condition_test_thread(void* param)
 {
-   condition_test_data* data = static_cast<condition_test_data*>(param);
+    condition_test_data* data = static_cast<condition_test_data*>(param);
 
 #ifdef OSG_CONDVAR_DEBUG
-   OUTPUT_BEGIN(data) << ": Locking condvar" << OUTPUT_END(data);
+    OUTPUT_BEGIN(data) << ": Locking condvar" << OUTPUT_END(data);
 #endif
-   data->mCondVar->acquire();
+    data->mCondVar->acquire();
 #ifdef OSG_CONDVAR_DEBUG
-   OUTPUT_BEGIN(data) << ": Locked condvar" << OUTPUT_END(data);
+    OUTPUT_BEGIN(data) << ": Locked condvar" << OUTPUT_END(data);
 #endif
 
-   try
-   {
-      while (!(data->notified > 0))
-      {
+    try
+    {
+        while (!(data->notified > 0))
+        {
 #ifdef OSG_CONDVAR_DEBUG
-         OUTPUT_BEGIN(data) << ": waiting condvar notified: "
-            << data->notified << OUTPUT_END(data);
+            OUTPUT_BEGIN(data) << ": waiting condvar notified: "
+                               << data->notified << OUTPUT_END(data);
 #endif
-         data->mCondVar->wait();
+            data->mCondVar->wait();
 #ifdef OSG_CONDVAR_DEBUG
-         OUTPUT_BEGIN(data) << ": waited condvar notified: "
-            << data->notified << OUTPUT_END(data);
+            OUTPUT_BEGIN(data) << ": waited condvar notified: "
+                               << data->notified << OUTPUT_END(data);
 #endif
-      }
-      data->awoken++;
+        }
+        data->awoken++;
 #ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(data) << ": awoken: " << data->awoken << OUTPUT_END(data);
+        OUTPUT_BEGIN(data) << ": awoken: " << data->awoken << OUTPUT_END(data);
 
-      OUTPUT_BEGIN(data) << ": releasing condvar" << OUTPUT_END(data);
+        OUTPUT_BEGIN(data) << ": releasing condvar" << OUTPUT_END(data);
 #endif
-      data->mCondVar->release();
+        data->mCondVar->release();
 #ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(data) << ": released condvar" << OUTPUT_END(data);
+        OUTPUT_BEGIN(data) << ": released condvar" << OUTPUT_END(data);
 #endif
-   }
-   catch(...)
-   {
+    }
+    catch(...)
+    {
 #ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(data) << ": releasing condvar" << OUTPUT_END(data);
+        OUTPUT_BEGIN(data) << ": releasing condvar" << OUTPUT_END(data);
 #endif
-      data->mCondVar->release();
+        data->mCondVar->release();
 #ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(data) << ": released condvar" << OUTPUT_END(data);
+        OUTPUT_BEGIN(data) << ": released condvar" << OUTPUT_END(data);
 #endif
-      throw;
-   }
+        throw;
+    }
 }
 
 SUITE(CondVarTests)
 {
 
-TEST(TestSignal)
-{
-   condition_test_data data;
+    TEST(TestSignal)
+    {
+        condition_test_data data;
 
-   OSG::BaseThread* thread = OSG::BaseThread::get(NULL);
-   thread->runFunction(&condition_test_thread, &data);
-   OSG::osgSleep(250);
-   {
+        OSG::BaseThreadRefPtr thread = OSG::BaseThread::get(NULL, false);
+        thread->runFunction(&condition_test_thread, &data);
+        OSG::osgSleep(250);
+        {
 #ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": Locking condvar" << OUTPUT_END(&data);
+            OUTPUT_BEGIN(&data) << ": Locking condvar" << OUTPUT_END(&data);
 #endif
-      data.mCondVar->acquire();
+            data.mCondVar->acquire();
 #ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": Locked condvar" << OUTPUT_END(&data);
-#endif
-
-      data.notified++;
-#ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": notified: " << data.notified << OUTPUT_END(&data);
-
-      OUTPUT_BEGIN(&data) << ": signaling condvar" << OUTPUT_END(&data);
-#endif
-      data.mCondVar->signal();
-#ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": signaled condvar" << OUTPUT_END(&data);
-
-      OUTPUT_BEGIN(&data) << ": releasing condvar" << OUTPUT_END(&data);
-#endif
-      data.mCondVar->release();
-#ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": released condvar" << OUTPUT_END(&data);
-#endif
-   }
-
-   OSG::BaseThread::join(thread);
-   OSG_ASSERT(1 == data.awoken);
-}
-
-TEST(TestBroadcast)
-{
-   const int NUMTHREADS = 5;
-   std::vector<OSG::BaseThread*> threads;
-   condition_test_data data;
-
-   for (int i = 0; i < NUMTHREADS; ++i)
-   {
-      OSG::BaseThread* thread = OSG::BaseThread::get(NULL);
-      thread->runFunction(&condition_test_thread, &data);
-      threads.push_back(thread);
-   }
-
-   OSG::osgSleep(250);
-   {
-#ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": Locking condvar" << OUTPUT_END(&data);
-#endif
-      data.mCondVar->acquire();
-#ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": Locked condvar" << OUTPUT_END(&data);
+            OUTPUT_BEGIN(&data) << ": Locked condvar" << OUTPUT_END(&data);
 #endif
 
-      data.notified++;
+            data.notified++;
 #ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": notified: " << data.notified << OUTPUT_END(&data);
+            OUTPUT_BEGIN(&data) << ": notified: " << data.notified << OUTPUT_END(&data);
 
-      OUTPUT_BEGIN(&data) << ": broadcast condvar" << OUTPUT_END(&data);
+            OUTPUT_BEGIN(&data) << ": signaling condvar" << OUTPUT_END(&data);
 #endif
-      data.mCondVar->broadcast();
+            data.mCondVar->signal();
 #ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": broadcast condvar done" << OUTPUT_END(&data);
+            OUTPUT_BEGIN(&data) << ": signaled condvar" << OUTPUT_END(&data);
 
-      OUTPUT_BEGIN(&data) << ": releasing condvar" << OUTPUT_END(&data);
+            OUTPUT_BEGIN(&data) << ": releasing condvar" << OUTPUT_END(&data);
 #endif
-      data.mCondVar->release();
+            data.mCondVar->release();
 #ifdef OSG_CONDVAR_DEBUG
-      OUTPUT_BEGIN(&data) << ": released condvar" << OUTPUT_END(&data);
+            OUTPUT_BEGIN(&data) << ": released condvar" << OUTPUT_END(&data);
 #endif
-   }
+        }
 
-   for (int i = 0; i < NUMTHREADS; ++i)
-   {
-      OSG::BaseThread::join(threads[i]);
-   }
-   OSG_ASSERT(data.awoken == NUMTHREADS);
-}
+        OSG::BaseThread::join(thread);
+        CHECK_EQUAL(1, data.awoken);
+    }
+
+    TEST(TestBroadcast)
+    {
+        const int NUMTHREADS = 5;
+        std::vector<OSG::BaseThreadRefPtr> threads;
+        condition_test_data                data;
+
+        for (int i = 0; i < NUMTHREADS; ++i)
+        {
+            OSG::BaseThreadRefPtr thread = OSG::BaseThread::get(NULL, false);
+            thread->runFunction(&condition_test_thread, &data);
+            threads.push_back(thread);
+        }
+
+        OSG::osgSleep(250);
+        {
+#ifdef OSG_CONDVAR_DEBUG
+            OUTPUT_BEGIN(&data) << ": Locking condvar" << OUTPUT_END(&data);
+#endif
+            data.mCondVar->acquire();
+#ifdef OSG_CONDVAR_DEBUG
+            OUTPUT_BEGIN(&data) << ": Locked condvar" << OUTPUT_END(&data);
+#endif
+
+            data.notified++;
+#ifdef OSG_CONDVAR_DEBUG
+            OUTPUT_BEGIN(&data) << ": notified: " << data.notified << OUTPUT_END(&data);
+
+            OUTPUT_BEGIN(&data) << ": broadcast condvar" << OUTPUT_END(&data);
+#endif
+            data.mCondVar->broadcast();
+#ifdef OSG_CONDVAR_DEBUG
+            OUTPUT_BEGIN(&data) << ": broadcast condvar done" << OUTPUT_END(&data);
+
+            OUTPUT_BEGIN(&data) << ": releasing condvar" << OUTPUT_END(&data);
+#endif
+            data.mCondVar->release();
+#ifdef OSG_CONDVAR_DEBUG
+            OUTPUT_BEGIN(&data) << ": released condvar" << OUTPUT_END(&data);
+#endif
+        }
+
+        for (int i = 0; i < NUMTHREADS; ++i)
+        {
+            OSG::BaseThread::join(threads[i]);
+        }
+
+        CHECK_EQUAL(NUMTHREADS, data.awoken);
+    }
 
 } // SUITE

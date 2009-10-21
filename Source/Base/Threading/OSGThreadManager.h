@@ -204,7 +204,8 @@ class OSG_BASE_DLLMAPPING ThreadManager
     /*! \name               Create Threading Element                       */
     /*! \{                                                                 */
 
-    // Int32 below as Char8 * cast to bool (gv)
+    // bGlobal is passed as UInt32 because Char8 * gets autoconverted to
+    // bool and that would allow existing code to silently compile
 
     BaseThreadTransitPtr getThread    (const Char8 *szName,
                                              UInt32 bGlobal,
