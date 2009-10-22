@@ -67,6 +67,8 @@
 
 #include "OSGSkeletonFields.h"          // Skeleton type
 #include "OSGSysFields.h"               // InfluencePropertyIndex type
+#include "OSGShaderProgramChunkFields.h" // ShaderCode type
+#include "OSGShaderProgramVariableChunkFields.h" // ShaderData type
 
 #include "OSGSkinnedGeometryFields.h"
 
@@ -98,7 +100,9 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
         InfluencePropertyIndexFieldId = SkeletonFieldId + 1,
         WeightPropertyIndexFieldId = InfluencePropertyIndexFieldId + 1,
         FlagsFieldId = WeightPropertyIndexFieldId + 1,
-        NextFieldId = FlagsFieldId + 1
+        ShaderCodeFieldId = FlagsFieldId + 1,
+        ShaderDataFieldId = ShaderCodeFieldId + 1,
+        NextFieldId = ShaderDataFieldId + 1
     };
 
     static const OSG::BitVector SkeletonFieldMask =
@@ -109,6 +113,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
         (TypeTraits<BitVector>::One << WeightPropertyIndexFieldId);
     static const OSG::BitVector FlagsFieldMask =
         (TypeTraits<BitVector>::One << FlagsFieldId);
+    static const OSG::BitVector ShaderCodeFieldMask =
+        (TypeTraits<BitVector>::One << ShaderCodeFieldId);
+    static const OSG::BitVector ShaderDataFieldMask =
+        (TypeTraits<BitVector>::One << ShaderDataFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
@@ -116,6 +124,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     typedef SFUInt16          SFInfluencePropertyIndexType;
     typedef SFUInt16          SFWeightPropertyIndexType;
     typedef SFUInt32          SFFlagsType;
+    typedef SFUnrecShaderProgramChunkPtr SFShaderCodeType;
+    typedef SFUnrecShaderProgramVariableChunkPtr SFShaderDataType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -151,6 +161,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
 
                   SFUInt32            *editSFFlags          (void);
             const SFUInt32            *getSFFlags           (void) const;
+            const SFUnrecShaderProgramChunkPtr *getSFShaderCode     (void) const;
+                  SFUnrecShaderProgramChunkPtr *editSFShaderCode     (void);
+            const SFUnrecShaderProgramVariableChunkPtr *getSFShaderData     (void) const;
+                  SFUnrecShaderProgramVariableChunkPtr *editSFShaderData     (void);
 
 
                   Skeleton * getSkeleton       (void) const;
@@ -164,6 +178,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
                   UInt32              &editFlags          (void);
                   UInt32               getFlags           (void) const;
 
+                  ShaderProgramChunk * getShaderCode     (void) const;
+
+                  ShaderProgramVariableChunk * getShaderData     (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -173,6 +191,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
             void setInfluencePropertyIndex(const UInt16 value);
             void setWeightPropertyIndex(const UInt16 value);
             void setFlags          (const UInt32 value);
+            void setShaderCode     (ShaderProgramChunk * const value);
+            void setShaderData     (ShaderProgramVariableChunk * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -241,6 +261,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     SFUInt16          _sfInfluencePropertyIndex;
     SFUInt16          _sfWeightPropertyIndex;
     SFUInt32          _sfFlags;
+    SFUnrecShaderProgramChunkPtr _sfShaderCode;
+    SFUnrecShaderProgramVariableChunkPtr _sfShaderData;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -277,6 +299,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     EditFieldHandlePtr editHandleWeightPropertyIndex(void);
     GetFieldHandlePtr  getHandleFlags           (void) const;
     EditFieldHandlePtr editHandleFlags          (void);
+    GetFieldHandlePtr  getHandleShaderCode      (void) const;
+    EditFieldHandlePtr editHandleShaderCode     (void);
+    GetFieldHandlePtr  getHandleShaderData      (void) const;
+    EditFieldHandlePtr editHandleShaderData     (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

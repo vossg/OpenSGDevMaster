@@ -59,4 +59,27 @@
      defaultValue="0"
      >
   </Field>
+
+  <Field
+     name="shaderCode"
+     type="ShaderProgramChunk"
+     category="pointer"
+     cardinality="single"
+     visibility="external"
+     access="protected"
+     defaultValue="NULL"
+     >
+  </Field>
+
+  <Field
+     name="shaderData"
+     type="ShaderProgramVariableChunk"
+     category="pointer"
+     cardinality="single"
+     visibility="external"
+     access="protected"
+     defaultValue="NULL"
+     >
+  </Field>
+
 </FieldContainer>

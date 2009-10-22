@@ -60,6 +60,35 @@ OSG_BEGIN_NAMESPACE
  *                           Class variables                               *
 \***************************************************************************/
 
+const std::string SkinnedGeometry::_vpVertexSkinning(
+    "#version 120\n"
+    "\n"
+    "uniform mat4 boneMatrices[10];\n"
+    ""
+    "void calcSkin(inout vec4 pos,    inout vec3 norm,\n"
+    "              in    vec4 matIdx, in    vec4 weight)\n"
+    "{\n"
+    "    float sumW    = dot(weight, vec4(1., 1., 1., 1.));\n"
+    "    vec4  inPos   = pos;\n"
+    "    vec4  inNorm  = vec4(norm,       0.);\n"
+    "    vec4  tmpPos  = vec4(0., 0., 0., 0.);\n"
+    "    vec4  tmpNorm = vec4(0., 0., 0., 0.);\n"
+    "\n"
+    "    for(int i = 0; i < 4; ++i)\n"
+    "    {\n"
+    "        int  index   = int(matIdx[i]);\n"
+    "        mat4 boneMat = boneMatrices[index];\n"
+    "\n"
+    "        tmpPos  += (weight[i] / sumW) * boneMat * inPos;\n"
+    "        tmpNorm += (weight[i] / sumW) * boneMat * inNorm;\n"
+    "    }\n"
+    "\n"
+    "    pos  = tmpPos;\n"
+    "    norm = tmpNorm.xyz;\n"
+    "}\n"
+    );
+
+
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
@@ -107,9 +136,18 @@ SkinnedGeometry::~SkinnedGeometry(void)
 /*----------------------------- class specific ----------------------------*/
 
 void SkinnedGeometry::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
+                              UInt32            origin,
+                              BitVector         details)
 {
+    if((FlagsFieldMask & whichField) != 0)
+    {
+        if(testFlag(SGFlagDebug) == false)
+        {
+            _debugDrawPos.clear();
+            _debugDrawIdx.clear();
+        }
+    }
+
     Inherited::changed(whichField, origin, details);
 }
 
@@ -150,11 +188,11 @@ SkinnedGeometry::renderLeave(Action *action)
     if(res != Action::Continue)
         return res;
 
-    if(testFlag(SG_FLAG_DEBUG) == true)
+    if(testFlag(SGFlagDebug) == true)
     {
         res = renderDebug(ract);
     }
-    else if(testFlag(SG_FLAG_HARDWARE) == true)
+    else if(testFlag(SGFlagHardware) == true)
     {
         res = renderHardware(ract);
     }
@@ -198,40 +236,42 @@ SkinnedGeometry::renderDebug(RenderAction *ract)
     const Skeleton::MFParentJointsType  *parentJoints =
         _sfSkeleton.getValue()->getMFParentJoints();
 
-    UInt32        numJoints(joints->size());
-    PositionStore positions(4 * numJoints );
-    IndexStore    indices;
+    UInt32 numJoints = joints->size();
+
+    _debugDrawPos.resize(4 * numJoints);
+    _debugDrawIdx.clear (             );
 
     for(UInt32 i = 0; i < numJoints; ++i)
     {
-        (*jointMats)[i].mult(Pnt3f(0.f,  0.f,  0.f ), positions[4 * i + 0]);
-        (*jointMats)[i].mult(Pnt3f(0.5f, 0.f,  0.f ), positions[4 * i + 1]);
-        (*jointMats)[i].mult(Pnt3f(0.f,  0.5f, 0.f ), positions[4 * i + 2]);
-        (*jointMats)[i].mult(Pnt3f(0.f,  0.f,  0.5f), positions[4 * i + 3]);
+        (*jointMats)[i].mult(Pnt3f(0.f,  0.f,  0.f ), _debugDrawPos[4 * i + 0]);
+        (*jointMats)[i].mult(Pnt3f(0.5f, 0.f,  0.f ), _debugDrawPos[4 * i + 1]);
+        (*jointMats)[i].mult(Pnt3f(0.f,  0.5f, 0.f ), _debugDrawPos[4 * i + 2]);
+        (*jointMats)[i].mult(Pnt3f(0.f,  0.f,  0.5f), _debugDrawPos[4 * i + 3]);
 
-        SLOG << "positions[" << i << "] " << positions[4 * i + 0] << std::endl;
+        SLOG << "positions[" << i << "] " << _debugDrawPos[4 * i + 0] << std::endl;
 
         if((*parentJoints)[i] != NULL)
         {
-            indices.push_back(4 * i                                + 0);
-            indices.push_back(4 * (*parentJoints)[i]->getJointId() + 0);
+            _debugDrawIdx.push_back(4 * i                                + 0);
+            _debugDrawIdx.push_back(4 * (*parentJoints)[i]->getJointId() + 0);
 
-            SLOG << "indices[" << (indices.size() - 2) << "] " << indices[indices.size() - 2] << "\n";
-            SLOG << "indices[" << (indices.size() - 1) << "] " << indices[indices.size() - 1]
+            SLOG << "indices[" << (_debugDrawIdx.size() - 2) 
+                 << "] " << _debugDrawIdx[_debugDrawIdx.size() - 2] << "\n";
+            SLOG << "indices[" << (_debugDrawIdx.size() - 1) 
+                 << "] " << _debugDrawIdx[_debugDrawIdx.size() - 1]
                  << std::endl;
         }
 
-        indices.push_back(4 * i + 0);
-        indices.push_back(4 * i + 1);
-        indices.push_back(4 * i + 0);
-        indices.push_back(4 * i + 2);
-        indices.push_back(4 * i + 0);
-        indices.push_back(4 * i + 3);
+        _debugDrawIdx.push_back(4 * i + 0);
+        _debugDrawIdx.push_back(4 * i + 1);
+        _debugDrawIdx.push_back(4 * i + 0);
+        _debugDrawIdx.push_back(4 * i + 2);
+        _debugDrawIdx.push_back(4 * i + 0);
+        _debugDrawIdx.push_back(4 * i + 3);
     }
 
     Material::DrawFunctor  drawFunc = 
-        boost::bind(&SkinnedGeometry::drawDebug,
-                    this, positions, indices, _1);
+        boost::bind(&SkinnedGeometry::drawDebug, this, _1);
     PrimeMaterial         *primeMat = getDefaultUnlitMaterial();
     State                 *state    = primeMat->getState();
     
@@ -239,15 +279,13 @@ SkinnedGeometry::renderDebug(RenderAction *ract)
 }
 
 Action::ResultE
-SkinnedGeometry::drawDebug(
-    const PositionStore &positions,
-    const IndexStore    &indices,   DrawEnv *drawEnv)
+SkinnedGeometry::drawDebug(DrawEnv *drawEnv)
 {
     glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, &(positions.front())); 
+    glVertexPointer(3, GL_FLOAT, 0, &(_debugDrawPos.front())); 
 
-    glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT,
-                   &(indices.front())                        );
+    glDrawElements(GL_LINES, _debugDrawIdx.size(), GL_UNSIGNED_INT,
+                   &(_debugDrawIdx.front())                        );
 
     glDisableClientState(GL_VERTEX_ARRAY);
 }
@@ -255,8 +293,50 @@ SkinnedGeometry::drawDebug(
 Action::ResultE
 SkinnedGeometry::renderHardware(RenderAction *ract)
 {
-    SWARNING << "SkinnedGeometry::renderHardware: NIY"
-             << std::endl;
+    Action::ResultE                     res    = Action::Continue;
+
+    Skeleton                           *skel   = getSkeleton  ();
+    ShaderProgramChunkUnrecPtr          shCode = getShaderCode();
+    ShaderProgramVariableChunkUnrecPtr  shData = getShaderData();
+
+    if(shCode == NULL)
+    {
+        shCode = ShaderProgramChunk::create();
+        setShaderCode(shCode);
+        
+        ShaderProgramUnrecPtr vp = ShaderProgram::createVertexShader();
+        vp->setProgram(_vpVertexSkinning);
+
+        shCode->addShader(vp);
+    }
+
+    if(shData == NULL)
+    {
+        shData = ShaderProgramVariableChunk::create();
+        setShaderData(shData);
+
+        shData->addUniformVariable(
+            "boneMatrices", *(skel->getMFJointMatrices()));
+    }
+    else
+    {
+        shData->updateUniformVariable(
+            "boneMatrices", *(skel->getMFJointMatrices()));
+    }
+
+    ract->pushState();
+
+    ract->addOverride(ShaderProgramChunk        ::getStaticClassId(), shCode);
+    ract->addOverride(ShaderProgramVariableChunk::getStaticClassId(), shData);
+
+    ract->pushState();
+
+    res = Inherited::renderActionEnterHandler(ract);
+
+    ract->popState();
+    ract->popState();
+
+    return res;
 }
 
 Action::ResultE

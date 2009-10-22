@@ -59,6 +59,8 @@
 
 
 #include "OSGSkeleton.h"                // Skeleton Class
+#include "OSGShaderProgramChunk.h"      // ShaderCode Class
+#include "OSGShaderProgramVariableChunk.h" // ShaderData Class
 
 #include "OSGSkinnedGeometryBase.h"
 #include "OSGSkinnedGeometry.h"
@@ -98,6 +100,14 @@ OSG_BEGIN_NAMESPACE
 */
 
 /*! \var UInt32          SkinnedGeometryBase::_sfFlags
+    
+*/
+
+/*! \var ShaderProgramChunk * SkinnedGeometryBase::_sfShaderCode
+    
+*/
+
+/*! \var ShaderProgramVariableChunk * SkinnedGeometryBase::_sfShaderData
     
 */
 
@@ -178,6 +188,30 @@ void SkinnedGeometryBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&SkinnedGeometry::getHandleFlags));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecShaderProgramChunkPtr::Description(
+        SFUnrecShaderProgramChunkPtr::getClassType(),
+        "shaderCode",
+        "",
+        ShaderCodeFieldId, ShaderCodeFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SkinnedGeometry::editHandleShaderCode),
+        static_cast<FieldGetMethodSig >(&SkinnedGeometry::getHandleShaderCode));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUnrecShaderProgramVariableChunkPtr::Description(
+        SFUnrecShaderProgramVariableChunkPtr::getClassType(),
+        "shaderData",
+        "",
+        ShaderDataFieldId, ShaderDataFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SkinnedGeometry::editHandleShaderData),
+        static_cast<FieldGetMethodSig >(&SkinnedGeometry::getHandleShaderData));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -253,6 +287,29 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     "     defaultValue=\"0\"\n"
     "     >\n"
     "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"shaderCode\"\n"
+    "     type=\"ShaderProgramChunk\"\n"
+    "     category=\"pointer\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"shaderData\"\n"
+    "     type=\"ShaderProgramVariableChunk\"\n"
+    "     category=\"pointer\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "     >\n"
+    "  </Field>\n"
+    "\n"
     "</FieldContainer>\n",
     ""
     );
@@ -329,6 +386,32 @@ const SFUInt32 *SkinnedGeometryBase::getSFFlags(void) const
 }
 
 
+//! Get the SkinnedGeometry::_sfShaderCode field.
+const SFUnrecShaderProgramChunkPtr *SkinnedGeometryBase::getSFShaderCode(void) const
+{
+    return &_sfShaderCode;
+}
+
+SFUnrecShaderProgramChunkPtr *SkinnedGeometryBase::editSFShaderCode     (void)
+{
+    editSField(ShaderCodeFieldMask);
+
+    return &_sfShaderCode;
+}
+
+//! Get the SkinnedGeometry::_sfShaderData field.
+const SFUnrecShaderProgramVariableChunkPtr *SkinnedGeometryBase::getSFShaderData(void) const
+{
+    return &_sfShaderData;
+}
+
+SFUnrecShaderProgramVariableChunkPtr *SkinnedGeometryBase::editSFShaderData     (void)
+{
+    editSField(ShaderDataFieldMask);
+
+    return &_sfShaderData;
+}
+
 
 
 
@@ -355,6 +438,14 @@ UInt32 SkinnedGeometryBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfFlags.getBinSize();
     }
+    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
+    {
+        returnValue += _sfShaderCode.getBinSize();
+    }
+    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
+    {
+        returnValue += _sfShaderData.getBinSize();
+    }
 
     return returnValue;
 }
@@ -380,6 +471,14 @@ void SkinnedGeometryBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfFlags.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
+    {
+        _sfShaderCode.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
+    {
+        _sfShaderData.copyToBin(pMem);
+    }
 }
 
 void SkinnedGeometryBase::copyFromBin(BinaryDataHandler &pMem,
@@ -402,6 +501,14 @@ void SkinnedGeometryBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (FlagsFieldMask & whichField))
     {
         _sfFlags.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
+    {
+        _sfShaderCode.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
+    {
+        _sfShaderData.copyFromBin(pMem);
     }
 }
 
@@ -531,7 +638,9 @@ SkinnedGeometryBase::SkinnedGeometryBase(void) :
     _sfSkeleton               (NULL),
     _sfInfluencePropertyIndex (UInt16(Geometry::TexCoordsIndex)),
     _sfWeightPropertyIndex    (UInt16(Geometry::TexCoords1Index)),
-    _sfFlags                  (UInt32(0))
+    _sfFlags                  (UInt32(0)),
+    _sfShaderCode             (NULL),
+    _sfShaderData             (NULL)
 {
 }
 
@@ -540,7 +649,9 @@ SkinnedGeometryBase::SkinnedGeometryBase(const SkinnedGeometryBase &source) :
     _sfSkeleton               (NULL),
     _sfInfluencePropertyIndex (source._sfInfluencePropertyIndex ),
     _sfWeightPropertyIndex    (source._sfWeightPropertyIndex    ),
-    _sfFlags                  (source._sfFlags                  )
+    _sfFlags                  (source._sfFlags                  ),
+    _sfShaderCode             (NULL),
+    _sfShaderData             (NULL)
 {
 }
 
@@ -560,6 +671,10 @@ void SkinnedGeometryBase::onCreate(const SkinnedGeometry *source)
         SkinnedGeometry *pThis = static_cast<SkinnedGeometry *>(this);
 
         pThis->setSkeleton(source->getSkeleton());
+
+        pThis->setShaderCode(source->getShaderCode());
+
+        pThis->setShaderData(source->getShaderData());
     }
 }
 
@@ -666,6 +781,62 @@ EditFieldHandlePtr SkinnedGeometryBase::editHandleFlags          (void)
     return returnValue;
 }
 
+GetFieldHandlePtr SkinnedGeometryBase::getHandleShaderCode      (void) const
+{
+    SFUnrecShaderProgramChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecShaderProgramChunkPtr::GetHandle(
+             &_sfShaderCode,
+             this->getType().getFieldDesc(ShaderCodeFieldId),
+             const_cast<SkinnedGeometryBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkinnedGeometryBase::editHandleShaderCode     (void)
+{
+    SFUnrecShaderProgramChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecShaderProgramChunkPtr::EditHandle(
+             &_sfShaderCode,
+             this->getType().getFieldDesc(ShaderCodeFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&SkinnedGeometry::setShaderCode,
+                    static_cast<SkinnedGeometry *>(this), _1));
+
+    editSField(ShaderCodeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SkinnedGeometryBase::getHandleShaderData      (void) const
+{
+    SFUnrecShaderProgramVariableChunkPtr::GetHandlePtr returnValue(
+        new  SFUnrecShaderProgramVariableChunkPtr::GetHandle(
+             &_sfShaderData,
+             this->getType().getFieldDesc(ShaderDataFieldId),
+             const_cast<SkinnedGeometryBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkinnedGeometryBase::editHandleShaderData     (void)
+{
+    SFUnrecShaderProgramVariableChunkPtr::EditHandlePtr returnValue(
+        new  SFUnrecShaderProgramVariableChunkPtr::EditHandle(
+             &_sfShaderData,
+             this->getType().getFieldDesc(ShaderDataFieldId),
+             this));
+
+    returnValue->setSetMethod(
+        boost::bind(&SkinnedGeometry::setShaderData,
+                    static_cast<SkinnedGeometry *>(this), _1));
+
+    editSField(ShaderDataFieldMask);
+
+    return returnValue;
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 void SkinnedGeometryBase::execSyncV(      FieldContainer    &oFrom,
@@ -704,6 +875,10 @@ void SkinnedGeometryBase::resolveLinks(void)
     Inherited::resolveLinks();
 
     static_cast<SkinnedGeometry *>(this)->setSkeleton(NULL);
+
+    static_cast<SkinnedGeometry *>(this)->setShaderCode(NULL);
+
+    static_cast<SkinnedGeometry *>(this)->setShaderData(NULL);
 
 
 }

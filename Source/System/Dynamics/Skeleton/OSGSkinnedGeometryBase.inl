@@ -165,6 +165,38 @@ void SkinnedGeometryBase::setFlags(const UInt32 value)
     _sfFlags.setValue(value);
 }
 
+//! Get the value of the SkinnedGeometry::_sfShaderCode field.
+inline
+ShaderProgramChunk * SkinnedGeometryBase::getShaderCode(void) const
+{
+    return _sfShaderCode.getValue();
+}
+
+//! Set the value of the SkinnedGeometry::_sfShaderCode field.
+inline
+void SkinnedGeometryBase::setShaderCode(ShaderProgramChunk * const value)
+{
+    editSField(ShaderCodeFieldMask);
+
+    _sfShaderCode.setValue(value);
+}
+
+//! Get the value of the SkinnedGeometry::_sfShaderData field.
+inline
+ShaderProgramVariableChunk * SkinnedGeometryBase::getShaderData(void) const
+{
+    return _sfShaderData.getValue();
+}
+
+//! Set the value of the SkinnedGeometry::_sfShaderData field.
+inline
+void SkinnedGeometryBase::setShaderData(ShaderProgramVariableChunk * const value)
+{
+    editSField(ShaderDataFieldMask);
+
+    _sfShaderData.setValue(value);
+}
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -187,6 +219,12 @@ void SkinnedGeometryBase::execSync (      SkinnedGeometryBase *pFrom,
 
     if(FieldBits::NoField != (FlagsFieldMask & whichField))
         _sfFlags.syncWith(pFrom->_sfFlags);
+
+    if(FieldBits::NoField != (ShaderCodeFieldMask & whichField))
+        _sfShaderCode.syncWith(pFrom->_sfShaderCode);
+
+    if(FieldBits::NoField != (ShaderDataFieldMask & whichField))
+        _sfShaderData.syncWith(pFrom->_sfShaderData);
 }
 #endif
 

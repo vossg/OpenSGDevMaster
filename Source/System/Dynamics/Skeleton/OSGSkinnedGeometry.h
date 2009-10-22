@@ -45,6 +45,8 @@
 #include "OSGSkinnedGeometryBase.h"
 #include "OSGSkeleton.h"
 #include "OSGSkeletonJoint.h"
+#include "OSGShaderProgramChunk.h"
+#include "OSGShaderProgramVariableChunk.h"
 #include "OSGRenderAction.h"
 
 OSG_BEGIN_NAMESPACE
@@ -66,8 +68,8 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
 
     enum SkinnedGeoFlagsE
     {
-        SG_FLAG_HARDWARE = 0x0001,
-        SG_FLAG_DEBUG    = 0x0002
+        SGFlagHardware = 0x0001,
+        SGFlagDebug    = 0x0002
     };
 
     /*---------------------------------------------------------------------*/
@@ -121,6 +123,11 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
     typedef std::vector<Pnt3f > PositionStore;
     typedef std::vector<UInt32> IndexStore;
 
+    static const std::string _vpVertexSkinning;
+
+    PositionStore _debugDrawPos;
+    IndexStore    _debugDrawIdx;
+
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
@@ -151,9 +158,7 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
     Action::ResultE renderHardware(RenderAction *ract);
     Action::ResultE renderSoftware(RenderAction *ract);
 
-    Action::ResultE drawDebug   (const PositionStore &positions,
-                                 const IndexStore    &indices,
-                                       DrawEnv       *drawEnv   );
+    Action::ResultE drawDebug     (DrawEnv      *drawEnv);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
