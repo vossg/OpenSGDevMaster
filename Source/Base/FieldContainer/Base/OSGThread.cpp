@@ -127,13 +127,15 @@ void PThreadBase::autoCleanup(void *pData)
 
     delete pUInt;
 
-    Thread *pThread = Thread::getCurrent();
+    ThreadRefPtr pThread = Thread::getCurrent();
 
     if(pThread != NULL)
     {
         pThread->shutdown();
-    
-        pThread->subRef();
+
+        OSG::ThreadManager::the()->remove(pThread);
+
+        pThread = NULL;
     }
 
 #if defined(OSG_PTHREAD_ELF_TLS)
@@ -231,7 +233,7 @@ UInt32 PThreadBase::getCurrentAspect(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(_pTLSChangeList == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
     }
@@ -246,7 +248,7 @@ UInt32 PThreadBase::getCurrentAspect(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pUint == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
 
@@ -265,7 +267,7 @@ ChangeList *PThreadBase::getCurrentChangeList(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(_pTLSChangeList == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
     }
@@ -281,7 +283,7 @@ ChangeList *PThreadBase::getCurrentChangeList(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pCList == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
 
@@ -306,7 +308,7 @@ BitVector PThreadBase::getCurrentNamespaceMask(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pBitVec == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
 
@@ -331,7 +333,7 @@ BitVector PThreadBase::getCurrentLocalFlags(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pBitVec == NULL)
     {
-        Thread *pThread = Thread::get(NULL);
+        ThreadRefPtr pThread = Thread::get(NULL, true);
 
         pThread->doAutoInit();
 

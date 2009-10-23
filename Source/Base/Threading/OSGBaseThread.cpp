@@ -111,8 +111,8 @@ BaseThread *BasePThreadBase::getCurrent(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(_pLocalThread == NULL)
     {
-        BasePThreadBase *pThread = dynamic_cast<BaseThread *>(
-            ThreadManager::the()->getThread(NULL, "OSGThread"));
+        BaseThreadRefPtr pThread = dynamic_pointer_cast<BaseThread>(
+            ThreadManager::the()->getThread(NULL, true, "OSGThread"));
 
         pThread->doAutoInit();
     }
@@ -126,8 +126,8 @@ BaseThread *BasePThreadBase::getCurrent(void)
 # ifdef OSG_ENABLE_AUTOINIT_THREADS
     if(pThread == NULL)
     {
-        BasePThreadBase *pT = dynamic_cast<BaseThread *>(
-            ThreadManager::the()->getThread(NULL, "OSGThread"));
+        BaseThreadRefPtr pT = dynamic_pointer_cast<BaseThread>(
+            ThreadManager::the()->getThread(NULL, true, "OSGThread"));
 
         pT->doAutoInit();
 
