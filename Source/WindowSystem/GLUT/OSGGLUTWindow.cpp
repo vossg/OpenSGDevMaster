@@ -124,6 +124,7 @@ void GLUTWindow::init(GLInitFunctor oFunc)
 #if defined(WIN32)
     Inherited::setHdc  (wglGetCurrentDC     ());
     Inherited::setHglrc(wglGetCurrentContext());
+    Inherited::setHwnd (WindowFromDC(Inherited::getHdc()));
 #elif defined(__APPLE__)
     glutSetWindow(getGlutId());
 
