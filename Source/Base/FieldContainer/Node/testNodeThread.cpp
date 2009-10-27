@@ -185,13 +185,13 @@ int main (int argc, char **argv)
 #endif
 
 #if 1
-    OSG::Thread *pThread = OSG::Thread::get(NULL);
+    OSG::ThreadRefPtr pThread = OSG::Thread::get(NULL, false);
 
     pThread->runFunction(runThread1, 0, NULL);
 
     OSG::Thread::join(pThread);
 
-    OSG::subRef(pThread);
+    pThread = NULL;
 #endif
     OSG::osgExit();
 
