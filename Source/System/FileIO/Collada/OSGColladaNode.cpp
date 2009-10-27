@@ -48,6 +48,7 @@
 #include "OSGColladaGlobal.h"
 #include "OSGColladaInstanceNode.h"
 #include "OSGColladaInstanceGeometry.h"
+#include "OSGColladaInstanceController.h"
 #include "OSGTransform.h"
 #include "OSGNameAttachment.h"
 
@@ -439,8 +440,20 @@ ColladaNode::handleInstanceGeometry(domInstance_geometry *instGeo)
 void
 ColladaNode::handleInstanceController(domInstance_controller *instController)
 {
-    SWARNING << "ColladaNode::handleInstanceController: NIY"
-             << std::endl;
+    ColladaInstanceControllerRefPtr colInstCtrl =
+        getUserDataAs<ColladaInstanceController>(instController);
+
+    if(colInstCtrl == NULL)
+    {
+        colInstCtrl = dynamic_pointer_cast<ColladaInstanceController>(
+            ColladaElementFactory::the()->create(instController, getGlobal()));
+
+        colInstCtrl->read();
+    }
+
+    NodeUnrecPtr ctrlN = colInstCtrl->process(this);
+
+    appendChild(ctrlN);
 }
 
 /*! Add a transform node to the OpenSG tree representing
