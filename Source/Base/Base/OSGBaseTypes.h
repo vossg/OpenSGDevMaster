@@ -720,8 +720,10 @@ typedef PointerSize::IPtrSize  IntPointer;
 #ifndef PRISize
 # ifdef WIN32
 #  define PRISize "Id"
+#  define PRIUSize "Iu"
 # else
 #  define PRISize "zd"
+#  define PRIUSize "zu"
 # endif
 #endif
 
