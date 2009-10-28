@@ -114,6 +114,13 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Helper functions                                             */
+    /*! \{                                                                 */
+
+    void readBindMaterial(domBind_material *bindMat);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
     static ColladaElementRegistrationHelper _regHelper;
 

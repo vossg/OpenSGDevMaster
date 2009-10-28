@@ -102,6 +102,13 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceController
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Helper Functions                                             */
+    /*! \{                                                                 */
+
+    void readSkeleton(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
     static ColladaElementRegistrationHelper _regHelper;
 };

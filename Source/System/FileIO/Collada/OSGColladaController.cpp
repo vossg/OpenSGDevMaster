@@ -45,8 +45,12 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
+#include "OSGGroup.h"
+#include "OSGNameAttachment.h"
 
 #include <dom/domController.h>
+#include <dom/domGeometry.h>
 
 OSG_BEGIN_NAMESPACE
 
@@ -78,17 +82,27 @@ ColladaController::read(void)
 }
 
 Node *
-ColladaController::createInstance(ColladaInstanceElement *colladaInstElem)
+ColladaController::createInstance(ColladaInstanceElement *colInstElem)
 {
     OSG_COLLADA_LOG(("ColladaController::createInstance\n"));
 
-    SWARNING << "ColladaController::createInstance: NIY" << std::endl;
+    domControllerRef ctrl   = getDOMElementAs<domController>();
+    NodeUnrecPtr     groupN = makeCoredNode<Group>();
 
-    return NULL;
+    if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
+       ctrl->getName()                                       != NULL   )
+    {
+        setName(groupN, ctrl->getName());
+    }
+
+    Inherited::doCreateInstance(colInstElem, groupN);
+
+    return groupN;
 }
 
 ColladaController::ColladaController(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
+    : Inherited    (elem, global)
+    , _matBindShape()
 {
 }
 
@@ -100,6 +114,57 @@ void
 ColladaController::readSkin(domSkin *skin)
 {
     SWARNING << "ColladaController::readSkin: NIY" << std::endl;
+
+    daeURI         geoURI = skin->getSource();
+    domGeometryRef geo    = daeSafeCast<domGeometry>(geoURI.getElement());
+
+    if(geo == NULL)
+    {
+        SWARNING << "ColladaController::readSkin: Could not resolve source "
+                 << "URI [" << geoURI.str() << "] to a <geometry>"
+                 << std::endl;
+        return;
+    }
+
+    domMeshRef mesh = geo->getMesh();
+
+    if(mesh == NULL)
+    {
+        SWARNING << "ColladaController::readSkin: No <mesh> in <geometry>"
+                 << std::endl;
+        return;
+    }
+
+    Inherited::readMesh(mesh);
+
+    domSkin::domBind_shape_matrixRef bsMat = skin->getBind_shape_matrix();
+
+    if(bsMat != NULL)
+    {
+        _matBindShape.setValue(bsMat->getValue()[ 0], bsMat->getValue()[ 1],
+                               bsMat->getValue()[ 2], bsMat->getValue()[ 3],
+                               bsMat->getValue()[ 4], bsMat->getValue()[ 5],
+                               bsMat->getValue()[ 6], bsMat->getValue()[ 7],
+                               bsMat->getValue()[ 8], bsMat->getValue()[ 9],
+                               bsMat->getValue()[10], bsMat->getValue()[11],
+                               bsMat->getValue()[12], bsMat->getValue()[13],
+                               bsMat->getValue()[14], bsMat->getValue()[15] );
+    }
+    else
+    {
+        _matBindShape.setIdentity();
+    }
+
+    domSkin::domJointsRef      joints      = skin  ->getJoints     ();
+    const domInputLocal_Array &jointInputs = joints->getInput_array();
+
+    for(UInt32 i = 0; i < jointInputs.getCount(); ++i)
+    {
+        OSG_COLLADA_LOG(("ColladaController::readSkin: "
+                         "jointInputs[%d] semantic [%s]\n", i,
+                         jointInputs[i]->getSemantic()        ));
+    }
+    
 }
 
 OSG_END_NAMESPACE

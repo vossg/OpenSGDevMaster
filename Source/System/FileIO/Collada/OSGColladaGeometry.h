@@ -180,8 +180,11 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     /*! \name Helper Functions                                             */
     /*! \{                                                                 */
 
-    void readMesh     (domMesh *mesh);
-    void readSources  (domMesh *mesh);
+    void doCreateInstance(ColladaInstanceElement *colInstElem,
+                          Node                   *groupN      );
+
+    void readMesh   (domMesh *mesh);
+    void readSources(domMesh *mesh);
 
     void readLines     (domMesh *mesh, domLines      *lines     );
     void readLineStrips(domMesh *mesh, domLinestrips *lineStrips);

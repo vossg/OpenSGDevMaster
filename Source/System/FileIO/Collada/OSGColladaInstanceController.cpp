@@ -77,7 +77,19 @@ ColladaInstanceController::read(void)
         colCtrl->read();
     }
 
-    SWARNING << "ColladaInstanceController::read: NIY" << std::endl;
+    domInstance_controllerRef instCtrl =
+        getDOMElementAs<domInstance_controller>();
+    domBind_materialRef       bindMat  = instCtrl->getBind_material();
+
+    if(bindMat == NULL)
+    {
+        SWARNING << "ColladaInstanceController::read: "
+                 << "No <bind_material> found." << std::endl;
+        return;
+    }
+
+    Inherited::readBindMaterial(bindMat);
+    readSkeleton();
 }
 
 Node *
@@ -128,6 +140,25 @@ ColladaInstanceController::ColladaInstanceController(
 
 ColladaInstanceController::~ColladaInstanceController(void)
 {
+}
+
+void
+ColladaInstanceController::readSkeleton(void)
+{
+    SWARNING << "ColladaInstanceController::readSkeleton: NIY"
+             << std::endl;
+
+    domInstance_controllerRef                        instCtrl =
+        getDOMElementAs<domInstance_controller>();
+    const domInstance_controller::domSkeleton_Array &skels    =
+        instCtrl->getSkeleton_array();
+
+    for(UInt32 i = 0; i < skels.getCount(); ++i)
+    {
+        OSG_COLLADA_LOG(("ColladaInstanceController::readSkeleton: "
+                         "Skeleton root node: [%s]\n",
+                         skels[i]->getValue().getURI()));
+    }
 }
 
 OSG_END_NAMESPACE

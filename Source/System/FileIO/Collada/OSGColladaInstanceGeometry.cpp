@@ -84,46 +84,12 @@ ColladaInstanceGeometry::read(void)
 
     if(bindMat == NULL)
     {
-        SWARNING << "ColladaInstanceGeometry::read: No <bind_material> found."
-                 << std::endl;
+        SWARNING << "ColladaInstanceGeometry::read: "
+                 << "No <bind_material> found." << std::endl;
         return;
     }
 
-    domBind_material::domTechnique_commonRef  techCom      =
-        bindMat->getTechnique_common();
-    const domInstance_material_Array         &instMatArray =
-        techCom->getInstance_material_array();
-
-    for(UInt32 i = 0; i < instMatArray.getCount(); ++i)
-    {
-        ColladaInstanceMaterialRefPtr colInstMat =
-            getUserDataAs<ColladaInstanceMaterial>(instMatArray[i]);
-
-        if(colInstMat == NULL)
-        {
-            colInstMat = dynamic_pointer_cast<ColladaInstanceMaterial>(
-                ColladaElementFactory::the()->create(
-                    instMatArray[i], getGlobal()));
-
-            colInstMat->read();
-        }
-
-        _matMap[colInstMat->getSymbol()] = colInstMat;
-
-        OSG_COLLADA_LOG(("ColladaInstanceGeometry::read: binding symbol [%s] "
-                         "to target [%s]\n",
-                         colInstMat->getSymbol().c_str(),
-                         instMatArray[i]->getTarget().getURI()));
-    }
-
-    const domParam_Array &params = bindMat->getParam_array();
-
-    if(params.getCount() > 0)
-    {
-        SWARNING << "ColladaInstanceGeometry::read: Ignoring ["
-                 << params.getCount() << "] <param> elements."
-                 << std::endl;
-    }
+    readBindMaterial(bindMat);
 }
 
 Node *
@@ -180,6 +146,46 @@ ColladaInstanceGeometry::ColladaInstanceGeometry(
 
 ColladaInstanceGeometry::~ColladaInstanceGeometry(void)
 {
+}
+
+void
+ColladaInstanceGeometry::readBindMaterial(domBind_material *bindMat)
+{
+    domBind_material::domTechnique_commonRef  techCom      =
+        bindMat->getTechnique_common();
+    const domInstance_material_Array         &instMatArray =
+        techCom->getInstance_material_array();
+
+    for(UInt32 i = 0; i < instMatArray.getCount(); ++i)
+    {
+        ColladaInstanceMaterialRefPtr colInstMat =
+            getUserDataAs<ColladaInstanceMaterial>(instMatArray[i]);
+
+        if(colInstMat == NULL)
+        {
+            colInstMat = dynamic_pointer_cast<ColladaInstanceMaterial>(
+                ColladaElementFactory::the()->create(
+                    instMatArray[i], getGlobal()));
+
+            colInstMat->read();
+        }
+
+        _matMap[colInstMat->getSymbol()] = colInstMat;
+
+        OSG_COLLADA_LOG(("ColladaInstanceGeometry::readBindMaterial: "
+                         "binding symbol [%s] to target [%s]\n",
+                         colInstMat->getSymbol().c_str(),
+                         instMatArray[i]->getTarget().getURI()));
+    }
+
+    const domParam_Array &params = bindMat->getParam_array();
+
+    if(params.getCount() > 0)
+    {
+        SWARNING << "ColladaInstanceGeometry::readBindMaterial: "
+                 << "Ignoring [" << params.getCount()
+                 << "] <param> elements." << std::endl;
+    }
 }
 
 OSG_END_NAMESPACE

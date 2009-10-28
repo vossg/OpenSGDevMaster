@@ -99,21 +99,42 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
 {
     OSG_COLLADA_LOG(("ColladaGeometry::createInstance\n"));
 
-    typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
-    typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
-
-    domGeometryRef                geometry   = getDOMElementAs<domGeometry>();
-    ColladaInstanceGeometryRefPtr colInstGeo =
-        dynamic_cast<ColladaInstanceGeometry *>(colInstElem);
-
-    const MaterialMap &matMap = colInstGeo->getMaterialMap();
-    NodeUnrecPtr       groupN = makeCoredNode<Group>();
+    domGeometryRef geometry = getDOMElementAs<domGeometry>();
+    NodeUnrecPtr   groupN   = makeCoredNode<Group>();
 
     if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
        geometry->getName()                                   != NULL   )
     {
         setName(groupN, geometry->getName());
     }
+
+    doCreateInstance(colInstElem, groupN);
+
+    return groupN;
+}
+
+ColladaGeometry::ColladaGeometry(daeElement *elem, ColladaGlobal *global)
+    : Inherited (elem, global)
+    , _sourceMap()
+    , _geoStore ()
+{
+}
+
+ColladaGeometry::~ColladaGeometry(void)
+{
+}
+
+void
+ColladaGeometry::doCreateInstance(
+    ColladaInstanceElement *colInstElem, Node *groupN)
+{
+    typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
+    typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
+
+    ColladaInstanceGeometryRefPtr  colInstGeo =
+        dynamic_cast<ColladaInstanceGeometry *>(colInstElem);
+    const MaterialMap             &matMap     =
+        colInstGeo->getMaterialMap();
 
     // iterate over all parts of geometry
     GeoStoreIt         gsIt   = _geoStore.begin();
@@ -176,19 +197,6 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
 
     // store the generated group node
     editInstStore().push_back(groupN);
-
-    return groupN;
-}
-
-ColladaGeometry::ColladaGeometry(daeElement *elem, ColladaGlobal *global)
-    : Inherited (elem, global)
-    , _sourceMap()
-    , _geoStore ()
-{
-}
-
-ColladaGeometry::~ColladaGeometry(void)
-{
 }
 
 void

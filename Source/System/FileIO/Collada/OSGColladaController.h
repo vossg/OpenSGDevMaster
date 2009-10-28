@@ -102,6 +102,8 @@ class OSG_FILEIO_DLLMAPPING ColladaController : public ColladaGeometry
     /*---------------------------------------------------------------------*/
 
     static ColladaElementRegistrationHelper _regHelper;
+
+    Matrix _matBindShape;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaController);
