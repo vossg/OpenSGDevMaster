@@ -454,7 +454,10 @@ ColladaEffect::createInstanceProfileCommon(
 
         if(value != NULL)
         {
-            matChunk->setShininess(value->getValue());
+            Real32 shininessVal = value->getValue();
+            shininessVal = osgClamp(0.f, shininessVal, 128.f);
+
+            matChunk->setShininess(shininessVal);
         }
         else if(param != NULL)
         {
