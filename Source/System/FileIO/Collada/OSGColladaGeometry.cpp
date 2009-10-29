@@ -784,7 +784,7 @@ UInt32
 ColladaGeometry::mapSemantic(
     const std::string &semantic, UInt32 set, UInt32 geoIdx)
 {
-    UInt32 propIdx = Geometry::LastIndex;
+    UInt32 propIdx = Geometry::MaxAttribs;
 
     if(semantic == "POSITION")
     {
@@ -834,7 +834,7 @@ ColladaGeometry::setupProperty(
         NULL                                                             );
 
     // set index for the property
-    _geoStore[geoIdx]._indexStore[propIdx]          = idxProp;
+    _geoStore[geoIdx]._indexStore[propIdx] = idxProp;
 
     // get property from source
     SourceMapConstIt   smIt = _sourceMap.find(sourceId);
@@ -865,6 +865,13 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
 {
     OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry\n"));
 
+    typedef std::vector<UInt32>             UnhandledStore;
+    typedef UnhandledStore::const_iterator  UnhandledStoreConstIt;
+
+    Int32          vertInputIndex       = -1;  // <input> with sem "VERTEX"
+    UnhandledStore unhandledVertInputs;
+    UnhandledStore unhandledInputs;
+
     UInt32 geoIdx = _geoStore.size();
     _geoStore.push_back(GeoInfo());
 
@@ -894,6 +901,8 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
             // handle <input> tag with semantic "VERTEX"
             // by processing vertInputs
 
+            vertInputIndex = i;
+
             // all vertInputs use the same index - with the offset from the
             // <input> with semantic == VERTEX
             if(offset >= idxStore.size() || idxStore[offset] == NULL)
@@ -919,8 +928,15 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
 
                 UInt32 propIdx = mapSemantic(semantic, 0, geoIdx);
 
-                setupProperty(geoIdx, propIdx, semantic, set, sourceId,
-                              idxStore[offset]                         );
+                if(propIdx == Geometry::MaxAttribs)
+                {
+                    unhandledVertInputs.push_back(j);
+                }
+                else
+                {
+                    setupProperty(geoIdx, propIdx, semantic, set, sourceId,
+                                  idxStore[offset]                         );
+                }
             }
         }
         else
@@ -940,9 +956,65 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
 
             UInt32 propIdx = mapSemantic(semantic, set, geoIdx);
 
-            setupProperty(geoIdx, propIdx, semantic, set, sourceId,
-                          idxStore[offset]                         );
+            if(propIdx == Geometry::MaxAttribs)
+            {
+                unhandledInputs.push_back(i);
+            }
+            else
+            {
+                setupProperty(geoIdx, propIdx, semantic, set, sourceId,
+                              idxStore[offset]                         );
+            }
         }
+    }
+
+    // some <inputs> could not be handled above because their
+    // semantic was not recognized.
+    // after everything else is set put them into free attribute
+    // slots, starting at Geometry::TexCoordsIndex
+
+    UnhandledStoreConstIt uhIt  = unhandledVertInputs.begin();
+    UnhandledStoreConstIt uhEnd = unhandledVertInputs.end  ();
+
+    for(; uhIt != uhEnd; ++uhIt)
+    {
+        std::string semantic = vertInputs[*uhIt         ]->getSemantic();
+        UInt32      set      = inputs    [vertInputIndex]->getSet     ();
+        UInt32      offset   = inputs    [vertInputIndex]->getOffset  ();
+        std::string sourceId = vertInputs[*uhIt         ]->getSource  ().id();
+
+        UInt32 propIdx = findFreePropertyIndex(geoIdx);
+
+        OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: unhandled vertex "
+                         " <input> [%d] semantic [%s] set [%d] offset [%d] - "
+                         "source [%s] mapped to propIdx [%d]\n",
+                         *uhIt, semantic.c_str(), set, offset, sourceId.c_str(),
+                         propIdx));
+
+        setupProperty(geoIdx, propIdx, semantic, set, sourceId,
+                      idxStore[offset]                         );
+    }
+
+    uhIt  = unhandledInputs.begin();
+    uhEnd = unhandledInputs.end  ();
+
+    for(; uhIt != uhEnd; ++uhIt)
+    {
+        std::string semantic = inputs[*uhIt]->getSemantic();
+        UInt32      set      = inputs[*uhIt]->getSet     ();
+        UInt32      offset   = inputs[*uhIt]->getOffset  ();
+        std::string sourceId = inputs[*uhIt]->getSource  ().id();
+
+        UInt32 propIdx = findFreePropertyIndex(geoIdx);
+
+        OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: unhandled <input> "
+                         "[%d] semantic [%s] set [%d] offset [%d] - "
+                         "source [%s] mapped to propIdx [%d]\n",
+                         *uhIt, semantic.c_str(), set, offset, sourceId.c_str(),
+                         propIdx));
+
+        setupProperty(geoIdx, propIdx, semantic, set, sourceId,
+                      idxStore[offset]                         );
     }
 
 #ifdef OSG_DEBUG
@@ -1169,6 +1241,26 @@ ColladaGeometry::findBindVertex(
         {
             retVal = &store[i];
             offset = i;
+            break;
+        }
+    }
+
+    return retVal;
+}
+
+UInt16
+ColladaGeometry::findFreePropertyIndex(UInt32 geoIdx)
+{
+    // find an unused property
+    UInt16 retVal = osgMax<UInt16>(_geoStore[geoIdx]._propStore.size(),
+                                   Geometry::TexCoordsIndex            );
+
+    for(UInt16 i = Geometry::TexCoordsIndex;
+        i < _geoStore[geoIdx]._propStore.size(); ++i)
+    {
+        if(_geoStore[geoIdx]._propStore[i]._prop == NULL)
+        {
+            retVal = i;
             break;
         }
     }

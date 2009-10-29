@@ -219,6 +219,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
                                          UInt32                 inSet,
                                          UInt32                &offset     );
 
+    UInt16 findFreePropertyIndex(UInt32 geoIdx);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 

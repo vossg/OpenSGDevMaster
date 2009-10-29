@@ -265,9 +265,49 @@ ColladaSource::fillProperty(const SemanticSetPair &semSetPair)
     }
     else
     {
-        SWARNING << "ColladaSource::fillProperty: Unknown semantic ["
-                 << semSetPair.first << "]." << std::endl;
-        return;
+        OSG_COLLADA_LOG(("ColladaSource::fillProperty: Reading semantic [%s] "
+                         "set [%d] with elemSize [%d] stride [%d] "
+                         "offset [%d] count [%d]\n", semSetPair.first.c_str(),
+                         semSetPair.second, _elemSize, _stride, _offset, _count));
+
+        if(_elemSize == 2)
+        {
+            prop = GeoVec2fProperty::create();
+        }
+        else if(_elemSize == 3)
+        {
+            prop = GeoVec3fProperty::create();
+        }
+        else if(_elemSize == 4)
+        {
+            prop = GeoVec4fProperty::create();
+        }
+        else
+        {
+            SWARNING << "ColladaSource::fillProperty: Unhandled element size ["
+                     << _elemSize << "] for semantic [" << semSetPair.first
+                     << "]" << std::endl;
+            return;
+        }
+
+        Vec4f  currVec;
+        UInt32 currIdx = 0;
+
+        for(UInt32 i = _offset; i < _count * _stride; ++i)
+        {
+            if(_strideMap[currIdx] != -1)
+            {
+                currVec[_strideMap[currIdx]] = data[i];
+            }
+
+            ++currIdx;
+
+            if(currIdx == _stride)
+            {
+                prop->push_back(currVec);
+                currIdx = 0;
+            }
+        }
     }
 
     if(prop != NULL)
