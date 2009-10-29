@@ -46,6 +46,7 @@
 
 #include "OSGColladaLog.h"
 #include "OSGColladaGlobal.h"
+#include "OSGColladaInstanceController.h"
 #include "OSGGroup.h"
 #include "OSGNameAttachment.h"
 
@@ -86,6 +87,9 @@ ColladaController::createInstance(ColladaInstanceElement *colInstElem)
 {
     OSG_COLLADA_LOG(("ColladaController::createInstance\n"));
 
+    typedef ColladaInstanceController::MaterialMap        MaterialMap;
+    typedef ColladaInstanceController::MaterialMapConstIt MaterialMapConstIt;
+
     domControllerRef ctrl   = getDOMElementAs<domController>();
     NodeUnrecPtr     groupN = makeCoredNode<Group>();
 
@@ -95,7 +99,73 @@ ColladaController::createInstance(ColladaInstanceElement *colInstElem)
         setName(groupN, ctrl->getName());
     }
 
-    Inherited::doCreateInstance(colInstElem, groupN);
+    ColladaInstanceControllerRefPtr  colInstCtrl =
+        dynamic_cast<ColladaInstanceController *>(colInstElem);
+    const MaterialMap               &matMap      =
+        colInstCtrl->getMaterialMap();
+
+
+        // iterate over all parts of geometry
+    GeoStoreIt gsIt   = _geoStore.begin();
+    GeoStoreIt gsEnd  = _geoStore.end  ();
+
+    for(; gsIt != gsEnd; ++gsIt)
+    {
+        OSG_ASSERT(gsIt->_propStore.size() == gsIt->_indexStore.size());
+
+        // find the material associated with the geometry's material symbol
+        MaterialMapConstIt mmIt       = matMap.find(gsIt->_matSymbol);
+        std::string        matTarget;
+
+        if(mmIt != matMap.end())
+        {
+            matTarget = mmIt->second->getTarget();
+        }
+
+        // check if the geometry was already used with that material
+
+        GeometryUnrecPtr   geo    = NULL;
+        InstanceMapConstIt instIt = gsIt->_instMap.find(matTarget);
+
+        if(instIt != gsIt->_instMap.end())
+        {
+            // reuse geometry
+
+            geo = dynamic_pointer_cast<Geometry>(
+                getInstStore()[instIt->second]);
+
+            getGlobal()->getStatCollector()->getElem(
+                ColladaGlobal::statNGeometryUsed)->inc();
+        }
+        else
+        {
+            // create new geometry
+
+            geo = Geometry::create();
+
+            getGlobal()->getStatCollector()->getElem(
+                ColladaGlobal::statNGeometryCreated)->inc();
+
+            geo->setLengths(gsIt->_lengths);
+            geo->setTypes  (gsIt->_types  );
+
+            Inherited::handleBindMaterial(*gsIt, geo, colInstCtrl);
+
+            // record the instantiation of the geometry with the
+            // material for reuse
+            gsIt->_instMap.insert(
+                InstanceMap::value_type(matTarget, getInstStore().size()));
+
+            editInstStore().push_back(geo);
+        }
+
+        NodeUnrecPtr geoN = makeNodeFor(geo);
+
+        groupN->addChild(geoN);
+    }
+
+    // store the generated group node
+    editInstStore().push_back(groupN);
 
     return groupN;
 }
@@ -164,7 +234,7 @@ ColladaController::readSkin(domSkin *skin)
                          "jointInputs[%d] semantic [%s]\n", i,
                          jointInputs[i]->getSemantic()        ));
     }
-    
+
 }
 
 OSG_END_NAMESPACE

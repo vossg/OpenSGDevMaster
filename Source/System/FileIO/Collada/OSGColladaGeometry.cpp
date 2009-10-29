@@ -99,6 +99,9 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
 {
     OSG_COLLADA_LOG(("ColladaGeometry::createInstance\n"));
 
+    typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
+    typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
+
     domGeometryRef geometry = getDOMElementAs<domGeometry>();
     NodeUnrecPtr   groupN   = makeCoredNode<Group>();
 
@@ -108,37 +111,14 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
         setName(groupN, geometry->getName());
     }
 
-    doCreateInstance(colInstElem, groupN);
-
-    return groupN;
-}
-
-ColladaGeometry::ColladaGeometry(daeElement *elem, ColladaGlobal *global)
-    : Inherited (elem, global)
-    , _sourceMap()
-    , _geoStore ()
-{
-}
-
-ColladaGeometry::~ColladaGeometry(void)
-{
-}
-
-void
-ColladaGeometry::doCreateInstance(
-    ColladaInstanceElement *colInstElem, Node *groupN)
-{
-    typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
-    typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
-
     ColladaInstanceGeometryRefPtr  colInstGeo =
         dynamic_cast<ColladaInstanceGeometry *>(colInstElem);
     const MaterialMap             &matMap     =
         colInstGeo->getMaterialMap();
 
     // iterate over all parts of geometry
-    GeoStoreIt         gsIt   = _geoStore.begin();
-    GeoStoreIt         gsEnd  = _geoStore.end  ();
+    GeoStoreIt gsIt   = _geoStore.begin();
+    GeoStoreIt gsEnd  = _geoStore.end  ();
 
     for(; gsIt != gsEnd; ++gsIt)
     {
@@ -189,7 +169,7 @@ ColladaGeometry::doCreateInstance(
 
             editInstStore().push_back(geo);
         }
-        
+
         NodeUnrecPtr geoN = makeNodeFor(geo);
 
         groupN->addChild(geoN);
@@ -197,6 +177,19 @@ ColladaGeometry::doCreateInstance(
 
     // store the generated group node
     editInstStore().push_back(groupN);
+
+    return groupN;
+}
+
+ColladaGeometry::ColladaGeometry(daeElement *elem, ColladaGlobal *global)
+    : Inherited (elem, global)
+    , _sourceMap()
+    , _geoStore ()
+{
+}
+
+ColladaGeometry::~ColladaGeometry(void)
+{
 }
 
 void
@@ -233,7 +226,7 @@ ColladaGeometry::readMesh(domMesh *mesh)
     }
 
     const domTriangles_Array &triArray = mesh->getTriangles_array();
-    
+
     for(UInt32 i = 0; i < triArray.getCount(); ++i)
     {
         readTriangles(mesh, triArray[i]);
@@ -385,7 +378,7 @@ ColladaGeometry::readLineStrips(domMesh *mesh, domLinestrips *lineStrips)
     {
         SWARNING << "ColladaGeometry::readLineStrips: Empty <linestrips> "
                  << "with material ["
-                 << (lineStrips->getMaterial() != NULL ? 
+                 << (lineStrips->getMaterial() != NULL ?
                      lineStrips->getMaterial() : "")
                  << "]." << std::endl;
 
@@ -493,7 +486,7 @@ ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
     {
         SWARNING << "ColladaGeometry::readPolygons: Empty <polygons> "
                  << "with material ["
-                 << (polygons->getMaterial() != NULL ? 
+                 << (polygons->getMaterial() != NULL ?
                      polygons->getMaterial() : "")
                  << "]." << std::endl;
 
@@ -595,7 +588,7 @@ ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
     {
         SWARNING << "ColladaGeometry::readPolyList: Empty <polylist> "
                  << "with material ["
-                 << (polyList->getMaterial() != NULL ? 
+                 << (polyList->getMaterial() != NULL ?
                      polyList->getMaterial() : "")
                  << "]." << std::endl;
 
@@ -647,7 +640,7 @@ ColladaGeometry::readTriangles(domMesh *mesh, domTriangles *triangles)
     {
         SWARNING << "ColladaGeometry::readTriangles: Empty <triangles> "
                  << "with material ["
-                 << (triangles->getMaterial() != NULL ? 
+                 << (triangles->getMaterial() != NULL ?
                      triangles->getMaterial() : "")
                  << "]." << std::endl;
 
@@ -713,7 +706,7 @@ ColladaGeometry::readTriFans(domMesh *mesh, domTrifans *triFans)
     {
         SWARNING << "ColladaGeometry::readTriFans: Empty <trifans> "
                  << "with material ["
-                 << (triFans->getMaterial() != NULL ? 
+                 << (triFans->getMaterial() != NULL ?
                      triFans->getMaterial() : "")
                  << "]." << std::endl;
 
@@ -779,7 +772,7 @@ ColladaGeometry::readTriStrips(domMesh *mesh, domTristrips *triStrips)
     {
         SWARNING << "ColladaGeometry::readTriStrips: Empty <tristrips> "
                  << "with material ["
-                 << (triStrips->getMaterial() != NULL ? 
+                 << (triStrips->getMaterial() != NULL ?
                      triStrips->getMaterial() : "")
                  << "]." << std::endl;
 
@@ -1032,6 +1025,19 @@ ColladaGeometry::handleBindMaterial(
         {
             UInt32 mappedProp = i;
 
+            if(bi != NULL && bvi != NULL)
+            {
+                // is it a problem if there is a <bind> AND a
+                // <bind_vertex_input> for the same property ??
+
+                SWARNING << "ColladaGeometry::handleBindMaterial: "
+                         << "Found <bind> and <bind_vertex_input> for "
+                         << "semantic [" << bi->semantic
+                         << "] target/inSemantic [" << bi->target << "/"
+                         << bvi->inSemantic << "] inSet [" << bvi->inSet
+                         << "]" << std::endl;
+            }
+
             if(bi != NULL)
             {
                 if(colInstEffect->findTC(bi->target, mappedProp) == true)
@@ -1055,7 +1061,8 @@ ColladaGeometry::handleBindMaterial(
                              << "]." << std::endl;
                 }
             }
-            else if(bvi != NULL)
+
+            if(bvi != NULL)
             {
                 if(colInstEffect->findTC(bvi->semantic, mappedProp) == true)
                 {
@@ -1068,7 +1075,7 @@ ColladaGeometry::handleBindMaterial(
 
                     geo->setProperty( psIt->_prop, mappedProp);
                     geo->setIndex   (*isIt,        mappedProp);
-                    
+
                     handledProperty = true;
                 }
                 else
