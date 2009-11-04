@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="GeoVectorBufferRefProperty"
+   parent="GeoVectorBufferProperty"
+   library="Drawable"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   childFields="both"
+   >
+</FieldContainer>

@@ -4456,6 +4456,31 @@ GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2)
     return GeometryTransitPtr(returnValue);
 }
 
+void setVBOUsageOnPropertyProtos(bool bVal)
+{
+    DerivedFieldContainerTypeIterator dtIt =
+        FieldContainerFactory::the()->begin(GeoProperty::getClassType());
+
+    DerivedFieldContainerTypeIterator dtEnd = 
+        FieldContainerFactory::the()->end();
+
+    while(dtIt != dtEnd)
+    {
+        FieldContainer *pProto = dtIt->getPrototype();
+
+        if(pProto != NULL)
+        {
+            GeoProperty *pProp = dynamic_cast<GeoProperty *>(pProto);
+        
+            OSG_ASSERT(pProp != NULL);
+
+            pProp->setUseVBO(bVal);
+        
+        }   
+
+        ++dtIt;
+    }
+}
 
 OSG_END_NAMESPACE
 

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -43,80 +43,34 @@
 #include <cstdlib>
 #include <cstdio>
 
-#include "OSGConfig.h"
+#include <OSGConfig.h>
 
-#include "OSGGLEXT.h"
-#include "OSGWindow.h"
-#include "OSGGeoIntegralProperty.h"
-#include "OSGDrawEnv.h"
+#include "OSGGeoIntegralBufferRefProperty.h"
 
 #include "OSGGLFuncProtos.h"
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
-// Documentation for this class is emited in the
-// OSGGeoIntegralPropertyBase.cpp file.
-// To modify it, please change the .fcd file (OSGGeoIntegralProperty.fcd) and
-// regenerate the base file.
-
-/*! \fn void GeoIntegralProperty::clear(void)
-    Removes all values from this property.
- */
-
-/*! \fn void GeoIntegralProperty::resize(size_t newsize)
-    Changes the size of this property to \a newsize. If the new size is smaller
-    than the current size, excessive elements are deleted; if the new is greater
-    than the current size, new elements are default constructed.
-
-    \param[in] newsize New size for this property.
- */
-
-/*! \fn UInt32 GeoIntegralProperty::size(void) const
-    \copydoc OSG::GeoProperty::size
- */
-
-/*! \fn void GeoIntegralProperty::getGenericValue(MaxTypeT &val, const UInt32 index)
-    Retrieves this properties value at index \a index in \a val through the
-    most generic type available (MaxTypeT).
-    The templated access functions will use this internally and then convert to
-    the user specified type, thus the concrete properties derived from this
-    need to override this method.
-
-    \param[out] val The value stored at index \a index.
-    \param[in] index The index of the value to retrieve.
- */
-
-/*! \fn void GeoIntegralProperty::setGenericValue(const MaxTypeT &val, const UInt32 index)
-    Stores the value \a val in this property at index \a index using the most
-    generic type available (MaxTypeT).
-    The templated access functions will use this internally and then convert to
-    the user specified type, thus the concrete properties derived from this
-    need to override this method.
-
-    \param[in] val The value to store at index \a index.
-    \param[in] index The index of the value to set.
- */
+// Documentation for this class is emitted in the
+// OSGGeoIntegralBufferRefPropertyBase.cpp file.
+// To modify it, please change the .fcd file
+// (OSGGeoIntegralBufferRefProperty.fcd) and regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
 \***************************************************************************/
 
-StateChunkClass GeoIntegralProperty::_class("GeoIntegralProperty", 1);
-
 /***************************************************************************\
  *                           Class methods                                 *
 \***************************************************************************/
 
-void GeoIntegralProperty::initMethod(InitPhase ePhase)
+void GeoIntegralBufferRefProperty::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
-}
 
-/*------------------------- Chunk Class Access ---------------------------*/
-
-const StateChunkClass *GeoIntegralProperty::getClass(void) const
-{
-    return GeoProperty::getClass();
+    if(ePhase == TypeObject::SystemPost)
+    {
+    }
 }
 
 
@@ -130,35 +84,38 @@ const StateChunkClass *GeoIntegralProperty::getClass(void) const
 
 /*----------------------- constructors & destructors ----------------------*/
 
-GeoIntegralProperty::GeoIntegralProperty(void) :
+GeoIntegralBufferRefProperty::GeoIntegralBufferRefProperty(void) :
     Inherited()
 {
 }
 
-GeoIntegralProperty::GeoIntegralProperty(const GeoIntegralProperty &source) :
+GeoIntegralBufferRefProperty::GeoIntegralBufferRefProperty(
+    const GeoIntegralBufferRefProperty &source) :
+
     Inherited(source)
 {
-    // for some reason using VBo for elemnts doesn't work right now, disable it
-    _sfUseVBO.setValue(false);
 }
 
-GeoIntegralProperty::~GeoIntegralProperty(void)
+GeoIntegralBufferRefProperty::~GeoIntegralBufferRefProperty(void)
 {
 }
 
+/*----------------------------- class specific ----------------------------*/
 
-/*! State Chunk handling */
-
-GLenum GeoIntegralProperty::getBufferType(void)
+void GeoIntegralBufferRefProperty::changed(ConstFieldMaskArg whichField, 
+                                           UInt32            origin,
+                                           BitVector         details)
 {
-#ifndef OSG_EMBEDDED
-    return GL_ELEMENT_ARRAY_BUFFER_ARB;
-#else
-    return GL_NONE;
-#endif 
+    Inherited::changed(whichField, origin, details);
 }
 
-void GeoIntegralProperty::activate(DrawEnv *pEnv, UInt32 slot)
+void GeoIntegralBufferRefProperty::dump(      UInt32    ,
+                         const BitVector ) const
+{
+    SLOG << "Dump GeoIntegralBufferRefProperty NI" << std::endl;
+}
+
+void GeoIntegralBufferRefProperty::activate(DrawEnv *pEnv, UInt32 slot)
 {
 #ifndef OSG_EMBEDDED
     Window *win = pEnv->getWindow();
@@ -168,22 +125,20 @@ void GeoIntegralProperty::activate(DrawEnv *pEnv, UInt32 slot)
 
     if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
     {
-        win->validateGLObject(getGLId(), pEnv);
-
         OSGGETGLFUNCBYID( OSGglBindBufferARB, 
                           osgGlBindBufferARB,
                          _funcBindBuffer, 
                           win);
 
         osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 
-                           win->getGLObjectId(getGLId()));
+                           getGLId());
     }
 #endif
 }
 
-void GeoIntegralProperty::changeFrom(DrawEnv    *pEnv, 
-                                     StateChunk *old, 
-                                     UInt32      slot)
+void GeoIntegralBufferRefProperty::changeFrom(DrawEnv    *pEnv, 
+                                              StateChunk *old, 
+                                              UInt32      slot)
 {
 #ifndef OSG_EMBEDDED
     // change from me to me?
@@ -192,6 +147,7 @@ void GeoIntegralProperty::changeFrom(DrawEnv    *pEnv,
         return;
 
     Window *win = pEnv->getWindow();
+
     GeoIntegralProperty *o = dynamic_cast<GeoIntegralProperty*>(old);
     
     if(!win->hasExtension(_extVertexBufferObject))
@@ -204,10 +160,8 @@ void GeoIntegralProperty::changeFrom(DrawEnv    *pEnv,
 
     if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
     {
-        win->validateGLObject(getGLId(), pEnv);
-
         osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 
-                           win->getGLObjectId(getGLId()));
+                           getGLId());
     }
     else if(o != NULL && o->getGLId() != 0 && o->getUseVBO())
     {
@@ -216,50 +170,15 @@ void GeoIntegralProperty::changeFrom(DrawEnv    *pEnv,
 #endif
 }
 
-void GeoIntegralProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
+void GeoIntegralBufferRefProperty::onCreate(
+    const GeoIntegralBufferRefProperty *p)
 {
-#ifndef OSG_EMBEDDED
-    Window *win = pEnv->getWindow();
-     
-    if(!win->hasExtension(_extVertexBufferObject))
-        return;
-   
-    if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
-    {
-        OSGGETGLFUNCBYID( OSGglBindBufferARB, 
-                          osgGlBindBufferARB,
-                         _funcBindBuffer, 
-                          win);
-
-        osgGlBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
-    }
-#endif
+    GeoIntegralProperty::onCreate(p);
 }
 
-bool GeoIntegralProperty::isInVBO(DrawEnv *pEnv)
+void GeoIntegralBufferRefProperty::onDestroy(UInt32 uiContainerId)
 {
-//    Window *win = pEnv->getWindow();
-    
-    if(getGLId() != 0 && getUseVBO()) // Do we have a VBO?
-    {
-        return true;
-    }
-    
-    return false;    
+    GeoIntegralProperty::onDestroy(uiContainerId);
 }
 
-/*----------------------------- class specific ----------------------------*/
-
-void GeoIntegralProperty::changed(ConstFieldMaskArg whichField, 
-                                  UInt32            origin,
-                                  BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-void GeoIntegralProperty::dump(      UInt32    i, 
-                               const BitVector v) const
-{
-    Inherited::dump(i,v);
-}
-
+OSG_END_NAMESPACE

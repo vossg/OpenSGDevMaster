@@ -51,6 +51,8 @@
 #include "OSGSingletonHolder.ins"
 #include "OSGFieldContainerType.h"
 
+#include "OSGTypeFactory.h"
+
 OSG_BEGIN_NAMESPACE
 
 OSG_SINGLETON_INST(FieldContainerFactoryBase, addPostFactoryExitFunction)
@@ -295,6 +297,93 @@ void FieldContainerFactoryBase::dump(void)
         }
     }
 }
+
+DerivedFieldContainerTypeIterator 
+    FieldContainerFactoryBase::begin(const FieldContainerType &oRef)
+{
+    return DerivedFieldContainerTypeIterator(oRef);
+}
+
+DerivedFieldContainerTypeIterator 
+    FieldContainerFactoryBase::end(void)
+{
+    return DerivedFieldContainerTypeIterator();
+}
+
+FieldContainerType *DerivedFieldContainerTypeIterator::operator->(void)
+{
+    return _pCurrentType;
+}
+
+FieldContainerType *DerivedFieldContainerTypeIterator::operator *(void)
+{
+    return _pCurrentType;
+}
+
+void DerivedFieldContainerTypeIterator::operator++ (void)
+{
+    _pCurrentType = NULL;
+    
+    ++_uiCurrentType;
+
+    for(; _uiCurrentType < TypeFactory::the()->getNumTypes(); 
+        ++_uiCurrentType)
+    {
+        FieldContainerType *pTestType = 
+            FieldContainerFactory::the()->findType(_uiCurrentType);
+
+        if(pTestType                        != NULL)
+        {
+            if(pTestType->isDerivedFrom(*_pRef) == true   )
+            {
+                _pCurrentType = pTestType;
+                
+                break;
+            }
+        }
+    }
+}
+
+
+bool DerivedFieldContainerTypeIterator::operator ==(
+    const DerivedFieldContainerTypeIterator &lhs)
+{
+    return this->_uiCurrentType == lhs._uiCurrentType;
+}
+
+bool DerivedFieldContainerTypeIterator::operator !=(
+    const DerivedFieldContainerTypeIterator &lhs)
+{
+    return !(*this == lhs);
+}
+
+
+DerivedFieldContainerTypeIterator::DerivedFieldContainerTypeIterator(void) :
+    _pRef         (NULL                             ),
+    _uiCurrentType(TypeFactory::the()->getNumTypes()),
+    _pCurrentType (NULL                             )
+{
+}
+
+DerivedFieldContainerTypeIterator::DerivedFieldContainerTypeIterator(
+    const FieldContainerType &oRef) :
+
+    _pRef         (&oRef),
+    _uiCurrentType(0    ),
+    _pCurrentType (NULL )
+{
+    ++(*this);
+}
+
+DerivedFieldContainerTypeIterator::DerivedFieldContainerTypeIterator(
+    const DerivedFieldContainerTypeIterator &source) :
+
+    _pRef         (source._pRef         ),
+    _uiCurrentType(source._uiCurrentType),
+    _pCurrentType (source._pCurrentType )
+{
+}
+
 
 OSG_END_NAMESPACE
 

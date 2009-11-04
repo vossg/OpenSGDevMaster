@@ -52,6 +52,8 @@
 #include "OSGGeoProperty.h"
 #include "OSGDrawEnv.h"
 
+#include "OSGGLFuncProtos.h"
+
 OSG_USING_NAMESPACE
 
 // Documentation for this class is emited in the
@@ -108,12 +110,14 @@ UInt32 GeoProperty::_arbVertexProgram;
 UInt32 GeoProperty::_extSecondaryColor;
 UInt32 GeoProperty::_funcBindBuffer;
 UInt32 GeoProperty::_funcBufferData;
+UInt32 GeoProperty::_funcGenBuffers;
 UInt32 GeoProperty::_funcDeleteBuffers;
-UInt32 GeoProperty::_glClientActiveTextureARB;
 UInt32 GeoProperty::_funcglVertexAttribPointerARB;
 UInt32 GeoProperty::_funcglEnableVertexAttribArrayARB;
 UInt32 GeoProperty::_funcglDisableVertexAttribArrayARB;
+
 UInt32 GeoProperty::_glSecondaryColorPointerEXT;
+UInt32 GeoProperty::_glClientActiveTextureARB;
 
 /***************************************************************************\
  *                           Class methods                                 *
@@ -138,6 +142,10 @@ void GeoProperty::initMethod(InitPhase ePhase)
 
         _funcDeleteBuffers       = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glDeleteBuffersARB",   
+            _extVertexBufferObject);
+
+        _funcGenBuffers         = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glGenBuffersARB",   
             _extVertexBufferObject);
 
         _arbVertexProgram       = 
@@ -184,33 +192,6 @@ GeoProperty::~GeoProperty(void)
 }
 
 
-/*----------------------------- onCreate --------------------------------*/
-
-void GeoProperty::onCreate(const GeoProperty *source)
-{
-    Inherited::onCreate(source);
-
-    if(GlobalSystemState == Startup)
-        return;
-
-    setGLId(               
-        Window::registerGLObject(
-            boost::bind(&GeoProperty::handleGL, 
-                        GeoPropertyMTUncountedPtr(this), 
-                        _1, _2, _3, _4),
-            &GeoProperty::handleDestroyGL));
-}
-
-void GeoProperty::onDestroy(UInt32 uiContainerId)
-{
-    if(getGLId() > 0)
-    {
-        Window::destroyGLObject(getGLId(), 1);
-    }
-
-    Inherited::onDestroy(uiContainerId);
-}
-
 /*------------------------- Chunk Class Access ---------------------------*/
 
 const StateChunkClass *GeoProperty::getClass(void) const
@@ -236,9 +217,11 @@ void GeoProperty::dump(      UInt32    ,
                        const BitVector ) const
 {
     SLOG << "GeoProperty:"
-         << "Format: " << getFormat() << " FormatSize: " << getFormatSize()
-         << " Stride: " << getStride()
-         << " Dim: " << getDimension() << " Size: " << getSize() << std::endl;
+         << "Format: "      << getFormat() 
+         << " FormatSize: " << getFormatSize()
+         << " Stride: "     << getStride()
+         << " Dim: "        << getDimension() 
+         << " Size: "       << getSize() << std::endl;
 }
 
 /*------------------------------ State ------------------------------------*/
@@ -254,15 +237,19 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
                              UInt32                   uiOptions)
 {
 #ifndef OSG_EMBEDDED
-    GLuint glid;
+    GLuint  glid;
     Window *win = pEnv->getWindow();
 
     if(mode == Window::initialize || mode == Window::reinitialize ||
-            mode == Window::needrefresh )
+       mode == Window::needrefresh )
     {
         if(mode == Window::initialize)
         {
-            glid = glGenLists(1);
+            OSGGETGLFUNCBYID(OSGglGenBuffersARB, osgGlGenBuffersARB,
+                             _funcGenBuffers, win);
+
+            osgGlGenBuffersARB(1, &glid);
+
             win->setGLObjectId(id, glid);
         }
         else
@@ -270,34 +257,25 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
             glid = win->getGLObjectId(id);
         }
 
-        // get "glBindBufferARB" function pointer
-        void (OSG_APIENTRY*_glBindBufferARB)(GLenum target, GLuint buffer) =
-            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
-                                                  GLuint buffer)>(
-                win->getFunction(_funcBindBuffer));
+        OSGGETGLFUNCBYID(OSGglBindBufferARB, osgGlBindBufferARB,
+                         _funcBindBuffer, win);
 
-        // get "glBufferDataARB" function pointer
-        void (OSG_APIENTRY*_glBufferDataARB)(GLenum target, 
-                                             long size, 
-                                             const void *data,
-                                             GLenum usage) =
-            reinterpret_cast<void (OSG_APIENTRY*)(GLenum target, 
-                                                  long size, 
-                                                  const void *data,
-                                                  GLenum usage)>(
-                win->getFunction(_funcBufferData));
-    
-        _glBindBufferARB(getBufferType(), glid);
-        _glBufferDataARB(getBufferType(), 
-                            getFormatSize() * getDimension() * getSize(), 
-                            getData(), 
-                            GL_STATIC_DRAW_ARB);
-        _glBindBufferARB(getBufferType(), 0);
+        OSGGETGLFUNCBYID(OSGglBufferDataARB, osgGlBufferDataARB,
+                         _funcBufferData, win);
+
+        osgGlBindBufferARB(getBufferType(), glid);
+
+        osgGlBufferDataARB(getBufferType(), 
+                           getFormatSize() * getDimension() * getSize(), 
+                           getData      (), 
+                           getVboUsage  ());
+
+        osgGlBindBufferARB(getBufferType(), 0);
     }
     else
     {
         SWARNING << "GeoProperty(" << this << "::handleGL: Illegal mode: "
-             << mode << " for id " << id << std::endl;
+                 << mode << " for id " << id << std::endl;
     }
 #endif
 
@@ -314,15 +292,12 @@ void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv,
 
     if(mode == Window::destroy)
     {   
-        // get "glDeleteBuffersARB" function pointer
-        void (OSG_APIENTRY*_glDeleteBuffers)(GLsizei n, const GLuint *buffers) =
-            reinterpret_cast<void (OSG_APIENTRY*)(GLsizei n, 
-                                                  const GLuint *buffers)>(
-                win->getFunction(_funcDeleteBuffers));
+        OSGGETGLFUNCBYID(OSGglDeleteBuffersARB, osgGlDeleteBuffers,
+                         _funcDeleteBuffers, win);
 
         glid = win->getGLObjectId(id);
 
-        _glDeleteBuffers(1, &glid);
+        osgGlDeleteBuffers(1, &glid);
     }
     else if(mode == Window::finaldestroy)
     {
@@ -331,7 +306,7 @@ void GeoProperty::handleDestroyGL(DrawEnv                 *pEnv,
     else
     {
         SWARNING << "GeoProperty::handleDestroyGL: Illegal mode: "
-             << mode << " for id " << id << std::endl;
+                 << mode << " for id " << id << std::endl;
     }
 #endif
 }

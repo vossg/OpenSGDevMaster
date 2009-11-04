@@ -321,6 +321,44 @@ typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage3D)(
 
 /*! \}                                                                       */
 /*---------------------------------------------------------------------------*/
+/*! \name BufferObjects                                                      */
+/*! \ingroup GrpBaseBaseGLFunc                                               */
+/*! \{                                                                       */
+
+typedef void (OSG_APIENTRY *OSGglBindBufferARB   )(      GLenum   target, 
+                                                         GLuint   buffer);
+
+typedef void (OSG_APIENTRY *OSGglBufferDataARB   )(      GLenum   target, 
+                                                         long     size, 
+                                                   const void    *data,
+                                                         GLenum   usage);
+
+typedef void (OSG_APIENTRY *OSGglGenBuffersARB   )(      GLsizei  n, 
+                                                         GLuint  *buffers);
+
+typedef void (OSG_APIENTRY *OSGglDeleteBuffersARB)(      GLsizei  n, 
+                                                   const GLuint  *buffers);
+
+typedef void (OSG_APIENTRY *OSGglEnableVertexAttribArrayARB )(GLuint index);
+typedef void (OSG_APIENTRY *OSGglDisableVertexAttribArrayARB)(GLuint index);
+typedef void (OSG_APIENTRY *OSGglClientActiveTextureARB     )(GLenum type );
+
+typedef void (OSG_APIENTRY *OSGglVertexAttribPointerARB)(
+          GLuint     index, 
+          GLint      size, 
+          GLenum     type, 
+          GLboolean  normalized,
+          GLsizei    stride, 
+    const GLvoid    *pointer);
+
+typedef void (OSG_APIENTRY *OSGglSecondaryColorPointerEXT)(
+          GLint    size,
+          GLenum   type,
+          GLsizei  stride,
+    const GLvoid  *pointer);
+
+/*! \}                                                                       */
+/*---------------------------------------------------------------------------*/
 /*! \name GL Function Helper                                                 */
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */

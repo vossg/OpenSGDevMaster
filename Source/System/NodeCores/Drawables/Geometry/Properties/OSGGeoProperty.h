@@ -177,14 +177,24 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     // Variables should all be in GeoPropertyBase.
 
     /*---------------------------------------------------------------------*/
+    /*! \name                         GL                                   */
+    /*! \{                                                                 */
+
+           UInt32 handleGL       (DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode,
+                                  UInt32                   uiOptions);
+    static void   handleDestroyGL(DrawEnv                 *pEnv, 
+                                  UInt32                   id, 
+                                  Window::GLObjectStatusE  mode     );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
     GeoProperty(void);
     GeoProperty(const GeoProperty &source);
-
-    void onCreate(const GeoProperty *p = NULL);
-    void onDestroy(UInt32 uiContainerId);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -210,11 +220,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     static UInt32 _funcBindBuffer;
     static UInt32 _funcBufferData;
     static UInt32 _funcDeleteBuffers;
-    static UInt32 _glClientActiveTextureARB;
+    static UInt32 _funcGenBuffers;
     static UInt32 _funcglVertexAttribPointerARB;
     static UInt32 _funcglEnableVertexAttribArrayARB;
     static UInt32 _funcglDisableVertexAttribArrayARB;
+
+    static UInt32 _glClientActiveTextureARB;
     static UInt32 _glSecondaryColorPointerEXT;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Init                                   */
@@ -230,19 +243,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     friend class FieldContainer;
     friend class GeoPropertyBase;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                         GL                                   */
-    /*! \{                                                                 */
-
-           UInt32 handleGL       (DrawEnv                 *pEnv, 
-                                  UInt32                   id, 
-                                  Window::GLObjectStatusE  mode,
-                                  UInt32                   uiOptions);
-    static void   handleDestroyGL(DrawEnv                 *pEnv, 
-                                  UInt32                   id, 
-                                  Window::GLObjectStatusE  mode     );
-
-   /*! \}                                                                 */
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const GeoProperty &source);

@@ -359,6 +359,14 @@ class TypedGeoVectorProperty : public GeoVectorProperty
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    void onCreate(const Self                 *p = NULL);
+    void onDestroy(     UInt32 uiContainerId          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Binary Operations                       */
     /*! \{                                                                 */
 
@@ -372,6 +380,7 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     /*==========================  PRIVATE  ================================*/
 
   private:
+
     /*!\brief prohibit default function (move to 'public' if needed) */  
     Self &operator =(const Self &source);
 
@@ -381,8 +390,6 @@ class TypedGeoVectorProperty : public GeoVectorProperty
     static void exitMethod(InitPhase ePhase);
 
     static TypeObject  _type;
-    
-           void onCreate  (const Self *source = NULL);
 };
 
 

@@ -541,6 +541,27 @@ void TypedGeoIntegralProperty<GeoPropertyDesc>::onCreate(
     editSField(UsageFieldMask);
     
     _sfUsage.setValue(GeoPropertyDesc::getDefaultUsage());
+
+    if(GlobalSystemState == Startup)
+        return;
+
+    setGLId(               
+        Window::registerGLObject(
+            boost::bind(&Self::handleGL, 
+                        GeoPropertyMTUncountedPtr(this), 
+                        _1, _2, _3, _4),
+            &GeoProperty::handleDestroyGL));
+}
+
+template <class GeoPropertyDesc> inline
+void TypedGeoIntegralProperty<GeoPropertyDesc>::onDestroy(UInt32 uiContainerId)
+{
+    if(getGLId() > 0)
+    {
+        Window::destroyGLObject(getGLId(), 1);
+    }
+
+    Inherited::onDestroy(uiContainerId);
 }
 
 template <class GeoPropertyDesc> inline

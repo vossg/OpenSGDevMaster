@@ -56,6 +56,12 @@
 #include "OSGAction.h"
 #include "OSGCSMResetInterface.h"
 #include "OSGFrameHandler.h"
+#include "OSGGeoProperty.h"
+
+#include "OSGGeoFunctions.h"
+
+//#include "OSGFieldContainerFactory.h"
+//#include "OSGTypeFactory.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -371,6 +377,8 @@ void ComplexSceneManager::scanPreSystem(std::vector<std::string> &vParams)
 
 void ComplexSceneManager::startFrom(const std::string &szParamFilename)
 {
+    setVBOUsageOnPropertyProtos(true);
+
     _oPathHandler.clearPathList();
     _oPathHandler.clearBaseFile();
 

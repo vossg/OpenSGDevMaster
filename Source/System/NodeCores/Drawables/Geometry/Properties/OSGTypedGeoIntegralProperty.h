@@ -268,6 +268,14 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
             
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
+
+    void onCreate(const Self                 *p = NULL);
+    void onDestroy(     UInt32 uiContainerId          );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                      Binary Operations                       */
     /*! \{                                                                 */
 
@@ -281,6 +289,7 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
     /*==========================  PRIVATE  ================================*/
 
   private:
+
     /*!\brief prohibit default function (move to 'public' if needed) */
     Self &operator =(const Self &source);
 
@@ -292,8 +301,6 @@ class TypedGeoIntegralProperty : public GeoIntegralProperty
 //    static const ObjPtr NullPtr;
 
     static TypeObject  _type;
-    
-           void onCreate  (const Self *source = NULL);
 };
 
 struct TypedGeoIntegralPropertyDescBase

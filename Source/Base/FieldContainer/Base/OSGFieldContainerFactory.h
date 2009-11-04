@@ -55,6 +55,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class FieldContainerFactoryBase;
+
 /*! \ingroup GrpBaseFieldContainerBase
     \ingroup GrpLibOSGBase
     \nohierarchy
@@ -71,6 +73,34 @@ struct FieldContainerFactoryDesc
     }
 };
 
+class OSG_BASE_DLLMAPPING DerivedFieldContainerTypeIterator
+{
+  public:
+
+    DerivedFieldContainerTypeIterator(
+        const DerivedFieldContainerTypeIterator &source);
+
+    FieldContainerType *operator->(void);
+    FieldContainerType *operator *(void);
+
+    void operator++ (void);
+
+    bool operator ==(const DerivedFieldContainerTypeIterator &lhs);
+    bool operator !=(const DerivedFieldContainerTypeIterator &lhs);
+
+  protected:
+
+    DerivedFieldContainerTypeIterator(void);
+    DerivedFieldContainerTypeIterator(const FieldContainerType &oRef); 
+
+    void operator =(const DerivedFieldContainerTypeIterator &source);
+
+    const FieldContainerType *_pRef;
+          UInt32              _uiCurrentType;
+          FieldContainerType *_pCurrentType;
+
+    friend class FieldContainerFactoryBase;
+};
 
 /*! \brief FieldContainerFactoryBase is the central class in OpenSG for 
            accessing, allocating, and mapping field containers allocated in
@@ -158,6 +188,9 @@ class OSG_BASE_DLLMAPPING FieldContainerFactoryBase :
     /*---------------------------------------------------------------------*/
     /*! \name                 Container Access                             */
     /*! \{                                                                 */
+
+    DerivedFieldContainerTypeIterator begin(const FieldContainerType &oRef);
+    DerivedFieldContainerTypeIterator end  (      void                    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

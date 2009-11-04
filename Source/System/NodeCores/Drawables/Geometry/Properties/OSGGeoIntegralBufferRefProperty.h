@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2002 by the OpenSG Forum                 *
+ *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,193 +36,119 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGEOINTEGRALPROPERTY_H_
-#define _OSGGEOINTEGRALPROPERTY_H_
+#ifndef _OSGGEOINTEGRALBUFFERREFPROPERTY_H_
+#define _OSGGEOINTEGRALBUFFERREFPROPERTY_H_
 #ifdef __sgi
 #pragma once
 #endif
 
-#include "OSGGeoIntegralPropertyBase.h"
+#include "OSGGeoIntegralBufferRefPropertyBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-class GeoIntegralBufferRefProperty;
-
-/*! \brief GeoIntegralProperty class. See \ref 
-           PageWindowGLUTGeoIntegralProperty for a description.
+/*! \brief GeoIntegralBufferRefProperty class. See \ref
+           PageDrawableGeoIntegralBufferRefProperty for a description.
 */
 
-class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty : 
-            public GeoIntegralPropertyBase
+class OSG_DRAWABLE_DLLMAPPING GeoIntegralBufferRefProperty : 
+    public GeoIntegralBufferRefPropertyBase
 {
-  private:
+  protected:
 
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef GeoIntegralPropertyBase                             Inherited;
+    typedef GeoIntegralBufferRefPropertyBase Inherited;
+    typedef GeoIntegralBufferRefProperty     Self;
 
-    /*---------------------------------------------------------------------*/
-    /*! \name        Arbitrary Type Interface Methods                      */
-    /*! \{                                                                 */
-
-    typedef UInt64 MaxTypeT;
-    
-    // MSVC 7.0 is a little weird about template member methods, that's why
-    // the code has to be here...
-
-    template <class ExternalType>
-    ExternalType getValue(const UInt32 index) const
-    {
-        MaxTypeT ival;
-        getGenericValue(ival, index);
-        return static_cast<ExternalType>(ival);
-    }
-    
-    template <class ExternalType>
-    void getValue(ExternalType &eval, const UInt32 index) const
-    {
-        MaxTypeT val;
-        getGenericValue(val, index);
-        eval = static_cast<ExternalType>(val);
-    }
-    
-    template <class ExternalType>
-    void setValue(const ExternalType &val, const UInt32 index)
-    {
-        setGenericValue(val, index);
-    }
-    
-    template <class ExternalType>
-    void addValue(const ExternalType &val)
-    {
-        push_back(val);
-    }
-    
-    template <class ExternalType>
-    void push_back(const ExternalType &val)
-    {
-        resize(size() + 1);
-        setGenericValue(val, size() - 1);
-    }
-
-    virtual UInt32 getVectorType(void          ) const;
-    
-    virtual void   clear        (void          )       = 0;
-    virtual void   resize       (size_t newsize)       = 0;
-    virtual UInt32 size         (void          ) const = 0;
-
-    /*---------------------------------------------------------------------*/
-
-    // A little fallback to simplify porting of old code
-    inline UInt32 getValue(const UInt32 index) const;  
-    
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Sync                                    */
     /*! \{                                                                 */
 
-    virtual void changed(ConstFieldMaskArg whichField, 
+    virtual void changed(ConstFieldMaskArg whichField,
                          UInt32            origin,
-                         BitVector         detail);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                     Output                                   */
-    /*! \{                                                                 */
-
-    virtual void dump(      UInt32     uiIndent = 0, 
-                      const BitVector  bvFlags  = 0) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                 Chunk Class Access                           */
-    /*! \{                                                                 */
-
-    virtual const StateChunkClass * getClass         (void) const;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name              Static Chunk Class Access                       */
-    /*! \{                                                                 */
-
-    inline static        UInt32            getStaticClassId (void);
-    inline static  const StateChunkClass * getStaticClass   (void);
+                         BitVector         details    );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    State Commands                            */
     /*! \{                                                                 */
 
-    virtual void activate      (DrawEnv    *pEnv, 
-                                UInt32      index = 0);
+    void setGLId(UInt32 uiGLId);
 
-    virtual void changeFrom    (DrawEnv    *pEnv, 
-                                StateChunk *old,
-                                UInt32      index = 0);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    State Commands                            */
+    /*! \{                                                                 */
 
-    virtual void deactivate    (DrawEnv    *pEnv, 
-                                UInt32      index = 0);
+    virtual void activate  (DrawEnv    *pEnv, 
+                            UInt32      index = 0);
 
-    virtual bool isInVBO       (DrawEnv    *pEnv);
+    virtual void changeFrom(DrawEnv    *pEnv, 
+                            StateChunk *old,
+                            UInt32      index = 0);
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
+    virtual void dump(      UInt32     uiIndent = 0,
+                      const BitVector  bvFlags  = 0) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
+
   protected:
 
-    // Variables should all be in GeoIntegralPropertyBase.
+    // Variables should all be in GeoIntegralBufferRefPropertyBase.
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
     /*! \{                                                                 */
 
-    GeoIntegralProperty(void);
-    GeoIntegralProperty(const GeoIntegralProperty &source);
+    GeoIntegralBufferRefProperty(void);
+    GeoIntegralBufferRefProperty(const GeoIntegralBufferRefProperty &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~GeoIntegralProperty(void); 
+    virtual ~GeoIntegralBufferRefProperty(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                  Generic Access                              */
+    /*! \name                      Init                                    */
     /*! \{                                                                 */
-    
-    // This is the fallback, it has to be implemented by the concrete Props!
-    virtual void getGenericValue(      MaxTypeT &val,
-                                 const UInt32 index  ) const = 0;
-    virtual void setGenericValue(const MaxTypeT &val,
-                                 const UInt32 index  )       = 0;
+
+    void onCreate (const GeoIntegralBufferRefProperty *p             = NULL);
+    void onDestroy(      UInt32                        uiContainerId       );
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Init                                    */
+    /*! \{                                                                 */
 
-    virtual GLenum getBufferType(void); // buffer type for VBOs
     static void initMethod(InitPhase ePhase);
-    
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
     friend class FieldContainer;
-    friend class GeoIntegralPropertyBase;
-    friend class GeoIntegralBufferRefProperty;
-
-    static StateChunkClass _class;
+    friend class GeoIntegralBufferRefPropertyBase;
 
     // prohibit default functions (move to 'public' if you need one)
-
-    void operator =(const GeoIntegralProperty &source);
+    void operator =(const GeoIntegralBufferRefProperty &source);
 };
 
-typedef GeoIntegralProperty *GeoIntegralPropertyP;
+typedef GeoIntegralBufferRefProperty *GeoIntegralBufferRefPropertyP;
 
 OSG_END_NAMESPACE
 
-#include "OSGGeoIntegralPropertyBase.inl"
-#include "OSGGeoIntegralProperty.inl"
+#include "OSGGeoIntegralBufferRefPropertyBase.inl"
+#include "OSGGeoIntegralBufferRefProperty.inl"
 
-#endif /* _OSGGEOINTEGRALPROPERTY_H_ */
+#endif /* _OSGGEOINTEGRALBUFFERREFPROPERTY_H_ */

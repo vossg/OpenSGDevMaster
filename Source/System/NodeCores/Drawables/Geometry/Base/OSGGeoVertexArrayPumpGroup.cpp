@@ -701,11 +701,15 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
         return;
 
     // if it's not empty we need positions
-    if(!attribData[Geometry::PositionsIndex])
+    if(attribData[Geometry::PositionsIndex] == NULL)
     {
-        SWARNING << "masterPump: Geometry " << geo << " has no positions!?!"
-                 << endLog;
-        return;
+        if(attribPtr[Geometry::PositionsIndex] == NULL ||
+           attribPtr[Geometry::PositionsIndex]->getUseVBO() == false)
+        {
+            SWARNING << "masterPump: Geometry " << geo << " has no positions!?!"
+                     << endLog;
+            return;
+        }
     }
 
     // overall attributes?
@@ -795,7 +799,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
 
     for(Int16 i = nattrib - 1; i >= 0; --i)
     {
-        if(attribData[i])
+        if(attribPtr[i] != NULL)
         {
             attribPtr[i]->activate(pEnv, i);
         }
@@ -939,7 +943,7 @@ void GeoVertexArrayPumpGroup::masterClassicGeoPump(DrawEnv  *pEnv,
     // disable arrays
     for(Int16 i = nattrib - 1; i >= 0; --i)
     {
-        if(attribData[i])
+        if(attribPtr[i] != NULL)
         {
             attribPtr[i]->deactivate(pEnv, i);
         }
@@ -1042,11 +1046,15 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     }
 
     // if it's not empty we need positions
-    if(!attribData[0])
+    if(attribData[0] == NULL)
     {
-        SWARNING << "masterPump: Geometry " << geo << " has no positions!?!"
-                 << endLog;
-        return;
+        if(attribPtr[0] == NULL ||
+           attribPtr[0]->getUseVBO() == false)
+        {
+            SWARNING << "masterPump: Geometry " << geo << " has no positions!?!"
+                     << endLog;
+            return;
+        }
     }
 
     // overall attributes?
@@ -1064,7 +1072,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     // and to allow sharing data between objects
     for(Int16 i = nattrib - 1; i >= 0; --i)
     {
-        if(attribData[i])
+        if(attribPtr[i] != NULL)
         {
             attribPtr[i]->activate(pEnv, i + 16); // !!! HACK
         }
@@ -1209,7 +1217,7 @@ void GeoVertexArrayPumpGroup::masterAttribGeoPump(DrawEnv  *pEnv,
     // disable arrays
     for(Int16 i = nattrib - 1; i >= 0; --i)
     {
-        if(attribData[i])
+        if(attribData[i] != NULL)
         {
             attribPtr[i]->deactivate(pEnv, i + 16);
         }

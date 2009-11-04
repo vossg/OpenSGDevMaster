@@ -153,6 +153,9 @@ bool mergeableGeo(const Geometry *geo1, const Geometry *geo2);
 OSG_DRAWABLE_DLLMAPPING             
 GeometryTransitPtr mergeGeo(const Geometry *geo1, const Geometry *geo2);
 
+OSG_DRAWABLE_DLLMAPPING
+void setVBOUsageOnPropertyProtos(bool bVal);
+
 OSG_END_NAMESPACE
 
 #include "OSGGeoFunctions.inl"
