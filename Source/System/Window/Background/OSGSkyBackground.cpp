@@ -141,7 +141,6 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
                              const Pnt3f                &p4,
                              const Vec3f               * texCoord)
 {
-
     if(tex != NULL)
     {
         if(oldtex != NULL)
@@ -163,14 +162,40 @@ void SkyBackground::drawFace(      DrawEnv             * pEnv,
         // custom texture coordinates
         // Mess with the best, die like the rest
         glBegin(GL_QUADS);
-        glTexCoord3fv(static_cast<const GLfloat *>(texCoord[0].getValues()));
-        glVertex3fv  (static_cast<const GLfloat *>(p1.getValues()));
-        glTexCoord3fv(static_cast<const GLfloat *>(texCoord[1].getValues()));
-        glVertex3fv  (static_cast<const GLfloat *>(p2.getValues()));
-        glTexCoord3fv(static_cast<const GLfloat *>(texCoord[2].getValues()));
-        glVertex3fv  (static_cast<const GLfloat *>(p3.getValues()));
-        glTexCoord3fv(static_cast<const GLfloat *>(texCoord[3].getValues()));
-        glVertex3fv  (static_cast<const GLfloat *>(p4.getValues()));
+        {
+#if 0 // strange crash with par drawers.
+            glTexCoord3fv(static_cast<const GLfloat *>(
+                              texCoord[0].getValues()));
+            glVertex3fv  (static_cast<const GLfloat *>(p1.getValues()));
+
+            glTexCoord3fv(static_cast<const GLfloat *>(
+                              texCoord[1].getValues()));
+            glVertex3fv  (static_cast<const GLfloat *>(p2.getValues()));
+
+            glTexCoord3fv(static_cast<const GLfloat *>(
+                              texCoord[2].getValues()));
+            glVertex3fv  (static_cast<const GLfloat *>(p3.getValues()));
+
+            glTexCoord3fv(static_cast<const GLfloat *>(
+                              texCoord[3].getValues()));
+            glVertex3fv  (static_cast<const GLfloat *>(p4.getValues()));
+#else
+            glTexCoord3fv(static_cast<const GLfloat *>(
+                              texCoord[0].getValues()));
+            glVertex3f  (p1[0], p1[1], p1[2]);
+
+            glTexCoord3fv(static_cast<const GLfloat *>(
+                              texCoord[1].getValues()));
+            glVertex3f   (p2[0], p2[1], p2[2]);
+
+            glTexCoord3fv(static_cast<const GLfloat *>(
+                              texCoord[2].getValues()));
+            glVertex3f   (p3[0], p3[1], p3[2]);
+
+            glTexCoord3fv(texCoord[3].getValues());
+            glVertex3f   (p4[0], p4[1], p4[2]);
+#endif
+        }
         glEnd();
 
         if(tex->isTransparent())

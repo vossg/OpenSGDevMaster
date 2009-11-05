@@ -153,7 +153,7 @@ ROUTE CDown.signalReleased TO LR32Counter.decTrigger
 
 ROUTE LR32Counter.value    TO Season.value
 
-ROUTE SceneTimer.fraction TO RotSin.fraction
-ROUTE SceneTimer.fraction TO RotCos.fraction
-ROUTE RotCos    .value    TO COS.value
-ROUTE RotSin    .value    TO SIN.value
+ROUTE SceneTimer.fraction TO RotSin.inValue
+ROUTE SceneTimer.fraction TO RotCos.inValue
+ROUTE RotCos    .outValue TO COS.value
+ROUTE RotSin    .outValue TO SIN.value

@@ -128,7 +128,7 @@ bool addConnection(      OSG::AttachmentContainer *pSrcContainer,
               dynamic_cast<AttachmentContainer *>(pSrcHnd->getContainer());
 
     pDstContainer = 
-              dynamic_cast<AttachmentContainer *>(pDstHnd->getContainer());
+              dynamic_cast<FieldContainer      *>(pDstHnd->getContainer());
           
     if(pSrcContainer == NULL || pDstContainer == NULL)
     {
