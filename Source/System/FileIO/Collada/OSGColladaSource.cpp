@@ -47,9 +47,10 @@
 #include "OSGColladaLog.h"
 #include "OSGTypedGeoVectorProperty.h"
 
-#include "dom/domSource.h"
-#include "dom/domAccessor.h"
-#include "dom/domParam.h"
+#include <dom/domSource.h>
+#include <dom/domAccessor.h>
+#include <dom/domParam.h>
+#include <dom/domIDREF_array.h>
 
 OSG_BEGIN_NAMESPACE
 
@@ -85,16 +86,50 @@ ColladaSource::read(void)
 
     const domParam_Array &params = acc->getParam_array();
 
+    UInt32 idx = 0;
+
     for(UInt32 i = 0; i < params.getCount(); ++i)
     {
         if(params[i]->getName() == NULL)
         {
-            _strideMap[i] = -1;
+            _strideMap[idx] = -1;
+            ++idx;
         }
         else
         {
-            _strideMap[i] = _elemSize;
-            ++_elemSize;
+            std::string paramType = params[i]->getType();
+
+            if(paramType == "float")
+            {
+                _strideMap[idx] = _elemSize;
+                ++idx;
+                ++_elemSize;
+            }
+            else if(paramType == "float4x4")
+            {
+                for(UInt32 j = 0; j < 16; ++j)
+                {
+                    _strideMap[idx] = _elemSize;
+                    ++idx;
+                    ++_elemSize;
+                }
+            }
+            else if(paramType == "Name")
+            {
+                _strideMap[idx] = _elemSize;
+                ++idx;
+                ++_elemSize;
+            }
+            else
+            {
+                SWARNING << "ColladaSource::read: Unknown <param> type ["
+                         << paramType << "], defaulting to elemSize 1"
+                         << std::endl;
+
+                _strideMap[idx] = _elemSize;
+                ++idx;
+                ++_elemSize;
+            }
         }
     }
 
@@ -104,42 +139,205 @@ ColladaSource::read(void)
 }
 
 GeoVectorProperty *
-ColladaSource::getProperty(const std::string &semantic, UInt32 set)
+ColladaSource::getProperty(const std::string &semantic)
 {
-    SemanticSetPair semSetPair(semantic, set);
-    PropertyMapIt   pmIt = _propMap.find(semSetPair);
+    GeoVectorProperty *retVal = NULL;
+    domSourceRef       source = getDOMElementAs<domSource>();
+    PropertyMapIt      pmIt   = _propMap.find(semantic);
 
     if(pmIt != _propMap.end())
     {
-        return pmIt->second;
+        retVal = pmIt->second;
     }
-
-    fillProperty(semSetPair);
-
-    pmIt = _propMap.find(semSetPair);
-
-    if(pmIt != _propMap.end())
+    else
     {
-        return pmIt->second;
+        retVal = fillProperty(semantic);
     }
 
-    SFATAL << "ColladaSource::getProperty: Could not read data for "
-           << "semantic [" << semantic << "] set [" << set << "]."
-           << std::endl;
+    if(retVal == NULL)
+    {
+        SFATAL << "ColladaSource::getProperty: Could not read data for "
+               << "semantic [" << semantic << "] from source ["
+               << source->getId() << "]."
+               << std::endl;
+    }
 
-    return NULL;
+    return retVal;
+}
+
+const ColladaSource::NameStore &
+ColladaSource::getNameStore(void)
+{
+    if(_nameStore.empty() == true && _count > 0)
+    {
+        fillNameStore();
+    }
+
+    return _nameStore;
+}
+
+const ColladaSource::MatrixStore &
+ColladaSource::getMatrixStore(void)
+{
+    if(_matrixStore.empty() == true && _count > 0)
+    {
+        fillMatrixStore();
+    }
+
+    return _matrixStore;
+}
+
+std::string
+ColladaSource::getNameValue(UInt32 idx)
+{
+    std::string retVal;
+    getNameValue(idx, retVal);
+
+    return retVal;
+}
+
+bool
+ColladaSource::getNameValue(UInt32 idx, std::string &nameVal)
+{
+    bool                              retVal  = false;
+    domSourceRef                      source  = getDOMElementAs<domSource>  ();
+    domSource::domTechnique_commonRef techCom = source ->getTechnique_common();
+    domAccessorRef                    acc     = techCom->getAccessor        ();
+
+    daeURI           dataURI   = acc->getSource();
+    domName_arrayRef dataArray = 
+        daeSafeCast<domName_array>(dataURI.getElement());
+
+    if(dataArray == NULL)
+    {
+        SWARNING << "ColladaSource::getNameValue: Could not find <name_array> "
+                 << "for [" << dataURI.str() << "]." << std::endl;
+        return retVal;
+    }
+
+    if(_elemSize != 1)
+    {
+        SWARNING << "ColladaSource::getNameValue: Unexpected elemSize ["
+                 << _elemSize << "] != 1." << std::endl;
+    }
+
+    nameVal = dataArray->getValue()[_offset + idx * _stride];
+    retVal  = true;
+
+    return retVal;
+}
+
+Real32
+ColladaSource::getFloatValue(UInt32 idx)
+{
+    Real32 retVal;
+    getFloatValue(idx, retVal);
+
+    return retVal;
+}
+
+bool
+ColladaSource::getFloatValue(UInt32 idx, Real32 &floatVal)
+{
+    bool                              retVal  = false;
+    domSourceRef                      source  = getDOMElementAs<domSource> ();
+    domSource::domTechnique_commonRef techCom = source->getTechnique_common();
+    domAccessorRef                    acc     = techCom->getAccessor       ();
+
+    daeURI            dataURI   = acc->getSource();
+    domFloat_arrayRef dataArray =
+        daeSafeCast<domFloat_array>(dataURI.getElement());
+
+    if(dataArray == NULL)
+    {
+        SWARNING << "ColladaSource::getFloatValue: Could not find "
+                 << "<float_array> for [" << dataURI.str() << "]."
+                 << std::endl;
+        return retVal;
+    }
+
+    if(_elemSize != 1)
+    {
+        SWARNING << "ColladaSource::getFloatValue: Unexpected elemSize ["
+                 << _elemSize << "] != 1." << std::endl;
+    }
+
+    floatVal = dataArray->getValue()[_offset + idx * _stride];
+    retVal   = true;
+
+    return retVal;
+}
+
+Matrix
+ColladaSource::getMatrixValue(UInt32 idx)
+{
+    Matrix retVal;
+    getMatrixValue(idx, retVal);
+
+    return retVal;
+}
+
+bool
+ColladaSource::getMatrixValue(UInt32 idx, Matrix &matVal)
+{
+    bool                              retVal  = false;
+    domSourceRef                      source  = getDOMElementAs<domSource> ();
+    domSource::domTechnique_commonRef techCom = source->getTechnique_common();
+    domAccessorRef                    acc     = techCom->getAccessor       ();
+
+    daeURI            dataURI   = acc->getSource();
+    domFloat_arrayRef dataArray =
+        daeSafeCast<domFloat_array>(dataURI.getElement());
+
+    if(dataArray == NULL)
+    {
+        SWARNING << "ColladaSource::getMatrixValue: Could not find "
+                 << "<float_array> for [" << dataURI.str() << "]."
+                 << std::endl;
+        return retVal;
+    }
+
+    if(_elemSize != 16)
+    {
+        SWARNING << "ColladaSource::getMatrixValue: Not a matrix <source>, "
+                 << "elemSize [" << _elemSize << "] != 16" << std::endl;
+    }
+
+    UInt32                 currIdx = 0;
+    UInt32                 currRow = 0;
+    UInt32                 currCol = 0;
+    const domListOfFloats &data    = dataArray->getValue();
+
+    for(UInt32 i = _offset + (idx * _stride);
+        i < _offset + (idx + 1) * _stride; ++i)
+    {
+        if(_strideMap[currIdx] != -1)
+        {
+            matVal[currCol][currRow] = data[i];
+        }
+
+        ++currIdx;
+        ++currRow;
+
+        if(currRow >= 4)
+        {
+            currRow = 0;
+            ++currCol;
+        }
+    }
 }
 
 
-
 ColladaSource::ColladaSource(daeElement *elem, ColladaGlobal *global)
-    : Inherited (elem, global)
-    , _offset   (0)
-    , _count    (0)
-    , _stride   (1)
-    , _elemSize (0)
-    , _strideMap()
-    , _propMap  ()
+    : Inherited   (elem, global)
+    , _offset     (0)
+    , _count      (0)
+    , _stride     (1)
+    , _elemSize   (0)
+    , _strideMap  ()
+    , _propMap    ()
+    , _nameStore  ()
+    , _matrixStore()
 {
 }
 
@@ -147,11 +345,11 @@ ColladaSource::~ColladaSource(void)
 {
 }
 
-void
-ColladaSource::fillProperty(const SemanticSetPair &semSetPair)
+GeoVectorProperty *
+ColladaSource::fillProperty(const std::string &semantic)
 {
-    OSG_COLLADA_LOG(("ColladaSource::fillProperty: semantic [%s] set [%d]\n",
-                     semSetPair.first.c_str(), semSetPair.second));
+    OSG_COLLADA_LOG(("ColladaSource::fillProperty: semantic [%s]\n",
+                     semantic.c_str()));
 
     GeoVectorPropertyUnrecPtr         prop    = NULL;
     domSourceRef                      source  = getDOMElementAs<domSource>  ();
@@ -166,20 +364,20 @@ ColladaSource::fillProperty(const SemanticSetPair &semSetPair)
     {
         SWARNING << "ColladaSource::fillProperty: Could not find <float_array> "
                  << "for [" << dataURI.str() << "]." << std::endl;
-        return;
+        return NULL;
     }
 
     const domListOfFloats &data      = dataArray->getValue();
 
     OSG_ASSERT((_offset + _count * _stride) <= data.getCount());
 
-    if(semSetPair.first == "POSITION")
+    if(semantic == "POSITION")
     {
         if(_elemSize != 3)
         {
             SWARNING << "ColladaSource::fillProperty: Unexpected _elemSize ["
                      << _elemSize << "]." << std::endl;
-            return;
+            return NULL;
         }
 
         prop = GeoPnt3fProperty::create();
@@ -203,72 +401,11 @@ ColladaSource::fillProperty(const SemanticSetPair &semSetPair)
             }
         }
     }
-    else if(semSetPair.first == "NORMAL")
-    {
-        if(_elemSize != 3)
-        {
-            SWARNING << "ColladaSource::fillProperty: Unexpected _elemSize ["
-                     << _elemSize << "]." << std::endl;
-            return;
-        }
-
-        prop = GeoVec3fProperty::create();
-        
-        Vec3f  currVec;
-        UInt32 currIdx = 0;
-
-        for(UInt32 i = _offset; i < _count * _stride; ++i)
-        {
-            if(_strideMap[currIdx] != -1)
-            {
-                currVec[_strideMap[currIdx]] = data[i];
-            }
-            
-            ++currIdx;
-
-            if(currIdx == _stride)
-            {
-                prop->push_back(currVec);
-                currIdx = 0;
-            }
-        }
-    }
-    else if(semSetPair.first == "TEXCOORD")
-    {
-        if(_elemSize != 2)
-        {
-            SWARNING << "ColladaSource::fillProperty: Unexpected _elemSize ["
-                     << _elemSize << "]." << std::endl;
-            return;
-        }
-
-        prop = GeoVec2fProperty::create();
-        
-        Vec2f  currVec;
-        UInt32 currIdx = 0;
-
-        for(UInt32 i = _offset; i < _count * _stride; ++i)
-        {
-            if(_strideMap[currIdx] != -1)
-            {
-                currVec[_strideMap[currIdx]] = data[i];
-            }
-            
-            ++currIdx;
-
-            if(currIdx == _stride)
-            {
-                prop->push_back(currVec);
-                currIdx = 0;
-            }
-        }
-    }
     else
     {
         OSG_COLLADA_LOG(("ColladaSource::fillProperty: Reading semantic [%s] "
-                         "set [%d] with elemSize [%d] stride [%d] "
-                         "offset [%d] count [%d]\n", semSetPair.first.c_str(),
-                         semSetPair.second, _elemSize, _stride, _offset, _count));
+                         "with elemSize [%d] stride [%d] offset [%d] count [%d]\n",
+                         semantic.c_str(), _elemSize, _stride, _offset, _count));
 
         if(_elemSize == 2)
         {
@@ -285,9 +422,9 @@ ColladaSource::fillProperty(const SemanticSetPair &semSetPair)
         else
         {
             SWARNING << "ColladaSource::fillProperty: Unhandled element size ["
-                     << _elemSize << "] for semantic [" << semSetPair.first
-                     << "]" << std::endl;
-            return;
+                     << _elemSize << "] for semantic [" << semantic << "]"
+                     << std::endl;
+            return NULL;
         }
 
         Vec4f  currVec;
@@ -312,10 +449,130 @@ ColladaSource::fillProperty(const SemanticSetPair &semSetPair)
 
     if(prop != NULL)
     {
-        _propMap.insert(PropertyMap::value_type(semSetPair, prop));
+        _propMap.insert(PropertyMap::value_type(semantic, prop));
+    }
+
+    return prop;
+}
+
+void
+ColladaSource::fillNameStore(void)
+{
+    domSourceRef                      source  = getDOMElementAs<domSource>  ();
+    domSource::domTechnique_commonRef techCom = source ->getTechnique_common();
+    domAccessorRef                    acc     = techCom->getAccessor        ();
+
+    daeURI            dataURI    = acc->getSource();
+    domName_arrayRef  nameArray  = 
+        daeSafeCast<domName_array> (dataURI.getElement());
+    domIDREF_arrayRef idrefArray =
+        daeSafeCast<domIDREF_array>(dataURI.getElement());
+
+    if(nameArray == NULL && idrefArray == NULL)
+    {
+        SWARNING << "ColladaSource::fillNameStore: Could not find <name_array>"
+                 << " or <IDREF_array> for [" << dataURI.str() << "]."
+                 << std::endl;
+        return;
+    }
+
+    if(nameArray != NULL)
+    {
+        std::string           currVal;
+        UInt32                currIdx = 0;
+        const domListOfNames &data    = nameArray->getValue();
+    
+        for(UInt32 i = _offset; i < _count * _stride; ++i)
+        {
+            if(_strideMap[currIdx] != -1)
+            {
+                currVal = data[i];
+            }
+
+            ++currIdx;
+        
+            if(currIdx == _stride)
+            {
+                _nameStore.push_back(currVal);
+                currIdx = 0;
+            }
+        }
+    }
+    else if(idrefArray != NULL)
+    {
+        std::string     currVal;
+        UInt32          currIdx = 0;
+        const xsIDREFS &data    = idrefArray->getValue();
+    
+        for(UInt32 i = _offset; i < _count * _stride; ++i)
+        {
+            if(_strideMap[currIdx] != -1)
+            {
+                currVal = data[i].getID();
+            }
+
+            ++currIdx;
+        
+            if(currIdx == _stride)
+            {
+                _nameStore.push_back(currVal);
+                currIdx = 0;
+            }
+        }
     }
 }
 
+void
+ColladaSource::fillMatrixStore(void)
+{
+    GeoVectorPropertyUnrecPtr         prop    = NULL;
+    domSourceRef                      source  = getDOMElementAs<domSource>  ();
+    domSource::domTechnique_commonRef techCom = source ->getTechnique_common();
+    domAccessorRef                    acc     = techCom->getAccessor        ();
+
+    daeURI                 dataURI   = acc->getSource();
+    domFloat_arrayRef      dataArray = 
+        daeSafeCast<domFloat_array>(dataURI.getElement());
+
+    if(dataArray == NULL)
+    {
+        SWARNING << "ColladaSource::fillMatrixStore: Could not find "
+                 << "<float_array> for [" << dataURI.str() << "]."
+                 << std::endl;
+        return;
+    }
+
+    Matrix                 currVal;
+    UInt32                 currIdx    = 0;
+    UInt32                 currRowIdx = 0;
+    UInt32                 currColIdx = 0;
+    const domListOfFloats &data       = dataArray->getValue();
+
+    for(UInt32 i = _offset; i < _count * _stride; ++i)
+    {
+        if(_strideMap[currIdx] != -1)
+        {
+            currVal[currColIdx][currRowIdx] = data[i];
+        }
+
+        ++currIdx;
+        ++currColIdx;
+
+        if(currColIdx >= 4)
+        {
+            currColIdx = 0;
+            ++currRowIdx;
+        }
+
+        if(currIdx == _stride)
+        {
+            _matrixStore.push_back(currVal);
+            currIdx    = 0;
+            currRowIdx = 0;
+            currColIdx = 0;
+        }
+    }
+}
 
 OSG_END_NAMESPACE
 

@@ -55,6 +55,7 @@
 #include <dae/daeDomTypes.h>
 #include <dom/domInputLocal.h>
 #include <dom/domInputLocalOffset.h>
+#include <dom/domSource.h>
 
 // forward decls
 class domMesh;
@@ -180,8 +181,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     /*! \name Helper Functions                                             */
     /*! \{                                                                 */
 
-    void readMesh   (domMesh *mesh);
-    void readSources(domMesh *mesh);
+    void readMesh   (      domMesh         *mesh   );
+    void readSources(const domSource_Array &sources);
 
     void readLines     (domMesh *mesh, domLines      *lines     );
     void readLineStrips(domMesh *mesh, domLinestrips *lineStrips);

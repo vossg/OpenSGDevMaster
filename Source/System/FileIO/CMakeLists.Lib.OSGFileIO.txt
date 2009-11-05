@@ -8,6 +8,7 @@ OSG_SELECT_PROJECT()
 
 # dependencies - OpenSG
 SET(${PROJECT_NAME}_DEP_OSG_LIB OSGDrawable
+                                OSGDynamics
                                 OSGGroup
                                 OSGState
                                 OSGDynamics)

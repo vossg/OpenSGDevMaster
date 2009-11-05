@@ -46,11 +46,23 @@
 #include "OSGColladaGeometry.h"
 #include "OSGColladaElementFactoryHelper.h"
 
+#include "OSGSkeleton.h"
+
 // forward decl
 class domSkin;
-
+class domLookat;
+class domMatrix;
+class domRotate;
+class domScale;
+class domSkew;
+class domTranslate;
+class domNode;
 
 OSG_BEGIN_NAMESPACE
+
+// forward decl
+class ColladaInstanceController;
+
 
 class OSG_FILEIO_DLLMAPPING ColladaController : public ColladaGeometry
 {
@@ -93,10 +105,46 @@ class OSG_FILEIO_DLLMAPPING ColladaController : public ColladaGeometry
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Internal Types                                               */
+    /*! \{                                                                 */
+
+    struct JointInfo
+    {
+        domNode      *jointNode;
+
+        Matrix        invBindMatrix;
+        NodeUnrecPtr  topN;
+        NodeUnrecPtr  bottomN;
+    };
+
+    typedef std::vector<JointInfo>         JointInfoStore;
+    typedef JointInfoStore::iterator       JointInfoStoreIt;
+    typedef JointInfoStore::const_iterator JointInfoStoreConstIt;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name Helper functions                                             */
     /*! \{                                                                 */
 
-    void readSkin(domSkin *skin);
+    void  readSkin     (domSkin                   *skin        );
+    void  resolveJoints(domSkin                   *skin,
+                        ColladaInstanceController *colInstCtrl,
+                        JointInfoStore            &jointStore  );
+    SkeletonTransitPtr
+          buildSkeleton  (JointInfoStore &jointStore);
+    void  buildTransforms(JointInfo      &jointInfo );
+    void  buildLookAt    (domLookat    *lookAt,    JointInfo &jointInfo);
+    void  buildMatrix    (domMatrix    *matrix,    JointInfo &jointInfo);
+    void  buildRotate    (domRotate    *rotate,    JointInfo &jointInfo);
+    void  buildScale     (domScale     *scale,     JointInfo &jointInfo);
+    void  buildSkew      (domSkew      *skew,      JointInfo &jointInfo);
+    void  buildTranslate (domTranslate *translate, JointInfo &jointInfo);
+
+    void  prependXForm   (Node         *node,      JointInfo &jointInfo);
+    void  appendXForm    (Node         *node,      JointInfo &jointInfo);
+
+    Int32 findJoint    (const JointInfoStore      &jointStore,
+                        domNode                   *joint       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

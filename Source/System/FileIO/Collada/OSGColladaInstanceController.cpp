@@ -47,6 +47,9 @@
 #include "OSGColladaLog.h"
 
 #include <dom/domInstance_controller.h>
+#include <dom/domNode.h>
+#include <dom/domInstance_node.h>
+#include <dae/daeSIDResolver.h>
 
 OSG_BEGIN_NAMESPACE
 
@@ -102,6 +105,32 @@ ColladaInstanceController::process(ColladaElement *parent)
     return colCtrl->createInstance(this);
 }
 
+const ColladaInstanceController::SkeletonRootStore &
+ColladaInstanceController::getSkeletonRoots(void)
+{
+    return _skelRoots;
+}
+
+domNode *
+ColladaInstanceController::findJointNode(const std::string &jointSid)
+{
+    domNode                  *retVal = NULL;
+    SkeletonRootStoreConstIt  sIt    = _skelRoots.begin();
+    SkeletonRootStoreConstIt  sEnd   = _skelRoots.end  ();
+
+    for(; sIt != sEnd; ++sIt)
+    {
+        daeSidRef jointRef(jointSid, *sIt);
+
+        retVal = daeSafeCast<domNode>(jointRef.resolve().elt);
+
+        if(retVal != NULL)
+            break;
+    }
+
+    return retVal;
+}
+
 ColladaController *
 ColladaInstanceController::getTargetElem(void) const
 {
@@ -134,7 +163,8 @@ ColladaInstanceController::getTargetDOMElem(void) const
 ColladaInstanceController::ColladaInstanceController(
     daeElement *elem, ColladaGlobal *global)
 
-    : Inherited(elem, global)
+    : Inherited (elem, global)
+    , _skelRoots()
 {
 }
 
@@ -145,9 +175,6 @@ ColladaInstanceController::~ColladaInstanceController(void)
 void
 ColladaInstanceController::readSkeleton(void)
 {
-    SWARNING << "ColladaInstanceController::readSkeleton: NIY"
-             << std::endl;
-
     domInstance_controllerRef                        instCtrl =
         getDOMElementAs<domInstance_controller>();
     const domInstance_controller::domSkeleton_Array &skels    =
@@ -158,8 +185,76 @@ ColladaInstanceController::readSkeleton(void)
         OSG_COLLADA_LOG(("ColladaInstanceController::readSkeleton: "
                          "Skeleton root node: [%s]\n",
                          skels[i]->getValue().getURI()));
+
+        daeURI   skelURI  = skels[i]->getValue();
+        domNode *skelNode = daeSafeCast<domNode>(skelURI.getElement());
+
+        if(skelNode == NULL)
+        {
+            SWARNING << "ColladaInstanceController::readSkeleton: "
+                     << "<skeleton> tag does not refer to a <node>, URI ["
+                     << skelURI.str() << "]. Ignored." << std::endl;
+            continue;
+        }
+
+        _skelRoots.push_back(skelNode);
     }
 }
+
+#if 0  // obsolete, using daeSidRef instead
+domNode *
+ColladaInstanceController::findJointNode(
+    const std::string &jointSid, domNode *currNode)
+{
+    if(currNode == NULL)
+        return NULL;
+
+    domNode     *retVal  = NULL;
+    std::string  currSid = currNode->getSid();
+
+    if(jointSid == currSid)
+    {
+        retVal = currNode;
+    }
+    else
+    {
+        const daeElementRefArray &contents = currNode->getContents();
+
+        for(UInt32 i = 0; i < contents.getCount(); ++i)
+        {
+            if(contents[i]->typeID() == domNode::ID())
+            {
+                retVal = findJointNode(
+                    jointSid, daeSafeCast<domNode>(contents[i]));
+                                         
+            }
+            else if(contents[i]->typeID() == domInstance_node::ID())
+            {
+                retVal = findJointNode(
+                    jointSid, daeSafeCast<domInstance_node>(contents[i]));
+            }
+
+            if(retVal != NULL)
+                break;
+        }
+    }
+
+    return retVal;
+}
+
+domNode *
+ColladaInstanceController::findJointNode(
+    const std::string &jointSid, domInstance_node *currNode)
+{
+    if(currNode == NULL)
+        return NULL;
+   
+    domNode *targetNode =
+        daeSafeCast<domNode>(currNode->getUrl().getElement());
+
+    return findJointNode(jointSid, targetNode);
+}
+#endif // obsolete, using daeSidRef instead
 
 OSG_END_NAMESPACE
 

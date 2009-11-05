@@ -49,6 +49,10 @@
 
 #include <dom/domController.h>
 
+// forward decl
+class domNode;
+class domInstance_node;
+
 OSG_BEGIN_NAMESPACE
 
 class OSG_FILEIO_DLLMAPPING ColladaInstanceController
@@ -65,6 +69,10 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceController
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstanceController);
 
+    typedef std::vector<domNode *>            SkeletonRootStore;
+    typedef SkeletonRootStore::iterator       SkeletonRootStoreIt;
+    typedef SkeletonRootStore::const_iterator SkeletonRootStoreConstIt;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -80,6 +88,14 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceController
 
     virtual void  read   (void                  );
     virtual Node *process(ColladaElement *parent);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Skeleton                                                     */
+    /*! \{                                                                 */
+
+    const SkeletonRootStore &getSkeletonRoots(void                       );
+    domNode                 *findJointNode   (const std::string &jointSid);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -107,10 +123,19 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceController
 
     void readSkeleton(void);
 
+#if 0 // obsolete - using daeSidRef instead
+    domNode *findJointNode(const std::string &jointSid,
+                           domNode           *currNode );
+    domNode *findJointNode(const std::string &jointSid,
+                           domInstance_node  *currNode );
+#endif
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
     static ColladaElementRegistrationHelper _regHelper;
+
+    SkeletonRootStore _skelRoots;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaInstanceController);

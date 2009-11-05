@@ -66,6 +66,14 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaSource);
 
+    typedef std::vector<std::string>    NameStore;
+    typedef NameStore::iterator         NameStoreIt;
+    typedef NameStore::const_iterator   NameStoreConstIt;
+
+    typedef std::vector<Matrix>         MatrixStore;
+    typedef MatrixStore::iterator       MatrixStoreIt;
+    typedef MatrixStore::const_iterator MatrixStoreConstIt;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -86,7 +94,18 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    GeoVectorProperty *getProperty(const std::string &semantic, UInt32 set);
+    GeoVectorProperty *getProperty   (const std::string &semantic);
+    const NameStore   &getNameStore  (void                       );
+    const MatrixStore &getMatrixStore(void                       );
+
+    std::string getNameValue  (UInt32 idx                       );
+    bool        getNameValue  (UInt32 idx, std::string &nameVal );
+    
+    Real32      getFloatValue (UInt32 idx                       );
+    bool        getFloatValue (UInt32 idx, Real32      &floatVal);
+
+    Matrix      getMatrixValue(UInt32 idx                       );
+    bool        getMatrixValue(UInt32 idx, Matrix      &matVal  );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -101,9 +120,9 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    typedef std::pair<std::string, UInt32>      SemanticSetPair;
-
-    typedef std::map<SemanticSetPair,
+    // map semantic to a property holding data of this source in the
+    // appropriate form for the semantic
+    typedef std::map<std::string,
                      GeoVectorPropertyUnrecPtr> PropertyMap;
     typedef PropertyMap::iterator               PropertyMapIt;
     typedef PropertyMap::const_iterator         PropertyMapConstIt;
@@ -113,7 +132,9 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     typedef StrideMap::const_iterator           StrideMapConstIt;
 
 
-    void fillProperty(const SemanticSetPair &semSetPair);
+    GeoVectorProperty *fillProperty   (const std::string &semantic);
+    void               fillNameStore  (void                       );
+    void               fillMatrixStore(void                       );
     
 
     static ColladaElementRegistrationHelper _regHelper;
@@ -125,6 +146,8 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     StrideMap   _strideMap;
 
     PropertyMap _propMap;
+    NameStore   _nameStore;
+    MatrixStore _matrixStore;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaSource);

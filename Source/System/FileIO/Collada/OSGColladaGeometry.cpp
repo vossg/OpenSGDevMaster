@@ -195,7 +195,7 @@ ColladaGeometry::~ColladaGeometry(void)
 void
 ColladaGeometry::readMesh(domMesh *mesh)
 {
-    readSources(mesh);
+    readSources(mesh->getSource_array());
 
     const domLines_Array &linesArray = mesh->getLines_array();
 
@@ -248,10 +248,8 @@ ColladaGeometry::readMesh(domMesh *mesh)
 }
 
 void
-ColladaGeometry::readSources(domMesh *mesh)
+ColladaGeometry::readSources(const domSource_Array &sources)
 {
-    const domSource_Array &sources = mesh->getSource_array();
-
     for(UInt32 i = 0; i < sources.getCount(); ++i)
     {
         ColladaSourceRefPtr colSource =
@@ -842,7 +840,7 @@ ColladaGeometry::setupProperty(
 
     if(smIt != _sourceMap.end())
     {
-        prop = smIt->second->getProperty(semantic, set);
+        prop = smIt->second->getProperty(semantic);
     }
     else
     {
@@ -899,7 +897,7 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
         if(semantic == "VERTEX")
         {
             // handle <input> tag with semantic "VERTEX"
-            // by processing vertInputs
+            // by processing vertInputs, i.e. the <vertices> tag
 
             vertInputIndex = i;
 
@@ -1103,7 +1101,7 @@ ColladaGeometry::handleBindMaterial(
                 // <bind_vertex_input> for the same property ??
 
                 SWARNING << "ColladaGeometry::handleBindMaterial: "
-                         << "Found <bind> and <bind_vertex_input> for "
+                         << "Found <bind> AND <bind_vertex_input> for "
                          << "semantic [" << bi->semantic
                          << "] target/inSemantic [" << bi->target << "/"
                          << bvi->inSemantic << "] inSet [" << bvi->inSet
@@ -1178,8 +1176,9 @@ ColladaGeometry::handleBindMaterial(
         if(handledProperty == false)
         {
             OSG_COLLADA_LOG(("ColladaGeometry::handleBindMaterial: "
-                             "Setting property [%d] without "
-                             "<bind>/<bind_vertex_input> mapping.\n", i));
+                             "Setting property [%d] (semantic [%s] set [%d]) "
+                             "without <bind>/<bind_vertex_input> mapping.\n",
+                             i, psIt->_semantic.c_str(), psIt->_set));
 
             geo->setProperty( psIt->_prop, i);
             geo->setIndex   (*isIt,        i);
