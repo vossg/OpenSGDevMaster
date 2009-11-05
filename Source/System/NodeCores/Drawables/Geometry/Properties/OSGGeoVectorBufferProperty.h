@@ -75,7 +75,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorBufferProperty :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
-	virtual UInt32 size(void) const;
+    virtual UInt32 size(void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -111,12 +111,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorBufferProperty :
     /*! \name                      Init                                    */
     /*! \{                                                                 */
 
-	virtual bool                  getNormalize   (      void          ) const;
-	virtual void                  clear          (      void          );
-	virtual void                  resize         (      size_t        );
-	virtual void                  getGenericValue(      Vec4d&, UInt32) const;
-	virtual void                  setGenericValue(const Vec4d&, UInt32);
-	virtual GeoPropertyTransitPtr clone          (      void          );
+    virtual bool                  getNormalize   (      void          ) const;
+    virtual void                  clear          (      void          );
+    virtual void                  resize         (      size_t        );
+    virtual void                  getGenericValue(      MaxTypeT&,
+                                                  const UInt32        ) const;
+    virtual void                  setGenericValue(const MaxTypeT&,
+                                                  const UInt32        );
+    virtual GeoPropertyTransitPtr clone          (      void          );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

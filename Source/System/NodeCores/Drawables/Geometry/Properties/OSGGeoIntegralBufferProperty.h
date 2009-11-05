@@ -113,8 +113,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralBufferProperty :
 
     virtual void                  clear          (      void           );
     virtual void                  resize         (      size_t         );
-    virtual void                  getGenericValue(      UInt64&, UInt32) const;
-    virtual void                  setGenericValue(const UInt64&, UInt32);
+    virtual void                  getGenericValue(      MaxTypeT &val, 
+                                                  const UInt32    index) const;
+    virtual void                  setGenericValue(const MaxTypeT &val,
+                                                  const UInt32    index);
     virtual GeoPropertyTransitPtr clone          (      void           );
 
     /*! \}                                                                 */

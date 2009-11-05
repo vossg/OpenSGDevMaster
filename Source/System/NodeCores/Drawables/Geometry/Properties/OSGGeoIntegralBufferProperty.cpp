@@ -151,12 +151,12 @@ void GeoIntegralBufferProperty::resize(size_t)
     OSG_ASSERT(false);
 }
 
-void GeoIntegralBufferProperty::getGenericValue(UInt64&, UInt32) const
+void GeoIntegralBufferProperty::getGenericValue(MaxTypeT&, const UInt32) const
 {
     OSG_ASSERT(false);
 }
 
-void GeoIntegralBufferProperty::setGenericValue(const UInt64&, UInt32)
+void GeoIntegralBufferProperty::setGenericValue(const MaxTypeT&, const UInt32)
 {
     OSG_ASSERT(false);
 }

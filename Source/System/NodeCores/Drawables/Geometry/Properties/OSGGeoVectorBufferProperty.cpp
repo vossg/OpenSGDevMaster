@@ -155,12 +155,12 @@ void GeoVectorBufferProperty::resize(size_t)
     OSG_ASSERT(false);
 }
 
-void GeoVectorBufferProperty::getGenericValue(Vec4d&, UInt32) const
+void GeoVectorBufferProperty::getGenericValue(MaxTypeT&, const UInt32) const
 {
     OSG_ASSERT(false);
 }
 
-void GeoVectorBufferProperty::setGenericValue(const Vec4d&, UInt32)
+void GeoVectorBufferProperty::setGenericValue(const MaxTypeT&, const UInt32)
 {
     OSG_ASSERT(false);
 }
