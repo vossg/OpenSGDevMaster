@@ -94,6 +94,21 @@
   </Field>
 
   <Field
+     name="useInvBindMatrix"
+     type="bool"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     defaultValue="true"
+     >
+    Whether joints should use their SFInvBindMatrix when computing
+    the jointMatrices/jointNormalMatrices.
+    This is normally set automatically by a SkinnedGeometry as for
+    debug rendering of the bones this must be false.
+  </Field>
+
+  <Field
      name="calcNormalMatrices"
      type="bool"
      category="data"

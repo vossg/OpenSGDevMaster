@@ -136,6 +136,7 @@ SkeletonJoint::renderEnter(Action *action)
     Action::ResultE  res  = Action::Continue;
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
+    Skeleton        *skel = getSkeleton();
 
 #ifdef OSG_DEBUG
     if(_sfJointId.getValue() == INVALID_JOINT_ID)
@@ -145,7 +146,7 @@ SkeletonJoint::renderEnter(Action *action)
         return res;
     }
     
-    if(getSkeleton() == NULL)
+    if(skel == NULL)
     {
         SWARNING << "SkeletonJoint::renderEnter: Joint has no skeleton. "
                  << "Ignoring." << std::endl;
@@ -154,7 +155,6 @@ SkeletonJoint::renderEnter(Action *action)
 #endif
 
     Int16                                jointId    = _sfJointId.getValue();
-    Skeleton                            *skel       = getSkeleton();
     Skeleton::MFJointMatricesType       *jointMats  =
         skel->editMFJointMatrices();
     Skeleton::MFJointNormalMatricesType *jointNMats =
@@ -162,19 +162,22 @@ SkeletonJoint::renderEnter(Action *action)
 
     ract->pushMatrix(_sfMatrix.getValue());
 
-    if(_identityInvBindMatrix == false)
-        ract->pushMatrix(_sfInvBindMatrix.getValue());
+    Matrix jointMat(ract->topMatrix());
 
-    (*jointMats)[jointId] = ract->topMatrix();
+    if(_identityInvBindMatrix      == false &&
+       skel->getUseInvBindMatrix() == true    )
+    {
+        jointMat.mult(_sfInvBindMatrix.getValue());
+    }
+
+    (*jointMats)[jointId] = jointMat;
 
     if(skel->getCalcNormalMatrices() == true)
     {
-        Matrix jointNMat = ract->topMatrix();
-  
-        jointNMat.invert   ();
-        jointNMat.transpose();
+        jointMat.invert   ();
+        jointMat.transpose();
 
-        (*jointNMats)[jointId] = jointNMat;
+        (*jointNMats)[jointId] = jointMat;
     }
 
     return res;
@@ -186,6 +189,7 @@ SkeletonJoint::renderLeave(Action *action)
     Action::ResultE  res  = Action::Continue;
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
+    Skeleton        *skel = getSkeleton();
 
     // need to make symmetric checks to renderEnter, otherwise the
     // matrix stack gets corrupted
@@ -197,7 +201,7 @@ SkeletonJoint::renderLeave(Action *action)
         return res;
     }
     
-    if(getSkeleton() == NULL)
+    if(skel == NULL)
     {
         SWARNING << "SkeletonJoint::renderLeave: Joint has no skeleton. "
                  << "Ignoring." << std::endl;
@@ -205,12 +209,7 @@ SkeletonJoint::renderLeave(Action *action)
     }
 #endif
 
-    Int16 jointId = _sfJointId.getValue();
-
     ract->popMatrix();
-
-    if(_identityInvBindMatrix == false)
-        ract->popMatrix();
 
     return res;
 }

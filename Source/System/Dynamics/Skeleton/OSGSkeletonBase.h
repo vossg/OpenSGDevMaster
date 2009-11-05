@@ -68,7 +68,7 @@
 #include "OSGNodeFields.h"              // Roots type
 #include "OSGSkeletonJointFields.h"     // Joints type
 #include "OSGMathFields.h"              // JointMatrices type
-#include "OSGSysFields.h"               // CalcNormalMatrices type
+#include "OSGSysFields.h"               // UseInvBindMatrix type
 
 #include "OSGSkeletonFields.h"
 
@@ -101,7 +101,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
         JointMatricesFieldId = JointsFieldId + 1,
         JointNormalMatricesFieldId = JointMatricesFieldId + 1,
         ParentJointsFieldId = JointNormalMatricesFieldId + 1,
-        CalcNormalMatricesFieldId = ParentJointsFieldId + 1,
+        UseInvBindMatrixFieldId = ParentJointsFieldId + 1,
+        CalcNormalMatricesFieldId = UseInvBindMatrixFieldId + 1,
         NextFieldId = CalcNormalMatricesFieldId + 1
     };
 
@@ -115,6 +116,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
         (TypeTraits<BitVector>::One << JointNormalMatricesFieldId);
     static const OSG::BitVector ParentJointsFieldMask =
         (TypeTraits<BitVector>::One << ParentJointsFieldId);
+    static const OSG::BitVector UseInvBindMatrixFieldMask =
+        (TypeTraits<BitVector>::One << UseInvBindMatrixFieldId);
     static const OSG::BitVector CalcNormalMatricesFieldMask =
         (TypeTraits<BitVector>::One << CalcNormalMatricesFieldId);
     static const OSG::BitVector NextFieldMask =
@@ -125,6 +128,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     typedef MFMatrix          MFJointMatricesType;
     typedef MFMatrix          MFJointNormalMatricesType;
     typedef MFUnrecSkeletonJointPtr MFParentJointsType;
+    typedef SFBool            SFUseInvBindMatrixType;
     typedef SFBool            SFCalcNormalMatricesType;
 
     /*---------------------------------------------------------------------*/
@@ -163,6 +167,9 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
             const MFUnrecSkeletonJointPtr *getMFParentJoints   (void) const;
                   MFUnrecSkeletonJointPtr *editMFParentJoints   (void);
 
+                  SFBool              *editSFUseInvBindMatrix(void);
+            const SFBool              *getSFUseInvBindMatrix (void) const;
+
                   SFBool              *editSFCalcNormalMatrices(void);
             const SFBool              *getSFCalcNormalMatrices (void) const;
 
@@ -179,6 +186,9 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
 
                   SkeletonJoint * getParentJoints   (const UInt32 index) const;
 
+                  bool                &editUseInvBindMatrix(void);
+                  bool                 getUseInvBindMatrix (void) const;
+
                   bool                &editCalcNormalMatrices(void);
                   bool                 getCalcNormalMatrices (void) const;
 
@@ -187,6 +197,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setUseInvBindMatrix(const bool value);
             void setCalcNormalMatrices(const bool value);
 
     /*! \}                                                                 */
@@ -275,6 +286,7 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     MFMatrix          _mfJointMatrices;
     MFMatrix          _mfJointNormalMatrices;
     MFUnrecSkeletonJointPtr _mfParentJoints;
+    SFBool            _sfUseInvBindMatrix;
     SFBool            _sfCalcNormalMatrices;
 
     /*! \}                                                                 */
@@ -322,6 +334,8 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonBase : public AttachmentContainer
     EditFieldHandlePtr editHandleJointNormalMatrices(void);
     GetFieldHandlePtr  getHandleParentJoints    (void) const;
     EditFieldHandlePtr editHandleParentJoints   (void);
+    GetFieldHandlePtr  getHandleUseInvBindMatrix (void) const;
+    EditFieldHandlePtr editHandleUseInvBindMatrix(void);
     GetFieldHandlePtr  getHandleCalcNormalMatrices (void) const;
     EditFieldHandlePtr editHandleCalcNormalMatrices(void);
 

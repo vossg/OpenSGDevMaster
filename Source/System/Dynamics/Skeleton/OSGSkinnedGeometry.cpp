@@ -63,7 +63,7 @@ OSG_BEGIN_NAMESPACE
 const std::string SkinnedGeometry::_vpVertexSkinning(
     "#version 120\n"
     "\n"
-    "uniform mat4 boneMatrices[10];\n"
+    "uniform mat4 boneMatrices[40];\n"
     ""
     "void calcSkin(inout vec4 pos,    inout vec3 norm,\n"
     "              in    vec4 matIdx, in    vec4 weight)\n"
@@ -79,12 +79,12 @@ const std::string SkinnedGeometry::_vpVertexSkinning(
     "        int  index   = int(matIdx[i]);\n"
     "        mat4 boneMat = boneMatrices[index];\n"
     "\n"
-    "        tmpPos  += (weight[i] / sumW) * boneMat * inPos;\n"
-    "        tmpNorm += (weight[i] / sumW) * boneMat * inNorm;\n"
+    "        tmpPos  += weight[i] * (boneMat * inPos);\n"
+    "        tmpNorm += weight[i] * (boneMat * inNorm);\n"
     "    }\n"
     "\n"
-    "    pos  = tmpPos;\n"
-    "    norm = tmpNorm.xyz;\n"
+    "    pos  = tmpPos      / sumW;\n"
+    "    norm = tmpNorm.xyz / sumW;\n"
     "}\n"
     );
 
@@ -145,6 +145,14 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
         {
             _debugDrawPos.clear();
             _debugDrawIdx.clear();
+
+            if(_sfSkeleton.getValue() != NULL)
+                _sfSkeleton.getValue()->setUseInvBindMatrix(true);
+        }
+        else
+        {
+            if(_sfSkeleton.getValue() != NULL)
+                _sfSkeleton.getValue()->setUseInvBindMatrix(false);
         }
     }
 
@@ -185,9 +193,6 @@ SkinnedGeometry::renderLeave(Action *action)
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
 
-    if(res != Action::Continue)
-        return res;
-
     if(testFlag(SGFlagDebug) == true)
     {
         res = renderDebug(ract);
@@ -201,6 +206,9 @@ SkinnedGeometry::renderLeave(Action *action)
         res = renderSoftware(ract);
     }
 
+    // XXX debug only
+//    _sfSkeleton.getValue()->renderLeave(ract);
+
     return res;
 }
 
@@ -212,10 +220,10 @@ SkinnedGeometry::fill(DrawableStatsAttachment *drawStats)
 
 void SkinnedGeometry::adjustVolume(Volume & volume)
 {
-    // XXX TODO correct volume calculation
+    // XXX TODO: bind pose volume is likely too small, but how to
+    //           extend it enough, without making it infinite?? -- cneumann
 
-    volume.setValid   ();
-    volume.setInfinite();
+    Inherited::adjustVolume(volume);
 }
 
 void SkinnedGeometry::dump(      UInt32    ,
@@ -227,8 +235,6 @@ void SkinnedGeometry::dump(      UInt32    ,
 Action::ResultE
 SkinnedGeometry::renderDebug(RenderAction *ract)
 {
-    SLOG << "SkinnedGeometry::renderDebug" << std::endl;
-
     const Skeleton::MFJointsType        *joints       =
         _sfSkeleton.getValue()->getMFJoints();
     const Skeleton::MFJointMatricesType *jointMats    =
@@ -236,6 +242,7 @@ SkinnedGeometry::renderDebug(RenderAction *ract)
     const Skeleton::MFParentJointsType  *parentJoints =
         _sfSkeleton.getValue()->getMFParentJoints();
 
+    Real32 axisLen   = 1.f;
     UInt32 numJoints = joints->size();
 
     _debugDrawPos.resize(4 * numJoints);
@@ -244,30 +251,32 @@ SkinnedGeometry::renderDebug(RenderAction *ract)
     for(UInt32 i = 0; i < numJoints; ++i)
     {
         (*jointMats)[i].mult(Pnt3f(0.f,  0.f,  0.f ), _debugDrawPos[4 * i + 0]);
-        (*jointMats)[i].mult(Pnt3f(0.5f, 0.f,  0.f ), _debugDrawPos[4 * i + 1]);
-        (*jointMats)[i].mult(Pnt3f(0.f,  0.5f, 0.f ), _debugDrawPos[4 * i + 2]);
-        (*jointMats)[i].mult(Pnt3f(0.f,  0.f,  0.5f), _debugDrawPos[4 * i + 3]);
-
-        SLOG << "positions[" << i << "] " << _debugDrawPos[4 * i + 0] << std::endl;
 
         if((*parentJoints)[i] != NULL)
         {
             _debugDrawIdx.push_back(4 * i                                + 0);
             _debugDrawIdx.push_back(4 * (*parentJoints)[i]->getJointId() + 0);
 
-            SLOG << "indices[" << (_debugDrawIdx.size() - 2) 
-                 << "] " << _debugDrawIdx[_debugDrawIdx.size() - 2] << "\n";
-            SLOG << "indices[" << (_debugDrawIdx.size() - 1) 
-                 << "] " << _debugDrawIdx[_debugDrawIdx.size() - 1]
-                 << std::endl;
+            Vec3f vec = _debugDrawPos[4 * i                                + 0] -
+                        _debugDrawPos[4 * (*parentJoints)[i]->getJointId() + 0];
+
+            axisLen = 0.2f * vec.length();
+        }
+        else
+        {
+            axisLen = 1.f;
         }
 
-        _debugDrawIdx.push_back(4 * i + 0);
-        _debugDrawIdx.push_back(4 * i + 1);
-        _debugDrawIdx.push_back(4 * i + 0);
-        _debugDrawIdx.push_back(4 * i + 2);
-        _debugDrawIdx.push_back(4 * i + 0);
-        _debugDrawIdx.push_back(4 * i + 3);
+        (*jointMats)[i].mult(Pnt3f(axisLen, 0.f,     0.f    ), _debugDrawPos[4 * i + 1]);
+        (*jointMats)[i].mult(Pnt3f(0.f,     axisLen, 0.f    ), _debugDrawPos[4 * i + 2]);
+        (*jointMats)[i].mult(Pnt3f(0.f,     0.f,     axisLen), _debugDrawPos[4 * i + 3]);
+
+//         _debugDrawIdx.push_back(4 * i + 0);
+//         _debugDrawIdx.push_back(4 * i + 1);
+//         _debugDrawIdx.push_back(4 * i + 0);
+//         _debugDrawIdx.push_back(4 * i + 2);
+//         _debugDrawIdx.push_back(4 * i + 0);
+//         _debugDrawIdx.push_back(4 * i + 3);
     }
 
     Material::DrawFunctor  drawFunc = 
@@ -276,6 +285,8 @@ SkinnedGeometry::renderDebug(RenderAction *ract)
     State                 *state    = primeMat->getState();
     
     ract->dropFunctor(drawFunc, state, primeMat->getSortKey());
+
+    return Action::Continue;
 }
 
 Action::ResultE
@@ -294,7 +305,6 @@ Action::ResultE
 SkinnedGeometry::renderHardware(RenderAction *ract)
 {
     Action::ResultE                     res    = Action::Continue;
-
     Skeleton                           *skel   = getSkeleton  ();
     ShaderProgramChunkUnrecPtr          shCode = getShaderCode();
     ShaderProgramVariableChunkUnrecPtr  shData = getShaderData();
@@ -329,11 +339,8 @@ SkinnedGeometry::renderHardware(RenderAction *ract)
     ract->addOverride(ShaderProgramChunk        ::getStaticClassId(), shCode);
     ract->addOverride(ShaderProgramVariableChunk::getStaticClassId(), shData);
 
-    ract->pushState();
-
     res = Inherited::renderActionEnterHandler(ract);
 
-    ract->popState();
     ract->popState();
 
     return res;

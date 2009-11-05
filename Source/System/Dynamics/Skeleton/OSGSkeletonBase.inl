@@ -73,6 +73,31 @@ OSG::UInt16 SkeletonBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
+//! Get the value of the Skeleton::_sfUseInvBindMatrix field.
+
+inline
+bool &SkeletonBase::editUseInvBindMatrix(void)
+{
+    editSField(UseInvBindMatrixFieldMask);
+
+    return _sfUseInvBindMatrix.getValue();
+}
+
+//! Get the value of the Skeleton::_sfUseInvBindMatrix field.
+inline
+      bool  SkeletonBase::getUseInvBindMatrix(void) const
+{
+    return _sfUseInvBindMatrix.getValue();
+}
+
+//! Set the value of the Skeleton::_sfUseInvBindMatrix field.
+inline
+void SkeletonBase::setUseInvBindMatrix(const bool value)
+{
+    editSField(UseInvBindMatrixFieldMask);
+
+    _sfUseInvBindMatrix.setValue(value);
+}
 //! Get the value of the Skeleton::_sfCalcNormalMatrices field.
 
 inline
@@ -192,6 +217,9 @@ void SkeletonBase::execSync (      SkeletonBase *pFrom,
                                 syncMode,
                                 uiSyncInfo,
                                 oOffsets);
+
+    if(FieldBits::NoField != (UseInvBindMatrixFieldMask & whichField))
+        _sfUseInvBindMatrix.syncWith(pFrom->_sfUseInvBindMatrix);
 
     if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
         _sfCalcNormalMatrices.syncWith(pFrom->_sfCalcNormalMatrices);

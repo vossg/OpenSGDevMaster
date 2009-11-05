@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -64,7 +64,7 @@
 #include "OSGSkeletonBase.h"
 #include "OSGSkeleton.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -125,6 +125,13 @@ OSG_BEGIN_NAMESPACE
     NULL is stored instead.
     READ ONLY: You should never write to this field, Skeleton updates
     it during the RenderActions traversal.
+*/
+
+/*! \var bool            SkeletonBase::_sfUseInvBindMatrix
+    Whether joints should use their SFInvBindMatrix when computing
+    the jointMatrices/jointNormalMatrices.
+    This is normally set automatically by a SkinnedGeometry as for
+    debug rendering of the bones this must be false.
 */
 
 /*! \var bool            SkeletonBase::_sfCalcNormalMatrices
@@ -286,6 +293,21 @@ void SkeletonBase::classDescInserter(TypeObject &oType)
 
     pDesc = new SFBool::Description(
         SFBool::getClassType(),
+        "useInvBindMatrix",
+        "Whether joints should use their SFInvBindMatrix when computing\n"
+        "the jointMatrices/jointNormalMatrices.\n"
+        "This is normally set automatically by a SkinnedGeometry as for\n"
+        "debug rendering of the bones this must be false.\n",
+        UseInvBindMatrixFieldId, UseInvBindMatrixFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&Skeleton::editHandleUseInvBindMatrix),
+        static_cast<FieldGetMethodSig >(&Skeleton::getHandleUseInvBindMatrix));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFBool::Description(
+        SFBool::getClassType(),
         "calcNormalMatrices",
         "Whether jointNormalMatrices should be calculated when computing the\n"
         "jointMatrices.\n",
@@ -406,6 +428,21 @@ SkeletonBase::TypeObject SkeletonBase::_type(
     "  </Field>\n"
     "\n"
     "  <Field\n"
+    "     name=\"useInvBindMatrix\"\n"
+    "     type=\"bool\"\n"
+    "     category=\"data\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     defaultValue=\"true\"\n"
+    "     >\n"
+    "    Whether joints should use their SFInvBindMatrix when computing\n"
+    "    the jointMatrices/jointNormalMatrices.\n"
+    "    This is normally set automatically by a SkinnedGeometry as for\n"
+    "    debug rendering of the bones this must be false.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
     "     name=\"calcNormalMatrices\"\n"
     "     type=\"bool\"\n"
     "     category=\"data\"\n"
@@ -511,6 +548,19 @@ MFUnrecSkeletonJointPtr *SkeletonBase::editMFParentJoints   (void)
 
     return &_mfParentJoints;
 }
+
+SFBool *SkeletonBase::editSFUseInvBindMatrix(void)
+{
+    editSField(UseInvBindMatrixFieldMask);
+
+    return &_sfUseInvBindMatrix;
+}
+
+const SFBool *SkeletonBase::getSFUseInvBindMatrix(void) const
+{
+    return &_sfUseInvBindMatrix;
+}
+
 
 SFBool *SkeletonBase::editSFCalcNormalMatrices(void)
 {
@@ -714,6 +764,10 @@ UInt32 SkeletonBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _mfParentJoints.getBinSize();
     }
+    if(FieldBits::NoField != (UseInvBindMatrixFieldMask & whichField))
+    {
+        returnValue += _sfUseInvBindMatrix.getBinSize();
+    }
     if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
     {
         returnValue += _sfCalcNormalMatrices.getBinSize();
@@ -747,6 +801,10 @@ void SkeletonBase::copyToBin(BinaryDataHandler &pMem,
     {
         _mfParentJoints.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (UseInvBindMatrixFieldMask & whichField))
+    {
+        _sfUseInvBindMatrix.copyToBin(pMem);
+    }
     if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
     {
         _sfCalcNormalMatrices.copyToBin(pMem);
@@ -777,6 +835,10 @@ void SkeletonBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (ParentJointsFieldMask & whichField))
     {
         _mfParentJoints.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (UseInvBindMatrixFieldMask & whichField))
+    {
+        _sfUseInvBindMatrix.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (CalcNormalMatricesFieldMask & whichField))
     {
@@ -914,6 +976,7 @@ SkeletonBase::SkeletonBase(void) :
     _mfJointMatrices          (),
     _mfJointNormalMatrices    (),
     _mfParentJoints           (),
+    _sfUseInvBindMatrix       (bool(true)),
     _sfCalcNormalMatrices     (bool(true))
 {
 }
@@ -927,6 +990,7 @@ SkeletonBase::SkeletonBase(const SkeletonBase &source) :
     _mfJointMatrices          (source._mfJointMatrices          ),
     _mfJointNormalMatrices    (source._mfJointNormalMatrices    ),
     _mfParentJoints           (),
+    _sfUseInvBindMatrix       (source._sfUseInvBindMatrix       ),
     _sfCalcNormalMatrices     (source._sfCalcNormalMatrices     )
 {
 }
@@ -1179,6 +1243,31 @@ EditFieldHandlePtr SkeletonBase::editHandleParentJoints   (void)
                     static_cast<Skeleton *>(this)));
 
     editMField(ParentJointsFieldMask, _mfParentJoints);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SkeletonBase::getHandleUseInvBindMatrix (void) const
+{
+    SFBool::GetHandlePtr returnValue(
+        new  SFBool::GetHandle(
+             &_sfUseInvBindMatrix,
+             this->getType().getFieldDesc(UseInvBindMatrixFieldId),
+             const_cast<SkeletonBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkeletonBase::editHandleUseInvBindMatrix(void)
+{
+    SFBool::EditHandlePtr returnValue(
+        new  SFBool::EditHandle(
+             &_sfUseInvBindMatrix,
+             this->getType().getFieldDesc(UseInvBindMatrixFieldId),
+             this));
+
+
+    editSField(UseInvBindMatrixFieldMask);
 
     return returnValue;
 }

@@ -48,6 +48,9 @@
 #include "OSGSkeleton.h"
 #include "OSGSkeletonJoint.h"
 
+// debug only
+#include "OSGFieldContainerUtils.h"
+
 #include <boost/bind.hpp>
 #include <boost/cast.hpp>
 
@@ -130,16 +133,17 @@ Skeleton::renderEnter(RenderAction *ract)
     Matrixr matModelInv;
     matModelInv.invertFrom(ract->topMatrix());
 
-    ract->pushMatrix (matModelInv);
-    ract->useNodeList(           );
+    // XXX TODO: we can not cull the skeleton, but the current state should
+    //           be pushed/poped
+    ract->setFrustumCulling(false      );
+    ract->pushMatrix       (matModelInv);
+    ract->useNodeList      (           );
 
     MFRootsType::const_iterator rIt  = _mfRoots.begin();
     MFRootsType::const_iterator rEnd = _mfRoots.end  ();
 
     for(; rIt != rEnd; ++rIt)
     {
-        SLOG << "Skeleton::renderEnter: Adding root [" << *rIt << "]" << std::endl;
-
         ract->addNode(*rIt);
     }
 
@@ -154,7 +158,8 @@ Skeleton::renderEnter(RenderAction *ract)
 Action::ResultE
 Skeleton::renderLeave(RenderAction *ract)
 {
-    ract->popMatrix();
+    ract->popMatrix        (    );
+    ract->setFrustumCulling(true);
 
     return Action::Continue;
 }
@@ -201,10 +206,6 @@ Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
         return Action::Continue;
 
     Int16 jointId = joint->getJointId();
-
-    SLOG << "Skeleton::findJointsEnter: [" << joint << "][" << jointId
-         << "] parent [" << parentJoint << "][" << (parentJoint != NULL ? parentJoint->getJointId() : -1)
-         << "]" << std::endl;
 
     if(joint->getSkeleton() != NULL)
     {
