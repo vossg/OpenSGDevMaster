@@ -187,16 +187,6 @@ class OSG_SYSTEM_DLLMAPPING RenderAction : public RenderActionBase
             bool  pushVisibility (void      );
             void  popVisibility  (void      );
 
-    /*------------------------- culling ------------------------------------*/
-
-    // control activation of frustum culling
-    virtual bool                 getFrustumCulling(void                ) const;
-    virtual void                 setFrustumCulling(bool val = true     );
-
-    // control frustum
-    virtual const FrustumVolume &getFrustum       (void                ) const;
-    virtual void                 setFrustum       (FrustumVolume &frust);
-
     /*------------------------- comparison ----------------------------------*/
 
     void      overrideMaterial(Material *       pMaterial,

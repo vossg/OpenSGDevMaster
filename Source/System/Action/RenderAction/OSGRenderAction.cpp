@@ -1038,6 +1038,7 @@ void RenderAction::pushPartition(UInt32                uiCopyOnPush,
     _pActivePartition->setStatePool      (_pStatePools      [_currentBuffer]);
     _pActivePartition->setTreeBuilderPool(_pTreeBuilderPools[_currentBuffer]);
     _pActivePartition->setStatCollector  (_pStatistics                      );
+    _pActivePartition->setFrustumCulling (_bFrustumCulling                  );
     _pActivePartition->setVolumeDrawing  (_bVolumeDrawing                   );
 
     _pActivePartition->setCorrectNegScale(_bCorrectTwoSidedLighting         );
@@ -1162,42 +1163,6 @@ void RenderAction::popVisibility(void)
 {
     _pActivePartition->popVisibility();
 }
-
-// control activation of frustum culling
-bool RenderAction::getFrustumCulling(void) const
-{
-    if(_pActivePartition != NULL)
-        return _pActivePartition->getFrustumCulling();
-    else
-        return Inherited::getFrustumCulling();
-}
-
-void RenderAction::setFrustumCulling(bool val)
-{
-    if(_pActivePartition != NULL)
-        _pActivePartition->setFrustumCulling(val);
-    else
-        Inherited::setFrustumCulling(val);
-
-}
-
-// control frustum
-const FrustumVolume &RenderAction::getFrustum(void) const
-{
-    if(_pActivePartition != NULL)
-        return _pActivePartition->getFrustum();
-    else
-        return Inherited::getFrustum();
-}
-
-void RenderAction::setFrustum(FrustumVolume &frust)
-{
-    if(_pActivePartition != NULL)
-        _pActivePartition->setFrustum(frust);
-    else
-        Inherited::setFrustum(frust);
-}
-
 
 /*------------------------ Occlusion Culling -----------------------------*/
 
