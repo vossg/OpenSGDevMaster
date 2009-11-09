@@ -65,7 +65,7 @@
 #include <AGL/agl.h>
 #endif
 
-OSG_USING_NAMESPACE
+OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emited in the
 // OSGGLUTWindowBase.cpp file.
@@ -150,6 +150,168 @@ void GLUTWindow::activate(void)
         Inherited::doActivate();
     }
 }
+
+namespace glut
+{
+#define OSG_DO_GLUT_INIT()                  \
+    if(pGWin != NULL)                       \
+    {                                       \
+        GLint glvp[4];                      \
+                                            \
+        glGetIntegerv(GL_VIEWPORT, glvp);   \
+                                            \
+        pGWin->setSize  (glvp[2], glvp[3]); \
+                                            \
+        pGWin->init();                      \
+                                            \
+        pGWin = NULL;                       \
+                                            \
+    }
+
+    static glutUCIIFunc gKeyFunc     = NULL;
+    static glutIFunc    gVisFunc     = NULL;
+    static glutIIFunc   gReshapeFunc = NULL;
+    static glutVFunc    gDisplayFunc = NULL;
+    static glutIIIIFunc gMouseFunc   = NULL;
+    static glutIIFunc   gMotionFunc  = NULL;
+    static glutVFunc    gIdleFunc    = NULL;
+
+    static int                winid  = 0;
+    static GLUTWindowUnrecPtr pGWin  = NULL;
+
+    static void key_internal(unsigned char key, int x, int y)
+    {
+        gKeyFunc(key, x, y);
+    }
+
+    static void vis_internal(int i)
+    {
+        gVisFunc(i);
+    }
+
+    static void reshape_internal(int w, int h)
+    {
+        OSG_DO_GLUT_INIT();
+
+        gReshapeFunc(w, h);
+    }
+
+    static void display_internal(void)
+    {
+        OSG_DO_GLUT_INIT();
+
+        gDisplayFunc();
+    }
+
+    static void mouse_internal(int button, int state, int x, int y)
+    {
+        gMouseFunc(button, state, x, y);
+    }
+
+    static void motion_internal(int x, int y)
+    {
+        gMotionFunc(x, y);
+    }
+
+    static void idle_internal(void)
+    {
+        OSG_DO_GLUT_INIT();
+
+        gIdleFunc();
+    }
+
+    void init(int argc, char **argv)
+    {
+        ::glutInit(&argc, argv);
+    }
+
+    void initDisplayMode(unsigned int uiMode)
+    {
+        ::glutInitDisplayMode(uiMode);
+    }
+
+    int createWindow(const char *szName)
+    {
+        winid = ::glutCreateWindow(szName);
+
+        return winid;
+    }
+
+    
+    void keyboardFunc  (glutUCIIFunc keyFunc    )
+    {
+        OSG_ASSERT(keyFunc != NULL);
+
+        gKeyFunc = keyFunc;
+
+        ::glutKeyboardFunc(key_internal);
+    }
+
+    void visibilityFunc(glutIFunc    visFunc    )
+    {
+        OSG_ASSERT(visFunc != NULL);
+
+        gVisFunc = visFunc;
+
+        ::glutVisibilityFunc(vis_internal);
+    }
+
+    void reshapeFunc   (glutIIFunc   reshapeFunc)
+    {
+        OSG_ASSERT(reshapeFunc != NULL);
+
+        gReshapeFunc = reshapeFunc;
+
+        ::glutReshapeFunc(reshape_internal);
+    }
+
+    void displayFunc   (glutVFunc    displayFunc)
+    {
+        OSG_ASSERT(displayFunc != NULL);
+
+        gDisplayFunc = displayFunc;
+
+        ::glutDisplayFunc(display_internal);
+    }
+   
+    void mouseFunc     (glutIIIIFunc mouseFunc  )
+    {
+        OSG_ASSERT(mouseFunc != NULL);
+
+        gMouseFunc = mouseFunc;
+
+        ::glutMouseFunc(mouse_internal);
+    }
+
+    void motionFunc    (glutIIFunc   motionFunc )
+    {
+        OSG_ASSERT(motionFunc != NULL);
+
+        gMotionFunc = motionFunc;
+
+        ::glutMotionFunc(motion_internal);
+    }
+
+    void idleFunc      (glutVFunc    idleFunc)
+    {
+        OSG_ASSERT(idleFunc != NULL);
+
+        gIdleFunc = idleFunc;
+
+        ::glutIdleFunc(idle_internal);
+    }
+
+    GLUTWindowTransitPtr createOSGWindow(void)
+    {
+        pGWin = GLUTWindow::create();
+
+        pGWin->setGlutId(winid);
+
+        return GLUTWindowTransitPtr(pGWin);
+    }
+}
+
+OSG_END_NAMESPACE
 
 #endif // OSG_WITH_GLUT
 

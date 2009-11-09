@@ -59,7 +59,10 @@ OSG::TextureObjChunkUnrecPtr   txDepth;    // Depth texture
 OSG::FrameBufferObjectUnrecPtr pFBO;
 OSG::TextureBufferUnrecPtr     pTexBuffer;
 
+OSG::VisitSubTreeNodeRefPtr  pVisit;
+
 bool                      bReadBack = false;
+bool                      bBoxActive = true;
 
 // ----- Scene structure --- //
 /*
@@ -180,6 +183,9 @@ void key(unsigned char key, int x, int y)
 #endif
 
             pFBO           = NULL;
+            pTexBuffer     = NULL;
+
+            pVisit         = static_cast<OSG::Node *>(NULL);
 
             delete mgr;
 
@@ -210,6 +216,18 @@ void key(unsigned char key, int x, int y)
             std::cerr << "Wrote out scene file." << std::endl;
             OSG::SceneFileHandler::the()->write(planeRoot, 
                                                 "simple_stage_dump.osb");
+            break;
+        case 'b':
+            bBoxActive = !bBoxActive;
+
+            if(bBoxActive == true)
+            {
+                pVisit->setSubTreeTravMask(0xFFFFFFFF);
+            }
+            else
+            {
+                pVisit->setSubTreeTravMask(0xFFFFFFFE);
+            }
             break;
 
         case 'B':
@@ -315,6 +333,13 @@ void initAnimSetup(int argc, char **argv)
 
     sceneXform = OSG::TransformNodeRefPtr::create();
     sceneXform.node()->addChild(file);
+
+    OSG::NodeUnrecPtr pBoxNode = OSG::makeBox(1, 1, 1, 5, 5, 5);
+
+    pBoxNode->setTravMask(pBoxNode->getTravMask() & 0x0001);
+
+    sceneXform.node()->addChild(pBoxNode);
+
     dlight.node()->addChild(sceneXform);
 
 
@@ -367,8 +392,7 @@ void initAnimSetup(int argc, char **argv)
 
     // Setup sub-tree visitor
     // - This will setup a graph that will render a subtree during traversal
-    OSG::VisitSubTreeNodeRefPtr pVisit     = 
-        OSG::VisitSubTreeNodeRefPtr::create();
+    pVisit = OSG::VisitSubTreeNodeRefPtr::create();
     pVisit->setSubTreeRoot(dlight);
 
     pStage.node()->addChild(pVisit);

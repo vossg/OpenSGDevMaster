@@ -106,7 +106,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTree : public VisitSubTreeBase
     /*! \name                   Draw                                       */
     /*! \{                                                                 */
 
-    ActionBase::ResultE render(Action *action);
+    ActionBase::ResultE renderEnter(Action *action);
+    ActionBase::ResultE renderLeave(Action *action);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

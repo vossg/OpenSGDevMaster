@@ -119,6 +119,26 @@ void Action::setTravMask(UInt32 val)
     _travMask = val;
 }
 
+inline
+void Action::andTravMask(UInt32 val)
+{
+    _travMask &= val;
+}
+
+inline
+void Action::pushTravMask(void)
+{
+    _sTravMask.push(_travMask);
+}
+
+inline
+void Action::popTravMask(void)
+{
+    _travMask = _sTravMask.top();
+
+    _sTravMask.pop();
+}
+
 /*-------------------------- your_category---------------------------------*/
 
 // callEnter/callLeave: call the right functor. If the type is unknown and new

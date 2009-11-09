@@ -51,6 +51,7 @@
 #include "OSGFaceIterator.h"
 #include "OSGTypedGeoIntegralProperty.h"
 #include "OSGStriperHalfEdgeGraph.h"
+#include "OSGPrimeMaterial.h"
 
 // #include "OSGSingletonHolder.ins"
 
@@ -2935,12 +2936,55 @@ NodeTransitPtr calcVertexNormalsGeo(Geometry *geo,
 
     GeometryUnrecPtr g = Geometry::create();
 
-    g->setTypes    (type);
-    g->setLengths  (lens);
-    g->setPositions(pnts);
+    g->setTypes    (type                     );
+    g->setLengths  (lens                     );
+    g->setPositions(pnts                     );
+    g->setMaterial (getDefaultUnlitMaterial());
 
     return makeNodeFor(g);
 }
+
+OSG_DRAWABLE_DLLMAPPING 
+void updateVertexNormalsGeo(      Geometry *pGeo, 
+                                  Real32    length,
+                            const Geometry *pRefGeo)
+{
+    GeoPnt3fProperty *pnts = 
+        dynamic_cast<GeoPnt3fProperty *>(
+            pGeo->getProperty(Geometry::PositionsIndex));
+
+    GeoIntegralProperty *type = pGeo->getTypes();
+    GeoIntegralProperty *lens = pGeo->getLengths();
+
+    if(pnts == NULL || type == NULL || lens == NULL)
+        return;
+
+    pnts->clear();
+    type->clear();
+    lens->clear();
+
+    // calculate
+
+    PrimitiveIterator pi(pRefGeo);
+
+    if(1 /* no easy way to check right now */ )
+    {
+        for(pi  = pRefGeo->beginPrimitives(); 
+            pi != pRefGeo->endPrimitives  (); ++pi)
+        {
+            for(UInt32 k = 0; k < pi.getLength(); k++)
+            {
+                pnts->push_back(pi.getPosition(k));
+                pnts->push_back(pi.getPosition(k) + length * pi.getNormal(k));
+            }
+        }
+    }
+
+    type->push_back(GL_LINES);
+
+    lens->push_back(pnts->getSize());
+}
+
 
 /*! \ingroup GrpSystemDrawablesGeometryFunctions
 
@@ -3006,10 +3050,11 @@ NodeTransitPtr calcFaceNormalsGeo(Geometry *geo,
 
     lens->push_back(index->getSize());
 
-    g->setTypes    (type );
-    g->setLengths  (lens );
-    g->setIndices  (index);
-    g->setPositions(pnts );
+    g->setTypes    (type                     );
+    g->setLengths  (lens                     );
+    g->setIndices  (index                    );
+    g->setPositions(pnts                     );
+    g->setMaterial (getDefaultUnlitMaterial());
 
     p->setCore(g);
 

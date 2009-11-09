@@ -136,6 +136,11 @@ NodeTransitPtr calcVertexNormalsGeo    (Geometry *geo,
                                         Real32    length);
 
 OSG_DRAWABLE_DLLMAPPING 
+void updateVertexNormalsGeo            (      Geometry *pGeo, 
+                                              Real32    length,
+                                        const Geometry *pRefGeo);
+
+OSG_DRAWABLE_DLLMAPPING 
 NodeTransitPtr calcFaceNormalsGeo      (Geometry *geo, 
                                         Real32    length);
 

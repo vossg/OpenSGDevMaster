@@ -1,33 +1,43 @@
 <?xml version="1.0"?>
 
 <FieldContainer
-        name="VisitSubTree"
-        parent="Group"
-        library="Group"
-        pointerfieldtypes="none"
-        structure="concrete"
-        systemcomponent="true"
-        parentsystemcomponent="true"
-        decoratable="false"
-        useLocalIncludes="false"
-    isNodeCore="true"
->
-VisitSubTree provides a way to point the renderer to another section of the
-scene graph for rendering. This is useful for multi-pass algorithms using
-OSG::Stage because it provides a way to render the same graph multiple times
-without duplicating the nodes.
-        <Field
-                name="subTreeRoot"
-                type="Node"
-                category="weakpointer"
-                cardinality="single"
-                visibility="external"
-                defaultValue="NULL"
-                access="protected"
-                ptrFieldAccess = "custom"
-        >
-        Reference to the sub-graph to draw in place of this node.
-        Whatever node is pointed to will be drawn here as if it was duplicated
-        at this location.
-        </Field>
+   name="VisitSubTree"
+   parent="Group"
+   library="Group"
+   pointerfieldtypes="none"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   >
+  VisitSubTree provides a way to point the renderer to another section of the
+  scene graph for rendering. This is useful for multi-pass algorithms using
+  OSG::Stage because it provides a way to render the same graph multiple times
+  without duplicating the nodes.
+  <Field
+     name="subTreeRoot"
+     type="Node"
+     category="weakpointer"
+     cardinality="single"
+     visibility="external"
+     defaultValue="NULL"
+     access="protected"
+     ptrFieldAccess = "custom"
+     >
+    Reference to the sub-graph to draw in place of this node.
+    Whatever node is pointed to will be drawn here as if it was duplicated
+    at this location.
+  </Field>
+  <Field
+     name="subTreeTravMask"
+     type="UInt32"
+     cardinality="single"
+     visibility="external"
+     defaultValue="TypeTraits&lt;UInt32&gt;::getMax()"
+     access="public"
+     >
+    This travmask will be used to update the action mask on traversal (and)
+  </Field>
 </FieldContainer>

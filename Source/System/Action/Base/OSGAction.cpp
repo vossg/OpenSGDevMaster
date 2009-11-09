@@ -164,6 +164,7 @@ Action::Action(void) :
     _actList      (NULL                        ),
     _useNewList   (false                       ),
     _travMask     (TypeTraits<UInt32>::getMax()),
+    _sTravMask    (                            ),
     _nodeEnterCB  (                            ),
     _nodeLeaveCB  (                            )
 {
@@ -185,6 +186,7 @@ Action::Action(const Action & source) :
     _actList      (NULL                        ),
     _useNewList   (false                       ),
     _travMask     (source._travMask            ),
+    _sTravMask    (                            ),
     _nodeEnterCB  (source._nodeEnterCB         ),
     _nodeLeaveCB  (source._nodeLeaveCB         )
 {
@@ -521,6 +523,9 @@ ActionBase::ResultE Action::callStop(ResultE res)
 
 ActionBase::ResultE Action::start(void)
 {
+    while(_sTravMask.empty() == false)
+        _sTravMask.pop();
+
     return Continue;
 }
 

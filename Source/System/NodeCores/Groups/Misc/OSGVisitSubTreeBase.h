@@ -66,6 +66,7 @@
 #include "OSGGroup.h" // Parent
 
 #include "OSGNodeFields.h"              // SubTreeRoot type
+#include "OSGSysFields.h"               // SubTreeTravMask type
 
 #include "OSGVisitSubTreeFields.h"
 
@@ -94,15 +95,19 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     enum
     {
         SubTreeRootFieldId = Inherited::NextFieldId,
-        NextFieldId = SubTreeRootFieldId + 1
+        SubTreeTravMaskFieldId = SubTreeRootFieldId + 1,
+        NextFieldId = SubTreeTravMaskFieldId + 1
     };
 
     static const OSG::BitVector SubTreeRootFieldMask =
         (TypeTraits<BitVector>::One << SubTreeRootFieldId);
+    static const OSG::BitVector SubTreeTravMaskFieldMask =
+        (TypeTraits<BitVector>::One << SubTreeTravMaskFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFWeakNodePtr     SFSubTreeRootType;
+    typedef SFUInt32          SFSubTreeTravMaskType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -121,6 +126,36 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     virtual const FieldContainerType &getType         (void) const;
 
     virtual       UInt32              getContainerSize(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+
+                  SFUInt32            *editSFSubTreeTravMask(void);
+            const SFUInt32            *getSFSubTreeTravMask (void) const;
+
+
+                  UInt32              &editSubTreeTravMask(void);
+                  UInt32               getSubTreeTravMask (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setSubTreeTravMask(const UInt32 value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr Field Set                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -176,6 +211,7 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
     /*! \{                                                                 */
 
     SFWeakNodePtr     _sfSubTreeRoot;
+    SFUInt32          _sfSubTreeTravMask;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,6 +242,8 @@ class OSG_GROUP_DLLMAPPING VisitSubTreeBase : public Group
 
     GetFieldHandlePtr  getHandleSubTreeRoot     (void) const;
     EditFieldHandlePtr editHandleSubTreeRoot    (void);
+    GetFieldHandlePtr  getHandleSubTreeTravMask (void) const;
+    EditFieldHandlePtr editHandleSubTreeTravMask(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

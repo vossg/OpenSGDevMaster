@@ -81,6 +81,31 @@ Node * VisitSubTreeBase::getSubTreeRoot(void) const
     return _sfSubTreeRoot.getValue();
 }
 
+//! Get the value of the VisitSubTree::_sfSubTreeTravMask field.
+
+inline
+UInt32 &VisitSubTreeBase::editSubTreeTravMask(void)
+{
+    editSField(SubTreeTravMaskFieldMask);
+
+    return _sfSubTreeTravMask.getValue();
+}
+
+//! Get the value of the VisitSubTree::_sfSubTreeTravMask field.
+inline
+      UInt32  VisitSubTreeBase::getSubTreeTravMask(void) const
+{
+    return _sfSubTreeTravMask.getValue();
+}
+
+//! Set the value of the VisitSubTree::_sfSubTreeTravMask field.
+inline
+void VisitSubTreeBase::setSubTreeTravMask(const UInt32 value)
+{
+    editSField(SubTreeTravMaskFieldMask);
+
+    _sfSubTreeTravMask.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -95,6 +120,9 @@ void VisitSubTreeBase::execSync (      VisitSubTreeBase *pFrom,
 
     if(FieldBits::NoField != (SubTreeRootFieldMask & whichField))
         _sfSubTreeRoot.syncWith(pFrom->_sfSubTreeRoot);
+
+    if(FieldBits::NoField != (SubTreeTravMaskFieldMask & whichField))
+        _sfSubTreeTravMask.syncWith(pFrom->_sfSubTreeTravMask);
 }
 #endif
 

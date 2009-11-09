@@ -47,6 +47,8 @@
 //---------------------------------------------------------------------------
 
 #include <vector>
+#include <stack>
+
 #include <boost/function.hpp>
 
 #include "OSGSystemDef.h"
@@ -189,10 +191,14 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     /*------------------------- assignment ----------------------------------*/
 
     UInt32 getTravMask (void      ) const;
-    
     void   setTravMask (UInt32 val);
+
+    void   andTravMask (UInt32 val);
     
     /*------------------------- comparison ----------------------------------*/
+
+    void pushTravMask(void);
+    void popTravMask (void);
 
     /*------------------------- comparison ----------------------------------*/
 
@@ -286,6 +292,7 @@ class OSG_SYSTEM_DLLMAPPING Action : public ActionBase
     std::vector<Node  *>  _newList;   // list of active object for this level
 
     UInt32                _travMask;
+    std::stack<UInt32>    _sTravMask;
 
     NodeFunctor           _nodeEnterCB;
     NodeFunctor           _nodeLeaveCB;

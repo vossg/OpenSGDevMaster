@@ -151,14 +151,27 @@ void VisitSubTree::adjustVolume(Volume &volume)
 /*-------------------------------------------------------------------------*/
 /*                                Draw                                     */
 
-ActionBase::ResultE VisitSubTree::render(Action *action)
+ActionBase::ResultE VisitSubTree::renderEnter(Action *action)
 {
     RenderAction *a = dynamic_cast<RenderAction *>(action);
 
     a->useNodeList();
-    
+      
+    a->pushTravMask();
+
+    a->andTravMask(_sfSubTreeTravMask.getValue());
+
     if(this->getSubTreeRoot() != NULL && a->isVisible(this->getSubTreeRoot()))
+    {
         a->addNode(this->getSubTreeRoot());
+    }
+
+    return Action::Continue;
+}
+
+ActionBase::ResultE VisitSubTree::renderLeave(Action *action)
+{
+    action->popTravMask();
 
     return Action::Continue;
 }
@@ -198,7 +211,12 @@ void VisitSubTree::initMethod(InitPhase ePhase)
     {
         RenderAction::registerEnterDefault(
             VisitSubTree::getClassType(),
-            reinterpret_cast<Action::Callback>(&VisitSubTree::render));
+            reinterpret_cast<Action::Callback>(&VisitSubTree::renderEnter));
+
+        RenderAction::registerLeaveDefault(
+            VisitSubTree::getClassType(),
+            reinterpret_cast<Action::Callback>(&VisitSubTree::renderLeave));
+
 #ifndef OSG_EMBEDDED
         IntersectAction::registerEnterDefault(
             getClassType(),

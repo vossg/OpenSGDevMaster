@@ -131,6 +131,33 @@ class OSG_WINDOWGLUT_DLLMAPPING GLUTWindow : public GLUTWindowBase
     void operator =(const GLUTWindow &source);
 };
 
+// Helper glut functions to work around the init problem, active context 
+// available until after glutMainLoop (OS X)
+
+namespace glut
+{
+    typedef void (*glutVFunc   )(void);
+    typedef void (*glutIFunc   )(int);
+    typedef void (*glutIIFunc  )(int, int);
+    typedef void (*glutIIIIFunc)(int, int, int, int);
+    typedef void (*glutUCIIFunc)(unsigned char, int, int);
+
+    OSG_WINDOWGLUT_DLLMAPPING void init           (      int           argc, 
+                                                         char         **argv);
+    OSG_WINDOWGLUT_DLLMAPPING void initDisplayMode(      unsigned int  uiMode);
+    OSG_WINDOWGLUT_DLLMAPPING int  createWindow   (const char         *szName);
+
+    OSG_WINDOWGLUT_DLLMAPPING void keyboardFunc  (glutUCIIFunc keyFunc    );
+    OSG_WINDOWGLUT_DLLMAPPING void visibilityFunc(glutIFunc    visFunc    );
+    OSG_WINDOWGLUT_DLLMAPPING void reshapeFunc   (glutIIFunc   reshapeFunc);
+    OSG_WINDOWGLUT_DLLMAPPING void displayFunc   (glutVFunc    displayFunc);
+    OSG_WINDOWGLUT_DLLMAPPING void mouseFunc     (glutIIIIFunc mouseFunc  );
+    OSG_WINDOWGLUT_DLLMAPPING void motionFunc    (glutIIFunc   motionFunc );
+    OSG_WINDOWGLUT_DLLMAPPING void idleFunc      (glutVFunc    idleFunc   );
+
+    OSG_WINDOWGLUT_DLLMAPPING GLUTWindowTransitPtr createOSGWindow(void);
+}
+
 OSG_END_NAMESPACE
 
 #include "OSGGLUTWindow.inl"

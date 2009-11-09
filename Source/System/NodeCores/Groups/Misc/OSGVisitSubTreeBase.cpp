@@ -92,6 +92,10 @@ OSG_BEGIN_NAMESPACE
     at this location.
 */
 
+/*! \var UInt32          VisitSubTreeBase::_sfSubTreeTravMask
+    This travmask will be used to update the action mask on traversal (and)
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -125,6 +129,18 @@ void VisitSubTreeBase::classDescInserter(TypeObject &oType)
         static_cast<FieldGetMethodSig >(&VisitSubTree::getHandleSubTreeRoot));
 
     oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt32::Description(
+        SFUInt32::getClassType(),
+        "subTreeTravMask",
+        "This travmask will be used to update the action mask on traversal (and)\n",
+        SubTreeTravMaskFieldId, SubTreeTravMaskFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&VisitSubTree::editHandleSubTreeTravMask),
+        static_cast<FieldGetMethodSig >(&VisitSubTree::getHandleSubTreeTravMask));
+
+    oType.addInitialDesc(pDesc);
 }
 
 
@@ -142,35 +158,45 @@ VisitSubTreeBase::TypeObject VisitSubTreeBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "        name=\"VisitSubTree\"\n"
-    "        parent=\"Group\"\n"
-    "        library=\"Group\"\n"
-    "        pointerfieldtypes=\"none\"\n"
-    "        structure=\"concrete\"\n"
-    "        systemcomponent=\"true\"\n"
-    "        parentsystemcomponent=\"true\"\n"
-    "        decoratable=\"false\"\n"
-    "        useLocalIncludes=\"false\"\n"
-    "    isNodeCore=\"true\"\n"
-    ">\n"
-    "VisitSubTree provides a way to point the renderer to another section of the\n"
-    "scene graph for rendering. This is useful for multi-pass algorithms using\n"
-    "OSG::Stage because it provides a way to render the same graph multiple times\n"
-    "without duplicating the nodes.\n"
-    "        <Field\n"
-    "                name=\"subTreeRoot\"\n"
-    "                type=\"Node\"\n"
-    "                category=\"weakpointer\"\n"
-    "                cardinality=\"single\"\n"
-    "                visibility=\"external\"\n"
-    "                defaultValue=\"NULL\"\n"
-    "                access=\"protected\"\n"
-    "                ptrFieldAccess = \"custom\"\n"
-    "        >\n"
-    "        Reference to the sub-graph to draw in place of this node.\n"
-    "        Whatever node is pointed to will be drawn here as if it was duplicated\n"
-    "        at this location.\n"
-    "        </Field>\n"
+    "   name=\"VisitSubTree\"\n"
+    "   parent=\"Group\"\n"
+    "   library=\"Group\"\n"
+    "   pointerfieldtypes=\"none\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   isNodeCore=\"true\"\n"
+    "   >\n"
+    "  VisitSubTree provides a way to point the renderer to another section of the\n"
+    "  scene graph for rendering. This is useful for multi-pass algorithms using\n"
+    "  OSG::Stage because it provides a way to render the same graph multiple times\n"
+    "  without duplicating the nodes.\n"
+    "  <Field\n"
+    "     name=\"subTreeRoot\"\n"
+    "     type=\"Node\"\n"
+    "     category=\"weakpointer\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"NULL\"\n"
+    "     access=\"protected\"\n"
+    "     ptrFieldAccess = \"custom\"\n"
+    "     >\n"
+    "    Reference to the sub-graph to draw in place of this node.\n"
+    "    Whatever node is pointed to will be drawn here as if it was duplicated\n"
+    "    at this location.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"subTreeTravMask\"\n"
+    "     type=\"UInt32\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     defaultValue=\"TypeTraits&lt;UInt32&gt;::getMax()\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    This travmask will be used to update the action mask on traversal (and)\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     "VisitSubTree provides a way to point the renderer to another section of the\n"
     "scene graph for rendering. This is useful for multi-pass algorithms using\n"
@@ -204,6 +230,19 @@ const SFWeakNodePtr *VisitSubTreeBase::getSFSubTreeRoot(void) const
     return &_sfSubTreeRoot;
 }
 
+SFUInt32 *VisitSubTreeBase::editSFSubTreeTravMask(void)
+{
+    editSField(SubTreeTravMaskFieldMask);
+
+    return &_sfSubTreeTravMask;
+}
+
+const SFUInt32 *VisitSubTreeBase::getSFSubTreeTravMask(void) const
+{
+    return &_sfSubTreeTravMask;
+}
+
+
 
 
 
@@ -218,6 +257,10 @@ UInt32 VisitSubTreeBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfSubTreeRoot.getBinSize();
     }
+    if(FieldBits::NoField != (SubTreeTravMaskFieldMask & whichField))
+    {
+        returnValue += _sfSubTreeTravMask.getBinSize();
+    }
 
     return returnValue;
 }
@@ -231,6 +274,10 @@ void VisitSubTreeBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfSubTreeRoot.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (SubTreeTravMaskFieldMask & whichField))
+    {
+        _sfSubTreeTravMask.copyToBin(pMem);
+    }
 }
 
 void VisitSubTreeBase::copyFromBin(BinaryDataHandler &pMem,
@@ -241,6 +288,10 @@ void VisitSubTreeBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (SubTreeRootFieldMask & whichField))
     {
         _sfSubTreeRoot.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (SubTreeTravMaskFieldMask & whichField))
+    {
+        _sfSubTreeTravMask.copyFromBin(pMem);
     }
 }
 
@@ -367,13 +418,15 @@ FieldContainerTransitPtr VisitSubTreeBase::shallowCopy(void) const
 
 VisitSubTreeBase::VisitSubTreeBase(void) :
     Inherited(),
-    _sfSubTreeRoot            (NULL)
+    _sfSubTreeRoot            (NULL),
+    _sfSubTreeTravMask        (UInt32(TypeTraits<UInt32>::getMax()))
 {
 }
 
 VisitSubTreeBase::VisitSubTreeBase(const VisitSubTreeBase &source) :
     Inherited(source),
-    _sfSubTreeRoot            (NULL)
+    _sfSubTreeRoot            (NULL),
+    _sfSubTreeTravMask        (source._sfSubTreeTravMask        )
 {
 }
 
@@ -420,6 +473,31 @@ EditFieldHandlePtr VisitSubTreeBase::editHandleSubTreeRoot    (void)
                     static_cast<VisitSubTree *>(this), _1));
 
     editSField(SubTreeRootFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr VisitSubTreeBase::getHandleSubTreeTravMask (void) const
+{
+    SFUInt32::GetHandlePtr returnValue(
+        new  SFUInt32::GetHandle(
+             &_sfSubTreeTravMask,
+             this->getType().getFieldDesc(SubTreeTravMaskFieldId),
+             const_cast<VisitSubTreeBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr VisitSubTreeBase::editHandleSubTreeTravMask(void)
+{
+    SFUInt32::EditHandlePtr returnValue(
+        new  SFUInt32::EditHandle(
+             &_sfSubTreeTravMask,
+             this->getType().getFieldDesc(SubTreeTravMaskFieldId),
+             this));
+
+
+    editSField(SubTreeTravMaskFieldMask);
 
     return returnValue;
 }
