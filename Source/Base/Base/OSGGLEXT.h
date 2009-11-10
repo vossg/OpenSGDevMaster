@@ -1051,6 +1051,9 @@ typedef char GLchar;
 #ifndef GL_ARB_vertex_buffer_object
 #define GL_ARB_vertex_buffer_object 1
 
+typedef ptrdiff_t GLintptrARB;
+typedef ptrdiff_t GLsizeiptrARB;
+
 #define GL_ARRAY_BUFFER_ARB               0x8892
 #define GL_ELEMENT_ARRAY_BUFFER_ARB       0x8893
 #define GL_ARRAY_BUFFER_BINDING_ARB       0x8894
