@@ -50,7 +50,7 @@ OSG_BEGIN_NAMESPACE
 
 class Viewport;
 
-class WindowDrawTask : public DrawTask
+class OSG_SYSTEM_DLLMAPPING WindowDrawTask : public DrawTask
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -145,7 +145,7 @@ typedef RefCountPtr<WindowDrawTask,
 
 
 
-class ViewportDrawTask : public DrawTask
+class OSG_SYSTEM_DLLMAPPING ViewportDrawTask : public DrawTask
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -220,6 +220,84 @@ class ViewportDrawTask : public DrawTask
 
 typedef RefCountPtr<ViewportDrawTask,
                     MemObjRefCountPolicy> ViewportDrawTaskRefPtr;
+
+class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
+{
+    /*==========================  PUBLIC  =================================*/
+
+  public:
+
+    enum TaskType
+    {
+        Callback = 0x0001
+    };
+
+    typedef DrawTask Inherited;
+
+    typedef boost::function<void (DrawEnv *)> CallbackFunctor;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Statistic                                  */
+    /*! \{                                                                 */
+
+    CallbackDrawTask(const CallbackFunctor &fCallback, TaskType eType);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    virtual void execute(DrawEnv *pEnv);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    virtual void dump(UInt32 uiIndent);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
+
+    TaskType        _eTaskType;
+    CallbackFunctor _fCallback;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~CallbackDrawTask(void);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    CallbackDrawTask(const CallbackDrawTask &source);
+    /*! \brief prohibit default function (move to 'public' if needed) */
+    void operator =(const CallbackDrawTask &source);
+};
+
+typedef RefCountPtr<CallbackDrawTask,
+                    MemObjRefCountPolicy> CallbackDrawTaskRefPtr;
 
 
 OSG_END_NAMESPACE

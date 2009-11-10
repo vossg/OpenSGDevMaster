@@ -218,7 +218,10 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
     static UInt32 _arbVertexProgram;
     static UInt32 _extSecondaryColor;
     static UInt32 _funcBindBuffer;
+    static UInt32 _funcMapBuffer;
+    static UInt32 _funcUnmapBuffer;
     static UInt32 _funcBufferData;
+    static UInt32 _funcBufferSubData;
     static UInt32 _funcDeleteBuffers;
     static UInt32 _funcGenBuffers;
     static UInt32 _funcglVertexAttribPointerARB;

@@ -1927,6 +1927,25 @@ void OSG::Window::render(RenderActionBase *action)
         activate   ();
         doFrameInit();    // query recently registered GL extensions
     
+        if(_mfDrawTasks.empty() == false)
+        {
+            DrawEnv oEnv;
+
+            oEnv.setWindow(this);
+
+            MFDrawTask::const_iterator tIt  = _mfDrawTasks.begin();
+            MFDrawTask::const_iterator tEnd = _mfDrawTasks.end  ();
+
+            for(; tIt != tEnd; ++tIt)
+            {
+                (*tIt)->execute(&oEnv);
+            }
+
+            editMField(DrawTasksFieldMask, _mfDrawTasks);
+
+            _mfDrawTasks.clear();
+        }
+
         doRenderAllViewports(action);
         
         swap       ();
@@ -2010,6 +2029,25 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
         activate   ();
         doFrameInit();    // query recently registered GL extensions
         
+        if(_mfDrawTasks.empty() == false)
+        {
+            DrawEnv oEnv;
+
+            oEnv.setWindow(this);
+
+            MFDrawTask::const_iterator tIt  = _mfDrawTasks.begin();
+            MFDrawTask::const_iterator tEnd = _mfDrawTasks.end  ();
+
+            for(; tIt != tEnd; ++tIt)
+            {
+                (*tIt)->execute(&oEnv);
+            }
+
+            editMField(DrawTasksFieldMask, _mfDrawTasks);
+
+            _mfDrawTasks.clear();
+        }
+
         doRenderAllViewports(action);
     }
     else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
@@ -2364,9 +2402,19 @@ void Window::queueTask(DrawTask *pTask)
 
     if((_sfDrawMode.getValue() & DrawerMask) == StdDrawer)
     {
-        OSG_ASSERT(_pDrawThread != NULL);
+        if((_sfDrawMode.getValue() & PartitionDrawMask) == 
+                                                         ParallelPartitionDraw)
+        {
+            OSG_ASSERT(_pDrawThread != NULL);
 
-        _pDrawThread->queueTask(pTask);
+            _pDrawThread->queueTask(pTask);
+        }
+        else
+        {
+            editMField(DrawTasksFieldMask, _mfDrawTasks);
+
+            _mfDrawTasks.push_back(pTask);
+        }
     }
     else if((_sfDrawMode.getValue() & DrawerMask) == ParallelDrawer)
     {

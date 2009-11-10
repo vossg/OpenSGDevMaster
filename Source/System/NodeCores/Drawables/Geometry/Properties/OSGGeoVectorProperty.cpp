@@ -467,6 +467,68 @@ void GeoVectorProperty::deactivate(DrawEnv *pEnv, UInt32 slot)
 #endif
 }
 
+
+void *GeoVectorProperty::mapBuffer(GLenum eAccess, DrawEnv *pEnv)
+{
+    void *returnValue = NULL;
+
+    if((getUseVBO() == true) && (getGLId() != 0))
+    {
+        Window *pWin = pEnv->getWindow();
+
+        OSGGETGLFUNCBYID( OSGglBindBufferARB, 
+                          osgGlBindBufferARB,
+                         _funcBindBuffer, 
+                          pWin);
+
+        OSGGETGLFUNCBYID( OSGglMapBufferARB, 
+                          osgGlMapBufferARB,
+                         _funcMapBuffer, 
+                          pWin);
+
+        pWin->validateGLObject(getGLId(), pEnv);                
+        
+        osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB,
+                           pWin->getGLObjectId(getGLId()));
+
+        returnValue = osgGlMapBufferARB(GL_ARRAY_BUFFER_ARB, eAccess);
+
+        osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+    }
+
+    return returnValue;
+}
+
+bool GeoVectorProperty::unmapBuffer(DrawEnv *pEnv)
+{
+    bool returnValue = true;
+
+    if((getUseVBO() == true) && (getGLId() != 0))
+    {
+        Window *pWin = pEnv->getWindow();
+
+        OSGGETGLFUNCBYID( OSGglBindBufferARB, 
+                          osgGlBindBufferARB,
+                         _funcBindBuffer, 
+                          pWin);
+
+        OSGGETGLFUNCBYID( OSGglUnmapBufferARB, 
+                          osgGlUnmapBufferARB,
+                         _funcUnmapBuffer, 
+                          pWin);
+
+        osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB,
+                           pWin->getGLObjectId(getGLId()));
+
+        returnValue = osgGlUnmapBufferARB(GL_ARRAY_BUFFER_ARB);
+
+        osgGlBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+    }
+    
+    return returnValue;
+}
+
+
 /*----------------------------- class specific ----------------------------*/
 
 void GeoVectorProperty::changed(ConstFieldMaskArg whichField, 

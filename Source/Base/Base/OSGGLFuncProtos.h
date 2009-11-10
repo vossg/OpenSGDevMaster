@@ -325,19 +325,26 @@ typedef void (OSG_APIENTRY *OSGglCompressedTexSubImage3D)(
 /*! \ingroup GrpBaseBaseGLFunc                                               */
 /*! \{                                                                       */
 
-typedef void (OSG_APIENTRY *OSGglBindBufferARB   )(      GLenum   target, 
-                                                         GLuint   buffer);
+typedef void (OSG_APIENTRY *OSGglBindBufferARB   )(      GLenum         target, 
+                                                         GLuint         buffer);
 
-typedef void (OSG_APIENTRY *OSGglBufferDataARB   )(      GLenum   target, 
-                                                         long     size, 
-                                                   const void    *data,
-                                                         GLenum   usage);
+typedef void (OSG_APIENTRY *OSGglBufferDataARB   )(      GLenum         target, 
+                                                         long           size, 
+                                                   const void          *data,
+                                                         GLenum         usage);
+typedef void (OSG_APIENTRY *OSGglBufferSubDataARB)(      GLenum         target, 
+                                                         GLintptrARB    offset, 
+                                                         GLsizeiptrARB  size,
+                                                   const void          *data);
 
-typedef void (OSG_APIENTRY *OSGglGenBuffersARB   )(      GLsizei  n, 
-                                                         GLuint  *buffers);
+typedef void (OSG_APIENTRY *OSGglGenBuffersARB   )(      GLsizei        n, 
+                                                         GLuint        *bufs);
 
-typedef void (OSG_APIENTRY *OSGglDeleteBuffersARB)(      GLsizei  n, 
-                                                   const GLuint  *buffers);
+typedef void (OSG_APIENTRY *OSGglDeleteBuffersARB)(      GLsizei        n, 
+                                                   const GLuint        *bufs);
+
+typedef void *(OSG_APIENTRY * OSGglMapBufferARB)(GLenum target, GLenum access);
+typedef GLboolean (OSG_APIENTRY * OSGglUnmapBufferARB)(GLenum target);
 
 typedef void (OSG_APIENTRY *OSGglEnableVertexAttribArrayARB )(GLuint index);
 typedef void (OSG_APIENTRY *OSGglDisableVertexAttribArrayARB)(GLuint index);

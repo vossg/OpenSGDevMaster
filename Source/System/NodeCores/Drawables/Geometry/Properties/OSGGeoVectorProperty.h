@@ -48,6 +48,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class DrawEnv;
+
 /*! \brief GeoVectorProperty class. See \ref
            PageWindowGLUTGeoVectorProperty for a description.
 */
@@ -205,6 +207,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorProperty :
 
     virtual void deactivate    (DrawEnv    *pEnv,
                                 UInt32      index = 0);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    State Commands                            */
+    /*! \{                                                                 */
+
+    virtual void *mapBuffer  (GLenum eAccess, DrawEnv *pEnv);
+    virtual bool  unmapBuffer(                DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

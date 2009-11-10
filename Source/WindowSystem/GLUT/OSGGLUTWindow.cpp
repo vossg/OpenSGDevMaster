@@ -136,6 +136,7 @@ void GLUTWindow::init(GLInitFunctor oFunc)
     Inherited::setContext(glXGetCurrentContext ());
     Inherited::setWindow (glXGetCurrentDrawable());
 #endif
+    this->doDeactivate();
 
     Window::init(oFunc);
 }

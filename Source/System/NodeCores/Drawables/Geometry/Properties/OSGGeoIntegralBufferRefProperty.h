@@ -90,6 +90,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralBufferRefProperty :
                             UInt32      index = 0);
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    State Commands                            */
+    /*! \{                                                                 */
+
+    virtual void *mapBuffer  (GLenum eAccess, DrawEnv *pEnv);
+    virtual bool  unmapBuffer(                DrawEnv *pEnv);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 

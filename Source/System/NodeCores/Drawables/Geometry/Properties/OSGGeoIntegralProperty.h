@@ -168,6 +168,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoIntegralProperty :
     virtual bool isInVBO       (DrawEnv    *pEnv);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    State Commands                            */
+    /*! \{                                                                 */
+
+    virtual void *mapBuffer  (GLenum eAccess, DrawEnv *pEnv);
+    virtual bool  unmapBuffer(                DrawEnv *pEnv);
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
 

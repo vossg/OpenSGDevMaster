@@ -333,4 +333,61 @@ void ViewportDrawTask::dump(UInt32 uiIndent)
 
 }
 
+
+
+CallbackDrawTask::CallbackDrawTask(const CallbackFunctor &fCallback, 
+                                         TaskType         eType) :
+     Inherited(         ),
+    _eTaskType(eType    ),
+    _fCallback(fCallback)
+{
+}
+
+CallbackDrawTask::~CallbackDrawTask(void)
+{
+}
+
+void CallbackDrawTask::execute(DrawEnv *pEnv)
+{
+    Window *pWindow = pEnv->getWindow();
+
+    OSG_ASSERT( pWindow != NULL);
+    OSG_ASSERT(_fCallback      );
+
+    switch(_eTaskType)
+    {
+        case Callback:
+        {
+            _fCallback(pEnv);
+        }
+        break;
+
+        default:
+            break;
+    }
+}
+
+void CallbackDrawTask::dump(UInt32 uiIndent)
+{
+    for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
+    fprintf(stderr, "CallbackDrawTask : ");
+
+    switch(_eTaskType)
+    {
+        case Callback:
+        {
+            fprintf(stderr, "Callback\n");
+        }
+        break;
+
+        default:
+        {
+            fprintf(stderr, "Unknown\n");
+        }
+        break;
+    }
+
+}
+
+
 OSG_END_NAMESPACE

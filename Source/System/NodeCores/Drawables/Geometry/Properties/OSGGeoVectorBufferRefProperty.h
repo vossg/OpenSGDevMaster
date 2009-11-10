@@ -87,6 +87,14 @@ class OSG_DRAWABLE_DLLMAPPING GeoVectorBufferRefProperty :
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                    State Commands                            */
+    /*! \{                                                                 */
+
+    virtual void *mapBuffer  (GLenum eAccess, DrawEnv *pEnv);
+    virtual bool  unmapBuffer(                DrawEnv *pEnv);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 

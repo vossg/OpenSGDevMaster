@@ -146,12 +146,18 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
                   SFUInt32            *editSFUsage          (void);
             const SFUInt32            *getSFUsage           (void) const;
 
+                  SFInt32             *editSFVboUsage       (void);
+            const SFInt32             *getSFVboUsage        (void) const;
+
 
                   bool                &editUseVBO         (void);
                   bool                 getUseVBO          (void) const;
 
                   UInt32              &editUsage          (void);
                   UInt32               getUsage           (void) const;
+
+                  Int32               &editVboUsage       (void);
+                  Int32                getVboUsage        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -160,6 +166,7 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
 
             void setUseVBO         (const bool value);
             void setUsage          (const UInt32 value);
+            void setVboUsage       (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -241,15 +248,9 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
                   SFUInt32            *editSFGLId           (void);
             const SFUInt32            *getSFGLId            (void) const;
 
-                  SFInt32             *editSFVboUsage       (void);
-            const SFInt32             *getSFVboUsage        (void) const;
-
 
                   UInt32              &editGLId           (void);
                   UInt32               getGLId            (void) const;
-
-                  Int32               &editVboUsage       (void);
-                  Int32                getVboUsage        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -257,7 +258,6 @@ class OSG_DRAWABLE_DLLMAPPING GeoPropertyBase : public StateChunk
     /*! \{                                                                 */
 
             void setGLId           (const UInt32 value);
-            void setVboUsage       (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

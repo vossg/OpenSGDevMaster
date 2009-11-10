@@ -109,7 +109,10 @@ UInt32 GeoProperty::_extMultitexture;
 UInt32 GeoProperty::_arbVertexProgram;
 UInt32 GeoProperty::_extSecondaryColor;
 UInt32 GeoProperty::_funcBindBuffer;
+UInt32 GeoProperty::_funcMapBuffer;
+UInt32 GeoProperty::_funcUnmapBuffer;
 UInt32 GeoProperty::_funcBufferData;
+UInt32 GeoProperty::_funcBufferSubData;
 UInt32 GeoProperty::_funcGenBuffers;
 UInt32 GeoProperty::_funcDeleteBuffers;
 UInt32 GeoProperty::_funcglVertexAttribPointerARB;
@@ -136,8 +139,20 @@ void GeoProperty::initMethod(InitPhase ePhase)
             OSG_DLSYM_UNDERSCORE"glBindBufferARB",   
             _extVertexBufferObject);
 
+        _funcMapBuffer       = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glMapBufferARB",   
+            _extVertexBufferObject);
+
+        _funcUnmapBuffer     = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glUnmapBufferARB",   
+            _extVertexBufferObject);
+
         _funcBufferData       = Window::registerFunction(
             OSG_DLSYM_UNDERSCORE"glBufferDataARB",   
+            _extVertexBufferObject);
+
+        _funcBufferSubData    = Window::registerFunction(
+            OSG_DLSYM_UNDERSCORE"glBufferSubDataARB",   
             _extVertexBufferObject);
 
         _funcDeleteBuffers       = Window::registerFunction(
@@ -263,13 +278,24 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
         OSGGETGLFUNCBYID(OSGglBufferDataARB, osgGlBufferDataARB,
                          _funcBufferData, win);
 
+        OSGGETGLFUNCBYID(OSGglBufferSubDataARB, osgGlBufferSubDataARB,
+                         _funcBufferSubData, win);
+
         osgGlBindBufferARB(getBufferType(), glid);
 
-        osgGlBufferDataARB(getBufferType(), 
-                           getFormatSize() * getDimension() * getSize(), 
-                           getData      (), 
-                           getVboUsage  ());
+        if(mode == Window::initialize || mode == Window::reinitialize)
+        {
+            osgGlBufferDataARB(getBufferType(), 
+                               getFormatSize() * getDimension() * getSize(), 
+                               NULL, //getData      (), 
+                               getVboUsage  ());
+        }
 
+        osgGlBufferSubDataARB(getBufferType(),
+                              0,
+                              getFormatSize() * getDimension() * getSize(), 
+                              getData());
+                              
         osgGlBindBufferARB(getBufferType(), 0);
     }
     else

@@ -241,7 +241,7 @@ GeoPropertyBase::TypeObject GeoPropertyBase::_type(
     "     visibility=\"internal\"\n"
     "     defaultValue=\"GL_STATIC_DRAW_ARB\"\n"
     "     defaultHeader=\"&quot;OSGGLEXT.h&quot;\"\n"
-    "     access=\"protected\"\n"
+    "     access=\"public\"\n"
     "     >\n"
     "    The usage pattern, only valid for VBO use.\n"
     "  </Field>\n"

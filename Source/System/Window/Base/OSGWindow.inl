@@ -350,18 +350,32 @@ ShaderCache *Window::getShaderCache(void)
 inline
 void Window::setPartitionDrawMode(UInt32 uiMode)
 {
+    if(0x0000 == (uiMode & PartitionDrawMask))
+    {
+        FWARNING(("Window: invalid draw mode\n"));
+        return;
+    }
+
     editSField(DrawModeFieldMask);
 
     _sfDrawMode.setValue(
-        (_sfDrawMode.getValue() & ~PartitionDrawMask) | uiMode);
+        (_sfDrawMode.getValue() & ~PartitionDrawMask) | 
+        (uiMode                 &  PartitionDrawMask) );
 }
 
 inline
 void Window::setDrawerType(UInt32 uiDrawerType)
 {
+    if(0x0000 == (uiDrawerType & DrawerMask))
+    {
+        FWARNING(("Window: invalid drawer type\n"));
+        return;
+    }
+
     editSField(DrawModeFieldMask);
 
-    _sfDrawMode.setValue((_sfDrawMode.getValue() & ~DrawerMask) | uiDrawerType);
+    _sfDrawMode.setValue((_sfDrawMode.getValue() & ~DrawerMask) | 
+                         (uiDrawerType           &  DrawerMask) );
 }
 
 inline

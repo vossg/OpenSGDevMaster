@@ -49,7 +49,7 @@
      visibility="internal"
      defaultValue="GL_STATIC_DRAW_ARB"
      defaultHeader="&quot;OSGGLEXT.h&quot;"
-     access="protected"
+     access="public"
      >
     The usage pattern, only valid for VBO use.
   </Field>
