@@ -1984,6 +1984,9 @@ void OSG::Window::render(RenderActionBase *action)
         _pDrawThread->queueTask(_pWaitTask);
 #endif
 
+        if(this->getKeepContextActive() == false)
+            this->doDeactivate();
+        
         _pDrawThread->queueTask(_pFrameInitTask);
 
         if(_mfDrawTasks.empty() == false)

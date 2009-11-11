@@ -45,8 +45,6 @@
 typedef struct __GLXcontextRec *GLXContext;
 typedef struct _XDisplay        Display;
 
-#include <X11/X.h>
-
 #include "OSGConfig.h"
 
 #include "OSGWindowXDef.h"
@@ -56,8 +54,8 @@ typedef struct _XDisplay        Display;
 
 OSG_BEGIN_NAMESPACE
 
-typedef ::Display *DisplayP;
-typedef ::Window   X11Window;
+typedef ::Display     *DisplayP;
+typedef unsigned long  X11Window;
 
 #if !defined(OSG_DO_DOC) || (OSG_DOC_LEVEL >= 3)
 
