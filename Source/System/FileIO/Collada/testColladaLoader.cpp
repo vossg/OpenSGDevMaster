@@ -783,6 +783,85 @@ void keyboard(unsigned char k, int , int )
         }
     }
     break;
+    case 'd':
+    {
+        NodeStore::const_iterator nIt  = skinnedGeoN.begin();
+        NodeStore::const_iterator nEnd = skinnedGeoN.end  ();
+
+        for(; nIt != nEnd; ++nIt)
+        {
+            OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
+                (*nIt)->getCore());
+
+            if(sgeo->testFlag(OSG::SkinnedGeometry::SGFlagHardware))
+            {
+                std::cout << "Enabling SkinnedGeo DEBUG mode ["
+                          << sgeo << "]" << std::endl;
+
+                sgeo->subFlag(OSG::SkinnedGeometry::SGFlagHardware);
+                sgeo->addFlag(OSG::SkinnedGeometry::SGFlagDebug   );
+            }
+            else if(sgeo->testFlag(OSG::SkinnedGeometry::SGFlagDebug))
+            {
+               std::cout << "Enabling SkinnedGeo UNSKINNED mode ["
+                         << sgeo << "]" << std::endl;
+
+               sgeo->subFlag(OSG::SkinnedGeometry::SGFlagDebug    );
+               sgeo->addFlag(OSG::SkinnedGeometry::SGFlagUnskinned);
+            }
+            else
+            {
+                std::cout << "Enabling SkinnedGeo HARDWARE mode ["
+                          << sgeo << "]" << std::endl;
+
+                sgeo->subFlag(OSG::SkinnedGeometry::SGFlagUnskinned);
+                sgeo->addFlag(OSG::SkinnedGeometry::SGFlagHardware );
+
+                sgeo->setMaterial(matSkin);
+            }
+        }
+    }
+    break;
+    case 'c':
+    {
+        mgr->getRenderAction()->setFrustumCulling(
+            !mgr->getRenderAction()->getFrustumCulling());
+
+        std::cout << "Frustum culling: "
+                  << (mgr->getRenderAction()->getFrustumCulling() ? "enabled" : "disabled")
+                  << std::endl;
+    }
+    break;
+    case 's':
+    {
+        NodeStore::const_iterator nIt  = skinnedGeoN.begin();
+        NodeStore::const_iterator nEnd = skinnedGeoN.end  ();
+
+        for(OSG::UInt32 i = 0; nIt != nEnd; ++nIt, ++i)
+        {
+           OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
+                (*nIt)->getCore());
+
+           OSG::Skeleton        *skel = sgeo->getSkeleton();
+
+           OSG::Skeleton::MFRootsType::const_iterator rIt  =
+               skel->getMFRoots()->begin();
+           OSG::Skeleton::MFRootsType::const_iterator rEnd =
+               skel->getMFRoots()->end  ();
+
+           for(OSG::UInt32 j = 0; rIt != rEnd; ++rIt, ++j)
+           {
+               std::cout << "Skeleton [" << i << "] @ [" << skel
+                         << "] root [" << j << "]\n";
+
+               OSG::SceneGraphPrinter sgp(*rIt);
+               sgp.printDownTree(std::cout);
+
+               std::cout << std::endl;
+           }
+        }
+    }
+    break;
 
     default:
     {

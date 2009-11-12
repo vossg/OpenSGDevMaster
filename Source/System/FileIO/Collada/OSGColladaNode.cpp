@@ -50,6 +50,7 @@
 #include "OSGColladaInstanceLight.h"
 #include "OSGColladaInstanceGeometry.h"
 #include "OSGColladaInstanceController.h"
+#include "OSGColladaVisualScene.h"
 #include "OSGTransform.h"
 #include "OSGSkeletonJoint.h"
 #include "OSGNameAttachment.h"
@@ -743,7 +744,7 @@ ColladaNode::handleSkew(domSkew *skew, InstData &instData)
     if(skew == NULL)
         return;
 
-    SWARNING << "ColladaNode::handleSkew: NIY" << std::endl;
+    SWARNING << "ColladaNode::readSkew: NIY" << std::endl;
 }
 
 void

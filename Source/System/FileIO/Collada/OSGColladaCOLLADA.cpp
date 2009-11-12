@@ -104,7 +104,6 @@ ColladaCOLLADA::read(ColladaElement *colElemParent)
 
         colScene->read(this);
     }
-
     if(getGlobal()->getOptions()->getLoadAnimations() == true)
     {
         const domLibrary_animation_clips_Array &animClipLibs =
