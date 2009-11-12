@@ -21,32 +21,54 @@
      visibility="external"
      access="public"
      >
+    The Skeleton that deforms this geometry.
   </Field>
 
   <Field
-     name="influencePropertyIndex"
+     name="bindShapeMatrix"
+     type="Matrix"
+     category="data"
+     cardinality="single"
+     visibility="external"
+     access="public"
+     >
+    Matrix that is applied to the vertices of the mesh before deformation.
+    It transforms the vertices into bind space.
+  </Field>
+
+  <Field
+     name="jointIds"
+     type="Int16"
+     category="data"
+     cardinality="multi"
+     visibility="external"
+     access="public"
+     >
+    List of jointIds that are used by this SkinnedGeometry.
+  </Field>
+
+  <Field
+     name="jointIndexProperty"
      type="UInt16"
      category="data"
      cardinality="single"
      visibility="external"
      access="public"
-     defaultValue="Geometry::TexCoordsIndex"
      >
-    Index of the property that stores the per vertex indices into
-    the joint matrices.
+    Index of the property that stores the joint indices that influence
+    a vertex.
   </Field>
-
+  
   <Field
-     name="weightPropertyIndex"
+     name="jointWeightProperty"
      type="UInt16"
      category="data"
      cardinality="single"
      visibility="external"
      access="public"
-     defaultValue="Geometry::TexCoords1Index"
      >
-    Index of the property that stores the per vertex weights for
-    the influence matrices.
+    Index of the property that stores the joint weights that influence
+    a vertex.
   </Field>
 
   <Field

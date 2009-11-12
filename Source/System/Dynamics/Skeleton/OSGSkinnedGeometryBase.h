@@ -66,7 +66,8 @@
 #include "OSGGeometry.h" // Parent
 
 #include "OSGSkeletonFields.h"          // Skeleton type
-#include "OSGSysFields.h"               // InfluencePropertyIndex type
+#include "OSGMathFields.h"              // BindShapeMatrix type
+#include "OSGSysFields.h"               // JointIds type
 #include "OSGShaderProgramChunkFields.h" // ShaderCode type
 #include "OSGShaderProgramVariableChunkFields.h" // ShaderData type
 
@@ -97,9 +98,11 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     enum
     {
         SkeletonFieldId = Inherited::NextFieldId,
-        InfluencePropertyIndexFieldId = SkeletonFieldId + 1,
-        WeightPropertyIndexFieldId = InfluencePropertyIndexFieldId + 1,
-        FlagsFieldId = WeightPropertyIndexFieldId + 1,
+        BindShapeMatrixFieldId = SkeletonFieldId + 1,
+        JointIdsFieldId = BindShapeMatrixFieldId + 1,
+        JointIndexPropertyFieldId = JointIdsFieldId + 1,
+        JointWeightPropertyFieldId = JointIndexPropertyFieldId + 1,
+        FlagsFieldId = JointWeightPropertyFieldId + 1,
         ShaderCodeFieldId = FlagsFieldId + 1,
         ShaderDataFieldId = ShaderCodeFieldId + 1,
         NextFieldId = ShaderDataFieldId + 1
@@ -107,10 +110,14 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
 
     static const OSG::BitVector SkeletonFieldMask =
         (TypeTraits<BitVector>::One << SkeletonFieldId);
-    static const OSG::BitVector InfluencePropertyIndexFieldMask =
-        (TypeTraits<BitVector>::One << InfluencePropertyIndexFieldId);
-    static const OSG::BitVector WeightPropertyIndexFieldMask =
-        (TypeTraits<BitVector>::One << WeightPropertyIndexFieldId);
+    static const OSG::BitVector BindShapeMatrixFieldMask =
+        (TypeTraits<BitVector>::One << BindShapeMatrixFieldId);
+    static const OSG::BitVector JointIdsFieldMask =
+        (TypeTraits<BitVector>::One << JointIdsFieldId);
+    static const OSG::BitVector JointIndexPropertyFieldMask =
+        (TypeTraits<BitVector>::One << JointIndexPropertyFieldId);
+    static const OSG::BitVector JointWeightPropertyFieldMask =
+        (TypeTraits<BitVector>::One << JointWeightPropertyFieldId);
     static const OSG::BitVector FlagsFieldMask =
         (TypeTraits<BitVector>::One << FlagsFieldId);
     static const OSG::BitVector ShaderCodeFieldMask =
@@ -121,8 +128,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFUnrecSkeletonPtr SFSkeletonType;
-    typedef SFUInt16          SFInfluencePropertyIndexType;
-    typedef SFUInt16          SFWeightPropertyIndexType;
+    typedef SFMatrix          SFBindShapeMatrixType;
+    typedef MFInt16           MFJointIdsType;
+    typedef SFUInt16          SFJointIndexPropertyType;
+    typedef SFUInt16          SFJointWeightPropertyType;
     typedef SFUInt32          SFFlagsType;
     typedef SFUnrecShaderProgramChunkPtr SFShaderCodeType;
     typedef SFUnrecShaderProgramVariableChunkPtr SFShaderDataType;
@@ -153,34 +162,38 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
             const SFUnrecSkeletonPtr  *getSFSkeleton       (void) const;
                   SFUnrecSkeletonPtr  *editSFSkeleton       (void);
 
-                  SFUInt16            *editSFInfluencePropertyIndex(void);
-            const SFUInt16            *getSFInfluencePropertyIndex (void) const;
+                  SFMatrix            *editSFBindShapeMatrix(void);
+            const SFMatrix            *getSFBindShapeMatrix (void) const;
 
-                  SFUInt16            *editSFWeightPropertyIndex(void);
-            const SFUInt16            *getSFWeightPropertyIndex (void) const;
+                  MFInt16             *editMFJointIds       (void);
+            const MFInt16             *getMFJointIds        (void) const;
+
+                  SFUInt16            *editSFJointIndexProperty(void);
+            const SFUInt16            *getSFJointIndexProperty (void) const;
+
+                  SFUInt16            *editSFJointWeightProperty(void);
+            const SFUInt16            *getSFJointWeightProperty (void) const;
 
                   SFUInt32            *editSFFlags          (void);
             const SFUInt32            *getSFFlags           (void) const;
-            const SFUnrecShaderProgramChunkPtr *getSFShaderCode     (void) const;
-                  SFUnrecShaderProgramChunkPtr *editSFShaderCode     (void);
-            const SFUnrecShaderProgramVariableChunkPtr *getSFShaderData     (void) const;
-                  SFUnrecShaderProgramVariableChunkPtr *editSFShaderData     (void);
 
 
                   Skeleton * getSkeleton       (void) const;
 
-                  UInt16              &editInfluencePropertyIndex(void);
-                  UInt16               getInfluencePropertyIndex (void) const;
+                  Matrix              &editBindShapeMatrix(void);
+            const Matrix              &getBindShapeMatrix (void) const;
 
-                  UInt16              &editWeightPropertyIndex(void);
-                  UInt16               getWeightPropertyIndex (void) const;
+                  Int16               &editJointIds       (const UInt32 index);
+                  Int16                getJointIds        (const UInt32 index) const;
+
+                  UInt16              &editJointIndexProperty(void);
+                  UInt16               getJointIndexProperty (void) const;
+
+                  UInt16              &editJointWeightProperty(void);
+                  UInt16               getJointWeightProperty (void) const;
 
                   UInt32              &editFlags          (void);
                   UInt32               getFlags           (void) const;
-
-                  ShaderProgramChunk * getShaderCode     (void) const;
-
-                  ShaderProgramVariableChunk * getShaderData     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -188,11 +201,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     /*! \{                                                                 */
 
             void setSkeleton       (Skeleton * const value);
-            void setInfluencePropertyIndex(const UInt16 value);
-            void setWeightPropertyIndex(const UInt16 value);
+            void setBindShapeMatrix(const Matrix &value);
+            void setJointIndexProperty(const UInt16 value);
+            void setJointWeightProperty(const UInt16 value);
             void setFlags          (const UInt32 value);
-            void setShaderCode     (ShaderProgramChunk * const value);
-            void setShaderData     (ShaderProgramVariableChunk * const value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -258,8 +270,10 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
     /*! \{                                                                 */
 
     SFUnrecSkeletonPtr _sfSkeleton;
-    SFUInt16          _sfInfluencePropertyIndex;
-    SFUInt16          _sfWeightPropertyIndex;
+    SFMatrix          _sfBindShapeMatrix;
+    MFInt16           _mfJointIds;
+    SFUInt16          _sfJointIndexProperty;
+    SFUInt16          _sfJointWeightProperty;
     SFUInt32          _sfFlags;
     SFUnrecShaderProgramChunkPtr _sfShaderCode;
     SFUnrecShaderProgramVariableChunkPtr _sfShaderData;
@@ -293,16 +307,48 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometryBase : public Geometry
 
     GetFieldHandlePtr  getHandleSkeleton        (void) const;
     EditFieldHandlePtr editHandleSkeleton       (void);
-    GetFieldHandlePtr  getHandleInfluencePropertyIndex (void) const;
-    EditFieldHandlePtr editHandleInfluencePropertyIndex(void);
-    GetFieldHandlePtr  getHandleWeightPropertyIndex (void) const;
-    EditFieldHandlePtr editHandleWeightPropertyIndex(void);
+    GetFieldHandlePtr  getHandleBindShapeMatrix (void) const;
+    EditFieldHandlePtr editHandleBindShapeMatrix(void);
+    GetFieldHandlePtr  getHandleJointIds        (void) const;
+    EditFieldHandlePtr editHandleJointIds       (void);
+    GetFieldHandlePtr  getHandleJointIndexProperty (void) const;
+    EditFieldHandlePtr editHandleJointIndexProperty(void);
+    GetFieldHandlePtr  getHandleJointWeightProperty (void) const;
+    EditFieldHandlePtr editHandleJointWeightProperty(void);
     GetFieldHandlePtr  getHandleFlags           (void) const;
     EditFieldHandlePtr editHandleFlags          (void);
     GetFieldHandlePtr  getHandleShaderCode      (void) const;
     EditFieldHandlePtr editHandleShaderCode     (void);
     GetFieldHandlePtr  getHandleShaderData      (void) const;
     EditFieldHandlePtr editHandleShaderData     (void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Get                                 */
+    /*! \{                                                                 */
+
+            const SFUnrecShaderProgramChunkPtr *getSFShaderCode      (void) const;
+                  SFUnrecShaderProgramChunkPtr *editSFShaderCode     (void);
+            const SFUnrecShaderProgramVariableChunkPtr *getSFShaderData      (void) const;
+                  SFUnrecShaderProgramVariableChunkPtr *editSFShaderData     (void);
+
+
+                  ShaderProgramChunk * getShaderCode     (void) const;
+
+                  ShaderProgramVariableChunk * getShaderData     (void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Field Set                                 */
+    /*! \{                                                                 */
+
+            void setShaderCode     (ShaderProgramChunk * const value);
+            void setShaderData     (ShaderProgramVariableChunk * const value);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                Ptr MField Set                                */
+    /*! \{                                                                 */
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -68,8 +68,9 @@ class OSG_DYNAMICS_DLLMAPPING SkinnedGeometry : public SkinnedGeometryBase
 
     enum SkinnedGeoFlagsE
     {
-        SGFlagHardware = 0x0001,
-        SGFlagDebug    = 0x0002
+        SGFlagHardware  = 0x0001,
+        SGFlagDebug     = 0x0002,
+        SGFlagUnskinned = 0x0004
     };
 
     /*---------------------------------------------------------------------*/

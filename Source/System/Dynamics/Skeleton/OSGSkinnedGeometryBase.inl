@@ -89,55 +89,80 @@ void SkinnedGeometryBase::setSkeleton(Skeleton * const value)
 
     _sfSkeleton.setValue(value);
 }
-//! Get the value of the SkinnedGeometry::_sfInfluencePropertyIndex field.
+//! Get the value of the SkinnedGeometry::_sfBindShapeMatrix field.
 
 inline
-UInt16 &SkinnedGeometryBase::editInfluencePropertyIndex(void)
+Matrix &SkinnedGeometryBase::editBindShapeMatrix(void)
 {
-    editSField(InfluencePropertyIndexFieldMask);
+    editSField(BindShapeMatrixFieldMask);
 
-    return _sfInfluencePropertyIndex.getValue();
+    return _sfBindShapeMatrix.getValue();
 }
 
-//! Get the value of the SkinnedGeometry::_sfInfluencePropertyIndex field.
+//! Get the value of the SkinnedGeometry::_sfBindShapeMatrix field.
 inline
-      UInt16  SkinnedGeometryBase::getInfluencePropertyIndex(void) const
+const Matrix &SkinnedGeometryBase::getBindShapeMatrix(void) const
 {
-    return _sfInfluencePropertyIndex.getValue();
+    return _sfBindShapeMatrix.getValue();
 }
 
-//! Set the value of the SkinnedGeometry::_sfInfluencePropertyIndex field.
+//! Set the value of the SkinnedGeometry::_sfBindShapeMatrix field.
 inline
-void SkinnedGeometryBase::setInfluencePropertyIndex(const UInt16 value)
+void SkinnedGeometryBase::setBindShapeMatrix(const Matrix &value)
 {
-    editSField(InfluencePropertyIndexFieldMask);
+    editSField(BindShapeMatrixFieldMask);
 
-    _sfInfluencePropertyIndex.setValue(value);
+    _sfBindShapeMatrix.setValue(value);
 }
-//! Get the value of the SkinnedGeometry::_sfWeightPropertyIndex field.
+//! Get the value of the SkinnedGeometry::_sfJointIndexProperty field.
 
 inline
-UInt16 &SkinnedGeometryBase::editWeightPropertyIndex(void)
+UInt16 &SkinnedGeometryBase::editJointIndexProperty(void)
 {
-    editSField(WeightPropertyIndexFieldMask);
+    editSField(JointIndexPropertyFieldMask);
 
-    return _sfWeightPropertyIndex.getValue();
-}
-
-//! Get the value of the SkinnedGeometry::_sfWeightPropertyIndex field.
-inline
-      UInt16  SkinnedGeometryBase::getWeightPropertyIndex(void) const
-{
-    return _sfWeightPropertyIndex.getValue();
+    return _sfJointIndexProperty.getValue();
 }
 
-//! Set the value of the SkinnedGeometry::_sfWeightPropertyIndex field.
+//! Get the value of the SkinnedGeometry::_sfJointIndexProperty field.
 inline
-void SkinnedGeometryBase::setWeightPropertyIndex(const UInt16 value)
+      UInt16  SkinnedGeometryBase::getJointIndexProperty(void) const
 {
-    editSField(WeightPropertyIndexFieldMask);
+    return _sfJointIndexProperty.getValue();
+}
 
-    _sfWeightPropertyIndex.setValue(value);
+//! Set the value of the SkinnedGeometry::_sfJointIndexProperty field.
+inline
+void SkinnedGeometryBase::setJointIndexProperty(const UInt16 value)
+{
+    editSField(JointIndexPropertyFieldMask);
+
+    _sfJointIndexProperty.setValue(value);
+}
+//! Get the value of the SkinnedGeometry::_sfJointWeightProperty field.
+
+inline
+UInt16 &SkinnedGeometryBase::editJointWeightProperty(void)
+{
+    editSField(JointWeightPropertyFieldMask);
+
+    return _sfJointWeightProperty.getValue();
+}
+
+//! Get the value of the SkinnedGeometry::_sfJointWeightProperty field.
+inline
+      UInt16  SkinnedGeometryBase::getJointWeightProperty(void) const
+{
+    return _sfJointWeightProperty.getValue();
+}
+
+//! Set the value of the SkinnedGeometry::_sfJointWeightProperty field.
+inline
+void SkinnedGeometryBase::setJointWeightProperty(const UInt16 value)
+{
+    editSField(JointWeightPropertyFieldMask);
+
+    _sfJointWeightProperty.setValue(value);
 }
 //! Get the value of the SkinnedGeometry::_sfFlags field.
 
@@ -197,6 +222,22 @@ void SkinnedGeometryBase::setShaderData(ShaderProgramVariableChunk * const value
     _sfShaderData.setValue(value);
 }
 
+//! Get the value of the \a index element the SkinnedGeometry::_mfJointIds field.
+inline
+      Int16  SkinnedGeometryBase::getJointIds(const UInt32 index) const
+{
+    return _mfJointIds[index];
+}
+
+inline
+Int16 &SkinnedGeometryBase::editJointIds(const UInt32 index)
+{
+    editMField(JointIdsFieldMask, _mfJointIds);
+
+    return _mfJointIds[index];
+}
+
+
 
 #ifdef OSG_MT_CPTR_ASPECT
 inline
@@ -211,11 +252,20 @@ void SkinnedGeometryBase::execSync (      SkinnedGeometryBase *pFrom,
     if(FieldBits::NoField != (SkeletonFieldMask & whichField))
         _sfSkeleton.syncWith(pFrom->_sfSkeleton);
 
-    if(FieldBits::NoField != (InfluencePropertyIndexFieldMask & whichField))
-        _sfInfluencePropertyIndex.syncWith(pFrom->_sfInfluencePropertyIndex);
+    if(FieldBits::NoField != (BindShapeMatrixFieldMask & whichField))
+        _sfBindShapeMatrix.syncWith(pFrom->_sfBindShapeMatrix);
 
-    if(FieldBits::NoField != (WeightPropertyIndexFieldMask & whichField))
-        _sfWeightPropertyIndex.syncWith(pFrom->_sfWeightPropertyIndex);
+    if(FieldBits::NoField != (JointIdsFieldMask & whichField))
+        _mfJointIds.syncWith(pFrom->_mfJointIds,
+                                syncMode,
+                                uiSyncInfo,
+                                oOffsets);
+
+    if(FieldBits::NoField != (JointIndexPropertyFieldMask & whichField))
+        _sfJointIndexProperty.syncWith(pFrom->_sfJointIndexProperty);
+
+    if(FieldBits::NoField != (JointWeightPropertyFieldMask & whichField))
+        _sfJointWeightProperty.syncWith(pFrom->_sfJointWeightProperty);
 
     if(FieldBits::NoField != (FlagsFieldMask & whichField))
         _sfFlags.syncWith(pFrom->_sfFlags);

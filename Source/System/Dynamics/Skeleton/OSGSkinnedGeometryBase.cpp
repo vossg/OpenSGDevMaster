@@ -54,7 +54,7 @@
 #include <cstdio>
 #include <boost/assign/list_of.hpp>
 
-#include <OSGConfig.h>
+#include "OSGConfig.h"
 
 
 
@@ -65,7 +65,7 @@
 #include "OSGSkinnedGeometryBase.h"
 #include "OSGSkinnedGeometry.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
 #ifdef WIN32 // turn off 'this' : used in base member initializer list warning
 #pragma warning(disable:4355)
@@ -86,17 +86,26 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 /*! \var Skeleton *      SkinnedGeometryBase::_sfSkeleton
-    
+    The Skeleton that deforms this geometry.
 */
 
-/*! \var UInt16          SkinnedGeometryBase::_sfInfluencePropertyIndex
-    Index of the property that stores the per vertex indices into
-    the joint matrices.
+/*! \var Matrix          SkinnedGeometryBase::_sfBindShapeMatrix
+    Matrix that is applied to the vertices of the mesh before deformation.
+    It transforms the vertices into bind space.
 */
 
-/*! \var UInt16          SkinnedGeometryBase::_sfWeightPropertyIndex
-    Index of the property that stores the per vertex weights for
-    the influence matrices.
+/*! \var Int16           SkinnedGeometryBase::_mfJointIds
+    List of jointIds that are used by this SkinnedGeometry.
+*/
+
+/*! \var UInt16          SkinnedGeometryBase::_sfJointIndexProperty
+    Index of the property that stores the joint indices that influence
+    a vertex.
+*/
+
+/*! \var UInt16          SkinnedGeometryBase::_sfJointWeightProperty
+    Index of the property that stores the joint weights that influence
+    a vertex.
 */
 
 /*! \var UInt32          SkinnedGeometryBase::_sfFlags
@@ -142,7 +151,7 @@ void SkinnedGeometryBase::classDescInserter(TypeObject &oType)
     pDesc = new SFUnrecSkeletonPtr::Description(
         SFUnrecSkeletonPtr::getClassType(),
         "skeleton",
-        "",
+        "The Skeleton that deforms this geometry.\n",
         SkeletonFieldId, SkeletonFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
@@ -151,29 +160,54 @@ void SkinnedGeometryBase::classDescInserter(TypeObject &oType)
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new SFUInt16::Description(
-        SFUInt16::getClassType(),
-        "influencePropertyIndex",
-        "Index of the property that stores the per vertex indices into\n"
-        "the joint matrices.\n",
-        InfluencePropertyIndexFieldId, InfluencePropertyIndexFieldMask,
+    pDesc = new SFMatrix::Description(
+        SFMatrix::getClassType(),
+        "bindShapeMatrix",
+        "Matrix that is applied to the vertices of the mesh before deformation.\n"
+        "It transforms the vertices into bind space.\n",
+        BindShapeMatrixFieldId, BindShapeMatrixFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&SkinnedGeometry::editHandleInfluencePropertyIndex),
-        static_cast<FieldGetMethodSig >(&SkinnedGeometry::getHandleInfluencePropertyIndex));
+        static_cast<FieldEditMethodSig>(&SkinnedGeometry::editHandleBindShapeMatrix),
+        static_cast<FieldGetMethodSig >(&SkinnedGeometry::getHandleBindShapeMatrix));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFInt16::Description(
+        MFInt16::getClassType(),
+        "jointIds",
+        "List of jointIds that are used by this SkinnedGeometry.\n",
+        JointIdsFieldId, JointIdsFieldMask,
+        false,
+        (Field::MFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SkinnedGeometry::editHandleJointIds),
+        static_cast<FieldGetMethodSig >(&SkinnedGeometry::getHandleJointIds));
 
     oType.addInitialDesc(pDesc);
 
     pDesc = new SFUInt16::Description(
         SFUInt16::getClassType(),
-        "weightPropertyIndex",
-        "Index of the property that stores the per vertex weights for\n"
-        "the influence matrices.\n",
-        WeightPropertyIndexFieldId, WeightPropertyIndexFieldMask,
+        "jointIndexProperty",
+        "Index of the property that stores the joint indices that influence\n"
+        "a vertex.\n",
+        JointIndexPropertyFieldId, JointIndexPropertyFieldMask,
         false,
         (Field::SFDefaultFlags | Field::FStdAccess),
-        static_cast<FieldEditMethodSig>(&SkinnedGeometry::editHandleWeightPropertyIndex),
-        static_cast<FieldGetMethodSig >(&SkinnedGeometry::getHandleWeightPropertyIndex));
+        static_cast<FieldEditMethodSig>(&SkinnedGeometry::editHandleJointIndexProperty),
+        static_cast<FieldGetMethodSig >(&SkinnedGeometry::getHandleJointIndexProperty));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFUInt16::Description(
+        SFUInt16::getClassType(),
+        "jointWeightProperty",
+        "Index of the property that stores the joint weights that influence\n"
+        "a vertex.\n",
+        JointWeightPropertyFieldId, JointWeightPropertyFieldMask,
+        false,
+        (Field::SFDefaultFlags | Field::FStdAccess),
+        static_cast<FieldEditMethodSig>(&SkinnedGeometry::editHandleJointWeightProperty),
+        static_cast<FieldGetMethodSig >(&SkinnedGeometry::getHandleJointWeightProperty));
 
     oType.addInitialDesc(pDesc);
 
@@ -249,32 +283,54 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
     "     >\n"
+    "    The Skeleton that deforms this geometry.\n"
     "  </Field>\n"
     "\n"
     "  <Field\n"
-    "     name=\"influencePropertyIndex\"\n"
+    "     name=\"bindShapeMatrix\"\n"
+    "     type=\"Matrix\"\n"
+    "     category=\"data\"\n"
+    "     cardinality=\"single\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    Matrix that is applied to the vertices of the mesh before deformation.\n"
+    "    It transforms the vertices into bind space.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"jointIds\"\n"
+    "     type=\"Int16\"\n"
+    "     category=\"data\"\n"
+    "     cardinality=\"multi\"\n"
+    "     visibility=\"external\"\n"
+    "     access=\"public\"\n"
+    "     >\n"
+    "    List of jointIds that are used by this SkinnedGeometry.\n"
+    "  </Field>\n"
+    "\n"
+    "  <Field\n"
+    "     name=\"jointIndexProperty\"\n"
     "     type=\"UInt16\"\n"
     "     category=\"data\"\n"
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     defaultValue=\"Geometry::TexCoordsIndex\"\n"
     "     >\n"
-    "    Index of the property that stores the per vertex indices into\n"
-    "    the joint matrices.\n"
+    "    Index of the property that stores the joint indices that influence\n"
+    "    a vertex.\n"
     "  </Field>\n"
-    "\n"
+    "  \n"
     "  <Field\n"
-    "     name=\"weightPropertyIndex\"\n"
+    "     name=\"jointWeightProperty\"\n"
     "     type=\"UInt16\"\n"
     "     category=\"data\"\n"
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
-    "     defaultValue=\"Geometry::TexCoords1Index\"\n"
     "     >\n"
-    "    Index of the property that stores the per vertex weights for\n"
-    "    the influence matrices.\n"
+    "    Index of the property that stores the joint weights that influence\n"
+    "    a vertex.\n"
     "  </Field>\n"
     "\n"
     "  <Field\n"
@@ -294,7 +350,7 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     "     category=\"pointer\"\n"
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
+    "     access=\"protected\"\n"
     "     defaultValue=\"NULL\"\n"
     "     >\n"
     "  </Field>\n"
@@ -305,7 +361,7 @@ SkinnedGeometryBase::TypeObject SkinnedGeometryBase::_type(
     "     category=\"pointer\"\n"
     "     cardinality=\"single\"\n"
     "     visibility=\"external\"\n"
-    "     access=\"public\"\n"
+    "     access=\"protected\"\n"
     "     defaultValue=\"NULL\"\n"
     "     >\n"
     "  </Field>\n"
@@ -347,29 +403,55 @@ SFUnrecSkeletonPtr  *SkinnedGeometryBase::editSFSkeleton       (void)
     return &_sfSkeleton;
 }
 
-SFUInt16 *SkinnedGeometryBase::editSFInfluencePropertyIndex(void)
+SFMatrix *SkinnedGeometryBase::editSFBindShapeMatrix(void)
 {
-    editSField(InfluencePropertyIndexFieldMask);
+    editSField(BindShapeMatrixFieldMask);
 
-    return &_sfInfluencePropertyIndex;
+    return &_sfBindShapeMatrix;
 }
 
-const SFUInt16 *SkinnedGeometryBase::getSFInfluencePropertyIndex(void) const
+const SFMatrix *SkinnedGeometryBase::getSFBindShapeMatrix(void) const
 {
-    return &_sfInfluencePropertyIndex;
+    return &_sfBindShapeMatrix;
 }
 
 
-SFUInt16 *SkinnedGeometryBase::editSFWeightPropertyIndex(void)
+MFInt16 *SkinnedGeometryBase::editMFJointIds(void)
 {
-    editSField(WeightPropertyIndexFieldMask);
+    editMField(JointIdsFieldMask, _mfJointIds);
 
-    return &_sfWeightPropertyIndex;
+    return &_mfJointIds;
 }
 
-const SFUInt16 *SkinnedGeometryBase::getSFWeightPropertyIndex(void) const
+const MFInt16 *SkinnedGeometryBase::getMFJointIds(void) const
 {
-    return &_sfWeightPropertyIndex;
+    return &_mfJointIds;
+}
+
+
+SFUInt16 *SkinnedGeometryBase::editSFJointIndexProperty(void)
+{
+    editSField(JointIndexPropertyFieldMask);
+
+    return &_sfJointIndexProperty;
+}
+
+const SFUInt16 *SkinnedGeometryBase::getSFJointIndexProperty(void) const
+{
+    return &_sfJointIndexProperty;
+}
+
+
+SFUInt16 *SkinnedGeometryBase::editSFJointWeightProperty(void)
+{
+    editSField(JointWeightPropertyFieldMask);
+
+    return &_sfJointWeightProperty;
+}
+
+const SFUInt16 *SkinnedGeometryBase::getSFJointWeightProperty(void) const
+{
+    return &_sfJointWeightProperty;
 }
 
 
@@ -426,13 +508,21 @@ UInt32 SkinnedGeometryBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfSkeleton.getBinSize();
     }
-    if(FieldBits::NoField != (InfluencePropertyIndexFieldMask & whichField))
+    if(FieldBits::NoField != (BindShapeMatrixFieldMask & whichField))
     {
-        returnValue += _sfInfluencePropertyIndex.getBinSize();
+        returnValue += _sfBindShapeMatrix.getBinSize();
     }
-    if(FieldBits::NoField != (WeightPropertyIndexFieldMask & whichField))
+    if(FieldBits::NoField != (JointIdsFieldMask & whichField))
     {
-        returnValue += _sfWeightPropertyIndex.getBinSize();
+        returnValue += _mfJointIds.getBinSize();
+    }
+    if(FieldBits::NoField != (JointIndexPropertyFieldMask & whichField))
+    {
+        returnValue += _sfJointIndexProperty.getBinSize();
+    }
+    if(FieldBits::NoField != (JointWeightPropertyFieldMask & whichField))
+    {
+        returnValue += _sfJointWeightProperty.getBinSize();
     }
     if(FieldBits::NoField != (FlagsFieldMask & whichField))
     {
@@ -459,13 +549,21 @@ void SkinnedGeometryBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfSkeleton.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (InfluencePropertyIndexFieldMask & whichField))
+    if(FieldBits::NoField != (BindShapeMatrixFieldMask & whichField))
     {
-        _sfInfluencePropertyIndex.copyToBin(pMem);
+        _sfBindShapeMatrix.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (WeightPropertyIndexFieldMask & whichField))
+    if(FieldBits::NoField != (JointIdsFieldMask & whichField))
     {
-        _sfWeightPropertyIndex.copyToBin(pMem);
+        _mfJointIds.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (JointIndexPropertyFieldMask & whichField))
+    {
+        _sfJointIndexProperty.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (JointWeightPropertyFieldMask & whichField))
+    {
+        _sfJointWeightProperty.copyToBin(pMem);
     }
     if(FieldBits::NoField != (FlagsFieldMask & whichField))
     {
@@ -490,13 +588,21 @@ void SkinnedGeometryBase::copyFromBin(BinaryDataHandler &pMem,
     {
         _sfSkeleton.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (InfluencePropertyIndexFieldMask & whichField))
+    if(FieldBits::NoField != (BindShapeMatrixFieldMask & whichField))
     {
-        _sfInfluencePropertyIndex.copyFromBin(pMem);
+        _sfBindShapeMatrix.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (WeightPropertyIndexFieldMask & whichField))
+    if(FieldBits::NoField != (JointIdsFieldMask & whichField))
     {
-        _sfWeightPropertyIndex.copyFromBin(pMem);
+        _mfJointIds.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (JointIndexPropertyFieldMask & whichField))
+    {
+        _sfJointIndexProperty.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (JointWeightPropertyFieldMask & whichField))
+    {
+        _sfJointWeightProperty.copyFromBin(pMem);
     }
     if(FieldBits::NoField != (FlagsFieldMask & whichField))
     {
@@ -636,8 +742,10 @@ FieldContainerTransitPtr SkinnedGeometryBase::shallowCopy(void) const
 SkinnedGeometryBase::SkinnedGeometryBase(void) :
     Inherited(),
     _sfSkeleton               (NULL),
-    _sfInfluencePropertyIndex (UInt16(Geometry::TexCoordsIndex)),
-    _sfWeightPropertyIndex    (UInt16(Geometry::TexCoords1Index)),
+    _sfBindShapeMatrix        (),
+    _mfJointIds               (),
+    _sfJointIndexProperty     (),
+    _sfJointWeightProperty    (),
     _sfFlags                  (UInt32(0)),
     _sfShaderCode             (NULL),
     _sfShaderData             (NULL)
@@ -647,8 +755,10 @@ SkinnedGeometryBase::SkinnedGeometryBase(void) :
 SkinnedGeometryBase::SkinnedGeometryBase(const SkinnedGeometryBase &source) :
     Inherited(source),
     _sfSkeleton               (NULL),
-    _sfInfluencePropertyIndex (source._sfInfluencePropertyIndex ),
-    _sfWeightPropertyIndex    (source._sfWeightPropertyIndex    ),
+    _sfBindShapeMatrix        (source._sfBindShapeMatrix        ),
+    _mfJointIds               (source._mfJointIds               ),
+    _sfJointIndexProperty     (source._sfJointIndexProperty     ),
+    _sfJointWeightProperty    (source._sfJointWeightProperty    ),
     _sfFlags                  (source._sfFlags                  ),
     _sfShaderCode             (NULL),
     _sfShaderData             (NULL)
@@ -706,52 +816,102 @@ EditFieldHandlePtr SkinnedGeometryBase::editHandleSkeleton       (void)
     return returnValue;
 }
 
-GetFieldHandlePtr SkinnedGeometryBase::getHandleInfluencePropertyIndex (void) const
+GetFieldHandlePtr SkinnedGeometryBase::getHandleBindShapeMatrix (void) const
 {
-    SFUInt16::GetHandlePtr returnValue(
-        new  SFUInt16::GetHandle(
-             &_sfInfluencePropertyIndex,
-             this->getType().getFieldDesc(InfluencePropertyIndexFieldId),
+    SFMatrix::GetHandlePtr returnValue(
+        new  SFMatrix::GetHandle(
+             &_sfBindShapeMatrix,
+             this->getType().getFieldDesc(BindShapeMatrixFieldId),
              const_cast<SkinnedGeometryBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr SkinnedGeometryBase::editHandleInfluencePropertyIndex(void)
+EditFieldHandlePtr SkinnedGeometryBase::editHandleBindShapeMatrix(void)
 {
-    SFUInt16::EditHandlePtr returnValue(
-        new  SFUInt16::EditHandle(
-             &_sfInfluencePropertyIndex,
-             this->getType().getFieldDesc(InfluencePropertyIndexFieldId),
+    SFMatrix::EditHandlePtr returnValue(
+        new  SFMatrix::EditHandle(
+             &_sfBindShapeMatrix,
+             this->getType().getFieldDesc(BindShapeMatrixFieldId),
              this));
 
 
-    editSField(InfluencePropertyIndexFieldMask);
+    editSField(BindShapeMatrixFieldMask);
 
     return returnValue;
 }
 
-GetFieldHandlePtr SkinnedGeometryBase::getHandleWeightPropertyIndex (void) const
+GetFieldHandlePtr SkinnedGeometryBase::getHandleJointIds        (void) const
 {
-    SFUInt16::GetHandlePtr returnValue(
-        new  SFUInt16::GetHandle(
-             &_sfWeightPropertyIndex,
-             this->getType().getFieldDesc(WeightPropertyIndexFieldId),
+    MFInt16::GetHandlePtr returnValue(
+        new  MFInt16::GetHandle(
+             &_mfJointIds,
+             this->getType().getFieldDesc(JointIdsFieldId),
              const_cast<SkinnedGeometryBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr SkinnedGeometryBase::editHandleWeightPropertyIndex(void)
+EditFieldHandlePtr SkinnedGeometryBase::editHandleJointIds       (void)
 {
-    SFUInt16::EditHandlePtr returnValue(
-        new  SFUInt16::EditHandle(
-             &_sfWeightPropertyIndex,
-             this->getType().getFieldDesc(WeightPropertyIndexFieldId),
+    MFInt16::EditHandlePtr returnValue(
+        new  MFInt16::EditHandle(
+             &_mfJointIds,
+             this->getType().getFieldDesc(JointIdsFieldId),
              this));
 
 
-    editSField(WeightPropertyIndexFieldMask);
+    editMField(JointIdsFieldMask, _mfJointIds);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SkinnedGeometryBase::getHandleJointIndexProperty (void) const
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfJointIndexProperty,
+             this->getType().getFieldDesc(JointIndexPropertyFieldId),
+             const_cast<SkinnedGeometryBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkinnedGeometryBase::editHandleJointIndexProperty(void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfJointIndexProperty,
+             this->getType().getFieldDesc(JointIndexPropertyFieldId),
+             this));
+
+
+    editSField(JointIndexPropertyFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr SkinnedGeometryBase::getHandleJointWeightProperty (void) const
+{
+    SFUInt16::GetHandlePtr returnValue(
+        new  SFUInt16::GetHandle(
+             &_sfJointWeightProperty,
+             this->getType().getFieldDesc(JointWeightPropertyFieldId),
+             const_cast<SkinnedGeometryBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr SkinnedGeometryBase::editHandleJointWeightProperty(void)
+{
+    SFUInt16::EditHandlePtr returnValue(
+        new  SFUInt16::EditHandle(
+             &_sfJointWeightProperty,
+             this->getType().getFieldDesc(JointWeightPropertyFieldId),
+             this));
+
+
+    editSField(JointWeightPropertyFieldMask);
 
     return returnValue;
 }
@@ -880,7 +1040,16 @@ void SkinnedGeometryBase::resolveLinks(void)
 
     static_cast<SkinnedGeometry *>(this)->setShaderData(NULL);
 
+#ifdef OSG_MT_CPTR_ASPECT
+    AspectOffsetStore oOffsets;
 
+    _pAspectStore->fillOffsetArray(oOffsets, this);
+#endif
+
+#ifdef OSG_MT_CPTR_ASPECT
+    _mfJointIds.terminateShare(Thread::getCurrentAspect(),
+                                      oOffsets);
+#endif
 }
 
 

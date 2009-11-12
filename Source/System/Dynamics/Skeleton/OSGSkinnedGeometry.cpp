@@ -63,7 +63,8 @@ OSG_BEGIN_NAMESPACE
 const std::string SkinnedGeometry::_vpVertexSkinning(
     "#version 120\n"
     "\n"
-    "uniform mat4 boneMatrices[40];\n"
+    "uniform mat4 matBindShape;\n"
+    "uniform mat4 matJoints[64];\n"
     ""
     "void calcSkin(inout vec4 pos,    inout vec3 norm,\n"
     "              in    vec4 matIdx, in    vec4 weight)\n"
@@ -76,11 +77,11 @@ const std::string SkinnedGeometry::_vpVertexSkinning(
     "\n"
     "    for(int i = 0; i < 4; ++i)\n"
     "    {\n"
-    "        int  index   = int(matIdx[i]);\n"
-    "        mat4 boneMat = boneMatrices[index];\n"
+    "        int  index = int(matIdx[i]);\n"
+    "        mat4 matJ  = matJoints[index] * matBindShape;\n"
     "\n"
-    "        tmpPos  += weight[i] * (boneMat * inPos);\n"
-    "        tmpNorm += weight[i] * (boneMat * inNorm);\n"
+    "        tmpPos  += weight[i] * (matJ * inPos);\n"
+    "        tmpNorm += weight[i] * (matJ * inNorm);\n"
     "    }\n"
     "\n"
     "    pos  = tmpPos      / sumW;\n"
@@ -173,9 +174,6 @@ SkinnedGeometry::renderEnter(Action *action)
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
 
-    _sfSkeleton.getValue()->renderEnter(ract);
-    _sfSkeleton.getValue()->renderLeave(ract);
-
     return res;
 }
 
@@ -193,7 +191,11 @@ SkinnedGeometry::renderLeave(Action *action)
     RenderAction    *ract =
         boost::polymorphic_downcast<RenderAction *>(action);
 
-    if(testFlag(SGFlagDebug) == true)
+    if(testFlag(SGFlagUnskinned) == true)
+    {
+        res = Inherited::renderActionEnterHandler(ract);
+    }
+    else if(testFlag(SGFlagDebug) == true)
     {
         res = renderDebug(ract);
     }
@@ -205,9 +207,6 @@ SkinnedGeometry::renderLeave(Action *action)
     {
         res = renderSoftware(ract);
     }
-
-    // XXX debug only
-//    _sfSkeleton.getValue()->renderLeave(ract);
 
     return res;
 }
@@ -326,12 +325,14 @@ SkinnedGeometry::renderHardware(RenderAction *ract)
         setShaderData(shData);
 
         shData->addUniformVariable(
-            "boneMatrices", *(skel->getMFJointMatrices()));
+            "matBindShape", _sfBindShapeMatrix.getValue());
+        shData->addUniformVariable(
+            "matJoints", *(skel->getMFJointMatrices()));
     }
     else
     {
         shData->updateUniformVariable(
-            "boneMatrices", *(skel->getMFJointMatrices()));
+            "matJoints", *(skel->getMFJointMatrices()));
     }
 
     ract->pushState();

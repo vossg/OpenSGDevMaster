@@ -94,14 +94,12 @@ void SkeletonJoint::initMethod(InitPhase ePhase)
 /*----------------------- constructors & destructors ----------------------*/
 
 SkeletonJoint::SkeletonJoint(void)
-    : Inherited             ()
-    , _identityInvBindMatrix(false)
+    : Inherited()
 {
 }
 
 SkeletonJoint::SkeletonJoint(const SkeletonJoint &source)
-    : Inherited             (source)
-    , _identityInvBindMatrix(false)
+    : Inherited(source)
 {
 }
 
@@ -115,18 +113,6 @@ void SkeletonJoint::changed(ConstFieldMaskArg whichField,
                             UInt32            origin,
                             BitVector         details)
 {
-    if((InvBindMatrixFieldMask & whichField) != 0)
-    {
-        if(getInvBindMatrix() == Matrix::identity())
-        {
-            _identityInvBindMatrix = true;
-        }
-        else
-        {
-            _identityInvBindMatrix = false;
-        }
-    }
-
     Inherited::changed(whichField, origin, details);
 }
 
@@ -164,11 +150,8 @@ SkeletonJoint::renderEnter(Action *action)
 
     Matrix jointMat(ract->topMatrix());
 
-    if(_identityInvBindMatrix      == false &&
-       skel->getUseInvBindMatrix() == true    )
-    {
+    if(skel->getUseInvBindMatrix() == true)
         jointMat.mult(_sfInvBindMatrix.getValue());
-    }
 
     (*jointMats)[jointId] = jointMat;
 

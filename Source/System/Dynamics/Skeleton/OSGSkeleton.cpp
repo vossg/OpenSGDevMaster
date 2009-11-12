@@ -117,54 +117,6 @@ void Skeleton::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
-/*! RenderAction enter callback.
-
-  \note This callback is not registered with the RenderAction, but instead
-   must be called by an object that uses this Skeleton (e.g. SkinnedGeometry).
- */
-Action::ResultE
-Skeleton::renderEnter(RenderAction *ract)
-{
-    // joints are relative to the skeletons coordinate system
-    // which is applied as part of OpenGL's model matrix.
-    // Therefore we need to cancel the current model matrix
-    // before visiting the joint hierarchies
-
-    Matrixr matModelInv;
-    matModelInv.invertFrom(ract->topMatrix());
-
-    // XXX TODO: we can not cull the skeleton, but the current state should
-    //           be pushed/poped
-    ract->setFrustumCulling(false      );
-    ract->pushMatrix       (matModelInv);
-    ract->useNodeList      (           );
-
-    MFRootsType::const_iterator rIt  = _mfRoots.begin();
-    MFRootsType::const_iterator rEnd = _mfRoots.end  ();
-
-    for(; rIt != rEnd; ++rIt)
-    {
-        ract->addNode(*rIt);
-    }
-
-    return Action::Continue;
-}
-
-/*! RenderAction leave callback.
-
-  \note This callback is not registered with the RenderAction, but instead
-   must be called by an object that uses this Skeleton (e.g. SkinnedGeometry).
- */
-Action::ResultE
-Skeleton::renderLeave(RenderAction *ract)
-{
-    ract->popMatrix        (    );
-    ract->setFrustumCulling(true);
-
-    return Action::Continue;
-}
-
-
 void Skeleton::dump(      UInt32    ,
                          const BitVector ) const
 {
@@ -209,9 +161,18 @@ Skeleton::findJointsEnter(JointStack *jointStack, Node *node)
 
     if(joint->getSkeleton() != NULL)
     {
-        SWARNING << "Skeleton::findJointsEnter: Found SkeletonJoint ["
-                 << joint << "][" << jointId << "] already owned by a "
-                 << "Skeleton. Ignoring joint." << std::endl;
+        if(joint->getSkeleton() != this)
+        {
+            SWARNING << "Skeleton::findJointsEnter: Found SkeletonJoint ["
+                     << joint << "][" << jointId << "] already owned by a "
+                     << "Skeleton. Ignoring joint." << std::endl;
+        }
+
+        // joint already owned by this skeleton - ok, the skeleton may be
+        // shared between multiple SkinnedGeometry and already scanned for
+        // joints
+        jointStack->push_back(joint);
+
         return Action::Continue;
     }
 
@@ -260,6 +221,9 @@ Skeleton::findJointsLeave(JointStack *jointStack, Node *node)
     SkeletonJoint *joint = dynamic_cast<SkeletonJoint *>(node->getCore());
 
     if(joint == NULL)
+        return Action::Continue;
+
+    if(joint->getJointId() == SkeletonJoint::INVALID_JOINT_ID)
         return Action::Continue;
 
     jointStack->pop_back();

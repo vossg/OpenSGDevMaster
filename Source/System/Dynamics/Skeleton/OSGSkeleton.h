@@ -74,14 +74,6 @@ class OSG_DYNAMICS_DLLMAPPING Skeleton : public SkeletonBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                      Render                                  */
-    /*! \{                                                                 */
-
-    Action::ResultE renderEnter(RenderAction *ract);
-    Action::ResultE renderLeave(RenderAction *ract);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 

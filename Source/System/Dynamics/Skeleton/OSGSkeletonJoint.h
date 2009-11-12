@@ -102,7 +102,6 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
   protected:
 
     // Variables should all be in SkeletonJointBase.
-    bool _identityInvBindMatrix;
 
     /*---------------------------------------------------------------------*/
     /*! \name                  Constructors                                */
