@@ -61,7 +61,7 @@ ColladaInstanceMaterial::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaInstanceMaterial::read(void)
+ColladaInstanceMaterial::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaInstanceMaterial::read\n"));
 
@@ -75,7 +75,7 @@ ColladaInstanceMaterial::read(void)
             ColladaElementFactory::the()->create(
                 getTargetDOMElem(), getGlobal()));
 
-        colMat->read();
+        colMat->read(this);
     }
 
     if(instMat->getSymbol() != NULL)
@@ -133,14 +133,6 @@ ColladaInstanceMaterial::read(void)
         _bindVertexStore[i].inSemantic = inSemantic;
         _bindVertexStore[i].inSet      = inSet;
     }
-}
-
-Material *
-ColladaInstanceMaterial::process(ColladaElement *parent)
-{
-    ColladaMaterialRefPtr colMat = getTargetElem();
-
-    return colMat->createInstance(this);
 }
 
 ColladaMaterial *

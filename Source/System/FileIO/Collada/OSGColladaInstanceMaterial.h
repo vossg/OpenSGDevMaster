@@ -110,8 +110,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void      read   (void                  );
-    virtual Material *process(ColladaElement *parent);
+    virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

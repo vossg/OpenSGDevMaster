@@ -84,7 +84,7 @@ class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void read(void) = 0;
+    virtual void read(ColladaElement *colElemParent) = 0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -116,6 +116,7 @@ class OSG_FILEIO_DLLMAPPING ColladaElement : public MemoryObject
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
+    UInt32              _readState;
     daeElementRef       _elem;
     ColladaGlobalRefPtr _global;
 };

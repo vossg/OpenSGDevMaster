@@ -83,7 +83,7 @@ ColladaEffect::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaEffect::read(void)
+ColladaEffect::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaEffect::read\n"));
 
@@ -119,7 +119,7 @@ ColladaEffect::read(void)
                 ColladaElementFactory::the()->create(
                     paramSurface, getGlobal()));
 
-            param.colSurface->read();
+            param.colSurface->read(this);
 
             _surfaceParams[newParams[i]->getSid()] = param;
             continue;
@@ -138,7 +138,7 @@ ColladaEffect::read(void)
                     paramSampler2D, getGlobal()));
 
             param.colSampler2D->setEffect(this);
-            param.colSampler2D->read     (    );
+            param.colSampler2D->read     (this);
 
             _sampler2DParams[newParams[i]->getSid()] = param;
             continue;
@@ -166,16 +166,17 @@ ColladaEffect::read(void)
 }
 
 Material *
-ColladaEffect::createInstance(ColladaInstanceElement *colInstElem)
+ColladaEffect::createInstance(
+    ColladaElement *colInstParent, ColladaInstanceElement *colInst)
 {
     OSG_COLLADA_LOG(("ColladaEffect::createInstance\n"));
 
     MaterialUnrecPtr            retVal        = NULL;
     domEffectRef                effect        = getDOMElementAs<domEffect>();
     ColladaInstanceEffectRefPtr colInstEffect =
-        dynamic_cast<ColladaInstanceEffect *>(colInstElem);
+        dynamic_cast<ColladaInstanceEffect *>(colInst);
     domInstance_effectRef       instEffect    =
-        colInstElem->getDOMElementAs<domInstance_effect>();
+        colInst->getDOMElementAs<domInstance_effect>();
 
     const domFx_profile_abstract_Array &profiles =
         effect->getFx_profile_abstract_array();
@@ -295,7 +296,7 @@ ColladaEffect::readProfileCommon(domProfile_COMMON *prof)
                 ColladaElementFactory::the()->create(
                     paramSurface, getGlobal()));
 
-            param.colSurface->read();
+            param.colSurface->read(this);
 
             _surfaceParams[newParams[i]->getSid()] = param;
             continue;
@@ -314,7 +315,7 @@ ColladaEffect::readProfileCommon(domProfile_COMMON *prof)
                     paramSampler2D, getGlobal()));
 
             param.colSampler2D->setEffect(this);
-            param.colSampler2D->read     (    );
+            param.colSampler2D->read     (this);
 
             _sampler2DParams[newParams[i]->getSid()] = param;
             continue;
@@ -997,7 +998,7 @@ ColladaEffect::readImageArray(const domImage_Array &images)
                 ColladaElementFactory::the()->create(
                     images[i], getGlobal()));
 
-            colImg->read();
+            colImg->read(this);
         }
     }
 }

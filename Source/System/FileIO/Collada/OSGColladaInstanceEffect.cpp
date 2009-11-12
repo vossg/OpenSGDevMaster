@@ -60,7 +60,7 @@ ColladaInstanceEffect::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaInstanceEffect::read(void)
+ColladaInstanceEffect::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaInstanceEffect::read\n"));
 
@@ -72,7 +72,7 @@ ColladaInstanceEffect::read(void)
             ColladaElementFactory::the()->create(
                 getTargetDOMElem(), getGlobal()));
 
-        colEffect->read();
+        colEffect->read(this);
     }
 
     domInstance_effectRef instEffect = getDOMElementAs<domInstance_effect>();
@@ -96,16 +96,6 @@ ColladaInstanceEffect::read(void)
                  << setParams.getCount() << "] <setparam> elements."
                  << std::endl;
     }
-}
-
-Material *
-ColladaInstanceEffect::process(ColladaElement *parent)
-{
-    OSG_COLLADA_LOG(("ColaldaInstanceEffect::process\n"));
-
-    ColladaEffectRefPtr colEffect = getTargetElem();
-
-    return colEffect->createInstance(this);
 }
 
 ColladaEffect *

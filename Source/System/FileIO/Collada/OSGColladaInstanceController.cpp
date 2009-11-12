@@ -65,7 +65,7 @@ ColladaInstanceController::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaInstanceController::read(void)
+ColladaInstanceController::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaInstanceController::read\n"));
 
@@ -77,32 +77,25 @@ ColladaInstanceController::read(void)
             ColladaElementFactory::the()->create(
                 getTargetDOMElem(), getGlobal()));
 
-        colCtrl->read();
+        colCtrl->read(this);
     }
 
     domInstance_controllerRef instCtrl =
         getDOMElementAs<domInstance_controller>();
     domBind_materialRef       bindMat  = instCtrl->getBind_material();
 
-    if(bindMat == NULL)
+    if(bindMat != NULL)
     {
+        Inherited::readBindMaterial(bindMat);
+    }
+    else
+    {
+
         SWARNING << "ColladaInstanceController::read: "
                  << "No <bind_material> found." << std::endl;
-        return;
     }
 
-    Inherited::readBindMaterial(bindMat);
     readSkeleton();
-}
-
-Node *
-ColladaInstanceController::process(ColladaElement *parent)
-{
-    OSG_COLLADA_LOG(("ColladaInstanceController::process\n"));
-
-    ColladaControllerRefPtr colCtrl = getTargetElem();
-
-    return colCtrl->createInstance(this);
 }
 
 const ColladaInstanceController::SkeletonRootStore &
@@ -118,14 +111,28 @@ ColladaInstanceController::findJointNode(const std::string &jointSid)
     SkeletonRootStoreConstIt  sIt    = _skelRoots.begin();
     SkeletonRootStoreConstIt  sEnd   = _skelRoots.end  ();
 
-    for(; sIt != sEnd; ++sIt)
+    for(UInt32 i = 0; sIt != sEnd; ++sIt, ++i)
     {
         daeSidRef jointRef(jointSid, *sIt);
 
         retVal = daeSafeCast<domNode>(jointRef.resolve().elt);
 
         if(retVal != NULL)
+        {
+            OSG_COLLADA_LOG(("ColladaInstanceController::findJointNode: "
+                             "Found joint [%s] relative to root [%d][%s]\n",
+                             jointSid.c_str(), i,
+                             ((*sIt)->getId() != NULL ? (*sIt)->getId() : "")));
+
             break;
+        }
+        else
+        {
+            OSG_COLLADA_LOG(("ColladaInstanceController::findJointNode: "
+                             "joint [%s] not found below root [%d][%s]\n",
+                             jointSid.c_str(), i,
+                             ((*sIt)->getId() != NULL ? (*sIt)->getId() : "")));
+        }
     }
 
     return retVal;

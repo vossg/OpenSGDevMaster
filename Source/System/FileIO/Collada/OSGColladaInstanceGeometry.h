@@ -89,8 +89,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void  read   (void                  );
-    virtual Node *process(ColladaElement *parent);
+    virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -167,6 +167,7 @@ ColladaGlobal::addElement(ColladaElement *elem)
 
 ColladaGlobal::ColladaGlobal(void)
     : Inherited   ()
+    , _instQueue  ()
     , _elemStore  ()
     , _options    ()
     , _statColl   (NULL)
@@ -210,7 +211,13 @@ ColladaGlobal::doRead(void)
         ColladaCOLLADARefPtr colCOL = dynamic_pointer_cast<ColladaCOLLADA>(
             ColladaElementFactory::the()->create(docRoot, this));
 
-        colCOL->read();
+        colCOL->read(NULL);
+
+        InstanceQueueIt iqIt  = _instQueue.begin();
+        InstanceQueueIt iqEnd = _instQueue.end  ();
+
+        for(; iqIt != iqEnd; ++iqIt)
+            (*iqIt)->process();
     }
     else
     {
@@ -221,6 +228,7 @@ ColladaGlobal::doRead(void)
     
     rootN = _rootN;
 
+    _instQueue.clear();
     _elemStore.clear();
 
 #ifndef OSG_COLLADA_SILENT

@@ -65,7 +65,7 @@ ColladaSource::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaSource::read(void)
+ColladaSource::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaSource::read\n"));
 

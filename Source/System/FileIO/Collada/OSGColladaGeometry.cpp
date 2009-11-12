@@ -78,12 +78,13 @@ ColladaGeometry::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaGeometry::read(void)
+ColladaGeometry::read(ColladaElement *colElemParent)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::read\n"));
+    domGeometryRef geometry = getDOMElementAs<domGeometry>();
+    domMeshRef     mesh     = geometry->getMesh();
 
-    domGeometryRef geo  = getDOMElementAs<domGeometry>();
-    domMeshRef     mesh = geo->getMesh();
+    OSG_COLLADA_LOG(("ColladaGeometry::read id [%s]\n",
+                     (geometry->getId() != NULL ? geometry->getId() : "")));
 
     if(mesh == NULL)
     {
@@ -95,15 +96,17 @@ ColladaGeometry::read(void)
 }
 
 Node *
-ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
+ColladaGeometry::createInstance(
+    ColladaElement *colInstParent, ColladaInstanceElement *colInst)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::createInstance\n"));
-
     typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
     typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
 
     domGeometryRef geometry = getDOMElementAs<domGeometry>();
     NodeUnrecPtr   groupN   = makeCoredNode<Group>();
+
+    OSG_COLLADA_LOG(("ColladaGeometry::createInstance id [%s]\n",
+                     (geometry->getId() != NULL ? geometry->getId() : "")));
 
     if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
        geometry->getName()                                   != NULL   )
@@ -112,7 +115,7 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
     }
 
     ColladaInstanceGeometryRefPtr  colInstGeo =
-        dynamic_cast<ColladaInstanceGeometry *>(colInstElem);
+        dynamic_cast<ColladaInstanceGeometry *>(colInst);
     const MaterialMap             &matMap     =
         colInstGeo->getMaterialMap();
 
@@ -260,7 +263,7 @@ ColladaGeometry::readSources(const domSource_Array &sources)
             colSource = dynamic_pointer_cast<ColladaSource>(
                 ColladaElementFactory::the()->create(sources[i], getGlobal()));
 
-            colSource->read();
+            colSource->read(this);
         }
 
         _sourceMap.insert(
@@ -1051,9 +1054,14 @@ ColladaGeometry::handleBindMaterial(
 
     if(mmIt != matMap.end())
     {
-        colInstMat    = mmIt      ->second;
-        material      = colInstMat->process          (NULL);
-        colInstEffect = colInstMat->getInstanceEffect(    );
+        colInstMat = mmIt->second;
+
+        OSG_ASSERT(colInstMat                  != NULL);
+        OSG_ASSERT(colInstMat->getTargetElem() != NULL);
+
+        material      =
+            colInstMat->getTargetElem()->createInstance(this, colInstMat);
+        colInstEffect = colInstMat->getInstanceEffect();
     }
     else
     {

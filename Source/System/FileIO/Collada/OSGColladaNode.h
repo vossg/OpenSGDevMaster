@@ -45,7 +45,9 @@
 
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
+#include "OSGColladaInstInfo.h"
 #include "OSGNode.h"
+#include "OSGSkeleton.h"
 
 // forward decl
 class domLookat;
@@ -64,6 +66,8 @@ OSG_BEGIN_NAMESPACE
 
 // forward decl
 class ColladaVisualScene;
+class ColladaInstanceGeometry;
+class ColladaInstanceController;
 
 /*! \ingroup GrpFileIOCollada
     \nohierarchy
@@ -95,16 +99,20 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void  read          (void                               );
-    virtual Node *createInstance(ColladaInstanceElement *colInstElem);
+    virtual void  read          (ColladaElement         *colElemParent );
+    virtual Node *createInstance(ColladaElement         *colInstParent,
+                                 ColladaInstanceElement *colInst       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    Node *getTopNode   (void) const;
-    Node *getBottomNode(void) const;
+    bool      isJoint      (void          ) const;
+    Skeleton *getSkeleton  (void          ) const;
+
+    Node     *getTopNode   (UInt32 instIdx) const;
+    Node     *getBottomNode(UInt32 instIdx) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -119,28 +127,140 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
+    class ColladaGeometryInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        /*-----------------------------------------------------------------*/
+        /*! \name Types                                                    */
+        /*! \{                                                             */
 
-    void handleLookAt   (domLookat    *lookat   );
-    void handleMatrix   (domMatrix    *matrix   );
-    void handleRotate   (domRotate    *rotate   );
-    void handleScale    (domScale     *scale    );
-    void handleSkew     (domSkew      *skew     );
-    void handleTranslate(domTranslate *translate);
+        typedef ColladaInstInfo          Inherited;
+        typedef ColladaGeometryInstInfo  Self;
 
-    void handleNode              (domNode                *node          );
-    void handleInstanceNode      (domInstance_node       *instNode      );
-    void handleInstanceGeometry  (domInstance_geometry   *instGeo       );
-    void handleInstanceController(domInstance_controller *instController);
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaGeometryInstInfo);
 
-    void appendXForm(Node *xformN);
-    void appendChild(Node *childN);       
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Class specific                                           */
+        /*! \{                                                             */
 
+        static  ColladaInstInfoTransitPtr
+            create(ColladaNode             *colInstParent,
+                   ColladaInstanceGeometry *colInst,
+                   Node                    *attachN       );
+
+        virtual void process(void);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaGeometryInstInfo(
+                     ColladaNode             *colInstParent,
+                     ColladaInstanceGeometry *colInst,
+                     Node                    *attachN       );
+        virtual ~ColladaGeometryInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+    };
+
+    class ColladaControllerInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        /*-----------------------------------------------------------------*/
+        /*! \name Types                                                    */
+        /*! \{                                                             */
+
+        typedef ColladaInstInfo            Inherited;
+        typedef ColladaControllerInstInfo  Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaControllerInstInfo);
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+        /*! \name Class specific                                           */
+        /*! \{                                                             */
+
+        static  ColladaInstInfoTransitPtr
+            create(ColladaNode               *colInstParent,
+                   ColladaInstanceController *colInst,
+                   Node                      *attachN       );
+
+        virtual void process(void);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaControllerInstInfo(
+                     ColladaNode               *colInstParent,
+                     ColladaInstanceController *colInst,
+                     Node                      *attachN       );
+        virtual ~ColladaControllerInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+    };
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    void readLookAt   (domLookat    *lookat   );
+    void readMatrix   (domMatrix    *matrix   );
+    void readRotate   (domRotate    *rotate   );
+    void readScale    (domScale     *scale    );
+    void readSkew     (domSkew      *skew     );
+    void readTranslate(domTranslate *translate);
+
+    void readNode                (domNode                *node     );
+    void addNode                 (domNode                *node,
+                                  Node                   *attachN  );
+
+    void readInstanceNode        (domInstance_node       *instNode );
+    void addInstanceNode         (domInstance_node       *instNode,
+                                  Node                   *attachN  );
+
+    void readInstanceGeometry    (domInstance_geometry   *instGeo  );
+    void addInstanceGeometry     (domInstance_geometry   *instGeo,
+                                  Node                   *attachN  );
+    void handleInstanceGeometry  (ColladaInstInfo        *instInfo );
+
+    void readInstanceController  (domInstance_controller *instCtrl );
+    void addInstanceController   (domInstance_controller *instCtrl,
+                                  Node                   *attachN  );
+    void handleInstanceController(ColladaInstInfo        *instInfo );
+
+    void appendXForm(Node         *nodeN                      );
+    void cloneXForms(NodeUnrecPtr &topN, NodeUnrecPtr &bottomN);
+
+    Node *createInstanceNode (ColladaElement         *colInstParent,
+                              ColladaInstanceElement *colInst,
+                              domNode                *node          );
+    Node *createInstanceJoint(ColladaElement         *colInstParent,
+                              ColladaInstanceElement *colInst,
+                              domNode                *node          );
 
     static ColladaElementRegistrationHelper _regHelper;
+    static Int16                            _jointId;
 
-    NodeUnrecPtr _topN;
-    NodeUnrecPtr _bottomN;
+    InstanceStore    _bottomInstStore;
+
+    NodeUnrecPtr     _xformTopN;
+    NodeUnrecPtr     _xformBottomN;
+
+    SkeletonUnrecPtr _skel;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaNode);

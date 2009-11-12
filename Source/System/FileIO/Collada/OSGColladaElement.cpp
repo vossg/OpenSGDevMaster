@@ -83,6 +83,11 @@ ColladaElement::~ColladaElement(void)
 {
 }
 
+void
+ColladaElement::read(ColladaElement *colElemParent)
+{
+}
+
 OSG_END_NAMESPACE
 
 #endif // OSG_WITH_COLLADA

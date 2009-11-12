@@ -24,6 +24,13 @@
 #include "OSGPolygonChunk.h"
 #include "OSGGeoFunctions.h"
 
+#include "OSGSkinnedGeometry.h"
+#include "OSGShaderProgram.h"
+#include "OSGShaderProgramChunk.h"
+
+typedef std::vector<OSG::NodeUnrecPtr    > NodeStore;
+typedef std::vector<OSG::MaterialUnrecPtr> MaterialStore;
+
 
 // The SimpleSceneManager to manage simple applications
 OSG::SimpleSceneManager           *mgr;
@@ -32,10 +39,60 @@ OSG::NodeUnrecPtr                  rootN;
 OSG::ChunkOverrideGroupUnrecPtr    root;
 OSG::PolygonChunkUnrecPtr          polyChunk;
 
-std::vector<OSG::NodeUnrecPtr>   normalsGeoN;
-std::vector<OSG::NodeUnrecPtr>   geoN;
-bool                             normalsActive = false;
-OSG::Real32                      normalsLen    = 1.f;
+NodeStore     normalsGeoN;
+NodeStore     geoN;
+NodeStore     skinnedGeoN;
+bool          normalsActive = false;
+OSG::Real32   normalsLen    = 1.f;
+
+
+OSG::ShaderProgramUnrecPtr      vpSkin;
+OSG::ShaderProgramUnrecPtr      fpSkin;
+OSG::ShaderProgramChunkUnrecPtr shSkin;
+OSG::ChunkMaterialUnrecPtr      matSkin;
+
+const std::string vpCode(
+    "#version 120"
+    "\n"
+    "// forward decl\n"
+    "void calcSkin(inout vec4 pos,    inout vec3 norm,\n"
+    "              in    vec4 matIdx, in    vec4 weight);\n"
+    "\n"
+    "varying vec4 position;\n"
+    "varying vec3 normal;\n"
+    "\n"
+    "void main(void)\n"
+    "{\n"
+    "    vec4 pos    = gl_Vertex;\n"
+    "    vec3 norm   = gl_Normal;\n"
+    "    vec4 matIdx = gl_MultiTexCoord1;\n"
+    "    vec4 weight = gl_MultiTexCoord2;\n"
+    "\n"
+    "    calcSkin(pos, norm, matIdx, weight);\n"
+    "\n"
+    "    gl_Position = gl_ModelViewProjectionMatrix * pos;\n"
+    "    position    = gl_Position;\n"
+    "    normal      = gl_NormalMatrix * norm;\n"
+    "}\n"
+    );
+
+const std::string fpCode(
+    "#version 120"
+    "\n"
+    "varying vec4 position;\n"
+    "varying vec3 normal;\n"
+    "\n"
+    "void main(void)\n"
+    "{\n"
+    "    vec3  pos      = position.xyz / position.w;\n"
+    "    vec3  norm     = normalize(normal);\n"
+    "    vec3  lightDir = normalize(vec3(1,1,1));\n"
+    "    float NdotL    = max(0, dot(norm, lightDir));\n"
+    "    vec3  diffCol  = vec3(0.4, 0.4, 0.6);\n"
+    "    diffCol *= NdotL;\n"
+    "    gl_FragColor = vec4(diffCol, 1.);\n"
+    "}\n"
+    );
 
 
 // forward declaration so we can have the interesting stuff upfront
@@ -44,7 +101,9 @@ int setupGLUT( int *argc, char *argv[] );
 void init     (int argc, char *argv[]);
 void cleanup  (void);
 void printHelp(void);
+void collectGeometry    (OSG::Node *node );
 void constructNormalsGeo(OSG::Node *rootN);
+
 
 // Initialize GLUT & OpenSG and set up the scene
 int main(int argc, char *argv[])
@@ -95,6 +154,23 @@ void init(int argc, char *argv[])
 
     OSG::commitChanges();
     
+    // collect geometries in the scene
+    collectGeometry(rootN);
+
+    // construct skin shader
+    vpSkin = OSG::ShaderProgram::createVertexShader  ();
+    vpSkin->setProgram(vpCode);
+
+    fpSkin = OSG::ShaderProgram::createFragmentShader();
+    fpSkin->setProgram(fpCode);
+
+    shSkin = OSG::ShaderProgramChunk::create();
+    shSkin->addShader(vpSkin);
+    shSkin->addShader(fpSkin);
+
+    matSkin = OSG::ChunkMaterial::create();
+    matSkin->addChunk(shSkin);
+
     // create the SimpleSceneManager helper
     mgr = new OSG::SimpleSceneManager;
     
@@ -116,8 +192,14 @@ void cleanup(void)
     root      = NULL;
     polyChunk = NULL;
 
+    vpSkin    = NULL;
+    fpSkin    = NULL;
+    shSkin    = NULL;
+    matSkin   = NULL;
+
     normalsGeoN.clear();
     geoN       .clear();
+    skinnedGeoN.clear();
 }
 
 void printHelp(void)
@@ -134,56 +216,77 @@ void printHelp(void)
               << "  m/M      de/increase normals length\n"
               << "  v        toggle bounding volumes\n"
               << "  p        print scene graph\n"
+              << "  d        toggle skinned geo draw mode\n"
               << std::flush;
 }
 
-OSG::Action::ResultE doConstructNormals(OSG::Node *node)
+OSG::Action::ResultE doCollectGeometry(OSG::Node *node)
 {
     if(node == NULL)
     {
-        std::cerr << "WARNING: doConstructNormals called with node == NULL"
+        std::cerr << "WARNING: collectGeometry called with node == NULL"
                   << std::endl;
         return OSG::Action::Continue;
     }
 
-    if(node->getCore() == NULL)
+    OSG::NodeCore *core = node->getCore();
+
+    if(core == NULL)
     {
-        std::cerr << "WARNING: doConstructNormals called with core == NULL"
+        std::cerr << "WARNING: collectGeometry called with core == NULL"
                   << std::endl;
         return OSG::Action::Continue;
     }
-    
-    if(node->getCore()->getType() == OSG::Geometry::getClassType())
+
+    if(core->getType().isDerivedFrom(OSG::Geometry::getClassType()))
     {
-        OSG::Geometry *geo = dynamic_cast<OSG::Geometry *>(node->getCore());
+        geoN.push_back(node);
+    }
 
-        OSG::NodeUnrecPtr normN = OSG::calcVertexNormalsGeo(geo, normalsLen);
-
-        normalsGeoN.push_back(normN);
-        geoN       .push_back(node );
+    if(core->getType().isDerivedFrom(OSG::SkinnedGeometry::getClassType()))
+    {
+        skinnedGeoN.push_back(node);
     }
 
     return OSG::Action::Continue;
 }
 
+void collectGeometry(OSG::Node *rootN)
+{
+    OSG::traverse(rootN, &doCollectGeometry);
+
+    std::cout << "collectGeometry: num geo [" << geoN.size()
+              << "] num skinned geo [" << skinnedGeoN.size()
+              << "]" << std::endl;
+}
+
+
 void constructNormalsGeo(OSG::Node *rootN)
 {
-    std::vector<OSG::NodeUnrecPtr>::const_iterator nIt  = normalsGeoN.begin();
-    std::vector<OSG::NodeUnrecPtr>::const_iterator nEnd = normalsGeoN.end  ();
+    NodeStore::const_iterator nIt  = normalsGeoN.begin();
+    NodeStore::const_iterator nEnd = normalsGeoN.end  ();
 
+    // remove existing normals
     for(; nIt != nEnd; ++nIt)
         (*nIt)->getParent()->subChild(*nIt);
 
     normalsGeoN.clear();
-    geoN       .clear();
 
-    OSG::traverse(rootN, &doConstructNormals);
+    // construct and add new normals
+    nIt  = geoN.begin();
+    nEnd = geoN.end  ();
 
-    nIt  = normalsGeoN.begin();
-    nEnd = normalsGeoN.end  ();
+    for(; nIt != nEnd; ++nIt)
+    {
+        OSG::Geometry     *geo      =
+            dynamic_cast<OSG::Geometry *>((*nIt)->getCore());
+        OSG::NodeUnrecPtr  normGeoN =
+            OSG::calcVertexNormalsGeo(geo, normalsLen);
 
-    for(OSG::UInt32 i = 0; nIt != nEnd; ++nIt, ++i)
-        geoN[i]->addChild(*nIt);
+        normalsGeoN.push_back(normGeoN);
+
+        (*nIt)->addChild(normGeoN);
+    }
 }
 
 //
@@ -193,9 +296,23 @@ void constructNormalsGeo(OSG::Node *rootN)
 // redraw the window
 void display(void)
 {
+    OSG::commitChanges();
+
     mgr->idle();
     mgr->redraw();
     OSG::Thread::getCurrentChangeList()->clear();
+
+    mgr->getWindow()->registerConstant(GL_MAX_VERTEX_UNIFORM_COMPONENTS  );
+    mgr->getWindow()->registerConstant(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
+
+    OSG::Real32 maxVPUniforms =
+        mgr->getWindow()->getConstantValue(GL_MAX_VERTEX_UNIFORM_COMPONENTS);
+    OSG::Real32 maxFPUniforms =
+        mgr->getWindow()->getConstantValue(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
+
+    std::cout << "GL_MAX_VERTEX_UNIFORM_COMPONENTS [" << maxVPUniforms
+              << "] GL_MAX_FRAGMENT_UNIFORM_COMPONENTS [" << maxFPUniforms
+              << "]" << std::endl;
 }
 
 // react to size changes
@@ -314,10 +431,8 @@ void keyboard(unsigned char k, int , int )
         {
             normalsActive = false;
 
-            std::vector<OSG::NodeUnrecPtr>::const_iterator ngIt  =
-                normalsGeoN.begin();
-            std::vector<OSG::NodeUnrecPtr>::const_iterator ngEnd =
-                normalsGeoN.end  ();
+            NodeStore::const_iterator ngIt  = normalsGeoN.begin();
+            NodeStore::const_iterator ngEnd = normalsGeoN.end  ();
 
             for(; ngIt != ngEnd; ++ngIt)
             {
@@ -333,10 +448,8 @@ void keyboard(unsigned char k, int , int )
             if(normalsGeoN.empty() == true)
                 constructNormalsGeo(sceneN);
 
-            std::vector<OSG::NodeUnrecPtr>::const_iterator ngIt  =
-                normalsGeoN.begin();
-            std::vector<OSG::NodeUnrecPtr>::const_iterator ngEnd =
-                normalsGeoN.end  ();
+            NodeStore::const_iterator ngIt  = normalsGeoN.begin();
+            NodeStore::const_iterator ngEnd = normalsGeoN.end  ();
 
             for(; ngIt != ngEnd; ++ngIt)
             {
@@ -376,6 +489,85 @@ void keyboard(unsigned char k, int , int )
         sgp.printDownTree(std::cout);
     }
     break;
+    case 'd':
+    {
+        NodeStore::const_iterator nIt  = skinnedGeoN.begin();
+        NodeStore::const_iterator nEnd = skinnedGeoN.end  ();
+
+        for(; nIt != nEnd; ++nIt)
+        {
+            OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
+                (*nIt)->getCore());
+
+            if(sgeo->testFlag(OSG::SkinnedGeometry::SGFlagHardware))
+            {
+                std::cout << "Enabling SkinnedGeo DEBUG mode ["
+                          << sgeo << "]" << std::endl;
+
+                sgeo->subFlag(OSG::SkinnedGeometry::SGFlagHardware);
+                sgeo->addFlag(OSG::SkinnedGeometry::SGFlagDebug   );
+            }
+            else if(sgeo->testFlag(OSG::SkinnedGeometry::SGFlagDebug))
+            {
+               std::cout << "Enabling SkinnedGeo UNSKINNED mode ["
+                         << sgeo << "]" << std::endl;
+
+               sgeo->subFlag(OSG::SkinnedGeometry::SGFlagDebug    );
+               sgeo->addFlag(OSG::SkinnedGeometry::SGFlagUnskinned);
+            }
+            else
+            {
+                std::cout << "Enabling SkinnedGeo HARDWARE mode ["
+                          << sgeo << "]" << std::endl;
+
+                sgeo->subFlag(OSG::SkinnedGeometry::SGFlagUnskinned);
+                sgeo->addFlag(OSG::SkinnedGeometry::SGFlagHardware );
+
+                sgeo->setMaterial(matSkin);
+            }
+        }
+    }
+    break;
+    case 'c':
+    {
+        mgr->getRenderAction()->setFrustumCulling(
+            !mgr->getRenderAction()->getFrustumCulling());
+
+        std::cout << "Frustum culling: "
+                  << (mgr->getRenderAction()->getFrustumCulling() ? "enabled" : "disabled")
+                  << std::endl;
+    }
+    break;
+    case 's':
+    {
+        NodeStore::const_iterator nIt  = skinnedGeoN.begin();
+        NodeStore::const_iterator nEnd = skinnedGeoN.end  ();
+
+        for(OSG::UInt32 i = 0; nIt != nEnd; ++nIt, ++i)
+        {
+           OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
+                (*nIt)->getCore());
+
+           OSG::Skeleton        *skel = sgeo->getSkeleton();
+
+           OSG::Skeleton::MFRootsType::const_iterator rIt  =
+               skel->getMFRoots()->begin();
+           OSG::Skeleton::MFRootsType::const_iterator rEnd =
+               skel->getMFRoots()->end  ();
+
+           for(OSG::UInt32 j = 0; rIt != rEnd; ++rIt, ++j)
+           {
+               std::cout << "Skeleton [" << i << "] @ [" << skel
+                         << "] root [" << j << "]\n";
+
+               OSG::SceneGraphPrinter sgp(*rIt);
+               sgp.printDownTree(std::cout);
+
+               std::cout << std::endl;
+           }
+        }
+    }
+    break;
 
     default:
     {
@@ -383,6 +575,8 @@ void keyboard(unsigned char k, int , int )
     }
     break;
     }
+
+    glutPostRedisplay();
 }
 
 // setup the GLUT library which handles the windows for us
@@ -395,7 +589,7 @@ int setupGLUT(int *argc, char *argv[])
     
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
-    glutIdleFunc(display);
+    //    glutIdleFunc(display);
     glutMouseFunc(mouse);
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);

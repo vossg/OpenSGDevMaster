@@ -36,93 +36,24 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
-#include "OSGColladaImage.h"
-
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
-
-#include "OSGColladaLog.h"
-#include "OSGImageFileHandler.h"
-
-#include <dom/domImage.h>
-
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaImage::_regHelper(
-    &ColladaImage::create, "image");
-
-ColladaElementTransitPtr
-ColladaImage::create(daeElement *elem, ColladaGlobal *global)
+inline ColladaElement *
+ColladaInstInfo::getColInstParent(void) const
 {
-    return ColladaElementTransitPtr(new ColladaImage(elem, global));
+    return _colInstParent;
 }
 
-void
-ColladaImage::read(ColladaElement *colElemParent)
+inline ColladaInstanceElement *
+ColladaInstInfo::getColInst(void) const
 {
-    OSG_COLLADA_LOG(("ColladaImage::read\n"));
-
-    domImageRef image = getDOMElementAs<domImage>();
-
-    domImage::domInit_fromRef initFrom = image->getInit_from();
-
-    if(initFrom != NULL)
-    {
-        daeURI      imageURI  = initFrom->getValue();
-        std::string imagePath = cdom::uriToNativePath(imageURI.str());
-        
-        OSG_COLLADA_LOG(("ColladaImage::read: URI [%s] path [%s]\n",
-                         imageURI.getURI(), imagePath.c_str()));
-
-#ifdef WIN32
-        if(imagePath.size() >  3   &&
-           imagePath[0]     == '/' &&
-           imagePath[2]     == ':'   )
-        {
-            _image =
-                ImageFileHandler::the()->read(imagePath.substr(1).c_str());
-        }
-        else
-        {
-            _image = ImageFileHandler::the()->read(imagePath.c_str());
-        }
-#else
-        _image = ImageFileHandler::the()->read(imagePath.c_str());
-#endif
-
-        if(_image == NULL)
-        {
-            SWARNING << "ColladaImage::read: Loading of image ["
-                     << imagePath << "] failed." << std::endl;
-        }
-    }
-    else
-    {
-        SWARNING << "ColladaImage::read: No <init_from> tag found."
-                 << std::endl;
-    }
+    return _colInst;
 }
 
-Image *
-ColladaImage::getImage(void) const
+inline Node *
+ColladaInstInfo::getAttachNode(void) const
 {
-    return _image;
-}
-
-ColladaImage::ColladaImage(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
-    , _image   (NULL)
-{
-}
-
-ColladaImage::~ColladaImage(void)
-{
+    return _attachN;
 }
 
 OSG_END_NAMESPACE
-
-#endif // OSG_WITH_COLLADA
- 

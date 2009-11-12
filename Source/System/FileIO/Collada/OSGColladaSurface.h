@@ -83,7 +83,7 @@ class OSG_FILEIO_DLLMAPPING ColladaSurface : public ColladaElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void read(void);
+    virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

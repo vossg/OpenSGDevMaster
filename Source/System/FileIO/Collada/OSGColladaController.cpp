@@ -48,20 +48,18 @@
 #include "OSGColladaGlobal.h"
 #include "OSGColladaInstanceController.h"
 #include "OSGColladaSource.h"
+#include "OSGColladaNode.h"
 #include "OSGGroup.h"
 #include "OSGTransform.h"
 #include "OSGSkinnedGeometry.h"
 #include "OSGSkeletonJoint.h"
 #include "OSGNameAttachment.h"
+#include "OSGFieldContainerUtils.h"
 
 #include <dom/domController.h>
 #include <dom/domGeometry.h>
-#include <dom/domLookat.h>
-#include <dom/domMatrix.h>
-#include <dom/domRotate.h>
-#include <dom/domScale.h>
-#include <dom/domSkew.h>
-#include <dom/domTranslate.h>
+
+#include <set>
 
 OSG_BEGIN_NAMESPACE
 
@@ -76,7 +74,7 @@ ColladaController::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaController::read(void)
+ColladaController::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaController::read\n"));
 
@@ -93,7 +91,8 @@ ColladaController::read(void)
 }
 
 Node *
-ColladaController::createInstance(ColladaInstanceElement *colInstElem)
+ColladaController::createInstance(
+    ColladaElement *colInstParent, ColladaInstanceElement *colInst)
 {
     OSG_COLLADA_LOG(("ColladaController::createInstance\n"));
 
@@ -103,28 +102,23 @@ ColladaController::createInstance(ColladaInstanceElement *colInstElem)
     domControllerRef                ctrl        =
         getDOMElementAs<domController>();
     domSkinRef                      skin        = ctrl->getSkin();
-    TransformUnrecPtr               xform       = Transform::create();
-    NodeUnrecPtr                    xformN      = makeNodeFor(xform);
+    NodeUnrecPtr                    groupN      = makeCoredNode<Group>();
     ColladaInstanceControllerRefPtr colInstCtrl =
-        dynamic_cast<ColladaInstanceController *>(colInstElem);
+        dynamic_cast<ColladaInstanceController *>(colInst);
 
     if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
        ctrl->getName()                                       != NULL   )
     {
-        setName(xformN, ctrl->getName());
+        setName(groupN, ctrl->getName());
     }
-
-    // set bind shape matrix 
-    xform->setMatrix(_matBindShape);
 
     // create Skeleton
 
     // find all joints and store them in jointStore
     JointInfoStore jointStore;
-    resolveJoints(skin, colInstCtrl, jointStore);
-
-    // construct hierarchy of joints
-    SkeletonUnrecPtr skel = buildSkeleton(jointStore);
+    JointIdMap     jointIdMap;
+    resolveJoints(skin, colInstCtrl, jointStore, jointIdMap);
+    remapJointIds(skin, colInstCtrl, jointStore, jointIdMap);
 
     // create SkinnedGeometry
 
@@ -152,8 +146,9 @@ ColladaController::createInstance(ColladaInstanceElement *colInstElem)
 
         // create new geometry
         SkinnedGeometryUnrecPtr geo = SkinnedGeometry::create();
-        geo->setSkeleton(skel);
-        geo->addFlag(SkinnedGeometry::SGFlagHardware);
+        geo->setSkeleton       (_skeleton                      );
+        geo->setBindShapeMatrix(_matBindShape                  );
+        geo->addFlag           (SkinnedGeometry::SGFlagHardware);
 
         getGlobal()->getStatCollector()->getElem(
             ColladaGlobal::statNGeometryCreated)->inc();
@@ -165,17 +160,18 @@ ColladaController::createInstance(ColladaInstanceElement *colInstElem)
 
         NodeUnrecPtr geoN = makeNodeFor(geo);
 
-        xformN->addChild(geoN);
+        groupN->addChild(geoN);
     }
 
     // store the generated group node
-    editInstStore().push_back(xformN);
+    editInstStore().push_back(groupN);
 
-    return xformN;
+    return groupN;
 }
 
 ColladaController::ColladaController(daeElement *elem, ColladaGlobal *global)
     : Inherited    (elem, global)
+    , _skeleton    (NULL)
     , _matBindShape()
 {
 }
@@ -209,23 +205,7 @@ ColladaController::readSkin(domSkin *skin)
 
     Inherited::readMesh(mesh);
 
-    domSkin::domBind_shape_matrixRef bsMat = skin->getBind_shape_matrix();
-
-    if(bsMat != NULL)
-    {
-        _matBindShape.setValue(bsMat->getValue()[ 0], bsMat->getValue()[ 1],
-                               bsMat->getValue()[ 2], bsMat->getValue()[ 3],
-                               bsMat->getValue()[ 4], bsMat->getValue()[ 5],
-                               bsMat->getValue()[ 6], bsMat->getValue()[ 7],
-                               bsMat->getValue()[ 8], bsMat->getValue()[ 9],
-                               bsMat->getValue()[10], bsMat->getValue()[11],
-                               bsMat->getValue()[12], bsMat->getValue()[13],
-                               bsMat->getValue()[14], bsMat->getValue()[15] );
-    }
-    else
-    {
-        _matBindShape.setIdentity();
-    }
+    readBindShapeMatrix(skin);
 
     Inherited::readSources(skin->getSource_array());
 
@@ -306,10 +286,12 @@ ColladaController::readSkin(domSkin *skin)
                 vIdx += 2;
             }
 
+#if 0
             OSG_COLLADA_LOG(("ColladaController::readSkin: vert [%d] "
                              "jIndex [%f %f %f %f] jWeight [%f %f %f %f]\n",
                              i, jIndex[0], jIndex[1], jIndex[2], jIndex[3],
                              jWeight[0], jWeight[1], jWeight[2], jWeight[3]));
+#endif
 
             jIndexPropF ->push_back(jIndex );
             jWeightPropF->push_back(jWeight);
@@ -365,10 +347,105 @@ ColladaController::readSkin(domSkin *skin)
 }
 
 void
-ColladaController::resolveJoints(
-    domSkin        *skin, ColladaInstanceController *colInstCtrl,
-    JointInfoStore &jointStore)
+ColladaController::readBindShapeMatrix(domSkin *skin)
 {
+    domSkin::domBind_shape_matrixRef bsMat = skin->getBind_shape_matrix();
+
+    if(bsMat != NULL)
+    {
+        _matBindShape.setValue(bsMat->getValue()[ 0], bsMat->getValue()[ 1],
+                               bsMat->getValue()[ 2], bsMat->getValue()[ 3],
+                               bsMat->getValue()[ 4], bsMat->getValue()[ 5],
+                               bsMat->getValue()[ 6], bsMat->getValue()[ 7],
+                               bsMat->getValue()[ 8], bsMat->getValue()[ 9],
+                               bsMat->getValue()[10], bsMat->getValue()[11],
+                               bsMat->getValue()[12], bsMat->getValue()[13],
+                               bsMat->getValue()[14], bsMat->getValue()[15] );
+    }
+    else
+    {
+        _matBindShape.setIdentity();
+    } 
+
+    if(_matBindShape.equals(Matrix::identity(), Eps) == true)
+        return;
+
+#if 0
+    // transform the properties by the bind shape matrix
+
+    Matrix matBindShapeIT(_matBindShape);
+    matBindShapeIT.invert   ();
+    matBindShapeIT.transpose();
+
+    typedef std::set<GeoVectorProperty *> PropertySet;
+    PropertySet xformedProps;
+
+    GeoStore::iterator gsIt  = _geoStore.begin();
+    GeoStore::iterator gsEnd = _geoStore.end  ();
+
+    for(; gsIt != gsEnd; ++gsIt)
+    {
+        PropStoreIt psIt  = gsIt->_propStore.begin();
+        PropStoreIt psEnd = gsIt->_propStore.end  ();
+
+        for(; psIt != psEnd; ++psIt)
+        {
+            if(psIt->_prop == NULL)
+                continue;
+
+            // only transform once
+            if(xformedProps.count(psIt->_prop) > 0)
+                continue;
+
+            if(psIt->_semantic == "POSITION")
+            {
+                for(UInt32 i = 0; i < psIt->_prop->size(); ++i)
+                {
+                    Pnt4f pnt;
+
+                    psIt->_prop->getValue(pnt, i);
+                    _matBindShape.mult(pnt, pnt);
+                    psIt->_prop->setValue(pnt, i);
+                }
+
+                OSG_COLLADA_LOG(("ColladaController::readBindShapeMatrix: "
+                                 "Transformed property with semantic [%s]\n",
+                                 psIt->_semantic.c_str()));
+            }
+            else if(psIt->_semantic == "NORMAL")
+            {
+                for(UInt32 i = 0; i < psIt->_prop->size(); ++i)
+                {
+                    Vec4f vec;
+
+                    psIt->_prop->getValue(vec, i);
+                    matBindShapeIT.mult(vec, vec);
+                    psIt->_prop->setValue(vec, i);
+                }
+
+                OSG_COLLADA_LOG(("ColladaController::readBindShapeMatrix: "
+                                 "Transformed property with semantic [%s]\n",
+                                 psIt->_semantic.c_str()));
+            }
+            else
+            {
+                OSG_COLLADA_LOG(("ColladaController::readBindShapeMatrix: "
+                                 "Skipped property with semantic [%s]\n",
+                                 psIt->_semantic.c_str()));
+            }
+
+            xformedProps.insert(psIt->_prop);
+        }
+    }
+#endif
+}
+
+void
+ColladaController::resolveJoints(
+    domSkin        *skin,       ColladaInstanceController *colInstCtrl,
+    JointInfoStore &jointStore, JointIdMap                &jointIdMap  )
+{
+    domControllerRef      ctrl   = getDOMElementAs<domController>();
     domSkin::domJointsRef joints = skin->getJoints();
 
     // find <input>s with handled semantics (JOINT and INV_BIND_MATRIX)
@@ -411,6 +488,8 @@ ColladaController::resolveJoints(
         }
     }
 
+    _skeleton = NULL;
+
     // resolve joint names to <node>s and fill jointStore
 
     if(jointSrc != NULL && ibmSrc != NULL)
@@ -424,8 +503,7 @@ ColladaController::resolveJoints(
 
         for(UInt32 i = 0; i < jointNames.size(); ++i)
         {
-            jointStore.push_back(JointInfo());
-
+            JointInfo jointInfo;
             // joint names are relative to the <skeleton> tags in the
             // <instance_controller> element
 
@@ -435,7 +513,9 @@ ColladaController::resolveJoints(
             {
                 SWARNING << "ColladaController::resolveJoints: Could not "
                          << "find <node> for joint name ["
-                         << jointNames[i] << "]. Ignored." << std::endl;
+                         << jointNames[i] << "] - <controller> ["
+                         << (ctrl->getId() != NULL ? ctrl->getId() : "")
+                         << "]. Ignored." << std::endl;
                 continue;
             }
 
@@ -447,19 +527,62 @@ ColladaController::resolveJoints(
                 continue;
             }
 
-            jointStore.back().jointNode   = jointNode;
+            ColladaNode *colJointNode = getUserDataAs<ColladaNode>(jointNode);
+            OSG_ASSERT(colJointNode != NULL);
 
-            SkeletonJointRefPtr skelJoint = SkeletonJoint::create();
-            skelJoint->setJointId       (i);
-            skelJoint->editInvBindMatrix( ).setValue   (invBindMats[i]);
-            skelJoint->editMatrix       ( ).setIdentity(              );
+            // store skeleton and ensure all joints belong to the same one
+            if(_skeleton != NULL)
+            {
+                if(_skeleton != colJointNode->getSkeleton())
+                {
+                    SWARNING << "ColladaController::resolveJoints: joint ["
+                             << i << "] name [" << jointNames[i]
+                             << "] belongs to differente skeleton. Ignoring."
+                             << std::endl;
+                    continue;
+                }
+            }
+            else
+            {
+                _skeleton = colJointNode->getSkeleton();
+            }
 
-            jointStore.back().invBindMatrix = invBindMats[i];
-            jointStore.back().bottomN       = makeNodeFor(skelJoint);
-            jointStore.back().topN          = jointStore.back().bottomN;
+            if(colJointNode->getInstStore().size() > 1)
+            {
+                SWARNING << "ColladaController::resolveJoints: joint ["
+                         << i << "] name [" << jointNames[i]
+                         << "] has multiple instances. Using instance 0."
+                         << std::endl;
+            }
+
+            SkeletonJoint *joint = dynamic_cast<SkeletonJoint *>(
+                colJointNode->getBottomNode(0)->getCore());
+
+            if(joint->getInvBindMatrix().equals(Matrix::identity(), Eps) == true)
+            {
+                joint->setInvBindMatrix(invBindMats[i]);
+            }
+            else if(joint->getInvBindMatrix().equals(invBindMats[i], Eps) == false)
+            {
+                SWARNING << "ColladaController::resolveJoints: joint ["
+                         << i << "] name [" << jointNames[i]
+                         << "] already has a different inv bind matrix."
+                         << std::endl;
+            }
+
+            jointInfo.jointNode     = jointNode;
+            jointInfo.colJointNode  = colJointNode;
+            jointInfo.jointId       = joint->getJointId();
+            jointInfo.invBindMatrix = invBindMats[i];
+
+            jointStore.push_back(jointInfo);
+
+            // remember joint id mapping
+            jointIdMap.push_back(joint->getJointId());
 
             OSG_COLLADA_LOG(("ColladaController::resolveJoints: Resolved "
-                             "joint name [%s]\n", jointNames[i].c_str()));
+                             "joint [%d] name [%s] jointId [%d]\n",
+                             i, jointNames[i].c_str(), joint->getJointId() ));
         }
     }
     else
@@ -470,219 +593,56 @@ ColladaController::resolveJoints(
     }
 }
 
-SkeletonTransitPtr
-ColladaController::buildSkeleton(JointInfoStore &jointStore)
+void
+ColladaController::remapJointIds(
+    domSkin                   *skin, 
+    ColladaInstanceController *colInstCtrl,
+    const JointInfoStore      &jointStore,
+    const JointIdMap          &jointIdMap  )
 {
-    SkeletonUnrecPtr skel = Skeleton::create();
+    typedef std::set<GeoVectorProperty *> PropertySet;
+    PropertySet mappedProps;
 
-    JointInfoStoreIt jIt  = jointStore.begin();
-    JointInfoStoreIt jEnd = jointStore.end  ();
+    GeoStore::iterator gsIt  = _geoStore.begin();
+    GeoStore::iterator gsEnd = _geoStore.end  ();
 
-    for(UInt32 i = 0; jIt != jEnd; ++jIt, ++i)
+    for(; gsIt != gsEnd; ++gsIt)
     {
-        // this can never happen - there is at least the <COLLADA> tag around
-        // everything ?? -- cneumann
-        if(jIt->jointNode->getParentElement() == NULL)
-            continue;
+        PropStoreIt psIt  = gsIt->_propStore.begin();
+        PropStoreIt psEnd = gsIt->_propStore.end  ();
 
-        // evaluate transform elements, building a chain of OpenSG Nodes
-        buildTransforms(*jIt);
-
-        // find the nearest parent domNode to construct the hierarchy
-        domNode *jointNode  = jIt->jointNode;
-        domNode *parentNode = NULL;
-
-        do
+        for(; psIt != psEnd; ++psIt)
         {
-            parentNode = daeSafeCast<domNode>(jointNode->getParentElement());
+            if(psIt->_prop == NULL)
+                continue;
 
-            if(parentNode != NULL)
+            if(mappedProps.count(psIt->_prop) > 0)
+                continue;
+
+            if(psIt->_semantic != "JOINT_INDEX")
+                continue;
+
+            GeoVec4fPropertyUnrecPtr jIndexProp =
+                dynamic_pointer_cast<GeoVec4fProperty>(psIt->_prop);
+
+            GeoVec4fProperty::StoredFieldType *jIndexPropF =
+                jIndexProp->editFieldPtr();
+
+            for(UInt32 i = 0; i < jIndexPropF->size(); ++i)
             {
-                Int32 parentIdx = findJoint(jointStore, parentNode);
+                Vec4f jIdx = (*jIndexPropF)[i];
+                
+                jIdx[0] = jointIdMap[UInt32(jIdx[0])];
+                jIdx[1] = jointIdMap[UInt32(jIdx[1])];
+                jIdx[2] = jointIdMap[UInt32(jIdx[2])];
+                jIdx[3] = jointIdMap[UInt32(jIdx[3])];
 
-                if(parentIdx != -1)
-                {
-                    OSG_COLLADA_LOG(("ColladaController::buildSkeleton: "
-                                     "adding joint [%s][%d] as child of [%s][%d]\n",
-                                     jIt->jointNode->getSid(), i,
-                                     jointStore[parentIdx].jointNode->getSid(),
-                                     parentIdx));
-
-                    jointStore[parentIdx].bottomN->addChild(jIt->topN);
-                    break;
-                }
-            }
-            else
-            {
-                // no parent <node> found, make this a root joint
-                OSG_COLLADA_LOG(("ColladaController::buildSkeleton: "
-                                 "joint [%s][%d] is a root joint.\n",
-                                 jIt->jointNode->getSid(), i));
-
-                skel->editMFRoots()->push_back(jIt->topN);
-                break;
+                (*jIndexPropF)[i] = jIdx;
             }
 
-            jointNode = parentNode;
-        }
-        while(true);
-    }
-
-    return SkeletonTransitPtr(skel);
-}
-
-void
-ColladaController::buildTransforms(JointInfo &jointInfo)
-{
-    // build the transform elements bottom up (starting at the joint itself)
-
-    const daeElementRefArray &contents = jointInfo.jointNode->getContents();
-
-    for(Int32 i = contents.getCount() - 1; i >= 0; --i)
-    {
-        switch(contents[i]->getElementType())
-        {
-        case COLLADA_TYPE::LOOKAT:
-            buildLookAt(daeSafeCast<domLookat>(contents[i]), jointInfo);
-            break;
-
-        case COLLADA_TYPE::MATRIX:
-            buildMatrix(daeSafeCast<domMatrix>(contents[i]), jointInfo);
-            break;
-
-        case COLLADA_TYPE::ROTATE:
-            buildRotate(daeSafeCast<domRotate>(contents[i]), jointInfo);
-            break;
-
-        case COLLADA_TYPE::SCALE:
-            buildScale(daeSafeCast<domScale>(contents[i]), jointInfo);
-            break;
-
-        case COLLADA_TYPE::SKEW:
-            buildSkew(daeSafeCast<domSkew>(contents[i]), jointInfo);
-            break;
-
-        case COLLADA_TYPE::TRANSLATE:
-            buildTranslate(daeSafeCast<domTranslate>(contents[i]), jointInfo);
-            break;
+            mappedProps.insert(jIndexProp);
         }
     }
-}
-
-void
-ColladaController::buildLookAt(domLookat *lookAt, JointInfo &jointInfo)
-{
-    if(lookAt == NULL)
-        return;
-
-    SWARNING << "ColladaController::buildLookAt: NIY" << std::endl;
-}
-
-void
-ColladaController::buildMatrix(domMatrix *matrix, JointInfo &jointInfo)
-{
-    if(matrix == NULL)
-        return;
-
-    TransformUnrecPtr xform  = Transform::create();
-    NodeUnrecPtr      xformN = makeNodeFor(xform);
-
-    Matrix m(matrix->getValue()[0],      // rVal00
-             matrix->getValue()[1],      // rVal10
-             matrix->getValue()[2],      // rVal20
-             matrix->getValue()[3],      // rVal30
-             matrix->getValue()[4],      // rVal01
-             matrix->getValue()[5],      // rVal11
-             matrix->getValue()[6],      // rVal21
-             matrix->getValue()[7],      // rVal31
-             matrix->getValue()[8],      // rVal02
-             matrix->getValue()[9],      // rVal12
-             matrix->getValue()[10],     // rVal22
-             matrix->getValue()[11],     // rVal32
-             matrix->getValue()[12],     // rVal03
-             matrix->getValue()[13],     // rVal13
-             matrix->getValue()[14],     // rVal23
-             matrix->getValue()[15] );   // rVal33
-
-    xform->setMatrix(m);
-
-    prependXForm(xformN, jointInfo);
-}
-
-void
-ColladaController::buildRotate(domRotate *rotate, JointInfo &jointInfo)
-{
-    if(rotate == NULL)
-        return;
-
-    TransformUnrecPtr xform  = Transform::create();
-    NodeUnrecPtr      xformN = makeNodeFor(xform);
-
-    Quaternion q;
-    q.setValueAsAxisDeg(rotate->getValue()[0],
-                        rotate->getValue()[1],
-                        rotate->getValue()[2],
-                        rotate->getValue()[3] );
-
-    xform->editMatrix().setRotate(q);
-
-    prependXForm(xformN, jointInfo);
-}
-
-void
-ColladaController::buildScale(domScale *scale, JointInfo &jointInfo)
-{
-    if(scale == NULL)
-        return;
-
-    TransformUnrecPtr xform  = Transform::create();
-    NodeUnrecPtr      xformN = makeNodeFor(xform);
-
-    xform->editMatrix().setScale(scale->getValue()[0],
-                                 scale->getValue()[1],
-                                 scale->getValue()[2] );
-
-    prependXForm(xformN, jointInfo);
-}
-
-void
-ColladaController::buildSkew(domSkew *skew, JointInfo &jointInfo)
-{
-    if(skew == NULL)
-        return;
-
-    SWARNING << "ColladaController::buildSkew: NIY" << std::endl;
-}
-
-void
-ColladaController::buildTranslate(
-    domTranslate *translate, JointInfo &jointInfo)
-{
-    if(translate == NULL)
-        return;
-
-    TransformUnrecPtr xform  = Transform::create();
-    NodeUnrecPtr      xformN = makeNodeFor(xform);
-
-    xform->editMatrix().setTranslate(translate->getValue()[0],
-                                     translate->getValue()[1],
-                                     translate->getValue()[2] );
-
-    prependXForm(xformN, jointInfo);
-}
-
-void
-ColladaController::prependXForm(Node *node, JointInfo &jointInfo)
-{
-    node->addChild(jointInfo.topN);
-    jointInfo.topN = node;
-}
-
-void
-ColladaController::appendXForm(Node *node, JointInfo &jointInfo)
-{
-    jointInfo.bottomN->addChild(node);
-    jointInfo.bottomN = node;
 }
 
 Int32

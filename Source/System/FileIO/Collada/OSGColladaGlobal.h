@@ -55,6 +55,7 @@
 #include "OSGNode.h"
 #include "OSGColladaElement.h"
 #include "OSGColladaOptions.h"
+#include "OSGColladaInstInfo.h"
 #include "OSGStatElemTypes.h"
 #include "OSGStatCollector.h"
 
@@ -62,6 +63,7 @@
 #include <dae.h>
 #include <dom/domCOLLADA.h>
 
+#include <deque>
 #include <string>
 #include <vector>
 
@@ -83,6 +85,10 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     typedef ColladaGlobal  Self;
 
     OSG_GEN_INTERNAL_MEMOBJPTR(ColladaGlobal);
+
+    typedef std::deque<ColladaInstInfoRefPtr> InstanceQueue;
+    typedef InstanceQueue::iterator           InstanceQueueIt;
+    typedef InstanceQueue::const_iterator     InstanceQueueConstIt;
 
     typedef std::vector<ColladaElementRefPtr> ElementStore;
     typedef ElementStore::iterator            ElementStoreIt;
@@ -143,13 +149,16 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     /*! \name ElementStore                                                 */
     /*! \{                                                                 */
 
-    inline const ElementStore &getElemStore (void                      ) const;
-    inline ElementStore       &editElemStore(void                      );
+    inline const InstanceQueue &getInstQueue (void                      ) const;
+    inline InstanceQueue       &editInstQueue(void                      );
 
-           void                addElement   (ColladaElement    *elem   );
+    inline const ElementStore  &getElemStore (void                      ) const;
+    inline ElementStore        &editElemStore(void                      );
 
-           ColladaElement     *getElement   (const daeURI      &elemURI) const;
-           ColladaElement     *getElement   (const std::string &elemId ) const;
+           void                 addElement   (ColladaElement    *elem   );
+
+           ColladaElement      *getElement   (const daeURI      &elemURI) const;
+           ColladaElement      *getElement   (const std::string &elemId ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -171,6 +180,7 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
+    InstanceQueue         _instQueue;
     ElementStore          _elemStore;
 
     ColladaOptionsRefPtr  _options;

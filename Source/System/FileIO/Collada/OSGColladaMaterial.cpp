@@ -66,7 +66,7 @@ ColladaMaterial::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaMaterial::read(void)
+ColladaMaterial::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaMaterial::read\n"));
 
@@ -80,12 +80,13 @@ ColladaMaterial::read(void)
         colInstEffect = dynamic_pointer_cast<ColladaInstanceEffect>(
             ColladaElementFactory::the()->create(instEffect, getGlobal()));
 
-        colInstEffect->read();
+        colInstEffect->read(this);
     }
 }
 
 Material *
-ColladaMaterial::createInstance(ColladaInstanceElement *colInstElem)
+ColladaMaterial::createInstance(
+    ColladaElement *colInstParent, ColladaInstanceElement *colInst)
 {
     OSG_COLLADA_LOG(("ColladaMaterial::createInstance\n"));
 
@@ -97,7 +98,11 @@ ColladaMaterial::createInstance(ColladaInstanceElement *colInstElem)
 
     if(getInstStore().empty() == true)
     {
-        retVal = colInstEffect->process(this);
+        OSG_ASSERT(colInstEffect                  != NULL);
+        OSG_ASSERT(colInstEffect->getTargetElem() != NULL);
+
+        retVal = colInstEffect->getTargetElem()->createInstance(
+            this, colInstEffect);
 
         if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
            material->getName()                                   != NULL   )

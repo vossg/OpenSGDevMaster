@@ -41,6 +41,7 @@
 #endif
 
 #include "OSGColladaInstanceElement.h"
+#include "OSGColladaInstantiableElement.h"
 
 #if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
 

@@ -36,93 +36,83 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic ignored "-Wold-style-cast"
+#ifndef _OSGCOLLADAINSTINFO_H_
+#define _OSGCOLLADAINSTINFO_H_
+#ifdef __sgi
+#pragma once
 #endif
 
-#include "OSGColladaImage.h"
+/*! \file OSGColladaInstInfo.h
+    \ingroup GrpLoader
+ */
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#include "OSGConfig.h"
 
-#include "OSGColladaLog.h"
-#include "OSGImageFileHandler.h"
+#ifdef OSG_WITH_COLLADA
 
-#include <dom/domImage.h>
+#include "OSGFileIODef.h"
+#include "OSGMemoryObject.h"
+#include "OSGColladaElement.h"
+#include "OSGColladaInstanceElement.h"
+#include "OSGNode.h"
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaImage::_regHelper(
-    &ColladaImage::create, "image");
-
-ColladaElementTransitPtr
-ColladaImage::create(daeElement *elem, ColladaGlobal *global)
+class OSG_FILEIO_DLLMAPPING ColladaInstInfo : public MemoryObject
 {
-    return ColladaElementTransitPtr(new ColladaImage(elem, global));
-}
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-void
-ColladaImage::read(ColladaElement *colElemParent)
-{
-    OSG_COLLADA_LOG(("ColladaImage::read\n"));
+    typedef MemoryObject     Inherited;
+    typedef ColladaInstInfo  Self;
 
-    domImageRef image = getDOMElementAs<domImage>();
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstInfo);
 
-    domImage::domInit_fromRef initFrom = image->getInit_from();
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
 
-    if(initFrom != NULL)
-    {
-        daeURI      imageURI  = initFrom->getValue();
-        std::string imagePath = cdom::uriToNativePath(imageURI.str());
-        
-        OSG_COLLADA_LOG(("ColladaImage::read: URI [%s] path [%s]\n",
-                         imageURI.getURI(), imagePath.c_str()));
+    inline ColladaElement         *getColInstParent(void) const;
+    inline ColladaInstanceElement *getColInst      (void) const;
+    inline Node                   *getAttachNode   (void) const;
 
-#ifdef WIN32
-        if(imagePath.size() >  3   &&
-           imagePath[0]     == '/' &&
-           imagePath[2]     == ':'   )
-        {
-            _image =
-                ImageFileHandler::the()->read(imagePath.substr(1).c_str());
-        }
-        else
-        {
-            _image = ImageFileHandler::the()->read(imagePath.c_str());
-        }
-#else
-        _image = ImageFileHandler::the()->read(imagePath.c_str());
-#endif
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Process                                                      */
+    /*! \{                                                                 */
 
-        if(_image == NULL)
-        {
-            SWARNING << "ColladaImage::read: Loading of image ["
-                     << imagePath << "] failed." << std::endl;
-        }
-    }
-    else
-    {
-        SWARNING << "ColladaImage::read: No <init_from> tag found."
-                 << std::endl;
-    }
-}
+    virtual void process(void) = 0;
 
-Image *
-ColladaImage::getImage(void) const
-{
-    return _image;
-}
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
 
-ColladaImage::ColladaImage(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
-    , _image   (NULL)
-{
-}
+             ColladaInstInfo(ColladaElement         *colInstParent,
+                             ColladaInstanceElement *colInst,
+                             Node                   *attachN       );
+    virtual ~ColladaInstInfo(void                                  ) = 0;
 
-ColladaImage::~ColladaImage(void)
-{
-}
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    ColladaElementRefPtr         _colInstParent;
+    ColladaInstanceElementRefPtr _colInst;
+    NodeUnrecPtr                 _attachN;
+};
+
+OSG_GEN_MEMOBJPTR(ColladaInstInfo);
 
 OSG_END_NAMESPACE
 
+#include "OSGColladaInstInfo.inl"
+
 #endif // OSG_WITH_COLLADA
- 
+
+#endif // _OSGCOLLADAINSTINFO_H_

@@ -40,89 +40,26 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "OSGColladaImage.h"
+#include "OSGColladaInstInfo.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
-
-#include "OSGColladaLog.h"
-#include "OSGImageFileHandler.h"
-
-#include <dom/domImage.h>
+#ifdef OSG_WITH_COLLADA
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaImage::_regHelper(
-    &ColladaImage::create, "image");
-
-ColladaElementTransitPtr
-ColladaImage::create(daeElement *elem, ColladaGlobal *global)
-{
-    return ColladaElementTransitPtr(new ColladaImage(elem, global));
-}
-
-void
-ColladaImage::read(ColladaElement *colElemParent)
-{
-    OSG_COLLADA_LOG(("ColladaImage::read\n"));
-
-    domImageRef image = getDOMElementAs<domImage>();
-
-    domImage::domInit_fromRef initFrom = image->getInit_from();
-
-    if(initFrom != NULL)
-    {
-        daeURI      imageURI  = initFrom->getValue();
-        std::string imagePath = cdom::uriToNativePath(imageURI.str());
-        
-        OSG_COLLADA_LOG(("ColladaImage::read: URI [%s] path [%s]\n",
-                         imageURI.getURI(), imagePath.c_str()));
-
-#ifdef WIN32
-        if(imagePath.size() >  3   &&
-           imagePath[0]     == '/' &&
-           imagePath[2]     == ':'   )
-        {
-            _image =
-                ImageFileHandler::the()->read(imagePath.substr(1).c_str());
-        }
-        else
-        {
-            _image = ImageFileHandler::the()->read(imagePath.c_str());
-        }
-#else
-        _image = ImageFileHandler::the()->read(imagePath.c_str());
-#endif
-
-        if(_image == NULL)
-        {
-            SWARNING << "ColladaImage::read: Loading of image ["
-                     << imagePath << "] failed." << std::endl;
-        }
-    }
-    else
-    {
-        SWARNING << "ColladaImage::read: No <init_from> tag found."
-                 << std::endl;
-    }
-}
-
-Image *
-ColladaImage::getImage(void) const
-{
-    return _image;
-}
-
-ColladaImage::ColladaImage(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
-    , _image   (NULL)
+ColladaInstInfo::ColladaInstInfo(ColladaElement         *colInstParent,
+                                 ColladaInstanceElement *colInst,
+                                 Node                   *attachN       )
+    : Inherited     (             )
+    , _colInstParent(colInstParent)
+    , _colInst      (colInst      )
+    , _attachN      (attachN      )
 {
 }
 
-ColladaImage::~ColladaImage(void)
+ColladaInstInfo::~ColladaInstInfo(void)
 {
 }
 
 OSG_END_NAMESPACE
 
 #endif // OSG_WITH_COLLADA
- 

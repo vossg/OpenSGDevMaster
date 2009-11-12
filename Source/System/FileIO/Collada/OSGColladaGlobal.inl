@@ -92,6 +92,17 @@ ColladaGlobal::setRoot(Node *rootN)
     _rootN = rootN;
 }
 
+inline const ColladaGlobal::InstanceQueue &
+ColladaGlobal::getInstQueue(void) const
+{
+    return _instQueue;
+}
+
+inline ColladaGlobal::InstanceQueue &
+ColladaGlobal::editInstQueue(void)
+{
+    return _instQueue;
+}
 
 inline const ColladaGlobal::ElementStore &
 ColladaGlobal::getElemStore(void) const

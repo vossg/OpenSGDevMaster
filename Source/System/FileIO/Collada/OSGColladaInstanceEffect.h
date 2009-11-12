@@ -88,8 +88,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceEffect
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void      read   (void                  );
-    virtual Material *process(ColladaElement *parent);
+    virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

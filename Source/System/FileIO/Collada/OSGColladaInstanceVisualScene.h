@@ -49,6 +49,7 @@
 #include "OSGColladaInstanceElement.h"
 #include "OSGColladaVisualScene.h"
 #include "OSGColladaElementFactoryHelper.h"
+#include "OSGNode.h"
 
 #include <dom/domVisual_scene.h>
 
@@ -85,8 +86,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceVisualScene
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void            read   (void                  );
-    virtual FieldContainer *process(ColladaElement *parent);
+    virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

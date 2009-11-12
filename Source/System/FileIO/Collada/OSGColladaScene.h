@@ -88,8 +88,7 @@ class OSG_FILEIO_DLLMAPPING ColladaScene : public ColladaElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void read   (void);
-    virtual void process(void);
+    virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -105,8 +104,6 @@ class OSG_FILEIO_DLLMAPPING ColladaScene : public ColladaElement
     /*---------------------------------------------------------------------*/
 
     static ColladaElementRegistrationHelper _regHelper;
-
-    ColladaInstanceVisualSceneRefPtr        _colInstVisScene;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaScene);

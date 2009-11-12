@@ -64,7 +64,7 @@ ColladaInstanceGeometry::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaInstanceGeometry::read(void)
+ColladaInstanceGeometry::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaInstanceGeometry::read\n"));
 
@@ -76,7 +76,7 @@ ColladaInstanceGeometry::read(void)
             ColladaElementFactory::the()->create(
                 getTargetDOMElem(), getGlobal()));
 
-        colGeo->read();
+        colGeo->read(this);
     }
 
     domInstance_geometryRef instGeo = getDOMElementAs<domInstance_geometry>();
@@ -90,16 +90,6 @@ ColladaInstanceGeometry::read(void)
     }
 
     readBindMaterial(bindMat);
-}
-
-Node *
-ColladaInstanceGeometry::process(ColladaElement *parent)
-{
-    OSG_COLLADA_LOG(("ColladaInstanceGeometry::process\n"));
-
-    ColladaGeometryRefPtr colGeo = getTargetElem();
-
-    return colGeo->createInstance(this);
 }
 
 ColladaGeometry *
@@ -167,7 +157,7 @@ ColladaInstanceGeometry::readBindMaterial(domBind_material *bindMat)
                 ColladaElementFactory::the()->create(
                     instMatArray[i], getGlobal()));
 
-            colInstMat->read();
+            colInstMat->read(this);
         }
 
         _matMap[colInstMat->getSymbol()] = colInstMat;

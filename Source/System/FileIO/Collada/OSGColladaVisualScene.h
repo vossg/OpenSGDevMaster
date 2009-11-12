@@ -80,8 +80,9 @@ class OSG_FILEIO_DLLMAPPING ColladaVisualScene
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void  read          (void                            );
-    virtual Node *createInstance(ColladaInstanceElement *instElem);
+    virtual void  read          (ColladaElement         *colElemParent );
+    virtual Node *createInstance(ColladaElement         *colInstParent,
+                                 ColladaInstanceElement *colInst       );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

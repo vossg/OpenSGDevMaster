@@ -82,7 +82,7 @@ class OSG_FILEIO_DLLMAPPING ColladaSampler2D : public ColladaElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void read(void);
+    virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

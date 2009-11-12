@@ -63,7 +63,7 @@ ColladaCOLLADA::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaCOLLADA::read(void)
+ColladaCOLLADA::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaCOLLADA::read\n"));
 
@@ -101,10 +101,8 @@ ColladaCOLLADA::read(void)
         colScene = dynamic_pointer_cast<ColladaScene>(
             ColladaElementFactory::the()->create(scene, getGlobal()));
 
-        colScene->read();
+        colScene->read(this);
     }
-
-    colScene->process();
 }
 
 ColladaCOLLADA::ColladaCOLLADA(daeElement *elem, ColladaGlobal *global)

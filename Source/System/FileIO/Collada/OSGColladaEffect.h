@@ -106,8 +106,9 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void      read          (void                            );
-    virtual Material *createInstance(ColladaInstanceElement *instElem);
+    virtual void      read          (ColladaElement         *colElemParent );
+    virtual Material *createInstance(ColladaElement         *colInstParent,
+                                     ColladaInstanceElement *colInst       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

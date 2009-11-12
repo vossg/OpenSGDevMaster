@@ -63,7 +63,7 @@ ColladaSurface::create(daeElement *elem, ColladaGlobal *global)
 }
 
 void
-ColladaSurface::read(void)
+ColladaSurface::read(ColladaElement *colElemParent)
 {
     OSG_COLLADA_LOG(("ColladaSurface::read\n"));
 
@@ -181,7 +181,7 @@ ColladaSurface::read2D(domFx_surface_common *surface)
             colImage = dynamic_pointer_cast<ColladaImage>(
                 ColladaElementFactory::the()->create(image, getGlobal()));
 
-            colImage->read();
+            colImage->read(this);
         }
         
         _image = colImage->getImage();

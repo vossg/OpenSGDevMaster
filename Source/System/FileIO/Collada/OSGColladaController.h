@@ -49,19 +49,15 @@
 #include "OSGSkeleton.h"
 
 // forward decl
-class domSkin;
-class domLookat;
-class domMatrix;
-class domRotate;
-class domScale;
-class domSkew;
-class domTranslate;
 class domNode;
+class domSkin;
+
 
 OSG_BEGIN_NAMESPACE
 
 // forward decl
 class ColladaInstanceController;
+class ColladaNode;
 
 
 class OSG_FILEIO_DLLMAPPING ColladaController : public ColladaGeometry
@@ -90,8 +86,9 @@ class OSG_FILEIO_DLLMAPPING ColladaController : public ColladaGeometry
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void  read          (void                            );
-    virtual Node *createInstance(ColladaInstanceElement *instElem);
+    virtual void  read          (ColladaElement         *colElemParent );
+    virtual Node *createInstance(ColladaElement         *colInstParent,
+                                 ColladaInstanceElement *colInst       );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -110,48 +107,46 @@ class OSG_FILEIO_DLLMAPPING ColladaController : public ColladaGeometry
 
     struct JointInfo
     {
-        domNode      *jointNode;
+        domNode     *jointNode;
+        ColladaNode *colJointNode;
 
-        Matrix        invBindMatrix;
-        NodeUnrecPtr  topN;
-        NodeUnrecPtr  bottomN;
+        Int16        jointId;
+        Matrix       invBindMatrix;
     };
 
     typedef std::vector<JointInfo>         JointInfoStore;
     typedef JointInfoStore::iterator       JointInfoStoreIt;
     typedef JointInfoStore::const_iterator JointInfoStoreConstIt;
 
+    typedef std::vector<Int16>             JointIdMap;
+    typedef JointIdMap::iterator           JointIdMapIt;
+    typedef JointIdMap::const_iterator     JointIdMapConstIt;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Helper functions                                             */
     /*! \{                                                                 */
 
-    void  readSkin     (domSkin                   *skin        );
-    void  resolveJoints(domSkin                   *skin,
-                        ColladaInstanceController *colInstCtrl,
-                        JointInfoStore            &jointStore  );
-    SkeletonTransitPtr
-          buildSkeleton  (JointInfoStore &jointStore);
-    void  buildTransforms(JointInfo      &jointInfo );
-    void  buildLookAt    (domLookat    *lookAt,    JointInfo &jointInfo);
-    void  buildMatrix    (domMatrix    *matrix,    JointInfo &jointInfo);
-    void  buildRotate    (domRotate    *rotate,    JointInfo &jointInfo);
-    void  buildScale     (domScale     *scale,     JointInfo &jointInfo);
-    void  buildSkew      (domSkew      *skew,      JointInfo &jointInfo);
-    void  buildTranslate (domTranslate *translate, JointInfo &jointInfo);
-
-    void  prependXForm   (Node         *node,      JointInfo &jointInfo);
-    void  appendXForm    (Node         *node,      JointInfo &jointInfo);
-
-    Int32 findJoint    (const JointInfoStore      &jointStore,
-                        domNode                   *joint       );
+    void  readSkin           (domSkin                   *skin        );
+    void  readBindShapeMatrix(domSkin                   *skin        );
+    void  resolveJoints      (domSkin                   *skin,
+                              ColladaInstanceController *colInstCtrl,
+                              JointInfoStore            &jointStore,
+                              JointIdMap                &jointIdMap  );
+    void  remapJointIds      (domSkin                   *skin,
+                              ColladaInstanceController *colInstCtrl,
+                              const JointInfoStore      &jointStore,
+                              const JointIdMap          &jointIdMap  );
+    Int32 findJoint          (const JointInfoStore      &jointStore,
+                              domNode                   *joint       );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
     static ColladaElementRegistrationHelper _regHelper;
 
-    Matrix _matBindShape;
+    Matrix           _matBindShape;
+    SkeletonUnrecPtr _skeleton;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaController);
