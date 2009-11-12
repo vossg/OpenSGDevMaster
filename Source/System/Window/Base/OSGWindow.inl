@@ -415,4 +415,18 @@ bool Window::getKeepContextActive(void) const
     return (_sfDrawMode.getValue() & ContextMask) == KeepContextActive;
 }
 
+inline
+void DrawTask::setupContext(Window *pWindow)
+{
+    if(pWindow->getKeepContextActive() == false)
+        pWindow->doActivate();
+}
+
+inline
+void DrawTask::finalizeContext(Window *pWindow)
+{
+    if(pWindow->getKeepContextActive() == false)
+        pWindow->doDeactivate();
+}
+
 OSG_END_NAMESPACE

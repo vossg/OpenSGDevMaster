@@ -69,7 +69,6 @@
 #endif
 
 #include "OSGBaseFunctions.h"
-#include "OSGDrawEnv.h"
 
 #include "OSGViewport.h"
 
@@ -337,9 +336,11 @@ OSG::Window::Window(void) :
     _pSwapTask          (NULL),
     _pFrameInitTask     (NULL),
     _pFrameExitTask     (NULL),
-    _pActivateTask      (NULL)
+    _pActivateTask      (NULL),
+    _oEnv               (    )
 {
     // only called for prototypes, no need to init them
+    _oEnv.setWindow(this);
 }
 
 /*! Copy Constructor
@@ -362,8 +363,10 @@ OSG::Window::Window(const Window &source) :
     _pSwapTask          (NULL                          ),
     _pFrameInitTask     (NULL                          ),
     _pFrameExitTask     (NULL                          ),
-    _pActivateTask      (NULL                          )
+    _pActivateTask      (NULL                          ),
+    _oEnv               (                              )
 {       
+    _oEnv.setWindow(this);
 }
 
 /*! Destructor
@@ -755,14 +758,10 @@ void OSG::Window::validateAllGLObjects(void)
         activate();
         doFrameInit();
 
-        DrawEnv oEnv;
-
-        oEnv.setWindow(this);
-
         for (UInt32 i = 1; i < _glObjects.size(); ++i)
         {
             if(_glObjects[i] != NULL)
-                validateGLObject(i, &oEnv);
+                validateGLObject(i, &_oEnv);
         }
     
         doFrameExit();
@@ -1532,10 +1531,6 @@ void OSG::Window::doFrameExit(void)
     st = _glObjectDestroyList.begin();
     en = _glObjectDestroyList.end  ();
 
-    DrawEnv oEnv;
-
-    oEnv.setWindow(this);
-
     while(st != en)
     {
         UInt32 i = st->first, n = st->second;
@@ -1558,13 +1553,13 @@ void OSG::Window::doFrameExit(void)
         // has the object been used in this context at all?
         if(getGlObjectLastReinitialize(i) != 0) 
         {                  
-            _glObjects[i]->getDestroyFunctor()(&oEnv, i, destroy);
+            _glObjects[i]->getDestroyFunctor()(&_oEnv, i, destroy);
             doResetGLObjectStatus(i, n);
 
             if((rc = _glObjects[ i ]->decRefCounter()) <= 0)
             {           
                 // call functor with the final-flag
-                _glObjects[i]->getDestroyFunctor()(&oEnv, i, finaldestroy);
+                _glObjects[i]->getDestroyFunctor()(&_oEnv, i, finaldestroy);
             }
         }
 
@@ -1929,16 +1924,12 @@ void OSG::Window::render(RenderActionBase *action)
     
         if(_mfDrawTasks.empty() == false)
         {
-            DrawEnv oEnv;
-
-            oEnv.setWindow(this);
-
             MFDrawTask::const_iterator tIt  = _mfDrawTasks.begin();
             MFDrawTask::const_iterator tEnd = _mfDrawTasks.end  ();
 
             for(; tIt != tEnd; ++tIt)
             {
-                (*tIt)->execute(&oEnv);
+                (*tIt)->execute(&_oEnv);
             }
 
             editMField(DrawTasksFieldMask, _mfDrawTasks);
@@ -2034,16 +2025,12 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
         
         if(_mfDrawTasks.empty() == false)
         {
-            DrawEnv oEnv;
-
-            oEnv.setWindow(this);
-
             MFDrawTask::const_iterator tIt  = _mfDrawTasks.begin();
             MFDrawTask::const_iterator tEnd = _mfDrawTasks.end  ();
 
             for(; tIt != tEnd; ++tIt)
             {
-                (*tIt)->execute(&oEnv);
+                (*tIt)->execute(&_oEnv);
             }
 
             editMField(DrawTasksFieldMask, _mfDrawTasks);
@@ -2395,7 +2382,14 @@ void Window::queueTaskFromDrawer(DrawTask *pTask)
 
     OSG_ASSERT(_pDrawThread != NULL);
 
-    _pDrawThread->queueTask(pTask);
+    if((_sfDrawMode.getValue() & PartitionDrawMask) == ParallelPartitionDraw)
+    {
+        _pDrawThread->queueTask(pTask);
+    }
+    else
+    {
+        pTask->execute(&_oEnv);
+    }
 }
 
 void Window::queueTask(DrawTask *pTask)

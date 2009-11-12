@@ -55,6 +55,7 @@
 OSG_BEGIN_NAMESPACE
 
 class DrawEnv;
+class Window;
 
 /*! \ingroup GrpSystemRenderingBackend
 */
@@ -147,6 +148,9 @@ class OSG_SYSTEM_DLLMAPPING DrawTask : public MemoryObject
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
+
+    void setupContext   (Window *pWin);
+    void finalizeContext(Window *pWin);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -249,6 +253,7 @@ class OSG_SYSTEM_DLLMAPPING DrawTaskQueue
     /*! \name                   Debugging                                  */
     /*! \{                                                                 */
 
+    // Implementation in OSGWindow.inl
     void dumpQueue       (void         );
     void runAndClearQueue(DrawEnv *pEnv);
 

@@ -78,4 +78,10 @@ UInt32 GeoProperty::MapFormatToSize(GLenum format)
     return sizes[ind];
 }
 
+inline
+UInt32 GeoProperty::getGLId(void) const
+{
+    return _sfGLId.getValue();
+}
+
 OSG_END_NAMESPACE

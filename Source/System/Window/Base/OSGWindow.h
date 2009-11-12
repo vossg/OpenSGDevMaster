@@ -59,10 +59,9 @@
 #include "OSGWindowBase.h"
 #include "OSGWindowDrawTask.h"
 #include "OSGWindowDrawThread.h"
+#include "OSGDrawEnv.h"
 
 OSG_BEGIN_NAMESPACE
-
-class DrawEnv;
 
 class RenderActionBase;
 class StageValidator;
@@ -477,6 +476,7 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
 
     friend class FieldContainer;
     friend class WindowBase;
+    friend class DrawTask;
     friend class WindowDrawTask;
 
     static WindowStore                _allWindows;
@@ -543,6 +543,8 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     WindowDrawTaskRefPtr              _pFrameInitTask;
     WindowDrawTaskRefPtr              _pFrameExitTask;
     WindowDrawTaskRefPtr              _pActivateTask;
+
+    DrawEnv                           _oEnv;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

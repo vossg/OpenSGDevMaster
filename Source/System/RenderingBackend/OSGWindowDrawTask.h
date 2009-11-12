@@ -229,7 +229,8 @@ class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
 
     enum TaskType
     {
-        Callback = 0x0001
+        Callback            = 0x0001,
+        CallbackWithBarrier = 0x0002
     };
 
     typedef DrawTask Inherited;
@@ -240,6 +241,7 @@ class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
+    CallbackDrawTask(TaskType eType);
     CallbackDrawTask(const CallbackFunctor &fCallback, TaskType eType);
 
     /*! \}                                                                 */
@@ -253,6 +255,16 @@ class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
+
+    void activateBarrier(bool bVal);
+    void setCallback    (const CallbackFunctor &fCallback);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Access                                    */
+    /*! \{                                                                 */
+
+    void waitForBarrier(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -277,6 +289,7 @@ class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
 
     TaskType        _eTaskType;
     CallbackFunctor _fCallback;
+    BarrierRefPtr   _pBarrier;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

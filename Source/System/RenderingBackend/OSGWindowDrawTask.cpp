@@ -334,17 +334,30 @@ void ViewportDrawTask::dump(UInt32 uiIndent)
 }
 
 
+CallbackDrawTask::CallbackDrawTask(TaskType eType) :
+     Inherited(         ),
+    _eTaskType(eType    ),
+    _fCallback(         ),
+    _pBarrier (NULL     )
+{
+    _pBarrier = Barrier::get(NULL, false);
+    _pBarrier->setNumWaitFor(2);
+}
 
 CallbackDrawTask::CallbackDrawTask(const CallbackFunctor &fCallback, 
                                          TaskType         eType) :
      Inherited(         ),
     _eTaskType(eType    ),
-    _fCallback(fCallback)
+    _fCallback(fCallback),
+    _pBarrier (NULL     )
 {
+    _pBarrier = Barrier::get(NULL, false);
+    _pBarrier->setNumWaitFor(2);
 }
 
 CallbackDrawTask::~CallbackDrawTask(void)
 {
+    _pBarrier = NULL;
 }
 
 void CallbackDrawTask::execute(DrawEnv *pEnv)
@@ -358,13 +371,51 @@ void CallbackDrawTask::execute(DrawEnv *pEnv)
     {
         case Callback:
         {
+            Inherited::setupContext(pWindow);
+
             _fCallback(pEnv);
+
+            Inherited::finalizeContext(pWindow);
+        }
+        break;
+
+        case CallbackWithBarrier:
+        {
+            Inherited::setupContext(pWindow);
+
+            _fCallback(pEnv);
+
+            Inherited::finalizeContext(pWindow);
+
+            _pBarrier->enter();
         }
         break;
 
         default:
             break;
     }
+}
+
+void CallbackDrawTask::activateBarrier(bool bVal)
+{
+    if(bVal == true)
+        _eTaskType = CallbackWithBarrier;
+    else
+        _eTaskType = Callback;
+}
+
+void CallbackDrawTask::setCallback(const CallbackFunctor &fCallback)
+{
+    _fCallback = fCallback;
+}
+
+
+void CallbackDrawTask::waitForBarrier(void)
+{
+    OSG_ASSERT(_eTaskType == CallbackWithBarrier);
+    OSG_ASSERT(_pBarrier  != NULL               );
+
+    _pBarrier->enter();
 }
 
 void CallbackDrawTask::dump(UInt32 uiIndent)

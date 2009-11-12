@@ -152,6 +152,13 @@ class OSG_DRAWABLE_DLLMAPPING GeoProperty : public GeoPropertyBase
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name                   Limited Access                             */
+    /*! \{                                                                 */
+
+    UInt32 getGLId(void) const;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name                   Comparison                                 */
     /*! \{                                                                 */
 
