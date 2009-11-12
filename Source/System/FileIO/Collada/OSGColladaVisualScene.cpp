@@ -120,6 +120,24 @@ ColladaVisualScene::read(ColladaElement *colElemParent)
 
             colNode->read(this);
         }
+    }
+}
+
+Node *
+ColladaVisualScene::createInstance(
+    ColladaElement         *colInstParent,
+    ColladaInstanceElement *colInst       )
+{
+    OSG_COLLADA_LOG(("ColladaVisualScene::createInstance\n"));
+
+    domVisual_sceneRef   visScene   = getDOMElementAs<domVisual_scene>();
+    const domNode_Array &nodes      = visScene->getNode_array         ();
+    UInt32               childCount = 0;
+    NodeUnrecPtr         rootN;
+
+    for(UInt32 i = 0; i < nodes.getCount(); ++i)
+    {
+        ColladaNodeRefPtr colNode = getUserDataAs<ColladaNode>(nodes[i]);
         ColladaInstInfoRefPtr  colInstInfo =
             ColladaNode::ColladaNodeInstInfo::create(this, NULL, rootN);
         Node                  *childN      =

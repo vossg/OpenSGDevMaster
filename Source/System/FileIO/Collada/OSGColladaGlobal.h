@@ -56,6 +56,7 @@
 #include "OSGColladaElement.h"
 #include "OSGColladaLoaderState.h"
 #include "OSGColladaOptions.h"
+#include "OSGColladaInstInfo.h"
 #include "OSGStatElemTypes.h"
 #include "OSGStatCollector.h"
 #include "OSGGlobalsAttachment.h"

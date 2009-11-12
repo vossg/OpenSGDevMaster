@@ -294,6 +294,8 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
     Node *createInstanceNode (ColladaInstInfo *colInstInfo, domNode *node);
     Node *createInstanceJoint(ColladaInstInfo *colInstInfo, domNode *node);

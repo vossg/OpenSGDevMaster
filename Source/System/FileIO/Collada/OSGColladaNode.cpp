@@ -50,6 +50,7 @@
 #include "OSGColladaInstanceLight.h"
 #include "OSGColladaInstanceGeometry.h"
 #include "OSGColladaInstanceController.h"
+#include "OSGColladaVisualScene.h"
 #include "OSGTransform.h"
 #include "OSGSkeletonJoint.h"
 #include "OSGNameAttachment.h"
@@ -219,7 +220,6 @@ ColladaNode::InstData::~InstData(void)
 
 ColladaElementRegistrationHelper ColladaNode::_regHelper(
     &ColladaNode::create, "node");
-const std::string                ColladaNode::_loaderStateName("ColladaNode");
 
 
 ColladaElementTransitPtr
@@ -244,7 +244,6 @@ ColladaNode::read(ColladaElement *colElemParent)
 
     // <node>
     const domNode_Array &nodes = node->getNode_array();
-
     for(UInt32 i = 0; i < nodes.getCount(); ++i)
         readNode(nodes[i]);
 
