@@ -47,10 +47,12 @@
 OSG_BEGIN_NAMESPACE
 
 ColladaInstInfo::ColladaInstInfo(ColladaElement         *colInstParent,
-                                 ColladaInstanceElement *colInst       )
+                                 ColladaInstanceElement *colInst,
+                                 Node                   *attachN       )
     : Inherited     (             )
     , _colInstParent(colInstParent)
     , _colInst      (colInst      )
+    , _attachN      (attachN      )
 {
 }
 

@@ -50,6 +50,7 @@
 #include "OSGColladaInstanceLight.h"
 #include "OSGColladaInstanceGeometry.h"
 #include "OSGColladaInstanceController.h"
+#include "OSGColladaVisualScene.h"
 #include "OSGTransform.h"
 #include "OSGSkeletonJoint.h"
 #include "OSGNameAttachment.h"
@@ -261,7 +262,6 @@ ColladaNode::read(ColladaElement *colElemParent)
 
     for(UInt32 i = 0; i < instLights.getCount(); ++i)
         readInstanceLight(instLights[i]);
-
     // <instance_geometry>
     const domInstance_geometry_Array &instGeos =
         node->getInstance_geometry_array();
@@ -396,6 +396,8 @@ ColladaNode::createInstanceNode(ColladaInstInfo *colInstInfo, domNode *node)
 
     const daeElementRefArray &contents = node->getContents();
 
+    // read "transform" child elements in the order
+    // they occur in the document
     for(UInt32 i = 0; i < contents.getCount(); ++i)
     {
         switch(contents[i]->getElementType())
@@ -661,7 +663,7 @@ ColladaNode::handleLookAt(domLookat *lookat, InstData &instData)
     if(lookat == NULL)
         return;
 
-    SWARNING << "ColladaNode::handleLookAt: NIY" << std::endl;
+    SWARNING << "ColladaNode::readLookAt: NIY" << std::endl;
 }
 
 void
@@ -743,7 +745,7 @@ ColladaNode::handleSkew(domSkew *skew, InstData &instData)
     if(skew == NULL)
         return;
 
-    SWARNING << "ColladaNode::handleSkew: NIY" << std::endl;
+    SWARNING << "ColladaNode::readSkew: NIY" << std::endl;
 }
 
 void
