@@ -117,6 +117,19 @@ void Skeleton::changed(ConstFieldMaskArg whichField,
     Inherited::changed(whichField, origin, details);
 }
 
+void
+Skeleton::adjustVolume(Volume &volume)
+{
+    MFRootsType::const_iterator rIt  = _mfRoots.begin();
+    MFRootsType::const_iterator rEnd = _mfRoots.end  ();
+
+    for(; rIt != rEnd; ++rIt)
+    {
+        (*rIt)->updateVolume();
+        volume.extendBy((*rIt)->getVolume());
+    }
+}
+
 void Skeleton::dump(      UInt32    ,
                          const BitVector ) const
 {

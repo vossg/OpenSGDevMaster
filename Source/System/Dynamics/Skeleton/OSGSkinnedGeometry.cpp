@@ -155,6 +155,8 @@ void SkinnedGeometry::changed(ConstFieldMaskArg whichField,
             if(_sfSkeleton.getValue() != NULL)
                 _sfSkeleton.getValue()->setUseInvBindMatrix(false);
         }
+
+        invalidateVolume();
     }
 
     Inherited::changed(whichField, origin, details);
@@ -193,7 +195,9 @@ SkinnedGeometry::renderLeave(Action *action)
 
     if(testFlag(SGFlagUnskinned) == true)
     {
+        ract->pushMatrix(_sfBindShapeMatrix.getValue());
         res = Inherited::renderActionEnterHandler(ract);
+        ract->popMatrix();
     }
     else if(testFlag(SGFlagDebug) == true)
     {
@@ -219,10 +223,22 @@ SkinnedGeometry::fill(DrawableStatsAttachment *drawStats)
 
 void SkinnedGeometry::adjustVolume(Volume & volume)
 {
-    // XXX TODO: bind pose volume is likely too small, but how to
-    //           extend it enough, without making it infinite?? -- cneumann
+    if(_sfSkeleton.getValue()    != NULL  &&
+       testFlag(SGFlagUnskinned) == false   )
+    {
+        _sfSkeleton.getValue()->adjustVolume(volume);
 
-    Inherited::adjustVolume(volume);
+        SLOG << "SkinnedGeometry::adjustVolume: Using Skeleton vol "
+             << std::endl;
+    }
+    else
+    {
+        Inherited::adjustVolume(volume                       );
+        volume.transform       (_sfBindShapeMatrix.getValue());
+
+        SLOG << "SkinnedGeometry::adjustVolume: Using Mesh vol "
+             << std::endl;
+    }
 }
 
 void SkinnedGeometry::dump(      UInt32    ,

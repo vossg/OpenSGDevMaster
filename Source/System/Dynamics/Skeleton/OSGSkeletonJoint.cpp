@@ -146,7 +146,8 @@ SkeletonJoint::renderEnter(Action *action)
     Skeleton::MFJointNormalMatricesType *jointNMats =
         skel->editMFJointNormalMatrices();
 
-    ract->pushMatrix(_sfMatrix.getValue());
+    ract->pushVisibility(                    );
+    ract->pushMatrix    (_sfMatrix.getValue());
 
     Matrix jointMat(ract->topMatrix());
 
@@ -192,9 +193,24 @@ SkeletonJoint::renderLeave(Action *action)
     }
 #endif
 
-    ract->popMatrix();
+    ract->popMatrix    ();
+    ract->popVisibility();
 
     return res;
+}
+
+void
+SkeletonJoint::accumulateMatrix(Matrixr &result)
+{
+    result.mult(_sfMatrix.getValue());
+}
+
+void
+SkeletonJoint::adjustVolume(Volume &volume)
+{
+    volume.transform(_sfMatrix.getValue());
+    volume.extendBy (Pnt3f(-0.1f, -0.1f, -0.1f));
+    volume.extendBy (Pnt3f( 0.1f,  0.1f,  0.1f));
 }
 
 void SkeletonJoint::dump(      UInt32    ,
