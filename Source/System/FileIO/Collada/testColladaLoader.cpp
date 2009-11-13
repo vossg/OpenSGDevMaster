@@ -42,6 +42,7 @@ OSG::PolygonChunkUnrecPtr          polyChunk;
 NodeStore     normalsGeoN;
 NodeStore     geoN;
 NodeStore     skinnedGeoN;
+MaterialStore skinnedGeoMat;
 bool          normalsActive = false;
 OSG::Real32   normalsLen    = 1.f;
 
@@ -197,9 +198,10 @@ void cleanup(void)
     shSkin    = NULL;
     matSkin   = NULL;
 
-    normalsGeoN.clear();
-    geoN       .clear();
-    skinnedGeoN.clear();
+    normalsGeoN  .clear();
+    geoN         .clear();
+    skinnedGeoN  .clear();
+    skinnedGeoMat.clear();
 }
 
 void printHelp(void)
@@ -246,6 +248,10 @@ OSG::Action::ResultE doCollectGeometry(OSG::Node *node)
     if(core->getType().isDerivedFrom(OSG::SkinnedGeometry::getClassType()))
     {
         skinnedGeoN.push_back(node);
+
+        OSG::SkinnedGeometry *sgeo =
+            dynamic_cast<OSG::SkinnedGeometry *>(core);
+        skinnedGeoMat.push_back(sgeo->getMaterial());
     }
 
     return OSG::Action::Continue;
@@ -302,17 +308,17 @@ void display(void)
     mgr->redraw();
     OSG::Thread::getCurrentChangeList()->clear();
 
-    mgr->getWindow()->registerConstant(GL_MAX_VERTEX_UNIFORM_COMPONENTS  );
-    mgr->getWindow()->registerConstant(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
+//     mgr->getWindow()->registerConstant(GL_MAX_VERTEX_UNIFORM_COMPONENTS  );
+//     mgr->getWindow()->registerConstant(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
 
-    OSG::Real32 maxVPUniforms =
-        mgr->getWindow()->getConstantValue(GL_MAX_VERTEX_UNIFORM_COMPONENTS);
-    OSG::Real32 maxFPUniforms =
-        mgr->getWindow()->getConstantValue(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
+//     OSG::Real32 maxVPUniforms =
+//         mgr->getWindow()->getConstantValue(GL_MAX_VERTEX_UNIFORM_COMPONENTS);
+//     OSG::Real32 maxFPUniforms =
+//         mgr->getWindow()->getConstantValue(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
 
-    std::cout << "GL_MAX_VERTEX_UNIFORM_COMPONENTS [" << maxVPUniforms
-              << "] GL_MAX_FRAGMENT_UNIFORM_COMPONENTS [" << maxFPUniforms
-              << "]" << std::endl;
+//     std::cout << "GL_MAX_VERTEX_UNIFORM_COMPONENTS [" << maxVPUniforms
+//               << "] GL_MAX_FRAGMENT_UNIFORM_COMPONENTS [" << maxFPUniforms
+//               << "]" << std::endl;
 }
 
 // react to size changes
@@ -494,7 +500,7 @@ void keyboard(unsigned char k, int , int )
         NodeStore::const_iterator nIt  = skinnedGeoN.begin();
         NodeStore::const_iterator nEnd = skinnedGeoN.end  ();
 
-        for(; nIt != nEnd; ++nIt)
+        for(OSG::UInt32 i = 0; nIt != nEnd; ++nIt, ++i)
         {
             OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
                 (*nIt)->getCore());
@@ -506,6 +512,8 @@ void keyboard(unsigned char k, int , int )
 
                 sgeo->subFlag(OSG::SkinnedGeometry::SGFlagHardware);
                 sgeo->addFlag(OSG::SkinnedGeometry::SGFlagDebug   );
+
+                sgeo->setMaterial(skinnedGeoMat[i]);
             }
             else if(sgeo->testFlag(OSG::SkinnedGeometry::SGFlagDebug))
             {
@@ -514,6 +522,8 @@ void keyboard(unsigned char k, int , int )
 
                sgeo->subFlag(OSG::SkinnedGeometry::SGFlagDebug    );
                sgeo->addFlag(OSG::SkinnedGeometry::SGFlagUnskinned);
+
+               sgeo->setMaterial(skinnedGeoMat[i]);
             }
             else
             {
@@ -566,6 +576,13 @@ void keyboard(unsigned char k, int , int )
                std::cout << std::endl;
            }
         }
+    }
+    break;
+    case 'a':
+    {
+        mgr->showAll();
+
+        std::cout << "Showing all of scene." << std::endl;
     }
     break;
 
