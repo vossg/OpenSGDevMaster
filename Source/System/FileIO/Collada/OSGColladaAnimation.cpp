@@ -40,100 +40,57 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "OSGColladaCOLLADA.h"
+#include "OSGColladaAnimation.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
-#include "OSGColladaGlobal.h"
-#include "OSGColladaScene.h"
-#include "OSGColladaLibraryAnimationClips.h"
 
-#include <dom/domCOLLADA.h>
+#include <dom/domAnimation.h>
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaCOLLADA::_regHelper(
-    &ColladaCOLLADA::create, "COLLADA");
+ColladaElementRegistrationHelper ColladaAnimation::_regHelper(
+    &ColladaAnimation::create, "animation");
 
 
 ColladaElementTransitPtr
-ColladaCOLLADA::create(daeElement *elem, ColladaGlobal *global)
+ColladaAnimation::create(daeElement *elem, ColladaGlobal *global)
 {
-    return ColladaElementTransitPtr(new ColladaCOLLADA(elem, global));
+    return ColladaElementTransitPtr(new ColladaAnimation(elem, global));
 }
 
 void
-ColladaCOLLADA::read(ColladaElement *colElemParent)
+ColladaAnimation::read(ColladaElement *colElemParent)
 {
-    OSG_COLLADA_LOG(("ColladaCOLLADA::read\n"));
+    domAnimationRef anim = getDOMElementAs<domAnimation>();
 
-    domCOLLADARef collada  = getDOMElementAs<domCOLLADA>();
-    domAssetRef   docAsset = collada->getAsset();
+    OSG_COLLADA_LOG(("ColladaAnimation::read id [%s]\n",
+                     (anim->getId() != NULL ? anim->getId() : "") ));
 
-    if(docAsset != NULL)
-    {
-        domAsset::domContributor_Array &domContrA =
-            docAsset->getContributor_array();
-
-        for(UInt32 i = 0; i < domContrA.getCount(); ++i)
-        {
-            domAsset::domContributor::domAuthoring_toolRef docAuthTool =
-                domContrA.get(i)->getAuthoring_tool();
-
-            if(osgStringNCaseCmp(docAuthTool->getValue(),
-                                 "Google SketchUp",
-                                 15                     ) == 0)
-            {
-                SINFO << "ColladaCOLLADA::read: Detected Google SketchUp file "
-                      << "enabling transparency workaround." << std::endl;
-
-                getGlobal()->getOptions()->setInvertTransparency(true);
-                break;
-            }
-        }
-    }
-
-    domCOLLADA::domSceneRef scene    = collada->getScene();
-    ColladaSceneRefPtr      colScene = getUserDataAs<ColladaScene>(scene);
-
-    if(colScene == NULL)
-    {
-        colScene = dynamic_pointer_cast<ColladaScene>(
-            ColladaElementFactory::the()->create(scene, getGlobal()));
-
-        colScene->read(this);
-    }
-
-    if(getGlobal()->getOptions()->getLoadAnimations() == true)
-    {
-        const domLibrary_animation_clips_Array &animClipLibs =
-            collada->getLibrary_animation_clips_array();
-
-        for(UInt32 i = 0; i < animClipLibs.getCount(); ++i)
-        {
-            ColladaLibraryAnimationClipsRefPtr colLibAnimClips =
-                getUserDataAs<ColladaLibraryAnimationClips>(animClipLibs[i]);
-
-            if(colLibAnimClips == NULL)
-            {
-                colLibAnimClips =
-                    dynamic_pointer_cast<ColladaLibraryAnimationClips>(
-                        ColladaElementFactory::the()->create(
-                            animClipLibs[i], getGlobal()));
-
-                colLibAnimClips->read(this);
-            }
-        }
-    }
+    SWARNING << "ColladaAnimation::read: NIY" << std::endl;
 }
 
-ColladaCOLLADA::ColladaCOLLADA(daeElement *elem, ColladaGlobal *global)
+FieldContainer *
+ColladaAnimation::createInstance(
+    ColladaElement *colInstParent, ColladaInstanceElement *colInst)
+{
+    domAnimationRef anim = getDOMElementAs<domAnimation>();
+
+    OSG_COLLADA_LOG(("ColladaAnimation::createInstance id [%s]\n",
+                     (anim->getId() != NULL ? anim->getId() : "") ));
+
+    SWARNING << "ColladaAnimation::createInstance: NIY" << std::endl;
+
+    return NULL;
+}
+
+ColladaAnimation::ColladaAnimation(daeElement *elem, ColladaGlobal *global)
     : Inherited(elem, global)
 {
 }
 
-ColladaCOLLADA::~ColladaCOLLADA(void)
+ColladaAnimation::~ColladaAnimation(void)
 {
 }
 

@@ -58,6 +58,8 @@ ColladaOptions::parseOptions(const OptionSet &optSet)
         optSet, "invertTransparency", _invertTransparency);
     IOFileTypeBase::getOptionAs<bool>(
         optSet, "createNameAttachments", _createNameAttachments);
+    IOFileTypeBase::getOptionAs<bool>(
+        optSet, "loadAnimations", _loadAnimations);
 }
 
 /*! Return \c true if transparency values should be inverted, \c false
@@ -99,10 +101,23 @@ ColladaOptions::setCreateNameAttachments(bool value)
     _createNameAttachments = value;
 }
 
+bool
+ColladaOptions::getLoadAnimations(void) const
+{
+    return _loadAnimations;
+}
+
+void
+ColladaOptions::setLoadAnimations(bool value)
+{
+    _loadAnimations = value;
+}
+
 ColladaOptions::ColladaOptions(void)
     : Inherited             ()
     , _invertTransparency   (false)
     , _createNameAttachments(true)
+    , _loadAnimations       (true)
 {
 }
 

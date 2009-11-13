@@ -36,107 +36,68 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
+#ifndef _OSGCOLLADAANIMATIONCLIP_H_
+#define _OSGCOLLADAANIMATIONCLIP_H_
 
-#include "OSGColladaCOLLADA.h"
+#include "OSGConfig.h"
+#include "OSGColladaElement.h"
+#include "OSGColladaElementFactoryHelper.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
-
-#include "OSGColladaLog.h"
-#include "OSGColladaGlobal.h"
-#include "OSGColladaScene.h"
-#include "OSGColladaLibraryAnimationClips.h"
-
-#include <dom/domCOLLADA.h>
+#ifdef OSG_WITH_COLLADA
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaCOLLADA::_regHelper(
-    &ColladaCOLLADA::create, "COLLADA");
-
-
-ColladaElementTransitPtr
-ColladaCOLLADA::create(daeElement *elem, ColladaGlobal *global)
+class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
 {
-    return ColladaElementTransitPtr(new ColladaCOLLADA(elem, global));
-}
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-void
-ColladaCOLLADA::read(ColladaElement *colElemParent)
-{
-    OSG_COLLADA_LOG(("ColladaCOLLADA::read\n"));
+    typedef ColladaElement        Inherited;
+    typedef ColladaAnimationClip  Self;
 
-    domCOLLADARef collada  = getDOMElementAs<domCOLLADA>();
-    domAssetRef   docAsset = collada->getAsset();
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaAnimationClip);
 
-    if(docAsset != NULL)
-    {
-        domAsset::domContributor_Array &domContrA =
-            docAsset->getContributor_array();
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
 
-        for(UInt32 i = 0; i < domContrA.getCount(); ++i)
-        {
-            domAsset::domContributor::domAuthoring_toolRef docAuthTool =
-                domContrA.get(i)->getAuthoring_tool();
+    static ColladaElementTransitPtr create(daeElement    *elem, 
+                                           ColladaGlobal *global);
 
-            if(osgStringNCaseCmp(docAuthTool->getValue(),
-                                 "Google SketchUp",
-                                 15                     ) == 0)
-            {
-                SINFO << "ColladaCOLLADA::read: Detected Google SketchUp file "
-                      << "enabling transparency workaround." << std::endl;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
 
-                getGlobal()->getOptions()->setInvertTransparency(true);
-                break;
-            }
-        }
-    }
+    virtual void read(ColladaElement *colElemParent);
 
-    domCOLLADA::domSceneRef scene    = collada->getScene();
-    ColladaSceneRefPtr      colScene = getUserDataAs<ColladaScene>(scene);
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
 
-    if(colScene == NULL)
-    {
-        colScene = dynamic_pointer_cast<ColladaScene>(
-            ColladaElementFactory::the()->create(scene, getGlobal()));
+             ColladaAnimationClip(daeElement    *elem,
+                                  ColladaGlobal *global);
+    virtual ~ColladaAnimationClip(void                 );
 
-        colScene->read(this);
-    }
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 
-    if(getGlobal()->getOptions()->getLoadAnimations() == true)
-    {
-        const domLibrary_animation_clips_Array &animClipLibs =
-            collada->getLibrary_animation_clips_array();
+    static ColladaElementRegistrationHelper _regHelper;
+};
 
-        for(UInt32 i = 0; i < animClipLibs.getCount(); ++i)
-        {
-            ColladaLibraryAnimationClipsRefPtr colLibAnimClips =
-                getUserDataAs<ColladaLibraryAnimationClips>(animClipLibs[i]);
-
-            if(colLibAnimClips == NULL)
-            {
-                colLibAnimClips =
-                    dynamic_pointer_cast<ColladaLibraryAnimationClips>(
-                        ColladaElementFactory::the()->create(
-                            animClipLibs[i], getGlobal()));
-
-                colLibAnimClips->read(this);
-            }
-        }
-    }
-}
-
-ColladaCOLLADA::ColladaCOLLADA(daeElement *elem, ColladaGlobal *global)
-    : Inherited(elem, global)
-{
-}
-
-ColladaCOLLADA::~ColladaCOLLADA(void)
-{
-}
+OSG_GEN_MEMOBJPTR(ColladaAnimationClip);
 
 OSG_END_NAMESPACE
 
+// #include "OSGColladaAnimationClip.inl"
+
 #endif // OSG_WITH_COLLADA
+
+#endif // _OSGCOLLADAANIMATIONCLIP_H_

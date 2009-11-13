@@ -40,100 +40,80 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "OSGColladaCOLLADA.h"
+#include "OSGColladaInstanceAnimation.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
-#include "OSGColladaGlobal.h"
-#include "OSGColladaScene.h"
-#include "OSGColladaLibraryAnimationClips.h"
 
-#include <dom/domCOLLADA.h>
+#include <dom/domInstanceWithExtra.h>
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaCOLLADA::_regHelper(
-    &ColladaCOLLADA::create, "COLLADA");
+ColladaElementRegistrationHelper ColladaInstanceAnimation::_regHelper(
+    &ColladaInstanceAnimation::create, "instance_animation");
 
 
 ColladaElementTransitPtr
-ColladaCOLLADA::create(daeElement *elem, ColladaGlobal *global)
+ColladaInstanceAnimation::create(daeElement *elem, ColladaGlobal *global)
 {
-    return ColladaElementTransitPtr(new ColladaCOLLADA(elem, global));
+    return
+        ColladaElementTransitPtr(new ColladaInstanceAnimation(elem, global));
 }
 
 void
-ColladaCOLLADA::read(ColladaElement *colElemParent)
+ColladaInstanceAnimation::read(ColladaElement *colElemParent)
 {
-    OSG_COLLADA_LOG(("ColladaCOLLADA::read\n"));
+    OSG_COLLADA_LOG(("ColladaInstanceAnimation::read\n"));
 
-    domCOLLADARef collada  = getDOMElementAs<domCOLLADA>();
-    domAssetRef   docAsset = collada->getAsset();
+    ColladaAnimationRefPtr colAnim = getTargetElem();
 
-    if(docAsset != NULL)
+    if(colAnim == NULL)
     {
-        domAsset::domContributor_Array &domContrA =
-            docAsset->getContributor_array();
+        colAnim = dynamic_pointer_cast<ColladaAnimation>(
+            ColladaElementFactory::the()->create(
+                getTargetDOMElem(), getGlobal()));
 
-        for(UInt32 i = 0; i < domContrA.getCount(); ++i)
-        {
-            domAsset::domContributor::domAuthoring_toolRef docAuthTool =
-                domContrA.get(i)->getAuthoring_tool();
-
-            if(osgStringNCaseCmp(docAuthTool->getValue(),
-                                 "Google SketchUp",
-                                 15                     ) == 0)
-            {
-                SINFO << "ColladaCOLLADA::read: Detected Google SketchUp file "
-                      << "enabling transparency workaround." << std::endl;
-
-                getGlobal()->getOptions()->setInvertTransparency(true);
-                break;
-            }
-        }
-    }
-
-    domCOLLADA::domSceneRef scene    = collada->getScene();
-    ColladaSceneRefPtr      colScene = getUserDataAs<ColladaScene>(scene);
-
-    if(colScene == NULL)
-    {
-        colScene = dynamic_pointer_cast<ColladaScene>(
-            ColladaElementFactory::the()->create(scene, getGlobal()));
-
-        colScene->read(this);
-    }
-
-    if(getGlobal()->getOptions()->getLoadAnimations() == true)
-    {
-        const domLibrary_animation_clips_Array &animClipLibs =
-            collada->getLibrary_animation_clips_array();
-
-        for(UInt32 i = 0; i < animClipLibs.getCount(); ++i)
-        {
-            ColladaLibraryAnimationClipsRefPtr colLibAnimClips =
-                getUserDataAs<ColladaLibraryAnimationClips>(animClipLibs[i]);
-
-            if(colLibAnimClips == NULL)
-            {
-                colLibAnimClips =
-                    dynamic_pointer_cast<ColladaLibraryAnimationClips>(
-                        ColladaElementFactory::the()->create(
-                            animClipLibs[i], getGlobal()));
-
-                colLibAnimClips->read(this);
-            }
-        }
+        colAnim->read(this);
     }
 }
 
-ColladaCOLLADA::ColladaCOLLADA(daeElement *elem, ColladaGlobal *global)
+ColladaAnimation *
+ColladaInstanceAnimation::getTargetElem(void) const
+{
+    ColladaAnimation *retVal     = NULL;
+    daeElementRef     targetElem = getTargetDOMElem();
+
+    if(targetElem != NULL)
+    {
+        retVal = getUserDataAs<ColladaAnimation>(targetElem);
+    }
+
+    return retVal;
+}
+
+domAnimation *
+ColladaInstanceAnimation::getTargetDOMElem(void) const
+{
+    domAnimationRef         retVal   = NULL;
+    domInstanceWithExtraRef instAnim = getDOMElementAs<domInstanceWithExtra>();
+
+    if(instAnim->getUrl().getElement() != NULL)
+    {
+        retVal = daeSafeCast<domAnimation>(instAnim->getUrl().getElement());
+    }
+
+    return retVal;
+}
+
+ColladaInstanceAnimation::ColladaInstanceAnimation(
+    daeElement *elem, ColladaGlobal *global)
+
     : Inherited(elem, global)
 {
 }
 
-ColladaCOLLADA::~ColladaCOLLADA(void)
+ColladaInstanceAnimation::~ColladaInstanceAnimation(void)
 {
 }
 

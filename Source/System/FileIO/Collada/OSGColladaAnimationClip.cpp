@@ -40,100 +40,64 @@
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 #endif
 
-#include "OSGColladaCOLLADA.h"
+#include "OSGColladaAnimationClip.h"
 
-#if defined(OSG_WITH_COLLADA) || defined(OSG_DO_DOC)
+#ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
-#include "OSGColladaGlobal.h"
-#include "OSGColladaScene.h"
-#include "OSGColladaLibraryAnimationClips.h"
+#include "OSGColladaElementFactory.h"
+#include "OSGColladaInstanceAnimation.h"
 
-#include <dom/domCOLLADA.h>
+#include <dom/domAnimation_clip.h>
 
 OSG_BEGIN_NAMESPACE
 
-ColladaElementRegistrationHelper ColladaCOLLADA::_regHelper(
-    &ColladaCOLLADA::create, "COLLADA");
+
+ColladaElementRegistrationHelper ColladaAnimationClip::_regHelper(
+    &ColladaAnimationClip::create, "animation_clip");
 
 
 ColladaElementTransitPtr
-ColladaCOLLADA::create(daeElement *elem, ColladaGlobal *global)
+ColladaAnimationClip::create(daeElement *elem, ColladaGlobal *global)
 {
-    return ColladaElementTransitPtr(new ColladaCOLLADA(elem, global));
+    return ColladaElementTransitPtr(new ColladaAnimationClip(elem, global));
 }
 
 void
-ColladaCOLLADA::read(ColladaElement *colElemParent)
+ColladaAnimationClip::read(ColladaElement *colElemParent)
 {
-    OSG_COLLADA_LOG(("ColladaCOLLADA::read\n"));
+    domAnimation_clipRef animClip = getDOMElementAs<domAnimation_clip>();
 
-    domCOLLADARef collada  = getDOMElementAs<domCOLLADA>();
-    domAssetRef   docAsset = collada->getAsset();
+    OSG_COLLADA_LOG(("ColladaAnimationClip::read: id [%s]\n",
+                     (animClip->getId() != NULL ? animClip->getId() : "")));
 
-    if(docAsset != NULL)
+    const domInstanceWithExtra_Array &animInsts =
+        animClip->getInstance_animation_array();
+
+    for(UInt32 i = 0; i < animInsts.getCount(); ++i)
     {
-        domAsset::domContributor_Array &domContrA =
-            docAsset->getContributor_array();
+        ColladaInstanceAnimationRefPtr colInstAnim =
+            getUserDataAs<ColladaInstanceAnimation>(animInsts[i]);
 
-        for(UInt32 i = 0; i < domContrA.getCount(); ++i)
+        if(colInstAnim == NULL)
         {
-            domAsset::domContributor::domAuthoring_toolRef docAuthTool =
-                domContrA.get(i)->getAuthoring_tool();
+            colInstAnim = dynamic_pointer_cast<ColladaInstanceAnimation>(
+                ColladaElementFactory::the()->create(
+                    animInsts[i], getGlobal(), "instance_animation"));
 
-            if(osgStringNCaseCmp(docAuthTool->getValue(),
-                                 "Google SketchUp",
-                                 15                     ) == 0)
-            {
-                SINFO << "ColladaCOLLADA::read: Detected Google SketchUp file "
-                      << "enabling transparency workaround." << std::endl;
-
-                getGlobal()->getOptions()->setInvertTransparency(true);
-                break;
-            }
-        }
-    }
-
-    domCOLLADA::domSceneRef scene    = collada->getScene();
-    ColladaSceneRefPtr      colScene = getUserDataAs<ColladaScene>(scene);
-
-    if(colScene == NULL)
-    {
-        colScene = dynamic_pointer_cast<ColladaScene>(
-            ColladaElementFactory::the()->create(scene, getGlobal()));
-
-        colScene->read(this);
-    }
-
-    if(getGlobal()->getOptions()->getLoadAnimations() == true)
-    {
-        const domLibrary_animation_clips_Array &animClipLibs =
-            collada->getLibrary_animation_clips_array();
-
-        for(UInt32 i = 0; i < animClipLibs.getCount(); ++i)
-        {
-            ColladaLibraryAnimationClipsRefPtr colLibAnimClips =
-                getUserDataAs<ColladaLibraryAnimationClips>(animClipLibs[i]);
-
-            if(colLibAnimClips == NULL)
-            {
-                colLibAnimClips =
-                    dynamic_pointer_cast<ColladaLibraryAnimationClips>(
-                        ColladaElementFactory::the()->create(
-                            animClipLibs[i], getGlobal()));
-
-                colLibAnimClips->read(this);
-            }
+            colInstAnim->read(this);
         }
     }
 }
 
-ColladaCOLLADA::ColladaCOLLADA(daeElement *elem, ColladaGlobal *global)
+ColladaAnimationClip::ColladaAnimationClip(
+    daeElement *elem, ColladaGlobal *global)
+
     : Inherited(elem, global)
 {
 }
 
-ColladaCOLLADA::~ColladaCOLLADA(void)
+ColladaAnimationClip::~ColladaAnimationClip(void)
 {
 }
 
