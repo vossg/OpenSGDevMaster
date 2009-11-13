@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="FogChunk"
+   parent="StateChunk"
+   library="State"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   >
+  \ingroup GrpSystemState
+
+  This chunk wraps glFog() (OSG::FogChunk::_sfMode, OSG::FogChunk::_sfFogColor,
+  OSG::FogChunk::_sfStart, OSG::FogChunk::_sfEnd, OSG::FogChunk::_sfDensity).
+
+  <Field
+     name="mode"
+     type="GLenum"
+     category="data"
+     cardinality="single"
+     defaultValue="GL_EXP"
+     defaultHeader="&quot;OSGGL.h&quot;"
+     visibility="external"
+     access="public"
+     >
+    The fog type to use (GL_LINEAR, GL_EXP, GL_EXP2, default: GL_EXP).
+  </Field>
+
+  <Field
+     name="color"
+     type="Color4f"
+     category="data"
+     cardinality="single"
+     defaultValue="0.f, 0.f, 0.f, 0.f"
+     visibility="external"
+     access="public"
+     >
+    The color of the fog (default: 0, 0, 0, 0).
+  </Field>
+
+  <Field
+     name="start"
+     type="Real32"
+     category="data"
+     cardinality="single"
+     defaultValue="0.f"
+     visibility="external"
+     access="public"
+     >
+    The near value for the fog, used in GL_LINEAR mode (default: 0.f)
+  </Field>
+
+  <Field
+     name="end"
+     type="Real32"
+     category="data"
+     cardinality="single"
+     defaultValue="1.f"
+     visibility="external"
+     access="public"
+     >
+    The far value for the fog, used in GL_LINEAR mode (default: 1.f)
+  </Field>
+
+    <Field
+     name="density"
+     type="Real32"
+     category="data"
+     cardinality="single"
+     defaultValue="1.f"
+     visibility="external"
+     access="public"
+     >
+    The denisty of the fog, used in GL_EXP, GL_EXP2 mode (default: 1.f)
+  </Field>
+</FieldContainer>
