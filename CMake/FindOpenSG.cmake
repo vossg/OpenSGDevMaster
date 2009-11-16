@@ -75,14 +75,12 @@ MACRO(__OpenSG_ADJUST_LIB_VARS basename component)
     
           # if only the release version was found, set the debug variable also to the release version
           IF(OpenSG_${basename}_LIBRARY_RELEASE AND NOT OpenSG_${basename}_LIBRARY_DEBUG)
-#              SET(OpenSG_${basename}_LIBRARY_DEBUG ${OpenSG_${basename}_LIBRARY_RELEASE})
               SET(OpenSG_${basename}_LIBRARY       ${OpenSG_${basename}_LIBRARY_RELEASE})
               SET(OpenSG_${basename}_LIBRARIES     ${OpenSG_${basename}_LIBRARY_RELEASE})
           ENDIF(OpenSG_${basename}_LIBRARY_RELEASE AND NOT OpenSG_${basename}_LIBRARY_DEBUG)
     
           # if only the debug version was found, set the release variable also to the debug version
           IF(OpenSG_${basename}_LIBRARY_DEBUG AND NOT OpenSG_${basename}_LIBRARY_RELEASE)
-#              SET(OpenSG_${basename}_LIBRARY_RELEASE ${OpenSG_${basename}_LIBRARY_DEBUG})
               SET(OpenSG_${basename}_LIBRARY         ${OpenSG_${basename}_LIBRARY_DEBUG})
               SET(OpenSG_${basename}_LIBRARIES       ${OpenSG_${basename}_LIBRARY_DEBUG})
           ENDIF(OpenSG_${basename}_LIBRARY_DEBUG AND NOT OpenSG_${basename}_LIBRARY_RELEASE)
@@ -111,6 +109,7 @@ MACRO(__OpenSG_ADJUST_LIB_VARS basename component)
         OpenSG_${basename}_LIBRARY_DEBUG
     )
 ENDMACRO(__OpenSG_ADJUST_LIB_VARS)
+
 
 FUNCTION(SETUP_OSG_LIB_TARGETS COMPONENT UPPERCOMPONENT)
 
@@ -275,14 +274,14 @@ ELSE(__OpenSG_IN_CACHE)
         FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASE
             NAMES  ${COMPONENT}
             HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
-            PATH_SUFFIXES "release" "relwithdbg" "opt"
+            PATH_SUFFIXES "release" "rel" "opt" "relwithdbg"
         )
    
         IF(WIN32)
           FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_DEBUG
               NAMES  "${COMPONENT}D"
               HINTS  ${__OpenSG_LIBRARIES_SEARCH_DIRS}
-              PATH_SUFFIXES "debug" "dbg"
+              PATH_SUFFIXES "debug" "dbg" "debugopt"
           )
 
           FIND_LIBRARY(OpenSG_${UPPERCOMPONENT}_LIBRARY_RELEASENOOPT
