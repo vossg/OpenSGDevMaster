@@ -821,7 +821,7 @@ struct TypeTraits<UInt64> : public TypeTraitsTemplateBase<UInt64>
                                     std::string &out)
     {
         Char8 buffer[25];
-#ifdef __x86_64__
+#if defined(__x86_64__) && ! defined(__APPLE__)
         sprintf(buffer, "%lu", val);
 #else
         sprintf(buffer, "%llu", val);
@@ -910,7 +910,7 @@ struct TypeTraits<Int64> : public TypeTraitsTemplateBase<Int64>
     {
         Char8 buffer[25];
 
-#ifdef __x86_64__
+#if defined(__x86_64__) && ! defined(__APPLE__)
         sprintf(buffer, "%li", val);
 #else
         sprintf(buffer, "%lli", val);
