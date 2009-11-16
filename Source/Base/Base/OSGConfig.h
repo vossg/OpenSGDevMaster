@@ -47,7 +47,7 @@
 #include <sys/types.h>
 #endif
 
-#if defined(__linux) || defined(WIN32)
+#if defined(__linux) || defined(WIN32) || defined(__APPLE__)
 #include <cassert>
 #endif
 
