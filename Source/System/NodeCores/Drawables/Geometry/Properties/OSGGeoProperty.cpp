@@ -291,11 +291,14 @@ UInt32 GeoProperty::handleGL(DrawEnv                 *pEnv,
                                getVboUsage  ());
         }
 
-        osgGlBufferSubDataARB(getBufferType(),
-                              0,
-                              getFormatSize() * getDimension() * getSize(), 
-                              getData());
-                              
+        if(getData() != NULL)
+        {
+            osgGlBufferSubDataARB(getBufferType(),
+                                  0,
+                                  getFormatSize() * getDimension() * getSize(), 
+                                  getData());
+        }
+
         osgGlBindBufferARB(getBufferType(), 0);
     }
     else

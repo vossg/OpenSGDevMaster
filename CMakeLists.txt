@@ -492,6 +492,12 @@ IF(NOT OSG_BUILD_DEPENDEND)
       OSG_CONFIGURE_GLEW()
     ENDIF(WIN32)
 
+    ##############
+    #### Mini
+    ##############
+
+    OSG_CONFIGURE_LIBMINI()
+
     #############
     #### Python
     #############
