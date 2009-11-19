@@ -1186,6 +1186,9 @@ void TextureObjChunk::handleTexture(Window                  *win,
 
         glErr("TextureObjChunk::initialize image");
 
+        // unbind texture
+        glBindTexture(bindtarget, 0);
+
         // Clear image data after upload to the graphics card.
         if (img->getClearOnLoad())
         {
@@ -1357,6 +1360,9 @@ void TextureObjChunk::handleTexture(Window                  *win,
                 glTexParameteri(paramtarget, GL_TEXTURE_MAG_FILTER,
                                 getMagFilter()                     );
             }
+
+            // unbind the texture
+            glBindTexture(bindtarget, 0);
         }
         else
         {
