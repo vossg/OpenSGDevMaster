@@ -51,7 +51,53 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
                        ${OSGLibXml2SrcDir}/xpointer.c
                        ${OSGLibXml2SrcDir}/xmlstring.c)
 
-  SET(OSG_LIBXML2_HDR ${OSGLibXml2SrcDir})
+  SET(OSG_LIBXML2_HDR ${OSGLibXml2SrcDir}/include/libxml/DOCBparser.h
+                      ${OSGLibXml2SrcDir}/include/libxml/HTMLparser.h
+                      ${OSGLibXml2SrcDir}/include/libxml/HTMLtree.h
+                      ${OSGLibXml2SrcDir}/include/libxml/SAX.h
+                      ${OSGLibXml2SrcDir}/include/libxml/SAX2.h
+                      ${OSGLibXml2SrcDir}/include/libxml/c14n.h
+                      ${OSGLibXml2SrcDir}/include/libxml/catalog.h
+                      ${OSGLibXml2SrcDir}/include/libxml/chvalid.h
+                      ${OSGLibXml2SrcDir}/include/libxml/debugXML.h
+                      ${OSGLibXml2SrcDir}/include/libxml/dict.h
+                      ${OSGLibXml2SrcDir}/include/libxml/encoding.h
+                      ${OSGLibXml2SrcDir}/include/libxml/entities.h
+                      ${OSGLibXml2SrcDir}/include/libxml/globals.h
+                      ${OSGLibXml2SrcDir}/include/libxml/hash.h
+                      ${OSGLibXml2SrcDir}/include/libxml/list.h
+                      ${OSGLibXml2SrcDir}/include/libxml/nanoftp.h
+                      ${OSGLibXml2SrcDir}/include/libxml/nanohttp.h
+                      ${OSGLibXml2SrcDir}/include/libxml/parser.h
+                      ${OSGLibXml2SrcDir}/include/libxml/parserInternals.h
+                      ${OSGLibXml2SrcDir}/include/libxml/pattern.h
+                      ${OSGLibXml2SrcDir}/include/libxml/relaxng.h
+                      ${OSGLibXml2SrcDir}/include/libxml/schemasInternals.h
+                      ${OSGLibXml2SrcDir}/include/libxml/schematron.h
+                      ${OSGLibXml2SrcDir}/include/libxml/threads.h
+                      ${OSGLibXml2SrcDir}/include/libxml/tree.h
+                      ${OSGLibXml2SrcDir}/include/libxml/uri.h
+                      ${OSGLibXml2SrcDir}/include/libxml/valid.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xinclude.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xlink.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlIO.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlautomata.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlerror.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlexports.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlmemory.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlmodule.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlreader.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlregexp.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlsave.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlschemas.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlschemastypes.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlstring.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlunicode.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlversion.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xmlwriter.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xpath.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xpathInternals.h
+                      ${OSGLibXml2SrcDir}/include/libxml/xpointer.h)
 
   SET(OSGLIBXML2_DEF HAVE_ZLIB_H)
 
@@ -98,11 +144,11 @@ IF(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
                 ARCHIVE DESTINATION lib)
   ENDIF(BUILD_STATIC_LIBS)
 
-#  INSTALL(FILES ${OSG_TIFFLIB_HDR}
-#          DESTINATION include
-#          PERMISSIONS OWNER_WRITE OWNER_READ
-#                      GROUP_READ
-#                      WORLD_READ)
+  INSTALL(FILES ${OSG_TIFFLIB_HDR}
+          DESTINATION include/libxml
+          PERMISSIONS OWNER_WRITE OWNER_READ
+                      GROUP_READ
+                      WORLD_READ)
 
 ELSE(OSGLibXml2SrcDir AND OSGZLibSrcDir AND OSGLibIconvSrcDir)
   SET(OSGLibXml2SrcDir "" CACHE PATH "")

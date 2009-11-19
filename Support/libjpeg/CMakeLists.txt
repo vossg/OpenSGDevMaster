@@ -59,7 +59,8 @@ IF(OSGJpegLibSrcDir)
 
   SET(OSG_LIBJPG_HDR ${OSGJpegLibSrcDir}/jpeglib.h 
                      ${OSGJpegLibSrcDir}/jconfig.h
-                     ${OSGJpegLibSrcDir}/jmorecfg.h)
+                     ${OSGJpegLibSrcDir}/jmorecfg.h
+                     ${OSGJpegLibSrcDir}/jerror.h)
 
   EXECUTE_PROCESS(
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different
@@ -84,6 +85,10 @@ IF(OSGJpegLibSrcDir)
           PERMISSIONS OWNER_WRITE OWNER_READ
                       GROUP_READ
                       WORLD_READ)
+
+  SET(OSG_JPEG_INCLUDE_DIR ${OSGJpegLibSrcDir} CACHE PATH "")
+  SET(OSG_JPEG_STATIC_LIBRARY ${${PROJECT_NAME}StaticTarget} CACHE STRING "")
+  SET(OSG_JPEG_SHARED_LIBRARY ${${PROJECT_NAME}SharedTarget} CACHE STRING "")
 
 ELSE(OSGJpegLibSrcDir)
   SET(OSGJpegLibSrcDir "" CACHE PATH "")
