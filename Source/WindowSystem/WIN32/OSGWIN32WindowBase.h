@@ -66,6 +66,7 @@
 #include "OSGWindow.h" // Parent
 
 #include "OSGWIN32WindowDataFields.h"   // Hwnd type
+#include "OSGSysFields.h"               // Dummy0 type
 
 #include "OSGWIN32WindowFields.h"
 
@@ -96,7 +97,8 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
         HwndFieldId = Inherited::NextFieldId,
         HdcFieldId = HwndFieldId + 1,
         HglrcFieldId = HdcFieldId + 1,
-        NextFieldId = HglrcFieldId + 1
+        Dummy0FieldId = HglrcFieldId + 1,
+        NextFieldId = Dummy0FieldId + 1
     };
 
     static const OSG::BitVector HwndFieldMask =
@@ -105,12 +107,15 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
         (TypeTraits<BitVector>::One << HdcFieldId);
     static const OSG::BitVector HglrcFieldMask =
         (TypeTraits<BitVector>::One << HglrcFieldId);
+    static const OSG::BitVector Dummy0FieldMask =
+        (TypeTraits<BitVector>::One << Dummy0FieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
     typedef SFHWND            SFHwndType;
     typedef SFHDC             SFHdcType;
     typedef SFHGLRC           SFHglrcType;
+    typedef SFInt32           SFDummy0Type;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -145,6 +150,9 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
                   SFHGLRC             *editSFHglrc          (void);
             const SFHGLRC             *getSFHglrc           (void) const;
 
+                  SFInt32             *editSFDummy0         (void);
+            const SFInt32             *getSFDummy0          (void) const;
+
 
                   HWND                &editHwnd           (void);
             const HWND                &getHwnd            (void) const;
@@ -155,6 +163,9 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
                   HGLRC               &editHglrc          (void);
             const HGLRC               &getHglrc           (void) const;
 
+                  Int32               &editDummy0         (void);
+                  Int32                getDummy0          (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -163,6 +174,7 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
             void setHwnd           (const HWND &value);
             void setHdc            (const HDC &value);
             void setHglrc          (const HGLRC &value);
+            void setDummy0         (const Int32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -225,6 +237,7 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     SFHWND            _sfHwnd;
     SFHDC             _sfHdc;
     SFHGLRC           _sfHglrc;
+    SFInt32           _sfDummy0;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -258,6 +271,8 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32WindowBase : public Window
     EditFieldHandlePtr editHandleHdc            (void);
     GetFieldHandlePtr  getHandleHglrc           (void) const;
     EditFieldHandlePtr editHandleHglrc          (void);
+    GetFieldHandlePtr  getHandleDummy0          (void) const;
+    EditFieldHandlePtr editHandleDummy0         (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

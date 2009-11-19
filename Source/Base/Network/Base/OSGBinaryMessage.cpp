@@ -139,7 +139,7 @@ BinaryMessage& BinaryMessage::operator = (const BinaryMessage &source)
  */
 void BinaryMessage::setSize(UInt32 size)
 {
-    _buffer.resize(size);
+    _buffer.resize(sizeof(Header) + size);
     reset();
 }
 

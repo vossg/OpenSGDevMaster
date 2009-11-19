@@ -148,6 +148,31 @@ void WIN32WindowBase::setHglrc(const HGLRC &value)
 
     _sfHglrc.setValue(value);
 }
+//! Get the value of the WIN32Window::_sfDummy0 field.
+
+inline
+Int32 &WIN32WindowBase::editDummy0(void)
+{
+    editSField(Dummy0FieldMask);
+
+    return _sfDummy0.getValue();
+}
+
+//! Get the value of the WIN32Window::_sfDummy0 field.
+inline
+      Int32  WIN32WindowBase::getDummy0(void) const
+{
+    return _sfDummy0.getValue();
+}
+
+//! Set the value of the WIN32Window::_sfDummy0 field.
+inline
+void WIN32WindowBase::setDummy0(const Int32 value)
+{
+    editSField(Dummy0FieldMask);
+
+    _sfDummy0.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -168,6 +193,9 @@ void WIN32WindowBase::execSync (      WIN32WindowBase *pFrom,
 
     if(FieldBits::NoField != (HglrcFieldMask & whichField))
         _sfHglrc.syncWith(pFrom->_sfHglrc);
+
+    if(FieldBits::NoField != (Dummy0FieldMask & whichField))
+        _sfDummy0.syncWith(pFrom->_sfDummy0);
 }
 #endif
 

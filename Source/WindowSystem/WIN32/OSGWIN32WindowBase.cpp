@@ -94,6 +94,12 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Int32           WIN32WindowBase::_sfDummy0
+    This field only exists so that all platform window types have the same
+    number of fields.
+    Otherwise transmitting field masks across a cluster is not possible.
+*/
+
 
 /***************************************************************************\
  *                      FieldType/FieldTrait Instantiation                 *
@@ -128,7 +134,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         "",
         HwndFieldId, HwndFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&WIN32Window::editHandleHwnd),
         static_cast<FieldGetMethodSig >(&WIN32Window::getHandleHwnd));
 
@@ -140,7 +146,7 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         "",
         HdcFieldId, HdcFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&WIN32Window::editHandleHdc),
         static_cast<FieldGetMethodSig >(&WIN32Window::getHandleHdc));
 
@@ -152,9 +158,23 @@ void WIN32WindowBase::classDescInserter(TypeObject &oType)
         "",
         HglrcFieldId, HglrcFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&WIN32Window::editHandleHglrc),
         static_cast<FieldGetMethodSig >(&WIN32Window::getHandleHglrc));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFInt32::Description(
+        SFInt32::getClassType(),
+        "dummy0",
+        "This field only exists so that all platform window types have the same\n"
+        "number of fields.\n"
+        "Otherwise transmitting field masks across a cluster is not possible.\n",
+        Dummy0FieldId, Dummy0FieldMask,
+        true,
+        (Field::FClusterLocal),
+        static_cast<FieldEditMethodSig>(&WIN32Window::editHandleDummy0),
+        static_cast<FieldGetMethodSig >(&WIN32Window::getHandleDummy0));
 
     oType.addInitialDesc(pDesc);
 }
@@ -174,45 +194,62 @@ WIN32WindowBase::TypeObject WIN32WindowBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"WIN32Window\"\n"
-    "\tparent=\"Window\"\n"
-    "\tlibrary=\"WindowWIN32\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    ">\n"
-    "The class for WIN32 windows.\n"
-    "\t<Field\n"
-    "\t\tname=\"hwnd\"\n"
-    "\t\ttype=\"HWND\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"0\"\n"
-    "\t\tfieldHeader=\"OSGWIN32WindowDataFields.h\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"hdc\"\n"
-    "\t\ttype=\"HDC\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"0\"\n"
-    "\t\tfieldHeader=\"OSGWIN32WindowDataFields.h\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
-    "\t<Field\n"
-    "\t\tname=\"hglrc\"\n"
-    "\t\ttype=\"HGLRC\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"0\"\n"
-    "\t\tfieldHeader=\"OSGWIN32WindowDataFields.h\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "     name=\"WIN32Window\"\n"
+    "     parent=\"Window\"\n"
+    "     library=\"WindowWIN32\"\n"
+    "     pointerfieldtypes=\"both\"\n"
+    "     structure=\"concrete\"\n"
+    "     systemcomponent=\"true\"\n"
+    "     parentsystemcomponent=\"true\"\n"
+    "     >\n"
+    "    The class for WIN32 windows.\n"
+    "    <Field\n"
+    "         name=\"hwnd\"\n"
+    "         type=\"HWND\"\n"
+    "         cardinality=\"single\"\n"
+    "         visibility=\"internal\"\n"
+    "         defaultValue=\"0\"\n"
+    "         fieldHeader=\"OSGWIN32WindowDataFields.h\"\n"
+    "         access=\"public\"\n"
+    "         fieldFlags=\"FClusterLocal\"\n"
+    "         >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "         name=\"hdc\"\n"
+    "         type=\"HDC\"\n"
+    "         cardinality=\"single\"\n"
+    "         visibility=\"internal\"\n"
+    "         defaultValue=\"0\"\n"
+    "         fieldHeader=\"OSGWIN32WindowDataFields.h\"\n"
+    "         access=\"public\"\n"
+    "         fieldFlags=\"FClusterLocal\"\n"
+    "         >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "         name=\"hglrc\"\n"
+    "         type=\"HGLRC\"\n"
+    "         cardinality=\"single\"\n"
+    "         visibility=\"internal\"\n"
+    "         defaultValue=\"0\"\n"
+    "         fieldHeader=\"OSGWIN32WindowDataFields.h\"\n"
+    "         access=\"public\"\n"
+    "         fieldFlags=\"FClusterLocal\"\n"
+    "         >\n"
+    "    </Field>\n"
+    "    <Field\n"
+    "         name=\"dummy0\"\n"
+    "         type=\"Int32\"\n"
+    "         category=\"data\"\n"
+    "         cardinality=\"single\"\n"
+    "         visibility=\"internal\"\n"
+    "         defaultValue=\"0\"\n"
+    "         access=\"public\"\n"
+    "         fieldFlags=\"FClusterLocal\"\n"
+    "         >\n"
+    "        This field only exists so that all platform window types have the same\n"
+    "        number of fields.\n"
+    "        Otherwise transmitting field masks across a cluster is not possible.\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "The class for WIN32 windows.\n"
     );
@@ -276,6 +313,19 @@ const SFHGLRC *WIN32WindowBase::getSFHglrc(void) const
 }
 
 
+SFInt32 *WIN32WindowBase::editSFDummy0(void)
+{
+    editSField(Dummy0FieldMask);
+
+    return &_sfDummy0;
+}
+
+const SFInt32 *WIN32WindowBase::getSFDummy0(void) const
+{
+    return &_sfDummy0;
+}
+
+
 
 
 
@@ -298,6 +348,10 @@ UInt32 WIN32WindowBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfHglrc.getBinSize();
     }
+    if(FieldBits::NoField != (Dummy0FieldMask & whichField))
+    {
+        returnValue += _sfDummy0.getBinSize();
+    }
 
     return returnValue;
 }
@@ -319,6 +373,10 @@ void WIN32WindowBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfHglrc.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (Dummy0FieldMask & whichField))
+    {
+        _sfDummy0.copyToBin(pMem);
+    }
 }
 
 void WIN32WindowBase::copyFromBin(BinaryDataHandler &pMem,
@@ -337,6 +395,10 @@ void WIN32WindowBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (HglrcFieldMask & whichField))
     {
         _sfHglrc.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (Dummy0FieldMask & whichField))
+    {
+        _sfDummy0.copyFromBin(pMem);
     }
 }
 
@@ -465,7 +527,8 @@ WIN32WindowBase::WIN32WindowBase(void) :
     Inherited(),
     _sfHwnd                   (HWND(0)),
     _sfHdc                    (HDC(0)),
-    _sfHglrc                  (HGLRC(0))
+    _sfHglrc                  (HGLRC(0)),
+    _sfDummy0                 (Int32(0))
 {
 }
 
@@ -473,7 +536,8 @@ WIN32WindowBase::WIN32WindowBase(const WIN32WindowBase &source) :
     Inherited(source),
     _sfHwnd                   (source._sfHwnd                   ),
     _sfHdc                    (source._sfHdc                    ),
-    _sfHglrc                  (source._sfHglrc                  )
+    _sfHglrc                  (source._sfHglrc                  ),
+    _sfDummy0                 (source._sfDummy0                 )
 {
 }
 
@@ -556,6 +620,31 @@ EditFieldHandlePtr WIN32WindowBase::editHandleHglrc          (void)
 
 
     editSField(HglrcFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr WIN32WindowBase::getHandleDummy0          (void) const
+{
+    SFInt32::GetHandlePtr returnValue(
+        new  SFInt32::GetHandle(
+             &_sfDummy0,
+             this->getType().getFieldDesc(Dummy0FieldId),
+             const_cast<WIN32WindowBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr WIN32WindowBase::editHandleDummy0         (void)
+{
+    SFInt32::EditHandlePtr returnValue(
+        new  SFInt32::EditHandle(
+             &_sfDummy0,
+             this->getType().getFieldDesc(Dummy0FieldId),
+             this));
+
+
+    editSField(Dummy0FieldMask);
 
     return returnValue;
 }

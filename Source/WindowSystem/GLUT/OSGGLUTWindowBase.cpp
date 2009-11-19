@@ -120,7 +120,7 @@ void GLUTWindowBase::classDescInserter(TypeObject &oType)
         "",
         GlutIdFieldId, GlutIdFieldMask,
         true,
-        (Field::SFDefaultFlags | Field::FStdAccess),
+        (Field::FClusterLocal),
         static_cast<FieldEditMethodSig>(&GLUTWindow::editHandleGlutId),
         static_cast<FieldGetMethodSig >(&GLUTWindow::getHandleGlutId));
 
@@ -142,25 +142,26 @@ GLUTWindowBase::TypeObject GLUTWindowBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "\tname=\"GLUTWindow\"\n"
-    "\tparent=\"NativeWindow\"\n"
-    "\tlibrary=\"WindowGLUT\"\n"
-    "\tpointerfieldtypes=\"both\"\n"
-    "\tstructure=\"concrete\"\n"
-    "\tsystemcomponent=\"true\"\n"
-    "\tparentsystemcomponent=\"true\"\n"
-    "    realparent=\"Window\"\n"
-    ">\n"
-    "The class for GLUT-based windows. See \\ref PageWindowGlut for a description.\n"
-    "\t<Field\n"
-    "\t\tname=\"glutId\"\n"
-    "\t\ttype=\"Int32\"\n"
-    "\t\tcardinality=\"single\"\n"
-    "\t\tvisibility=\"internal\"\n"
-    "\t\tdefaultValue=\"0\"\n"
-    "\t\taccess=\"public\"\n"
-    "\t>\n"
-    "\t</Field>\n"
+    "     name=\"GLUTWindow\"\n"
+    "     parent=\"NativeWindow\"\n"
+    "     library=\"WindowGLUT\"\n"
+    "     pointerfieldtypes=\"both\"\n"
+    "     structure=\"concrete\"\n"
+    "     systemcomponent=\"true\"\n"
+    "     parentsystemcomponent=\"true\"\n"
+    "     realparent=\"Window\"\n"
+    "     >\n"
+    "    The class for GLUT-based windows. See \\ref PageWindowGlut for a description.\n"
+    "    <Field\n"
+    "         name=\"glutId\"\n"
+    "         type=\"Int32\"\n"
+    "         cardinality=\"single\"\n"
+    "         visibility=\"internal\"\n"
+    "         defaultValue=\"0\"\n"
+    "         access=\"public\"\n"
+    "         fieldFlags=\"FClusterLocal\"\n"
+    "         >\n"
+    "    </Field>\n"
     "</FieldContainer>\n",
     "The class for GLUT-based windows. See \\ref PageWindowGlut for a description.\n"
     );

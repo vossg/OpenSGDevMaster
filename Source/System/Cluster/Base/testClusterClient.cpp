@@ -754,7 +754,7 @@ void init(std::vector<std::string> &filenames)
                         y*size[1]*1.1,
                         z*size[2]*1.1);
                     geoNode = OSG::cloneTree(scene);
-                    *geoNode->editSFVolume() = *scene->getSFVolume();
+                    geoNode->editSFVolume()->getValue() = scene->getSFVolume()->getValue();
                     geoNode->editVolume(false).setValid(true);
                     node->addChild( geoNode );
                     dlight->addChild(node);
@@ -771,6 +771,9 @@ void init(std::vector<std::string> &filenames)
         sum_triangles *=OSG::UInt32(ca*cb*cc);
         sum_positions *=OSG::UInt32(ca*cb*cc);
     }
+
+    OSG::Thread::getCurrentChangeList()->commitChanges();
+
 //    dlight->invalidateVolume();
     printf("update Volume\n");
     dlight->updateVolume();
@@ -1292,6 +1295,8 @@ int doMain(int argc,char **argv)
     clientWindow->resize(winwidth,winheight);
 
 //    OSG::FieldContainerFactory::the()->dump();
+
+    OSG::commitChanges();
 
     glutMainLoop();
 
