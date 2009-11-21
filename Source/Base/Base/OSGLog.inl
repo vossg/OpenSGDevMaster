@@ -189,6 +189,12 @@ LogLock::operator std::ostream &()
     return _os;
 }
 
+inline std::ostream &
+LogLock::getStream(void)
+{
+    return _os;
+}
+
 inline 
 void initLog(void) 
 {
@@ -209,7 +215,8 @@ std::ostream &osgStartLog(      bool      logHeader,
                                 LogLevel  level, 
                           const Char8    *module,
                           const Char8    *file, 
-                                UInt32    line)
+                                UInt32    line,
+                          const Char8    *funcName)
 {
     if(GlobalSystemState <= Shutdown)
     {
@@ -218,7 +225,7 @@ std::ostream &osgStartLog(      bool      logHeader,
         if(osgLogP->checkModule(module)) 
         {
             if(logHeader)
-                osgLogP->doHeader(level,module,file,line);
+              osgLogP->doHeader(level, module, file, line, funcName);
 
             return osgLogP->stream(level);
         }
