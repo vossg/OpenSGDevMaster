@@ -372,10 +372,13 @@ void PipelineComposer::close(void)
         _queue.push_back(NULL);
         if(_waiting)
         {
-            _waiting = false;
-            _barrier->enter(2);
+            _lock   ->release( );
+            _barrier->enter  (2);
         }
-        _lock->release();
+        else
+        {
+            _lock->release();
+        }
         BaseThread::join(_writer);
 
         _writer          = NULL;

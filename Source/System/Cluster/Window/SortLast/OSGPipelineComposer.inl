@@ -344,7 +344,7 @@ void PipelineComposer::clientCompose(DepthT &depth,ColorT &color)
 
     while(recvCount--)
     {
-//        int c=servers->selectChannel();
+        Connection::Channel c = servers->selectChannel();
 #ifdef COMPRESS_IMAGES
         servers->get(&srcLen,sizeof(UInt32));
         servers->get(&src[0],srcLen);
@@ -367,6 +367,7 @@ void PipelineComposer::clientCompose(DepthT &depth,ColorT &color)
                      readTile->header.w*
                      readTile->header.h*
                      sizeof(ColorT);
+
         // draw
         glRasterPos2f(readTile->header.x * getTileSize(),
                       readTile->header.y * getTileSize());
@@ -425,10 +426,14 @@ void PipelineComposer::serverCompose(DepthT &depth,ColorT &color)
                 _queue.push_back(tile);
                 if(_waiting)
                 {
-                    _waiting = false;
-                    _barrier->enter(2);
+                    _lock   ->release( );
+                    _barrier->enter  (2);
                 }
-                _lock->release();
+                else
+                {
+                    _lock->release();
+                }
+
                 if(tile->trans.sendDepth)
                     _statistics.bytesOut += tile->dataSize + sizeof(tile->header);
                 else
@@ -516,16 +521,31 @@ void PipelineComposer::serverCompose(DepthT &depth,ColorT &color)
         _queue.push_back(tile);
         if(_waiting)
         {
-            _waiting = false;
-            _barrier->enter(2);
+            _lock   ->release( );
+            _barrier->enter  (2);
         }
-        _lock->release();
+        else
+        {
+            _lock->release();
+        }
 #ifndef COMPRESS_IMAGES
         if(tile->trans.sendDepth)
             _statistics.bytesOut += tile->dataSize + sizeof(tile->header);
         else
             _statistics.bytesOut += tile->colorSize + sizeof(tile->header);
 #endif
+    }
+
+    // wake up sender thread, so it can finish transmitting queued tiles
+    _lock->acquire();
+    if(_waiting)
+    {
+        _lock   ->release( );
+        _barrier->enter  (2);
+    }
+    else
+    {
+        _lock->release();
     }
 }
 
@@ -541,17 +561,20 @@ void PipelineComposer::writeResult(DepthT &depth,ColorT &color)
     for(;;)
     {
         _lock->acquire();
-        if(_queue.empty())
+        while(_queue.empty())
         {
             _waiting = true;
-            _lock->release();
-            _barrier->enter(2);
-            _lock->acquire();
+            _lock   ->release( );
+            _barrier->enter  (2);
+            _lock   ->acquire( );
         }
-        tile = _queue.front();
+
+        _waiting = false;
+        tile     = _queue.front();
         _queue.pop_front();
         _lock->release();
-        if(!tile)
+
+        if(tile == NULL)
             break;
 
         if(tile->trans.sendDepth)
