@@ -46,6 +46,7 @@
 #include "OSGColladaElement.h"
 #include "OSGColladaElementFactoryHelper.h"
 #include "OSGGeoVectorProperty.h"
+#include "OSGAnimKeyFrameDataSource.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -94,7 +95,9 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     /*! \name Access                                                       */
     /*! \{                                                                 */
 
-    GeoVectorProperty *getProperty   (const std::string &semantic);
+    GeoVectorProperty      *getProperty  (const std::string &semantic);
+    AnimKeyFrameDataSource *getDataSource(const std::string &semantic);
+
     const NameStore   &getNameStore  (void                       );
     const MatrixStore &getMatrixStore(void                       );
 
@@ -123,18 +126,24 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     // map semantic to a property holding data of this source in the
     // appropriate form for the semantic
     typedef std::map<std::string,
-                     GeoVectorPropertyUnrecPtr> PropertyMap;
-    typedef PropertyMap::iterator               PropertyMapIt;
-    typedef PropertyMap::const_iterator         PropertyMapConstIt;
+                     GeoVectorPropertyUnrecPtr>      PropertyMap;
+    typedef PropertyMap::iterator                    PropertyMapIt;
+    typedef PropertyMap::const_iterator              PropertyMapConstIt;
+
+    typedef std::map<std::string,
+                     AnimKeyFrameDataSourceUnrecPtr> DataSourceMap;
+    typedef DataSourceMap::iterator                  DataSourceMapIt;
+    typedef DataSourceMap::const_iterator            DataSourceMapConstIt;
 
     typedef std::vector<Int16>                  StrideMap;
     typedef StrideMap::iterator                 StrideMapIt;
     typedef StrideMap::const_iterator           StrideMapConstIt;
 
 
-    GeoVectorProperty *fillProperty   (const std::string &semantic);
-    void               fillNameStore  (void                       );
-    void               fillMatrixStore(void                       );
+    GeoVectorProperty      *fillProperty   (const std::string &semantic);
+    AnimKeyFrameDataSource *fillDataSource (const std::string &semantic);
+    void                    fillNameStore  (void                       );
+    void                    fillMatrixStore(void                       );
     
 
     static ColladaElementRegistrationHelper _regHelper;
@@ -145,9 +154,10 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     UInt32      _elemSize;
     StrideMap   _strideMap;
 
-    PropertyMap _propMap;
-    NameStore   _nameStore;
-    MatrixStore _matrixStore;
+    PropertyMap   _propMap;
+    DataSourceMap _dataMap;
+    NameStore     _nameStore;
+    MatrixStore   _matrixStore;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaSource);

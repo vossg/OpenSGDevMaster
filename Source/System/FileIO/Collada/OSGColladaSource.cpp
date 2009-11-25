@@ -46,6 +46,9 @@
 
 #include "OSGColladaLog.h"
 #include "OSGTypedGeoVectorProperty.h"
+#include "OSGAnimMatrixDataSource.h"
+#include "OSGAnimQuaternionDataSource.h"
+#include "OSGAnimVec3fDataSource.h"
 
 #include <dom/domSource.h>
 #include <dom/domAccessor.h>
@@ -160,6 +163,32 @@ ColladaSource::getProperty(const std::string &semantic)
                << "semantic [" << semantic << "] from source ["
                << source->getId() << "]."
                << std::endl;
+    }
+
+    return retVal;
+}
+
+AnimKeyFrameDataSource *
+ColladaSource::getDataSource(const std::string &semantic)
+{
+    AnimKeyFrameDataSource *retVal = NULL;
+    domSourceRef            source = getDOMElementAs<domSource>();
+    DataSourceMapIt         dmIt   = _dataMap.find(semantic);
+
+    if(dmIt != _dataMap.end())
+    {
+        retVal = dmIt->second;
+    }
+    else
+    {
+        retVal = fillDataSource(semantic);
+    }
+
+    if(retVal == NULL)
+    {
+        SFATAL << "ColladaSource::getDataSource: Could not read data for "
+               << "semantic [" << semantic << "] from source ["
+               << source->getId() << "]." << std::endl;
     }
 
     return retVal;
@@ -336,6 +365,7 @@ ColladaSource::ColladaSource(daeElement *elem, ColladaGlobal *global)
     , _elemSize   (0)
     , _strideMap  ()
     , _propMap    ()
+    , _dataMap    ()
     , _nameStore  ()
     , _matrixStore()
 {
@@ -388,9 +418,7 @@ ColladaSource::fillProperty(const std::string &semantic)
         for(UInt32 i = _offset; i < _count * _stride; ++i)
         {
             if(_strideMap[currIdx] != -1)
-            {
                 currPnt[_strideMap[currIdx]] = data[i];
-            }
             
             ++currIdx;
 
@@ -453,6 +481,129 @@ ColladaSource::fillProperty(const std::string &semantic)
     }
 
     return prop;
+}
+
+AnimKeyFrameDataSource *
+ColladaSource::fillDataSource(const std::string &semantic)
+{
+    AnimKeyFrameDataSourceUnrecPtr    retVal  = NULL;
+    domSourceRef                      source  = getDOMElementAs<domSource>  ();
+    domSource::domTechnique_commonRef techCom = source ->getTechnique_common();
+    domAccessorRef                    acc     = techCom->getAccessor        ();
+
+    daeURI            dataURI   = acc->getSource();
+    domFloat_arrayRef dataArray = 
+        daeSafeCast<domFloat_array>(dataURI.getElement());
+
+    if(dataArray == NULL)
+    {
+        SWARNING << "ColladaSource::fillDataSource: Could not find "
+                 << "<float_array> for [" << dataURI.str() << "]."
+                 << std::endl;
+        return NULL;
+    }
+
+    const domListOfFloats &data = dataArray->getValue();
+
+    OSG_ASSERT((_offset + _count * _stride) <= data.getCount());
+
+
+    if(_elemSize == 3)
+    {
+        AnimVec3fDataSourceUnrecPtr dataSource =
+            AnimVec3fDataSource::create();
+
+        Vec3f  currVal;
+        UInt32 currIdx = 0;
+
+        for(UInt32 i = _offset; i < _count * _stride; ++i)
+        {
+            if(_strideMap[currIdx] != -1)
+                currVal[_strideMap[currIdx]] = data[i];
+
+            ++currIdx;
+
+            if(currIdx == _stride)
+            {
+                dataSource->editMFValues()->push_back(currVal);
+                currIdx = 0;
+            }
+        }
+
+        retVal = dataSource;
+    }
+    else if(_elemSize == 4)
+    {
+        AnimQuaternionDataSourceUnrecPtr dataSource =
+            AnimQuaternionDataSource::create();
+
+        Quaternion currVal;
+        UInt32     currIdx = 0;
+
+        for(UInt32 i = _offset; i < _count * _stride; ++i)
+        {
+            if(_strideMap[currIdx] != -1)
+                currVal[_strideMap[currIdx]] = data[i];
+
+            ++currIdx;
+
+            if(currIdx == _stride)
+            {
+                dataSource->editMFValues()->push_back(currVal);
+                currIdx = 0;
+            }
+        }
+
+        retVal = dataSource;
+    }
+    else if(_elemSize == 16)
+    {
+        AnimMatrixDataSourceUnrecPtr dataSource =
+            AnimMatrixDataSource::create();
+
+        Matrix currVal;
+        UInt32 currIdx    = 0;
+        UInt32 currRowIdx = 0;
+        UInt32 currColIdx = 0;
+
+        for(UInt32 i = _offset; i < _count * _stride; ++i)
+        {
+            if(_strideMap[currIdx] != -1)
+                currVal[currColIdx][currRowIdx] = data[i];
+
+            ++currIdx;
+            ++currColIdx;
+
+            if(currColIdx >= 4)
+            {
+                currColIdx = 0;
+                ++currRowIdx;
+            }
+
+            if(currIdx == _stride)
+            {
+                dataSource->editMFValues()->push_back(currVal);
+                currIdx    = 0;
+                currRowIdx = 0;
+                currColIdx = 0;
+            }
+        }
+
+        retVal = dataSource;
+    }
+    else
+    {
+        SWARNING << "ColladaSource::fillDataSource: Unhandled element size ["
+                 << _elemSize << "] for semantic [" << semantic << "]"
+                 << std::endl;
+    }
+
+    if(retVal != NULL)
+    {
+        _dataMap.insert(DataSourceMap::value_type(semantic, retVal));
+    }
+
+    return retVal;
 }
 
 void

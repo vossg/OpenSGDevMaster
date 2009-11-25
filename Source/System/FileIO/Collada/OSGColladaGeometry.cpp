@@ -848,7 +848,7 @@ ColladaGeometry::setupProperty(
     else
     {
         SFATAL << "ColladaGeometry::setupProperty: "
-               << "No <source> found with id [" << sourceId << "]."
+               << "No <source> with id [" << sourceId << "] found."
                << std::endl;
     }
 

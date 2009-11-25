@@ -135,6 +135,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     inline const DAE          *getDAE       (void                      ) const;
     inline DAE                *editDAE      (void                      );
 
+    inline domCOLLADA         *getDocRoot   (void                      ) const;
+
     inline const std::string  &getDocPath   (void                      ) const;
     inline void                setDocPath   (const std::string &docPath);
 
@@ -189,6 +191,7 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     PathHandler           _pathHandler;
     std::string           _docPath;
 
+    domCOLLADARef         _docRoot;
     DAE                  *_dae;
 
     NodeUnrecPtr          _rootN;

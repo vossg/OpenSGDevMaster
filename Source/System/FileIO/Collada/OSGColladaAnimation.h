@@ -45,8 +45,20 @@
 
 #include "OSGColladaInstantiableElement.h"
 #include "OSGColladaElementFactoryHelper.h"
+#include "OSGColladaSource.h"
+
+// forward decl
+class domAnimation;
+class domInputLocal;
+class domChannel;
+class domSampler;
+
 
 OSG_BEGIN_NAMESPACE
+
+// forward decl
+class AnimKeyFrameTemplate;
+
 
 class OSG_FILEIO_DLLMAPPING ColladaAnimation 
     : public ColladaInstantiableElement
@@ -93,7 +105,33 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimation
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
+    typedef std::map<std::string, ColladaSourceRefPtr> SourceMap;
+    typedef SourceMap::iterator                        SourceMapIt;
+    typedef SourceMap::const_iterator                  SourceMapConstIt;
+
+    void readAnim           (domAnimation           *anim          );
+    void createInstanceAnim (domAnimation           *anim,
+                             ColladaElement         *colInstParent,
+                             ColladaInstanceElement *colInst,
+                             AnimKeyFrameTemplate   *animTmpl      );
+    AnimKeyFrameDataSourceTransitPtr
+         handleOutput       (domChannel             *channel,
+                             domSampler             *sampler,
+                             AnimKeyFrameTemplate   *animTmpl  );
+    void handleInterpolation(domChannel             *channel,
+                             domSampler             *sampler, 
+                             AnimKeyFrameTemplate   *animTmpl,
+                             AnimKeyFrameDataSource *dataSource);
+    void handleInput        (domChannel             *channel,
+                             domSampler             *sampler,
+                             AnimKeyFrameTemplate   *animTmpl,
+                             AnimKeyFrameDataSource *dataSource);
+
+    domInputLocal *findInput(domSampler *sampler, const std::string &semantic);
+    
     static ColladaElementRegistrationHelper _regHelper;
+
+    SourceMap _sourceMap;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaAnimation);

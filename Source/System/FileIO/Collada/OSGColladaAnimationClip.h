@@ -42,10 +42,15 @@
 #include "OSGConfig.h"
 #include "OSGColladaElement.h"
 #include "OSGColladaElementFactoryHelper.h"
+#include "OSGColladaInstInfo.h"
 
 #ifdef OSG_WITH_COLLADA
 
 OSG_BEGIN_NAMESPACE
+
+// forward decl
+class ColladaInstanceAnimation;
+
 
 class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
 {
@@ -79,6 +84,42 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    class ColladaAnimationInstInfo : public ColladaInstInfo
+    {
+        /*==========================  PUBLIC  =============================*/
+      public:
+        typedef ColladaInstInfo          Inherited;
+        typedef ColladaAnimationInstInfo Self;
+
+        OSG_GEN_INTERNAL_MEMOBJPTR(ColladaAnimationInstInfo);
+
+        static ColladaInstInfoTransitPtr
+            create(ColladaAnimationClip     *colInstParent,
+                   ColladaInstanceAnimation *colInst       );
+
+        virtual void process(void);
+
+        /*! \}                                                             */
+        /*=========================  PROTECTED  ===========================*/
+      protected:
+        /*-----------------------------------------------------------------*/
+        /*! \name Constructors/Destructor                                  */
+        /*! \{                                                             */
+
+                 ColladaAnimationInstInfo(
+                     ColladaAnimationClip     *colInstParent,
+                     ColladaInstanceAnimation *colInst       );
+        virtual ~ColladaAnimationInstInfo(void               );
+
+        /*! \}                                                             */
+        /*-----------------------------------------------------------------*/
+    };
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
@@ -88,6 +129,8 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
+
+    void handleInstanceAnimation(ColladaInstInfo *instInfo);
 
     static ColladaElementRegistrationHelper _regHelper;
 };

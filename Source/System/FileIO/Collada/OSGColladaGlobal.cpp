@@ -173,6 +173,7 @@ ColladaGlobal::ColladaGlobal(void)
     , _statColl   (NULL)
     , _pathHandler()
     , _docPath    ()
+    , _docRoot    ()
     , _dae        (NULL)
     , _rootN      (NULL)
 {
@@ -204,12 +205,12 @@ ColladaGlobal::doRead(void)
 
     _statColl->reset  (StatElemDescBase::RESET_ALWAYS);
 
-    domCOLLADARef docRoot = _dae->getRoot(_docPath);
+    _docRoot = _dae->getRoot(_docPath);
 
-    if(docRoot != NULL)
+    if(_docRoot != NULL)
     {
         ColladaCOLLADARefPtr colCOL = dynamic_pointer_cast<ColladaCOLLADA>(
-            ColladaElementFactory::the()->create(docRoot, this));
+            ColladaElementFactory::the()->create(_docRoot, this));
 
         colCOL->read(NULL);
 
@@ -228,6 +229,7 @@ ColladaGlobal::doRead(void)
     
     rootN = _rootN;
 
+    _docRoot = NULL;
     _instQueue.clear();
     _elemStore.clear();
 

@@ -50,6 +50,12 @@ ColladaGlobal::editDAE(void)
     return _dae;
 }
 
+inline domCOLLADA *
+ColladaGlobal::getDocRoot(void) const
+{
+    return _docRoot;
+}
+
 inline const std::string &
 ColladaGlobal::getDocPath(void) const
 {

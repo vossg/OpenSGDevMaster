@@ -45,6 +45,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
 #include "OSGColladaElementFactory.h"
 #include "OSGColladaInstanceAnimation.h"
 
@@ -52,6 +53,37 @@
 
 OSG_BEGIN_NAMESPACE
 
+// ===========================================================================
+
+ColladaInstInfoTransitPtr
+ColladaAnimationClip::ColladaAnimationInstInfo::create(
+    ColladaAnimationClip *colInstParent, ColladaInstanceAnimation *colInst)
+{
+    return ColladaInstInfoTransitPtr(
+        new ColladaAnimationInstInfo(colInstParent, colInst));
+}
+
+void
+ColladaAnimationClip::ColladaAnimationInstInfo::process(void)
+{
+    ColladaAnimationClip *colAnimClip =
+        dynamic_cast<ColladaAnimationClip *>(getColInstParent());
+
+    colAnimClip->handleInstanceAnimation(this);
+}
+
+ColladaAnimationClip::ColladaAnimationInstInfo::ColladaAnimationInstInfo(
+    ColladaAnimationClip *colInstParent, ColladaInstanceAnimation *colInst)
+
+    : Inherited(colInstParent, colInst, NULL)
+{
+}
+
+ColladaAnimationClip::ColladaAnimationInstInfo::~ColladaAnimationInstInfo(void)
+{
+}
+
+// ===========================================================================
 
 ColladaElementRegistrationHelper ColladaAnimationClip::_regHelper(
     &ColladaAnimationClip::create, "animation_clip");
@@ -87,6 +119,11 @@ ColladaAnimationClip::read(ColladaElement *colElemParent)
 
             colInstAnim->read(this);
         }
+
+        ColladaInstInfoRefPtr animInstInfo =
+            ColladaAnimationInstInfo::create(this, colInstAnim);
+
+        getGlobal()->editInstQueue().push_back(animInstInfo);
     }
 }
 
@@ -99,6 +136,24 @@ ColladaAnimationClip::ColladaAnimationClip(
 
 ColladaAnimationClip::~ColladaAnimationClip(void)
 {
+}
+
+void
+ColladaAnimationClip::handleInstanceAnimation(ColladaInstInfo *instInfo)
+{
+    OSG_COLLADA_LOG(("ColladaAnimationClip::handleInstanceAnimation\n"));
+
+    ColladaAnimationInstInfo *animInstInfo =
+        dynamic_cast<ColladaAnimationInstInfo *>(instInfo);
+
+    OSG_ASSERT(instInfo                                != NULL);
+    OSG_ASSERT(instInfo->getColInst()                  != NULL);
+    OSG_ASSERT(instInfo->getColInst()->getTargetElem() != NULL);
+
+    // XXX TODO: what to do with the instance ??
+
+    animInstInfo->getColInst()->getTargetElem()->createInstance(
+        animInstInfo->getColInstParent(), animInstInfo->getColInst());
 }
 
 OSG_END_NAMESPACE
