@@ -293,8 +293,8 @@ void buildScene(void)
     skin->setProperty(weight, SkinnedGeometry::TexCoords1Index);
     skin->setIndex   (idxP,   SkinnedGeometry::TexCoords1Index);
 
-    skin->setInfluencePropertyIndex(SkinnedGeometry::TexCoordsIndex );
-    skin->setWeightPropertyIndex   (SkinnedGeometry::TexCoords1Index);
+    skin->setJointIndexProperty (SkinnedGeometry::TexCoordsIndex );
+    skin->setJointWeightProperty(SkinnedGeometry::TexCoords1Index);
 
     //skin->addFlag(SkinnedGeometry::SGFlagDebug);
     skin->addFlag(SkinnedGeometry::SGFlagHardware);
