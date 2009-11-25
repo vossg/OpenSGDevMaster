@@ -196,7 +196,7 @@ struct NoRefCountPolicy
     }
 
     template<class T, class U>
-    static void convertTransitPtr(T *&pOut, T *&pIn)
+    static void convertTransitPtr(T *&pOut, U *&pIn)
     {
         OSG_ASSERT(false);
     } 
