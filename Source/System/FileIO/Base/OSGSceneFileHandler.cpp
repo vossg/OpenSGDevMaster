@@ -1097,7 +1097,6 @@ bool SceneFileHandlerBase::doTerminateSceneFileTypes(void)
     for(sI = _suffixTypeMap.begin(); sI != _suffixTypeMap.end(); ++sI)
     {
         std::string    rw;
-        SceneFileType *type = sI->second->front();
 
         for(lI = sI->second->begin(); lI != sI->second->end(); ++lI)
         {
