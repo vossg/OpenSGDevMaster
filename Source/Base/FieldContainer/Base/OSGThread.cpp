@@ -1119,6 +1119,36 @@ void Thread::terminateThreading(void)
 #  endif
 # endif
 #endif
+
+#if defined(OSG_USE_WINTHREADS) && defined (OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
+    if(Thread::_aspectKey != 0xFFFFFFFF)
+    {
+        TlsFree(Thread::_aspectKey);
+
+        Thread::_aspectKey = 0xFFFFFFFF;
+    }
+
+    if(Thread::_changeListKey != 0xFFFFFFFF)
+    {
+        TlsFree(Thread::_changeListKey);
+
+        Thread::_changeListKey = 0xFFFFFFFF;
+    }
+
+    if(Thread::_namespaceMaskKey != 0xFFFFFFFF)
+    {
+        TlsFree(Thread::_namespaceMaskKey);
+
+        Thread::_namespaceMaskKey = 0xFFFFFFFF;
+    }
+
+    if(Thread::_localFlagsKey != 0xFFFFFFFF)
+    {
+        TlsFree(Thread::_localFlagsKey);
+
+        Thread::_localFlagsKey = 0xFFFFFFFF;
+    }
+#endif
 }
 
 /*-------------------------------------------------------------------------*/

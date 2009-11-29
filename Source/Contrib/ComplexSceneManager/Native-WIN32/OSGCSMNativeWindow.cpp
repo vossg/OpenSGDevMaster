@@ -404,11 +404,10 @@ bool CSMNativeWindow::init(void)
 
     memset(&wndClass, 0, sizeof(wndClass));
 
-    wndClass.style = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
-    wndClass.lpfnWndProc = CSMNativeWindow::WndProc;
-    wndClass.hInstance = GetModuleHandle(NULL);
-
-    // doesn't compile?!? wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wndClass.style         = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
+    wndClass.lpfnWndProc   = CSMNativeWindow::WndProc;
+    wndClass.hInstance     = GetModuleHandle(NULL);
+    wndClass.hCursor       = LoadCursor(NULL, IDC_ARROW);
     wndClass.lpszClassName = "OSG-CSM";
 
     if (!RegisterClass(&wndClass)) 

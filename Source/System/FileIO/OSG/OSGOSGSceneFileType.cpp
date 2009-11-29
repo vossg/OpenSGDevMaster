@@ -237,3 +237,9 @@ OSGSceneFileType::OSGSceneFileType(const char   *suffixArray[],
 OSGSceneFileType::~OSGSceneFileType(void)
 {
 }
+
+void OSGSceneFileType::terminate(void)
+{
+    _endNodeFunctors.clear();
+}
+

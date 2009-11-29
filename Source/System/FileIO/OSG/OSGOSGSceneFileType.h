@@ -155,6 +155,13 @@ class OSG_SYSTEM_DLLMAPPING OSGSceneFileType : public SceneFileType
                            UInt32  flags);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Termination                                */
+    /*! \{                                                                 */
+
+    virtual void terminate(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:

@@ -53,6 +53,8 @@
 
 OSG_BEGIN_NAMESPACE
 
+class SceneFileHandlerBase;
+
 /*!\ingroup GrpSystemDrawablesGeometrymetryLoaderLib
  * \brief OSGSceneFileType
  */
@@ -60,7 +62,9 @@ OSG_BEGIN_NAMESPACE
 class OSG_SYSTEM_DLLMAPPING SceneFileType : public IOFileTypeBase
 {
     /*==========================  PUBLIC  =================================*/
+
   public:
+
     /*---------------------------------------------------------------------*/
     /*! \name Public Types                                                 */
     /*! \{                                                                 */
@@ -159,9 +163,18 @@ class OSG_SYSTEM_DLLMAPPING SceneFileType : public IOFileTypeBase
     SceneFileType(const SceneFileType &obj);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Termination                                */
+    /*! \{                                                                 */
+
+    virtual void terminate(void);
+
+    /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
+
+    friend class SceneFileHandlerBase;
 
     /*!\brief prohibit default function (move to 'public' if needed) */
     void operator =(const SceneFileType &source);

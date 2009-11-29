@@ -847,6 +847,7 @@ SceneFileHandlerBase::SceneFileHandlerBase(void) :
 
     addPostFactoryInitFunction(initializeDefaultGraphOps);
     addPreFactoryExitFunction (terminateDefaultGraphOps );
+    addPreFactoryExitFunction (terminateSceneFileTypes  );
 }
 
 // read progress stuff.
@@ -1084,6 +1085,36 @@ SceneFileHandlerBase::~SceneFileHandlerBase(void)
     }
 
     _suffixTypeMap.clear();
+}
+
+bool SceneFileHandlerBase::doTerminateSceneFileTypes(void)
+{
+    fprintf(stderr, "terminate scene file types\n");
+
+    FileTypeMap ::iterator sI;
+    FileTypeList::iterator lI;
+
+    for(sI = _suffixTypeMap.begin(); sI != _suffixTypeMap.end(); ++sI)
+    {
+        std::string    rw;
+        SceneFileType *type = sI->second->front();
+
+        for(lI = sI->second->begin(); lI != sI->second->end(); ++lI)
+        {
+            std::cerr << "terminate: " << sI->first.c_str()
+                      << ", type: "    << (*lI)->getName()
+                      << std::endl;
+
+            (*lI)->terminate();
+        }
+    }
+
+    return true;
+}
+
+bool SceneFileHandlerBase::terminateSceneFileTypes(void)
+{
+    return SceneFileHandler::the()->doTerminateSceneFileTypes();
 }
 
 

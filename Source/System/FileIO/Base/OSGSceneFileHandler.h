@@ -274,6 +274,14 @@ class OSG_SYSTEM_DLLMAPPING SceneFileHandlerBase
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
+    static bool terminateSceneFileTypes  (void);
+           bool doTerminateSceneFileTypes(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructors                                */
+    /*! \{                                                                 */
+
     void triggerReadBegin (const Char8 *fname);
     void triggerReadEnd   (const Char8 *fname);
 

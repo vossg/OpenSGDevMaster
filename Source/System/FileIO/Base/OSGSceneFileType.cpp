@@ -126,6 +126,10 @@ SceneFileType::~SceneFileType(void)
 #endif
 }
 
+void SceneFileType::terminate(void)
+{
+}
+
 //---------------------------------------------------------
 /*! Print supported suffixes to osgLog. */
 void SceneFileType::print(void)

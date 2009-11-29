@@ -790,16 +790,16 @@ void BaseThread::terminateThreading(void)
 
     rc = pthread_key_delete(BaseThread::_threadKey);
 
-    FFASSERT((rc == 0), 1, ("Failed to destroy pthread thread key\n");)
+    FFASSERT((rc == 0), 1, ("Failed to destroy pthread thread key\n"););
 #endif
 
 #if defined(OSG_USE_WINTHREADS) && defined (OSG_WIN32_ASPECT_USE_LOCALSTORAGE)
-#if 0
-    BaseThread::_threadKey     = TlsAlloc();
+    if(BaseThread::_threadKey != 0xFFFFFFFF)
+    {
+        TlsFree(BaseThread::_threadKey);
 
-    FFASSERT((BaseThread::_threadKey != 0xFFFFFFFF), 1,
-             ("Failed to alloc thread key local storage\n");)
-#endif
+        BaseThread::_threadKey = 0xFFFFFFFF;
+    }
 #endif
 }
 
