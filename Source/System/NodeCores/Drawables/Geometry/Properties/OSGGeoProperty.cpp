@@ -222,9 +222,12 @@ void GeoProperty::changed(ConstFieldMaskArg whichField,
 {
     Inherited::changed(whichField, origin, details);
     
-    if(getGLId() > 0)
+    if(0x0000 != (whichField & ~UsageFieldMask))
     {
-        Window::refreshGLObject(getGLId());
+        if(getGLId() > 0)
+        {
+            Window::refreshGLObject(getGLId());
+        }
     }
 }
 
