@@ -123,6 +123,7 @@ class OSG_BASE_DLLMAPPING FieldType : public DataType
           Class        getClass      (void) const;
 
           UInt32       getScanTypeId (void) const;
+          bool         isPtrField    (void) const;
 
     /*! \}                                                                 */
 

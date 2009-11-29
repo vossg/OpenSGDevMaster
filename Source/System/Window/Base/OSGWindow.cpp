@@ -480,6 +480,8 @@ void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
 
     if(_pAspectStore->getRefCount() == 1 && _pDrawThread != NULL)
     {
+        fprintf(stderr, "Terminate draw thread %p\n", this);
+
         _pDrawThread->queueTask(new WindowDrawTask(WindowDrawTask::EndThread));
 
         Thread::join(_pDrawThread);
@@ -1285,6 +1287,8 @@ void OSG::Window::doTerminate(void)
 {
     if(_pDrawThread != NULL)
     {
+        fprintf(stderr, "Terminate draw thread %p\n", this);
+
         _pDrawThread->queueTask(new WindowDrawTask(WindowDrawTask::EndThread));
 
         Thread::join(_pDrawThread);
@@ -2418,6 +2422,22 @@ void Window::queueTask(DrawTask *pTask)
         editMField(DrawTasksFieldMask, _mfDrawTasks);
 
         _mfDrawTasks.push_back(pTask);
+    }
+}
+
+void OSG::Window::queueGlobalTask(DrawTask *pTask)
+{
+    WindowStore::const_iterator winIt  = _allWindows.begin();
+    WindowStore::const_iterator winEnd = _allWindows.end  ();
+
+    for(; winIt != winEnd; ++winIt)
+    {
+        Window *pWin = *winIt;
+
+        if(pWin == NULL)
+            continue;
+
+        pWin->queueTask(pTask);
     }
 }
 

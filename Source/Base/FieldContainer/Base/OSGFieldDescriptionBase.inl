@@ -423,7 +423,30 @@ BasicFieldConnector *FieldDescription<
                 pSrcDesc->getFieldType().getCName(),
                 pDstDesc->getFieldType().getCName());
 
+#if 0 // needs more infrastructure
+        if(pSrcDesc->getFieldType().isPtrField() == true &&
+           pDstDesc->getFieldType().isPtrField() == true  )
+        {
+            fprintf(stderr, "try ptr field content (%s | %s)\n",
+                    pSrcDesc->getFieldType().getContentType().getCName(),
+                    pDstDesc->getFieldType().getContentType().getCName());
+
+            if(pSrcDesc->getFieldType().getContentType() != 
+               pDstDesc->getFieldType().getContentType()   )
+            {
+                fprintf(stderr, "failed\n");
+
+                return returnValue;
+            }
+        }
+        else
+        {
+            return returnValue;
+        }
+#else
         return returnValue;
+#endif
+
     }
 
     returnValue = new ReturnType(pSrc, pSrcDesc->getFieldMask(),

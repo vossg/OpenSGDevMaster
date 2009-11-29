@@ -69,4 +69,11 @@ UInt32 FieldType::getScanTypeId(void) const
     }
 }
 
+inline
+bool FieldType::isPtrField(void) const
+{
+    return (_fieldClass == PtrField      ||
+            _fieldClass == ChildPtrField  );
+}
+
 OSG_END_NAMESPACE

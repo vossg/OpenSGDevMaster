@@ -147,6 +147,8 @@ FieldContainerTransitPtr OSGSceneFileType::readContainer(
 
     delete _pFile;
 
+    commitChanges();
+
     return returnValue;
 }
 

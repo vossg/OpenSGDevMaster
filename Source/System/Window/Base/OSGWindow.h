@@ -303,10 +303,11 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     /*! \name                      Output                                  */
     /*! \{                                                                 */
 
-    void queueTaskFromDrawer(DrawTask *pTask);
-    void queueTask          (DrawTask *pTask);
+           void queueTaskFromDrawer(DrawTask *pTask);
+           void queueTask          (DrawTask *pTask);
+    static void queueGlobalTask    (DrawTask *pTask);
 
-    void clearDrawTasks     (void           );
+           void clearDrawTasks     (void           );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
