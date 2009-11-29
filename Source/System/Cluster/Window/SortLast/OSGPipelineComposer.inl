@@ -344,7 +344,7 @@ void PipelineComposer::clientCompose(DepthT &depth,ColorT &color)
 
     while(recvCount--)
     {
-        Connection::Channel c = servers->selectChannel();
+        /*Connection::Channel c = */servers->selectChannel();
 #ifdef COMPRESS_IMAGES
         servers->get(&srcLen,sizeof(UInt32));
         servers->get(&src[0],srcLen);
