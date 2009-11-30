@@ -60,6 +60,7 @@ class PrimitiveIterator;
 class FaceIterator;
 class LineIterator;
 class EdgeIterator;
+class PointIterator;
 
 class DrawEnv;
 
@@ -212,6 +213,9 @@ class OSG_DRAWABLE_DLLMAPPING Geometry : public GeometryBase
 
     EdgeIterator       beginEdges       (void) const;
     EdgeIterator       endEdges         (void) const;
+
+    PointIterator      beginPoints      (void) const;
+    PointIterator      endPoints        (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

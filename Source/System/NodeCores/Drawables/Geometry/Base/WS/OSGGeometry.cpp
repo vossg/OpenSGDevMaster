@@ -61,6 +61,7 @@
 #include "OSGFaceIterator.h"
 #include "OSGLineIterator.h"
 #include "OSGEdgeIterator.h"
+#include "OSGPointIterator.h"
 #include "OSGDrawableStatsAttachment.h"
 
 OSG_USING_NAMESPACE
@@ -936,11 +937,33 @@ EdgeIterator Geometry::beginEdges(void) const
     return it;
 }
 
-/*! Return a EdgeIterator poiting to the end of the Geometry.
+/*! Return a EdgeIterator pointing to the end of the Geometry.
 */
 EdgeIterator Geometry::endEdges(void) const
 {
     EdgeIterator it(this);
+
+    it.setToEnd();
+
+    return it;
+}
+
+/*! Return a PointIterator pointing to the beginning of the Geometry.
+*/
+PointIterator Geometry::beginPoints(void) const
+{
+    PointIterator it(this);
+
+    it.setToBegin();
+
+    return it;
+}
+
+/*! Return a PointIterator pointing to the end of the Geometry.
+*/
+PointIterator Geometry::endPoints(void) const
+{
+    PointIterator it(this);
 
     it.setToEnd();
 
