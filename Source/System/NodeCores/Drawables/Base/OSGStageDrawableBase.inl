@@ -89,7 +89,7 @@ void StageDrawableBase::execSync (      StageDrawableBase *pFrom,
 
 
 inline
-Char8 *StageDrawableBase::getClassname(void)
+const Char8 *StageDrawableBase::getClassname(void)
 {
     return "StageDrawable";
 }
