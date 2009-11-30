@@ -66,9 +66,6 @@
 
 OSG_USING_NAMESPACE
 
-std::vector<Int16> GDALBlockAccessor::_vStrangeTmpBuff;
-
-
 GDALBlockAccessor::~GDALBlockAccessor(void)
 {
     GDALClose(_pDataset);
@@ -112,19 +109,10 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
 
                 Char8 *szProjection = (char *) GDALGetProjectionRef(_pDataset);
         
-//                fprintf(stderr, "Proj %s\n", szProjection);
-
                 hSRS = OSRNewSpatialReference(NULL);
 
                 if(OSRImportFromWkt(hSRS, &szProjection) == CE_None)
                 {
-/*
-                    fprintf(stderr, "GetSemiMajor: %lf\n",
-                            OSRGetSemiMajor(hSRS, NULL));
-                    fprintf(stderr, "GetSemiMinor: %lf\n",
-                            OSRGetSemiMinor(hSRS, NULL));
- */
-
                     _pGeoRef->editEllipsoidAxis().setValues(
                         OSRGetSemiMajor(hSRS, NULL),
                         OSRGetSemiMinor(hSRS, NULL));
@@ -144,14 +132,7 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
                         _pGeoRef->editDatum() = 
                             GeoReferenceAttachment::UnknownDatum;
                     }
-
-
-//                    fprintf(stderr, "ax: %s\n",
-//                            OSRGetAttrValue(hSRS, "DATUM", 0));
-
                 }            
-
-//                free(szProjection);
 
                 OSRDestroySpatialReference(hSRS);
             }
@@ -235,6 +216,10 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
 
             _vSize[0] = _pDataset->GetRasterXSize();
             _vSize[1] = _pDataset->GetRasterYSize();
+
+            _fNoDataValue = _pBand->GetNoDataValue();
+
+            _pGeoRef->setNoDataValue(_fNoDataValue);
         }
     }
 }
@@ -277,23 +262,6 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
                                      Int16  *pTarget,
                                      Int32   iTargetSizeBytes)
 {
-
-#if 0
-    for(UInt32 y = yMin; y < yMax; y++)
-    {
-        for(UInt32 x = xMin; x < xMax; x++)
-        {
-            for(UInt32 i = 0; i < 2; i++)
-            {
-                pDst[destIdx] = 0;
-
-                destIdx++;
-            }
-        }
-        
-        destIdx += (iTextureSize - (xMax - xMin)) * 2;
-    }
-#else
     Int32 xMin = vSampleOrigin.x();
     Int32 xMax = vSampleOrigin.x() + iTextureSize;
     
@@ -329,7 +297,7 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
             {
                 if(x >= _vSize[0] || y >= _vSize[1])
                 {
-                    pTarget[destIdx] = 0;
+                    pTarget[destIdx] = Int16(_fNoDataValue);
                 }
                 else
                 {
@@ -356,7 +324,6 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
                          0,
                          0);
     }
-#endif
 
     return true;
 }
@@ -401,8 +368,6 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
 #ifdef OSG_WITH_GDAL
     bool returnValue = false;
 
-//    fprintf(stderr, "READ GDAL \n");
-    
     GDALDataset *pDataset;
 
     pDataset = (GDALDataset *) GDALOpen(fileName, GA_ReadOnly);
@@ -415,32 +380,8 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
 
         double        adfGeoTransform[6];
         
-/*
-        printf("Driver: %s/%s\n",
-               pDataset->GetDriver()->GetDescription(), 
-               pDataset->GetDriver()->GetMetadataItem( GDAL_DMD_LONGNAME ) );
-        
-        printf("Size is %dx%dx%d\n", 
-                pDataset->GetRasterXSize(), 
-                pDataset->GetRasterYSize(),
-                pDataset->GetRasterCount() );
- 
-        
-        if(pDataset->GetProjectionRef()  != NULL )
-            printf( "Projection is `%s'\n", pDataset->GetProjectionRef() );
- */       
         if(pDataset->GetGeoTransform(adfGeoTransform) == CE_None)
         {
-/*
-            printf("Origin = (%.6f,%.6f)\n",
-                   adfGeoTransform[0], 
-                   adfGeoTransform[3] );
-            
-            printf("Pixel Size = (%.6f,%.6f)\n",
-                   adfGeoTransform[1], 
-                   adfGeoTransform[5]);
- */
-
             pGeoRef->editOrigin().setValues(adfGeoTransform[0], 
                                             adfGeoTransform[3]);
 
@@ -453,19 +394,10 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
 
                 Char8 *szProjection = (char *) GDALGetProjectionRef(pDataset);
         
-//                fprintf(stderr, "Proj %s\n", szProjection);
-
                 hSRS = OSRNewSpatialReference(NULL);
 
                 if(OSRImportFromWkt(hSRS, &szProjection) == CE_None)
                 {
-/*
-                    fprintf(stderr, "GetSemiMajor: %lf\n",
-                            OSRGetSemiMajor(hSRS, NULL));
-                    fprintf(stderr, "GetSemiMinor: %lf\n",
-                            OSRGetSemiMinor(hSRS, NULL));
- */
-
                     pGeoRef->editEllipsoidAxis().setValues(
                         OSRGetSemiMajor(hSRS, NULL),
                         OSRGetSemiMinor(hSRS, NULL));
@@ -485,54 +417,25 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
                         pGeoRef->editDatum() = 
                             GeoReferenceAttachment::UnknownDatum;
                     }
-
-
-//                    fprintf(stderr, "ax: %s\n",
-//                            OSRGetAttrValue(hSRS, "DATUM", 0));
-
                 }            
-
-//                free(szProjection);
 
                 OSRDestroySpatialReference(hSRS);
             }
         }
 
-        GDALRasterBand *poBand;
+        GDALRasterBand *pBand;
         int             nBlockXSize, nBlockYSize;
         int             bGotMin, bGotMax;
         double          adfMinMax[2];
         
-        poBand = pDataset->GetRasterBand( 1 );
-        poBand->GetBlockSize( &nBlockXSize, &nBlockYSize );
+        pBand = pDataset->GetRasterBand( 1 );
+        pBand->GetBlockSize( &nBlockXSize, &nBlockYSize );
 
-/*
-        printf( "Block=%dx%d Type=%s, ColorInterp=%s\n",
-                nBlockXSize, nBlockYSize,
-                GDALGetDataTypeName(poBand->GetRasterDataType()),
-                GDALGetColorInterpretationName(
-                    poBand->GetColorInterpretation()) );
- */
-        
-        adfMinMax[0] = poBand->GetMinimum( &bGotMin );
-        adfMinMax[1] = poBand->GetMaximum( &bGotMax );
+        adfMinMax[0] = pBand->GetMinimum( &bGotMin );
+        adfMinMax[1] = pBand->GetMaximum( &bGotMax );
 
-        if( ! (bGotMin && bGotMax) )
-            GDALComputeRasterMinMax((GDALRasterBandH)poBand, TRUE, adfMinMax);
-
-//        printf( "Min=%.3fd, Max=%.3f\n", adfMinMax[0], adfMinMax[1] );
-        
-/*
-        if( poBand->GetOverviewCount() > 0 )
-            printf( "Band has %d overviews.\n", poBand->GetOverviewCount() );
-
-        if( poBand->GetColorTable() != NULL )
-            printf( "Band has a color table with %d entries.\n", 
-                     poBand->GetColorTable()->GetColorEntryCount() );    
- */
-
-
-        GDALRasterBand *pBand;
+        if(!(bGotMin && bGotMax))
+            GDALComputeRasterMinMax((GDALRasterBandH) pBand, TRUE, adfMinMax);
 
         pBand = pDataset->GetRasterBand(1);
 
@@ -608,9 +511,6 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
             
             UChar8 *dst = pImage->editData();
 
-//            fprintf(stderr, "FOO %p\n", dst);
-
-
             pBand->RasterIO(GF_Read,
                             0, 
                             0,
@@ -622,6 +522,8 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
                             pBand->GetRasterDataType(),
                             0,
                             0);
+
+            pGeoRef->setNoDataValue(pBand->GetNoDataValue());
 
             returnValue = true;
         }

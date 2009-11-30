@@ -100,9 +100,8 @@ class OSG_IMGFILEIO_DLLMAPPING GDALBlockAccessor : public ImageBlockAccessor
 
     GDALDataset               *_pDataset;
     GDALRasterBand            *_pBand;
-    std::vector<Int16>         _vI16Buffer;
 
-    static std::vector<Int16> _vStrangeTmpBuff;
+    std::vector<Int16>         _vI16Buffer;
 
     /*---------------------------------------------------------------------*/
     /*! \name                Default Constructor                           */
