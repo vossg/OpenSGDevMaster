@@ -152,7 +152,7 @@ void TiledImageBlockAccessor::open(const Char8 *szFilename)
 
         if(_vImages.size() != _uiRows * _uiColumns || _vImages.size() == 0)
         {
-            fprintf(stderr, "Images missing %d %d\n",
+            fprintf(stderr, "Images missing %zd %d\n",
                     _vImages.size(),
                     _uiRows * _uiColumns);
 
@@ -324,9 +324,9 @@ bool TiledImageBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
     {
         UInt32 destIdx = 0;
 
-        for(UInt32 y = 0; y < iTextureSize; y++)
+        for(Int32 y = 0; y < iTextureSize; y++)
         {
-            for(UInt32 x = 0; x < iTextureSize; x++)
+            for(Int32 x = 0; x < iTextureSize; x++)
             {
                 pTarget[destIdx] = Int16(_fNoDataValue);
                     
@@ -353,7 +353,7 @@ bool TiledImageBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
                         pTarget,
                         iTargetSizeBytes);
     }
-    else if( (iHeigh - iLow) == _uiColumns)
+    else if( (iHeigh - iLow) == Int32(_uiColumns))
     {
         read2VBlocksA16(iLow,
                         iHeigh,
@@ -362,7 +362,7 @@ bool TiledImageBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
                         pTarget,
                         iTargetSizeBytes);
     }
-    else if( (iHeigh - iLow) == (_uiColumns + 1))
+    else if( (iHeigh - iLow) == Int32(_uiColumns + 1))
     {
         read4BlocksA16(iLow,
                        iHeigh,
@@ -385,9 +385,9 @@ bool TiledImageBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
     {
         UInt32 destIdx = 0;
 
-        for(UInt32 y = 0; y < iTextureSize; y++)
+        for(Int32 y = 0; y < iTextureSize; y++)
         {
-            for(UInt32 x = 0; x < iTextureSize; x++)
+            for(Int32 x = 0; x < iTextureSize; x++)
             {
                 pTarget[destIdx] = 15000;
                     
@@ -434,11 +434,11 @@ bool TiledImageBlockAccessor::read2HBlocksA16(Int32   iLow,
     Int32 yMin = vSampleOrigin.y();
     Int32 yMax = vSampleOrigin.y() + iTextureSize;
 
-    for(UInt32 y = yMin; y < yMax; y++)
+    for(Int32 y = yMin; y < yMax; y++)
     {
         srcIdx = (y - yMin) * iTextureSize;
 
-        for(UInt32 x = xMin; x < xMax; x++)
+        for(Int32 x = xMin; x < xMax; x++)
         {
             if(x >= _vSampleDescs[iHeigh].x0)
             {
@@ -490,9 +490,9 @@ bool TiledImageBlockAccessor::read2VBlocksA16(Int32   iLow,
     Int32 yMin = vSampleOrigin.y();
     Int32 yMax = vSampleOrigin.y() + iTextureSize;
 
-    for(UInt32 y = yMin; y < yMax; y++)
+    for(Int32 y = yMin; y < yMax; y++)
     {
-        for(UInt32 x = xMin; x < xMax; x++)
+        for(Int32 x = xMin; x < xMax; x++)
         {
             if(y >= _vSampleDescs[iHeigh].y0)
             {
@@ -543,11 +543,11 @@ bool TiledImageBlockAccessor::read4BlocksA16(Int32   iLow,
     Int32 yMin = vSampleOrigin.y();
     Int32 yMax = vSampleOrigin.y() + iTextureSize;
 
-    for(UInt32 y = yMin; y < yMax; y++)
+    for(Int32 y = yMin; y < yMax; y++)
     {
         srcIdx = (y - yMin) * iTextureSize;
 
-        for(UInt32 x = xMin; x < xMax; x++)
+        for(Int32 x = xMin; x < xMax; x++)
         {
             if(x >= _vSampleDescs[iLow + 1].x0)
             {
@@ -571,9 +571,9 @@ bool TiledImageBlockAccessor::read4BlocksA16(Int32   iLow,
     destIdx = 0;
     srcIdx  = 0;
 
-    for(UInt32 y = yMin; y < yMax; y++)
+    for(Int32 y = yMin; y < yMax; y++)
     {
-        for(UInt32 x = xMin; x < xMax; x++)
+        for(Int32 x = xMin; x < xMax; x++)
         {
             if(y >= _vSampleDescs[iLow + _uiColumns].y0)
             {
@@ -595,11 +595,11 @@ bool TiledImageBlockAccessor::read4BlocksA16(Int32   iLow,
     destIdx = 0;
     srcIdx  = 0;
 
-    for(UInt32 y = yMin; y < yMax; y++)
+    for(Int32 y = yMin; y < yMax; y++)
     {
         srcIdx = (y - yMin) * iTextureSize;
 
-        for(UInt32 x = xMin; x < xMax; x++)
+        for(Int32 x = xMin; x < xMax; x++)
         {
             if(x >= _vSampleDescs[iHeigh].x0 &&
                y >= _vSampleDescs[iHeigh].y0)
@@ -642,7 +642,7 @@ bool DefaultBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
                                         Int16  *pTarget,
                                         Int32   iTargetSizeBytes)
 {
-    for(UInt32 i = 0; i < iTextureSize * iTextureSize; ++i)
+    for(Int32 i = 0; i < iTextureSize * iTextureSize; ++i)
     {
         pTarget[i] = _iDefaultValue;
     }

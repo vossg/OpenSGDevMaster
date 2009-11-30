@@ -864,7 +864,7 @@ bool DBImageFileType::read(      Image       *pImage,
         }
         else
         {
-            fprintf(stderr, "size mismatch %d %d\n",
+            fprintf(stderr, "size mismatch %zd %d\n",
                     pImage->getSize(),
                     oHeader.uiBytes);
 

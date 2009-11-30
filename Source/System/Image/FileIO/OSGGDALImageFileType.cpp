@@ -254,9 +254,9 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
     Int32 yMin = vSampleOrigin.y();
     Int32 yMax = vSampleOrigin.y() + iTextureSize;
 
-    for(UInt32 y = yMin; y < yMax; y++)
+    for(Int32 y = yMin; y < yMax; y++)
     {
-        for(UInt32 x = xMin; x < xMax; x++)
+        for(Int32 x = xMin; x < xMax; x++)
         {
             for(UInt32 i = 0; i < 2; i++)
             {
@@ -308,9 +308,9 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
                          0);
         
 
-        for(UInt32 y = yMin; y < yMax; y++)
+        for(Int32 y = yMin; y < yMax; y++)
         {
-            for(UInt32 x = xMin; x < xMax; x++)
+            for(Int32 x = xMin; x < xMax; x++)
             {
                 if(x >= _vSize[0] || y >= _vSize[1])
                 {
@@ -702,7 +702,7 @@ GDALImageFileType::GDALImageFileType(const Char8  *mimeType,
               suffixByteCount, 
               flags          )
 {
-    static bool initTIFFLib = true;
+//    static bool initTIFFLib = true;
     
 #ifdef OSG_WITH_GDAL
     GDALAllRegister();
