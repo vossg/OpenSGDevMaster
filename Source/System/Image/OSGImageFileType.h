@@ -110,11 +110,11 @@ class OSG_SYSTEM_DLLMAPPING ImageBlockAccessor
 
   protected:
 
-    GeoReferenceAttachmentPtr  _pGeoRef;
-    Vec2i                      _vSize;
-    Image::Type                _eImgType;
-    Image::PixelFormat         _eImgFormat;
-    Real64                     _fNoDataValue;
+    GeoReferenceAttachmentUnrecPtr _pGeoRef;
+    Vec2i                          _vSize;
+    Image::Type                    _eImgType;
+    Image::PixelFormat             _eImgFormat;
+    Real64                         _fNoDataValue;
 
     /*---------------------------------------------------------------------*/
     /*! \name                Default Constructor                           */
@@ -181,7 +181,7 @@ class OSG_SYSTEM_DLLMAPPING BlockAccessWrapper : public ImageBlockAccessor
 
   protected:
 
-    ImagePtr _pImage;
+    ImageUnrecPtr _pImage;
 
     /*---------------------------------------------------------------------*/
     /*! \name                Default Constructor                           */

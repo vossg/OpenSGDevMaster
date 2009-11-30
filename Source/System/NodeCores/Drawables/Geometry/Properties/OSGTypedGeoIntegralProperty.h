@@ -447,13 +447,15 @@ typedef GeoUInt32PropertyRecPtr   GeoIndicesUI32Ptr;
 
 #ifdef OSG_FLOAT_PROFILE
 #else
-typedef GeoUInt16Property      GeoUIntProperty;
-//typedef GeoUInt16PropertyPtr   GeoUIntPropertyPtr;
+typedef GeoUInt16Property         GeoUIntProperty;
+//typedef GeoUInt16PropertyPtr      GeoUIntPropertyPtr;
+typedef GeoUInt16PropertyUnrecPtr GeoUIntPropertyUnrecPtr;
 #endif
 
 #else
-typedef GeoUInt32Property      GeoUIntProperty;
-//typedef GeoUInt32PropertyPtr   GeoUIntPropertyPtr;
+typedef GeoUInt32Property         GeoUIntProperty;
+//typedef GeoUInt32PropertyPtr      GeoUIntPropertyPtr;
+typedef GeoUInt32PropertyUnrecPtr GeoUIntPropertyUnrecPtr;
 #endif
  
 OSG_END_NAMESPACE

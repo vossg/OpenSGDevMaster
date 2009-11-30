@@ -53,7 +53,7 @@ OSG_USING_NAMESPACE
 
 ImageBlockAccessor::~ImageBlockAccessor(void)
 {
-    OSG::subRef(_pGeoRef);
+    _pGeoRef = NullFC;
 }
 
 ImageBlockAccessor::ImageBlockAccessor(void) :
@@ -94,7 +94,7 @@ Real64 ImageBlockAccessor::getNoDataValue(void)
 
 BlockAccessWrapper::~BlockAccessWrapper(void)
 {
-    OSG::subRef(_pImage);
+    _pImage = NullFC;
 }
 
 
@@ -236,15 +236,14 @@ BlockAccessWrapper::BlockAccessWrapper(void) :
 
 void BlockAccessWrapper::open(const Char8 *szFilename)
 {
-    OSG::setRefd(_pImage, ImageFileHandler::the()->read(szFilename));
+    _pImage = ImageFileHandler::the()->read(szFilename);
 
     if(_pImage != NullFC)
     {
-        OSG::setRefd(
-            _pGeoRef, 
+        _pGeoRef = 
             dynamic_cast<GeoReferenceAttachmentPtr>(
                 _pImage->findAttachment(
-                    GeoReferenceAttachment::getClassType().getGroupId())));
+                    GeoReferenceAttachment::getClassType().getGroupId()));
 
         _vSize.setValues(_pImage->getWidth(),
                          _pImage->getHeight());
