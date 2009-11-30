@@ -78,6 +78,15 @@ OSG_BEGIN_NAMESPACE
     
  */
 
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
+
+
+void StageDrawableBase::classDescInserter(TypeObject &oType)
+{
+}
+
 
 StageDrawableBase::TypeObject StageDrawableBase::_type(
     StageDrawableBase::getClassname(),
@@ -87,7 +96,7 @@ StageDrawableBase::TypeObject StageDrawableBase::_type(
     NULL,
     StageDrawable::initMethod,
     StageDrawable::exitMethod,
-    NULL,
+    reinterpret_cast<InitalInsertDescFunc>(&StageDrawable::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
