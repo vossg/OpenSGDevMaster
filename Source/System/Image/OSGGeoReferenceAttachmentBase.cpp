@@ -431,6 +431,22 @@ GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::createLocal(BitVect
     return fc;
 }
 
+//! create a new instance of the class, copy the container flags
+GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::createDependent(BitVector bFlags)
+{
+    GeoReferenceAttachmentTransitPtr fc;
+
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyDependent(bFlags);
+
+        fc = dynamic_pointer_cast<GeoReferenceAttachment>(tmpPtr);
+    }
+
+    return fc;
+}
+
 //! create a new instance of the class
 GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::create(void)
 {
@@ -482,6 +498,20 @@ FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopyLocal(
     FieldContainerTransitPtr returnValue(tmpPtr);
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopyDependent(
+    BitVector bFlags) const
+{
+    GeoReferenceAttachment *tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const GeoReferenceAttachment *>(this), ~bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask = bFlags;
 
     return returnValue;
 }

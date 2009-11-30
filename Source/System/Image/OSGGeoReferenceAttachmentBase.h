@@ -221,6 +221,8 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
     static  GeoReferenceAttachment            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
+    static  GeoReferenceAttachmentTransitPtr  createDependent  (BitVector bFlags);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
@@ -229,6 +231,8 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
     virtual FieldContainerTransitPtr shallowCopy     (void) const;
     virtual FieldContainerTransitPtr shallowCopyLocal(
                                        BitVector bFlags = FCLocal::All) const;
+    virtual FieldContainerTransitPtr shallowCopyDependent(
+                                                      BitVector bFlags) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
