@@ -205,6 +205,39 @@ void GeoReferenceAttachmentBase::setPixelSize(const Vec2f &value)
 
     _sfPixelSize.setValue(value);
 }
+//! Get the value of the GeoReferenceAttachment::_sfNoDataValue field.
+
+inline
+Real64 &GeoReferenceAttachmentBase::editNoDataValue(void)
+{
+    editSField(NoDataValueFieldMask);
+
+    return _sfNoDataValue.getValue();
+}
+
+//! Get the value of the GeoReferenceAttachment::_sfNoDataValue field.
+inline
+const Real64 &GeoReferenceAttachmentBase::getNoDataValue(void) const
+{
+    return _sfNoDataValue.getValue();
+}
+
+#ifdef OSG_1_GET_COMPAT
+inline
+Real64              &GeoReferenceAttachmentBase::getNoDataValue    (void)
+{
+    return this->editNoDataValue    ();
+}
+#endif
+
+//! Set the value of the GeoReferenceAttachment::_sfNoDataValue field.
+inline
+void GeoReferenceAttachmentBase::setNoDataValue(const Real64 &value)
+{
+    editSField(NoDataValueFieldMask);
+
+    _sfNoDataValue.setValue(value);
+}
 
 
 #ifdef OSG_MT_CPTR_ASPECT
@@ -228,6 +261,9 @@ void GeoReferenceAttachmentBase::execSync (      GeoReferenceAttachmentBase *pFr
 
     if(FieldBits::NoField != (PixelSizeFieldMask & whichField))
         _sfPixelSize.syncWith(pFrom->_sfPixelSize);
+
+    if(FieldBits::NoField != (NoDataValueFieldMask & whichField))
+        _sfNoDataValue.syncWith(pFrom->_sfNoDataValue);
 }
 #endif
 

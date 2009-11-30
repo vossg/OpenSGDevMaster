@@ -69,6 +69,7 @@
 #include "OSGVec2fFields.h" // EllipsoidAxis type
 #include "OSGVec2fFields.h" // Origin type
 #include "OSGVec2fFields.h" // PixelSize type
+#include "OSGReal64Fields.h" // NoDataValue type
 
 #include "OSGGeoReferenceAttachmentFields.h"
 
@@ -100,7 +101,8 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
         EllipsoidAxisFieldId = DatumFieldId + 1,
         OriginFieldId = EllipsoidAxisFieldId + 1,
         PixelSizeFieldId = OriginFieldId + 1,
-        NextFieldId = PixelSizeFieldId + 1
+        NoDataValueFieldId = PixelSizeFieldId + 1,
+        NextFieldId = NoDataValueFieldId + 1
     };
 
     static const OSG::BitVector DatumFieldMask =
@@ -111,6 +113,8 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
         (TypeTraits<BitVector>::One << OriginFieldId);
     static const OSG::BitVector PixelSizeFieldMask =
         (TypeTraits<BitVector>::One << PixelSizeFieldId);
+    static const OSG::BitVector NoDataValueFieldMask =
+        (TypeTraits<BitVector>::One << NoDataValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
 
@@ -162,6 +166,12 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
                   SFVec2f             *editSFPixelSize      (void);
             const SFVec2f             *getSFPixelSize       (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  SFReal64            *getSFNoDataValue     (void);
+#endif
+                  SFReal64            *editSFNoDataValue    (void);
+            const SFReal64            *getSFNoDataValue     (void) const;
+
 
 #ifdef OSG_1_GET_COMPAT
                   UInt32              &getDatum           (void);
@@ -187,6 +197,12 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
                   Vec2f               &editPixelSize      (void);
             const Vec2f               &getPixelSize       (void) const;
 
+#ifdef OSG_1_GET_COMPAT
+                  Real64              &getNoDataValue     (void);
+#endif
+                  Real64              &editNoDataValue    (void);
+            const Real64              &getNoDataValue     (void) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
@@ -196,6 +212,7 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
             void setEllipsoidAxis  (const Vec2f &value);
             void setOrigin         (const Vec2f &value);
             void setPixelSize      (const Vec2f &value);
+            void setNoDataValue    (const Real64 &value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -247,6 +264,7 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
     SFVec2f           _sfEllipsoidAxis;
     SFVec2f           _sfOrigin;
     SFVec2f           _sfPixelSize;
+    SFReal64          _sfNoDataValue;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -282,6 +300,8 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
     EditFieldHandlePtr editHandleOrigin         (void);
     GetFieldHandlePtr  getHandlePixelSize       (void) const;
     EditFieldHandlePtr editHandlePixelSize      (void);
+    GetFieldHandlePtr  getHandleNoDataValue     (void) const;
+    EditFieldHandlePtr editHandleNoDataValue    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

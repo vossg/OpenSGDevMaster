@@ -97,6 +97,10 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+/*! \var Real64          GeoReferenceAttachmentBase::_sfNoDataValue
+    
+*/
+
 
 void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
 {
@@ -148,6 +152,18 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         Field::SFDefaultFlags,
         static_cast<FieldEditMethodSig>(&GeoReferenceAttachmentBase::editHandlePixelSize),
         static_cast<FieldGetMethodSig >(&GeoReferenceAttachmentBase::getHandlePixelSize));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new SFReal64::Description(
+        SFReal64::getClassType(),
+        "noDataValue",
+        "",
+        NoDataValueFieldId, NoDataValueFieldMask,
+        false,
+        Field::SFDefaultFlags,
+        static_cast<FieldEditMethodSig>(&GeoReferenceAttachmentBase::editHandleNoDataValue),
+        static_cast<FieldGetMethodSig >(&GeoReferenceAttachmentBase::getHandleNoDataValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -212,7 +228,15 @@ GeoReferenceAttachmentBase::TypeObject GeoReferenceAttachmentBase::_type(
     "\t\taccess=\"public\"\n"
     "\t>\n"
     "\t</Field>\n"
-    "\n"
+    "\t<Field\n"
+    "\t\tname=\"noDataValue\"\n"
+    "\t\ttype=\"Real64\"\n"
+    "\t\tcardinality=\"single\"\n"
+    "\t\tvisibility=\"external\"\n"
+    "\t\tdefaultValue=\"\"\n"
+    "\t\taccess=\"public\"\n"
+    "\t>\n"
+    "\t</Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -313,6 +337,25 @@ SFVec2f             *GeoReferenceAttachmentBase::getSFPixelSize      (void)
 }
 #endif
 
+SFReal64 *GeoReferenceAttachmentBase::editSFNoDataValue(void)
+{
+    editSField(NoDataValueFieldMask);
+
+    return &_sfNoDataValue;
+}
+
+const SFReal64 *GeoReferenceAttachmentBase::getSFNoDataValue(void) const
+{
+    return &_sfNoDataValue;
+}
+
+#ifdef OSG_1_GET_COMPAT
+SFReal64            *GeoReferenceAttachmentBase::getSFNoDataValue    (void)
+{
+    return this->editSFNoDataValue    ();
+}
+#endif
+
 
 
 
@@ -339,6 +382,10 @@ UInt32 GeoReferenceAttachmentBase::getBinSize(ConstFieldMaskArg whichField)
     {
         returnValue += _sfPixelSize.getBinSize();
     }
+    if(FieldBits::NoField != (NoDataValueFieldMask & whichField))
+    {
+        returnValue += _sfNoDataValue.getBinSize();
+    }
 
     return returnValue;
 }
@@ -364,6 +411,10 @@ void GeoReferenceAttachmentBase::copyToBin(BinaryDataHandler &pMem,
     {
         _sfPixelSize.copyToBin(pMem);
     }
+    if(FieldBits::NoField != (NoDataValueFieldMask & whichField))
+    {
+        _sfNoDataValue.copyToBin(pMem);
+    }
 }
 
 void GeoReferenceAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
@@ -386,6 +437,10 @@ void GeoReferenceAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
     if(FieldBits::NoField != (PixelSizeFieldMask & whichField))
     {
         _sfPixelSize.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (NoDataValueFieldMask & whichField))
+    {
+        _sfNoDataValue.copyFromBin(pMem);
     }
 }
 
@@ -431,7 +486,8 @@ GeoReferenceAttachmentBase::GeoReferenceAttachmentBase(void) :
     _sfDatum                  (UInt32(GeoReferenceAttachment::WGS84)),
     _sfEllipsoidAxis          (),
     _sfOrigin                 (),
-    _sfPixelSize              ()
+    _sfPixelSize              (),
+    _sfNoDataValue            ()
 {
 }
 
@@ -440,7 +496,8 @@ GeoReferenceAttachmentBase::GeoReferenceAttachmentBase(const GeoReferenceAttachm
     _sfDatum                  (source._sfDatum                  ),
     _sfEllipsoidAxis          (source._sfEllipsoidAxis          ),
     _sfOrigin                 (source._sfOrigin                 ),
-    _sfPixelSize              (source._sfPixelSize              )
+    _sfPixelSize              (source._sfPixelSize              ),
+    _sfNoDataValue            (source._sfNoDataValue            )
 {
 }
 
@@ -536,6 +593,28 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandlePixelSize      (void)
              this->getType().getFieldDesc(PixelSizeFieldId)));
 
     editSField(PixelSizeFieldMask);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr GeoReferenceAttachmentBase::getHandleNoDataValue     (void) const
+{
+    SFReal64::GetHandlePtr returnValue(
+        new  SFReal64::GetHandle(
+             &_sfNoDataValue, 
+             this->getType().getFieldDesc(NoDataValueFieldId)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr GeoReferenceAttachmentBase::editHandleNoDataValue    (void)
+{
+    SFReal64::EditHandlePtr returnValue(
+        new  SFReal64::EditHandle(
+             &_sfNoDataValue, 
+             this->getType().getFieldDesc(NoDataValueFieldId)));
+
+    editSField(NoDataValueFieldMask);
 
     return returnValue;
 }
