@@ -81,6 +81,13 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachment :
     /*! \name                     Output                                   */
     /*! \{                                                                 */
 
+    void setupWGS84Datum(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Output                                   */
+    /*! \{                                                                 */
+
     virtual void dump(      UInt32     uiIndent = 0,
                       const BitVector  bvFlags  = 0) const;
 

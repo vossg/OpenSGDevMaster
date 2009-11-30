@@ -106,9 +106,21 @@ void GeoReferenceAttachment::changed(ConstFieldMaskArg whichField,
 }
 
 void GeoReferenceAttachment::dump(      UInt32    ,
-                         const BitVector ) const
+                                  const BitVector ) const
 {
     SLOG << "Dump GeoReferenceAttachment NI" << std::endl;
+}
+
+void GeoReferenceAttachment::setupWGS84Datum(void)
+{
+    editDatum() = GeoReferenceAttachment::WGS84;
+
+    editEllipsoidAxis().setValues(6378137.f, 6356752.3142f);
+
+    fprintf(stderr, "%d : %f %f\n",
+            this->getDatum(),
+            this->getEllipsoidAxis()[0],
+            this->getEllipsoidAxis()[1]);
 }
 
 OSG_END_NAMESPACE

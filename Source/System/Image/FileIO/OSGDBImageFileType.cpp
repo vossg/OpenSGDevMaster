@@ -44,59 +44,380 @@
 
 #include "OSGConfig.h"
 
-#include "OSGGDALImageFileType.h"
+#include "OSGDBImageFileType.h"
 #include "OSGGeoReferenceAttachment.h"
-
-#ifdef OSG_WITH_GDAL
-#include "gdal/gdal_priv.h"
-#include "gdal/ogr_srs_api.h"
-#include "gdal/cpl_multiproc.h"
-#endif
-
+#include "OSGImageFunctions.h"
 
 #ifndef OSG_DO_DOC
-#    ifdef OSG_WITH_GDAL
-#        define OSG_GDAL_ARG(ARG) ARG
+#    ifdef OSG_WITH_DB
+#        define OSG_DB_ARG(ARG) ARG
 #    else
-#        define OSG_GDAL_ARG(ARG)
+#        define OSG_DB_ARG(ARG)
 #    endif
 #else
-#    define OSG_GDAL_ARG(ARG) ARG
+#    define OSG_DB_ARG(ARG) ARG
 #endif
 
 
 OSG_USING_NAMESPACE
 
-GDALBlockAccessor::~GDALBlockAccessor(void)
+DBHeaderParameter::DBHeaderParameter(void) :
+    _bLastParam(false)
 {
-#ifdef OSG_WITH_GDAL
-    GDALClose(_pDataset);
-#endif
 }
 
-bool GDALBlockAccessor::isOpen(void)
+DBHeaderParameter::~DBHeaderParameter(void)
 {
-#ifdef OSG_WITH_GDAL
-    return (_pDataset != NULL);
-#else
+}
+
+void DBHeaderParameter::setLastParam(void)
+{
+    _bLastParam = true;
+}
+
+bool DBHeaderParameter::isLastParam(void)
+{
+    return _bLastParam;
+}
+
+
+DBHeaderIntParameter::DBHeaderIntParameter(UInt32 &uiParam) :
+     Inherited(       ),
+    _uiParam  (uiParam)
+{
+}
+
+DBHeaderIntParameter::~DBHeaderIntParameter(void)
+{
+}
+
+void DBHeaderIntParameter::convert(const Char8 *str)
+{
+    if(str != NULL)
+    {
+        sscanf(str, "%u", &_uiParam);
+    }
+}
+
+DBHeaderFloatParameter::DBHeaderFloatParameter(Real32 &rParam) :
+     Inherited(      ),
+    _rParam   (rParam)
+{
+}
+
+DBHeaderFloatParameter::~DBHeaderFloatParameter(void)
+{
+}
+
+void DBHeaderFloatParameter::convert(const Char8 *str)
+{
+    if(str != NULL)
+    {
+        sscanf(str, "%f", &_rParam);
+    }
+}
+
+DBHeader::DBHeader(void) :
+    uiMagic     (0  ),
+    uiXSize     (0  ),
+    uiYSize     (0  ),
+    uiZSize     (0  ),
+    uiTSteps    (0  ),
+    uiType      (0  ),
+
+    rSWx        (0.f),
+    rSWy        (0.f),
+    rNWx        (0.f),
+    rNWy        (0.f),
+
+    rNEx        (0.f),
+    rNEy        (0.f),
+    rSEx        (0.f),
+    rSEy        (0.f),
+
+    rH0         (0.f),
+    rDh         (0.f),
+    rT0         (0.f),
+    rDt         (0.f),
+    
+    rScaling    (1.f),
+    rBias       (0.f),
+
+    uiExtFormat (0  ),
+    uiImplFormat(0  ),
+
+    LLWGS84_rSWx(0.f),
+    LLWGS84_rSWy(0.f),
+    LLWGS84_rNWx(0.f),
+    LLWGS84_rNWy(0.f),
+
+    LLWGS84_rNEx(0.f),
+    LLWGS84_rNEy(0.f),
+    LLWGS84_rSEx(0.f),
+    LLWGS84_rSEy(0.f),
+
+    uiBytes     (0  )
+{
+    std::string szParamName("MAGIC");
+
+    _mParams[szParamName] = new DBHeaderIntParameter(uiMagic);
+    
+    szParamName = "xsize";
+
+    _mParams[szParamName] = new DBHeaderIntParameter(uiXSize);
+
+    szParamName = "ysize";
+
+    _mParams[szParamName] = new DBHeaderIntParameter(uiYSize);
+
+    szParamName = "zsize";
+
+    _mParams[szParamName] = new DBHeaderIntParameter(uiZSize);
+
+    szParamName = "tsteps";
+
+    _mParams[szParamName] = new DBHeaderIntParameter(uiTSteps);
+
+    szParamName = "type";
+
+    _mParams[szParamName] = new DBHeaderIntParameter(uiType);
+
+
+
+    szParamName = "swx";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rSWx);
+
+    szParamName = "swy";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rSWy);
+
+    szParamName = "nwx";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rNWx);
+
+    szParamName = "nwy";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rNWy);
+
+
+
+    szParamName = "nex";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rNEx);
+
+    szParamName = "ney";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rNEy);
+
+    szParamName = "sex";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rSEx);
+
+    szParamName = "sey";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rSEy);
+
+
+
+    szParamName = "h0";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rH0);
+
+    szParamName = "dh";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rDh);
+
+    szParamName = "t0";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rT0);
+
+    szParamName = "dt";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rDt);
+
+
+
+    szParamName = "scaling";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rScaling);
+
+    szParamName = "bias";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(rBias);
+
+
+
+    szParamName = "extformat";
+
+    _mParams[szParamName] = new DBHeaderIntParameter(uiExtFormat);
+
+    szParamName = "implformat";
+
+    _mParams[szParamName] = new DBHeaderIntParameter(uiImplFormat);
+
+
+
+    szParamName = "LLWGS84_swx";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(LLWGS84_rSWx);
+
+    szParamName = "LLWGS84_swy";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(LLWGS84_rSWy);
+
+    szParamName = "LLWGS84_nwx";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(LLWGS84_rNWx);
+
+    szParamName = "LLWGS84_nwy";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(LLWGS84_rNWy);
+
+
+
+    szParamName = "LLWGS84_nex";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(LLWGS84_rNEx);
+
+    szParamName = "LLWGS84_ney";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(LLWGS84_rNEy);
+
+    szParamName = "LLWGS84_sex";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(LLWGS84_rSEx);
+
+    szParamName = "LLWGS84_sey";
+
+    _mParams[szParamName] = new DBHeaderFloatParameter(LLWGS84_rSEy);
+
+
+
+    szParamName = "bytes";
+
+    _mParams[szParamName] = new DBHeaderIntParameter(uiBytes);
+
+    _mParams[szParamName]->setLastParam();
+}
+ 
+DBHeader::~DBHeader(void)
+{
+    ParameterMap::iterator mapIt  = _mParams.begin();
+    ParameterMap::iterator mapEnd = _mParams.end  ();
+
+    while(mapIt != mapEnd)
+    {
+        delete mapIt->second;
+
+        ++mapIt;
+    }
+}
+
+bool DBHeader::read(FILE *pIn)
+{
+    bool returnValue = true;
+
+    if(pIn == NULL)
+        return returnValue;
+
+    Char8  buffer[1024];
+    bool   bEnd = false;
+    Char8 *strIt;
+
+    while(!bEnd)
+    {
+        fgets(buffer, 1024, pIn);
+
+        strIt = strtok(buffer, "=");
+
+        if(strIt != NULL)
+        {
+            ParameterMap::iterator mapIt = _mParams.find(std::string(strIt));
+
+            if(mapIt != _mParams.end())
+            {
+                bEnd = mapIt->second->isLastParam();
+
+                strIt = strtok(NULL, "\n");
+
+                mapIt->second->convert(strIt);
+            }
+            else
+            {
+                fprintf(stderr, "Unknown parameter %s\n", strIt);
+            }
+        }
+        else
+        {
+            bEnd = true;
+        }
+    }
+
+    buffer[0] = fgetc(pIn);
+
+    if(buffer[0] != '\0')
+    {
+        fprintf(stderr, "missing 0\n");
+        returnValue = false;
+    }
+
+    return returnValue;
+}
+
+void DBHeader::dump(void) const
+{
+    fprintf(stderr, "MAGIC       = %u\n", this->uiMagic     );
+    fprintf(stderr, "xsize       = %u\n", this->uiXSize     );
+    fprintf(stderr, "ysize       = %u\n", this->uiYSize     );
+    fprintf(stderr, "zsize       = %u\n", this->uiZSize     );
+    fprintf(stderr, "tsteps      = %u\n", this->uiTSteps    );
+    fprintf(stderr, "type        = %u\n", this->uiType      );
+    fprintf(stderr, "swx         = %f\n", this->rSWx        );
+    fprintf(stderr, "swy         = %f\n", this->rSWy        );
+    fprintf(stderr, "nwx         = %f\n", this->rNWx        );
+    fprintf(stderr, "nwy         = %f\n", this->rNWy        );
+    fprintf(stderr, "nex         = %f\n", this->rNEx        );
+    fprintf(stderr, "ney         = %f\n", this->rNEy        );
+    fprintf(stderr, "sex         = %f\n", this->rSEx        );
+    fprintf(stderr, "sey         = %f\n", this->rSEy        );
+    fprintf(stderr, "h0          = %f\n", this->rDh         );
+    fprintf(stderr, "dh          = %f\n", this->rDh         );
+    fprintf(stderr, "t0          = %f\n", this->rT0         );
+    fprintf(stderr, "dt          = %f\n", this->rDt         );
+    fprintf(stderr, "scaling     = %f\n", this->rScaling    );
+    fprintf(stderr, "bias        = %f\n", this->rBias       );
+    fprintf(stderr, "extformat   = %u\n", this->uiExtFormat );
+    fprintf(stderr, "implformat  = %u\n", this->uiImplFormat);
+    fprintf(stderr, "LLWGS84_swx = %f\n", this->LLWGS84_rSWx);
+    fprintf(stderr, "LLWGS84_swy = %f\n", this->LLWGS84_rSWy);
+    fprintf(stderr, "LLWGS84_nwx = %f\n", this->LLWGS84_rNWx);
+    fprintf(stderr, "LLWGS84_nwy = %f\n", this->LLWGS84_rNWy);
+    fprintf(stderr, "LLWGS84_nex = %f\n", this->LLWGS84_rNEx);
+    fprintf(stderr, "LLWGS84_ney = %f\n", this->LLWGS84_rNEy);
+    fprintf(stderr, "LLWGS84_sex = %f\n", this->LLWGS84_rSEx);
+    fprintf(stderr, "LLWGS84_sey = %f\n", this->LLWGS84_rSEy);
+    fprintf(stderr, "bytes       = %u\n", this->uiBytes     );
+}
+
+DBBlockAccessor::~DBBlockAccessor(void)
+{
+}
+
+bool DBBlockAccessor::isOpen(void)
+{
     return false;
-#endif
 }
 
 
-GDALBlockAccessor::GDALBlockAccessor(void) :
-     Inherited (    ),
-#ifdef OSG_WITH_GDAL
-    _pDataset  (NULL),
-    _pBand     (NULL),
-#endif
-    _vI16Buffer(    )
+DBBlockAccessor::DBBlockAccessor(void) :
+    Inherited()
 {
 }
 
-void GDALBlockAccessor::open(const Char8 *szFilename)
+void DBBlockAccessor::open(const Char8 *szFilename)
 {
-#ifdef OSG_WITH_GDAL
+#ifdef OSG_WITH_GDALX
     _pDataset = (GDALDataset *) GDALOpen(szFilename, GA_ReadOnly);
 
     if(_pDataset != NULL)
@@ -235,12 +556,12 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
 #endif
 }
 
- bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
-                                      Int32   iTextureSize,
-                                      UInt16 *pTarget,
-                                      Int32   iTargetSizeBytes)
+ bool DBBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
+                                    Int32   iTextureSize,
+                                    UInt16 *pTarget,
+                                    Int32   iTargetSizeBytes)
 {
-#ifdef OSG_WITH_GDAL
+#ifdef OSG_WITH_GDALX
     OSG_ASSERT(false);
 
     UInt32 destIdx = 0;
@@ -272,12 +593,12 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
     return false;
 }
 
-bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
-                                     Int32   iTextureSize,
-                                     Int16  *pTarget,
-                                     Int32   iTargetSizeBytes)
+bool DBBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
+                                   Int32   iTextureSize,
+                                   Int16  *pTarget,
+                                   Int32   iTargetSizeBytes)
 {
-#ifdef OSG_WITH_GDAL
+#ifdef OSG_WITH_GDALX
     Int32 xMin = vSampleOrigin.x();
     Int32 xMax = vSampleOrigin.x() + iTextureSize;
     
@@ -365,13 +686,13 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
 // Static Class Varible implementations:
 static const Char8 *suffixArray[] = 
 {
-    "gtif", "gtiff", "hdf4", "adf"
+    "db"
 };
 
-GDALImageFileType GDALImageFileType:: _the("image/gdal",
-                                           suffixArray, 
-                                           sizeof(suffixArray),
-                                           (OSG_READ_SUPPORTED));
+DBImageFileType DBImageFileType:: _the("image/db",
+                                       suffixArray, 
+                                       sizeof(suffixArray),
+                                       (OSG_READ_SUPPORTED));
 
 
 //-------------------------------------------------------------------------
@@ -379,11 +700,183 @@ GDALImageFileType GDALImageFileType:: _the("image/gdal",
     the given fileName. Returns true on success.
  */
 
-bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage), 
-                             const Char8       *OSG_GDAL_ARG(fileName)) 
+
+bool DBImageFileType::read(      ImagePtrArg  pImage, 
+                           const Char8       *fileName) 
 {
-#ifdef OSG_WITH_GDAL
     bool returnValue = false;
+
+    FILE *pIn = fopen(fileName, "rb");
+
+    if(pIn != NULL)
+    {
+        fprintf(stderr, "db::open %p\n", pIn);
+
+        DBHeader oHeader;
+
+        returnValue = oHeader.read(pIn);
+
+        if(returnValue == false)
+        {
+            fclose(pIn);
+
+            return returnValue;
+        }
+
+//        oHeader.dump();
+
+        if(oHeader.uiExtFormat != 0)
+        {
+            fprintf(stderr, "ext == 0 only support");
+
+            returnValue = false;
+
+            fclose(pIn);
+
+            return returnValue;
+        }
+
+        Image::PixelFormat imagePf;
+        Image::Type        imageType;
+
+        switch(oHeader.uiType)
+        {
+            case 0:
+                imagePf   = Image::OSG_L_PF;
+                imageType = Image::OSG_UINT8_IMAGEDATA;
+                break;
+            case 1:
+                imagePf   = Image::OSG_L_PF;
+                imageType = Image::OSG_INT16_IMAGEDATA;
+                break;
+            case 2:
+                imagePf   = Image::OSG_L_PF;
+                imageType = Image::OSG_FLOAT32_IMAGEDATA;
+                break;
+            case 3:
+                imagePf   = Image::OSG_RGB_PF;
+                imageType = Image::OSG_UINT8_IMAGEDATA;
+                break;
+            case 4:
+                imagePf   = Image::OSG_RGBA_PF;
+                imageType = Image::OSG_UINT8_IMAGEDATA;
+                break;
+            case 5:
+                imagePf   = Image::OSG_RGB_DXT1;
+                imageType = Image::OSG_UINT8_IMAGEDATA;
+                break;
+            case 6:
+                imagePf   = Image::OSG_RGBA_DXT1;
+                imageType = Image::OSG_UINT8_IMAGEDATA;
+                break;
+            default:
+                break;
+        };
+
+        pImage->set(imagePf,
+                    oHeader.uiXSize,
+                    oHeader.uiYSize,
+                    oHeader.uiZSize,
+                    1,
+                    1,
+                    0.0,
+                    NULL,
+                    imageType,
+                    true,
+                    1);
+
+        if(pImage->getSize() == oHeader.uiBytes)
+        {
+            fread(pImage->editData(),
+                  sizeof(UInt8),
+                  oHeader.uiBytes,
+                  pIn);
+
+#if BYTE_ORDER == LITTLE_ENDIAN
+            switch(oHeader.uiType)
+            {
+                case 1:
+                    swapAndConvertImageByteOrder< 
+                         Int16,
+                        &clampMin<Int16, -100, 0> >(pImage);
+                    break;
+                case 2:
+                    swapAndConvertImageByteOrder< 
+                         Real32,
+                        &doNothing<Real32> >(pImage);
+                    break;
+                default:
+                    break;
+            };
+#endif
+
+            if(oHeader.uiXSize != 0 && oHeader.uiYSize != 0)
+            {
+                if(oHeader.LLWGS84_rSWx != 0.f &&
+                   oHeader.LLWGS84_rSWy != 0.f &&
+                   oHeader.LLWGS84_rNWx != 0.f &&
+                   oHeader.LLWGS84_rNWy != 0.f &&
+                   oHeader.LLWGS84_rNEx != 0.f &&
+                   oHeader.LLWGS84_rNEy != 0.f &&
+                   oHeader.LLWGS84_rSEx != 0.f &&
+                   oHeader.LLWGS84_rSEy != 0.f  )
+                {
+                    GeoReferenceAttachmentPtr pGeoRef = 
+                        GeoReferenceAttachment::create();
+                    
+                    pGeoRef->setupWGS84Datum();
+                    
+                    pGeoRef->editOrigin().setValues(oHeader.LLWGS84_rNWx,
+                                                    oHeader.LLWGS84_rNWy);
+                    
+                    pGeoRef->editPixelSize().setValues(
+                        (oHeader.LLWGS84_rSEx - 
+                         oHeader.LLWGS84_rNWx) / oHeader.uiXSize,
+                        (oHeader.LLWGS84_rSEy -
+                         oHeader.LLWGS84_rNWy) / oHeader.uiYSize);
+
+                    pImage->addAttachment(pGeoRef);
+                }
+                else if(oHeader.rSWx != 0.f &&
+                        oHeader.rSWy != 0.f &&
+                        oHeader.rNWx != 0.f &&
+                        oHeader.rNWy != 0.f &&
+                        oHeader.rNEx != 0.f &&
+                        oHeader.rNEy != 0.f &&
+                        oHeader.rSEx != 0.f &&
+                        oHeader.rSEy != 0.f  )
+                {
+                    GeoReferenceAttachmentPtr pGeoRef = 
+                        GeoReferenceAttachment::create();
+                    
+                    pGeoRef->setupWGS84Datum();
+                    
+                    pGeoRef->editOrigin().setValues(oHeader.rNWx,
+                                                    oHeader.rNWy);
+                    
+                    pGeoRef->editPixelSize().setValues(
+                        (oHeader.rSEx - oHeader.rNWx) / oHeader.uiXSize,
+                        (oHeader.rSEy - oHeader.rNWy) / oHeader.uiYSize);
+
+                    pImage->addAttachment(pGeoRef);
+                }
+            }
+        }
+        else
+        {
+            fprintf(stderr, "size mismatch %d %d\n",
+                    pImage->getSize(),
+                    oHeader.uiBytes);
+
+            returnValue = false;
+        }
+
+        fclose(pIn);
+    }
+
+    return returnValue;
+
+#ifdef OSG_WITH_GDALX
 
     GDALDataset *pDataset;
 
@@ -549,14 +1042,6 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
     }
 
     return returnValue;
-
-#else
-
-    SWARNING << getMimeType()
-             << " read is not compiled into the current binary "
-             << std::endl;
-    return false;
-
 #endif // OSG_WITH_GDAL
 }
 
@@ -565,8 +1050,8 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
     Returns true on success.
 */
 
-bool GDALImageFileType::write(      ImageConstPtrArg  OSG_GDAL_ARG(pImage), 
-                              const Char8            *OSG_GDAL_ARG(fileName)) 
+bool DBImageFileType::write(      ImageConstPtrArg  OSG_DB_ARG(pImage), 
+                            const Char8            *OSG_DB_ARG(fileName)) 
 {
     bool                retCode = false;
 
@@ -668,7 +1153,7 @@ bool GDALImageFileType::write(      ImageConstPtrArg  OSG_GDAL_ARG(pImage),
     return retCode;
 }
 
-bool GDALImageFileType::validateHeader(const Char8 *fileName, bool &implemented)
+bool DBImageFileType::validateHeader(const Char8 *fileName, bool &implemented)
 {
     implemented = true;
 
@@ -676,9 +1161,9 @@ bool GDALImageFileType::validateHeader(const Char8 *fileName, bool &implemented)
 }
 
 #if 1
-ImageBlockAccessorPtr GDALImageFileType::open(const Char8 *fileName)
+ImageBlockAccessorPtr DBImageFileType::open(const Char8 *fileName)
 {
-    GDALBlockAccessorPtr returnValue(new GDALBlockAccessor);
+    DBBlockAccessorPtr returnValue(new DBBlockAccessor);
 
     returnValue->open(fileName);
 
@@ -690,30 +1175,21 @@ ImageBlockAccessorPtr GDALImageFileType::open(const Char8 *fileName)
 /*! Constructor used for the singleton object
  */
 
-GDALImageFileType::GDALImageFileType(const Char8  *mimeType,
-                                     const Char8  *suffixArray[],
-                                           UInt16  suffixByteCount,
-                                           UInt32  flags) :
+DBImageFileType::DBImageFileType(const Char8  *mimeType,
+                                 const Char8  *suffixArray[],
+                                       UInt16  suffixByteCount,
+                                       UInt32  flags) :
     Inherited(mimeType,
               suffixArray, 
               suffixByteCount, 
               flags          )
 {
-    static bool initTIFFLib = true;
-    
-#ifdef OSG_WITH_GDAL
-    GDALAllRegister();
-#endif
 }
 
 //-------------------------------------------------------------------------
 /*! Destructor
  */
 
-GDALImageFileType::~GDALImageFileType(void)
+DBImageFileType::~DBImageFileType(void)
 {
-#ifdef OSG_WITH_GDAL
-    GDALDestroyDriverManager();
-    CPLCleanupTLS();
-#endif
 }
