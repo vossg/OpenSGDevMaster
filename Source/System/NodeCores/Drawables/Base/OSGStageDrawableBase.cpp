@@ -185,11 +185,13 @@ void StageDrawableBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<StageDrawableBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    StageDrawable *pThis = static_cast<StageDrawable *>(this);
+
+    pThis->execSync(static_cast<StageDrawable *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 

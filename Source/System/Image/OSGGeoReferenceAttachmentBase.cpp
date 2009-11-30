@@ -657,11 +657,13 @@ void GeoReferenceAttachmentBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    this->execSync(static_cast<GeoReferenceAttachmentBase *>(&oFrom),
-                   whichField,
-                   oOffsets,
-                   syncMode,
-                   uiSyncInfo);
+    GeoReferenceAttachment *pThis = static_cast<GeoReferenceAttachment *>(this);
+
+    pThis->execSync(static_cast<GeoReferenceAttachment *>(&oFrom),
+                    whichField,
+                    oOffsets,
+                    syncMode,
+                    uiSyncInfo);
 }
 #endif
 
