@@ -178,7 +178,7 @@ GeoReferenceAttachmentBase::TypeObject GeoReferenceAttachmentBase::_type(
     reinterpret_cast<PrototypeCreateF>(&GeoReferenceAttachmentBase::createEmptyLocal),
     GeoReferenceAttachment::initMethod,
     GeoReferenceAttachment::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&GeoReferenceAttachmentBase::classDescInserter),
+    reinterpret_cast<InitalInsertDescFunc>(&GeoReferenceAttachment::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
@@ -569,7 +569,8 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandleDatum           (void) co
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
              &_sfDatum,
-             this->getType().getFieldDesc(DatumFieldId)));
+             this->getType().getFieldDesc(DatumFieldId),
+             const_cast<GeoReferenceAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -579,7 +580,8 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandleDatum          (void)
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
              &_sfDatum,
-             this->getType().getFieldDesc(DatumFieldId)));
+             this->getType().getFieldDesc(DatumFieldId),
+             this));
 
 
     editSField(DatumFieldMask);
@@ -592,7 +594,8 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandleEllipsoidAxis   (void) co
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfEllipsoidAxis,
-             this->getType().getFieldDesc(EllipsoidAxisFieldId)));
+             this->getType().getFieldDesc(EllipsoidAxisFieldId),
+             const_cast<GeoReferenceAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -602,7 +605,8 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandleEllipsoidAxis  (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfEllipsoidAxis,
-             this->getType().getFieldDesc(EllipsoidAxisFieldId)));
+             this->getType().getFieldDesc(EllipsoidAxisFieldId),
+             this));
 
 
     editSField(EllipsoidAxisFieldMask);
@@ -615,7 +619,8 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandleOrigin          (void) co
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfOrigin,
-             this->getType().getFieldDesc(OriginFieldId)));
+             this->getType().getFieldDesc(OriginFieldId),
+             const_cast<GeoReferenceAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -625,7 +630,8 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandleOrigin         (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfOrigin,
-             this->getType().getFieldDesc(OriginFieldId)));
+             this->getType().getFieldDesc(OriginFieldId),
+             this));
 
 
     editSField(OriginFieldMask);
@@ -638,7 +644,8 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandlePixelSize       (void) co
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
              &_sfPixelSize,
-             this->getType().getFieldDesc(PixelSizeFieldId)));
+             this->getType().getFieldDesc(PixelSizeFieldId),
+             const_cast<GeoReferenceAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -648,7 +655,8 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandlePixelSize      (void)
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
              &_sfPixelSize,
-             this->getType().getFieldDesc(PixelSizeFieldId)));
+             this->getType().getFieldDesc(PixelSizeFieldId),
+             this));
 
 
     editSField(PixelSizeFieldMask);
@@ -661,7 +669,8 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandleNoDataValue     (void) co
     SFReal64::GetHandlePtr returnValue(
         new  SFReal64::GetHandle(
              &_sfNoDataValue,
-             this->getType().getFieldDesc(NoDataValueFieldId)));
+             this->getType().getFieldDesc(NoDataValueFieldId),
+             const_cast<GeoReferenceAttachmentBase *>(this)));
 
     return returnValue;
 }
@@ -671,7 +680,8 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandleNoDataValue    (void)
     SFReal64::EditHandlePtr returnValue(
         new  SFReal64::EditHandle(
              &_sfNoDataValue,
-             this->getType().getFieldDesc(NoDataValueFieldId)));
+             this->getType().getFieldDesc(NoDataValueFieldId),
+             this));
 
 
     editSField(NoDataValueFieldMask);
