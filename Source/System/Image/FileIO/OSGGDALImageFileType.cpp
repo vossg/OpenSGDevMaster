@@ -97,7 +97,7 @@ GDALBlockAccessor::GDALBlockAccessor(void) :
 void GDALBlockAccessor::open(const Char8 *szFilename)
 {
 #ifdef OSG_WITH_GDAL
-    _pDataset = (GDALDataset *) GDALOpen(szFilename, GA_ReadOnly);
+    _pDataset = static_cast<GDALDataset *>(GDALOpen(szFilename, GA_ReadOnly));
 
     if(_pDataset != NULL)
     {
@@ -117,7 +117,8 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
             {
                 OGRSpatialReferenceH  hSRS;
 
-                Char8 *szProjection = (char *) GDALGetProjectionRef(_pDataset);
+                Char8 *szProjection = 
+                    const_cast<char *>(GDALGetProjectionRef(_pDataset));
         
                 hSRS = OSRNewSpatialReference(NULL);
 
@@ -161,7 +162,7 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
 
         if(!(bGotMin && bGotMax))
         {
-            GDALComputeRasterMinMax((GDALRasterBandH) _pBand, TRUE, adfMinMax);
+            GDALComputeRasterMinMax(GDALRasterBandH(_pBand), TRUE, adfMinMax);
         }
 
         if(_pBand != NULL)
@@ -245,7 +246,7 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
 
     UInt32 destIdx = 0;
 
-    UInt8 *pDst = (UInt8 *) pTarget;
+    UInt8 *pDst = reinterpret_cast<UInt8 *>(pTarget);
 
     Int32 xMin = vSampleOrigin.x();
     Int32 xMax = vSampleOrigin.x() + iTextureSize;
@@ -387,7 +388,7 @@ bool GDALImageFileType::read(      Image       *OSG_GDAL_ARG(pImage),
 
     GDALDataset *pDataset;
 
-    pDataset = (GDALDataset *) GDALOpen(fileName, GA_ReadOnly);
+    pDataset = static_cast<GDALDataset *>(GDALOpen(fileName, GA_ReadOnly));
 
     if(pDataset != NULL)
     {
@@ -410,7 +411,8 @@ bool GDALImageFileType::read(      Image       *OSG_GDAL_ARG(pImage),
             {
                 OGRSpatialReferenceH  hSRS;
 
-                Char8 *szProjection = (char *) GDALGetProjectionRef(pDataset);
+                Char8 *szProjection = 
+                    const_cast<char *>(GDALGetProjectionRef(pDataset));
         
                 hSRS = OSRNewSpatialReference(NULL);
 
@@ -453,7 +455,7 @@ bool GDALImageFileType::read(      Image       *OSG_GDAL_ARG(pImage),
         adfMinMax[1] = pBand->GetMaximum( &bGotMax );
 
         if(!(bGotMin && bGotMax))
-            GDALComputeRasterMinMax((GDALRasterBandH) pBand, TRUE, adfMinMax);
+            GDALComputeRasterMinMax(GDALRasterBandH(pBand), TRUE, adfMinMax);
 
         pBand = pDataset->GetRasterBand(1);
 

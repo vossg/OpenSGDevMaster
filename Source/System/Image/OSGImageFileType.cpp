@@ -113,7 +113,7 @@ bool BlockAccessWrapper::readBlockA16(Vec2i   vSampleOrigin,
 
     const UInt8 *pData = _pImage->getData();
 
-    UInt8 *pDst = (UInt8 *) pTarget;
+    UInt8 *pDst = reinterpret_cast<UInt8 *>(pTarget);
 
     UInt32 destIdx = 0;
 
@@ -195,7 +195,7 @@ bool BlockAccessWrapper::readBlockA16(Vec2i   vSampleOrigin,
         destIdx += (iTextureSize - (xMax - xMin)) * 2;
     }
 #else
-    const Int16 *pData = (Int16 *)_pImage->getData();
+    const Int16 *pData = reinterpret_cast<const Int16 *>(_pImage->getData());
 
     UInt32 destIdx = 0;
 
