@@ -66,6 +66,301 @@
 
 OSG_USING_NAMESPACE
 
+std::vector<Int16> GDALBlockAccessor::_vStrangeTmpBuff;
+
+
+GDALBlockAccessor::~GDALBlockAccessor(void)
+{
+    GDALClose(_pDataset);
+}
+
+bool GDALBlockAccessor::isOpen(void)
+{
+    return (_pDataset != NULL);
+}
+
+
+GDALBlockAccessor::GDALBlockAccessor(void) :
+     Inherited (    ),
+    _pDataset  (NULL),
+    _pBand     (NULL),
+    _vI16Buffer(    )
+{
+}
+
+void GDALBlockAccessor::open(const Char8 *szFilename)
+{
+    _pDataset = (GDALDataset *) GDALOpen(szFilename, GA_ReadOnly);
+
+    if(_pDataset != NULL)
+    {
+        setRefd(_pGeoRef, GeoReferenceAttachment::create());
+
+        double adfGeoTransform[6];
+
+        if(_pDataset->GetGeoTransform(adfGeoTransform) == CE_None)
+        {
+            _pGeoRef->editOrigin().setValues(adfGeoTransform[0], 
+                                             adfGeoTransform[3]);
+
+            _pGeoRef->editPixelSize().setValues(adfGeoTransform[1], 
+                                                adfGeoTransform[5]);
+
+            if(GDALGetProjectionRef(_pDataset) != NULL)
+            {
+                OGRSpatialReferenceH  hSRS;
+
+                Char8 *szProjection = (char *) GDALGetProjectionRef(_pDataset);
+        
+//                fprintf(stderr, "Proj %s\n", szProjection);
+
+                hSRS = OSRNewSpatialReference(NULL);
+
+                if(OSRImportFromWkt(hSRS, &szProjection) == CE_None)
+                {
+/*
+                    fprintf(stderr, "GetSemiMajor: %lf\n",
+                            OSRGetSemiMajor(hSRS, NULL));
+                    fprintf(stderr, "GetSemiMinor: %lf\n",
+                            OSRGetSemiMinor(hSRS, NULL));
+ */
+
+                    _pGeoRef->editEllipsoidAxis().setValues(
+                        OSRGetSemiMajor(hSRS, NULL),
+                        OSRGetSemiMinor(hSRS, NULL));
+
+                    const Char8 *szDatum = OSRGetAttrValue(hSRS, "DATUM", 0);
+
+                    if(szDatum != NULL && 0 == strcmp(szDatum, "WGS_1984"))
+                    {
+                        _pGeoRef->editDatum() = 
+                            GeoReferenceAttachment::WGS84;
+                    }
+                    else
+                    {
+                        fprintf(stderr, "Unknow datum %s\n",
+                                szDatum);
+
+                        _pGeoRef->editDatum() = 
+                            GeoReferenceAttachment::UnknownDatum;
+                    }
+
+
+//                    fprintf(stderr, "ax: %s\n",
+//                            OSRGetAttrValue(hSRS, "DATUM", 0));
+
+                }            
+
+//                free(szProjection);
+
+                OSRDestroySpatialReference(hSRS);
+            }
+        }
+
+        int             nBlockXSize, nBlockYSize;
+        int             bGotMin, bGotMax;
+        double          adfMinMax[2];
+        
+        _pBand = _pDataset->GetRasterBand(1);
+
+        _pBand->GetBlockSize(&nBlockXSize, &nBlockYSize);
+
+        adfMinMax[0] = _pBand->GetMinimum(&bGotMin);
+        adfMinMax[1] = _pBand->GetMaximum(&bGotMax);
+
+        if(!(bGotMin && bGotMax))
+        {
+            GDALComputeRasterMinMax((GDALRasterBandH) _pBand, TRUE, adfMinMax);
+        }
+
+        if(_pBand != NULL)
+        {
+            _eImgFormat = Image::OSG_INVALID_PF;
+
+            switch(_pDataset->GetRasterCount())
+            {
+                case 1:
+                    _eImgFormat = Image::OSG_L_PF;
+                    break;
+                case 2:
+                    _eImgFormat = Image::OSG_LA_PF;
+                    break;
+                case 3:
+                    _eImgFormat = Image::OSG_RGB_PF;
+                    break;
+                case 4:
+                    _eImgFormat = Image::OSG_RGBA_PF;
+                    break;
+            }
+
+            _eImgType = Image::OSG_INVALID_IMAGEDATATYPE;
+
+            switch(_pBand->GetRasterDataType())
+            {
+                case GDT_Byte:
+                    _eImgType = Image::OSG_UINT8_IMAGEDATA;
+                    break;
+
+                case GDT_UInt16:
+                    _eImgType = Image::OSG_UINT16_IMAGEDATA;
+                    break;
+
+                case GDT_Int16:
+                    _eImgType = Image::OSG_INT16_IMAGEDATA;
+                    break;
+
+                case GDT_UInt32:
+                    _eImgType = Image::OSG_UINT32_IMAGEDATA;
+                    break;
+
+                case GDT_Int32:
+                    _eImgType = Image::OSG_INT32_IMAGEDATA;
+                    break;
+
+                case GDT_Float32: 
+                    _eImgType = Image::OSG_FLOAT32_IMAGEDATA;
+                    break;
+
+                case GDT_Float64:
+                case GDT_CInt16: 
+                case GDT_CInt32:
+                case GDT_CFloat32:
+                case GDT_CFloat64:
+                default:
+                    GDALClose(_pDataset);
+                    _pDataset = NULL;
+                    break;
+        
+            }
+
+            _vSize[0] = _pDataset->GetRasterXSize();
+            _vSize[1] = _pDataset->GetRasterYSize();
+        }
+    }
+}
+
+ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
+                                      Int32   iTextureSize,
+                                      UInt16 *pTarget,
+                                      Int32   iTargetSizeBytes)
+{
+    OSG_ASSERT(false);
+
+    UInt32 destIdx = 0;
+
+    UInt8 *pDst = (UInt8 *) pTarget;
+
+    Int32 xMin = vSampleOrigin.x();
+    Int32 xMax = vSampleOrigin.x() + iTextureSize;
+
+    Int32 yMin = vSampleOrigin.y();
+    Int32 yMax = vSampleOrigin.y() + iTextureSize;
+
+    for(UInt32 y = yMin; y < yMax; y++)
+    {
+        for(UInt32 x = xMin; x < xMax; x++)
+        {
+            for(UInt32 i = 0; i < 2; i++)
+            {
+                pDst[destIdx] = 0;
+
+                destIdx++;
+            }
+        }
+        
+        destIdx += (iTextureSize - (xMax - xMin)) * 2;
+    }
+}
+
+bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
+                                     Int32   iTextureSize,
+                                     Int16  *pTarget,
+                                     Int32   iTargetSizeBytes)
+{
+
+#if 0
+    for(UInt32 y = yMin; y < yMax; y++)
+    {
+        for(UInt32 x = xMin; x < xMax; x++)
+        {
+            for(UInt32 i = 0; i < 2; i++)
+            {
+                pDst[destIdx] = 0;
+
+                destIdx++;
+            }
+        }
+        
+        destIdx += (iTextureSize - (xMax - xMin)) * 2;
+    }
+#else
+    Int32 xMin = vSampleOrigin.x();
+    Int32 xMax = vSampleOrigin.x() + iTextureSize;
+    
+    Int32 yMin = vSampleOrigin.y();
+    Int32 yMax = vSampleOrigin.y() + iTextureSize;
+    
+    if(xMax > _vSize[0] || yMax > _vSize[1])
+    {
+        UInt32 destIdx = 0;
+        UInt32 srcIdx  = 0;
+        
+        _vI16Buffer.resize(iTextureSize * iTextureSize);
+
+        Int32 iSampleX = osgMin(_vSize[0] - vSampleOrigin.x(), iTextureSize);
+        Int32 iSampleY = osgMin(_vSize[1] - vSampleOrigin.y(), iTextureSize);
+
+        _pBand->RasterIO(GF_Read,
+                         vSampleOrigin.x(), 
+                         vSampleOrigin.y(),
+                         iSampleX, 
+                         iSampleY,
+                         &(_vI16Buffer[0]),
+                         iSampleX, 
+                         iSampleY,
+                         GDT_Int16,
+                         0,
+                         0);
+        
+
+        for(UInt32 y = yMin; y < yMax; y++)
+        {
+            for(UInt32 x = xMin; x < xMax; x++)
+            {
+                if(x >= _vSize[0] || y >= _vSize[1])
+                {
+                    pTarget[destIdx] = 0;
+                }
+                else
+                {
+                    pTarget[destIdx] = _vI16Buffer[srcIdx];
+                    
+                    srcIdx++;
+                }
+
+                destIdx++;
+            }
+        }
+    }
+    else
+    {
+        _pBand->RasterIO(GF_Read,
+                         vSampleOrigin.x(), 
+                         vSampleOrigin.y(),
+                         iTextureSize, 
+                         iTextureSize,
+                         pTarget,
+                         iTextureSize, 
+                         iTextureSize,
+                         GDT_Int16,
+                         0,
+                         0);
+    }
+#endif
+
+    return true;
+}
+
 
 /*! \class OSG::GDALImageFileType 
     \ingroup GrpSystemImage
@@ -86,7 +381,7 @@ OSG_USING_NAMESPACE
 // Static Class Varible implementations:
 static const Char8 *suffixArray[] = 
 {
-    "gtif", "gtiff"
+    "gtif", "gtiff", "hdf4", "adf"
 };
 
 GDALImageFileType GDALImageFileType:: _the("image/gdal",
@@ -315,6 +610,7 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
 
 //            fprintf(stderr, "FOO %p\n", dst);
 
+
             pBand->RasterIO(GF_Read,
                             0, 
                             0,
@@ -460,6 +756,16 @@ bool GDALImageFileType::validateHeader(const Char8 *fileName, bool &implemented)
     return true;
 }
 
+#if 1
+ImageBlockAccessorPtr GDALImageFileType::open(const Char8 *fileName)
+{
+    GDALBlockAccessorPtr returnValue(new GDALBlockAccessor);
+
+    returnValue->open(fileName);
+
+    return returnValue;
+}
+#endif
 
 //-------------------------------------------------------------------------
 /*! Constructor used for the singleton object

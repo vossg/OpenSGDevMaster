@@ -51,6 +51,207 @@
 
 OSG_USING_NAMESPACE
 
+ImageBlockAccessor::~ImageBlockAccessor(void)
+{
+    OSG::subRef(_pGeoRef);
+}
+
+ImageBlockAccessor::ImageBlockAccessor(void) :
+    _pGeoRef   (NullFC                          ),
+    _vSize     (0, 0                            ),
+    _eImgType  (Image::OSG_INVALID_IMAGEDATATYPE),
+    _eImgFormat(Image::OSG_INVALID_PF           )
+{
+}
+
+Vec2i ImageBlockAccessor::getSize(void)
+{
+    return _vSize;
+}
+
+Image::Type ImageBlockAccessor::getType(void)
+{
+    return _eImgType;
+}
+
+Image::PixelFormat ImageBlockAccessor::getFormat(void)
+{
+    return _eImgFormat;
+}
+
+GeoReferenceAttachmentPtr ImageBlockAccessor::getGeoRef(void)
+{
+    return _pGeoRef;
+}
+
+
+
+BlockAccessWrapper::~BlockAccessWrapper(void)
+{
+    OSG::subRef(_pImage);
+}
+
+
+bool BlockAccessWrapper::isOpen(void)
+{
+    return (_pImage != NullFC);
+}
+
+bool BlockAccessWrapper::readBlockA16(Vec2i   vSampleOrigin,
+                                      Int32   iTextureSize,
+                                      UInt16 *pTarget,
+                                      Int32   iTargetSizeBytes)
+{
+    if(_pImage == NullFC)
+        return false;
+
+    const UInt8 *pData = _pImage->getData();
+
+    UInt8 *pDst = (UInt8 *) pTarget;
+
+    UInt32 destIdx = 0;
+
+    Int32 xMin = vSampleOrigin.x();
+    Int32 xMax = vSampleOrigin.x() + iTextureSize;
+
+    Int32 yMin = vSampleOrigin.y();
+    Int32 yMax = vSampleOrigin.y() + iTextureSize;
+
+    for(UInt32 y = yMin; y < yMax; y++)
+    {
+        for(UInt32 x = xMin; x < xMax; x++)
+        {
+            for(UInt32 i = 0; i < 2; i++)
+            {
+                if(y >= _pImage->getHeight() ||
+                   x >= _pImage->getWidth()   )
+                {
+                    pDst[destIdx] = 0;
+                }
+                else
+                {
+                    pDst[destIdx] = 
+                        pData[((y) * _pImage->getWidth() + x) * 2 + i];
+                }
+
+                destIdx++;
+            }
+        }
+        
+        destIdx += (iTextureSize - (xMax - xMin)) * 2;
+    }
+
+    return true;
+}
+
+bool BlockAccessWrapper::readBlockA16(Vec2i   vSampleOrigin,
+                                      Int32   iTextureSize,
+                                      Int16  *pTarget,
+                                      Int32   iTargetSizeBytes)
+{
+    if(_pImage == NullFC)
+        return false;
+
+#if 0
+    const UInt8 *pData = _pImage->getData();
+
+    UInt8 *pDst = (UInt8 *) pTarget;
+
+    UInt32 destIdx = 0;
+
+    Int32 xMin = vSampleOrigin.x();
+    Int32 xMax = vSampleOrigin.x() + iTextureSize;
+
+    Int32 yMin = vSampleOrigin.y();
+    Int32 yMax = vSampleOrigin.y() + iTextureSize;
+
+    for(UInt32 y = yMin; y < yMax; y++)
+    {
+        for(UInt32 x = xMin; x < xMax; x++)
+        {
+            for(UInt32 i = 0; i < 2; i++)
+            {
+                if(y >= _pImage->getHeight() ||
+                   x >= _pImage->getWidth()   )
+                {
+                    pDst[destIdx] = 0;
+                }
+                else
+                {
+                    pDst[destIdx] = 
+                        pData[((y) * _pImage->getWidth() + x) * 2 + i];
+                }
+
+                destIdx++;
+            }
+        }
+        
+        destIdx += (iTextureSize - (xMax - xMin)) * 2;
+    }
+#else
+    const Int16 *pData = (Int16 *)_pImage->getData();
+
+    UInt32 destIdx = 0;
+
+    Int32 xMin = vSampleOrigin.x();
+    Int32 xMax = vSampleOrigin.x() + iTextureSize;
+
+    Int32 yMin = vSampleOrigin.y();
+    Int32 yMax = vSampleOrigin.y() + iTextureSize;
+
+    for(UInt32 y = yMin; y < yMax; y++)
+    {
+        for(UInt32 x = xMin; x < xMax; x++)
+        {
+            if(y >= _pImage->getHeight() ||
+               x >= _pImage->getWidth()   )
+            {
+                pTarget[destIdx] = 0;
+            }
+            else
+            {
+                pTarget[destIdx] = 
+                    pData[((y) * _pImage->getWidth() + x)];
+            }
+
+            ++destIdx;
+        }
+    }
+#endif
+
+    return true;
+}
+
+BlockAccessWrapper::BlockAccessWrapper(void) :
+     Inherited(      ),
+    _pImage   (NullFC)
+{
+}
+
+void BlockAccessWrapper::open(const Char8 *szFilename)
+{
+    OSG::setRefd(_pImage, ImageFileHandler::the()->read(szFilename));
+
+    if(_pImage != NullFC)
+    {
+        OSG::setRefd(
+            _pGeoRef, 
+            dynamic_cast<GeoReferenceAttachmentPtr>(
+                _pImage->findAttachment(
+                    GeoReferenceAttachment::getClassType().getGroupId())));
+
+        _vSize.setValues(_pImage->getWidth(),
+                         _pImage->getHeight());
+
+        _eImgType   = Image::Type       (_pImage->getDataType   ());
+        _eImgFormat = Image::PixelFormat(_pImage->getPixelFormat());
+
+        fprintf(stderr, "FOOO\n");
+
+        _pImage->dump();
+    }
+}
+
 
 /*! \class OSG::ImageFileType
     \ingroup GrpSystemImage
@@ -152,6 +353,15 @@ bool ImageFileType::validateHeader(const Char8 *fileName, bool &implemented)
     implemented = false;
 
     return true;
+}
+
+ImageBlockAccessorPtr ImageFileType::open(const Char8 *szFilename)
+{
+    BlockAccessWrapperPtr returnValue(new BlockAccessWrapper);
+
+    returnValue->open(szFilename);
+
+    return returnValue;
 }
 
 //-------------------------------------------------------------------------

@@ -534,6 +534,49 @@ bool ImageFileHandlerBase::write(Image        const *pImage,
     return type == 0 ? false : type->write(pImage, os, mimeType);
 }
 
+
+ImageFileHandlerBase::ImageBlockAccessorPtr 
+    ImageFileHandlerBase::open(const Char8       *fileName,
+                               const Char8       *mimeType)
+{
+    ImageBlockAccessorPtr returnValue;
+    std::string           fullFilePath;
+
+    if(_pPathHandler != NULL)
+    {
+        fullFilePath = _pPathHandler->findFile(fileName);
+    }
+    else
+    {
+        fullFilePath = fileName;
+    }
+
+    if(fullFilePath.empty())
+    {
+        SWARNING << "couldn't find image file " << fileName << std::endl;
+        return returnValue;
+    }
+    
+    ImageFileType *type = getFileType(mimeType, fullFilePath.c_str(), true);
+    
+    if(type != NULL)
+    {
+        FDEBUG(("try to image read %s as %s\n", 
+                fullFilePath.c_str(), 
+                type->getMimeType()));
+        
+        returnValue = type->open(fullFilePath.c_str());
+    }
+    else
+    {
+        SWARNING << "could not read " << fullFilePath
+                 << "; unknown image format" << std::endl;
+    }
+
+    return returnValue;
+}
+
+
 //-------------------------------------------------------------------------
 /*! Returns the path handler used
 */

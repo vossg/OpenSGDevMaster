@@ -50,10 +50,12 @@
 #include "OSGImageFileType.h"
 #include "OSGSingletonHolder.h"
 
+#include "boost/shared_ptr.hpp"
 
 OSG_BEGIN_NAMESPACE
 
 class PathHandler;
+class ImageBlockAccessor;
 
 /*! \brief Image file Handler. Used to read/write and store/restore image data.
     See \ref PageSystemImage for a detailed description.
@@ -70,6 +72,8 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
 
     typedef ImageTransitPtr (*ReadCB) (const Char8 *fileName, 
                                        const Char8 *mimeType);
+
+    typedef boost::shared_ptr<ImageBlockAccessor> ImageBlockAccessorPtr;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Read/Write                                 */
@@ -98,6 +102,13 @@ class OSG_SYSTEM_DLLMAPPING ImageFileHandlerBase
                                         std::ostream     &os,
                                   const std::string      &mimeType    );
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read Callback                              */
+    /*! \{                                                                 */
+
+    virtual ImageBlockAccessorPtr open(const Char8 *fileName, 
+                                       const Char8 *mimeType = 0);
     
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

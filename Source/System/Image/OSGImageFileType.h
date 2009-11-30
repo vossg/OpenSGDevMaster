@@ -43,8 +43,165 @@
 
 #include "OSGIOFileTypeBase.h"
 #include "OSGImage.h"
+#include "OSGGeoReferenceAttachment.h"
+
+#include "boost/shared_ptr.hpp"
 
 OSG_BEGIN_NAMESPACE
+
+class ImageFileType;
+
+
+class OSG_SYSTEM_DLLMAPPING ImageBlockAccessor
+{
+    /*==========================  PUBLIC  =================================*/
+    
+  public:
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~ImageBlockAccessor(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    virtual bool isOpen(void) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    Vec2i              getSize  (void);
+    
+    Image::Type        getType  (void);
+    Image::PixelFormat getFormat(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    GeoReferenceAttachmentPtr getGeoRef(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    virtual bool readBlockA16(Vec2i   vSampleOrigin,
+                              Int32   iTextureSize,
+                              UInt16 *pTarget,
+                              Int32   iTargetSizeBytes) = 0;
+
+    virtual bool readBlockA16(Vec2i   vSampleOrigin,
+                              Int32   iTextureSize,
+                              Int16  *pTarget,
+                              Int32   iTargetSizeBytes) = 0;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    GeoReferenceAttachmentPtr  _pGeoRef;
+    Vec2i                      _vSize;
+    Image::Type                _eImgType;
+    Image::PixelFormat         _eImgFormat;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                Default Constructor                           */
+    /*! \{                                                                 */
+
+    ImageBlockAccessor(void);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+};
+
+typedef boost::shared_ptr<ImageBlockAccessor> ImageBlockAccessorPtr;
+
+class OSG_SYSTEM_DLLMAPPING BlockAccessWrapper : public ImageBlockAccessor
+{
+    /*==========================  PUBLIC  =================================*/
+    
+  public:
+
+    typedef ImageBlockAccessor Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~BlockAccessWrapper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    virtual bool isOpen(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    virtual bool readBlockA16(Vec2i   vSampleOrigin,
+                              Int32   iTextureSize,
+                              UInt16 *pTarget,
+                              Int32   iTargetSizeBytes);
+
+    virtual bool readBlockA16(Vec2i   vSampleOrigin,
+                              Int32   iTextureSize,
+                              Int16  *pTarget,
+                              Int32   iTargetSizeBytes);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    ImagePtr _pImage;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                Default Constructor                           */
+    /*! \{                                                                 */
+
+    BlockAccessWrapper(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    void open(const Char8 *szFilename);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    friend class ImageFileType;
+};
+
+typedef boost::shared_ptr<BlockAccessWrapper> BlockAccessWrapperPtr;
 
 /*! \brief Abstract Base ImageFileType. Defines the Interface for
 all concrete ImageFileTypes. See \ref PageSystemImage for detailed description.
@@ -110,6 +267,12 @@ class OSG_SYSTEM_DLLMAPPING ImageFileType : public IOFileTypeBase
     virtual bool validateHeader(const Char8            *fileName, 
                                       bool             &implemented);
 
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    virtual ImageBlockAccessorPtr open(const Char8 *fileName);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

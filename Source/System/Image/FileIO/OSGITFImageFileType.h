@@ -36,27 +36,25 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGGDALIMAGEFILETYPE_H_
-#define _OSGGDALIMAGEFILETYPE_H_
+#ifndef _OSGITFIMAGEFILETYPE_H_
+#define _OSGITFIMAGEFILETYPE_H_
 #ifdef  __sgi
 #pragma  once
 #endif
 
 #include "OSGImageFileIODef.h"
 #include "OSGImageFileType.h"
+#include "OSGRectangle.h"
 
 #include "boost/shared_ptr.hpp"
 
-#ifdef OSG_WITH_GDAL
-#include "gdal/gdal_priv.h"
-#include "gdal/ogr_srs_api.h"
-#endif
 
 OSG_BEGIN_NAMESPACE
 
-class GDALImageFileType;
+class ITFImageFileType;
 
-class OSG_IMGFILEIO_DLLMAPPING GDALBlockAccessor : public ImageBlockAccessor
+class OSG_IMGFILEIO_DLLMAPPING TiledImageBlockAccessor : 
+    public ImageBlockAccessor
 {
 
     /*==========================  PUBLIC  =================================*/
@@ -69,7 +67,7 @@ class OSG_IMGFILEIO_DLLMAPPING GDALBlockAccessor : public ImageBlockAccessor
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~GDALBlockAccessor(void);
+    virtual ~TiledImageBlockAccessor(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -98,17 +96,19 @@ class OSG_IMGFILEIO_DLLMAPPING GDALBlockAccessor : public ImageBlockAccessor
 
   protected:
 
-    GDALDataset               *_pDataset;
-    GDALRasterBand            *_pBand;
-    std::vector<Int16>         _vI16Buffer;
+    UInt32                             _uiRows;
+    UInt32                             _uiColumns;
 
-    static std::vector<Int16> _vStrangeTmpBuff;
+    std::vector<ImageBlockAccessorPtr> _vImages;
+    std::vector<Rectangle2i>           _vSampleDescs;
+
+    std::vector<Int16>                 _vI16Buffer;
 
     /*---------------------------------------------------------------------*/
     /*! \name                Default Constructor                           */
     /*! \{                                                                 */
 
-    GDALBlockAccessor(void);
+    TiledImageBlockAccessor(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -122,21 +122,42 @@ class OSG_IMGFILEIO_DLLMAPPING GDALBlockAccessor : public ImageBlockAccessor
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
+    bool read2HBlocksA16(Int32   iLow,
+                         Int32   iHeigh,
+                         Vec2i   vSampleOrigin,
+                         Int32   iTextureSize,
+                         Int16  *pTarget,
+                         Int32   iTargetSizeBytes);
+
+    bool read2VBlocksA16(Int32   iLow,
+                         Int32   iHeigh,
+                         Vec2i   vSampleOrigin,
+                         Int32   iTextureSize,
+                         Int16  *pTarget,
+                         Int32   iTargetSizeBytes);
+
+    bool read4BlocksA16 (Int32   iLow,
+                         Int32   iHeigh,
+                         Vec2i   vSampleOrigin,
+                         Int32   iTextureSize,
+                         Int16  *pTarget,
+                         Int32   iTargetSizeBytes);
+
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
 
   private:
 
-    friend class GDALImageFileType;
+    friend class ITFImageFileType;
 };
 
-typedef boost::shared_ptr<GDALBlockAccessor> GDALBlockAccessorPtr;
+typedef boost::shared_ptr<TiledImageBlockAccessor> TiledImageBlockAccessorPtr;
 
-/*! \brief GDAL File Handler. Used to read/write TIFF files.
+/*! \brief ITF File Handler. Used to read/write TIFF files.
     See \ref PageSystemImage for a detailed description.
 */
 
-class OSG_IMGFILEIO_DLLMAPPING GDALImageFileType : public ImageFileType
+class OSG_IMGFILEIO_DLLMAPPING ITFImageFileType : public ImageFileType
 {
     /*==========================  PUBLIC  =================================*/
 
@@ -146,30 +167,22 @@ class OSG_IMGFILEIO_DLLMAPPING GDALImageFileType : public ImageFileType
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    virtual ~GDALImageFileType(void);
+    virtual ~ITFImageFileType(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    virtual bool read          (      ImagePtrArg       pImage, 
-                                const Char8            *fileName   ) ;
-
-    virtual bool write         (      ImageConstPtrArg  pImage, 
-                                const Char8            *fileName   ) ;
-
-    virtual bool validateHeader(const Char8            *fileName, 
-                                      bool             &implemented);
+    virtual bool validateHeader(const Char8 *fileName, 
+                                      bool  &implemented);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                        Type                                  */
     /*! \{                                                                 */
 
-#if 1
     virtual ImageBlockAccessorPtr open(const Char8 *fileName);
-#endif
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -180,18 +193,18 @@ class OSG_IMGFILEIO_DLLMAPPING GDALImageFileType : public ImageFileType
     /*! \name               Default Constructor                            */
     /*! \{                                                                 */
 
-    GDALImageFileType (const Char8  *mimeType,
-                       const Char8  *suffixArray[], 
-                             UInt16  suffixByteCount,
-                             UInt32  flags );
+    ITFImageFileType (const Char8  *mimeType,
+                      const Char8  *suffixArray[], 
+                            UInt16  suffixByteCount,
+                            UInt32  flags );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                      Copy Op                                 */
     /*! \{                                                                 */
 
-          GDALImageFileType            (const GDALImageFileType &obj);
-    const GDALImageFileType &operator =(const GDALImageFileType &obj);
+          ITFImageFileType            (const ITFImageFileType &obj);
+    const ITFImageFileType &operator =(const ITFImageFileType &obj);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
@@ -200,11 +213,11 @@ class OSG_IMGFILEIO_DLLMAPPING GDALImageFileType : public ImageFileType
 
     typedef ImageFileType Inherited;
 
-    static GDALImageFileType _the;
+    static ITFImageFileType _the;
 };
 
-typedef GDALImageFileType *GDALImageFileTypeP;
+typedef ITFImageFileType *ITFImageFileTypeP;
 
 OSG_END_NAMESPACE
 
-#endif // _OSGGDALIMAGEFILETYPE_H_
+#endif // _OSGITFIMAGEFILETYPE_H_
