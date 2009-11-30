@@ -201,22 +201,13 @@ class OSG_SYSTEM_DLLMAPPING StageDrawableBase : public Drawable
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const StageDrawableBase &source);
 };
 
 typedef StageDrawableBase *StageDrawableBaseP;
-
-/** Type specific RefPtr type for StageDrawable. */
-typedef RefPtr<StageDrawablePtr> StageDrawableRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<StageDrawableBase::isNodeCore>,
-    CoredNodePtr<StageDrawable>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        StageDrawableNodePtr;
 
 OSG_END_NAMESPACE
 

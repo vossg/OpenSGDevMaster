@@ -202,20 +202,18 @@ void StageDrawableBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<StageDrawablePtr>::_type("StageDrawablePtr", "DrawablePtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(StageDrawablePtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, StageDrawablePtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, StageDrawablePtr, MFFieldContainerPtr);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           StageDrawablePtr, 
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           StageDrawablePtr, 
+                           0);
 
 OSG_END_NAMESPACE

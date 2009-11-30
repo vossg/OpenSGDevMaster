@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGDrawableFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -97,9 +96,63 @@ struct FieldTraits<StageDrawablePtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFStageDrawablePtr"; }
-    static const char *getMName(void) { return "MFStageDrawablePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFStageDrawablePtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFStageDrawablePtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<StageDrawablePtr, 0>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecStageDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StageDrawablePtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecStageDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StageDrawablePtr, 0>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakStageDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StageDrawablePtr, 0>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdStageDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StageDrawablePtr, 0>::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecStageDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StageDrawablePtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecStageDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StageDrawablePtr, 0>::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakStageDrawablePtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<StageDrawablePtr, 0>::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdStageDrawablePtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<StageDrawablePtr, 0>
@@ -113,14 +166,28 @@ struct FieldTraits<StageDrawablePtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<StageDrawablePtr, SFFieldContainerPtr> SFStageDrawablePtr;
+typedef FieldContainerPtrSField<StageDrawablePtr,
+                                RecordedRefCountPolicy  > SFRecStageDrawablePtr;
+typedef FieldContainerPtrSField<StageDrawablePtr,
+                                UnrecordedRefCountPolicy> SFUnrecStageDrawablePtr;
+typedef FieldContainerPtrSField<StageDrawablePtr,
+                                WeakRefCountPolicy      > SFWeakStageDrawablePtr;
+typedef FieldContainerPtrSField<StageDrawablePtr,
+                                NoRefCountPolicy        > SFUncountedStageDrawablePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<StageDrawablePtr, MFFieldContainerPtr> MFStageDrawablePtr;
+typedef FieldContainerPtrMField<StageDrawablePtr,
+                                RecordedRefCountPolicy  > MFRecStageDrawablePtr;
+typedef FieldContainerPtrMField<StageDrawablePtr,
+                                UnrecordedRefCountPolicy> MFUnrecStageDrawablePtr;
+typedef FieldContainerPtrMField<StageDrawablePtr,
+                                WeakRefCountPolicy      > MFWeakStageDrawablePtr;
+typedef FieldContainerPtrMField<StageDrawablePtr,
+                                NoRefCountPolicy        > MFUncountedStageDrawablePtr;
 #endif
 
 
