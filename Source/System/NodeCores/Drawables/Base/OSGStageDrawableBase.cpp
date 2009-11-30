@@ -208,12 +208,12 @@ DataType FieldTraits<StageDrawable *>::_type("StageDrawablePtr", "DrawablePtr");
 
 OSG_FIELDTRAITS_GETTYPE(StageDrawable *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           StageDrawable *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           StageDrawable *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           StageDrawable *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           StageDrawable *,
                            0);
 
 OSG_END_NAMESPACE
