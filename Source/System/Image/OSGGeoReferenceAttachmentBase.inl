@@ -229,7 +229,7 @@ void GeoReferenceAttachmentBase::execSync (      GeoReferenceAttachmentBase *pFr
 
 
 inline
-Char8 *GeoReferenceAttachmentBase::getClassname(void)
+const Char8 *GeoReferenceAttachmentBase::getClassname(void)
 {
     return "GeoReferenceAttachment";
 }
