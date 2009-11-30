@@ -68,25 +68,34 @@ OSG_USING_NAMESPACE
 
 GDALBlockAccessor::~GDALBlockAccessor(void)
 {
+#ifdef OSG_WITH_GDAL
     GDALClose(_pDataset);
+#endif
 }
 
 bool GDALBlockAccessor::isOpen(void)
 {
+#ifdef OSG_WITH_GDAL
     return (_pDataset != NULL);
+#else
+    return false;
+#endif
 }
 
 
 GDALBlockAccessor::GDALBlockAccessor(void) :
      Inherited (    ),
+#ifdef OSG_WITH_GDAL
     _pDataset  (NULL),
     _pBand     (NULL),
+#endif
     _vI16Buffer(    )
 {
 }
 
 void GDALBlockAccessor::open(const Char8 *szFilename)
 {
+#ifdef OSG_WITH_GDAL
     _pDataset = (GDALDataset *) GDALOpen(szFilename, GA_ReadOnly);
 
     if(_pDataset != NULL)
@@ -222,6 +231,7 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
             _pGeoRef->setNoDataValue(_fNoDataValue);
         }
     }
+#endif
 }
 
  bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
@@ -229,6 +239,7 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
                                       UInt16 *pTarget,
                                       Int32   iTargetSizeBytes)
 {
+#ifdef OSG_WITH_GDAL
     OSG_ASSERT(false);
 
     UInt32 destIdx = 0;
@@ -255,6 +266,9 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
         
         destIdx += (iTextureSize - (xMax - xMin)) * 2;
     }
+#endif
+
+    return false;
 }
 
 bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
@@ -262,6 +276,7 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
                                      Int16  *pTarget,
                                      Int32   iTargetSizeBytes)
 {
+#ifdef OSG_WITH_GDAL
     Int32 xMin = vSampleOrigin.x();
     Int32 xMax = vSampleOrigin.x() + iTextureSize;
     
@@ -324,6 +339,7 @@ bool GDALBlockAccessor::readBlockA16(Vec2i   vSampleOrigin,
                          0,
                          0);
     }
+#endif
 
     return true;
 }

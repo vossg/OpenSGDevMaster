@@ -98,8 +98,10 @@ class OSG_IMGFILEIO_DLLMAPPING GDALBlockAccessor : public ImageBlockAccessor
 
   protected:
 
+#ifdef OSG_WITH_GDAL
     GDALDataset               *_pDataset;
     GDALRasterBand            *_pBand;
+#endif
 
     std::vector<Int16>         _vI16Buffer;
 
