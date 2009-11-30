@@ -101,7 +101,7 @@ void GDALBlockAccessor::open(const Char8 *szFilename)
 
     if(_pDataset != NULL)
     {
-        setRefd(_pGeoRef, GeoReferenceAttachment::create());
+        _pGeoRef = GeoReferenceAttachment::create();
 
         double adfGeoTransform[6];
 
@@ -391,7 +391,8 @@ bool GDALImageFileType::read(      ImagePtrArg  OSG_GDAL_ARG(pImage),
 
     if(pDataset != NULL)
     {
-        GeoReferenceAttachmentPtr pGeoRef = GeoReferenceAttachment::create();
+        GeoReferenceAttachmentUnrecPtr pGeoRef = 
+            GeoReferenceAttachment::create();
 
         pImage->addAttachment(pGeoRef);
 

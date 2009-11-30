@@ -57,10 +57,9 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGFieldContainerAttachmentFields.h"
-
-#include "OSGSFieldAdaptor.h"
-#include "OSGMFieldAdaptor.h"
+#include "OSGFieldContainerFields.h"
+#include "OSGFieldContainerPtrSField.h"
+#include "OSGFieldContainerPtrMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -97,9 +96,63 @@ struct FieldTraits<GeoReferenceAttachmentPtr> :
 
     static OSG_SYSTEM_DLLMAPPING DataType &getType(void);
 
-    static const char *getSName(void) { return "SFGeoReferenceAttachmentPtr"; }
-    static const char *getMName(void) { return "MFGeoReferenceAttachmentPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getSName     (void);
+
+//    static const char *getSName(void) { return "SFGeoReferenceAttachmentPtr"; }
+    template<typename RefCountPolicy> inline
+    static const Char8    *getMName     (void);
+
+//    static const char *getMName(void) { return "MFGeoReferenceAttachmentPtr"; }
 };
+
+template<> inline
+const Char8 *FieldTraits<GeoReferenceAttachmentPtr, 0>::getSName<RecordedRefCountPolicy>(void)
+{
+    return "SFRecGeoReferenceAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoReferenceAttachmentPtr, 0>::getSName<UnrecordedRefCountPolicy>(void)
+{
+    return "SFUnrecGeoReferenceAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoReferenceAttachmentPtr, 0>::getSName<WeakRefCountPolicy>(void)
+{
+    return "SFWeakGeoReferenceAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoReferenceAttachmentPtr, 0>::getSName<NoRefCountPolicy>(void)
+{
+    return "SFUnrefdGeoReferenceAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoReferenceAttachmentPtr, 0>::getMName<RecordedRefCountPolicy>(void)
+{
+    return "MFRecGeoReferenceAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoReferenceAttachmentPtr, 0>::getMName<UnrecordedRefCountPolicy>(void)
+{
+    return "MFUnrecGeoReferenceAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoReferenceAttachmentPtr, 0>::getMName<WeakRefCountPolicy>(void)
+{
+    return "MFWeakGeoReferenceAttachmentPtr"; 
+}
+
+template<> inline
+const Char8 *FieldTraits<GeoReferenceAttachmentPtr, 0>::getMName<NoRefCountPolicy>(void)
+{
+    return "MFUnrefdGeoReferenceAttachmentPtr"; 
+}
 
 #if !defined(OSG_DOC_DEV_TRAITS)
 /*! \class  FieldTraitsTemplateBase<GeoReferenceAttachmentPtr, 0>
@@ -113,14 +166,28 @@ struct FieldTraits<GeoReferenceAttachmentPtr> :
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef SFieldAdaptor<GeoReferenceAttachmentPtr, SFFieldContainerPtr> SFGeoReferenceAttachmentPtr;
+typedef FieldContainerPtrSField<GeoReferenceAttachmentPtr,
+                                RecordedRefCountPolicy  > SFRecGeoReferenceAttachmentPtr;
+typedef FieldContainerPtrSField<GeoReferenceAttachmentPtr,
+                                UnrecordedRefCountPolicy> SFUnrecGeoReferenceAttachmentPtr;
+typedef FieldContainerPtrSField<GeoReferenceAttachmentPtr,
+                                WeakRefCountPolicy      > SFWeakGeoReferenceAttachmentPtr;
+typedef FieldContainerPtrSField<GeoReferenceAttachmentPtr,
+                                NoRefCountPolicy        > SFUncountedGeoReferenceAttachmentPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef MFieldAdaptor<GeoReferenceAttachmentPtr, MFFieldContainerPtr> MFGeoReferenceAttachmentPtr;
+typedef FieldContainerPtrMField<GeoReferenceAttachmentPtr,
+                                RecordedRefCountPolicy  > MFRecGeoReferenceAttachmentPtr;
+typedef FieldContainerPtrMField<GeoReferenceAttachmentPtr,
+                                UnrecordedRefCountPolicy> MFUnrecGeoReferenceAttachmentPtr;
+typedef FieldContainerPtrMField<GeoReferenceAttachmentPtr,
+                                WeakRefCountPolicy      > MFWeakGeoReferenceAttachmentPtr;
+typedef FieldContainerPtrMField<GeoReferenceAttachmentPtr,
+                                NoRefCountPolicy        > MFUncountedGeoReferenceAttachmentPtr;
 #endif
 
 

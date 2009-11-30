@@ -218,7 +218,6 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -236,15 +235,23 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeoReferenceAttachmentPtr create     (void);
-    static  GeoReferenceAttachmentPtr createEmpty(void);
+    static  GeoReferenceAttachmentTransitPtr create          (void);
+    static  GeoReferenceAttachmentPtr        createEmpty     (void);
+
+    static  GeoReferenceAttachmentTransitPtr createLocal     (
+                                              BitVector bFlags = FCLocal::All);
+
+    static  GeoReferenceAttachmentPtr        createEmptyLocal(
+                                              BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                       Copy                                   */
     /*! \{                                                                 */
 
-    virtual FieldContainerPtr shallowCopy(void) const;
+    virtual FieldContainerTransitPtr shallowCopy     (void) const;
+    virtual FieldContainerTransitPtr shallowCopyLocal(
+                                       BitVector bFlags = FCLocal::All) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -351,22 +358,13 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAt
     /*==========================  PRIVATE  ================================*/
 
   private:
+    /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
     void operator =(const GeoReferenceAttachmentBase &source);
 };
 
 typedef GeoReferenceAttachmentBase *GeoReferenceAttachmentBaseP;
-
-/** Type specific RefPtr type for GeoReferenceAttachment. */
-typedef RefPtr<GeoReferenceAttachmentPtr> GeoReferenceAttachmentRefPtr;
-
-typedef boost::mpl::if_<
-    boost::mpl::bool_<GeoReferenceAttachmentBase::isNodeCore>,
-    CoredNodePtr<GeoReferenceAttachment>,
-    FieldContainer::attempt_to_create_CoredNodePtr_on_non_NodeCore_FC>::type
-
-        GeoReferenceAttachmentNodePtr;
 
 OSG_END_NAMESPACE
 

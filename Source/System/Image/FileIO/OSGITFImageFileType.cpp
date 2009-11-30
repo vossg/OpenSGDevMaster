@@ -231,7 +231,7 @@ void TiledImageBlockAccessor::open(const Char8 *szFilename)
 
         if(pFirstRef != NULL)
         {
-            OSG::setRefd(_pGeoRef, GeoReferenceAttachment::create());
+            _pGeoRef = GeoReferenceAttachment::create();
             
             _pGeoRef->setOrigin       (pFirstRef->getOrigin       ());
             _pGeoRef->setPixelSize    (pFirstRef->getPixelSize    ());
@@ -717,7 +717,7 @@ void DefaultBlockAccessor::open(const Char8 *szFilename)
     if(cIt == cEnd)
         return;
 
-    OSG::setRefd(_pGeoRef, GeoReferenceAttachment::create());
+    _pGeoRef = GeoReferenceAttachment::create();
 
     _pGeoRef->editOrigin()[0] = 
         TypeTraits<Real32>::getFromCString((*cIt).c_str());

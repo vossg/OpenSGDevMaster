@@ -422,7 +422,7 @@ void DBBlockAccessor::open(const Char8 *szFilename)
 
     if(_pDataset != NULL)
     {
-        setRefd(_pGeoRef, GeoReferenceAttachment::create());
+        _pGeoRef = GeoReferenceAttachment::create();
 
         double adfGeoTransform[6];
 
@@ -821,7 +821,7 @@ bool DBImageFileType::read(      ImagePtrArg  pImage,
                    oHeader.LLWGS84_rSEx != 0.f &&
                    oHeader.LLWGS84_rSEy != 0.f  )
                 {
-                    GeoReferenceAttachmentPtr pGeoRef = 
+                    GeoReferenceAttachmentUnrecPtr pGeoRef = 
                         GeoReferenceAttachment::create();
                     
                     pGeoRef->setupWGS84Datum();
@@ -846,7 +846,7 @@ bool DBImageFileType::read(      ImagePtrArg  pImage,
                         oHeader.rSEx != 0.f &&
                         oHeader.rSEy != 0.f  )
                 {
-                    GeoReferenceAttachmentPtr pGeoRef = 
+                    GeoReferenceAttachmentUnrecPtr pGeoRef = 
                         GeoReferenceAttachment::create();
                     
                     pGeoRef->setupWGS84Datum();

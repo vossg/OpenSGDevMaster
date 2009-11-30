@@ -174,7 +174,7 @@ GeoReferenceAttachmentBase::TypeObject GeoReferenceAttachmentBase::_type(
     Inherited::getClassname(),
     "GeoReferenceAttachment",
     0,
-    (PrototypeCreateF) &GeoReferenceAttachmentBase::createEmpty,
+    (PrototypeCreateF) &GeoReferenceAttachmentBase::createEmptyLocal,
     GeoReferenceAttachment::initMethod,
     GeoReferenceAttachment::exitMethod,
     (InitalInsertDescFunc) &GeoReferenceAttachmentBase::classDescInserter,
@@ -445,14 +445,32 @@ void GeoReferenceAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GeoReferenceAttachmentPtr GeoReferenceAttachmentBase::create(void)
+GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::create(void)
 {
-    GeoReferenceAttachmentPtr fc;
+    GeoReferenceAttachmentTransitPtr fc;
 
     if(getClassType().getPrototype() != NullFC)
     {
-        fc = dynamic_cast<GeoReferenceAttachment::ObjPtr>(
-            getClassType().getPrototype()-> shallowCopy());
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
+
+        fc = dynamic_pointer_cast<GeoReferenceAttachment>(tmpPtr);
+    }
+
+    return fc;
+}
+
+//! create a new instance of the class
+GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::createLocal(BitVector bFlags)
+{
+    GeoReferenceAttachmentTransitPtr fc;
+
+    if(getClassType().getPrototype() != NullFC)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopyLocal(bFlags);
+
+        fc = dynamic_pointer_cast<GeoReferenceAttachment>(tmpPtr);
     }
 
     return fc;
@@ -463,16 +481,50 @@ GeoReferenceAttachmentPtr GeoReferenceAttachmentBase::createEmpty(void)
 {
     GeoReferenceAttachmentPtr returnValue;
 
-    newPtr<GeoReferenceAttachment>(returnValue);
+    newPtr<GeoReferenceAttachment>(returnValue, Thread::getCurrentLocalFlags());
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= 
+        ~Thread::getCurrentLocalFlags(); 
 
     return returnValue;
 }
 
-FieldContainerPtr GeoReferenceAttachmentBase::shallowCopy(void) const
+GeoReferenceAttachmentPtr GeoReferenceAttachmentBase::createEmptyLocal(BitVector bFlags)
 {
     GeoReferenceAttachmentPtr returnValue;
 
-    newPtr(returnValue, dynamic_cast<const GeoReferenceAttachment *>(this));
+    newPtr<GeoReferenceAttachment>(returnValue, bFlags);
+
+    returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopy(void) const
+{
+    GeoReferenceAttachmentPtr tmpPtr;
+
+    newPtr(tmpPtr, 
+           dynamic_cast<const GeoReferenceAttachment *>(this), 
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
+FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopyLocal(
+    BitVector bFlags) const
+{
+    GeoReferenceAttachmentPtr tmpPtr;
+
+    newPtr(tmpPtr, dynamic_cast<const GeoReferenceAttachment *>(this), bFlags);
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
     return returnValue;
 }
@@ -656,20 +708,18 @@ void GeoReferenceAttachmentBase::resolveLinks(void)
 }
 
 
-OSG_END_NAMESPACE
-
-#include "OSGSFieldAdaptor.ins"
-#include "OSGMFieldAdaptor.ins"
-
-OSG_BEGIN_NAMESPACE
-
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
 DataType FieldTraits<GeoReferenceAttachmentPtr>::_type("GeoReferenceAttachmentPtr", "FieldContainerAttachmentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(GeoReferenceAttachmentPtr)
 
-OSG_FIELD_DLLEXPORT_DEF2(SFieldAdaptor, GeoReferenceAttachmentPtr, SFFieldContainerPtr);
-OSG_FIELD_DLLEXPORT_DEF2(MFieldAdaptor, GeoReferenceAttachmentPtr, MFFieldContainerPtr);
+OSG_EXPORT_PTR_SFIELD_FULL(FieldContainerPtrSField, 
+                           GeoReferenceAttachmentPtr, 
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(FieldContainerPtrMField, 
+                           GeoReferenceAttachmentPtr, 
+                           0);
 
 OSG_END_NAMESPACE
