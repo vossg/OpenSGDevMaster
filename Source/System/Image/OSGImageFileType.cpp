@@ -53,11 +53,11 @@ OSG_USING_NAMESPACE
 
 ImageBlockAccessor::~ImageBlockAccessor(void)
 {
-    _pGeoRef = NullFC;
+    _pGeoRef = NULL;
 }
 
 ImageBlockAccessor::ImageBlockAccessor(void) :
-    _pGeoRef     (NullFC                          ),
+    _pGeoRef     (NULL                            ),
     _vSize       (0, 0                            ),
     _eImgType    (Image::OSG_INVALID_IMAGEDATATYPE),
     _eImgFormat  (Image::OSG_INVALID_PF           ),
@@ -80,7 +80,7 @@ Image::PixelFormat ImageBlockAccessor::getFormat(void)
     return _eImgFormat;
 }
 
-GeoReferenceAttachmentPtr ImageBlockAccessor::getGeoRef(void)
+GeoReferenceAttachment *ImageBlockAccessor::getGeoRef(void)
 {
     return _pGeoRef;
 }
@@ -94,13 +94,13 @@ Real64 ImageBlockAccessor::getNoDataValue(void)
 
 BlockAccessWrapper::~BlockAccessWrapper(void)
 {
-    _pImage = NullFC;
+    _pImage = NULL;
 }
 
 
 bool BlockAccessWrapper::isOpen(void)
 {
-    return (_pImage != NullFC);
+    return (_pImage != NULL);
 }
 
 bool BlockAccessWrapper::readBlockA16(Vec2i   vSampleOrigin,
@@ -108,7 +108,7 @@ bool BlockAccessWrapper::readBlockA16(Vec2i   vSampleOrigin,
                                       UInt16 *pTarget,
                                       Int32   iTargetSizeBytes)
 {
-    if(_pImage == NullFC)
+    if(_pImage == NULL)
         return false;
 
     const UInt8 *pData = _pImage->getData();
@@ -155,7 +155,7 @@ bool BlockAccessWrapper::readBlockA16(Vec2i   vSampleOrigin,
                                       Int16  *pTarget,
                                       Int32   iTargetSizeBytes)
 {
-    if(_pImage == NullFC)
+    if(_pImage == NULL)
         return false;
 
 #if 0
@@ -229,8 +229,8 @@ bool BlockAccessWrapper::readBlockA16(Vec2i   vSampleOrigin,
 }
 
 BlockAccessWrapper::BlockAccessWrapper(void) :
-     Inherited(      ),
-    _pImage   (NullFC)
+     Inherited(    ),
+    _pImage   (NULL)
 {
 }
 
@@ -238,10 +238,10 @@ void BlockAccessWrapper::open(const Char8 *szFilename)
 {
     _pImage = ImageFileHandler::the()->read(szFilename);
 
-    if(_pImage != NullFC)
+    if(_pImage != NULL)
     {
         _pGeoRef = 
-            dynamic_cast<GeoReferenceAttachmentPtr>(
+            dynamic_cast<GeoReferenceAttachment *>(
                 _pImage->findAttachment(
                     GeoReferenceAttachment::getClassType().getGroupId()));
 
@@ -619,7 +619,7 @@ UInt64 ImageFileType::store(Image  const *pImage,
     ImageGenericAttPtr att=ImageGenericAttPtr::dcast(
         const_cast<Image*>(image.getCPtr())->findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
-    if(att != NullFC)
+    if(att != NULL)
     {
         for(i = 0; i < (att->getType().getNumFieldDescs()-1); ++i)
         {
@@ -671,7 +671,7 @@ UInt64 ImageFileType::store(Image  const *pImage,
         dest = static_cast<UChar8 *>(buffer + headSize + dataSize);
 
         /*
-        if(att != NullFC)
+        if(att != NULL)
         {
             for(i = 0; i < (att->getType().getNumFieldDescs()-1); ++i)
             {
@@ -730,7 +730,7 @@ UInt64 ImageFileType::maxBufferSize(Image const * pImage)
     ImageGenericAttPtr att=ImageGenericAttPtr::dcast(
         const_cast<Image*>(image.getCPtr())->findAttachment(
             ImageGenericAtt::getClassType().getGroupId()));
-    if(att != NullFC)
+    if(att != NULL)
     {
         for(i = 0; i < (att->getType().getNumFieldDescs()-1); ++i)
         {

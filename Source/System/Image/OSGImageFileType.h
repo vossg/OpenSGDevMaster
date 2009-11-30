@@ -88,7 +88,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBlockAccessor
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    GeoReferenceAttachmentPtr getGeoRef(void);
+    GeoReferenceAttachment *getGeoRef(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
