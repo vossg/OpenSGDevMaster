@@ -85,7 +85,7 @@ UInt32 &GeoReferenceAttachmentBase::editDatum(void)
 
 //! Get the value of the GeoReferenceAttachment::_sfDatum field.
 inline
-const UInt32 &GeoReferenceAttachmentBase::getDatum(void) const
+const UInt32 GeoReferenceAttachmentBase::getDatum(void) const
 {
     return _sfDatum.getValue();
 }
@@ -118,7 +118,7 @@ Vec2f &GeoReferenceAttachmentBase::editEllipsoidAxis(void)
 
 //! Get the value of the GeoReferenceAttachment::_sfEllipsoidAxis field.
 inline
-const Vec2f &GeoReferenceAttachmentBase::getEllipsoidAxis(void) const
+const Vec2f GeoReferenceAttachmentBase::getEllipsoidAxis(void) const
 {
     return _sfEllipsoidAxis.getValue();
 }
@@ -151,7 +151,7 @@ Vec2f &GeoReferenceAttachmentBase::editOrigin(void)
 
 //! Get the value of the GeoReferenceAttachment::_sfOrigin field.
 inline
-const Vec2f &GeoReferenceAttachmentBase::getOrigin(void) const
+const Vec2f GeoReferenceAttachmentBase::getOrigin(void) const
 {
     return _sfOrigin.getValue();
 }
@@ -184,7 +184,7 @@ Vec2f &GeoReferenceAttachmentBase::editPixelSize(void)
 
 //! Get the value of the GeoReferenceAttachment::_sfPixelSize field.
 inline
-const Vec2f &GeoReferenceAttachmentBase::getPixelSize(void) const
+const Vec2f GeoReferenceAttachmentBase::getPixelSize(void) const
 {
     return _sfPixelSize.getValue();
 }
@@ -217,7 +217,7 @@ Real64 &GeoReferenceAttachmentBase::editNoDataValue(void)
 
 //! Get the value of the GeoReferenceAttachment::_sfNoDataValue field.
 inline
-const Real64 &GeoReferenceAttachmentBase::getNoDataValue(void) const
+const Real64 GeoReferenceAttachmentBase::getNoDataValue(void) const
 {
     return _sfNoDataValue.getValue();
 }

@@ -449,7 +449,7 @@ GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::create(void)
 {
     GeoReferenceAttachmentTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
@@ -465,7 +465,7 @@ GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::createLocal(BitVect
 {
     GeoReferenceAttachmentTransitPtr fc;
 
-    if(getClassType().getPrototype() != NullFC)
+    if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
@@ -477,9 +477,9 @@ GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::createLocal(BitVect
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-GeoReferenceAttachmentPtr GeoReferenceAttachmentBase::createEmpty(void)
+GeoReferenceAttachment *GeoReferenceAttachmentBase::createEmpty(void)
 {
-    GeoReferenceAttachmentPtr returnValue;
+    GeoReferenceAttachment *returnValue;
 
     newPtr<GeoReferenceAttachment>(returnValue, Thread::getCurrentLocalFlags());
 
@@ -489,9 +489,9 @@ GeoReferenceAttachmentPtr GeoReferenceAttachmentBase::createEmpty(void)
     return returnValue;
 }
 
-GeoReferenceAttachmentPtr GeoReferenceAttachmentBase::createEmptyLocal(BitVector bFlags)
+GeoReferenceAttachment *GeoReferenceAttachmentBase::createEmptyLocal(BitVector bFlags)
 {
-    GeoReferenceAttachmentPtr returnValue;
+    GeoReferenceAttachment *returnValue;
 
     newPtr<GeoReferenceAttachment>(returnValue, bFlags);
 
@@ -502,7 +502,7 @@ GeoReferenceAttachmentPtr GeoReferenceAttachmentBase::createEmptyLocal(BitVector
 
 FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopy(void) const
 {
-    GeoReferenceAttachmentPtr tmpPtr;
+    GeoReferenceAttachment *tmpPtr;
 
     newPtr(tmpPtr, 
            dynamic_cast<const GeoReferenceAttachment *>(this), 
@@ -518,7 +518,7 @@ FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopy(void) const
 FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    GeoReferenceAttachmentPtr tmpPtr;
+    GeoReferenceAttachment *tmpPtr;
 
     newPtr(tmpPtr, dynamic_cast<const GeoReferenceAttachment *>(this), bFlags);
 
@@ -689,9 +689,9 @@ void GeoReferenceAttachmentBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainerPtr GeoReferenceAttachmentBase::createAspectCopy(void) const
+FieldContainer *GeoReferenceAttachmentBase::createAspectCopy(void) const
 {
-    GeoReferenceAttachmentPtr returnValue;
+    GeoReferenceAttachment *returnValue;
 
     newAspectCopy(returnValue,
                   dynamic_cast<const GeoReferenceAttachment *>(this));
@@ -709,17 +709,17 @@ void GeoReferenceAttachmentBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoReferenceAttachmentPtr>::_type("GeoReferenceAttachmentPtr", "AttachmentPtr");
+DataType FieldTraits<GeoReferenceAttachment *>::_type("GeoReferenceAttachmentPtr", "AttachmentPtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(GeoReferenceAttachmentPtr)
+OSG_FIELDTRAITS_GETTYPE(GeoReferenceAttachment *)
 
 OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoReferenceAttachmentPtr, 
+                           GeoReferenceAttachment *, 
                            0);
 
 OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoReferenceAttachmentPtr, 
+                           GeoReferenceAttachment *, 
                            0);
 
 OSG_END_NAMESPACE

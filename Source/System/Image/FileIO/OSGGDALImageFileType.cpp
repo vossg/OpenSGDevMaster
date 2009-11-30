@@ -379,7 +379,7 @@ GDALImageFileType GDALImageFileType:: _the("image/gdal",
     the given fileName. Returns true on success.
  */
 
-bool GDALImageFileType::read(      ImagePtr     OSG_GDAL_ARG(pImage), 
+bool GDALImageFileType::read(      Image       *OSG_GDAL_ARG(pImage), 
                              const Char8       *OSG_GDAL_ARG(fileName)) 
 {
 #ifdef OSG_WITH_GDAL
@@ -566,7 +566,7 @@ bool GDALImageFileType::read(      ImagePtr     OSG_GDAL_ARG(pImage),
     Returns true on success.
 */
 
-bool GDALImageFileType::write(      ConstImagePtr     OSG_GDAL_ARG(pImage), 
+bool GDALImageFileType::write(const Image            *OSG_GDAL_ARG(pImage), 
                               const Char8            *OSG_GDAL_ARG(fileName)) 
 {
     bool                retCode = false;

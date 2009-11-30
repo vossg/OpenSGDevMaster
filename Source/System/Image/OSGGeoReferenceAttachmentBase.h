@@ -177,31 +177,31 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
                   UInt32              &getDatum           (void);
 #endif
                   UInt32              &editDatum          (void);
-            const UInt32              &getDatum           (void) const;
+            const UInt32               getDatum           (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec2f               &getEllipsoidAxis   (void);
 #endif
                   Vec2f               &editEllipsoidAxis  (void);
-            const Vec2f               &getEllipsoidAxis   (void) const;
+            const Vec2f                getEllipsoidAxis   (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec2f               &getOrigin          (void);
 #endif
                   Vec2f               &editOrigin         (void);
-            const Vec2f               &getOrigin          (void) const;
+            const Vec2f                getOrigin          (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Vec2f               &getPixelSize       (void);
 #endif
                   Vec2f               &editPixelSize      (void);
-            const Vec2f               &getPixelSize       (void) const;
+            const Vec2f                getPixelSize       (void) const;
 
 #ifdef OSG_1_GET_COMPAT
                   Real64              &getNoDataValue     (void);
 #endif
                   Real64              &editNoDataValue    (void);
-            const Real64              &getNoDataValue     (void) const;
+            const Real64               getNoDataValue     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -218,6 +218,7 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
     /*---------------------------------------------------------------------*/
     /*! \name                Ptr MField Set                                */
     /*! \{                                                                 */
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Binary Access                              */
@@ -235,13 +236,13 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  GeoReferenceAttachmentTransitPtr create          (void);
-    static  GeoReferenceAttachmentPtr        createEmpty     (void);
+    static  GeoReferenceAttachmentTransitPtr  create          (void);
+    static  GeoReferenceAttachment           *createEmpty     (void);
 
-    static  GeoReferenceAttachmentTransitPtr createLocal     (
-                                              BitVector bFlags = FCLocal::All);
+    static  GeoReferenceAttachmentTransitPtr  createLocal     (
+                                               BitVector bFlags = FCLocal::All);
 
-    static  GeoReferenceAttachmentPtr        createEmptyLocal(
+    static  GeoReferenceAttachment            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
     /*! \}                                                                 */
@@ -340,7 +341,7 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
     /*! \{                                                                 */
 
 #ifdef OSG_MT_CPTR_ASPECT
-    virtual FieldContainerPtr createAspectCopy(void) const;
+    virtual FieldContainer *createAspectCopy(void) const;
 #endif
 
     /*! \}                                                                 */

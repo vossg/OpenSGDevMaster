@@ -701,7 +701,7 @@ DBImageFileType DBImageFileType:: _the("image/db",
  */
 
 
-bool DBImageFileType::read(      ImagePtr     pImage, 
+bool DBImageFileType::read(      Image       *pImage, 
                            const Char8       *fileName) 
 {
     bool returnValue = false;
@@ -1050,7 +1050,7 @@ bool DBImageFileType::read(      ImagePtr     pImage,
     Returns true on success.
 */
 
-bool DBImageFileType::write(      ConstImagePtr     OSG_DB_ARG(pImage), 
+bool DBImageFileType::write(const Image            *OSG_DB_ARG(pImage), 
                             const Char8            *OSG_DB_ARG(fileName)) 
 {
     bool                retCode = false;

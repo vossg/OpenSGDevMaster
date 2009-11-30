@@ -154,10 +154,10 @@ class OSG_IMGFILEIO_DLLMAPPING GDALImageFileType : public ImageFileType
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    virtual bool read          (      ImagePtr          pImage, 
+    virtual bool read          (      Image            *pImage, 
                                 const Char8            *fileName   ) ;
 
-    virtual bool write         (      ConstImagePtr     pImage, 
+    virtual bool write         (const Image            *pImage, 
                                 const Char8            *fileName   ) ;
 
     virtual bool validateHeader(const Char8            *fileName, 

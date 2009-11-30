@@ -226,7 +226,7 @@ void TiledImageBlockAccessor::open(const Char8 *szFilename)
         _vSize.setValues(_vSampleDescs.back().x1,
                          _vSampleDescs.back().y1);
                          
-        GeoReferenceAttachmentPtr pFirstRef = 
+        GeoReferenceAttachment *pFirstRef = 
             _vImages.front()->getGeoRef();
 
         if(pFirstRef != NULL)
