@@ -61,15 +61,12 @@
 #include "OSGConfig.h"
 #include "OSGSystemDef.h"
 
-#include "OSGBaseTypes.h"
+//#include "OSGBaseTypes.h"
 
 #include "OSGAttachment.h" // Parent
 
-#include "OSGUInt32Fields.h" // Datum type
-#include "OSGVec2fFields.h" // EllipsoidAxis type
-#include "OSGVec2fFields.h" // Origin type
-#include "OSGVec2fFields.h" // PixelSize type
-#include "OSGReal64Fields.h" // NoDataValue type
+#include "OSGSysFields.h" // Datum type
+#include "OSGVecFields.h" // EllipsoidAxis type
 
 #include "OSGGeoReferenceAttachmentFields.h"
 

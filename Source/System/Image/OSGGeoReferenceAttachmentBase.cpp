@@ -79,7 +79,7 @@ OSG_BEGIN_NAMESPACE
  */
 
 /***************************************************************************\
- *                         Field Description                               *
+ *                        Field Documentation                              *
 \***************************************************************************/
 
 /*! \var UInt32          GeoReferenceAttachmentBase::_sfDatum
@@ -102,6 +102,28 @@ OSG_BEGIN_NAMESPACE
     
 */
 
+
+/***************************************************************************\
+ *                      FieldType/FieldTrait Instantiation                 *
+\***************************************************************************/
+
+#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
+DataType FieldTraits<GeoReferenceAttachment *>::_type("GeoReferenceAttachmentPtr", "AttachmentPtr");
+#endif
+
+OSG_FIELDTRAITS_GETTYPE(GeoReferenceAttachment *)
+
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoReferenceAttachment *,
+                           0);
+
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoReferenceAttachment *,
+                           0);
+
+/***************************************************************************\
+ *                         Field Description                               *
+\***************************************************************************/
 
 void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
 {
@@ -729,19 +751,5 @@ void GeoReferenceAttachmentBase::resolveLinks(void)
 
 }
 
-
-#if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoReferenceAttachment *>::_type("GeoReferenceAttachmentPtr", "AttachmentPtr");
-#endif
-
-OSG_FIELDTRAITS_GETTYPE(GeoReferenceAttachment *)
-
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
-                           GeoReferenceAttachment *,
-                           0);
-
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
-                           GeoReferenceAttachment *,
-                           0);
 
 OSG_END_NAMESPACE
