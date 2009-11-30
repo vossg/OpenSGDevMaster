@@ -114,8 +114,8 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         DatumFieldId, DatumFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoReferenceAttachmentBase::editHandleDatum),
-        static_cast<FieldGetMethodSig >(&GeoReferenceAttachmentBase::getHandleDatum));
+        static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandleDatum),
+        static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandleDatum));
 
     oType.addInitialDesc(pDesc);
 
@@ -126,8 +126,8 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         EllipsoidAxisFieldId, EllipsoidAxisFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoReferenceAttachmentBase::editHandleEllipsoidAxis),
-        static_cast<FieldGetMethodSig >(&GeoReferenceAttachmentBase::getHandleEllipsoidAxis));
+        static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandleEllipsoidAxis),
+        static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandleEllipsoidAxis));
 
     oType.addInitialDesc(pDesc);
 
@@ -138,8 +138,8 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         OriginFieldId, OriginFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoReferenceAttachmentBase::editHandleOrigin),
-        static_cast<FieldGetMethodSig >(&GeoReferenceAttachmentBase::getHandleOrigin));
+        static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandleOrigin),
+        static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandleOrigin));
 
     oType.addInitialDesc(pDesc);
 
@@ -150,8 +150,8 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         PixelSizeFieldId, PixelSizeFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoReferenceAttachmentBase::editHandlePixelSize),
-        static_cast<FieldGetMethodSig >(&GeoReferenceAttachmentBase::getHandlePixelSize));
+        static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandlePixelSize),
+        static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandlePixelSize));
 
     oType.addInitialDesc(pDesc);
 
@@ -162,8 +162,8 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         NoDataValueFieldId, NoDataValueFieldMask,
         false,
         Field::SFDefaultFlags,
-        static_cast<FieldEditMethodSig>(&GeoReferenceAttachmentBase::editHandleNoDataValue),
-        static_cast<FieldGetMethodSig >(&GeoReferenceAttachmentBase::getHandleNoDataValue));
+        static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandleNoDataValue),
+        static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandleNoDataValue));
 
     oType.addInitialDesc(pDesc);
 }
@@ -174,10 +174,10 @@ GeoReferenceAttachmentBase::TypeObject GeoReferenceAttachmentBase::_type(
     Inherited::getClassname(),
     "GeoReferenceAttachment",
     0,
-    (PrototypeCreateF) &GeoReferenceAttachmentBase::createEmptyLocal,
+    reinterpret_cast<PrototypeCreateF>(&GeoReferenceAttachmentBase::createEmptyLocal),
     GeoReferenceAttachment::initMethod,
     GeoReferenceAttachment::exitMethod,
-    (InitalInsertDescFunc) &GeoReferenceAttachmentBase::classDescInserter,
+    reinterpret_cast<InitalInsertDescFunc>(&GeoReferenceAttachmentBase::classDescInserter),
     false,
     0,
     "<?xml version=\"1.0\"?>\n"
