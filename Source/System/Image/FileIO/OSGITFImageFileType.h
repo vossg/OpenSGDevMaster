@@ -153,6 +153,83 @@ class OSG_IMGFILEIO_DLLMAPPING TiledImageBlockAccessor :
 
 typedef boost::shared_ptr<TiledImageBlockAccessor> TiledImageBlockAccessorPtr;
 
+class OSG_IMGFILEIO_DLLMAPPING DefaultBlockAccessor : public ImageBlockAccessor
+{
+    /*==========================  PUBLIC  =================================*/
+    
+  public:
+
+    typedef ImageBlockAccessor Inherited;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Destructor                                 */
+    /*! \{                                                                 */
+
+    virtual ~DefaultBlockAccessor(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    virtual bool isOpen(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    virtual bool readBlockA16(Vec2i   vSampleOrigin,
+                              Int32   iTextureSize,
+                              UInt16 *pTarget,
+                              Int32   iTargetSizeBytes);
+
+    virtual bool readBlockA16(Vec2i   vSampleOrigin,
+                              Int32   iTextureSize,
+                              Int16  *pTarget,
+                              Int32   iTargetSizeBytes);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+
+  protected:
+
+    Int32 _iDefaultValue;
+
+    /*---------------------------------------------------------------------*/
+    /*! \name                Default Constructor                           */
+    /*! \{                                                                 */
+
+    DefaultBlockAccessor(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Read/Write                                 */
+    /*! \{                                                                 */
+
+    void open(const Char8 *szFilename);
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+
+  private:
+
+    friend class TiledImageBlockAccessor;
+};
+
+typedef boost::shared_ptr<DefaultBlockAccessor> DefaultBlockAccessorPtr;
+
+
 /*! \brief ITF File Handler. Used to read/write TIFF files.
     See \ref PageSystemImage for a detailed description.
 */
