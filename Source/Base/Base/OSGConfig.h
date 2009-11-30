@@ -490,6 +490,8 @@
 
 # define OSG_WINCE 5
 
+# define OSG_EMBEDDED
+
 # define OSG_GL_ES_VERSION 100
  
 # define OSG_STREAM_HAS_ISOPEN
@@ -543,6 +545,8 @@
 # define OSG_GL_ES_VERSION 100
 
 # define OSG_WINCE 5
+
+# define OSG_EMBEDDED
 
 //# define OSG_HAS_TEMPLATE_RETURNVALUES
 
@@ -956,6 +960,14 @@
 
 //#define OSG_FCPTR_TYPED_STORE
 
+#ifdef OSG_ELDK
+
+# define OSG_EMBEDDED
+# define OSG_INTERNAL_GL_ES
+# define OSG_GLES 100
+# define OSG_GL_ES_VERSION 100
+
+#endif
 
 #define OSG_THREAD_DEBUG_SETASPECTTO
 

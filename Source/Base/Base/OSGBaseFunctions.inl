@@ -2654,7 +2654,7 @@ OSG::UInt32 getMaxIndexAbs3(const VecPntT &v)
             (osgAbs(v[1]) > osgAbs(v[2]) ? 1 : 2);
 }
 
-#ifndef OSG_EMBEDDED
+#if defined(OSG_EMBEDDED) && !defined(__linux)
 /*! Sets or removes an environment variable. If the \a string is of the form
     <tt>name=value</tt> the env. variable \c name is set to \c value. Otherwise
     the contents of \a string a interpreted as the name of an env. variable and
@@ -2680,12 +2680,12 @@ OSG::Int32 putenv(Char8 *string)
     return ::_putenv(string);
 #endif
 }
-#else
 inline
 Char8 *getenv(const Char8 *string)
 {
     return NULL;
 }
+#else
 #endif
 
 /*! Pause program execution for the given number of milliseconds.

@@ -56,8 +56,7 @@ OSG_FIELD_CONTAINER_NONINL_TMPL_DEF(TypedGeoVectorProperty,
                                     GeoPropertyDesc)
 */
 
-
-
+#if defined(GL_UNSIGNED_SHORT)
 OSG_EXPORT_PROP(GeoVec1usPropertyDesc)
 OSG_EXPORT_PROP(GeoVec2usPropertyDesc)
 OSG_EXPORT_PROP(GeoVec3usPropertyDesc)
@@ -67,5 +66,6 @@ OSG_EXPORT_PROP(GeoPnt1usPropertyDesc)
 OSG_EXPORT_PROP(GeoPnt2usPropertyDesc)
 OSG_EXPORT_PROP(GeoPnt3usPropertyDesc)
 OSG_EXPORT_PROP(GeoPnt4usPropertyDesc)
+#endif
 
 OSG_END_NAMESPACE

@@ -98,7 +98,9 @@ Int32 Image::_typeDic[][2] =
 {
     { OSG_INVALID_IMAGEDATATYPE, 0 },
     { OSG_UINT8_IMAGEDATA,       1 },
+#if defined(GL_UNSIGNED_SHORT)
     { OSG_UINT16_IMAGEDATA,      2 },
+#endif
 #if !defined(OSG_EMBEDDED)
     { OSG_UINT32_IMAGEDATA,      4 },
     { OSG_FLOAT16_IMAGEDATA,     2 },
@@ -126,7 +128,8 @@ void Image::changed(ConstFieldMaskArg whichField,
     {
         (*parentsIt)->changed(
             TypeTraits<BitVector>::One << parentsIt->getParentFieldPos(),
-            ChangedOrigin::Child                                        );
+            ChangedOrigin::Child,
+            whichField);
 
         ++parentsIt;
     }
@@ -228,9 +231,11 @@ void Image::dump(      UInt32    ,
         case OSG_UINT8_IMAGEDATA:
             typeStr = "IMAGEDATA_TYPE UCHAR8";
             break;
+#if defined(GL_UNSIGNED_SHORT)
         case OSG_UINT16_IMAGEDATA:
             typeStr = "IMAGEDATA_TYPE UCHAR16";
             break;
+#endif
 #if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
             typeStr = "IMAGEDATA_TYPE UCHAR32";
@@ -518,6 +523,7 @@ bool Image::addValue(const char *value)
                 }
                 break;
 
+#if !defined(OSG_EMBEDDED)
             case OSG_UINT16_IMAGEDATA:
                 switch(pixelDepth)
                 {
@@ -540,7 +546,6 @@ bool Image::addValue(const char *value)
                 }
                 break;
 
-#if !defined(OSG_EMBEDDED)
             case OSG_UINT32_IMAGEDATA:
                 switch(pixelDepth)
                 {
@@ -714,10 +719,10 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT8_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -743,10 +748,10 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT8_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -776,6 +781,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -783,7 +789,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -826,6 +831,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -834,7 +840,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -880,6 +885,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -889,7 +895,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1129,10 +1134,10 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT8_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -1162,6 +1167,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1169,7 +1175,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1212,6 +1217,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1220,7 +1226,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1266,6 +1271,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1275,7 +1281,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1330,6 +1335,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1337,7 +1343,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1380,6 +1385,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1387,7 +1393,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1423,10 +1428,10 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT8_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -1457,6 +1462,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1466,7 +1472,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1515,6 +1520,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1524,7 +1530,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1586,6 +1591,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sum / 3;
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1596,7 +1602,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sum / 3;
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1649,6 +1654,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sum / 3;
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1660,7 +1666,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sum / 3;
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1708,10 +1713,10 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT8_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -1743,6 +1748,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sum / 3;
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1753,7 +1759,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sum / 3;
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1810,6 +1815,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];;
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1817,7 +1823,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];;
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1864,6 +1869,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1875,7 +1881,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1931,6 +1936,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     data[destI++] = sourceData[srcI++];;
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1942,7 +1948,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     destDataUC16[destI++] = sourceDataUC16[srcI++];;
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -1996,6 +2001,7 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -2005,7 +2011,6 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                                     srcI++;
                                 }
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 for (srcI = destI = 0; destI < destSize/getComponentSize();)
                                 {
@@ -2047,10 +2052,10 @@ bool Image::reformat(const Image::PixelFormat pixelFormat,
                             case OSG_UINT8_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
+#if !defined(OSG_EMBEDDED)
                             case OSG_UINT16_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
-#if !defined(OSG_EMBEDDED)
                             case OSG_UINT32_IMAGEDATA:
                                 memcpy (data, getData(), destSize);
                                 break;
@@ -2109,6 +2114,7 @@ void Image::swapDataEndian(void)
             // do nothing
             break;
             
+#if !defined(OSG_EMBEDDED)
         case OSG_UINT16_IMAGEDATA:
 
             for(UInt32 i=0;i<size;++i)
@@ -2119,7 +2125,6 @@ void Image::swapDataEndian(void)
             }
             break;
             
-#if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
 
             for(UInt32 i=0;i<size;++i)
@@ -2215,6 +2220,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
 
             switch (destDataType)
             {
+#if !defined(OSG_EMBEDDED)
                 case OSG_UINT16_IMAGEDATA:
 
                     for (int i = 0; i < sourceSize; i++)
@@ -2223,7 +2229,6 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     }
                     break;
 
-#if !defined(OSG_EMBEDDED)
                 case OSG_UINT32_IMAGEDATA:
 
                     for (int i = 0; i < sourceSize; i++)
@@ -2256,6 +2261,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
             
             break;
             
+#if !defined(OSG_EMBEDDED)
         case OSG_UINT16_IMAGEDATA:
 
             switch (destDataType)
@@ -2326,6 +2332,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     break;
             }
             break;
+#endif
             
 #if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
@@ -2435,6 +2442,7 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     }
                     break;
 
+#if !defined(OSG_EMBEDDED)
                 case OSG_UINT16_IMAGEDATA:
 
                     for(int i = 0; i < sourceSize; i++)
@@ -2444,7 +2452,6 @@ bool Image::convertDataTypeTo(Int32 destDataType)
                     }
                     break;
 
-#if !defined(OSG_EMBEDDED)
                 case OSG_UINT32_IMAGEDATA:
                     for(int i = 0; i < sourceSize; i++)
                     {
@@ -2585,7 +2592,7 @@ void Image::setAttachmentField(const std::string &key,
         return;
     }
 
-    Field *field = att->editDynamicFieldByName(key.c_str());
+    EditFieldHandlePtr field = att->editDynamicFieldByName(key.c_str());
 
     if(field == NULL)
     {
@@ -2610,10 +2617,11 @@ void Image::setAttachmentField(const std::string &key,
         field = att->editDynamicField(fieldId);
     }
 
-    SFString *strField = static_cast<SFString *>(field);
+    SFString::EditHandlePtr strField = 
+        boost::static_pointer_cast<SFString::EditHandle>(field);
 
-    if(strField != NULL)
-        strField->setValue(data);
+    if(strField != NULL && strField->isValid() == true)
+        (*strField)->setValue(data);
 }
 
 /*! returns the string attachment for the given key or Null
@@ -2629,14 +2637,15 @@ const std::string *Image::findAttachmentField(const std::string &key) const
 
     if(att != NullFC)
     {
-        const Field *field = att->getDynamicFieldByName(key.c_str());
+        GetFieldHandlePtr field = att->getDynamicFieldByName(key.c_str());
 
         if(field != NULL)
         {
-            const SFString *strField = static_cast<const SFString *>(field);
+            SFString::GetHandlePtr strField = 
+                boost::static_pointer_cast<SFString::GetHandle>(field);
 
-            if(strField != NULL)
-                return &strField->getValue();
+            if(strField != NULL && strField->isValid() == true)
+                return &((*strField)->getValue());
         }
     }
 
@@ -3149,6 +3158,7 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
             }
             break;
             
+#if !defined(OSG_EMBEDDED)
         case OSG_UINT16_IMAGEDATA:
 
             for(frame = 0; frame < getFrameCount(); frame++)
@@ -3222,7 +3232,6 @@ bool Image::createMipmap(Int32 level, ImagePtr destination)
             }
             break;
             
-#if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
 
             for(frame = 0; frame < getFrameCount(); frame++)
@@ -3648,6 +3657,7 @@ bool Image::calcIsAlphaBinary(void)
                     break;
             }
             break;
+#if !defined(OSG_EMBEDDED)
         case OSG_UINT16_IMAGEDATA:
             for(; npix > 0; --npix, data += pixelsize)
             {
@@ -3656,7 +3666,6 @@ bool Image::calcIsAlphaBinary(void)
                     break;
             }
             break;
-#if !defined(OSG_EMBEDDED)
         case OSG_UINT32_IMAGEDATA:
             for(; npix > 0; --npix, data += pixelsize)
             {

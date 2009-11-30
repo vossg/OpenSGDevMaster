@@ -921,6 +921,7 @@ void SceneFileHandlerBase::initReadProgress(std::istream &is)
 
     _readReady = false;
 
+#if !defined(OSG_EMBEDDED)
     if(_useProgressThread)
     {
         ThreadRefPtr pt = Thread::find("OSG::FileIOReadProgressThread");
@@ -937,6 +938,7 @@ void SceneFileHandlerBase::initReadProgress(std::istream &is)
             SWARNING << "Couldn't create read progress thread!" << std::endl;
         }
     }
+#endif
 }
 
 void SceneFileHandlerBase::terminateReadProgress(void)
@@ -946,6 +948,7 @@ void SceneFileHandlerBase::terminateReadProgress(void)
 
     _readReady = true;
 
+#if !defined(OSG_EMBEDDED)
     Thread *pt = Thread::find("OSG::FileIOReadProgressThread");
 
     if(pt != NULL)
@@ -954,6 +957,7 @@ void SceneFileHandlerBase::terminateReadProgress(void)
         Thread::join(pt);
         OSG::ThreadManager::the()->remove(pt);
     }
+#endif
 
     _progressData.length = 0;
     _progressData.is = NULL;

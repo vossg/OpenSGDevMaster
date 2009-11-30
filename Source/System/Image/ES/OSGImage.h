@@ -125,8 +125,10 @@ class OSG_SYSTEM_DLLMAPPING Image : public ImageBase
     {
         OSG_INVALID_IMAGEDATATYPE  = GL_FALSE,
         OSG_UINT8_IMAGEDATA        = GL_UNSIGNED_BYTE,
+#if defined(GL_UNSIGNED_SHORT)
         OSG_UINT16_IMAGEDATA       = GL_UNSIGNED_SHORT,
-#if !defined(OSG_EMBEDDED) || OSG_GL_ES_VERSION > 100
+#endif
+#if defined(GL_UNSIGNED_INT)
         OSG_UINT32_IMAGEDATA       = GL_UNSIGNED_INT,
 #endif
 #if !defined(OSG_EMBEDDED)

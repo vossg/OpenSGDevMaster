@@ -232,7 +232,7 @@ namespace Directory
 #pragma set woff 1209
 #endif
 
-#ifndef OSG_EMBEDDED
+#if !defined(OSG_EMBEDDED) || defined(__linux)
     /*! \ingroup GrpBaseBaseFileSystem
      */
 

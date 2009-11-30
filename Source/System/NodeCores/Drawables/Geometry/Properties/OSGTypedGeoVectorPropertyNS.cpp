@@ -51,6 +51,7 @@
 
 OSG_BEGIN_NAMESPACE
 
+#if defined(GL_SHORT)
 OSG_EXPORT_PROP(GeoVec1NsPropertyDesc)
 OSG_EXPORT_PROP(GeoVec2NsPropertyDesc)
 OSG_EXPORT_PROP(GeoVec3NsPropertyDesc)
@@ -60,5 +61,6 @@ OSG_EXPORT_PROP(GeoPnt1NsPropertyDesc)
 OSG_EXPORT_PROP(GeoPnt2NsPropertyDesc)
 OSG_EXPORT_PROP(GeoPnt3NsPropertyDesc)
 OSG_EXPORT_PROP(GeoPnt4NsPropertyDesc)
+#endif
 
 OSG_END_NAMESPACE

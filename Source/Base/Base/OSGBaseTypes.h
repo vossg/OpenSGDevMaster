@@ -583,7 +583,7 @@ typedef Real32  Real;
 typedef Fixed32 Real;
 #endif
 
-#ifdef OSG_EMBEDDED
+#if defined(OSG_EMBEDDED) && !defined(__linux)
 typedef std::wstring   tstring;
 #define OSGT(TEXT) L##TEXT
 #else

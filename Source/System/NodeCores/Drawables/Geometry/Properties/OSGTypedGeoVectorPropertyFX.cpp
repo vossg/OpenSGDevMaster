@@ -64,7 +64,7 @@ OSG_FIELD_CONTAINER_NONINL_TMPL_DEF(TypedGeoVectorProperty,
 */
 
 
-#ifdef OSG_EMBEDDED
+#if defined(OSG_EMBEDDED) && defined(OSG_FIXED_PROFILE)
 OSG_EXPORT_PROP(GeoVec1fxPropertyDesc)
 OSG_EXPORT_PROP(GeoVec2fxPropertyDesc)
 OSG_EXPORT_PROP(GeoVec3fxPropertyDesc)

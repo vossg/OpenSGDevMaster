@@ -384,6 +384,7 @@ void Geometry::handleAttDestroyGL(DrawEnv                 *pEnv,
 
 Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
 {
+#if 0
     // !!! HACK this needs to be decided by the used material/state
     bool usesShader = false;    
 
@@ -522,6 +523,7 @@ Action::ResultE Geometry::drawPrimitives(DrawEnv *pEnv)
     }
 */
 #endif
+#endif
     return Action::Continue;
 }
 
@@ -613,6 +615,10 @@ void Geometry::dump(      UInt32    ,
                          const BitVector ) const
 {
     SLOG << "Dump Geometry NI" << std::endl;
+}
+
+void Geometry::fill(DrawableStatsAttachmentPtrArg pStat)
+{
 }
 
 // Iterators

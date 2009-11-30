@@ -44,7 +44,7 @@
 
 #include "OSGBaseFunctions.h"
 
-#ifndef OSG_EMBEDDED
+#if !defined(OSG_EMBEDDED) || defined(__linux)
 #include <sys/types.h>
 #include <sys/stat.h>
 #endif
@@ -100,7 +100,7 @@ namespace Directory
     static bool                  tstAttr   (const OSG::Char8  *szDirname,
                                                   OSG::UInt32  uiAccessFlags);
 
-#ifndef OSG_EMBEDDED
+#if !defined(OSG_EMBEDDED) || defined(__linux)
     static OSG::Char8           *getCurrent(      void                      );
 
     static bool                  setCurrent(const OSG::Char8 *szDirname     );

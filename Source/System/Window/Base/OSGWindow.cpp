@@ -47,11 +47,11 @@
 
 #include "OSGGLU.h"
 
-#if !defined(WIN32) && !defined(__APPLE__)
+#if !defined(WIN32) && !defined(__APPLE__) && !defined(OSG_EMBEDDED)
 #include <GL/glx.h>
 #endif
 
-#if defined(OSG_EMBEDDED)
+#if defined(OSG_EMBEDDED) && defined(WIN32)
 #include <gles/egl.h>
 #endif
 
@@ -1659,7 +1659,7 @@ OSG::Window::GLExtensionFunction OSG::Window::getFunctionByName(
         if(symbol != 0)
             retval = GLExtensionFunction(NSAddressOfSymbol(symbol));
     }
-#elif defined(OSG_EMBEDDED)
+#elif defined(OSG_EMBEDDED) && defined(WIN32)
 
 	retval = (void(__cdecl*)(void)) eglGetProcAddress(s);
 

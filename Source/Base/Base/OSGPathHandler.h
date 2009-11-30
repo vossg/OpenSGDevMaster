@@ -45,7 +45,7 @@
 #include "OSGConfig.h"
 
 #include <cstdlib>
-#if !defined(OSG_EMBEDDED)
+#if !defined(OSG_EMBEDDED) || defined(__linux)
 #include <fcntl.h>
 #endif
 #include <list>
