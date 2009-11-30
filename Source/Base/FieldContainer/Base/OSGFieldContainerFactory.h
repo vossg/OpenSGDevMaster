@@ -45,6 +45,7 @@
 #include "OSGBaseTypes.h"
 #include "OSGSingletonHolder.h"
 #include "OSGContainerForwards.h"
+#include "OSGTypeBase.h"
 #include "OSGContainerFactory.h"
 #include "OSGAspectStore.h"
 #include "OSGContainerIdMapper.h"

@@ -771,7 +771,7 @@ class OSG_BASE_DLLMAPPING ExternalThread : public ThreadBase
 
 OSG_GEN_MEMOBJPTR(ExternalThread);
 
-#else /* OSG_WIN_CE */
+#else /* OSG_EMBEDDED */
 
 class ChangeList;
 
@@ -798,6 +798,11 @@ class OSG_BASE_DLLMAPPING Thread
     static ChangeList *getCurrentChangeList(void);
 
     static UInt32      getCurrentAspect    (void)
+    {
+        return 1;
+    }
+
+    static UInt32      getCurrentNamespaceMask(void)
     {
         return 1;
     }
