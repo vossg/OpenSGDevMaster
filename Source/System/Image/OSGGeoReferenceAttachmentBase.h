@@ -142,77 +142,47 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
     /*! \{                                                                 */
 
 
-#ifdef OSG_1_GET_COMPAT
-                  SFUInt32            *getSFDatum           (void);
-#endif
                   SFUInt32            *editSFDatum          (void);
             const SFUInt32            *getSFDatum           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec2f             *getSFEllipsoidAxis   (void);
-#endif
                   SFVec2f             *editSFEllipsoidAxis  (void);
             const SFVec2f             *getSFEllipsoidAxis   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec2f             *getSFOrigin          (void);
-#endif
                   SFVec2f             *editSFOrigin         (void);
             const SFVec2f             *getSFOrigin          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFVec2f             *getSFPixelSize       (void);
-#endif
                   SFVec2f             *editSFPixelSize      (void);
             const SFVec2f             *getSFPixelSize       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  SFReal64            *getSFNoDataValue     (void);
-#endif
                   SFReal64            *editSFNoDataValue    (void);
             const SFReal64            *getSFNoDataValue     (void) const;
 
 
-#ifdef OSG_1_GET_COMPAT
-                  UInt32              &getDatum           (void);
-#endif
                   UInt32              &editDatum          (void);
-            const UInt32               getDatum           (void) const;
+                  UInt32               getDatum           (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec2f               &getEllipsoidAxis   (void);
-#endif
                   Vec2f               &editEllipsoidAxis  (void);
-            const Vec2f                getEllipsoidAxis   (void) const;
+            const Vec2f               &getEllipsoidAxis   (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec2f               &getOrigin          (void);
-#endif
                   Vec2f               &editOrigin         (void);
-            const Vec2f                getOrigin          (void) const;
+            const Vec2f               &getOrigin          (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Vec2f               &getPixelSize       (void);
-#endif
                   Vec2f               &editPixelSize      (void);
-            const Vec2f                getPixelSize       (void) const;
+            const Vec2f               &getPixelSize       (void) const;
 
-#ifdef OSG_1_GET_COMPAT
-                  Real64              &getNoDataValue     (void);
-#endif
                   Real64              &editNoDataValue    (void);
-            const Real64               getNoDataValue     (void) const;
+                  Real64               getNoDataValue     (void) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setDatum          (const UInt32 &value);
+            void setDatum          (const UInt32 value);
             void setEllipsoidAxis  (const Vec2f &value);
             void setOrigin         (const Vec2f &value);
             void setPixelSize      (const Vec2f &value);
-            void setNoDataValue    (const Real64 &value);
+            void setNoDataValue    (const Real64 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

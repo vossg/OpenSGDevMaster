@@ -273,12 +273,6 @@ const SFUInt32 *GeoReferenceAttachmentBase::getSFDatum(void) const
     return &_sfDatum;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFUInt32            *GeoReferenceAttachmentBase::getSFDatum          (void)
-{
-    return this->editSFDatum          ();
-}
-#endif
 
 SFVec2f *GeoReferenceAttachmentBase::editSFEllipsoidAxis(void)
 {
@@ -292,12 +286,6 @@ const SFVec2f *GeoReferenceAttachmentBase::getSFEllipsoidAxis(void) const
     return &_sfEllipsoidAxis;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec2f             *GeoReferenceAttachmentBase::getSFEllipsoidAxis  (void)
-{
-    return this->editSFEllipsoidAxis  ();
-}
-#endif
 
 SFVec2f *GeoReferenceAttachmentBase::editSFOrigin(void)
 {
@@ -311,12 +299,6 @@ const SFVec2f *GeoReferenceAttachmentBase::getSFOrigin(void) const
     return &_sfOrigin;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec2f             *GeoReferenceAttachmentBase::getSFOrigin         (void)
-{
-    return this->editSFOrigin         ();
-}
-#endif
 
 SFVec2f *GeoReferenceAttachmentBase::editSFPixelSize(void)
 {
@@ -330,12 +312,6 @@ const SFVec2f *GeoReferenceAttachmentBase::getSFPixelSize(void) const
     return &_sfPixelSize;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFVec2f             *GeoReferenceAttachmentBase::getSFPixelSize      (void)
-{
-    return this->editSFPixelSize      ();
-}
-#endif
 
 SFReal64 *GeoReferenceAttachmentBase::editSFNoDataValue(void)
 {
@@ -349,12 +325,6 @@ const SFReal64 *GeoReferenceAttachmentBase::getSFNoDataValue(void) const
     return &_sfNoDataValue;
 }
 
-#ifdef OSG_1_GET_COMPAT
-SFReal64            *GeoReferenceAttachmentBase::getSFNoDataValue    (void)
-{
-    return this->editSFNoDataValue    ();
-}
-#endif
 
 
 
