@@ -271,10 +271,10 @@ class OSG_IMGFILEIO_DLLMAPPING DBImageFileType : public ImageFileType
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    virtual bool read          (      ImagePtrArg       pImage, 
+    virtual bool read          (      ImagePtr          pImage, 
                                 const Char8            *fileName   ) ;
 
-    virtual bool write         (      ImageConstPtrArg  pImage, 
+    virtual bool write         (      ConstImagePtr     pImage, 
                                 const Char8            *fileName   ) ;
 
     virtual bool validateHeader(const Char8            *fileName, 
