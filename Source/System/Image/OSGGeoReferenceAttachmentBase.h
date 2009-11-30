@@ -63,7 +63,7 @@
 
 #include "OSGBaseTypes.h"
 
-#include "OSGFieldContainerAttachment.h" // Parent
+#include "OSGAttachment.h" // Parent
 
 #include "OSGUInt32Fields.h" // Datum type
 #include "OSGVec2fFields.h" // EllipsoidAxis type
@@ -79,12 +79,12 @@ class GeoReferenceAttachment;
 
 //! \brief GeoReferenceAttachment Base Class.
 
-class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public FieldContainerAttachment
+class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
 {
   public:
 
-    typedef FieldContainerAttachment Inherited;
-    typedef FieldContainerAttachment ParentContainer;
+    typedef Attachment Inherited;
+    typedef Attachment ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

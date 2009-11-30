@@ -184,7 +184,7 @@ GeoReferenceAttachmentBase::TypeObject GeoReferenceAttachmentBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"GeoReferenceAttachment\"\n"
-    "\tparent=\"FieldContainerAttachment\"\n"
+    "\tparent=\"Attachment\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"concrete\"\n"
@@ -709,7 +709,7 @@ void GeoReferenceAttachmentBase::resolveLinks(void)
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<GeoReferenceAttachmentPtr>::_type("GeoReferenceAttachmentPtr", "FieldContainerAttachmentPtr");
+DataType FieldTraits<GeoReferenceAttachmentPtr>::_type("GeoReferenceAttachmentPtr", "AttachmentPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(GeoReferenceAttachmentPtr)
