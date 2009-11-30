@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<GeoReferenceAttachmentPtr, 0>::getMName<NoRefCountPolic
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<GeoReferenceAttachmentPtr,
-                                RecordedRefCountPolicy  > SFRecGeoReferenceAttachmentPtr;
-typedef FieldContainerPtrSField<GeoReferenceAttachmentPtr,
-                                UnrecordedRefCountPolicy> SFUnrecGeoReferenceAttachmentPtr;
-typedef FieldContainerPtrSField<GeoReferenceAttachmentPtr,
-                                WeakRefCountPolicy      > SFWeakGeoReferenceAttachmentPtr;
-typedef FieldContainerPtrSField<GeoReferenceAttachmentPtr,
-                                NoRefCountPolicy        > SFUncountedGeoReferenceAttachmentPtr;
+typedef PointerSField<GeoReferenceAttachmentPtr,
+                      RecordedRefCountPolicy  > SFRecGeoReferenceAttachmentPtr;
+typedef PointerSField<GeoReferenceAttachmentPtr,
+                      UnrecordedRefCountPolicy> SFUnrecGeoReferenceAttachmentPtr;
+typedef PointerSField<GeoReferenceAttachmentPtr,
+                      WeakRefCountPolicy      > SFWeakGeoReferenceAttachmentPtr;
+typedef PointerSField<GeoReferenceAttachmentPtr,
+                      NoRefCountPolicy        > SFUncountedGeoReferenceAttachmentPtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<GeoReferenceAttachmentPtr,
-                                RecordedRefCountPolicy  > MFRecGeoReferenceAttachmentPtr;
-typedef FieldContainerPtrMField<GeoReferenceAttachmentPtr,
-                                UnrecordedRefCountPolicy> MFUnrecGeoReferenceAttachmentPtr;
-typedef FieldContainerPtrMField<GeoReferenceAttachmentPtr,
-                                WeakRefCountPolicy      > MFWeakGeoReferenceAttachmentPtr;
-typedef FieldContainerPtrMField<GeoReferenceAttachmentPtr,
-                                NoRefCountPolicy        > MFUncountedGeoReferenceAttachmentPtr;
+typedef PointerMField<GeoReferenceAttachmentPtr,
+                      RecordedRefCountPolicy  > MFRecGeoReferenceAttachmentPtr;
+typedef PointerMField<GeoReferenceAttachmentPtr,
+                      UnrecordedRefCountPolicy> MFUnrecGeoReferenceAttachmentPtr;
+typedef PointerMField<GeoReferenceAttachmentPtr,
+                      WeakRefCountPolicy      > MFWeakGeoReferenceAttachmentPtr;
+typedef PointerMField<GeoReferenceAttachmentPtr,
+                      NoRefCountPolicy        > MFUncountedGeoReferenceAttachmentPtr;
 #endif
 
 

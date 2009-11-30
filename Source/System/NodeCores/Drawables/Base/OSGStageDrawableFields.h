@@ -58,8 +58,8 @@
 #include "OSGSystemDef.h"
 
 #include "OSGFieldContainerFields.h"
-#include "OSGFieldContainerPtrSField.h"
-#include "OSGFieldContainerPtrMField.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
 
 
 OSG_BEGIN_NAMESPACE
@@ -166,28 +166,28 @@ const Char8 *FieldTraits<StageDrawablePtr, 0>::getMName<NoRefCountPolicy>(void)
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldSingle */
 
-typedef FieldContainerPtrSField<StageDrawablePtr,
-                                RecordedRefCountPolicy  > SFRecStageDrawablePtr;
-typedef FieldContainerPtrSField<StageDrawablePtr,
-                                UnrecordedRefCountPolicy> SFUnrecStageDrawablePtr;
-typedef FieldContainerPtrSField<StageDrawablePtr,
-                                WeakRefCountPolicy      > SFWeakStageDrawablePtr;
-typedef FieldContainerPtrSField<StageDrawablePtr,
-                                NoRefCountPolicy        > SFUncountedStageDrawablePtr;
+typedef PointerSField<StageDrawablePtr,
+                      RecordedRefCountPolicy  > SFRecStageDrawablePtr;
+typedef PointerSField<StageDrawablePtr,
+                      UnrecordedRefCountPolicy> SFUnrecStageDrawablePtr;
+typedef PointerSField<StageDrawablePtr,
+                      WeakRefCountPolicy      > SFWeakStageDrawablePtr;
+typedef PointerSField<StageDrawablePtr,
+                      NoRefCountPolicy        > SFUncountedStageDrawablePtr;
 #endif
 
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_FIELD_TYPEDEFS)
 /*! \ingroup GrpSystemFieldMulti */
 
-typedef FieldContainerPtrMField<StageDrawablePtr,
-                                RecordedRefCountPolicy  > MFRecStageDrawablePtr;
-typedef FieldContainerPtrMField<StageDrawablePtr,
-                                UnrecordedRefCountPolicy> MFUnrecStageDrawablePtr;
-typedef FieldContainerPtrMField<StageDrawablePtr,
-                                WeakRefCountPolicy      > MFWeakStageDrawablePtr;
-typedef FieldContainerPtrMField<StageDrawablePtr,
-                                NoRefCountPolicy        > MFUncountedStageDrawablePtr;
+typedef PointerMField<StageDrawablePtr,
+                      RecordedRefCountPolicy  > MFRecStageDrawablePtr;
+typedef PointerMField<StageDrawablePtr,
+                      UnrecordedRefCountPolicy> MFUnrecStageDrawablePtr;
+typedef PointerMField<StageDrawablePtr,
+                      WeakRefCountPolicy      > MFWeakStageDrawablePtr;
+typedef PointerMField<StageDrawablePtr,
+                      NoRefCountPolicy        > MFUncountedStageDrawablePtr;
 #endif
 
 
