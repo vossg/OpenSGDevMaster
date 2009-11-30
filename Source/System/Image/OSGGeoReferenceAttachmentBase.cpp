@@ -113,7 +113,7 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         "",
         DatumFieldId, DatumFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandleDatum),
         static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandleDatum));
 
@@ -125,7 +125,7 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         "",
         EllipsoidAxisFieldId, EllipsoidAxisFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandleEllipsoidAxis),
         static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandleEllipsoidAxis));
 
@@ -137,7 +137,7 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         "",
         OriginFieldId, OriginFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandleOrigin),
         static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandleOrigin));
 
@@ -149,7 +149,7 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         "",
         PixelSizeFieldId, PixelSizeFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandlePixelSize),
         static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandlePixelSize));
 
@@ -161,7 +161,7 @@ void GeoReferenceAttachmentBase::classDescInserter(TypeObject &oType)
         "",
         NoDataValueFieldId, NoDataValueFieldMask,
         false,
-        Field::SFDefaultFlags,
+        (Field::SFDefaultFlags | Field::FStdAccess),
         static_cast<FieldEditMethodSig>(&GeoReferenceAttachment::editHandleNoDataValue),
         static_cast<FieldGetMethodSig >(&GeoReferenceAttachment::getHandleNoDataValue));
 
@@ -415,22 +415,6 @@ void GeoReferenceAttachmentBase::copyFromBin(BinaryDataHandler &pMem,
 }
 
 //! create a new instance of the class
-GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::create(void)
-{
-    GeoReferenceAttachmentTransitPtr fc;
-
-    if(getClassType().getPrototype() != NULL)
-    {
-        FieldContainerTransitPtr tmpPtr =
-            getClassType().getPrototype()-> shallowCopy();
-
-        fc = dynamic_pointer_cast<GeoReferenceAttachment>(tmpPtr);
-    }
-
-    return fc;
-}
-
-//! create a new instance of the class
 GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::createLocal(BitVector bFlags)
 {
     GeoReferenceAttachmentTransitPtr fc;
@@ -446,17 +430,20 @@ GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::createLocal(BitVect
     return fc;
 }
 
-//! create an empty new instance of the class, do not copy the prototype
-GeoReferenceAttachment *GeoReferenceAttachmentBase::createEmpty(void)
+//! create a new instance of the class
+GeoReferenceAttachmentTransitPtr GeoReferenceAttachmentBase::create(void)
 {
-    GeoReferenceAttachment *returnValue;
+    GeoReferenceAttachmentTransitPtr fc;
 
-    newPtr<GeoReferenceAttachment>(returnValue, Thread::getCurrentLocalFlags());
+    if(getClassType().getPrototype() != NULL)
+    {
+        FieldContainerTransitPtr tmpPtr =
+            getClassType().getPrototype()-> shallowCopy();
 
-    returnValue->_pFieldFlags->_bNamespaceMask &= 
-        ~Thread::getCurrentLocalFlags(); 
+        fc = dynamic_pointer_cast<GeoReferenceAttachment>(tmpPtr);
+    }
 
-    return returnValue;
+    return fc;
 }
 
 GeoReferenceAttachment *GeoReferenceAttachmentBase::createEmptyLocal(BitVector bFlags)
@@ -470,20 +457,19 @@ GeoReferenceAttachment *GeoReferenceAttachmentBase::createEmptyLocal(BitVector b
     return returnValue;
 }
 
-FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopy(void) const
+//! create an empty new instance of the class, do not copy the prototype
+GeoReferenceAttachment *GeoReferenceAttachmentBase::createEmpty(void)
 {
-    GeoReferenceAttachment *tmpPtr;
+    GeoReferenceAttachment *returnValue;
 
-    newPtr(tmpPtr, 
-           dynamic_cast<const GeoReferenceAttachment *>(this), 
-           Thread::getCurrentLocalFlags());
+    newPtr<GeoReferenceAttachment>(returnValue, Thread::getCurrentLocalFlags());
 
-    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
-
-    FieldContainerTransitPtr returnValue(tmpPtr);
+    returnValue->_pFieldFlags->_bNamespaceMask &=
+        ~Thread::getCurrentLocalFlags();
 
     return returnValue;
 }
+
 
 FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopyLocal(
     BitVector bFlags) const
@@ -498,6 +484,22 @@ FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopyLocal(
 
     return returnValue;
 }
+
+FieldContainerTransitPtr GeoReferenceAttachmentBase::shallowCopy(void) const
+{
+    GeoReferenceAttachment *tmpPtr;
+
+    newPtr(tmpPtr,
+           dynamic_cast<const GeoReferenceAttachment *>(this),
+           Thread::getCurrentLocalFlags());
+
+    tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
+
+    FieldContainerTransitPtr returnValue(tmpPtr);
+
+    return returnValue;
+}
+
 
 
 
@@ -535,7 +537,7 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandleDatum           (void) co
 {
     SFUInt32::GetHandlePtr returnValue(
         new  SFUInt32::GetHandle(
-             &_sfDatum, 
+             &_sfDatum,
              this->getType().getFieldDesc(DatumFieldId)));
 
     return returnValue;
@@ -545,8 +547,9 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandleDatum          (void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
-             &_sfDatum, 
+             &_sfDatum,
              this->getType().getFieldDesc(DatumFieldId)));
+
 
     editSField(DatumFieldMask);
 
@@ -557,7 +560,7 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandleEllipsoidAxis   (void) co
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
-             &_sfEllipsoidAxis, 
+             &_sfEllipsoidAxis,
              this->getType().getFieldDesc(EllipsoidAxisFieldId)));
 
     return returnValue;
@@ -567,8 +570,9 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandleEllipsoidAxis  (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
-             &_sfEllipsoidAxis, 
+             &_sfEllipsoidAxis,
              this->getType().getFieldDesc(EllipsoidAxisFieldId)));
+
 
     editSField(EllipsoidAxisFieldMask);
 
@@ -579,7 +583,7 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandleOrigin          (void) co
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
-             &_sfOrigin, 
+             &_sfOrigin,
              this->getType().getFieldDesc(OriginFieldId)));
 
     return returnValue;
@@ -589,8 +593,9 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandleOrigin         (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
-             &_sfOrigin, 
+             &_sfOrigin,
              this->getType().getFieldDesc(OriginFieldId)));
+
 
     editSField(OriginFieldMask);
 
@@ -601,7 +606,7 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandlePixelSize       (void) co
 {
     SFVec2f::GetHandlePtr returnValue(
         new  SFVec2f::GetHandle(
-             &_sfPixelSize, 
+             &_sfPixelSize,
              this->getType().getFieldDesc(PixelSizeFieldId)));
 
     return returnValue;
@@ -611,8 +616,9 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandlePixelSize      (void)
 {
     SFVec2f::EditHandlePtr returnValue(
         new  SFVec2f::EditHandle(
-             &_sfPixelSize, 
+             &_sfPixelSize,
              this->getType().getFieldDesc(PixelSizeFieldId)));
+
 
     editSField(PixelSizeFieldMask);
 
@@ -623,7 +629,7 @@ GetFieldHandlePtr GeoReferenceAttachmentBase::getHandleNoDataValue     (void) co
 {
     SFReal64::GetHandlePtr returnValue(
         new  SFReal64::GetHandle(
-             &_sfNoDataValue, 
+             &_sfNoDataValue,
              this->getType().getFieldDesc(NoDataValueFieldId)));
 
     return returnValue;
@@ -633,8 +639,9 @@ EditFieldHandlePtr GeoReferenceAttachmentBase::editHandleNoDataValue    (void)
 {
     SFReal64::EditHandlePtr returnValue(
         new  SFReal64::EditHandle(
-             &_sfNoDataValue, 
+             &_sfNoDataValue,
              this->getType().getFieldDesc(NoDataValueFieldId)));
+
 
     editSField(NoDataValueFieldMask);
 
@@ -684,12 +691,12 @@ DataType FieldTraits<GeoReferenceAttachment *>::_type("GeoReferenceAttachmentPtr
 
 OSG_FIELDTRAITS_GETTYPE(GeoReferenceAttachment *)
 
-OSG_EXPORT_PTR_SFIELD_FULL(PointerSField, 
-                           GeoReferenceAttachment *, 
+OSG_EXPORT_PTR_SFIELD_FULL(PointerSField,
+                           GeoReferenceAttachment *,
                            0);
 
-OSG_EXPORT_PTR_MFIELD_FULL(PointerMField, 
-                           GeoReferenceAttachment *, 
+OSG_EXPORT_PTR_MFIELD_FULL(PointerMField,
+                           GeoReferenceAttachment *,
                            0);
 
 OSG_END_NAMESPACE
