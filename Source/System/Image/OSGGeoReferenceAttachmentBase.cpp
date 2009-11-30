@@ -669,11 +669,13 @@ void GeoReferenceAttachmentBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *GeoReferenceAttachmentBase::createAspectCopy(void) const
+FieldContainer *GeoReferenceAttachmentBase::createAspectCopy(
+    const FieldContainer *pRefAspect) const
 {
     GeoReferenceAttachment *returnValue;
 
     newAspectCopy(returnValue,
+                  dynamic_cast<const GeoReferenceAttachment *>(pRefAspect),
                   dynamic_cast<const GeoReferenceAttachment *>(this));
 
     return returnValue;
