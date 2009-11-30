@@ -117,6 +117,12 @@ class OSG_SYSTEM_DLLMAPPING GeoReferenceAttachmentBase : public Attachment
         (TypeTraits<BitVector>::One << NoDataValueFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
+        
+    typedef SFUInt32          SFDatumType;
+    typedef SFVec2f           SFEllipsoidAxisType;
+    typedef SFVec2f           SFOriginType;
+    typedef SFVec2f           SFPixelSizeType;
+    typedef SFReal64          SFNoDataValueType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
