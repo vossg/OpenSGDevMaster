@@ -120,10 +120,10 @@ void updateScene(const std::string &filename, OSG::Image::PixelFormat compressTo
         case OSG::Image::OSG_FLOAT32_IMAGEDATA:
             statElem->set("OSG_FLOAT32_IMAGEDATA");
             break;
-        case Image::OSG_INT16_IMAGEDATA:
+        case OSG::Image::OSG_INT16_IMAGEDATA:
             statElem->set("OSG_INT16_IMAGEDATA");
             break;
-        case Image::OSG_INT32_IMAGEDATA:
+        case OSG::Image::OSG_INT32_IMAGEDATA:
             statElem->set("OSG_INT32_IMAGEDATA");
             break;
         default:
