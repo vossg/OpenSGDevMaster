@@ -181,6 +181,8 @@
 
 # define OSG_LONGLONG_HAS_LL
 
+# define OSG_HAS_POSIXMEMALIGN
+
 # define OSG_COMPILER_PART_SPEZ
 
 # if __GNUC__ >= 3
