@@ -57,10 +57,11 @@ ImageBlockAccessor::~ImageBlockAccessor(void)
 }
 
 ImageBlockAccessor::ImageBlockAccessor(void) :
-    _pGeoRef   (NullFC                          ),
-    _vSize     (0, 0                            ),
-    _eImgType  (Image::OSG_INVALID_IMAGEDATATYPE),
-    _eImgFormat(Image::OSG_INVALID_PF           )
+    _pGeoRef     (NullFC                          ),
+    _vSize       (0, 0                            ),
+    _eImgType    (Image::OSG_INVALID_IMAGEDATATYPE),
+    _eImgFormat  (Image::OSG_INVALID_PF           ),
+    _fNoDataValue(0                               )
 {
 }
 
@@ -82,6 +83,11 @@ Image::PixelFormat ImageBlockAccessor::getFormat(void)
 GeoReferenceAttachmentPtr ImageBlockAccessor::getGeoRef(void)
 {
     return _pGeoRef;
+}
+
+Real64 ImageBlockAccessor::getNoDataValue(void)
+{
+    return _fNoDataValue;
 }
 
 

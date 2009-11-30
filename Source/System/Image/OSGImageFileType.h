@@ -76,10 +76,12 @@ class OSG_SYSTEM_DLLMAPPING ImageBlockAccessor
     /*! \name                   Read/Write                                 */
     /*! \{                                                                 */
 
-    Vec2i              getSize  (void);
+    Vec2i              getSize       (void);
     
-    Image::Type        getType  (void);
-    Image::PixelFormat getFormat(void);
+    Image::Type        getType       (void);
+    Image::PixelFormat getFormat     (void);
+
+    Real64             getNoDataValue(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -112,6 +114,7 @@ class OSG_SYSTEM_DLLMAPPING ImageBlockAccessor
     Vec2i                      _vSize;
     Image::Type                _eImgType;
     Image::PixelFormat         _eImgFormat;
+    Real64                     _fNoDataValue;
 
     /*---------------------------------------------------------------------*/
     /*! \name                Default Constructor                           */
