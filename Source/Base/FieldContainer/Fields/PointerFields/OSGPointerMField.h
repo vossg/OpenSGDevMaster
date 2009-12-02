@@ -138,6 +138,7 @@ class PointerMFieldIterator :
     typedef typename Inherited::difference_type         difference_type;
     typedef          PtrTypeT                           value_type;
     typedef          PtrTypeT *                         pointer;
+    typedef typename Inherited::reference               reference;
 
 #ifndef OSG_CLEAN_FCFIELDS
     typedef          PointerMFieldReferenceProxy<
@@ -227,6 +228,7 @@ typename PointerMFieldIterator<PtrTypeT,
     operator-(PointerMFieldIterator<PtrTypeT,
                                     RefCountPolicyT,
                                     NamespaceI      > const &lhs,
+
               PointerMFieldIterator<PtrTypeT,
                                     RefCountPolicyT,
                                     NamespaceI      > const &rhs );
@@ -237,12 +239,15 @@ PointerMFieldIterator<PtrTypeT,
                       NamespaceI      >
 
     operator+(
-        typename PointerMFieldIterator<PtrTypeT,
-                                       RefCountPolicyT,
-                                       NamespaceI      >::differece_type const offset,
-        PointerMFieldIterator<PtrTypeT,
-                              RefCountPolicyT,
-                              NamespaceI      >                          const &rhs   );
+        typename PointerMFieldIterator<
+                   PtrTypeT,
+                   RefCountPolicyT,
+                   NamespaceI      >::differece_type const  offset,
+
+                 PointerMFieldIterator<
+                   PtrTypeT,
+                   RefCountPolicyT,
+                   NamespaceI      >                 const &rhs   );
 
 
 /*---------------------------------------------------------------------------*/
@@ -314,6 +319,9 @@ class PointerMFieldConstIterator :
     // std library types
     typedef typename Inherited::iterator_category       iterator_category;
     typedef typename Inherited::difference_type         difference_type;
+    typedef typename Inherited::value_type              value_type;
+    typedef typename Inherited::pointer                 pointer;
+    typedef typename Inherited::reference               reference;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -418,17 +426,20 @@ typename PointerMFieldConstIterator<PtrTypeT,
 template <class PtrTypeT, class RefCountPolicyT, Int32 iNamespace>
 PointerMFieldConstIterator<PtrTypeT, RefCountPolicyT, iNamespace>
     operator+(
-        typename PointerMFieldConstIterator<PtrTypeT,
-                                            RefCountPolicyT,
-                                            iNamespace      >::difference_type const  offset,
-        PointerMFieldConstIterator<PtrTypeT,
-                                   RefCountPolicyT,
-                                   iNamespace      >                           const &rhs    );
+        typename PointerMFieldConstIterator<
+                   PtrTypeT,
+                   RefCountPolicyT,
+                   iNamespace      >::difference_type const   offset,
+
+                 PointerMFieldConstIterator<
+                   PtrTypeT,
+                   RefCountPolicyT,
+                   iNamespace      >                  const &rhs    );
 
 
 #ifndef OSG_CLEAN_FCFIELDS
 /*-------------------------------------------------------------------------*/
-/* WeakMFieldReferenceProxy<PtrTypeT>                                   */
+/* WeakMFieldReferenceProxy<PtrTypeT>                                      */
 /*-------------------------------------------------------------------------*/
 
 /*! \ingroup GrpBaseFieldContainerFields
