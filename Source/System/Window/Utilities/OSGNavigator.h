@@ -144,11 +144,11 @@ class OSG_UTIL_DLLMAPPING Navigator : public NavigatorBase
           Int16   getLastY(void);
     Viewport     *getViewport(void);
 
-    TrackballEngine*  getTrackballNavigator(void);
-    FlyEngine*        getFlyNavigator(void);
-    WalkEngine*       getWalkNavigator(void);
-    NoneEngine*       getNoneNavigator(void);
-    NavigatorEngine*  getUserNavigator(void);
+    TrackballEngine& getTrackballEngine(void);
+    FlyEngine&       getFlyEngine      (void);
+    WalkEngine&      getWalkEngine     (void);
+    NoneEngine&      getNoneEngine     (void);
+    NavigatorEngine& getUserEngine     (void);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/

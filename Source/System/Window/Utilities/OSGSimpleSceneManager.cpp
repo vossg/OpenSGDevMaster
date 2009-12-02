@@ -85,32 +85,6 @@ OSG_USING_NAMESPACE
     for the window,
  */
 
-
-/*! \var SimpleSceneManager::MouseLeft
-    The constant for the left mouse button.
- */
-
-/*! \var SimpleSceneManager::MouseMiddle
-    The constant for the middle mouse button.
- */
-
-/*! \var SimpleSceneManager::MouseRight
-    The constant for the right mouse button.
- */
-
-/*! \var SimpleSceneManager::MouseUp
-    The constant for the mouse wheel up (away from the hand) motion.
- */
-
-/*! \var SimpleSceneManager::MouseDown
-    The constant for the mouse wheel down (towards the hand) motion.
- */
-
-
-/*! \var SimpleSceneManager::_win
-    The managed window. Has to be set by the user.
- */
-
 /*! \var SimpleSceneManager::_root
     The root node to be rendered. Has to be set by the user.
  */
@@ -158,24 +132,6 @@ OSG_USING_NAMESPACE
     The camera used to view the scene.
  */
 
-/*! \var SimpleSceneManager::_navigator
-    The navigator for viewer manipulation.
- */
-
-/*! \var SimpleSceneManager::_lastx
-    The x position of the last mouse event, needed by the navigator.
- */
-
-/*! \var SimpleSceneManager::_lasty
-    The y position of the last mouse event, needed by the navigator.
- */
-
-/*! \var SimpleSceneManager::_mousebuttons
-    Storage for the actively pressed mouse buttons. Needed to do the right
-    thing for mouse motions, as mouseMove() doesn't get them.
- */
-
-
 /*! \var SimpleSceneManager::_highlightMaterial
     The material used by the highlight object.
  */
@@ -188,7 +144,7 @@ OSG_USING_NAMESPACE
  */
 
 SimpleSceneManager::SimpleSceneManager(void) :
-    _win            (NULL  ),
+    NavigationManager(),
     _root           (NULL  ),
     _foreground     (NULL  ),
     _statforeground (NULL  ),
@@ -207,12 +163,7 @@ SimpleSceneManager::SimpleSceneManager(void) :
     _rtaction       (NULL  ),
     _cart           (NULL  ),
     _camera         (NULL  ),
-    _navigator      (      ),
-
-    _lastx          (TypeTraits<Int16>::getMax()),
-    _lasty          (TypeTraits<Int16>::getMax()),
-    _mousebuttons   (0                             ),
-    _traversalAction(true                         ),
+    _traversalAction(true  ),
     _highlightMaterial(NULL)
 {
 }
@@ -253,18 +204,9 @@ SimpleSceneManager::~SimpleSceneManager(void)
     _highlightPoints   = NULL;
     _highlightNode     = NULL;
     _highlight         = NULL;
-    _win               = NULL;
     _root              = NULL;
 }
 
-
-
-/*! get the window to be used for display
- */
-Window *SimpleSceneManager::getWindow(void)
-{
-    return _win;
-}
 
 /*! get the root of the displayed tree
  */
@@ -273,12 +215,6 @@ Node *SimpleSceneManager::getRoot(void)
     return _root;
 }
 
-/*! get the navigator
- */
-Navigator *SimpleSceneManager::getNavigator(void)
-{
-    return &_navigator;
-}
 
 /*! get the headlight state
  */
@@ -299,15 +235,6 @@ DirectionalLight *SimpleSceneManager::getHeadlight(void)
 Camera *SimpleSceneManager::getCamera(void)
 {
     return _camera;
-}
-
-/*! set the window to be used for display
- */
-void SimpleSceneManager::setWindow(Window *win)
-{
-    _win = win;
-    if(_win->getMFPort()->size() > 0 && _win->getPort(0) != NULL)
-        _navigator.setViewport(_win->getPort(0));
 }
 
 /*! get the highlight object
@@ -449,8 +376,7 @@ void SimpleSceneManager::setCamera(Camera *camera)
 
     PerspectiveCamera *oldPer  = 
         dynamic_pointer_cast<PerspectiveCamera>(_camera);
-    PerspectiveCamera *newPer  = 
-        dynamic_cast<PerspectiveCamera *>(camera);
+    PerspectiveCamera *newPer  = dynamic_cast<PerspectiveCamera *>(camera);
 
     OrthographicCamera *oldOrt =
         dynamic_pointer_cast<OrthographicCamera>(_camera);
@@ -535,6 +461,55 @@ bool SimpleSceneManager::getStatistics(void)
 {
    return _statstate;
 }
+
+/*! add a user defined foreground to the viewport */
+void  SimpleSceneManager::addForeground(Foreground * const fg)
+{
+    if (fg == NULL) {
+        FWARNING(("SimpleSceneManager::addForeground: "
+                  "foreground not specified, ignoring!\n"));
+        return;
+    }
+
+    if(_internalRoot == NULL)
+    {
+        initialize();
+    }
+
+    Viewport *vp = _win->getPort(0);
+
+    if (vp == NULL) {
+        FWARNING(("SimpleSceneManager::addForeground: viewport not set, "
+                  "ignoring!\n"));
+    }
+    else
+        vp->addForeground(fg);
+}
+
+/*! remove a user defined foreground from the viewport */
+void  SimpleSceneManager::removeForeground(Foreground * const fg)
+{
+    if (fg == NULL) {
+        FWARNING(("SimpleSceneManager::removeForeground: "
+                  "foreground not specified, ignoring!\n"));
+        return;
+    }
+
+    if(_internalRoot == NULL)
+    {
+        initialize();
+    }
+
+    Viewport *vp = _win->getPort(0);
+
+    if (vp == NULL) {
+        FWARNING(("SimpleSceneManager::removeForeground: viewport not set, "
+                  "ignoring!\n"));
+    }
+    else
+        vp->removeObjFromForegrounds(fg);
+}
+
 
 /*-------------------------------------------------------------------------*/
 /*                               Updates                                   */
@@ -757,9 +732,8 @@ void SimpleSceneManager::initialize(void)
         _win->addPort(vp);
     }
 
-    _navigator.setMode(Navigator::TRACKBALL);
     _navigator.setViewport(_win->getPort(0));
-    _navigator.setCameraTransformation(cartN);
+    setBeacon(cartN);
 }
 
 /*! show the whole scene: move out far enough  to see everything
@@ -831,22 +805,7 @@ void SimpleSceneManager::useOpenSGLogo(void)
     _foreground->addImage( lo, Pnt2f( 0,0 ) );
 }
 
-/*! Sets the navigation mode
- */
-void SimpleSceneManager::setNavigationMode (Navigator::Mode new_mode)
-{
-    Matrix m=_navigator.getMatrix();
-    _navigator.setMode(new_mode);
-    _navigator.set(m);
-}
 
-
-/*! Draw the next frame, update if needed.
- */
-void SimpleSceneManager::idle(void)
-{
-    _navigator.idle(_mousebuttons,_lastx, _lasty);
-}
 
 /*! Update data needed for rendering.
  */
@@ -999,89 +958,6 @@ void SimpleSceneManager::updateHighlight(void)
 
 /*-------------------------------------------------------------------------*/
 /*                        Interaction handling                             */
-
-/*! resize
- */
-void SimpleSceneManager::resize(UInt16 width, UInt16 height)
-{
-    _win->resize(width, height);
-}
-
-/*! motion
- */
-void SimpleSceneManager::mouseMove(Int16 x, Int16 y)
-{
-    if ( _mousebuttons) _navigator.moveTo(x,y);
-    _lastx = x;
-    _lasty = y;
-
-}
-
-/*! call when a mouse button is pressed. button is the number of the pressed
-    button, starting at 0, ordered from left to right. A wheel should be
-    mapped to buttons 3 and 4. The position is in pixel, starting at the
-    upper left corner.
- */
-
-void SimpleSceneManager::mouseButtonPress(UInt16 button, Int16 x, Int16 y)
-{
-    switch (button)
-    {
-    case MouseLeft:    _navigator.buttonPress(Navigator::LEFT_MOUSE,x,y);
-      break;
-    case MouseMiddle:  _navigator.buttonPress(Navigator::MIDDLE_MOUSE,x,y);
-      break;
-    case MouseRight:   _navigator.buttonPress(Navigator::RIGHT_MOUSE,x,y);
-      break;
-    case MouseUp:      _navigator.buttonPress(Navigator::UP_MOUSE,x,y);
-      break;
-    case MouseDown:    _navigator.buttonPress(Navigator::DOWN_MOUSE,x,y);
-      break;
-    }
-
-    _mousebuttons |= 1 << button;
-    _lastx = x;
-    _lasty = y;
-}
-
-
-/*! call when a mouse button is released. button is the number of the pressed
-    button, starting at 0, ordered from left to right. A wheel should be
-    mapped to buttons 3 and 4. The position is in pixel, starting at the
-    upper left corner.
- */
-void SimpleSceneManager::mouseButtonRelease(UInt16 button, Int16 x, Int16 y)
-{
-    switch (button)
-    {
-    case MouseLeft:     _navigator.buttonRelease(Navigator::LEFT_MOUSE,x,y);
-                        break;
-    case MouseMiddle:   _navigator.buttonRelease(Navigator::MIDDLE_MOUSE,x,y);
-                        break;
-    case MouseRight:    _navigator.buttonRelease(Navigator::RIGHT_MOUSE,x,y);
-                        break;
-    case MouseUp:       _navigator.buttonRelease(Navigator::UP_MOUSE,x,y);
-                        break;
-    case MouseDown:     _navigator.buttonRelease(Navigator::DOWN_MOUSE,x,y);
-                        break;
-    }
-    _mousebuttons &= ~(1 << button);
-    _lastx = x;
-    _lasty = y;
-}
-
-void SimpleSceneManager::key(UChar8 key, Int16 x, Int16 y)
-{
-    switch ( key )
-    {
-        case 'j': _navigator.keyPress(Navigator::LEFT,x,y); break;
-        case 'g': _navigator.keyPress(Navigator::RIGHT,x,y); break;
-        case 'u': _navigator.keyPress(Navigator::LEFTROT,x,y); break;
-        case 't': _navigator.keyPress(Navigator::RIGHTROT,x,y); break;
-        case 'y': _navigator.keyPress(Navigator::FORWARDS,x,y); break;
-        case 'h': _navigator.keyPress(Navigator::BACKWARDS,x,y); break;
-    }
-}
 
 /*! Calculate a ray that starts at the eye and goes through the position on the
     screen given by x,y.

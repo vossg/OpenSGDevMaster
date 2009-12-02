@@ -46,12 +46,10 @@
 #include "OSGUtilDef.h"
 
 #include "OSGBaseTypes.h"
-#include "OSGWindow.h"
 
 #include "OSGRenderAction.h"
 
 #include "OSGNode.h"
-#include "OSGWindow.h"
 #include "OSGImageForeground.h"
 #include "OSGTransform.h"
 #include "OSGGeometry.h"
@@ -60,6 +58,7 @@
 #include "OSGDirectionalLight.h"
 #include "OSGNavigator.h"
 #include "OSGStatisticsForeground.h"
+#include "OSGNavigationManager.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -67,27 +66,12 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpSystemLib
 */
 
-class OSG_UTIL_DLLMAPPING SimpleSceneManager
+class OSG_UTIL_DLLMAPPING SimpleSceneManager : public NavigationManager
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Enums                                   */
-    /*! \{                                                                 */
-
-    enum
-    {
-        MouseLeft   =  0,
-        MouseMiddle =  1,
-        MouseRight  =  2,
-        MouseUp     =  3,
-        MouseDown   =  4,
-        NoButton    = -1
-    };
-
-    /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
@@ -109,13 +93,11 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     /*! \{                                                                 */
 
     virtual Node                  *getRoot            ( void );
-    virtual Window                *getWindow          ( void );
     virtual Node                  *getHighlight       ( void );
 #ifdef OSG_OLD_RENDER_ACTION
     virtual DrawActionBase        *getAction          ( void );
 #endif
     virtual RenderAction          *getRenderAction    ( void );
-    virtual Navigator             *getNavigator       ( void );
     virtual bool                   getHeadlightState  ( void );
     virtual DirectionalLight      *getHeadlight       ( void );
     virtual Camera                *getCamera          ( void );
@@ -132,7 +114,7 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     virtual void  setAction        (RenderAction *action    );
 
     virtual void  setRoot          (Node         *root      );
-    virtual void  setWindow        (Window       *win       );
+
     virtual void  setHighlight     (Node         *obj       );
     virtual void  setHeadlight     (bool          on        );
     virtual void  turnHeadlightOn  (void                    );
@@ -146,22 +128,16 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
 
     virtual void  useOpenSGLogo    (void                    );
 
-            void  setNavigationMode(Navigator::Mode new_mode);
-    inline  bool  setClickCenter   (bool            mode    );
-
     virtual void  setStatistics    (bool on                 );
     bool          getStatistics    (void                    );
+
+    virtual void  addForeground    (Foreground * const fg  );
+    virtual void  removeForeground (Foreground * const fg  );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name               Interaction handling                           */
     /*! \{                                                                 */
-
-    virtual void resize(UInt16 width, UInt16 height);
-    virtual void mouseMove(Int16 x, Int16 y);
-    virtual void mouseButtonPress(UInt16 button, Int16 x, Int16 y);
-    virtual void mouseButtonRelease(UInt16 button, Int16 x, Int16 y);
-    virtual void key(UChar8 key, Int16 x, Int16 y);
 
             Line calcViewRay(Int16 x, Int16 y);
 
@@ -172,7 +148,6 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
 
     virtual void update( void );
     virtual void redraw( void );
-    virtual void idle( void );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -201,7 +176,6 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    WindowRecPtr               _win;
     NodeRecPtr                 _root;
 
     ImageForegroundRecPtr      _foreground;
@@ -225,12 +199,6 @@ class OSG_UTIL_DLLMAPPING SimpleSceneManager
 
     TransformRecPtr            _cart;
     CameraRecPtr               _camera;
-
-    Navigator                  _navigator;
-
-    Int16                      _lastx;
-    Int16                      _lasty;
-    UInt16                     _mousebuttons;
 
     bool                       _traversalAction;
 

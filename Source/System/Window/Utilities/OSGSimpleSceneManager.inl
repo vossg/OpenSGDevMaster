@@ -37,15 +37,5 @@
 
 OSG_BEGIN_NAMESPACE
 
-/*! set the click center mode of the navigator
- */
- 
-inline
-bool SimpleSceneManager::setClickCenter( bool mode )
-{
-    return _navigator.setClickCenter(mode);
-}
-
-
 
 OSG_END_NAMESPACE

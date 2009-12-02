@@ -260,9 +260,9 @@ int main(int argc, char **argv)
     mgr->setWindow( gwin );
     mgr->setRoot( scene );
 
-    OSG::WalkNavigator *walker=mgr->getNavigator()->getWalkNavigator();
-    walker->setGroundDistance(1);
-    walker->setPersonDimensions(3,1,1);
+    OSG::WalkEngine& walker=mgr->getNavigator()->getWalkEngine();
+    walker.setGroundDistance(1);
+    walker.setPersonDimensions(3,1,1);
 
     mgr->showAll();
 

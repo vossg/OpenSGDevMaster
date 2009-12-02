@@ -238,6 +238,7 @@ void Navigator::updateCameraTransformation()
         theMatrix.inverse(theMatrix);
     }
 
+    _engine->onUpdateCameraTransformation(this);
     theMatrix.mult(_engine->getMatrix());
 
     if(_cartN != NULL)
@@ -482,29 +483,29 @@ Int16 Navigator::getLastY(void)
     return _lastY;
 }
 
-TrackballEngine* Navigator::getTrackballNavigator(void)
+TrackballEngine& Navigator::getTrackballEngine(void)
 { 
-    return _trackballEngine; 
+    return *_trackballEngine; 
 }
 
-FlyEngine* Navigator::getFlyNavigator(void)
+FlyEngine& Navigator::getFlyEngine(void)
 { 
-    return _flyEngine;
+    return *_flyEngine;
 }
 
-WalkEngine* Navigator::getWalkNavigator()
+WalkEngine& Navigator::getWalkEngine(void)
 { 
-    return _walkEngine;
+    return *_walkEngine;
 }
 
-NoneEngine* Navigator::getNoneNavigator(void)
-{ 
-    return _noneEngine;
-}
-
-NavigatorEngine* Navigator::getUserNavigator(void)
+NoneEngine &Navigator::getNoneEngine(void)
 {
-    return _userEngine;
+    return *_noneEngine;
+}
+
+NavigatorEngine& Navigator::getUserEngine(void)
+{
+    return *_userEngine;
 }
 
 void Navigator::setUserEngine(NavigatorEngine* userEngine)

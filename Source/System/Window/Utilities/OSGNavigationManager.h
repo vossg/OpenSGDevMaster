@@ -36,110 +36,150 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSG_NAVIGATORENGINE_H_
-#define _OSG_NAVIGATORENGINE_H_
+#ifndef _OSGNAVIGATIONMANAGER_H_
+#define _OSGNAVIGATIONMANAGER_H_
+#ifdef __sgi
+#pragma once
+#endif
 
 #include "OSGConfig.h"
 #include "OSGUtilDef.h"
 
-#include "OSGVector.h"
-#include "OSGQuaternion.h"
-#include "OSGViewport.h"
-#include "OSGMemoryObject.h"
-#include "OSGNavigatorBase.h"
+#include "OSGBaseTypes.h"
+
+#include "OSGNode.h"
+#include "OSGWindow.h"
+#include "OSGNavigator.h"
 
 OSG_BEGIN_NAMESPACE
 
-class Navigator;
-
-/*! \brief Base class for all navigator engines.
+/*! \brief A helper class to simplify navigation within a subgraph.
+    \ingroup GrpSystemLib
 */
-class OSG_UTIL_DLLMAPPING NavigatorEngine : public MemoryObject
-{
-    typedef MemoryObject    Inherited;
-    typedef NavigatorEngine Self;
 
+class OSG_UTIL_DLLMAPPING NavigationManager
+{
     /*==========================  PUBLIC  =================================*/
+
   public:
     /*---------------------------------------------------------------------*/
-    /*! \name                      Types                                   */
+    /*! \name                      Enums                                   */
     /*! \{                                                                 */
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(NavigatorEngine);
+    enum
+    {
+        MouseLeft   =  0,
+        MouseMiddle =  1,
+        MouseRight  =  2,
+        MouseUp     =  3,
+        MouseDown   =  4,
+        NoButton    = -1
+    };
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                    Class Get                                 */
+    /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    const char *getClassname(void) { return "NavigatorEngine"; }
+    NavigationManager(void);
+
+    NavigationManager *create(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Get                                   */
+    /*! \name                   Destructor                                 */
     /*! \{                                                                 */
 
-    NavigatorBase::State getState() const;
-
-    virtual const Pnt3f  &getFrom(void)      = 0;
-    virtual const Pnt3f  &getAt(void)        = 0;
-    virtual const Vec3f  &getUp(void)        = 0;
-    virtual const Matrix &getMatrix(void)    = 0;
-    virtual Real32 getDistance(void)         = 0;
+    virtual ~NavigationManager(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name                        Set                                   */
+    /*! \name                      Get                                     */
     /*! \{                                                                 */
 
-    virtual void setFrom(Pnt3f new_from)                         = 0;
-    virtual void setAt(Pnt3f new_at)                             = 0;
-    virtual void setUp(Vec3f new_up)                             = 0;
-    virtual void set(Pnt3f new_from, Pnt3f new_at, Vec3f new_up) = 0;
-    virtual void set(const Matrix & new_matrix)                  = 0;
-    virtual void setDistance(Real32 new_distance)                = 0;
+    virtual Window                *getWindow          ( void );
+    virtual Navigator             *getNavigator       ( void );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name              navigator engine callbacks                      */
+    /*! \name                      Set                                     */
     /*! \{                                                                 */
 
-    virtual void buttonPress(Int16 button,Int16 x,Int16 y,Navigator* nav) = 0;
-    virtual void buttonRelease(Int16 ,    Int16 x,Int16 y,Navigator* nav) = 0;
-    virtual void keyPress(Int16 key,      Int16 x,Int16 y,Navigator* nav) = 0;
-    virtual void moveTo(                  Int16 x,Int16 y,Navigator* nav) = 0;
-    virtual void idle(Int16 buttons,      Int16 x,Int16 y,Navigator* nav) = 0;
-
-    virtual void onViewportChanged(Navigator* nav);
-    virtual void onActivation(Navigator* nav);
-    virtual void onUpdateCameraTransformation(Navigator* nav);
+    virtual void  setWindow        (Window         *win       );
+    virtual void  setBeacon        (Node * const    newBeacon);
+            void  setNavigationMode(Navigator::Mode new_mode);
+    inline  bool  setClickCenter   (bool            mode    );
 
     /*! \}                                                                 */
-    /*==========================  PROTECTED  ==============================*/
+    /*---------------------------------------------------------------------*/
+    /*! \name               Interaction handling                           */
+    /*! \{                                                                 */
+
+    virtual void resize(UInt16 width, UInt16 height);
+    virtual void mouseMove(Int16 x, Int16 y);
+    virtual void mouseButtonPress(UInt16 button, Int16 x, Int16 y);
+    virtual void mouseButtonRelease(UInt16 button, Int16 x, Int16 y);
+    virtual void key(UChar8 key, Int16 x, Int16 y);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                     Actions                                  */
+    /*! \{                                                                 */
+
+    virtual void update( void );
+    virtual void redraw( void );
+    virtual void idle  ( void );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                    Comparison                                */
+    /*! \{                                                                 */
+
+    bool operator < (const NavigationManager &other) const;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
   protected:
-    /*---------------------------------------------------------------------*/
-    /*! \name              Constructors/Destructor                         */
-    /*! \{                                                                 */
-
-             NavigatorEngine(void);
-    virtual ~NavigatorEngine(void) = 0;
 
     /*---------------------------------------------------------------------*/
-    /*! \name                     Members                                  */
+    /*! \name                     Updates                                  */
     /*! \{                                                                 */
 
-    NavigatorBase::State _currentState;
+            // added by martin (FIXME: remove comment)
+            void  updateMouseButtonPress  (UInt16 button, Int16 x, Int16 y);
+            void  updateMouseButtonRelease(UInt16 button, Int16 x, Int16 y);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                      Member                                  */
+    /*! \{                                                                 */
 
+    WindowRecPtr                 _win;
+    Navigator                    _navigator;
+    Int16                        _lastx;
+    Int16                        _lasty;
+    UInt16                       _mousebuttons;
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
   private:
-    /* Not implemented */
-    NavigatorEngine(const NavigatorEngine &other);
-    NavigatorEngine &operator =(const NavigatorEngine &other);
+
+    /* prohibit default function (move to 'public' if needed) */
+
+    NavigationManager(const NavigationManager &source);
+    void operator =(const NavigationManager &source);
 };
 
-OSG_GEN_MEMOBJPTR(NavigatorEngine);
+//---------------------------------------------------------------------------
+//   Exported Types
+//---------------------------------------------------------------------------
+
+// class pointer
+
+typedef NavigationManager *NavigationManagerP;
 
 OSG_END_NAMESPACE
 
-#endif
+#include "OSGNavigationManager.inl"
+
+#endif /* _OSGNAVIGATIONMANAGER_H_ */

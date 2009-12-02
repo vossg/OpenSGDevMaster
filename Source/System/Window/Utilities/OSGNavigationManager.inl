@@ -2,9 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *             Copyright (C) 2000-2002 by the OpenSG Forum                   *
- *                                                                           *
- *                            www.opensg.org                                 *
+ *                     Copyright 2000-2002 by OpenSG Forum                   *
  *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
@@ -36,69 +34,18 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#include "OSGConfig.h"
-#include "OSGBaseTypes.h"
-#include "OSGMatrix.h"
-#include "OSGMatrixUtility.h"
 
-#include "OSGNavigatorEngine.h"
+OSG_BEGIN_NAMESPACE
 
-#include "OSGNavigator.h"
-#include "OSGNode.h"
-#include "OSGCamera.h"
-#include "OSGBackground.h"
-
-OSG_USING_NAMESPACE
-
-/***************************************************************************\
- *                            Description                                  *
-\***************************************************************************/
-
-/*! \class OSG::NavigatorEngine
-    \ingroup GrpSystemWindowNavigators
-
-\dev 
-
-\enddev
-
-*/
-
-
-/*------------------------- constructors ----------------------------------*/
-
-NavigatorEngine::NavigatorEngine(void) : Inherited()
+/*! set the click center mode of the navigator
+ */
+ 
+inline
+bool NavigationManager::setClickCenter( bool mode )
 {
+    return _navigator.setClickCenter(mode);
 }
 
-/*-------------------------- destructors ----------------------------------*/
-
-NavigatorEngine::~NavigatorEngine()
-{
-}
-
-/*------------------------------ get --------------------------------------*/
-
-NavigatorBase::State NavigatorEngine::getState(void) const
-{
-    return _currentState;
-}
-
-/*------------------------------ set --------------------------------------*/
 
 
-/*-------------------- navigator engine callbacks -------------------------*/
-
-void NavigatorEngine::onViewportChanged(Navigator* nav)
-{
-    // nothing to do here
-}
-
-void NavigatorEngine::onActivation(Navigator* nav)
-{
-    // nothing to do here
-}
-
-void NavigatorEngine::onUpdateCameraTransformation(Navigator* nav)
-{
-    // nothing to do here
-}
+OSG_END_NAMESPACE
