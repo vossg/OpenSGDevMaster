@@ -138,13 +138,14 @@ class PointerMFieldIterator :
     typedef typename Inherited::difference_type         difference_type;
     typedef          PtrTypeT                           value_type;
     typedef          PtrTypeT *                         pointer;
-    typedef typename Inherited::reference               reference;
 
 #ifndef OSG_CLEAN_FCFIELDS
     typedef          PointerMFieldReferenceProxy<
                          PtrTypeT,
                          RefCountPolicy,
                          NamespaceI                   > reference;
+#else
+    typedef typename Inherited::reference               reference;
 #endif
 
     /*! \}                                                                 */
