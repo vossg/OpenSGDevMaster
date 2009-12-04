@@ -79,7 +79,8 @@ class OSG_WINDOWWIN32_DLLMAPPING WIN32Window : public WIN32WindowBase
     /*! \name                Window functions                              */
     /*! \{                                                                 */
     
-    virtual void init(GLInitFunctor oFunc = GLInitFunctor());
+    virtual void init     (GLInitFunctor oFunc = GLInitFunctor());
+    virtual void terminate(void                                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

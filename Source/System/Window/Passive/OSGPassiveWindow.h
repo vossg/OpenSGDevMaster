@@ -79,7 +79,8 @@ class OSG_WINDOW_DLLMAPPING PassiveWindow : public PassiveWindowBase
     /*! \name                      Redefined                               */
     /*! \{                                                                 */
     
-    virtual void init(GLInitFunctor oFunc = GLInitFunctor());
+    virtual void init     (GLInitFunctor oFunc = GLInitFunctor());
+    virtual void terminate(void                                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

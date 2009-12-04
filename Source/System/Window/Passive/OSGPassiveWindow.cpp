@@ -133,6 +133,12 @@ void PassiveWindow::init(GLInitFunctor oFunc)
     Window::init(oFunc);
 }
 
+/*! Do nothing, GL context is managed by application
+ */
+void PassiveWindow::terminate(void)
+{
+}
+
 /* Do nothing, has to be setup when we come here.
  */
 void PassiveWindow::activate(void)

@@ -77,8 +77,6 @@ WIN32Window::WIN32Window(const WIN32Window &source) :
 
 WIN32Window::~WIN32Window(void)
 {
-    if(getHglrc() != NULL)
-        wglDeleteContext(getHglrc());
 }
 
 /*----------------------------- class specific ----------------------------*/
@@ -135,6 +133,18 @@ void WIN32Window::init(GLInitFunctor oFunc)
 
         setHdc(NULL);
     }
+}
+
+void WIN32Window::terminate(void)
+{
+    Inherited::doTerminate();
+
+     if(getHglrc() != NULL)
+     {
+         this->doDeactivate();
+
+         wglDeleteContext(getHglrc());
+     }
 }
 
 void WIN32Window::activate  (void)
