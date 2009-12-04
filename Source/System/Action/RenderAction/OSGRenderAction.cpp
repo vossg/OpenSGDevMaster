@@ -838,7 +838,7 @@ void RenderAction::drawBuffer(UInt32 buf)
 
     if(_bDrawPartPar == false)
     {
-        _vRenderPartitions[buf][0]->setupExecution();
+        _vRenderPartitions[buf][0]->setupExecution(true);
 
         for(Int32 i = _vRenderPartitions[buf].size() - 1; i > 0; --i)
         {

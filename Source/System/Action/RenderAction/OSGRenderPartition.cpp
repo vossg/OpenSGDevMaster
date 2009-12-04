@@ -367,7 +367,7 @@ void RenderPartition::calcViewportDimension(Real32 rLeft,
                                    bFull       );
 }
 
-void RenderPartition::setupExecution(void)
+void RenderPartition::setupExecution(bool bUpdateGlobalViewport)
 {
     if(_bDone == true)
         return;
@@ -392,7 +392,8 @@ void RenderPartition::setupExecution(void)
     // We always push so stages with callbacks can modify the values
     // as needed
 
-    glPushAttrib(GL_VIEWPORT_BIT | GL_SCISSOR_BIT);
+    if(bUpdateGlobalViewport == false)
+        glPushAttrib(GL_VIEWPORT_BIT | GL_SCISSOR_BIT);
 
     if(0x0000 != (_uiSetupMode & ViewportSetup))
     {
@@ -422,6 +423,9 @@ void RenderPartition::setupExecution(void)
     {
         glDisable(GL_SCISSOR_TEST);
     }
+
+    if(bUpdateGlobalViewport == true)
+        glPushAttrib(GL_VIEWPORT_BIT | GL_SCISSOR_BIT);
 
     if(0x0000 != (_uiSetupMode & ProjectionSetup))
     {
@@ -565,7 +569,7 @@ void RenderPartition::execute(DrawEnv *pEnv)
     {
         case Setup:
         {
-            this->setupExecution();
+            this->setupExecution(true);
             ++_ubState;
         }
         break;
