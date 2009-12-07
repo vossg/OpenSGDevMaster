@@ -463,7 +463,7 @@ struct GeoConvertNormalize
                             (src[i] - offset) / scale);
             for(; i < ExternalType::_uiSize; ++i)
                 dest[i] = static_cast<typename ExternalType::ValueType>(
-                            (StoredType::Null[i] - offset) / scale);
+                            (ExternalType::Null[i] - offset) / scale);
          }
     }
 };

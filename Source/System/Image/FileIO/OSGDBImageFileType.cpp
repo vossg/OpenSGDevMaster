@@ -736,8 +736,8 @@ bool DBImageFileType::read(      Image       *pImage,
             return returnValue;
         }
 
-        Image::PixelFormat imagePf;
-        Image::Type        imageType;
+        Image::PixelFormat imagePf   = Image::OSG_RGBA_PF;
+        Image::Type        imageType = Image::OSG_UINT8_IMAGEDATA;
 
         switch(oHeader.uiType)
         {

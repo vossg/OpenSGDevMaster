@@ -491,7 +491,7 @@ ActionBase::ResultE RenderAction::recurseNoNodeCallbacks(Node * const node)
         return Quit;
     }
 
-    Action::ResultE result;
+    Action::ResultE result = Action::Continue;
 
     _actList   = NULL;
     _actNode   = node;

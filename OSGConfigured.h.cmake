@@ -49,6 +49,10 @@
 
 #cmakedefine OSG_WITH_VTK 1
 
+#cmakedefine OSG_WITH_CUDA 1
+
+#cmakedefine OSG_WITH_OPENCL 1
+
 /* #define OSG_ICC_GNU_COMPAT 0 */
 
 #cmakedefine OSG_SHC_MODE_0  1
