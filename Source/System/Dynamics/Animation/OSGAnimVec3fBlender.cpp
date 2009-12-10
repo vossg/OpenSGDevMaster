@@ -116,6 +116,7 @@ void AnimVec3fBlender::frame(Time oTime, UInt32 uiFrame)
     FDEBUG(("AnimVec3fBlender::frame: time [%f] frame [%d]\n",
             oTime, uiFrame));
 
+    bool  activeChannels = false;
     Vec3f blendValue;
     MFChannelsType::const_iterator cIt  = _mfChannels.begin();
     MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
@@ -124,7 +125,8 @@ void AnimVec3fBlender::frame(Time oTime, UInt32 uiFrame)
     {
         if((*cIt)->getEnabled() == true)
         {
-            blendValue += (*cIt)->getWeight() * (*cIt)->getOutValue();
+            activeChannels  = true;
+            blendValue     += (*cIt)->getWeight() * (*cIt)->getOutValue();
 
             FDEBUG((" channel [%d] - w [%f] v [%f %f %f] - b [%f %f %f]\n",
                     i, (*cIt)->getWeight(),
@@ -133,7 +135,8 @@ void AnimVec3fBlender::frame(Time oTime, UInt32 uiFrame)
         }
     }
 
-    setOutValue(blendValue);
+    if(activeChannels == true)
+        setOutValue(blendValue);
 }
 
 void AnimVec3fBlender::shutdown(void)

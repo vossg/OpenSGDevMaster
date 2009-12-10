@@ -209,8 +209,8 @@ void
 SkeletonJoint::adjustVolume(Volume &volume)
 {
     volume.transform(_sfMatrix.getValue());
-    volume.extendBy (Pnt3f(-0.1f, -0.1f, -0.1f));
-    volume.extendBy (Pnt3f( 0.1f,  0.1f,  0.1f));
+    volume.extendBy (Pnt3f(-0.01f, -0.01f, -0.01f));
+    volume.extendBy (Pnt3f( 0.01f,  0.01f,  0.01f));
 }
 
 void SkeletonJoint::dump(      UInt32    ,

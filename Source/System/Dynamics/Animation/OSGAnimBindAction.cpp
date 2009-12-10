@@ -200,6 +200,9 @@ bindEnterDefault(NodeCore *core, Action *action)
 
     AnimTargetAttachment *targetAtt = getTargetAtt(core);
 
+    FDEBUG(("bindEnterDefault: core [%p] targetAtt [%p]\n",
+            core, targetAtt));
+
     if(targetAtt == NULL)
         return Action::Continue;
 

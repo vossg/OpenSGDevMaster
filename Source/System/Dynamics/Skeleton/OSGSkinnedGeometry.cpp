@@ -64,7 +64,7 @@ const std::string SkinnedGeometry::_vpVertexSkinning(
     "#version 120\n"
     "\n"
     "uniform mat4 matBindShape;\n"
-    "uniform mat4 matJoints[64];\n"
+    "uniform mat4 matJoints[32];\n"
     ""
     "void calcSkin(inout vec4 pos,    inout vec3 norm,\n"
     "              in    vec4 matIdx, in    vec4 weight)\n"

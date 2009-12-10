@@ -113,6 +113,7 @@ bool AnimMatrixBlender::init(void)
 
 void AnimMatrixBlender::frame(Time oTime, UInt32 uiFrame)
 {
+    bool   activeChannels = false;
     Matrix blendValue;
     MFChannelsType::const_iterator cIt  = _mfChannels.begin();
     MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
@@ -121,6 +122,8 @@ void AnimMatrixBlender::frame(Time oTime, UInt32 uiFrame)
     {
         if((*cIt)->getEnabled() == true)
         {
+            activeChannels = true;
+
             if(i == 0)
             {
                 blendValue =     (*cIt)->getOutValue();
@@ -136,7 +139,8 @@ void AnimMatrixBlender::frame(Time oTime, UInt32 uiFrame)
         }
     }
 
-    setOutValue(blendValue);
+    if(activeChannels == true)
+        setOutValue(blendValue);
 }
 
 void AnimMatrixBlender::shutdown(void)

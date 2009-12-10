@@ -128,6 +128,9 @@ AnimTemplate::findTargetId(const std::string &targetId, Int32 offset) const
 
         for(; idIt != idEnd; ++idIt, ++offset)
         {
+            FDEBUG(("AnimTemplate::findTargetId: targetId [%s] - [%s]\n",
+                    targetId.c_str(), idIt->c_str()));
+
             if(idIt->find(targetId) == 0)
             {
                 index = offset;
