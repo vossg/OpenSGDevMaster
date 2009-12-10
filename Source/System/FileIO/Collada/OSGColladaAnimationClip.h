@@ -40,16 +40,20 @@
 #define _OSGCOLLADAANIMATIONCLIP_H_
 
 #include "OSGConfig.h"
+
+#ifdef OSG_WITH_COLLADA
+
 #include "OSGColladaElement.h"
 #include "OSGColladaElementFactoryHelper.h"
 #include "OSGColladaInstInfo.h"
 
-#ifdef OSG_WITH_COLLADA
+#include "OSGAnimKeyFrameTemplate.h"
 
 OSG_BEGIN_NAMESPACE
 
 // forward decl
 class ColladaInstanceAnimation;
+class ColladaAnimation;
 
 
 class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
@@ -81,6 +85,14 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
     virtual void read(ColladaElement *colElemParent);
 
     /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    void                  setCurrTemplate(AnimKeyFrameTemplate *animTmpl);
+    AnimKeyFrameTemplate *getCurrTemplate(void                          ) const;
+
+    /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
@@ -98,9 +110,14 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
 
         static ColladaInstInfoTransitPtr
             create(ColladaAnimationClip     *colInstParent,
-                   ColladaInstanceAnimation *colInst       );
+                   ColladaInstanceAnimation *colInst,
+                   ColladaAnimation         *colAnim,
+                   AnimKeyFrameTemplate     *animTmpl      );
 
-        virtual void process(void);
+        virtual void      process(void);
+
+        ColladaAnimation     *getAnim    (void) const;
+        AnimKeyFrameTemplate *getTemplate(void) const;
 
         /*! \}                                                             */
         /*=========================  PROTECTED  ===========================*/
@@ -111,11 +128,16 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
 
                  ColladaAnimationInstInfo(
                      ColladaAnimationClip     *colInstParent,
-                     ColladaInstanceAnimation *colInst       );
+                     ColladaInstanceAnimation *colInst,
+                     ColladaAnimation         *colAnim,
+                     AnimKeyFrameTemplate     *animTmpl      );
         virtual ~ColladaAnimationInstInfo(void               );
 
         /*! \}                                                             */
         /*-----------------------------------------------------------------*/
+
+        ColladaAnimation             *_colAnim;
+        AnimKeyFrameTemplateUnrecPtr  _animTmpl;
     };
 
     /*! \}                                                                 */
@@ -133,6 +155,8 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimationClip : public ColladaElement
     void handleInstanceAnimation(ColladaInstInfo *instInfo);
 
     static ColladaElementRegistrationHelper _regHelper;
+
+    AnimKeyFrameTemplateUnrecPtr _currAnimTmpl;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaAnimationClip);

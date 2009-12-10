@@ -273,6 +273,70 @@ ColladaNode::getBottomNode(UInt32 instIdx) const
     return dynamic_pointer_cast<Node>(_bottomInstStore[instIdx]);
 }
 
+Node *
+ColladaNode::getNodeBySid(UInt32 instIdx, const std::string &sid) const
+{
+    OSG_ASSERT(instIdx < getInstStore().size());
+
+    Node *n = dynamic_pointer_cast<Node>(getInstStore()[instIdx]);
+
+    domNodeRef                node     = getDOMElementAs<domNode>();
+    const daeElementRefArray &contents = node->getContents();
+
+    for(UInt32 i = 0; i < contents.getCount(); ++i)
+    {
+        switch(contents[i]->getElementType())
+        {
+        case COLLADA_TYPE::LOOKAT:
+            // ignored as NIY
+            break;
+            
+        case COLLADA_TYPE::MATRIX:
+        {
+            domMatrixRef matrix = daeSafeCast<domMatrix>(contents[i]);
+            if(sid == matrix->getSid())
+                return n;
+            n = n->getChild(0);
+        }
+        break;
+        
+        case COLLADA_TYPE::ROTATE:
+        {
+            domRotateRef rotate = daeSafeCast<domRotate>(contents[i]);
+            if(sid == rotate->getSid())
+                return n;
+            n = n->getChild(0);
+        }
+        break;
+        
+        case COLLADA_TYPE::SCALE:
+        {
+            domScaleRef scale = daeSafeCast<domScale>(contents[i]);
+            if(sid == scale->getSid())
+                return n;
+            n = n->getChild(0);
+        }
+        break;
+        
+        case COLLADA_TYPE::SKEW:
+            // ignored as NIY
+        break;
+        
+        case COLLADA_TYPE::TRANSLATE:
+        {
+            domTranslateRef translate = daeSafeCast<domTranslate>(contents[i]);
+            if(sid == translate->getSid())
+                return n;
+            n = n->getChild(0);
+        }
+        break;
+        }
+    }
+
+    return NULL;
+}
+
+
 ColladaNode::ColladaNode(daeElement *elem, ColladaGlobal *global)
     : Inherited       (elem, global)
     , _bottomInstStore()

@@ -46,9 +46,16 @@
 
 #include "OSGColladaLog.h"
 #include "OSGColladaGlobal.h"
+#include "OSGColladaNode.h"
 #include "OSGColladaSource.h"
+#include "OSGColladaAnimationClip.h"
 
-#include "OSGAnimKeyFrameTemplate.h"
+#include "OSGAnimMatrixDataSource.h"
+#include "OSGAnimQuaternionDataSource.h"
+#include "OSGAnimVec3fDataSource.h"
+#include "OSGAnimTargetAttachment.h"
+
+#include "OSGNameAttachment.h"
 
 #include <dom/domAnimation.h>
 
@@ -82,7 +89,7 @@ ColladaAnimation::read(ColladaElement *colElemParent)
     }
 }
 
-FieldContainer *
+AnimKeyFrameTemplate *
 ColladaAnimation::createInstance(
     ColladaElement *colInstParent, ColladaInstanceElement *colInst)
 {
@@ -93,7 +100,9 @@ ColladaAnimation::createInstance(
 
     SWARNING << "ColladaAnimation::createInstance: NIY" << std::endl;
 
-    AnimKeyFrameTemplateUnrecPtr animTmpl = AnimKeyFrameTemplate::create();
+    ColladaAnimationClip   *colAnimClip =
+        dynamic_cast<ColladaAnimationClip *>(colInstParent);
+    AnimKeyFrameTemplate   *animTmpl    = colAnimClip->getCurrTemplate();
 
 
     createInstanceAnim(anim, colInstParent, colInst, animTmpl);
@@ -158,7 +167,9 @@ ColladaAnimation::createInstanceAnim(
     domAnimation           *anim,     ColladaElement       *colInstParent,
     ColladaInstanceElement *colInst,  AnimKeyFrameTemplate *animTmpl      )
 {
-    const domChannel_Array &channels = anim->getChannel_array();
+    ColladaAnimationClip   *colAnimClip =
+        dynamic_cast<ColladaAnimationClip *>(colInstParent);
+    const domChannel_Array &channels    = anim->getChannel_array();
 
     for(UInt32 i = 0; i < channels.getCount(); ++i)
     {
@@ -176,19 +187,216 @@ ColladaAnimation::createInstanceAnim(
             continue;
         }
 
-        AnimKeyFrameDataSourceUnrecPtr dataSource = NULL;
+        DataSourceInfo dsInfo;
 
-        dataSource = handleOutput(channels[i], sampler, animTmpl);
+        createDataSource(channels[i], sampler, dsInfo);
 
-        handleInput        (channels[i], sampler, animTmpl, dataSource);
-        handleInterpolation(channels[i], sampler, animTmpl, dataSource);
+        handleInput        (channels[i], sampler, colAnimClip, animTmpl, dsInfo);
+        handleOutput       (channels[i], sampler,              animTmpl, dsInfo);
+        handleInterpolation(channels[i], sampler,              animTmpl, dsInfo);
+
+        if(dsInfo._dataSource == NULL)
+        {
+            SWARNING << "ColladaAnimation::createInstanceAnim: Failed to "
+                     << "create a data source for <channel> [" << i 
+                     << "]. Ignoring." << std::endl;
+            continue;
+        }
+
+        OSG_COLLADA_LOG(("ColladaAnimation::createInstanceAnim: Filled "
+                         "data source for channel [%d] target [%s]\n",
+                         i, channels[i]->getTarget()));
+
+        animTmpl->editMFSources  ()->push_back(dsInfo._dataSource);
+        animTmpl->editMFTargetIds()->push_back(dsInfo._target    );
+    }
+
+    domAnimation_clipRef animClip =
+        colAnimClip->getDOMElementAs<domAnimation_clip>();
+
+    animTmpl->setName(animClip->getName());
+}
+
+void
+ColladaAnimation::createDataSource(
+    domChannel *channel, domSampler *sampler, DataSourceInfo &dsInfo)
+{
+    domInputLocalRef input = findInput(sampler, "OUTPUT");
+
+    if(input == NULL)
+    {
+        SWARNING << "ColladaAnimation::createDataSource: No <input> "
+                 << "with semantic OUTPUT in <sampler> ["
+                 << (sampler->getId() != NULL ? sampler->getId() : "")
+                 << "]." << std::endl;
+        return;
+    }
+
+    std::string      sourceId = input->getSource().id();
+    SourceMapConstIt smIt     = _sourceMap.find(sourceId);
+
+    if(smIt == _sourceMap.end())
+    {
+        SWARNING << "ColladaAnimation::createDataSource: No <source> "
+                 << "with id [" << sourceId << "] found." << std::endl;
+        return;
+    }
+
+    std::string fieldSuffix;
+    std::string target   (channel->getTarget()             );
+    daeSidRef   targetRef(target, getGlobal()->getDocRoot());
+    daeElement *targetElem = targetRef.resolve().elt;
+
+    if(targetElem == NULL)
+    {
+        SWARNING << "ColladaAnimation::createDataSource: Could not resolve ["
+                 << target << "]. Ignoring" << std::endl;
+        return;
+    }
+
+    switch(targetElem->getElementType())
+    {
+    case COLLADA_TYPE::MATRIX:
+    {
+        dsInfo._target     = channel->getTarget() + std::string(".matrix");
+        dsInfo._dataSource = AnimMatrixDataSource::create();
+    }
+    break;
+
+    case COLLADA_TYPE::TRANSLATE:
+    {
+        dsInfo._target     = channel->getTarget() + std::string(".translate");
+        dsInfo._dataSource = AnimVec3fDataSource::create();
+    }
+    break;
+
+    case COLLADA_TYPE::ROTATE:
+    {
+        dsInfo._target     = channel->getTarget() + std::string(".rotate");
+        dsInfo._dataSource = AnimQuaternionDataSource::create();
+    }
+    break;
+
+    default:
+    {
+        dsInfo._dataSource = NULL;
+
+        SWARNING << "ColladaAnimation::createDataSource: Target [" << target
+                 << "] has unhandled type [" << targetElem->getElementType()
+                 << "]. Ignoring" << std::endl;
+        return;
+    }
+    };
+
+    // make sure the target has a AnimTargetAttachment on it
+    daeElement *targetParentElem = targetElem->getParentElement();
+    domNode    *parentNode       = daeSafeCast<domNode>(targetParentElem);
+
+    if(parentNode == NULL)
+    {
+        SWARNING << "ColladaAnimation::createDataSource: Target [" << target
+                 << "] does not have a parent <node>.\n" << std::endl;
+        return;
+    }
+    
+    ColladaNodeRefPtr colNode = getUserDataAs<ColladaNode>(parentNode);
+
+    if(colNode == NULL)
+    {
+        SWARNING << "ColladaAnimation::createDataSource: Parent <node> for "
+                 << "target [" << target << "] has no ColladaNode structure."
+                 << std::endl;
+        return;
+    }
+
+    std::string::size_type slashPos  = target.find('/');
+    std::string            targetSID = target.substr(slashPos + 1);
+
+    Node *targetNode = colNode->getNodeBySid(0, targetSID);
+
+    if(targetNode == NULL)
+    {
+        SWARNING << "ColladaAnimation::createDataSource: Could not find "
+                 << "node for sid [" << targetSID << "]." << std::endl;
+        return;
+    }
+
+    NodeCore *targetCore = targetNode->getCore();
+    setTargetId(targetCore, target);
+
+    OSG_COLLADA_LOG(("ColladaAnimation::createDataSource: Setting "
+                     "AnimTargetAttachment targetId [%s] for core [%p] node [%p] [%s]\n",
+                     target.c_str(), targetCore, targetNode,
+                     (getName(targetNode) != NULL ? getName(targetNode) : "")));
+}
+
+void
+ColladaAnimation::handleInput(
+    domChannel           *channel,     domSampler           *sampler,
+    ColladaAnimationClip *colAnimClip, AnimKeyFrameTemplate *animTmpl,
+    DataSourceInfo       &dsInfo                                      )
+{
+    if(dsInfo._dataSource == NULL)
+        return;
+
+    domInputLocalRef input = findInput(sampler, "INPUT");
+
+    if(input == NULL)
+    {
+        SWARNING << "ColladaAnimation::handleInput: No <input> "
+                 << "with semantic INPUT in sampler ["
+                 << (sampler->getId() != NULL ? sampler->getId() : "")
+                 << "]. Ignoring." << std::endl;
+        return;
+    }
+
+    Real32           startT   =
+        colAnimClip->getDOMElementAs<domAnimation_clip>()->getStart();
+    Real32           endT     =
+        colAnimClip->getDOMElementAs<domAnimation_clip>()->getEnd  ();
+
+    std::string      sourceId = input->getSource().id();
+    SourceMapConstIt smIt     = _sourceMap.find(sourceId);
+
+    if(smIt == _sourceMap.end())
+    {
+        SWARNING << "ColladaAnimation::handleInput: No <source> "
+                 << "with id [" << sourceId << "] found." << std::endl;
+        return;
+    }
+
+    const ColladaSource::FloatStore &inputStore = smIt->second->getFloatStore();
+
+    ColladaSource::FloatStoreConstIt startIt =
+        std::lower_bound(inputStore.begin(), inputStore.end(), startT);
+    ColladaSource::FloatStoreConstIt endIt   =
+        std::upper_bound(inputStore.begin(), inputStore.end(), endT  );
+
+    dsInfo._firstKey = std::distance(inputStore.begin(), startIt);
+    dsInfo._lastKey  = std::distance(inputStore.begin(), endIt  );
+
+    OSG_COLLADA_LOG(("ColladaAnimation::handleInput: "
+                     "Using key range [%d %d] [%f %f] [%f %f] of [0 %d]\n",
+                     dsInfo._firstKey, dsInfo._lastKey,
+                     inputStore[dsInfo._firstKey   ],
+                     inputStore[dsInfo._lastKey - 1],
+                     startT, endT, inputStore.size()));
+
+    for(UInt32 i = dsInfo._firstKey; i < dsInfo._lastKey; ++i)
+    {
+        dsInfo._dataSource->editMFInValues()->push_back(inputStore[i]);
     }
 }
 
-AnimKeyFrameDataSourceTransitPtr
+
+void
 ColladaAnimation::handleOutput(
-    domChannel *channel, domSampler *sampler, AnimKeyFrameTemplate *animTmpl)
+    domChannel           *channel,  domSampler     *sampler,
+    AnimKeyFrameTemplate *animTmpl, DataSourceInfo &dsInfo  )
 {
+    if(dsInfo._dataSource == NULL)
+        return;
+
     domInputLocalRef input = findInput(sampler, "OUTPUT");
 
     if(input == NULL)
@@ -197,7 +405,7 @@ ColladaAnimation::handleOutput(
                  << "with semantic OUTPUT in <sampler> ["
                  << (sampler->getId() != NULL ? sampler->getId() : "")
                  << "]." << std::endl;
-        return AnimKeyFrameDataSourceTransitPtr();
+        return;
     }
 
     std::string      sourceId = input->getSource().id();
@@ -207,81 +415,78 @@ ColladaAnimation::handleOutput(
     {
         SWARNING << "ColladaAnimation::handleOutput: No <source> "
                  << "with id [" << sourceId << "] found." << std::endl;
-        return AnimKeyFrameDataSourceTransitPtr();
+        return;
     }
 
-    std::string target   (channel->getTarget()             );
-    daeSidRef   targetRef(target, getGlobal()->getDocRoot());
-    daeSidRef::resolveData targetResolve = targetRef.resolve();
-    daeElement *targetElem = targetResolve.elt;
+    AnimMatrixDataSourceRefPtr     matrixDS =
+        dynamic_pointer_cast<AnimMatrixDataSource>(dsInfo._dataSource);
+    AnimVec3fDataSourceRefPtr      vec3fDS  =
+        dynamic_pointer_cast<AnimVec3fDataSource>(dsInfo._dataSource);
+    AnimQuaternionDataSourceRefPtr quatDS   =
+        dynamic_pointer_cast<AnimQuaternionDataSource>(dsInfo._dataSource);
 
-    if(targetElem == NULL)
+    if(matrixDS != NULL)
     {
-        SWARNING << "ColladaAnimation::handleOutput: Could not resolve ["
-                 << target << "]. Ignoring." << std::endl;
-        return AnimKeyFrameDataSourceTransitPtr();
+        bool                              noAnim = true;
+        ColladaSource::MatrixStoreConstIt matIt  =
+            smIt->second->getMatrixStore().begin() + dsInfo._firstKey;
+        ColladaSource::MatrixStoreConstIt matEnd =
+            smIt->second->getMatrixStore().begin() + dsInfo._lastKey;
+        
+        for(; matIt != matEnd; ++matIt)
+        {
+            if(*matIt != smIt->second->getMatrixStore()[dsInfo._firstKey])
+            {
+                noAnim = false;
+                break;
+            }
+
+        }
+
+        if(noAnim == true)
+        {
+            OSG_COLLADA_LOG(("ColladaAnimation::handleOutput: No anim for "
+                             "current clip - skipping animation\n"));
+
+            dsInfo._dataSource = NULL;
+            return;
+        }
+
+        matIt  = smIt->second->getMatrixStore().begin() + dsInfo._firstKey;
+        matEnd = smIt->second->getMatrixStore().begin() + dsInfo._lastKey;
+
+        for(; matIt != matEnd; ++matIt)
+        {
+            matrixDS->editMFValues()->push_back(*matIt);
+        }
+        
     }
-
-    OSG_COLLADA_LOG(("ColladaAnimation::handleOutput: target [%s] type [%d] "
-                     "parent type [%d] - array ptr [%p] scalar ptr [%p] value [%s]\n",
-                     target.c_str(), targetElem->getElementType(),
-                     targetElem->getParentElement()->getElementType(),
-                     targetResolve.array, targetResolve.scalar,
-                     targetElem->getCharData().c_str() ));
-
-    switch(targetElem->getElementType())
+    else if(vec3fDS != NULL)
     {
-    case COLLADA_TYPE::MATRIX:
-    {
-        OSG_COLLADA_LOG(("ColladaAnimation::handleOutput: target [%s] target MATRIX\n"));
+        SWARNING << "ColladaAnimation::handleOutput: Vec3fDataSource NIY"
+                 << std::endl;
     }
-    break;
-
-    case COLLADA_TYPE::TRANSLATE:
+    else if(quatDS != NULL)
     {
-        OSG_COLLADA_LOG(("ColladaAnimation::handleOutput: target [%s] target TRANSLATE\n"));
+        SWARNING << "ColladaAnimation::handleOutput: QuaternionDataSource NIY"
+                 << std::endl;
     }
-    break;
-
-    case COLLADA_TYPE::ROTATE:
+    else
     {
-        OSG_COLLADA_LOG(("ColladaAnimation::handleOutput: target [%s] target ROTATE\n"));
+        SWARNING << "ColladaAnimation::handleOutput: Unknown DataSource type."
+                 << std::endl;
     }
-    break;
-   
-    default:
-    {
-        SWARNING << "ColladaAnimation::handleOutput: Target [" << target
-                 << "] has unhandled type [" << targetElem->getElementType()
-                 << "]. Ignoring." << std::endl;
-    }
-    };
-
-
-
-//     std::string::size_type posSlash = target.find('/');
-//     std::string::size_type posDot   = target.find('.');
-    
-//     std::string targetId  = target.substr(0,            posSlash);
-//     std::string targetSid = target.substr(posSlash + 1, posDot  );
-    
-    
-    
-    // XXX TODO
-
-    return AnimKeyFrameDataSourceTransitPtr();
 }
 
 void
 ColladaAnimation::handleInterpolation(
-    domChannel             *channel,  domSampler             *sampler,
-    AnimKeyFrameTemplate   *animTmpl, AnimKeyFrameDataSource *dataSource)
+    domChannel             *channel,  domSampler     *sampler,
+    AnimKeyFrameTemplate   *animTmpl, DataSourceInfo &dsInfo  )
 {
-    domInputLocalRef input = findInput(sampler, "INTERPOLATION");
-
-    // XXX TODO
-    if(dataSource == NULL)
+    if(dsInfo._dataSource == NULL)
         return;
+
+    domInputLocalRef input = findInput(sampler, "INTERPOLATION");
 
     if(input == NULL)
     {
@@ -306,41 +511,41 @@ ColladaAnimation::handleInterpolation(
     bool                             singleVal = true;
     const ColladaSource::NameStore  &interpol  =
         smIt->second->getNameStore();
-    ColladaSource::NameStoreConstIt  iIt       = interpol.begin();
-    ColladaSource::NameStoreConstIt  iEnd      = interpol.end();
+    ColladaSource::NameStoreConstIt  iIt  = interpol.begin() + dsInfo._firstKey;
+    ColladaSource::NameStoreConstIt  iEnd = interpol.begin() + dsInfo._lastKey;
 
     for(; iIt != iEnd; ++iIt)
     {
-        if(interpol[0] != *iIt)
+        if(interpol[dsInfo._firstKey] != *iIt)
         {
             singleVal = false;
             break;
         }
     }
 
-    iIt  = interpol.begin();
-    iEnd = interpol.end  ();
+    iIt  = interpol.begin() + dsInfo._firstKey;
+    iEnd = interpol.begin() + dsInfo._lastKey;
 
     for(; iIt != iEnd; ++iIt)
     {
         if(*iIt == "STEP")
         {
-            dataSource->editMFInterpolationModes()->push_back(
+            dsInfo._dataSource->editMFInterpolationModes()->push_back(
                 AnimKeyFrameDataSource::IM_Step);
         }
         else if(*iIt == "LINEAR")
         {
-            dataSource->editMFInterpolationModes()->push_back(
+            dsInfo._dataSource->editMFInterpolationModes()->push_back(
                 AnimKeyFrameDataSource::IM_Linear);
         }
         else if(*iIt == "BEZIER")
         {
-            dataSource->editMFInterpolationModes()->push_back(
+            dsInfo._dataSource->editMFInterpolationModes()->push_back(
                 AnimKeyFrameDataSource::IM_Bezier);
         }
         else if(*iIt == "HERMITE")
         {
-            dataSource->editMFInterpolationModes()->push_back(
+            dsInfo._dataSource->editMFInterpolationModes()->push_back(
                 AnimKeyFrameDataSource::IM_Hermite);
         }
         else
@@ -349,7 +554,7 @@ ColladaAnimation::handleInterpolation(
                      << "unknown interpolation mode [" << *iIt
                      << "]. Using LINEAR instead." << std::endl;
 
-            dataSource->editMFInterpolationModes()->push_back(
+            dsInfo._dataSource->editMFInterpolationModes()->push_back(
                 AnimKeyFrameDataSource::IM_Linear);
         }
 
@@ -357,13 +562,6 @@ ColladaAnimation::handleInterpolation(
         if(singleVal == true)
             break;
     }
-}
-
-void
-ColladaAnimation::handleInput(
-    domChannel             *channel,  domSampler             *sampler,
-    AnimKeyFrameTemplate   *animTmpl, AnimKeyFrameDataSource *dataSource)
-{
 }
 
 /*! Find an <input> with the given semantic in the given sampler.

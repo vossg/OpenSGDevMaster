@@ -205,7 +205,8 @@ ColladaGlobal::doRead(void)
 
     _statColl->reset  (StatElemDescBase::RESET_ALWAYS);
 
-    _docRoot = _dae->getRoot(_docPath);
+    _globalsAtt = GlobalsAttachment::create();
+    _docRoot    = _dae->getRoot(_docPath);
 
     if(_docRoot != NULL)
     {
@@ -227,6 +228,9 @@ ColladaGlobal::doRead(void)
                  << std::endl;
     }
     
+    if(_globalsAtt->getMFElements()->empty() == false)
+        _rootN->addAttachment(_globalsAtt);
+
     rootN = _rootN;
 
     _docRoot = NULL;

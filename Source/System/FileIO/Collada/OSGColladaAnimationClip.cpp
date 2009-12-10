@@ -57,10 +57,14 @@ OSG_BEGIN_NAMESPACE
 
 ColladaInstInfoTransitPtr
 ColladaAnimationClip::ColladaAnimationInstInfo::create(
-    ColladaAnimationClip *colInstParent, ColladaInstanceAnimation *colInst)
+    ColladaAnimationClip     *colInstParent,
+    ColladaInstanceAnimation *colInst,
+    ColladaAnimation         *colAnim,
+    AnimKeyFrameTemplate     *animTmpl)
 {
     return ColladaInstInfoTransitPtr(
-        new ColladaAnimationInstInfo(colInstParent, colInst));
+        new ColladaAnimationInstInfo(colInstParent, colInst,
+                                     colAnim,       animTmpl));
 }
 
 void
@@ -72,10 +76,25 @@ ColladaAnimationClip::ColladaAnimationInstInfo::process(void)
     colAnimClip->handleInstanceAnimation(this);
 }
 
+ColladaAnimation *
+ColladaAnimationClip::ColladaAnimationInstInfo::getAnim(void) const
+{
+    return _colAnim;
+}
+
+AnimKeyFrameTemplate *
+ColladaAnimationClip::ColladaAnimationInstInfo::getTemplate(void) const
+{
+    return _animTmpl;
+}
+
 ColladaAnimationClip::ColladaAnimationInstInfo::ColladaAnimationInstInfo(
-    ColladaAnimationClip *colInstParent, ColladaInstanceAnimation *colInst)
+    ColladaAnimationClip *colInstParent, ColladaInstanceAnimation *colInst,
+    ColladaAnimation     *colAnim,       AnimKeyFrameTemplate     *animTmpl)
 
     : Inherited(colInstParent, colInst, NULL)
+    , _colAnim (colAnim                     )
+    , _animTmpl(animTmpl                    )
 {
 }
 
@@ -103,6 +122,12 @@ ColladaAnimationClip::read(ColladaElement *colElemParent)
     OSG_COLLADA_LOG(("ColladaAnimationClip::read: id [%s]\n",
                      (animClip->getId() != NULL ? animClip->getId() : "")));
 
+#if 0
+    // This is the "normal" code for ColladaAnimationClip::read, however
+    // the existing exporters for Maya don't produce usable <animation_clip>
+    // tags in the document, so we do a horrible hack and instantiate all
+    // <animation>s using the start/end time of the clip -- cneumann
+
     const domInstanceWithExtra_Array &animInsts =
         animClip->getInstance_animation_array();
 
@@ -125,12 +150,61 @@ ColladaAnimationClip::read(ColladaElement *colElemParent)
 
         getGlobal()->editInstQueue().push_back(animInstInfo);
     }
+#endif
+
+    // add anim template to the globals attachment
+    AnimKeyFrameTemplateUnrecPtr animTmpl = AnimKeyFrameTemplate::create();
+    getGlobal()->getGlobalsAtt()->editMFElements()->push_back(animTmpl);    
+
+    domCOLLADA *docRoot = getGlobal()->getDocRoot();
+    const domLibrary_animations_Array &libAnims =
+        docRoot->getLibrary_animations_array();
+
+    for(UInt32 i = 0; i < libAnims.getCount(); ++i)
+    {
+        const domAnimation_Array &anims = libAnims[i]->getAnimation_array();
+
+        for(UInt32 j = 0; j < anims.getCount(); ++j)
+        {
+            ColladaAnimationRefPtr colAnim =
+                getUserDataAs<ColladaAnimation>(anims[j]);
+
+            if(colAnim == NULL)
+            {
+                colAnim = dynamic_pointer_cast<ColladaAnimation>(
+                    ColladaElementFactory::the()->create(
+                        anims[j], getGlobal(), "animation"));
+
+                colAnim->read(this);
+            }
+
+            // queue an instance
+            ColladaInstInfoRefPtr animInstInfo =
+                ColladaAnimationInstInfo::create(this,    NULL,
+                                                 colAnim, animTmpl);
+
+            getGlobal()->editInstQueue().push_back(animInstInfo);
+        }
+    }
+}
+
+void
+ColladaAnimationClip::setCurrTemplate(AnimKeyFrameTemplate *animTmpl)
+{
+    _currAnimTmpl = animTmpl;
+}
+
+AnimKeyFrameTemplate *
+ColladaAnimationClip::getCurrTemplate(void) const
+{
+    return _currAnimTmpl;
 }
 
 ColladaAnimationClip::ColladaAnimationClip(
     daeElement *elem, ColladaGlobal *global)
 
-    : Inherited(elem, global)
+    : Inherited    (elem, global)
+    , _currAnimTmpl(NULL        )
 {
 }
 
@@ -146,14 +220,16 @@ ColladaAnimationClip::handleInstanceAnimation(ColladaInstInfo *instInfo)
     ColladaAnimationInstInfo *animInstInfo =
         dynamic_cast<ColladaAnimationInstInfo *>(instInfo);
 
-    OSG_ASSERT(instInfo                                != NULL);
-    OSG_ASSERT(instInfo->getColInst()                  != NULL);
-    OSG_ASSERT(instInfo->getColInst()->getTargetElem() != NULL);
+    OSG_ASSERT(animInstInfo                != NULL);
+    OSG_ASSERT(animInstInfo->getAnim    () != NULL);
+    OSG_ASSERT(animInstInfo->getTemplate() != NULL);
+    
+    setCurrTemplate(animInstInfo->getTemplate());
 
-    // XXX TODO: what to do with the instance ??
-
-    animInstInfo->getColInst()->getTargetElem()->createInstance(
+    animInstInfo->getAnim()->createInstance(
         animInstInfo->getColInstParent(), animInstInfo->getColInst());
+
+    setCurrTemplate(NULL);
 }
 
 OSG_END_NAMESPACE

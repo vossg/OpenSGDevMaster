@@ -47,6 +47,8 @@
 #include "OSGColladaElementFactoryHelper.h"
 #include "OSGColladaSource.h"
 
+#include "OSGAnimKeyFrameTemplate.h"
+
 // forward decl
 class domAnimation;
 class domInputLocal;
@@ -57,7 +59,7 @@ class domSampler;
 OSG_BEGIN_NAMESPACE
 
 // forward decl
-class AnimKeyFrameTemplate;
+class ColladaAnimationClip;
 
 
 class OSG_FILEIO_DLLMAPPING ColladaAnimation 
@@ -88,7 +90,7 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimation
     /*! \{                                                                 */
 
     virtual void read          (ColladaElement         *colElemParent );
-    virtual FieldContainer *
+    virtual AnimKeyFrameTemplate *
                  createInstance(ColladaElement         *colInstParent,
                                 ColladaInstanceElement *colInst       );
 
@@ -109,23 +111,36 @@ class OSG_FILEIO_DLLMAPPING ColladaAnimation
     typedef SourceMap::iterator                        SourceMapIt;
     typedef SourceMap::const_iterator                  SourceMapConstIt;
 
+    struct DataSourceInfo
+    {
+        AnimKeyFrameDataSourceUnrecPtr _dataSource;
+        std::string                    _target;
+        UInt32                         _firstKey;
+        UInt32                         _lastKey;
+    };
+
     void readAnim           (domAnimation           *anim          );
     void createInstanceAnim (domAnimation           *anim,
                              ColladaElement         *colInstParent,
                              ColladaInstanceElement *colInst,
                              AnimKeyFrameTemplate   *animTmpl      );
-    AnimKeyFrameDataSourceTransitPtr
-         handleOutput       (domChannel             *channel,
+
+    void createDataSource   (domChannel             *channel,
                              domSampler             *sampler,
-                             AnimKeyFrameTemplate   *animTmpl  );
+                             DataSourceInfo         &dsInfo        );
+    void handleInput        (domChannel             *channel,
+                             domSampler             *sampler,
+                             ColladaAnimationClip   *colAnimClip,
+                             AnimKeyFrameTemplate   *animTmpl,
+                             DataSourceInfo         &dsInfo        );
+    void handleOutput       (domChannel             *channel,
+                             domSampler             *sampler,
+                             AnimKeyFrameTemplate   *animTmpl,
+                             DataSourceInfo         &dsInfo        );
     void handleInterpolation(domChannel             *channel,
                              domSampler             *sampler, 
                              AnimKeyFrameTemplate   *animTmpl,
-                             AnimKeyFrameDataSource *dataSource);
-    void handleInput        (domChannel             *channel,
-                             domSampler             *sampler,
-                             AnimKeyFrameTemplate   *animTmpl,
-                             AnimKeyFrameDataSource *dataSource);
+                             DataSourceInfo         &dsInfo        );
 
     domInputLocal *findInput(domSampler *sampler, const std::string &semantic);
     

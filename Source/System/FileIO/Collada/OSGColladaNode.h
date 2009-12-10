@@ -114,6 +114,8 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     Node     *getTopNode   (UInt32 instIdx) const;
     Node     *getBottomNode(UInt32 instIdx) const;
 
+    Node     *getNodeBySid (UInt32 instIdx, const std::string &sid) const;
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:

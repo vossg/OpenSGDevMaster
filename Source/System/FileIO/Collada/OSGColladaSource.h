@@ -75,6 +75,10 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     typedef MatrixStore::iterator       MatrixStoreIt;
     typedef MatrixStore::const_iterator MatrixStoreConstIt;
 
+    typedef std::vector<Real32>         FloatStore;
+    typedef FloatStore::iterator        FloatStoreIt;
+    typedef FloatStore::const_iterator  FloatStoreConstIt;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
@@ -98,8 +102,9 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     GeoVectorProperty      *getProperty  (const std::string &semantic);
     AnimKeyFrameDataSource *getDataSource(const std::string &semantic);
 
-    const NameStore   &getNameStore  (void                       );
-    const MatrixStore &getMatrixStore(void                       );
+    const NameStore   &getNameStore  (void);
+    const MatrixStore &getMatrixStore(void);
+    const FloatStore  &getFloatStore (void);
 
     std::string getNameValue  (UInt32 idx                       );
     bool        getNameValue  (UInt32 idx, std::string &nameVal );
@@ -144,6 +149,7 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     AnimKeyFrameDataSource *fillDataSource (const std::string &semantic);
     void                    fillNameStore  (void                       );
     void                    fillMatrixStore(void                       );
+    void                    fillFloatStore (void                       );
     
 
     static ColladaElementRegistrationHelper _regHelper;
@@ -158,6 +164,7 @@ class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
     DataSourceMap _dataMap;
     NameStore     _nameStore;
     MatrixStore   _matrixStore;
+    FloatStore    _floatStore;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaSource);

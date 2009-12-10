@@ -216,6 +216,17 @@ ColladaSource::getMatrixStore(void)
     return _matrixStore;
 }
 
+const ColladaSource::FloatStore &
+ColladaSource::getFloatStore(void)
+{
+    if(_floatStore.empty() == true && _count > 0)
+    {
+        fillFloatStore();
+    }
+
+    return _floatStore;
+}
+
 std::string
 ColladaSource::getNameValue(UInt32 idx)
 {
@@ -676,7 +687,6 @@ ColladaSource::fillNameStore(void)
 void
 ColladaSource::fillMatrixStore(void)
 {
-    GeoVectorPropertyUnrecPtr         prop    = NULL;
     domSourceRef                      source  = getDOMElementAs<domSource>  ();
     domSource::domTechnique_commonRef techCom = source ->getTechnique_common();
     domAccessorRef                    acc     = techCom->getAccessor        ();
@@ -721,6 +731,46 @@ ColladaSource::fillMatrixStore(void)
             currIdx    = 0;
             currRowIdx = 0;
             currColIdx = 0;
+        }
+    }
+}
+
+void
+ColladaSource::fillFloatStore(void)
+{
+    domSourceRef                      source  = getDOMElementAs<domSource>  ();
+    domSource::domTechnique_commonRef techCom = source ->getTechnique_common();
+    domAccessorRef                    acc     = techCom->getAccessor        ();
+
+    daeURI            dataURI   = acc->getSource();
+    domFloat_arrayRef dataArray =
+        daeSafeCast<domFloat_array>(dataURI.getElement());
+
+    if(dataArray == NULL)
+    {
+        SWARNING << "ColladaSource::fillFloatStore: Could not find "
+                 << "<float_array> for [" << dataURI.str() << "]."
+                 << std::endl;
+        return;
+    }
+
+    Real32                 currVal;
+    UInt32                 currIdx = 0;
+    const domListOfFloats &data    = dataArray->getValue();
+
+    for(UInt32 i = _offset; i < _count * _stride; ++i)
+    {
+        if(_strideMap[currIdx] != -1)
+        {
+            currVal = data[i];
+        }
+
+        ++currIdx;
+
+        if(currIdx == _stride)
+        {
+            _floatStore.push_back(currVal);
+            currIdx = 0;
         }
     }
 }

@@ -98,6 +98,12 @@ ColladaGlobal::setRoot(Node *rootN)
     _rootN = rootN;
 }
 
+inline GlobalsAttachment *
+ColladaGlobal::getGlobalsAtt(void) const
+{
+    return _globalsAtt;
+}
+
 inline const ColladaGlobal::InstanceQueue &
 ColladaGlobal::getInstQueue(void) const
 {

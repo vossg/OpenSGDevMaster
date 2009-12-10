@@ -58,6 +58,7 @@
 #include "OSGColladaInstInfo.h"
 #include "OSGStatElemTypes.h"
 #include "OSGStatCollector.h"
+#include "OSGGlobalsAttachment.h"
 
 // collada dom includes
 #include <dae.h>
@@ -146,6 +147,8 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     inline Node               *getRoot      (void                      ) const;
     inline void                setRoot      (Node              *rootN  );
 
+    inline GlobalsAttachment  *getGlobalsAtt(void                      ) const;
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name ElementStore                                                 */
@@ -182,19 +185,20 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    InstanceQueue         _instQueue;
-    ElementStore          _elemStore;
+    InstanceQueue              _instQueue;
+    ElementStore               _elemStore;
 
-    ColladaOptionsRefPtr  _options;
-    StatCollectorRefPtr   _statColl;
+    ColladaOptionsRefPtr       _options;
+    StatCollectorRefPtr        _statColl;
 
-    PathHandler           _pathHandler;
-    std::string           _docPath;
+    PathHandler                _pathHandler;
+    std::string                _docPath;
 
-    domCOLLADARef         _docRoot;
-    DAE                  *_dae;
+    domCOLLADARef              _docRoot;
+    DAE                       *_dae;
 
-    NodeUnrecPtr          _rootN;
+    NodeUnrecPtr               _rootN;
+    GlobalsAttachmentUnrecPtr  _globalsAtt;
 };
 
 

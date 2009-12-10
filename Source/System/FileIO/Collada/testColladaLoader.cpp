@@ -28,14 +28,28 @@
 #include "OSGShaderProgram.h"
 #include "OSGShaderProgramChunk.h"
 
+#include "OSGAnimation.h"
+#include "OSGAnimBindAction.h"
+#include "OSGAnimKeyFrameTemplate.h"
+#include "OSGGlobalsAttachment.h"
+#include "OSGComponentTransform.h"
+#include "OSGTransform.h"
+
 typedef std::vector<OSG::NodeUnrecPtr    > NodeStore;
 typedef std::vector<OSG::MaterialUnrecPtr> MaterialStore;
 
+struct AnimInfo
+{
+    OSG::AnimationUnrecPtr anim;
+    bool                   on;
+};
+
+typedef std::vector<AnimInfo>              AnimStore;
 
 // The SimpleSceneManager to manage simple applications
 OSG::SimpleSceneManager           *mgr;
-OSG::NodeUnrecPtr                  sceneN;
-OSG::NodeUnrecPtr                  rootN;
+OSG::NodeUnrecPtr                  sceneN;   // scene from file
+OSG::NodeUnrecPtr                  rootN;    // root
 OSG::ChunkOverrideGroupUnrecPtr    root;
 OSG::PolygonChunkUnrecPtr          polyChunk;
 
@@ -43,8 +57,10 @@ NodeStore     normalsGeoN;
 NodeStore     geoN;
 NodeStore     skinnedGeoN;
 MaterialStore skinnedGeoMat;
+AnimStore     anims;
 bool          normalsActive = false;
 OSG::Real32   normalsLen    = 1.f;
+OSG::Int32    currAnim      = 0;
 
 
 OSG::ShaderProgramUnrecPtr      vpSkin;
@@ -104,6 +120,8 @@ void cleanup  (void);
 void printHelp(void);
 void collectGeometry    (OSG::Node *node );
 void constructNormalsGeo(OSG::Node *rootN);
+
+void processAnim        (OSG::Node *node);
 
 
 // Initialize GLUT & OpenSG and set up the scene
@@ -172,6 +190,9 @@ void init(int argc, char *argv[])
     matSkin = OSG::ChunkMaterial::create();
     matSkin->addChunk(shSkin);
 
+    // process animations
+    processAnim(sceneN);
+
     // create the SimpleSceneManager helper
     mgr = new OSG::SimpleSceneManager;
     
@@ -202,6 +223,7 @@ void cleanup(void)
     geoN         .clear();
     skinnedGeoN  .clear();
     skinnedGeoMat.clear();
+    anims        .clear();
 }
 
 void printHelp(void)
@@ -295,6 +317,85 @@ void constructNormalsGeo(OSG::Node *rootN)
     }
 }
 
+void processAnim(OSG::Node *node)
+{
+    OSG::commitChangesAndClear();
+
+    // register AnimBindAction callbacks -- temporarily done here
+    OSG::AnimBindAction::registerEnterDefault(
+        OSG::ComponentTransform::getClassType(),
+        &OSG::bindEnterDefault                  );
+    OSG::AnimBindAction::registerEnterDefault(
+        OSG::Transform::getClassType(),
+        &OSG::bindEnterDefault                  );
+
+
+    OSG::GlobalsAttachment *ga = dynamic_cast<OSG::GlobalsAttachment *>(
+        node->findAttachment(OSG::GlobalsAttachment::getClassType()));
+
+    if(ga == NULL)
+    {
+        std::cerr << "WARNING: processAnim: no GlobalsAttachment found"
+                  << std::endl;
+        return;
+    }
+
+    OSG::GlobalsAttachment::MFElementsType::const_iterator eIt  =
+        ga->getMFElements()->begin();
+    OSG::GlobalsAttachment::MFElementsType::const_iterator eEnd =
+        ga->getMFElements()->end  ();
+
+    for(; eIt != eEnd; ++eIt)
+    {
+        OSG::AnimKeyFrameTemplate *animTmpl =
+            dynamic_cast<OSG::AnimKeyFrameTemplate *>(*eIt);
+
+        if(animTmpl == NULL)
+            continue;
+
+        std::cout << "instantiating anim template [" << animTmpl->getName()
+                  << "] with [" << animTmpl->getMFSources()->size()
+                  << "] sources [" << animTmpl->getMFTargetIds()->size() 
+                  << "] targetIds" << std::endl;
+
+        AnimInfo ai;
+        ai.on   = false;
+        ai.anim = animTmpl->instantiate(node);
+        ai.anim->setEnabled(false);
+
+        anims.push_back(ai);
+    }
+}
+
+void toggleAnim(OSG::UInt32 index, bool loop)
+{
+    if(anims[index].on == true)
+    {
+        std::cout << "STOP anim " << index << std::endl;
+        anims[index].anim->stop ();
+        anims[index].anim->reset();
+        anims[index].anim->setEnabled(false);
+        anims[index].on = false;
+    }
+    else
+    {
+        if(loop == true)
+        {
+            std::cout << "START LOOP anim " << index << std::endl;
+            anims[index].anim->startLoop(OSG::FrameHandler::the()->getTimeStamp());
+        }
+        else
+        {
+            std::cout << "START anim " << index << std::endl;
+            anims[index].anim->start(OSG::FrameHandler::the()->getTimeStamp());
+        }
+
+        anims[index].anim->setEnabled(true);
+        anims[index].on = true;
+    }
+}
+
+
 //
 // GLUT callback functions
 //
@@ -302,11 +403,12 @@ void constructNormalsGeo(OSG::Node *rootN)
 // redraw the window
 void display(void)
 {
-    OSG::commitChanges();
+    OSG::FrameHandler::the()->frame();
+
+    OSG::commitChangesAndClear();
 
     mgr->idle();
     mgr->redraw();
-    OSG::Thread::getCurrentChangeList()->clear();
 
 //     mgr->getWindow()->registerConstant(GL_MAX_VERTEX_UNIFORM_COMPONENTS  );
 //     mgr->getWindow()->registerConstant(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
@@ -548,41 +650,46 @@ void keyboard(unsigned char k, int , int )
                   << std::endl;
     }
     break;
-    case 's':
-    {
-        NodeStore::const_iterator nIt  = skinnedGeoN.begin();
-        NodeStore::const_iterator nEnd = skinnedGeoN.end  ();
-
-        for(OSG::UInt32 i = 0; nIt != nEnd; ++nIt, ++i)
-        {
-           OSG::SkinnedGeometry *sgeo = dynamic_cast<OSG::SkinnedGeometry *>(
-                (*nIt)->getCore());
-
-           OSG::Skeleton        *skel = sgeo->getSkeleton();
-
-           OSG::Skeleton::MFRootsType::const_iterator rIt  =
-               skel->getMFRoots()->begin();
-           OSG::Skeleton::MFRootsType::const_iterator rEnd =
-               skel->getMFRoots()->end  ();
-
-           for(OSG::UInt32 j = 0; rIt != rEnd; ++rIt, ++j)
-           {
-               std::cout << "Skeleton [" << i << "] @ [" << skel
-                         << "] root [" << j << "]\n";
-
-               OSG::SceneGraphPrinter sgp(*rIt);
-               sgp.printDownTree(std::cout);
-
-               std::cout << std::endl;
-           }
-        }
-    }
-    break;
     case 'a':
     {
         mgr->showAll();
 
         std::cout << "Showing all of scene." << std::endl;
+    }
+    break;
+
+    case '[':
+    {
+        if(anims.empty() == false)
+        {
+            currAnim -= 1;
+            if(currAnim < 0)
+                currAnim = anims.size() - 1;
+
+            std::cout << "Current anim [" << currAnim << "] - ["
+                      << anims[currAnim].anim->getTemplate()->getName()
+                      << "]" << std::endl;
+        }
+    }
+    break;
+    case ']':
+    {
+        if(anims.empty() == false)
+        {
+            currAnim += 1;
+            if(currAnim >= anims.size())
+                currAnim = 0;
+
+            std::cout << "Current anim [" << currAnim << "] - ["
+                      << anims[currAnim].anim->getTemplate()->getName()
+                      << "]" << std::endl;
+        }
+    }
+    break;
+
+    case 'l':
+    {
+        toggleAnim(currAnim, true);
     }
     break;
 
@@ -606,7 +713,7 @@ int setupGLUT(int *argc, char *argv[])
     
     glutReshapeFunc(reshape);
     glutDisplayFunc(display);
-    //    glutIdleFunc(display);
+    glutIdleFunc(display);
     glutMouseFunc(mouse);
     glutMotionFunc(motion);
     glutKeyboardFunc(keyboard);
