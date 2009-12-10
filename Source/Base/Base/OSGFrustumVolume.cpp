@@ -489,26 +489,40 @@ bool intersect(const OSG::FrustumVolume           &frustum,
                const OSG::Volume                  &vol, 
                      OSG::FrustumVolume::PlaneSet &inplanes)
 {
-    Pnt3r min, max;
+    // it's probably safe to assume the frustum is not empty and finite
+    // so we only check vol for these conditions
 
-    vol.getBounds(min, max);
-     
-    const Plane             *frust = frustum.getPlanes();
-    FrustumVolume::PlaneSet  mask  = 0x1;
-   
-    // check the box against the 6 planes, adjust the inplanes set
-    // accordingly
-
-    for(Int32 i = 0; i < 6; i++, mask <<= 1)
+    if(vol.isEmpty() == true)
     {
-        if((inplanes & mask) != 0)
-            continue;
+        return false;
+    }
+    else if(vol.isInfinite() == true)
+    {
+        return true;
+    }
+    else
+    {
+        Pnt3r min, max;
+
+        vol.getBounds(min, max);
+     
+        const Plane             *frust = frustum.getPlanes();
+        FrustumVolume::PlaneSet  mask  = 0x1;
+   
+        // check the box against the 6 planes, adjust the inplanes set
+        // accordingly
+
+        for(Int32 i = 0; i < 6; i++, mask <<= 1)
+        {
+            if((inplanes & mask) != 0)
+                continue;
         
-        if(frust[i].isOutHalfSpace(min, max))
-            return false;
+            if(frust[i].isOutHalfSpace(min, max))
+                return false;
         
-        if(frust[i].isInHalfSpace(min, max))
-            inplanes |= mask;
+            if(frust[i].isInHalfSpace(min, max))
+                inplanes |= mask;
+        }
     }
 
     return true;
