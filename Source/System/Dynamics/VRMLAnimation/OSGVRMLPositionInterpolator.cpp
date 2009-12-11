@@ -52,8 +52,8 @@ OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
 // OSGVRMLPositionInterpolatorBase.cpp file.
-// To modify it, please change the .fcd file (OSGVRMLPositionInterpolator.fcd) and
-// regenerate the base file.
+// To modify it, please change the .fcd file (OSGVRMLPositionInterpolator.fcd)
+// and regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -83,15 +83,15 @@ void VRMLPositionInterpolator::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-VRMLPositionInterpolator::VRMLPositionInterpolator(void)
-    : Inherited()
+VRMLPositionInterpolator::VRMLPositionInterpolator(void) : 
+    Inherited()
 {
 }
 
 VRMLPositionInterpolator::VRMLPositionInterpolator(
-    const VRMLPositionInterpolator &source)
+    const VRMLPositionInterpolator &source) : 
     
-    : Inherited(source)
+    Inherited(source)
 {
 }
 
@@ -105,6 +105,38 @@ void VRMLPositionInterpolator::changed(ConstFieldMaskArg whichField,
                                        UInt32            origin,
                                        BitVector         details)
 {
+    if(0x0000 != (whichField & ResortIndexFieldMask))
+    {
+        fprintf(stderr, "resort triggert\n");        
+
+        SizeT uiNumRes = _mfKeyValue.size() / _mfKey.size();
+
+        if(uiNumRes == _mfResortIndex.size())
+        {
+            InterpolationHelper<MFReal32, 
+                                MFVec3f, 
+                                SFVec3f>::resortKeyValues(
+                                    _mfKey.size(),
+                                     uiNumRes,
+                                    *(this->editMFKeyValue()),
+                                    _mfResortIndex);
+
+            InterpolationHelper<MFReal32, 
+                                MFVec3f, 
+                                SFVec3f>::interpolate(  
+                                    _sfInValue.getValue(),
+                                    _mfKey,
+                                    _mfKeyValue,
+                                    *(this->editSFOutValue()));
+        }
+        else
+        {
+            fprintf(stderr, 
+                    "interpol resort : sizes don't match %"PRISize" | %d\n",
+                    uiNumRes, _mfResortIndex.size());
+        }
+    }
+
     if(0x0000 != (whichField & InValueFieldMask))
     {
         InterpolationHelper<MFReal32, 

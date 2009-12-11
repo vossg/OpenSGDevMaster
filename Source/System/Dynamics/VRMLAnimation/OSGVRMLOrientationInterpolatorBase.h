@@ -63,9 +63,8 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGNodeCore.h" // Parent
+#include "OSGVRMLInterpolator.h" // Parent
 
-#include "OSGSysFields.h"               // InValue type
 #include "OSGMathFields.h"              // KeyValue type
 
 #include "OSGVRMLOrientationInterpolatorFields.h"
@@ -76,12 +75,12 @@ class VRMLOrientationInterpolator;
 
 //! \brief VRMLOrientationInterpolator Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public NodeCore
+class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public VRMLInterpolator
 {
   public:
 
-    typedef NodeCore Inherited;
-    typedef NodeCore ParentContainer;
+    typedef VRMLInterpolator Inherited;
+    typedef VRMLInterpolator ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -94,17 +93,11 @@ class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public NodeCore
 
     enum
     {
-        InValueFieldId = Inherited::NextFieldId,
-        KeyFieldId = InValueFieldId + 1,
-        KeyValueFieldId = KeyFieldId + 1,
+        KeyValueFieldId = Inherited::NextFieldId,
         OutValueFieldId = KeyValueFieldId + 1,
         NextFieldId = OutValueFieldId + 1
     };
 
-    static const OSG::BitVector InValueFieldMask =
-        (TypeTraits<BitVector>::One << InValueFieldId);
-    static const OSG::BitVector KeyFieldMask =
-        (TypeTraits<BitVector>::One << KeyFieldId);
     static const OSG::BitVector KeyValueFieldMask =
         (TypeTraits<BitVector>::One << KeyValueFieldId);
     static const OSG::BitVector OutValueFieldMask =
@@ -112,8 +105,6 @@ class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public NodeCore
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFReal32          SFInValueType;
-    typedef MFReal32          MFKeyType;
     typedef MFQuaternion      MFKeyValueType;
     typedef SFQuaternion      SFOutValueType;
 
@@ -141,24 +132,12 @@ class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public NodeCore
     /*! \{                                                                 */
 
 
-                  SFReal32            *editSFInValue        (void);
-            const SFReal32            *getSFInValue         (void) const;
-
-                  MFReal32            *editMFKey            (void);
-            const MFReal32            *getMFKey             (void) const;
-
                   MFQuaternion        *editMFKeyValue       (void);
             const MFQuaternion        *getMFKeyValue        (void) const;
 
                   SFQuaternion        *editSFOutValue       (void);
             const SFQuaternion        *getSFOutValue        (void) const;
 
-
-                  Real32              &editInValue        (void);
-                  Real32               getInValue         (void) const;
-
-                  Real32              &editKey            (const UInt32 index);
-                  Real32               getKey             (const UInt32 index) const;
 
                   Quaternion          &editKeyValue       (const UInt32 index);
             const Quaternion          &getKeyValue        (const UInt32 index) const;
@@ -171,7 +150,6 @@ class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public NodeCore
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setInValue        (const Real32 value);
             void setOutValue       (const Quaternion &value);
 
     /*! \}                                                                 */
@@ -232,8 +210,6 @@ class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public NodeCore
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32          _sfInValue;
-    MFReal32          _mfKey;
     MFQuaternion      _mfKeyValue;
     SFQuaternion      _sfOutValue;
 
@@ -263,10 +239,6 @@ class OSG_DYNAMICS_DLLMAPPING VRMLOrientationInterpolatorBase : public NodeCore
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleInValue         (void) const;
-    EditFieldHandlePtr editHandleInValue        (void);
-    GetFieldHandlePtr  getHandleKey             (void) const;
-    EditFieldHandlePtr editHandleKey            (void);
     GetFieldHandlePtr  getHandleKeyValue        (void) const;
     EditFieldHandlePtr editHandleKeyValue       (void);
     GetFieldHandlePtr  getHandleOutValue        (void) const;

@@ -63,9 +63,9 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGNodeCore.h" // Parent
+#include "OSGVRMLInterpolator.h" // Parent
 
-#include "OSGSysFields.h"               // InValue type
+#include "OSGSysFields.h"               // KeyValue type
 
 #include "OSGVRMLScalarInterpolatorFields.h"
 
@@ -75,12 +75,12 @@ class VRMLScalarInterpolator;
 
 //! \brief VRMLScalarInterpolator Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public NodeCore
+class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public VRMLInterpolator
 {
   public:
 
-    typedef NodeCore Inherited;
-    typedef NodeCore ParentContainer;
+    typedef VRMLInterpolator Inherited;
+    typedef VRMLInterpolator ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
@@ -93,17 +93,11 @@ class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public NodeCore
 
     enum
     {
-        InValueFieldId = Inherited::NextFieldId,
-        KeyFieldId = InValueFieldId + 1,
-        KeyValueFieldId = KeyFieldId + 1,
+        KeyValueFieldId = Inherited::NextFieldId,
         OutValueFieldId = KeyValueFieldId + 1,
         NextFieldId = OutValueFieldId + 1
     };
 
-    static const OSG::BitVector InValueFieldMask =
-        (TypeTraits<BitVector>::One << InValueFieldId);
-    static const OSG::BitVector KeyFieldMask =
-        (TypeTraits<BitVector>::One << KeyFieldId);
     static const OSG::BitVector KeyValueFieldMask =
         (TypeTraits<BitVector>::One << KeyValueFieldId);
     static const OSG::BitVector OutValueFieldMask =
@@ -111,8 +105,6 @@ class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public NodeCore
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef SFReal32          SFInValueType;
-    typedef MFReal32          MFKeyType;
     typedef MFReal32          MFKeyValueType;
     typedef SFReal32          SFOutValueType;
 
@@ -140,24 +132,12 @@ class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public NodeCore
     /*! \{                                                                 */
 
 
-                  SFReal32            *editSFInValue        (void);
-            const SFReal32            *getSFInValue         (void) const;
-
-                  MFReal32            *editMFKey            (void);
-            const MFReal32            *getMFKey             (void) const;
-
                   MFReal32            *editMFKeyValue       (void);
             const MFReal32            *getMFKeyValue        (void) const;
 
                   SFReal32            *editSFOutValue       (void);
             const SFReal32            *getSFOutValue        (void) const;
 
-
-                  Real32              &editInValue        (void);
-                  Real32               getInValue         (void) const;
-
-                  Real32              &editKey            (const UInt32 index);
-                  Real32               getKey             (const UInt32 index) const;
 
                   Real32              &editKeyValue       (const UInt32 index);
                   Real32               getKeyValue        (const UInt32 index) const;
@@ -170,7 +150,6 @@ class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public NodeCore
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
-            void setInValue        (const Real32 value);
             void setOutValue       (const Real32 value);
 
     /*! \}                                                                 */
@@ -231,8 +210,6 @@ class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public NodeCore
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    SFReal32          _sfInValue;
-    MFReal32          _mfKey;
     MFReal32          _mfKeyValue;
     SFReal32          _sfOutValue;
 
@@ -262,10 +239,6 @@ class OSG_DYNAMICS_DLLMAPPING VRMLScalarInterpolatorBase : public NodeCore
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleInValue         (void) const;
-    EditFieldHandlePtr editHandleInValue        (void);
-    GetFieldHandlePtr  getHandleKey             (void) const;
-    EditFieldHandlePtr editHandleKey            (void);
     GetFieldHandlePtr  getHandleKeyValue        (void) const;
     EditFieldHandlePtr editHandleKeyValue       (void);
     GetFieldHandlePtr  getHandleOutValue        (void) const;

@@ -4,6 +4,8 @@
  *                                                                           *
  *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
  *                                                                           *
+ *                            www.opensg.org                                 *
+ *                                                                           *
  *   contact: dirk@opensg.org, gerrit.voss@vossg.org, jbehr@zgdv.de          *
  *                                                                           *
 \*---------------------------------------------------------------------------*/
@@ -42,108 +44,64 @@
  **          Any changes made to this file WILL be lost when it is          **
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
- **     Do not change this file, changes should be done in the derived      **
- **     class VRMLScalarInterpolator!
- **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
-OSG_BEGIN_NAMESPACE
 
-
-//! access the type of the class
-inline
-OSG::FieldContainerType &VRMLScalarInterpolatorBase::getClassType(void)
-{
-    return _type;
-}
-
-//! access the numerical type of the class
-inline
-OSG::UInt32 VRMLScalarInterpolatorBase::getClassTypeId(void)
-{
-    return _type.getId();
-}
-
-inline
-OSG::UInt16 VRMLScalarInterpolatorBase::getClassGroupId(void)
-{
-    return _type.getGroupId();
-}
-
-/*------------------------------ get -----------------------------------*/
-
-//! Get the value of the VRMLScalarInterpolator::_sfOutValue field.
-
-inline
-Real32 &VRMLScalarInterpolatorBase::editOutValue(void)
-{
-    editSField(OutValueFieldMask);
-
-    return _sfOutValue.getValue();
-}
-
-//! Get the value of the VRMLScalarInterpolator::_sfOutValue field.
-inline
-      Real32  VRMLScalarInterpolatorBase::getOutValue(void) const
-{
-    return _sfOutValue.getValue();
-}
-
-//! Set the value of the VRMLScalarInterpolator::_sfOutValue field.
-inline
-void VRMLScalarInterpolatorBase::setOutValue(const Real32 value)
-{
-    editSField(OutValueFieldMask);
-
-    _sfOutValue.setValue(value);
-}
-
-//! Get the value of the \a index element the VRMLScalarInterpolator::_mfKeyValue field.
-inline
-      Real32  VRMLScalarInterpolatorBase::getKeyValue(const UInt32 index) const
-{
-    return _mfKeyValue[index];
-}
-
-inline
-Real32 &VRMLScalarInterpolatorBase::editKeyValue(const UInt32 index)
-{
-    editMField(KeyValueFieldMask, _mfKeyValue);
-
-    return _mfKeyValue[index];
-}
-
-
-
-#ifdef OSG_MT_CPTR_ASPECT
-inline
-void VRMLScalarInterpolatorBase::execSync (      VRMLScalarInterpolatorBase *pFrom,
-                                        ConstFieldMaskArg  whichField,
-                                        AspectOffsetStore &oOffsets,
-                                        ConstFieldMaskArg  syncMode,
-                                  const UInt32             uiSyncInfo)
-{
-    Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (KeyValueFieldMask & whichField))
-        _mfKeyValue.syncWith(pFrom->_mfKeyValue,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
-
-    if(FieldBits::NoField != (OutValueFieldMask & whichField))
-        _sfOutValue.syncWith(pFrom->_sfOutValue);
-}
+#ifndef _OSGVRMLINTERPOLATORFIELDS_H_
+#define _OSGVRMLINTERPOLATORFIELDS_H_
+#ifdef __sgi
+#pragma once
 #endif
 
+#include "OSGConfig.h"
+#include "OSGDynamicsDef.h"
 
-inline
-const Char8 *VRMLScalarInterpolatorBase::getClassname(void)
+#include "OSGFieldContainerFields.h"
+#include "OSGPointerSField.h"
+#include "OSGPointerMField.h"
+
+
+OSG_BEGIN_NAMESPACE
+
+class VRMLInterpolator;
+
+OSG_GEN_CONTAINERPTR(VRMLInterpolator);
+
+/*! \ingroup GrpDynamicsFieldTraits
+    \ingroup GrpLibOSGDynamics
+ */
+template <>
+struct FieldTraits<VRMLInterpolator *> :
+    public FieldTraitsFCPtrBase<VRMLInterpolator *>
 {
-    return "VRMLScalarInterpolator";
-}
-OSG_GEN_CONTAINERPTR(VRMLScalarInterpolator);
+  private:
+
+    static DataType             _type;
+
+  public:
+
+    typedef FieldTraits<VRMLInterpolator *>  Self;
+
+    enum                        { Convertible = NotConvertible };
+
+    static OSG_DYNAMICS_DLLMAPPING DataType &getType(void);
+
+};
+
+
+
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+
+
+#else // these are the doxygen hacks
+
+
+
+#endif // these are the doxygen hacks
 
 OSG_END_NAMESPACE
 
+#endif /* _OSGVRMLINTERPOLATORFIELDS_H_ */

@@ -82,14 +82,6 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Real32          VRMLOrientationInterpolatorBase::_sfInValue
-    This is VRML's fraction field.
-*/
-
-/*! \var Real32          VRMLOrientationInterpolatorBase::_mfKey
-    
-*/
-
 /*! \var Quaternion      VRMLOrientationInterpolatorBase::_mfKeyValue
     
 */
@@ -104,7 +96,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLOrientationInterpolator *>::_type("VRMLOrientationInterpolatorPtr", "NodeCorePtr");
+DataType FieldTraits<VRMLOrientationInterpolator *>::_type("VRMLOrientationInterpolatorPtr", "VRMLInterpolatorPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(VRMLOrientationInterpolator *)
@@ -117,30 +109,6 @@ void VRMLOrientationInterpolatorBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "inValue",
-        "This is VRML's fraction field.\n",
-        InValueFieldId, InValueFieldMask,
-        true,
-        (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&VRMLOrientationInterpolator::editHandleInValue),
-        static_cast<FieldGetMethodSig >(&VRMLOrientationInterpolator::getHandleInValue));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new MFReal32::Description(
-        MFReal32::getClassType(),
-        "key",
-        "",
-        KeyFieldId, KeyFieldMask,
-        false,
-        (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&VRMLOrientationInterpolator::editHandleKey),
-        static_cast<FieldGetMethodSig >(&VRMLOrientationInterpolator::getHandleKey));
-
-    oType.addInitialDesc(pDesc);
 
     pDesc = new MFQuaternion::Description(
         MFQuaternion::getClassType(),
@@ -182,61 +150,40 @@ VRMLOrientationInterpolatorBase::TypeObject VRMLOrientationInterpolatorBase::_ty
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "     name=\"VRMLOrientationInterpolator\"\n"
-    "     parent=\"NodeCore\"\n"
-    "     library=\"Dynamics\"\n"
-    "     pointerfieldtypes=\"none\"\n"
-    "     structure=\"concrete\"\n"
-    "     systemcomponent=\"true\"\n"
-    "     parentsystemcomponent=\"true\"\n"
-    "     decoratable=\"false\"\n"
-    "     useLocalIncludes=\"false\"\n"
-    "     isNodeCore=\"true\"\n"
-    "     isBundle=\"false\"\n"
-    "     parentFields=\"none\"\n"
-    "     >\n"
-    "    <Field\n"
-    "\t name=\"inValue\"\n"
-    "\t type=\"Real32\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"internal\"\n"
-    "\t access=\"public\"\n"
-    "         defaultValue=\"0.f\"\n"
-    "         fieldFlags=\"FThreadLocal\"\n"
-    "\t >\n"
-    "        This is VRML's fraction field.\n"
-    "    </Field>\n"
-    "    <Field\n"
-    "\t name=\"key\"\n"
-    "\t type=\"Real32\"\n"
-    "\t cardinality=\"multi\"\n"
-    "\t visibility=\"external\"\n"
-    "\t access=\"public\"\n"
-    "         defaultValue=\"\"\n"
-    "         fieldFlags=\"FThreadLocal\"\n"
-    "\t >\n"
-    "    </Field>\n"
-    "    <Field\n"
+    "   name=\"VRMLOrientationInterpolator\"\n"
+    "   parent=\"VRMLInterpolator\"\n"
+    "   library=\"Dynamics\"\n"
+    "   pointerfieldtypes=\"none\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   isNodeCore=\"true\"\n"
+    "   isBundle=\"false\"\n"
+    "   parentFields=\"none\"\n"
+    "   >\n"
+    "  <Field\n"
     "\t name=\"keyValue\"\n"
     "\t type=\"Quaternion\"\n"
     "\t cardinality=\"multi\"\n"
     "\t visibility=\"external\"\n"
     "\t access=\"public\"\n"
-    "         defaultValue=\"\"\n"
-    "         fieldFlags=\"FThreadLocal\"\n"
+    "     defaultValue=\"\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
     "\t >\n"
-    "    </Field>\n"
-    "    <Field\n"
+    "  </Field>\n"
+    "  <Field\n"
     "\t name=\"outValue\"\n"
     "\t type=\"Quaternion\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"internal\"\n"
     "\t access=\"public\"\n"
-    "         defaultValue=\"\"\n"
-    "         fieldFlags=\"FThreadLocal\"\n"
+    "     defaultValue=\"\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
     "\t >\n"
-    "        This is VRML's value field.\n"
-    "    </Field>\n"
+    "    This is VRML's value field.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -259,32 +206,6 @@ UInt32 VRMLOrientationInterpolatorBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
-
-
-SFReal32 *VRMLOrientationInterpolatorBase::editSFInValue(void)
-{
-    editSField(InValueFieldMask);
-
-    return &_sfInValue;
-}
-
-const SFReal32 *VRMLOrientationInterpolatorBase::getSFInValue(void) const
-{
-    return &_sfInValue;
-}
-
-
-MFReal32 *VRMLOrientationInterpolatorBase::editMFKey(void)
-{
-    editMField(KeyFieldMask, _mfKey);
-
-    return &_mfKey;
-}
-
-const MFReal32 *VRMLOrientationInterpolatorBase::getMFKey(void) const
-{
-    return &_mfKey;
-}
 
 
 MFQuaternion *VRMLOrientationInterpolatorBase::editMFKeyValue(void)
@@ -323,14 +244,6 @@ UInt32 VRMLOrientationInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-    {
-        returnValue += _sfInValue.getBinSize();
-    }
-    if(FieldBits::NoField != (KeyFieldMask & whichField))
-    {
-        returnValue += _mfKey.getBinSize();
-    }
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {
         returnValue += _mfKeyValue.getBinSize();
@@ -348,14 +261,6 @@ void VRMLOrientationInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-    {
-        _sfInValue.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (KeyFieldMask & whichField))
-    {
-        _mfKey.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {
         _mfKeyValue.copyToBin(pMem);
@@ -371,14 +276,6 @@ void VRMLOrientationInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-    {
-        _sfInValue.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (KeyFieldMask & whichField))
-    {
-        _mfKey.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {
         _mfKeyValue.copyFromBin(pMem);
@@ -512,8 +409,6 @@ FieldContainerTransitPtr VRMLOrientationInterpolatorBase::shallowCopy(void) cons
 
 VRMLOrientationInterpolatorBase::VRMLOrientationInterpolatorBase(void) :
     Inherited(),
-    _sfInValue                (Real32(0.f)),
-    _mfKey                    (),
     _mfKeyValue               (),
     _sfOutValue               ()
 {
@@ -521,8 +416,6 @@ VRMLOrientationInterpolatorBase::VRMLOrientationInterpolatorBase(void) :
 
 VRMLOrientationInterpolatorBase::VRMLOrientationInterpolatorBase(const VRMLOrientationInterpolatorBase &source) :
     Inherited(source),
-    _sfInValue                (source._sfInValue                ),
-    _mfKey                    (source._mfKey                    ),
     _mfKeyValue               (source._mfKeyValue               ),
     _sfOutValue               (source._sfOutValue               )
 {
@@ -535,56 +428,6 @@ VRMLOrientationInterpolatorBase::~VRMLOrientationInterpolatorBase(void)
 {
 }
 
-
-GetFieldHandlePtr VRMLOrientationInterpolatorBase::getHandleInValue         (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfInValue,
-             this->getType().getFieldDesc(InValueFieldId),
-             const_cast<VRMLOrientationInterpolatorBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr VRMLOrientationInterpolatorBase::editHandleInValue        (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfInValue,
-             this->getType().getFieldDesc(InValueFieldId),
-             this));
-
-
-    editSField(InValueFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr VRMLOrientationInterpolatorBase::getHandleKey             (void) const
-{
-    MFReal32::GetHandlePtr returnValue(
-        new  MFReal32::GetHandle(
-             &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId),
-             const_cast<VRMLOrientationInterpolatorBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr VRMLOrientationInterpolatorBase::editHandleKey            (void)
-{
-    MFReal32::EditHandlePtr returnValue(
-        new  MFReal32::EditHandle(
-             &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId),
-             this));
-
-
-    editMField(KeyFieldMask, _mfKey);
-
-    return returnValue;
-}
 
 GetFieldHandlePtr VRMLOrientationInterpolatorBase::getHandleKeyValue        (void) const
 {
@@ -679,10 +522,6 @@ void VRMLOrientationInterpolatorBase::resolveLinks(void)
     _pAspectStore->fillOffsetArray(oOffsets, this);
 #endif
 
-#ifdef OSG_MT_CPTR_ASPECT
-    _mfKey.terminateShare(Thread::getCurrentAspect(),
-                                      oOffsets);
-#endif
 #ifdef OSG_MT_CPTR_ASPECT
     _mfKeyValue.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);

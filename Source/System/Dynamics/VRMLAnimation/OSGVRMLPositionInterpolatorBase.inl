@@ -73,31 +73,6 @@ OSG::UInt16 VRMLPositionInterpolatorBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the VRMLPositionInterpolator::_sfInValue field.
-
-inline
-Real32 &VRMLPositionInterpolatorBase::editInValue(void)
-{
-    editSField(InValueFieldMask);
-
-    return _sfInValue.getValue();
-}
-
-//! Get the value of the VRMLPositionInterpolator::_sfInValue field.
-inline
-      Real32  VRMLPositionInterpolatorBase::getInValue(void) const
-{
-    return _sfInValue.getValue();
-}
-
-//! Set the value of the VRMLPositionInterpolator::_sfInValue field.
-inline
-void VRMLPositionInterpolatorBase::setInValue(const Real32 value)
-{
-    editSField(InValueFieldMask);
-
-    _sfInValue.setValue(value);
-}
 //! Get the value of the VRMLPositionInterpolator::_sfOutValue field.
 
 inline
@@ -123,22 +98,6 @@ void VRMLPositionInterpolatorBase::setOutValue(const Vec3f &value)
 
     _sfOutValue.setValue(value);
 }
-
-//! Get the value of the \a index element the VRMLPositionInterpolator::_mfKey field.
-inline
-      Real32  VRMLPositionInterpolatorBase::getKey(const UInt32 index) const
-{
-    return _mfKey[index];
-}
-
-inline
-Real32 &VRMLPositionInterpolatorBase::editKey(const UInt32 index)
-{
-    editMField(KeyFieldMask, _mfKey);
-
-    return _mfKey[index];
-}
-
 
 //! Get the value of the \a index element the VRMLPositionInterpolator::_mfKeyValue field.
 inline
@@ -166,15 +125,6 @@ void VRMLPositionInterpolatorBase::execSync (      VRMLPositionInterpolatorBase 
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-        _sfInValue.syncWith(pFrom->_sfInValue);
-
-    if(FieldBits::NoField != (KeyFieldMask & whichField))
-        _mfKey.syncWith(pFrom->_mfKey,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
         _mfKeyValue.syncWith(pFrom->_mfKeyValue,

@@ -558,6 +558,12 @@ typedef Int32 RefCountStore;
 typedef long RefCountStore;
 #endif
 
+/*! \var size_t SizeT;
+ *  \ingroup GrpBaseBaseBaseTypes
+ */
+
+typedef size_t SizeT;
+
 /*! \var UInt8 *MemoryHandle;
  *  Handle to raw memory
  *  \ingroup GrpBaseBaseBaseTypes

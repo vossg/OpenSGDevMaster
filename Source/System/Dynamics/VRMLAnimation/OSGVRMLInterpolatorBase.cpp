@@ -45,7 +45,7 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class VRMLCoordinateInterpolator!
+ **     class VRMLInterpolator!
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
@@ -59,8 +59,8 @@
 
 
 
-#include "OSGVRMLCoordinateInterpolatorBase.h"
-#include "OSGVRMLCoordinateInterpolator.h"
+#include "OSGVRMLInterpolatorBase.h"
+#include "OSGVRMLInterpolator.h"
 
 #include <boost/bind.hpp>
 
@@ -74,7 +74,7 @@ OSG_BEGIN_NAMESPACE
  *                            Description                                  *
 \***************************************************************************/
 
-/*! \class OSG::VRMLCoordinateInterpolator
+/*! \class OSG::VRMLInterpolator
     
  */
 
@@ -82,12 +82,16 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Pnt3f           VRMLCoordinateInterpolatorBase::_mfKeyValue
+/*! \var Real32          VRMLInterpolatorBase::_sfInValue
+    This is VRML's fraction field.
+*/
+
+/*! \var Real32          VRMLInterpolatorBase::_mfKey
     
 */
 
-/*! \var Pnt3f           VRMLCoordinateInterpolatorBase::_mfOutValue
-    This is VRML's value field.
+/*! \var UInt32          VRMLInterpolatorBase::_mfResortIndex
+    
 */
 
 
@@ -96,62 +100,74 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLCoordinateInterpolator *>::_type("VRMLCoordinateInterpolatorPtr", "VRMLInterpolatorPtr");
+DataType FieldTraits<VRMLInterpolator *>::_type("VRMLInterpolatorPtr", "NodeCorePtr");
 #endif
 
-OSG_FIELDTRAITS_GETTYPE(VRMLCoordinateInterpolator *)
+OSG_FIELDTRAITS_GETTYPE(VRMLInterpolator *)
 
 /***************************************************************************\
  *                         Field Description                               *
 \***************************************************************************/
 
-void VRMLCoordinateInterpolatorBase::classDescInserter(TypeObject &oType)
+void VRMLInterpolatorBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
 
-    pDesc = new MFPnt3f::Description(
-        MFPnt3f::getClassType(),
-        "keyValue",
-        "",
-        KeyValueFieldId, KeyValueFieldMask,
-        false,
+    pDesc = new SFReal32::Description(
+        SFReal32::getClassType(),
+        "inValue",
+        "This is VRML's fraction field.\n",
+        InValueFieldId, InValueFieldMask,
+        true,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&VRMLCoordinateInterpolator::editHandleKeyValue),
-        static_cast<FieldGetMethodSig >(&VRMLCoordinateInterpolator::getHandleKeyValue));
+        static_cast<FieldEditMethodSig>(&VRMLInterpolator::editHandleInValue),
+        static_cast<FieldGetMethodSig >(&VRMLInterpolator::getHandleInValue));
 
     oType.addInitialDesc(pDesc);
 
-    pDesc = new MFPnt3f::Description(
-        MFPnt3f::getClassType(),
-        "outValue",
-        "This is VRML's value field.\n",
-        OutValueFieldId, OutValueFieldMask,
-        true,
+    pDesc = new MFReal32::Description(
+        MFReal32::getClassType(),
+        "key",
+        "",
+        KeyFieldId, KeyFieldMask,
+        false,
         (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&VRMLCoordinateInterpolator::editHandleOutValue),
-        static_cast<FieldGetMethodSig >(&VRMLCoordinateInterpolator::getHandleOutValue));
+        static_cast<FieldEditMethodSig>(&VRMLInterpolator::editHandleKey),
+        static_cast<FieldGetMethodSig >(&VRMLInterpolator::getHandleKey));
+
+    oType.addInitialDesc(pDesc);
+
+    pDesc = new MFUInt32::Description(
+        MFUInt32::getClassType(),
+        "resortIndex",
+        "",
+        ResortIndexFieldId, ResortIndexFieldMask,
+        false,
+        (Field::FThreadLocal),
+        static_cast<FieldEditMethodSig>(&VRMLInterpolator::editHandleResortIndex),
+        static_cast<FieldGetMethodSig >(&VRMLInterpolator::getHandleResortIndex));
 
     oType.addInitialDesc(pDesc);
 }
 
 
-VRMLCoordinateInterpolatorBase::TypeObject VRMLCoordinateInterpolatorBase::_type(
-    VRMLCoordinateInterpolatorBase::getClassname(),
+VRMLInterpolatorBase::TypeObject VRMLInterpolatorBase::_type(
+    VRMLInterpolatorBase::getClassname(),
     Inherited::getClassname(),
     "NULL",
     0,
-    reinterpret_cast<PrototypeCreateF>(&VRMLCoordinateInterpolatorBase::createEmptyLocal),
-    VRMLCoordinateInterpolator::initMethod,
-    VRMLCoordinateInterpolator::exitMethod,
-    reinterpret_cast<InitalInsertDescFunc>(&VRMLCoordinateInterpolator::classDescInserter),
+    reinterpret_cast<PrototypeCreateF>(&VRMLInterpolatorBase::createEmptyLocal),
+    VRMLInterpolator::initMethod,
+    VRMLInterpolator::exitMethod,
+    reinterpret_cast<InitalInsertDescFunc>(&VRMLInterpolator::classDescInserter),
     false,
-    0,
+    ResortIndexFieldMask,
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "   name=\"VRMLCoordinateInterpolator\"\n"
-    "   parent=\"VRMLInterpolator\"\n"
+    "   name=\"VRMLInterpolator\"\n"
+    "   parent=\"NodeCore\"\n"
     "   library=\"Dynamics\"\n"
     "   pointerfieldtypes=\"none\"\n"
     "   structure=\"concrete\"\n"
@@ -162,10 +178,32 @@ VRMLCoordinateInterpolatorBase::TypeObject VRMLCoordinateInterpolatorBase::_type
     "   isNodeCore=\"true\"\n"
     "   isBundle=\"false\"\n"
     "   parentFields=\"none\"\n"
+    "   fieldsUnmarkedOnCreate=\"ResortIndexFieldMask\"\n"
     "   >\n"
     "  <Field\n"
-    "     name=\"keyValue\"\n"
-    "     type=\"Pnt3f\"\n"
+    "\t name=\"inValue\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"single\"\n"
+    "\t visibility=\"internal\"\n"
+    "\t access=\"public\"\n"
+    "     defaultValue=\"0.f\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
+    "\t >\n"
+    "    This is VRML's fraction field.\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "\t name=\"key\"\n"
+    "\t type=\"Real32\"\n"
+    "\t cardinality=\"multi\"\n"
+    "\t visibility=\"external\"\n"
+    "\t access=\"public\"\n"
+    "     defaultValue=\"\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
+    "\t >\n"
+    "  </Field>\n"
+    "  <Field\n"
+    "     name=\"resortIndex\"\n"
+    "     type=\"UInt32\"\n"
     "     cardinality=\"multi\"\n"
     "     visibility=\"external\"\n"
     "     access=\"public\"\n"
@@ -173,64 +211,66 @@ VRMLCoordinateInterpolatorBase::TypeObject VRMLCoordinateInterpolatorBase::_type
     "     fieldFlags=\"FThreadLocal\"\n"
     "     >\n"
     "  </Field>\n"
-    "  <Field\n"
-    "     name=\"outValue\"\n"
-    "     type=\"Pnt3f\"\n"
-    "     cardinality=\"multi\"\n"
-    "     visibility=\"internal\"\n"
-    "     access=\"public\"\n"
-    "     defaultValue=\"\"\n"
-    "     fieldFlags=\"FThreadLocal\"\n"
-    "     >\n"
-    "    This is VRML's value field.\n"
-    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
 
 /*------------------------------ get -----------------------------------*/
 
-FieldContainerType &VRMLCoordinateInterpolatorBase::getType(void)
+FieldContainerType &VRMLInterpolatorBase::getType(void)
 {
     return _type;
 }
 
-const FieldContainerType &VRMLCoordinateInterpolatorBase::getType(void) const
+const FieldContainerType &VRMLInterpolatorBase::getType(void) const
 {
     return _type;
 }
 
-UInt32 VRMLCoordinateInterpolatorBase::getContainerSize(void) const
+UInt32 VRMLInterpolatorBase::getContainerSize(void) const
 {
-    return sizeof(VRMLCoordinateInterpolator);
+    return sizeof(VRMLInterpolator);
 }
 
 /*------------------------- decorator get ------------------------------*/
 
 
-MFPnt3f *VRMLCoordinateInterpolatorBase::editMFKeyValue(void)
+SFReal32 *VRMLInterpolatorBase::editSFInValue(void)
 {
-    editMField(KeyValueFieldMask, _mfKeyValue);
+    editSField(InValueFieldMask);
 
-    return &_mfKeyValue;
+    return &_sfInValue;
 }
 
-const MFPnt3f *VRMLCoordinateInterpolatorBase::getMFKeyValue(void) const
+const SFReal32 *VRMLInterpolatorBase::getSFInValue(void) const
 {
-    return &_mfKeyValue;
+    return &_sfInValue;
 }
 
 
-MFPnt3f *VRMLCoordinateInterpolatorBase::editMFOutValue(void)
+MFReal32 *VRMLInterpolatorBase::editMFKey(void)
 {
-    editMField(OutValueFieldMask, _mfOutValue);
+    editMField(KeyFieldMask, _mfKey);
 
-    return &_mfOutValue;
+    return &_mfKey;
 }
 
-const MFPnt3f *VRMLCoordinateInterpolatorBase::getMFOutValue(void) const
+const MFReal32 *VRMLInterpolatorBase::getMFKey(void) const
 {
-    return &_mfOutValue;
+    return &_mfKey;
+}
+
+
+MFUInt32 *VRMLInterpolatorBase::editMFResortIndex(void)
+{
+    editMField(ResortIndexFieldMask, _mfResortIndex);
+
+    return &_mfResortIndex;
+}
+
+const MFUInt32 *VRMLInterpolatorBase::getMFResortIndex(void) const
+{
+    return &_mfResortIndex;
 }
 
 
@@ -240,105 +280,117 @@ const MFPnt3f *VRMLCoordinateInterpolatorBase::getMFOutValue(void) const
 
 /*------------------------------ access -----------------------------------*/
 
-UInt32 VRMLCoordinateInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
+UInt32 VRMLInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (KeyValueFieldMask & whichField))
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
-        returnValue += _mfKeyValue.getBinSize();
+        returnValue += _sfInValue.getBinSize();
     }
-    if(FieldBits::NoField != (OutValueFieldMask & whichField))
+    if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
-        returnValue += _mfOutValue.getBinSize();
+        returnValue += _mfKey.getBinSize();
+    }
+    if(FieldBits::NoField != (ResortIndexFieldMask & whichField))
+    {
+        returnValue += _mfResortIndex.getBinSize();
     }
 
     return returnValue;
 }
 
-void VRMLCoordinateInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
+void VRMLInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
                                   ConstFieldMaskArg  whichField)
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (KeyValueFieldMask & whichField))
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
-        _mfKeyValue.copyToBin(pMem);
+        _sfInValue.copyToBin(pMem);
     }
-    if(FieldBits::NoField != (OutValueFieldMask & whichField))
+    if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
-        _mfOutValue.copyToBin(pMem);
+        _mfKey.copyToBin(pMem);
+    }
+    if(FieldBits::NoField != (ResortIndexFieldMask & whichField))
+    {
+        _mfResortIndex.copyToBin(pMem);
     }
 }
 
-void VRMLCoordinateInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
+void VRMLInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
                                     ConstFieldMaskArg  whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (KeyValueFieldMask & whichField))
+    if(FieldBits::NoField != (InValueFieldMask & whichField))
     {
-        _mfKeyValue.copyFromBin(pMem);
+        _sfInValue.copyFromBin(pMem);
     }
-    if(FieldBits::NoField != (OutValueFieldMask & whichField))
+    if(FieldBits::NoField != (KeyFieldMask & whichField))
     {
-        _mfOutValue.copyFromBin(pMem);
+        _mfKey.copyFromBin(pMem);
+    }
+    if(FieldBits::NoField != (ResortIndexFieldMask & whichField))
+    {
+        _mfResortIndex.copyFromBin(pMem);
     }
 }
 
 //! create a new instance of the class
-VRMLCoordinateInterpolatorTransitPtr VRMLCoordinateInterpolatorBase::createLocal(BitVector bFlags)
+VRMLInterpolatorTransitPtr VRMLInterpolatorBase::createLocal(BitVector bFlags)
 {
-    VRMLCoordinateInterpolatorTransitPtr fc;
+    VRMLInterpolatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyLocal(bFlags);
 
-        fc = dynamic_pointer_cast<VRMLCoordinateInterpolator>(tmpPtr);
+        fc = dynamic_pointer_cast<VRMLInterpolator>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class, copy the container flags
-VRMLCoordinateInterpolatorTransitPtr VRMLCoordinateInterpolatorBase::createDependent(BitVector bFlags)
+VRMLInterpolatorTransitPtr VRMLInterpolatorBase::createDependent(BitVector bFlags)
 {
-    VRMLCoordinateInterpolatorTransitPtr fc;
+    VRMLInterpolatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopyDependent(bFlags);
 
-        fc = dynamic_pointer_cast<VRMLCoordinateInterpolator>(tmpPtr);
+        fc = dynamic_pointer_cast<VRMLInterpolator>(tmpPtr);
     }
 
     return fc;
 }
 
 //! create a new instance of the class
-VRMLCoordinateInterpolatorTransitPtr VRMLCoordinateInterpolatorBase::create(void)
+VRMLInterpolatorTransitPtr VRMLInterpolatorBase::create(void)
 {
-    VRMLCoordinateInterpolatorTransitPtr fc;
+    VRMLInterpolatorTransitPtr fc;
 
     if(getClassType().getPrototype() != NULL)
     {
         FieldContainerTransitPtr tmpPtr =
             getClassType().getPrototype()-> shallowCopy();
 
-        fc = dynamic_pointer_cast<VRMLCoordinateInterpolator>(tmpPtr);
+        fc = dynamic_pointer_cast<VRMLInterpolator>(tmpPtr);
     }
 
     return fc;
 }
 
-VRMLCoordinateInterpolator *VRMLCoordinateInterpolatorBase::createEmptyLocal(BitVector bFlags)
+VRMLInterpolator *VRMLInterpolatorBase::createEmptyLocal(BitVector bFlags)
 {
-    VRMLCoordinateInterpolator *returnValue;
+    VRMLInterpolator *returnValue;
 
-    newPtr<VRMLCoordinateInterpolator>(returnValue, bFlags);
+    newPtr<VRMLInterpolator>(returnValue, bFlags);
 
     returnValue->_pFieldFlags->_bNamespaceMask &= ~bFlags;
 
@@ -346,11 +398,11 @@ VRMLCoordinateInterpolator *VRMLCoordinateInterpolatorBase::createEmptyLocal(Bit
 }
 
 //! create an empty new instance of the class, do not copy the prototype
-VRMLCoordinateInterpolator *VRMLCoordinateInterpolatorBase::createEmpty(void)
+VRMLInterpolator *VRMLInterpolatorBase::createEmpty(void)
 {
-    VRMLCoordinateInterpolator *returnValue;
+    VRMLInterpolator *returnValue;
 
-    newPtr<VRMLCoordinateInterpolator>(returnValue, Thread::getCurrentLocalFlags());
+    newPtr<VRMLInterpolator>(returnValue, Thread::getCurrentLocalFlags());
 
     returnValue->_pFieldFlags->_bNamespaceMask &=
         ~Thread::getCurrentLocalFlags();
@@ -359,12 +411,12 @@ VRMLCoordinateInterpolator *VRMLCoordinateInterpolatorBase::createEmpty(void)
 }
 
 
-FieldContainerTransitPtr VRMLCoordinateInterpolatorBase::shallowCopyLocal(
+FieldContainerTransitPtr VRMLInterpolatorBase::shallowCopyLocal(
     BitVector bFlags) const
 {
-    VRMLCoordinateInterpolator *tmpPtr;
+    VRMLInterpolator *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const VRMLCoordinateInterpolator *>(this), bFlags);
+    newPtr(tmpPtr, dynamic_cast<const VRMLInterpolator *>(this), bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -373,12 +425,12 @@ FieldContainerTransitPtr VRMLCoordinateInterpolatorBase::shallowCopyLocal(
     return returnValue;
 }
 
-FieldContainerTransitPtr VRMLCoordinateInterpolatorBase::shallowCopyDependent(
+FieldContainerTransitPtr VRMLInterpolatorBase::shallowCopyDependent(
     BitVector bFlags) const
 {
-    VRMLCoordinateInterpolator *tmpPtr;
+    VRMLInterpolator *tmpPtr;
 
-    newPtr(tmpPtr, dynamic_cast<const VRMLCoordinateInterpolator *>(this), ~bFlags);
+    newPtr(tmpPtr, dynamic_cast<const VRMLInterpolator *>(this), ~bFlags);
 
     FieldContainerTransitPtr returnValue(tmpPtr);
 
@@ -387,12 +439,12 @@ FieldContainerTransitPtr VRMLCoordinateInterpolatorBase::shallowCopyDependent(
     return returnValue;
 }
 
-FieldContainerTransitPtr VRMLCoordinateInterpolatorBase::shallowCopy(void) const
+FieldContainerTransitPtr VRMLInterpolatorBase::shallowCopy(void) const
 {
-    VRMLCoordinateInterpolator *tmpPtr;
+    VRMLInterpolator *tmpPtr;
 
     newPtr(tmpPtr,
-           dynamic_cast<const VRMLCoordinateInterpolator *>(this),
+           dynamic_cast<const VRMLInterpolator *>(this),
            Thread::getCurrentLocalFlags());
 
     tmpPtr->_pFieldFlags->_bNamespaceMask &= ~Thread::getCurrentLocalFlags();
@@ -407,89 +459,116 @@ FieldContainerTransitPtr VRMLCoordinateInterpolatorBase::shallowCopy(void) const
 
 /*------------------------- constructors ----------------------------------*/
 
-VRMLCoordinateInterpolatorBase::VRMLCoordinateInterpolatorBase(void) :
+VRMLInterpolatorBase::VRMLInterpolatorBase(void) :
     Inherited(),
-    _mfKeyValue               (),
-    _mfOutValue               ()
+    _sfInValue                (Real32(0.f)),
+    _mfKey                    (),
+    _mfResortIndex            ()
 {
 }
 
-VRMLCoordinateInterpolatorBase::VRMLCoordinateInterpolatorBase(const VRMLCoordinateInterpolatorBase &source) :
+VRMLInterpolatorBase::VRMLInterpolatorBase(const VRMLInterpolatorBase &source) :
     Inherited(source),
-    _mfKeyValue               (source._mfKeyValue               ),
-    _mfOutValue               (source._mfOutValue               )
+    _sfInValue                (source._sfInValue                ),
+    _mfKey                    (source._mfKey                    ),
+    _mfResortIndex            (source._mfResortIndex            )
 {
 }
 
 
 /*-------------------------- destructors ----------------------------------*/
 
-VRMLCoordinateInterpolatorBase::~VRMLCoordinateInterpolatorBase(void)
+VRMLInterpolatorBase::~VRMLInterpolatorBase(void)
 {
 }
 
 
-GetFieldHandlePtr VRMLCoordinateInterpolatorBase::getHandleKeyValue        (void) const
+GetFieldHandlePtr VRMLInterpolatorBase::getHandleInValue         (void) const
 {
-    MFPnt3f::GetHandlePtr returnValue(
-        new  MFPnt3f::GetHandle(
-             &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId),
-             const_cast<VRMLCoordinateInterpolatorBase *>(this)));
+    SFReal32::GetHandlePtr returnValue(
+        new  SFReal32::GetHandle(
+             &_sfInValue,
+             this->getType().getFieldDesc(InValueFieldId),
+             const_cast<VRMLInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr VRMLCoordinateInterpolatorBase::editHandleKeyValue       (void)
+EditFieldHandlePtr VRMLInterpolatorBase::editHandleInValue        (void)
 {
-    MFPnt3f::EditHandlePtr returnValue(
-        new  MFPnt3f::EditHandle(
-             &_mfKeyValue,
-             this->getType().getFieldDesc(KeyValueFieldId),
+    SFReal32::EditHandlePtr returnValue(
+        new  SFReal32::EditHandle(
+             &_sfInValue,
+             this->getType().getFieldDesc(InValueFieldId),
              this));
 
 
-    editMField(KeyValueFieldMask, _mfKeyValue);
+    editSField(InValueFieldMask);
 
     return returnValue;
 }
 
-GetFieldHandlePtr VRMLCoordinateInterpolatorBase::getHandleOutValue        (void) const
+GetFieldHandlePtr VRMLInterpolatorBase::getHandleKey             (void) const
 {
-    MFPnt3f::GetHandlePtr returnValue(
-        new  MFPnt3f::GetHandle(
-             &_mfOutValue,
-             this->getType().getFieldDesc(OutValueFieldId),
-             const_cast<VRMLCoordinateInterpolatorBase *>(this)));
+    MFReal32::GetHandlePtr returnValue(
+        new  MFReal32::GetHandle(
+             &_mfKey,
+             this->getType().getFieldDesc(KeyFieldId),
+             const_cast<VRMLInterpolatorBase *>(this)));
 
     return returnValue;
 }
 
-EditFieldHandlePtr VRMLCoordinateInterpolatorBase::editHandleOutValue       (void)
+EditFieldHandlePtr VRMLInterpolatorBase::editHandleKey            (void)
 {
-    MFPnt3f::EditHandlePtr returnValue(
-        new  MFPnt3f::EditHandle(
-             &_mfOutValue,
-             this->getType().getFieldDesc(OutValueFieldId),
+    MFReal32::EditHandlePtr returnValue(
+        new  MFReal32::EditHandle(
+             &_mfKey,
+             this->getType().getFieldDesc(KeyFieldId),
              this));
 
 
-    editMField(OutValueFieldMask, _mfOutValue);
+    editMField(KeyFieldMask, _mfKey);
+
+    return returnValue;
+}
+
+GetFieldHandlePtr VRMLInterpolatorBase::getHandleResortIndex     (void) const
+{
+    MFUInt32::GetHandlePtr returnValue(
+        new  MFUInt32::GetHandle(
+             &_mfResortIndex,
+             this->getType().getFieldDesc(ResortIndexFieldId),
+             const_cast<VRMLInterpolatorBase *>(this)));
+
+    return returnValue;
+}
+
+EditFieldHandlePtr VRMLInterpolatorBase::editHandleResortIndex    (void)
+{
+    MFUInt32::EditHandlePtr returnValue(
+        new  MFUInt32::EditHandle(
+             &_mfResortIndex,
+             this->getType().getFieldDesc(ResortIndexFieldId),
+             this));
+
+
+    editMField(ResortIndexFieldMask, _mfResortIndex);
 
     return returnValue;
 }
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-void VRMLCoordinateInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
+void VRMLInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
                                         ConstFieldMaskArg  whichField,
                                         AspectOffsetStore &oOffsets,
                                         ConstFieldMaskArg  syncMode,
                                   const UInt32             uiSyncInfo)
 {
-    VRMLCoordinateInterpolator *pThis = static_cast<VRMLCoordinateInterpolator *>(this);
+    VRMLInterpolator *pThis = static_cast<VRMLInterpolator *>(this);
 
-    pThis->execSync(static_cast<VRMLCoordinateInterpolator *>(&oFrom),
+    pThis->execSync(static_cast<VRMLInterpolator *>(&oFrom),
                     whichField,
                     oOffsets,
                     syncMode,
@@ -499,20 +578,20 @@ void VRMLCoordinateInterpolatorBase::execSyncV(      FieldContainer    &oFrom,
 
 
 #ifdef OSG_MT_CPTR_ASPECT
-FieldContainer *VRMLCoordinateInterpolatorBase::createAspectCopy(
+FieldContainer *VRMLInterpolatorBase::createAspectCopy(
     const FieldContainer *pRefAspect) const
 {
-    VRMLCoordinateInterpolator *returnValue;
+    VRMLInterpolator *returnValue;
 
     newAspectCopy(returnValue,
-                  dynamic_cast<const VRMLCoordinateInterpolator *>(pRefAspect),
-                  dynamic_cast<const VRMLCoordinateInterpolator *>(this));
+                  dynamic_cast<const VRMLInterpolator *>(pRefAspect),
+                  dynamic_cast<const VRMLInterpolator *>(this));
 
     return returnValue;
 }
 #endif
 
-void VRMLCoordinateInterpolatorBase::resolveLinks(void)
+void VRMLInterpolatorBase::resolveLinks(void)
 {
     Inherited::resolveLinks();
 
@@ -523,11 +602,11 @@ void VRMLCoordinateInterpolatorBase::resolveLinks(void)
 #endif
 
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfKeyValue.terminateShare(Thread::getCurrentAspect(),
+    _mfKey.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 #ifdef OSG_MT_CPTR_ASPECT
-    _mfOutValue.terminateShare(Thread::getCurrentAspect(),
+    _mfResortIndex.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
 #endif
 }

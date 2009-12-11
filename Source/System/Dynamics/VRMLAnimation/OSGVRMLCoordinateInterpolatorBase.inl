@@ -73,47 +73,6 @@ OSG::UInt16 VRMLCoordinateInterpolatorBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the VRMLCoordinateInterpolator::_sfInValue field.
-
-inline
-Real32 &VRMLCoordinateInterpolatorBase::editInValue(void)
-{
-    editSField(InValueFieldMask);
-
-    return _sfInValue.getValue();
-}
-
-//! Get the value of the VRMLCoordinateInterpolator::_sfInValue field.
-inline
-      Real32  VRMLCoordinateInterpolatorBase::getInValue(void) const
-{
-    return _sfInValue.getValue();
-}
-
-//! Set the value of the VRMLCoordinateInterpolator::_sfInValue field.
-inline
-void VRMLCoordinateInterpolatorBase::setInValue(const Real32 value)
-{
-    editSField(InValueFieldMask);
-
-    _sfInValue.setValue(value);
-}
-
-//! Get the value of the \a index element the VRMLCoordinateInterpolator::_mfKey field.
-inline
-      Real32  VRMLCoordinateInterpolatorBase::getKey(const UInt32 index) const
-{
-    return _mfKey[index];
-}
-
-inline
-Real32 &VRMLCoordinateInterpolatorBase::editKey(const UInt32 index)
-{
-    editMField(KeyFieldMask, _mfKey);
-
-    return _mfKey[index];
-}
-
 
 //! Get the value of the \a index element the VRMLCoordinateInterpolator::_mfKeyValue field.
 inline
@@ -157,15 +116,6 @@ void VRMLCoordinateInterpolatorBase::execSync (      VRMLCoordinateInterpolatorB
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-        _sfInValue.syncWith(pFrom->_sfInValue);
-
-    if(FieldBits::NoField != (KeyFieldMask & whichField))
-        _mfKey.syncWith(pFrom->_mfKey,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
         _mfKeyValue.syncWith(pFrom->_mfKeyValue,

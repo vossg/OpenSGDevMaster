@@ -73,31 +73,6 @@ OSG::UInt16 VRMLOrientationInterpolatorBase::getClassGroupId(void)
 
 /*------------------------------ get -----------------------------------*/
 
-//! Get the value of the VRMLOrientationInterpolator::_sfInValue field.
-
-inline
-Real32 &VRMLOrientationInterpolatorBase::editInValue(void)
-{
-    editSField(InValueFieldMask);
-
-    return _sfInValue.getValue();
-}
-
-//! Get the value of the VRMLOrientationInterpolator::_sfInValue field.
-inline
-      Real32  VRMLOrientationInterpolatorBase::getInValue(void) const
-{
-    return _sfInValue.getValue();
-}
-
-//! Set the value of the VRMLOrientationInterpolator::_sfInValue field.
-inline
-void VRMLOrientationInterpolatorBase::setInValue(const Real32 value)
-{
-    editSField(InValueFieldMask);
-
-    _sfInValue.setValue(value);
-}
 //! Get the value of the VRMLOrientationInterpolator::_sfOutValue field.
 
 inline
@@ -123,22 +98,6 @@ void VRMLOrientationInterpolatorBase::setOutValue(const Quaternion &value)
 
     _sfOutValue.setValue(value);
 }
-
-//! Get the value of the \a index element the VRMLOrientationInterpolator::_mfKey field.
-inline
-      Real32  VRMLOrientationInterpolatorBase::getKey(const UInt32 index) const
-{
-    return _mfKey[index];
-}
-
-inline
-Real32 &VRMLOrientationInterpolatorBase::editKey(const UInt32 index)
-{
-    editMField(KeyFieldMask, _mfKey);
-
-    return _mfKey[index];
-}
-
 
 //! Get the value of the \a index element the VRMLOrientationInterpolator::_mfKeyValue field.
 inline
@@ -166,15 +125,6 @@ void VRMLOrientationInterpolatorBase::execSync (      VRMLOrientationInterpolato
                                   const UInt32             uiSyncInfo)
 {
     Inherited::execSync(pFrom, whichField, oOffsets, syncMode, uiSyncInfo);
-
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-        _sfInValue.syncWith(pFrom->_sfInValue);
-
-    if(FieldBits::NoField != (KeyFieldMask & whichField))
-        _mfKey.syncWith(pFrom->_mfKey,
-                                syncMode,
-                                uiSyncInfo,
-                                oOffsets);
 
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
         _mfKeyValue.syncWith(pFrom->_mfKeyValue,

@@ -45,14 +45,14 @@
  **           regenerated, which can become necessary at any time.          **
  **                                                                         **
  **     Do not change this file, changes should be done in the derived      **
- **     class VRMLCoordinateInterpolator
+ **     class VRMLInterpolator
  **                                                                         **
  *****************************************************************************
 \*****************************************************************************/
 
 
-#ifndef _OSGVRMLCOORDINATEINTERPOLATORBASE_H_
-#define _OSGVRMLCOORDINATEINTERPOLATORBASE_H_
+#ifndef _OSGVRMLINTERPOLATORBASE_H_
+#define _OSGVRMLINTERPOLATORBASE_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -63,29 +63,29 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGVRMLInterpolator.h" // Parent
+#include "OSGNodeCore.h" // Parent
 
-#include "OSGVecFields.h"               // KeyValue type
+#include "OSGSysFields.h"               // InValue type
 
-#include "OSGVRMLCoordinateInterpolatorFields.h"
+#include "OSGVRMLInterpolatorFields.h"
 
 OSG_BEGIN_NAMESPACE
 
-class VRMLCoordinateInterpolator;
+class VRMLInterpolator;
 
-//! \brief VRMLCoordinateInterpolator Base Class.
+//! \brief VRMLInterpolator Base Class.
 
-class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterpolator
+class OSG_DYNAMICS_DLLMAPPING VRMLInterpolatorBase : public NodeCore
 {
   public:
 
-    typedef VRMLInterpolator Inherited;
-    typedef VRMLInterpolator ParentContainer;
+    typedef NodeCore Inherited;
+    typedef NodeCore ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;
 
-    OSG_GEN_INTERNALPTR(VRMLCoordinateInterpolator);
+    OSG_GEN_INTERNALPTR(VRMLInterpolator);
 
     /*==========================  PUBLIC  =================================*/
 
@@ -93,20 +93,24 @@ class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterp
 
     enum
     {
-        KeyValueFieldId = Inherited::NextFieldId,
-        OutValueFieldId = KeyValueFieldId + 1,
-        NextFieldId = OutValueFieldId + 1
+        InValueFieldId = Inherited::NextFieldId,
+        KeyFieldId = InValueFieldId + 1,
+        ResortIndexFieldId = KeyFieldId + 1,
+        NextFieldId = ResortIndexFieldId + 1
     };
 
-    static const OSG::BitVector KeyValueFieldMask =
-        (TypeTraits<BitVector>::One << KeyValueFieldId);
-    static const OSG::BitVector OutValueFieldMask =
-        (TypeTraits<BitVector>::One << OutValueFieldId);
+    static const OSG::BitVector InValueFieldMask =
+        (TypeTraits<BitVector>::One << InValueFieldId);
+    static const OSG::BitVector KeyFieldMask =
+        (TypeTraits<BitVector>::One << KeyFieldId);
+    static const OSG::BitVector ResortIndexFieldMask =
+        (TypeTraits<BitVector>::One << ResortIndexFieldId);
     static const OSG::BitVector NextFieldMask =
         (TypeTraits<BitVector>::One << NextFieldId);
         
-    typedef MFPnt3f           MFKeyValueType;
-    typedef MFPnt3f           MFOutValueType;
+    typedef SFReal32          SFInValueType;
+    typedef MFReal32          MFKeyType;
+    typedef MFUInt32          MFResortIndexType;
 
     /*---------------------------------------------------------------------*/
     /*! \name                    Class Get                                 */
@@ -132,24 +136,31 @@ class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterp
     /*! \{                                                                 */
 
 
-                  MFPnt3f             *editMFKeyValue       (void);
-            const MFPnt3f             *getMFKeyValue        (void) const;
+                  SFReal32            *editSFInValue        (void);
+            const SFReal32            *getSFInValue         (void) const;
 
-                  MFPnt3f             *editMFOutValue       (void);
-            const MFPnt3f             *getMFOutValue        (void) const;
+                  MFReal32            *editMFKey            (void);
+            const MFReal32            *getMFKey             (void) const;
+
+                  MFUInt32            *editMFResortIndex    (void);
+            const MFUInt32            *getMFResortIndex     (void) const;
 
 
-                  Pnt3f               &editKeyValue       (const UInt32 index);
-            const Pnt3f               &getKeyValue        (const UInt32 index) const;
+                  Real32              &editInValue        (void);
+                  Real32               getInValue         (void) const;
 
-                  Pnt3f               &editOutValue       (const UInt32 index);
-            const Pnt3f               &getOutValue        (const UInt32 index) const;
+                  Real32              &editKey            (const UInt32 index);
+                  Real32               getKey             (const UInt32 index) const;
+
+                  UInt32              &editResortIndex    (const UInt32 index);
+                  UInt32               getResortIndex     (const UInt32 index) const;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Field Set                                 */
     /*! \{                                                                 */
 
+            void setInValue        (const Real32 value);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -173,16 +184,16 @@ class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterp
     /*! \name                   Construction                               */
     /*! \{                                                                 */
 
-    static  VRMLCoordinateInterpolatorTransitPtr  create          (void);
-    static  VRMLCoordinateInterpolator           *createEmpty     (void);
+    static  VRMLInterpolatorTransitPtr  create          (void);
+    static  VRMLInterpolator           *createEmpty     (void);
 
-    static  VRMLCoordinateInterpolatorTransitPtr  createLocal     (
+    static  VRMLInterpolatorTransitPtr  createLocal     (
                                                BitVector bFlags = FCLocal::All);
 
-    static  VRMLCoordinateInterpolator            *createEmptyLocal(
+    static  VRMLInterpolator            *createEmptyLocal(
                                               BitVector bFlags = FCLocal::All);
 
-    static  VRMLCoordinateInterpolatorTransitPtr  createDependent  (BitVector bFlags);
+    static  VRMLInterpolatorTransitPtr  createDependent  (BitVector bFlags);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -209,23 +220,24 @@ class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterp
     /*! \name                      Fields                                  */
     /*! \{                                                                 */
 
-    MFPnt3f           _mfKeyValue;
-    MFPnt3f           _mfOutValue;
+    SFReal32          _sfInValue;
+    MFReal32          _mfKey;
+    MFUInt32          _mfResortIndex;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
 
-    VRMLCoordinateInterpolatorBase(void);
-    VRMLCoordinateInterpolatorBase(const VRMLCoordinateInterpolatorBase &source);
+    VRMLInterpolatorBase(void);
+    VRMLInterpolatorBase(const VRMLInterpolatorBase &source);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructors                                */
     /*! \{                                                                 */
 
-    virtual ~VRMLCoordinateInterpolatorBase(void);
+    virtual ~VRMLInterpolatorBase(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -238,10 +250,12 @@ class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterp
     /*! \name                    Generic Field Access                      */
     /*! \{                                                                 */
 
-    GetFieldHandlePtr  getHandleKeyValue        (void) const;
-    EditFieldHandlePtr editHandleKeyValue       (void);
-    GetFieldHandlePtr  getHandleOutValue        (void) const;
-    EditFieldHandlePtr editHandleOutValue       (void);
+    GetFieldHandlePtr  getHandleInValue         (void) const;
+    EditFieldHandlePtr editHandleInValue        (void);
+    GetFieldHandlePtr  getHandleKey             (void) const;
+    EditFieldHandlePtr editHandleKey            (void);
+    GetFieldHandlePtr  getHandleResortIndex     (void) const;
+    EditFieldHandlePtr editHandleResortIndex    (void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -255,7 +269,7 @@ class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterp
                                  ConstFieldMaskArg  syncMode  ,
                            const UInt32             uiSyncInfo);
 
-            void execSync (      VRMLCoordinateInterpolatorBase *pFrom,
+            void execSync (      VRMLInterpolatorBase *pFrom,
                                  ConstFieldMaskArg  whichField,
                                  AspectOffsetStore &oOffsets,
                                  ConstFieldMaskArg  syncMode  ,
@@ -295,14 +309,14 @@ class OSG_DYNAMICS_DLLMAPPING VRMLCoordinateInterpolatorBase : public VRMLInterp
     /*---------------------------------------------------------------------*/
 
     // prohibit default functions (move to 'public' if you need one)
-    void operator =(const VRMLCoordinateInterpolatorBase &source);
+    void operator =(const VRMLInterpolatorBase &source);
 };
 
-typedef VRMLCoordinateInterpolatorBase *VRMLCoordinateInterpolatorBaseP;
+typedef VRMLInterpolatorBase *VRMLInterpolatorBaseP;
 
-typedef CoredNodeRefPtr  <VRMLCoordinateInterpolator> VRMLCoordinateInterpolatorNodeRefPtr;
-typedef CoredNodeMTRefPtr<VRMLCoordinateInterpolator> VRMLCoordinateInterpolatorNodeMTRefPtr;
+typedef CoredNodeRefPtr  <VRMLInterpolator> VRMLInterpolatorNodeRefPtr;
+typedef CoredNodeMTRefPtr<VRMLInterpolator> VRMLInterpolatorNodeMTRefPtr;
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGVRMLCOORDINATEINTERPOLATORBASE_H_ */
+#endif /* _OSGVRMLINTERPOLATORBASE_H_ */

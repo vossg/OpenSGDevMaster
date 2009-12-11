@@ -105,6 +105,38 @@ void VRMLScalarInterpolator::changed(ConstFieldMaskArg whichField,
                                      UInt32            origin,
                                      BitVector         details)
 {
+    if(0x0000 != (whichField & ResortIndexFieldMask))
+    {
+        fprintf(stderr, "resort triggert\n");        
+
+        SizeT uiNumRes = _mfKeyValue.size() / _mfKey.size();
+
+        if(uiNumRes == _mfResortIndex.size())
+        {
+            InterpolationHelper<MFReal32, 
+                                MFReal32, 
+                                SFReal32>::resortKeyValues(
+                                    _mfKey.size(),
+                                     uiNumRes,
+                                    *(this->editMFKeyValue()),
+                                    _mfResortIndex);
+
+            InterpolationHelper<MFReal32, 
+                                MFReal32, 
+                                SFReal32>::interpolate(  
+                                    _sfInValue.getValue(),
+                                    _mfKey,
+                                    _mfKeyValue,
+                                    *(this->editSFOutValue()));
+        }
+        else
+        {
+            fprintf(stderr, 
+                    "interpol resort : sizes don't match %"PRISize" | %d\n",
+                    uiNumRes, _mfResortIndex.size());
+        }
+    }
+
     if(0x0000 != (whichField & InValueFieldMask))
     {
         InterpolationHelper<MFReal32, 

@@ -45,15 +45,15 @@
 
 #include "OSGConfig.h"
 
-#include "OSGVRMLCoordinateInterpolator.h"
+#include "OSGVRMLInterpolator.h"
 #include "OSGInterpolationHelper.h"
 
 OSG_BEGIN_NAMESPACE
 
 // Documentation for this class is emitted in the
-// OSGVRMLCoordinateInterpolatorBase.cpp file.
-// To modify it, please change the .fcd file
-// (OSGVRMLCoordinateInterpolator.fcd) and regenerate the base file.
+// OSGVRMLInterpolatorBase.cpp file.
+// To modify it, please change the .fcd file (OSGVRMLInterpolator.fcd) and
+// regenerate the base file.
 
 /***************************************************************************\
  *                           Class variables                               *
@@ -63,7 +63,7 @@ OSG_BEGIN_NAMESPACE
  *                           Class methods                                 *
 \***************************************************************************/
 
-void VRMLCoordinateInterpolator::initMethod(InitPhase ePhase)
+void VRMLInterpolator::initMethod(InitPhase ePhase)
 {
     Inherited::initMethod(ePhase);
 
@@ -83,78 +83,33 @@ void VRMLCoordinateInterpolator::initMethod(InitPhase ePhase)
 
 /*----------------------- constructors & destructors ----------------------*/
 
-VRMLCoordinateInterpolator::VRMLCoordinateInterpolator(void) :
+VRMLInterpolator::VRMLInterpolator(void) : 
     Inherited()
 {
 }
 
-VRMLCoordinateInterpolator::VRMLCoordinateInterpolator(
-    const VRMLCoordinateInterpolator &source) :
-
+VRMLInterpolator::VRMLInterpolator(const VRMLInterpolator &source) :
     Inherited(source)
 {
 }
 
-VRMLCoordinateInterpolator::~VRMLCoordinateInterpolator(void)
+VRMLInterpolator::~VRMLInterpolator(void)
 {
 }
 
 /*----------------------------- class specific ----------------------------*/
 
-void VRMLCoordinateInterpolator::changed(ConstFieldMaskArg whichField, 
-                                         UInt32            origin,
-                                         BitVector         details)
+void VRMLInterpolator::changed(ConstFieldMaskArg whichField, 
+                               UInt32            origin,
+                               BitVector         details)
 {
-    if(0x0000 != (whichField & ResortIndexFieldMask))
-    {
-        fprintf(stderr, "resort triggert\n");        
-
-        SizeT uiNumRes = _mfKeyValue.size() / _mfKey.size();
-
-        if(uiNumRes == _mfResortIndex.size())
-        {
-            InterpolationHelper<MFReal32, 
-                                MFPnt3f, 
-                                MFPnt3f>::resortKeyValues(
-                                    _mfKey.size(),
-                                     uiNumRes,
-                                    *(this->editMFKeyValue()),
-                                    _mfResortIndex);
-
-            InterpolationHelper<MFReal32, 
-                                MFPnt3f, 
-                                MFPnt3f>::interpolate(  
-                                    _sfInValue.getValue(),
-                                    _mfKey,
-                                    _mfKeyValue,
-                                    *(this->editMFOutValue()));
-        }
-        else
-        {
-            fprintf(stderr, 
-                    "interpol resort : sizes don't match %"PRISize" | %d\n",
-                    uiNumRes, _mfResortIndex.size());
-        }
-    }
-
-    if(0x0000 != (whichField & InValueFieldMask))
-    {
-        InterpolationHelper<MFReal32, 
-                            MFPnt3f, 
-                            MFPnt3f>::interpolate(  
-                                  _sfInValue.getValue(),
-                                  _mfKey,
-                                  _mfKeyValue,
-                                *(this->editMFOutValue()));
-    }
-
     Inherited::changed(whichField, origin, details);
 }
 
-void VRMLCoordinateInterpolator::dump(      UInt32    ,
-                                      const BitVector ) const
+void VRMLInterpolator::dump(      UInt32    ,
+                            const BitVector ) const
 {
-    SLOG << "Dump VRMLCoordinateInterpolator NI" << std::endl;
+    SLOG << "Dump VRMLInterpolator NI" << std::endl;
 }
 
 OSG_END_NAMESPACE

@@ -82,14 +82,6 @@ OSG_BEGIN_NAMESPACE
  *                        Field Documentation                              *
 \***************************************************************************/
 
-/*! \var Real32          VRMLPositionInterpolatorBase::_sfInValue
-    This is VRML's fraction field.
-*/
-
-/*! \var Real32          VRMLPositionInterpolatorBase::_mfKey
-    
-*/
-
 /*! \var Vec3f           VRMLPositionInterpolatorBase::_mfKeyValue
     
 */
@@ -104,7 +96,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<VRMLPositionInterpolator *>::_type("VRMLPositionInterpolatorPtr", "NodeCorePtr");
+DataType FieldTraits<VRMLPositionInterpolator *>::_type("VRMLPositionInterpolatorPtr", "VRMLInterpolatorPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(VRMLPositionInterpolator *)
@@ -117,30 +109,6 @@ void VRMLPositionInterpolatorBase::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc = NULL;
 
-
-    pDesc = new SFReal32::Description(
-        SFReal32::getClassType(),
-        "inValue",
-        "This is VRML's fraction field.\n",
-        InValueFieldId, InValueFieldMask,
-        true,
-        (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&VRMLPositionInterpolator::editHandleInValue),
-        static_cast<FieldGetMethodSig >(&VRMLPositionInterpolator::getHandleInValue));
-
-    oType.addInitialDesc(pDesc);
-
-    pDesc = new MFReal32::Description(
-        MFReal32::getClassType(),
-        "key",
-        "",
-        KeyFieldId, KeyFieldMask,
-        false,
-        (Field::FThreadLocal),
-        static_cast<FieldEditMethodSig>(&VRMLPositionInterpolator::editHandleKey),
-        static_cast<FieldGetMethodSig >(&VRMLPositionInterpolator::getHandleKey));
-
-    oType.addInitialDesc(pDesc);
 
     pDesc = new MFVec3f::Description(
         MFVec3f::getClassType(),
@@ -182,61 +150,40 @@ VRMLPositionInterpolatorBase::TypeObject VRMLPositionInterpolatorBase::_type(
     "<?xml version=\"1.0\"?>\n"
     "\n"
     "<FieldContainer\n"
-    "     name=\"VRMLPositionInterpolator\"\n"
-    "     parent=\"NodeCore\"\n"
-    "     library=\"Dynamics\"\n"
-    "     pointerfieldtypes=\"none\"\n"
-    "     structure=\"concrete\"\n"
-    "     systemcomponent=\"true\"\n"
-    "     parentsystemcomponent=\"true\"\n"
-    "     decoratable=\"false\"\n"
-    "     useLocalIncludes=\"false\"\n"
-    "     isNodeCore=\"true\"\n"
-    "     isBundle=\"false\"\n"
-    "     parentFields=\"none\"\n"
-    "     >\n"
-    "    <Field\n"
-    "\t name=\"inValue\"\n"
-    "\t type=\"Real32\"\n"
-    "\t cardinality=\"single\"\n"
-    "\t visibility=\"internal\"\n"
-    "\t access=\"public\"\n"
-    "         defaultValue=\"0.f\"\n"
-    "         fieldFlags=\"FThreadLocal\"\n"
-    "\t >\n"
-    "        This is VRML's fraction field.\n"
-    "    </Field>\n"
-    "    <Field\n"
-    "\t name=\"key\"\n"
-    "\t type=\"Real32\"\n"
-    "\t cardinality=\"multi\"\n"
-    "\t visibility=\"external\"\n"
-    "\t access=\"public\"\n"
-    "         defaultValue=\"\"\n"
-    "         fieldFlags=\"FThreadLocal\"\n"
-    "\t >\n"
-    "    </Field>\n"
-    "    <Field\n"
+    "   name=\"VRMLPositionInterpolator\"\n"
+    "   parent=\"VRMLInterpolator\"\n"
+    "   library=\"Dynamics\"\n"
+    "   pointerfieldtypes=\"none\"\n"
+    "   structure=\"concrete\"\n"
+    "   systemcomponent=\"true\"\n"
+    "   parentsystemcomponent=\"true\"\n"
+    "   decoratable=\"false\"\n"
+    "   useLocalIncludes=\"false\"\n"
+    "   isNodeCore=\"true\"\n"
+    "   isBundle=\"false\"\n"
+    "   parentFields=\"none\"\n"
+    "   >\n"
+    "  <Field\n"
     "\t name=\"keyValue\"\n"
     "\t type=\"Vec3f\"\n"
     "\t cardinality=\"multi\"\n"
     "\t visibility=\"external\"\n"
     "\t access=\"public\"\n"
-    "         defaultValue=\"\"\n"
-    "         fieldFlags=\"FThreadLocal\"\n"
+    "     defaultValue=\"\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
     "\t >\n"
-    "    </Field>\n"
-    "    <Field\n"
+    "  </Field>\n"
+    "  <Field\n"
     "\t name=\"outValue\"\n"
     "\t type=\"Vec3f\"\n"
     "\t cardinality=\"single\"\n"
     "\t visibility=\"internal\"\n"
     "\t access=\"public\"\n"
-    "         defaultValue=\"\"\n"
-    "         fieldFlags=\"FThreadLocal\"\n"
+    "     defaultValue=\"\"\n"
+    "     fieldFlags=\"FThreadLocal\"\n"
     "\t >\n"
-    "        This is VRML's value field.\n"
-    "    </Field>\n"
+    "    This is VRML's value field.\n"
+    "  </Field>\n"
     "</FieldContainer>\n",
     ""
     );
@@ -259,32 +206,6 @@ UInt32 VRMLPositionInterpolatorBase::getContainerSize(void) const
 }
 
 /*------------------------- decorator get ------------------------------*/
-
-
-SFReal32 *VRMLPositionInterpolatorBase::editSFInValue(void)
-{
-    editSField(InValueFieldMask);
-
-    return &_sfInValue;
-}
-
-const SFReal32 *VRMLPositionInterpolatorBase::getSFInValue(void) const
-{
-    return &_sfInValue;
-}
-
-
-MFReal32 *VRMLPositionInterpolatorBase::editMFKey(void)
-{
-    editMField(KeyFieldMask, _mfKey);
-
-    return &_mfKey;
-}
-
-const MFReal32 *VRMLPositionInterpolatorBase::getMFKey(void) const
-{
-    return &_mfKey;
-}
 
 
 MFVec3f *VRMLPositionInterpolatorBase::editMFKeyValue(void)
@@ -323,14 +244,6 @@ UInt32 VRMLPositionInterpolatorBase::getBinSize(ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-    {
-        returnValue += _sfInValue.getBinSize();
-    }
-    if(FieldBits::NoField != (KeyFieldMask & whichField))
-    {
-        returnValue += _mfKey.getBinSize();
-    }
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {
         returnValue += _mfKeyValue.getBinSize();
@@ -348,14 +261,6 @@ void VRMLPositionInterpolatorBase::copyToBin(BinaryDataHandler &pMem,
 {
     Inherited::copyToBin(pMem, whichField);
 
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-    {
-        _sfInValue.copyToBin(pMem);
-    }
-    if(FieldBits::NoField != (KeyFieldMask & whichField))
-    {
-        _mfKey.copyToBin(pMem);
-    }
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {
         _mfKeyValue.copyToBin(pMem);
@@ -371,14 +276,6 @@ void VRMLPositionInterpolatorBase::copyFromBin(BinaryDataHandler &pMem,
 {
     Inherited::copyFromBin(pMem, whichField);
 
-    if(FieldBits::NoField != (InValueFieldMask & whichField))
-    {
-        _sfInValue.copyFromBin(pMem);
-    }
-    if(FieldBits::NoField != (KeyFieldMask & whichField))
-    {
-        _mfKey.copyFromBin(pMem);
-    }
     if(FieldBits::NoField != (KeyValueFieldMask & whichField))
     {
         _mfKeyValue.copyFromBin(pMem);
@@ -512,8 +409,6 @@ FieldContainerTransitPtr VRMLPositionInterpolatorBase::shallowCopy(void) const
 
 VRMLPositionInterpolatorBase::VRMLPositionInterpolatorBase(void) :
     Inherited(),
-    _sfInValue                (Real32(0.f)),
-    _mfKey                    (),
     _mfKeyValue               (),
     _sfOutValue               ()
 {
@@ -521,8 +416,6 @@ VRMLPositionInterpolatorBase::VRMLPositionInterpolatorBase(void) :
 
 VRMLPositionInterpolatorBase::VRMLPositionInterpolatorBase(const VRMLPositionInterpolatorBase &source) :
     Inherited(source),
-    _sfInValue                (source._sfInValue                ),
-    _mfKey                    (source._mfKey                    ),
     _mfKeyValue               (source._mfKeyValue               ),
     _sfOutValue               (source._sfOutValue               )
 {
@@ -535,56 +428,6 @@ VRMLPositionInterpolatorBase::~VRMLPositionInterpolatorBase(void)
 {
 }
 
-
-GetFieldHandlePtr VRMLPositionInterpolatorBase::getHandleInValue         (void) const
-{
-    SFReal32::GetHandlePtr returnValue(
-        new  SFReal32::GetHandle(
-             &_sfInValue,
-             this->getType().getFieldDesc(InValueFieldId),
-             const_cast<VRMLPositionInterpolatorBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr VRMLPositionInterpolatorBase::editHandleInValue        (void)
-{
-    SFReal32::EditHandlePtr returnValue(
-        new  SFReal32::EditHandle(
-             &_sfInValue,
-             this->getType().getFieldDesc(InValueFieldId),
-             this));
-
-
-    editSField(InValueFieldMask);
-
-    return returnValue;
-}
-
-GetFieldHandlePtr VRMLPositionInterpolatorBase::getHandleKey             (void) const
-{
-    MFReal32::GetHandlePtr returnValue(
-        new  MFReal32::GetHandle(
-             &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId),
-             const_cast<VRMLPositionInterpolatorBase *>(this)));
-
-    return returnValue;
-}
-
-EditFieldHandlePtr VRMLPositionInterpolatorBase::editHandleKey            (void)
-{
-    MFReal32::EditHandlePtr returnValue(
-        new  MFReal32::EditHandle(
-             &_mfKey,
-             this->getType().getFieldDesc(KeyFieldId),
-             this));
-
-
-    editMField(KeyFieldMask, _mfKey);
-
-    return returnValue;
-}
 
 GetFieldHandlePtr VRMLPositionInterpolatorBase::getHandleKeyValue        (void) const
 {
@@ -679,10 +522,6 @@ void VRMLPositionInterpolatorBase::resolveLinks(void)
     _pAspectStore->fillOffsetArray(oOffsets, this);
 #endif
 
-#ifdef OSG_MT_CPTR_ASPECT
-    _mfKey.terminateShare(Thread::getCurrentAspect(),
-                                      oOffsets);
-#endif
 #ifdef OSG_MT_CPTR_ASPECT
     _mfKeyValue.terminateShare(Thread::getCurrentAspect(),
                                       oOffsets);
