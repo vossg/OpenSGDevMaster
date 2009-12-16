@@ -52,6 +52,7 @@
 #include "OSGAnimDataSource.h"
 #include "OSGAnimTargetAttachment.h"
 #include "OSGRenderAction.h"
+#include "OSGUpdateAction.h"
 
 #include <boost/cast.hpp>
 
@@ -78,12 +79,19 @@ void SkeletonJoint::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        RenderAction::registerEnterDefault(
+//         RenderAction::registerEnterDefault(
+//             SkeletonJoint::getClassType(),
+//             reinterpret_cast<Action::Callback>(&SkeletonJoint::renderEnter));
+//         RenderAction::registerLeaveDefault(
+//             SkeletonJoint::getClassType(),
+//             reinterpret_cast<Action::Callback>(&SkeletonJoint::renderLeave));
+
+        UpdateAction::registerEnterDefault(
             SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderEnter));
-        RenderAction::registerLeaveDefault(
+            reinterpret_cast<Action::Callback>(&SkeletonJoint::updateEnter));
+        UpdateAction::registerLeaveDefault(
             SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderLeave));
+            reinterpret_cast<Action::Callback>(&SkeletonJoint::updateLeave));
 
         AnimBindAction::registerEnterDefault(
             SkeletonJoint::getClassType(),
