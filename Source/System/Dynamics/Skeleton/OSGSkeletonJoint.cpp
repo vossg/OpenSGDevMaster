@@ -47,6 +47,7 @@
 
 #include "OSGSkeletonJoint.h"
 #include "OSGRenderAction.h"
+#include "OSGUpdateAction.h"
 
 #include <boost/cast.hpp>
 
@@ -73,12 +74,19 @@ void SkeletonJoint::initMethod(InitPhase ePhase)
 
     if(ePhase == TypeObject::SystemPost)
     {
-        RenderAction::registerEnterDefault(
+//         RenderAction::registerEnterDefault(
+//             SkeletonJoint::getClassType(),
+//             reinterpret_cast<Action::Callback>(&SkeletonJoint::renderEnter));
+//         RenderAction::registerLeaveDefault(
+//             SkeletonJoint::getClassType(),
+//             reinterpret_cast<Action::Callback>(&SkeletonJoint::renderLeave));
+
+        UpdateAction::registerEnterDefault(
             SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderEnter));
-        RenderAction::registerLeaveDefault(
+            reinterpret_cast<Action::Callback>(&SkeletonJoint::updateEnter));
+        UpdateAction::registerLeaveDefault(
             SkeletonJoint::getClassType(),
-            reinterpret_cast<Action::Callback>(&SkeletonJoint::renderLeave));
+            reinterpret_cast<Action::Callback>(&SkeletonJoint::updateLeave));
     }
 }
 
@@ -195,6 +203,79 @@ SkeletonJoint::renderLeave(Action *action)
 
     ract->popMatrix    ();
     ract->popVisibility();
+
+    return res;
+}
+
+Action::ResultE
+SkeletonJoint::updateEnter(Action *action)
+{
+    UpdateAction    *ua      = dynamic_cast<UpdateAction *>(action);
+    Action::ResultE  res     = Action::Continue;
+    Skeleton        *skel    = _sfSkeleton.getValue();
+    Int16            jointId = _sfJointId .getValue();
+
+#ifdef OSG_DEBUG
+    if(jointId == INVALID_JOINT_ID)
+    {
+        SWARNING << "SkeletonJoint::updateEnter: Joint has invalid jointId. "
+                 << "Ignoring." << std::endl;
+        return res;
+    }
+    
+    if(skel == NULL)
+    {
+        SWARNING << "SkeletonJoint::updateEnter: Joint has no skeleton. "
+                 << "Ignoring." << std::endl;
+        return res;
+    }
+#endif // OSG_DEBUG
+
+    ua->pushMatrix(_sfMatrix.getValue());
+
+    Matrix jointMat(ua->getModelMatrix());
+
+    if(skel->getUseInvBindMatrix() == true)
+        jointMat.mult(_sfInvBindMatrix.getValue());
+
+    (*skel->editMFJointMatrices())[jointId] = jointMat;
+
+    if(skel->getCalcNormalMatrices() == true)
+    {
+        jointMat.invert   ();
+        jointMat.transpose();
+
+        (*skel->editMFJointNormalMatrices())[jointId] = jointMat;
+    }
+
+    return res;
+}
+
+Action::ResultE
+SkeletonJoint::updateLeave(Action *action)
+{
+    UpdateAction    *ua      = dynamic_cast<UpdateAction *>(action);
+    Action::ResultE  res     = Action::Continue;
+    Skeleton        *skel    = _sfSkeleton.getValue();
+    Int16            jointId = _sfJointId .getValue();
+
+#ifdef OSG_DEBUG
+    if(jointId == INVALID_JOINT_ID)
+    {
+        SWARNING << "SkeletonJoint::updateLeave: Joint has invalid jointId. "
+                 << "Ignoring." << std::endl;
+        return res;
+    }
+    
+    if(skel == NULL)
+    {
+        SWARNING << "SkeletonJoint::updateLeave: Joint has no skeleton. "
+                 << "Ignoring." << std::endl;
+        return res;
+    }
+#endif // OSG_DEBUG
+
+    ua->popMatrix();
 
     return res;
 }

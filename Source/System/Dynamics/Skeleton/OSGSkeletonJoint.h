@@ -88,6 +88,9 @@ class OSG_DYNAMICS_DLLMAPPING SkeletonJoint : public SkeletonJointBase
     Action::ResultE renderEnter(Action *action);
     Action::ResultE renderLeave(Action *action);
 
+    Action::ResultE updateEnter(Action *action);
+    Action::ResultE updateLeave(Action *action);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Transformation                             */

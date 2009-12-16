@@ -132,13 +132,8 @@ class OSG_GROUP_DLLMAPPING Transform : public TransformBase
     ActionBase::ResultE     renderEnter   (Action    *action);
     ActionBase::ResultE     renderLeave   (Action    *action);
 
-#ifdef OSG_HAVE_ACTION //CHECK
-    NewActionTypes::ResultE 
-        intersectActorEnter(ActorBase::FunctorArgumentType &funcArg);
-
-    NewActionTypes::ResultE 
-        intersectActorLeave(ActorBase::FunctorArgumentType &funcArg);
-#endif
+    ActionBase::ResultE     updateEnter   (Action    *action);
+    ActionBase::ResultE     updateLeave   (Action    *action);
 
     /*! \}                                                                 */
     /*==========================  PRIVATE  ================================*/
