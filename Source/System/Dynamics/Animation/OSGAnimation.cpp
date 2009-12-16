@@ -230,8 +230,8 @@ void Animation::timeSensorChanged(FieldContainer *fc, BitVector whichField)
         MFChannelsType::const_iterator cIt  = _mfChannels.begin();
         MFChannelsType::const_iterator cEnd = _mfChannels.end  ();
             
-        SLOG << "Animation::timeSensorChanged: " << ts->getAnimTime()
-             << std::endl;
+//         SLOG << "Animation::timeSensorChanged: " << ts->getAnimTime()
+//              << std::endl;
 
         for(; cIt != cEnd; ++cIt)
         {
