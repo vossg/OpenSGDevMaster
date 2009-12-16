@@ -35,6 +35,8 @@
 #include "OSGComponentTransform.h"
 #include "OSGTransform.h"
 
+#include "OSGUpdateAction.h"
+
 typedef std::vector<OSG::NodeUnrecPtr    > NodeStore;
 typedef std::vector<OSG::MaterialUnrecPtr> MaterialStore;
 
@@ -47,7 +49,8 @@ struct AnimInfo
 typedef std::vector<AnimInfo>              AnimStore;
 
 // The SimpleSceneManager to manage simple applications
-OSG::SimpleSceneManager           *mgr;
+OSG::UpdateAction                 *ua  = NULL;
+OSG::SimpleSceneManager           *mgr = NULL;
 OSG::NodeUnrecPtr                  sceneN;   // scene from file
 OSG::NodeUnrecPtr                  rootN;    // root
 OSG::ChunkOverrideGroupUnrecPtr    root;
@@ -199,6 +202,11 @@ void init(int argc, char *argv[])
     // tell the manager what to manage
     mgr->setWindow(gwin );
     mgr->setRoot  (rootN);
+
+    ua = OSG::UpdateAction::create();
+    ua->setCamera  (mgr->getCamera()            );
+    ua->setViewport(mgr->getWindow()->getPort(0));
+    ua->setWindow  (mgr->getWindow()            );
     
     // show the whole scene
     mgr->showAll();  
@@ -206,6 +214,9 @@ void init(int argc, char *argv[])
 
 void cleanup(void)
 {
+    delete ua;
+    ua = NULL;
+
     delete mgr;
     mgr = NULL;
 
@@ -403,12 +414,34 @@ void toggleAnim(OSG::UInt32 index, bool loop)
 // redraw the window
 void display(void)
 {
+    static OSG::Time   tAcc = 0;
+    static OSG::UInt32 fc   = 0;
+
+    OSG::Time t0 = OSG::getSystemTime();
+
     OSG::FrameHandler::the()->frame();
 
     OSG::commitChangesAndClear();
 
+    ua->apply(rootN);
+
     mgr->idle();
     mgr->redraw();
+
+    OSG::Time t1 = OSG::getSystemTime();
+
+    tAcc += (t1 - t0);
+    fc   += 1;
+
+    if(tAcc >= 1)
+    {
+        std::cout << "frame count [" << fc
+                  << "] fc/tAcc [" << (fc/tAcc)
+                  << "] tAcc [" << tAcc << "]" << std::endl;
+
+        tAcc = 0;
+        fc   = 0;
+    }
 
 //     mgr->getWindow()->registerConstant(GL_MAX_VERTEX_UNIFORM_COMPONENTS  );
 //     mgr->getWindow()->registerConstant(GL_MAX_FRAGMENT_UNIFORM_COMPONENTS);
