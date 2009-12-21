@@ -132,12 +132,9 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public DrawTask
         PassiveBit = 0x00010000
     };
 
-    enum TaskType
-    {
-        Setup   = 0x01,
-        Execute = 0x02,
-        Full    = 0x03
-    };
+    static const UInt32 Setup   = Inherited::LastType + 1;
+    static const UInt32 Execute = Inherited::LastType + 2;
+    static const UInt32 Full    = Inherited::LastType + 3;
 
     //-----------------------------------------------------------------------
     //   types                                                               
@@ -157,7 +154,7 @@ class OSG_SYSTEM_DLLMAPPING RenderPartitionBase : public DrawTask
 
     /*------------------------- your_category -------------------------------*/
 
-    void setTaskType(TaskType eTaskType);
+    void setTaskType(UInt32 uiTaskType);
 
     /*------------------------- assignment ----------------------------------*/
     

@@ -38,35 +38,4 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline
-void WindowDrawThread::setWindow (Window *pWindow)
-{
-    _oEnv.setWindow(pWindow);
-}
-
-inline
-bool WindowDrawThread::isRunning(void)
-{
-    return _bRunning;
-}
-
-inline
-void WindowDrawThread::endRunning(void)
-{
-    _bRunning = false;
-}
-
-
-inline
-void WindowDrawThread::queueTask(DrawTask *pTask)
-{
-    _qTaskQueue.queueTask(pTask);
-}
-
-inline
-void WindowDrawThread::queueTaskFront(DrawTask *pTask)
-{
-    _qTaskQueue.queueTaskFront(pTask);
-}
-
 OSG_END_NAMESPACE

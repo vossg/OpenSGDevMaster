@@ -501,8 +501,8 @@ class OSG_SYSTEM_DLLMAPPING RenderPartition : public RenderPartitionBase
 
     /*-------------------------- comparison ---------------------------------*/
 
-    virtual void execute(DrawEnv *pEnv    );
-    virtual void dump   (UInt32   uiIndent);
+    virtual void execute(HardwareContext *pContext, DrawEnv *pEnv    );
+    virtual void dump   (UInt32           uiIndent);
 
   private:
 

@@ -63,7 +63,7 @@
 
 //#include "OSGBaseTypes.h"
 
-#include "OSGAttachmentContainer.h" // Parent
+#include "OSGHardwareContext.h" // Parent
 
 #include "OSGSysFields.h"               // Width type
 #include "OSGViewportFields.h"          // Port type
@@ -79,12 +79,12 @@ class Window;
 
 //! \brief Window Base Class.
 
-class OSG_SYSTEM_DLLMAPPING WindowBase : public AttachmentContainer
+class OSG_SYSTEM_DLLMAPPING WindowBase : public HardwareContext
 {
   public:
 
-    typedef AttachmentContainer Inherited;
-    typedef AttachmentContainer ParentContainer;
+    typedef HardwareContext Inherited;
+    typedef HardwareContext ParentContainer;
 
     typedef Inherited::TypeObject TypeObject;
     typedef TypeObject::InitPhase InitPhase;

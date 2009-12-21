@@ -1,0 +1,34 @@
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+INCLUDE(ExtSetupHelper)
+
+IF(NOT OSG_CUDA_UTIL_BUILD)
+  MESSAGE(ERROR "cudcpp needs CudaUtil")
+  RETURN()
+ENDIF(NOT OSG_CUDA_UTIL_BUILD)
+
+MESSAGE(STATUS "add cudpp")
+
+IF(OSGNVidiaCudPPSrcDir)
+
+  PROJECT(OSGCudPP)
+
+  SET(${PROJECT_NAME}SharedTarget osgcudpp)
+
+  IF(WIN32)
+    SET(${PROJECT_NAME}StaticTarget libosgcudpp)
+  ELSE(WIN32)
+    SET(${PROJECT_NAME}StaticTarget osgcudpplib)
+  ENDIF(WIN32)
+
+  SET(${PROJECT_NAME}_EXTRA_DEF )
+
+  INCLUDE(../cudpp/CudPPCommon.cmake)
+
+  SET(OSG_CUDPP_BUILD TRUE CACHE INTERNAL "" FORCE)
+  SET(OSG_CUDPP_INCLUDEDIR "${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/cudpp/src" CACHE PATH "")
+
+ELSE(OSGNVidiaCudPPSrcDir)
+  SET(OSGNVidiaCudPPSrcDir "" CACHE PATH "")
+ENDIF(OSGNVidiaCudPPSrcDir)

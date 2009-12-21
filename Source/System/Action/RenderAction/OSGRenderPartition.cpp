@@ -558,7 +558,7 @@ void RenderPartition::execute(void)
     }
 }
 
-void RenderPartition::execute(DrawEnv *pEnv)
+void RenderPartition::execute(HardwareContext *pContext, DrawEnv *pEnv)
 {
 #ifdef OSG_RENPART_DUMP_PAR
     fprintf(stderr, "execute %p %d\n", this, UInt32(_ubState));

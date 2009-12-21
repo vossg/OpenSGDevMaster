@@ -36,8 +36,8 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGTPASSMASKPOOL_H_
-#define _OSGTPASSMASKPOOL_H_
+#ifndef _OSGSTAGEIDPOOL_H_
+#define _OSGSTAGEIDPOOL_H_
 #ifdef __sgi
 #pragma once
 #endif
@@ -66,4 +66,4 @@ typedef TaggedSingletonHolder<StageIdPoolBase,
 
 OSG_END_NAMESPACE
 
-#endif /* _OSGPASSPOOL_H_ */
+#endif /* _OSGSTAGEIDPOOL_H_ */

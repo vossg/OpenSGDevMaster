@@ -43,13 +43,12 @@
 #endif
 
 #include "OSGSystemDef.h"
-#include "OSGThread.h"
-#include "OSGDrawTask.h"
+#include "OSGHardwareContextThread.h"
 #include "OSGDrawEnv.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_SYSTEM_DLLMAPPING WindowDrawThread : public Thread
+class OSG_SYSTEM_DLLMAPPING WindowDrawThread : public HardwareContextThread
 {
 
     /*==========================  PUBLIC  =================================*/
@@ -71,37 +70,26 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawThread : public Thread
 
     void setWindow (Window *pWindow);
 
-    bool isRunning (void           );
-    void endRunning(void           );
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
-
-    void queueTask     (DrawTask *pTask);
-    void queueTaskFront(DrawTask *pTask);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                 Debugging, don't use                         */
     /*! \{                                                                 */
 
-    void dumpTasks(void);
-    void runTasks (void);
-
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
 
   protected:
 
-    typedef Thread        Inherited;
+    typedef HardwareContextThread  Inherited;
 
-    static  MPThreadType _type;
+    static  MPThreadType          _type;
 
-    bool          _bRunning;
-    DrawEnv       _oEnv;
-    DrawTaskQueue _qTaskQueue;
+    DrawEnv _oEnv;
 
     /*---------------------------------------------------------------------*/
     /*! \name                 Reference Counting                           */
@@ -129,8 +117,6 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawThread : public Thread
     /*---------------------------------------------------------------------*/
     /*! \name                   Destructor                                 */
     /*! \{                                                                 */
-
-    virtual void workProc(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

@@ -51,11 +51,11 @@ OSG_BEGIN_NAMESPACE
     \ingroup GrpSystemRenderingBackend
  */
 
-RenderActionTask::RenderActionTask(TaskType eType) :
-    _eTaskType            (eType),
-    _pBarrier             (NULL )
+RenderActionTask::RenderActionTask(UInt32 uiType) :
+    Inherited(uiType),
+    _pBarrier(NULL  )
 {
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case HandleGLFinish:
         {
@@ -74,7 +74,7 @@ RenderActionTask::~RenderActionTask(void)
     _pBarrier = NULL;
 }
 
-void RenderActionTask::execute(DrawEnv *pEnv)
+void RenderActionTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 {
 #ifdef OSG_DEBUG
     Window *pWindow = pEnv->getWindow();
@@ -82,7 +82,7 @@ void RenderActionTask::execute(DrawEnv *pEnv)
     OSG_ASSERT(pWindow != NULL);
 #endif
 
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
 
         case HandleGLFinish:
@@ -106,8 +106,8 @@ void RenderActionTask::execute(DrawEnv *pEnv)
 
 void RenderActionTask::waitForBarrier(void)
 {
-    OSG_ASSERT(_eTaskType == HandleGLFinish);
-    OSG_ASSERT(_pBarrier  != NULL          );
+    OSG_ASSERT(_uiTypeTask == HandleGLFinish);
+    OSG_ASSERT(_pBarrier   != NULL          );
 
     _pBarrier->enter();
 }
@@ -117,7 +117,7 @@ void RenderActionTask::dump(UInt32 uiIndent)
     for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
     fprintf(stderr, "RenderActionTask : ");
 
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case HandleGLFinish:
         {           

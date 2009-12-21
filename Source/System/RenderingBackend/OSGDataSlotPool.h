@@ -66,6 +66,11 @@ struct ActionSlotTag;
 typedef TaggedSingletonHolder<DataSlotPoolBase, 
                               ActionSlotTag   > ActionDataSlotPool;
 
+struct ContextSlotTag;
+
+typedef TaggedSingletonHolder<DataSlotPoolBase, 
+                              ContextSlotTag   > ContextDataSlotPool;
+
 OSG_END_NAMESPACE
 
 #endif /* _OSGDATASLOTPOOL_H_ */

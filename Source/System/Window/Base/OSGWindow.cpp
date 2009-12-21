@@ -331,7 +331,6 @@ OSG::Window::Window(void) :
     _pStageValidator    (NULL),
     _pShaderCache       (NULL),
 
-    _pDrawThread        (NULL),
     _pWaitTask          (NULL),
     _pSwapTask          (NULL),
     _pFrameInitTask     (NULL),
@@ -403,7 +402,7 @@ void OSG::Window::onCreate(const Window *source)
 
     _windowId = _currentWindowId++;
 
-    _pDrawThread = WindowDrawThread::get(NULL, false);
+    _pContextThread = WindowDrawThread::get(NULL, false);
 }
 
 void OSG::Window::onCreateAspect(const Window *createAspect, 
@@ -417,8 +416,7 @@ void OSG::Window::onCreateAspect(const Window *createAspect,
 
     if(createAspect != NULL)
     {
-        _windowId    = createAspect->_windowId;
-        _pDrawThread = createAspect->_pDrawThread;
+        _windowId = createAspect->_windowId;
     }
 
     _pStageValidator = new StageValidator;
@@ -465,8 +463,6 @@ void OSG::Window::onDestroy(UInt32 uiContainerId)
     if(winIt != _allWindows.end()) 
         _allWindows.erase(winIt);
 
-    _pDrawThread = NULL;
-
     Inherited::onDestroy(uiContainerId);
 }
 
@@ -478,24 +474,26 @@ void OSG::Window::onDestroyAspect(UInt32  uiContainerId,
     delete _pShaderCache;
 #endif
 
-    if(_pAspectStore->getRefCount() == 1 && _pDrawThread != NULL)
-    {
-        fprintf(stderr, "Terminate draw thread %p\n", this);
-
-        _pDrawThread->queueTask(new WindowDrawTask(WindowDrawTask::EndThread));
-
-        Thread::join(_pDrawThread);
-    }
-
     _pStageValidator = NULL;
     _pShaderCache    = NULL;
 
-    _pDrawThread     = NULL;
     _pWaitTask       = NULL;
     _pSwapTask       = NULL;
     _pFrameInitTask  = NULL;
     _pFrameExitTask  = NULL;
     _pActivateTask   = NULL;
+
+    if(_pAspectStore->getRefCount() == 1 && _pContextThread != NULL)
+    {
+        fprintf(stderr, "Terminate context thread %p\n", this);
+
+        _pContextThread->queueTask(
+            new WindowDrawTask(WindowDrawTask::EndThread));
+
+        Thread::join(_pContextThread);
+    }
+
+    _pContextThread = NULL;
 
     Inherited::onDestroyAspect(uiContainerId, uiAspect);
 }
@@ -1285,16 +1283,17 @@ void OSG::Window::dumpExtensions(void)
 
 void OSG::Window::doTerminate(void)
 {
-    if(_pDrawThread != NULL)
+    if(_pContextThread != NULL)
     {
         fprintf(stderr, "Terminate draw thread %p\n", this);
 
-        _pDrawThread->queueTask(new WindowDrawTask(WindowDrawTask::EndThread));
+        _pContextThread->queueTask(
+            new WindowDrawTask(WindowDrawTask::EndThread));
 
-        Thread::join(_pDrawThread);
+        Thread::join(_pContextThread);
     }
 
-    _pDrawThread = NULL;
+    _pContextThread = NULL;
 }
  
 /*! Do everything that needs to be done before the Window is redrawn. This
@@ -1933,7 +1932,7 @@ void OSG::Window::render(RenderActionBase *action)
 
             for(; tIt != tEnd; ++tIt)
             {
-                (*tIt)->execute(&_oEnv);
+                (*tIt)->execute(this, &_oEnv);
             }
 
             editMField(DrawTasksFieldMask, _mfDrawTasks);
@@ -1950,10 +1949,15 @@ void OSG::Window::render(RenderActionBase *action)
     else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                          ParallelPartitionDraw)
     {
-        OSG_ASSERT(_pDrawThread != NULL);
+        OSG_ASSERT(_pContextThread != NULL);
 
-        if(_pDrawThread->isRunning() == false)
+        if(_pContextThread->isRunning() == false)
         {
+            WindowDrawThread *pDrawThread = 
+                dynamic_cast<WindowDrawThread *>(_pContextThread.get());
+
+            OSG_ASSERT(pDrawThread != NULL);
+
             fprintf(stderr, "running partition drawthread r\n");
                        
             if(_pInitTask == NULL)
@@ -1961,10 +1965,10 @@ void OSG::Window::render(RenderActionBase *action)
                 _pInitTask = new WindowDrawTask(WindowDrawTask::Init);
             }
 
-            _pDrawThread->queueTaskFront(_pInitTask);
+            pDrawThread->queueTaskFront(_pInitTask);
 
-            _pDrawThread->setWindow(this);
-            _pDrawThread->run(Thread::getCurrentAspect());
+            pDrawThread->setWindow(this);
+            pDrawThread->run(Thread::getCurrentAspect());
 
             _pInitTask = NULL;
         }
@@ -1976,13 +1980,13 @@ void OSG::Window::render(RenderActionBase *action)
 //        fprintf(stderr, "Window::render::ParallelPartitionDraw NI\n");
 
 #ifdef OSG_WIN_QUEUE_ALL
-        _pDrawThread->queueTask(_pWaitTask);
+        _pContextThread->queueTask(_pWaitTask);
 #endif
 
         if(this->getKeepContextActive() == false)
             this->doDeactivate();
         
-        _pDrawThread->queueTask(_pFrameInitTask);
+        _pContextThread->queueTask(_pFrameInitTask);
 
         if(_mfDrawTasks.empty() == false)
         {
@@ -1991,7 +1995,7 @@ void OSG::Window::render(RenderActionBase *action)
 
             for(; tIt != tEnd; ++tIt)
             {
-                _pDrawThread->queueTask(*tIt);
+                _pContextThread->queueTask(*tIt);
             }
 
             editMField(DrawTasksFieldMask, _mfDrawTasks);
@@ -2007,11 +2011,12 @@ void OSG::Window::render(RenderActionBase *action)
         _pWaitTask->waitForBarrier();
 #endif
         
-        _pDrawThread->queueTask(_pSwapTask     );
+        _pContextThread->queueTask(_pSwapTask     );
         
-        _pDrawThread->queueTask(_pFrameExitTask);
+        _pContextThread->queueTask(_pFrameExitTask);
         
-        _pDrawThread->queueTask(_pWaitTask     );
+        _pContextThread->queueTask(_pWaitTask     );
+
         _pWaitTask->waitForBarrier();
     }
     else
@@ -2034,7 +2039,7 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
 
             for(; tIt != tEnd; ++tIt)
             {
-                (*tIt)->execute(&_oEnv);
+                (*tIt)->execute(this, &_oEnv);
             }
 
             editMField(DrawTasksFieldMask, _mfDrawTasks);
@@ -2047,10 +2052,15 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
     else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                          ParallelPartitionDraw)
     {
-        OSG_ASSERT(_pDrawThread != NULL);
+        OSG_ASSERT(_pContextThread != NULL);
 
-        if(_pDrawThread->isRunning() == false)
+        if(_pContextThread->isRunning() == false)
         {
+            WindowDrawThread *pDrawThread = 
+                dynamic_cast<WindowDrawThread *>(_pContextThread.get());
+
+            OSG_ASSERT(pDrawThread != NULL);
+
             fprintf(stderr, "running partition drawthread rnf\n");
                        
             if(_pInitTask == NULL)
@@ -2058,10 +2068,10 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
                 _pInitTask = new WindowDrawTask(WindowDrawTask::Init);
             }
 
-            _pDrawThread->queueTaskFront(_pInitTask);
+            pDrawThread->queueTaskFront(_pInitTask);
 
-            _pDrawThread->setWindow(this);
-            _pDrawThread->run(Thread::getCurrentAspect());
+            pDrawThread->setWindow(this);
+            pDrawThread->run(Thread::getCurrentAspect());
 
             _pInitTask = NULL;
         }
@@ -2071,7 +2081,7 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
             setupTasks();
         }
 
-        _pDrawThread->queueTask(_pFrameInitTask);
+        _pContextThread->queueTask(_pFrameInitTask);
 
         if(_mfDrawTasks.empty() == false)
         {
@@ -2080,7 +2090,7 @@ void OSG::Window::renderNoFinish(RenderActionBase *action)
 
             for(; tIt != tEnd; ++tIt)
             {
-                _pDrawThread->queueTask(*tIt);
+                _pContextThread->queueTask(*tIt);
             }
 
             editMField(DrawTasksFieldMask, _mfDrawTasks);
@@ -2110,21 +2120,22 @@ void OSG::Window::frameFinish(bool bActivate)
     else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                          ParallelPartitionDraw)
     {
-        OSG_ASSERT(_pDrawThread != NULL);
+        OSG_ASSERT(_pContextThread != NULL);
 
-        if(_pWaitTask == NULL || _pDrawThread->isRunning() == false)
+        if(_pWaitTask == NULL || _pContextThread->isRunning() == false)
         {
             fprintf(stderr, "Window::frameFinish::frame not started\n");
         }
 
         if(bActivate == true)
-            _pDrawThread->queueTask(_pActivateTask);
+            _pContextThread->queueTask(_pActivateTask);
         
-        _pDrawThread->queueTask(_pSwapTask     );
+        _pContextThread->queueTask(_pSwapTask     );
 
-        _pDrawThread->queueTask(_pFrameExitTask);
+        _pContextThread->queueTask(_pFrameExitTask);
 
-        _pDrawThread->queueTask(_pWaitTask     );
+        _pContextThread->queueTask(_pWaitTask     );
+
         _pWaitTask->waitForBarrier();
     }
     else
@@ -2144,15 +2155,16 @@ void OSG::Window::runFrameExit(void)
     else if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                          ParallelPartitionDraw)
     {
-        if(_pWaitTask == NULL || _pDrawThread->isRunning() == false)
+        if(_pWaitTask == NULL || _pContextThread->isRunning() == false)
         {
             fprintf(stderr, "Window::runFrameExit::frame not started\n");
         }
 
-        _pDrawThread->queueTask(_pActivateTask);
-        _pDrawThread->queueTask(_pFrameExitTask);
+        _pContextThread->queueTask(_pActivateTask);
+        _pContextThread->queueTask(_pFrameExitTask);
 
-        _pDrawThread->queueTask(_pWaitTask     );
+        _pContextThread->queueTask(_pWaitTask     );
+
         _pWaitTask->waitForBarrier();
     }
     else
@@ -2249,7 +2261,8 @@ void OSG::Window::doRenderAllViewports(RenderActionBase *action)
 #if 0
                 OSG_ASSERT(_pWaitTask != NULL);
 
-                _pDrawThread->queueTask(_pWaitTask     );
+                _pContextThread->queueTask(_pWaitTask     );
+
                 _pWaitTask->waitForBarrier();
 #endif
             }
@@ -2297,16 +2310,21 @@ void OSG::Window::init(GLInitFunctor oFunc)
         
         _pInitTask->setInitFunc(oFunc);
 
-        OSG_ASSERT(_pDrawThread != NULL);
+        OSG_ASSERT(_pContextThread != NULL);
 
-        if(_pDrawThread->isRunning() == false)
+        if(_pContextThread->isRunning() == false)
         {
+            WindowDrawThread *pDrawThread = 
+                dynamic_cast<WindowDrawThread *>(_pContextThread.get());
+
+            OSG_ASSERT(pDrawThread != NULL);
+
             fprintf(stderr, "running partition drawthread init\n");
                        
-            _pDrawThread->queueTaskFront(_pInitTask);
+            pDrawThread->queueTaskFront(_pInitTask);
 
-            _pDrawThread->setWindow(this);
-            _pDrawThread->run(Thread::getCurrentAspect());
+            pDrawThread->setWindow(this);
+            pDrawThread->run(Thread::getCurrentAspect());
 
             _pInitTask = NULL;
         }
@@ -2316,7 +2334,8 @@ void OSG::Window::init(GLInitFunctor oFunc)
             setupTasks();
         }
         
-        _pDrawThread->queueTask(_pWaitTask);
+        _pContextThread->queueTask(_pWaitTask);
+
         _pWaitTask->waitForBarrier();
     }
     else
@@ -2384,15 +2403,15 @@ void Window::queueTaskFromDrawer(DrawTask *pTask)
     if(pTask == NULL)
         return;
 
-    OSG_ASSERT(_pDrawThread != NULL);
+    OSG_ASSERT(_pContextThread != NULL);
 
     if((_sfDrawMode.getValue() & PartitionDrawMask) == ParallelPartitionDraw)
     {
-        _pDrawThread->queueTask(pTask);
+        _pContextThread->queueTask(pTask);
     }
     else
     {
-        pTask->execute(&_oEnv);
+        pTask->execute(this, &_oEnv);
     }
 }
 
@@ -2406,9 +2425,9 @@ void Window::queueTask(DrawTask *pTask)
         if((_sfDrawMode.getValue() & PartitionDrawMask) == 
                                                          ParallelPartitionDraw)
         {
-            OSG_ASSERT(_pDrawThread != NULL);
+            OSG_ASSERT(_pContextThread != NULL);
 
-            _pDrawThread->queueTask(pTask);
+            _pContextThread->queueTask(pTask);
         }
         else
         {

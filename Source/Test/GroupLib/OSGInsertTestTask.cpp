@@ -126,9 +126,8 @@ void InsertTestTask::dump(      UInt32    ,
 
 
 
-TestDrawTask::TestDrawTask(TestTaskType eType) :
-     Inherited(     ),
-    _eTaskType(eType)
+TestDrawTask::TestDrawTask(UInt32 uiType) :
+    Inherited(uiType)
 {
 }
 
@@ -136,9 +135,9 @@ TestDrawTask::~TestDrawTask(void)
 {
 }
 
-void TestDrawTask::execute(DrawEnv *pEnv)
+void TestDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 {
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case TaskA:
         {
@@ -168,7 +167,7 @@ void TestDrawTask::dump(UInt32 uiIndent)
     for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
     fprintf(stderr, "TestDrawTask : ");
 
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case TaskA:
         {

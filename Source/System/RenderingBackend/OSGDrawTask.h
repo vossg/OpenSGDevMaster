@@ -43,12 +43,8 @@
 #pragma once
 #endif
 
-#include "OSGMemoryObject.h"
-#include "OSGTransitPtr.h"
 #include "OSGSystemDef.h"
-#include "OSGLock.h"
-#include "OSGSemaphore.h"
-#include "OSGMField.h"
+#include "OSGHardwareContextTask.h"
 
 #include <deque>
 
@@ -60,20 +56,18 @@ class Window;
 /*! \ingroup GrpSystemRenderingBackend
 */
 
-class OSG_SYSTEM_DLLMAPPING DrawTask : public MemoryObject
+class OSG_SYSTEM_DLLMAPPING DrawTask : public HardwareContextTask
 {
     /*==========================  PUBLIC  =================================*/
 
   public:
 
-    typedef MemoryObject Inherited;
+    typedef HardwareContextTask Inherited;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    virtual void execute(DrawEnv *pEnv) = 0;
-
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
@@ -113,13 +107,6 @@ class OSG_SYSTEM_DLLMAPPING DrawTask : public MemoryObject
     /*---------------------------------------------------------------------*/
     /*! \name                   Constructors                               */
     /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    DrawTask(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -136,6 +123,13 @@ class OSG_SYSTEM_DLLMAPPING DrawTask : public MemoryObject
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name                   Constructors                               */
+    /*! \{                                                                 */
+
+    DrawTask(UInt32 uiTaskType);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -206,88 +200,6 @@ struct FieldTraits<DrawTaskRefPtr, 0> :
 };
 
 typedef MField<DrawTaskRefPtr, 0> MFDrawTask;
-
-/*! \ingroup GrpSystemRenderingBackend
-*/
-
-class OSG_SYSTEM_DLLMAPPING DrawTaskQueue
-{
-    /*==========================  PUBLIC  =================================*/
-
-  public:
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Statistic                                  */
-    /*! \{                                                                 */
-
-    void               queueTask     (DrawTask *pTask);
-    void               queueTaskFront(DrawTask *pTask);
-    DrawTaskTransitPtr popTask       (void           );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Constructors                               */
-    /*! \{                                                                 */
-
-    DrawTaskQueue(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    virtual ~DrawTaskQueue(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Debugging                                  */
-    /*! \{                                                                 */
-
-    // Implementation in OSGWindow.inl
-    void dumpQueue       (void         );
-    void runAndClearQueue(DrawEnv *pEnv);
-
-    /*! \}                                                                 */
-    /*=========================  PROTECTED  ===============================*/
-
-  protected:
-
-    typedef std::deque<DrawTaskRefPtr> TaskStore;
-
-    TaskStore       _qTaskStore;
-    LockRefPtr      _pStoreLock;
-    SemaphoreRefPtr _pStoreSema;
-
-    /*---------------------------------------------------------------------*/
-    /*! \name                      Member                                  */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name                   Destructor                                 */
-    /*! \{                                                                 */
-
-    /*! \}                                                                 */
-    /*==========================  PRIVATE  ================================*/
-
-  private:
-
-    /*! \brief prohibit default function (move to 'public' if needed) */
-    DrawTaskQueue(const DrawTaskQueue &source);
-    /*! \brief prohibit default function (move to 'public' if needed) */
-    void operator =(const DrawTaskQueue &source);
-};
-
 
 OSG_END_NAMESPACE
 

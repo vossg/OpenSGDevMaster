@@ -56,11 +56,8 @@ class RenderActionTask : public DrawTask
 
   public:
 
-    enum TaskType
-    {
-        HandleGLFinish = 0x0001,
-        
-    };
+    static const UInt32 HandleGLFinish = Inherited::LastType + 1;
+    static const UInt32 LastType       = HandleGLFinish;
 
     typedef DrawTask Inherited;
 
@@ -68,14 +65,14 @@ class RenderActionTask : public DrawTask
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    RenderActionTask(TaskType eType);
+    RenderActionTask(UInt32 uiType);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    virtual void execute(DrawEnv *pEnv);
+    virtual void execute(HardwareContext *pContext, DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -105,8 +102,7 @@ class RenderActionTask : public DrawTask
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    TaskType       _eTaskType;
-    BarrierRefPtr  _pBarrier;
+    BarrierRefPtr _pBarrier;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

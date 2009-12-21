@@ -56,16 +56,13 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawTask : public DrawTask
 
   public:
 
-    enum TaskType
-    {
-        Init        = 0x0001,
-        Activate,
-        FrameInit,
-        FrameExit,
-        Swap,
-        WaitAtBarrier,
-        EndThread
-    };
+    static const UInt32 Init          = Inherited::LastType + 1;
+    static const UInt32 Activate      = Inherited::LastType + 2;
+    static const UInt32 FrameInit     = Inherited::LastType + 3;
+    static const UInt32 FrameExit     = Inherited::LastType + 4;
+    static const UInt32 Swap          = Inherited::LastType + 5;
+    static const UInt32 WaitAtBarrier = Inherited::LastType + 6;
+    static const UInt32 LastType      = WaitAtBarrier;
 
     typedef boost::function<void (void)> GLInitFunctor;
     typedef DrawTask                     Inherited;
@@ -74,14 +71,14 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawTask : public DrawTask
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    WindowDrawTask(TaskType eType);
+    WindowDrawTask(UInt32 uiType);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    virtual void execute(DrawEnv *pEnv);
+    virtual void execute(HardwareContext *pContext, DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -115,7 +112,6 @@ class OSG_SYSTEM_DLLMAPPING WindowDrawTask : public DrawTask
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    TaskType      _eTaskType;
     BarrierRefPtr _pBarrier;
     GLInitFunctor _oInitFunc;
 
@@ -151,10 +147,8 @@ class OSG_SYSTEM_DLLMAPPING ViewportDrawTask : public DrawTask
 
   public:
 
-    enum TaskType
-    {
-        Foregrounds = 0x0001
-    };
+    static const UInt32 Foregrounds = Inherited::LastType + 1;
+    static const UInt32 LastType    = Foregrounds;
 
     typedef DrawTask Inherited;
 
@@ -162,14 +156,14 @@ class OSG_SYSTEM_DLLMAPPING ViewportDrawTask : public DrawTask
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    ViewportDrawTask(Viewport *pPort, TaskType eType);
+    ViewportDrawTask(Viewport *pPort, UInt32 uiType);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    virtual void execute(DrawEnv *pEnv);
+    virtual void execute(HardwareContext *pContext, DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -197,7 +191,6 @@ class OSG_SYSTEM_DLLMAPPING ViewportDrawTask : public DrawTask
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    TaskType  _eTaskType;
     Viewport *_pPort;
 
     /*! \}                                                                 */
@@ -227,29 +220,28 @@ class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
 
   public:
 
-    enum TaskType
-    {
-        Callback            = 0x0001,
-        CallbackWithBarrier = 0x0002
-    };
+    static const UInt32 Callback            = Inherited::LastType + 1;
+    static const UInt32 CallbackWithBarrier = Inherited::LastType + 2;
+    static const UInt32 LastType            = CallbackWithBarrier;
 
     typedef DrawTask Inherited;
 
-    typedef boost::function<void (DrawEnv *)> CallbackFunctor;
+    typedef boost::function<void (HardwareContext *, 
+                                  DrawEnv         *)> CallbackFunctor;
 
     /*---------------------------------------------------------------------*/
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    CallbackDrawTask(TaskType eType);
-    CallbackDrawTask(const CallbackFunctor &fCallback, TaskType eType);
+    CallbackDrawTask(UInt32 uiType);
+    CallbackDrawTask(const CallbackFunctor &fCallback, UInt32 uiType);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    virtual void execute(DrawEnv *pEnv);
+    virtual void execute(HardwareContext *pContext, DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -287,7 +279,6 @@ class OSG_SYSTEM_DLLMAPPING CallbackDrawTask : public DrawTask
     /*! \name                      Member                                  */
     /*! \{                                                                 */
 
-    TaskType        _eTaskType;
     CallbackFunctor _fCallback;
     BarrierRefPtr   _pBarrier;
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<FieldContainer
+   name="HardwareContext"
+   parent="AttachmentContainer"
+   mixinparent="HardwareContextParent"
+   library="Base"
+   structure="abstract"
+   pointerfieldtypes="both"
+   parentFields="both"
+   childFields="both"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   isNodeCore="false"
+   >
+</FieldContainer>

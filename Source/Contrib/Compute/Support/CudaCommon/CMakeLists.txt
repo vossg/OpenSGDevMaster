@@ -1,0 +1,134 @@
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+INCLUDE(ExtSetupHelper)
+
+SET(OSG_CUDA_COMMON_BUILD FALSE CACHE INTERNAL "" FORCE)
+
+MESSAGE(STATUS "add CudaCommon")
+
+IF(OSGNVidiaSDKSrcDir)
+
+  PROJECT(OSGCudaCommon)
+
+  IF(WIN32)
+    SET(${PROJECT_NAME}StaticTarget    libosgcudacommon)
+    SET(${PROJECT_NAME}EmuStaticTarget libosgcudacommonE)
+  ELSE(WIN32)
+    SET(${PROJECT_NAME}StaticTarget    osgcudacommon)
+    SET(${PROJECT_NAME}EmuStaticTarget osgcudacommonE)
+  ENDIF(WIN32)
+
+  SET(OSG_CUDACOMMON_SRC_INPUT param.cpp
+                               paramgl.cpp)
+
+  SET(OSG_CUDACOMMON_HDR_INPUT param.h
+                               paramgl.h)
+
+  SetupFiles(OSG_CUDACOMMON_SRC_INPUT 
+             OSG_CUDACOMMON_SRCS 
+             "${OSGNVidiaSDKSrcDir}/C/common/src"
+             "${OSG_SUPP_CC_BBASE}/CudaCommon/src")
+
+  SetupFiles(OSG_CUDACOMMON_HDR_INPUT 
+             OSG_CUDACOMMON_HDR 
+             "${OSGNVidiaSDKSrcDir}/C/common/inc"
+             "${OSG_SUPP_CC_BBASE}/CudaCommon/src")
+
+  IF(NOT WIN32)
+    IF(NOT EXISTS ${_OSGSUPP_DST_DIR}/GL/glew.h)
+      FILE(MAKE_DIRECTORY ${_OSGSUPP_DST_DIR}/GL)
+      FILE(WRITE ${_OSGSUPP_DST_DIR}/GL/glew.h "/* dummy on unix */\n")
+    ENDIF(NOT EXISTS ${_OSGSUPP_DST_DIR}/GL/glew.h)
+  ENDIF(NOT WIN32)
+
+  INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/CudaCommon/src")
+  INCLUDE_DIRECTORIES("${CUDA_TOOLKIT_INCLUDE}")
+  INCLUDE_DIRECTORIES("${OSG_CUDA_UTIL_INCLUDEDIR}")
+  IF(WIN32)
+    INCLUDE_DIRECTORIES("${OSG_GLUT_INCLUDE_DIR}")
+    INCLUDE_DIRECTORIES("${OSG_GLEW_INCLUDE_DIR}")
+  ENDIF(WIN32)
+
+  IF(UNIX)
+    SET(OSGCUDACOMLIB_DEF GL_GLEXT_PROTOTYPES=1)
+  ENDIF(UNIX)
+
+  IF(BUILD_STATIC_LIBS)
+
+    ## device lib
+
+    ADD_LIBRARY(${${PROJECT_NAME}StaticTarget} STATIC ${OSG_CUDACOMMON_SRCS})
+
+    IF(WIN32)
+      SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
+                            DEBUG_POSTFIX "D")
+    ENDIF(WIN32)
+
+    SET(OSGCUDACOMLIB_DEF_STATIC ${OSGCUDACOMLIB_DEF})
+
+    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
+                          COMPILE_DEFINITIONS "${OSGCUDACOMLIB_DEF_STATIC}")
+
+
+    ## emu lib
+
+    ADD_LIBRARY(${${PROJECT_NAME}EmuStaticTarget} STATIC ${OSG_CUDACOMMON_SRCS})
+
+    IF(WIN32)
+      SET_TARGET_PROPERTIES(${${PROJECT_NAME}EmuStaticTarget} PROPERTIES
+                            DEBUG_POSTFIX "D")
+    ENDIF(WIN32)
+
+    SET(OSGCUDACOMEMULIB_DEF_STATIC ${OSGCUDACOMLIB_DEF};__DEVICE_EMULATION__)
+
+    SET_TARGET_PROPERTIES(${${PROJECT_NAME}EmuStaticTarget} PROPERTIES
+                          COMPILE_DEFINITIONS "${OSGCUDACOMEMULIB_DEF_STATIC}")
+
+
+    IF(WIN32)
+      INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
+                  CONFIGURATIONS ${_OSG_INSTALL_CONFIGS}
+                  RUNTIME DESTINATION bin
+                  LIBRARY DESTINATION lib
+                  ARCHIVE DESTINATION lib)
+
+      INSTALL(TARGETS ${${PROJECT_NAME}EmuStaticTarget}
+                  CONFIGURATIONS ${_OSG_INSTALL_CONFIGS}
+                  RUNTIME DESTINATION bin
+                  LIBRARY DESTINATION lib
+                  ARCHIVE DESTINATION lib)
+    ELSE(WIN32)
+      INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
+                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+
+      INSTALL(TARGETS ${${PROJECT_NAME}EmuStaticTarget}
+                  RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                  LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                  ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+    ENDIF(WIN32)
+
+  ENDIF(BUILD_STATIC_LIBS)
+
+  INSTALL(FILES ${OSG_CUDACOMMON_HDR} 
+          DESTINATION include/cuda
+          PERMISSIONS OWNER_WRITE OWNER_READ
+                      GROUP_READ
+                      WORLD_READ)
+
+  IF(NOT WIN32)
+    INSTALL(FILES ${_OSGSUPP_DST_DIR}/GL/glew.h
+            DESTINATION include/cuda/GL
+            PERMISSIONS OWNER_WRITE OWNER_READ
+                        GROUP_READ
+                        WORLD_READ)
+  ENDIF(NOT WIN32)
+
+  SET(OSG_CUDA_COMMON_BUILD TRUE CACHE INTERNAL "" FORCE)
+  SET(OSG_CUDA_COMMON_INCLUDEDIR "${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/CudaCommon/src" CACHE PATH "")
+
+ELSE(OSGNVidiaSDKSrcDir)
+  SET(OSGNVidiaSDKSrcDir "" CACHE PATH "")
+ENDIF(OSGNVidiaSDKSrcDir)

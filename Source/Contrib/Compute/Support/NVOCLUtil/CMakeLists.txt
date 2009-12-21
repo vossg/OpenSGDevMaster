@@ -1,0 +1,98 @@
+
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+INCLUDE(ExtSetupHelper)
+
+MESSAGE(STATUS "add NVOCLUtil")
+
+IF(OSGNVidiaSDKSrcDir AND EXISTS ${OSGNVidiaSDKSrcDir}/OpenCL)
+
+  MESSAGE(STATUS "really add NVOCLUtil")
+
+  PROJECT(OSGNVOCLUtil)
+
+  IF(WIN32)
+    SET(${PROJECT_NAME}StaticTarget    libosgnvoclutil)
+  ELSE(WIN32)
+    SET(${PROJECT_NAME}StaticTarget    osgnvoclutil)
+  ENDIF(WIN32)
+
+  SET(OSG_NVOCLUTIL_SRC_INPUT oclUtils.cpp)
+
+  SET(OSG_NVOCLUTIL_HDR_INPUT oclUtils.h)
+
+  SetupFiles(OSG_NVOCLUTIL_SRC_INPUT 
+             OSG_NVOCLUTIL_SRCS 
+             "${OSGNVidiaSDKSrcDir}/OpenCL/common/src"
+             "${OSG_SUPP_CC_BBASE}/NVOCLUtil/src")
+
+  SetupFiles(OSG_NVOCLUTIL_HDR_INPUT 
+             OSG_NVOCLUTIL_HDR 
+             "${OSGNVidiaSDKSrcDir}/OpenCL/common/inc"
+             "${OSG_SUPP_CC_BBASE}/NVOCLUtil/src")
+
+#  IF(WIN32)
+#    SET(OSG_NVOCLUTIL_PLT_HDR_INPUT stopwatch_linux.h)
+#  ENDIF()
+
+#  IF(NOT WIN32)
+#    IF(NOT EXISTS ${_OSGSUPP_DST_DIR}/GL/glew.h)
+#      FILE(MAKE_DIRECTORY ${_OSGSUPP_DST_DIR}/GL)
+#      FILE(WRITE ${_OSGSUPP_DST_DIR}/GL/glew.h "/* dummy on unix */\n"
+#                                               "#include <GL/gl.h>\n")
+#    ENDIF(NOT EXISTS ${_OSGSUPP_DST_DIR}/GL/glew.h)
+#  ENDIF(NOT WIN32)
+
+  INCLUDE_DIRECTORIES(${OSG_NVSDK_COMMON_INCLUDEDIR})
+#  INCLUDE_DIRECTORIES("${OSG_OCLSHR_UTIL_INCLUDEDIR}")
+#  INCLUDE_DIRECTORIES("${CMAKE_BINARY_DIR}/${OSG_SUPP_CC_BBASE}/CudaUtil/src")
+#  INCLUDE_DIRECTORIES("${CUDA_TOOLKIT_INCLUDE}")
+  INCLUDE_DIRECTORIES("${OPENCL_INCLUDE_DIR}")
+  INCLUDE_DIRECTORIES("${OSG_GLUT_INCLUDE_DIR}")
+  INCLUDE_DIRECTORIES("${OSG_GLEW_INCLUDE_DIR}")
+
+
+#  IF(UNIX)
+#    SET(OSGCUDACOMLIB_DEF GL_GLEXT_PROTOTYPES=1)
+#  ENDIF(UNIX)
+
+
+
+  ADD_LIBRARY(${${PROJECT_NAME}StaticTarget} STATIC ${OSG_NVOCLUTIL_SRCS})
+
+  IF(WIN32)
+    SET_TARGET_PROPERTIES(${${PROJECT_NAME}StaticTarget} PROPERTIES
+                          DEBUG_POSTFIX "D")
+  ENDIF(WIN32)
+
+
+  IF(WIN32)
+    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
+                CONFIGURATIONS ${_OSG_INSTALL_CONFIGS}
+                RUNTIME DESTINATION bin
+                LIBRARY DESTINATION lib
+                ARCHIVE DESTINATION lib)
+  ELSE(WIN32)
+    INSTALL(TARGETS ${${PROJECT_NAME}StaticTarget}
+                RUNTIME DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                LIBRARY DESTINATION lib${OSG_LIBDIR_SUFFIX}
+                ARCHIVE DESTINATION lib${OSG_LIBDIR_SUFFIX})
+  ENDIF(WIN32)
+
+  INSTALL(FILES ${OSG_NVOCLUTIL_HDR} 
+          DESTINATION include/nvocl
+          PERMISSIONS OWNER_WRITE OWNER_READ
+                      GROUP_READ
+                      WORLD_READ)
+
+#  IF(NOT WIN32)
+#    INSTALL(FILES ${_OSGSUPP_DST_DIR}/GL/glew.h
+#            DESTINATION include/cuda/GL
+#            PERMISSIONS OWNER_WRITE OWNER_READ
+#                        GROUP_READ
+#                        WORLD_READ)
+#  ENDIF(NOT WIN32)
+
+ELSE(OSGNVidiaSDKSrcDir AND EXISTS ${OSGNVidiaSDKSrcDir}/OpenCL)
+  SET(OSGNVidiaSDKSrcDir "" CACHE PATH "")
+ENDIF(OSGNVidiaSDKSrcDir AND EXISTS ${OSGNVidiaSDKSrcDir}/OpenCL)

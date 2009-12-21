@@ -537,7 +537,6 @@ class OSG_SYSTEM_DLLMAPPING Window : public WindowBase
     StageValidator                   *_pStageValidator;
     ShaderCache                      *_pShaderCache;
 
-    WindowDrawThreadRefPtr            _pDrawThread;
     WindowDrawTaskRefPtr              _pInitTask;
     WindowDrawTaskRefPtr              _pWaitTask;
     WindowDrawTaskRefPtr              _pSwapTask;

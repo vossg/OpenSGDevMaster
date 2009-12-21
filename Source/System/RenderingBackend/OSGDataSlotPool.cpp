@@ -59,4 +59,10 @@ OSG_TAGGEDSINGLETON_INST(DataSlotPoolBase,
 template class TaggedSingletonHolder<DataSlotPoolBase, 
                                      ActionSlotTag   >;
 
+OSG_TAGGEDSINGLETON_INST(DataSlotPoolBase, 
+                         ContextSlotTag   )
+
+template class TaggedSingletonHolder<DataSlotPoolBase, 
+                                     ContextSlotTag   >;
+
 OSG_END_NAMESPACE

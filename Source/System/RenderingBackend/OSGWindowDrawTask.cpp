@@ -52,15 +52,14 @@ OSG_BEGIN_NAMESPACE
  */
 
 
-WindowDrawTask::WindowDrawTask(TaskType eType) :
-     Inherited            (     ),
-    _eTaskType            (eType),
-    _pBarrier             (NULL ),
-    _oInitFunc            (     ),
-    _bCreatePrivateContext(false),
+WindowDrawTask::WindowDrawTask(UInt32 uiType) :
+     Inherited            (uiType),
+    _pBarrier             (NULL  ),
+    _oInitFunc            (      ),
+    _bCreatePrivateContext(false ),
     _bReinitExtFunctions  (false)
 {
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case WaitAtBarrier:
 #ifdef OSG_SWAP_BARRIER
@@ -82,13 +81,13 @@ WindowDrawTask::~WindowDrawTask(void)
     _pBarrier = NULL;
 }
 
-void WindowDrawTask::execute(DrawEnv *pEnv)
+void WindowDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 {
     Window *pWindow = pEnv->getWindow();
 
     OSG_ASSERT(pWindow != NULL);
 
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case Init:
         {
@@ -181,7 +180,7 @@ void WindowDrawTask::execute(DrawEnv *pEnv)
         case EndThread:
         {
             pWindow->doDeactivate();
-            pWindow->_pDrawThread->endRunning();
+            pWindow->_pContextThread->endRunning();
         }
         break;
 
@@ -192,9 +191,9 @@ void WindowDrawTask::execute(DrawEnv *pEnv)
 
 void WindowDrawTask::waitForBarrier(void)
 {
-    OSG_ASSERT((_eTaskType == WaitAtBarrier) ||
-               (_eTaskType == Swap         )  );
-    OSG_ASSERT(_pBarrier  != NULL         );
+    OSG_ASSERT((_uiTypeTask == WaitAtBarrier) ||
+               (_uiTypeTask == Swap         )  );
+    OSG_ASSERT(_pBarrier    != NULL            );
 
     _pBarrier->enter();
 }
@@ -219,7 +218,7 @@ void WindowDrawTask::dump(UInt32 uiIndent)
     for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
     fprintf(stderr, "WindowDrawTask : ");
 
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case Init:
         {
@@ -275,10 +274,9 @@ void WindowDrawTask::dump(UInt32 uiIndent)
 
 
 
-ViewportDrawTask::ViewportDrawTask(Viewport *pPort, TaskType eType) :
-     Inherited(     ),
-    _eTaskType(eType),
-    _pPort    (pPort)
+ViewportDrawTask::ViewportDrawTask(Viewport *pPort, UInt32 uiType) :
+     Inherited(uiType),
+    _pPort    (pPort )
 {
 }
 
@@ -287,14 +285,14 @@ ViewportDrawTask::~ViewportDrawTask(void)
     _pPort = NULL;
 }
 
-void ViewportDrawTask::execute(DrawEnv *pEnv)
+void ViewportDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 {
     Window *pWindow = pEnv->getWindow();
 
     OSG_ASSERT( pWindow != NULL);
     OSG_ASSERT(_pPort   != NULL);
 
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case Foregrounds:
         {
@@ -316,7 +314,7 @@ void ViewportDrawTask::dump(UInt32 uiIndent)
     for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
     fprintf(stderr, "ViewportDrawTask : ");
 
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case Foregrounds:
         {
@@ -334,22 +332,20 @@ void ViewportDrawTask::dump(UInt32 uiIndent)
 }
 
 
-CallbackDrawTask::CallbackDrawTask(TaskType eType) :
-     Inherited(         ),
-    _eTaskType(eType    ),
-    _fCallback(         ),
-    _pBarrier (NULL     )
+CallbackDrawTask::CallbackDrawTask(UInt32 uiType) :
+     Inherited(uiType),
+    _fCallback(      ),
+    _pBarrier (NULL  )
 {
     _pBarrier = Barrier::get(NULL, false);
     _pBarrier->setNumWaitFor(2);
 }
 
 CallbackDrawTask::CallbackDrawTask(const CallbackFunctor &fCallback, 
-                                         TaskType         eType) :
-     Inherited(         ),
-    _eTaskType(eType    ),
-    _fCallback(fCallback),
-    _pBarrier (NULL     )
+                                         UInt32            uiType  ) :
+     Inherited (uiType   ),
+    _fCallback (fCallback),
+    _pBarrier  (NULL     )
 {
     _pBarrier = Barrier::get(NULL, false);
     _pBarrier->setNumWaitFor(2);
@@ -360,20 +356,20 @@ CallbackDrawTask::~CallbackDrawTask(void)
     _pBarrier = NULL;
 }
 
-void CallbackDrawTask::execute(DrawEnv *pEnv)
+void CallbackDrawTask::execute(HardwareContext *pContext, DrawEnv *pEnv)
 {
     Window *pWindow = pEnv->getWindow();
 
     OSG_ASSERT( pWindow != NULL);
     OSG_ASSERT(_fCallback      );
 
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case Callback:
         {
             Inherited::setupContext(pWindow);
 
-            _fCallback(pEnv);
+            _fCallback(pContext, pEnv);
 
             Inherited::finalizeContext(pWindow);
         }
@@ -383,7 +379,7 @@ void CallbackDrawTask::execute(DrawEnv *pEnv)
         {
             Inherited::setupContext(pWindow);
 
-            _fCallback(pEnv);
+            _fCallback(pContext, pEnv);
 
             Inherited::finalizeContext(pWindow);
 
@@ -399,9 +395,9 @@ void CallbackDrawTask::execute(DrawEnv *pEnv)
 void CallbackDrawTask::activateBarrier(bool bVal)
 {
     if(bVal == true)
-        _eTaskType = CallbackWithBarrier;
+        _uiTypeTask = CallbackWithBarrier;
     else
-        _eTaskType = Callback;
+        _uiTypeTask = Callback;
 }
 
 void CallbackDrawTask::setCallback(const CallbackFunctor &fCallback)
@@ -412,8 +408,8 @@ void CallbackDrawTask::setCallback(const CallbackFunctor &fCallback)
 
 void CallbackDrawTask::waitForBarrier(void)
 {
-    OSG_ASSERT(_eTaskType == CallbackWithBarrier);
-    OSG_ASSERT(_pBarrier  != NULL               );
+    OSG_ASSERT(_uiTypeTask == CallbackWithBarrier);
+    OSG_ASSERT(_pBarrier   != NULL               );
 
     _pBarrier->enter();
 }
@@ -423,11 +419,17 @@ void CallbackDrawTask::dump(UInt32 uiIndent)
     for(UInt32 i = 0; i < uiIndent; ++i) { fprintf(stderr, " "); }
     fprintf(stderr, "CallbackDrawTask : ");
 
-    switch(_eTaskType)
+    switch(_uiTypeTask)
     {
         case Callback:
         {
             fprintf(stderr, "Callback\n");
+        }
+        break;
+
+        case CallbackWithBarrier:
+        {
+            fprintf(stderr, "CallbackWithBarrier\n");
         }
         break;
 

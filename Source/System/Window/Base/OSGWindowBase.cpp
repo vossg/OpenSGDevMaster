@@ -163,7 +163,7 @@ OSG_BEGIN_NAMESPACE
 \***************************************************************************/
 
 #if !defined(OSG_DO_DOC) || defined(OSG_DOC_DEV)
-DataType FieldTraits<Window *>::_type("WindowPtr", "AttachmentContainerPtr");
+DataType FieldTraits<Window *>::_type("WindowPtr", "HardwareContextPtr");
 #endif
 
 OSG_FIELDTRAITS_GETTYPE(Window *)
@@ -384,7 +384,7 @@ WindowBase::TypeObject WindowBase::_type(
     "\n"
     "<FieldContainer\n"
     "\tname=\"Window\"\n"
-    "\tparent=\"AttachmentContainer\"\n"
+    "\tparent=\"HardwareContext\"\n"
     "\tlibrary=\"System\"\n"
     "\tpointerfieldtypes=\"both\"\n"
     "\tstructure=\"abstract\"\n"

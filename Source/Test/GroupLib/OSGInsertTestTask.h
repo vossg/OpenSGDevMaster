@@ -127,11 +127,9 @@ class TestDrawTask : public DrawTask
 
   public:
 
-    enum TestTaskType
-    {
-        TaskA = 0x0001,
-        TaskB = 0x0002
-    };
+    static const UInt32 TaskA    = Inherited::LastType + 1;
+    static const UInt32 TaskB    = Inherited::LastType + 2;
+    static const UInt32 LastType = TaskB;
 
     typedef DrawTask Inherited;
 
@@ -139,14 +137,14 @@ class TestDrawTask : public DrawTask
     /*! \name                   Statistic                                  */
     /*! \{                                                                 */
 
-    TestDrawTask(TestTaskType eType);
+    TestDrawTask(UInt32 uiType);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name                    Access                                    */
     /*! \{                                                                 */
 
-    virtual void execute(DrawEnv *pEnv);
+    virtual void execute(HardwareContext *pContext, DrawEnv *pEnv);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -173,8 +171,6 @@ class TestDrawTask : public DrawTask
     /*---------------------------------------------------------------------*/
     /*! \name                      Member                                  */
     /*! \{                                                                 */
-
-    TestTaskType  _eTaskType;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/

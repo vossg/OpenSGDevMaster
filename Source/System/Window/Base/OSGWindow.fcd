@@ -2,7 +2,7 @@
 
 <FieldContainer
 	name="Window"
-	parent="AttachmentContainer"
+	parent="HardwareContext"
 	library="System"
 	pointerfieldtypes="both"
 	structure="abstract"

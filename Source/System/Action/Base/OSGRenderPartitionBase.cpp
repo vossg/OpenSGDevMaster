@@ -95,7 +95,7 @@ OSG_USING_NAMESPACE
 /*------------- constructors & destructors --------------------------------*/
 
 RenderPartitionBase::RenderPartitionBase(void) :
-     Inherited         (     ),
+     Inherited         (    0),
     _bSortTrans        (true ),
     _bZWriteTrans      (false),
     _bCorrectNegScale  (false),

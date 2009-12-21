@@ -47,6 +47,7 @@
 
 #include "OSGWindowDrawThread.h"
 #include "OSGThreadManager.h"
+#include "OSGWindow.h"
 
 OSG_BEGIN_NAMESPACE
 
@@ -56,7 +57,7 @@ OSG_BEGIN_NAMESPACE
 
 MPThreadType WindowDrawThread::_type(
     "OSGWindowDrawThread",
-    "OSGThread",
+    "OSGHardwareContextThread",
     static_cast<CreateThreadF>(WindowDrawThread::create),
     NULL);
 
@@ -102,39 +103,24 @@ BaseThread *WindowDrawThread::create(const Char8  *szName,
 WindowDrawThread::WindowDrawThread(const Char8 *szName, 
                                          UInt32 uiId,
                                          bool   bGlobal) :
-      Inherited (szName, 
-                 uiId  ,
-                 bGlobal),
-     _bRunning  (false  ),
-     _oEnv      (       ),
-     _qTaskQueue(       )
+      Inherited(szName, 
+                uiId  ,
+                bGlobal),
+     _oEnv     (       )
 {
+    Inherited::_pEnv = &_oEnv;
 }
 
 WindowDrawThread::~WindowDrawThread(void)
 {
+    Inherited::_pEnv = NULL;
 }
 
-void WindowDrawThread::workProc(void)
+void WindowDrawThread::setWindow (Window *pWindow)
 {
-    _bRunning = true;
+    Inherited::setContext(pWindow);
 
-    while(_bRunning == true)
-    {
-        DrawTaskRefPtr pNextTask = _qTaskQueue.popTask();
-
-        pNextTask->execute(&_oEnv);
-    }
-}
-
-void WindowDrawThread::dumpTasks(void)
-{
-    _qTaskQueue.dumpQueue();
-}
-
-void WindowDrawThread::runTasks (void)
-{
-    _qTaskQueue.runAndClearQueue(&_oEnv);
+    _oEnv.setWindow(pWindow);
 }
 
 OSG_END_NAMESPACE

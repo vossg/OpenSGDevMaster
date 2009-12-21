@@ -54,8 +54,8 @@ OSG_BEGIN_NAMESPACE
 /*-------------------------------------------------------------------------*/
 /*                            Constructors                                 */
 
-DrawTask::DrawTask(void) :
-    Inherited()
+DrawTask::DrawTask(UInt32 uiTaskType) :
+    Inherited(uiTaskType)
 {
 }
 
@@ -64,112 +64,6 @@ DrawTask::DrawTask(void) :
 
 DrawTask::~DrawTask(void)
 {
-}
-
-
-
-
-/*! \class OSG::DrawTask
-    \ingroup GrpSystemRenderingBackend
- */
-
-/*-------------------------------------------------------------------------*/
-/*                            Constructors                                 */
-
-DrawTaskQueue::DrawTaskQueue(void) :
-    _qTaskStore(    ),
-    _pStoreLock(NULL),
-    _pStoreSema(NULL)
-{
-    _pStoreLock = Lock     ::get(NULL, false);
-    _pStoreSema = Semaphore::get(NULL, false);
-}
-
-/*-------------------------------------------------------------------------*/
-/*                             Destructor                                  */
-
-DrawTaskQueue::~DrawTaskQueue(void)
-{
-    _qTaskStore.clear();
-    
-    _pStoreLock = NULL;
-    _pStoreSema = NULL;
-}
-
-void DrawTaskQueue::queueTask(DrawTask *pTask)
-{
-    if(pTask != NULL)
-    {
-        _pStoreLock->acquire();
-        
-        _qTaskStore.push_back(pTask);
-
-        _pStoreLock->release();
-
-        _pStoreSema->post();
-    }
-
-    
-}
-
-void DrawTaskQueue::queueTaskFront(DrawTask *pTask)
-{
-    if(pTask != NULL)
-    {
-        _pStoreLock->acquire();
-        
-        _qTaskStore.push_front(pTask);
-
-        _pStoreLock->release();
-
-        _pStoreSema->post();
-    }
-
-    
-}
-
-DrawTaskTransitPtr DrawTaskQueue::popTask(void)
-{
-    _pStoreSema->wait();
-
-    _pStoreLock->acquire();
-
-    OSG_ASSERT(_qTaskStore.size() != 0);
-
-    DrawTaskTransitPtr returnValue(_qTaskStore.front());
-
-    _qTaskStore.pop_front();
-
-    _pStoreLock->release();
-
-    return returnValue;
-}
-
-void DrawTaskQueue::dumpQueue(void)
-{
-    TaskStore::const_iterator qIt  = _qTaskStore.begin();
-    TaskStore::const_iterator qEnd = _qTaskStore.end  ();
-
-    fprintf(stderr, "Dumping task queue\n");
-    fprintf(stderr, "------------------\n");
-
-    for(; qIt != qEnd; ++qIt)
-    {
-        (*qIt)->dump(4);
-    }
-}
-
-void DrawTaskQueue::runAndClearQueue(DrawEnv *pEnv)
-{
-    TaskStore::const_iterator qIt  = _qTaskStore.begin();
-    TaskStore::const_iterator qEnd = _qTaskStore.end  ();
-
-    for(; qIt != qEnd; ++qIt)
-    {
-        (*qIt)->execute(pEnv);
-    }
-
-    _qTaskStore.clear();
 }
 
 DataType FieldTraits<DrawTaskRefPtr>::_type("DrawTaskRefPtr", NULL);

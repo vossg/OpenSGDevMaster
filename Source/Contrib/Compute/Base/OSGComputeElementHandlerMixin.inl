@@ -39,7 +39,7 @@
 OSG_BEGIN_NAMESPACE
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
+void ComputeElementHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
 {
     FieldDescriptionBase *pDesc;
 
@@ -83,7 +83,7 @@ void StageHandlerMixin<ParentT>::classDescInserter(TypeObject &oType)
 }
 
 template <class ParentT> inline
-bool StageHandlerMixin<ParentT>::requestRun(void)
+bool ComputeElementHandlerMixin<ParentT>::requestRun(void)
 {
     Self::editSField(RequestRunFieldMask);
 
@@ -91,18 +91,21 @@ bool StageHandlerMixin<ParentT>::requestRun(void)
 }
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::changed(ConstFieldMaskArg whichField, 
-                                         UInt32            origin,
-                                         BitVector         details)
+void ComputeElementHandlerMixin<ParentT>::changed(ConstFieldMaskArg whichField, 
+                                                  UInt32            origin,
+                                                  BitVector         details)
 {
+#if 0
     if(0x0000 != (whichField & RequestRunFieldMask))
     {
         Window::requestStageRun(_iStageId);
     }
+#endif
 
     Inherited::changed(whichField, origin, details);
 }
 
+#if 0
 template <class ParentT> inline
 typename StageHandlerMixin<ParentT>::ValidationStatus 
     StageHandlerMixin<ParentT>::validate(RenderActionBase *pAction)
@@ -186,150 +189,38 @@ typename StageHandlerMixin<ParentT>::ValidationStatus
     return Self::validate(pAction);
 }
 
-template <class ParentT> inline
-void StageHandlerMixin<ParentT>::pushPartition(
-    RenderActionBase          *pAction,
-    UInt32                     uiCopyOnPush, 
-    RenderPartitionBase::Mode  eMode)
-{
-    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
-
-    pAction->pushPartition(uiCopyOnPush, eMode);
-
-    if(pData != NULL)
-    {
-        if(pData->getGroupMode() == NoPartitionGroup)
-        {
-            pData->setPartitionRangeBegin(pAction->getActivePartitionIdx());
-        }
-
-    }
-}
+#endif
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::popPartition(
-    RenderActionBase *pAction)
+void ComputeElementHandlerMixin<ParentT>::setData(
+    ComputeElementData *pData, 
+    Int32               iDataSlotId,
+    HardwareContext    *pContext)
 {
-    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
-
-    pAction->popPartition();
-
-    if(pData != NULL)
-    {
-        if(pData->getGroupMode() == NoPartitionGroup)
-        {
-            pData->setPartitionRangeEnd(pAction->getLastPartitionIdx());
-        }
-    }
-}
-
-template <class ParentT> inline
-void StageHandlerMixin<ParentT>::beginPartitionGroup(
-    RenderActionBase *pAction)
-{
-    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
-
-    if(pData != NULL)
-    {
-        pData->setGroupMode(InPartitionGroup);
-    }
-
-    pAction->beginPartitionGroup();
-
-    if(pData != NULL)
-    {
-        pData->setPartitionRangeBegin(pAction->getActivePartitionIdx());
-    }
-}
-
-template <class ParentT> inline
-void StageHandlerMixin<ParentT>::endPartitionGroup(
-    RenderActionBase *pAction)
-{
-    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
-
-    if(pData != NULL)
-    {
-        pData->setGroupMode(NoPartitionGroup);
-    }
-
-    pAction->endPartitionGroup();
-
-    if(pData != NULL)
-    {
-        pData->setPartitionRangeEnd(pAction->getLastPartitionIdx());
-    }
-}
-
-template <class ParentT> inline
-void StageHandlerMixin<ParentT>::beginPartitions(
-    RenderActionBase *pAction)
-{
-    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
-
-    if(pData != NULL)
-    {
-        pData->setGroupMode          (InPartitionList                   );
-        pData->setPartitionRangeBegin(pAction->getLastPartitionIdx() + 1);
-    }
-}
-
-template <class ParentT> inline
-void StageHandlerMixin<ParentT>::endPartitions(
-    RenderActionBase *pAction)
-{
-    StageData *pData = pAction->template getData<StageData *>(_iDataSlotId);
-
-    if(pData != NULL)
-    {
-        pData->setGroupMode        (NoPartitionGroup              );
-        pData->setPartitionRangeEnd(pAction->getLastPartitionIdx());
-    }
-}
-
-template <class ParentT> inline
-void StageHandlerMixin<ParentT>::setData(
-    StageData        *pData, 
-    Int32             iDataSlotId,
-    RenderActionBase *pAction)
-{
-    StageData *pStoredData = 
-        pAction->template getData<StageData *>(_iDataSlotId);
-
-    bool bCheckCallback = false;
+    ComputeElementData *pStoredData = 
+        pContext->template getData<ComputeElementData *>(_iDataSlotId);
 
     OSG_ASSERT(iDataSlotId == _iDataSlotId);
 
     if(pStoredData == NULL)
     {
-        pAction->setData(pData, _iDataSlotId);
-        bCheckCallback = true;
-    }
-    else if(pStoredData != pData)
-    {
-        pData->copyFrom(pStoredData);
+        pContext->setData(pData, _iDataSlotId);
 
-        pAction->setData(pData, _iDataSlotId);
-        bCheckCallback = true;
-    }
-
-    if(bCheckCallback == true)
-    {
         if(this->hasDestroyedFunctor(
-               boost::bind(&RenderActionBase::clearData,
-                           pAction,
+               boost::bind(&DataSlotHandler::clearData,
+                           pContext,
                            _1,
                            _2,
                            _iDataSlotId)) == false)
         {
             this->addDestroyedFunctor(
-                boost::bind(&RenderActionBase::clearData,
-                            static_cast<DataSlotHandler *>(pAction),
+                boost::bind(&DataSlotHandler::clearData,
+                            static_cast<DataSlotHandler *>(pContext),
                             _1,
                             _2,
                             _iDataSlotId), "");
 
-            pAction->addDestroyedFunctorFor(
+            pContext->addDestroyedFunctorFor(
                 boost::bind(&Self::clearDestroyedFunctorFor,
                             this,
                             _1),
@@ -339,7 +230,7 @@ void StageHandlerMixin<ParentT>::setData(
 }
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::addDestroyedFunctor(
+void ComputeElementHandlerMixin<ParentT>::addDestroyedFunctor(
     ChangedFunctor func,
     std::string    createSymbol)
 {
@@ -353,7 +244,7 @@ void StageHandlerMixin<ParentT>::addDestroyedFunctor(
 
 template <class ParentT> 
 template<class FunctorT> inline
-void StageHandlerMixin<ParentT>::subDestroyedFunctor(FunctorT func)
+void ComputeElementHandlerMixin<ParentT>::subDestroyedFunctor(FunctorT func)
 {
     MFChangedFunctorCallback::iterator       cfIt = 
         _mfDestroyedFunctors.begin();
@@ -373,7 +264,7 @@ void StageHandlerMixin<ParentT>::subDestroyedFunctor(FunctorT func)
 
 template <class ParentT> 
 template<class FunctorT> inline
-bool StageHandlerMixin<ParentT>::hasDestroyedFunctor(FunctorT func)
+bool ComputeElementHandlerMixin<ParentT>::hasDestroyedFunctor(FunctorT func)
 {
     bool returnValue = false;
 
@@ -397,16 +288,16 @@ bool StageHandlerMixin<ParentT>::hasDestroyedFunctor(FunctorT func)
 }
 
 template <class ParentT> inline 
-void StageHandlerMixin<ParentT>::clearDestroyedFunctors(void)
+void ComputeElementHandlerMixin<ParentT>::clearDestroyedFunctors(void)
 {
     _mfDestroyedFunctors.clear();
 }
 
 template <class ParentT> inline 
-void StageHandlerMixin<ParentT>::clearDestroyedFunctorFor(
+void ComputeElementHandlerMixin<ParentT>::clearDestroyedFunctorFor(
     DataSlotHandler *pHandler)
 {
-    this->subDestroyedFunctor(boost::bind(&RenderActionBase::clearData,
+    this->subDestroyedFunctor(boost::bind(&DataSlotHandler::clearData,
                                             pHandler,
                                            _1,
                                            _2,
@@ -417,7 +308,7 @@ void StageHandlerMixin<ParentT>::clearDestroyedFunctorFor(
 /*                                Set                                      */
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::setUpdateMode(UpdateMode eMode)
+void ComputeElementHandlerMixin<ParentT>::setUpdateMode(UpdateMode eMode)
 {
     Inherited::editSField(UpdateModeFieldMask);
 
@@ -425,13 +316,13 @@ void StageHandlerMixin<ParentT>::setUpdateMode(UpdateMode eMode)
 }
 
 template <class ParentT> inline
-UInt32 StageHandlerMixin<ParentT>::getUpdateMode(void) const
+UInt32 ComputeElementHandlerMixin<ParentT>::getUpdateMode(void) const
 {
     return _sfUpdateMode.getValue();
 }
 
 template <class ParentT> inline
-SFUInt32 *StageHandlerMixin<ParentT>::editSFUpdateMode(void)
+SFUInt32 *ComputeElementHandlerMixin<ParentT>::editSFUpdateMode(void)
 {
     Inherited::editSField(UpdateModeFieldMask);
 
@@ -439,7 +330,7 @@ SFUInt32 *StageHandlerMixin<ParentT>::editSFUpdateMode(void)
 }
 
 template <class ParentT> inline
-const SFUInt32 *StageHandlerMixin<ParentT>::getSFUpdateMode(void) const
+const SFUInt32 *ComputeElementHandlerMixin<ParentT>::getSFUpdateMode(void) const
 {
     return &_sfUpdateMode;
 }
@@ -448,7 +339,8 @@ const SFUInt32 *StageHandlerMixin<ParentT>::getSFUpdateMode(void) const
 /* Binary access                                                           */
 
 template <class ParentT> inline
-UInt32 StageHandlerMixin<ParentT>::getBinSize(ConstFieldMaskArg whichField)
+UInt32 ComputeElementHandlerMixin<ParentT>::getBinSize(
+    ConstFieldMaskArg whichField)
 {
     UInt32 returnValue = Inherited::getBinSize(whichField);
 
@@ -469,7 +361,7 @@ UInt32 StageHandlerMixin<ParentT>::getBinSize(ConstFieldMaskArg whichField)
 }
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::copyToBin(
+void ComputeElementHandlerMixin<ParentT>::copyToBin(
     BinaryDataHandler  &pMem, ConstFieldMaskArg whichField)
 {
     Inherited::copyToBin(pMem, whichField);
@@ -489,7 +381,7 @@ void StageHandlerMixin<ParentT>::copyToBin(
 }
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::copyFromBin(
+void ComputeElementHandlerMixin<ParentT>::copyFromBin(
     BinaryDataHandler &pMem, ConstFieldMaskArg whichField)
 {
     Inherited::copyFromBin(pMem, whichField);
@@ -516,44 +408,49 @@ void StageHandlerMixin<ParentT>::copyFromBin(
 /*                            Constructors                                 */
 
 template <class ParentT> inline
-StageHandlerMixin<ParentT>::StageHandlerMixin(void) :
-     Inherited          (            ),
-    _iDataSlotId        (-1          ),
-    _iStageId           (-1          ),
-    _sfUpdateMode       (PerTraversal),
-    _sfRequestRun       (            ),
-    _mfDestroyedFunctors(            )
+ComputeElementHandlerMixin<ParentT>::ComputeElementHandlerMixin(void) :
+     Inherited          (        ),
+    _iDataSlotId        (-1      ),
+    _iElementId         (-1      ),
+    _sfUpdateMode       (PerVisit),
+    _sfRequestRun       (        ),
+    _mfDestroyedFunctors(        )
 {
+#if 0
     _tmpStatus = StageValidator::Finished;
+#endif
 }
 
 template <class ParentT> inline
-StageHandlerMixin<ParentT>::StageHandlerMixin(
-    const StageHandlerMixin &source) :
+ComputeElementHandlerMixin<ParentT>::ComputeElementHandlerMixin(
+    const ComputeElementHandlerMixin &source) :
 
      Inherited          (source                     ),
     _iDataSlotId        (-1                         ),
-    _iStageId           (-1                         ),
+    _iElementId         (-1                         ),
     _sfUpdateMode       (source._sfUpdateMode       ),
     _sfRequestRun       (source._sfRequestRun       ),
     _mfDestroyedFunctors(source._mfDestroyedFunctors)
 {
+#if 0
     _tmpStatus = StageValidator::Finished;
+#endif
 }
 
 template <class ParentT> inline
-StageHandlerMixin<ParentT>::~StageHandlerMixin(void)
+ComputeElementHandlerMixin<ParentT>::~ComputeElementHandlerMixin(void)
 {
 }
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
-                                      const BitVector bvFlags ) const
+void ComputeElementHandlerMixin<ParentT>::dump(      UInt32    uiIndent,
+                                               const BitVector bvFlags ) const
 {
 }
 
 template <class ParentT> inline
-EditFieldHandlePtr StageHandlerMixin<ParentT>::editHandleUpdateMode(void)
+EditFieldHandlePtr 
+    ComputeElementHandlerMixin<ParentT>::editHandleUpdateMode(void)
 {
     SFUInt32::EditHandlePtr returnValue(
         new  SFUInt32::EditHandle(
@@ -567,7 +464,7 @@ EditFieldHandlePtr StageHandlerMixin<ParentT>::editHandleUpdateMode(void)
 }
 
 template <class ParentT> inline
-GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleUpdateMode(
+GetFieldHandlePtr ComputeElementHandlerMixin<ParentT>::getHandleUpdateMode(
     void) const
 {
     SFUInt32::GetHandlePtr returnValue(
@@ -580,7 +477,7 @@ GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleUpdateMode(
 }
 
 template <class ParentT> inline
-GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleRequestRun(
+GetFieldHandlePtr ComputeElementHandlerMixin<ParentT>::getHandleRequestRun(
     void) const
 {
     SFOSGAny::GetHandlePtr returnValue(
@@ -593,8 +490,8 @@ GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleRequestRun(
 }
 
 template <class ParentT> inline
-GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleDestroyedFunctors(
-    void) const
+GetFieldHandlePtr 
+    ComputeElementHandlerMixin<ParentT>::getHandleDestroyedFunctors(void) const
 {
     MFChangedFunctorCallback::GetHandlePtr returnValue(
         new MFChangedFunctorCallback::GetHandle(
@@ -606,8 +503,8 @@ GetFieldHandlePtr  StageHandlerMixin<ParentT>::getHandleDestroyedFunctors(
 }
 
 template <class ParentT> inline
-EditFieldHandlePtr StageHandlerMixin<ParentT>::editHandleDestroyedFunctors(
-    void)
+EditFieldHandlePtr 
+    ComputeElementHandlerMixin<ParentT>::editHandleDestroyedFunctors(void)
 {
     MFChangedFunctorCallback::EditHandlePtr returnValue(
         new MFChangedFunctorCallback::EditHandle(
@@ -626,7 +523,7 @@ EditFieldHandlePtr StageHandlerMixin<ParentT>::editHandleDestroyedFunctors(
 
 #ifdef OSG_MT_CPTR_ASPECT
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::execSync(
+void ComputeElementHandlerMixin<ParentT>::execSync(
           Self              *pFrom,
           ConstFieldMaskArg  whichField,
                              AspectOffsetStore &oOffsets,
@@ -647,8 +544,9 @@ void StageHandlerMixin<ParentT>::execSync(
 #endif
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::onCreateAspect(const Self   *createAspect,
-                                                const Self   *source      )
+void ComputeElementHandlerMixin<ParentT>::onCreateAspect(
+    const Self   *createAspect,
+    const Self   *source      )
 {
     Inherited::onCreateAspect(createAspect, source);
 
@@ -656,39 +554,39 @@ void StageHandlerMixin<ParentT>::onCreateAspect(const Self   *createAspect,
     if(GlobalSystemState == OSG::Running)
     {
         _iDataSlotId = createAspect->_iDataSlotId;
-        _iStageId    = createAspect->_iStageId;
+        _iElementId  = createAspect->_iElementId;
     }
 }
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::onCreate(const Self *source)
+void ComputeElementHandlerMixin<ParentT>::onCreate(const Self *source)
 {
     Inherited::onCreate(source);
 
     // avoid prototype
     if(GlobalSystemState == OSG::Running)
     {
-        _iDataSlotId = ActionDataSlotPool::the()->create();
-        _iStageId    = StageIdPool       ::the()->create();
+        _iDataSlotId = ContextDataSlotPool ::the()->create();
+        _iElementId  = ComputeElementIdPool::the()->create();
     }
 }
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::onDestroy(UInt32 uiContainerId)
+void ComputeElementHandlerMixin<ParentT>::onDestroy(UInt32 uiContainerId)
 {
     Inherited::onDestroy(uiContainerId);
 
     // avoid prototype
     if(GlobalSystemState == OSG::Running)
     {
-        ActionDataSlotPool::the()->release(_iDataSlotId);
-        StageIdPool       ::the()->release(_iStageId   );
+        ContextDataSlotPool ::the()->release(_iDataSlotId);
+        ComputeElementIdPool::the()->release(_iElementId );
     }
 }
 
 template <class ParentT> inline
-void StageHandlerMixin<ParentT>::onDestroyAspect(UInt32  uiContainerId,
-                                                 UInt32  uiAspect     )
+void ComputeElementHandlerMixin<ParentT>::onDestroyAspect(UInt32  uiContainerId,
+                                                          UInt32  uiAspect     )
 {
     Inherited::onDestroy(uiContainerId);
 
@@ -711,96 +609,6 @@ void StageHandlerMixin<ParentT>::onDestroyAspect(UInt32  uiContainerId,
 
 /*-------------------------------------------------------------------------*/
 /*                             Assignment                                  */
-
-template <class ParentT> inline
-Action::ResultE 
-    StageHandlerMixin<ParentT>::recurseFromThis(RenderAction *action)
-{
-    Action::ResultE  returnValue = Action::Continue;
-
-    Node            *pActNode    = action->getActNode  ();
-    FieldContainer  *pActParent  = action->getActParent();
-
-    if(pActNode != pActParent)
-    {
-        OSG_ASSERT(pActParent == pActNode->getCore());
-
-        MultiCore *pCore = dynamic_cast<MultiCore *>(pActParent);
-
-        if(pCore != NULL)
-        {
-            returnValue = action->recurseMultiCoreFrom(pActNode, 
-                                                       pCore,
-                                                       this);
-        }
-        else
-        {
-            returnValue = action->recurseNoNodeCallbacks(pActNode);
-        }
-    }
-    else
-    {
-        returnValue = action->recurseNoNodeCallbacks(pActNode);
-    }
-
-    action->setActNode  (pActNode  );
-    action->setActParent(pActParent);
-
-    return returnValue;
-}
-
-template <class ParentT> inline
-Action::ResultE 
-    StageHandlerMixin<ParentT>::recurseFrom(RenderAction *action,
-                                            NodeCore     *pFrom )
-{
-    Action::ResultE  returnValue = Action::Continue;
-
-    Node            *pActNode    = action->getActNode  ();
-    FieldContainer  *pActParent  = action->getActParent();
-
-    if(pActNode != pActParent)
-    {
-        OSG_ASSERT(pActParent == pActNode->getCore());
-
-        MultiCore *pCore = dynamic_cast<MultiCore *>(pActParent);
-
-        if(pCore != NULL)
-        {
-            returnValue = action->recurseMultiCoreFrom(pActNode, 
-                                                       pCore,
-                                                       pFrom);
-        }
-        else
-        {
-            returnValue = action->recurseNoNodeCallbacks(pActNode);
-        }
-    }
-    else
-    {
-        returnValue = action->recurseNoNodeCallbacks(pActNode);
-    }
-
-    action->setActNode  (pActNode  );
-    action->setActParent(pActParent);
-
-    return returnValue;
-}
-
-template <class ParentT> inline
-Action::ResultE StageHandlerMixin<ParentT>::recurse (RenderAction *action,
-                                                     Node         *node  )
-{
-    Node           *pActNode   = action->getActNode  ();
-    FieldContainer *pActParent = action->getActParent();
-
-    Action::ResultE returnValue = action->recurse(node);    
-
-    action->setActNode  (pActNode  );
-    action->setActParent(pActParent);
-
-    return returnValue;
-}
 
 /*-------------------------------------------------------------------------*/
 /*                             Comparison                                  */
