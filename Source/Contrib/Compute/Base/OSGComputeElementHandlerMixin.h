@@ -60,8 +60,8 @@ class ComputeElementHandlerMixin  : public ParentT
 
   private:
 
-    typedef ParentT                    Inherited;
-    typedef HardwareContext::Inherited DataSlotHandler;
+    typedef ParentT                               Inherited;
+    typedef HardwareContext::Inherited::Inherited DataSlotHandler;
 
     /*==========================  PUBLIC  =================================*/
 
