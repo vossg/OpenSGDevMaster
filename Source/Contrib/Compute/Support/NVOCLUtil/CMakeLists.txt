@@ -1,7 +1,7 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-INCLUDE(ExtSetupHelper)
+INCLUDE(OSGContribCompute.SetupHelper)
 
 MESSAGE(STATUS "add NVOCLUtil")
 

@@ -1,7 +1,7 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
-INCLUDE(ExtSetupHelper)
+INCLUDE(OSGContribCompute.SetupHelper)
 
 IF(NOT OSG_CUDA_UTIL_BUILD)
   MESSAGE(STATUS "cudcpp needs CudaUtil")
