@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="ComputeElement"
+   parent="Group"
+   mixinparent="ComputeElementParent"
+   library="ContribComputeBase"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="true"
+   >
+  Base of compute elements.  
+</FieldContainer>

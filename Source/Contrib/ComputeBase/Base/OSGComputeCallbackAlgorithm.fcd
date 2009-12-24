@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<FieldContainer
+   name="ComputeCallbackAlgorithm"
+   parent="ComputeAlgorithm"
+   library="ContribComputeBase"
+   pointerfieldtypes="both"
+   structure="concrete"
+   systemcomponent="true"
+   parentsystemcomponent="true"
+   decoratable="false"
+   useLocalIncludes="false"
+   isNodeCore="false"
+   >
+  <Field
+     name="callback"
+     type="ComputeFunctorCallback"
+     cardinality="single"
+     visibility="external"
+     access="none"
+     >
+  </Field>
+</FieldContainer>
