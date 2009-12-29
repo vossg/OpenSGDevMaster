@@ -53,6 +53,7 @@
 #include <dom/domFx_sampler2D_common.h>
 #include <dom/domFx_surface_common.h>
 #include <dom/domCommon_color_or_texture_type.h>
+#include <dom/domCommon_float_or_param_type.h>
 
 // forward decl
 class domProfile_COMMON;
@@ -163,7 +164,11 @@ class OSG_FILEIO_DLLMAPPING ColladaEffect : public ColladaInstantiableElement
         domCommon_color_or_texture_type                *colTex,
         domCommon_color_or_texture_type::domColorRef   &colOut,
         domCommon_color_or_texture_type::domParamRef   &paramOut,
-        domCommon_color_or_texture_type::domTextureRef &texOut   );
+        domCommon_color_or_texture_type::domTextureRef &texOut     );
+    void fillFloatParam     (
+        domCommon_float_or_param_type                  *floatParam,
+        domCommon_float_or_param_type::domFloatRef     &floatOut,
+        domCommon_float_or_param_type::domParamRef     &paramOut   );
 
     static ColladaElementRegistrationHelper _regHelper;
 

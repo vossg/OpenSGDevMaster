@@ -45,6 +45,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
 #include "OSGColladaImage.h"
 #include "OSGColladaSampler2D.h"
 #include "OSGColladaInstanceEffect.h"
@@ -192,12 +193,13 @@ ColladaEffect::createInstance(ColladaInstanceElement *colInstElem)
         }
     }
 
-    // XXX TODO: do we always need to create a new material?
     editInstStore().push_back(retVal);
 
     return retVal;
 }
 
+/*! Return parameter of the effect (\c <newparam> tags) with the given \a name.
+ */
 daeElement *
 ColladaEffect::findDOMParam(const std::string &name) const
 {
@@ -216,6 +218,9 @@ ColladaEffect::findDOMParam(const std::string &name) const
     }
 }
 
+/*! Return the loader element for the parameter of the effect (\c <newparam>
+    tags) with the given \a name.
+ */
 ColladaElement *
 ColladaEffect::findParam(const std::string &name) const
 {
@@ -243,6 +248,10 @@ ColladaEffect::~ColladaEffect(void)
 {
 }
 
+/*! Fills internal data structures for \c <profile_COMMON>.
+    This mainly collects relevant parameters so they can be looked up
+    efficiently when creating an instance of this effect.
+ */
 void
 ColladaEffect::readProfileCommon(domProfile_COMMON *prof)
 {
@@ -321,6 +330,9 @@ ColladaEffect::readProfileCG(domProfile_CG *prof)
     SWARNING << "ColladaEffect::readProfileCG: NIY." << std::endl;
 }
 
+/*! Create an OpenSG material that matches this \c <profile_COMMON> material
+    (to the extent possible).
+ */
 MaterialTransitPtr
 ColladaEffect::createInstanceProfileCommon(
     domProfile_COMMON  *prof,       domEffect *effect,
@@ -393,6 +405,9 @@ ColladaEffect::createInstanceProfileCommon(
     UInt32                texCount = 0;
     ChunkMaterialUnrecPtr mat      = ChunkMaterial::create();
     MaterialChunkUnrecPtr matChunk = MaterialChunk::create();
+
+    getGlobal()->getStatCollector()->getElem(
+        ColladaGlobal::statNMaterialCreated)->inc();
 
     if(emission != NULL)
     {
@@ -587,6 +602,25 @@ ColladaEffect::createInstanceProfileCommon(
         }
     }
 
+    if(shininess != NULL)
+    {
+        domCommon_float_or_param_type::domFloatRef value;
+        domCommon_float_or_param_type::domParamRef param;
+
+        fillFloatParam(shininess, value, param);
+
+        if(value != NULL)
+        {
+            matChunk->setShininess(value->getValue());
+        }
+        else if(param != NULL)
+        {
+            SWARNING << "ColladaEffect::createInstanceProfileCommon: "
+                     << "<shininess>/<param> not supported."
+                     << std::endl;
+        }
+    }
+
     mat->addChunk(matChunk);
 
     return MaterialTransitPtr(mat);
@@ -645,7 +679,18 @@ ColladaEffect::fillColorParamTex(
     }
 }
 
-
+void
+ColladaEffect::fillFloatParam(
+    domCommon_float_or_param_type              *floatParam,
+    domCommon_float_or_param_type::domFloatRef &floatOut,
+    domCommon_float_or_param_type::domParamRef &paramOut )
+{
+    if(floatParam != NULL)
+    {
+        floatOut = floatParam->getFloat();
+        paramOut = floatParam->getParam();
+    }
+}
 
 OSG_END_NAMESPACE
 
