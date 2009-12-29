@@ -112,11 +112,11 @@ ColladaEffect *
 ColladaInstanceEffect::getTargetElem(void) const
 {
     ColladaEffect *retVal     = NULL;
-    domEffectRef   sourceElem = getTargetDOMElem();
+    domEffectRef   targetElem = getTargetDOMElem();
 
-    if(sourceElem != NULL)
+    if(targetElem != NULL)
     {
-        retVal = getUserDataAs<ColladaEffect>(sourceElem);
+        retVal = getUserDataAs<ColladaEffect>(targetElem);
     }
 
     return retVal;

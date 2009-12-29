@@ -94,7 +94,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
     /*! \{                                                                 */
 
     virtual ColladaGeometry *getTargetElem   (void) const;
-    virtual domGeometry     *getTargetDOMElem(void) const;
+    virtual daeElement      *getTargetDOMElem(void) const;
 
     const MaterialMap       &getMaterialMap  (void) const;
 

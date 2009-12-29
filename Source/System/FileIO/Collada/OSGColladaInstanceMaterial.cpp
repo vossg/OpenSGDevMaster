@@ -147,11 +147,11 @@ ColladaMaterial *
 ColladaInstanceMaterial::getTargetElem(void) const
 {
     ColladaMaterial *retVal     = NULL;
-    domMaterialRef   sourceElem = getTargetDOMElem();
+    domMaterialRef   targetElem = getTargetDOMElem();
 
-    if(sourceElem != NULL)
+    if(targetElem != NULL)
     {
-        retVal = getUserDataAs<ColladaMaterial>(sourceElem);
+        retVal = getUserDataAs<ColladaMaterial>(targetElem);
     }
 
     return retVal;

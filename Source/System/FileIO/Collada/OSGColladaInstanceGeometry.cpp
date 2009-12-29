@@ -140,17 +140,17 @@ ColladaGeometry *
 ColladaInstanceGeometry::getTargetElem(void) const
 {
     ColladaGeometry *retVal     = NULL;
-    domGeometryRef   sourceElem = getTargetDOMElem();
+    daeElementRef    targetElem = getTargetDOMElem();
 
-    if(sourceElem != NULL)
+    if(targetElem != NULL)
     {
-        retVal = getUserDataAs<ColladaGeometry>(sourceElem);
+        retVal = getUserDataAs<ColladaGeometry>(targetElem);
     }
 
     return retVal;
 }
 
-domGeometry *
+daeElement *
 ColladaInstanceGeometry::getTargetDOMElem(void) const
 {
     domGeometryRef          retVal  = NULL;

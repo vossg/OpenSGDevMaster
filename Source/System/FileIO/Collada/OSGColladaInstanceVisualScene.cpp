@@ -95,11 +95,11 @@ ColladaVisualScene *
 ColladaInstanceVisualScene::getTargetElem(void) const
 {
     ColladaVisualScene *retVal     = NULL;
-    daeElementRef       sourceElem = getTargetDOMElem();
+    daeElementRef       targetElem = getTargetDOMElem();
  
-    if(sourceElem != NULL)
+    if(targetElem != NULL)
     {
-        retVal = getUserDataAs<ColladaVisualScene>(sourceElem);
+        retVal = getUserDataAs<ColladaVisualScene>(targetElem);
     }
 
     return retVal;

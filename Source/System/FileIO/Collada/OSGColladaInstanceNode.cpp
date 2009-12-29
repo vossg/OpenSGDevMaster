@@ -88,11 +88,11 @@ ColladaNode *
 ColladaInstanceNode::getTargetElem(void) const
 {
     ColladaNode   *retVal     = NULL;
-    daeElementRef  sourceElem = getTargetDOMElem();
+    daeElementRef  targetElem = getTargetDOMElem();
 
-    if(sourceElem != NULL)
+    if(targetElem != NULL)
     {
-        retVal = getUserDataAs<ColladaNode>(sourceElem);
+        retVal = getUserDataAs<ColladaNode>(targetElem);
     }
 
     return retVal;
