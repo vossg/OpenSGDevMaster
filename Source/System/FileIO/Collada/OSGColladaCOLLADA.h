@@ -36,38 +36,19 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAGLOBAL_H_
-#define _OSGCOLLADAGLOBAL_H_
-#ifdef __sgi
-#pragma once
-#endif
+#ifndef _OSGCOLLADACOLLADA_H_
+#define _OSGCOLLADACOLLADA_H_
 
-/*! \file OSGColladaGlobal.h
-    \ingroup GrpLoader
- */
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
-#include "OSGMemoryObject.h"
-#include "OSGPathHandler.h"
-#include "OSGNode.h"
 #include "OSGColladaElement.h"
-#include "OSGColladaOptions.h"
-#include "OSGStatElemTypes.h"
-#include "OSGStatCollector.h"
-
-// collada dom includes
-#include <dae.h>
-#include <dom/domCOLLADA.h>
-
-#include <string>
-#include <vector>
+#include "OSGColladaElementFactoryHelper.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
+class OSG_FILEIO_DLLMAPPING ColladaCOLLADA : public ColladaElement
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -75,115 +56,48 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef MemoryObject   Inherited;
-    typedef ColladaGlobal  Self;
+    typedef ColladaElement  Inherited;
+    typedef ColladaCOLLADA  Self;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaGlobal);
-
-    typedef std::vector<ColladaElementRefPtr> ElementStore;
-    typedef ElementStore::iterator            ElementStoreIt;
-    typedef ElementStore::const_iterator      ElementStoreConstIt;
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Statistics                                                   */
-    /*! \{                                                                 */
-
-    static StatElemDesc<StatIntElem> statNGeometryCreated;
-    static StatElemDesc<StatIntElem> statNMaterialCreated;
-    static StatElemDesc<StatIntElem> statNTextureCreated;
-
-    StatCollector *getStatCollector(void                   );
-    void           setStatCollector(StatCollector *statColl);
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaCOLLADA);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
     /*! \{                                                                 */
 
-    static ObjTransitPtr create(void);
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Read                                                         */
+    /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    NodeTransitPtr read(      std::istream &is,
-                        const std::string  &fileName);
-
-    NodeTransitPtr read(      DAE          *dae,
-                        const std::string  &fileName);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Access                                                       */
-    /*! \{                                                                 */
-
-    inline const DAE          *getDAE       (void                      ) const;
-    inline DAE                *editDAE      (void                      );
-
-    inline const std::string  &getDocPath   (void                      ) const;
-    inline void                setDocPath   (const std::string &docPath);
-
-    inline ColladaOptions     *getOptions   (void                      ) const;
-    inline void                setOptions   (ColladaOptions    *options);
-
-    inline Node               *getRoot      (void                      ) const;
-    inline void                setRoot      (Node              *rootN  );
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name ElementStore                                                 */
-    /*! \{                                                                 */
-
-    inline const ElementStore &getElemStore  (void                      ) const;
-    inline ElementStore       &editElemStore (void                      );
-
-           void                addElement    (ColladaElement    *elem   );
-
-           ColladaElement     *getElement    (const daeURI      &elemURI) const;
-           ColladaElement     *getElement    (const std::string &elemId ) const;
+    virtual void read(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
-  protected:
+ protected:
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
 
-             ColladaGlobal(void);
-    virtual ~ColladaGlobal(void);
-
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Read                                                         */
-    /*! \{                                                                 */
-
-    NodeTransitPtr doRead(void);
+             ColladaCOLLADA(daeElement *elem, ColladaGlobal *global);
+    virtual ~ColladaCOLLADA(void                                   );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    ElementStore          _elemStore;
-
-    ColladaOptionsRefPtr  _options;
-    StatCollectorRefPtr   _statColl;
-
-    PathHandler           _pathHandler;
-    std::string           _docPath;
-
-    DAE                  *_dae;
-
-    NodeUnrecPtr          _rootN;
+    static ColladaElementRegistrationHelper _regHelper;
 };
 
-
-OSG_GEN_MEMOBJPTR(ColladaGlobal);
+OSG_GEN_MEMOBJPTR(ColladaCOLLADA);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaGlobal.inl"
+// #include "OSGColladaCOLLADA.inl"
 
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADAGLOBAL_H_
+#endif // _OSGCOLLADACOLLADA_H_

@@ -45,7 +45,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
-#include "OSGColladaScene.h"
+#include "OSGColladaCOLLADA.h"
 #include "OSGColladaElementFactory.h"
 #include "OSGColladaOptions.h"
 
@@ -105,15 +105,15 @@ ColladaGlobal::read(std::istream &is, const std::string &fileName)
 
     _docPath = fileName;
 
-    DAE *dae = new DAE;
-    dae->open(fileName.c_str());
+    _dae = new DAE;
+    _dae->open(fileName.c_str());
 
-    rootN = doRead(dae);
+    rootN = doRead();
 
-    dae->clear();
-    delete dae;
-
-    _docPath.clear();
+    _docPath. clear();
+    _dae    ->clear();
+    delete _dae;
+    _dae = NULL;
 
     return rootN;
 }
@@ -137,10 +137,12 @@ ColladaGlobal::read(DAE *dae, const std::string &fileName)
     _pathHandler.setBaseFile         (fileName.c_str());
 
     _docPath = fileName;
+    _dae     = dae;
 
-    rootN = doRead(dae);
+    rootN = doRead();
 
     _docPath.clear();
+    _dae = NULL;
 
     return rootN;
 }
@@ -159,7 +161,6 @@ ColladaGlobal::ColladaGlobal(void)
     , _pathHandler()
     , _docPath    ()
     , _dae        (NULL)
-    , _docRoot    ()
     , _rootN      (NULL)
 {
 }
@@ -170,15 +171,12 @@ ColladaGlobal::~ColladaGlobal(void)
     _dae = NULL;
 }
 
-/*! Read the file stored in _docPath from the DAE \dae.
+/*! Read the file stored in _docPath from the DAE _dae.
  */
 NodeTransitPtr
-ColladaGlobal::doRead(DAE *dae)
+ColladaGlobal::doRead(void)
 {
     NodeTransitPtr rootN(NULL);
-
-    _dae     = dae;
-    _docRoot = _dae->getRoot(_docPath);
 
     if(_statColl == NULL)
         _statColl = new StatCollector;
@@ -189,23 +187,14 @@ ColladaGlobal::doRead(DAE *dae)
 
     _statColl->reset  (StatElemDescBase::RESET_ALWAYS);
 
-    if(_docRoot != NULL)
+    domCOLLADARef docRoot = _dae->getRoot(_docPath);
+
+    if(docRoot != NULL)
     {
-        domCOLLADA::domSceneRef scene = _docRoot->getScene();
+        ColladaCOLLADARefPtr colCOL = dynamic_pointer_cast<ColladaCOLLADA>(
+            ColladaElementFactory::the()->create(docRoot, this));
 
-        if(scene != NULL)
-        {
-            ColladaSceneRefPtr colScene = dynamic_pointer_cast<ColladaScene>(
-                ColladaElementFactory::the()->create(scene, this));
-
-            colScene->read   ();
-            colScene->process();
-        }
-        else
-        {
-            SWARNING << "ColladaGlobal::read: No <scene> tag found in file ["
-                     << _docPath << "]." << std::endl;
-        }
+        colCOL->read();
     }
     else
     {
@@ -216,8 +205,6 @@ ColladaGlobal::doRead(DAE *dae)
     
     rootN = _rootN;
 
-    _docRoot = NULL;
-    _dae     = NULL;
     _elemStore.clear();
 
 #ifndef OSG_COLLADA_SILENT
