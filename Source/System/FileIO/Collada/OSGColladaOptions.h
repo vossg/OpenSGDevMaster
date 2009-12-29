@@ -92,8 +92,11 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     /*! \name Options                                                      */
     /*! \{                                                                 */
 
-    bool getInvertTransparency(void      ) const;
-    void setInvertTransparency(bool value);
+    bool getInvertTransparency   (void      ) const;
+    void setInvertTransparency   (bool value);
+
+    bool getCreateNameAttachments(void      ) const;
+    void setCreateNameAttachments(bool value);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -109,6 +112,7 @@ class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
     /*---------------------------------------------------------------------*/
 
     bool _invertTransparency;
+    bool _createNameAttachments;
 };
 
 OSG_GEN_MEMOBJPTR(ColladaOptions);

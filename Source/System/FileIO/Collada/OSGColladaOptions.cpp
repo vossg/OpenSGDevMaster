@@ -56,9 +56,11 @@ ColladaOptions::parseOptions(const OptionSet &optSet)
 
     IOFileTypeBase::getOptionAs<bool>(
         optSet, "invertTransparency", _invertTransparency);
+    IOFileTypeBase::getOptionAs<bool>(
+        optSet, "createNameAttachments", _createNameAttachments);
 }
 
-/*! Return \c true if transparency values should be inverted, \false
+/*! Return \c true if transparency values should be inverted, \c false
     otherwise. Option name: "invertTransparency".
     Some tools store transparency values inverted, use this to ensure correct
     display.
@@ -79,9 +81,28 @@ ColladaOptions::setInvertTransparency(bool value)
     _invertTransparency = value;
 }
 
+/*! Return \c true if NameAttachments should be created, \c false otherwise.
+    Option name: "createNameAttachments".
+ */
+bool
+ColladaOptions::getCreateNameAttachments(void) const
+{
+    return _createNameAttachments;
+}
+
+/*! Set if NameAttachments should be created.
+    Option name: "createNameAttachments".
+ */
+void
+ColladaOptions::setCreateNameAttachments(bool value)
+{
+    _createNameAttachments = value;
+}
+
 ColladaOptions::ColladaOptions(void)
-    : Inherited          ()
-    , _invertTransparency(false)
+    : Inherited             ()
+    , _invertTransparency   (false)
+    , _createNameAttachments(true)
 {
 }
 

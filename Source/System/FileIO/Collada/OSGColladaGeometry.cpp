@@ -52,6 +52,7 @@
 #include "OSGGroup.h"
 #include "OSGTypedGeoVectorProperty.h"
 #include "OSGTypedGeoIntegralProperty.h"
+#include "OSGNameAttachment.h"
 
 #include <dom/domGeometry.h>
 #include <dom/domMesh.h>
@@ -101,11 +102,18 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
     typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
     typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
 
+    domGeometryRef                geometry   = getDOMElementAs<domGeometry>();
     ColladaInstanceGeometryRefPtr colInstGeo =
         dynamic_cast<ColladaInstanceGeometry *>(colInstElem);
 
     const MaterialMap &matMap = colInstGeo->getMaterialMap();
     NodeUnrecPtr       groupN = makeCoredNode<Group>();
+
+    if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
+       geometry->getName()                                   != NULL   )
+    {
+        setName(groupN, geometry->getName());
+    }
 
     // iterate over all parts of geometry
     GeoStoreIt         gsIt   = _geoStore.begin();

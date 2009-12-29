@@ -48,6 +48,7 @@
 #include "OSGColladaGlobal.h"
 #include "OSGColladaInstanceMaterial.h"
 #include "OSGColladaInstanceEffect.h"
+#include "OSGNameAttachment.h"
 
 #include <dom/domMaterial.h>
 #include <dom/domInstance_effect.h>
@@ -97,6 +98,12 @@ ColladaMaterial::createInstance(ColladaInstanceElement *colInstElem)
     if(getInstStore().empty() == true)
     {
         retVal = colInstEffect->process(this);
+
+        if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
+           material->getName()                                   != NULL   )
+        {
+            setName(retVal, material->getName());
+        }
 
         editInstStore().push_back(retVal);
     }

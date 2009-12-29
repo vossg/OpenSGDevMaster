@@ -45,6 +45,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
 #include "OSGColladaInstanceNode.h"
 #include "OSGColladaInstanceGeometry.h"
 #include "OSGTransform.h"
@@ -151,8 +152,11 @@ ColladaNode::read(void)
     {
         _topN = makeCoredNode<Group>();
 
-        if(node->getName() != NULL)
+        if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
+           node->getName()                                       != NULL   )
+        {
             setName(_topN, node->getName());
+        }
     }
 
     if(_bottomN == NULL)
@@ -244,7 +248,8 @@ ColladaNode::handleMatrix(domMatrix *matrix)
     
     xform->setMatrix(m);
 
-    if(node->getName() != NULL)
+    if(getGlobal()->getOptions()->getCreateNameAttachments() == true && 
+       node->getName()                                       != NULL   )
     {
         std::string nodeName = node->getName();
 
@@ -279,7 +284,8 @@ ColladaNode::handleRotate(domRotate *rotate)
     
     xform->editMatrix().setRotate(q);
 
-    if(node->getName() != NULL)
+    if(getGlobal()->getOptions()->getCreateNameAttachments() == true && 
+       node->getName()                                       != NULL   )
     {
         std::string nodeName = node->getName();
 
@@ -310,7 +316,8 @@ ColladaNode::handleScale(domScale *scale)
                                  scale->getValue()[1],
                                  scale->getValue()[2] );
 
-    if(node->getName() != NULL)
+    if(getGlobal()->getOptions()->getCreateNameAttachments() == true && 
+       node->getName()                                       != NULL   )
     {
         std::string nodeName = node->getName();
 
@@ -350,8 +357,8 @@ ColladaNode::handleTranslate(domTranslate *translate)
                                      translate->getValue()[1],
                                      translate->getValue()[2] );
 
-
-    if(node->getName() != NULL)
+    if(getGlobal()->getOptions()->getCreateNameAttachments() == true && 
+       node->getName()                                       != NULL   )
     {
         std::string nodeName = node->getName();
 
@@ -467,7 +474,8 @@ ColladaNode::appendChild(Node *childN)
 
         domNodeRef node = getDOMElementAs<domNode>();
 
-        if(node->getName() != NULL)
+        if(getGlobal()->getOptions()->getCreateNameAttachments() == true &&
+           node->getName()                                       != NULL   )
         {
             setName(_bottomN, node->getName());
         }
