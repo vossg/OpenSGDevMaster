@@ -55,6 +55,8 @@
 #include "OSGNode.h"
 #include "OSGColladaElement.h"
 #include "OSGColladaOptions.h"
+#include "OSGStatElemTypes.h"
+#include "OSGStatCollector.h"
 
 // collada dom includes
 #include <dae.h>
@@ -81,6 +83,18 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     typedef std::vector<ColladaElementRefPtr> ElementStore;
     typedef ElementStore::iterator            ElementStoreIt;
     typedef ElementStore::const_iterator      ElementStoreConstIt;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Statistics                                                   */
+    /*! \{                                                                 */
+
+    static StatElemDesc<StatIntElem> statNGeometryCreated;
+    static StatElemDesc<StatIntElem> statNMaterialCreated;
+    static StatElemDesc<StatIntElem> statNTextureCreated;
+
+    StatCollector *getStatCollector(void                   );
+    void           setStatCollector(StatCollector *statColl);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
@@ -153,6 +167,7 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     ElementStore          _elemStore;
 
     ColladaOptionsRefPtr  _options;
+    StatCollectorRefPtr   _statColl;
 
     PathHandler           _pathHandler;
     std::string           _docPath;

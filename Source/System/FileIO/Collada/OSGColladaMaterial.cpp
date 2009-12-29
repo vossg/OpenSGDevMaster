@@ -87,12 +87,24 @@ ColladaMaterial::createInstance(ColladaInstanceElement *colInstElem)
 {
     SWARNING << "ColladaMaterial::craeteInstance: NIY" << std::endl;
 
+    MaterialUnrecPtr            retVal        = NULL;
     domMaterialRef              material      = getDOMElementAs<domMaterial>();
     domInstance_effectRef       instEffect    = material->getInstance_effect();
     ColladaInstanceEffectRefPtr colInstEffect =
       getUserDataAs<ColladaInstanceEffect>(instEffect);
 
-    return colInstEffect->process(this);
+    if(getInstStore().empty() == true)
+    {
+        retVal = colInstEffect->process(this);
+
+        editInstStore().push_back(retVal);
+    }
+    else
+    {
+        retVal = dynamic_pointer_cast<Material>(getInstStore()[0]);
+    }
+
+    return retVal;
 }
 
 ColladaMaterial::ColladaMaterial(daeElement *elem, ColladaGlobal *global)

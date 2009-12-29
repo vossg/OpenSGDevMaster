@@ -45,6 +45,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
 #include "OSGColladaEffect.h"
 #include "OSGColladaSurface.h"
 
@@ -89,6 +90,9 @@ ColladaSampler2D::read(void)
     
     _texObj = TextureObjChunk::create();
     _texObj->setImage(colSurface->getImage());
+
+    getGlobal()->getStatCollector()->getElem(
+        ColladaGlobal::statNTextureCreated)->inc();
 
     if(sampler2D->getWrap_s() != NULL)
     {

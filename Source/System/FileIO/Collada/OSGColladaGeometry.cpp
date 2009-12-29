@@ -45,6 +45,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
 #include "OSGColladaSource.h"
 #include "OSGColladaInstanceGeometry.h"
 #include "OSGColladaInstanceEffect.h"
@@ -120,6 +121,9 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
         GeometryUnrecPtr geo  = Geometry::create();
         NodeUnrecPtr     geoN = makeNodeFor(geo);
         
+        getGlobal()->getStatCollector()->getElem(
+            ColladaGlobal::statNGeometryCreated)->inc();
+
         geo->setLengths(gsIt->_lengths);
         geo->setTypes  (gsIt->_types  );
 

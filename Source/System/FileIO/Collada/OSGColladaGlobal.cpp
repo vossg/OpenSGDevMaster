@@ -18,6 +18,31 @@
 
 OSG_BEGIN_NAMESPACE
 
+StatElemDesc<StatIntElem> ColladaGlobal::statNGeometryCreated(
+    "Collada::NGeometryCreated",
+    "Number of OpenSG geometries created by the collada loader",
+    StatElemDescBase::RESET_ALWAYS);
+StatElemDesc<StatIntElem> ColladaGlobal::statNMaterialCreated(
+    "Collada::NMaterialCreated",
+    "Number of OpenSG materials created by the collada loader",
+    StatElemDescBase::RESET_ALWAYS);
+StatElemDesc<StatIntElem> ColladaGlobal::statNTextureCreated(
+    "Collada::NTextureCreated",
+    "Number of OpenSG textures created by the collada loader",
+    StatElemDescBase::RESET_ALWAYS);
+
+StatCollector *
+ColladaGlobal::getStatCollector(void)
+{
+    return _statColl;
+}
+
+void
+ColladaGlobal::setStatCollector(StatCollector *statColl)
+{
+    _statColl = statColl;
+}
+
 ColladaGlobalTransitPtr
 ColladaGlobal::create(void)
 {
@@ -89,6 +114,7 @@ ColladaGlobal::ColladaGlobal(void)
     : Inherited   ()
     , _elemStore  ()
     , _options    ()
+    , _statColl   (NULL)
     , _pathHandler()
     , _docPath    ()
     , _dae        (NULL)
@@ -112,6 +138,15 @@ ColladaGlobal::doRead(DAE *dae)
 
     _dae     = dae;
     _docRoot = _dae->getRoot(_docPath);
+
+    if(_statColl == NULL)
+        _statColl = new StatCollector;
+
+    _statColl->getElem(statNGeometryCreated, true);
+    _statColl->getElem(statNMaterialCreated, true);
+    _statColl->getElem(statNTextureCreated,  true);
+
+    _statColl->reset  (StatElemDescBase::RESET_ALWAYS);
 
     if(_docRoot != NULL)
     {
@@ -143,6 +178,14 @@ ColladaGlobal::doRead(DAE *dae)
     _docRoot = NULL;
     _dae     = NULL;
     _elemStore.clear();
+
+#ifndef OSG_COLLADA_SILENT
+    std::string statString;
+    _statColl->putToString(statString);
+
+    OSG_COLLADA_LOG(("ColladaGlobal:read: Statistics\n%s\n",
+                     statString.c_str()));
+#endif // OSG_COLLADA_SILENT
 
     return rootN;
 }
