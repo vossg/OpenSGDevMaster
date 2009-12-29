@@ -65,7 +65,9 @@ ColladaInstanceMaterial::read(void)
 {
     OSG_COLLADA_LOG(("ColladaInstanceMaterial::read\n"));
 
-    ColladaMaterialRefPtr colMat = getSourceElem();
+    domInstance_materialRef instMat =
+        getDOMElementAs<domInstance_material>();
+    ColladaMaterialRefPtr   colMat  = getSourceElem();
 
     if(colMat == NULL)
     {
@@ -76,8 +78,18 @@ ColladaInstanceMaterial::read(void)
         colMat->read();
     }
 
-    domInstance_materialRef                    instMat =
-        getDOMElementAs<domInstance_material>();
+    if(instMat->getSymbol() != NULL)
+    {
+        _symbol = instMat->getSymbol();
+    }
+    else
+    {
+        SFATAL << "ColladaInstanceMaterial::read: No symbol."
+               << std::endl;
+    }
+
+    _target = instMat->getTarget().str();
+
     const domInstance_material::domBind_Array &binds   =
         instMat->getBind_array();
 
@@ -121,16 +133,6 @@ ColladaInstanceMaterial::read(void)
         _bindVertexStore[i].inSemantic = inSemantic;
         _bindVertexStore[i].inSet      = inSet;
     }
-
-    if(instMat->getSymbol() != NULL)
-    {
-        _symbol = instMat->getSymbol();
-    }
-    else
-    {
-        SFATAL << "ColladaInstanceMaterial::read: No symbol."
-               << std::endl;
-    }
 }
 
 Material *
@@ -173,6 +175,12 @@ const std::string &
 ColladaInstanceMaterial::getSymbol(void) const
 {
     return _symbol;
+}
+
+const std::string &
+ColladaInstanceMaterial::getTarget(void) const
+{
+    return _target;
 }
 
 const ColladaInstanceMaterial::BindStore &
@@ -237,6 +245,7 @@ ColladaInstanceMaterial::ColladaInstanceMaterial(
 
     : Inherited       (elem, global)
     , _symbol         ()
+    , _target         ()
     , _bindStore      ()
     , _bindVertexStore()
 {

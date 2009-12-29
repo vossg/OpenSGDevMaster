@@ -143,6 +143,12 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
     typedef std::vector<GeoIntegralPropertyUnrecPtr> IndexStore;
     typedef IndexStore::iterator                     IndexStoreIt;
     typedef IndexStore::const_iterator               IndexStoreConstIt;
+
+    // map <instance_material> target attribute to an index into
+    // the instance store (getInstStore())
+    typedef std::map<std::string, UInt32>            InstanceMap;
+    typedef InstanceMap::iterator                    InstanceMapIt;
+    typedef InstanceMap::const_iterator              InstanceMapConstIt;
         
     struct GeoInfo
     {
@@ -153,12 +159,13 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
 
         GeoIntegralPropertyUnrecPtr _lengths;
         GeoIntegralPropertyUnrecPtr _types;
+
+        InstanceMap                 _instMap;
     };
 
     typedef std::vector<GeoInfo                    > GeoStore;
     typedef GeoStore::iterator                       GeoStoreIt;
     typedef GeoStore::const_iterator                 GeoStoreConstIt;
-
 
     void readMesh     (domMesh *mesh);
     void readSources  (domMesh *mesh);
@@ -187,9 +194,9 @@ class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
                          xsNCName                         matSymbold,
                          IndexStore                      &indexStore );
 
-    void   mapProperties(const GeoInfo           &geoInfo,
-                         Geometry                *geo,
-                         ColladaInstanceGeometry *colInstGeo);
+    void   handleBindMaterial(const GeoInfo           &geoInfo,
+                              Geometry                *geo,
+                              ColladaInstanceGeometry *colInstGeo);
 
     const BindInfo       *findBind      (const BindStore       &store,
                                          const std::string     &semantic,

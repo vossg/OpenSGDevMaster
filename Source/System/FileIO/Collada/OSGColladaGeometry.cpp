@@ -96,7 +96,7 @@ ColladaGeometry::read(void)
 Node *
 ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
 {
-    SWARNING << "ColladaGeometry::createInstance: NIY" << std::endl;
+    OSG_COLLADA_LOG(("ColladaGeometry::createInstance\n"));
 
     typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
     typedef ColladaInstanceGeometry::MaterialMapConstIt MaterialMapConstIt;
@@ -104,35 +104,66 @@ ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
     ColladaInstanceGeometryRefPtr colInstGeo =
         dynamic_cast<ColladaInstanceGeometry *>(colInstElem);
 
-    // XXX TODO - reuse geometry if possible
-    //          - handle <bind_material>
-
     const MaterialMap &matMap = colInstGeo->getMaterialMap();
-
     NodeUnrecPtr       groupN = makeCoredNode<Group>();
 
-    GeoStoreConstIt    gsIt   = _geoStore.begin();
-    GeoStoreConstIt    gsEnd  = _geoStore.end  ();
+    // iterate over all parts of geometry
+    GeoStoreIt         gsIt   = _geoStore.begin();
+    GeoStoreIt         gsEnd  = _geoStore.end  ();
 
     for(; gsIt != gsEnd; ++gsIt)
     {
         OSG_ASSERT(gsIt->_propStore.size() == gsIt->_indexStore.size());
 
-        GeometryUnrecPtr geo  = Geometry::create();
-        NodeUnrecPtr     geoN = makeNodeFor(geo);
+        // find the material associated with the geometry's material symbol
+        MaterialMapConstIt mmIt       = matMap.find(gsIt->_matSymbol);
+        std::string        matTarget;
+
+        if(mmIt != matMap.end())
+        {
+            matTarget = mmIt->second->getTarget();
+        }
+
+        // check if the geometry was already used with that material
+
+        GeometryUnrecPtr   geo      = NULL;
+        InstanceMapConstIt instIt   = gsIt->_instMap.find(matTarget);
+
+        if(instIt != gsIt->_instMap.end())
+        {
+            // reuse geometry
+
+            geo = dynamic_pointer_cast<Geometry>(
+                getInstStore()[instIt->second]);
+        }
+        else
+        {
+            // create new geometry
+
+            geo = Geometry::create();
+
+            getGlobal()->getStatCollector()->getElem(
+                ColladaGlobal::statNGeometryCreated)->inc();
+
+            geo->setLengths(gsIt->_lengths);
+            geo->setTypes  (gsIt->_types  );
+
+            handleBindMaterial(*gsIt, geo, colInstGeo);
+
+            // record the instantiation of the geometry with the
+            // material for reuse
+            gsIt->_instMap.insert(
+                InstanceMap::value_type(matTarget, getInstStore().size()));
+
+            editInstStore().push_back(geo);
+        }
         
-        getGlobal()->getStatCollector()->getElem(
-            ColladaGlobal::statNGeometryCreated)->inc();
-
-        geo->setLengths(gsIt->_lengths);
-        geo->setTypes  (gsIt->_types  );
-
-        mapProperties(*gsIt, geo, colInstGeo);
+        NodeUnrecPtr geoN = makeNodeFor(geo);
 
         groupN->addChild(geoN);
     }
 
-    // XXX TODO: do we need to always generate a new geo?
+    // store the generated group node
     editInstStore().push_back(groupN);
 
     return groupN;
@@ -924,7 +955,7 @@ ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
 }
 
 void
-ColladaGeometry::mapProperties(
+ColladaGeometry::handleBindMaterial(
     const GeoInfo &geoInfo, Geometry *geo, ColladaInstanceGeometry *colInstGeo)
 {
     typedef ColladaInstanceGeometry::MaterialMap        MaterialMap;
@@ -944,7 +975,7 @@ ColladaGeometry::mapProperties(
     }
     else
     {
-        SWARNING << "ColladaGeometry::mapProperties: No material found "
+        SWARNING << "ColladaGeometry::handleBindMaterial: No material found "
                  << "for symbol [" << geoInfo._matSymbol << "]."
                  << std::endl;
     }
@@ -985,7 +1016,7 @@ ColladaGeometry::mapProperties(
             {
                 if(colInstEffect->findTC(bi->target, mappedProp) == true)
                 {
-                    OSG_COLLADA_LOG(("ColladaGeometry::mapProperties: "
+                    OSG_COLLADA_LOG(("ColladaGeometry::handleBindMaterial: "
                                      "Resolved <bind> semantic [%s] "
                                      "target [%s] to property [%d]\n",
                                      bi->semantic.c_str(), bi->target.c_str(),
@@ -998,7 +1029,7 @@ ColladaGeometry::mapProperties(
                 }
                 else
                 {
-                    SWARNING << "ColladaGeometry::mapProperties: "
+                    SWARNING << "ColladaGeometry::handleBindMaterial: "
                              << "Failed to resolve <bind> semantic ["
                              << bi->semantic << "] target [" << bi->target
                              << "]." << std::endl;
@@ -1008,7 +1039,7 @@ ColladaGeometry::mapProperties(
             {
                 if(colInstEffect->findTC(bvi->semantic, mappedProp) == true)
                 {
-                    OSG_COLLADA_LOG(("ColladaGeometry::mapProperties: "
+                    OSG_COLLADA_LOG(("ColladaGeometry::handleBindMaterial: "
                                      "Resolved <bind_vertex_input> "
                                      "inSemantic [%s] inSet [%d] semantic [%s] "
                                      "to property [%d]\n",
@@ -1022,7 +1053,7 @@ ColladaGeometry::mapProperties(
                 }
                 else
                 {
-                    SWARNING << "ColladaGeometry::mapProperties: "
+                    SWARNING << "ColladaGeometry::handleBindMaterial: "
                              << "Failed to resolve <bind_vertex_input> "
                              << "inSemantic ["
                              << bvi->inSemantic << "] inSet [" << bvi->inSet
@@ -1031,7 +1062,7 @@ ColladaGeometry::mapProperties(
                 }
             }
 
-            // find additional consumers
+            // find next consumers if any
             ++bindOffset;
             ++bindVertexOffset;
 
@@ -1043,9 +1074,11 @@ ColladaGeometry::mapProperties(
 
         // if the property is not remapped by <bind> or <bind_vertex_input>
         // we just put it at the location it received at read time
+        // this is for properties that are not of interest to the material
+        // directly (e.g. positions, normals)
         if(handledProperty == false)
         {
-            OSG_COLLADA_LOG(("ColladaGeometry::mapProperties: "
+            OSG_COLLADA_LOG(("ColladaGeometry::handleBindMaterial: "
                              "Setting property [%d] without "
                              "<bind>/<bind_vertex_input> mapping.\n", i));
 
@@ -1060,12 +1093,16 @@ ColladaGeometry::mapProperties(
     }
     else
     {
-        SWARNING << "ColladaGeometry::mapProperties: No material created "
+        SWARNING << "ColladaGeometry::handleBindMaterial: No material created "
                  << "for symbol [" << geoInfo._matSymbol << "]."
                  << std::endl;
     }
 }
 
+/*! Returns a <bind> (actually a BindInfo built from a <bind>) that has
+    the given \a semantic. The search starts at the given \a offset to
+    allow multiple <bind> with the same semantic to be found.
+ */
 const ColladaGeometry::BindInfo *
 ColladaGeometry::findBind(
     const BindStore &store, const std::string &semantic, UInt32 &offset)
@@ -1085,6 +1122,11 @@ ColladaGeometry::findBind(
     return retVal;
 }
 
+/*! Returns a <bind_vertex_input> (actually a BindVertexInfo built from
+    a <bind_vertex_input>) that has the given \a inSemantic and \a inSet.
+    The search starts at the given \a offset to allow
+    multiple <bind_vertex_input> with the same inSemantic/inSet to be found.
+ */
 const ColladaGeometry::BindVertexInfo *
 ColladaGeometry::findBindVertex(
     const BindVertexStore &store, const std::string &inSemantic,

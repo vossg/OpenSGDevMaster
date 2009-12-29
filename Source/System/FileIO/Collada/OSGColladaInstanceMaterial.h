@@ -92,7 +92,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name Craete                                                       */
+    /*! \name Create                                                       */
     /*! \{                                                                 */
 
     static ColladaElementTransitPtr
@@ -115,6 +115,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
     virtual domMaterial     *getSourceDOMElem  (void) const;
 
     const std::string       &getSymbol         (void) const;
+    const std::string       &getTarget         (void) const;
 
     const BindStore         &getBindStore      (void                ) const;
     const BindInfo          *findBindInfo      (
@@ -143,6 +144,7 @@ class OSG_FILEIO_DLLMAPPING ColladaInstanceMaterial
     static ColladaElementRegistrationHelper _regHelper;
 
     std::string            _symbol;
+    std::string            _target;
     BindStore              _bindStore;
     BindVertexStore        _bindVertexStore;
 };
