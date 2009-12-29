@@ -136,13 +136,13 @@ class OSG_FILEIO_DLLMAPPING ColladaGlobal : public MemoryObject
     /*! \name ElementStore                                                 */
     /*! \{                                                                 */
 
-    inline const ElementStore &getElemStore  (void                      ) const;
-    inline ElementStore       &editElemStore (void                      );
+    inline const ElementStore &getElemStore (void                      ) const;
+    inline ElementStore       &editElemStore(void                      );
 
-           void                addElement    (ColladaElement    *elem   );
+           void                addElement   (ColladaElement    *elem   );
 
-           ColladaElement     *getElement    (const daeURI      &elemURI) const;
-           ColladaElement     *getElement    (const std::string &elemId ) const;
+           ColladaElement     *getElement   (const daeURI      &elemURI) const;
+           ColladaElement     *getElement   (const std::string &elemId ) const;
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/

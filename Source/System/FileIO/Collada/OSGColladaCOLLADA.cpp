@@ -45,6 +45,7 @@
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
 #include "OSGColladaScene.h"
 
 #include <dom/domCOLLADA.h>
@@ -66,10 +67,34 @@ ColladaCOLLADA::read(void)
 {
     OSG_COLLADA_LOG(("ColladaCOLLADA::read\n"));
 
-    domCOLLADARef           collada = getDOMElementAs<domCOLLADA>();
-    domCOLLADA::domSceneRef scene   = collada->getScene();
+    domCOLLADARef collada  = getDOMElementAs<domCOLLADA>();
+    domAssetRef   docAsset = collada->getAsset();
 
-    ColladaSceneRefPtr colScene = getUserDataAs<ColladaScene>(scene);
+    if(docAsset != NULL)
+    {
+        domAsset::domContributor_Array &domContrA =
+            docAsset->getContributor_array();
+
+        for(UInt32 i = 0; i < domContrA.getCount(); ++i)
+        {
+            domAsset::domContributor::domAuthoring_toolRef docAuthTool =
+                domContrA.get(i)->getAuthoring_tool();
+
+            if(osgStringNCaseCmp(docAuthTool->getValue(),
+                                 "Google SketchUp",
+                                 15                     ) == 0)
+            {
+                SINFO << "ColladaCOLLADA::read: Detected Google SketchUp file "
+                      << "enabling transparency workaround." << std::endl;
+
+                getGlobal()->getOptions()->setInvertTransparency(true);
+                break;
+            }
+        }
+    }
+
+    domCOLLADA::domSceneRef scene    = collada->getScene();
+    ColladaSceneRefPtr      colScene = getUserDataAs<ColladaScene>(scene);
 
     if(colScene == NULL)
     {
