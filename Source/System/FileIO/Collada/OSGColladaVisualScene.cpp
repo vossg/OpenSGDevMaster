@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,59 +36,98 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
 #include "OSGColladaVisualScene.h"
-#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
+#include "OSGColladaLog.h"
+#include "OSGColladaInstanceVisualScene.h"
 #include "OSGColladaNode.h"
+#include "OSGGroup.h"
 
-#include <dom/domNode.h>
 #include <dom/domVisual_scene.h>
-
 
 OSG_BEGIN_NAMESPACE
 
-void ColladaVisualScene::read(void)
+ColladaElementRegistrationHelper ColladaVisualScene::_regHelper(
+    &ColladaVisualScene::create,
+    "visual_scene"              );
+
+
+ColladaElementTransitPtr
+ColladaVisualScene::create(daeElement *elem, ColladaGlobal *global)
 {
-    OSG_COLLADA_LOG(("ColladaVisualScene::read:\n"));
-    
-    domVisual_sceneRef visScene = getDOMElementAs<domVisual_scene>();
-    
-    _groupNode = Node ::create();
-    _group     = Group::create();
-    
-    _groupNode->setCore(_group);
-    
-    const domNode_Array &nodes = visScene->getNode_array();
-    
-    for(UInt32 i = 0, nodesCount = nodes.getCount(); i < nodesCount; ++i)
-    {
-        ColladaNodeRefPtr colNode = ColladaNode::create(nodes[i], getGlobal());
-        addElement(colNode);
-        
-        colNode->read();
-        
-        _groupNode->addChild(colNode->getNode());
-    }
+    return ColladaElementTransitPtr(new ColladaVisualScene(elem, global));
 }
 
-ColladaVisualScene::ColladaVisualScene(
-    domVisual_scene *visScene, ColladaGlobal *global)
-
-    : Inherited(visScene, global)
+void
+ColladaVisualScene::read(void)
 {
-    // nothing to do
+    OSG_COLLADA_LOG(("ColladaVisualScene::read\n"));
+}
+
+Node *
+ColladaVisualScene::process(ColladaElement *parent)
+{
+    SFATAL << "ColladaVisualScene::process: <visual_scene> must be "
+           << "instantiated to use."
+           << std::endl;
+
+    OSG_ASSERT(false);
+}
+
+Node *
+ColladaVisualScene::createInstance(ColladaInstanceElement *colInstElem)
+{
+    OSG_COLLADA_LOG(("ColladaVisualScene::createInstance\n"));
+
+    ColladaInstanceVisualSceneRefPtr colInstVisScene =
+        dynamic_cast<ColladaInstanceVisualScene *>(colInstElem);
+
+    domVisual_sceneRef   visScene = getDOMElementAs<domVisual_scene>();
+    const domNode_Array &nodes    = visScene->getNode_array         ();
+    NodeUnrecPtr         rootN;
+
+    for(UInt32 i = 0; i < nodes.getCount(); ++i)
+    {
+        ColladaNodeRefPtr colNode = getUserDataAs<ColladaNode>(nodes[i]);
+
+        if(colNode == NULL)
+        {
+            colNode = dynamic_pointer_cast<ColladaNode>(
+                ColladaElementFactory::the()->create(nodes[i], getGlobal()));
+
+            colNode->read();
+        }
+
+        if(nodes.getCount() > 1)
+        {
+            if(rootN == NULL)
+            {
+                GroupUnrecPtr group = Group::create();
+                rootN = makeNodeFor(group);
+            }
+
+            rootN->addChild(colNode->process(this));
+        }
+        else
+        {
+            rootN = colNode->process(this);
+        }
+    }
+
+    editInstStore().push_back(rootN);
+
+    return rootN;
+}
+
+ColladaVisualScene::ColladaVisualScene(daeElement *elem, ColladaGlobal *global)
+    : Inherited(elem, global)
+{
 }
 
 ColladaVisualScene::~ColladaVisualScene(void)
 {
-    // nothing to do
 }
 
 OSG_END_NAMESPACE

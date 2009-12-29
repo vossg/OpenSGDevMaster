@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,37 +38,27 @@
 
 #ifndef _OSGCOLLADAGEOMETRY_H_
 #define _OSGCOLLADAGEOMETRY_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-/*! \file OSGColladaGeometry.h
-    \ingroup GrpLoader
- */
 
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
 #include "OSGColladaInstantiableElement.h"
-
-#include "OSGGeometry.h"
-#include "OSGTypedGeoIntegralProperty.h"
+#include "OSGColladaElementFactoryHelper.h"
+#include "OSGNode.h"
 #include "OSGGeoVectorProperty.h"
+#include "OSGGeoIntegralProperty.h"
 
 #include <dae/daeDomTypes.h>
 #include <dom/domInputLocal.h>
 #include <dom/domInputLocalOffset.h>
 
-#include <map>
-
-//forward declarations
-class domGeometry;
+// forward decls
+class domMesh;
 class domLines;
 class domLinestrips;
 class domPolygons;
-class domPolylists;
+class domPolylist;
 class domTriangles;
 class domTrifans;
 class domTristrips;
@@ -76,103 +66,131 @@ class domTristrips;
 
 OSG_BEGIN_NAMESPACE
 
-// handles a single <geometry> tag
-// which may require splitting into multiple OSG::Geometry objects, depending
-// on indexing and materials used
-
-// forward declarations
-class ColladaInstanceGeometry;
+// forward decls
+class ColladaSource;
+OSG_GEN_MEMOBJPTR(ColladaSource);
 
 
 class OSG_FILEIO_DLLMAPPING ColladaGeometry : public ColladaInstantiableElement
 {
+    /*==========================  PUBLIC  =================================*/
   public:
-    typedef ColladaInstantiableElement      Inherited;
-    typedef ColladaGeometry                 Self;
-    
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
-    typedef TransitPtr <Self                      > ObjTransitPtr;
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-    static inline ObjTransitPtr create(domGeometry   *geo,
-                                       ColladaGlobal *global);
-    
-    virtual void read(void);
-    
+    typedef ColladaInstantiableElement Inherited;
+    typedef ColladaGeometry            Self;
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaGeometry);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
+
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
+
+    virtual void            read          (void                            );
+    virtual FieldContainer *process       (ColladaElement         *parent  );
+
+    virtual Node           *createInstance(ColladaInstanceElement *instElem);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
   protected:
-    friend class ColladaInstanceGeometry;
-    
-    typedef std::pair<std::string,
-                      UInt32                        > SemanticSetPair;
-    typedef std::pair<GeoVectorPropertyUnrecPtr,
-                      GeoIntegralPropertyUnrecPtr   > PropIndexPair;
-                      
-    typedef std::map <SemanticSetPair, PropIndexPair> SemanticPropIndexMap;
-    typedef SemanticPropIndexMap::iterator            SemanticPropIndexMapIt;
-    
-    typedef std::map <std::string,     PropIndexPair> SourcePropIndexMap;
-    typedef SourcePropIndexMap::iterator              SourcePropIndexMapIt;
-    
-    struct GeometryInfo
-    {
-        GeometryUnrecPtr     geo;
-        SemanticPropIndexMap semanticPropIndexMap;
-        SourcePropIndexMap   sourcePropIndexMap;
-    };
-    
-    typedef std::map   <std::string, GeometryInfo *> GeoMap;
-    typedef GeoMap::iterator                         GeoMapIt;
-    
-    typedef std::vector<GeoUInt32Property *        > IndexVec;
-    
-    
-    typedef std::vector<GeometryInfo *             > GeoStore;
-    typedef std::map   <std::string, GeoStore      > MatGeoMap;
-    typedef MatGeoMap::iterator                      MatGeoMapIt;
-    
-             ColladaGeometry(domGeometry *geo, ColladaGlobal *global);
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+
+             ColladaGeometry(daeElement *elem, ColladaGlobal *global);
     virtual ~ColladaGeometry(void                                   );
-    
-    inline MatGeoMapIt beginGeo(void);
-    inline MatGeoMapIt endGeo  (void);
-    
-    
-    void setupGeometry   (      xsNCName                    matName,
-                          const domInputLocal_Array        &vertInputs,
-                          const domInputLocalOffset_Array  &inputs,
-                                GeoUInt32PropertyUnrecPtr  &lengthsOut,
-                                GeoUInt8PropertyUnrecPtr   &typesOut,
-                                IndexVec                   &indexVecOut );
-    
-    UInt32 mapSemanticToGeoProp(const std::string &semantic,
-                                      bool         vertexAsPos = false);
-    
-    void handleLines     (const domInputLocal_Array &vertInputs,
-                                domLines            *lines      );
-    void handleLinestrips(const domInputLocal_Array &vertInputs,
-                                domLinestrips       *linestrips );
-    void handlePolygons  (const domInputLocal_Array &vertInputs,
-                                domPolygons         *polygons   );
-    void handlePolylist  (const domInputLocal_Array &vertInputs,
-                                domPolylist         *polylist   );
-    void handleTriangles (const domInputLocal_Array &vertInputs,
-                                domTriangles        *trianges   );
-    void handleTrifans   (const domInputLocal_Array &vertInputs,
-                                domTrifans          *trifans    );
-    void handleTristrips (const domInputLocal_Array &vertInputs,
-                                domTristrips        *tristrips  );
-    
-    GeoVectorProperty *fillVecProp(UInt32 propIdx, daeURI sourceURI);
-    
-    GeoMap    _geosMap;
-    MatGeoMap _geosByMat;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    // <source> map
+    typedef std::map<std::string, ColladaSourceRefPtr> SourceMap;
+    typedef SourceMap::iterator                        SourceMapIt;
+    typedef SourceMap::const_iterator                  SourceMapConstIt;
+
+    struct PropInfo
+    {
+        std::string               _semantic;
+        Int32                     _set;
+
+        GeoVectorPropertyUnrecPtr _prop;
+    };
+
+    typedef std::vector<PropInfo                   > PropStore;
+    typedef PropStore::iterator                      PropStoreIt;
+    typedef PropStore::const_iterator                PropStoreConstIt;
+ 
+    typedef std::vector<GeoIntegralPropertyUnrecPtr> IndexStore;
+    typedef IndexStore::iterator                     IndexStoreIt;
+    typedef IndexStore::const_iterator               IndexStoreConstIt;
+        
+    struct GeoInfo
+    {
+        std::string                 _matSymbol;
+
+        PropStore                   _propStore;
+        IndexStore                  _indexStore;
+
+        GeoIntegralPropertyUnrecPtr _lengths;
+        GeoIntegralPropertyUnrecPtr _types;
+    };
+
+    typedef std::vector<GeoInfo                    > GeoStore;
+    typedef GeoStore::iterator                       GeoStoreIt;
+    typedef GeoStore::const_iterator                 GeoStoreConstIt;
+
+
+    void readMesh     (domMesh *mesh);
+    void readSources  (domMesh *mesh);
+
+    void readLines     (domMesh *mesh, domLines      *lines     );
+    void readLineStrips(domMesh *mesh, domLinestrips *lineStrips);
+    void readPolygons  (domMesh *mesh, domPolygons   *polygons  );
+    void readPolyList  (domMesh *mesh, domPolylist   *polyList  );
+    void readTriangles (domMesh *mesh, domTriangles  *triangles );
+    void readTriFans   (domMesh *mesh, domTrifans    *triFans   );
+    void readTriStrips (domMesh *mesh, domTristrips  *triStrips );
+
+    UInt32 mapSemantic  (const std::string               &semantic,
+                               UInt32                     set,
+                               UInt32                     geoIdx     );
+
+    void   setupProperty(UInt32                           geoIdx,
+                         UInt32                           propIdx,
+                         const std::string               &semantic,
+                         UInt32                           set,
+                         const std::string               &sourceId,
+                         GeoIntegralProperty             *idxProp    );
+
+    UInt32 setupGeometry(const domInputLocal_Array       &vertInputs,
+                         const domInputLocalOffset_Array &inputs,
+                         xsNCName                         matSymbold,
+                         IndexStore                      &indexStore );
+
+    static ColladaElementRegistrationHelper _regHelper;
+
+    SourceMap _sourceMap;
+    GeoStore  _geoStore;
+
 };
 
-typedef ColladaGeometry::ObjRefPtr     ColladaGeometryRefPtr;
-typedef ColladaGeometry::ObjTransitPtr ColladaGeometryTransitPtr;
+OSG_GEN_MEMOBJPTR(ColladaGeometry);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaGeometry.inl"
+// #include "OSGColladaGeometry.inl"
 
 #endif // OSG_WITH_COLLADA
 

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,36 +38,36 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline ColladaGlobal *ColladaElement::getGlobal(void) const
+ColladaGlobal *
+ColladaElement::getGlobal(void) const
 {
     return _global;
 }
 
-inline daeElement *ColladaElement::getDOMElement(void) const
+inline daeElement *
+ColladaElement::getDOMElement(void) const
 {
     return _elem;
 }
 
-template <class DomTypeT> inline
-DomTypeT *ColladaElement::getDOMElementAs(void) const
+template <class DomTypeT>
+inline DomTypeT *
+ColladaElement::getDOMElementAs(void) const
 {
     return daeSafeCast<DomTypeT>(_elem);
 }
 
+/*! Return the user data associated with the DOM element of this object.
+    In all normal cases this is simply this object.
+ */
 template <class UserDataTypeT> inline
 UserDataTypeT *ColladaElement::getUserDataAs(void) const
 {
-    if(_elem->getUserData() != NULL)
-    {
-        return dynamic_cast<UserDataTypeT *>(
-            static_cast<ColladaElement *>(_elem->getUserData()));
-    }
-    else
-    {
-        return NULL;
-    }
+    return getUserDataAs<UserDataTypeT>(_elem);
 }
 
+/*! Return the user data associated with the DOM element \a elem.
+ */
 template <class UserDataTypeT> inline
 UserDataTypeT *ColladaElement::getUserDataAs(daeElement *elem)
 {

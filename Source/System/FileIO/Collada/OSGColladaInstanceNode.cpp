@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,73 +36,75 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
 #include "OSGColladaInstanceNode.h"
-#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGColladaNode.h"
-
-#include <dom/domNode.h>
-#include <dom/domInstance_node.h>
+#include "OSGColladaLog.h"
 
 OSG_BEGIN_NAMESPACE
 
-void ColladaInstanceNode::read(void)
+ColladaElementRegistrationHelper ColladaInstanceNode::_regHelper(
+    &ColladaInstanceNode::create,
+    "instance_node"              );
+
+
+ColladaElementTransitPtr
+ColladaInstanceNode::create(daeElement *elem, ColladaGlobal *global)
 {
-    OSG_COLLADA_LOG(("ColladaInstanceNode::read:\n"));
-    
-    domInstance_nodeRef      instNode = getDOMElementAs<domInstance_node>();
-    
-    daeURI                   nodeUri  = instNode->getUrl();
-    domNodeRef               node     =
-        daeSafeCast<domNode>(nodeUri.getElement());
-    
-    setInstDOMElement(node);
-    
-    ColladaNodeRefPtr        colNode  = getUserDataAs<ColladaNode>(node);
-    
-    if(colNode == NULL)
-    {
-        colNode = ColladaNode::create(node, getGlobal());
-        addElement(colNode);
-        
-        colNode->read();
-    }
-    
-    OSG_COLLADA_LOG(("ColladaInstanceNode::read: [%s] "
-                     "instantiating [%s] [%s]\n",
-                     (instNode->getName() ? instNode->getName() : ""),
-                     instNode->getUrl().str().c_str(),
-                     (node->getName() ? node->getName() : "") ));
+    return ColladaElementTransitPtr(new ColladaInstanceNode(elem, global));
 }
 
-NodeTransitPtr ColladaInstanceNode::createInstance(void)
+void
+ColladaInstanceNode::read(void)
 {
-    OSG_COLLADA_LOG(("ColladaInstanceNode::createInstance:\n"));
-    
-    NodeTransitPtr    retVal;
-    domNodeRef        node    = getInstDOMElementAs<domNode>();
-    ColladaNodeRefPtr colNode = getUserDataAs<ColladaNode>(node);
-    
-    if(colNode->_instCount == 0)
-    {
-        ++colNode->_instCount;
+    OSG_COLLADA_LOG(("ColladaInstanceNode::read\n"));
 
-        retVal = colNode->getNode();
-    }
-    else
-    {
-        ++colNode->_instCount;
+    ColladaNodeRefPtr colNode = getSourceElem();
 
-        retVal = cloneTree(colNode->getNode());
+    if(colNode == NULL)
+    {
+        colNode = dynamic_pointer_cast<ColladaNode>(
+            ColladaElementFactory::the()->create(
+                getSourceDOMElem(), getGlobal()));
+
+        colNode->read();
     }
-    
+}
+
+Node *
+ColladaInstanceNode::process(ColladaElement *parent)
+{
+    ColladaNodeRefPtr colNode = getSourceElem();
+
+    return colNode->createInstance(this);
+}
+
+ColladaNode *
+ColladaInstanceNode::getSourceElem(void) const
+{
+    ColladaNode   *retVal     = NULL;
+    daeElementRef  sourceElem = getSourceDOMElem();
+
+    if(sourceElem != NULL)
+    {
+        retVal = getUserDataAs<ColladaNode>(sourceElem);
+    }
+
+    return retVal;
+}
+
+domNode *
+ColladaInstanceNode::getSourceDOMElem(void) const
+{
+    domNodeRef          retVal   = NULL;
+    domInstance_nodeRef instNode = getDOMElementAs<domInstance_node>();
+
+    if(instNode->getUrl().getElement() != NULL)
+    {
+        retVal = daeSafeCast<domNode>(instNode->getUrl().getElement());
+    }
+
     return retVal;
 }
 

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,143 +36,255 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
 #include "OSGColladaSource.h"
-#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include <dom/domSource.h>
+#include "OSGColladaLog.h"
+#include "OSGTypedGeoVectorProperty.h"
+
+#include "dom/domSource.h"
+#include "dom/domAccessor.h"
+#include "dom/domParam.h"
 
 OSG_BEGIN_NAMESPACE
 
-void ColladaSource::read(void)
+ColladaElementRegistrationHelper ColladaSource::_regHelper(
+    &ColladaSource::create, "source");
+
+
+ColladaElementTransitPtr
+ColladaSource::create(daeElement *elem, ColladaGlobal *global)
 {
-    OSG_COLLADA_LOG(("ColladaSource::read:\n"));
+    return ColladaElementTransitPtr(new ColladaSource(elem, global));
 }
 
-GeoVec3fProperty *ColladaSource::getAsVec3fProp(void)
+void
+ColladaSource::read(void)
 {
-    if(_propVec3f != NULL)
-        return _propVec3f;
-    
+    OSG_COLLADA_LOG(("ColladaSource::read\n"));
+
     domSourceRef source = getDOMElementAs<domSource>();
-    
-    if(source == NULL)
+
+    OSG_COLLADA_LOG(("ColladaSource::read: id [%s]\n",
+                     source->getID()));
+
+    domSource::domTechnique_commonRef techCom = source ->getTechnique_common();
+    domAccessorRef                    acc     = techCom->getAccessor        ();
+
+    _offset   = acc->getOffset();
+    _count    = acc->getCount ();
+    _stride   = acc->getStride();
+    _elemSize = 0;
+
+    _strideMap.resize(_stride, -1);
+
+    const domParam_Array &params = acc->getParam_array();
+
+    for(UInt32 i = 0; i < params.getCount(); ++i)
     {
-        FWARNING(("ColladaSource:getAsVec3fProp: No <source> element.\n"));
-        return _propVec3f;
-    }
-    
-    _propVec3f = GeoVec3fProperty::create();
-    
-    const domListOfFloats &floatList = source->getFloat_array()->getValue();
-    UInt32                 currIdx   = 0;
-    Vec3f                  tmpVec;
-    
-    for(UInt32 i = 0; i < floatList.getCount(); ++i)
-    {
-        tmpVec[currIdx] = floatList[i];
-        
-        ++currIdx;
-        
-        if(currIdx == Vec3f::_uiSize)
+        if(params[i]->getName() == NULL)
         {
-            currIdx = 0;
-            
-            _propVec3f->push_back(tmpVec);
+            _strideMap[i] = -1;
+        }
+        else
+        {
+            _strideMap[i] = _elemSize;
+            ++_elemSize;
         }
     }
-    
-    return _propVec3f;
+
+    OSG_COLLADA_LOG(("ColladaSource::read: offset [%d] count [%d] "
+                     "stride [%d] elemSize [%d]\n",
+                     _offset, _count, _stride, _elemSize));
 }
 
-GeoPnt3fProperty *ColladaSource::getAsPnt3fProp(void)
+FieldContainer *
+ColladaSource::process(ColladaElement *parent)
 {
-    if(_propPnt3f != NULL)
-        return _propPnt3f;
-    
-    domSourceRef source = getDOMElementAs<domSource>();
-    
-    if(source == NULL)
-    {
-        FWARNING(("ColladaSource:getAsPnt3fProp: No <source> element.\n"));
-        return _propPnt3f;
-    }
-    
-    _propPnt3f = GeoPnt3fProperty::create();
-    
-    const domListOfFloats &floatList = source->getFloat_array()->getValue();
-    UInt32                 currIdx   = 0;
-    Pnt3f                  tmpPnt;
-    
-    for(UInt32 i = 0; i < floatList.getCount(); ++i)
-    {
-        tmpPnt[currIdx] = floatList[i];
-        
-        ++currIdx;
-        
-        if(currIdx == Pnt3f::_uiSize)
-        {
-            currIdx = 0;
-            
-            _propPnt3f->push_back(tmpPnt);
-        }
-    }
-    
-    return _propPnt3f;
+    SFATAL << "ColladaSource::process: <source> has no direct "
+           << "correspondence in OpenSG and must be interpreted by "
+           << "its parent element."
+           << std::endl;
+
+    OSG_ASSERT(false);
+
+    return NULL;
 }
 
-GeoVec2fProperty *ColladaSource::getAsVec2fProp(void)
+GeoVectorProperty *
+ColladaSource::getProperty(const std::string &semantic, UInt32 set)
 {
-    if(_propVec2f != NULL)
-        return _propVec2f;
-    
-    domSourceRef source = getDOMElementAs<domSource>();
-    
-    if(source == NULL)
+    SemanticSetPair semSetPair(semantic, set);
+    PropertyMapIt   pmIt = _propMap.find(semSetPair);
+
+    if(pmIt != _propMap.end())
     {
-        FWARNING(("ColladaSource:getAsVec2fProp: No <source> element.\n"));
-        return _propVec2f;
+        return pmIt->second;
     }
-    
-    _propVec2f = GeoVec2fProperty::create();
-    
-    const domListOfFloats &floatList = source->getFloat_array()->getValue();
-    UInt32                 currIdx   = 0;
-    Vec2f                  tmpVec;
-    
-    for(UInt32 i = 0; i < floatList.getCount(); ++i)
+
+    readProperty(semSetPair);
+
+    pmIt = _propMap.find(semSetPair);
+
+    if(pmIt != _propMap.end())
     {
-        tmpVec[currIdx] = floatList[i];
-        
-        ++currIdx;
-        
-        if(currIdx == Vec2f::_uiSize)
-        {
-            currIdx = 0;
-            
-            _propVec2f->push_back(tmpVec);
-        }
+        return pmIt->second;
     }
-    
-    return _propVec2f;
+
+    SFATAL << "ColladaSource::getProperty: Could not read data for "
+           << "semantic [" << semantic << "] set [" << set << "]."
+           << std::endl;
+
+    return NULL;
 }
 
-ColladaSource::ColladaSource(domSource *source, ColladaGlobal *global)
-    : Inherited(source, global)
+
+
+ColladaSource::ColladaSource(daeElement *elem, ColladaGlobal *global)
+    : Inherited (elem, global)
+    , _offset   (0)
+    , _count    (0)
+    , _stride   (1)
+    , _elemSize (0)
+    , _strideMap()
+    , _propMap  ()
 {
-    // nothing to do
 }
 
 ColladaSource::~ColladaSource(void)
 {
-    // nothing to do
 }
+
+void
+ColladaSource::readProperty(const SemanticSetPair &semSetPair)
+{
+    OSG_COLLADA_LOG(("ColladaSource::readProperty: semantic [%s] set [%d]\n",
+                     semSetPair.first.c_str(), semSetPair.second));
+
+    GeoVectorPropertyUnrecPtr         prop    = NULL;
+    domSourceRef                      source  = getDOMElementAs<domSource>  ();
+    domSource::domTechnique_commonRef techCom = source ->getTechnique_common();
+    domAccessorRef                    acc     = techCom->getAccessor        ();
+
+    daeURI                 dataURI   = acc->getSource();
+    domFloat_arrayRef      dataArray = 
+        daeSafeCast<domFloat_array>(dataURI.getElement());
+
+    if(dataArray == NULL)
+    {
+        SWARNING << "ColladaSource::readProperty: Could not find <float_array> "
+                 << "for [" << dataURI.str() << "]." << std::endl;
+        return;
+    }
+
+    const domListOfFloats &data      = dataArray->getValue();
+
+    OSG_ASSERT((_offset + _count * _stride) <= data.getCount());
+
+    if(semSetPair.first == "POSITION")
+    {
+        if(_elemSize != 3)
+        {
+            SWARNING << "ColladaSource::readProperty: Unexpected _elemSize ["
+                     << _elemSize << "]." << std::endl;
+            return;
+        }
+
+        prop = GeoPnt3fProperty::create();
+        
+        Pnt3f  currPnt;
+        UInt32 currIdx = 0;
+
+        for(UInt32 i = _offset; i < _count * _stride; ++i)
+        {
+            if(_strideMap[currIdx] != -1)
+            {
+                currPnt[_strideMap[currIdx]] = data[i];
+            }
+            
+            ++currIdx;
+
+            if(currIdx == _stride)
+            {
+                prop->push_back(currPnt);
+                currIdx = 0;
+            }
+        }
+    }
+    else if(semSetPair.first == "NORMAL")
+    {
+        if(_elemSize != 3)
+        {
+            SWARNING << "ColladaSource::readProperty: Unexpected _elemSize ["
+                     << _elemSize << "]." << std::endl;
+            return;
+        }
+
+        prop = GeoVec3fProperty::create();
+        
+        Vec3f  currVec;
+        UInt32 currIdx = 0;
+
+        for(UInt32 i = _offset; i < _count * _stride; ++i)
+        {
+            if(_strideMap[currIdx] != -1)
+            {
+                currVec[_strideMap[currIdx]] = data[i];
+            }
+            
+            ++currIdx;
+
+            if(currIdx == _stride)
+            {
+                prop->push_back(currVec);
+                currIdx = 0;
+            }
+        }
+    }
+    else if(semSetPair.first == "TEXCOORD")
+    {
+        if(_elemSize != 2)
+        {
+            SWARNING << "ColladaSource::readProperty: Unexpected _elemSize ["
+                     << _elemSize << "]." << std::endl;
+            return;
+        }
+
+        prop = GeoVec2fProperty::create();
+        
+        Vec2f  currVec;
+        UInt32 currIdx = 0;
+
+        for(UInt32 i = _offset; i < _count * _stride; ++i)
+        {
+            if(_strideMap[currIdx] != -1)
+            {
+                currVec[_strideMap[currIdx]] = data[i];
+            }
+            
+            ++currIdx;
+
+            if(currIdx == _stride)
+            {
+                prop->push_back(currVec);
+                currIdx = 0;
+            }
+        }
+    }
+    else
+    {
+        SWARNING << "ColladaSource::readProperty: Unknown semantic ["
+                 << semSetPair.first << "]." << std::endl;
+        return;
+    }
+
+    if(prop != NULL)
+    {
+        _propMap.insert(PropertyMap::value_type(semSetPair, prop));
+    }
+}
+
 
 OSG_END_NAMESPACE
 

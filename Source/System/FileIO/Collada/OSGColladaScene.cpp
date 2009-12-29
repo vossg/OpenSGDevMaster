@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2009 by the OpenSG Forum                     *
+ *                   Copyright (C) 2009 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,62 +36,75 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAINSTANCELIGHT_H_
-#define _OSGCOLLADAINSTANCELIGHT_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-/*! \file OSGColladaInstanceLight.h
-    \ingroup GrpLoader
- */
-
-#include "OSGConfig.h"
+#include "OSGColladaScene.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
-#include "OSGColladaInstanceElement.h"
-#include "OSGColladaLight.h"
+#include "OSGColladaLog.h"
+#include "OSGColladaInstanceVisualScene.h"
 
+#include <dom/domCOLLADA.h>
+#include <dom/domInstanceWithExtra.h>
 
-// forward declarations
-class domInstance_light;
+/*! \class OSG::ColladaScene
+    Handles the <scene> tag.
+ */
 
 OSG_BEGIN_NAMESPACE
 
+ColladaElementRegistrationHelper ColladaScene::_regHelper(
+    &ColladaScene::create, "scene");
 
-class OSG_FILEIO_DLLMAPPING ColladaInstanceLight
-    : public ColladaInstanceElement
+
+ColladaElementTransitPtr
+ColladaScene::create(daeElement *elem, ColladaGlobal *global)
 {
-  public:
-    typedef ColladaInstanceElement                  Inherited;
-    typedef ColladaInstanceLight                    Self;
-    
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    
-    static inline ObjTransitPtr create(domInstance_light *instLight,
-                                       ColladaGlobal     *global    );
-    
-    virtual void            read          (void);
-            LightTransitPtr createInstance(void);
+    return ColladaElementTransitPtr(new ColladaScene(elem, global));
+}
 
-  protected:
-             ColladaInstanceLight(domInstance_light *instLight,
-                                  ColladaGlobal     *global    );
-    virtual ~ColladaInstanceLight(void                         );
+void
+ColladaScene::read(void)
+{
+    OSG_COLLADA_LOG(("ColladaScene::read\n"));
 
-    NodeUnrecPtr _node;
-};
+    domCOLLADA::domSceneRef scene = getDOMElementAs<domCOLLADA::domScene>();
 
-typedef ColladaInstanceLight::ObjRefPtr     ColladaInstanceLightRefPtr;
-typedef ColladaInstanceLight::ObjTransitPtr ColladaInstanceLightTransitPtr;
+    OSG_ASSERT(scene != NULL);
+
+    domInstanceWithExtraRef instVisScene = scene->getInstance_visual_scene();
+
+    if(instVisScene != NULL)
+    {
+        _colInstVisScene = dynamic_pointer_cast<ColladaInstanceVisualScene>(
+            ColladaElementFactory::the()->create(instVisScene, getGlobal()));
+
+        _colInstVisScene->read();
+    }
+    else
+    {
+        SWARNING << "ColladaScene::read: No <instance_visual_scene> tag."
+                 << std::endl;
+    }
+}
+
+FieldContainer *
+ColladaScene::process(ColladaElement *parent)
+{
+    _colInstVisScene->process(this);
+
+    return NULL;
+}
+
+ColladaScene::ColladaScene(daeElement *elem, ColladaGlobal *global)
+    : Inherited       (elem, global)
+    , _colInstVisScene(NULL        )
+{
+}
+
+ColladaScene::~ColladaScene(void)
+{
+}
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaInstanceLight.inl"
-
 #endif // OSG_WITH_COLLADA
-
-#endif // _OSGCOLLADAINSTANCELIGHT_H_

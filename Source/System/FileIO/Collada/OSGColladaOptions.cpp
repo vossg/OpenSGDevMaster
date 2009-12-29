@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *               Copyright (C) 2000-2006 by the OpenSG Forum                 *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,79 +36,30 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-//---------------------------------------------------------------------------
-//  Includes
-//---------------------------------------------------------------------------
+#include "OSGColladaOptions.h"
 
-#include <cstdlib>
-#include <cstdio>
+#ifdef OSG_WITH_COLLADA
 
-#include "OSGConfig.h"
-
-#include "OSGColladaGeoInputAttachment.h"
+#include "OSGColladaLog.h"
 
 OSG_BEGIN_NAMESPACE
 
-// Documentation for this class is emitted in the
-// OSGColladaGeoInputAttachmentBase.cpp file.
-// To modify it, please change the .fcd file (OSGColladaGeoInputAttachment.fcd) and
-// regenerate the base file.
-
-/***************************************************************************\
- *                           Class variables                               *
-\***************************************************************************/
-
-/***************************************************************************\
- *                           Class methods                                 *
-\***************************************************************************/
-
-void ColladaGeoInputAttachment::initMethod(InitPhase ePhase)
+void
+ColladaOptions::parseOptions(const OptionSet &optSet)
 {
-    Inherited::initMethod(ePhase);
-
-    if(ePhase == TypeObject::SystemPost)
-    {
-    }
+    OSG_COLLADA_LOG(("ColladaOptions::parseOptions\n"));
 }
 
 
-/***************************************************************************\
- *                           Instance methods                              *
-\***************************************************************************/
-
-/*-------------------------------------------------------------------------*\
- -  private                                                                 -
-\*-------------------------------------------------------------------------*/
-
-/*----------------------- constructors & destructors ----------------------*/
-
-ColladaGeoInputAttachment::ColladaGeoInputAttachment(void) :
-    Inherited()
+ColladaOptions::ColladaOptions(void)
+    : Inherited()
 {
 }
 
-ColladaGeoInputAttachment::ColladaGeoInputAttachment(const ColladaGeoInputAttachment &source) :
-    Inherited(source)
+ColladaOptions::~ColladaOptions(void)
 {
-}
-
-ColladaGeoInputAttachment::~ColladaGeoInputAttachment(void)
-{
-}
-
-/*----------------------------- class specific ----------------------------*/
-
-void ColladaGeoInputAttachment::changed(ConstFieldMaskArg whichField, 
-                            UInt32            origin,
-                            BitVector         details)
-{
-    Inherited::changed(whichField, origin, details);
-}
-
-void ColladaGeoInputAttachment::dump(      UInt32    ,
-                         const BitVector ) const
-{
-    SLOG << "Dump ColladaGeoInputAttachment NI" << std::endl;
 }
 
 OSG_END_NAMESPACE
+
+#endif // OSG_WITH_COLLADA

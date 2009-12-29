@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -42,66 +42,66 @@
 #pragma once
 #endif
 
-/*! \file OSGColladaInstanceElement.h
-    \ingroup GrpLoader
- */
-
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
 #include "OSGColladaElement.h"
 
 OSG_BEGIN_NAMESPACE
 
-/*! \brief Base class for <instance_*> elements.
- */
+// forward decl
+class ColladaInstantiableElement;
+
 
 class OSG_FILEIO_DLLMAPPING ColladaInstanceElement : public ColladaElement
 {
     /*==========================  PUBLIC  =================================*/
- public:
+  public:
     /*---------------------------------------------------------------------*/
     /*! \name Types                                                        */
     /*! \{                                                                 */
-    typedef ColladaElement                          Inherited;
-    typedef ColladaInstanceElement                  Self;
-    
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    
-    /*---------------------------------------------------------------------*/
-    /*! \name Read                                                         */
-    /*! \{                                                                 */
 
-    virtual void read(void) = 0;
-    
+    typedef ColladaElement         Inherited;
+    typedef ColladaInstanceElement Self;
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstanceElement);
+
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
-    /*! \name  Instantiated element access                                 */
+    /*! \name Reading                                                      */
     /*! \{                                                                 */
-    
-    inline void        setInstDOMElement  (daeElement *instElem);
-    inline daeElement *getInstDOMElement  (void                ) const;
-    template <class DomTypeT>
-    inline DomTypeT   *getInstDOMElementAs(void                ) const;
-    
+
+    virtual void            read   (void                  ) = 0;
+    virtual FieldContainer *process(ColladaElement *parent) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    virtual ColladaInstantiableElement *getSourceElem   (void) const = 0;
+    virtual daeElement                 *getSourceDOMElem(void) const = 0;
+
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+    
              ColladaInstanceElement(daeElement *elem, ColladaGlobal *global);
     virtual ~ColladaInstanceElement(void                                   );
 
-    daeElementRef _instElem;
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 };
 
-typedef ColladaInstanceElement::ObjRefPtr     ColladaInstanceElementRefPtr;
-typedef ColladaInstanceElement::ObjTransitPtr ColladaInstanceElementTransitPtr;
+OSG_GEN_MEMOBJPTR(ColladaInstanceElement);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaInstanceElement.inl"
+// #include "OSGColladaInstanceElement.inl"
 
 #endif // OSG_WITH_COLLADA
 

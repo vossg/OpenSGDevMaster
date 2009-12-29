@@ -42,19 +42,20 @@
 #pragma once
 #endif
 
-/*! \file OSGColladaInstantiableElement.h
-    \ingroup GrpLoader
- */
-
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
 #include "OSGColladaElement.h"
+#include "OSGFieldContainer.h"
 
+#include <vector>
 
 OSG_BEGIN_NAMESPACE
+
+// forward decl
+class ColladaInstanceElement;
+
 
 class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
 {
@@ -64,18 +65,35 @@ class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef ColladaElement                          Inherited;
-    typedef ColladaInstantiableElement              Self;
+    typedef ColladaElement             Inherited;
+    typedef ColladaInstantiableElement Self;
 
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
-    typedef TransitPtr <Self                      > ObjTransitPtr;
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstantiableElement);
+
+    typedef std::vector<FieldContainerUnrecPtr> InstanceStore;
+    typedef InstanceStore::iterator             InstanceStoreIt;
+    typedef InstanceStore::const_iterator       InstanceStoreConstIt;
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Reading                                                      */
     /*! \{                                                                 */
 
-    virtual void read(void) = 0;
+    virtual void
+        read          (void                            ) = 0;
+    virtual FieldContainer *
+        process       (ColladaElement         *parent  );
+
+    virtual FieldContainer *
+        createInstance(ColladaInstanceElement *instElem) = 0;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    inline const InstanceStore &getInstStore (void) const;
+    inline InstanceStore       &editInstStore(void);
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
@@ -83,23 +101,22 @@ class OSG_FILEIO_DLLMAPPING ColladaInstantiableElement : public ColladaElement
     /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
-
+    
              ColladaInstantiableElement(daeElement    *elem,
                                         ColladaGlobal *global);
-    virtual ~ColladaInstantiableElement(void                 ) = 0;
+    virtual ~ColladaInstantiableElement(void                 );
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
-    UInt32 _instCount;
+    InstanceStore _instStore;
 };
 
-typedef ColladaInstantiableElement::ObjRefPtr
-    ColladaInstantiableElementRefPtr;
-typedef ColladaInstantiableElement::ObjTransitPtr
-    ColladaInstantiableElementTransitPtr;
+OSG_GEN_MEMOBJPTR(ColladaInstantiableElement);
 
 OSG_END_NAMESPACE
+
+#include "OSGColladaInstantiableElement.inl"
 
 #endif // OSG_WITH_COLLADA
 

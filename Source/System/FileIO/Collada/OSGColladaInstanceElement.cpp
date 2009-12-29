@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,21 +36,25 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
 #include "OSGColladaInstanceElement.h"
-#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
 /*! \class OSG::ColladaInstanceElement
-    The base class for all objects representing Collada &quot;instance_*&quot;
-    elements in the DOM. It can store a pointer to the instantiated object
-    (\c _instElem ) to avoid doing multiple lookups of it through the
-    DOM interfaces.
+    Base class for types handling the various <instance_*> tags in
+    Collada.    
+ */
+
+/*! \fn ColladaInstantiableElement *ColladaInstanceElement::getSourceElem(void) const
+    Returns the element instantiated by this element, if it exists and
+    NULL otherwise.
+ */
+
+/*! \fn daeElement *ColladaInstanceElement::getSourceDOMElement(void) const
+    Returns the DOM element instantiated by this element (usually obtained
+    by resolving the URL attribute).
+    If the DOM element is not available (e.g. the URL attribute refers to
+    an external document not loaded into the DAE database) NULL is returned.
  */
 
 OSG_BEGIN_NAMESPACE
@@ -58,8 +62,7 @@ OSG_BEGIN_NAMESPACE
 ColladaInstanceElement::ColladaInstanceElement(
     daeElement *elem, ColladaGlobal *global)
 
-    : Inherited (elem, global),
-      _instElem (            )
+    : Inherited(elem, global)
 {
 }
 

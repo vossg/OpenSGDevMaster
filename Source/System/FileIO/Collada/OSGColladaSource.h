@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,62 +38,95 @@
 
 #ifndef _OSGCOLLADASOURCE_H_
 #define _OSGCOLLADASOURCE_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-/*! \file OSGColladaSource.h
-    \ingroup GrpLoader
- */
 
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
 #include "OSGColladaElement.h"
-
-#include "OSGTypedGeoVectorProperty.h"
-
-//forward declarations
-class domSource;
-
+#include "OSGColladaElementFactoryHelper.h"
+#include "OSGGeoVectorProperty.h"
 
 OSG_BEGIN_NAMESPACE
 
 class OSG_FILEIO_DLLMAPPING ColladaSource : public ColladaElement
 {
+    /*==========================  PUBLIC  =================================*/
   public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
     typedef ColladaElement Inherited;
     typedef ColladaSource  Self;
-    
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
-    typedef TransitPtr <Self                      > ObjTransitPtr;
 
-    static inline ObjTransitPtr create(domSource     *source,
-                                       ColladaGlobal *global );
-    
-    virtual void read(void);
-    
-    GeoVec3fProperty *getAsVec3fProp(void);
-    GeoPnt3fProperty *getAsPnt3fProp(void);
-    GeoVec2fProperty *getAsVec2fProp(void);
-    
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaSource);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
+
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
+
+    virtual void            read   (void                  );
+    virtual FieldContainer *process(ColladaElement *parent);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    GeoVectorProperty *getProperty(const std::string &semantic, UInt32 set);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
   protected:
-             ColladaSource(domSource *source, ColladaGlobal *global);
-    virtual ~ColladaSource(void                                    );
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+
+             ColladaSource(daeElement *elem, ColladaGlobal *global);
+    virtual ~ColladaSource(void                                   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    typedef std::pair<std::string, UInt32>      SemanticSetPair;
+
+    typedef std::map<SemanticSetPair,
+                     GeoVectorPropertyUnrecPtr> PropertyMap;
+    typedef PropertyMap::iterator               PropertyMapIt;
+    typedef PropertyMap::const_iterator         PropertyMapConstIt;
+
+    typedef std::vector<Int16>                  StrideMap;
+    typedef StrideMap::iterator                 StrideMapIt;
+    typedef StrideMap::const_iterator           StrideMapConstIt;
+
+
+    void readProperty(const SemanticSetPair &semSetPair);
     
-    GeoVec3fPropertyUnrecPtr _propVec3f;
-    GeoPnt3fPropertyUnrecPtr _propPnt3f;
-    GeoVec2fPropertyUnrecPtr _propVec2f;
+
+    static ColladaElementRegistrationHelper _regHelper;
+
+    UInt32      _offset;
+    UInt32      _count;
+    UInt32      _stride;
+    UInt32      _elemSize;
+    StrideMap   _strideMap;
+
+    PropertyMap _propMap;
 };
 
-typedef ColladaSource::ObjRefPtr     ColladaSourceRefPtr;
-typedef ColladaSource::ObjTransitPtr ColladaSourceTransitPtr;
+OSG_GEN_MEMOBJPTR(ColladaSource);
 
 OSG_END_NAMESPACE
-
-#include "OSGColladaSource.inl"
 
 #endif // OSG_WITH_COLLADA
 

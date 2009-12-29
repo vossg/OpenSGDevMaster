@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,86 +36,77 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
+#ifndef _OSGCOLLADAOPTIONS_H_
+#define _OSGCOLLADAOPTIONS_H_
+
+#ifdef __sgi
+#pragma once
 #endif
 
-#include "OSGColladaSampler2D.h"
-#include "OSGColladaLog.h"
+/*! \file OSGColladaOptions.h
+    \ingroup GrpLoader
+ */
+#include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGColladaEffect.h"
-#include "OSGColladaSurface.h"
-
-#include <dom/domFx_sampler2D_common.h>
-#include <dom/domFx_surface_common.h>
+#include "OSGFileIODef.h"
+#include "OSGMemoryObject.h"
+#include "OSGRefCountPtr.h"
+#include "OSGTransitPtr.h"
+#include "OSGIOFileTypeBase.h"
 
 OSG_BEGIN_NAMESPACE
 
-void ColladaSampler2D::read(void)
+class OSG_FILEIO_DLLMAPPING ColladaOptions : public MemoryObject
 {
-    OSG_COLLADA_LOG(("ColladaSampler2D::read:\n"));
-    
-    domFx_sampler2D_common::domSourceRef    source;
-    domFx_sampler2D_common::domWrap_sRef    wrapS;
-    domFx_sampler2D_common::domWrap_tRef    wrapT;
-    domFx_sampler2D_common::domMinfilterRef minFilter;
-    domFx_sampler2D_common::domMagfilterRef magFilter;
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-    domFx_sampler2D_commonRef sampler =
-        getDOMElementAs<domFx_sampler2D_common>();
+    typedef MemoryObject    Inherited;
+    typedef ColladaOptions  Self;
 
-    if(sampler == NULL)
-        return;
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaOptions);
 
-    source    = sampler->getSource   ();
-    wrapS     = sampler->getWrap_s   ();
-    wrapT     = sampler->getWrap_t   ();
-    minFilter = sampler->getMinfilter();
-    magFilter = sampler->getMagfilter();
+    typedef IOFileTypeBase::OptionSet OptionSet;
 
-    if(source != NULL && _colEffect != NULL)
-    {
-        OSG_COLLADA_LOG(("ColladaSampler2D::read: source [%p] effect [%p]\n",
-                         source.cast(), _colEffect));
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
 
-        domFx_surface_commonRef surface =
-            _colEffect->getSurface(source->getValue());
+    static ObjTransitPtr create(void);
 
-        OSG_COLLADA_LOG(("ColladaSampler2D::read: surface [%p]\n",
-                         surface.cast()));
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Options                                                      */
+    /*! \{                                                                 */
 
-        ColladaSurfaceRefPtr colSurface =
-            getUserDataAs<ColladaSurface>(surface);
-        
-        if(colSurface == NULL)
-        {
-            colSurface = ColladaSurface::create(surface, getGlobal());
-            addElement(colSurface);
-            
-            colSurface->read();
-        }
-        
-        _texObj = colSurface->getTexObj();
-    }
+    virtual void parseOptions(const OptionSet &optSet);
 
-    OSG_COLLADA_LOG(("ColladaSampler2D::read: surface texObj [%p]\n",
-                     _texObj.get()));
-}
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
 
-ColladaSampler2D::ColladaSampler2D(
-    domFx_sampler2D_common *sampler, ColladaGlobal *global)
+             ColladaOptions(void);
+    virtual ~ColladaOptions(void);
 
-    : Inherited(sampler, global)
-{
-}
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+};
 
-ColladaSampler2D::~ColladaSampler2D(void)
-{
-}
+OSG_GEN_MEMOBJPTR(ColladaOptions);
 
 OSG_END_NAMESPACE
 
+#include "OSGColladaOptions.inl"
+
 #endif // OSG_WITH_COLLADA
+
+#endif // _OSGCOLLADAOPTIONS_H_

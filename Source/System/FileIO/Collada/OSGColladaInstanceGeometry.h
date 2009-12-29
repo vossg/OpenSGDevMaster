@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,77 +38,78 @@
 
 #ifndef _OSGCOLLADAINSTANCEGEOMETRY_H_
 #define _OSGCOLLADAINSTANCEGEOMETRY_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-/*! \file OSGColladaInstanceGeometry.h
-    \ingroup GrpLoader
- */
 
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
 #include "OSGColladaInstanceElement.h"
 #include "OSGColladaGeometry.h"
+#include "OSGColladaElementFactoryHelper.h"
 
-#include <map>
-
-// forward declarations
-class domInstance_geometry;
-
+#include <dom/domGeometry.h>
 
 OSG_BEGIN_NAMESPACE
-
-// forward declarations
-class ChunkMaterial;
-
 
 class OSG_FILEIO_DLLMAPPING ColladaInstanceGeometry
     : public ColladaInstanceElement
 {
+    /*==========================  PUBLIC  =================================*/
   public:
-    typedef ColladaInstanceElement                  Inherited;
-    typedef ColladaInstanceGeometry                 Self;
-    
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    
-    static inline ObjTransitPtr create(domInstance_geometry *instGeo,
-                                       ColladaGlobal        *global  );
-    
-    virtual void           read          (void);
-            NodeTransitPtr createInstance(void);
-    
-  protected:
-    typedef std::map<std::string, ChunkMaterial *> MaterialMap;
-    typedef MaterialMap::iterator                  MaterialMapIt;
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-    typedef ColladaGeometry::SemanticSetPair       SemanticSetPair;
-    typedef std::map <SemanticSetPair,
-                      std::vector<UInt32>        > TexBindingsMap;
-      
-      
-             ColladaInstanceGeometry(domInstance_geometry *instGeo,
-                                     ColladaGlobal        *global  );
-    virtual ~ColladaInstanceGeometry(void                          );
+    typedef ColladaInstanceElement  Inherited;
+    typedef ColladaInstanceGeometry Self;
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaInstanceGeometry);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Craete                                                       */
+    /*! \{                                                                 */
+
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global); 
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
+
+    virtual void  read   (void                  );
+    virtual Node *process(ColladaElement *parent);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Access                                                       */
+    /*! \{                                                                 */
+
+    virtual ColladaGeometry *getSourceElem   (void) const;
+    virtual domGeometry     *getSourceDOMElem(void) const;
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
     
-    void updateGeoTexBindings(ColladaGeometry::GeometryInfo *geoInfo);
-    
-    MaterialMap    _matMap;
-    TexBindingsMap _texBindingsMap;
-    
-    NodeUnrecPtr   _node;
+             ColladaInstanceGeometry(daeElement *elem, ColladaGlobal *global);
+    virtual ~ColladaInstanceGeometry(void                                   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    static ColladaElementRegistrationHelper _regHelper;
 };
 
-typedef ColladaInstanceGeometry::ObjRefPtr     ColladaInstanceGeometryRefPtr;
-typedef ColladaInstanceGeometry::ObjTransitPtr ColladaInstanceGeometryTransitPtr;
+OSG_GEN_MEMOBJPTR(ColladaInstanceGeometry);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaInstanceGeometry.inl"
+// #include "OSGColladaInstanceGeometry.inl"
 
 #endif // OSG_WITH_COLLADA
 

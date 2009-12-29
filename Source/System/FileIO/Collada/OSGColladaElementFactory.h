@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2009 by the OpenSG Forum                     *
+ *                   Copyright (C) 2009 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,37 +36,28 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADANODE_H_
-#define _OSGCOLLADANODE_H_
+#ifndef _OSGCOLLADAELEMENTFACTORY_H_
+#define _OSGCOLLADAELEMENTFACTORY_H_
+#ifdef __sgi
+#pragma once
+#endif
 
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGColladaInstantiableElement.h"
-#include "OSGColladaElementFactoryHelper.h"
-#include "OSGNode.h"
+#include "OSGFileIODef.h"
+#include "OSGSingletonHolder.h"
+#include "OSGColladaElement.h"
 
-// forward decl
-class domLookat;
-class domMatrix;
-class domRotate;
-class domScale;
-class domSkew;
-class domTranslate;
-class domNode;
-class domInstance_node;
-class domInstance_geometry;
-class domInstance_controller;
+#include <map>
+#include <string>
 
+#include <boost/function.hpp>
 
 OSG_BEGIN_NAMESPACE
 
-// forward decl
-class ColladaVisualScene;
-
-
-class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
+class OSG_FILEIO_DLLMAPPING ColladaElementFactorySingleton
 {
     /*==========================  PUBLIC  =================================*/
   public:
@@ -74,71 +65,99 @@ class OSG_FILEIO_DLLMAPPING ColladaNode : public ColladaInstantiableElement
     /*! \name Types                                                        */
     /*! \{                                                                 */
 
-    typedef ColladaInstantiableElement Inherited;
-    typedef ColladaNode                Self;
+    typedef boost::function<
+        ColladaElementTransitPtr (daeElement *, 
+                                  ColladaGlobal *)> CreateFunctor;
 
-    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaNode);
+    typedef std::map<std::string, CreateFunctor>    HandlerMap;
+    typedef HandlerMap::iterator                    HandlerMapIt;
+    typedef HandlerMap::const_iterator              HandlerMapConstIt;
+
+    typedef std::map<std::string, HandlerMap   >    ProfileHandlerMap;
+    typedef ProfileHandlerMap::iterator             ProfileHandlerMapIt;
+    typedef ProfileHandlerMap::const_iterator       ProfileHandlerMapConstIt;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Registration                                                 */
+    /*! \{                                                                 */
+
+    bool registerElement  (CreateFunctor      createFunc,
+                           const std::string &elemName,
+                           const std::string &profile = "");
+    bool unregisterElement(const std::string &elemName,
+                           const std::string &profile = "");
+
+    const HandlerMap        &getDefaultHandlerMap (void) const;
+    HandlerMap              &editDefaultHandlerMap(void);
+
+    const ProfileHandlerMap &getProfileHandlerMap (void) const;
+    ProfileHandlerMap       &editProfileHandlerMap(void);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Default Profile                                              */
+    /*! \{                                                                 */
+
+    const std::string &getDefaultProfile(void                      ) const;
+    void               setDefaultProfile(const std::string &profile);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
     /*! \name Create                                                       */
     /*! \{                                                                 */
 
-    static ColladaElementTransitPtr
-        create(daeElement *elem, ColladaGlobal *global);
+    CreateFunctor            getCreateFunc(const std::string &elemName,
+                                           const std::string &profile  = "" );
 
-    /*! \}                                                                 */
-    /*---------------------------------------------------------------------*/
-    /*! \name Reading                                                      */
-    /*! \{                                                                 */
-
-    virtual void  read          (void                               );
-    virtual Node *process       (ColladaElement         *parent     );
-    virtual Node *createInstance(ColladaInstanceElement *colInstElem);
+    ColladaElementTransitPtr create       (daeElement        *daeElem,
+                                           ColladaGlobal     *global,
+                                           const std::string &elemName = "",
+                                           const std::string &profile  = "" );
 
     /*! \}                                                                 */
     /*=========================  PROTECTED  ===============================*/
   protected:
     /*---------------------------------------------------------------------*/
+    /*! \name Helper                                                       */
+    /*! \{                                                                 */ 
+
+    bool          doRegisterElement  (CreateFunctor      createFunc,
+                                      const std::string &elemName,
+                                      HandlerMap        &handlerMap );
+    bool          doUnregisterElement(const std::string &elemName,
+                                      HandlerMap        &handlerMap );
+
+    CreateFunctor doGetCreateFunc    (const std::string &elemName,
+                                      HandlerMap        &handlerMap );
+
+    /*! \}                                                                 */
+    /*==========================  PRIVATE  ================================*/
+  private:
+
+    /*---------------------------------------------------------------------*/
     /*! \name Constructors/Destructor                                      */
     /*! \{                                                                 */
     
-             ColladaNode(daeElement    *elem,
-                         ColladaGlobal *global);
-    virtual ~ColladaNode(void                 );
+     ColladaElementFactorySingleton(void);
+    ~ColladaElementFactorySingleton(void);
 
     /*! \}                                                                 */
     /*---------------------------------------------------------------------*/
 
+    template <class SingletonT>
+    friend class SingletonHolder;
 
-    void handleLookAt   (domLookat    *lookat   );
-    void handleMatrix   (domMatrix    *matrix   );
-    void handleRotate   (domRotate    *rotate   );
-    void handleScale    (domScale     *scale    );
-    void handleSkew     (domSkew      *skew     );
-    void handleTranslate(domTranslate *translate);
-
-    void handleNode              (domNode                *node          );
-    void handleInstanceNode      (domInstance_node       *instNode      );
-    void handleInstanceGeometry  (domInstance_geometry   *instGeo       );
-    void handleInstanceController(domInstance_controller *instController);
-
-    void appendXForm(Node *xformN);
-    void appendChild(Node *childN);       
-
-
-    static ColladaElementRegistrationHelper _regHelper;
-
-    NodeUnrecPtr _topN;
-    NodeUnrecPtr _bottomN;
+    std::string       _defaultProfile;
+    HandlerMap        _defaultHandlerMap;
+    ProfileHandlerMap _profileHandlerMap;
 };
 
-OSG_GEN_MEMOBJPTR(ColladaNode);
+
+typedef SingletonHolder<ColladaElementFactorySingleton> ColladaElementFactory;
 
 OSG_END_NAMESPACE
 
-// #include "OSGColladaNode.inl"
-
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADANODE_H_
+#endif // _OSGCOLLADAELEMENTFACTORY_H_

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                   Copyright (C) 2008 by the OpenSG Forum                  *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,11 +38,10 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline ColladaInstanceVisualSceneTransitPtr ColladaInstanceVisualScene::create(
-    daeElement *elem, ColladaGlobal *global)
+inline ColladaOptionsTransitPtr
+ColladaOptions::create(void)
 {
-    return ColladaInstanceVisualSceneTransitPtr(
-        new ColladaInstanceVisualScene(elem, global));
+    return ColladaOptionsTransitPtr(new ColladaOptions);
 }
 
 OSG_END_NAMESPACE

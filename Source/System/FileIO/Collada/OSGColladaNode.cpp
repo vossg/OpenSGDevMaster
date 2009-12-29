@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,19 +36,14 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
 #include "OSGColladaNode.h"
-#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
+#include "OSGColladaLog.h"
 #include "OSGColladaInstanceNode.h"
 #include "OSGColladaInstanceGeometry.h"
-#include "OSGColladaInstanceLight.h"
+#include "OSGTransform.h"
 #include "OSGNameAttachment.h"
 
 #include <dom/domLookat.h>
@@ -58,37 +53,39 @@
 #include <dom/domSkew.h>
 #include <dom/domTranslate.h>
 #include <dom/domInstance_node.h>
-#include <dom/domInstance_geometry.h>
-#include <dom/domInstance_light.h>
 #include <dom/domNode.h>
-
 
 OSG_BEGIN_NAMESPACE
 
-void ColladaNode::read(void)
+ColladaElementRegistrationHelper ColladaNode::_regHelper(
+    &ColladaNode::create, "node");
+
+
+ColladaElementTransitPtr
+ColladaNode::create(daeElement *elem, ColladaGlobal *global)
 {
-    OSG_COLLADA_LOG(("ColladaNode::read:\n"));
-    
-    domNodeRef node = getDOMElementAs<domNode>();
-    
-    OSG_COLLADA_LOG(("ColladaNode::read: [%s]\n",
-                     (node->getName() ? node->getName() : "")));
-    
-    _transNode = Node::create();
-    
-    if(node->getName() != NULL)
-        setName(_transNode, node->getName());
-    
+    return ColladaElementTransitPtr(new ColladaNode(elem, global));
+}
+
+void
+ColladaNode::read(void)
+{
+    OSG_COLLADA_LOG(("ColladaNode::read\n"));
+
+    domNodeRef                node     = getDOMElementAs<domNode>();
     const daeElementRefArray &contents = node->getContents();
-    for(UInt32 i = 0, contentCount = contents.getCount();
-        i < contentCount; ++i)
+
+    // handle "transform" child elements in the order
+    // they occur in the document
+
+    for(UInt32 i = 0; i < contents.getCount(); ++i)
     {
         switch(contents[i]->getElementType())
         {
         case COLLADA_TYPE::LOOKAT:
             handleLookAt(daeSafeCast<domLookat>(contents[i]));
-        break;
-        
+            break;
+            
         case COLLADA_TYPE::MATRIX:
             handleMatrix(daeSafeCast<domMatrix>(contents[i]));
         break;
@@ -110,45 +107,87 @@ void ColladaNode::read(void)
         break;
         }
     }
+
+    // handle <node> child elements
+    const domNode_Array &nodes = node->getNode_array();
     
+    for(UInt32 i = 0; i < nodes.getCount(); ++i)
+    {
+        handleNode(nodes[i]);
+    }
+
+    // handle <instance_node> child elements
     const domInstance_node_Array &instNodes = node->getInstance_node_array();
-    for(UInt32 i = 0, instNodeCount = instNodes.getCount();
-        i < instNodeCount; ++i)
+    
+    for(UInt32 i = 0; i < instNodes.getCount(); ++i)
     {
         handleInstanceNode(instNodes[i]);
     }
-    
+
+    // handle <instance_geometry> child elements
     const domInstance_geometry_Array &instGeos =
         node->getInstance_geometry_array();
-    for(UInt32 i = 0, instGeoCount = instGeos.getCount();
-        i < instGeoCount; ++i)
+
+    for(UInt32 i = 0; i < instGeos.getCount(); ++i)
     {
         handleInstanceGeometry(instGeos[i]);
     }
 
-    const domInstance_light_Array &instLights =
-        node->getInstance_light_array();
-    for(UInt32 i = 0, instLightCount = instLights.getCount();
-        i < instLightCount; ++i)
+    // handle <instance_controller> child elemnts
+    const domInstance_controller_Array &instControllers =
+        node->getInstance_controller_array();
+
+    for(UInt32 i = 0; i < instControllers.getCount(); ++i)
     {
-        handleInstanceLight(instLights[i]);
+        handleInstanceController(instControllers[i]);
     }
-        
-    const domNode_Array &nodes = node->getNode_array();
-    for(UInt32 i = 0, nodeCount = nodes.getCount(); i < nodeCount; ++i)
-    {
-        handleNode(nodes[i]);
-    }
-    
-    if(_transNode->getCore() == NULL)
-        _transNode->setCore(Group::create());
 }
 
+Node *
+ColladaNode::process(ColladaElement *parent)
+{
+    OSG_COLLADA_LOG(("ColladaNode::process: parent [%s]\n",
+                    parent->getDOMElement()->getElementName()));
 
-ColladaNode::ColladaNode(domNode *node, ColladaGlobal *global)
-    : Inherited (node, global),
-      _transNode(            ),
-      _trans    (            )
+    NodeUnrecPtr retVal = NULL;
+
+    if(getInstStore().empty() == true)
+    {
+        retVal = _topN;
+    }
+    else
+    {
+        retVal = cloneTree(_topN);
+    }
+
+    editInstStore().push_back(retVal);
+
+    return retVal;
+}
+
+Node *
+ColladaNode::createInstance(ColladaInstanceElement *colInstElem)
+{
+    OSG_COLLADA_LOG(("ColladaNode::createInstance\n"));
+
+    NodeUnrecPtr retVal = NULL;
+
+    if(getInstStore().empty() == true)
+    {
+        retVal = _topN;
+    }
+    else
+    {
+        retVal = cloneTree(_topN);
+    }
+
+    editInstStore().push_back(retVal);
+
+    return retVal;
+}
+
+ColladaNode::ColladaNode(daeElement *elem, ColladaGlobal *global)
+    : Inherited(elem, global)
 {
 }
 
@@ -156,30 +195,26 @@ ColladaNode::~ColladaNode(void)
 {
 }
 
-
-void ColladaNode::handleLookAt(domLookat *lookat)
+void
+ColladaNode::handleLookAt(domLookat *lookat)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleLookAt:\n"));
-    
     if(lookat == NULL)
         return;
-    
-    FWARNING(("ColladaNode::handleLookAt: NIY\n"));
+
+    SWARNING << "ColladaNode::handleLookAt: NIY" << std::endl;
 }
 
-void ColladaNode::handleMatrix(domMatrix *matrix)
+void
+ColladaNode::handleMatrix(domMatrix *matrix)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleMatrix:\n"));
-    
     if(matrix == NULL)
         return;
-    
-    if(_transNode->getCore() == NULL)
-    {
-        _trans = Transform::create();
-        _transNode->setCore(_trans);
-    }
-    
+
+    domNodeRef        node   = getDOMElementAs<domNode>();
+
+    TransformUnrecPtr xform  = Transform::create();
+    NodeUnrecPtr      xformN = makeNodeFor(xform);
+
     Matrix m(matrix->getValue()[0],      // rVal00
              matrix->getValue()[1],      // rVal10
              matrix->getValue()[2],      // rVal20
@@ -197,158 +232,237 @@ void ColladaNode::handleMatrix(domMatrix *matrix)
              matrix->getValue()[14],     // rVal23
              matrix->getValue()[15] );   // rVal33
     
-    _trans->editMatrix().mult(m);
+    xform->setMatrix(m);
+
+    if(node->getName() != NULL)
+    {
+        std::string nodeName = node->getName();
+
+        if(matrix->getSid() != NULL)
+        {
+            nodeName.append("."             );
+            nodeName.append(matrix->getSid());
+        }
+
+        setName(xformN, nodeName);
+    }
+
+    appendXForm(xformN);
 }
 
-void ColladaNode::handleRotate(domRotate *rotate)
+void
+ColladaNode::handleRotate(domRotate *rotate)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleRotate:\n"));
-    
     if(rotate == NULL)
         return;
-    
-    if(_transNode->getCore() == NULL)
-    {
-        _trans = Transform::create();
-        _transNode->setCore(_trans);
-    }
-    
+
+    domNodeRef        node   = getDOMElementAs<domNode>();
+
+    TransformUnrecPtr xform  = Transform::create();
+    NodeUnrecPtr      xformN = makeNodeFor(xform);
+
     Quaternion q;
     q.setValueAsAxisDeg(rotate->getValue()[0],
                         rotate->getValue()[1],
                         rotate->getValue()[2],
                         rotate->getValue()[3] );
     
-    Matrix m;
-    m.setRotate(q);
-    
-    _trans->editMatrix().mult(m);
+    xform->editMatrix().setRotate(q);
+
+    if(node->getName() != NULL)
+    {
+        std::string nodeName = node->getName();
+
+        if(rotate->getSid() != NULL)
+        {
+            nodeName.append("."             );
+            nodeName.append(rotate->getSid());
+        }
+
+        setName(xformN, nodeName);
+    }
+
+    appendXForm(xformN);
 }
 
-void ColladaNode::handleScale(domScale *scale)
+void
+ColladaNode::handleScale(domScale *scale)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleScale:\n"));
-    
     if(scale == NULL)
         return;
-    
-    if(_transNode->getCore() == NULL)
+
+    domNodeRef        node   = getDOMElementAs<domNode>();
+
+    TransformUnrecPtr xform  = Transform::create();
+    NodeUnrecPtr      xformN = makeNodeFor(xform);
+
+    xform->editMatrix().setScale(scale->getValue()[0],
+                                 scale->getValue()[1],
+                                 scale->getValue()[2] );
+
+    if(node->getName() != NULL)
     {
-        _trans = Transform::create();
-        _transNode->setCore(_trans);
+        std::string nodeName = node->getName();
+
+        if(scale->getSid() != NULL)
+        {
+            nodeName.append("."            );
+            nodeName.append(scale->getSid());
+        }
+
+        setName(xformN, nodeName);
     }
-    
-    Matrix m;
-    m.setScale(scale->getValue()[0],
-               scale->getValue()[1],
-               scale->getValue()[2] );
-    
-    _trans->editMatrix().mult(m);
+
+    appendXForm(xformN);
 }
 
-void ColladaNode::handleSkew(domSkew *skew)
+void
+ColladaNode::handleSkew(domSkew *skew)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleSkew:\n"));
-    
     if(skew == NULL)
         return;
-    
-    FWARNING(("ColladaNode::handleSkew: NIY\n"));
+
+    SWARNING << "ColladaNode::handleSkew: NIY" << std::endl;
 }
 
-void ColladaNode::handleTranslate(domTranslate *translate)
+void
+ColladaNode::handleTranslate(domTranslate *translate)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleTranslate:\n"));
-    
     if(translate == NULL)
-       return;
-    
-    if(_transNode->getCore() == NULL)
+        return;
+
+    domNodeRef        node   = getDOMElementAs<domNode>();
+
+    TransformUnrecPtr xform  = Transform::create();
+    NodeUnrecPtr      xformN = makeNodeFor(xform);
+
+    xform->editMatrix().setTranslate(translate->getValue()[0],
+                                     translate->getValue()[1],
+                                     translate->getValue()[2] );
+
+
+    if(node->getName() != NULL)
     {
-        _trans = Transform::create();
-        _transNode->setCore(_trans);
+        std::string nodeName = node->getName();
+
+        if(translate->getSid() != NULL)
+        {
+            nodeName.append("."                );
+            nodeName.append(translate->getSid());
+        }
+
+        setName(xformN, nodeName);
     }
-    
-    Matrix m;
-    m.setTranslate(translate->getValue()[0],
-                   translate->getValue()[1],
-                   translate->getValue()[2] );
-    
-    _trans->editMatrix().mult(m);
+
+    appendXForm(xformN);
 }
 
-void ColladaNode::handleInstanceNode(domInstance_node *instNode)
+void
+ColladaNode::handleNode(domNode *node)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleInstanceNode:\n"));
-    
+    ColladaNodeRefPtr colNode = getUserDataAs<ColladaNode>(node);
+
+    if(colNode == NULL)
+    {
+        colNode = dynamic_pointer_cast<ColladaNode>(
+            ColladaElementFactory::the()->create(node, getGlobal()));
+
+        colNode->read();
+    }
+
+    NodeUnrecPtr childN = colNode->process(this);
+
+    appendChild(childN);
+}
+
+void
+ColladaNode::handleInstanceNode(domInstance_node *instNode)
+{
     ColladaInstanceNodeRefPtr colInstNode =
         getUserDataAs<ColladaInstanceNode>(instNode);
 
     if(colInstNode == NULL)
     {
-        colInstNode = ColladaInstanceNode::create(instNode, getGlobal());
-        addElement(colInstNode);
-    
+        colInstNode = dynamic_pointer_cast<ColladaInstanceNode>(
+            ColladaElementFactory::the()->create(instNode, getGlobal()));
+
         colInstNode->read();
     }
-    
-    _transNode->addChild(colInstNode->createInstance());
+
+    NodeUnrecPtr childN = colInstNode->process(this);
+
+    appendChild(childN);
 }
 
-void ColladaNode::handleInstanceGeometry(domInstance_geometry *instGeo)
+void
+ColladaNode::handleInstanceGeometry(domInstance_geometry *instGeo)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleInstanceGeometry:\n"));
-
     ColladaInstanceGeometryRefPtr colInstGeo =
         getUserDataAs<ColladaInstanceGeometry>(instGeo);
 
     if(colInstGeo == NULL)
     {
-        colInstGeo = ColladaInstanceGeometry::create(instGeo, getGlobal());
-        addElement(colInstGeo);
-    
+        colInstGeo = dynamic_pointer_cast<ColladaInstanceGeometry>(
+            ColladaElementFactory::the()->create(instGeo, getGlobal()));
+
         colInstGeo->read();
     }
-    
-    _transNode->addChild(colInstGeo->createInstance());
+
+    NodeUnrecPtr geoN = colInstGeo->process(this);
+
+    appendChild(geoN);
 }
 
-void ColladaNode::handleInstanceLight(domInstance_light *instLight)
+void
+ColladaNode::handleInstanceController(domInstance_controller *instController)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleInstanceLight:\n"));
-
-    ColladaInstanceLightRefPtr colInstLight =
-        getUserDataAs<ColladaInstanceLight>(instLight);
-
-    if(colInstLight == NULL)
-    {
-        colInstLight = ColladaInstanceLight::create(instLight, getGlobal());
-        addElement(colInstLight);
-
-        colInstLight->read();
-    }
-
-    LightUnrecPtr light  = colInstLight->createInstance();
-
-    if(light != NULL)
-        light->setBeacon(_transNode);
+    SWARNING << "ColladaNode::handleInstanceController: NIY"
+             << std::endl;
 }
 
-void ColladaNode::handleNode(domNode *node)
+/*! Add a transform node to the OpenSG tree representing
+    this <node>.
+ */
+void
+ColladaNode::appendXForm(Node *xformN)
 {
-    OSG_COLLADA_LOG(("ColladaNode::handleNode:\n"));
-    
-    ColladaNodeRefPtr colNode = getUserDataAs<ColladaNode>(node);
-
-    if(colNode == NULL)
+    if(_topN == NULL)
     {
-        colNode = ColladaNode::create(node, getGlobal());
-        addElement(colNode);
-    
-        colNode->read();
+        _topN = xformN;
     }
-    
-    _transNode->addChild(colNode->getNode());
+
+    if(_bottomN != NULL)
+    {
+        _bottomN->addChild(xformN);
+    }
+
+    _bottomN = xformN;
+}
+
+/*! Add a child node to the OpenSG tree representing
+    this <node>.
+ */
+void
+ColladaNode::appendChild(Node *childN)
+{
+    if(_bottomN == NULL)
+    {
+        _bottomN = makeCoredNode<Group>();
+
+        domNodeRef node = getDOMElementAs<domNode>();
+
+        if(node->getName() != NULL)
+        {
+            setName(_bottomN, node->getName());
+        }
+    }
+
+    if(_topN == NULL)
+    {
+        _topN = _bottomN;
+    }
+
+    _bottomN->addChild(childN);
 }
 
 OSG_END_NAMESPACE

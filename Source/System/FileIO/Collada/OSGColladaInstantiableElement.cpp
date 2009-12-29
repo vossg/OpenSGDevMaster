@@ -36,28 +36,28 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
 #include "OSGColladaInstantiableElement.h"
-#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-/*! \class OSG::ColladaInstantiableElement
-    The base class for all objects that can be instantiated in the Collada
-    file (i.e. those with corresponding <instance_*> tags).
- */
-
 OSG_BEGIN_NAMESPACE
+
+FieldContainer *
+ColladaInstantiableElement::process(ColladaElement *parent)
+{
+    SFATAL << "ColladaInstantiableElement::process: "
+           << "InstantiableElements must be created from their "
+           << "respective <instance_*> elements with createInstance()"
+           << std::endl;
+
+    return NULL;
+}
 
 ColladaInstantiableElement::ColladaInstantiableElement(
     daeElement *elem, ColladaGlobal *global)
 
-    : Inherited (elem, global),
-      _instCount(0           )
+    : Inherited (elem, global)
+    , _instStore(            )
 {
 }
 

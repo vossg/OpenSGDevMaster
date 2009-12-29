@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,54 +38,71 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline ColladaGlobalTransitPtr ColladaGlobal::create(void)
-{
-    return ColladaGlobalTransitPtr(new ColladaGlobal());
-}
-
-inline DAE &ColladaGlobal::getDAE(void)
+inline const DAE *
+ColladaGlobal::getDAE(void) const
 {
     return _dae;
 }
 
-inline void ColladaGlobal::setDocPath(const std::string &docPath)
+inline DAE *
+ColladaGlobal::editDAE(void)
 {
-    _docPath = docPath;
+    return _dae;
 }
 
-inline const std::string &ColladaGlobal::getDocPath(void) const
+inline const std::string &
+ColladaGlobal::getDocPath(void) const
 {
     return _docPath;
 }
 
-inline Node *ColladaGlobal::getRootNode(void) const
+inline void
+ColladaGlobal::setDocPath(const std::string &docPath)
+{
+    _docPath = docPath;
+}
+
+inline ColladaOptions *
+ColladaGlobal::getOptions(void) const
+{
+    return _options;
+}
+
+inline void
+ColladaGlobal::setOptions(ColladaOptions *options)
+{
+    _options = options;
+}
+
+inline Node *
+ColladaGlobal::getRoot(void) const
 {
     return _rootN;
 }
 
-inline Node *ColladaGlobal::getLightsNode(void) const
+inline void
+ColladaGlobal::setRoot(Node *rootN)
 {
-  return _lightsN;
+    if(_rootN != NULL)
+    {
+        SWARNING << "ColladaGlobal::setRoot: Root already set. Overwriting."
+                 << std::endl;
+    }
+
+    _rootN = rootN;
 }
 
-inline void ColladaGlobal::addElement(ColladaElement *elem)
+
+inline const ColladaGlobal::ElementStore &
+ColladaGlobal::getElemStore(void) const
 {
-    _elements.push_back(elem);
+    return _elemStore;
 }
 
-inline void ColladaGlobal::subElement(ColladaElement *elem)
+inline ColladaGlobal::ElementStore &
+ColladaGlobal::editElemStore(void)
 {
-    ColladaElementStoreIt elemIt = std::find(
-        _elements.begin(), _elements.end(), elem);
-    
-    if(elemIt != _elements.end())
-        _elements.erase(elemIt);
-}
-
-inline
-bool ColladaGlobal::invertTransparency(void) const
-{
-    return _invertTransparency;
+    return _elemStore;
 }
 
 OSG_END_NAMESPACE

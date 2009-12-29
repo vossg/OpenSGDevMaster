@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                   Copyright (C) 2008 by the OpenSG Forum                  *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,17 +36,82 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#ifndef _OSGCOLLADASCENE_H_
+#define _OSGCOLLADASCENE_H_
+#ifdef __sgi
+#pragma once
+#endif
+
+/*! \file OSGColladaScene.h
+    \ingroup GrpLoader
+ */
+#include "OSGConfig.h"
+
+#ifdef OSG_WITH_COLLADA
+
+#include "OSGColladaElement.h"
+#include "OSGColladaElementFactoryHelper.h"
+
 OSG_BEGIN_NAMESPACE
 
-inline ColladaImageTransitPtr ColladaImage::create(
-    domImage *image, ColladaGlobal *global)
-{
-    return ColladaImageTransitPtr(new ColladaImage(image, global));
-}
+// forward decl
+class ColladaInstanceVisualScene;
+OSG_GEN_MEMOBJPTR(ColladaInstanceVisualScene);
 
-inline Image *ColladaImage::getImage(void)
+
+class OSG_FILEIO_DLLMAPPING ColladaScene : public ColladaElement
 {
-    return _image;
-}
+    /*==========================  PUBLIC  =================================*/
+  public:
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef ColladaElement  Inherited;
+    typedef ColladaScene    Self;
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaScene);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Craete                                                       */
+    /*! \{                                                                 */
+
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
+
+    virtual void            read   (void                  );
+    virtual FieldContainer *process(ColladaElement *parent);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
+  protected:
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
+    
+             ColladaScene(daeElement *elem, ColladaGlobal *global);
+    virtual ~ColladaScene(void                                   );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    static ColladaElementRegistrationHelper _regHelper;
+
+    ColladaInstanceVisualSceneRefPtr        _colInstVisScene;
+};
+
+OSG_GEN_MEMOBJPTR(ColladaScene);
 
 OSG_END_NAMESPACE
+
+// #include "OSGColladaScene.inl"
+
+#endif // OSG_WITH_COLLADA
+
+#endif // _OSGCOLLADASCENE_H_

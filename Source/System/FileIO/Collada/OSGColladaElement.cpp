@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,23 +36,16 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
 #include "OSGColladaElement.h"
-#include "OSGColladaLog.h"
+#include "OSGColladaGlobal.h"
 
 #ifdef OSG_WITH_COLLADA
-
-#include "OSGColladaGlobal.h"
 
 /*! \class OSG::ColladaElement
     The base class for all objects responsible for converting a part of the
     Collada DOM representation to OpenSG data structures.
     Each has a pointer to the DOM element it converts (\c _elem ) and a pointer
-    to the special \c ColladaGlobal element (\c _global ).
+    to a \c ColladaGlobal object (\c _global ).
     
     Each DOM element that has a corresponding \c ColladaElement associated with
     it, stores a pointer to it in its user data pointer. This pointer allows
@@ -60,28 +53,28 @@
     DOM.
  */
 
+/*! \fn void ColladaElement::read(void)
+    Read the collada DOM elements and generate internal data structures.
+    This function will only be called once for every ColladaElement,
+    usually right after it is created.
+ */
+
+/*! \fn FieldContainer *ColladaElement::process(ColladaElement *parent)
+    Generates the OpenSG data structures that correspond to this
+    ColladaElement.
+ */
+
 OSG_BEGIN_NAMESPACE
 
 ColladaElement::ColladaElement(daeElement *elem, ColladaGlobal *global)
-    : _global(global),
-      _elem  (elem  )
+    : Inherited(      )
+    , _elem    (elem  )
+    , _global  (global)
 {
-    if(_elem != NULL)
-        _elem->setUserData(this);
 }
 
 ColladaElement::~ColladaElement(void)
 {
-}
-
-void ColladaElement::addElement(ColladaElement *elem)
-{
-    _global->addElement(elem);
-}
-
-void ColladaElement::subElement(ColladaElement *elem)
-{
-    _global->subElement(elem);
 }
 
 OSG_END_NAMESPACE

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,68 +38,71 @@
 
 #ifndef _OSGCOLLADAVISUALSCENE_H_
 #define _OSGCOLLADAVISUALSCENE_H_
-#ifdef __sgi
-#pragma once
-#endif
-
-/*! \file OSGColladaVisualScene.h
-    \ingroup GrpLoader
- */
 
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGFileIODef.h"
 #include "OSGColladaInstantiableElement.h"
-
+#include "OSGColladaElementFactoryHelper.h"
 #include "OSGNode.h"
-#include "OSGGroup.h"
-
-// forward declarations
-class domVisual_scene;
-
 
 OSG_BEGIN_NAMESPACE
-
-// forward declarations
-class ColladaInstanceVisualScene;
-
 
 class OSG_FILEIO_DLLMAPPING ColladaVisualScene
     : public ColladaInstantiableElement
 {
+    /*==========================  PUBLIC  =================================*/
   public:
-    typedef ColladaInstantiableElement              Inherited;
-    typedef ColladaVisualScene                      Self;
-    
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    
-    static inline ObjTransitPtr create(domVisual_scene *visScene,
-                                       ColladaGlobal   *global   );
-    
-    virtual void read(void);
-    
-    inline Node *getNode(void) const;
-    
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
+
+    typedef ColladaInstantiableElement Inherited;
+    typedef ColladaVisualScene         Self;
+
+    OSG_GEN_INTERNAL_MEMOBJPTR(ColladaVisualScene);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Create                                                       */
+    /*! \{                                                                 */
+
+    static ColladaElementTransitPtr
+        create(daeElement *elem, ColladaGlobal *global);
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Reading                                                      */
+    /*! \{                                                                 */
+
+    virtual void  read          (void                            );
+    virtual Node *process       (ColladaElement         *parent  );
+
+    virtual Node *createInstance(ColladaInstanceElement *instElem);
+
+    /*! \}                                                                 */
+    /*=========================  PROTECTED  ===============================*/
   protected:
-    friend class ColladaInstanceVisualScene;
-      
-             ColladaVisualScene(domVisual_scene *visScene,
-                                ColladaGlobal   *global   );
-    virtual ~ColladaVisualScene(void                      );
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructors/Destructor                                      */
+    /*! \{                                                                 */
     
-    NodeUnrecPtr  _groupNode;
-    GroupUnrecPtr _group;
+             ColladaVisualScene(daeElement    *elem,
+                                ColladaGlobal *global);
+    virtual ~ColladaVisualScene(void                 );
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+
+    static ColladaElementRegistrationHelper _regHelper;
 };
 
-typedef ColladaVisualScene::ObjRefPtr     ColladaVisualSceneRefPtr;
-typedef ColladaVisualScene::ObjTransitPtr ColladaVisualSceneTransitPtr;
+OSG_GEN_MEMOBJPTR(ColladaVisualScene);
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaVisualScene.inl"
+// #include "OSGColladaVisualScene.inl"
 
 #endif // OSG_WITH_COLLADA
 

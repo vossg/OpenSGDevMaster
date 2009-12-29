@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,23 +36,20 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
 #include "OSGColladaGeometry.h"
-#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
-#include "OSGColladaGlobal.h"
+#include "OSGColladaLog.h"
 #include "OSGColladaSource.h"
-
-#include "OSGColladaGeoInputAttachment.h"
-
+#include "OSGGeometry.h"
+#include "OSGGroup.h"
+#include "OSGTypedGeoVectorProperty.h"
+#include "OSGTypedGeoIntegralProperty.h"
 
 #include <dom/domGeometry.h>
+#include <dom/domMesh.h>
+#include <dom/domSource.h>
 #include <dom/domLines.h>
 #include <dom/domLinestrips.h>
 #include <dom/domPolygons.h>
@@ -63,322 +60,188 @@
 
 OSG_BEGIN_NAMESPACE
 
-void ColladaGeometry::read(void)
+ColladaElementRegistrationHelper ColladaGeometry::_regHelper(
+    &ColladaGeometry::create, "geometry");
+
+
+ColladaElementTransitPtr
+ColladaGeometry::create(daeElement *elem, ColladaGlobal *global)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::read:\n"));
+    return ColladaElementTransitPtr(new ColladaGeometry(elem, global));
+}
+
+void
+ColladaGeometry::read(void)
+{
+    OSG_COLLADA_LOG(("ColladaGeometry::read\n"));
 
     domGeometryRef geo  = getDOMElementAs<domGeometry>();
     domMeshRef     mesh = geo->getMesh();
 
     if(mesh == NULL)
     {
-        FWARNING(("ColladaGeometry::read: Geometry has no <mesh>.\n"));
+        SWARNING << "ColladaGeometry::read: No <mesh>" << std::endl;
         return;
     }
 
-    const domInputLocal_Array &vertInputs   =
-        mesh->getVertices()->getInput_array();
-    const domLines_Array      &lines       = mesh->getLines_array();
-
-    for(UInt32 i = 0, linesCount = lines.getCount(); i < linesCount; ++i)
-    {
-        handleLines(vertInputs, lines[i]);
-    }
-
-    const domLinestrips_Array &linestrips  = mesh->getLinestrips_array();
-
-    for(UInt32 i = 0, lsCount = linestrips.getCount(); i < lsCount; ++i)
-    {
-        handleLinestrips(vertInputs, linestrips[i]);
-    }
-
-    const domPolygons_Array   &polys       = mesh->getPolygons_array();
-
-    for(UInt32 i = 0, polysCount = polys.getCount(); i < polysCount; ++i)
-    {
-        handlePolygons(vertInputs, polys[i]);
-    }
-
-    const domPolylist_Array   &polylist    = mesh->getPolylist_array();
-
-    for(UInt32 i = 0, plCount = polylist.getCount(); i < plCount; ++i)
-    {
-        handlePolylist(vertInputs, polylist[i]);
-    }
-
-    const domTriangles_Array  &tris        = mesh->getTriangles_array();
-
-    for(UInt32 i = 0, trisCount = tris.getCount(); i < trisCount; ++i)
-    {
-        handleTriangles(vertInputs, tris[i]);
-    }
-
-    const domTrifans_Array    &trifans     = mesh->getTrifans_array();
-
-    for(UInt32 i = 0, tfCount = trifans.getCount(); i < tfCount; ++i)
-    {
-        handleTrifans(vertInputs, trifans[i]);
-    }
-
-    const domTristrips_Array  &tristrips   = mesh->getTristrips_array();
-
-    for(UInt32 i = 0, tsCount = tristrips.getCount(); i < tsCount; ++i)
-    {
-        handleTristrips(vertInputs, tristrips[i]);
-    }
+    readMesh(mesh);
 }
 
-ColladaGeometry::ColladaGeometry(domGeometry *geo, ColladaGlobal *global)
-    : Inherited(geo, global)
+FieldContainer *
+ColladaGeometry::process(ColladaElement *parent)
+{
+    SFATAL << "ColladaGeometry::process: <geometry> must be "
+           << "instantiated to use."
+           << std::endl;
+
+    OSG_ASSERT(false);
+}
+
+Node *
+ColladaGeometry::createInstance(ColladaInstanceElement *colInstElem)
+{
+    SWARNING << "ColladaGeometry::createInstance: NIY" << std::endl;
+
+    // XXX TODO - reuse geometry if possible
+    //          - handle <bind_material>
+
+    NodeUnrecPtr    groupN = makeCoredNode<Group>();
+
+    GeoStoreConstIt gsIt   = _geoStore.begin();
+    GeoStoreConstIt gsEnd  = _geoStore.end  ();
+
+    for(; gsIt != gsEnd; ++gsIt)
+    {
+        OSG_ASSERT(gsIt->_propStore.size() == gsIt->_indexStore.size());
+
+        GeometryUnrecPtr geo  = Geometry::create();
+        NodeUnrecPtr     geoN = makeNodeFor(geo);
+        
+        geo->setLengths(gsIt->_lengths);
+        geo->setTypes  (gsIt->_types  );
+
+        PropStoreConstIt  psIt  = gsIt->_propStore .begin();
+        PropStoreConstIt  psEnd = gsIt->_propStore .end  ();
+        IndexStoreConstIt isIt  = gsIt->_indexStore.begin();
+        IndexStoreConstIt isEnd = gsIt->_indexStore.end  ();
+
+        for(UInt32 i = 0; psIt != psEnd && isIt != isEnd; ++psIt, ++isIt, ++i)
+        {
+            if(psIt->_prop != NULL && *isIt != NULL)
+            {
+                geo->setProperty( psIt->_prop, i);
+                geo->setIndex   (*isIt,        i);
+            }
+        }
+
+        groupN->addChild(geoN);
+    }
+
+    editInstStore().push_back(groupN);
+
+    return groupN;
+}
+
+ColladaGeometry::ColladaGeometry(daeElement *elem, ColladaGlobal *global)
+    : Inherited(elem, global)
 {
 }
 
 ColladaGeometry::~ColladaGeometry(void)
 {
-    GeoMapIt geoIt  = _geosMap.begin();
-    GeoMapIt geoEnd = _geosMap.end  ();
-
-    for(; geoIt != geoEnd; ++geoIt)
-        delete geoIt->second;
 }
 
-
-void ColladaGeometry::setupGeometry(
-          xsNCName                    matName,
-    const domInputLocal_Array        &vertInputs,
-    const domInputLocalOffset_Array  &inputs,
-          GeoUInt32PropertyUnrecPtr  &lengthsOut,
-          GeoUInt8PropertyUnrecPtr   &typesOut,
-          IndexVec                   &indexVecOut )
+void
+ColladaGeometry::readMesh(domMesh *mesh)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry:\n"));
+    readSources(mesh);
 
-    daeURI      sourceURI(getGlobal()->getDAE());
+    const domLines_Array &linesArray = mesh->getLines_array();
 
-    std::string geoRef;
-    std::string matRef;
-
-    lengthsOut = NULL;
-    typesOut   = NULL;
-
-    if(matName != NULL)
+    for(UInt32 i = 0; i < linesArray.getCount(); ++i)
     {
-        geoRef = matName;
-        matRef = matName;
+        readLines(mesh, linesArray[i]);
     }
 
-    for(UInt32 i = 0; i < inputs.getCount(); ++i)
+    const domLinestrips_Array &lineStripsArray = mesh->getLinestrips_array();
+
+    for(UInt32 i = 0; i < lineStripsArray.getCount(); ++i)
     {
-        sourceURI = inputs[i]->getSource();
-
-        OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
-                         "offset [%u] semantic [%s] source.id [%s] source.uri [%s]\n",
-                         inputs[i]->getOffset(),
-                         inputs[i]->getSemantic(),
-                         sourceURI.getID(),
-                         sourceURI.getURI()));
-
-        geoRef += sourceURI.getID();
+        readLineStrips(mesh, lineStripsArray[i]);
     }
 
-    OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: geoRef [%s] matRef [%s]\n",
-                     geoRef.c_str(), matRef.c_str()));
+    const domPolygons_Array &polygonsArray = mesh->getPolygons_array();
 
-    GeoMapIt      currGeoIt = _geosMap.find(geoRef);
-    GeometryInfo *geoInfo   = NULL;
-
-    if(currGeoIt == _geosMap.end())
+    for(UInt32 i = 0; i < polygonsArray.getCount(); ++i)
     {
-        geoInfo = new GeometryInfo;
-
-        geoInfo->geo = Geometry::create();
-
-        _geosMap  [geoRef] = geoInfo;
-        _geosByMat[matRef].push_back(geoInfo);
-
-        for(UInt32 i = 0; i < inputs.getCount(); ++i)
-        {
-            UInt32 propIdx = mapSemanticToGeoProp(inputs[i]->getSemantic());
-
-            // index and vector data for this input
-            GeoUInt32PropertyUnrecPtr iProp = GeoUInt32Property::create();
-            GeoVectorPropertyUnrecPtr vProp = NULL;
-
-            if(propIdx == 0xFFFE)
-            {
-                // handle <input semantic=VERTEX ...>
-
-                for(UInt32 j = 0; j < vertInputs.getCount(); ++j)
-                {
-                    UInt32 viPropIdx =
-                        mapSemanticToGeoProp(vertInputs[j]->getSemantic());
-
-                    geoInfo->geo->setIndex(iProp, viPropIdx);
-
-                    OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
-                                     "added vertices prop: "
-                                     "semantic [%s] viPropIdx [%d]\n",
-                                     vertInputs[j]->getSemantic(), viPropIdx));
-
-                    vProp = fillVecProp(viPropIdx, vertInputs[j]->getSource());
-
-                    geoInfo->geo->setProperty(vProp, viPropIdx);
-                }
-            }
-            else if(propIdx == 0xFFFF || propIdx == Geometry::TexCoordsIndex)
-            {
-                // handle <input semantic=TEXCOORD ...> and
-                //        <input semantic=??? ...>
-
-                SourcePropIndexMapIt propIt = geoInfo->sourcePropIndexMap.find(
-                    inputs[i]->getSource().getID());
-
-                if(propIt == geoInfo->sourcePropIndexMap.end())
-                {
-                    vProp = fillVecProp(propIdx, inputs[i]->getSource());
-                }
-            }
-            else
-            {
-                // handle <input semantic=POSITION ...> and
-                //        <input semantic=NORMAL ...>
-
-                geoInfo->geo->setIndex(iProp, propIdx);
-
-                OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
-                                 "added prop: semantic [%s] propIdx [%d]\n",
-                                 inputs[i]->getSemantic(), propIdx));
-
-                vProp = fillVecProp(propIdx, inputs[i]->getSource());
-
-                geoInfo->geo->setProperty(vProp, propIdx);
-            }
-            
-            // store the property/propIndex pair in the map
-            SourcePropIndexMapIt propIt = geoInfo->sourcePropIndexMap.find(
-                inputs[i]->getSource().getID());
-            
-            if(propIt == geoInfo->sourcePropIndexMap.end () &&
-               iProp  != NULL                               &&
-               vProp  != NULL                                 )
-            {
-                PropIndexPair newPair;
-                newPair.first  = vProp;
-                newPair.second = iProp;
-                
-                geoInfo->sourcePropIndexMap[
-                    inputs[i]->getSource().getID()            ] = newPair;
-                geoInfo->semanticPropIndexMap[
-                    SemanticSetPair(inputs[i]->getSemantic(),
-                                    inputs[i]->getSet     () )] = newPair;
-                
-                OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
-                                 "Store prop/index [%s] [%u] [%s]:\n"
-                                 "  [%p] : [%s]\n"
-                                 "  [%p] : [%s]\n",
-                                 inputs[i]->getSemantic(),
-                                 inputs[i]->getSet     (),
-                                 inputs[i]->getSource  ().getID(),
-                                 newPair.first.get(),
-                                 newPair.first->getType().getCName(),
-                                 newPair.second.get(),
-                                 newPair.second->getType().getCName() ));
-            }
-        }
-
-        lengthsOut = GeoUInt32Property::create();
-        typesOut   = GeoUInt8Property ::create();
-
-        geoInfo->geo->setLengths(lengthsOut);
-        geoInfo->geo->setTypes  (typesOut  );
-    }
-    else
-    {
-        geoInfo = currGeoIt->second;
-
-        lengthsOut =
-            static_cast<GeoUInt32Property *>(geoInfo->geo->getLengths());
-        typesOut   =
-            static_cast<GeoUInt8Property  *>(geoInfo->geo->getTypes  ());
+        readPolygons(mesh, polygonsArray[i]);
     }
 
-    ColladaGeoInputAttachmentUnrecPtr inputAtt =
-        ColladaGeoInputAttachment::create();
-    geoInfo->geo->addAttachment(inputAtt);
+    const domPolylist_Array &polyListArray = mesh->getPolylist_array();
+
+    for(UInt32 i = 0; i < polyListArray.getCount(); ++i)
+    {
+        readPolyList(mesh, polyListArray[i]);
+    }
+
+    const domTriangles_Array &triArray = mesh->getTriangles_array();
     
-    for(UInt32 i = 0; i < inputs.getCount(); ++i)
+    for(UInt32 i = 0; i < triArray.getCount(); ++i)
     {
-        if(indexVecOut.size() <= inputs[i]->getOffset())
-            indexVecOut.resize(inputs[i]->getOffset() + 1);
-
-        UInt32 propIdx = mapSemanticToGeoProp(inputs[i]->getSemantic(), true);
-
-        if(propIdx != Geometry::TexCoordsIndex)
-        {
-            indexVecOut[inputs[i]->getOffset()] =
-                static_cast<GeoUInt32Property *>(
-                    geoInfo->geo->getIndex(propIdx));
-        }
-        else
-        {
-            SourcePropIndexMapIt propIt = geoInfo->sourcePropIndexMap.find(
-                inputs[i]->getSource().getID());
-
-            if(propIt != geoInfo->sourcePropIndexMap.end())
-            {
-                indexVecOut[inputs[i]->getOffset()] =
-                    static_pointer_cast<GeoUInt32Property>(
-                        propIt->second.second);
-            }
-        }
-        
-        // store all inputs in an attachment to the geometry
-        SourcePropIndexMapIt propIt = geoInfo->sourcePropIndexMap.find(
-            inputs[i]->getSource().getID());
-        
-        if(propIt != geoInfo->sourcePropIndexMap.end())
-        {
-            OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
-                             "inputAtt [%s] [%d] [%p] [%p]\n",
-                             inputs[i]->getSemantic(),
-                             inputs[i]->getSet     (),
-                             propIt->second.first.get(),
-                             propIt->second.second.get() ));
-            
-            inputAtt->editMFSemantics  ()->push_back(inputs[i]->getSemantic());
-            inputAtt->editMFSets       ()->push_back(inputs[i]->getSet     ());
-            inputAtt->editMFProperties ()->push_back(propIt->second.first    );
-            inputAtt->editMFPropIndices()->push_back(propIt->second.second   );
-        }
+        readTriangles(mesh, triArray[i]);
     }
 
-#ifndef OSG_COLLADA_SILENT
-    for(UInt32 i = 0; i < indexVecOut.size(); ++i)
+    const domTrifans_Array &triFansArray = mesh->getTrifans_array();
+
+    for(UInt32 i = 0; i < triFansArray.getCount(); ++i)
     {
-        OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
-                         "indexVecOut i [%d] : [%p]\n",
-                         i, &(*(indexVecOut[i]))       ));
+        readTriFans(mesh, triFansArray[i]);
     }
-#endif
+
+    const domTristrips_Array &triStripsArray = mesh->getTristrips_array();
+
+    for(UInt32 i = 0; i < triStripsArray.getCount(); ++i)
+    {
+        readTriStrips(mesh, triStripsArray[i]);
+    }
 }
 
-
-
-
-
-void ColladaGeometry::handleLines(
-    const domInputLocal_Array &vertInputs, domLines *lines)
+void
+ColladaGeometry::readSources(domMesh *mesh)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::handleLines:\n"));
+    const domSource_Array &sources = mesh->getSource_array();
 
-    const domInputLocalOffset_Array &inputs = lines->getInput_array();
+    for(UInt32 i = 0; i < sources.getCount(); ++i)
+    {
+        ColladaSourceRefPtr colSource =
+            getUserDataAs<ColladaSource>(sources[i]);
 
-    GeoUInt32PropertyUnrecPtr lengths = NULL;
-    GeoUInt8PropertyUnrecPtr  types   = NULL;
-    IndexVec                  iProps;
+        if(colSource == NULL)
+        {
+            colSource = dynamic_pointer_cast<ColladaSource>(
+                ColladaElementFactory::the()->create(sources[i], getGlobal()));
 
-    setupGeometry(lines->getMaterial(), vertInputs, inputs,
-                  lengths, types, iProps                   );
+            colSource->read();
+        }
+
+        _sourceMap.insert(
+            SourceMap::value_type(sources[i]->getId(), colSource));
+    }
+}
+
+void
+ColladaGeometry::readLines(domMesh *mesh, domLines *lines)
+{
+    OSG_COLLADA_LOG(("ColladaGeometry::readLines\n"));
+
+    const domInputLocal_Array       &vertInputs =
+        mesh->getVertices()->getInput_array();
+    const domInputLocalOffset_Array &inputs     =
+        lines              ->getInput_array();
+
+    IndexStore idxStore;
+    UInt32     geoIdx   = setupGeometry(vertInputs, inputs,
+                                        lines->getMaterial(), idxStore);
 
     const domListOfUInts &pList   = lines->getP()->getValue();
     UInt32                currIdx = 0;
@@ -386,36 +249,36 @@ void ColladaGeometry::handleLines(
 
     for(UInt32 i = 0; i < pList.getCount(); ++i)
     {
-        iProps[currIdx]->push_back(pList[i]);
+        idxStore[currIdx]->push_back(pList[i]);
 
         ++currIdx;
 
-        if(currIdx == iProps.size())
+        if(currIdx == idxStore.size())
         {
             currIdx = 0;
             ++length;
         }
     }
 
-    types  ->push_back(GL_LINES);
-    lengths->push_back(length  );
+    _geoStore[geoIdx]._types  ->push_back(GL_LINES);
+    _geoStore[geoIdx]._lengths->push_back(length  );
 }
 
-void ColladaGeometry::handleLinestrips(
-    const domInputLocal_Array &vertInputs, domLinestrips *linestrips)
+void
+ColladaGeometry::readLineStrips(domMesh *mesh, domLinestrips *lineStrips)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::handleLinestrips:\n"));
+    OSG_COLLADA_LOG(("ColladaGeometry::readLineStrips\n"));
 
-    const domInputLocalOffset_Array &inputs = linestrips->getInput_array();
+    const domInputLocal_Array       &vertInputs =
+        mesh->getVertices()->getInput_array();
+    const domInputLocalOffset_Array &inputs     =
+        lineStrips         ->getInput_array();
 
-    GeoUInt32PropertyUnrecPtr lengths = NULL;
-    GeoUInt8PropertyUnrecPtr  types   = NULL;
-    IndexVec                  iProps;
+    IndexStore idxStore;
+    UInt32     geoIdx   = setupGeometry(vertInputs, inputs,
+                                        lineStrips->getMaterial(), idxStore);
 
-    setupGeometry(linestrips->getMaterial(), vertInputs, inputs,
-                  lengths, types, iProps                        );
-
-    const domP_Array &pArray  = linestrips->getP_array();
+    const domP_Array &pArray  = lineStrips->getP_array();
     UInt32            currIdx = 0;
     UInt32            length  = 0;
 
@@ -425,37 +288,37 @@ void ColladaGeometry::handleLinestrips(
 
         for(UInt32 j = 0; j < pList.getCount(); ++j)
         {
-            iProps[currIdx]->push_back(pList[j]);
+            idxStore[currIdx]->push_back(pList[j]);
 
             ++currIdx;
 
-            if(currIdx == iProps.size())
+            if(currIdx == idxStore.size())
             {
                 currIdx = 0;
                 ++length;
             }
         }
 
-        types  ->push_back(GL_LINE_STRIP);
-        lengths->push_back(length       );
+        _geoStore[geoIdx]._types  ->push_back(GL_LINE_STRIP);
+        _geoStore[geoIdx]._lengths->push_back(length       );
 
         length = 0;
     }
 }
 
-void ColladaGeometry::handlePolygons(
-    const domInputLocal_Array &vertInputs, domPolygons *polygons)
+void
+ColladaGeometry::readPolygons(domMesh *mesh, domPolygons *polygons)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::handlePolygons:\n"));
+    OSG_COLLADA_LOG(("ColladaGeometry::readPolygons\n"));
 
-    const domInputLocalOffset_Array &inputs = polygons->getInput_array();
+    const domInputLocal_Array       &vertInputs =
+        mesh->getVertices()->getInput_array();
+    const domInputLocalOffset_Array &inputs     =
+        polygons           ->getInput_array();
 
-    GeoUInt32PropertyUnrecPtr lengths = NULL;
-    GeoUInt8PropertyUnrecPtr  types   = NULL;
-    IndexVec                  iProps;
-
-    setupGeometry(polygons->getMaterial(), vertInputs, inputs,
-                  lengths, types, iProps                      );
+    IndexStore idxStore;
+    UInt32     geoIdx   = setupGeometry(vertInputs, inputs,
+                                        polygons->getMaterial(), idxStore);
 
     const domP_Array &pArray  = polygons->getP_array();
     UInt32            currIdx = 0;
@@ -467,19 +330,19 @@ void ColladaGeometry::handlePolygons(
 
         for(UInt32 j = 0; j < pList.getCount(); ++j)
         {
-            iProps[currIdx]->push_back(pList[j]);
+            idxStore[currIdx]->push_back(pList[j]);
 
             ++currIdx;
 
-            if(currIdx == iProps.size())
+            if(currIdx == idxStore.size())
             {
                 currIdx = 0;
                 ++length;
             }
         }
 
-        types  ->push_back(GL_POLYGON);
-        lengths->push_back(length    );
+        _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
+        _geoStore[geoIdx]._lengths->push_back(length    );
 
         length = 0;
     }
@@ -497,72 +360,111 @@ void ColladaGeometry::handlePolygons(
 
         for(UInt32 j = 0; j < pList.getCount(); ++j)
         {
-            iProps[currIdx]->push_back(pList[j]);
+            idxStore[currIdx]->push_back(pList[j]);
 
             ++currIdx;
 
-            if(currIdx == iProps.size())
+            if(currIdx == idxStore.size())
             {
                 currIdx = 0;
                 ++length;
             }
         }
 
-        types  ->push_back(GL_POLYGON);
-        lengths->push_back(length    );
+        _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
+        _geoStore[geoIdx]._lengths->push_back(length    );
 
         length = 0;
+
+        if(phArray[i]->getH_array().getCount() > 0)
+        {
+            SWARNING << "ColladaGeometry::readPolygon: Ignoring ["
+                     << phArray[i]->getH_array().getCount()
+                     << "] holes in polygon." << std::endl;
+        }
     }
 }
 
-void ColladaGeometry::handlePolylist(
-    const domInputLocal_Array &vertInputs, domPolylist *polylist)
+void
+ColladaGeometry::readPolyList(domMesh *mesh, domPolylist *polyList)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::handlePolylist:\n"));
+    OSG_COLLADA_LOG(("ColladaGeometry::readPolyList\n"));
 
-    const domInputLocalOffset_Array &inputs = polylist->getInput_array();
+    const domInputLocal_Array       &vertInputs =
+        mesh->getVertices()->getInput_array();
+    const domInputLocalOffset_Array &inputs     =
+        polyList           ->getInput_array();
 
-    GeoUInt32PropertyUnrecPtr lengths = NULL;
-    GeoUInt8PropertyUnrecPtr  types   = NULL;
-    IndexVec                  iProps;
+    IndexStore idxStore;
+    UInt32     geoIdx   = setupGeometry(vertInputs, inputs,
+                                        polyList->getMaterial(), idxStore);
 
-    setupGeometry(polylist->getMaterial(), vertInputs, inputs,
-                  lengths, types, iProps                      );
+    const domListOfUInts &pList    = polyList->getP     ()->getValue();
+    const domListOfUInts &vList    = polyList->getVcount()->getValue();
+    UInt32                currIdx  = 0;
+    bool                  useQuads = true;
 
-    const domListOfUInts &pList   = polylist->getP     ()->getValue();
-    const domListOfUInts &vList   = polylist->getVcount()->getValue();
-    UInt32                currIdx = 0;
-
+    // check if all polys are quads
     for(UInt32 i = 0; i < vList.getCount(); ++i)
     {
-        for(UInt32 j = 0; j < vList[i]; ++j)
+        if(vList[i] != 4)
         {
-            for(UInt32 k = 0; k < iProps.size(); ++k)
+            useQuads = false;
+            break;
+        }
+    }
+
+    OSG_COLLADA_LOG(("ColladaGeometry::readPolyList: useQuads [%d]\n",
+                     useQuads));
+
+    if(useQuads == true)
+    {
+        for(UInt32 i = 0; i < 4 * vList.getCount(); ++i)
+        {
+            for(UInt32 k = 0; k < idxStore.size(); ++k)
             {
-                iProps[k]->push_back(pList[currIdx]);
+                idxStore[k]->push_back(pList[currIdx]);
 
                 ++currIdx;
             }
         }
 
-        types  ->push_back(GL_POLYGON);
-        lengths->push_back(vList[i]  );
+        _geoStore[geoIdx]._types  ->push_back(GL_QUADS            );
+        _geoStore[geoIdx]._lengths->push_back(4 * vList.getCount());
+    }
+    else
+    {
+        for(UInt32 i = 0; i < vList.getCount(); ++i)
+        {
+            for(UInt32 j = 0; j < vList[i]; ++j)
+            {
+                for(UInt32 k = 0; k < idxStore.size(); ++k)
+                {
+                    idxStore[k]->push_back(pList[currIdx]);
+
+                    ++currIdx;
+                }
+            }
+
+            _geoStore[geoIdx]._types  ->push_back(GL_POLYGON);
+            _geoStore[geoIdx]._lengths->push_back(vList[i]  );
+        }
     }
 }
 
-void ColladaGeometry::handleTriangles(
-    const domInputLocal_Array &vertInputs, domTriangles *triangles)
+void
+ColladaGeometry::readTriangles(domMesh *mesh, domTriangles *triangles)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::handleTriangles:\n"));
+    OSG_COLLADA_LOG(("ColladaGeometry::readTriangles\n"));
 
-    const domInputLocalOffset_Array &inputs = triangles->getInput_array();
+    const domInputLocal_Array       &vertInputs =
+        mesh->getVertices()->getInput_array();
+    const domInputLocalOffset_Array &inputs     =
+        triangles          ->getInput_array();
 
-    GeoUInt32PropertyUnrecPtr lengths = NULL;
-    GeoUInt8PropertyUnrecPtr  types   = NULL;
-    IndexVec                  iProps;
-
-    setupGeometry(triangles->getMaterial(), vertInputs, inputs,
-                  lengths, types, iProps                       );
+    IndexStore idxStore;
+    UInt32     geoIdx   = setupGeometry(vertInputs, inputs,
+                                        triangles->getMaterial(), idxStore);
 
     const domListOfUInts &pList   = triangles->getP()->getValue();
     UInt32                currIdx = 0;
@@ -570,36 +472,36 @@ void ColladaGeometry::handleTriangles(
 
     for(UInt32 i = 0; i < pList.getCount(); ++i)
     {
-        iProps[currIdx]->push_back(pList[i]);
+        idxStore[currIdx]->push_back(pList[i]);
 
         ++currIdx;
 
-        if(currIdx == iProps.size())
+        if(currIdx == idxStore.size())
         {
             currIdx = 0;
             ++length;
         }
     }
 
-    types  ->push_back(GL_TRIANGLES);
-    lengths->push_back(length      );
+    _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLES);
+    _geoStore[geoIdx]._lengths->push_back(length      );
 }
 
-void ColladaGeometry::handleTrifans(
-    const domInputLocal_Array &vertInputs, domTrifans *trifans)
+void
+ColladaGeometry::readTriFans(domMesh *mesh, domTrifans *triFans)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::handleTrifans:\n"));
+    OSG_COLLADA_LOG(("ColladaGeometry::readTriFans\n"));
 
-    const domInputLocalOffset_Array &inputs = trifans->getInput_array();
+    const domInputLocal_Array       &vertInputs =
+        mesh->getVertices()->getInput_array();
+    const domInputLocalOffset_Array &inputs     =
+        triFans            ->getInput_array();
 
-    GeoUInt32PropertyUnrecPtr lengths = NULL;
-    GeoUInt8PropertyUnrecPtr  types   = NULL;
-    IndexVec                  iProps;
+    IndexStore idxStore;
+    UInt32     geoIdx   = setupGeometry(vertInputs, inputs,
+                                        triFans->getMaterial(), idxStore);
 
-    setupGeometry(trifans->getMaterial(), vertInputs, inputs,
-                  lengths, types, iProps                     );
-
-    const domP_Array &pArray  = trifans->getP_array();
+    const domP_Array &pArray  = triFans->getP_array();
     UInt32            currIdx = 0;
     UInt32            length  = 0;
 
@@ -609,39 +511,39 @@ void ColladaGeometry::handleTrifans(
 
         for(UInt32 j = 0; j < pList.getCount(); ++j)
         {
-            iProps[currIdx]->push_back(pList[j]);
+            idxStore[currIdx]->push_back(pList[j]);
 
             ++currIdx;
 
-            if(currIdx == iProps.size())
+            if(currIdx == idxStore.size())
             {
                 currIdx = 0;
                 ++length;
             }
         }
 
-        types  ->push_back(GL_TRIANGLE_FAN);
-        lengths->push_back(length         );
+        _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLE_FAN);
+        _geoStore[geoIdx]._lengths->push_back(length         );
 
         length = 0;
     }
 }
 
-void ColladaGeometry::handleTristrips(
-    const domInputLocal_Array &vertInputs, domTristrips *tristrips)
+void
+ColladaGeometry::readTriStrips(domMesh *mesh, domTristrips *triStrips)
 {
-    OSG_COLLADA_LOG(("ColladaGeometry::handleTristrips:\n"));
+    OSG_COLLADA_LOG(("ColladaGeometry::readTriStrips\n"));
 
-    const domInputLocalOffset_Array &inputs = tristrips->getInput_array();
+    const domInputLocal_Array       &vertInputs =
+        mesh->getVertices()->getInput_array();
+    const domInputLocalOffset_Array &inputs     =
+        triStrips          ->getInput_array();
 
-    GeoUInt32PropertyUnrecPtr lengths = NULL;
-    GeoUInt8PropertyUnrecPtr  types   = NULL;
-    IndexVec                  iProps;
+    IndexStore idxStore;
+    UInt32     geoIdx   = setupGeometry(vertInputs, inputs,
+                                        triStrips->getMaterial(), idxStore);
 
-    setupGeometry(tristrips->getMaterial(), vertInputs, inputs,
-                  lengths, types, iProps                       );
-
-    const domP_Array &pArray  = tristrips->getP_array();
+    const domP_Array &pArray  = triStrips->getP_array();
     UInt32            currIdx = 0;
     UInt32            length  = 0;
 
@@ -651,124 +553,208 @@ void ColladaGeometry::handleTristrips(
 
         for(UInt32 j = 0; j < pList.getCount(); ++j)
         {
-            iProps[currIdx]->push_back(pList[j]);
+            idxStore[currIdx]->push_back(pList[j]);
 
             ++currIdx;
 
-            if(currIdx == iProps.size())
+            if(currIdx == idxStore.size())
             {
                 currIdx = 0;
                 ++length;
             }
         }
 
-        types  ->push_back(GL_TRIANGLE_FAN);
-        lengths->push_back(length         );
+        _geoStore[geoIdx]._types  ->push_back(GL_TRIANGLE_STRIP);
+        _geoStore[geoIdx]._lengths->push_back(length           );
 
         length = 0;
     }
 }
 
-UInt32 ColladaGeometry::mapSemanticToGeoProp(
-    const std::string &semantic, bool vertexAsPos)
+UInt32
+ColladaGeometry::mapSemantic(
+    const std::string &semantic, UInt32 set, UInt32 geoIdx)
 {
-    UInt32 returnValue = 0xFFFF;
+    UInt32 propIdx = Geometry::LastIndex;
 
-    if(semantic == "VERTEX")
+    if(semantic == "POSITION")
     {
-        if(vertexAsPos == true)
-        {
-            returnValue = Geometry::PositionsIndex;
-        }
-        else
-        {
-            returnValue = 0xFFFE;
-        }
-    }
-    else if(semantic == "POSITION")
-    {
-        returnValue = Geometry::PositionsIndex;
+        propIdx = Geometry::PositionsIndex;
     }
     else if(semantic == "NORMAL")
     {
-        returnValue = Geometry::NormalsIndex;
+        propIdx = Geometry::NormalsIndex;
     }
     else if(semantic == "TEXCOORD")
     {
-        returnValue = Geometry::TexCoordsIndex;
+        if(set <= Geometry::TexCoords7Index)
+        {
+            propIdx = Geometry::TexCoordsIndex + set;
+        }
+        else
+        {
+            SWARNING << "ColladaGeometry::mapSemantic: TEXCOORD semantic has "
+                     << "out of range set [" << set << "]"
+                     << std::endl;
+        }
+    }
+    else
+    {
+        SWARNING << "ColladaGeometry::mapSemantic: Unknown semantic ["
+                 << semantic << "] set [" << set << "]" << std::endl;
     }
 
-    return returnValue;
+    OSG_COLLADA_LOG(("ColladaGeometry::mapSemantic: semantic [%s] "
+                     "set [%d] -> propIdx [%d]\n",
+                     semantic.c_str(), set, propIdx));
+
+    return propIdx;
 }
 
-GeoVectorProperty *ColladaGeometry::fillVecProp(
-    UInt32 propIdx, daeURI sourceURI)
+void
+ColladaGeometry::setupProperty(
+    UInt32 geoIdx, UInt32 propIdx, const std::string &semantic, UInt32 set,
+    const std::string &sourceId, GeoIntegralProperty *idxProp              )
 {
-    GeoVectorProperty *returnValue = NULL;
+    // resize
+    _geoStore[geoIdx]._propStore .resize(
+        osgMax<UInt32>(_geoStore[geoIdx]._propStore .size(), propIdx + 1),
+        PropInfo()                                                       );
+    _geoStore[geoIdx]._indexStore.resize(
+        osgMax<UInt32>(_geoStore[geoIdx]._indexStore.size(), propIdx + 1),
+        NULL                                                             );
 
-    OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: URI [%s]\n",
-                     sourceURI.getURI()));
+    // set index for the property
+    _geoStore[geoIdx]._indexStore[propIdx]          = idxProp;
 
-    daeElementRef elem = sourceURI.getElement();
+    // get property from source
+    SourceMapConstIt   smIt = _sourceMap.find(sourceId);
+    GeoVectorProperty *prop = NULL;
 
-    OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: elem [%s] [%s]\n",
-                     elem->getTypeName(), elem->getElementName()));
-
-    domVerticesRef vert   = daeSafeCast<domVertices>(elem);
-    domSourceRef   source = daeSafeCast<domSource  >(elem);
-
-    if(vert != NULL)
+    if(smIt != _sourceMap.end())
     {
-        const domInputLocal_Array &vertInputs = vert->getInput_array();
-
-        OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: vertInputs [%d]\n",
-                         vertInputs.getCount()));
-
-        daeURI sourceDesc = vertInputs[0]->getSource();
-
-        elem = sourceDesc.getElement();
-
-        OSG_COLLADA_LOG(("ColladaGeoemtry::fillVecProp: elem [%s] [%s]\n",
-                         elem->getTypeName(), elem->getElementName()));
-
-        source = daeSafeCast<domSource>(elem);
+        prop = smIt->second->getProperty(semantic, set);
+    }
+    else
+    {
+        SFATAL << "ColladaGeometry::setupProperty: "
+               << "No <source> found with id [" << sourceId << "]."
+               << std::endl;
     }
 
-    if(source != NULL)
+    // set property
+    _geoStore[geoIdx]._propStore[propIdx]._semantic = semantic;
+    _geoStore[geoIdx]._propStore[propIdx]._set      = set;
+    _geoStore[geoIdx]._propStore[propIdx]._prop     = prop;
+}
+
+UInt32
+ColladaGeometry::setupGeometry(const domInputLocal_Array       &vertInputs,
+                               const domInputLocalOffset_Array &inputs,
+                               xsNCName                         matSymbol,
+                               IndexStore                      &idxStore   )
+{
+    OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry\n"));
+
+    UInt32 geoIdx = _geoStore.size();
+    _geoStore.push_back(GeoInfo());
+
+    if(matSymbol != NULL)
     {
-        OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: source\n"));
+        _geoStore[geoIdx]._matSymbol = matSymbol;
+    }
+    else
+    {
+        SWARNING << "ColladaGeometry::setupGeometry: "
+                 << "Found empty material symbol." << std::endl;
+    }
 
-        ColladaSourceRefPtr colSource = getUserDataAs<ColladaSource>(source);
+    for(UInt32 i = 0; i < inputs.getCount(); ++i)
+    {
+        std::string semantic = inputs[i]->getSemantic();
+        UInt32      set      = inputs[i]->getSet     ();
+        UInt32      offset   = inputs[i]->getOffset  ();
+        std::string sourceId = inputs[i]->getSource  ().id();
 
-        if(colSource == NULL)
+        OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: input [%d] "
+                         "semantic [%s] set [%d] offset [%d] - source [%s]\n",
+                         i, semantic.c_str(), set, offset, sourceId.c_str()));
+
+        if(semantic == "VERTEX")
         {
-            colSource = ColladaSource::create(source, getGlobal());
-            addElement(colSource);
+            // handle <input> tag with semantic "VERTEX"
+            // by processing vertInputs
 
-            colSource->read();
+            // all vertInputs use the same index - with the offset from the
+            // <input> with semantic == VERTEX
+            if(offset >= idxStore.size() || idxStore[offset] == NULL)
+            {
+                OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
+                                 "new index property for offset [%d]\n",
+                                 offset));
+
+                // new index
+                idxStore.resize(
+                    osgMax<UInt32>(offset + 1, idxStore.size()), NULL);
+                idxStore[offset] = GeoUInt32Property::create();
+            }
+
+            for(UInt32 j = 0; j < vertInputs.getCount(); ++j)
+            {
+                semantic = vertInputs[j]->getSemantic();
+                sourceId = vertInputs[j]->getSource  ().id();
+
+                OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: vertices [%d] "
+                                 "semantic [%s] - source [%s]\n",
+                                 j, semantic.c_str(), sourceId.c_str()));
+
+                UInt32 propIdx = mapSemantic(semantic, 0, geoIdx);
+
+                setupProperty(geoIdx, propIdx, semantic, set, sourceId,
+                              idxStore[offset]                         );
+            }
         }
-
-        if(propIdx == Geometry::NormalsIndex)
+        else
         {
-            OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: reading as Vec3f\n"));
+            // handle regular <input> tags
 
-            returnValue = colSource->getAsVec3fProp();
-        }
-        else if(propIdx == Geometry::PositionsIndex)
-        {
-            OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: reading as Pnt3f\n"));
+            if(offset >= idxStore.size() || idxStore[offset] == NULL)
+            {
+                OSG_COLLADA_LOG(("ColladaGeometry::setupGeometry: "
+                                 "new index property for offset [%d]\n",
+                                 offset));
 
-            returnValue = colSource->getAsPnt3fProp();
-        }
-        else if(propIdx == Geometry::TexCoordsIndex)
-        {
-            OSG_COLLADA_LOG(("ColladaGeometry::fillVecProp: reading as Vec2f\n"));
+                // new index
+                idxStore.resize(osgMax<UInt32>(offset + 1, idxStore.size()), NULL);
+                idxStore[offset] = GeoUInt32Property::create();
+            }
 
-            returnValue = colSource->getAsVec2fProp();
+            UInt32 propIdx = mapSemantic(semantic, set, geoIdx);
+
+            setupProperty(geoIdx, propIdx, semantic, set, sourceId,
+                          idxStore[offset]                         );
         }
     }
 
-    return returnValue;
+#ifdef OSG_DEBUG
+    // check for holes in idxStore - which is not supported
+    IndexStoreConstIt idxIt  = idxStore.begin();
+    IndexStoreConstIt idxEnd = idxStore.end  ();
+
+    for(UInt32 i = 0; idxIt != idxEnd; ++idxIt, ++i)
+    {
+        if(*idxIt == NULL)
+        {
+            SWARNING << "ColladaGeometry::setupGeometry: idxStore contains "
+                     << "hole at [" << i << "]" << std::endl;
+        }
+    }
+#endif
+
+    _geoStore[geoIdx]._lengths = GeoUInt32Property::create();
+    _geoStore[geoIdx]._types   = GeoUInt8Property ::create();
+
+    return geoIdx;
 }
 
 OSG_END_NAMESPACE

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                   Copyright (C) 2009 by the OpenSG Forum                  *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,60 +36,46 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#ifndef _OSGCOLLADAIMAGE_H_
-#define _OSGCOLLADAIMAGE_H_
+#ifndef _OSGCOLLADAELEMENTFACTORYHELPER_H_
+#define _OSGCOLLADAELEMENTFACTORYHELPER_H_
 #ifdef __sgi
 #pragma once
 #endif
-
-/*! \file OSGColladaImage.h
-    \ingroup GrpLoader
- */
 
 #include "OSGConfig.h"
 
 #ifdef OSG_WITH_COLLADA
 
 #include "OSGFileIODef.h"
-#include "OSGColladaElement.h"
-
-#include "OSGImage.h"
-
-// forward declarations
-class domImage;
+#include "OSGColladaElementFactory.h"
 
 OSG_BEGIN_NAMESPACE
 
-class OSG_FILEIO_DLLMAPPING ColladaImage : public ColladaElement
+class OSG_FILEIO_DLLMAPPING ColladaElementRegistrationHelper
 {
+    /*==========================  PUBLIC  =================================*/
   public:
-    typedef ColladaElement                          Inherited;
-    typedef ColladaImage                            Self;
-    
-    typedef RefCountPtr<Self, MemObjRefCountPolicy> ObjRefPtr;
-    typedef TransitPtr <Self                      > ObjTransitPtr;
-    
-    static inline ObjTransitPtr create(domImage      *image,
-                                       ColladaGlobal *global);
-    
-    virtual void read(void);
+    /*---------------------------------------------------------------------*/
+    /*! \name Types                                                        */
+    /*! \{                                                                 */
 
-    inline Image *getImage(void);
-    
-  protected:
-             ColladaImage(domImage *image, ColladaGlobal *global);
-    virtual ~ColladaImage(void                                  );
-    
-    ImageUnrecPtr _image;
+    typedef ColladaElementFactorySingleton::CreateFunctor CreateFunctor;
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
+    /*! \name Constructor                                                  */
+    /*! \{                                                                 */
+
+    ColladaElementRegistrationHelper(CreateFunctor      createFunc,
+                                     const std::string &elemName,
+                                     const std::string &profile     = "");
+
+    /*! \}                                                                 */
+    /*---------------------------------------------------------------------*/
 };
-
-typedef ColladaImage::ObjRefPtr     ColladaImageRefPtr;
-typedef ColladaImage::ObjTransitPtr ColladaImageTransitPtr;
 
 OSG_END_NAMESPACE
 
-#include "OSGColladaImage.inl"
-
 #endif // OSG_WITH_COLLADA
 
-#endif // _OSGCOLLADAIMAGE_H_
+#endif // _OSGCOLLADAELEMENTFACTORYHELPER_H_

@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                Copyright (C) 2008 by the OpenSG Forum                     *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -36,77 +36,90 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
-#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
-//#pragma GCC diagnostic warning "-Wold-style-cast"
-#pragma GCC diagnostic ignored "-Wold-style-cast"
-#endif
-
 #include "OSGColladaInstanceVisualScene.h"
-#include "OSGColladaLog.h"
 
 #ifdef OSG_WITH_COLLADA
 
+#include "OSGColladaLog.h"
 #include "OSGColladaVisualScene.h"
+#include "OSGColladaGlobal.h"
 
-#include <dom/domVisual_scene.h>
 #include <dom/domInstanceWithExtra.h>
+#include <dom/domVisual_scene.h>
 
 OSG_BEGIN_NAMESPACE
 
-void ColladaInstanceVisualScene::read(void)
+ColladaElementRegistrationHelper ColladaInstanceVisualScene::_regHelper(
+    &ColladaInstanceVisualScene::create,
+    "instance_visual_scene");
+
+ColladaElementTransitPtr
+ColladaInstanceVisualScene::create(daeElement *elem, ColladaGlobal *global)
 {
-    OSG_COLLADA_LOG(("ColladaInstanceVisualScene::read:\n"));
-    
-    domInstanceWithExtraRef instVisScene =
-        getDOMElementAs<domInstanceWithExtra>();
-    
-    daeURI                   visSceneUri = instVisScene->getUrl();
-    domVisual_sceneRef       visScene    =
-        daeSafeCast<domVisual_scene>(visSceneUri.getElement());
-    
-    setInstDOMElement(visScene);
-    
-    ColladaVisualSceneRefPtr colVisScene =
-        getUserDataAs<ColladaVisualScene>(visScene);
-    
+    return ColladaElementTransitPtr(
+        new ColladaInstanceVisualScene(elem, global));
+}
+
+void
+ColladaInstanceVisualScene::read(void)
+{
+    OSG_COLLADA_LOG(("ColladaInstanceVisualScene::read\n"));
+
+    ColladaVisualSceneRefPtr colVisScene = getSourceElem();
+
     if(colVisScene == NULL)
     {
-        colVisScene = ColladaVisualScene::create(visScene, getGlobal());
-        addElement(colVisScene);
-        
+        colVisScene = dynamic_pointer_cast<ColladaVisualScene>(
+            ColladaElementFactory::the()->create(
+                getSourceDOMElem(), getGlobal()));
+
         colVisScene->read();
     }
 }
 
-NodeTransitPtr ColladaInstanceVisualScene::createInstance(void)
+FieldContainer *
+ColladaInstanceVisualScene::process(ColladaElement *parent)
 {
-    OSG_COLLADA_LOG(("ColladaInstanceVisualScene::createInstance:\n"));
-    
-    NodeTransitPtr           retVal;
-    domVisual_sceneRef       visScene    =
-        getInstDOMElementAs<domVisual_scene>();
-    ColladaVisualSceneRefPtr colVisScene =
-        getUserDataAs<ColladaVisualScene>(visScene);
-    
-    if(colVisScene->_instCount == 0)
-    {
-        ++colVisScene->_instCount;
+    ColladaVisualSceneRefPtr colVisScene = getSourceElem();
 
-        retVal = colVisScene->getNode();
-    }
-    else
-    {
-        ++colVisScene->_instCount;
+    getGlobal()->setRoot(colVisScene->createInstance(this));
 
-        retVal = cloneTree(colVisScene->getNode());
+    return NULL;
+}
+
+ColladaVisualScene *
+ColladaInstanceVisualScene::getSourceElem(void) const
+{
+    ColladaVisualScene *retVal     = NULL;
+    daeElementRef       sourceElem = getSourceDOMElem();
+ 
+    if(sourceElem != NULL)
+    {
+        retVal = getUserDataAs<ColladaVisualScene>(sourceElem);
     }
-    
+
+    return retVal;
+}
+
+domVisual_scene *
+ColladaInstanceVisualScene::getSourceDOMElem(void) const
+{
+    domVisual_sceneRef      retVal       = NULL;
+    domInstanceWithExtraRef instVisScene =
+        getDOMElementAs<domInstanceWithExtra>();
+
+    if(instVisScene->getUrl().getElement() != NULL)
+    {
+        retVal =
+            daeSafeCast<domVisual_scene>(instVisScene->getUrl().getElement());
+    }
+
     return retVal;
 }
 
 ColladaInstanceVisualScene::ColladaInstanceVisualScene(
     daeElement *elem, ColladaGlobal *global)
-    
+
     : Inherited(elem, global)
 {
 }

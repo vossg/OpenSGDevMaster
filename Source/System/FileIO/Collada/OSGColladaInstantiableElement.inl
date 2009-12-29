@@ -2,7 +2,7 @@
  *                                OpenSG                                     *
  *                                                                           *
  *                                                                           *
- *                   Copyright (C) 2008 by the OpenSG Forum                  *
+ *                Copyright (C) 2009 by the OpenSG Forum                     *
  *                                                                           *
  *                            www.opensg.org                                 *
  *                                                                           *
@@ -38,11 +38,16 @@
 
 OSG_BEGIN_NAMESPACE
 
-inline ColladaInstanceGeometryTransitPtr ColladaInstanceGeometry::create(
-    domInstance_geometry *instGeo, ColladaGlobal *global)
+const ColladaInstantiableElement::InstanceStore &
+ColladaInstantiableElement::getInstStore(void) const
 {
-    return ColladaInstanceGeometryTransitPtr(
-        new ColladaInstanceGeometry(instGeo, global));
+    return _instStore;
+}
+
+ColladaInstantiableElement::InstanceStore &
+ColladaInstantiableElement::editInstStore(void)
+{
+    return _instStore;
 }
 
 OSG_END_NAMESPACE
