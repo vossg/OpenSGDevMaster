@@ -36,6 +36,10 @@
  *                                                                           *
 \*---------------------------------------------------------------------------*/
 
+#if __GNUC__ >= 4 || __GNUC_MINOR__ >=3
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#endif
+
 #include "OSGColladaVisualScene.h"
 
 #ifdef OSG_WITH_COLLADA
